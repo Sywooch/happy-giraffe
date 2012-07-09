@@ -1,4 +1,4 @@
-$.pGallery = {
+var pGallery = {
     photos : {},
     currentPhoto : null,
     first : null,
@@ -74,8 +74,8 @@ jQuery.fn.pGallery = function(options) {
                 $(window).resize();
             });
 
-            if($.pGallery.photos[id].description != null)
-                $('#photo', this.window).find('.photo-comment .title-text').show().text($.pGallery.photos[id].description);
+            if(pGallery.photos[id].description != null)
+                $('#photo', this.window).find('.photo-comment .title-text').show().text(pGallery.photos[id].description);
             else
                 $('#photo', this.window).find('.photo-comment .title-text').hide().text('');
         }, 'html');
@@ -83,10 +83,10 @@ jQuery.fn.pGallery = function(options) {
 
     plugin.openImage = function(id, callback) {
         var photo = $('#photo', this.window);
-        photo.find('.img').children('img').attr({src : $.pGallery.photos[id].src});
+        photo.find('.img').children('img').attr({src : pGallery.photos[id].src});
         if(photo.find('.in').size() > 0) {
-            if($.pGallery.photos[id].title != null) {
-                photo.find('.in').show().find('.title-text').text($.pGallery.photos[id].title);
+            if(pGallery.photos[id].title != null) {
+                photo.find('.in').show().find('.title-text').text(pGallery.photos[id].title);
             } else {
                 if(photo.find('.in').find('a.edit').size() == 0)
                     photo.find('.in').hide().text('');
@@ -94,12 +94,12 @@ jQuery.fn.pGallery = function(options) {
                     photo.find('.in').find('.title-text').text('');
             }
         }
-        if($.pGallery.photos[id].description != null)
-            photo.find('.photo-comment .title-text').show().text($.pGallery.photos[id].description);
+        if(pGallery.photos[id].description != null)
+            photo.find('.photo-comment .title-text').show().text(pGallery.photos[id].description);
         else
             photo.find('.photo-comment .title-text').hide().text('');
 
-        photo.find('.user-info').replaceWith($.pGallery.photos[id].avatar);
+        photo.find('.user-info').replaceWith(pGallery.photos[id].avatar);
 
         this.data.id = id;
         var link = $('#photo-thumbs li a[data-id='+id+']' ,this.window);
@@ -110,7 +110,7 @@ jQuery.fn.pGallery = function(options) {
         /*$('#photo-window-in', this.window).append('<div id="loading"><div class="in"><img src="/images/test_loader.gif">Загрузка</div></div>');*/
 
         $.get(base_url + '/albums/wPhoto/', data, function(html) {
-            $.pGallery.currentPhoto = plugin.data.id;
+            pGallery.currentPhoto = plugin.data.id;
             var newUrl = plugin.getEntityUrl() + 'photo' + plugin.data.id + '/';
             plugin.history.changeBrowserUrl(newUrl);
             saveAsAjaxView(newUrl);
@@ -130,20 +130,20 @@ jQuery.fn.pGallery = function(options) {
         data.dist = dist;
         data.go = 1;
 
-        var goTo = $.pGallery.photos.dist;
+        var goTo = pGallery.photos.dist;
         if (goTo = null)
         this.openImage(newLink.attr('data-id'));
     };
 
     plugin.next = function () {
-        var next = $.pGallery.photos[$.pGallery.currentPhoto].next;
-        var goTo =  (next != null) ? next : $.pGallery.last;
+        var next = pGallery.photos[pGallery.currentPhoto].next;
+        var goTo =  (next != null) ? next : pGallery.last;
         this.openImage(goTo);
     };
 
     plugin.prev = function () {
-        var prev = $.pGallery.photos[$.pGallery.currentPhoto].prev;
-        var goTo =  (prev != null) ? prev : $.pGallery.first;
+        var prev = pGallery.photos[pGallery.currentPhoto].prev;
+        var goTo =  (prev != null) ? prev : pGallery.first;
         this.openImage(goTo);
     };
 
@@ -156,7 +156,7 @@ jQuery.fn.pGallery = function(options) {
             link.attr('data-loaded', true);
             var id  = link.attr('data-id');
             var image = new Image();
-            image.src = $.pGallery.photos[id].src;
+            image.src = pGallery.photos[id].src;
             if(i == size)
                 return false;
         });

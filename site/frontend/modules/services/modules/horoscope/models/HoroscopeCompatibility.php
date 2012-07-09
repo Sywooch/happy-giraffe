@@ -43,8 +43,13 @@ class HoroscopeCompatibility extends HActiveRecord
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, zodiac1, zodiac2, text', 'safe', 'on'=>'search'),
+            array('*', 'compositeUniqueKeysValidator'),
 		);
 	}
+
+    public function compositeUniqueKeysValidator() {
+        $this->validateCompositeUniqueKeys();
+    }
 
 	/**
 	 * @return array relational rules.
@@ -54,6 +59,7 @@ class HoroscopeCompatibility extends HActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+
 		);
 	}
 
@@ -91,6 +97,19 @@ class HoroscopeCompatibility extends HActiveRecord
 		));
 	}
 
+    public function behaviors() {
+        return array(
+            'ECompositeUniqueKeyValidatable' => array(
+                'class' => 'ECompositeUniqueKeyValidatable',
+                'uniqueKeys' => array(
+                    'attributes' => 'zodiac1, zodiac2',
+                    'errorMessage' => 'такой гороскоп уже есть',
+                    'errorAttributes' => 'zodiac1, zodiac2',
+                )
+            ),
+        );
+    }
+
     public function getFormattedText()
     {
         return Str::strToParagraph($this->text);
@@ -112,5 +131,14 @@ class HoroscopeCompatibility extends HActiveRecord
         return Yii::app()->createUrl('/services/horoscope/default/compatibility', array(
             'zodiac1'=>Horoscope::model()->zodiac_list_eng[$zodiac1],
         ));
+    }
+
+    public function getAvailableZodiacs(){
+        $a = Horoscope::model()->zodiac_list;
+        foreach($a as $key=>$_a)
+            if ($key < $this->zodiac1)
+                unset($a[$key]);
+
+        return $a;
     }
 }

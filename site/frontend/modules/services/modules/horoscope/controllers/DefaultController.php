@@ -103,6 +103,9 @@ class DefaultController extends HController
 
     public function actionCompatibility($zodiac1 = null, $zodiac2 = null)
     {
+        if ($zodiac1 == null && $zodiac2 != null)
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
         if ($zodiac1 !== null)
             $zodiac1 = Horoscope::model()->getZodiacId($zodiac1);
         if ($zodiac2 !== null)
@@ -111,20 +114,24 @@ class DefaultController extends HController
         if ($zodiac1 == null && $zodiac2 == null) {
             $model = new HoroscopeCompatibility();
             $this->render('compatibility_main', compact('model'));
-        } elseif ($zodiac1 == null && $zodiac2 != null) {
-            $this->render('compatibility_one', array('zodiac' => $zodiac1));
+        } else
+         {
 
-        } else{
             $model = HoroscopeCompatibility::model()->findByAttributes(array('zodiac1' => $zodiac1, 'zodiac2' => $zodiac2));
             if ($model === null) {
                 $model = HoroscopeCompatibility::model()->findByAttributes(array('zodiac1' => $zodiac2, 'zodiac2' => $zodiac1));
                 if ($model === null)
                     throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+                Yii::app()->clientScript->registerLinkTag('canonical', null, $this->createUrl('/services/horoscope/default/compatibility', array(
+                    'zodiac1' => Horoscope::model()->zodiac_list_eng[$zodiac2],
+                    'zodiac2' => Horoscope::model()->zodiac_list_eng[$zodiac1],
+                )));
+                $i = $model->zodiac1;
+                $model->zodiac1 = $model->zodiac2;
+                $model->zodiac2 = $i;
             }
-            if (Yii::app()->request->isAjaxRequest) {
-                $this->renderPartial('compatibility_two', compact('model'));
-            }else
-                $this->render('compatibility_main', compact('model'));
+
+            $this->render('compatibility_one', compact('model'));
         }
     }
 

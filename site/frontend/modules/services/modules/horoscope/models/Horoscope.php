@@ -185,11 +185,6 @@ class Horoscope extends HActiveRecord
         return $this->zodiac_list[$this->zodiac];
     }
 
-    public function zodiacSlug()
-    {
-        return $this->zodiac_list_eng[$this->zodiac];
-    }
-
     public function zodiacDates()
     {
         return $this->zodiac_dates[$this->zodiac]['start'][0] . '.'
@@ -275,5 +270,9 @@ class Horoscope extends HActiveRecord
         if (empty($zodiac_id))
             return '';
         return '/images/widget/horoscope/big/'.$zodiac_id.'.png';
+    }
+
+    public static function getZodiacSlug($zodiac_id){
+        return Horoscope::model()->zodiac_list_eng[$zodiac_id];
     }
 }

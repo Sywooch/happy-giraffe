@@ -7,6 +7,8 @@ if (Yii::app()->controller->registerUserData !== null){
     Yii::app()->clientScript->registerScript('reg23','Register.showSocialStep2();');
     $regdata = Yii::app()->controller->registerUserData;
     $model = Yii::app()->controller->registerUserModel;
+}elseif(Yii::app()->user->getState('comes_from_social') == 'odnoklassniki'){
+    Yii::app()->clientScript->registerScript('reg23','Register.showSocialStep2();');
 }
 ?>
 <div style="display:none">
@@ -25,7 +27,12 @@ if (Yii::app()->controller->registerUserData !== null){
 
                     <div class="box-title">Регистрация через<br/>социальные сети</div>
 
-                    <?php Yii::app()->eauth->renderWidget(array('action' => 'signup/index')); ?>
+                    <ul>
+                        <li><a href="<?=Yii::app()->createUrl('signup/index', array('service'=>'odnoklassniki')) ?>"><img src="/images/btn_register_mm.png"></a></li>
+                        <li><a href="<?=Yii::app()->createUrl('signup/index', array('service'=>'mailru')) ?>"><img src="/images/btn_register_ok.png"></a></li>
+                        <li><a href="<?=Yii::app()->createUrl('signup/index', array('service'=>'vkontakte')) ?>"><img src="/images/btn_register_vk.png"></a></li>
+                        <li><a href="<?=Yii::app()->createUrl('signup/index', array('service'=>'facebook')) ?>"><img src="/images/btn_register_fb.png"></a></li>
+                    </ul>
 
                 </div>
 
@@ -206,6 +213,25 @@ if (Yii::app()->controller->registerUserData !== null){
 
             <div class="preparing">Мы готовим для вас личную страницу <span><span id="reg_timer">3</span> сек.</span></div>
 
+        </div>
+
+        <div class="reg-odnoklassniki" style="display: none;">
+            <div class="register-social clearfix">
+
+                <div class="block-title">Стань другом Веселого Жирафа!</div>
+
+                <div class="hl">
+                    Быстрая регистрация с помощью Одноклассников. <span>Нажми на кнопку!</span>
+                </div>
+
+                <div class="social-btn">
+                    <a href="<?=Yii::app()->createUrl('signup/index', array('service'=>'odnoklassniki')) ?>"><img src="/images/btn_register_big_ok.png"></a>
+                </div>
+
+            </div>
+            <div class="is-user">
+                Вы уже зарегистрированы? <a href="#login" class="fancy">Войти</a>
+            </div>
         </div>
 
     </div>

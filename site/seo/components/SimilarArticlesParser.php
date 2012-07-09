@@ -22,6 +22,7 @@ class SimilarArticlesParser
         foreach ($document->find('h3.b-serp-item__title a.b-serp-item__title-link') as $link) {
             $links [] = pq($link)->attr('href');
         }
+        $document->unloadDocument();
 
         $pages = array();
         foreach($links as $link){

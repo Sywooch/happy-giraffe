@@ -137,12 +137,14 @@ jQuery.fn.pGallery = function(options) {
     };
 
     plugin.next = function () {
+        console.log('next');
         var next = pGallery.photos[pGallery.currentPhoto].next;
         var goTo =  (next != null) ? next : pGallery.first;
         this.openImage(goTo);
     };
 
     plugin.prev = function () {
+        console.log('prev');
         var prev = pGallery.photos[pGallery.currentPhoto].prev;
         var goTo =  (prev != null) ? prev : pGallery.last;
         this.openImage(goTo);

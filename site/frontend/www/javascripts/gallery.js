@@ -156,17 +156,20 @@ jQuery.fn.pGallery = function(options) {
         var currentPrev = pGallery.photos[pGallery.currentPhoto];
         var currentNext = pGallery.photos[pGallery.currentPhoto];
         for (var i = 0; i < depth; i++) {
-            console.log(i);
-            currentNext = pGallery.photos[currentNext.next];
-            currentPrev = pGallery.photos[currentPrev.prev];
-            images.push(currentNext.src);
-            console.log(currentNext.src);
-            images.push(currentPrev.src);
-            console.log(currentPrev.src);
+            if (currentNext.next != null) {
+                currentNext = pGallery.photos[currentNext.next];
+                images.push(currentNext.src);
+            }
+
+            if (currentPrev.prev != null) {
+                currentPrev = pGallery.photos[currentPrev.prev];
+                images.push(currentPrev.src);
+            }
         }
 
         $(images).each(function() {
             $('<img/>')[0].src = this;
+            console.log(this);
         });
 
     };

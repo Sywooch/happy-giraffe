@@ -136,6 +136,7 @@ jQuery.fn.pGallery = function(options) {
     };
 
     plugin.next = function () {
+        alert(pGallery.currentPhoto);
         var next = pGallery.photos[pGallery.currentPhoto].next;
         var goTo =  (next != null) ? next : pGallery.last;
         this.openImage(goTo);

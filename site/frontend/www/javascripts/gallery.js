@@ -71,7 +71,7 @@ jQuery.fn.pGallery = function(options) {
                 $('#photo-thumbs .jcarousel', plugin.window).jcarousel();
                 $('#photo-thumbs .prev', plugin.window).jcarouselControl({target: '-=7',fullScroll:true,carousel: $('#photo-thumbs .jcarousel', plugin.window)});
                 $('#photo-thumbs .next', plugin.window).jcarouselControl({target: '+=7',fullScroll:true,carousel: $('#photo-thumbs .jcarousel', plugin.window)});
-                plugin.preloadPhotos($('#photo-thumbs', this.window).find('li.active').index());
+                plugin.preloadPhotos();
                 $(window).resize();
             });
 

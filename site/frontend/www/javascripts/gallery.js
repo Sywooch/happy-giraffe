@@ -159,12 +159,13 @@ jQuery.fn.pGallery = function(options) {
             currentNext = pGallery.photos[currentNext.next];
             currentPrev = pGallery.photos[currentPrev.prev];
             images.push(currentNext.src);
+            console.log(currentNext.src);
             images.push(currentPrev.src);
+            console.log(currentPrev.src);
         }
 
         $(images).each(function() {
             $('<img/>')[0].src = this;
-            console.log(this);
         });
 
     };

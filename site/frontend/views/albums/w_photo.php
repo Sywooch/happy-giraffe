@@ -34,8 +34,8 @@
         <?php ob_start(); ?>
         <?php foreach ($collection as $i => $p): ?>
             pGallery.photos[<?php echo $p->primaryKey ?>] = {
-                prev : <?=($i != 0) ? $collection[--$i]->primaryKey : 'null'?>,
-                next : <?=($i < $count - 1) ? $collection[++$i]->primaryKey : 'null'?>,
+                prev : <?=($i != 0) ? $collection[$i - 1]->primaryKey : 'null'?>,
+                next : <?=($i < $count - 1) ? $collection[$i + 1]->primaryKey : 'null'?>,
                 src : '<?php echo $p->getPreviewUrl(960, 627, Image::HEIGHT, true); ?>',
                 title : '<?php echo isset($p->title) && $p->title != '' ? $p->title : null ?>',
                 description : <?php echo isset($p->options['description']) ? "'" . $p->options['description'] . "'" : 'null'; ?>,

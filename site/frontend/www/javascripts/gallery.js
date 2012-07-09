@@ -123,7 +123,7 @@ jQuery.fn.pGallery = function(options) {
                 callback();
             /*$('#photo-window-in', plugin.window).children('#loading').remove();*/
         }, 'html');
-        plugin.preloadPhotos(link.parent().index());
+        plugin.preloadPhotos();
     };
 
     plugin.goTo = function(dist) {
@@ -150,19 +150,21 @@ jQuery.fn.pGallery = function(options) {
         this.openImage(goTo);
     };
 
-    plugin.preloadPhotos = function(index) {
-        var size = 7;
-        $('#photo-thumbs', this.window).find('li:gt('+(index - size)+')').each(function(i) {
-            var link = $(this).children('a');
-            if(link.attr('data-loaded') == 'true')
-                return true;
-            link.attr('data-loaded', true);
-            var id  = link.attr('data-id');
-            var image = new Image();
-            image.src = pGallery.photos[id].src;
-            if(i == size)
-                return false;
+    plugin.preloadPhotos = function() {
+        var depth = 3;
+        var images = [];
+        var currentPrev = currentNext = pGallery.photos[pGallery.currentPhoto];
+        for (var i; i < depth; i++) {
+            currentNext = pGallery.photos[currentNext.next];
+            currentPrev = pGallery.photos[currentPrev.prev];
+            images.push(currentNext.src);
+            images.push(currentPrev.src);
+        }
+
+        $(images).each(function() {
+            $('<img/>')[0].src = this;
         });
+
     };
 
     plugin.closeWindow = function() {

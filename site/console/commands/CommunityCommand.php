@@ -592,7 +592,8 @@ class CommunityCommand extends CConsoleCommand
 
     public function actionFixRedirectUrls()
     {
-        echo $this->fixRedirectUrls('community__posts', 'text') . "\n";
+        //echo $this->fixRedirectUrls('community__posts', 'text') . "\n";
+        echo $this->WrapNoindex('community__posts', 'text') . "\n";
     }
 
     public function fixRedirectUrls($table, $field_name)
@@ -671,5 +672,46 @@ class CommunityCommand extends CConsoleCommand
         }
 
         return false;
+    }
+
+    public function WrapNoindex($table, $field_name)
+    {
+        Yii::import('site.frontend.extensions.phpQuery.phpQuery');
+
+        $k = 0;
+
+        $rows = 1;
+        while (!empty($rows)) {
+            $rows = Yii::app()->db->createCommand()->select('id, ' . $field_name)->from($table)->limit(100)->offset($k * 100)->queryAll();
+
+            foreach ($rows as $row) {
+                $doc = phpQuery::newDocumentXHTML($row[$field_name], $charset = 'utf-8');
+                $links = $doc->find('a');
+                $changes = 0;
+
+                foreach ($links as $link) {
+                    $url = pq($link)->attr('href');
+                    $parsed_url = parse_url($url);
+
+                    if (isset($parsed_url['host']) and strpos($parsed_url['host'], 'happy-giraffe') === false) {
+
+                        if (!pq($link)->parent()->is('noindex')) {
+                            pq($link)->wrap('<noindex></noindex>');
+                            $changes++;
+                        }
+                    }
+                }
+
+                if ($changes > 0) {
+                    $field_value = $doc->html();
+                    Yii::app()->db->createCommand()->update($table, array($field_name => $field_value), 'id=' . $row['id']);
+                }
+                $doc->unloadDocument();
+            }
+
+            $k++;
+            if ($k > 1)
+                Yii::app()->end();
+        }
     }
 }

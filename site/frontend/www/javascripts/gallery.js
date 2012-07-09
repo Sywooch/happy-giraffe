@@ -52,7 +52,7 @@ jQuery.fn.pGallery = function(options) {
             });
 
             plugin.window.on('click', '#photo a.prev', function() {
-                plugin.next();
+                plugin.prev();
                 return false;
             });
 
@@ -138,13 +138,13 @@ jQuery.fn.pGallery = function(options) {
 
     plugin.next = function () {
         var next = pGallery.photos[pGallery.currentPhoto].next;
-        var goTo =  (next != null) ? next : pGallery.last;
+        var goTo =  (next != null) ? next : pGallery.first;
         this.openImage(goTo);
     };
 
     plugin.prev = function () {
         var prev = pGallery.photos[pGallery.currentPhoto].prev;
-        var goTo =  (prev != null) ? prev : pGallery.first;
+        var goTo =  (prev != null) ? prev : pGallery.last;
         this.openImage(goTo);
     };
 

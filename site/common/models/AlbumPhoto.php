@@ -385,8 +385,11 @@ class AlbumPhoto extends HActiveRecord
         );
     }
 
-    public function getCommentContent()
+    public function getCommentContent($full_size)
     {
-        return CHtml::image($this->getPreviewUrl(460, 600));
+        if ($full_size)
+            return CHtml::image($this->getOriginalUrl(460, 600), $this->title);
+        else
+            return CHtml::image($this->getPreviewUrl(460, 600), $this->title);
     }
 }

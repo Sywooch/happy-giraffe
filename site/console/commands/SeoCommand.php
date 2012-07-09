@@ -66,6 +66,10 @@ class SeoCommand extends CConsoleCommand
         Config::setAttribute('stop_threads', 1);
     }
 
+    public function actionPreparePositionParsing(){
+        Yii::app()->db_seo->createCommand('update queries set yandex_parsed = 0, google_parsed = 0, parsing = 0;')->execute();
+    }
+
     public function actionParseQueriesYandex()
     {
         Config::setAttribute('stop_threads', 0);

@@ -423,5 +423,9 @@ var Register = {
         $(".reg1").hide();
         $(".reg2").show();
         $(".email2-row").show();
+    },
+    showOdnoklassniki:function(){
+        $(".reg1").hide();
+        $(".reg-odnoklassniki").show();
     }
 }

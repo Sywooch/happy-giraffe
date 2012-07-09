@@ -39,7 +39,7 @@
                 </div>
                 <br/>
                 <div class="question">Еще нет учетной записи?</div>
-                <center><a href="#register" class="fancy btn btn-orange"><span><span>Зарегистрироваться</span></span></a></center>
+                <center><a href="#register" class="fancy btn btn-orange" data-theme="white-square"><span><span>Зарегистрироваться</span></span></a></center>
             <?php $this->endWidget(); ?>
         </div>
 

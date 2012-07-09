@@ -155,7 +155,7 @@ jQuery.fn.pGallery = function(options) {
         var images = [];
         var currentPrev = pGallery.photos[pGallery.currentPhoto];
         var currentNext = pGallery.photos[pGallery.currentPhoto];
-        for (var i; i < depth; i++) {
+        for (var i = 0; i < depth; i++) {
             console.log(i);
             currentNext = pGallery.photos[currentNext.next];
             currentPrev = pGallery.photos[currentPrev.prev];

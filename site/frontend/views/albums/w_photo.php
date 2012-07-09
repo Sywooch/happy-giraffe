@@ -33,7 +33,7 @@
     <script type="text/javascript">
         <?php ob_start(); ?>
         <?php foreach ($collection as $i => $p): ?>
-            pGallery_photos[<?php echo $p->primaryKey ?>] = {
+            $.pGallery.photos[<?php echo $p->primaryKey ?>] = {
                 prev : <?=($i != 0) ? $collection[--$i]->primaryKey : 'null'?>,
                 next : <?=($i < $count - 1) ? $collection[++$i]->primaryKey : 'null'?>,
                 src : '<?php echo $p->getPreviewUrl(960, 627, Image::HEIGHT, true); ?>',
@@ -46,6 +46,14 @@
                     'location' => false
                 )); ?>'
             };
+
+            <?php if ($i == 0): ?>
+                $.pGallery.first = <?=$p->primaryKey?>;
+            <?php endif; ?>
+
+            <?php if ($i < $count - 1): ?>
+            $.pGallery.last = <?=$p->primaryKey?>;
+                <?php endif; ?>
         <?php endforeach; ?>
         <?
             $params = ob_get_contents();

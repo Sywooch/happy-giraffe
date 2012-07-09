@@ -15,7 +15,7 @@ $model = new ThreadCalculationForm();
         'validateOnSubmit' => true,
         'validateOnChange' => false,
         'validateOnType' => false,
-        'validationUrl' => $this->createUrl('/sewing/default/ThreadCalculation'),
+        'validationUrl' => $this->createUrl('threadCalculation'),
         'afterValidate' => "js:function(form, data, hasError) {
                                     if (!hasError)
                                         StartCalc();

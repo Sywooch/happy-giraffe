@@ -21,7 +21,7 @@ $model = new EmbroideryCostForm();
             'validateOnSubmit' => true,
             'validateOnChange' => false,
             'validateOnType' => false,
-            'validationUrl' => $this->createUrl('/sewing/default/EmbroideryCost'),
+            'validationUrl' => $this->createUrl('embroideryCost'),
             'afterValidate' => "js:function(form, data, hasError) {
                                 if (!hasError)
                                     embroideryCost.calc(document.getElementById('embroideryCost-form'));

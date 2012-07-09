@@ -15,7 +15,6 @@
 	
 	<script type="text/javascript" src="/javascripts/chosen.jquery.min.js"></script>
 	
-	<script type="text/javascript" src="/javascripts/jquery.dimensions.js"></script>
 	<script type="text/javascript" src="/javascripts/jquery.tooltip.pack.js"></script>
 	
 	<script type="text/javascript" src="/javascripts/jquery.placeholder.min.js"></script>
@@ -23,19 +22,29 @@
 	<link rel="stylesheet" type="text/css" href="/stylesheets/jquery.fancybox-1.3.4.css" />
 	<script type="text/javascript" src="/javascripts/jquery.fancybox-1.3.4.pack.js"></script>
 	
+	<script type="text/javascript" src="/javascripts/jquery.masonry.min.js"></script>
+	
 	<script type="text/javascript" src="/javascripts/common.js"></script>
 	
 	<script>
 		$(function(){
-			$('.tooltip').tooltip({
-				delay: 100,
-				track: false,
-				showURL: false,
-				showBody: false,
-				top: -20,
-				left: 10
+			
+			var $container = $('.gallery-photos-new');
+
+			$container.imagesLoaded( function(){
+				$container.masonry({
+					itemSelector : 'li',
+					columnWidth: 240,
+					saveOptions: true,
+					singleMode: false,
+					resizeable: true
+				});
 			});
+			
 		})
+		
+		
+		
 	</script>
 	
 </head>
@@ -522,201 +531,244 @@
 						
 						<div class="add-photo">
 							Нашли интересное оформление или<br/>хотите похвастаться своим творением<br/>
-							<a href="#photoPick" class="btn btn-green fancy"><span><span>Добавить фото</span></span></a>
+							<a href="#photoPick" class="btn btn-green fancy tooltip" title="title"><span><span>Добавить фото</span></span></a>
 						</div>
 						
 						<h1>Как можно оформить десерты и выпечку</h1>
 						
 					</div>
 					
-					<ul>
-						<li class="dish">
-							<div class="clearfix">
-								<div class="user-info clearfix">
-									<a class="ava female small"></a>
-									<div class="details">
-										<span class="icon-status status-online"></span>
-										<a href="" class="username">Александр Богоявленский</a>
+					<div class="gallery-photos-new cols-4 clearfix">
+								
+						<ul>
+							<li>
+								<div class="img">
+									<a href="">
+										<img src="/images/example/gallery_album_img_01.jpg" />
+										<span class="btn">Посмотреть</span>
+									</a>
+								</div>
+								<div class="user clearfix">
+									<div class="user-info clearfix">
+										<a class="ava female small"></a>
+										<div class="details">
+											<span class="icon-status status-online"></span>
+											<a href="" class="username">Александр Богоявленский</a>
+										</div>
 									</div>
 								</div>
-							</div>
-							<div class="img">
-								<a href=""><img src="/images/dishes_img_02.jpg" /></a>
-								<a href="" class="btn-look">Посмотреть</a>
-							</div>
-							<div class="item-title">
-								Ригатони
-							</div>
-						</li>
-						<li class="dish">
-							<div class="clearfix">
-								<div class="user-info clearfix">
-									<a class="ava female small"></a>
-									<div class="details">
-										<span class="icon-status status-online"></span>
-										<a href="" class="username">Дарья</a>
+								<div class="item-title">Разнообразие десертов сицилийского стиля</div>
+							</li>
+							<li>
+								<div class="img">
+									<a href="">
+										<img src="/images/example/gallery_album_img_02.jpg" />
+										<span class="btn">Посмотреть</span>
+									</a>
+								</div>
+								<div class="user clearfix">
+									<div class="user-info clearfix">
+										<a class="ava female small"></a>
+										<div class="details">
+											<span class="icon-status status-online"></span>
+											<a href="" class="username">Александр Богоявленский</a>
+										</div>
 									</div>
 								</div>
-							</div>
-							<div class="img">
-								<a href=""><img src="/images/dishes_img_01.jpg" /></a>
-								<a href="" class="btn-look">Посмотреть</a>
-							</div>
-							<div class="item-title">
-								Ригатони - макароны с соусомиз помидор и говядинв
-							</div>
-						</li>
-						<li class="dish">
-							<div class="clearfix">
-								<div class="user-info clearfix">
-									<a class="ava female small"></a>
-									<div class="details">
-										<span class="icon-status status-online"></span>
-										<a href="" class="username">Дарья</a>
+								<div class="item-title">Разнообразие десертов сицилийского стиля</div>
+							</li>
+							<li>
+								<div class="img">
+									<a href="">
+										<img src="/images/example/gallery_album_img_03.jpg" />
+										<span class="btn">Посмотреть</span>
+									</a>
+								</div>
+								<div class="user clearfix">
+									<div class="user-info clearfix">
+										<a class="ava female small"></a>
+										<div class="details">
+											<span class="icon-status status-online"></span>
+											<a href="" class="username">Александр Богоявленский</a>
+										</div>
 									</div>
 								</div>
-							</div>
-							<div class="img">
-								<a href=""><img src="/images/dishes_img_01.jpg" /></a>
-								<a href="" class="btn-look">Посмотреть</a>
-							</div>
-							<div class="item-title">
-								Ригатони - макароны с соусомиз помидор и говядинв
-							</div>
-						</li>
-						<li class="dish">
-							<div class="clearfix">
-								<div class="user-info clearfix">
-									<a class="ava female small"></a>
-									<div class="details">
-										<span class="icon-status status-online"></span>
-										<a href="" class="username">Дарья</a>
+								<div class="item-title">Разнообразие десертов сицилийского стиля</div>
+							</li>
+							<li>
+								<div class="img">
+									<a href="">
+										<img src="/images/example/gallery_album_img_04.jpg" />
+										<span class="btn">Посмотреть</span>
+									</a>
+								</div>
+								<div class="user clearfix">
+									<div class="user-info clearfix">
+										<a class="ava female small"></a>
+										<div class="details">
+											<span class="icon-status status-online"></span>
+											<a href="" class="username">Александр Богоявленский</a>
+										</div>
 									</div>
 								</div>
-							</div>
-							<div class="img">
-								<a href=""><img src="/images/dishes_img_02.jpg" /></a>
-								<a href="" class="btn-look">Посмотреть</a>
-							</div>
-							<div class="item-title">
-								Ригатони - макароны с соусомиз помидор и говядинв
-							</div>
-						</li>
-						<li class="dish">
-							<div class="clearfix">
-								<div class="user-info clearfix">
-									<a class="ava female small"></a>
-									<div class="details">
-										<span class="icon-status status-online"></span>
-										<a href="" class="username">Дарья</a>
+								<div class="item-title">Разнообразие десертов сицилийского стиля</div>
+							</li>
+							<li>
+								<div class="img">
+									<a href="">
+										<img src="/images/example/gallery_album_img_05.jpg" />
+										<span class="btn">Посмотреть</span>
+									</a>
+								</div>
+								<div class="user clearfix">
+									<div class="user-info clearfix">
+										<a class="ava female small"></a>
+										<div class="details">
+											<span class="icon-status status-online"></span>
+											<a href="" class="username">Александр Богоявленский</a>
+										</div>
 									</div>
 								</div>
-							</div>
-							<div class="img">
-								<a href=""><img src="/images/dishes_img_01.jpg" /></a>
-								<a href="" class="btn-look">Посмотреть</a>
-							</div>
-							<div class="item-title">
-								Ригатони - макароны с соусомиз помидор и говядинв
-							</div>
-						</li>
-						<li class="dish">
-							<div class="clearfix">
-								<div class="user-info clearfix">
-									<a class="ava female small"></a>
-									<div class="details">
-										<span class="icon-status status-online"></span>
-										<a href="" class="username">Дарья</a>
+								<div class="item-title">Разнообразие десертов сицилийского стиля</div>
+							</li>
+							<li>
+								<div class="img">
+									<a href="">
+										<img src="/images/example/gallery_album_img_06.jpg" />
+										<span class="btn">Посмотреть</span>
+									</a>
+								</div>
+								<div class="user clearfix">
+									<div class="user-info clearfix">
+										<a class="ava female small"></a>
+										<div class="details">
+											<span class="icon-status status-online"></span>
+											<a href="" class="username">Александр Богоявленский</a>
+										</div>
 									</div>
 								</div>
-							</div>
-							<div class="img">
-								<a href=""><img src="/images/dishes_img_02.jpg" /></a>
-								<a href="" class="btn-look">Посмотреть</a>
-							</div>
-							<div class="item-title">
-								Ригатони - макароны с соусомиз помидор и говядинв
-							</div>
-						</li>
-						<li class="dish">
-							<div class="clearfix">
-								<div class="user-info clearfix">
-									<a class="ava female small"></a>
-									<div class="details">
-										<span class="icon-status status-online"></span>
-										<a href="" class="username">Дарья</a>
+								<div class="item-title">Разнообразие десертов сицилийского стиля</div>
+							</li>
+							<li>
+								<div class="img">
+									<a href="">
+										<img src="/images/example/gallery_album_img_07.jpg" />
+										<span class="btn">Посмотреть</span>
+									</a>
+								</div>
+								<div class="user clearfix">
+									<div class="user-info clearfix">
+										<a class="ava female small"></a>
+										<div class="details">
+											<span class="icon-status status-online"></span>
+											<a href="" class="username">Александр Богоявленский</a>
+										</div>
 									</div>
 								</div>
-							</div>
-							<div class="img">
-								<a href=""><img src="/images/dishes_img_01.jpg" /></a>
-								<a href="" class="btn-look">Посмотреть</a>
-							</div>
-							<div class="item-title">
-								Ригатони - макароны с соусомиз помидор и говядинв
-							</div>
-						</li>
-						<li class="dish">
-							<div class="clearfix">
-								<div class="user-info clearfix">
-									<a class="ava female small"></a>
-									<div class="details">
-										<span class="icon-status status-online"></span>
-										<a href="" class="username">Дарья</a>
+								<div class="item-title">Разнообразие десертов сицилийского стиля</div>
+							</li>
+							<li>
+								<div class="img">
+									<a href="">
+										<img src="/images/example/gallery_album_img_08.jpg" />
+										<span class="btn">Посмотреть</span>
+									</a>
+								</div>
+								<div class="user clearfix">
+									<div class="user-info clearfix">
+										<a class="ava female small"></a>
+										<div class="details">
+											<span class="icon-status status-online"></span>
+											<a href="" class="username">Александр Богоявленский</a>
+										</div>
 									</div>
 								</div>
-							</div>
-							<div class="img">
-								<a href=""><img src="/images/dishes_img_01.jpg" /></a>
-								<a href="" class="btn-look">Посмотреть</a>
-							</div>
-							<div class="item-title">
-								Ригатони - макароны с соусомиз помидор и говядинв
-							</div>
-						</li>
-						<li class="dish">
-							<div class="clearfix">
-								<div class="user-info clearfix">
-									<a class="ava female small"></a>
-									<div class="details">
-										<span class="icon-status status-online"></span>
-										<a href="" class="username">Дарья</a>
+								<div class="item-title">Разнообразие десертов сицилийского стиля</div>
+							</li>
+							<li>
+								<div class="img">
+									<a href="">
+										<img src="/images/example/gallery_album_img_09.jpg" />
+										<span class="btn">Посмотреть</span>
+									</a>
+								</div>
+								<div class="user clearfix">
+									<div class="user-info clearfix">
+										<a class="ava female small"></a>
+										<div class="details">
+											<span class="icon-status status-online"></span>
+											<a href="" class="username">Александр Богоявленский</a>
+										</div>
 									</div>
 								</div>
-							</div>
-							<div class="img">
-								<a href=""><img src="/images/dishes_img_01.jpg" /></a>
-								<a href="" class="btn-look">Посмотреть</a>
-							</div>
-							<div class="item-title">
-								Ригатони - макароны с соусомиз помидор и говядинв
-							</div>
-						</li>
-						<li class="dish">
-							<div class="clearfix">
-								<div class="user-info clearfix">
-									<a class="ava female small"></a>
-									<div class="details">
-										<span class="icon-status status-online"></span>
-										<a href="" class="username">Дарья</a>
+								<div class="item-title">Разнообразие десертов сицилийского стиля</div>
+							</li>
+							<li>
+								<div class="img">
+									<a href="">
+										<img src="/images/example/gallery_album_img_10.jpg" />
+										<span class="btn">Посмотреть</span>
+									</a>
+								</div>
+								<div class="user clearfix">
+									<div class="user-info clearfix">
+										<a class="ava female small"></a>
+										<div class="details">
+											<span class="icon-status status-online"></span>
+											<a href="" class="username">Александр Богоявленский</a>
+										</div>
 									</div>
 								</div>
-							</div>
-							<div class="img">
-								<a href=""><img src="/images/dishes_img_01.jpg" /></a>
-								<a href="" class="btn-look">Посмотреть</a>
-							</div>
-							<div class="item-title">
-								Ригатони - макароны с соусомиз помидор и говядинв
-							</div>
-						</li>
-						
-
-					</ul>
+								<div class="item-title">Разнообразие десертов сицилийского стиля</div>
+							</li>
+							<li>
+								<div class="img">
+									<a href="">
+										<img src="/images/example/gallery_album_img_11.jpg" />
+										<span class="btn">Посмотреть</span>
+									</a>
+								</div>
+								<div class="user clearfix">
+									<div class="user-info clearfix">
+										<a class="ava female small"></a>
+										<div class="details">
+											<span class="icon-status status-online"></span>
+											<a href="" class="username">Александр Богоявленский</a>
+										</div>
+									</div>
+								</div>
+								<div class="item-title">Разнообразие десертов сицилийского стиля</div>
+							</li>
+							<li>
+								<div class="img">
+									<a href="">
+										<img src="/images/example/gallery_album_img_12.jpg" />
+										<span class="btn">Посмотреть</span>
+									</a>
+								</div>
+								<div class="user clearfix">
+									<div class="user-info clearfix">
+										<a class="ava female small"></a>
+										<div class="details">
+											<span class="icon-status status-online"></span>
+											<a href="" class="username">Александр Богоявленский</a>
+										</div>
+									</div>
+								</div>
+								<div class="item-title">Разнообразие десертов сицилийского стиля</div>
+							</li>
+							
+						</ul>
+					
+					</div>
+					
+					<a href="" class="more-btn">Показать еще фотографии</a>
 					
 				</div>
 				
 			</div>
+			
+			
 			
 		</div>  	
 		
@@ -1072,7 +1124,8 @@
 									</div>
 								<div class="keys" style="display:none" title="/albums/attach/entity/User/entity_id/57/mode/albums/"><span>8089</span><span>8090</span><span>8091</span><span>8092</span><span>8095</span><span>8098</span><span>8103</span><span>8106</span><span>8107</span></div>
 				</div>    </div>
-					</div>
+			
+		</div>
 		
 	</div>
 	

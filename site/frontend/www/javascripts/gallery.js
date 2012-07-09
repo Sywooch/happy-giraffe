@@ -56,7 +56,9 @@ jQuery.fn.pGallery = function(options) {
             });
 
             $('body').css('overflow', 'hidden');
-            plugin.history.changeBrowserUrl(plugin.getEntityUrl() + 'photo' + plugin.data.id + '/');
+            var newUrl = plugin.getEntityUrl() + 'photo' + plugin.data.id + '/';
+            saveAsAjaxView(newUrl);
+            plugin.history.changeBrowserUrl(newUrl);
             $('#photo-window-bg, #photo-window').fadeIn(600, function(){
                 $('#photo-thumbs .jcarousel', plugin.window).jcarousel();
                 $('#photo-thumbs .prev', plugin.window).jcarouselControl({target: '-=7',fullScroll:true,carousel: $('#photo-thumbs .jcarousel', plugin.window)});
@@ -101,7 +103,10 @@ jQuery.fn.pGallery = function(options) {
         /*$('#photo-window-in', this.window).append('<div id="loading"><div class="in"><img src="/images/test_loader.gif">Загрузка</div></div>');*/
 
         $.get(base_url + '/albums/wPhoto/', data, function(html) {
-            plugin.history.changeBrowserUrl(plugin.getEntityUrl() + 'photo' + plugin.data.id + '/');
+            var newUrl = plugin.getEntityUrl() + 'photo' + plugin.data.id + '/';
+            plugin.history.changeBrowserUrl(newUrl);
+            saveAsAjaxView(newUrl);
+
             $('#w-photo-content', plugin.window).html(html);
             link.parent().siblings('li.active').removeClass('active');
             link.parent().addClass('active');
@@ -177,4 +182,15 @@ jQuery.fn.pGallery = function(options) {
             plugin.openWindow($(this).attr('data-id'));
         });
     });
+}
+
+function saveAsAjaxView(url){
+    var url = str_replace('http://'+window.location.hostname, '', url);
+    _gaq.push(['_trackPageview', url]);
+    yaCounter11221648.hit(url);
+    console.log(url);
+}
+
+function str_replace(search, replace, subject) {
+    return subject.split(search).join(replace);
 }

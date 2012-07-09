@@ -34,8 +34,8 @@ class WordstatParser extends ProxyParserThread
             while (!$success) {
                 $success = $this->parseQuery();
 
-
                 if (!$success) {
+                    $this->log('not valid page loaded');
                     $this->fails++;
                     if ($this->fails > 10) {
                         $this->removeCookieFile();
@@ -167,6 +167,8 @@ class WordstatParser extends ProxyParserThread
         if ($k == 0)
             return false;
 
+        $this->log('valid page loaded');
+
         //find keywords in block "Что искали со словом"
         foreach ($document->find('table.campaign tr td table:first td a') as $link) {
             $keyword = trim(pq($link)->text());
@@ -275,8 +277,6 @@ class WordstatParser extends ProxyParserThread
      */
     public function AddStat($model, $value)
     {
-        $this->log($value);
-
         YandexPopularity::model()->addValue($model->id, $value);
         $model->our = 1;
         $model->save();

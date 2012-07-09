@@ -3,10 +3,11 @@
 class LinkingController extends SController
 {
     public $pageTitle = 'продвижение';
+    public $layout = '//layouts/promotion';
 
     public function beforeAction($action)
     {
-        if (!Yii::app()->user->checkAccess('admin') && !Yii::app()->user->checkAccess('editor'))
+        if (!Yii::app()->user->checkAccess('admin') && !Yii::app()->user->checkAccess('superuser'))
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
         return true;
     }
@@ -103,10 +104,12 @@ class LinkingController extends SController
             $article = $phrase->page->getArticle();
             $our_article = $page->getArticle();
             if (!empty($article) && !empty($our_article)){
-                foreach ($article->getRelatedPosts() as $post){
-                    if ($post->id == $our_article->id)
-                        unset($pages[$key]);
-                }
+                $post = $article->getPrevPost();
+                if ($post !== null && $post->id == $our_article->id)
+                    unset($pages[$key]);
+                $post = $article->getNextPost();
+                if ($post !== null && $post->id == $our_article->id)
+                    unset($pages[$key]);
             }
         }
 

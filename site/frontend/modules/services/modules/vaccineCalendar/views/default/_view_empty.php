@@ -18,7 +18,7 @@
         'afterValidate' => "js:function(form, data, hasError) {
                   if (!hasError) {
                       $.ajax({
-                          url: '" . $this->createUrl('default/VaccineTable') . "',
+                          url: '" . $this->createUrl('default/vaccineTable') . "',
                           type: 'POST',
                           data: $('#date-form').serialize(),
                           success: function(data) {

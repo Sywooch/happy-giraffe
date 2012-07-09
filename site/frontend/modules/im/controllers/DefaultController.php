@@ -5,7 +5,9 @@ class DefaultController extends HController
     public function filters()
     {
         return array(
-            'accessControl', // perform access control for CRUD operations
+            'accessControl',
+            'ajaxDialog,SetRead,CreateMessage,MoreMessages,RemoveMessage,RemoveActiveDialog,
+            RemoveDialog,UserTyping,OpenedDialog + ajaxOnly'
         );
     }
 
@@ -254,10 +256,5 @@ class DefaultController extends HController
         if ($model === null)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
         return $model;
-    }
-
-    public function actionGetLast(){
-        $im = Message::getNotificationMessages(Yii::app()->user->id);
-        echo CJSON::encode($im);
     }
 }

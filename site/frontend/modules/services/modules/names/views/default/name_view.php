@@ -40,8 +40,12 @@
 <div class="right-inner mirror">
     <div class="name_info">
         <h1 class="<?php echo ($name->gender == 1)?'boy':'girl' ?>"><?php echo $name->name; ?></h1>
-        <a rel="<?php echo $name->id ?>" href="#" onclick="return NameModule.like(this);"
-           class="like_name heart <?php if (!$name->isUserLike(Yii::app()->user->id)) echo 'empty_heart' ?>"></a>
+        <?php if (Yii::app()->user->isGuest):?>
+            <a href="#login" class="like_name heart empty_heart fancy"></a>
+        <?php else: ?>
+            <a rel="<?php echo $name->id ?>" href="#" onclick="return NameModule.like(this);"
+               class="like_name heart <?php if (!$name->isUserLike(Yii::app()->user->id)) echo 'empty_heart' ?>"></a>
+        <?php endif ?>
 
         <p class="name">Имя: <span class="<?php echo ($name->gender == 1)?'boy':'girl' ?>">
             <?php echo ($name->gender == 1)?'мужское':'женское' ?></span></p>
@@ -77,11 +81,11 @@
 <!--            <p>--><?php //echo $name->saints ?><!--</p>-->
         <?php //endif ?>
 
-        <?php if (!empty($name->nameFamouses)):?>
+        <?php if (!empty($name->famous)):?>
             <h2>Известные личности с именем <?php echo $name->name; ?></h2>
         <?php $i = 0; ?>
             <div class="clearfix">
-            <?php foreach ($name->nameFamouses as $famous): ?>
+            <?php foreach ($name->famous as $famous): ?>
                 <?php $i++; ?>
                 <div class="best_person">
                     <?php if (!empty($famous->photo)) echo CHtml::image($famous->GetUrl()) ?>

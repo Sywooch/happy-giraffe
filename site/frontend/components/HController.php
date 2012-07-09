@@ -15,10 +15,22 @@ class HController extends CController
 
     protected function beforeAction($action)
     {
-        //разлогинивемя забаненых юзеров - временно
-        if (in_array(Yii::app()->user->id, array(10186, 10127, 12678, 10229, 12980))) {
-            Yii::app()->user->logout(true);
-            $this->redirect('/');
+        if (in_array($this->uniqueId, array(
+            'blog',
+            'community',
+            'services/horoscope/default',
+            'services/childrenDiseases/default',
+            'cook/spices',
+            'cook/choose',
+        )) || in_array($this->route, array('cook/recipe/view'))  || in_array($this->route, array('cook/recipe/index'))) {
+            $reflector = new ReflectionClass($this);
+            $parametersObjects = $reflector->getMethod('action' . $this->action->id)->getParameters();
+            $parametersNames = array();
+            foreach ($parametersObjects as $p)
+                $parametersNames[] = $p->name;
+            foreach ($this->actionParams as $p => $v)
+                if (array_search($p, $parametersNames) === false && strpos($p, '_page') === false)
+                    throw new CHttpException(404, 'Такой записи не существует');
         }
         $this->setMetaTags();
 
@@ -27,8 +39,7 @@ class HController extends CController
 
     protected function afterRender($view, &$output)
     {
-        $js = "
-            $(function() {
+        $js = "$(function() {
                 var seoHrefs = " . CJSON::encode($this->seoHrefs) . ";
                 var seoContent = " . CJSON::encode($this->seoContent) . ";
                 $('[hashString]').each(function(){
@@ -41,10 +52,13 @@ class HController extends CController
                 });
 
 
-            });
-        ";
+            });";
 
-        Yii::app()->clientScript->registerScript('seoHrefs', $js, CClientScript::POS_END);
+        $hash = md5($js);
+        $cacheId = 'seoHide_' . $hash;
+        Yii::app()->cache->set($cacheId, $js);
+
+        Yii::app()->clientScript->registerScriptFile('/js_dynamics/' . $hash . '.js/', CClientScript::POS_END);
 
         return parent::afterRender($view, $output);
     }

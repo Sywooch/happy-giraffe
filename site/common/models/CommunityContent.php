@@ -419,7 +419,7 @@ class CommunityContent extends HActiveRecord
                     'travel',
                     'commentsCount',
                     'contentAuthor' => array(
-                        'select' => 'id, first_name, last_name, avatar_id, online',
+                        'select' => 'id, first_name, last_name, avatar_id, online, blocked, deleted',
                     ),
                 ),
             ),
@@ -471,20 +471,12 @@ class CommunityContent extends HActiveRecord
     }
 
     /**
-     * @return CommunityContent[]
+     * @return CommunityContent
      */
-    public function getRelatedPosts()
+    public function getPrevPost()
     {
         if (! $this->isFromBlog) {
-            $next = $this->full()->findAll(
-                array(
-                    'condition' => 'rubric_id = :rubric_id AND t.id > :current_id',
-                    'params' => array(':rubric_id' => $this->rubric_id, ':current_id' => $this->id),
-                    'limit' => 1,
-                    'order' => 't.id',
-                )
-            );
-            $prev = $this->full()->findAll(
+            $prev = $this->full()->find(
                 array(
                     'condition' => 'rubric_id = :rubric_id AND t.id < :current_id',
                     'params' => array(':rubric_id' => $this->rubric_id, ':current_id' => $this->id),
@@ -493,21 +485,7 @@ class CommunityContent extends HActiveRecord
                 )
             );
         } else {
-            $next = $this->full()->findAll(
-                array(
-                    'condition' => 't.id > :current_id',
-                    'params' => array(':current_id' => $this->id),
-                    'limit' => 1,
-                    'order' => 't.id',
-                    'with' => array(
-                        'rubric' => array(
-                            'condition' => 'user_id = :user_id',
-                            'params' => array(':user_id' => $this->rubric->user_id),
-                        ),
-                    ),
-                )
-            );
-            $prev = $this->full()->findAll(
+            $prev = $this->full()->find(
                 array(
                     'condition' => 't.id < :current_id',
                     'params' => array(':current_id' => $this->id),
@@ -523,8 +501,41 @@ class CommunityContent extends HActiveRecord
             );
         }
 
-        return CMap::mergeArray($next, $prev);
+        return $prev;
     }
+
+    /**
+     * @return CommunityContent
+     */
+    public function getNextPost()
+    {
+        if (! $this->isFromBlog) {
+            $next = $this->full()->find(
+                array(
+                    'condition' => 'rubric_id = :rubric_id AND t.id > :current_id',
+                    'params' => array(':rubric_id' => $this->rubric_id, ':current_id' => $this->id),
+                    'order' => 't.id',
+                )
+            );
+        } else {
+            $next = $this->full()->find(
+                array(
+                    'condition' => 't.id > :current_id',
+                    'params' => array(':current_id' => $this->id),
+                    'order' => 't.id',
+                    'with' => array(
+                        'rubric' => array(
+                            'condition' => 'user_id = :user_id',
+                            'params' => array(':user_id' => $this->rubric->user_id),
+                        ),
+                    ),
+                )
+            );
+        }
+
+        return $next;
+    }
+
 
     public function getContent()
     {

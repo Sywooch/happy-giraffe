@@ -6,6 +6,7 @@
 class EditorController extends SController
 {
     public $pageTitle = 'Копирайт';
+    public $layout = '//layouts/writing';
 
     public function beforeAction($action)
     {
@@ -190,31 +191,6 @@ class EditorController extends SController
 
         echo CJSON::encode($response);
     }
-
-    /*    public function actionGetArticleInfo()
-    {
-        $url = Yii::app()->request->getPost('url');
-        preg_match("/\/([\d]+)\/$/", $url, $match);
-        $id = $match[1];
-
-        if (strstr($url, '/community/')) {
-            $article = CommunityContent::model()->findByPk($id);
-            if (!$article) {
-                echo CJSON::encode(array(
-                    'status' => false,
-                    'error' => 'Ошибка, статья не найдена'
-                ));
-                Yii::app()->end();
-            }
-
-            echo CJSON::encode(array(
-                'status' => true,
-                'title' => $article->title,
-                'keywords' => $article->meta_keywords,
-                'id' => $article->id
-            ));
-        }
-    }*/
 
     public function actionRemoveFromSelected()
     {

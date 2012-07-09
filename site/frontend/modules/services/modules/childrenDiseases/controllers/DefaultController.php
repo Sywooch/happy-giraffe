@@ -24,6 +24,7 @@ class DefaultController extends HController
                 throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
             $this->category_id = $model->id;
+            $this->pageTitle = $model->title;
             $this->render('category', compact('model'));
         } else {
 
@@ -43,7 +44,6 @@ class DefaultController extends HController
     public function loadModel($id)
     {
         $model = RecipeBookDisease::model()->with('category')->findByAttributes(array('slug' => $id));
-
         return $model;
     }
 
@@ -55,17 +55,5 @@ class DefaultController extends HController
     {
         $model = RecipeBookDiseaseCategory::model()->findByAttributes(array('slug' => $id));
         return $model;
-    }
-
-    public function actionTest()
-    {
-        $diseases = RecipeBookDisease::model()->findAll();
-        foreach ($diseases as $disease) {
-            $disease->slug = str_replace(' ', '_', $disease->slug);
-            $disease->slug = str_replace('+', '_', $disease->slug);
-            $disease->slug = str_replace('-', '_', $disease->slug);
-            $disease->slug = str_replace('\'', '', $disease->slug);
-            $disease->save();
-        }
     }
 }

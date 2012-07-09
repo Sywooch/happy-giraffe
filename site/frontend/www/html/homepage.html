@@ -988,67 +988,45 @@
 	<div id="photo-window" style="display:none;">
 		
 		<div id="photo-window-in">
-			<div class="top-line">
-				<div class="wrapper">
-					<a href="javascript:void(0);" class="close" onclick="closePhoto();">закрыть<i class="icon"></i></a>
-					<div class="count">Всего в альбоме 98 фотографий</div>
-				</div>
-			</div>
 			
-			<div id="photo-thumbs">
-				<div class="jcarousel">
-					<ul>
-						<li class="active"><a href="javascript:void(0);"><img src="/images/example/ex6.jpg" /></a></li>
-						<li><a href="javascript:void(0);"><img src="/images/example/ex2.png" /></a></li>
-						<li><a href="javascript:void(0);"><img src="/images/example/ex1.png" /></a></li>
-						<li><a href="javascript:void(0);"><img src="/images/example/ex6.jpg" /></a></li>						
-						<li><a href="javascript:void(0);"><img src="/images/example/ex2.png" /></a></li>
-						<li><a href="javascript:void(0);"><img src="/images/example/ex5.jpg" /></a></li>
-						<li><a href="javascript:void(0);"><img src="/images/example/ex4.jpg" /></a></li>
-						<li><a href="javascript:void(0);"><img src="/images/example/ex1.png" /></a></li>
-						<li><a href="javascript:void(0);"><img src="/images/example/ex2.png" /></a></li>
-						<li><a href="javascript:void(0);"><img src="/images/example/ex3.jpg" /></a></li>
-						<li><a href="javascript:void(0);"><img src="/images/example/ex4.jpg" /></a></li>
-						<li><a href="javascript:void(0);"><img src="/images/example/ex2.png" /></a></li>
-						<li><a href="javascript:void(0);"><img src="/images/example/ex5.jpg" /></a></li>
-						<li><a href="javascript:void(0);"><img src="/images/example/ex4.jpg" /></a></li>
-						<li><a href="javascript:void(0);"><img src="/images/example/ex1.png" /></a></li>
-						<li><a href="javascript:void(0);"><img src="/images/example/ex2.png" /></a></li>
-						<li><a href="javascript:void(0);"><img src="/images/example/ex3.jpg" /></a></li>
-						<li><a href="javascript:void(0);"><img src="/images/example/ex4.jpg" /></a></li>
-						
-					</ul>
+			<div class="top-line clearfix">
+				
+				<a href="javascript:void(0);" class="close" onclick="closePhoto();"></a>
+				
+				<div class="user">
+					<div class="user-info clearfix">
+						<a class="ava female small"></a>
+						<div class="details">
+							<span class="icon-status status-online"></span>
+							<a href="" class="username">Александр Богоявленский</a>
+						</div>
+					</div>
 				</div>
-				<a href="javascript:void(0);" class="prev" onclick="$('#photo-thumbs .jcarousel').jcarousel('scroll', '-=1');">предыдущая</a>
-				<a href="javascript:void(0);" class="next" onclick="$('#photo-thumbs .jcarousel').jcarousel('scroll', '+=1');">следующая</a>
-			</div>
+				
+				<div class="photo-info">
+					Альбом  «Оформление вторые блюда» - <span class="count">3 фото из 158</span>
+					<div class="title">Жареный картофель с беконом</div>
+				</div>
+				
+			</div>			
 			
 			<div id="photo">
 				
 				<div class="img">
-					<img src="/images/example/ex6.jpg" />
-					<div class="title clearfix">
-						<div class="in">Квашеная капуста с клюквой</div>
-						<div class="user-info clearfix">
-							<a class="ava female small"></a>
-							<div class="details">
-								<span class="icon-status status-online"></span>
-								<a href="" class="username">Александр Богоявленский</a>
-							</div>
-						</div>
-					</div>
-					<div class="loading">
-						<div class="in">
-							<img src="/images/test_loader.gif" />
-							Загрузка
-						</div>
-					</div>
+					<table><tr><td>
+            <img src="/images/example/ex6.jpg" />
+          </td></tr></table>
 				</div>
 				
-				<a href="" class="prev">предыдушая</a>
-				<a href="" class="next">следующая</a>
+				<a href="" class="prev"><i class="icon"></i>предыдушая</a>
+				<a href="" class="next"><i class="icon"></i>следующая</a>
 				
 			</div>
+			
+			<div class="photo-comment">
+				<p>Квашеная капуста с клюквой, грибами, соусом, зеленью и еще очень длинный комментарий про это оформление блюда, да нужно двести знаков для этого комментария, уже вроде набралось или нет кто будет считать</p>
+			</div>
+
 			
 			<div id="photo-content">
 				

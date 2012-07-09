@@ -4,18 +4,20 @@
  */
 
 var Horoscope = {
+    history:null,
+    zodiac_list:['aries', 'taurus', 'gemini', 'cancer', 'leo', 'virgo', 'libra', 'scorpio', 'sagittarius', 'capricorn', 'aquarius', 'pisces'],
     calc:function () {
-        $.ajax({
-            url:$('#placenta-thickness-form').attr('action'),
-            data:$("#placenta-thickness-form").serialize(),
-            type:"POST",
-            success:function (data) {
-                $("#result").fadeOut(100, function () {
-                    $("#result").html(data);
-                    $("#result").fadeIn(100);
-                });
-            }
+        var url = '/horoscope/compatibility/'+Horoscope.zodiac_list[$('#HoroscopeCompatibility_zodiac1').val()-1]+'/'+Horoscope.zodiac_list[$('#HoroscopeCompatibility_zodiac2').val()-1]+'/';
+        $.get(url, function(data) {
+            Horoscope.history.changeBrowserUrl(url);
+            $('#result').html(data);
         });
-        return false;
+    },
+    ZodiacChange:function (elem) {
+        $(elem).parents('div.sign').find('.img img').attr('src', '/images/widget/horoscope/big/' + $(elem).val() + '.png')
     }
 }
+
+$(function() {
+    Horoscope.history = new AjaxHistory('horoscope');
+});

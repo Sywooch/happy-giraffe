@@ -41,6 +41,7 @@ jQuery.fn.pGallery = function(options) {
         }
 
         $.get(base_url + '/albums/wPhoto/', plugin.data, function(html) {
+            pGallery.currentPhoto = plugin.data.id;
             $('#photo-window').append(html);
 
             plugin.window.find('.window-close').bind('click', function() {plugin.closeWindow();return false;});
@@ -136,7 +137,6 @@ jQuery.fn.pGallery = function(options) {
     };
 
     plugin.next = function () {
-        alert(pGallery.currentPhoto);
         var next = pGallery.photos[pGallery.currentPhoto].next;
         var goTo =  (next != null) ? next : pGallery.last;
         this.openImage(goTo);

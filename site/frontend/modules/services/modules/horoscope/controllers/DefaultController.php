@@ -5,6 +5,13 @@ class DefaultController extends HController
     public $layout = 'horoscope';
     public $title;
 
+    public function filters()
+    {
+        return array(
+            'ajaxOnly + Validate',
+        );
+    }
+
     /**
      * @sitemap
      */
@@ -34,7 +41,8 @@ class DefaultController extends HController
         $this->render('date', compact('model'));
     }
 
-    public function actionYesterday($zodiac){
+    public function actionYesterday($zodiac)
+    {
         $date = date("Y-m-d", strtotime('-1 day'));
 
         $zodiac = Horoscope::model()->getZodiacId(trim($zodiac));
@@ -49,7 +57,8 @@ class DefaultController extends HController
         $this->render('date', compact('model'));
     }
 
-    public function actionTomorrow($zodiac){
+    public function actionTomorrow($zodiac)
+    {
         $date = date("Y-m-d", strtotime('+1 day'));
 
         $zodiac = Horoscope::model()->getZodiacId(trim($zodiac));
@@ -92,18 +101,39 @@ class DefaultController extends HController
         $this->render('year', compact('model'));
     }
 
-    public function actionCompatibility($zodiac1 = null, $zodiac2 = null){
-        if ($zodiac1 == null && $zodiac2 == null){
+    public function actionCompatibility($zodiac1 = null, $zodiac2 = null)
+    {
+        if ($zodiac1 !== null)
+            $zodiac1 = Horoscope::model()->getZodiacId($zodiac1);
+        if ($zodiac2 !== null)
+            $zodiac2 = Horoscope::model()->getZodiacId($zodiac2);
+
+        if ($zodiac1 == null && $zodiac2 == null) {
             $model = new HoroscopeCompatibility();
             $this->render('compatibility_main', compact('model'));
-        }elseif($zodiac1 == null && $zodiac2 != null){
-            $this->render('compatibility_one',array('zodiac'=>$zodiac1));
-        }elseif($zodiac1 == null && $zodiac2 != null){
-            $this->render('compatibility_two',compact('zodiac1', 'zodiac2'));
+        } elseif ($zodiac1 == null && $zodiac2 != null) {
+            $this->render('compatibility_one', array('zodiac' => $zodiac1));
+
+        } else{
+            $model = HoroscopeCompatibility::model()->findByAttributes(array('zodiac1' => $zodiac1, 'zodiac2' => $zodiac2));
+            if ($model === null) {
+                $model = HoroscopeCompatibility::model()->findByAttributes(array('zodiac1' => $zodiac2, 'zodiac2' => $zodiac1));
+                if ($model === null)
+                    throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+            }
+            if (Yii::app()->request->isAjaxRequest) {
+                $this->renderPartial('compatibility_two', compact('model'));
+            }else
+                $this->render('compatibility_main', compact('model'));
         }
     }
 
-    public function actionCalculate(){
-
+    public function actionValidate()
+    {
+        if (isset($_POST['ajax'])) {
+            $model = new HoroscopeCompatibility;
+            $model->attributes = $_POST['HoroscopeCompatibility'];
+            echo CActiveForm::validate($model);
+        }
     }
 }

@@ -144,6 +144,7 @@ return array(
 
         'childrenDiseases/<id:[\w-+\s]+>' => 'services/childrenDiseases/default/view',
 
+        'horoscope/compatibility/validate' => 'services/horoscope/default/validate',
         'horoscope/compatibility/<zodiac1:[\w]+>/<zodiac2:[\w]+>' => 'services/horoscope/default/compatibility',
         'horoscope/compatibility/<zodiac1:[\w]+>' => 'services/horoscope/default/compatibility',
         'horoscope/compatibility' => 'services/horoscope/default/compatibility',

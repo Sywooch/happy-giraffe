@@ -270,4 +270,10 @@ class Horoscope extends HActiveRecord
             return 'view';
         return '';
     }
+
+    public static function getZodiacPhoto($zodiac_id){
+        if (empty($zodiac_id))
+            return '';
+        return '/images/widget/horoscope/big/'.$zodiac_id.'.png';
+    }
 }

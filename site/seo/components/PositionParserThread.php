@@ -118,6 +118,8 @@ class PositionParserThread extends ProxyParserThread
             $links [] = pq($link)->attr('href');
         }
 
+        $document->unloadDocument();
+
         return $links;
     }
 
@@ -131,6 +133,7 @@ class PositionParserThread extends ProxyParserThread
         foreach ($document->find('#ires li.g div.vsc > h3.r > a.l') as $link) {
             $links [] = pq($link)->attr('href');
         }
+        $document->unloadDocument();
 
         return $links;
     }

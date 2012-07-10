@@ -1,6 +1,6 @@
 <div id="duel-takeapart" class="popup">
 
-    <a href="javascript:void(0);" onclick="$.fancybox.close();" class="popup-close"><span class="tip">Закрыть</span></a>
+    <a href="javascript:void(0);" onclick="$.fancybox.close();" class="popup-close tooltip" title="Закрыть"></a>
 
     <div id="duel_step_1">
         <div class="title">Выберите вопрос-дуэль, в которой<br/>Вы хотели бы поучаствовать</div>

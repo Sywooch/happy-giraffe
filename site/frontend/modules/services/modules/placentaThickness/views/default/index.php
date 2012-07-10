@@ -35,7 +35,7 @@ Yii::app()->clientScript->registerMetaTag('Вы были на УЗИ и в ре�
         'id' => 'placenta-thickness-form',
         'enableAjaxValidation' => true,
         'enableClientValidation' => false,
-        'action' => $this->createUrl('default/calculate'),
+        'action' => '#',
         'clientOptions' => array(
             'validateOnSubmit' => true,
             'validateOnChange' => false,

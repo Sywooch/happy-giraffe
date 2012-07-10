@@ -17,7 +17,7 @@ Yii::app()->clientScript->registerMetaTag('Вы отмечаете ваш жен
     'id' => 'menstrual-cycle-form',
     'enableAjaxValidation' => true,
     'enableClientValidation' => true,
-    'action' => $this->createUrl('default/calculate'),
+    'action' => '#',
     'clientOptions' => array(
         'validateOnSubmit' => true,
         'validateOnChange' => false,

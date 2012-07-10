@@ -57,7 +57,6 @@ jQuery.fn.pGallery = function(options) {
 
             $('body').css('overflow', 'hidden');
             var newUrl = plugin.getEntityUrl() + 'photo' + plugin.data.id + '/';
-            saveAsAjaxView(newUrl);
             plugin.history.changeBrowserUrl(newUrl);
             $('#photo-window-bg, #photo-window').fadeIn(600, function(){
                 $('#photo-thumbs .jcarousel', plugin.window).jcarousel();
@@ -105,7 +104,6 @@ jQuery.fn.pGallery = function(options) {
         $.get(base_url + '/albums/wPhoto/', data, function(html) {
             var newUrl = plugin.getEntityUrl() + 'photo' + plugin.data.id + '/';
             plugin.history.changeBrowserUrl(newUrl);
-            saveAsAjaxView(newUrl);
 
             $('#w-photo-content', plugin.window).html(html);
             link.parent().siblings('li.active').removeClass('active');
@@ -182,11 +180,6 @@ jQuery.fn.pGallery = function(options) {
             plugin.openWindow($(this).attr('data-id'));
         });
     });
-}
-
-function saveAsAjaxView(url){
-    _gaq.push(['_trackPageview', url]);
-    yaCounter11221648.hit(url);
 }
 
 function str_replace(search, replace, subject) {

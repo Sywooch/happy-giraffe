@@ -540,6 +540,9 @@ class AjaxController extends HController
         if (!Yii::app()->user->checkAccess('editMeta'))
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
+        Yii::import('site.seo.modules.promotion.models.*');
+        Yii::import('site.seo.models.*');
+
         $id = Yii::app()->request->getPost('_id');
 
         if (!empty($id)){
@@ -547,13 +550,17 @@ class AjaxController extends HController
         }else{
             $model = PageMetaTag::getModel(urldecode($route), unserialize(urldecode($params)), true);
         }
+
+        $page = $model->getPage();
+        $dataProvider = $model->getPhrases($page);
+
         if (isset($_POST['meta'])) {
             $model->attributes = $_POST['meta'];
             $model->save();
             echo CJSON::encode(array('status' => true));
         }
         else
-            $this->renderPartial('_edit_meta', compact('model'));
+            $this->renderPartial('_edit_meta', compact('model', 'dataProvider', 'page'));
     }
 
     public function actionArticleVisits(){

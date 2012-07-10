@@ -7,7 +7,7 @@
 <div style="display:none">
     <div id="login" class="popup">
 
-        <a href="javascript:void(0);" onclick="$.fancybox.close();" class="popup-close"><span class="tip">Закрыть</span></a>
+        <a href="javascript:void(0);" onclick="$.fancybox.close();" class="popup-close tooltip" title="Закрыть"></a>
 
         <div class="popup-title">Вход на сайт</div>
         <?php $form = $this->beginWidget('CActiveForm', array(

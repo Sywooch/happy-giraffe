@@ -1,5 +1,5 @@
 <?php
-/* @var $this Controller
+/* @var $this HController
  * @var $form CActiveForm
  */
 $year = date('Y');
@@ -10,13 +10,14 @@ $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG
 Yii::app()->clientScript->registerScriptFile($baseUrl . '/blood_refresh.js', CClientScript::POS_HEAD);
 Yii::app()->clientScript->registerCss('blood_refresh', '.lists_td .errorMessage {display: none !important;}');
 
-Yii::app()->clientScript->registerMetaTag('Думаете, что определение пола по дате рождения родителей невозможно? А вы не думайте, а проверьте, воспользовавшись нашим сервисом. Просто введите даты рождения родителей и посмотрите – совпало?', 'description');
+if (empty($this->meta_description))
+    $this->meta_description = 'Думаете, что определение пола по дате рождения родителей невозможно? А вы не думайте, а проверьте, воспользовавшись нашим сервисом. Просто введите даты рождения родителей и посмотрите – совпало?';
 
 $form = $this->beginWidget('CActiveForm', array(
     'id' => 'blood-refresh-form',
     'enableAjaxValidation' => true,
     'enableClientValidation' => false,
-    'action' => $this->createUrl('/babySex/BloodUpdate'),
+    'action' => '',
     'clientOptions' => array(
         'validateOnSubmit' => true,
         'validateOnChange' => false,

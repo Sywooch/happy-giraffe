@@ -315,7 +315,7 @@ function initScrolledContent() {
     });
 }
 
-comet.addEvent(300, 'liveContents');
+/*comet.addEvent(300, 'liveContents');
 
 Comet.prototype.liveContents = function (result, id) {
     $.get(
@@ -328,7 +328,7 @@ Comet.prototype.liveContents = function (result, id) {
             $('#contents_live > :last').remove();
         }
     )
-}
+}*/
 
 var PostGallery = {
     add:function (link) {

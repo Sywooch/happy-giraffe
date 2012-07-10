@@ -1,7 +1,7 @@
 <?php if (!Yii::app()->user->isGuest && !$c->isFromBlog && Yii::app()->user->model->checkAuthItem('transfer post')):?>
     <script id="transfer_post" type="text/x-jquery-tmpl">
         <div id="movePost" class="popup-confirm popup">
-            <a href="javascript:void(0);" onclick="$.fancybox.close();" class="popup-close"><span class="tip">Закрыть</span></a>
+            <a href="javascript:void(0);" onclick="$.fancybox.close();" class="popup-close tooltip" title="Закрыть"></a>
 
             <div class="confirm-before">
                 <form>

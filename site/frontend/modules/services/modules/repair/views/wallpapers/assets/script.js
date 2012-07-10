@@ -7,8 +7,8 @@ var Wallpapers = {
             dataType:'json',
             success:function (data) {
                 $("#repair-wallpapers div.recommendation").fadeOut(100, function () {
-                    $("#repair-wallpapers div.recommendation div.left span").text(data.qty+' '+data.noun);
-                    $("#repair-wallpapers div.recommendation div.right span").text(data.qty+' '+data.noun2);
+                    $("#repair-wallpapers div.recommendation div.left span").text(data.qty + ' ' + data.noun);
+                    $("#repair-wallpapers div.recommendation div.right span").text(data.qty + ' ' + data.noun2);
                     $("#repair-wallpapers div.recommendation").fadeIn(100);
                 });
                 $('html,body').animate({scrollTop:$('#result').offset().top}, 'fast');
@@ -25,6 +25,7 @@ var Wallpapers = {
                 $("#emptyareas").fadeOut(100, function () {
                     $("#emptyareas").html(data);
                     $("#emptyareas").fadeIn(100);
+                    bindTooltips();
                 });
                 $('#empty-area-form').hide();
             }

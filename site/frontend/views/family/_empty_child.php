@@ -8,19 +8,19 @@
             <input type="text">
             <button class="btn btn-green-small" onclick="Family.saveBabyName(this);"><span><span>Ok</span></span></button>
         </div>
-        <a href="javascript:void(0);" onclick="Family.editBabyName(this)" class="edit" style="display:none;"><span class="tip">Редактировать имя</span></a>
+        <a href="javascript:void(0);" onclick="Family.editBabyName(this)" class="edit tooltip" style="display:none;" title="Редактировать имя"></a>
     </div>
 
     <div style="display:none;" class="hide-on-start">
-        <a href="javascript:void(0);" onclick="Family.saveBabyGender(this, 1)" class="gender male"><span class="tip">Мальчик</span></a>
-        <a href="javascript:void(0);" onclick="Family.saveBabyGender(this, 0)" class="gender female"><span class="tip">Девочка</span></a>
+        <a href="javascript:void(0);" onclick="Family.saveBabyGender(this, 1)" class="gender male tooltip" title="Мальчик"></a>
+        <a href="javascript:void(0);" onclick="Family.saveBabyGender(this, 0)" class="gender female tooltip" title="Девочка"></a>
 
         <div style="display:none;" class="hide-on-start">
             <div class="age">
 
             </div>
             <div class="date">
-                <a href="javascript:void(0);" onclick="Family.editDate(this);" class="date"><span class="tip">Укажите дату рождения</span></a>
+                <a href="javascript:void(0);" onclick="Family.editDate(this);" class="date tooltip" title="Укажите дату рождения"></a>
                 <div class="datepicker" style="display:none;">
                     <div class="tale"></div>
                     <?php echo CHtml::dropDownList('Baby_d_'.$i, '', array(''=>' ')+HDate::Days(), array(
@@ -42,8 +42,8 @@
                 </div>
             </div>
 
-            <a href="javascript:void(0);" onclick="Family.editBabyNotice(this)" class="comment" ><span class="tip">Расскажите о нем</span></a>
-            <a href="javascript:void(0);" class="photo"><span class="tip">Добавить 4 фото</span>
+            <a href="javascript:void(0);" onclick="Family.editBabyNotice(this)" class="comment tooltip"  title="Расскажите о нем"></a>
+            <a href="javascript:void(0);" class="photo tooltip" title="Добавить 4 фото"></span>
                 <?php $form = $this->beginWidget('CActiveForm', array(
                     'id' => 'baby_photo_upload2'.$i,
                     'action' => $this->createUrl('uploadBabyPhoto'),
@@ -67,7 +67,7 @@
         <textarea></textarea>
         <button class="btn btn-green-small" onclick="Family.saveBabyNotice(this)"><span><span>Ok</span></span></button>
     </div>
-    <div class="text"><span class="text"></span> <a href="javascript:void(0);" onclick="Family.editBabyNotice(this)" class="edit"><span class="tip">Редактировать комментарий</span></a></div>
+    <div class="text"><span class="text"></span> <a href="javascript:void(0);" onclick="Family.editBabyNotice(this)" class="edit tooltip" title="Редактировать комментарий"></a></div>
 </div>
 
 <div class="photos" style="display:none;">

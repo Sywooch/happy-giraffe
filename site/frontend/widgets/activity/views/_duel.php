@@ -34,7 +34,7 @@
                     <div class="vote">
                         <div class="count">
                             <span class="count-in"><?=$answers[$i]['votes']?></span>
-                            <a href="javascript:;" onclick="Duel.showVotes();">голосов<span class="tip">Посмотреть голоса</span></a>
+                            <a href="javascript:;" onclick="Duel.showVotes();" class="tooltip" title="Посмотреть голоса">голосов</a>
                         </div>
                         <div class="button">
                             <?php if (! Yii::app()->user->isGuest): ?>

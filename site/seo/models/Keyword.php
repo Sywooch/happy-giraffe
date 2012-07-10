@@ -171,10 +171,12 @@ class Keyword extends HActiveRecord
      */
     public function hasOpenedTask()
     {
-        if (!empty($this->tempKeyword))
+        if (!empty($this->tempKeyword) && $this->tempKeyword->owner_id != Yii::app()->user->id)
             return true;
 
         foreach ($this->group as $group) {
+            return true;
+
             if (!empty($group->page))
                 return false;
 

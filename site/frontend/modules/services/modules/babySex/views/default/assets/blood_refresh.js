@@ -44,7 +44,7 @@ function StartCalc() {
     $('#blood_refr_review_year').val($('#BloodRefreshForm_baby_y').val());
     $('#blood_refr_review_month').val($('#BloodRefreshForm_baby_m').val());
     $.ajax({
-        url:$('#blood-refresh-form').attr('action'),
+        url:'/babySex/bloodUpdate/',
         data:$('#blood-refresh-form').serialize(),
         type:'POST',
         success:function (data) {

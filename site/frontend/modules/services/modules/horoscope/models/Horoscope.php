@@ -185,17 +185,20 @@ class Horoscope extends HActiveRecord
         return $this->zodiac_list[$this->zodiac];
     }
 
-    public function zodiacSlug()
-    {
-        return $this->zodiac_list_eng[$this->zodiac];
-    }
-
     public function zodiacDates()
     {
         return $this->zodiac_dates[$this->zodiac]['start'][0] . '.'
             . sprintf("%02d", $this->zodiac_dates[$this->zodiac]['start'][1])
             . '-' . $this->zodiac_dates[$this->zodiac]['end'][0] . '.'
             . sprintf('%02d', $this->zodiac_dates[$this->zodiac]['end'][1]);
+    }
+
+    public function someZodiacDates($zodiac)
+    {
+        return $this->zodiac_dates[$zodiac]['start'][0] . '.'
+            . sprintf("%02d", $this->zodiac_dates[$zodiac]['start'][1])
+            . '-' . $this->zodiac_dates[$zodiac]['end'][0] . '.'
+            . sprintf('%02d', $this->zodiac_dates[$zodiac]['end'][1]);
     }
 
     public function dateText()
@@ -261,5 +264,15 @@ class Horoscope extends HActiveRecord
         if (!empty($this->date))
             return 'view';
         return '';
+    }
+
+    public static function getZodiacPhoto($zodiac_id){
+        if (empty($zodiac_id))
+            return '';
+        return '/images/widget/horoscope/big/'.$zodiac_id.'.png';
+    }
+
+    public static function getZodiacSlug($zodiac_id){
+        return Horoscope::model()->zodiac_list_eng[$zodiac_id];
     }
 }

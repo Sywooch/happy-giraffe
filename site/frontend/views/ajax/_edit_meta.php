@@ -4,6 +4,7 @@
  * Date: 04.07.12
  *
  * @var PageMetaTag $model
+ * @var CActiveDataProvider $dataProvider
  */
 ?>
 <div id="seo_tags" class="popup">
@@ -12,17 +13,24 @@
 
     <div class="block-title">
         Мета-теги
-        <span>8 июля - День семьи, любви и верности</span>
+        <span><?=isset($page) ? $page->getArticleTitle() : '' ?></span>
     </div>
 
-    <div class="clearfix">
+    <div class="clearfix" id="phrase-table">
 
         <div class="pagination">
-            <ul>
-                <li class="page selected"><a href="">1</a></li>
-                <li class="page"><a href="">2</a></li>
-                <li class="page"><a href="">3</a></li>
-            </ul>
+            <?php if (isset($dataProvider)) {
+
+            $count = PagesSearchPhrase::model()->count($dataProvider->getCriteria());
+            $pages = new CPagination($count);
+            $pages->pageSize = 7;
+            $pages->applyLimit($dataProvider->getCriteria());
+
+            $this->widget('MyLinkPager', array(
+                'header' => false,
+                'pages' => $pages,
+            ));
+        }?>
         </div>
 
         <div class="seo-table table-result table-promotion">
@@ -46,6 +54,7 @@
                     </thead>
                     <tbody>
 
+                    <?php $this->renderPartial('_article_visits', compact('model', 'dataProvider')); ?>
 
                     </tbody>
 
@@ -77,7 +86,8 @@
         <div class="row clearfix">
             <div class="row-title"><label>Description:</label></div>
             <div class="row-elements">
-                <textarea name="meta[description]" id="meta_description" cols="60" rows="4"><?=$model->description ?></textarea>
+                <textarea name="meta[description]" id="meta_description" cols="60"
+                          rows="4"><?=$model->description ?></textarea>
             </div>
         </div>
 
@@ -86,7 +96,6 @@
         </div>
 
     </form>
-
 </div>
 <script type="text/javascript">
     var EditMetaTags = {
@@ -97,6 +106,31 @@
                 }
             }, 'json');
             return false;
+        },
+        addKeyword:function (keyword) {
+            if ($('#meta_keywords').val() == '')
+                $('#meta_keywords').val(keyword);
+            else
+                $('#meta_keywords').val($('#meta_keywords').val() + ', ' + keyword);
         }
     }
+
+    $(function () {
+        $('body').delegate('#seo_tags li.page a', 'click', function () {
+            $.post($(this).attr('href'), function (response) {
+                var id = '#phrase-table';
+                $(id).replaceWith($(id, '<div>' + response + '</div>'));
+            });
+            return false;
+        });
+    });
 </script>
+<style type="text/css">
+    li.first {
+        display: none !important;
+    }
+
+    li.previous {
+        display: none !important;
+    }
+</style>

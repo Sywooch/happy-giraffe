@@ -6,7 +6,7 @@
 var pregnancyWeight = {
     calc:function () {
         $.ajax({
-            url:$('#pregnant-params-form').attr('action'),
+            url:'/pregnancyWeight/calculate/',
             data:$('#pregnant-params-form').serialize(),
             type:'POST',
             success:function (data) {

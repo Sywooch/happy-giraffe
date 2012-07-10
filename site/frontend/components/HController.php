@@ -8,7 +8,7 @@ class HController extends CController
     public $seoHrefs = array();
     public $seoContent = array();
 
-    public $meta_description = null;
+    public $meta_description = '';
     public $meta_keywords = null;
     public $meta_title = null;
     public $page_meta_model = null;

@@ -69,7 +69,7 @@ function StartCalc() {
 }
 function LoadCalendar() {
     $.ajax({
-        url:$('#menstrual-cycle-form').attr('action'),
+        url:'/menstrualCycle/calculate/',
         data:$('#menstrual-cycle-form').serialize(),
         type:'POST',
         success:function (data) {

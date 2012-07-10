@@ -116,6 +116,13 @@
     }
 
     $(function () {
+        if ($('#meta_description').val() == '')
+            $('#meta_description').val($('meta[name=description]').attr("content"));
+        if ($('#meta_keywords').val() == '')
+            $('#meta_keywords').val($('meta[name=meta_keywords]').attr("content"));
+        if ($('#meta_title').val() == '')
+            $('#meta_title').val($('title').html());
+
         $('body').delegate('#seo_tags li.page a', 'click', function () {
             $.post($(this).attr('href'), function (response) {
                 var id = '#phrase-table';

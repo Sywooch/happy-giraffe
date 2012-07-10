@@ -75,7 +75,10 @@ jQuery.fn.pGallery = function(options) {
                 $(window).resize();
             });
 
-
+            if(pGallery.photos[id].description != null)
+                $('#photo', this.window).find('.photo-comment .title-text').show().text(pGallery.photos[id].description);
+            else
+                $('#photo', this.window).find('.photo-comment .title-text').hide().text('');
         }, 'html');
     };
 

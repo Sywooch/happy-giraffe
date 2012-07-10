@@ -1,5 +1,5 @@
 <div id="productAdded" class="popup">
-	<a href="javascript:void(0);" onclick="$.fancybox.close();" class="popup-close"><span class="tip">Закрыть</span></a>
+	<a href="javascript:void(0);" onclick="$.fancybox.close();" class="popup-close tooltip" title="Закрыть"></a>
 	<div class="product-info clearfix">
 		<div class="img-box">
 			<?php echo CHtml::image($model->product_image->getUrl('subproduct'), $model->product_title); ?>

@@ -525,10 +525,10 @@ class CommunityCommand extends CConsoleCommand
 
             foreach ($raws as $raw) {
                 $link = $raw['link'];
-                if ($this->getPageHeader($link, 'http://www.happy-giraffe.ru/')){
+                if ($this->getPageHeader($link, 'http://www.happy-giraffe.ru/')) {
                     //remove
                     Yii::app()->db->createCommand()
-                        ->delete('community__contents', 'id='.$raw['content_id']);
+                        ->delete('community__contents', 'id=' . $raw['content_id']);
                 }
                 $i++;
                 //echo $i."\n";
@@ -555,12 +555,11 @@ class CommunityCommand extends CConsoleCommand
             if ($html === false) {
                 //echo "curl error\n";
                 return $this->getPageHeader($url, $ref);
-            }
-            elseif (strpos($html, 'YouTube') === false && strpos($html, 'Rutube') === false) {
+            } elseif (strpos($html, 'YouTube') === false && strpos($html, 'Rutube') === false) {
                 //echo "bad page\n";
                 return $this->getPageHeader($url, $ref);
-            }elseif (strpos($html, '404 Not Found')){
-                echo $url."\n";
+            } elseif (strpos($html, '404 Not Found')) {
+                echo $url . "\n";
                 return true;
             }
         }
@@ -588,6 +587,141 @@ class CommunityCommand extends CConsoleCommand
         } catch (Exception $e) {
             $transaction->rollback();
             Yii::app()->end();
+        }
+    }
+
+    public function actionFixRedirectUrls()
+    {
+        echo $this->fixRedirectUrls('community__posts', 'text') . "\n";
+        echo $this->fixRedirectUrls('community__contents', 'preview') . "\n";
+        echo $this->fixRedirectUrls('comments', 'text') . "\n";
+    }
+
+    public function fixRedirectUrls($table, $field_name)
+    {
+        Yii::import('site.frontend.extensions.phpQuery.phpQuery');
+
+        $j = 0;
+        $k = 0;
+
+        $rows = 1;
+        while (!empty($rows)) {
+            $rows = Yii::app()->db->createCommand()->select('id, ' . $field_name)->from($table)->limit(100)->offset($k * 100)->queryAll();
+
+            foreach ($rows as $row) {
+                try {
+                    $doc = phpQuery::newDocumentXHTML($row[$field_name], $charset = 'utf-8');
+                    $links = $doc->find('a');
+
+                    foreach ($links as $link) {
+                        $url = pq($link)->attr('href');
+                        $parsed_url = parse_url($url);
+
+                        if (isset($parsed_url['host']) and strpos($parsed_url['host'], 'happy-giraffe') === false) {
+
+                            $effectiveUrl = $this->getEffectiveUrl($url);
+
+                            if ($effectiveUrl !== false) {
+                                echo $url . ' -> ' . $effectiveUrl . ' REDIRECT' . "\r\n";
+                                pq($link)->attr('href', $effectiveUrl);
+                                $field_value = $doc->html();
+
+                                Yii::app()->db->createCommand()->update($table, array($field_name => $field_value), 'id=' . $row['id']);
+
+                                $j++;
+                            } else {
+                                //echo $url . ' is OK' . "\r\n";
+                            }
+                        }
+                    }
+                    $doc->unloadDocument();
+                } catch (Exception $error) {
+                }
+            }
+
+            $k++;
+        }
+        return $j;
+    }
+
+    /**
+     * Return Effective Url in case of 301, 302 redirect or FALSE
+     *
+     * @param $url
+     * @return bool|mixed
+     */
+    public function getEffectiveUrl($url)
+    {
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0');
+        curl_setopt($ch, CURLOPT_REFERER, 'http://www.happy-giraffe.ru/');
+
+        curl_setopt($ch, CURLOPT_HEADER, 1);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 0);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 15);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 15);
+        $html = curl_exec($ch);
+
+        $header = curl_getinfo($ch);
+
+        if (in_array($header['http_code'], array('301', '302'))) {
+            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+            $html = curl_exec($ch);
+            $effectiveUrl = curl_getinfo($ch, CURLINFO_EFFECTIVE_URL);
+            return $effectiveUrl;
+        }
+
+        return false;
+    }
+
+    public function actionWrapNoindex()
+    {
+        echo $this->WrapNoindex('community__posts', 'text') . "\n";
+        echo $this->WrapNoindex('community__contents', 'preview') . "\n";
+        echo $this->WrapNoindex('comments', 'text') . "\n";
+    }
+
+    public function WrapNoindex($table, $field_name)
+    {
+        Yii::import('site.frontend.extensions.phpQuery.phpQuery');
+
+        $k = 0;
+
+        $rows = 1;
+        while (!empty($rows)) {
+            $rows = Yii::app()->db->createCommand()->select('id, ' . $field_name)->from($table)->limit(100)->offset($k * 100)->queryAll();
+
+            foreach ($rows as $row) {
+                $doc = phpQuery::newDocumentXHTML($row[$field_name], $charset = 'utf-8');
+                $links = $doc->find('a');
+                $changes = 0;
+
+                foreach ($links as $link) {
+                    $url = pq($link)->attr('href');
+                    $parsed_url = parse_url($url);
+                    if (isset($parsed_url['host']) and strpos($parsed_url['host'], 'happy-giraffe') === false) {
+
+                        if (pq($link)->attr('rel') != 'nofollow') {
+                            pq($link)->attr('rel', 'nofollow');
+                            $changes++;
+                        }
+
+                        if (!pq($link)->parent()->is('noindex')) {
+                            pq($link)->wrap('<noindex></noindex>');
+                            $changes++;
+                        }
+                    }
+                }
+
+                if ($changes > 0) {
+                    $field_value = $doc->html();
+                    Yii::app()->db->createCommand()->update($table, array($field_name => $field_value), 'id=' . $row['id']);
+                }
+                $doc->unloadDocument();
+            }
+
+            $k++;
         }
     }
 }

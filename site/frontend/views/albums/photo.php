@@ -11,7 +11,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts
                 <?php elseif(!Yii::app()->user->isGuest && $photo->author_id == Yii::app()->user->id): ?>
                     <div class="title">
                         <span class="album_title"><?php echo $photo->title != '' ? CHtml::encode($photo->title) : '...'; ?></span>
-                        <?php echo CHtml::link('<span class="tip">Редактировать</span>', 'javascript:;', array('class' => 'edit', 'onclick' => 'return Album.changePhotoTitle(this, ' . $photo->id . ');')); ?>
+                        <?php echo CHtml::link('', 'javascript:;', array('class' => 'edit tooltip', 'title'=>'Редактировать', 'onclick' => 'return Album.changePhotoTitle(this, ' . $photo->id . ');')); ?>
                     </div>
                 <?php endif; ?>
 

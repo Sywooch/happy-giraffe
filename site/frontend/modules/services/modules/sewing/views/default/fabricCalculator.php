@@ -3,7 +3,7 @@
 $basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR;
 $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
 Yii::app()->clientScript->registerScriptFile($baseUrl . '/fabricCalculator.js', CClientScript::POS_HEAD);
-Yii::app()->clientScript->registerMetaTag('Вам очень понравилась схема для вышивки, но она продаётся отдельно, и теперь нужно рассчитать, сколько нужно ткани для неё. Ткань или канва – купить их можно в любом магазине для рукодельниц, а сколько ткани нужно – подскажет наш сервис', 'description');
+$this->meta_description = 'Вам очень понравилась схема для вышивки, но она продаётся отдельно, и теперь нужно рассчитать, сколько нужно ткани для неё. Ткань или канва – купить их можно в любом магазине для рукодельниц, а сколько ткани нужно – подскажет наш сервис';
 $model = new FabricCalculatorForm1();
 ?>
 <div class="embroidery_service">

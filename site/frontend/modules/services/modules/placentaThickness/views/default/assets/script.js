@@ -6,7 +6,7 @@
 var placentaThickness = {
     calc:function () {
         $.ajax({
-            url:$('#placenta-thickness-form').attr('action'),
+            url:'/placentaThickness/calculate/',
             data:$("#placenta-thickness-form").serialize(),
             type:"POST",
             success:function (data) {

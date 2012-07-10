@@ -49,7 +49,14 @@
             array('label' => 'Гороскоп',
                 'active' => (Yii::app()->controller->id == 'club/horoscope'),
                 'url' => array('/club/horoscope/'),
-                'visible' => Yii::app()->user->checkAccess('horoscope')
+                'visible' => Yii::app()->user->checkAccess('horoscope'),
+                'items' => array(
+                    array(
+                        'label' => 'Гороскоп Совместимости',
+                        'url' => array('/club/horoscopeCompatibility/'),
+                        'visible' => Yii::app()->user->checkAccess('horoscope'),
+                    ),
+                ),
             ),
             array('label' => 'Кулинария',
                 'active' => (in_array(Yii::app()->controller->id, array(

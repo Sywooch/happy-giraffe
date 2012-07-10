@@ -25,6 +25,7 @@ var Paint = {
                 $("#emptyareas").fadeOut(100, function () {
                     $("#emptyareas").html(data);
                     $("#emptyareas").fadeIn(100);
+                    bindTooltips();
                 });
 
             }

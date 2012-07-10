@@ -189,23 +189,23 @@
     <?php endif; ?>
 
     <div class="entry-footer">
-        <?php if(!Yii::app()->user->isGuest): ?>
-        <?php
-        $report = $this->beginWidget('site.frontend.widgets.reportWidget.ReportWidget', array('model' => $data));
-        $report->button("$('.report-container')");
-        $this->endWidget();
-        ?>
-        <?php endif; ?>
-        <?php $this->renderPartial('//community/admin_actions',array(
-        'c'=>$data,
-        'communities'=>Community::model()->findAll(),
-    )); ?>
-        <?php $this->renderPartial('//community/parts/move_post_popup',array('c'=>$data)); ?>
-        <?php if (isset($this->community) && ! $data->isFromBlog && $this->community->id == 22 && Yii::app()->authManager->checkAccess('importCookRecipes', Yii::app()->user->id)): ?>
-            <?=CHtml::link('Перенести в рецепты', array('/cook/recipe/import', 'content_id' => $data->id))?>
-        <?php endif; ?>
+        <?php if(!Yii::app()->user->isGuest && $full){
+            $report = $this->beginWidget('site.frontend.widgets.reportWidget.ReportWidget', array('model' => $data));
+            $report->button("$('.report-container')");
+            $this->endWidget();
+        }
 
-        <?php if ($data->by_happy_giraffe): ?>
+        $this->renderPartial('//community/admin_actions',array(
+            'c'=>$data,
+            'communities'=>Community::model()->findAll(),
+        ));
+
+        $this->renderPartial('//community/parts/move_post_popup',array('c'=>$data));
+
+        if (isset($this->community) && ! $data->isFromBlog && $this->community->id == 22 && Yii::app()->authManager->checkAccess('importCookRecipes', Yii::app()->user->id))
+            echo CHtml::link('Перенести в рецепты', array('/cook/recipe/import', 'content_id' => $data->id));
+
+        if ($data->by_happy_giraffe): ?>
             <div class="source">Источник:&nbsp;
                 Весёлый Жираф
             </div>

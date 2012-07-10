@@ -2,7 +2,7 @@
 $basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR;
 $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
 Yii::app()->clientScript->registerScriptFile($baseUrl . '/yarnCalculator.js', CClientScript::POS_HEAD);
-Yii::app()->clientScript->registerMetaTag('Наш новый сервис позволяет рассчитать, сколько нужно пряжи для вязания конкретной вещи. Введите простые данные в специальную форму. Минута – и нет мучительных раздумий у витрины магазина!', 'description');
+$this->meta_description = 'Наш новый сервис позволяет рассчитать, сколько нужно пряжи для вязания конкретной вещи. Введите простые данные в специальную форму. Минута – и нет мучительных раздумий у витрины магазина!';
 
 $model = new YarnCalcForm;
 ?><div class="embroidery_service">

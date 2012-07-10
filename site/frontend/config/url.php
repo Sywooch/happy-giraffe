@@ -144,6 +144,10 @@ return array(
 
         'childrenDiseases/<id:[\w-+\s]+>' => 'services/childrenDiseases/default/view',
 
+        'horoscope/compatibility/validate' => 'services/horoscope/default/validate',
+        'horoscope/compatibility/<zodiac1:[\w]+>/<zodiac2:[\w]+>' => 'services/horoscope/default/compatibility',
+        'horoscope/compatibility/<zodiac1:[\w]+>' => 'services/horoscope/default/compatibility',
+        'horoscope/compatibility' => 'services/horoscope/default/compatibility',
         'horoscope/<_a:(year|month|today|tomorrow|yesterday)>/<zodiac:[\w]+>' => 'services/horoscope/default/<_a>',
         'horoscope/<zodiac:[\w]+>/<date:[\d\d\d\d-\d\d-\d\d]*>' => 'services/horoscope/default/view',
         'horoscope/<zodiac:[\w]+>' => 'services/horoscope/default/view',

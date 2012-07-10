@@ -6,7 +6,7 @@
 $basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR;
 $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
 Yii::app()->clientScript->registerScriptFile($baseUrl . '/embroideryCost.js', CClientScript::POS_HEAD);
-Yii::app()->clientScript->registerMetaTag('Долгий процесс вышивания закончен – работа удалась на славу. Есть даже человек, который очень хочет купить ваше произведение искусства. Воспользуйтесь нашим сервисом, чтобы определить стоимость вышивки, и смело называйте цену', 'description');
+$this->meta_description = 'Долгий процесс вышивания закончен – работа удалась на славу. Есть даже человек, который очень хочет купить ваше произведение искусства. Воспользуйтесь нашим сервисом, чтобы определить стоимость вышивки, и смело называйте цену';
 $model = new EmbroideryCostForm();
 ?>
 <div class="right_block">

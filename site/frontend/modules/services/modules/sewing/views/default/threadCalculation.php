@@ -2,7 +2,7 @@
 $basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR;
 $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
 Yii::app()->clientScript->registerScriptFile($baseUrl . '/threadCalculation.js', CClientScript::POS_HEAD);
-Yii::app()->clientScript->registerMetaTag('Для того чтобы сотворить прекрасную вышивку, нужны хорошая мастерица, удобные пяльцы, качественная канва, нужная игла и правильный расчет ниток. Делайте расчет ниток при помощи нашего сервиса и покупайте их столько, сколько нужно', 'description');
+$this->meta_description = 'Для того чтобы сотворить прекрасную вышивку, нужны хорошая мастерица, удобные пяльцы, качественная канва, нужная игла и правильный расчет ниток. Делайте расчет ниток при помощи нашего сервиса и покупайте их столько, сколько нужно';
 
 $model = new ThreadCalculationForm();
 ?><div class="embroidery_service">

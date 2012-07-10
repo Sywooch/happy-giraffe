@@ -592,8 +592,9 @@ class CommunityCommand extends CConsoleCommand
 
     public function actionFixRedirectUrls()
     {
-        //echo $this->fixRedirectUrls('community__posts', 'text') . "\n";
-        echo $this->WrapNoindex('community__posts', 'text') . "\n";
+        echo $this->fixRedirectUrls('community__posts', 'text') . "\n";
+        echo $this->fixRedirectUrls('community__contents', 'preview') . "\n";
+        echo $this->fixRedirectUrls('comments', 'text') . "\n";
     }
 
     public function fixRedirectUrls($table, $field_name)
@@ -608,36 +609,37 @@ class CommunityCommand extends CConsoleCommand
             $rows = Yii::app()->db->createCommand()->select('id, ' . $field_name)->from($table)->limit(100)->offset($k * 100)->queryAll();
 
             foreach ($rows as $row) {
-                $doc = phpQuery::newDocumentXHTML($row[$field_name], $charset = 'utf-8');
-                $links = $doc->find('a');
+                try {
+                    $doc = phpQuery::newDocumentXHTML($row[$field_name], $charset = 'utf-8');
+                    $links = $doc->find('a');
 
-                foreach ($links as $link) {
-                    $url = pq($link)->attr('href');
-                    $parsed_url = parse_url($url);
+                    foreach ($links as $link) {
+                        $url = pq($link)->attr('href');
+                        $parsed_url = parse_url($url);
 
-                    if (isset($parsed_url['host']) and strpos($parsed_url['host'], 'happy-giraffe') === false) {
+                        if (isset($parsed_url['host']) and strpos($parsed_url['host'], 'happy-giraffe') === false) {
 
-                        $effectiveUrl = $this->getEffectiveUrl($url);
+                            $effectiveUrl = $this->getEffectiveUrl($url);
 
-                        if ($effectiveUrl !== false) {
-                            echo $url . ' -> ' . $effectiveUrl . ' REDIRECT' . "\r\n";
-                            pq($link)->attr('href', $effectiveUrl);
-                            $field_value = $doc->html();
+                            if ($effectiveUrl !== false) {
+                                echo $url . ' -> ' . $effectiveUrl . ' REDIRECT' . "\r\n";
+                                pq($link)->attr('href', $effectiveUrl);
+                                $field_value = $doc->html();
 
-                            Yii::app()->db->createCommand()->update($table, array($field_name => $field_value), 'id=' . $row['id']);
+                                Yii::app()->db->createCommand()->update($table, array($field_name => $field_value), 'id=' . $row['id']);
 
-                            $j++;
-                        } else {
-                            echo $url . ' is OK' . "\r\n";
+                                $j++;
+                            } else {
+                                //echo $url . ' is OK' . "\r\n";
+                            }
                         }
                     }
+                    $doc->unloadDocument();
+                } catch (Exception $error) {
                 }
-                $doc->unloadDocument();
             }
 
             $k++;
-            /*if ($k > 1)
-                Yii::app()->end();*/
         }
         return $j;
     }
@@ -664,7 +666,6 @@ class CommunityCommand extends CConsoleCommand
         $header = curl_getinfo($ch);
 
         if (in_array($header['http_code'], array('301', '302'))) {
-            sleep(1);
             curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
             $html = curl_exec($ch);
             $effectiveUrl = curl_getinfo($ch, CURLINFO_EFFECTIVE_URL);
@@ -672,6 +673,13 @@ class CommunityCommand extends CConsoleCommand
         }
 
         return false;
+    }
+
+    public function actionWrapNoindex()
+    {
+        echo $this->WrapNoindex('community__posts', 'text') . "\n";
+        echo $this->WrapNoindex('community__contents', 'preview') . "\n";
+        echo $this->WrapNoindex('comments', 'text') . "\n";
     }
 
     public function WrapNoindex($table, $field_name)
@@ -692,8 +700,12 @@ class CommunityCommand extends CConsoleCommand
                 foreach ($links as $link) {
                     $url = pq($link)->attr('href');
                     $parsed_url = parse_url($url);
-
                     if (isset($parsed_url['host']) and strpos($parsed_url['host'], 'happy-giraffe') === false) {
+
+                        if (pq($link)->attr('rel') != 'nofollow') {
+                            pq($link)->attr('rel', 'nofollow');
+                            $changes++;
+                        }
 
                         if (!pq($link)->parent()->is('noindex')) {
                             pq($link)->wrap('<noindex></noindex>');
@@ -710,8 +722,6 @@ class CommunityCommand extends CConsoleCommand
             }
 
             $k++;
-            if ($k > 1)
-                Yii::app()->end();
         }
     }
 }

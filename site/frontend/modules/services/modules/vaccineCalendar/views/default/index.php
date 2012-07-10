@@ -1,9 +1,9 @@
 <?php
-Yii::app()->clientScript->registerMetaTag('Календарь прививок для детей поможет маме проконтролировать правильность вакцинации её ребенка, узнать, какая прививка идет следующей по графику, и познакомиться с вакцинами, которые могут быть использованы', 'description');
-
-/* @var $this Controller
+/* @var $this HController
  * @var $date int
  */
+$this->meta_description = 'Календарь прививок для детей поможет маме проконтролировать правильность вакцинации её ребенка, узнать, какая прививка идет следующей по графику, и познакомиться с вакцинами, которые могут быть использованы';
+
 if (!Yii::app()->user->isGuest){
     $user_children = User::GetCurrentUserWithBabies()->babies;
     if (empty($user_children))

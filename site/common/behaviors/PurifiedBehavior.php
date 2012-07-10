@@ -13,6 +13,8 @@ class PurifiedBehavior extends CActiveRecordBehavior
             'http' => true,
             'https' => true,
         ),
+        'Attr.AllowedFrameTargets' => array('_blank' => true),
+        'Attr.AllowedRel' => array('nofollow'),
     );
 
     public function __get($name)
@@ -24,6 +26,7 @@ class PurifiedBehavior extends CActiveRecordBehavior
                 $purifier = new CHtmlPurifier;
                 $purifier->options = CMap::mergeArray($this->_defaultOptions, $this->options);
                 $value = $purifier->purify($this->getOwner()->$name);
+                $value = $this->wrapNoindex($value);
                 Yii::app()->cache->set($cacheId, $value);
             }
             return $value;
@@ -56,5 +59,30 @@ class PurifiedBehavior extends CActiveRecordBehavior
         parent::detach($owner);
 
         $owner->detachEventHandler('onAfterSave', array($this, 'clearCache'));
+    }
+
+    private function wrapNoindex($text)
+    {
+
+        Yii::import('site.frontend.extensions.phpQuery.phpQuery');
+
+        $doc = phpQuery::newDocumentXHTML($text, $charset = 'utf-8');
+        $links = $doc->find('a');
+
+        foreach ($links as $link) {
+            $url = pq($link)->attr('href');
+            $parsed_url = parse_url($url);
+
+            if (isset($parsed_url['host']) and strpos($parsed_url['host'], 'happy-giraffe') === false) {
+
+                if (!pq($link)->parent()->is('noindex'))
+                    pq($link)->wrap('<noindex></noindex>');
+            }
+        }
+
+        $text = $doc->html();
+        $doc->unloadDocument();
+
+        return $text;
     }
 }

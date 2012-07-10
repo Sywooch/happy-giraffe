@@ -3,7 +3,7 @@
 class CommentWidget extends CWidget
 {
     /**
-     * @var bool
+     * @var bool g
      * Отключает возможность комментирования
      */
     public $onlyList = FALSE;

@@ -635,6 +635,7 @@ class CommunityCommand extends CConsoleCommand
                     }
                     $doc->unloadDocument();
                 } catch (Exception $error) {
+                    echo $error->getMessage()."\n";
                 }
             }
         }
@@ -719,6 +720,7 @@ class CommunityCommand extends CConsoleCommand
                     }
                     $doc->unloadDocument();
                 } catch (Exception $error) {
+                    echo $error->getMessage()."\n";
                 }
             }
         }

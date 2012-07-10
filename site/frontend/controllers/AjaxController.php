@@ -556,6 +556,10 @@ class AjaxController extends HController
             $this->renderPartial('_edit_meta', compact('model'));
     }
 
+    public function actionArticleVisits(){
+
+    }
+
     /**
      * @param int $id model id
      * @return PageMetaTag

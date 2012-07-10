@@ -16,7 +16,7 @@ Yii::app()->clientScript->registerMetaTag('Вес при беременност�
         'id' => 'pregnant-params-form',
         'enableAjaxValidation' => true,
         'enableClientValidation' => false,
-        'action' => $this->createUrl('default/calculate'),
+        'action' => '',
         'clientOptions' => array(
             'validateOnSubmit' => true,
             'validateOnChange' => false,

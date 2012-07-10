@@ -7,7 +7,7 @@ $(function () {
         }
         $('#japan_review_month').val(month);
         $.ajax({
-            url:$('#japan-form').attr('action'),
+            url:'/babySex/japanCalc/',
             data:$('#japan-form').serialize(),
             type:'POST',
             success:function (data) {
@@ -25,7 +25,7 @@ $(function () {
         }
         $('#japan_review_month').val(month);
         $.ajax({
-            url:$('#japan-form').attr('action'),
+            url:'/babySex/japanCalc/',
             data:$('#japan-form').serialize(),
             type:'POST',
             success:function (data) {
@@ -55,7 +55,7 @@ $(function () {
 function StartCalc() {
     $('#japan_review_month').val($('#JapanCalendarForm_baby_m').val());
     $.ajax({
-        url:$('#japan-form').attr('action'),
+        url:'/babySex/japanCalc/',
         data:$('#japan-form').serialize(),
         type:'POST',
         success:function (data) {

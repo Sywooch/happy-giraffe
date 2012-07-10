@@ -601,7 +601,6 @@ class CommunityCommand extends CConsoleCommand
     {
         Yii::import('site.frontend.extensions.phpQuery.phpQuery');
 
-        $j = 0;
         $k = 0;
 
         $rows = 1;
@@ -628,7 +627,7 @@ class CommunityCommand extends CConsoleCommand
 
                                 Yii::app()->db->createCommand()->update($table, array($field_name => $field_value), 'id=' . $row['id']);
 
-                                $j++;
+                                $k++;
                             } else {
                                 //echo $url . ' is OK' . "\r\n";
                             }
@@ -638,10 +637,8 @@ class CommunityCommand extends CConsoleCommand
                 } catch (Exception $error) {
                 }
             }
-
-            $k++;
         }
-        return $j;
+        return $k;
     }
 
     /**
@@ -718,11 +715,13 @@ class CommunityCommand extends CConsoleCommand
                     if ($changes > 0) {
                         $field_value = $doc->html();
                         Yii::app()->db->createCommand()->update($table, array($field_name => $field_value), 'id=' . $row['id']);
+                        $k++;
                     }
                     $doc->unloadDocument();
                 } catch (Exception $error) {
                 }
-                $k++;
             }
         }
+
+        return $k;
     }

@@ -10,7 +10,8 @@ Yii::app()->clientScript->registerScriptFile($baseUrl . '/japan.js', CClientScri
 Yii::app()->clientScript->registerCss('japan-baby', '.child_sex_japan_banner div.row {display: inline;}
     .child_sex_japan_banner .errorMessage {display: none !important;}');
 
-Yii::app()->clientScript->registerMetaTag('Не верите в то, что отечественные методы работают? Предлагаем вам японский: определение пола ребенка. Введите месяцы рождения отца и матери, затем день и месяц зачатия ребёнка – и получите результат', 'description');
+if (empty($this->meta_description))
+    $this->meta_description = 'Не верите в то, что отечественные методы работают? Предлагаем вам японский: определение пола ребенка. Введите месяцы рождения отца и матери, затем день и месяц зачатия ребёнка – и получите результат';
 
 $form = $this->beginWidget('CActiveForm', array(
     'id' => 'japan-form',

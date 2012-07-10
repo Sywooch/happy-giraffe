@@ -7,7 +7,7 @@ $basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPAR
 $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
 Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js', CClientScript::POS_HEAD);
 
-Yii::app()->clientScript->registerMetaTag('Вы отмечаете ваш женский цикл по старинке – на календарике? Это немодно! Отмечайте свой менструальный цикл на компьютерном календаре и попутно узнавайте много важных нюансов о себе', 'description');
+$this->meta_description = 'Вы отмечаете ваш женский цикл по старинке – на календарике? Это немодно! Отмечайте свой менструальный цикл на компьютерном календаре и попутно узнавайте много важных нюансов о себе';
 ?>
 <div class="mother_cal_banner">
     <span>Менструальный цикл – это биологические часы женщины, запущенные самой природой. Составьте свой женский календарь и проверьте – правильно ли идут ваши часы, а также узнайте массу другой полезной информации.</span>

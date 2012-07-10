@@ -36,8 +36,7 @@
         ->registerScriptFile('/javascripts/jquery.tooltip.pack.js')
     ;
 
-    if (!empty($this->meta_description))
-        $cs->registerMetaTag($this->meta_description, 'description');
+    $cs->registerMetaTag($this->meta_description, 'description');
     if (!empty($this->meta_keywords))
         $cs->registerMetaTag($this->meta_keywords, 'keywords');
 

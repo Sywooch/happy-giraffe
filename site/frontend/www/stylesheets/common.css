@@ -566,7 +566,7 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 #login.popup .reg-link .row span {display:inline-block;height:32px;padding:0 45px;background:#fefeda;font:italic 14px/32px arial, sans-serif;color:#575757;}
 
 
-#register.popup {width:700px;}
+#register.popup {width:700px;padding:20px 50px;}
 
 #register.popup .block-title {color:#aa82d1;font-size:40px;line-height:1;margin-bottom:20px;}
 #register.popup .block-title img {margin-right:10px;}

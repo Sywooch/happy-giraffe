@@ -57,11 +57,14 @@ class CommunityContentGallery extends HActiveRecord
     public function getPhotoCollection()
     {
         $photos = array();
-        foreach($this->items as $model)
+        foreach ($this->items as $model)
         {
-            $model->photo->options['description'] = $model->description;
-            array_push($photos, $model->photo);
+            $model->photo->w_description = $model->description;
+            $photos[] = $model->photo;
         }
-        return $photos;
+        return array(
+            'title' => $this->title,
+            'photos' => $photos,
+        );
     }
 }

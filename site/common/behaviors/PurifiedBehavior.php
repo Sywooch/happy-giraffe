@@ -13,6 +13,8 @@ class PurifiedBehavior extends CActiveRecordBehavior
             'http' => true,
             'https' => true,
         ),
+        'Attr.AllowedFrameTargets' => array('_blank' => true),
+        'Attr.AllowedRel' => array('nofollow' ),
     );
 
     public function __get($name)

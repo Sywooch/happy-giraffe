@@ -26,7 +26,7 @@ class PurifiedBehavior extends CActiveRecordBehavior
                 $purifier = new CHtmlPurifier;
                 $purifier->options = CMap::mergeArray($this->_defaultOptions, $this->options);
                 $value = $purifier->purify($this->getOwner()->$name);
-                $value = $this->wrapNoindex($value);
+                $value = $this->wrapNoindexNofollow($value);
                 Yii::app()->cache->set($cacheId, $value);
             }
             return $value;
@@ -61,7 +61,7 @@ class PurifiedBehavior extends CActiveRecordBehavior
         $owner->detachEventHandler('onAfterSave', array($this, 'clearCache'));
     }
 
-    private function wrapNoindex($text)
+    private function wrapNoindexNofollow($text)
     {
 
         Yii::import('site.frontend.extensions.phpQuery.phpQuery');
@@ -73,10 +73,21 @@ class PurifiedBehavior extends CActiveRecordBehavior
             $url = pq($link)->attr('href');
             $parsed_url = parse_url($url);
 
-            if (isset($parsed_url['host']) and strpos($parsed_url['host'], 'happy-giraffe') === false) {
+            if (isset($parsed_url['host']) and strpos($parsed_url['host'], $_SERVER["HTTP_HOST"]) === false) {
 
                 if (!pq($link)->parent()->is('noindex'))
                     pq($link)->wrap('<noindex></noindex>');
+
+                if (pq($link)->attr('rel') != 'nofollow')
+                    pq($link)->attr('rel', 'nofollow');
+
+                if (pq($link)->attr('target') != '_blank')
+                    pq($link)->attr('target', '_blank');
+
+
+            } else {
+                if (pq($link)->hasAttribute('target'))
+                    pq($link)->removeAttr('target');
             }
         }
 

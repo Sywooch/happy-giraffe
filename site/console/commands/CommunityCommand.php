@@ -725,3 +725,4 @@ class CommunityCommand extends CConsoleCommand
 
         return $k;
     }
+}

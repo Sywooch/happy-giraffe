@@ -1,7 +1,5 @@
 <?php $this->beginContent('//layouts/main'); ?>
 
-    <?php Yii::app()->clientScript->registerMetaTag('', 'description'); ?>
-
     <div class="main">
         <div class="main-in">
 

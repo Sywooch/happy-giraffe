@@ -3,8 +3,8 @@
     <?=$area['title']?>
     <?=$area['height']?> х <?=$area['width']?>
     -- <?=$area['qty']?> шт.
-    <a href="<?php echo CHtml::normalizeUrl(array('paint/removearea', 'id' => $key)); ?>" class="remove" onclick="Paint.AreaDelete($(this).attr('href')); event.preventDefault();">
-        <span class="tip">Убрать</span>
+    <a title="Убрать" href="<?php echo CHtml::normalizeUrl(array('paint/removearea', 'id' => $key)); ?>" class="remove tooltip"
+       onclick="Paint.AreaDelete($(this).attr('href')); event.preventDefault();">
     </a>
 </li>
 <? } ?>

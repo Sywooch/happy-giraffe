@@ -9,7 +9,7 @@
     <?=CHtml::linkTag('shortcut icon', null, '/favicon.bmp')?>
     <?=CHtml::metaTag('text/html; charset=utf-8', NULL, 'Content-Type')?>
     <?php if (!empty($this->meta_title)):?>
-        <title><?=CHtml::encode($this->meta_title)?></title>
+        <title><?=CHtml::encode(trim($this->meta_title))?></title>
     <?php else: ?>
         <title><?=CHtml::encode($this->pageTitle)?></title>
     <?php endif;
@@ -37,9 +37,9 @@
         ->registerScriptFile('/javascripts/jquery.tooltip.pack.js')
     ;
 
-    $cs->registerMetaTag($this->meta_description, 'description');
+    $cs->registerMetaTag(trim($this->meta_description), 'description');
     if (!empty($this->meta_keywords))
-        $cs->registerMetaTag($this->meta_keywords, 'keywords');
+        $cs->registerMetaTag(trim($this->meta_keywords), 'keywords');
 
     if (! Yii::app()->user->isGuest) {
         $cs

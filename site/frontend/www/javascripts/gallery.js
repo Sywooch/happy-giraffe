@@ -79,6 +79,15 @@ jQuery.fn.pGallery = function(options) {
                 $('#photo', this.window).find('.photo-comment .title-text').show().text(pGallery.photos[id].description);
             else
                 $('#photo', this.window).find('.photo-comment .title-text').hide().text('');
+
+            var titleEl = $('.photo-info > .title', this.window);
+            var descriptionEl = $('.photo-comment > p', this.window);
+
+            var title = pGallery.photos[id].title;
+            var description = pGallery.photos[id].description;
+
+            (title == null) ? titleEl.hide() : titleEl.text(title).show();
+            (description == null) ? descriptionEl.hide() : descriptionEl.text(description).show();
         }, 'html');
     };
 

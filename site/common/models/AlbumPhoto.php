@@ -29,6 +29,9 @@ class AlbumPhoto extends HActiveRecord
 
     public $options = array();
 
+    public $w_title = null;
+    public $w_description = null;
+
     /**
      * @var string original photos folder
      */

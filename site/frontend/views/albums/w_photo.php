@@ -4,7 +4,9 @@
      * @var AlbumPhoto $photo
      */
     $collection = $model->photoCollection;
-    $count = count($model->photoCollection);
+    $title = $collection['title'];
+    $photos = $collection['photos'];
+    $count = count($photos);
 ?>
 
 <div id="photo-window-in">
@@ -24,20 +26,21 @@
 
         <div class="photo-info">
             Альбом  «Оформление вторые блюда» - <span class="count">3 фото из 158</span>
-            <div class="title">Жареный картофель с беконом</div>
+            <div class="title"></div>
         </div>
 
     </div>
 
     <script type="text/javascript">
         <?php ob_start(); ?>
-        <?php foreach ($collection as $i => $p): ?>
+        <?php foreach ($photos as $i => $p): ?>
             pGallery.photos[<?php echo $p->primaryKey ?>] = {
-                prev : <?=($i != 0) ? $collection[$i - 1]->primaryKey : 'null'?>,
-                next : <?=($i < $count - 1) ? $collection[$i + 1]->primaryKey : 'null'?>,
+                index : <?=$i + 1?>,
+                prev : <?=($i != 0) ? $photos[$i - 1]->primaryKey : 'null'?>,
+                next : <?=($i < $count - 1) ? $photos[$i + 1]->primaryKey : 'null'?>,
                 src : '<?php echo $p->getPreviewUrl(960, 627, Image::HEIGHT, true); ?>',
-                title : '<?php echo isset($p->title) && $p->title != '' ? $p->title : null ?>',
-                description : <?php echo isset($p->options['description']) ? "'" . $p->options['description'] . "'" : 'null'; ?>,
+                title : <?=$p->w_title?>,
+                description : <?=$p->w_description?>,
                 avatar : '<?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
                     'user' => $p->author,
                     'size' => 'small',

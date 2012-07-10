@@ -722,8 +722,6 @@ class CommunityCommand extends CConsoleCommand
             }
 
             $k++;
-            if ($k > 1)
-                Yii::app()->end();
         }
     }
 }

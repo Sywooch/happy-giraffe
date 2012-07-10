@@ -56,7 +56,7 @@
 </head>
 <body class="body-club" onload="if (typeof(ODKL) !== 'undefined') ODKL.init();">
 <?php if (Yii::app()->user->checkAccess('editMeta')):?>
-    <a style="display: none;" href="/ajax/editMeta/?route=<?=urlencode(Yii::app()->controller->route) ?>&params=<?=urlencode(serialize(Yii::app()->controller->actionParams)) ?>" class="fancy">meta</a>
+    <a id="btn-seo" href="/ajax/editMeta/?route=<?=urlencode(Yii::app()->controller->route) ?>&params=<?=urlencode(serialize(Yii::app()->controller->actionParams)) ?>" class="fancy" data-theme="white-square"></a>
 <?php endif ?>
     <div id="layout" class="wrapper">
 

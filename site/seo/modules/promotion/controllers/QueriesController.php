@@ -59,7 +59,7 @@ class QueriesController extends SController
 
         $count = Page::model()->count($criteria);
         $pages = new CPagination($count);
-        $pages->setPageSize(100);
+        $pages->setPageSize(20);
         $pages->applyLimit($criteria);
 
         $models = Page::model()->findAll($criteria);

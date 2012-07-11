@@ -30,6 +30,10 @@ class CommunityVideo extends HActiveRecord
 				'attributes' => array('text'),
 				'edit_routes' => array('community/edit'),
 			),
+            'purified' => array(
+                'class' => 'site.common.behaviors.PurifiedBehavior',
+                'attributes' => array('text'),
+            ),
 		);
 	}
 
@@ -56,7 +60,7 @@ class CommunityVideo extends HActiveRecord
 			array('content_id', 'numerical', 'integerOnly' => true), 
 			array('content_id', 'exist', 'attributeName' => 'id', 'className' => 'CommunityContent'),	
 			
-			array('text', 'filter', 'filter' => array('Filters', 'add_nofollow')),
+			//array('text', 'filter', 'filter' => array('Filters', 'add_nofollow')),
 			
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.

@@ -5,7 +5,7 @@ $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG
 Yii::app()->clientScript
     ->registerScriptFile($baseUrl . '/script.js', CClientScript::POS_HEAD)
     ->registerCssFile('/stylesheets/baby.css');
-Yii::app()->clientScript->registerMetaTag('Познакомьтесь с нашим новым сервисом, который называется Народная медицина: рецепты наших пользователей. Здесь вы можете найти проверенные народные рецепты от разных болезней и поделиться своими', 'description');
+$this->meta_description = 'Познакомьтесь с нашим новым сервисом, который называется Народная медицина: рецепты наших пользователей. Здесь вы можете найти проверенные народные рецепты от разных болезней и поделиться своими';
 ?>
 <div id="baby">
     <div class="inner">

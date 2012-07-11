@@ -11,6 +11,6 @@
             </button>
         </div>
         <a href="javascript:void(0);" onclick="Morniing.editField(this)"
-           class="edit"<?php if (empty($photo->text)) echo ' style="display:none;"' ?>><span class="tip">Редактировать текст</span></a>
+           class="edit tooltip"<?php if (empty($photo->text)) echo ' style="display:none;"' ?> title="Редактировать текст"></a>
     </div>
 </div>

@@ -18,7 +18,7 @@ Yii::app()->clientScript->registerCss('signup', $css_signup)->registerScriptFile
                     <span>Войти с помощью<br/>социальной сети</span>
 
                     <div class="fast-login socials socials-inline">
-                        <?php Yii::app()->eauth->renderWidget(array('action' => 'signup/index')); ?>
+                        <?php Yii::app()->eauth->renderWidget(array('action' => 'signup/')); ?>
                     </div>
 
                 </div>
@@ -141,39 +141,7 @@ Yii::app()->clientScript->registerCss('signup', $css_signup)->registerScriptFile
                 </ul>
                 <?php echo $form->hiddenField($model, 'gender'); ?>
             </div>
-            <!--<div class="members-count">
-                <big>У Вас есть дети?</big>
 
-                <ul>
-                    <li>
-                        <div class="img"><span class="valign"></span><img src="/images/age_01.gif" /></div>
-                        <div class="age-title">ждем ребенка</div>
-                        <div class="controls"><?php echo CHtml::checkBox('age_group[0]', false, array('value' => 1, 'uncheckValue' => 0)); ?></div>
-                    </li>
-                    <li>
-                        <div class="img"><span class="valign"></span><img src="/images/age_02.gif" /></div>
-                        <div class="age-title"><b>0-1</b></div>
-                        <div class="controls"><a class="dec"></a><?php echo CHtml::textField('age_group[]', '0'); ?><a class="inc"></a></div>
-                    </li>
-                    <li>
-                        <div class="img"><span class="valign"></span><img src="/images/age_03.gif" /></div>
-                        <div class="age-title"><b>1-3</b></div>
-                        <div class="controls"><a class="dec"></a><?php echo CHtml::textField('age_group[]', '0'); ?><a class="inc"></a></div>
-                    </li>
-                    <li>
-                        <div class="img"><span class="valign"></span><img src="/images/age_04.gif" /></div>
-                        <div class="age-title"><b>3-7</b></div>
-                        <div class="controls"><a class="dec"></a><?php echo CHtml::textField('age_group[]', '0'); ?><a class="inc"></a></div>
-                    </li>
-                    <li>
-                        <div class="img"><span class="valign"></span><img src="/images/age_05.gif" /></div>
-                        <div class="age-title"><b>3-7</b></div>
-                        <div class="controls"><a class="dec"></a><?php echo CHtml::textField('age_group[]', '0'); ?><a class="inc"></a></div>
-                    </li>
-
-
-                </ul>
-            </div>-->
         </div>
 
         <div class="form-bottom">

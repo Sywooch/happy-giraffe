@@ -69,14 +69,7 @@ $cs
         </div>
         <div class="form row-form clearfix">
 
-            <?php if (Yii::app()->user->checkAccess('editMeta')): ?>
-            <div class="row clearfix">
-                <div class="row-title"><?php echo $form->label($model, 'meta_title'); ?>:</div>
-                <div class="row-elements">
-                    <?php echo $form->textField($model, 'meta_title', array('class' => 'w-500')); ?>
-                </div>
-            </div>
-
+            <?php if (Yii::app()->user->checkAccess('editor')): ?>
             <div class="row clearfix">
                 <div class="row-title"><?php echo $form->label($model, 'by_happy_giraffe'); ?>:</div>
                 <div class="row-elements">

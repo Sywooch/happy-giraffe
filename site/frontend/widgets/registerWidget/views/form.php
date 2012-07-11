@@ -1,6 +1,7 @@
 <?php
 /**
  * @var $form CActiveForm
+ * @var $show_form bool
  */
 
 if (Yii::app()->controller->registerUserData !== null){
@@ -8,8 +9,12 @@ if (Yii::app()->controller->registerUserData !== null){
     $regdata = Yii::app()->controller->registerUserData;
     $model = Yii::app()->controller->registerUserModel;
 }elseif(Yii::app()->user->getState('comes_from_social') == 'odnoklassniki'){
-    Yii::app()->clientScript->registerScript('reg23','Register.showSocialStep2();');
+    Yii::app()->clientScript->registerScript('reg_comes_from_social','Register.showSocialStep2();');
 }
+
+if ($show_form)
+    Yii::app()->clientScript->registerScript('reg_show_window','Register.showRegisterWindow();');
+
 ?>
 <div style="display:none">
     <div id="register" class="popup">

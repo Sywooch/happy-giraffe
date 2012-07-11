@@ -35,15 +35,7 @@ $('.close').click(function () {
     		<div class="inner-title">Заголовок видео</div>
     		<?php echo $form->textField($content_model, 'title'); ?>
 
-    		<?php if(Yii::app()->user->checkAccess('edit meta')): ?>
-    			<div class="inner-title">Title</div>
-    			<?php echo $form->textField($content_model, 'meta_title'); ?>
-
-    			<div class="inner-title">Description</div>
-    			<?php echo $form->textField($content_model, 'meta_description'); ?>
-
-    			<div class="inner-title">Keywords</div>
-    			<?php echo $form->textField($content_model, 'meta_keywords'); ?>
+    		<?php if(Yii::app()->user->checkAccess('editor')): ?>
 
     			<?php echo $form->checkbox($content_model, 'by_happy_giraffe'); ?> От Веселого Жирафа
 

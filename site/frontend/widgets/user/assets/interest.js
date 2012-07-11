@@ -2,12 +2,14 @@ var Interest = {
 
 };
 
-Interest.changeCategory = function(link) {
-    $(link).parent().addClass('active').siblings().removeClass('active');
-    var index = $(link).parent().index();
-    $('#interestsEdit').find('.interests-list ul.active').removeClass('active');
-    $('#interestsEdit').find('.interests-list ul:eq('+index+')').addClass('active');
-    return false;
+Interest.changeCategory = function(el) {
+    if (! $(el).parent().hasClass('active')) {
+        $(el).parent().addClass('active').siblings('.active').removeClass('active');
+
+        var index = $(el).parent().index();
+        $('#interestsManage .interests-drag-list:visible').hide();
+        $('#interestsManage .interests-drag-list:eq(' + index + ')').show();
+    }
 };
 
 Interest.checkItem = function(elem) {
@@ -23,3 +25,5 @@ Interest.save = function(form) {
     });
     return false;
 }
+
+

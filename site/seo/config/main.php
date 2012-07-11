@@ -31,6 +31,7 @@ return array(
         'competitors',
         'writing',
         'promotion',
+        'admin',
     ),
     'components' => array(
         'user' => array(

@@ -16,7 +16,8 @@ var Converter = {
                 $.each(data, function (index, uid) {
                     $('.drp-list ul li[data-id="' + uid + '"]').show();
                 });
-            }
+            },
+            'json'
         );
 
         $('.trigger.from').attr('data-id', ui.item.unit_id);
@@ -70,7 +71,8 @@ var Converter = {
             $("#converter-form").serialize(),
             function (data) {
                 $('.value.current').text(data);
-            }
+            },
+            'json'
         );
     },
 

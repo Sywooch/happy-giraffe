@@ -3,7 +3,7 @@
 $basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR;
 $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
 Yii::app()->clientScript->registerScriptFile($baseUrl . '/loopCalculator.js', CClientScript::POS_HEAD);
-Yii::app()->clientScript->registerMetaTag('Вы точно знаете, сколько сантиметров имеет в ширину ваше изделие, но не уверены, сколько нужно набрать петель на спицы? Для вас – специальный сервис, который легко произведёт расчет петель, и вы сможете быстро начать вязание', 'description');
+$this->meta_description = 'Вы точно знаете, сколько сантиметров имеет в ширину ваше изделие, но не уверены, сколько нужно набрать петель на спицы? Для вас – специальный сервис, который легко произведёт расчет петель, и вы сможете быстро начать вязание';
 
 $model = new LoopCalculationForm();
 ?><div class="right_block">

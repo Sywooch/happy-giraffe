@@ -1,29 +1,32 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" xmlns:fb="http://ogp.me/ns/fb#">
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!--[if lt IE 7]> <html xmlns="http://www.w3.org/1999/xhtml"> <![endif]-->
 <!--[if IE 7]>    <html xmlns="http://www.w3.org/1999/xhtml" class="ie7"> <![endif]-->
-<!--[if gt IE 7]><!--> <html xmlns="http://www.w3.org/1999/xhtml"> <!--<![endif]-->
+<!--[if gt IE 7]><!--> <html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://ogp.me/ns/fb#"> <!--<![endif]-->
 <head>
     <?php if ($this->rssFeed !== null): ?>
         <?=CHtml::linkTag('alternate', 'application/rss+xml', $this->rssFeed)?>
     <?php endif; ?>
     <?=CHtml::linkTag('shortcut icon', null, '/favicon.bmp')?>
     <?=CHtml::metaTag('text/html; charset=utf-8', NULL, 'Content-Type')?>
-    <title><?=CHtml::encode($this->pageTitle)?></title>
+    <?php if (!empty($this->meta_title)):?>
+        <title><?=CHtml::encode(trim($this->meta_title))?></title>
+    <?php else: ?>
+        <title><?=CHtml::encode($this->pageTitle)?></title>
+    <?php endif;
 
-    <?php
+    $release_id = 325;
     $cs = Yii::app()->clientScript;
-
     $cs
         ->registerScriptFile('/javascripts/comet.js')
         ->registerScriptFile('/javascripts/dklab_realplexor.js')
         ->registerScript('Realplexor-reg', 'comet.connect(\'http://' . Yii::app()->comet->host . '\', \'' . Yii::app()->comet->namespace . '\', \'' . UserCache::GetCurrentUserCache() . '\');')
 
-        ->registerCssFile('/stylesheets/common.css?r=351')
-        ->registerCssFile('/stylesheets/global.css?r=351')
+        ->registerCssFile('/stylesheets/common.css?r='.$release_id)
+        ->registerCssFile('/stylesheets/global.css?r='.$release_id)
         ->registerCssFile('/stylesheets/ie.css', 'screen')
         ->registerCoreScript('jquery')
         ->registerCssFile('/stylesheets/jquery.fancybox-1.3.4.css')
-        ->registerScriptFile('/javascripts/jquery.fancybox-1.3.4.pack.js')
+        ->registerScriptFile('/javascripts/jquery.fancybox-1.3.4.pack.js?r='.$release_id)
         ->registerScriptFile('/javascripts/jquery.iframe-post-form.js')
         ->registerScriptFile('/javascripts/jquery.placeholder.min.js')
         ->registerScriptFile('/javascripts/chosen.jquery.min.js')
@@ -31,7 +34,12 @@
         ->registerScript('base_url', 'var base_url = \'' . Yii::app()->baseUrl . '\';', CClientScript::POS_HEAD)
         ->registerScriptFile('/javascripts/common.js')
         ->registerScriptFile('/javascripts/base64.js')
+        ->registerScriptFile('/javascripts/jquery.tooltip.pack.js')
     ;
+
+    $cs->registerMetaTag(trim($this->meta_description), 'description');
+    if (!empty($this->meta_keywords))
+        $cs->registerMetaTag(trim($this->meta_keywords), 'keywords');
 
     if (! Yii::app()->user->isGuest) {
         $cs
@@ -48,6 +56,9 @@
     ?>
 </head>
 <body class="body-club" onload="if (typeof(ODKL) !== 'undefined') ODKL.init();">
+<?php if (Yii::app()->user->checkAccess('editMeta')):?>
+    <a id="btn-seo" href="/ajax/editMeta/?route=<?=urlencode(Yii::app()->controller->route) ?>&params=<?=urlencode(serialize(Yii::app()->controller->actionParams)) ?>" class="fancy" data-theme="white-square"></a>
+<?php endif ?>
     <div id="layout" class="wrapper">
 
         <div id="header-new" class="<?php if (Yii::app()->user->isGuest): ?>guest <?php endif; ?>clearfix">
@@ -165,7 +176,7 @@
 
                     <div class="banner-box">
                         <?php if (! Yii::app()->user->isGuest): ?>
-                            <a href="<?=$this->createUrl('/contest/view', array('id' => 1)) ?>"><img src="/images/banner_02.png" /></a>
+                            <a href="<?=$this->createUrl('/contest/default/view', array('id' => 1)) ?>"><img src="/images/banner_02.png" /></a>
                         <?php else: ?>
                             <?=HHtml::link(CHtml::image('/images/banner_06.png'), $this->createUrl('/signup'), array(), true)?>
                         <?php endif; ?>
@@ -174,7 +185,7 @@
                 </div>
 
                 <div class="nav">
-                    <ul class="width-2 clearfix">
+                    <ul class="clearfix">
                         <?php if (false): ?>
                             <li class="morning">
                                 <a href="<?=$this->createUrl('/morning/index') ?>"><i class="text"></i></a>
@@ -182,13 +193,13 @@
                         <?php endif; ?>
                         <li class="kids navdrp">
                             <a href="javascript:void(0);" onclick="navDrpOpen(this);"><i class="text"></i></a>
-        
+
                             <div class="drp">
                                 <div class="in">
-        
+
                                     <ul class="cols cols-5">
                                         <li class="col">
-        
+
                                             <div class="col-in bg-img-11">
                                                 <div class="title">Беременность и роды</div>
                                                 <ul>
@@ -197,10 +208,10 @@
                                                     <li><a href="<?= Yii::app()->createUrl('/community/list', array('community_id' => 3))?>">Подготовка и роды</a></li>
                                                 </ul>
                                             </div>
-        
+
                                         </li>
                                         <li class="col">
-        
+
                                             <div class="col-in bg-img-12">
                                                 <div class="title">Дети до года</div>
                                                 <ul>
@@ -210,10 +221,10 @@
                                                     <li><a href="<?= Yii::app()->createUrl('/community/list', array('community_id' => 7))?>">Режим и уход</a></li>
                                                 </ul>
                                             </div>
-        
+
                                         </li>
                                         <li class="col">
-        
+
                                             <div class="col-in bg-img-13">
                                                 <div class="title">Дети старше года</div>
                                                 <ul>
@@ -223,10 +234,10 @@
                                                     <li><a href="<?= Yii::app()->createUrl('/community/list', array('community_id' => 11))?>">Психология и воспитание</a></li>
                                                 </ul>
                                             </div>
-        
+
                                         </li>
                                         <li class="col">
-        
+
                                             <div class="col-in bg-img-14">
                                                 <div class="title">Дошкольники</div>
                                                 <ul>
@@ -235,10 +246,10 @@
                                                     <li><a href="<?= Yii::app()->createUrl('/community/list', array('community_id' => 14))?>">Игры и развлечения</a></li>
                                                 </ul>
                                             </div>
-        
+
                                         </li>
                                         <li class="col">
-        
+
                                             <div class="col-in bg-img-15">
                                                 <div class="title">Школьники</div>
                                                 <ul>
@@ -248,20 +259,20 @@
                                                     <li><a href="<?= Yii::app()->createUrl('/community/list', array('community_id' => 18))?>">Подростковая психология</a></li>
                                                 </ul>
                                             </div>
-        
+
                                         </li>
-        
+
                                     </ul>
-        
+
                                 </div>
                             </div>
                         </li>
                         <li class="manwoman navdrp">
                             <a href="javascript:void(0);" onclick="navDrpOpen(this);"><i class="text"></i></a>
-        
+
                             <div class="drp">
                                 <div class="in">
-        
+
                                     <ul class="cols cols-2">
                                         <li class="col wedding">
                                             <a class="big-link bg-img-21" href="<?= Yii::app()->createUrl('/community/list', array('community_id' => 32))?>">
@@ -283,16 +294,16 @@
                                             </div>
                                         </li>
                                     </ul>
-        
+
                                 </div>
                             </div>
                         </li>
                         <li class="beauty navdrp">
                             <a href="javascript:void(0);" onclick="navDrpOpen(this);"><i class="text"></i></a>
-        
+
                             <div class="drp">
                                 <div class="in">
-        
+
                                     <ul class="cols cols-3">
                                         <li class="col">
                                             <a class="big-link bg-img-31" href="<?= Yii::app()->createUrl('/community/list', array('community_id' => 29))?>">
@@ -313,16 +324,16 @@
                                             </a>
                                         </li>
                                     </ul>
-        
+
                                 </div>
                             </div>
                         </li>
                         <li class="home navdrp">
                             <a href="javascript:void(0);" onclick="navDrpOpen(this);"><i class="text"></i></a>
-        
+
                             <div class="drp">
                                 <div class="in">
-        
+
                                     <ul class="cols cols-5">
                                         <li class="col">
                                             <a class="big-link bg-img-41" href="<?= Yii::app()->createUrl('/community/list', array('community_id' => 22))?>">
@@ -355,16 +366,16 @@
                                             </a>
                                         </li>
                                     </ul>
-        
+
                                 </div>
                             </div>
                         </li>
                         <li class="hobbies navdrp">
                             <a href="javascript:void(0);" onclick="navDrpOpen(this);"><i class="text"></i></a>
-        
+
                             <div class="drp">
                                 <div class="in">
-        
+
                                     <ul class="cols cols-4">
                                         <li class="col">
                                             <a class="big-link bg-img-51" href="<?= Yii::app()->createUrl('/community/list', array('community_id' => 24))?>">
@@ -391,17 +402,17 @@
                                             </a>
                                         </li>
                                     </ul>
-        
-        
+
+
                                 </div>
                             </div>
                         </li>
                         <li class="rest navdrp">
                             <a href="javascript:void(0);" onclick="navDrpOpen(this);"><i class="text"></i></a>
-        
+
                             <div class="drp">
                                 <div class="in">
-        
+
                                     <ul class="cols cols-3">
                                         <li class="col">
                                             <a class="big-link bg-img-61" href="<?= Yii::app()->createUrl('/community/list', array('community_id' => 19))?>">
@@ -422,10 +433,11 @@
                                             </a>
                                         </li>
                                     </ul>
-        
+
                                 </div>
                             </div>
                         </li>
+                        <li class="fday"><a href="<?=$this->createUrl('/community/view', array('community_id' => 20, 'content_type_slug' => 'post', 'content_id' => 23151))?>"><i class="text"></i></a></li>
                     </ul>
                 </div>
 

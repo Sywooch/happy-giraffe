@@ -19,27 +19,17 @@
 	<script type="text/javascript" src="/javascripts/jquery.jcarousel.control.js"></script>
 	
 	<link rel="stylesheet" type="text/css" href="/stylesheets/jquery.fancybox-1.3.4.css" />
-	<script type="text/javascript" src="/javascripts/jquery.fancybox-1.3.4.pack.js"></script>
+	<script type="text/javascript" src="/javascripts/jquery.fancybox-1.3.4.js"></script>
 	
 	<script type="text/javascript" src="/javascripts/common.js"></script>
 	
 	<script>
 		$(function(){
 			
-			$('.tooltip').tooltip({
-				delay: 100,
-				track: false,
-				showUrl: false,
-				showBody: false,
-			});
-			
-			
 			carousel = $('#photo-thumbs .jcarousel').jcarousel();			
 			
 			$('#photo-thumbs .prev').jcarouselControl({target: '-=1',carousel: carousel});
 			$('#photo-thumbs .next').jcarouselControl({target: '+=1',carousel: carousel});
-			
-			
 			
 		})
 		
@@ -222,9 +212,10 @@
 				
 				<div class="nav">
 					<ul class="clearfix">
-						<li class="morning">
+						<!--<li class="morning">
 							<a href=""><i class="text"></i></a>
-						</li>
+						</li>-->
+            <li class="fday"><a href=""><i class="text"></i></a></li>
 						<li class="kids navdrp">
 							<a href="javascript:void(0);" onclick="navDrpOpen(this);"><i class="text"></i></a>
 							<div class="drp">
@@ -510,7 +501,8 @@
 	</div>
 	
 	<div style="display:none">
-		<div id="login" class="popup">
+		
+    <div id="login" class="popup">
 			
 			<a href="javascript:void(0);" onclick="$.fancybox.close();" class="popup-close"><span class="tip">Закрыть</span></a>
 			
@@ -563,6 +555,154 @@
 			
 		</div>
 		
+    <div id="seo_tags" class="popup">
+      
+      <a href="javascript:void(0);" class="popup-close tooltip" title="Закрыть окно" onclick="$.fancybox.close();"></a>
+      
+      <div class="block-title">
+        Мета-теги
+        <span>8 июля - День семьи, любви и верности</span>
+      </div>
+      
+      <div class="clearfix">
+        
+        <div class="pagination">
+          <ul>
+            <li class="page selected"><a href="">1</a></li>
+            <li class="page"><a href="">2</a></li>
+            <li class="page"><a href="">3</a></li>
+          </ul>
+        </div>
+        
+        <div class="seo-table table-result table-promotion">
+          
+          <div class="table-box">
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2" class="col-1">Ключевые слова и фразы</th>
+                  <th colspan="3"><i class="icon-yandex"></i></th>
+                  <th colspan="2"><i class="icon-google"></i></th>
+                  <th rowspan="2">Общие визиты</th>
+                </tr>
+                <tr>
+                  <th>Частота</th>
+                  <th>Позиции</th>
+                  <th>Визиты</th>
+                  <th>Позиции</th>
+                  <th>Визиты</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="col-1" width="50%">кесарева сечение</td>
+                  <td>1025</td>
+                  <td>5</td>
+                  <td>540</td>
+                  <td>5</td>
+                  <td>540</td>
+                  <td>1025</td>              
+                </tr>
+                <tr>
+                  <td class="col-1">кесарева сечение</td>
+                  <td>1025</td>
+                  <td>5</td>
+                  <td>540</td>
+                  <td>5</td>
+                  <td>540</td>
+                  <td>1025</td>              
+                </tr>
+                <tr>
+                  <td class="col-1">кесарева сечение</td>
+                  <td>1025</td>
+                  <td>5</td>
+                  <td>540</td>
+                  <td>5</td>
+                  <td>540</td>
+                  <td>1025</td>              
+                </tr>
+                <tr>
+                  <td class="col-1">кесарева сечение</td>
+                  <td>1025</td>
+                  <td>5</td>
+                  <td>540</td>
+                  <td>5</td>
+                  <td>540</td>
+                  <td>1025</td>              
+                </tr>
+                <tr>
+                  <td class="col-1">кесарева сечение</td>
+                  <td>1025</td>
+                  <td>5</td>
+                  <td>540</td>
+                  <td>5</td>
+                  <td>540</td>
+                  <td>1025</td>              
+                </tr>
+                <tr>
+                  <td class="col-1">кесарева сечение</td>
+                  <td>1025</td>
+                  <td>5</td>
+                  <td>540</td>
+                  <td>5</td>
+                  <td>540</td>
+                  <td>1025</td>              
+                </tr>
+                <tr>
+                  <td class="col-1">кесарева сечение</td>
+                  <td>1025</td>
+                  <td>5</td>
+                  <td>540</td>
+                  <td>5</td>
+                  <td>540</td>
+                  <td>1025</td>              
+                </tr>
+                
+              </tbody>
+              
+            </table>
+          </div>
+          
+        </div>
+      
+        
+      </div>
+      
+      <form class="seo-tags">
+        
+        <div class="row clearfix">
+          <div class="row-title"><label>Title:</label></div>
+          <div class="row-elements">
+            <input type="text" value="День семьи и верности" />
+          </div>
+        </div>
+        
+        <div class="row clearfix">
+          <div class="row-title"><label>Keywords:</label></div>
+          <div class="row-elements">
+            <input type="text" value="День семьи и верности" />
+          </div>
+        </div>
+        
+        <div class="row clearfix">
+          <div class="row-title"><label>Description:</label></div>
+          <div class="row-elements">
+            <textarea>Семья – самое важное в жизни человека. Семья дает человеку любовь, уважение,
+солидарность, привязанность, то без чего не бывает ни одно общество, без чего не может
+человек.</textarea>
+          </div>
+        </div>
+        
+        <div class="row row-btn">
+          <input type="submit" />
+        </div>
+        
+      </form>
+      
+    </div>
+    
+    
+    
 	</div>
 	
 	<div id="photo-window-bg" style="display:none;"></div>
@@ -814,5 +954,8 @@
 		
 	</div>
 	
+  <a id="btn-seo" href="#seo_tags" class="fancy" data-theme='white-square'></a>
+  
+  
 </body>
 </html>

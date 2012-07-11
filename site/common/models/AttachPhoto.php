@@ -85,11 +85,11 @@ class AttachPhoto extends HActiveRecord
                 }
                 if($type != 0)
                 {
-                    $album = Album::model()->findByAttributes(array('author_id' => Yii::app()->user->id, 'type' => $type));
+                    $album = Album::model()->findByAttributes(array('author_id' => $this->photo->author_id, 'type' => $type));
                     if(!$album)
                     {
                         $album = new Album;
-                        $album->author_id = Yii::app()->user->id;
+                        $album->author_id = $this->photo->author_id;
                         $album->type = $type;
                         $album->title = Album::$systems[$type];
                         $album->save();
@@ -101,7 +101,7 @@ class AttachPhoto extends HActiveRecord
         }
     }
 
-    public function getContent(){
-        return $this->photo->getCommentContent();
+    public function getContent($full_size = false){
+        return $this->photo->getCommentContent($full_size);
     }
 }

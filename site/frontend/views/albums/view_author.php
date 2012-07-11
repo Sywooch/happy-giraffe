@@ -5,15 +5,14 @@
                 <div class="title">
                     <big>
                         Альбом <span>&laquo;<span class="album_title"><?php echo CHtml::encode($model->title); ?></span>&raquo;</span>
-                        <?php echo CHtml::link('<span class="tip">Редактировать</span>', 'javascript:;', array('class' => 'edit', 'onclick' => 'return Album.changeTitle(this, ' . $model->id . ');')); ?>
+                        <?php echo CHtml::link('', 'javascript:;', array('class' => 'edit tooltip', 'title' => 'Редактировать', 'onclick' => 'return Album.changeTitle(this, ' . $model->id . ');')); ?>
                         <?php if(0 && $model->isNotSystem): ?>
                             <div class="visibility-picker">
-                                <a onclick="albumVisibilityListToggle(this)" class="album-visibility" href="javascript:void(0);">
+                                <a onclick="albumVisibilityListToggle(this)" class="album-visibility tooltip" href="javascript:void(0);" title="Кому показывать">
                                     <?php
                                     for($i = 3; $i > $model->permission; $i--)
                                         echo '<span></span>';
                                     ?>
-                                    <span class="tip">Кому показывать</span>
                                 </a>
                                 <div class="visibility-list">
                                     <div class="tale"></div>
@@ -44,12 +43,12 @@
                     <div class="note">
                         <?php if($model->description && trim($model->description) != ''): ?>
                             <div class="fast-actions">
-                                <?php echo CHtml::link('<span class="tip">Редактировать</span>', array('/albums/editDescription', 'id' => $model->id), array('class' => 'edit', 'onclick' => 'return Album.editDescription(this);')); ?>
+                                <?php echo CHtml::link('', array('/albums/editDescription', 'id' => $model->id), array('class' => 'edit tooltip', 'title'=>'Редактировать', 'onclick' => 'return Album.editDescription(this);')); ?>
                             </div>
                             <p><?php echo CHtml::encode($model->description); ?></p>
                         <?php else: ?>
                             <div class="fast-actions">
-                                <?php echo CHtml::link('<span class="tip">Написать комментарий</span>', array('/albums/editDescription', 'id' => $model->id), array('class' => 'add', 'onclick' => 'return Album.editDescription(this);')); ?>
+                                <?php echo CHtml::link('', array('/albums/editDescription', 'id' => $model->id), array('class' => 'add tooltip', 'title'=>'Написать комментарий', 'onclick' => 'return Album.editDescription(this);')); ?>
                             </div>
                         <?php endif; ?>
                     </div>

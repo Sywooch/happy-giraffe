@@ -1,5 +1,5 @@
 <?php if (Yii::app()->user->isGuest): ?>
-<?php echo CHtml::link('<span class="tip">Написать сообщение</span>', '#login', array('class' => 'new-message fancy')); ?>
+<?php echo CHtml::link('', '#login', array('class' => 'new-message fancy tooltip', 'title'=>'Написать сообщение')); ?>
 <?php else: ?>
-<?php echo CHtml::link('<span class="tip">Написать сообщение</span>', $user->getDialogUrl(), array('class' => 'new-message')); ?>
+<?php echo CHtml::link('', $user->getDialogUrl(), array('class' => 'new-message tooltip', 'title'=>'Написать сообщение')); ?>
 <?php endif ?>

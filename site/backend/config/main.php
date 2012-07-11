@@ -30,11 +30,13 @@ return array(
         'site.common.models.interest.*',
         'site.frontend.modules.cook.models.*',
         'site.frontend.modules.scores.models.*',
-        'site.frontend.modules.services.modules.recipeBook.models.*'
+        'site.frontend.modules.services.modules.recipeBook.models.*',
+        'site.frontend.modules.services.modules.test.models.*'
     ),
     'modules'=>array(
         'seo',
-        'mail'
+        'mail',
+        'club'
     ),
 	'components' => array(
         'widgetFactory' => array(

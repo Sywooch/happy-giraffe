@@ -123,7 +123,11 @@ class CommunityContent extends HActiveRecord
                 'class' => 'zii.behaviors.CTimestampBehavior',
                 'createAttribute' => 'created',
                 'updateAttribute' => 'updated',
-            )
+            ),
+            'purified' => array(
+                'class' => 'site.common.behaviors.PurifiedBehavior',
+                'attributes' => array( 'preview'),
+            ),
         );
     }
 
@@ -419,7 +423,7 @@ class CommunityContent extends HActiveRecord
                     'travel',
                     'commentsCount',
                     'contentAuthor' => array(
-                        'select' => 'id, first_name, last_name, avatar_id, online',
+                        'select' => 'id, first_name, last_name, avatar_id, online, blocked, deleted',
                     ),
                 ),
             ),

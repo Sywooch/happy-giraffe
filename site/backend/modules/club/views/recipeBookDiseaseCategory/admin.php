@@ -1,4 +1,4 @@
-<h1>Manage Recipe Book Disease Categories</h1>
+<h1>Болезни - категории</h1>
 
  <?php echo CHtml::link('создать', array('RecipeBookDiseaseCategory/create')) ?><?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'recipe-book-disease-category-grid',

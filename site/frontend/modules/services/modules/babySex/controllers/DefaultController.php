@@ -17,6 +17,7 @@ class DefaultController extends HController
     public function actionIndex()
     {
         $this->pageTitle = 'Определение пола ребенка';
+        Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
         $this->render('index');
     }
 

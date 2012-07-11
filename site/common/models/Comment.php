@@ -138,7 +138,7 @@ class Comment extends HActiveRecord
             ),
             'purified' => array(
                 'class' => 'site.common.behaviors.PurifiedBehavior',
-                'attributes' => array('text'),
+                'attributes' => array('text', 'preview'),
             ),
         );
     }

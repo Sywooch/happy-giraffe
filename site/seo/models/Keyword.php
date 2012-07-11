@@ -178,7 +178,7 @@ class Keyword extends HActiveRecord
             if (!empty($group->page))
                 return false;
 
-            if ($group->newTaskCount > 0)
+            if ($group->taskCount > 0)
                 return true;
         }
 

@@ -1,4 +1,4 @@
- <?php echo CHtml::link('К таблице', array('Site/admin')) ?><div class="form">
+ <?php echo CHtml::link('К таблице', array('/admin/site/admin')) ?><div class="form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'site-form',

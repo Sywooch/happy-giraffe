@@ -205,9 +205,12 @@ class PagesSearchPhrase extends HActiveRecord
     public function getPositionsArray($se)
     {
         $se_positions = array();
-        foreach ($this->positions as $position)
+        foreach ($this->positions as $position){
             if ($position->se_id == $se)
                 $se_positions[] = $position;
+            if (count($se_positions) >= 10)
+                break;
+        }
         return $se_positions;
     }
 }

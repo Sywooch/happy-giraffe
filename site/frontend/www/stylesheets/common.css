@@ -172,7 +172,7 @@ a.info {display:inline-block;width:13px;height:13px;background:url(../images/com
 .user-info .details .birthday span {color:#aeaeae;}
 .user-info .details .date {color:#b3b3b3;font-size:9px;margin-top:3px;margin-left:15px;}
 
-.user-info .text-status {clear:both;margin-top:15px;background:#fdfacf;position:relative;padding:10px 15px;font:italic 13px/16px times new roman, serif;color:#5b5c5c;margin-bottom:50px;}
+.user-info .text-status {clear:both;margin-top:15px;background:#fdfacf;position:relative;padding:10px 15px;font:italic 13px/16px times new roman, serif;color:#5b5c5c;margin-bottom:25px;}
 .user-info .text-status {/*css3*/ -moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px;}
 .user-info .text-status .tale {display:block;width:21px;height:30px;background:url(/images/common.png) no-repeat -424px -261px;position:absolute;top:-30px;left:20px;}
 
@@ -1724,6 +1724,8 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 #content .club-topics-list-new ul li.active a {text-decoration:none;}
 #content .club-topics-list-new ul li.active .count {font-size:20px;color:#474747;}
 
+.add-post-btn {margin-bottom:30px;}
+
 
 #content .recent-topics {margin-bottom:20px;padding:15px 20px;border:1px solid #d8f1ff;}
 #content .recent-topics .title {font-weight:bold;color:#666666;font-size:16px;}
@@ -1947,15 +1949,15 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 
 
 .default-nav ul {overflow:hidden;list-style:none;}
-.default-nav ul li {display:inline-block;padding:0 10px 15px;height:24px;line-height:24px;width:70px;text-align:center;position:relative;}
+.default-nav ul li {display:inline-block;padding:0 10px;height:24px;line-height:24px;text-align:center;position:relative;}
 .default-nav ul li a {height:16px;line-height:16px;display:inline-block;color:#029ad2;margin:4px 0;}
 .default-nav.ajax-nav ul li a {border-bottom:1px dashed #029ad2;text-decoration:none;}
 .default-nav ul li a:hover {border:0;text-decoration:none;}
 .default-nav ul li.active {background:#f1e4fd;}
-.default-nav ul li.active:after {display:block;content:'';position:absolute;left:0;bottom:0;width:90px;height:11px;background:url(/images/default_nav_active.gif) no-repeat;}
 .default-nav ul li.active a {border:0;cursor:default;text-decoration:none;}
 .default-nav ul li a.remove {width:12px;height:14px;background:url(/images/common.png) no-repeat -314px -135px;vertical-align:middle;margin:0;margin-left:5px;position:relative;top:-2px;margin-right:-5px;cursor:pointer;}
 .default-nav ul li a.remove:hover {background-position:-314px -148px;}
+.default-nav ul li.disabled a {color:#bebebe;cursor:default;}
 
 
 .default-v-nav {font-size:13px;}

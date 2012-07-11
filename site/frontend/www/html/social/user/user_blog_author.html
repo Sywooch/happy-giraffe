@@ -16,9 +16,11 @@
 	<script type="text/javascript" src="/javascripts/checkbox.js"></script>
 	
 	<link rel="stylesheet" type="text/css" href="/stylesheets/jquery.fancybox-1.3.4.css" />
-	<script type="text/javascript" src="/javascripts/jquery.fancybox-1.3.4.pack.js"></script>
+	<script type="text/javascript" src="/javascripts/jquery.fancybox-1.3.4.js"></script>
 	
-	<script type="text/javascript" src="/javascripts/jquery.placeholder.min.js"></script>
+	<script type="text/javascript" src="/javascripts/jquery.tooltip.pack.js"></script>
+	
+  <script type="text/javascript" src="/javascripts/jquery.placeholder.min.js"></script>
 	
 	<script type="text/javascript" src="/javascripts/common.js"></script>	
 	
@@ -459,7 +461,10 @@
 							</div>
 						</div>
 						
-						
+						<div class="add-post-btn">
+              <a href=""><img src="/images/btn_add_post.png" /></a>
+            </div>
+            
 						<div class="club-topics-list-new">
 							
 							<div class="block-title">О чем мой блог</div>
@@ -565,8 +570,6 @@
 								
 							</ul>
 							
-							<div class="add-author-btn"><a href=""><img src="/images/btn_add_author.png" /></a></div>
-							
 						</div>
 						
 						
@@ -593,9 +596,7 @@
 					
 					<div class="col-23 clearfix">
 						
-						<div class="new-blog-btn"><a href="" class="btn btn-orange-smallest"><span><span>Создать блог</span></span></a></div>
-						
-						<div class="blog-title">Блог Александра Богоявленского</div>
+						<div class="blog-title">Блог Александра Богоявленского <a href="#blogSettings" class="settings fancy tooltip" title="Настройка блога"></a></div>
 						
 						<div class="entry entry-full">
 			
@@ -807,6 +808,42 @@
 		</form>
 		
 	</div>
+  
+  <div id="blogSettings" class="popup">
+    
+    <a href="javascript:void(0);" onclick="$.fancybox.close();" class="popup-close tooltip" title="Закрыть"></a>
+    
+    <div class="popup-title">Настройки блога</div>
+    
+    <div class="default-nav">
+      <ul>
+        <li class="active"><a href="">Название блога</a></li>
+        <li class="disabled"><a>Рубрики блога</a></li>
+        <li class="disabled"><a>Оформление блога</a></li>
+      </ul>
+    </div>
+    
+    <div class="settings-form">
+      <div class="row">
+        <div class="row-title">Название <span>(не более 30 знаков)</span></div>
+        <div class="row-elements">
+          <span class="item-title">Блокнот натуралиста</span>
+          <a href="" class="edit tooltip" title="Редактировать название блога"></a>
+        </div>
+        <div class="row-elements">
+          <input type="text" placeholder="Введите название блога" />
+          <button class="btn btn-green-small"><span><span>Ok</span></span></button>
+        </div>
+        
+      </div>
+    </div>
+    
+    <div class="bottom">
+      <button class="btn btn-green-medium"><span><span>Сохранить настройки</span></span></button>
+    </div>
+    
+  </div>
+  
 </div>
 </body>
 </html>

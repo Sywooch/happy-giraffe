@@ -5,13 +5,7 @@ class NamesController extends BController
 {
     public $section = 'club';
     public $layout = '//layouts/club';
-
-    public function beforeAction($action)
-    {
-        if (!Yii::app()->user->checkAccess('names'))
-            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
-        return true;
-    }
+    public $authItem = 'names';
 
     public function actionIndex($letter = null, $gender = null)
     {
@@ -225,9 +219,7 @@ class NamesController extends BController
                     'image' => Yii::app()->params['frontend_url'] . 'temp_upload/' . $image->name,
                     'name' => $image->name,
                 );
-            }
-            else
-            {
+            } else {
                 $response = array(
                     'status' => false,
                 );
@@ -247,10 +239,11 @@ class NamesController extends BController
         echo CJSON::encode(array_merge($model->attributes, array('url' => $model->GetUrl())));
     }
 
-    public function actionNotFilled(){
+    public function actionNotFilled()
+    {
         $names = Name::model()->findAll('description IS NULL OR description = "" ');
 
-        $this->render('not_filed',compact('names'));
+        $this->render('not_filed', compact('names'));
     }
 
 

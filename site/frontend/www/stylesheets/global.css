@@ -4528,7 +4528,7 @@ ul.letters li a:hover {
 .disease-cat.active .icon-disease-4, .disease-cat:hover .icon-disease-4 {background-position:-70px -549px;}
 
 
-#baby-sex {}
+#baby-sex {margin-bottom:40px;}
 #baby-sex .block-title {text-align:center;margin-bottom:40px;}
 #baby-sex .chart {height:510px;background:url(/images/bg_baby_sex_all.png) no-repeat top;position:relative;width:542px;margin:0 auto;}
 #baby-sex a {display:block;position:absolute;text-align:center;}

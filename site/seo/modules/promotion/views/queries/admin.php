@@ -41,7 +41,7 @@
             <tbody>
 
             <?php foreach ($models as $model): ?>
-                <?php $goodPhrases = $model->goodPhrases($period); ?>
+                <?php $goodPhrases = $model->phrases;//$model->goodPhrases($period); ?>
                 <tr id="key-<?=$model->id ?>">
                     <td rowspan="<?=count($goodPhrases) ?>" class="col-1 row-col">
                         <?=$model->getArticleLink() ?>

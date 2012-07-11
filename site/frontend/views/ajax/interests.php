@@ -3,16 +3,23 @@
 
     $js = "
         $(function() {
-            $('.interest-drag').draggable();
-            $('.drag-in-area').droppable({
+            $('#interestsManage .interest-drag').draggable({
+                revert: true
+            });
+            $('#interestsManage .drag-in-area').droppable({
                 drop: function (event, ui) {
-                    $('.selected-interests-list > ul').append($('#interestTmpl').tmpl({
-                        categoryId: ui.draggable.data('category-id'),
-                        id: ui.draggable.data('id'),
-                        title: ui.draggable.text()
-                    }));
-                    ui.draggable.hide();
+                    if ($('.selected-interests-list > ul > li').length < 10) {
+                        $('.selected-interests-list > ul').append($('#interestTmpl').tmpl({
+                            categoryId: ui.draggable.data('category-id'),
+                            id: ui.draggable.data('id'),
+                            title: ui.draggable.text()
+                        }));
+                        ui.draggable.hide();
+                    }
                 }
+            });
+            $('#interestsManage .selected-interests-list > ul > li').each(function () {
+                $('#interestsManage .interest-drag[data-id=' + $(this).data('id') + ']').hide();
             });
         });
     ";
@@ -88,22 +95,22 @@
 
             </div>
 
-            <div class="selected-interests-list">
-                <ul>
-                    <?php foreach ($user_interests as $ui): ?>
-                        <li>
-                            <span class="img"><a href=""><img src="/images/interest_icon_<?=$ui->category_id?>.png" /></a></span>
-                            <span class="text"><a href="javascript:void(0)"><?=$ui->title?></a></span>
-                            <a href="javascript:void(0)" class="remove"></a>
-                        </li>
-                        <?php echo CHtml::hiddenField('Interest[' . $interest->id . ']'); ?>
-                    <?php endforeach; ?>
-                </ul>
+            <?=CHtml::beginForm('/ajax/saveInterests/')?>
+                <div class="selected-interests-list">
+                        <ul>
+                            <?php foreach ($user_interests as $ui): ?>
+                                <li data-id="<?=$ui->id?>">
+                                    <span class="img"><a href=""><img src="/images/interest_icon_<?=$ui->category_id?>.png" /></a></span>
+                                    <span class="text"><a href="javascript:void(0)"><?=$ui->title?></a></span>
+                                    <a href="javascript:void(0)" class="remove" onclick="Interest.removeSelected(this)"></a>
+                                    <?php echo CHtml::hiddenField('Interest[' . $ui->id . ']'); ?>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
 
-                <div class="btn-box"><a href="" class="btn-finish">Завершить</a></div>
-
-            </div>
-
+                        <div class="btn-box"><a href="javascript:void(0)" class="btn-finish" onclick="Interest.save()">Завершить</a></div>
+                </div>
+            <?=CHtml::endForm()?>
 
 
         </div>
@@ -113,10 +120,10 @@
 </div>
 
 <script id="interestTmpl" type="text/x-jquery-tmpl">
-    <li>
+    <li data-id="${id}">
         <span class="img"><a href=""><img src="/images/interest_icon_${categoryId}.png" /></a></span>
-        <span class="text"><a href="">${title}</a></span>
-        <a href="javascript:void(0)" class="remove"></a>
+        <span class="text"><a href="javascript:void(0)">${title}</a></span>
+        <a href="javascript:void(0)" class="remove" onclick="Interest.removeSelected(this)"></a>
         <?php echo CHtml::hiddenField('Interest[${id}]'); ?>
     </li>
 </script>

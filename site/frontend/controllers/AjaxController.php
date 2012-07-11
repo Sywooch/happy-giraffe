@@ -426,27 +426,25 @@ class AjaxController extends HController
 
     public function actionInterestsForm()
     {
-        if (!Yii::app()->request->isAjaxRequest)
-            Yii::app()->end();
         Yii::import('site.common.models.interest.*');
-        $categories = InterestCategory::model()->findAll();
-        $user_interests = Interest::findAllByUser(Yii::app()->user->id);
+        $categories = InterestCategory::model()->with('interests')->findAll();
+        $user_interests = Yii::app()->user->model->interests;
         $this->renderPartial('interests', compact('categories', 'user_interests'), false, true);
     }
 
     public function actionSaveInterests()
     {
-        if (!Yii::app()->request->isAjaxRequest)
-            Yii::app()->end();
         Yii::import('site.common.models.interest.*');
         Interest::saveByUser(Yii::app()->user->id, Yii::app()->request->getPost('Interest'));
 
+        /*
         $interests = Yii::app()->user->model->interests;
         $html = CHtml::openTag('ul', array('id' => 'user_interests_list'));
         foreach ($interests as $interest)
             $html .= CHtml::tag('li', array(), CHtml::tag('span', array('class' => 'interest selected ' . $interest->category->css_class), $interest->title));
         $html .= CHtml::closeTag('ul');
         echo $html;
+        */
     }
 
     public function actionToggleFavourites()

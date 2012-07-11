@@ -37,7 +37,6 @@ class QueriesController extends SController
     {
         $criteria = new CDbCriteria;
         $criteria->with = array('phrases');
-//        $criteria->together = true;
         if ($period == 2)
             $criteria->condition = 'yandex_month_visits != 0 OR google_month_visits != 0';
         else

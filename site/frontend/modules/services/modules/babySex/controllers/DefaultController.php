@@ -11,6 +11,9 @@ class DefaultController extends HController
         );
     }
 
+    /**
+     * @sitemap
+     */
     public function actionIndex()
     {
         $this->pageTitle = 'Определение пола ребенка';

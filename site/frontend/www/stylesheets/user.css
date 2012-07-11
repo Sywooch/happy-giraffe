@@ -200,7 +200,8 @@
 
 #user .user-interests {}
 #user .user-interests ul {list-style:none;}
-#user .user-interests ul li {display:inline-block;margin-right:5px;padding:6px 0;}
+#user .user-interests ul li {display:inline-block;}
+#user .user-interests > ul > li {margin-bottom:20px;}
 
 #user .user-interests .interest-add {display:inline-block;width:16px;height:16px;background:url(/images/common.png) no-repeat -139px -174px;}
 

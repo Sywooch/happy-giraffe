@@ -1,7 +1,7 @@
 <?php if ($this->onlyForm === false): ?>
     <ul class="fast-links clearfix a-right">
         <li><?php echo CHtml::link('Вход', '#login', array('class' => 'fancy', 'rel' => 'nofollow', 'data-theme'=>'default')); ?></li>
-        <li><?=CHtml::link('Регистрация', '#register', array('class' => 'fancy', 'data-theme'=>'white-square'))?></li>
+        <li><?=CHtml::link('Регистрация', '#register', array('id'=>'reg-main-btn', 'class' => 'fancy', 'data-theme'=>'white-square'))?></li>
     </ul>
 <?php endif; ?>
 <div style="display:none">

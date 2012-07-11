@@ -26,7 +26,7 @@
         ->registerCssFile('/stylesheets/ie.css', 'screen')
         ->registerCoreScript('jquery')
         ->registerCssFile('/stylesheets/jquery.fancybox-1.3.4.css')
-        ->registerScriptFile('/javascripts/jquery.fancybox-1.3.4.pack.js?r='.$release_id)
+        ->registerScriptFile('/javascripts/jquery.fancybox-1.3.4.js?r='.$release_id)
         ->registerScriptFile('/javascripts/jquery.iframe-post-form.js')
         ->registerScriptFile('/javascripts/jquery.placeholder.min.js')
         ->registerScriptFile('/javascripts/chosen.jquery.min.js')

@@ -175,12 +175,10 @@ class Keyword extends HActiveRecord
             return true;
 
         foreach ($this->group as $group) {
-            return true;
-
             if (!empty($group->page))
                 return false;
 
-            if ($group->newTaskCount > 0)
+            if ($group->taskCount > 0)
                 return true;
         }
 

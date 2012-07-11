@@ -1,16 +1,8 @@
 <?php
 
-class PageController extends SController
+class QueryController extends SController
 {
 	public $defaultAction='admin';
-    public $layout = '//layouts/empty';
-
-    public function beforeAction($action)
-    {
-        if (!Yii::app()->user->checkAccess('admin'))
-            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
-        return true;
-    }
 
 	/**
 	 * Creates a new model.
@@ -18,14 +10,14 @@ class PageController extends SController
 	 */
 	public function actionCreate()
 	{
-		$model=new Page;
+		$model=new Query;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Page']))
+		if(isset($_POST['Query']))
 		{
-			$model->attributes=$_POST['Page'];
+			$model->attributes=$_POST['Query'];
 			if($model->save())
 				$this->redirect(array('admin'));
 		}
@@ -47,9 +39,9 @@ class PageController extends SController
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Page']))
+		if(isset($_POST['Query']))
 		{
-			$model->attributes=$_POST['Page'];
+			$model->attributes=$_POST['Query'];
 			if($model->save())
 				$this->redirect(array('admin'));
 		}
@@ -84,10 +76,10 @@ class PageController extends SController
 	 */
 	public function actionAdmin()
 	{
-		$model=new Page('search');
+		$model=new Query('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Page']))
-			$model->attributes=$_GET['Page'];
+		if(isset($_GET['Query']))
+			$model->attributes=$_GET['Query'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -101,7 +93,7 @@ class PageController extends SController
 	 */
 	public function loadModel($id)
 	{
-		$model=Page::model()->findByPk((int)$id);
+		$model=Query::model()->findByPk((int)$id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -113,7 +105,7 @@ class PageController extends SController
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='article-keywords-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='query-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

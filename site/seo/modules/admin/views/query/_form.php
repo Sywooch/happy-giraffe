@@ -1,4 +1,4 @@
- <?php echo CHtml::link('К таблице', array('Query/admin')) ?><div class="form">
+ <?php echo CHtml::link('К таблице', array('/admin/Query/admin')) ?><div class="form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'query-form',

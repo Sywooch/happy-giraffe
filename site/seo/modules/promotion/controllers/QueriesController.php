@@ -36,8 +36,7 @@ class QueriesController extends SController
     public function actionAdmin($period = 1, $sort = 'yandex_visits')
     {
         $criteria = new CDbCriteria;
-//        $criteria->with = array('phrases');
-//        $criteria->together = true;
+        $criteria->with = array('phrases');
         if ($period == 2)
             $criteria->condition = 'yandex_month_visits != 0 OR google_month_visits != 0';
         else
@@ -59,7 +58,7 @@ class QueriesController extends SController
 
         $count = Page::model()->count($criteria);
         $pages = new CPagination($count);
-        $pages->setPageSize(100);
+        $pages->setPageSize(20);
         $pages->applyLimit($criteria);
 
         $models = Page::model()->findAll($criteria);

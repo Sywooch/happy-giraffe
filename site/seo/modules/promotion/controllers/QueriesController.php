@@ -38,10 +38,10 @@ class QueriesController extends SController
         $criteria = new CDbCriteria;
 //        $criteria->with = array('phrases');
 //        $criteria->together = true;
-//        if ($period == 2)
-//            $criteria->condition = 'keyword_id IS NOT NULL AND (yandex_month_visits != 0 OR google_month_visits != 0 )';
-//        else
-//            $criteria->condition = 'keyword_id IS NOT NULL AND (yandex_week_visits != 0 OR google_week_visits != 0 )';
+        if ($period == 2)
+            $criteria->condition = 'yandex_month_visits != 0 OR google_month_visits != 0';
+        else
+            $criteria->condition = 'yandex_week_visits != 0 OR google_week_visits != 0';
 
         if ($sort == 'yandex_visits' && $period == 1) {
             $criteria->order = 'yandex_week_visits DESC';

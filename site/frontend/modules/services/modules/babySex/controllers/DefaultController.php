@@ -150,6 +150,7 @@ class DefaultController extends HController
             $modelForm = new OvulationForm();
             $modelForm->attributes = $_POST['OvulationForm'];
             $this->performAjaxValidation($modelForm, 'ovulation-form');
+            $modelForm->validate();
 
             $data = $modelForm->CalculateData();
             $gender = $modelForm->GetGender();

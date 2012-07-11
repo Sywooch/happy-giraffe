@@ -1,8 +1,9 @@
 <?php
-/* @var $this Controller
+/* @var $this HController
  * @var $models Horoscope[]
  */
-Yii::app()->clientScript->registerMetaTag('Хотите ежедневно читать бесплатный личный гороскоп? Воспользуйтесь нашим сервисом и читайте гороскоп на сегодня, на завтра, на месяц и на год. Кроме того, вы можете прочитать и гороскоп на вчера, чтобы уточнить детали прошедшего дня', 'description');
+if (empty($this->meta_description))
+    $this->meta_description ='Хотите ежедневно читать бесплатный личный гороскоп? Воспользуйтесь нашим сервисом и читайте гороскоп на сегодня, на завтра, на месяц и на год. Кроме того, вы можете прочитать и гороскоп на вчера, чтобы уточнить детали прошедшего дня';
 ?>
     <div class="horoscope-list">
 
@@ -12,13 +13,7 @@ Yii::app()->clientScript->registerMetaTag('Хотите ежедневно чи�
 
         <ul>
             <?php foreach ($models as $model): ?>
-                <li>
-                    <div class="img">
-                        <img src="/images/widget/horoscope/small/<?=$model->zodiac ?>.png">
-                        <div class="date"><span><?=$model->zodiacText() ?></span><?=$model->zodiacDates() ?></div>
-                    </div>
-                    <div class="text"><?= Str::truncate($model->text, 230, '') ?> <a href="<?=$this->createUrl('view', array('zodiac'=>$model->zodiacSlug())) ?>">далее</a></div>
-                </li>
+            <?php $this->renderPartial('_preview',compact('model')); ?>
             <?php endforeach; ?>
         </ul>
 

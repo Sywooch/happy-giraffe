@@ -244,6 +244,8 @@ a.info {display:inline-block;width:13px;height:13px;background:url(../images/com
 
 .content-title-new {font-size:32px;color:#232323;margin-bottom:40px;text-align:center;padding-top:15px;}
 .content-title-new span {display:block;font-size:11px;font-family:tahoma, arial, helvetica, sans-serif;}
+.content-title-new .settings {display:inline-block;width:15px;height:15px;background:url(/images/common.png) no-repeat -313px -190px;position:relative;top:-1px;}
+.content-title-new .settings:hover {background-position:-330px -190px;}
 
 /* errors */
 
@@ -1347,22 +1349,25 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 .gallery-photos-new ul li .user-info .details {margin-left:30px;}
 .gallery-photos-new ul li .user-info .details .username {width:140px;}
 
-.gallery-photos-new .item {float:left;margin:10px;}
+.gallery-photos-new ul li .actions {background:#fff;background:rgba(255, 255, 255, .8);width:100%;height:18px;padding:3px 0;position:absolute;left:0;top:0;text-align:right;display:none;}
+.gallery-photos-new ul li .img:hover .actions {display:block;}
+.gallery-photos-new ul li .actions .remove {display:inline-block;width:10px;height:12px;background:url(../images/common.png) no-repeat -315px -149px;position:relative;top:2px;margin-right:5px;}
+.gallery-photos-new ul li .actions .edit {display:inline-block;width:14px;height:18px;background:url(../images/common.png) no-repeat -341px -136px;margin:0 auto;position:relative;text-decoration:none;font-weight:normal;z-index:3;vertical-align:middle;margin-left:10px;top:-2px;margin-right:5px;}
 
-.gallery-photos-new .item {background:#ccc;}
-.gallery-photos-new .h1 {height:80px;}
-.gallery-photos-new .h2 {height:180px;}
-.gallery-photos-new .h3 {height:280px;}
-.gallery-photos-new .w1 {width:80px;}
-.gallery-photos-new .w2 {width:180px;}
-.gallery-photos-new .w3 {width:280px;}
 
-.gallery-photos-new .corner-stamp {
-    margin: 10px;
-    float: right;
-    background: red;
-    color: white;
-  }
+#gallery .gallery-album {margin-bottom:40px;}
+
+#gallery .gallery-album .album-title {font-size:18px;margin-bottom:5px;}
+
+#gallery .gallery-album .album-description {margin-bottom:20px;}
+
+#gallery .gallery-album .album-photos ul {list-style:none;}
+#gallery .gallery-album .album-photos ul li {display:inline-block;width:214px;padding-right:16px;vertical-align:top;}
+#gallery .gallery-album .album-photos ul li.more {font-size:13px;padding-top:30px;text-align:center;width:160px;}
+#gallery .gallery-album .album-photos ul li.more a {color:#b9b9b9;text-decoration:none;}
+#gallery .gallery-album .album-photos ul li.more .icon {display:block;width:56px;height:56px;background:url(../images/common.png) no-repeat -499px -135px;margin:0 auto;margin-bottom:10px;}
+#gallery .gallery-album .album-photos ul li.more a:hover .icon {background-position:-499px -193px;}
+#gallery .gallery-album .album-photos ul li.more a:hover {color:#7abc2e;text-decoration:underline;}
 
 
 #gallery .fast-album {padding-bottom:20px;}
@@ -1442,6 +1447,21 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 #gallery #photo .ad-thumb-list li a.ad-active table td.img div {border:10px solid #88cad8;border-bottom:0;padding:0px;}
 #gallery #photo .ad-thumb-list li a.ad-active table tr.title td {background:#fffedf;font-size:10px;}
 #gallery #photo .ad-thumb-list li a.ad-active table tr.title td div {border:10px solid #88cad8;border-top:0;margin:-7px -25px;padding:7px 25px;}
+
+
+#albumSettings .popup-title {text-align:left;margin-bottom:20px;}
+#albumSettings .settings-form {margin:20px 0;}
+#albumSettings .settings-form .row {margin-bottom:20px}
+#albumSettings .settings-form .row .row-title {font-size:16px;color:#4c4d4d;}
+#albumSettings .settings-form .row .row-title span {font-size:11px;color:#6d6d6d;font-family:tahoma, arial, helvetica, sans-serif;}
+#albumSettings .settings-form .row .row-elements {margin:8px 0;}
+#albumSettings .settings-form .row .row-elements input[type=text] {padding:5px 10px;border:1px solid #cdcdcd;background:#fff;width:308px;font-size:15px;color:#3d3d3d;vertical-align:middle;}
+#albumSettings .settings-form .row .row-elements textarea {padding:5px 10px;border:1px solid #cdcdcd;background:#fff;width:308px;font-size:13px;color:#3d3d3d;vertical-align:bottom;width:80%;height:60px;}
+#albumSettings .settings-form .row .row-elements .btn-green-small {margin-left:5px;}
+#albumSettings .settings-form .row .row-elements .item-title {font-size:18px;color:#3680cc;}
+#albumSettings .settings-form .row .row-elements .edit {display:inline-block;width:14px;height:18px;background:url(../images/common.png) no-repeat -383px -204px;margin-left:5px;position:relative;top:2px;}
+#albumSettings .settings-form .row .row-elements .edit:hover {background-position:-341px -136px;}
+
 
 #content .main #gallery #photo .big-photo {width:678px;}
 #content .main #gallery #photo .gallery-photos {width:600px;}
@@ -1725,6 +1745,8 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 #content .club-topics-list-new ul li.active .count {font-size:20px;color:#474747;}
 
 .add-post-btn {margin-bottom:30px;}
+
+.upload-photo-btn {margin-bottom:30px;}
 
 
 #content .recent-topics {margin-bottom:20px;padding:15px 20px;border:1px solid #d8f1ff;}

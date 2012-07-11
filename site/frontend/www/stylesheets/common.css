@@ -1359,7 +1359,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 
 #gallery .gallery-album .album-title {font-size:18px;margin-bottom:5px;}
 
-#gallery .gallery-album .album-description {margin-bottom:20px;}
+#gallery .gallery-album .album-description {margin-bottom:20px;font-size:11px;font-family:tahoma, arial, helvetica, sans-serif;}
 
 #gallery .gallery-album .album-photos ul {list-style:none;}
 #gallery .gallery-album .album-photos ul li {display:inline-block;width:214px;padding-right:16px;vertical-align:top;}

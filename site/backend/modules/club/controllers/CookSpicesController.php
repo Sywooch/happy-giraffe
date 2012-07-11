@@ -5,14 +5,17 @@ class CookSpicesController extends BController
     public $defaultAction = 'admin';
     public $section = 'club';
     public $layout = '//layouts/club';
+    public $_class = 'CookSpice';
+    public $authItem = 'cook_spices';
 
-
-    public function beforeAction($action)
+    public function actions()
     {
-        if (!Yii::app()->user->checkAccess('cook_spices'))
-            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
-        return true;
+        return array(
+            'delete' => 'application.components.actions.Delete',
+            'admin' => 'application.components.actions.Admin'
+        );
     }
+
 
     public function actionCreate()
     {
@@ -44,7 +47,6 @@ class CookSpicesController extends BController
     {
 
 
-
         $model = $this->loadModel($id);
 
         if (isset($_POST['CookSpice'])) {
@@ -61,52 +63,6 @@ class CookSpicesController extends BController
         $this->render('update', array(
             'model' => $model
         ));
-    }
-
-    public function actionDelete($id)
-    {
-        if (Yii::app()->request->isPostRequest) {
-            // we only allow deletion via POST request
-            $this->loadModel($id)->delete();
-
-            // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-            if (!isset($_GET['ajax']))
-                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-        } else
-            throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
-    }
-
-    public function actionAdmin()
-    {
-        $model = new CookSpice('search');
-        $model->unsetAttributes(); // clear any default values
-        if (isset($_GET['CookSpice']))
-            $model->attributes = $_GET['CookSpice'];
-
-        $this->render('admin', array(
-            'model' => $model,
-        ));
-    }
-
-    /**
-     * @param $id
-     * @return CookSpice
-     * @throws CHttpException
-     */
-    public function loadModel($id)
-    {
-        $model = CookSpice::model()->with('categories')->findByPk((int)$id);
-        if ($model === null)
-            throw new CHttpException(404, 'The requested page does not exist.');
-        return $model;
-    }
-
-    protected function performAjaxValidation($model)
-    {
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'cook-spices-form') {
-            echo CActiveForm::validate($model);
-            Yii::app()->end();
-        }
     }
 
     public function actionAc($term)

@@ -71,6 +71,7 @@
                     'club/cookIngredients',
                     'club/cookSpices',
                     'club/cookChooseCategory',
+                    'club/cookChoose',
                     'club/cookSpicesCategories',
                     'club/cookDecoration',
                     'club/cookUnit'

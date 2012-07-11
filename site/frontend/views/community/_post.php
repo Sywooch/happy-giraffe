@@ -58,10 +58,10 @@
                 {
                     case 'video':
                         $video = new Video($data->video->link);
-                        echo $data->preview . '<div style="text-align: center; margin-bottom: 10px;">' . $video->code . '</div>';
+                        echo $data->purified->preview . '<div style="text-align: center; margin-bottom: 10px;">' . $video->code . '</div>';
                         break;
                     default:
-                        echo $data->preview;
+                        echo $data->purified->preview;
                 }
             ?>
             <div class="clear"></div>
@@ -73,7 +73,7 @@
                 switch ($data->type->slug)
                 {
                     case 'post':
-                        echo $data->post->text;
+                        echo $data->post->purified->text;
                         $data_text = $data->post->text;
                         preg_match('!<img.*?src="(.*?)"!', $data_text, $matches);
                         if (count($matches) > 0)
@@ -84,7 +84,7 @@
                     case 'video':
                         $video = new Video($data->video->link);
                         echo '<noindex><div style="text-align: center; margin-bottom: 10px;">' . $video->code . '</div></noindex>';
-                        echo $data->video->text;
+                        echo $data->video->purified->text;
                         $data_text = $data->video->text;
                         $data_image = $video->preview;
                         break;

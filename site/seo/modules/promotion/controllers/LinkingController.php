@@ -79,7 +79,7 @@ class LinkingController extends SController
 
         $keywords = $phrase->getSimilarKeywords();
 
-        $this->renderPartial('_phrase_view', compact('pages', 'keywords'));
+        $this->renderPartial('_phrase_view', compact('pages', 'keywords', 'phrase'));
     }
 
     /**
@@ -150,6 +150,22 @@ class LinkingController extends SController
         $phrase = $this->loadPhrase(Yii::app()->request->getPost('phrase_id'));
         $positions = $phrase->getPositionsArray($se);
         $this->renderPartial('_positions', compact('positions', 'se'));
+    }
+
+    public function actionSearchPages(){
+        Yii::import('site.frontend.extensions.phpQuery.phpQuery');
+        $keyword = Yii::app()->request->getPost('keyword');
+        $phrase = $this->loadPhrase(Yii::app()->request->getPost('phrase_id'));
+
+        $parser = new SimilarArticlesParser;
+        $pages = $parser->getArticles($keyword);
+
+        $pages = $this->filterPages($phrase, $pages);
+
+        if (count($pages) > 10)
+            $pages = array_slice($pages, 0, 10);
+
+        $this->renderPartial('_pages', compact('pages'));
     }
 
     /**

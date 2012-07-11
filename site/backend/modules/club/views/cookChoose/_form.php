@@ -1,5 +1,6 @@
 <?php
-$basePath = Yii::getPathOfAlias('application.views.club.cookChoose.assets');
+//$basePath = Yii::getPathOfAlias('application.views.club.cookChoose.assets');
+$basePath = Yii::getPathOfAlias('application.modules.club.views.cookChoose.assets');
 $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
 Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js', CClientScript::POS_HEAD);
 ?>
@@ -7,6 +8,7 @@ Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js', CClientScr
 <?php echo CHtml::link('К таблице', array('admin')) ?>
 
 <div class="form">
+
 
     <?php $form = $this->beginWidget('CActiveForm', array(
     'id' => 'cook-choose-form',
@@ -47,7 +49,7 @@ Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js', CClientScr
     <div class="row">
         trololo
         <?php echo $form->labelEx($model, 'title_quality'); ?>
-        <?php echo $form->textField($model, 'title_quality', array('size' => 60, 'maxlength' => 255, 'placeholder'=>'качественный продукт')); ?>
+        <?php echo $form->textField($model, 'title_quality', array('size' => 60, 'maxlength' => 255, 'placeholder' => 'качественный продукт')); ?>
         <?php echo $form->error($model, 'title_quality'); ?>
     </div>
 
@@ -59,7 +61,7 @@ Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js', CClientScr
 
     <div class="row">
         <?php echo $form->labelEx($model, 'title_defective'); ?>
-        <?php echo $form->textField($model, 'title_defective', array('size' => 60, 'maxlength' => 255, 'placeholder'=>'некачественный продукт')); ?>
+        <?php echo $form->textField($model, 'title_defective', array('size' => 60, 'maxlength' => 255, 'placeholder' => 'некачественный продукт')); ?>
         <?php echo $form->error($model, 'title_defective'); ?>
     </div>
 
@@ -71,7 +73,7 @@ Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js', CClientScr
 
     <div class="row">
         <?php echo $form->labelEx($model, 'title_check'); ?>
-        <?php echo $form->textField($model, 'title_check', array('size' => 60, 'maxlength' => 255, 'placeholder'=>'качество продукта')); ?>
+        <?php echo $form->textField($model, 'title_check', array('size' => 60, 'maxlength' => 255, 'placeholder' => 'качество продукта')); ?>
         <?php echo $form->error($model, 'title_check'); ?>
     </div>
 
@@ -82,7 +84,14 @@ Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js', CClientScr
     </div>
 
     <div class="row buttons">
-        <?php echo CHtml::submitButton($model->isNewRecord ? 'Создать' : 'Сохранить'); ?>
+        <?php
+        if ($model->isNewRecord) {
+            echo CHtml::submitButton('Создать', array('name' => 'redirect_to', 'value' => 'refresh'));
+        } else {
+            echo CHtml::submitButton('Сохранить');
+            echo CHtml::submitButton('Сохранить и продолжить', array('name' => 'redirect_to', 'value' => 'refresh'));
+        }
+        ?>
     </div>
 
     <?php $this->endWidget(); ?>

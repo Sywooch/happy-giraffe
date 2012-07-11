@@ -5,87 +5,18 @@ class CookChooseController extends BController
     public $defaultAction = 'admin';
     public $section = 'club';
     public $layout = '//layouts/club';
+    public $_class = 'CookChoose';
+    public $authItem = 'cook_choose';
 
-    public function beforeAction($action)
+
+    public function actions()
     {
-        if (!Yii::app()->user->checkAccess('cook_choose'))
-            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
-        return true;
-    }
-
-
-    public function actionCreate()
-    {
-        $model = new CookChoose;
-
-        if (isset($_POST['CookChoose'])) {
-            $model->attributes = $_POST['CookChoose'];
-            if ($model->save())
-                $this->redirect(array('update', 'id' => $model->id));
-        }
-
-        $this->render('create', array(
-            'model' => $model,
-        ));
-    }
-
-    public function actionUpdate($id)
-    {
-        $model = $this->loadModel($id);
-
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
-
-        if (isset($_POST['CookChoose'])) {
-            $model->attributes = $_POST['CookChoose'];
-            if ($model->save())
-                $this->redirect(array('admin'));
-        }
-
-        $this->render('update', array(
-            'model' => $model,
-        ));
-    }
-
-    public function actionDelete($id)
-    {
-        if (Yii::app()->request->isPostRequest) {
-            // we only allow deletion via POST request
-            $this->loadModel($id)->delete();
-
-            // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-            if (!isset($_GET['ajax']))
-                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-        } else
-            throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
-    }
-
-    public function actionAdmin()
-    {
-        $model = new CookChoose('search');
-        $model->unsetAttributes(); // clear any default values
-        if (isset($_GET['CookChoose']))
-            $model->attributes = $_GET['CookChoose'];
-
-        $this->render('admin', array(
-            'model' => $model,
-        ));
-    }
-
-    public function loadModel($id)
-    {
-        $model = CookChoose::model()->findByPk((int)$id);
-        if ($model === null)
-            throw new CHttpException(404, 'The requested page does not exist.');
-        return $model;
-    }
-
-    protected function performAjaxValidation($model)
-    {
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'cook-choose-form') {
-            echo CActiveForm::validate($model);
-            Yii::app()->end();
-        }
+        return array(
+            'create' => 'application.components.actions.Create',
+            'update' => 'application.components.actions.Update',
+            'delete' => 'application.components.actions.Delete',
+            'admin' => 'application.components.actions.Admin'
+        );
     }
 
     public function actionAddPhoto()

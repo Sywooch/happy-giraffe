@@ -1,5 +1,5 @@
 <?php
-$basePath = Yii::getPathOfAlias('application.views.club.cookChooseCategory.assets');
+$basePath = Yii::getPathOfAlias('application.modules.club.views.cookChooseCategory.assets');
 $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
 Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js', CClientScript::POS_HEAD);
 ?>
@@ -45,7 +45,14 @@ Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js', CClientScr
     </div>
 
     <div class="row buttons">
-        <?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+        <?php
+        if ($model->isNewRecord) {
+            echo CHtml::submitButton('Создать', array('name' => 'redirect_to', 'value' => 'refresh'));
+        } else {
+            echo CHtml::submitButton('Сохранить');
+            echo CHtml::submitButton('Сохранить и продолжить', array('name' => 'redirect_to', 'value' => 'refresh'));
+        }
+        ?>
     </div>
 
     <?php $this->endWidget(); ?>

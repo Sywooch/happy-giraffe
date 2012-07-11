@@ -339,7 +339,7 @@ var SeoLinking = {
             SeoLinking.phrase_id = phrase_id;
         });
     },
-    loadStats:function(el, period, page_id){
+    loadStats:function (el, period, page_id) {
         if ($(el).hasClass('active'))
             return false;
 
@@ -349,7 +349,7 @@ var SeoLinking = {
             $(el).addClass('active');
         });
     },
-    showDonors:function(el, page_id){
+    showDonors:function (el, page_id) {
         if ($(el).text() == '0')
             return false;
 
@@ -361,7 +361,7 @@ var SeoLinking = {
             $('#donors').css('left', offset.left - 250);
         });
     },
-    showPositions:function(el, se, phrase_id){
+    showPositions:function (el, se, phrase_id) {
         $.post('/promotion/linking/positions/', {se:se, phrase_id:phrase_id}, function (response) {
             $('#positions').html(response);
             $('#positions').show();
@@ -369,11 +369,17 @@ var SeoLinking = {
             $('#positions').css('top', offset.top + 20);
             $('#positions').css('left', offset.left);
         });
+    },
+    similarPages:function (keyword, phrase_id) {
+        $('#similar-pages').addClass('loading-block');
+        $.post('/promotion/linking/searchPages/', {phrase_id:phrase_id, keyword:keyword}, function (response) {
+            $('#similar-pages').html(response).removeClass('loading-block');
+        });
     }
 }
 
-$(function() {
-    $('body').click(function(){
+$(function () {
+    $('body').click(function () {
         $('#donors').hide();
         $('#positions').hide();
     });

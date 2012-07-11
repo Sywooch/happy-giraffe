@@ -24,6 +24,8 @@ class CopyScape
         $res = curl_exec($ch);
         curl_close($ch);
 
+        echo $res;
+        die;
         $xml = new SimpleXMLElement($res);
         return (isset($xml->result[0]->percentmatched)) ? (100 - $xml->result[0]->percentmatched) : null;
     }

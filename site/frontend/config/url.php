@@ -22,7 +22,7 @@ return array(
         'js_dynamics/<hash:\w+>.js' => 'site/seoHide',
         'search' => 'site/search',
         'site/rememberPassword/step/<step:\d+>' => 'site/rememberPassword',
-        'site/<_a:(login|logout|link)>' => 'site/<_a>',
+        'site/<_a:(login|logout|link|test)>' => 'site/<_a>',
         'contest' => 'site/contest',
 
         // ajax controller

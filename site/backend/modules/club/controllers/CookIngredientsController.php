@@ -5,19 +5,17 @@ class CookIngredientsController extends BController
     public $defaultAction = 'admin';
     public $section = 'club';
     public $layout = '//layouts/club';
+    public $_class = 'CookIngredient';
+    public $authItem = 'cook_ingredients';
 
-
-    public function beforeAction($action)
+    public function actions()
     {
-        if (!Yii::app()->user->checkAccess('cook_ingredients'))
-            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
-        return true;
+        return array(
+            'delete' => 'application.components.actions.Delete',
+            'admin' => 'application.components.actions.Admin'
+        );
     }
 
-    /**
-     * Creates a new model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     */
     public function actionCreate()
     {
         $model = new CookIngredient;
@@ -152,23 +150,6 @@ class CookIngredientsController extends BController
         ));
     }
 
-    /**
-     * Deletes a particular model.
-     * If deletion is successful, the browser will be redirected to the 'admin' page.
-     * @param integer $id the ID of the model to be deleted
-     */
-    public function actionDelete($id)
-    {
-        if (Yii::app()->request->isPostRequest) {
-            // we only allow deletion via POST request
-            $this->loadModel($id)->delete();
-
-            // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-            if (!isset($_GET['ajax']))
-                $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-        } else
-            throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
-    }
 
     /**
      *
@@ -243,46 +224,6 @@ class CookIngredientsController extends BController
             $this->renderPartial('_form_synonyms_list', array('model' => $model));
         } else
             throw new CHttpException(400, 'Invalid request. Please do not repeat this request again.');
-    }
-
-    /**
-     * Manages all models.
-     */
-    public function actionAdmin()
-    {
-        $model = new CookIngredient('search');
-        $model->unsetAttributes(); // clear any default values
-        if (isset($_GET['CookIngredient']))
-            $model->attributes = $_GET['CookIngredient'];
-
-        $this->render('admin', array(
-            'model' => $model,
-        ));
-    }
-
-    /**
-     * @param $id
-     * @return CookIngredient
-     * @throws CHttpException
-     */
-    public function loadModel($id)
-    {
-        $model = CookIngredient::model()->findByPk((int)$id);
-        if ($model === null)
-            throw new CHttpException(404, 'The requested page does not exist.');
-        return $model;
-    }
-
-    /**
-     * Performs the AJAX validation.
-     * @param CModel the model to be validated
-     */
-    protected function performAjaxValidation($model)
-    {
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'cook-ingredients-form') {
-            echo CActiveForm::validate($model);
-            Yii::app()->end();
-        }
     }
 
     public function actionSaveUnits($id)

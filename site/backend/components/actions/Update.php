@@ -7,6 +7,7 @@ class Update extends CAction
         $controller = $this->getController();
         $params = $controller->getActionParams();
         $model = $controller->loadModel($params['id']);
+        $controller->performAjaxValidation($model);
         $model->setScenario('update');
 
         if (isset($_POST[$controller->_class])) {

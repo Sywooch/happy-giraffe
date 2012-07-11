@@ -1532,7 +1532,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 
 /* fast-like-block */
 
-.fast-like-block {margin:20px 0 40px;text-align:center;background:none;}
+.fast-like-block {margin:20px 0 20px;text-align:center;background:none;}
 
 .fast-like-block .box-1 {text-align:center;display:inline-block;vertical-align:top;margin-top: 15px;}
 
@@ -1647,7 +1647,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 .interesting ul li {margin:5px 0;}
 
 
-.entry-nav {margin:25px 0 35px;line-height:16px;}
+.entry-nav {margin:15px 0 45px;line-height:16px;}
 .entry-nav .prev {width:45%;float:left;}
 .entry-nav .next {width:45%;float:right;text-align:right;}
 .entry-nav .next span, .entry-nav .prev span {display:block;margin-bottom:4px;font-size:11px;color:#464546;font-family:tahoma, arial, helvetica, sans-serif;}

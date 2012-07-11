@@ -35,7 +35,8 @@ return array(
     ),
     'modules'=>array(
         'seo',
-        'mail'
+        'mail',
+        'club'
     ),
 	'components' => array(
         'widgetFactory' => array(

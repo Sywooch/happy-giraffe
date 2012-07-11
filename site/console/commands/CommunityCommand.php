@@ -601,7 +601,6 @@ class CommunityCommand extends CConsoleCommand
     {
         Yii::import('site.frontend.extensions.phpQuery.phpQuery');
 
-        $j = 0;
         $k = 0;
 
         $rows = 1;
@@ -628,7 +627,7 @@ class CommunityCommand extends CConsoleCommand
 
                                 Yii::app()->db->createCommand()->update($table, array($field_name => $field_value), 'id=' . $row['id']);
 
-                                $j++;
+                                $k++;
                             } else {
                                 //echo $url . ' is OK' . "\r\n";
                             }
@@ -636,12 +635,11 @@ class CommunityCommand extends CConsoleCommand
                     }
                     $doc->unloadDocument();
                 } catch (Exception $error) {
+                    echo $error->getMessage()."\n";
                 }
             }
-
-            $k++;
         }
-        return $j;
+        return $k;
     }
 
     /**
@@ -693,35 +691,40 @@ class CommunityCommand extends CConsoleCommand
             $rows = Yii::app()->db->createCommand()->select('id, ' . $field_name)->from($table)->limit(100)->offset($k * 100)->queryAll();
 
             foreach ($rows as $row) {
-                $doc = phpQuery::newDocumentXHTML($row[$field_name], $charset = 'utf-8');
-                $links = $doc->find('a');
-                $changes = 0;
+                try {
+                    $doc = phpQuery::newDocumentXHTML($row[$field_name], $charset = 'utf-8');
+                    $links = $doc->find('a');
+                    $changes = 0;
 
-                foreach ($links as $link) {
-                    $url = pq($link)->attr('href');
-                    $parsed_url = parse_url($url);
-                    if (isset($parsed_url['host']) and strpos($parsed_url['host'], 'happy-giraffe') === false) {
+                    foreach ($links as $link) {
+                        $url = pq($link)->attr('href');
+                        $parsed_url = parse_url($url);
+                        if (isset($parsed_url['host']) and strpos($parsed_url['host'], 'happy-giraffe') === false) {
 
-                        if (pq($link)->attr('rel') != 'nofollow') {
-                            pq($link)->attr('rel', 'nofollow');
-                            $changes++;
-                        }
+                            if (pq($link)->attr('rel') != 'nofollow') {
+                                pq($link)->attr('rel', 'nofollow');
+                                $changes++;
+                            }
 
-                        if (!pq($link)->parent()->is('noindex')) {
-                            pq($link)->wrap('<noindex></noindex>');
-                            $changes++;
+                            if (!pq($link)->parent()->is('noindex')) {
+                                pq($link)->wrap('<noindex></noindex>');
+                                $changes++;
+                            }
                         }
                     }
-                }
 
-                if ($changes > 0) {
-                    $field_value = $doc->html();
-                    Yii::app()->db->createCommand()->update($table, array($field_name => $field_value), 'id=' . $row['id']);
+                    if ($changes > 0) {
+                        $field_value = $doc->html();
+                        Yii::app()->db->createCommand()->update($table, array($field_name => $field_value), 'id=' . $row['id']);
+                        $k++;
+                    }
+                    $doc->unloadDocument();
+                } catch (Exception $error) {
+                    echo $error->getMessage()."\n";
                 }
-                $doc->unloadDocument();
             }
-
-            $k++;
         }
+
+        return $k;
     }
 }

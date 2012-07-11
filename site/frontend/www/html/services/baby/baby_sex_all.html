@@ -15,7 +15,6 @@
 	
 	<script type="text/javascript" src="/javascripts/chosen.jquery.min.js"></script>
 	
-	<script type="text/javascript" src="/javascripts/jquery.dimensions.js"></script>
 	<script type="text/javascript" src="/javascripts/jquery.tooltip.pack.js"></script>
 	
 	<script type="text/javascript" src="/javascripts/jquery.placeholder.min.js"></script>
@@ -429,287 +428,54 @@
 		
 		<div id="content" class="clearfix">
 			
-			<div id="crumbs"><a href="">Главная</a> > <a href="">Сервисы</a> > <span>Приправы и специи</span></div>
-			
 			<div class="main">
 				
-				<div class="main-right">
+				<div class="main-in">
 					
-					<div id="cook-add-recipe">
+					<div id="baby-sex">
 						
-						<form>
-								
-							<div class="form-in">
-								
-								<div class="title"><i class="icon"></i>Добавить рецепт</div>
-													
-								<div class="row">
-									
-									<div class="recipe-name">
-										
-										<label class="row-title">Название блюда</label><br/>
-										
-										<input type="text" />
-										
-									</div>
-									
-								</div>
-								
-								<div class="row">
-									
-									<div class="product-list">
-									
-										<label class="row-title">Из чего готовим?</label>
-										
-										<table>
-											<tr>
-												<td class="col-1"><input type="text" value="Яйцо куриное" /></td>
-												<td class="col-2"><input type="text" value="10" /></td>
-												<td class="col-3">
-													<div class="drp-list">
-														<a href="" class="trigger">штук</a>
-														<ul style="display:none">
-															<li><a href="">штук</a></li>
-															<li><a href="">грамм</a></li>
-															<li><a href="">литров</a></li>
-														</ul>
-													</div>
-												</td>
-												<td class="col-4"><a href="" class="remove tooltip" title="Удалить ингредиент"></a></td>
-											</tr>
-											<tr>
-												<td class="col-1"><input type="text" value="мука" /></td>
-												<td class="col-2"><input type="text" value="500" /></td>
-												<td class="col-3">
-													<div class="drp-list">
-														<a href="" class="trigger">грамм</a>
-														<ul style="display:none;">
-															<li><a href="">штук</a></li>
-															<li><a href="">грамм</a></li>
-															<li><a href="">литров</a></li>
-														</ul>
-													</div>
-												</td>
-												<td class="col-4"><a href="" class="remove tooltip" title="Удалить ингредиент"></a></td>
-											</tr>
-											<tr>
-												<td class="col-1"><input type="text" value="" placeholder="Название продукта" /></td>
-												<td class="col-2"><input type="text" value="" placeholder="1" /></td>
-												<td class="col-3">
-													<div class="drp-list">
-														<a href="" class="trigger">штук</a>
-														<ul>
-															<li><a href="">штук</a></li>
-															<li><a href="">грамм</a></li>
-															<li><a href="">литров</a></li>
-														</ul>
-													</div>
-												</td>
-												<td class="col-4"><a href="" class="remove tooltip" title="Удалить ингредиент"></a></td>
-											</tr>
-											
-										</table>
-										
-										<a href="" class="add-btn"><i class="icon"></i><span>Добавить ингредиент</span></a>
-										
-									</div>
-									
-								</div>
-								
-								<div class="row">
-									
-									<label class="row-title">Описание приготовления</label><br/>
-									
-									<textarea></textarea>
-									
-								</div>
-								
-								<div class="row clearfix">
-									
-									<div class="col">
-										
-										<label class="row-title">Фото блюда <span>(не обязательно) </span></label>
-										
-										<div class="add-photo">
-											
-											<a href="" class="tooltip" title="Выбрать файл">
-												<span>Загрузите главное<br/>фото Вашего блюда</span>
-												<br/>
-												<i class="icon"></i>
-											</a>
-											
-										</div>
-										
-										<div class="add-photo uploaded">
-											
-											<a href="" class="tooltip" title="Загрузить другое фото">
-												<img src="/images/example/ex3.jpg" />
-											</a>
-											
-										</div>
-										
-										<div class="add-photo uploaded">
-											
-											<a href="" class="tooltip" title="Загрузить другое фото">
-												<img src="/images/example/ex5.jpg" />
-											</a>
-											
-										</div>
-										
-										<div class="add-photo uploaded">
-											
-											<a href="" class="tooltip" title="Загрузить другое фото">
-												<img src="/images/example/13.jpg" />
-											</a>
-											
-										</div>
-										
-									</div>
-									
-									<div class="col">
-										
-										<label class="row-title">Тип блюда </label>
-										
-										<div class="dish-types">
-											<div class="radio-box"><input type="radio" /><label>Первые блюда</label></div>
-											<div class="radio-box"><input type="radio" /><label>Вторые блюда</label></div>
-											<div class="radio-box"><input type="radio" /><label>Салаты</label></div>
-											<div class="radio-box"><input type="radio" /><label>Закуски и бутерброды</label></div>
-											<div class="radio-box"><input type="radio" /><label>Сладкая выпечка</label></div>
-											<div class="radio-box"><input type="radio" /><label>Несладкая выпечка</label></div>
-											<div class="radio-box"><input type="radio" /><label>Торты и пирожные</label></div>
-											<div class="radio-box"><input type="radio" /><label>Десерты</label></div>
-											<div class="radio-box"><input type="radio" /><label>Напитки</label></div>
-											<div class="radio-box"><input type="radio" /><label>Соусы и кремы</label></div>
-											<div class="radio-box"><input type="radio" /><label>Консервация</label></div>
-										</div>
-										
-									</div>
-									
-								</div>
-								
-								<div class="row clearfix">
-									
-									<div class="col">
-										
-										<label class="row-title">Кухня</label><br/>
-										
-										<span class="chzn-v2">
-											<select class="chzn">
-												<option>Украинская</option>
-												<option>Грузинская</option>
-											</select>
-										</span>
-										
-										<br/>
-										
-										<div class="country">
-											<div class="flag-big flag-big-ua"></div>Украинская
-										</div>
-										
-									</div>
-									
-									<div class="col">
-										
-										<label class="row-title">Способ приготовления </label><br/>
-										
-										<span class="chzn-v2">
-											<select class="chzn">
-												<option>Варка</option>
-												<option>Жарка</option>
-											</select>
-										</span>
-										
-									</div>
-									
-								</div>
-								
-								<div class="row clearfix ">
-									
-									<div class="times clearfix">
-										
-										<div class="col time-1">
-											<i class="icon"></i>
-											&nbsp;
-											Время подготовки
-											&nbsp;
-											<div class="input">
-												<input type="text" placeholder="00"/>
-												<br/>
-												час
-											</div>
-											:
-											<div class="input">
-												<input type="text" placeholder="00"/>
-												<br/>
-												мин
-											</div>
-											
-										</div>
-																		
-										<div class="col time-2">
-											<i class="icon"></i>
-											&nbsp;
-											Время приготовления
-											&nbsp;
-											<div class="input">
-												<input type="text" placeholder="00" value="1" />
-												<br/>
-												час
-											</div>
-											:
-											<div class="input">
-												<input type="text" placeholder="00" value="40"/>
-												<br/>
-												мин
-											</div>
-											
-										</div>
-									</div>
-								</div>
-								
-								<div class="row">
-									
-									<label class="row-title">На сколько порций</label>
-									
-									<div class="portions">
-										<a href="">1</a>
-										<a href="">2</a>
-										<a href="" class="active">3</a>
-										<a href="">4</a>
-										<a href="">5</a>
-										<a href="">6</a>
-										<a href="">7</a>
-										<a href="">8</a>
-										<a href="">9</a>
-										<a href="">10</a>
-									</div>
-									
-								</div>
-								
-							</div>
-							
-							<div class="row-btn">
-								
-								<button class="btn btn-gray-medium"><span><span>Отменить</span></span></button>
-								<button class="btn btn-yellow-medium"><span><span>Предпросмотр</span></span></button>
-								<button class="btn btn-green-medium"><span><span>Добавить</span></span></button>
-								
-							</div>
-							
-						</form>
-						
+            <div class="block-title"><h1>Определение пола ребенка</h1></div>
+            
+            <div class="chart">
+              
+              <a href="" class="link-1">
+                <i class="icon"></i>
+                Китайский метод
+              </a>
+              
+              <a href="" class="link-2">
+                <i class="icon"></i>
+                Японский метод
+              </a>
+              
+              <a href="" class="link-3">
+                <i class="icon"></i>
+                По дням рождения родителей
+              </a>
+              
+              <a href="" class="link-4">
+                <i class="icon"></i>
+                По группе крови родителей
+              </a>
+              
+              <a href="" class="link-5">
+                <i class="icon"></i>
+                По овуляции
+              </a>
+              
+            </div>
+            
 					</div>
 						
 				</div>
 				
 			</div>
 			
-			<div class="side-right">
+			<div class="side-left">
 				
 				<div class="banner-box">
 					
-					<a href=""><img src="/images/banner_04.png" /></a>
+					<a href=""><img src="/images/banner_07.png" /></a>
 					
 				</div>
 				

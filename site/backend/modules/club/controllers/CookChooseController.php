@@ -8,7 +8,6 @@ class CookChooseController extends BController
     public $_class = 'CookChoose';
     public $authItem = 'cook_choose';
 
-
     public function actions()
     {
         return array(

@@ -28,7 +28,7 @@ class OvulationForm extends CFormModel
     {
         return array(
             array('day, month, year, cycle, con_day, con_month, con_year', 'required', 'message'=>'Выберите из списка {attribute}'),
-            array('review_month, review_year, con_day, con_month, con_year', 'safe'),
+            array('day, month, year, cycle, review_month, review_year, con_day, con_month, con_year', 'safe'),
         );
     }
 
@@ -60,13 +60,11 @@ class OvulationForm extends CFormModel
 
     public function beforeValidate()
     {
-        $this->start_date = strtotime($this->day . '-' . $this->month . '-' . $this->year);
+        $this->start_date = strtotime(str_pad($this->day, 2, '0', STR_PAD_LEFT) . '-' . str_pad($this->month, 2, '0', STR_PAD_LEFT) . '-' . $this->year);
         if (empty($this->review_month))
             $this->review_month = date('m');
         if (empty($this->review_year))
             $this->review_year = date('Y');
-
-        return parent::beforeValidate();
     }
 
     /**

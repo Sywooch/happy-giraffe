@@ -11,12 +11,12 @@
             ),
             array('label' => 'Имена',
                 'url' => array('/club/names/index'),
-                'active' => (Yii::app()->controller->id == 'club/names'),
+                'active' => (Yii::app()->controller->id == '/club/names'),
                 'visible' => Yii::app()->user->checkAccess('names')
             ),
             array('label' => 'Болезни',
                 'url' => array('/club/recipeBookDisease/'),
-                'active' => (Yii::app()->controller->id == 'club/recipeBookDisease' || Yii::app()->controller->id == 'club/recipeBookDiseaseCategory'),
+                'active' => (Yii::app()->controller->id == '/club/recipeBookDisease' || Yii::app()->controller->id == '/club/recipeBookDiseaseCategory'),
                 'visible' => Yii::app()->user->checkAccess('editRecipeBook'),
                 'items' => array(
                     array(
@@ -25,18 +25,31 @@
                     ),
                 )
             ),
-            array('label' => 'Жалобы',
-                'active' => (Yii::app()->controller->id == 'club/reports' && Yii::app()->controller->action->id == 'index'),
+            /*array('label' => 'Жалобы',
+                'active' => (Yii::app()->controller->id == '/club/reports' && Yii::app()->controller->action->id == 'index'),
                 'url' => array('/club/reports/index'),
                 'visible' => Yii::app()->user->checkAccess('report')
-            ),
+            ),*/
             array('label' => 'Спам',
-                'active' => (Yii::app()->controller->id == 'club/reports' && Yii::app()->controller->action->id == 'spam'),
+                'active' => (Yii::app()->controller->id == '/club/reports' && Yii::app()->controller->action->id == 'spam'),
                 'url' => array('/club/reports/spam'),
-                'visible' => Yii::app()->user->checkAccess('report')
+                'visible' => Yii::app()->user->checkAccess('report'),
+                'items' => array(
+                    array(
+                        'label' => 'Спам',
+                        'url' => array('/club/reports/spam'),
+                        'visible' => Yii::app()->user->checkAccess('report'),
+                    ),
+                    array(
+                        'label' => 'Жалобы',
+                        'url' => array('/club/reports/index'),
+                        'visible' => Yii::app()->user->checkAccess('report'),
+                    ),
+                )
+
             ),
             array('label' => 'Интересы',
-                'active' => (in_array(Yii::app()->controller->id, array('club/interest', 'club/interestCategory'))),
+                'active' => (in_array(Yii::app()->controller->id, array('/club/interest', '/club/interestCategory'))),
                 'url' => array('/club/interest/'),
                 'visible' => Yii::app()->user->checkAccess('interests'),
                 'items' => array(
@@ -47,18 +60,25 @@
                 )
             ),
             array('label' => 'Гороскоп',
-                'active' => (Yii::app()->controller->id == 'club/horoscope'),
+                'active' => (Yii::app()->controller->id == '/club/horoscope'),
                 'url' => array('/club/horoscope/'),
-                'visible' => Yii::app()->user->checkAccess('horoscope')
+                'visible' => Yii::app()->user->checkAccess('horoscope'),
+                'items' => array(
+                    array(
+                        'label' => 'Гороскоп Совместимости',
+                        'url' => array('/club/horoscopeCompatibility/'),
+                        'visible' => Yii::app()->user->checkAccess('horoscope'),
+                    ),
+                ),
             ),
             array('label' => 'Кулинария',
                 'active' => (in_array(Yii::app()->controller->id, array(
-                    'club/cookIngredients',
-                    'club/cookSpices',
-                    'club/cookChooseCategory',
-                    'club/cookSpicesCategories',
-                    'club/cookDecoration',
-                    'club/cookUnit'
+                    '/club/cookIngredients',
+                    '/club/cookSpices',
+                    '/club/cookChooseCategory',
+                    '/club/cookSpicesCategories',
+                    '/club/cookDecoration',
+                    '/club/cookUnit'
                 ))),
                 'url' => array('/club/cookIngredients/'),
                 //'visible' => Yii::app()->user->checkAccess('cook_ingredients'),

@@ -315,7 +315,7 @@ function initScrolledContent() {
     });
 }
 
-comet.addEvent(300, 'liveContents');
+/*comet.addEvent(300, 'liveContents');
 
 Comet.prototype.liveContents = function (result, id) {
     $.get(
@@ -328,7 +328,7 @@ Comet.prototype.liveContents = function (result, id) {
             $('#contents_live > :last').remove();
         }
     )
-}
+}*/
 
 var PostGallery = {
     add:function (link) {
@@ -387,10 +387,12 @@ function savePhotoTitleInWindow(button) {
 
 var Register = {
     url:null,
+    start:false,
     step1:function(){
         $('.reg1').hide();
         $('.reg2').show();
         $('.regmail2').val($('.regmail1').val());
+        Register.start = true;
     },
     timer:function () {
         var obj = document.getElementById('reg_timer');
@@ -427,5 +429,13 @@ var Register = {
     showOdnoklassniki:function(){
         $(".reg1").hide();
         $(".reg-odnoklassniki").show();
+    },
+    showRegisterWindow:function(){
+        setTimeout(function(){
+            if (!Register.start){
+                $(".reg1").show();
+                console.log('fffff');
+            }
+        }, 3000);
     }
 }

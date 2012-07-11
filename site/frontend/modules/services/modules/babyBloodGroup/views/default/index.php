@@ -2,7 +2,8 @@
 $basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR;
 $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
 Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js', CClientScript::POS_HEAD);
-Yii::app()->clientScript->registerMetaTag('Группа крови ребенка – можно ли узнать её без похода в лабораторию? Да, можно рассчитать её по группам крови родителей. Воспользуйтесь нашим сервисом и проверьте это на практике', 'description');
+if (empty($this->meta_description))
+    $this->meta_description = 'Группа крови ребенка – можно ли узнать её без похода в лабораторию? Да, можно рассчитать её по группам крови родителей. Воспользуйтесь нашим сервисом и проверьте это на практике';
 
 ?><div class="baby_blood_parent_group">
     <form action="">

@@ -52,24 +52,6 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'meta_title'); ?>
-		<?php echo $form->textField($model,'meta_title',array('size'=>60,'maxlength'=>255)); ?>
-		<?php echo $form->error($model,'meta_title'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'meta_keywords'); ?>
-		<?php echo $form->textField($model,'meta_keywords',array('size'=>60,'maxlength'=>255)); ?>
-		<?php echo $form->error($model,'meta_keywords'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'meta_description'); ?>
-		<?php echo $form->textField($model,'meta_description',array('size'=>60,'maxlength'=>255)); ?>
-		<?php echo $form->error($model,'meta_description'); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->labelEx($model,'by_happy_giraffe'); ?>
 		<?php echo $form->textField($model,'by_happy_giraffe'); ?>
 		<?php echo $form->error($model,'by_happy_giraffe'); ?>

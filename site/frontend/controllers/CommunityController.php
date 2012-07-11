@@ -147,7 +147,7 @@ class CommunityController extends HController
         $this->rubric_id = $content->rubric->id;
         $this->content_type_slug = $content_type_slug;
 
-        $this->pageTitle = (empty($content->meta_title)) ? $content->title : $content->title . ' \\ ' . $content->meta_title;
+        $this->meta_title = (empty($content->meta_title)) ? $content->title : $content->title . ' \\ ' . $content->meta_title;
 
         if ($content->author_id == Yii::app()->user->id) {
             UserNotification::model()->deleteByEntity(UserNotification::NEW_COMMENT, $content);

@@ -138,12 +138,12 @@ class Comment extends HActiveRecord
             ),
             'purified' => array(
                 'class' => 'site.common.behaviors.PurifiedBehavior',
-                'attributes' => array('text'),
+                'attributes' => array('text', 'preview'),
             ),
         );
     }
 
-	public function get($entity, $entity_id, $type)
+    public function get($entity, $entity_id, $type)
 	{
 		return new CActiveDataProvider(get_class($this), array(
 			'criteria' => array(

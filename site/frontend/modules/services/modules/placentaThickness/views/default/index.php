@@ -6,7 +6,8 @@
 $basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR;
 $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
 Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js', CClientScript::POS_HEAD);
-Yii::app()->clientScript->registerMetaTag('Вы были на УЗИ и в результатах исследования прочитали, какая у вас толщина плаценты, а теперь вас мучает вопрос: это норма или нет? Воспользуйтесь нашим сервисом – и через пару минут вам всё станет ясно', 'description');
+$this->meta_description = 'Вы были на УЗИ и в результатах исследования прочитали, какая у вас толщина плаценты, а теперь вас мучает вопрос: это норма или нет? Воспользуйтесь нашим сервисом – и через пару минут вам всё станет ясно';
+
 ?><div class="placenta_about">
     <span class="placenta_bann"><img src="/images/placenta_bann.jpg" alt="" title=""/></span>
 
@@ -35,7 +36,7 @@ Yii::app()->clientScript->registerMetaTag('Вы были на УЗИ и в ре�
         'id' => 'placenta-thickness-form',
         'enableAjaxValidation' => true,
         'enableClientValidation' => false,
-        'action' => $this->createUrl('default/calculate'),
+        'action' => '#',
         'clientOptions' => array(
             'validateOnSubmit' => true,
             'validateOnChange' => false,

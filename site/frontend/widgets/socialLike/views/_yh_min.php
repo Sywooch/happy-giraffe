@@ -1,6 +1,6 @@
 <div class="like-btn">
      <?php if (Yii::app()->user->isGuest):?>
-         <a class="btn-icon heart fancy" href="#login"></a>
+         <a class="btn-icon heart fancy" href="#register" data-theme="white-square"></a>
      <?php else: ?>
          <a class="btn-icon heart<?php echo isset($this->model->author) && Yii::app()->user->id == $this->model->author->id ? ' yohoho_me ' : '' ?><?php echo RatingYohoho::model()->findByEntity($this->model) ? ' active' : ''; ?>" href="javascript:;" onclick="pushYohoho(this);"></a>
      <?php endif ?>

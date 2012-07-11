@@ -1,12 +1,12 @@
 <?php
 
-class CookChooseCategoryController extends HController
+class CookChooseCategoryController extends BController
 {
 
     public $defaultAction = 'admin';
     public $section = 'club';
     public $layout = '//layouts/club';
-    public $_class = 'CookChoose';
+    public $_class = 'CookChooseCategory';
     public $authItem = 'cook_choose';
 
 

@@ -71,13 +71,6 @@ $cs
 
             <?php if (Yii::app()->user->checkAccess('editMeta')): ?>
             <div class="row clearfix">
-                <div class="row-title"><?php echo $form->label($model, 'meta_title'); ?>:</div>
-                <div class="row-elements">
-                    <?php echo $form->textField($model, 'meta_title', array('class' => 'w-500')); ?>
-                </div>
-            </div>
-
-            <div class="row clearfix">
                 <div class="row-title"><?php echo $form->label($model, 'by_happy_giraffe'); ?>:</div>
                 <div class="row-elements">
                     <?php echo $form->checkBox($model, 'by_happy_giraffe'); ?>

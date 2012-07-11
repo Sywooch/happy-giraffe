@@ -19,7 +19,7 @@
             <button class="btn btn-green-small" onclick="Morniing.saveField(this, 'title');"><span><span>Ok</span></span>
             </button>
         </div>
-        <a href="javascript:void(0);" onclick="Morniing.editField(this)" class="edit"><span class="tip">Редактировать название</span></a>
+        <a href="javascript:void(0);" onclick="Morniing.editField(this)" class="edit tooltip" title="Редактировать название"></a>
     </div>
     <br>
 
@@ -31,7 +31,7 @@
             <button class="btn btn-green-small" onclick="Morniing.savePos(this);"><span><span>Ok</span></span>
             </button>
         </div>
-        <a href="javascript:void(0);" onclick="Morniing.editField(this)" class="edit"><span class="tip">Редактировать позицию</span></a>
+        <a href="javascript:void(0);" onclick="Morniing.editField(this)" class="edit tooltip" title="Редактировать позицию"></a>
     </div>
 
     <div<?php if (empty($post->title)) echo ' style="display:none;"' ?>>
@@ -47,7 +47,7 @@
                 </button>
             </div>
             <a href="javascript:void(0);" onclick="Morniing.editField(this)"
-               class="edit"<?php if (empty($post->preview)) echo ' style="display:none;"' ?>><span class="tip">Редактировать текст превью</span></a>
+               class="edit tooltip"<?php if (empty($post->preview)) echo ' style="display:none;"' ?> title="Редактировать текст превью"></a>
         </div>
 
         <br>

@@ -16,8 +16,7 @@
     <td><?=($visits1 + $visits2) ?></td>
     <td></td>
 </tr>
-<?php
-foreach ($goodPhrases as $phrase): ?>
+<?php foreach ($goodPhrases as $phrase): ?>
 <tr onclick="SeoLinking.getPhraseData(this, <?= $phrase->id?>)"<?php if ($selected_phrase_id == $phrase->id) echo ' class="active"' ?>>
     <td><?=$phrase->keyword->name ?></td>
     <td><?=$phrase->keyword->getFrequency() ?></td>

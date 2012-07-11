@@ -1,16 +1,8 @@
 <?php
 
-class QueryController extends SController
+class SearchPhrasePositionController extends SController
 {
 	public $defaultAction='admin';
-    public $layout = '//layouts/promotion';
-
-    public function beforeAction($action)
-    {
-        if (!Yii::app()->user->checkAccess('admin'))
-            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
-        return true;
-    }
 
 	/**
 	 * Creates a new model.
@@ -18,14 +10,14 @@ class QueryController extends SController
 	 */
 	public function actionCreate()
 	{
-		$model=new Query;
+		$model=new SearchPhrasePosition;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Query']))
+		if(isset($_POST['SearchPhrasePosition']))
 		{
-			$model->attributes=$_POST['Query'];
+			$model->attributes=$_POST['SearchPhrasePosition'];
 			if($model->save())
 				$this->redirect(array('admin'));
 		}
@@ -47,9 +39,9 @@ class QueryController extends SController
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Query']))
+		if(isset($_POST['SearchPhrasePosition']))
 		{
-			$model->attributes=$_POST['Query'];
+			$model->attributes=$_POST['SearchPhrasePosition'];
 			if($model->save())
 				$this->redirect(array('admin'));
 		}
@@ -84,10 +76,10 @@ class QueryController extends SController
 	 */
 	public function actionAdmin()
 	{
-		$model=new Query('search');
+		$model=new SearchPhrasePosition('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Query']))
-			$model->attributes=$_GET['Query'];
+		if(isset($_GET['SearchPhrasePosition']))
+			$model->attributes=$_GET['SearchPhrasePosition'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -101,7 +93,7 @@ class QueryController extends SController
 	 */
 	public function loadModel($id)
 	{
-		$model=Query::model()->findByPk((int)$id);
+		$model=SearchPhrasePosition::model()->findByPk((int)$id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -113,7 +105,7 @@ class QueryController extends SController
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='query-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='search-phrase-position-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

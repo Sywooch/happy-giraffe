@@ -100,6 +100,14 @@ class QuerySearchEngine extends HActiveRecord
 
         return new CActiveDataProvider($this, array(
             'criteria'=>$criteria,
+            'pagination' => array('pageSize' => 25),
         ));
+    }
+
+    public function getSe()
+    {
+        if ($this->se_id == 2) return 'yandex';
+        if ($this->se_id == 3) return 'google';
+        return $this->se_id;
     }
 }

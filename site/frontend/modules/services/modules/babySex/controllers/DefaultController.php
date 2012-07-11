@@ -11,6 +11,12 @@ class DefaultController extends HController
         );
     }
 
+    public function actionIndex()
+    {
+        $this->pageTitle = 'Определение пола ребенка';
+        $this->render('index');
+    }
+
     /**
      * @sitemap
      */

@@ -43,10 +43,7 @@ class CookSpicesController extends BController
     public function actionUpdate($id)
     {
 
-        $basePath = Yii::getPathOfAlias('application.views.club.cookSpices.assets');
-        $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
-        Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js', CClientScript::POS_HEAD);
-        Yii::app()->clientScript->registerCssFile($baseUrl . '/style.css', CClientScript::POS_HEAD);
+
 
         $model = $this->loadModel($id);
 

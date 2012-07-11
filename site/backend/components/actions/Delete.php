@@ -10,7 +10,6 @@ class Delete extends CAction
         if (Yii::app()->request->isPostRequest) {
             $controller->loadModel($params['id'])->delete();
             if (!Yii::app()->request->isAjaxRequest) {
-                $controller->setFlash('success', 'Запись успешно удалена');
                 $controller->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
             }
         } else {

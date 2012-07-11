@@ -50,12 +50,12 @@ Yii::app()->clientScript->registerScript('family-edit',$js)
                                 <input type="text">
                                 <button class="btn btn-green-small" onclick="Family.savePartnerName(this);"><span><span>Ok</span></span></button>
                             </div>
-                            <a href="javascript:void(0);" onclick="Family.editPartnerName(this)" class="edit"<?php if (empty($user->partner->name)) echo ' style="display:none;"' ?>><span class="tip">Редактировать имя</span></a>
+                            <a href="javascript:void(0);" onclick="Family.editPartnerName(this)" class="edit tooltip"<?php if (empty($user->partner->name)) echo ' style="display:none;"' ?> title="Редактировать имя"></a>
                         </div>
 
                         <div<?php if (empty($user->partner->name)) echo ' style="display:none;"' ?>>
-                            <a href="javascript:void(0);" onclick="Family.editPartnerNotice(this)" class="comment"><span class="tip">Расскажите о <?= ($user->gender == 1)?'ней':'нем' ?></span></a>
-                            <a href="javascript:void(0);" class="photo"><span class="tip">Добавить 4 фото</span>
+                            <a href="javascript:void(0);" onclick="Family.editPartnerNotice(this)" class="comment tooltip" title="Расскажите о <?= ($user->gender == 1)?'ней':'нем' ?>"></a>
+                            <a href="javascript:void(0);" class="photo tooltip" title="Добавить 4 фото">
                                 <?php $form = $this->beginWidget('CActiveForm', array(
                                     'id' => 'partner_photo_upload2',
                                     'action' => $this->createUrl('uploadPhoto'),
@@ -75,7 +75,7 @@ Yii::app()->clientScript->registerScript('family-edit',$js)
                             <textarea><?=$user->partner->notice ?></textarea>
                             <button class="btn btn-green-small" onclick="Family.savePartnerNotice(this)"><span><span>Ok</span></span></button>
                         </div>
-                        <div class="text"><span class="text"><?=$user->partner->notice ?></span> <a href="javascript:void(0);" onclick="Family.editPartnerNotice(this)" class="edit"><span class="tip">Редактировать комментарий</span></a></div>
+                        <div class="text"><span class="text"><?=$user->partner->notice ?></span> <a href="javascript:void(0);" onclick="Family.editPartnerNotice(this)" class="edit tooltip" title="Редактировать комментарий"></a></div>
                     </div>
 
                     <div class="photos"<?php if (count($user->partner->photos) == 0) echo ' style="display:none;"' ?>>
@@ -140,9 +140,9 @@ Yii::app()->clientScript->registerScript('family-edit',$js)
                     ?>
                     <div class="d-text"><?=$text ?></div>
 
-                    <a href="javascript:void(0);" onclick="Family.saveBabyGender(this, 1)" class="gender male<?=($future_baby !== null && $future_baby->sex == 1)?' active':'' ?>"><span class="tip">Мальчик</span></a>
-                    <a href="javascript:void(0);" onclick="Family.saveBabyGender(this, 0)" class="gender female<?=($future_baby !== null && $future_baby->sex == 0)?' active':'' ?>"><span class="tip">Девочка</span></a>
-                    <a href="javascript:void(0);" onclick="Family.saveBabyGender(this, 2)" class="gender question<?=($future_baby !== null && $future_baby->sex == 2)?' active':'' ?>"><span class="tip">Не знаем</span></a>
+                    <a href="javascript:void(0);" onclick="Family.saveBabyGender(this, 1)" class="gender tooltip male<?=($future_baby !== null && $future_baby->sex == 1)?' active':'' ?>" title="Мальчик"></a>
+                    <a href="javascript:void(0);" onclick="Family.saveBabyGender(this, 0)" class="gender tooltip female<?=($future_baby !== null && $future_baby->sex == 0)?' active':'' ?>" title="Девочка"></a>
+                    <a href="javascript:void(0);" onclick="Family.saveBabyGender(this, 2)" class="gender tooltip question<?=($future_baby !== null && $future_baby->sex == 2)?' active':'' ?>" title="Не знаем"></a>
 
                 </div>
 
@@ -163,19 +163,19 @@ Yii::app()->clientScript->registerScript('family-edit',$js)
                                     <input type="text">
                                     <button class="btn btn-green-small" onclick="Family.saveBabyName(this);"><span><span>Ok</span></span></button>
                                 </div>
-                                <a href="javascript:void(0);" onclick="Family.editBabyName(this)" class="edit"<?php if (empty($baby->name)) echo ' style="display:none;"' ?>><span class="tip">Редактировать имя</span></a>
+                                <a href="javascript:void(0);" onclick="Family.editBabyName(this)" class="edit tooltip"<?php if (empty($baby->name)) echo ' style="display:none;"' ?> title="Редактировать имя"></a>
                             </div>
 
                             <div<?php if (empty($baby->name)) echo ' style="display:none;"' ?> class="hide-on-start">
-                                <a href="javascript:void(0);" class="gender male<?php if ($baby->sex == 1) echo ' active'?>" onclick="Family.saveBabyGender(this, 1)"><span class="tip">Мальчик</span></a>
-                                <a href="javascript:void(0);" class="gender female<?php if ($baby->sex == 0) echo ' active'?>" onclick="Family.saveBabyGender(this, 0)"><span class="tip">Девочка</span></a>
+                                <a href="javascript:void(0);" class="gender tooltip male<?php if ($baby->sex == 1) echo ' active'?>" onclick="Family.saveBabyGender(this, 1)" title="Мальчик"></a>
+                                <a href="javascript:void(0);" class="gender tooltip female<?php if ($baby->sex == 0) echo ' active'?>" onclick="Family.saveBabyGender(this, 0)" title="Девочка"></a>
 
                                 <div<?php if ($baby->sex === null) echo ' style="display:none;"' ?> class="hide-on-start">
                                     <div class="age">
                                         <?= $baby->getTextAge() ?>
                                     </div>
                                     <div class="date">
-                                        <a href="javascript:void(0);" onclick="Family.editDate(this);" class="date"><span class="tip">Укажите дату рождения</span></a>
+                                        <a href="javascript:void(0);" onclick="Family.editDate(this);" class="date tooltip" title="Укажите дату рождения"></a>
                                         <div class="datepicker" style="display:none;">
                                             <div class="tale"></div>
                                             <?php echo CHtml::dropDownList('baby_d_'.$i, $baby->getBDatePart('j'), array(''=>' ')+HDate::Days(), array(
@@ -197,8 +197,8 @@ Yii::app()->clientScript->registerScript('family-edit',$js)
                                         </div>
                                     </div>
 
-                                    <a href="javascript:void(0);" onclick="Family.editBabyNotice(this)" class="comment"><span class="tip">Расскажите о нем</span></a>
-                                    <a href="javascript:void(0);" class="photo"><span class="tip">Добавить 4 фото</span>
+                                    <a href="javascript:void(0);" onclick="Family.editBabyNotice(this)" class="comment tooltip" title="Расскажите о нем"></a>
+                                    <a href="javascript:void(0);" class="photo tooltip" title="Добавить 4 фото">
                                         <?php $form = $this->beginWidget('CActiveForm', array(
                                             'id' => 'baby_photo_upload2'.$i,
                                             'action' => $this->createUrl('uploadBabyPhoto'),
@@ -223,7 +223,7 @@ Yii::app()->clientScript->registerScript('family-edit',$js)
                                 <textarea><?=$baby->notice ?></textarea>
                                 <button class="btn btn-green-small" onclick="Family.saveBabyNotice(this)"><span><span>Ok</span></span></button>
                             </div>
-                            <div class="text"><span class="text"><?=$baby->notice ?></span> <a href="javascript:void(0);" onclick="Family.editBabyNotice(this)" class="edit"><span class="tip">Редактировать комментарий</span></a></div>
+                            <div class="text"><span class="text"><?=$baby->notice ?></span> <a href="javascript:void(0);" onclick="Family.editBabyNotice(this)" class="edit tooltip" title="Редактировать комментарий"></a></div>
                         </div>
 
                         <div class="photos"<?php if (count($baby->photos) == 0) echo ' style="display:none;"' ?>>

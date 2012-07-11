@@ -175,6 +175,8 @@ class Keyword extends HActiveRecord
             return true;
 
         foreach ($this->group as $group) {
+            return true;
+
             if (!empty($group->page))
                 return false;
 

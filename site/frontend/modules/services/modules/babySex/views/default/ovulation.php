@@ -9,13 +9,14 @@ $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG
 Yii::app()->clientScript->registerScriptFile($baseUrl . '/ovulation.js', CClientScript::POS_HEAD);
 Yii::app()->clientScript->registerCss('baby-gender-ovulation', '.child_sex_ovulyaciya_banner div.row {display: inline;}
 .child_sex_ovulyaciya_banner .errorMessage {display: none !important;}');
-Yii::app()->clientScript->registerMetaTag('Попробуйте воспользоваться нашим эксклюзивным сервисом Определение пола по овуляции. Он создан на основе современных медицинских разработок, а значит, на порядок точнее других методов определения пола ребенка', 'description');
+if (empty($this->meta_description))
+    $this->meta_description = 'Попробуйте воспользоваться нашим эксклюзивным сервисом Определение пола по овуляции. Он создан на основе современных медицинских разработок, а значит, на порядок точнее других методов определения пола ребенка';
 
 $form = $this->beginWidget('CActiveForm', array(
     'id' => 'ovulation-form',
     'enableAjaxValidation' => true,
     'enableClientValidation' => true,
-    'action' => $this->createUrl('/babySex/ovulationCalc/'),
+    'action' => '',
     'clientOptions' => array(
         'validateOnSubmit' => true,
         'validateOnChange' => true,

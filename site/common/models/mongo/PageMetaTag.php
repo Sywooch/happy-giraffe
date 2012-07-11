@@ -66,4 +66,37 @@ class PageMetaTag extends EMongoDocument
 
         return $model;
     }
+
+    /**
+     * @return Page
+     */
+    public function getPage()
+    {
+        $url = 'http://www.happy-giraffe.ru' . Yii::app()->createUrl($this->route, $this->params);
+        //$url = Yii::app()->createAbsoluteUrl($model->route, $model->params);
+
+        return Page::model()->findByAttributes(array('url' => $url));
+    }
+
+    /**
+     * @param $page
+     * @return CActiveDataProvider
+     */
+    public function getPhrases($page)
+    {
+        if ($page !== null) {
+            $criteria = new CDbCriteria;
+            $criteria->compare('page_id', $page->id);
+            $dataProvider = new CActiveDataProvider('PagesSearchPhrase', array(
+                'criteria' => $criteria,
+                'pagination' => array('pageSize' => 7),
+            ));
+            $paginator = $dataProvider->getPagination();
+            $paginator->setCurrentPage(isset($_GET['page'])?$_GET['page'] - 1:0);
+            $dataProvider->setPagination($paginator);
+
+            return $dataProvider;
+        }
+        return null;
+    }
 }

@@ -1,7 +1,7 @@
 <?php
 class RegisterWidget extends CWidget
 {
-    public $show_form = true;
+    public $show_form = false;
 
     public function run()
     {
@@ -10,7 +10,7 @@ class RegisterWidget extends CWidget
                 //чел пришел из одноклассников
                 Yii::app()->user->setState('comes_from_social', 'odnoklassniki');
             }
-            if (strpos(Yii::app()->getRequest()->urlReferrer, 'http://www.happy-giraffe.ru/') === false) {
+            if (strpos(Yii::app()->getRequest()->urlReferrer, 'http://'.$_SERVER['HTTP_HOST']) === false) {
                 //чел пришел с другого сайта, предлагаем зарегаться
                 $this->show_form = true;
             }

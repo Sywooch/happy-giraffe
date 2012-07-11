@@ -392,7 +392,6 @@ var Register = {
         $('.reg1').hide();
         $('.reg2').show();
         $('.regmail2').val($('.regmail1').val());
-        Register.start = true;
     },
     timer:function () {
         var obj = document.getElementById('reg_timer');
@@ -426,15 +425,10 @@ var Register = {
         $(".reg2").show();
         $(".email2-row").show();
     },
-    showOdnoklassniki:function(){
-        $(".reg1").hide();
-        $(".reg-odnoklassniki").show();
-    },
     showRegisterWindow:function(){
         setTimeout(function(){
             if (!Register.start){
-                $(".reg1").show();
-                console.log('fffff');
+                $('#reg-main-btn').trigger('click');
             }
         }, 3000);
     }

@@ -11,9 +11,13 @@ class DefaultController extends HController
         );
     }
 
+    /**
+     * @sitemap
+     */
     public function actionIndex()
     {
         $this->pageTitle = 'Определение пола ребенка';
+        Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
         $this->render('index');
     }
 

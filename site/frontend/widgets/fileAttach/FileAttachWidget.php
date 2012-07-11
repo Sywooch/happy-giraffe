@@ -30,8 +30,9 @@ class FileAttachWidget extends CWidget
         if ($this->customButton) {
             $htmlOptions = (Yii::app()->user->isGuest) ?
                 array(
-                    'href' => '#login',
+                    'href' => '#register',
                     'class' => 'fancy',
+                    'data-theme'=>"white-square"
                 )
                 :
                 array(

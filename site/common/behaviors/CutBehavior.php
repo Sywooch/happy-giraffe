@@ -16,8 +16,6 @@ class CutBehavior extends CActiveRecordBehavior
             $text = $this->owner->$a;
             $pos = strpos($text, '<!--more-->');
             $preview = $pos === false ? $text : substr($text, 0, $pos);
-            $preview = '123456';
-            $this->owner->preview = $preview;
             $this->owner->content->preview = $preview;
             $this->owner->content->save(false);
             $this->owner->$a = $text;

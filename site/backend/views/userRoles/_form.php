@@ -3,6 +3,21 @@
  * @var $form CActiveForm
  */
 ?>
+
+<script>
+    $(function () {
+        $('#check-all-oper').bind('change', function () {
+            if ($(this).is(':checked')) {
+                var allCheckboxes = $("#all-rights input:checkbox:enabled");
+                var notChecked = allCheckboxes.not(':checked');
+                notChecked.attr('checked', 'checked');
+            } else {
+                var Checked = $("#all-rights input:checkbox:enabled:checked");
+                Checked.removeAttr('checked');
+            }
+        })
+    });
+</script>
 <div class="form">
 
     <?php $form = $this->beginWidget('CActiveForm', array(

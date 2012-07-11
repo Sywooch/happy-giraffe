@@ -79,7 +79,10 @@ class EditorController extends SController
         }
         $tempKeywords = TempKeyword::model()->findAll('owner_id=' . Yii::app()->user->id);
 
-        $tasks = SeoTask::model()->findAll('owner_id=' . Yii::app()->user->id . ' AND status = 0');
+        $criteria = new CDbCriteria;
+        $criteria->condition = 'owner_id=' . Yii::app()->user->id . ' AND status = 0';
+        $criteria->order = 'created desc';
+        $tasks = SeoTask::model()->findAll($criteria);
 
         $this->render('editor_panel', array(
             'tasks' => $tasks,
@@ -230,6 +233,7 @@ class EditorController extends SController
         $criteria = new CDbCriteria;
         $criteria->compare('owner_id', Yii::app()->user->id);
         $criteria->compare('status >', SeoTask::STATUS_NEW);
+        $criteria->order = 'created desc';
         $tasks = SeoTask::model()->findAll($criteria);
 
         $this->render('reports', array(

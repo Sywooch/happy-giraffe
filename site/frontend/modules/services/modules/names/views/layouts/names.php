@@ -3,8 +3,7 @@
 $basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR;
 $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
 Yii::app()->clientScript
-    ->registerScriptFile($baseUrl . '/script.js', CClientScript::POS_HEAD)
-    ->registerMetaTag('', 'description');
+    ->registerScriptFile($baseUrl . '/script.js', CClientScript::POS_HEAD);
 ?><div class="right_block">
     <div class="choice_name">
         <h1>Выбор имени <span>ребенка</span></h1>

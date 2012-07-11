@@ -957,6 +957,7 @@
 		wrap.stop();
 
 		function _cleanup() {
+      
 			overlay.fadeOut('fast');
 
 			title.empty().hide();
@@ -973,6 +974,9 @@
 			currentOpts = selectedOpts	= {};
 
 			busy = false;
+      
+      wrap.removeClass();
+      
 		}
 
 		if (currentOpts.transitionOut == 'elastic') {
@@ -1005,6 +1009,10 @@
 		} else {
 			wrap.fadeOut( currentOpts.transitionOut == 'none' ? 0 : currentOpts.speedOut, _cleanup);
 		}
+    
+    
+    
+    
 	};
 
 	$.fancybox.resize = function() {

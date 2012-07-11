@@ -196,6 +196,13 @@
 	background-image: url('../images/bg_popup_2_corner.png');
 }
 
+.white-square-theme .fancybox-bg {display:none;}
+
+.white-square-theme #fancybox-outer {padding:10px;}
+.white-square-theme #fancybox-outer {/*css3*/ -moz-box-shadow:0 20px 50px #333;-webkit-box-shadow:0 20px 50px #333;box-shadow:0 20px 50px #333;}
+
+.white-square-theme .popup-close {top:10px;right:10px;}
+
 #fancybox-bg-n {
 	top: -20px;
 	left: 0;

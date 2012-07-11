@@ -5,7 +5,7 @@
 $basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR;
 $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
 Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js', CClientScript::POS_HEAD);
-Yii::app()->clientScript->registerMetaTag('Вес при беременности – важный показатель, позволяющий быстро оценить, нормально ли протекает беременность. Наш сервис поможет вам узнать, находится ли ваш вес в пределах допустимого или нужно обратиться к врачу', 'description');
+$this->meta_description = 'Вес при беременности – важный показатель, позволяющий быстро оценить, нормально ли протекает беременность. Наш сервис поможет вам узнать, находится ли ваш вес в пределах допустимого или нужно обратиться к врачу';
 
 ?><div class="section-banner" style="margin:0;">
 
@@ -16,7 +16,7 @@ Yii::app()->clientScript->registerMetaTag('Вес при беременност�
         'id' => 'pregnant-params-form',
         'enableAjaxValidation' => true,
         'enableClientValidation' => false,
-        'action' => $this->createUrl('default/calculate'),
+        'action' => '',
         'clientOptions' => array(
             'validateOnSubmit' => true,
             'validateOnChange' => false,

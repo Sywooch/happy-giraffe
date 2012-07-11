@@ -19,6 +19,7 @@
  * The followings are the available model relations:
  * @property User author
  * @property AttachPhoto[] $photoAttaches
+ * @property AttachPhoto $photoAttach
  */
 class Comment extends HActiveRecord
 {
@@ -77,6 +78,7 @@ class Comment extends HActiveRecord
             'quote' => array(self::BELONGS_TO, 'Comment', 'quote_id'),
             'remove' => array(self::HAS_ONE, 'Removed', 'entity_id', 'condition' => '`remove`.`entity` = :entity', 'params' => array(':entity' => get_class($this))),
             'photoAttaches' => array(self::HAS_MANY, 'AttachPhoto', 'entity_id', 'condition' => 'entity = :entity', 'params' => array(':entity' => get_class($this))),
+            'photoAttach' => array(self::HAS_ONE, 'AttachPhoto', 'entity_id', 'condition' => 'entity = :entity', 'params' => array(':entity' => get_class($this))),
 		);
 	}
 
@@ -136,19 +138,19 @@ class Comment extends HActiveRecord
             ),
             'purified' => array(
                 'class' => 'site.common.behaviors.PurifiedBehavior',
-                'attributes' => array('text'),
+                'attributes' => array('text', 'preview'),
             ),
         );
     }
 
-	public function get($entity, $entity_id)
+    public function get($entity, $entity_id, $type)
 	{
 		return new CActiveDataProvider(get_class($this), array(
 			'criteria' => array(
 				'condition' => 'entity=:entity AND entity_id=:entity_id',
 				'params' => array(':entity' => $entity, ':entity_id' => $entity_id),
 				'with' => array('author'),
-				'order' => 'created ASC',
+				'order' => ($type != 'guestBook') ? 'created ASC' : 'created DESC',
 			),
 			'pagination' => array(
 				'pageSize' => 25,
@@ -158,6 +160,9 @@ class Comment extends HActiveRecord
 
     public function afterSave()
     {
+        if (get_class(Yii::app()) == 'CConsoleApplication')
+            return parent::afterSave();
+
         if ($this->isNewRecord) {
             //проверяем на предмет выполненного модератором задания
             UserSignal::CheckComment($this);
@@ -358,5 +363,25 @@ class Comment extends HActiveRecord
     public function isTextComment()
     {
         return empty($this->photoAttaches);
+    }
+
+    /**
+     * Первый коммент от веселого жирафа
+     * @param $user_id
+     */
+    public function addGiraffeFirstComment($user_id)
+    {
+        //коммент от веселого жирафа
+        $comment = new Comment('giraffe');
+        $comment->author_id = User::HAPPY_GIRAFFE;
+        $comment->entity = 'User';
+        $comment->entity_id = $user_id;
+        $comment->save();
+
+        $attach = new AttachPhoto;
+        $attach->entity = 'Comment';
+        $attach->entity_id = $comment->id;
+        $attach->photo_id = 35000;
+        $attach->save();
     }
 }

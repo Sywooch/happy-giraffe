@@ -5,30 +5,30 @@
  */
 
 $script = <<<EOD
-$(".auth-service2.vkontakte a").eauth({"popup":{"width":585,"height":350},"id":"vkontakte"});
-$(".auth-service2.facebook a").eauth({"popup":{"width":585,"height":290},"id":"facebook"});
-$(".auth-service2.mailru a").eauth({"popup":{"width":580,"height":400},"id":"mailru"});
-$(".auth-service2.google a").eauth({"popup":{"width":500,"height":450},"id":"google"});
-$(".auth-service2.twitter a").eauth({"popup":{"width":900,"height":550},"id":"twitter"});
-$(".auth-service2.odnoklassniki a").eauth({"popup":{"width":680,"height":500},"id":"odnoklassniki"});
+$("a.auth-service2.vkontakte").eauth({"popup":{"width":585,"height":350},"id":"vkontakte"});
+$("a.auth-service2.facebook").eauth({"popup":{"width":585,"height":290},"id":"facebook"});
+$("a.auth-service2.mailru").eauth({"popup":{"width":580,"height":400},"id":"mailru"});
+$("a.auth-service2.google").eauth({"popup":{"width":500,"height":450},"id":"google"});
+$("a.auth-service2.twitter").eauth({"popup":{"width":900,"height":550},"id":"twitter"});
+$("a.auth-service2.odnoklassniki").eauth({"popup":{"width":680,"height":500},"id":"odnoklassniki"});
 $(".social-btn a").eauth({"popup":{"width":680,"height":500},"id":"odnoklassniki"});
-
 EOD;
+Yii::app()->clientScript->registerScript('auth-services-init',$script);
 
 if (Yii::app()->controller->registerUserData !== null){
     Yii::app()->clientScript->registerScript('reg23','Register.showSocialStep2();');
     $regdata = Yii::app()->controller->registerUserData;
     $model = Yii::app()->controller->registerUserModel;
 }elseif(Yii::app()->user->getState('comes_from_social') == 'odnoklassniki'){
-    Yii::app()->clientScript->registerScript('reg_change_reg_form','$("#register .reg1").html($("#reg-odnoklassniki").html());');
+    Yii::app()->clientScript->registerScript('reg_change_reg_form','$("#register .reg1").html($("#reg-odnoklassniki").html());$("a.auth-service2.odnoklassniki").eauth({"popup":{"width":680,"height":500},"id":"odnoklassniki"});');
 }
 
-if ($show_form){
+/*if ($show_form){
     Yii::app()->clientScript->registerScript('reg_show_window','Register.showRegisterWindow();');
     if (Yii::app()->controller->uniqueId == 'services/babySex/default' ){
         Yii::app()->clientScript->registerScript('reg_change_reg_form','$("#register .reg1").html($("#reg-odnoklassniki").html());');
     }
-}
+}*/
 ?>
 <div style="display:none">
     <div id="register" class="popup">
@@ -47,8 +47,8 @@ if ($show_form){
                     <div class="box-title">Регистрация через<br/>социальные сети</div>
 
                     <ul>
-                        <li><a class="auth-service2 odnoklassniki" href="<?=Yii::app()->createUrl('signup/index', array('service'=>'odnoklassniki')) ?>"><img src="/images/btn_register_mm.png"></a></li>
-                        <li><a class="auth-service2 mailru" href="<?=Yii::app()->createUrl('signup/index', array('service'=>'mailru')) ?>"><img src="/images/btn_register_ok.png"></a></li>
+                        <li><a class="auth-service2 mailru" href="<?=Yii::app()->createUrl('signup/index', array('service'=>'odnoklassniki')) ?>"><img src="/images/btn_register_mm.png"></a></li>
+                        <li><a class="auth-service2 odnoklassniki" href="<?=Yii::app()->createUrl('signup/index', array('service'=>'mailru')) ?>"><img src="/images/btn_register_ok.png"></a></li>
                         <li><a class="auth-service2 vkontakte" href="<?=Yii::app()->createUrl('signup/index', array('service'=>'vkontakte')) ?>"><img src="/images/btn_register_vk.png"></a></li>
                         <li><a class="auth-service2 facebook" href="<?=Yii::app()->createUrl('signup/index', array('service'=>'facebook')) ?>"><img src="/images/btn_register_fb.png"></a></li>
                     </ul>
@@ -247,7 +247,7 @@ if ($show_form){
         </div>
 
         <div class="social-btn">
-            <a href="<?=Yii::app()->createUrl('signup/index', array('service'=>'odnoklassniki')) ?>"><img src="/images/btn_register_big_ok.png"></a>
+            <a class="auth-service2 odnoklassniki" href="<?=Yii::app()->createUrl('signup/index', array('service'=>'odnoklassniki')) ?>"><img src="/images/btn_register_big_ok.png"></a>
         </div>
 
     </div>

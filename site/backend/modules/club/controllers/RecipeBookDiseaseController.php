@@ -5,8 +5,8 @@ class RecipeBookDiseaseController extends BController
     public $defaultAction = 'admin';
     public $section = 'club';
     public $layout = '//layouts/club';
+    public $_class = 'RecipeBookDisease';
     public $authItem = 'editRecipeBook';
-    public $_class = 'CookChoose';
 
     public function actions()
     {
@@ -21,19 +21,19 @@ class RecipeBookDiseaseController extends BController
     public function actionAddPhoto()
     {
         $id = Yii::app()->request->getPost('id');
-        $product = $this->loadModel($id);
+        $model = $this->loadModel($id);
 
-        if (!empty($product->photo))
-            $last_photo = $product->photo;
+        if (!empty($model->photo))
+            $last_photo = $model->photo;
 
-        if (isset($_FILES['photo']) && !empty($product)) {
+        if (isset($_FILES['photo']) && !empty($model)) {
             $file = CUploadedFile::getInstanceByName('photo');
             if (!in_array($file->extensionName, array('jpg', 'jpeg', 'png', 'gif', 'JPG', 'JPEG', 'PNG', 'GIF')))
                 Yii::app()->end();
 
             $photo = new AlbumPhoto();
             $photo->file = $file;
-            $photo->title = $product->title;
+            $photo->title = $model->title;
             $photo->author_id = 1;
 
             if ($photo->create()) {
@@ -41,8 +41,8 @@ class RecipeBookDiseaseController extends BController
                 document.domain = document.location.host;
                 </script>";
 
-                $product->photo_id = $photo->id;
-                if ($product->save()) {
+                $model->photo_id = $photo->id;
+                if ($model->save()) {
                     if (isset($last_photo))
                         $last_photo->delete();
                     $response = array(

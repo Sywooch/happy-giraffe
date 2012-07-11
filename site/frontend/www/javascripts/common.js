@@ -411,13 +411,13 @@ var Register = {
     finish:function () {
         $('.reg2').hide();
         $('.reg3').show();
+        setTimeout(Register.timer, 1000);
         $.post('/signup/finish/', $('#reg-form2').serialize(), function (response) {
             console.log(response);
             if (response.status) {
                 Register.url = response.profile;
             }
         }, 'json');
-        setTimeout(Register.timer, 3000);
     },
     showSocialStep2:function(){
         $('.register.fancy').trigger('click');

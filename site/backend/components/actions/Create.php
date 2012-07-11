@@ -10,6 +10,8 @@ class Create extends CAction
         $model = new $controller->_class('create');
         $this->_model = $model;
 
+        $controller->performAjaxValidation($model);
+
         if (isset($_GET[$controller->_class])) {
             $model->attributes = $_GET[$controller->_class];
         }

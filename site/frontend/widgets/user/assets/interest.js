@@ -12,18 +12,15 @@ Interest.changeCategory = function(el) {
     }
 };
 
-Interest.checkItem = function(elem) {
-    $(elem).toggleClass('selected');
-    var id = $(elem).attr('for');
-    $('#'+id).click();
+Interest.removeSelected = function(el) {
+    $(el).parent().remove();
+    $('#interestsManage .interest-drag[data-id=' + $(el).parent().data('id') + ']').show();
 };
 
-Interest.save = function(form) {
-    $.post(form.action, $(form).serialize(), function(data) {
-        $('#user_interests_list').replaceWith(data);
+Interest.save = function() {
+    var form = $('#interestsManage form');
+    $.post($(form).attr('action'), $(form).serialize(), function(response) {
         $.fancybox.close();
     });
-    return false;
 }
-
 

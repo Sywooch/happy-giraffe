@@ -13,7 +13,7 @@ if ($type == 'guestBook') {
                                 <li><a href="javascript:;" onclick="'.$this->objectName.'.newComment(event);addMenuToggle(this);">Текст</a></li>
                                 <li><a href="#new_photo_comment_wrapper" onclick="'.$this->objectName.'.newPhotoComment(event);addMenuToggle(this);">Картинка</a></li>
                             </ul>
-                        </div>' : '<a href="#register" class="btn btn-orange a-right fancy"  data-theme="white-square"><span><span>Добавить запись<i class="arr-b"></i></span></span></a>
+                        </div>' : '<a href="#login" class="btn btn-orange a-right fancy"  data-theme="white-square"><span><span>Добавить запись<i class="arr-b"></i></span></span></a>
 
                         </div>') . '
                     <div class="title">' . $this->title . '</div>
@@ -27,7 +27,7 @@ if ($type == 'guestBook') {
             ';
 } else {
     if (Yii::app()->user->isGuest)
-        $link = '<a href="#register" class="btn btn-orange a-right fancy" data-theme="white-square"><span><span>' . $this->button . '</span></span></a>';
+        $link = '<a href="#login" class="btn btn-orange a-right fancy" data-theme="white-square"><span><span>' . $this->button . '</span></span></a>';
     else{
         if ($this->readOnly)
                 $link = '';

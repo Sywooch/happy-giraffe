@@ -128,7 +128,7 @@ class VoteWidget extends CWidget
             $js = "
                 $('body').delegate('$this->main_selector a', 'click', function(e) {
                     e.preventDefault();
-                    $('a[href=\"#register\"]').click();
+                    $('a[href=\"#login\"]').click();
                 });
             ";
         }

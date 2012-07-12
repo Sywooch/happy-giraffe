@@ -21,7 +21,11 @@ if (Yii::app()->controller->registerUserData !== null){
     $regdata = Yii::app()->controller->registerUserData;
     $model = Yii::app()->controller->registerUserModel;
 }elseif(Yii::app()->user->getState('comes_from_social') == 'odnoklassniki'){
-    Yii::app()->clientScript->registerScript('reg_change_reg_form','$("#register .reg1").html($("#reg-odnoklassniki").html());$("a.auth-service2.odnoklassniki").eauth({"popup":{"width":680,"height":500},"id":"odnoklassniki"});');
+    Yii::app()->clientScript->registerScript('reg_change_reg_form','
+    $("#register .reg1").html($("#reg-odnoklassniki").html());
+    $("a.auth-service2.odnoklassniki").eauth({"popup":{"width":680,"height":500},"id":"odnoklassniki"});
+    Register.showRegisterWindow();
+');
 }
 
 /*if ($show_form){

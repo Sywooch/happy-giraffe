@@ -35,7 +35,10 @@ if (!empty($model->zodiac1))
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'text'); ?>
-		<?php echo $form->textArea($model,'text',array('rows'=>6, 'cols'=>50)); ?>
+        <?php $this->widget('site.frontend.extensions.ckeditor.CKEditorWidget', array(
+            'model' => $model,
+            'attribute' => 'text',
+        )); ?>
 		<?php echo $form->error($model,'text'); ?>
 	</div>
 

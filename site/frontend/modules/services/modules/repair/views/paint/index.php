@@ -132,7 +132,7 @@
 
     </div>
 
-    <div class="wysiwyg-content seo-text">
+    <div class="wysiwyg-content">
 
         <h3>Сервис «Расчет объема краски»</h3>
 

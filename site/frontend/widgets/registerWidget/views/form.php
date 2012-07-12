@@ -37,6 +37,7 @@ if (Yii::app()->controller->registerUserData !== null){
 ?>
 <div style="display:none">
     <div id="register" class="popup">
+    <a href="javascript:void(0);" class="popup-close tooltip" onclick="$.fancybox.close();"></a>
         <div class="reg1">
 
             <div class="block-title"><img src="/images/bg_register_title.png" />Регистрация на Веселом Жирафе</div>

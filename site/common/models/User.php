@@ -177,7 +177,8 @@ class User extends HActiveRecord
             array('password', 'passwordValidator', 'on' => 'login'),
 
             //signup
-            array('first_name, last_name, email, password, gender', 'required', 'on' => 'signup', 'message'=>'Поле является обязательным'),
+            array('first_name, last_name, email, password', 'required', 'on' => 'signup', 'message'=>'Поле является обязательным'),
+            array('gender', 'required', 'on' => 'signup', 'message'=>'укажите свой пол'),
             array('email', 'unique', 'on' => 'signup'),
             array('first_name, last_name, gender, birthday, photo', 'safe', 'on' => 'signup'),
 
@@ -188,7 +189,7 @@ class User extends HActiveRecord
             array('verifyCode', 'captcha', 'on' => 'change_password', 'allowEmpty' => false),
 
             //remember_password
-            array('password', 'length', 'min' => 6, 'max' => 15, 'on' => 'remember_password', 'tooShort'=>'минимум 6 символов', 'tooShort'=>'максимум 15 символов'),
+            array('password', 'length', 'min' => 6, 'max' => 15, 'on' => 'remember_password', 'tooShort'=>'минимум 6 символов', 'tooLong'=>'максимум 15 символов'),
         );
     }
 

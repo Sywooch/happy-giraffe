@@ -36,14 +36,14 @@ class SignupController extends HController
 
 			$authIdentity->redirect();
 		}else{
+            $regdata = Yii::app()->user->getFlash('regdata');
+
             if (empty($regdata))
                 throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
             $this->pageTitle = 'Веселый Жираф - сайт для всей семьи';
             Yii::import('site.frontend.widgets.*');
             Yii::import('site.frontend.widgets.home.*');
-
-            $regdata = Yii::app()->user->getFlash('regdata');
 
             $model = new User;
             $this->registerUserModel = $model;

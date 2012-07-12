@@ -2,6 +2,7 @@
 /**
  * @var $form CActiveForm
  * @var $show_form bool
+ * @var $model User
  */
 
 $script = <<<EOD
@@ -47,8 +48,8 @@ if (Yii::app()->controller->registerUserData !== null){
                     <div class="box-title">Регистрация через<br/>социальные сети</div>
 
                     <ul>
-                        <li><a class="auth-service2 mailru" href="<?=Yii::app()->createUrl('signup/index', array('service'=>'odnoklassniki')) ?>"><img src="/images/btn_register_mm.png"></a></li>
-                        <li><a class="auth-service2 odnoklassniki" href="<?=Yii::app()->createUrl('signup/index', array('service'=>'mailru')) ?>"><img src="/images/btn_register_ok.png"></a></li>
+                        <li><a class="auth-service2 mailru" href="<?=Yii::app()->createUrl('signup/index', array('service'=>'mailru')) ?>"><img src="/images/btn_register_mm.png"></a></li>
+                        <li><a class="auth-service2 odnoklassniki" href="<?=Yii::app()->createUrl('signup/index', array('service'=>'odnoklassniki')) ?>"><img src="/images/btn_register_ok.png"></a></li>
                         <li><a class="auth-service2 vkontakte" href="<?=Yii::app()->createUrl('signup/index', array('service'=>'vkontakte')) ?>"><img src="/images/btn_register_vk.png"></a></li>
                         <li><a class="auth-service2 facebook" href="<?=Yii::app()->createUrl('signup/index', array('service'=>'facebook')) ?>"><img src="/images/btn_register_fb.png"></a></li>
                     </ul>

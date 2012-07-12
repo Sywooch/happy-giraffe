@@ -32,7 +32,7 @@
         ->registerScriptFile('/javascripts/chosen.jquery.min.js')
         ->registerScriptFile('/javascripts/checkbox.js')
         ->registerScript('base_url', 'var base_url = \'' . Yii::app()->baseUrl . '\';', CClientScript::POS_HEAD)
-        ->registerScriptFile('/javascripts/common.js')
+        ->registerScriptFile('/javascripts/common.js?r='.$release_id)
         ->registerScriptFile('/javascripts/base64.js')
         ->registerScriptFile('/javascripts/jquery.tooltip.pack.js')
     ;

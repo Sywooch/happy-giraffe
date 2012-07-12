@@ -186,7 +186,7 @@
                 </div>
 
                 <div class="nav">
-                    <ul class="clearfix">
+                    <ul class="width-2 clearfix">
                         <?php if (false): ?>
                             <li class="morning">
                                 <a href="<?=$this->createUrl('/morning/index') ?>"><i class="text"></i></a>

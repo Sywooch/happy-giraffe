@@ -26,7 +26,7 @@
         ->registerCssFile('/stylesheets/ie.css', 'screen')
         ->registerCoreScript('jquery')
         ->registerCssFile('/stylesheets/jquery.fancybox-1.3.4.css')
-        ->registerScriptFile('/javascripts/jquery.fancybox-1.3.4.pack.js?r='.$release_id)
+        ->registerScriptFile('/javascripts/jquery.fancybox-1.3.4.js?r='.$release_id)
         ->registerScriptFile('/javascripts/jquery.iframe-post-form.js')
         ->registerScriptFile('/javascripts/jquery.placeholder.min.js')
         ->registerScriptFile('/javascripts/chosen.jquery.min.js')
@@ -139,6 +139,7 @@
                     </div>
                 <?php else: ?>
                     <?php $this->widget('application.widgets.loginWidget.LoginWidget'); ?>
+                    <?php $this->widget('application.widgets.registerWidget.RegisterWidget'); ?>
                 <?php endif; ?>
 
                 <ul class="fast-links clearfix">
@@ -178,7 +179,7 @@
                         <?php if (! Yii::app()->user->isGuest): ?>
                             <a href="<?=$this->createUrl('/contest/default/view', array('id' => 1)) ?>"><img src="/images/banner_02.png" /></a>
                         <?php else: ?>
-                            <?=HHtml::link(CHtml::image('/images/banner_06.png'), $this->createUrl('/signup'), array(), true)?>
+                            <?=CHtml::link(CHtml::image('/images/banner_06.png'), '#register', array('class'=>'fancy', 'data-theme'=>'white-square'))?>
                         <?php endif; ?>
                     </div>
 

@@ -69,8 +69,9 @@ $model = new YarnCalcForm;
 
     <?php $this->endWidget(); ?>
 </div><!-- .embroidery_service -->
-<div class="seo-text">
-    <h1 class="summary-title">Сколько пряжи для вязания нужно?</h1>
+<br><br>
+<div class="wysiwyg-content">
+    <h1>Сколько пряжи для вязания нужно?</h1>
 
     <p>Вы хотите связать жилет для мужа, пуловер для себя или носочки для будущего малыша, но не знаете, на что хватит
         пряжи дома, а на что – лучше купить в магазине?</p>

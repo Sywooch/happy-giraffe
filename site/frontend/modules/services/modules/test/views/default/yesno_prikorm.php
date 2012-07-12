@@ -62,7 +62,7 @@ foreach ($test->testQuestions as $question):?>
 <?php endforeach; ?>
 </div>
 
-<div class="seo-text">
-    <h1 class="summary-title"><?php echo $test->title ?></h1>
+<div class="wysiwyg-content">
+    <h1><?php echo $test->title ?></h1>
     <?php echo $test->text ?>
 </div>

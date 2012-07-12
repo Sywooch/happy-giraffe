@@ -31,7 +31,7 @@
 		?>
 	</div>
     <?php if($this->contest->isStatement): ?>
-        <?php echo CHtml::link('Участвовать', (Yii::app()->user->isGuest) ? '#register' : array('/contest/default/statement', 'id' => $this->contest->primaryKey), array('class' => (Yii::app()->user->isGuest) ? 'contest-takeapart fancy' : 'contest-takeapart', 'data-theme'=>"white-square")); ?>
+        <?php echo CHtml::link('Участвовать', (Yii::app()->user->isGuest) ? '#login' : array('/contest/default/statement', 'id' => $this->contest->primaryKey), array('class' => (Yii::app()->user->isGuest) ? 'contest-takeapart fancy' : 'contest-takeapart', 'data-theme'=>"white-square")); ?>
     <?php endif; ?>
     <img src="/images/contest_banner_01.png" />
 </div>

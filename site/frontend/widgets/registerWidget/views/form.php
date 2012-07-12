@@ -20,7 +20,7 @@ if (Yii::app()->controller->registerUserData !== null){
     Yii::app()->clientScript->registerScript('reg23','Register.showSocialStep2();');
     $regdata = Yii::app()->controller->registerUserData;
     $model = Yii::app()->controller->registerUserModel;
-}elseif(Yii::app()->user->getState('comes_from_social') == 'odnoklassniki'){
+}elseif(Yii::app()->user->getState('comes_from_social') == 'odnoklassniki' && $show_form){
     Yii::app()->clientScript->registerScript('reg_change_reg_form','
     $("#register .reg1").html($("#reg-odnoklassniki").html());
     $("a.auth-service2.odnoklassniki").eauth({"popup":{"width":680,"height":500},"id":"odnoklassniki"});

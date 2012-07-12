@@ -14,7 +14,7 @@ Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
         <h2>Гороскоп совместимости</h2>
 
         <div id="result">
-            <?php if (!empty($model->text)) echo Str::strToParagraph($model->text); ?>
+            <?php if (!empty($model->text)) echo $model->text; ?>
         </div>
     </div>
 
@@ -32,8 +32,10 @@ Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
                 <?php
                 $horoscope = Horoscope::model()->findByAttributes(array('zodiac'=>$model->zodiac1,'date'=>date("Y-m-d")));
                 $this->renderPartial('_preview',array('model'=>$horoscope));
-                $horoscope = Horoscope::model()->findByAttributes(array('zodiac'=>$model->zodiac2,'date'=>date("Y-m-d")));
-                $this->renderPartial('_preview',array('model'=>$horoscope));                ?>
+                if ($model->zodiac1 != $model->zodiac2){
+                    $horoscope = Horoscope::model()->findByAttributes(array('zodiac'=>$model->zodiac2,'date'=>date("Y-m-d")));
+                    $this->renderPartial('_preview',array('model'=>$horoscope));
+                }?>
 
             </ul>
 
@@ -42,7 +44,8 @@ Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
         <div class="horoscope-compatibility-list wide">
             <ul>
                 <?php $this->renderPartial('_compatibility_links',array('zodiac'=>$model->zodiac1)); ?>
-                <?php $this->renderPartial('_compatibility_links',array('zodiac'=>$model->zodiac2)); ?>
+                <?php if ($model->zodiac1 != $model->zodiac2)
+                        $this->renderPartial('_compatibility_links',array('zodiac'=>$model->zodiac2)); ?>
             </ul>
         </div>
 

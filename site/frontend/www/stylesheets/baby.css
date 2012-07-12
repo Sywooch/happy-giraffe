@@ -306,16 +306,6 @@
 #baby .hospital-bag-item-fast .item-box .hint:after {display:block;content:'';width:14px;height:14px;right:100%;top:-1px;background:url(../images/hospital_bag_item_hint_tale.png) no-repeat;position:absolute;}
 #baby .hospital-bag-item-fast .item-storage {float:right;width:191px;height:49px;background:url(../images/hospital_bag_item_storage_fast.png) no-repeat;text-align:center;line-height:49px;font-size:18px;color:#c9c7c7;}
 
-
-.seo-text {padding: 30px 0 0;color: #474747;}
-.seo-text .summary-title{color:#906ab3 !important;font-size:25px !important;margin-bottom:0px;font-weight: normal;line-height: 1;}
-.seo-text p{margin: 1em 0 0;color: #474747;}
-.seo-text h3{margin-top: 20px;}
-.seo-text h4{margin-top: 20px;font-size: 16px;}
-.seo-text ul{list-style-type: disc;margin-left: 20px;}
-.seo-text ul li{padding-top: 0.4em;color: #474747;}
-.seo-text div.brushed{background: #fefded; padding:10px;margin: 20px 0;}
-.seo-text div.brushed h3 {margin-top: 0;}
 #baby .vaccination-birthday .cusel{margin-top: 3px;}
 #baby .vaccination-birthday .cusel {margin-bottom: -5px;}
 
@@ -324,7 +314,6 @@
 #baby #blood-update-result .mother_calendar .cal_item .hint, #baby #blood-update-result .mother_calendar .cal_item_default .hint,
 #baby #japan-result .mother_calendar .cal_item .hint, #baby #japan-result .mother_calendar .cal_item_default .hint {width: 40px;}
 
-#baby .placenta_recomendation .seo-text{padding: 0;}
 #baby .article_p ul {list-style-type: disc;margin-left: 20px;}
 
 /*===== romant37 =====*/

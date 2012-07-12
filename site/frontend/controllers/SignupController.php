@@ -2,28 +2,18 @@
 
 class SignupController extends HController
 {
-
-    public $layout = 'signup';
-
-    public function actions()
+    public function filters()
     {
         return array(
-            'captcha' => array(
-                'class' => 'CaptchaAction',
-                'backColor' => 0xFFFFFF,
-                'width' => 125,
-                'height' => 46,
-                'onlyDigits' => TRUE,
-            ),
+            'ajaxOnly + validate, finish',
         );
     }
 
     public function actionIndex()
     {
-        $this->pageTitle = 'Регистрация - Веселый Жираф';
         $session = Yii::app()->session;
         $service = Yii::app()->request->getQuery('service');
-        if (isset($service)) {
+        if (!empty($service)) {
             $authIdentity = Yii::app()->eauth->getIdentity($service);
             $authIdentity->redirectUrl = $this->createAbsoluteUrl('signup/index');
 
@@ -45,15 +35,22 @@ class SignupController extends HController
             }
 
 			$authIdentity->redirect();
-		}
-		$regdata = Yii::app()->user->getFlash('regdata');
-		
-		$model = new User;
-		
-		$this->render('index', array(
-			'model' => $model,
-			'regdata' => $regdata,
-		));
+		}else{
+            if (empty($regdata))
+                throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
+            $this->pageTitle = 'Веселый Жираф - сайт для всей семьи';
+            Yii::import('site.frontend.widgets.*');
+            Yii::import('site.frontend.widgets.home.*');
+
+            $regdata = Yii::app()->user->getFlash('regdata');
+
+            $model = new User;
+            $this->registerUserModel = $model;
+            $this->registerUserData = $regdata;
+
+            $this->render('/site/home',array('user'=>Yii::app()->user));
+        }
 	}
 	
 	public function actionFinish()
@@ -75,19 +72,47 @@ class SignupController extends HController
 				$model->social_services = array($service);
 			}
 			$model->register_date = date('Y-m-d H:i:s');
-			if($model->save(true, array('first_name', 'password', 'email', 'gender')))
+			if($model->save(true, array('first_name', 'last_name', 'password', 'email', 'gender', 'birthday')))
 			{
+                if (isset($_POST['User']['avatar'])) {
+                    $url = $_POST['User']['avatar'];
+
+                    $dir = Yii::getPathOfAlias('site.common.uploads.photos');
+                    $original_dir = $dir . DIRECTORY_SEPARATOR . AlbumPhoto::model()->original_folder . DIRECTORY_SEPARATOR . $model->id;
+
+                    if (!file_exists($original_dir))
+                        mkdir($original_dir, 0755);
+
+                    $src = $original_dir . DIRECTORY_SEPARATOR . 'avatar.jpeg';
+                    file_put_contents($src, file_get_contents($url));
+
+                    $photo = new AlbumPhoto;
+                    $photo->file_name = 'avatar.jpeg';
+                    $photo->fs_name = 'avatar.jpeg';
+                    $photo->author_id = $model->id;
+                    $photo->save();
+
+                    $picture = new Imagick($src);
+
+                    $a1 = clone $picture;
+                    $a1->resizeimage(24, 24, imagick::COLOR_OPACITY, 1);
+                    $a1->writeImage($photo->getAvatarPath('small'));
+
+                    $a2 = clone $picture;
+                    $a2->resizeimage(72, 72, imagick::COLOR_OPACITY, 1);
+                    $a2->writeImage($photo->getAvatarPath('ava'));
+
+                    $attach = new AttachPhoto;
+                    $attach->entity = 'User';
+                    $attach->entity_id = $model->id;
+                    $attach->photo_id = $photo->id;
+                    $attach->save();
+
+                    $model->avatar_id = $photo->id;
+                    $model->save();
+                }
+
                 /*Yii::app()->mc->sendToEmail($model->email, $model, 'user_registration');*/
-				/*foreach ($_POST['age_group'] as $k => $q)
-				{
-					for ($j = 0; $j < $q; $j++)
-					{
-						$baby = new Baby;
-						$baby->age_group = $k;
-						$baby->parent_id = $model->id;
-						$baby->save();
-					}
-				}*/
 				unset($session['service']);
                 $identity = new UserIdentity($model->getAttributes());
                 $identity->authenticate();
@@ -95,43 +120,26 @@ class SignupController extends HController
                 $model->login_date = date('Y-m-d H:i:s');
                 $model->last_ip = $_SERVER['REMOTE_ADDR'];
                 $model->save(false);
-                if (!Yii::app()->request->getQuery('redirectUrl') || Yii::app()->request->getQuery('redirectUrl') == '')
-                    $this->redirect(array('/user/profile', 'user_id' => $model->id));
-                else
-                    $this->redirect(array(urldecode(Yii::app()->request->getQuery('redirectUrl'))));
+                echo CJSON::encode(array(
+                    'status' => true,
+                    'profile'=>$model->getUrl()
+                ));
+                Yii::app()->end();
             }
         }
+        echo CJSON::encode(array('status' => false));
     }
 
     public function actionValidate($step)
     {
         $steps = array(
-            array('first_name', 'password', 'email', 'verifyCode'),
-            array('gender'),
+            array('email'),
+            array('first_name', 'last_name', 'password', 'gender', 'email'),
         );
 
         $model = new User('signup');
         $model->setAttributes($_POST['User']);
 
-        if ($model->validate($steps[$step - 1])) {
-            $response = array(
-                'status' => 'ok',
-            );
-        } else {
-            $errors = $model->getErrors();
-            $_errors = array();
-            foreach ($errors as $attribute) {
-                foreach ($attribute as $error) {
-                    $_errors[] = $error;
-                }
-            }
-            $errors = $this->renderPartial('errors', array('errors' => $_errors), TRUE);
-            $response = array(
-                'status' => 'error',
-                'errors' => $errors,
-            );
-        }
-        echo CJSON::encode($response);
+        echo CActiveForm::validate($model, $steps[$step - 1]);
     }
-
 }

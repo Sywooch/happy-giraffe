@@ -130,4 +130,14 @@ class CommunityPost extends HActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+    protected function afterSave()
+    {
+        if ($this->isNewRecord) {
+            //$this->content->uniqueness = CopyScape::getUniquenessByText($this->text);
+            //$this->content->update(array('uniqueness'));
+        }
+
+        parent::afterSave();
+    }
 }

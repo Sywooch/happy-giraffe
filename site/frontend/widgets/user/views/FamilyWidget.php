@@ -3,7 +3,7 @@
     <div class="t"></div>
     <div class="c">
         <ul>
-            <?php if ($user->hasPartner()): ?>
+            <?php if ($user->hasPartner() && !empty($user->partner->name)): ?>
             <li>
                 <big><?= $user->partner->name ?> &nbsp; <small><?php echo $user->getPartnerTitle($user->relationship_status) ?></small></big>
                 <?php if (!empty($user->partner->notice)):?>

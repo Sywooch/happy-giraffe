@@ -11,6 +11,7 @@
  * @property Keyword[] $keywords
  * @property SeoTask[] $seoTasks
  * @property int $newTaskCount
+ * @property int $taskCount
  */
 class KeywordGroup extends CActiveRecord
 {
@@ -57,6 +58,7 @@ class KeywordGroup extends CActiveRecord
             'seoTasks' => array(self::HAS_MANY, 'SeoTask', 'keyword_group_id'),
             'newTasks' => array(self::HAS_MANY, 'SeoTask', 'keyword_group_id', 'condition' => 'status = 0 OR status = 1'),
             'newTaskCount' => array(self::STAT, 'SeoTask', 'keyword_group_id', 'condition' => 'status = 0 OR status = 1'),
+            'taskCount' => array(self::STAT, 'SeoTask', 'keyword_group_id'),
         );
     }
 

@@ -14,7 +14,7 @@ Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
         <h2>Гороскоп совместимости</h2>
 
         <div id="result">
-            <?php if (!empty($model->text)) echo Str::strToParagraph($model->text); ?>
+            <?php if (!empty($model->text)) echo $model->text; ?>
         </div>
     </div>
 

@@ -69,7 +69,7 @@ class SiteController extends BController
                 if ($identity->errorCode == AdminUserIdentity::ERROR_NONE)
                 {
                     Yii::app()->user->login($identity);
-                    $this->redirect(array('site/index'));
+                    $this->redirect(array('site/'));
                 }
             }
         }

@@ -208,6 +208,10 @@ class CookRecipe extends CActiveRecord
                 'createAttribute' => 'created',
                 'updateAttribute' => 'updated',
             ),
+            'purified' => array(
+                'class' => 'site.common.behaviors.PurifiedBehavior',
+                'attributes' => array('text'),
+            ),
         );
     }
 

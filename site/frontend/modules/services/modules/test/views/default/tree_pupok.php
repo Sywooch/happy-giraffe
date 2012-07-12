@@ -73,6 +73,6 @@
 <?php endforeach; ?>
 </div>
 
-<div class="seo-text">
+<div class="wysiwyg-content">
     <?php echo $test->text ?>
 </div>

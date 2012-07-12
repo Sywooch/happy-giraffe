@@ -67,9 +67,9 @@ $model = new ThreadCalculationForm();
 
     <?php $this->endWidget(); ?>
 </div><!-- .embroidery_service -->
-
-<div class="seo-text">
-    <h1 class="summary-title">Расчёт ниток для вышивания</h1>
+<br><br>
+<div class="wysiwyg-content">
+    <h1>Расчёт ниток для вышивания</h1>
 
     <p>Очень часто бывает так: нравится схема для вышивания, но нити к ней в комплекте не идут. Рядом есть, конечно,
         магазин, в котором можно их купить, только вот – сколько?</p>

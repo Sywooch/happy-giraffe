@@ -103,6 +103,7 @@ class DefaultController extends HController
 
     public function actionCompatibility($zodiac1 = null, $zodiac2 = null)
     {
+
         if ($zodiac1 == null && $zodiac2 != null)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
@@ -112,10 +113,12 @@ class DefaultController extends HController
             $zodiac2 = Horoscope::model()->getZodiacId($zodiac2);
 
         if ($zodiac1 == null && $zodiac2 == null) {
+            $this->pageTitle = 'Гороскоп совместимости';
+
             $model = new HoroscopeCompatibility();
             $this->render('compatibility_main', compact('model'));
-        } else
-         {
+        } else {
+            $this->pageTitle = Horoscope::model()->zodiac_list[$zodiac1]. ' '. Horoscope::model()->zodiac_list[$zodiac2]. ' - Гороскоп совместимости';
 
             $model = HoroscopeCompatibility::model()->findByAttributes(array('zodiac1' => $zodiac1, 'zodiac2' => $zodiac2));
             if ($model === null) {

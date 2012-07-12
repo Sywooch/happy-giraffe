@@ -157,7 +157,7 @@ class User extends HActiveRecord
             //general
             array('first_name', 'length', 'max' => 50, 'message'=>'Слишком длинное имя'),
             array('last_name', 'length', 'max' => 50, 'message'=>'Слишком длинная фамилия'),
-            array('email', 'email'),
+            array('email', 'email', 'message' => 'E-mail не является правильным E-Mail адресом'),
             array('password, current_password, new_password, new_password_repeat', 'length', 'min' => 6, 'max' => 12, 'on' => 'signup', 'tooShort'=>'минимум 6 символов', 'tooLong'=>'максимум 15 символов'),
             array('online, relationship_status', 'numerical', 'integerOnly' => true),
             array('email', 'unique', 'on' => 'signup'),

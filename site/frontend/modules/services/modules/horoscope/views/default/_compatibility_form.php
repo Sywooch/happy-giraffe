@@ -9,6 +9,10 @@ Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js', CClientScr
 
 ?><div class="horoscope-compatibility clearfix">
 
+    <?php if (isset($showTitle)):?>
+        <div class="block-title">Совместимость знаков</div>
+    <?php endif ?>
+
     <?php $form = $this->beginWidget('CActiveForm', array(
     'id' => 'placenta-thickness-form',
     'enableAjaxValidation' => true,

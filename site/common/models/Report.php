@@ -141,8 +141,8 @@ class Report extends HActiveRecord
         $criteria->compare('text',$this->text,true);
         $criteria->compare('author_id',$this->author_id,true);
         $criteria->compare('breaker_id', $this->breaker_id, true);
-        $criteria->compare('entity',$this->model,true);
-        $criteria->compare('entity_id',$this->object_id,true);
+        //$criteria->compare('entity',$this->model,true);
+        //$criteria->compare('entity_id',$this->object_id,true);
         $criteria->compare('path',$this->path,true);
         $criteria->compare('accepted',$this->accepted,true);
 

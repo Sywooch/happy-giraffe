@@ -32,6 +32,7 @@ class FileAttachWidget extends CWidget
                 array(
                     'href' => '#login',
                     'class' => 'fancy',
+                    'data-theme'=>"white-square"
                 )
                 :
                 array(

@@ -64,7 +64,7 @@ $this->meta_description = 'Подвесные потолки – это очен
 
 
 
-    <div class="wysiwyg-content seo-text">
+    <div class="wysiwyg-content">
 
         <h3>Сервис «Расчет материалов для подвесного потолка»</h3>
 

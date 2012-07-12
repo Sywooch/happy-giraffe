@@ -7,16 +7,16 @@
         'items' => array(
             array(
                 'label' => 'Главная',
-                'url' => array('modules/index'),
+                'url' => array('/club/default/index'),
             ),
             array('label' => 'Имена',
                 'url' => array('/club/names/index'),
-                'active' => (Yii::app()->controller->id == 'club/names'),
+                'active' => (Yii::app()->controller->uniqueId == 'club/names'),
                 'visible' => Yii::app()->user->checkAccess('names')
             ),
             array('label' => 'Болезни',
                 'url' => array('/club/recipeBookDisease/'),
-                'active' => (Yii::app()->controller->id == 'club/recipeBookDisease' || Yii::app()->controller->id == 'club/recipeBookDiseaseCategory'),
+                'active' => (Yii::app()->controller->uniqueId == 'club/recipeBookDisease' || Yii::app()->controller->uniqueId == 'club/recipeBookDiseaseCategory'),
                 'visible' => Yii::app()->user->checkAccess('editRecipeBook'),
                 'items' => array(
                     array(
@@ -25,18 +25,26 @@
                     ),
                 )
             ),
-            array('label' => 'Жалобы',
-                'active' => (Yii::app()->controller->id == 'club/reports' && Yii::app()->controller->action->id == 'index'),
-                'url' => array('/club/reports/index'),
-                'visible' => Yii::app()->user->checkAccess('report')
-            ),
             array('label' => 'Спам',
-                'active' => (Yii::app()->controller->id == 'club/reports' && Yii::app()->controller->action->id == 'spam'),
+                'active' => (Yii::app()->controller->uniqueId == 'club/reports'),
                 'url' => array('/club/reports/spam'),
-                'visible' => Yii::app()->user->checkAccess('report')
+                'visible' => Yii::app()->user->checkAccess('report'),
+                'items' => array(
+                    array(
+                        'label' => 'Спам',
+                        'url' => array('/club/reports/spam'),
+                        'visible' => Yii::app()->user->checkAccess('report'),
+                    ),
+                    array(
+                        'label' => 'Жалобы',
+                        'url' => array('/club/reports/index'),
+                        'visible' => Yii::app()->user->checkAccess('report'),
+                    ),
+                )
+
             ),
             array('label' => 'Интересы',
-                'active' => (in_array(Yii::app()->controller->id, array('club/interest', 'club/interestCategory'))),
+                'active' => (in_array(Yii::app()->controller->uniqueId, array('club/interest', 'club/interestCategory'))),
                 'url' => array('/club/interest/'),
                 'visible' => Yii::app()->user->checkAccess('interests'),
                 'items' => array(
@@ -47,7 +55,7 @@
                 )
             ),
             array('label' => 'Гороскоп',
-                'active' => (Yii::app()->controller->id == 'club/horoscope'),
+                'active' => (Yii::app()->controller->uniqueId == 'club/horoscope' || Yii::app()->controller->uniqueId == 'club/horoscopeCompatibility' ),
                 'url' => array('/club/horoscope/'),
                 'visible' => Yii::app()->user->checkAccess('horoscope'),
                 'items' => array(
@@ -59,10 +67,11 @@
                 ),
             ),
             array('label' => 'Кулинария',
-                'active' => (in_array(Yii::app()->controller->id, array(
+                'active' => (in_array(Yii::app()->controller->uniqueId, array(
                     'club/cookIngredients',
                     'club/cookSpices',
                     'club/cookChooseCategory',
+                    'club/cookChoose',
                     'club/cookSpicesCategories',
                     'club/cookDecoration',
                     'club/cookUnit'
@@ -110,6 +119,7 @@
             array(
                 'label' => 'Рассылки',
                 'url' => array('/mail/index/index'),
+                'active' => (Yii::app()->controller->uniqueId == 'mail/templates' || Yii::app()->controller->uniqueId == 'mail/index' ),
                 'items' => array(
                     array(
                         'label' => 'Создать рассылку',

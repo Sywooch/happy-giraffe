@@ -14,7 +14,7 @@ if ($model->thickness < $placentaThickness->min) {
     <div class="placenta_recomendation">
         <span class="title_p">Ниже нормы</span>
 
-        <div class="seo-text">
+        <div class="wysiwyg-content">
 
             <p>Толщина вашей плаценты ниже нормы. Это может быть вызвано:</p>
             <ul>
@@ -97,7 +97,7 @@ else {
     <div class="placenta_recomendation">
         <span class="title_p">Выше нормы</span>
 
-        <div class="seo-text">
+        <div class="wysiwyg-content">
             <p>Толщина вашей плаценты выше нормы. Это может быть вызвано:</p>
             <ul>
                 <li>индивидуальной особенностью плаценты (её форма – в виде шара),</li>
@@ -135,7 +135,7 @@ else {
     <div class="placenta_recomendation">
         <span class="title_p">Значительно выше нормы</span>
 
-        <div class="seo-text">
+        <div class="wysiwyg-content">
             <p>Полученный результат значительно выше нормы. Обычно так не бывает. Проверьте, правильно ли вы ввели
                 данные. Срок беременности нужно вводить именно тот, на котором было проведено УЗИ. Если результат
                 сохраняется – возможно, была неправильно измерена толщина плаценты на УЗИ. Обратитесь с вопросом к

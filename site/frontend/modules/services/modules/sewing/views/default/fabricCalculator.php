@@ -162,9 +162,10 @@ $model = new FabricCalculatorForm1();
         <?php $this->endWidget(); ?>
     </div>
     <!-- .tissue_right -->
-</div><!-- .embroidery_service -->
-<div class="seo-text">
-    <h1 class="summary-title">Калькулятор ткани</h1>
+</div><!-- .embroidery_service --><br><br>
+
+<div class="wysiwyg-content">
+    <h1>Калькулятор ткани</h1>
 
     <p>На том участке ткани, где расположился крестик начинающей мастерицы, поместится 16 крестиков опытной
         вышивальщицы. Мелкие крестики позволяют чётче прорисовать детали и сделать работу более высокого уровня.

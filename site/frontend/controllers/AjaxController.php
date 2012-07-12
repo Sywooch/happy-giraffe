@@ -29,6 +29,30 @@ class AjaxController extends HController
             echo '1';
     }
 
+    public function actionSetValues()
+    {
+        $_POST['Album']['title'] = str_replace('Введите название альбома', '', $_POST['Album']['title']);
+
+        $modelName = Yii::app()->request->getPost('entity');
+        $modelPk = Yii::app()->request->getPost('entity_id');
+        $model = CActiveRecord::model($modelName)->findByPk($modelPk);
+
+        if (isset($_POST['ajax']))
+        {
+            echo CActiveForm::validate($model);
+            Yii::app()->end();
+        }
+
+        $model->attributes = $_POST[$modelName];
+
+        echo $model->save();
+    }
+
+    protected function performAjaxValidation($model)
+    {
+
+    }
+
     public function actionSetDate()
     {
         $modelName = Yii::app()->request->getPost('entity');

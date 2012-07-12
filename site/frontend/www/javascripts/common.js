@@ -433,3 +433,7 @@ var Register = {
         }, 3000);
     }
 }
+
+function ajaxSetValues(form, callback) {
+    $.post($(form).attr('action'), $(form).serialize(), callback);
+}

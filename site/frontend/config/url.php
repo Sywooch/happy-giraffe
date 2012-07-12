@@ -26,7 +26,7 @@ return array(
         'ajax/duelShow/question_id/<question_id:\d+>' => 'ajax/duelShow',
 
         // signup controller
-        'signup/' => 'signup/index',
+        'signup' => 'signup/index',
         'signup/validate/step/<step:\d+>' => 'signup/validate',
 
         // friendRequests controller
@@ -85,8 +85,8 @@ return array(
         'community/<_a:(join|add|transfer|edit|editTravel)>' => 'community/<_a>',
 
         //global
-        '<_c:(activity|ajax|notification|signup|profile|friendRequests|communityRubric|family|morning)>/<_a>' => '<_c>/<_a>',
-        '<_c:(activity|signup|profile|rss|family|morning|community)>' => '<_c>/index',
+        '<_c:(activity|ajax|notification|profile|friendRequests|communityRubric|family|morning)>/<_a>' => '<_c>/<_a>',
+        '<_c:(activity|profile|rss|family|morning|community)>' => '<_c>/index',
 
         //others
         array('class' => 'ext.sitemapgenerator.SGUrlRule', 'route' => '/sitemap'),

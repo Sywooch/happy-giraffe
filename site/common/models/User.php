@@ -157,8 +157,8 @@ class User extends HActiveRecord
             //general
             array('first_name', 'length', 'max' => 50, 'message'=>'Слишком длинное имя'),
             array('last_name', 'length', 'max' => 50, 'message'=>'Слишком длинная фамилия'),
-            array('email', 'email'),
-            array('password, current_password, new_password, new_password_repeat', 'length', 'min' => 6, 'max' => 12, 'on' => 'signup', 'tooShort'=>'минимум 6 символов', 'tooShort'=>'максимум 15 символов'),
+            array('email', 'email', 'message' => 'E-mail не является правильным E-Mail адресом'),
+            array('password, current_password, new_password, new_password_repeat', 'length', 'min' => 6, 'max' => 12, 'on' => 'signup', 'tooShort'=>'минимум 6 символов', 'tooLong'=>'максимум 15 символов'),
             array('online, relationship_status', 'numerical', 'integerOnly' => true),
             array('email', 'unique', 'on' => 'signup'),
             array('gender', 'boolean'),
@@ -177,7 +177,8 @@ class User extends HActiveRecord
             array('password', 'passwordValidator', 'on' => 'login'),
 
             //signup
-            array('first_name, last_name, email, password, gender', 'required', 'on' => 'signup', 'message'=>'Поле является обязательным'),
+            array('first_name, last_name, email, password', 'required', 'on' => 'signup', 'message'=>'Поле является обязательным'),
+            array('gender', 'required', 'on' => 'signup', 'message'=>'укажите свой пол'),
             array('email', 'unique', 'on' => 'signup'),
             array('first_name, last_name, gender, birthday, photo', 'safe', 'on' => 'signup'),
 
@@ -188,7 +189,7 @@ class User extends HActiveRecord
             array('verifyCode', 'captcha', 'on' => 'change_password', 'allowEmpty' => false),
 
             //remember_password
-            array('password', 'length', 'min' => 6, 'max' => 15, 'on' => 'remember_password', 'tooShort'=>'минимум 6 символов', 'tooShort'=>'максимум 15 символов'),
+            array('password', 'length', 'min' => 6, 'max' => 15, 'on' => 'remember_password', 'tooShort'=>'минимум 6 символов', 'tooLong'=>'максимум 15 символов'),
         );
     }
 

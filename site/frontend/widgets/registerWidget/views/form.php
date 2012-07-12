@@ -2,6 +2,7 @@
 /**
  * @var $form CActiveForm
  * @var $show_form bool
+ * @var $model User
  */
 
 $script = <<<EOD

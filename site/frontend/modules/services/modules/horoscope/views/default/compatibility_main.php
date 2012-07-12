@@ -17,6 +17,7 @@ Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
 
         </div>
     </div>
+    <br>
 
     <div class="clearfix">
 

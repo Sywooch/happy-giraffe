@@ -268,7 +268,7 @@
 
         <div class="instructions wysiwyg-content">
 
-            <?=$recipe->text?>
+            <?=$recipe->purified->text?>
 
         </div>
 

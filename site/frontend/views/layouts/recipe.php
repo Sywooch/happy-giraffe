@@ -9,7 +9,7 @@
         <div class="add-recipe">
 
             Поделиться вкусненьким!<br/>
-            <a href="<?=(Yii::app()->user->isGuest) ? '#register' : $this->createUrl('/cook/recipe/add')?>" class="btn btn-green<?php if (Yii::app()->user->isGuest): ?> fancy<?php endif; ?>" data-theme="white-square"><span><span>Добавить рецепт</span></span></a>
+            <a href="<?=(Yii::app()->user->isGuest) ? '#login' : $this->createUrl('/cook/recipe/add')?>" class="btn btn-green<?php if (Yii::app()->user->isGuest): ?> fancy<?php endif; ?>" data-theme="white-square"><span><span>Добавить рецепт</span></span></a>
 
         </div>
 

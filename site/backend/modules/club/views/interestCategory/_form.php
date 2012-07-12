@@ -23,14 +23,7 @@
 
 	<div class="row buttons">
         <input type="hidden" name="redirect_to" id="redirect_to" value="">
-        <?php
-        if ($model->isNewRecord) {
-            echo CHtml::submitButton('Создать', array('onclick' => 'js:$("#redirect_to").val("refresh");'));
-        } else {
-            echo CHtml::submitButton('Сохранить');
-            echo CHtml::submitButton('Сохранить и продолжить', array('onclick' => 'js:$("#redirect_to").val("refresh");'));
-        }
-        ?>
+        <?= CHtml::submitButton('Сохранить'); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

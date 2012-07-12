@@ -47,7 +47,7 @@
                                         <a href="javascript:;" onclick="Duel.vote(this, <?=$answers[$i]->id?>);">Голосовать</a>
                                     <?php endif; ?>
                             <?php else: ?>
-                                <a class="fancy" href="#login">Голосовать</a>
+                                <a class="fancy" href="#register" data-theme="white-square">Голосовать</a>
                             <?php endif; ?>
                         </div>
                     </div>

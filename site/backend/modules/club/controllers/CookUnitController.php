@@ -11,27 +11,16 @@ class CookUnitController extends BController
     public function actions()
     {
         return array(
-            //'create' => 'application.components.actions.Create',
+            'create' => 'application.components.actions.Create',
             'update' => 'application.components.actions.Update',
             'delete' => 'application.components.actions.Delete',
             'admin' => 'application.components.actions.Admin'
         );
     }
 
-    public function actionCreate()
+    public function onCreateBeforeSave($vars)
     {
-        $model = new CookUnit;
-
-        if (isset($_POST['CookUnit'])) {
-            $model->attributes = $_POST['CookUnit'];
-            $model->type = 'qty';
-            $model->ratio = 1;
-            if ($model->save())
-                $this->redirect(array('admin'));
-        }
-
-        $this->render('create', array(
-            'model' => $model,
-        ));
+        $vars['model']->type = 'qty';
+        $vars['model']->ratio = 1;
     }
 }

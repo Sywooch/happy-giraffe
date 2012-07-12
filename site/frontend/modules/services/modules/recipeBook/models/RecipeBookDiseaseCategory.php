@@ -45,7 +45,8 @@ class RecipeBookDiseaseCategory extends HActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('title, slug', 'required'),
+            array('slug', 'site.frontend.extensions.translit.ETranslitFilter', 'translitAttribute' => 'title'),
+            array('title, slug', 'required'),
 			array('title, slug, title_all', 'length', 'max'=>255),
 			array('photo_id', 'length', 'max'=>11),
 			array('description, description_center, description_extra', 'safe'),

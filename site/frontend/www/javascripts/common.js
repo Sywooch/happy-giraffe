@@ -360,7 +360,7 @@ var PostGallery = {
         var input = input_container.find('input').val('');
         $('.add-gallery').show();
         $('.form .row-gallery .gallery-photos').hide();
-        $('.form .row-gallery .gallery-photos li:lt('+$('.form .row-gallery .gallery-photos li').size()+')').remove();
+        $('.form .row-gallery .gallery-photos li:lt(' + $('.form .row-gallery .gallery-photos li').size() + ')').remove();
         return false;
     }
 }
@@ -372,7 +372,7 @@ function editPhotoTitleInWindow(link) {
 
 function savePhotoTitleInWindow(button) {
     var val = $(button).siblings('input, textarea').val();
-    if($(button).siblings('input').size() > 0) {
+    if ($(button).siblings('input').size() > 0) {
         var attr = 'title';
         var entity = 'AlbumPhoto';
     } else {
@@ -383,4 +383,53 @@ function savePhotoTitleInWindow(button) {
     $(button).parent().hide().siblings('.title-content').show();
     $(button).parent().hide().siblings('.title-content').find('.title-text').text(val);
     $.post('/ajax/setValue/', {attribute:attr, value:val, entity:entity, entity_id:$('#photo-thumbs li.active a').attr('data-id')});
+}
+
+var Register = {
+    url:null,
+    start:false,
+    step1:function(){
+        $('.reg1').hide();
+        $('.reg2').show();
+        $('.regmail2').val($('.regmail1').val());
+    },
+    timer:function () {
+        var obj = document.getElementById('reg_timer');
+        obj.innerHTML--;
+        if (obj.innerHTML == 0) {
+            setTimeout(function () {
+                if (Register.url != null){
+                    console.log(Register.url);
+                    window.location = Register.url;
+                }
+            }, 1000);
+        }
+        else {
+            setTimeout(Register.timer, 1000);
+        }
+    },
+    finish:function () {
+        $('.reg2').hide();
+        $('.reg3').show();
+        setTimeout(Register.timer, 1000);
+        $.post('/signup/finish/', $('#reg-form2').serialize(), function (response) {
+            console.log(response);
+            if (response.status) {
+                Register.url = response.profile;
+            }
+        }, 'json');
+    },
+    showSocialStep2:function(){
+        $('.register.fancy').trigger('click');
+        $(".reg1").hide();
+        $(".reg2").show();
+        $(".email2-row").show();
+    },
+    showRegisterWindow:function(){
+        setTimeout(function(){
+            if (!Register.start){
+                $('#reg-main-btn').trigger('click');
+            }
+        }, 3000);
+    }
 }

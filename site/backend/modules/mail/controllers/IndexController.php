@@ -7,6 +7,7 @@ class IndexController extends BController
 {
     public $layout = '//layouts/club';
     public $defaultAction='index';
+    public $section = 'club';
 
     public function actionIndex()
     {

@@ -123,7 +123,11 @@ class CommunityContent extends HActiveRecord
                 'class' => 'zii.behaviors.CTimestampBehavior',
                 'createAttribute' => 'created',
                 'updateAttribute' => 'updated',
-            )
+            ),
+            'purified' => array(
+                'class' => 'site.common.behaviors.PurifiedBehavior',
+                'attributes' => array( 'preview'),
+            ),
         );
     }
 

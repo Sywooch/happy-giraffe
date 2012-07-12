@@ -8,6 +8,7 @@ class RegisterWidget extends CWidget
         if (Yii::app()->user->isGuest) {
             if (strpos(Yii::app()->getRequest()->urlReferrer, 'http://www.odnoklassniki.ru/') === 0) {
                 //чел пришел из одноклассников
+                $this->show_form = true;
                 Yii::app()->user->setState('comes_from_social', 'odnoklassniki');
             }
             if (strpos(Yii::app()->getRequest()->urlReferrer, 'http://'.$_SERVER['HTTP_HOST']) === false) {

@@ -172,7 +172,7 @@ a.info {display:inline-block;width:13px;height:13px;background:url(../images/com
 .user-info .details .birthday span {color:#aeaeae;}
 .user-info .details .date {color:#b3b3b3;font-size:9px;margin-top:3px;margin-left:15px;}
 
-.user-info .text-status {clear:both;margin-top:15px;background:#fdfacf;position:relative;padding:10px 15px;font:italic 13px/16px times new roman, serif;color:#5b5c5c;margin-bottom:50px;}
+.user-info .text-status {clear:both;margin-top:15px;background:#fdfacf;position:relative;padding:10px 15px;font:italic 13px/16px times new roman, serif;color:#5b5c5c;margin-bottom:25px;}
 .user-info .text-status {/*css3*/ -moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px;}
 .user-info .text-status .tale {display:block;width:21px;height:30px;background:url(/images/common.png) no-repeat -424px -261px;position:absolute;top:-30px;left:20px;}
 
@@ -244,6 +244,8 @@ a.info {display:inline-block;width:13px;height:13px;background:url(../images/com
 
 .content-title-new {font-size:32px;color:#232323;margin-bottom:40px;text-align:center;padding-top:15px;}
 .content-title-new span {display:block;font-size:11px;font-family:tahoma, arial, helvetica, sans-serif;}
+.content-title-new .settings {display:inline-block;width:15px;height:15px;background:url(/images/common.png) no-repeat -313px -190px;position:relative;top:-1px;}
+.content-title-new .settings:hover {background-position:-330px -190px;}
 
 /* errors */
 
@@ -463,6 +465,9 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 .popup-confirm .move-post {text-align:center;color:#0d8ca3;font-size:18px;font-style:italic;}
 .popup-confirm .move-post select {width:200px;margin:20px 10px 10px;}
 .popup-confirm .move-post .chzn-container {margin:20px 10px 10px;}
+
+.popup .default-nav ul li {width:auto;padding:0 10px;}
+.popup .default-nav ul li.active:after {display:none;}
 
 
 /* form */
@@ -1347,22 +1352,25 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 .gallery-photos-new ul li .user-info .details {margin-left:30px;}
 .gallery-photos-new ul li .user-info .details .username {width:140px;}
 
-.gallery-photos-new .item {float:left;margin:10px;}
+.gallery-photos-new ul li .actions {background:#fff;background:rgba(255, 255, 255, .8);width:100%;height:18px;padding:3px 0;position:absolute;left:0;top:0;text-align:right;display:none;}
+.gallery-photos-new ul li .img:hover .actions {display:block;}
+.gallery-photos-new ul li .actions .remove {display:inline-block;width:10px;height:12px;background:url(../images/common.png) no-repeat -315px -149px;position:relative;top:2px;margin-right:5px;}
+.gallery-photos-new ul li .actions .edit {display:inline-block;width:14px;height:18px;background:url(../images/common.png) no-repeat -341px -136px;margin:0 auto;position:relative;text-decoration:none;font-weight:normal;z-index:3;vertical-align:middle;margin-left:10px;top:-2px;margin-right:5px;}
 
-.gallery-photos-new .item {background:#ccc;}
-.gallery-photos-new .h1 {height:80px;}
-.gallery-photos-new .h2 {height:180px;}
-.gallery-photos-new .h3 {height:280px;}
-.gallery-photos-new .w1 {width:80px;}
-.gallery-photos-new .w2 {width:180px;}
-.gallery-photos-new .w3 {width:280px;}
 
-.gallery-photos-new .corner-stamp {
-    margin: 10px;
-    float: right;
-    background: red;
-    color: white;
-  }
+#gallery .gallery-album {margin-bottom:40px;}
+
+#gallery .gallery-album .album-title {font-size:18px;margin-bottom:5px;}
+
+#gallery .gallery-album .album-description {margin-bottom:20px;font-size:11px;font-family:tahoma, arial, helvetica, sans-serif;}
+
+#gallery .gallery-album .album-photos ul {list-style:none;}
+#gallery .gallery-album .album-photos ul li {display:inline-block;width:214px;padding-right:16px;vertical-align:top;}
+#gallery .gallery-album .album-photos ul li.more {font-size:13px;padding-top:30px;text-align:center;width:160px;}
+#gallery .gallery-album .album-photos ul li.more a {color:#b9b9b9;text-decoration:none;}
+#gallery .gallery-album .album-photos ul li.more .icon {display:block;width:56px;height:56px;background:url(../images/common.png) no-repeat -499px -135px;margin:0 auto;margin-bottom:10px;}
+#gallery .gallery-album .album-photos ul li.more a:hover .icon {background-position:-499px -193px;}
+#gallery .gallery-album .album-photos ul li.more a:hover {color:#7abc2e;text-decoration:underline;}
 
 
 #gallery .fast-album {padding-bottom:20px;}
@@ -1443,6 +1451,21 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 #gallery #photo .ad-thumb-list li a.ad-active table tr.title td {background:#fffedf;font-size:10px;}
 #gallery #photo .ad-thumb-list li a.ad-active table tr.title td div {border:10px solid #88cad8;border-top:0;margin:-7px -25px;padding:7px 25px;}
 
+
+#albumSettings .popup-title {text-align:left;margin-bottom:20px;}
+#albumSettings .settings-form {margin:20px 0;}
+#albumSettings .settings-form .row {margin-bottom:20px}
+#albumSettings .settings-form .row .row-title {font-size:16px;color:#4c4d4d;}
+#albumSettings .settings-form .row .row-title span {font-size:11px;color:#6d6d6d;font-family:tahoma, arial, helvetica, sans-serif;}
+#albumSettings .settings-form .row .row-elements {margin:8px 0;}
+#albumSettings .settings-form .row .row-elements input[type=text] {padding:5px 10px;border:1px solid #cdcdcd;background:#fff;width:308px;font-size:15px;color:#3d3d3d;vertical-align:middle;}
+#albumSettings .settings-form .row .row-elements textarea {padding:5px 10px;border:1px solid #cdcdcd;background:#fff;width:308px;font-size:13px;color:#3d3d3d;vertical-align:bottom;width:80%;height:60px;}
+#albumSettings .settings-form .row .row-elements .btn-green-small {margin-left:5px;}
+#albumSettings .settings-form .row .row-elements .item-title {font-size:18px;color:#3680cc;}
+#albumSettings .settings-form .row .row-elements .edit {display:inline-block;width:14px;height:18px;background:url(../images/common.png) no-repeat -383px -204px;margin-left:5px;position:relative;top:2px;}
+#albumSettings .settings-form .row .row-elements .edit:hover {background-position:-341px -136px;}
+
+
 #content .main #gallery #photo .big-photo {width:678px;}
 #content .main #gallery #photo .gallery-photos {width:600px;}
 #content .main #gallery #photo #photo-thumbs {width:600px;}
@@ -1512,7 +1535,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 
 /* fast-like-block */
 
-.fast-like-block {margin:20px 0 40px;text-align:center;background:none;}
+.fast-like-block {margin:20px 0 20px;text-align:center;background:none;}
 
 .fast-like-block .box-1 {text-align:center;display:inline-block;vertical-align:top;margin-top: 15px;}
 
@@ -1627,7 +1650,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 .interesting ul li {margin:5px 0;}
 
 
-.entry-nav {margin:25px 0 35px;line-height:16px;}
+.entry-nav {margin:15px 0 45px;line-height:16px;}
 .entry-nav .prev {width:45%;float:left;}
 .entry-nav .next {width:45%;float:right;text-align:right;}
 .entry-nav .next span, .entry-nav .prev span {display:block;margin-bottom:4px;font-size:11px;color:#464546;font-family:tahoma, arial, helvetica, sans-serif;}
@@ -1723,6 +1746,10 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 
 #content .club-topics-list-new ul li.active a {text-decoration:none;}
 #content .club-topics-list-new ul li.active .count {font-size:20px;color:#474747;}
+
+.add-post-btn {margin-bottom:30px;}
+
+.upload-photo-btn {margin-bottom:30px;}
 
 
 #content .recent-topics {margin-bottom:20px;padding:15px 20px;border:1px solid #d8f1ff;}
@@ -1839,7 +1866,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 
 /* interests */
 
-.interests-list ul {display:none;}
+/*.interests-list ul {display:none;}
 .interests-list ul.active {display:block;}
 
 
@@ -1848,9 +1875,24 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 .interest-cat a .img {display:inline-block;text-align:center;vertical-align:middle;margin-right:10px;}
 .interest-cat a .text {display:inline-block;width:150px;vertical-align:middle;}
 
-.interest {display:inline-block;height:22px;line-height:20px;padding:0px 8px 0 16px;font-size:13px;color:#575757;background:#d3eafc url(/images/interest.gif) no-repeat left;margin:5px 5px 5px 0;}
-.interest {/*css3*/ -moz-border-radius:0 4px 4px 0;-webkit-border-radius:0 4px 4px 0;border-radius:0 4px 4px 0;behavior: url(/stylesheets/PIE.htc);}
-.interest span {color:#fb8246;font-size:11px;font-weight:bold;margin-left:6px;}
+.interest {display:inline-block;height:22px;line-height:20px;padding:0px 8px 0 16px;font-size:13px;color:#575757;background:#d3eafc url(/images/interest.gif) no-repeat left;margin:5px 5px 5px 0;}*/
+.interest {/*css3*/ /*-moz-border-radius:0 4px 4px 0;-webkit-border-radius:0 4px 4px 0;border-radius:0 4px 4px 0;behavior: url(/stylesheets/PIE.htc);*/}
+/*.interest span {color:#fb8246;font-size:11px;font-weight:bold;margin-left:6px;}*/
+
+.interest {display:inline-block;height:17px;line-height:17px;padding:2px 8px;border:2px solid transparent;font-size:13px;white-space:nowrap;text-decoration:none;}
+.interest {/*css3*/ -moz-border-radius:12px;-webkit-border-radius:12px;border-radius:12px;behavior: url(/stylesheets/PIE.htc);}
+.interest.kids {border-color:#bfddff;color:#689dc9;}
+.interest.kids.selected {background:#bfddff;color:#1762a2;}
+.interest.manwoman {border-color:#bef2b9;color:#5acd75;}
+.interest.manwoman.selected {background:#bef2b9;color:#219e3e;}
+.interest.beauty {border-color:#fff9bc;color:#cca342;}
+.interest.beauty.selected {background:#fff9bc;color:#d19507;}
+.interest.home {border-color:#dcc7ee;color:#a77eca;}
+.interest.home.selected {background:#dcc7ee;color:#8056a3;}
+.interest.hobbies {border-color:#ffdda7;color:#e19959;}
+.interest.hobbies.selected {background:#ffdda7;color:#c17029;}
+.interest.rest {border-color:#c5effe;color:#66c8eb;}
+.interest.rest.selected {background:#c5effe;color:#039cd3;}
 
 
 /* interests */
@@ -1956,6 +1998,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 .default-nav ul li.active a {border:0;cursor:default;text-decoration:none;}
 .default-nav ul li a.remove {width:12px;height:14px;background:url(/images/common.png) no-repeat -314px -135px;vertical-align:middle;margin:0;margin-left:5px;position:relative;top:-2px;margin-right:-5px;cursor:pointer;}
 .default-nav ul li a.remove:hover {background-position:-314px -148px;}
+.default-nav ul li.disabled a {color:#bebebe;cursor:default;}
 
 
 .default-v-nav {font-size:13px;}

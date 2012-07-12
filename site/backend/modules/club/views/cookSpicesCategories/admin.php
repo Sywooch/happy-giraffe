@@ -13,17 +13,18 @@ $this->widget('zii.widgets.grid.CGridView', array(
         array(
             'name' => 'title',
             'value' => 'CHtml::link ( CHtml::encode ( $data->title ),  array ( "update", "id" => $data->id ) )',
-            'type'=>'raw'
+            'type' => 'raw'
         ),
         array(
-            'name'=>'photo_id',
-            'value'=>'$data->getImage()',
-            'type'=>'raw'
+            'name' => 'photo_id',
+            'value' => '$data->getImage()',
+            'type' => 'raw'
         ),
         'slug',
         array(
             'class' => 'CButtonColumn',
-            'template' => '{update}{delete}'
+            //'template' => '{update}{delete}'
+            'template' => '{update}'
         ),
     ),
 ));

@@ -22,7 +22,8 @@
 	</div>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+        <input type="hidden" name="redirect_to" id="redirect_to" value="">
+        <?= CHtml::submitButton('Сохранить'); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

@@ -3,6 +3,11 @@
  * @var $form CActiveForm
  * @var $model CookSpice
  */
+
+$basePath = Yii::getPathOfAlias('application.modules.club.views.cookSpices.assets');
+$baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
+Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js', CClientScript::POS_HEAD);
+
 ?><style type="text/css">
     table.form {
         width: 100%
@@ -94,7 +99,7 @@
 
             <?php
             $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
-                'sourceUrl' => Yii::app()->createUrl('cookSpices/ac'),
+                'sourceUrl' => Yii::app()->createUrl('club/cookSpices/ac'),
                 'name' => 'ac',
                 'id' => 'ac',
                 'htmlOptions' => array(

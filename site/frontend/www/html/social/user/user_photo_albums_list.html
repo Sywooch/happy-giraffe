@@ -21,24 +21,6 @@
 	
 	<script type="text/javascript" src="/javascripts/common.js"></script>	
   
-  <script type="text/javascript" src="/javascripts/jquery.masonry.min.js"></script>
-	
-  <script>
-		
-		$(function(){
-		  
-		    var $container = $('.gallery-photos-new');
-
-			$container.imagesLoaded( function(){
-			    $container.masonry({
-					itemSelector : 'li',
-					columnWidth: 240
-			    });
-			});
-			
-		});
-		
-	</script>
   
 	<!--[if IE 7]>
 		<link rel="stylesheet" href='/stylesheets/ie.css' type="text/css" media="screen" />
@@ -449,7 +431,6 @@
 			
 			<div id="user">
 				
-								
 				<div class="main">
 					<div class="main-in">
 						
@@ -459,17 +440,40 @@
 						
 						<div id="gallery" class="nopadding">
 						
-							<div class="gallery-photos-new gallery-album-photos cols-3 clearfix">
-								
-								<ul>
-									<li><a href=""><img src="/images/example/gallery_album_img_04.jpg" /></a></li>
-									<li><a href=""><img src="/images/example/gallery_album_img_01.jpg" /></a></li>
-									<li><a href="">Ссылка на все</a></li>
-								</ul>
-								
-							</div>
-							
-							
+							<div class="gallery-album">
+                
+                <div class="album-title"><a href="">Зимние каникулы</a></div>
+                <div class="album-description">Хлопоты понемногу утихли а значит можно хорошо провести зимние выходные. В Славяногороске погода зимняя. </div>
+                
+                <div class="album-photos">
+                  
+                  <ul>
+                    <li><img src="/images/example/gallery_album_img_01.jpg"></li>
+                    <li><img src="/images/example/gallery_album_img_02.jpg"></li>
+                    <li class="more"><a href=""><i class="icon"></i>еще 63 фото</a></li>
+                  </ul>
+                  
+                </div>
+                
+              </div>
+              
+							<div class="gallery-album">
+                
+                <div class="album-title"><a href="">Путешествие в Маями</a></div>
+                <div class="album-description">Хлопоты понемногу утихли а значит можно хорошо провести зимние выходные. В Славяногороске погода зимняя.Хлопоты понемногу утихли а значит можно хорошо провести зимние выходные. В Славяногороске погода зимняя. </div>
+                
+                <div class="album-photos">
+                  
+                  <ul>
+                    <li><img src="/images/example/gallery_album_img_07.jpg"></li>
+                    <li><img src="/images/example/gallery_album_img_08.jpg"></li>
+                    <li class="more"><a href=""><i class="icon"></i>еще 63 фото</a></li>
+                  </ul>
+                  
+                </div>
+                
+              </div>
+              
 						</div>
 						
 					</div>

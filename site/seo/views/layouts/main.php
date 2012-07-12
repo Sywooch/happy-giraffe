@@ -64,13 +64,36 @@
         $this->widget('zii.widgets.CMenu', array(
             'items' => array(
                 array(
-                    'label' => 'Пользователи',
-                    'url' => array('/user/'),
-                    'active' => Yii::app()->controller->id == 'user'
+                    'label' => 'Сайты',
+                    'url' => array('/admin/site/'),
                 ),
                 array(
-                    'label' => 'Готовые статьи',
-                    'url' => array('/writing/page/admin/'),
+                    'label' => 'Запросы',
+                    'url' => array('/admin/query/'),
+                ),
+                array(
+                    'label' => 'Пользователи',
+                    'url' => array('/admin/user/'),
+                ),
+                array(
+                    'label' => 'Страницы',
+                    'url' => array('/admin/page/'),
+                ),
+                array(
+                    'label' => 'Запросы ПС',
+                    'url' => array('/admin/querySearchEngine/'),
+                ),
+                array(
+                    'label' => 'Поисковые фразы страниц',
+                    'url' => array('/admin/pagesSearchPhrase/'),
+                ),
+                array(
+                    'label' => 'Поисковые фразы - визиты',
+                    'url' => array('/admin/searchPhraseVisit/'),
+                ),
+                array(
+                    'label' => 'Поисковые фразы - позиции',
+                    'url' => array('/admin/searchPhrasePosition/'),
                 ),
                 array(
                     'label' => 'Парсинг и прокси',

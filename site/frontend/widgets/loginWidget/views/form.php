@@ -1,7 +1,7 @@
 <?php if ($this->onlyForm === false): ?>
     <ul class="fast-links clearfix a-right">
-        <li><?php echo CHtml::link('Вход', '#login', array('class' => 'fancy', 'rel' => 'nofollow')); ?></li>
-        <li><?php echo HHtml::link('Регистрация', Yii::app()->createUrl('/signup'), array(), true); ?></li>
+        <li><?php echo CHtml::link('Вход', '#login', array('class' => 'fancy', 'rel' => 'nofollow', 'data-theme'=>'default')); ?></li>
+        <li><?=CHtml::link('Регистрация', '#register', array('id'=>'reg-main-btn', 'class' => 'fancy', 'data-theme'=>'white-square'))?></li>
     </ul>
 <?php endif; ?>
 <div style="display:none">
@@ -58,7 +58,11 @@
             <div class="reg-link">
 
                 <div class="a-right">
+<<<<<<< HEAD
                     <a class="btn btn-orange" href="<?php echo Yii::app()->createUrl('signup/index', array('redirectUrl' => $this->controller->module && $this->controller->module->id == 'contest' ? urlencode(Yii::app()->request->pathInfo) : '')); ?>"><span><span>Зарегистрироваться</span></span></a>
+=======
+                    <a class="btn btn-orange fancy" href="#register" data-theme="white-square"><span><span>Зарегистрироваться</span></span></a>
+>>>>>>> develop
                 </div>
 
                 <div class="row"><span>Еще нет учетной записи?</span></div>

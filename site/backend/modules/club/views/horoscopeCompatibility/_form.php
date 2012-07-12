@@ -2,7 +2,7 @@
 /* @var $model HoroscopeCompatibility
  * @var $form CActiveForm
  */
- echo CHtml::link('К таблице', array('HoroscopeCompatibility/admin'));
+ echo CHtml::link('К таблице', array('/club/HoroscopeCompatibility/admin'));
 $list2 = array();
 if (!empty($model->zodiac1))
     $list2 = $model->getAvailableZodiacs();
@@ -35,7 +35,10 @@ if (!empty($model->zodiac1))
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'text'); ?>
-		<?php echo $form->textArea($model,'text',array('rows'=>6, 'cols'=>50)); ?>
+        <?php $this->widget('site.frontend.extensions.ckeditor.CKEditorWidget', array(
+            'model' => $model,
+            'attribute' => 'text',
+        )); ?>
 		<?php echo $form->error($model,'text'); ?>
 	</div>
 

@@ -36,6 +36,8 @@
 #user .new-blog-btn {text-align:right;}
 
 #user .blog-title {font-size:32px;color:#232323;margin-bottom:40px;}
+#user .blog-title .settings {display:inline-block;width:15px;height:15px;background:url(/images/common.png) no-repeat -313px -190px;position:relative;top:-1px;}
+#user .blog-title .settings:hover {background-position:-330px -190px;}
 
 
 
@@ -200,7 +202,8 @@
 
 #user .user-interests {}
 #user .user-interests ul {list-style:none;}
-#user .user-interests ul li {display:inline-block;margin-right:5px;padding:6px 0;}
+#user .user-interests ul li {display:inline-block;}
+#user .user-interests > ul > li {margin-bottom:20px;}
 
 #user .user-interests .interest-add {display:inline-block;width:16px;height:16px;background:url(/images/common.png) no-repeat -139px -174px;}
 
@@ -272,7 +275,19 @@
 #interestsManage .interests-steps .step-3 .selected-interests-list .btn-box .btn-finish {/*css3*/ border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; behavior: url(/stylesheets/PIE.htc);}
 
 
-
+#blogSettings {}
+#blogSettings .popup-title {text-align:left;margin-bottom:20px;}
+#blogSettings .settings-form {margin:20px 0;}
+#blogSettings .settings-form .row {margin-bottom:20px;}
+#blogSettings .settings-form .row .row-title {font-size:16px;color:#4c4d4d;}
+#blogSettings .settings-form .row .row-title span {font-size:11px;color:#6d6d6d;font-family:tahoma, arial, helvetica, sans-serif;}
+#blogSettings .settings-form .row .row-elements {margin:8px 0;}
+#blogSettings .settings-form .row .row-elements input[type=text] {padding:5px 10px;border:1px solid #cdcdcd;background:#fff;width:308px;font-size:15px;color:#3d3d3d;vertical-align:middle;}
+#blogSettings .settings-form .row .row-elements textarea {padding:5px 10px;border:1px solid #cdcdcd;background:#fff;width:308px;font-size:13px;color:#3d3d3d;vertical-align:bottom;width:80%;height:60px;}
+#blogSettings .settings-form .row .row-elements .btn-green-small {margin-left:5px;}
+#blogSettings .settings-form .row .row-elements .item-title {font-size:18px;color:#3680cc;}
+#blogSettings .settings-form .row .row-elements .edit {display:inline-block;width:14px;height:18px;background:url(../images/common.png) no-repeat -383px -204px;margin-left:5px;position:relative;top:2px;}
+#blogSettings .settings-form .row .row-elements .edit:hover {background-position:-341px -136px;}
 
 
 

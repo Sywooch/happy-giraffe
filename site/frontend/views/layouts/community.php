@@ -114,7 +114,7 @@
 
         <div class="club-fast-add">
             <?php if (Yii::app()->user->isGuest):?>
-                <?=CHtml::link('<span><span>Добавить</span></span>', '#login', array('class' => 'btn btn-green fancy'))?>
+                <?=CHtml::link('<span><span>Добавить</span></span>', '#login', array('class' => 'btn btn-green fancy', 'data-theme'=>'white-square'))?>
             <?php else: ?>
                 <?=HHtml::link('<span><span>Добавить</span></span>', $this->getUrl(array('content_type_slug' => null), 'community/add'), array('class' => 'btn btn-green'), true)?>
             <?php endif ?>

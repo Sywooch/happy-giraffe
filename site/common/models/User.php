@@ -23,14 +23,14 @@
  * @property integer $recovery_disable
  * @property integer $remember_code
  * @property int $age
+ * @property int $avatar_id
  *
  * The followings are the available model relations:
  * @property BagOffer[] $bagOffers
  * @property BagOfferVote[] $bagOfferVotes
- * @property CommunityComment[] $clubCommunityComments
  * @property CommunityContent[] $clubCommunityContents
- * @property ClubContest[] $clubContests
- * @property ClubContestUser[] $clubContestUsers
+ * @property Contest[] $clubContests
+ * @property ContestUser[] $clubContestUsers
  * @property ClubContestWinner[] $clubContestWinners
  * @property ClubContestWork[] $clubContestWorks
  * @property ClubContestWorkComment[] $clubContestWorkComments
@@ -38,7 +38,6 @@
  * @property ClubPhotoComment[] $clubPhotoComments
  * @property ClubPost[] $clubPosts
  * @property Comment[] $comments
- * @property MenstrualUserCycle[] $menstrualUserCycles
  * @property UserCache[] $UserCaches
  * @property Message[] $Messages
  * @property DialogUser[] $DialogUsers
@@ -156,9 +155,10 @@ class User extends HActiveRecord
     {
         return array(
             //general
-            array('first_name, last_name', 'length', 'max' => 50),
-            array('email', 'email'),
-            array('password, current_password, new_password, new_password_repeat', 'length', 'min' => 6, 'max' => 12, 'on' => 'signup'),
+            array('first_name', 'length', 'max' => 50, 'message'=>'Слишком длинное имя'),
+            array('last_name', 'length', 'max' => 50, 'message'=>'Слишком длинная фамилия'),
+            array('email', 'email', 'message' => 'E-mail не является правильным E-Mail адресом'),
+            array('password, current_password, new_password, new_password_repeat', 'length', 'min' => 6, 'max' => 12, 'on' => 'signup', 'tooShort'=>'минимум 6 символов', 'tooLong'=>'максимум 15 символов'),
             array('online, relationship_status', 'numerical', 'integerOnly' => true),
             array('email', 'unique', 'on' => 'signup'),
             array('gender', 'boolean'),
@@ -177,10 +177,10 @@ class User extends HActiveRecord
             array('password', 'passwordValidator', 'on' => 'login'),
 
             //signup
-            array('first_name, email, password, gender', 'required', 'on' => 'signup'),
-            array('verifyCode', 'captcha', 'on' => 'signup', 'allowEmpty' => Yii::app()->session->get('service') !== NULL),
+            array('first_name, last_name, email, password', 'required', 'on' => 'signup', 'message'=>'Поле является обязательным'),
+            array('gender', 'required', 'on' => 'signup', 'message'=>'укажите свой пол'),
             array('email', 'unique', 'on' => 'signup'),
-            array('first_name, last_name, birthday, photo', 'safe', 'on' => 'signup'),
+            array('first_name, last_name, gender, birthday, photo', 'safe', 'on' => 'signup'),
 
             //change_password
             array('new_password', 'required', 'on' => 'change_password'),
@@ -189,7 +189,7 @@ class User extends HActiveRecord
             array('verifyCode', 'captcha', 'on' => 'change_password', 'allowEmpty' => false),
 
             //remember_password
-            array('password', 'length', 'min' => 6, 'max' => 12, 'on' => 'remember_password'),
+            array('password', 'length', 'min' => 6, 'max' => 15, 'on' => 'remember_password', 'tooShort'=>'минимум 6 символов', 'tooLong'=>'максимум 15 символов'),
         );
     }
 

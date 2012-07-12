@@ -40,7 +40,7 @@
             if (!is_null($current_rubric)) $add_params['rubric_id'] = $current_rubric;
             if (Yii::app()->user->isGuest) {
                 $url = '#login';
-                $htmlOptions = array('class' => 'fancy');
+                $htmlOptions = array('class' => 'fancy', 'data-theme'=>"white-square");
             }
             else
             {

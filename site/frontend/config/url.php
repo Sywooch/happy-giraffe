@@ -11,9 +11,6 @@ return array(
         *      CONTROLLERS      *
         *************************/
 
-        //temporarily
-        'signup/index/' => 'signup/index',
-
         // global
         '.*/index' => 404,
 
@@ -22,13 +19,15 @@ return array(
         'js_dynamics/<hash:\w+>.js' => 'site/seoHide',
         'search' => 'site/search',
         'site/rememberPassword/step/<step:\d+>' => 'site/rememberPassword',
-        'site/<_a:(login|logout|link)>' => 'site/<_a>',
+        'site/<_a:(login|logout|link|test)>' => 'site/<_a>',
         'contest' => 'site/contest',
 
         // ajax controller
         'ajax/duelShow/question_id/<question_id:\d+>' => 'ajax/duelShow',
 
         // signup controller
+        'signup' => 'signup/index',
+        'signup/finish'=>'signup/finish',
         'signup/validate/step/<step:\d+>' => 'signup/validate',
 
         // friendRequests controller
@@ -87,8 +86,8 @@ return array(
         'community/<_a:(join|add|transfer|edit|editTravel)>' => 'community/<_a>',
 
         //global
-        '<_c:(activity|ajax|notification|signup|profile|friendRequests|communityRubric|family|morning)>/<_a>' => '<_c>/<_a>',
-        '<_c:(activity|signup|profile|rss|family|morning|community)>' => '<_c>/index',
+        '<_c:(activity|ajax|notification|profile|friendRequests|communityRubric|family|morning)>/<_a>' => '<_c>/<_a>',
+        '<_c:(activity|profile|rss|family|morning|community)>' => '<_c>/index',
 
         //others
         array('class' => 'ext.sitemapgenerator.SGUrlRule', 'route' => '/sitemap'),
@@ -140,6 +139,7 @@ return array(
         '<_m:(test|tester|vaccineCalenda|childrenDiseases|menstrualCycle|horoscope|babyBloodGroup|placentaThickness|pregnancyWeight|contractionsTime|names|recipeBook|hospitalBag|maternityLeave|dailyCalories|weightLoss|idealWeight|bodyFat)>/' => 'services/<_m>/default/index',
         '<_m:(babySex|vaccineCalendar|sewing|hospitalBag)>/<_a>/' => 'services/<_m>/default/<_a>',
 
+        'babySex'=>'services/babySex/default/index',
         'babySex/default/<_a:(bloodUpdate, japanCalc, ovulationCalc)>/' => 'services/babySex/default/<_a>',
 
         'childrenDiseases/<id:[\w-+\s]+>' => 'services/childrenDiseases/default/view',

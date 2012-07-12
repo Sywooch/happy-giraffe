@@ -36,6 +36,10 @@ class CommunityPost extends HActiveRecord
 				'attributes' => array('text'),
 				'edit_routes' => array('community/edit'),
 			),
+            'purified' => array(
+                'class' => 'site.common.behaviors.PurifiedBehavior',
+                'attributes' => array('text', 'preview'),
+            ),
 		);
 	}
 
@@ -63,7 +67,7 @@ class CommunityPost extends HActiveRecord
 			array('content_id', 'exist', 'attributeName' => 'id', 'className' => 'CommunityContent'),
 			array('source_type', 'in', 'range' => array('me', 'internet', 'book')),
 		
-			array('text', 'filter', 'filter' => array('Filters', 'add_nofollow')),
+			//array('text', 'filter', 'filter' => array('Filters', 'add_nofollow')),
 
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -126,4 +130,14 @@ class CommunityPost extends HActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+    protected function afterSave()
+    {
+        if ($this->isNewRecord) {
+            //$this->content->uniqueness = CopyScape::getUniquenessByText($this->text);
+            //$this->content->update(array('uniqueness'));
+        }
+
+        parent::afterSave();
+    }
 }

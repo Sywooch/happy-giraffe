@@ -14,7 +14,7 @@
         <title><?=CHtml::encode($this->pageTitle)?></title>
     <?php endif;
 
-    $release_id = 325;
+    $release_id = 326;
     $cs = Yii::app()->clientScript;
     $cs
         ->registerScriptFile('/javascripts/comet.js')
@@ -26,13 +26,13 @@
         ->registerCssFile('/stylesheets/ie.css', 'screen')
         ->registerCoreScript('jquery')
         ->registerCssFile('/stylesheets/jquery.fancybox-1.3.4.css')
-        ->registerScriptFile('/javascripts/jquery.fancybox-1.3.4.pack.js?r='.$release_id)
+        ->registerScriptFile('/javascripts/jquery.fancybox-1.3.4.js?r='.$release_id)
         ->registerScriptFile('/javascripts/jquery.iframe-post-form.js')
         ->registerScriptFile('/javascripts/jquery.placeholder.min.js')
         ->registerScriptFile('/javascripts/chosen.jquery.min.js')
         ->registerScriptFile('/javascripts/checkbox.js')
         ->registerScript('base_url', 'var base_url = \'' . Yii::app()->baseUrl . '\';', CClientScript::POS_HEAD)
-        ->registerScriptFile('/javascripts/common.js')
+        ->registerScriptFile('/javascripts/common.js?r='.$release_id)
         ->registerScriptFile('/javascripts/base64.js')
         ->registerScriptFile('/javascripts/jquery.tooltip.pack.js')
     ;
@@ -139,6 +139,7 @@
                     </div>
                 <?php else: ?>
                     <?php $this->widget('application.widgets.loginWidget.LoginWidget'); ?>
+                    <?php $this->widget('application.widgets.registerWidget.RegisterWidget'); ?>
                 <?php endif; ?>
 
                 <ul class="fast-links clearfix">
@@ -178,14 +179,14 @@
                         <?php if (! Yii::app()->user->isGuest): ?>
                             <a href="<?=$this->createUrl('/contest/default/view', array('id' => 1)) ?>"><img src="/images/banner_02.png" /></a>
                         <?php else: ?>
-                            <?=HHtml::link(CHtml::image('/images/banner_06.png'), $this->createUrl('/signup'), array(), true)?>
+                            <?=CHtml::link(CHtml::image('/images/banner_06.png'), '#register', array('class'=>'fancy', 'data-theme'=>'white-square'))?>
                         <?php endif; ?>
                     </div>
 
                 </div>
 
                 <div class="nav">
-                    <ul class="clearfix">
+                    <ul class="width-2 clearfix">
                         <?php if (false): ?>
                             <li class="morning">
                                 <a href="<?=$this->createUrl('/morning/index') ?>"><i class="text"></i></a>
@@ -455,7 +456,6 @@
                             <?php $this->endWidget();?>
 
                         </li>
-                        <li class="fday"><a href="<?=$this->createUrl('/community/view', array('community_id' => 20, 'content_type_slug' => 'post', 'content_id' => 23151))?>"><i class="text"></i></a></li>
                     </ul>
                 </div>
 

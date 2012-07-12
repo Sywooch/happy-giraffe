@@ -68,16 +68,7 @@ class SiteController extends HController
 	 */
 	public function actionIndex()
 	{
-/*        if(!Yii::app()->user->isGuest)
-            $this->redirect(array('/user/profile', 'user_id' => Yii::app()->user->id));
-        $this->layout = '//site/index_layout';*/
 		$this->pageTitle = 'Веселый Жираф - сайт для всей семьи';
-/*		Yii::app()->clientScript->registerMetaTag('NWGWm2TqrA1HkWzR8YBwRT08wX-3SRzeQIBLi1PMK9M', 'google-site-verification');
-		Yii::app()->clientScript->registerMetaTag('41ad6fe875ade857', 'yandex-verification');
-        $model = new User;
-		$this->render('index', array(
-            'model' => $model
-        ));*/
         Yii::import('site.frontend.widgets.*');
         Yii::import('site.frontend.widgets.home.*');
         $user = Yii::app()->user->getModel();
@@ -158,7 +149,7 @@ class SiteController extends HController
                         $user->save(false);
                         $rediret_url = Yii::app()->user->getState('social_redirect');
                         if(Yii::app()->request->getQuery('register'))
-                            $authIdentity->redirect('/site/index');
+                            $authIdentity->redirect('/');
 						$authIdentity->redirect($rediret_url);
 					}
 				}
@@ -178,7 +169,7 @@ class SiteController extends HController
                         'id' => $authIdentity->getAttribute('id'),
                     );
                     Yii::app()->user->setFlash('regdata', $authIdentity->getItemAttributes());
-                    $authIdentity->redirect(array('/signup'));
+                    $authIdentity->redirect(array('/signup/index'));
                 }
 			}
 
@@ -288,5 +279,49 @@ class SiteController extends HController
     public function actionLink($text)
     {
         $this->renderPartial('link', compact('text'));
+    }
+
+    public function actionTest()
+    {
+        $data = array(
+            'u' => 'mirasmurkov',
+            'k' => 'e4mownmg6njsrhrg',
+            'o' => 'csearch',
+            'e' => 'UTF-8',
+            't' => 'хуй пизда джигурда хуй пизда джигурда хуй пизда джигурдахуй пизда джигурда хуй пизда джигурда хуй пизда джигурда',
+            'c' => '1',
+        );
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, 'http://www.copyscape.com/api/');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        $res = curl_exec($ch);
+        curl_close($ch);
+
+        $xml = new SimpleXMLElement($res);
+        var_dump(isset($xml->result[0]->percentmatched));
+
+        die;
+
+        $url = 'http://www.copyscape.com/api/?' . http_build_query(array(
+            'u' => 'mirasmurkov',
+            'k' => 'e4mownmg6njsrhrg',
+            'o' => 'csearch',
+            'q' => 'http://www.happy-giraffe.ru/community/20/forum/post/23151/',
+            'c' => '1',
+        ));
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $res = curl_exec($ch);
+        curl_close($ch);
+
+        $xml = new SimpleXMLElement($res);
+        var_dump(isset($xml->result[0]->fsdfs));
+        die;
+        echo $xml->result[0]->fsdfs;
     }
 }

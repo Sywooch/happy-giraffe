@@ -86,8 +86,8 @@ class PurifiedBehavior extends CActiveRecordBehavior
 
 
             } else {
-//                if (pq($link)->hasAttribute('target'))
-//                    pq($link)->removeAttr('target');
+                //if (pq($link)->hasAttribute('target'))
+                pq($link)->removeAttr('target');
             }
         }
 

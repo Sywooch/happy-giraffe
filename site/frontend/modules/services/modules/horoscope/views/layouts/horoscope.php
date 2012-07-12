@@ -20,7 +20,7 @@
             <div class="horoscope-subscribe">
                 <img src="/images/horoscope_subscribe_banner.jpg">
                 <p>Хочешь иметь возможность заглянуть в своё будущее и подкорректировать его при необходимости: избежать аварии, получить хорошую прибыль, укрепить семейные отношения, вырастить прекрасных детей, то есть – реально улучшить свою жизнь?</p>
-                <a href="<?=$this->createUrl('/signup/index') ?>" class="btn-want">Хочу!</a>
+                <a href="#register" class="fancy btn-want" data-theme="white-square">Хочу!</a>
             </div>
         <?php endif ?>
 

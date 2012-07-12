@@ -19,6 +19,9 @@ class Create extends CAction
         if (isset($_POST[$controller->_class])) {
             $model->attributes = $_POST[$controller->_class];
 
+            if (method_exists($controller, 'onCreateBeforeSave'))
+                $controller->onCreateBeforeSave(get_defined_vars());
+
             if ($model->save()) {
                 if (method_exists($controller, 'onCreateAfterSave')) {
                     $controller->onCreateAfterSave(get_defined_vars());

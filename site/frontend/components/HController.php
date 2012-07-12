@@ -7,6 +7,8 @@ class HController extends CController
     public $rssFeed = null;
     public $seoHrefs = array();
     public $seoContent = array();
+    public $registerUserModel = null;
+    public $registerUserData = null;
 
     public $meta_description = '';
     public $meta_keywords = null;

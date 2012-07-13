@@ -77,7 +77,7 @@ $cs
 
             </div>
 
-
+            <!--
             <div class="readers">
 
                 <div class="block-title"><i class="icon-readers"></i>Постоянные читатели <span>(185)</span></div>
@@ -134,8 +134,9 @@ $cs
                 <div class="add-author-btn"><a href=""><img src="/images/btn_add_author.png" /></a></div>
 
             </div>
+            -->
 
-
+            <!--
             <div class="fast-photos">
 
                 <div class="block-title"><span>МОИ</span>свежие<br/>фото</div>
@@ -149,6 +150,7 @@ $cs
                 <a href="" class="more"><i class="icon"></i>Смотреть</a>
 
             </div>
+            -->
 
 
             <div class="banner-box">

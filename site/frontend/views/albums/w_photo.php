@@ -7,6 +7,13 @@
     $title = $collection['title'];
     $photos = $collection['photos'];
     $count = count($photos);
+
+    foreach ($photos as $i => $p) {
+        if ($p->id == $photo->id) {
+            $currentIndex = $i + 1;
+            break;
+        }
+    }
 ?>
 
 <div id="photo-window-in">
@@ -25,7 +32,7 @@
         </div>
 
         <div class="photo-info">
-            <?=$title?> - <span class="count">3 фото из 158</span>
+            <?=$title?> - <span class="count"><?=$currentIndex?> фото из <?=$count?></span>
             <div class="title"><?=$photo->title?></div>
         </div>
 

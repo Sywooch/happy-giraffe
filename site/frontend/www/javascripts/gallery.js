@@ -12,11 +12,13 @@ jQuery.fn.pGallery = function(options) {
         plugin.bg = null,
         plugin.history = null,
         plugin.init = false;
+        plugin.originalTitle = null;
 
     plugin.openWindow = function(id) {
         if(this.init)
             return false;
         this.init = true;
+        this.originalTitle = document.title;
         this.bg = $('<div id="photo-window-bg" style="display:none"></div>');
         this.window = $('<div id="photo-window" style="display:none"></div>');
         this.window.css('top', $(document).scrollTop());
@@ -44,7 +46,7 @@ jQuery.fn.pGallery = function(options) {
             pGallery.currentPhoto = plugin.data.id;
             $('#photo-window').append(html);
 
-            plugin.window.find('.window-close').bind('click', function() {plugin.closeWindow();return false;});
+            plugin.window.find('.close').bind('click', function() {plugin.closeWindow();return false;});
 
             plugin.window.on('click', '#photo a.next', function() {
                 plugin.next();
@@ -190,6 +192,7 @@ jQuery.fn.pGallery = function(options) {
     plugin.closeWindow = function() {
         plugin.init = false;
         $('#photo-window-bg, #photo-window').fadeOut(600, function(){
+            document.title = plugin.originalTitle;
             plugin.history.changeBrowserUrl(plugin.getEntityUrl());
             $('body').css('overflow', 'auto');
             plugin.window.remove();

@@ -18,7 +18,7 @@ $cs->registerScriptFile('/javascripts/jquery.masonry.min.js');
 
 $basePath = Yii::getPathOfAlias('cook') . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'decor' . DIRECTORY_SEPARATOR . 'assets';
 $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
-Yii::app()->clientScript->registerScriptFile($baseUrl . '/script2.js', CClientScript::POS_HEAD);
+Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js', CClientScript::POS_HEAD);
 
 ?>
 

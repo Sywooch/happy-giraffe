@@ -4,6 +4,29 @@
         'entity' => 'Album',
         'entity_id' => $model->id,
     ));
+
+    $cs = Yii::app()->clientScript;
+
+    $js =
+<<<EOD
+$(function(){
+
+    var $container = $('.gallery-photos-new');
+
+    $container.imagesLoaded( function(){
+        $container.masonry({
+            itemSelector : 'li',
+            columnWidth: 240
+        });
+    });
+
+});
+EOD;
+
+    $cs
+        ->registerScript('albumView', $js)
+    ;
+
 ?>
 
 <div id="user">

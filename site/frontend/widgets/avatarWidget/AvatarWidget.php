@@ -12,10 +12,10 @@ class AvatarWidget extends CWidget
     public $location = true;
     public $nav = false;
     public $status = false;
-	
+    public $hideLinks = false;
+
 	public function run()
 	{
 		$this->render('view');
 	}
-
 }

@@ -1,5 +1,6 @@
 $(document).ready(function () {
     $('body').delegate('a.fancy', 'click', function () {
+        Register.start = true;
         var onComplete_function = function () {
             if ($('.popup .chzn').size() > 0)
                 $('.popup .chzn').each(function () {

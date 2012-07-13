@@ -10,10 +10,10 @@ class AvatarWidget extends CWidget
     public $sendButton = true;
     public $filled = false;
     public $location = true;
-	
+    public $hideLinks = false;
+
 	public function run()
 	{
 		$this->render('view');
 	}
-
 }

@@ -74,20 +74,13 @@ jQuery.fn.pGallery = function(options) {
                 $(window).resize();
             });
 
-            var titleEl = $('.photo-info > .title', this.window);
-            var descriptionEl = $('.photo-comment > p', this.window);
-
-            var title = pGallery.photos[id].title;
-            var description = pGallery.photos[id].description;
-
-            (title == null) ? titleEl.hide() : titleEl.text(title).show();
-            (description == null) ? descriptionEl.hide() : descriptionEl.text(description).show();
+            plugin.updateData();
         }, 'html');
     };
 
     plugin.openImage = function(id, callback) {
         var photo = $('#photo', this.window);
-        photo.find('.img').find('img').attr({src : pGallery.photos[id].src});
+        /*photo.find('.img').find('img').attr({src : pGallery.photos[id].src});
         if(photo.find('.in').size() > 0) {
             if(pGallery.photos[id].title != null) {
                 photo.find('.in').show().find('.title-text').text(pGallery.photos[id].title);
@@ -103,7 +96,8 @@ jQuery.fn.pGallery = function(options) {
         else
             photo.find('.photo-comment .title-text').hide().text('');
 
-        photo.find('.user-info').replaceWith(pGallery.photos[id].avatar);
+        photo.find('.user-info').replaceWith(pGallery.photos[id].avatar);*/
+        plugin.updateData();
 
         this.data.id = id;
         var link = $('#photo-thumbs li a[data-id='+id+']' ,this.window);
@@ -187,6 +181,23 @@ jQuery.fn.pGallery = function(options) {
 
     plugin.getEntityUrl = function() {
         return document.location.href.replace(/photo(.*)/, '');
+    }
+
+    plugin.updateData = function() {
+        var titleEl = $('.photo-info > .title', this.window);
+        var descriptionEl = $('.photo-comment > p', this.window);
+        var imgEl = $('#photo > .img img', this.window);
+        var avatarEl = $('.user', this.window);
+
+        var title = pGallery.photos[id].title;
+        var description = pGallery.photos[id].description;
+        var img = pGallery.photos[id].src;
+        var avatar = pGallery.photos[id].avatar;
+
+        imgEl.attr('src', img);
+        avatarEl.html(avatar);
+        (title == null) ? titleEl.hide() : titleEl.text(title).show();
+        (description == null) ? descriptionEl.hide() : descriptionEl.text(description).show();
     }
 
     if(/\/photo(\d+)/.test(document.location.href)) {

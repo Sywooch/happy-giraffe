@@ -39,8 +39,8 @@
                 prev : <?=($i != 0) ? $photos[$i - 1]->primaryKey : 'null'?>,
                 next : <?=($i < $count - 1) ? $photos[$i + 1]->primaryKey : 'null'?>,
                 src : '<?php echo $p->getPreviewUrl(960, 627, Image::HEIGHT, true); ?>',
-                title : <?=($p->title === null) ? 'null' : '\'' . $p->w_title . '\''?>,
-                description : <?=($p->description === null) ? 'null' : '\'' . $p->w_description . '\''?>,
+                title : <?=($p->title === null) ? 'null' : '\'' . $p->title . '\''?>,
+                description : <?=($p->description === null) ? 'null' : '\'' . $p->description . '\''?>,
                 avatar : '<?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
                     'user' => $p->author,
                     'size' => 'small',

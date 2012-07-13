@@ -99,7 +99,7 @@ jQuery.fn.pGallery = function(options) {
         var titleEl = $('.photo-info > .title', this.window);
         var descriptionEl = $('.photo-comment > p', this.window);
         var avatarEl = $('.user', this.window);
-        var imgEl = ('#photo img', this.window);
+        var imgEl = $('#photo img', this.window);
 
         var title = pGallery.photos[id].title;
         var description = pGallery.photos[id].description;

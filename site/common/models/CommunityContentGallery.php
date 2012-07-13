@@ -38,7 +38,7 @@ class CommunityContentGallery extends HActiveRecord
 	public function relations()
 	{
 		return array(
-			'content' => array(self::BELONGS_TO, 'CommunityContents', 'content_id'),
+			'content' => array(self::BELONGS_TO, 'CommunityContent', 'content_id'),
 			'items' => array(self::HAS_MANY, 'CommunityContentGalleryItem', 'gallery_id'),
 		);
 	}

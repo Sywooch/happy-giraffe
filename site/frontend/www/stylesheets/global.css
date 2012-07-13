@@ -3178,12 +3178,12 @@ ul.letters li a:hover {
     -moz-border-radius: 15px;
     -webkit-border-radius: 15px;padding:0 20px;}
 
-.horoscope-compatibility-list {}
+.horoscope-compatibility-list {padding-top:12px;}
 .horoscope-compatibility-list > ul {list-style:none;}
 .horoscope-compatibility-list > ul > li {width:21%;padding-right:3%;display:inline-block;vertical-align:top;margin-bottom:25px;}
 .horoscope-compatibility-list.wide > ul > li {width:28%;}
 .horoscope-compatibility-list > ul > li ul {list-style:none;}
-.horoscope-compatibility-list > ul > li ul li {padding:3px 0;}
+.horoscope-compatibility-list > ul > li ul li {padding:5px 0;}
 .horoscope-compatibility-list > ul > li .img {margin-bottom:10px;}
 .horoscope-compatibility-list > ul > li .img img {vertical-align:top;}
 .horoscope-compatibility-list > ul > li .img .date {display:inline-block;vertical-align:top;padding-top:15px;color:#2d2d2d;font-size:10px;}
@@ -4198,7 +4198,7 @@ ul.letters li a:hover {
 #cook-recipe .recipe-categories ul li.active {/*css3*/ -moz-border-radius:10px 0 0 8px;-webkit-border-radius:10px 0 0 8px;border-radius:10px 0 0 8px;behavior: url(/stylesheets/PIE.htc);}
 #cook-recipe .recipe-categories ul li .cook-cat {display:inline-block;vertical-align:middle;}
 #cook-recipe .recipe-categories ul li .count {display:inline-block;color:#616061;position:relative;font-size:10px;text-decoration:none;vertical-align:top;width:40px;margin-right:-40px;text-align:left;white-space:nowrap;position:relative;}
-#cook-recipe .recipe-categories ul li.active .count {font-size:25px;vertical-align:middle;width:auto;margin-right:0;left:0;left:-15px;}
+#cook-recipe .recipe-categories ul li.active .count {font-size:25px;vertical-align:middle;width:auto;margin-right:0;left:0;}
 
 #cook-recipe .hrecipe {color:#020202;padding-bottom:30px;}
 

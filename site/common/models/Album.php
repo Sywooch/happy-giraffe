@@ -251,7 +251,7 @@ class Album extends HActiveRecord
         $photos = array();
 
         foreach ($this->photos as $i => $p) {
-            $p->w_title = ($p->title) ? $p->title : 'Альбом «' . $this->title . '» - фото ' . $i + 1;
+            $p->w_title = ($p->title) ? $p->title : 'Альбом «' . $this->title . '» - фото ' . ($i + 1);
             $photos[] = $p;
         }
 

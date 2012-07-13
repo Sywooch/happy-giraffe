@@ -62,7 +62,7 @@ class PageMetaTag extends EMongoDocument
         if ($model === null && $create) {
             $model = new PageMetaTag();
             $model->route = $route;
-            $model->params = $params;
+            $model->params = $params2;
             $model->description = '';
             $model->keywords = '';
             $model->save();

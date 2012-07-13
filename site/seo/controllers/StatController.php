@@ -16,7 +16,17 @@ class StatController extends SController
         return true;
     }
 
-    public function actionIndex($days = null, $last_date = null)
+    public function actionIndex($date1 = null, $last_date = null)
+    {
+        if ($last_date == null)
+            $last_date = date("Y-m-d");
+        if ($days == null)
+            $days = 7;
+
+        $this->render('index', compact('last_date', 'days'));
+    }
+
+    public function actionUserStats($days = null, $last_date = null)
     {
         if ($last_date == null)
             $last_date = date("Y-m-d");

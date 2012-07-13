@@ -32,6 +32,7 @@ return array(
         'writing',
         'promotion',
         'admin',
+        'indexing',
     ),
     'components' => array(
         'user' => array(

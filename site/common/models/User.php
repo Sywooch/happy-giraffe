@@ -290,6 +290,8 @@ class User extends HActiveRecord
 
             'answers' => array(self::HAS_MANY, 'DuelAnswer', 'user_id'),
             'activeQuestion' => array(self::HAS_ONE, 'DuelQuestion', array('question_id' => 'id'), 'through' => 'answers', 'condition' => 'ends > NOW()'),
+
+            'photos' => array(self::HAS_MANY, 'AlbumPhoto', 'author_id'),
         );
     }
 

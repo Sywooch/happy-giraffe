@@ -139,14 +139,13 @@
                     </div>
                 <?php else: ?>
                     <?php $this->widget('application.widgets.loginWidget.LoginWidget'); ?>
-                    <?php $this->widget('application.widgets.registerWidget.RegisterWidget'); ?>
                 <?php endif; ?>
 
                 <ul class="fast-links clearfix">
                     <li><a href="/">Главная</a></li>
                     <li><a href="<?php echo $this->createUrl('/community') ?>">Клубы</a></li>
 <!--                    <li><a href="">Сервисы</a></li>-->
-                    <li><a href="<?=$this->createUrl('/contest/default/view', array('id' => 1)) ?>">Конкурсы</a></li>
+                    <li><?=HHtml::link('Конкурсы', $this->createUrl('/contest/default/view', array('id' => 1)), array(), Yii::app()->controller->getRoute() == 'site/index'?false:true)?></li>
                 </ul>
 
             </div>
@@ -171,7 +170,7 @@
                     <?php endif; ?>
 
                     <div class="logo-box">
-                        <a href="/" class="logo" title="Веселый Жираф - сайт для всей семьи">Ключевые слова сайта</a>
+                        <?=HHtml::link('', '/', array('class'=>'logo', 'title'=>'Веселый Жираф - сайт для всей семьи'), true)?>
                         <span>САЙТ ДЛЯ ВСЕЙ СЕМЬИ</span>
                     </div>
 
@@ -195,6 +194,7 @@
                         <li class="kids navdrp">
                             <a href="javascript:void(0);" onclick="navDrpOpen(this);"><i class="text"></i></a>
 
+                            <?php $this->beginWidget('application.widgets.SeoContentWidget'); ?>
                             <div class="drp">
                                 <div class="in">
 
@@ -267,10 +267,13 @@
 
                                 </div>
                             </div>
+                            <?php $this->endWidget();?>
+
                         </li>
                         <li class="manwoman navdrp">
                             <a href="javascript:void(0);" onclick="navDrpOpen(this);"><i class="text"></i></a>
 
+                            <?php $this->beginWidget('application.widgets.SeoContentWidget'); ?>
                             <div class="drp">
                                 <div class="in">
 
@@ -298,10 +301,13 @@
 
                                 </div>
                             </div>
+                            <?php $this->endWidget();?>
+
                         </li>
                         <li class="beauty navdrp">
                             <a href="javascript:void(0);" onclick="navDrpOpen(this);"><i class="text"></i></a>
 
+                            <?php $this->beginWidget('application.widgets.SeoContentWidget'); ?>
                             <div class="drp">
                                 <div class="in">
 
@@ -328,10 +334,13 @@
 
                                 </div>
                             </div>
+                            <?php $this->endWidget();?>
+
                         </li>
                         <li class="home navdrp">
                             <a href="javascript:void(0);" onclick="navDrpOpen(this);"><i class="text"></i></a>
 
+                            <?php $this->beginWidget('application.widgets.SeoContentWidget'); ?>
                             <div class="drp">
                                 <div class="in">
 
@@ -370,10 +379,13 @@
 
                                 </div>
                             </div>
+                            <?php $this->endWidget();?>
+
                         </li>
                         <li class="hobbies navdrp">
                             <a href="javascript:void(0);" onclick="navDrpOpen(this);"><i class="text"></i></a>
 
+                            <?php $this->beginWidget('application.widgets.SeoContentWidget'); ?>
                             <div class="drp">
                                 <div class="in">
 
@@ -407,10 +419,13 @@
 
                                 </div>
                             </div>
+                            <?php $this->endWidget();?>
+
                         </li>
                         <li class="rest navdrp">
                             <a href="javascript:void(0);" onclick="navDrpOpen(this);"><i class="text"></i></a>
 
+                            <?php $this->beginWidget('application.widgets.SeoContentWidget'); ?>
                             <div class="drp">
                                 <div class="in">
 
@@ -437,6 +452,8 @@
 
                                 </div>
                             </div>
+                            <?php $this->endWidget();?>
+
                         </li>
                     </ul>
                 </div>
@@ -479,7 +496,10 @@
         </script>
     <?php endif; ?>
 
-    <noindex>
+<?php if (Yii::app()->user->isGuest) $this->widget('application.widgets.registerWidget.RegisterWidget'); ?>
+
+
+<noindex>
         <!-- Yandex.Metrika counter -->
         <script type="text/javascript">
             (function (d, w, c) {

@@ -74,7 +74,14 @@ jQuery.fn.pGallery = function(options) {
                 $(window).resize();
             });
 
-            plugin.updateData();
+            var titleEl = $('.photo-info > .title', this.window);
+            var descriptionEl = $('.photo-comment > p', this.window);
+
+            var title = pGallery.photos[id].title;
+            var description = pGallery.photos[id].description;
+
+            (title == null) ? titleEl.hide() : titleEl.text(title).show();
+            (description == null) ? descriptionEl.hide() : descriptionEl.text(description).show();
         }, 'html');
     };
 
@@ -180,20 +187,6 @@ jQuery.fn.pGallery = function(options) {
 
     plugin.getEntityUrl = function() {
         return document.location.href.replace(/photo(.*)/, '');
-    }
-
-    plugin.updateData = function() {
-        var titleEl = $('.photo-info > .title', this.window);
-        var descriptionEl = $('.photo-comment > p', this.window);
-        var avatarEl = $('.user', this.window);
-
-        var title = pGallery.photos[id].title;
-        var description = pGallery.photos[id].description;
-        var avatar = pGallery.photos[id].avatar;
-
-        avatarEl.html(avatar);
-        (title == null) ? titleEl.hide() : titleEl.text(title).show();
-        (description == null) ? descriptionEl.hide() : descriptionEl.text(description).show();
     }
 
     if(/\/photo(\d+)/.test(document.location.href)) {

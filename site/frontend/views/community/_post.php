@@ -44,7 +44,7 @@
                         echo $views = PageView::model()->viewsByPath(str_replace('http://www.happy-giraffe.ru', '', $data->url), true);
                     ?></span></div>
                 <br/>
-                <a href="#comment_list">Комментариев: <?php echo $data->commentsCount; ?></a>
+                <?=CHtml::link('Комментариев: ' . $data->commentsCount, $data->getUrl(true))?>
                 <?php if($full) { Rating::model()->saveByEntity($data, 'vw', floor($views / 100)); } ?>
             </div>
         </noindex>
@@ -64,6 +64,9 @@
                         echo $data->purified->preview;
                 }
             ?>
+            <?php if ($data->isFromBlog): ?>
+                <?=CHtml::link('Читать всю запись<i class="icon"></i>', $data->url, array('class' => 'read-more'))?>
+            <?php endif; ?>
             <div class="clear"></div>
         </div>
     <?php else: ?>

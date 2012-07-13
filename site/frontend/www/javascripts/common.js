@@ -44,6 +44,15 @@ $(document).ready(function () {
             albumVisibilityListToggle($('.visibility-list:visible'));
     })
 
+    $('html').click(function() {
+        $('.user-fast-nav .drp-list > ul:visible').hide();
+    });
+
+    $('.user-fast-nav .more').click(function(event){
+        event.stopPropagation();
+    });
+
+
 });
 
 function addAttributesToCart(form, update) {
@@ -433,4 +442,8 @@ var Register = {
             }
         }, 10000);
     }
+}
+
+function ajaxSetValues(form, callback) {
+    $.post($(form).attr('action'), $(form).serialize(), callback);
 }

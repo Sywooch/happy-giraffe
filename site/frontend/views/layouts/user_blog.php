@@ -25,16 +25,32 @@ $cs
                 ?>
             </div>
 
+            <?php if (Yii::app()->user->id == $this->user->id): ?>
+                <div class="add-post-btn">
+                    <?=CHtml::link(CHtml::image('/images/btn_add_post.png'), $this->getUrl(array('content_type_slug' => null), 'blog/add'))?>
+                </div>
+            <?php endif; ?>
 
             <div class="club-topics-list-new">
 
                 <div class="block-title">О чем мой блог</div>
 
-                <ul>
-                    <?php foreach($this->user->blog_rubrics as $r): ?>
-                    <?=CHtml::openTag('li', $this->rubric_id == $r->id ? array('class' => 'active') : array())?><span><?=CHtml::link($r->title, $this->getUrl(array('rubric_id' => $r->id)))?></span><div class="count"><?=$r->contentsCount?></div></li>
-                    <?php endforeach; ?>
-                </ul>
+                <?php
+                    $items = array();
+
+                    foreach ($this->user->blog_rubrics as $rubric) {
+                        $items[] = array(
+                            'label' => $rubric->title,
+                            'url' => $this->getUrl(array('rubric_id' => $rubric->id)),
+                            'template' => '<span>{menu}</span><div class="count">' . $rubric->contentsCount . '</div>',
+                            'active' => $rubric->id == $this->rubric_id,
+                        );
+                    }
+
+                    $this->widget('zii.widgets.CMenu', array(
+                        'items' => $items,
+                    ));
+                ?>
 
             </div>
 

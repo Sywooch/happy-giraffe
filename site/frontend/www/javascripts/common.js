@@ -43,6 +43,15 @@ $(document).ready(function () {
             albumVisibilityListToggle($('.visibility-list:visible'));
     })
 
+    $('html').click(function() {
+        $('.user-fast-nav .drp-list > ul:visible').hide();
+    });
+
+    $('.user-fast-nav .more').click(function(event){
+        event.stopPropagation();
+    });
+
+
 });
 
 function addAttributesToCart(form, update) {

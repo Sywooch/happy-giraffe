@@ -31,7 +31,8 @@ class AjaxController extends HController
 
     public function actionSetValues()
     {
-        $_POST['Album']['title'] = str_replace('Введите название альбома', '', $_POST['Album']['title']);
+        if (isset($_POST['Album']['title']))
+            $_POST['Album']['title'] = str_replace('Введите название альбома', '', $_POST['Album']['title']);
 
         $modelName = Yii::app()->request->getPost('entity');
         $modelPk = Yii::app()->request->getPost('entity_id');

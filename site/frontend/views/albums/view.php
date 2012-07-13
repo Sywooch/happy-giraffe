@@ -67,6 +67,10 @@
             </div>
         <?php endif; ?>
 
+        <div class="add-post-btn">
+            <a href=""><img src="/images/btn_add_post.png" /></a>
+        </div>
+
         <div class="club-topics-list-new">
 
             <div class="block-title">Мои альбомы</div>
@@ -165,3 +169,11 @@
 
     </div>
 </div>
+
+<?php
+    if (Yii::app()->user->id == $this->user->id) {
+        $remove_tmpl = $this->beginWidget('site.frontend.widgets.removeWidget.RemoveWidget');
+        $remove_tmpl->registerTemplates();
+        $this->endWidget();
+    }
+?>

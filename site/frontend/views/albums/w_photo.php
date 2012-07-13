@@ -25,7 +25,7 @@
         </div>
 
         <div class="photo-info">
-            Альбом  «Оформление вторые блюда» - <span class="count">3 фото из 158</span>
+            <?=$title?> - <span class="count">3 фото из 158</span>
             <div class="title"><?=$photo->title?></div>
         </div>
 

@@ -8,8 +8,8 @@
 
     <ul>
         <?php foreach ($users as $user): ?>
-            <li><a href="<?=Yii::app()->createUrl('/user/profile', array('user_id' => $user->id))
-                ?>" class="ava <?=$user->gender == '1'?'male':'female' ?>"><?php echo CHtml::image($user->getAva()); ?></a></li>
+            <li>
+                <?=HHtml::link(CHtml::image($user->getAva()), Yii::app()->createUrl('/user/profile', array('user_id' => $user->id)), array('class'=>'ava '.$user->gender == '1'?'male':'female'), true)?>
         <?php endforeach; ?>
     </ul>
 

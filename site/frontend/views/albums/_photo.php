@@ -1,8 +1,7 @@
 <li>
     <div class="img">
         <a href="">
-            <?//=CHtml::image($data->getPreviewUrl(210, null, Image::WIDTH))?>
-            <img src="http://img.happy-giraffe.ru/thumbs/150x150/12936/070c72784328d15bee8b138162a70ff4.jpg" />
+            <?=CHtml::image($data->getPreviewUrl(210, null, Image::WIDTH))?>
             <span class="btn">Посмотреть</span>
         </a>
         <?php if (Yii::app()->user->id == $this->user->id): ?>

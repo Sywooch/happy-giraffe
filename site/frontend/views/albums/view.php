@@ -11,7 +11,7 @@
 <<<EOD
 $(function(){
 
-    var container = $('ul.items');
+    var container = $('#photosList');
 
     container.imagesLoaded( function(){
         container.masonry({
@@ -24,6 +24,7 @@ $(function(){
 EOD;
 
     $cs
+        ->registerScriptFile('/javascripts/jquery.masonry.min.js')
         ->registerScript('albumView', $js)
     ;
 

@@ -111,7 +111,6 @@ return array(
         //cook
         'cook/calorisator/ac' => 'cook/calorisator/ac',
 
-        'cook/choose/category/<id:[\w_]+>' => 'cook/choose/category',
         'cook/choose/<id:[\w_]+>' => 'cook/choose/view',
 
         'cook/converter/<_a>' => 'cook/converter/<_a>',

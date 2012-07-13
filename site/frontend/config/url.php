@@ -14,6 +14,9 @@ return array(
         // global
         '.*/index' => 404,
 
+        // photo view
+        'community/<community_id:\d+>/forum/post/<content_id:\d+>/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'CommunityContentGallery')),
+
         // site controller
         '/' => 'site/index',
         'js_dynamics/<hash:\w+>.js' => 'site/seoHide',

@@ -77,7 +77,7 @@ jQuery.fn.pGallery = function(options) {
     };
 
     plugin.openImage = function(id, callback) {
-        var photo = $('#photo', this.window);
+        /*var photo = $('#photo', this.window);
         photo.find('.img').find('img').attr({src : pGallery.photos[id].src});
         if(photo.find('.in').size() > 0) {
             if(pGallery.photos[id].title != null) {
@@ -94,7 +94,20 @@ jQuery.fn.pGallery = function(options) {
         else
             photo.find('.photo-comment .title-text').hide().text('');
 
-        photo.find('.user-info').replaceWith(pGallery.photos[id].avatar);
+        photo.find('.user-info').replaceWith(pGallery.photos[id].avatar);*/
+
+        var titleEl = $('.photo-info > .title', this.window);
+        var descriptionEl = $('.photo-comment > p', this.window);
+        var avatarEl = $('.user', this.window);
+        var imgEl = ('#photo img', this.window);
+
+        var title = pGallery.photos[id].title;
+        var description = pGallery.photos[id].description;
+
+        avatarEl.html(pGallery.photos[id].avatar);
+        imgEl.attr('src', pGallery.photos[id].src);
+        (title == null) ? titleEl.hide() : titleEl.text(title).show();
+        (description == null) ? descriptionEl.hide() : descriptionEl.text(description).show();
 
         this.data.id = id;
         var link = $('#photo-thumbs li a[data-id='+id+']' ,this.window);

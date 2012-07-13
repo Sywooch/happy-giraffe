@@ -55,7 +55,11 @@ class PageMetaTag extends EMongoDocument
 
         $criteria->route('==', $route);
         $criteria->params('==', $params);
+        try{
         $model = self::model()->find($criteria);
+        }catch (Exception $err){
+            return null;
+        }
         if ($model === null && $create) {
             $model = new PageMetaTag();
             $model->route = $route;

@@ -81,7 +81,7 @@ jQuery.fn.pGallery = function(options) {
     plugin.openImage = function(id, callback) {
         var photo = $('#photo', this.window);
         photo.find('.img').find('img').attr({src : pGallery.photos[id].src});
-        /*if(photo.find('.in').size() > 0) {
+        if(photo.find('.in').size() > 0) {
             if(pGallery.photos[id].title != null) {
                 photo.find('.in').show().find('.title-text').text(pGallery.photos[id].title);
             } else {
@@ -96,8 +96,7 @@ jQuery.fn.pGallery = function(options) {
         else
             photo.find('.photo-comment .title-text').hide().text('');
 
-        photo.find('.user-info').replaceWith(pGallery.photos[id].avatar);*/
-        plugin.updateData();
+        photo.find('.user-info').replaceWith(pGallery.photos[id].avatar);
 
         this.data.id = id;
         var link = $('#photo-thumbs li a[data-id='+id+']' ,this.window);

@@ -109,11 +109,8 @@ return array(
         '<_m:(geo|im|signal)>/<_a>' => '<_m>/default/<_a>',
 
         //cook
-        'cook/<_c:(spices|choose|calorisator|converter|recipe)>' => 'cook/<_c>/index',
-
         'cook/calorisator/ac' => 'cook/calorisator/ac',
 
-        'cook/choose/category/<id:[\w_]+>' => 'cook/choose/category',
         'cook/choose/<id:[\w_]+>' => 'cook/choose/view',
 
         'cook/converter/<_a>' => 'cook/converter/<_a>',
@@ -135,6 +132,8 @@ return array(
 
         'cook/spices/category/<id:[\w_]+>' => 'cook/spices/category',
         'cook/spices/<id:[\w_]+>' => 'cook/spices/view',
+
+        'cook/<_c:(spices|choose|calorisator|converter|recipe)>' => 'cook/<_c>/index',
 
         //===================== Services =========================//
         '<_m:(test|tester|vaccineCalenda|childrenDiseases|menstrualCycle|horoscope|babyBloodGroup|placentaThickness|pregnancyWeight|contractionsTime|names|recipeBook|hospitalBag|maternityLeave|dailyCalories|weightLoss|idealWeight|bodyFat)>/' => 'services/<_m>/default/index',

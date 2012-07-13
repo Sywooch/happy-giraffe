@@ -76,7 +76,11 @@ class PageMetaTag extends EMongoDocument
      */
     public function getPage()
     {
-        $url = 'http://www.happy-giraffe.ru' . Yii::app()->createUrl($this->route, $this->params);
+        $params2 = array();
+        foreach($this->params as $param)
+            $params2[] = utf8_decode($param);
+
+        $url = 'http://www.happy-giraffe.ru' . Yii::app()->createUrl($this->route, $params2);
         //$url = Yii::app()->createAbsoluteUrl($model->route, $model->params);
 
         return Page::model()->findByAttributes(array('url' => $url));

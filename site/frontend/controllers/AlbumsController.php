@@ -90,10 +90,10 @@ class AlbumsController extends HController
             )
         ));
 
-        $view = !Yii::app()->user->isGuest && $model->author_id == Yii::app()->user->id ? 'view_author' : 'view';
+        //$view = !Yii::app()->user->isGuest && $model->author_id == Yii::app()->user->id ? 'view_author' : 'view';
 
         $this->layout = '//layouts/main';
-        $this->render($view, array(
+        $this->render('view', array(
             'model' => $model,
             'dataProvider' => $dataProvider,
         ));
@@ -687,9 +687,9 @@ class AlbumsController extends HController
         $this->redirect($album->url);
     }
 
-    public function actionAlbumSettings($id)
+    public function actionUpdatePhoto($id)
     {
-        $album = Album::model()->findByPk($id);
-        $this->renderPartial('albumSettings', compact('album'), false, true);
+        $photo = AlbumPhoto::model()->findByPk($id);
+        $this->renderPartial('updatePhoto', compact('photo'), false, true);
     }
 }

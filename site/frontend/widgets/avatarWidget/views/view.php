@@ -48,9 +48,14 @@ else {
                 <div class="user-fast-nav">
                     <ul>
                         <?=CHtml::link('Анкета', array('user/profile', 'user_id' => $this->user->id))?> &nbsp;|&nbsp;
-                        <?=CHtml::link('Фото', array('albums/user', 'id' => $this->user->id))?> &nbsp;|&nbsp;
+                        <?php if (Yii::app()->controller->id != 'albums'): ?>
+                            <?=CHtml::link('Фото', array('albums/user', 'id' => $this->user->id))?> &nbsp;|&nbsp;
+                        <?php endif; ?>
+                        <?php if (Yii::app()->controller->id != 'blog'): ?>
+                            <?=CHtml::link('Блог', array('blog/list', 'user_id' => $this->user->id))?> &nbsp;|&nbsp;
+                        <?php endif; ?>
                         <span class="drp-list">
-                            <a href="#" class="more" onclick="$(this).next().toggle(); return false;">Еще</a>
+                            <a href="javascript:void(0)" class="more" onclick="$(this).next().toggle(); return false;">Еще</a>
                             <ul style="display: none;">
                                 <li><?=CHtml::link('Друзья', array('user/friends', 'user_id' => $this->user->id))?></li>
                                 <li><?=CHtml::link('Клубы', array('user/clubs', 'user_id' => $this->user->id))?></li>

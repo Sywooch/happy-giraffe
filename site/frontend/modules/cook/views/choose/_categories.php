@@ -14,7 +14,7 @@ $active = (Yii::app()->controller->action->id != 'category') ? 'active' : '';
     <?php
     foreach ($categories as $category) {
         $active = ($category_slug == $category->slug) ? 'active' : '';
-        $link = CController::createUrl('category', array('id' => $category->slug));
+        $link = CController::createUrl('view', array('id' => $category->slug));
         echo '<li class="' . $active . '"><a href="' . $link . '" class="cook-cat ' . $active . '"><i class="icon-cook-cat icon-product-' . $category->id . '"></i><span>' . $category->title . '</span></a></li>';
     }
     ?>

@@ -7,7 +7,9 @@ class LinkingController extends SController
 
     public function beforeAction($action)
     {
-        if (!Yii::app()->user->checkAccess('admin') && !Yii::app()->user->checkAccess('superuser'))
+        if (!Yii::app()->user->checkAccess('admin') && !Yii::app()->user->checkAccess('superuser')
+            && !Yii::app()->user->checkAccess('editor')
+        )
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
         return true;
     }
@@ -90,7 +92,7 @@ class LinkingController extends SController
     private function filterPages($phrase, $pages)
     {
         //удалим текущий
-        foreach ($pages as $key => $page){
+        foreach ($pages as $key => $page) {
             if ($page->id == $phrase->page_id)
                 unset($pages[$key]);
         }
@@ -103,7 +105,7 @@ class LinkingController extends SController
         foreach ($pages as $key => $page) {
             $article = $phrase->page->getArticle();
             $our_article = $page->getArticle();
-            if (!empty($article) && !empty($our_article)){
+            if (!empty($article) && !empty($our_article)) {
                 $post = $article->getPrevPost();
                 if ($post !== null && $post->id == $our_article->id)
                     unset($pages[$key]);
@@ -145,14 +147,16 @@ class LinkingController extends SController
         $this->renderPartial('_donors', compact('links'));
     }
 
-    public function actionPositions(){
+    public function actionPositions()
+    {
         $se = Yii::app()->request->getPost('se');
         $phrase = $this->loadPhrase(Yii::app()->request->getPost('phrase_id'));
         $positions = $phrase->getPositionsArray($se);
         $this->renderPartial('_positions', compact('positions', 'se'));
     }
 
-    public function actionSearchPages(){
+    public function actionSearchPages()
+    {
         Yii::import('site.frontend.extensions.phpQuery.phpQuery');
         $keyword = Yii::app()->request->getPost('keyword');
         $phrase = $this->loadPhrase(Yii::app()->request->getPost('phrase_id'));

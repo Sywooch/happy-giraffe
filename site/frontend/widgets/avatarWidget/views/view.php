@@ -15,17 +15,12 @@ else {
 <?php if (! $this->small): ?>
     <div class="user-info clearfix">
 <?php endif; ?>
-<a class="<?=$class?>"
-   href="<?=$link_to_profile?>">
-    <?php if ($this->user->getAva($this->size)): ?>
-    <?php echo CHtml::image($this->user->getAva($this->size)); ?>
-    <?php endif; ?>
-</a>
+    <?=HHtml::link($this->user->getAva($this->size)?CHtml::image($this->user->getAva($this->size)):'', $link_to_profile, array('class'=>$class), true)?>
 <?php if (!$this->small): ?>
     <?php if ($this->user->id != User::HAPPY_GIRAFFE): ?>
         <div class="details">
             <span class="icon-status status-<?php echo $this->user->online == 1 ? 'online' : 'offline'; ?>"></span>
-            <a class="username" href="<?=$link_to_profile ?>"><?php echo CHtml::encode($this->user->fullName); ?></a>
+            <?=HHtml::link(CHtml::encode($this->user->fullName), $link_to_profile, array('class'=>'username'), $this->hideLinks)?>
             <?php if ($this->user->getUserAddress()->country !== null && $this->location): ?>
                 <div class="location">
                     <div class="flag flag-<?php echo $this->user->getUserAddress()->country->iso_code; ?>"></div>

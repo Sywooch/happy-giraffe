@@ -35,7 +35,7 @@ class UserController extends SController
                     Yii::app()->authManager->assign($model->role, $model->id);
                 }
 
-                $this->redirect($this->createUrl('/user/update', array('id' => $model->id)));
+                $this->redirect($this->createUrl('/admin/user/update', array('id' => $model->id)));
             }
         }
 
@@ -65,7 +65,7 @@ class UserController extends SController
             if ($model->save()) {
                 Yii::app()->db_seo->createCommand()->delete('auth__assignments', 'userid=:userid', array(':userid' => $model->id));
                 Yii::app()->authManager->assign($model->role, $model->id);
-                $this->redirect($this->createUrl('/user/update', array('id' => $model->id)));
+                $this->redirect($this->createUrl('/admin/user/update', array('id' => $model->id)));
             }
         }
 

@@ -7,9 +7,9 @@ return array(
     'urlSuffix' => '/',
     'useStrictParsing' => true,
     'rules' => array(
-        /*************************
-         *      CONTROLLERS      *
-         *************************/
+       /*************************
+        *      CONTROLLERS      *
+        *************************/
 
         // global
         '.*/index' => 404,
@@ -18,6 +18,8 @@ return array(
         'community/<community_id:\d+>/forum/post/<content_id:\d+>/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'CommunityContentGallery')),
         'user/<user_id:\d+>/albums/<album_id:\d+>/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'Album')),
         'cook/recipe/<recipe_id:\d+>/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'CookRecipe')),
+        'cook/decor/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'CookDecorationCategory')),
+        'cook/decor/<category_id:\d+>/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'CookDecorationCategory')),
 
         // site controller
         '/' => 'site/index',
@@ -32,7 +34,7 @@ return array(
 
         // signup controller
         'signup' => 'signup/index',
-        'signup/finish' => 'signup/finish',
+        'signup/finish'=>'signup/finish',
         'signup/validate/step/<step:\d+>' => 'signup/validate',
 
         // friendRequests controller
@@ -66,8 +68,8 @@ return array(
         'user/<user_id:\d+>/albums/<id:\d+>' => 'albums/view',
         'user/<user_id:\d+>/albums/<album_id:\d+>/photo<id:\d+>' => 'albums/photo',
         'user/<_a:(updateMood)>' => 'user/<_a>',
-        'user/createRelated/relation/<relation:\w+>/' => 'user/createRelated',
-        'user/myFriendRequests/<direction:\w+>/' => 'user/myFriendRequests',
+        'user/createRelated/relation/<relation:\w+>/'=>'user/createRelated',
+        'user/myFriendRequests/<direction:\w+>/'=>'user/myFriendRequests',
 
         //blog
         'blog/edit/content_id/<content_id:\d+>' => 'blog/edit',
@@ -123,7 +125,6 @@ return array(
 
         'cook/converter/<_a>' => 'cook/converter/<_a>',
 
-
         'cook/decor/<id:[\d]+>/page/<page:[\d]+>/<photo:[\w_]+>' => 'cook/decor/index',
         'cook/decor/<id:[\d]+>/page/<page:[\d]+>' => 'cook/decor/index',
         'cook/decor/<id:[\d]+>/<photo:[\w_]+>' => 'cook/decor/index',
@@ -132,7 +133,6 @@ return array(
         'cook/decor/<id:[\d]+>' => 'cook/decor/index',
         'cook/decor/<photo:[\w_]+>' => 'cook/decor/index',
         'cook/decor' => 'cook/decor/index',
-
 
         'cook/recipe/add' => 'cook/recipe/form',
         'cook/recipe/edit/<id:\d+>' => 'cook/recipe/form',
@@ -147,7 +147,7 @@ return array(
         '<_m:(test|tester|vaccineCalenda|childrenDiseases|menstrualCycle|horoscope|babyBloodGroup|placentaThickness|pregnancyWeight|contractionsTime|names|recipeBook|hospitalBag|maternityLeave|dailyCalories|weightLoss|idealWeight|bodyFat)>/' => 'services/<_m>/default/index',
         '<_m:(babySex|vaccineCalendar|sewing|hospitalBag)>/<_a>/' => 'services/<_m>/default/<_a>',
 
-        'babySex' => 'services/babySex/default/index',
+        'babySex'=>'services/babySex/default/index',
         'babySex/default/<_a:(bloodUpdate, japanCalc, ovulationCalc)>/' => 'services/babySex/default/<_a>',
 
         'childrenDiseases/<id:[\w-+\s]+>' => 'services/childrenDiseases/default/view',

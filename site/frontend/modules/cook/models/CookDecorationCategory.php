@@ -105,7 +105,11 @@ class CookDecorationCategory extends HActiveRecord
             array_push($photos, $model->photo);
         }
         return array(
-            'title' => 'Фотогалерея «Оформление блюд»',
+            'title' => (empty($this->id)) ?
+                'Фотоальбом к сервису ' . CHtml::link('Офомление блюд', array('cook/decor/index'))
+                :
+                'Фотоальбом ' . CHtml::link($this->title, array('cook/decor/index', 'id' => $this->id)) . ' к сервису ' . CHtml::link('Офомление блюд', array('cook/decor/index'))
+            ,
             'photos' => $photos,
         );
     }

@@ -33,6 +33,7 @@ return array(
         'promotion',
         'admin',
         'indexing',
+        'statistic',
     ),
     'components' => array(
         'user' => array(

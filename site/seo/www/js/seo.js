@@ -195,3 +195,9 @@ var Competitors = {
         }, 'json');
     }
 }
+
+var Statistic = {
+    addUser:function(user_id){
+
+    }
+}

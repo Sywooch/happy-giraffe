@@ -401,3 +401,20 @@ Album.changePhoto = function(link) {
     }, 'html');
     Comment.entity_id = id;
 }
+
+Album.updateField = function(el) {
+    var textRow = $(el).parents('.row-elements');
+    var inputRow = textRow.next();
+    textRow.hide();
+    inputRow.show();
+    inputRow.find('input,textarea').focus();
+}
+
+Album.updateFieldSubmit = function(el, selector) {
+    var inputRow = $(el).parents('.row-elements');
+    var textRow = inputRow.prev();
+    textRow.show();
+    inputRow.hide();
+    var newVal = inputRow.find('input,textarea').val();
+    textRow.find(selector).text(newVal);
+}

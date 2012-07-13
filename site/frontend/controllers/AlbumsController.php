@@ -64,6 +64,8 @@ class AlbumsController extends HController
             throw new CHttpException(404, 'Пользователь не найден');
         $scopes = !Yii::app()->user->isGuest && Yii::app()->user->id == $id ? array() : array('noSystem');
         $dataProvider = Album::model()->findByUser($id, false, false, $scopes);
+
+        $this->layout = '//layouts/main';
         $this->render('index', array(
             'dataProvider' => $dataProvider,
             'user' => $user,
@@ -88,8 +90,10 @@ class AlbumsController extends HController
             )
         ));
 
-        $view = !Yii::app()->user->isGuest && $model->author_id == Yii::app()->user->id ? 'view_author' : 'view';
-        $this->render($view, array(
+        //$view = !Yii::app()->user->isGuest && $model->author_id == Yii::app()->user->id ? 'view_author' : 'view';
+
+        $this->layout = '//layouts/main';
+        $this->render('view', array(
             'model' => $model,
             'dataProvider' => $dataProvider,
         ));
@@ -681,5 +685,53 @@ class AlbumsController extends HController
         $id = Yii::app()->request->getPost('id');
         $album = Album::model()->findByPk($id);
         $this->redirect($album->url);
+    }
+
+    public function actionUpdatePhoto($id)
+    {
+        $photo = AlbumPhoto::model()->findByPk($id);
+        $this->renderPartial('updatePhoto', compact('photo'), false, true);
+    }
+
+    public function actionSinglePhoto($entity, $photo_id)
+    {
+        $photo = AlbumPhoto::model()->findByPk($photo_id);
+        if ($photo === null)
+            throw new CHttpException(404, 'Фото не найдено');
+
+        switch ($entity) {
+            case 'CommunityContentGallery':
+                $content_id = Yii::app()->request->getQuery('content_id');
+                $model = CActiveRecord::model($entity)->findByAttributes(array('content_id' => $content_id));
+                break;
+            case 'Album':
+                $album_id = Yii::app()->request->getQuery('album_id');
+                $model = CActiveRecord::model($entity)->findByPk($album_id);
+                break;
+            case 'CookRecipe':
+                Yii::import('application.modules.cook.models.*');
+                $recipe_id = Yii::app()->request->getQuery('recipe_id');
+                $model = CActiveRecord::model($entity)->findByPk($recipe_id);
+                break;
+            case 'CookDecorationCategory':
+                $category_id = Yii::app()->request->getQuery('category_id');
+                Yii::import('application.modules.cook.models.*');
+                $model = CActiveRecord::model($entity);
+                if ($category_id !== null)
+                    $model = $model->findByPk($category_id);
+                break;
+        }
+
+        $collection = $model->photoCollection;
+        foreach ($collection['photos'] as $i => $p) {
+            if ($photo->id == $p->id) {
+                $currentIndex = $i + 1;
+                $photo = $p;
+                break;
+            }
+        }
+
+        $this->layout = '//layouts/main';
+        $this->render('singlePhoto', compact('model', 'collection', 'photo', 'currentIndex'));
     }
 }

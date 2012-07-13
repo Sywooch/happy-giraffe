@@ -161,7 +161,7 @@ $cs
 
             <div class="new-blog-btn"><a href="" class="btn btn-orange-smallest"><span><span>Создать блог</span></span></a></div>
 
-            <div class="blog-title">Блог Александра Богоявленского</div>
+            <div class="blog-title">Мой личный блог</div>
 
             <?=$content?>
 

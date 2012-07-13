@@ -77,7 +77,7 @@ $cs
 
             </div>
 
-
+            <!--
             <div class="readers">
 
                 <div class="block-title"><i class="icon-readers"></i>Постоянные читатели <span>(185)</span></div>
@@ -134,19 +134,19 @@ $cs
                 <div class="add-author-btn"><a href=""><img src="/images/btn_add_author.png" /></a></div>
 
             </div>
-
+            -->
 
             <div class="fast-photos">
 
                 <div class="block-title"><span>МОИ</span>свежие<br/>фото</div>
 
                 <div class="preview">
-                    <img src="/images/album_photo_04.jpg" class="img-1">
-                    <img src="/images/album_photo_05.jpg" class="img-2">
-                    <img src="/images/album_photo_06.jpg" class="img-3">
+                    <?php $i = 0; foreach ($this->user->getRelated('photos', false, array('limit' => 3, 'order' => 'created DESC')) as $p): ?>
+                        <?=CHtml::image($p->getPreviewUrl(180, 180), null, array('class' => 'img-' . ++$i))?>
+                    <?php endforeach; ?>
                 </div>
 
-                <a href="" class="more"><i class="icon"></i>Смотреть</a>
+                <?=CHtml::link('<i class="icon"></i>Смотреть', array('albums/user', 'id' => $this->user->id))?>
 
             </div>
 
@@ -161,7 +161,7 @@ $cs
 
             <div class="new-blog-btn"><a href="" class="btn btn-orange-smallest"><span><span>Создать блог</span></span></a></div>
 
-            <div class="blog-title">Блог Александра Богоявленского</div>
+            <div class="blog-title">Мой личный блог</div>
 
             <?=$content?>
 

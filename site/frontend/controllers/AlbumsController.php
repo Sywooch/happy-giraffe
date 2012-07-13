@@ -713,6 +713,13 @@ class AlbumsController extends HController
                 $recipe_id = Yii::app()->request->getQuery('recipe_id');
                 $model = CActiveRecord::model($entity)->findByPk($recipe_id);
                 break;
+            case 'CookDecorationCategory':
+                $category_id = Yii::app()->request->getQuery('category_id');
+                Yii::import('application.modules.cook.models.*');
+                $model = CActiveRecord::model($entity);
+                if ($category_id !== null)
+                    $model = $model->findByPk($category_id);
+                break;
         }
 
         $collection = $model->photoCollection;

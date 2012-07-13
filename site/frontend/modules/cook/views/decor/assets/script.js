@@ -34,8 +34,9 @@ $(function () {
                 $('#more-btn').hide();
             }
 
+            container.append(newItems);
             container.imagesLoaded(function () {
-                container.append(newItems).masonry('appended', newItems, true);
+                container.masonry('appended', newItems, true);
             });
 
         }, 'json');

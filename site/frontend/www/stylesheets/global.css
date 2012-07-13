@@ -4198,7 +4198,7 @@ ul.letters li a:hover {
 #cook-recipe .recipe-categories ul li.active {/*css3*/ -moz-border-radius:10px 0 0 8px;-webkit-border-radius:10px 0 0 8px;border-radius:10px 0 0 8px;behavior: url(/stylesheets/PIE.htc);}
 #cook-recipe .recipe-categories ul li .cook-cat {display:inline-block;vertical-align:middle;}
 #cook-recipe .recipe-categories ul li .count {display:inline-block;color:#616061;position:relative;font-size:10px;text-decoration:none;vertical-align:top;width:40px;margin-right:-40px;text-align:left;white-space:nowrap;position:relative;}
-#cook-recipe .recipe-categories ul li.active .count {font-size:25px;vertical-align:middle;width:auto;margin-right:0;left:0;left:-15px;}
+#cook-recipe .recipe-categories ul li.active .count {font-size:25px;vertical-align:middle;width:auto;margin-right:0;left:0;}
 
 #cook-recipe .hrecipe {color:#020202;padding-bottom:30px;}
 

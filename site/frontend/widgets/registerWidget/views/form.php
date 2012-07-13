@@ -53,10 +53,10 @@ if (Yii::app()->controller->registerUserData !== null){
                     <div class="box-title">Регистрация через<br/>социальные сети</div>
 
                     <ul>
-                        <li><a class="auth-service2 mailru" href="<?=Yii::app()->createUrl('signup/index', array('service'=>'mailru')) ?>"><img src="/images/btn_register_mm.png"></a></li>
-                        <li><a class="auth-service2 odnoklassniki" href="<?=Yii::app()->createUrl('signup/index', array('service'=>'odnoklassniki')) ?>"><img src="/images/btn_register_ok.png"></a></li>
-                        <li><a class="auth-service2 vkontakte" href="<?=Yii::app()->createUrl('signup/index', array('service'=>'vkontakte')) ?>"><img src="/images/btn_register_vk.png"></a></li>
-                        <li><a class="auth-service2 facebook" href="<?=Yii::app()->createUrl('signup/index', array('service'=>'facebook')) ?>"><img src="/images/btn_register_fb.png"></a></li>
+                        <li><?=HHtml::link('<img src="/images/btn_register_mm.png">',Yii::app()->createUrl('signup/index', array('service'=>'mailru')), array('class'=>'auth-service2 mailru'), true) ?></li>
+                        <li><?=HHtml::link('<img src="/images/btn_register_ok.png">',Yii::app()->createUrl('signup/index', array('service'=>'odnoklassniki')), array('class'=>'auth-service2 odnoklassniki'), true) ?></li>
+                        <li><?=HHtml::link('<img src="/images/btn_register_vk.png">',Yii::app()->createUrl('signup/index', array('service'=>'vkontakte')), array('class'=>'auth-service2 vkontakte'), true) ?></li>
+                        <li><?=HHtml::link('<img src="/images/btn_register_fb.png">',Yii::app()->createUrl('signup/index', array('service'=>'facebook')), array('class'=>'auth-service2 facebook'), true) ?></li>
                     </ul>
 
                 </div>
@@ -229,7 +229,7 @@ if (Yii::app()->controller->registerUserData !== null){
         <div class="register-finish reg3 clearfix" style="display: none;">
 
             <div class="logo-box">
-                <a class="logo" href=""></a>
+                <?=HHtml::link('', '/', array('class'=>'logo'), true)?>
             </div>
 
             <div class="green">Ура, вы с нами!</div>
@@ -253,7 +253,7 @@ if (Yii::app()->controller->registerUserData !== null){
         </div>
 
         <div class="social-btn">
-            <a class="auth-service2 odnoklassniki" href="<?=Yii::app()->createUrl('signup/index', array('service'=>'odnoklassniki')) ?>"><img src="/images/btn_register_big_ok.png"></a>
+            <?=HHtml::link('<img src="/images/btn_register_big_ok.png">',Yii::app()->createUrl('signup/index', array('service'=>'odnoklassniki')), array('class'=>'auth-service2 odnoklassniki'), true) ?>
         </div>
 
     </div>

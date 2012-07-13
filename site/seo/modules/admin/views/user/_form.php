@@ -1,4 +1,4 @@
- <?php echo CHtml::link('К таблице', array('User/admin')) ?><div class="form">
+ <?php echo CHtml::link('К таблице', array('/admin/user/admin')) ?><div class="form">
 
 <?php
 $form=$this->beginWidget('CActiveForm', array(
@@ -57,7 +57,7 @@ $form=$this->beginWidget('CActiveForm', array(
 
  <script type="text/javascript">
      function ChangeUserPassword(el, id) {
-         $.post('/user/changePassword/', {id:id}, function (response) {
+         $.post('/admin/user/changePassword/', {id:id}, function (response) {
              if (response.status) {
                  $(el).next().html(response.result);
              }

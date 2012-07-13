@@ -96,6 +96,7 @@ jQuery.fn.pGallery = function(options) {
 
         photo.find('.user-info').replaceWith(pGallery.photos[id].avatar);*/
 
+        var indexEl = $('.photo-info > .count > span')
         var titleEl = $('.photo-info > .title', this.window);
         var descriptionEl = $('.photo-comment > p', this.window);
         var avatarEl = $('.user', this.window);
@@ -106,6 +107,7 @@ jQuery.fn.pGallery = function(options) {
 
         avatarEl.html(pGallery.photos[id].avatar);
         imgEl.attr('src', pGallery.photos[id].src);
+        indexEl.text(pGallery.photos[id].idx)
         (title == null) ? titleEl.hide() : titleEl.text(title).show();
         (description == null) ? descriptionEl.hide() : descriptionEl.text(description).show();
 

@@ -42,7 +42,7 @@
         <?php ob_start(); ?>
         <?php foreach ($photos as $i => $p): ?>
             pGallery.photos[<?php echo $p->primaryKey ?>] = {
-                index : <?=$i + 1?>,
+                idx : <?=$i + 1?>,
                 prev : <?=($i != 0) ? $photos[$i - 1]->primaryKey : 'null'?>,
                 next : <?=($i < $count - 1) ? $photos[$i + 1]->primaryKey : 'null'?>,
                 src : '<?php echo $p->getPreviewUrl(960, 627, Image::HEIGHT, true); ?>',

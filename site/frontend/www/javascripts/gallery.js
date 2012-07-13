@@ -73,15 +73,6 @@ jQuery.fn.pGallery = function(options) {
                 plugin.preloadPhotos();
                 $(window).resize();
             });
-
-            var titleEl = $('.photo-info > .title', this.window);
-            var descriptionEl = $('.photo-comment > p', this.window);
-
-            var title = pGallery.photos[id].title;
-            var description = pGallery.photos[id].description;
-
-            (title == null) ? titleEl.hide() : titleEl.text(title).show();
-            (description == null) ? descriptionEl.hide() : descriptionEl.text(description).show();
         }, 'html');
     };
 

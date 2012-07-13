@@ -67,7 +67,9 @@ jQuery.fn.pGallery = function(options) {
 
             $('body').css('overflow', 'hidden');
             var newUrl = plugin.getEntityUrl() + 'photo' + plugin.data.id + '/';
-            plugin.history.changeBrowserUrl(newUrl);
+            if (typeof history.pushState !== 'undefined') {
+                plugin.history.changeBrowserUrl(newUrl);
+            }
             $('#photo-window-bg, #photo-window').fadeIn(600, function(){
                 $('#photo-thumbs .jcarousel', plugin.window).jcarousel();
                 $('#photo-thumbs .prev', plugin.window).jcarouselControl({target: '-=7',fullScroll:true,carousel: $('#photo-thumbs .jcarousel', plugin.window)});
@@ -140,6 +142,7 @@ jQuery.fn.pGallery = function(options) {
             /*$('#photo-window-in', plugin.window).children('#loading').remove();*/
         }, 'html');
         plugin.preloadPhotos();
+        return false;
     };
 
     plugin.goTo = function(dist) {

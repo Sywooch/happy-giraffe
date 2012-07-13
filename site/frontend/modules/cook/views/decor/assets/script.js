@@ -41,6 +41,7 @@ $(function () {
             container.imagesLoaded(function () {
                 container.masonry('appended', newItems, true);
                 $('#more-btn').attr('data-loading', '0').text('Показать еще фотографии');
+                $(".img > a").pGallery({'singlePhoto':true,'entity':'CookDecorationCategory','entity_id':null});
             });
 
 

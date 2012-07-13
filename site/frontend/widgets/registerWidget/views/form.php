@@ -229,7 +229,7 @@ if (Yii::app()->controller->registerUserData !== null){
         <div class="register-finish reg3 clearfix" style="display: none;">
 
             <div class="logo-box">
-                <a class="logo" href=""></a>
+                <?=HHtml::link('', '/', array('class'=>'logo'), true)?>
             </div>
 
             <div class="green">Ура, вы с нами!</div>

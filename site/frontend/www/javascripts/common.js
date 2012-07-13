@@ -439,7 +439,7 @@ var Register = {
             if (!Register.start){
                 $('#reg-main-btn').trigger('click');
             }
-        }, 3000);
+        }, 10000);
     }
 }
 

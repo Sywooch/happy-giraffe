@@ -11,12 +11,13 @@ Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
 
     <div class="wysiwyg-content">
 
-        <h2>Гороскоп совместимости</h2>
+        <h1>Гороскоп совместимости</h1>
 
         <div id="result">
-            <?php if (!empty($model->text)) echo $model->text; ?>
+
         </div>
     </div>
+    <br>
 
     <div class="clearfix">
 

@@ -142,7 +142,7 @@
 
     </div>
 
-    <div class="wysiwyg-content seo-text">
+    <div class="wysiwyg-content">
 
         <h3>Сервис «Расчет количества обоев»</h3>
 

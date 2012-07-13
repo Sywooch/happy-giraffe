@@ -7,5 +7,5 @@
         <a href="javascript:" onclick="sendInvite(this, <?php echo $user->id; ?>);" class="add-friend tooltip" title="Пригласить в друзья"></a>
     <?php endif; ?>
 <?php else: ?>
-    <a href="#register" class="add-friend fancy" data-theme="white-square"></a>
+    <a href="#login" class="add-friend fancy" data-theme="white-square"></a>
 <?php endif ?>

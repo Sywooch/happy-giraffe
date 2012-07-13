@@ -3178,12 +3178,12 @@ ul.letters li a:hover {
     -moz-border-radius: 15px;
     -webkit-border-radius: 15px;padding:0 20px;}
 
-.horoscope-compatibility-list {}
+.horoscope-compatibility-list {padding-top:12px;}
 .horoscope-compatibility-list > ul {list-style:none;}
 .horoscope-compatibility-list > ul > li {width:21%;padding-right:3%;display:inline-block;vertical-align:top;margin-bottom:25px;}
 .horoscope-compatibility-list.wide > ul > li {width:28%;}
 .horoscope-compatibility-list > ul > li ul {list-style:none;}
-.horoscope-compatibility-list > ul > li ul li {padding:3px 0;}
+.horoscope-compatibility-list > ul > li ul li {padding:5px 0;}
 .horoscope-compatibility-list > ul > li .img {margin-bottom:10px;}
 .horoscope-compatibility-list > ul > li .img img {vertical-align:top;}
 .horoscope-compatibility-list > ul > li .img .date {display:inline-block;vertical-align:top;padding-top:15px;color:#2d2d2d;font-size:10px;}

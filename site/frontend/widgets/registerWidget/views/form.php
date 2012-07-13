@@ -2,6 +2,7 @@
 /**
  * @var $form CActiveForm
  * @var $show_form bool
+ * @var $model User
  */
 
 $script = <<<EOD
@@ -19,8 +20,12 @@ if (Yii::app()->controller->registerUserData !== null){
     Yii::app()->clientScript->registerScript('reg23','Register.showSocialStep2();');
     $regdata = Yii::app()->controller->registerUserData;
     $model = Yii::app()->controller->registerUserModel;
-}elseif(Yii::app()->user->getState('comes_from_social') == 'odnoklassniki'){
-    Yii::app()->clientScript->registerScript('reg_change_reg_form','$("#register .reg1").html($("#reg-odnoklassniki").html());$("a.auth-service2.odnoklassniki").eauth({"popup":{"width":680,"height":500},"id":"odnoklassniki"});');
+}elseif(Yii::app()->user->getState('comes_from_social') == 'odnoklassniki' && $show_form){
+    Yii::app()->clientScript->registerScript('reg_change_reg_form','
+    $("#register .reg1").html($("#reg-odnoklassniki").html());
+    $("a.auth-service2.odnoklassniki").eauth({"popup":{"width":680,"height":500},"id":"odnoklassniki"});
+    Register.showRegisterWindow();
+');
 }
 
 /*if ($show_form){
@@ -32,6 +37,7 @@ if (Yii::app()->controller->registerUserData !== null){
 ?>
 <div style="display:none">
     <div id="register" class="popup">
+    <a href="javascript:void(0);" class="popup-close tooltip" onclick="$.fancybox.close();"></a>
         <div class="reg1">
 
             <div class="block-title"><img src="/images/bg_register_title.png" />Регистрация на Веселом Жирафе</div>
@@ -47,8 +53,8 @@ if (Yii::app()->controller->registerUserData !== null){
                     <div class="box-title">Регистрация через<br/>социальные сети</div>
 
                     <ul>
-                        <li><a class="auth-service2 mailru" href="<?=Yii::app()->createUrl('signup/index', array('service'=>'odnoklassniki')) ?>"><img src="/images/btn_register_mm.png"></a></li>
-                        <li><a class="auth-service2 odnoklassniki" href="<?=Yii::app()->createUrl('signup/index', array('service'=>'mailru')) ?>"><img src="/images/btn_register_ok.png"></a></li>
+                        <li><a class="auth-service2 mailru" href="<?=Yii::app()->createUrl('signup/index', array('service'=>'mailru')) ?>"><img src="/images/btn_register_mm.png"></a></li>
+                        <li><a class="auth-service2 odnoklassniki" href="<?=Yii::app()->createUrl('signup/index', array('service'=>'odnoklassniki')) ?>"><img src="/images/btn_register_ok.png"></a></li>
                         <li><a class="auth-service2 vkontakte" href="<?=Yii::app()->createUrl('signup/index', array('service'=>'vkontakte')) ?>"><img src="/images/btn_register_vk.png"></a></li>
                         <li><a class="auth-service2 facebook" href="<?=Yii::app()->createUrl('signup/index', array('service'=>'facebook')) ?>"><img src="/images/btn_register_fb.png"></a></li>
                     </ul>

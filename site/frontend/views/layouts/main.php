@@ -14,7 +14,7 @@
         <title><?=CHtml::encode($this->pageTitle)?></title>
     <?php endif;
 
-    $release_id = 325;
+    $release_id = 326;
     $cs = Yii::app()->clientScript;
     $cs
         ->registerScriptFile('/javascripts/comet.js')
@@ -32,7 +32,7 @@
         ->registerScriptFile('/javascripts/chosen.jquery.min.js')
         ->registerScriptFile('/javascripts/checkbox.js')
         ->registerScript('base_url', 'var base_url = \'' . Yii::app()->baseUrl . '\';', CClientScript::POS_HEAD)
-        ->registerScriptFile('/javascripts/common.js')
+        ->registerScriptFile('/javascripts/common.js?r='.$release_id)
         ->registerScriptFile('/javascripts/base64.js')
         ->registerScriptFile('/javascripts/jquery.tooltip.pack.js')
     ;
@@ -186,7 +186,7 @@
                 </div>
 
                 <div class="nav">
-                    <ul class="clearfix">
+                    <ul class="width-2 clearfix">
                         <?php if (false): ?>
                             <li class="morning">
                                 <a href="<?=$this->createUrl('/morning/index') ?>"><i class="text"></i></a>
@@ -438,7 +438,6 @@
                                 </div>
                             </div>
                         </li>
-                        <li class="fday"><a href="<?=$this->createUrl('/community/view', array('community_id' => 20, 'content_type_slug' => 'post', 'content_id' => 23151))?>"><i class="text"></i></a></li>
                     </ul>
                 </div>
 

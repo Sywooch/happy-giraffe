@@ -115,7 +115,7 @@ return array(
         '<_m:(geo|im|signal)>/<_a>' => '<_m>/default/<_a>',
 
         //cook
-        'cook/<_c:(spices|choose|decor|calorisator|converter|decor|recipe)>' => 'cook/<_c>/index',
+        'cook/<_c:(spices|choose|calorisator|converter|recipe)>' => 'cook/<_c>/index',
 
         'cook/calorisator/ac' => 'cook/calorisator/ac',
 
@@ -131,6 +131,7 @@ return array(
         'cook/decor/<id:[\d]+>/page/<page:[\d]+>' => 'cook/decor/index',
         'cook/decor/page/<page:[\d]+>/<photo:[\w_]+>' => 'cook/decor/index',
         'cook/decor/page/<page:[\d]+>' => 'cook/decor/index',
+        'cook/decor' => 'cook/decor/index',
 
         'cook/recipe/add' => 'cook/recipe/form',
         'cook/recipe/edit/<id:\d+>' => 'cook/recipe/form',

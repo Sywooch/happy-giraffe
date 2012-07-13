@@ -27,7 +27,7 @@ else {
                     <?php echo CHtml::encode($this->user->getUserAddress()->cityName); ?>
                 </div>
             <?php endif; ?>
-            <div class="user-fast-buttons clearfix">
+            <div class="user-fast-buttons<?php if ($this->nav):?> clearfix<?php endif; ?>">
                 <?php if ($this->friendButton && $this->user->id != Yii::app()->user->id): ?>
                     <?php Yii::app()->controller->renderPartial('//user/_friend_button', array(
                         'user' => $this->user,

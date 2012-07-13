@@ -1899,6 +1899,26 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 
 /* interests */
 
+/*.interest {display:inline-block;height:22px;line-height:20px;padding:0px 8px 0 16px;font-size:13px;color:#575757;background:#d3eafc url(/images/interest.gif) no-repeat left;margin:5px 5px 5px 0;}
+.interest {/*css3*/ /*-moz-border-radius:0 4px 4px 0;-webkit-border-radius:0 4px 4px 0;border-radius:0 4px 4px 0;behavior: url(/stylesheets/PIE.htc);}
+
+.interest span {color:#fb8246;font-size:11px;font-weight:bold;margin-left:6px;}
+.interest {display:inline-block;height:17px;line-height:17px;padding:2px 8px;border:2px solid transparent;font-size:13px;white-space:nowrap;text-decoration:none;}*/
+
+.interest {/*css3*/ -moz-border-radius:12px;-webkit-border-radius:12px;border-radius:12px;behavior: url(/stylesheets/PIE.htc);}
+.interest.kids {border-color:#bfddff;color:#689dc9;}
+.interest.kids.selected {background:#bfddff;color:#1762a2;}
+.interest.manwoman {border-color:#bef2b9;color:#5acd75;}
+.interest.manwoman.selected {background:#bef2b9;color:#219e3e;}
+.interest.beauty {border-color:#fff9bc;color:#cca342;}
+.interest.beauty.selected {background:#fff9bc;color:#d19507;}
+.interest.home {border-color:#dcc7ee;color:#a77eca;}
+.interest.home.selected {background:#dcc7ee;color:#8056a3;}
+.interest.hobbies {border-color:#ffdda7;color:#e19959;}
+.interest.hobbies.selected {background:#ffdda7;color:#c17029;}
+.interest.rest {border-color:#c5effe;color:#66c8eb;}
+.interest.rest.selected {background:#c5effe;color:#039cd3;}
+
 
 
 

@@ -256,7 +256,7 @@ class Album extends HActiveRecord
         }
 
         return array(
-            'title' => 'Альбом  «' . $this->title . '»',
+            'title' => 'Фотоальбом ' . CHtml::link($this->title, $this->url),
             'photos' => $photos,
         );
     }

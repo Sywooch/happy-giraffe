@@ -63,7 +63,7 @@ class CommunityContentGallery extends HActiveRecord
             $photos[] = $model->photo;
         }
         return array(
-            'title' => 'Фотогалерея «' . $this->title . '»',
+            'title' => 'Фотоальбом к статье ' . CHtml::link($this->content->title, $this->content->url),
             'photos' => $photos,
         );
     }

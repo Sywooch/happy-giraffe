@@ -692,4 +692,30 @@ class AlbumsController extends HController
         $photo = AlbumPhoto::model()->findByPk($id);
         $this->renderPartial('updatePhoto', compact('photo'), false, true);
     }
+
+    public function actionSinglePhoto($entity, $photo_id)
+    {
+        $photo = AlbumPhoto::model()->findByPk($photo_id);
+        if ($photo === null)
+            throw new CHttpException(404, 'Фото не найдено');
+
+        switch ($entity) {
+            case 'CommunityContentGallery':
+                $content_id = Yii::app()->request->getQuery('content_id');
+                $model = CActiveRecord::model($entity)->findByAttributes(array('content_id' => $content_id));
+                break;
+        }
+
+        $collection = $model->photoCollection;
+        foreach ($collection['photos'] as $i => $p) {
+            if ($photo->id == $p->id) {
+                $currentIndex = $i + 1;
+                $photo = $p;
+                break;
+            }
+        }
+
+        $this->layout = '//layouts/main';
+        $this->render('singlePhoto', compact('model', 'collection', 'photo', 'currentIndex'));
+    }
 }

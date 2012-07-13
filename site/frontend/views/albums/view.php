@@ -67,10 +67,6 @@
             </div>
         <?php endif; ?>
 
-        <div class="add-post-btn">
-            <a href=""><img src="/images/btn_add_post.png" /></a>
-        </div>
-
         <div class="club-topics-list-new">
 
             <div class="block-title">Мои альбомы</div>

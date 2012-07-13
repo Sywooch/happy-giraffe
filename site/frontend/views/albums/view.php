@@ -11,7 +11,7 @@
 <<<EOD
 $(function(){
 
-    var container = $('.gallery-photos-new');
+    var container = $('#photosList');
 
     container.imagesLoaded( function(){
         container.masonry({
@@ -53,8 +53,9 @@ EOD;
                             'pager' => array(
                                 'class' => 'AlbumLinkPager',
                             ),
-                            'id' => 'comment_list_view',
-                            'template' => '<ul>{items}</ul>
+                            'id' => 'photosList',
+                            'itemsTagName' => 'ul',
+                            'template' => '{items}
                             <div class="pagination pagination-center clearfix">
                                 {pager}
                             </div>

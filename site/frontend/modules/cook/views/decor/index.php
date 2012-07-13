@@ -1,8 +1,6 @@
 <?php
 
-$basePath = Yii::getPathOfAlias('cook') . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'decor' . DIRECTORY_SEPARATOR . 'assets';
-$baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
-Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js', CClientScript::POS_HEAD);
+
 
 $categories = CookDecorationCategory::model()->findAll();
 
@@ -17,6 +15,10 @@ Yii::app()->clientScript->registerScript('photo_gallery_entity_id', 'var photo_g
 
 $cs = Yii::app()->clientScript;
 $cs->registerScriptFile('/javascripts/jquery.masonry.min.js');
+
+$basePath = Yii::getPathOfAlias('cook') . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'decor' . DIRECTORY_SEPARATOR . 'assets';
+$baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
+Yii::app()->clientScript->registerScriptFile($baseUrl . '/script2.js', CClientScript::POS_HEAD);
 
 ?>
 
@@ -121,7 +123,7 @@ $cs->registerScriptFile('/javascripts/jquery.masonry.min.js');
             ?>
 
 
-            <a href="<?=$url;?>" class="more-btn" id="more-btn">
+            <a href="<?=$url;?>" class="more-btn" id="more-btn" data-loading="0">
                 Показать еще фотографии
             </a>
             <?php endif; ?>

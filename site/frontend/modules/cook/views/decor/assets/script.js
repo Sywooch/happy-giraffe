@@ -19,6 +19,9 @@ $(function () {
     });
 
     $('#more-btn').bind('click', function (event) {
+        if ($(this).attr('data-loading') == '1')
+            return false;
+        $(this).attr('data-loading', '1').text('Загрузка фотографий');
 
         var url = $(this).attr('href');
 
@@ -37,7 +40,9 @@ $(function () {
             container.append(newItems);
             container.imagesLoaded(function () {
                 container.masonry('appended', newItems, true);
+                $('#more-btn').attr('data-loading', '0').text('Показать еще фотографии');
             });
+
 
         }, 'json');
 

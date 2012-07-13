@@ -73,6 +73,7 @@ jQuery.fn.pGallery = function(options) {
                 plugin.preloadPhotos();
                 $(window).resize();
             });
+            document.title = pGallery.photos[id].title;
         }, 'html');
     };
 
@@ -110,6 +111,7 @@ jQuery.fn.pGallery = function(options) {
         indexEl.text(pGallery.photos[id].idx);
         (title == null) ? titleEl.hide() : titleEl.text(title).show();
         (description == null) ? descriptionEl.hide() : descriptionEl.text(description).show();
+        document.title = title;
 
         this.data.id = id;
         var link = $('#photo-thumbs li a[data-id='+id+']' ,this.window);

@@ -266,8 +266,9 @@
 #interestsManage .interests-steps .step-3 .selected-interests-list ul li .img {display: inline-block; width: 50px; text-align: right; vertical-align: middle; margin-right: 3px;}
 #interestsManage .interests-steps .step-3 .selected-interests-list ul li .img img {}
 #interestsManage .interests-steps .step-3 .selected-interests-list ul li .text {display: inline-block; max-width: 85px; vertical-align: middle;}
-#interestsManage .interests-steps .step-3 .selected-interests-list ul li .text a {color: #4d92d9; font-family: tahoma; text-decoration: none;}
-#interestsManage .interests-steps .step-3 .selected-interests-list ul li .remove {display: inline-block; width: 12px; height: 14px; background: url(/images/common.png) no-repeat -314px -135px; vertical-align: middle; position: relative; top: 2px;}
+#interestsManage .interests-steps .step-3 .selected-interests-list ul li .text a {color: #292929; font-family: tahoma; text-decoration: none; vertical-align:top;display:inline-block;max-width:78px;}
+#interestsManage .interests-steps .step-3 .selected-interests-list ul li .text .remove {color: #4d92d9; font-family: tahoma; text-decoration: none;}
+#interestsManage .interests-steps .step-3 .selected-interests-list ul li .remove {display: inline-block; width: 12px; height: 14px; background: url(/images/common.png) no-repeat -314px -135px; vertical-align: middle; position: relative;margin-right:-12px;margin-left:3px;}
 #interestsManage .interests-steps .step-3 .selected-interests-list ul li .remove:hover {background-position:-314px -148px;}
 
 #interestsManage .interests-steps .step-3 .selected-interests-list .btn-box {text-align: center;}

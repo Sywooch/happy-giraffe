@@ -43,7 +43,7 @@ class HoroscopeCompatibility extends HActiveRecord
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, zodiac1, zodiac2, text', 'safe', 'on'=>'search'),
-            array('*', 'compositeUniqueKeysValidator'),
+            array('*', 'compositeUniqueKeysValidator', 'on'=>'create'),
 		);
 	}
 

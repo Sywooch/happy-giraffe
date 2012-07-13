@@ -149,7 +149,7 @@ class SiteController extends HController
                         $user->save(false);
                         $rediret_url = Yii::app()->user->getState('social_redirect');
                         if(Yii::app()->request->getQuery('register'))
-                            $authIdentity->redirect('/site/index');
+                            $authIdentity->redirect('/');
 						$authIdentity->redirect($rediret_url);
 					}
 				}

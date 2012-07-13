@@ -1,3 +1,11 @@
+<?php
+    $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
+        'selector' => '.img > a',
+        'entity' => 'Album',
+        'entity_id' => $model->id,
+    ));
+?>
+
 <div id="user">
 
     <div class="main">

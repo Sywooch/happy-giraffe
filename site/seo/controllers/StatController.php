@@ -16,23 +16,40 @@ class StatController extends SController
         return true;
     }
 
-    public function actionIndex($date1 = null, $last_date = null)
+    public function actionIndex($date = null, $last_date = null)
     {
         if ($last_date == null)
             $last_date = date("Y-m-d");
-        if ($days == null)
+        if ($date == null)
             $days = 7;
+        else
+            $days = round((strtotime($last_date) - strtotime($date)) / 86400) + 1;
+
 
         $this->render('index', compact('last_date', 'days'));
     }
 
-    public function actionUserStats($days = null, $last_date = null)
+    public function actionUserStats($user_id, $date = null, $last_date = null)
     {
         if ($last_date == null)
             $last_date = date("Y-m-d");
-        if ($days == null)
+        if ($date == null)
             $days = 7;
+        else
+            $days = round((strtotime($last_date) - strtotime($date)) / 86400) + 1;
 
-        $this->render('index', compact('last_date', 'days'));
+        $this->render('user_stats', compact('last_date', 'days', 'user_id'));
+    }
+
+    public function actionGroupStats($date = null, $last_date = null)
+    {
+        if ($last_date == null)
+            $last_date = date("Y-m-d");
+        if ($date == null)
+            $days = 7;
+        else
+            $days = round((strtotime($last_date) - strtotime($date)) / 86400) + 1;
+
+        $this->render('group_stats', compact('last_date', 'date', 'user_id'));
     }
 }

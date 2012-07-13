@@ -445,7 +445,14 @@ class CookRecipe extends CActiveRecord
             $photos[] = $p->photo;
         }
 
-        return $photos;
+        foreach ($photos as $i => $p) {
+            $p->w_title = $this->title . ' - фото ' . ($i + 1);
+        }
+
+        return array(
+            'title' => 'Фотогалерея рецепта  «' . $this->title . '»',
+            'photos' => $photos,
+        );
     }
 
     public function getLastRecipes($limit = 9)

@@ -21,10 +21,6 @@
                         'label' => 'Отчеты',
                         'url' => array('/writing/editor/reports/'),
                     ),
-                    array(
-                        'label' => 'Поисковый трафик',
-                        'url' => array('/promotion/queries/admin'),
-                    ),
                 )));
 
         if (Yii::app()->user->checkAccess('superuser'))

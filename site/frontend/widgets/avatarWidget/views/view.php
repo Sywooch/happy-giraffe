@@ -14,6 +14,7 @@ else {
 ?>
 <?php if (! $this->small): ?>
     <div class="user-info clearfix">
+<?php endif; ?>
     <?=HHtml::link($this->user->getAva($this->size)?CHtml::image($this->user->getAva($this->size)):'', $link_to_profile, array('class'=>$class), true)?>
 <?php if (!$this->small): ?>
     <?php if ($this->user->id != User::HAPPY_GIRAFFE): ?>

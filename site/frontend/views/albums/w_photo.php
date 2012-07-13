@@ -32,8 +32,8 @@
         </div>
 
         <div class="photo-info">
-            <?=$title?> - <span class="count"><?=$currentIndex?> фото из <?=$count?></span>
-            <div class="title"><?=$photo->title?></div>
+            <?=$title?> - <span class="count"><span><?=$currentIndex?></span> фото из <?=$count?></span>
+            <div class="title"><?=$photo->w_title?></div>
         </div>
 
     </div>
@@ -83,7 +83,7 @@
     </div>
 
     <div class="photo-comment">
-        <p><?=$photo->description?></p>
+        <p><?=$photo->w_description?></p>
     </div>
 
 

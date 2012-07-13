@@ -28,7 +28,7 @@ class photoViewWidget extends CWidget
         Yii::app()->clientScript->registerScriptFile('/javascripts/jquery.jcarousel.js');
         Yii::app()->clientScript->registerScriptFile('/javascripts/jquery.jcarousel.control.js');
         Yii::app()->clientScript->registerScriptFile('/javascripts/history.js');
-        Yii::app()->clientScript->registerScriptFile('/javascripts/gallery.js?r=100509');
+        Yii::app()->clientScript->registerScriptFile('/javascripts/gallery.js?r=100510');
 
         $report = $this->beginWidget('site.frontend.widgets.reportWidget.ReportWidget');
         $report->registerScripts();

@@ -1,6 +1,6 @@
 <li>
     <div class="img">
-        <a href="">
+        <a href="javascript:void(0)" data-id="<?=$data->id?>">
             <?=CHtml::image($data->getPreviewUrl(210, null, Image::WIDTH))?>
             <span class="btn">Посмотреть</span>
         </a>

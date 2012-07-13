@@ -1415,7 +1415,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 
 #gallery .album-empty {padding:100px 0;text-align:center;color:#fc5353;font-size:18px;}
 
-#gallery #photo {clear:both;}
+/*#gallery #photo {clear:both;}
 
 #gallery #photo .title {text-align:center;font-weight:bold;font-size:25px;line-height:normal;color:#0297b8;margin-bottom:10px;}
 #gallery #photo .title .edit {display:inline-block;width:14px;height:18px;background:url(../images/common.png) no-repeat -383px -204px;margin:0 auto;position:relative;text-decoration:none;font-weight:normal;z-index:3;vertical-align:middle;margin-left:10px;}
@@ -1450,6 +1450,24 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 #gallery #photo .ad-thumb-list li a.ad-active table td.img div {border:10px solid #88cad8;border-bottom:0;padding:0px;}
 #gallery #photo .ad-thumb-list li a.ad-active table tr.title td {background:#fffedf;font-size:10px;}
 #gallery #photo .ad-thumb-list li a.ad-active table tr.title td div {border:10px solid #88cad8;border-top:0;margin:-7px -25px;padding:7px 25px;}
+*/
+
+
+#photo-inline {text-align:center;padding:20px 0;}
+#photo-inline .meta {}
+#photo-inline .meta .album-title {width:40%;float:left;}
+#photo-inline .meta .count {width:40%;float:right;font-size:11px;font-family:tahoma, arial, helvetia, sans-serif;}
+#photo-inline .meta .count .btn {margin-left:20px;}
+#photo-inline .meta .count .btn span {font-weight:normal;font-size:14px;}
+#photo-inline .title {margin:20px auto;width:600px;}
+#photo-inline .title h1 {font:bold 25px/1 arial, helvetica, sans-serif;color:#000;}
+#photo-inline .img {display:inline-block;}
+#photo-inline .user {padding-bottom:5px;}
+#photo-inline .user .user-info .ava {}
+#photo-inline .user .user-info .details {margin-left:30px;}
+#photo-inline .user .user-info .details .username {}
+#photo-inline .photo-comment {margin:20px auto;width:600px;font-size:11px;font-family:tahoma, arial, helvetica, sans-serif;color:#504c4c;line-height:14px;}
+
 
 
 #albumSettings .popup-title {text-align:left;margin-bottom:20px;}
@@ -1866,7 +1884,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 
 /* interests */
 
-/*.interests-list ul {display:none;}
+.interests-list ul {display:none;}
 .interests-list ul.active {display:block;}
 
 
@@ -1875,25 +1893,9 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 .interest-cat a .img {display:inline-block;text-align:center;vertical-align:middle;margin-right:10px;}
 .interest-cat a .text {display:inline-block;width:150px;vertical-align:middle;}
 
-.interest {display:inline-block;height:22px;line-height:20px;padding:0px 8px 0 16px;font-size:13px;color:#575757;background:#d3eafc url(/images/interest.gif) no-repeat left;margin:5px 5px 5px 0;}*/
-.interest {/*css3*/ /*-moz-border-radius:0 4px 4px 0;-webkit-border-radius:0 4px 4px 0;border-radius:0 4px 4px 0;behavior: url(/stylesheets/PIE.htc);*/}
-/*.interest span {color:#fb8246;font-size:11px;font-weight:bold;margin-left:6px;}*/
-
-.interest {display:inline-block;height:17px;line-height:17px;padding:2px 8px;border:2px solid transparent;font-size:13px;white-space:nowrap;text-decoration:none;}
-.interest {/*css3*/ -moz-border-radius:12px;-webkit-border-radius:12px;border-radius:12px;behavior: url(/stylesheets/PIE.htc);}
-.interest.kids {border-color:#bfddff;color:#689dc9;}
-.interest.kids.selected {background:#bfddff;color:#1762a2;}
-.interest.manwoman {border-color:#bef2b9;color:#5acd75;}
-.interest.manwoman.selected {background:#bef2b9;color:#219e3e;}
-.interest.beauty {border-color:#fff9bc;color:#cca342;}
-.interest.beauty.selected {background:#fff9bc;color:#d19507;}
-.interest.home {border-color:#dcc7ee;color:#a77eca;}
-.interest.home.selected {background:#dcc7ee;color:#8056a3;}
-.interest.hobbies {border-color:#ffdda7;color:#e19959;}
-.interest.hobbies.selected {background:#ffdda7;color:#c17029;}
-.interest.rest {border-color:#c5effe;color:#66c8eb;}
-.interest.rest.selected {background:#c5effe;color:#039cd3;}
-
+.interest {display:inline-block;height:22px;line-height:20px;padding:0px 8px 0 16px;font-size:13px;color:#575757;background:#d3eafc url(/images/interest.gif) no-repeat left;margin:5px 5px 5px 0;}
+.interest {/*css3*/ -moz-border-radius:0 4px 4px 0;-webkit-border-radius:0 4px 4px 0;border-radius:0 4px 4px 0;behavior: url(/stylesheets/PIE.htc);}
+.interest span {color:#fb8246;font-size:11px;font-weight:bold;margin-left:6px;}
 
 /* interests */
 

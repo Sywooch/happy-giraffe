@@ -174,11 +174,7 @@ class UserStats
         Yii::import('site.frontend.modules.im.models.*');
 
         $criteria = new CDbCriteria;
-        $criteria->with = array(
-            'user' => array(
-                'condition' => 'user.group = ' . $this->group
-            )
-        );
+        $this->addAuthorCriteria($criteria, 'user');
         $this->addDateCriteria($criteria);
         return Message::model()->count($criteria);
     }
@@ -186,19 +182,11 @@ class UserStats
     public function friendsCount()
     {
         $criteria = new CDbCriteria;
-        $criteria->with = array(
-            'from' => array(
-                'condition' => 'from.group = ' . $this->group
-            )
-        );
+        $this->addAuthorCriteria($criteria, 'from');
         $this->addDateCriteria($criteria);
         $fromCount = FriendRequest::model()->count($criteria);
 
-        $criteria->with = array(
-            'to' => array(
-                'condition' => 'to.group = ' . $this->group
-            )
-        );
+        $this->addAuthorCriteria($criteria, 'to');
         $toCount = FriendRequest::model()->count($criteria);
 
         return ($fromCount + $toCount);
@@ -221,21 +209,22 @@ class UserStats
 
     /**
      * @param $criteria CDbCriteria
+     * @param string $rel_name
      * @return CDbCriteria
      */
-    public function addAuthorCriteria($criteria)
+    public function addAuthorCriteria($criteria, $rel_name = 'author')
     {
         $criteria2 = new CDbCriteria;
         if ($this->user_id == null)
             $criteria2->with = array(
-                'author' => array(
-                    'condition' => 'author.group = ' . $this->group
+                $rel_name => array(
+                    'condition' => $rel_name.'.group = ' . $this->group
                 )
             );
         else
             $criteria2->with = array(
-                'author' => array(
-                    'condition' => 'author.id = ' . $this->user_id
+                $rel_name => array(
+                    'condition' => $rel_name.'.id = ' . $this->user_id
                 )
             );
         $criteria->mergeWith($criteria2);

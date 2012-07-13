@@ -2,14 +2,16 @@
 /**
  * @var $last_date string
  * @var $days int
+ * @var $user_id int
  */
 ?>
-
+<?=CHtml::link('неделя', $this->createUrl('stat/userStats', array('user_id'=>$user_id))) ?><br>
+<?=CHtml::link('месяц', $this->createUrl('stat/userStats', array('user_id'=>$user_id, 'last_date'=>date("Y-m-d"), 'date'=>date("Y-m-d", strtotime('-1 month'))  ))) ?>
+<?php $this->renderPartial('_date_form', compact('user_id')); ?>
 <table>
     <thead>
     <tr>
         <th>дата</th>
-        <th>пользователе</th>
         <th>клубы - посты</th>
         <th>клубы - видео</th>
         <th>клубы - комменты</th>
@@ -35,16 +37,12 @@
 
         $stats = new UserStats;
         $stats->date = $date;
-        $stats->group = UserGourp::USER;
+        $stats->user_id = $user_id;
 
         echo '<td>'.$date.'</td>';
-        echo '<td>'.$stats->regCount($date).'</td>';
         $this->renderPartial('_table_row',compact('stats'));
 
         echo '</tr>';
-//    $data['new_users'] = Yii::app()->db->createCommand('select count(id) from community__contents
-//    left join users ON users.id = community__contents.author_id
-//    where created >= "' . $date . ' 00:00:00" AND created <= "' . $date . ' 23:59:59" AND type_id = 1')->queryScalar();
     }?>
     </tbody>
 </table>

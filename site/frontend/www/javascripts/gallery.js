@@ -218,7 +218,7 @@ jQuery.fn.pGallery = function(options) {
 
     return this.each(function() {
         $(this).bind('click', function() {
-            plugin.openWindow($(this).attr('data-id'));
+            plugin.openWindow($(this).data('id'));
         });
     });
 }

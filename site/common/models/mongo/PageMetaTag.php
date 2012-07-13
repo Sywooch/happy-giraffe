@@ -52,8 +52,12 @@ class PageMetaTag extends EMongoDocument
     public static function getModel($route, $params, $create = false)
     {
         $criteria = new EMongoCriteria;
+        $params2 = array();
+        foreach($params as $param)
+            $params2[] = utf8_encode($param);
+
         $criteria->route('==', $route);
-        $criteria->params('==', $params);
+        $criteria->params('==', $params2);
         $model = self::model()->find($criteria);
         if ($model === null && $create) {
             $model = new PageMetaTag();

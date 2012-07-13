@@ -23,7 +23,7 @@ $js =
     <<<EOD
     $(function(){
 
-    var container = $('#decorlv ul.items');
+    var container = $('#decorlv');
 
     container.imagesLoaded( function(){
         container.masonry({
@@ -115,12 +115,14 @@ $this->widget('zii.widgets.CListView', array(
     'itemView' => '_decoration',
     'emptyText' => 'В этой рубрике еще нет фотографий',
     'summaryText' => '',
+    'template' => '{items}',
     'enablePagination' => false,
     'pager' => array(
         'class' => 'AlbumLinkPager',
     ),
+
     //'tagName' => 'ul',
-    'itemsTagName'=>'ul'
+    'itemsTagName' => 'ul'
 
 ));
 ?>

@@ -171,6 +171,7 @@ class User extends HActiveRecord
             array('profile_access, guestbook_access, im_access', 'in', 'range' => array_keys($this->accessLabels)),
             array('avatar_id', 'numerical', 'allowEmpty' => true),
             array('remember_code', 'numerical'),
+            array('blog_title', 'safe'),
 
             //login
             array('email, password', 'required', 'on' => 'login'),

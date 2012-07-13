@@ -1,10 +1,11 @@
 <?php $this->beginContent('//layouts/main'); ?>
 
 <?php
-$cs = Yii::app()->clientScript;
-$cs
-    ->registerCssFile('/stylesheets/user.css')
-;
+    $cs = Yii::app()->clientScript;
+    $cs
+        ->registerScriptFile('/javascripts/album.js')
+        ->registerCssFile('/stylesheets/user.css')
+    ;
 ?>
 
 <div id="user">
@@ -77,64 +78,30 @@ $cs
 
             </div>
 
-            <!--
             <div class="readers">
 
-                <div class="block-title"><i class="icon-readers"></i>Постоянные читатели <span>(185)</span></div>
+                <div class="block-title"><i class="icon-readers"></i>Постоянные читатели <span>(<?=$this->user->friendsCount?>)</span></div>
 
                 <ul class="clearfix">
-                    <li>
-                        <a href="" class="ava small"></a>
-                    </li>
-                    <li>
-                        <a href="" class="ava small"></a>
-                    </li>
-                    <li>
-                        <a href="" class="ava small"></a>
-                    </li>
-                    <li>
-                        <a href="" class="ava small"></a>
-                    </li>
-                    <li>
-                        <a href="" class="ava small"></a>
-                    </li>
-                    <li>
-                        <a href="" class="ava small"></a>
-                    </li>
-                    <li>
-                        <a href="" class="ava small"></a>
-                    </li>
-                    <li>
-                        <a href="" class="ava small"></a>
-                    </li>
-                    <li>
-                        <a href="" class="ava small"></a>
-                    </li>
-                    <li>
-                        <a href="" class="ava small"></a>
-                    </li>
-                    <li>
-                        <a href="" class="ava small"></a>
-                    </li>
-                    <li>
-                        <a href="" class="ava small"></a>
-                    </li>
-                    <li>
-                        <a href="" class="ava small"></a>
-                    </li>
-                    <li>
-                        <a href="" class="ava small"></a>
-                    </li>
-                    <li>
-                        <a href="" class="ava small"></a>
-                    </li>
+                    <?php
+                        $dp = $this->user->getFriends(array('limit' => 30, 'order' => 'RAND()'));
+                        $dp->pagination = array(
+                            'pageSize' => 30,
+                        );
+                    ?>
+                    <?php foreach ($dp->data as $u): ?>
+                        <?php
+                        $class = 'ava small';
+                        if ($u->gender !== null) $class .= ' ' . (($u->gender) ? 'male' : 'female');
+                        ?>
+                        <li><?=CHtml::link(CHtml::image($u->getAva('small')), $u->url, array('class' => $class))?></li>
+                    <?php endforeach; ?>
 
                 </ul>
 
-                <div class="add-author-btn"><a href=""><img src="/images/btn_add_author.png" /></a></div>
+                <!--<div class="add-author-btn"><a href=""><img src="/images/btn_add_author.png" /></a></div>-->
 
             </div>
-            -->
 
             <div class="fast-photos">
 
@@ -159,9 +126,9 @@ $cs
 
         <div class="col-23 clearfix">
 
-            <div class="new-blog-btn"><a href="" class="btn btn-orange-smallest"><span><span>Создать блог</span></span></a></div>
+            <!--<div class="new-blog-btn"><a href="" class="btn btn-orange-smallest"><span><span>Создать блог</span></span></a></div>-->
 
-            <div class="blog-title">Мой личный блог</div>
+            <div class="blog-title"><?=($this->user->blog_title === null) ? 'Мой личный блог' : $this->user->blog_title?><?php if ($this->user->id == Yii::app()->user->id):?> <a href="#blogSettings" class="settings fancy tooltip" title="Настройка блога"></a><?php endif; ?></div>
 
             <?=$content?>
 
@@ -170,6 +137,64 @@ $cs
     </div>
 
 
+
+</div>
+
+<div style="display: none;">
+
+    <div id="blogSettings" class="popup">
+
+        <a href="javascript:void(0);" onclick="$.fancybox.close();" class="popup-close tooltip" title="Закрыть"></a>
+
+        <div class="popup-title">Настройки блога</div>
+
+        <!--<div class="default-nav">
+            <ul>
+                <li class="active"><a href="">Название блога</a></li>
+                <li class="disabled"><a>Рубрики блога</a></li>
+                <li class="disabled"><a>Оформление блога</a></li>
+            </ul>
+        </div>-->
+
+        <?php
+            $form = $this->beginWidget('CActiveForm', array(
+                'action' => array('/ajax/setValues/'),
+                'enableAjaxValidation' => true,
+                'clientOptions' => array(
+                    'validateOnType' => true,
+                ),
+                'htmlOptions' => array(
+                    'onsubmit' => 'ajaxSetValues(this, function(response) {if (response) {$.fancybox.close();}}); return false;',
+                ),
+            ));
+            $model = $this->user;
+        ?>
+        <?=CHtml::hiddenField('entity', get_class($model))?>
+        <?=CHtml::hiddenField('entity_id', $model->id)?>
+
+        <div class="settings-form">
+            <div class="row">
+                <div class="row-title">Название альбома <span>(не более 30 знаков)</span></div>
+                <div class="row-elements">
+                    <span class="item-title"><?=$model->blog_title?></span>
+                    <a href="javascript:void(0)" onclick="Album.updateField(this)" class="edit tooltip" title="Редактировать название альбома"></a>
+                </div>
+                <div class="row-elements" style="display: none;">
+                    <?=$form->textField($model, 'blog_title', array('placeholder' => 'Введите название альбома'))?>
+                    <button onclick="Album.updateFieldSubmit(this, '.item-title'); return false;" class="btn btn-green-small"><span><span>Ok</span></span></button>
+                </div>
+                <?=$form->error($model, 'blog_title')?>
+
+            </div>
+        </div>
+
+        <div class="bottom">
+            <button class="btn btn-green-medium"><span><span>Сохранить настройки</span></span></button>
+        </div>
+
+        <?php $this->endWidget(); ?>
+
+    </div>
 
 </div>
 

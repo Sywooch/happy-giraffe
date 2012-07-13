@@ -136,21 +136,19 @@ $cs
             </div>
             -->
 
-            <!--
             <div class="fast-photos">
 
                 <div class="block-title"><span>МОИ</span>свежие<br/>фото</div>
 
                 <div class="preview">
-                    <img src="/images/album_photo_04.jpg" class="img-1">
-                    <img src="/images/album_photo_05.jpg" class="img-2">
-                    <img src="/images/album_photo_06.jpg" class="img-3">
+                    <?php $i = 0; foreach ($this->user->getRelated('photos', false, array('limit' => 3, 'order' => 'created DESC')) as $p): ?>
+                        <?=CHtml::image($p->getPreviewUrl(180, 180), null, array('class' => 'img-' . ++$i))?>
+                    <?php endforeach; ?>
                 </div>
 
-                <a href="" class="more"><i class="icon"></i>Смотреть</a>
+                <?=CHtml::link('<i class="icon"></i>Смотреть', array('albums/user', 'id' => $this->user->id))?>
 
             </div>
-            -->
 
 
             <div class="banner-box">

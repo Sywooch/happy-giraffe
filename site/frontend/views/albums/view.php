@@ -11,7 +11,7 @@
 <<<EOD
 $(function(){
 
-    var container = $('#photosList');
+    var container = $('ul.items');
 
     container.imagesLoaded( function(){
         container.masonry({

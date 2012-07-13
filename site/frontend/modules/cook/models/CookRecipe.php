@@ -454,7 +454,7 @@ class CookRecipe extends CActiveRecord
         }
 
         return array(
-            'title' => 'Фотогалерея рецепта  «' . $this->title . '»',
+            'title' => 'Фотоальбом к рецепту ' . CHtml::link($this->title, $this->url),
             'photos' => $photos,
         );
     }

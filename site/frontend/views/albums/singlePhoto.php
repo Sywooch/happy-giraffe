@@ -3,6 +3,7 @@
         'selector' => '.count > a',
         'entity' => get_class($model),
         'entity_id' => $model->id,
+        'singlePhoto' => true,
     ));
 ?>
 
@@ -13,11 +14,11 @@
         <div class="clearfix">
 
             <div class="count">
-                <?=$currentIndex?> фото из <?=count($collection['photos'])?> <a href="" class="btn btn-green-smedium" data-id="<?=$photo->id?>"><span><span>Смотреть весь альбом</span></span></a>
+                <?=$currentIndex?> фото из <?=count($collection['photos'])?> <a href="javascript:void(0)" class="btn btn-green-smedium" data-id="<?=$photo->id?>"><span><span>Смотреть весь альбом</span></span></a>
             </div>
 
             <div class="album-title">
-                Фотоальбом к статье<br/><a href="">Прекрасные сады Болгарии</a>
+                <?=$collection['title']?>
             </div>
 
         </div>

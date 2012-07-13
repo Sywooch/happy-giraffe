@@ -193,7 +193,8 @@ jQuery.fn.pGallery = function(options) {
         plugin.init = false;
         $('#photo-window-bg, #photo-window').fadeOut(600, function(){
             document.title = plugin.originalTitle;
-            plugin.history.changeBrowserUrl(plugin.getEntityUrl());
+            if (! plugin.data.singlePhoto)
+                plugin.history.changeBrowserUrl(plugin.getEntityUrl());
             $('body').css('overflow', 'auto');
             plugin.window.remove();
             plugin.bg.remove();
@@ -206,7 +207,8 @@ jQuery.fn.pGallery = function(options) {
 
     if(/\/photo(\d+)/.test(document.location.href)) {
         var id = document.location.href.split(/\/photo(\d+)/)[1];
-        plugin.openWindow(id);
+        if (! plugin.data.singlePhoto)
+            plugin.openWindow(id);
     }
 
     $(document).keyup(function(e) {

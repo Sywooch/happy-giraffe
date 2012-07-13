@@ -704,6 +704,15 @@ class AlbumsController extends HController
                 $content_id = Yii::app()->request->getQuery('content_id');
                 $model = CActiveRecord::model($entity)->findByAttributes(array('content_id' => $content_id));
                 break;
+            case 'Album':
+                $album_id = Yii::app()->request->getQuery('album_id');
+                $model = CActiveRecord::model($entity)->findByPk($album_id);
+                break;
+            case 'CookRecipe':
+                Yii::import('application.modules.cook.models.*');
+                $recipe_id = Yii::app()->request->getQuery('recipe_id');
+                $model = CActiveRecord::model($entity)->findByPk($recipe_id);
+                break;
         }
 
         $collection = $model->photoCollection;

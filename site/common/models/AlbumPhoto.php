@@ -395,20 +395,4 @@ class AlbumPhoto extends HActiveRecord
         else
             return CHtml::image($this->getPreviewUrl(460, 600), $this->title);
     }
-
-    public function getPhotoCollection()
-    {
-        $photos = array();
-
-        foreach ($this->photos as $p) {
-            $p->w_title = $p->title;
-            $p->w_description = $p->description;
-            $photos[] = $p;
-        }
-
-        return array(
-            'title' => 'Альбом  «' . $this->title . '»',
-            'photos' => $photos,
-        );
-    }
 }

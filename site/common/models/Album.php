@@ -253,6 +253,7 @@ class Album extends HActiveRecord
         foreach ($this->photos as $p) {
             $p->w_title = $p->title;
             $p->w_description = $p->description;
+            $photos[] = $p;
         }
 
         return array(

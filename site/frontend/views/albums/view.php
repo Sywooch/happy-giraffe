@@ -11,10 +11,10 @@
 <<<EOD
 $(function(){
 
-    var $container = $('.gallery-photos-new');
+    var container = $('.gallery-photos-new');
 
-    $container.imagesLoaded( function(){
-        $container.masonry({
+    container.imagesLoaded( function(){
+        container.masonry({
             itemSelector : 'li',
             columnWidth: 240
         });

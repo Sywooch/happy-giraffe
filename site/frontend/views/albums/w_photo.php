@@ -21,7 +21,7 @@
 
     <div class="top-line clearfix">
 
-        <a href="javascript:void(0);" class="close" onclick="closePhoto();"></a>
+        <a href="javascript:void(0)" class="close"></a>
 
         <div class="user">
             <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array(

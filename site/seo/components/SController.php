@@ -35,7 +35,7 @@ class SController extends CController
                 'Продвижение'=>$this->createUrl('/promotion/queries/admin'),
             );
 
-        if (Yii::app()->user->checkAccess('admin'))
+        if (Yii::app()->user->checkAccess('admin') || Yii::app()->user->checkAccess('editor'))
             return array(
                 'Ключевые слова'=>$this->createUrl('/competitors/default/index'),
                 'Продвижение'=>$this->createUrl('/promotion/queries/admin'),

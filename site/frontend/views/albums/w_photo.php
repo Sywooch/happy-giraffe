@@ -10,6 +10,7 @@
 
     foreach ($photos as $i => $p) {
         if ($p->id == $photo->id) {
+            $photo = $p;
             $currentIndex = $i + 1;
             break;
         }

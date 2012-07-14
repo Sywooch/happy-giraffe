@@ -17,6 +17,9 @@ class HController extends CController
 
     protected function beforeAction($action)
     {
+        if ($_SERVER['HTTP_HOST'] == 'dev.happy-giraffe.ru'){
+            Yii::app()->clientScript->registerMetaTag('noindex,nofollow', 'robots');
+        }
         if (in_array($this->uniqueId, array(
             'blog',
             'community',

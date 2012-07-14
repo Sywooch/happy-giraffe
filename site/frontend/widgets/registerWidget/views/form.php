@@ -6,12 +6,6 @@
  */
 
 $script = <<<EOD
-$("a.auth-service2.vkontakte").eauth({"popup":{"width":585,"height":350},"id":"vkontakte"});
-$("a.auth-service2.facebook").eauth({"popup":{"width":585,"height":290},"id":"facebook"});
-$("a.auth-service2.mailru").eauth({"popup":{"width":580,"height":400},"id":"mailru"});
-$("a.auth-service2.google").eauth({"popup":{"width":500,"height":450},"id":"google"});
-$("a.auth-service2.twitter").eauth({"popup":{"width":900,"height":550},"id":"twitter"});
-$("a.auth-service2.odnoklassniki").eauth({"popup":{"width":680,"height":500},"id":"odnoklassniki"});
 $(".social-btn a").eauth({"popup":{"width":680,"height":500},"id":"odnoklassniki"});
 EOD;
 Yii::app()->clientScript->registerScript('auth-services-init',$script);
@@ -52,12 +46,7 @@ if (Yii::app()->controller->registerUserData !== null){
 
                     <div class="box-title">Регистрация через<br/>социальные сети</div>
 
-                    <ul>
-                        <li><?=HHtml::link('<img src="/images/btn_register_mm.png">',Yii::app()->createUrl('signup/index', array('service'=>'mailru')), array('class'=>'auth-service2 mailru'), true) ?></li>
-                        <li><?=HHtml::link('<img src="/images/btn_register_ok.png">',Yii::app()->createUrl('signup/index', array('service'=>'odnoklassniki')), array('class'=>'auth-service2 odnoklassniki'), true) ?></li>
-                        <li><?=HHtml::link('<img src="/images/btn_register_vk.png">',Yii::app()->createUrl('signup/index', array('service'=>'vkontakte')), array('class'=>'auth-service2 vkontakte'), true) ?></li>
-                        <li><?=HHtml::link('<img src="/images/btn_register_fb.png">',Yii::app()->createUrl('signup/index', array('service'=>'facebook')), array('class'=>'auth-service2 facebook'), true) ?></li>
-                    </ul>
+                    <?php Yii::app()->eauth->renderWidget(array('action' => 'signup/index')); ?>
 
                 </div>
 
@@ -98,7 +87,7 @@ if (Yii::app()->controller->registerUserData !== null){
             </div>
 
             <div class="is-user">
-                Вы уже зарегистрированы? <a href="#login" class="fancy">Войти</a>
+                Вы уже зарегистрированы? <a href="#login" class="fancy" data-theme="white-square">Войти</a>
             </div>
 
         </div>
@@ -258,6 +247,6 @@ if (Yii::app()->controller->registerUserData !== null){
 
     </div>
     <div class="is-user">
-        Вы уже зарегистрированы? <a href="#login" class="fancy">Войти</a>
+        Вы уже зарегистрированы? <a href="#login" class="fancy" data-theme="white-square">Войти</a>
     </div>
 </div>

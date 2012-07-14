@@ -195,3 +195,13 @@ var Competitors = {
         }, 'json');
     }
 }
+
+var Statistic = {
+    removeUser:function (user_id, el) {
+        $.post('/statistic/stat/removeUser/', {user_id:user_id}, function (response) {
+            if (response.status) {
+                $(el).parents('li').remove();
+            }
+        }, 'json');
+    }
+}

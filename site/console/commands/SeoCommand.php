@@ -139,6 +139,15 @@ class SeoCommand extends CConsoleCommand
         IndexParserThread::collectUrls();
     }
 
+    public function actionRefreshParsing(){
+        Yii::app()->db->createCommand('update proxies set active = 0')->execute();
+        Yii::app()->db->createCommand('update indexing__urls set active = 0 where active = 1')->execute();
+    }
+
+    public function actionEndParsing(){
+        Yii::app()->db->createCommand('update indexing__urls set active = 0')->execute();
+    }
+
     public function actionParseIndex()
     {
         Yii::import('site.seo.modules.indexing.components.*');

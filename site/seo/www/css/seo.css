@@ -350,6 +350,9 @@ button.btn-gray-small {height:20px;}
 
 
 #seo .indexation {padding:20px 0;}
+
+#seo .indexation .block-title {font-size:22px;color:#0b509b;font-weight:bold;text-align:center;margin-bottom:20px;}
+
 #seo .indexation .date {width:200px;margin-left:400px;float:left;text-align:center;}
 #seo .indexation .dates {float:left;width:400px;}
 #seo .indexation .dates ul {font-size:14px;list-style:none;}

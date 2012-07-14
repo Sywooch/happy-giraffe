@@ -9,7 +9,7 @@ $income = count($addUrls) - count($removeUrls);
 ?>
 <div class="indexation">
 
-    <div class="block-title"></div>
+    <div class="block-title">Апдейт</div>
 
     <div class="clearfix">
 

@@ -579,9 +579,9 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 
 #login.popup .login-social .auth-link {display:block;width:191px;height:39px;background:url(/images/btn_register_sprite.png) no-repeat;}
 #login.popup .login-social .auth-link.mailru {background-position:0 0;}
-#login.popup .login-social .auth-link.vkontakte {background-position:0 -80px;}
-#login.popup .login-social .auth-link.odnoklassniki {background-position:0 -40px;}
-#login.popup .login-social .auth-link.facebook {background-position:0 -120px;}
+#login.popup .login-social .auth-link.vkontakte {background-position:0 -120px;}
+#login.popup .login-social .auth-link.odnoklassniki {background-position:0 -80px;}
+#login.popup .login-social .auth-link.facebook {background-position:0 -40px;}
 
 #login.popup .login-form {float:left;width:419px;border-right:1px solid #d2d1d2;padding:35px 0px 20px 20px;}
 

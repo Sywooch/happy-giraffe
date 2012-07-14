@@ -577,6 +577,12 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 #login.popup .login-social ul {list-style:none;}
 #login.popup .login-social ul li {margin-bottom:12px;}
 
+#login.popup .login-social .auth-link {display:block;width:191px;height:39px;background:url(/images/btn_register_sprite.png) no-repeat;}
+#login.popup .login-social .auth-link.mailru {background-position:0 0;}
+#login.popup .login-social .auth-link.vkontakte {background-position:0 -80px;}
+#login.popup .login-social .auth-link.odnoklassniki {background-position:0 -40px;}
+#login.popup .login-social .auth-link.facebook {background-position:0 -120px;}
+
 #login.popup .login-form {float:left;width:419px;border-right:1px solid #d2d1d2;padding:35px 0px 20px 20px;}
 
 #login.popup .login-form form {margin-bottom:25px;}
@@ -605,11 +611,17 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 #register.popup .register-socials ul {list-style:none;}
 #register.popup .register-socials ul li {margin-bottom:12px;}
 
+#register.popup .register-socials .auth-link {display:block;width:191px;height:39px;background:url(/images/btn_register_sprite.png) no-repeat;}
+#register.popup .register-socials .auth-link.mailru {background-position:0 0;}
+#register.popup .register-socials .auth-link.vkontakte {background-position:0 -80px;}
+#register.popup .register-socials .auth-link.odnoklassniki {background-position:0 -40px;}
+#register.popup .register-socials .auth-link.facebook {background-position:0 -120px;}
+
 #register.popup .register-mail {float:left;width:329px;border-left:1px solid #d2d1d2;padding:10px 0px 20px 20px;margin-left:-1px;}
 #register.popup .register-mail .box-title {font-size:20px;color:#6b6b6b;line-height:1;margin-bottom:15px;}
 
 #register.popup .register-mail form {margin-bottom:25px;}
-#register.popup .register-mail form input[type=text] {padding:3px 10px;border:1px solid #cdcdcd;background:#fff;width:308px;margin-bottom:8px;font-size:15px;color:#3d3d3d;}
+#register.popup .register-mail form input[type=text] {padding:5px 10px;border:1px solid #cdcdcd;background:#fff;width:308px;margin-bottom:8px;font-size:15px;color:#3d3d3d;}
 #register.popup .register-mail form input[type=submit] {height:33px;line-height:33px;display:block;background:url(/images/btn_green_33.gif) repeat-x;color:#fff;font-size:16px;font-weight:bold;padding:0 30px;cursor:pointer;border:0;margin:0;}
 
 #register.popup .register-mail ul {color:#6b6b6b;padding-left:15px;}
@@ -640,6 +652,7 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 #register.popup .register-form .form-in {text-align:left;float:left;width:550px;text-align:left;}
 #register.popup .register-form .form-in .row {margin-bottom:30px;}
 #register.popup .register-form .form-in .row .row-title {float:left;width:70px;padding-right:10px;padding-top:8px;}
+#register.popup .register-form .form-in .row .row-title label {font-size:15px;}
 #register.popup .register-form .form-in .row .row-elements {float:left;width:300px;}
 #register.popup .register-form .form-in .row .row-elements input[type=text], #register.popup .register-form .form-in .row .row-elements input[type=password] {padding:5px 10px;border:1px solid #cdcdcd;background:#fff;width:278px;font-size:15px;color:#3d3d3d;}
 #register.popup .register-form .form-in .row .row-elements label {display:inline-block;margin-right:10px;margin-top:6px;}
@@ -647,7 +660,16 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 #register.popup .register-form .form-in .row .row-error * {display:none;}
 #register.popup .register-form .form-in .row.success .row-error .error-ok {display:inline-block;width:20px;height:19px;background:url(/images/common.png) no-repeat -424px -293px;}
 #register.popup .register-form .form-in .row.error .row-error .error {display:inline-block;color:#f11a1a;}
-#register.popup .register-form .form-in .row input[type=submit] {height:33px;line-height:33px;display:block;background:url(/images/btn_green_33.gif) repeat-x;color:#fff;font-size:16px;font-weight:bold;padding:0 15px;cursor:pointer;border:0;margin:0;}
+#register.popup .register-form .form-in .row input[type=submit] {height:33px;line-height:33px;background:url(/images/btn_green_33.gif) repeat-x;color:#fff;font-size:16px;font-weight:bold;padding:0 15px;cursor:pointer;border:0;margin:0;}
+
+#register.popup .register-form .form-in .row-date {width:700px;margin-left:-150px;text-align:center;}
+#register.popup .register-form .form-in .row-date .row-title {width:auto;padding-right:10px;display:inline-block;float:none;}
+#register.popup .register-form .form-in .row-date .row-elements {width:auto;padding-right:30px;display:inline-block;float:none;}
+#register.popup .register-form .form-in .row-date .chzn-v2 {vertical-align:middle;display:inline-block;margin-top:-2px;}
+#register.popup .register-form .form-in .row-date .row-elements input {margin-top:4px;position:relative;top:1px;}
+
+#register.popup .register-form .form-in .row-center {text-align:center;}
+#register.popup .register-form .form-in .row-center input[type=submit] {margin-left:-150px;}
 
 
 #takeapartPhotoContest {width:600px;}
@@ -1253,9 +1275,11 @@ a:hover {text-decoration:none;}
 .chzn-v2 .chzn-container-single {vertical-align:middle;}
 .chzn-v2 .chzn-container-single .chzn-single {height:23px;border-color:#A9C8F3;}
 .chzn-v2 .chzn-container-single .chzn-drop {border-color:#A9C8F3;}
-.chzn-v2 .chzn-container-single .chzn-single span {height:23px;line-height:23px;}
+.chzn-v2 .chzn-container-single .chzn-single span {height:23px;line-height:23px;color:#514f4f;font-size:13px;}
 .chzn-v2 .chzn-container-single .chzn-single div {background:#fff;border:1px solid #C9EAF1;height:21px;border-left:0;border-color:#A9C8F3;}
 .chzn-v2 .chzn-container-single .chzn-single div b {background:red;width:11px;height:9px;background:url(/images/common.png) no-repeat -287px -188px;}
+.chzn-v2 .chzn-container-single .chzn-single .highlighted {background:#a9c8f3;}
+.chzn-v2 .chzn-container .chzn-results .highlighted {background:#1b9bcb !important;}
 
 
 

@@ -17,6 +17,8 @@
 	<script type="text/javascript" src="/javascripts/jquery.fancybox-1.3.4.js"></script>
 	
 	<script type="text/javascript" src="/javascripts/jquery.tooltip.pack.js"></script>
+	
+  <script type="text/javascript" src="/javascripts/chosen.jquery.min.js"></script>
   
 	<script type="text/javascript" src="/javascripts/common.js"></script>
 	
@@ -370,11 +372,11 @@
         
         <div class="box-title hl"><span>Быстрый вход</span></div>
         
-        <ul>
-          <li><a href=""><img src="/images/btn_register_mm.png" /></a></li>
-          <li><a href=""><img src="/images/btn_register_ok.png" /></a></li>
-          <li><a href=""><img src="/images/btn_register_vk.png" /></a></li>
-          <li><a href=""><img src="/images/btn_register_fb.png" /></a></li>
+        <ul class="auth-services">
+          <li class="auth-service mailru"><a href="" class="auth-link mailru"></a></li>
+          <li class="auth-service odnoklassniki"><a href="" class="auth-link odnoklassniki"></a></li>
+          <li class="auth-service vkontakte"><a href="" class="auth-link vkontakte"></a></li>
+          <li class="auth-service facebook"><a href="" class="auth-link facebook"></a></li>
         </ul>
         
       </div>
@@ -392,10 +394,10 @@
     
     <!-- 1 окно -->
     
-    <div class="block-title"><img src="/images/bg_register_title.png" />Регистрация на Веселом Жирафе</div>
+    <div class="block-title" style="text-align:center;">Хочу гороскоп каждый день</div>
     
     <div class="hl">
-      <span>Стань полноправным участником сайта за 1 минуту!</span>
+      <span>Зарегистрируйтесь, чтобы получать гороскоп!</span>
     </div>
     
     <div class="clearfix">
@@ -404,11 +406,11 @@
         
         <div class="box-title">Регистрация через<br/>социальные сети</div>
         
-        <ul>
-          <li><a href=""><img src="/images/btn_register_mm.png" /></a></li>
-          <li><a href=""><img src="/images/btn_register_ok.png" /></a></li>
-          <li><a href=""><img src="/images/btn_register_vk.png" /></a></li>
-          <li><a href=""><img src="/images/btn_register_fb.png" /></a></li>
+        <ul class="auth-services">
+          <li class="auth-service mailru"><a href="" class="auth-link mailru"></a></li>
+          <li class="auth-service odnoklassniki"><a href="" class="auth-link odnoklassniki"></a></li>
+          <li class="auth-service vkontakte"><a href="" class="auth-link vkontakte"></a></li>
+          <li class="auth-service facebook"><a href="" class="auth-link facebook"></a></li>
         </ul>
         
       </div>
@@ -443,10 +445,10 @@
     
     <div class="register-form">
       
-      <div class="block-title">Вы уже почти с нами!</div>
+      <div class="block-title">Ваш гороскоп почти готов!</div>
       
       <div class="hl">
-        <span>Осталось ввести ваши имя, фамилию и пароль</span>
+        <span>Осталось ввести ваши имя, фамилию, дату рождения и пароль</span>
       </div>
       
       <div class="clearfix">
@@ -498,7 +500,7 @@
             </div>
           </div>
           
-          <div class="row clearfix">
+          <div class="row clearfix row-date">
             <div class="row-title">
               <label>Пол:</label>
             </div>
@@ -506,9 +508,36 @@
               <label><input type="radio" /> Мужской</label>
               <label><input type="radio" /> Женский</label>
             </div>
+            <div class="row-title">
+              <label>Дата рождения:</label>
+            </div>
+            <div class="row-elements">
+              <span class="chzn-v2">
+                <select class="chzn" style="width:50px">
+                  <option>28</option>
+                  <option>января</option>
+                  <option>1973</option>
+                </select>
+              </span>
+              <span class="chzn-v2">
+                <select class="chzn" style="width:90px">
+                  <option>января</option>
+                  <option>28</option>
+                  <option>1973</option>
+                </select>
+              </span>
+              <span class="chzn-v2">
+                <select class="chzn" style="width:60px">
+                  <option>1973</option>
+                  <option>января</option>
+                  <option>28</option>
+                </select>
+              </span>
+              
+            </div>
           </div>
           
-          <div class="row clearfix">
+          <div class="row clearfix row-center">
             <input type="submit" value="Регистрация" />
           </div>
           

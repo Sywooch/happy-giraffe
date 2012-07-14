@@ -6,7 +6,7 @@
  */
 ?>
 <div class="seo-table">
-    <?php $this->renderPartial('_date_form', compact('period', 'last_date', 'date', 'user_id')); ?>
+    <?php $this->renderPartial('_date_form', compact('period', 'last_date', 'date')); ?>
     <div class="table-box table-statistic">
         <table>
             <thead>
@@ -35,17 +35,14 @@
             </thead>
             <tbody>
             <?php
-            for ($i = 0; $i < $days; $i++) {
-            echo '<tr>';
-                $date = date("Y-m-d", strtotime(' - ' . $i . ' days', strtotime($last_date)));
-                $data = array();
-
+            foreach($moderators as $moderator){
+                echo '<tr>';
                 $stats = new UserStats;
-                $stats->date = $date;
+                $stats->date = $last_date;
                 $stats->date2 = $date;
-                $stats->user_id = $user_id;
+                $stats->user_id = $moderator;
 
-                echo '<td>'.$date.'</td>';
+                echo '<td><a href="'.$this->createUrl('/statistic/stat/moderators/', array('user_id'=>$moderator)).'">'.User::getUserById($moderator)->fullName.'</a></td>';
                 $this->renderPartial('_table_row',compact('stats'));
 
                 echo '</tr>';

@@ -23,8 +23,25 @@
         ?>
     </div>
 
-    <?php $this->renderPartial('//layouts/_header'); ?>
+    <div class="title">
+        <i class="statistic-img"></i> СТАТИСТИКА
+    </div>
+
+    <?php if (Yii::app()->controller->action->id == 'moderators' ):?>
+        <div class="fast-nav">
+            <ul>
+                <li<?php if (!isset($_GET['user_id'])) echo ' class="active"' ?>><a href="<?=$this->createUrl('/statistic/stat/moderators/')?>">Все модераторы</a></li>
+                <?php $moderators = Yii::app()->user->getState('moderators') ?>
+                <?php if (is_array($moderators)):?>
+                    <?php foreach ($moderators as $moderator): ?>
+                        <li<?php if (isset($_GET['user_id']) && $_GET['user_id'] == $moderator) echo ' class="active"' ?>><a href="<?=$this->createUrl('/statistic/stat/moderators/', array('user_id'=>$moderator))?>"><?=User::getUserById($moderator)->fullName ?></a><a href="javascript:;" class="remove" onclick="Statistic.removeUser(<?=$moderator ?>, this)"></a></li>
+                    <?php endforeach; ?>
+                <?php endif ?>
+            </ul>
+        </div>
+    <?php endif ?>
 </div>
+
 <?php echo $content; ?>
 <script type="text/javascript">
     $(function () {

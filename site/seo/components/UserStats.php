@@ -61,6 +61,13 @@ class UserStats
         $this->addDateCriteria($criteria);
         $criteria->compare('entity', 'CommunityContent');
         $criteria->compare('removed', 0);
+
+/*        if ($this->group == UserGroup::USER) {
+            $test_data = Comment::model()->findAll($criteria);
+            foreach ($test_data as $comment) {
+                echo '<a href="http://www.happy-giraffe.ru'.$comment->getUrl().'" target="_blank">link</a><br>';
+            }
+        }*/
         return Comment::model()->count($criteria);
     }
 
@@ -218,13 +225,13 @@ class UserStats
         if ($this->user_id == null)
             $criteria2->with = array(
                 $rel_name => array(
-                    'condition' => $rel_name.'.group = ' . $this->group
+                    'condition' => $rel_name . '.group = ' . $this->group
                 )
             );
         else
             $criteria2->with = array(
                 $rel_name => array(
-                    'condition' => $rel_name.'.id = ' . $this->user_id
+                    'condition' => $rel_name . '.id = ' . $this->user_id
                 )
             );
         $criteria->mergeWith($criteria2);

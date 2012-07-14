@@ -34,6 +34,12 @@
     </div>
 
     <div class="row">
+        <?php echo $form->labelEx($model, 'group'); ?>
+        <?php echo $form->dropDownList($model, 'group', UserGroup::getNames(), array('empty' => ' ')); ?>
+        <?php echo $form->error($model, 'group'); ?>
+    </div>
+
+    <div class="row">
         <?php echo $form->labelEx($model, 'role'); ?>
         <?php echo CHtml::dropDownList('User[role]', $model->getRole(), CHtml::listData(Yii::app()->authManager->getRoles(), 'name', 'name'), array('empty' => ' ')); ?>
         <?php echo $form->error($model, 'role'); ?>

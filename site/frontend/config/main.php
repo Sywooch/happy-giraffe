@@ -129,22 +129,29 @@ return array(
 			'class' => 'ext.eauth.EAuth',
 			'popup' => true, // Use the popup window instead of redirecting.
 			'services' => array( // You can change the providers and their classes.
-				'vkontakte' => array(
-					'class' => 'CustomVKontakteService',
-					'client_id' => '2855330',
-					'client_secret' => 'T9pHwkodkssoEjswy2fw',
-				),
+                'mailru' => array(
+                    'class' => 'CustomMailruService',
+                    'client_id' => '667969',
+                    'client_secret' => '3a0e2674098641394a8e5e0b4328e594',
+                ),
+                'odnoklassniki' => array(
+                    'class' => 'CustomOdnoklassnikiService',
+                    'client_id' => '90353152',
+                    'client_secret' => '4D9D33E5CD84A7F203BBC8C7',
+                    'client_public' => 'CBAPKDGGABABABABA',
+                    'title' => 'Odnokl.',
+                ),
+                'vkontakte' => array(
+                    'class' => 'CustomVKontakteService',
+                    'client_id' => '2855330',
+                    'client_secret' => 'T9pHwkodkssoEjswy2fw',
+                ),
                 'facebook' => array(
                     'class' => 'CustomFacebookService',
                     'client_id' => '412497558776154',
                     'client_secret' => 'dc98234daa8c7a0d943a92423793590d',
                 ),
-				'mailru' => array(
-					'class' => 'CustomMailruService',
-					'client_id' => '667969',
-					'client_secret' => '3a0e2674098641394a8e5e0b4328e594',
-				),
-/*                'google' => array(
+                /*                'google' => array(
                     'class' => 'CustomGoogleService',
                     'client_id' => '999100941078.apps.googleusercontent.com',
                     'client_secret' => '6fDvpI0FO0lmhdDTMCl-I8gD',
@@ -154,13 +161,6 @@ return array(
                     'key' => '19JgB2MpN6VgOVBrR1zrqQ',
                     'secret' => 'lIVhQhUeKV9TYRH2DFT70Bxu5EIlqipTM8uD0nw',
                 ),*/
-                'odnoklassniki' => array(
-                    'class' => 'CustomOdnoklassnikiService',
-                    'client_id' => '90353152',
-                    'client_secret' => '4D9D33E5CD84A7F203BBC8C7',
-                    'client_public' => 'CBAPKDGGABABABABA',
-                    'title' => 'Odnokl.',
-                ),
 			),
 		),
 		'format' => array(

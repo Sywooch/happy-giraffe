@@ -84,7 +84,7 @@ class DefaultController extends HController
         $this->breadcrumbs = array('Сервисы' => array('/'), 'Гороскоп' => array('index'), $this->title);
         $this->pageTitle = $this->title;
 
-        $this->render('month', compact('model'));
+        $this->render('date', compact('model'));
     }
 
     public function actionYear($zodiac)
@@ -98,7 +98,7 @@ class DefaultController extends HController
         $this->breadcrumbs = array('Сервисы' => array('/'), 'Гороскоп' => array('index'), $this->title);
         $this->pageTitle = $this->title;
 
-        $this->render('year', compact('model'));
+        $this->render('date', compact('model'));
     }
 
     public function actionCompatibility($zodiac1 = null, $zodiac2 = null)

@@ -64,7 +64,7 @@
             </div>
 
 
-            <?php if(count($recipes)){ ?>
+            <?php if(count($recipes) && false){ ?>
 
                 <div class="cook-more clearfix" style="display:none">
                     <div class="block-title">

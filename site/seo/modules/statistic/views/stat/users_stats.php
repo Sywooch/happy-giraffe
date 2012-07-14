@@ -43,7 +43,7 @@
                 $stats = new UserStats;
                 $stats->date = $date;
                 $stats->date2 = $date;
-                $stats->group = UserGourp::USER;
+                $stats->group = UserGroup::USER;
 
                 echo '<td>'.$date.'</td>';
                 $this->renderPartial('_table_row',compact('stats'));

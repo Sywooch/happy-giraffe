@@ -564,19 +564,33 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 
 /* */
 
-#login.popup .login-btn {padding-top:85px;width:170px;text-align:center;}
-#login.popup .login-btn .remember {font-size:12px;}
-#login.popup .login-btn .btn {margin-top:20px;}
+#login.popup {width:700px;padding:20px 50px;}
 
-#login.popup .row-social {text-align:right;line-height:28px;}
-#login.popup .row-social img {margin-left:4px;vertical-align:middle;}
+#login.popup .block-title {color:#aa82d1;font-size:40px;line-height:1;margin-bottom:20px;text-align:center;}
+#login.popup .block-title img {margin-right:10px;}
 
-#login.popup .reg-link {padding-top:30px;}
-#login.popup .reg-link .btn {margin-top:14px;}
-#login.popup .reg-link .row {text-align:right;}
-#login.popup .reg-link .a-right {width:170px;text-align:center;}
-#login.popup .reg-link .row span {display:inline-block;height:32px;padding:0 45px;background:#fefeda;font:italic 14px/32px arial, sans-serif;color:#575757;}
+#login.popup .hl {text-align:center;margin-bottom:20px;margin-top:-5px;color:#6b6b6b;font-size:14px;}
+#login.popup .hl span {padding:3px 6px;background:#fffbc9;}
 
+#login.popup .login-social {float:left;width:200px;border-left:1px solid #d2d1d2;padding:10px 30px 20px 30px;margin-left:-1px;text-align:center;}
+#login.popup .login-social .box-title {font-size:17px;color:#6b6b6b;line-height:1;margin-bottom:15px;}
+#login.popup .login-social ul {list-style:none;}
+#login.popup .login-social ul li {margin-bottom:12px;}
+
+#login.popup .login-form {float:left;width:419px;border-right:1px solid #d2d1d2;padding:35px 0px 20px 20px;}
+
+#login.popup .login-form form {margin-bottom:25px;}
+#login.popup .login-form form input[type=text], #login.popup .login-form form input[type=password] {padding:5px 10px;border:1px solid #cdcdcd;background:#fff;width:268px;margin-bottom:8px;font-size:15px;color:#3d3d3d;}
+#login.popup .login-form form input[type=submit] {height:33px;line-height:33px;background:url(/images/btn_green_33.gif) repeat-x;color:#fff;font-size:16px;font-weight:bold;padding:0 30px;cursor:pointer;border:0;margin:0;vertical-align:middle;margin-right:20px;}
+#login.popup .login-form form .row {padding-bottom:10px;}
+#login.popup .login-form form .row .row-title {float:left;padding-top:6px;}
+#login.popup .login-form form .row .row-title label {color:#6b6b6b;font-size:15px;}
+#login.popup .login-form form .row .row-elements {margin-left:80px;}
+
+#login.popup .is-user {margin-top:30px;text-align:center;color:#6b6b6b;font-size:15px;}
+#login.popup .is-user a {margin-left:5px;}
+
+#login.popup a {color:#1c93f8;}
 
 #register.popup {width:700px;padding:20px 50px;}
 

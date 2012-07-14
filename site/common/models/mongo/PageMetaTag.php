@@ -52,17 +52,18 @@ class PageMetaTag extends EMongoDocument
     public static function getModel($route, $params, $create = false)
     {
         $criteria = new EMongoCriteria;
-        $params2 = array();
-        foreach($params as $param)
-            $params2[] = utf8_encode($param);
 
         $criteria->route('==', $route);
-        $criteria->params('==', $params2);
+        $criteria->params('==', $params);
+        try{
         $model = self::model()->find($criteria);
+        }catch (Exception $err){
+            return null;
+        }
         if ($model === null && $create) {
             $model = new PageMetaTag();
             $model->route = $route;
-            $model->params = $params2;
+            $model->params = $params;
             $model->description = '';
             $model->keywords = '';
             $model->save();
@@ -76,8 +77,7 @@ class PageMetaTag extends EMongoDocument
      */
     public function getPage()
     {
-        $url = 'http://www.happy-giraffe.ru' . Yii::app()->createUrl($this->route, $this->params);
-        //$url = Yii::app()->createAbsoluteUrl($model->route, $model->params);
+        $url = Yii::app()->createAbsoluteUrl($this->route, $this->params);
 
         return Page::model()->findByAttributes(array('url' => $url));
     }

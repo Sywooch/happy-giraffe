@@ -341,8 +341,23 @@ button.btn-gray-small {height:20px;}
 
 #seo .seo-table .table-box tr:hover td {background:#f2f8fe;}
 
-#seo .seo-table .table-box .big {font-size:13px;font-family:arial, helvetica, sans-serif;color:#0b509b;}
+#seo .seo-table .table-box .big {font-size:13px;font-family:arial, helvetica, sans-serif;}
+#seo .seo-table .table-box th .big {color:#0b509b;}
 
 #seo .seo-table .table-box .total td {background:#fbf3e1 !important;color:#c5581c !important;font-weight:bold;}
 
 #seo .seo-table .table-box .date {display:block;font-size:11px;color:#ad76df;margin-bottom:5px;}
+
+
+#seo .indexation {padding:20px 0;}
+#seo .indexation .date {width:200px;margin-left:400px;float:left;text-align:center;}
+#seo .indexation .dates {float:left;width:400px;}
+#seo .indexation .dates ul {font-size:14px;list-style:none;}
+#seo .indexation .dates ul li {float:left;padding:0 10px;}
+#seo .indexation .dates ul li a {color:#727173;text-decoration:none;}
+#seo .indexation .dates ul li.active a {color:#030303;padding:0 5px;background:#fffe93;}
+
+#seo .indexation .text {font-size:17px;color:#514f4f;text-align:center;padding:30px 0 20px;}
+#seo .indexation .text span {color:#030303;font-weight:bold;margin-right:20px;}
+#seo .indexation .text .red {color:#f2602c;}
+#seo .indexation .text p {padding:15px 0;}

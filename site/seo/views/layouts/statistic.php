@@ -23,9 +23,7 @@
         ?>
     </div>
 
-    <div class="title">
-        <i class="statistic-img"></i> СТАТИСТИКА
-    </div>
+    <?php $this->renderPartial('//layouts/_header'); ?>
 
     <?php if (Yii::app()->controller->action->id == 'moderators' ):?>
         <div class="fast-nav">

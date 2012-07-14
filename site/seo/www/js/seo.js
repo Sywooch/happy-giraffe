@@ -205,3 +205,14 @@ var Statistic = {
         }, 'json');
     }
 }
+
+var Indexing = {
+    showRemoveUrls:function(){
+        $('#add-urls').hide();
+        $('#remove-urls').show();
+    },
+    showAddUrls:function(){
+        $('#add-urls').show();
+        $('#remove-urls').hide();
+    }
+}

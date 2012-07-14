@@ -129,5 +129,33 @@ class SeoCommand extends CConsoleCommand
             }
         }
     }
+
+    public function actionAddUrls(){
+        Yii::import('site.seo.modules.indexing.components.*');
+        Yii::import('site.seo.modules.indexing.models.*');
+        Yii::import('site.frontend.extensions.ESaveRelatedBehavior');
+        Yii::import('site.frontend.components.CutBehavior');
+
+        IndexParserThread::collectUrls();
+    }
+
+    public function actionParseIndex()
+    {
+        Yii::import('site.seo.modules.indexing.components.*');
+        Yii::import('site.seo.modules.indexing.models.*');
+        Config::setAttribute('stop_threads', 0);
+
+        $parser = new IndexParserThread();
+        $parser->start();
+    }
+
+    public function actionAddUp($date){
+        Yii::import('site.seo.modules.indexing.components.*');
+        Yii::import('site.seo.modules.indexing.models.*');
+
+        $model = new IndexingUp();
+        $model->date = $date;
+        echo $model->save();
+    }
 }
 

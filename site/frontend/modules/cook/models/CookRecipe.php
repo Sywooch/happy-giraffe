@@ -545,7 +545,7 @@ class CookRecipe extends CActiveRecord
         $dp = new CActiveDataProvider('CookRecipe', array(
             'criteria' => $criteria,
             'pagination' => array(
-                'pageSize' => 3,
+                'pageSize' => 10,
             ),
         ));
 

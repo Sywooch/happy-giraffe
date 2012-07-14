@@ -89,6 +89,13 @@ class IndexingUp extends HActiveRecord
         ));
     }
 
+    public function defaultScope()
+    {
+        return array(
+            'order' => $this->getTableAlias(false, false) .'.id desc',
+        );
+    }
+
     public function getUrls($plus)
     {
         $prev_up = $this->getPrevUp();
@@ -100,7 +107,7 @@ class IndexingUp extends HActiveRecord
             foreach ($this->urls as $url)
                 if (!$prev_up->hasUrl($url->id))
                     $change [] = $url;
-        }else{
+        } else {
             foreach ($prev_up->urls as $url)
                 if (!$this->hasUrl($url->id))
                     $change [] = $url;

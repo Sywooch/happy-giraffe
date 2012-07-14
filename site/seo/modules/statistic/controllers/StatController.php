@@ -6,6 +6,7 @@
 class StatController extends SController
 {
     public $layout = '//layouts/statistic';
+    public $pageTitle = 'СТАТИСТИКА';
 
     public function beforeAction($action)
     {

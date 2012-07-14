@@ -29,6 +29,7 @@ class EAuth extends CApplicationComponent {
 	 * @return array services settings.
 	 */
 	public function getServices() {
+        Yii::app()->cache->delete('EAuth.services');
 		if (Yii::app()->hasComponent('cache'))
 			$services = Yii::app()->cache->get('EAuth.services');
 		if (!isset($services) || !is_array($services)) {

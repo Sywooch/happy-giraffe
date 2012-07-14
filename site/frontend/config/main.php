@@ -144,7 +144,7 @@ return array(
 					'client_id' => '667969',
 					'client_secret' => '3a0e2674098641394a8e5e0b4328e594',
 				),
-                'google' => array(
+/*                'google' => array(
                     'class' => 'CustomGoogleService',
                     'client_id' => '999100941078.apps.googleusercontent.com',
                     'client_secret' => '6fDvpI0FO0lmhdDTMCl-I8gD',
@@ -153,7 +153,7 @@ return array(
                     'class' => 'CustomTwitterService',
                     'key' => '19JgB2MpN6VgOVBrR1zrqQ',
                     'secret' => 'lIVhQhUeKV9TYRH2DFT70Bxu5EIlqipTM8uD0nw',
-                ),
+                ),*/
                 'odnoklassniki' => array(
                     'class' => 'CustomOdnoklassnikiService',
                     'client_id' => '90353152',

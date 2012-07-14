@@ -8,7 +8,7 @@
         <div class="b">
             <?=CHtml::link('', '#register', array('class' => 'register fancy', 'data-theme'=>'white-square'))?>
             <br>
-            <small>Уже зарегистрированы?</small> &nbsp; <a class="fancy" rel="nofollow" href="#login">Войти</a>
+            <small>Уже зарегистрированы?</small> &nbsp; <a class="fancy" rel="nofollow" href="#login" data-theme="white-square">Войти</a>
         </div>
     <?php else: ?>
         <div class="t">

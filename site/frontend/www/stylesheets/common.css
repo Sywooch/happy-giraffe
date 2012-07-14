@@ -127,6 +127,13 @@ a.info {display:inline-block;width:13px;height:13px;background:url(../images/com
 .read-more {white-space:nowrap;}
 .read-more .icon {display:inline-block;width:7px;height:9px;background:url(/images/common.png) no-repeat -328px -178px;margin-left:5px;position:relative;top:1px;}
 
+.well {padding:10px 20px;}
+.well ul {list-style:none;}
+.well ul li {list-style:none;margin:10px 0;}
+
+.banner-box {margin-bottom:20px;text-align:center;}
+
+
 
 .drp-list {display:inline-block;position:relative;font-size:13px;}
 .drp-list a.trigger {text-decoration:none;border-bottom:1px dashed #598DD6;color:#598DD6;font-size:16px;position:relative;z-index:1;}

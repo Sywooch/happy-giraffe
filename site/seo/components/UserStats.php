@@ -62,7 +62,7 @@ class UserStats
         $criteria->compare('entity', 'CommunityContent');
         $criteria->compare('removed', 0);
 
-        if ($group = UserGourp::USER) {
+        if ($this->group = UserGourp::USER) {
             $test_data = Comment::model()->findAll($criteria);
             foreach ($test_data as $comment) {
                 echo $comment->getUrl(true);

@@ -1,18 +1,28 @@
 <form action="/statistic/stat/<?= Yii::app()->controller->action->id  ?>/">
     <div class="fast-filter">
-        <?= CHtml::link('сегодня', $this->createUrl('', array('last_date' => date("Y-m-d"), 'date' => date("Y-m-d"))), array('class' => ($period == 'today') ? 'active' : '')) ?>
-        |
-        <?= CHtml::link('вчера', $this->createUrl('', array('last_date' => date("Y-m-d", strtotime('-1 day')), 'date' => date("Y-m-d", strtotime('-1 day')))), array('class' => ($period == 'yesterday') ? 'active' : '')) ?>
-        |
-        <?= CHtml::link('неделя', $this->createUrl('', array('last_date' => date("Y-m-d"), 'date' => date("Y-m-d", strtotime('-6 days')))), array('class' => ($period == 'week') ? 'active' : '')) ?>
-        |
-        <?= CHtml::link('месяц', $this->createUrl('', array('last_date' => date("Y-m-d"), 'date' => date("Y-m-d", strtotime('-1 month')))), array('class' => ($period == 'month') ? 'active' : '')) ?>
-        |
+        <?php if (!isset($user_id)):?>
+            <?= CHtml::link('сегодня', $this->createUrl('', array('last_date' => date("Y-m-d"), 'date' => date("Y-m-d"))), array('class' => ($period == 'today') ? 'active' : '')) ?>
+            |
+            <?= CHtml::link('вчера', $this->createUrl('', array('last_date' => date("Y-m-d", strtotime('-1 day')), 'date' => date("Y-m-d", strtotime('-1 day')))), array('class' => ($period == 'yesterday') ? 'active' : '')) ?>
+            |
+            <?= CHtml::link('неделя', $this->createUrl('', array('last_date' => date("Y-m-d"), 'date' => date("Y-m-d", strtotime('-6 days')))), array('class' => ($period == 'week') ? 'active' : '')) ?>
+            |
+            <?= CHtml::link('месяц', $this->createUrl('', array('last_date' => date("Y-m-d"), 'date' => date("Y-m-d", strtotime('-1 month')))), array('class' => ($period == 'month') ? 'active' : '')) ?>
+        <?php else: ?>
+            <?= CHtml::link('сегодня', $this->createUrl('', array('user_id'=>$user_id, 'last_date' => date("Y-m-d"), 'date' => date("Y-m-d"))), array('class' => ($period == 'today') ? 'active' : '')) ?>
+            |
+            <?= CHtml::link('вчера', $this->createUrl('', array('user_id'=>$user_id, 'last_date' => date("Y-m-d", strtotime('-1 day')), 'date' => date("Y-m-d", strtotime('-1 day')))), array('class' => ($period == 'yesterday') ? 'active' : '')) ?>
+            |
+            <?= CHtml::link('неделя', $this->createUrl('', array('user_id'=>$user_id, 'last_date' => date("Y-m-d"), 'date' => date("Y-m-d", strtotime('-6 days')))), array('class' => ($period == 'week') ? 'active' : '')) ?>
+            |
+            <?= CHtml::link('месяц', $this->createUrl('', array('user_id'=>$user_id, 'last_date' => date("Y-m-d"), 'date' => date("Y-m-d", strtotime('-1 month')))), array('class' => ($period == 'month') ? 'active' : '')) ?>
+        <?php endif ?>
+            |
         <a href="javascript:;" class="pseudo<?= ($period == 'manual') ? ' active' : '' ?>"
            onclick="$(this).next().toggle();">Указать дату</a>
 
         <span <?= ($period == 'manual') ? '' : 'style="display: none;"' ?>>
-        <?php if (isset($user_id)): ?>
+            <?php if (isset($user_id)): ?>
             <?= CHtml::hiddenField('user_id', $user_id) ?>
             <?php endif ?>
 

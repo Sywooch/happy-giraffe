@@ -62,7 +62,7 @@ class UserStats
         $criteria->compare('entity', 'CommunityContent');
         $criteria->compare('removed', 0);
 
-/*        if ($this->group == UserGourp::USER) {
+/*        if ($this->group == UserGroup::USER) {
             $test_data = Comment::model()->findAll($criteria);
             foreach ($test_data as $comment) {
                 echo '<a href="http://www.happy-giraffe.ru'.$comment->getUrl().'" target="_blank">link</a><br>';

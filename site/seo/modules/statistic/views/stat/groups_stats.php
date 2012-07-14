@@ -42,7 +42,7 @@
                 $stats->date2 = $date;
                 $stats->group = $i;
 
-                echo '<td>' . UserGourp::getName($i) . '</td>';
+                echo '<td>' . UserGroup::getName($i) . '</td>';
                 $this->renderPartial('_table_row', compact('stats'));
 
                 echo '</tr>';

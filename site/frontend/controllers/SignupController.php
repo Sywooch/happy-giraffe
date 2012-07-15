@@ -125,9 +125,16 @@ class SignupController extends HController
                 $model->login_date = date('Y-m-d H:i:s');
                 $model->last_ip = $_SERVER['REMOTE_ADDR'];
                 $model->save(false);
-                echo CJSON::encode(array(
+
+                $redirectUrl = Yii::app()->user->getState('redirectUrl');
+                if (empty($redirectUrl))
+                    $url = $redirectUrl;
+                else
+                    $url = Yii::app()->request->getQuery('redirectUrl');
+
+                    echo CJSON::encode(array(
                     'status' => true,
-                    'profile'=>$model->getUrl()
+                    'profile'=>$url
                 ));
                 Yii::app()->end();
             }

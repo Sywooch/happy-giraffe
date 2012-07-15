@@ -158,12 +158,12 @@ class SeoCommand extends CConsoleCommand
         $parser->start();
     }
 
-    public function actionAddUp($date){
+    public function actionAddUp(){
         Yii::import('site.seo.modules.indexing.components.*');
         Yii::import('site.seo.modules.indexing.models.*');
 
         $model = new IndexingUp();
-        $model->date = $date;
+        $model->date = date("Y-m-d") ;
         echo $model->save();
     }
 }

@@ -127,8 +127,10 @@ class SignupController extends HController
                 $model->save(false);
 
                 $redirectUrl = Yii::app()->user->getState('redirectUrl');
-                if (!empty($redirectUrl))
+                if (!empty($redirectUrl)){
                     $url = $redirectUrl;
+                    Yii::app()->user->setState('redirectUrl', null);
+                }
                 else
                     $url = Yii::app()->request->getQuery('redirectUrl');
 

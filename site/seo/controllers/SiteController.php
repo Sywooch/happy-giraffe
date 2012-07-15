@@ -47,6 +47,9 @@ class SiteController extends SController
 
         if (Yii::app()->user->checkAccess('superuser'))
             $this->redirect($this->createUrl('competitors/default/index'));
+
+        if (Yii::app()->user->checkAccess('promotion'))
+            $this->redirect($this->createUrl('promotion/queries/admin'));
 	}
 
     /**

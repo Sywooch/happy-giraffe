@@ -147,15 +147,10 @@ class SiteController extends HController
 						Yii::app()->user->login($identity);
                         $user->login_date = date('Y-m-d H:i:s');
                         $user->save(false);
-
-                        $redirectUrl = Yii::app()->user->getState('redirectUrl');
-                        if (!empty($redirectUrl)){
-                            $url = $redirectUrl;
-                            Yii::app()->user->setState('redirectUrl', null);
-                        }
-                        else
-                            $url = '/';
-						$authIdentity->redirect($url);
+                        $rediret_url = Yii::app()->user->getState('social_redirect');
+                        if(Yii::app()->request->getQuery('register'))
+                            $authIdentity->redirect('/');
+						$authIdentity->redirect($rediret_url);
 					}
 				}
                 elseif(!Yii::app()->user->isGuest)

@@ -220,6 +220,7 @@ jQuery.fn.pGallery = function(options) {
         }
     });
 
+    $('#photo-window-in').css('left', getScrollBarWidth()/2 + 'px');
 
     return this.each(function() {
         $(this).bind('click', function() {

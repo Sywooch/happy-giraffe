@@ -113,7 +113,7 @@
                     <?php endforeach; ?>
                 </div>
 
-                <?=CHtml::link('<i class="icon"></i>Смотреть', array('albums/user', 'id' => $this->user->id))?>
+                <?=CHtml::link('<i class="icon"></i>Смотреть', array('albums/user', 'id' => $this->user->id), array('class' => 'more'))?>
 
             </div>
 
@@ -174,12 +174,12 @@
 
         <div class="settings-form">
             <div class="row">
-                <div class="row-title">Название альбома <span>(не более 30 знаков)</span></div>
-                <div class="row-elements">
+                <div class="row-title">Название <span>(не более 30 знаков)</span></div>
+                <div class="row-elements"<?php if (! $model->blog_title): ?> style="display: none;"<?php endif; ?>>
                     <span class="item-title"><?=$model->blog_title?></span>
                     <a href="javascript:void(0)" onclick="Album.updateField(this)" class="edit tooltip" title="Редактировать название альбома"></a>
                 </div>
-                <div class="row-elements" style="display: none;">
+                <div class="row-elements"<?php if ($model->blog_title): ?> style="display: none;"<?php endif; ?>>
                     <?=$form->textField($model, 'blog_title', array('placeholder' => 'Введите название альбома'))?>
                     <button onclick="Album.updateFieldSubmit(this, '.item-title'); return false;" class="btn btn-green-small"><span><span>Ok</span></span></button>
                 </div>

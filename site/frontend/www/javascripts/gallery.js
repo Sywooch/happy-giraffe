@@ -46,7 +46,7 @@ jQuery.fn.pGallery = function(options) {
             pGallery.currentPhoto = plugin.data.id;
             $('#photo-window').append(html);
 
-            $('#photo-window-in', this.window).css('left', getScrollBarWidth()/2 + 'px');
+            $('#photo-window-in', this.window).css('left', Math.ceil(getScrollBarWidth()/2) + 'px');
 
             plugin.window.find('.close').bind('click', function() {plugin.closeWindow();return false;});
 

@@ -172,11 +172,14 @@ a.info {display:inline-block;width:13px;height:13px;background:url(../images/com
 .user-info .details .birthday span {color:#aeaeae;}
 .user-info .details .date {color:#b3b3b3;font-size:9px;margin-top:3px;margin-left:15px;}
 
-.user-info .text-status {clear:both;margin-top:-15px;background:#d7edff;position:relative;padding:10px 15px;font-size:11px;color:#5e5e5e;margin-bottom:25px;line-height:14px;}
+.user-info .text-status {clear:both;background:#d7edff;position:relative;padding:10px 15px;font-size:11px;color:#5e5e5e;line-height:14px;}
 .user-info .text-status {/*css3*/ -moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px;}
 .user-info .text-status .tale {display:block;width:21px;height:30px;background:url(/images/common.png) no-repeat -424px -261px;position:absolute;top:-30px;left:20px;}
+.user-info-big {margin-bottom:25px;}
+.user-info-big .ava, .user-info-big .details {margin-bottom:15px;}
 
-.user-fast-buttons {padding-top:2px;margin-bottom:8px;}
+
+.user-fast-buttons {padding-top:2px;margin-bottom:5px;}
 .user-fast-buttons a {display:inline-block;position:relative;margin-right:4px;text-decoration:none;}
 .user-fast-buttons span.friend {float:left;color:#22af16;margin-right:5px;font-size:13px;margin-top:2px;}
 .user-fast-buttons .add-friend {width:22px;height:18px;background:url(/images/common.png) no-repeat -256px -298px;}
@@ -184,7 +187,7 @@ a.info {display:inline-block;width:13px;height:13px;background:url(../images/com
 .user-fast-buttons .pending-friend {width:26px;height:26px;background:url(/images/common.png) no-repeat -310px -271px;}
 .user-fast-buttons .new-message {width:22px;height:17px;background:url(/images/common.png) no-repeat -234px -298px;margin-top:1px;}
 
-.user-fast-nav {font-size:11px;font-family:tahoma, arial, helvetica, sans-serif;color:#a4cce8;margin-bottom:25px;}
+.user-fast-nav {font-size:11px;font-family:tahoma, arial, helvetica, sans-serif;color:#a4cce8;}
 .user-fast-nav .more {text-decoration:none;border-bottom:1px dashed #029AD2;}
 .icon-status {display:inline-block;width:11px;height:11px;background:url(../images/common.png) no-repeat;position:relative;top:2px;margin-right:2px;}
 .icon-status.status-online {background-position:-44px -180px;}

@@ -15,6 +15,14 @@ class HController extends CController
     public $meta_title = null;
     public $page_meta_model = null;
 
+    public function filterAjaxOnly($filterChain)
+    {
+        if(Yii::app()->getRequest()->getIsAjaxRequest())
+            $filterChain->run();
+        else
+            throw new CHttpException(404,Yii::t('yii','Your request is invalid.'));
+    }
+
     protected function beforeAction($action)
     {
         if ($_SERVER['HTTP_HOST'] == 'dev.happy-giraffe.ru'){

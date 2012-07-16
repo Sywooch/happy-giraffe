@@ -164,11 +164,11 @@ EOD;
 
             <div class="row">
                 <div class="row-title">Название альбома <span>(не более 30 знаков)</span></div>
-                <div class="row-elements">
+                <div class="row-elements"<?php if (! $model->title): ?> style="display: none;"<?php endif; ?>>
                     <span class="item-title"><?=$model->title?></span>
                     <a href="javascript:void(0)" onclick="Album.updateField(this)" class="edit tooltip" title="Редактировать название альбома"></a>
                 </div>
-                <div class="row-elements" style="display: none;">
+                <div class="row-elements"<?php if ($model->title): ?> style="display: none;"<?php endif; ?>>
                     <?=$form->textField($model, 'title', array('placeholder' => 'Введите название альбома'))?>
                     <button onclick="Album.updateFieldSubmit(this, '.item-title'); return false;" class="btn btn-green-small"><span><span>Ok</span></span></button>
                 </div>
@@ -177,10 +177,10 @@ EOD;
             </div>
             <div class="row">
                 <div class="row-title">Комментарий к альбому</div>
-                <div class="row-elements">
+                <div class="row-elements"<?php if (! $model->description): ?> style="display: none;"<?php endif; ?>>
                     <p><span><?=$model->description?></span><a href="javascript:void(0)" onclick="Album.updateField(this)" class="edit tooltip" title="Редактировать описание альбома"></a></p>
                 </div>
-                <div class="row-elements" style="display: none;">
+                <div class="row-elements"<?php if ($model->description): ?> style="display: none;"<?php endif; ?>>
                     <?=$form->textField($model, 'description')?>
                     <button onclick="Album.updateFieldSubmit(this, 'p > span'); return false;" class="btn btn-green-small"><span><span>Ok</span></span></button>
                 </div>

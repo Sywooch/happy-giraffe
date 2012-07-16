@@ -1,18 +1,32 @@
 <?php
-    $basePath = Yii::getPathOfAlias('cook') . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'recipe' . DIRECTORY_SEPARATOR . 'assets';
-    $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
+$basePath = Yii::getPathOfAlias('cook') . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'recipe' . DIRECTORY_SEPARATOR . 'assets';
+$baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
 
-    $cs = Yii::app()->clientScript;
+$cs = Yii::app()->clientScript;
 
-    $cs
-        ->registerScriptFile($baseUrl . '/searchByIngredients.js', CClientScript::POS_HEAD)
-        ->registerScriptFile('/javascripts/jquery.tmpl.min.js')
-        ->registerCoreScript('jquery.ui')
-        ->registerCssFile($cs->coreScriptUrl . '/jui/css/base/jquery-ui.css');
-    ;
+$cs
+    ->registerScriptFile($baseUrl . '/searchByIngredients.js', CClientScript::POS_HEAD)
+    ->registerScriptFile('/javascripts/jquery.tmpl.min.js')
+    ->registerCoreScript('jquery.ui')
+    ->registerCssFile($cs->coreScriptUrl . '/jui/css/base/jquery-ui.css');
+;
+$this->breadcrumbs = array(
+    'Кулинария' => array('/cook'),
+    'Рецепты' => array('/cook/recipe'),
+    'Поиск по ингредиентам'
+);
 ?>
 
-<div id="crumbs"><a href="">Главная</a> > <a href="">Сервисы</a> > <span>Приправы и специи</span></div>
+<?php
+$this->widget('zii.widgets.CBreadcrumbs', array(
+    'links' => $this->breadcrumbs,
+    'separator' => ' &gt; ',
+    'htmlOptions' => array(
+        'id' => 'crumbs',
+        'class' => null,
+    ),
+));
+?>
 
 <div id="cook-recipe-search">
     <?=CHtml::beginForm('/cook/recipe/searchResult/', 'get', array('id' => 'searchRecipeForm'))?>

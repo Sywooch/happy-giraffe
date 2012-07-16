@@ -26,62 +26,69 @@
   <script type="text/javascript">
     $(function(){
 		  
-      var $container = $('.album-photos');
+      /*var $container = $('.album-photos');
 
-			$contauner.each(function(){
-        $(this).imagesLoaded(function(){
+			$container.imagesLoaded(function(){
         
-          var hh = new Array;
+        var hh = new Array;
+        
+        var ttall = new Array;
+        
+        var i = 0;
+        
+        var min, max, sum = 0, tall = 0;
+        
+        $container.find('li img').each(function(){
+        
+          if (i == 0) min = max = $(this).height();
           
-          var ttall = new Array;
+          if ($(this).height() < min) min = $(this).height();
+          if ($(this).height() > max) max = $(this).height();
           
-          var i = 0;
+          hh[i] = $(this).height();
           
-          var min, max, sum = 0, tall = 0;
+          sum += hh[i];
           
-          $container.find('li img').each(function(){
+          i++;
           
-            if (i == 0) min = max = $(this).height();
+        });
+        
+        $.each(hh, function(i, v){
+          
+          //alert(v +' '+*min+max*);
+          
+          if (v > (min+max)/2*1.3) {
+            ttall[i] = i;
             
-            if ($(this).height() < min) min = $(this).height();
-            if ($(this).height() > max) max = $(this).height();
-            
-            hh[i] = $(this).height();
-            
-            sum += hh[i];
-            
-            i++;
-            
-          });
+            tall++;
+          }
           
-          $.each(hh, function(i, v){
-            
-            //alert(v +' '+*min+max*);
-            
-            if (v > (min+max)/2*1.3) {
-              ttall[i] = i;
-              tall++;
-            }
-            
-          })
-          
-          alert(tall);
-          
-          /*alert('count: '+hh.length);
-          alert('min: '+min);
-          alert('max: '+max);
-          alert('avg: '+sum/hh.length);*/
-          
-          
-          $container.masonry({
-            itemSelector : 'li',
-            columnWidth: 230
-          });
-            
         })
         
+        alert(tall);
+        
+        alert('count: '+hh.length);
+        alert('min: '+min);
+        alert('max: '+max);
+        alert('avg: '+sum/hh.length);
+        
+        
       });
-			
+			*/
+      
+      
+      $('.gallery-album').each(function(){
+        
+        var album = $(this);
+        
+        album.imagesLoaded(function(){
+          
+          //alert(album.find('.album-photos li img').size())
+          
+        })
+        
+      })
+      
 		});
   </script>
   
@@ -503,7 +510,7 @@
 						
 						<div id="gallery" class="nopadding">
 						
-							<div class="gallery-album">
+							<div class="gallery-album clearfix">
                 
                 <div class="album-title"><a href="">Зимние каникулы</a></div>
                 <div class="album-description">Хлопоты понемногу утихли а значит можно хорошо провести зимние выходные. В Славяногороске погода зимняя. </div>
@@ -523,7 +530,7 @@
                 
               </div>
               
-							<div class="gallery-album">
+							<div class="gallery-album clearfix">
                 
                 <div class="album-title"><a href="">Путешествие в Маями</a></div>
                 <div class="album-description">Хлопоты понемногу утихли а значит можно хорошо провести зимние выходные. В Славяногороске погода зимняя.Хлопоты понемногу утихли а значит можно хорошо провести зимние выходные. В Славяногороске погода зимняя. </div>
@@ -547,12 +554,12 @@
 				
 				<div class="side-left gallery-sidebar">
 					
-					<div class="clearfix">
+					<div class="clearfix user-info-big">
 						<div class="user-info">
 							<div class="ava female"></div>
 							<div class="details">
 								<span class="icon-status status-online"></span>
-								<a href="" class="username">Александр Богоявленский</a>
+								<a href="" class="username">Але</a>
 								<div class="user-fast-buttons">
 									<a href="" class="add-friend"><span class="tip">Пригласить в друзья</span></a>
 									<a href="" class="new-message"><span class="tip">Написать сообщение</span></a>

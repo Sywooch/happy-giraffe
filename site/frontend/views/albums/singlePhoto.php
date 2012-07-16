@@ -55,7 +55,7 @@
     'type' => 'simple',
     'options' => array(
         'title' => CHtml::encode($photo->w_title),
-        'image' => $photo->getPreviewUrl(960, 627, Image::HEIGHT, true),
+        'image' => $photo->getPreviewUrl(180, 180),
         'description' => $photo->w_description,
     ),
 )); ?>

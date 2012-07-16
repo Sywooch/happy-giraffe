@@ -28,6 +28,7 @@ class RecipeController extends HController
 
     public function actionIndex($type = null)
     {
+        $this->pageTitle = 'Рецепты';
         $this->layout = '//layouts/recipe';
         $this->currentType = $type;
 
@@ -39,6 +40,8 @@ class RecipeController extends HController
 
     public function actionForm($id = null)
     {
+        $this->pageTitle = 'Добавить рецепт';
+
         if ($id === null) {
             $recipe = new CookRecipe;
             $ingredients = array();
@@ -196,6 +199,7 @@ class RecipeController extends HController
 
     public function actionSearchByIngredients()
     {
+        $this->pageTitle = 'Поиск рецептов по ингредиентам';
         $this->render('searchByIngredients');
     }
 
@@ -210,6 +214,7 @@ class RecipeController extends HController
 
     public function actionAdvancedSearch()
     {
+        $this->pageTitle = 'Расширенный поиск рецептов';
         $cuisines = CookCuisine::model()->findAll();
         $this->render('advancedSearch', compact('cuisines'));
     }

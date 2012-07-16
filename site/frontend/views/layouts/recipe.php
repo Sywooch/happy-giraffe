@@ -1,6 +1,16 @@
 <?php $this->beginContent('//layouts/main'); ?>
 
-<div id="crumbs"><a href="">Главная</a> > <a href="">Сервисы</a> > <span>Приправы и специи</span></div>
+<!--<div id="crumbs"><a href="">Главная</a> > <a href="">Сервисы</a> > <span>Приправы и специи</span></div>-->
+<?php
+$this->widget('zii.widgets.CBreadcrumbs', array(
+    'links' => $this->breadcrumbs,
+    'separator' => ' &gt; ',
+    'htmlOptions' => array(
+        'id' => 'crumbs',
+        'class' => null,
+    ),
+));
+?>
 
 <div id="cook-recipe">
 

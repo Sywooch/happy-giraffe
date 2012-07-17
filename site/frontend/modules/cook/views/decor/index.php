@@ -10,9 +10,6 @@ $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
 
 Yii::app()->clientScript->registerScript('photo_gallery_entity_id', 'var photo_gallery_entity_id = "' . $entity_id . '";');
 
-$cs = Yii::app()->clientScript;
-$cs->registerScriptFile('/javascripts/jquery.masonry.min.js');
-
 ?>
 
 <div id="dishes">
@@ -102,12 +99,10 @@ $cs->registerScriptFile('/javascripts/jquery.masonry.min.js');
         <?php
         $this->widget('PhotosAjaxMasonry', array(
                 'dataProvider' => $dataProvider,
-                'controller' => $this,
 
                 'gallerySelector' => '.img > a',
                 'galleryEntity' => 'CookDecorationCategory',
                 'galleryEntity_id' => $entity_id,
-                'galleySinglePhoto' => false,
 
                 'masonryContainerSelector' => '#decorlv ul.items',
                 'masonryItemSelector' => 'li',

@@ -203,7 +203,7 @@ class RecipeController extends HController
         $this->render('searchByIngredients');
     }
 
-    public function actionSearchByIngredientsResult($ingredients = null)
+    public function actionSearchByIngredientsResult()
     {
         $ingredients = Yii::app()->request->getQuery('ingredients', array());
         $type = Yii::app()->request->getQuery('type', null);

@@ -338,7 +338,6 @@ class RecipeController extends HController
             Yii::app()->cache->set('recipesFeed', $feed, 0, new CDbCacheDependency('SELECT count(*) FROM ' . CookRecipe::model()->tableName()));
         }
 
-        die;
         echo $feed;
     }
 }

@@ -10,9 +10,6 @@ $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
 
 Yii::app()->clientScript->registerScript('photo_gallery_entity_id', 'var photo_gallery_entity_id = "' . $entity_id . '";');
 
-$cs = Yii::app()->clientScript;
-$cs->registerScriptFile('/javascripts/jquery.masonry.min.js');
-
 ?>
 
 <div id="dishes">
@@ -104,11 +101,14 @@ $cs->registerScriptFile('/javascripts/jquery.masonry.min.js');
                 'dataProvider' => $dataProvider,
                 'controller' => $this,
 
+                /* настройки аналогичные photoViewWidget
+                нужно для навешивания галереи после аякс подгрузки */
                 'gallerySelector' => '.img > a',
                 'galleryEntity' => 'CookDecorationCategory',
                 'galleryEntity_id' => $entity_id,
                 'galleySinglePhoto' => false,
 
+                /* настройки для jquery плагина masonry (выравнивание элементов по высоте) */
                 'masonryContainerSelector' => '#decorlv ul.items',
                 'masonryItemSelector' => 'li',
                 'masonryColumnWidth' => 240

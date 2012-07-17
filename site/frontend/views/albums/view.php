@@ -4,10 +4,6 @@ $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
     'entity' => 'Album',
     'entity_id' => $model->id,
 ));
-
-$cs = Yii::app()->clientScript;
-$cs->registerScriptFile('/javascripts/jquery.masonry.min.js');
-
 ?>
 
 <div id="user">

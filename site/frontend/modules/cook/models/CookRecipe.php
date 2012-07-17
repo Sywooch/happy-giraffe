@@ -292,6 +292,7 @@ class CookRecipe extends CActiveRecord
     public function findAdvanced($cuisine_id, $type, $preparation_duration, $cooking_duration, $lowFat, $lowCal, $forDiabetics)
     {
         $criteria = new CDbCriteria;
+        $criteria->with = array('photo', 'attachPhotos');
 
         if ($cuisine_id !== null)
             $criteria->compare('cuisine_id', $cuisine_id);
@@ -300,9 +301,9 @@ class CookRecipe extends CActiveRecord
 
         if ($preparation_duration !== null) {
             if ($this->durations[$preparation_duration]['min'] !== null)
-                $criteria->compare('preparation_duration', '>=' . $preparation_duration['min']);
+                $criteria->compare('preparation_duration', '>=' . $this->durations[$preparation_duration]['min']);
             if ($this->durations[$preparation_duration]['max'] !== null)
-                $criteria->compare('preparation_duration', '<' . $preparation_duration['max']);
+                $criteria->compare('preparation_duration', '<' . $this->durations[$preparation_duration]['max']);
         }
 
         if ($cooking_duration !== null) {
@@ -327,7 +328,7 @@ class CookRecipe extends CActiveRecord
         return $this->findAll($criteria);
     }
 
-    public function findByIngredients($ingredients, $type = null, $limit = null)
+    public function findByIngredients($ingredients, $type = null)
     {
         $subquery = Yii::app()->db->createCommand()
             ->select('count(*)')
@@ -336,12 +337,11 @@ class CookRecipe extends CActiveRecord
             ->text;
 
         $criteria = new CDbCriteria;
+        $criteria->with = array('photo', 'attachPhotos');
         $criteria->condition = '(' . $subquery . ') = :count';
         $criteria->params = array(':count' => count($ingredients));
         if ($type !== null)
             $criteria->compare('type', $type);
-        if ($limit !== null)
-            $criteria->limit = $limit;
 
         return $this->findAll($criteria);
     }
@@ -385,7 +385,7 @@ class CookRecipe extends CActiveRecord
 
     public function getPreview($imageWidth = 167)
     {
-        if ($this->photo !== null) {
+        if ($this->mainPhoto !== null) {
             $preview = CHtml::link(CHtml::image($this->photo->getPreviewUrl($imageWidth, null, Image::WIDTH)), $this->url);
         } else {
             $preview = CHtml::tag('p', array(), Str::truncate($this->text));

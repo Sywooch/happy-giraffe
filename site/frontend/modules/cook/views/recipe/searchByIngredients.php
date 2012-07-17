@@ -8,7 +8,9 @@ $cs
     ->registerScriptFile($baseUrl . '/searchByIngredients.js', CClientScript::POS_HEAD)
     ->registerScriptFile('/javascripts/jquery.tmpl.min.js')
     ->registerCoreScript('jquery.ui')
-    ->registerCssFile($cs->coreScriptUrl . '/jui/css/base/jquery-ui.css');
+    ->registerCssFile($cs->coreScriptUrl . '/jui/css/base/jquery-ui.css')
+    ->registerScriptFile('/javascripts/jquery.jscrollpane.min.js')
+    ->registerCssFile('/stylesheets/jquery.jscrollpane.css')
 ;
 $this->breadcrumbs = array(
     'Кулинария' => array('/cook'),

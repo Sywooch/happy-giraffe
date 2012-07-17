@@ -2,6 +2,7 @@
     $cs = Yii::app()->clientScript;
 
     $cs
+        ->registerScriptFile('/javascripts/jquery.masonry.min.js')
         ->registerScriptFile('/javascripts/viewAlbum.js')
     ;
 ?>

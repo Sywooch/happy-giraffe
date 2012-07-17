@@ -1,5 +1,10 @@
-<?php $type = $model->getType() ?>
-<div class="horoscope-fast-list">
+<?php if (Yii::app()->user->isGuest):?>
+    <div class="banner-box">
+        <a href="#register" class="fancy" data-theme="white-square"><img src="/images/banner_08.png"></a>
+    </div>
+
+<?php endif ?><?php $type = $model->getType() ?>
+<div class="horoscope-fast-list clearfix">
 
     <div class="title">Все знаки зодиака</div>
 

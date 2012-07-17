@@ -1,15 +1,32 @@
 <?php
-    $basePath = Yii::getPathOfAlias('cook') . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'recipe' . DIRECTORY_SEPARATOR . 'assets';
-    $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
+$basePath = Yii::getPathOfAlias('cook') . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'recipe' . DIRECTORY_SEPARATOR . 'assets';
+$baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
 
-    $cs = Yii::app()->clientScript;
+$cs = Yii::app()->clientScript;
 
-    $cs
-        ->registerScriptFile($baseUrl . '/advancedSearch.js', CClientScript::POS_HEAD)
-    ;
+$cs
+    ->registerScriptFile($baseUrl . '/advancedSearch.js', CClientScript::POS_HEAD)
+    ->registerScriptFile('/javascripts/jquery.jscrollpane.min.js')
+    ->registerCssFile('/stylesheets/jquery.jscrollpane.css')
+;
+
+$this->breadcrumbs = array(
+    'Кулинария' => array('/cook'),
+    'Рецепты' => array('/cook/recipe'),
+    'Расширенный поиск'
+);
 ?>
 
-<div id="crumbs"><a href="">Главная</a> > <a href="">Сервисы</a> > <span>Приправы и специи</span></div>
+<?php
+$this->widget('zii.widgets.CBreadcrumbs', array(
+    'links' => $this->breadcrumbs,
+    'separator' => ' &gt; ',
+    'htmlOptions' => array(
+        'id' => 'crumbs',
+        'class' => null,
+    ),
+));
+?>
 
 <div id="cook-recipe-search">
     <?=CHtml::beginForm('/cook/recipe/advancedSearchResult/', 'get', array('id' => 'searchRecipeForm'))?>
@@ -17,10 +34,11 @@
     <div class="title clear">
         <i class="icon"></i>
         <span>Поиск рецепта</span>
+
         <div class="nav">
             <ul>
-                <li><?=CHtml::link('По ингредиентам', array('/cook/recipe/searchByIngredients'))?></li>
-                <li class="active"><?=CHtml::link('Расширеный поиск', array('/cook/recipe/advancedSearch'))?></li>
+                <li><?=HHtml::link('По ингредиентам', array('/cook/recipe/searchByIngredients'), array(), true)?></li>
+                <li class="active"><?=HHtml::link('Расширеный поиск', array('/cook/recipe/advancedSearch'), array(), true)?></li>
             </ul>
         </div>
     </div>
@@ -95,7 +113,7 @@
 
             <div class="text">
 
-                <img src="/images/cook_recipe_search_fork.gif" /><br/>
+                <img src="/images/cook_recipe_search_fork.gif"/><br/>
 
                 <span>Выберите параметры<br/>поиска</span>
 

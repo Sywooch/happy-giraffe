@@ -26,7 +26,7 @@ return array(
         'js_dynamics/<hash:\w+>.js' => 'site/seoHide',
         'search' => 'site/search',
         'site/rememberPassword/step/<step:\d+>' => 'site/rememberPassword',
-        'site/<_a:(login|logout|link|test)>' => 'site/<_a>',
+        'site/<_a:(login|logout|link|test|users)>' => 'site/<_a>',
         'contest' => 'site/contest',
 
         // ajax controller
@@ -135,6 +135,7 @@ return array(
         'cook/recipe/edit/<id:\d+>' => 'cook/recipe/form',
         'cook/recipe/<id:\d+>' => 'cook/recipe/view',
         'cook/recipe/type/<type:\d+>' => 'cook/recipe/index',
+        'cook/recipe/feed.xml' => 'cook/recipe/feed',
         'cook/recipe/<_a:(ac|import|search|searchByIngredients|advancedSearch|searchByIngredientsResult|advancedSearchResult)>' => 'cook/recipe/<_a>',
 
         'cook/spices/category/<id:[\w_]+>' => 'cook/spices/category',

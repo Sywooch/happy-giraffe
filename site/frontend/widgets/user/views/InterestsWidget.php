@@ -1,5 +1,5 @@
 <div class="user-interests">
-    <div class="box-title">Интересы<?=CHtml::link('', array('/ajax/interestsForm'), array('class' => 'interest-add fancy'))?></div>
+    <div class="box-title">Интересы<?php if ($this->isMyProfile): ?><?=CHtml::link('', array('/ajax/interestsForm'), array('class' => 'interest-add fancy'))?><?php endif; ?></div>
 
     <ul>
         <?php foreach ($this->interests as $category): ?>

@@ -281,18 +281,21 @@ class RecipeController extends HController
 
     public function actionFeed()
     {
+        header("Content-type: text/xml; charset=utf-8");
         $feed = Yii::app()->cache->get('recipesFeed');
         if ($feed === false) {
             $recipes = CookRecipe::model()->with('cuisine', 'author', 'ingredients.ingredient', 'ingredients.unit')->findAll(array('order' => 'created DESC'));
 
-            $xml = new SimpleXMLElement('<entities/>');
+            $xml = new SimpleXMLElement('<?xml version="1.0" encoding="utf-8"?><entities/>');
 
             foreach ($recipes as $r) {
                 $recipe = $xml->addChild('recipe');
                 $recipe->addChild('name', $r->title);
                 $recipe->addChild('url', $r->url);
                 $recipe->addChild('type', $r->typeString);
-                $recipe->addChild('cuisine-type', $r->cuisine->title . ' кухня');
+                if ($r->cuisine !== null) {
+                    $recipe->addChild('cuisine-type', $r->cuisine->title . ' кухня');
+                }
                 $recipe->addChild('author', $r->author->fullName);
 
                 foreach ($r->ingredients as $i) {
@@ -318,7 +321,7 @@ class RecipeController extends HController
                     $nutrition->addChild('value', $value);
                 }
 
-                $recipe->addChild('instructions', $r->text);
+                $recipe->addChild('instructions', html_entity_decode(strip_tags($r->text), ENT_COMPAT, 'utf-8'));
                 $recipe->addChild('calorie', $r->nutritionals['total']['nutritionals'][1] . ' ккал');
                 $recipe->addChild('weight', $r->nutritionals['total']['weight'] . ' г');
                 if ($r->mainPhoto !== null) {
@@ -335,6 +338,7 @@ class RecipeController extends HController
             $feed = $xml->asXML();
             Yii::app()->cache->set('recipesFeed', $feed, 0, new CDbCacheDependency('SELECT count(*) FROM ' . CookRecipe::model()->tableName()));
         }
+
         echo $feed;
     }
 }

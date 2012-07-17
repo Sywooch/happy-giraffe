@@ -7,9 +7,7 @@ $(function(){
         album.imagesLoaded(function(){
           
           
-          var albumSize = album.data('count');
-          alert(albumSize);
-          
+          var albumSize = album.data('count');          
 
           var hh = new Array, ttall = new Array, ssmall = new Array;
           var min, max, tall = 0;

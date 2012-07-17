@@ -1,32 +1,18 @@
 <?php
-    $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
-        'selector' => '.img > a',
-        'entity' => 'Album',
-        'entity_id' => $model->id,
-    ));
+$this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
+    'selector' => '.img > a',
+    'entity' => 'Album',
+    'entity_id' => $model->id,
+));
 
-    $cs = Yii::app()->clientScript;
+$cs = Yii::app()->clientScript;
+$cs->registerScriptFile('/javascripts/jquery.masonry.min.js');
+//$cs->registerScriptFile('/javascripts/photosAjaxMasonry.js');
 
-    $js =
-<<<EOD
-$(function(){
+$basePath = Yii::getPathOfAlias('application.views') . DIRECTORY_SEPARATOR . 'albums' . DIRECTORY_SEPARATOR . 'assets';
+$baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
+Yii::app()->clientScript->registerScriptFile($baseUrl . '/view.js', CClientScript::POS_HEAD);
 
-    var container = $('#photosList');
-
-    container.imagesLoaded( function(){
-        container.masonry({
-            itemSelector : 'li',
-            columnWidth: 240
-        });
-    });
-
-});
-EOD;
-
-    $cs
-        ->registerScriptFile('/javascripts/jquery.masonry.min.js')
-        ->registerScript('albumView', $js)
-    ;
 
 ?>
 
@@ -36,9 +22,10 @@ EOD;
         <div class="main-in">
 
             <div class="content-title-new">
-                Альбом «<?=$model->title?>»<?php if (Yii::app()->user->id == $this->user->id): ?> <?=CHtml::link('', '#albumSettings', array('class' => 'settings tooltip fancy', 'title' => 'Настройки альбома'))?><?php endif; ?>
+                Альбом «<?=$model->title?>
+                »<?php if (Yii::app()->user->id == $this->user->id): ?> <?= CHtml::link('', '#albumSettings', array('class' => 'settings tooltip fancy', 'title' => 'Настройки альбома')) ?><?php endif; ?>
                 <?php if ($model->description): ?>
-                    <span><?=$model->description?></span>
+                <span><?=$model->description?></span>
                 <?php endif; ?>
             </div>
 
@@ -47,24 +34,34 @@ EOD;
                 <div class="gallery-photos-new cols-3 clearfix">
 
                     <?php
-                        $this->widget('MyListView', array(
-                            'dataProvider'=>$dataProvider,
-                            'itemView'=>'_photo',
-                            'summaryText' => 'показано: {start} - {end} из {count}',
-                            'pager' => array(
-                                'class' => 'AlbumLinkPager',
-                            ),
-                            'id' => 'photosList',
-                            'itemsTagName' => 'ul',
-                            'template' => '{items}
-                            <div class="pagination pagination-center clearfix">
-                                {pager}
-                            </div>
-                            ',
-                            'viewData' => array(
-                                'currentPage' => $dataProvider->pagination->currentPage,
-                            ),
-                        ));
+                    $this->widget('MyListView', array(
+                        'dataProvider' => $dataProvider,
+                        'itemView' => '_photo',
+                        'summaryText' => 'показано: {start} - {end} из {count}',
+                        'pager' => array(
+                            'class' => 'AlbumLinkPager',
+                        ),
+                        'id' => 'photosList',
+                        'itemsTagName' => 'ul',
+                        //'template' => '{items}<div class="pagination pagination-center clearfix">{pager}</div>',
+                        'template' => '{items}',
+                        'viewData' => array(
+                            'currentPage' => $dataProvider->pagination->currentPage,
+                        ),
+                    ));
+
+                    //$this->widget('PhotosAjaxMasonry', array('dataProvider' => $dataProvider));
+                    ?>
+
+                    <?php
+                    $pager = new CLinkPager();
+                    $cpagination = $dataProvider->getPagination();
+                    $pager->pages = $cpagination;
+
+                    if ($cpagination->currentPage + 1 < $cpagination->pageCount) {
+                        $nextUrl = $pager->createPageUrl($cpagination->currentPage + 1);
+                        echo '<a href="' . $nextUrl . '" class="more-btn" id="more-btn" data-loading="0" data-albumid="'.$model->id.'" onclick="photosAjaxMasonry.load(this, event); return false;"> Показать еще фотографии </a>';
+                    }
                     ?>
 
                 </div>
@@ -92,12 +89,12 @@ EOD;
         </div>
 
         <?php if (Yii::app()->user->id == $this->user->id): ?>
-            <div class="upload-photo-btn">
-                <?php
-                    AlbumsController::loadUploadScritps();
-                    echo CHtml::link(CHtml::image('/images/btn_upload_photo.png'), array('addPhoto'), array('class' => 'fancy btn btn-green'));
-                ?>
-            </div>
+        <div class="upload-photo-btn">
+            <?php
+            AlbumsController::loadUploadScritps();
+            echo CHtml::link(CHtml::image('/images/btn_upload_photo.png'), array('addPhoto'), array('class' => 'fancy btn btn-green'));
+            ?>
+        </div>
         <?php endif; ?>
 
         <div class="club-topics-list-new">
@@ -105,25 +102,25 @@ EOD;
             <div class="block-title">Мои альбомы</div>
 
             <?php
-                $items = array();
+            $items = array();
+            $items[] = array(
+                'label' => 'Все альбомы',
+                'url' => array('albums/user', 'id' => $this->user->id),
+                'template' => '<span>{menu}</span>',
+            );
+
+            foreach ($model->author->albums('albums:noSystem') as $album) {
                 $items[] = array(
-                    'label' => 'Все альбомы',
-                    'url' => array('albums/user', 'id' => $this->user->id),
-                    'template' => '<span>{menu}</span>',
+                    'label' => $album->title,
+                    'url' => $album->url,
+                    'template' => '<span>{menu}</span><div class="count">' . $album->photoCount . '</div>',
+                    'active' => $album->id == $model->id,
                 );
+            }
 
-                foreach ($model->author->albums('albums:noSystem') as $album) {
-                    $items[] = array(
-                        'label' => $album->title,
-                        'url' => $album->url,
-                        'template' => '<span>{menu}</span><div class="count">' . $album->photoCount . '</div>',
-                        'active' => $album->id == $model->id,
-                    );
-                }
-
-                $this->widget('zii.widgets.CMenu', array(
-                    'items' => $items,
-                ));
+            $this->widget('zii.widgets.CMenu', array(
+                'items' => $items,
+            ));
             ?>
 
         </div>
@@ -148,15 +145,15 @@ EOD;
         </div>-->
 
         <?php $form = $this->beginWidget('CActiveForm', array(
-            'action' => array('/ajax/setValues/'),
-            'enableAjaxValidation' => true,
-            'clientOptions' => array(
-                'validateOnType' => true,
-            ),
-            'htmlOptions' => array(
-                'onsubmit' => 'ajaxSetValues(this, function(response) {if (response) {$.fancybox.close(); window.location.reload();}}); return false;',
-            ),
-        )); ?>
+        'action' => array('/ajax/setValues/'),
+        'enableAjaxValidation' => true,
+        'clientOptions' => array(
+            'validateOnType' => true,
+        ),
+        'htmlOptions' => array(
+            'onsubmit' => 'ajaxSetValues(this, function(response) {if (response) {$.fancybox.close(); window.location.reload();}}); return false;',
+        ),
+    )); ?>
         <?=CHtml::hiddenField('entity', get_class($model))?>
         <?=CHtml::hiddenField('entity_id', $model->id)?>
 
@@ -200,9 +197,9 @@ EOD;
 </div>
 
 <?php
-    if (Yii::app()->user->id == $this->user->id) {
-        $remove_tmpl = $this->beginWidget('site.frontend.widgets.removeWidget.RemoveWidget');
-        $remove_tmpl->registerTemplates();
-        $this->endWidget();
-    }
+if (Yii::app()->user->id == $this->user->id) {
+    $remove_tmpl = $this->beginWidget('site.frontend.widgets.removeWidget.RemoveWidget');
+    $remove_tmpl->registerTemplates();
+    $this->endWidget();
+}
 ?>

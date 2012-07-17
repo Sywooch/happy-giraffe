@@ -21,6 +21,11 @@ class UserRolesController extends BController
     {
         $model = $this->loadModel($id);
 
+        if (isset($_POST['User']['group'])){
+            $model->group = $_POST['User']['group'];
+            $model->save();
+        }
+
         if (isset($_POST['User'])) {
             //clear all
             $assignments = Yii::app()->authManager->getAuthAssignments($model->id);

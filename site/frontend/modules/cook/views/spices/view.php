@@ -64,25 +64,25 @@
             </div>
 
 
-            <?php if(count($recipes)){ ?>
+            <?php if (count($recipes)) { ?>
 
-                <div class="cook-more clearfix" style="display:none">
-                    <div class="block-title">
-                        Рецепты с <?=$model->title_ablative;?> на нашем сайте
-                        <a href="" class="btn btn-blue-small"><span><span>Показать все</span></span></a>
-                    </div>
-                    <ul>
-
-                        <?php
-                        foreach ($recipes as $recipe) {
-                            $this->renderPartial('_recipe', compact('recipe'));
-                        }
-                        ?>
-
-
-                    </ul>
-
+            <div class="cook-more clearfix" style="">
+                <div class="block-title">
+                    Рецепты с <?=$model->title_ablative;?> на нашем сайте
+                    <a href="" class="btn btn-blue-small"><span><span>Показать все</span></span></a>
                 </div>
+                <ul>
+
+                    <?php
+                    foreach ($recipes as $recipe) {
+                        $this->renderPartial('_recipe', compact('recipe'));
+                    }
+                    ?>
+
+
+                </ul>
+
+            </div>
 
             <?php } ?>
 

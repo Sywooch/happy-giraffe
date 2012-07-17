@@ -53,7 +53,7 @@ class SiteCommand extends CConsoleCommand
 
         $users = User::model()->findAll($criteria);
         foreach ($users as $user) {
-            $user->group = UserGourp::MODERATOR;
+            $user->group = UserGroup::MODERATOR;
             $user->update('group');
         }
 
@@ -62,7 +62,7 @@ class SiteCommand extends CConsoleCommand
 
         $users = User::model()->findAll($criteria);
         foreach ($users as $user) {
-            $user->group = UserGourp::SMO;
+            $user->group = UserGroup::SMO;
             $user->update('group');
         }
 
@@ -71,7 +71,7 @@ class SiteCommand extends CConsoleCommand
 
         $users = User::model()->findAll($criteria);
         foreach ($users as $user) {
-            $user->group = UserGourp::EDITOR;
+            $user->group = UserGroup::EDITOR;
             $user->update('group');
         }
 
@@ -79,7 +79,7 @@ class SiteCommand extends CConsoleCommand
         $users = Yii::app()->db->createCommand('select distinct(userid) from auth__assignments where itemname="virtual_user"')->queryColumn();
         foreach ($users as $user_id) {
             $user = User::getUserById($user_id);
-            $user->group = UserGourp::VIRTUAL;
+            $user->group = UserGroup::VIRTUAL;
             $user->update('group');
         }
     }

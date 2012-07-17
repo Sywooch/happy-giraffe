@@ -18,8 +18,8 @@
                 <div class="title">
 
                     <div class="links">
-                        <?=CHtml::link('По ингредиентам', array('/cook/recipe/searchByIngredients'))?>
-                        <?=CHtml::link('Расширеный поиск', array('/cook/recipe/advancedSearch'))?>
+                        <?=HHtml::link('По ингредиентам', array('/cook/recipe/searchByIngredients'), array(), true)?>
+                        <?=HHtml::link('Расширеный поиск', array('/cook/recipe/advancedSearch'), array(), true)?>
                     </div>
 
                     <i class="icon"></i>
@@ -50,7 +50,7 @@
 
                     <div class="add-btn">
                         <a href="<?=(Yii::app()->user->isGuest) ? '#login' : $this->createUrl('/cook/recipe/add')?>"
-                           class="btn btn-green-medium<?php if (Yii::app()->user->isGuest): ?> fancy<?php endif; ?>"  data-theme="white-square"><span><span>Добавить рецепт</span></span></a>
+                           class="btn btn-green-medium<?php if (Yii::app()->user->isGuest): ?> fancy<?php endif; ?>" data-theme="white-square"><span><span>Добавить рецепт</span></span></a>
                     </div>
 
 

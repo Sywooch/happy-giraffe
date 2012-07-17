@@ -14,7 +14,7 @@
         <title><?=CHtml::encode($this->pageTitle)?></title>
     <?php endif;
 
-    $release_id = 326;
+    $release_id = 327;
     $cs = Yii::app()->clientScript;
     $cs
         ->registerScriptFile('/javascripts/comet.js')
@@ -138,7 +138,10 @@
 
                     </div>
                 <?php else: ?>
-                    <?php $this->widget('application.widgets.loginWidget.LoginWidget'); ?>
+                    <ul class="fast-links clearfix a-right">
+                        <li><?= CHtml::link('Вход', '#login', array('class' => 'fancy', 'rel' => 'nofollow', 'data-theme'=>'white-square')); ?></li>
+                        <li><?=CHtml::link('Регистрация', '#register', array('id'=>'reg-main-btn', 'class' => 'fancy', 'data-theme'=>'white-square'))?></li>
+                    </ul>
                 <?php endif; ?>
 
                 <ul class="fast-links clearfix">
@@ -496,9 +499,10 @@
         </script>
     <?php endif; ?>
 
-<?php if (Yii::app()->user->isGuest) $this->widget('application.widgets.registerWidget.RegisterWidget'); ?>
-
-
+<?php if (Yii::app()->user->isGuest) {
+    $this->widget('application.widgets.registerWidget.RegisterWidget');
+    $this->widget('application.widgets.loginWidget.LoginWidget');
+}?>
 <noindex>
         <!-- Yandex.Metrika counter -->
         <script type="text/javascript">

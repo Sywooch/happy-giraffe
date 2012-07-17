@@ -18,8 +18,8 @@
                 <div class="title">
 
                     <div class="links">
-                        <?=CHtml::link('По ингредиентам', array('/cook/recipe/searchByIngredients'))?>
-                        <?=CHtml::link('Расширеный поиск', array('/cook/recipe/advancedSearch'))?>
+                        <?=HHtml::link('По ингредиентам', array('/cook/recipe/searchByIngredients'), array(), true)?>
+                        <?=HHtml::link('Расширеный поиск', array('/cook/recipe/advancedSearch'), array(), true)?>
                     </div>
 
                     <i class="icon"></i>

@@ -7,7 +7,7 @@
     ));
 ?>
 
-<div id="photo-inline">
+<div id="photo-inline" itemscope itemtype="http://schema.org/ImageObject">
 
     <div class="meta">
 
@@ -25,7 +25,9 @@
 
     </div>
 
-    <div class="title"><h1><?=$photo->w_title?></h1></div>
+    <?php if ($photo->w_title): ?>
+        <div class="title"><h1 itemprop="name"><?=$photo->w_title?></h1></div>
+    <?php endif; ?>
 
     <div class="img">
 
@@ -40,24 +42,15 @@
 
         </div>
 
-        <?=CHtml::image($photo->getPreviewUrl(960, 627, Image::HEIGHT, true), '')?>
+        <?=CHtml::image($photo->getPreviewUrl(960, 627, Image::HEIGHT, true), '', array('itemprop' => 'contentURL'))?>
+
+        <meta itemprop="width" content="<?=$photo->width?> px">
+        <meta itemprop="height" content="<?=$photo->height?> px">
 
     </div>
 
-    <div class="photo-comment"><?=$photo->w_description?></div>
+    <?php if ($photo->w_description): ?>
+        <div class="photo-comment" itemprop="description"><?=$photo->w_description?></div>
+    <?php endif; ?>
 
 </div>
-
-<?php $this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
-    'title' => 'Вам понравилось фото?',
-    'notice' => '<big>Рейтинг фото</big><p>Он показывает, насколько нравится ваше фото другим пользователям. Если фото интересное, то пользователи его смотрят, комментируют, увеличивают лайки социальных сетей.</p>',
-    'model' => $photo,
-    'type' => 'simple',
-    'options' => array(
-        'title' => CHtml::encode($photo->w_title),
-        'image' => $photo->getPreviewUrl(180, 180),
-        'description' => $photo->w_description,
-    ),
-)); ?>
-
-<?php $this->widget('application.widgets.commentWidget.CommentWidget', array('model' => $photo)); ?>

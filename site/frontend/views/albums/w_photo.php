@@ -61,7 +61,7 @@
                pGallery.first = <?=$p->primaryKey?>;
             <?php endif; ?>
 
-            <?php if ($i < $count - 1): ?>
+            <?php if ($i == $count - 1): ?>
                 pGallery.last = <?=$p->primaryKey?>;
             <?php endif; ?>
         <?php endforeach; ?>

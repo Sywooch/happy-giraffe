@@ -549,4 +549,15 @@ class CookRecipe extends CActiveRecord
     {
         return $this->types[$this->type];
     }
+
+    public function getCookingDurationString()
+    {
+        if ($this->cooking_duration < 60) {
+            return $this->cooking_duration_m . ' мин';
+        } elseif ($this->cooking_duration % 60 == 0) {
+            return $this->cooking_duration_h . ' ч';
+        } else {
+            return $this->cooking_duration_h . ' ч' . $this->cooking_duration_m . ' мин';
+        }
+    }
 }

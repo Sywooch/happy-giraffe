@@ -128,6 +128,7 @@ return array(
         'cook/recipe/edit/<id:\d+>' => 'cook/recipe/form',
         'cook/recipe/<id:\d+>' => 'cook/recipe/view',
         'cook/recipe/type/<type:\d+>' => 'cook/recipe/index',
+        'cook/recipe/feed.xml' => 'cook/recipe/feed',
         'cook/recipe/<_a:(ac|import|search|searchByIngredients|advancedSearch|searchByIngredientsResult|advancedSearchResult)>' => 'cook/recipe/<_a>',
 
         'cook/spices/category/<id:[\w_]+>' => 'cook/spices/category',

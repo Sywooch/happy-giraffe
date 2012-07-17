@@ -180,15 +180,15 @@ jQuery.fn.pGallery = function(options) {
         var currentPrev = pGallery.photos[pGallery.currentPhoto];
         var currentNext = pGallery.photos[pGallery.currentPhoto];
         for (var i = 0; i < depth; i++) {
-            if (currentNext.next != null) {
-                currentNext = pGallery.photos[currentNext.next];
-                images.push(currentNext.src);
-            }
+            if (currentNext.next == null)
+                currentNext = pGallery.photos[pGallery.first];
+            if (currentPrev.prev == null)
+                currentPrev = pGallery.photos[pGallery.last];
 
-            if (currentPrev.prev != null) {
-                currentPrev = pGallery.photos[currentPrev.prev];
-                images.push(currentPrev.src);
-            }
+            currentNext = pGallery.photos[currentNext.next];
+            images.push(currentNext.src);
+            currentPrev = pGallery.photos[currentPrev.prev];
+            images.push(currentPrev.src);
         }
 
         console.log(images.length);

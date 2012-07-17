@@ -544,4 +544,9 @@ class CookRecipe extends CActiveRecord
 
         return $dp;
     }
+
+    public function getTypeString()
+    {
+        return $this->types[$this->type];
+    }
 }

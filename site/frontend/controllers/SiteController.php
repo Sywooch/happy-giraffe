@@ -324,4 +324,12 @@ class SiteController extends HController
         die;
         echo $xml->result[0]->fsdfs;
     }
+
+    public function actionUsers()
+    {
+        $users = User::model()->findAll(array('condition' => 'register_date between "2012-07-01 00:00:00" AND "2012-07-16 00:00:00"'));
+        foreach ($users as $u) {
+            echo '<p>' . CHtml::link($u->fullName, $u->url) . '</p>';
+        }
+    }
 }

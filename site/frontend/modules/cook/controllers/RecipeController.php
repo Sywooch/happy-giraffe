@@ -28,6 +28,7 @@ class RecipeController extends HController
 
     public function actionIndex($type = null)
     {
+        $this->pageTitle = 'Рецепты';
         $this->layout = '//layouts/recipe';
         $this->currentType = $type;
 
@@ -39,6 +40,8 @@ class RecipeController extends HController
 
     public function actionForm($id = null)
     {
+        $this->pageTitle = 'Добавить рецепт';
+
         if ($id === null) {
             $recipe = new CookRecipe;
             $ingredients = array();
@@ -196,6 +199,7 @@ class RecipeController extends HController
 
     public function actionSearchByIngredients()
     {
+        $this->pageTitle = 'Поиск рецептов по ингредиентам';
         $this->render('searchByIngredients');
     }
 
@@ -210,6 +214,7 @@ class RecipeController extends HController
 
     public function actionAdvancedSearch()
     {
+        $this->pageTitle = 'Расширенный поиск рецептов';
         $cuisines = CookCuisine::model()->findAll();
         $this->render('advancedSearch', compact('cuisines'));
     }
@@ -272,5 +277,53 @@ class RecipeController extends HController
             );
         }
         return $data;
+    }
+
+    public function actionFeed()
+    {
+        $recipes = CookRecipe::model()->with('cuisine', 'author', 'ingredients.ingredient', 'ingredients.unit')->findAll(array('order' => 'created DESC', 'limit' => 3));
+
+        $xml = new SimpleXMLElement('<entities/>');
+
+        foreach ($recipes as $r) {
+            $recipe = $xml->addChild('recipe');
+            $recipe->addChild('name', $r->title);
+            $recipe->addChild('url', $r->url);
+            $recipe->addChild('type', $r->typeString);
+            $recipe->addChild('cuisine-type', $r->cuisine->title . ' кухня');
+            $recipe->addChild('author', $r->author->fullName);
+
+            foreach ($r->ingredients as $i) {
+                $ingredient = $recipe->addChild('ingredient');
+                switch ($i->unit->type) {
+                    case 'qty':
+                        $ingredient->addChild('name', HDate::GenerateNoun(array($i->unit->title, $i->unit->title2, $i->unit->title3), $i->value));
+                        $ingredient->addChild('quantity', $i->display_value);
+                        break;
+                    case 'undefined':
+                        $ingredient->addChild('name', $i->title . ' '. $i->unit->title);
+                        break;
+                    default:
+                        $ingredient->addChild('name', $i->title);
+                        $ingredient->addChild('type', HDate::GenerateNoun(array($i->unit->title, $i->unit->title2, $i->unit->title3), $i->value));
+                        $ingredient->addChild('value', $i->display_value);
+                }
+            }
+
+            $recipe->addChild('instructions', $r->text);
+            $recipe->addChild('calorie', $r->nutritionals['total']['nutritionals'][1] . ' ккал');
+            $recipe->addChild('weight', $r->nutritionals['total']['weight'] . ' г');
+            if ($r->mainPhoto !== null) {
+                $recipe->addChild('final-photo', $r->mainPhoto->getPreviewUrl(441, null, Image::WIDTH));
+            }
+            if ($r->servings !== null) {
+                $recipe->addChild('yield', $r->servings);
+            }
+            if ($r->cooking_duration !== null) {
+                $recipe->addChild('duration', ($r->cooking_duration_h != 0) ? $r->cooking_duration_h . ' ч' : '');
+            }
+        }
+
+        echo $xml->asXML();
     }
 }

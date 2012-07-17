@@ -13,7 +13,7 @@ class InterestsWidget extends UserCoreWidget
         Yii::import('site.common.models.interest.*');
 
         $this->interests = InterestCategory::model()->findAll(array(
-            'params' => array(':user_id' => 12936),
+            'params' => array(':user_id' => $this->user->id),
             'with' => array(
                 'interests' => array(
                     'with' => 'usersCount',

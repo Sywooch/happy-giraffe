@@ -294,12 +294,13 @@ class AlbumPhoto extends HActiveRecord
             if ($crop)
                 $image->crop($width, $height, $crop_side);
 
-            var_dump($image->width);
-            die;
-            $this->width = $image->width;
-            $this->height = $image->height;
             $image->save($thumb);
         }
+
+        $size = getimagesize($thumb);
+        $this->width = $size[0];
+        $this->height = $size[1];
+
         return $thumb;
     }
 

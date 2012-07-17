@@ -38,8 +38,8 @@ $this->widget('zii.widgets.CBreadcrumbs', array(
         <span>Поиск рецепта</span>
         <div class="nav">
             <ul>
-                <li class="active"><?=CHtml::link('По ингредиентам', array('/cook/recipe/searchByIngredients'))?></li>
-                <li><?=CHtml::link('Расширеный поиск', array('/cook/recipe/advancedSearch'))?></li>
+                <li class="active"><?=HHtml::link('По ингредиентам', array('/cook/recipe/searchByIngredients'), array(), true)?></li>
+                <li><?=HHtml::link('Расширеный поиск', array('/cook/recipe/advancedSearch'), array(), true)?></li>
             </ul>
         </div>
     </div>

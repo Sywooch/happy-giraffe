@@ -173,8 +173,6 @@ jQuery.fn.pGallery = function(options) {
     };
 
     plugin.preloadPhotos = function() {
-        console.log('preloading');
-
         var depth = 3;
         var images = [];
         var currentPrev = pGallery.photos[pGallery.currentPhoto];
@@ -190,8 +188,6 @@ jQuery.fn.pGallery = function(options) {
             currentPrev = pGallery.photos[currentPrev.prev];
             images.push(currentPrev.src);
         }
-
-        console.log(images.length);
 
         $(images).each(function() {
             $('<img/>')[0].src = this;

@@ -282,7 +282,7 @@ class RecipeController extends HController
     public function actionFeed()
     {
         $feed = Yii::app()->cache->get('recipesFeed');
-        if ($feed === false) {
+        if ($feed === false || true) {
             $recipes = CookRecipe::model()->with('cuisine', 'author', 'ingredients.ingredient', 'ingredients.unit')->findAll(array('order' => 'created DESC', 'limit' => 5));
 
             $xml = new SimpleXMLElement('<?xml version="1.0" encoding="utf-8"?><entities/>');

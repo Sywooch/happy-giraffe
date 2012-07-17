@@ -22,7 +22,7 @@ class InterestsWidget extends UserCoreWidget
         ));
 
         $this->visible = $this->isMyProfile || ! empty($this->interests);
-        var_dump($this->visible);
+        var_dump($this->isMyProfile);
 
         $basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR;
         $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);

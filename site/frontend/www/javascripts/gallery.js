@@ -13,7 +13,6 @@ jQuery.fn.pGallery = function(options) {
         plugin.history = null,
         plugin.init = false;
         plugin.originalTitle = null;
-        plugin.singlePhoto = false;
 
     plugin.openWindow = function(id) {
         if(this.init)

@@ -25,7 +25,9 @@
 
     </div>
 
-    <div class="title"><h1 itemprop="name"><?=$photo->w_title?></h1></div>
+    <?php if ($photo->w_title): ?>
+        <div class="title"><h1 itemprop="name"><?=$photo->w_title?></h1></div>
+    <?php endif; ?>
 
     <div class="img">
 
@@ -47,6 +49,8 @@
 
     </div>
 
-    <div class="photo-comment" itemprop="description"><?=$photo->w_description?></div>
+    <?php if ($photo->w_description): ?>
+        <div class="photo-comment" itemprop="description"><?=$photo->w_description?></div>
+    <?php endif; ?>
 
 </div>

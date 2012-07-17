@@ -32,6 +32,9 @@ class AlbumPhoto extends HActiveRecord
     public $w_title = null;
     public $w_description = null;
 
+    public $width;
+    public $height;
+
     /**
      * @var string original photos folder
      */
@@ -290,6 +293,9 @@ class AlbumPhoto extends HActiveRecord
 
             if ($crop)
                 $image->crop($width, $height, $crop_side);
+
+            $this->width = $image->width;
+            $this->height = $image->height;
             $image->save($thumb);
         }
         return $thumb;

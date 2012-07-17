@@ -3,7 +3,7 @@ class DecorController extends HController
 {
     public function actionIndex($id = false)
     {
-        $perPage = 9;
+        $perPage = 2;
 
         $category = ($id) ? CookDecorationCategory::model()->findByPk($id) : null;
 

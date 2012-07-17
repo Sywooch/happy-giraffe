@@ -21,6 +21,7 @@ class PhotosAjaxMasonry extends CWidget
     public function init()
     {
         $cs = Yii::app()->clientScript;
+        $cs->registerScriptFile('/javascripts/jquery.masonry.min.js');
         $cs->registerScriptFile('/javascripts/photosAjaxMasonry.js');
 
         Yii::app()->clientScript->registerScript(

@@ -5,7 +5,13 @@ var photosAjaxMasonry = {
         container.imagesLoaded(function () {
             container.masonry({
                 itemSelector:itemSelector,
-                columnWidth:parseInt(columnWidth)
+                columnWidth:parseInt(columnWidth),
+                isAnimated: true,
+                animationOptions: {
+                    duration: 300,
+                    easing: 'linear',
+                    queue: false
+                }
             });
         });
     },
@@ -21,7 +27,7 @@ var photosAjaxMasonry = {
 
         $.post(url, function (data) {
             var html = data.html;
-            var newItems = $(html).find(button.attr('data-masonry-selector'));
+            var newItems = $(html).find(button.attr('data-masonry-selector') + ' ' + button.attr('data-masonry-item'));
 
             var nextUrl = $(html).find('#more-btn').attr('href');
 
@@ -34,6 +40,7 @@ var photosAjaxMasonry = {
             container.append(newItems);
             container.imagesLoaded(function () {
                 container.masonry('appended', newItems, true);
+                //container.masonry('reload');
                 button.attr('data-loading', '0').text(' Показать еще фотографии ');
 
                 $(button.attr('data-gallery-selector')).pGallery({

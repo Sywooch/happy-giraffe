@@ -81,6 +81,7 @@ class AlbumsController extends HController
             throw new CHttpException(404, 'Альбом не найден');
 
         $pageSize = !Yii::app()->user->isGuest && $model->author_id == Yii::app()->user->id ? 1000 : 20;
+        //$pageSize = 2;
 
         $dataProvider = new CActiveDataProvider('AlbumPhoto', array(
             'criteria' => array(

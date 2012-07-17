@@ -5,7 +5,10 @@ $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG
 $cs = Yii::app()->clientScript;
 
 $cs
-    ->registerScriptFile($baseUrl . '/advancedSearch.js', CClientScript::POS_HEAD);
+    ->registerScriptFile($baseUrl . '/advancedSearch.js', CClientScript::POS_HEAD)
+    ->registerScriptFile('/javascripts/jquery.jscrollpane.min.js')
+    ->registerCssFile('/stylesheets/jquery.jscrollpane.css')
+;
 
 $this->breadcrumbs = array(
     'Кулинария' => array('/cook'),

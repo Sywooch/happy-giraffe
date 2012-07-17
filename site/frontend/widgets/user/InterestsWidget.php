@@ -9,6 +9,7 @@ class InterestsWidget extends UserCoreWidget
 
     public function init()
     {
+        parent::init();
         Yii::import('site.common.models.interest.*');
 
         $this->interests = InterestCategory::model()->findAll(array(
@@ -26,6 +27,5 @@ class InterestsWidget extends UserCoreWidget
         $basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR;
         $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
         Yii::app()->clientScript->registerScriptFile($baseUrl . '/interest.js');
-        parent::init();
     }
 }

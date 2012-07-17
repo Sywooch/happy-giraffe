@@ -191,6 +191,8 @@ jQuery.fn.pGallery = function(options) {
             }
         }
 
+        console.log(images.length);
+
         $(images).each(function() {
             $('<img/>')[0].src = this;
         });

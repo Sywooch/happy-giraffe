@@ -42,8 +42,8 @@
 
         <?=CHtml::image($photo->getPreviewUrl(960, 627, Image::HEIGHT, true), '', array('itemprop' => 'contentURL'))?>
 
-        <meta itemprop="width" content="250 px">
-        <meta itemprop="height" content="250 px">
+        <meta itemprop="width" content="<?=$photo->width?> px">
+        <meta itemprop="height" content="<?=$photo->height?> px">
 
     </div>
 

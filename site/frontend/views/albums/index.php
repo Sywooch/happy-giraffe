@@ -32,7 +32,7 @@
                                 <?php foreach ($album->getRelated('photos', false, array('order' => 'RAND()', 'limit' => 5)) as $photo): ?>
                                     <li><?=CHtml::image($photo->getPreviewUrl(210, null, Image::WIDTH))?></li>
                                 <?php endforeach; ?>
-                                <li class="more"><?=CHtml::link('<i class="icon"></i>еще <span class="count">' . ($count - 5) . '</span> фото', $album->url)?></li>
+                                <li class="more"><?=CHtml::link('<i class="icon"></i>еще <span class="count"></span> фото', $album->url)?></li>
                             </ul>
 
                         </div>

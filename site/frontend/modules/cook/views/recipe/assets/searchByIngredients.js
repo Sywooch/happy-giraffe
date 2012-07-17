@@ -10,6 +10,7 @@ CookRecipe.search = function()
         function(response) {
             $('div.result').html(response);
             $('select.chzn').chosen();
+            $('.scroll').jScrollPane({showArrows: true});
         }
     );
 }

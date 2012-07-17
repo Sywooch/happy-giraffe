@@ -29,7 +29,7 @@
                         <div class="album-photos">
 
                             <ul>
-                                <?php foreach ($album->getRelated('photos', false, array('order' => 'RAND()', 'limit' => 2)) as $photo): ?>
+                                <?php foreach ($album->getRelated('photos', false, array('order' => 'RAND()', 'limit' => 5)) as $photo): ?>
                                     <li><?=CHtml::image($photo->getPreviewUrl(210, null, Image::WIDTH))?></li>
                                 <?php endforeach; ?>
                                 <?php if (($count = count($album->photos)) > 2): ?>

@@ -139,6 +139,11 @@ class SeoCommand extends CConsoleCommand
         IndexParserThread::collectUrls();
     }
 
+    public function actionRefreshParsing(){
+        Yii::app()->db_seo->createCommand('update proxies set active = 0')->execute();
+        Yii::app()->db_seo->createCommand('update indexing__urls set active = 0')->execute();
+    }
+
     public function actionParseIndex()
     {
         Yii::import('site.seo.modules.indexing.components.*');
@@ -149,12 +154,12 @@ class SeoCommand extends CConsoleCommand
         $parser->start();
     }
 
-    public function actionAddUp($date){
+    public function actionAddUp(){
         Yii::import('site.seo.modules.indexing.components.*');
         Yii::import('site.seo.modules.indexing.models.*');
 
         $model = new IndexingUp();
-        $model->date = $date;
+        $model->date = date("Y-m-d") ;
         echo $model->save();
     }
 }

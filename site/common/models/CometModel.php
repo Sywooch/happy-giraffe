@@ -27,9 +27,11 @@ class CometModel extends CComponent
     /**
      * Send message to user channel across comet server
      *
-     * @param int $user_id user id who receive this message
+     * @param $receiver
      * @param array $attributes
      * @param int $type signal type constant from CometModel
+     * @return void
+     * @internal param int $user_id user id who receive this message
      */
     public function send($receiver, $attributes = null, $type = null){
         if ($attributes !== null)
@@ -44,7 +46,7 @@ class CometModel extends CComponent
 
     public function sendToSeoUsers()
     {
-        $user_ids = Yii::app()->db_seo->createCommand()
+        $user_ids = Yii::app()->db->createCommand()
             ->select('userid')
             ->from('auth__assignments')
             ->where('itemname = "moderator" OR itemname = "editor"')

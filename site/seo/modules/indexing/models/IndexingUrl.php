@@ -58,7 +58,7 @@ class IndexingUrl extends HActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'urls' => array(self::HAS_MANY, 'IndexingUpUrl', 'url_id'),
+			'urls' => array(self::HAS_MANY, 'IndexingUpUrl', 'url_id', 'order'=>'url'),
 		);
 	}
 
@@ -93,4 +93,14 @@ class IndexingUrl extends HActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+    public function getTitle()
+    {
+        $page = Page::model()->findByAttributes(array('url'=>trim($this->url)));
+        if ($page !== null){
+            return $page->getArticleTitle();
+        }
+
+        return '';
+    }
 }

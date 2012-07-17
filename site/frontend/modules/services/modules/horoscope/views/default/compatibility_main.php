@@ -2,8 +2,6 @@
 /* @var $model HoroscopeCompatibility
  * @var $form CActiveForm
  */
-
-Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
 ?>
 <div id="horoscope">
 

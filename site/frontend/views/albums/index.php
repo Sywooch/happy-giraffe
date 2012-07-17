@@ -40,7 +40,7 @@
 
     <div class="side-left gallery-sidebar">
 
-        <div class="clearfix">
+        <div class="clearfix user-info-big">
             <?php
                 $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
                     'user' => $this->user,

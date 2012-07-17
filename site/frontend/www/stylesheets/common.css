@@ -172,11 +172,14 @@ a.info {display:inline-block;width:13px;height:13px;background:url(../images/com
 .user-info .details .birthday span {color:#aeaeae;}
 .user-info .details .date {color:#b3b3b3;font-size:9px;margin-top:3px;margin-left:15px;}
 
-.user-info .text-status {clear:both;margin-top:15px;background:#fdfacf;position:relative;padding:10px 15px;font:italic 13px/16px times new roman, serif;color:#5b5c5c;margin-bottom:25px;}
+.user-info .text-status {clear:both;background:#d7edff;position:relative;padding:10px 15px;font-size:11px;color:#5e5e5e;line-height:14px;}
 .user-info .text-status {/*css3*/ -moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px;}
 .user-info .text-status .tale {display:block;width:21px;height:30px;background:url(/images/common.png) no-repeat -424px -261px;position:absolute;top:-30px;left:20px;}
+.user-info-big {margin-bottom:25px;}
+.user-info-big .ava, .user-info-big .details {margin-bottom:15px;}
 
-.user-fast-buttons {padding-top:2px;margin-bottom:8px;}
+
+.user-fast-buttons {padding-top:2px;margin-bottom:5px;}
 .user-fast-buttons a {display:inline-block;position:relative;margin-right:4px;text-decoration:none;}
 .user-fast-buttons span.friend {float:left;color:#22af16;margin-right:5px;font-size:13px;margin-top:2px;}
 .user-fast-buttons .add-friend {width:22px;height:18px;background:url(/images/common.png) no-repeat -256px -298px;}
@@ -1365,7 +1368,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 #gallery .gallery-album .album-description {margin-bottom:20px;font-size:11px;font-family:tahoma, arial, helvetica, sans-serif;}
 
 #gallery .gallery-album .album-photos ul {list-style:none;}
-#gallery .gallery-album .album-photos ul li {display:inline-block;width:214px;padding-right:16px;vertical-align:top;}
+#gallery .gallery-album .album-photos ul li {float:left;margin:0 20px 20px 0;width:210px;}
 #gallery .gallery-album .album-photos ul li.more {font-size:13px;padding-top:30px;text-align:center;width:160px;}
 #gallery .gallery-album .album-photos ul li.more a {color:#b9b9b9;text-decoration:none;}
 #gallery .gallery-album .album-photos ul li.more .icon {display:block;width:56px;height:56px;background:url(../images/common.png) no-repeat -499px -135px;margin:0 auto;margin-bottom:10px;}
@@ -1581,7 +1584,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 
 /* */
 
-.default-comments {padding-bottom:20px;margin-top:20px;border-bottom:1px dashed #95c8ff;}
+.default-comments {padding-bottom:20px;margin-top:20px;border-bottom:1px dashed #95c8ff;width:700px;margin:40px auto 0;}
 .default-comments .add, .default-comments .all {padding-top:10px;text-align:right;}
 .default-comments ul {padding-top:10px;list-style:none;}
 .default-comments > ul > li {padding:2px 0px;border-top:1px dashed #95c8ff;}
@@ -2537,8 +2540,7 @@ body.gallery {overflow:hidden;}
 #photo-window #photo .next:hover .icon {background-position:-137px -341px;}
 
 #photo-window #photo-content {background:#fff;margin:20px 130px 0;padding:0 25px 25px;}
-#photo-window #photo-content .like-block {background:#f8f8f8;width:540px;padding:20px 0;margin:0 auto 50px;}
-#photo-window #photo-content .like-block {/*css3*/ -moz-border-radius:0 0 20px 20px;-webkit-border-radius:0 0 20px 20px;border-radius:0 0 20px 20px;}
+#photo-window #photo-content .like-block {margin:0 auto 50px;}
 
 #photo-window .photo-comment {background:#2a2a2a;font-size:11px;color:#afaeae;font-family:tahoma, arial, helvetica, sans-serif;padding:0 150px 20px;text-align:center;line-height:14px;}
 #photo-window .photo-comment textarea {width:75%;padding:2px 5px;border:1px solid #c5e8ef;vertical-align:top;background:#fff;margin-left:-6px;height:60px;}
@@ -2577,7 +2579,7 @@ body.gallery {overflow:hidden;}
 .fast-photos .block-title {font-size:20px;color:#262626;line-height:1;margin-bottom:15px;text-align:left;}
 .fast-photos .block-title span {font-size:44px;color:#262626;font-weight:bold;float:left;margin-right:10px;}
 .fast-photos .preview {position:relative;width:200px;height:180px;}
-.fast-photos .preview img {position:absolute;display:block;}
+.fast-photos .preview img {position:absolute;display:block;border:1px solid #dbdbdb;}
 .fast-photos .preview img.img-1 {top:0;left:0;}
 .fast-photos .preview img.img-2 {right:0;top:20px;}
 .fast-photos .preview img.img-3 {left:20px;bottom:0;}

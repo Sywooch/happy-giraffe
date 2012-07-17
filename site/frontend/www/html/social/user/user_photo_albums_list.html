@@ -19,8 +19,78 @@
 	
 	<script type="text/javascript" src="/javascripts/jquery.placeholder.min.js"></script>
 	
+  <script type="text/javascript" src="/javascripts/jquery.masonry.min.js"></script>
+  
 	<script type="text/javascript" src="/javascripts/common.js"></script>	
   
+  <script type="text/javascript">
+    $(function(){
+		  
+      /*var $container = $('.album-photos');
+
+			$container.imagesLoaded(function(){
+        
+        var hh = new Array;
+        
+        var ttall = new Array;
+        
+        var i = 0;
+        
+        var min, max, sum = 0, tall = 0;
+        
+        $container.find('li img').each(function(){
+        
+          if (i == 0) min = max = $(this).height();
+          
+          if ($(this).height() < min) min = $(this).height();
+          if ($(this).height() > max) max = $(this).height();
+          
+          hh[i] = $(this).height();
+          
+          sum += hh[i];
+          
+          i++;
+          
+        });
+        
+        $.each(hh, function(i, v){
+          
+          //alert(v +' '+*min+max*);
+          
+          if (v > (min+max)/2*1.3) {
+            ttall[i] = i;
+            
+            tall++;
+          }
+          
+        })
+        
+        alert(tall);
+        
+        alert('count: '+hh.length);
+        alert('min: '+min);
+        alert('max: '+max);
+        alert('avg: '+sum/hh.length);
+        
+        
+      });
+			*/
+      
+      
+      $('.gallery-album').each(function(){
+        
+        var album = $(this);
+        
+        album.imagesLoaded(function(){
+          
+          //alert(album.find('.album-photos li img').size())
+          
+        })
+        
+      })
+      
+		});
+  </script>
   
 	<!--[if IE 7]>
 		<link rel="stylesheet" href='/stylesheets/ie.css' type="text/css" media="screen" />
@@ -440,7 +510,7 @@
 						
 						<div id="gallery" class="nopadding">
 						
-							<div class="gallery-album">
+							<div class="gallery-album clearfix">
                 
                 <div class="album-title"><a href="">Зимние каникулы</a></div>
                 <div class="album-description">Хлопоты понемногу утихли а значит можно хорошо провести зимние выходные. В Славяногороске погода зимняя. </div>
@@ -450,6 +520,9 @@
                   <ul>
                     <li><img src="/images/example/gallery_album_img_01.jpg"></li>
                     <li><img src="/images/example/gallery_album_img_02.jpg"></li>
+                    <li><img src="/images/example/gallery_album_img_07.jpg"></li>
+                    <li><img src="/images/example/gallery_album_img_06.jpg"></li>
+                    <li><img src="/images/example/gallery_album_img_05.jpg"></li>
                     <li class="more"><a href=""><i class="icon"></i>еще 63 фото</a></li>
                   </ul>
                   
@@ -457,7 +530,7 @@
                 
               </div>
               
-							<div class="gallery-album">
+							<div class="gallery-album clearfix">
                 
                 <div class="album-title"><a href="">Путешествие в Маями</a></div>
                 <div class="album-description">Хлопоты понемногу утихли а значит можно хорошо провести зимние выходные. В Славяногороске погода зимняя.Хлопоты понемногу утихли а значит можно хорошо провести зимние выходные. В Славяногороске погода зимняя. </div>
@@ -481,12 +554,12 @@
 				
 				<div class="side-left gallery-sidebar">
 					
-					<div class="clearfix">
+					<div class="clearfix user-info-big">
 						<div class="user-info">
 							<div class="ava female"></div>
 							<div class="details">
 								<span class="icon-status status-online"></span>
-								<a href="" class="username">Александр Богоявленский</a>
+								<a href="" class="username">Але</a>
 								<div class="user-fast-buttons">
 									<a href="" class="add-friend"><span class="tip">Пригласить в друзья</span></a>
 									<a href="" class="new-message"><span class="tip">Написать сообщение</span></a>

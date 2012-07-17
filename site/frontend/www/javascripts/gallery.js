@@ -173,12 +173,14 @@ jQuery.fn.pGallery = function(options) {
     };
 
     plugin.preloadPhotos = function() {
+        console.log('preloading');
+
         var depth = 3;
         var images = [];
         var currentPrev = pGallery.photos[pGallery.currentPhoto];
         var currentNext = pGallery.photos[pGallery.currentPhoto];
         for (var i = 0; i < depth; i++) {
-            if (currentNext.next == null) {
+            if (currentNext.next != null) {
                 currentNext = pGallery.photos[currentNext.next];
                 images.push(currentNext.src);
             }
@@ -188,6 +190,8 @@ jQuery.fn.pGallery = function(options) {
                 images.push(currentPrev.src);
             }
         }
+
+        console.log(images.length);
 
         $(images).each(function() {
             $('<img/>')[0].src = this;

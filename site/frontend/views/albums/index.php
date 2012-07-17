@@ -16,10 +16,10 @@
                 Фотоальбомы
             </div>
 
-            <?php foreach ($dataProvider->data as $album): ?>
-                <div id="gallery" class="nopadding">
 
-                    <div class="gallery-album">
+            <div id="gallery" class="nopadding">
+                <?php foreach ($dataProvider->data as $album): ?>
+                    <div class="gallery-album" data-count="<?=count($album->photos)?>">
 
                         <div class="album-title"><?=CHtml::link($album->title, $album->url)?></div>
                         <?php if ($album->description): ?>
@@ -32,17 +32,14 @@
                                 <?php foreach ($album->getRelated('photos', false, array('order' => 'RAND()', 'limit' => 5)) as $photo): ?>
                                     <li><?=CHtml::image($photo->getPreviewUrl(210, null, Image::WIDTH))?></li>
                                 <?php endforeach; ?>
-                                <?php if (($count = count($album->photos)) > 5): ?>
-                                    <li class="more"><?=CHtml::link('<i class="icon"></i>еще ' . ($count - 5) . ' фото', $album->url)?></li>
-                                <?php endif; ?>
+                                <li class="more"><?=CHtml::link('<i class="icon"></i>еще <span class="count">' . ($count - 5) . '</span> фото', $album->url)?></li>
                             </ul>
 
                         </div>
 
                     </div>
-
-                </div>
-            <?php endforeach; ?>
+                <?php endforeach; ?>
+            </div>
 
         </div>
     </div>

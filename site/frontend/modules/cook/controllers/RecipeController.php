@@ -288,20 +288,13 @@ class RecipeController extends HController
             $xml = new SimpleXMLElement('<entities/>');
 
             foreach ($recipes as $r) {
+                echo $r->id . '<br />';
                 $recipe = $xml->addChild('recipe');
                 $recipe->addChild('name', $r->title);
                 $recipe->addChild('url', $r->url);
                 $recipe->addChild('type', $r->typeString);
                 if ($recipe->cuisine !== null) {
-                    try {
-                        $r->cuisine->title ;
-                    } catch (Exception $e) {
-                        echo $r->id;
-                        die;
-                    }
-                    $recipe->addChild('cuisine-type', $r
-                        ->cuisine
-                        ->title . ' кухня');
+                    $recipe->addChild('cuisine-type', $r->cuisine->title . ' кухня');
                 }
                 $recipe->addChild('author', $r->author->fullName);
 
@@ -345,6 +338,8 @@ class RecipeController extends HController
             $feed = $xml->asXML();
             Yii::app()->cache->set('recipesFeed', $feed, 0, new CDbCacheDependency('SELECT count(*) FROM ' . CookRecipe::model()->tableName()));
         }
+
+        die;
         echo $feed;
     }
 }

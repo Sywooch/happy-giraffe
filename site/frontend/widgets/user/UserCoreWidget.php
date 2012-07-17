@@ -13,6 +13,8 @@ class UserCoreWidget extends CWidget
 
     public function init()
     {
+        var_dump($this->user->id);
+        var_dump(Yii::app()->user->id);
         $this->isMyProfile = $this->user->id == Yii::app()->user->id;
     }
 

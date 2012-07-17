@@ -294,7 +294,7 @@ class RecipeController extends HController
                 $recipe->addChild('type', $r->typeString);
                 if ($recipe->cuisine !== null) {
                     try {
-                        $r->cuisine->type ;
+                        $r->cuisine->title ;
                     } catch (Exception $e) {
                         echo $r->id;
                         die;

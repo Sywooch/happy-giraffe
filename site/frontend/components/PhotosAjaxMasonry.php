@@ -2,7 +2,6 @@
 class PhotosAjaxMasonry extends CWidget
 {
     public $dataProvider;
-    public $controller;
 
     public $linkId = 'more-btn';
     public $linkClass = 'more-btn';
@@ -11,7 +10,6 @@ class PhotosAjaxMasonry extends CWidget
     public $gallerySelector;
     public $galleryEntity;
     public $galleryEntity_id;
-    public $galleySinglePhoto;
 
     public $masonryContainerSelector;
     public $masonryItemSelector;
@@ -21,6 +19,7 @@ class PhotosAjaxMasonry extends CWidget
     public function init()
     {
         $cs = Yii::app()->clientScript;
+        $cs->registerScriptFile('/javascripts/jquery.masonry.min.js');
         $cs->registerScriptFile('/javascripts/photosAjaxMasonry.js');
 
         Yii::app()->clientScript->registerScript(
@@ -35,7 +34,7 @@ class PhotosAjaxMasonry extends CWidget
         $pager->pages = $cpagination;
 
         if ($cpagination->currentPage + 1 < $cpagination->pageCount) {
-            $nextUrl = $pager->getPages()->createPageUrl($this->controller, $cpagination->currentPage + 1);
+            $nextUrl = $pager->getPages()->createPageUrl(Yii::app()->controller, $cpagination->currentPage + 1);
             $params = array(
                 'class' => $this->linkClass,
                 'id' => $this->linkId,
@@ -44,7 +43,6 @@ class PhotosAjaxMasonry extends CWidget
                 'data-gallery-entity' => $this->galleryEntity,
                 'data-gallery-entity-id' => $this->galleryEntity_id,
                 'data-gallery-selector' => $this->gallerySelector,
-                'data-gallery-single-photo' => $this->galleySinglePhoto,
                 'data-masonry-selector' => $this->masonryContainerSelector,
                 'data-masonry-item' => $this->masonryItemSelector,
             );

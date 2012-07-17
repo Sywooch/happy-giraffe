@@ -4,10 +4,6 @@ $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
     'entity' => 'Album',
     'entity_id' => $model->id,
 ));
-
-$cs = Yii::app()->clientScript;
-$cs->registerScriptFile('/javascripts/jquery.masonry.min.js');
-
 ?>
 
 <div id="user">
@@ -46,12 +42,10 @@ $cs->registerScriptFile('/javascripts/jquery.masonry.min.js');
 
                     $this->widget('PhotosAjaxMasonry', array(
                             'dataProvider' => $dataProvider,
-                            'controller' => $this,
 
                             'gallerySelector' => '.img > a',
                             'galleryEntity' => 'Album',
                             'galleryEntity_id' => $model->id,
-                            'galleySinglePhoto' => false,
 
                             'masonryContainerSelector' => '#photosList ul.items',
                             'masonryItemSelector' => 'li',

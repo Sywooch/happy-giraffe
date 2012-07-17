@@ -99,16 +99,11 @@ Yii::app()->clientScript->registerScript('photo_gallery_entity_id', 'var photo_g
         <?php
         $this->widget('PhotosAjaxMasonry', array(
                 'dataProvider' => $dataProvider,
-                'controller' => $this,
 
-                /* настройки аналогичные photoViewWidget
-                нужно для навешивания галереи после аякс подгрузки */
                 'gallerySelector' => '.img > a',
                 'galleryEntity' => 'CookDecorationCategory',
                 'galleryEntity_id' => $entity_id,
-                'galleySinglePhoto' => false,
 
-                /* настройки для jquery плагина masonry (выравнивание элементов по высоте) */
                 'masonryContainerSelector' => '#decorlv ul.items',
                 'masonryItemSelector' => 'li',
                 'masonryColumnWidth' => 240

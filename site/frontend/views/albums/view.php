@@ -42,12 +42,10 @@ $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
 
                     $this->widget('PhotosAjaxMasonry', array(
                             'dataProvider' => $dataProvider,
-                            'controller' => $this,
 
                             'gallerySelector' => '.img > a',
                             'galleryEntity' => 'Album',
                             'galleryEntity_id' => $model->id,
-                            'galleySinglePhoto' => false,
 
                             'masonryContainerSelector' => '#photosList ul.items',
                             'masonryItemSelector' => 'li',

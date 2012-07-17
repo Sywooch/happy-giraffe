@@ -44,7 +44,7 @@ var photosAjaxMasonry = {
                 button.attr('data-loading', '0').text(' Показать еще фотографии ');
 
                 $(button.attr('data-gallery-selector')).pGallery({
-                    'singlePhoto':button.attr('ata-gallery-single-photo'),
+                    'singlePhoto':false,
                     'entity':button.attr('data-gallery-entity'),
                     'entity_id':button.attr('data-gallery-entity-id')
                 });

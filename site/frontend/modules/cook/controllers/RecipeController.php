@@ -288,7 +288,7 @@ class RecipeController extends HController
             $xml = new SimpleXMLElement('<entities/>');
 
             foreach ($recipes as $r) {
-                echo $r->id . '<br />';
+                Yii::log($r->id);
                 $recipe = $xml->addChild('recipe');
                 $recipe->addChild('name', $r->title);
                 $recipe->addChild('url', $r->url);

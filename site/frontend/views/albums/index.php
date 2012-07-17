@@ -1,3 +1,11 @@
+<?php
+    $cs = Yii::app()->clientScript;
+
+    $cs
+        ->registerScriptFile('/javascripts/viewAlbum.js')
+    ;
+?>
+
 <div id="user">
 
     <div class="main">

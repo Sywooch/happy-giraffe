@@ -1,7 +1,4 @@
 <?php
-
-
-
 $categories = CookDecorationCategory::model()->findAll();
 
 $entity_id = ($id) ? $category->id : null;
@@ -12,13 +9,6 @@ $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
 ));
 
 Yii::app()->clientScript->registerScript('photo_gallery_entity_id', 'var photo_gallery_entity_id = "' . $entity_id . '";');
-
-$cs = Yii::app()->clientScript;
-$cs->registerScriptFile('/javascripts/jquery.masonry.min.js');
-
-$basePath = Yii::getPathOfAlias('cook') . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'decor' . DIRECTORY_SEPARATOR . 'assets';
-$baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
-Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js', CClientScript::POS_HEAD);
 
 ?>
 
@@ -98,11 +88,6 @@ Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js', CClientScr
                 'summaryText' => '',
                 'template' => '{items}',
                 'enablePagination' => false,
-                'pager' => array(
-                    'class' => 'AlbumLinkPager',
-                ),
-
-                //'tagName' => 'ul',
                 'itemsTagName' => 'ul'
 
             ));
@@ -112,21 +97,19 @@ Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js', CClientScr
         </div>
 
         <?php
-        $params = array();
-        $id = Yii::app()->request->getParam('id');
-        if ($id !== null)
-            $params['id'] = $id;
-        $params['page'] = Yii::app()->request->getParam('page', 1) + 1;
+        $this->widget('PhotosAjaxMasonry', array(
+                'dataProvider' => $dataProvider,
 
-        if ($params['page'] <= $pages):
-            $url = $this->createUrl('/cook/decor/index', $params);
-            ?>
+                'gallerySelector' => '.img > a',
+                'galleryEntity' => 'CookDecorationCategory',
+                'galleryEntity_id' => $entity_id,
 
-
-            <a href="<?=$url;?>" class="more-btn" id="more-btn" data-loading="0">
-                Показать еще фотографии
-            </a>
-            <?php endif; ?>
+                'masonryContainerSelector' => '#decorlv ul.items',
+                'masonryItemSelector' => 'li',
+                'masonryColumnWidth' => 240
+            )
+        );
+        ?>
 
     </div>
 

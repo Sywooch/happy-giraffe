@@ -46,7 +46,6 @@ jQuery.fn.pGallery = function(options) {
             pGallery.currentPhoto = plugin.data.id;
             $('#photo-window').append(html);
 
-            console.log(getScrollBarWidth());
             $('#photo-window-in', this.window).css('left', Math.ceil(getScrollBarWidth()/2) + 'px');
 
             plugin.window.find('.close').bind('click', function() {plugin.closeWindow();return false;});
@@ -173,25 +172,16 @@ jQuery.fn.pGallery = function(options) {
     };
 
     plugin.preloadPhotos = function() {
-        console.log('preloading');
-
         var depth = 3;
         var images = [];
         var currentPrev = pGallery.photos[pGallery.currentPhoto];
         var currentNext = pGallery.photos[pGallery.currentPhoto];
         for (var i = 0; i < depth; i++) {
-            if (currentNext.next != null) {
-                currentNext = pGallery.photos[currentNext.next];
-                images.push(currentNext.src);
-            }
-
-            if (currentPrev.prev != null) {
-                currentPrev = pGallery.photos[currentPrev.prev];
-                images.push(currentPrev.src);
-            }
+            currentNext = (currentNext.next == null) ? pGallery.photos[pGallery.first] : pGallery.photos[currentNext.next];
+            currentPrev = (currentPrev.prev == null) ? pGallery.photos[pGallery.last] : pGallery.photos[currentPrev.prev];
+            images.push(currentNext.src);
+            images.push(currentPrev.src);
         }
-
-        console.log(images.length);
 
         $(images).each(function() {
             $('<img/>')[0].src = this;

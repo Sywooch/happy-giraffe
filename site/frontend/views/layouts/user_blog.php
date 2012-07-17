@@ -126,9 +126,11 @@
 
         <div class="col-23 clearfix">
 
-            <!--<div class="new-blog-btn"><a href="" class="btn btn-orange-smallest"><span><span>Создать блог</span></span></a></div>-->
+            <?php if (Yii::app()->user->isGuest): ?>
+                <div class="new-blog-btn"><a href="#login" class="btn btn-orange-smallest fancy"><span><span>Создать блог</span></span></a></div>'
+            <?php endif; ?>
 
-            <div class="blog-title"><?=($this->user->blog_title === null) ? 'Мой личный блог' : $this->user->blog_title?><?php if ($this->user->id == Yii::app()->user->id):?> <a href="#blogSettings" class="settings fancy tooltip" title="Настройка блога"></a><?php endif; ?></div>
+            <div class="blog-title"><?=($this->user->blog_title === null) ? 'Блог - ' . $this->user->fullName : $this->user->blog_title?><?php if ($this->user->id == Yii::app()->user->id):?> <a href="#blogSettings" class="settings fancy tooltip" title="Настройка блога"></a><?php endif; ?></div>
 
             <?=$content?>
 

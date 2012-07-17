@@ -1,5 +1,5 @@
 <div id="photo-content">
-    <?php $this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
+    <?php /*$this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
         'title' => 'Вам понравилось фото?',
         'notice' => '<big>Рейтинг фото</big><p>Он показывает, насколько нравится ваше фото другим пользователям. Если фото интересное, то пользователи его смотрят, комментируют, увеличивают лайки социальных сетей.</p>',
         'model' => $photo,
@@ -9,7 +9,7 @@
             'image' => $photo->getPreviewUrl(180, 180),
             'description' => $photo->w_description,
         ),
-    )); ?>
+    ));*/ ?>
 
     <?php
         Yii::import('site.common.models.forms.PhotoViewComment');

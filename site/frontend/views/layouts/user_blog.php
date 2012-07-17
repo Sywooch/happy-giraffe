@@ -14,7 +14,7 @@
 
         <div class="col-1">
 
-            <div class="clearfix">
+            <div class="clearfix user-info-big">
                 <?php
                 $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
                     'user' => $this->user,

@@ -321,7 +321,7 @@ class RecipeController extends HController
                     $nutrition->addChild('value', $value);
                 }
 
-                $recipe->addChild('instructions', htmlentities(strip_tags($r->text), ENT_DISALLOWED));
+                $recipe->addChild('instructions', html_entity_decode(strip_tags($r->text)));
                 $recipe->addChild('calorie', $r->nutritionals['total']['nutritionals'][1] . ' ккал');
                 $recipe->addChild('weight', $r->nutritionals['total']['weight'] . ' г');
                 if ($r->mainPhoto !== null) {

@@ -19,13 +19,16 @@
         ?>
     </div>
     <div class="content">
-        <img src="<?=$recipe->photo->getPreviewUrl(243, 243, false, true, AlbumPhoto::CROP_SIDE_TOP) ?>" title="<?=$recipe->title ?>" />
+        <?php if ($recipe->photo): ?>
+        <img src="<?=$recipe->photo->getPreviewUrl(243, 243, false, true, AlbumPhoto::CROP_SIDE_TOP) ?>" title="<?=$recipe->title ?>"/>
+        <?php endif; ?>
+
         <p>
             <b>Ингредиенты для &laquo;<?=$recipe->title ?>&raquo;</b>
             <?php foreach ($recipe->ingredients as $i): ?>
-                <?=$i->ingredient->title?>
-                <?=round($i->value, 2)?>
-                <?=HDate::GenerateNoun(array($i->unit->title, $i->unit->title2, $i->unit->title3), $i->value)?>
+            <?= $i->ingredient->title ?>
+            <?= round($i->value, 2) ?>
+            <?= HDate::GenerateNoun(array($i->unit->title, $i->unit->title2, $i->unit->title3), $i->value) ?>
             <br/>
             <?php endforeach; ?>
 

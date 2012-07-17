@@ -7,12 +7,6 @@ $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
 
 $cs = Yii::app()->clientScript;
 $cs->registerScriptFile('/javascripts/jquery.masonry.min.js');
-//$cs->registerScriptFile('/javascripts/photosAjaxMasonry.js');
-
-$basePath = Yii::getPathOfAlias('application.views') . DIRECTORY_SEPARATOR . 'albums' . DIRECTORY_SEPARATOR . 'assets';
-$baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
-Yii::app()->clientScript->registerScriptFile($baseUrl . '/view.js', CClientScript::POS_HEAD);
-
 
 ?>
 
@@ -50,18 +44,20 @@ Yii::app()->clientScript->registerScriptFile($baseUrl . '/view.js', CClientScrip
                         ),
                     ));
 
-                    //$this->widget('PhotosAjaxMasonry', array('dataProvider' => $dataProvider));
-                    ?>
+                    $this->widget('PhotosAjaxMasonry', array(
+                            'dataProvider' => $dataProvider,
+                            'controller' => $this,
 
-                    <?php
-                    $pager = new CLinkPager();
-                    $cpagination = $dataProvider->getPagination();
-                    $pager->pages = $cpagination;
+                            'gallerySelector' => '.img > a',
+                            'galleryEntity' => 'Album',
+                            'galleryEntity_id' => $model->id,
+                            'galleySinglePhoto' => false,
 
-                    if ($cpagination->currentPage + 1 < $cpagination->pageCount) {
-                        $nextUrl = $pager->createPageUrl($cpagination->currentPage + 1);
-                        echo '<a href="' . $nextUrl . '" class="more-btn" id="more-btn" data-loading="0" data-albumid="'.$model->id.'" onclick="photosAjaxMasonry.load(this, event); return false;"> Показать еще фотографии </a>';
-                    }
+                            'masonryContainerSelector' => '#photosList ul.items',
+                            'masonryItemSelector' => 'li',
+                            'masonryColumnWidth' => 240
+                        )
+                    );
                     ?>
 
                 </div>
@@ -161,7 +157,7 @@ Yii::app()->clientScript->registerScriptFile($baseUrl . '/view.js', CClientScrip
 
             <div class="row">
                 <div class="row-title">Название альбома <span>(не более 30 знаков)</span></div>
-                <div class="row-elements"<?php if (! $model->title): ?> style="display: none;"<?php endif; ?>>
+                <div class="row-elements"<?php if (!$model->title): ?> style="display: none;"<?php endif; ?>>
                     <span class="item-title"><?=$model->title?></span>
                     <a href="javascript:void(0)" onclick="Album.updateField(this)" class="edit tooltip" title="Редактировать название альбома"></a>
                 </div>
@@ -174,7 +170,7 @@ Yii::app()->clientScript->registerScriptFile($baseUrl . '/view.js', CClientScrip
             </div>
             <div class="row">
                 <div class="row-title">Комментарий к альбому</div>
-                <div class="row-elements"<?php if (! $model->description): ?> style="display: none;"<?php endif; ?>>
+                <div class="row-elements"<?php if (!$model->description): ?> style="display: none;"<?php endif; ?>>
                     <p><span><?=$model->description?></span><a href="javascript:void(0)" onclick="Album.updateField(this)" class="edit tooltip" title="Редактировать описание альбома"></a></p>
                 </div>
                 <div class="row-elements"<?php if ($model->description): ?> style="display: none;"<?php endif; ?>>

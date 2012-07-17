@@ -21,6 +21,7 @@ Interest.save = function() {
     var form = $('#interestsManage form');
     $.post($(form).attr('action'), $(form).serialize(), function(response) {
         $.fancybox.close();
+        window.location.reload();
     });
 }
 

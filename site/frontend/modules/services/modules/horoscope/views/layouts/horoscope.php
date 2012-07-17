@@ -16,6 +16,15 @@
 
         <div class="banner-box"><a href="<?=$this->createUrl('/horoscope') ?>"><img src="/images/horoscope_sidebar_banner.jpg"></a></div>
 
+        <div class="well">
+
+            <ul>
+                <li><a href="<?=$this->createUrl('/services/horoscope/default/index') ?>">Гороскоп на сегодня</a></li>
+                <li><a href="<?=$this->createUrl('/services/horoscope/default/compatibility') ?>">Гороскоп совместимости</a></li>
+            </ul>
+
+        </div>
+
         <?php if (Yii::app()->user->isGuest):?>
             <div class="horoscope-subscribe">
                 <img src="/images/horoscope_subscribe_banner.jpg">

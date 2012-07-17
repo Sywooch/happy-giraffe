@@ -33,12 +33,23 @@ class SController extends CController
                 'Ключевые слова'=>$this->createUrl('/competitors/default/index'),
                 'Готовое'=>$this->createUrl('/writing/existArticles/index'),
                 'Продвижение'=>$this->createUrl('/promotion/queries/admin'),
+                'Статистика'=>$this->createUrl('/statistic/stat/groups'),
+                'Индексация'=>$this->createUrl('/indexing/default/index'),
             );
 
         if (Yii::app()->user->checkAccess('admin') || Yii::app()->user->checkAccess('editor'))
             return array(
                 'Ключевые слова'=>$this->createUrl('/competitors/default/index'),
                 'Продвижение'=>$this->createUrl('/promotion/queries/admin'),
+                'Статистика'=>$this->createUrl('/statistic/stat/groups'),
+            );
+
+        if (Yii::app()->user->checkAccess('admin'))
+            return array(
+                'Ключевые слова'=>$this->createUrl('/competitors/default/index'),
+                'Продвижение'=>$this->createUrl('/promotion/queries/admin'),
+                'Статистика'=>$this->createUrl('/statistic/stat/groups'),
+                'Индексация'=>$this->createUrl('/indexing/default/index'),
             );
 
         return array();

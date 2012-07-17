@@ -24,7 +24,7 @@ class QueriesController extends SController
             return true;
 
         if (!Yii::app()->user->checkAccess('admin') && !Yii::app()->user->checkAccess('superuser')
-            && !Yii::app()->user->checkAccess('editor')
+            && !Yii::app()->user->checkAccess('editor') && !Yii::app()->user->checkAccess('promotion')
         )
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
         return true;
@@ -32,6 +32,8 @@ class QueriesController extends SController
 
     public function actionIndex()
     {
+        if (!Yii::app()->user->checkAccess('admin'))
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
         $this->render('index');
     }
 
@@ -69,6 +71,9 @@ class QueriesController extends SController
 
     public function actionParse()
     {
+        if (!Yii::app()->user->checkAccess('admin'))
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
         $metrica = new YandexMetrica();
         $metrica->parseQueries();
         $metrica->convertToSearchPhraseVisits();
@@ -79,40 +84,5 @@ class QueriesController extends SController
         );
 
         echo CJSON::encode($response);
-    }
-
-    public function actionSearch()
-    {
-        Config::setAttribute('stop_threads', 0);
-
-        for ($i = 0; $i < 100; $i++) {
-            $ch = curl_init('http://seo.happy-giraffe.com/queries/startThread?se=2&secret_key=' . $this->secret_key);
-            curl_setopt($ch, CURLOPT_TIMEOUT, 1);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-            curl_setopt($ch, CURLOPT_HEADER, 1);
-            $result = curl_exec($ch);
-//            echo $result;
-        }
-
-        for ($i = 0; $i < 100; $i++) {
-            $ch = curl_init('http://seo.happy-giraffe.com/queries/startThread?secret_key=' . $this->secret_key);
-            curl_setopt($ch, CURLOPT_TIMEOUT, 1);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-            curl_setopt($ch, CURLOPT_HEADER, 1);
-            $result = curl_exec($ch);
-//            echo $result;
-        }
-
-        echo CJSON::encode(array('status' => true, 'count' => 20));
-    }
-
-    public function actionStartThread($secret_key, $se = 3)
-    {
-        if ($secret_key == $this->secret_key) {
-            $parser = new PositionParserThread($se);
-            $parser->start();
-        }
     }
 }

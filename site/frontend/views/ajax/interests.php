@@ -33,7 +33,7 @@
 
 <div id="interestsManage" class="popup">
 
-    <a href="javascript:void(0);" class="popup-close" onclick="$.fancybox.close();">закрыть</a>
+    <a onclick="$.fancybox.close();" href="javascript:void(0);" class="popup-close">закрыть</a>
 
     <div class="title">Интересы</div>
 

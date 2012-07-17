@@ -427,7 +427,7 @@
 		
 		<div id="content" class="clearfix">
 			
-      <div id="photo-inline">
+      <div id="photo-inline" itemscope itemtype="http://schema.org/ImageObject">
         
         <div class="meta">
           
@@ -474,7 +474,7 @@
           
         </div>
         
-        <div class="title"><h1>Жареная картошка по-домашнему с беконом</h1></div>
+        <div class="title"><h1 itemprop="name">Жареная картошка по-домашнему с беконом</h1></div>
           
         <div class="img">
           
@@ -490,11 +490,14 @@
             
           </div>
           
-          <img src="/images/example/ex5.jpg">
+          <img src="/images/example/ex5.jpg" itemprop="contentURL">
+          
+          <meta itemprop="width" content="250 px">
+          <meta itemprop="height" content="250 px">
           
         </div>
         
-        <div class="photo-comment">Квашеная капуста с клюквой, грибами, соусом, зеленью и еще очень длинный комментарий про это оформление 
+        <div class="photo-comment" itemprop="description">Квашеная капуста с клюквой, грибами, соусом, зеленью и еще очень длинный комментарий про это оформление 
 блюда, да нужно двести знаков для этого комментария, уже вроде набралось или нет кто будет считать</div>
         
       </div>

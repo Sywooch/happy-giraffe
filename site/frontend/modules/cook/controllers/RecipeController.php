@@ -293,7 +293,9 @@ class RecipeController extends HController
                 $recipe->addChild('url', $r->url);
                 $recipe->addChild('type', $r->typeString);
                 if ($recipe->cuisine !== null) {
-                    $recipe->addChild('cuisine-type', $r->cuisine->title . ' кухня');
+                    $recipe->addChild('cuisine-type', $r
+                        ->cuisine
+                        ->title . ' кухня');
                 }
                 $recipe->addChild('author', $r->author->fullName);
 

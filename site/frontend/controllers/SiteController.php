@@ -329,7 +329,7 @@ class SiteController extends HController
     {
         $users = User::model()->findAll(array('condition' => 'register_date between "2012-07-01 00:00:00" AND "2012-07-16 00:00:00"'));
         foreach ($users as $u) {
-            echo '<p>' . CHtml::link($u->url, $u->url) . '</p>';
+            echo '<p>' . $this->createAbsoluteUrl('user/profile', array('user_id' => $u->id)) . '</p>';
         }
     }
 }

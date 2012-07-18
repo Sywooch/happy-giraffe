@@ -94,6 +94,7 @@ Album.changeAlbum = function (select) {
         return false;
     }
     Album.album_id = $(select).val();
+    console.log(Album.album_id);
 
     upload_ajax_url = upload_ajax_url.replace(new RegExp('/a/(.*)', 'g'), '/a/' + $(select).val() + '/');
     $('#new_album_title').val('');
@@ -383,8 +384,6 @@ Album.registerUploadEvents = function (elem) {
 }
 
 Album.savePhotos = function () {
-    console.log(Album.album_id);
-    console.log(Album.current_album_id);
     if (Album.album_id && (Album.current_album_id != null && Album.current_album_id != Album.album_id)) {
         document.location.href = base_url + '/albums/redirect/' + Album.album_id + '/';
     } else {

@@ -72,7 +72,7 @@ Album.savePhoto = function (button) {
 Album.removePhoto = function (button, data) {
     $('#album_photo_' + data['Removed[entity_id]']).remove();
     if (!this.editMode) {
-        $.fn.yiiListView.update('comment_list_view');
+        $.fn.yiiListView.update('photosList');
     }
 };
 
@@ -383,10 +383,10 @@ Album.registerUploadEvents = function (elem) {
 }
 
 Album.savePhotos = function () {
-    if (Album.album_id && (Album.current_album_id != null && Album.current_album_id != Album.album_id)) {
+    if (Album.current_album_id != Album.album_id) {
         document.location.href = base_url + '/albums/redirect/' + Album.album_id + '/';
     } else {
-        $.fn.yiiListView.update('comment_list_view');
+        $.fn.yiiListView.update('photosList');
     }
     $.fancybox.close();
     return false;
@@ -400,4 +400,21 @@ Album.changePhoto = function(link) {
         cl(html.find('.big-photo'));
     }, 'html');
     Comment.entity_id = id;
+}
+
+Album.updateField = function(el) {
+    var textRow = $(el).parents('.row-elements');
+    var inputRow = textRow.next();
+    textRow.hide();
+    inputRow.show();
+    inputRow.find('input,textarea').focus();
+}
+
+Album.updateFieldSubmit = function(el, selector) {
+    var inputRow = $(el).parents('.row-elements');
+    var textRow = inputRow.prev();
+    textRow.show();
+    inputRow.hide();
+    var newVal = inputRow.find('input,textarea').val();
+    textRow.find(selector).text(newVal);
 }

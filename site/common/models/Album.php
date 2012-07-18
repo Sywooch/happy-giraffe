@@ -245,4 +245,19 @@ class Album extends HActiveRecord
     {
         return Yii::app()->createUrl('albums/view', array('user_id' => $this->author_id, 'id' => $this->id));
     }
+
+    public function getPhotoCollection()
+    {
+        $photos = array();
+
+        foreach ($this->photos as $i => $p) {
+            $p->w_title = ($p->title) ? $p->title : 'Альбом «' . $this->title . '» - фото ' . ($i + 1);
+            $photos[] = $p;
+        }
+
+        return array(
+            'title' => 'Фотоальбом ' . CHtml::link($this->title, $this->url),
+            'photos' => $photos,
+        );
+    }
 }

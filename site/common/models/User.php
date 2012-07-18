@@ -171,6 +171,7 @@ class User extends HActiveRecord
             array('profile_access, guestbook_access, im_access', 'in', 'range' => array_keys($this->accessLabels)),
             array('avatar_id', 'numerical', 'allowEmpty' => true),
             array('remember_code', 'numerical'),
+            array('blog_title', 'safe'),
 
             //login
             array('email, password', 'required', 'on' => 'login'),
@@ -290,6 +291,8 @@ class User extends HActiveRecord
 
             'answers' => array(self::HAS_MANY, 'DuelAnswer', 'user_id'),
             'activeQuestion' => array(self::HAS_ONE, 'DuelQuestion', array('question_id' => 'id'), 'through' => 'answers', 'condition' => 'ends > NOW()'),
+
+            'photos' => array(self::HAS_MANY, 'AlbumPhoto', 'author_id'),
         );
     }
 
@@ -935,5 +938,15 @@ class User extends HActiveRecord
         } else {
             return $activityLastUpdated > UserAttributes::get($this->id, 'activityLastVisited');
         }
+    }
+
+    public function getBlogPopular()
+    {
+        return BlogContent::model()->full()->findAll(array(
+            'condition' => 'rubric.user_id = :user_id',
+            'params' => array(':user_id' => $this->id),
+            'order' => 't.rate DESC',
+            'limit' => 3,
+        ));
     }
 }

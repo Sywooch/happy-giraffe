@@ -40,7 +40,7 @@
     </div>
 
     <script type="text/javascript">
-        <?php ob_start(); ?>
+        <?php //ob_start(); ?>
         <?php foreach ($photos as $i => $p): ?>
             pGallery.photos[<?php echo $p->primaryKey ?>] = {
                 idx : <?=$i + 1?>,
@@ -66,9 +66,9 @@
             <?php endif; ?>
         <?php endforeach; ?>
         <?
-            $params = ob_get_contents();
-            ob_end_clean();
-            echo preg_replace('/\s+/i', ' ', $params);
+            //$params = ob_get_contents();
+            //ob_end_clean();
+            //echo preg_replace('/\s+/i', ' ', $params);
         ?>
     </script>
 

@@ -47,6 +47,7 @@
     </div>
 
     <script type="text/javascript">
+        <?php ob_start(); ?>
         <?php foreach ($photos as $i => $p): ?>
             pGallery.photos[<?php echo $p->id ?>] = {
                 idx : <?=$i + 1?>,
@@ -56,18 +57,18 @@
                 title : <?=($p->w_title === null) ? 'null' : '\'' . $p->w_title . '\''?>,
                 description : <?=($p->w_description === null) ? 'null' : '\'' . $p->w_description . '\''?>,
                 avatar : '<?php
-                    ob_start();
                     $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
                         'user' => $p->author,
                         'size' => 'small',
                         'sendButton' => false,
                         'location' => false
-                    ));
-                    $a = ob_end_clean();
-                    echo str_replace(array("\n", "\r"), '', $a);
-                    ?>'
+                    )); ?>'
             };
         <?php endforeach; ?>
+        <?php
+            $photos = ob_end_clean();
+            echo str_replace(array("\n", "\r"), '', $photos);
+        ?>
         pGallery.first = <?=$photos[0]->id?>;
         pGallery.last = <?=end($photos)->id?>;
     </script>

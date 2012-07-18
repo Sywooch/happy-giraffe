@@ -38,7 +38,7 @@ class CommunityContentGallery extends HActiveRecord
 	public function relations()
 	{
 		return array(
-			'content' => array(self::BELONGS_TO, 'CommunityContents', 'content_id'),
+			'content' => array(self::BELONGS_TO, 'CommunityContent', 'content_id'),
 			'items' => array(self::HAS_MANY, 'CommunityContentGalleryItem', 'gallery_id'),
 		);
 	}
@@ -57,11 +57,14 @@ class CommunityContentGallery extends HActiveRecord
     public function getPhotoCollection()
     {
         $photos = array();
-        foreach($this->items as $model)
+        foreach ($this->items as $model)
         {
-            $model->photo->options['description'] = $model->description;
-            array_push($photos, $model->photo);
+            $model->photo->w_description = $model->description;
+            $photos[] = $model->photo;
         }
-        return $photos;
+        return array(
+            'title' => 'Фотоальбом к статье ' . CHtml::link($this->content->title, $this->content->url),
+            'photos' => $photos,
+        );
     }
 }

@@ -42,10 +42,10 @@
     <script type="text/javascript">
         <?php //ob_start(); ?>
         <?php foreach ($photos as $i => $p): ?>
-            pGallery.photos[<?php echo $p->primaryKey ?>] = {
+            pGallery.photos[<?php echo $p->id ?>] = {
                 idx : <?=$i + 1?>,
-                prev : <?=($i != 0) ? $photos[$i - 1]->primaryKey : 'null'?>,
-                next : <?=($i < $count - 1) ? $photos[$i + 1]->primaryKey : 'null'?>,
+                prev : <?=($i != 0) ? $photos[$i - 1]->id : 'null'?>,
+                next : <?=($i < $count - 1) ? $photos[$i + 1]->id : 'null'?>,
                 src : '<?php echo $p->getPreviewUrl(960, 627, Image::HEIGHT, true); ?>',
                 title : <?=($p->w_title === null) ? 'null' : '\'' . $p->w_title . '\''?>,
                 description : <?=($p->w_description === null) ? 'null' : '\'' . $p->w_description . '\''?>,
@@ -56,20 +56,14 @@
                     'location' => false
                 )); ?>'
             };
-
-            <?php if ($i == 0): ?>
-               pGallery.first = <?=$p->primaryKey?>;
-            <?php endif; ?>
-
-            <?php if ($i == $count - 1): ?>
-                pGallery.last = <?=$p->primaryKey?>;
-            <?php endif; ?>
         <?php endforeach; ?>
         <?
             //$params = ob_get_contents();
             //ob_end_clean();
             //echo preg_replace('/\s+/i', ' ', $params);
         ?>
+        pGallery.first = <?=$photos[0]->id?>;
+        pGallery.last = <?=end($photos)->id?>;
     </script>
 
     <div id="photo">

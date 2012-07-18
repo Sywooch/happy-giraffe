@@ -119,6 +119,9 @@ class SiteController extends HController
 	{
 		$service = Yii::app()->request->getQuery('service');
 		if (isset($service)) {
+            if (! in_array($service, array_keys(Yii::app()->eauth->services)))
+                throw new CHttpException(404, 'Страница не найдена');
+
 			$authIdentity = Yii::app()->eauth->getIdentity($service);
             $redirectUrl = Yii::app()->user->loginUrl;
             if(isset($_SERVER['HTTP_REFERER']) && $url_info = parse_url($_SERVER['HTTP_REFERER']))

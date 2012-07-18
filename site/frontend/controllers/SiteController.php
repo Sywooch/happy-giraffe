@@ -115,9 +115,9 @@ class SiteController extends HController
 		}
 	}
 
-	public function actionLogin($service)
+	public function actionLogin($service = null)
 	{
-		if (isset($service)) {
+		if ($service !== null) {
 			$authIdentity = Yii::app()->eauth->getIdentity($service);
             $redirectUrl = Yii::app()->user->loginUrl;
             if(isset($_SERVER['HTTP_REFERER']) && $url_info = parse_url($_SERVER['HTTP_REFERER']))

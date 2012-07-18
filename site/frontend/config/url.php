@@ -48,7 +48,7 @@ return array(
         'morning/<date:[\d\d\d\d-\d\d-\d\d]*>' => 'morning/index',
 
         // albums controller
-        'albums/addPhoto/a/<id:\d+>' => 'albums/addPhoto',
+        'albums/addPhoto/a/<a:\d+>' => 'albums/addPhoto',
         'albums/addPhoto' => 'albums/addPhoto',
         'albums/redirect/<id:\d+>' => 'albums/redirect',
         'albums/<_a:(attach|wPhoto|attachView|editDescription|editPhotoTitle|changeTitle|changePermission|removeUploadPhoto|communityContentEdit|communityContentSave|recipePhoto|cookDecorationPhoto|cookDecorationCategory|commentPhoto|crop|changeAvatar|humorPhoto|albumSettings|updatePhoto)>' => 'albums/<_a>',

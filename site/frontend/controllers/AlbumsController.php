@@ -80,31 +80,22 @@ class AlbumsController extends HController
         if (!$model)
             throw new CHttpException(404, 'Альбом не найден');
 
-        $pageSize = !Yii::app()->user->isGuest && $model->author_id == Yii::app()->user->id ? 1000 : 20;
-        //$pageSize = 2;
-
         $dataProvider = new CActiveDataProvider('AlbumPhoto', array(
             'criteria' => array(
                 'condition' => 'removed = 0 and album_id = :album_id',
                 'params' => array(':album_id' => $model->id),
             ),
             'pagination' => array(
-                'pageSize' => $pageSize
+                'pageSize' => !Yii::app()->user->isGuest && $model->author_id == Yii::app()->user->id ? 1000 : 20
             )
         ));
 
-        //$view = !Yii::app()->user->isGuest && $model->author_id == Yii::app()->user->id ? 'view_author' : 'view';
-
         $this->layout = '//layouts/main';
 
-        if (Yii::app()->request->isAjaxRequest) {
-            $result = array('html' => $this->renderPartial('view', array('model' => $model, 'dataProvider' => $dataProvider), true));
-            header('Content-type: application/json');
-            echo CJSON::encode($result);
-        } else {
-            $this->render('view', array('model' => $model, 'dataProvider' => $dataProvider));
-        }
-
+        $this->render('view', array(
+            'model' => $model,
+            'dataProvider' => $dataProvider,
+        ));
     }
 
     public function actionAddPhoto($a = false, $text = false, $u = false)

@@ -66,7 +66,7 @@
             };
         <?php endforeach; ?>
         <?php
-            $ob = ob_end_clean();
+            $ob = ob_get_clean();
             echo str_replace(array("\n", "\r"), '', $ob);
         ?>
         pGallery.first = <?=$photos[0]->id?>;

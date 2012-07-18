@@ -4,11 +4,11 @@
      * @var AlbumPhoto $photo
      */
 
-    $start = microtime();
-    $p = array();
+    $start = microtime(true);
+    $profile = array();
 
     $collection = $model->photoCollection;
-    $profile[] = microtime();
+    $profile[] = microtime(true);
     $title = $collection['title'];
     $photos = $collection['photos'];
     $count = count($photos);
@@ -21,7 +21,7 @@
         }
     }
 
-    $profile[] = microtime();
+    $profile[] = microtime(true);
 ?>
 
 <div id="photo-window-in">
@@ -63,7 +63,7 @@
         pGallery.last = <?=end($photos)->id?>;
     </script>
 
-    <?php $profile[] = microtime(); ?>
+    <?php $profile[] = microtime(true); ?>
 
     <div id="photo">
 
@@ -87,7 +87,7 @@
 
 </div>
 
-<?php $profile[] = microtime(); ?>
+<?php $profile[] = microtime(true); ?>
 
 <div style="display: none;">
     <?php foreach ($profile as $p) {

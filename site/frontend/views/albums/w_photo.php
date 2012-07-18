@@ -42,20 +42,12 @@
     <script type="text/javascript">
         <?php ob_start(); ?>
         <?php foreach ($photos as $i => $p): ?>
-            pGallery.photos[<?php echo $p->id ?>] = {
-                idx : <?=$i + 1?>,
-                prev : <?=($i != 0) ? $photos[$i - 1]->id : 'null'?>,
-                next : <?=($i < $count - 1) ? $photos[$i + 1]->id : 'null'?>,
-                src : '<?php echo $p->getPreviewUrl(960, 627, Image::HEIGHT, true); ?>',
-                title : <?=($p->w_title === null) ? 'null' : '\'' . $p->w_title . '\''?>,
-                description : <?=($p->w_description === null) ? 'null' : '\'' . $p->w_description . '\''?>,
-                avatar : '<?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
+pGallery.photos[<?php echo $p->id ?>] = {idx : <?=$i + 1?>,prev : <?=($i != 0) ? $photos[$i - 1]->id : 'null'?>,next : <?=($i < $count - 1) ? $photos[$i + 1]->id : 'null'?>,src : '<?php echo $p->getPreviewUrl(960, 627, Image::HEIGHT, true); ?>',title : <?=($p->w_title === null) ? 'null' : '\'' . $p->w_title . '\''?>,description : <?=($p->w_description === null) ? 'null' : '\'' . $p->w_description . '\''?>,avatar : '<?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
                     'user' => $p->author,
                     'size' => 'small',
                     'sendButton' => false,
                     'location' => false
-                )); ?>'
-            };
+                )); ?>'};
         <?php endforeach; ?>
         <?
             $params = ob_get_contents();

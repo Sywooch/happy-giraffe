@@ -63,10 +63,10 @@
                     'location' => false
                 )); ?>'
             };
+            var time = <?=time()?>;
         <?php endforeach; ?>
         <?
             $params = ob_get_contents();
-            flush();
             ob_end_clean();
             echo preg_replace('/\s+/i', ' ', $params);
         ?>

@@ -55,8 +55,7 @@
                     'location' => false
                 )); ?>'};<?php endforeach; ?>
         <?
-            $params = ob_get_contents();
-            ob_end_flush();
+            $params = ob_get_flush();
             echo preg_replace('/\s+/i', ' ', $params);
         ?>
         pGallery.first = <?=$photos[0]->id?>;

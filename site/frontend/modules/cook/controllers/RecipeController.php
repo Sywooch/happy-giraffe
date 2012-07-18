@@ -7,6 +7,7 @@ class RecipeController extends HController
 {
     public $counts;
     public $currentType = null;
+    public $modelName;
 
     public function filters()
     {
@@ -26,6 +27,16 @@ class RecipeController extends HController
         );
     }
 
+    protected function beforeAction($action)
+    {
+        if (isset($this->actionParams['section']) && isset(CookRecipe::model()->sectionsMap[$this->actionParams['section']])) {
+            $this->modelName = CookRecipe::model()->sectionsMap[$this->actionParams['section']];
+        } else {
+            $this->modelName = CookRecipe::model()->sectionsMap[CookRecipe::COOK_DEFAULT_SECTION];
+        }
+        return parent::beforeAction($action);
+    }
+
     public function actionIndex($type = null)
     {
         $this->pageTitle = 'Рецепты';
@@ -43,7 +54,7 @@ class RecipeController extends HController
         $this->pageTitle = 'Добавить рецепт';
 
         if ($id === null) {
-            $recipe = new CookRecipe;
+            $recipe = new $this->modelName;
             $ingredients = array();
         } else {
             $recipe = CookRecipe::model()->with('ingredients.unit', 'ingredients.ingredient.availableUnits')->findByPk($id);

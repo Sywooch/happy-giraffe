@@ -28,6 +28,12 @@ class CookRecipe extends CActiveRecord
     const COOK_RECIPE_LOWCAL = 40;
     const COOK_RECIPE_FORDIABETICS = 33;
 
+    const COOK_DEFAULT_SECTION = 0;
+    public $sectionsMap = array(
+        0 => 'SimpleRecipe',
+        1 => 'MultivarkaRecipe',
+    );
+
     public $types = array(
         1 => 'Первые блюда',
         2 => 'Вторые блюда',

@@ -616,9 +616,9 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 
 #register.popup .register-socials .auth-link {display:block;width:191px;height:39px;background:url(/images/btn_register_sprite.png) no-repeat;}
 #register.popup .register-socials .auth-link.mailru {background-position:0 0;}
-#register.popup .register-socials .auth-link.vkontakte {background-position:0 -120px;}
-#register.popup .register-socials .auth-link.odnoklassniki {background-position:0 -80px;}
-#register.popup .register-socials .auth-link.facebook {background-position:0 -40px;}
+#register.popup .register-socials .auth-link.vkontakte {background-position:0 -80px;}
+#register.popup .register-socials .auth-link.odnoklassniki {background-position:0 -40px;}
+#register.popup .register-socials .auth-link.facebook {background-position:0 -120px;}
 
 #register.popup .register-mail {float:left;width:329px;border-left:1px solid #d2d1d2;padding:10px 0px 20px 20px;margin-left:-1px;}
 #register.popup .register-mail .box-title {font-size:20px;color:#6b6b6b;line-height:1;margin-bottom:15px;}

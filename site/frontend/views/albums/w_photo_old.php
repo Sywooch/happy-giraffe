@@ -45,7 +45,9 @@ $count = count($model->photoCollection);
             };
         <?php endforeach; ?>
         <?php
-            $params = ob_get_flush();
+            $params = ob_get_contents();
+        flush();
+        ob_flush();
             echo preg_replace('/\s+/i', ' ', $params);
         ?>
         <?php if($selected_index !== null): ?>

@@ -44,10 +44,10 @@ $count = count($model->photoCollection);
                 )); ?>'
             };
         <?php endforeach; ?>
-        <?
-        $params = ob_get_contents();
-        ob_end_clean();
-        echo preg_replace('/\s+/i', ' ', $params);
+        <?php
+            $params = ob_get_contents();
+            ob_end_flush();
+            echo preg_replace('/\s+/i', ' ', $params);
         ?>
         <?php if($selected_index !== null): ?>
         $('#photo-thumbs', $('#photo-window')).bind('jcarouselinitend', function(carousel) {

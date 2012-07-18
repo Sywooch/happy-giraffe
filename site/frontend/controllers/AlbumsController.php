@@ -640,9 +640,8 @@ class AlbumsController extends HController
             ->registerScriptFile($jUrl . '/jquery.fileupload.js');
     }
 
-    public function actionRedirect()
+    public function actionRedirect($id)
     {
-        $id = Yii::app()->request->getPost('id');
         $album = Album::model()->findByPk($id);
         $this->redirect($album->url);
     }

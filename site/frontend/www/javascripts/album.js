@@ -326,7 +326,7 @@ Album.uploadSuccess = function (id, name, serverData) {
     });
 
     $('#new_album_title').val('');
-    Album.changeAlbum($('#album_select'));
+    //Album.changeAlbum($('#album_select'));
 
 
     var item = $('#log li#' + id);

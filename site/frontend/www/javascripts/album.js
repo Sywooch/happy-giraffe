@@ -72,7 +72,7 @@ Album.savePhoto = function (button) {
 Album.removePhoto = function (button, data) {
     $('#album_photo_' + data['Removed[entity_id]']).remove();
     if (!this.editMode) {
-        $.fn.yiiListView.update('comment_list_view');
+        $.fn.yiiListView.update('photosList');
     }
 };
 
@@ -386,7 +386,7 @@ Album.savePhotos = function () {
     if (Album.album_id && (Album.current_album_id != null && Album.current_album_id != Album.album_id)) {
         document.location.href = base_url + '/albums/redirect/' + Album.album_id + '/';
     } else {
-        $.fn.yiiListView.update('comment_list_view');
+        $.fn.yiiListView.update('photosList');
     }
     $.fancybox.close();
     return false;

@@ -250,7 +250,14 @@ class Album extends HActiveRecord
     {
         $photos = array();
 
-        foreach ($this->getRelated('photos', false, array('with' => 'author')) as $i => $p) {
+        $_photos = $this->getRelated('photos', false, array(
+            'with' => array(
+                'author' => array(
+                    'with' => 'avatar',
+                ),
+            ),
+        ));
+        foreach ($_photos as $i => $p) {
             $p->w_title = ($p->title) ? $p->title : 'Альбом «' . $this->title . '» - фото ' . ($i + 1);
             $photos[] = $p;
         }

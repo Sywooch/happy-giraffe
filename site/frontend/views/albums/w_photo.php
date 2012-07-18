@@ -8,6 +8,7 @@
     $p = array();
 
     $collection = $model->photoCollection;
+    $profile[] = microtime();
     $title = $collection['title'];
     $photos = $collection['photos'];
     $count = count($photos);

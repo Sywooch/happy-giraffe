@@ -1,18 +1,21 @@
-<li id="album_photo_<?php echo $data->id; ?>">
-    <table>
-        <tr>
-            <td class="img">
-                <div>
-                    <?php echo CHtml::link(CHtml::image($data->getPreviewUrl(150, 150, Image::WIDTH)), $data->url); ?>
-                </div>
-            </td>
-        </tr>
-        <tr class="title">
-            <td align="center">
-                <div>
-                    <?php echo $data->title != '' ? CHtml::encode($data->title) : '&nbsp;' ?>
-                </div>
-            </td>
-        </tr>
-    </table>
+<li>
+    <div class="img">
+        <a href="javascript:void(0)" data-id="<?=$data->id?>">
+            <?=CHtml::image($data->getPreviewUrl(210, null, Image::WIDTH))?>
+            <span class="btn">Посмотреть</span>
+        </a>
+        <?php if (Yii::app()->user->id == $this->user->id): ?>
+            <div class="actions">
+                <?=CHtml::link('', array('albums/updatePhoto', 'id' => $data->id), array('class' => 'edit fancy tooltip', 'title' => 'Редактировать'))?>
+                <?php $this->widget('site.frontend.widgets.removeWidget.RemoveWidget', array(
+                    'model' => $data,
+                    'callback' => 'Album.removePhoto',
+                    'author' => !Yii::app()->user->isGuest && Yii::app()->user->id == $data->author_id,
+                )); ?>
+            </div>
+        <?php endif; ?>
+    </div>
+    <?php if ($data->title): ?>
+        <div class="item-title"><?=$data->title?></div>
+    <?php endif; ?>
 </li>

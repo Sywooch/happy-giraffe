@@ -147,4 +147,6 @@ class CookDecoration extends CActiveRecord
         return $preview;
     }
 
+
+
 }

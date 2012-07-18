@@ -26,8 +26,6 @@ class photoViewWidget extends CWidget
             '$("' . $this->selector . '").pGallery(' . CJavaScript::encode(array('singlePhoto' => $this->singlePhoto, 'entity' => $this->entity, 'entity_id' => $this->entity_id)) . ');'
         );
 
-        Yii::app()->clientScript->registerScriptFile('/javascripts/jquery.jcarousel.js');
-        Yii::app()->clientScript->registerScriptFile('/javascripts/jquery.jcarousel.control.js');
         Yii::app()->clientScript->registerScriptFile('/javascripts/history.js');
         Yii::app()->clientScript->registerScriptFile('/javascripts/gallery.js?r=' . time());
 

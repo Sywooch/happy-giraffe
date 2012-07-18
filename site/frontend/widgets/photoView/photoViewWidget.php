@@ -27,7 +27,7 @@ class photoViewWidget extends CWidget
         );
 
         Yii::app()->clientScript->registerScriptFile('/javascripts/history.js');
-        Yii::app()->clientScript->registerScriptFile('/javascripts/gallery.js');
+        Yii::app()->clientScript->registerScriptFile('/javascripts/gallery.js?r=' . time());
 
         $report = $this->beginWidget('site.frontend.widgets.reportWidget.ReportWidget');
         $report->registerScripts();

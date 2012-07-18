@@ -3,7 +3,12 @@
      * @var HActiveRecord $model
      * @var AlbumPhoto $photo
      */
+
+    $start = microtime(true);
+    $profile = array();
+
     $collection = $model->photoCollection;
+    $profile[] = microtime(true);
     $title = $collection['title'];
     $photos = $collection['photos'];
     $count = count($photos);
@@ -15,6 +20,8 @@
             break;
         }
     }
+
+    $profile[] = microtime(true);
 ?>
 
 <div id="photo-window-in">
@@ -56,6 +63,8 @@
         pGallery.last = <?=end($photos)->id?>;
     </script>
 
+    <?php $profile[] = microtime(true); ?>
+
     <div id="photo">
 
         <div class="img">
@@ -76,4 +85,13 @@
         <?php $this->renderPartial('w_photo_content', compact('model', 'photo')); ?>
     </div>
 
+</div>
+
+<?php $profile[] = microtime(true); ?>
+
+<div style="display: none;">
+    <?php foreach ($profile as $p) {
+        echo ($p - $start) . '<br />';
+
+    } ?>
 </div>

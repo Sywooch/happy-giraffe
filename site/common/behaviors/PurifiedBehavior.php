@@ -9,15 +9,15 @@ class PurifiedBehavior extends CActiveRecordBehavior
     public $options = array();
 
     private $_defaultOptions = array(
+        //'URI.Host' => 'happy-giraffe.com',
+        'HTML.Nofollow' => true,
+        'HTML.TargetBlank' => true,
         'URI.AllowedSchemes' => array(
             'http' => true,
             'https' => true,
         ),
         'Attr.AllowedFrameTargets' => array('_blank' => true),
         'Attr.AllowedRel' => array('nofollow'),
-        'HTML.TargetBlank' => true,
-        'HTML.Nofollow' => true,
-        'URI.Host' => 'happy-giraffe'
     );
 
     public function __get($name)

@@ -19,8 +19,8 @@ return array(
         'js_dynamics/<hash:\w+>.js' => 'site/seoHide',
         'search' => 'site/search',
         'site/rememberPassword/step/<step:\d+>' => 'site/rememberPassword',
-        'site/login/<service:(mailru|odnoklassniki|vkontakte|facebook|)>' => 'site/login',
-        'site/<_a:(logout|link|test|users)>' => 'site/<_a>',
+        'site/login/<service:(mailru|odnoklassniki|vkontakte|facebook)>' => 'site/login',
+        'site/<_a:(login|logout|link|test|users)>' => 'site/<_a>',
         'contest' => 'site/contest',
 
         // ajax controller

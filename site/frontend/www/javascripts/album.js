@@ -383,6 +383,7 @@ Album.registerUploadEvents = function (elem) {
 }
 
 Album.savePhotos = function () {
+    console.log(Album.album_id);
     if (Album.album_id && (Album.current_album_id != null && Album.current_album_id != Album.album_id)) {
         document.location.href = base_url + '/albums/redirect/' + Album.album_id + '/';
     } else {

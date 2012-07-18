@@ -91,7 +91,7 @@
 
 <div style="display: none;">
     <?php foreach ($profile as $p) {
-        echo $p - $start;
+        echo ($p - $start) . '<br />';
 
     } ?>
 </div>

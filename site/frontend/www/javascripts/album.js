@@ -96,7 +96,7 @@ Album.changeAlbum = function (select) {
     Album.album_id = $(select).val();
     console.log(Album.album_id);
 
-    upload_ajax_url = upload_ajax_url.replace(new RegExp('/a/(.*)', 'g'), '/a/' + $(select).val() + '/');
+    upload_ajax_url = upload_ajax_url.replace(new RegExp('/a/(.*)', 'g'), '/a/' + Album.album_id + '/');
     console.log(upload_ajax_url);
     $('#new_album_title').val('');
     if (!$('#upload_finish_wrapper').is('.is_visible')) {

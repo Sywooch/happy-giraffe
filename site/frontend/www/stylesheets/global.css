@@ -3991,6 +3991,12 @@ ul.letters li a:hover {
 .cook-cat .icon-recipe-11 {width:36px;height:30px;background-position:0 -445px;}
 .cook-cat.active .icon-recipe-11, .cook-cat:hover .icon-recipe-11 {background-position:-50px -445px;}
 
+.cook-cat .icon-recipe-12 {width:43px;height:31px;background-position:0 -1118px;}
+.cook-cat.active .icon-recipe-10, .cook-cat:hover .icon-recipe-10 {background-position:-50px -1118px;}
+
+.cook-cat .icon-recipe-13 {width:30px;height:27px;background-position:0 -1149px;}
+.cook-cat.active .icon-recipe-11, .cook-cat:hover .icon-recipe-11 {background-position:0px -1149px;}
+
 
 .cook-cat .icon-product-0 {width:28px;height:36px;background-position:0 -804px;}
 .cook-cat.active .icon-product-0, .cook-cat:hover .icon-product-0 {background-position:-50px -804px;}
@@ -4189,6 +4195,12 @@ ul.letters li a:hover {
 
 
 #cook-recipe {padding-top:20px;}
+
+#cook-recipe > .title {padding:30px 40px;border:1px solid #dbe4f1;height:88px;margin-bottom:25px;}
+#cook-recipe > .title h1 {font-size:35px;color:#232223;font-weight:normal;line-height:1;}
+#cook-recipe > .title h1 span {display:block;text-transform:uppercase;font-size:40px;line-height:1;}
+
+#cook-recipe > .title-recipes-1 {background:url(/images/bg_recipes_title_1.jpg) no-repeat right;}
 
 #cook-recipe .add-recipe {width:220px;text-align:center;color:#81807f;font:italic 18px/1 times new roman, serif;padding-top:27px;float:left;padding-left:10px;}
 #cook-recipe .add-recipe .btn {width:220px;margin-top:4px;}

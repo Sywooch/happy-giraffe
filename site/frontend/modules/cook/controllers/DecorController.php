@@ -10,16 +10,15 @@ class DecorController extends HController
         $this->pageTitle = ($id) ? 'Оформление блюд: ' . $category->title : 'Оформление блюд';
 
         $dataProvider = CookDecoration::model()->indexDataProvider($id, $perPage);
-        $pages = ceil($dataProvider->totalItemCount / $perPage);
 
         if (Yii::app()->request->isAjaxRequest) {
             $result = array(
-                'html' => $this->renderPartial('index', compact('id', 'category', 'dataProvider', 'pages'), true)
+                'html' => $this->renderPartial('index', compact('id', 'category', 'dataProvider'), true)
             );
             header('Content-type: application/json');
             echo CJSON::encode($result);
         } else {
-            $this->render('index', compact('id', 'category', 'dataProvider', 'pages'));
+            $this->render('index', compact('id', 'category', 'dataProvider'));
         }
 
     }

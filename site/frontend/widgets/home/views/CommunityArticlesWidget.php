@@ -10,4 +10,4 @@
     <?php endforeach; ?>
 </ul>
 
-<div class="all-link"><a href="<?= Yii::app()->createUrl('/community/list', array('community_id' => $community_id))?>">Все <?=$title ?> (<?=$count ?>)</a></div>
+<div class="all-link"><a href="<?=($community_id == 22) ? Yii::app()->createUrl('/cook') : Yii::app()->createUrl('/community/list', array('community_id' => $community_id))?>">Все <?=$title ?> (<?=$count ?>)</a></div>

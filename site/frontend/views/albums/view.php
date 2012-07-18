@@ -79,12 +79,12 @@ $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
         </div>
 
         <?php if (Yii::app()->user->id == $this->user->id): ?>
-        <div class="upload-photo-btn">
-            <?php
-            AlbumsController::loadUploadScritps();
-            echo CHtml::link(CHtml::image('/images/btn_upload_photo.png'), array('addPhoto'), array('class' => 'fancy btn btn-green'));
-            ?>
-        </div>
+            <div class="upload-photo-btn">
+                <?php
+                    AlbumsController::loadUploadScritps();
+                    echo CHtml::link(CHtml::image('/images/btn_upload_photo.png'), array('addPhoto', 'a' => $model->id), array('class' => 'fancy btn btn-green'));
+                ?>
+            </div>
         <?php endif; ?>
 
         <div class="club-topics-list-new">

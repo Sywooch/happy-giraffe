@@ -124,6 +124,9 @@ return array(
         'cook/decor/page/<page:[\d]+>' => 'cook/decor/index',
         'cook/decor' => 'cook/decor/index',
 
+        'cook/multivarka/add' => array('cook/recipe/form', 'defaultParams' => array('section' => 1)),
+        'cook/multivarka/edit/<id:\d+>' => array('cook/recipe/form', 'defaultParams' => array('section' => 1)),
+
         'cook/recipe/add' => 'cook/recipe/form',
         'cook/recipe/edit/<id:\d+>' => 'cook/recipe/form',
         'cook/recipe/<id:\d+>' => 'cook/recipe/view',

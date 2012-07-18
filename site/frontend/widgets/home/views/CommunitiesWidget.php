@@ -72,7 +72,7 @@
             <div class="category-title">Дом</div>
             <ul>
                 <li>
-                    <a href="<?= Yii::app()->createUrl('/community/list', array('community_id' => 22))?>">
+                    <a href="<?= Yii::app()->createUrl('/cook')?>">
                         <span class="club-img"><img src="/images/club_img_24.png"></span>
                         <span class="club-title">Кулинарные рецепты</span>
                     </a>

@@ -349,7 +349,7 @@
 
                                     <ul class="cols cols-5">
                                         <li class="col">
-                                            <a class="big-link bg-img-41" href="<?= Yii::app()->createUrl('/community/list', array('community_id' => 22))?>">
+                                            <a class="big-link bg-img-41" href="<?= Yii::app()->createUrl('/cook')?>">
                                                 <span class="title">Кулинарные рецепты</span>
                                                 <span class="text">Рецепты на все случаи жизни: простые и сложные, диетические и многие другие.</span>
                                             </a>

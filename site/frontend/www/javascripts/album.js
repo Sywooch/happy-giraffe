@@ -384,9 +384,11 @@ Album.registerUploadEvents = function (elem) {
 }
 
 Album.savePhotos = function () {
-    if (Album.album_id && (Album.current_album_id != null && Album.current_album_id != Album.album_id)) {
+    if (Album.current_album_id != Album.album_id) {
+        alert('redirect');
         document.location.href = base_url + '/albums/redirect/' + Album.album_id + '/';
     } else {
+        alert('update');
         $.fn.yiiListView.update('photosList');
     }
     $.fancybox.close();

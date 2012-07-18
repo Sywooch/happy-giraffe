@@ -60,12 +60,12 @@ jQuery.fn.pGallery = function(options) {
                 return false;
             });
 
-            plugin.window.on('click', '#photo-thumbs li a', function() {
+            /*plugin.window.on('click', '#photo-thumbs li a', function() {
                 if($(this).parent().hasClass('active'))
                     return false;
                 plugin.openImage($(this).attr('data-id'));
                 return false;
-            });
+            });*/
 
             $('body').css('overflow', 'hidden');
             var newUrl = plugin.getEntityUrl() + 'photo' + plugin.data.id + '/';
@@ -73,9 +73,9 @@ jQuery.fn.pGallery = function(options) {
                 plugin.history.changeBrowserUrl(newUrl);
             }
             $('#photo-window-bg, #photo-window').fadeIn(600, function(){
-                $('#photo-thumbs .jcarousel', plugin.window).jcarousel();
+                /*$('#photo-thumbs .jcarousel', plugin.window).jcarousel();
                 $('#photo-thumbs .prev', plugin.window).jcarouselControl({target: '-=7',fullScroll:true,carousel: $('#photo-thumbs .jcarousel', plugin.window)});
-                $('#photo-thumbs .next', plugin.window).jcarouselControl({target: '+=7',fullScroll:true,carousel: $('#photo-thumbs .jcarousel', plugin.window)});
+                $('#photo-thumbs .next', plugin.window).jcarouselControl({target: '+=7',fullScroll:true,carousel: $('#photo-thumbs .jcarousel', plugin.window)});*/
                 plugin.preloadPhotos();
                 $(window).resize();
             });

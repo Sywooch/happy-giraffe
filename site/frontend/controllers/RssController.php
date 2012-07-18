@@ -44,7 +44,9 @@ class RssController extends HController
 
     public function actionUser($user_id, $page = 1)
     {
-        $user = User::model()->findByPk($user_id);
+        $user = User::model()->active()->findByPk($user_id);
+        if ($user === null)
+            throw new CHttpException(404, 'Пользователь не найден');
 
         Yii::import('ext.EFeed.*');
         $feed = new EFeed();

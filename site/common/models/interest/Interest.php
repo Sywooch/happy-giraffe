@@ -58,7 +58,8 @@ class Interest extends HActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'category' => array(self::BELONGS_TO, 'InterestCategory', 'category_id'),
-			'users' => array(self::MANY_MANY, 'User', 'user_interest(interest_id, user_id)'),
+			'users' => array(self::MANY_MANY, 'User', 'interest__users_interests(interest_id, user_id)'),
+            'usersCount' => array(self::STAT, 'User', 'interest__users_interests(interest_id, user_id)'),
 		);
 	}
 

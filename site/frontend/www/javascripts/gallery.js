@@ -1,4 +1,10 @@
-var pGallery_photos = {};
+var pGallery = {
+    photos : {},
+    currentPhoto : null,
+    first : null,
+    last : null
+};
+
 jQuery.fn.pGallery = function(options) {
     var plugin = {};
     plugin.data = options,
@@ -6,11 +12,13 @@ jQuery.fn.pGallery = function(options) {
         plugin.bg = null,
         plugin.history = null,
         plugin.init = false;
+        plugin.originalTitle = null;
 
     plugin.openWindow = function(id) {
         if(this.init)
             return false;
         this.init = true;
+        this.originalTitle = document.title;
         this.bg = $('<div id="photo-window-bg" style="display:none"></div>');
         this.window = $('<div id="photo-window" style="display:none"></div>');
         this.window.css('top', $(document).scrollTop());
@@ -35,16 +43,20 @@ jQuery.fn.pGallery = function(options) {
         }
 
         $.get(base_url + '/albums/wPhoto/', plugin.data, function(html) {
+            pGallery.currentPhoto = plugin.data.id;
             $('#photo-window').append(html);
 
-            plugin.window.find('.window-close').bind('click', function() {plugin.closeWindow();return false;});
+            $('#photo-window-in', this.window).css('left', Math.ceil(getScrollBarWidth()/2) + 'px');
 
-            plugin.window.on('click', '#photo a.next, #photo a.prev', function() {
-                if($(this).hasClass('prev'))
-                    dist = -1;
-                else
-                    dist = 1;
-                plugin.goTo(dist);
+            plugin.window.find('.close').bind('click', function() {plugin.closeWindow();return false;});
+
+            plugin.window.on('click', '#photo a.next', function() {
+                plugin.next();
+                return false;
+            });
+
+            plugin.window.on('click', '#photo a.prev', function() {
+                plugin.prev();
                 return false;
             });
 
@@ -57,28 +69,29 @@ jQuery.fn.pGallery = function(options) {
 
             $('body').css('overflow', 'hidden');
             var newUrl = plugin.getEntityUrl() + 'photo' + plugin.data.id + '/';
-            plugin.history.changeBrowserUrl(newUrl);
+            if (typeof history.pushState !== 'undefined') {
+                plugin.history.changeBrowserUrl(newUrl);
+            }
             $('#photo-window-bg, #photo-window').fadeIn(600, function(){
                 $('#photo-thumbs .jcarousel', plugin.window).jcarousel();
                 $('#photo-thumbs .prev', plugin.window).jcarouselControl({target: '-=7',fullScroll:true,carousel: $('#photo-thumbs .jcarousel', plugin.window)});
                 $('#photo-thumbs .next', plugin.window).jcarouselControl({target: '+=7',fullScroll:true,carousel: $('#photo-thumbs .jcarousel', plugin.window)});
-                plugin.preloadPhotos($('#photo-thumbs', this.window).find('li.active').index());
+                plugin.preloadPhotos();
                 $(window).resize();
             });
 
-            if(pGallery_photos[id].description != null)
-                $('#photo', this.window).find('.photo-comment .title-text').show().text(pGallery_photos[id].description);
-            else
-                $('#photo', this.window).find('.photo-comment .title-text').hide().text('');
+            var title = pGallery.photos[id].title;
+            if (title != null)
+                document.title = pGallery.photos[id].title;
         }, 'html');
     };
 
     plugin.openImage = function(id, callback) {
-        var photo = $('#photo', this.window);
-        photo.find('.img').children('img').attr({src : pGallery_photos[id].src});
+        /*var photo = $('#photo', this.window);
+        photo.find('.img').find('img').attr({src : pGallery.photos[id].src});
         if(photo.find('.in').size() > 0) {
-            if(pGallery_photos[id].title != null) {
-                photo.find('.in').show().find('.title-text').text(pGallery_photos[id].title);
+            if(pGallery.photos[id].title != null) {
+                photo.find('.in').show().find('.title-text').text(pGallery.photos[id].title);
             } else {
                 if(photo.find('.in').find('a.edit').size() == 0)
                     photo.find('.in').hide().text('');
@@ -86,12 +99,29 @@ jQuery.fn.pGallery = function(options) {
                     photo.find('.in').find('.title-text').text('');
             }
         }
-        if(pGallery_photos[id].description != null)
-            photo.find('.photo-comment .title-text').show().text(pGallery_photos[id].description);
+        if(pGallery.photos[id].description != null)
+            photo.find('.photo-comment .title-text').show().text(pGallery.photos[id].description);
         else
             photo.find('.photo-comment .title-text').hide().text('');
 
-        photo.find('.user-info').replaceWith(pGallery_photos[id].avatar);
+        photo.find('.user-info').replaceWith(pGallery.photos[id].avatar);*/
+
+        var indexEl = $('.photo-info > .count > span')
+        var titleEl = $('.photo-info > .title', this.window);
+        var descriptionEl = $('.photo-comment > p', this.window);
+        var avatarEl = $('.user', this.window);
+        var imgEl = $('#photo img', this.window);
+
+        var title = pGallery.photos[id].title;
+        var description = pGallery.photos[id].description;
+
+        avatarEl.html(pGallery.photos[id].avatar);
+        imgEl.attr('src', pGallery.photos[id].src);
+        indexEl.text(pGallery.photos[id].idx);
+        (title == null) ? titleEl.hide() : titleEl.text(title).show();
+        (description == null) ? descriptionEl.hide() : descriptionEl.text(description).show();
+        if (title != null)
+            document.title = title;
 
         this.data.id = id;
         var link = $('#photo-thumbs li a[data-id='+id+']' ,this.window);
@@ -102,6 +132,7 @@ jQuery.fn.pGallery = function(options) {
         /*$('#photo-window-in', this.window).append('<div id="loading"><div class="in"><img src="/images/test_loader.gif">Загрузка</div></div>');*/
 
         $.get(base_url + '/albums/wPhoto/', data, function(html) {
+            pGallery.currentPhoto = plugin.data.id;
             var newUrl = plugin.getEntityUrl() + 'photo' + plugin.data.id + '/';
             plugin.history.changeBrowserUrl(newUrl);
 
@@ -112,7 +143,8 @@ jQuery.fn.pGallery = function(options) {
                 callback();
             /*$('#photo-window-in', plugin.window).children('#loading').remove();*/
         }, 'html');
-        plugin.preloadPhotos(link.parent().index());
+        plugin.preloadPhotos();
+        return false;
     };
 
     plugin.goTo = function(dist) {
@@ -120,39 +152,49 @@ jQuery.fn.pGallery = function(options) {
         data.dist = dist;
         data.go = 1;
 
-        var active = $('#photo-thumbs li.active');
-        var index = active.index();
-        active.removeClass('active');
-        var offset = index + dist;
-        if(offset > $('#photo-thumbs li').size() - 1)
-            offset = 0;
-        else if(offset < 0)
-            offset = $('#photo-thumbs li').size() - 1;
-        var newLink = $('#photo-thumbs li:eq(' + (offset) + ') a');
-        this.openImage(newLink.attr('data-id'), function() {
-            $('#photo-thumbs .jcarousel', $('#photo-window')).jcarousel('scroll', offset);
-        });
+        var goTo = pGallery.photos.dist;
+        if (goTo = null)
+        this.openImage(newLink.attr('data-id'));
     };
 
-    plugin.preloadPhotos = function(index) {
-        var size = 7;
-        $('#photo-thumbs', this.window).find('li:gt('+(index - size)+')').each(function(i) {
-            var link = $(this).children('a');
-            if(link.attr('data-loaded') == 'true')
-                return true;
-            link.attr('data-loaded', true);
-            var id  = link.attr('data-id');
-            var image = new Image();
-            image.src = pGallery_photos[id].src;
-            if(i == size)
-                return false;
+    plugin.next = function () {
+        console.log('next');
+        var next = pGallery.photos[pGallery.currentPhoto].next;
+        var goTo =  (next != null) ? next : pGallery.first;
+        this.openImage(goTo);
+    };
+
+    plugin.prev = function () {
+        console.log('prev');
+        var prev = pGallery.photos[pGallery.currentPhoto].prev;
+        var goTo =  (prev != null) ? prev : pGallery.last;
+        this.openImage(goTo);
+    };
+
+    plugin.preloadPhotos = function() {
+        var depth = 3;
+        var images = [];
+        var currentPrev = pGallery.photos[pGallery.currentPhoto];
+        var currentNext = pGallery.photos[pGallery.currentPhoto];
+        for (var i = 0; i < depth; i++) {
+            currentNext = (currentNext.next == null) ? pGallery.photos[pGallery.first] : pGallery.photos[currentNext.next];
+            currentPrev = (currentPrev.prev == null) ? pGallery.photos[pGallery.last] : pGallery.photos[currentPrev.prev];
+            images.push(currentNext.src);
+            images.push(currentPrev.src);
+        }
+
+        $(images).each(function() {
+            $('<img/>')[0].src = this;
         });
+
     };
 
     plugin.closeWindow = function() {
         plugin.init = false;
         $('#photo-window-bg, #photo-window').fadeOut(600, function(){
-            plugin.history.changeBrowserUrl(plugin.getEntityUrl());
+            document.title = plugin.originalTitle;
+            if (! plugin.data.singlePhoto)
+                plugin.history.changeBrowserUrl(plugin.getEntityUrl());
             $('body').css('overflow', 'auto');
             plugin.window.remove();
             plugin.bg.remove();
@@ -165,7 +207,8 @@ jQuery.fn.pGallery = function(options) {
 
     if(/\/photo(\d+)/.test(document.location.href)) {
         var id = document.location.href.split(/\/photo(\d+)/)[1];
-        plugin.openWindow(id);
+        if (! plugin.data.singlePhoto)
+            plugin.openWindow(id);
     }
 
     $(document).keyup(function(e) {
@@ -174,10 +217,9 @@ jQuery.fn.pGallery = function(options) {
         }
     });
 
-
     return this.each(function() {
         $(this).bind('click', function() {
-            plugin.openWindow($(this).attr('data-id'));
+            plugin.openWindow($(this).data('id'));
         });
     });
 }

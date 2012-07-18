@@ -14,6 +14,13 @@ return array(
         // global
         '.*/index' => 404,
 
+        // photo view
+        'community/<community_id:\d+>/forum/post/<content_id:\d+>/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'CommunityContentGallery')),
+        'user/<user_id:\d+>/albums/<album_id:\d+>/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'Album')),
+        'cook/recipe/<recipe_id:\d+>/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'CookRecipe')),
+        'cook/decor/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'CookDecorationCategory')),
+        'cook/decor/<category_id:\d+>/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'CookDecorationCategory')),
+
         // site controller
         '/' => 'site/index',
         'js_dynamics/<hash:\w+>.js' => 'site/seoHide',
@@ -41,10 +48,10 @@ return array(
         'morning/<date:[\d\d\d\d-\d\d-\d\d]*>' => 'morning/index',
 
         // albums controller
-        'albums/addPhoto/a/<id:\d+>' => 'albums/addPhoto',
+        'albums/addPhoto/a/<a:\d+>' => 'albums/addPhoto',
         'albums/addPhoto' => 'albums/addPhoto',
         'albums/redirect/<id:\d+>' => 'albums/redirect',
-        'albums/<_a:(attach|wPhoto|attachView|editDescription|editPhotoTitle|changeTitle|changePermission|removeUploadPhoto|communityContentEdit|communityContentSave|recipePhoto|cookDecorationPhoto|cookDecorationCategory|commentPhoto|crop|changeAvatar|humorPhoto)>' => 'albums/<_a>',
+        'albums/<_a:(attach|wPhoto|attachView|editDescription|editPhotoTitle|changeTitle|changePermission|removeUploadPhoto|communityContentEdit|communityContentSave|recipePhoto|cookDecorationPhoto|cookDecorationCategory|commentPhoto|crop|changeAvatar|humorPhoto|albumSettings|updatePhoto)>' => 'albums/<_a>',
 
         // user/*
         'user/<user_id:\d+>' => 'user/profile',
@@ -115,13 +122,13 @@ return array(
 
         'cook/converter/<_a>' => 'cook/converter/<_a>',
 
-        'cook/decor/<id:[\d]+>' => 'cook/decor/index',
-        'cook/decor/<id:[\d]+>/<photo:[\w_]+>' => 'cook/decor/index',
-        'cook/decor/<photo:[\w_]+>' => 'cook/decor/index',
         'cook/decor/<id:[\d]+>/page/<page:[\d]+>/<photo:[\w_]+>' => 'cook/decor/index',
         'cook/decor/<id:[\d]+>/page/<page:[\d]+>' => 'cook/decor/index',
-        'cook/decor/page/<page:[\d]+>/<photo:[\w_]+>' => 'cook/decor/index',
+        'cook/decor/<id:[\d]+>/<photo:[\w_]+>' => 'cook/decor/index',
         'cook/decor/page/<page:[\d]+>' => 'cook/decor/index',
+        'cook/decor/page/<page:[\d]+>/<photo:[\w_]+>' => 'cook/decor/index',
+        'cook/decor/<id:[\d]+>' => 'cook/decor/index',
+        'cook/decor/<photo:[\w_]+>' => 'cook/decor/index',
         'cook/decor' => 'cook/decor/index',
 
         'cook/recipe/add' => 'cook/recipe/form',

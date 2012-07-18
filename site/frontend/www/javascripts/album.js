@@ -326,7 +326,7 @@ Album.uploadSuccess = function (id, name, serverData) {
     });
 
     $('#new_album_title').val('');
-    //Album.changeAlbum($('#album_select'));
+    Album.changeAlbum($('#album_select'));
 
 
     var item = $('#log li#' + id);
@@ -385,10 +385,8 @@ Album.registerUploadEvents = function (elem) {
 
 Album.savePhotos = function () {
     if (Album.current_album_id != Album.album_id) {
-        alert('redirect');
         document.location.href = base_url + '/albums/redirect/' + Album.album_id + '/';
     } else {
-        alert('update');
         $.fn.yiiListView.update('photosList');
     }
     $.fancybox.close();

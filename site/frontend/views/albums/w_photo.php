@@ -90,5 +90,8 @@
 <?php $profile[] = microtime(); ?>
 
 <div style="display: none;">
-    <?php print_r($profile); ?>
+    <?php foreach ($profile as $p) {
+        echo $p - $start;
+
+    } ?>
 </div>

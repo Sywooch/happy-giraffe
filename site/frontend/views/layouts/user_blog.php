@@ -166,7 +166,7 @@
                     'validateOnType' => true,
                 ),
                 'htmlOptions' => array(
-                    'onsubmit' => 'ajaxSetValues(this, function(response) {if (response) {$.fancybox.close();}}); return false;',
+                    'onsubmit' => 'ajaxSetValues(this, function(response) {if (response) {$.fancybox.close(); window.location.reload();}}); return false;',
                 ),
             ));
             $model = $this->user;

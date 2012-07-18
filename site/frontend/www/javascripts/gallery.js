@@ -15,6 +15,9 @@ jQuery.fn.pGallery = function(options) {
         plugin.originalTitle = null;
 
     plugin.openWindow = function(id) {
+        console.log('start');
+        var start = new Date().getMilliseconds();
+
         if(this.init)
             return false;
         this.init = true;
@@ -43,6 +46,7 @@ jQuery.fn.pGallery = function(options) {
         }
 
         $.get(base_url + '/albums/wPhoto/', plugin.data, function(html) {
+            console.log(new Date().getMilliseconds() - start);
             pGallery.currentPhoto = plugin.data.id;
             $('#photo-window').append(html);
 
@@ -76,7 +80,7 @@ jQuery.fn.pGallery = function(options) {
                 /*$('#photo-thumbs .jcarousel', plugin.window).jcarousel();
                 $('#photo-thumbs .prev', plugin.window).jcarouselControl({target: '-=7',fullScroll:true,carousel: $('#photo-thumbs .jcarousel', plugin.window)});
                 $('#photo-thumbs .next', plugin.window).jcarouselControl({target: '+=7',fullScroll:true,carousel: $('#photo-thumbs .jcarousel', plugin.window)});*/
-                //plugin.preloadPhotos();
+                plugin.preloadPhotos();
                 $(window).resize();
             });
 
@@ -84,6 +88,7 @@ jQuery.fn.pGallery = function(options) {
             if (title != null)
                 document.title = pGallery.photos[id].title;
         }, 'html');
+        console.log(new Date().getMilliseconds() - start);
     };
 
     plugin.openImage = function(id, callback) {

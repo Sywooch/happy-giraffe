@@ -130,7 +130,7 @@ $(function(){
 
           // применяем плагин для "сетки"
 
-          album.find('.album-photos').masonry({
+          if (albumSize > 0) album.find('.album-photos').masonry({
               itemSelector : 'li',
               columnWidth: 230
           });

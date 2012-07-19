@@ -41,6 +41,7 @@
     </div>
 
     <script type="text/javascript">
+        <?php ob_start(); ?>
         <?php foreach ($photos as $i => $p): ?>
             pGallery.photos[<?php echo $p->id ?>] = {
                 idx : <?=$i + 1?>,
@@ -53,19 +54,20 @@
                     if (($i == 0 && $photo->author_id == $p->author_id) || ($i != 0 && $p->author_id == $photos[$i - 1]->author_id)) {
                         echo 'null';
                     } else {
-                        ob_start();
                         $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
                             'user' => $p->author,
                             'size' => 'small',
                             'sendButton' => false,
                             'location' => false
                         ));
-                        $ob = ob_get_clean();
-                        echo str_replace(array("\n", "\r"), '', $ob);
                     }
                 ?>'
             };
         <?php endforeach; ?>
+        <?php
+            $ob = ob_get_clean();
+            echo str_replace(array("\n", "\r"), '', $ob);
+        ?>
         pGallery.first = <?=$photos[0]->id?>;
         pGallery.last = <?=end($photos)->id?>;
     </script>

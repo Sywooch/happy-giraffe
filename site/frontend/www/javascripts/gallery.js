@@ -64,6 +64,14 @@ jQuery.fn.pGallery = function(options) {
                 return false;
             });
 
+            $('html').click(function() {
+                plugin.closeWindow();
+            });
+
+            $('#photo-window-in').click(function(event){
+                event.stopPropagation();
+            });
+
             /*plugin.window.on('click', '#photo-thumbs li a', function() {
                 if($(this).parent().hasClass('active'))
                     return false;

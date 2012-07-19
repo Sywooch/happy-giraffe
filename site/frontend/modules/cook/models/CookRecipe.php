@@ -28,6 +28,12 @@ class CookRecipe extends CActiveRecord
     const COOK_RECIPE_LOWCAL = 40;
     const COOK_RECIPE_FORDIABETICS = 33;
 
+    const COOK_DEFAULT_SECTION = 0;
+    public $sectionsMap = array(
+        0 => 'SimpleRecipe',
+        1 => 'MultivarkaRecipe',
+    );
+
     public $types = array(
         1 => 'Первые блюда',
         2 => 'Вторые блюда',
@@ -40,6 +46,9 @@ class CookRecipe extends CActiveRecord
         9 => 'Напитки',
         10 => 'Соусы и кремы',
         11 => 'Консервация',
+        12 => 'Блюда из молочных продуктов',
+        13 => 'Рецепты для малышей',
+        14 => 'Рецепты-дуэты',
     );
 
     public $durations = array(
@@ -114,6 +123,7 @@ class CookRecipe extends CActiveRecord
             array('preparation_duration_h, preparation_duration_m, cooking_duration_h, cooking_duration_m', 'safe'),
             array('cuisine_id', 'default', 'value' => null),
             array('photo_id', 'default', 'value' => null),
+            array('section', 'in', 'range' => array_keys($this->sectionsMap)),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('id, title, photo_id, preparation_duration, cooking_duration, servings, text, cuisine_id, type, author_id', 'safe', 'on' => 'search'),
@@ -374,6 +384,7 @@ class CookRecipe extends CActiveRecord
     {
         $params = array(
             'id' => $this->id,
+            'section' => $this->section,
         );
 
         if ($comments)
@@ -542,7 +553,7 @@ class CookRecipe extends CActiveRecord
         if ($type !== null)
             $criteria->compare('type', $type);
 
-        $dp = new CActiveDataProvider('CookRecipe', array(
+        $dp = new CActiveDataProvider(get_class($this), array(
             'criteria' => $criteria,
             'pagination' => array(
                 'pageSize' => 10,

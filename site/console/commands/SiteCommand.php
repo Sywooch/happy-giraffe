@@ -209,6 +209,7 @@ class SiteCommand extends CConsoleCommand
     public function actionGeneratePreviews()
     {
         Yii::import('site.frontend.extensions.image.Image');
+        Yii::import('site.frontend.extensions.helpers.CArray');
 
         $limit = 1000;
         $offset = 0;

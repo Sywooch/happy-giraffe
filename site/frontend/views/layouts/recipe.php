@@ -34,8 +34,8 @@ $this->widget('zii.widgets.CBreadcrumbs', array(
             <div class="title">
 
                 <div class="links">
-                    <?=HHtml::link('По ингредиентам', array('/cook/recipe/searchByIngredients'), array(), false)?>
-                    <?=HHtml::link('Расширеный поиск', array('/cook/recipe/advancedSearch'), array(), false)?>
+                    <?=HHtml::link('По ингредиентам', array('/cook/recipe/searchByIngredients', 'section' => $this->section), array(), true)?>
+                    <?=HHtml::link('Расширеный поиск', array('/cook/recipe/advancedSearch', 'section' => $this->section), array(), true)?>
                 </div>
 
                 <i class="icon"></i>

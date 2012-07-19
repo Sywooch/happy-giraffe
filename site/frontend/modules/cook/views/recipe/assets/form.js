@@ -6,7 +6,7 @@ CookRecipe.selectServings = function(el)
 {
     $('div.portions > a.active').removeClass('active');
     $(el).addClass('active');
-    $('#CookRecipe_servings').val($(el).text());
+    $(el).parent().next().val($(el).text());
 }
 
 $(function() {

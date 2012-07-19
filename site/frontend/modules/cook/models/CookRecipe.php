@@ -120,6 +120,7 @@ class CookRecipe extends CActiveRecord
             array('preparation_duration_h, preparation_duration_m, cooking_duration_h, cooking_duration_m', 'safe'),
             array('cuisine_id', 'default', 'value' => null),
             array('photo_id', 'default', 'value' => null),
+            array('section', 'in', 'range' => array_keys($this->sectionsMap)),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('id, title, photo_id, preparation_duration, cooking_duration, servings, text, cuisine_id, type, author_id', 'safe', 'on' => 'search'),

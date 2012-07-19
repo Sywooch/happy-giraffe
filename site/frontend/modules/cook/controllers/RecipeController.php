@@ -57,13 +57,13 @@ class RecipeController extends HController
             $recipe = new $this->modelName;
             $ingredients = array();
         } else {
-            $recipe = CookRecipe::model()->with('ingredients.unit', 'ingredients.ingredient.availableUnits')->findByPk($id);
+            $recipe = CActiveRecord::model($this->modelName)->with('ingredients.unit', 'ingredients.ingredient.availableUnits')->findByPk($id);
             $ingredients = $recipe->ingredients;
         }
 
-        if (isset($_POST['CookRecipe'])) {
+        if (isset($_POST[$this->modelName])) {
             $ingredients = array();
-            $recipe->attributes = $_POST['CookRecipe'];
+            $recipe->attributes = $_POST[$this->modelName];
             if ($recipe->isNewRecord)
                 $recipe->author_id = Yii::app()->user->id;
             foreach ($_POST['CookRecipeIngredient'] as $i) {

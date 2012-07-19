@@ -11,21 +11,21 @@
         ->registerCssFile($cs->coreScriptUrl . '/jui/css/base/jquery-ui.css');
     ;
 
-$this->breadcrumbs = array(
-'Кулинария' => array('/cook'),
-'Добавить рецепт'
-);
+    $this->breadcrumbs = array(
+    'Кулинария' => array('/cook'),
+    'Добавить рецепт'
+    );
 ?>
 
 <?php
-$this->widget('zii.widgets.CBreadcrumbs', array(
-    'links' => $this->breadcrumbs,
-    'separator' => ' &gt; ',
-    'htmlOptions' => array(
-        'id' => 'crumbs',
-        'class' => null,
-    ),
-));
+    $this->widget('zii.widgets.CBreadcrumbs', array(
+        'links' => $this->breadcrumbs,
+        'separator' => ' &gt; ',
+        'htmlOptions' => array(
+            'id' => 'crumbs',
+            'class' => null,
+        ),
+    ));
 ?>
 
 <div class="main">
@@ -136,25 +136,27 @@ $this->widget('zii.widgets.CBreadcrumbs', array(
 
                     </div>
 
-                    <div class="row clearfix">
+                    <?php if (get_class($recipe) != 'MultivarkaRecipe'): ?>
+                        <div class="row clearfix">
 
-                        <div class="col">
+                            <div class="col">
 
-                            <?=$form->label($recipe, 'cuisine_id', array('class' => 'row-title'))?><br/>
+                                <?=$form->label($recipe, 'cuisine_id', array('class' => 'row-title'))?><br/>
 
-                            <span class="chzn-v2">
-                                <?=$form->dropDownList($recipe, 'cuisine_id', CHtml::listData($cuisines, 'id', 'title'), array('prompt' => 'не выбрана', 'class' => 'chzn'))?>
-                            </span>
+                                <span class="chzn-v2">
+                                    <?=$form->dropDownList($recipe, 'cuisine_id', CHtml::listData($cuisines, 'id', 'title'), array('prompt' => 'не выбрана', 'class' => 'chzn'))?>
+                                </span>
 
-                            <br/>
+                                <br/>
 
-                            <!--<div class="country">
-                                <div class="flag-big flag-big-ua"></div>Украинская
-                            </div>-->
+                                <!--<div class="country">
+                                    <div class="flag-big flag-big-ua"></div>Украинская
+                                </div>-->
+
+                            </div>
 
                         </div>
-
-                    </div>
+                    <?php endif; ?>
 
                     <div class="row clearfix ">
 

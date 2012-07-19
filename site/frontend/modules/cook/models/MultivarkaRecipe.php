@@ -5,5 +5,5 @@
  */
 class MultivarkaRecipe extends CookRecipe
 {
-
+    public $section = 1;
 }

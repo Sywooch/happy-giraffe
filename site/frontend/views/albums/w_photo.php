@@ -4,9 +4,6 @@
      * @var AlbumPhoto $photo
      */
 
-    $start = microtime(true);
-    $profile = array();
-
     $collection = $model->photoCollection;
     $title = $collection['title'];
     $photos = $collection['photos'];
@@ -44,7 +41,7 @@
     </div>
 
     <script type="text/javascript">
-        <?php $profile[] = microtime(true); ?>
+        <?php ob_start(); ?>
         <?php foreach ($photos as $i => $p): ?>
             pGallery.photos[<?php echo $p->id ?>] = {
                 idx : <?=$i + 1?>,
@@ -54,24 +51,22 @@
                 title : <?=($p->w_title === null) ? 'null' : '\'' . $p->w_title . '\''?>,
                 description : <?=($p->w_description === null) ? 'null' : '\'' . $p->w_description . '\''?>,
                 avatar : '<?php
-                    if (($i == 0 && $photo->author_id == $p->author_id) || $p->author_id == $photos[$i - 1]->author_id) {
+                    if (($i == 0 && $photo->author_id == $p->author_id) || ($i != 0 && $p->author_id == $photos[$i - 1]->author_id)) {
                         echo 'null';
                     } else {
-                        ob_start();
                         $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
                             'user' => $p->author,
                             'size' => 'small',
                             'sendButton' => false,
                             'location' => false
                         ));
-                        $ob = ob_get_clean();
-                        echo str_replace(array("\n", "\r"), '', $ob);
                     }
                 ?>'
             };
         <?php endforeach; ?>
         <?php
-            $profile[] = microtime(true);
+            $ob = ob_get_clean();
+            echo str_replace(array("\n", "\r"), '', $ob);
         ?>
         pGallery.first = <?=$photos[0]->id?>;
         pGallery.last = <?=end($photos)->id?>;
@@ -97,13 +92,4 @@
         <?php $this->renderPartial('w_photo_content', compact('model', 'photo')); ?>
     </div>
 
-</div>
-
-<?php $profile[] = microtime(true); ?>
-
-<div style="display: none;">
-    <?php foreach ($profile as $p) {
-        echo ($p - $start) . '<br />';
-
-    } ?>
 </div>

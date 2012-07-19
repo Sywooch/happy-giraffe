@@ -281,7 +281,11 @@ class AlbumPhoto extends HActiveRecord
             Yii::import('site.frontend.extensions.image.Image');
             if (!file_exists($this->originalPath))
                 return false;
-            $image = new Image($this->originalPath);
+            try {
+                $image = new Image($this->originalPath);
+            } catch (CException $e) {
+                return $thumb;
+            }
 
             if ($image->width <= $width && $image->height <= $height) {
 
@@ -299,9 +303,10 @@ class AlbumPhoto extends HActiveRecord
             $image->save($thumb);
         }
 
-        $size = getimagesize($thumb);
-        $this->width = $size[0];
-        $this->height = $size[1];
+        if ($size = @getimagesize($thumb)) {
+            $this->width = $size[0];
+            $this->height = $size[1];
+        }
 
         return $thumb;
     }

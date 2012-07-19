@@ -73,7 +73,7 @@ Attach.prototype.selectBrowsePhoto = function (button) {
         this.insertToHumor(fsn);
     } else if (this.entity == 'CookDecoration') {
         this.CookDecorationEdit(fsn);
-    } else if (this.entity == 'CookRecipe') {
+    } else if (this.entity == 'CookRecipe' || this.entity == 'SimpleRecipe' || this.entity == 'MultivarkaRecipe') {
         this.insertToRecipe(fsn);
     } else if (this.entity == 'CommunityContent') {
         this.saveCommunityContent(fsn);
@@ -123,7 +123,7 @@ Attach.prototype.insertToRecipe = function (fsn) {
     $.post(base_url + '/albums/recipePhoto/', {val:fsn, many:this.many,entity:this.entity,entity_id:this.entity_id}, function (data) {
         if (data.status) {
             if (! $this.many) {
-                $('#CookRecipe_photo_id').val(data.id);
+                $('#' + $this.entity + '_photo_id').val(data.id);
                 $('a.attach').html($('<img />').attr('src', data.src));
                 if (!$('div.add-photo').hasClass('uploaded'))
                     $('div.add-photo').addClass('uploaded');

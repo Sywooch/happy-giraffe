@@ -4,9 +4,6 @@
      * @var AlbumPhoto $photo
      */
 
-    $start = microtime(true);
-    $profile = array();
-
     $collection = $model->photoCollection;
     $title = $collection['title'];
     $photos = $collection['photos'];
@@ -44,7 +41,6 @@
     </div>
 
     <script type="text/javascript">
-        <?php $profile[] = microtime(true); ?>
         <?php foreach ($photos as $i => $p): ?>
             pGallery.photos[<?php echo $p->id ?>] = {
                 idx : <?=$i + 1?>,
@@ -70,9 +66,6 @@
                 ?>'
             };
         <?php endforeach; ?>
-        <?php
-            $profile[] = microtime(true);
-        ?>
         pGallery.first = <?=$photos[0]->id?>;
         pGallery.last = <?=end($photos)->id?>;
     </script>
@@ -97,13 +90,4 @@
         <?php $this->renderPartial('w_photo_content', compact('model', 'photo')); ?>
     </div>
 
-</div>
-
-<?php $profile[] = microtime(true); ?>
-
-<div style="display: none;">
-    <?php foreach ($profile as $p) {
-        echo ($p - $start) . '<br />';
-
-    } ?>
 </div>

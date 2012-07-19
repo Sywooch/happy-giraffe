@@ -278,6 +278,7 @@
 
     <div class="entry-footer">
         <div class="admin-actions">
+            <?=$this->createUrl('/cook/recipe/form/', array('id' => $recipe->id, 'section' => $recipe->section))?>
             <?php if (Yii::app()->authManager->checkAccess('editCookRecipe', Yii::app()->user->id) || Yii::app()->user->id == $recipe->author_id){
                 echo CHtml::link('<i class="icon"></i>', $this->createUrl('/cook/recipe/form/', array('id' => $recipe->id, 'section' => $recipe->section)), array('class' => 'edit'));
             } ?>
@@ -291,7 +292,7 @@
             Еще вкусненькое
         </div>
         <ul>
-            <?php foreach($recipe->more as $m): ?>
+            <?php foreach ($recipe->more as $m): ?>
                 <li>
                     <div class="user clearfix">
                         <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => $m->author, 'size' => 'small', 'location' => false, 'sendButton' => false)); ?>

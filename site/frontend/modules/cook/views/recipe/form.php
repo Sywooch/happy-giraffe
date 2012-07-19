@@ -103,7 +103,7 @@
 
                                 <?php
                                     $fileAttach = $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
-                                        'model' => CookRecipe::model()->findByPk($recipe->id),
+                                        'model' => new CookRecipe,
                                         'customButton' => true,
                                         'customButtonHtmlOptions' => array('class' => 'fancy attach'),
                                     ));

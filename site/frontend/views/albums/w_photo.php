@@ -8,7 +8,6 @@
     $profile = array();
 
     $collection = $model->photoCollection;
-    $profile[] = microtime(true);
     $title = $collection['title'];
     $photos = $collection['photos'];
     $count = count($photos);
@@ -20,8 +19,6 @@
             break;
         }
     }
-
-    $profile[] = microtime(true);
 ?>
 
 <div id="photo-window-in">
@@ -47,7 +44,7 @@
     </div>
 
     <script type="text/javascript">
-        <?php ob_start(); ?>
+        <?php $profile[] = microtime(true); ob_start(); ?>
         <?php foreach ($photos as $i => $p): ?>
             pGallery.photos[<?php echo $p->id ?>] = {
                 idx : <?=$i + 1?>,
@@ -66,14 +63,12 @@
             };
         <?php endforeach; ?>
         <?php
-            $ob = ob_get_clean();
-            echo str_replace(array("\n", "\r"), '', $ob);
+            $ob = ob_get_clean(); $profile[] = microtime(true);
+            echo str_replace(array("\n", "\r"), '', $ob); $profile[] = microtime(true);
         ?>
         pGallery.first = <?=$photos[0]->id?>;
         pGallery.last = <?=end($photos)->id?>;
     </script>
-
-    <?php $profile[] = microtime(true); ?>
 
     <div id="photo">
 

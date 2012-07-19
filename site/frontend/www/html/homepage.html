@@ -32,7 +32,7 @@
 			
 			$('#photo-window-bg, #photo-window').fadeIn(600, function(){
 				st = $('body').scrollTop();
-				$('body').scrollTop(0).css('overflow', 'hidden');
+				$('body').scrollTop(0).css('overflow', 'hidden').addClass('nav-fixed');
 			});
 			
 			
@@ -40,7 +40,7 @@
 		
 		function closePhoto(){
 			$('#photo-window-bg, #photo-window').hide();
-			$('body').css('overflow', 'auto').scrollTop(st);
+			$('body').css('overflow', 'auto').scrollTop(st).removeClass('nav-fixed');
 		}
 		
 	</script>

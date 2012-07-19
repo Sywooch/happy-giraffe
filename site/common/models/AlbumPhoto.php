@@ -147,6 +147,8 @@ class AlbumPhoto extends HActiveRecord
 
     public function afterSave()
     {
+        if ($this->isNewRecord)
+            $this->getPreviewUrl(960, 627, Image::HEIGHT, true);
         if ($this->isNewRecord && Yii::app()->hasComponent('comet') && $this->author->isNewComer() && isset($this->album)) {
             if ($this->album->type == 0 || $this->album->type == 1 || $this->album->type == 3) {
                 $signal = new UserSignal();

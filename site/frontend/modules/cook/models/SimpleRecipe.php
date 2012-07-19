@@ -5,5 +5,5 @@
  */
 class SimpleRecipe extends CookRecipe
 {
-
+    public $section = 0;
 }

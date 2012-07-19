@@ -318,9 +318,10 @@
 #blogSettings .rubrics .bottom-line .note span {float:left;margin-right:5px;position:relative;top:0;}
 #blogSettings .rubrics .bottom-line .note img {vertical-align:middle;}
 
-#blogSettings .rubrics .btn-box {text-align: center;float:right;}
-#blogSettings .rubrics .btn-box .btn-finish {display: inline-block; height: 58px; border: 1px solid #34ac51; background: #46b14e url(/images/btn_green_60.gif) repeat-x; line-height: 58px; color: #fff; font-size: 18px; font-weight: bold; text-decoration: none; padding: 0 30px;}
-#blogSettings .rubrics .btn-box .btn-finish {/*css3*/ border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; behavior: url(/stylesheets/PIE.htc);}
+#blogSettings .rubrics .btn-box {float:right;}
+
+#blogSettings .btn-finish {display: inline-block; height: 58px; border: 1px solid #34ac51; background: #46b14e url(/images/btn_green_60.gif) repeat-x; line-height: 58px; color: #fff; font-size: 18px; font-weight: bold; text-decoration: none; padding: 0 30px;}
+#blogSettings .btn-finish {/*css3*/ border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; behavior: url(/stylesheets/PIE.htc);}
 
 
 

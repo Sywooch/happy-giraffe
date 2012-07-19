@@ -189,7 +189,7 @@
             var modelName = bl.find('input[name=modelName]').val();
 
             $.ajax({
-                url: '<?php echo $this->createUrl('names/addValue') ?>',
+                url: '<?php echo $this->createUrl('club/names/addValue') ?>',
                 data: {
                     text: text,
                     modelId: model_id,
@@ -224,7 +224,7 @@
             if (title != '') {
                 if (model_id == null)
                     $.ajax({
-                        url:'<?php echo Yii::app()->createUrl("names/create") ?>',
+                        url:'<?php echo Yii::app()->createUrl("club/names/create") ?>',
                         data:{title:title},
                         type:'POST',
                         dataType:'JSON',
@@ -393,7 +393,7 @@
         /*************************** Add saint date*******************************/
         $('#add_calendar input[type=submit]').click(function(){
             $.ajax({
-                url: '<?php echo Yii::app()->createUrl("names/AddSaintDate") ?>',
+                url: '<?php echo Yii::app()->createUrl("club/names/AddSaintDate") ?>',
                 data: $('#calendar-form').serialize()+'&model_id='+model_id,
                 type: 'POST',
                 dataType:'JSON',
@@ -413,7 +413,7 @@
         $('#famous_add input[type=submit]').click(function(){
             var new_model = $('#famous-form input[name="NameFamous[id]"]').val() == '';
             $.ajax({
-                url: '<?php echo Yii::app()->createUrl("names/AddFamous") ?>',
+                url: '<?php echo Yii::app()->createUrl("club/names/AddFamous") ?>',
                 data: $('#famous-form').serialize()+'&NameFamous[name_id]='+model_id,
                 type: 'POST',
                 dataType:'JSON',
@@ -456,7 +456,7 @@
         $('body').delegate('.famous_block.edit > img', 'click', function(){
             var id = $(this).prev().find('input[name=modelPk]').val();
             $.ajax({
-                url: '<?php echo Yii::app()->createUrl("names/FamousInfo") ?>',
+                url: '<?php echo Yii::app()->createUrl("club/names/FamousInfo") ?>',
                 data: {id:id},
                 type: 'POST',
                 dataType:'JSON',

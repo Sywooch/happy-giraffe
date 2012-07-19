@@ -205,4 +205,21 @@ class SiteCommand extends CConsoleCommand
         }
         return $k;
     }
+
+    public function actionGeneratePreviews()
+    {
+        Yii::import('site.frontend.extensions.image.Image');
+        Yii::import('site.frontend.extensions.helpers.CArray');
+
+        $limit = 1000;
+        $offset = 0;
+        $i = 0;
+
+        while ($photos = AlbumPhoto::model()->active()->findAll(array('order' => 'id DESC', 'limit' => $limit, 'offset' => $offset))) {
+            foreach ($photos as $p) {
+                echo ++$i . ':' . $p->getPreviewUrl(960, 627, Image::HEIGHT, true) . "\n";
+            }
+            $offset += $limit;
+        }
+    }
 }

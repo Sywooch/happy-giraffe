@@ -230,7 +230,8 @@
                         <li>
                             <?php
                                 $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
-                                    'model' => $recipe,
+                                    'entity' => get_parent_class($recipe),
+                                    'entity_id' => $recipe->id,
                                     'many' => true,
                                     'customButton' => true,
                                     'customButtonHtmlOptions' => array('class' => 'fancy add'),

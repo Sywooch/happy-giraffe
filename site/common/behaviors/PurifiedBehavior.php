@@ -9,23 +9,19 @@ class PurifiedBehavior extends CActiveRecordBehavior
     public $options = array();
 
     private $_defaultOptions = array(
-        //'URI.Host' => 'happy-giraffe.com',
-        'HTML.Nofollow' => true,
-        'HTML.TargetBlank' => true,
         'URI.AllowedSchemes' => array(
             'http' => true,
             'https' => true,
         ),
         'Attr.AllowedFrameTargets' => array('_blank' => true),
-        'Attr.AllowedRel' => array('nofollow'),
+        'Attr.AllowedRel' => array('nofollow')
     );
 
     public function __get($name)
     {
         if (in_array($name, $this->attributes)) {
             $cacheId = $this->getCacheId($name);
-            $value = Yii::app()->cache->get($cacheId);
-            //$value = false;
+            $value = false;
             if ($value === false) {
                 $purifier = new CHtmlPurifier;
                 $purifier->options = CMap::mergeArray($this->_defaultOptions, $this->options);

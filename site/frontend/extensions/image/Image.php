@@ -88,7 +88,7 @@ class Image {
 
 		// Make sure that the image is readable and valid
 		if ( ! is_array($image_info) OR count($image_info) < 3)
-			throw new CException('image file unreadable' . "\n" . $image);
+			throw new CException('image file unreadable');
 
 		// Check to make sure the image type is allowed
 		if ( ! isset(Image::$allowed_types[$image_info[2]]))

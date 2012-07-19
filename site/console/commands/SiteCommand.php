@@ -205,4 +205,16 @@ class SiteCommand extends CConsoleCommand
         }
         return $k;
     }
+
+    public function actionGeneratePreviews()
+    {
+        $limit = 1000;
+        $offset = 0;
+
+        while ($photos = AlbumPhoto::model()->findAll(array('limit' => $limit, 'offset' => $offset))) {
+            foreach ($photos as $p)
+                echo $p->getPreviewUrl(960, 627, Image::HEIGHT, true);
+            $offset += $limit;
+        }
+    }
 }

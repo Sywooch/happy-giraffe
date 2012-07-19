@@ -214,7 +214,7 @@ class SiteCommand extends CConsoleCommand
         $limit = 1000;
         $offset = 0;
 
-        while ($photos = AlbumPhoto::model()->active()->findAll(array('order' => 'id ASC', 'limit' => $limit, 'offset' => $offset))) {
+        while ($photos = AlbumPhoto::model()->active()->findAll(array('order' => 'id DESC', 'limit' => $limit, 'offset' => $offset))) {
             foreach ($photos as $p)
                 echo $p->getPreviewUrl(960, 627, Image::HEIGHT, true) . "\n";
             $offset += $limit;

@@ -57,10 +57,12 @@ class CommunityContentGallery extends HActiveRecord
     public function getPhotoCollection()
     {
         $photos = array();
-        foreach ($this->items as $model)
+        foreach ($this->items as $i => $model)
         {
-            $model->photo->w_description = $model->description;
-            $photos[] = $model->photo;
+            $photo = $model->photo;
+            $photo->w_title = $this->title . ' - фото ' . ($i + 1);
+            $photo->w_description = $model->description;
+            $photos[] = $photo;
         }
         return array(
             'title' => 'Фотоальбом к статье ' . CHtml::link($this->content->title, $this->content->url),

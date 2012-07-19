@@ -276,7 +276,9 @@
 #interestsManage .interests-steps .step-3 .selected-interests-list .btn-box .btn-finish {/*css3*/ border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; behavior: url(/stylesheets/PIE.htc);}
 
 
-#blogSettings {}
+
+
+#blogSettings {width:740px;}
 #blogSettings .popup-title {text-align:left;margin-bottom:20px;}
 #blogSettings .settings-form {margin:20px 0;}
 #blogSettings .settings-form .row {margin-bottom:20px;}
@@ -289,6 +291,37 @@
 #blogSettings .settings-form .row .row-elements .item-title {font-size:18px;color:#3680cc;}
 #blogSettings .settings-form .row .row-elements .edit {display:inline-block;width:14px;height:18px;background:url(../images/common.png) no-repeat -383px -204px;margin-left:5px;position:relative;top:2px;}
 #blogSettings .settings-form .row .row-elements .edit:hover {background-position:-341px -136px;}
+
+#blogSettings .rubrics .note {color:#616162;font-size:12px;}
+#blogSettings .rubrics .note span {font-size: 25px; font-weight: bold; color: #62a3e5; position: relative; top: 8px; margin-right: 5px;}
+
+#blogSettings .rubrics .list {margin:25px 0;}
+#blogSettings .rubrics .list .col {width:47%;padding-right:3%;float:left;}
+#blogSettings .rubrics .list .col ul {list-style:none;}
+#blogSettings .rubrics .list .col ul li {padding-bottom:6px;color:#9b9a9b;}
+#blogSettings .rubrics .list .col ul li .num {display:inline-block;width:20px;color:#9c9d9d;font-size:16px;vertical-align:middle;}
+#blogSettings .rubrics .list .col ul li .rubric {background:#e7f4ff;display:inline-block;height:24px;padding:0 8px 0 6px;line-height:24px;white-space:nowrap;width:auto;color:#353535;cursor:move;}
+#blogSettings .rubrics .list .col ul li .rubric span {float: left; width: 4px; height: 10px; background: url(/images/common.png) no-repeat -383px -179px; margin: 6px 6px 0 0;}
+#blogSettings .rubrics .list .col ul li .remove { width: 12px; height: 14px; background: url(/images/common.png) no-repeat -314px -135px; vertical-align: middle; position: relative;display:none;margin-left:5px;}
+#blogSettings .rubrics .list .col ul li .remove:hover {background-position:-314px -148px;}
+#blogSettings .rubrics .list .col ul li .edit {display:none;width:14px;height:18px;background:url(../images/common.png) no-repeat -383px -204px;margin-left:5px;position:relative;vertical-align:middle;}
+#blogSettings .rubrics .list .col ul li .edit:hover {background-position:-341px -136px;}
+#blogSettings .rubrics .list .col ul li:hover .remove, #blogSettings .rubrics .list .col ul li:hover .edit {display: inline-block;}
+#blogSettings .rubrics .list .col ul li .icon-add {display:inline-block;width:16px;height:16px;background:url(/images/common.png) no-repeat -139px -174px;position:relative;top:-2px;}
+#blogSettings .rubrics .list .col ul li input[type=text] {padding:3px 5px;border:1px solid #cbdcea;background:#fff;width:270px;color:#3d3d3d;vertical-align:middle;font-size:11px;font-family:tahoma, arial, helvetica, sans-serif;margin-top:5px;}
+#blogSettings .rubrics .list .col ul li .btn {vertical-align:middle;position:relative;top:1px;margin-left:5px;}
+
+
+
+#blogSettings .rubrics .bottom-line .note {padding-top:15px;}
+#blogSettings .rubrics .bottom-line .note .in {display:inline-block;vertical-align:middle;margin-right:25px;font-size:13px;line-height:16px;white-space:nowrap}
+#blogSettings .rubrics .bottom-line .note span {float:left;margin-right:5px;position:relative;top:0;}
+#blogSettings .rubrics .bottom-line .note img {vertical-align:middle;}
+
+#blogSettings .rubrics .btn-box {float:right;}
+
+#blogSettings .btn-finish {display: inline-block; height: 58px; border: 1px solid #34ac51; background: #46b14e url(/images/btn_green_60.gif) repeat-x; line-height: 58px; color: #fff; font-size: 18px; font-weight: bold; text-decoration: none; padding: 0 30px;}
+#blogSettings .btn-finish {/*css3*/ border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; behavior: url(/stylesheets/PIE.htc);}
 
 
 

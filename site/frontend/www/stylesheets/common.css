@@ -2538,8 +2538,8 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 
 body.gallery {overflow:hidden;}
 
-#photo-window-bg {position:fixed;height:100%;width:100%;top:0;left:0;z-index:9990;background:url(/images/bg_black_alpha_40.png);}
-#photo-window  {max-height:100%;position:absolute;width:100%;z-index:9999;top:0;left:0;overflow:auto;min-width:1000px;color:#dcdcdc;}
+#photo-window-bg {position:fixed;height:100%;width:100%;top:0;left:0;z-index:98;background:url(/images/bg_black_alpha_40.png);}
+#photo-window  {max-height:100%;position:absolute;width:100%;z-index:99;top:0;left:0;overflow:auto;min-width:1000px;color:#dcdcdc;}
 #photo-window-in {background:#fff;width:1000px;margin:30px auto;position:relative;}
 
 #photo-window .top-line {background:#2a2a2a;position:relative;padding:15px 20px 5px;}

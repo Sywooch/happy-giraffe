@@ -14,12 +14,18 @@ $this->widget('zii.widgets.CBreadcrumbs', array(
 
 <div id="cook-recipe">
 
+    <?php if ($this->section == 1): ?>
+        <div class="title title-recipes-1">
+            <h1>Рецепты для <span>МУЛЬТИВАРОК</span></h1>
+        </div>
+    <?php endif; ?>
+
     <div class="clearfix">
 
         <div class="add-recipe">
 
             Поделиться вкусненьким!<br/>
-            <a href="<?=(Yii::app()->user->isGuest) ? '#login' : $this->createUrl('/cook/recipe/add')?>" class="btn btn-green<?php if (Yii::app()->user->isGuest): ?> fancy<?php endif; ?>" data-theme="white-square"><span><span>Добавить рецепт</span></span></a>
+            <a href="<?=(Yii::app()->user->isGuest) ? '#login' : $this->createUrl('/cook/recipe/form', array('section' => $this->section))?>" class="btn btn-green<?php if (Yii::app()->user->isGuest): ?> fancy<?php endif; ?>" data-theme="white-square"><span><span>Добавить рецепт</span></span></a>
 
         </div>
 
@@ -28,8 +34,8 @@ $this->widget('zii.widgets.CBreadcrumbs', array(
             <div class="title">
 
                 <div class="links">
-                    <?=HHtml::link('По ингредиентам', array('/cook/recipe/searchByIngredients'), array(), true)?>
-                    <?=HHtml::link('Расширеный поиск', array('/cook/recipe/advancedSearch'), array(), true)?>
+                    <?=HHtml::link('По ингредиентам', array('/cook/recipe/searchByIngredients'), array(), false)?>
+                    <?=HHtml::link('Расширеный поиск', array('/cook/recipe/advancedSearch'), array(), false)?>
                 </div>
 
                 <i class="icon"></i>
@@ -66,19 +72,19 @@ $this->widget('zii.widgets.CBreadcrumbs', array(
                         <a href="<?=isset($_GET['text'])?
                             $this->createUrl('/cook/recipe/search', array('text'=>$_GET['text']))
                             :
-                            $this->createUrl('/cook/recipe')?>" class="cook-cat">
+                            $this->createUrl('/cook/recipe/index', array('section' => $this->section))?>" class="cook-cat">
                             <i class="icon-cook-cat icon-recipe-0"></i>
                             <span>Все рецепты</span>
 
                         </a>
                         <span class="count"><?=$this->counts[0]?></span>
                     </li>
-                    <?php foreach (CookRecipe::model()->types as $id => $label): ?>
+                    <?php foreach (CActiveRecord::model($this->modelName)->types as $id => $label): ?>
                         <li<?php if ($this->currentType == $id): ?> class="active"<?php endif; ?>>
                             <a href="<?=isset($_GET['text'])?
                                 $this->createUrl('/cook/recipe/search', array('type' => $id, 'text'=>$_GET['text']))
                                 :
-                                $this->createUrl('/cook/recipe', array('type' => $id))
+                                $this->createUrl('/cook/recipe/index', array('type' => $id, 'section' => $this->section))
                                 ?>" class="cook-cat">
                                 <i class="icon-cook-cat icon-recipe-<?=$id?>"></i>
                                 <?php if ($this->currentType != $id): ?><span class="count"><?=isset($this->counts[$id])?$this->counts[$id]:0?></span><?php endif; ?>

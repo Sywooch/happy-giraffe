@@ -119,8 +119,10 @@ jQuery.fn.pGallery = function(options) {
 
         var title = pGallery.photos[id].title;
         var description = pGallery.photos[id].description;
+        var avatar = pGallery.photos[id].avatar;
 
-        avatarEl.html(pGallery.photos[id].avatar);
+        if (avatar != null)
+            avatarEl.html(pGallery.photos[id].avatar);
         imgEl.attr('src', pGallery.photos[id].src);
         indexEl.text(pGallery.photos[id].idx);
         (title == null) ? titleEl.hide() : titleEl.text(title).show();

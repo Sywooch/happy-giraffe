@@ -73,7 +73,7 @@ Attach.prototype.selectBrowsePhoto = function (button) {
         this.insertToHumor(fsn);
     } else if (this.entity == 'CookDecoration') {
         this.CookDecorationEdit(fsn);
-    } else if (this.entity == 'CookRecipe') {
+    } else if (this.entity == 'CookRecipe' || this.entity == 'SimpleRecipe' || this.entity == 'MultivarkaRecipe') {
         this.insertToRecipe(fsn);
     } else if (this.entity == 'CommunityContent') {
         this.saveCommunityContent(fsn);

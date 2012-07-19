@@ -303,7 +303,7 @@ class AlbumPhoto extends HActiveRecord
             $image->save($thumb);
         }
 
-        $size = getimagesize($thumb);
+        $size = @getimagesize($thumb);
         $this->width = $size[0];
         $this->height = $size[1];
 

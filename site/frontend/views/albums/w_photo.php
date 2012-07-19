@@ -8,7 +8,6 @@
     $profile = array();
 
     $collection = $model->photoCollection;
-    $profile[] = microtime(true);
     $title = $collection['title'];
     $photos = $collection['photos'];
     $count = count($photos);
@@ -20,8 +19,6 @@
             break;
         }
     }
-
-    $profile[] = microtime(true);
 ?>
 
 <div id="photo-window-in">
@@ -47,7 +44,7 @@
     </div>
 
     <script type="text/javascript">
-        <?php ob_start(); ?>
+        <?php $profile[] = microtime(true); ?>
         <?php foreach ($photos as $i => $p): ?>
             pGallery.photos[<?php echo $p->id ?>] = {
                 idx : <?=$i + 1?>,
@@ -57,23 +54,28 @@
                 title : <?=($p->w_title === null) ? 'null' : '\'' . $p->w_title . '\''?>,
                 description : <?=($p->w_description === null) ? 'null' : '\'' . $p->w_description . '\''?>,
                 avatar : '<?php
-                    $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
-                        'user' => $p->author,
-                        'size' => 'small',
-                        'sendButton' => false,
-                        'location' => false
-                    )); ?>'
+                    if (($i == 0 && $photo->author_id == $p->author_id) || $p->author_id == $photos[$i - 1]->author_id) {
+                        echo 'null';
+                    } else {
+                        ob_start();
+                        $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
+                            'user' => $p->author,
+                            'size' => 'small',
+                            'sendButton' => false,
+                            'location' => false
+                        ));
+                        $ob = ob_get_clean();
+                        echo str_replace(array("\n", "\r"), '', $ob);
+                    }
+                ?>'
             };
         <?php endforeach; ?>
         <?php
-            $ob = ob_get_clean();
-            echo str_replace(array("\n", "\r"), '', $ob);
+            $profile[] = microtime(true);
         ?>
         pGallery.first = <?=$photos[0]->id?>;
         pGallery.last = <?=end($photos)->id?>;
     </script>
-
-    <?php $profile[] = microtime(true); ?>
 
     <div id="photo">
 

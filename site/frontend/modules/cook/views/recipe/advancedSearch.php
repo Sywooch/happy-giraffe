@@ -49,12 +49,14 @@ $this->widget('zii.widgets.CBreadcrumbs', array(
 
             <div class="block-title">Параметры рецепта</div>
 
-            <div class="row">
-                <label>Кухня</label>
-                <span class="chzn-v2">
-                    <?=CHtml::dropDownList('cuisine_id', null, CHtml::listData($cuisines, 'id', 'title'), array('prompt' => 'не выбрана', 'class' => 'chzn'))?>
-                </span>
-            </div>
+            <?php if ($this->section != 1): ?>
+                <div class="row">
+                    <label>Кухня</label>
+                    <span class="chzn-v2">
+                        <?=CHtml::dropDownList('cuisine_id', null, CHtml::listData($cuisines, 'id', 'title'), array('prompt' => 'не выбрана', 'class' => 'chzn'))?>
+                    </span>
+                </div>
+            <?php endif; ?>
 
             <div class="row">
                 <label>Тип блюда</label>

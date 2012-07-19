@@ -8,6 +8,7 @@ class RecipeController extends HController
     public $counts;
     public $currentType = null;
     public $modelName;
+    public $section;
 
     public function filters()
     {
@@ -31,20 +32,22 @@ class RecipeController extends HController
     {
         if (isset($this->actionParams['section']) && isset(CookRecipe::model()->sectionsMap[$this->actionParams['section']])) {
             $this->modelName = CookRecipe::model()->sectionsMap[$this->actionParams['section']];
+            $this->section = $this->actionParams['section'];
         } else {
             $this->modelName = CookRecipe::model()->sectionsMap[CookRecipe::COOK_DEFAULT_SECTION];
+            $this->section = null;
         }
         return parent::beforeAction($action);
     }
 
-    public function actionIndex($type = null)
+    public function actionIndex($type = null, $section = null)
     {
         $this->pageTitle = 'Рецепты';
         $this->layout = '//layouts/recipe';
         $this->currentType = $type;
 
-        $dp = CookRecipe::model()->getByType($type);
-        $this->counts = CookRecipe::model()->counts;
+        $dp = CActiveRecord::model($this->modelName)->getByType($type);
+        $this->counts = CActiveRecord::model($this->modelName)->counts;
 
         $this->render('index', compact('dp'));
     }
@@ -158,19 +161,13 @@ class RecipeController extends HController
     /**
      * @sitemap dataSource=getContentUrls
      */
-    public function actionView($id, $lastPage = null, $ajax = null)
+    public function actionView($id, $section)
     {
-        $recipe = CookRecipe::model()->with('photo', 'attachPhotos', 'cuisine', 'ingredients.ingredient', 'ingredients.unit')->findByPk($id);
+        $recipe = CActiveRecord::model($this->modelName)->with('photo', 'attachPhotos', 'cuisine', 'ingredients.ingredient', 'ingredients.unit')->findByPk($id);
         if ($recipe === null)
             throw new CHttpException(404, 'Такого рецепта не существует');
 
-        if (! preg_match('#^\/cook\/recipe\/(\d+)\/#', Yii::app()->request->requestUri)) {
-            header("HTTP/1.1 301 Moved Permanently");
-            header("Location: " . $recipe->url);
-            Yii::app()->end();
-        }
-
-        $this->counts = CookRecipe::model()->counts;
+        $this->counts = CActiveRecord::model($this->modelName)->counts;
         $this->currentType = $recipe->type;
         $this->layout = '//layouts/recipe';
         $this->pageTitle = $recipe->title;
@@ -219,7 +216,7 @@ class RecipeController extends HController
         $ingredients = Yii::app()->request->getQuery('ingredients', array());
         $type = Yii::app()->request->getQuery('type', null);
         $ingredients = array_filter($ingredients);
-        $recipes = CookRecipe::model()->findByIngredients($ingredients, $type);
+        $recipes = CActiveRecord::model($this->modelName)->findByIngredients($ingredients, $type);
         $this->renderPartial('searchByIngredientsResult', compact('recipes', 'type'));
     }
 
@@ -240,7 +237,7 @@ class RecipeController extends HController
         }
         $forDiabetics = $forDiabetics1 || $forDiabetics2;
 
-        $recipes = CookRecipe::model()->findAdvanced($cuisine_id, $type, $preparation_duration, $cooking_duration, $lowFat, $lowCal, $forDiabetics);
+        $recipes = CActiveRecord::model($this->modelName)->findAdvanced($cuisine_id, $type, $preparation_duration, $cooking_duration, $lowFat, $lowCal, $forDiabetics);
         $this->renderPartial('advancedSearchResult', compact('recipes'));
     }
 

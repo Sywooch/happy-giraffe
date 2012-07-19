@@ -131,17 +131,33 @@ return array(
         'cook/decor/<photo:[\w_]+>' => 'cook/decor/index',
         'cook/decor' => 'cook/decor/index',
 
-        'cook/recipe/add' => 'cook/recipe/form',
-        'cook/recipe/edit/<id:\d+>' => 'cook/recipe/form',
-        'cook/recipe/<id:\d+>' => 'cook/recipe/view',
-        'cook/recipe/type/<type:\d+>' => 'cook/recipe/index',
+        'cook/recipe/edit/<id:\d+>' => array('cook/recipe/form', 'defaultParams' => array('section' => 0)),
+        'cook/recipe/add' => array('cook/recipe/form', 'defaultParams' => array('section' => 0)),
+        'cook/recipe/<id:\d+>' => array('cook/recipe/view', 'defaultParams' => array('section' => 0)),
+        'cook/recipe/type/<type:\d+>' => array('cook/recipe/index', 'defaultParams' => array('section' => 0)),
+        'cook/recipe' => array('cook/recipe/index', 'defaultParams' => array('section' => 0)),
+        'cook/recipe/advancedSearch' => array('cook/recipe/advancedSearch', 'defaultParams' => array('section' => 0)),
+        'cook/recipe/advancedSearchResult' => array('cook/recipe/advancedSearchResult', 'defaultParams' => array('section' => 0)),
+        'cook/recipe/searchByIngredients' => array('cook/recipe/searchByIngredients', 'defaultParams' => array('section' => 0)),
+        'cook/recipe/searchByIngredientsResult' => array('cook/recipe/searchByIngredientsResult', 'defaultParams' => array('section' => 0)),
+
+        'cook/recipe/edit/<id:\d+>' => array('cook/recipe/form', 'defaultParams' => array('section' => 0)),
+        'cook/multivarka/add' => array('cook/recipe/form', 'defaultParams' => array('section' => 1)),
+        'cook/multivarka/<id:\d+>' => array('cook/recipe/view', 'defaultParams' => array('section' => 1)),
+        'cook/multivarka/type/<type:\d+>' => array('cook/recipe/index', 'defaultParams' => array('section' => 1)),
+        'cook/multivarka' => array('cook/recipe/index', 'defaultParams' => array('section' => 1)),
+        'cook/multivarka/advancedSearch' => array('cook/recipe/advancedSearch', 'defaultParams' => array('section' => 1)),
+        'cook/multivarka/advancedSearchResult' => array('cook/recipe/advancedSearchResult', 'defaultParams' => array('section' => 1)),
+        'cook/multivarka/searchByIngredients' => array('cook/recipe/searchByIngredients', 'defaultParams' => array('section' => 1)),
+        'cook/multivarka/searchByIngredientsResult' => array('cook/recipe/searchByIngredientsResult', 'defaultParams' => array('section' => 1)),
+
         'cook/recipe/feed.xml' => 'cook/recipe/feed',
-        'cook/recipe/<_a:(ac|import|search|searchByIngredients|advancedSearch|searchByIngredientsResult|advancedSearchResult)>' => 'cook/recipe/<_a>',
+        'cook/recipe/<_a:(ac|import|search)>' => 'cook/recipe/<_a>',
 
         'cook/spices/category/<id:[\w_]+>' => 'cook/spices/category',
         'cook/spices/<id:[\w_]+>' => 'cook/spices/view',
 
-        'cook/<_c:(spices|choose|calorisator|converter|recipe)>' => 'cook/<_c>/index',
+        'cook/<_c:(spices|choose|calorisator|converter)>' => 'cook/<_c>/index',
 
         //===================== Services =========================//
         '<_m:(test|tester|vaccineCalenda|childrenDiseases|menstrualCycle|horoscope|babyBloodGroup|placentaThickness|pregnancyWeight|contractionsTime|names|recipeBook|hospitalBag|maternityLeave|dailyCalories|weightLoss|idealWeight|bodyFat)>/' => 'services/<_m>/default/index',

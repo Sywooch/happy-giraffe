@@ -23,9 +23,9 @@ class FileAttachWidget extends CWidget
         {
             $this->entity = get_class($this->model);
             $this->entity_id = $this->model->primaryKey;
-            if(mb_strstr($this->id, 'yw'))
-                $this->id = 'attach' . $this->entity . $this->entity_id;
         }
+        if(mb_strstr($this->id, 'yw'))
+            $this->id = 'attach' . $this->entity . $this->entity_id;
 
         if ($this->customButton) {
             $htmlOptions = (Yii::app()->user->isGuest) ?
@@ -91,7 +91,7 @@ class FileAttachWidget extends CWidget
             $this->button_title = 'Продолжить';
             $this->disableNavigation = true;
         }
-        elseif($this->entity == 'CookRecipe')
+        elseif($this->entity == 'CookRecipe' || $this->entity == 'SimpleRecipe' || $this->entity == 'MultivarkaRecipe')
         {
             $this->title = 'Фото блюда';
             $this->button_title = 'Продолжить';

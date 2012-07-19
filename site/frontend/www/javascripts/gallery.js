@@ -15,6 +15,9 @@ jQuery.fn.pGallery = function(options) {
         plugin.originalTitle = null;
 
     plugin.openWindow = function(id) {
+        console.log('start');
+        var start = new Date().getMilliseconds();
+
         if(this.init)
             return false;
         this.init = true;
@@ -43,6 +46,7 @@ jQuery.fn.pGallery = function(options) {
         }
 
         $.get(base_url + '/albums/wPhoto/', plugin.data, function(html) {
+            console.log(new Date().getMilliseconds() - start);
             pGallery.currentPhoto = plugin.data.id;
             $('#photo-window').append(html);
 
@@ -60,12 +64,12 @@ jQuery.fn.pGallery = function(options) {
                 return false;
             });
 
-            plugin.window.on('click', '#photo-thumbs li a', function() {
+            /*plugin.window.on('click', '#photo-thumbs li a', function() {
                 if($(this).parent().hasClass('active'))
                     return false;
                 plugin.openImage($(this).attr('data-id'));
                 return false;
-            });
+            });*/
 
             $('body').css('overflow', 'hidden');
             var newUrl = plugin.getEntityUrl() + 'photo' + plugin.data.id + '/';
@@ -73,9 +77,9 @@ jQuery.fn.pGallery = function(options) {
                 plugin.history.changeBrowserUrl(newUrl);
             }
             $('#photo-window-bg, #photo-window').fadeIn(600, function(){
-                $('#photo-thumbs .jcarousel', plugin.window).jcarousel();
+                /*$('#photo-thumbs .jcarousel', plugin.window).jcarousel();
                 $('#photo-thumbs .prev', plugin.window).jcarouselControl({target: '-=7',fullScroll:true,carousel: $('#photo-thumbs .jcarousel', plugin.window)});
-                $('#photo-thumbs .next', plugin.window).jcarouselControl({target: '+=7',fullScroll:true,carousel: $('#photo-thumbs .jcarousel', plugin.window)});
+                $('#photo-thumbs .next', plugin.window).jcarouselControl({target: '+=7',fullScroll:true,carousel: $('#photo-thumbs .jcarousel', plugin.window)});*/
                 plugin.preloadPhotos();
                 $(window).resize();
             });
@@ -84,6 +88,7 @@ jQuery.fn.pGallery = function(options) {
             if (title != null)
                 document.title = pGallery.photos[id].title;
         }, 'html');
+        console.log(new Date().getMilliseconds() - start);
     };
 
     plugin.openImage = function(id, callback) {
@@ -114,8 +119,10 @@ jQuery.fn.pGallery = function(options) {
 
         var title = pGallery.photos[id].title;
         var description = pGallery.photos[id].description;
+        var avatar = pGallery.photos[id].avatar;
 
-        avatarEl.html(pGallery.photos[id].avatar);
+        if (avatar != null)
+            avatarEl.html(pGallery.photos[id].avatar);
         imgEl.attr('src', pGallery.photos[id].src);
         indexEl.text(pGallery.photos[id].idx);
         (title == null) ? titleEl.hide() : titleEl.text(title).show();

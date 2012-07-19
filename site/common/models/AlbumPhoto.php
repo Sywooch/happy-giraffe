@@ -147,6 +147,8 @@ class AlbumPhoto extends HActiveRecord
 
     public function afterSave()
     {
+        if ($this->isNewRecord)
+            $this->getPreviewUrl(960, 627, Image::HEIGHT, true);
         if ($this->isNewRecord && Yii::app()->hasComponent('comet') && $this->author->isNewComer() && isset($this->album)) {
             if ($this->album->type == 0 || $this->album->type == 1 || $this->album->type == 3) {
                 $signal = new UserSignal();
@@ -279,7 +281,11 @@ class AlbumPhoto extends HActiveRecord
             Yii::import('site.frontend.extensions.image.Image');
             if (!file_exists($this->originalPath))
                 return false;
-            $image = new Image($this->originalPath);
+            try {
+                $image = new Image($this->originalPath);
+            } catch (CException $e) {
+                return $thumb;
+            }
 
             if ($image->width <= $width && $image->height <= $height) {
 
@@ -297,9 +303,10 @@ class AlbumPhoto extends HActiveRecord
             $image->save($thumb);
         }
 
-        $size = getimagesize($thumb);
-        $this->width = $size[0];
-        $this->height = $size[1];
+        if ($size = @getimagesize($thumb)) {
+            $this->width = $size[0];
+            $this->height = $size[1];
+        }
 
         return $thumb;
     }

@@ -818,7 +818,7 @@
     <div class="default-nav">
       <ul>
         <li class="active"><a href="">Название блога</a></li>
-        <li class="disabled"><a>Рубрики блога</a></li>
+        <li><a>Рубрики блога</a></li>
         <li class="disabled"><a>Оформление блога</a></li>
       </ul>
     </div>
@@ -839,7 +839,66 @@
     </div>
     
     <div class="bottom">
-      <button class="btn btn-green-medium"><span><span>Сохранить настройки</span></span></button>
+      <div class="btn-box"><a href="" class="btn-finish">Завершить</a></div>
+    </div>
+    
+    <!-- ---------------- -->
+    
+    
+    <div class="rubrics">
+      
+      <div class="note">Редактируйте рубрики. Вы можете: создать новую, удалить, изменить название, переместить рубрику на другое место <span>*</span></div>
+      
+      <div class="list clearfix">
+        <div class="col">
+          <ul>
+            <li>
+              <span class="num">1</span>
+              <span class="rubric"><span></span>Свадьба - прекрасный миг</span>
+              <a href="" class="edit tooltip" title="редактировать"></a>
+              <a href="" class="remove tooltip" title="удалить"></a>
+            </li>
+            <li>
+              <span class="num">2</span>
+              <span class="rubric"><span></span>Прекрасный миг</span>
+              <a href="" class="edit tooltip" title="редактировать"></a>
+              <a href="" class="remove tooltip" title="удалить"></a>
+            </li>
+            
+          </ul>
+        </div>
+         <div class="col">
+          <ul>
+            <li>
+              <span class="num">3</span>
+              <span class="rubric"><span></span>Свадьба</span>
+              <a href="" class="edit tooltip" title="редактировать"></a>
+              <a href="" class="remove tooltip" title="удалить"></a>
+            </li>
+            <li class="add">
+              <span class="num"><a href="" class="icon-add"></a></span>
+              Вы можете создать новую рубрику
+              <br/>
+              <input type="text" placeholder="Введите название рубрики (не более 30 символов)" />
+              <button class="btn btn-green-small"><span><span>Ok</span></span></button>
+            </li>
+            
+          </ul>
+        </div>
+        
+      </div>
+      
+      <div class="clearfix bottom-line">
+        <div class="btn-box"><a href="" class="btn-finish">Завершить</a></div>
+        <div class="note">
+          <span>*</span>
+          <div class="in">Чтобы переместить рубрику,<br/>подведи курсор, хватай и тащи</div>
+          <img src="/images/blog_settings_drag_note.gif" />
+        </div>
+      </div>
+      
+      
+      
     </div>
     
   </div>

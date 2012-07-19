@@ -306,9 +306,11 @@
 <?php endif; ?>
 
 <?php
-$this->widget('application.widgets.commentWidget.CommentWidget', array('model' => $recipe));
-$remove_tmpl = $this->beginWidget('site.frontend.widgets.removeWidget.RemoveWidget');
-$remove_tmpl->registerTemplates();
-$this->endWidget();
-
+    $this->widget('application.widgets.commentWidget.CommentWidget', array(
+        'entity' => get_parent_class($recipe),
+        'entity_id' => $recipe->primaryKey,
+    ));
+    $remove_tmpl = $this->beginWidget('site.frontend.widgets.removeWidget.RemoveWidget');
+    $remove_tmpl->registerTemplates();
+    $this->endWidget();
 ?>

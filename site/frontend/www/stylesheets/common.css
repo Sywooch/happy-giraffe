@@ -34,6 +34,8 @@ textarea {overflow:auto;font-family:arial,sans-serif;}
 
 a {cursor:pointer;}
 
+.arr {font-family: Cambria, Segoe Script, minion pro, myriad pro, helvetica, arial, sans-serif;font-style:normal;}
+
 .a-right {float:right;}
 .a-left {float:left;}
 
@@ -549,7 +551,7 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 .form .row-gallery .gallery-photos ul li .img:hover .actions {display:block;}
 
 
-.gallery-box {text-align:center;}
+.gallery-box {text-align:center;margin-bottom:30px;}
 .gallery-box a {color:#fff;text-decoration:none;}
 .gallery-box .img {position:relative;display:inline-block;}
 .gallery-box .img .title {position:absolute;top:0;left:0;background:#000;width:90%;background:rgba(0,0,0,.44);padding:2% 5%;font-weight:bold;font-size:34px;line-height:1;text-align:center;}
@@ -2538,8 +2540,8 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 
 body.gallery {overflow:hidden;}
 
-#photo-window-bg {position:fixed;height:100%;width:100%;top:0;left:0;z-index:9990;background:url(/images/bg_black_alpha_40.png);}
-#photo-window  {max-height:100%;position:absolute;width:100%;z-index:9999;top:0;left:0;overflow:auto;min-width:1000px;color:#dcdcdc;}
+#photo-window-bg {position:fixed;height:100%;width:100%;top:0;left:0;z-index:98;background:url(/images/bg_black_alpha_40.png);}
+#photo-window  {max-height:100%;position:absolute;width:100%;z-index:99;top:0;left:0;overflow:auto;min-width:1000px;color:#dcdcdc;}
 #photo-window-in {background:#fff;width:1000px;margin:30px auto;position:relative;}
 
 #photo-window .top-line {background:#2a2a2a;position:relative;padding:15px 20px 5px;}
@@ -2587,7 +2589,7 @@ body.gallery {overflow:hidden;}
 #photo-window #photo-content {background:#fff;margin:20px 130px 0;padding:0 25px 25px;}
 #photo-window #photo-content .like-block {margin:0 auto 50px;}
 
-#photo-window .photo-comment {background:#2a2a2a;font-size:11px;color:#afaeae;font-family:tahoma, arial, helvetica, sans-serif;padding:0 150px 20px;text-align:center;line-height:14px;}
+#photo-window .photo-comment {background:#2a2a2a;font-size:13px;color:#afaeae;font-family:arial, helvetica, sans-serif;padding:0 150px 20px;text-align:center;line-height:14px;}
 #photo-window .photo-comment textarea {width:75%;padding:2px 5px;border:1px solid #c5e8ef;vertical-align:top;background:#fff;margin-left:-6px;height:60px;}
 
 

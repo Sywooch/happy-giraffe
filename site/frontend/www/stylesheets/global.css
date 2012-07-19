@@ -4450,6 +4450,13 @@ ul.letters li a:hover {
 #cook .cook-teasers ul li .text .item-title {font-size:16px;margin-bottom:5px;}
 #cook .cook-teasers ul li .text p {font-size:13px;line-height:19px;}
 
+.recipe-banner {border:1px solid #f1e9fa;margin-bottom:30px;}
+.recipe-banner .block-title {font-size:23px;color:#232223;line-height:1;}
+.recipe-banner .block-title span {display:block;margin-bottom:15px;}
+.recipe-banner .block-title a {font-size:16px;}
+
+.recipe-banner-1 {height:99px;padding:30px 50px;background:url(/images/bg_recipe_banner_1.jpg) no-repeat right;}
+
 #cook .dish-list {padding:20px 25px;border:1px solid #f2ebfa;margin-bottom:30px;}
 #cook .dish-list .block-title {font-size:23px;color:#131312;width:570px;margin:0 auto 30px;}
 #cook .dish-list .block-title .btn {float:right;}

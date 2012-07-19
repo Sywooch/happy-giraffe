@@ -46,6 +46,9 @@ class CookRecipe extends CActiveRecord
         9 => 'Напитки',
         10 => 'Соусы и кремы',
         11 => 'Консервация',
+        12 => 'Блюда из молочных продуктов',
+        13 => 'Рецепты для малышей',
+        14 => 'Рецепты-дуэты',
     );
 
     public $durations = array(
@@ -381,6 +384,7 @@ class CookRecipe extends CActiveRecord
     {
         $params = array(
             'id' => $this->id,
+            'section' => $this->section,
         );
 
         if ($comments)
@@ -542,7 +546,7 @@ class CookRecipe extends CActiveRecord
         if ($type !== null)
             $criteria->compare('type', $type);
 
-        $dp = new CActiveDataProvider('CookRecipe', array(
+        $dp = new CActiveDataProvider(get_class($this), array(
             'criteria' => $criteria,
             'pagination' => array(
                 'pageSize' => 10,

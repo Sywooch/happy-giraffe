@@ -23,9 +23,9 @@ class FileAttachWidget extends CWidget
         {
             $this->entity = get_class($this->model);
             $this->entity_id = $this->model->primaryKey;
-            if(mb_strstr($this->id, 'yw'))
-                $this->id = 'attach' . $this->entity . $this->entity_id;
         }
+        if(mb_strstr($this->id, 'yw'))
+            $this->id = 'attach' . $this->entity . $this->entity_id;
 
         if ($this->customButton) {
             $htmlOptions = (Yii::app()->user->isGuest) ?

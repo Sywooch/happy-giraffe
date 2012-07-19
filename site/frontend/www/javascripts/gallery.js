@@ -64,6 +64,14 @@ jQuery.fn.pGallery = function(options) {
                 return false;
             });
 
+            $('html').on('click', function() {
+                plugin.closeWindow();
+            });
+
+            $('#photo-window-in').on('click', function(event){
+                event.stopPropagation();
+            });
+
             /*plugin.window.on('click', '#photo-thumbs li a', function() {
                 if($(this).parent().hasClass('active'))
                     return false;
@@ -199,6 +207,7 @@ jQuery.fn.pGallery = function(options) {
     plugin.closeWindow = function() {
         plugin.init = false;
         $('#photo-window-bg, #photo-window').fadeOut(600, function(){
+            $('html').off('click');
             document.title = plugin.originalTitle;
             if (! plugin.data.singlePhoto)
                 plugin.history.changeBrowserUrl(plugin.getEntityUrl());

@@ -45,6 +45,7 @@ class PhotosAjaxMasonry extends CWidget
                 'data-gallery-selector' => $this->gallerySelector,
                 'data-masonry-selector' => $this->masonryContainerSelector,
                 'data-masonry-item' => $this->masonryItemSelector,
+                'data-loading' => '0'
             );
             echo CHtml::link($this->linkText, $nextUrl, $params);
         }

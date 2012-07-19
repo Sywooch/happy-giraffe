@@ -35,7 +35,7 @@ class HController extends CController
             'services/childrenDiseases/default',
             'cook/spices',
             'cook/choose',
-        )) || in_array($this->route, array('cook/recipe/view'))  || in_array($this->route, array('cook/recipe/index'))) {
+        )) || in_array($this->route, array('cook/recipe/view', 'cook/recipe/index'))) {
             $reflector = new ReflectionClass($this);
             $parametersObjects = $reflector->getMethod('action' . $this->action->id)->getParameters();
             $parametersNames = array();

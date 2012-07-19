@@ -200,7 +200,8 @@
             <?php if ($recipe->mainPhoto === null): ?>
                 <?php
                     $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
-                        'model' => $recipe,
+                        'entity' => get_parent_class($recipe),
+                        'entity_id' => $recipe->id,
                         'many' => true,
                         'customButton' => true,
                         'customButtonHtmlOptions' => array('class' => 'fancy add-photo'),
@@ -229,7 +230,8 @@
                         <li>
                             <?php
                                 $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
-                                    'model' => $recipe,
+                                    'entity' => get_parent_class($recipe),
+                                    'entity_id' => $recipe->id,
                                     'many' => true,
                                     'customButton' => true,
                                     'customButtonHtmlOptions' => array('class' => 'fancy add'),
@@ -276,8 +278,9 @@
 
     <div class="entry-footer">
         <div class="admin-actions">
+            <?=$this->createUrl('/cook/recipe/form/', array('id' => $recipe->id, 'section' => $recipe->section))?>
             <?php if (Yii::app()->authManager->checkAccess('editCookRecipe', Yii::app()->user->id) || Yii::app()->user->id == $recipe->author_id){
-                echo CHtml::link('<i class="icon"></i>', $this->createUrl('/cook/recipe/form/', array('id' => $recipe->id)), array('class' => 'edit'));
+                echo CHtml::link('<i class="icon"></i>', $this->createUrl('/cook/recipe/form/', array('id' => $recipe->id, 'section' => $recipe->section)), array('class' => 'edit'));
             } ?>
         </div>
     </div>
@@ -289,7 +292,7 @@
             Еще вкусненькое
         </div>
         <ul>
-            <?php foreach($recipe->more as $m): ?>
+            <?php foreach ($recipe->more as $m): ?>
                 <li>
                     <div class="user clearfix">
                         <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => $m->author, 'size' => 'small', 'location' => false, 'sendButton' => false)); ?>
@@ -306,9 +309,11 @@
 <?php endif; ?>
 
 <?php
-$this->widget('application.widgets.commentWidget.CommentWidget', array('model' => $recipe));
-$remove_tmpl = $this->beginWidget('site.frontend.widgets.removeWidget.RemoveWidget');
-$remove_tmpl->registerTemplates();
-$this->endWidget();
-
+    $this->widget('application.widgets.commentWidget.CommentWidget', array(
+        'entity' => get_parent_class($recipe),
+        'entity_id' => $recipe->primaryKey,
+    ));
+    $remove_tmpl = $this->beginWidget('site.frontend.widgets.removeWidget.RemoveWidget');
+    $remove_tmpl->registerTemplates();
+    $this->endWidget();
 ?>

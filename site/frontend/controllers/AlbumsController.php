@@ -21,7 +21,7 @@ class AlbumsController extends HController
     {
         return array(
             'accessControl',
-            'ajaxOnly + attach, wPhoto, attachView, editDescription, editPhotoTitle, changeTitle, changePermission,
+            'ajaxOnly + attach, attachView, editDescription, editPhotoTitle, changeTitle, changePermission,
                 removeUploadPhoto, communityContentEdit, communityContentSave, recipePhoto, cookDecorationPhoto,
                 cookDecorationCategory, commentPhoto, crop, changeAvatar',
         );

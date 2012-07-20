@@ -382,7 +382,9 @@ class FixHttpErrorsCommand extends CConsoleCommand
 
     public function actionCheckErrors($file)
     {
-        if (($handle = fopen(__DIR__ . '/' . $file, "r")) !== FALSE) {
+        $path = dirname(dirname(dirname(__FILE__))) . '/common/data/' . $file;
+
+        if (($handle = fopen($path, "r")) !== FALSE) {
             while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
                 $url = $data[0];
                 if (strpos($url, 'http') !== FALSE) {

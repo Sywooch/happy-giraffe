@@ -82,7 +82,6 @@
                 entity_id : '<?=$model->id?>'
             },
             dataType : 'script'
-            }
         });
         pGallery.first = <?=$photos[0]->id?>;
         pGallery.last = <?=end($photos)->id?>;

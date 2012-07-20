@@ -5,6 +5,7 @@
      */
     $collection = $model->photoCollection;
     $photos = $collection['photos'];
+    $count = count($photos);
 ?>
 
 <?php ob_start(); ?>

@@ -21,6 +21,7 @@
     $preload[$currentIndex] = $photos[$currentIndex];
     $currentNext = $currentIndex;
     $currentPrev = $currentIndex;
+    die($currentIndex);
     for ($i = 0; $i < 3; $i++) {
         $currentNext = ($currentIndex == ($count - 1)) ? 0 : ($currentNext + 1);
         $currentPrev = ($currentIndex == 0) ? ($count - 1) : ($currentPrev - 1);

@@ -382,7 +382,8 @@ class FixHttpErrorsCommand extends CConsoleCommand
 
     public function actionCheckErrors($file)
     {
-        $path = dirname(dirname(dirname(__FILE__))) . '/common/data/' . $file;
+        $path = Yii::getPathOfAlias('site.common.data') . '/' . $file;
+
 
         if (($handle = fopen($path, "r")) !== FALSE) {
             while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
@@ -392,8 +393,6 @@ class FixHttpErrorsCommand extends CConsoleCommand
                     if ($status != '200')
                         echo  $status . ' - ' . $url . "\r\n";
                 }
-
-
             }
             fclose($handle);
         }

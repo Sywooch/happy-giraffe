@@ -23,7 +23,7 @@ class photoViewWidget extends CWidget
         $this->endWidget();
 
         Yii::app()->clientScript->registerScript('pGallery',
-            '$("' . $this->selector . '").pGallery(' . CJavaScript::encode(array('singlePhoto' => $this->singlePhoto, 'entity' => $this->entity, 'entity_id' => (is_int($this->entity_id)) ? $this->entity_id : 'null')) . ');'
+            '$("' . $this->selector . '").pGallery(' . CJavaScript::encode(array('singlePhoto' => $this->singlePhoto, 'entity' => $this->entity, 'entity_id' => $this->entity_id)) . ');'
         );
 
         Yii::app()->clientScript->registerScriptFile('/javascripts/history.js');

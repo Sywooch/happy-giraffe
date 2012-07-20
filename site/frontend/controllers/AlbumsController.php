@@ -702,12 +702,8 @@ class AlbumsController extends HController
         Yii::import('site.frontend.modules.cook.models.*');
         Yii::import('zii.behaviors.*');
         $model = CActiveRecord::model($entity);
-        var_dump($entity_id);
-        if ($entity_id != 'null') {
-            $model->findByPk($entity_id);
-            echo '123';
-        }
-        die;
+        if ($entity_id != 'null')
+            $model = $model->findByPk($entity_id);
         $this->renderPartial('postLoad', compact('model'));
     }
 }

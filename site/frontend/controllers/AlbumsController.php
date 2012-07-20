@@ -191,7 +191,7 @@ class AlbumsController extends HController
 
         $entity_id = Yii::app()->request->getQuery('entity_id', 'null');
         $model = call_user_func(array(Yii::app()->request->getQuery('entity'), 'model'));
-        if (! empty($entity_id))
+        if ($entity_id != 'null')
             $model = $model->findByPk($entity_id);
 
         if (!Yii::app()->request->getQuery('go')) {

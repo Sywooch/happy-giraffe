@@ -671,6 +671,8 @@ class AlbumsController extends HController
                 $model = CActiveRecord::model($entity)->findByPk($album_id);
                 break;
             case 'CookRecipe':
+            case 'SimpleRecipe':
+            case 'MultivarkaRecipe':
                 Yii::import('application.modules.cook.models.*');
                 $recipe_id = Yii::app()->request->getQuery('recipe_id');
                 $model = CActiveRecord::model($entity)->findByPk($recipe_id);

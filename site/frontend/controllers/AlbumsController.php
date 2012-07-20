@@ -696,4 +696,10 @@ class AlbumsController extends HController
         $this->layout = '//layouts/main';
         $this->render('singlePhoto', compact('model', 'collection', 'photo', 'currentIndex'));
     }
+
+    public function actionPostLoad($entity, $entity_id)
+    {
+        $model = CActiveRecord::model($entity)->findByPk($entity_id);
+        $this->renderPartial('postLoad', compact('model'));
+    }
 }

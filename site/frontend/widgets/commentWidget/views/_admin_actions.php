@@ -19,6 +19,7 @@
         <?php if ((Yii::app()->user->model->checkAuthItem('removeComment') || Yii::app()->user->id == $data->author_id) || $data->isEntityAuthor(Yii::app()->user->id)): ?>
         <?php $this->widget('site.frontend.widgets.removeWidget.RemoveWidget', array(
             'model' => $data,
+            'modelName' => 'Comment',
             'callback' => 'function() {'.$this->objectName.'.remove();}',
             'author' => Yii::app()->user->id == $data->author_id || $data->isEntityAuthor(Yii::app()->user->id)
         )); ?>

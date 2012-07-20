@@ -161,7 +161,7 @@ class RecipeController extends HController
     /**
      * @sitemap dataSource=getContentUrls
      */
-    public function actionView($id, $section)
+    public function actionView($id, $section, $ajax, $lastPage)
     {
         $recipe = CActiveRecord::model($this->modelName)->with('photo', 'attachPhotos', 'cuisine', 'ingredients.ingredient', 'ingredients.unit')->findByPk($id);
         if ($recipe === null)

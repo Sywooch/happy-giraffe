@@ -4,7 +4,7 @@
      * Date: 20.07.2012
      */
     $collection = $model->photoCollection;
-    var_dump($model);
+    var_dump($model->id);
     $photos = $collection['photos'];
     $count = count($photos);
 ?>

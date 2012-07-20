@@ -17,6 +17,6 @@
     <?php $this->widget('site.frontend.widgets.commentWidget.CommentWidget', array(
         'model' => $photo,
         'popUp' => true,
-        //'commentModel' => 'PhotoViewComment',
+        'commentModel' => 'PhotoViewComment',
     )); ?>
 </div>

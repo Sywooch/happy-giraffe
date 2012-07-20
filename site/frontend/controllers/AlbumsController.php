@@ -703,7 +703,7 @@ class AlbumsController extends HController
         Yii::import('zii.behaviors.*');
         $model = CActiveRecord::model($entity);
         $entity_id = Yii::app()->request->getQuery('entity_id', 'null');
-        if ($entity_id != 'null')
+        if ($entity_id != 'null' || ! empty($entity_id))
             $model = $model->findByPk($entity_id);
         $this->renderPartial('postLoad', compact('model'));
     }

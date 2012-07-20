@@ -699,6 +699,7 @@ class AlbumsController extends HController
 
     public function actionPostLoad($entity, $entity_id)
     {
+        Yii::import('site.frontend.modules.cook.models.*');
         $model = CActiveRecord::model($entity)->findByPk($entity_id);
         $this->renderPartial('postLoad', compact('model'));
     }

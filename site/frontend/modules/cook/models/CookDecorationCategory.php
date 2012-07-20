@@ -92,6 +92,7 @@ class CookDecorationCategory extends HActiveRecord
 
     public function getPhotoCollection()
     {
+        Yii::app()->cache->delete('wPhoto_decor_all');
         $cacheId = ($this->id) ? 'wPhoto_decor_' . $this->id : 'wPhoto_decor_all';
         $sql = "SELECT * FROM " . CookDecoration::model()->tableName();
         if ($this->id)

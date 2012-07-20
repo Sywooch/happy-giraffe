@@ -93,6 +93,10 @@ class CookDecorationCategory extends HActiveRecord
     public function getPhotoCollection()
     {
         $cacheId = ($this->id) ? 'wPhoto_decor_' . $this->id : 'wPhoto_decor_all';
+        $sql = "SELECT * FROM " . CookDecoration::model()->tableName();
+        if ($this->id)
+            $sql .= " WHERE id = " . $this->id;
+
         $collection = Yii::app()->cache->get($cacheId);
 
         if ($collection === false) {
@@ -117,7 +121,7 @@ class CookDecorationCategory extends HActiveRecord
                 'photos' => $photos,
             );
 
-            Yii::app()->cache->set($cacheId, $collection);
+            Yii::app()->cache->set($cacheId, $collection, 0, new CDbCacheDependency($sql));
         }
         return $collection;
     }

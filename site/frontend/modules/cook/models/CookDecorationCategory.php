@@ -93,7 +93,7 @@ class CookDecorationCategory extends HActiveRecord
     public function getPhotoCollection()
     {
         if (empty($this->id))
-            $decorations = CookDecoration::model()->findAll();
+            $decorations = CookDecoration::model()->cache(300, new CDbCacheDependency('SELECT count(*) FROM ' . CookDecoration::model()->tableName()))->findAll();
         else
             $decorations = $this->decorations;
 

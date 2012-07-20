@@ -1,5 +1,5 @@
 <?php
-$entity = get_class($this->model);
+$entity = ($this->modelName == null) ? get_class($this->model) : $this->modelName;
 $entity_id = $this->model->primaryKey;
 echo CHtml::link($this->template, '#', array(
     'class' => $this->cssClass,

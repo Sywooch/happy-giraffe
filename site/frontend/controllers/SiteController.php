@@ -23,6 +23,7 @@ class SiteController extends HController
 
     public function actionSeoHide($hash)
     {
+        header('Content-type: text/javascript');
         $cacheId = 'seoHide_' . $hash;
         $value = Yii::app()->cache->get($cacheId);
         if ($value !== false) {

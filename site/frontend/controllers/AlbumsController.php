@@ -697,7 +697,7 @@ class AlbumsController extends HController
         $this->render('singlePhoto', compact('model', 'collection', 'photo', 'currentIndex'));
     }
 
-    public function actionPostLoad($entity, $entity_id)
+    public function actionPostLoad($entity)
     {
         Yii::import('site.frontend.modules.cook.models.*');
         Yii::import('zii.behaviors.*');

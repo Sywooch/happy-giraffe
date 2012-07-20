@@ -4,7 +4,7 @@
      * Date: 20.07.2012
      */
     $collection = $model->photoCollection;
-    echo count($collection);
+    echo count($collection['photos']);
     $photos = $collection['photos'];
     $count = count($photos);
 ?>

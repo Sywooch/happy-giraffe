@@ -696,4 +696,14 @@ class AlbumsController extends HController
         $this->layout = '//layouts/main';
         $this->render('singlePhoto', compact('model', 'collection', 'photo', 'currentIndex'));
     }
+
+    public function actionPostLoad($entity, $entity_id)
+    {
+        Yii::import('site.frontend.modules.cook.models.*');
+        Yii::import('zii.behaviors.*');
+        $model = CActiveRecord::model($entity);
+        if ($entity_id != '')
+            $model->findByPk($entity_id);
+        $this->renderPartial('postLoad', compact('model'));
+    }
 }

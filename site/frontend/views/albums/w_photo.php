@@ -12,9 +12,20 @@
     foreach ($photos as $i => $p) {
         if ($p->id == $photo->id) {
             $photo = $p;
-            $currentIndex = $i + 1;
+            $currentIndex = $i;
             break;
         }
+    }
+
+    $preload = array();
+    $preload[] = $photos[$currentIndex];
+    $currentNext = $currentIndex;
+    $currentPrev = $currentIndex;
+    for ($i = 0; $i < 3; $i++) {
+        $currentNext = ($currentIndex == ($count - 1)) ? 0 : ($currentNext + 1);
+        $prev = ($currentIndex == 0) ? ($count - 1) : ($currentPrev - 1);
+        $preload[] = $photos[$currentNext];
+        $preload[] = $photos[$currentPrev];
     }
 ?>
 
@@ -34,7 +45,7 @@
         </div>
 
         <div class="photo-info">
-            <?=$title?> - <span class="count"><span><?=$currentIndex?></span> фото из <?=$count?></span>
+            <?=$title?> - <span class="count"><span><?=($currentIndex + 1)?></span> фото из <?=$count?></span>
             <div class="title"><?=$photo->w_title?></div>
         </div>
 
@@ -42,7 +53,7 @@
 
     <script type="text/javascript">
         <?php ob_start(); ?>
-        <?php foreach ($photos as $i => $p): ?>
+        <?php foreach ($preload as $i => $p): ?>
             pGallery.photos[<?php echo $p->id ?>] = {
                 idx : <?=$i + 1?>,
                 prev : <?=($i != 0) ? $photos[$i - 1]->id : 'null'?>,

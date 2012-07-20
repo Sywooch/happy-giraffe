@@ -12,7 +12,7 @@
     ));*/ ?>
 
     <?php
-        //Yii::import('site.common.models.forms.PhotoViewComment');
+        Yii::import('site.common.models.forms.PhotoViewComment');
     ?>
     <?php $this->widget('site.frontend.widgets.commentWidget.CommentWidget', array(
         'model' => $photo,

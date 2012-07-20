@@ -18,14 +18,14 @@
     }
 
     $preload = array();
-    $preload[] = $photos[$currentIndex];
+    $preload[$currentIndex] = $photos[$currentIndex];
     $currentNext = $currentIndex;
     $currentPrev = $currentIndex;
     for ($i = 0; $i < 3; $i++) {
         $currentNext = ($currentIndex == ($count - 1)) ? 0 : ($currentNext + 1);
-        $prev = ($currentIndex == 0) ? ($count - 1) : ($currentPrev - 1);
-        $preload[] = $photos[$currentNext];
-        $preload[] = $photos[$currentPrev];
+        $currentPrev = ($currentIndex == 0) ? ($count - 1) : ($currentPrev - 1);
+        $preload[$currentNext] = $photos[$currentNext];
+        $preload[$currentPrev] = $photos[$currentPrev];
     }
 ?>
 

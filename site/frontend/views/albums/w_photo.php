@@ -6,7 +6,7 @@
 
     $start = microtime(true);
     $collection = $model->photoCollection;
-    echo (microtime(true) - start) . "\n";
+    echo (microtime(true) - $start) . "\n";
     $title = $collection['title'];
     $photos = $collection['photos'];
     $count = count($photos);

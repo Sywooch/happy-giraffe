@@ -81,12 +81,9 @@
                 entity : '<?=get_class($model)?>',
                 entity_id : '<?=$model->id?>'
             },
-            dataType : 'script',
-            success: function() {
-                alert('123');
+            dataType : 'script'
             }
         });
-        alert('234');
         pGallery.first = <?=$photos[0]->id?>;
         pGallery.last = <?=end($photos)->id?>;
     </script>

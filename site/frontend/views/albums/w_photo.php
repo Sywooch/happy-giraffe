@@ -79,7 +79,7 @@
             url : '/albums/postLoad/',
             data : {
                 entity : '<?=get_class($model)?>',
-                entity_id : '<?=(is_integer($model->id)) ? $model->id : 'null'?>'
+                entity_id : '<?=($model->id !== null) ? $model->id : 'null'?>'
             },
             dataType : 'script'
         });

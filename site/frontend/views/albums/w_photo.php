@@ -18,14 +18,14 @@
     }
 
     $preload = array();
-    $preload[] = $photos[$currentIndex];
+    $preload[$currentIndex] = $photos[$currentIndex];
     $currentNext = $currentIndex;
     $currentPrev = $currentIndex;
     for ($i = 0; $i < 3; $i++) {
-        $currentNext = ($currentIndex == ($count - 1)) ? 0 : ($currentNext + 1);
-        $prev = ($currentIndex == 0) ? ($count - 1) : ($currentPrev - 1);
-        $preload[] = $photos[$currentNext];
-        $preload[] = $photos[$currentPrev];
+        $currentNext = ($currentNext == ($count - 1)) ? 0 : ($currentNext + 1);
+        $currentPrev = ($currentPrev == 0) ? ($count - 1) : ($currentPrev - 1);
+        $preload[$currentNext] = $photos[$currentNext];
+        $preload[$currentPrev] = $photos[$currentPrev];
     }
 ?>
 
@@ -61,26 +61,28 @@
                 src : '<?php echo $p->getPreviewUrl(960, 627, Image::HEIGHT, true); ?>',
                 title : <?=($p->w_title === null) ? 'null' : '\'' . $p->w_title . '\''?>,
                 description : <?=($p->w_description === null) ? 'null' : '\'' . $p->w_description . '\''?>,
-                avatar : <?php
-                    if (($i == 0 && $photo->author_id == $p->author_id) || ($i != 0 && $p->author_id == $photos[$i - 1]->author_id)) {
-                        echo 'null';
-                    } else {
-                        echo '\'';
+                avatar : '<?php
                         $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
                             'user' => $p->author,
                             'size' => 'small',
                             'sendButton' => false,
                             'location' => false
                         ));
-                        echo '\'';
-                    }
-                ?>
+                ?>'
             };
         <?php endforeach; ?>
         <?php
             $ob = ob_get_clean();
             echo str_replace(array("\n", "\r"), '', $ob);
         ?>
+        $.ajax({
+            url : '/albums/postLoad/',
+            data : {
+                entity : '<?=get_class($model)?>',
+                entity_id : '<?=(is_integer($model->id)) ? $model->id : 'null'?>'
+            },
+            dataType : 'script'
+        });
         pGallery.first = <?=$photos[0]->id?>;
         pGallery.last = <?=end($photos)->id?>;
     </script>

@@ -387,7 +387,7 @@ class FixHttpErrorsCommand extends CConsoleCommand
                 $url = $data[0];
                 if (strpos($url, 'http') !== FALSE) {
                     $status = self::getHTTPStatus($url);
-                    //if ($status != '200')
+                    if ($status != '200')
                         echo  $status . ' - ' . $url . "\r\n";
                 }
 

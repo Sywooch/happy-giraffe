@@ -81,6 +81,14 @@
             $ob = ob_get_clean();
             echo str_replace(array("\n", "\r"), '', $ob);
         ?>
+        $.ajax({
+            url : '/albums/postLoad/',
+            data : {
+                entity : '<?=get_class($model)?>',
+                entity_id : '<?=$model->id?>'
+            },
+            dataType : 'script'
+        });
         pGallery.first = <?=$photos[0]->id?>;
         pGallery.last = <?=end($photos)->id?>;
     </script>

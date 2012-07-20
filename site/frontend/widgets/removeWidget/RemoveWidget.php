@@ -9,6 +9,7 @@ class RemoveWidget extends CWidget
      * @var CActiveRecord
      */
     public $model;
+    public $modelName = null;
 
     /**
      * @var

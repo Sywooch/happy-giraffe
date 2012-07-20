@@ -81,7 +81,7 @@
                 entity : '<?=get_class($model)?>',
                 entity_id : '<?=$model->id?>'
             },
-            dataType : 'script'
+            dataType : 'script',
             success: function() {
                 alert('123');
             }

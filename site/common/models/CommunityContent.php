@@ -591,10 +591,4 @@ class CommunityContent extends HActiveRecord
 
         return $output;
     }
-
-k0t_ чет не могу понять я пишу такой код  return array(
-'recently'=>array(
-'with'=>'book',
-'order'=>'book.createdate desc',
-),
 }

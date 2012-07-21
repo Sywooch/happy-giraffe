@@ -581,6 +581,6 @@ class CookRecipe extends CActiveRecord
 
     public function getRssContent()
     {
-        return $this->text;
+        return CHtml::image($this->mainPhoto->getPreviewUrl(441, null, Image::WIDTH), $this->mainPhoto->title) . $this->text;
     }
 }

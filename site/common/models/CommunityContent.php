@@ -33,7 +33,6 @@
 class CommunityContent extends HActiveRecord
 {
     const USERS_COMMUNITY = 999999;
-    public $sent = false;
 
 	/**
 	 * Returns the static model of the specified AR class.

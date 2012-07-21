@@ -578,4 +578,9 @@ class CookRecipe extends CActiveRecord
             return $this->cooking_duration_h . ' ч' . $this->cooking_duration_m . ' мин';
         }
     }
+
+    public function getRssContent()
+    {
+        return $this->text;
+    }
 }

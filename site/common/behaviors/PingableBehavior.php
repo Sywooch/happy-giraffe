@@ -21,12 +21,12 @@ class PingableBehavior extends CActiveRecordBehavior
 
     public function send()
     {
-        if (get_class($this->owner) == 'CommunityContent' && ($this->type_id == 4 || $this->by_happy_giraffe)) {
+        if (get_class($this->owner) == 'CommunityContent' && ($this->owner->type_id == 4 || $this->owner->by_happy_giraffe)) {
             $pingUserId = 1;
         } else {
-            $pingUserId = $this->author_id;
+            $pingUserId = $this->owner->author_id;
         }
-        $pingName = 'Блог пользователя ' . $this->author->fullName;
+        $pingName = 'Блог пользователя ' . $this->owner->author->fullName;
         $pingUrl = Yii::app()->createAbsoluteUrl('rss/user', array('user_id' => $pingUserId));
 
         $xmlDoc = new DOMDocument;

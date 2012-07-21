@@ -331,7 +331,7 @@ class CommunityContent extends HActiveRecord
             }else
                 UserScores::addScores($this->author_id, ScoreActions::ACTION_RECORD, 1, $this);
         }
-        parent::afterSave();
+        //parent::afterSave();
     }
 
     public function getUrlParams()

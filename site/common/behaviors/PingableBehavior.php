@@ -5,7 +5,7 @@
  */
 class PingableBehavior extends CActiveRecordBehavior
 {
-    $sent = false;
+    private $sent = false;
 
     public function attach($owner)
     {

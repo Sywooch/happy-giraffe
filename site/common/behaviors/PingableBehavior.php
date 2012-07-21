@@ -5,8 +5,6 @@
  */
 class PingableBehavior extends CActiveRecordBehavior
 {
-    private $sent = false;
-
     public function attach($owner)
     {
         parent::attach($owner);
@@ -23,7 +21,7 @@ class PingableBehavior extends CActiveRecordBehavior
 
     public function send()
     {
-        if (! $this->sent) {
+        if (! $this->owner->sent) {
             if (get_class($this->owner) == 'CommunityContent' && ($this->owner->type_id == 4 || $this->owner->by_happy_giraffe)) {
                 $pingUserId = 1;
             } else {
@@ -55,7 +53,7 @@ class PingableBehavior extends CActiveRecordBehavior
             curl_close($ch);
 
             Yii::log($output, 'error');
-            $this->sent = true;
+            $this->owner->sent = true;
         }
     }
 }

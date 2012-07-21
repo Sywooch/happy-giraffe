@@ -26,6 +26,34 @@ class RssController extends HController
             'order' => 'created DESC',
         ));
 
+        $sql = "(SELECT id, created, 'CommunityContent' AS entity FROM community__contents)
+                UNION
+                (SELECT id, created, 'CookRecipe' AS entity FROM cook__recipes)
+                ORDER BY created DESC
+                LIMIT :limit
+                OFFSET :offset";
+        $command = Yii::app()->db->createCommand($sql);
+        $command->bindValue(':limit', $this->limit, PDO::PARAM_INT);
+        $command->bindValue(':offset', ($page - 1) * $this->limit, PDO::PARAM_INT);
+        $rows = $command->queryAll();
+        $rowsByEntity = array();
+        foreach ($rows as $r)
+            $rowsByEntity[$r['entity']][] = $r['id'];
+        $contents = array();
+        foreach ($rowsByEntity as $entity => $ids) {
+            $criteria = new CDbCriteria;
+            $criteria->addInCondition('t.id', $ids);
+            switch ($entity) {
+                case 'CommunityContent':
+                    $_contents = CActiveRecord::model($entity)->full()->findAll($criteria);
+                    break;
+                default:
+                    $_contents = CActiveRecord::model($entity)->findAll($criteria);
+            }
+            foreach ($_contents as $c)
+                $contents[] = $c;
+        }
+
         foreach ($contents as $c) {
             $item = $feed->createNewItem();
             $item->addTag('guid', $c->getUrl(false, true), array('isPermaLink'=>'true'));

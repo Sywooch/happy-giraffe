@@ -52,6 +52,5 @@ class PingableBehavior extends CActiveRecordBehavior
         curl_close($ch);
 
         Yii::log($output, 'error');
-        $this->owner->sent = true;
     }
 }

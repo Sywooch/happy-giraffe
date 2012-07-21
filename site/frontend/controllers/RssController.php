@@ -60,7 +60,7 @@ class RssController extends HController
 
         $feed->title= 'Блог пользователя ' . $user->fullName;
         $feed->link = $this->createAbsoluteUrl('blog/list', array('user_id' => $user->id));
-        $feed->description = 'Мой личный блог';
+        $feed->description = ($this->user->blog_title === null) ? 'Блог - ' . $this->user->fullName : $this->user->blog_title;
         $feed->addChannelTag('generator', 'MyBlogEngine 1.1');
         $feed->addChannelTag('wfw:commentRss', $this->createAbsoluteUrl('rss/comments', array('user_id' => $user->id)));
         $feed->addChannelTag('ya:more', $this->createAbsoluteUrl('rss/user', array('user_id' => $user->id, 'page' => $page + 1)));
@@ -193,9 +193,9 @@ class RssController extends HController
 
     function cmp($a, $b)
     {
-        if ($a->created == $b->created)
+        if ($a->id == $b->id)
             return 0;
-        return ($a->created < $b->created) ? -1 : 1;
+        return ($a->id < $b->id) ? -1 : 1;
     }
 }
 

@@ -222,6 +222,9 @@ class CookRecipe extends CActiveRecord
                 'class' => 'site.common.behaviors.PurifiedBehavior',
                 'attributes' => array('text'),
             ),
+            'pingable' => array(
+                'class' => 'site.common.behaviors.PingableBehavior',
+            ),
         );
     }
 
@@ -577,5 +580,13 @@ class CookRecipe extends CActiveRecord
         } else {
             return $this->cooking_duration_h . ' ч' . $this->cooking_duration_m . ' мин';
         }
+    }
+
+    public function getRssContent()
+    {
+        return ($this->mainPhoto !== null)  ?
+            CHtml::image($this->mainPhoto->getPreviewUrl(441, null, Image::WIDTH), $this->mainPhoto->title) . $this->text
+            :
+            $this->text;
     }
 }

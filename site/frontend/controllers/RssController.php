@@ -193,9 +193,9 @@ class RssController extends HController
 
     function cmp($a, $b)
     {
-        if ($a->id == $b->id)
+        if ($a->created == $b->created)
             return 0;
-        return ($a->id < $b->id) ? -1 : 1;
+        return ($a->created > $b->created) ? -1 : 1;
     }
 }
 

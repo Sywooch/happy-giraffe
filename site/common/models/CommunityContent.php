@@ -128,6 +128,9 @@ class CommunityContent extends HActiveRecord
                 'class' => 'site.common.behaviors.PurifiedBehavior',
                 'attributes' => array( 'preview'),
             ),
+            'pingable' => array(
+                'class' => 'site.common.behaviors.PingableBehavior',
+            ),
         );
     }
 
@@ -300,38 +303,6 @@ class CommunityContent extends HActiveRecord
         if ($this->isNewRecord && $this->type_id != 4) {
             Yii::app()->cache->set('activityLastUpdated', time());
         }
-
-        if ($this->type_id == 4 || $this->by_happy_giraffe) {
-            $pingUserId = 1;
-        } else {
-            $pingUserId = $this->author_id;
-        }
-        $pingName = 'Блог пользователя ' . $this->author->fullName;
-        $pingUrl = Yii::app()->createAbsoluteUrl('rss/user', array('user_id' => $pingUserId));
-
-        $xmlDoc = new DOMDocument;
-        $methodCall = $xmlDoc->createElement('methodCall');
-        $xmlDoc->appendChild($methodCall);
-        $methodCall->appendChild($xmlDoc->createElement('methodName', 'weblogUpdates.ping'));
-        $params = $xmlDoc->createElement('params');
-        $methodCall->appendChild($params);
-        $param = $xmlDoc->createElement('param');
-        $param->appendChild($xmlDoc->createElement('value', $pingName));
-        $params->appendChild($param);
-        $param = $xmlDoc->createElement('param');
-        $param->appendChild($xmlDoc->createElement('value', $pingUrl));
-        $params->appendChild($param);
-        $xml = $xmlDoc->saveXML();
-
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, 'http://ping.blogs.yandex.ru/RPC2');
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $xml);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $output = curl_exec($ch);
-        curl_close($ch);
-
-        Yii::log($output, 'error');
 
         if (get_class(Yii::app()) == 'CConsoleApplication')
             return parent::afterSave();

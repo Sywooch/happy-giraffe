@@ -222,6 +222,9 @@ class CookRecipe extends CActiveRecord
                 'class' => 'site.common.behaviors.PurifiedBehavior',
                 'attributes' => array('text'),
             ),
+            'pingable' => array(
+                'class' => 'site.common.behaviors.PingableBehavior',
+            ),
         );
     }
 

@@ -7,9 +7,14 @@ class RssController extends HController
 {
     public $limit = 20;
 
+    public function init()
+    {
+        Yii::import('application.modules.cook.models.*');
+        Yii::import('ext.EFeed.*');
+    }
+
     public function actionIndex($page = 1)
     {
-        Yii::import('ext.EFeed.*');
         $feed = new EFeed();
 
         $feed->title= 'Веселый Жираф - сайт для всей семьи';
@@ -154,7 +159,6 @@ class RssController extends HController
         if (! $comments)
             throw new CHttpException(404, 'Такой записи не существует');
 
-        Yii::import('ext.EFeed.*');
         $feed = new EFeed();
         $feed->link = $this->createAbsoluteUrl('blog/list', array('user_id' => $user->id));
         $feed->addChannelTag('generator', 'MyBlogEngine 1.1:comments');

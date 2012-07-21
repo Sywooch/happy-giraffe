@@ -31,28 +31,7 @@ class RssController extends HController
                 ORDER BY created DESC
                 LIMIT :limit
                 OFFSET :offset";
-        $command = Yii::app()->db->createCommand($sql);
-        $command->bindValue(':limit', $this->limit, PDO::PARAM_INT);
-        $command->bindValue(':offset', ($page - 1) * $this->limit, PDO::PARAM_INT);
-        $rows = $command->queryAll();
-        $rowsByEntity = array();
-        foreach ($rows as $r)
-            $rowsByEntity[$r['entity']][] = $r['id'];
-        $contents = array();
-        foreach ($rowsByEntity as $entity => $ids) {
-            $criteria = new CDbCriteria;
-            $criteria->addInCondition('t.id', $ids);
-            switch ($entity) {
-                case 'CommunityContent':
-                    $_contents = CActiveRecord::model($entity)->full()->findAll($criteria);
-                    break;
-                default:
-                    $_contents = CActiveRecord::model($entity)->findAll($criteria);
-            }
-            foreach ($_contents as $c)
-                $contents[] = $c;
-        }
-        usort($contents, array($this, 'cmp'));
+        $contents = $this->getContents($sql, $page);
 
         foreach ($contents as $c) {
             $item = $feed->createNewItem();
@@ -180,6 +159,35 @@ class RssController extends HController
 
         $feed->generateFeed();
         Yii::app()->end();
+    }
+
+    function getContents($sql, $page, $params = array())
+    {
+        $command = Yii::app()->db->createCommand($sql);
+        $command->bindValue(':limit', $this->limit, PDO::PARAM_INT);
+        $command->bindValue(':offset', ($page - 1) * $this->limit, PDO::PARAM_INT);
+        foreach ($params as $name => $value)
+            $command->bindValue($name, $value);
+        $rows = $command->queryAll();
+        $rowsByEntity = array();
+        foreach ($rows as $r)
+            $rowsByEntity[$r['entity']][] = $r['id'];
+        $contents = array();
+        foreach ($rowsByEntity as $entity => $ids) {
+            $criteria = new CDbCriteria;
+            $criteria->addInCondition('t.id', $ids);
+            switch ($entity) {
+                case 'CommunityContent':
+                    $_contents = CActiveRecord::model($entity)->full()->findAll($criteria);
+                    break;
+                default:
+                    $_contents = CActiveRecord::model($entity)->findAll($criteria);
+            }
+            foreach ($_contents as $c)
+                $contents[] = $c;
+        }
+        usort($contents, array($this, 'cmp'));
+        return $contents;
     }
 
     function cmp($a, $b)

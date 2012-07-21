@@ -51,6 +51,6 @@ class PingableBehavior extends CActiveRecordBehavior
         $output = curl_exec($ch);
         curl_close($ch);
 
-        Yii::log($pingUrl . "\n" . $output, 'error');
+        Yii::log($output, 'error');
     }
 }

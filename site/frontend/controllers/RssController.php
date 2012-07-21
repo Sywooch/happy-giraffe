@@ -25,12 +25,6 @@ class RssController extends HController
         $feed->addChannelTag('ya:more', $this->createAbsoluteUrl('rss/index', array('page' => $page + 1)));
         $feed->addChannelTag('image', array('url' => 'http://www.happy-giraffe.ru/images/logo_2.0.png', 'width' => 199, 'height' => 92));
 
-        $contents = CommunityContent::model()->full()->findAll(array(
-            'limit' => $this->limit,
-            'offset' => ($page - 1) * $this->limit,
-            'order' => 'created DESC',
-        ));
-
         $sql = "(SELECT id, created, 'CommunityContent' AS entity FROM community__contents)
                 UNION
                 (SELECT id, created, 'CookRecipe' AS entity FROM cook__recipes)
@@ -58,6 +52,7 @@ class RssController extends HController
             foreach ($_contents as $c)
                 $contents[] = $c;
         }
+        usort($contents, array($this, 'cmp'));
 
         foreach ($contents as $c) {
             $item = $feed->createNewItem();
@@ -185,6 +180,13 @@ class RssController extends HController
 
         $feed->generateFeed();
         Yii::app()->end();
+    }
+
+    function cmp($a, $b)
+    {
+        if ($a == $b)
+            return 0;
+        return ($a < $b) ? -1 : 1;
     }
 }
 

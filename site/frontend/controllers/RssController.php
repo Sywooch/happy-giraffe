@@ -74,26 +74,27 @@ class RssController extends HController
                 'offset' => ($page - 1) * $this->limit,
                 'order' => 'created DESC',
             ));
+
+            $contents = CommunityContent::model()->full()->findAll($criteria);
         } else {
             if (in_array($user->id, array(10264, 10127, 10378, 23, 12678))) {
-                $criteria = new CDbCriteria(array(
-                    'condition' => 'author_id = :author_id AND type_id != 4 AND by_happy_giraffe = 0 AND rubric.user_id IS NOT NULL',
-                    'params' => array(':author_id' => $user->id),
-                    'limit' => $this->limit,
-                    'offset' => ($page - 1) * $this->limit,
-                    'order' => 'created DESC',
-                ));
+                $sql = "(SELECT id, created, 'CommunityContent' AS entity FROM community__contents WHERE author_id = :author_id AND type_id != 4 AND by_happy_giraffe = 0 AND rubric.user_id IS NOT NULL)
+                        UNION
+                        (SELECT id, created, 'CookRecipe' AS entity FROM cook__recipes WHERE author_id = :author_id)
+                        ORDER BY created DESC
+                        LIMIT :limit
+                        OFFSET :offset";
             } else {
-                $criteria = new CDbCriteria(array(
-                    'condition' => 'author_id = :author_id AND type_id != 4 AND by_happy_giraffe = 0',
-                    'params' => array(':author_id' => $user->id),
-                    'limit' => $this->limit,
-                    'offset' => ($page - 1) * $this->limit,
-                    'order' => 'created DESC',
-                ));
+                $sql = "(SELECT id, created, 'CommunityContent' AS entity FROM community__contents WHERE author_id = :author_id AND type_id != 4 AND by_happy_giraffe = 0)
+                        UNION
+                        (SELECT id, created, 'CookRecipe' AS entity FROM cook__recipes WHERE author_id = :author_id)
+                        ORDER BY created DESC
+                        LIMIT :limit
+                        OFFSET :offset";
             }
+
+            $contents = $this->getContents($sql, $page, array(':author_id' => $user->id));
         }
-        $contents = CommunityContent::model()->full()->findAll($criteria);
 
         foreach ($contents as $c) {
             $item = $feed->createNewItem();

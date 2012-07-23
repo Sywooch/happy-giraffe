@@ -52,7 +52,7 @@ return array(
         'albums/addPhoto/a/<a:\d+>' => 'albums/addPhoto',
         'albums/addPhoto' => 'albums/addPhoto',
         'albums/redirect/<id:\d+>' => 'albums/redirect',
-        'albums/<_a:(attach|wPhoto|attachView|editDescription|editPhotoTitle|changeTitle|changePermission|removeUploadPhoto|communityContentEdit|communityContentSave|recipePhoto|cookDecorationPhoto|cookDecorationCategory|commentPhoto|crop|changeAvatar|humorPhoto|albumSettings|updatePhoto)>' => 'albums/<_a>',
+        'albums/<_a:(attach|wPhoto|attachView|editDescription|editPhotoTitle|changeTitle|changePermission|removeUploadPhoto|communityContentEdit|communityContentSave|recipePhoto|cookDecorationPhoto|cookDecorationCategory|commentPhoto|crop|changeAvatar|humorPhoto|albumSettings|updatePhoto|postLoad)>' => 'albums/<_a>',
 
         // user/*
         'user/<user_id:\d+>' => 'user/profile',
@@ -123,13 +123,9 @@ return array(
 
         'cook/converter/<_a>' => 'cook/converter/<_a>',
 
-        'cook/decor/<id:[\d]+>/page/<page:[\d]+>/<photo:[\w_]+>' => 'cook/decor/index',
-        'cook/decor/<id:[\d]+>/page/<page:[\d]+>' => 'cook/decor/index',
-        'cook/decor/<id:[\d]+>/<photo:[\w_]+>' => 'cook/decor/index',
-        'cook/decor/page/<page:[\d]+>' => 'cook/decor/index',
-        'cook/decor/page/<page:[\d]+>/<photo:[\w_]+>' => 'cook/decor/index',
-        'cook/decor/<id:[\d]+>' => 'cook/decor/index',
-        'cook/decor/<photo:[\w_]+>' => 'cook/decor/index',
+        'cook/decor/<id:\d+>/page<page:\d+>' => 'cook/decor/index',
+        'cook/decor/<id:\d+>' => 'cook/decor/index',
+        'cook/decor/page<page:\d+>' => 'cook/decor/index',
         'cook/decor' => 'cook/decor/index',
 
         'cook/recipe/edit/<id:\d+>' => array('cook/recipe/form', 'defaultParams' => array('section' => 0)),
@@ -161,7 +157,7 @@ return array(
         'cook/<_c:(spices|choose|calorisator|converter)>' => 'cook/<_c>/index',
 
         //===================== Services =========================//
-        '<_m:(test|tester|vaccineCalenda|childrenDiseases|menstrualCycle|horoscope|babyBloodGroup|placentaThickness|pregnancyWeight|contractionsTime|names|recipeBook|hospitalBag|maternityLeave|dailyCalories|weightLoss|idealWeight|bodyFat)>/' => 'services/<_m>/default/index',
+        '<_m:(test|tester|vaccineCalenda|childrenDiseases|menstrualCycle|horoscope|babyBloodGroup|placentaThickness|pregnancyWeight|contractionsTime|names|recipeBook|hospitalBag|maternityLeave|dailyCalories|weightLoss|idealWeight|bodyFat|birthDate)>/' => 'services/<_m>/default/index',
         '<_m:(babySex|vaccineCalendar|sewing|hospitalBag)>/<_a>/' => 'services/<_m>/default/<_a>',
 
         'babySex'=>'services/babySex/default/index',
@@ -191,7 +187,7 @@ return array(
 
         'tester/<slug:[\w-]+>' => 'services/tester/default/view',
 
-        '<_m:(menstrualCycle|placentaThickness|pregnancyWeight)>/<_a:(calculate)>' => 'services/<_m>/default/<_a>',
+        '<_m:(menstrualCycle|placentaThickness|pregnancyWeight|birthDate)>/<_a:(calculate)>' => 'services/<_m>/default/<_a>',
 
         'services/<_m:(dailyCalories|weightLoss|idealWeight|bodyFat)>/default/<_c>' => 'services/<_m>/default/<_c>',
     ),

@@ -15,9 +15,6 @@ jQuery.fn.pGallery = function(options) {
         plugin.originalTitle = null;
 
     plugin.openWindow = function(id) {
-        console.log('start');
-        var start = new Date().getMilliseconds();
-
         if(this.init)
             return false;
         this.init = true;
@@ -46,7 +43,6 @@ jQuery.fn.pGallery = function(options) {
         }
 
         $.get(base_url + '/albums/wPhoto/', plugin.data, function(html) {
-            console.log(new Date().getMilliseconds() - start);
             pGallery.currentPhoto = plugin.data.id;
             $('#photo-window').append(html);
 
@@ -63,6 +59,14 @@ jQuery.fn.pGallery = function(options) {
                 plugin.prev();
                 return false;
             });
+
+            /*$('html').on('click', function() {
+                plugin.closeWindow();
+            });
+
+            $('#photo-window-in').on('click', function(event){
+                event.stopPropagation();
+            });*/
 
             /*plugin.window.on('click', '#photo-thumbs li a', function() {
                 if($(this).parent().hasClass('active'))
@@ -88,7 +92,6 @@ jQuery.fn.pGallery = function(options) {
             if (title != null)
                 document.title = pGallery.photos[id].title;
         }, 'html');
-        console.log(new Date().getMilliseconds() - start);
     };
 
     plugin.openImage = function(id, callback) {
@@ -199,6 +202,7 @@ jQuery.fn.pGallery = function(options) {
     plugin.closeWindow = function() {
         plugin.init = false;
         $('#photo-window-bg, #photo-window').fadeOut(600, function(){
+            //$('html').off('click');
             document.title = plugin.originalTitle;
             if (! plugin.data.singlePhoto)
                 plugin.history.changeBrowserUrl(plugin.getEntityUrl());

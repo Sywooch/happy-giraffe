@@ -34,7 +34,8 @@ class ServicesModule extends CWebModule
             'dailyCalories',
             'idealWeight',
             'weightLoss',
-            'bodyFat'
+            'bodyFat',
+            'birthDate'
         ));
     }
 

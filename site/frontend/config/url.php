@@ -123,13 +123,9 @@ return array(
 
         'cook/converter/<_a>' => 'cook/converter/<_a>',
 
-        'cook/decor/<id:[\d]+>/page/<page:[\d]+>/<photo:[\w_]+>' => 'cook/decor/index',
-        'cook/decor/<id:[\d]+>/page/<page:[\d]+>' => 'cook/decor/index',
-        'cook/decor/<id:[\d]+>/<photo:[\w_]+>' => 'cook/decor/index',
-        'cook/decor/page/<page:[\d]+>' => 'cook/decor/index',
-        'cook/decor/page/<page:[\d]+>/<photo:[\w_]+>' => 'cook/decor/index',
-        'cook/decor/<id:[\d]+>' => 'cook/decor/index',
-        'cook/decor/<photo:[\w_]+>' => 'cook/decor/index',
+        'cook/decor/<id:\d+>/page<page:\d+>' => 'cook/decor/index',
+        'cook/decor/<id:\d+>' => 'cook/decor/index',
+        'cook/decor/page<page:\d+>' => 'cook/decor/index',
         'cook/decor' => 'cook/decor/index',
 
         'cook/recipe/edit/<id:\d+>' => array('cook/recipe/form', 'defaultParams' => array('section' => 0)),

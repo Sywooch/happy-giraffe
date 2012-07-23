@@ -1,65 +1,34 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!--[if lt IE 7]> <html xmlns="http://www.w3.org/1999/xhtml"> <![endif]-->
 <!--[if IE 7]>    <html xmlns="http://www.w3.org/1999/xhtml" class="ie7"> <![endif]-->
 <!--[if gt IE 7]><!--> <html xmlns="http://www.w3.org/1999/xhtml"> <!--<![endif]-->
 <head>
+	
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>Untitled Document</title>
 	
 	
 	<link rel="stylesheet" type="text/css" href="/stylesheets/common.css" />
-	<link rel="stylesheet" type="text/css" href="/stylesheets/user.css" />
-	
+	<link rel="stylesheet" type="text/css" href="/stylesheets/global.css" />
 	
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-	<script type="text/javascript" src="/javascripts/checkbox.js"></script>
 	
-	<link rel="stylesheet" type="text/css" href="/stylesheets/jquery.fancybox-1.3.4.css" />
-	<script type="text/javascript" src="/javascripts/jquery.fancybox-1.3.4.js"></script>
+	<script type="text/javascript" src="/javascripts/chosen.jquery.min.js"></script>
+	
+	<script type="text/javascript" src="/javascripts/jquery.tooltip.pack.js"></script>
 	
 	<script type="text/javascript" src="/javascripts/jquery.placeholder.min.js"></script>
 	
-  <script type="text/javascript" src="/javascripts/jquery.tooltip.pack.js"></script>
+	<link rel="stylesheet" type="text/css" href="/stylesheets/jquery.fancybox-1.3.4.css" />
+	<script type="text/javascript" src="/javascripts/jquery.fancybox-1.3.4.pack.js"></script>
 	
-	<script type="text/javascript" src="/javascripts/jquery.masonry.min.js"></script>
-	
-	<script type="text/javascript" src="/javascripts/common.js"></script>	
-	
-	<script>
-		
-		$(function(){
-		  
-      var $container = $('.gallery-photos-new');
-      
-      var items = $('.gallery-photos-new li');
-
-			$container.imagesLoaded( function(){
-        
-        $container.masonry({
-          itemSelector : 'li',
-          columnWidth: 240
-        });
-        
-			});
-			
-      $('#more-btn').click(function(){
-        var newItems = items.clone()
-        $('.gallery-photos-new ul').append(newItems);
-        $('.gallery-photos-new').masonry( 'appended', newItems);
-      })
-      
-		});
-		
-	</script>
-	
-	<!--[if IE 7]>
-		<link rel="stylesheet" href='/stylesheets/ie.css' type="text/css" media="screen" />
-	<![endif]-->
+	<script type="text/javascript" src="/javascripts/common.js"></script>
 	
 </head>
 <body class="body-club">
+	
 	<div id="layout" class="wrapper">
-		
+	
 		<div id="header-new" class="clearfix">
 			
 			<div class="top-line clearfix">
@@ -205,10 +174,10 @@
 				</div>
 				
 				<div class="nav">
-					<ul class="clearfix width-2">
-						<!--<li class="morning">
+					<ul class="clearfix">
+						<li class="morning">
 							<a href=""><i class="text"></i></a>
-						</li>-->
+						</li>
 						<li class="kids navdrp">
 							<a href="javascript:void(0);" onclick="navDrpOpen(this);"><i class="text"></i></a>
 							<div class="drp">
@@ -459,160 +428,133 @@
 		
 		<div id="content" class="clearfix">
 			
-			<div id="user">
-								
-				<div class="main">
-					<div class="main-in">
-						
-						<div class="content-title-new">
-							Альбом «Зимние каникулы» <a href="#albumSettings" class="settings tooltip fancy" title="Настройки альбома"></a>
-							<span>Хлопоты понемногу утихли а значит можно хорошо провести зимние выходные. В Славяногороске погода зимняя. </span>
-						</div>
-						
-						<div id="gallery" class="nopadding">
-						
-							<div class="gallery-photos-new cols-3 clearfix">
-                <ul>
-                  
-                  <li>
-                    <div class="img">
-                      <a href="">
-                        <img src="/images/example/gallery_album_img_01.jpg">
-                        <span class="btn">Посмотреть</span>
-                      </a>
-                    </div>
-                    <div class="item-title">Разнообразие десертов сицилийского стиля</div>
-                  </li>
-                  
-                  <li>
-                    <div class="img">
-                      <a href="">
-                        <img src="/images/example/gallery_album_img_02.jpg">
-                        <span class="btn">Посмотреть</span>
-                      </a>
-                    </div>
-                    <div class="item-title">Разнообразие десертов сицилийского стиля</div>
-                  </li>
-                  
-                  <li>
-                    <div class="img">
-                      <a href="">
-                        <img src="/images/example/gallery_album_img_03.jpg">
-                        <span class="btn">Посмотреть</span>
-                      </a>
-                    </div>
-                    <div class="item-title">Разнообразие десертов сицилийского стиля</div>
-                  </li>
-                  
-                  <li>
-                    <div class="img">
-                      <a href="">
-                        <img src="/images/example/gallery_album_img_04.jpg">
-                        <span class="btn">Посмотреть</span>
-                      </a>
-                    </div>
-                    <div class="item-title">Разнообразие десертов сицилийского стиля</div>
-                  </li>
-                  
-                  <li>
-                    <div class="img">
-                      <a href="">
-                        <img src="/images/example/gallery_album_img_05.jpg">
-                        <span class="btn">Посмотреть</span>
-                      </a>
-                    </div>
-                    <div class="item-title">Разнообразие десертов сицилийского стиля</div>
-                  </li>
-                  
-                  <li>
-                    <div class="img">
-                      <a href="">
-                        <img src="/images/example/gallery_album_img_06.jpg">
-                        <span class="btn">Посмотреть</span>
-                      </a>
-                    </div>
-                    <div class="item-title">Разнообразие десертов сицилийского стиля</div>
-                  </li>
-                  
-                  <li>
-                    <div class="img">
-                      <a href="">
-                        <img src="/images/example/gallery_album_img_07.jpg">
-                        <span class="btn">Посмотреть</span>
-                      </a>
-                    </div>
-                    <div class="item-title">Разнообразие десертов сицилийского стиля</div>
-                  </li>
-                  
-                  <li>
-                    <div class="img">
-                      <a href="">
-                        <img src="/images/example/gallery_album_img_08.jpg">
-                        <span class="btn">Посмотреть</span>
-                      </a>
-                    </div>
-                    <div class="item-title">Разнообразие десертов сицилийского стиля</div>
-                  </li>
-                </ul>
-							</div>
-							
-              <a class="more-btn" id="more-btn" data-loading="0" href="javascript:void(0);">Показать еще фотографии</a>
-							
-						</div>
-						
-					</div>
+			<div id="crumbs"><a href="">Главная</a> > <a href="">Сервисы</a> > <span>Калькулятор калорий</span></div>
+			
+			<div id="calories-calculator-daily">
+				
+				<div class="block-title">
+					<h1>Калькулятор<br/>калорий</h1>
+          <span>Рассчитайте вашу суточную<br/>норму калорий!</span>
 				</div>
 				
-				<div class="side-left gallery-sidebar">
-					
-					<div class="clearfix">
-						<div class="user-info">
-							<div class="ava female"></div>
-							<div class="details">
-								<span class="icon-status status-online"></span>
-								<a href="" class="username">Александр Богоявленский</a>
-								<div class="user-fast-buttons">
-									<a href="" class="add-friend"><span class="tip">Пригласить в друзья</span></a>
-									<a href="" class="new-message"><span class="tip">Написать сообщение</span></a>
-								</div>
-								<div class="user-fast-nav">
-									<ul>
-										<a href="">Анкета</a> &nbsp;|&nbsp; <a href="">Блог</a> &nbsp;|&nbsp; <span class="drp-list"><a href="" class="more">Еще</a><ul><li><a href="">Семья</a></li><li><a href="">Друзья</a></li></ul>
-										</span>
-									</ul>
-								</div>
-							</div>
-							<div class="text-status">
-								<p>Привет всем! У меня все ok! Единственное, что имеет значение.</p>
-								<span class="tale"></span>
-							</div>
-						</div>
-					</div>
-					
-          <div class="upload-photo-btn">
-            <a href=""><img src="/images/btn_upload_photo.png" /></a>
+        <div class="block-in">
+          <p class="note">Сервис является по сути незаменимым помощником при расчете суточной потребности калорий организма по стандартам разработанной медиками. <br/><span>Просто укажите свои</span> параметры и калькулятор поможет вам определиться с количеством калорий потребляемым в сутки</p>
+          
+          <div class="calculator">
+            
+            <div class="clearfix">
+            
+              <div class="col">
+                
+                <div class="num"><span>1</span></div>
+                <div class="label"><span>Пол</span></div>
+                <div class="input"><input type="radio" /> <label>Муж</label> &nbsp; <input type="radio" /> <label>Муж</label></div>
+                
+                <div class="arr"></div>
+                
+              </div>
+              
+              <div class="col">
+                
+                <div class="num"><span>2</span></div>
+                <div class="label"><span>Возраст</span></div>
+                <div class="input"><input type="text" value="22" /> <span class="units">лет</span></div>
+                
+                <div class="arr"></div>
+                
+              </div>
+              
+              <div class="col error">
+                
+                <div class="num"><span>3</span></div>
+                <div class="label"><span>Рост</span></div>
+                <div class="input"><input type="text" /> <span class="units">см</span></div>
+                
+                <div class="arr"></div>
+                
+                <div class="errorMessage">Ошибка</div>
+                
+              </div>
+              
+              <div class="col">
+                
+                <div class="num"><span>4</span></div>
+                <div class="label"><span>Вес</span></div>
+                <div class="input"><input type="text" value="80" /> <span class="units">кг</span></div>
+                
+                <div class="arr"></div>
+                
+              </div>
+              
+              <div class="col">
+                
+                <div class="num"><span>5</span></div>
+                <div class="label"><span>Активность</span></div>
+                <div class="input"><span class="chzn-v2"><select class="chzn"><option>Очень высокая</option><option>Обычная</option></select></span></div>
+                
+              </div>
+              
+            </div>
+            
+            <div class="row-btn">
+              <input type="submit" value="Рассчитать" class="disabled" />
+              <input type="submit" value="Рассчитать" />
+            </div>
+            
+            <div class="result">
+              
+              Ваша суточная потребность составляет:
+              
+              <ul>
+                <li class="n-calories">
+                  <div class="icon">
+                    <i>К</i>
+                    <span class="units">Калории</span>
+                  </div>
+                  <span class="calories">240</span> <span class="gray">ккал.</span>
+                </li>
+                <li class="n-protein">
+                  <div class="icon">
+                    <i>Б</i>
+                    <span class="units">Белки</span>
+                  </div>
+                  <span class="protein">18</span> <span class="gray">г.</span>
+                </li>
+                <li class="n-fat">
+                  <div class="icon">
+                    <i>Ж</i>
+                    <span class="units">Жиры</span>
+                  </div>
+                  <span class="fat">10</span> <span class="gray">г.</span>
+                </li>
+                <li class="n-carbohydrates">
+                  <div class="icon">
+                    <i>У</i>
+                    <span class="units">Углеводы</span>
+                  </div>
+                  <span class="carbohydrates">70</span> <span class="gray">г.</span>
+                </li>
+                
+              </ul>
+              
+            </div>
+            
           </div>
           
-					<div class="club-topics-list-new">
-							
-						<div class="block-title">Мои альбомы</div>
-						
-						<ul>
-							<li><span><a href="">Все альбомы</a></span></li>
-              <li class="active"><span><a href="">Зимние каникулы</a></span><div class="count">15</div></li>							
-							<li><span><a href="">Фотография</a></span><div class="count">15</div></li>
-							<li><span><a href="">Прикольное видео и другие фишки</a></span><div class="count">15</div></li>
-							<li><span><a href="">Школа восточного танца</a></span><div class="count">15</div></li>
-							<li><span><a href="">Футбол</a></span><div class="count">15</div></li>
-							<li><span><a href="">Детские передачи</a></span><div class="count">15</div></li>
-						</ul>
-						
-					</div>
-					
-				</div>
+          <div class="wysiwyg-content">
+                
+            <h2>Сервис «Счетчик калорий»</h2>
+            
+            <p>Этот день открывает массу возможностей, но воспользоваться можно только одной из них, так что придется выбирать, и выбор будет нелегким. К профессиональным разногласиям относитесь спокойно, сегодня они являются всего лишь частью нормального рабочего процесса. Даже с руководством можно поспорить от души – и без всяких далеко идущих последствий. </p>
+            
+            <p>Этот день открывает массу возможностей, но воспользоваться можно только одной из них, так что придется выбирать, и выбор будет нелегким. К профессиональным разногласиям относитесь спокойно, сегодня они являются всего лишь частью нормального рабочего процесса. Даже с руководством можно поспорить от души – и без всяких далеко идущих последствий. </p>
+            
+            <p>Этот день открывает массу возможностей, но воспользоваться можно только одной из них, так что придется выбирать, и выбор будет нелегким.</p>
+            
+          </div>
 				
-						
-				
+        </div>
+        
 			</div>
 			
 		</div>  	
@@ -620,9 +562,19 @@
 		<div class="push"></div>
 		
 	</div>
-	<div id="footer" class="wrapper">
-		f
+
+	<div id="footer" class="wrapper clearfix">
+		
+		<div class="a-right">
+			<a href="">Политика конфедециальности</a> &nbsp; | &nbsp; <a href="">Пользовательское соглашение</a>
+		</div>
+		
+		<div class="copy">
+			<p>Весёлый жираф &nbsp; © 2012 &nbsp; Все права защищены</p>
+		</div>
+		
 	</div>
+	
 <div style="display:none">
 	<div id="login" class="popup">
 		
@@ -676,149 +628,7 @@
 		</form>
 		
 	</div>
-
-  <div id="photoPick" class="popup">
-		
-		
-		<a onclick="$.fancybox.close();" class="popup-close tooltip" title="Закрыть" href="javascript:void(0);"></a>
-		
-		<div class="title">Загрузка фото в галерею</div>
-		
-		<div id="attach_content">
-			<div class="form">
-				<div class="photo-upload clearfix">
-					<div class="photo">
-						<div class="in">
-							<div class="file-fake">
-								<form>
-									<button class="btn btn-orange"><span><span>Обзор...</span></span></button>
-									<input type="file" />
-								</form>
-							</div>
-							
-						</div>
-					</div>
-					<div class="note">Загрузите файл<br>(jpg, gif, png не более 6 МБ)</div>
-				</div>
-				
-				<div class="form-bottom">
-					<button class="btn btn-green-medium disabled"><span><span>Продолжить</span></span></button>
-				</div>
-				
-				<div class="photo-upload clearfix">
-					<div class="photo">
-						<div class="in">
-							<img src="/images/gallery_img.jpg" alt="">
-							<a href="" class="remove tooltip" title="Удалить"></a>
-						</div>
-					</div>
-					
-					<div class="photo-title">
-						<label>Название фото <span>(не более 75 знаков)</span></label>
-						<input type="text"  placeholder="Введите название "/>
-						<br/><br/>
-						<label>Комментарий к фото<br/><span>(не обязательно, не более 200 знаков)</span></label><br/>
-						<textarea></textarea>
-					</div>
-					
-				</div>
-				
-				<div class="form-bottom">
-					<button class="btn btn-green-medium"><span><span>Завершить</span></span></button>
-				</div>
-				
-			</div>    
-		</div>
-		
-		
-	</div>  
-  
-  <div id="photoPick" class="popup v2">
-		
-		
-		<a onclick="$.fancybox.close();" class="popup-close tooltip" title="Закрыть" href="javascript:void(0);"></a>
-		
-		<div class="title">Редактирование фотографии</div>
-		
-		<div id="attach_content">
-			<div class="form">
-				
-				<div class="photo-upload clearfix">
-					<div class="photo">
-						<div class="in">
-							<img src="/images/gallery_img.jpg" alt="">
-							<a href="" class="remove tooltip" title="Удалить"></a>
-						</div>
-					</div>
-					
-					<div class="photo-title">
-						<label>Название фото <span>(не более 75 знаков)</span></label>
-						<input type="text"  value="Фотка такая растакая"/>
-					</div>
-					
-				</div>
-				
-				<div class="form-bottom">
-					<button class="btn btn-green-medium"><span><span>Завершить</span></span></button>
-				</div>
-				
-			</div>    
-		</div>
-		
-		
-	</div>
-  
-  <div id="albumSettings" class="popup">
-    
-    <a href="javascript:void(0);" onclick="$.fancybox.close();" class="popup-close tooltip" title="Закрыть"></a>
-    
-    <div class="popup-title">Настройки фотоальбома</div>
-    
-    <div class="default-nav">
-      <ul>
-        <li class="active"><a href="">Название альбома</a></li>
-        <li class="disabled"><a>Настройки 2</a></li>
-        <li class="disabled"><a>Настройки 3</a></li>
-      </ul>
-    </div>
-    
-    <div class="settings-form">
-      <div class="row">
-        <div class="row-title">Название альбома <span>(не более 30 знаков)</span></div>
-        <div class="row-elements">
-          <span class="item-title">Блокнот натуралиста</span>
-          <a href="" class="edit tooltip" title="Редактировать название альбома"></a>
-        </div>
-        <div class="row-elements">
-          <input type="text" placeholder="Введите название альбома" />
-          <button class="btn btn-green-small"><span><span>Ok</span></span></button>
-        </div>
-        
-      </div>
-      <div class="row">
-        <div class="row-title">Комментарий к альбому</div>
-        <div class="row-elements">
-          <p>Семья – самое важное в жизни человека. Семья дает человеку любовь, уважение,
-солидарность, привязанность, то без чего не бывает ни одно общество, без чего не может
-человек.<a href="" class="edit tooltip" title="Редактировать описание альбома"></a></p>
-        </div>
-        <div class="row-elements">
-          <textarea>Семья – самое важное в жизни человека. Семья дает человеку любовь, уважение,
-солидарность, привязанность, то без чего не бывает ни одно общество, без чего не может
-человек.</textarea>
-          <button class="btn btn-green-small"><span><span>Ok</span></span></button>
-        </div>
-        
-      </div>
-      
-    </div>
-    
-    <div class="bottom">
-      <button class="btn btn-green-medium"><span><span>Сохранить настройки</span></span></button>
-    </div>
-    
-  </div>
-  
+	
 </div>
 </body>
 </html>

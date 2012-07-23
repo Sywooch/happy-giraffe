@@ -898,7 +898,7 @@ class User extends HActiveRecord
                 'userAddress',
                 'babies' => array(
                     'together' => true,
-                    'condition' => 'sex != 0 OR type IS NOT NULL',
+                    //'condition' => 'sex != 0 OR type IS NOT NULL',
                 ),
             ),
             'order' => 'register_date DESC',

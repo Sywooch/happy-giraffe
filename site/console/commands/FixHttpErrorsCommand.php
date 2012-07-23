@@ -7,6 +7,7 @@
 class FixHttpErrorsCommand extends CConsoleCommand
 {
     public $proxy = null;
+    public $ch;
 
     public function fixImage($attr)
     {
@@ -358,6 +359,42 @@ class FixHttpErrorsCommand extends CConsoleCommand
             $k++;
         }
         return $i;
+    }
 
+    function getHTTPStatus($url)
+    {
+        if (!isset($this->ch))
+            $this->ch = curl_init();
+
+        curl_setopt($this->ch, CURLOPT_URL, $url);
+        curl_setopt($this->ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0');
+        curl_setopt($this->ch, CURLOPT_HEADER, 1);
+        curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($this->ch, CURLOPT_FOLLOWLOCATION, 1);
+        curl_setopt($this->ch, CURLOPT_CONNECTTIMEOUT, 30);
+        curl_setopt($this->ch, CURLOPT_TIMEOUT, 30);
+        curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, true);
+
+        curl_exec($this->ch);
+
+        return curl_getinfo($this->ch, CURLINFO_HTTP_CODE);
+    }
+
+    public function actionCheckErrors($file)
+    {
+        $path = Yii::getPathOfAlias('site.common.data') . '/' . $file;
+
+
+        if (($handle = fopen($path, "r")) !== FALSE) {
+            while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+                $url = $data[0];
+                if (strpos($url, 'http') !== FALSE) {
+                    $status = self::getHTTPStatus($url);
+                    if ($status != '200')
+                        echo  $status . ' - ' . $url . "\r\n";
+                }
+            }
+            fclose($handle);
+        }
     }
 }

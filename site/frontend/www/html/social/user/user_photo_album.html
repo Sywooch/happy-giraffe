@@ -30,27 +30,24 @@
 		$(function(){
 		  
       var $container = $('.gallery-photos-new');
+      
+      var items = $('.gallery-photos-new li');
 
 			$container.imagesLoaded( function(){
-        
-        var h = new Array;
-        
-        var i = 0;
-        
-        $container.find('li img').each(function(){
-          
-          h[i] = $(this).height();
-          alert(h[i]);
-          i++;
-          
-        })
         
         $container.masonry({
           itemSelector : 'li',
           columnWidth: 240
         });
+        
 			});
 			
+      $('#more-btn').click(function(){
+        var newItems = items.clone()
+        $('.gallery-photos-new ul').append(newItems);
+        $('.gallery-photos-new').masonry( 'appended', newItems);
+      })
+      
 		});
 		
 	</script>
@@ -475,10 +472,91 @@
 						<div id="gallery" class="nopadding">
 						
 							<div class="gallery-photos-new cols-3 clearfix">
-							
-                
+                <ul>
+                  
+                  <li>
+                    <div class="img">
+                      <a href="">
+                        <img src="/images/example/gallery_album_img_01.jpg">
+                        <span class="btn">Посмотреть</span>
+                      </a>
+                    </div>
+                    <div class="item-title">Разнообразие десертов сицилийского стиля</div>
+                  </li>
+                  
+                  <li>
+                    <div class="img">
+                      <a href="">
+                        <img src="/images/example/gallery_album_img_02.jpg">
+                        <span class="btn">Посмотреть</span>
+                      </a>
+                    </div>
+                    <div class="item-title">Разнообразие десертов сицилийского стиля</div>
+                  </li>
+                  
+                  <li>
+                    <div class="img">
+                      <a href="">
+                        <img src="/images/example/gallery_album_img_03.jpg">
+                        <span class="btn">Посмотреть</span>
+                      </a>
+                    </div>
+                    <div class="item-title">Разнообразие десертов сицилийского стиля</div>
+                  </li>
+                  
+                  <li>
+                    <div class="img">
+                      <a href="">
+                        <img src="/images/example/gallery_album_img_04.jpg">
+                        <span class="btn">Посмотреть</span>
+                      </a>
+                    </div>
+                    <div class="item-title">Разнообразие десертов сицилийского стиля</div>
+                  </li>
+                  
+                  <li>
+                    <div class="img">
+                      <a href="">
+                        <img src="/images/example/gallery_album_img_05.jpg">
+                        <span class="btn">Посмотреть</span>
+                      </a>
+                    </div>
+                    <div class="item-title">Разнообразие десертов сицилийского стиля</div>
+                  </li>
+                  
+                  <li>
+                    <div class="img">
+                      <a href="">
+                        <img src="/images/example/gallery_album_img_06.jpg">
+                        <span class="btn">Посмотреть</span>
+                      </a>
+                    </div>
+                    <div class="item-title">Разнообразие десертов сицилийского стиля</div>
+                  </li>
+                  
+                  <li>
+                    <div class="img">
+                      <a href="">
+                        <img src="/images/example/gallery_album_img_07.jpg">
+                        <span class="btn">Посмотреть</span>
+                      </a>
+                    </div>
+                    <div class="item-title">Разнообразие десертов сицилийского стиля</div>
+                  </li>
+                  
+                  <li>
+                    <div class="img">
+                      <a href="">
+                        <img src="/images/example/gallery_album_img_08.jpg">
+                        <span class="btn">Посмотреть</span>
+                      </a>
+                    </div>
+                    <div class="item-title">Разнообразие десертов сицилийского стиля</div>
+                  </li>
+                </ul>
 							</div>
 							
+              <a class="more-btn" id="more-btn" data-loading="0" href="javascript:void(0);">Показать еще фотографии</a>
 							
 						</div>
 						

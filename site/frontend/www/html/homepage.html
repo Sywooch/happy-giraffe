@@ -29,18 +29,19 @@
 		var st;
 		
 		function openPhoto(){
-			
+      st = $('body').scrollTop();
+      alert(st);
 			$('#photo-window-bg, #photo-window').fadeIn(600, function(){
-				st = $('body').scrollTop();
 				$('body').scrollTop(0).css('overflow', 'hidden').addClass('nav-fixed');
 			});
-			
-			
 		}
 		
 		function closePhoto(){
-			$('#photo-window-bg, #photo-window').hide();
-			$('body').css('overflow', 'auto').scrollTop(st).removeClass('nav-fixed');
+			$('#photo-window-bg, #photo-window').hide(function(){
+        $('body').removeClass('nav-fixed').css('overflow', 'auto');
+        $('body, html').scrollTop(st);
+      });
+			
 		}
 		
 	</script>
@@ -447,7 +448,7 @@
 		
 		<div id="content" class="clearfix">
 			
-			<a href="javascript:void(0);" class="tooltip" title="Тайтл" onclick="openPhoto();">Открыть фотку</a>			
+			
 			
 			<div id="homepage">
 				
@@ -910,6 +911,8 @@
 			
 		</div>  	
 		
+    <a href="javascript:void(0);" class="tooltip" title="Тайтл" onclick="openPhoto();">Открыть фотку</a>			
+    
 		<div class="push"></div>
 		
 	</div>

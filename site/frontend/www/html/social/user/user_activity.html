@@ -15,73 +15,20 @@
 	<script type="text/javascript" src="/javascripts/checkbox.js"></script>
 	
 	<link rel="stylesheet" type="text/css" href="/stylesheets/jquery.fancybox-1.3.4.css" />
-	<script type="text/javascript" src="/javascripts/jquery.fancybox-1.3.4.js"></script>
+	<script type="text/javascript" src="/javascripts/jquery.fancybox-1.3.4.pack.js"></script>
 	
 	<script type="text/javascript" src="/javascripts/jquery.placeholder.min.js"></script>
 	
-  <script type="text/javascript" src="/javascripts/jquery.tooltip.pack.js"></script>
-	
-	<script type="text/javascript" src="/javascripts/jquery.masonry.min.js"></script>
-	<script type="text/javascript" src="/javascripts/jquery.infinitescroll.min.js"></script>
-	
 	<script type="text/javascript" src="/javascripts/common.js"></script>	
-	
-	<script>
-		
-		$(function(){
-		  
-      var $container = $('.gallery-photos-new');
-      
-      var items = $('.gallery-photos-new li');
-
-			$container.imagesLoaded( function(){
-        
-        $container.masonry({
-          itemSelector : 'li',
-          columnWidth: 240,
-          isAnimated: false,
-          animationOptions: { queue: false, duration: 500 }
-        });
-        
-			});
-      
-      $container.infinitescroll({
-        navSelector  : '#btn-more',
-        nextSelector : '#btn-more',
-        itemSelector : '.gallery-photos-new li',     // selector for all items you'll retrieve
-        loading: {
-            finishedMsg: 'No more pages to load.',
-            img: 'http://i.imgur.com/6RMhx.gif'
-          }
-        },
-        function(newElements) {
-          
-          var newItems = items.clone()
-          $('.gallery-photos-new ul').append(newItems);
-          $('.gallery-photos-new').masonry( 'appended', newItems, false);
-          
-        }
-      );
-			
-      $('#more-btn').click(function(){
-        var newItems = items.clone()
-        $('.gallery-photos-new ul').append(newItems);
-        $('.gallery-photos-new').masonry( 'appended', newItems, false);
-      })
-      
-      
-      
-		});
-		
-	</script>
-	
+  
 	<!--[if IE 7]>
 		<link rel="stylesheet" href='/stylesheets/ie.css' type="text/css" media="screen" />
 	<![endif]-->
 	
 </head>
 <body class="body-club">
-	<div id="layout" class="wrapper">
+  
+  <div id="layout" class="wrapper">
 		
 		<div id="header-new" class="clearfix">
 			
@@ -483,117 +430,429 @@
 		<div id="content" class="clearfix">
 			
 			<div id="user">
-								
+				
 				<div class="main">
 					<div class="main-in">
 						
 						<div class="content-title-new">
-							Альбом «Зимние каникулы» <a href="#albumSettings" class="settings tooltip fancy" title="Настройки альбома"></a>
-							<span>Хлопоты понемногу утихли а значит можно хорошо провести зимние выходные. В Славяногороске погода зимняя. </span>
+							Что нового
 						</div>
 						
-						<div id="gallery" class="nopadding">
-						
-							<div class="gallery-photos-new cols-3 clearfix">
-                <ul>
+            <div id="user-activity">
+              
+              <div class="user-cols clearfix">
+                
+                <div class="calendar-date">
+                  <div class="y">2011</div>
+                  <div class="d">24</div>
+                  <div class="m">янв</div>
+                </div>
+                
+                <div class="col-2">
                   
-                  <li>
-                    <div class="img">
-                      <a href="">
-                        <img src="/images/example/gallery_album_img_01.jpg">
-                        <span class="btn">Посмотреть</span>
-                      </a>
-                    </div>
-                    <div class="item-title">Разнообразие десертов сицилийского стиля</div>
-                  </li>
+                  <div class="user-albums">
+								
+                    <div class="box-title">Добавил новые фото</div>
+                    
+                    <div class="added-to"><span>в альбом</span> «<a href="">Зимние каникулы</a>»</div>
+                    
+                    <div class="added-date">21 июн 2012, 13:25</div>
+                    
+                    <ul>
+                      <li><div class="clearfix">
+                          <div class="preview">
+                            <img src="/images/album_photo_01.jpg" class="img-1">
+                            <img src="/images/album_photo_02.jpg" class="img-2">
+                            <img src="/images/album_photo_03.jpg" class="img-3">
+                          </div>
+                          <a href="" class="more"><i class="icon"></i>Смотреть</a>
+                        </div>
+                      </li>
+                    </ul>
+                    
+                  </div>
                   
-                  <li>
-                    <div class="img">
-                      <a href="">
-                        <img src="/images/example/gallery_album_img_02.jpg">
-                        <span class="btn">Посмотреть</span>
-                      </a>
-                    </div>
-                    <div class="item-title">Разнообразие десертов сицилийского стиля</div>
-                  </li>
+                  <div class="user-mood">
+                    Изменил настроение <img id="userMood" src="/images/widget/mood/1.png">
+                  </div>
                   
-                  <li>
-                    <div class="img">
-                      <a href="">
-                        <img src="/images/example/gallery_album_img_03.jpg">
-                        <span class="btn">Посмотреть</span>
-                      </a>
+                  <div class="box">
+                    <div class="box-title">Изменил статус</div>
+                    <div class="user-status">
+                      <div class="date">20 февраля 2012, 13:45</div>
+                      <p>Привет всем! У меня все ok!<br>Единственное, что имеет значение в конце нашего пребывания на земле, - это то, как сильно мы любили. </p>
                     </div>
-                    <div class="item-title">Разнообразие десертов сицилийского стиля</div>
-                  </li>
+                  </div>
                   
-                  <li>
-                    <div class="img">
-                      <a href="">
-                        <img src="/images/example/gallery_album_img_04.jpg">
-                        <span class="btn">Посмотреть</span>
-                      </a>
-                    </div>
-                    <div class="item-title">Разнообразие десертов сицилийского стиля</div>
-                  </li>
+                </div>
+                
+                <div class="col-3">
                   
-                  <li>
-                    <div class="img">
-                      <a href="">
-                        <img src="/images/example/gallery_album_img_05.jpg">
-                        <span class="btn">Посмотреть</span>
-                      </a>
-                    </div>
-                    <div class="item-title">Разнообразие десертов сицилийского стиля</div>
-                  </li>
+                  <div class="user-post">
+                    
+                    <div class="box-title">Добавил запись</div>
+                    
+                    <ul>
+                      <li>
+                        <div class="added-to">
+                          <span>в клубе</span> <a href="" class="club-img home small inline"><img src="/images/club_img_1.png" />Загородная жизнь</a>
+                        </div>
+                        <div class="item-title"><a href="">Как построить бревенчатый дом. Нюансы, тонкости, приспособления</a></div>
+                        <div class="added-date">21 июн 2012, 13:25</div>
+                        <div class="img">
+                          <a href=""><img src="/images/user_post_img.jpg" /></a>
+                        </div>
+                        <div class="content">
+                          <p>Одним из основных свидетельств правильного течения беременности является набор веса согласно принятым нормам. <a href="" class="read-more">Читать всю запись<i class="icon"></i></a></p>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="added-to">
+                          <span>в клубе</span> <a href="" class="club-img beauty small inline"><img src="/images/club_img_2.png" />Интерьер и дизайн</a>
+                        </div>
+                        <div class="item-title"><a href="">Как построить бревенчатый дом. Нюансы, тонкости, приспособления</a></div>
+                        <div class="added-date">21 июн 2012, 13:25</div>
+                        <div class="content">
+                          <p>Одним из основных свидетельств правильного течения беременности является набор веса согласно принятым нормам. <a href="" class="read-more">Читать всю запись<i class="icon"></i></a></p>
+                        </div>
+                      </li>
+                      
+                    </ul>
+                    
+                  </div>
                   
-                  <li>
-                    <div class="img">
-                      <a href="">
-                        <img src="/images/example/gallery_album_img_06.jpg">
-                        <span class="btn">Посмотреть</span>
-                      </a>
-                    </div>
-                    <div class="item-title">Разнообразие десертов сицилийского стиля</div>
-                  </li>
+                </div>
+                
+              </div>
+              
+              <div class="user-cols clearfix">
+                
+                <div class="calendar-date">
+                  <div class="y">2011</div>
+                  <div class="d">24</div>
+                  <div class="m">янв</div>
+                </div>
+                
+                <div class="col-2">
                   
-                  <li>
-                    <div class="img">
-                      <a href="">
-                        <img src="/images/example/gallery_album_img_07.jpg">
-                        <span class="btn">Посмотреть</span>
-                      </a>
-                    </div>
-                    <div class="item-title">Разнообразие десертов сицилийского стиля</div>
-                  </li>
+                  <div class="user-friends clearfix">
+									
+                    <div class="box-title">Новые друзья</div>
+                    
+                    <ul class="clearfix">
+                      <li><a href="" class="ava"></a></li>
+                      <li><a href="" class="ava male"></a></li>
+                      <li><a href="" class="ava"><img src="/images/user_friends_img.jpg"></a></li>
+                      <li><a href="" class="ava"><img src="/images/user_friends_img.jpg"></a></li>
+                      <li><a href="" class="ava female"></a></li>
+                      <li><a href="" class="ava"><img src="/images/user_friends_img.jpg"></a></li>
+                      <li><a href="" class="ava male"></a></li>
+                      <li><a href="" class="ava"></a></li>
+                    </ul>
+                    
+                  </div>
                   
-                  <li>
-                    <div class="img">
-                      <a href="">
-                        <img src="/images/example/gallery_album_img_08.jpg">
-                        <span class="btn">Посмотреть</span>
-                      </a>
-                    </div>
-                    <div class="item-title">Разнообразие десертов сицилийского стиля</div>
-                  </li>
-                </ul>
-							</div>
+                  <div class="box user-lvl-box">
+                    <div class="box-title">Перешёл на новый уровень </div>
+                    <div class="user-lvl user-lvl-0"></div>
+                  </div>
+                  
+                  <div class="box user-interests-box">
+                    <div class="user-interests">
 							
-              <a class="more-btn" id="more-btn" data-loading="0" href="javascript:void(0);">Показать еще фотографии</a>
+                      <div class="box-title">Добавил интересы</div>
+                      
+                      <ul>
+                        <li>
+                          <div class="interest-cat">
+                            <a href="">
+                              <span class="img"><img src="/images/interest_icon_1.png"></span>
+                              <span class="text">Спорт</span>
+                            </a>
+                          </div>
+                          <ul>
+                            <li><a class="interest">Футбол<span>11</span></a></li>
+                            <li><a class="interest">Хоккей<span>82</span></a></li>
+                            <li><a class="interest">Художественная гимнастика<span>4</span></a></li>
+                            <li><a class="interest">Бокс<span>12</span></a></li>
+                            <li><a class="interest">Бильярд<span>18</span></a></li>
+                          </ul>
+                        </li>
+                        <li>
+                          <div class="interest-cat">
+                            <a href="">
+                              <span class="img"><img src="/images/interest_icon_2.png"></span>
+                              <span class="text">Познавательные и обучающие мультфильмы</span>
+                            </a>
+                          </div>
+                          <ul>
+                            <li><a class="interest">Футбол<span>11</span></a></li>
+                            <li><a class="interest">Хоккей<span>82</span></a></li>
+                            <li><a class="interest">Художественная гимнастика<span>4</span></a></li>
+                            <li><a class="interest">Бокс<span>12</span></a></li>
+                            <li><a class="interest">Бильярд<span>18</span></a></li>
+                          </ul>
+                        </li>
+                        
+                      </ul>
+                      
+                    </div>
+                  </div>
+                  
+                  <div class="box user-purpose-box">
+                    <div class="box-title">Новая цель</div>
+                    <div class="user-purpose">
+                      <i class="icon"></i>
+                      <span>&nbsp;</span>
+                      <p>Хочу в этом году поехать с семьей на море</p>
+                    </div>
+                  </div>
+                  
+                  <div class="box fast-teasers-box fast-teasers clearfix">
 							
-						</div>
-						
+                    <div class="box-title">Применил сервисы</div>
+                    
+                    <ul>
+                      <li>
+                        <div class="img">
+                          <a href=""><img src="/images/cook_teaser_img_01.png" /></a>
+                        </div>
+                        <div class="text">
+                          <div class="item-title"><a href="">Калькулятор мер</a></div>
+                          <p>Сервис для перевода веса и объема продуктов в понятные для вас меры.</p>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="img">
+                          <a href=""><img src="/images/cook_teaser_img_02.png" /></a>
+                        </div>
+                        <div class="text">
+                          <div class="item-title"><a href="">Счетчик калорий</a></div>
+                          <p>Узнавайте сколько калорий, а также белков, жиров и углеводов в любых продуктах.</p>
+                        </div>
+                      </li>
+                      
+                    </ul>
+                    
+                  </div>
+                  
+                  <div class="user-family">
+                    <div class="box-title">Добавил в семью</div>
+                    <div class="t"></div>
+                    <div class="c">
+                      <ul>
+                        <li>
+                          <big>Катя &nbsp; <small>Моя&nbsp;невеста</small></big>
+                          <div class="comment purple">
+                            Очень любит готовить, заниматься с детьми, очень добрая и отзывчивая
+                            <span class="tale"></span>
+                          </div>
+                          <div class="img">
+                            <img src="/images/example/ex1.png">
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="b"></div>
+                    <a href="" class="read-more">Смотреть семейный альбом<i class="icon"></i></a>
+                  </div>
+                  
+                  <div class="user-clubs clearfix">
+									
+                    <div class="box-title">Вступил в клубы</div>
+                    
+                    <ul>
+                      <li class="club-img kids">
+                        <a href="">
+                          <img src="/images/club_img_3.png">
+                          <span>Подготовка и роды</span>
+                        </a>
+                      </li>
+                      <li class="club-img kids">
+                        <a href="">
+                          <img src="/images/club_img_7.png">
+                          Режим и уход
+                        </a>
+                      </li>
+                      <li class="club-img manwoman">
+                        <a href="">
+                          <img src="/images/club_img_19.png">
+                          Отношения
+                        </a>
+                      </li>
+                      <li class="club-img beauty">
+                        <a href="">
+                          <img src="/images/club_img_21.png">
+                          Красота
+                        </a>
+                      </li>
+                      <li class="club-img beauty">
+                        <a href="">
+                          <img src="/images/club_img_22.png">
+                          Мода и шопинг
+                        </a>
+                      </li>
+                      <li class="club-img home">
+                        <a href="">
+                          <img src="/images/club_img_28.png">
+                          Загородная жизнь
+                        </a>
+                      </li>
+                      
+                    </ul>
+                    
+                  </div>
+                  
+                  <div class="user-map">
+                    <div class="header">
+                      <div class="box-title">Я живу здесь</div>
+                      <div class="sep"><img src="/images/map_marker.png"></div>
+                      <div class="location">
+                        <div class="flag flag-ru"></div> Россия
+                        <p>Ярославская облась Гаврилов-Ямский р-он п. Великое</p>
+                      </div>
+                    </div>
+                    <img src="/images/user_map_img.jpg">
+                  </div>
+                  
+                </div>
+                
+                <div class="col-3">
+                  
+                  <div class="user-post">
+                    
+                    <div class="box-title">Оставил комментарии</div>
+                    
+                    <ul>
+                      <li>
+                        <div class="added-to">
+                          <span>в блоге</span>
+                          <div class="user-info">
+                            <a href="" class="ava small female"></a>
+                            <div class="details">
+                              <span class="icon-status status-online"></span>
+                              <a href="" class="username">Настя</a>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="item-title"><a href="">Как построить бревенчатый дом. Нюансы, тонкости, приспособления</a></div>
+                        <div class="comment">
+                          <div class="date">21 июн 2012, 13:25</div>
+                          Детям до года врачи не рекомендуют, а более говоря, запрещают спать на подушке... <a href="">Читать</a>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="added-to">
+                          <span>к фото сервиса</span> <a href="">Оформление блюд</a>
+                        </div>
+                        <div class="img"><a href=""><img src="/images/user_post_img.jpg" /></a></div>
+                        <div class="comment">
+                          <div class="date">21 июн 2012, 13:25</div>
+                          Детям до года врачи не рекомендуют, а более говоря, запрещают спать на подушке... <a href="">Читать</a>
+                        </div>
+                      </li>
+                      
+                    </ul>
+                    
+                  </div>
+                  
+                  <div class="user-post">
+                    
+                    <div class="box-title">Добавил запись</div>
+                    
+                    <ul>
+                      <li>
+                        <div class="added-to">
+                          <span>в свой <a href="">блог</a></span>
+                        </div>
+                        <div class="item-title"><a href="">Поездка на Байкал. Прогулка на катере</a></div>
+                        <div class="added-date">21 июн 2012, 13:25</div>
+                        <div class="img">
+                          <a href=""><img src="/images/user_post_img.jpg" /></a>
+                        </div>
+                        <div class="content">
+                          <p>Одним из основных свидетельств правильного течения беременности является набор веса согласно принятым нормам. <a href="" class="read-more">Читать всю запись<i class="icon"></i></a></p>
+                        </div>
+                      </li>
+                    </ul>
+                    
+                  </div>
+                  
+                  <div class="user-post">
+                    
+                    <div class="box-title">Добавил кулинарный рецепт</div>
+                    
+                    <ul>
+                      <li>
+                        <div class="item-title"><a href="">Как жарить креветки: важные советы</a></div>
+                        <div class="added-date">21 июн 2012, 13:25</div>
+                        <div class="img">
+                          <a href=""><img src="/images/user_post_img.jpg" /></a>
+                        </div>
+                      </li>
+                    </ul>
+                    
+                  </div>
+                  
+                  <div class="user-duel">
+                    
+                    <div class="box-title">Принял участие в <span>дуэли</span></div>
+                    
+                    <div class="question">
+                      <p>Почему одна строка?</p>
+                    </div>
+                    
+                    <div class="my-votes clearfix">
+                      <a href="" class="ava male"></a>
+                      <div class="in">
+                        <span class="tale"></span>
+                        <div class="label">Увы, проигрываю!</div>
+                        <img src="/images/user_duel_smile_losing.png">
+                        <div class="count">
+                          <span>86</span>
+                          голосов
+                        </div>
+                        <br>
+                        <a href="#duel-takeapart" class="pseudo fancy">Посмотреть дуэль</a>
+                      </div>
+                    </div>
+                    
+                    <div class="opponent clearfix">
+                      Мой противник
+                      <div class="count">
+                        <span>116</span>
+                        голосов
+                      </div>
+                      <div class="user-info clearfix">
+                        <a class="ava small female"></a>
+                        <div class="details">
+                          <span class="icon-status status-online"></span>
+                          <a href="" class="username">Даша Ефросинина</a>
+                        </div>
+                      </div>
+                    </div>
+                    
+                  </div>
+                  
+                </div>
+                
+                
+                
+              </div>
+              
+            </div>
+            
 					</div>
 				</div>
 				
-				<div class="side-left gallery-sidebar">
+				<div class="side-left">
 					
-					<div class="clearfix">
+					<div class="clearfix user-info-big">
 						<div class="user-info">
 							<div class="ava female"></div>
 							<div class="details">
 								<span class="icon-status status-online"></span>
-								<a href="" class="username">Александр Богоявленский</a>
+								<a href="" class="username">Але</a>
 								<div class="user-fast-buttons">
 									<a href="" class="add-friend"><span class="tip">Пригласить в друзья</span></a>
 									<a href="" class="new-message"><span class="tip">Написать сообщение</span></a>
@@ -612,29 +871,16 @@
 						</div>
 					</div>
 					
-          <div class="upload-photo-btn">
-            <a href=""><img src="/images/btn_upload_photo.png" /></a>
+          <div class="user-joined">
+            <div class="calendar-date">
+              <div class="y">2011</div>
+              <div class="d">24</div>
+              <div class="m">янв</div>
+            </div>
+            <span>Присоединился к «Весёлому Жирафу»</span>
           </div>
-          
-					<div class="club-topics-list-new">
-							
-						<div class="block-title">Мои альбомы</div>
-						
-						<ul>
-							<li><span><a href="">Все альбомы</a></span></li>
-              <li class="active"><span><a href="">Зимние каникулы</a></span><div class="count">15</div></li>							
-							<li><span><a href="">Фотография</a></span><div class="count">15</div></li>
-							<li><span><a href="">Прикольное видео и другие фишки</a></span><div class="count">15</div></li>
-							<li><span><a href="">Школа восточного танца</a></span><div class="count">15</div></li>
-							<li><span><a href="">Футбол</a></span><div class="count">15</div></li>
-							<li><span><a href="">Детские передачи</a></span><div class="count">15</div></li>
-						</ul>
-						
-					</div>
-					
-				</div>
 				
-						
+				</div>
 				
 			</div>
 			
@@ -699,149 +945,6 @@
 		</form>
 		
 	</div>
-
-  <div id="photoPick" class="popup">
-		
-		
-		<a onclick="$.fancybox.close();" class="popup-close tooltip" title="Закрыть" href="javascript:void(0);"></a>
-		
-		<div class="title">Загрузка фото в галерею</div>
-		
-		<div id="attach_content">
-			<div class="form">
-				<div class="photo-upload clearfix">
-					<div class="photo">
-						<div class="in">
-							<div class="file-fake">
-								<form>
-									<button class="btn btn-orange"><span><span>Обзор...</span></span></button>
-									<input type="file" />
-								</form>
-							</div>
-							
-						</div>
-					</div>
-					<div class="note">Загрузите файл<br>(jpg, gif, png не более 6 МБ)</div>
-				</div>
-				
-				<div class="form-bottom">
-					<button class="btn btn-green-medium disabled"><span><span>Продолжить</span></span></button>
-				</div>
-				
-				<div class="photo-upload clearfix">
-					<div class="photo">
-						<div class="in">
-							<img src="/images/gallery_img.jpg" alt="">
-							<a href="" class="remove tooltip" title="Удалить"></a>
-						</div>
-					</div>
-					
-					<div class="photo-title">
-						<label>Название фото <span>(не более 75 знаков)</span></label>
-						<input type="text"  placeholder="Введите название "/>
-						<br/><br/>
-						<label>Комментарий к фото<br/><span>(не обязательно, не более 200 знаков)</span></label><br/>
-						<textarea></textarea>
-					</div>
-					
-				</div>
-				
-				<div class="form-bottom">
-					<button class="btn btn-green-medium"><span><span>Завершить</span></span></button>
-				</div>
-				
-			</div>    
-		</div>
-		
-		
-	</div>  
-  
-  <div id="photoPick" class="popup v2">
-		
-		
-		<a onclick="$.fancybox.close();" class="popup-close tooltip" title="Закрыть" href="javascript:void(0);"></a>
-		
-		<div class="title">Редактирование фотографии</div>
-		
-		<div id="attach_content">
-			<div class="form">
-				
-				<div class="photo-upload clearfix">
-					<div class="photo">
-						<div class="in">
-							<img src="/images/gallery_img.jpg" alt="">
-							<a href="" class="remove tooltip" title="Удалить"></a>
-						</div>
-					</div>
-					
-					<div class="photo-title">
-						<label>Название фото <span>(не более 75 знаков)</span></label>
-						<input type="text"  value="Фотка такая растакая"/>
-					</div>
-					
-				</div>
-				
-				<div class="form-bottom">
-					<button class="btn btn-green-medium"><span><span>Завершить</span></span></button>
-				</div>
-				
-			</div>    
-		</div>
-		
-		
-	</div>
-  
-  <div id="albumSettings" class="popup">
-    
-    <a href="javascript:void(0);" onclick="$.fancybox.close();" class="popup-close tooltip" title="Закрыть"></a>
-    
-    <div class="popup-title">Настройки фотоальбома</div>
-    
-    <div class="default-nav">
-      <ul>
-        <li class="active"><a href="">Название альбома</a></li>
-        <li class="disabled"><a>Настройки 2</a></li>
-        <li class="disabled"><a>Настройки 3</a></li>
-      </ul>
-    </div>
-    
-    <div class="settings-form">
-      <div class="row">
-        <div class="row-title">Название альбома <span>(не более 30 знаков)</span></div>
-        <div class="row-elements">
-          <span class="item-title">Блокнот натуралиста</span>
-          <a href="" class="edit tooltip" title="Редактировать название альбома"></a>
-        </div>
-        <div class="row-elements">
-          <input type="text" placeholder="Введите название альбома" />
-          <button class="btn btn-green-small"><span><span>Ok</span></span></button>
-        </div>
-        
-      </div>
-      <div class="row">
-        <div class="row-title">Комментарий к альбому</div>
-        <div class="row-elements">
-          <p>Семья – самое важное в жизни человека. Семья дает человеку любовь, уважение,
-солидарность, привязанность, то без чего не бывает ни одно общество, без чего не может
-человек.<a href="" class="edit tooltip" title="Редактировать описание альбома"></a></p>
-        </div>
-        <div class="row-elements">
-          <textarea>Семья – самое важное в жизни человека. Семья дает человеку любовь, уважение,
-солидарность, привязанность, то без чего не бывает ни одно общество, без чего не может
-человек.</textarea>
-          <button class="btn btn-green-small"><span><span>Ok</span></span></button>
-        </div>
-        
-      </div>
-      
-    </div>
-    
-    <div class="bottom">
-      <button class="btn btn-green-medium"><span><span>Сохранить настройки</span></span></button>
-    </div>
-    
-  </div>
-  
 </div>
 </body>
 </html>

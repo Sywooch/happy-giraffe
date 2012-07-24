@@ -42,11 +42,8 @@
 
     if (! Yii::app()->user->isGuest) {
         $cs
-            ->registerScriptFile('/javascripts/jquery.tmpl.min.js')
-            ->registerScriptFile('/javascripts/im.js')
+            ->registerPackage('user')
             ->registerScript('im-urls', 'im.GetLastUrl="'.Yii::app()->createUrl('/im/default/getLast').';"')
-            //->registerScriptFile('/javascripts/user_common.js')
-            ->registerCssFile('/stylesheets/user_common.css')
         ;
     }
 

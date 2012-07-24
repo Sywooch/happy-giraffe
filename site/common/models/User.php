@@ -370,7 +370,7 @@ class User extends HActiveRecord
         parent::afterSave();
 
         if ($this->trackable->isChanged('mood_id'))
-            UserAction::add($this->id, UserAction::USER_ACTION_MOOD_CHANGED, $this->getAttributes(array('mood_id')));
+            UserAction::model()->add($this->id, UserAction::USER_ACTION_MOOD_CHANGED, array('model' => $this));
 
         foreach ($this->social_services as $service) {
             $service->user_id = $this->id;
@@ -787,8 +787,11 @@ class User extends HActiveRecord
 
     public function addCommunity($community_id)
     {
-        return Yii::app()->db->createCommand()
+        $result = Yii::app()->db->createCommand()
             ->insert('user__users_communities', array('user_id' => $this->id, 'community_id' => $community_id)) != 0;
+        if ($result)
+            UserAction:model()->add($this->id, UserAction::USER_ACTION_CLUBS_JOINED, array('community_id' => $community_id));
+        return $result;
     }
 
     public function delCommunity($community_id)

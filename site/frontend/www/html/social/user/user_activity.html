@@ -21,6 +21,23 @@
 	
 	<script type="text/javascript" src="/javascripts/common.js"></script>	
   
+  <script type="text/javascript" src="/javascripts/jquery.masonry.min.js"></script>
+  
+  <script type="text/javascript">
+    $(function(){
+      
+      $('.activity-list').each(function(){
+        $(this).imagesLoaded(function(){
+          $(this).masonry({
+              itemSelector : $(this).find('.list-item'),
+              columnWidth: 360
+          });
+        })
+      })
+      
+    })
+  </script>
+  
 	<!--[if IE 7]>
 		<link rel="stylesheet" href='/stylesheets/ie.css' type="text/css" media="screen" />
 	<![endif]-->
@@ -440,7 +457,7 @@
 						
             <div id="user-activity">
               
-              <div class="user-cols clearfix">
+              <div class="clearfix">
                 
                 <div class="calendar-date">
                   <div class="y">2011</div>
@@ -448,9 +465,9 @@
                   <div class="m">янв</div>
                 </div>
                 
-                <div class="col-2">
-                  
-                  <div class="user-albums">
+                <div class="activity-list">
+                
+                  <div class="user-albums list-item">
 								
                     <div class="box-title">Добавил новые фото</div>
                     
@@ -472,11 +489,11 @@
                     
                   </div>
                   
-                  <div class="user-mood">
+                  <div class="user-mood list-item">
                     Изменил настроение <img id="userMood" src="/images/widget/mood/1.png">
                   </div>
                   
-                  <div class="box">
+                  <div class="box list-item">
                     <div class="box-title">Изменил статус</div>
                     <div class="user-status">
                       <div class="date">20 февраля 2012, 13:45</div>
@@ -484,11 +501,7 @@
                     </div>
                   </div>
                   
-                </div>
-                
-                <div class="col-3">
-                  
-                  <div class="user-post">
+                  <div class="user-post list-item">
                     
                     <div class="box-title">Добавил запись</div>
                     
@@ -506,6 +519,16 @@
                           <p>Одним из основных свидетельств правильного течения беременности является набор веса согласно принятым нормам. <a href="" class="read-more">Читать всю запись<i class="icon"></i></a></p>
                         </div>
                       </li>
+                      
+                    </ul>
+                    
+                  </div>
+                
+                  <div class="user-post list-item">
+                    
+                    <div class="box-title">Добавил запись</div>
+                    
+                    <ul>
                       <li>
                         <div class="added-to">
                           <span>в клубе</span> <a href="" class="club-img beauty small inline"><img src="/images/club_img_2.png" />Интерьер и дизайн</a>
@@ -520,12 +543,12 @@
                     </ul>
                     
                   </div>
-                  
+                
                 </div>
                 
               </div>
               
-              <div class="user-cols clearfix">
+              <div class="clearfix">
                 
                 <div class="calendar-date">
                   <div class="y">2011</div>
@@ -533,9 +556,9 @@
                   <div class="m">янв</div>
                 </div>
                 
-                <div class="col-2">
+                <div class="activity-list">
                   
-                  <div class="user-friends clearfix">
+                  <div class="user-friends clearfix list-item">
 									
                     <div class="box-title">Новые друзья</div>
                     
@@ -552,12 +575,12 @@
                     
                   </div>
                   
-                  <div class="box user-lvl-box">
+                  <div class="box user-lvl-box list-item">
                     <div class="box-title">Перешёл на новый уровень </div>
                     <div class="user-lvl user-lvl-0"></div>
                   </div>
                   
-                  <div class="box user-interests-box">
+                  <div class="box user-interests-box list-item">
                     <div class="user-interests">
 							
                       <div class="box-title">Добавил интересы</div>
@@ -599,7 +622,7 @@
                     </div>
                   </div>
                   
-                  <div class="box user-purpose-box">
+                  <div class="box user-purpose-box list-item">
                     <div class="box-title">Новая цель</div>
                     <div class="user-purpose">
                       <i class="icon"></i>
@@ -608,7 +631,7 @@
                     </div>
                   </div>
                   
-                  <div class="box fast-teasers-box fast-teasers clearfix">
+                  <div class="box fast-teasers-box fast-teasers clearfix list-item">
 							
                     <div class="box-title">Применил сервисы</div>
                     
@@ -636,7 +659,7 @@
                     
                   </div>
                   
-                  <div class="user-family">
+                  <div class="user-family list-item">
                     <div class="box-title">Добавил в семью</div>
                     <div class="t"></div>
                     <div class="c">
@@ -657,7 +680,7 @@
                     <a href="" class="read-more">Смотреть семейный альбом<i class="icon"></i></a>
                   </div>
                   
-                  <div class="user-clubs clearfix">
+                  <div class="user-clubs clearfix list-item">
 									
                     <div class="box-title">Вступил в клубы</div>
                     
@@ -703,7 +726,7 @@
                     
                   </div>
                   
-                  <div class="user-map">
+                  <div class="user-map list-item">
                     <div class="header">
                       <div class="box-title">Я живу здесь</div>
                       <div class="sep"><img src="/images/map_marker.png"></div>
@@ -715,11 +738,7 @@
                     <img src="/images/user_map_img.jpg">
                   </div>
                   
-                </div>
-                
-                <div class="col-3">
-                  
-                  <div class="user-post">
+                  <div class="user-post list-item">
                     
                     <div class="box-title">Оставил комментарии</div>
                     
@@ -756,7 +775,7 @@
                     
                   </div>
                   
-                  <div class="user-post">
+                  <div class="user-post list-item">
                     
                     <div class="box-title">Добавил запись</div>
                     
@@ -778,7 +797,7 @@
                     
                   </div>
                   
-                  <div class="user-post">
+                  <div class="user-post list-item">
                     
                     <div class="box-title">Добавил кулинарный рецепт</div>
                     
@@ -794,7 +813,7 @@
                     
                   </div>
                   
-                  <div class="user-duel">
+                  <div class="user-duel list-item">
                     
                     <div class="box-title">Принял участие в <span>дуэли</span></div>
                     
@@ -835,8 +854,6 @@
                   </div>
                   
                 </div>
-                
-                
                 
               </div>
               

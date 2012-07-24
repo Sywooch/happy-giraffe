@@ -541,6 +541,7 @@
 #user .user-post ul li .item-title {font-weight:bold;font-family:tahoma, arial, helvetica, sans-serif;font-size:12px;margin-bottom:12px;}
 #user .user-post ul li .comment {font-size:11px;background:#dcf2ff;position:relative;padding:7px 12px;color:#464545;margin-top:12px;}
 #user .user-post ul li .comment {/*css3*/ -moz-border-radius:6px; -webkit-border-radius:6px; border-radius:6px;}
+#user .user-post ul li .comment .date {text-align:right;color:#b6b9ba;font-size:9px;font-family:tahoma, arial, helvetica, sans-serif;margin-bottom:2px;}
 #user .user-post ul li .comment:after {display:block;content:'';border:7px solid transparent;border-top:0;border-bottom-color:#dcf2ff;position:absolute;left:50%;top:-7px;margin-left:-7px;}
 #user .user-post ul li .img {margin-bottom:5px;}
 

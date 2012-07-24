@@ -369,6 +369,9 @@ class User extends HActiveRecord
     {
         parent::afterSave();
 
+        if ($this->trackable->isChanged('mood_id'))
+            UserAction::add($this->id, UserAction::USER_ACTION_MOOD_CHANGED, $this->getAttributes(array('mood_id')));
+
         foreach ($this->social_services as $service) {
             $service->user_id = $this->id;
             $service->save();
@@ -444,6 +447,10 @@ class User extends HActiveRecord
             ),
             'ManyManyLinkBehavior' => array(
                 'class' => 'site.common.behaviors.ManyManyLinkBehavior',
+            ),
+            'trackable' => array(
+                'class' => 'site.common.behaviors.TrackableBehavior',
+                'attributes' => array('mood_id'),
             ),
         );
     }
@@ -898,7 +905,7 @@ class User extends HActiveRecord
                 'userAddress',
                 'babies' => array(
                     'together' => true,
-                    'condition' => 'sex != 0 OR type IS NOT NULL',
+                    //'condition' => 'sex != 0 OR type IS NOT NULL',
                 ),
             ),
             'order' => 'register_date DESC',

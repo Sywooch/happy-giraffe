@@ -51,14 +51,14 @@ class PurifiedBehavior extends CActiveRecordBehavior
     {
         parent::attach($owner);
 
-        $owner->attachEventHandler('onAfterSave', array($this, 'clearCache'));
+        $owner->attachEventHandler('onAfterSave', array($this, 'method'));
     }
 
     public function detach($owner)
     {
         parent::detach($owner);
 
-        $owner->detachEventHandler('onAfterSave', array($this, 'clearCache'));
+        $owner->detachEventHandler('onAfterSave', array($this, 'method'));
     }
 
     private function wrapNoindexNofollow($text)

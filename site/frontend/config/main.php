@@ -99,6 +99,17 @@ return array(
 
 	// application components
 	'components'=>array(
+        'clientScript' => array(
+            'packages' => array(
+                'comet' => array(
+                    'basePath' => '/javascripts',
+                    'js' => array(
+                        'comet.js',
+                        'dklab_realplexor.js',
+                    ),
+                ),
+            ),
+        ),
 		'widgetFactory' => array(
 			'widgets' => array(
 				'LinkPager' => array(

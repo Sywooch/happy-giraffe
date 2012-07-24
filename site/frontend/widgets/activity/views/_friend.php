@@ -8,7 +8,7 @@
             <?php foreach ($f->babies as $b): ?>
                 <?php if ($b->type == 1): ?>
                     <i class="icon-kid-wait"></i>
-                    <?php else: ?>
+                    <?php elseif ($b->sex != 0): ?>
                     <i class="icon-kid-<?=$b->sex == 1 ? 'boy' : 'girl'?>"></i>
                     <?php endif; ?>
                 <?php endforeach; ?>

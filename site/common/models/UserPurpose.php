@@ -75,4 +75,11 @@ class UserPurpose extends HActiveRecord
 			'created' => 'Создано',
 		);
 	}
+
+    protected function afterSave()
+    {
+        parent::afterSave();
+
+        UserAction::model()->add($this->user_id, UserAction::USER_ACTION_PURPOSE_CHANGED, array('model' => $this));
+    }
 }

@@ -69,6 +69,10 @@ class SiteController extends HController
 	 */
 	public function actionIndex()
 	{
+        $user = User::model()->findByPk(18);
+        $user->mood_id = 1;
+        $user->save(false);
+
 		$this->pageTitle = 'Веселый Жираф - сайт для всей семьи';
         Yii::import('site.frontend.widgets.*');
         Yii::import('site.frontend.widgets.home.*');

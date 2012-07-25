@@ -28,12 +28,14 @@ class UserAction extends EMongoDocument
         self::USER_ACTION_USED_SERVICES,
         self::USER_ACTION_FRIENDS_ADDED,
         self::USER_ACTION_FAMILY_UPDATED,
+        self::USER_ACTION_PHOTOS_ADDED,
     );
 
     public $user_id;
     public $updated;
     public $type;
     public $data;
+    public $blockData = null;
 
     public static function model($className = __CLASS__)
     {
@@ -45,9 +47,9 @@ class UserAction extends EMongoDocument
         return 'user_actions';
     }
 
-    public function add($user_id, $type, $params = array())
+    public function add($user_id, $type, $params = array(), $blockData = null)
     {
-        if (($stack = $this->getStack($type)) !== null) {
+        if (($stack = $this->getStack($type, $blockData)) !== null) {
             $newData = $stack->getDataByParams($params);
             if (array_search($newData, $stack->data) === FALSE) {
                 $stack->updated = time();
@@ -60,6 +62,9 @@ class UserAction extends EMongoDocument
             $action->type = $type;
             $action->updated = time();
             $action->data = (in_array($type, $this->_stackableActions)) ? array($action->getDataByParams($params)) : $action->getDataByParams($params);
+            if ($blockData !== null)
+                $action->blockData = $blockData;
+
             $action->save();
         }
     }
@@ -110,22 +115,28 @@ class UserAction extends EMongoDocument
         }
     }
 
-    public function getStack($type)
+    public function getStack($type, $blockData)
     {
         if (! in_array($type, $this->_stackableActions))
             return null;
 
         $criteria = new EMongoCriteria();
         $criteria->type = $type;
+        if ($blockData !== null)
+            $criteria->blockData = $blockData;
         $criteria->sort('created', EMongoCriteria::SORT_DESC);
+
         $stack = self::model()->find($criteria);
 
         if ($stack === null)
             return null;
 
         switch ($type) {
+            case self::USER_PHOTOS_ADDED:
+                $result = (time() - $stack->updated < 60) && HDate::isSameDate($stack->updated, time());
+                break;
             case self::USER_ACTION_FAMILY_UPDATED:
-                $result = time() - $stack->updated < 180;
+                $result = (time() - $stack->updated < 180) && HDate::isSameDate($stack->updated, time());
                 break;
             default:
                 $result = HDate::isSameDate($stack->updated, time());

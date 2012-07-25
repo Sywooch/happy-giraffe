@@ -331,6 +331,13 @@ class CommunityContent extends HActiveRecord
             }else
                 UserScores::addScores($this->author_id, ScoreActions::ACTION_RECORD, 1, $this);
         }
+        if ($this->isNewRecord) {
+            if ($this->isFromBlog) {
+                UserAction::model()->add($this->author_id, UserAction::USER_ACTION_BLOG_CONTENT_ADDED, array('model' => $this));
+            } else {
+                UserAction::model()->add($this->author_id, UserAction::USER_ACTION_COMMUNITY_CONTENT_ADDED, array('model' => $this));
+            }
+        }
         parent::afterSave();
     }
 

@@ -99,8 +99,10 @@ class UserScores extends HActiveRecord
 
     public function beforeSave()
     {
-        if ($this->scores >= 100 && empty($this->level_id))
+        if ($this->scores >= 100 && empty($this->level_id)) {
             $this->level_id = 1;
+            UserAction::model()->add($this->user_id, UserAction::USER_ACTION_LEVELUP, $this->getAttributes(array('level_id')));
+        }
         return parent::beforeSave();
     }
 

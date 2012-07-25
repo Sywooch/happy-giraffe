@@ -179,6 +179,8 @@ class Comment extends HActiveRecord
 
             UserScores::addScores($this->author_id, ScoreActions::ACTION_OWN_COMMENT, 1, array(
                 'id'=>$this->entity_id, 'name'=>$this->entity));
+
+            UserAction::model()->add($this->author_id, UserAction::USER_ACTION_COMMENT_ADDED, array('model' => $this));
         }
         parent::afterSave();
     }

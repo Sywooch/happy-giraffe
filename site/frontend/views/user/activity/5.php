@@ -9,8 +9,6 @@
     ));
     $criteria->addInCondition('photos.id', $photosIds);
     $album = Album::model()->find($criteria);
-
-var_dump($album->photoCount);
 die;
 ?>
 
@@ -29,7 +27,8 @@ die;
                     <?=CHtml::image($p->getPreviewUrl(180, 180), null, array('class' => 'img-' . ++$i ))?>
                 <?php endforeach; ?>
             </div>
-            <?=CHtml::link('<i class="icon"></i>Смотреть', array('albums/user', 'id' => $this->user->id), array('class' => 'more'))?>
+            <?php $label = ($album->photoCount > count($album->photos)) ? 'еще ' . ($album->photoCount - count($album->photos)) . ' фото' : 'Смотреть' ?>
+            <?=CHtml::link('<i class="icon"></i>' . $label, array('albums/user', 'id' => $this->user->id), array('class' => 'more'))?>
         </div>
         </li>
     </ul>

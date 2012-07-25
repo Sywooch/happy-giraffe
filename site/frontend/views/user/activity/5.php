@@ -8,7 +8,7 @@
         'params' => array(':album_id' => $action->blockData['album_id']),
     ));
     $criteria->addInCondition('photos.id', $photosIds);
-    $album = AlbumPhoto::model()->find($criteria);
+    $album = Album::model()->find($criteria);
 ?>
 
 <div class="user-albums list-item">

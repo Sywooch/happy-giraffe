@@ -17,7 +17,7 @@
 
     <div class="added-to"><span>в альбом</span> «<?=CHtml::link($album->title, $album->url)?>»</div>
 
-    <div class="added-date">21 июн 2012, 13:25</div>
+    <div class="added-date"><?=Yii::app()->dateFormatter->format("dd MMMM yyyy, HH:mm", end(array_values($album->photos))->created)?></div>
 
     <ul>
         <li><div class="clearfix">

@@ -149,6 +149,7 @@ class AlbumPhoto extends HActiveRecord
     {
         if ($this->isNewRecord) {
             Yii::log('1', 'error');
+            Yii::log($this->album->type);
             if ($this->album->type == 0 && $this->album->type == 1) {
                 UserAction::model()->add($this->author_id, UserAction::USER_ACTION_PHOTOS_ADDED, array('model' => $this), array('album_id' => $this->album_id));
                 Yii::log('2', 'error');

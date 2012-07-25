@@ -272,12 +272,7 @@ class CookRecipe extends CActiveRecord
 
     protected function afterSave()
     {
-        UserAction::model()->add($this->author_id, UserAction::USER_ACTION_RECIPE_ADDED, array(
-            'id' => $this->id,
-            'created' => $this->created,
-            'title' => $this->title,
-            'preview' => $this->getPreview(303),
-        ));
+        UserAction::model()->add($this->author_id, UserAction::USER_ACTION_RECIPE_ADDED, array('model' => $this));
 
         parent::beforeSave();
     }

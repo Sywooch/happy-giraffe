@@ -80,6 +80,7 @@ class UserPurpose extends HActiveRecord
     {
         parent::afterSave();
 
-        UserAction::model()->add($this->user_id, UserAction::USER_ACTION_PURPOSE_CHANGED, array('model' => $this));
+        if ($this->isNewRecord)
+            UserAction::model()->add($this->user_id, UserAction::USER_ACTION_PURPOSE_CHANGED, array('model' => $this));
     }
 }

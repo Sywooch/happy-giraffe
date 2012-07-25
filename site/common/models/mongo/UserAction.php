@@ -82,8 +82,13 @@ class UserAction extends EMongoDocument
             case self::USER_ACTION_COMMENT_ADDED:
             case self::USER_ACTION_BLOG_CONTENT_ADDED:
             case self::USER_ACTION_COMMUNITY_CONTENT_ADDED:
-            case self::USER_ACTION_DUEL:
                 return $params['model']->getAttributes(array('id'));
+                break;
+            case self::USER_ACTION_RECIPE_ADDED:
+                $model = $params['model'];
+                $data = $model->getAttributes(array('id', 'created', 'title'));
+                $data['preview'] = $model->getPreview(303);
+                return $data;
                 break;
             default:
                 return $params;

@@ -217,6 +217,7 @@ class CookRecipe extends CActiveRecord
                 'class' => 'zii.behaviors.CTimestampBehavior',
                 'createAttribute' => 'created',
                 'updateAttribute' => 'updated',
+                'timestampExpression' => time(),
             ),
             'purified' => array(
                 'class' => 'site.common.behaviors.PurifiedBehavior',
@@ -267,6 +268,18 @@ class CookRecipe extends CActiveRecord
         $this->lowCal = $this->getNutritionalsPer100g(1) <= self::COOK_RECIPE_LOWCAL;
 
         return parent::beforeSave();
+    }
+
+    protected function afterSave()
+    {
+        UserAction::model()->add($this->author_id, UserAction::USER_ACTION_RECIPE_ADDED, array(
+            'id' => $this->id,
+            'created' => $this->created,
+            'title' => $this->title,
+            'preview' => $this->getPreview(303),
+        ));
+
+        parent::beforeSave();
     }
 
     public function getNutritionals()

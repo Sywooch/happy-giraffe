@@ -542,6 +542,8 @@ class AjaxController extends HController
                     'status' => true,
                     'html' => $this->renderPartial('duel_submit', compact('question'), true),
                 );
+
+                UserAction::model()->add(Yii::app()->user->id, UserAction::USER_ACTION_DUEL, array('model' => $question));
             } else {
                 $response = array(
                     'status' => false,

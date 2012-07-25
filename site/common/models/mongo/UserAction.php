@@ -57,7 +57,7 @@ class UserAction extends EMongoDocument
                 $stack->save();
             }
         } else {
-            $action = new UserAction;
+            $action = new self;
             $action->user_id = (int) $user_id;
             $action->type = $type;
             $action->updated = time();

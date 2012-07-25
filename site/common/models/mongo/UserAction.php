@@ -27,6 +27,7 @@ class UserAction extends EMongoDocument
         self::USER_ACTION_INTERESTS_ADDED,
         self::USER_ACTION_USED_SERVICES,
         self::USER_ACTION_FRIENDS_ADDED,
+        self::USER_ACTION_FAMILY_UPDATED,
     );
 
     public $user_id;
@@ -82,6 +83,7 @@ class UserAction extends EMongoDocument
             case self::USER_ACTION_COMMENT_ADDED:
             case self::USER_ACTION_BLOG_CONTENT_ADDED:
             case self::USER_ACTION_COMMUNITY_CONTENT_ADDED:
+            case self::USER_ACTION_DUEL:
                 return $params['model']->getAttributes(array('id'));
                 break;
             case self::USER_ACTION_RECIPE_ADDED:
@@ -90,6 +92,19 @@ class UserAction extends EMongoDocument
                 $data['preview'] = $model->getPreview(303);
                 return $data;
                 break;
+            case self::USER_ACTION_ADDRESS_UPDATED:
+                $model = $params['model'];
+                return array(
+                    'country_id' => $model->country_id,
+                    'locationString' => $model->locationString,
+                );
+                break;
+            case self::USER_ACTION_FAMILY_UPDATED:
+                $model = $params['model'];
+                return array(
+                    'entity' => get_class($model),
+                    'entity_id' => $model->id,
+                );
             default:
                 return $params;
         }
@@ -105,6 +120,18 @@ class UserAction extends EMongoDocument
         $criteria->sort('created', EMongoCriteria::SORT_DESC);
         $stack = self::model()->find($criteria);
 
-        return ($stack !== null && HDate::isSameDate($stack->updated, time())) ? $stack : null;
+        if ($stack === null)
+            return null;
+
+        switch ($type) {
+            case self::USER_ACTION_FAMILY_UPDATED:
+                $result = time() - $stack->updated < 180;
+                break;
+            default:
+                $result = HDate::isSameDate($stack->updated, time());
+        }
+
+        return $result ? $stack : null;
     }
+
 }

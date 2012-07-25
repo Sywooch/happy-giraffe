@@ -28,9 +28,8 @@
         ->registerScriptFile('/javascripts/jquery.tmpl.min.js')
         ->registerCoreScript('jquery.ui')
         ->registerScript('interests', $js)
+        ->scriptMap['jquery.js'] = false
     ;
-
-    $cs->scriptMap['jquery.js'] = false;
 ?>
 
 <div id="interestsManage" class="popup">

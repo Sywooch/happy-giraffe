@@ -132,7 +132,7 @@ class UserAction extends EMongoDocument
             return null;
 
         switch ($type) {
-            case self::USER_PHOTOS_ADDED:
+            case self::USER_ACTION_PHOTOS_ADDED:
                 $result = (time() - $stack->updated < 60) && HDate::isSameDate($stack->updated, time());
                 break;
             case self::USER_ACTION_FAMILY_UPDATED:

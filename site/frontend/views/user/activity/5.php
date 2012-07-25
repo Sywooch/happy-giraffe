@@ -3,12 +3,22 @@
     foreach ($action->data as $photo)
         $photosIds[] = $photo['id'];
     $criteria = new CDbCriteria(array(
-        'with' => 'photos',
+        'with' => array(
+            'photos' => array(
+                'alias' => 'selectedPhotos',
+            ),
+            'photos' => array(
+                'alias' => 'allPhotos'
+            )
+        ),
         'condition' => 't.id = :album_id',
         'params' => array(':album_id' => $action->blockData['album_id']),
     ));
-    $criteria->addInCondition('photos.id', $photosIds);
+    $criteria->addInCondition('selectedPhotos.id', $photosIds);
     $album = Album::model()->find($criteria);
+
+var_dump(count($album->selectedPhotos));
+die;
 ?>
 
 <div class="user-albums list-item">

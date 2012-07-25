@@ -22,9 +22,9 @@
     <ul>
         <li><div class="clearfix">
             <div class="preview">
-                <?php for($i = 1; $i <= count($album->photos); $i++): ?>
-                    <?=CHtml::image($p->getPreviewUrl(180, 180), null, array('class' => 'img-' . $i))?>
-                <?php endfor; ?>
+                <?php $i = 0; foreach ($album->photos as $p): ?>
+                    <?=CHtml::image($p->getPreviewUrl(180, 180), null, array('class' => 'img-' . ++$i ))?>
+                <?php endforeach; ?>
             </div>
             <?=CHtml::link('<i class="icon"></i>Смотреть', array('albums/user', 'id' => $this->user->id), array('class' => 'more'))?>
         </div>

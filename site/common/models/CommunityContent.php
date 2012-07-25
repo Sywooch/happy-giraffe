@@ -389,7 +389,7 @@ class CommunityContent extends HActiveRecord
                     'rubric' => array(
                         'with' => array(
                             'community' => array(
-                                'select' => 'id',
+                                'select' => 'id, title',
                             )
                         ),
                     ),
@@ -553,6 +553,16 @@ class CommunityContent extends HActiveRecord
             default:
                 return '';
         }
+    }
+
+    public function getContentImage()
+    {
+        return (preg_match('/src="([^"]+)"/', $this->post->text, $matches)) ? $matches[1] : false;
+    }
+
+    public function getContentText()
+    {
+        return Str::truncate(strip_tags($this->content->text));
     }
 
     public function canEdit()

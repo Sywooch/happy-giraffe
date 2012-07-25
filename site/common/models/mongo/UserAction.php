@@ -95,13 +95,16 @@ class UserAction extends EMongoDocument
             case self::USER_ACTION_RECIPE_ADDED:
                 $model = $params['model'];
                 $data = $model->getAttributes(array('id', 'created', 'title'));
-                $data['preview'] = $model->getPreview(303);
+                $data['image'] = ($model->mainPhoto !== null) ? $this->mainPhoto->getPreviewUrl(303, null, Image::WIDTH) : false;
                 return $data;
                 break;
             case self::USER_ACTION_ADDRESS_UPDATED:
                 $model = $params['model'];
                 return array(
+                    'flag' => $model->flag,
+                    'country_name' => $model->country->name,
                     'country_id' => $model->country_id,
+                    'locationWithoutCountry' => $model->locationWithoutCountry,
                     'locationString' => $model->locationString,
                 );
                 break;

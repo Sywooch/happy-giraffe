@@ -2,9 +2,11 @@
     $photosIds = array();
     foreach ($action->data as $photo)
         $photosIds[] = $photo['id'];
-    $criteria = new CDbCriteria;
-    $criteria->compare('t.id', $action->blockData['album_id']);
-    $criteria->with('photos');
+    $criteria = new CDbCriteria(array(
+        'with' => 'photos',
+        'condition' => 't.id = :album_id',
+        'params' => array(':album_id' => $action->blockData['album_id']),
+    ));
     $criteria->addInCondition('photos.id', $photosIds);
     $album = AlbumPhoto::model()->find($criteria);
 ?>

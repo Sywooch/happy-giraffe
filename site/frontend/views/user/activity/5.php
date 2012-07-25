@@ -9,7 +9,6 @@
     ));
     $criteria->addInCondition('photos.id', $photosIds);
     $album = Album::model()->find($criteria);
-die;
 ?>
 
 <div class="user-albums list-item">

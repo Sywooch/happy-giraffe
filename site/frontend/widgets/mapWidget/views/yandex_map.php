@@ -10,6 +10,6 @@ Yii::app()->clientScript->registerScript('register_yandex_map-'.$map_id,$js);*/
 ?><script type="text/javascript">
     $(function() {
         var map = new HYandexMap();
-        map.create("<?= $map_id ?>", "<?= $this->user->getUserAddress()->getLocationString() ?>");
+        map.create("<?= $map_id ?>", "<?= $this->locationString ?>");
     });
 </script>

@@ -59,6 +59,7 @@ class UserStatus extends HActiveRecord
                 'class' => 'zii.behaviors.CTimestampBehavior',
                 'createAttribute' => 'created',
                 'updateAttribute' => null,
+                'timestampExpression' => time(),
             )
         );
     }
@@ -80,6 +81,7 @@ class UserStatus extends HActiveRecord
     {
         parent::afterSave();
 
-        UserAction::model()->add($this->user_id, UserAction::USER_ACTION_STATUS_CHANGED, $this->getAttributes('text', 'created'));
+        if ($this->isNewRecord)
+            UserAction::model()->add($this->user_id, UserAction::USER_ACTION_STATUS_CHANGED, array('model' => $this));
     }
 }

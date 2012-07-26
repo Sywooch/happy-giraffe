@@ -534,6 +534,8 @@ class AjaxController extends HController
                     'with' => 'answers.user',
                 ));
                 if (count($question->answers) == 2) {
+                    UserAction::model()->add($question->answers[0]->user_id, UserAction::USER_ACTION_DUEL, array('model' => $question));
+                    UserAction::model()->add($question->answers[1]->user_id, UserAction::USER_ACTION_DUEL, array('model' => $question));
                     $question->ends = new CDbExpression('NOW() + INTERVAL 3 DAY');
                     if ($question->save())
                         Yii::app()->cache->set('activityLastUpdated', time());

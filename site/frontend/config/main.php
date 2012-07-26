@@ -102,12 +102,24 @@ return array(
         'clientScript' => array(
             'packages' => array(
                 'comet' => array(
-                    'basePath' => '/javascripts',
+                    'baseUrl' => '/',
                     'js' => array(
-                        'comet.js',
-                        'dklab_realplexor.js',
+                        'javascripts/comet.js',
+                        'javascripts/dklab_realplexor.js',
                     ),
                 ),
+                'user' => array(
+                    'baseUrl' => '/',
+                    'js' => array(
+                        'javascripts/jquery.tmpl.min.js',
+                        'javascripts/im.js',
+                        'javascripts/user_common.js',
+                    ),
+                    'css' => array(
+                        'stylesheets/user_common.css',
+                    ),
+                    'depends' => array('comet'),
+                )
             ),
         ),
 		'widgetFactory' => array(

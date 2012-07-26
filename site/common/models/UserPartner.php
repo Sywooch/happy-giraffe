@@ -105,4 +105,12 @@ class UserPartner extends HActiveRecord
         $i = rand(0, count($this->photos)-1);
         return $this->photos[$i]->photo->getPreviewUrl(180, 180);
     }
+
+    protected function afterSave()
+    {
+        parent::afterSave();
+
+        if ($this->isNewRecord)
+            UserAction::model()->add($this->user_id, UserAction::USER_ACTION_FAMILY_UPDATED, array('model' => $this));
+    }
 }

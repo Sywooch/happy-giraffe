@@ -1,7 +1,6 @@
 <?php
 
 return array(
-    'class' => 'HUrlManager',
     'urlFormat' => 'path',
     'showScriptName' => false,
     'urlSuffix' => '/',
@@ -100,7 +99,7 @@ return array(
         '<_c:(activity|profile|rss|family|morning|community)>' => '<_c>/index',
 
         //others
-        array('class' => 'ext.sitemapgenerator.SGUrlRule', 'route' => '/sitemap'),
+        array('class' => 'site.frontend.extensions.sitemapgenerator.SGUrlRule', 'route' => '/sitemap'),
 
         /*************************
          *        MODULES        *

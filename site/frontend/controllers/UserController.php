@@ -7,7 +7,7 @@ class UserController extends HController
     public $rubric_id;
     public $content_type_slug;
 
-    private $_publicActions = array('profile', 'blog', 'friends', 'clubs', 'rss');
+    private $_publicActions = array('profile', 'activity', 'blog', 'friends', 'clubs', 'rss');
 
     public function filters()
     {
@@ -73,6 +73,19 @@ class UserController extends HController
         $this->render('profile', array(
             'user' => $user,
         ));
+    }
+
+    public function actionActivity($user_id)
+    {
+        $criteria = new EMongoCriteria;
+        $criteria->user_id = (int) $user_id;
+        $criteria->updated('>', mktime(0, 0, 0, date('n'), date('j')));
+        $criteria->updated('<', mktime(0, 0, 0, date('n'), date('j') + 1));
+        $criteria->sort('created', EMongoCriteria::SORT_DESC);
+        $actions = UserAction::model()->findAll($criteria);
+
+        $this->layout = '//layouts/main';
+        $this->render('activity', compact('actions'));
     }
 
     public function actionClubs($user_id)

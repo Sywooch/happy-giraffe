@@ -10,7 +10,7 @@
         <ul>
             <li>
                 <div class="added-to">
-                    <span>в клубе</span> <a href="<?=$content->rubric->community->url?>" class="club-img home small inline"><img src="/images/club_img_<?=$content->rubric->community->id?>.png" /><?=$content->rubric->community->title?></a>
+                    <span>в клубе</span> <a href="<?=$content->rubric->community->url?>" class="club-img kids small inline"><img src="/images/club_img_<?=$content->rubric->community->id?>.png" /><?=$content->rubric->community->title?></a>
                 </div>
                 <div class="item-title"><?=CHtml::link($content->title, $content->url)?></div>
                 <div class="added-date"><?=Yii::app()->dateFormatter->format("dd MMMM yyyy, HH:mm", $content->created)?></div>

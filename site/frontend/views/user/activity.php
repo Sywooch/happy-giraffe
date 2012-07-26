@@ -38,7 +38,7 @@ EOD;
 
                     <?php
                         $open = ($i == 0) || ! HDate::isSameDate($actions[$i]->updated, $actions[$i - 1]->updated);
-                        $close = ($i == (count($actions) - 1)) || HDate::isSameDate($actions[$i]->updated, $actions[$i + 1]->updated);
+                        $close = ($i == (count($actions) - 1)) || ! HDate::isSameDate($actions[$i]->updated, $actions[$i + 1]->updated);
                     ?>
 
                     <?php if ($open): ?>

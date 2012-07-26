@@ -28,10 +28,6 @@
         ->registerScriptFile('/javascripts/jquery.tmpl.min.js')
         ->registerCoreScript('jquery.ui')
         ->registerScript('interests', $js)
-        ->scriptMap = array(
-            'jquery.js' => false,
-            'jquery.min.js' => false,
-        )
     ;
 ?>
 

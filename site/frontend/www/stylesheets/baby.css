@@ -49,6 +49,8 @@
 #baby .need-to-know ul {font-family:tahoma, arial, helvetica, sans-serif;line-height:14px;list-style:none;}
 #baby .need-to-know ul li {padding-top:20px;margin-top:20px;border-top:1px dashed #cccbcb;}
 #baby .need-to-know ul li:first-child {border-top:0;padding-top:0;margin-top:0;}
+#baby .need-to-know ul li .user {margin-bottom:5px;}
+#baby .need-to-know ul li .user .details {margin-left:30px;}
 #baby .need-to-know ul li .item-title {font-size:14px;font-weight:bold;margin-bottom:10px;}
 #baby .need-to-know ul li .img {margin-bottom:5px;}
 #baby .need-to-know ul li .content {margin-bottom:10px;font-size:11px;line-height:14px;}

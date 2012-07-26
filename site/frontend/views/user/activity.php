@@ -37,10 +37,11 @@ EOD;
                 <?php foreach ($actions as $i => $action): ?>
 
                     <?php
-                        $newBlock = ($i == 0) || ! HDate::isSameDate($actions[$i]->updated, $actions[$i - 1]->updated);
+                        $open = ($i == 0) || ! HDate::isSameDate($actions[$i]->updated, $actions[$i - 1]->updated);
+                        $close = ($i == (count($actions) - 1)) || HDate::isSameDate($actions[$i]->updated, $actions[$i + 1]->updated);
                     ?>
 
-                    <?php if ($newBlock): ?>
+                    <?php if ($open): ?>
                     <div class="clearfix">
 
                         <div class="calendar-date">
@@ -54,12 +55,13 @@ EOD;
 
                             <?php $this->renderPartial('activity/' . $action->type, compact('action')); ?>
 
-                    <?php if ($newBlock): ?>
+                    <?php if ($close): ?>
                         </div>
 
                     </div>
                     <?php endif; ?>
 
+                    <?php $i++; ?>
                 <?php endforeach; ?>
 
             </div>

@@ -1,5 +1,21 @@
 $(function(){
+    mas();
 
+    $('#user-activity').on('click', '.more-btn', function() {
+        var btn = $(this);
+        $.get($(this).attr('href'), function(response) {
+            var newPage = $(response).find('#user-activity').html();
+            btn.remove();
+            $('#user-activity').append(newPage);
+            mas();
+        });
+        return false;
+    });
+
+})
+
+function mas()
+{
     $('.activity-list').each(function(){
         $(this).imagesLoaded(function(){
             $(this).masonry({
@@ -8,15 +24,4 @@ $(function(){
             });
         })
     })
-
-    $('#user-activity').on('click', '.more-btn', function() {
-        var btn = $(this);
-        $.get($(this).attr('href'), function(response) {
-            var newPage = $(response).find('#user-activity').html();
-            btn.remove();
-            $('#user-activity').append(newPage);
-        });
-        return false;
-    });
-
-})
+}

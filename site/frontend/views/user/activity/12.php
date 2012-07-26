@@ -41,7 +41,7 @@
                 <?php endif; ?>
                 <div class="comment">
                     <div class="date"><?=Yii::app()->dateFormatter->format("dd MMMM yyyy, HH:mm", $comment->created)?></div>
-                    <?=Str::truncate(strip_tags($comment->text))?> <?=CHtml::link('Читать', $comment->url)?>
+                    <?=Str::truncate(strip_tags($comment->text))?> <?php if ($comment->url !== false): ?><?=CHtml::link('Читать', $comment->url)?><?php endif; ?>
                 </div>
             </li>
         </ul>

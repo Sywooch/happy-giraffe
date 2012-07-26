@@ -32,6 +32,8 @@ sub {font-size:smaller;position:relative;top:5px;}
 
 textarea {overflow:auto;font-family:arial,sans-serif;}
 
+img {max-width:100%;}
+
 a {cursor:pointer;}
 
 .arr {font-family: Cambria, Segoe Script, minion pro, myriad pro, helvetica, arial, sans-serif;font-style:normal;}
@@ -1723,7 +1725,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 .interesting ul li {margin:5px 0;}
 
 
-.entry-nav {margin:15px 0 45px;line-height:16px;}
+.entry-nav {margin:15px 0 30px;line-height:16px;color:#029AD2;}
 .entry-nav .prev {width:45%;float:left;}
 .entry-nav .next {width:45%;float:right;text-align:right;}
 .entry-nav .next span, .entry-nav .prev span {display:block;margin-bottom:4px;font-size:11px;color:#464546;font-family:tahoma, arial, helvetica, sans-serif;}

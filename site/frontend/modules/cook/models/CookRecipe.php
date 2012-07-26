@@ -394,20 +394,23 @@ class CookRecipe extends CActiveRecord
     public function getUrlParams()
     {
         return array(
-            'id' => $this->id,
-            'section' => $this->section,
+            '/cook/recipe/view',
+            array(
+                'id' => $this->id,
+                'section' => $this->section,
+            ),
         );
     }
 
     public function getUrl($comments = false, $absolute = false)
     {
-        $params = $this->urlParams;
+        list($route, $params) = $this->urlParams;
 
         if ($comments)
             $params['#'] = 'comment_list';
 
         $method = $absolute ? 'createAbsoluteUrl' : 'createUrl';
-        return Yii::app()->$method('/cook/recipe/view', $params);
+        return Yii::app()->$method($route, $params);
     }
 
     public function getPreview($imageWidth = 167)

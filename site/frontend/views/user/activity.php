@@ -1,25 +1,10 @@
 <?php
     $cs = Yii::app()->clientScript;
 
-$js = <<<EOD
-    $(function(){
-
-      $('.activity-list').each(function(){
-        $(this).imagesLoaded(function(){
-          $(this).masonry({
-              itemSelector : $(this).find('.list-item'),
-              columnWidth: 360
-          });
-        })
-      })
-
-    })
-EOD;
-
     $cs
         ->registerScriptFile('/javascripts/jquery.masonry.min.js')
+        ->registerScriptFile('/javascripts/userActivity.js')
         ->registerCssFile('/stylesheets/user.css')
-        ->registerScript('user-activity', $js);
     ;
 ?>
 
@@ -63,6 +48,10 @@ EOD;
 
                     <?php $i++; ?>
                 <?php endforeach; ?>
+
+                <?php if ($nextPage !== false): ?>
+                    <?=CHtml::link('Что еще нового', array('user/activity', 'user_id' => $this->user->id, 'page' => $nextPage), array('class' => 'more-btn'))?>
+                <?php endif; ?>
 
             </div>
 

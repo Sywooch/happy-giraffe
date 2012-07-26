@@ -153,7 +153,7 @@ class Comment extends HActiveRecord
 				'order' => ($type != 'guestBook') ? 'created ASC' : 'created DESC',
 			),
 			'pagination' => array(
-				'pageSize' => 25,
+				'pageSize' => 3,
 			),
 		));
 	}

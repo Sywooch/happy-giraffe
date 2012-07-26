@@ -391,12 +391,17 @@ class CookRecipe extends CActiveRecord
         return $this->findAll($criteria);
     }
 
-    public function getUrl($comments = false, $absolute = false)
+    public function getUrlParams()
     {
-        $params = array(
+        return array(
             'id' => $this->id,
             'section' => $this->section,
         );
+    }
+
+    public function getUrl($comments = false, $absolute = false)
+    {
+        $params = $this->urlParams;
 
         if ($comments)
             $params['#'] = 'comment_list';

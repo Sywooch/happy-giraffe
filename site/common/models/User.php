@@ -584,6 +584,7 @@ class User extends HActiveRecord
             UserScores::addScores($this->id, ScoreActions::ACTION_FRIEND, 1, User::getUserById($friend_id));
             UserScores::addScores($friend_id, ScoreActions::ACTION_FRIEND, 1, $this);
             UserAction::model()->add($this->id, UserAction::USER_ACTION_FRIENDS_ADDED, array('id' => $friend_id));
+            UserAction::model()->add($friend_id, UserAction::USER_ACTION_FRIENDS_ADDED, array('id' => $this->id));
             return true;
         }
         return false;

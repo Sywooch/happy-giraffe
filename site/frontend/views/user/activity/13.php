@@ -12,9 +12,9 @@
         <li>
             <div class="item-title"><?=CHtml::link($recipe->title, $recipe->url)?></div>
             <div class="added-date"><?=Yii::app()->dateFormatter->format("dd MMMM yyyy, HH:mm", $recipe->created)?></div>
-            <?php if ($action->data['image'] !== false): ?>
+            <?php if ($action->data['contentImage'] !== false): ?>
                 <div class="img">
-                    <?=CHtml::link(CHtml::image($action->data['image']), $recipe->url)?>
+                    <?=CHtml::link(CHtml::image($action->data['contentImage']), $recipe->url)?>
                 </div>
             <?php endif; ?>
         </li>

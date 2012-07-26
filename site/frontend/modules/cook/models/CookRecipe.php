@@ -597,4 +597,9 @@ class CookRecipe extends CActiveRecord
             :
             $this->text;
     }
+
+    public function getContentImage()
+    {
+        return ($this->mainPhoto !== null) ? $this->mainPhoto->getPreviewUrl(303, null, Image::WIDTH) : false;
+    }
 }

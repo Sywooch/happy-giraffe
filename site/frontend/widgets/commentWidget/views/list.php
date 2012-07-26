@@ -63,7 +63,7 @@ if ($this->type == 'guestBook') {
             'itemSelector' => 'li.item',
             'loadingImg' => '/images/loader_01.gif',
             'loadingText' => 'Загрузка...',
-            'doneText' => '',
+            'donetext' => ' ',
         ),
         'id' => 'comment_list_' . $this->objectName,
         'template' => $template,

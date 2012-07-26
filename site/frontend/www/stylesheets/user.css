@@ -526,7 +526,7 @@
 
 #user-activity .added-to {font-weight:bold;font-family:tahoma, arial, helvetica, sans-serif;font-size:11px;margin-bottom:10px;}
 #user-activity .added-to > span {margin-right:5px;}
-#user-activity .added-to .user-info {float:none;display:inline-block;font-weight:normal;font-family:arial, helvetica, sans-serif;}
+#user-activity .added-to .user-info {float:none;display:inline-block;font-weight:normal;font-family:arial, helvetica, sans-serif;vertical-align:middle;}
 #user-activity .added-to .user-info .details {margin-left:30px;}
 #user-activity .added-date {text-align:right;color:#b6b9ba;font-size:9px;font-family:tahoma, arial, helvetica, sans-serif;margin-bottom:10px;margin-top:-5px;}
 

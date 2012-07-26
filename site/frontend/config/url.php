@@ -56,6 +56,7 @@ return array(
 
         // user/*
         'user/<user_id:\d+>' => 'user/profile',
+        'user/<user_id:\d+>/activity/page<page:\d+>' => 'user/activity',
         'user/<user_id:\d+>/activity' => 'user/activity',
         'user/<user_id:\d+>/clubs' => 'user/clubs',
         'user/<user_id:\d+>/friends' => 'user/friends',

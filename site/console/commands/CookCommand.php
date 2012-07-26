@@ -16,7 +16,7 @@ class CookCommand extends CConsoleCommand
 
     public function actionGenerateFeed()
     {
-        $recipes = CookRecipe::model()->with('cuisine', 'author', 'ingredients.ingredient', 'ingredients.unit')->findAll(array('order' => 'created DESC'));
+        $recipes = CookRecipe::model()->with('cuisine', 'author', 'ingredients.ingredient', 'ingredients.unit')->findAll(array('limit' => 5, 'order' => 'created DESC'));
 
         $xml = new SimpleXMLElement('<?xml version="1.0" encoding="utf-8"?><entities/>');
 
@@ -67,6 +67,6 @@ class CookCommand extends CConsoleCommand
             }
         }
 
-        $xml->asXML(Yii::getPathOfAlias('site.common.data'));
+        $xml->asXML(Yii::getPathOfAlias('site.common.data') . DIRECTORY_SEPARATOR . 'recipeFeed.xml');
     }
 }

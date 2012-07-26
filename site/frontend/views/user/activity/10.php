@@ -42,6 +42,6 @@
             </ul>
         </div>
         <div class="b"></div>
-        <a href="" class="read-more">Смотреть семейный альбом<i class="icon"></i></a>
+        <!--<a href="" class="read-more">Смотреть семейный альбом<i class="icon"></i></a>-->
     </div>
 <?php endif; ?>

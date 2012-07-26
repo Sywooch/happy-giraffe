@@ -69,8 +69,6 @@ class SiteController extends HController
 	 */
 	public function actionIndex()
 	{
-        UserAction::model()->add(12936, UserAction::USER_ACTION_FRIENDS_ADDED, array('id' => 5)); die;
-
 		$this->pageTitle = 'Веселый Жираф - сайт для всей семьи';
         Yii::import('site.frontend.widgets.*');
         Yii::import('site.frontend.widgets.home.*');

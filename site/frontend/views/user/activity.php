@@ -1,7 +1,25 @@
 <?php
     $cs = Yii::app()->clientScript;
+
+$js = <<<EOD
+    $(function(){
+
+      $('.activity-list').each(function(){
+        $(this).imagesLoaded(function(){
+          $(this).masonry({
+              itemSelector : $(this).find('.list-item'),
+              columnWidth: 360
+          });
+        })
+      })
+
+    })
+EOD;
+
     $cs
+        ->registerScriptFile('/javascripts/jquery.masonry.min.js')
         ->registerCssFile('/stylesheets/user.css')
+        ->registerScript('user-activity', $js);
     ;
 ?>
 

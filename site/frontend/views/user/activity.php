@@ -34,23 +34,33 @@ EOD;
 
             <div id="user-activity">
 
-                <div class="clearfix">
+                <?php foreach ($actions as $i => $action): ?>
 
-                    <div class="calendar-date">
-                        <div class="y"><?=Yii::app()->dateFormatter->format("yyyy", time())?></div>
-                        <div class="d"><?=Yii::app()->dateFormatter->format("dd", time())?></div>
-                        <div class="m"><?=Yii::app()->dateFormatter->format("MMM", time())?></div>
-                    </div>
+                    <?php
+                        $newBlock = ($i == 0) || ! HDate::isSameDate($actions[$i]->updated, $actions[$i - 1]->updated);
+                    ?>
 
-                    <div class="activity-list">
+                    <?php if ($newBlock): ?>
+                    <div class="clearfix">
 
-                        <?php foreach ($actions as $action): ?>
+                        <div class="calendar-date">
+                            <div class="y"><?=Yii::app()->dateFormatter->format("yyyy", time())?></div>
+                            <div class="d"><?=Yii::app()->dateFormatter->format("dd", time())?></div>
+                            <div class="m"><?=Yii::app()->dateFormatter->format("MMM", time())?></div>
+                        </div>
+
+                        <div class="activity-list">
+                    <?php endif; ?>
+
                             <?php $this->renderPartial('activity/' . $action->type, compact('action')); ?>
-                        <?php endforeach; ?>
+
+                    <?php if ($newBlock): ?>
+                        </div>
 
                     </div>
+                    <?php endif; ?>
 
-                </div>
+                <?php endforeach; ?>
 
             </div>
 

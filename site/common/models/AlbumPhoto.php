@@ -148,7 +148,7 @@ class AlbumPhoto extends HActiveRecord
     public function afterSave()
     {
         if ($this->isNewRecord) {
-            if (isset($this->album) && $this->album->type == 0 || $this->album->type == 1) {
+            if ($this->album !== null && $this->album->type == 0 || $this->album->type == 1) {
                 UserAction::model()->add($this->author_id, UserAction::USER_ACTION_PHOTOS_ADDED, array('model' => $this), array('album_id' => $this->album_id));
             }
             $this->getPreviewUrl(960, 627, Image::HEIGHT, true);

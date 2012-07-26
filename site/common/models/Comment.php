@@ -311,6 +311,9 @@ class Comment extends HActiveRecord
 
     public function getUrl($absolute = false)
     {
+        if (! in_array($this->entity, array('CommunityContent', 'BlogContent', 'CookRecipe')))
+            return false;
+
         $entity = CActiveRecord::model($this->entity)->findByPk($this->entity_id);
         list($route, $params) = $entity->urlParams;
         $params['#'] = 'comment_' . $this->id;

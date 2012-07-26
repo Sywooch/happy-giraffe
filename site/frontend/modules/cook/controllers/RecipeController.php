@@ -290,12 +290,9 @@ class RecipeController extends HController
     public function actionFeed()
     {
         header("Content-type: text/xml; charset=utf-8");
-
-
-
         $feed = Yii::app()->cache->get('recipesFeed');
         if ($feed === false) {
-            $recipes = CookRecipe::model()->with('cuisine', 'author', 'ingredients.ingredient', 'ingredients.unit')->findAll(array('limit' => 5, 'order' => 'created DESC'));
+            $recipes = CookRecipe::model()->with('cuisine', 'author', 'ingredients.ingredient', 'ingredients.unit')->findAll(array('order' => 'created DESC'));
 
             $xml = new SimpleXMLElement('<?xml version="1.0" encoding="utf-8"?><entities/>');
 
@@ -347,7 +344,7 @@ class RecipeController extends HController
             }
 
             $feed = $xml->asXML();
-            Yii::app()->cache->set('recipesFeed', $feed, 0, new CDbCacheDependency('SELECT count(*) FROM ' . CookRecipe::model()->tableName()));
+            Yii::app()->cache->set('recipesFeed', $feed, 86400, new CExpressionDependency(date('Ymd')));
         }
 
         echo $feed;

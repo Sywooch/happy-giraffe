@@ -1,4 +1,5 @@
 <?php
+    Yii::import('application.modules.cook.models.*');
     $comment = Comment::model()->findByPk($action->data['id']);
     $model = CActiveRecord::model($comment->entity)->findByPk($comment->entity_id);
     $modelName = get_class($model);
@@ -7,7 +8,7 @@
 <?php if ($comment !== null && in_array($modelName, array('BlogContent', 'CommunityContent', 'CookRecipe', 'AlbumPhoto'))): ?>
     <div class="user-post list-item">
 
-        <div class="box-title">Оставил комментарии</div>
+        <div class="box-title">Оставил комментарий</div>
 
         <ul>
             <li>

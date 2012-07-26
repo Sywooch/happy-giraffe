@@ -38,7 +38,6 @@
                     </div>
                     <div class="img"><?=CHtml::image($model->getPreviewUrl(303, null, Image::WIDTH))?></div>
                 <?php endif; ?>
-                <?php endif; ?>
                 <div class="comment">
                     <div class="date"><?=Yii::app()->dateFormatter->format("dd MMMM yyyy, HH:mm", $comment->created)?></div>
                     <?=Str::truncate(strip_tags($comment->text))?> <?=CHtml::link('Читать', $comment->url)?>

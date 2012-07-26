@@ -15,7 +15,7 @@
                     <div class="added-to">
                         <span>в блоге</span>
                         <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
-                            'user' => $content->author,
+                            'user' => $model->author,
                             'size' => 'small',
                             'sendButton' => false,
                             'location' => false

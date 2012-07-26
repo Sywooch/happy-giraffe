@@ -394,8 +394,8 @@ class CookRecipe extends CActiveRecord
     public function getUrlParams()
     {
         return array(
-            'route' => '/cook/recipe/view',
-            'params' => array(
+            '/cook/recipe/view',
+            array(
                 'id' => $this->id,
                 'section' => $this->section,
             ),

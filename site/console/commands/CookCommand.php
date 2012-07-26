@@ -23,7 +23,7 @@ class CookCommand extends CConsoleCommand
         foreach ($recipes as $r) {
             $recipe = $xml->addChild('recipe');
             $recipe->addChild('name', $r->title);
-            $recipe->addChild('url', $r->url);
+            $recipe->addChild('url', $r->getUrl(false, true));
             $recipe->addChild('type', $r->typeString);
             if ($r->cuisine !== null) {
                 $recipe->addChild('cuisine-type', $r->cuisine->title . ' кухня');

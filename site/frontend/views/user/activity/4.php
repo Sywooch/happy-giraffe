@@ -16,29 +16,31 @@
     $categories = InterestCategory::model()->findAll($criteria);
 ?>
 
-<div class="box user-interests-box list-item">
-    <div class="user-interests">
+<?php if (! empty($categories)): ?>
+    <div class="box user-interests-box list-item">
+        <div class="user-interests">
 
-        <div class="box-title">Добавил интересы</div>
+            <div class="box-title">Добавил интересы</div>
 
-        <ul>
-            <?php foreach ($categories as $category): ?>
-            <li>
-                <div class="interest-cat">
-                    <a href="">
-                        <span class="img"><img src="/images/interest_icon_<?=$category->id?>.png" /></span>
-                        <span class="text"><?=$category->title?></span>
-                    </a>
-                </div>
-                <ul>
-                    <?php foreach ($category->interests as $interest): ?>
-                    <li><a class="interest"><?=$interest->title?><span><?=$interest->usersCount?></span></a></li>
-                    <?php endforeach; ?>
-                </ul>
-            </li>
-            <?php endforeach; ?>
+            <ul>
+                <?php foreach ($categories as $category): ?>
+                <li>
+                    <div class="interest-cat">
+                        <a href="">
+                            <span class="img"><img src="/images/interest_icon_<?=$category->id?>.png" /></span>
+                            <span class="text"><?=$category->title?></span>
+                        </a>
+                    </div>
+                    <ul>
+                        <?php foreach ($category->interests as $interest): ?>
+                        <li><a class="interest"><?=$interest->title?><span><?=$interest->usersCount?></span></a></li>
+                        <?php endforeach; ?>
+                    </ul>
+                </li>
+                <?php endforeach; ?>
 
-        </ul>
+            </ul>
 
+        </div>
     </div>
-</div>
+<?php endif; ?>

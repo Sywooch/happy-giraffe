@@ -8,17 +8,19 @@
     $users = User::model()->findAll($criteria);
 ?>
 
-<div class="user-friends clearfix list-item">
+<?php if (! empty($users)): ?>
+    <div class="user-friends clearfix list-item">
 
-    <div class="box-title">Новые друзья</div>
+        <div class="box-title">Новые друзья</div>
 
-    <ul class="clearfix">
-        <?php foreach ($users as $user): ?>
-            <li>
-                <?php $class = $user->gender == '1'?'male':'female'; $class.= ' ava'; ?>
-                <?=HHtml::link(CHtml::image($user->getAva()), Yii::app()->createUrl('/user/profile', array('user_id' => $user->id)), array('class'=>$class), true)?>
-            </li>
-        <?php endforeach; ?>
-    </ul>
+        <ul class="clearfix">
+            <?php foreach ($users as $user): ?>
+                <li>
+                    <?php $class = $user->gender == '1'?'male':'female'; $class.= ' ava'; ?>
+                    <?=HHtml::link(CHtml::image($user->getAva()), Yii::app()->createUrl('/user/profile', array('user_id' => $user->id)), array('class'=>$class), true)?>
+                </li>
+            <?php endforeach; ?>
+        </ul>
 
-</div>
+    </div>
+<?php endif; ?>

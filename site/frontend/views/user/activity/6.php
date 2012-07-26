@@ -1,28 +1,30 @@
 <?php
-$content = CommunityContent::model()->full()->findByPk($action->data['id']);
+    $content = CommunityContent::model()->full()->findByPk($action->data['id']);
 ?>
 
-<div class="user-post list-item">
+<?php if ($content !== null): ?>
+    <div class="user-post list-item">
 
-    <div class="box-title">Добавил запись</div>
+        <div class="box-title">Добавил запись</div>
 
-    <ul>
-        <li>
-            <div class="added-to">
-                <span>в клубе</span> <a href="<?=$content->rubric->community->url?>" class="club-img home small inline"><img src="/images/club_img_<?=$content->rubric->community->id?>.png" /><?=$content->rubric->community->title?></a>
-            </div>
-            <div class="item-title"><?=CHtml::link($content->title, $content->url)?></div>
-            <div class="added-date"><?=Yii::app()->dateFormatter->format("dd MMMM yyyy, HH:mm", $content->created)?></div>
-            <?php if (($image = $content->contentImage) !== false): ?>
-                <div class="img">
-                    <?=CHtml::link(CHtml::image($image), $content->url)?>
+        <ul>
+            <li>
+                <div class="added-to">
+                    <span>в клубе</span> <a href="<?=$content->rubric->community->url?>" class="club-img home small inline"><img src="/images/club_img_<?=$content->rubric->community->id?>.png" /><?=$content->rubric->community->title?></a>
                 </div>
-            <?php endif; ?>
-            <div class="content">
-                <p><?=$content->contentText?> <?=CHtml::link('Читать всю запись<i class="icon"></i>', $content->url, array('class' => 'read-more'))?></p>
-            </div>
-        </li>
+                <div class="item-title"><?=CHtml::link($content->title, $content->url)?></div>
+                <div class="added-date"><?=Yii::app()->dateFormatter->format("dd MMMM yyyy, HH:mm", $content->created)?></div>
+                <?php if (($image = $content->contentImage) !== false): ?>
+                    <div class="img">
+                        <?=CHtml::link(CHtml::image($image), $content->url)?>
+                    </div>
+                <?php endif; ?>
+                <div class="content">
+                    <p><?=$content->contentText?> <?=CHtml::link('Читать всю запись<i class="icon"></i>', $content->url, array('class' => 'read-more'))?></p>
+                </div>
+            </li>
 
-    </ul>
+        </ul>
 
-</div>
+    </div>
+<?php endif; ?>

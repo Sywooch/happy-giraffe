@@ -27,7 +27,7 @@ class UserAction extends EMongoDocument
         self::USER_ACTION_INTERESTS_ADDED,
         self::USER_ACTION_USED_SERVICES,
         self::USER_ACTION_FRIENDS_ADDED,
-        self::USER_ACTION_FAMILY_UPDATED,
+        //self::USER_ACTION_FAMILY_UPDATED,
         self::USER_ACTION_PHOTOS_ADDED,
     );
 
@@ -139,9 +139,9 @@ class UserAction extends EMongoDocument
             case self::USER_ACTION_PHOTOS_ADDED:
                 $result = (time() - $stack->updated < 60) && HDate::isSameDate($stack->updated, time());
                 break;
-            case self::USER_ACTION_FAMILY_UPDATED:
-                $result = (time() - $stack->updated < 180) && HDate::isSameDate($stack->updated, time());
-                break;
+            //case self::USER_ACTION_FAMILY_UPDATED:
+            //    $result = (time() - $stack->updated < 180) && HDate::isSameDate($stack->updated, time());
+            //    break;
             default:
                 $result = HDate::isSameDate($stack->updated, time());
         }

@@ -113,6 +113,7 @@ class RecipeBookRecipe extends HActiveRecord
     public function getByDisease($disease_id)
     {
         $criteria = new CDbCriteria;
+        $criteria->order = 't.created DESC';
         $criteria->with = array('author', 'author.avatar', 'commentsCount', 'disease');
         if ($disease_id !== null)
             $criteria->compare('disease_id', $disease_id);

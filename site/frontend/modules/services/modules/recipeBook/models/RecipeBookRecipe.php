@@ -107,4 +107,38 @@ class RecipeBookRecipe extends HActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+    public function afterSave()
+    {
+        parent::afterSave();
+
+        if ($this->isNewRecord)
+            UserScores::addScores($this->author_id, ScoreActions::ACTION_RECORD, 1, $this);
+    }
+
+    public function afterDelete()
+    {
+        parent::afterDelete();
+
+        UserScores::removeScores($this->author_id, ScoreActions::ACTION_RECORD, 1, $this);
+    }
+
+    public function getUrlParams()
+    {
+        return array(
+            'recipeBook/default/view',
+            array('id' => $this->id),
+        );
+    }
+
+    public function getUrl($comments = false, $absolute = false)
+    {
+        list($route, $params) = $this->urlParams;
+
+        if ($comments)
+            $params['#'] = 'comment_list';
+
+        $method = $absolute ? 'createAbsoluteUrl' : 'createUrl';
+        return Yii::app()->$method($route, $params);
+    }
 }

@@ -1,25 +1,10 @@
 <?php
     $cs = Yii::app()->clientScript;
 
-$js = <<<EOD
-    $(function(){
-
-      $('.activity-list').each(function(){
-        $(this).imagesLoaded(function(){
-          $(this).masonry({
-              itemSelector : $(this).find('.list-item'),
-              columnWidth: 360
-          });
-        })
-      })
-
-    })
-EOD;
-
     $cs
         ->registerScriptFile('/javascripts/jquery.masonry.min.js')
+        ->registerScriptFile('/javascripts/userActivity.js')
         ->registerCssFile('/stylesheets/user.css')
-        ->registerScript('user-activity', $js);
     ;
 ?>
 
@@ -34,23 +19,39 @@ EOD;
 
             <div id="user-activity">
 
-                <div class="clearfix">
+                <?php foreach ($actions as $i => $action): ?>
 
-                    <div class="calendar-date">
-                        <div class="y"><?=Yii::app()->dateFormatter->format("yyyy", time())?></div>
-                        <div class="d"><?=Yii::app()->dateFormatter->format("dd", time())?></div>
-                        <div class="m"><?=Yii::app()->dateFormatter->format("MMM", time())?></div>
-                    </div>
+                    <?php
+                        $open = ($i == 0) || ! HDate::isSameDate($actions[$i]->updated, $actions[$i - 1]->updated);
+                        $close = ($i == (count($actions) - 1)) || ! HDate::isSameDate($actions[$i]->updated, $actions[$i + 1]->updated);
+                    ?>
 
-                    <div class="activity-list">
+                    <?php if ($open): ?>
+                    <div class="clearfix">
 
-                        <?php foreach ($actions as $action): ?>
+                        <div class="calendar-date">
+                            <div class="y"><?=Yii::app()->dateFormatter->format("yyyy", time())?></div>
+                            <div class="d"><?=Yii::app()->dateFormatter->format("dd", time())?></div>
+                            <div class="m"><?=Yii::app()->dateFormatter->format("MMM", time())?></div>
+                        </div>
+
+                        <div class="activity-list">
+                    <?php endif; ?>
+
                             <?php $this->renderPartial('activity/' . $action->type, compact('action')); ?>
-                        <?php endforeach; ?>
+
+                    <?php if ($close): ?>
+                        </div>
 
                     </div>
+                    <?php endif; ?>
 
-                </div>
+                    <?php $i++; ?>
+                <?php endforeach; ?>
+
+                <?php if ($nextPage !== false): ?>
+                    <?=CHtml::link('Что еще нового', array('user/activity', 'user_id' => $this->user->id, 'page' => $nextPage), array('class' => 'more-btn'))?>
+                <?php endif; ?>
 
             </div>
 

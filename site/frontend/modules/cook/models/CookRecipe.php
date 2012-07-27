@@ -217,7 +217,7 @@ class CookRecipe extends CActiveRecord
                 'class' => 'zii.behaviors.CTimestampBehavior',
                 'createAttribute' => 'created',
                 'updateAttribute' => 'updated',
-                'timestampExpression' => time(),
+                'timestampExpression' => 'time()',
             ),
             'purified' => array(
                 'class' => 'site.common.behaviors.PurifiedBehavior',

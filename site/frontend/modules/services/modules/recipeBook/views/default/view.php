@@ -34,7 +34,7 @@
 
                 <ul>
                     <?php foreach ($data->ingredients as $i): ?>
-                    <li><?=$i->ingredient->title?> - <?=round($i->value)?> <?=$i->unit->title?></li>
+                    <li><?=$i->ingredient->title?> - <?=round($i->value)?> <?=HDate::GenerateNoun(array($i->unit->title, $i->unit->title2, $i->unit->title3), (int) $i->value)?></li>
                     <?php endforeach; ?>
                 </ul>
 
@@ -66,13 +66,13 @@
 <div class="entry-nav clearfix">
     <?php if ($prev = $data->prev): ?>
     <div class="prev">
-        <span>Следуюший рецепт</span>
+        <span>Предыдущий рецепт</span>
         <?=CHtml::link($prev->title, $prev->url)?>
     </div>
     <?php endif; ?>
     <?php if ($next = $data->next): ?>
     <div class="next">
-        <span>Предыдущий рецепт</span>
+        <span>Следующий рецепт</span>
         <?=CHtml::link($next->title, $next->url)?>
     </div>
     <?php endif; ?>

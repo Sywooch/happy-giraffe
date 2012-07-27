@@ -160,8 +160,8 @@ class RecipeBookRecipe extends HActiveRecord
     {
         return $this->find(
             array(
-                'condition' => 'disease_id = :disease_id',
-                'params' => array(':disease_id' => $this->disease_id),
+                'condition' => 'disease_id = :disease_id AND id > :id',
+                'params' => array(':disease_id' => $this->disease_id, ':id' => $this->id),
                 'order' => 't.id',
             )
         );
@@ -171,8 +171,8 @@ class RecipeBookRecipe extends HActiveRecord
     {
         return $this->find(
             array(
-                'condition' => 'disease_id = :disease_id',
-                'params' => array(':disease_id' => $this->disease_id),
+                'condition' => 'disease_id = :disease_id AND id < :id',
+                'params' => array(':disease_id' => $this->disease_id, ':id' => $this->id),
                 'order' => 't.id DESC',
             )
         );

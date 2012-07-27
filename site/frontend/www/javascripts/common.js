@@ -473,3 +473,18 @@ function getScrollBarWidth() {
 
     return (w1 - w2);
 };
+
+function slideNavToggle(el){
+	
+	var li = $(el).parent();
+	var ul = li.parent();
+	
+	if (ul.find('ul:animated').size() == 0){
+		if (!li.hasClass('toggled')){
+			ul.find('> li.toggled').removeClass('toggled').find('>ul').slideUp();
+			li.addClass('toggled').find('>ul').slideDown();			
+		} else {
+			li.removeClass('toggled').find('>ul').slideUp();
+		}
+	}
+}

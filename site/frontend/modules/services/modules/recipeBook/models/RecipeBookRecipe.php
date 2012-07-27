@@ -63,8 +63,10 @@ class RecipeBookRecipe extends HActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'disease' => array(self::BELONGS_TO, 'RecipeBookDiseases', 'disease_id'),
-			'recipeBookRecipesIngredients' => array(self::HAS_MANY, 'RecipeBookRecipesIngredients', 'recipe_id'),
+			'disease' => array(self::BELONGS_TO, 'RecipeBookDisease', 'disease_id'),
+            'author' => array(self::BELONGS_TO, 'User', 'author_id'),
+            'commentsCount' => array(self::STAT, 'Comment', 'entity_id', 'condition' => 'entity=:modelName', 'params' => array(':modelName' => get_class($this))),
+			'ingredients' => array(self::HAS_MANY, 'RecipeBookRecipeIngredient', 'recipe_id'),
 		);
 	}
 
@@ -108,6 +110,18 @@ class RecipeBookRecipe extends HActiveRecord
 		));
 	}
 
+    public function getByDisease($disease_id)
+    {
+        $criteria = new CDbCriteria;
+        $criteria->with = array('author', 'author.avatar', 'commentsCount', 'disease');
+        if ($disease_id !== null)
+            $criteria->compare('disease_id', $disease_id);
+
+        return new CActiveDataProvider($this, array(
+            'criteria' => $criteria,
+        ));
+    }
+
     public function afterSave()
     {
         parent::afterSave();
@@ -126,7 +140,7 @@ class RecipeBookRecipe extends HActiveRecord
     public function getUrlParams()
     {
         return array(
-            'recipeBook/default/view',
+            '/services/recipeBook/default/view',
             array('id' => $this->id),
         );
     }
@@ -140,5 +154,27 @@ class RecipeBookRecipe extends HActiveRecord
 
         $method = $absolute ? 'createAbsoluteUrl' : 'createUrl';
         return Yii::app()->$method($route, $params);
+    }
+
+    public function getNext()
+    {
+        return $this->find(
+            array(
+                'condition' => 'disease_id = :disease_id',
+                'params' => array(':disease_id' => $this->disease_id),
+                'order' => 't.id',
+            )
+        );
+    }
+
+    public function getPrev()
+    {
+        return $this->find(
+            array(
+                'condition' => 'disease_id = :disease_id',
+                'params' => array(':disease_id' => $this->disease_id),
+                'order' => 't.id DESC',
+            )
+        );
     }
 }

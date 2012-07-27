@@ -4,6 +4,8 @@ class DefaultController extends HController
 {
     public $layout = 'rec-layout';
     public $index = false;
+    public $nav;
+    public $disease_id = null;
 
     public function filters()
     {
@@ -12,7 +14,48 @@ class DefaultController extends HController
         );
     }
 
-    public function actionIndex()
+    public function init()
+    {
+        $this->nav = RecipeBookDiseaseCategory::model()->findAll(array(
+            'with' => array(
+                'diseases' => array(
+                    'index' => 'id',
+                    'with' => array(
+                        'recipesCount',
+                    ),
+                ),
+            ),
+        ));
+
+        parent::init();
+    }
+
+    public function actionIndex($slug = null)
+    {
+        if ($slug !== null) {
+            $disease = RecipeBookDisease::model()->findByAttributes(array('slug' => $slug));
+            if ($disease === null)
+                throw new CHttpException(404);
+            $this->disease_id = $disease->id;
+        }
+
+        $dp = RecipeBookRecipe::model()->getByDisease($this->disease_id);
+
+        $this->render('index', compact('dp'));
+    }
+
+    public function actionView($id)
+    {
+        $data = RecipeBookRecipe::model()->with('disease', 'commentsCount', 'author', 'author.avatar', 'ingredients', 'ingredients.ingredient', 'ingredients.unit')->findByPk($id);
+        if ($data === null)
+            throw new CHttpException(404);
+
+        $this->disease_id = $data->disease_id;
+
+        $this->render('view', compact('data'));
+    }
+
+    /*public function actionIndex()
     {
         $this->pageTitle = 'Книга народных рецептов от детских болезней';
         $this->index = true;
@@ -252,5 +295,5 @@ class DefaultController extends HController
 
             echo CJSON::encode($response);
         }
-    }
+    }*/
 }

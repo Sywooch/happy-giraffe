@@ -61,9 +61,9 @@ class RecipeBookRecipeIngredient extends HActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'ingredient' => array(self::BELONGS_TO, 'RecipeBookIngredients', 'ingredient_id'),
-			'recipe' => array(self::BELONGS_TO, 'RecipeBookRecipes', 'recipe_id'),
-			'unit' => array(self::BELONGS_TO, 'RecipeBookUnits', 'unit_id'),
+			'ingredient' => array(self::BELONGS_TO, 'RecipeBookIngredient', 'ingredient_id'),
+			'recipe' => array(self::BELONGS_TO, 'RecipeBookRecipe', 'recipe_id'),
+			'unit' => array(self::BELONGS_TO, 'RecipeBookUnit', 'unit_id'),
 		);
 	}
 

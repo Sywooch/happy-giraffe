@@ -50,21 +50,45 @@ if ($type == 'guestBook') {
             ';
 }
 
-$this->widget('HCommentListView', array(
-    'dataProvider' => $dataProvider,
-    'itemView' => '_comment',
-    'itemsTagName' => 'ul',
-    'summaryText' => 'показано: {start} - {end} из {count}',
-    'afterAjaxUpdate' => "$('html, body').animate({scrollTop : $('.default-comments').offset().top}, 'fast')",
-    'pager' => array(
-        'class' => 'MyLinkPager',
-        'header' => '',
-    ),
-    'id' => 'comment_list_' . $this->objectName,
-    'template' => $template,
-    'viewData' => array(
-        'currentPage' => $dataProvider->pagination->currentPage,
-    ),
-    'popUp' => $this->popUp,
-));
+if ($this->type == 'guestBook') {
+    $this->widget('HCommentListView', array(
+        'dataProvider' => $dataProvider,
+        'itemView' => '_comment',
+        'itemsTagName' => 'ul',
+        'summaryText' => 'показано: {start} - {end} из {count}',
+        'afterAjaxUpdate' => "$('html, body').animate({scrollTop : $('.default-comments').offset().top}, 'fast')",
+        'pager' => array(
+            'class' => 'ext.yiinfinite-scroll.YiinfiniteScroller',
+            'contentSelector' => 'ul.items',
+            'itemSelector' => 'li.item',
+            'loadingImg' => '/images/loader_01.gif',
+            'loadingText' => 'Загрузка...',
+            'donetext' => ' ',
+        ),
+        'id' => 'comment_list_' . $this->objectName,
+        'template' => $template,
+        'viewData' => array(
+            'currentPage' => $dataProvider->pagination->currentPage,
+        ),
+        'popUp' => $this->popUp,
+    ));
+} else {
+    $this->widget('HCommentListView', array(
+        'dataProvider' => $dataProvider,
+        'itemView' => '_comment',
+        'itemsTagName' => 'ul',
+        'summaryText' => 'показано: {start} - {end} из {count}',
+        'afterAjaxUpdate' => "$('html, body').animate({scrollTop : $('.default-comments').offset().top}, 'fast')",
+        'pager' => array(
+            'class' => 'MyLinkPager',
+            'header' => '',
+        ),
+        'id' => 'comment_list_' . $this->objectName,
+        'template' => $template,
+        'viewData' => array(
+            'currentPage' => $dataProvider->pagination->currentPage,
+        ),
+        'popUp' => $this->popUp,
+    ));
+}
 ?>

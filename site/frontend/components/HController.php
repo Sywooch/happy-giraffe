@@ -25,6 +25,11 @@ class HController extends CController
 
     protected function beforeAction($action)
     {
+        if (Yii::app()->request->isAjaxRequest) {
+            Yii::app()->clientScript->scriptMap['jquery.js'] = false;
+            Yii::app()->clientScript->scriptMap['jquery.min.js'] = false;
+        }
+
         if ($_SERVER['HTTP_HOST'] == 'dev.happy-giraffe.ru'){
             Yii::app()->clientScript->registerMetaTag('noindex,nofollow', 'robots');
         }

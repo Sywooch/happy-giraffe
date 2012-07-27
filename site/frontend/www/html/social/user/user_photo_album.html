@@ -22,6 +22,7 @@
   <script type="text/javascript" src="/javascripts/jquery.tooltip.pack.js"></script>
 	
 	<script type="text/javascript" src="/javascripts/jquery.masonry.min.js"></script>
+	<script type="text/javascript" src="/javascripts/jquery.infinitescroll.min.js"></script>
 	
 	<script type="text/javascript" src="/javascripts/common.js"></script>	
 	
@@ -37,16 +38,38 @@
         
         $container.masonry({
           itemSelector : 'li',
-          columnWidth: 240
+          columnWidth: 240,
+          isAnimated: false,
+          animationOptions: { queue: false, duration: 500 }
         });
         
 			});
+      
+      $container.infinitescroll({
+        navSelector  : '#btn-more',
+        nextSelector : '#btn-more',
+        itemSelector : '.gallery-photos-new li',     // selector for all items you'll retrieve
+        loading: {
+            finishedMsg: 'No more pages to load.',
+            img: 'http://i.imgur.com/6RMhx.gif'
+          }
+        },
+        function(newElements) {
+          
+          var newItems = items.clone()
+          $('.gallery-photos-new ul').append(newItems);
+          $('.gallery-photos-new').masonry( 'appended', newItems, false);
+          
+        }
+      );
 			
       $('#more-btn').click(function(){
         var newItems = items.clone()
         $('.gallery-photos-new ul').append(newItems);
-        $('.gallery-photos-new').masonry( 'appended', newItems);
+        $('.gallery-photos-new').masonry( 'appended', newItems, false);
       })
+      
+      
       
 		});
 		

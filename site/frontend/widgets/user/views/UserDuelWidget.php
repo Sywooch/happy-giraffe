@@ -1,6 +1,6 @@
-<div class="user-duel">
+<div class="<?=$this->outerCssClass?>">
 
-    <div class="box-title">Моя <span>дуэль</span></div>
+    <div class="box-title"><?=$this->boxTitle?></div>
 
     <div class="question">
         <p><?=$this->question->text?></p>

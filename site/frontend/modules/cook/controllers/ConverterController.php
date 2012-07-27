@@ -42,6 +42,8 @@ class ConverterController extends HController
             $result['qty'] = (round($result['qty']) == $result['qty']) ? $result['qty'] : round($result['qty'], 2);
             header('Content-type: application/json');
             echo CJSON::encode($result['qty']);
+
+            UserAction::model()->add(Yii::app()->user->id, UserAction::USER_ACTION_USED_SERVICES, array('service' => 'converter'));
         }
     }
 }

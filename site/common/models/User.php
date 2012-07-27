@@ -369,6 +369,9 @@ class User extends HActiveRecord
     {
         parent::afterSave();
 
+        if ($this->trackable->isChanged('mood_id'))
+            UserAction::model()->add($this->id, UserAction::USER_ACTION_MOOD_CHANGED, array('model' => $this));
+
         foreach ($this->social_services as $service) {
             $service->user_id = $this->id;
             $service->save();
@@ -444,6 +447,10 @@ class User extends HActiveRecord
             ),
             'ManyManyLinkBehavior' => array(
                 'class' => 'site.common.behaviors.ManyManyLinkBehavior',
+            ),
+            'trackable' => array(
+                'class' => 'site.common.behaviors.TrackableBehavior',
+                'attributes' => array('mood_id'),
             ),
         );
     }
@@ -576,6 +583,8 @@ class User extends HActiveRecord
         if ($friend->save()) {
             UserScores::addScores($this->id, ScoreActions::ACTION_FRIEND, 1, User::getUserById($friend_id));
             UserScores::addScores($friend_id, ScoreActions::ACTION_FRIEND, 1, $this);
+            UserAction::model()->add($this->id, UserAction::USER_ACTION_FRIENDS_ADDED, array('id' => $friend_id));
+            UserAction::model()->add($friend_id, UserAction::USER_ACTION_FRIENDS_ADDED, array('id' => $this->id));
             return true;
         }
         return false;
@@ -780,8 +789,11 @@ class User extends HActiveRecord
 
     public function addCommunity($community_id)
     {
-        return Yii::app()->db->createCommand()
+        $result = Yii::app()->db->createCommand()
             ->insert('user__users_communities', array('user_id' => $this->id, 'community_id' => $community_id)) != 0;
+        if ($result)
+            UserAction::model()->add($this->id, UserAction::USER_ACTION_CLUBS_JOINED, array('community_id' => $community_id));
+        return $result;
     }
 
     public function delCommunity($community_id)

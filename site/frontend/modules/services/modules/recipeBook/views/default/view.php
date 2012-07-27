@@ -1,60 +1,86 @@
-<?php Yii::app()->clientScript->registerMetaTag('noindex', 'robots'); ?>
+<div class="entry entry-full">
 
-<?php $this->renderPartial('_left_col',array(
-    'cat_diseases' => $cat_diseases,
-    'active_disease'=>$active_disease
-));
-?>
+    <h1><?=$data->title?></h1>
 
-<div class="right-inner">
-    <?php $this->renderPartial('_view',array('data'=>$model, 'short'=>true)); ?>
+    <div class="entry-header">
 
-    <div class="like-block" rel="<?php echo $model->id ?>">
-        <div class="block-in">
-            <div class="fast-rating"><span><?php echo $model->votes_pro - $model->votes_con ?></span> рейтинг</div>
-        <div class="title">Рецепт полезен?</div>
-        <div class="your_opinion">
-            <?php $this->widget('application.widgets.voteWidget.VoteWidget', array(
-                'model'=>$model,
-                'template'=>
-                '<div class="green"><a vote="1" class="btn btn-green-medium" href="#"><span><span>Да</span></span></a> &nbsp; <span><span class="votes_pro">{vote1}</span> (<span class="pro_percent">{vote_percent1}</span>%)</span></div>
-                    <div class="red"><a vote="0" class="btn btn-red-medium" href="#"><span><span>Нет</span></span></a> &nbsp; <span><span class="votes_con">{vote0}</span> (<span class="con_percent">{vote_percent0}</span>%)</span></div>',
-                'links' => array('.red a','.green a'),
-                'result'=>array(0=>array('.votes_con','.con_percent'),1=>array('.votes_pro','.pro_percent')),
-                'main_selector'=>'.like-block',
-                'rating'=>'.fast-rating span'
-            )); ?>
+        <?php
+            $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
+                'user' => $data->author,
+                'friendButton' => true,
+                'location' => false,
+            ));
+        ?>
+
+        <div class="meta">
+            <div class="time"><?=Yii::app()->dateFormatter->format("d MMMM yyyy, H:mm", $data->created)?></div>
+            <div class="seen">Просмотров:&nbsp;<span><?=PageView::model()->viewsByPath($data->url)?></span></div><br>
+            <a href="<?=$data->getUrl(true)?>">Комментариев: <?php echo $data->commentsCount; ?></a>
         </div>
-        </div>
+        <div class="clear"></div>
     </div>
 
-    <?php if (!empty($more_recipes)):?>
-        <div class="content-more clearfix">
-            <big class="title">
-                Еще рецепты - <ins class="clr_bl"><?php echo $model->disease->title ?></ins>
-                <a href="<?php echo $this->createUrl('disease', array('url'=>$model->disease->slug))
-                    ?>" class="btn btn-blue-small"><span><span>Показать все</span></span></a>
-            </big>
-            <?php foreach ($more_recipes as $recipe): ?>
-            <div class="block">
-                <b><a href="<?php echo $this->createUrl('view', array('id'=>$recipe->id))
-                    ?>"><?php echo $recipe->title ?></a></b>
-                <div class="more_ing">
-                    <span>Ингредиенты:</span>
-                    <ul>
-                        <?php foreach ($recipe->ingredients as $ingredient): ?>
-                        <li><a href="#" onclick="return false;"><?php echo $ingredient->title ?></a> <?php echo 'x '.(int)$ingredient->amount.' '.$ingredient->unitValue; ?></li>
-                        <?php endforeach; ?>
-                    </ul>
-                </div>
-                <?php echo $recipe->text ?>
-            </div>
-            <?php endforeach; ?>
-            <div class="clear"></div>
-        </div>
-    <?php endif ?>
+    <div class="entry-content">
 
-    <?php $this->widget('site.frontend.widgets.commentWidget.CommentWidget', array(
-        'model' => $model,
-    )); ?>
+        <div class="disease-title">
+            <span>От болезни</span> <?=CHtml::link($data->disease->title, array('/services/childrenDiseases/default/view', 'id' => $data->disease->slug))?>
+        </div>
+
+        <div class="clearfix">
+
+            <div class="traditional-recipes-ingredients">
+
+                <div class="block-title"><i class="icon"></i>Ингредиенты</div>
+
+                <ul>
+                    <?php foreach ($data->ingredients as $i): ?>
+                    <li><?=$i->ingredient->title?> - <?=round($i->value)?> <?=$i->unit->title?></li>
+                    <?php endforeach; ?>
+                </ul>
+
+            </div>
+
+            <div class="wysiwyg-content side">
+
+                <h3>Приготовление</h3>
+
+                <?=$data->text?>
+
+            </div>
+
+        </div>
+
+    </div>
+
 </div>
+
+<div class="like-block fast-like-block">
+
+    <div class="box-1">
+        <script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
+        <div class="yashare-auto-init" data-yashareL10n="ru" data-yashareType="none" data-yashareQuickServices="vkontakte,facebook,twitter,odnoklassniki,moimir,gplus"></div>
+    </div>
+
+</div>
+
+<div class="entry-nav clearfix">
+    <?php if ($prev = $data->prev): ?>
+    <div class="prev">
+        <span>Следуюший рецепт</span>
+        <?=CHtml::link($prev->title, $prev->url)?>
+    </div>
+    <?php endif; ?>
+    <?php if ($next = $data->next): ?>
+    <div class="next">
+        <span>Предыдущий рецепт</span>
+        <?=CHtml::link($next->title, $next->url)?>
+    </div>
+    <?php endif; ?>
+
+</div>
+
+<?php
+    $this->widget('application.widgets.commentWidget.CommentWidget', array(
+        'model' => $data,
+    ));
+?>

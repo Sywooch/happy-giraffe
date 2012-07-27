@@ -1,7 +1,6 @@
 <?php
 
 return array(
-    'class' => 'HUrlManager',
     'urlFormat' => 'path',
     'showScriptName' => false,
     'urlSuffix' => '/',
@@ -56,6 +55,8 @@ return array(
 
         // user/*
         'user/<user_id:\d+>' => 'user/profile',
+        'user/<user_id:\d+>/activity/page<page:\d+>' => 'user/activity',
+        'user/<user_id:\d+>/activity' => 'user/activity',
         'user/<user_id:\d+>/clubs' => 'user/clubs',
         'user/<user_id:\d+>/friends' => 'user/friends',
         'user/<user_id:\d+>/blog/rubric<rubric_id:\d+>' => 'blog/list',
@@ -98,7 +99,7 @@ return array(
         '<_c:(activity|profile|rss|family|morning|community)>' => '<_c>/index',
 
         //others
-        array('class' => 'ext.sitemapgenerator.SGUrlRule', 'route' => '/sitemap'),
+        array('class' => 'site.frontend.extensions.sitemapgenerator.SGUrlRule', 'route' => '/sitemap'),
 
         /*************************
          *        MODULES        *

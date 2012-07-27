@@ -217,6 +217,7 @@ class CookRecipe extends CActiveRecord
                 'class' => 'zii.behaviors.CTimestampBehavior',
                 'createAttribute' => 'created',
                 'updateAttribute' => 'updated',
+                'timestampExpression' => time(),
             ),
             'purified' => array(
                 'class' => 'site.common.behaviors.PurifiedBehavior',
@@ -267,6 +268,13 @@ class CookRecipe extends CActiveRecord
         $this->lowCal = $this->getNutritionalsPer100g(1) <= self::COOK_RECIPE_LOWCAL;
 
         return parent::beforeSave();
+    }
+
+    protected function afterSave()
+    {
+        UserAction::model()->add($this->author_id, UserAction::USER_ACTION_RECIPE_ADDED, array('model' => $this));
+
+        parent::beforeSave();
     }
 
     public function getNutritionals()
@@ -383,18 +391,26 @@ class CookRecipe extends CActiveRecord
         return $this->findAll($criteria);
     }
 
+    public function getUrlParams()
+    {
+        return array(
+            '/cook/recipe/view',
+            array(
+                'id' => $this->id,
+                'section' => $this->section,
+            ),
+        );
+    }
+
     public function getUrl($comments = false, $absolute = false)
     {
-        $params = array(
-            'id' => $this->id,
-            'section' => $this->section,
-        );
+        list($route, $params) = $this->urlParams;
 
         if ($comments)
             $params['#'] = 'comment_list';
 
         $method = $absolute ? 'createAbsoluteUrl' : 'createUrl';
-        return Yii::app()->$method('/cook/recipe/view', $params);
+        return Yii::app()->$method($route, $params);
     }
 
     public function getPreview($imageWidth = 167)
@@ -588,5 +604,10 @@ class CookRecipe extends CActiveRecord
             CHtml::image($this->mainPhoto->getPreviewUrl(441, null, Image::WIDTH), $this->mainPhoto->title) . $this->text
             :
             $this->text;
+    }
+
+    public function getContentImage()
+    {
+        return ($this->mainPhoto !== null) ? $this->mainPhoto->getPreviewUrl(303, null, Image::WIDTH) : false;
     }
 }

@@ -8,6 +8,9 @@ class MapWidget extends CWidget
     public $width = 322;
     public $height = 199;
 
+    public $country_id;
+    public $locationString;
+
     public function init()
     {
         parent::init();
@@ -18,10 +21,14 @@ class MapWidget extends CWidget
     {
         $map_id = md5(microtime());
         $this->registerScripts();
+        if ($this->user) {
+            $this->country_id = $this->user->userAddress->country_id;
+            $this->locationString = $this->user->userAddress->locationString;
+        }
 
-        if (empty($this->user->userAddress->country_id))
+        if (empty($this->country_id))
             return ;
-        if ($this->user->userAddress->country_id == 174){
+        if ($this->country_id == 174){
             //yandex map
             $this->render('yandex_map', array(
                 'map_id'=>$map_id

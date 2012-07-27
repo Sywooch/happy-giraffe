@@ -179,6 +179,8 @@ class Comment extends HActiveRecord
 
             UserScores::addScores($this->author_id, ScoreActions::ACTION_OWN_COMMENT, 1, array(
                 'id'=>$this->entity_id, 'name'=>$this->entity));
+
+            UserAction::model()->add($this->author_id, UserAction::USER_ACTION_COMMENT_ADDED, array('model' => $this));
         }
         parent::afterSave();
     }
@@ -309,6 +311,9 @@ class Comment extends HActiveRecord
 
     public function getUrl($absolute = false)
     {
+        if (! in_array($this->entity, array('CommunityContent', 'BlogContent', 'CookRecipe')))
+            return false;
+
         $entity = CActiveRecord::model($this->entity)->findByPk($this->entity_id);
         list($route, $params) = $entity->urlParams;
         $params['#'] = 'comment_' . $this->id;

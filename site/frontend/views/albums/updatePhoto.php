@@ -1,13 +1,3 @@
-<?php
-$cs = Yii::app()->clientScript;
-
-$cs
-    ->scriptMap = array(
-        'jquery.js' => false,
-        'jquery.min.js' => false,
-    )
-?>
-
 <div id="photoPick" class="popup v2">
 
 

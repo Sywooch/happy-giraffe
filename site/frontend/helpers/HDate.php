@@ -364,4 +364,9 @@ class HDate
         //1986-08-06
         return $y.'-'.sprintf("%02d", $m).'-'.sprintf("%02d", $d);
     }
+
+    public static function isSameDate($ts1, $ts2)
+    {
+        return date('Ymd', $ts1) == date('Ymd', $ts2);
+    }
 }

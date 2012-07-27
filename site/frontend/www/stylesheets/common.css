@@ -951,7 +951,7 @@ body.nav-fixed #header-new .top-line {position:fixed;left:50%;margin-left:-500px
 #header-new .logo-box a.logo {display:block;width:198px;height:93px;background:url(../images/common.png) no-repeat 0 -200px;text-indent:-9999px;margin:0 auto;}
 
 #header-new .banner-box {width:360px;float:left;padding-top:30px;text-align:center;margin-bottom:0;}
-.guest #header-new .banner-box {width:728px;}
+#header-new.guest .banner-box {width:728px;}
 
 
 #header-new .nav {padding:7px 0 0 18px;height:37px;position:relative;z-index:5;line-height:normal;}

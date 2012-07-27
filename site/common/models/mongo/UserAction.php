@@ -76,7 +76,10 @@ class UserAction extends EMongoDocument
                 return $params['model']->getAttributes(array('mood_id'));
                 break;
             case self::USER_ACTION_STATUS_CHANGED:
-                return $params['model']->getAttributes(array('text', 'created'));
+                $model = $params['model'];
+                $data = $model->getAttributes(array('text'));
+                $data['created'] = time();
+                return $data;
                 break;
             case self::USER_ACTION_PURPOSE_CHANGED:
                 return $params['model']->getAttributes(array('text'));
@@ -94,7 +97,8 @@ class UserAction extends EMongoDocument
                 break;
             case self::USER_ACTION_RECIPE_ADDED:
                 $model = $params['model'];
-                $data = $model->getAttributes(array('id', 'created', 'title'));
+                $data = $model->getAttributes(array('id', 'title'));
+                $data['created'] = time();
                 $data['contentImage'] = $model->contentImage;
                 return $data;
                 break;

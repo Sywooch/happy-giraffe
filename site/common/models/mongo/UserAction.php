@@ -49,7 +49,7 @@ class UserAction extends EMongoDocument
 
     public function add($user_id, $type, $params = array(), $blockData = null)
     {
-        if (($stack = $this->getStack($type, $blockData)) !== null) {
+        if (($stack = $this->getStack($user_id, $type, $blockData)) !== null) {
             $newData = $stack->getDataByParams($params);
             if (array_search($newData, $stack->data) === FALSE) {
                 $stack->updated = time();
@@ -119,13 +119,14 @@ class UserAction extends EMongoDocument
         }
     }
 
-    public function getStack($type, $blockData)
+    public function getStack($user_id, $type, $blockData)
     {
         if (! in_array($type, $this->_stackableActions))
             return null;
 
         $criteria = new EMongoCriteria();
         $criteria->type = $type;
+        $criteria->user_id = (int) $user_id;
         if ($blockData !== null)
             $criteria->blockData = $blockData;
         $criteria->sort('created', EMongoCriteria::SORT_DESC);

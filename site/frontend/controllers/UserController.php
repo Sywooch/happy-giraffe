@@ -75,17 +75,25 @@ class UserController extends HController
         ));
     }
 
-    public function actionActivity($user_id)
+    public function actionActivity($user_id, $page = 1)
     {
+        $limit = 50;
+        $offset = ($page - 1) * $limit;
+
         $criteria = new EMongoCriteria;
         $criteria->user_id = (int) $user_id;
-        $criteria->updated('>', mktime(0, 0, 0, date('n'), date('j')));
-        $criteria->updated('<', mktime(0, 0, 0, date('n'), date('j') + 1));
+        $total = UserAction::model()->count($criteria);
+        $nextPage = ($total > ($limit + $offset)) ? $page + 1 : false;
+
+        $criteria = new EMongoCriteria;
+        $criteria->user_id = (int) $user_id;
+        $criteria->limit($limit);
+        $criteria->offset($offset);
         $criteria->sort('updated', EMongoCriteria::SORT_DESC);
         $actions = UserAction::model()->findAll($criteria);
 
         $this->layout = '//layouts/main';
-        $this->render('activity', compact('actions'));
+        $this->render('activity', compact('actions', 'nextPage'));
     }
 
     public function actionClubs($user_id)

@@ -1,20 +1,21 @@
 <?php
 
 /**
- * This is the model class for table "recipeBook_purpose".
+ * This is the model class for table "recipe_book__units".
  *
- * The followings are the available columns in table 'recipeBook_purpose':
+ * The followings are the available columns in table 'recipe_book__units':
  * @property string $id
  * @property string $title
  *
  * The followings are the available model relations:
- * @property RecipeBookRecipeViaPurpose[] $recipeBookRecipeViaPurposes
+ * @property RecipeBookRecipesIngredients[] $recipeBookRecipesIngredients
  */
-class RecipeBookPurpose extends HActiveRecord
+class RecipeBookUnit extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
-	 * @return RecipeBookPurpose the static model class
+	 * @param string $className active record class name.
+	 * @return RecipeBookUnit the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -26,7 +27,7 @@ class RecipeBookPurpose extends HActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'recipe_book__purposes';
+		return 'recipe_book__units';
 	}
 
 	/**
@@ -38,7 +39,7 @@ class RecipeBookPurpose extends HActiveRecord
 		// will receive user inputs.
 		return array(
 			array('title', 'required'),
-			array('title', 'length', 'max' => 255),
+			array('title', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, title', 'safe', 'on'=>'search'),
@@ -53,7 +54,7 @@ class RecipeBookPurpose extends HActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'recipes' => array(self::MANY_MANY, 'RecipeBookRecipe', 'recipe_book__recipes_purposes(purpose_id, recipe_id)'),
+			'recipeBookRecipesIngredients' => array(self::HAS_MANY, 'RecipeBookRecipesIngredients', 'unit_id'),
 		);
 	}
 
@@ -64,7 +65,7 @@ class RecipeBookPurpose extends HActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'title' => 'Name',
+			'title' => 'Title',
 		);
 	}
 

@@ -4,7 +4,7 @@ return array(
     'urlFormat' => 'path',
     'showScriptName' => false,
     'urlSuffix' => '/',
-    //'useStrictParsing' => true,
+    ////'useStrictParsing' => true,
     'rules' => array(
        /*************************
         *      CONTROLLERS      *
@@ -158,7 +158,7 @@ return array(
         'cook/<_c:(spices|choose|calorisator|converter)>' => 'cook/<_c>/index',
 
         //===================== Services =========================//
-        '<_m:(test|tester|vaccineCalenda|childrenDiseases|menstrualCycle|horoscope|babyBloodGroup|placentaThickness|pregnancyWeight|contractionsTime|names|recipeBook|hospitalBag|maternityLeave|dailyCalories|weightLoss|idealWeight|bodyFat|birthDate)>/' => 'services/<_m>/default/index',
+        '<_m:(test|tester|vaccineCalenda|childrenDiseases|menstrualCycle|horoscope|babyBloodGroup|placentaThickness|pregnancyWeight|contractionsTime|names|hospitalBag|maternityLeave|dailyCalories|weightLoss|idealWeight|bodyFat|birthDate)>/' => 'services/<_m>/default/index',
         '<_m:(babySex|vaccineCalendar|sewing|hospitalBag)>/<_a>/' => 'services/<_m>/default/<_a>',
 
         'babySex'=>'services/babySex/default/index',
@@ -177,9 +177,12 @@ return array(
         'names/<_a:(saintCalc|likes|like|top10|saint)>' => 'services/names/default/<_a>',
         'names/<name:[\w]+>' => 'services/names/default/name/',
 
-        'recipeBook/<_a:(getAlphabetList|getCategoryList|edit|list|diseases|vote)>' => 'services/recipeBook/default/<_a>',
-        'recipeBook/recipe/<id:\d+>' => 'services/recipeBook/default/view',
-        'recipeBook/<url:\w+>' => 'services/recipeBook/default/disease',
+        //'recipeBook/<_a:(getAlphabetList|getCategoryList|edit|list|diseases|vote)>' => 'services/recipeBook/default/<_a>',
+        //'recipeBook/recipe/<id:\d+>' => 'services/recipeBook/default/view',
+        //'recipeBook/<url:\w+>' => 'services/recipeBook/default/disease',
+        'recipeBook/recipe<id:\d+>' => 'services/recipeBook/default/view',
+        'recipeBook/<slug:\w+>' => 'services/recipeBook/default/index',
+        'recipeBook' => 'services/recipeBook/default/index',
 
         'services/repair/<_c>/<_a>' => 'services/repair/<_c>/<_a>',
         'repair/<_c>' => 'services/repair/<_c>/index',

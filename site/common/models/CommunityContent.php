@@ -557,7 +557,7 @@ class CommunityContent extends HActiveRecord
 
     public function getContentImage()
     {
-        return (preg_match('/src="([^"]+)"/', $this->post->text, $matches)) ? $matches[1] : false;
+        return (preg_match('/src="([^"]+)"/', $this->content->text, $matches)) ? $matches[1] : false;
     }
 
     public function getContentText()

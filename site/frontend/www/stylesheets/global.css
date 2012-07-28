@@ -92,8 +92,6 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 .morning-entry .entry-content img {max-width:100%;}
 
 
-
-
 .entry .morning-images {}
 .entry .morning-images img {display:block;}
 .entry .morning-images .big {}
@@ -106,6 +104,20 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 .entry .morning-images .thumbs ul li .more .icon {display:block;width:56px;height:56px;background:url(../images/common.png) no-repeat -499px -135px;margin:0 auto;margin-bottom:10px;}
 .entry .morning-images .thumbs ul li .more:hover .icon {background-position:-499px -193px;}
 .entry .morning-images .thumbs ul li .more:hover {color:#7abc2e;text-decoration:underline;}
+
+
+.entry .disease-title {margin-bottom:15px;}
+.entry .disease-title span {font-size:11px;color:#343434;margin-right:5px;}
+
+.entry .traditional-recipes-ingredients {background:#f2fce8;width:270px;float:left;padding:15px;}
+.entry .traditional-recipes-ingredients .block-title {font-size:14px;font-weight:bold;color:#2e2e2e;margin-bottom:10px;}
+.entry .traditional-recipes-ingredients .block-title .icon {display:inline-block;width:23px;height:23px;background:url(/images/common.png) no-repeat -563px -301px;vertical-align:middle;margin-right:5px;}
+.entry .traditional-recipes-ingredients ul {list-style:disc;padding-left:20px;}
+.entry .traditional-recipes-ingredients ul li {margin:10px 0;}
+
+
+.traditional-recipes-title {padding:45px 30px;background:url(/images/bg_traditional_recipes_title.jpg) no-repeat right;height:58px;border:1px solid #e9e8ea;font-size:50px;line-height:1;color:#383838;margin-bottom:20px;}
+
 
 .morning-sidebar {border:1px solid #f0eaf6;float:left;width:238px;margin-right:20px;}
 

@@ -23,7 +23,7 @@ class AlbumsController extends HController
             'accessControl',
             'ajaxOnly + attach, attachView, editDescription, editPhotoTitle, changeTitle, changePermission,
                 removeUploadPhoto, communityContentEdit, communityContentSave, recipePhoto, cookDecorationPhoto,
-                cookDecorationCategory, commentPhoto, crop, changeAvatar',
+                cookDecorationCategory, commentPhoto, crop, changeAvatar, wPhoto',
         );
     }
 

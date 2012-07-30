@@ -23,4 +23,19 @@ class CalendarPregnancyController extends BController
             'admin' => 'application.components.actions.Admin',
         );
     }
+
+    /*public function actionGenerate()
+    {
+        $periods = array();
+        $periods[] = 'Планирование';
+        for ($i = 1; $i <= 40; $i++)
+            $periods[] = $i . '-я неделя';
+        $periods[] = 'Роды';
+        foreach ($periods as $p) {
+            $period = new CalendarPeriod;
+            $period->title = $p;
+            $period->calendar = 1;
+            $period->save(false);
+        }
+    }*/
 }

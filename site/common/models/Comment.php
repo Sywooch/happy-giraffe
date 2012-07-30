@@ -177,7 +177,7 @@ class Comment extends HActiveRecord
                 UserNotification::model()->create(UserNotification::NEW_REPLY, array('comment' => $this));
             }
 
-            UserScores::addScores($this->author_id, ScoreActions::ACTION_OWN_COMMENT, 1, array(
+            UserScores::addScores($this->author_id, ScoreAction::ACTION_OWN_COMMENT, 1, array(
                 'id'=>$this->entity_id, 'name'=>$this->entity));
 
             UserAction::model()->add($this->author_id, UserAction::USER_ACTION_COMMENT_ADDED, array('model' => $this));
@@ -234,7 +234,7 @@ class Comment extends HActiveRecord
     {
         Comment::model()->updateByPk($this->id, array('removed' => 1));
 
-        UserScores::removeScores($this->author_id, ScoreActions::ACTION_OWN_COMMENT, 1, array(
+        UserScores::removeScores($this->author_id, ScoreAction::ACTION_OWN_COMMENT, 1, array(
             'id'=>$this->entity_id, 'name'=>$this->entity));
 
         UserNotification::model()->create(UserNotification::DELETED, array('entity' => $this));

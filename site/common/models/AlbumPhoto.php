@@ -163,7 +163,7 @@ class AlbumPhoto extends HActiveRecord
                 $signal->save();
 
                 if (!empty($this->album_id)) {
-                    UserScores::addScores($this->author_id, ScoreActions::ACTION_PHOTO, 1, $this);
+                    UserScores::addScores($this->author_id, ScoreAction::ACTION_PHOTO, 1, $this);
                 }
             }
         }
@@ -176,7 +176,7 @@ class AlbumPhoto extends HActiveRecord
         $this->save(false);
         UserSignal::closeRemoved($this);
         if (!empty($this->album_id)) {
-            UserScores::removeScores($this->author_id, ScoreActions::ACTION_PHOTO, 1, $this);
+            UserScores::removeScores($this->author_id, ScoreAction::ACTION_PHOTO, 1, $this);
         }
         return false;
     }

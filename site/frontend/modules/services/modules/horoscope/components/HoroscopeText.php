@@ -20,6 +20,21 @@ class HoroscopeText
         '12' => 'Рыбы',
     );
 
+    /**
+     * @static
+     * @param Horoscope $zodiac
+     * @return string
+     */
+    public static function getText($zodiac)
+    {
+        if ($zodiac->onYear())
+            return self::getYearText($zodiac->zodiac);
+        if ($zodiac->onMonth())
+            return self::getMonthText($zodiac->zodiac);
+
+        return self::getDateText($zodiac->zodiac, $zodiac->date);
+    }
+
     public static function getDateText($zodiac, $date)
     {
         if ($date == date("Y-m-d")){

@@ -156,42 +156,22 @@
 
                 </div>
 
-
-                <div class="baby-fast-services">
-                    <div class="block-title"><span>Попробуйте!</span> Полезные сервисы</div>
-                    <ul>
-                        <li>
-                            <div class="img"><a href=""><img src="/images/baby_service_img_1.png" /></a></div>
-                            <div class="text">
-                                <div class="item-title"><a href="">Выбор имени для ребенка</a></div>
-                                <p>Сервис поможет выбрать имя для вашего малыша</p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="img"><a href=""><img src="/images/baby_service_img_2.png" /></a></div>
-                            <div class="text">
-                                <div class="item-title"><a href="">Справочник детских болезней</a></div>
-                                <p>Сервис для перевода веса и объема продуктов в понятные для вас меры.</p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="img"><a href=""><img src="/images/baby_service_img_3.png" /></a></div>
-                            <div class="text">
-                                <div class="item-title"><a href="">Календарь прививок ребенка</a></div>
-                                <p>Узнавайте сколько калорий, а также белков, жиров и углеводов в любых </p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="img"><a href=""><img src="/images/baby_service_img_4.png" /></a></div>
-                            <div class="text">
-                                <div class="item-title"><a href="">Тест. В норме ли пупок у вашего малыша?</a></div>
-                                <p>Узнайте в норме ли пупочная ранка вашего малыша на всех стадиях её заживления.</p>
-                            </div>
-                        </li>
-
-                    </ul>
-                </div>
-
+                <?php if ($period->services): ?>
+                    <div class="baby-fast-services">
+                        <div class="block-title"><span>Попробуйте!</span> Полезные сервисы</div>
+                        <ul>
+                            <?php foreach ($period->services as $s): ?>
+                                <li>
+                                    <div class="img"><?=CHtml::link(CHtml::image('/images/baby_service_img_' . $s->id . '.png'), $s->url)?></div>
+                                    <div class="text">
+                                        <div class="item-title"><?=CHtml::link($s->title, $s->url)?></div>
+                                        <p><?=$s->description?></p>
+                                    </div>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                <?php endid; ?>
 
             </div>
 

@@ -344,7 +344,7 @@ class RecipeController extends HController
             }
 
             $feed = $xml->asXML();
-            Yii::app()->cache->set('recipesFeed', $feed, 0, new CDbCacheDependency('SELECT count(*) FROM ' . CookRecipe::model()->tableName()));
+            Yii::app()->cache->set('recipesFeed', $feed, 0, new CExpressionDependency(date('Ymd')));
         }
 
         echo $feed;

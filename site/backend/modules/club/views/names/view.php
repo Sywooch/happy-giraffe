@@ -224,7 +224,7 @@
             if (title != '') {
                 if (model_id == null)
                     $.ajax({
-                        url:'<?php echo Yii::app()->createUrl("club/names/create") ?>',
+                        url:'/club/names/create/',
                         data:{title:title},
                         type:'POST',
                         dataType:'JSON',

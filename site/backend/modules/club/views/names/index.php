@@ -92,7 +92,7 @@ Yii::app()->clientScript->registerScript('names-index-admin',$js);
 </ul>
 <div class="content_block">
     <?php $this->renderPartial('_gender'); ?>
-    <a class="add-btn" href="<?php echo $this->createUrl('club/names/create') ?>" title="Добавить Имя"></a>
+    <a class="add-btn" href="<?php echo $this->createUrl('/club/names/create') ?>" title="Добавить Имя"></a>
 
     <div class="clear"></div>
 

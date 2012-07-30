@@ -123,7 +123,7 @@ class ContestWork extends HActiveRecord
     public function afterSave()
     {
         if ($this->isNewRecord){
-            UserScores::addScores($this->user_id, ScoreActions::ACTION_CONTEST_PARTICIPATION, 1, $this);
+            UserScores::addScores($this->user_id, ScoreAction::ACTION_CONTEST_PARTICIPATION, 1, $this);
         }
 
         parent::afterSave();

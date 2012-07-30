@@ -264,9 +264,9 @@ class CommunityContent extends HActiveRecord
         self::model()->updateByPk($this->id, array('removed' => 1));
 
         if ($this->isFromBlog && count($this->contentAuthor->blogPosts) == 0) {
-            UserScores::removeScores($this->author_id, ScoreActions::ACTION_FIRST_BLOG_RECORD, 1, $this);
+            UserScores::removeScores($this->author_id, ScoreAction::ACTION_FIRST_BLOG_RECORD, 1, $this);
         }else
-            UserScores::removeScores($this->author_id, ScoreActions::ACTION_RECORD, 1, $this);
+            UserScores::removeScores($this->author_id, ScoreAction::ACTION_RECORD, 1, $this);
         //сообщаем пользователю
         UserNotification::model()->create(UserNotification::DELETED, array('entity' => $this));
         //закрываем сигнал
@@ -327,9 +327,9 @@ class CommunityContent extends HActiveRecord
         }
         if ($this->isNewRecord && $this->rubric_id !== null){
             if ($this->isFromBlog && count($this->contentAuthor->blogPosts) == 1) {
-                UserScores::addScores($this->author_id, ScoreActions::ACTION_FIRST_BLOG_RECORD, 1, $this);
+                UserScores::addScores($this->author_id, ScoreAction::ACTION_FIRST_BLOG_RECORD, 1, $this);
             }else
-                UserScores::addScores($this->author_id, ScoreActions::ACTION_RECORD, 1, $this);
+                UserScores::addScores($this->author_id, ScoreAction::ACTION_RECORD, 1, $this);
         }
         if ($this->isNewRecord) {
             if ($this->isFromBlog) {

@@ -9,7 +9,7 @@
  * @property integer $scores_weight
  * @property integer $wait_time
  */
-class ScoreActions extends HActiveRecord
+class ScoreAction extends HActiveRecord
 {
     const ACTION_RECORD = 1;
     const ACTION_YOHOHO_LIKE = 2;
@@ -33,7 +33,7 @@ class ScoreActions extends HActiveRecord
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return ScoreActions the static model class
+	 * @return ScoreAction the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -113,7 +113,7 @@ class ScoreActions extends HActiveRecord
 
     public static function getActionInfo($id)
     {
-        $cache_id = 'ScoreActions' . $id;
+        $cache_id = 'ScoreAction' . $id;
         $value = Yii::app()->cache->get($cache_id);
         if ($value === false) {
             $model = self::model()->findByPk($id);

@@ -399,7 +399,7 @@ class User extends HActiveRecord
             self::clearCache($this->id);
 
             if (!empty($this->relationship_status))
-                UserScores::checkProfileScores($this->id, ScoreActions::ACTION_PROFILE_FAMILY);
+                UserScores::checkProfileScores($this->id, ScoreAction::ACTION_PROFILE_FAMILY);
         }
 
         return true;
@@ -581,8 +581,8 @@ class User extends HActiveRecord
         $friend->user1_id = $this->id;
         $friend->user2_id = $friend_id;
         if ($friend->save()) {
-            UserScores::addScores($this->id, ScoreActions::ACTION_FRIEND, 1, User::getUserById($friend_id));
-            UserScores::addScores($friend_id, ScoreActions::ACTION_FRIEND, 1, $this);
+            UserScores::addScores($this->id, ScoreAction::ACTION_FRIEND, 1, User::getUserById($friend_id));
+            UserScores::addScores($friend_id, ScoreAction::ACTION_FRIEND, 1, $this);
             UserAction::model()->add($this->id, UserAction::USER_ACTION_FRIENDS_ADDED, array('id' => $friend_id));
             UserAction::model()->add($friend_id, UserAction::USER_ACTION_FRIENDS_ADDED, array('id' => $this->id));
             return true;
@@ -616,8 +616,8 @@ class User extends HActiveRecord
     {
         $res = Friend::model()->deleteAll($this->getFriendCriteria($friend_id));
         if ($res != 0) {
-            UserScores::removeScores($friend_id, ScoreActions::ACTION_FRIEND, 1, $this);
-            UserScores::removeScores($this->id, ScoreActions::ACTION_FRIEND, 1, User::model()->findByPk($friend_id));
+            UserScores::removeScores($friend_id, ScoreAction::ACTION_FRIEND, 1, $this);
+            UserScores::removeScores($this->id, ScoreAction::ACTION_FRIEND, 1, User::model()->findByPk($friend_id));
             return true;
         }
 

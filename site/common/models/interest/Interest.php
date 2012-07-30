@@ -127,7 +127,7 @@ class Interest extends HActiveRecord
                     UserAction::model()->add($user_id, UserAction::USER_ACTION_INTERESTS_ADDED, array('id' => $interest_id));
             }
 
-            UserScores::checkProfileScores($user_id, ScoreActions::ACTION_PROFILE_INTERESTS);
+            UserScores::checkProfileScores($user_id, ScoreAction::ACTION_PROFILE_INTERESTS);
         }
     }
 }

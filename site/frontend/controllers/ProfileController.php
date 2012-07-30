@@ -54,7 +54,7 @@ class ProfileController extends HController
                 && !empty($_POST['User']['last_name']) && !empty($_POST['User']['first_name'])
                 && !empty($_POST['User']['birthday'])
             ) {
-                UserScores::checkProfileScores(Yii::app()->user->id, ScoreActions::ACTION_PROFILE_MAIN);
+                UserScores::checkProfileScores(Yii::app()->user->id, ScoreAction::ACTION_PROFILE_MAIN);
             }
             $this->user->attributes = $_POST['User'];
             $this->user->save(true, array('last_name', 'first_name', 'gender', 'email', 'birthday'));

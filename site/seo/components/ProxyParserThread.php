@@ -3,7 +3,7 @@
  * Author: alexk984
  * Date: 01.06.12
  */
-class ProxyParserThread extends CComponent
+class ProxyParserThread
 {
     /**
      * @var Proxy
@@ -27,6 +27,7 @@ class ProxyParserThread extends CComponent
 
     function __construct()
     {
+        sleep(rand(0, 60));
         Yii::import('site.frontend.extensions.phpQuery.phpQuery');
         $this->thread_id = substr(sha1(microtime()), 0, 10);
         $this->getProxy();

@@ -47,9 +47,9 @@ class CalendarPeriod extends HActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('title, text, features, calendar', 'required'),
-			array('calendar', 'numerical', 'integerOnly'=>true),
-			array('title', 'length', 'max'=>255),
+			array('title, text', 'required'),
+            array('title', 'length', 'max' => 255),
+			array('calendar', 'in', 'range' => array(0, 1)),
             array('servicesIds, communitiesIds, contentsText', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -140,15 +140,19 @@ class CalendarPeriod extends HActiveRecord
 
     protected function beforeSave()
     {
-        $this->services = $this->servicesIds;
-        $this->communities = $this->communitiesIds;
-        $urls = explode("\n", $this->contentsText);
-        $ids = array();
-        foreach ($urls as $url) {
-            if (preg_match('#\/community\/(?:\d+)\/forum\/(?:video|post|travel)\/(\d+)#', $url, $matches))
-                $ids[] = $matches[1];
+        if (! empty($this->servicesIds))
+            $this->services = $this->servicesIds;
+        if (! empty($this->communitiesIds))
+            $this->communities = $this->communitiesIds;
+        if (! empty($this->contentsText)) {
+            $urls = explode("\n", $this->contentsText);
+            $ids = array();
+            foreach ($urls as $url) {
+                if (preg_match('#\/community\/(?:\d+)\/forum\/(?:video|post|travel)\/(\d+)#', $url, $matches))
+                    $ids[] = $matches[1];
+            }
+            $this->contents = $ids;
         }
-        $this->contents = $ids;
 
         return parent::beforeSave();
     }

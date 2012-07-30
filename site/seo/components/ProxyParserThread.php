@@ -3,7 +3,7 @@
  * Author: alexk984
  * Date: 01.06.12
  */
-class ProxyParserThread extends CComponent
+class ProxyParserThread
 {
     /**
      * @var Proxy

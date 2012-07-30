@@ -128,14 +128,14 @@ class RecipeBookRecipe extends HActiveRecord
         parent::afterSave();
 
         if ($this->isNewRecord)
-            UserScores::addScores($this->author_id, ScoreActions::ACTION_RECORD, 1, $this);
+            UserScores::addScores($this->author_id, ScoreAction::ACTION_RECORD, 1, $this);
     }
 
     public function afterDelete()
     {
         parent::afterDelete();
 
-        UserScores::removeScores($this->author_id, ScoreActions::ACTION_RECORD, 1, $this);
+        UserScores::removeScores($this->author_id, ScoreAction::ACTION_RECORD, 1, $this);
     }
 
     public function getUrlParams()

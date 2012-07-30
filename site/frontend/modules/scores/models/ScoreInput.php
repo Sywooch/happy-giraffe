@@ -64,7 +64,7 @@ class ScoreInput extends EMongoDocument
             return false;
         }
         //check close task or not
-        $action_info = ScoreActions::getActionInfo($this->action_id);
+        $action_info = ScoreAction::getActionInfo($this->action_id);
         if ($action_info['wait_time'] == 0)
             $this->status = self::STATUS_CLOSED;
 
@@ -99,7 +99,7 @@ class ScoreInput extends EMongoDocument
     public function getActiveScoreInput($user_id, $action_id, $entity)
     {
         //check can we continue active task
-        $action_info = ScoreActions::getActionInfo($action_id);
+        $action_info = ScoreAction::getActionInfo($action_id);
         if ($action_info['wait_time'] == 0)
             return null;
 
@@ -108,19 +108,19 @@ class ScoreInput extends EMongoDocument
         $criteria->action_id('==', (int)$action_id);
         $criteria->status('==', self::STATUS_OPEN);
 
-        if ($action_id == ScoreActions::ACTION_100_VIEWS || $action_id == ScoreActions::ACTION_10_COMMENTS
-            || $action_id == ScoreActions::ACTION_LIKE
+        if ($action_id == ScoreAction::ACTION_100_VIEWS || $action_id == ScoreAction::ACTION_10_COMMENTS
+            || $action_id == ScoreAction::ACTION_LIKE
         ) {
             $criteria->addCond('added_items.0.id', '==', (int)$entity->primaryKey);
             $criteria->addCond('added_items.0.entity', '==', get_class($entity));
         }
 
-        if ($action_id == ScoreActions::ACTION_OWN_COMMENT) {
+        if ($action_id == ScoreAction::ACTION_OWN_COMMENT) {
             $criteria->addCond('added_items.0.id', '==', (int)$entity['id']);
             $criteria->addCond('added_items.0.entity', '==', $entity['name']);
         }
 
-        if ($action_id == ScoreActions::ACTION_PHOTO) {
+        if ($action_id == ScoreAction::ACTION_PHOTO) {
             $criteria->addCond('entity_id', '==', (int)$entity->album_id);
         }
 
@@ -131,14 +131,14 @@ class ScoreInput extends EMongoDocument
             $criteria->action_id('==', (int)$action_id);
             $criteria->status('==', self::STATUS_OPEN);
 
-            if ($action_id == ScoreActions::ACTION_100_VIEWS || $action_id == ScoreActions::ACTION_10_COMMENTS
-                || $action_id == ScoreActions::ACTION_LIKE || $action_id == ScoreActions::ACTION_PHOTO
+            if ($action_id == ScoreAction::ACTION_100_VIEWS || $action_id == ScoreAction::ACTION_10_COMMENTS
+                || $action_id == ScoreAction::ACTION_LIKE || $action_id == ScoreAction::ACTION_PHOTO
             ) {
                 $criteria->addCond('removed_items.0.id', '==', (int)$entity->primaryKey);
                 $criteria->addCond('removed_items.0.entity', '==', get_class($entity));
             }
 
-            if ($action_id == ScoreActions::ACTION_OWN_COMMENT) {
+            if ($action_id == ScoreAction::ACTION_OWN_COMMENT) {
                 $criteria->addCond('removed_items.0.id', '==', (int)$entity['id']);
                 $criteria->addCond('removed_items.0.entity', '==', $entity['name']);
             }
@@ -162,7 +162,7 @@ class ScoreInput extends EMongoDocument
             } else {
                 $this->_entity = $entity;
                 $this->addItemsInAdded($entity->primaryKey, get_class($entity));
-                if ($this->action_id == ScoreActions::ACTION_PHOTO) {
+                if ($this->action_id == ScoreAction::ACTION_PHOTO) {
                     $this->entity_id = (int)$entity->album_id;
                 }
             }
@@ -171,7 +171,7 @@ class ScoreInput extends EMongoDocument
 
     public function addItemsInAdded($entity_id, $entity)
     {
-        if (in_array($this->action_id, array(ScoreActions::ACTION_FRIEND, ScoreActions::ACTION_PHOTO))
+        if (in_array($this->action_id, array(ScoreAction::ACTION_FRIEND, ScoreAction::ACTION_PHOTO))
             || (empty($this->added_items) && empty($this->removed_items))
         ) {
             foreach ($this->added_items as $item) {
@@ -202,7 +202,7 @@ class ScoreInput extends EMongoDocument
                     'entity' => $entity['name'],
                 );
             } else {
-                if (in_array($this->action_id, array(ScoreActions::ACTION_FRIEND, ScoreActions::ACTION_PHOTO))
+                if (in_array($this->action_id, array(ScoreAction::ACTION_FRIEND, ScoreAction::ACTION_PHOTO))
                     || (empty($this->added_items) && empty($this->removed_items))
                 ) {
                     foreach ($this->added_items as $key => $added_item) {
@@ -219,7 +219,7 @@ class ScoreInput extends EMongoDocument
                     );
                 }
 
-                if ($this->action_id == ScoreActions::ACTION_PHOTO) {
+                if ($this->action_id == ScoreAction::ACTION_PHOTO) {
                     $this->entity_id = (int)$entity->album_id;
                 }
             }
@@ -233,8 +233,8 @@ class ScoreInput extends EMongoDocument
      */
     public static function CheckOnClose()
     {
-        $scoreActions = ScoreActions::model()->findAll('wait_time > 0');
-        foreach ($scoreActions as $action) {
+        $ScoreAction = ScoreAction::model()->findAll('wait_time > 0');
+        foreach ($ScoreAction as $action) {
             $criteria = new EMongoCriteria;
             $criteria->status('==', self::STATUS_OPEN);
             $criteria->action_id('==', (int)$action->id);
@@ -263,26 +263,26 @@ class ScoreInput extends EMongoDocument
     public function getIconName()
     {
         switch ($this->action_id) {
-            case ScoreActions::ACTION_FIRST_BLOG_RECORD:
-            case ScoreActions::ACTION_RECORD:
+            case ScoreAction::ACTION_FIRST_BLOG_RECORD:
+            case ScoreAction::ACTION_RECORD:
                 if ($this->amount > 0)
                     return 'icon-post';
                 return 'icon-post-d';
-            case ScoreActions::ACTION_10_COMMENTS:
-            case ScoreActions::ACTION_OWN_COMMENT:
+            case ScoreAction::ACTION_10_COMMENTS:
+            case ScoreAction::ACTION_OWN_COMMENT:
                 if ($this->amount > 0)
                     return 'icon-comments';
                 return 'icon-comment-d';
-            case ScoreActions::ACTION_100_VIEWS:
+            case ScoreAction::ACTION_100_VIEWS:
                 return 'icon-views';
-            case ScoreActions::ACTION_PROFILE_PHOTO:
-            case ScoreActions::ACTION_PROFILE_FAMILY:
-            case ScoreActions::ACTION_PROFILE_INTERESTS:
-            case ScoreActions::ACTION_PROFILE_MAIN:
+            case ScoreAction::ACTION_PROFILE_PHOTO:
+            case ScoreAction::ACTION_PROFILE_FAMILY:
+            case ScoreAction::ACTION_PROFILE_INTERESTS:
+            case ScoreAction::ACTION_PROFILE_MAIN:
                 return 'icon-ava';
-            case ScoreActions::ACTION_PHOTO:
+            case ScoreAction::ACTION_PHOTO:
                 return 'icon-photo';
-            case ScoreActions::ACTION_FRIEND:
+            case ScoreAction::ACTION_FRIEND:
                 return 'icon-friends';
         }
 
@@ -306,60 +306,60 @@ class ScoreInput extends EMongoDocument
     {
         $text = '';
         switch ($this->action_id) {
-            case ScoreActions::ACTION_PROFILE_PHOTO:
+            case ScoreAction::ACTION_PROFILE_PHOTO:
                 $text = 'Вы <span>Добавили фото</span> в личной анкете';
                 break;
-            case ScoreActions::ACTION_PROFILE_FAMILY:
+            case ScoreAction::ACTION_PROFILE_FAMILY:
                 $text = 'Вы заполнили данные <span>Семья</span> в личной анкете';
                 break;
-            case ScoreActions::ACTION_PROFILE_INTERESTS:
+            case ScoreAction::ACTION_PROFILE_INTERESTS:
                 $text = 'Вы заполнили данные <span>Интересы</span> в личной анкете';
                 break;
-            case ScoreActions::ACTION_PROFILE_MAIN:
+            case ScoreAction::ACTION_PROFILE_MAIN:
                 $text = 'Вы заполнили данные <span>Личная информация</span> в личной анкете';
                 break;
 
-            case ScoreActions::ACTION_RECORD:
+            case ScoreAction::ACTION_RECORD:
                 $text = $this->getArticleText();
                 break;
-            case ScoreActions::ACTION_FIRST_BLOG_RECORD:
+            case ScoreAction::ACTION_FIRST_BLOG_RECORD:
                 $text = $this->getArticleText();
                 break;
 
-            case ScoreActions::ACTION_VISIT:
+            case ScoreAction::ACTION_VISIT:
                 $text = $this->getVisitText();
                 break;
-            case ScoreActions::ACTION_5_DAYS_ATTEND:
+            case ScoreAction::ACTION_5_DAYS_ATTEND:
                 $text = 'За посещение сайта в течение 5 дней подряд';
                 break;
-            case ScoreActions::ACTION_20_DAYS_ATTEND:
+            case ScoreAction::ACTION_20_DAYS_ATTEND:
                 $text = 'За посещение сайта в течение 20 дней подряд';
                 break;
 
-            case ScoreActions::ACTION_OWN_COMMENT:
+            case ScoreAction::ACTION_OWN_COMMENT:
                 $text = $this->getOwnCommentText();
                 break;
 
-            case ScoreActions::ACTION_FRIEND:
+            case ScoreAction::ACTION_FRIEND:
                 $text = $this->getFriendsText();
                 break;
 
-            case ScoreActions::ACTION_10_COMMENTS:
+            case ScoreAction::ACTION_10_COMMENTS:
                 $text = '';
                 break;
-            case ScoreActions::ACTION_100_VIEWS:
+            case ScoreAction::ACTION_100_VIEWS:
                 $text = $this->getViewsArticleText();
                 break;
 
-            case ScoreActions::ACTION_PHOTO:
+            case ScoreAction::ACTION_PHOTO:
                 $text = $this->getPhotoText();
                 break;
 
-            case ScoreActions::ACTION_LIKE:
+            case ScoreAction::ACTION_LIKE:
                 $text = $this->getRatingText();
                 break;
 
-            case ScoreActions::ACTION_CONTEST_PARTICIPATION:
+            case ScoreAction::ACTION_CONTEST_PARTICIPATION:
                 $text = 'Вы приняли участие в конкурсе';
                 break;
         }
@@ -398,7 +398,7 @@ class ScoreInput extends EMongoDocument
 
         if ($model === null)
             return '';
-        if ($this->action_id == ScoreActions::ACTION_FIRST_BLOG_RECORD)
+        if ($this->action_id == ScoreAction::ACTION_FIRST_BLOG_RECORD)
             if ($this->amount > 0)
                 $record_title = 'первую запись ';
             else

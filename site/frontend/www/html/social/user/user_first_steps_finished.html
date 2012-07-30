@@ -569,65 +569,23 @@
 						
 						<div id="first-steps">
 							
-							<div class="block-title">
+							<div class="finished">
 								
-								<div class="right">
-									<div class="bonus">
-										бонус <img src="/images/first_steps_bonus.png" />
+								<div class="finished-title">Поздравляем!</div>
+								
+								<p>Теперь вы являетесь полноправным пользователем нашего сайта</p>
+								
+								<div class="bonus">
+									Ваш бонус
+									<img src="/images/first_steps_bonus_large.png" />
+									<div class="change">
+										<a href="">Обменять на опции сейчас</a><br/>
+										<span>или <a href="">Обменять позже</a></span>
 									</div>
-									<a href="javascript:void(0);" class="toggler toggled" data-title="Осталось шагов: 4" data-close="Свернуть" onclick="firstStepsToggle(this);"><span>Свернуть</span><i class="icon"></i></a>
 								</div>
-								
-								<div class="title-in">Ваши первые шаги</div>
 								
 							</div>
 							
-							<div class="block-in clearfix">
-								
-								<div class="container clearfix">
-									<div class="steps-list">
-										<ul>
-											<li class="strike">
-												<div class="num">Шаг 1</div>
-												<div class="text"><a href="#firstStepsEmail" class="fancy">Подтвердите ваш e-mail</a></div>
-												<div class="done"><i class="icon"></i>Сделано</div>
-											</li>
-											<li>
-												<div class="num">Шаг 2</div>
-												<div class="text"><a href="#firstStepsBirthday" class="fancy">Укажите вашу дату рождения</a></div>
-											</li>
-											<li>
-												<div class="num">Шаг 3</div>
-												<div class="text"><a href="#firstStepsLocation" class="fancy">Укажите ваше место жительства</a></div>
-											</li>
-											<li>
-												<div class="num">Шаг 4</div>
-												<div class="text"><a href="">Загрузите ваше главное фото</a></div>
-											</li>
-											<li>
-												<div class="num">Шаг 5</div>
-												<div class="text"><a href="">Расскажите о вашей семье</a></div>
-											</li>
-											<li>
-												<div class="num">Шаг 6</div>
-												<div class="text"><a href="">Укажите ваши интересы</a></div>
-											</li>
-											
-										</ul>
-									</div>
-									
-									<div class="info">
-										<p><span>6 шагов</span> и вы сможете пользоваться всеми функциями сайта</p>
-										<div class="bonus">
-											<div class="bonus-left">
-												<img src="/images/first_steps_bonus_plus.png" /> от нас бонусна 
-												<span>дополнительные опции сайта</span>
-											</div>
-											<img src="/images/first_steps_bonus_big.png" />
-										</div>
-									</div>
-								</div>
-							</div>							
 						</div>
 						
 						
@@ -1123,7 +1081,6 @@
 		f
 	</div>
 <div style="display:none">
-	
 	<div id="login" class="popup">
 		
 		<a href="javascript:void(0);" onclick="$.fancybox.close();" class="popup-close"><span class="tip">Закрыть</span></a>
@@ -1660,115 +1617,7 @@
 		
 	</div>
 	
-	<div id="firstStepsBirthday" class="popup">
-		
-		<div class="clearfix">
-			
-			<div class="left">
-				<img src="/images/first_steps_birthday.png" />
-			</div>
-			
-			<div class="right">
-				
-				<div class="title">Укажите вашу дату рождения</div>
-				
-				<div class="select-box">
-					Дата рождения:
-					<span class="chzn-v2">
-						<select class="chzn w-1"><option>28</option></select>
-					</span>
-					<span class="chzn-v2">
-						<select class="chzn w-2"><option>января</option></select>
-					</span>
-					<span class="chzn-v2">
-						<select class="chzn w-3"><option>1973</option></select>
-					</span>
-					
-				</div>
-				
-				<span class="hl">И мы подарим вам виджет с гороскопом на каждый день!</span>
-				
-			</div>
-			
-		</div>	
-		
-		<div class="bottom">
-			<button class="btn btn-green-medium"><span><span>Сохранить</span></span></button>
-		</div>
-		
-	</div>
-  
-	<div id="firstStepsLocation" class="popup">
-		
-		<div class="clearfix">
-			
-			<div class="left">
-				<img src="/images/first_steps_location.png" />
-			</div>
-			
-			<div class="right">
-				
-				<div class="title">Укажите ваше место жительства!</div>
-				
-				<div class="select-box">
-					<div class="row">
-						Место жительства:<br/>
-						<span class="chzn-v2">
-							<select class="chzn w-1" data-placeholder="Страна"><option>28</option></select>
-						</span>
-						&nbsp;&nbsp;
-						<span class="chzn-v2">
-							<select class="chzn w-2" data-placeholder="Регион"><option>28</option></select>
-						</span>					
-					</div>
-					<div class="row">
-						Населенный пункт:<br/>
-						<input type="text" class="w-3" />
-						<br/>
-						<small>Введите свой город, поселок, село или деревню</small>
-					</div>
-										
-				</div>
-				
-				<span class="hl">Наш подарок: виджет с погодой на каждый день!</span>
-				
-			</div>
-			
-		</div>	
-		
-		<div class="bottom">
-			<button class="btn btn-green-medium"><span><span>Сохранить</span></span></button>
-		</div>
-		
-	</div>
-  
-	<div id="firstStepsEmail" class="popup">
-		
-		<div class="clearfix">
-			
-			<div class="left">
-				<img src="/images/first_steps_email.png" />
-			</div>
-			
-			<div class="right">
-				
-				<div class="title">Вам отправлено письмо!</div>
-				
-				<p>Мы отправили вам письмо, для <br/> <span class="hl">подтверждения адреса электронной почты</span></p>
-				
-				<p>Просим вас открыть ваш почтовый ящик,<br/> <span class="hl">найти наше письмо и нажать на кнопку <span>«Подтвердить e-mail»</span></span></p>
-				
-				<p>Если вы не обнаружили письмо, <span class="note">*</span><br/> мы можем отправить его еще раз <a href="" class="orange">Отправить письмо</a></p>
-				
-			</div>
-			
-		</div>	
-		
-		<div class="bottom">
-			<div><span class="note">*</span> Просим вас проверить папку "Спам"</div>
-		</div>
-		
-	</div>
+	
   
 </div>
 </body>

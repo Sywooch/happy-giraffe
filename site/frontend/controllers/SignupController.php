@@ -66,6 +66,9 @@ class SignupController extends HController
 		if(isset($_POST['User']))
 		{
 			$model->attributes=$_POST['User'];
+            if (isset($_POST['User']['day']) && isset($_POST['User']['month']) && isset($_POST['User']['year'])){
+               $model->birthday = $_POST['User']['year'].'-'.str_pad($_POST['User']['month'], 2, '0', STR_PAD_LEFT).'-'.str_pad($_POST['User']['day'], 2, '0', STR_PAD_LEFT);
+            }
 			$current_service = $session['service'];
 			if ($current_service)
 			{
@@ -125,7 +128,16 @@ class SignupController extends HController
                 $model->login_date = date('Y-m-d H:i:s');
                 $model->last_ip = $_SERVER['REMOTE_ADDR'];
                 $model->save(false);
-                echo CJSON::encode(array(
+
+                $redirectUrl = Yii::app()->user->getState('redirectUrl');
+                if (!empty($redirectUrl) && strpos($redirectUrl, 'http://www.happy-giraffe.ru/horoscope/') === false){
+                    $url = $redirectUrl;
+                    Yii::app()->user->setState('redirectUrl', null);
+                }
+                else
+                    $url = Yii::app()->request->getQuery('redirectUrl');
+
+                    echo CJSON::encode(array(
                     'status' => true,
                     'profile'=>$model->getUrl()
                 ));

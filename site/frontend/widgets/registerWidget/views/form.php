@@ -33,8 +33,11 @@ if (Yii::app()->controller->registerUserData !== null){
     <div id="register" class="popup">
     <a href="javascript:void(0);" class="popup-close tooltip" onclick="$.fancybox.close();"></a>
         <div class="reg1">
-
-            <div class="block-title"><img src="/images/bg_register_title.png" />Регистрация на Веселом Жирафе</div>
+            <?php if (Yii::app()->controller->module->id == 'services/horoscope'): ?>
+                <div class="block-title" style="text-align:center;">Хочу гороскоп каждый день</div>
+            <?php else: ?>
+                <div class="block-title"><img src="/images/bg_register_title.png" />Регистрация на Веселом Жирафе</div>
+            <?php endif; ?>
 
             <div class="hl">
                 <span>Стань полноправным участником сайта за 1 минуту!</span>
@@ -115,10 +118,18 @@ if (Yii::app()->controller->registerUserData !== null){
 
             <div class="register-form">
 
-                <div class="block-title">Вы уже почти с нами!</div>
+                <?php if (Yii::app()->controller->module->id == 'services/horoscope'): ?>
+                    <div class="block-title">Ваш гороскоп почти готов!</div>
+                <?php else: ?>
+                    <div class="block-title">Вы уже почти с нами!</div>
+                <?php endif; ?>
 
                 <div class="hl">
-                    <span>Осталось ввести ваши имя, фамилию и пароль</span>
+                    <?php if (Yii::app()->controller->module->id != 'services/horoscope'):?>
+                        <span>Осталось ввести ваши имя, фамилию и пароль</span>
+                    <?php else: ?>
+                        <span>Осталось ввести ваши имя, фамилию, дату рождения и пароль</span>
+                    <?php endif ?>
                 </div>
 
                 <div class="clearfix">
@@ -129,7 +140,6 @@ if (Yii::app()->controller->registerUserData !== null){
 
                     </div>
 
-                    <?php if (isset($regdata['birthday'])) echo $form->hiddenField($model, 'birthday', array('value' => $regdata['birthday'])); ?>
                     <?php if (isset($regdata['avatar'])) echo $form->hiddenField($model, 'avatar', array('value' => $regdata['avatar'])); ?>
 
                     <div class="form-in">
@@ -186,21 +196,52 @@ if (Yii::app()->controller->registerUserData !== null){
                             </div>
                         </div>
 
+                        <?php if (Yii::app()->controller->module->id == 'services/horoscope'):?>
+                            <div class="row clearfix row-date">
+                                <div class="row-title">
+                                    <label>Пол:</label>
+                                </div>
+                                <div class="row-elements">
+                                    <?php echo $form->radioButtonList($model, 'gender', array(1 => 'Мужской', 0 => 'Женский'), array(
+                                    'template'=>'{input}{label}',
+                                    'separator'=>'',
+                                )); ?>
+                                </div>
+
+                                <div class="row-elements">
+                                    <?php echo $form->dropDownList($model, 'day', range(1,31), array('class'=>'nchzn', 'empty'=>' ')); ?>
+                                    <?php echo $form->dropDownList($model, 'month', HDate::ruMonths(), array('class'=>'nchzn', 'empty'=>' ')); ?>
+                                    <?php echo $form->dropDownList($model, 'year', range(2012,1900), array('class'=>'nchzn', 'empty'=>' ')); ?>
+                                    <div style="display: none;">
+                                        <?php echo $form->error($model, 'day'); ?>
+                                        <?php echo $form->error($model, 'month'); ?>
+                                        <?php echo $form->error($model, 'year'); ?>
+                                    </div>
+                                </div>
+                                <div class="row-error">
+                                    <i class="error-ok"></i>
+                                    <?php echo $form->error($model, 'gender'); ?>
+                                </div>
+                            </div>
+                        <?php else: ?>
+                        <?php if (isset($regdata['birthday'])) echo $form->hiddenField($model, 'birthday', array('value' => $regdata['birthday'])); ?>
+
                         <div class="row clearfix">
-                            <div class="row-title">
-                                <label>Пол:</label>
+                                <div class="row-title">
+                                    <label>Пол:</label>
+                                </div>
+                                <div class="row-elements">
+                                    <?php echo $form->radioButtonList($model, 'gender', array(1 => 'Мужской', 0 => 'Женский'), array(
+                                    'template'=>'{input}{label}',
+                                    'separator'=>'',
+                                )); ?>
+                                </div>
+                                <div class="row-error">
+                                    <i class="error-ok"></i>
+                                    <?php echo $form->error($model, 'gender'); ?>
+                                </div>
                             </div>
-                            <div class="row-elements">
-                                <?php echo $form->radioButtonList($model, 'gender', array(1 => 'Мужской', 0 => 'Женский'), array(
-                                'template'=>'{input}{label}',
-                                'separator'=>'',
-                            )); ?>
-                            </div>
-                            <div class="row-error">
-                                <i class="error-ok"></i>
-                                <?php echo $form->error($model, 'gender'); ?>
-                            </div>
-                        </div>
+                        <?php endif ?>
 
                         <div class="row clearfix">
                             <input type="submit" value="Регистрация">
@@ -225,7 +266,13 @@ if (Yii::app()->controller->registerUserData !== null){
 
             <div class="ava"<?php if (!isset($regdata['avatar'])) echo ' style="display:none;"' ?>></div>
 
-            <div class="preparing">Мы готовим для вас личную страницу <span><span id="reg_timer">3</span> сек.</span></div>
+            <div class="preparing">
+                <?php if (Yii::app()->controller->module->id == 'services/horoscope'):?>
+                    Мы готовим для вас гороскоп
+                <?php else: ?>
+                    Мы готовим для вас личную страницу
+                <?php endif ?>
+                <span><span id="reg_timer">3</span> сек.</span></div>
 
         </div>
 

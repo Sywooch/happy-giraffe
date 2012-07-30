@@ -132,7 +132,7 @@ class UserScores extends HActiveRecord
     {
         //проверяем нужно ли добавить действие к существующему такому же, которое было недавно
         $input = ScoreInput::model()->getActiveScoreInput($user_id, $action_id, $entity);
-        $score_value = ScoreActions::getActionScores($action_id);
+        $score_value = ScoreAction::getActionScores($action_id);
 
         if ($input === null) {
             $input = new ScoreInput();
@@ -155,7 +155,7 @@ class UserScores extends HActiveRecord
     {
         //проверяем нужно ли удалить действие из существующего такого же, которое было недавно
         $input = ScoreInput::model()->getActiveScoreInput($user_id, $action_id, $entity);
-        $score_value = ScoreActions::getActionScores($action_id);
+        $score_value = ScoreAction::getActionScores($action_id);
 
         if ($input === null) {
             $input = new ScoreInput();
@@ -185,10 +185,10 @@ class UserScores extends HActiveRecord
 
                 $diff = floor($value / 10) - floor($prev / 10);
                 if ($diff >= 1) {
-                    self::addScores($entity->author_id, ScoreActions::ACTION_10_COMMENTS, $diff, $entity);
+                    self::addScores($entity->author_id, ScoreAction::ACTION_10_COMMENTS, $diff, $entity);
                 }
                 if ($diff <= -1) {
-                    self::removeScores($entity->author_id, ScoreActions::ACTION_10_COMMENTS, abs($diff), $entity);
+                    self::removeScores($entity->author_id, ScoreAction::ACTION_10_COMMENTS, abs($diff), $entity);
                 }
             } elseif ($social_key == 'vw') {
                 if (isset($model->ratings[$social_key]))
@@ -198,10 +198,10 @@ class UserScores extends HActiveRecord
 
                 $diff = floor($value / 100) - floor($prev / 100);
                 if ($diff >= 1) {
-                    self::addScores($entity->author_id, ScoreActions::ACTION_100_VIEWS, $diff, $entity);
+                    self::addScores($entity->author_id, ScoreAction::ACTION_100_VIEWS, $diff, $entity);
                 }
                 if ($diff <= -1) {
-                    self::removeScores($entity->author_id, ScoreActions::ACTION_100_VIEWS, abs($diff), $entity);
+                    self::removeScores($entity->author_id, ScoreAction::ACTION_100_VIEWS, abs($diff), $entity);
                 }
             }
         }
@@ -226,9 +226,9 @@ class UserScores extends HActiveRecord
 
             $criteria = new EMongoCriteria;
             $criteria->addCond('user_id', '==', (int)$user_id);
-            $criteria->addCond('action_id', 'in', array(ScoreActions::ACTION_PROFILE_MAIN,
-                ScoreActions::ACTION_PROFILE_PHOTO, ScoreActions::ACTION_PROFILE_FAMILY,
-                ScoreActions::ACTION_PROFILE_INTERESTS));
+            $criteria->addCond('action_id', 'in', array(ScoreAction::ACTION_PROFILE_MAIN,
+                ScoreAction::ACTION_PROFILE_PHOTO, ScoreAction::ACTION_PROFILE_FAMILY,
+                ScoreAction::ACTION_PROFILE_INTERESTS));
             $profile_count = ScoreInput::model()->count($criteria);
             if ($profile_count == 4) {
                 $model->full = 1;

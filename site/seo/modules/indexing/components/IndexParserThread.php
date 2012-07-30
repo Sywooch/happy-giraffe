@@ -75,7 +75,7 @@ class IndexParserThread extends ProxyParserThread
 
     private function loadYandexPage()
     {
-        $content = $this->query('http://yandex.ru/yandsearch?text=' . urlencode('site:' . $this->url->url) . '&zone=all&numdoc=' . $this->perPage() . '&lr=38&lang=ru');
+        $content = $this->query('http://yandex.ru/yandsearch?text=' . urlencode('url:' . $this->url->url) . '&numdoc=' . $this->perPage() . '&searchid=1883818&lr=38');
 
         if (strpos($content, 'Искомая комбинация слов нигде не встречается') !== false)
             return array();

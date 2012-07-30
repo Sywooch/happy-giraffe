@@ -7,6 +7,7 @@
  * @property string $id
  * @property string $title
  * @property string $description
+ * @property string $url
  *
  * The followings are the available model relations:
  * @property CalendarPeriodsServices[] $calendarPeriodsServices
@@ -39,11 +40,11 @@ class Service extends HActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('title, description', 'required'),
-			array('title', 'length', 'max'=>255),
+			array('title, description, url', 'required'),
+			array('title, url', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, title, description', 'safe', 'on'=>'search'),
+			array('id, title, description, url', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -66,8 +67,9 @@ class Service extends HActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'title' => 'Title',
-			'description' => 'Description',
+			'title' => 'Название',
+			'description' => 'Описание',
+			'url' => 'Ссылка',
 		);
 	}
 
@@ -85,6 +87,7 @@ class Service extends HActiveRecord
 		$criteria->compare('id',$this->id,true);
 		$criteria->compare('title',$this->title,true);
 		$criteria->compare('description',$this->description,true);
+		$criteria->compare('url',$this->url,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

@@ -43,7 +43,8 @@ ALTER TABLE `calendar__periods_communities` ADD FOREIGN KEY ( `community_id` ) R
         $this->execute("CREATE TABLE `happy_giraffe`.`services` (
 `id` INT( 11 ) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY ,
 `title` VARCHAR( 255 ) NOT NULL ,
-`description` TEXT NOT NULL
+`description` TEXT NOT NULL ,
+`url` VARCHAR( 255 ) NOT NULL
 ) ENGINE = InnoDB;
 ");
         $this->execute("CREATE TABLE `happy_giraffe`.`calendar__periods_services` (
@@ -141,6 +142,17 @@ VALUES (
 (66, '39-я неделя', '', NULL, 1),
 (67, '40-я неделя', '', NULL, 1),
 (68, 'Роды', '', NULL, 1);");
+        $this->execute("INSERT INTO `happy_giraffe`.`auth__items` (
+`name` ,
+`type` ,
+`description` ,
+`bizrule` ,
+`data`
+)
+VALUES (
+'services', '0', 'Управление сервисами', NULL , NULL
+);");
+
 	}
 
 	public function down()

@@ -423,28 +423,29 @@ class ParseController extends SController
 
     public function actionEncode()
     {
-        $site_id = 4;
+        $sites = array(5, 6);
+        foreach ($sites as $site_id) {
+            $criteria = new CDbCriteria;
+            $criteria->compare('site_id', $site_id);
+            $criteria->limit = 100;
+            $criteria->offset = 0;
+            $criteria->with = array('keyword');
 
-        $criteria = new CDbCriteria;
-        $criteria->compare('site_id', $site_id);
-        $criteria->limit = 100;
-        $criteria->offset = 0;
-        $criteria->with = array('keyword');
+            $i = 0;
+            $models = array(0);
+            while (!empty($models)) {
+                $models = SiteKeywordVisit::model()->findAll($criteria);
 
-        $i = 0;
-        $models = array(0);
-        while (!empty($models)) {
-            $models = SiteKeywordVisit::model()->findAll($criteria);
+                foreach ($models as $model) {
+                    $model2 = new SitesKeywordsVisit2();
+                    $model2->attributes = $model->attributes;
+                    $model2->keyword = $model->keyword->name;
+                    $model2->save();
+                }
 
-            foreach ($models as $model) {
-                $model2 = new SitesKeywordsVisit2();
-                $model2->attributes = $model->attributes;
-                $model2->keyword = $model->keyword->name;
-                $model2->save();
+                $i++;
+                $criteria->offset = $i * 100;
             }
-
-            $i++;
-            $criteria->offset = $i * 100;
         }
     }
 

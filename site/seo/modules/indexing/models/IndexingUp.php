@@ -96,6 +96,14 @@ class IndexingUp extends HActiveRecord
         );
     }
 
+    public function beforeSave()
+    {
+        $exist = self::model()->find('date = "'.$this->date.'"');
+        if ($exist !== null)
+            return false;
+        return parent::beforeSave();
+    }
+
     public function getUrls($plus)
     {
         $prev_up = $this->getPrevUp();

@@ -12,7 +12,7 @@ class IndexParserThread extends ProxyParserThread
     /**
      * @var int search engine id
      */
-    protected $pages = 5;
+    protected $pages = 50;
     public $up_id = null;
 
     function __construct()

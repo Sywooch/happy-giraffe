@@ -1,21 +1,27 @@
 <?php
 
 /**
- * This is the model class for table "recipe_book__ingredients".
+ * This is the model class for table "recipe_book__recipes_ingredients".
  *
- * The followings are the available columns in table 'recipe_book__ingredients':
+ * The followings are the available columns in table 'recipe_book__recipes_ingredients':
  * @property string $id
- * @property string $title
+ * @property string $recipe_id
+ * @property string $unit_id
+ * @property string $ingredient_id
+ * @property string $value
+ * @property string $display_value
  *
  * The followings are the available model relations:
- * @property RecipeBookRecipesIngredients[] $recipeBookRecipesIngredients
+ * @property RecipeBookIngredients $ingredient
+ * @property RecipeBookRecipes $recipe
+ * @property RecipeBookUnits $unit
  */
-class RecipeBookIngredient extends HActiveRecord
+class RecipeBookRecipeIngredient extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return RecipeBookIngredient the static model class
+	 * @return RecipeBookRecipeIngredient the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -27,7 +33,7 @@ class RecipeBookIngredient extends HActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'recipe_book__ingredients';
+		return 'recipe_book__recipes_ingredients';
 	}
 
 	/**
@@ -38,11 +44,12 @@ class RecipeBookIngredient extends HActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('title', 'required'),
-			array('title', 'length', 'max'=>255),
+			array('recipe_id, unit_id, ingredient_id, value, display_value', 'required'),
+			array('recipe_id, unit_id, ingredient_id', 'length', 'max'=>11),
+			array('value, display_value', 'length', 'max'=>6),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, title', 'safe', 'on'=>'search'),
+			array('id, recipe_id, unit_id, ingredient_id, value, display_value', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -54,7 +61,9 @@ class RecipeBookIngredient extends HActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'recipeBookRecipesIngredients' => array(self::HAS_MANY, 'RecipeBookRecipesIngredients', 'ingredient_id'),
+			'ingredient' => array(self::BELONGS_TO, 'RecipeBookIngredient', 'ingredient_id'),
+			'recipe' => array(self::BELONGS_TO, 'RecipeBookRecipe', 'recipe_id'),
+			'unit' => array(self::BELONGS_TO, 'RecipeBookUnit', 'unit_id'),
 		);
 	}
 
@@ -65,7 +74,11 @@ class RecipeBookIngredient extends HActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'title' => 'Title',
+			'recipe_id' => 'Recipe',
+			'unit_id' => 'Unit',
+			'ingredient_id' => 'Ingredient',
+			'value' => 'Value',
+			'display_value' => 'Display Value',
 		);
 	}
 
@@ -81,7 +94,11 @@ class RecipeBookIngredient extends HActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id,true);
-		$criteria->compare('title',$this->title,true);
+		$criteria->compare('recipe_id',$this->recipe_id,true);
+		$criteria->compare('unit_id',$this->unit_id,true);
+		$criteria->compare('ingredient_id',$this->ingredient_id,true);
+		$criteria->compare('value',$this->value,true);
+		$criteria->compare('display_value',$this->display_value,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

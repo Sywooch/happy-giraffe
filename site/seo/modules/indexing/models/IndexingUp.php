@@ -127,8 +127,9 @@ class IndexingUp extends HActiveRecord
     public function getPrevUp()
     {
         $criteria = new CDbCriteria;
-        $criteria->order = 'id desc';
-        $criteria->condition = ' id < ' . $this->id;
+        $criteria->order = 't.id desc';
+        $criteria->condition = ' t.id < ' . $this->id;
+        $criteria->with = array('urls', 'urls.url');
 
         return IndexingUp::model()->find($criteria);
     }

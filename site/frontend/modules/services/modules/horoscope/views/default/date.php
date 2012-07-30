@@ -51,14 +51,12 @@
 
     </div>
 
-
-
 </div>
 
 <?php $this->renderPartial('_bottom_list',array('model'=>$model)); ?>
 
 <div class="wysiwyg-content">
 
-    <?=HoroscopeText::getDateText($model->zodiac, $model->date); ?>
+    <?=HoroscopeText::getText($model); ?>
 
 </div>

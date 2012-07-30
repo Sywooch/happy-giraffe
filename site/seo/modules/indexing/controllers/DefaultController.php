@@ -15,7 +15,7 @@ class DefaultController extends SController
 
     public function actionIndex($up_id = null)
     {
-        if ($up_id == null)
+        if (empty($up_id))
             $up = IndexingUp::model()->find();
         else
             $up = $this->loadUp($up_id);

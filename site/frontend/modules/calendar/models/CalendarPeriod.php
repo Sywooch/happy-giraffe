@@ -67,6 +67,7 @@ class CalendarPeriod extends HActiveRecord
 		return array(
 			'communities' => array(self::MANY_MANY, 'Community', 'calendar__periods_communities(period_id, community_id)'),
 			'contents' => array(self::MANY_MANY, 'CommunityContent', 'calendar__periods_contents(period_id, content_id)'),
+            'randomContents' => array(self::MANY_MANY, 'CommunityContent', 'calendar__periods_contents(period_id, content_id)', 'order' => 'RAND()', 'limit' => 5, 'scopes' => array('full')),
 			'services' => array(self::MANY_MANY, 'Service', 'calendar__periods_services(period_id, service_id)'),
 		);
 	}
@@ -155,5 +156,46 @@ class CalendarPeriod extends HActiveRecord
         }
 
         return parent::beforeSave();
+    }
+
+    public function getUrlParams()
+    {
+        return array(
+            '/calendar/default/index',
+            array(
+                'calendar' => $this->calendar,
+                'period_id' => $this->id,
+            ),
+        );
+    }
+
+    public function getUrl($absolute = false)
+    {
+        list($route, $params) = $this->urlParams;
+
+        $method = $absolute ? 'createAbsoluteUrl' : 'createUrl';
+        return Yii::app()->$method($route, $params);
+    }
+
+    public function getNext()
+    {
+        return $this->find(
+            array(
+                'condition' => 'calendar = :calendar AND id > :id',
+                'params' => array(':calendar' => $this->calendar, ':id' => $this->id),
+                'order' => 't.id',
+            )
+        );
+    }
+
+    public function getPrev()
+    {
+        return $this->find(
+            array(
+                'condition' => 'calendar = :calendar AND id < :id',
+                'params' => array(':calendar' => $this->calendar, ':id' => $this->id),
+                'order' => 't.id DESC',
+            )
+        );
     }
 }

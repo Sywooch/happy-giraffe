@@ -13,7 +13,8 @@ class RegisterWidget extends CWidget
             }
             if (strpos(Yii::app()->getRequest()->urlReferrer, 'http://'.$_SERVER['HTTP_HOST']) === false) {
                 //чел пришел с другого сайта, предлагаем зарегаться
-                $this->show_form = true;
+                if (Yii::app()->controller->module->id == 'services/horoscope')
+                    $this->show_form = true;
             }
             $model = new User;
             $this->render('form', array('model' => $model, 'show_form' => $this->show_form));

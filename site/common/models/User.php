@@ -73,6 +73,9 @@ class User extends HActiveRecord
     public $commentatorsRate;
     public $interestsCount;
     public $babiesCount;
+    public $day;
+    public $month;
+    public $year;
 
     public $women_rel = array(
         1 => 'Замужем',

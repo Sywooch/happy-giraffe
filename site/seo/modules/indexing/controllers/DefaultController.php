@@ -38,4 +38,17 @@ class DefaultController extends SController
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
         return $model;
     }
+
+    public function actionTest(){
+        Yii::import('site.frontend.extensions.phpQuery.phpQuery');
+        $content = <<<EOD
+EOD;
+        $document = phpQuery::newDocument($content);
+
+        $el = $document->find('div.b-bottom-wizard div.b-pager span.b-pager__arrow:eq(1)');
+        if (pq($el)->hasClass('b-pager__inactive'))
+            echo 1;
+        else
+            echo 0;
+    }
 }

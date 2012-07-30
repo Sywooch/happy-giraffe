@@ -161,6 +161,7 @@ a.info {display:inline-block;width:13px;height:13px;background:url(../images/com
 
 .ava.big {width:240px;height:240px;background-position:0 -480px;}
 .ava.big, .ava.big img {/*css3*/ -moz-border-radius:0px;-webkit-border-radius:0px;border-radius:0px;}
+.ava.big img {width:auto;height:auto;}
 .ava.big.female {background-position:0 -240px;}
 .ava.big.male {background-position:0 0;}
 

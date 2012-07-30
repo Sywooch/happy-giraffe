@@ -58,12 +58,14 @@ if ($this->type == 'guestBook') {
         'summaryText' => 'показано: {start} - {end} из {count}',
         'afterAjaxUpdate' => "$('html, body').animate({scrollTop : $('.default-comments').offset().top}, 'fast')",
         'pager' => array(
-            'class' => 'ext.yiinfinite-scroll.YiinfiniteScroller',
+            /*'class' => 'ext.yiinfinite-scroll.YiinfiniteScroller',
             'contentSelector' => 'ul.items',
             'itemSelector' => 'li.item',
             'loadingImg' => '/images/loader_01.gif',
             'loadingText' => 'Загрузка...',
-            'donetext' => ' ',
+            'donetext' => ' ',*/
+            'class' => 'MyLinkPager',
+            'header' => '',
         ),
         'id' => 'comment_list_' . $this->objectName,
         'template' => $template,

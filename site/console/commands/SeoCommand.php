@@ -144,6 +144,11 @@ class SeoCommand extends CConsoleCommand
         Yii::app()->db_seo->createCommand('update indexing__urls set active = 0')->execute();
     }
 
+    public function actionRestartParsing(){
+        Yii::app()->db_seo->createCommand('update proxies set active = 0')->execute();
+        Yii::app()->db_seo->createCommand('update indexing__urls set active = 0 where active = 1')->execute();
+    }
+
     public function actionParseIndex()
     {
         Yii::import('site.seo.modules.indexing.components.*');

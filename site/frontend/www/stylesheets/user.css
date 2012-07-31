@@ -631,9 +631,9 @@
 #firstStepsBirthday .right {margin-left:260px;padding:30px 0;}
 #firstStepsBirthday .right .title {margin-bottom:30px;font-size:25px;}
 #firstStepsBirthday .right .select-box {background:#f6eefe;display:block;margin-bottom:30px;text-align:center;color:#6b6b6b;font-size:15px;margin-right:20px;}
-#firstStepsBirthday .right .select-box .w-1 {width:30px;}
-#firstStepsBirthday .right .select-box .w-2 {width:90px;}
-#firstStepsBirthday .right .select-box .w-3 {width:60px;}
+#firstStepsBirthday .right .select-box .w-1 {width:55px;}
+#firstStepsBirthday .right .select-box .w-2 {width:100px;}
+#firstStepsBirthday .right .select-box .w-3 {width:65px;}
 #firstStepsBirthday .right .hl {background:#fffbc9;padding:2px 6px;color:#5a5a5a;font-size:14px;}
 
 #firstStepsEmail {width:700px;}

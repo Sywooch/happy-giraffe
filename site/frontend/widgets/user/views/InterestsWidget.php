@@ -5,10 +5,8 @@
         <?php foreach ($this->interests as $category): ?>
         <li>
             <div class="interest-cat">
-                <a href="">
-                    <span class="img"><img src="/images/interest_icon_<?=$category->id?>.png" /></span>
-                    <span class="text"><?=$category->title?></span>
-                </a>
+                <span class="img"><img src="/images/interest_icon_<?=$category->id?>.png" /></span>
+                <span class="text"><?=$category->title?></span>
             </div>
             <ul>
                 <?php foreach ($category->interests as $interest): ?>

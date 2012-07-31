@@ -1,4 +1,4 @@
-<li class="clearfix">
+<li>
     <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
         'user' => $data,
     )); ?>

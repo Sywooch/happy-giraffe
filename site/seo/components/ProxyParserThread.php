@@ -96,6 +96,7 @@ class ProxyParserThread
                     $attempt += 1;
                     if ($attempt > 2) {
                         $this->changeBadProxy();
+                        $attempt = 0;
                     }
 
                     return $this->query($url, $ref, $post, $attempt);

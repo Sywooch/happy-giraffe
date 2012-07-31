@@ -6,6 +6,7 @@ class AvatarWidget extends CWidget
     public $size = 'ava';
     public $withMail;
     public $small = false;
+    public $friendRequest = false;
     public $friendButton = false;
     public $sendButton = true;
     public $filled = false;

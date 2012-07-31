@@ -94,7 +94,7 @@ class ProxyParserThread
                 if (curl_errno($ch)) {
                     $this->log('Error while curl: ' . curl_error($ch) );
                     $attempt += 1;
-                    if ($attempt > 2) {
+                    if ($attempt > 1) {
                         $this->changeBadProxy();
                         $attempt = 0;
                     }

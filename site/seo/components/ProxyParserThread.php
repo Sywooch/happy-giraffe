@@ -19,15 +19,15 @@ class ProxyParserThread
     protected $success_loads = 0;
     protected $country = 'ru';
 
-    protected $delay_min = 5;
-    protected $delay_max = 15;
+    protected $delay_min = 10;
+    protected $delay_max = 10;
     protected $debug = false;
     protected $timeout = 15;
     protected $removeCookieOnChangeProxy = true;
 
     function __construct()
     {
-        sleep(rand(0, 60));
+        //sleep(rand(0, 60));
         Yii::import('site.frontend.extensions.phpQuery.phpQuery');
         $this->thread_id = substr(sha1(microtime()), 0, 10);
         $this->getProxy();
@@ -53,6 +53,8 @@ class ProxyParserThread
             $transaction->rollback();
             $this->closeThread('Fail with getting proxy');
         }
+
+        $this->log('proxy: '.$this->proxy->value);
     }
 
     protected function query($url, $ref = null, $post = false, $attempt = 0)
@@ -66,8 +68,8 @@ class ProxyParserThread
                 curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
             }
 
-            if (!empty($ref))
-                curl_setopt($ch, CURLOPT_REFERER, $url);
+//            if (!empty($ref))
+//                curl_setopt($ch, CURLOPT_REFERER, $url);
 
             curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
             curl_setopt($ch, CURLOPT_PROXY, $this->proxy->value);
@@ -92,8 +94,9 @@ class ProxyParserThread
                 if (curl_errno($ch)) {
                     $this->log('Error while curl: ' . curl_error($ch) );
                     $attempt += 1;
-                    if ($attempt > 2) {
+                    if ($attempt > 1) {
                         $this->changeBadProxy();
+                        $attempt = 0;
                     }
 
                     return $this->query($url, $ref, $post, $attempt);
@@ -102,6 +105,11 @@ class ProxyParserThread
                 $this->changeBadProxy();
                 return $this->query($url, $ref, $post, $attempt);
             } else {
+                if (strpos($content, 'Нам очень жаль, но запросы, поступившие с вашего IP-адреса, похожи на автоматические.')){
+                    $this->log('ip banned');
+                    $this->changeBadProxy();
+                    return $this->query($url, $ref, $post, $attempt);
+                }
                 $this->log('page loaded by curl');
                 return $content;
             }
@@ -117,6 +125,20 @@ class ProxyParserThread
         $this->proxy->rank = floor((($this->proxy->rank + $this->success_loads) / 5) * 4);
         $this->proxy->active = 0;
         $this->proxy->save();
+        $this->getProxy();
+        $this->success_loads = 0;
+
+        if ($this->removeCookieOnChangeProxy)
+            $this->removeCookieFile();
+
+        $this->afterProxyChange();
+    }
+
+    protected function changeBannedProxy()
+    {
+        $this->log('Change proxy');
+
+        $this->proxy->delete();
         $this->getProxy();
         $this->success_loads = 0;
 
@@ -145,8 +167,6 @@ class ProxyParserThread
 
     protected function removeCookieFile()
     {
-        $this->log('Remove cookie file');
-
         if (file_exists($this->getCookieFile()))
             unlink($this->getCookieFile());
     }

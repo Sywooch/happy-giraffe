@@ -132,6 +132,10 @@
 
         <div class="col-23 clearfix">
 
+            <?php $this->widget('BonusWidget', array(
+                'user' => $user,
+            )); ?>
+
             <div class="clearfix">
                 <div class="col-2">
 

@@ -17,10 +17,10 @@
             <textarea name="description"></textarea>
             <br/><br/>
             <label>Укажите тип блюда</label><br/>
-            <span>
+            <span class="chzn-drop-short">
                 <?php
                 Yii::import('application.modules.cook.models.CookDecorationCategory');
-                echo CHtml::dropDownList('category', '', CHtml::listData(CookDecorationCategory::model()->findAll(), 'id', 'title'), array('class' => 'chzn-select chzn chzn-drop-short'));
+                echo CHtml::dropDownList('category', '', CHtml::listData(CookDecorationCategory::model()->findAll(), 'id', 'title'), array('class' => 'chzn-select chzn'));
                 ?>
             </span>
             <div class="errorMessage"></div>

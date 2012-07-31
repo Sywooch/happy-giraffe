@@ -185,22 +185,25 @@ a.info {display:inline-block;width:13px;height:13px;background:url(../images/com
 .user-info .details .birthday span {color:#aeaeae;}
 .user-info .details .date {color:#b3b3b3;font-size:9px;margin-top:3px;margin-left:15px;}
 
-.user-info .text-status {clear:both;background:#d7edff;position:relative;padding:10px 15px;font-size:11px;color:#5e5e5e;line-height:14px;}
+.user-info .text-status {clear:both;background:#cce7fe;position:relative;padding:10px 15px;font-size:11px;color:#5e5e5e;line-height:14px;width:200px;}
 .user-info .text-status {/*css3*/ -moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px;}
-.user-info .text-status .tale {display:block;width:21px;height:30px;background:url(/images/common.png) no-repeat -424px -261px;position:absolute;top:-30px;left:20px;}
+/*.user-info .text-status .tale {display:block;width:21px;height:30px;background:url(/images/common.png) no-repeat -424px -261px;position:absolute;top:-30px;left:20px;}*/
 .user-info-big {margin-bottom:25px;}
-.user-info-big .ava, .user-info-big .details {margin-bottom:15px;}
+.user-info-big .ava, .user-info-big .details {margin-bottom:10px;}
 
 
 .user-fast-buttons {padding-top:2px;margin-bottom:5px;}
-.user-fast-buttons a {display:inline-block;position:relative;margin-right:4px;text-decoration:none;}
+.user-fast-buttons a {display:inline-block;position:relative;margin-right:4px;text-decoration:none;vertical-align:middle;}
 .user-fast-buttons span.friend {float:left;color:#22af16;margin-right:5px;font-size:13px;margin-top:2px;}
 .user-fast-buttons .add-friend {width:22px;height:18px;background:url(/images/common.png) no-repeat -256px -298px;}
 .user-fast-buttons .remove-friend {width:26px;height:26px;background:url(/images/common.png) no-repeat -283px -271px;}
 .user-fast-buttons .pending-friend {width:26px;height:26px;background:url(/images/common.png) no-repeat -310px -271px;}
 .user-fast-buttons .new-message {width:22px;height:17px;background:url(/images/common.png) no-repeat -234px -298px;margin-top:1px;}
+.user-fast-buttons .accept {background:#56b74f;height:16px;line-height:16px;padding:0 8px;margin-left:-6px;color:#fff;}
+.user-fast-buttons .cancel {background:#629ed1;}
+.user-fast-buttons .accept {/*css3*/ -moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px;}
 
-.user-fast-nav {font-size:11px;font-family:tahoma, arial, helvetica, sans-serif;color:#a4cce8;}
+.user-fast-nav {font-size:11px;font-family:tahoma, arial, helvetica, sans-serif;color:#a4cce8;clear:left;margin-bottom:10px;margin-left:15px;}
 .user-fast-nav .more {text-decoration:none;border-bottom:1px dashed #029AD2;}
 .icon-status {display:inline-block;width:11px;height:11px;background:url(../images/common.png) no-repeat;position:relative;top:2px;margin-right:2px;}
 .icon-status.status-online {background-position:-44px -180px;}
@@ -1819,7 +1822,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 #content .club-topics-list-new ul li a {}
 #content .club-topics-list-new ul li span {line-height:18px;display:inline;max-width:70%}
 #content .club-topics-list-new ul li .count {display:inline;font-size:10px;color:#838381;font-family:tahoma, arial, helvetica, sans-serif;position:relative;top:-3px;margin-left:5px;}
-#content .club-topics-list-new ul li.active {margin-left:0;}
+#content .club-topics-list-new ul li.active {margin-left:0;margin-top:-5px;margin-bottom:-2px;}
 #content .club-topics-list-new ul li.active span {padding:2px 6px;background:#f2e5ff;display:inline-block;}
 
 #content .club-topics-list-new ul li.active a {text-decoration:none;}

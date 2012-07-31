@@ -10,7 +10,8 @@
 
     <?php
         $this->widget('zii.widgets.CListView', array(
-            'ajaxUpdate' => false,
+            'id' => 'friends',
+            'ajaxUpdate' => true,
             'dataProvider' => $dataProvider,
             'itemView' => '_friend',
             'itemsTagName' => 'ul',

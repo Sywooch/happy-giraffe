@@ -2,6 +2,13 @@
 /* @var $this BonusWidget
  * @var $form CActiveForm
  */
+
+$steps_count = 0;
+if (empty($this->user->getUserAddress()->country_id)) $steps_count++;
+if (empty($this->user->birthday)) $steps_count++;
+if (empty($this->user->avatar)) $steps_count++;
+if (empty($this->user->relationship_status)) $steps_count++;
+if (empty($this->user->interests)) $steps_count++;
 ?><div id="first-steps">
 
     <div class="block-title">
@@ -10,7 +17,7 @@
             <div class="bonus">
                 бонус <img src="/images/first_steps_bonus.png">
             </div>
-            <a href="javascript:void(0);" class="toggler toggled" data-title="Осталось шагов: 4" data-close="Свернуть" onclick="firstStepsToggle(this);"><span>Свернуть</span><i class="icon"></i></a>
+            <a href="javascript:void(0);" class="toggler toggled" data-title="Осталось шагов: <?=$steps_count ?>" data-close="Свернуть" onclick="firstStepsToggle(this);"><span>Свернуть</span><i class="icon"></i></a>
         </div>
 
         <div class="title-in">Ваши первые шаги</div>
@@ -39,7 +46,7 @@
                     <li>
                         <div class="num">Шаг 3</div>
                         <div class="text"><a href="#firstStepsLocation" class="fancy">Укажите ваше место жительства</a></div>
-                        <?php if ($this->user->getUserAddress()->hasCity()):?>
+                        <?php if (!empty($this->user->getUserAddress()->country_id)):?>
                             <div class="done"><i class="icon"></i>Сделано</div>
                         <?php endif ?>
                     </li>
@@ -125,7 +132,7 @@
                             )); ?>
 						</span>
                     </div>
-                    <div class="row">
+                    <div class="row settlement"<?php if ($this->user->getUserAddress()->region !== null && $this->user->getUserAddress()->region->isCity()) echo ' style="display:none;"' ?>>
                         Населенный пункт:<br>
                         <?php
                         $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
@@ -228,15 +235,15 @@
                 <div class="select-box">
                     Дата рождения:
 					<span class="chzn-v2">
-                        <?=$form->dropDownList($model, 'day', range(1,31), array('class'=>'chzn w-1', 'style'=>'width: 32px;', 'empty'=>'День')) ?>
+                        <?=$form->dropDownList($model, 'day', HDate::Range(1,31), array('class'=>'chzn w-1', 'empty'=>'День')) ?>
                         <?=$form->error($model, 'day') ?>
 					</span>
 					<span class="chzn-v2">
-                        <?=$form->dropDownList($model, 'month', HDate::ruMonths(), array('class'=>'chzn w-1', 'empty'=>'Месяц')) ?>
+                        <?=$form->dropDownList($model, 'month', HDate::ruMonths(), array('class'=>'chzn w-2', 'empty'=>'Месяц')) ?>
                         <?=$form->error($model, 'month') ?>
 					</span>
 					<span class="chzn-v2">
-						<?=$form->dropDownList($model, 'year', HDate::Range(1900, date('Y')-15), array('class'=>'chzn w-1', 'empty'=>'Год')) ?>
+						<?=$form->dropDownList($model, 'year', HDate::Range(date('Y')-18, 1900), array('class'=>'chzn w-3', 'empty'=>'Год')) ?>
                         <?=$form->error($model, 'year') ?>
 					</span>
 

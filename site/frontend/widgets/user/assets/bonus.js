@@ -24,11 +24,12 @@ var Bonus = {
             dataType:'JSON',
             success:function (response) {
                 if (response.status) {
-                    $.fancybox.close();
-                    $('div.weather-wrapper').html(response.weather);
-                    $('div.user-name div.location').html(response.location);
-                    $('.steps-list ul li:eq(2) .done').html('<i class=\"icon\"></i>Сделано');
-                    $("#loc-flipbox").html(response.main);
+                    window.location.reload();
+//                    $.fancybox.close();
+//                    $('div.weather-wrapper').html(response.weather);
+//                    $('div.user-name div.location').html(response.location);
+//                    $('.steps-list ul li:eq(2) .done').html('<i class=\"icon\"></i>Сделано');
+//                    $("#loc-flipbox").html(response.main);
                 }
             }
         });

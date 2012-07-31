@@ -55,7 +55,11 @@ return array(
         ),
 		'urlManager' => array(
 			'urlFormat'=>'path',
-            'showScriptName'=>false
+            'showScriptName'=>false,
+            'urlSuffix' => '/',
+            'rules' => array(
+                'http://www.happy-giraffe.ru/community/<community_id:\d+>/forum/<content_type_slug:\w+>/<content_id:\d+>' => 'community/view',
+            ),
 		),
         'db' => array(
             'schemaCachingDuration' => 3600,

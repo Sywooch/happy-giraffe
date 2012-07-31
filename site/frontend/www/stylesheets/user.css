@@ -580,7 +580,7 @@
 #user-activity .activity-list .list-item {float:left;margin-right:20px !important;margin-bottom:20px !important;width:308px;}
 
 
-#first-steps {background:#fffce4 url(/images/bg_first_steps.gif) no-repeat top;margin-bottom:38px;padding:30px 20px 10px 40px;position:relative;top:-20px;}
+#first-steps {background:#fffce4 url(/images/bg_first_steps.gif) no-repeat top;margin-bottom:38px;padding:30px 20px 10px 30px;position:relative;top:-20px;}
 
 #first-steps .block-title {height:45px;}
 #first-steps .block-title .title-in {font-size:40px;line-height:1;color:#a97f52;}
@@ -599,16 +599,16 @@
 
 #first-steps .block-in .container {padding:15px 0;height:190px;}
 
-#first-steps .block-in .steps-list {float:left;width:354px;border-right:1px solid #eddb9c;height:190px;padding-right:30px;}
+#first-steps .block-in .steps-list {float:left;width:384px;border-right:1px solid #eddb9c;height:190px;padding-right:10px;}
 #first-steps .block-in .steps-list ul {font-size:15px;list-style:none;}
 #first-steps .block-in .steps-list ul li {margin-top:15px;}
 #first-steps .block-in .steps-list ul li:first-child {margin-top:0;}
-#first-steps .block-in .steps-list ul li .num {font-size:15px;color:#7a7a7a;padding:0 5px;display:inline-block;width:50px;}
+#first-steps .block-in .steps-list ul li .num {font-size:15px;color:#7a7a7a;padding:0 5px;display:inline-block;width:40px;}
 #first-steps .block-in .steps-list ul li .text {padding:0 5px;display:inline-block;}
-#first-steps .block-in .steps-list ul li .done {padding:0 10px;display:inline-block;color:#3fb550;font-size:13px;}
+#first-steps .block-in .steps-list ul li .done {display:inline-block;color:#3fb550;font-size:13px;}
 #first-steps .block-in .steps-list ul li .done .icon {display:inline-block;width:11px;height:8px;background:url(/images/first_steps_done.png) no-repeat;margin-right:5px;}
 
-#first-steps .block-in .info {float:left;width:234px;border-left:1px solid #fff;height:190px;padding-left:20px;text-align:center;}
+#first-steps .block-in .info {float:left;width:224px;border-left:1px solid #fff;height:190px;padding-left:20px;text-align:center;}
 #first-steps .block-in .info p {margin-bottom:30px;font-size:16px;color:#5b5a5a}
 #first-steps .block-in .info p span {display:block;font-size:25px;font-weight:bold;color:#6ecc6c;}
 #first-steps .block-in .info .bonus {}

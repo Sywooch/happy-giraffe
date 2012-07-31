@@ -277,6 +277,7 @@ a.info {display:inline-block;width:13px;height:13px;background:url(../images/com
 /* errors */
 
 .error input[type=text], .error input[type=password], .error textarea, .error .chzn-single {border:1px solid #ff6767 !important;}
+.error .chzn-single div, .error .chzn-drop {border-color:#ff6767 !important;}
 input[type=text].error , input[type=password].error , textarea.error {border:1px solid #ff6767 !important;}
 .errorMessage, .errorSummary {color:#fe5757 !important;font-size:11px !important;line-height:normal !important;padding:5px 0;overflow:hidden;}
 .errorSummary ul, .errorSummary ol {list-style:none;}
@@ -1276,9 +1277,10 @@ body.nav-fixed #header-new .top-line {position:fixed;left:50%;margin-left:-500px
 .popup .chzn-container-single .chzn-single div {background:#a17dc4;}
 .popup .chzn-container .chzn-results .highlighted {background:#a17dc4;}
 .popup .chzn-container-active .chzn-drop {border-top:0;}
-.popup .chzn-container .chzn-results {max-height:80px;}
 
-.chzn-container .chzn-results {margin:2px;max-height: 240px;position: relative;overflow-x: hidden;overflow-y: auto;color:#777;list-style: none !important;}
+.chzn-drop-short .chzn-container .chzn-results {max-height:80px;}
+
+.chzn-container .chzn-results {margin:2px;max-height: 180px;position: relative;overflow-x: hidden;overflow-y: auto;color:#777;list-style: none !important;}
 .chzn-container-multi .chzn-results {margin: -1px 0 0;padding: 0;}
 .chzn-container .chzn-results li {display: none;line-height: 15px;padding:3px 6px 3px 6px !important;margin: 0 !important;list-style: none;}
 .chzn-container .chzn-results .active-result {cursor: pointer;display: list-item !important;}

@@ -20,7 +20,7 @@
             <span>
                 <?php
                 Yii::import('application.modules.cook.models.CookDecorationCategory');
-                echo CHtml::dropDownList('category', '', CHtml::listData(CookDecorationCategory::model()->findAll(), 'id', 'title'), array('class' => 'chzn-select chzn'));
+                echo CHtml::dropDownList('category', '', CHtml::listData(CookDecorationCategory::model()->findAll(), 'id', 'title'), array('class' => 'chzn-select chzn chzn-drop-short'));
                 ?>
             </span>
             <div class="errorMessage"></div>

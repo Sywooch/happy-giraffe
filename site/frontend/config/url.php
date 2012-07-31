@@ -158,7 +158,13 @@ return array(
         'cook/<_c:(spices|choose|calorisator|converter)>' => 'cook/<_c>/index',
 
         //===================== Services =========================//
-        '<_m:(test|tester|vaccineCalendar|childrenDiseases|menstrualCycle|horoscope|babyBloodGroup|placentaThickness|pregnancyWeight|contractionsTime|names|hospitalBag|maternityLeave|dailyCalories|weightLoss|idealWeight|bodyFat|birthDate)>/' => 'services/<_m>/default/index',
+
+        'babyCalendar/period<period_id:\d+>' => array('calendar/default/index', 'defaultParams' => array('calendar' => 0)),
+        'pregnancyCalendar/period<period_id:\d+>' => array('calendar/default/index', 'defaultParams' => array('calendar' => 1)),
+        'babyCalendar' => array('calendar/default/index', 'defaultParams' => array('calendar' => 0)),
+        'pregnancyCalendar' => array('calendar/default/index', 'defaultParams' => array('calendar' => 1)),
+
+        '<_m:(test|tester|vaccineCalenda|childrenDiseases|menstrualCycle|horoscope|babyBloodGroup|placentaThickness|pregnancyWeight|contractionsTime|names|hospitalBag|maternityLeave|dailyCalories|weightLoss|idealWeight|bodyFat|birthDate)>/' => 'services/<_m>/default/index',
         '<_m:(babySex|vaccineCalendar|sewing|hospitalBag)>/<_a>/' => 'services/<_m>/default/<_a>',
 
         'babySex'=>'services/babySex/default/index',

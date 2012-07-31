@@ -98,7 +98,7 @@ function sendInvite(el, user_id) {
 
 }
 
-function deleteFriend(el, user_id) {
+function deleteFriend(el, user_id, friendPage) {
     $.ajax({
         dataType: 'json',
         type: 'post',
@@ -108,7 +108,7 @@ function deleteFriend(el, user_id) {
         },
         success: function (response) {
             if (response.status) {
-                $(el).replaceWith(response.html);
+                (friendPage) ? $.fn.yiiListView.update('friends') : $(el).replaceWith(response.html);
             }
         }
     });

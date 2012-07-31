@@ -107,7 +107,7 @@ class ProxyParserThread
             } else {
                 if (strpos($content, 'Нам очень жаль, но запросы, поступившие с вашего IP-адреса, похожи на автоматические.')){
                     $this->log('ip banned');
-                    $this->changeBadProxy();
+                    $this->changeBannedProxy();
                     return $this->query($url, $ref, $post, $attempt);
                 }
                 $this->log('page loaded by curl');

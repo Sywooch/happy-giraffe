@@ -10,7 +10,7 @@
         $features = explode("\n", $period->features);
     ?>
     <?php ob_start(); ?>
-    <div class="age-features">
+    <div class="age-features<?php if ($period->calendar == 1): ?> age-features-pregnancy<?php endif; ?>">
         <div class="title"><?=preg_replace('#(\d+)#', '<span>$1</span>', $period->features_heading)?>:</div>
         <ul>
             <?php foreach ($features as $f): ?>

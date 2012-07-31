@@ -6,14 +6,18 @@
  * The followings are the available columns in table 'calendar__periods':
  * @property string $id
  * @property string $title
+ * @property string $heading
  * @property string $text
  * @property string $features
+ * @property string $features_heading
+ * @property string $slug
  * @property integer $calendar
  *
  * The followings are the available model relations:
- * @property CalendarPeriodsCommunities[] $calendarPeriodsCommunities
- * @property CalendarPeriodsContents[] $calendarPeriodsContents
- * @property CalendarPeriodsServices[] $calendarPeriodsServices
+ * @property Community[] $communities
+ * @property CommunityContent[] $contents
+ * @property CommunityContent[] $randomContents
+ * @property Service[] $services
  */
 class CalendarPeriod extends HActiveRecord
 {
@@ -47,13 +51,19 @@ class CalendarPeriod extends HActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('title, text', 'required'),
+			array('title, text, calendar, slug', 'required'),
             array('title', 'length', 'max' => 255),
+            array('heading', 'length', 'max' => 255),
+            array('features_heading', 'length', 'max' => 255),
+            array('slug', 'length', 'max' => 255),
 			array('calendar', 'in', 'range' => array(0, 1)),
+
+            array('features_heading, features', 'required', 'on' => 'child'),
+
             array('servicesIds, communitiesIds, contentsText', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, title, text, features, calendar', 'safe', 'on'=>'search'),
+			array('id, title, heading, text, features, features_heading, slug, calendar', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -67,8 +77,8 @@ class CalendarPeriod extends HActiveRecord
 		return array(
 			'communities' => array(self::MANY_MANY, 'Community', 'calendar__periods_communities(period_id, community_id)'),
 			'contents' => array(self::MANY_MANY, 'CommunityContent', 'calendar__periods_contents(period_id, content_id)'),
-            'randomContents' => array(self::MANY_MANY, 'CommunityContent', 'calendar__periods_contents(period_id, content_id)', 'order' => 'RAND()', 'limit' => 5, 'scopes' => array('full')),
 			'services' => array(self::MANY_MANY, 'Service', 'calendar__periods_services(period_id, service_id)'),
+            'randomContents' => array(self::MANY_MANY, 'CommunityContent', 'calendar__periods_contents(period_id, content_id)', 'order' => 'RAND()', 'limit' => 5, 'scopes' => array('full')),
 		);
 	}
 
@@ -79,9 +89,12 @@ class CalendarPeriod extends HActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'title' => 'Название периода',
+			'title' => 'Название',
+            'heading' => 'Заголовок',
 			'text' => 'Текст',
-			'features' => 'Особенности (по одному пункту в строке)',
+			'features' => 'Особенности возраста (по одному пункту в строке)',
+            'features_heading' => 'Заголовок особенностей возраста',
+            'slug' => 'URL',
 			'calendar' => 'Календарь',
 
             'services' => 'Сервисы',
@@ -103,8 +116,11 @@ class CalendarPeriod extends HActiveRecord
 
 		$criteria->compare('id',$this->id,true);
 		$criteria->compare('title',$this->title,true);
+        $criteria->compare('heading',$this->heading,true);
 		$criteria->compare('text',$this->text,true);
 		$criteria->compare('features',$this->features,true);
+        $criteria->compare('features_heading',$this->features_heading,true);
+        $criteria->compare('slug',$this->slug,true);
 		$criteria->compare('calendar',$this->calendar);
 
 		return new CActiveDataProvider($this, array(

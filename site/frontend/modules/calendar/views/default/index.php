@@ -5,17 +5,17 @@
     ;
 ?>
 
-<?php if ($period->calendar == 0): ?>
+<?php if ($period->calendar == 0 && $period->features && $period->features_heading): ?>
+    <?php
+        $features = explode("\n", $period->features);
+    ?>
     <?php ob_start(); ?>
     <div class="age-features">
-        <div class="title">На <span>39</span> неделе жизни Ваш ребенок:</div>
+        <div class="title"><?=preg_replace('#(\d+)#', '<span>$1</span>', $period->features_heading)?>:</div>
         <ul>
-            <li>Имеет зажившую пупочную ранку</li>
-            <li>Начинает срыгивать</li>
-            <li>Просит есть тогда, когда мама ощущает прилив молока в груди</li>
-            <li>Может лежать на животе</li>
-            <li>Остро ощущает запахи</li>
-            <li>Хорошо спит на улице</li>
+            <?php foreach ($features as $f): ?>
+                <li><?=$f?></li>
+            <?php endforeach; ?>
         </ul>
     </div>
     <?php $features = ob_get_clean(); ?>
@@ -135,7 +135,16 @@
             <div class="main-right">
 
                 <div class="article">
-                    <h1>Вашему малышу 7-я неделя</h1>
+                    <?php
+                        if (! empty($period->heading)) {
+                            $heading = $period->heading;
+                        } elseif ($period->calendar == 0) {
+                            $heading = 'Вашему малышу ' . $period->title;
+                        } else {
+                            $heading = $period->title . ' беременности';
+                        }
+                    ?>
+                    <h1><?=$heading?></h1>
                     <div class="entry-nav clearfix">
                         <?php if ($next = $period->next): ?>
                             <div class="next">
@@ -144,7 +153,7 @@
                         <?php endif; ?>
                         <?php if ($prev = $period->prev): ?>
                             <div class="prev">
-                                <?=CHtml::link($prev->title, $prev->url)?> &rarr;
+                                &larr; <?=CHtml::link($prev->title, $prev->url)?>
                             </div>
                         <?php endif; ?>
                     </div>
@@ -171,7 +180,7 @@
                             <?php endforeach; ?>
                         </ul>
                     </div>
-                <?php endid; ?>
+                <?php endif; ?>
 
             </div>
 

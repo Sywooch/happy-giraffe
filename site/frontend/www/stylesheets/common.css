@@ -194,8 +194,8 @@ a.info {display:inline-block;width:13px;height:13px;background:url(../images/com
 .user-fast-nav {font-size:11px;font-family:tahoma, arial, helvetica, sans-serif;color:#a4cce8;clear:left;margin-bottom:10px;margin-left:15px;}
 .user-fast-nav .more {text-decoration:none;border-bottom:1px dashed #029AD2;}
 .user-fast-nav > ul {list-style:none;}
-.user-fast-nav > ul > li {float:left;padding-left:3px;margin-left:3px;border-left:1px solid #a4cce8;}
-.user-fast-nav > ul > li:first-child {border-left:0;}
+.user-fast-nav > ul > li {float:left;padding-left:5px;margin-left:5px;border-left:1px solid #a4cce8;}
+.user-fast-nav > ul > li:first-child {border-left:0;margin-left:0;padding-left:0;}
 
 
 .user-info-big {margin-bottom:25px;}

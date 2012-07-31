@@ -277,6 +277,7 @@ a.info {display:inline-block;width:13px;height:13px;background:url(../images/com
 /* errors */
 
 .error input[type=text], .error input[type=password], .error textarea, .error .chzn-single {border:1px solid #ff6767 !important;}
+.error .chzn-single div, .error .chzn-drop {border-color:#ff6767 !important;}
 input[type=text].error , input[type=password].error , textarea.error {border:1px solid #ff6767 !important;}
 .errorMessage, .errorSummary {color:#fe5757 !important;font-size:11px !important;line-height:normal !important;padding:5px 0;overflow:hidden;}
 .errorSummary ul, .errorSummary ol {list-style:none;}

@@ -17,10 +17,11 @@ class PositionParserThread extends ProxyParserThread
     protected $se;
     protected $pages = 5;
 
-    function __construct($se)
+    function __construct($se, $debug = 0)
     {
         parent::__construct();
         $this->se = $se;
+        $this->debug = $debug;
     }
 
     public function start()
@@ -58,6 +59,7 @@ class PositionParserThread extends ProxyParserThread
 
         $transaction = Yii::app()->db_seo->beginTransaction();
         try {
+            $this->log('load new query');
             $this->query = Query::model()->find($criteria);
             if ($this->query === null) {
                 $this->closeThread('no queries');

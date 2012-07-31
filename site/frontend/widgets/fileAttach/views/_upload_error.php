@@ -1,6 +1,5 @@
 <div class="form">
     <div class="photo-upload clearfix">
-        <div class="text">Фото</div>
         <div class="photo">
             <div class="in">
                 <div class="file-fake">

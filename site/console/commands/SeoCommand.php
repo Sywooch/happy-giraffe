@@ -172,5 +172,29 @@ class SeoCommand extends CConsoleCommand
         $model->date = date("Y-m-d");
         echo $model->save();
     }
+
+    public function actionImportVisits(){
+        Yii::import('site.seo.modules.competitors.models.*');
+
+        $criteria = new CDbCriteria;
+        $criteria->limit = 100;
+        $criteria->offset = 0;
+
+        $i = 0;
+        $models = array(0);
+        while (!empty($models)) {
+            $models = SitesKeywordsVisit2::model()->findAll($criteria);
+
+            foreach ($models as $model) {
+                $model2 = new SiteKeywordVisit();
+                $model2->attributes = $model->attributes;
+                $model2->keyword_id = Keyword::GetKeyword($model->keyword)->id;
+                $model2->save();
+            }
+
+            $i++;
+            $criteria->offset = $i * 100;
+        }
+    }
 }
 

@@ -27,7 +27,7 @@ class ProxyParserThread
 
     function __construct()
     {
-        //sleep(rand(0, 60));
+        sleep(rand(0, 20));
         Yii::import('site.frontend.extensions.phpQuery.phpQuery');
         $this->thread_id = substr(sha1(microtime()), 0, 10);
         $this->getProxy();
@@ -107,7 +107,7 @@ class ProxyParserThread
             } else {
                 if (strpos($content, 'Нам очень жаль, но запросы, поступившие с вашего IP-адреса, похожи на автоматические.')){
                     $this->log('ip banned');
-                    $this->changeBadProxy();
+                    $this->changeBannedProxy();
                     return $this->query($url, $ref, $post, $attempt);
                 }
                 $this->log('page loaded by curl');

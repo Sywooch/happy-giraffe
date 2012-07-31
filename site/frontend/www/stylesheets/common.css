@@ -1277,6 +1277,7 @@ body.nav-fixed #header-new .top-line {position:fixed;left:50%;margin-left:-500px
 .popup .chzn-container .chzn-results .highlighted {background:#a17dc4;}
 .popup .chzn-container-active .chzn-drop {border-top:0;}
 
+.chzn-container .chzn-results {max-height:200px;}
 .chzn-drop-short .chzn-container .chzn-results {max-height:80px;}
 
 .chzn-container .chzn-results {margin:2px;max-height: 240px;position: relative;overflow-x: hidden;overflow-y: auto;color:#777;list-style: none !important;}

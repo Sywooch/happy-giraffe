@@ -1,4 +1,4 @@
-<h1>Редактирование периода «<?=$model->title?>» в календаре беременности</h1>
+<h1>Редактирование периода «<?=$model->title?>» в календаре ребёнка</h1>
 
 <?php echo CHtml::link('К таблице', array('admin')) ?>
 <div class="form">
@@ -34,6 +34,20 @@
         <?php $this->widget('site.frontend.extensions.ckeditor.CKEditorWidget', array('model' => $model, 'attribute' => 'text')); ?>
         <?php echo $form->error($model, 'text'); ?>
     </div>
+
+    <div class="row">
+        <?php echo $form->labelEx($model,'features_heading'); ?>
+        <?php echo $form->textField($model,'features_heading',array('size'=>60,'maxlength'=>255)); ?>
+        <?php echo $form->error($model,'features_heading'); ?>
+    </div>
+
+    <div class="row">
+        <?php echo $form->labelEx($model,'features'); ?>
+        <?php echo $form->textArea($model, 'features', array('cols' => 60, 'rows' => 6)); ?>
+        <?php echo $form->error($model,'features'); ?>
+    </div>
+
+    <hr />
 
     <div class="row">
         <?php echo $form->labelEx($model,'contents'); ?>

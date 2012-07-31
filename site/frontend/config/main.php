@@ -55,6 +55,7 @@ return array(
         'application.modules.im.components.*',
         'application.modules.geo.models.*',
         'application.modules.scores.models.*',
+        'application.modules.calendar.models.*',
 	),
 
 	'sourceLanguage' => 'en',
@@ -94,7 +95,8 @@ return array(
         'signal',
         'scores',
         'services',
-        'cook'
+        'cook',
+        'calendar',
 	),
 
 	// application components

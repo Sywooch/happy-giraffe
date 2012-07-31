@@ -6,7 +6,7 @@ Yii::app()->clientScript
     ->registerScriptFile($baseUrl . '/script.js', CClientScript::POS_HEAD);
 ?><div class="right_block">
     <div class="choice_name">
-        <h1>Выбор имени <span>ребенка</span></h1>
+        <div class="title-in">Выбор имени <span>ребенка</span></div>
     </div>
     <ul class="choice_name_navi">
         <li<?php if ($this->action->id == 'index') echo ' class="active"' ?>><a href="<?php

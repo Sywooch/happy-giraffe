@@ -59,6 +59,7 @@ return array(
             'urlSuffix' => '/',
             'rules' => array(
                 'http://www.happy-giraffe.ru/community/<community_id:\d+>/forum/<content_type_slug:\w+>/<content_id:\d+>' => 'community/view',
+                'http://happy-giraffe.dev/albums/attach/?entity=<entity:\w+>&entity_id=<entity_id:\d+>' => 'albums/attach',
             ),
 		),
         'db' => array(

@@ -19,8 +19,8 @@ class ProxyParserThread
     protected $success_loads = 0;
     protected $country = 'ru';
 
-    protected $delay_min = 5;
-    protected $delay_max = 15;
+    protected $delay_min = 10;
+    protected $delay_max = 10;
     protected $debug = false;
     protected $timeout = 15;
     protected $removeCookieOnChangeProxy = true;
@@ -94,8 +94,9 @@ class ProxyParserThread
                 if (curl_errno($ch)) {
                     $this->log('Error while curl: ' . curl_error($ch) );
                     $attempt += 1;
-                    if ($attempt > 2) {
+                    if ($attempt > 1) {
                         $this->changeBadProxy();
+                        $attempt = 0;
                     }
 
                     return $this->query($url, $ref, $post, $attempt);
@@ -133,6 +134,20 @@ class ProxyParserThread
         $this->afterProxyChange();
     }
 
+    protected function changeBannedProxy()
+    {
+        $this->log('Change proxy');
+
+        $this->proxy->delete();
+        $this->getProxy();
+        $this->success_loads = 0;
+
+        if ($this->removeCookieOnChangeProxy)
+            $this->removeCookieFile();
+
+        $this->afterProxyChange();
+    }
+
     private function saveProxy()
     {
         $this->proxy->rank = $this->proxy->rank + $this->success_loads;
@@ -152,8 +167,6 @@ class ProxyParserThread
 
     protected function removeCookieFile()
     {
-        $this->log('Remove cookie file');
-
         if (file_exists($this->getCookieFile()))
             unlink($this->getCookieFile());
     }

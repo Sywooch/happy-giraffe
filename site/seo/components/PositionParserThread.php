@@ -59,6 +59,7 @@ class PositionParserThread extends ProxyParserThread
 
         $transaction = Yii::app()->db_seo->beginTransaction();
         try {
+            $this->log('load new query');
             $this->query = Query::model()->find($criteria);
             if ($this->query === null) {
                 $this->closeThread('no queries');

@@ -189,7 +189,7 @@
             var modelName = bl.find('input[name=modelName]').val();
 
             $.ajax({
-                url: '<?php echo $this->createUrl('club/names/addValue') ?>',
+                url: '/club/names/addValue/',
                 data: {
                     text: text,
                     modelId: model_id,
@@ -393,7 +393,7 @@
         /*************************** Add saint date*******************************/
         $('#add_calendar input[type=submit]').click(function(){
             $.ajax({
-                url: '<?php echo Yii::app()->createUrl("club/names/AddSaintDate") ?>',
+                url: '/club/names/AddSaintDate/',
                 data: $('#calendar-form').serialize()+'&model_id='+model_id,
                 type: 'POST',
                 dataType:'JSON',
@@ -413,7 +413,7 @@
         $('#famous_add input[type=submit]').click(function(){
             var new_model = $('#famous-form input[name="NameFamous[id]"]').val() == '';
             $.ajax({
-                url: '<?php echo Yii::app()->createUrl("club/names/AddFamous") ?>',
+                url: '/club/names/AddFamous/',
                 data: $('#famous-form').serialize()+'&NameFamous[name_id]='+model_id,
                 type: 'POST',
                 dataType:'JSON',
@@ -456,7 +456,7 @@
         $('body').delegate('.famous_block.edit > img', 'click', function(){
             var id = $(this).prev().find('input[name=modelPk]').val();
             $.ajax({
-                url: '<?php echo Yii::app()->createUrl("club/names/FamousInfo") ?>',
+                url: '/club/names/FamousInfo/',
                 data: {id:id},
                 type: 'POST',
                 dataType:'JSON',

@@ -137,6 +137,7 @@ class UserController extends HController
         $dataProvider->pagination = array(
             'pageSize' => 12,
         );
+        $this->layout = 'user_new';
         $this->render('myFriendRequests', array(
             'dataProvider' => $dataProvider,
             'direction' => $direction,

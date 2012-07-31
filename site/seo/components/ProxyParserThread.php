@@ -27,7 +27,7 @@ class ProxyParserThread
 
     function __construct()
     {
-        sleep(rand(0, 60));
+        //sleep(rand(0, 60));
         Yii::import('site.frontend.extensions.phpQuery.phpQuery');
         $this->thread_id = substr(sha1(microtime()), 0, 10);
         $this->getProxy();
@@ -53,6 +53,8 @@ class ProxyParserThread
             $transaction->rollback();
             $this->closeThread('Fail with getting proxy');
         }
+
+        $this->log('proxy: '.$this->proxy->value);
     }
 
     protected function query($url, $ref = null, $post = false, $attempt = 0)

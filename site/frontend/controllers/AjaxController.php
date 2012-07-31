@@ -618,7 +618,10 @@ class AjaxController extends HController
 
         $date->validate();
         $user = Yii::app()->user->getModel();
-        $user->birthday = $date->date;
-        echo CJSON::encode(array('status' => $user->save()));
+        $user->birthday = trim($date->date);
+        echo CJSON::encode(array(
+            'status' => $user->save('birthday'),
+            'text' => '<span>День рождения:</span>'. Yii::app()->dateFormatter->format("d MMMM", $user->birthday) .' ('.$user->normalizedAge.')'
+        ));
     }
 }

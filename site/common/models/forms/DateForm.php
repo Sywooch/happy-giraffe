@@ -21,7 +21,6 @@ class DateForm extends CFormModel
         return array(
             array('day, month, year', 'required'),
             array('day, month, year', 'numerical', 'integerOnly' => true),
-            array('year', 'numerical', 'integerOnly' => true, 'min'=>1900, 'max'=>date("Y")-15 ),
             array('date', 'date', 'format' => 'yyyy-MM-dd'),
         );
     }
@@ -38,7 +37,7 @@ class DateForm extends CFormModel
 
     public function beforeValidate()
     {
-        $this->date = $this->year.'-'.sprintf('%2',$this->month).'-'.sprintf('%2',$this->day);
+        $this->date = $this->year.'-'.sprintf('%02d',$this->month).'-'.sprintf('%02d',$this->day);
 
         return parent::beforeValidate();
     }

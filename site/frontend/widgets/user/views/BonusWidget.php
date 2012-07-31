@@ -30,9 +30,11 @@
                     <li>
                         <div class="num">Шаг 2</div>
                         <div class="text"><a href="#firstStepsBirthday" class="fancy">Укажите вашу дату рождения</a></div>
+                    <div class="done">
                         <?php if (!empty($this->user->birthday)):?>
-                            <div class="done"><i class="icon"></i>Сделано</div>
+                            <i class="icon"></i>Сделано
                         <?php endif ?>
+                    </div>
                     </li>
                     <li>
                         <div class="num">Шаг 3</div>
@@ -58,9 +60,11 @@
                     <li>
                         <div class="num">Шаг 6</div>
                         <div class="text"><a href="/ajax/interestsForm/" class="fancy">Укажите ваши интересы</a></div>
+                    <div class="done">
                         <?php if (!empty($this->user->interests)):?>
-                            <div class="done"><i class="icon"></i>Сделано</div>
+                            <i class="icon"></i>Сделано
                         <?php endif ?>
+                    </div>
                     </li>
 
                 </ul>
@@ -82,6 +86,7 @@
 
 <div style="display: none;">
     <div id="firstStepsLocation" class="popup">
+        <form method="post" action="<?php echo Yii::app()->createUrl('/user/saveLocation'); ?>" class="clearfix">
 
         <div class="clearfix">
 
@@ -90,6 +95,11 @@
             </div>
 
             <div class="right">
+                <?php $regions = array('' => '');
+                if ($this->user->getUserAddress()->country_id !== null) {
+                    $regions = array('' => ' ') + CHtml::listData(GeoRegion::model()->findAll(array(
+                        'order' => 'position, name', 'select' => 'id,name', 'condition' => 'country_id = ' . $this->user->getUserAddress()->country_id)), 'id', 'name');
+                } ?>
 
                 <div class="title">Укажите ваше место жительства!</div>
 
@@ -97,19 +107,60 @@
                     <div class="row">
                         Место жительства:<br>
 						<span class="chzn-v2">
-							<select class="chzn w-1" data-placeholder="Страна" id="selGK3" style="display: none; ">
-                                <option>28</option>
-                                <option>29</option>
-                            </select>
+							<?php echo CHtml::dropDownList('country_id', $this->user->getUserAddress()->country_id,
+                            array('' => ' ') + CHtml::listData(GeoCountry::model()->findAll(array('order' => 'pos')), 'id', 'name'),
+                            array(
+                                'class' => 'chzn w-1',
+                                'data-placeholder' => 'Страна',
+                                'onchange' => 'UserLocation.SelectCounty($(this));'
+                            )) ?>
 						</span>
                         &nbsp;&nbsp;
 						<span class="chzn-v2">
-							<select class="chzn w-2" data-placeholder="Регион" id="selAPJ" style="display: none; "><option>28</option></select>
+							<?php echo CHtml::dropDownList('region_id', $this->user->getUserAddress()->region_id, $regions,
+                            array(
+                                'class' => 'chzn w-2',
+                                'data-placeholder' => 'Регион',
+                                'onchange' => 'UserLocation.RegionChanged($(this));'
+                            )); ?>
 						</span>
                     </div>
                     <div class="row">
                         Населенный пункт:<br>
-                        <input type="text" class="w-3">
+                        <?php
+                        $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+                            'id' => 'city_name',
+                            'name' => 'city_name',
+                            'value' => ($this->user->userAddress->city === null) ? '' : $this->user->userAddress->city->name,
+                            'source' => "js: function(request, response){
+                            $.ajax({
+                                url: '" . Yii::app()->createUrl('/geo/default/cities') . "',
+                                dataType: 'json',
+                                data: {
+                                    term: request.term,
+                                    country_id: $('#country_id').val(),
+                                    region_id: $('#region_id').val()
+                                },
+                                success: function (data)
+                                {
+                                    response(data);
+                                }
+                            })
+                        }",
+                            'options' => array(
+                                'select' => "js:function (event, ui)
+                                {
+                                    $('#city_id').val(ui.item.id);
+                                }
+                            ",
+                                'htmlOptions' => array(
+                                    'placeholder' => 'Выберите город',
+                                    'class'=>'w-3'
+                                )
+                            ),
+                        ));
+                        ?>
+                        <?php echo CHtml::hiddenField('city_id', $this->user->userAddress->city_id); ?>
                         <br>
                         <small>Введите свой город, поселок, село или деревню</small>
                     </div>
@@ -123,12 +174,19 @@
         </div>
 
         <div class="bottom">
-            <button class="btn btn-green-medium"><span><span>Сохранить</span></span></button>
+            <button class="btn btn-green-medium" onclick="UserLocation.saveLocation();return false;"><span><span>Сохранить</span></span></button>
         </div>
+
+        </form>
 
     </div>
 
     <div id="firstStepsBirthday" class="popup">
+        <style type="text/css">
+            #firstStepsBirthday .errorMessage {
+                display: none !important;
+            }
+        </style>
 
         <?php $form = $this->beginWidget('CActiveForm', array(
         'id' => 'birthday-form',
@@ -136,26 +194,23 @@
         'enableClientValidation' => false,
         'action' => '/ajax/birthday/',
         'clientOptions' => array(
+            'inputContainer'=>'.chzn-v2',
             'validateOnSubmit' => true,
             'validateOnChange' => false,
             'validateOnType' => false,
             'validationUrl' => '/ajax/birthday/',
             'afterValidate' => "js:function(form, data, hasError) {
                                 if (!hasError)
-                                    $.post('/ajax/birthday/', $('#birthday-form').serialize(), function(response) {
-                                        if (response.status){
-                                            $.fancybox.close();
-                                        }
-                                    }, 'json');
+                                    Bonus.setBirthday();
                                 return false;
                               }",
         )));
         $model = new DateForm();
         if (!empty($this->user->birthday)){
             $birthday = strtotime($this->user->birthday);
-            $model->day = date("d", $birthday);
-            $model->month = date("m", $birthday);
-            $model->year = date("y", $birthday);
+            $model->day = date("j", $birthday);
+            $model->month = date("n", $birthday);
+            $model->year = date("Y", $birthday);
         }
         ?>
 
@@ -164,6 +219,7 @@
             <div class="left">
                 <img src="/images/first_steps_birthday.png">
             </div>
+            <?=$form->error($model, 'birthday') ?>
 
             <div class="right">
 
@@ -180,14 +236,10 @@
                         <?=$form->error($model, 'month') ?>
 					</span>
 					<span class="chzn-v2">
-						<?=$form->dropDownList($model, 'year', range(1900,date("Y")  - 15), array('class'=>'chzn w-1', 'empty'=>'Год')) ?>
+						<?=$form->dropDownList($model, 'year', HDate::Range(1900, date('Y')-15), array('class'=>'chzn w-1', 'empty'=>'Год')) ?>
                         <?=$form->error($model, 'year') ?>
 					</span>
 
-                </div>
-
-                <div>
-                    <?=$form->errorSummary($model) ?>
                 </div>
 
                 <span class="hl">И мы подарим вам виджет с гороскопом на каждый день!</span>

@@ -159,7 +159,9 @@ class DefaultController extends HController
         $name = $this->LoadModelBySlugName($name);
         $name->reorderSaints();
         $name->initOptionsSweetMiddles();
-        $this->pageTitle = $name->name;
+        $this->meta_title = 'Значение и характеристика имени '.$name->name;
+        $this->meta_description = "Значение имени $name->name. Характеристика имени $name->name. Подходящие отчества к имени $name->name.";
+        $this->meta_keywords = "$name->name, значение имени, характеристика имени, подходящие отчества, известные личности, варианты имени, ласковые обращения";
 
         $this->render('name_view', array('name' => $name));
     }

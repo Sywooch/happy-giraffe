@@ -2545,11 +2545,11 @@ big.title ins.clr_bl {
     height: 287px;
 }
 
-#content .right_block .choice_name h1 {
-    font-size:50px;color:#505152;position:relative;left:90px;top:25px;line-height:1;background:none;
+#content .right_block .choice_name div.title-in {
+  font-size:50px;color:#505152;position:relative;left:90px;top:25px;line-height:1;background:none;font-weight:bold;
 }
 
-#content .right_block .choice_name h1 span {
+#content .right_block .choice_name div.title-in span {
     font-weight:normal;display:block;margin-left:260px;
 }
 

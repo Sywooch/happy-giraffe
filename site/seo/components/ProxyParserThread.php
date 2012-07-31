@@ -66,8 +66,8 @@ class ProxyParserThread
                 curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
             }
 
-            if (!empty($ref))
-                curl_setopt($ch, CURLOPT_REFERER, $url);
+//            if (!empty($ref))
+//                curl_setopt($ch, CURLOPT_REFERER, $url);
 
             curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
             curl_setopt($ch, CURLOPT_PROXY, $this->proxy->value);
@@ -102,6 +102,11 @@ class ProxyParserThread
                 $this->changeBadProxy();
                 return $this->query($url, $ref, $post, $attempt);
             } else {
+                if (strpos($content, 'Нам очень жаль, но запросы, поступившие с вашего IP-адреса, похожи на автоматические.')){
+                    $this->log('ip banned');
+                    $this->changeBadProxy();
+                    return $this->query($url, $ref, $post, $attempt);
+                }
                 $this->log('page loaded by curl');
                 return $content;
             }

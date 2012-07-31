@@ -34,9 +34,11 @@ class DefaultController extends HController
         if ($model === null)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
-        $this->title = 'Гороскоп ' . $model->zodiacText() . ' на сегодня';
+        $this->title = 'Гороскоп на сегодня '.$model->zodiacText();
         $this->breadcrumbs = array('Сервисы' => array('/'), 'Гороскоп' => array('index'), $this->title);
-        $this->pageTitle = $this->title;
+        $this->meta_title = 'Гороскоп на сегодня '.$model->zodiacText().' для женщин и мужчин - Веселый Жираф';
+        $this->meta_description = 'Бесплатный гороскоп '.$model->zodiacText().' на сегодня для женщин и мужчин. Обновляется ежедневно!';
+        $this->meta_keywords = 'Гороскоп на сегодня '.$model->zodiacText().', ежедневный гороскоп '.$model->zodiacText();
 
         $this->render('date', compact('model'));
     }

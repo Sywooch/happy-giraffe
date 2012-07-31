@@ -7,7 +7,7 @@ $js = "var gender;
             letter = $(this).text();
 
             $.ajax({
-                url:'". Yii::app()->createUrl("club/names/index")."',
+                url:'". Yii::app()->createUrl("names/index")."',
                 data:{
                     letter:letter,
                     gender:gender
@@ -27,7 +27,7 @@ $js = "var gender;
             gender = $(this).attr('rel');
 
             $.ajax({
-                url:'". Yii::app()->createUrl("club/names/index") ."',
+                url:'". Yii::app()->createUrl("names/index") ."',
                 data:{
                     letter:letter,
                     gender:gender
@@ -92,7 +92,7 @@ Yii::app()->clientScript->registerScript('names-index-admin',$js);
 </ul>
 <div class="content_block">
     <?php $this->renderPartial('_gender'); ?>
-    <a class="add-btn" href="<?php echo $this->createUrl('/club/names/create') ?>" title="Добавить Имя"></a>
+    <a class="add-btn" href="<?php echo $this->createUrl('names/create') ?>" title="Добавить Имя"></a>
 
     <div class="clear"></div>
 

@@ -17,10 +17,11 @@ class PositionParserThread extends ProxyParserThread
     protected $se;
     protected $pages = 5;
 
-    function __construct($se)
+    function __construct($se, $debug = 0)
     {
         parent::__construct();
         $this->se = $se;
+        $this->debug = $debug;
     }
 
     public function start()

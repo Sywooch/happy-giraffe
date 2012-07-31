@@ -71,19 +71,19 @@ class SeoCommand extends CConsoleCommand
         Yii::app()->db_seo->createCommand('update queries set yandex_parsed = 0, google_parsed = 0, parsing = 0;')->execute();
     }
 
-    public function actionParseQueriesYandex()
+    public function actionParseQueriesYandex($debug = 0)
     {
         Config::setAttribute('stop_threads', 0);
 
-        $parser = new PositionParserThread(PositionParserThread::SE_YANDEX);
+        $parser = new PositionParserThread(PositionParserThread::SE_YANDEX, $debug);
         $parser->start();
     }
 
-    public function actionParseQueriesGoogle()
+    public function actionParseQueriesGoogle($debug = 0)
     {
         Config::setAttribute('stop_threads', 0);
 
-        $parser = new PositionParserThread(PositionParserThread::SE_GOOGLE);
+        $parser = new PositionParserThread(PositionParserThread::SE_GOOGLE, $debug);
         $parser->start();
     }
 

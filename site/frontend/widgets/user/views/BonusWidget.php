@@ -1,4 +1,8 @@
-<div id="first-steps">
+<?php
+/* @var $this BonusWidget
+ * @var $form CActiveForm
+ */
+?><div id="first-steps">
 
     <div class="block-title">
 
@@ -26,22 +30,37 @@
                     <li>
                         <div class="num">Шаг 2</div>
                         <div class="text"><a href="#firstStepsBirthday" class="fancy">Укажите вашу дату рождения</a></div>
+                        <?php if (!empty($this->user->birthday)):?>
+                            <div class="done"><i class="icon"></i>Сделано</div>
+                        <?php endif ?>
                     </li>
                     <li>
                         <div class="num">Шаг 3</div>
                         <div class="text"><a href="#firstStepsLocation" class="fancy">Укажите ваше место жительства</a></div>
+                        <?php if ($this->user->getUserAddress()->hasCity()):?>
+                            <div class="done"><i class="icon"></i>Сделано</div>
+                        <?php endif ?>
                     </li>
                     <li>
                         <div class="num">Шаг 4</div>
-                        <div class="text"><a href="">Загрузите ваше главное фото</a></div>
+                        <div class="text"><a href="javascript:;" onclick="$('#change_ava > div.photo > a').trigger('click');">Загрузите ваше главное фото</a></div>
+                        <?php if (!empty($this->user->avatar)):?>
+                            <div class="done"><i class="icon"></i>Сделано</div>
+                        <?php endif ?>
                     </li>
                     <li>
                         <div class="num">Шаг 5</div>
-                        <div class="text"><a href="">Расскажите о вашей семье</a></div>
+                        <div class="text"><a href="/family/">Расскажите о вашей семье</a></div>
+                        <?php if (!empty($this->user->relationship_status)):?>
+                            <div class="done"><i class="icon"></i>Сделано</div>
+                        <?php endif ?>
                     </li>
                     <li>
                         <div class="num">Шаг 6</div>
-                        <div class="text"><a href="">Укажите ваши интересы</a></div>
+                        <div class="text"><a href="/ajax/interestsForm/" class="fancy">Укажите ваши интересы</a></div>
+                        <?php if (!empty($this->user->interests)):?>
+                            <div class="done"><i class="icon"></i>Сделано</div>
+                        <?php endif ?>
                     </li>
 
                 </ul>
@@ -78,11 +97,14 @@
                     <div class="row">
                         Место жительства:<br>
 						<span class="chzn-v2">
-							<select class="chzn w-1 chzn-done" data-placeholder="Страна" id="selGK3" style="display: none; "><option>28</option></select><div id="selGK3_chzn" class="chzn-container chzn-container-single" style="width: 147px; "><a href="javascript:void(0)" class="chzn-single"><span>28</span><div><b></b></div></a><div class="chzn-drop" style="left: -9000px; width: 145px; top: 0px; "><div class="chzn-search" style=""><input type="text" autocomplete="off" style="width: 117px; "></div><ul class="chzn-results"><li id="selGK3_chzn_o_0" class="active-result result-selected" style="">28</li></ul></div></div>
+							<select class="chzn w-1" data-placeholder="Страна" id="selGK3" style="display: none; ">
+                                <option>28</option>
+                                <option>29</option>
+                            </select>
 						</span>
                         &nbsp;&nbsp;
 						<span class="chzn-v2">
-							<select class="chzn w-2 chzn-done" data-placeholder="Регион" id="selAPJ" style="display: none; "><option>28</option></select><div id="selAPJ_chzn" class="chzn-container chzn-container-single" style="width: 232px; "><a href="javascript:void(0)" class="chzn-single"><span>28</span><div><b></b></div></a><div class="chzn-drop" style="left: -9000px; width: 230px; top: 0px; "><div class="chzn-search" style=""><input type="text" autocomplete="off" style="width: 202px; "></div><ul class="chzn-results"><li id="selAPJ_chzn_o_0" class="active-result result-selected" style="">28</li></ul></div></div>
+							<select class="chzn w-2" data-placeholder="Регион" id="selAPJ" style="display: none; "><option>28</option></select>
 						</span>
                     </div>
                     <div class="row">
@@ -108,6 +130,35 @@
 
     <div id="firstStepsBirthday" class="popup">
 
+        <?php $form = $this->beginWidget('CActiveForm', array(
+        'id' => 'birthday-form',
+        'enableAjaxValidation' => true,
+        'enableClientValidation' => false,
+        'action' => '/ajax/birthday/',
+        'clientOptions' => array(
+            'validateOnSubmit' => true,
+            'validateOnChange' => false,
+            'validateOnType' => false,
+            'validationUrl' => '/ajax/birthday/',
+            'afterValidate' => "js:function(form, data, hasError) {
+                                if (!hasError)
+                                    $.post('/ajax/birthday/', $('#birthday-form').serialize(), function(response) {
+                                        if (response.status){
+                                            $.fancybox.close();
+                                        }
+                                    }, 'json');
+                                return false;
+                              }",
+        )));
+        $model = new DateForm();
+        if (!empty($this->user->birthday)){
+            $birthday = strtotime($this->user->birthday);
+            $model->day = date("d", $birthday);
+            $model->month = date("m", $birthday);
+            $model->year = date("y", $birthday);
+        }
+        ?>
+
         <div class="clearfix">
 
             <div class="left">
@@ -121,16 +172,22 @@
                 <div class="select-box">
                     Дата рождения:
 					<span class="chzn-v2">
-                        <?=CHtml::dropDownList() ?>
-						<select class="chzn w-1 chzn-done" id="sel98G" style="display: none; "><option>28</option></select><div id="sel98G_chzn" class="chzn-container chzn-container-single" style="width: 32px; "><a href="javascript:void(0)" class="chzn-single"><span>28</span><div><b></b></div></a><div class="chzn-drop" style="left: -9000px; width: 30px; top: 0px; "><div class="chzn-search" style=""><input type="text" autocomplete="off" style="width: 12px; "></div><ul class="chzn-results"><li id="sel98G_chzn_o_0" class="active-result result-selected" style="">28</li></ul></div></div>
+                        <?=$form->dropDownList($model, 'day', range(1,31), array('class'=>'chzn w-1', 'style'=>'width: 32px;', 'empty'=>'День')) ?>
+                        <?=$form->error($model, 'day') ?>
 					</span>
 					<span class="chzn-v2">
-						<select class="chzn w-2 chzn-done" id="selXS8" style="display: none; "><option>января</option></select><div id="selXS8_chzn" class="chzn-container chzn-container-single" style="width: 92px; "><a href="javascript:void(0)" class="chzn-single"><span>января</span><div><b></b></div></a><div class="chzn-drop" style="left: -9000px; width: 90px; top: 0px; "><div class="chzn-search" style=""><input type="text" autocomplete="off" style="width: 72px; "></div><ul class="chzn-results"><li id="selXS8_chzn_o_0" class="active-result result-selected" style="">января</li></ul></div></div>
+                        <?=$form->dropDownList($model, 'month', HDate::ruMonths(), array('class'=>'chzn w-1', 'empty'=>'Месяц')) ?>
+                        <?=$form->error($model, 'month') ?>
 					</span>
 					<span class="chzn-v2">
-						<select class="chzn w-3 chzn-done" id="sel14Q" style="display: none; "><option>1973</option></select><div id="sel14Q_chzn" class="chzn-container chzn-container-single" style="width: 62px; "><a href="javascript:void(0)" class="chzn-single"><span>1973</span><div><b></b></div></a><div class="chzn-drop" style="left: -9000px; width: 60px; top: 0px; "><div class="chzn-search" style=""><input type="text" autocomplete="off" style="width: 42px; "></div><ul class="chzn-results"><li id="sel14Q_chzn_o_0" class="active-result result-selected" style="">1973</li></ul></div></div>
+						<?=$form->dropDownList($model, 'year', range(1900,date("Y")  - 15), array('class'=>'chzn w-1', 'empty'=>'Год')) ?>
+                        <?=$form->error($model, 'year') ?>
 					</span>
 
+                </div>
+
+                <div>
+                    <?=$form->errorSummary($model) ?>
                 </div>
 
                 <span class="hl">И мы подарим вам виджет с гороскопом на каждый день!</span>
@@ -140,9 +197,9 @@
         </div>
 
         <div class="bottom">
-            <button class="btn btn-green-medium"><span><span>Сохранить</span></span></button>
+            <button class="btn btn-green-medium" onclick="$(this).parents('form').submit();return false;"><span><span>Сохранить</span></span></button>
         </div>
-
+        <?php $this->endWidget(); ?>
     </div>
 
 

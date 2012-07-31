@@ -7,8 +7,11 @@ class m120730_094311_calendars extends CDbMigration
         $this->execute("CREATE TABLE `happy_giraffe`.`calendar__periods` (
 `id` INT( 11 ) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY ,
 `title` VARCHAR( 255 ) NOT NULL ,
+`heading` VARCHAR( 255 ) NOT NULL ,
 `text` TEXT NOT NULL ,
 `features` TEXT NULL ,
+`features_heading` VARCHAR( 255 ) NULL ,
+`slug` VARCHAR( 255 ) NOT NULL ,
 `calendar` TINYINT( 1 ) UNSIGNED NOT NULL
 ) ENGINE = InnoDB;
 ");

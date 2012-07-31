@@ -18,6 +18,18 @@
     </div>
 
     <div class="row">
+        <?php echo $form->labelEx($model,'heading'); ?>
+        <?php echo $form->textField($model,'heading',array('size'=>60,'maxlength'=>255)); ?>
+        <?php echo $form->error($model,'heading'); ?>
+    </div>
+
+    <div class="row">
+        <?php echo $form->labelEx($model,'slug'); ?>
+        <?php echo $form->textField($model,'slug',array('size'=>60,'maxlength'=>255)); ?>
+        <?php echo $form->error($model,'slug'); ?>
+    </div>
+
+    <div class="row">
         <?php echo $form->labelEx($model, 'text'); ?>
         <?php $this->widget('site.frontend.extensions.ckeditor.CKEditorWidget', array('model' => $model, 'attribute' => 'text')); ?>
         <?php echo $form->error($model, 'text'); ?>

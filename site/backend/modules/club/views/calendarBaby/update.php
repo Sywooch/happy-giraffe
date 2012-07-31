@@ -1,3 +1,7 @@
+<?
+    $model->scenario = 'child';
+?>
+
 <h1>Редактирование периода «<?=$model->title?>» в календаре малыша</h1>
 
 <?php echo CHtml::link('К таблице', array('admin')) ?>
@@ -17,6 +21,18 @@
             <?php echo $form->error($model,'title'); ?>
         </div>
 
+         <div class="row">
+             <?php echo $form->labelEx($model,'heading'); ?>
+             <?php echo $form->textField($model,'heading',array('size'=>60,'maxlength'=>255)); ?>
+             <?php echo $form->error($model,'heading'); ?>
+         </div>
+
+     <div class="row">
+         <?php echo $form->labelEx($model,'slug'); ?>
+         <?php echo $form->textField($model,'slug',array('size'=>60,'maxlength'=>255)); ?>
+         <?php echo $form->error($model,'slug'); ?>
+     </div>
+
         <div class="row">
             <?php echo $form->labelEx($model, 'text'); ?>
             <?php $this->widget('site.frontend.extensions.ckeditor.CKEditorWidget', array('model' => $model, 'attribute' => 'text')); ?>
@@ -24,17 +40,24 @@
         </div>
 
         <div class="row">
-            <?php echo $form->labelEx($model,'contents'); ?>
-            <?php echo $form->textArea($model, 'contentsText', array('cols' => 60, 'rows' => 6)); ?>
-            <?php echo $form->error($model,'contents'); ?>
+            <?php echo $form->labelEx($model,'features_heading'); ?>
+            <?php echo $form->textField($model,'features_heading',array('size'=>60,'maxlength'=>255)); ?>
+            <?php echo $form->error($model,'features_heading'); ?>
         </div>
 
-        <hr />
 
         <div class="row">
             <?php echo $form->labelEx($model,'features'); ?>
             <?php echo $form->textArea($model, 'features', array('cols' => 60, 'rows' => 6)); ?>
             <?php echo $form->error($model,'features'); ?>
+        </div>
+
+        <hr />
+
+        <div class="row">
+            <?php echo $form->labelEx($model,'contents'); ?>
+            <?php echo $form->textArea($model, 'contentsText', array('cols' => 60, 'rows' => 6)); ?>
+            <?php echo $form->error($model,'contents'); ?>
         </div>
 
         <hr />

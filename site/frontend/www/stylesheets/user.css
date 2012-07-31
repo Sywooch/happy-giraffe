@@ -10,7 +10,7 @@
 
 #user .header {padding-bottom:15px;}
 
-#user .user-name {padding-left:12px;width:240px;margin-bottom:20px;min-height:120px;}
+#user .user-name {padding-left:12px;width:240px;margin-bottom:20px;min-height:120px;float:left;}
 #user .user-name h1 {line-height:1;margin:0 0 7px 0;color:#0281B0;}
 
 

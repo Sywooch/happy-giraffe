@@ -130,7 +130,30 @@
                         'url' => array('/mail/templates/index'),
                     )
                 )
-            )
+            ),
+            array(
+                'label' => 'Календари',
+                'active' => (in_array(Yii::app()->controller->uniqueId, array('club/calendarBaby', 'club/calendarPregnancy'))),
+                'url' => 'javascript:void(0)',
+                'visible' => Yii::app()->user->checkAccess('calendar_baby') || Yii::app()->user->checkAccess('calendar_pregnancy'),
+                'items' => array(
+                    array(
+                        'label' => 'Календарь малыша',
+                        'url' => array('/club/calendarBaby'),
+                        'visible' => Yii::app()->user->checkAccess('calendar_baby'),
+                    ),
+                    array(
+                        'label' => 'Календарь беременности',
+                        'url' => array('/club/calendarPregnancy'),
+                        'visible' => Yii::app()->user->checkAccess('calendar_pregnancy'),
+                    ),
+                )
+            ),
+            array('label' => 'Сервисы',
+                'url' => array('/club/services'),
+                'active' => (Yii::app()->controller->uniqueId == 'club/services'),
+                'visible' => Yii::app()->user->checkAccess('services'),
+            ),
         ),
     ));?>
     <div class="clear"></div>

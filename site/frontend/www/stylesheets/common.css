@@ -41,6 +41,8 @@ a {cursor:pointer;}
 .a-right {float:right;}
 .a-left {float:left;}
 
+.nofloat {float:none !important;}
+
 .hidden {display:none !important;}
 .visible {display:block !important;}
 
@@ -152,14 +154,14 @@ a.info {display:inline-block;width:13px;height:13px;background:url(../images/com
 :-moz-placeholder {color: #ccc !important;font-weight: normal !important;}
 .placeholder { color: #ccc !important;font-weight: normal !important;}
 
-.ava {width:72px;height:72px;background:url(../images/avatar.png) no-repeat -240px -480px;display:block;}
+.ava {width:72px;height:72px;background:url(../images/avatar.png) no-repeat -240px -480px;display:block;float:left;}
 .ava, .ava img {/*css3*/ -moz-border-radius:36px;-webkit-border-radius:36px;border-radius:36px;behavior: url(/stylesheets/PIE.htc);width:72px;height:72px;}
 .ava.female {background-position:-240px -240px;}
 .ava.male {background-position:-240px 0;}
 
 .ava img {margin-top:0 !important;}
 
-.ava.big {width:240px;height:240px;background-position:0 -480px;}
+.ava.big {width:240px;height:240px;background-position:0 -480px;float:none;}
 .ava.big, .ava.big img {/*css3*/ -moz-border-radius:0px;-webkit-border-radius:0px;border-radius:0px;}
 .ava.big img {width:auto;height:auto;}
 .ava.big.female {background-position:0 -240px;}

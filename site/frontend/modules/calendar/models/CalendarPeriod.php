@@ -51,14 +51,9 @@ class CalendarPeriod extends HActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('title, text, calendar, slug', 'required'),
-            array('title', 'length', 'max' => 255),
-            array('heading', 'length', 'max' => 255),
-            array('features_heading', 'length', 'max' => 255),
-            array('slug', 'length', 'max' => 255),
+			array('title, text, calendar, slug, features_heading, features', 'required'),
+            array('title, heading, features_heading, slug', 'length', 'max' => 255),
 			array('calendar', 'in', 'range' => array(0, 1)),
-
-            array('features_heading, features', 'required', 'on' => 'child'),
 
             array('servicesIds, communitiesIds, contentsText', 'safe'),
 			// The following rule is used by search().

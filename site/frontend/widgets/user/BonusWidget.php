@@ -12,8 +12,10 @@ class BonusWidget extends UserCoreWidget
 
     public function run()
     {
-        if (!$this->user->getUserAddress()->hasCity())
+        Yii::import('site.common.models.forms.DateForm');
+        if ($this->user->id != Yii::app()->user->id || $this->user->bonus != 0)
             return ;
 
+        $this->render('BonusWidget');
     }
 }

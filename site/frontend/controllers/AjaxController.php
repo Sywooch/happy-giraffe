@@ -605,4 +605,20 @@ class AjaxController extends HController
         }
         return $model;
     }
+
+    public function actionBirthday()
+    {
+        Yii::import('site.common.models.forms.DateForm');
+        $date = new DateForm();
+        $date->attributes = $_POST['DateForm'];
+        if (isset($_POST['ajax'])){
+            echo CActiveForm::validate($date);
+            Yii::app()->end();
+        }
+
+        $date->validate();
+        $user = Yii::app()->user->getModel();
+        $user->birthday = $date->date;
+        echo CJSON::encode(array('status' => $user->save()));
+    }
 }

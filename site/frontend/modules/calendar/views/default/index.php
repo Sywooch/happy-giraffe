@@ -201,7 +201,7 @@
                     <ul>
                         <?php foreach ($period->randomContents as $c): ?>
                             <li>
-                                <?php if ($period->calendar == 0): ?>
+                                <?php if ($period->calendar != 0): ?>
                                     <div class="user clearfix">
                                         <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
                                         'user' => $c->author,
@@ -222,7 +222,7 @@
                                 <?php endif; ?>
                                 <div class="meta">
                                     <span class="views"><i class="icon"></i><?=PageView::model()->viewsByPath($c->url)?></span>
-                                    <?=CHtml::link('<i class="icon"></i>' . $c->commentsCount, $c->url, array('class' => 'comments'))?>
+                                    <?=CHtml::link('<i class="icon"></i>' . $c->commentsCount, $c->getUrl(true), array('class' => 'comments'))?>
                                 </div>
                             </li>
                         <?php endforeach; ?>

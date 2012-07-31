@@ -90,11 +90,17 @@
 
 #baby .article h1 {text-align:center;padding:5px 0;}
 
-#baby .article .age-features {width:257px;background:url(../images/bg_age_features.png) no-repeat bottom;float:left;margin:10px 15px 10px 0;padding:0 35px 25px;}
-#baby .article .age-features .title {font:bold 20px/25px arial, sans-serif;color:#727272;margin-left:35px;}
-#baby .article .age-features .title span {color:#88b9d8;font-size:50px;}
-#baby .article .age-features ul {list-style:none;font-size:14px;}
-#baby .article .age-features ul li {background:url(../images/age_features_star.png) no-repeat left 4px;padding:10px 0 10px 35px;margin-top:5px;}
+#baby .article .age-features {width:257px;background:url(../images/bg_age_features.png) no-repeat bottom;float:left;margin:10px 15px 10px 0;padding:0 35px 25px;clear:both;}
+#baby .article .age-features-pregnancy {background-image:url(/images/bg_age_features_pink.png);}
+#baby .article .age-features .title {font:bold 20px/25px arial, sans-serif;color:#464646;margin-left:35px;margin-bottom:10px;}
+#baby .article .age-features .title span {color:#6aadd8;font-size:50px;}
+#baby .article .age-features-pregnancy .title span {color:#c37fc6;}
+
+#baby .article .age-features ul {list-style:none;font-size:14px;padding-left:0;}
+#baby .article .age-features ul li {background:url(../images/age_features_star.png) no-repeat left 4px;padding:5px 0 5px 35px;}
+
+#baby .article-pregnancy .wysiwyg-content img {float:left;margin:0 20px 20px 0;}
+#baby .article-pregnancy .wysiwyg-content p {overflow:visible;}
 
 
 #baby .budget-categories {}

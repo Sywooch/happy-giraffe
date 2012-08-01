@@ -133,7 +133,7 @@ class UserController extends HController
         $this->pageTitle = 'Друзья';
         $dataProvider = ($show == 'online') ? $this->user->getFriends('online = 1') : $this->user->getFriends();
         $dataProvider->pagination = array(
-            'pageSize' => 12,
+            'pageSize' => 30,
         );
         $this->layout = 'user_new';
         $this->render('friends', array(

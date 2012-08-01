@@ -38,7 +38,7 @@ Attach.prototype.selectPhoto = function (button, id) {
     if ($('#change_ava').size() > 0 && this.entity != "PhotoComment" && this.entity != 'Comment' && this.entity != 'CommunityPost' && this.entity != 'CommunityVideo') {
         this.crop(id);
     }
-    else if (this.entity == 'Comment' || this.entity == 'CommunityPost' || this.entity == 'CommunityVideo') {
+    else if (this.entity == 'Comment' || this.entity == 'CommunityPost' || this.entity == 'CalendarPeriod' || this.entity == 'CommunityVideo') {
         this.insertToComment(id);
     } else if (this.entity == "PhotoComment") {
         this.saveCommentPhoto(id);

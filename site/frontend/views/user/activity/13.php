@@ -6,7 +6,7 @@
 
 <div class="user-post list-item">
 
-    <div class="box-title">Добавил кулинарный рецепт</div>
+    <div class="box-title"><?=($users[$action->user_id]->gender == 1) ? 'Добавил' : 'Добавила'?> кулинарный рецепт</div>
 
     <ul>
         <li>
@@ -17,6 +17,10 @@
                     <?=CHtml::link(CHtml::image($action->data['contentImage']), $recipe->url)?>
                 </div>
             <?php endif; ?>
+            <div class="meta">
+                <span class="views"><i class="icon"></i><?=PageView::model()->viewsByPath($content->url)?></span>
+                <?=CHtml::link('<i class="icon"></i>' . $content->commentsCount, $content->getUrl(true), array('class' => 'comments'))?>
+            </div>
         </li>
     </ul>
 

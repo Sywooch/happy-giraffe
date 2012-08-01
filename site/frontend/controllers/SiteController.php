@@ -336,4 +336,19 @@ class SiteController extends HController
             echo '<p>' . CHtml::link($this->createAbsoluteUrl('user/profile', array('user_id' => $u->id)), $this->createAbsoluteUrl('user/profile', array('user_id' => $u->id))) . '</p>';
         }
     }
+
+    public function actionTest2(){
+        $vals = Yii::app()->mc->sendToGroup('самое свежее на этой неделе', MailGenerator::getWeeklyArticles());
+        var_dump($vals);
+
+        /*if (Yii::app()->mc->api->errorCode){
+            echo "Batch Subscribe failed!\n";
+            echo "code:".Yii::app()->mc->api->errorCode."\n";
+            echo "msg :".Yii::app()->mc->api->errorMessage."\n";
+        } else {
+            echo "added:   ".$vals['add_count']."\n";
+            echo "updated: ".$vals['update_count']."\n";
+            echo "errors:  ".$vals['error_count']."\n";
+        }*/
+    }
 }

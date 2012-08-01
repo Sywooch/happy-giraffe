@@ -4,7 +4,7 @@
         <?=$this->controller->renderPartial('//user/activity/_activity_friend', array('user_id' => $this->user->id, 'type' => $this->activityType))?>
     <?php endif; ?>
 
-    <div class="box-title"><?=($this->activityType === false) ? 'Моя <span>дуэль</span>' : 'Принял участие в <span>дуэли</span>'?></div>
+    <div class="box-title"><?=($this->activityType === false) ? 'Моя <span>дуэль</span>' : (($this->user->gender == 1) ? 'Принял' : 'Приняла' . ' участие в <span>дуэли</span>')?></div>
 
     <div class="question">
         <p><?=$this->question->text?></p>

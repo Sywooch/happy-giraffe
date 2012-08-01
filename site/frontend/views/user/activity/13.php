@@ -6,7 +6,7 @@
 
 <div class="user-post list-item">
 
-    <div class="box-title">Добавил кулинарный рецепт</div>
+    <div class="box-title"><?=($users[$action->user_id]->gender == 1) ? 'Добавил' : 'Добавила'?> кулинарный рецепт</div>
 
     <ul>
         <li>

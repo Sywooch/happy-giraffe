@@ -18,6 +18,7 @@
 
 <?php if ($album !== null && ! empty($album->photos)): ?>
     <div class="user-albums list-item">
+        <?=$this->renderPartial('activity/_activity_friend', array('user_id' => $action['user_id'], 'type' => $type))?>
 
         <div class="box-title">Добавил новые фото</div>
 
@@ -33,7 +34,7 @@
                     <?php endforeach; ?>
                 </div>
                 <?php $label = ($album->photoCount > count($album->photos)) ? 'еще ' . ($album->photoCount - count($album->photos)) . ' фото' : 'Смотреть' ?>
-                <?=CHtml::link('<i class="icon"></i>' . $label, array('albums/user', 'id' => $this->user->id), array('class' => 'more'))?>
+                <?=CHtml::link('<i class="icon"></i>' . $label, array('albums/user', 'id' => $action->user_id), array('class' => 'more'))?>
             </div>
             </li>
         </ul>

@@ -100,6 +100,8 @@ class UserController extends HController
         $criteria = new CDbCriteria;
         $criteria->addInCondition('id', $userIds);
         $users = User::model()->findAll($criteria);
+        print_r($users);
+        die;
 
         $this->pageTitle = $title;
         $this->layout = 'user_new';

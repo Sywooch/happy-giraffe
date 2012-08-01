@@ -20,6 +20,8 @@
 	
   <script type="text/javascript" src="/javascripts/chosen.jquery.min.js"></script>
   
+	<script type="text/javascript" src="/javascripts/jquery.flip.js"></script>
+  
 	<script type="text/javascript" src="/javascripts/common.js"></script>
 	
 </head>
@@ -362,7 +364,8 @@
           </div>
           <div class="row clearfix">
             <div class="row-title">&nbsp;</div>
-            <div class="row-elements"><input type="submit" value="Войти" /> <a href="">Забыли пароль?</a></div>
+            <div class="row-elements"><input type="submit" value="Войти" /> <a href="javascript:void(0);" onclick="$('#login.popup').flip({direction:'lr',
+	content: $('#register')})">Забыли пароль?</a></div>
           </div>
         </form>
         
@@ -387,7 +390,30 @@
       <span>Вы не зарегистрированы?</span> <a href="">Зарегистрироваться</a>
     </div>
   
-  
+    <div class="block-title"><img src="/images/bg_register_title.png" />Забыли пароль?</div>    
+		
+		<div class="password-retrieve">
+			
+			<div class="block-in">
+			
+				<p>Пожалуйста введите ваш e-mail адрес. <br/>Вам будет выслано письмо с вашим паролем.</p>
+				
+				<div class="input">
+					<label>E-mail:</label>
+					<input type="text" />
+				</div>
+				
+				<div class="sent">
+					<span>На ваш e-mail адрес было выслано письмо с вашим паролем</span><br/>
+					<span>(также проверьте, пожалуйста, папку «Спам»)</span>
+				</div>
+				
+			</div>
+			
+			<input type="submit" value="Отправить" />
+			
+		</div>
+		
   </div>
   
   <div id="register" class="popup">

@@ -75,25 +75,28 @@ class UserController extends HController
         ));
     }
 
-    public function actionActivity($user_id, $page = 1)
+    public function actionActivity($user_id, $type, $page = 1)
     {
+        if (! in_array($type, array('my', 'friends')))
+            throw new CHttpException(404);
+
         $limit = 50;
         $offset = ($page - 1) * $limit;
 
-        $criteria = new EMongoCriteria;
-        $criteria->user_id = (int) $user_id;
+        $criteria = ($type == 'my') ? UserAction::model()->getMyCriteria($user_id) : UserAction::model()->getFriendsCriteria($user_id);
+        $title = ($type == 'my') ? 'Что нового' : 'Что нового у друзей';
+
         $total = UserAction::model()->count($criteria);
         $nextPage = ($total > ($limit + $offset)) ? $page + 1 : false;
 
-        $criteria = new EMongoCriteria;
-        $criteria->user_id = (int) $user_id;
         $criteria->limit($limit);
         $criteria->offset($offset);
         $criteria->sort('updated', EMongoCriteria::SORT_DESC);
         $actions = UserAction::model()->findAll($criteria);
 
-        $this->layout = '//layouts/main';
-        $this->render('activity', compact('actions', 'nextPage'));
+        $this->pageTitle = $title;
+        $this->layout = 'user_new';
+        $this->render('activity', compact('actions', 'nextPage', 'title', 'type'));
     }
 
     public function actionClubs($user_id)

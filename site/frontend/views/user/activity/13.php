@@ -17,6 +17,10 @@
                     <?=CHtml::link(CHtml::image($action->data['contentImage']), $recipe->url)?>
                 </div>
             <?php endif; ?>
+            <div class="meta">
+                <span class="views"><i class="icon"></i><?=PageView::model()->viewsByPath($content->url)?></span>
+                <?=CHtml::link('<i class="icon"></i>' . $content->commentsCount, $content->getUrl(true), array('class' => 'comments'))?>
+            </div>
         </li>
     </ul>
 

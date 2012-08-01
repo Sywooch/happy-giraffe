@@ -22,7 +22,7 @@
 
         <div class="box-title"><?=($users[$action->user_id]->gender == 1) ? 'Добавил' : 'Добавила'?> новые фото</div>
 
-        <div class="added-to"><span>в альбом</span> «<?=CHtml::link($album->title, $album->url)?>»</div>
+        <div class="added-to"><span>в альбом</span> <?=CHtml::link($album->title, $album->url)?></div>
 
         <div class="added-date"><?=Yii::app()->dateFormatter->format("dd MMMM yyyy, HH:mm", end(array_values($album->photos))->created)?></div>
 

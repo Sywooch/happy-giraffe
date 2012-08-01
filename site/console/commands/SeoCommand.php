@@ -196,5 +196,20 @@ class SeoCommand extends CConsoleCommand
             $criteria->offset = $i * 100;
         }
     }
+
+    public function actionProxy(){
+        $str = file_get_contents('http://awmproxy.com/socks_proxy.txt?');
+        if (strlen($str) > 10000){
+            Proxy::model()->deleteAll();
+            $proxies = explode("\n", $str);
+            foreach($proxies as $proxy){
+                $model = new Proxy();
+                $model->value = $proxy;
+                $model->save();
+            }
+        }else{
+            echo $str;
+        }
+    }
 }
 

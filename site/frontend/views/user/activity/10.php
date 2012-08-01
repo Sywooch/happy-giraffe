@@ -4,13 +4,15 @@
 
 <?php if ($model !== null): ?>
     <div class="user-family list-item">
+        <?=$this->renderPartial('activity/_activity_friend', array('user_id' => $action['user_id'], 'type' => $type))?>
+
         <div class="box-title">Добавил в семью</div>
         <div class="t"></div>
         <div class="c">
             <ul>
                 <?php if (get_class($model) == 'UserPartner'): ?>
                     <li>
-                        <big><?=$model->name?> &nbsp; <small><?=$this->user->getPartnerTitle($this->user->relationship_status)?></small></big>
+                        <big><?=$model->name?> &nbsp; <small><?=$users[$action->user_id]->getPartnerTitle($users[$action->user_id]->relationship_status)?></small></big>
                         <?php if (! empty($model->notice)): ?>
                             <div class="comment purple">
                                 <?= $model->notice ?>

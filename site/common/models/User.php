@@ -640,18 +640,17 @@ class User extends HActiveRecord
      */
     public function getFriends($condition = '', $params = array())
     {
-        $criteria = $this->getFriendSelectCriteria();
-        $criteria->mergeWith($this->getCommandBuilder()->createCriteria($condition, $params));
+        $criteria = $this->getFriendsCriteria($condition, $params);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
         ));
     }
 
-    public function getFriendsCriteria($additional_criteria)
+    public function getFriendsCriteria($condition = '', $params = array())
     {
         $criteria = $this->getFriendSelectCriteria();
-        $criteria->mergeWith($additional_criteria);
+        $criteria->mergeWith($this->getCommandBuilder()->createCriteria($condition, $params));
 
         return $criteria;
     }

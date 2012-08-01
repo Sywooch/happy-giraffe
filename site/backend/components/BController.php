@@ -23,12 +23,12 @@ class BController extends CController
         );
     }
 
-    public function beforeAction($action)
+    protected  function beforeAction($action)
     {
         if (isset($this->authItem) && !Yii::app()->user->checkAccess($this->authItem))
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
-        return true;
+        return parent::beforeAction($action);
     }
 
     public function loadModel($id)

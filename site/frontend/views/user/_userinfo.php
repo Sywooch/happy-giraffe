@@ -18,7 +18,7 @@
             <li><?=CHtml::link('Фото', array('albums/user', 'id' => $user->id))?></li>
             <?php endif; ?>
             <?php if ($this->uniqueId != 'user/activity'): ?>
-            <li><?=CHtml::link('Что нового', array('user/activity', 'user_id' => $user->id))?></li>
+            <li><?=CHtml::link('Что нового', array('user/activity', 'user_id' => $user->id, 'type' => 'my'))?></li>
             <?php endif; ?>
             <li>
                 <span class="drp-list">

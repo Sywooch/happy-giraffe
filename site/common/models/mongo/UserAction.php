@@ -27,7 +27,6 @@ class UserAction extends EMongoDocument
         self::USER_ACTION_INTERESTS_ADDED,
         self::USER_ACTION_USED_SERVICES,
         self::USER_ACTION_FRIENDS_ADDED,
-        //self::USER_ACTION_FAMILY_UPDATED,
         self::USER_ACTION_PHOTOS_ADDED,
     );
 
@@ -144,9 +143,6 @@ class UserAction extends EMongoDocument
             case self::USER_ACTION_PHOTOS_ADDED:
                 $result = (time() - $stack->updated < 60) && HDate::isSameDate($stack->updated, time());
                 break;
-            //case self::USER_ACTION_FAMILY_UPDATED:
-            //    $result = (time() - $stack->updated < 180) && HDate::isSameDate($stack->updated, time());
-            //    break;
             default:
                 $result = HDate::isSameDate($stack->updated, time());
         }
@@ -154,4 +150,35 @@ class UserAction extends EMongoDocument
         return $result ? $stack : null;
     }
 
+    public function getMyCriteria($user_id)
+    {
+        $criteria = new EMongoCriteria;
+        $criteria->user_id = (int) $user_id;
+
+        return $criteria;
+    }
+
+    public function getFriendsCriteria($user_id)
+    {
+        $user = User::model()->findByPk($user_id);
+        $friends = User::model()->findAll($user->getFriendsCriteria(array('select' => 't.id', 'index' => 'id')));
+        $friendsIds = array_keys($friends);
+
+        $criteria = new EMongoCriteria(array(
+            'conditions' => array(
+                'type' => array('in' => array(
+                    self::USER_ACTION_PHOTOS_ADDED,
+                    self::USER_ACTION_COMMUNITY_CONTENT_ADDED,
+                    self::USER_ACTION_COMMENT_ADDED,
+                    self::USER_ACTION_FAMILY_UPDATED,
+                    self::USER_ACTION_CLUBS_JOINED,
+                    self::USER_ACTION_BLOG_CONTENT_ADDED,
+                    self::USER_ACTION_DUEL,
+                )),
+                'user_id' => array('in' => $friendsIds),
+            ),
+        ));
+
+        return $criteria;
+    }
 }

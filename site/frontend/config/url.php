@@ -185,9 +185,9 @@ return array(
         'names/<_a:(saintCalc|likes|like|top10|saint)>' => 'services/names/default/<_a>',
         'names/<name:[\w]+>' => 'services/names/default/name/',
 
-        //'recipeBook/<_a:(getAlphabetList|getCategoryList|edit|list|diseases|vote)>' => 'services/recipeBook/default/<_a>',
-        //'recipeBook/recipe/<id:\d+>' => 'services/recipeBook/default/view',
-        //'recipeBook/<url:\w+>' => 'services/recipeBook/default/disease',
+        'recipeBook/<_a:(diseases|ac)>' => 'services/recipeBook/default/<_a>',
+        'recipeBook/edit/<id:\d+>' => 'services/recipeBook/default/form',
+        'recipeBook/add' => 'services/recipeBook/default/form',
         'recipeBook/recipe<id:\d+>' => 'services/recipeBook/default/view',
         'recipeBook/<slug:\w+>' => 'services/recipeBook/default/index',
         'recipeBook' => 'services/recipeBook/default/index',

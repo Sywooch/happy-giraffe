@@ -4,7 +4,7 @@
 
 <?php if ($content !== null): ?>
     <div class="user-post list-item">
-        <?=$this->render('activity/_activity_friend', array('user_id' => $action['user_id'], 'type' => $type))?>
+        <?=$this->renderPartial('activity/_activity_friend', array('user_id' => $action['user_id'], 'type' => $type))?>
 
         <div class="box-title">Добавил запись</div>
 

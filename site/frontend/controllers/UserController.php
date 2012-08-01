@@ -146,7 +146,7 @@ class UserController extends HController
     {
         $dataProvider = Yii::app()->user->model->getFriendRequests($direction);
         $dataProvider->pagination = array(
-            'pageSize' => 12,
+            'pageSize' => 30,
         );
         $this->layout = 'user_new';
         $this->render('myFriendRequests', array(

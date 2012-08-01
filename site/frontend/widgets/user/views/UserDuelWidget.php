@@ -1,6 +1,10 @@
-<div class="<?=$this->outerCssClass?>">
+<div class="<?=($this->activityType === false) ? 'user-duel' : 'user-duel list-item'?>">
 
-    <div class="box-title"><?=$this->boxTitle?></div>
+    <?php if ($this->activityType !== false): ?>
+        <?=$this->renderPartial('//user/activity/_activity_friend', array('user_id' => $action['user_id'], 'type' => $this->activityType))?>
+    <?php endif; ?>
+
+    <div class="box-title"><?=($this->activityType === false) ? 'Моя <span>дуэль</span>' : 'Принял участие в <span>дуэли</span>'?></div>
 
     <div class="question">
         <p><?=$this->question->text?></p>

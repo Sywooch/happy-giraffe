@@ -277,6 +277,7 @@ a.info {display:inline-block;width:13px;height:13px;background:url(../images/com
 /* errors */
 
 .error input[type=text], .error input[type=password], .error textarea, .error .chzn-single {border:1px solid #ff6767 !important;}
+.error .chzn-single div, .error .chzn-drop {border-color:#ff6767 !important;}
 input[type=text].error , input[type=password].error , textarea.error {border:1px solid #ff6767 !important;}
 .errorMessage, .errorSummary {color:#fe5757 !important;font-size:11px !important;line-height:normal !important;padding:5px 0;overflow:hidden;}
 .errorSummary ul, .errorSummary ol {list-style:none;}
@@ -419,6 +420,11 @@ input[type=text].error , input[type=password].error , textarea.error {border:1px
 a.left-str { background: url(../images/str.png) no-repeat; background-position: center right;}
 a.bot-str { background: url(../images/str-bot.png) no-repeat; background-position: center right;}
 
+
+.meta .views {margin-right:10px;color:#737575;font-family:arial, helvetica, sans-serif;font-size:12px;}
+.meta .views .icon {display:inline-block;width:24px;height:13px;background:url(/images/common.png) no-repeat -199px -275px;vertical-align:middle;position:relative;top:-2px;margin-right:3px;}
+.meta .comments {margin-right:10px;}
+.meta .comments .icon {display:inline-block;width:20px;height:17px;background:url(/images/common.png) no-repeat -225px -275px;vertical-align:middle;margin-right:3px;}
 
 
 .CheckBoxClass,.RadioClass{
@@ -1825,9 +1831,9 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 
 
 #content .club-topics-list-new {margin-bottom:30px;}
-#content .club-topics-list-new .block-title {font-size:22px;color:#262626;margin-bottom:10px;}
+#content .club-topics-list-new .block-title {font-size:22px;color:#262626;margin-bottom:15px;}
 #content .club-topics-list-new ul {list-style:none;}
-#content .club-topics-list-new ul li {margin:6px 6px;}
+#content .club-topics-list-new ul li {margin:10px 6px;}
 #content .club-topics-list-new ul li a {}
 #content .club-topics-list-new ul li span {line-height:18px;display:inline;max-width:70%}
 #content .club-topics-list-new ul li .count {display:inline;font-size:10px;color:#838381;font-family:tahoma, arial, helvetica, sans-serif;position:relative;top:-3px;margin-left:5px;}

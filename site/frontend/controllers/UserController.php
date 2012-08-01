@@ -99,6 +99,7 @@ class UserController extends HController
     public function actionClubs($user_id)
     {
         $this->pageTitle = 'Клубы';
+        $this->layout = 'user_new';
         $this->render('clubs');
     }
 
@@ -123,6 +124,7 @@ class UserController extends HController
         $dataProvider->pagination = array(
             'pageSize' => 12,
         );
+        $this->layout = 'user_new';
         $this->render('friends', array(
             'dataProvider' => $dataProvider,
             'show' => $show,
@@ -135,6 +137,7 @@ class UserController extends HController
         $dataProvider->pagination = array(
             'pageSize' => 12,
         );
+        $this->layout = 'user_new';
         $this->render('myFriendRequests', array(
             'dataProvider' => $dataProvider,
             'direction' => $direction,

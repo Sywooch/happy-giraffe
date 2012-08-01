@@ -4,7 +4,7 @@
 
 #user a.pseudo {border-bottom:1px dashed #51afc3;text-decoration:none;line-height:normal;}
 
-#user .box-title {font-size:22px;color:#4c4d4d;padding-bottom:10px;}
+#user .box-title {font-size:22px;color:#252525;padding-bottom:10px;}
 #user .box-title a {font-size:13px;margin-left:10px;}
 #user .box-title .btn {position:relative;top:8px;margin-right:15px;margin-left:0;}
 
@@ -525,10 +525,11 @@
 #user-activity .calendar-date {margin:0 auto 40px;}
 
 #user-activity .added-to {font-weight:bold;font-family:tahoma, arial, helvetica, sans-serif;font-size:11px;margin-bottom:10px;}
-#user-activity .added-to > span {margin-right:5px;}
+#user-activity .added-to > span {margin-right:5px;color:#606060;}
 #user-activity .added-to .user-info {float:none;display:inline-block;font-weight:normal;font-family:arial, helvetica, sans-serif;vertical-align:middle;}
 #user-activity .added-to .user-info .details {margin-left:30px;}
-#user-activity .added-date {text-align:left;color:#b6b9ba;font-size:9px;font-family:tahoma, arial, helvetica, sans-serif;margin-bottom:6px;margin-top:-5px;}
+#user-activity .added-to > a {display:inline-block;max-width:220px;vertical-align:top;}
+#user-activity .added-date {text-align:left;color:#b6b9ba;font-size:9px;font-family:tahoma, arial, helvetica, sans-serif;margin-bottom:6px;}
 
 #user-activity .user-mood {padding:20px 15px 0;margin-top:0;white-space:nowrap;}
 
@@ -538,7 +539,8 @@
 #user .user-post {padding:15px 15px 0;margin-bottom:20px;border:1px solid #e8e8e8;}
 #user .user-post ul {list-style:none;}
 #user .user-post ul li {margin-bottom:15px;}
-#user .user-post ul li .item-title {font-weight:bold;font-family:tahoma, arial, helvetica, sans-serif;font-size:14px;margin-bottom:15px;line-height:16px;}
+#user .user-post ul li .item-title {font-weight:bold;font-family:tahoma, arial, helvetica, sans-serif;font-size:14px;margin-bottom:10px;line-height:16px;}
+#user .user-post ul li .content {line-height:18px;}
 #user .user-post ul li .comment {font-size:11px;background:#dcf2ff;position:relative;padding:7px 12px;color:#464545;margin-top:12px;}
 #user .user-post ul li .comment {/*css3*/ -moz-border-radius:6px; -webkit-border-radius:6px; border-radius:6px;}
 #user .user-post ul li .comment .date {text-align:left;color:#b6b9ba;font-size:9px;font-family:tahoma, arial, helvetica, sans-serif;margin-bottom:2px;}
@@ -562,6 +564,7 @@
 
 #user-activity .fast-teasers-box {padding:15px;border:1px solid #e8e8e8;margin:0 0 20px;}
 #user-activity .fast-teasers-box .box-title {padding:0 0 15px;}
+#user-activity .fast-teasers-box .item-title {font-size:14px;font-weight:bold;font-family:tahoma, arial, helvetica, sans-serif;}
 
 #user-activity .user-family {text-align:center;padding:15px;border:1px solid #e8e8e8;margin:0 0 20px;}
 #user-activity .user-family .box-title {padding:0 0 15px;text-align:left;}

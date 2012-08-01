@@ -94,9 +94,16 @@ class UserController extends HController
         $criteria->sort('updated', EMongoCriteria::SORT_DESC);
         $actions = UserAction::model()->findAll($criteria);
 
+        $userIds = array();
+        foreach ($actions as $a)
+            $userIds[$a->user_id] = $a->user_id;
+        $criteria = new CDbCriteria;
+        $criteria->addInCondition('id', $userIds);
+        $users = User::model()->findAll($criteria);
+
         $this->pageTitle = $title;
         $this->layout = 'user_new';
-        $this->render('activity', compact('actions', 'nextPage', 'title', 'type'));
+        $this->render('activity', compact('actions', 'nextPage', 'title', 'type', 'users'));
     }
 
     public function actionClubs($user_id)

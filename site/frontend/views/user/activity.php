@@ -51,7 +51,7 @@
                 <div class="activity-list">
             <?php endif; ?>
 
-                    <?php $this->renderPartial('activity/' . $action->type, compact('action', 'type')); ?>
+                    <?php $this->renderPartial('activity/' . $action->type, compact('action', 'type', 'users')); ?>
 
             <?php if ($close): ?>
                 </div>

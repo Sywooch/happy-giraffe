@@ -12,7 +12,7 @@ class IndexParserThread extends ProxyParserThread
     /**
      * @var int search engine id
      */
-    protected $pages = 50;
+    protected $pages = 10;
     protected $up_id = null;
 
     function __construct()
@@ -39,14 +39,19 @@ class IndexParserThread extends ProxyParserThread
 
     public function perPage()
     {
-        return 20;
+        return 30;
     }
 
     public function getUrl()
     {
+        $criteria = new CDbCriteria;
+        $criteria->compare('active', 0);
+        //$criteria->compare('type', 1);
+        $criteria->order = 'type DESC';
+
         $transaction = Yii::app()->db_seo->beginTransaction();
         try {
-            $this->url = IndexingUrl::model()->find('active = 0');
+            $this->url = IndexingUrl::model()->find($criteria);
             if ($this->url === null) {
                 $this->closeThread('no queries');
             }
@@ -143,13 +148,31 @@ class IndexParserThread extends ProxyParserThread
         Yii::import('site.frontend.components.ManyToManyBehavior');
         Yii::import('site.frontend.modules.cook.models.*');
 
+        //Community
         $communities = Community::model()->findAll();
         foreach ($communities as $community) {
-            self::addUrl('http://www.happy-giraffe.ru/community/' . $community->id . '/forum/');
-            self::addUrl('http://www.happy-giraffe.ru/community/' . $community->id . '/forum/post/');
-            self::addUrl('http://www.happy-giraffe.ru/community/' . $community->id . '/forum/video/');
+            self::addUrl('http://www.happy-giraffe.ru/community/' . $community->id . '/forum/', 1);
+
+            self::addUrl('http://www.happy-giraffe.ru/community/' . $community->id . '/forum/post/', 1);
+            foreach (range(1, 9) as $letter)
+                self::addUrl('http://www.happy-giraffe.ru/community/' . $community->id . '/forum/post/'.$letter, 1);
+
+            self::addUrl('http://www.happy-giraffe.ru/community/' . $community->id . '/forum/video/', 1);
+            foreach (range(1, 9) as $letter)
+                self::addUrl('http://www.happy-giraffe.ru/community/' . $community->id . '/forum/video/'.$letter, 1);
         }
 
+        //блоги сотрудников
+        $users = User::model()->findAll('t.group > 0 AND t.deleted = 0');
+        foreach($users as $user)
+            self::addUrl('http://www.happy-giraffe.ru/user/' . $user->id . '/blog/', 1);
+
+        //morning
+        $morning = array_merge(range(14,21), range(146,213));
+        foreach($morning as $letter)
+            self::addUrl('http://www.happy-giraffe.ru/morning/' . $letter, 1);
+
+        //весь контент
         $articles = array(1);
         $criteria = new CDbCriteria;
         $criteria->limit = 100;
@@ -168,22 +191,35 @@ class IndexParserThread extends ProxyParserThread
 
         //services
         self::addUrl('http://www.happy-giraffe.ru/names/saint/');
+        self::addUrl('http://www.happy-giraffe.ru/names/top10/');
+        foreach (range('A', 'Z') as $letter)
+            self::addUrl('http://www.happy-giraffe.ru/names/'.$letter, 1);
         self::addUrl('http://www.happy-giraffe.ru/names/');
         $names = Name::model()->findAll();
         foreach ($names as $name)
             self::addUrl('http://www.happy-giraffe.ru/names/' . $name->slug . '/');
 
+
         self::addUrl('http://www.happy-giraffe.ru/babySex/');
         self::addUrl('http://www.happy-giraffe.ru/sewing/');
+
         self::addUrl('http://www.happy-giraffe.ru/horoscope/');
+        self::addUrl('http://www.happy-giraffe.ru/horoscope/compatibility/');
+        foreach (array('a', 't','g', 'c', 'l', 'v', 's', 'p') as $letter)
+            self::addUrl('http://www.happy-giraffe.ru/horoscope/'.$letter, 1);
+        foreach (array('a', 't','g', 'c', 'l', 'v', 's', 'p') as $letter)
+            self::addUrl('http://www.happy-giraffe.ru/horoscope/compatibility/'.$letter, 1);
+
         self::addUrl('http://www.happy-giraffe.ru/test/');
         self::addUrl('http://www.happy-giraffe.ru/pregnancyWeight/');
         self::addUrl('http://www.happy-giraffe.ru/placentaThickness/');
         self::addUrl('http://www.happy-giraffe.ru/menstrualCycle/');
         self::addUrl('http://www.happy-giraffe.ru/babyBloodGroup/');
         self::addUrl('http://www.happy-giraffe.ru/contractionsTime/');
-        self::addUrl('http://www.happy-giraffe.ru/childrenDiseases/');
 
+        self::addUrl('http://www.happy-giraffe.ru/childrenDiseases/');
+        foreach (range('a', 'z') as $letter)
+            self::addUrl('http://www.happy-giraffe.ru/childrenDiseases/' . $letter, 1);
         $models = RecipeBookDisease::model()->findAll();
         foreach ($models as $model)
             self::addUrl('http://www.happy-giraffe.ru/childrenDiseases/' . $model->slug . '/');
@@ -191,8 +227,10 @@ class IndexParserThread extends ProxyParserThread
         foreach ($models as $model)
             self::addUrl('http://www.happy-giraffe.ru/childrenDiseases/' . $model->slug . '/');
 
+        // Cook recipes
         self::addUrl('http://www.happy-giraffe.ru/cook/recipe/');
-
+        foreach (range(1, 999) as $letter)
+            self::addUrl('http://www.happy-giraffe.ru/cook/recipe/' . $letter, 1);
         $models = CookRecipe::model()->findAll();
         foreach ($models as $model)
             self::addUrl('http://www.happy-giraffe.ru/cook/recipe/' . $model->id . '/');
@@ -200,6 +238,9 @@ class IndexParserThread extends ProxyParserThread
         self::addUrl('http://www.happy-giraffe.ru/cook/converter/');
         self::addUrl('http://www.happy-giraffe.ru/cook/calorisator/');
 
+        // Cook choose
+        foreach (range('a', 'z') as $letter)
+            self::addUrl('http://www.happy-giraffe.ru/cook/choose/' . $letter, 1);
         $models = CookChoose::model()->findAll();
         foreach ($models as $model)
             self::addUrl('http://www.happy-giraffe.ru/cook/choose/' . $model->slug . '/');
@@ -207,6 +248,9 @@ class IndexParserThread extends ProxyParserThread
         foreach ($models as $model)
             self::addUrl('http://www.happy-giraffe.ru/cook/choose/' . $model->slug . '/');
 
+        // Cook spices
+        foreach (range('a', 'z') as $letter)
+            self::addUrl('http://www.happy-giraffe.ru/cook/spice/' . $letter, 1);
         $models = CookSpice::model()->findAll();
         foreach ($models as $model)
             self::addUrl('http://www.happy-giraffe.ru/cook/spice/' . $model->slug . '/');
@@ -216,18 +260,24 @@ class IndexParserThread extends ProxyParserThread
 
         self::addUrl('http://www.happy-giraffe.ru/cook/decor/');
         for ($i = 0; $i <= 7; $i++) {
-            self::addUrl('http://www.happy-giraffe.ru/cook/decor/' . $i . '/');
+            self::addUrl('http://www.happy-giraffe.ru/cook/decor/' . $i . '/', 1);
         }
     }
 
-    public static function addUrl($url)
+    public static function addUrl($url, $type = 0)
     {
         $model = IndexingUrl::model()->findByAttributes(array('url' => $url));
         if ($model === null) {
             $model = new IndexingUrl;
             $model->url = $url;
+            $model->type = $type;
             $model->active = 0;
             $model->save();
+        }else{
+            if ($type != 0 && $model->type != $type){
+                $model->type = $type;
+                $model->save();
+            }
         }
     }
 }

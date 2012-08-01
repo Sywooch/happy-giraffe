@@ -26,7 +26,7 @@
         $paragraphsCount = count($paragraphs);
         $pI = floor($paragraphsCount / 3);
         $p = $doc->find('p:eq(' . $pI . ')');
-        $p->before($features);
+        $p->after($features);
         $period->text = $doc->html();
         $doc->unloadDocument();
     ?>

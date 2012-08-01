@@ -24,6 +24,10 @@
                 <div class="content">
                     <p><?=$content->contentText?> <?=CHtml::link('Читать всю запись<i class="icon"></i>', $content->url, array('class' => 'read-more'))?></p>
                 </div>
+                <div class="meta">
+                    <span class="views"><i class="icon"></i><?=PageView::model()->viewsByPath($content->url)?></span>
+                    <?=CHtml::link('<i class="icon"></i>' . $content->commentsCount, $content->getUrl(true), array('class' => 'comments'))?>
+                </div>
             </li>
         </ul>
 

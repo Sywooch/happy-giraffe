@@ -30,9 +30,9 @@
                     <div class="clearfix">
 
                         <div class="calendar-date">
-                            <div class="y"><?=Yii::app()->dateFormatter->format("yyyy", time())?></div>
-                            <div class="d"><?=Yii::app()->dateFormatter->format("dd", time())?></div>
-                            <div class="m"><?=Yii::app()->dateFormatter->format("MMM", time())?></div>
+                            <div class="y"><?=Yii::app()->dateFormatter->format("yyyy", $action->updated)?></div>
+                            <div class="d"><?=Yii::app()->dateFormatter->format("dd", $action->updated)?></div>
+                            <div class="m"><?=Yii::app()->dateFormatter->format("MMM", $action->updated)?></div>
                         </div>
 
                         <div class="activity-list">

@@ -119,6 +119,8 @@ class PositionParserThread extends ProxyParserThread
         foreach ($document->find('.b-body-items  h2 a.b-serp-item__title-link') as $link) {
             $links [] = pq($link)->attr('href');
         }
+//        if (empty($links))
+//            $this->saveToFile($content);
 
         $document->unloadDocument();
 
@@ -178,4 +180,10 @@ class PositionParserThread extends ProxyParserThread
         $this->query->parsing = 0;
         $this->query->save();
     }
+
+    private function saveToFile($content)
+    {
+        file_put_contents(Yii::getPathOfAlias('site.common.cookies') . DIRECTORY_SEPARATOR . 'result_'.$this->thread_id . '.html', $content);
+    }
+
 }

@@ -6,7 +6,7 @@
 
 <div class="box fast-teasers-box fast-teasers clearfix list-item">
 
-    <div class="box-title">Применил сервисы</div>
+    <div class="box-title"><?=($users[$action->user_id]->gender == 1) ? 'Применил' : 'Применила'?> сервисы</div>
 
     <ul>
         <?php foreach ($services as $s): ?>

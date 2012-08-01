@@ -4,7 +4,7 @@
 
 <?php if ($model !== null): ?>
     <div class="user-family list-item">
-        <?=$this->render('activity/_activity_friend', array('user_id' => $action['user_id'], 'type' => $type))?>
+        <?=$this->renderPartial('activity/_activity_friend', array('user_id' => $action['user_id'], 'type' => $type))?>
 
         <div class="box-title">Добавил в семью</div>
         <div class="t"></div>

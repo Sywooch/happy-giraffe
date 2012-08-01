@@ -110,8 +110,8 @@ class MailChimp extends CApplicationComponent
     {
         $opts = array(
             'list_id' => $this->list,
-            'from_email' => 'lnghost@hotmail.com',
-            'from_name' => 'Me',
+            'from_email' => 'support@happy-giraffe.ru',
+            'from_name' => 'Веселый Жираф',
             'tracking' => array('opens' => true, 'html_clicks' => true, 'text_clicks' => false),
             'authenticate' => true,
             'subject' => $subject,

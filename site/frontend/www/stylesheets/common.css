@@ -191,7 +191,7 @@ a.info {display:inline-block;width:13px;height:13px;background:url(../images/com
 .user-info-big .text-status {/*css3*/ -moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px;}
 .user-info-big .text-status .tale {display:block;width:26px;height:11px;background:url(/images/common.png) no-repeat -424px -261px;position:absolute;top:-11px;left:8px;}
 
-.user-fast-nav {font-size:11px;font-family:tahoma, arial, helvetica, sans-serif;color:#a4cce8;clear:left;margin-bottom:12px;margin-left:15px;}
+.user-fast-nav {font-size:11px;font-family:tahoma, arial, helvetica, sans-serif;color:#a4cce8;clear:left;margin-bottom:12px;margin-left:15px;line-height;12px;}
 .user-fast-nav .more {text-decoration:none;border-bottom:1px dashed #029AD2;}
 .user-fast-nav > ul {list-style:none;}
 .user-fast-nav > ul > li {float:left;padding-left:5px;margin-left:5px;border-left:1px solid #a4cce8;}

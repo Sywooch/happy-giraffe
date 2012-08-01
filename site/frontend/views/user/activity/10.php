@@ -12,7 +12,7 @@
             <ul>
                 <?php if (get_class($model) == 'UserPartner'): ?>
                     <li>
-                        <big><?=$model->name?> &nbsp; <small><?=$this->user->getPartnerTitle($this->user->relationship_status)?></small></big>
+                        <big><?=$model->name?> &nbsp; <small><?=$users[$action->user_id]->getPartnerTitle($users[$action->user_id]->relationship_status)?></small></big>
                         <?php if (! empty($model->notice)): ?>
                             <div class="comment purple">
                                 <?= $model->notice ?>

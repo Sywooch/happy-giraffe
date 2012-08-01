@@ -94,9 +94,17 @@ class UserController extends HController
         $criteria->sort('updated', EMongoCriteria::SORT_DESC);
         $actions = UserAction::model()->findAll($criteria);
 
+        $userIds = array();
+        foreach ($actions as $a)
+            $userIds[$a->user_id] = $a->user_id;
+        $criteria = new CDbCriteria;
+        $criteria->addInCondition('id', $userIds);
+        $criteria->index = 'id';
+        $users = User::model()->findAll($criteria);
+
         $this->pageTitle = $title;
         $this->layout = 'user_new';
-        $this->render('activity', compact('actions', 'nextPage', 'title', 'type'));
+        $this->render('activity', compact('actions', 'nextPage', 'title', 'type', 'users'));
     }
 
     public function actionClubs($user_id)
@@ -125,7 +133,7 @@ class UserController extends HController
         $this->pageTitle = 'Друзья';
         $dataProvider = ($show == 'online') ? $this->user->getFriends('online = 1') : $this->user->getFriends();
         $dataProvider->pagination = array(
-            'pageSize' => 12,
+            'pageSize' => 30,
         );
         $this->layout = 'user_new';
         $this->render('friends', array(
@@ -138,7 +146,7 @@ class UserController extends HController
     {
         $dataProvider = Yii::app()->user->model->getFriendRequests($direction);
         $dataProvider->pagination = array(
-            'pageSize' => 12,
+            'pageSize' => 30,
         );
         $this->layout = 'user_new';
         $this->render('myFriendRequests', array(

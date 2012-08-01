@@ -75,18 +75,19 @@ class UserController extends HController
         ));
     }
 
-    public function actionActivity($user_id, $page = 1)
+    public function actionActivity($user_id, $type, $page = 1)
     {
+        if (! in_array($type, array('my', 'friends')))
+            throw new CHttpException(404);
+
         $limit = 50;
         $offset = ($page - 1) * $limit;
 
-        $criteria = new EMongoCriteria;
-        $criteria->user_id = (int) $user_id;
+        $criteria = ($type == 'my') ? UserAction::model()->getMyCriteria($user_id) : UserAction::model()->getFriendsCriteria($user_id);
+
         $total = UserAction::model()->count($criteria);
         $nextPage = ($total > ($limit + $offset)) ? $page + 1 : false;
 
-        $criteria = new EMongoCriteria;
-        $criteria->user_id = (int) $user_id;
         $criteria->limit($limit);
         $criteria->offset($offset);
         $criteria->sort('updated', EMongoCriteria::SORT_DESC);

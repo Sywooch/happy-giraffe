@@ -20,6 +20,8 @@ class IndexParserThread extends ProxyParserThread
         parent::__construct();
         $up = IndexingUp::model()->find(array('order' => 'id desc'));
         $this->up_id = $up->id;
+        $this->delay_min = 0;
+        $this->delay_max = 0;
     }
 
     public function start()
@@ -72,6 +74,7 @@ class IndexParserThread extends ProxyParserThread
             echo 'Page loaded, links count: ' . count($links) . "\n";
 
         $this->success_loads++;
+        sleep(20);
 
         foreach ($links as $link) {
             $this->saveUrl($link);

@@ -119,7 +119,7 @@
 
 
             <div class="banner-box">
-                <a href="<?=$this->createUrl('/cook/spices')?>"><img src="/images/banner_05.png" /></a>
+                <?=$this->renderPartial('//_banner')?>
             </div>
 
         </div>

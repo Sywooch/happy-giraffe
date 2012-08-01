@@ -1,7 +1,7 @@
 <div class="<?=($this->activityType === false) ? 'user-duel' : 'user-duel list-item'?>">
 
     <?php if ($this->activityType !== false): ?>
-        <?=$this->renderPartial('//user/activity/_activity_friend', array('user_id' => $action['user_id'], 'type' => $this->activityType))?>
+        <?=$this->renderPartial('//user/activity/_activity_friend', array('user_id' => $this->user->id, 'type' => $this->activityType))?>
     <?php endif; ?>
 
     <div class="box-title"><?=($this->activityType === false) ? 'Моя <span>дуэль</span>' : 'Принял участие в <span>дуэли</span>'?></div>

@@ -28,6 +28,14 @@ else {
                 </div>
             <?php endif; ?>
             <div class="user-fast-buttons<?php if (! $this->nav):?> clearfix<?php endif; ?>">
+                <?php if ($this->friendRequest !== false): ?>
+                    <?php if ($this->friendRequest['direction'] == 'incoming'): ?>
+                        <?=CHtml::link('Принять', array('friendRequests/update', 'request_id' => $this->friendRequest['id'], 'action' => 'accept'), array('class' => 'accept'))?>
+                        <?=CHtml::link('', array('friendRequests/update', 'request_id' => $this->friendRequest['id'], 'action' => 'decline'), array('class' => 'remove tooltip', 'title' => 'Отклонить'))?>
+                    <?php else: ?>
+                        <?=CHtml::link('Отменить', array('friendRequests/update', 'request_id' => $this->friendRequest['id'], 'action' => 'cancel'), array('class' => 'accept cancel'))?>
+                    <?php endif; ?>
+                <?php endif; ?>
                 <?php if ($this->friendButton && $this->user->id != Yii::app()->user->id): ?>
                     <?php Yii::app()->controller->renderPartial('//user/_friend_button', array(
                         'user' => $this->user,

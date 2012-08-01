@@ -1,41 +1,34 @@
-<div class="user-cols clearfix">
+<div class="col-1">
 
-    <div class="col-1">
+    <?php $this->renderPartial('_friends_sidebar'); ?>
 
-        <div class="side-filter">
-            <?php $this->renderPartial('_friends_sidebar'); ?>
-        </div>
+</div>
 
-    </div>
+<div class="col-23 clearfix">
 
-    <div class="col-23 clearfix">
+    <div class="content-title-new"><?=($this->user->id == Yii::app()->user->id) ? 'Мои друзья' : 'Друзья'?></div>
 
-        <div class="content-title">Друзья</div>
-
-        <?php
-            $this->widget('zii.widgets.CListView', array(
-                'ajaxUpdate' => false,
-                'dataProvider' => $dataProvider,
-                'itemView' => '_friend',
-                //'summaryText' => 'Показано: {start}-{end} из {count}',
-                'template' =>
-                '
+    <?php
+        $this->widget('zii.widgets.CListView', array(
+            'id' => 'friends',
+            'ajaxUpdate' => true,
+            'dataProvider' => $dataProvider,
+            'itemView' => '_friend',
+            'itemsTagName' => 'ul',
+            'template' =>
+            '
                     <div class="friends clearfix">
-                        <ul>
-                            {items}
-                        </ul>
+                        {items}
                     </div>
                     <div class="pagination pagination-center clearfix">
                         {pager}
                     </div>
                 ',
-                'pager' => array(
-                    'class' => 'MyLinkPager',
-                    'header' => '',
-                ),
-            ));
-        ?>
-
-    </div>
+            'pager' => array(
+                'class' => 'MyLinkPager',
+                'header' => '',
+            ),
+        ));
+    ?>
 
 </div>

@@ -30,7 +30,7 @@
         <?=$title?>
     </div>
 
-    <div id="user-activity">
+    <div id="user-activity"<?php if ($type == 'friends'): ?> class="user-friends-activity"<?php endif; ?>>
 
         <?php foreach ($actions as $i => $action): ?>
 

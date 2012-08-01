@@ -27,7 +27,7 @@
 <div class="col-23">
 
     <div class="content-title-new">
-        Что нового
+        <?=$title?>
     </div>
 
     <div id="user-activity">

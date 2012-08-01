@@ -75,7 +75,7 @@ class UserController extends HController
         ));
     }
 
-    public function actionActivity($user_id, $page = 1)
+    public function actionActivity($user_id, $type, $page = 1)
     {
         if (! in_array($type, array('my', 'friends')))
             throw new CHttpException(404);
@@ -96,7 +96,7 @@ class UserController extends HController
 
         $this->pageTitle = $title;
         $this->layout = 'user_new';
-        $this->render('activity', compact('actions', 'nextPage', 'title'));
+        $this->render('activity', compact('actions', 'nextPage', 'title', 'type'));
     }
 
     public function actionClubs($user_id)

@@ -10,17 +10,24 @@
 
 <div class="col-1">
 
+    <?php if ($type == 'my'): ?>
 
-    <?php $this->renderPartial('_userinfo', array('user' => $this->user)); ?>
+        <?php $this->renderPartial('_userinfo', array('user' => $this->user)); ?>
 
-    <div class="user-joined">
-        <div class="calendar-date">
-            <div class="y"><?=Yii::app()->dateFormatter->format("yyyy", $this->user->register_date)?></div>
-            <div class="d"><?=Yii::app()->dateFormatter->format("dd", $this->user->register_date)?></div>
-            <div class="m"><?=Yii::app()->dateFormatter->format("MMM", $this->user->register_date)?></div>
+        <div class="user-joined">
+            <div class="calendar-date">
+                <div class="y"><?=Yii::app()->dateFormatter->format("yyyy", $this->user->register_date)?></div>
+                <div class="d"><?=Yii::app()->dateFormatter->format("dd", $this->user->register_date)?></div>
+                <div class="m"><?=Yii::app()->dateFormatter->format("MMM", $this->user->register_date)?></div>
+            </div>
+            <span>Присоединился к «Весёлому Жирафу»</span>
         </div>
-        <span>Присоединился к «Весёлому Жирафу»</span>
-    </div>
+
+    <?php else: ?>
+
+        <?php $this->renderPartial('_friends_sidebar'); ?>
+
+    <?php endif; ?>
 
 </div>
 
@@ -51,7 +58,7 @@
                 <div class="activity-list">
             <?php endif; ?>
 
-                    <?php $this->renderPartial('activity/' . $action->type, compact('action', 'type')); ?>
+                    <?php $this->renderPartial('activity/' . $action->type, compact('action', 'type', 'users')); ?>
 
             <?php if ($close): ?>
                 </div>

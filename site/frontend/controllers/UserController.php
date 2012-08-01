@@ -93,7 +93,7 @@ class UserController extends HController
         $criteria->sort('updated', EMongoCriteria::SORT_DESC);
         $actions = UserAction::model()->findAll($criteria);
 
-        $this->layout = '//layouts/main';
+        $this->layout = 'user_new';
         $this->render('activity', compact('actions', 'nextPage'));
     }
 

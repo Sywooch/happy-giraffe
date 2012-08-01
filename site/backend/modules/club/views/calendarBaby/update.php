@@ -89,7 +89,7 @@
 <div style="display: none;">
     <div class="upload-btn">
         <?php
-        $fileAttach = $this->beginWidget('site.frontend.widgets.fileAttach.FileAttachWidget', array(
+        $fileAttach = $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
             'model' => $model,
         ));
         $fileAttach->button();

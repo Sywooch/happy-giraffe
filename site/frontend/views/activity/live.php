@@ -28,7 +28,7 @@
     <div class="side-left">
 
         <div class="banner">
-            <a href=""><img src="/images/banner_04.png"></a>
+            <?=$this->renderPartial('//_banner')?>
         </div>
 
     </div>

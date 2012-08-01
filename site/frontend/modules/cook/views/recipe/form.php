@@ -238,7 +238,7 @@
 
     <div class="banner-box">
 
-        <a href=""><img src="/images/banner_04.png" /></a>
+        <?=$this->renderPartial('//_banner')?>
 
     </div>
 

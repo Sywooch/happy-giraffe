@@ -168,6 +168,10 @@ class IndexParserThread extends ProxyParserThread
 
         //services
         self::addUrl('http://www.happy-giraffe.ru/names/saint/');
+        self::addUrl('http://www.happy-giraffe.ru/names/top10/');
+        foreach (range('A', 'Z') as $letter) {
+            self::addUrl('http://www.happy-giraffe.ru/names/'.$letter);
+        }
         self::addUrl('http://www.happy-giraffe.ru/names/');
         $names = Name::model()->findAll();
         foreach ($names as $name)

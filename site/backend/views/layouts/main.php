@@ -32,7 +32,9 @@
             ->registerCssFile('/css/jquery.pnotify.css')
 
             ->registerScriptFile('/js/jquery.iframe-post-form.js')
+
             ->registerScript('base_url', 'var base_url = \'' . Yii::app()->baseUrl . '\';', CClientScript::POS_HEAD)
+            ->registerCssFile('/css/common.css')
         ;
     ?>
 

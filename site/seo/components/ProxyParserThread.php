@@ -12,7 +12,7 @@ class ProxyParserThread
     /**
      * @var string thread id - random string
      */
-    private $thread_id;
+    protected $thread_id;
     /**
      * @var int number of success page loads for current proxy
      */
@@ -27,7 +27,7 @@ class ProxyParserThread
 
     function __construct()
     {
-        //sleep(rand(0, 60));
+        sleep(rand(0, 20));
         Yii::import('site.frontend.extensions.phpQuery.phpQuery');
         $this->thread_id = substr(sha1(microtime()), 0, 10);
         $this->getProxy();
@@ -62,16 +62,16 @@ class ProxyParserThread
         sleep(rand($this->delay_min, $this->delay_max));
         $this->log('start curl');
         if ($ch = curl_init($url)) {
-            curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0');
+            curl_setopt($ch, CURLOPT_USERAGENT, 'Opera/9.80 (Windows NT 6.1; WOW64; U; ru) Presto/2.10.289 Version/12.00');
             if ($post) {
                 curl_setopt($ch, CURLOPT_POST, 1);
                 curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
             }
 
-//            if (!empty($ref))
-//                curl_setopt($ch, CURLOPT_REFERER, $url);
+            if (!empty($ref))
+                curl_setopt($ch, CURLOPT_REFERER, $url);
 
-            curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
+            //curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
             curl_setopt($ch, CURLOPT_PROXY, $this->proxy->value);
             if (getenv('SERVER_ADDR') != '5.9.7.81') {
                 curl_setopt($ch, CURLOPT_PROXYUSERPWD, "alexk984:Nokia1111");
@@ -107,6 +107,7 @@ class ProxyParserThread
             } else {
                 if (strpos($content, 'Нам очень жаль, но запросы, поступившие с вашего IP-адреса, похожи на автоматические.')){
                     $this->log('ip banned');
+                    //file_put_contents(Yii::getPathOfAlias('site.common.cookies') . DIRECTORY_SEPARATOR . 'banned.txt', $this->proxy->value."\n", FILE_APPEND);
                     $this->changeBadProxy();
                     return $this->query($url, $ref, $post, $attempt);
                 }

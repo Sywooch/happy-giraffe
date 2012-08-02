@@ -11,7 +11,7 @@
 
         <a href="javascript:void(0);" class="popup-close tooltip" onclick="$.fancybox.close()" title="Закрыть"></a>
 
-        <div class="block-title"><img src="/site/frontend/www/images/bg_register_title.png" />Забыли пароль?</div>
+        <div class="block-title"><img src="/images/bg_register_title.png" />Забыли пароль?</div>
 
         <div class="password-retrieve">
 

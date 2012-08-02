@@ -34,7 +34,7 @@
 
                 <ul>
                     <?php foreach ($data->ingredients as $i): ?>
-                    <li><?=$i->ingredient->title?> - <?=round($i->value)?> <?=HDate::GenerateNoun(array($i->unit->title, $i->unit->title2, $i->unit->title3), (int) $i->value)?></li>
+                    <li><?=$i->ingredient->title?> - <?=$i->display_value?> <?=$i->noun?></li>
                     <?php endforeach; ?>
                 </ul>
 
@@ -51,6 +51,14 @@
         </div>
 
     </div>
+
+    <?php if (Yii::app()->authManager->checkAccess('editRecipeBookRecipe', Yii::app()->user->id) || Yii::app()->user->id == $data->author_id): ?>
+        <div class="entry-footer">
+            <div class="admin-actions">
+                <?=CHtml::link('<i class="icon"></i>', array('/services/recipeBook/default/form', 'id' => $data->id), array('class' => 'edit'))?>
+            </div>
+        </div>
+    <?php endif; ?>
 
 </div>
 

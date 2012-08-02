@@ -6,8 +6,7 @@
 class UserDuelWidget extends UserCoreWidget
 {
     public $question_id = null;
-    public $boxTitle = 'Моя <span>дуэль</span>';
-    public $outerCssClass = 'user-duel';
+    public $activityType = false;
 
     public $question = null;
     public $myAnswer;

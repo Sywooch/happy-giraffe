@@ -71,10 +71,10 @@ class ProxyParserThread
             if (!empty($ref))
                 curl_setopt($ch, CURLOPT_REFERER, $url);
 
-            //curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
+            curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
             curl_setopt($ch, CURLOPT_PROXY, $this->proxy->value);
             if (getenv('SERVER_ADDR') != '5.9.7.81') {
-                curl_setopt($ch, CURLOPT_PROXYUSERPWD, "alexk984:Nokia1111");
+                curl_setopt($ch, CURLOPT_PROXYUSERPWD, "alexk984:Nokia12345");
                 curl_setopt($ch, CURLOPT_PROXYAUTH, 1);
             }
             curl_setopt($ch, CURLOPT_COOKIEFILE, $this->getCookieFile());
@@ -93,6 +93,8 @@ class ProxyParserThread
             if ($content === false) {
                 if (curl_errno($ch)) {
                     $this->log('Error while curl: ' . curl_error($ch) );
+                    curl_close($ch);
+
                     $attempt += 1;
                     if ($attempt > 1) {
                         $this->changeBadProxy();
@@ -101,10 +103,12 @@ class ProxyParserThread
 
                     return $this->query($url, $ref, $post, $attempt);
                 }
+                curl_close($ch);
 
                 $this->changeBadProxy();
                 return $this->query($url, $ref, $post, $attempt);
             } else {
+                curl_close($ch);
                 if (strpos($content, 'Нам очень жаль, но запросы, поступившие с вашего IP-адреса, похожи на автоматические.')){
                     $this->log('ip banned');
                     //file_put_contents(Yii::getPathOfAlias('site.common.cookies') . DIRECTORY_SEPARATOR . 'banned.txt', $this->proxy->value."\n", FILE_APPEND);

@@ -85,3 +85,19 @@
 
     <?php $this->endWidget(); ?>
 </div>
+
+<div style="display: none;">
+    <div class="upload-btn">
+        <?php
+        $fileAttach = $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
+            'model' => $model,
+        ));
+        $fileAttach->button();
+        $this->endWidget();
+        ?>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var cke_instance = '<?php echo get_class($model); ?>[text]';
+</script>

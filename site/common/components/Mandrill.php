@@ -13,7 +13,9 @@ class Mandrill extends CApplicationComponent
     {
         if (is_int($user))
             $user = User::model()->findByPk($user);
-        if (!$user instanceof User)
+        if (is_string($user))
+            $user = User::model()->findByAttributes(array('email' => $user));
+        if ($user === null)
             return false;
 
         $rest = new RESTClient;
@@ -33,7 +35,8 @@ class Mandrill extends CApplicationComponent
         );
         $data = CMap::mergeArray($generalData, $this->$action($user, $params));
         $res = $rest->post('messages/send.json', $data);
-        print_r($res);
+        $res = CJSON::decode($res);
+        return $res[0]['status'] != 'error';
     }
 
     public function passwordRecovery($user, $params)

@@ -14,7 +14,7 @@ $cs
 ;
 $this->breadcrumbs = array(
     'Кулинария' => array('/cook'),
-    'Рецепты' => array('/cook/recipe'),
+    'Рецепты' => array('/cook/recipe/index', 'section' => $this->section),
     'Поиск по ингредиентам'
 );
 ?>
@@ -31,7 +31,7 @@ $this->widget('zii.widgets.CBreadcrumbs', array(
 ?>
 
 <div id="cook-recipe-search">
-    <?=CHtml::beginForm('/cook/recipe/searchResult/', 'get', array('id' => 'searchRecipeForm'))?>
+    <?=CHtml::beginForm(array('/cook/recipe/searchResult/', 'section' => $this->section), 'get', array('id' => 'searchRecipeForm'))?>
 
     <div class="title clear">
         <i class="icon"></i>

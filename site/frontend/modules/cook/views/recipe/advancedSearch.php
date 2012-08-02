@@ -12,7 +12,7 @@ $cs
 
 $this->breadcrumbs = array(
     'Кулинария' => array('/cook'),
-    'Рецепты' => array('/cook/recipe'),
+    'Рецепты' => array('/cook/recipe/index', 'section' => $this->section),
     'Расширенный поиск'
 );
 ?>
@@ -29,7 +29,7 @@ $this->widget('zii.widgets.CBreadcrumbs', array(
 ?>
 
 <div id="cook-recipe-search">
-    <?=CHtml::beginForm('/cook/recipe/advancedSearchResult/', 'get', array('id' => 'searchRecipeForm'))?>
+    <?=CHtml::beginForm(array('/cook/recipe/advancedSearchResult/', 'section' => $this->section), 'get', array('id' => 'searchRecipeForm'))?>
 
     <div class="title clear">
         <i class="icon"></i>
@@ -61,7 +61,7 @@ $this->widget('zii.widgets.CBreadcrumbs', array(
             <div class="row">
                 <label>Тип блюда</label>
                 <span class="chzn-v2">
-                    <?=CHtml::dropDownList('type', null, CookRecipe::model()->types, array('prompt' => 'не выбран', 'class' => 'chzn'))?>
+                    <?=CHtml::dropDownList('type', null, CActiveRecord::model($this->modelName)->types, array('prompt' => 'не выбран', 'class' => 'chzn'))?>
                 </span>
             </div>
 
@@ -70,14 +70,14 @@ $this->widget('zii.widgets.CBreadcrumbs', array(
             <div class="row">
                 <label><i class="icon-time-1"></i>Подготовка</label>
                 <span class="chzn-v2">
-                    <?=CHtml::dropDownList('preparation_duration', null, CookRecipe::model()->durationLabels, array('prompt' => 'не важно', 'class' => 'chzn'))?>
+                    <?=CHtml::dropDownList('preparation_duration', null, CActiveRecord::model($this->modelName)->durationLabels, array('prompt' => 'не важно', 'class' => 'chzn'))?>
                 </span>
             </div>
 
             <div class="row">
                 <label><i class="icon-time-2"></i>Приготовление</label>
                 <span class="chzn-v2">
-                    <?=CHtml::dropDownList('cooking_duration', null, CookRecipe::model()->durationLabels, array('prompt' => 'не важно', 'class' => 'chzn'))?>
+                    <?=CHtml::dropDownList('cooking_duration', null, CActiveRecord::model($this->modelName)->durationLabels, array('prompt' => 'не важно', 'class' => 'chzn'))?>
                 </span>
             </div>
 

@@ -134,7 +134,7 @@
         <div class="main">
             <div class="main-right">
 
-                <div class="article<?php if ($period->calendar == 1): ?> article-pregnancy">
+                <div class="article<?php if ($period->calendar == 1): ?> article-pregnancy<?php endif; ?>">
                     <?php
                         if (! empty($period->heading)) {
                             $heading = $period->heading;

@@ -25,7 +25,7 @@ return array(
         '/' => 'site/index',
         'js_dynamics/<hash:\w+>.js' => 'site/seoHide',
         'search' => 'site/search',
-        'site/<_a:(passwordRecovery|login|logout|link|test|test2|users)>' => 'site/<_a>',
+        'site/<_a:(passwordRecovery|passwordRecoveryForm|login|logout|link|test|test2|users)>' => 'site/<_a>',
         'contest' => 'site/contest',
 
         // ajax controller
@@ -160,9 +160,9 @@ return array(
 
         //===================== Services =========================//
 
-        'babyCalendar/period<period_id:\d+>' => array('calendar/default/index', 'defaultParams' => array('calendar' => 0)),
-        'pregnancyCalendar/period<period_id:\d+>' => array('calendar/default/index', 'defaultParams' => array('calendar' => 1)),
-        'babyCalendar' => array('calendar/default/index', 'defaultParams' => array('calendar' => 0)),
+        'childCalendar/<slug:\w+>' => array('calendar/default/index', 'defaultParams' => array('calendar' => 0)),
+        'pregnancyCalendar/<slug:\w+>' => array('calendar/default/index', 'defaultParams' => array('calendar' => 1)),
+        'childCalendar' => array('calendar/default/index', 'defaultParams' => array('calendar' => 0)),
         'pregnancyCalendar' => array('calendar/default/index', 'defaultParams' => array('calendar' => 1)),
 
         '<_m:(test|tester|vaccineCalendar|childrenDiseases|menstrualCycle|horoscope|babyBloodGroup|placentaThickness|pregnancyWeight|contractionsTime|names|hospitalBag|maternityLeave|dailyCalories|weightLoss|idealWeight|bodyFat|birthDate)>/' => 'services/<_m>/default/index',

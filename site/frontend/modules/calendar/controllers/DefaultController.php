@@ -2,15 +2,15 @@
 
 class DefaultController extends HController
 {
-	public function actionIndex($calendar, $period_id = null)
+	public function actionIndex($calendar, $slug = null)
 	{
         $criteria = new CDbCriteria;
         $criteria->with = array('contents', 'contents.commentsCount', 'communities', 'services');
-        if ($period_id === null) {
+        if ($slug === null) {
             $criteria->order = 't.id';
             $criteria->compare('calendar', $calendar);
         } else {
-            $criteria->compare('t.id', $period_id);
+            $criteria->compare('t.slug', $slug);
         }
         $period = CalendarPeriod::model()->find($criteria);
         if ($period === null)

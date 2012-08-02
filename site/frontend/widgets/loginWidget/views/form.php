@@ -32,7 +32,7 @@
                     </div>
                     <div class="row clearfix">
                         <div class="row-title">&nbsp;</div>
-                        <div class="row-elements"><input type="submit" value="Войти"> <a href="#passwordRecovery" class="fancy" data-theme="white-square">Забыли пароль?</a></div>
+                        <div class="row-elements"><input type="submit" value="Войти"> <a href="<?=$this->controller->createUrl('site/passwordRecoveryForm')?>" class="fancy" data-theme="white-square">Забыли пароль?</a></div>
                     </div>
                 <?php $this->endWidget(); ?>
 

@@ -154,6 +154,15 @@ class RecipeBookRecipe extends HActiveRecord
         UserScores::removeScores($this->author_id, ScoreAction::ACTION_RECORD, 1, $this);
     }
 
+    protected function beforeSave()
+    {
+        if (! $this->isNewRecord) {
+            RecipeBookRecipeIngredient::model()->deleteAll('recipe_id = :recipe_id', array(':recipe_id' => $this->id));
+        }
+
+        return parent::beforeSave();
+    }
+
     public function getUrlParams()
     {
         return array(

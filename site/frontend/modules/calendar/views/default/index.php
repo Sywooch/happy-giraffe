@@ -5,7 +5,7 @@
     ;
 ?>
 
-<?php if ($period->calendar == 0 && $period->features && $period->features_heading): ?>
+<?php if ($period->features && $period->features_heading): ?>
     <?php
         $features = explode("\n", $period->features);
     ?>

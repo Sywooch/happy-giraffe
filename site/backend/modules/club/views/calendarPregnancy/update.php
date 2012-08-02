@@ -1,3 +1,11 @@
+<?php
+    $cs = Yii::app()->clientScript;
+
+    $cs
+        ->registerCssFile('/css/common.css')
+    ;
+?>
+
 <h1>Редактирование периода «<?=$model->title?>» в календаре ребёнка</h1>
 
 <?php echo CHtml::link('К таблице', array('admin')) ?>

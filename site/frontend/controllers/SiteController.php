@@ -340,6 +340,9 @@ class SiteController extends HController
     public function actionTest2(){
 //        $vals = Yii::app()->mc->sendToGroup('самое свежее на этой неделе', MailGenerator::getWeeklyArticles());
 //        var_dump($vals);
+
+        var_dump(Yii::app()->mc->api->templates());
+        Yii::app()->end();
         ob_start();
         $this->beginWidget('site.common.widgets.mail.WeeklyArticlesWidget');
         $this->endWidget();

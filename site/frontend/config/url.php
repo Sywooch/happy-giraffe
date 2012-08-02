@@ -160,8 +160,8 @@ return array(
 
         //===================== Services =========================//
 
-        'childCalendar/<slug:\w+>' => array('calendar/default/index', 'defaultParams' => array('calendar' => 0)),
-        'pregnancyCalendar/<slug:\w+>' => array('calendar/default/index', 'defaultParams' => array('calendar' => 1)),
+        'childCalendar/<slug:[\w-]+>' => array('calendar/default/index', 'defaultParams' => array('calendar' => 0)),
+        'pregnancyCalendar/<slug:[\w-]+>' => array('calendar/default/index', 'defaultParams' => array('calendar' => 1)),
         'childCalendar' => array('calendar/default/index', 'defaultParams' => array('calendar' => 0)),
         'pregnancyCalendar' => array('calendar/default/index', 'defaultParams' => array('calendar' => 1)),
 

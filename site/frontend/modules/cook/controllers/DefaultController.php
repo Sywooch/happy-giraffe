@@ -9,7 +9,7 @@ class DefaultController extends HController
 
         $community = Community::model()->findByPk(22);
         $recipes = SimpleRecipe::model()->lastRecipes;
-        $recipesCount = SimpleRecipe::model()->count();
+        $recipesCount = CookRecipe::model()->count('section = 0');
         $decorations = CookDecoration::model()->lastDecorations;
         $chooses = CookChoose::model()->getRandomChooses(3);
 

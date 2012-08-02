@@ -354,6 +354,11 @@ class SiteController extends HController
 
         $password = $user->createPassword(12);
         $user->password = $user->hashPassword($password);
+        if (! $user->save()) {
+            echo false;
+            Yii::app()->end();
+        }
+
         echo Yii::app()->mandrill->send($user, 'passwordRecovery', array('password' => $password));
     }
 

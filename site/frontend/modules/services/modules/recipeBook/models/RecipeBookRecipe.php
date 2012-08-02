@@ -44,11 +44,10 @@ class RecipeBookRecipe extends HActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('title, updated, disease_id, text', 'required'),
-			array('title', 'length', 'max'=>255),
-			array('disease_id', 'length', 'max'=>11),
-			array('author_id', 'length', 'max'=>10),
-			array('created', 'safe'),
+		    array('title, disease_id, author_id, text, ingredients', 'required'),
+            array('title', 'length', 'max' => 255),
+            array('disease_id', 'exist', 'attributeName' => 'id', 'className' => 'RecipeBookDisease'),
+            array('author_id', 'exist', 'attributeName' => 'id', 'className' => 'User'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, title, updated, created, disease_id, author_id, text', 'safe', 'on'=>'search'),
@@ -77,12 +76,15 @@ class RecipeBookRecipe extends HActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'title' => 'Title',
+			'title' => 'Название народного рецепта',
 			'updated' => 'Updated',
 			'created' => 'Created',
-			'disease_id' => 'Disease',
+			'disease_id' => 'Выберите болезнь',
 			'author_id' => 'Author',
-			'text' => 'Text',
+			'text' => 'Описание приготовления',
+
+            'ingredients' => 'Ингредиенты',
+            'category_id' => 'Выберите тип заболеваний',
 		);
 	}
 
@@ -110,6 +112,20 @@ class RecipeBookRecipe extends HActiveRecord
 		));
 	}
 
+    public function behaviors()
+    {
+        return array(
+            'withRelated' => array(
+                'class' => 'site.common.extensions.wr.WithRelatedBehavior',
+            ),
+            'CTimestampBehavior' => array(
+                'class' => 'zii.behaviors.CTimestampBehavior',
+                'createAttribute' => 'created',
+                'updateAttribute' => 'updated',
+            ),
+        );
+    }
+
     public function getByDisease($disease_id)
     {
         $criteria = new CDbCriteria;
@@ -136,6 +152,15 @@ class RecipeBookRecipe extends HActiveRecord
         parent::afterDelete();
 
         UserScores::removeScores($this->author_id, ScoreAction::ACTION_RECORD, 1, $this);
+    }
+
+    protected function beforeSave()
+    {
+        if (! $this->isNewRecord) {
+            RecipeBookRecipeIngredient::model()->deleteAll('recipe_id = :recipe_id', array(':recipe_id' => $this->id));
+        }
+
+        return parent::beforeSave();
     }
 
     public function getUrlParams()

@@ -20,7 +20,7 @@
     <div class="box user-interests-box list-item">
         <div class="user-interests">
 
-            <div class="box-title">Добавил интересы</div>
+            <div class="box-title"><?=($users[$action->user_id]->gender == 1) ? 'Добавил' : 'Добавила'?> интересы</div>
 
             <ul>
                 <?php foreach ($categories as $category): ?>

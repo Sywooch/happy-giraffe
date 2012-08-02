@@ -5,7 +5,7 @@
     ;
 ?>
 
-<?php if ($period->calendar == 0 && $period->features && $period->features_heading): ?>
+<?php if ($period->features && $period->features_heading): ?>
     <?php
         $features = explode("\n", $period->features);
     ?>
@@ -73,11 +73,11 @@
                         <div class="age-title"><?=$p->title?></div>
                         <?php if ($i == 0): ?>
                             <div class="no-flag">Рождение</div>
-                        <?php elseif ($i == 4): ?>
+                        <?php elseif ($i == 5): ?>
                             <div class="flag"><i class="icon"></i>1 месяц</div>
-                        <?php elseif ($i == 9): ?>
+                        <?php elseif ($i == 10): ?>
                             <div class="flag"><i class="icon"></i>6 месяцев</div>
-                        <?php elseif ($i == 15): ?>
+                        <?php elseif ($i == 16): ?>
                             <div class="flag hl"><i class="icon"></i>1 год</div>
                         <?php elseif ($i == 22): ?>
                             <div class="flag"><i class="icon"></i>3 года</div>

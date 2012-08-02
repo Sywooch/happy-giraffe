@@ -61,4 +61,31 @@ class Mandrill extends CApplicationComponent
             ),
         );
     }
+
+    public function confirmEmail($user, $params)
+    {
+        return array(
+            'message' => array(
+                'subject' => 'Напоминание пароля',
+                'global_merge_vars' => array(
+                    array(
+                        'name' => 'USERNAME',
+                        'content' => $user->fullName,
+                    ),
+                    array(
+                        'name' => 'EMAIL',
+                        'content' => $user->email,
+                    ),
+                    array(
+                        'name' => 'PASSWORD',
+                        'content' => $params['password'],
+                    ),
+                    array(
+                        'name' => 'CODE',
+                        'content' => $params['code'],
+                    ),
+                ),
+            ),
+        );
+    }
 }

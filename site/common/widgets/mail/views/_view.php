@@ -3,7 +3,7 @@
  * @var $model CommunityContent
  */
 ?>
-<td style="width:340px;" valign="top">
+<td style="width:340px;<?php if ($i % 2 != 0) echo "padding-left:20px" ?>" valign="top">
 
     <div style="padding:10px;border:1px solid #e7e7e7;width:318px;">
 

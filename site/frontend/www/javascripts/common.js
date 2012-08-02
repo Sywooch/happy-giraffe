@@ -520,15 +520,15 @@ var PasswordRecovery = {
             $('a[href="#login"]').trigger('click');
         }
         $.post($(form).attr('action'), $(form).serialize(), function(response) {
-            if (response) {
+            $('.sent').html(response.message).show();
+            if (response.status != 'error') {
                 $(button).val('Вход на сайт');
-                $('.sent').show();
                 $(form).submit(function (e) {
                     e.preventDefault();
                     f();
                 });
                 setTimeout(f, 5000);
             }
-        });
+        }, 'json');
     }
 }

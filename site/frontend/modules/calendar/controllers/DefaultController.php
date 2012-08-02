@@ -21,6 +21,7 @@ class DefaultController extends HController
             Yii::app()->clientScript->registerLinkTag('canonical', null, $period->getUrl(true));
 
         $periods = CalendarPeriod::model()->findAllByAttributes(array('calendar' => $calendar));
-	    $this->render('index', compact('period', 'periods'));
+        $this->pageTitle = ($calendar == 0) ? 'Календарь развития ребёнка' : 'Календарь беременности';
+        $this->render('index', compact('period', 'periods'));
 	}
 }

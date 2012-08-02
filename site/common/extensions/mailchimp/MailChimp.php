@@ -127,4 +127,28 @@ class MailChimp extends CApplicationComponent
             return $this->api->campaignSendNow($campaignId);
         return false;
     }
+
+    public function sendWeeklyNews($subject, $body)
+    {
+        $opts = array(
+            'list_id' => $this->list,
+            'from_email' => 'support@happy-giraffe.ru',
+            'from_name' => 'Веселый Жираф',
+            'template_id' => 24517,
+            'tracking' => array('opens' => true, 'html_clicks' => true, 'text_clicks' => false),
+            'authenticate' => true,
+            'subject' => $subject,
+            'title' => $subject,
+            'generate_text'=>true,
+        );
+
+        $content = array(
+            'html_content' => $body,
+        );
+
+        $campaignId = $this->api->campaignCreate('regular', $opts, $content);
+        if ($campaignId)
+            return $this->api->campaignSendNow($campaignId);
+        return false;
+    }
 }

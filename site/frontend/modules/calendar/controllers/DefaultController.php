@@ -10,6 +10,7 @@ class DefaultController extends HController
             $criteria->order = 't.id';
             $criteria->compare('calendar', $calendar);
         } else {
+            $criteria->compare('calendar', $calendar);
             $criteria->compare('t.slug', $slug);
         }
         $period = CalendarPeriod::model()->find($criteria);

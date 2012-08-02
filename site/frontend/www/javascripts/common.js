@@ -512,3 +512,23 @@ function firstStepsToggle(el){
 	
 	
 }
+
+var PasswordRecovery = {
+    send : function(form) {
+        var button = $(form).find('input[type="submit"]');
+        var f = function() {
+            $('a[href="#login"]').trigger('click');
+        }
+        $.post($(form).attr('action'), $(form).serialize(), function(response) {
+            if (response) {
+                $(button).val('Вход на сайт');
+                $('.sent').show();
+                $(form).submit(function (e) {
+                    e.preventDefault();
+                    f();
+                });
+                setTimeout(f, 5000);
+            }
+        });
+    }
+}

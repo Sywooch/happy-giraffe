@@ -1,13 +1,7 @@
-<?php
-    $cs = Yii::app()->clientScript;
-
-    $cs
-        ->registerScriptFile('/javascripts/jquery.flip.js')
-    ;
-?>
-
 <div style="display:none">
     <div id="passwordRecovery" class="popup">
+
+        <?=CHtml::beginForm(array('site/passwordRecovery'), 'post', array('onsubmit' => 'PasswordRecovery.send(this); return false;'))?>
 
         <a href="javascript:void(0);" class="popup-close tooltip" onclick="$.fancybox.close()" title="Закрыть"></a>
 
@@ -21,10 +15,10 @@
 
                 <div class="input">
                     <label>E-mail:</label>
-                    <input type="text" />
+                    <input type="text" name="email" />
                 </div>
 
-                <div class="sent">
+                <div class="sent" style="display: none;">
                     <span>На ваш e-mail адрес было выслано письмо с вашим паролем</span><br/>
                     <span>(также проверьте, пожалуйста, папку «Спам»)</span>
                 </div>
@@ -34,6 +28,8 @@
             <input type="submit" value="Отправить" />
 
         </div>
+
+        <?=CHtml::endForm()?>
 
     </div>
 </div>

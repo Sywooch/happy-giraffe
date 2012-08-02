@@ -1,3 +1,11 @@
+<?php
+    $cs = Yii::app()->clientScript;
+
+    $cs
+        ->registerCssFile('/css/common.css')
+    ;
+?>
+
 <h1>Редактирование периода «<?=$model->title?>» в календаре ребёнка</h1>
 
 <?php echo CHtml::link('К таблице', array('admin')) ?>
@@ -85,3 +93,19 @@
 
     <?php $this->endWidget(); ?>
 </div>
+
+<div style="display: none;">
+    <div class="upload-btn">
+        <?php
+        $fileAttach = $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
+            'model' => $model,
+        ));
+        $fileAttach->button();
+        $this->endWidget();
+        ?>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var cke_instance = '<?php echo get_class($model); ?>[text]';
+</script>

@@ -563,8 +563,12 @@ class CommunityContent extends HActiveRecord
             $video = new Video($this->video->link);
             return $video->preview;
         }
-        else
-            return (preg_match('/src="([^"]+)"/', $this->content->text, $matches)) ? $matches[1] : false;
+        else{
+            $image = (preg_match('/src="([^"]+)"/', $this->content->text, $matches)) ? $matches[1] : false;
+            if ($image !== false && strpos($image, 'http://') !== 0)
+                $image = 'http://www.happy-giraffe.ru'.$image;
+            return $image;
+        }
     }
 
     public function getContentText()

@@ -494,8 +494,10 @@ class User extends HActiveRecord
 
     public function getAva($size = 'ava')
     {
-        if(empty($this->avatar_id))
+        if(empty($this->avatar_id)){
+            //if ($this->user->gender)
             return false;
+        }
         if($size != 'big')
             return $this->avatar->getAvatarUrl($size);
         else
@@ -959,5 +961,17 @@ class User extends HActiveRecord
             'order' => 't.rate DESC',
             'limit' => 3,
         ));
+    }
+
+    function createPassword($length)
+    {
+        $chars = 'abcefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+        $i = 0;
+        $password = "";
+        while ($i <= $length) {
+            $password .= $chars{mt_rand(0,strlen($chars) - 1)};
+            $i++;
+        }
+        return $password;
     }
 }

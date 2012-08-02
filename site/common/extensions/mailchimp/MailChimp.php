@@ -3,17 +3,17 @@
  * @property MCAPI $api
  *
  */
-class MailChimp extends CApplicationComponent {
+class MailChimp extends CApplicationComponent
+{
+    const WEEKLY_NEWS_LIST_ID = 'd8ced52317';
 
-  public $apiKey;
+    public $apiKey;
+    public $list;
+    protected $_api;
 
-  public $list;
-
-  protected $_api;
-
-  /**
-   * @return MCAPI
-   */
+    /**
+     * @return MCAPI
+     */
     public function getApi()
     {
         if (!$this->_api) {
@@ -37,12 +37,33 @@ class MailChimp extends CApplicationComponent {
 
     public function updateUsers()
     {
-        $users = User::model()->active()->findAll();
+        $users = $this->getAllUsers();
         $options = array();
-        foreach($users as $user)
+        foreach ($users as $user)
             $options[] = $this->getUserOptions($user);
 
         $this->api->listBatchSubscribe($this->list, $options, false, true, false);
+    }
+
+    public function getLists()
+    {
+        $res = $this->api->lists();
+        var_dump($res);
+        foreach ($res['data'] as $list) {
+            echo $list['id'] . '<br>';
+        }
+    }
+
+    /**
+     * @return User[]
+     */
+    public function getAllUsers()
+    {
+        //пользователи которые зарегистрировались после 1 мая + наши сотрудники
+        $criteria = new CDbCriteria;
+        $criteria->condition = '(t.group < 5 AND t.group > 0) OR (t.group = 0 AND t.register_date >= "2012-05-01 00:00:00")';
+        $criteria->scopes = array('active');
+        return User::model()->findAll($criteria);
     }
 
     /**
@@ -57,14 +78,14 @@ class MailChimp extends CApplicationComponent {
             'LNAME' => $user->last_name,
             'GENDER' => $user->gender,
         );
-        if($user->age !== null)
+        if ($user->age !== null)
             $options['AGE'] = $user->age;
         return $options;
     }
 
     public function sendToEmail($email, $model, $action)
     {
-        if(($template = MailTemplate::model()->findByAction($action)) == null)
+        if (($template = MailTemplate::model()->findByAction($action)) == null)
             return;
         $body = $template->parse($model, 'body');
         $subject = $template->parse($model, 'subject');
@@ -87,14 +108,14 @@ class MailChimp extends CApplicationComponent {
 
     public function send($segmentGroups, $subject, $body)
     {
-        $opts= array(
-            'list_id'	=> $this->list,
-            'from_email'	=> 'lnghost@hotmail.com',
-            'from_name'	=> 'Me',
-            'tracking'	=> array('opens' => true, 'html_clicks' => true, 'text_clicks' => false),
-            'authenticate'	=> true,
-            'subject'	=> $subject,
-            'title'		=> $subject,
+        $opts = array(
+            'list_id' => $this->list,
+            'from_email' => 'support@happy-giraffe.ru',
+            'from_name' => 'Веселый Жираф',
+            'tracking' => array('opens' => true, 'html_clicks' => true, 'text_clicks' => false),
+            'authenticate' => true,
+            'subject' => $subject,
+            'title' => $subject,
         );
 
         $content = array(
@@ -102,6 +123,30 @@ class MailChimp extends CApplicationComponent {
         );
 
         $campaignId = $this->api->campaignCreate('regular', $opts, $content, $segmentGroups);
+        if ($campaignId)
+            return $this->api->campaignSendNow($campaignId);
+        return false;
+    }
+
+    public function sendWeeklyNews($subject, $body)
+    {
+        $opts = array(
+            'list_id' => $this->list,
+            'from_email' => 'support@happy-giraffe.ru',
+            'from_name' => 'Веселый Жираф',
+            'template_id' => 24517,
+            'tracking' => array('opens' => true, 'html_clicks' => true, 'text_clicks' => false),
+            'authenticate' => true,
+            'subject' => $subject,
+            'title' => $subject,
+            'generate_text'=>true,
+        );
+
+        $content = array(
+            'html_content' => $body,
+        );
+
+        $campaignId = $this->api->campaignCreate('regular', $opts, $content);
         if ($campaignId)
             return $this->api->campaignSendNow($campaignId);
         return false;

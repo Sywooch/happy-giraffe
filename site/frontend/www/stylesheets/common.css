@@ -622,15 +622,21 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 #login.popup a {color:#1c93f8;}
 
 
-#login.popup .password-retrieve {width:590px;margin:50px auto 0;text-align:right;}
-#login.popup .password-retrieve .block-in {padding:30px;background:#f4eff8;font-size:17px;color:#6b6b6b;line-height:20px;text-align:left;margin-bottom:10px;}
-#login.popup .password-retrieve .block-in p {margin-bottom:15px;}
-#login.popup .password-retrieve .block-in .input {margin-bottom:15px;}
-#login.popup .password-retrieve .block-in .input label {font-size:15px;font-family:arial, helvetica, sans-serif;margin-right:25px;}
-#login.popup .password-retrieve .block-in .input input {padding:5px 10px;border:1px solid #cdcdcd;background:#fff;width:268px;margin-bottom:8px;font-size:15px;color:#3d3d3d;}
-#login.popup .password-retrieve .block-in .sent {}
-#login.popup .password-retrieve .block-in .sent span {background:#fffbc9;font-size:14px;padding:1px 3px;}
-#login.popup .password-retrieve  input[type=submit] {height:33px;line-height:33px;background:url(/images/btn_green_33.gif) repeat-x;color:#fff;font-size:16px;font-weight:bold;padding:0 15px;cursor:pointer;border:0;margin:0;vertical-align:middle;}
+#passwordRecovery.popup {width:700px;padding:20px 50px;}
+
+#passwordRecovery.popup .block-title {color:#aa82d1;font-size:40px;line-height:1;margin-bottom:20px;text-align:center;}
+#passwordRecovery.popup .block-title img {margin-right:10px;}
+
+
+#passwordRecovery.popup .password-retrieve {width:590px;margin:50px auto 0;text-align:right;}
+#passwordRecovery.popup .password-retrieve .block-in {padding:30px;background:#f4eff8;font-size:17px;color:#6b6b6b;line-height:20px;text-align:left;margin-bottom:10px;}
+#passwordRecovery.popup .password-retrieve .block-in p {margin-bottom:15px;}
+#passwordRecovery.popup .password-retrieve .block-in .input {margin-bottom:15px;}
+#passwordRecovery.popup .password-retrieve .block-in .input label {font-size:15px;font-family:arial, helvetica, sans-serif;margin-right:25px;}
+#passwordRecovery.popup .password-retrieve .block-in .input input {padding:5px 10px;border:1px solid #cdcdcd;background:#fff;width:268px;margin-bottom:8px;font-size:15px;color:#3d3d3d;}
+#passwordRecovery.popup .password-retrieve .block-in .sent {}
+#passwordRecovery.popup .password-retrieve .block-in .sent span {background:#fffbc9;font-size:14px;padding:1px 3px;}
+#passwordRecovery.popup .password-retrieve  input[type=submit] {height:33px;line-height:33px;background:url(/images/btn_green_33.gif) repeat-x;color:#fff;font-size:16px;font-weight:bold;padding:0 15px;cursor:pointer;border:0;margin:0;vertical-align:middle;}
 
 
 #register.popup {width:700px;padding:20px 50px;}

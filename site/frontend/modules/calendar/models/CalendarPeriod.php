@@ -175,7 +175,7 @@ class CalendarPeriod extends HActiveRecord
             '/calendar/default/index',
             array(
                 'calendar' => $this->calendar,
-                'period_id' => $this->id,
+                'slug' => $this->slug,
             ),
         );
     }

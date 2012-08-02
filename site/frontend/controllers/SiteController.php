@@ -337,24 +337,45 @@ class SiteController extends HController
         }
     }
 
+    public function actionPasswordRecoveryForm()
+    {
+        $this->renderPartial('passwordRecoveryForm');
+    }
 
     public function actionPasswordRecovery()
     {
         $email = Yii::app()->request->getPost('email');
         if (empty($email)) {
-            echo false;
+            echo CJSON::encode(array(
+                'status' => 'error',
+                'message' => '<span>Введите e-mail.</span>'
+            ));
             Yii::app()->end();
         }
 
         $user = User::model()->findByAttributes(array('email' => $email));
         if ($user === null) {
-            echo false;
+            echo CJSON::encode(array(
+                'status' => 'error',
+                'message' => '<span>Пользователя с таким e-mail не существует.</span>',
+            ));
             Yii::app()->end();
         }
 
         $password = $user->createPassword(12);
         $user->password = $user->hashPassword($password);
-        echo Yii::app()->mandrill->send($user, 'passwordRecovery', array('password' => $password));
+
+        if (! ($user->save() &&  Yii::app()->mandrill->send($user, 'passwordRecovery', array('password' => $password)))) {
+            echo CJSON::encode(array(
+                'status' => 'error',
+                'message' => '<span>Произошла неизвестная ошибка. Попробуйте ещё раз.</span>',
+            ));
+        } else {
+            echo CJSON::encode(array(
+                'status' => 'ok',
+                'message' => '<span>На ваш e-mail адрес было выслано письмо с вашим паролем</span><br/><span>(также проверьте, пожалуйста, папку «Спам»)</span>',
+            ));
+        }
     }
 
     public function actionTest2(){

@@ -2769,6 +2769,7 @@ label {
 .admin-buttons a.yellow:hover,.admin-buttons a.yellow.active {background:#f8cb30;border-color:#f8cb30;}
 .admin-buttons a.blue:hover,.admin-buttons a.blue.active {background:#5488d0;border-color:#5488d0;}
 .admin-buttons a.lilac:hover,.admin-buttons a.lilac.active {background:#b666d2;border-color:#b666d2;}
+.admin-buttons a.mailer:hover,.admin-buttons a.mailer.active {background:#D0006E;border-color:#D0006E;}
 
 
 /* */

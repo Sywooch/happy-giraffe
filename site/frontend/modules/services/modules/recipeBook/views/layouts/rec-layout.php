@@ -18,7 +18,7 @@
     <div class="side-left">
 
         <div class="club-fast-add">
-            <?=CHtml::link(CHtml::image('/images/btn_add_recipe.png'), array('services/recipeBook/default/form'))?>
+            <?=CHtml::link(CHtml::image('/images/btn_add_recipe.png'), array('/services/recipeBook/default/form'))?>
         </div>
 
         <div class="slide-nav">

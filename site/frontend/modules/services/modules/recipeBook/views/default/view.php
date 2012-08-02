@@ -52,6 +52,14 @@
 
     </div>
 
+    <div class="entry-footer">
+        <div class="admin-actions">
+            <?php if (Yii::app()->authManager->checkAccess('editRecipeBookRecipe', Yii::app()->user->id) || Yii::app()->user->id == $recipe->author_id){
+            echo CHtml::link('<i class="icon"></i>', array('services/recipeBook/default/form', 'id' => $data->id), array('class' => 'edit'));
+        } ?>
+        </div>
+    </div>
+
 </div>
 
 <div class="like-block fast-like-block">

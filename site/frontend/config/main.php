@@ -281,8 +281,8 @@ return array(
         ),
         'mc' => array(
             'class' => 'site.common.extensions.mailchimp.MailChimp',
-            'apiKey' => '761494406f3754b8128246285e00b703-us5',
-            'list' => '5772c2a539'
+            'apiKey' => 'c0ff51b36480912260a410258b64af5f-us5',
+            'list' => 'd8ced52317'
         ),
         'mandrill' => array(
             'class' => 'site.common.components.Mandrill',

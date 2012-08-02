@@ -10,7 +10,7 @@
         <table cellpadding="0" cellspacing="0" style="margin-bottom:8px;">
             <tbody>
             <tr>
-                <td valign="top"><img src="<?=$model->contentAuthor->getAva() ?>"
+                <td valign="middle"><img src="<?=$model->contentAuthor->getAva() ?>"
                                       style="display:block;margin-top:-40px;-moz-border-radius:36px;-webkit-border-radius:36px;border-radius:36px;">
                 </td>
                 <td valign="top">

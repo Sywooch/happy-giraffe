@@ -61,7 +61,7 @@
                     <?php $i = 0; foreach ($model->comments as $comment): ?>
                         <?php if (!empty($comment->author->avatar_id)):?>
                         <?php $i++ ?>
-                            <img src="<?=$comment->author->getAva() ?>"
+                            <img src="<?=$comment->author->getAva('small') ?>"
                                  style="margin-right:5px;-moz-border-radius:12px;-webkit-border-radius:12px;border-radius:12px;">
                         <?php if ($i == 6) break; ?>
                         <?php endif ?>

@@ -336,4 +336,46 @@ class SiteController extends HController
             echo '<p>' . CHtml::link($this->createAbsoluteUrl('user/profile', array('user_id' => $u->id)), $this->createAbsoluteUrl('user/profile', array('user_id' => $u->id))) . '</p>';
         }
     }
+
+
+    public function actionPasswordRecovery()
+    {
+        $email = Yii::app()->request->getPost('email');
+        if (empty($email)) {
+            echo false;
+            Yii::app()->end();
+        }
+
+        $user = User::model()->findByAttributes(array('email' => $email));
+        if ($user === null) {
+            echo false;
+            Yii::app()->end();
+        }
+
+        $password = $user->createPassword(12);
+        $user->password = $user->hashPassword($password);
+        echo Yii::app()->mandrill->send($user, 'passwordRecovery', array('password' => $password));
+    }
+
+    public function actionTest2(){
+//        $vals = Yii::app()->mc->sendToGroup('самое свежее на этой неделе', MailGenerator::getWeeklyArticles());
+//        var_dump($vals);
+        ob_start();
+        $this->beginWidget('site.common.widgets.mail.WeeklyArticlesWidget');
+        $this->endWidget();
+
+        $contents = ob_get_clean();
+
+        $vals = Yii::app()->mc->sendWeeklyNews('самое свежее на этой неделе', $contents);
+
+        if (Yii::app()->mc->api->errorCode){
+            echo "Batch Subscribe failed!\n";
+            echo "code:".Yii::app()->mc->api->errorCode."\n";
+            echo "msg :".Yii::app()->mc->api->errorMessage."\n";
+        } else {
+            echo "added:   ".$vals['add_count']."\n";
+            echo "updated: ".$vals['update_count']."\n";
+            echo "errors:  ".$vals['error_count']."\n";
+        }
+    }
 }

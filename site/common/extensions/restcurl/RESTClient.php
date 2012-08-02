@@ -43,7 +43,7 @@ class RESTClient extends CComponent
 
     private $response_string;
 	private $_curl;
-	private $_headers;
+	private $_headers = array();
     /**
      * Logs a message.
      *

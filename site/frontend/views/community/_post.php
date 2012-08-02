@@ -35,7 +35,7 @@
 
             <div class="meta">
 
-                <div class="time"><?php echo Yii::app()->dateFormatter->format("d MMMM yyyy, H:mm", $data->created); ?></div>
+                <div class="time"><?= Yii::app()->dateFormatter->format("d MMMM yyyy, H:mm", $data->created); ?></div>
 
                 <div class="seen">Просмотров:&nbsp;<span id="page_views"><?php
                     if ($full)
@@ -101,19 +101,11 @@
                 {
                     case 'post':
                         echo $data->post->purified->text;
-                        $data_text = $data->post->text;
-                        preg_match('!<img.*?src="(.*?)"!', $data_text, $matches);
-                        if (count($matches) > 0)
-                            $data_image = $matches[1];
-                        else
-                            $data_image = false;
                         break;
                     case 'video':
                         $video = new Video($data->video->link);
                         echo '<noindex><div style="text-align: center; margin-bottom: 10px;">' . $video->code . '</div></noindex>';
                         echo $data->video->purified->text;
-                        $data_text = $data->video->text;
-                        $data_image = $video->preview;
                         break;
                     case 'travel':
                         if ($data->travel->waypoints) {
@@ -245,8 +237,8 @@
             'type' => 'simple',
             'options' => array(
                 'title' => CHtml::encode($data->title),
-                'image' => isset($data_image) ? $data_image : false,
-                'description' => $data_text,
+                'image' => $data->getContentImage(),
+                'description' => $data->getContent()->text,
             ),
         )); ?>
     </noindex>

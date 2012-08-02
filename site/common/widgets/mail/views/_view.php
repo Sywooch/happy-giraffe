@@ -31,7 +31,7 @@
 
         <div style="margin-bottom:5px;">
             <a href="http://www.happy-giraffe.ru<?=$model->getUrl() ?>" target="_blank" style="text-decoration: none;">
-                <img src="http://www.happy-giraffe.ru<?=$model->getContentImage() ?>" width="318" border="0" style="display:block;"></a>
+                <img src="<?=$model->getContentImage() ?>" width="318" border="0" style="display:block;"></a>
         </div>
 
         <div style="font:13px arial, helvetica, sans-serif;color:#040404;">

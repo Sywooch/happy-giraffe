@@ -974,4 +974,9 @@ class User extends HActiveRecord
         }
         return $password;
     }
+
+    function getConfirmationCode()
+    {
+        return md5($this->email . md5($this->password));
+    }
 }

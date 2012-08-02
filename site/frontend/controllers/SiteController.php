@@ -337,6 +337,26 @@ class SiteController extends HController
         }
     }
 
+
+    public function actionPasswordRecovery()
+    {
+        $email = Yii::app()->request->getPost('email');
+        if (empty($email)) {
+            echo false;
+            Yii::app()->end();
+        }
+
+        $user = User::model()->findByAttributes(array('email' => $email));
+        if ($user === null) {
+            echo false;
+            Yii::app()->end();
+        }
+
+        $password = $user->createPassword(12);
+        $user->password = $user->hashPassword($password);
+        echo Yii::app()->mandrill->send($user, 'passwordRecovery', array('password' => $password));
+    }
+
     public function actionTest2(){
 //        $vals = Yii::app()->mc->sendToGroup('самое свежее на этой неделе', MailGenerator::getWeeklyArticles());
 //        var_dump($vals);

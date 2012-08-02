@@ -20,7 +20,7 @@
             </tbody>
         </table>
 
-        <div style="margin-bottom:5px;">
+        <div style="margin-bottom:10px;">
             <span style="color:#0d81d5;font:bold 18px/20px arial, helvetica, sans-serif;">
                 <a href="http://www.happy-giraffe.ru<?=$model->getUrl() ?>" target="_blank" style="color:#0d81d5;font:bold 18px/20px arial, helvetica, sans-serif;"><?=$model->title ?></a></span>
         </div>
@@ -34,7 +34,7 @@
                 <img src="<?=$model->getContentImage() ?>" width="318" border="0" style="display:block;"></a>
         </div>
 
-        <div style="font:13px arial, helvetica, sans-serif;color:#040404;">
+        <div style="font:13px/18px arial, helvetica, sans-serif;color:#040404;">
             <?= Str::truncate(strip_tags($model->getContent()->text), 450); ?>
             <span style="color:#0d81d5;">
                 <a href="http://www.happy-giraffe.ru<?=$model->getUrl() ?>" target="_blank" style="color:#0d81d5;">Читать&nbsp;всю&nbsp;запись&nbsp;<img

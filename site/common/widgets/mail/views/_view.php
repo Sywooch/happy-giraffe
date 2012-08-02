@@ -21,7 +21,7 @@
         </table>
 
         <div style="margin-bottom:5px;">
-            <span style="color:#0d81d5;font:bold 18px/20 arial, helvetica, sans-serif;">
+            <span style="color:#0d81d5;font:bold 18px/20px arial, helvetica, sans-serif;">
                 <a href="http://www.happy-giraffe.ru<?=$model->getUrl() ?>" target="_blank" style="color:#0d81d5;font:bold 18px/20px arial, helvetica, sans-serif;"><?=$model->title ?></a></span>
         </div>
 

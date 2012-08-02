@@ -14,7 +14,7 @@
                                       style="display:block;margin-top:-40px;-moz-border-radius:36px;-webkit-border-radius:36px;border-radius:36px;">
                 </td>
                 <td valign="top">
-                    <span style="color:#38a5f4;font:12px arial, helvetica, sans-serif;margin-left:10px;vert"><?=$model->contentAuthor->first_name ?></span>
+                    <span style="color:#38a5f4;font:12px arial, helvetica, sans-serif;margin-left:10px;"><?=$model->contentAuthor->first_name ?></span>
                 </td>
             </tr>
             </tbody>

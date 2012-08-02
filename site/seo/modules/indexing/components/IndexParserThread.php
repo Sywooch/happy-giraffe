@@ -74,11 +74,11 @@ class IndexParserThread extends ProxyParserThread
             echo 'Page loaded, links count: ' . count($links) . "\n";
 
         $this->success_loads++;
-        sleep(20);
 
         foreach ($links as $link) {
             $this->saveUrl($link);
         }
+        sleep(20);
     }
 
     private function loadYandexPage()

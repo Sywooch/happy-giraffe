@@ -34,7 +34,7 @@
 
                 <ul>
                     <?php foreach ($data->ingredients as $i): ?>
-                    <li><?=$i->ingredient->title?> - <?=round($i->value)?> <?=HDate::GenerateNoun(array($i->unit->title, $i->unit->title2, $i->unit->title3), (int) $i->value)?></li>
+                    <li><?=$i->ingredient->title?> - <?=$i->display_value?> <?=$i->noun?></li>
                     <?php endforeach; ?>
                 </ul>
 

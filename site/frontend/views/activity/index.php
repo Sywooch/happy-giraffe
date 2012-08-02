@@ -22,9 +22,7 @@
 
             <?php $this->widget('WantToChatWidget'); ?>
 
-            <!--<div class="banner">
-                <a href=""><img src="/images/banner_04.png"></a>
-            </div>-->
+            <?=$this->renderPartial('//_banner')?>
 
         </div>
 

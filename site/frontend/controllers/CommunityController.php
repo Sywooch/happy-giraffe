@@ -808,4 +808,11 @@ class CommunityController extends HController
             'dp' => $dp,
         ));
     }
+
+    public function actionWeeklyMail(){
+        echo '<div style="width:800px;margin: 0 auto;">';
+        $this->beginWidget('site.common.widgets.mail.WeeklyArticlesWidget');
+        $this->endWidget();
+        echo '</div>';
+    }
 }

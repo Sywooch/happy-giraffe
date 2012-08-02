@@ -26,6 +26,7 @@
  * @property CommunityPhotoPost $photoPost
  * @property userPhotos[] $userPhotos
  * @property CommunityContentGallery $gallery
+ * @property Comment[] comments
  *
  * @method CommunityContent full()
  * @method CommunityContent findByPk()
@@ -86,6 +87,7 @@ class CommunityContent extends HActiveRecord
 			'rubric' => array(self::BELONGS_TO, 'CommunityRubric', 'rubric_id'),
 			'type' => array(self::BELONGS_TO, 'CommunityContentType', 'type_id'),
             'commentsCount' => array(self::STAT, 'Comment', 'entity_id', 'condition' => 'entity=:modelName', 'params' => array(':modelName' => get_class($this))),
+            'comments' => array(self::HAS_MANY, 'Comment', 'entity_id', 'condition' => 'entity=:modelName', 'params' => array(':modelName' => get_class($this))),
             'travel' => array(self::HAS_ONE, 'CommunityTravel', 'content_id', 'on' => "slug = 'travel'"),
             'video' => array(self::HAS_ONE, 'CommunityVideo', 'content_id', 'on' => "slug = 'video'"),
             'post' => array(self::HAS_ONE, 'CommunityPost', 'content_id', 'on' => "slug = 'post'"),
@@ -557,7 +559,12 @@ class CommunityContent extends HActiveRecord
 
     public function getContentImage()
     {
-        return (preg_match('/src="([^"]+)"/', $this->content->text, $matches)) ? $matches[1] : false;
+        if ($this->type->slug == 'video'){
+            $video = new Video($this->video->link);
+            return $video->preview;
+        }
+        else
+            return (preg_match('/src="([^"]+)"/', $this->content->text, $matches)) ? $matches[1] : false;
     }
 
     public function getContentText()

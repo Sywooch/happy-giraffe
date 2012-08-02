@@ -338,9 +338,14 @@ class SiteController extends HController
     }
 
     public function actionTest2(){
-        $vals = Yii::app()->mc->sendToGroup('самое свежее на этой неделе', MailGenerator::getWeeklyArticles());
-        var_dump($vals);
+//        $vals = Yii::app()->mc->sendToGroup('самое свежее на этой неделе', MailGenerator::getWeeklyArticles());
+//        var_dump($vals);
+        ob_start();
+        $this->beginWidget('site.common.widgets.mail.WeeklyArticlesWidget');
+        $this->endWidget();
 
+        $contents = ob_get_clean();
+        echo $contents;
         /*if (Yii::app()->mc->api->errorCode){
             echo "Batch Subscribe failed!\n";
             echo "code:".Yii::app()->mc->api->errorCode."\n";

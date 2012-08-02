@@ -10,17 +10,17 @@
         <table cellpadding="0" cellspacing="0" style="margin-bottom:8px;">
             <tbody>
             <tr>
-                <td valign="top"><img src="<?=$model->contentAuthor->getAva() ?>"
+                <td valign="middle"><img src="<?=$model->contentAuthor->getAva() ?>"
                                       style="display:block;margin-top:-40px;-moz-border-radius:36px;-webkit-border-radius:36px;border-radius:36px;">
                 </td>
                 <td valign="top">
-                    <span style="color:#38a5f4;font:12px arial, helvetica, sans-serif;margin-left:10px;vert"><?=$model->contentAuthor->first_name ?></span>
+                    <span style="color:#38a5f4;font:12px arial, helvetica, sans-serif;margin-left:10px;"><?=$model->contentAuthor->first_name ?></span>
                 </td>
             </tr>
             </tbody>
         </table>
 
-        <div style="margin-bottom:5px;">
+        <div style="margin-bottom:10px;">
             <span style="color:#0d81d5;font:bold 18px/20px arial, helvetica, sans-serif;">
                 <a href="http://www.happy-giraffe.ru<?=$model->getUrl() ?>" target="_blank" style="color:#0d81d5;font:bold 18px/20px arial, helvetica, sans-serif;"><?=$model->title ?></a></span>
         </div>
@@ -34,10 +34,10 @@
                 <img src="<?=$model->getContentImage() ?>" width="318" border="0" style="display:block;"></a>
         </div>
 
-        <div style="font:13px arial, helvetica, sans-serif;color:#040404;">
+        <div style="font:13px/18px arial, helvetica, sans-serif;color:#040404;">
             <?= Str::truncate(strip_tags($model->getContent()->text), 450); ?>
             <span style="color:#0d81d5;">
-                <a href="http://www.happy-giraffe.ru<?=$model->getUrl() ?>" target="_blank" style="color:#0d81d5;">Читать&nbsp;всю&nbsp;запись<img
+                <a href="http://www.happy-giraffe.ru<?=$model->getUrl() ?>" target="_blank" style="color:#0d81d5;">Читать&nbsp;всю&nbsp;запись&nbsp;<img
                 src="http://dev.happy-giraffe.ru/images/mail/icon_more.gif" style="margin-left:5px;"></a>
             </span>
         </div>

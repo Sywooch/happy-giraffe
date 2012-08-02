@@ -5,7 +5,7 @@
 
 if ($type == 'guestBook') {
     $template = '
-            <div class="default-comments">
+            <div class="default-comments" id="comments">
                 <div class="comments-meta clearfix">
                     <div class="add-menu">
                          ' . (!Yii::app()->user->isGuest ? '<a href="javascript:void(0);" class="btn btn-orange a-right" onclick="addMenuToggle(this);"><span><span>Добавить запись<i class="arr-b"></i></span></span></a>
@@ -36,7 +36,7 @@ if ($type == 'guestBook') {
     }
 
     $template = '
-            <div class="default-comments">
+            <div class="default-comments" id="comments">
                 <div class="comments-meta clearfix">
                     ' . $link . '
                     <div class="title">' . $this->title . '</div>

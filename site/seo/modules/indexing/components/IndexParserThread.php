@@ -20,8 +20,8 @@ class IndexParserThread extends ProxyParserThread
         parent::__construct();
         $up = IndexingUp::model()->find(array('order' => 'id desc'));
         $this->up_id = $up->id;
-        $this->delay_min = 10;
-        $this->delay_max = 15;
+        $this->delay_min = 2;
+        $this->delay_max = 5;
     }
 
     public function start()
@@ -78,12 +78,12 @@ class IndexParserThread extends ProxyParserThread
         foreach ($links as $link) {
             $this->saveUrl($link);
         }
-        //sleep(20);
+        sleep(15);
     }
 
     private function loadYandexPage()
     {
-        $content = $this->query('http://yandex.ru/yandsearch?text=' . urlencode('url:' . rtrim($this->url->url, '/').'*') . '&lr=38');
+        $content = $this->query('http://yandex.ru/yandsearch?text=' . urlencode('url:' . rtrim($this->url->url, '/').'*') . '&numdoc=' . $this->perPage() . '&lr=38');
 
         if (strpos($content, 'Искомая комбинация слов нигде не встречается') !== false)
             return array();

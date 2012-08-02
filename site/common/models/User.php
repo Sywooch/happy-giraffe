@@ -960,4 +960,16 @@ class User extends HActiveRecord
             'limit' => 3,
         ));
     }
+
+    function createPassword($length)
+    {
+        $chars = 'abcefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+        $i = 0;
+        $password = "";
+        while ($i <= $length) {
+            $password .= $chars{mt_rand(0,strlen($chars) - 1)};
+            $i++;
+        }
+        return $password;
+    }
 }

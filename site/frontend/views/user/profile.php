@@ -122,9 +122,11 @@
                 'user' => $user,
             )); ?>
 
+            <div class="interests-wrapper">
             <?php $this->widget('InterestsWidget', array(
                 'user' => $user,
             )); ?>
+            </div>
 
         </div>
 

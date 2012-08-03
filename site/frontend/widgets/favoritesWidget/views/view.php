@@ -19,6 +19,11 @@
             <a class="tooltip lilac add-to-favourites<?php if (Favourites::inFavourites($model, Favourites::BLOCK_VIDEO)) echo ' active'; ?>" href="#"
                onclick="Favourites.toggle(this, 5);return false;" title="Поместить в Видео Дня">В</a>
         <?php endif; ?>
+
+        <a class="tooltip mailer add-to-favourites<?php if (Favourites::inFavourites($model, Favourites::WEEKLY_MAIL)) echo ' active'; ?>" href="#"
+           onclick="Favourites.toggle(this, <?=Favourites::WEEKLY_MAIL ?>);return false;" title="Поместить в рассылку">Р</a>
+        <a href="/community/weeklyMail/" target="_blank" style="border:none;color:#333 !important;">все</a>
+
     <?php endif; ?>
 
     <?php if (get_class($model) == 'CommunityContent'): ?>

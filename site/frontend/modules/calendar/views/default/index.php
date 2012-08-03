@@ -24,7 +24,7 @@
         $doc = phpQuery::newDocumentXHTML($period->text, $charset = 'utf-8');
         $paragraphs = $doc->find('p');
         $paragraphsCount = count($paragraphs);
-        $pI = floor($paragraphsCount / 3);
+        $pI = ($period->calendar == 0) ? floor($paragraphsCount / 3) : floor($paragraphsCount / 1.8);
         $p = $doc->find('p:eq(' . $pI . ')');
         $p->after($features);
         $period->text = $doc->html();
@@ -157,7 +157,7 @@
                             </div>
                         <?php endif; ?>
                     </div>
-                    <div class="wysiwyg-content">
+                    <div class="wysiwyg-content clearfix">
 
                         <?=$period->text?>
 

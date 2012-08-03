@@ -128,6 +128,8 @@ class Interest extends HActiveRecord
             }
 
             UserScores::checkProfileScores($user_id, ScoreAction::ACTION_PROFILE_INTERESTS);
+            return true;
         }
+        return false;
     }
 }

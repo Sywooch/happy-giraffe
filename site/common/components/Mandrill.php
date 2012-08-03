@@ -25,6 +25,7 @@ class Mandrill extends CApplicationComponent
             'message' => array(
                 'html' => file_get_contents(Yii::getPathOfAlias('site.common.tpl') . DIRECTORY_SEPARATOR . $action . '.php'),
                 'from_email' => 'noreply@happy-giraffe.ru',
+                'from_name' => 'Весёлый Жираф',
                 'to' => array(
                     array(
                         'email' => $user->email,

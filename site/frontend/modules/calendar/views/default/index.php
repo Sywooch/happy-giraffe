@@ -157,7 +157,7 @@
                             </div>
                         <?php endif; ?>
                     </div>
-                    <div class="wysiwyg-content">
+                    <div class="wysiwyg-content clearfix">
 
                         <?=$period->text?>
 

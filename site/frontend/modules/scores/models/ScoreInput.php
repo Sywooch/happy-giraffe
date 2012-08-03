@@ -319,16 +319,16 @@ class ScoreInput extends EMongoDocument
                 $text = 'Вы заполнили данные <span>Интересы</span> в личной анкете';
                 break;
             case ScoreAction::ACTION_PROFILE_BIRTHDAY:
-                $text = 'Вы указали День вашего рождения в личной анкете';
+                $text = 'Вы указали <span>День вашего рождения</span> в личной анкете';
                 break;
             case ScoreAction::ACTION_PROFILE_EMAIL:
-                $text = 'Вы подтвердили ваш E-mail';
+                $text = 'Вы подтвердили ваш <span>E-mail</span>';
                 break;
             case ScoreAction::ACTION_PROFILE_LOCATION:
-                $text = 'Вы указали Ваше место жительства';
+                $text = 'Вы указали ваше <span>Место жительства</span>';
                 break;
-            case ScoreAction::ACTION_PROFILE_LOCATION:
-                $text = 'Вы прошли первые 6 шагов!';
+            case ScoreAction::ACTION_PROFILE_FULL:
+                $text = '<span>Вы прошли первые 6 шагов!</span>';
                 break;
 
             case ScoreAction::ACTION_RECORD:

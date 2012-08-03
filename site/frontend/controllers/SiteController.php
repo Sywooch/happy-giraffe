@@ -340,11 +340,14 @@ class SiteController extends HController
     public function actionConfirmEmail($user_id, $code)
     {
         $user = User::model()->findByPk($user_id);
-        if ($user === null || $code != $user->confirmationCode)
+        if ($user === null || $user->email_confirmed || $code != $user->confirmationCode)
             throw new CHttpException(404);
 
         $user->email_confirmed = 1;
         $user->update(array('email_confirmed'));
+        $identity = new SafeUserIdentity($user_id);
+        if ($identity->authenticate())
+            Yii::app()->user->login($identity);
         $this->redirect($user->url);
     }
 

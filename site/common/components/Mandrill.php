@@ -13,7 +13,9 @@ class Mandrill extends CApplicationComponent
     {
         if (is_int($user))
             $user = User::model()->findByPk($user);
-        if (!$user instanceof User)
+        if (is_string($user))
+            $user = User::model()->findByAttributes(array('email' => $user));
+        if ($user === null)
             return false;
 
         $rest = new RESTClient;
@@ -23,6 +25,7 @@ class Mandrill extends CApplicationComponent
             'message' => array(
                 'html' => file_get_contents(Yii::getPathOfAlias('site.common.tpl') . DIRECTORY_SEPARATOR . $action . '.php'),
                 'from_email' => 'noreply@happy-giraffe.ru',
+                'from_name' => 'Весёлый Жираф',
                 'to' => array(
                     array(
                         'email' => $user->email,
@@ -33,14 +36,15 @@ class Mandrill extends CApplicationComponent
         );
         $data = CMap::mergeArray($generalData, $this->$action($user, $params));
         $res = $rest->post('messages/send.json', $data);
-        print_r($res);
+        $res = CJSON::decode($res);
+        return $res[0]['status'] != 'error';
     }
 
     public function passwordRecovery($user, $params)
     {
         return array(
             'message' => array(
-                'subject' => 'Напоминание пароля',
+                'subject' => 'Напоминание пароля - Весёлый Жираф',
                 'global_merge_vars' => array(
                     array(
                         'name' => 'USERNAME',
@@ -53,6 +57,64 @@ class Mandrill extends CApplicationComponent
                     array(
                         'name' => 'PASSWORD',
                         'content' => $params['password'],
+                    ),
+                ),
+            ),
+        );
+    }
+
+    public function confirmEmail($user, $params)
+    {
+        return array(
+            'message' => array(
+                'subject' => 'Подтверждение e-mail - Весёлый Жираф',
+                'global_merge_vars' => array(
+                    array(
+                        'name' => 'USERNAME',
+                        'content' => $user->fullName,
+                    ),
+                    array(
+                        'name' => 'EMAIL',
+                        'content' => $user->email,
+                    ),
+                    array(
+                        'name' => 'USERID',
+                        'content' => $user->id,
+                    ),
+                    array(
+                        'name' => 'PASSWORD',
+                        'content' => $params['password'],
+                    ),
+                    array(
+                        'name' => 'CODE',
+                        'content' => $params['code'],
+                    ),
+                ),
+            ),
+        );
+    }
+
+    public function resendConfirmEmail($user, $params)
+    {
+        return array(
+            'message' => array(
+                'subject' => 'Подтверждение e-mail - Весёлый Жираф',
+                'global_merge_vars' => array(
+                    array(
+                        'name' => 'USERNAME',
+                        'content' => $user->fullName,
+                    ),
+                    array(
+                        'name' => 'EMAIL',
+                        'content' => $user->email,
+                    ),
+                    array(
+                        'name' => 'USERID',
+                        'content' => $user->id,
+                    ),
+                    array(
+                        'name' => 'CODE',
+                        'content' => $params['code'],
                     ),
                 ),
             ),

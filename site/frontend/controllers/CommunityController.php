@@ -808,4 +808,11 @@ class CommunityController extends HController
             'dp' => $dp,
         ));
     }
+
+    public function actionWeeklyMail(){
+        if (!Yii::app()->user->model->checkAuthItem('manageFavourites'))
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
+        $this->render('weekly_mail');
+    }
 }

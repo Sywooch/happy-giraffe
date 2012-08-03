@@ -53,6 +53,7 @@
  * @property UserPartner partner
  * @property Baby[] babies
  * @property AlbumPhoto $avatar
+ * @property UserStatus status
  *
  * @method User active()
  */

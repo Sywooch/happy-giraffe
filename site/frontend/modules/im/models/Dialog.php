@@ -9,9 +9,9 @@
  * @property int $last_message_id
  *
  * The followings are the available model relations:
- * @property DialogDeleted[] $lastDeleted
+ * @property DialogDeleted $lastDeleted
  * @property DialogUser[] $dialogUsers
- * @property Message[] $lastMessage
+ * @property Message $lastMessage
  */
 class Dialog extends HActiveRecord
 {

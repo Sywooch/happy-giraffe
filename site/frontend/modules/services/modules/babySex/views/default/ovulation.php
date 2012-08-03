@@ -9,8 +9,6 @@ $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG
 Yii::app()->clientScript->registerScriptFile($baseUrl . '/ovulation.js', CClientScript::POS_HEAD);
 Yii::app()->clientScript->registerCss('baby-gender-ovulation', '.child_sex_ovulyaciya_banner div.row {display: inline;}
 .child_sex_ovulyaciya_banner .errorMessage {display: none !important;}');
-if (empty($this->meta_description))
-    $this->meta_description = 'Попробуйте воспользоваться нашим эксклюзивным сервисом Определение пола по овуляции. Он создан на основе современных медицинских разработок, а значит, на порядок точнее других методов определения пола ребенка';
 
 $form = $this->beginWidget('CActiveForm', array(
     'id' => 'ovulation-form',
@@ -158,7 +156,7 @@ echo $form->hiddenField($model, 'review_year', array('id' => 'review_year'));?>
 </div>
 
 <div class="wysiwyg-content">
-    <h1>Определение пола по овуляции</h1>
+    <h1>Планирование пола ребенка по овуляции</h1>
     <p>Определение пола ребенка по дате овуляции - единственный более-менее достоверный способ. За основу метода взяты
         различия в размерах и поведении сперматозоидов, содержащих Х и Y-хромосомы, а также длительность жизни
         яйцеклетки.

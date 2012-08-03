@@ -35,7 +35,7 @@
         </div>
 
         <div style="font:13px/18px arial, helvetica, sans-serif;color:#040404;">
-            <?= Str::truncate(strip_tags($model->getContent()->text), 450); ?>
+            <?= $model->getContentText(450); ?>
             <span style="color:#0d81d5;">
                 <a href="http://www.happy-giraffe.ru<?=$model->getUrl() ?>" target="_blank" style="color:#0d81d5;">Читать&nbsp;всю&nbsp;запись&nbsp;<img
                 src="http://dev.happy-giraffe.ru/images/mail/icon_more.gif" style="margin-left:5px;"></a>

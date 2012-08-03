@@ -19,7 +19,7 @@ Yii::app()->clientScript
 
         <div class="user-points">
 
-            <?php if (empty($userScores->level_id)): ?>
+            <?php if (!empty($userScores->level_id)): ?>
             <div class="user-lvl user-lvl-<?=$userScores->level_id?>"></div>
             <?php endif; ?>
 

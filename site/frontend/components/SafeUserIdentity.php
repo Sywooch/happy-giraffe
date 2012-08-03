@@ -15,8 +15,11 @@ class SafeUserIdentity extends CUserIdentity
     public function authenticate()
     {
         $user = User::model()->findByPk($this->user_id);
-        if ($user !== null)
-            $this->errorCode = self::ERROR_NONE;
-        return ! $this->errorCode;
+        return $user !== null;
+    }
+
+    public function getId()
+    {
+        return $this->user_id;
     }
 }

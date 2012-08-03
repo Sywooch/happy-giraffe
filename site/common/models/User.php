@@ -817,7 +817,6 @@ class User extends HActiveRecord
         $criteria = new CDbCriteria;
         $criteria->with =array('level' => array('select' => array('title')));
         $criteria->compare('user_id', $this->id);
-        $criteria->select = array('scores', 'level_id');
         $model = UserScores::model()->find($criteria);
         if ($model === null) {
             $model = new UserScores;
@@ -973,5 +972,10 @@ class User extends HActiveRecord
             $i++;
         }
         return $password;
+    }
+
+    function getConfirmationCode()
+    {
+        return md5($this->email . md5($this->password));
     }
 }

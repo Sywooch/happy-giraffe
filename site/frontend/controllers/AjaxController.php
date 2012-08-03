@@ -38,8 +38,7 @@ class AjaxController extends HController
         $modelPk = Yii::app()->request->getPost('entity_id');
         $model = CActiveRecord::model($modelName)->findByPk($modelPk);
 
-        if (isset($_POST['ajax']))
-        {
+        if (isset($_POST['ajax'])) {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }
@@ -570,9 +569,9 @@ class AjaxController extends HController
 
         $id = Yii::app()->request->getPost('_id');
 
-        if (!empty($id)){
+        if (!empty($id)) {
             $model = $this->loadModel($id);
-        }else{
+        } else {
             $model = PageMetaTag::getModel(urldecode($route), unserialize(urldecode($params)), true);
         }
 
@@ -583,12 +582,12 @@ class AjaxController extends HController
             $model->attributes = $_POST['meta'];
             $model->save();
             echo CJSON::encode(array('status' => true));
-        }
-        else
+        } else
             $this->renderPartial('_edit_meta', compact('model', 'dataProvider', 'page'));
     }
 
-    public function actionArticleVisits(){
+    public function actionArticleVisits()
+    {
 
     }
 
@@ -600,9 +599,39 @@ class AjaxController extends HController
     public function loadModel($id)
     {
         $model = PageMetaTag::model()->findByPk(new MongoId($id));
-        if ($model === null){
+        if ($model === null) {
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
         }
         return $model;
+    }
+
+    public function actionBirthday()
+    {
+        Yii::import('site.common.models.forms.DateForm');
+        Yii::import('site.frontend.widgets.user.*');
+        $date = new DateForm();
+        $date->attributes = $_POST['DateForm'];
+        if (isset($_POST['ajax'])) {
+            echo CActiveForm::validate($date);
+            Yii::app()->end();
+        }
+
+        $date->validate();
+        $user = Yii::app()->user->getModel();
+        $user->birthday = trim($date->date);
+        UserScores::checkProfileScores($user->id, ScoreAction::ACTION_PROFILE_BIRTHDAY);
+
+        if ($user->save('birthday')) {
+            ob_start();
+            $this->widget('HoroscopeWidget', array('user' => $user));
+            $horoscope = ob_get_clean();
+
+            echo CJSON::encode(array(
+                'status' => true,
+                'text' => '<span>День рождения:</span>' . Yii::app()->dateFormatter->format("d MMMM", $user->birthday) . ' (' . $user->normalizedAge . ')',
+                'horoscope' => $horoscope
+            ));
+        } else
+            echo CJSON::encode(array('status' => false));
     }
 }

@@ -25,7 +25,7 @@
                     <?=$user->getUserAddress()->getFlag(true)?><?= $user->getUserAddress()->cityName ?>
                 <?php endif; ?>
             </div>
-            <?php if ($user->birthday): ?><div class="birthday"><span>День рождения:</span> <?=Yii::app()->dateFormatter->format("d MMMM", $user->birthday)?> (<?=$user->normalizedAge?>)</div><?php endif; ?>
+            <div class="birthday"><?php if ($user->birthday): ?><span>День рождения:</span> <?=Yii::app()->dateFormatter->format("d MMMM", $user->birthday)?> (<?=$user->normalizedAge?>)<?php endif; ?></div>
         </div>
 
         <?php if ($user->id != Yii::app()->user->id): ?>
@@ -114,10 +114,8 @@
                 Зарегистрирован <?=Yii::app()->dateFormatter->format("dd MMMM yyyy", $user->register_date)?>
             </div>
 
-            <?php if (!empty($user->getScores()->level_id)): ?>
+            <?php if ($user->id == Yii::app()->user->id && !empty($user->getScores()->level_id)): ?>
                 <div class="user-lvl user-lvl-<?=$user->getScores()->level_id?>"></div>
-            <?php else: ?>
-                <div class="user-lvl user-lvl-0"></div>
             <?php endif; ?>
 
             <?php $this->widget('FamilyWidget', array(
@@ -131,6 +129,10 @@
         </div>
 
         <div class="col-23 clearfix">
+
+            <?php $this->widget('BonusWidget', array(
+                'user' => $user,
+            )); ?>
 
             <div class="clearfix">
                 <div class="col-2">
@@ -179,9 +181,11 @@
                         )); ?>
                     </div>
 
-                    <?php $this->widget('HoroscopeWidget', array(
-                        'user' => $user,
-                    )); ?>
+                    <div class="horoscope-wrapper">
+                        <?php $this->widget('HoroscopeWidget', array(
+                            'user' => $user,
+                        )); ?>
+                    </div>
 
                     <?php $this->widget('UserDuelWidget', array(
                         'user' => $user,

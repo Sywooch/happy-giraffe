@@ -50,6 +50,9 @@ a {cursor:pointer;}
 :focus {
     outline: 0;
 }
+.ui-autocomplete {
+    z-index: 11100 !important;
+}
 
 /* remember to highlight inserts somehow! */
 ins {
@@ -180,7 +183,7 @@ a.info {display:inline-block;width:13px;height:13px;background:url(../images/com
 .user-info {font-size:9px;line-height:12px;float:left;max-width:240px;}
 .user-info .ava {float:left;position:relative;}
 .user-info .details {margin-left:80px;text-align:left !important;padding:0 !important;}
-.user-info .details .username {font-size:12px;line-height:1.2;text-decoration:none;vertical-align:top;width:100px;margin:0;padding:0;overflow:hidden;display:inline-block;}
+.user-info .details .username {font-size:12px;line-height:1.2;text-decoration:none;vertical-align:top;width:85px;margin:0;padding:0;overflow:hidden;display:inline-block;}
 .user-info .details .username:hover {text-decoration:underline;}
 .user-info .details .location {margin:3px 0;}
 .user-info .details .location .flag {display:inline-block;margin-right:5px;position:relative;top:1px;}

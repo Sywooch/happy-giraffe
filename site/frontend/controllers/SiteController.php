@@ -343,10 +343,12 @@ class SiteController extends HController
         if ($user === null || $user->email_confirmed || $code != $user->confirmationCode)
             throw new CHttpException(404);
 
-        UserScores::checkProfileScores(Yii::app()->user->id, ScoreAction::ACTION_PROFILE_EMAIL);
+
 
         $user->email_confirmed = 1;
-        $user->update(array('email_confirmed'));
+        if ($user->update(array('email_confirmed')))
+            UserScores::checkProfileScores($user->id, ScoreAction::ACTION_PROFILE_EMAIL);
+
         $identity = new SafeUserIdentity($user_id);
         if ($identity->authenticate())
             Yii::app()->user->login($identity);

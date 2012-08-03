@@ -16,6 +16,6 @@ class SafeUserIdentity extends CUserIdentity
     {
         $user = User::model()->findByPk($this->user_id);
         if ($user !== null)
-            $this->errorCode = self::ERROR_NONE;
+            return $this->errorCode = self::ERROR_NONE;
     }
 }

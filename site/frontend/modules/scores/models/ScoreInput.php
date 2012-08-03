@@ -54,9 +54,17 @@ class ScoreInput extends EMongoDocument
 
     public function beforeSave()
     {
-        if ($this->isNewRecord)
-            $this->created = time();
-        $this->updated = time();
+        if ($this->isNewRecord){
+            $criteria = new EMongoCriteria;
+            $criteria->user_id('==', (int)$this->user_id);
+            $criteria->created('==', time());
+            if (self::model()->find($criteria) !== null)
+                $this->created = time() + 1;
+            else
+                $this->created = time();
+            $this->updated = $this->created;
+        }else
+            $this->updated = time();
 
         if ($this->amount == 0) {
             if (!$this->isNewRecord)

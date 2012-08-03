@@ -336,4 +336,92 @@ class SiteController extends HController
             echo '<p>' . CHtml::link($this->createAbsoluteUrl('user/profile', array('user_id' => $u->id)), $this->createAbsoluteUrl('user/profile', array('user_id' => $u->id))) . '</p>';
         }
     }
+
+    public function actionConfirmEmail($user_id, $code)
+    {
+        $user = User::model()->findByPk($user_id);
+        if ($user === null || $user->email_confirmed || $code != $user->confirmationCode)
+            throw new CHttpException(404);
+
+        $user->email_confirmed = 1;
+        $user->update(array('email_confirmed'));
+        $identity = new SafeUserIdentity($user_id);
+        if ($identity->authenticate())
+            Yii::app()->user->login($identity);
+        $this->redirect($user->url);
+    }
+
+    public function actionResendConfirmEmail()
+    {
+        $user = Yii::app()->user->model;
+        if ($user === null || $user->email_confirmed)
+            throw new CHttpException(404);
+
+        echo Yii::app()->mandrill->send($user, 'resendConfirmEmail', array(
+            'code' => $user->confirmationCode,
+        ));
+    }
+
+    public function actionPasswordRecoveryForm()
+    {
+        $this->renderPartial('passwordRecoveryForm');
+    }
+
+    public function actionPasswordRecovery()
+    {
+        $email = Yii::app()->request->getPost('email');
+        if (empty($email)) {
+            echo CJSON::encode(array(
+                'status' => 'error',
+                'message' => '<span>Введите e-mail.</span>'
+            ));
+            Yii::app()->end();
+        }
+
+        $user = User::model()->findByAttributes(array('email' => $email));
+        if ($user === null) {
+            echo CJSON::encode(array(
+                'status' => 'error',
+                'message' => '<span>Пользователя с таким e-mail не существует.</span>',
+            ));
+            Yii::app()->end();
+        }
+
+        $password = $user->createPassword(12);
+        $user->password = $user->hashPassword($password);
+
+        if (! ($user->save() &&  Yii::app()->mandrill->send($user, 'passwordRecovery', array('password' => $password)))) {
+            echo CJSON::encode(array(
+                'status' => 'error',
+                'message' => '<span>Произошла неизвестная ошибка. Попробуйте ещё раз.</span>',
+            ));
+        } else {
+            echo CJSON::encode(array(
+                'status' => 'ok',
+                'message' => '<span>На ваш e-mail адрес было выслано письмо с вашим паролем</span><br/><span>(также проверьте, пожалуйста, папку «Спам»)</span>',
+            ));
+        }
+    }
+
+    public function actionTest2(){
+//        $vals = Yii::app()->mc->sendToGroup('самое свежее на этой неделе', MailGenerator::getWeeklyArticles());
+//        var_dump($vals);
+        ob_start();
+        $this->beginWidget('site.common.widgets.mail.WeeklyArticlesWidget');
+        $this->endWidget();
+
+        $contents = ob_get_clean();
+
+        $vals = Yii::app()->mc->sendWeeklyNews('самое свежее на этой неделе', $contents);
+
+        if (Yii::app()->mc->api->errorCode){
+            echo "Batch Subscribe failed!\n";
+            echo "code:".Yii::app()->mc->api->errorCode."\n";
+            echo "msg :".Yii::app()->mc->api->errorMessage."\n";
+        } else {
+            echo "added:   ".$vals['add_count']."\n";
+            echo "updated: ".$vals['update_count']."\n";
+            echo "errors:  ".$vals['error_count']."\n";
+        }
+    }
 }

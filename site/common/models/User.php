@@ -494,8 +494,10 @@ class User extends HActiveRecord
 
     public function getAva($size = 'ava')
     {
-        if(empty($this->avatar_id))
+        if(empty($this->avatar_id)){
+            //if ($this->user->gender)
             return false;
+        }
         if($size != 'big')
             return $this->avatar->getAvatarUrl($size);
         else
@@ -971,5 +973,10 @@ class User extends HActiveRecord
             $i++;
         }
         return $password;
+    }
+
+    function getConfirmationCode()
+    {
+        return md5($this->email . md5($this->password));
     }
 }

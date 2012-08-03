@@ -25,8 +25,7 @@ return array(
         '/' => 'site/index',
         'js_dynamics/<hash:\w+>.js' => 'site/seoHide',
         'search' => 'site/search',
-        'site/rememberPassword/step/<step:\d+>' => 'site/rememberPassword',
-        'site/<_a:(login|logout|link|test|users)>' => 'site/<_a>',
+        'site/<_a:(confirmEmail|resendConfirmEmail|passwordRecovery|passwordRecoveryForm|login|logout|link|test|test2|users)>' => 'site/<_a>',
         'contest' => 'site/contest',
 
         // ajax controller
@@ -94,7 +93,7 @@ return array(
         'community/add/community_id/<community_id:\d+>/rubric_id/<rubric_id:\d+>' => 'community/add',
         'community/add/community_id/<community_id:\d+>/content_type_slug/<content_type_slug>' => 'community/add',
         'community/add/community_id/<community_id:\d+>' => 'community/add',
-        'community/<_a:(join|add|transfer|edit|editTravel)>' => 'community/<_a>',
+        'community/<_a:(join|add|transfer|edit|editTravel|weeklyMail)>' => 'community/<_a>',
 
         //global
         '<_c:(activity|ajax|notification|profile|friendRequests|communityRubric|family|morning)>/<_a>' => '<_c>/<_a>',
@@ -161,9 +160,9 @@ return array(
 
         //===================== Services =========================//
 
-        'babyCalendar/period<period_id:\d+>' => array('calendar/default/index', 'defaultParams' => array('calendar' => 0)),
-        'pregnancyCalendar/period<period_id:\d+>' => array('calendar/default/index', 'defaultParams' => array('calendar' => 1)),
-        'babyCalendar' => array('calendar/default/index', 'defaultParams' => array('calendar' => 0)),
+        'childCalendar/<slug:[\w-]+>' => array('calendar/default/index', 'defaultParams' => array('calendar' => 0)),
+        'pregnancyCalendar/<slug:[\w-]+>' => array('calendar/default/index', 'defaultParams' => array('calendar' => 1)),
+        'childCalendar' => array('calendar/default/index', 'defaultParams' => array('calendar' => 0)),
         'pregnancyCalendar' => array('calendar/default/index', 'defaultParams' => array('calendar' => 1)),
 
         '<_m:(test|tester|vaccineCalendar|childrenDiseases|menstrualCycle|horoscope|babyBloodGroup|placentaThickness|pregnancyWeight|contractionsTime|names|hospitalBag|maternityLeave|dailyCalories|weightLoss|idealWeight|bodyFat|birthDate)>/' => 'services/<_m>/default/index',

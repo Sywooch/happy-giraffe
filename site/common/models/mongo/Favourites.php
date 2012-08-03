@@ -10,6 +10,7 @@ class Favourites extends EMongoDocument
     const BLOCK_BLOGS = 3;
     const BLOCK_THEME = 4;
     const BLOCK_VIDEO = 5;
+    const WEEKLY_MAIL = 6;
 
     public $block;
     public $entity;
@@ -92,6 +93,27 @@ class Favourites extends EMongoDocument
             $ids [] = $model->entity_id;
 
         return $ids;
+    }
+
+    public function getWeekPosts()
+    {
+        $criteria = new EMongoCriteria;
+        $criteria->block('==', self::WEEKLY_MAIL);
+        $criteria->created('>', strtotime('-7 days'));
+        $models = self::model()->findAll($criteria);
+        $ids = array();
+        foreach($models as $model)
+            $ids [] = $model->entity_id;
+
+        if (empty($ids))
+            return array();
+
+        $criteria = new CDbCriteria;
+        $criteria->compare('t.id', $ids);
+        //$criteria->condition = 'created > "'.date("Y-m-d 00:00:00", strtotime('-7 days')).'"';
+        $models = CommunityContent::model()->full()->findAll($criteria);
+
+        return $models;
     }
 
     public static function updateCreatedTime()

@@ -55,28 +55,29 @@
 
             </div>
 
+            <?php if ($this->user->blogPopular): ?>
+                <div class="fast-articles">
 
-            <div class="fast-articles">
+                    <div class="block-title">
+                        <i class="icon-popular"></i> Самое популярное
+                    </div>
 
-                <div class="block-title">
-                    <i class="icon-popular"></i> Самое популярное
+                    <ul>
+                        <?php foreach ($this->user->blogPopular as $b): ?>
+                        <li>
+                            <div class="item-title"><?=CHtml::link($b->title, $b->url)?></div>
+                            <div class="meta">
+                                <div class="rating"><?=$b->rate?></div>
+                                <span class="views">Просмотров:&nbsp;&nbsp;<?=PageView::model()->viewsByPath($b->url)?></span><br/>
+                                <span class="comments"><?=CHtml::link('Комментариев:&nbsp;&nbsp;' . $b->commentsCount, $b->getUrl(true))?></span>
+                            </div>
+                        </li>
+                        <?php endforeach; ?>
+
+                    </ul>
+
                 </div>
-
-                <ul>
-                    <?php foreach ($this->user->blogPopular as $b): ?>
-                    <li>
-                        <div class="item-title"><?=CHtml::link($b->title, $b->url)?></div>
-                        <div class="meta">
-                            <div class="rating"><?=$b->rate?></div>
-                            <span class="views">Просмотров:&nbsp;&nbsp;<?=PageView::model()->viewsByPath($b->url)?></span><br/>
-                            <span class="comments"><?=CHtml::link('Комментариев:&nbsp;&nbsp;' . $b->commentsCount, $b->getUrl(true))?></span>
-                        </div>
-                    </li>
-                    <?php endforeach; ?>
-
-                </ul>
-
-            </div>
+            <?php endif; ?>
 
             <div class="readers">
 

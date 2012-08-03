@@ -337,11 +337,6 @@ class SiteController extends HController
         }
     }
 
-    public function actionPasswordRecoveryForm()
-    {
-        $this->renderPartial('passwordRecoveryForm');
-    }
-
     public function actionConfirmEmail($user_id, $code)
     {
         $user = User::model()->findByPk($user_id);
@@ -351,6 +346,11 @@ class SiteController extends HController
         $user->email_confirmed = 1;
         $user->update(array('email_confirmed'));
         $this->redirect($user->url);
+    }
+
+    public function actionPasswordRecoveryForm()
+    {
+        $this->renderPartial('passwordRecoveryForm');
     }
 
     public function actionPasswordRecovery()

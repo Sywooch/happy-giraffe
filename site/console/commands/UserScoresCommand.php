@@ -64,7 +64,7 @@ class UserScoresCommand extends CConsoleCommand
         }
     }
 
-    public function actionCheckInterests()
+    /*public function actionCheckInterests()
     {
         Yii::import('site.frontend.modules.geo.models.*');
         Yii::import('site.common.models.interest.*');
@@ -109,6 +109,6 @@ class UserScoresCommand extends CConsoleCommand
             $i++;
             echo ($i*100)."\n";
         }
-    }
+    }*/
 }
 

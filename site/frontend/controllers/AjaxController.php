@@ -629,7 +629,8 @@ class AjaxController extends HController
             echo CJSON::encode(array(
                 'status' => true,
                 'text' => '<span>День рождения:</span>' . Yii::app()->dateFormatter->format("d MMMM", $user->birthday) . ' (' . $user->normalizedAge . ')',
-                'horoscope' => $horoscope
+                'horoscope' => $horoscope,
+                'full' => ($user->getScore()->full == 0)?false:true
             ));
         } else
             echo CJSON::encode(array('status' => false));

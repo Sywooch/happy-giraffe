@@ -17,7 +17,7 @@
                 <?php
                 $image = $c->getContentImage();
                 if ($image)
-                    echo CHtml::link(CHtml::image($image, $c->title), $model->url);
+                    echo CHtml::link(CHtml::image($c, $c->title), $c->url);
                 else
                     echo  $c->getContentText(250);
                 ?>

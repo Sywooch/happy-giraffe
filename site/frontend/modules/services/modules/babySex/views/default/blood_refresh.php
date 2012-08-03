@@ -10,9 +10,6 @@ $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG
 Yii::app()->clientScript->registerScriptFile($baseUrl . '/blood_refresh.js', CClientScript::POS_HEAD);
 Yii::app()->clientScript->registerCss('blood_refresh', '.lists_td .errorMessage {display: none !important;}');
 
-if (empty($this->meta_description))
-    $this->meta_description = 'Думаете, что определение пола по дате рождения родителей невозможно? А вы не думайте, а проверьте, воспользовавшись нашим сервисом. Просто введите даты рождения родителей и посмотрите – совпало?';
-
 $form = $this->beginWidget('CActiveForm', array(
     'id' => 'blood-refresh-form',
     'enableAjaxValidation' => true,
@@ -123,7 +120,7 @@ $form = $this->beginWidget('CActiveForm', array(
 
 </div>
 <div class="wysiwyg-content">
-    <h1>Определение пола будущего ребенка по дате рождения родителей</h1>
+    <h1>Пол ребенка по дате рождения родителей</h1>
     <p>В основе данного метода лежит цикличность обновления крови женщины и мужчины в зависимости от их возраста. Эти
         циклы представляют собой определенные временные периоды, которые начинаются со дня рождения. Если на момент
         зачатия «моложе» была кровь женщины – значит, родится девочка, если кровь мужчины – мальчик.</p>

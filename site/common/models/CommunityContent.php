@@ -542,8 +542,9 @@ class CommunityContent extends HActiveRecord
     {
         switch ($this->type_id) {
             case 1:
-                if (preg_match('/src="([^"]+)"/', $this->post->text, $matches)) {
-                    return '<img src="' . $matches[1] . '" alt="' . $this->title . '" />';
+                $image = $this->getContentImage();
+                if ($image) {
+                    return '<img src="' . $image . '" alt="' . $this->title . '" />';
                 } else {
                     return Str::truncate(strip_tags($this->post->text));
                 }
@@ -583,9 +584,9 @@ class CommunityContent extends HActiveRecord
         }
     }
 
-    public function getContentText()
+    public function getContentText($length = 80)
     {
-        return Str::truncate(strip_tags($this->content->text));
+        return Str::truncate(strip_tags($this->content->text), $length);
     }
 
     public function canEdit()

@@ -340,7 +340,6 @@ class SiteController extends HController
     public function actionConfirmEmail($user_id, $code)
     {
         $user = User::model()->findByPk($user_id);
-        echo $code . '|' . $user->confirmationCode; die;
         if ($user === null || $user->email_confirmed || $code != $user->confirmationCode)
             throw new CHttpException(404);
 

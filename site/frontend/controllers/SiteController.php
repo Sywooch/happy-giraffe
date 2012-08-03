@@ -348,6 +348,14 @@ class SiteController extends HController
         $this->redirect($user->url);
     }
 
+    public function actionResendConfirmEmail()
+    {
+        $user = Yii::app()->user->model;
+        echo Yii::app()->mandrill->send($user, 'resendConfirmEmail', array(
+            'code' => $user->confirmationCode,
+        ));
+    }
+
     public function actionPasswordRecoveryForm()
     {
         $this->renderPartial('passwordRecoveryForm');

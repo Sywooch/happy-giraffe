@@ -23,12 +23,13 @@ class m120803_074933_add_score_items extends CDbMigration
             'scores_weight'=>100,
             'wait_time'=>0
         ));
+
+        $this->update($this->_table, array('scores_weight'=>0), 'id >= 7 AND id <= 10');
     }
 
 	public function down()
 	{
-		echo "m120803_074933_add_score_items does not support migration down.\n";
-		return false;
+		$this->delete($this->_table, 'id >= 24 AND id <= 26');
 	}
 
 	/*

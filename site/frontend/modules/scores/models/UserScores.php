@@ -224,7 +224,7 @@ class UserScores extends HActiveRecord
             if ($score === null)
                 self::addScores($user_id, $action_id);
 
-            if ($model->getStepsCount() == 6) {
+            if ($model->getStepsCount() >= 6) {
                 $model->full = 1;
                 $model->level_id = 1;
                 UserAction::model()->add($user_id, UserAction::USER_ACTION_LEVELUP, 1);

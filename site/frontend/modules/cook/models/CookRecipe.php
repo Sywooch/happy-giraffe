@@ -29,6 +29,9 @@ class CookRecipe extends CActiveRecord
     const COOK_RECIPE_FORDIABETICS = 33;
 
     const COOK_DEFAULT_SECTION = 0;
+
+    public $tagsIds = array();
+
     public $sectionsMap = array(
         0 => 'SimpleRecipe',
         1 => 'MultivarkaRecipe',
@@ -124,6 +127,7 @@ class CookRecipe extends CActiveRecord
             array('cuisine_id', 'default', 'value' => null),
             array('photo_id', 'default', 'value' => null),
             array('section', 'in', 'range' => array_keys($this->sectionsMap)),
+            array('tagsIds', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('id, title, photo_id, preparation_duration, cooking_duration, servings, text, cuisine_id, type, author_id', 'safe', 'on' => 'search'),
@@ -138,6 +142,7 @@ class CookRecipe extends CActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
+            'tags' => array(self::MANY_MANY, 'CookRecipeTag', 'cook__recipe_recipes_tags(recipe_id, tag_id)'),
             'ingredients' => array(self::HAS_MANY, 'CookRecipeIngredient', 'recipe_id'),
             'author' => array(self::BELONGS_TO, 'User', 'author_id'),
             'photo' => array(self::BELONGS_TO, 'AlbumPhoto', 'photo_id'),
@@ -225,6 +230,9 @@ class CookRecipe extends CActiveRecord
             'pingable' => array(
                 'class' => 'site.common.behaviors.PingableBehavior',
             ),
+            'CAdvancedArBehavior' => array(
+                'class' => 'ext.CAdvancedArBehavior',
+            ),
         );
     }
 
@@ -246,16 +254,29 @@ class CookRecipe extends CActiveRecord
 
     protected function afterFind()
     {
-        $this->preparation_duration_h = sprintf("%02d", floor($this->preparation_duration / 60));
-        $this->preparation_duration_m = sprintf("%02d", $this->preparation_duration % 60);
-        $this->cooking_duration_h = sprintf("%02d", floor($this->cooking_duration / 60));
-        $this->cooking_duration_m = sprintf("%02d", $this->cooking_duration % 60);
+        if (! empty($this->tags))
+        {
+            foreach ($this->tags as $service)
+                $this->tagsIds[] = $service->id;
+        }
+
+        if ($this->preparation_duration !== null) {
+            $this->preparation_duration_h =  sprintf("%02d", floor($this->preparation_duration / 60));
+            $this->preparation_duration_m = sprintf("%02d", $this->preparation_duration % 60);
+        }
+
+        if ($this->cooking_duration !== null) {
+            $this->cooking_duration_h = sprintf("%02d", floor($this->cooking_duration / 60));
+            $this->cooking_duration_m = sprintf("%02d", $this->cooking_duration % 60);
+        }
 
         parent::afterFind();
     }
 
     protected function beforeSave()
     {
+        $this->tags = $this->tagsIds;
+
         if (! $this->isNewRecord) {
             CookRecipeIngredient::model()->deleteAll('recipe_id = :recipe_id', array(':recipe_id' => $this->id));
         }
@@ -275,7 +296,7 @@ class CookRecipe extends CActiveRecord
     {
         UserAction::model()->add($this->author_id, UserAction::USER_ACTION_RECIPE_ADDED, array('model' => $this));
 
-        parent::beforeSave();
+        parent::afterSave();
     }
 
     public function getNutritionals()

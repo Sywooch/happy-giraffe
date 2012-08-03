@@ -608,6 +608,7 @@ class AjaxController extends HController
     public function actionBirthday()
     {
         Yii::import('site.common.models.forms.DateForm');
+        Yii::import('site.frontend.widgets.user.*');
         $date = new DateForm();
         $date->attributes = $_POST['DateForm'];
         if (isset($_POST['ajax'])) {
@@ -622,8 +623,7 @@ class AjaxController extends HController
 
         if ($user->save('birthday')) {
             ob_start();
-            $this->beginWidget('site.common.widgets.mail.WeeklyArticlesWidget');
-            $this->endWidget();
+            $this->widget('HoroscopeWidget', array('user' => $user));
             $horoscope = ob_get_clean();
 
             echo CJSON::encode(array(

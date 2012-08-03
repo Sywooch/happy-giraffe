@@ -46,9 +46,11 @@ $steps_count = 6 - $userScore->getStepsCount();
                     <li>
                         <div class="num">Шаг 3</div>
                         <div class="text"><a href="#firstStepsLocation" class="fancy">Укажите ваше место жительства</a></div>
-                        <?php if ($userScore->stepComplete(ScoreAction::ACTION_PROFILE_LOCATION)):?>
-                            <div class="done"><i class="icon"></i>Сделано</div>
-                        <?php endif ?>
+                        <div class="done">
+                            <?php if ($userScore->stepComplete(ScoreAction::ACTION_PROFILE_LOCATION)):?>
+                                <i class="icon"></i>Сделано
+                            <?php endif ?>
+                        </div>
                     </li>
                     <li>
                         <div class="num">Шаг 4</div>
@@ -180,7 +182,7 @@ $steps_count = 6 - $userScore->getStepsCount();
         </div>
 
         <div class="bottom">
-            <button class="btn btn-green-medium" onclick="UserLocation.saveLocation();return false;"><span><span>Сохранить</span></span></button>
+            <button class="btn btn-green-medium" onclick="Bonus.saveLocation();return false;"><span><span>Сохранить</span></span></button>
         </div>
 
         </form>

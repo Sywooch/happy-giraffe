@@ -224,13 +224,18 @@ class UserScores extends HActiveRecord
             if ($score === null)
                 self::addScores($user_id, $action_id);
 
-            if ($model->getStepsCount() >= 6) {
-                $model->full = 1;
-                $model->level_id = 1;
-                UserAction::model()->add($user_id, UserAction::USER_ACTION_LEVELUP, 1);
-                $model->save();
-                self::addScores($user_id, ScoreAction::ACTION_PROFILE_FULL);
-            }
+            $model->checkFull();
+        }
+    }
+
+    public function checkFull()
+    {
+        if ($this->getStepsCount() >= 6) {
+            $this->full = 1;
+            $this->level_id = 1;
+            UserAction::model()->add($this->user_id, UserAction::USER_ACTION_LEVELUP, 1);
+            $this->save();
+            self::addScores($this->user_id, ScoreAction::ACTION_PROFILE_FULL);
         }
     }
 

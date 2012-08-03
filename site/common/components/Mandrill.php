@@ -66,7 +66,7 @@ class Mandrill extends CApplicationComponent
     {
         return array(
             'message' => array(
-                'subject' => 'Напоминание пароля',
+                'subject' => 'Регистрация на Весёлом Жирафе',
                 'global_merge_vars' => array(
                     array(
                         'name' => 'USERNAME',
@@ -75,6 +75,10 @@ class Mandrill extends CApplicationComponent
                     array(
                         'name' => 'EMAIL',
                         'content' => $user->email,
+                    ),
+                    array(
+                        'name' => 'USERID',
+                        'content' => $user->id,
                     ),
                     array(
                         'name' => 'PASSWORD',

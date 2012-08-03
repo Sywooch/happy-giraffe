@@ -114,10 +114,8 @@
                 Зарегистрирован <?=Yii::app()->dateFormatter->format("dd MMMM yyyy", $user->register_date)?>
             </div>
 
-            <?php if (!empty($user->getScores()->level_id)): ?>
+            <?php if ($user->id == Yii::app()->user->id && !empty($user->getScores()->level_id)): ?>
                 <div class="user-lvl user-lvl-<?=$user->getScores()->level_id?>"></div>
-            <?php else: ?>
-                <div class="user-lvl user-lvl-0"></div>
             <?php endif; ?>
 
             <?php $this->widget('FamilyWidget', array(

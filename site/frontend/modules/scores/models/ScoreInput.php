@@ -278,7 +278,10 @@ class ScoreInput extends EMongoDocument
             case ScoreAction::ACTION_PROFILE_PHOTO:
             case ScoreAction::ACTION_PROFILE_FAMILY:
             case ScoreAction::ACTION_PROFILE_INTERESTS:
-            case ScoreAction::ACTION_PROFILE_MAIN:
+            case ScoreAction::ACTION_PROFILE_BIRTHDAY:
+            case ScoreAction::ACTION_PROFILE_EMAIL:
+            case ScoreAction::ACTION_PROFILE_LOCATION:
+            case ScoreAction::ACTION_PROFILE_FULL:
                 return 'icon-ava';
             case ScoreAction::ACTION_PHOTO:
                 return 'icon-photo';
@@ -315,8 +318,17 @@ class ScoreInput extends EMongoDocument
             case ScoreAction::ACTION_PROFILE_INTERESTS:
                 $text = 'Вы заполнили данные <span>Интересы</span> в личной анкете';
                 break;
-            case ScoreAction::ACTION_PROFILE_MAIN:
-                $text = 'Вы заполнили данные <span>Личная информация</span> в личной анкете';
+            case ScoreAction::ACTION_PROFILE_BIRTHDAY:
+                $text = 'Вы указали День вашего рождения в личной анкете';
+                break;
+            case ScoreAction::ACTION_PROFILE_EMAIL:
+                $text = 'Вы подтвердили ваш E-mail';
+                break;
+            case ScoreAction::ACTION_PROFILE_LOCATION:
+                $text = 'Вы указали Ваше место жительства';
+                break;
+            case ScoreAction::ACTION_PROFILE_LOCATION:
+                $text = 'Вы прошли первые 6 шагов!';
                 break;
 
             case ScoreAction::ACTION_RECORD:

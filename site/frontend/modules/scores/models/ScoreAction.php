@@ -17,10 +17,15 @@ class ScoreAction extends HActiveRecord
     const ACTION_100_VIEWS = 4;
     const ACTION_10_COMMENTS = 5;
     const ACTION_OWN_COMMENT = 6;
-    const ACTION_PROFILE_MAIN = 7;
+
+    const ACTION_PROFILE_BIRTHDAY = 7;
     const ACTION_PROFILE_PHOTO = 8;
     const ACTION_PROFILE_FAMILY = 9;
     const ACTION_PROFILE_INTERESTS = 10;
+    const ACTION_PROFILE_LOCATION = 24;
+    const ACTION_PROFILE_EMAIL = 25;
+    const ACTION_PROFILE_FULL = 26;
+
     const ACTION_VISIT = 11;
     const ACTION_5_DAYS_ATTEND = 12;
     const ACTION_20_DAYS_ATTEND = 13;

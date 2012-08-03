@@ -163,7 +163,7 @@ class DefaultController extends HController
         } else {
             $response = array(
                 'status' => false,
-                'full' => ($user->getScore()->full == 0)?false:true
+                'full' => ($user->getScores()->full == 0)?false:true
             );
         }
 

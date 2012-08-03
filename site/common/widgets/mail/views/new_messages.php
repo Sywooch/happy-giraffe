@@ -103,7 +103,7 @@
                                                 <td valign="top">
                                                     <span style="color:#38a5f4;font:12px/16px arial, helvetica, sans-serif;"><?=$dialogUser->user->getFullName() ?></span><br/>
                                                     <?php if (!empty($dialogUser->user->getUserAddress()->country_id)):?>
-                                                        <span style="color:#858484;font:9px/18px tahoma, helvetica, sans-serif;"><img src="http://www.happy-giraffe.ru/images/mail/flags/<?= $dialogUser->user->getUserAddress()->country->iso_code; ?> ?>0018.gif" style="margin-right:5px;"><?php echo CHtml::encode($dialogUser->user->getUserAddress()->getCityName()); ?></span><br/>
+                                                        <span style="color:#858484;font:9px/18px tahoma, helvetica, sans-serif;"><img src="http://www.happy-giraffe.ru/images/mail/flags/<?= $dialogUser->user->getUserAddress()->country->iso_code; ?>0018.gif" style="margin-right:5px;"><?php echo CHtml::encode($dialogUser->user->getUserAddress()->getCityName()); ?></span><br/>
                                                     <?php endif ?>
                                                     <?php if (!empty($dialogUser->user->status->text)):?>
                                                         <span style="color:#2aa908;font:11px/18px tahoma, helvetica, sans-serif;"><?=$dialogUser->user->status->text ?></span><br/>
@@ -149,7 +149,7 @@
                 <tr>
                     <td style="border-top:1px solid #e6e5e5;padding:6px 0;">
 
-                        <p style="font:10px tahoma, arial, sans-serif; color: #979696;">Это письмо было сгенерированно автоматически. Пожалуйста не отвечайте на него. Если вы хотите обратиться в службу поддержки сайта «Веселый Жираф», напишите нам по адресу <span style=" color: #3587ec;"><a href="" target="_blank" style="color: #3587ec;">support@happy-giraffe.ru</a></span><br/>
+                        <p style="font:10px tahoma, arial, sans-serif; color: #979696;">Это письмо было сгенерированно автоматически. Пожалуйста не отвечайте на него. Если вы хотите обратиться в службу поддержки сайта «Веселый Жираф», напишите нам по адресу <span style=" color: #3587ec;"><a href="mailto:support@happy-giraffe.ru" target="_blank" style="color: #3587ec;">support@happy-giraffe.ru</a></span><br/>
                             <br/>
                             Вы получили это письмо, так как являетесь пользователем сайта "Веселый Жираф". <span style=" color: #3587ec;"><a href="" target="_blank" style="color: #3587ec;">Отписаться от рассылки</a></span>
                         </p>

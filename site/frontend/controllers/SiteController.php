@@ -345,14 +345,12 @@ class SiteController extends HController
     public function actionConfirmEmail($user_id, $code)
     {
         $user = User::model()->findByPk($user_id);
-        if ($user === null)
+        if ($user === null || $code != $user->confirmationCode)
             throw new CHttpException(404);
 
-        if ($code == $user->confirmationCode) {
-            $user->email_confirmed = 1;
-            $user->update(array('email_confirmed'));
-            $this->redirect($user->url);
-        }
+        $user->email_confirmed = 1;
+        $user->update(array('email_confirmed'));
+        $this->redirect($user->url);
     }
 
     public function actionPasswordRecovery()

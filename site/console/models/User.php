@@ -35,6 +35,8 @@ class User extends CActiveRecord
     public function relations()
     {
         return array(
+            'userAddress' => array(self::HAS_ONE, 'UserAddress', 'user_id'),
+            'interests' => array(self::MANY_MANY, 'Interest', 'interest__users_interests(interest_id, user_id)'),
         );
     }
 
@@ -77,5 +79,16 @@ class User extends CActiveRecord
     public function isNewComer()
     {
         return false;
+    }
+
+    public function getUserAddress()
+    {
+        if ($this->userAddress === null) {
+            $address = new UserAddress();
+            $address->user_id = $this->id;
+            $address->save();
+            $this->userAddress = $address;
+        }
+        return $this->userAddress;
     }
 }

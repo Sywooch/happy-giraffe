@@ -10,7 +10,7 @@
             Ваш бонус
             <img src="/images/first_steps_bonus_large.png" />
             <div class="change">
-                <a href="<?=$this->createUrl('/scores/default/index') ?>">Посмотреть мои баллы</a><br/>
+                <a href="<?=Yii::app()->createUrl('/scores/default/index') ?>">Посмотреть мои баллы</a><br/>
             </div>
         </div>
 

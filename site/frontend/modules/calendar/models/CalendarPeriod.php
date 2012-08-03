@@ -152,10 +152,8 @@ class CalendarPeriod extends HActiveRecord
 
     protected function beforeSave()
     {
-        if (! empty($this->servicesIds))
-            $this->services = $this->servicesIds;
-        if (! empty($this->communitiesIds))
-            $this->communities = $this->communitiesIds;
+        $this->services = $this->servicesIds;
+        $this->communities = $this->communitiesIds;
         if (! empty($this->contentsText)) {
             $urls = explode("\n", $this->contentsText);
             $ids = array();

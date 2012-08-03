@@ -459,8 +459,20 @@ class AjaxController extends HController
     public function actionSaveInterests()
     {
         Yii::import('site.common.models.interest.*');
-        Interest::saveByUser(Yii::app()->user->id, Yii::app()->request->getPost('Interest'));
+        Yii::import('site.frontend.widgets.user.*');
 
+        if (Interest::saveByUser(Yii::app()->user->id, Yii::app()->request->getPost('Interest'))){
+            ob_start();
+            $this->widget('InterestsWidget', array('user' => Yii::app()->user->model));
+            $content = ob_get_clean();
+
+            echo CJSON::encode(array(
+                'status' => true,
+                'html' => $content,
+                'full' => (Yii::app()->user->model->getScores()->full == 1)?true:false
+            ));
+        }else
+            echo CJSON::encode(array('status' => false));
         /*
         $interests = Yii::app()->user->model->interests;
         $html = CHtml::openTag('ul', array('id' => 'user_interests_list'));
@@ -629,7 +641,8 @@ class AjaxController extends HController
             echo CJSON::encode(array(
                 'status' => true,
                 'text' => '<span>День рождения:</span>' . Yii::app()->dateFormatter->format("d MMMM", $user->birthday) . ' (' . $user->normalizedAge . ')',
-                'horoscope' => $horoscope
+                'horoscope' => $horoscope,
+                'full' => ($user->getScores()->full == 0)?false:true
             ));
         } else
             echo CJSON::encode(array('status' => false));

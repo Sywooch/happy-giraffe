@@ -4264,9 +4264,11 @@ ul.letters li a:hover {
 #cook-recipe > .title h1 {font-size:35px;color:#232223;font-weight:normal;line-height:1;}
 #cook-recipe > .title h1 span {display:block;text-transform:uppercase;font-size:40px;line-height:1;}
 
-#cook-add-recipe .form-in {background:#f2fbe9;}
+#cook-add-recipe .form-in {background:#fbf7ff;}
+#cook-add-recipe.traditional .form-in {background:#f2fbe9;}
 
 #cook-recipe > .title-recipes-1 {background:url(/images/bg_recipes_title_1.jpg) no-repeat right;}
+
 
 #cook-recipe .add-recipe {width:220px;text-align:center;color:#81807f;font:italic 18px/1 times new roman, serif;padding-top:27px;float:left;padding-left:10px;}
 #cook-recipe .add-recipe .btn {width:220px;margin-top:4px;}

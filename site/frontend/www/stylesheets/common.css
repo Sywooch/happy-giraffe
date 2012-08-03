@@ -1694,7 +1694,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 .default-comments li .content .meta .num {background:#92b3e1;padding:1px 5px;color:#fff;font-weight:bold;font-size:14px;font-family:arial, helvetica, sans-serif;}
 .default-comments li .content .meta .num a {color:#fff;text-decoration:none;}
 .default-comments li .content .meta .date {margin-right:15px;}
-.default-comments li .content .meta .answer {color:#82c3d3;display:inline-block;}
+.default-comments li .content .meta .answer {color:#82c3d3;display:inline-block;vertical-align:middle;}
 .default-comments li .content .meta .answer .ava {width:25px;height:23px;display:inline-block;vertical-align:top;border:0;margin:-5px 2px 0;}
 .default-comments li .content .meta .answer img {vertical-align:top;width:25px;height:23px;border:0;}
 .default-comments li .content .meta .answer .user-info {float:none;display:inline-block;vertical-align:middle;}

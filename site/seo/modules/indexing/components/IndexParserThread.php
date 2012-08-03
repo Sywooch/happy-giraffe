@@ -20,8 +20,8 @@ class IndexParserThread extends ProxyParserThread
         parent::__construct();
         $up = IndexingUp::model()->find(array('order' => 'id desc'));
         $this->up_id = $up->id;
-        $this->delay_min = 2;
-        $this->delay_max = 5;
+        $this->delay_min = 1;
+        $this->delay_max = 1;
     }
 
     public function start()
@@ -78,7 +78,7 @@ class IndexParserThread extends ProxyParserThread
         foreach ($links as $link) {
             $this->saveUrl($link);
         }
-        sleep(15);
+        sleep(10);
     }
 
     private function loadYandexPage()

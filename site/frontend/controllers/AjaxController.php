@@ -619,6 +619,7 @@ class AjaxController extends HController
         $date->validate();
         $user = Yii::app()->user->getModel();
         $user->birthday = trim($date->date);
+        UserScores::checkProfileScores($this->id, ScoreAction::ACTION_PROFILE_BIRTHDAY);
         echo CJSON::encode(array(
             'status' => $user->save('birthday'),
             'text' => '<span>День рождения:</span>'. Yii::app()->dateFormatter->format("d MMMM", $user->birthday) .' ('.$user->normalizedAge.')'

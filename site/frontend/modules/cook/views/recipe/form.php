@@ -216,11 +216,13 @@
 
                     </div>
 
-                    <div class="row">
+                    <?php if (Yii::app()->authManager->checkAccess('recipe_tags', Yii::app()->user->id)): ?>
+                        <div class="row">
 
-                        <?php echo $form->checkBoxList($recipe, 'tagsIds', CHtml::listData(CookRecipeTag::model()->findAll(), 'id', 'title'), array('uncheckValue' => null)); ?>
+                            <?php echo $form->checkBoxList($recipe, 'tagsIds', CHtml::listData(CookRecipeTag::model()->findAll(), 'id', 'title'), array('uncheckValue' => null)); ?>
 
-                    </div>
+                        </div>
+                    <?php endif; ?>
 
                 </div>
 

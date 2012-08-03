@@ -114,6 +114,14 @@ class UserAddress extends HActiveRecord
         ));
     }
 
+    public function beforeSave()
+    {
+        if (!empty($this->country_id))
+            UserScores::checkProfileScores($this->user_id, ScoreAction::ACTION_PROFILE_LOCATION);
+
+        return parent::beforeSave();
+    }
+
     public function getFlag($big = false)
     {
         if (!empty($this->country_id)) {

@@ -224,19 +224,31 @@ class UserScores extends HActiveRecord
             if ($score === null)
                 self::addScores($user_id, $action_id);
 
-            $criteria = new EMongoCriteria;
-            $criteria->addCond('user_id', '==', (int)$user_id);
-            $criteria->addCond('action_id', 'in', array(ScoreAction::ACTION_PROFILE_BIRTHDAY,
-                ScoreAction::ACTION_PROFILE_PHOTO, ScoreAction::ACTION_PROFILE_FAMILY,
-                ScoreAction::ACTION_PROFILE_INTERESTS, ScoreAction::ACTION_PROFILE_EMAIL,
-                ScoreAction::ACTION_PROFILE_LOCATION));
-            $profile_count = ScoreInput::model()->count($criteria);
-            if ($profile_count == 6) {
+            if ($model->getStepsCount() == 6) {
                 self::addScores($user_id, ScoreAction::ACTION_PROFILE_FULL);
                 $model->full = 1;
                 $model->update(array('full'));
             }
         }
+    }
+
+    public function getStepsCount()
+    {
+        $criteria = new EMongoCriteria;
+        $criteria->addCond('user_id', '==', (int)$this->user_id);
+        $criteria->addCond('action_id', 'in', array(ScoreAction::ACTION_PROFILE_BIRTHDAY,
+            ScoreAction::ACTION_PROFILE_PHOTO, ScoreAction::ACTION_PROFILE_FAMILY,
+            ScoreAction::ACTION_PROFILE_INTERESTS, ScoreAction::ACTION_PROFILE_EMAIL,
+            ScoreAction::ACTION_PROFILE_LOCATION));
+        return ScoreInput::model()->count($criteria);
+    }
+
+    public function stepComplete($step_id)
+    {
+        $criteria = new EMongoCriteria;
+        $criteria->addCond('user_id', '==', (int)$this->user_id);
+        $criteria->addCond('action_id', '==', (int)$step_id);
+        return ScoreInput::model()->count($criteria) >= 1;
     }
 
     public function getUserHistory(){

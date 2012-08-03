@@ -1,18 +1,19 @@
 var Bonus = {
-    setBirthday:function(){
-        $.post('/ajax/birthday/', $('#birthday-form').serialize(), function(response) {
-            if (response.status){
+    setBirthday:function () {
+        $.post('/ajax/birthday/', $('#birthday-form').serialize(), function (response) {
+            if (response.status) {
                 Bonus.showBirthday(response.text);
                 $.fancybox.close();
             }
         }, 'json');
     },
-    showBirthday:function(text){
+    showBirthday:function (text) {
         $('.user-name .birthday').html(text);
-        //$('.steps-list ul li:eq(1) .done').html('<i class=\"icon\"></i>Сделано');
-        window.location.reload();
+        $('.steps-list ul li:eq(1) .done').html('<i class=\"icon\"></i>Сделано');
+        $('div.horoscope-wrapper').html(text.horoscope);
+        $.fancybox.close();
     },
-    saveLocation:function(){
+    saveLocation:function () {
         $.ajax({
             url:'/geo/saveLocation/',
             data:{
@@ -24,14 +25,19 @@ var Bonus = {
             dataType:'JSON',
             success:function (response) {
                 if (response.status) {
-                    window.location.reload();
-//                    $.fancybox.close();
-//                    $('div.weather-wrapper').html(response.weather);
-//                    $('div.user-name div.location').html(response.location);
-//                    $('.steps-list ul li:eq(2) .done').html('<i class=\"icon\"></i>Сделано');
-//                    $("#loc-flipbox").html(response.main);
+//                    window.location.reload();
+                    $.fancybox.close();
+                    $('div.weather-wrapper').html(response.weather);
+                    $('div.user-name div.location').html(response.location);
+                    $('.steps-list ul li:eq(2) .done').html('<i class=\"icon\"></i>Сделано');
+                    $("#loc-flipbox").html(response.main);
                 }
             }
+        });
+    },
+    sendConfirmEmail:function () {
+        $.post('/site/resendConfirmEmail/', function (response) {
+            $.fancybox.close();
         });
     }
 }

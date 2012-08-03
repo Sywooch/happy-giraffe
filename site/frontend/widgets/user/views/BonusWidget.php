@@ -3,12 +3,8 @@
  * @var $form CActiveForm
  */
 
-$steps_count = 0;
-if (empty($this->user->getUserAddress()->country_id)) $steps_count++;
-if (empty($this->user->birthday)) $steps_count++;
-if (empty($this->user->avatar)) $steps_count++;
-if (empty($this->user->relationship_status)) $steps_count++;
-if (empty($this->user->interests)) $steps_count++;
+$userScore = $this->user->getScores();
+$steps_count = 6 - $userScore->getStepsCount();
 ?><div id="first-steps">
 
     <div class="block-title">
@@ -32,13 +28,17 @@ if (empty($this->user->interests)) $steps_count++;
                     <li class="strike">
                         <div class="num">Шаг 1</div>
                         <div class="text"><a href="#firstStepsEmail" class="fancy">Подтвердите ваш e-mail</a></div>
-                        <div class="done"><i class="icon"></i>Сделано</div>
+                        <div class="done">
+                            <?php if ($userScore->stepComplete(ScoreAction::ACTION_PROFILE_EMAIL)):?>
+                                <i class="icon"></i>Сделано
+                            <?php endif ?>
+                        </div>
                     </li>
                     <li>
                         <div class="num">Шаг 2</div>
                         <div class="text"><a href="#firstStepsBirthday" class="fancy">Укажите вашу дату рождения</a></div>
                     <div class="done">
-                        <?php if (!empty($this->user->birthday)):?>
+                        <?php if ($userScore->stepComplete(ScoreAction::ACTION_PROFILE_BIRTHDAY)):?>
                             <i class="icon"></i>Сделано
                         <?php endif ?>
                     </div>
@@ -46,21 +46,21 @@ if (empty($this->user->interests)) $steps_count++;
                     <li>
                         <div class="num">Шаг 3</div>
                         <div class="text"><a href="#firstStepsLocation" class="fancy">Укажите ваше место жительства</a></div>
-                        <?php if (!empty($this->user->getUserAddress()->country_id)):?>
+                        <?php if ($userScore->stepComplete(ScoreAction::ACTION_PROFILE_LOCATION)):?>
                             <div class="done"><i class="icon"></i>Сделано</div>
                         <?php endif ?>
                     </li>
                     <li>
                         <div class="num">Шаг 4</div>
                         <div class="text"><a href="javascript:;" onclick="$('#change_ava > div.photo > a').trigger('click');">Загрузите ваше главное фото</a></div>
-                        <?php if (!empty($this->user->avatar)):?>
+                        <?php if ($userScore->stepComplete(ScoreAction::ACTION_PROFILE_PHOTO)):?>
                             <div class="done"><i class="icon"></i>Сделано</div>
                         <?php endif ?>
                     </li>
                     <li>
                         <div class="num">Шаг 5</div>
                         <div class="text"><a href="/family/">Расскажите о вашей семье</a></div>
-                        <?php if (!empty($this->user->relationship_status)):?>
+                        <?php if ($userScore->stepComplete(ScoreAction::ACTION_PROFILE_FAMILY)):?>
                             <div class="done"><i class="icon"></i>Сделано</div>
                         <?php endif ?>
                     </li>
@@ -68,7 +68,7 @@ if (empty($this->user->interests)) $steps_count++;
                         <div class="num">Шаг 6</div>
                         <div class="text"><a href="/ajax/interestsForm/" class="fancy">Укажите ваши интересы</a></div>
                     <div class="done">
-                        <?php if (!empty($this->user->interests)):?>
+                        <?php if ($userScore->stepComplete(ScoreAction::ACTION_PROFILE_INTERESTS)):?>
                             <i class="icon"></i>Сделано
                         <?php endif ?>
                     </div>
@@ -82,7 +82,6 @@ if (empty($this->user->interests)) $steps_count++;
                 <div class="bonus">
                     <div class="bonus-left">
                         <img src="/images/first_steps_bonus_plus.png"> от нас бонусна
-                        <span>дополнительные опции сайта</span>
                     </div>
                     <img src="/images/first_steps_bonus_big.png">
                 </div>
@@ -278,7 +277,7 @@ if (empty($this->user->interests)) $steps_count++;
 
                 <p>Просим вас открыть ваш почтовый ящик,<br> <span class="hl">найти наше письмо и нажать на кнопку <span>«Подтвердить e-mail»</span></span></p>
 
-                <p>Если вы не обнаружили письмо, <span class="note">*</span><br> мы можем отправить его еще раз <a href="" class="orange">Отправить письмо</a></p>
+                <p>Если вы не обнаружили письмо, <span class="note">*</span><br> мы можем отправить его еще раз <a href="javascript:;" onclick="Bonus.sendConfirmEmail();" class="orange">Отправить письмо</a></p>
 
             </div>
 

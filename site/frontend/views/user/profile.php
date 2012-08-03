@@ -181,9 +181,11 @@
                         )); ?>
                     </div>
 
-                    <?php $this->widget('HoroscopeWidget', array(
-                        'user' => $user,
-                    )); ?>
+                    <div class="horoscope-wrapper">
+                        <?php $this->widget('HoroscopeWidget', array(
+                            'user' => $user,
+                        )); ?>
+                    </div>
 
                     <?php $this->widget('UserDuelWidget', array(
                         'user' => $user,

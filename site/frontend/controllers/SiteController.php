@@ -351,6 +351,9 @@ class SiteController extends HController
     public function actionResendConfirmEmail()
     {
         $user = Yii::app()->user->model;
+        if ($user === null || $user->email_confirmed)
+            throw new CHttpException(404);
+
         echo Yii::app()->mandrill->send($user, 'resendConfirmEmail', array(
             'code' => $user->confirmationCode,
         ));

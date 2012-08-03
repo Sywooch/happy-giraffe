@@ -11,9 +11,6 @@ Yii::app()->clientScript->registerScriptFile($baseUrl . '/china.js', CClientScri
 Yii::app()->clientScript->registerCss('china-baby', '.child_sex_china_banner div.row{display: inline;}
 .child_sex_china_banner .errorMessage{display: none !important;}');
 
-if (empty($this->meta_description))
-    $this->meta_description = 'Определение пола: китайский метод считается одним из самых древних, а потому достаточно часто оказывается точным. Введите месяц и год рождения матери, затем месяц и год зачатия ребенка и посмотрите, кто у вас будет.';
-
 $form = $this->beginWidget('CActiveForm', array(
     'id' => 'china-calendar-form',
     'enableAjaxValidation' => true,

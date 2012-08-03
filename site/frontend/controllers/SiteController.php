@@ -337,6 +337,25 @@ class SiteController extends HController
         }
     }
 
+    public function actionConfirmEmail($user_id, $code)
+    {
+        $user = User::model()->findByPk($user_id);
+        if ($user === null || $code != $user->confirmationCode)
+            throw new CHttpException(404);
+
+        $user->email_confirmed = 1;
+        $user->update(array('email_confirmed'));
+        $this->redirect($user->url);
+    }
+
+    public function actionResendConfirmEmail()
+    {
+        $user = Yii::app()->user->model;
+        echo Yii::app()->mandrill->send($user, 'resendConfirmEmail', array(
+            'code' => $user->confirmationCode,
+        ));
+    }
+
     public function actionPasswordRecoveryForm()
     {
         $this->renderPartial('passwordRecoveryForm');

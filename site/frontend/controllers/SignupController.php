@@ -118,6 +118,10 @@ class SignupController extends HController
                 }
 
                 /*Yii::app()->mc->sendToEmail($model->email, $model, 'user_registration');*/
+                Yii::app()->mandrill->send($model, 'confirmEmail', array(
+                    'password' => $_POST['User']['password'],
+                    'code' => $model->confirmationCode,
+                ));
 				unset($session['service']);
                 $identity = new UserIdentity($model->getAttributes());
                 $identity->authenticate();
@@ -132,7 +136,7 @@ class SignupController extends HController
                     Yii::app()->user->setState('redirectUrl', null);
                 }
                 else
-                    $url = Yii::app()->request->getQuery('redirectUrl');
+                    $url = Yii::app()->createAbsoluteUrl('user/profile', array('user_id'=>$model->id));
 
                     echo CJSON::encode(array(
                     'status' => true,

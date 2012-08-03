@@ -5,6 +5,8 @@
 
 $userScore = $this->user->getScores();
 $steps_count = 6 - $userScore->getStepsCount();
+if ($steps_count < 0)
+    $steps_count = 0;
 ?><div id="first-steps">
 
     <div class="block-title">
@@ -277,7 +279,7 @@ $steps_count = 6 - $userScore->getStepsCount();
 
                 <p>Мы отправили вам письмо, для <br> <span class="hl">подтверждения адреса электронной почты</span></p>
 
-                <p>Просим вас открыть ваш почтовый ящик,<br> <span class="hl">найти наше письмо и нажать на кнопку <span>«Подтвердить e-mail»</span></span></p>
+                <p>Просим вас открыть ваш почтовый ящик,<br> <span class="hl">найти наше письмо и нажать на ссылку <span>«Подтвердить e-mail»</span></span></p>
 
                 <p>Если вы не обнаружили письмо, <span class="note">*</span><br> мы можем отправить его еще раз <a href="javascript:;" onclick="Bonus.sendConfirmEmail();" class="orange">Отправить письмо</a></p>
 

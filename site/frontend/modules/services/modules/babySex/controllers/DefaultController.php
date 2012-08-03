@@ -16,8 +16,6 @@ class DefaultController extends HController
      */
     public function actionIndex()
     {
-        $this->pageTitle = 'Определение пола ребенка';
-        Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
         $this->render('index');
     }
 
@@ -26,8 +24,6 @@ class DefaultController extends HController
      */
     public function actionBloodRefresh()
     {
-        $this->pageTitle = 'Пол ребенка по обновлению крови';
-
         $this->render('blood_refresh');
     }
 
@@ -36,8 +32,6 @@ class DefaultController extends HController
      */
     public function actionJapan()
     {
-        $this->pageTitle = 'Будущий пол ребенка - японский метод';
-
         $this->render('japan');
     }
 
@@ -46,8 +40,6 @@ class DefaultController extends HController
      */
     public function actionBlood()
     {
-        $this->pageTitle = 'Пол ребенка по группе крови';
-
         $this->render('blood_group');
     }
 
@@ -56,8 +48,6 @@ class DefaultController extends HController
      */
     public function actionChina()
     {
-        $this->pageTitle = 'Пол ребенка по китайской таблице. Китайский метод определения пола ребенка';
-
         if (Yii::app()->request->isAjaxRequest){
             $model = new ChinaCalendarForm;
             $model->attributes = $_POST['ChinaCalendarForm'];
@@ -71,8 +61,6 @@ class DefaultController extends HController
      */
     public function actionOvulation()
     {
-        $this->pageTitle = 'Пол ребенка по овуляции';
-
         $this->render('ovulation');
     }
 

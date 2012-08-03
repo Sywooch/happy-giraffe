@@ -2,8 +2,8 @@ var Interest = {
 
 };
 
-Interest.changeCategory = function(el) {
-    if (! $(el).parent().hasClass('active')) {
+Interest.changeCategory = function (el) {
+    if (!$(el).parent().hasClass('active')) {
         $(el).parent().addClass('active').siblings('.active').removeClass('active');
 
         var index = $(el).parent().index();
@@ -12,16 +12,20 @@ Interest.changeCategory = function(el) {
     }
 };
 
-Interest.removeSelected = function(el) {
+Interest.removeSelected = function (el) {
     $(el).parent().remove();
     $('#interestsManage .interest-drag[data-id=' + $(el).parent().data('id') + ']').show();
 };
 
-Interest.save = function() {
+Interest.save = function () {
     var form = $('#interestsManage form');
-    $.post($(form).attr('action'), $(form).serialize(), function(response) {
-        $.fancybox.close();
-        window.location.reload();
-    });
+    $.post($(form).attr('action'), $(form).serialize(), function (response) {
+        if (response.status) {
+            if (response.full)
+                window.location.reload();
+            $.fancybox.close();
+            $('div.interests-wrapper').html(response.html);
+        }
+    }, 'json');
 }
 

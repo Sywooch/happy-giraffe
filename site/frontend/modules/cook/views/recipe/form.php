@@ -216,6 +216,12 @@
 
                     </div>
 
+                    <div class="row">
+
+                        <?php echo $form->checkBoxList($recipe, 'tagsIds', CHtml::listData(CookRecipeTag::model()->findAll(), 'id', 'title'), array('uncheckValue' => null)); ?>
+
+                    </div>
+
                 </div>
 
                 <div class="row-btn">

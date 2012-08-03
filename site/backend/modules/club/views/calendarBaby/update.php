@@ -68,7 +68,7 @@
     <div class="row">
         <?php echo $form->labelEx($model,'services'); ?>
 
-        <?php echo $form->checkBoxList($model, 'servicesIds', CHtml::listData(Service::model()->findAll(), 'id', 'title'), array('labelOptions' => array('style' => 'display: inline-block;'))); ?>
+        <?php echo $form->checkBoxList($model, 'servicesIds', CHtml::listData(Service::model()->findAll(), 'id', 'title'), array('uncheckValue' => null, 'labelOptions' => array('style' => 'display: inline-block;'))); ?>
     </div>
 
     <hr />
@@ -76,7 +76,7 @@
     <div class="row">
         <?php echo $form->labelEx($model,'communities'); ?>
 
-        <?php echo $form->checkBoxList($model, 'communitiesIds', CHtml::listData(Community::model()->findAll(array('condition' => 'id < 19')), 'id', 'title'), array('labelOptions' => array('style' => 'display: inline-block;'))); ?>
+        <?php echo $form->checkBoxList($model, 'communitiesIds', CHtml::listData(Community::model()->findAll(array('condition' => 'id < 19')), 'id', 'title'), array('uncheckValue' => null, 'labelOptions' => array('style' => 'display: inline-block;'))); ?>
     </div>
 
     <div class="row buttons">

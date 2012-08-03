@@ -19,7 +19,7 @@
                 if ($image)
                     echo CHtml::link(CHtml::image($image, $c->title), $c->url);
                 else
-                    echo '<p>'.$c->getContentText(250).'</p>';
+                    echo '<br><p>'.$c->getContentText(300).'</p>';
                 ?>
             </li>
         <?php endforeach; ?>

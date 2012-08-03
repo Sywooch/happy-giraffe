@@ -118,6 +118,10 @@ class SignupController extends HController
                 }
 
                 /*Yii::app()->mc->sendToEmail($model->email, $model, 'user_registration');*/
+                Yii::app()->mandrill->send($model, 'confirmEmail', array(
+                    'password' => $_POST['User']['password'],
+                    'code' => $model->confirmationCode,
+                ));
 				unset($session['service']);
                 $identity = new UserIdentity($model->getAttributes());
                 $identity->authenticate();

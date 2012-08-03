@@ -25,6 +25,7 @@ class Mandrill extends CApplicationComponent
             'message' => array(
                 'html' => file_get_contents(Yii::getPathOfAlias('site.common.tpl') . DIRECTORY_SEPARATOR . $action . '.php'),
                 'from_email' => 'noreply@happy-giraffe.ru',
+                'from_name' => 'Весёлый Жираф',
                 'to' => array(
                     array(
                         'email' => $user->email,
@@ -56,6 +57,37 @@ class Mandrill extends CApplicationComponent
                     array(
                         'name' => 'PASSWORD',
                         'content' => $params['password'],
+                    ),
+                ),
+            ),
+        );
+    }
+
+    public function confirmEmail($user, $params)
+    {
+        return array(
+            'message' => array(
+                'subject' => 'Регистрация на Весёлом Жирафе',
+                'global_merge_vars' => array(
+                    array(
+                        'name' => 'USERNAME',
+                        'content' => $user->fullName,
+                    ),
+                    array(
+                        'name' => 'EMAIL',
+                        'content' => $user->email,
+                    ),
+                    array(
+                        'name' => 'USERID',
+                        'content' => $user->id,
+                    ),
+                    array(
+                        'name' => 'PASSWORD',
+                        'content' => $params['password'],
+                    ),
+                    array(
+                        'name' => 'CODE',
+                        'content' => $params['code'],
                     ),
                 ),
             ),

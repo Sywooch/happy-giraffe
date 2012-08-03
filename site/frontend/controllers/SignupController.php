@@ -136,7 +136,7 @@ class SignupController extends HController
                     Yii::app()->user->setState('redirectUrl', null);
                 }
                 else
-                    $url = Yii::app()->createAbsoluteUrl('profile/profile', array('user_id'=>$model->id));
+                    $url = Yii::app()->createAbsoluteUrl('user/profile', array('user_id'=>$model->id));
 
                     echo CJSON::encode(array(
                     'status' => true,

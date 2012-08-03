@@ -63,5 +63,29 @@ class UserScoresCommand extends CConsoleCommand
             echo ($i*100)."\n";
         }
     }
+
+    public function actionCheckInterests()
+    {
+        Yii::import('site.frontend.modules.geo.models.*');
+        Yii::import('site.common.models.interest.*');
+
+        $criteria = new CDbCriteria;
+        $criteria->limit = 100;
+        $i = 0;
+        $users = array(1);
+
+        while (!empty($users)) {
+            $criteria->offset = 100 * $i;
+            $users = User::model()->with('interests')->findAll($criteria);
+
+            foreach($users as $user){
+                if (!empty($user->interests))
+                    UserScores::checkProfileScores($user->id, ScoreAction::ACTION_PROFILE_LOCATION);
+            }
+
+            $i++;
+            echo ($i*100)."\n";
+        }
+    }
 }
 

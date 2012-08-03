@@ -17,7 +17,12 @@ class DefaultController extends HController
         if ($period === null)
             throw new CHttpException(404);
 
+        if ($slug === null)
+            Yii::app()->clientScript->registerLinkTag('canonical', null, $period->getUrl(true));
+
         $periods = CalendarPeriod::model()->findAllByAttributes(array('calendar' => $calendar));
-	    $this->render('index', compact('period', 'periods'));
+        $calendarTitle = ($calendar == 0) ? 'Календарь развития ребёнка' : 'Календарь беременности';
+        $this->pageTitle = $calendarTitle . ' - ' . $period->title;
+        $this->render('index', compact('period', 'periods'));
 	}
 }

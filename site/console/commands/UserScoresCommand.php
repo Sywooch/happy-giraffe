@@ -80,7 +80,7 @@ class UserScoresCommand extends CConsoleCommand
 
             foreach($users as $user){
                 if (!empty($user->interests))
-                    UserScores::checkProfileScores($user->id, ScoreAction::ACTION_PROFILE_LOCATION);
+                    UserScores::checkProfileScores($user->id, ScoreAction::ACTION_PROFILE_INTERESTS);
             }
 
             $i++;

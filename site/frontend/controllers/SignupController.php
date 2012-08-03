@@ -79,6 +79,9 @@ class SignupController extends HController
 			$model->register_date = date('Y-m-d H:i:s');
 			if($model->save(true, array('first_name', 'last_name', 'password', 'email', 'gender', 'birthday')))
 			{
+                if (!empty($model->birthday))
+                    UserScores::checkProfileScores($model->id, ScoreAction::ACTION_PROFILE_BIRTHDAY);
+
                 if (isset($_POST['User']['avatar'])) {
                     $url = $_POST['User']['avatar'];
 
@@ -115,6 +118,8 @@ class SignupController extends HController
 
                     $model->avatar_id = $photo->id;
                     $model->save();
+
+                    UserScores::checkProfileScores($model->id, ScoreAction::ACTION_PROFILE_PHOTO);
                 }
 
                 /*Yii::app()->mc->sendToEmail($model->email, $model, 'user_registration');*/

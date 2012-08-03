@@ -8,7 +8,7 @@ var Bonus = {
         }, 'json');
     },
     showBirthday:function (response) {
-        if (response.refresh)
+        if (response.full)
             window.location.reload();
         $('.user-name .birthday').html(response.text);
         $('.steps-list ul li:eq(1) div.done').html('<i class=\"icon\"></i>Сделано');
@@ -27,7 +27,7 @@ var Bonus = {
             dataType:'JSON',
             success:function (response) {
                 if (response.status) {
-                    if (response.refresh)
+                    if (response.full)
                         window.location.reload();
 
                     $('.steps-list ul li:eq(2) div.done').html('<i class=\"icon\"></i>Сделано');

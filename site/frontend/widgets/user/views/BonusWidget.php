@@ -5,6 +5,8 @@
 
 $userScore = $this->user->getScores();
 $steps_count = 6 - $userScore->getStepsCount();
+if ($steps_count < 0)
+    $steps_count = 0;
 ?><div id="first-steps">
 
     <div class="block-title">

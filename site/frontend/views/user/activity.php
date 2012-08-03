@@ -70,7 +70,7 @@
         <?php endforeach; ?>
 
         <?php if ($nextPage !== false): ?>
-            <?=CHtml::link('Что еще нового', array('user/activity', 'user_id' => $this->user->id, 'page' => $nextPage), array('class' => 'more-btn'))?>
+            <?=CHtml::link('Что еще нового', array('user/activity', 'user_id' => $this->user->id, 'type' => $type, 'page' => $nextPage), array('class' => 'more-btn'))?>
         <?php endif; ?>
 
     </div>

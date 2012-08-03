@@ -14,7 +14,13 @@
                     )); ?>
                 </div>
                 <b><?=CHtml::link($c->title, $c->url)?></b>
-                <a href="<?=$c->url ?>"><div class="img"><?=$c->getShort()?></div></a>
+                <?php
+                $image = $c->getContentImage();
+                if ($image)
+                    echo CHtml::link(CHtml::image($image, $c->title), $model->url);
+                else
+                    echo  $c->getContentText(250);
+                ?>
             </li>
         <?php endforeach; ?>
     </ul>

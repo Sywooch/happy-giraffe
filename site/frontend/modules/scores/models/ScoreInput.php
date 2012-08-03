@@ -62,8 +62,9 @@ class ScoreInput extends EMongoDocument
                 $this->created = time() + 1;
             else
                 $this->created = time();
-        }
-        $this->updated = time();
+            $this->updated = $this->created;
+        }else
+            $this->updated = time();
 
         if ($this->amount == 0) {
             if (!$this->isNewRecord)

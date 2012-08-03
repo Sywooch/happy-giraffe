@@ -25,7 +25,7 @@
                     <?=$user->getUserAddress()->getFlag(true)?><?= $user->getUserAddress()->cityName ?>
                 <?php endif; ?>
             </div>
-            <?php if ($user->birthday): ?><div class="birthday"><span>День рождения:</span> <?=Yii::app()->dateFormatter->format("d MMMM", $user->birthday)?> (<?=$user->normalizedAge?>)</div><?php endif; ?>
+            <div class="birthday"><?php if ($user->birthday): ?><span>День рождения:</span> <?=Yii::app()->dateFormatter->format("d MMMM", $user->birthday)?> (<?=$user->normalizedAge?>)<?php endif; ?></div>
         </div>
 
         <?php if ($user->id != Yii::app()->user->id): ?>
@@ -131,6 +131,10 @@
         </div>
 
         <div class="col-23 clearfix">
+
+            <?php $this->widget('BonusWidget', array(
+                'user' => $user,
+            )); ?>
 
             <div class="clearfix">
                 <div class="col-2">

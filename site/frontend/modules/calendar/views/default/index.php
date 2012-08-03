@@ -24,7 +24,7 @@
         $doc = phpQuery::newDocumentXHTML($period->text, $charset = 'utf-8');
         $paragraphs = $doc->find('p');
         $paragraphsCount = count($paragraphs);
-        $pI = ($period->calendar == 0) ? floor($paragraphsCount / 3) : floor($paragraphsCount / 4);
+        $pI = ($period->calendar == 0) ? floor($paragraphsCount / 3) : floor($paragraphsCount / 2);
         $p = $doc->find('p:eq(' . $pI . ')');
         $p->after($features);
         $period->text = $doc->html();

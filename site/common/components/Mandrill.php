@@ -93,4 +93,31 @@ class Mandrill extends CApplicationComponent
             ),
         );
     }
+
+    public function resendConfirmEmail($user, $params)
+    {
+        return array(
+            'message' => array(
+                'subject' => 'Подтверждение e-mail - Весёлый Жираф',
+                'global_merge_vars' => array(
+                    array(
+                        'name' => 'USERNAME',
+                        'content' => $user->fullName,
+                    ),
+                    array(
+                        'name' => 'EMAIL',
+                        'content' => $user->email,
+                    ),
+                    array(
+                        'name' => 'USERID',
+                        'content' => $user->id,
+                    ),
+                    array(
+                        'name' => 'CODE',
+                        'content' => $params['code'],
+                    ),
+                ),
+            ),
+        );
+    }
 }

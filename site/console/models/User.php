@@ -91,4 +91,19 @@ class User extends CActiveRecord
         }
         return $this->userAddress;
     }
+
+    public function getScores()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->with =array('level' => array('select' => array('title')));
+        $criteria->compare('user_id', $this->id);
+        $model = UserScores::model()->find($criteria);
+        if ($model === null) {
+            $model = new UserScores;
+            $model->user_id = $this->id;
+            $model->save();
+        }
+
+        return $model;
+    }
 }

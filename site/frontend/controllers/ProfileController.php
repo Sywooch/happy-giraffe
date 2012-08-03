@@ -49,15 +49,10 @@ class ProfileController extends HController
     public function actionIndex()
     {
         if (isset($_POST['User'])) {
-            if (isset($_POST['User']['last_name']) && isset($_POST['User']['first_name']) &&
-                isset($_POST['User']['gender']) && isset($_POST['User']['birthday'])
-                && !empty($_POST['User']['last_name']) && !empty($_POST['User']['first_name'])
-                && !empty($_POST['User']['birthday'])
-            ) {
-                UserScores::checkProfileScores(Yii::app()->user->id, ScoreAction::ACTION_PROFILE_MAIN);
-            }
             $this->user->attributes = $_POST['User'];
-            $this->user->save(true, array('last_name', 'first_name', 'gender', 'email', 'birthday'));
+            if ($this->user->save(true, array('last_name', 'first_name', 'gender', 'email', 'birthday')))
+                if (!empty($this->user->birthday))
+                    UserScores::checkProfileScores($this->id, ScoreAction::ACTION_PROFILE_BIRTHDAY);
         }
 
         $this->render('data', array());

@@ -99,10 +99,10 @@ class UserScores extends HActiveRecord
 
     public function beforeSave()
     {
-        if ($this->scores >= 100 && empty($this->level_id)) {
+        /*if ($this->scores >= 100 && empty($this->level_id)) {
             $this->level_id = 1;
             UserAction::model()->add($this->user_id, UserAction::USER_ACTION_LEVELUP, $this->getAttributes(array('level_id')));
-        }
+        }*/
         return parent::beforeSave();
     }
 
@@ -224,17 +224,33 @@ class UserScores extends HActiveRecord
             if ($score === null)
                 self::addScores($user_id, $action_id);
 
-            $criteria = new EMongoCriteria;
-            $criteria->addCond('user_id', '==', (int)$user_id);
-            $criteria->addCond('action_id', 'in', array(ScoreAction::ACTION_PROFILE_MAIN,
-                ScoreAction::ACTION_PROFILE_PHOTO, ScoreAction::ACTION_PROFILE_FAMILY,
-                ScoreAction::ACTION_PROFILE_INTERESTS));
-            $profile_count = ScoreInput::model()->count($criteria);
-            if ($profile_count == 4) {
+            if ($model->getStepsCount() == 6) {
                 $model->full = 1;
-                $model->update(array('full'));
+                $model->level_id = 1;
+                UserAction::model()->add($user_id, UserAction::USER_ACTION_LEVELUP, 1);
+                $model->save();
+                self::addScores($user_id, ScoreAction::ACTION_PROFILE_FULL);
             }
         }
+    }
+
+    public function getStepsCount()
+    {
+        $criteria = new EMongoCriteria;
+        $criteria->addCond('user_id', '==', (int)$this->user_id);
+        $criteria->addCond('action_id', 'in', array(ScoreAction::ACTION_PROFILE_BIRTHDAY,
+            ScoreAction::ACTION_PROFILE_PHOTO, ScoreAction::ACTION_PROFILE_FAMILY,
+            ScoreAction::ACTION_PROFILE_INTERESTS, ScoreAction::ACTION_PROFILE_EMAIL,
+            ScoreAction::ACTION_PROFILE_LOCATION));
+        return ScoreInput::model()->count($criteria);
+    }
+
+    public function stepComplete($step_id)
+    {
+        $criteria = new EMongoCriteria;
+        $criteria->addCond('user_id', '==', (int)$this->user_id);
+        $criteria->addCond('action_id', '==', (int)$step_id);
+        return ScoreInput::model()->count($criteria) >= 1;
     }
 
     public function getUserHistory(){

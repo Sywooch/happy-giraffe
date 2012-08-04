@@ -31,7 +31,7 @@
                                 <span style="color:#2aa908;font:11px/18px tahoma, helvetica, sans-serif;"><?=$dialogUser->user->status->text ?></span><br/>
                             <?php endif ?>
                             <span style="color:#0d81d5;font:18px/20px arial, helvetica, sans-serif;">
-                                <a href="http://www.happy-giraffe.ru<?=Yii::app()->createUrl('/im/default/dialog', array('id'=>$dialogUser->dialog_id)) ?>" target="_blank" style="color:#0d81d5;font:18px/20px arial, helvetica, sans-serif;"><?=$current_unread = Dialog::getUnreadMessagesCount($dialogUser->dialog_id, $user->id) ?> <?=HDate::GenerateNoun(array('сообщение', 'сообщения', 'сообщений'), $current_unread) ?></a>
+                                <a href="http://www.happy-giraffe.ru<?=Yii::app()->createUrl('/im/default/dialog', array('id'=>$dialogUser->dialog_id)) ?>" target="_blank" style="color:#0d81d5;font:18px/20px arial, helvetica, sans-serif;"><?php $current_unread = Dialog::getUnreadMessagesCount($dialogUser->dialog_id, $user->id); echo $current_unread ?> <?=HDate::GenerateNoun(array('сообщение', 'сообщения', 'сообщений'), $current_unread) ?></a>
                             </span>
                         </td>
                     </tr>

@@ -54,6 +54,9 @@ class DefaultController extends HController
         $this->render('index', compact('dp'));
     }
 
+    /**
+     * @sitemap dataSource=getContentUrls
+     */
     public function actionView($id)
     {
         $data = RecipeBookRecipe::model()->with('disease', 'commentsCount', 'author', 'author.avatar', 'ingredients', 'ingredients.ingredient', 'ingredients.unit')->findByPk($id);
@@ -130,6 +133,26 @@ class DefaultController extends HController
             );
         }
         echo CJSON::encode($_ingredients);
+    }
+
+    public function getContentUrls()
+    {
+        $models = Yii::app()->db->createCommand()
+            ->select('r.id, r.created, r.updated')
+            ->from('recipe_book__recipes r')
+            ->queryAll();
+        foreach ($models as $model)
+        {
+            $data[] = array(
+                'params' => array(
+                    'id' => $model['id'],
+                ),
+                'priority' => 0.5,
+                'changefreq' => 'daily',
+                'lastmod' => ($model['updated'] === null) ? $model['created'] : $model['updated'],
+            );
+        }
+        return $data;
     }
 
     /*public function actionIndex()

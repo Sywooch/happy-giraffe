@@ -28,7 +28,7 @@
                                 AlbumsController::loadUploadScritps();
                                 $link = Yii::app()->createUrl('/albums/addPhoto')
                                 ?>
-                                <a class="btn btn-orange-smallest a-right fancy" href="<?php echo $link; ?>"><span><span>Загрузить фото</span></span></a>
+                                <a class="btn btn-orange-smallest fancy" href="<?php echo $link; ?>"><span><span>Загрузить фото</span></span></a>
                                 <?php endif; ?>
                         </div>
                         <?php if ($album->description): ?>

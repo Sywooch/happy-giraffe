@@ -110,7 +110,7 @@
 
                 <div class="preview">
                     <?php $i = 0; foreach ($this->user->getRelated('photos', false, array('limit' => 3, 'order' => 'created DESC')) as $p): ?>
-                        <?=CHtml::image($p->getPreviewUrl(180, 180), null, array('class' => 'img-' . ++$i))?>
+                        <?=CHtml::link(CHtml::image($p->getPreviewUrl(180, 180), '', array('class' => 'img-' . ++$i)), $p->url)?>
                     <?php endforeach; ?>
                 </div>
 

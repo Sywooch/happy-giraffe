@@ -22,12 +22,14 @@
                     <div class="gallery-album" data-count="<?=count($album->photos)?>">
 
                         <div class="album-title"><b>Альбом</b> <?=CHtml::link($album->title, $album->url)?>
-                            <?php
-                            Yii::import('application.controllers.AlbumsController');
-                            AlbumsController::loadUploadScritps();
-                            $link = Yii::app()->createUrl('/albums/addPhoto')
-                            ?>
-                            <a class="btn btn-orange-smallest fancy" href="<?php echo $link; ?>"><span><span>Загрузить фото</span></span></a>
+                            <?php if(!Yii::app()->user->isGuest && $this->user->id == Yii::app()->user->id): ?>
+                                <?php
+                                Yii::import('application.controllers.AlbumsController');
+                                AlbumsController::loadUploadScritps();
+                                $link = Yii::app()->createUrl('/albums/addPhoto')
+                                ?>
+                                <a class="btn btn-orange-smallest a-right fancy" href="<?php echo $link; ?>"><span><span>Загрузить фото</span></span></a>
+                                <?php endif; ?>
                         </div>
                         <?php if ($album->description): ?>
                             <div class="album-description"><?=$album->description?></div>

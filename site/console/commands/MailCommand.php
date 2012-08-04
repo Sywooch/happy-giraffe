@@ -40,11 +40,12 @@ class MailCommand extends CConsoleCommand
         Yii::import('site.common.models.mongo.*');
 
         $user = User::model()->findByPk(10);
+        $token = UserToken::model()->generate($user->id, 86400);
         $unread = Im::model($user->id)->getUnreadMessagesCount();
         if ($unread > 0){
             $dialogUsers = Im::model($user->id)->getUsersWithNewMessages();
             $contents = $this->renderFile(Yii::getPathOfAlias('site.common.tpl.newMessages').'.php', compact('dialogUsers', 'unread', 'user'), true);
-            Yii::app()->mandrill->send($user, 'newMessages', array('messages' => $contents));
+            Yii::app()->mandrill->send($user, 'newMessages', array('messages' => $contents, 'token' => $token));
         }
     }
 

@@ -62,6 +62,10 @@ class Mandrill extends CApplicationComponent
                         'name' => 'USERNAME',
                         'content' => $user->fullName,
                     ),
+                    array(
+                        'name' => 'TOKEN',
+                        'content' => $params['token']->content,
+                    ),
                 ),
             ),
         );

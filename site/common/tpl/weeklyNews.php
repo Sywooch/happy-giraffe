@@ -61,12 +61,12 @@ $i = 0;
                             style="margin-right:5px;vertical-align:top;"><?=$model->commentsCount ?></a></span>
                     </td>
                     <td>
-                        <?php $i = 0; foreach ($model->comments as $comment): ?>
+                        <?php $j = 0; foreach ($model->comments as $comment): ?>
                         <?php if (!empty($comment->author->avatar_id)):?>
-                            <?php $i++ ?>
+                            <?php $j++ ?>
                             <img src="<?=$comment->author->getAva('small') ?>"
                                  style="margin-right:5px;-moz-border-radius:12px;-webkit-border-radius:12px;border-radius:12px;">
-                            <?php if ($i == 6) break; ?>
+                            <?php if ($j == 6) break; ?>
                             <?php endif ?>
                         <?php endforeach; ?>
                     </td>
@@ -77,17 +77,15 @@ $i = 0;
         </div>
 
     </td>
-        <?php $i++; ?>
-                <?php if ($i % 2 == 0):?>
-                    <?php if ($i != count($models)):?>
+    <?php $i++; ?>
+        <?php if ($i % 2 == 0 && $i != count($models)):?>
                         </tr>
-        </tbody>
-    </table>
-        <table style="width:100%;margin-bottom:50px;" cellpadding="0" cellspacing="0">
-        <tbody><tr>
-                    <?php endif ?>
+                    </tbody>
+                </table>
+                    <table style="width:100%;margin-bottom:50px;" cellpadding="0" cellspacing="0">
+                    <tbody><tr>
                 <?php endif ?>
-        <?php endforeach; ?>
+    <?php endforeach; ?>
 
         </tr>
     </tbody>

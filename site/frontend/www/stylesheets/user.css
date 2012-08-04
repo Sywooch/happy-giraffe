@@ -640,9 +640,13 @@
 #first-steps .block-in .steps-list ul li {margin-top:15px;}
 #first-steps .block-in .steps-list ul li:first-child {margin-top:0;}
 #first-steps .block-in .steps-list ul li .num {font-size:15px;color:#7a7a7a;padding:0 5px;display:inline-block;width:40px;}
-#first-steps .block-in .steps-list ul li .text {padding:0 5px;display:inline-block;}
+#first-steps .block-in .steps-list ul li .text {padding:0 5px;display:inline-block;color:#7a7a7a;}
 #first-steps .block-in .steps-list ul li .done {display:inline-block;color:#3fb550;font-size:13px;}
 #first-steps .block-in .steps-list ul li .done .icon {display:inline-block;width:11px;height:8px;background:url(/images/first_steps_done.png) no-repeat;margin-right:5px;}
+
+#first-steps .block-in .steps-list .strike {}
+#first-steps .block-in .steps-list .strike .num {text-decoration:line-through;}
+#first-steps .block-in .steps-list .strike .text {text-decoration:line-through;}
 
 #first-steps .block-in .info {float:left;width:224px;border-left:1px solid #fff;height:190px;padding-left:20px;text-align:center;}
 #first-steps .block-in .info p {margin-bottom:30px;font-size:16px;color:#5b5a5a}

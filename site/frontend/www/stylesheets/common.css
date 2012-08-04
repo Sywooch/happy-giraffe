@@ -166,7 +166,7 @@ a.info {display:inline-block;width:13px;height:13px;background:url(../images/com
 
 .ava.big {width:240px;height:240px;background-position:0 -480px;float:none;}
 .ava.big, .ava.big img {/*css3*/ -moz-border-radius:0px;-webkit-border-radius:0px;border-radius:0px;}
-.ava.big img {width:auto;height:auto;}
+.ava.big img {width:auto;height:auto;display:block;margin:auto;}
 .ava.big.female {background-position:0 -240px;}
 .ava.big.male {background-position:0 0;}
 
@@ -1457,9 +1457,10 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 
 #gallery .gallery-album {margin-bottom:40px;}
 
-#gallery .gallery-album .album-title {font-size:18px;margin-bottom:5px;}
+#gallery .gallery-album .album-title {font-size:18px;margin-bottom:10px;font-weight:bold;}
+#gallery .gallery-album .album-title .btn {margin-left:25px;}
 
-#gallery .gallery-album .album-description {margin-bottom:20px;font-size:11px;font-family:tahoma, arial, helvetica, sans-serif;}
+#gallery .gallery-album .album-description {margin-bottom:15px;font-size:11px;font-family:tahoma, arial, helvetica, sans-serif;}
 
 #gallery .gallery-album .album-photos ul {list-style:none;}
 #gallery .gallery-album .album-photos ul li {float:left;margin:0 20px 20px 0;width:210px;}

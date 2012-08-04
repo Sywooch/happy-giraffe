@@ -53,6 +53,7 @@
  * @property UserPartner partner
  * @property Baby[] babies
  * @property AlbumPhoto $avatar
+ * @property UserStatus status
  *
  * @method User active()
  */
@@ -217,6 +218,7 @@ class User extends HActiveRecord
                 $duration = $this->remember == 1 ? 2592000 : 0;
                 Yii::app()->user->login($identity, $duration);
                 $userModel->login_date = date('Y-m-d H:i:s');
+                $userModel->online = 1;
                 $userModel->last_ip = $_SERVER['REMOTE_ADDR'];
                 $userModel->save(false);
             }
@@ -496,6 +498,19 @@ class User extends HActiveRecord
     {
         if(empty($this->avatar_id)){
             //if ($this->user->gender)
+            return false;
+        }
+        if($size != 'big')
+            return $this->avatar->getAvatarUrl($size);
+        else
+            return $this->avatar->getPreviewUrl(240, 400, Image::WIDTH);
+    }
+
+    public function getAvaOrDefaultImage($size = 'ava')
+    {
+        if(empty($this->avatar_id)){
+            if ($this->gender == 1)
+                return '';
             return false;
         }
         if($size != 'big')

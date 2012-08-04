@@ -12,7 +12,7 @@ if ($steps_count < 0)
     <div class="block-title">
 
         <div class="right">
-            <div class="bonus">
+            <div class="bonus" style="display: none;">
                 бонус <img src="/images/first_steps_bonus.png">
             </div>
             <a href="javascript:void(0);" class="toggler toggled" data-title="Осталось шагов: <?=$steps_count ?>" data-close="Свернуть" onclick="firstStepsToggle(this);"><span>Свернуть</span><i class="icon"></i></a>
@@ -266,6 +266,8 @@ if ($steps_count < 0)
 
 
     <div id="firstStepsEmail" class="popup">
+
+        <a href="javascript:void(0);" class="popup-close tooltip" onclick="$.fancybox.close()"></a>
 
         <div class="clearfix">
 

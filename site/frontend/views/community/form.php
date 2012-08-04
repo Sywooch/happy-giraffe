@@ -222,11 +222,13 @@ $cs
             </div>
             <?php endif; ?>
             <div class="row row-buttons">
-                <button class="btn btn-gray-medium"><span><span>Отменить</span></span></button>
+                <button class="btn btn-gray-medium"<?php if ($model->isNewRecord) echo ' onclick="document.location.href =\''. $redirectUrl .'\';"'; ?>><span><span>Отменить</span></span></button>
                 <!--<button class="btn btn-yellow-medium"><span><span>Предпросмотр</span></span></button>-->
                 <button class="btn btn-green-medium">
                     <span><span><?php echo ($model->isNewRecord) ? 'Добавить' : 'Сохранить'; ?></span></span></button>
             </div>
+
+            <?= CHtml::hiddenField('redirectUrl', $redirectUrl) ?>
 
         </div>
         <?php $this->endWidget(); ?>

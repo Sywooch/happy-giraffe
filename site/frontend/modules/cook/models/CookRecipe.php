@@ -231,7 +231,7 @@ class CookRecipe extends CActiveRecord
                 'class' => 'site.common.behaviors.PingableBehavior',
             ),
             'CAdvancedArBehavior' => array(
-                'class' => 'ext.CAdvancedArBehavior',
+                'class' => 'site.frontend.extensions.CAdvancedArBehavior',
             ),
         );
     }
@@ -374,7 +374,7 @@ class CookRecipe extends CActiveRecord
     public function findByIngredients($ingredients, $type = null)
     {
         $subquery = Yii::app()->db->createCommand()
-            ->select('count(*)')
+            ->select('count(distinct ingredient_id)')
             ->from('cook__recipe_ingredients')
             ->where(array('and', 'recipe_id = t.id', array('in', 'cook__recipe_ingredients.ingredient_id', $ingredients)))
             ->text;

@@ -91,14 +91,7 @@ class AlbumsController extends HController
         ));
 
         $this->layout = '//layouts/main';
-
-        if (Yii::app()->request->isAjaxRequest) {
-            $result = array('html' => $this->renderPartial('view', compact('model', 'dataProvider'), true));
-            header('Content-type: application/json');
-            echo CJSON::encode($result);
-        } else {
-            $this->render('view', compact('model', 'dataProvider'));
-        }
+        $this->render('view', compact('model', 'dataProvider'));
     }
 
     public function actionAddPhoto($a = false, $text = false, $u = false)
@@ -530,7 +523,7 @@ class AlbumsController extends HController
             $attach->save();
 
             echo CJSON::encode(array(
-                'src' => $model->getPreviewUrl(650, 650),
+                'src' => $model->getPreviewUrl(700, 700, Image::WIDTH),
                 'id' => $model->primaryKey,
                 'title' => $model->title,
             ));

@@ -633,7 +633,7 @@ class AlbumsController extends BController
         $jUrl = Yii::app()->baseUrl . '/javascripts/j_upload/';
         Yii::app()->clientScript->registerCoreScript('jquery')
             ->registerScriptFile(Yii::app()->baseUrl . '/javascripts/flash_detect_min.js')
-            ->registerScriptFile(Yii::app()->baseUrl . '/javascripts/album.js?r=11')
+            ->registerScriptFile(Yii::app()->baseUrl . '/javascripts/album.js?r=12')
             ->registerScriptFile($flashUrl . '/' . 'swfupload.js')
             ->registerScriptFile($flashUrl . '/' . 'jquery.swfupload.js')
             ->registerScriptFile(Yii::app()->baseUrl . '/javascripts/scrollbarpaper.js')

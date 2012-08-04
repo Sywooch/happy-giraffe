@@ -20,10 +20,9 @@ class Mandrill extends CApplicationComponent
 
         $rest = new RESTClient;
         $rest->initialize(array('server' => 'https://mandrillapp.com/api/1.0/'));
-        $generalData = array(
+        $commonData = array(
             'key' => $this->apiKey,
             'message' => array(
-                'html' => file_get_contents(Yii::getPathOfAlias('site.common.tpl') . DIRECTORY_SEPARATOR . $action . '.php'),
                 'from_email' => 'noreply@happy-giraffe.ru',
                 'from_name' => 'Весёлый Жираф',
                 'to' => array(
@@ -34,11 +33,42 @@ class Mandrill extends CApplicationComponent
                 ),
             ),
         );
-        $data = CMap::mergeArray($generalData, $this->$action($user, $params));
-        $res = $rest->post('messages/send.json', $data);
+        if (in_array($action, array('newMessages'))) {
+            $commonData['template_name'] = $action;
+            $apiAction = 'messages/send-template.json';
+        } else {
+            $commonData['message']['html'] = file_get_contents(Yii::getPathOfAlias('site.common.tpl') . DIRECTORY_SEPARATOR . $action . '.php');
+            $apiAction = 'messages/send.json';
+        }
+        $data = CMap::mergeArray($commonData, $this->$action($user, $params));
+        $res = $rest->post($apiAction, $data);
         $res = CJSON::decode($res);
-        //var_dump($res);
         return $res[0]['status'] != 'error';
+    }
+
+    public function newMessages($user, $params)
+    {
+        return array(
+            'template_content' => array(
+                array(
+                    'name' => 'messages',
+                    'content' => $params['messages'],
+                ),
+            ),
+            'message' => array(
+                'subject' => 'Вам пришли сообщения - Весёлый Жираф',
+                'global_merge_vars' => array(
+                    array(
+                        'name' => 'USERNAME',
+                        'content' => $user->fullName,
+                    ),
+                    array(
+                        'name' => 'TOKEN',
+                        'content' => $params['token']->content,
+                    ),
+                ),
+            ),
+        );
     }
 
     public function passwordRecovery($user, $params)

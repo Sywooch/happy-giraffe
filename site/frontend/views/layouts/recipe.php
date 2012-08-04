@@ -72,7 +72,7 @@ $this->widget('zii.widgets.CBreadcrumbs', array(
                         <a href="<?=isset($_GET['text'])?
                             $this->createUrl('/cook/recipe/search', array('text'=>$_GET['text']))
                             :
-                            $this->createUrl('/cook/recipe/index', array('section' => $this->section))?>" class="cook-cat">
+                            $this->createUrl('/cook/recipe/index', array('section' => $this->section))?>" class="cook-cat<?php if ($this->currentType == null): ?> active<?php endif; ?>">
                             <i class="icon-cook-cat icon-recipe-0"></i>
                             <span>Все рецепты</span>
 
@@ -85,7 +85,7 @@ $this->widget('zii.widgets.CBreadcrumbs', array(
                                 $this->createUrl('/cook/recipe/search', array('type' => $id, 'text'=>$_GET['text']))
                                 :
                                 $this->createUrl('/cook/recipe/index', array('type' => $id, 'section' => $this->section))
-                                ?>" class="cook-cat">
+                                ?>" class="cook-cat<?php if ($this->currentType == $id): ?> active<?php endif; ?>">
                                 <i class="icon-cook-cat icon-recipe-<?=$id?>"></i>
                                 <?php if ($this->currentType != $id): ?><span class="count"><?=isset($this->counts[$id])?$this->counts[$id]:0?></span><?php endif; ?>
                                 <span><?=$label?></span>

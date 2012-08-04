@@ -408,24 +408,15 @@ class SiteController extends HController
     }
 
     public function actionTest2(){
-//        $vals = Yii::app()->mc->sendToGroup('самое свежее на этой неделе', MailGenerator::getWeeklyArticles());
-//        var_dump($vals);
-        ob_start();
-        $this->beginWidget('site.common.widgets.mail.WeeklyArticlesWidget');
-        $this->endWidget();
+        $unread = Im::model(Yii::app()->user->id)->getUnreadMessagesCount();
+        $dialogUsers = Im::model(Yii::app()->user->id)->getUsersWithNewMessages();
 
-        $contents = ob_get_clean();
-
-        $vals = Yii::app()->mc->sendWeeklyNews('самое свежее на этой неделе', $contents);
-
-        if (Yii::app()->mc->api->errorCode){
-            echo "Batch Subscribe failed!\n";
-            echo "code:".Yii::app()->mc->api->errorCode."\n";
-            echo "msg :".Yii::app()->mc->api->errorMessage."\n";
-        } else {
-            echo "added:   ".$vals['add_count']."\n";
-            echo "updated: ".$vals['update_count']."\n";
-            echo "errors:  ".$vals['error_count']."\n";
-        }
+        $this->renderFile(Yii::getPathOfAlias('site.common.tpl.newMessages').'.php', array(
+            'user'=>Yii::app()->user->model,
+            'unread'=>$unread,
+            'dialogUsers'=>$dialogUsers,
+        ));
+//        $articles = Favourites::model()->getWeekPosts();
+//        $this->renderFile(Yii::getPathOfAlias('site.common.tpl.weeklyNews').'.php', array('models'=>$articles));
     }
 }

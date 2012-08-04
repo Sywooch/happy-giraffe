@@ -14,7 +14,7 @@ class RecipeController extends HController
     {
         return array(
             'accessControl',
-            'ajaxOnly + ac, searchByIngredientsResult, advancedSearchResult'
+            //'ajaxOnly + ac, searchByIngredientsResult, advancedSearchResult'
         );
     }
 
@@ -297,6 +297,9 @@ class RecipeController extends HController
             $xml = new SimpleXMLElement('<?xml version="1.0" encoding="utf-8"?><entities/>');
 
             foreach ($recipes as $r) {
+                if (empty($r->ingredients))
+                    break;
+
                 $recipe = $xml->addChild('recipe');
                 $recipe->addChild('name', $r->title);
                 $recipe->addChild('url', $r->getUrl(false, true));

@@ -396,7 +396,7 @@ class AjaxController extends HController
     {
         $rubrics = CommunityRubric::model()->findAllByAttributes(array('community_id' => Yii::app()->request->getPost('community_id')));
         $htmlOptions = array('prompt' => 'Выберите рубрику');
-        echo CHtml::listOptions('', CHtml::listData($rubrics, 'id', 'name'), $htmlOptions);
+        echo CHtml::listOptions('', CHtml::listData($rubrics, 'id', 'title'), $htmlOptions);
     }
 
     public function actionVote()

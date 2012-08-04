@@ -37,12 +37,26 @@ class MailChimp extends CApplicationComponent
 
     public function updateUsers()
     {
-        $users = $this->getAllUsers();
-        $options = array();
-        foreach ($users as $user)
-            $options[] = $this->getUserOptions($user);
+        //пользователи которые зарегистрировались после 1 мая + наши сотрудники
+        $criteria = new CDbCriteria;
+        $criteria->condition = '(t.group < 5 AND t.group > 0) OR (t.group = 0 AND t.register_date >= "2012-05-01 00:00:00")';
+        $criteria->compare('id', 10);
+        $criteria->scopes = array('active');
+        $criteria->limit = 1000;
+        $users = array(1);
 
-        $this->api->listBatchSubscribe($this->list, $options, false, true, false);
+        $i = 0;
+        while (!empty($users)) {
+            $criteria->offset = $i*100;
+            $users = User::model()->findAll($criteria);
+            $options = array();
+            foreach ($users as $user)
+                $options[] = $this->getUserOptions($user);
+
+            $res = $this->api->listBatchSubscribe($this->list, $options, false, true, false);
+            echo $res;
+            $i++;
+        }
     }
 
     public function getLists()
@@ -52,18 +66,6 @@ class MailChimp extends CApplicationComponent
         foreach ($res['data'] as $list) {
             echo $list['id'] . '<br>';
         }
-    }
-
-    /**
-     * @return User[]
-     */
-    public function getAllUsers()
-    {
-        //пользователи которые зарегистрировались после 1 мая + наши сотрудники
-        $criteria = new CDbCriteria;
-        $criteria->condition = '(t.group < 5 AND t.group > 0) OR (t.group = 0 AND t.register_date >= "2012-05-01 00:00:00")';
-        $criteria->scopes = array('active');
-        return User::model()->findAll($criteria);
     }
 
     /**
@@ -139,7 +141,7 @@ class MailChimp extends CApplicationComponent
             'authenticate' => true,
             'subject' => $subject,
             'title' => $subject,
-            'generate_text'=>true,
+            'generate_text' => true,
         );
 
         $content = array(

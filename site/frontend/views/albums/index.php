@@ -21,7 +21,14 @@
                 <?php foreach ($dataProvider->data as $album): ?>
                     <div class="gallery-album" data-count="<?=count($album->photos)?>">
 
-                        <div class="album-title"><?=CHtml::link($album->title, $album->url)?></div>
+                        <div class="album-title"><b>Альбом</b> <?=CHtml::link($album->title, $album->url)?>
+                            <?php
+                            Yii::import('application.controllers.AlbumsController');
+                            AlbumsController::loadUploadScritps();
+                            $link = Yii::app()->createUrl('/albums/addPhoto')
+                            ?>
+                            <a class="btn btn-orange-smallest fancy" href="<?php echo $link; ?>"><span><span>Загрузить фото</span></span></a>
+                        </div>
                         <?php if ($album->description): ?>
                             <div class="album-description"><?=$album->description?></div>
                         <?php endif; ?>

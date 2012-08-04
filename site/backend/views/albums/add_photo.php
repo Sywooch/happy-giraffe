@@ -68,7 +68,7 @@
         </div>
     </div>
 
-    <div id="album_upload_step_2">
+    <div id="album_upload_step_2" style="display: none;">
         <div class="upload-files-list-container">
             <div class="upload-files-list scroll">
                 <ul id="log"></ul>

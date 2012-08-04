@@ -11,7 +11,7 @@ Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl . '/stylesheets/us
                 AlbumsController::loadUploadScritps();
                 $link = Yii::app()->createUrl('/albums/addPhoto')
             ?>
-            <a class="btn btn-orange-smallest a-right fancy" href="<?php echo $link; ?>"><span><span>Добавить фото</span></span></a>
+            <a class="btn btn-orange-smallest a-right fancy" href="<?php echo $link; ?>"><span><span>Загрузить фото</span></span></a>
         <?php endif; ?>
         Фото
         <?php echo $albumsCount > 2 ? CHtml::link('Все альбомы (' . $albumsCount . ')', array('/albums/user', 'id' => $this->user->id)) : ''; ?>

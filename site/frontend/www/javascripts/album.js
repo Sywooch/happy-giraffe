@@ -295,7 +295,7 @@ Album.appendUploadErrorItem = function (id, name, error) {
     $('#upload_button_wrapper').css({height:0});
     $('#upload_finish_wrapper').css('height', 'auto').addClass('is_visible');
     $('#album_upload_step_1').css('height', 0);
-    $('#album_upload_step_2').css('visibility', 'show');
+    $('#album_upload_step_2').show();
     var listitem = '<li class="clearfix" id="' + id + '" >' +
         '<div class="loading error"><table><tbody><tr><td><i class="icon-error"></i><br>' + name + '<br>не загружен</td></tr></tbody></table></div>' +
         '</li>';
@@ -308,7 +308,7 @@ Album.uploadStart = function (id) {
     $('#upload_button_wrapper').css({height:0});
     $('#upload_finish_wrapper').css('height', 'auto').addClass('is_visible');
     $('#album_upload_step_1').css('height', 0);
-    $('#album_upload_step_2').css('visibility', 'show');
+    $('#album_upload_step_2').show();
 };
 
 Album.uploadProgress = function (id, percentage) {
@@ -316,6 +316,7 @@ Album.uploadProgress = function (id, percentage) {
 };
 
 Album.uploadSuccess = function (id, name, serverData) {
+
     $('.scroll').jScrollPane({showArrows: true, autoReinitialise : true});
     $('#log li#' + id).removeClass('not-loaded');
     $('#album_select').replaceWith($(serverData).find('#album_select'));

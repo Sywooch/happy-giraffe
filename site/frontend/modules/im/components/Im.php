@@ -159,9 +159,7 @@ class Im
             'dialog' => array(
                 'select' => array('id', 'last_message_id'),
             ),
-            'user' => array(
-                'select' => array('online'),
-            ),
+            'user',
         ))->findAll('t.dialog_id IN (SELECT distinct(dialog_id) FROM ' . DialogUser::model()->tableName() . ' WHERE user_id=' . $this->_user_id . ')');
     }
 

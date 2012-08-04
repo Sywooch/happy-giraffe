@@ -8,6 +8,6 @@ class WeeklyArticlesWidget extends CWidget
     public function run()
     {
         $articles = Favourites::model()->getWeekPosts();
-        $this->render('view', array('models'=>$articles));
+        $this->render('weekly_news', array('models'=>$articles));
     }
 }

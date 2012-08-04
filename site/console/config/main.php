@@ -16,7 +16,6 @@ return array(
     'import' => array(
         'site.common.components.*',
         'site.common.models.*',
-        'site.console.models.*',
         'site.common.helpers.*'
     ),
     'components' => array(

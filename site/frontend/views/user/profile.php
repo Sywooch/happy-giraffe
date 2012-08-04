@@ -14,7 +14,7 @@
     <div class="header clearfix user-home">
 
         <div class="user-name">
-            <h1><?php echo CHtml::encode($user->last_name); ?><br/><?php echo CHtml::encode($user->first_name); ?></h1>
+            <h1><?php echo CHtml::encode($user->last_name).' '.CHtml::encode($user->first_name); ?></h1>
             <?php if ($user->online): ?>
                 <div class="online-status online"><i class="icon"></i>Сейчас на сайте</div>
             <?php else: ?>

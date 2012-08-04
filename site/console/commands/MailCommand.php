@@ -44,7 +44,7 @@ class MailCommand extends CConsoleCommand
         $unread = Im::model($user->id)->getUnreadMessagesCount();
         if ($unread > 0){
             $dialogUsers = Im::model($user->id)->getUsersWithNewMessages();
-            $contents = $this->renderFile(Yii::getPathOfAlias('site.common.tpl.newMessages').'.php', compact('dialogUsers', 'unread', 'user'), true);
+            $contents = $this->renderFile(Yii::getPathOfAlias('site.common.tpl.newMessages').'.php', compact('dialogUsers', 'unread', 'user', 'token'), true);
             Yii::app()->mandrill->send($user, 'newMessages', array('messages' => $contents, 'token' => $token));
         }
     }

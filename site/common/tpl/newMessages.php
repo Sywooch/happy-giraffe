@@ -27,8 +27,8 @@
                             <?php if (!empty($dialogUser->user->getUserAddress()->country_id)):?>
                                 <span style="color:#858484;font:9px/18px tahoma, helvetica, sans-serif;"><img src="http://www.happy-giraffe.ru/images/mail/flags/<?php echo  $dialogUser->user->getUserAddress()->country->iso_code; ?>0018.gif" style="margin-right:5px;"><?php echo CHtml::encode($dialogUser->user->getUserAddress()->getCityName()); ?></span><br/>
                             <?php endif ?>
-                            <?php if (!empty($dialogUser->user->status->text)):?>
-                                <span style="color:#2aa908;font:11px/18px tahoma, helvetica, sans-serif;"><?php echo $dialogUser->user->status->text ?></span><br/>
+                            <?php if (false):?>
+                                <span style="color:#2aa908;font:11px/18px tahoma, helvetica, sans-serif;"></span><br/>
                             <?php endif ?>
                             <span style="color:#0d81d5;font:18px/20px arial, helvetica, sans-serif;">
                                 <a href="<?php echo 'http://www.happy-giraffe.ru'.Yii::app()->createUrl('/im/default/dialog', array('id'=>$dialogUser->dialog_id, 'token'=>$token->content)) ?>" target="_blank" style="color:#0d81d5;font:18px/20px arial, helvetica, sans-serif;"><?php $current_unread = Dialog::getUnreadMessagesCount($dialogUser->dialog_id, $user->id); echo $current_unread ?> <?php echo HDate::GenerateNoun(array('сообщение', 'сообщения', 'сообщений'), $current_unread) ?></a>

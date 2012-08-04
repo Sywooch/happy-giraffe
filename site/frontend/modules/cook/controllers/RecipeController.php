@@ -287,13 +287,8 @@ class RecipeController extends HController
         return $data;
     }
 
-    public function actionFeed($clear = false)
+    public function actionFeed()
     {
-        if ($clear !== false) {
-            Yii::app()->cache->delete('recipesFeed');
-            die('ok');
-        }
-
         header("Content-type: text/xml; charset=utf-8");
         $feed = Yii::app()->cache->get('recipesFeed');
         if ($feed === false) {

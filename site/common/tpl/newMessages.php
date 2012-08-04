@@ -6,7 +6,7 @@
 ?>
 <div
     style="margin:30px 0;text-align:center;font:25px arial, helvetica, sans-serif;color:#2a2a2a;">
-    У вас <?=$unread ?> новых <?=HDate::GenerateNoun(array('сообщение', 'сообщения', 'сообщений'), $unread) ?>!
+    У вас <?php echo $unread ?> новых <?php echo HDate::GenerateNoun(array('сообщение', 'сообщения', 'сообщений'), $unread) ?>!
 </div>
 
 <table width="100%" cellpadding="0" cellspacing="0">
@@ -20,18 +20,18 @@
                 <table width="250">
                     <tr>
                         <td width="90" valign="top">
-                            <img src="<?=$dialogUser->user->getAvaOrDefaultImage() ?>" style="display:block;-moz-border-radius:36px;-webkit-border-radius:36px;border-radius:36px;"/>
+                            <img src="<?php echo $dialogUser->user->getAvaOrDefaultImage() ?>" style="display:block;-moz-border-radius:36px;-webkit-border-radius:36px;border-radius:36px;"/>
                         </td>
                         <td valign="top">
-                            <span style="color:#38a5f4;font:12px/16px arial, helvetica, sans-serif;"><?=$dialogUser->user->getFullName() ?></span><br/>
+                            <span style="color:#38a5f4;font:12px/16px arial, helvetica, sans-serif;"><?php echo $dialogUser->user->getFullName() ?></span><br/>
                             <?php if (!empty($dialogUser->user->getUserAddress()->country_id)):?>
-                                <span style="color:#858484;font:9px/18px tahoma, helvetica, sans-serif;"><img src="http://www.happy-giraffe.ru/images/mail/flags/<?= $dialogUser->user->getUserAddress()->country->iso_code; ?>0018.gif" style="margin-right:5px;"><?php echo CHtml::encode($dialogUser->user->getUserAddress()->getCityName()); ?></span><br/>
+                                <span style="color:#858484;font:9px/18px tahoma, helvetica, sans-serif;"><img src="http://www.happy-giraffe.ru/images/mail/flags/<?php echo  $dialogUser->user->getUserAddress()->country->iso_code; ?>0018.gif" style="margin-right:5px;"><?php echo CHtml::encode($dialogUser->user->getUserAddress()->getCityName()); ?></span><br/>
                             <?php endif ?>
                             <?php if (!empty($dialogUser->user->status->text)):?>
-                                <span style="color:#2aa908;font:11px/18px tahoma, helvetica, sans-serif;"><?=$dialogUser->user->status->text ?></span><br/>
+                                <span style="color:#2aa908;font:11px/18px tahoma, helvetica, sans-serif;"><?php echo $dialogUser->user->status->text ?></span><br/>
                             <?php endif ?>
                             <span style="color:#0d81d5;font:18px/20px arial, helvetica, sans-serif;">
-                                <a href="http://www.happy-giraffe.ru<?=Yii::app()->createUrl('/im/default/dialog', array('id'=>$dialogUser->dialog_id)) ?>" target="_blank" style="color:#0d81d5;font:18px/20px arial, helvetica, sans-serif;"><?php $current_unread = Dialog::getUnreadMessagesCount($dialogUser->dialog_id, $user->id); echo $current_unread ?> <?=HDate::GenerateNoun(array('сообщение', 'сообщения', 'сообщений'), $current_unread) ?></a>
+                                <a href="http://www.happy-giraffe.ru<?php echo Yii::app()->createUrl('/im/default/dialog', array('id'=>$dialogUser->dialog_id)) ?>" target="_blank" style="color:#0d81d5;font:18px/20px arial, helvetica, sans-serif;"><?php $current_unread = Dialog::getUnreadMessagesCount($dialogUser->dialog_id, $user->id); echo $current_unread ?> <?php echo HDate::GenerateNoun(array('сообщение', 'сообщения', 'сообщений'), $current_unread) ?></a>
                             </span>
                         </td>
                     </tr>
@@ -51,6 +51,6 @@
 
 <?php if (count($dialogUsers) > 4):?>
     <div style="margin:10px 0;text-align:center;font:20px arial, helvetica, sans-serif;color:#0483e0;">
-        <a href="http://www.happy-giraffe.ru<?=Yii::app()->createUrl('/im/default/new') ?>" style="font:20px arial, helvetica, sans-serif;color:#0483e0;">... еще <?=$unread - $unreadShown ?> <?=HDate::GenerateNoun(array('сообщение', 'сообщения', 'сообщений'), $unread - $unreadShown) ?></a></span>
+        <a href="http://www.happy-giraffe.ru<?php echo Yii::app()->createUrl('/im/default/new') ?>" style="font:20px arial, helvetica, sans-serif;color:#0483e0;">... еще <?php echo $unread - $unreadShown ?> <?php echo HDate::GenerateNoun(array('сообщение', 'сообщения', 'сообщений'), $unread - $unreadShown) ?></a></span>
     </div>
 <?php endif ?>

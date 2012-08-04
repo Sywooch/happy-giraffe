@@ -20,7 +20,7 @@
                 <table width="250">
                     <tr>
                         <td width="90" valign="top">
-                            <img src="<?=$dialogUser->user->getAva() ?>" style="display:block;-moz-border-radius:36px;-webkit-border-radius:36px;border-radius:36px;"/>
+                            <img src="<?=$dialogUser->user->getAvaOrDefaultImage() ?>" style="display:block;-moz-border-radius:36px;-webkit-border-radius:36px;border-radius:36px;"/>
                         </td>
                         <td valign="top">
                             <span style="color:#38a5f4;font:12px/16px arial, helvetica, sans-serif;"><?=$dialogUser->user->getFullName() ?></span><br/>
@@ -38,6 +38,10 @@
                 </table>
 
             </td>
+                <?php if ($i % 2 != 0 && $i != 3):?>
+                    </tr>
+                    <tr>
+                <?php endif ?>
         <?php $unreadShown += $current_unread; ?>
         <?php endfor; ?>
 

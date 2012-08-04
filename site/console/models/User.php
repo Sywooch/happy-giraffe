@@ -37,6 +37,7 @@ class User extends CActiveRecord
         return array(
             'userAddress' => array(self::HAS_ONE, 'UserAddress', 'user_id'),
             'interests' => array(self::MANY_MANY, 'Interest', 'interest__users_interests(interest_id, user_id)'),
+            'avatar' => array(self::BELONGS_TO, 'AlbumPhoto', 'avatar_id'),
         );
     }
 
@@ -105,5 +106,30 @@ class User extends CActiveRecord
         }
 
         return $model;
+    }
+
+    public function getAva($size = 'ava')
+    {
+        if(empty($this->avatar_id)){
+            //if ($this->user->gender)
+            return false;
+        }
+        if($size != 'big')
+            return $this->avatar->getAvatarUrl($size);
+        else
+            return $this->avatar->getPreviewUrl(240, 400, Image::WIDTH);
+    }
+
+    public function getAvaOrDefaultImage($size = 'ava')
+    {
+        if(empty($this->avatar_id)){
+            if ($this->gender == 1)
+                return '';
+            return false;
+        }
+        if($size != 'big')
+            return $this->avatar->getAvatarUrl($size);
+        else
+            return $this->avatar->getPreviewUrl(240, 400, Image::WIDTH);
     }
 }

@@ -3,12 +3,20 @@
 class MailCommand extends CConsoleCommand
 {
     public function actionIndex(){
+
+    }
+
+    public function actionWeeklyNews()
+    {
+        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
+        Yii::import('site.frontend.extensions.*');
+        Yii::import('site.frontend.components.*');
+        Yii::import('site.common.models.mongo.*');
+
+        $articles = Favourites::model()->getWeekPosts();
         ob_start();
-        $this->beginWidget('site.common.widgets.mail.WeeklyArticlesWidget');
-        $this->endWidget();
-
+        $this->renderFile(Yii::getPathOfAlias('site.common.tpl.weeklyNews').'.php', array('models'=>$articles));
         $contents = ob_get_clean();
-
         $vals = Yii::app()->mc->sendWeeklyNews('самое свежее на этой неделе', $contents);
 
         if (Yii::app()->mc->api->errorCode){

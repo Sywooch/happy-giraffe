@@ -805,8 +805,9 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 #galleryUploadPhotos .upload-files-list li.not-loaded .img {display:none;}
 #galleryUploadPhotos .upload-files-list li.upload-done .loading {display:none;}
 #galleryUploadPhotos .upload-files-list li .img img {max-height:110px;max-width:130px;display:block;}
-#galleryUploadPhotos .upload-files-list li .remove {display:block;width:10px;height:12px;background:url(/images/common.png) no-repeat -315px -136px;position:absolute;right:5px;top:5px;}
-#galleryUploadPhotos .upload-files-list li .remove:hover {background-position:-315px -149px;}
+#galleryUploadPhotos .upload-files-list li .actions {background:#fff;background:rgba(255, 255, 255, .8);width:100%;height:18px;padding:3px 0;position:absolute;left:0;top:0;text-align:right;display:none;}
+#galleryUploadPhotos .upload-files-list li .img:hover .actions {display:block;}
+#galleryUploadPhotos .upload-files-list li .remove {display:block;width:10px;height:12px;background:url(/images/common.png) no-repeat -315px -149px;position:absolute;right:5px;top:5px;}
 #galleryUploadPhotos .upload-files-list li .loading {display:block;height:77px;border:1px solid #efe5f8;width:120px;position:relative;font-size:9px;color:#9f83bb; line-height:1.2;}
 #galleryUploadPhotos .upload-files-list li .loading .progress-bar {width:100px;margin:0 auto;background:#ede4f4;margin-top:5px;}
 #galleryUploadPhotos .upload-files-list li .loading .progress-bar div {height:4px;background:#b695ce;}

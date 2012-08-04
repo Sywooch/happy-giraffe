@@ -19,8 +19,16 @@
 #user .user-name .online-status.online .icon {background-position:-44px -180px;}
 #user .user-name .online-status.offline .icon {background-position:-55px -180px;}
 #user .user-name .online-status .date {font-size:9px;color:#b6b9ba;background:#fffeea;padding:0 5px;}
+
 #user .user-name .location {font-size:13px;line-height:32px;}
 #user .user-name .location .flag-big {display:inline-block;margin-right:5px;position:relative;vertical-align:top;}
+#user .user-name .info p {margin:5px 0;}
+#user .user-name .info span {color:#a1a1a1;font-size:11px;margin-right:5px;}
+#user .user-name .info .interest-cat, .activity-find-friend ul li .info .interests-list {margin-bottom:10px;}
+#user .user-name .icon-kid-boy {display:inline-block;width:22px;height:21px;background:url(/images/common.png) no-repeat -557px -221px;vertical-align:middle;position:relative;top:-1px;}
+#user .user-name .icon-kid-girl {display:inline-block;width:22px;height:21px;background:url(/images/common.png) no-repeat -580px -221px;vertical-align:middle;position:relative;top:-1px;}
+#user .user-name	 .icon-kid-wait {display:inline-block;width:25px;height:22px;background:url(/images/common.png) no-repeat -629px -267px;vertical-align:middle;position:relative;top:-1px;}
+
 #user .user-name .birthday {color:#4c4d4d;}
 #user .user-name .birthday span {color:#bbbaba;}
 
@@ -75,6 +83,20 @@
 #user .user-cols .col-3 {float:left;width:340px;}
 #user .user-cols .col-23 {float:left;width:700px;}
 
+#user .user-top-block {margin-bottom:40px;height:90px;}
+
+#user .user-top-block .user-fast-nav {float:right;padding-right:50px;padding-top:10px;}
+
+#user .user-top-block .user-fast-buttons {float:left;}
+#user .user-top-block .user-fast-buttons a {background:none;display:block;float:left;margin-right:15px;width:auto;height:auto;font-size:11px;font-family:tahoma, arial, helvetica, sans-serif;text-decoration:underline;position:relative;padding-left:57px;}
+#user .user-top-block .user-fast-buttons a:hover {text-decoration:none;}
+#user .user-top-block .user-fast-buttons .add-friend .icon {display:block;width:50px;height:40px;background:url(/images/icon_add_friend_50x40.png) no-repeat;float:left;margin-top:-7px;margin-right:10px;position:absolute;left:0;}
+#user .user-top-block .user-fast-buttons .new-message .icon {display:block;width:52px;height:40px;background:url(/images/icon_new_message_52x40.png) no-repeat;float:left;margin-top:-7px;margin-right:10px;position:absolute;left:-2px;}
+
+#user .user-top-block .user-activity-link {float:left;font-size:16px;line-height:30px;margin-left:35px;}
+#user .user-top-block .user-activity-link a {color:#e87004;}
+
+
 #user .user-photo {}
 #user .user-photo img {display:block;}
 
@@ -82,7 +104,7 @@
 
 .user-lvl {width:240px;height:160px;margin-top:10px;}
 .user-lvl-0 {height:142px;background:url(/images/user_lvl_0.png) center no-repeat;}
-.user-lvl-1 {background:url(/images/user_lvl_1.png) no-repeat;}
+.user-lvl-1 {background:url(/images/user_lvl_1.png) center no-repeat;}
 .user-lvl-1 span {display:block;padding:80px 0 0;font-size:22px;color:#fff;text-align:center;}
 
 #user .user-lvl {margin-bottom:20px;}
@@ -160,7 +182,7 @@
 #user #userMoodTooltip {position:absolute;display:none;z-index:99;background:#fffeea;padding:3px 6px;border:1px solid #e7e395;font-size:14px;}
 #user #userMoodTooltip {/*css3*/ -moz-box-shadow:0px 0px 10px #e7e395;-webkit-box-shadow:0px 0px 10px #e7e395;box-shadow:0px 0px 10px #e7e395;behavior: url(/stylesheets/PIE.htc);}
 
-#user .user-status {background:#cdecff;padding:10px 15px;position:relative;margin-bottom:10px;min-height:40px;}
+#user .user-status {background:#cdecff;padding:10px 15px;position:relative;margin-bottom:20px;min-height:40px;}
 #user .user-status {/*css3*/ -moz-border-radius:10px;-webkit-border-radius:10px;border-radius:10px;behavior: url(/stylesheets/PIE.htc);}
 #user .user-status:after {display:block;content:'';width:45px;height:44px;background:url(/images/common.png) no-repeat -557px -152px;position:absolute;right:100%;top:25px;}
 #user .user-status .date {color:#b6b9ba;font-size:9px;font-family:tahoma, arial, helvetica, sans-serif;padding-bottom:8px;}
@@ -169,7 +191,7 @@
 #user .user-status textarea {vertical-align:bottom;overflow:auto;width:300px;max-width:300px;margin-right:5px;height:90px;padding:2px 5px;border:1px solid #c5e8ef;margin-bottom:5px;}
 #user .user-status .date a.pseudo {font-size:11px;position:relative;top:-2px;}
 
-#user .user-purpose {color:#4c4d4d;font-size:11px;position:relative;padding-left:100px;min-height:60px;margin-bottom:20px;}
+#user .user-purpose {color:#4c4d4d;font-size:11px;position:relative;padding-left:100px;min-height:70px;margin-bottom:20px;}
 #user .user-purpose p {color:#fe4939;line-height:1;font-size:14px;margin-top:5px;}
 #user .user-purpose p a {font-size:12px;}
 #user .user-purpose .icon {display:block;width:78px;height:65px;background:url(/images/common.png) no-repeat -604px -153px;position:absolute;top:0;left:11px;}
@@ -203,7 +225,8 @@
 #user .user-interests {}
 #user .user-interests ul {list-style:none;}
 #user .user-interests ul li {display:inline-block;}
-#user .user-interests > ul > li {margin-bottom:20px;}
+#user .user-interests > ul > li {margin-bottom:10px;}
+#user .user-interests .interests-list {display:inline-block;width:180px;vertical-align:middle}
 
 #user .user-interests .interest-add {display:inline-block;width:16px;height:16px;background:url(/images/common.png) no-repeat -139px -174px;}
 
@@ -333,7 +356,7 @@
 #user .user-albums .box-title .btn {margin-right:0;}
 #user .user-albums ul {list-style:none;}
 #user .user-albums ul li {padding-bottom:20px;}
-#user .user-albums ul li big {color:#4c4d4d;display:block;margin:0px 0 15px;font-size:14px;}
+#user .user-albums ul li big {color:#4c4d4d;display:block;margin:0px 0 15px;font-size:11px;font-weight:bold;font-family:tahoma, arial, helvetica, sans-serif;}
 #user .user-albums ul li .preview {position:relative;width:210px;height:180px;float:left;}
 #user .user-albums ul li .preview img {position:absolute;display:block;}
 #user .user-albums ul li .preview img.img-1 {top:0;left:0;}

@@ -26,6 +26,7 @@ class UserToken extends EMongoDocument
         $model->expires = time() + $validFor;
         $model->content = str_shuffle(md5(microtime()));
         $model->save();
+        return $model;
     }
 
     public function useToken($content)

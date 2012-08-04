@@ -66,7 +66,7 @@ $i = 0;
                             <?php $j++ ?>
                             <img src="<?php echo $comment->author->getAva('small') ?>"
                                  style="margin-right:5px;-moz-border-radius:12px;-webkit-border-radius:12px;border-radius:12px;">
-                            <?php if ($j == 6) break; ?>
+                            <?php if ($j == 5) break; ?>
                             <?php endif ?>
                         <?php endforeach; ?>
                     </td>

@@ -267,6 +267,8 @@ if ($steps_count < 0)
 
     <div id="firstStepsEmail" class="popup">
 
+        <a href="javascript:void(0);" class="popup-close tooltip" onclick="$.fancybox.close()"></a>
+
         <div class="clearfix">
 
             <div class="left">

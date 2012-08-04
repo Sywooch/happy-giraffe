@@ -17,6 +17,7 @@ return array(
         'site.common.components.*',
         'site.common.models.*',
         'site.console.models.*',
+        'site.common.helpers.*'
     ),
     'components' => array(
         'comet'=>array(
@@ -61,5 +62,14 @@ return array(
             ),
         ),
         'urlManager'=> include(Yii::getPathOfAlias('site.frontend.config') . DIRECTORY_SEPARATOR . 'url.php'),
+        'mc' => array(
+            'class' => 'site.common.extensions.mailchimp.MailChimp',
+            'apiKey' => 'c0ff51b36480912260a410258b64af5f-us5',
+            'list' => 'd8ced52317'
+        ),
+        'mandrill' => array(
+            'class' => 'site.common.components.Mandrill',
+            'apiKey' => '1f816ac2-65b7-4a28-90c9-7e8fb1669d43',
+        ),
     ),
 );

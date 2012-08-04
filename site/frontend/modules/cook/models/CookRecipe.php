@@ -379,17 +379,13 @@ class CookRecipe extends CActiveRecord
             ->where(array('and', 'recipe_id = t.id', array('in', 'cook__recipe_ingredients.ingredient_id', $ingredients)))
             ->text;
 
-        die($subquery);
-
         $criteria = new CDbCriteria;
-        //$criteria->with = array('photo', 'attachPhotos');
+        $criteria->with = array('photo', 'attachPhotos');
         $criteria->condition = '(' . $subquery . ') = :count';
         $criteria->params = array(':count' => count($ingredients));
         if ($type !== null)
             $criteria->compare('type', $type);
 
-        $this->findAll($criteria);
-        Yii::app()->end();
         return $this->findAll($criteria);
     }
 

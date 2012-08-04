@@ -20,7 +20,7 @@ Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl . '/stylesheets/us
         <?php foreach($albums as $album): ?>
             <?php if(count($album->photos) == 0) continue; ?>
             <li>
-                <big>Альбом &#171;<?php echo CHtml::encode($album->title); ?>&#187;</big>
+                <big>Альбом <?php echo CHtml::link(CHtml::encode($album->title), $album->url) ?></big>
                 <div class="clearfix">
                     <div class="preview">
                         <?php $index = 1; ?>

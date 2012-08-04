@@ -274,7 +274,7 @@ Album.clearFlash = function () {
 
 Album.appendUploadItem = function (id) {
     var listitem = '<li class="clearfix not-loaded" id="' + id + '">' +
-        '<div class="img"><a class="remove" href="javascript:;" onclick="return Album.removeUploadItem(this);"></a></div>' +
+        '<div class="img"><div class="actions"><a href="javascript:;" class="remove tooltip" title="Удалить фото" onclick="return Album.removeUploadItem(this);"></a></div></div>' +
         '<div class="loading"><table><tr><td>Загрузка<div class="progress-bar"><div class="in"></div></div></td></tr></table><a href="" class="remove"></a></div>' +
         '<div class="file-params" style="display:none;"></div>' +
         '</li>';

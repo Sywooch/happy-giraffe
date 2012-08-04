@@ -916,7 +916,7 @@ class User extends HActiveRecord
             'select' => 't.*, count(interest__users_interests.user_id) AS interestsCount, count(' . Baby::model()->getTableAlias() .  '.id) AS babiesCount',
             'group' => 't.id',
             'having' => 'interestsCount > 0 AND (babiesCount > 0 OR t.relationship_status IS NOT NULL)',
-            'condition' => 't.avatar_id IS NOT NULL AND userAddress.country_id IS NOT NULL',
+            'condition' => 't.birthday IS NOT NULL AND t.avatar_id IS NOT NULL AND userAddress.country_id IS NOT NULL',
             'join' => 'LEFT JOIN interest__users_interests ON interest__users_interests.user_id = t.id',
             'with' => array(
                 'interests' => array(

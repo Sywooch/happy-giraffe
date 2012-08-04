@@ -71,4 +71,7 @@ return array(
             'apiKey' => '1f816ac2-65b7-4a28-90c9-7e8fb1669d43',
         ),
     ),
+    'params'=>array(
+        'photos_url'=>'http://img.happy-giraffe.ru',
+    ),
 );

@@ -206,7 +206,7 @@
 #user .user-blog ul li .date {color:#b6b9ba;font-size:9px;font-family:tahoma, arial, helvetica, sans-serif;margin:6px 0 8px;}
 #user .user-blog ul li img {max-width:140px;}
 #user .user-blog ul li p {font-size:11px;}
-#user .user-blog .box-title .btn {margin-right:0;}
+#user .user-blog .box-title .btn {margin-right:0;margin-top:-2px;}
 
 #user .user-photo-add {padding:5px;border:1px solid #e8e8e8;}
 
@@ -367,7 +367,7 @@
 #user .user-albums ul li .more:hover .icon {background-position:-499px -193px;}
 #user .user-albums ul li .more:hover {color:#7abc2e;text-decoration:underline;}
 
-#user .user-family {margin-bottom:20px;margin-top:3px;}
+#user .user-family {margin-bottom:20px;margin-top:3px;margin-top:20px;}
 #user .user-family .t {height:39px;background:url(/images/bg_user_family.png) no-repeat 0 0;}
 #user .user-family .c {background:url(/images/bg_user_family.png) repeat-y 100% 0;padding:10px 30px 10px;}
 #user .user-family .b {height:18px;background:url(/images/bg_user_family.png) no-repeat 0 100%;}

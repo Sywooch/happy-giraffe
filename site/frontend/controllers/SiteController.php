@@ -409,5 +409,7 @@ class SiteController extends HController
 
     public function actionTest2(){
         $this->widget('site.common.widgets.mail.NewMessagesWidget', array('user'=>Yii::app()->user->model));
+//        $articles = Favourites::model()->getWeekPosts();
+//        $this->renderFile(Yii::getPathOfAlias('site.common.tpl.weeklyNews').'.php', array('models'=>$articles));
     }
 }

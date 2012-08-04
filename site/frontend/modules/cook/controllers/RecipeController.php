@@ -14,7 +14,7 @@ class RecipeController extends HController
     {
         return array(
             'accessControl',
-            'ajaxOnly + ac, searchByIngredientsResult, advancedSearchResult'
+            //'ajaxOnly + ac, searchByIngredientsResult, advancedSearchResult'
         );
     }
 

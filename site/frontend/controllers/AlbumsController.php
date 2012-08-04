@@ -523,7 +523,7 @@ class AlbumsController extends HController
             $attach->save();
 
             echo CJSON::encode(array(
-                'src' => $model->getPreviewUrl(650, 650),
+                'src' => $model->getPreviewUrl(700, 700, Image::WIDTH),
                 'id' => $model->primaryKey,
                 'title' => $model->title,
             ));

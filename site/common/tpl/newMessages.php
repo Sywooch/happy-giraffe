@@ -31,7 +31,7 @@
                                 <span style="color:#2aa908;font:11px/18px tahoma, helvetica, sans-serif;"><?=$dialogUser->user->status->text ?></span><br/>
                             <?php endif ?>
                             <span style="color:#0d81d5;font:18px/20px arial, helvetica, sans-serif;">
-                                <a href="<?=Yii::app()->createAbsoluteUrl('/im/default/dialog', array('id'=>$dialogUser->dialog_id)) ?>" target="_blank" style="color:#0d81d5;font:18px/20px arial, helvetica, sans-serif;"><?=$current_unread = Dialog::getUnreadMessagesCount($dialogUser->dialog_id) ?> <?=HDate::GenerateNoun(array('сообщение', 'сообщения', 'сообщений'), $current_unread) ?></a>
+                                <a href="http://www.happy-giraffe.ru<?=Yii::app()->createUrl('/im/default/dialog', array('id'=>$dialogUser->dialog_id)) ?>" target="_blank" style="color:#0d81d5;font:18px/20px arial, helvetica, sans-serif;"><?=$current_unread = Dialog::getUnreadMessagesCount($dialogUser->dialog_id, $user->id) ?> <?=HDate::GenerateNoun(array('сообщение', 'сообщения', 'сообщений'), $current_unread) ?></a>
                             </span>
                         </td>
                     </tr>
@@ -51,6 +51,6 @@
 
 <?php if (count($dialogUsers) > 4):?>
     <div style="margin:10px 0;text-align:center;font:20px arial, helvetica, sans-serif;color:#0483e0;">
-        <a href="<?=Yii::app()->createAbsoluteUrl('/im/default/new') ?>" style="font:20px arial, helvetica, sans-serif;color:#0483e0;">... еще <?=$unread - $unreadShown ?> <?=HDate::GenerateNoun(array('сообщение', 'сообщения', 'сообщений'), $unread - $unreadShown) ?></a></span>
+        <a href="http://www.happy-giraffe.ru<?=Yii::app()->createUrl('/im/default/new') ?>" style="font:20px arial, helvetica, sans-serif;color:#0483e0;">... еще <?=$unread - $unreadShown ?> <?=HDate::GenerateNoun(array('сообщение', 'сообщения', 'сообщений'), $unread - $unreadShown) ?></a></span>
     </div>
 <?php endif ?>

@@ -231,7 +231,7 @@ class CookRecipe extends CActiveRecord
                 'class' => 'site.common.behaviors.PingableBehavior',
             ),
             'CAdvancedArBehavior' => array(
-                'class' => 'ext.CAdvancedArBehavior',
+                'class' => 'site.frontend.extensions.CAdvancedArBehavior',
             ),
         );
     }

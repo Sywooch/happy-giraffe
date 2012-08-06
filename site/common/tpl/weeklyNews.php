@@ -61,9 +61,10 @@ $i = 0;
                             style="margin-right:5px;vertical-align:top;"><?php echo $model->getArticleCommentsCount() ?></a></span>
                     </td>
                     <td>
+                        <?php $used = array(); ?>
                         <?php $j = 0; foreach ($model->getArticleComments() as $comment): ?>
-                        <?php if (!empty($comment->author->avatar_id)):?>
-                            <?php $j++ ?>
+                        <?php if (!empty($comment->author->avatar_id) && !in_array($comment->author->avatar_id, $used)):?>
+                            <?php $j++;$used[] = $comment->author->avatar_id ?>
                             <img src="<?php echo $comment->author->getAva('small') ?>"
                                  style="margin-right:5px;-moz-border-radius:12px;-webkit-border-radius:12px;border-radius:12px;">
                             <?php if ($j == 5) break; ?>

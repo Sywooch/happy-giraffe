@@ -41,7 +41,7 @@ $i = 0;
                 <?php echo  $model->getContentText(450); ?>
                 <span style="color:#0d81d5;">
                 <a href="http://www.happy-giraffe.ru<?php echo $model->getUrl() ?>" target="_blank" style="color:#0d81d5;">Читать&nbsp;всю&nbsp;запись&nbsp;<img
-                    src="http://dev.happy-giraffe.ru/images/mail/icon_more.gif" style="margin-left:5px;"></a>
+                    src="http://www.happy-giraffe.ru/images/mail/icon_more.gif" style="margin-left:5px;"></a>
             </span>
             </div>
 
@@ -50,14 +50,14 @@ $i = 0;
                 <tr>
                     <td style="padding-right:10px;">
                     <span style="color:#737575;font:12px arial, helvetica, sans-serif;">
-                        <img src="http://dev.happy-giraffe.ru/images/mail/icon_views.gif"
+                        <img src="http://www.happy-giraffe.ru/images/mail/icon_views.gif"
                              style="margin-right:5px;vertical-align:top;"><?php echo PageView::model()->viewsByPath(str_replace('http://www.happy-giraffe.ru', '', $model->url), true); ?>
                     </span>
                     </td>
                     <td style="padding-right:15px;">
                     <span style="color:#31a4f6;font:12px arial, helvetica, sans-serif;">
                         <a href="http://www.happy-giraffe.ru<?php echo $model->getUrl() ?>#comment_list" target="_blank" style="color:#31a4f6;font:12px arial, helvetica, sans-serif;"><img
-                            src="http://dev.happy-giraffe.ru/images/mail/icon_comments.gif"
+                            src="http://www.happy-giraffe.ru/images/mail/icon_comments.gif"
                             style="margin-right:5px;vertical-align:top;"><?php echo $model->getArticleCommentsCount() ?></a></span>
                     </td>
                     <td>

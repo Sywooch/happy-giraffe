@@ -27,57 +27,88 @@ if ($steps_count < 0)
         <div class="container clearfix">
             <div class="steps-list">
                 <ul>
+                    <?php if ($userScore->stepComplete(ScoreAction::ACTION_PROFILE_EMAIL)):?>
                     <li class="strike">
                         <div class="num">Шаг 1</div>
-                        <div class="text"><a href="#firstStepsEmail" class="fancy">Подтвердите ваш e-mail</a></div>
-                        <div class="done">
-                            <?php if ($userScore->stepComplete(ScoreAction::ACTION_PROFILE_EMAIL)):?>
-                                <i class="icon"></i>Сделано
-                            <?php endif ?>
-                        </div>
+                        <div class="text">Подтвердите ваш e-mail</div>
+                        <div class="done"><i class="icon"></i>Сделано</div>
                     </li>
+                    <?php else: ?>
+                    <li>
+                        <div class="num">Шаг 1</div>
+                        <div class="text"><a href="#firstStepsEmail" class="fancy">Подтвердите ваш e-mail</a></div>
+                        <div class="done"></div>
+                    </li>
+                    <?php endif ?>
+
+                    <?php if ($userScore->stepComplete(ScoreAction::ACTION_PROFILE_BIRTHDAY)):?>
+                    <li class="strike">
+                        <div class="num">Шаг 2</div>
+                        <div class="text">Укажите вашу дату рождения</div>
+                    <div class="done"><i class="icon"></i>Сделано</div>
+                </li>
+                    <?php else: ?>
                     <li>
                         <div class="num">Шаг 2</div>
                         <div class="text"><a href="#firstStepsBirthday" class="fancy">Укажите вашу дату рождения</a></div>
-                    <div class="done">
-                        <?php if ($userScore->stepComplete(ScoreAction::ACTION_PROFILE_BIRTHDAY)):?>
-                            <i class="icon"></i>Сделано
-                        <?php endif ?>
-                    </div>
+                        <div class="done"></div>
                     </li>
-                    <li>
+                    <?php endif ?>
+
+                    <?php if ($userScore->stepComplete(ScoreAction::ACTION_PROFILE_LOCATION)):?>
+                    <li class="strike">
                         <div class="num">Шаг 3</div>
-                        <div class="text"><a href="#firstStepsLocation" class="fancy">Укажите ваше место жительства</a></div>
-                        <div class="done">
-                            <?php if ($userScore->stepComplete(ScoreAction::ACTION_PROFILE_LOCATION)):?>
-                                <i class="icon"></i>Сделано
-                            <?php endif ?>
-                        </div>
+                        <div class="text">Укажите ваше место жительства</div>
+                        <div class="done"><i class="icon"></i>Сделано</div>
+                </li>
+                    <?php else: ?>
+                    <div class="num">Шаг 3</div>
+                    <div class="text"><a href="#firstStepsLocation" class="fancy">Укажите ваше место жительства</a></div>
+                    <div class="done">
+                    </div>
+                    <?php endif ?>
+
+                    <?php if ($userScore->stepComplete(ScoreAction::ACTION_PROFILE_PHOTO)):?>
+                    <li class="strike">
+                        <div class="num">Шаг 4</div>
+                        <div class="text">Загрузите ваше главное фото</div>
+                            <div class="done"><i class="icon"></i>Сделано</div>
                     </li>
+                    <?php else: ?>
                     <li>
                         <div class="num">Шаг 4</div>
                         <div class="text"><a href="javascript:;" onclick="$('#change_ava > div.photo > a').trigger('click');">Загрузите ваше главное фото</a></div>
-                        <?php if ($userScore->stepComplete(ScoreAction::ACTION_PROFILE_PHOTO)):?>
-                            <div class="done"><i class="icon"></i>Сделано</div>
-                        <?php endif ?>
+                        <div class="done"></div>
                     </li>
+                    <?php endif ?>
+
+                    <?php if ($userScore->stepComplete(ScoreAction::ACTION_PROFILE_FAMILY)):?>
+                    <li class="strike">
+                        <div class="num">Шаг 5</div>
+                        <div class="text">Расскажите о вашей семье</div>
+                            <div class="done"><i class="icon"></i>Сделано</div>
+                    </li>
+                    <?php else: ?>
                     <li>
                         <div class="num">Шаг 5</div>
                         <div class="text"><a href="/family/">Расскажите о вашей семье</a></div>
-                        <?php if ($userScore->stepComplete(ScoreAction::ACTION_PROFILE_FAMILY)):?>
-                            <div class="done"><i class="icon"></i>Сделано</div>
-                        <?php endif ?>
+                        <div class="done"></div>
                     </li>
+                    <?php endif ?>
+
+                    <?php if ($userScore->stepComplete(ScoreAction::ACTION_PROFILE_INTERESTS)):?>
+                    <li class="strike">
+                        <div class="num">Шаг 6</div>
+                        <div class="text">Укажите ваши интересы</div>
+                        <div class="done"><i class="icon"></i>Сделано</div>
+                    </li>
+                    <?php else: ?>
                     <li>
                         <div class="num">Шаг 6</div>
                         <div class="text"><a href="/ajax/interestsForm/" class="fancy">Укажите ваши интересы</a></div>
-                    <div class="done">
-                        <?php if ($userScore->stepComplete(ScoreAction::ACTION_PROFILE_INTERESTS)):?>
-                            <i class="icon"></i>Сделано
-                        <?php endif ?>
-                    </div>
+                        <div class="done"></div>
                     </li>
-
+                    <?php endif ?>
                 </ul>
             </div>
 

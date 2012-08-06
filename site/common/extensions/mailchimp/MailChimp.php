@@ -35,12 +35,34 @@ class MailChimp extends CApplicationComponent
         $this->api->listBatchSubscribe($this->list, $options, false, true, false);
     }
 
+    public function updateUsersTest()
+    {
+        //пользователи которые зарегистрировались после 1 мая + наши сотрудники
+        $criteria = new CDbCriteria;
+        $criteria->condition = '(t.group < 5 AND t.group > 0)';
+        $criteria->scopes = array('active');
+        $criteria->limit = 1000;
+        $users = array(1);
+
+        $i = 0;
+        while (!empty($users)) {
+            $criteria->offset = $i*100;
+            $users = User::model()->findAll($criteria);
+            $options = array();
+            foreach ($users as $user)
+                $options[] = $this->getUserOptions($user);
+
+            $res = $this->api->listBatchSubscribe($this->list, $options, false, true, false);
+            echo $res;
+            $i++;
+        }
+    }
+
     public function updateUsers()
     {
         //пользователи которые зарегистрировались после 1 мая + наши сотрудники
         $criteria = new CDbCriteria;
         $criteria->condition = '(t.group < 5 AND t.group > 0) OR (t.group = 0 AND t.register_date >= "2012-05-01 00:00:00")';
-        $criteria->compare('id', 10);
         $criteria->scopes = array('active');
         $criteria->limit = 1000;
         $users = array(1);

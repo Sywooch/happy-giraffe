@@ -217,7 +217,7 @@
                                 <?php endif; ?>
                                 <?php if ($content = $c->getContentText(170)): ?>
                                     <div class="content">
-                                        <p><?=$content?> &nbsp; <?=CHtml::link('Читать', $c->url)?></p>
+                                        <p><?=trim($content, ',.:=')?> &nbsp; <?=CHtml::link('Читать', $c->url)?></p>
                                     </div>
                                 <?php endif; ?>
                                 <div class="meta">

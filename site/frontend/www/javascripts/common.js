@@ -491,19 +491,19 @@ function slideNavToggle(el){
 
 function firstStepsToggle(el){
 	
-	var box = $('#first-steps .block-in')
+	var box = $('#first-steps .block-in');
 	
 	if (box.is(':animated')) return false;
 	
 	if ($(el).hasClass('toggled')){
 		box.slideUp(function(){
-			$(el).find('span').html($(el).data('title'))
+			$(el).find('span').html($(el).data('title'));
 			$(el).prev('.bonus').toggle();
 			$(el).removeClass('toggled');
 		});
 	} else {
 		box.slideDown(function(){
-			$(el).find('span').html($(el).data('close'))
+			$(el).find('span').html($(el).data('close'));
 			$(el).prev('.bonus').toggle();
 			$(el).addClass('toggled');
 		});

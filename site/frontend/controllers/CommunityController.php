@@ -244,7 +244,7 @@ class CommunityController extends HController
             'rubrics' => $rubrics,
             'community_id' => $community_id,
             'rubric_id' => $rubric_id,
-            'content_type_slug' => $content_type->slug,
+            'content_type_slug' => $content_type->slug
         ));
     }
 
@@ -347,6 +347,11 @@ class CommunityController extends HController
             }
         }
 
+        if (isset($_POST['redirectUrl']))
+            $redirectUrl = $_POST['redirectUrl'];
+        else
+            $redirectUrl =Yii::app()->request->urlReferrer;
+
         $this->render('form', array(
             'model' => $model,
             'slave_model' => $slave_model,
@@ -355,6 +360,7 @@ class CommunityController extends HController
             'community_id' => $community_id,
             'rubric_id' => $rubric_id,
             'content_type_slug' => $content_type->slug,
+            'redirectUrl'=>$redirectUrl
         ));
     }
 
@@ -810,7 +816,7 @@ class CommunityController extends HController
     }
 
     public function actionWeeklyMail(){
-        if (!Yii::app()->user->model->checkAuthItem('manageFavourites'))
+        if (!Yii::app()->user->checkAccess('manageFavourites'))
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
         $this->render('weekly_mail');

@@ -12,10 +12,9 @@ $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
         <div class="main-in">
 
             <div class="content-title-new">
-                Альбом «<?=$model->title?>
-                »<?php if (Yii::app()->user->id == $this->user->id): ?> <?= CHtml::link('', '#albumSettings', array('class' => 'settings tooltip fancy', 'title' => 'Настройки альбома')) ?><?php endif; ?>
+                Альбом «<?=$model->title?>»<?php if (Yii::app()->user->id == $this->user->id): ?> <?= CHtml::link('', '#albumSettings', array('class' => 'settings tooltip fancy', 'title' => 'Настройки альбома')) ?><?php endif; ?>
                 <?php if ($model->description): ?>
-                <span><?=$model->description?></span>
+                    <span><?=$model->description?></span>
                 <?php endif; ?>
             </div>
 

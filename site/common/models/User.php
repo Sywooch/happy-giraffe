@@ -218,6 +218,7 @@ class User extends HActiveRecord
                 $duration = $this->remember == 1 ? 2592000 : 0;
                 Yii::app()->user->login($identity, $duration);
                 $userModel->login_date = date('Y-m-d H:i:s');
+                $userModel->online = 1;
                 $userModel->last_ip = $_SERVER['REMOTE_ADDR'];
                 $userModel->save(false);
             }
@@ -497,6 +498,19 @@ class User extends HActiveRecord
     {
         if(empty($this->avatar_id)){
             //if ($this->user->gender)
+            return false;
+        }
+        if($size != 'big')
+            return $this->avatar->getAvatarUrl($size);
+        else
+            return $this->avatar->getPreviewUrl(240, 400, Image::WIDTH);
+    }
+
+    public function getAvaOrDefaultImage($size = 'ava')
+    {
+        if(empty($this->avatar_id)){
+            if ($this->gender == 1)
+                return '';
             return false;
         }
         if($size != 'big')
@@ -902,7 +916,7 @@ class User extends HActiveRecord
             'select' => 't.*, count(interest__users_interests.user_id) AS interestsCount, count(' . Baby::model()->getTableAlias() .  '.id) AS babiesCount',
             'group' => 't.id',
             'having' => 'interestsCount > 0 AND (babiesCount > 0 OR t.relationship_status IS NOT NULL)',
-            'condition' => 't.avatar_id IS NOT NULL AND userAddress.country_id IS NOT NULL',
+            'condition' => 't.birthday IS NOT NULL AND t.avatar_id IS NOT NULL AND userAddress.country_id IS NOT NULL',
             'join' => 'LEFT JOIN interest__users_interests ON interest__users_interests.user_id = t.id',
             'with' => array(
                 'interests' => array(

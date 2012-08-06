@@ -9,7 +9,7 @@
     <div class="content-title-new"><?=($this->user->id == Yii::app()->user->id) ? 'Мои друзья' : 'Друзья'?></div>
 
     <?php
-    if ($dataProvider->itemCount >= 6 && $show == 'all' || $this->user->id !== Yii::app()->user->id):?>
+    if ($show != 'all' || $dataProvider->itemCount >= 6 || $this->user->id !== Yii::app()->user->id):?>
         <?php
         $this->widget('zii.widgets.CListView', array(
             'id' => 'friends',

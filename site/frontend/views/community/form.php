@@ -153,7 +153,7 @@ $cs
                 <div class="row-elements">
                     <div class="select-box">
                         <span class="subtitle">Клуб</span>
-                        <?php echo CHtml::dropDownList('community_id', $community_id, CHtml::listData($communities, 'id', 'title'), array('prompt' => 'Выберите клуб', 'class' => 'chzn w-200',
+                        <?php echo CHtml::dropDownList('community_id', $community_id, CHtml::listData(Yii::app()->user->communities, 'id', 'title'), array('prompt' => 'Выберите клуб', 'class' => 'chzn w-200',
                         'ajax' => array(
                             'type' => 'POST',
                             'url' => $this->createUrl('ajax/rubrics'),

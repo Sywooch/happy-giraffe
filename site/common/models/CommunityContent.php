@@ -586,7 +586,7 @@ class CommunityContent extends HActiveRecord
 
     public function getContentText($length = 80)
     {
-        return Str::truncate(rtrim(strip_tags($this->content->text), '.,? '), $length);
+        return Str::truncate(rtrim(trim(strip_tags($this->content->text)), '.,?'), $length);
     }
 
     public function canEdit()

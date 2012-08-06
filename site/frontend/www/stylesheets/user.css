@@ -142,6 +142,9 @@
 #user .user-friends .more-friends .wannachat {display:inline-block;background:#a888c6;color:#fff;font:normal 15px tahoma, arial, helvetica, sans-serif;padding:3px 15px;text-decoration:none;margin-left:2px;margin-left:10px;}
 #user .user-friends .more-friends .wannachat {/*css3*/ -moz-border-radius:10px;-webkit-border-radius:10px;border-radius:10px;behavior: url(/stylesheets/PIE.htc);}
 
+#user .user-friends .friends-activity-link {font-size:16px;text-align:center;margin-bottom:20px;margin-right:80px;}
+#user .user-friends .friends-activity-link a {color:#e87004;}
+
 #user .user-map {padding:10px 8px 7px;border:1px solid #e8e8e8;margin-bottom:20px;height:268px;}
 
 #user .user-map .header {position:relative;padding-bottom:5px;}

@@ -15,6 +15,9 @@
             <li>
                 <?php if ($modelName == 'BlogContent'): ?>
                     <div class="added-to">
+                    <?php if ($model->author_id == $action['user_id']): ?>
+                        <span>в своем блоге</span>
+                    <?php else: ?>
                         <span>в блоге</span>
                         <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
                             'user' => $model->author,
@@ -22,6 +25,7 @@
                             'sendButton' => false,
                             'location' => false
                         )); ?>
+                    <?php endif; ?>
                     </div>
                     <div class="item-title"><?=CHtml::link($model->title, $model->url)?></div>
                 <?php elseif ($modelName == 'CommunityContent'): ?>

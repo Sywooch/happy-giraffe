@@ -215,7 +215,7 @@
                                 <?php if ($img = $c->contentImage): ?>
                                     <div class="img"><?=CHtml::link(CHtml::image($img), $c->url)?></div>
                                 <?php endif; ?>
-                                <?php if ($content = $c->getContentText(400)): ?>
+                                <?php if ($content = $c->getContentText(150)): ?>
                                     <div class="content">
                                         <p><?=$content?> &nbsp; <?=CHtml::link('Читать', $c->url)?></p>
                                     </div>

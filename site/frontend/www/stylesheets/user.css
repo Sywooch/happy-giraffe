@@ -6,7 +6,7 @@
 
 #user .box-title {font-size:22px;color:#252525;padding-bottom:10px;}
 #user .box-title a {font-size:13px;margin-left:10px;}
-#user .box-title .btn {position:relative;top:6px;margin-right:15px;margin-left:0;}
+#user .box-title .btn {position:relative;top:8px;margin-right:15px;margin-left:0;}
 
 #user .header {padding-bottom:15px;}
 
@@ -135,7 +135,7 @@
 
 
 
-#user .user-friends {padding-bottom:20px;padding-left:15px;margin-top:-33px;}
+#user .user-friends {padding-bottom:20px;padding-left:15px;/*margin-top:-33px;ttt*/}
 #user .user-friends ul {list-style:none;}
 #user .user-friends ul li {float:left;margin:0 15px 15px 0;}
 #user .user-friends ul li img {display:block;}
@@ -168,7 +168,7 @@
 
 
 
-#user .user-mood {font-size:22px;color:#252525;padding-left:15px;position:relative;margin-bottom:8px;margin-top:-33px;}
+#user .user-mood {font-size:22px;color:#252525;padding-left:15px;position:relative;margin-bottom:8px;/*margin-top:-33px;*/}
 #user .user-mood img {vertical-align:top;position:relative;margin-top:-27px;}
 
 #user .user-mood .moods-list {position:absolute;left:0;top:100%;background:#fffeea;z-index:4;padding:5px;width:470px;font-size:9px;border:1px solid #e7e395;}
@@ -532,6 +532,9 @@
 #user .friends ul li .remove:hover {background-position:-314px -148px;}
 
 #user .friends .actions {padding-top:8px;}
+
+.user-block-list {width:720px;}
+.user-block-list .list-item {width:340px;float:left;}
 
 #user .clubs {}
 #user .clubs ul {list-style:none;}

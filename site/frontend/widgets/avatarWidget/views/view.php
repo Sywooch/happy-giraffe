@@ -27,7 +27,7 @@ else {
                     <?php echo CHtml::encode($this->user->getUserAddress()->cityName); ?>
                 </div>
             <?php endif; ?>
-            <div class="user-fast-buttons<?php if (! $this->nav):?> clearfix<?php endif; ?>">
+            <div class="user-fast-buttons">
                 <?php if ($this->friendRequest !== false): ?>
                     <?php if ($this->friendRequest['direction'] == 'incoming'): ?>
                         <?=CHtml::link('Принять', array('friendRequests/update', 'request_id' => $this->friendRequest['id'], 'action' => 'accept'), array('class' => 'accept'))?>

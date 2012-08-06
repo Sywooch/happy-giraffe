@@ -24,23 +24,7 @@
 	<script type="text/javascript" src="/javascripts/chosen.jquery.min.js"></script>
 	
 	<script type="text/javascript" src="/javascripts/common.js"></script>	
-	
-  <script type="text/javascript" src="/javascripts/jquery.masonry.min.js"></script>
-  
-  <script type="text/javascript">
-    $(function(){
-      
-      $('.user-block-list').imagesLoaded(function(){
-				$(this).masonry({
-						itemSelector : $(this).find('.list-item'),
-						columnWidth: 360
-				});
-      })
-      
-    })
-  </script>
-  
-	
+		
 	<script type="text/javascript">
 		function addMenuToggle(el){
 			$(el).parents('.add-menu').find('ul').toggle();
@@ -589,250 +573,231 @@
 						
 						<div class="clearfix">
 							
-							<div class="user-block-list">
+							<div class="col-2">
 								
-								<div class="list-item">
-									<div class="user-mood">
-										Мое настроение<img id="userMood" src="/images/widget/mood/1.png" /> <a href="" class="small pseudo">Изменить</a>
-									</div>
+								<div class="user-mood">
+									Мое настроение<img id="userMood" src="/images/widget/mood/1.png" /> <a href="" class="small pseudo">Изменить</a>
 								</div>
 								
-								<div class="list-item">
-									<div class="user-status" class="list-item">
-										<div class="date"><a href="" class="a-right pseudo">Новый статус</a>20 февраля 2012, 13:45</div>
-										<p>Привет всем! У меня все ok!<br/>Единственное, что имеет значение в конце нашего пребывания на земле, - это то, как сильно мы любили. </p>
-									</div>
+								<div class="user-status">
+									<div class="date"><a href="" class="a-right pseudo">Новый статус</a>20 февраля 2012, 13:45</div>
+									<p>Привет всем! У меня все ok!<br/>Единственное, что имеет значение в конце нашего пребывания на земле, - это то, как сильно мы любили. </p>
 								</div>
 								
-								<div class="list-item">
-									<div class="user-purpose" class="list-item">
-										<i class="icon"></i>
-										<span>Цель №1</span>
-										<a href="" class="pseudo">Изменить</a>
-										<p>Хочу в этом году поехать с семьей на море</p>
-									</div>
+								<div class="user-purpose">
+									<i class="icon"></i>
+									<span>Цель №1</span>
+									<a href="" class="pseudo">Изменить</a>
+									<p>Хочу в этом году поехать с семьей на море</p>
 								</div>
 								
-								<div class="list-item">
-									<div class="user-blog" class="list-item">
-										
-										<div class="box-title"><a class="btn btn-orange-smallest a-right" href=""><span><span>Добавить запись</span></span></a>Блог <a href="">Все записи (25)</a></div>
-										
-										<ul>
-											<li>
-												<a href="">Профилактика атопического дерматита</a>
-												<div class="date">3 сентября 2011, 08:25</div>
-												<p>Детям до года врачи не рекомендуют, а точнее говоря, запрещают спать на подушке... а точнее говоря, запрещают спать на подушке...</p>
-												<div class="meta">
-													<span class="views"><i class="icon"></i>265</span>
-													<a href="" class="comments"><i class="icon"></i>6</a>
-												</div>
-											</li>
-											<li>
-												<a href="">Профилактика атопического дерматита</a>
-												<div class="date">3 сентября 2011, 08:25</div>
-												<p>Детям до года врачи не рекомендуют, а точнее говоря, запрещают спать на подушке...</p>
-												<div class="meta">
-													<span class="views"><i class="icon"></i>265</span>
-													<a href="" class="comments"><i class="icon"></i>6</a>
-												</div>
-											</li>
-											<li>
-												<a href="">Профилактика атопического дерматита</a>
-												<div class="date">3 сентября 2011, 08:25</div>
-												<p>Детям до года врачи не рекомендуют, а точнее говоря, запрещают спать на подушке...</p>
-												<div class="meta">
-													<span class="views"><i class="icon"></i>265</span>
-													<a href="" class="comments"><i class="icon"></i>6</a>
-												</div>
-											</li>
-											<li>
-												<a href="">Профилактика атопического дерматита</a>
-												<div class="date">3 сентября 2011, 08:25</div>
-												<p>Детям до года врачи не рекомендуют, а точнее говоря, запрещают спать на подушке... а точнее говоря, запрещают спать на подушке... а точнее говоря, запрещают спать на подушке...</p>
-												<div class="meta">
-													<span class="views"><i class="icon"></i>265</span>
-													<a href="" class="comments"><i class="icon"></i>6</a>
-												</div>
-											</li>
-											
-										</ul>
-										
-									</div>
-								</div>
-								
-								<div class="list-item">
-									<div class="user-clubs clearfix" class="list-item">
-										
-										<div class="box-title"><a class="btn btn-orange-smallest a-right" href=""><span><span>Вступить</span></span></a>Клубы <a href="">Я в клубах (105)</a></div>
-										
-										<ul>
-											<li class="club-img kids">
-												<a href="">
-													<img src="/images/club_img_3.png" />
-													<span>Подготовка и роды</span>
-												</a>
-											</li>
-											<li class="club-img kids">
-												<a href="">
-													<img src="/images/club_img_7.png" />
-													Режим и уход
-												</a>
-											</li>
-											<li class="club-img manwoman">
-												<a href="">
-													<img src="/images/club_img_19.png" />
-													Отношения
-												</a>
-											</li>
-											<li class="club-img beauty">
-												<a href="">
-													<img src="/images/club_img_21.png" />
-													Красота
-												</a>
-											</li>
-											<li class="club-img beauty">
-												<a href="">
-													<img src="/images/club_img_22.png" />
-													Мода и шопинг
-												</a>
-											</li>
-											<li class="club-img home">
-												<a href="">
-													<img src="/images/club_img_28.png" />
-													Загородная жизнь
-												</a>
-											</li>
-											<li class="club-img hobbies">
-												<a href="">
-													<img src="/images/club_img_31.png" />
-													За рулем
-												</a>
-											</li>
-											<li class="club-img hobbies">
-												<a href="">
-													<img src="/images/club_img_32.png" />
-													Цветоводство
-												</a>
-											</li>
-											<li class="club-img rest">
-												<a href="">
-													<img src="/images/club_img_34.png" />
-													Путешествия семьей
-												</a>
-											</li>
-										</ul>
-										
-									</div>
-								</div>
-								
-								<div class="list-item">
-									<div class="user-albums" class="list-item">
+								<div class="user-blog">
 									
-										<div class="box-title"><a class="btn btn-orange-smallest a-right" href=""><span><span>Загрузить фото</span></span></a>Фото <a href="">Все альбомы (12)</a></div>
-										
-										<ul>
-											<li>
-												<big>Альбом <a href="">Поездка в Турцию</a></big>
-												<div class="clearfix">
-													<div class="preview">
-														<img src="/images/album_photo_01.jpg" class="img-1" />
-														<img src="/images/album_photo_02.jpg" class="img-2" />
-														<img src="/images/album_photo_03.jpg" class="img-3" />
-													</div>
-													<a href="" class="more"><i class="icon"></i>еще 63 фото</a>
-												</div>
-											</li>
-											<li>
-												<big>Альбом <a href="">Поездка в Турцию</a></big>
-												<div class="clearfix">
-													<div class="preview">
-														<img src="/images/album_photo_04.jpg" class="img-1" />
-														<img src="/images/album_photo_05.jpg" class="img-2" />
-														<img src="/images/album_photo_06.jpg" class="img-3" />
-													</div>
-													<a href="" class="more"><i class="icon"></i>еще 63 фото</a>
-												</div>
-											</li>
-											
-										</ul>
-										
-									</div>
-								</div>
-								
-								<div class="list-item">
-									<div class="user-friends clearfix" class="list-item">
-										
-										<div class="box-title">Друзья <a href="">Все друзья (105)</a></div>
-										
-										<div class="friends-activity-link">
-											<a href="">Что нового у друзей</a>
-										</div>
-										
-										<ul class="clearfix">
-											<li><a href="" class="ava"></a></li>
-											<li><a href="" class="ava male"></a></li>
-											<li><a href="" class="ava"><img src="/images/user_friends_img.jpg" /></a></li>
-											<li><a href="" class="ava"><img src="/images/user_friends_img.jpg" /></a></li>
-											<li><a href="" class="ava female"></a></li>
-											<li><a href="" class="ava"><img src="/images/user_friends_img.jpg" /></a></li>
-											<li><a href="" class="ava male"></a></li>
-											<li><a href="" class="ava"></a></li>
-										</ul>
-										
-										<div class="more-friends"><a href="">Найти еще друзей</a> <a href="" class="wannachat">Хочу общаться!</a></div>
-										
-									</div>
-								</div>
-								
-								<div class="list-item">
-									<div class="user-map" class="list-item">
-										<div class="header">
-											<a href="#locationEdit" class="edit fancy"></a>
-											<div class="box-title">Я здесь</div>
-											<div class="sep"><img src="/images/map_marker.png" /></div>
-											<div class="location">
-												<div class="flag flag-ru"></div> Россия
-												<p>Ярославская облась Гаврилов-Ямский р-он п. Великое</p>
+									<div class="box-title"><a class="btn btn-orange-smallest a-right" href=""><span><span>Добавить запись</span></span></a>Блог <a href="">Все записи (25)</a></div>
+									
+									<ul>
+										<li>
+											<a href="">Профилактика атопического дерматита</a>
+											<div class="date">3 сентября 2011, 08:25</div>
+											<p>Детям до года врачи не рекомендуют, а точнее говоря, запрещают спать на подушке... а точнее говоря, запрещают спать на подушке...</p>
+											<div class="meta">
+												<span class="views"><i class="icon"></i>265</span>
+												<a href="" class="comments"><i class="icon"></i>6</a>
 											</div>
-										</div>
-										<img src="/images/user_map_img.jpg" />
-									</div>
+										</li>
+										<li>
+											<a href="">Профилактика атопического дерматита</a>
+											<div class="date">3 сентября 2011, 08:25</div>
+											<p>Детям до года врачи не рекомендуют, а точнее говоря, запрещают спать на подушке...</p>
+											<div class="meta">
+												<span class="views"><i class="icon"></i>265</span>
+												<a href="" class="comments"><i class="icon"></i>6</a>
+											</div>
+										</li>
+										<li>
+											<a href="">Профилактика атопического дерматита</a>
+											<div class="date">3 сентября 2011, 08:25</div>
+											<p>Детям до года врачи не рекомендуют, а точнее говоря, запрещают спать на подушке...</p>
+											<div class="meta">
+												<span class="views"><i class="icon"></i>265</span>
+												<a href="" class="comments"><i class="icon"></i>6</a>
+											</div>
+										</li>
+										<li>
+											<a href="">Профилактика атопического дерматита</a>
+											<div class="date">3 сентября 2011, 08:25</div>
+											<p>Детям до года врачи не рекомендуют, а точнее говоря, запрещают спать на подушке... а точнее говоря, запрещают спать на подушке... а точнее говоря, запрещают спать на подушке...</p>
+											<div class="meta">
+												<span class="views"><i class="icon"></i>265</span>
+												<a href="" class="comments"><i class="icon"></i>6</a>
+											</div>
+										</li>
+										
+									</ul>
+									
 								</div>
 								
-								<div class="list-item">
-									<div class="user-weather" class="list-item">
-										
-										<div class="box-title"><a href="" class="a-right pseudo">Еще на три дня</a>Моя погода</div>
-										
-										<div class="clearfix">
-											
-											<div class="img"><img src="/images/widget/weather/big/3.png" /></div>
-											
-											<div class="text">
-												<big>-16</big>
-												<div class="row hl"><span>Ночью</span>-22</div>
-												<div class="row"><span>Завтра</span>-17</div>
+								<div class="user-clubs clearfix">
+									
+									<div class="box-title"><a class="btn btn-orange-smallest a-right" href=""><span><span>Вступить</span></span></a>Клубы <a href="">Я в клубах (105)</a></div>
+									
+									<ul>
+										<li class="club-img kids">
+											<a href="">
+												<img src="/images/club_img_3.png" />
+												<span>Подготовка и роды</span>
+											</a>
+										</li>
+										<li class="club-img kids">
+											<a href="">
+												<img src="/images/club_img_7.png" />
+												Режим и уход
+											</a>
+										</li>
+										<li class="club-img manwoman">
+											<a href="">
+												<img src="/images/club_img_19.png" />
+												Отношения
+											</a>
+										</li>
+										<li class="club-img beauty">
+											<a href="">
+												<img src="/images/club_img_21.png" />
+												Красота
+											</a>
+										</li>
+										<li class="club-img beauty">
+											<a href="">
+												<img src="/images/club_img_22.png" />
+												Мода и шопинг
+											</a>
+										</li>
+										<li class="club-img home">
+											<a href="">
+												<img src="/images/club_img_28.png" />
+												Загородная жизнь
+											</a>
+										</li>
+										<li class="club-img hobbies">
+											<a href="">
+												<img src="/images/club_img_31.png" />
+												За рулем
+											</a>
+										</li>
+										<li class="club-img hobbies">
+											<a href="">
+												<img src="/images/club_img_32.png" />
+												Цветоводство
+											</a>
+										</li>
+										<li class="club-img rest">
+											<a href="">
+												<img src="/images/club_img_34.png" />
+												Путешествия семьей
+											</a>
+										</li>
+									</ul>
+									
+								</div>
+								
+								<div class="user-albums">
+								
+									<div class="box-title"><a class="btn btn-orange-smallest a-right" href=""><span><span>Загрузить фото</span></span></a>Фото <a href="">Все альбомы (12)</a></div>
+									
+									<ul>
+										<li>
+											<big>Альбом <a href="">Поездка в Турцию</a></big>
+											<div class="clearfix">
+												<div class="preview">
+													<img src="/images/album_photo_01.jpg" class="img-1" />
+													<img src="/images/album_photo_02.jpg" class="img-2" />
+													<img src="/images/album_photo_03.jpg" class="img-3" />
+												</div>
+												<a href="" class="more"><i class="icon"></i>еще 63 фото</a>
 											</div>
+										</li>
+										<li>
+											<big>Альбом <a href="">Поездка в Турцию</a></big>
+											<div class="clearfix">
+												<div class="preview">
+													<img src="/images/album_photo_04.jpg" class="img-1" />
+													<img src="/images/album_photo_05.jpg" class="img-2" />
+													<img src="/images/album_photo_06.jpg" class="img-3" />
+												</div>
+												<a href="" class="more"><i class="icon"></i>еще 63 фото</a>
+											</div>
+										</li>
+										
+									</ul>
+									
+								</div>
+							</div>							
+							<div class="col-3">
+								<div class="user-friends clearfix">
+									
+									<div class="box-title">Друзья <a href="">Все друзья (105)</a></div>
+									
+									<div class="friends-activity-link">
+										<a href="">Что нового у друзей</a>
+									</div>
+									
+									<ul class="clearfix">
+										<li><a href="" class="ava"></a></li>
+										<li><a href="" class="ava male"></a></li>
+										<li><a href="" class="ava"><img src="/images/user_friends_img.jpg" /></a></li>
+										<li><a href="" class="ava"><img src="/images/user_friends_img.jpg" /></a></li>
+										<li><a href="" class="ava female"></a></li>
+										<li><a href="" class="ava"><img src="/images/user_friends_img.jpg" /></a></li>
+										<li><a href="" class="ava male"></a></li>
+										<li><a href="" class="ava"></a></li>
+									</ul>
+									
+									<div class="more-friends"><a href="">Найти еще друзей</a> <a href="" class="wannachat">Хочу общаться!</a></div>
+									
+								</div>
+								
+								<div class="user-map">
+									<div class="header">
+										<a href="#locationEdit" class="edit fancy"></a>
+										<div class="box-title">Я здесь</div>
+										<div class="sep"><img src="/images/map_marker.png" /></div>
+										<div class="location">
+											<div class="flag flag-ru"></div> Россия
+											<p>Ярославская облась Гаврилов-Ямский р-он п. Великое</p>
+										</div>
+									</div>
+									<img src="/images/user_map_img.jpg" />
+								</div>
+								
+								<div class="user-weather">
+									
+									<div class="box-title"><a href="" class="a-right pseudo">Еще на три дня</a>Моя погода</div>
+									
+									<div class="clearfix">
+										
+										<div class="img"><img src="/images/widget/weather/big/3.png" /></div>
+										
+										<div class="text">
+											<big>-16</big>
+											<div class="row hl"><span>Ночью</span>-22</div>
+											<div class="row"><span>Завтра</span>-17</div>
+										</div>
 
-										</div>
-										
 									</div>
+									
 								</div>
 								
-								<div class="list-item">
-									<div class="user-horoscope" class="list-item">
-										
-										<div class="clearfix">
-											<div class="title">Лев</div>
-											<div class="img"><img src="/images/widget/horoscope/12.png" /></div>
-											<div class="date">2<span>апр</span></div>
-										</div>
-										
-										<p>Вы настроены на игривый лад – Вам больше хочется развлекаться, чем работать. Да и работа отвечает Вам взаимностью – дела стоят на месте, приходится возвращаться к, казалось бы, уже решенным вопросам и переделывать многое  
-										Вам хотелось бы организовать эффективное взаимодействие в совместных проектах. Однако идеи, которые придут к Вам сегодня, могут оказаться не слишком продуманными.</p>
-										
+								<div class="user-horoscope">
+									
+									<div class="clearfix">
+										<div class="title">Лев</div>
+										<div class="img"><img src="/images/widget/horoscope/12.png" /></div>
+										<div class="date">2<span>апр</span></div>
 									</div>
+									
+									<p>Вы настроены на игривый лад – Вам больше хочется развлекаться, чем работать. Да и работа отвечает Вам взаимностью – дела стоят на месте, приходится возвращаться к, казалось бы, уже решенным вопросам и переделывать многое  
+									Вам хотелось бы организовать эффективное взаимодействие в совместных проектах. Однако идеи, которые придут к Вам сегодня, могут оказаться не слишком продуманными.</p>
+									
 								</div>
 								
 							</div>					

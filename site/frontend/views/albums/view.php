@@ -37,6 +37,7 @@ $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
                         'viewData' => array(
                             'currentPage' => $dataProvider->pagination->currentPage,
                         ),
+                        'emptyText'=>'В этом альбоме у вас нет фотографий'
                     ));
 
                     $this->widget('PhotosAjaxMasonry', array(
@@ -99,6 +100,7 @@ $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
             );
 
             foreach ($model->author->albums('albums:noSystem') as $album) {
+                if (count($album->photos) > 0 || $this->user->id == Yii::app()->user->id)
                 $items[] = array(
                     'label' => $album->title,
                     'url' => $album->url,

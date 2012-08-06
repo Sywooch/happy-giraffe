@@ -25,7 +25,7 @@ $i = 0;
 
             <div style="margin-bottom:10px;">
             <span style="color:#0d81d5;font:bold 18px/20px arial, helvetica, sans-serif;">
-                <a href="http://www.happy-giraffe.ru<?php echo $model->getUrl() ?>" target="_blank" style="color:#0d81d5;font:bold 18px/20px arial, helvetica, sans-serif;"><?php echo $model->title ?></a></span>
+                <a href="http://www.happy-giraffe.ru<?php echo ltrim($model->getUrl(), '.') ?>" target="_blank" style="color:#0d81d5;font:bold 18px/20px arial, helvetica, sans-serif;"><?php echo $model->title ?></a></span>
             </div>
 
             <div style="margin-bottom:5px;">
@@ -33,14 +33,14 @@ $i = 0;
             </div>
 
             <div style="margin-bottom:5px;">
-                <a href="http://www.happy-giraffe.ru<?php echo $model->getUrl() ?>" target="_blank" style="text-decoration: none;">
+                <a href="http://www.happy-giraffe.ru<?php echo ltrim($model->getUrl(), '.') ?>" target="_blank" style="text-decoration: none;">
                     <img src="<?php echo $model->getContentImage() ?>" width="318" border="0" style="display:block;"></a>
             </div>
 
             <div style="font:13px/18px arial, helvetica, sans-serif;color:#040404;">
                 <?php echo  $model->getContentText(450); ?>
                 <span style="color:#0d81d5;">
-                <a href="http://www.happy-giraffe.ru<?php echo $model->getUrl() ?>" target="_blank" style="color:#0d81d5;">Читать&nbsp;всю&nbsp;запись&nbsp;<img
+                <a href="http://www.happy-giraffe.ru<?php echo ltrim($model->getUrl(), '.') ?>" target="_blank" style="color:#0d81d5;">Читать&nbsp;всю&nbsp;запись&nbsp;<img
                     src="http://www.happy-giraffe.ru/images/mail/icon_more.gif" style="margin-left:5px;"></a>
             </span>
             </div>
@@ -56,7 +56,7 @@ $i = 0;
                     </td>
                     <td style="padding-right:15px;">
                     <span style="color:#31a4f6;font:12px arial, helvetica, sans-serif;">
-                        <a href="http://www.happy-giraffe.ru<?php echo $model->getUrl() ?>#comment_list" target="_blank" style="color:#31a4f6;font:12px arial, helvetica, sans-serif;"><img
+                        <a href="http://www.happy-giraffe.ru<?php echo ltrim($model->getUrl(), '.') ?>#comment_list" target="_blank" style="color:#31a4f6;font:12px arial, helvetica, sans-serif;"><img
                             src="http://www.happy-giraffe.ru/images/mail/icon_comments.gif"
                             style="margin-right:5px;vertical-align:top;"><?php echo $model->getArticleCommentsCount() ?></a></span>
                     </td>

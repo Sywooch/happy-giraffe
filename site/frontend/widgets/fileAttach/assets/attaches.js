@@ -260,6 +260,7 @@ Attach.prototype.showPreview = function (coords) {
     $('#photoPick .form-bottom').show();
     var rx = 72 / coords.w;
     var ry = 72 / coords.h;
+
     $('#coords_value').val(JSON.stringify(coords));
     $('#preview').css({
         width:Math.round(rx * $('#crop_target').width()) + 'px',

@@ -11,81 +11,32 @@
 ?>
 <div id="user">
 
-    <div class="header clearfix user-home">
-
-        <div class="user-name">
-            <h1><?php echo CHtml::encode($user->last_name).' '.CHtml::encode($user->first_name); ?></h1>
-            <?php if ($user->online): ?>
-                <div class="online-status online"><i class="icon"></i>Сейчас на сайте</div>
-            <?php else: ?>
-                <div class="online-status offline"><i class="icon"></i>Был на сайте <span class="date"><?php echo HDate::GetFormattedTime($user->login_date); ?></span></div>
-            <?php endif; ?>
-            <div class="location">
-                <?php if ($user->getUserAddress()->hasCity()): ?>
-                    <?=$user->getUserAddress()->getFlag(true)?><?= $user->getUserAddress()->cityName ?>
-                <?php endif; ?>
-            </div>
-            <div class="birthday"><?php if ($user->birthday): ?><span>День рождения:</span> <?=Yii::app()->dateFormatter->format("d MMMM", $user->birthday)?> (<?=$user->normalizedAge?>)<?php endif; ?></div>
-        </div>
-
-        <?php if ($user->id != Yii::app()->user->id): ?>
-            <div class="user-buttons clearfix">
-                <?php
-                $this->renderPartial('_friend_button', array(
-                    'user' => $user,
-                ));
-                Yii::app()->controller->renderPartial('_dialog_button', array(
-                    'user' => $this->user,
-                ));
-                $this->widget('site.frontend.widgets.favoritesWidget.FavouritesWidget', array('model' => $user));
-                ?>
-            </div>
-        <?php elseif(Yii::app()->user->checkAccess('manageFavourites')): ?>
-            <div class="user-buttons clearfix">
-                <?php $this->widget('site.frontend.widgets.favoritesWidget.FavouritesWidget', array('model' => $user)); ?>
-            </div>
-        <?php endif; ?>
-
-        <div class="user-nav default-nav"">
-            <?php
-                $this->widget('zii.widgets.CMenu', array(
-                    'items' => array(
-                        array(
-                            'label' => 'Анкета',
-                            'url' => array('user/profile', 'user_id' => $this->user->id),
-                        ),
-                        array(
-                            'label' => 'Семья',
-                            'visible' => $this->user->id == Yii::app()->user->id,
-                            'url' => array('/family'),
-                        ),
-                        array(
-                            'label' => 'Блог',
-                            'url' => $this->user->blogPostsCount > 0 ? array('/blog/list', 'user_id' => $this->user->id) : array('/blog/empty'),
-                            'visible' => $this->user->blogPostsCount > 0 || $this->user->id == Yii::app()->user->id,
-                        ),
-                        array(
-                            'label' => 'Фото',
-                            'url' => array('albums/user', 'id' => $this->user->id),
-                        ),
-                        array(
-                            'label' => 'Друзья',
-                            'url' => array('user/friends', 'user_id' => $this->user->id),
-                            'active' => $this->action->id == 'friends' || $this->action->id == 'myFriendRequests',
-                        ),
-                        array(
-                            'label' => 'Клубы',
-                            'url' => array('user/clubs', 'user_id' => $this->user->id),
-                        ),
-                    ),
-                ));
-            ?>
-        </div>
-    </div>
-
     <div class="user-cols clearfix">
 
         <div class="col-1">
+            <div class="user-name nofloat">
+                <h1><?php echo CHtml::encode($user->last_name).' '.CHtml::encode($user->first_name); ?></h1>
+                <?php if ($user->online): ?>
+                <div class="online-status online"><i class="icon"></i>Сейчас на сайте</div>
+                <?php else: ?>
+                <div class="online-status offline"><i class="icon"></i>Был на сайте <span class="date"><?php echo HDate::GetFormattedTime($user->login_date); ?></span></div>
+                <?php endif; ?>
+                <div class="location">
+                    <?php if ($user->getUserAddress()->hasCity()): ?>
+                    <?=$user->getUserAddress()->getFlag(true)?><?= $user->getUserAddress()->cityName ?>
+                    <?php endif; ?>
+                </div>
+                <div class="info">
+                    <p><?php if ($user->birthday): ?><span>День рождения:</span> <?=Yii::app()->dateFormatter->format("d MMMM", $user->birthday)?> (<?=$user->normalizedAge?>)<?php endif; ?></p>
+                </div>
+            <?php if(Yii::app()->user->checkAccess('manageFavourites')): ?>
+            <div class="user-buttons clearfix">
+                <?php $this->widget('site.frontend.widgets.favoritesWidget.FavouritesWidget', array('model' => $user)); ?>
+            </div>
+            <?php endif; ?>
+            </div>
+
+
             <?php
                 $htmlOptions['class'] = 'ava big ' . (($user->gender == 1) ? 'male' : 'female');
                 if ($user->getAva('big')) $htmlOptions['class'] .= ' filled';
@@ -131,10 +82,33 @@
         </div>
 
         <div class="col-23 clearfix">
+            <?php if ($user->id != Yii::app()->user->id || $user->getScores()->full == 2): ?>
 
-            <?php $this->widget('BonusWidget', array(
-                'user' => $user,
-            )); ?>
+            <div class="user-top-block clearfix">
+
+                <?php $this->renderPartial('_user_menu',compact('user')); ?>
+
+                <?php if ($user->id != Yii::app()->user->id):?>
+                    <div class="user-fast-buttons">
+                        <?php $this->renderPartial('_friend_button_big', array('user' => $user)); ?>
+
+                        <?php if (Yii::app()->user->isGuest): ?>
+                        <?= CHtml::link('<i class="icon"></i>Написать<br>сообщение', '#login', array('class' => 'new-message fancy', 'data-theme'=>"white-square")); ?>
+                        <?php else: ?>
+                        <?= CHtml::link('<i class="icon"></i>Написать<br>сообщение', $user->getDialogUrl(), array('class' => 'new-message')); ?>
+                        <?php endif ?>
+                    </div>
+
+                    <div class="user-activity-link">
+                        <a href="<?=$this->createUrl('/user/activity', array('user_id'=>$user->id)) ?>">Что нового</a>
+                    </div>
+                <?php endif ?>
+
+            </div>
+
+            <?php else: ?>
+            <?php $this->widget('BonusWidget', array('user' => $user)); ?>
+            <?php endif; ?>
 
             <div class="clearfix">
                 <div class="col-2">

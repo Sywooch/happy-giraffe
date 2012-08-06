@@ -1,4 +1,5 @@
 <div id="duel-takeapart" class="popup">
+    <a href="javascript:void(0);" class="popup-close" onclick="$.fancybox.close();">закрыть</a>
 
     <div class="activity-duel">
 

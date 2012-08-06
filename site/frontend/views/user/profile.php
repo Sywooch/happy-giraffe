@@ -91,7 +91,13 @@
                 <?php if ($user->id != Yii::app()->user->id):?>
                     <div class="user-fast-buttons">
                         <?php $this->renderPartial('_friend_button_big', array('user' => $user)); ?>
+
+                        <?php if (Yii::app()->user->isGuest): ?>
+                        <?php echo CHtml::link('<i class="icon"></i>Написать<br>сообщение', '#login', array('class' => 'new-message fancy', 'data-theme'=>"white-square")); ?>
+                        <?php else: ?>
                         <?php echo CHtml::link('<i class="icon"></i>Написать<br>сообщение', $user->getDialogUrl(), array('class' => 'new-message')); ?>
+                        <?php endif ?>
+
                     </div>
 
                     <div class="user-activity-link">

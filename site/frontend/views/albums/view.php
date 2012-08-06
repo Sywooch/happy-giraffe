@@ -37,6 +37,7 @@ $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
                         'viewData' => array(
                             'currentPage' => $dataProvider->pagination->currentPage,
                         ),
+                        'emptyText'=>'В этом альбоме у вас нет фотографий'
                     ));
 
                     $this->widget('PhotosAjaxMasonry', array(

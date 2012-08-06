@@ -45,8 +45,8 @@ if ($steps_count < 0)
                     <li class="strike">
                         <div class="num">Шаг 2</div>
                         <div class="text">Укажите вашу дату рождения</div>
-                    <div class="done"><i class="icon"></i>Сделано</div>
-                </li>
+                        <div class="done"><i class="icon"></i>Сделано</div>
+                    </li>
                     <?php else: ?>
                     <li>
                         <div class="num">Шаг 2</div>
@@ -60,19 +60,20 @@ if ($steps_count < 0)
                         <div class="num">Шаг 3</div>
                         <div class="text">Укажите ваше место жительства</div>
                         <div class="done"><i class="icon"></i>Сделано</div>
-                </li>
+                    </li>
                     <?php else: ?>
-                    <div class="num">Шаг 3</div>
-                    <div class="text"><a href="#firstStepsLocation" class="fancy">Укажите ваше место жительства</a></div>
-                    <div class="done">
-                    </div>
+                    <li>
+                        <div class="num">Шаг 3</div>
+                        <div class="text"><a href="#firstStepsLocation" class="fancy">Укажите ваше место жительства</a></div>
+                        <div class="done"></div>
+                    </li>
                     <?php endif ?>
 
                     <?php if ($userScore->stepComplete(ScoreAction::ACTION_PROFILE_PHOTO)):?>
                     <li class="strike">
                         <div class="num">Шаг 4</div>
                         <div class="text">Загрузите ваше главное фото</div>
-                            <div class="done"><i class="icon"></i>Сделано</div>
+                        <div class="done"><i class="icon"></i>Сделано</div>
                     </li>
                     <?php else: ?>
                     <li>
@@ -86,7 +87,7 @@ if ($steps_count < 0)
                     <li class="strike">
                         <div class="num">Шаг 5</div>
                         <div class="text">Расскажите о вашей семье</div>
-                            <div class="done"><i class="icon"></i>Сделано</div>
+                        <div class="done"><i class="icon"></i>Сделано</div>
                     </li>
                     <?php else: ?>
                     <li>

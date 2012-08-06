@@ -15,7 +15,7 @@ class MailCommand extends CConsoleCommand
 
         $articles = Favourites::model()->getWeekPosts();
         $contents = $this->renderFile(Yii::getPathOfAlias('site.common.tpl.weeklyNews').'.php', array('models'=>$articles), true);
-        $vals = Yii::app()->mc->sendWeeklyNews('самое свежее на этой неделе', $contents);
+        $vals = Yii::app()->mc->sendWeeklyNews('Веселый Жираф - самое интересное за неделю', $contents);
 
         if (Yii::app()->mc->api->errorCode){
             echo "Batch Subscribe failed!\n";

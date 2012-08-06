@@ -215,7 +215,7 @@
                                 <?php if ($img = $c->contentImage): ?>
                                     <div class="img"><?=CHtml::link(CHtml::image($img), $c->url)?></div>
                                 <?php endif; ?>
-                                <?php if ($content = $c->contentText): ?>
+                                <?php if ($content = $c->getContentText(400)): ?>
                                     <div class="content">
                                         <p><?=$content?> &nbsp; <?=CHtml::link('Читать', $c->url)?></p>
                                     </div>
@@ -243,7 +243,7 @@
                     <ul>
                         <?php foreach ($period->communities as $c): ?>
                             <li>
-                                <div class="img club-img kids">
+                                <div class="img club-img <?=$c->css_class ?>">
                                     <?=CHtml::link(CHtml::image('/images/club_img_' . $c->id . '.png'), $c->url)?>
                                 </div>
                                 <div class="text">

@@ -17,7 +17,7 @@ $(function(){
 
           var i = 0;
 
-          album.find('.album-photos li:not(.more) img').each(function(){
+          album.find('.album-photos li:not(.more) a').each(function(){
 
               if (i == 0) min = max = $(this).height();
 

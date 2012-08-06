@@ -35,11 +35,13 @@ class Mandrill extends CApplicationComponent
         );
         if (in_array($action, array('newMessages'))) {
             $commonData['template_name'] = $action;
+            $apiAction = 'messages/send-template.json';
         } else {
             $commonData['message']['html'] = file_get_contents(Yii::getPathOfAlias('site.common.tpl') . DIRECTORY_SEPARATOR . $action . '.php');
+            $apiAction = 'messages/send.json';
         }
         $data = CMap::mergeArray($commonData, $this->$action($user, $params));
-        $res = $rest->post('messages/send.json', $data);
+        $res = $rest->post($apiAction, $data);
         $res = CJSON::decode($res);
         return $res[0]['status'] != 'error';
     }
@@ -54,11 +56,15 @@ class Mandrill extends CApplicationComponent
                 ),
             ),
             'message' => array(
-                'subject' => 'Напоминание пароля - Весёлый Жираф',
+                'subject' => 'Вам пришли сообщения - Весёлый Жираф',
                 'global_merge_vars' => array(
                     array(
                         'name' => 'USERNAME',
                         'content' => $user->fullName,
+                    ),
+                    array(
+                        'name' => 'TOKEN',
+                        'content' => $params['token']->content,
                     ),
                 ),
             ),

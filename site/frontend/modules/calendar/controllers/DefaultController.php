@@ -2,6 +2,10 @@
 
 class DefaultController extends HController
 {
+
+    /**
+     * @sitemap dataSource=getSitemapUrls
+     */
 	public function actionIndex($calendar, $slug = null)
 	{
         $criteria = new CDbCriteria;
@@ -25,4 +29,37 @@ class DefaultController extends HController
         $this->pageTitle = $calendarTitle . ' - ' . $period->title;
         $this->render('index', compact('period', 'periods'));
 	}
+
+    public function getSitemapUrls()
+    {
+        $data = array(
+            array(
+                'params' => array(
+                    'calendar' => 0,
+                ),
+            ),
+            array(
+                'params' => array(
+                    'calendar' => 1,
+                ),
+            ),
+        );
+
+        $models = Yii::app()->db->createCommand()
+            ->select('calendar, slug')
+            ->from('calendar__periods')
+            ->queryAll();
+        foreach ($models as $model)
+        {
+            $data[] = array(
+                'params' => array(
+                    'calendar' => $model['calendar'],
+                    'slug' => $model['slug'],
+                ),
+                'priority' => 0.5,
+                'changefreq' => 'daily',
+            );
+        }
+        return $data;
+    }
 }

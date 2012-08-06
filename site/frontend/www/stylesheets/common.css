@@ -166,7 +166,7 @@ a.info {display:inline-block;width:13px;height:13px;background:url(../images/com
 
 .ava.big {width:240px;height:240px;background-position:0 -480px;float:none;}
 .ava.big, .ava.big img {/*css3*/ -moz-border-radius:0px;-webkit-border-radius:0px;border-radius:0px;}
-.ava.big img {width:auto;height:auto;}
+.ava.big img {width:auto;height:auto;display:block;margin:auto;}
 .ava.big.female {background-position:0 -240px;}
 .ava.big.male {background-position:0 0;}
 
@@ -196,10 +196,11 @@ a.info {display:inline-block;width:13px;height:13px;background:url(../images/com
 
 .user-fast-nav {font-size:11px;font-family:tahoma, arial, helvetica, sans-serif;color:#a4cce8;clear:left;margin-bottom:12px;margin-left:15px;line-height;12px;}
 .user-fast-nav .more {text-decoration:none;border-bottom:1px dashed #029AD2;}
+
 .user-fast-nav > ul {list-style:none;}
 .user-fast-nav > ul > li {float:left;padding-left:5px;margin-left:5px;border-left:1px solid #a4cce8;}
 .user-fast-nav > ul > li:first-child {border-left:0;margin-left:0;padding-left:0;}
-
+.user-fast-nav .drp-list {font-size:11px;}
 
 .user-info-big {margin-bottom:25px;}
 .user-info-big .ava, .user-info-big .details {margin-bottom:10px;}
@@ -420,10 +421,10 @@ input[type=text].error , input[type=password].error , textarea.error {border:1px
 a.left-str { background: url(../images/str.png) no-repeat; background-position: center right;}
 a.bot-str { background: url(../images/str-bot.png) no-repeat; background-position: center right;}
 
-
+.meta {margin-top:10px;}
 .meta .views {margin-right:10px;color:#737575;font-family:arial, helvetica, sans-serif;font-size:12px;}
 .meta .views .icon {display:inline-block;width:24px;height:13px;background:url(/images/common.png) no-repeat -199px -275px;vertical-align:middle;position:relative;top:-2px;margin-right:3px;}
-.meta .comments {margin-right:10px;}
+.meta .comments {margin-right:10px;font-weight:normal !important;}
 .meta .comments .icon {display:inline-block;width:20px;height:17px;background:url(/images/common.png) no-repeat -225px -275px;vertical-align:middle;margin-right:3px;}
 
 
@@ -804,8 +805,9 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 #galleryUploadPhotos .upload-files-list li.not-loaded .img {display:none;}
 #galleryUploadPhotos .upload-files-list li.upload-done .loading {display:none;}
 #galleryUploadPhotos .upload-files-list li .img img {max-height:110px;max-width:130px;display:block;}
-#galleryUploadPhotos .upload-files-list li .remove {display:block;width:10px;height:12px;background:url(/images/common.png) no-repeat -315px -136px;position:absolute;right:5px;top:5px;}
-#galleryUploadPhotos .upload-files-list li .remove:hover {background-position:-315px -149px;}
+#galleryUploadPhotos .upload-files-list li .actions {background:#fff;background:rgba(255, 255, 255, .8);width:100%;height:18px;padding:3px 0;position:absolute;left:0;top:0;text-align:right;display:none;}
+#galleryUploadPhotos .upload-files-list li .img:hover .actions {display:block;}
+#galleryUploadPhotos .upload-files-list li .remove {display:block;width:10px;height:12px;background:url(/images/common.png) no-repeat -315px -149px;position:absolute;right:5px;top:5px;}
 #galleryUploadPhotos .upload-files-list li .loading {display:block;height:77px;border:1px solid #efe5f8;width:120px;position:relative;font-size:9px;color:#9f83bb; line-height:1.2;}
 #galleryUploadPhotos .upload-files-list li .loading .progress-bar {width:100px;margin:0 auto;background:#ede4f4;margin-top:5px;}
 #galleryUploadPhotos .upload-files-list li .loading .progress-bar div {height:4px;background:#b695ce;}
@@ -1456,9 +1458,10 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 
 #gallery .gallery-album {margin-bottom:40px;}
 
-#gallery .gallery-album .album-title {font-size:18px;margin-bottom:5px;}
+#gallery .gallery-album .album-title {font-size:18px;margin-bottom:10px;font-weight:bold;}
+#gallery .gallery-album .album-title .btn {margin-left:25px;}
 
-#gallery .gallery-album .album-description {margin-bottom:20px;font-size:11px;font-family:tahoma, arial, helvetica, sans-serif;}
+#gallery .gallery-album .album-description {margin-bottom:15px;font-size:11px;font-family:tahoma, arial, helvetica, sans-serif;}
 
 #gallery .gallery-album .album-photos ul {list-style:none;}
 #gallery .gallery-album .album-photos ul li {float:left;margin:0 20px 20px 0;width:210px;}
@@ -1684,6 +1687,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 .default-comments > ul > li:first-child {border-top:0;}
 .default-comments li .comment-in {padding:10px;}
 .default-comments li .header {padding-bottom:8px;}
+.default-comments li .header .user-info {float:none;}
 .default-comments li .header .user-info .details .username:hover {text-decoration:underline;}
 .default-comments li .content {font-size:12px;}
 .default-comments li .content p {color:#232222;margin:5px 0;}
@@ -1723,7 +1727,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 
 .default-comments .comments-meta {padding-bottom:3px;border-bottom:1px solid #cdecff;}
 .default-comments .comments-meta .btn {margin-top:5px;}
-.default-comments .comments-meta .title {float:left;height:36px;line-height:36px;background:#cdecff;padding:0 15px;color:#4c4d4d;font-size:16px;}
+.default-comments .comments-meta .title {float:left;height:36px;line-height:36px;background:#cdecff;padding:0 15px;color:#252525;font-size:22px;}
 .default-comments .comments-meta .count {font:bold 36px/1 tahoma, arial, sans-serif;color:#cdecff;float:left;margin-top:-2px;}
 .default-comments .comments-meta .avg-rating {margin-left:275px;line-height:25px;padding-top:8px;font-size:12px;color:#4EAFC2;}
 .default-comments .comments-meta .avg-rating  .rating {height:25px;display:inline-block;vertical-align:top;margin-left:5px;overflow:hidden;}
@@ -1999,11 +2003,12 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 
 /* interests */
 
+.interests-list {display:inline-block;vertical-align:middle;max-width:150px;}
 .interests-list ul {display:none;}
 .interests-list ul.active {display:block;}
 
 
-.interest-cat {margin-left:10px;margin-bottom:10px;color:#414142;font-family:tahoma, arial, helvetica, sans-serif;font-size:11px;}
+.interest-cat {color:#414142;font-family:tahoma, arial, helvetica, sans-serif;font-size:11px;display:inline-block;vertical-align:middle;}
 .interest-cat a {display:block;text-decoration:none;color:#414142;}
 .interest-cat .img {display:inline-block;text-align:center;vertical-align:middle;margin-right:10px;}
 .interest-cat .text {display:inline-block;width:150px;vertical-align:middle;}
@@ -2014,7 +2019,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 
 /* interests */
 
-.interest {display:inline-block;height:22px;line-height:20px;padding:0px 8px 0 16px;font-size:13px;color:#575757;background:#d3eafc url(/images/interest.gif) no-repeat left;margin:5px 5px 5px 0;white-space:nowrap;text-decoration:none;}
+.interest {display:inline-block;height:14px;line-height:14px;padding:0px 5px 0 9px;font-size:9px;color:#575757;background:#ecddfc url(/images/interest.gif) no-repeat left;margin:4px 4px 4px 0;white-space:nowrap;text-decoration:none;}
 
 .interest {-moz-border-radius:0 4px 4px 0;-webkit-border-radius:0 4px 4px 0;border-radius:0 4px 4px 0;behavior: url(/stylesheets/PIE.htc);}
 
@@ -2061,13 +2066,13 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 
 /* services-list */
 
-.services-list {}
-.services-list ul {list-style:none;}
-.services-list ul li {padding-bottom:40px;}
+.services-list {margin-bottom:20px;margin-top:40px;}
+.services-list .block-title {font-size:18px;color:#0281b0;font-weight:bold;}
+.services-list ul {list-style:none;margin-bottom:50px;}
+.services-list ul li {display:inline-block;width:44%;padding-right:5%;vertical-align:top;margin-top:25px;}
 .services-list ul li .img {float:left;}
-.services-list ul li .text {margin-left:200px;}
-.services-list ul li .title {font-size:18px;margin-bottom:10px;}
-.services-list ul li .text p {font-size:12px;color:#1f1f1f;}
+.services-list ul li .text {margin-left:120px;}
+.services-list ul li .item-title {font-size:14px;font-family:tahoma, arial, helvetica, sans-serif;font-weight:bold;margin-bottom:10px;}
 
 /* services-list */
 
@@ -2488,17 +2493,24 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 .activity-find-friend ul li:first-child {border-left:0;}
 .activity-find-friend ul li .user-info {}
 .activity-find-friend ul li .user-info .details .username {width:100px;}
-.activity-find-friend ul li .info {font-family:tahoma, arial, helvetica, sans-serif;font-size:11px;line-height:13px;}
-.activity-find-friend ul li .info span {color:#9f9e9e;}
+.activity-find-friend ul li .info {font-family: arial, helvetica, sans-serif;font-size:13px;line-height:13px;}
 .activity-find-friend ul li .info p {margin:10px 0;}
-.activity-find-friend ul li .info .interest {margin:10px 7px 0 0;}
+.activity-find-friend ul li .info p span {display:inline-block;vertical-align:middle;max-width:150px;margin-right:5px;}
+.activity-find-friend ul li .info .interest-cat, .activity-find-friend ul li .info .interests-list {margin-bottom:10px;}
 .activity-find-friend ul li .icon-kid-boy {display:inline-block;width:22px;height:21px;background:url(/images/common.png) no-repeat -557px -221px;vertical-align:middle;position:relative;top:-1px;}
 .activity-find-friend ul li .icon-kid-girl {display:inline-block;width:22px;height:21px;background:url(/images/common.png) no-repeat -580px -221px;vertical-align:middle;position:relative;top:-1px;}
 .activity-find-friend ul li .icon-kid-wait {display:inline-block;width:25px;height:22px;background:url(/images/common.png) no-repeat -629px -267px;vertical-align:middle;position:relative;top:-1px;}
 
+.activity-find-friend .user-info-big {margin-bottom:0;}
+
+.activity-find-friend .text-status {margin-left:-15px;width:auto;}
+.activity-find-friend .text-status .tale {margin-left:15px;}
+
+.activity-find-friend .interests-list {width:150px;padding:0;}
+.activity-find-friend .interests-list li {margin-bottom:0 !important;padding:0;width:auto;}
+
 #find-friend {}
-#find-friend .title {font-weight:bold;font-size:48px;color:#484848;text-align:center;margin-bottom:20px;line-height:1;}
-#find-friend .title > span {font-size:45px;font-weight:normal;color:#9e76c4;}
+#find-friend .title {font-size:35px;color:#454545;text-align:center;margin-bottom:20px;line-height:1;}
 #find-friend .title a {display:inline-block;width:76px;height:78px;background:url(/images/more_friend.png) no-repeat;text-align:center;font-size:13px;font-weight:normal;text-decoration:none;color:#5488d0;vertical-align:middle;margin-left:20px;float:none;margin-top:0;}
 #find-friend .title a span {border-bottom:1px dashed #5488d0;position:relative;top:28px;}
 #find-friend .title a:hover span {border:0;}

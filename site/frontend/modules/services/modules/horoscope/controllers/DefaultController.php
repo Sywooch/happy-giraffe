@@ -52,9 +52,11 @@ class DefaultController extends HController
         if ($model === null)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
-        $this->title = 'Гороскоп ' . $model->zodiacText() . ' на вчера';
+        $this->title = 'Гороскоп на вчера ' . $model->zodiacText();
         $this->breadcrumbs = array('Сервисы' => array('/'), 'Гороскоп' => array('index'), $this->title);
-        $this->pageTitle = $this->title;
+        $this->meta_title = 'Гороскоп на вчера '.$model->zodiacText().' для мужчин и женщин - Веселый Жираф';
+        $this->meta_description = 'Бесплатный гороскоп '.$model->zodiacText().' на вчера для женщин и мужчин. Познай судьбу!';
+        $this->meta_keywords = 'Гороскоп на вчера '.$model->zodiacText();
 
         $this->render('date', compact('model'));
     }
@@ -68,9 +70,11 @@ class DefaultController extends HController
         if ($model === null)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
-        $this->title = 'Гороскоп ' . $model->zodiacText() . ' на завтра';
+        $this->title = 'Гороскоп на завтра ' . $model->zodiacText();
         $this->breadcrumbs = array('Сервисы' => array('/'), 'Гороскоп' => array('index'), $this->title);
-        $this->pageTitle = $this->title;
+        $this->meta_title = 'Гороскоп на завтра '.$model->zodiacText().' для мужчин и женщин - Веселый Жираф';
+        $this->meta_description = 'Бесплатный гороскоп '.$model->zodiacText().' на завтра для женщин и мужчин. Обновляется ежедневно!';
+        $this->meta_keywords = 'Гороскоп на завтра '.$model->zodiacText().', ежедневный гороскоп '.$model->zodiacText();
 
         $this->render('date', compact('model'));
     }
@@ -82,9 +86,12 @@ class DefaultController extends HController
         if ($model === null)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
-        $this->title = 'Гороскоп ' . $model->zodiacText() . ' на ' . HDate::ruMonth(date('n')) . ' ' . date('Y') . ' года';
+        $this->title = 'Гороскоп ' . $model->zodiacText() . ' на месяц';
         $this->breadcrumbs = array('Сервисы' => array('/'), 'Гороскоп' => array('index'), $this->title);
-        $this->pageTitle = $this->title;
+        $this->meta_title = 'Гороскоп на каждый месяц '.$model->zodiacText().' - Веселый Жираф';
+        $this->meta_description = 'Бесплатный гороскоп на месяц '.$model->zodiacText().' для женщин и мужчин. Обновляется ежемесячно!';
+        $this->meta_keywords = 'Гороскоп на месяц '.$model->zodiacText().', ежемесячный гороскоп '.$model->zodiacText();
+
 
         $this->render('date', compact('model'));
     }
@@ -98,7 +105,9 @@ class DefaultController extends HController
 
         $this->title = 'Гороскоп ' . $model->zodiacText() . ' на ' . date('Y') . ' год';
         $this->breadcrumbs = array('Сервисы' => array('/'), 'Гороскоп' => array('index'), $this->title);
-        $this->pageTitle = $this->title;
+        $this->meta_title = 'Гороскоп '.$model->zodiacText().' на ' . date('Y') . ' год для женщин и мужчин – Веселый Жираф';
+        $this->meta_description = 'Бесплатный гороскоп '.$model->zodiacText().' на ' . date('Y') . ' на завтра для женщин и мужчин. Познай свою судьбу!';
+        $this->meta_keywords = 'Гороскоп на ' . date('Y') . ' год '.$model->zodiacText().', гороскоп '.$model->zodiacText().' на год';
 
         $this->render('date', compact('model'));
     }

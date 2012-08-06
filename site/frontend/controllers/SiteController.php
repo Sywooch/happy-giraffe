@@ -408,6 +408,15 @@ class SiteController extends HController
     }
 
     public function actionTest2(){
-        $this->widget('site.common.widgets.mail.NewMessagesWidget', array('user'=>Yii::app()->user->model));
+        $unread = Im::model(Yii::app()->user->id)->getUnreadMessagesCount();
+        $dialogUsers = Im::model(Yii::app()->user->id)->getUsersWithNewMessages();
+
+        $this->renderFile(Yii::getPathOfAlias('site.common.tpl.newMessages').'.php', array(
+            'user'=>Yii::app()->user->model,
+            'unread'=>$unread,
+            'dialogUsers'=>$dialogUsers,
+        ));
+//        $articles = Favourites::model()->getWeekPosts();
+//        $this->renderFile(Yii::getPathOfAlias('site.common.tpl.weeklyNews').'.php', array('models'=>$articles));
     }
 }

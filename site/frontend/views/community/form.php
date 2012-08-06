@@ -153,7 +153,7 @@ $cs
                 <div class="row-elements">
                     <div class="select-box">
                         <span class="subtitle">Клуб</span>
-                        <?php echo CHtml::dropDownList('community_id', $community_id, CHtml::listData($communities, 'id', 'title'), array('prompt' => 'Выберите клуб', 'class' => 'chzn w-200',
+                        <?php echo CHtml::dropDownList('community_id', $community_id, CHtml::listData(Yii::app()->user->model->communities, 'id', 'title'), array('prompt' => 'Выберите клуб', 'class' => 'chzn w-200',
                         'ajax' => array(
                             'type' => 'POST',
                             'url' => $this->createUrl('ajax/rubrics'),
@@ -222,11 +222,13 @@ $cs
             </div>
             <?php endif; ?>
             <div class="row row-buttons">
-                <button class="btn btn-gray-medium"><span><span>Отменить</span></span></button>
+                <button class="btn btn-gray-medium"<?php if ($model->isNewRecord) echo ' onclick="document.location.href =\''. $redirectUrl .'\';"'; ?>><span><span>Отменить</span></span></button>
                 <!--<button class="btn btn-yellow-medium"><span><span>Предпросмотр</span></span></button>-->
                 <button class="btn btn-green-medium">
                     <span><span><?php echo ($model->isNewRecord) ? 'Добавить' : 'Сохранить'; ?></span></span></button>
             </div>
+
+            <?= CHtml::hiddenField('redirectUrl', $redirectUrl) ?>
 
         </div>
         <?php $this->endWidget(); ?>

@@ -11,9 +11,14 @@ var Bonus = {
         if (response.full)
             window.location.reload();
         $('.user-name .birthday').html(response.text);
-        $('.steps-list ul li:eq(1) div.done').html('<i class=\"icon\"></i>Сделано');
         $('div.horoscope-wrapper').html(response.horoscope);
+        Bonus.closeStep(1);
         $.fancybox.close();
+    },
+    closeStep:function(i){
+        $('.steps-list ul li:eq('+i+') div.done').html('<i class=\"icon\"></i>Сделано');
+        $('.steps-list ul li:eq('+i+')').addClass('strike');
+        $('.steps-list ul li:eq('+i+') div.text').html($('.steps-list ul li:eq('+i+') div.text').text());
     },
     saveLocation:function () {
         $.ajax({
@@ -30,7 +35,7 @@ var Bonus = {
                     if (response.full)
                         window.location.reload();
 
-                    $('.steps-list ul li:eq(2) div.done').html('<i class=\"icon\"></i>Сделано');
+                    Bonus.closeStep(2);
                     $.fancybox.close();
                     $('div.weather-wrapper').html(response.weather);
                     $('div.user-name div.location').html(response.location);

@@ -89,7 +89,7 @@
         </div>
 
         <div class="spices-categories">
-            <?php $this->renderPartial('_categories', array('model' => $category)); ?>
+            <?php $this->renderPartial('_categories'); ?>
         </div>
 
     </div>

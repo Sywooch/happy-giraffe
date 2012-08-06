@@ -14,7 +14,7 @@
         <ul>
             <li>
                 <?php if ($modelName == 'BlogContent'): ?>
-                    <?php if ($model->user_id == $action['user_id']): ?>
+                    <?php if ($model->author_id == $action['user_id']): ?>
                         <div class="added-to">
                             <span>в своем блоге</span>
                         </div>

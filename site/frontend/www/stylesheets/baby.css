@@ -52,7 +52,7 @@
 #baby .need-to-know ul li .user {margin-bottom:5px;}
 #baby .need-to-know ul li .user .details {margin-left:30px;}
 #baby .need-to-know ul li .item-title {font-size:14px;font-weight:bold;margin-bottom:10px;}
-#baby .need-to-know ul li .img {margin-bottom:5px;}
+#baby .need-to-know ul li .img {margin-bottom:5px;width: 185px;}
 #baby .need-to-know ul li .content {margin-bottom:10px;font-size:11px;line-height:14px;}
 #baby .need-to-know ul li .meta {}
 #baby .need-to-know ul li .meta .views {margin-right:10px;color:#737575;font-family:arial, helvetica, sans-serif;font-size:12px;}

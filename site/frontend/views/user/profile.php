@@ -27,7 +27,7 @@
                     <?php endif; ?>
                 </div>
                 <div class="info">
-                    <p><?php if ($user->birthday): ?><span>День рождения:</span> <?=Yii::app()->dateFormatter->format("d MMMM", $user->birthday)?> (<?=$user->normalizedAge?>)<?php endif; ?></p>
+                    <p class="birthday"><?php if ($user->birthday): ?><span>День рождения:</span> <?=Yii::app()->dateFormatter->format("d MMMM", $user->birthday)?> (<?=$user->normalizedAge?>)<?php endif; ?></p>
                 </div>
             <?php if(Yii::app()->user->checkAccess('manageFavourites')): ?>
             <div class="user-buttons clearfix">

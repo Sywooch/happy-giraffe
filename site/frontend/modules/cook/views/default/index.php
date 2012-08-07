@@ -45,7 +45,7 @@
 
                     <div class="all-link">
                         <span>Смотреть</span><br/>
-                        <?=CHtml::link('все рецепты (' . $recipesCount . ')', '/cook/recipe')?>
+                        <?=CHtml::link('все рецепты (' . $recipesCount . ')', '/cook/recipe/')?>
                     </div>
 
                     <div class="add-btn">

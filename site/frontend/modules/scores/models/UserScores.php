@@ -234,6 +234,7 @@ class UserScores extends HActiveRecord
             $this->full = 1;
             $this->level_id = 1;
             UserAction::model()->add($this->user_id, UserAction::USER_ACTION_LEVELUP, 1);
+            UserAction::model()->add($this->author_id, UserAction::USER_ACTION_COMMENT_ADDED, array('model' => $this));
             $this->save();
             self::addScores($this->user_id, ScoreAction::ACTION_PROFILE_FULL);
         }

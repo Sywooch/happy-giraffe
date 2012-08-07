@@ -12,7 +12,7 @@
 
         <ul>
             <?php foreach ($this->user->communities as $c): ?>
-            <li class="club-img kids">
+            <li class="club-img <?=$c->css_class ?>">
                 <a href="<?php echo $c->url; ?>">
                     <img src="/images/club_img_<?php echo $c->position; ?>.png" />
                     <?php echo $c->title; ?>

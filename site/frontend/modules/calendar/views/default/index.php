@@ -171,7 +171,7 @@
                         <ul>
                             <?php foreach ($period->services as $s): ?>
                                 <li>
-                                    <div class="img"><?=CHtml::link(CHtml::image('/images/baby_service_img_' . $s->id . '.png'), $s->url)?></div>
+                                    <div class="img"><?=CHtml::link(CHtml::image('/images/service_img_' . $s->id . '.png'), $s->url)?></div>
                                     <div class="text">
                                         <div class="item-title"><?=CHtml::link($s->title, $s->url)?></div>
                                         <p><?=$s->description?></p>
@@ -215,9 +215,9 @@
                                 <?php if ($img = $c->contentImage): ?>
                                     <div class="img"><?=CHtml::link(CHtml::image($img), $c->url)?></div>
                                 <?php endif; ?>
-                                <?php if ($content = $c->getContentText(400)): ?>
+                                <?php if ($content = $c->getContentText(170)): ?>
                                     <div class="content">
-                                        <p><?=$content?> &nbsp; <?=CHtml::link('Читать', $c->url)?></p>
+                                        <p><?=trim($content)?> &nbsp; <?=CHtml::link('Читать', $c->url)?></p>
                                     </div>
                                 <?php endif; ?>
                                 <div class="meta">

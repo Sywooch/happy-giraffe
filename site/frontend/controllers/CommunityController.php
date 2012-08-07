@@ -149,10 +149,9 @@ class CommunityController extends HController
 
         $this->meta_title = (empty($content->meta_title)) ? $content->title : $content->title . ' \\ ' . $content->meta_title;
 
-        if ($content->author_id == Yii::app()->user->id) {
+        if ($content->author_id == Yii::app()->user->id)
             UserNotification::model()->deleteByEntity(UserNotification::NEW_COMMENT, $content);
-            UserNotification::model()->deleteByEntity(UserNotification::NEW_REPLY, $content);
-        }
+        UserNotification::model()->deleteByEntity(UserNotification::NEW_REPLY, $content);
 
         $this->breadcrumbs = array(
             'Клубы' => array('/community'),

@@ -138,6 +138,8 @@
 #user .user-friends {padding-bottom:20px;padding-left:15px;margin-top:-33px;}
 #user .user-friends ul {list-style:none;}
 #user .user-friends ul li {float:left;margin:0 15px 15px 0;}
+#user .user-friends ul li.empty .img {width:72px;height:72px;background:#f4f4f4;}
+#user .user-friends ul li.empty .img {/*css3*/ -moz-border-radius:36px;-webkit-border-radius:36px;border-radius:36px;behavior: url(/stylesheets/PIE.htc);}
 #user .user-friends ul li img {display:block;}
 #user .user-friends .more-friends .wannachat {display:inline-block;background:#a888c6;color:#fff;font:normal 15px tahoma, arial, helvetica, sans-serif;padding:3px 15px;text-decoration:none;margin-left:2px;margin-left:10px;}
 #user .user-friends .more-friends .wannachat {/*css3*/ -moz-border-radius:10px;-webkit-border-radius:10px;border-radius:10px;behavior: url(/stylesheets/PIE.htc);}
@@ -187,7 +189,8 @@
 
 #user .user-status {background:#cdecff;padding:10px 15px;position:relative;margin-bottom:20px;min-height:40px;}
 #user .user-status {/*css3*/ -moz-border-radius:10px;-webkit-border-radius:10px;border-radius:10px;behavior: url(/stylesheets/PIE.htc);}
-#user .user-status:after {display:block;content:'';width:45px;height:44px;background:url(/images/common.png) no-repeat -557px -152px;position:absolute;right:100%;top:25px;}
+#user .user-status:after {display:block;content:'';width:45px;height:44px;background:url(/images/common.png) no-repeat -557px -152px;position:absolute;right:100%;top:10px;}
+#user .user-status.toggled:after {background-position:-587px -300px;}
 #user .user-status .date {color:#b6b9ba;font-size:9px;font-family:tahoma, arial, helvetica, sans-serif;padding-bottom:8px;}
 #user .user-status p {color:#0281b0;font:italic 20px 'times new roman', 'times', arial, helvetica, sans-serif;}
 #user .user-status form {text-align:right;}
@@ -628,7 +631,7 @@
 #user-activity .activity-friend {padding-bottom:15px;}
 #user-activity .activity-friend .ava {margin-top:-42px;}
 
-#user-activity.user-friends-activity .list-item {margin-bottom:40px !important;}
+#user-activity.user-friends-activity .list-item {margin-bottom:60px !important;}
 
 #first-steps {background:#fffce4 url(/images/bg_first_steps.gif) no-repeat top;margin-bottom:38px;padding:30px 20px 10px 30px;position:relative;top:-20px;}
 

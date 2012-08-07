@@ -3,6 +3,9 @@
  * @var CommunityContent $model
  */
 $cs = Yii::app()->clientScript;
+if (!isset($redirectUrl))
+    $redirectUrl = Yii::app()->request->urlReferrer;
+
 
 $js = "
             $('#preview').click(function (e) {

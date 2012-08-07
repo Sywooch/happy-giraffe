@@ -391,7 +391,7 @@ class CommunityContent extends HActiveRecord
                     'rubric' => array(
                         'with' => array(
                             'community' => array(
-                                'select' => 'id, title',
+                                'select' => 'id, title, position',
                             )
                         ),
                     ),
@@ -631,5 +631,23 @@ class CommunityContent extends HActiveRecord
         }
 
         return $output;
+    }
+
+    public function getArticleCommentsCount()
+    {
+        if ($this->getIsFromBlog()){
+            $model = BlogContent::model()->findByPk($this->id);
+            return $model->commentsCount;
+        }
+        return $this->commentsCount;
+    }
+
+    public function getArticleComments()
+    {
+        if ($this->getIsFromBlog()){
+            $model = BlogContent::model()->findByPk($this->id);
+            return $model->comments;
+        }
+        return $this->comments;
     }
 }

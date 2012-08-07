@@ -101,7 +101,7 @@ class TaskController extends SController
 
         $url = trim(Yii::app()->request->getPost('url'));
         if (!empty($url)) {
-            preg_match("/\/([\d]+)\/$/", $url, $match);
+            preg_match("/([\d]+)\/$/", $url, $match);
             if (!isset($match[1])) {
                 echo CJSON::encode(array(
                     'status' => false,
@@ -121,15 +121,18 @@ class TaskController extends SController
             }
 
             $article_keywords = new Page();
-            $article_keywords->entity = 'CommunityContent';
+            if ($article->getIsFromBlog())
+                $article_keywords->entity = 'BlogContent';
+            else
+                $article_keywords->entity = 'CommunityContent';
             $article_keywords->entity_id = $article_id;
             $article_keywords->keyword_group_id = $task->keyword_group_id;
             $article_keywords->url = $url;
             if (!$article_keywords->save()) {
                 $errorText = '';
                 foreach ($article_keywords->getErrors() as $error) {
-                    foreach($error as $errorPart)
-                        $errorText.= $errorPart.' ';
+                    foreach ($error as $errorPart)
+                        $errorText .= $errorPart . ' ';
                 }
 
                 echo CJSON::encode(array(

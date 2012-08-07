@@ -15,7 +15,7 @@ class MailCommand extends CConsoleCommand
 
         $articles = Favourites::model()->getWeekPosts();
         $contents = $this->renderFile(Yii::getPathOfAlias('site.common.tpl.weeklyNews').'.php', array('models'=>$articles), true);
-        $vals = Yii::app()->mc->sendWeeklyNews('самое свежее на этой неделе', $contents);
+        $vals = Yii::app()->mc->sendWeeklyNews('Веселый Жираф - самое интересное за неделю', $contents);
 
         if (Yii::app()->mc->api->errorCode){
             echo "Batch Subscribe failed!\n";
@@ -67,6 +67,17 @@ class MailCommand extends CConsoleCommand
         Yii::import('site.common.models.mongo.*');
 
         Yii::app()->mc->updateUsersTest();
+    }
+
+    public function actionDeleteUsers()
+    {
+        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
+        Yii::import('site.frontend.extensions.*');
+        Yii::import('site.frontend.components.*');
+        Yii::import('site.frontend.helpers.*');
+        Yii::import('site.common.models.mongo.*');
+
+        Yii::app()->mc->deleteUsers();
     }
 }
 

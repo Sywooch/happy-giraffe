@@ -18,8 +18,8 @@
                 </div>
             <?php endif; ?>
             <div class="meta">
-                <span class="views"><i class="icon"></i><?=PageView::model()->viewsByPath($content->url)?></span>
-                <?=CHtml::link('<i class="icon"></i>' . $content->commentsCount, $content->getUrl(true), array('class' => 'comments'))?>
+                <span class="views"><i class="icon"></i><?=PageView::model()->viewsByPath($recipe->url)?></span>
+                <?=CHtml::link('<i class="icon"></i>' . $recipe->commentsCount, $recipe->getUrl(true), array('class' => 'comments'))?>
             </div>
         </li>
     </ul>

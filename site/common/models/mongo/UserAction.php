@@ -85,7 +85,7 @@ class UserAction extends EMongoDocument
                 break;
             case self::USER_ACTION_CLUBS_JOINED:
                 $community = Community::model()->findByPk($params['community_id']);
-                return $community->getAttributes(array('id', 'title'));
+                return $community->getAttributes(array('id'));
                 break;
             case self::USER_ACTION_COMMENT_ADDED:
             case self::USER_ACTION_BLOG_CONTENT_ADDED:
@@ -117,6 +117,10 @@ class UserAction extends EMongoDocument
                     'entity' => get_class($model),
                     'entity_id' => $model->id,
                 );
+            case self::USER_ACTION_LEVELUP:
+                $community = Community::model()->findByPk($params['community_id']);
+                return $community->getAttributes(array('id'));
+                break;
             default:
                 return $params;
         }

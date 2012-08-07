@@ -3,13 +3,13 @@
     <?=$this->renderPartial('activity/_activity_friend', array('user_id' => $action['user_id'], 'type' => $type))?>
 
     <div class="box-title"><?=($users[$action->user_id]->gender == 1) ? 'Вступил' : 'Вступила'?> в клубы</div>
-
     <ul>
         <?php foreach ($action->data as $club): ?>
-            <li class="club-img kids">
+            <?php $community = Community::model()->findByPk($club['id']) ?>
+            <li class="club-img <?=$community->css_class ?>">
                 <a href="<?=$this->createUrl('/community/list', array('community_id'=>$club['id'])) ?>">
-                    <img src="/images/club_img_<?=isset($club['position'])?$club['position']:$club['id']?>.png">
-                    <span><?=$club['title']?></span>
+                    <img src="/images/club_img_<?=$community->position?>.png">
+                    <span><?=$community->title?></span>
                 </a>
             </li>
         <?php endforeach; ?>

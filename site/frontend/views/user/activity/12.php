@@ -30,7 +30,7 @@
                     <div class="item-title"><?=CHtml::link($model->title, $model->url)?></div>
                 <?php elseif ($modelName == 'CommunityContent'): ?>
                     <div class="added-to">
-                        <span>в клубе</span> <a href="<?=$model->rubric->community->url?>" class="club-img home small inline"><img src="/images/club_img_<?=$model->rubric->community->position?>.png" /><?=$model->rubric->community->title?></a>
+                        <span>в клубе</span> <span><a href="<?=$model->rubric->community->url?>" class="club-img home small inline"><img src="/images/club_img_<?=$model->rubric->community->position?>.png" /><?=$model->rubric->community->title?></a></span>
                     </div>
                     <div class="item-title"><?=CHtml::link($model->title, $model->url)?></div>
                 <?php elseif ($modelName == 'CookRecipe'): ?>

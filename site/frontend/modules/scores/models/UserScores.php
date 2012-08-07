@@ -233,8 +233,7 @@ class UserScores extends HActiveRecord
         if ($this->getStepsCount() >= 6) {
             $this->full = 1;
             $this->level_id = 1;
-            UserAction::model()->add($this->user_id, UserAction::USER_ACTION_LEVELUP, 1);
-            UserAction::model()->add($this->author_id, UserAction::USER_ACTION_COMMENT_ADDED, array('model' => $this));
+            UserAction::model()->add($this->user_id, UserAction::USER_ACTION_LEVELUP, array('level_id' => 1));
             $this->save();
             self::addScores($this->user_id, ScoreAction::ACTION_PROFILE_FULL);
         }

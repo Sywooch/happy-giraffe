@@ -207,4 +207,26 @@ class SiteCommand extends CConsoleCommand
         $criteria->created('<', strtotime('-1 month'));
         UserNotification::model()->deleteAll($criteria);
     }
+
+    public function actionFix(){
+        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
+        Yii::import('site.frontend.extensions.*');
+        Yii::import('site.frontend.components.*');
+        Yii::import('site.frontend.helpers.*');
+        Yii::import('site.common.models.mongo.*');
+
+        $criteria = new EMongoCriteria();
+        $criteria->type('==', UserAction::USER_ACTION_LEVELUP);
+        $actions = UserAction::model()->findAll($criteria);
+        $users = array();
+        foreach($actions as $action){
+            $action->data = array('level_id'=>1);
+            if (!in_array($action->user_id, $users)){
+                $users[] = $action->user_id;
+                $action->save();
+            }
+            else
+                $action->delete();
+        }
+    }
 }

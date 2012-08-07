@@ -13,7 +13,7 @@ else {
 }
 ?>
 <?php if (! $this->small): ?>
-    <div class="user-info clearfix">
+    <div class="user-info clearfix<?php if ($this->size == 'ava') echo ' medium' ?>">
 <?php endif; ?>
     <?=HHtml::link($this->user->getAva($this->size)?CHtml::image($this->user->getAva($this->size)):'', $link_to_profile, array('class'=>$class), true)?>
 <?php if (!$this->small): ?>

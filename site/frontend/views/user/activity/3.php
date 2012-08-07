@@ -7,8 +7,8 @@
     <ul>
         <?php foreach ($action->data as $club): ?>
             <li class="club-img kids">
-                <a href="">
-                    <img src="/images/club_img_<?=$club['id']?>.png">
+                <a href="<?=$this->createUrl('/community/list', array('community_id'=>$club['id'])) ?>">
+                    <img src="/images/club_img_<?=$club['position']?>.png">
                     <span><?=$club['title']?></span>
                 </a>
             </li>

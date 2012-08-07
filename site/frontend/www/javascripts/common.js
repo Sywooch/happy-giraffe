@@ -500,12 +500,14 @@ function firstStepsToggle(el){
 			$(el).find('span').html($(el).data('title'));
 			$(el).prev('.bonus').toggle();
 			$(el).removeClass('toggled');
+			$('.user-status').removeClass('toggled');
 		});
 	} else {
 		box.slideDown(function(){
 			$(el).find('span').html($(el).data('close'));
 			$(el).prev('.bonus').toggle();
 			$(el).addClass('toggled');
+			$('.user-status').addClass('toggled');
 		});
 	}
 	

@@ -391,7 +391,7 @@ class CommunityContent extends HActiveRecord
                     'rubric' => array(
                         'with' => array(
                             'community' => array(
-                                'select' => 'id, title',
+                                'select' => 'id, title, position',
                             )
                         ),
                     ),

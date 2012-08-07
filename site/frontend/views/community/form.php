@@ -60,6 +60,10 @@ $cs
         'clientOptions' => array(
             'validateOnSubmit' => true,
             'validateOnChange' => false,
+            'beforeValidate'=>'js:function(form){
+                        $(".row-elements textarea").val(CKEDITOR.instances["CommunityPost[text]"].getData());
+                        return true;
+                    }'
         ),
     )); ?>
         <?php echo $form->errorSummary(array($model, $slave_model)); ?>

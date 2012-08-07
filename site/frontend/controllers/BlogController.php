@@ -174,10 +174,9 @@ class BlogController extends HController
         $this->user = $content->author;
         $this->rubric_id = $content->rubric->id;
 
-        if ($content->author_id == Yii::app()->user->id) {
+        if ($content->author_id == Yii::app()->user->id)
             UserNotification::model()->deleteByEntity(UserNotification::NEW_COMMENT, $content);
-            UserNotification::model()->deleteByEntity(UserNotification::NEW_REPLY, $content);
-        }
+        UserNotification::model()->deleteByEntity(UserNotification::NEW_REPLY, $content);
 
         $this->render('view', array(
             'data' => $content,

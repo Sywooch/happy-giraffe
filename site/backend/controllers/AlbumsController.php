@@ -172,10 +172,9 @@ class AlbumsController extends BController
         $photo = AlbumPhoto::model()->findByPk($id);
         $this->user = $photo->author;
 
-        if ($photo->author_id == Yii::app()->user->id) {
+        if ($photo->author_id == Yii::app()->user->id)
             UserNotification::model()->deleteByEntity(UserNotification::NEW_COMMENT, $photo);
-            UserNotification::model()->deleteByEntity(UserNotification::NEW_REPLY, $photo);
-        }
+        UserNotification::model()->deleteByEntity(UserNotification::NEW_REPLY, $photo);
 
         if (!Yii::app()->request->isAjaxRequest)
             $this->render('photo', compact('photo'));

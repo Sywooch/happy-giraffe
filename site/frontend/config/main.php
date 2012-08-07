@@ -56,7 +56,8 @@ return array(
         'application.modules.geo.models.*',
         'application.modules.scores.models.*',
         'application.modules.calendar.models.*',
-	),
+        'application.modules.cook.models.*'
+    ),
 
 	'sourceLanguage' => 'en',
 	'language' => 'ru',

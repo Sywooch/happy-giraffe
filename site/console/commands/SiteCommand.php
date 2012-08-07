@@ -195,4 +195,16 @@ class SiteCommand extends CConsoleCommand
             $offset += $limit;
         }
     }
+
+    public function actionRemoveOldNotifications(){
+        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
+        Yii::import('site.frontend.extensions.*');
+        Yii::import('site.frontend.components.*');
+        Yii::import('site.frontend.helpers.*');
+        Yii::import('site.common.models.mongo.*');
+
+        $criteria = new EMongoCriteria();
+        $criteria->created('<', strtotime('-1 month'));
+        UserNotification::model()->deleteAll($criteria);
+    }
 }

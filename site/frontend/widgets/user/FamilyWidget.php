@@ -5,6 +5,7 @@
  */
 class FamilyWidget extends UserCoreWidget
 {
+    public $showEmpty = false;
     public function init()
     {
         parent::init();

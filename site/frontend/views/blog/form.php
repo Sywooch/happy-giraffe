@@ -25,6 +25,9 @@
     ";
 
     $cs->registerScript('chnage_rubric_title', $js);
+
+if (!isset($redirectUrl))
+    $redirectUrl = Yii::app()->request->urlReferrer;
 ?>
 
 <div class="add-nav default-nav clearfix">

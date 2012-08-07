@@ -12,7 +12,7 @@
                                 <img width="300" src="<?php echo $src; ?>" id="crop_target">
                             </td>
                             <td class="preview">
-                                <div class="img"><img src="<?php echo $src; ?>" id="preview"></div>
+                                <div class="img"><img src="<?php echo $src; ?>" id="preview" style="max-width: none !important;"></div>
                                 <div class="note">Так увидят Ваше фото другие посетители сайта</div>
                             </td>
                         </tr>

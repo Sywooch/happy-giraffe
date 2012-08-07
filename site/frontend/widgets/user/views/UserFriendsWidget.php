@@ -17,6 +17,9 @@
             <?php foreach ($friends as $f): ?>
                 <li><?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => $f, 'small' => true)); ?></li>
             <?php endforeach; ?>
+            <?php for($i=count($friends); $i < 6;$i++): ?>
+                <li><div class="img"></div></li>
+            <?php endfor; ?>
         </ul>
 
         <div class="more-friends"><?=CHtml::link('Найти ещё друзей', array('/activity/friends'))?><?php if (! Yii::app()->user->isGuest && ! WantToChat::hasCooldown(Yii::app()->user->id)): ?> <a href="" class="wannachat" onclick="WantToChat.send(this); return false;">Хочу общаться!</a><?php endif; ?></div>

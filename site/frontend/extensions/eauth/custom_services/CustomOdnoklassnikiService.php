@@ -35,7 +35,8 @@ class CustomOdnoklassnikiService extends OdnoklassnikiOAuthService {
                 'access_token' => $this->access_token,
             ),
         ));
-
+        var_dump($info);
+        Yii::app()->end();
         $this->attributes['id'] = $info->uid;
         $this->attributes['name'] = $info->first_name.' '.$info->last_name;
         $this->attributes['first_name'] = $info->first_name;

@@ -34,8 +34,8 @@ class SignupController extends HController
                 );
             }
 
-			$authIdentity->redirect();
-		}else{
+            $authIdentity->redirect();
+        } else {
             $regdata = Yii::app()->user->getFlash('regdata');
 
             if (empty($regdata))
@@ -54,34 +54,31 @@ class SignupController extends HController
 
             $this->registerUserModel = $model;
 
-            $this->render('/site/home',array('user'=>Yii::app()->user));
+            $this->render('/site/home', array('user' => Yii::app()->user));
         }
-	}
-	
-	public function actionFinish()
-	{
-		$session = Yii::app()->session;
-		$model = new User('signup');
-	
-		if(isset($_POST['User']))
-		{
-			$model->attributes=$_POST['User'];
-            if (isset($_POST['User']['day']) && isset($_POST['User']['month']) && isset($_POST['User']['year'])){
-               $model->birthday = $_POST['User']['year'].'-'.str_pad($_POST['User']['month'], 2, '0', STR_PAD_LEFT).'-'.str_pad($_POST['User']['day'], 2, '0', STR_PAD_LEFT);
+    }
+
+    public function actionFinish()
+    {
+        $session = Yii::app()->session;
+        $model = new User('signup');
+
+        if (isset($_POST['User'])) {
+            $model->attributes = $_POST['User'];
+            if (isset($_POST['User']['day']) && isset($_POST['User']['month']) && isset($_POST['User']['year'])) {
+                $model->birthday = $_POST['User']['year'] . '-' . str_pad($_POST['User']['month'], 2, '0', STR_PAD_LEFT) . '-' . str_pad($_POST['User']['day'], 2, '0', STR_PAD_LEFT);
             }
-			$current_service = $session['service'];
-			if ($current_service)
-			{
-				$service = new UserSocialService;
-				$service->setAttributes(array(
-					'service' => $current_service['name'],
-					'service_id' => $current_service['id'],
-				));
-				$model->social_services = array($service);
-			}
-			$model->register_date = date('Y-m-d H:i:s');
-			if($model->save(true, array('first_name', 'last_name', 'password', 'email', 'gender', 'birthday')))
-			{
+            $current_service = $session['service'];
+            if ($current_service) {
+                $service = new UserSocialService;
+                $service->setAttributes(array(
+                    'service' => $current_service['name'],
+                    'service_id' => $current_service['id'],
+                ));
+                $model->social_services = array($service);
+            }
+            $model->register_date = date('Y-m-d H:i:s');
+            if ($model->save(true, array('first_name', 'last_name', 'password', 'email', 'gender', 'birthday'))) {
                 if (!empty($model->birthday))
                     UserScores::checkProfileScores($model->id, ScoreAction::ACTION_PROFILE_BIRTHDAY);
 
@@ -130,7 +127,7 @@ class SignupController extends HController
                     'password' => $_POST['User']['password'],
                     'code' => $model->confirmationCode,
                 ));
-				unset($session['service']);
+                unset($session['service']);
                 $identity = new UserIdentity($model->getAttributes());
                 $identity->authenticate();
                 Yii::app()->user->login($identity);
@@ -139,16 +136,15 @@ class SignupController extends HController
                 $model->save(false);
 
                 $redirectUrl = Yii::app()->user->getState('redirectUrl');
-                if (!empty($redirectUrl)){
+                if (!empty($redirectUrl)) {
                     $url = $redirectUrl;
                     Yii::app()->user->setState('redirectUrl', null);
-                }
-                else
-                    $url = Yii::app()->createAbsoluteUrl('user/profile', array('user_id'=>$model->id));
+                } else
+                    $url = Yii::app()->createAbsoluteUrl('user/profile', array('user_id' => $model->id));
 
-                    echo CJSON::encode(array(
+                echo CJSON::encode(array(
                     'status' => true,
-                    'profile'=>$url
+                    'profile' => $url
                 ));
                 Yii::app()->end();
             }
@@ -160,12 +156,25 @@ class SignupController extends HController
     {
         $steps = array(
             array('email'),
-            array('first_name', 'last_name', 'password', 'gender', 'email'),
+            array('first_name', 'last_name', 'password', 'gender', 'email', 'birthday'),
         );
 
-        $model = new User('signup');
-        $model->setAttributes($_POST['User']);
+        if (isset($_POST['form_type']) && $_POST['form_type'] == 'horoscope') {
+            $model = new User('signup_full');
+        } else
+            $model = new User('signup');
 
-        echo CActiveForm::validate($model, $steps[$step - 1]);
+        $model->setAttributes($_POST['User']);
+        if (isset($_POST['User']['day']) && isset($_POST['User']['month']) && isset($_POST['User']['year'])
+            && !empty($_POST['User']['day']) && !empty($_POST['User']['month']) && !empty($_POST['User']['year'])
+        ) {
+            $model->birthday = $_POST['User']['year'] . '-' . str_pad($_POST['User']['month'], 2, '0', STR_PAD_LEFT) . '-' . str_pad($_POST['User']['day'], 2, '0', STR_PAD_LEFT);
+        }
+
+        $model->validate($steps[$step - 1]);
+        $result = array();
+        foreach ($model->getErrors() as $attribute => $errors)
+            $result[CHtml::activeId($model, $attribute)] = $errors;
+        echo CJSON::encode($result);
     }
 }

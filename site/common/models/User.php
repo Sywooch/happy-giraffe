@@ -182,10 +182,11 @@ class User extends HActiveRecord
             array('password', 'passwordValidator', 'on' => 'login'),
 
             //signup
-            array('first_name, last_name, email, password', 'required', 'on' => 'signup', 'message'=>'Поле является обязательным'),
-            array('gender', 'required', 'on' => 'signup', 'message'=>'укажите свой пол'),
-            array('email', 'unique', 'on' => 'signup'),
-            array('first_name, last_name, gender, birthday, photo', 'safe', 'on' => 'signup'),
+            array('first_name, last_name, email, password', 'required', 'on' => 'signup,signup_full', 'message'=>'Поле является обязательным'),
+            array('birthday', 'required', 'on' => 'signup_full', 'message'=>'Поле является обязательным'),
+            array('gender', 'required', 'on' => 'signup,signup_full', 'message'=>'укажите свой пол'),
+            array('email', 'unique', 'on' => 'signup,signup_full'),
+            array('first_name, last_name, gender, birthday, photo', 'safe', 'on' => 'signup,signup_full'),
 
             //change_password
             array('new_password', 'required', 'on' => 'change_password'),

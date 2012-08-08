@@ -19,7 +19,10 @@ class CustomMailruService extends MailruOAuthService {
 				'app_id' => $this->client_id,
 			),
 		));
-		
+
+        var_dump($info);
+        Yii::app()->end();
+
 		$info = $info[0];
 		
 		$this->attributes['id'] = $info->uid;

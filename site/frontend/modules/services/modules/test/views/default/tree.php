@@ -72,7 +72,7 @@
 
 <?php endforeach; ?>
 </div>
-
+<br><br>
 <div class="wysiwyg-content">
     <?php echo $test->text ?>
 </div>

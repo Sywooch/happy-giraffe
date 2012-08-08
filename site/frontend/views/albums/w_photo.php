@@ -34,7 +34,7 @@
 
     <div class="top-line clearfix">
 
-        <a onclick="$.fancybox.close();" href="javascript:void(0);" class="popup-close">закрыть</a>
+        <a onclick="$.fancybox.close();" href="javascript:void(0);" class="close">закрыть</a>
 
         <div class="user">
             <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array(

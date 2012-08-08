@@ -758,7 +758,7 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 #photoPick .photo-title label {font-size:16px;font-style:italic;font-family:arial, helvetica, sans-serif;color:#898888;margin-left:11px;display:inline-block;margin-bottom:8px;}
 #photoPick .photo-title label span {color:#b6b5b5;font-size:11px;font-style:normal;}
 #photoPick .photo-title input[type=text]{border-color:#dbcfe7;height:auto;padding:0px 10px;color:#333;font-size:12px;font-weight:normal;}
-#photoPick .photo-title textarea {border-color:#dbcfe7;height:auto;padding:5px 10px;color:#333;font-size:12px;font-weight:normal;height:90px;width:340px;}
+#photoPick .photo-title textarea {border:1px solid #DBCFE7;height:auto;padding:5px 10px;color:#333;font-size:12px;font-weight:normal;height:90px;width:340px;}
 
 #photoPick .photo-title select {width:220px}
 

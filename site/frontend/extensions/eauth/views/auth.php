@@ -21,7 +21,7 @@
                     echo '<li>';
                     $html = '<div class="line-title">' . $service->title . '</div>';
                     $link_text = '<span class="auth-icon ' . $service->id . '"><i></i></span>';
-                    $html .= HHtml::link($link_text, array($action, 'service' => $name), array(
+                    $html .= HHtml::link($link_text, array('/'.$action, 'service' => $name), array(
                         'class' => 'auth-link ' . $service->id,
                     ), true);
                 }

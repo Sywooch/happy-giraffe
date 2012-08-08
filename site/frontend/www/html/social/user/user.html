@@ -38,6 +38,7 @@
 	
 </head>
 <body class="body-club">
+	
 	<div id="layout" class="wrapper">
 		
 		<div id="header-new" class="clearfix">
@@ -441,45 +442,14 @@
 			
 			<div id="user">
 				
-				<div class="header clearfix user-home">
-					
-					<div class="user-name">
-						<h1>Ижецкий Денис Владимирович</h1>
-						<div class="online-status offline"><i class="icon"></i>Был на сайте <span class="date">Сегодня 16:39</span></div>
-						<div class="location">
-							<div class="flag-big flag-big-ua" title="Украина"></div>Хмельницкий
-						</div>
-						<div class="birthday"><span>День рождения:</span> 27 апреля (21 год)</div>
-					</div>
-					
-					<div class="user-buttons clearfix">
-						<div class="clearfix">
-							<a href="" class="add-friend"><span class="tip">Пригласить в друзья</span></a>
-							<span class="friend">друг</span>
-							<a href="" class="new-message"><span class="tip">Написать сообщение</span></a>
-						</div>
-						<div class="admin-buttons">
-							<a href="" class="purple">Г<span class="tip">Поместить на главную страницу</span></a>
-							<a href="" class="purple active">Г<span class="tip">Снять с главной страницы</span></a>
-						</div>
-					</div>
-					
-					
-					
-					<div class="user-nav default-nav">
-						<ul>
-							<li class="active"><a href="">Анкета</a></li>
-							<li><a href="">Блог</a></li>
-							<li><a href="">Фото</a></li>
-							<li><a href="">Друзья</a></li>
-							<li><a href="">Клубы</a></li>
-						</ul>
-					</div>
-				</div>
-				
 				<div class="user-cols clearfix">
 					
 					<div class="col-1">
+						
+						<div class="user-name nofloat">
+							<h1>Ден Ижецкий</h1>
+							<div class="online-status offline"><i class="icon"></i>Был на сайте <span class="date">Сегодня 16:39</span></div>
+						</div>					
 						
 						<div class="ava big male">
 							<a href="#photoPick" class="fancy renew">Обновить<br/>фото</a>
@@ -489,8 +459,7 @@
 							Зарегистрирван  25 февраля 2012
 						</div>
 						
-						<div class="user-lvl user-lvl-0">
-						</div>
+						<div class="user-lvl user-lvl-1"></div>
 						
 						
 						<div class="user-family">
@@ -558,35 +527,24 @@
 							<ul>
 								<li>
                   <div class="interest-cat">
-                    <a href="">
-                      <span class="img"><img src="/images/interest_icon_1.png" /></span>
-                      <span class="text">Спорт</span>
-                    </a>
+                      <img src="/images/interest_icon_1.png" />
                   </div>
-                  <ul>
-                    <li><a class="interest">Футбол<span>11</span></a></li>
-                    <li><a class="interest">Хоккей<span>82</span></a></li>
-                    <li><a class="interest">Художественная гимнастика<span>4</span></a></li>
-                    <li><a class="interest">Бокс<span>12</span></a></li>
-                    <li><a class="interest">Бильярд<span>18</span></a></li>
+                  <ul class="interests-list">
+                    <li><a class="interest">Бильярд</a></li>
                   </ul>
                 </li>
                 <li>
                   <div class="interest-cat">
-                    <a href="">
-                      <span class="img"><img src="/images/interest_icon_2.png" /></span>
-                      <span class="text">Познавательные и обучающие мультфильмы</span>
-                    </a>
-                  </div>
-                  <ul>
-                    <li><a class="interest">Футбол<span>11</span></a></li>
-                    <li><a class="interest">Хоккей<span>82</span></a></li>
-                    <li><a class="interest">Художественная гимнастика<span>4</span></a></li>
-                    <li><a class="interest">Бокс<span>12</span></a></li>
-                    <li><a class="interest">Бильярд<span>18</span></a></li>
+										<img src="/images/interest_icon_2.png" />
+									</div>
+                  <ul class="interests-list">
+                    <li><a class="interest">Футбол</a></li>
+                    <li><a class="interest">Хоккей</a></li>
+                    <li><a class="interest">Художественная гимнастика</a></li>
+                    <li><a class="interest">Бокс</a></li>
+                    <li><a class="interest">Бильярд</a></li>
                   </ul>
-                </li>
-                
+                </li>                
 							</ul>
 							
 						</div>
@@ -596,7 +554,73 @@
 					</div>
 					
 					<div class="col-23 clearfix">
-
+						
+						
+						<div id="first-steps">
+							
+							<div class="block-title">
+								
+								<div class="right">
+									<div class="bonus" style="display: none;">
+										бонус <img src="/images/first_steps_bonus.png" />
+									</div>
+									<a href="javascript:void(0);" class="toggler toggled" data-title="Осталось шагов: 4" data-close="Свернуть" onclick="firstStepsToggle(this);"><span>Свернуть</span><i class="icon"></i></a>
+								</div>
+								
+								<div class="title-in">Ваши первые шаги</div>
+								
+							</div>
+							
+							<div class="block-in clearfix">
+								
+								<div class="container clearfix">
+									<div class="steps-list">
+										<ul>
+											<li>
+												<div class="num">Шаг 1</div>
+												<div class="text"><a href="#firstStepsEmail" class="fancy">Подтвердите ваш e-mail</a></div>
+												
+											</li>
+											<li>
+												<div class="num">Шаг 2</div>
+												<div class="text"><a href="#firstStepsBirthday" class="fancy">Укажите вашу дату рождения</a></div>
+											</li>
+											<li>
+												<div class="num">Шаг 3</div>
+												<div class="text"><a href="#firstStepsLocation" class="fancy">Укажите ваше место жительства</a></div>
+											</li>
+											<li class="strike">
+												<div class="num">Шаг 4</div>
+												<div class="text">Загрузите ваше главное фото</div>
+												<div class="done"><i class="icon"></i>Сделано</div>
+											</li>
+											<li>
+												<div class="num">Шаг 5</div>
+												<div class="text"><a href="">Расскажите о вашей семье</a></div>
+											</li>
+											<li>
+												<div class="num">Шаг 6</div>
+												<div class="text"><a href="">Укажите ваши интересы</a></div>
+											</li>
+											
+										</ul>
+									</div>
+									
+									<div class="info">
+										<p><span>6 шагов</span> и вы сможете пользоваться всеми функциями сайта</p>
+										<div class="bonus">
+											<div class="bonus-left">
+												<img src="/images/first_steps_bonus_plus.png" /> от нас бонусна 
+												<span>дополнительные опции сайта</span>
+											</div>
+											<img src="/images/first_steps_bonus_big.png" />
+										</div>
+									</div>
+								</div>
+							</div>							
+						</div>
+						
+						
 						<div class="clearfix">
 							<div class="col-2">
 								
@@ -604,7 +628,7 @@
 									Мое настроение<img id="userMood" src="/images/widget/mood/1.png" /> <a href="" class="pseudo small">Изменить</a>
 								</div>
 								
-								<div class="user-status">
+								<div class="user-status toggled">
 									<div class="date">20 февраля 2012, 13:45</div>
 									<p>Привет всем! У меня все ok!<br/>Единственное, что имеет значение в конце нашего пребывания на земле, - это то, как сильно мы любили. </p>
 								</div>
@@ -1089,6 +1113,7 @@
 		f
 	</div>
 <div style="display:none">
+	
 	<div id="login" class="popup">
 		
 		<a href="javascript:void(0);" onclick="$.fancybox.close();" class="popup-close"><span class="tip">Закрыть</span></a>
@@ -1625,7 +1650,115 @@
 		
 	</div>
 	
-	
+	<div id="firstStepsBirthday" class="popup">
+		
+		<div class="clearfix">
+			
+			<div class="left">
+				<img src="/images/first_steps_birthday.png" />
+			</div>
+			
+			<div class="right">
+				
+				<div class="title">Укажите вашу дату рождения</div>
+				
+				<div class="select-box">
+					Дата рождения:
+					<span class="chzn-v2 error">
+						<select class="chzn w-1"><option>28</option><option>28</option><option>28</option><option>28</option><option>28</option><option>28</option><option>28</option><option>28</option><option>28</option><option>28</option><option>28</option></select>
+					</span>
+					<span class="chzn-v2">
+						<select class="chzn w-2"><option>января</option><option>января</option><option>января</option><option>января</option><option>января</option><option>января</option><option>января</option><option>января</option><option>января</option></select>
+					</span>
+					<span class="chzn-v2">
+						<select class="chzn w-3"><option>1973</option><option>1973</option><option>1973</option><option>1973</option><option>1973</option><option>1973</option><option>1973</option><option>1973</option><option>1973</option><option>1973</option><option>1973</option><option>1973</option><option>1973</option></select>
+					</span>
+					
+				</div>
+				
+				<span class="hl">И мы подарим вам виджет с гороскопом на каждый день!</span>
+				
+			</div>
+			
+		</div>	
+		
+		<div class="bottom">
+			<button class="btn btn-green-medium"><span><span>Сохранить</span></span></button>
+		</div>
+		
+	</div>
+  
+	<div id="firstStepsLocation" class="popup">
+		
+		<div class="clearfix">
+			
+			<div class="left">
+				<img src="/images/first_steps_location.png" />
+			</div>
+			
+			<div class="right">
+				
+				<div class="title">Укажите ваше место жительства!</div>
+				
+				<div class="select-box">
+					<div class="row">
+						Место жительства:<br/>
+						<span class="chzn-v2">
+							<select class="chzn w-1" data-placeholder="Страна"><option>28</option></select>
+						</span>
+						&nbsp;&nbsp;
+						<span class="chzn-v2">
+							<select class="chzn w-2" data-placeholder="Регион"><option>28</option></select>
+						</span>					
+					</div>
+					<div class="row">
+						Населенный пункт:<br/>
+						<input type="text" class="w-3" />
+						<br/>
+						<small>Введите свой город, поселок, село или деревню</small>
+					</div>
+										
+				</div>
+				
+				<span class="hl">Наш подарок: виджет с погодой на каждый день!</span>
+				
+			</div>
+			
+		</div>	
+		
+		<div class="bottom">
+			<button class="btn btn-green-medium"><span><span>Сохранить</span></span></button>
+		</div>
+		
+	</div>
+  
+	<div id="firstStepsEmail" class="popup">
+		
+		<div class="clearfix">
+			
+			<div class="left">
+				<img src="/images/first_steps_email.png" />
+			</div>
+			
+			<div class="right">
+				
+				<div class="title">Вам отправлено письмо!</div>
+				
+				<p>Мы отправили вам письмо, для <br/> <span class="hl">подтверждения адреса электронной почты</span></p>
+				
+				<p>Просим вас открыть ваш почтовый ящик,<br/> <span class="hl">найти наше письмо и нажать на кнопку <span>«Подтвердить e-mail»</span></span></p>
+				
+				<p>Если вы не обнаружили письмо, <span class="note">*</span><br/> мы можем отправить его еще раз <a href="" class="orange">Отправить письмо</a></p>
+				
+			</div>
+			
+		</div>	
+		
+		<div class="bottom">
+			<div><span class="note">*</span> Просим вас проверить папку "Спам"</div>
+		</div>
+		
+	</div>
   
 </div>
 </body>

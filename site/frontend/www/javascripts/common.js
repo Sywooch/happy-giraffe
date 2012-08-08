@@ -44,6 +44,15 @@ $(document).ready(function () {
             albumVisibilityListToggle($('.visibility-list:visible'));
     })
 
+    $('html').click(function() {
+        $('.user-fast-nav .drp-list > ul:visible').hide();
+    });
+
+    $('.user-fast-nav .more').click(function(event){
+        event.stopPropagation();
+    });
+
+
 });
 
 function addAttributesToCart(form, update) {
@@ -431,6 +440,97 @@ var Register = {
             if (!Register.start){
                 $('#reg-main-btn').trigger('click');
             }
-        }, 10000);
+        }, 3000);
+    }
+}
+
+function ajaxSetValues(form, callback) {
+    $.post($(form).attr('action'), $(form).serialize(), callback);
+}
+
+function getScrollBarWidth() {
+    var inner = document.createElement('p');
+    inner.style.width = "100%";
+    inner.style.height = "200px";
+
+    var outer = document.createElement('div');
+    outer.style.position = "absolute";
+    outer.style.top = "0px";
+    outer.style.left = "0px";
+    outer.style.visibility = "hidden";
+    outer.style.width = "200px";
+    outer.style.height = "150px";
+    outer.style.overflow = "hidden";
+    outer.appendChild (inner);
+
+    document.body.appendChild (outer);
+    var w1 = inner.offsetWidth;
+    outer.style.overflow = 'scroll';
+    var w2 = inner.offsetWidth;
+    if (w1 == w2) w2 = outer.clientWidth;
+
+    document.body.removeChild (outer);
+
+    return (w1 - w2);
+};
+
+function slideNavToggle(el){
+	
+	var li = $(el).parent();
+	var ul = li.parent();
+	
+	if (ul.find('ul:animated').size() == 0){
+		if (!li.hasClass('toggled')){
+			ul.find('> li.toggled').removeClass('toggled').find('>ul').slideUp();
+			li.addClass('toggled').find('>ul').slideDown();			
+		} else {
+			li.removeClass('toggled').find('>ul').slideUp();
+		}
+	}
+}
+
+function firstStepsToggle(el){
+	
+	var box = $('#first-steps .block-in');
+	
+	if (box.is(':animated')) return false;
+	
+	if ($(el).hasClass('toggled')){
+		box.slideUp(function(){
+			$(el).find('span').html($(el).data('title'));
+			$(el).prev('.bonus').toggle();
+			$(el).removeClass('toggled');
+			$('.user-status').removeClass('toggled');
+		});
+	} else {
+		box.slideDown(function(){
+			$(el).find('span').html($(el).data('close'));
+			$(el).prev('.bonus').toggle();
+			$(el).addClass('toggled');
+			$('.user-status').addClass('toggled');
+		});
+	}
+	
+	
+	
+}
+
+var PasswordRecovery = {
+    send : function(form) {
+        var button = $(form).find('input[type="submit"]');
+        var f = function() {
+            $('a[href="#login"]').trigger('click');
+        }
+        $.post($(form).attr('action'), $(form).serialize(), function(response) {
+            $('.sent').html(response.message).show();
+            if (response.status != 'error') {
+                $(button).val('Вход на сайт');
+                $(form).submit(function (e) {
+                    e.preventDefault();
+                    f();
+                });
+                setTimeout(f, 5000);
+            }
+        }, 'json');
     }
 }

@@ -82,12 +82,18 @@ class BlogController extends HController
             }
         }
 
+        if (isset($_POST['redirectUrl']))
+            $redirectUrl = $_POST['redirectUrl'];
+        else
+            $redirectUrl =Yii::app()->request->urlReferrer;
+
         $this->render('form', array(
             'model' => $model,
             'slave_model' => $slave_model,
             'rubric_model' => $rubric_model,
             'rubrics' => $rubrics,
             'content_type_slug' => $content_type->slug,
+            'redirectUrl'=>$redirectUrl
         ));
     }
 

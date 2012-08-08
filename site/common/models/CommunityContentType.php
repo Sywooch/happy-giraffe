@@ -6,6 +6,7 @@
  * The followings are the available columns in table '{{community_content_type}}':
  * @property string $id
  * @property string $title
+ * @property string $slug
  */
 class CommunityContentType extends HActiveRecord
 {

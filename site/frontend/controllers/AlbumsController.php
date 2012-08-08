@@ -7,7 +7,7 @@ class AlbumsController extends HController
 
     protected function beforeAction($action)
     {
-        if(!Yii::app()->request->isAjaxRequest){
+        if (!Yii::app()->request->isAjaxRequest) {
             $this->pageTitle = 'Фотоальбомы';
             Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts/album.js?r=11');
             Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl . '/stylesheets/jquery.jscrollpane.css');
@@ -21,9 +21,9 @@ class AlbumsController extends HController
     {
         return array(
             'accessControl',
-            'ajaxOnly + attach, wPhoto, attachView, editDescription, editPhotoTitle, changeTitle, changePermission,
+            'ajaxOnly + attachView, editDescription, editPhotoTitle, changeTitle, changePermission,
                 removeUploadPhoto, communityContentEdit, communityContentSave, recipePhoto, cookDecorationPhoto,
-                cookDecorationCategory, commentPhoto, crop, changeAvatar',
+                cookDecorationCategory, commentPhoto, crop, changeAvatar, wPhoto',
         );
     }
 
@@ -60,10 +60,12 @@ class AlbumsController extends HController
     {
         $user = User::model()->findByPk($id);
         $this->user = $user;
-        if(!$user)
+        if (!$user)
             throw new CHttpException(404, 'Пользователь не найден');
         $scopes = !Yii::app()->user->isGuest && Yii::app()->user->id == $id ? array() : array('noSystem');
         $dataProvider = Album::model()->findByUser($id, false, false, $scopes);
+
+        $this->layout = '//layouts/main';
         $this->render('index', array(
             'dataProvider' => $dataProvider,
             'user' => $user,
@@ -75,7 +77,7 @@ class AlbumsController extends HController
     {
         $model = Album::model()->findByPk($id);
         $this->user = $model->author;
-        if(!$model)
+        if (!$model)
             throw new CHttpException(404, 'Альбом не найден');
 
         $dataProvider = new CActiveDataProvider('AlbumPhoto', array(
@@ -88,37 +90,28 @@ class AlbumsController extends HController
             )
         ));
 
-        $view = !Yii::app()->user->isGuest && $model->author_id == Yii::app()->user->id ? 'view_author' : 'view';
-        $this->render($view, array(
-            'model' => $model,
-            'dataProvider' => $dataProvider,
-        ));
+        $this->layout = '//layouts/main';
+        $this->render('view', compact('model', 'dataProvider'));
     }
 
     public function actionAddPhoto($a = false, $text = false, $u = false)
     {
-        if($a && $a != 'false' && $a != 0)
-        {
+        if ($a && $a != 'false' && $a != 0) {
             $album = Album::model()->findByPk($a);
             if (!$album)
                 throw new CHttpException(404, 'Альбом не найден');
-        }
-        else if($text && $u)
-        {
-            if(!$album = Album::model()->findByAttributes(array('author_id' => $u, 'title' => $text)))
-            {
+        } else if ($text && $u) {
+            if (!$album = Album::model()->findByAttributes(array('author_id' => $u, 'title' => $text))) {
                 $album = new Album();
                 $album->title = $text;
                 $album->author_id = $u;
                 $album->save();
             }
             $a = $album->id;
-        }
-        else
+        } else
             $album = false;
 
-        if (isset($_FILES['Filedata']))
-        {
+        if (isset($_FILES['Filedata'])) {
             $file = CUploadedFile::getInstanceByName('Filedata');
             if (!in_array($file->extensionName, array('jpg', 'jpeg', 'png', 'gif', 'JPG', 'JPEG', 'PNG', 'GIF')))
                 Yii::app()->end();
@@ -126,8 +119,7 @@ class AlbumsController extends HController
 
             echo '<div id="serverData">';
             // Загрузка в новый альбом
-            if(!$a || $a == 'false')
-            {
+            if (!$a || $a == 'false') {
                 $model->file = $file;
                 $model->saveFile(true);
                 echo "<script type='text/javascript'>
@@ -161,9 +153,7 @@ class AlbumsController extends HController
             $this->renderPartial('add_photo', array(
                 'album' => $album
             ), false, true);
-        }
-        else
-        {
+        } else {
             $this->render('add_photo', array(
                 'album' => $album
             ));
@@ -180,7 +170,7 @@ class AlbumsController extends HController
             UserNotification::model()->deleteByEntity(UserNotification::NEW_REPLY, $photo);
         }
 
-        if(!Yii::app()->request->isAjaxRequest)
+        if (!Yii::app()->request->isAjaxRequest)
             $this->render('photo', compact('photo'));
         else
             $this->renderPartial('photo', compact('photo'));
@@ -192,17 +182,14 @@ class AlbumsController extends HController
 
         $photo = AlbumPhoto::model()->findByPk(Yii::app()->request->getQuery('id'));
 
-        $entity_id = Yii::app()->request->getQuery('entity_id');
+        $entity_id = Yii::app()->request->getQuery('entity_id', 'null');
         $model = call_user_func(array(Yii::app()->request->getQuery('entity'), 'model'));
         if ($entity_id != 'null')
             $model = $model->findByPk($entity_id);
 
-        if(!Yii::app()->request->getQuery('go'))
-        {
+        if (!Yii::app()->request->getQuery('go')) {
             $this->renderPartial('w_photo', compact('model', 'photo'));
-        }
-        else
-        {
+        } else {
             $this->renderPartial('w_photo_content', compact('model', 'photo'));
         }
     }
@@ -217,7 +204,7 @@ class AlbumsController extends HController
     public function actionAttachView($id)
     {
         $model = Album::model()->findByPk($id);
-        if(!$model)
+        if (!$model)
             throw new CHttpException(404, 'Альбом не найден');
         $this->renderPartial('attach_view', array(
             'model' => $model,
@@ -230,8 +217,7 @@ class AlbumsController extends HController
         $model = new AttachPhoto;
         $model->attributes = $_POST;
         $model->save();
-        if(Yii::app()->request->getPost('return_html'))
-        {
+        if (Yii::app()->request->getPost('return_html')) {
             $this->renderPartial('site.frontend.widgets.fileAttach.views._list', array(
                 'attaches' => AttachPhoto::model()->findByEntity($_POST['entity'], $_POST['entity_id']),
             ));
@@ -241,7 +227,7 @@ class AlbumsController extends HController
     public function actionEditDescription($id)
     {
         $model = Album::model()->findByPk($id);
-        if(Yii::app()->user->id != $model->author_id || ($text = Yii::app()->request->getPost('text')) === false)
+        if (Yii::app()->user->id != $model->author_id || ($text = Yii::app()->request->getPost('text')) === false)
             Yii::app()->end();
         $model->description = $text;
         $model->save();
@@ -251,7 +237,7 @@ class AlbumsController extends HController
     {
         $id = Yii::app()->request->getPost('id');
         $model = AlbumPhoto::model()->findByPk($id);
-        if(Yii::app()->user->id != $model->author_id || ($title = Yii::app()->request->getPost('title')) === false)
+        if (Yii::app()->user->id != $model->author_id || ($title = Yii::app()->request->getPost('title')) === false)
             Yii::app()->end();
         $model->title = $title;
         $model->save();
@@ -260,15 +246,12 @@ class AlbumsController extends HController
 
     private function saveImage($val)
     {
-        if(is_numeric($val))
-        {
+        if (is_numeric($val)) {
             $model = AlbumPhoto::model()->findByPk($val);
-            if(!$model)
+            if (!$model)
                 Yii::app()->end();
             $src = $model->getPreviewUrl(300, 185, Image::WIDTH);
-        }
-        else
-        {
+        } else {
             $model = new AlbumPhoto;
             $model->fs_name = $val;
             $src = $model->templateUrl;
@@ -281,21 +264,18 @@ class AlbumsController extends HController
 
     public function actionProductPhoto()
     {
-        if(!$val = Yii::app()->request->getPost('val'))
+        if (!$val = Yii::app()->request->getPost('val'))
             Yii::app()->end();
 
-        if(is_numeric($val))
-        {
+        if (is_numeric($val)) {
             $model = AlbumPhoto::model()->findByPk($val);
-            if(!$model)
+            if (!$model)
                 Yii::app()->end();
-        }
-        else
-        {
+        } else {
             $model = new AlbumPhoto;
             $model->file_name = $val;
             $model->author_id = Yii::app()->user->id;
-            if($title = Yii::app()->request->getPost('title'))
+            if ($title = Yii::app()->request->getPost('title'))
                 $model->title = CHtml::encode($title);
             $model->create(true);
         }
@@ -303,16 +283,14 @@ class AlbumsController extends HController
         $attach->entity = 'Product';
         $attach->entity_id = Yii::app()->request->getPost('entity_id');
         $attach->photo_id = $model->id;
-        if ($attach->save())
-        {
+        if ($attach->save()) {
             $image = new ProductImage;
             $image->product_id = $attach->entity_id;
             $image->type = 0;
             $image->photo_id = $model->id;
             $image->save();
             echo CJSON::encode(array('status' => true));
-        }
-        else
+        } else
             echo CJSON::encode(array('status' => false));
     }
 
@@ -342,16 +320,12 @@ class AlbumsController extends HController
         }
 
 
-        if ($model === null)
-        {
+        if ($model === null) {
             $response = array(
                 'status' => false,
             );
-        }
-        else
-        {
-            if(Yii::app()->request->getPost('many') == 'true')
-            {
+        } else {
+            if (Yii::app()->request->getPost('many') == 'true') {
                 $attach = new AttachPhoto;
                 $attach->entity = Yii::app()->request->getPost('entity');
                 $attach->entity_id = Yii::app()->request->getPost('entity_id');
@@ -431,15 +405,13 @@ class AlbumsController extends HController
             $p = AlbumPhoto::model()->findByPk($val);
             $photo = $p->getPreviewUrl(177, 177, Image::NONE);
             $title = $p->title;
-        }
-        else
-        {
+        } else {
             $photo = Yii::app()->params['photos_url'] . '/temp/' . $val;
             $title = '';
         }
 
         $this->renderPartial('site.frontend.widgets.fileAttach.views._community_content', array(
-            'title'=>$title,
+            'title' => $title,
             'widget_id' => Yii::app()->request->getPost('widget_id'),
             'photo' => $photo,
             'val' => $val
@@ -452,8 +424,7 @@ class AlbumsController extends HController
         $description = trim(Yii::app()->request->getPost('description'));
 
         $val = Yii::app()->request->getPost('val');
-        if (!is_numeric($val))
-        {
+        if (!is_numeric($val)) {
             $model = new AlbumPhoto;
             $model->file_name = $val;
             $model->author_id = Yii::app()->user->id;
@@ -470,13 +441,12 @@ class AlbumsController extends HController
         $data = array();
         $data['tab'] = Yii::app()->request->getPost('widget_id') . ".CookDecorationEdit('" . $val . "')";
 
-        if (is_numeric($val))
-        {
+        if (is_numeric($val)) {
             $p = AlbumPhoto::model()->findByPk($val);
             $photo = $p->getPreviewUrl(100, 100, Image::NONE);
 
             $image = new Image($p->getOriginalPath());
-            if ($image->width < 400 || $image->height < 400){
+            if ($image->width < 400 || $image->height < 400) {
                 echo CJSON::encode(array(
                     'status' => false,
                     'error' => 'Слишком маленькое изображение, минимум 400x400 пикселей',
@@ -486,16 +456,14 @@ class AlbumsController extends HController
 
             $title = $p->title;
             $data['title'] = mb_substr($p->title, 0, 20);
-        }
-        else
-        {
+        } else {
             $photo = Yii::app()->params['photos_url'] . '/temp/' . $val;
-            $photo_path = Yii::getPathOfAlias('site.common.uploads.photos'). '/temp/' . $val;
+            $photo_path = Yii::getPathOfAlias('site.common.uploads.photos') . '/temp/' . $val;
             $image = new Image($photo_path);
-            if ($image->width < 400 || $image->height < 400){
+            if ($image->width < 400 || $image->height < 400) {
                 echo CJSON::encode(array(
                     'status' => false,
-                    'html'=> $this->renderPartial('site.frontend.widgets.fileAttach.views._upload_error', array(
+                    'html' => $this->renderPartial('site.frontend.widgets.fileAttach.views._upload_error', array(
                         'error' => 'Слишком маленькое изображение, минимум 400x400 пикселей',
                     ), true)
                 ));
@@ -505,45 +473,41 @@ class AlbumsController extends HController
         }
 
         $data['html'] = $this->renderPartial('site.frontend.widgets.fileAttach.views._cook_decoration', array(
-            'title'=>$title,
+            'title' => $title,
             'widget_id' => Yii::app()->request->getPost('widget_id'),
             'photo' => $photo,
             'val' => $val
         ), true);
-        $data['success']=true;
+        $data['success'] = true;
 
         echo CJSON::encode($data);
     }
 
     public function actionCommentPhoto()
     {
-        if(!$val = Yii::app()->request->getPost('val'))
+        if (!$val = Yii::app()->request->getPost('val'))
             Yii::app()->end();
 
-        if(is_numeric($val))
-        {
+        if (is_numeric($val)) {
             $model = AlbumPhoto::model()->findByPk($val);
-            if(!$model)
+            if (!$model)
                 Yii::app()->end();
-        }
-        else
-        {
+        } else {
             $model = new AlbumPhoto;
             $model->file_name = $val;
             $model->author_id = Yii::app()->user->id;
-            if($title = Yii::app()->request->getPost('title'))
+            if ($title = Yii::app()->request->getPost('title'))
                 $model->title = CHtml::encode($title);
             $model->create(true);
         }
 
-        if ($entity_id = Yii::app()->request->getPost('entity_id'))
-        {
+        if ($entity_id = Yii::app()->request->getPost('entity_id')) {
             $comment = new Comment;
-            $comment->entity = Yii::app()->request->getPost('entity');;
+            $comment->entity = Yii::app()->request->getPost('entity');
+            ;
             $comment->entity_id = $entity_id;
             $comment->author_id = Yii::app()->user->id;
-            if ($comment->save())
-            {
+            if ($comment->save()) {
                 $attach = new AttachPhoto;
                 $attach->entity = 'Comment';
                 $attach->entity_id = $comment->id;
@@ -551,9 +515,7 @@ class AlbumsController extends HController
                 if ($attach->save())
                     echo CJSON::encode(array('status' => true));
             }
-        }
-        else
-        {
+        } else {
             $attach = new AttachPhoto;
             $attach->entity = 'Comment';
             $attach->entity_id = 0;
@@ -561,7 +523,7 @@ class AlbumsController extends HController
             $attach->save();
 
             echo CJSON::encode(array(
-                'src' => $model->getPreviewUrl(650, 650),
+                'src' => $model->getPreviewUrl(700, 700, Image::WIDTH),
                 'id' => $model->primaryKey,
                 'title' => $model->title,
             ));
@@ -571,7 +533,7 @@ class AlbumsController extends HController
 
     public function actionCrop()
     {
-        if(!$val = Yii::app()->request->getPost('val'))
+        if (!$val = Yii::app()->request->getPost('val'))
             Yii::app()->end();
 
         $params = $this->saveImage($val);
@@ -586,20 +548,17 @@ class AlbumsController extends HController
 
     public function actionChangeAvatar()
     {
-        if(!isset($_POST['val']))
+        if (!isset($_POST['val']))
             Yii::app()->end();
         $val = $_POST['val'];
 
-        if(is_numeric($val))
-        {
+        if (is_numeric($val)) {
             $photo = AlbumPhoto::model()->findByPk($val);
-        }
-        else
-        {
+        } else {
             $photo = new AlbumPhoto;
             $photo->file_name = $val;
             $photo->author_id = Yii::app()->user->id;
-            if(!$photo->create(true))
+            if (!$photo->create(true))
                 Yii::app()->end();
         }
         $src = $photo->originalPath;
@@ -624,20 +583,20 @@ class AlbumsController extends HController
         $attach->save();
 
         User::model()->updateByPk(Yii::app()->user->id, array('avatar_id' => $photo->id));
-        UserScores::checkProfileScores(Yii::app()->user->id, ScoreActions::ACTION_PROFILE_PHOTO);
+        UserScores::checkProfileScores(Yii::app()->user->id, ScoreAction::ACTION_PROFILE_PHOTO);
 
         echo $photo->getPreviewUrl(241, 225, Image::WIDTH);
     }
 
     public function actionChangeTitle()
     {
-        if(($id = Yii::app()->request->getPost('id')) === false || ($title = Yii::app()->request->getPost('title')) === false)
+        if (($id = Yii::app()->request->getPost('id')) === false || ($title = Yii::app()->request->getPost('title')) === false)
             Yii::app()->end();
         $model = Album::model()->findByPk($id);
-        if(!$model || $model->author_id != Yii::app()->user->id)
+        if (!$model || $model->author_id != Yii::app()->user->id)
             Yii::app()->end();
         $model->title = $title;
-        if($model->save())
+        if ($model->save())
             echo CJSON::encode(array('result' => true));
         else
             echo CJSON::encode(array('result' => false));
@@ -648,7 +607,7 @@ class AlbumsController extends HController
         $id = Yii::app()->request->getPost('id');
         $num = Yii::app()->request->getPost('num');
         $model = Album::model()->findByPk($id);
-        if(!$model || $model->author_id != Yii::app()->user->id)
+        if (!$model || $model->author_id != Yii::app()->user->id)
             Yii::app()->end();
         $model->updateByPk($id, array('permission' => $num));
     }
@@ -656,7 +615,7 @@ class AlbumsController extends HController
     public function actionRemoveUploadPhoto()
     {
         $model = AlbumPhoto::model()->findByPk(Yii::app()->request->getPost('id'));
-        if($model->author_id != Yii::app()->user->id)
+        if ($model->author_id != Yii::app()->user->id)
             Yii::app()->end();
         $model->delete();
     }
@@ -677,9 +636,70 @@ class AlbumsController extends HController
             ->registerScriptFile($jUrl . '/jquery.fileupload.js');
     }
 
-    public function actionRedirect(){
-        $id = Yii::app()->request->getPost('id');
+    public function actionRedirect($id)
+    {
         $album = Album::model()->findByPk($id);
         $this->redirect($album->url);
+    }
+
+    public function actionUpdatePhoto($id)
+    {
+        $photo = AlbumPhoto::model()->findByPk($id);
+        $this->renderPartial('updatePhoto', compact('photo'), false, true);
+    }
+
+    public function actionSinglePhoto($entity, $photo_id)
+    {
+        $photo = AlbumPhoto::model()->findByPk($photo_id);
+        if ($photo === null)
+            throw new CHttpException(404, 'Фото не найдено');
+
+        switch ($entity) {
+            case 'CommunityContentGallery':
+                $content_id = Yii::app()->request->getQuery('content_id');
+                $model = CActiveRecord::model($entity)->findByAttributes(array('content_id' => $content_id));
+                break;
+            case 'Album':
+                $album_id = Yii::app()->request->getQuery('album_id');
+                $model = CActiveRecord::model($entity)->findByPk($album_id);
+                break;
+            case 'CookRecipe':
+            case 'SimpleRecipe':
+            case 'MultivarkaRecipe':
+                Yii::import('application.modules.cook.models.*');
+                $recipe_id = Yii::app()->request->getQuery('recipe_id');
+                $model = CActiveRecord::model($entity)->findByPk($recipe_id);
+                break;
+            case 'CookDecorationCategory':
+                $category_id = Yii::app()->request->getQuery('category_id');
+                Yii::import('application.modules.cook.models.*');
+                $model = CActiveRecord::model($entity);
+                if ($category_id !== null)
+                    $model = $model->findByPk($category_id);
+                break;
+        }
+
+        $collection = $model->photoCollection;
+        foreach ($collection['photos'] as $i => $p) {
+            if ($photo->id == $p->id) {
+                $currentIndex = $i + 1;
+                $photo = $p;
+                break;
+            }
+        }
+
+        $this->layout = '//layouts/main';
+        $this->render('singlePhoto', compact('model', 'collection', 'photo', 'currentIndex'));
+    }
+
+    public function actionPostLoad($entity)
+    {
+        Yii::import('site.frontend.modules.cook.models.*');
+        Yii::import('zii.behaviors.*');
+        $model = CActiveRecord::model($entity);
+        $entity_id = Yii::app()->request->getQuery('entity_id', 'null');
+        if ($entity_id != 'null')
+            $model = $model->findByPk($entity_id);
+        $this->renderPartial('postLoad', compact('model'));
     }
 }

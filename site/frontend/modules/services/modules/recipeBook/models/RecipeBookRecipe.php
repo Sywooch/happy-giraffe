@@ -1,71 +1,123 @@
 <?php
 
 /**
- * This is the model class for table "recipeBook_recipe".
+ * This is the model class for table "recipe_book__recipes".
  *
- * The followings are the available columns in table 'recipeBook_recipe':
+ * The followings are the available columns in table 'recipe_book__recipes':
  * @property string $id
- * @property string $name
+ * @property string $title
+ * @property string $updated
+ * @property string $created
  * @property string $disease_id
  * @property string $author_id
  * @property string $text
- * @property string $source_type
- * @property string $internet_link
- * @property string $internet_favicon
- * @property string $internet_title
- * @property string $book_author
- * @property string $book_name
- * @property string $create_time
- * @property integer $views_amount
- * @property integer votes_pro
- * @property integer votes_con
  *
  * The followings are the available model relations:
- * @property User $author
+ * @property RecipeBookDiseases $disease
+ * @property RecipeBookRecipesIngredients[] $recipeBookRecipesIngredients
  */
 class RecipeBookRecipe extends HActiveRecord
 {
-    private $_purposeIds = null;
-    public $vote;
+	/**
+	 * Returns the static model of the specified AR class.
+	 * @param string $className active record class name.
+	 * @return RecipeBookRecipe the static model class
+	 */
+	public static function model($className=__CLASS__)
+	{
+		return parent::model($className);
+	}
 
-    public function getPurposeIds()
-    {
-        if ($this->_purposeIds === null) {
-            $this->_purposeIds = array();
-            if (!$this->isNewRecord) {
-                foreach ($this->purposes as $purpose)
-                {
-                    $this->_purposeIds[] = $purpose->primaryKey;
-                }
-            }
-        }
-        return $this->_purposeIds == '' ? array() : $this->_purposeIds;
-    }
+	/**
+	 * @return string the associated database table name
+	 */
+	public function tableName()
+	{
+		return 'recipe_book__recipes';
+	}
 
-    public function setPurposeIds($value)
-    {
-        $this->_purposeIds = $value;
-    }
+	/**
+	 * @return array validation rules for model attributes.
+	 */
+	public function rules()
+	{
+		// NOTE: you should only define rules for those attributes that
+		// will receive user inputs.
+		return array(
+		    array('title, disease_id, author_id, text, ingredients', 'required'),
+            array('title', 'length', 'max' => 255),
+            array('disease_id', 'exist', 'attributeName' => 'id', 'className' => 'RecipeBookDisease'),
+            array('author_id', 'exist', 'attributeName' => 'id', 'className' => 'User'),
+			// The following rule is used by search().
+			// Please remove those attributes that should not be searched.
+			array('id, title, updated, created, disease_id, author_id, text', 'safe', 'on'=>'search'),
+		);
+	}
 
-    /**
-     * Returns the static model of the specified AR class.
-     * @return RecipeBookRecipe the static model class
-     */
-    public static function model($className = __CLASS__)
-    {
-        return parent::model($className);
-    }
+	/**
+	 * @return array relational rules.
+	 */
+	public function relations()
+	{
+		// NOTE: you may need to adjust the relation name and the related
+		// class name for the relations automatically generated below.
+		return array(
+			'disease' => array(self::BELONGS_TO, 'RecipeBookDisease', 'disease_id'),
+            'author' => array(self::BELONGS_TO, 'User', 'author_id'),
+            'commentsCount' => array(self::STAT, 'Comment', 'entity_id', 'condition' => 'entity=:modelName', 'params' => array(':modelName' => get_class($this))),
+			'ingredients' => array(self::HAS_MANY, 'RecipeBookRecipeIngredient', 'recipe_id'),
+		);
+	}
+
+	/**
+	 * @return array customized attribute labels (name=>label)
+	 */
+	public function attributeLabels()
+	{
+		return array(
+			'id' => 'ID',
+			'title' => 'Название народного рецепта',
+			'updated' => 'Updated',
+			'created' => 'Created',
+			'disease_id' => 'Выберите болезнь',
+			'author_id' => 'Author',
+			'text' => 'Описание приготовления',
+
+            'ingredients' => 'Ингредиенты',
+            'category_id' => 'Выберите тип заболеваний',
+		);
+	}
+
+	/**
+	 * Retrieves a list of models based on the current search/filter conditions.
+	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
+	 */
+	public function search()
+	{
+		// Warning: Please modify the following code to remove attributes that
+		// should not be searched.
+
+		$criteria=new CDbCriteria;
+
+		$criteria->compare('id',$this->id,true);
+		$criteria->compare('title',$this->title,true);
+		$criteria->compare('updated',$this->updated,true);
+		$criteria->compare('created',$this->created,true);
+		$criteria->compare('disease_id',$this->disease_id,true);
+		$criteria->compare('author_id',$this->author_id,true);
+		$criteria->compare('text',$this->text,true);
+
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+		));
+	}
 
     public function behaviors()
     {
         return array(
-            'CAdvancedArBehavior' => array('class' => 'site.frontend.extensions.CAdvancedArBehavior'),
-            'VoteBehavior' => array(
-                'class' => 'VoteBehavior',
-                'vote_attributes' => array(
-                    '0' => 'votes_con',
-                    '1' => 'votes_pro',
-                )),
+            'withRelated' => array(
+                'class' => 'site.common.extensions.wr.WithRelatedBehavior',
+            ),
             'CTimestampBehavior' => array(
                 'class' => 'zii.behaviors.CTimestampBehavior',
                 'createAttribute' => 'created',
@@ -74,128 +126,81 @@ class RecipeBookRecipe extends HActiveRecord
         );
     }
 
-    /**
-     * @return string the associated database table name
-     */
-    public function tableName()
+    public function getByDisease($disease_id)
     {
-        return 'recipe_book__recipes';
-    }
-
-    /**
-     * @return array validation rules for model attributes.
-     */
-    public function rules()
-    {
-        // NOTE: you should only define rules for those attributes that
-        // will receive user inputs.
-        return array(
-            array('title, disease_id, purposeIds, text', 'required'),
-            array('views_amount', 'numerical', 'integerOnly' => true),
-            array('title, internet_link, internet_favicon, internet_title, book_author, book_name', 'length', 'max' => 255),
-            array('disease_id', 'exist', 'attributeName' => 'id', 'className' => 'RecipeBookDisease'),
-            array('author_id', 'exist', 'attributeName' => 'id', 'className' => 'User'),
-            array('purposeIds', 'safe'),
-            array('source_type', 'in', 'range' => array('me', 'internet', 'book')),
-            // The following rule is used by search().
-            // Please remove those attributes that should not be searched.
-            array('id, title, disease_id, author_id, text, source_type, internet_link, internet_favicon, internet_title, book_author, book_name, views_amount', 'safe', 'on' => 'search'),
-        );
-    }
-
-    /**
-     * @return array relational rules.
-     */
-    public function relations()
-    {
-        // NOTE: you may need to adjust the relation name and the related
-        // class name for the relations automatically generated below.
-        return array(
-            'author' => array(self::BELONGS_TO, 'User', 'author_id'),
-            'ingredients' => array(self::HAS_MANY, 'RecipeBookIngredient', 'recipe_id'),
-            'disease' => array(self::BELONGS_TO, 'RecipeBookDisease', 'disease_id'),
-            'purposes' => array(self::MANY_MANY, 'RecipeBookPurpose', 'recipe_book__recipes_purposes(recipe_id, purpose_id)'),
-            'commentsCount' => array(self::STAT, 'Comment', 'entity_id', 'condition' => 'entity=:modelName', 'params' => array(':modelName' => 'RecipeBookRecipe')),
-        );
-    }
-
-    /**
-     * @return array customized attribute labels (name=>label)
-     */
-    public function attributeLabels()
-    {
-        return array(
-            'id' => 'ID',
-            'title' => 'Заголовок рецепта',
-            'disease_id' => 'Болезнь',
-            'author_id' => 'Автор',
-            'text' => 'Текст рецепта',
-            'source_type' => 'Source Type',
-            'internet_link' => 'Internet Link',
-            'internet_favicon' => 'Internet Favicon',
-            'internet_title' => 'Internet Title',
-            'book_author' => 'Book Author',
-            'book_name' => 'Book Name',
-            'create_time' => 'Create Time',
-            'views_amount' => 'Views Amount',
-            'purposeIds' => 'Назначение рецепта',
-        );
-    }
-
-    /**
-     * Retrieves a list of models based on the current search/filter conditions.
-     * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
-     */
-    public function search()
-    {
-        // Warning: Please modify the following code to remove attributes that
-        // should not be searched.
-
         $criteria = new CDbCriteria;
-
-        $criteria->compare('id', $this->id, true);
-        $criteria->compare('title', $this->title, true);
-        $criteria->compare('disease_id', $this->disease_id, true);
-        $criteria->compare('author_id', $this->author_id, true);
-        $criteria->compare('text', $this->text, true);
-        $criteria->compare('source_type', $this->source_type, true);
-        $criteria->compare('internet_link', $this->internet_link, true);
-        $criteria->compare('internet_favicon', $this->internet_favicon, true);
-        $criteria->compare('internet_title', $this->internet_title, true);
-        $criteria->compare('book_author', $this->book_author, true);
-        $criteria->compare('book_name', $this->book_name, true);
-        $criteria->compare('create_time', $this->create_time, true);
-        $criteria->compare('views_amount', $this->views_amount);
+        $criteria->order = 't.created DESC';
+        $criteria->with = array('author', 'author.avatar', 'commentsCount', 'disease');
+        if ($disease_id !== null)
+            $criteria->compare('disease_id', $disease_id);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
         ));
     }
 
-    public function defaultScope()
-    {
-        return array(
-            'order' => $this->getTableAlias(false, false).'.id desc',
-        );
-    }
-
     public function afterSave()
     {
         parent::afterSave();
 
-        if ($this->isNewRecord) {
-            UserScores::addScores($this->author_id, ScoreActions::ACTION_RECORD, 1, $this);
-        }
+        if ($this->isNewRecord)
+            UserScores::addScores($this->author_id, ScoreAction::ACTION_RECORD, 1, $this);
     }
 
     public function afterDelete()
     {
         parent::afterDelete();
-        UserScores::removeScores($this->author_id, ScoreActions::ACTION_RECORD, 1, $this);
+
+        UserScores::removeScores($this->author_id, ScoreAction::ACTION_RECORD, 1, $this);
     }
 
-    public function getUrl()
+    protected function beforeSave()
     {
-        return Yii::app()->createUrl('recipeBook/default/view', array('id' => $this->id));
+        if (! $this->isNewRecord) {
+            RecipeBookRecipeIngredient::model()->deleteAll('recipe_id = :recipe_id', array(':recipe_id' => $this->id));
+        }
+
+        return parent::beforeSave();
+    }
+
+    public function getUrlParams()
+    {
+        return array(
+            '/services/recipeBook/default/view',
+            array('id' => $this->id),
+        );
+    }
+
+    public function getUrl($comments = false, $absolute = false)
+    {
+        list($route, $params) = $this->urlParams;
+
+        if ($comments)
+            $params['#'] = 'comment_list';
+
+        $method = $absolute ? 'createAbsoluteUrl' : 'createUrl';
+        return Yii::app()->$method($route, $params);
+    }
+
+    public function getNext()
+    {
+        return $this->find(
+            array(
+                'condition' => 'disease_id = :disease_id AND id > :id',
+                'params' => array(':disease_id' => $this->disease_id, ':id' => $this->id),
+                'order' => 't.id',
+            )
+        );
+    }
+
+    public function getPrev()
+    {
+        return $this->find(
+            array(
+                'condition' => 'disease_id = :disease_id AND id < :id',
+                'params' => array(':disease_id' => $this->disease_id, ':id' => $this->id),
+                'order' => 't.id DESC',
+            )
+        );
     }
 }

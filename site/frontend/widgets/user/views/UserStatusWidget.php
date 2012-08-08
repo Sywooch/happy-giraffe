@@ -41,7 +41,7 @@
         ->registerCss('UserStatusWidget', $css);
 ?>
 
-<div class="user-status">
+<div class="user-status<?php if ($user->getScores()->full != 2 && $user->id == Yii::app()->user->id) echo ' toggled' ?>">
     <div class="status-container">
         <?php if ($isMyProfile): ?>
             <?php if ($user->status === null): ?>

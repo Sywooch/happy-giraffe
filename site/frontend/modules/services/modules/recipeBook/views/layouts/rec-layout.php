@@ -1,28 +1,44 @@
-<?php $this->beginContent('//layouts/main');
+<?php $this->beginContent('//layouts/main'); ?>
+<div id="crumbs"><a href="">Главная</a> > <a href="">Сервисы</a> > <span>Народные рецепты</span></div>
 
-$basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR;
-$baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
-Yii::app()->clientScript
-    ->registerScriptFile($baseUrl . '/script.js', CClientScript::POS_HEAD)
-    ->registerCssFile('/stylesheets/baby.css');
-$this->meta_description = 'Познакомьтесь с нашим новым сервисом, который называется Народная медицина: рецепты наших пользователей. Здесь вы можете найти проверенные народные рецепты от разных болезней и поделиться своими';
-?>
-<div id="baby">
-    <div class="inner">
-    <div class="content-box clearfix">
-        <div class="baby_recipes_service">
-            <ul class="handbook_changes_u">
-                <li<?php if (Yii::app()->controller->index == true) echo ' class="current_t"' ?>><a href="<?php echo $this->createUrl('index') ?>">Главная</a>
-                </li>
-                <li><a id="disease-alphabet" href="#"><span>Болезни по алфавиту</span></a></li>
-                <li><a id="disease-type" href="#"><span>Болезни по типу</span></a></li>
-            </ul>
-            <div class="handbook_alfa_popup" id="popup" style="display: none;">
+<div class="traditional-recipes-title">
+    Народные рецепты
+</div>
 
-            </div>
+
+<div class="clearfix">
+    <div class="main">
+        <div class="main-in">
+
+            <?=$content?>
+
         </div>
     </div>
-    <?php echo $content ?>
+
+    <div class="side-left">
+
+        <div class="club-fast-add">
+            <?=CHtml::link(CHtml::image('/images/btn_add_recipe.png'), array('/services/recipeBook/default/form'))?>
+        </div>
+
+        <div class="slide-nav">
+
+            <ul>
+                <li class="static"><?=CHtml::link('Все рецепты<i class="icon"></i>', array('/services/recipeBook/default/index'))?></li>
+                <?php foreach ($this->nav as $category): ?>
+                <li<?php if (array_key_exists($this->disease_id, $category->diseases)): ?> class="toggled"<?php endif; ?>>
+                    <a href="javascript:void(0);" onclick="slideNavToggle(this);"><?=$category->title?><i class="icon"></i></a>
+                    <ul<?php if (array_key_exists($this->disease_id, $category->diseases)): ?> style="display: block;"<?php endif; ?>>
+                        <?php foreach ($category->diseases as $d): ?>
+                        <li<?php if ($this->disease_id == $d->id): ?> class="active"<?php endif; ?>><?=CHtml::link($d->title, array('/services/recipeBook/default/index', 'slug' => $d->slug))?><span class="count"><?=$d->recipesCount?></span></li>
+                        <?php endforeach; ?>
+                    </ul>
+                </li>
+                <?php endforeach; ?>
+            </ul>
+
+        </div>
+
     </div>
 </div>
 <?php $this->endContent(); ?>

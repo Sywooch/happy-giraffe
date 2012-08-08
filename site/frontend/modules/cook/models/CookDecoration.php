@@ -121,7 +121,7 @@ class CookDecoration extends CActiveRecord
             'pagination' => array(
                 'pageSize' => $perPage,
                 'pageVar' => 'page',
-                'route' => '/cook/decor'
+                //'route' => '/cook/decor'
             ),
         ));
         return $dataProvider;
@@ -146,5 +146,7 @@ class CookDecoration extends CActiveRecord
         $preview = CHtml::link(CHtml::image($this->photo->getPreviewUrl($imageWidth, null, Image::WIDTH)), $this->url);
         return $preview;
     }
+
+
 
 }

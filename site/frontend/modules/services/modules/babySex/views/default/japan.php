@@ -10,9 +10,6 @@ Yii::app()->clientScript->registerScriptFile($baseUrl . '/japan.js', CClientScri
 Yii::app()->clientScript->registerCss('japan-baby', '.child_sex_japan_banner div.row {display: inline;}
     .child_sex_japan_banner .errorMessage {display: none !important;}');
 
-if (empty($this->meta_description))
-    $this->meta_description = 'Не верите в то, что отечественные методы работают? Предлагаем вам японский: определение пола ребенка. Введите месяцы рождения отца и матери, затем день и месяц зачатия ребёнка – и получите результат';
-
 $form = $this->beginWidget('CActiveForm', array(
     'id' => 'japan-form',
     'enableAjaxValidation' => true,
@@ -84,7 +81,7 @@ $form = $this->beginWidget('CActiveForm', array(
 
 </div>
 <div class="wysiwyg-content">
-    <h1>Японский метод определения пола ребенка</h1>
+    <h1>Японский метод планирование пола ребенка</h1>
     <p>Все жители Японии, а в особенности семейные пары, очень трепетно относятся к детям. Иметь продолжателей своего
         рода – основная обязанность каждой семьи. Желательно, чтобы в семье был мальчик, – для отцов семейства это очень
         важно. Если в семье рождаются одни девочки, мужчина может прибегнуть к связи «на стороне» или к усыновлению

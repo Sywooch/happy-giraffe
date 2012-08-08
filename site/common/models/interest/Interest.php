@@ -58,7 +58,8 @@ class Interest extends HActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'category' => array(self::BELONGS_TO, 'InterestCategory', 'category_id'),
-			'users' => array(self::MANY_MANY, 'User', 'user_interest(interest_id, user_id)'),
+			'users' => array(self::MANY_MANY, 'User', 'interest__users_interests(interest_id, user_id)'),
+            'usersCount' => array(self::STAT, 'User', 'interest__users_interests(interest_id, user_id)'),
 		);
 	}
 
@@ -109,6 +110,7 @@ class Interest extends HActiveRecord
 
     public static function saveByUser($user_id, $interests)
     {
+        $old_interests = self::findAllByUser($user_id);
         $command = Yii::app()->db->createCommand('delete from interest__users_interests where user_id = :user_id');
         $command->bindParam(":user_id", $user_id, PDO::PARAM_INT);
         $command->execute();
@@ -121,9 +123,13 @@ class Interest extends HActiveRecord
                     'interest_id' => $interest_id,
                     'user_id' => $user_id,
                 ));
+                if (! array_key_exists($interest_id, $old_interests))
+                    UserAction::model()->add($user_id, UserAction::USER_ACTION_INTERESTS_ADDED, array('id' => $interest_id));
             }
 
-            UserScores::checkProfileScores($user_id, ScoreActions::ACTION_PROFILE_INTERESTS);
+            UserScores::checkProfileScores($user_id, ScoreAction::ACTION_PROFILE_INTERESTS);
+            return true;
         }
+        return false;
     }
 }

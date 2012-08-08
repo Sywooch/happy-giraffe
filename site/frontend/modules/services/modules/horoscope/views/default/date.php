@@ -41,7 +41,7 @@
                 'type' => '3_btns',
                 'options' => array(
                     'title' => CHtml::encode($this->title),
-                    'image' => '/images/widget/horoscope/big/'.$model->zodiac.'.png',
+                    'image' => '/images/widget/horoscope/big/'.$model->zodiac.'.jpg',
                     'description' => Str::truncate($model->text, 250),
                 ),
             )); ?>
@@ -51,14 +51,12 @@
 
     </div>
 
-
-
 </div>
 
 <?php $this->renderPartial('_bottom_list',array('model'=>$model)); ?>
 
 <div class="wysiwyg-content">
 
-    <?=HoroscopeText::getDateText($model->zodiac, $model->date); ?>
+    <?=HoroscopeText::getText($model); ?>
 
 </div>

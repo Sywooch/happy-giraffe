@@ -53,6 +53,7 @@
  * @property UserPartner partner
  * @property Baby[] babies
  * @property AlbumPhoto $avatar
+ * @property UserStatus status
  *
  * @method User active()
  */
@@ -174,6 +175,7 @@ class User extends HActiveRecord
             array('profile_access, guestbook_access, im_access', 'in', 'range' => array_keys($this->accessLabels)),
             array('avatar_id', 'numerical', 'allowEmpty' => true),
             array('remember_code', 'numerical'),
+            array('blog_title', 'safe'),
 
             //login
             array('email, password', 'required', 'on' => 'login'),
@@ -219,6 +221,7 @@ class User extends HActiveRecord
                 $duration = $this->remember == 1 ? 2592000 : 0;
                 Yii::app()->user->login($identity, $duration);
                 $userModel->login_date = date('Y-m-d H:i:s');
+                $userModel->online = 1;
                 $userModel->last_ip = $_SERVER['REMOTE_ADDR'];
                 $userModel->save(false);
             }
@@ -293,6 +296,8 @@ class User extends HActiveRecord
 
             'answers' => array(self::HAS_MANY, 'DuelAnswer', 'user_id'),
             'activeQuestion' => array(self::HAS_ONE, 'DuelQuestion', array('question_id' => 'id'), 'through' => 'answers', 'condition' => 'ends > NOW()'),
+
+            'photos' => array(self::HAS_MANY, 'AlbumPhoto', 'author_id'),
         );
     }
 
@@ -369,6 +374,9 @@ class User extends HActiveRecord
     {
         parent::afterSave();
 
+        if ($this->trackable->isChanged('mood_id'))
+            UserAction::model()->add($this->id, UserAction::USER_ACTION_MOOD_CHANGED, array('model' => $this));
+
         foreach ($this->social_services as $service) {
             $service->user_id = $this->id;
             $service->save();
@@ -396,7 +404,7 @@ class User extends HActiveRecord
             self::clearCache($this->id);
 
             if (!empty($this->relationship_status))
-                UserScores::checkProfileScores($this->id, ScoreActions::ACTION_PROFILE_FAMILY);
+                UserScores::checkProfileScores($this->id, ScoreAction::ACTION_PROFILE_FAMILY);
         }
 
         return true;
@@ -445,6 +453,10 @@ class User extends HActiveRecord
             'ManyManyLinkBehavior' => array(
                 'class' => 'site.common.behaviors.ManyManyLinkBehavior',
             ),
+            'trackable' => array(
+                'class' => 'site.common.behaviors.TrackableBehavior',
+                'attributes' => array('mood_id'),
+            ),
         );
     }
 
@@ -487,8 +499,23 @@ class User extends HActiveRecord
 
     public function getAva($size = 'ava')
     {
-        if(empty($this->avatar_id))
+        if(empty($this->avatar_id)){
+            //if ($this->user->gender)
             return false;
+        }
+        if($size != 'big')
+            return $this->avatar->getAvatarUrl($size);
+        else
+            return $this->avatar->getPreviewUrl(240, 400, Image::WIDTH);
+    }
+
+    public function getAvaOrDefaultImage($size = 'ava')
+    {
+        if(empty($this->avatar_id)){
+            if ($this->gender == 1)
+                return '';
+            return false;
+        }
         if($size != 'big')
             return $this->avatar->getAvatarUrl($size);
         else
@@ -574,8 +601,10 @@ class User extends HActiveRecord
         $friend->user1_id = $this->id;
         $friend->user2_id = $friend_id;
         if ($friend->save()) {
-            UserScores::addScores($this->id, ScoreActions::ACTION_FRIEND, 1, User::getUserById($friend_id));
-            UserScores::addScores($friend_id, ScoreActions::ACTION_FRIEND, 1, $this);
+            UserScores::addScores($this->id, ScoreAction::ACTION_FRIEND, 1, User::getUserById($friend_id));
+            UserScores::addScores($friend_id, ScoreAction::ACTION_FRIEND, 1, $this);
+            UserAction::model()->add($this->id, UserAction::USER_ACTION_FRIENDS_ADDED, array('id' => $friend_id));
+            UserAction::model()->add($friend_id, UserAction::USER_ACTION_FRIENDS_ADDED, array('id' => $this->id));
             return true;
         }
         return false;
@@ -607,8 +636,8 @@ class User extends HActiveRecord
     {
         $res = Friend::model()->deleteAll($this->getFriendCriteria($friend_id));
         if ($res != 0) {
-            UserScores::removeScores($friend_id, ScoreActions::ACTION_FRIEND, 1, $this);
-            UserScores::removeScores($this->id, ScoreActions::ACTION_FRIEND, 1, User::model()->findByPk($friend_id));
+            UserScores::removeScores($friend_id, ScoreAction::ACTION_FRIEND, 1, $this);
+            UserScores::removeScores($this->id, ScoreAction::ACTION_FRIEND, 1, User::model()->findByPk($friend_id));
             return true;
         }
 
@@ -631,18 +660,17 @@ class User extends HActiveRecord
      */
     public function getFriends($condition = '', $params = array())
     {
-        $criteria = $this->getFriendSelectCriteria();
-        $criteria->mergeWith($this->getCommandBuilder()->createCriteria($condition, $params));
+        $criteria = $this->getFriendsCriteria($condition, $params);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
         ));
     }
 
-    public function getFriendsCriteria($additional_criteria)
+    public function getFriendsCriteria($condition = '', $params = array())
     {
         $criteria = $this->getFriendSelectCriteria();
-        $criteria->mergeWith($additional_criteria);
+        $criteria->mergeWith($this->getCommandBuilder()->createCriteria($condition, $params));
 
         return $criteria;
     }
@@ -780,8 +808,11 @@ class User extends HActiveRecord
 
     public function addCommunity($community_id)
     {
-        return Yii::app()->db->createCommand()
+        $result = Yii::app()->db->createCommand()
             ->insert('user__users_communities', array('user_id' => $this->id, 'community_id' => $community_id)) != 0;
+        if ($result)
+            UserAction::model()->add($this->id, UserAction::USER_ACTION_CLUBS_JOINED, array('community_id' => $community_id));
+        return $result;
     }
 
     public function delCommunity($community_id)
@@ -804,7 +835,6 @@ class User extends HActiveRecord
         $criteria = new CDbCriteria;
         $criteria->with =array('level' => array('select' => array('title')));
         $criteria->compare('user_id', $this->id);
-        $criteria->select = array('scores', 'level_id');
         $model = UserScores::model()->find($criteria);
         if ($model === null) {
             $model = new UserScores;
@@ -889,7 +919,7 @@ class User extends HActiveRecord
             'select' => 't.*, count(interest__users_interests.user_id) AS interestsCount, count(' . Baby::model()->getTableAlias() .  '.id) AS babiesCount',
             'group' => 't.id',
             'having' => 'interestsCount > 0 AND (babiesCount > 0 OR t.relationship_status IS NOT NULL)',
-            'condition' => 't.avatar_id IS NOT NULL AND userAddress.country_id IS NOT NULL',
+            'condition' => 't.birthday IS NOT NULL AND t.avatar_id IS NOT NULL AND userAddress.country_id IS NOT NULL',
             'join' => 'LEFT JOIN interest__users_interests ON interest__users_interests.user_id = t.id',
             'with' => array(
                 'interests' => array(
@@ -898,7 +928,7 @@ class User extends HActiveRecord
                 'userAddress',
                 'babies' => array(
                     'together' => true,
-                    'condition' => 'sex != 0 OR type IS NOT NULL',
+                    //'condition' => 'sex != 0 OR type IS NOT NULL',
                 ),
             ),
             'order' => 'register_date DESC',
@@ -938,5 +968,32 @@ class User extends HActiveRecord
         } else {
             return $activityLastUpdated > UserAttributes::get($this->id, 'activityLastVisited');
         }
+    }
+
+    public function getBlogPopular()
+    {
+        return BlogContent::model()->full()->findAll(array(
+            'condition' => 'rubric.user_id = :user_id',
+            'params' => array(':user_id' => $this->id),
+            'order' => 't.rate DESC',
+            'limit' => 3,
+        ));
+    }
+
+    function createPassword($length)
+    {
+        $chars = 'abcefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+        $i = 0;
+        $password = "";
+        while ($i <= $length) {
+            $password .= $chars{mt_rand(0,strlen($chars) - 1)};
+            $i++;
+        }
+        return $password;
+    }
+
+    function getConfirmationCode()
+    {
+        return md5($this->email . md5($this->password));
     }
 }

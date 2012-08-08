@@ -18,7 +18,12 @@ class CookModule extends CWebModule
 	{
 		if(parent::beforeControllerAction($controller, $action))
 		{
-			if ($controller->id != 'recipe' || $action->id != 'view')
+			if (($controller->id != 'recipe' || $action->id != 'view')
+                && ($controller->id != 'calorisator' || $action->id != 'index')
+                && ($controller->id != 'converter' || $action->id != 'index')
+                && ($controller->id != 'choose') && ($controller->id != 'decor')
+                && ($controller->id != 'spices') && ($controller->id != 'default')
+            )
                 Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
 			return true;
 		}

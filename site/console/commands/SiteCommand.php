@@ -46,7 +46,7 @@ class SiteCommand extends CConsoleCommand
     /**
      * mark all users with role
      */
-    public function actionUserGroups()
+    /*public function actionUserGroups()
     {
         $criteria = new CDbCriteria;
         $criteria->compare('id', $this->moderators);
@@ -82,7 +82,7 @@ class SiteCommand extends CConsoleCommand
             $user->group = UserGroup::VIRTUAL;
             $user->update('group');
         }
-    }
+    }*/
 
     public function actionFormatDiseases()
     {
@@ -179,30 +179,54 @@ class SiteCommand extends CConsoleCommand
         }
     }
 
-    public function actionFirstCommentFix()
+    public function actionGeneratePreviews()
     {
-        $k = 0;
+        Yii::import('site.frontend.extensions.image.Image');
+        Yii::import('site.frontend.extensions.helpers.CArray');
 
-        $raws = 1;
-        while (!empty($raws)) {
-            $raws = Yii::app()->db->createCommand()
-                ->select('*')
-                ->from('comments')
-                ->where('author_id=1')
-                ->limit(1000)
-                ->offset($k * 1000)
-                ->queryAll();
+        $limit = 1000;
+        $offset = 0;
+        $i = 0;
 
-            foreach ($raws as $raw) {
-                $attach = new AttachPhoto;
-                $attach->entity = 'Comment';
-                $attach->entity_id = $raw['id'];
-                $attach->photo_id = 35000;
-                $attach->save();
+        while ($photos = AlbumPhoto::model()->active()->findAll(array('order' => 'id DESC', 'limit' => $limit, 'offset' => $offset))) {
+            foreach ($photos as $p) {
+                echo ++$i . ':' . $p->getPreviewUrl(960, 627, Image::HEIGHT, true) . "\n";
             }
-
-            $k++;
+            $offset += $limit;
         }
-        return $k;
+    }
+
+    public function actionRemoveOldNotifications(){
+        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
+        Yii::import('site.frontend.extensions.*');
+        Yii::import('site.frontend.components.*');
+        Yii::import('site.frontend.helpers.*');
+        Yii::import('site.common.models.mongo.*');
+
+        $criteria = new EMongoCriteria();
+        $criteria->created('<', strtotime('-1 month'));
+        UserNotification::model()->deleteAll($criteria);
+    }
+
+    public function actionFix(){
+        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
+        Yii::import('site.frontend.extensions.*');
+        Yii::import('site.frontend.components.*');
+        Yii::import('site.frontend.helpers.*');
+        Yii::import('site.common.models.mongo.*');
+
+        $criteria = new EMongoCriteria();
+        $criteria->type('==', UserAction::USER_ACTION_LEVELUP);
+        $actions = UserAction::model()->findAll($criteria);
+        $users = array();
+        foreach($actions as $action){
+            $action->data = array('level_id'=>1);
+            if (!in_array($action->user_id, $users)){
+                $users[] = $action->user_id;
+                $action->save();
+            }
+            else
+                $action->delete();
+        }
     }
 }

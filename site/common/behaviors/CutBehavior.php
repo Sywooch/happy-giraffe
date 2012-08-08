@@ -33,7 +33,7 @@ class CutBehavior extends CActiveRecordBehavior
         }
     }
 
-    private function wrapNoindex($text)
+   /* private function wrapNoindex($text)
     {
 
         Yii::import('site.frontend.extensions.phpQuery.phpQuery');
@@ -56,5 +56,5 @@ class CutBehavior extends CActiveRecordBehavior
         $doc->unloadDocument();
 
         return $text;
-    }
+    }*/
 }

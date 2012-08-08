@@ -1,7 +1,6 @@
 <?php
 
 return array(
-    'class' => 'HUrlManager',
     'urlFormat' => 'path',
     'showScriptName' => false,
     'urlSuffix' => '/',
@@ -14,12 +13,19 @@ return array(
         // global
         '.*/index' => 404,
 
+        // photo view
+        'community/<community_id:\d+>/forum/post/<content_id:\d+>/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'CommunityContentGallery')),
+        'user/<user_id:\d+>/albums/<album_id:\d+>/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'Album')),
+        'cook/recipe/<recipe_id:\d+>/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'SimpleRecipe')),
+        'cook/multivarka/<recipe_id:\d+>/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'MultivarkaRecipe')),
+        'cook/decor/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'CookDecorationCategory')),
+        'cook/decor/<category_id:\d+>/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'CookDecorationCategory')),
+
         // site controller
         '/' => 'site/index',
         'js_dynamics/<hash:\w+>.js' => 'site/seoHide',
         'search' => 'site/search',
-        'site/rememberPassword/step/<step:\d+>' => 'site/rememberPassword',
-        'site/<_a:(login|logout|link|test)>' => 'site/<_a>',
+        'site/<_a:(confirmEmail|resendConfirmEmail|passwordRecovery|passwordRecoveryForm|login|logout|link|test|test2|users)>' => 'site/<_a>',
         'contest' => 'site/contest',
 
         // ajax controller
@@ -41,13 +47,17 @@ return array(
         'morning/<date:[\d\d\d\d-\d\d-\d\d]*>' => 'morning/index',
 
         // albums controller
-        'albums/addPhoto/a/<id:\d+>' => 'albums/addPhoto',
+        'albums/addPhoto/a/<a:\d+>' => 'albums/addPhoto',
         'albums/addPhoto' => 'albums/addPhoto',
         'albums/redirect/<id:\d+>' => 'albums/redirect',
-        'albums/<_a:(attach|wPhoto|attachView|editDescription|editPhotoTitle|changeTitle|changePermission|removeUploadPhoto|communityContentEdit|communityContentSave|recipePhoto|cookDecorationPhoto|cookDecorationCategory|commentPhoto|crop|changeAvatar|humorPhoto)>' => 'albums/<_a>',
+        'albums/<_a:(attach|wPhoto|attachView|editDescription|editPhotoTitle|changeTitle|changePermission|removeUploadPhoto|communityContentEdit|communityContentSave|recipePhoto|cookDecorationPhoto|cookDecorationCategory|commentPhoto|crop|changeAvatar|humorPhoto|albumSettings|updatePhoto|postLoad)>' => 'albums/<_a>',
 
         // user/*
         'user/<user_id:\d+>' => 'user/profile',
+        'user/<user_id:\d+>/friendsActivity/page<page:\d+>' => array('user/activity', 'defaultParams' => array('type' => 'friends')),
+        'user/<user_id:\d+>/friendsActivity' => array('user/activity', 'defaultParams' => array('type' => 'friends')),
+        'user/<user_id:\d+>/activity/page<page:\d+>' => array('user/activity', 'defaultParams' => array('type' => 'my')),
+        'user/<user_id:\d+>/activity' => array('user/activity', 'defaultParams' => array('type' => 'my')),
         'user/<user_id:\d+>/clubs' => 'user/clubs',
         'user/<user_id:\d+>/friends' => 'user/friends',
         'user/<user_id:\d+>/blog/rubric<rubric_id:\d+>' => 'blog/list',
@@ -83,14 +93,14 @@ return array(
         'community/add/community_id/<community_id:\d+>/rubric_id/<rubric_id:\d+>' => 'community/add',
         'community/add/community_id/<community_id:\d+>/content_type_slug/<content_type_slug>' => 'community/add',
         'community/add/community_id/<community_id:\d+>' => 'community/add',
-        'community/<_a:(join|add|transfer|edit|editTravel)>' => 'community/<_a>',
+        'community/<_a:(join|add|transfer|edit|editTravel|weeklyMail)>' => 'community/<_a>',
 
         //global
         '<_c:(activity|ajax|notification|profile|friendRequests|communityRubric|family|morning)>/<_a>' => '<_c>/<_a>',
         '<_c:(activity|profile|rss|family|morning|community)>' => '<_c>/index',
 
         //others
-        array('class' => 'ext.sitemapgenerator.SGUrlRule', 'route' => '/sitemap'),
+        array('class' => 'site.frontend.extensions.sitemapgenerator.SGUrlRule', 'route' => '/sitemap'),
 
         /*************************
          *        MODULES        *
@@ -115,28 +125,46 @@ return array(
 
         'cook/converter/<_a>' => 'cook/converter/<_a>',
 
-        'cook/decor/<id:[\d]+>' => 'cook/decor/index',
-        'cook/decor/<id:[\d]+>/<photo:[\w_]+>' => 'cook/decor/index',
-        'cook/decor/<photo:[\w_]+>' => 'cook/decor/index',
-        'cook/decor/<id:[\d]+>/page/<page:[\d]+>/<photo:[\w_]+>' => 'cook/decor/index',
-        'cook/decor/<id:[\d]+>/page/<page:[\d]+>' => 'cook/decor/index',
-        'cook/decor/page/<page:[\d]+>/<photo:[\w_]+>' => 'cook/decor/index',
-        'cook/decor/page/<page:[\d]+>' => 'cook/decor/index',
+        'cook/decor/<id:\d+>/page<page:\d+>' => 'cook/decor/index',
+        'cook/decor/<id:\d+>' => 'cook/decor/index',
+        'cook/decor/page<page:\d+>' => 'cook/decor/index',
         'cook/decor' => 'cook/decor/index',
 
-        'cook/recipe/add' => 'cook/recipe/form',
-        'cook/recipe/edit/<id:\d+>' => 'cook/recipe/form',
-        'cook/recipe/<id:\d+>' => 'cook/recipe/view',
-        'cook/recipe/type/<type:\d+>' => 'cook/recipe/index',
-        'cook/recipe/<_a:(ac|import|search|searchByIngredients|advancedSearch|searchByIngredientsResult|advancedSearchResult)>' => 'cook/recipe/<_a>',
+        'cook/recipe/edit/<id:\d+>' => array('cook/recipe/form', 'defaultParams' => array('section' => 0)),
+        'cook/recipe/add' => array('cook/recipe/form', 'defaultParams' => array('section' => 0)),
+        'cook/recipe/<id:\d+>' => array('cook/recipe/view', 'defaultParams' => array('section' => 0)),
+        'cook/recipe/type/<type:\d+>' => array('cook/recipe/index', 'defaultParams' => array('section' => 0)),
+        'cook/recipe' => array('cook/recipe/index', 'defaultParams' => array('section' => 0)),
+        'cook/recipe/advancedSearch' => array('cook/recipe/advancedSearch', 'defaultParams' => array('section' => 0)),
+        'cook/recipe/advancedSearchResult' => array('cook/recipe/advancedSearchResult', 'defaultParams' => array('section' => 0)),
+        'cook/recipe/searchByIngredients' => array('cook/recipe/searchByIngredients', 'defaultParams' => array('section' => 0)),
+        'cook/recipe/searchByIngredientsResult' => array('cook/recipe/searchByIngredientsResult', 'defaultParams' => array('section' => 0)),
+
+        'cook/multivarka/add' => array('cook/recipe/form', 'defaultParams' => array('section' => 1)),
+        'cook/multivarka/<id:\d+>' => array('cook/recipe/view', 'defaultParams' => array('section' => 1)),
+        'cook/multivarka/type/<type:\d+>' => array('cook/recipe/index', 'defaultParams' => array('section' => 1)),
+        'cook/multivarka' => array('cook/recipe/index', 'defaultParams' => array('section' => 1)),
+        'cook/multivarka/advancedSearch' => array('cook/recipe/advancedSearch', 'defaultParams' => array('section' => 1)),
+        'cook/multivarka/advancedSearchResult' => array('cook/recipe/advancedSearchResult', 'defaultParams' => array('section' => 1)),
+        'cook/multivarka/searchByIngredients' => array('cook/recipe/searchByIngredients', 'defaultParams' => array('section' => 1)),
+        'cook/multivarka/searchByIngredientsResult' => array('cook/recipe/searchByIngredientsResult', 'defaultParams' => array('section' => 1)),
+
+        'cook/recipe/feed.xml' => 'cook/recipe/feed',
+        'cook/recipe/<_a:(ac|import|search)>' => 'cook/recipe/<_a>',
 
         'cook/spices/category/<id:[\w_]+>' => 'cook/spices/category',
         'cook/spices/<id:[\w_]+>' => 'cook/spices/view',
 
-        'cook/<_c:(spices|choose|calorisator|converter|recipe)>' => 'cook/<_c>/index',
+        'cook/<_c:(spices|choose|calorisator|converter)>' => 'cook/<_c>/index',
 
         //===================== Services =========================//
-        '<_m:(test|tester|vaccineCalenda|childrenDiseases|menstrualCycle|horoscope|babyBloodGroup|placentaThickness|pregnancyWeight|contractionsTime|names|recipeBook|hospitalBag|maternityLeave|dailyCalories|weightLoss|idealWeight|bodyFat)>/' => 'services/<_m>/default/index',
+
+        'childCalendar/<slug:[\w-]+>' => array('calendar/default/index', 'defaultParams' => array('calendar' => 0)),
+        'pregnancyCalendar/<slug:[\w-]+>' => array('calendar/default/index', 'defaultParams' => array('calendar' => 1)),
+        'childCalendar' => array('calendar/default/index', 'defaultParams' => array('calendar' => 0)),
+        'pregnancyCalendar' => array('calendar/default/index', 'defaultParams' => array('calendar' => 1)),
+
+        '<_m:(test|tester|vaccineCalendar|childrenDiseases|menstrualCycle|horoscope|babyBloodGroup|placentaThickness|pregnancyWeight|contractionsTime|names|hospitalBag|maternityLeave|dailyCalories|weightLoss|idealWeight|bodyFat|birthDate)>/' => 'services/<_m>/default/index',
         '<_m:(babySex|vaccineCalendar|sewing|hospitalBag)>/<_a>/' => 'services/<_m>/default/<_a>',
 
         'babySex'=>'services/babySex/default/index',
@@ -155,9 +183,12 @@ return array(
         'names/<_a:(saintCalc|likes|like|top10|saint)>' => 'services/names/default/<_a>',
         'names/<name:[\w]+>' => 'services/names/default/name/',
 
-        'recipeBook/<_a:(getAlphabetList|getCategoryList|edit|list|diseases|vote)>' => 'services/recipeBook/default/<_a>',
-        'recipeBook/recipe/<id:\d+>' => 'services/recipeBook/default/view',
-        'recipeBook/<url:\w+>' => 'services/recipeBook/default/disease',
+        'recipeBook/<_a:(diseases|ac)>' => 'services/recipeBook/default/<_a>',
+        'recipeBook/edit/<id:\d+>' => 'services/recipeBook/default/form',
+        'recipeBook/add' => 'services/recipeBook/default/form',
+        'recipeBook/recipe<id:\d+>' => 'services/recipeBook/default/view',
+        'recipeBook/<slug:\w+>' => 'services/recipeBook/default/index',
+        'recipeBook' => 'services/recipeBook/default/index',
 
         'services/repair/<_c>/<_a>' => 'services/repair/<_c>/<_a>',
         'repair/<_c>' => 'services/repair/<_c>/index',
@@ -166,7 +197,7 @@ return array(
 
         'tester/<slug:[\w-]+>' => 'services/tester/default/view',
 
-        '<_m:(menstrualCycle|placentaThickness|pregnancyWeight)>/<_a:(calculate)>' => 'services/<_m>/default/<_a>',
+        '<_m:(menstrualCycle|placentaThickness|pregnancyWeight|birthDate)>/<_a:(calculate)>' => 'services/<_m>/default/<_a>',
 
         'services/<_m:(dailyCalories|weightLoss|idealWeight|bodyFat)>/default/<_c>' => 'services/<_m>/default/<_c>',
     ),

@@ -5,7 +5,7 @@
 
 if ($type == 'guestBook') {
     $template = '
-            <div class="default-comments">
+            <div class="default-comments" id="comment_list">
                 <div class="comments-meta clearfix">
                     <div class="add-menu">
                          ' . (!Yii::app()->user->isGuest ? '<a href="javascript:void(0);" class="btn btn-orange a-right" onclick="addMenuToggle(this);"><span><span>Добавить запись<i class="arr-b"></i></span></span></a>
@@ -36,7 +36,7 @@ if ($type == 'guestBook') {
     }
 
     $template = '
-            <div class="default-comments">
+            <div class="default-comments" id="comment_list">
                 <div class="comments-meta clearfix">
                     ' . $link . '
                     <div class="title">' . $this->title . '</div>
@@ -50,21 +50,47 @@ if ($type == 'guestBook') {
             ';
 }
 
-$this->widget('HCommentListView', array(
-    'dataProvider' => $dataProvider,
-    'itemView' => '_comment',
-    'itemsTagName' => 'ul',
-    'summaryText' => 'показано: {start} - {end} из {count}',
-    'afterAjaxUpdate' => "$('html, body').animate({scrollTop : $('.default-comments').offset().top}, 'fast')",
-    'pager' => array(
-        'class' => 'MyLinkPager',
-        'header' => '',
-    ),
-    'id' => 'comment_list_' . $this->objectName,
-    'template' => $template,
-    'viewData' => array(
-        'currentPage' => $dataProvider->pagination->currentPage,
-    ),
-    'popUp' => $this->popUp,
-));
+if ($this->type == 'guestBook') {
+    $this->widget('HCommentListView', array(
+        'dataProvider' => $dataProvider,
+        'itemView' => '_comment',
+        'itemsTagName' => 'ul',
+        'summaryText' => 'показано: {start} - {end} из {count}',
+        'afterAjaxUpdate' => "$('html, body').animate({scrollTop : $('.default-comments').offset().top}, 'fast')",
+        'pager' => array(
+            /*'class' => 'ext.yiinfinite-scroll.YiinfiniteScroller',
+            'contentSelector' => 'ul.items',
+            'itemSelector' => 'li.item',
+            'loadingImg' => '/images/loader_01.gif',
+            'loadingText' => 'Загрузка...',
+            'donetext' => ' ',*/
+            'class' => 'MyLinkPager',
+            'header' => '',
+        ),
+        'id' => 'comment_list_' . $this->objectName,
+        'template' => $template,
+        'viewData' => array(
+            'currentPage' => $dataProvider->pagination->currentPage,
+        ),
+        'popUp' => $this->popUp,
+    ));
+} else {
+    $this->widget('HCommentListView', array(
+        'dataProvider' => $dataProvider,
+        'itemView' => '_comment',
+        'itemsTagName' => 'ul',
+        'summaryText' => 'показано: {start} - {end} из {count}',
+        'afterAjaxUpdate' => "$('html, body').animate({scrollTop : $('.default-comments').offset().top}, 'fast')",
+        'pager' => array(
+            'class' => 'MyLinkPager',
+            'header' => '',
+        ),
+        'id' => 'comment_list_' . $this->objectName,
+        'template' => $template,
+        'viewData' => array(
+            'currentPage' => $dataProvider->pagination->currentPage,
+        ),
+        'popUp' => $this->popUp,
+    ));
+}
 ?>

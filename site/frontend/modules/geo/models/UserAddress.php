@@ -114,15 +114,23 @@ class UserAddress extends HActiveRecord
         ));
     }
 
-    public function getFlag($big = false)
+    public function beforeSave()
+    {
+        if (!empty($this->country_id))
+            UserScores::checkProfileScores($this->user_id, ScoreAction::ACTION_PROFILE_LOCATION);
+
+        return parent::beforeSave();
+    }
+
+    public function getFlag($big = false, $element = 'div')
     {
         if (!empty($this->country_id)) {
             if ($big)
-                return '<div class="flag-big flag-big-' . strtolower($this->country->iso_code)
-                    . '" title="' . $this->country->name . '"></div>';
+                return '<' . $element . ' class="flag-big flag-big-' . strtolower($this->country->iso_code)
+                    . '" title="' . $this->country->name . '"></' . $element . '>';
             else
-                return '<div class="flag flag-' . strtolower($this->country->iso_code)
-                    . '" title="' . $this->country->name . '"></div>';
+                return '<' . $element . ' class="flag flag-' . strtolower($this->country->iso_code)
+                    . '" title="' . $this->country->name . '"></' . $element . '>';
         }
         else
             return '';

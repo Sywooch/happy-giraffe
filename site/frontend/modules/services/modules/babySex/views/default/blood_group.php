@@ -6,8 +6,6 @@
 $basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR;
 $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
 Yii::app()->clientScript->registerScriptFile($baseUrl . '/blood_group.js', CClientScript::POS_HEAD);
-if (empty($this->meta_description))
-    $this->meta_description = 'Определение пола ребенка по группе крови родителей – это не миф. Многие, воспользовавшись нашим сервисом, смогли в этом убедиться. Попробуйте и вы – введите группы крови родителей и посмотрите, кто у вас родится';
 
 ?><div class="child_sex_blood_banner">
     <form action="">

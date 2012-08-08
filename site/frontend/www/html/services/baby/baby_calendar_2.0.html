@@ -1,6 +1,6 @@
 ﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!--[if lt IE 7]> <html xmlns="http://www.w3.org/1999/xhtml"> <![endif]-->
-<!--[if IE 7]>    <html xmlns="http://www.w3.org/1999/xhtml" class="ie7"> <![endif]-->
+<!--[if IE 7]>        <html xmlns="http://www.w3.org/1999/xhtml" class="ie7"> <![endif]-->
 <!--[if gt IE 7]><!--> <html xmlns="http://www.w3.org/1999/xhtml"> <!--<![endif]-->
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -9,50 +9,15 @@
 	
 	<link rel="stylesheet" type="text/css" href="/stylesheets/common.css" />
 	<link rel="stylesheet" type="text/css" href="/stylesheets/baby.css" />
-	<link rel="stylesheet" type="text/css" href="/stylesheets/store.css" />
 	
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-	<script type="text/javascript" src="/javascripts/checkbox.js"></script>
 	
 	<link rel="stylesheet" type="text/css" href="/stylesheets/jquery.fancybox-1.3.4.css" />
 	<script type="text/javascript" src="/javascripts/jquery.fancybox-1.3.4.pack.js"></script>
 	
-	<script type="text/javascript" src="/javascripts/jquery.jcarousel.js"></script>
-	
+	<script type="text/javascript" src="/javascripts/jquery.tooltip.pack.js"></script>
+    
 	<script type="text/javascript" src="/javascripts/common.js"></script>
-	
-	<script type="text/javascript">
-	
-		$(document).ready(function(){
-		
-			$(document).ready(function(){
-			if ($('.jcarousel').size() > 0) {
-				$('.jcarousel').each(function(){
-					
-					$(this).bind('jcarouselscrollend', function(carousel) {
-						
-						$(this).parent().find('.prev').removeClass('disabled');
-						$(this).parent().find('.next').removeClass('disabled');
-						
-						if ($(this).find('li:first').is('.jcarousel-item-fullyvisible')) {
-							$(this).parent().find('.prev').addClass('disabled');
-						}
-						
-						if ($(this).find('li:last').is('.jcarousel-item-fullyvisible')) {
-							$(this).parent().find('.next').addClass('disabled');
-						}
-
-					});			
-					
-				})		
-			}
-			
-			$('#else-products-slider').jcarousel();
-		})
-			
-		})
-		
-	</script>
 
 	<!--[if IE 7]>
 		<link rel="stylesheet" href='/stylesheets/ie.css' type="text/css" media="screen" />
@@ -62,95 +27,453 @@
 <body class="body-club">
 	<div id="layout" class="wrapper">
 		
-		<div id="header" class="clearfix">
+		<div id="header-new" class="clearfix">
 			
-			<div class="logo-box">
-				<a href="/" class="logo" title="hg.ru – Домашняя страница">Ключевые слова сайта</a>
+			<div class="top-line clearfix">
+				
+				<div class="user-nav">
+					
+					<ul>
+						<li><a href=""><i class="icon icon-home"></i></a></li>
+						<li>
+							<a href="">Прелоадер ;)</a>
+							<div class="drp">
+								<div class="drp-title"><img src="/images/loader_01.gif" /></div>
+							</div>
+						</li>
+						<li>
+							<a href=""><i class="icon icon-messages"></i><span class="count">5</span></a>
+							<div class="drp">
+								<div class="drp-title">Диалоги</div>
+								<ul class="list">
+									<li>
+										<a href="">
+											<span class="name">Александр    Богоявленский</span>
+											<span class="text">Привет! У меня    нормально. Напиши как приедешь...</span>
+											<span class="date">Сегодня 10:45</span>
+										</a>
+									</li>
+									<li>
+										<a href="">
+											<span class="name">Александр    Богоявленский</span>
+											<span class="text">Привет! У меня    нормально. Напиши как приедешь...</span>
+											<span class="date">Сегодня 10:45</span>
+										</a>
+									</li>
+									<li>
+										<a href="">
+											<span class="name">Александр    Богоявленский</span>
+											<span class="text">Привет! У меня    нормально. Напиши как приедешь...</span>
+											<span class="date">Сегодня 10:45</span>
+										</a>
+									</li>							
+								</ul>
+								<div class="actions">
+									<ul>
+										<li><a href="">Все диалоги <span>(156)</span></a></li>
+										<li><a href="">Новых</a> <a href="" class="count">5</a></li>
+										<li><a href="">Кто онлайн</a> <span>8</span></li>
+									</ul>
+								</div>
+							</div>
+						</li>
+						<li>
+							<a href=""><i class="icon icon-friends"></i><span class="count">777</span></a>
+							<div class="drp drp-closable">
+								<div class="drp-title">Друзья</div>
+								<ul class="list">
+									<li>
+										<a href=""><span class="red">ОГО!</span>&nbsp;&nbsp;<span class="name">Александр Богоявленский</span> предлагает подружиться<i class="close"></i></a>
+									</li>
+									<li>
+										<a href=""><span class="yellow">УРА!</span>&nbsp;&nbsp;<span class="name">Ирина Гусева</span> ответила согласием на Вашу дружбу<i class="close"></i></a>
+									</li>
+									<li>
+										<a href=""><span class="green">ЖАЛЬ!</span>&nbsp;&nbsp;<span class="name">Иван захаров</span> ответил отказом на Вашу дружбу<i class="close"></i></a>
+									</li>									
+								</ul>
+								<div class="actions">
+									<ul>
+										<li><a href="">Все друзья <span>(18)</span></a></li>
+										<li><a href="">Кто онлайн</a> <span>8</span></li>
+										<li><a href="">Предложения дружбы</a> <a href="" class="count count-gray">0</a></li>
+										<li><a href="">Мои предложения</a></li>
+									</ul>
+								</div>
+							</div>
+						</li>
+						<li>
+							<a href=""><i class="icon icon-notifications"></i><span class="count">44</span></a>
+							<div class="drp drp-icons">
+								<div class="drp-title">Уведомления</div>
+								<ul class="list">
+									<li>
+										<a href="">2 новых комментария    к Вашей записи <span class="black">Я боюсь рожать</span>    в клубе <span class="black">Роды</span><i class="icon icon-settings"></i></a>
+									</li>
+								</ul>
+								<div class="actions">
+									<ul>
+										<li><a href="">Все уведомления (43)</a></li>
+									</ul>
+								</div>
+							</div>
+						</li>
+						<li class="user">
+                                                                <div class="link">
+									<a class="ava male small" href="/user/profile/user_id/10020/">
+										<img src="" alt="">
+									</a>
+									<a href="/user/profile/user_id/10020/">
+                                                                                <span class="username">Ижецкий Денис Владимирович<i class="arr"></i></span>
+                                                                        </a>
+                                                                </div>
+                                                                <div class="drp">
+                                                                        <div class="actions">
+                                                                                <ul>
+                                                                                        <li><a href="/user/profile/user_id/10020/">Мой профайл<i class="icon icon-profile"></i></a></li>
+                                                                                        <li><a href="/profile/index/">Мои настройки<i class="icon icon-settings"></i></a></li>
+                                                                                        <li><a href="/site/logout/">Выйти<i class="icon icon-logout"></i></a></li>
+                                                                                </ul>
+                                                                        </div>
+                                                                </div>
+                                                        </li>
+					</ul>
+					
+				</div>
+				
+				<ul class="fast-links clearfix">
+					<li><a href="">Главная</a></li>
+					<li><a href="">Клубы</a></li>
+					<li><a href="">Сервисы</a></li>
+					<li><a href="">Конкурсы</a></li>
+				</ul>
+				
 			</div>
 			
 			<div class="header-in">
-								
-				<div class="search-box">
-					<button class="btn"><span><span>Поиск</span></span></button>
-					<div class="text">
-						<input type="text" />
+				<div class="clearfix">
+					
+					<div class="search-box clearfix">
+						<div class="input">
+							<input type="text" />
+						</div>
+						<button class="btn btn-green-medium"><span><span>Поиск</span></span></button>					
+						
+						<div class="fast-actions">
+							<a href="" class="newest active"><i class="icon"></i>Самое<br/>свежее</a>
+							<a href="" class="find-friend"><i class="icon"></i>Найти<br/>друзей</a>
+						</div>
+						
 					</div>
-				</div>
-				
-				<div class="login-box">
-					<span class="welcome"><b>Добро пожаловать,</b> <a href="">Анастасия Петрова!</a></span>
-					<a href="">Выйти</a>
+					
+					<div class="logo-box">
+						<a href="/" class="logo" title="hg.ru – Домашняя страница">Ключевые слова сайта</a>
+						<span>САЙТ ДЛЯ ВСЕЙ СЕМЬИ</span>
+					</div>
+					
+					<div class="banner-box">
+						<a href=""><img src="/images/banner_01.png" /></a>
+					</div>
+					
 				</div>
 				
 				<div class="nav">
-					<ul>
-						<li class="green"><a href=""><span>Форумы</span></a></li>
-						<li class="yellow"><a href=""><span>Конкурсы</span></a></li>
-						<li class="orange"><a href=""><span>Календарь малыша</span></a></li>
+					<ul class="clearfix width-2">
+						<!--<li class="morning">
+							<a href=""><i class="text"></i></a>
+						</li>-->
+						<li class="kids navdrp">
+							<a href="javascript:void(0);" onclick="navDrpOpen(this);"><i class="text"></i></a>
+							<div class="drp">
+								<div class="in">
+									
+									<ul class="cols cols-5">
+										<li class="col">
+											
+											<div class="col-in bg-img-11">
+												<div class="title">Беременность и роды</div>
+												<ul>
+													<li><a href="">Планирование</a></li>
+													<li><a href="">Беременность</a></li>
+													<li><a href="">Подготовка и роды</a></li>
+												</ul>												
+											</div>
+											
+										</li>
+										<li class="col">
+											
+											<div class="col-in bg-img-12">
+												<div class="title">Дети до года</div>
+												<ul>
+													<li><a href="">Здоровье</a></li>
+													<li><a href="">Питание малыша</a></li>
+													<li><a href="">Развитие ребенка</a></li>
+													<li><a href="">Режим и уход</a></li>
+												</ul>
+											</div>
+											
+										</li>
+										<li class="col">
+											
+											<div class="col-in bg-img-13">
+												<div class="title">Дети старше года</div>
+												<ul>
+													<li><a href="">Здоровье и питание</a></li>
+													<li><a href="">Ясли и няни</a></li>
+													<li><a href="">Раннее развитие и обучение</a></li>
+													<li><a href="">Психология и воспитание</a></li>
+												</ul>
+											</div>
+											
+										</li>
+										<li class="col">
+											
+											<div class="col-in bg-img-14">
+												<div class="title">Дошкольники</div>
+												<ul>
+													<li><a href="">Детский сад</a></li>
+													<li><a href="">Игры и развлечения</a></li>
+													<li><a href="">Готовимся к школе</a></li>
+												</ul>
+											</div>
+											
+										</li>
+										<li class="col">
+											
+											<div class="col-in bg-img-15">
+												<div class="title">Школьники</div>
+												<ul>
+													<li><a href="">Здоровье и питание</a></li>
+													<li><a href="">Учимся в школе</a></li>
+													<li><a href="">Спорт и досуг</a></li>
+													<li><a href="">Подростковая психология</a></li>
+												</ul>
+											</div>
+											
+										</li>
+										
+									</ul>
+									
+								</div>
+							</div>
+						</li>
+						<li class="manwoman navdrp">
+							<a href="javascript:void(0);" onclick="navDrpOpen(this);"><i class="text"></i></a>
+							<div class="drp">
+								<div class="in">
+									
+									<ul class="cols cols-2">
+										<li class="col wedding">
+											<a href="" class="big-link bg-img-21">
+												<span class="title">Свадьба! Го-рь-ко!</span>
+												<span class="text">При организации свадьбы важно правильно составить бюджет и рассчитать стоимость аренды места проведения свадьбы</span>
+												<span class="img"><img src="" /></span>
+											</a>
+										</li>
+										<li class="col relationships">
+											<div class="col-in bg-img-22">
+												<div class="title">Отношения</div>
+												<ul>
+													<li><a href="">Отношения мужчины и женщины</a></li>
+													<li><a href="">Непонимание в семье</a></li>
+													<li><a href="">Ревность и измена</a></li>
+													<li><a href="">Развод</a></li>
+													<li><a href="">Психология мужчин</a></li>
+													<li><a href="">Психология женщин</a></li>
+												</ul>
+											</div>
+										</li>
+									</ul>
+									
+								</div>
+							</div>
+						</li>							
+						<li class="beauty navdrp">
+							<a href="javascript:void(0);" onclick="navDrpOpen(this);"><i class="text"></i></a>
+							<div class="drp">
+								<div class="in">
+									
+									<ul class="cols cols-3">
+										<li class="col">
+											<a href="" class="big-link bg-img-31">
+												<span class="title">Красота</span>
+												<span class="text">При организации свадьбы важно правильно составить бюджет и рассчитать</span>
+											</a>
+										</li>
+										<li class="col">
+											<a href="" class="big-link bg-img-32">
+												<span class="title">Мода и шопинг</span>
+												<span class="text">Отношения мужчины Непонимание в семье Ревность и измена Развод измена Развод</span>
+											</a>
+										</li>
+										<li class="col">
+											<a href="" class="big-link bg-img-33">
+												<span class="title">Здоровье родителей</span>
+												<span class="text">При организации свадьбы важно правильно составить бюджет и рассчитать     </span>
+											</a>
+										</li>
+									</ul>
+									
+								</div>
+							</div>
+						</li>
+						<li class="home navdrp">
+							<a href="javascript:void(0);" onclick="navDrpOpen(this);"><i class="text"></i></a>
+							<div class="drp">
+								<div class="in">
+									
+									<ul class="cols cols-5">
+										<li class="col">
+											<a href="" class="big-link bg-img-41">
+												<span class="title">Кулинарные рецепты</span>
+												<span class="text">При организации свадьбы важно правильно составить бюджет и рассчитать</span>
+											</a>
+										</li>
+										<li class="col">
+											<a href="" class="big-link bg-img-42">
+												<span class="title">Детские рецепты</span>
+												<span class="text">Отношения мужчины Непонимание в семье Ревность и измена Развод измена Развод</span>
+
+											</a>
+										</li>
+										<li class="col">
+											<a href="" class="big-link bg-img-43">
+												<span class="title">Интерьер и дизайн</span>
+												<span class="text">При организации свадьбы важно правильно составить бюджет и рассчитать     </span>
+											</a>
+										</li>
+										<li class="col">
+											<a href="" class="big-link bg-img-44">
+												<span class="title">Домашние хлопоты</span>
+												<span class="text">При организации свадьбы важно правильно составить бюджет и рассчитать</span>
+											</a>
+										</li>
+										<li class="col">
+											<a href="" class="big-link bg-img-45">
+												<span class="title">Загородная жизнь</span>
+												<span class="text">Отношения мужчины Непонимание в семье Ревность и измена Развод Развод</span> 
+											</a>
+										</li>										
+									</ul>
+									
+								</div>
+							</div>
+						</li>
+						<li class="hobbies navdrp">
+							<a href="javascript:void(0);" onclick="navDrpOpen(this);"><i class="text"></i></a>
+							<div class="drp">
+								<div class="in">
+									
+									<ul class="cols cols-4">
+										<li class="col">
+											<a href="" class="big-link bg-img-51">
+												<span class="title">Своими руками</span>
+												<span class="text">При организации свадьбы важно правильно составить бюджет и рассчитать</span>
+											</a>
+										</li>
+										<li class="col">
+											<a href="" class="big-link bg-img-52">
+												<span class="title">Мастерим детям</span>
+												<span class="text">Отношения мужчины Непонимание в семье Ревность и измена Развод измена Развод</span>
+											</a>
+										</li>
+										<li class="col">
+											<a href="" class="big-link bg-img-53">
+												<span class="title">За рулем</span>
+												<span class="text">При организации свадьбы важно правильно составить бюджет и рассчитать     </span>
+											</a>
+										</li>
+										<li class="col">
+											<a href="" class="big-link bg-img-54">
+												<span class="title">Цветоводство</span>
+												<span class="text">При организации свадьбы важно правильно составить бюджет и рассчитать</span>
+											</a>
+										</li>
+									</ul>
+									
+									
+								</div>
+							</div>
+						</li>
+						<li class="rest navdrp">
+							<a href="javascript:void(0);" onclick="navDrpOpen(this);"><i class="text"></i></a>
+							<div class="drp">
+								<div class="in">
+									
+									<ul class="cols cols-3">
+										<li class="col">
+											<a href="" class="big-link bg-img-61">
+												<span class="title">Выходные с ребенком</span>
+												<span class="text">При организации свадьбы важно правильно составить бюджет и рассчитать. При организации свадьбы важно правильно составить бюджет.</span>												
+											</a>
+										</li>
+										<li class="col">
+											<a href="" class="big-link bg-img-62">
+												<span class="title">Путешествия семьей</span>
+												<span class="text">При организации свадьбы важно правильно составить бюджет и рассчитать. При организации свадьбы важно правильно составить бюджет.</span>
+											</a>
+										</li>
+										<li class="col">
+											<a href="" class="big-link bg-img-63">
+												<span class="title">Праздники</span>
+												<span class="text">При организации свадьбы важно правильно составить бюджет и рассчитать. При организации свадьбы важно правильно составить бюджет.</span>
+											</a>
+										</li>
+									</ul>
+									
+								</div>
+							</div>
+						</li>
 					</ul>
 				</div>
-				
+			
 			</div>
 			
 		</div>
 		
-		<!--<div id="nav" class="clearfix">
-			<ul class="clearfix">
-				<li><a href="" style="background-color:#ac89ce;"><span>Форумы</span></a></li>
-				<li><a href="" style="background-color:#f89731;"><span>Календарь малыша</span></a></li>
-				<li><a href="" style="background-color:#67bd51;"><span>Бюджет малыша</span></a></li>
-				<li><a href="" style="background-color:#41b3cc;"><span>День рождения</span></a></li>
-				<li><a href="" style="background-color:#fad84a;"><span>Конкурсы</span></a></li>
-			</ul>
-		</div>-->
-		
-		<div id="crumbs">
-			<a href="">Главная</a>
-			&nbsp;>&nbsp;
-			<a href="">Клуб</a>
-			&nbsp;>&nbsp;
-			<b>Календарь малыша</b>
-		</div>
-		
 		<div id="content">
-		
+            
+            <div id="crumbs">
+                <a href="">Главная</a> &nbsp;>&nbsp; <a href="">Клубы</a> &nbsp;>&nbsp; <span>Календарь ребенка</span>
+            </div>
+            
 			<div id="baby">
 				
 				<div class="age-list">
-					<big>Выберите возраст Вашего ребенка</big>
+					<div class="block-title"><span>Выберите возраст Вашего ребенка</span></div>
 					<ul>
-						<li>
-							<a href="" title="Новорожденный"><i class="icon-stork"></i></a>
+						<li class="birth active">
+							<a href="" class="tooltip" title="Новорожденный"><i class="icon-stork"></i></a>
 							<div class="age-title">Новорожденный</div>
-							<div class="no-flag">День рождения</div>
+							<div class="no-flag">Рождение</div>
 						</li>
 						<li class="weeks">
-							<a href="" title="1-я неделя"></a>
+							<a href="" class="tooltip" title="1-я неделя"></a>
 							<div class="age-title">1я неделя</div>
 						</li>
 						<li class="weeks">
-							<a href="" title="1-я неделя"></a>
+							<a href="" class="tooltip" title="2-я неделя"></a>
 							<div class="age-title">2я неделя</div>
 						</li>
 						<li class="weeks">
-							<a href="" title="1-я неделя"></a>
+							<a href="" class="tooltip" title="3-я неделя"></a>
 							<div class="age-title">3я неделя</div>
 						</li>
 						<li class="weeks">
-							<a href="" title="1-я неделя"></a>
+							<a href="" class="tooltip" title="4-я неделя"></a>
 							<div class="age-title">4я неделя</div>
 						</li>
 						<li class="monthes">
-							<a href="" title="1-я неделя"></a>
+							<a href="" class="tooltip" title="1-й месяц"></a>
 							<div class="age-title">1й месяц</div>
-							<div class="flag">1 месяц<i class="icon"></i></div>
+							<div class="flag"><i class="icon"></i>1 месяц</div>
 						</li>
 						<li class="monthes">
-							<a href="" title="1-я неделя"></a>
-							<div class="age-title">2й месяц</div>
+							<a href="" class="tooltip" title="2-й месяц"></a>
+							<div class="age-title">2-й месяц</div>
 						</li>
 						<li class="monthes">
-							<a href="" title="1-я неделя"></a>
+							<a href="" class="tooltip" title="3-й месяц"></a>
 							<div class="age-title">3й месяц</div>
 						</li>
 						<li class="monthes">
@@ -168,7 +491,7 @@
 						<li class="monthes">
 							<a href="" title="1-я неделя"></a>
 							<div class="age-title">7й месяц</div>
-							<div class="flag">6 месяцев<i class="icon"></i></div>
+							<div class="flag"><i class="icon"></i>6 месяцев</div>
 						</li>
 						<li class="monthes">
 							<a href="" title="1-я неделя"></a>
@@ -198,7 +521,7 @@
 						<li class="years">
 							<a href="" title="1-я неделя"></a>
 							<div class="age-title">1 год</div>
-							<div class="flag hl">1 год<i class="icon"></i></div>
+							<div class="flag hl"><i class="icon"></i>1 год</div>
 						</li>						
 						<li class="years">
 							<a href="" title="1-я неделя"></a>
@@ -225,22 +548,22 @@
 						<li class="teen">
 							<a href="" title="1-я неделя">Дошкольный возраст</a>
 							<div class="age-title">1 год</div>
-							<div class="flag">3 года<i class="icon"></i></div>
+							<div class="flag"><i class="icon"></i>3 года</div>
 						</li>
 						<li class="teen">
 							<a href="" title="1-я неделя"> Младший школьник</a>
 							<div class="age-title">1 год</div>
-							<div class="flag">7 лет<i class="icon"></i></div>
+							<div class="flag"><i class="icon"></i>7 лет</div>
 						</li>
 						<li class="teen one-line">
 							<a href="" title="1-я неделя">Подросток</a>
 							<div class="age-title">1 год</div>
-							<div class="flag">11 лет<i class="icon"></i></div>
+							<div class="flag"><i class="icon"></i>11 лет</div>
 						</li>
 						<li class="teen">
 							<a href="" title="1-я неделя">Юношеский возраст</a>
 							<div class="age-title">1 год</div>
-							<div class="flag">15 лет<i class="icon"></i></div>
+							<div class="flag"><i class="icon"></i>15 лет</div>
 						</li>
 						<li>
 							<i class="icon-18"></i>
@@ -253,275 +576,203 @@
 					
 					<div class="main">
 						<div class="main-in">
+                        
 							<div class="article">
 								<h1>Вашему малышу 7-я неделя</h1>
-								<p>Мозг ребенка развивается и увеличивается в размерах – за первые три месяца он вырастет почти на 5 сантиметров.
-Малышу нравится лежать в кроватке или на развивающем коврике самостоятельно, дрыгать ножками и ручками, разглядывать все вокруг, издавать различные звуки. Не нужно ему в этом мешать – как только он почувствует дискомфорт, тут же даст Вам об этом знать.</p>
-								<p><img src="/images/baby_img_01.jpg" /></p>
-								<p>Ваш малыш теперь может долго задерживать взгляд на предметах и может следить глазами за двужущимися объектами.</p>
+                                <div class="entry-nav clearfix">
+                                    <div class="next">
+                                        <a href="">1-я неделя</a> &rarr;
+                                    </div>
+                                </div>
+                                <div class="wysiwyg-content">
+                                    <p>Мозг ребенка развивается и увеличивается в размерах – за первые три месяца он вырастет почти на 5 сантиметров.
+    Малышу нравится лежать в кроватке или на развивающем коврике самостоятельно, дрыгать ножками и ручками, разглядывать все вокруг, издавать различные звуки. Не нужно ему в этом мешать – как только он почувствует дискомфорт, тут же даст Вам об этом знать.</p>
+                                    <p><img src="/images/baby_img_01.jpg" /></p>
+                                    <p>Ваш малыш теперь может долго задерживать взгляд на предметах и может следить глазами за двужущимися объектами.</p>
 
-								<p>Мозг ребенка развивается и увеличивается в размерах – за первые три месяца он вырастет почти на 5 сантиметров.
-								Малышу нравится лежать в кроватке или на развивающем коврике самостоятельно, дрыгать ножками и ручками, разглядывать все вокруг, издавать различные звуки. Не нужно ему в этом мешать – как только он почувствует дискомфорт, тут же даст Вам об этом знать.Мозг ребенка развивается и увеличивается в размерах – за первые три месяца он вырастет почти на 5 сантиметров.</p>
-								
-								<div class="age-features">
-									<div class="title">На <span>39</span> неделе жизни Ваш ребенок:</div>
-									<ul>
-										<li>Имеет зажившую пупочную ранку</li>
-										<li>Начинает срыгивать</li>
-										<li>Просит есть тогда, когда мама ощущает прилив молока в груди</li>
-										<li>Может лежать на животе</li>
-										<li>Остро ощущает запахи</li>
-										<li>Хорошо спит на улице</li>
-									</ul>
-								</div>
-								
-								<p>Малышу нравится лежать в кроватке или на развивающем коврике самостоятельно, дрыгать ножками и ручками, разглядывать все вокруг, издавать различные звуки. Не нужно ему в этом мешать – как только он почувствует дискомфорт, тут же даст Вам об этом знать.Мозг ребенка развивается и увеличивается в размерах – за первые три месяца он вырастет почти на 5 сантиметров.</p>
-								<p>Малышу нравится лежать в кроватке или на развивающем коврике самостоятельно, дрыгать ножками и ручками, разглядывать все вокруг, издавать различные звуки. Не нужно ему в этом мешать – как только он почувствует дискомфорт, тут же даст Вам об этом знать.Мозг ребенка развивается и увеличивается в размерах – за первые три месяца он вырастет почти на 5 сантиметров.</p>
-								<p>Малышу нравится лежать в кроватке или на развивающем коврике самостоятельно, дрыгать ножками и ручками, разглядывать все вокруг, издавать различные звуки. Не нужно ему в этом мешать – как только он почувствует дискомфорт, тут же даст Вам об этом знать.Мозг ребенка развивается и увеличивается в размерах – за первые три месяца он вырастет почти на 5 сантиметров.</p>
-								<p>Малышу нравится лежать в кроватке или на развивающем коврике самостоятельно, дрыгать ножками и ручками, разглядывать все вокруг, издавать различные звуки. Не нужно ему в этом мешать – как только он почувствует дискомфорт, тут же даст Вам об этом знать.</p>
+                                    <p>Мозг ребенка развивается и увеличивается в размерах – за первые три месяца он вырастет почти на 5 сантиметров.
+                                    Малышу нравится лежать в кроватке или на развивающем коврике самостоятельно, дрыгать ножками и ручками, разглядывать все вокруг, издавать различные звуки. Не нужно ему в этом мешать – как только он почувствует дискомфорт, тут же даст Вам об этом знать.Мозг ребенка развивается и увеличивается в размерах – за первые три месяца он вырастет почти на 5 сантиметров.</p>
+                                    
+                                    <div class="age-features">
+                                        <div class="title">На <span>39</span> неделе жизни Ваш ребенок:</div>
+                                        <ul>
+                                            <li>Имеет зажившую пупочную ранку</li>
+                                            <li>Начинает срыгивать</li>
+                                            <li>Просит есть тогда, когда мама ощущает прилив молока в груди</li>
+                                            <li>Может лежать на животе</li>
+                                            <li>Остро ощущает запахи</li>
+                                            <li>Хорошо спит на улице</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <p>Малышу нравится лежать в кроватке или на развивающем коврике самостоятельно, дрыгать ножками и ручками, разглядывать все вокруг, издавать различные звуки. Не нужно ему в этом мешать – как только он почувствует дискомфорт, тут же даст Вам об этом знать.Мозг ребенка развивается и увеличивается в размерах – за первые три месяца он вырастет почти на 5 сантиметров.</p>
+                                    <p>Малышу нравится лежать в кроватке или на развивающем коврике самостоятельно, дрыгать ножками и ручками, разглядывать все вокруг, издавать различные звуки. Не нужно ему в этом мешать – как только он почувствует дискомфорт, тут же даст Вам об этом знать.Мозг ребенка развивается и увеличивается в размерах – за первые три месяца он вырастет почти на 5 сантиметров.</p>
+                                    <p>Малышу нравится лежать в кроватке или на развивающем коврике самостоятельно, дрыгать ножками и ручками, разглядывать все вокруг, издавать различные звуки. Не нужно ему в этом мешать – как только он почувствует дискомфорт, тут же даст Вам об этом знать.Мозг ребенка развивается и увеличивается в размерах – за первые три месяца он вырастет почти на 5 сантиметров.</p>
+                                    <p>Малышу нравится лежать в кроватке или на развивающем коврике самостоятельно, дрыгать ножками и ручками, разглядывать все вокруг, издавать различные звуки. Не нужно ему в этом мешать – как только он почувствует дискомфорт, тут же даст Вам об этом знать.</p>
+                                    
+                                </div>
 
 							</div>
+                            
+							
+							<div class="baby-fast-services">
+								<div class="block-title"><span>Попробуйте!</span> Полезные сервисы</div>
+								<ul>
+									<li>
+										<div class="img"><a href=""><img src="/images/service_img_1.png" /></a></div>
+										<div class="text">
+											<div class="item-title"><a href="">Выбор имени для ребенка</a></div>
+											<p>Сервис поможет выбрать имя для вашего малыша</p>
+										</div>
+									</li>
+									<li>
+										<div class="img"><a href=""><img src="/images/service_img_2.png" /></a></div>
+										<div class="text">
+											<div class="item-title"><a href="">Справочник детских болезней</a></div>
+											<p>Сервис для перевода веса и объема продуктов в понятные для вас меры.</p>
+										</div>
+									</li>
+									<li>
+										<div class="img"><a href=""><img src="/images/service_img_3.png" /></a></div>
+										<div class="text">
+											<div class="item-title"><a href="">Календарь прививок ребенка</a></div>
+											<p>Узнавайте сколько калорий, а также белков, жиров и углеводов в любых </p>
+										</div>
+									</li>
+									<li>
+										<div class="img"><a href=""><img src="/images/service_img_4.png" /></a></div>
+										<div class="text">
+											<div class="item-title"><a href="">Тест. В норме ли пупок у вашего малыша?</a></div>
+											<p>Узнайте в норме ли пупочная ранка вашего малыша на всех стадиях её заживления.</p>
+										</div>
+									</li>
+									
+								</ul>
+							</div>
+							
+							
 						</div>
+						
 					</div>
+                    
 					<div class="side-right">
 						
 						<div class="need-to-know">
-							<div class="t"></div>
 							
-							<div class="block-in">
-								
-								<div class="age">39 неделя</div>
-								<div class="title">важно знать!</div>
-							
-								<ul>
-									<li><a href="">Как ухаживать за кожей малыша?</a></li>
-									<li><a href="">Как быть с водными процедурами?</a></li>
-									<li><a href="">Стирка и уход за детским бельем и детской одеждой</a></li>
-								</ul>
-								
-							</div>
+                            <div class="block-title">
+                                <span>3-я неделя</span>
+                                Важно знать! 
+                            </div>
+                            
+                            <ul>
+                                <li>
+                                    <div class="item-title"><a href="">Уход за новорождённым</a></div>
+                                    <div class="img"><a href=""><img src="/images/baby_img_01.jpg" /></a></div>
+                                    <div class="content">
+                                        <p>Период новорожденности является для малыша, пожалуй &nbsp; <a href="">Читать</a></p>
+                                    </div>
+                                    <div class="meta">
+                                        <span class="views"><i class="icon"></i>265</span>
+                                        <a href="" class="comments"><i class="icon"></i>6</a>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="item-title"><a href="">Уход за новорождённым</a></div>
+                                    <div class="img"><a href=""><img src="/images/baby_img_01.jpg" /></a></div>
+                                    <div class="content">
+                                        <p>Период новорожденности является для малыша, пожалуй &nbsp; <a href="">Читать</a></p>
+                                    </div>
+                                    <div class="meta">
+                                        <span class="views"><i class="icon"></i>265</span>
+                                        <a href="" class="comments"><i class="icon"></i>6</a>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="item-title"><a href="">Уход за новорождённым</a></div>
+                                    <div class="img"><a href=""><img src="/images/baby_img_01.jpg" /></a></div>
+                                    <div class="content">
+                                        <p>Период новорожденности является для малыша, пожалуй &nbsp; <a href="">Читать</a></p>
+                                    </div>
+                                    <div class="meta">
+                                        <span class="views"><i class="icon"></i>265</span>
+                                        <a href="" class="comments"><i class="icon"></i>6</a>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="item-title"><a href="">Уход за новорождённым</a></div>
+                                    <div class="img"><a href=""><img src="/images/baby_img_01.jpg" /></a></div>
+                                    <div class="content">
+                                        <p>Период новорожденности является для малыша, пожалуй &nbsp; <a href="">Читать</a></p>
+                                    </div>
+                                    <div class="meta">
+                                        <span class="views"><i class="icon"></i>265</span>
+                                        <a href="" class="comments"><i class="icon"></i>6</a>
+                                    </div>
+                                </li>
+                                
+                            </ul>
+                            
 						</div>
 						
-						<div class="all-about">
-							<div class="t"></div>
-							
-							<div class="block-in">
-								
-								
-								<div class="title">ВСЕ ПРО <span>39</span> НЕДЕЛЮ</div>
-								
-								<ul>
-									<li>
-										<a href="">
-											<img src="/images/aa_img_01.jpg" />
-											<div class="subtitle">
-												<span>Развитие ребенка</span>
-												<div class="count"><div class="in">Тем: <b>2658</b></div></div>
-											</div>
-										</a>
-									</li>
-									<li>
-										<a href="">
-											<img src="/images/aa_img_02.jpg" />
-											<div class="subtitle">
-												<span>Развитие ребенка<br/>паралельно с мамой</span>
-												<div class="count"><div class="in">Тем: <b>2658</b></div></div>
-											</div>
-										</a>
-									</li>
-									<li>
-										<a href="">
-											<img src="/images/aa_img_03.jpg" />
-											<div class="subtitle">
-												<span>Развитие ребенка</span>
-												<div class="count"><div class="in">Тем: <b>265825252</b></div></div>
-											</div>
-										</a>
-									</li>
-									<li>
-										<a href="">
-											<img src="/images/aa_img_04.jpg" />
-											<div class="subtitle">
-												<span>Развитие ребенка</span>
-												<div class="count"><div class="in">Тем: <b>2658</b></div></div>
-											</div>
-										</a>
-									</li>
-									
-								</ul>
-								
-							</div>
-						</div>
-						
-						<div class="favor-services">
-							<div class="block-in">
-								
-								<div class="title">Полезные <span>СЕРВИСЫ</span></div>
-								
-								<ul>
-									<li>
-										<a href="">
-											<div class="img"><img src="/images/service_thumb_01.png" /></div>
-											<div class="text">Календарь прививок</div>
-										</a>
-									</li>
-									<li>
-										<a href="">
-											<div class="img"><img src="/images/service_thumb_02.png" /></div>
-											<div class="text">Справочник детских болезней</div>
-										</a>
-									</li>
-									<li>
-										<a href="">
-											<div class="img"><img src="/images/service_thumb_03.png" /></div>
-											<div class="text">Народная книга рецептов от детских болезней</div>
-										</a>
-									</li>
-									
-								</ul>
-								
-								<div style="text-align:right;padding:20px;">
-									<a href="" class="btn btn-green-small"><span><span>Все сервисы &nbsp;<img src="/images/arr_r_small.png" style="position:relative;top:2px;" /></span></span></a>
-								</div>
-							</div>
-						</div>
-						
+                        <div class="baby-clubs">
+                            
+                            <div class="block-title">
+                                <span>Общайтесь!</span>
+                                Клубы для общения
+                            </div>
+                            
+                            <ul>
+                                <li>
+                                    <div class="img club-img kids">
+                                        <a href=""><img src="/images/club_img_4.png" /></a>
+                                    </div>
+                                    <div class="text">
+                                        <div class="item-title"><a href="">Здоровье ребенка</a></div>
+                                        <div class="topics">Тем: <a href="">100500</a></div>
+                                        <a href="" class="comments"><i class="icon"></i>10205</a>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="img club-img kids">
+                                        <a href=""><img src="/images/club_img_5.png" /></a>
+                                    </div>
+                                    <div class="text">
+                                        <div class="item-title"><a href="">Здоровье ребенка</a></div>
+                                        <div class="topics">Тем: <a href="">100500</a></div>
+                                        <a href="" class="comments"><i class="icon"></i>10205</a>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="img club-img kids">
+                                        <a href=""><img src="/images/club_img_5.png" /></a>
+                                    </div>
+                                    <div class="text">
+                                        <div class="item-title"><a href="">Здоровье ребенка</a></div>
+                                        <div class="topics">Тем: <a href="">100500</a></div>
+                                        <a href="" class="comments"><i class="icon"></i>10205</a>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="img club-img kids">
+                                        <a href=""><img src="/images/club_img_6.png" /></a>
+                                    </div>
+                                    <div class="text">
+                                        <div class="item-title"><a href="">Здоровье ребенка</a></div>
+                                        <div class="topics">Тем: <a href="">100500</a></div>
+                                        <a href="" class="comments"><i class="icon"></i>10205</a>
+                                    </div>
+                                </li>
+                                
+                            </ul>
+                            
+                        </div>
+                        
 					</div>
-				</div>
-				
-				<div class="buy-else-horizontal">
-							
-					<div class="buy-else-title">Товары для этого возраста</div>
-					
-					<div class="jcarousel-container product-list">
-						<div id="else-products-slider" class="jcarousel">
-							<ul>
-								<li>
-									<div class="img-box"><a href=""><img src="/images/product_img_02.jpg" /></a></div>
-									<div class="item-title"><a href="">Дождевик универсальный для люлек Hartan</a></div>
-									<div class="rating">
-										<span class="s1"></span>
-										<span class="s1"></span>
-										<span class="s1"></span>
-									</div>
-									<div class="item-price">
-										Цена: <span><b><strike>829</strike></b></span> руб.
-										&nbsp;&nbsp;&nbsp;&nbsp;
-										<i class="icon-sale"></i> <span class="discounted"><b>789</b></span> руб.
-									</div>
-									<div class="controls">
-										<div class="counter"><a class="dec"></a><input type="text" value="0" /><a class="inc"></a></div>
-										<a href="" class="btn btn-green-small"><span><span>В КОРЗИНУ</span></span></a>
-										<a href="" class="to-wish-list"></a>
-									</div>
-								</li>
-								<li>
-									<div class="img-box"><a href=""><img src="/images/product_img_03.jpg" /></a></div>
-									<div class="item-title"><a href="">Дождевик универсальный для люлек Hartan</a></div>
-									<div class="rating">
-										<span class="s1"></span>
-										<span class="s1"></span>
-										<span class="s1"></span>
-										<span class="s1"></span>
-									</div>
-									<div class="item-price">
-										Цена: <span><b><strike>829</strike></b></span> руб.
-										&nbsp;&nbsp;&nbsp;&nbsp;
-										<i class="icon-sale"></i> <span class="discounted"><b>789</b></span> руб.
-									</div>
-									<div class="controls">
-										<div class="counter"><a class="dec"></a><input type="text" value="0" /><a class="inc"></a></div>
-										<a href="" class="btn btn-green-small"><span><span>В КОРЗИНУ</span></span></a>
-										<a href="" class="to-wish-list"></a>
-									</div>
-								</li>
-								<li>
-									<div class="img-box"><a href=""><img src="/images/product_img_04.jpg" /></a></div>
-									<div class="item-title"><a href="">Дождевик универ</a></div>
-									<div class="rating">
-										<span class="s1"></span>
-										<span class="s1"></span>
-									</div>
-									<div class="item-price">
-										Цена: <span><b><strike>829</strike></b></span> руб.
-										&nbsp;&nbsp;&nbsp;&nbsp;
-										<i class="icon-sale"></i> <span class="discounted"><b>789</b></span> руб.
-									</div>
-									<div class="controls">
-										<div class="counter"><a class="dec"></a><input type="text" value="0" /><a class="inc"></a></div>
-										<a href="" class="btn btn-green-small"><span><span>В КОРЗИНУ</span></span></a>
-										<a href="" class="to-wish-list"></a>
-									</div>
-								</li>
-								<li>
-									<div class="img-box"><a href=""><img src="/images/product_img_02.jpg" /></a></div>
-									<div class="item-title"><a href="">Дождевик универсальный для люлек Hartan</a></div>
-									<div class="rating">
-										<span class="s1"></span>
-										<span class="s1"></span>
-										<span class="s1"></span>
-									</div>
-									<div class="item-price">
-										Цена: <span><b><strike>829</strike></b></span> руб.
-										&nbsp;&nbsp;&nbsp;&nbsp;
-										<i class="icon-sale"></i> <span class="discounted"><b>789</b></span> руб.
-									</div>
-									<div class="controls">
-										<div class="counter"><a class="dec"></a><input type="text" value="0" /><a class="inc"></a></div>
-										<a href="" class="btn btn-green-small"><span><span>В КОРЗИНУ</span></span></a>
-										<a href="" class="to-wish-list"></a>
-									</div>
-								</li>
-								<li>
-									<div class="img-box"><a href=""><img src="/images/product_img_03.jpg" /></a></div>
-									<div class="item-title"><a href="">Дождевик универсальный для люлек Hartan</a></div>
-									<div class="rating">
-										<span class="s1"></span>
-									</div>
-									<div class="item-price">
-										Цена: <span><b><strike>829</strike></b></span> руб.
-										&nbsp;&nbsp;&nbsp;&nbsp;
-										<i class="icon-sale"></i> <span class="discounted"><b>789</b></span> руб.
-									</div>
-									<div class="controls">
-										<div class="counter"><a class="dec"></a><input type="text" value="0" /><a class="inc"></a></div>
-										<a href="" class="btn btn-green-small"><span><span>В КОРЗИНУ</span></span></a>
-										<a href="" class="to-wish-list"></a>
-									</div>
-								</li>
-								<li>
-									<div class="img-box"><a href=""><img src="/images/product_img_04.jpg" /></a></div>
-									<div class="item-title"><a href="">Дождевик универ</a></div>
-									<div class="rating">
-										<span class="s1"></span>
-										<span class="s1"></span>
-										<span class="s1"></span>
-										<span class="s1"></span>
-										<span class="s1"></span>
-									</div>
-									<div class="item-price">
-										Цена: <span><b><strike>829</strike></b></span> руб.
-										&nbsp;&nbsp;&nbsp;&nbsp;
-										<i class="icon-sale"></i> <span class="discounted"><b>789</b></span> руб.
-									</div>
-									<div class="controls">
-										<div class="counter"><a class="dec"></a><input type="text" value="0" /><a class="inc"></a></div>
-										<a href="" class="btn btn-green-small"><span><span>В КОРЗИНУ</span></span></a>
-										<a href="" class="to-wish-list"></a>
-									</div>
-								</li>
-								
-							</ul>
-						</div>
-						<a href="javascript:void(0);" class="jcarousel-prev prev disabled" onclick="$('#else-products-slider').jcarousel('scroll', '-=1');"></a>
-						<a href="javascript:void(0);" class="jcarousel-next next" onclick="$('#else-products-slider').jcarousel('scroll', '+=1');"></a>
-					</div>
-					
 				</div>
 				
 			</div>
 		
-		</div>  	
+		</div>    	
 		<div class="push"></div>
 	</div>
 	<div id="footer" class="wrapper">

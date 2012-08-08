@@ -7,7 +7,7 @@ class UserController extends HController
     public $rubric_id;
     public $content_type_slug;
 
-    private $_publicActions = array('profile', 'blog', 'friends', 'clubs', 'rss');
+    private $_publicActions = array('profile', 'activity', 'blog', 'friends', 'clubs', 'rss');
 
     public function filters()
     {
@@ -75,9 +75,42 @@ class UserController extends HController
         ));
     }
 
+    public function actionActivity($user_id, $type, $page = 1)
+    {
+        if (! in_array($type, array('my', 'friends')))
+            throw new CHttpException(404);
+
+        $limit = 50;
+        $offset = ($page - 1) * $limit;
+
+        $criteria = ($type == 'my') ? UserAction::model()->getMyCriteria($user_id) : UserAction::model()->getFriendsCriteria($user_id);
+        $title = ($type == 'my') ? 'Что нового' : 'Что нового у друзей';
+
+        $total = UserAction::model()->count($criteria);
+        $nextPage = ($total > ($limit + $offset)) ? $page + 1 : false;
+
+        $criteria->limit($limit);
+        $criteria->offset($offset);
+        $criteria->sort('updated', EMongoCriteria::SORT_DESC);
+        $actions = UserAction::model()->findAll($criteria);
+
+        $userIds = array();
+        foreach ($actions as $a)
+            $userIds[$a->user_id] = $a->user_id;
+        $criteria = new CDbCriteria;
+        $criteria->addInCondition('id', $userIds);
+        $criteria->index = 'id';
+        $users = User::model()->findAll($criteria);
+
+        $this->pageTitle = $title;
+        $this->layout = 'user_new';
+        $this->render('activity', compact('actions', 'nextPage', 'title', 'type', 'users'));
+    }
+
     public function actionClubs($user_id)
     {
         $this->pageTitle = 'Клубы';
+        $this->layout = 'user_new';
         $this->render('clubs');
     }
 
@@ -100,8 +133,9 @@ class UserController extends HController
         $this->pageTitle = 'Друзья';
         $dataProvider = ($show == 'online') ? $this->user->getFriends('online = 1') : $this->user->getFriends();
         $dataProvider->pagination = array(
-            'pageSize' => 12,
+            'pageSize' => 30,
         );
+        $this->layout = 'user_new';
         $this->render('friends', array(
             'dataProvider' => $dataProvider,
             'show' => $show,
@@ -112,8 +146,9 @@ class UserController extends HController
     {
         $dataProvider = Yii::app()->user->model->getFriendRequests($direction);
         $dataProvider->pagination = array(
-            'pageSize' => 12,
+            'pageSize' => 30,
         );
+        $this->layout = 'user_new';
         $this->render('myFriendRequests', array(
             'dataProvider' => $dataProvider,
             'direction' => $direction,

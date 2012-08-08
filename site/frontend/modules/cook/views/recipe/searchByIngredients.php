@@ -1,29 +1,45 @@
 <?php
-    $basePath = Yii::getPathOfAlias('cook') . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'recipe' . DIRECTORY_SEPARATOR . 'assets';
-    $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
+$basePath = Yii::getPathOfAlias('cook') . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'recipe' . DIRECTORY_SEPARATOR . 'assets';
+$baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
 
-    $cs = Yii::app()->clientScript;
+$cs = Yii::app()->clientScript;
 
-    $cs
-        ->registerScriptFile($baseUrl . '/searchByIngredients.js', CClientScript::POS_HEAD)
-        ->registerScriptFile('/javascripts/jquery.tmpl.min.js')
-        ->registerCoreScript('jquery.ui')
-        ->registerCssFile($cs->coreScriptUrl . '/jui/css/base/jquery-ui.css');
-    ;
+$cs
+    ->registerScriptFile($baseUrl . '/searchByIngredients.js', CClientScript::POS_HEAD)
+    ->registerScriptFile('/javascripts/jquery.tmpl.min.js')
+    ->registerCoreScript('jquery.ui')
+    ->registerCssFile($cs->coreScriptUrl . '/jui/css/base/jquery-ui.css')
+    ->registerScriptFile('/javascripts/jquery.jscrollpane.min.js')
+    ->registerCssFile('/stylesheets/jquery.jscrollpane.css')
+;
+$this->breadcrumbs = array(
+    'Кулинария' => array('/cook'),
+    'Рецепты' => array('/cook/recipe/index', 'section' => $this->section),
+    'Поиск по ингредиентам'
+);
 ?>
 
-<div id="crumbs"><a href="">Главная</a> > <a href="">Сервисы</a> > <span>Приправы и специи</span></div>
+<?php
+$this->widget('zii.widgets.CBreadcrumbs', array(
+    'links' => $this->breadcrumbs,
+    'separator' => ' &gt; ',
+    'htmlOptions' => array(
+        'id' => 'crumbs',
+        'class' => null,
+    ),
+));
+?>
 
 <div id="cook-recipe-search">
-    <?=CHtml::beginForm('/cook/recipe/searchResult/', 'get', array('id' => 'searchRecipeForm'))?>
+    <?=CHtml::beginForm(array('/cook/recipe/searchResult/', 'section' => $this->section), 'get', array('id' => 'searchRecipeForm'))?>
 
     <div class="title clear">
         <i class="icon"></i>
         <span>Поиск рецепта</span>
         <div class="nav">
             <ul>
-                <li class="active"><?=CHtml::link('По ингредиентам', array('/cook/recipe/searchByIngredients'))?></li>
-                <li><?=CHtml::link('Расширеный поиск', array('/cook/recipe/advancedSearch'))?></li>
+                <li class="active"><?=HHtml::link('По ингредиентам', array('/cook/recipe/searchByIngredients', 'section' => $this->section), array(), true)?></li>
+                <li><?=HHtml::link('Расширеный поиск', array('/cook/recipe/advancedSearch', 'section' => $this->section), array(), true)?></li>
             </ul>
         </div>
     </div>
@@ -34,7 +50,7 @@
 
             <div class="block-title">Ингредиенты</div>
 
-            <p>Добавляйте ингредиенты по-одному
+            <p>Добавляйте ингредиенты по одному
                 (максимум 3 ингредиента), а в окне справа
                 будут выводиться результаты поиска.</p>
 

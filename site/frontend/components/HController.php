@@ -15,11 +15,38 @@ class HController extends CController
     public $meta_title = null;
     public $page_meta_model = null;
 
+    public function filterAjaxOnly($filterChain)
+    {
+        if(Yii::app()->getRequest()->getIsAjaxRequest())
+            $filterChain->run();
+        else
+            throw new CHttpException(404,Yii::t('yii','Your request is invalid.'));
+    }
+
     protected function beforeAction($action)
     {
+        // отключение повторной подгрузки jquery
+        if (Yii::app()->request->isAjaxRequest) {
+            Yii::app()->clientScript->scriptMap['jquery.js'] = false;
+            Yii::app()->clientScript->scriptMap['jquery.min.js'] = false;
+        }
+
+        // noindex для дева
         if ($_SERVER['HTTP_HOST'] == 'dev.happy-giraffe.ru'){
             Yii::app()->clientScript->registerMetaTag('noindex,nofollow', 'robots');
         }
+
+        // авторизация
+        if (isset($this->actionParams['token'])) {
+            if (($user_id = UserToken::model()->useToken($this->actionParams['token'])) !== false) {
+                $identity = new SafeUserIdentity($user_id);
+                if ($identity->authenticate())
+                    Yii::app()->user->login($identity);
+            }
+            unset($_GET['token']);
+        }
+
+        // seo-фильтр get-параметров
         if (in_array($this->uniqueId, array(
             'blog',
             'community',
@@ -27,7 +54,7 @@ class HController extends CController
             'services/childrenDiseases/default',
             'cook/spices',
             'cook/choose',
-        )) || in_array($this->route, array('cook/recipe/view'))  || in_array($this->route, array('cook/recipe/index'))) {
+        )) || in_array($this->route, array('cook/recipe/view', 'cook/recipe/index'))) {
             $reflector = new ReflectionClass($this);
             $parametersObjects = $reflector->getMethod('action' . $this->action->id)->getParameters();
             $parametersNames = array();
@@ -37,6 +64,8 @@ class HController extends CController
                 if (array_search($p, $parametersNames) === false && strpos($p, '_page') === false)
                     throw new CHttpException(404, 'Такой записи не существует');
         }
+
+        // мета-теги
         $this->setMetaTags();
 
         return parent::beforeAction($action);

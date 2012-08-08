@@ -82,6 +82,9 @@ class SignupController extends HController
 			$model->register_date = date('Y-m-d H:i:s');
 			if($model->save(true, array('first_name', 'last_name', 'password', 'email', 'gender', 'birthday')))
 			{
+                if (!empty($model->birthday))
+                    UserScores::checkProfileScores($model->id, ScoreAction::ACTION_PROFILE_BIRTHDAY);
+
                 if (isset($_POST['User']['avatar'])) {
                     $url = $_POST['User']['avatar'];
 
@@ -118,9 +121,15 @@ class SignupController extends HController
 
                     $model->avatar_id = $photo->id;
                     $model->save();
+
+                    UserScores::checkProfileScores($model->id, ScoreAction::ACTION_PROFILE_PHOTO);
                 }
 
                 /*Yii::app()->mc->sendToEmail($model->email, $model, 'user_registration');*/
+                Yii::app()->mandrill->send($model, 'confirmEmail', array(
+                    'password' => $_POST['User']['password'],
+                    'code' => $model->confirmationCode,
+                ));
 				unset($session['service']);
                 $identity = new UserIdentity($model->getAttributes());
                 $identity->authenticate();
@@ -130,16 +139,16 @@ class SignupController extends HController
                 $model->save(false);
 
                 $redirectUrl = Yii::app()->user->getState('redirectUrl');
-                if (!empty($redirectUrl) && strpos($redirectUrl, 'http://www.happy-giraffe.ru/horoscope/') === false){
+                if (!empty($redirectUrl)){
                     $url = $redirectUrl;
                     Yii::app()->user->setState('redirectUrl', null);
                 }
                 else
-                    $url = Yii::app()->request->getQuery('redirectUrl');
+                    $url = Yii::app()->createAbsoluteUrl('user/profile', array('user_id'=>$model->id));
 
                     echo CJSON::encode(array(
                     'status' => true,
-                    'profile'=>$model->getUrl()
+                    'profile'=>$url
                 ));
                 Yii::app()->end();
             }

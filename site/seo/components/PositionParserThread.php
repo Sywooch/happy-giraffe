@@ -17,10 +17,11 @@ class PositionParserThread extends ProxyParserThread
     protected $se;
     protected $pages = 5;
 
-    function __construct($se)
+    function __construct($se, $debug = 0)
     {
         parent::__construct();
         $this->se = $se;
+        $this->debug = $debug;
     }
 
     public function start()
@@ -58,6 +59,7 @@ class PositionParserThread extends ProxyParserThread
 
         $transaction = Yii::app()->db_seo->beginTransaction();
         try {
+            $this->log('load new query');
             $this->query = Query::model()->find($criteria);
             if ($this->query === null) {
                 $this->closeThread('no queries');
@@ -117,6 +119,8 @@ class PositionParserThread extends ProxyParserThread
         foreach ($document->find('.b-body-items  h2 a.b-serp-item__title-link') as $link) {
             $links [] = pq($link)->attr('href');
         }
+//        if (empty($links))
+//            $this->saveToFile($content);
 
         $document->unloadDocument();
 
@@ -176,4 +180,10 @@ class PositionParserThread extends ProxyParserThread
         $this->query->parsing = 0;
         $this->query->save();
     }
+
+    private function saveToFile($content)
+    {
+        file_put_contents(Yii::getPathOfAlias('site.common.cookies') . DIRECTORY_SEPARATOR . 'result_'.$this->thread_id . '.html', $content);
+    }
+
 }

@@ -14,6 +14,8 @@ class CalorisatorController extends HController
     {
         $this->pageTitle = 'Счетчик калорий';
         $this->render('index');
+        if (! Yii::app()->user->isGuest)
+            UserAction::model()->add(Yii::app()->user->id, UserAction::USER_ACTION_USED_SERVICES, array('service' => 'calorisator'));
     }
 
     public function actionAc($term)

@@ -14,11 +14,10 @@
         <title><?=CHtml::encode($this->pageTitle)?></title>
     <?php endif;
 
-    $release_id = 327;
+    $release_id = 330;
     $cs = Yii::app()->clientScript;
     $cs
-        ->registerScriptFile('/javascripts/comet.js')
-        ->registerScriptFile('/javascripts/dklab_realplexor.js')
+        ->registerPackage('comet')
         ->registerScript('Realplexor-reg', 'comet.connect(\'http://' . Yii::app()->comet->host . '\', \'' . Yii::app()->comet->namespace . '\', \'' . UserCache::GetCurrentUserCache() . '\');')
 
         ->registerCssFile('/stylesheets/common.css?r='.$release_id)
@@ -43,11 +42,8 @@
 
     if (! Yii::app()->user->isGuest) {
         $cs
-            ->registerScriptFile('/javascripts/jquery.tmpl.min.js')
-            ->registerScriptFile('/javascripts/im.js')
+            ->registerPackage('user')
             ->registerScript('im-urls', 'im.GetLastUrl="'.Yii::app()->createUrl('/im/default/getLast').';"')
-            ->registerScriptFile('/javascripts/user_common.js')
-            ->registerCssFile('/stylesheets/user_common.css')
         ;
     }
 
@@ -349,7 +345,7 @@
 
                                     <ul class="cols cols-5">
                                         <li class="col">
-                                            <a class="big-link bg-img-41" href="<?= Yii::app()->createUrl('/community/list', array('community_id' => 22))?>">
+                                            <a class="big-link bg-img-41" href="<?= Yii::app()->createUrl('/cook')?>">
                                                 <span class="title">Кулинарные рецепты</span>
                                                 <span class="text">Рецепты на все случаи жизни: простые и сложные, диетические и многие другие.</span>
                                             </a>

@@ -1,28 +1,25 @@
-<div class="user-cols clearfix">
+<div class="col-1">
 
-    <div class="col-1">
-        &nbsp;
-    </div>
+    <?php $this->renderPartial('_userinfo', array('user' => $this->user)); ?>
 
-    <div class="col-23 clearfix">
+</div>
 
-        <div class="content-title">Клубы</div>
+<div class="col-23 clearfix">
 
-        <div class="clubs clearfix">
+    <div class="content-title-new">Мои клубы</div>
 
-            <ul>
-                <?php foreach ($this->user->communities as $c): ?>
-                    <li class="club-img kids">
-                        <a href="<?php echo $c->url; ?>">
-                            <img src="/images/club_img_<?php echo $c->position; ?>.png" />
-                            <?php echo $c->title; ?>
-                        </a>
-                    </li>
-                <?php endforeach; ?>
-            </ul>
+    <div class="clubs clearfix">
 
-
-        </div>
+        <ul>
+            <?php foreach ($this->user->communities as $c): ?>
+            <li class="club-img <?=$c->css_class ?>">
+                <a href="<?php echo $c->url; ?>">
+                    <img src="/images/club_img_<?php echo $c->position; ?>.png" />
+                    <?php echo $c->title; ?>
+                </a>
+            </li>
+            <?php endforeach; ?>
+        </ul>
 
     </div>
 

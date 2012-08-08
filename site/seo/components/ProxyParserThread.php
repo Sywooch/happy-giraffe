@@ -3,7 +3,7 @@
  * Author: alexk984
  * Date: 01.06.12
  */
-class ProxyParserThread extends CComponent
+class ProxyParserThread
 {
     /**
      * @var Proxy
@@ -12,21 +12,22 @@ class ProxyParserThread extends CComponent
     /**
      * @var string thread id - random string
      */
-    private $thread_id;
+    protected $thread_id;
     /**
      * @var int number of success page loads for current proxy
      */
     protected $success_loads = 0;
     protected $country = 'ru';
 
-    protected $delay_min = 5;
-    protected $delay_max = 15;
+    protected $delay_min = 10;
+    protected $delay_max = 10;
     protected $debug = false;
     protected $timeout = 15;
     protected $removeCookieOnChangeProxy = true;
 
     function __construct()
     {
+        sleep(rand(0, 40));
         Yii::import('site.frontend.extensions.phpQuery.phpQuery');
         $this->thread_id = substr(sha1(microtime()), 0, 10);
         $this->getProxy();
@@ -52,6 +53,8 @@ class ProxyParserThread extends CComponent
             $transaction->rollback();
             $this->closeThread('Fail with getting proxy');
         }
+
+        $this->log('proxy: '.$this->proxy->value);
     }
 
     protected function query($url, $ref = null, $post = false, $attempt = 0)
@@ -59,7 +62,7 @@ class ProxyParserThread extends CComponent
         sleep(rand($this->delay_min, $this->delay_max));
         $this->log('start curl');
         if ($ch = curl_init($url)) {
-            curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0');
+            curl_setopt($ch, CURLOPT_USERAGENT, 'Opera/9.80 (Windows NT 6.1; WOW64; U; ru) Presto/2.10.289 Version/12.00');
             if ($post) {
                 curl_setopt($ch, CURLOPT_POST, 1);
                 curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
@@ -71,7 +74,7 @@ class ProxyParserThread extends CComponent
             curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
             curl_setopt($ch, CURLOPT_PROXY, $this->proxy->value);
             if (getenv('SERVER_ADDR') != '5.9.7.81') {
-                curl_setopt($ch, CURLOPT_PROXYUSERPWD, "alexk984:Nokia1111");
+                curl_setopt($ch, CURLOPT_PROXYUSERPWD, "alexk984:Nokia12345");
                 curl_setopt($ch, CURLOPT_PROXYAUTH, 1);
             }
             curl_setopt($ch, CURLOPT_COOKIEFILE, $this->getCookieFile());
@@ -90,17 +93,28 @@ class ProxyParserThread extends CComponent
             if ($content === false) {
                 if (curl_errno($ch)) {
                     $this->log('Error while curl: ' . curl_error($ch) );
+                    curl_close($ch);
+
                     $attempt += 1;
-                    if ($attempt > 2) {
+                    if ($attempt > 1) {
                         $this->changeBadProxy();
+                        $attempt = 0;
                     }
 
                     return $this->query($url, $ref, $post, $attempt);
                 }
+                curl_close($ch);
 
                 $this->changeBadProxy();
                 return $this->query($url, $ref, $post, $attempt);
             } else {
+                curl_close($ch);
+                if (strpos($content, 'Нам очень жаль, но запросы, поступившие с вашего IP-адреса, похожи на автоматические.')){
+                    $this->log('ip banned');
+                    //file_put_contents(Yii::getPathOfAlias('site.common.cookies') . DIRECTORY_SEPARATOR . 'banned.txt', $this->proxy->value."\n", FILE_APPEND);
+                    $this->changeBadProxy();
+                    return $this->query($url, $ref, $post, $attempt);
+                }
                 $this->log('page loaded by curl');
                 return $content;
             }
@@ -116,6 +130,20 @@ class ProxyParserThread extends CComponent
         $this->proxy->rank = floor((($this->proxy->rank + $this->success_loads) / 5) * 4);
         $this->proxy->active = 0;
         $this->proxy->save();
+        $this->getProxy();
+        $this->success_loads = 0;
+
+        if ($this->removeCookieOnChangeProxy)
+            $this->removeCookieFile();
+
+        $this->afterProxyChange();
+    }
+
+    protected function changeBannedProxy()
+    {
+        $this->log('Change proxy');
+
+        $this->proxy->delete();
         $this->getProxy();
         $this->success_loads = 0;
 
@@ -144,8 +172,6 @@ class ProxyParserThread extends CComponent
 
     protected function removeCookieFile()
     {
-        $this->log('Remove cookie file');
-
         if (file_exists($this->getCookieFile()))
             unlink($this->getCookieFile());
     }

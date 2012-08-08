@@ -5,7 +5,7 @@
             Показывать
             &nbsp;
             <span class="chzn-v2">
-                <?=CHtml::dropDownList('type', $type, CookRecipe::model()->types, array('prompt' => 'Все блюда', 'class' => 'chzn'))?>
+                <?=CHtml::dropDownList('type', $type, CActiveRecord::model($this->modelName)->types, array('prompt' => 'Все блюда', 'class' => 'chzn'))?>
             </span>
         </div>
 
@@ -37,7 +37,7 @@
             Показывать
             &nbsp;
             <span class="chzn-v2">
-                <?=CHtml::dropDownList('type', $type, CookRecipe::model()->types, array('prompt' => 'Все блюда', 'class' => 'chzn'))?>
+                <?=CHtml::dropDownList('type', $type, CActiveRecord::model($this->modelName)->types, array('prompt' => 'Все блюда', 'class' => 'chzn'))?>
             </span>
         </div>
 

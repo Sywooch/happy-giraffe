@@ -29,6 +29,12 @@ class AlbumPhoto extends HActiveRecord
 
     public $options = array();
 
+    public $w_title = null;
+    public $w_description = null;
+
+    public $width;
+    public $height;
+
     /**
      * @var string original photos folder
      */
@@ -141,6 +147,12 @@ class AlbumPhoto extends HActiveRecord
 
     public function afterSave()
     {
+        if ($this->isNewRecord) {
+            if ($this->album !== null && ($this->album->type == 0 || $this->album->type == 1)) {
+                UserAction::model()->add($this->author_id, UserAction::USER_ACTION_PHOTOS_ADDED, array('model' => $this), array('album_id' => $this->album_id));
+            }
+            $this->getPreviewUrl(960, 627, Image::HEIGHT, true);
+        }
         if ($this->isNewRecord && Yii::app()->hasComponent('comet') && $this->author->isNewComer() && isset($this->album)) {
             if ($this->album->type == 0 || $this->album->type == 1 || $this->album->type == 3) {
                 $signal = new UserSignal();
@@ -151,7 +163,7 @@ class AlbumPhoto extends HActiveRecord
                 $signal->save();
 
                 if (!empty($this->album_id)) {
-                    UserScores::addScores($this->author_id, ScoreActions::ACTION_PHOTO, 1, $this);
+                    UserScores::addScores($this->author_id, ScoreAction::ACTION_PHOTO, 1, $this);
                 }
             }
         }
@@ -164,7 +176,7 @@ class AlbumPhoto extends HActiveRecord
         $this->save(false);
         UserSignal::closeRemoved($this);
         if (!empty($this->album_id)) {
-            UserScores::removeScores($this->author_id, ScoreActions::ACTION_PHOTO, 1, $this);
+            UserScores::removeScores($this->author_id, ScoreAction::ACTION_PHOTO, 1, $this);
         }
         return false;
     }
@@ -273,7 +285,11 @@ class AlbumPhoto extends HActiveRecord
             Yii::import('site.frontend.extensions.image.Image');
             if (!file_exists($this->originalPath))
                 return false;
-            $image = new Image($this->originalPath);
+            try {
+                $image = new Image($this->originalPath);
+            } catch (CException $e) {
+                return $thumb;
+            }
 
             if ($image->width <= $width && $image->height <= $height) {
 
@@ -287,8 +303,15 @@ class AlbumPhoto extends HActiveRecord
 
             if ($crop)
                 $image->crop($width, $height, $crop_side);
+
             $image->save($thumb);
         }
+
+        if ($size = @getimagesize($thumb)) {
+            $this->width = $size[0];
+            $this->height = $size[1];
+        }
+
         return $thumb;
     }
 

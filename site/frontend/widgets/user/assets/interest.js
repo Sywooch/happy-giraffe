@@ -2,24 +2,32 @@ var Interest = {
 
 };
 
-Interest.changeCategory = function(link) {
-    $(link).parent().addClass('active').siblings().removeClass('active');
-    var index = $(link).parent().index();
-    $('#interestsEdit').find('.interests-list ul.active').removeClass('active');
-    $('#interestsEdit').find('.interests-list ul:eq('+index+')').addClass('active');
-    return false;
+Interest.changeCategory = function (el) {
+    if (!$(el).parent().hasClass('active')) {
+        $(el).parent().addClass('active').siblings('.active').removeClass('active');
+
+        var index = $(el).parent().index();
+        $('#interestsManage .interests-drag-list:visible').hide();
+        $('#interestsManage .interests-drag-list:eq(' + index + ')').show();
+    }
 };
 
-Interest.checkItem = function(elem) {
-    $(elem).toggleClass('selected');
-    var id = $(elem).attr('for');
-    $('#'+id).click();
+Interest.removeSelected = function (el) {
+    $(el).parent().remove();
+    $('#interestsManage .interest-drag[data-id=' + $(el).parent().data('id') + ']').show();
 };
 
-Interest.save = function(form) {
-    $.post(form.action, $(form).serialize(), function(data) {
-        $('#user_interests_list').replaceWith(data);
-        $.fancybox.close();
-    });
-    return false;
+Interest.save = function () {
+    var form = $('#interestsManage form');
+    $.post($(form).attr('action'), $(form).serialize(), function (response) {
+        if (response.status) {
+            if (response.full)
+                window.location.reload();
+            $.fancybox.close();
+            $('div.interests-wrapper').html(response.html);
+            if (Bonus !== undefined)
+                Bonus.closeStep(5);
+        }
+    }, 'json');
 }
+

@@ -92,8 +92,6 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 .morning-entry .entry-content img {max-width:100%;}
 
 
-
-
 .entry .morning-images {}
 .entry .morning-images img {display:block;}
 .entry .morning-images .big {}
@@ -106,6 +104,20 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 .entry .morning-images .thumbs ul li .more .icon {display:block;width:56px;height:56px;background:url(../images/common.png) no-repeat -499px -135px;margin:0 auto;margin-bottom:10px;}
 .entry .morning-images .thumbs ul li .more:hover .icon {background-position:-499px -193px;}
 .entry .morning-images .thumbs ul li .more:hover {color:#7abc2e;text-decoration:underline;}
+
+
+.entry .disease-title {margin-bottom:15px;}
+.entry .disease-title span {font-size:11px;color:#343434;margin-right:5px;}
+
+.entry .traditional-recipes-ingredients {background:#f2fce8;width:270px;float:left;padding:15px;}
+.entry .traditional-recipes-ingredients .block-title {font-size:14px;font-weight:bold;color:#2e2e2e;margin-bottom:10px;}
+.entry .traditional-recipes-ingredients .block-title .icon {display:inline-block;width:23px;height:23px;background:url(/images/common.png) no-repeat -563px -301px;vertical-align:middle;margin-right:5px;}
+.entry .traditional-recipes-ingredients ul {list-style:disc;padding-left:20px;}
+.entry .traditional-recipes-ingredients ul li {margin:10px 0;}
+
+
+.traditional-recipes-title {padding:45px 30px;background:url(/images/bg_traditional_recipes_title.jpg) no-repeat right;height:58px;border:1px solid #e9e8ea;font-size:50px;line-height:1;color:#383838;margin-bottom:20px;}
+
 
 .morning-sidebar {border:1px solid #f0eaf6;float:left;width:238px;margin-right:20px;}
 
@@ -2533,11 +2545,11 @@ big.title ins.clr_bl {
     height: 287px;
 }
 
-#content .right_block .choice_name h1 {
-    font-size:50px;color:#505152;position:relative;left:90px;top:25px;line-height:1;background:none;
+#content .right_block .choice_name div.title-in {
+  font-size:50px;color:#505152;position:relative;left:90px;top:25px;line-height:1;background:none;font-weight:bold;
 }
 
-#content .right_block .choice_name h1 span {
+#content .right_block .choice_name div.title-in span {
     font-weight:normal;display:block;margin-left:260px;
 }
 
@@ -3831,6 +3843,53 @@ ul.letters li a:hover {
 #calories-calculator .calculator table .remove:hover {background-position:-314px -148px;}
 
 
+#calories-calculator-daily {}
+
+#calories-calculator-daily .block-title {height:195px;background:url(/images/bg_calories_calculator_daily_title.jpg) no-repeat right top;border:1px solid #ebe1f5;padding-left:40px;padding-top:25px;font-weight:normal;margin-bottom:30px;padding-bottom:25px;}
+#calories-calculator-daily .block-title h1 {font-size:54px;color:#464546;font-weight:normal;line-height:1;}
+#calories-calculator-daily .block-title span {color:#737373;font-size:25px;}
+
+#calories-calculator-daily .block-in {padding:0 20px;}
+
+#calories-calculator-daily .calculator {margin:30px 0 60px;}
+#calories-calculator-daily .calculator .col {width:20%;float:left;text-align:center;padding:15px 0 0;position:relative;background:url(/images/calories_calculator_daily_col.gif) no-repeat top;}
+#calories-calculator-daily .calculator .col.error {background-image:url(/images/calories_calculator_daily_col_error.gif)}
+#calories-calculator-daily .calculator .col .arr {display:block;width:50%;height:11px;background:url(/images/calories_calculator_daily_col_arr.gif) no-repeat center;position:absolute;left:50%;top:42px;margin-left:25%;}
+#calories-calculator-daily .calculator .col .num {margin-bottom:12px;}
+#calories-calculator-daily .calculator .col .num span {display:block;width:64px;height:64px;background:#a4c6f5;border-radius:32px;-moz-border-radius:32px;-webkit-border-radius:32px;line-height:64px;color:#fff;font-weight:bold;font-size:36px;margin:0 auto;}
+#calories-calculator-daily .calculator .col .label {margin-bottom:12px;}
+#calories-calculator-daily .calculator .col .label span {font-size:23px;display:inline-block;padding:2px 6px;background:#fef9a8;color:#4c4d4d;}
+#calories-calculator-daily .calculator .col .input {}
+#calories-calculator-daily .calculator .col .input .units {display:inline-block;width:25px;padding-left:5px;margin-right:-33px;text-align:left;}
+#calories-calculator-daily .calculator .col .input label {}
+#calories-calculator-daily .calculator .col .input input[type=text] {width:35px;border:1px solid #a9c8f3;color:#5596d8;font-size:16px;font-weight:bold;text-align:center;line-height:22px;height:23px;margin:0;padding:0 5px;}
+#calories-calculator-daily .calculator .col .input input[type=radio] {position:relative;top:1px;}
+#calories-calculator-daily .calculator .col .input select {width:180px;}
+
+#calories-calculator-daily  .row-btn {text-align:center;margin-top:40px;}
+#calories-calculator-daily  .row-btn input[type=submit] {height: 58px; background: #46b14e url(/images/btn_green_60.gif) repeat-x; line-height: 58px; color: #fff; font-size: 28px; font-weight: bold; text-decoration: none; padding: 0 30px;cursor:pointer;}
+#calories-calculator-daily  .row-btn input[type=submit].disabled {background-position:0 100%;border-color:#c9c9c9;}
+
+#calories-calculator-daily .result {margin-top:30px;font-size:16px;color:#3f3f3f;}
+#calories-calculator-daily .result ul {list-style:none;display:inline-block;}
+#calories-calculator-daily .result ul li {font-size:15px;padding:5px 0;display:inline-block;margin-left:25px;}
+#calories-calculator-daily .result ul li .icon {display:inline-block;text-align:center;font-size:10px;font:tahoma, arial, helvetica, sans-serif;color:#9e9d9d;vertical-align:middle;position:relative;top:4px;line-height:1;margin-right:5px;}
+#calories-calculator-daily .result ul li .icon i {display:block;margin:0 auto 2px;width:20px;height:20px;background:#f0f0f0;color:#333;text-align:center;line-height:20px;font-size:14px;font-style:normal;font-weight:bold;}
+#calories-calculator-daily .result ul li .icon i {/*css3*/ -moz-border-radius:10px;-webkit-border-radius:10px;border-radius:10px;behavior: url(/stylesheets/PIE.htc);}
+#calories-calculator-daily .result ul li .icon .units {width:50px;margin:0 -25px;}
+#calories-calculator-daily .result ul li.n-calories .icon i {background-color:#62a0f5;width:30px;height:30px;line-height:30px;font-size:20px;color:#fff;}
+#calories-calculator-daily .result ul li.n-calories .icon i {/*css3*/  -moz-border-radius:15px;-webkit-border-radius:15px;border-radius:15px;behavior: url(/stylesheets/PIE.htc);}
+#calories-calculator-daily .result ul li.n-protein .icon i {background-color:#f68704;color:#fff;}
+#calories-calculator-daily .result ul li.n-fat .icon i {background-color:#abb71d;color:#fff;}
+#calories-calculator-daily .result ul li.n-carbohydrates .icon i {background-color:#fcbe03;color:#fff;}
+#calories-calculator-daily .result ul li.n-bread {margin-top:-10px;}
+#calories-calculator-daily .result ul li.n-bread .icon {position:relative;top:10px;}
+#calories-calculator-daily .result ul li.n-bread .icon i {background-color:#ff7854;color:#fff;width:30px;height:30px;line-height:30px;font-size:14px;}
+#calories-calculator-daily .result ul li.n-bread .icon i {/*css3*/  -moz-border-radius:15px;-webkit-border-radius:15px;border-radius:15px;behavior: url(/stylesheets/PIE.htc);}
+#calories-calculator-daily .result ul li .gray {font-size:11px;color:#9e9d9d;font-family:tahoma, arial, helvetica, sans-serif;}
+
+
+
 #spices {}
 
 #spices .title {height:114px;background:url(/images/bg_spices_title.jpg) no-repeat right bottom;border:1px solid #ead8f9;padding:50px 60px;margin-bottom:10px;}
@@ -3990,6 +4049,15 @@ ul.letters li a:hover {
 
 .cook-cat .icon-recipe-11 {width:36px;height:30px;background-position:0 -445px;}
 .cook-cat.active .icon-recipe-11, .cook-cat:hover .icon-recipe-11 {background-position:-50px -445px;}
+
+.cook-cat .icon-recipe-12 {width:22px;height:36px;background-position:0 -965px;}
+.cook-cat.active .icon-recipe-12, .cook-cat:hover .icon-recipe-12 {background-position:-50px -965px;}
+
+.cook-cat .icon-recipe-13 {width:43px;height:31px;background-position:0 -1118px;}
+.cook-cat.active .icon-recipe-13, .cook-cat:hover .icon-recipe-13 {background-position:0px -1118px;}
+
+.cook-cat .icon-recipe-14 {width:30px;height:27px;background-position:0 -1149px;}
+.cook-cat.active .icon-recipe-14, .cook-cat:hover .icon-recipe-14 {background-position:0px -1149px;}
 
 
 .cook-cat .icon-product-0 {width:28px;height:36px;background-position:0 -804px;}
@@ -4187,8 +4255,20 @@ ul.letters li a:hover {
 #cook-add-recipe .row-btn {text-align:center;padding:30px 0;}
 #cook-add-recipe .row-btn .btn {margin:0 5px;}
 
+#cook-add-recipe.traditional .title {color:#535353;}
+#cook-add-recipe.traditional .title .icon {width:69px;height:80px;background:url(/images/bg_traditional_add_recipe_title.png) no-repeat;}
 
 #cook-recipe {padding-top:20px;}
+
+#cook-recipe > .title {padding:30px 40px;border:1px solid #dbe4f1;height:88px;margin-bottom:25px;}
+#cook-recipe > .title h1 {font-size:35px;color:#232223;font-weight:normal;line-height:1;}
+#cook-recipe > .title h1 span {display:block;text-transform:uppercase;font-size:40px;line-height:1;}
+
+#cook-add-recipe .form-in {background:#fbf7ff;}
+#cook-add-recipe.traditional .form-in {background:#f2fbe9;}
+
+#cook-recipe > .title-recipes-1 {background:url(/images/bg_recipes_title_1.jpg) no-repeat right;}
+
 
 #cook-recipe .add-recipe {width:220px;text-align:center;color:#81807f;font:italic 18px/1 times new roman, serif;padding-top:27px;float:left;padding-left:10px;}
 #cook-recipe .add-recipe .btn {width:220px;margin-top:4px;}
@@ -4434,6 +4514,13 @@ ul.letters li a:hover {
 #cook .cook-teasers ul li .text {margin-left:130px;}
 #cook .cook-teasers ul li .text .item-title {font-size:16px;margin-bottom:5px;}
 #cook .cook-teasers ul li .text p {font-size:13px;line-height:19px;}
+
+.recipe-banner {border:1px solid #f1e9fa;margin-bottom:30px;}
+.recipe-banner .block-title {font-size:23px;color:#232223;line-height:1;}
+.recipe-banner .block-title span {display:block;margin-bottom:15px;}
+.recipe-banner .block-title a {font-size:16px;}
+
+.recipe-banner-1 {height:99px;padding:30px 50px;background:url(/images/bg_recipe_banner_1.jpg) no-repeat right;}
 
 #cook .dish-list {padding:20px 25px;border:1px solid #f2ebfa;margin-bottom:30px;}
 #cook .dish-list .block-title {font-size:23px;color:#131312;width:570px;margin:0 auto 30px;}

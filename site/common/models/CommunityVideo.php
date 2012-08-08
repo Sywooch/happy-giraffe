@@ -56,6 +56,7 @@ class CommunityVideo extends HActiveRecord
 			array('link, text', 'required'),
 			array('content_id', 'required', 'on' => 'edit'),
 			array('link', 'length', 'max' => 255),
+            array('link', 'url'),
 			array('content_id', 'length', 'max' => 11),
 			array('content_id', 'numerical', 'integerOnly' => true), 
 			array('content_id', 'exist', 'attributeName' => 'id', 'className' => 'CommunityContent'),	
@@ -87,7 +88,7 @@ class CommunityVideo extends HActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'link' => 'Ссылка',
+			'link' => 'Ссылка на видео',
 			'text' => 'Текст',
 			'content_id' => 'Content',
 			'player_favicon' => 'Player Favicon',

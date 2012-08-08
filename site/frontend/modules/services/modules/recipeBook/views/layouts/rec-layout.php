@@ -1,5 +1,5 @@
 <?php $this->beginContent('//layouts/main'); ?>
-<div id="crumbs"><a href="">Главная</a> > <a href="">Сервисы</a> > <span>Народные рецепты</span></div>
+<!--<div id="crumbs"><a href="">Главная</a> > <a href="">Сервисы</a> > <span>Народные рецепты</span></div>-->
 
 <div class="traditional-recipes-title">
     Народные рецепты
@@ -18,7 +18,11 @@
     <div class="side-left">
 
         <div class="club-fast-add">
-            <?=CHtml::link(CHtml::image('/images/btn_add_recipe.png'), array('/services/recipeBook/default/form'))?>
+            <?php if (Yii::app()->user->isGuest):?>
+                <?=CHtml::link(CHtml::image('/images/btn_add_recipe.png'), '#login', array('class'=>'fancy', 'data-theme'=>"white-square"))?>
+            <?php else: ?>
+                <?=CHtml::link(CHtml::image('/images/btn_add_recipe.png'), array('/services/recipeBook/default/form'))?>
+            <?php endif ?>
         </div>
 
         <div class="slide-nav">

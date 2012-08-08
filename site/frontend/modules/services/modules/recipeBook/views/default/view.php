@@ -56,6 +56,7 @@
         <div class="entry-footer">
             <div class="admin-actions">
                 <?=CHtml::link('<i class="icon"></i>', array('/services/recipeBook/default/form', 'id' => $data->id), array('class' => 'edit'))?>
+                <?=CHtml::link('<i class="icon"></i>', array('/services/recipeBook/default/form', 'id' => $data->id), array('class' => 'edit'))?>
             </div>
         </div>
     <?php endif; ?>

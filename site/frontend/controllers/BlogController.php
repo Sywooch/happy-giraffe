@@ -48,7 +48,7 @@ class BlogController extends HController
     public function actionAdd($user_id = null, $content_type_slug = 'post', $rubric_id = null)
     {
         $content_type = CommunityContentType::model()->findByAttributes(array('slug' => $content_type_slug));
-        $model = new BlogContent;
+        $model = new BlogContent('default');
         $model->author_id = Yii::app()->user->id;
         $model->type_id = $content_type->id;
         $model->rubric_id = $rubric_id;
@@ -99,7 +99,9 @@ class BlogController extends HController
 
     public function actionEdit($content_id)
     {
+        $this->meta_title = 'Редактирование записи';
         $model = BlogContent::model()->full()->findByPk($content_id);
+        $model->scenario = 'default';
         if ($model === null)
             throw CHttpException(404, 'Запись не найдена');
 

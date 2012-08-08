@@ -280,11 +280,6 @@ class SiteController extends HController
          $this->render('contest');
     }
 
-    public function actionLink($text)
-    {
-        $this->renderPartial('link', compact('text'));
-    }
-
     public function actionTest()
     {
         $data = array(

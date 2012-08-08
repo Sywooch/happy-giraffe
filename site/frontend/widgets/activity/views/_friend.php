@@ -1,3 +1,60 @@
+<?php
+    $_interests = array();
+    foreach ($f->interests as $i)
+        $_interests[$i->category_id][] = $i;
+?>
+
+<li>
+
+    <div class="clearfix user-info-big">
+        <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
+            'user' => $f, 'location' => false, 'friendButton' => true
+        )); ?>
+        <?php if ($f->status): ?>
+            <div class="text-status">
+                <span class="tale"></span>
+                <?=$f->status->text?>
+            </div>
+        <?php endif; ?>
+    </div>
+
+    <div class="info">
+
+        <?php if ($f->userAddress->country_id): ?>
+            <p class="location"><?=$f->userAddress->getFlag(true, 'span')?> <span><?=$f->userAddress->locationString?></span></p>
+        <?php endif; ?>
+
+        <p>
+            <?=$f->normalizedAge?>, <?=$f->RelationshipStatusString?> &nbsp;
+            <?php if ($f->babies): ?>
+                <?php foreach ($f->babies as $b): ?>
+                    <?php if ($b->type == 1): ?>
+                        <i class="icon-kid-wait"></i>
+                        <?php elseif ($b->sex != 0): ?>
+                        <i class="icon-kid-<?=$b->sex == 1 ? 'boy' : 'girl'?>"></i>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+            <?php endif; ?>
+        </p>
+
+        <div class="interests">
+            <?php foreach ($_interests as $category_id => $interests): ?>
+                <div class="interest-cat">
+                    <img src="/images/interest_icon_<?=$category_id?>.png" />
+                </div>
+                <ul class="interests-list">
+                    <?php foreach ($interests as $i): ?>
+                        <li><a class="interest"><?=$i->title?></a></li>
+                    <?php endforeach; ?>
+                </ul>
+            <?php endforeach; ?>
+        </div>
+
+    </div>
+
+</li>
+
+    <?php if (false): ?>
 <li>
     <div class="clearfix">
         <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => $f, 'location' => false, 'friendButton' => true)); ?>
@@ -8,7 +65,7 @@
             <?php foreach ($f->babies as $b): ?>
                 <?php if ($b->type == 1): ?>
                     <i class="icon-kid-wait"></i>
-                    <?php else: ?>
+                    <?php elseif ($b->sex != 0): ?>
                     <i class="icon-kid-<?=$b->sex == 1 ? 'boy' : 'girl'?>"></i>
                     <?php endif; ?>
                 <?php endforeach; ?>
@@ -27,3 +84,4 @@
         </div>
     </div>
 </li>
+<?php endif; ?>

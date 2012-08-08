@@ -15,7 +15,7 @@ class DefaultController extends SController
 
     public function actionIndex($up_id = null)
     {
-        if ($up_id == null)
+        if (empty($up_id))
             $up = IndexingUp::model()->find();
         else
             $up = $this->loadUp($up_id);
@@ -37,5 +37,18 @@ class DefaultController extends SController
         if ($model === null)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
         return $model;
+    }
+
+    public function actionTest(){
+        Yii::import('site.frontend.extensions.phpQuery.phpQuery');
+        $content = <<<EOD
+EOD;
+        $document = phpQuery::newDocument($content);
+
+        $el = $document->find('div.b-bottom-wizard div.b-pager span.b-pager__arrow:eq(1)');
+        if (pq($el)->hasClass('b-pager__inactive'))
+            echo 1;
+        else
+            echo 0;
     }
 }

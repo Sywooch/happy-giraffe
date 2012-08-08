@@ -55,7 +55,9 @@ return array(
         'application.modules.im.components.*',
         'application.modules.geo.models.*',
         'application.modules.scores.models.*',
-	),
+        'application.modules.calendar.models.*',
+        'application.modules.cook.models.*'
+    ),
 
 	'sourceLanguage' => 'en',
 	'language' => 'ru',
@@ -94,11 +96,35 @@ return array(
         'signal',
         'scores',
         'services',
-        'cook'
+        'cook',
+        'calendar',
 	),
 
 	// application components
 	'components'=>array(
+        'clientScript' => array(
+            'packages' => array(
+                'comet' => array(
+                    'baseUrl' => '/',
+                    'js' => array(
+                        'javascripts/comet.js',
+                        'javascripts/dklab_realplexor.js',
+                    ),
+                ),
+                'user' => array(
+                    'baseUrl' => '/',
+                    'js' => array(
+                        'javascripts/jquery.tmpl.min.js',
+                        'javascripts/im.js',
+                        'javascripts/user_common.js',
+                    ),
+                    'css' => array(
+                        'stylesheets/user_common.css',
+                    ),
+                    'depends' => array('comet'),
+                )
+            ),
+        ),
 		'widgetFactory' => array(
 			'widgets' => array(
 				'LinkPager' => array(
@@ -256,9 +282,13 @@ return array(
         ),
         'mc' => array(
             'class' => 'site.common.extensions.mailchimp.MailChimp',
-            'apiKey' => '761494406f3754b8128246285e00b703-us5',
-            'list' => '5772c2a539'
-        )
+            'apiKey' => 'c0ff51b36480912260a410258b64af5f-us5',
+            'list' => 'd8ced52317'
+        ),
+        'mandrill' => array(
+            'class' => 'site.common.components.Mandrill',
+            'apiKey' => '1f816ac2-65b7-4a28-90c9-7e8fb1669d43',
+        ),
 	),
 
 	// application-level parameters that can be accessed
@@ -293,6 +323,8 @@ return array(
                         'aliases' => array(
                             'application.controllers',
                             'application.modules.cook.controllers.RecipeController',
+                            'application.modules.services.modules.recipeBook.controllers',
+                            'application.modules.calendar.controllers',
                             'application.modules.services.modules.pregnancyWeight.controllers',
                             'application.modules.services.modules.contractionsTime.controllers',
                             'application.modules.services.modules.placentaThickness.controllers',

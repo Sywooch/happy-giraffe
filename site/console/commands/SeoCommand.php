@@ -66,23 +66,24 @@ class SeoCommand extends CConsoleCommand
         Config::setAttribute('stop_threads', 1);
     }
 
-    public function actionPreparePositionParsing(){
+    public function actionPreparePositionParsing()
+    {
         Yii::app()->db_seo->createCommand('update queries set yandex_parsed = 0, google_parsed = 0, parsing = 0;')->execute();
     }
 
-    public function actionParseQueriesYandex()
+    public function actionParseQueriesYandex($debug = 0)
     {
         Config::setAttribute('stop_threads', 0);
 
-        $parser = new PositionParserThread(PositionParserThread::SE_YANDEX);
+        $parser = new PositionParserThread(PositionParserThread::SE_YANDEX, $debug);
         $parser->start();
     }
 
-    public function actionParseQueriesGoogle()
+    public function actionParseQueriesGoogle($debug = 0)
     {
         Config::setAttribute('stop_threads', 0);
 
-        $parser = new PositionParserThread(PositionParserThread::SE_GOOGLE);
+        $parser = new PositionParserThread(PositionParserThread::SE_GOOGLE, $debug);
         $parser->start();
     }
 
@@ -130,7 +131,8 @@ class SeoCommand extends CConsoleCommand
         }
     }
 
-    public function actionAddUrls(){
+    public function actionAddUrls()
+    {
         Yii::import('site.seo.modules.indexing.components.*');
         Yii::import('site.seo.modules.indexing.models.*');
         Yii::import('site.frontend.extensions.ESaveRelatedBehavior');
@@ -139,13 +141,16 @@ class SeoCommand extends CConsoleCommand
         IndexParserThread::collectUrls();
     }
 
-    public function actionRefreshParsing(){
+    public function actionRefreshParsing()
+    {
         Yii::app()->db_seo->createCommand('update proxies set active = 0')->execute();
-        Yii::app()->db_seo->createCommand('update indexing__urls set active = 0 where active = 1')->execute();
+        Yii::app()->db_seo->createCommand('update indexing__urls set active = 0')->execute();
     }
 
-    public function actionEndParsing(){
-        Yii::app()->db->createCommand('update indexing__urls set active = 0')->execute();
+    public function actionRestartParsing()
+    {
+        Yii::app()->db_seo->createCommand('update proxies set active = 0')->execute();
+        Yii::app()->db_seo->createCommand('update indexing__urls set active = 0 where active = 1')->execute();
     }
 
     public function actionParseIndex()
@@ -158,13 +163,53 @@ class SeoCommand extends CConsoleCommand
         $parser->start();
     }
 
-    public function actionAddUp($date){
+    public function actionAddUp()
+    {
         Yii::import('site.seo.modules.indexing.components.*');
         Yii::import('site.seo.modules.indexing.models.*');
 
         $model = new IndexingUp();
-        $model->date = $date;
+        $model->date = date("Y-m-d");
         echo $model->save();
+    }
+
+    public function actionImportVisits(){
+        Yii::import('site.seo.modules.competitors.models.*');
+
+        $criteria = new CDbCriteria;
+        $criteria->limit = 100;
+        $criteria->offset = 0;
+
+        $i = 0;
+        $models = array(0);
+        while (!empty($models)) {
+            $models = SitesKeywordsVisit2::model()->findAll($criteria);
+
+            foreach ($models as $model) {
+                $model2 = new SiteKeywordVisit();
+                $model2->attributes = $model->attributes;
+                $model2->keyword_id = Keyword::GetKeyword($model->keyword)->id;
+                $model2->save();
+            }
+
+            $i++;
+            $criteria->offset = $i * 100;
+        }
+    }
+
+    public function actionProxy(){
+        $str = file_get_contents('http://awmproxy.com/socks_proxy.txt?');
+        if (strlen($str) > 10000){
+            Proxy::model()->deleteAll();
+            $proxies = explode("\n", $str);
+            foreach($proxies as $proxy){
+                $model = new Proxy();
+                $model->value = $proxy;
+                $model->save();
+            }
+        }else{
+            echo $str;
+        }
     }
 }
 

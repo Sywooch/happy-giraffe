@@ -92,87 +92,89 @@
 
             </div>
 
-            <div class="nutrition">
+            <?php if ($recipe->ingredients): ?>
+                <div class="nutrition">
 
-                <div class="block-title">Калорийность блюда</div>
+                    <div class="block-title">Калорийность блюда</div>
 
-                <div class="portion">
-                    <a onclick="toggleNutrition(this, 'g100');" href="javascript:void(0)" class="active">На 100 г.</a>
-                    |
-                    <?php if ($recipe->servings !== null): ?>
-                        <a onclick="toggleNutrition(this, 'total');" href="javascript:void(0)">На порцию</a>
-                    <?php else: ?>
-                        <a class="disabled" href="javascript:void(0)">На порцию</a>
-                    <?php endif; ?>
-                </div>
+                    <div class="portion">
+                        <a onclick="toggleNutrition(this, 'g100');" href="javascript:void(0)" class="active">На 100 г.</a>
+                        |
+                        <?php if ($recipe->servings !== null): ?>
+                            <a onclick="toggleNutrition(this, 'total');" href="javascript:void(0)">На порцию</a>
+                        <?php else: ?>
+                            <a class="disabled" href="javascript:void(0)">На порцию</a>
+                        <?php endif; ?>
+                    </div>
 
-                <ul class="g100">
-                    <li class="n-calories">
-                        <div class="icon">
-                            <i>К</i>
-                            Калории
-                        </div>
-                        <span class="calories"><?=$recipe->getNutritionalsPer100g(1)?></span> <span class="gray">ккал.</span>
-                    </li>
-                    <li class="n-protein">
-                        <div class="icon">
-                            <i>Б</i>
-                            Белки
-                        </div>
-                        <span class="protein"><?=$recipe->getNutritionalsPer100g(3)?></span> <span class="gray">г.</span>
-                    </li>
-                    <li class="n-fat">
-                        <div class="icon">
-                            <i>Ж</i>
-                            Жиры
-                        </div>
-                        <span class="fat"><?=$recipe->getNutritionalsPer100g(2)?></span> <span class="gray">г.</span>
-                    </li>
-                    <li class="n-carbohydrates">
-                        <div class="icon">
-                            <i>У</i>
-                            Углеводы
-                        </div>
-                        <span class="carbohydrates"><?=$recipe->getNutritionalsPer100g(4)?></span> <span class="gray">г.</span>
-                    </li>
-
-                </ul>
-
-                <?php if ($recipe->servings !== null): ?>
-                    <ul class="total" style="display:none;">
+                    <ul class="g100">
                         <li class="n-calories">
                             <div class="icon">
                                 <i>К</i>
                                 Калории
                             </div>
-                            <span class="calories"><?=$recipe->getNutritionalsPerServing(1)?></span> <span class="gray">ккал.</span>
+                            <span class="calories"><?=$recipe->getNutritionalsPer100g(1)?></span> <span class="gray">ккал.</span>
                         </li>
                         <li class="n-protein">
                             <div class="icon">
                                 <i>Б</i>
                                 Белки
                             </div>
-                            <span class="protein"><?=$recipe->getNutritionalsPerServing(3)?></span> <span class="gray">г.</span>
+                            <span class="protein"><?=$recipe->getNutritionalsPer100g(3)?></span> <span class="gray">г.</span>
                         </li>
                         <li class="n-fat">
                             <div class="icon">
                                 <i>Ж</i>
                                 Жиры
                             </div>
-                            <span class="fat"><?=$recipe->getNutritionalsPerServing(2)?></span> <span class="gray">г.</span>
+                            <span class="fat"><?=$recipe->getNutritionalsPer100g(2)?></span> <span class="gray">г.</span>
                         </li>
                         <li class="n-carbohydrates">
                             <div class="icon">
                                 <i>У</i>
                                 Углеводы
                             </div>
-                            <span class="carbohydrates"><?=$recipe->getNutritionalsPerServing(4)?></span> <span class="gray">г.</span>
+                            <span class="carbohydrates"><?=$recipe->getNutritionalsPer100g(4)?></span> <span class="gray">г.</span>
                         </li>
 
                     </ul>
-                <?php endif; ?>
 
-            </div>
+                    <?php if ($recipe->servings !== null): ?>
+                        <ul class="total" style="display:none;">
+                            <li class="n-calories">
+                                <div class="icon">
+                                    <i>К</i>
+                                    Калории
+                                </div>
+                                <span class="calories"><?=$recipe->getNutritionalsPerServing(1)?></span> <span class="gray">ккал.</span>
+                            </li>
+                            <li class="n-protein">
+                                <div class="icon">
+                                    <i>Б</i>
+                                    Белки
+                                </div>
+                                <span class="protein"><?=$recipe->getNutritionalsPerServing(3)?></span> <span class="gray">г.</span>
+                            </li>
+                            <li class="n-fat">
+                                <div class="icon">
+                                    <i>Ж</i>
+                                    Жиры
+                                </div>
+                                <span class="fat"><?=$recipe->getNutritionalsPerServing(2)?></span> <span class="gray">г.</span>
+                            </li>
+                            <li class="n-carbohydrates">
+                                <div class="icon">
+                                    <i>У</i>
+                                    Углеводы
+                                </div>
+                                <span class="carbohydrates"><?=$recipe->getNutritionalsPerServing(4)?></span> <span class="gray">г.</span>
+                            </li>
+
+                        </ul>
+                    <?php endif; ?>
+
+                </div>
+            <?php endif; ?>
 
             <?php if ($recipe->forDiabetics): ?>
                 <div class="nutrition diabetes">
@@ -200,7 +202,8 @@
             <?php if ($recipe->mainPhoto === null): ?>
                 <?php
                     $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
-                        'model' => $recipe,
+                        'entity' => get_parent_class($recipe),
+                        'entity_id' => $recipe->id,
                         'many' => true,
                         'customButton' => true,
                         'customButtonHtmlOptions' => array('class' => 'fancy add-photo'),
@@ -229,7 +232,8 @@
                         <li>
                             <?php
                                 $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
-                                    'model' => $recipe,
+                                    'entity' => get_parent_class($recipe),
+                                    'entity_id' => $recipe->id,
                                     'many' => true,
                                     'customButton' => true,
                                     'customButtonHtmlOptions' => array('class' => 'fancy add'),
@@ -249,20 +253,22 @@
 
         <div style="clear:left;"></div>
 
-        <h2>Ингредиенты</h2>
+        <?php if ($recipe->ingredients): ?>
+            <h2>Ингредиенты</h2>
 
-        <ul class="ingredients">
-            <?php foreach ($recipe->ingredients as $i): ?>
-                <li class="ingredient">
-                    <span class="name"><?=$i->ingredient->title?></span>
-                    <?php if ($i->unit->type != 'undefined'): ?>
-                        <span class="value"><?=$i->display_value?></span>
-                    <?php endif; ?>
-                    <span class="type"><?=$i->noun?></span>
-                    <!--<a href="" class="calculator-trigger tooltip" title="Открыть калькулятор мер"></a>-->
-                </li>
-            <?php endforeach; ?>
-        </ul>
+            <ul class="ingredients">
+                <?php foreach ($recipe->ingredients as $i): ?>
+                    <li class="ingredient">
+                        <span class="name"><?=$i->ingredient->title?></span>
+                        <?php if ($i->unit->type != 'undefined'): ?>
+                            <span class="value"><?=$i->display_value?></span>
+                        <?php endif; ?>
+                        <span class="type"><?=$i->noun?></span>
+                        <!--<a href="" class="calculator-trigger tooltip" title="Открыть калькулятор мер"></a>-->
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        <?php endif; ?>
 
         <h2>Приготовление</h2>
 
@@ -277,7 +283,7 @@
     <div class="entry-footer">
         <div class="admin-actions">
             <?php if (Yii::app()->authManager->checkAccess('editCookRecipe', Yii::app()->user->id) || Yii::app()->user->id == $recipe->author_id){
-                echo CHtml::link('<i class="icon"></i>', $this->createUrl('/cook/recipe/form/', array('id' => $recipe->id)), array('class' => 'edit'));
+                echo CHtml::link('<i class="icon"></i>', $this->createUrl('/cook/recipe/form/', array('id' => $recipe->id, 'section' => $recipe->section)), array('class' => 'edit'));
             } ?>
         </div>
     </div>
@@ -289,7 +295,7 @@
             Еще вкусненькое
         </div>
         <ul>
-            <?php foreach($recipe->more as $m): ?>
+            <?php foreach ($recipe->more as $m): ?>
                 <li>
                     <div class="user clearfix">
                         <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => $m->author, 'size' => 'small', 'location' => false, 'sendButton' => false)); ?>
@@ -306,9 +312,11 @@
 <?php endif; ?>
 
 <?php
-$this->widget('application.widgets.commentWidget.CommentWidget', array('model' => $recipe));
-$remove_tmpl = $this->beginWidget('site.frontend.widgets.removeWidget.RemoveWidget');
-$remove_tmpl->registerTemplates();
-$this->endWidget();
-
+    $this->widget('application.widgets.commentWidget.CommentWidget', array(
+        'entity' => get_parent_class($recipe),
+        'entity_id' => $recipe->primaryKey,
+    ));
+    $remove_tmpl = $this->beginWidget('site.frontend.widgets.removeWidget.RemoveWidget');
+    $remove_tmpl->registerTemplates();
+    $this->endWidget();
 ?>

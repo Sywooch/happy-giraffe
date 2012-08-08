@@ -96,6 +96,14 @@ class IndexingUp extends HActiveRecord
         );
     }
 
+    public function beforeSave()
+    {
+        $exist = self::model()->find('date = "'.$this->date.'"');
+        if ($exist !== null)
+            return false;
+        return parent::beforeSave();
+    }
+
     public function getUrls($plus)
     {
         $prev_up = $this->getPrevUp();
@@ -105,11 +113,11 @@ class IndexingUp extends HActiveRecord
         $change = array();
         if ($plus) {
             foreach ($this->urls as $url)
-                if (!$prev_up->hasUrl($url->id))
+                if (!$prev_up->hasUrl($url->url_id))
                     $change [] = $url;
         } else {
             foreach ($prev_up->urls as $url)
-                if (!$this->hasUrl($url->id))
+                if (!$this->hasUrl($url->url_id))
                     $change [] = $url;
         }
 
@@ -119,7 +127,7 @@ class IndexingUp extends HActiveRecord
     public function hasUrl($id)
     {
         foreach ($this->urls as $url)
-            if ($url->id == $id)
+            if ($url->url_id == $id)
                 return true;
         return false;
     }
@@ -127,8 +135,9 @@ class IndexingUp extends HActiveRecord
     public function getPrevUp()
     {
         $criteria = new CDbCriteria;
-        $criteria->order = 'id desc';
-        $criteria->condition = ' id < ' . $this->id;
+        $criteria->order = 't.id desc';
+        $criteria->condition = ' t.id < ' . $this->id;
+        //$criteria->with = array('urls', 'urls.url');
 
         return IndexingUp::model()->find($criteria);
     }

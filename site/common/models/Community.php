@@ -8,6 +8,7 @@
  * @property string $title
  * @property string $pic
  * @property string $position
+ * @property string $css_class
  */
 class Community extends HActiveRecord
 {

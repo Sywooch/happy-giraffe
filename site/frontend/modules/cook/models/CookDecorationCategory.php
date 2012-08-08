@@ -92,17 +92,37 @@ class CookDecorationCategory extends HActiveRecord
 
     public function getPhotoCollection()
     {
-        if (empty($this->id))
-            $decorations = CookDecoration::model()->findAll();
-        else
-            $decorations = $this->decorations;
+        $cacheId = ($this->id) ? 'wPhoto_decor_' . $this->id : 'wPhoto_decor_all';
+        $sql = "SELECT * FROM " . CookDecoration::model()->tableName();
+        if ($this->id)
+            $sql .= " WHERE id = " . $this->id;
 
-        $photos = array();
-        foreach($decorations as $model)
-        {
-            $model->photo->options['description'] = $model->description;
-            array_push($photos, $model->photo);
+        $collection = Yii::app()->cache->get($cacheId);
+
+        if ($collection === false) {
+            if (empty($this->id))
+                $decorations = CookDecoration::model()->findAll();
+            else
+                $decorations = $this->decorations;
+
+            $photos = array();
+            foreach($decorations as $model)
+            {
+                $model->photo->w_title = $model->title;
+                $model->photo->w_description = $model->description;
+                array_push($photos, $model->photo);
+            }
+            $collection = array(
+                'title' => (empty($this->id)) ?
+                    'Фотоальбом к сервису ' . CHtml::link('Офомление блюд', array('cook/decor/index'))
+                    :
+                    'Фотоальбом ' . CHtml::link($this->title, array('cook/decor/index', 'id' => $this->id)) . ' к сервису ' . CHtml::link('Офомление блюд', array('cook/decor/index'))
+                ,
+                'photos' => $photos,
+            );
+
+            Yii::app()->cache->set($cacheId, $collection, 0, new CDbCacheDependency($sql));
         }
-        return $photos;
+        return $collection;
     }
 }

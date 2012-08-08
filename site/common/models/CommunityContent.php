@@ -26,6 +26,7 @@
  * @property CommunityPhotoPost $photoPost
  * @property userPhotos[] $userPhotos
  * @property CommunityContentGallery $gallery
+ * @property Comment[] comments
  *
  * @method CommunityContent full()
  * @method CommunityContent findByPk()
@@ -85,7 +86,8 @@ class CommunityContent extends HActiveRecord
 		return array(
 			'rubric' => array(self::BELONGS_TO, 'CommunityRubric', 'rubric_id'),
 			'type' => array(self::BELONGS_TO, 'CommunityContentType', 'type_id'),
-			'commentsCount' => array(self::STAT, 'Comment', 'entity_id', 'condition' => 'entity=:modelName', 'params' => array(':modelName' => get_class($this))),
+            'commentsCount' => array(self::STAT, 'Comment', 'entity_id', 'condition' => 'entity=:modelName', 'params' => array(':modelName' => get_class($this))),
+            'comments' => array(self::HAS_MANY, 'Comment', 'entity_id', 'condition' => 'entity=:modelName', 'params' => array(':modelName' => get_class($this))),
             'travel' => array(self::HAS_ONE, 'CommunityTravel', 'content_id', 'on' => "slug = 'travel'"),
             'video' => array(self::HAS_ONE, 'CommunityVideo', 'content_id', 'on' => "slug = 'video'"),
             'post' => array(self::HAS_ONE, 'CommunityPost', 'content_id', 'on' => "slug = 'post'"),
@@ -127,6 +129,9 @@ class CommunityContent extends HActiveRecord
             'purified' => array(
                 'class' => 'site.common.behaviors.PurifiedBehavior',
                 'attributes' => array( 'preview'),
+            ),
+            'pingable' => array(
+                'class' => 'site.common.behaviors.PingableBehavior',
             ),
         );
     }
@@ -261,9 +266,9 @@ class CommunityContent extends HActiveRecord
         self::model()->updateByPk($this->id, array('removed' => 1));
 
         if ($this->isFromBlog && count($this->contentAuthor->blogPosts) == 0) {
-            UserScores::removeScores($this->author_id, ScoreActions::ACTION_FIRST_BLOG_RECORD, 1, $this);
+            UserScores::removeScores($this->author_id, ScoreAction::ACTION_FIRST_BLOG_RECORD, 1, $this);
         }else
-            UserScores::removeScores($this->author_id, ScoreActions::ACTION_RECORD, 1, $this);
+            UserScores::removeScores($this->author_id, ScoreAction::ACTION_RECORD, 1, $this);
         //сообщаем пользователю
         UserNotification::model()->create(UserNotification::DELETED, array('entity' => $this));
         //закрываем сигнал
@@ -301,38 +306,6 @@ class CommunityContent extends HActiveRecord
             Yii::app()->cache->set('activityLastUpdated', time());
         }
 
-        if ($this->type_id == 4 || $this->by_happy_giraffe) {
-            $pingUserId = 1;
-        } else {
-            $pingUserId = $this->author_id;
-        }
-        $pingName = 'Блог пользователя ' . $this->author->fullName;
-        $pingUrl = Yii::app()->createAbsoluteUrl('rss/user', array('user_id' => $pingUserId));
-
-        $xmlDoc = new DOMDocument;
-        $methodCall = $xmlDoc->createElement('methodCall');
-        $xmlDoc->appendChild($methodCall);
-        $methodCall->appendChild($xmlDoc->createElement('methodName', 'weblogUpdates.ping'));
-        $params = $xmlDoc->createElement('params');
-        $methodCall->appendChild($params);
-        $param = $xmlDoc->createElement('param');
-        $param->appendChild($xmlDoc->createElement('value', $pingName));
-        $params->appendChild($param);
-        $param = $xmlDoc->createElement('param');
-        $param->appendChild($xmlDoc->createElement('value', $pingUrl));
-        $params->appendChild($param);
-        $xml = $xmlDoc->saveXML();
-
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, 'http://ping.blogs.yandex.ru/RPC2');
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $xml);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $output = curl_exec($ch);
-        curl_close($ch);
-
-        Yii::log($output, 'error');
-
         if (get_class(Yii::app()) == 'CConsoleApplication')
             return parent::afterSave();
         if ($this->contentAuthor->isNewComer() && $this->isNewRecord) {
@@ -356,9 +329,16 @@ class CommunityContent extends HActiveRecord
         }
         if ($this->isNewRecord && $this->rubric_id !== null){
             if ($this->isFromBlog && count($this->contentAuthor->blogPosts) == 1) {
-                UserScores::addScores($this->author_id, ScoreActions::ACTION_FIRST_BLOG_RECORD, 1, $this);
+                UserScores::addScores($this->author_id, ScoreAction::ACTION_FIRST_BLOG_RECORD, 1, $this);
             }else
-                UserScores::addScores($this->author_id, ScoreActions::ACTION_RECORD, 1, $this);
+                UserScores::addScores($this->author_id, ScoreAction::ACTION_RECORD, 1, $this);
+        }
+        if ($this->isNewRecord) {
+            if ($this->isFromBlog) {
+                UserAction::model()->add($this->author_id, UserAction::USER_ACTION_BLOG_CONTENT_ADDED, array('model' => $this));
+            } else {
+                UserAction::model()->add($this->author_id, UserAction::USER_ACTION_COMMUNITY_CONTENT_ADDED, array('model' => $this));
+            }
         }
         parent::afterSave();
     }
@@ -411,7 +391,7 @@ class CommunityContent extends HActiveRecord
                     'rubric' => array(
                         'with' => array(
                             'community' => array(
-                                'select' => 'id',
+                                'select' => 'id, title, position',
                             )
                         ),
                     ),
@@ -562,8 +542,9 @@ class CommunityContent extends HActiveRecord
     {
         switch ($this->type_id) {
             case 1:
-                if (preg_match('/src="([^"]+)"/', $this->post->text, $matches)) {
-                    return '<img src="' . $matches[1] . '" alt="' . $this->title . '" />';
+                $image = $this->getContentImage();
+                if ($image) {
+                    return '<img src="' . $image . '" alt="' . $this->title . '" />';
                 } else {
                     return Str::truncate(strip_tags($this->post->text));
                 }
@@ -575,6 +556,37 @@ class CommunityContent extends HActiveRecord
             default:
                 return '';
         }
+    }
+
+    public function getContentImage()
+    {
+        if ($this->type->slug == 'video'){
+            $video = new Video($this->video->link);
+            return $video->preview;
+        }
+        else{
+            $image = false;
+            if (preg_match_all('/src="([^"]+)"/', $this->content->text, $matches)){
+                if (!empty($matches[0])){
+                    $image = false;
+                    for($i=0;$i<count($matches[0]);$i++){
+                        $image_url = $matches[1][$i];
+                        if (strpos($image_url, '/images/widget/smiles/') !== 0){
+                            $image = $image_url;
+                            break;
+                        }
+                    }
+                }
+                if ($image !== false && strpos($image, 'http://') !== 0)
+                    $image = 'http://www.happy-giraffe.ru'.$image;
+            }
+            return $image;
+        }
+    }
+
+    public function getContentText($length = 80)
+    {
+        return Str::truncate(strip_tags($this->content->text), $length);
     }
 
     public function canEdit()
@@ -619,5 +631,23 @@ class CommunityContent extends HActiveRecord
         }
 
         return $output;
+    }
+
+    public function getArticleCommentsCount()
+    {
+        if ($this->getIsFromBlog()){
+            $model = BlogContent::model()->findByPk($this->id);
+            return $model->commentsCount;
+        }
+        return $this->commentsCount;
+    }
+
+    public function getArticleComments()
+    {
+        if ($this->getIsFromBlog()){
+            $model = BlogContent::model()->findByPk($this->id);
+            return $model->comments;
+        }
+        return $this->comments;
     }
 }

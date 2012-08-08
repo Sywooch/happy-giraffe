@@ -72,7 +72,7 @@ Album.savePhoto = function (button) {
 Album.removePhoto = function (button, data) {
     $('#album_photo_' + data['Removed[entity_id]']).remove();
     if (!this.editMode) {
-        $.fn.yiiListView.update('comment_list_view');
+        $.fn.yiiListView.update('photosList');
     }
 };
 
@@ -274,7 +274,7 @@ Album.clearFlash = function () {
 
 Album.appendUploadItem = function (id) {
     var listitem = '<li class="clearfix not-loaded" id="' + id + '">' +
-        '<div class="img"><a class="remove" href="javascript:;" onclick="return Album.removeUploadItem(this);"></a></div>' +
+        '<div class="img"><div class="actions"><a href="javascript:;" class="remove tooltip" title="Удалить фото" onclick="return Album.removeUploadItem(this);"></a></div></div>' +
         '<div class="loading"><table><tr><td>Загрузка<div class="progress-bar"><div class="in"></div></div></td></tr></table><a href="" class="remove"></a></div>' +
         '<div class="file-params" style="display:none;"></div>' +
         '</li>';
@@ -295,7 +295,7 @@ Album.appendUploadErrorItem = function (id, name, error) {
     $('#upload_button_wrapper').css({height:0});
     $('#upload_finish_wrapper').css('height', 'auto').addClass('is_visible');
     $('#album_upload_step_1').css('height', 0);
-    $('#album_upload_step_2').css('visibility', 'show');
+    $('#album_upload_step_2').show();
     var listitem = '<li class="clearfix" id="' + id + '" >' +
         '<div class="loading error"><table><tbody><tr><td><i class="icon-error"></i><br>' + name + '<br>не загружен</td></tr></tbody></table></div>' +
         '</li>';
@@ -308,7 +308,7 @@ Album.uploadStart = function (id) {
     $('#upload_button_wrapper').css({height:0});
     $('#upload_finish_wrapper').css('height', 'auto').addClass('is_visible');
     $('#album_upload_step_1').css('height', 0);
-    $('#album_upload_step_2').css('visibility', 'show');
+    $('#album_upload_step_2').show();
 };
 
 Album.uploadProgress = function (id, percentage) {
@@ -316,6 +316,7 @@ Album.uploadProgress = function (id, percentage) {
 };
 
 Album.uploadSuccess = function (id, name, serverData) {
+
     $('.scroll').jScrollPane({showArrows: true, autoReinitialise : true});
     $('#log li#' + id).removeClass('not-loaded');
     $('#album_select').replaceWith($(serverData).find('#album_select'));
@@ -383,10 +384,10 @@ Album.registerUploadEvents = function (elem) {
 }
 
 Album.savePhotos = function () {
-    if (Album.album_id && (Album.current_album_id != null && Album.current_album_id != Album.album_id)) {
+    if (Album.current_album_id != Album.album_id) {
         document.location.href = base_url + '/albums/redirect/' + Album.album_id + '/';
     } else {
-        $.fn.yiiListView.update('comment_list_view');
+        $.fn.yiiListView.update('photosList');
     }
     $.fancybox.close();
     return false;
@@ -400,4 +401,21 @@ Album.changePhoto = function(link) {
         cl(html.find('.big-photo'));
     }, 'html');
     Comment.entity_id = id;
+}
+
+Album.updateField = function(el) {
+    var textRow = $(el).parents('.row-elements');
+    var inputRow = textRow.next();
+    textRow.hide();
+    inputRow.show();
+    inputRow.find('input,textarea').focus();
+}
+
+Album.updateFieldSubmit = function(el, selector) {
+    var inputRow = $(el).parents('.row-elements');
+    var textRow = inputRow.prev();
+    textRow.show();
+    inputRow.hide();
+    var newVal = inputRow.find('input,textarea').val();
+    textRow.find(selector).text(newVal);
 }

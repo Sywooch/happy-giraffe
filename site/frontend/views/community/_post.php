@@ -35,7 +35,7 @@
 
             <div class="meta">
 
-                <div class="time"><?php echo Yii::app()->dateFormatter->format("d MMMM yyyy, H:mm", $data->created); ?></div>
+                <div class="time"><?= Yii::app()->dateFormatter->format("d MMMM yyyy, H:mm", $data->created); ?></div>
 
                 <div class="seen">Просмотров:&nbsp;<span id="page_views"><?php
                     if ($full)
@@ -44,7 +44,7 @@
                         echo $views = PageView::model()->viewsByPath(str_replace('http://www.happy-giraffe.ru', '', $data->url), true);
                     ?></span></div>
                 <br/>
-                <a href="#comment_list">Комментариев: <?php echo $data->commentsCount; ?></a>
+                <?=CHtml::link('Комментариев: ' . $data->commentsCount, $data->getUrl(true))?>
                 <?php if($full) { Rating::model()->saveByEntity($data, 'vw', floor($views / 100)); } ?>
             </div>
         </noindex>
@@ -64,29 +64,48 @@
                         echo $data->purified->preview;
                 }
             ?>
+            <?php if ($data->isFromBlog): ?>
+                <?=CHtml::link('Читать всю запись<i class="icon"></i>', $data->url, array('class' => 'read-more'))?>
+            <?php endif; ?>
             <div class="clear"></div>
         </div>
     <?php else: ?>
         <div class="entry-content">
+            <?php if($data->gallery !== null && count($data->gallery->items) > 0): ?>
+            <?php $photo = $data->gallery->items[0]; ?>
+            <div class="gallery-box">
+                <a class="img" data-id="<?=$data->gallery->items[0]->photo->id?>">
+                    <?php echo CHtml::image($photo->photo->getPreviewUrl(695, 463, Image::WIDTH)) ?>
+
+                    <div class="title">
+                        <?=CHtml::encode($data->gallery->title)?>
+                    </div>
+                    <div class="count">
+                        смотреть <span><?=count($data->gallery->items)?> ФОТО</span>
+                    </div>
+                    <i class="icon-play"></i>
+                </a>
+            </div>
+            <?php
+            $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
+                'selector' => '.gallery-box a',
+                'entity' => get_class($data->gallery),
+                'entity_id' => (int)$data->gallery->primaryKey,
+            ));
+            ?>
+            <?php endif; ?>
+
             <div class="wysiwyg-content">
                 <?
                 switch ($data->type->slug)
                 {
                     case 'post':
                         echo $data->post->purified->text;
-                        $data_text = $data->post->text;
-                        preg_match('!<img.*?src="(.*?)"!', $data_text, $matches);
-                        if (count($matches) > 0)
-                            $data_image = $matches[1];
-                        else
-                            $data_image = false;
                         break;
                     case 'video':
                         $video = new Video($data->video->link);
                         echo '<noindex><div style="text-align: center; margin-bottom: 10px;">' . $video->code . '</div></noindex>';
                         echo $data->video->purified->text;
-                        $data_text = $data->video->text;
-                        $data_image = $video->preview;
                         break;
                     case 'travel':
                         if ($data->travel->waypoints) {
@@ -162,29 +181,6 @@
 
                 <div class="clear"></div>
             </div>
-            <?php if($data->gallery !== null && count($data->gallery->items) > 0): ?>
-            <?php $photo = $data->gallery->items[0]; ?>
-            <div class="gallery-box">
-                <a class="img" data-id="<?=$data->gallery->items[0]->photo->id?>">
-                    <?php echo CHtml::image($photo->photo->getPreviewUrl(695, 463, Image::WIDTH)) ?>
-
-                    <div class="title">
-                        <?=CHtml::encode($data->gallery->title)?>
-                    </div>
-                    <div class="count">
-                        смотреть <span><?=count($data->gallery->items)?> ФОТО</span>
-                    </div>
-                    <i class="icon-play"></i>
-                </a>
-            </div>
-            <?php
-            $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
-                'selector' => '.gallery-box a',
-                'entity' => get_class($data->gallery),
-                'entity_id' => (int)$data->gallery->primaryKey,
-            ));
-            ?>
-            <?php endif; ?>
         </div>
     <?php endif; ?>
 
@@ -241,8 +237,8 @@
             'type' => 'simple',
             'options' => array(
                 'title' => CHtml::encode($data->title),
-                'image' => isset($data_image) ? $data_image : false,
-                'description' => $data_text,
+                'image' => $data->getContentImage(),
+                'description' => $data->getContent()->text,
             ),
         )); ?>
     </noindex>

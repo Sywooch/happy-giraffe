@@ -7,9 +7,14 @@ class RssController extends HController
 {
     public $limit = 20;
 
+    public function init()
+    {
+        Yii::import('application.modules.cook.models.*');
+        Yii::import('ext.EFeed.*');
+    }
+
     public function actionIndex($page = 1)
     {
-        Yii::import('ext.EFeed.*');
         $feed = new EFeed();
 
         $feed->title= 'Веселый Жираф - сайт для всей семьи';
@@ -20,11 +25,13 @@ class RssController extends HController
         $feed->addChannelTag('ya:more', $this->createAbsoluteUrl('rss/index', array('page' => $page + 1)));
         $feed->addChannelTag('image', array('url' => 'http://www.happy-giraffe.ru/images/logo_2.0.png', 'width' => 199, 'height' => 92));
 
-        $contents = CommunityContent::model()->full()->findAll(array(
-            'limit' => $this->limit,
-            'offset' => ($page - 1) * $this->limit,
-            'order' => 'created DESC',
-        ));
+        $sql = "(SELECT id, created, 'CommunityContent' AS entity FROM community__contents)
+                UNION
+                (SELECT id, created, 'CookRecipe' AS entity FROM cook__recipes)
+                ORDER BY created DESC
+                LIMIT :limit
+                OFFSET :offset";
+        $contents = $this->getContents($sql, $page);
 
         foreach ($contents as $c) {
             $item = $feed->createNewItem();
@@ -44,14 +51,16 @@ class RssController extends HController
 
     public function actionUser($user_id, $page = 1)
     {
-        $user = User::model()->findByPk($user_id);
+        $user = User::model()->active()->findByPk($user_id);
+        if ($user === null)
+            throw new CHttpException(404, 'Пользователь не найден');
 
         Yii::import('ext.EFeed.*');
         $feed = new EFeed();
 
         $feed->title= 'Блог пользователя ' . $user->fullName;
         $feed->link = $this->createAbsoluteUrl('blog/list', array('user_id' => $user->id));
-        $feed->description = 'Мой личный блог';
+        $feed->description = ($user->blog_title === null) ? 'Блог - ' . $user->fullName : $user->blog_title;
         $feed->addChannelTag('generator', 'MyBlogEngine 1.1');
         $feed->addChannelTag('wfw:commentRss', $this->createAbsoluteUrl('rss/comments', array('user_id' => $user->id)));
         $feed->addChannelTag('ya:more', $this->createAbsoluteUrl('rss/user', array('user_id' => $user->id, 'page' => $page + 1)));
@@ -65,26 +74,27 @@ class RssController extends HController
                 'offset' => ($page - 1) * $this->limit,
                 'order' => 'created DESC',
             ));
+
+            $contents = CommunityContent::model()->full()->findAll($criteria);
         } else {
             if (in_array($user->id, array(10264, 10127, 10378, 23, 12678))) {
-                $criteria = new CDbCriteria(array(
-                    'condition' => 'author_id = :author_id AND type_id != 4 AND by_happy_giraffe = 0 AND rubric.user_id IS NOT NULL',
-                    'params' => array(':author_id' => $user->id),
-                    'limit' => $this->limit,
-                    'offset' => ($page - 1) * $this->limit,
-                    'order' => 'created DESC',
-                ));
+                $sql = "(SELECT community__contents.id, created, 'CommunityContent' AS entity FROM community__contents JOIN community__rubrics ON community__contents.rubric_id = community__rubrics.id WHERE author_id = :author_id AND type_id != 4 AND by_happy_giraffe = 0 AND community__rubrics.user_id IS NOT NULL)
+                        UNION
+                        (SELECT id, created, 'CookRecipe' AS entity FROM cook__recipes WHERE author_id = :author_id)
+                        ORDER BY created DESC
+                        LIMIT :limit
+                        OFFSET :offset";
             } else {
-                $criteria = new CDbCriteria(array(
-                    'condition' => 'author_id = :author_id AND type_id != 4 AND by_happy_giraffe = 0',
-                    'params' => array(':author_id' => $user->id),
-                    'limit' => $this->limit,
-                    'offset' => ($page - 1) * $this->limit,
-                    'order' => 'created DESC',
-                ));
+                $sql = "(SELECT id, created, 'CommunityContent' AS entity FROM community__contents WHERE author_id = :author_id AND type_id != 4 AND by_happy_giraffe = 0)
+                        UNION
+                        (SELECT id, created, 'CookRecipe' AS entity FROM cook__recipes WHERE author_id = :author_id)
+                        ORDER BY created DESC
+                        LIMIT :limit
+                        OFFSET :offset";
             }
+
+            $contents = $this->getContents($sql, $page, array(':author_id' => $user->id));
         }
-        $contents = CommunityContent::model()->full()->findAll($criteria);
 
         foreach ($contents as $c) {
             $item = $feed->createNewItem();
@@ -124,7 +134,6 @@ class RssController extends HController
         if (! $comments)
             throw new CHttpException(404, 'Такой записи не существует');
 
-        Yii::import('ext.EFeed.*');
         $feed = new EFeed();
         $feed->link = $this->createAbsoluteUrl('blog/list', array('user_id' => $user->id));
         $feed->addChannelTag('generator', 'MyBlogEngine 1.1:comments');
@@ -151,6 +160,42 @@ class RssController extends HController
 
         $feed->generateFeed();
         Yii::app()->end();
+    }
+
+    function getContents($sql, $page, $params = array())
+    {
+        $command = Yii::app()->db->createCommand($sql);
+        $command->bindValue(':limit', $this->limit, PDO::PARAM_INT);
+        $command->bindValue(':offset', ($page - 1) * $this->limit, PDO::PARAM_INT);
+        foreach ($params as $name => $value)
+            $command->bindValue($name, $value);
+        $rows = $command->queryAll();
+        $rowsByEntity = array();
+        foreach ($rows as $r)
+            $rowsByEntity[$r['entity']][] = $r['id'];
+        $contents = array();
+        foreach ($rowsByEntity as $entity => $ids) {
+            $criteria = new CDbCriteria;
+            $criteria->addInCondition('t.id', $ids);
+            switch ($entity) {
+                case 'CommunityContent':
+                    $_contents = CActiveRecord::model($entity)->full()->findAll($criteria);
+                    break;
+                default:
+                    $_contents = CActiveRecord::model($entity)->findAll($criteria);
+            }
+            foreach ($_contents as $c)
+                $contents[] = $c;
+        }
+        usort($contents, array($this, 'cmp'));
+        return $contents;
+    }
+
+    function cmp($a, $b)
+    {
+        if ($a->created == $b->created)
+            return 0;
+        return ($a->created > $b->created) ? -1 : 1;
     }
 }
 

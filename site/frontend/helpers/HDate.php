@@ -72,6 +72,36 @@ class HDate
         }
     }
 
+    public static function ruMonthWhen($num)
+    {
+        switch ($num) {
+            case 1 :
+                return "Января";
+            case 2  :
+                return "Февраля";
+            case 3  :
+                return "Марта";
+            case 4  :
+                return "Апреля";
+            case 5  :
+                return "Мая";
+            case 6  :
+                return "Июня";
+            case 7  :
+                return "Июля";
+            case 8  :
+                return "Августа";
+            case 9  :
+                return "Сентября";
+            case 10  :
+                return "Октября";
+            case 11  :
+                return "Ноября";
+            case 12  :
+                return "Декабря";
+        }
+    }
+
     public static function ruMonthShort($num)
     {
         switch ($num) {
@@ -294,6 +324,18 @@ class HDate
         return $result;
     }
 
+    public static function GetFormattedTimestamp($ts)
+    {
+        $result = '';
+        $result .= date('j', $ts);
+        $result .= ' ';
+        $result .= self::ruMonthWhen(date('m', $ts));
+        $result .= ' ';
+        $result .= date('Y', $ts);
+
+        return $result;
+    }
+
     /**
      * Возвращает список $num дней недели начиная с завтра в виде
      * Завтра, Пт, Сб, Вс.....
@@ -321,5 +363,10 @@ class HDate
     public static function getStringDate($d, $m, $y){
         //1986-08-06
         return $y.'-'.sprintf("%02d", $m).'-'.sprintf("%02d", $d);
+    }
+
+    public static function isSameDate($ts1, $ts2)
+    {
+        return date('Ymd', $ts1) == date('Ymd', $ts2);
     }
 }

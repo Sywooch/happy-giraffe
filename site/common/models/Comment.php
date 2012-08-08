@@ -177,8 +177,10 @@ class Comment extends HActiveRecord
                 UserNotification::model()->create(UserNotification::NEW_REPLY, array('comment' => $this));
             }
 
-            UserScores::addScores($this->author_id, ScoreActions::ACTION_OWN_COMMENT, 1, array(
+            UserScores::addScores($this->author_id, ScoreAction::ACTION_OWN_COMMENT, 1, array(
                 'id'=>$this->entity_id, 'name'=>$this->entity));
+
+            UserAction::model()->add($this->author_id, UserAction::USER_ACTION_COMMENT_ADDED, array('model' => $this));
         }
         parent::afterSave();
     }
@@ -232,7 +234,7 @@ class Comment extends HActiveRecord
     {
         Comment::model()->updateByPk($this->id, array('removed' => 1));
 
-        UserScores::removeScores($this->author_id, ScoreActions::ACTION_OWN_COMMENT, 1, array(
+        UserScores::removeScores($this->author_id, ScoreAction::ACTION_OWN_COMMENT, 1, array(
             'id'=>$this->entity_id, 'name'=>$this->entity));
 
         UserNotification::model()->create(UserNotification::DELETED, array('entity' => $this));
@@ -309,6 +311,9 @@ class Comment extends HActiveRecord
 
     public function getUrl($absolute = false)
     {
+        if (! in_array($this->entity, array('CommunityContent', 'BlogContent', 'CookRecipe')))
+            return false;
+
         $entity = CActiveRecord::model($this->entity)->findByPk($this->entity_id);
         list($route, $params) = $entity->urlParams;
         $params['#'] = 'comment_' . $this->id;

@@ -232,7 +232,7 @@ class Album extends HActiveRecord
             foreach($this->photos as $photo)
                 UserSignal::closeRemoved($photo, false);
             UserSignal::sendUpdateSignal();
-            UserScores::removeScores($this->author_id, ScoreActions::ACTION_PHOTO, count($this->photos), $this->photos[0]);
+            UserScores::removeScores($this->author_id, ScoreAction::ACTION_PHOTO, count($this->photos), $this->photos[0]);
         }
 
         $this->removed = 1;
@@ -244,5 +244,27 @@ class Album extends HActiveRecord
     public function getUrl()
     {
         return Yii::app()->createUrl('albums/view', array('user_id' => $this->author_id, 'id' => $this->id));
+    }
+
+    public function getPhotoCollection()
+    {
+        $photos = array();
+
+        $_photos = $this->getRelated('photos', false, array(
+            'with' => array(
+                'author' => array(
+                    'with' => 'avatar',
+                ),
+            ),
+        ));
+        foreach ($_photos as $i => $p) {
+            $p->w_title = ($p->title) ? $p->title : 'Альбом «' . $this->title . '» - фото ' . ($i + 1);
+            $photos[] = $p;
+        }
+
+        return array(
+            'title' => 'Фотоальбом ' . CHtml::link($this->title, $this->url),
+            'photos' => $photos,
+        );
     }
 }

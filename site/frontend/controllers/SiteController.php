@@ -23,6 +23,7 @@ class SiteController extends HController
 
     public function actionSeoHide($hash)
     {
+        header('Content-type: text/javascript');
         $cacheId = 'seoHide_' . $hash;
         $value = Yii::app()->cache->get($cacheId);
         if ($value !== false) {
@@ -119,6 +120,9 @@ class SiteController extends HController
 	{
 		$service = Yii::app()->request->getQuery('service');
 		if (isset($service)) {
+            if (! in_array($service, array_keys(Yii::app()->eauth->services)))
+                throw new CHttpException(404, 'Страница не найдена');
+
 			$authIdentity = Yii::app()->eauth->getIdentity($service);
             $redirectUrl = Yii::app()->user->loginUrl;
             if(isset($_SERVER['HTTP_REFERER']) && $url_info = parse_url($_SERVER['HTTP_REFERER']))
@@ -323,5 +327,96 @@ class SiteController extends HController
         var_dump(isset($xml->result[0]->fsdfs));
         die;
         echo $xml->result[0]->fsdfs;
+    }
+
+    public function actionUsers()
+    {
+        $users = User::model()->findAll(array('condition' => 'register_date between "2012-07-01 00:00:00" AND "2012-07-16 00:00:00"'));
+        foreach ($users as $u) {
+            echo '<p>' . CHtml::link($this->createAbsoluteUrl('user/profile', array('user_id' => $u->id)), $this->createAbsoluteUrl('user/profile', array('user_id' => $u->id))) . '</p>';
+        }
+    }
+
+    public function actionConfirmEmail($user_id, $code)
+    {
+        $user = User::model()->findByPk($user_id);
+        if ($user === null || $user->email_confirmed || $code != $user->confirmationCode)
+            throw new CHttpException(404);
+
+
+
+        $user->email_confirmed = 1;
+        if ($user->update(array('email_confirmed')))
+            UserScores::checkProfileScores($user->id, ScoreAction::ACTION_PROFILE_EMAIL);
+
+        $identity = new SafeUserIdentity($user_id);
+        if ($identity->authenticate())
+            Yii::app()->user->login($identity);
+        $this->redirect($user->url);
+    }
+
+    public function actionResendConfirmEmail()
+    {
+        $user = Yii::app()->user->model;
+        if ($user === null || $user->email_confirmed)
+            throw new CHttpException(404);
+
+        echo Yii::app()->mandrill->send($user, 'resendConfirmEmail', array(
+            'code' => $user->confirmationCode,
+        ));
+    }
+
+    public function actionPasswordRecoveryForm()
+    {
+        $this->renderPartial('passwordRecoveryForm');
+    }
+
+    public function actionPasswordRecovery()
+    {
+        $email = Yii::app()->request->getPost('email');
+        if (empty($email)) {
+            echo CJSON::encode(array(
+                'status' => 'error',
+                'message' => '<span>Введите e-mail.</span>'
+            ));
+            Yii::app()->end();
+        }
+
+        $user = User::model()->findByAttributes(array('email' => $email));
+        if ($user === null) {
+            echo CJSON::encode(array(
+                'status' => 'error',
+                'message' => '<span>Пользователя с таким e-mail не существует.</span>',
+            ));
+            Yii::app()->end();
+        }
+
+        $password = $user->createPassword(12);
+        $user->password = $user->hashPassword($password);
+
+        if (! ($user->save() &&  Yii::app()->mandrill->send($user, 'passwordRecovery', array('password' => $password)))) {
+            echo CJSON::encode(array(
+                'status' => 'error',
+                'message' => '<span>Произошла неизвестная ошибка. Попробуйте ещё раз.</span>',
+            ));
+        } else {
+            echo CJSON::encode(array(
+                'status' => 'ok',
+                'message' => '<span>На ваш e-mail адрес было выслано письмо с вашим паролем</span><br/><span>(также проверьте, пожалуйста, папку «Спам»)</span>',
+            ));
+        }
+    }
+
+    public function actionTest2(){
+        $unread = Im::model(Yii::app()->user->id)->getUnreadMessagesCount();
+        $dialogUsers = Im::model(Yii::app()->user->id)->getUsersWithNewMessages();
+
+        $this->renderFile(Yii::getPathOfAlias('site.common.tpl.newMessages').'.php', array(
+            'user'=>Yii::app()->user->model,
+            'unread'=>$unread,
+            'dialogUsers'=>$dialogUsers,
+        ));
+//        $articles = Favourites::model()->getWeekPosts();
+//        $this->renderFile(Yii::getPathOfAlias('site.common.tpl.weeklyNews').'.php', array('models'=>$articles));
     }
 }

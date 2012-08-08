@@ -28,6 +28,15 @@ class CookRecipe extends CActiveRecord
     const COOK_RECIPE_LOWCAL = 40;
     const COOK_RECIPE_FORDIABETICS = 33;
 
+    const COOK_DEFAULT_SECTION = 0;
+
+    public $tagsIds = array();
+
+    public $sectionsMap = array(
+        0 => 'SimpleRecipe',
+        1 => 'MultivarkaRecipe',
+    );
+
     public $types = array(
         1 => 'Первые блюда',
         2 => 'Вторые блюда',
@@ -40,6 +49,9 @@ class CookRecipe extends CActiveRecord
         9 => 'Напитки',
         10 => 'Соусы и кремы',
         11 => 'Консервация',
+        12 => 'Блюда из молочных продуктов',
+        13 => 'Рецепты для малышей',
+        14 => 'Рецепты-дуэты',
     );
 
     public $durations = array(
@@ -103,7 +115,7 @@ class CookRecipe extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('title, text, type, author_id, ingredients', 'required'),
+            array('title, text, type, author_id', 'required'),
             array('title', 'length', 'max' => 255),
             array('photo_id', 'exist', 'attributeName' => 'id', 'className' => 'AlbumPhoto'),
             array('cuisine_id', 'exist', 'attributeName' => 'id', 'className' => 'CookCuisine'),
@@ -114,6 +126,8 @@ class CookRecipe extends CActiveRecord
             array('preparation_duration_h, preparation_duration_m, cooking_duration_h, cooking_duration_m', 'safe'),
             array('cuisine_id', 'default', 'value' => null),
             array('photo_id', 'default', 'value' => null),
+            array('section', 'in', 'range' => array_keys($this->sectionsMap)),
+            array('tagsIds', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('id, title, photo_id, preparation_duration, cooking_duration, servings, text, cuisine_id, type, author_id', 'safe', 'on' => 'search'),
@@ -128,6 +142,7 @@ class CookRecipe extends CActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
+            'tags' => array(self::MANY_MANY, 'CookRecipeTag', 'cook__recipe_recipes_tags(recipe_id, tag_id)'),
             'ingredients' => array(self::HAS_MANY, 'CookRecipeIngredient', 'recipe_id'),
             'author' => array(self::BELONGS_TO, 'User', 'author_id'),
             'photo' => array(self::BELONGS_TO, 'AlbumPhoto', 'photo_id'),
@@ -212,6 +227,12 @@ class CookRecipe extends CActiveRecord
                 'class' => 'site.common.behaviors.PurifiedBehavior',
                 'attributes' => array('text'),
             ),
+            'pingable' => array(
+                'class' => 'site.common.behaviors.PingableBehavior',
+            ),
+            'CAdvancedArBehavior' => array(
+                'class' => 'site.frontend.extensions.CAdvancedArBehavior',
+            ),
         );
     }
 
@@ -233,27 +254,49 @@ class CookRecipe extends CActiveRecord
 
     protected function afterFind()
     {
-        $this->preparation_duration_h = sprintf("%02d", floor($this->preparation_duration / 60));
-        $this->preparation_duration_m = sprintf("%02d", $this->preparation_duration % 60);
-        $this->cooking_duration_h = sprintf("%02d", floor($this->cooking_duration / 60));
-        $this->cooking_duration_m = sprintf("%02d", $this->cooking_duration % 60);
+        if (! empty($this->tags))
+        {
+            foreach ($this->tags as $service)
+                $this->tagsIds[] = $service->id;
+        }
+
+        if ($this->preparation_duration !== null) {
+            $this->preparation_duration_h =  sprintf("%02d", floor($this->preparation_duration / 60));
+            $this->preparation_duration_m = sprintf("%02d", $this->preparation_duration % 60);
+        }
+
+        if ($this->cooking_duration !== null) {
+            $this->cooking_duration_h = sprintf("%02d", floor($this->cooking_duration / 60));
+            $this->cooking_duration_m = sprintf("%02d", $this->cooking_duration % 60);
+        }
 
         parent::afterFind();
     }
 
     protected function beforeSave()
     {
+        $this->tags = $this->tagsIds;
+
         if (! $this->isNewRecord) {
             CookRecipeIngredient::model()->deleteAll('recipe_id = :recipe_id', array(':recipe_id' => $this->id));
         }
 
-        if ($this->servings) {
-            $this->lowFat = $this->getNutritionalsPerServing(2) <= self::COOK_RECIPE_LOWFAT;
-            $this->forDiabetics = $this->getNutritionalsPerServing(4) <= self::COOK_RECIPE_FORDIABETICS;
+        if ($this->ingredients) {
+            if ($this->servings) {
+                $this->lowFat = $this->getNutritionalsPerServing(2) <= self::COOK_RECIPE_LOWFAT;
+                $this->forDiabetics = $this->getNutritionalsPerServing(4) <= self::COOK_RECIPE_FORDIABETICS;
+            }
+            $this->lowCal = $this->getNutritionalsPer100g(1) <= self::COOK_RECIPE_LOWCAL;
         }
-        $this->lowCal = $this->getNutritionalsPer100g(1) <= self::COOK_RECIPE_LOWCAL;
 
         return parent::beforeSave();
+    }
+
+    protected function afterSave()
+    {
+        UserAction::model()->add($this->author_id, UserAction::USER_ACTION_RECIPE_ADDED, array('model' => $this));
+
+        parent::afterSave();
     }
 
     public function getNutritionals()
@@ -292,6 +335,7 @@ class CookRecipe extends CActiveRecord
     public function findAdvanced($cuisine_id, $type, $preparation_duration, $cooking_duration, $lowFat, $lowCal, $forDiabetics)
     {
         $criteria = new CDbCriteria;
+        $criteria->with = array('photo', 'attachPhotos');
 
         if ($cuisine_id !== null)
             $criteria->compare('cuisine_id', $cuisine_id);
@@ -300,9 +344,9 @@ class CookRecipe extends CActiveRecord
 
         if ($preparation_duration !== null) {
             if ($this->durations[$preparation_duration]['min'] !== null)
-                $criteria->compare('preparation_duration', '>=' . $preparation_duration['min']);
+                $criteria->compare('preparation_duration', '>=' . $this->durations[$preparation_duration]['min']);
             if ($this->durations[$preparation_duration]['max'] !== null)
-                $criteria->compare('preparation_duration', '<' . $preparation_duration['max']);
+                $criteria->compare('preparation_duration', '<' . $this->durations[$preparation_duration]['max']);
         }
 
         if ($cooking_duration !== null) {
@@ -327,21 +371,20 @@ class CookRecipe extends CActiveRecord
         return $this->findAll($criteria);
     }
 
-    public function findByIngredients($ingredients, $type = null, $limit = null)
+    public function findByIngredients($ingredients, $type = null)
     {
         $subquery = Yii::app()->db->createCommand()
-            ->select('count(*)')
+            ->select('count(distinct ingredient_id)')
             ->from('cook__recipe_ingredients')
             ->where(array('and', 'recipe_id = t.id', array('in', 'cook__recipe_ingredients.ingredient_id', $ingredients)))
             ->text;
 
         $criteria = new CDbCriteria;
+        $criteria->with = array('photo', 'attachPhotos');
         $criteria->condition = '(' . $subquery . ') = :count';
         $criteria->params = array(':count' => count($ingredients));
         if ($type !== null)
             $criteria->compare('type', $type);
-        if ($limit !== null)
-            $criteria->limit = $limit;
 
         return $this->findAll($criteria);
     }
@@ -370,23 +413,32 @@ class CookRecipe extends CActiveRecord
         return $this->findAll($criteria);
     }
 
+    public function getUrlParams()
+    {
+        return array(
+            '/cook/recipe/view',
+            array(
+                'id' => $this->id,
+                'section' => $this->section,
+            ),
+        );
+    }
+
     public function getUrl($comments = false, $absolute = false)
     {
-        $params = array(
-            'id' => $this->id,
-        );
+        list($route, $params) = $this->urlParams;
 
         if ($comments)
             $params['#'] = 'comment_list';
 
         $method = $absolute ? 'createAbsoluteUrl' : 'createUrl';
-        return Yii::app()->$method('/cook/recipe/view', $params);
+        return Yii::app()->$method($route, $params);
     }
 
     public function getPreview($imageWidth = 167)
     {
-        if ($this->photo !== null) {
-            $preview = CHtml::link(CHtml::image($this->photo->getPreviewUrl($imageWidth, null, Image::WIDTH)), $this->url);
+        if ($this->mainPhoto !== null) {
+            $preview = CHtml::link(CHtml::image($this->mainPhoto->getPreviewUrl($imageWidth, null, Image::WIDTH)), $this->url);
         } else {
             $preview = CHtml::tag('p', array(), Str::truncate($this->text));
         }
@@ -449,7 +501,14 @@ class CookRecipe extends CActiveRecord
             $photos[] = $p->photo;
         }
 
-        return $photos;
+        foreach ($photos as $i => $p) {
+            $p->w_title = $this->title . ' - фото ' . ($i + 1);
+        }
+
+        return array(
+            'title' => 'Фотоальбом к рецепту ' . CHtml::link($this->title, $this->url),
+            'photos' => $photos,
+        );
     }
 
     public function getLastRecipes($limit = 9)
@@ -535,7 +594,7 @@ class CookRecipe extends CActiveRecord
         if ($type !== null)
             $criteria->compare('type', $type);
 
-        $dp = new CActiveDataProvider('CookRecipe', array(
+        $dp = new CActiveDataProvider(get_class($this), array(
             'criteria' => $criteria,
             'pagination' => array(
                 'pageSize' => 10,
@@ -543,5 +602,34 @@ class CookRecipe extends CActiveRecord
         ));
 
         return $dp;
+    }
+
+    public function getTypeString()
+    {
+        return $this->types[$this->type];
+    }
+
+    public function getCookingDurationString()
+    {
+        if ($this->cooking_duration < 60) {
+            return $this->cooking_duration_m . ' мин';
+        } elseif ($this->cooking_duration % 60 == 0) {
+            return $this->cooking_duration_h . ' ч';
+        } else {
+            return $this->cooking_duration_h . ' ч' . $this->cooking_duration_m . ' мин';
+        }
+    }
+
+    public function getRssContent()
+    {
+        return ($this->mainPhoto !== null)  ?
+            CHtml::image($this->mainPhoto->getPreviewUrl(441, null, Image::WIDTH), $this->mainPhoto->title) . $this->text
+            :
+            $this->text;
+    }
+
+    public function getContentImage()
+    {
+        return ($this->mainPhoto !== null) ? $this->mainPhoto->getPreviewUrl(303, null, Image::WIDTH) : false;
     }
 }

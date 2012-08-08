@@ -25,6 +25,9 @@
     ";
 
     $cs->registerScript('chnage_rubric_title', $js);
+
+if (!isset($redirectUrl))
+    $redirectUrl = Yii::app()->request->urlReferrer;
 ?>
 
 <div class="add-nav default-nav clearfix">
@@ -157,12 +160,13 @@
                 </div>
 
                 <div class="row row-buttons">
-                    <button class="btn btn-gray-medium"><span><span>Отменить</span></span></button>
+                    <button class="btn btn-gray-medium"<?php if ($model->isNewRecord) echo ' onclick="document.location.href =\''. $redirectUrl .'\';return false"'; ?>><span><span>Отменить</span></span></button>
                     <!--<button class="btn btn-yellow-medium"><span><span>Предпросмотр</span></span></button>-->
                     <button class="btn btn-green-medium"><span><span><?php echo ($model->isNewRecord) ? 'Добавить' : 'Сохранить' ; ?></span></span></button>
                 </div>
 
             </div>
+        <?= CHtml::hiddenField('redirectUrl', $redirectUrl) ?>
         <?php $this->endWidget(); ?>
 
     </div>

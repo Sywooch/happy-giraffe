@@ -5,19 +5,27 @@
  */
 class InterestsWidget extends UserCoreWidget
 {
+    public $interests = array();
+
     public function init()
     {
+        parent::init();
         Yii::import('site.common.models.interest.*');
 
-        if((Yii::app()->user->isGuest || Yii::app()->user->id != $this->user->id) && count($this->user->interests) == 0)
-        {
-            $this->visible = false;
-            return;
-        }
+        $this->interests = InterestCategory::model()->findAll(array(
+            'params' => array(':user_id' => $this->user->id),
+            'with' => array(
+                'interests' => array(
+                    'with' => 'usersCount',
+                    'join' => 'JOIN interest__users_interests ON interest__users_interests.interest_id = interests.id AND interest__users_interests.user_id = :user_id',
+                ),
+            ),
+        ));
+
+        $this->visible = $this->isMyProfile || ! empty($this->interests);
 
         $basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR;
         $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
         Yii::app()->clientScript->registerScriptFile($baseUrl . '/interest.js');
-        parent::init();
     }
 }

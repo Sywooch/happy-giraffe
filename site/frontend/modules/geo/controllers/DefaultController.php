@@ -151,13 +151,23 @@ class DefaultController extends HController
         $address->city_id = empty($city_id) ? null : $city_id;
 
         Yii::import('site.frontend.widgets.user.*');
-        echo CJSON::encode(array(
-            'status' => $address->save(),
-            'weather' => $this->widget('WeatherWidget', array('user' => $user), true),
-            'main' => $this->widget('LocationWidget', array('user' => $user), true),
-            'location' => $user->getUserAddress()->getFlag(true) . $user->getUserAddress()->cityName,
-            'mapsLocation' => $address->getLocationString()
-        ));
+        if ($address->save()) {
+            $response = array(
+                'status' => true,
+                'weather' => $this->widget('WeatherWidget', array('user' => $user), true),
+                'main' => $this->widget('LocationWidget', array('user' => $user), true),
+                'location' => $user->getUserAddress()->getFlag(true) . $user->getUserAddress()->cityName,
+                'mapsLocation' => $address->getLocationString()
+            );
+            UserAction::model()->add($user->id, UserAction::USER_ACTION_ADDRESS_UPDATED, array('model' => $address));
+        } else {
+            $response = array(
+                'status' => false,
+                'full' => ($user->getScores()->full == 0)?false:true
+            );
+        }
+
+        echo CJSON::encode($response);
     }
 
     public function actionRegionIsCity()

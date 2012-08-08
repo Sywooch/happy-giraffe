@@ -10,9 +10,23 @@
         ->registerCoreScript('jquery.ui')
         ->registerCssFile($cs->coreScriptUrl . '/jui/css/base/jquery-ui.css');
     ;
+
+    $this->breadcrumbs = array(
+    'Кулинария' => array('/cook'),
+    'Добавить рецепт'
+    );
 ?>
 
-<div id="crumbs"><a href="">Главная</a> > <a href="">Сервисы</a> > <span>Приправы и специи</span></div>
+<?php
+    $this->widget('zii.widgets.CBreadcrumbs', array(
+        'links' => $this->breadcrumbs,
+        'separator' => ' &gt; ',
+        'htmlOptions' => array(
+            'id' => 'crumbs',
+            'class' => null,
+        ),
+    ));
+?>
 
 <div class="main">
 
@@ -122,25 +136,27 @@
 
                     </div>
 
-                    <div class="row clearfix">
+                    <?php if (get_class($recipe) != 'MultivarkaRecipe'): ?>
+                        <div class="row clearfix">
 
-                        <div class="col">
+                            <div class="col">
 
-                            <?=$form->label($recipe, 'cuisine_id', array('class' => 'row-title'))?><br/>
+                                <?=$form->label($recipe, 'cuisine_id', array('class' => 'row-title'))?><br/>
 
-                            <span class="chzn-v2">
-                                <?=$form->dropDownList($recipe, 'cuisine_id', CHtml::listData($cuisines, 'id', 'title'), array('prompt' => 'не выбрана', 'class' => 'chzn'))?>
-                            </span>
+                                <span class="chzn-v2">
+                                    <?=$form->dropDownList($recipe, 'cuisine_id', CHtml::listData($cuisines, 'id', 'title'), array('prompt' => 'не выбрана', 'class' => 'chzn'))?>
+                                </span>
 
-                            <br/>
+                                <br/>
 
-                            <!--<div class="country">
-                                <div class="flag-big flag-big-ua"></div>Украинская
-                            </div>-->
+                                <!--<div class="country">
+                                    <div class="flag-big flag-big-ua"></div>Украинская
+                                </div>-->
+
+                            </div>
 
                         </div>
-
-                    </div>
+                    <?php endif; ?>
 
                     <div class="row clearfix ">
 
@@ -200,6 +216,13 @@
 
                     </div>
 
+                    <?php if (Yii::app()->authManager->checkAccess('recipe_tags', Yii::app()->user->id)): ?>
+                        <div class="row">
+                            <?php echo $form->checkBoxList($recipe, 'tagsIds', CHtml::listData(CookRecipeTag::model()->findAll(), 'id', 'title'), array('uncheckValue' => null)); ?>
+
+                        </div>
+                    <?php endif; ?>
+
                 </div>
 
                 <div class="row-btn">
@@ -222,7 +245,7 @@
 
     <div class="banner-box">
 
-        <a href=""><img src="/images/banner_04.png" /></a>
+        <?=$this->renderPartial('//_banner')?>
 
     </div>
 

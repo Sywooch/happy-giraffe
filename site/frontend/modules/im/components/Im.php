@@ -115,20 +115,7 @@ class Im
         if ($this->dialog_counts !== null)
             return $this->dialog_counts;
 
-        $dialogUsers = DialogUser::model()->with(array(
-            'dialog.lastDeleted' => array(
-                'select' => array('message_id', 'user_id')
-            ),
-            'dialog.lastMessage' => array(
-                'select' => array('id')
-            ),
-            'dialog' => array(
-                'select' => array('id'),
-            ),
-            'user' => array(
-                'select' => array('online'),
-            ),
-        ))->findAll('t.dialog_id IN (SELECT distinct(dialog_id) FROM ' . DialogUser::model()->tableName() . ' WHERE user_id=' . $this->_user_id . ')');
+        $dialogUsers = $this->getDialogUsers();
 
         $all_count = 0;
         $online_count = 0;
@@ -155,6 +142,25 @@ class Im
         }
 
         return array($all_count, $online_count);
+    }
+
+    /**
+     * @return DialogUser[]
+     */
+    public function getDialogUsers()
+    {
+        return DialogUser::model()->with(array(
+            'dialog.lastDeleted' => array(
+                'select' => array('message_id', 'user_id')
+            ),
+            'dialog.lastMessage' => array(
+                'select' => array('id', 'user_id', 'read_status')
+            ),
+            'dialog' => array(
+                'select' => array('id', 'last_message_id'),
+            ),
+            'user',
+        ))->findAll('t.dialog_id IN (SELECT distinct(dialog_id) FROM ' . DialogUser::model()->tableName() . ' WHERE user_id=' . $this->_user_id . ')');
     }
 
     /**
@@ -233,5 +239,33 @@ class Im
         }
 
         return null;
+    }
+
+    /**
+     * @return DialogUser[]
+     */
+    public function getUsersWithNewMessages()
+    {
+        $dialogUsers = $this->getDialogUsers();
+
+        $result = array();
+        foreach ($dialogUsers as $dialogUser) {
+            $dialog = $dialogUser->dialog;
+
+            if ($dialogUser->user_id == $this->_user_id)
+            continue;
+
+            if (!isset($dialog->lastMessage))
+                continue;
+
+            if ($dialog->lastMessage->user_id != $this->_user_id && $dialog->lastMessage->read_status == 0){
+                if (isset($dialog->lastDeleted) && $dialog->lastDeleted->user_id == $this->_user_id
+                    && $dialog->lastDeleted->message_id == $dialogUser->dialog->lastMessage->id){}
+                else
+                    $result[] = $dialogUser;
+            }
+        }
+
+        return $result;
     }
 }

@@ -18,8 +18,8 @@
                 <div class="title">
 
                     <div class="links">
-                        <?=CHtml::link('По ингредиентам', array('/cook/recipe/searchByIngredients'))?>
-                        <?=CHtml::link('Расширеный поиск', array('/cook/recipe/advancedSearch'))?>
+                        <?=HHtml::link('По ингредиентам', array('/cook/recipe/searchByIngredients'), array(), true)?>
+                        <?=HHtml::link('Расширеный поиск', array('/cook/recipe/advancedSearch'), array(), true)?>
                     </div>
 
                     <i class="icon"></i>
@@ -45,7 +45,7 @@
 
                     <div class="all-link">
                         <span>Смотреть</span><br/>
-                        <?=CHtml::link('все рецепты (' . $recipesCount . ')', '/cook/recipe')?>
+                        <?=CHtml::link('все рецепты (' . $recipesCount . ')', '/cook/recipe/')?>
                     </div>
 
                     <div class="add-btn">
@@ -165,7 +165,7 @@
         </div>
 
         <div class="banner-box">
-            <a href="<?=$this->createUrl('/cook/spices')?>"><img src="/images/banner_05.png"/></a>
+            <?=$this->renderPartial('//_banner')?>
         </div>
 
         <div class="fast-services">

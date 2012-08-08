@@ -29,6 +29,30 @@ class AjaxController extends HController
             echo '1';
     }
 
+    public function actionSetValues()
+    {
+        if (isset($_POST['Album']['title']))
+            $_POST['Album']['title'] = str_replace('Введите название альбома', '', $_POST['Album']['title']);
+
+        $modelName = Yii::app()->request->getPost('entity');
+        $modelPk = Yii::app()->request->getPost('entity_id');
+        $model = CActiveRecord::model($modelName)->findByPk($modelPk);
+
+        if (isset($_POST['ajax'])) {
+            echo CActiveForm::validate($model);
+            Yii::app()->end();
+        }
+
+        $model->attributes = $_POST[$modelName];
+
+        echo $model->save();
+    }
+
+    protected function performAjaxValidation($model)
+    {
+
+    }
+
     public function actionSetDate()
     {
         $modelName = Yii::app()->request->getPost('entity');
@@ -372,7 +396,7 @@ class AjaxController extends HController
     {
         $rubrics = CommunityRubric::model()->findAllByAttributes(array('community_id' => Yii::app()->request->getPost('community_id')));
         $htmlOptions = array('prompt' => 'Выберите рубрику');
-        echo CHtml::listOptions('', CHtml::listData($rubrics, 'id', 'name'), $htmlOptions);
+        echo CHtml::listOptions('', CHtml::listData($rubrics, 'id', 'title'), $htmlOptions);
     }
 
     public function actionVote()
@@ -426,27 +450,37 @@ class AjaxController extends HController
 
     public function actionInterestsForm()
     {
-        if (!Yii::app()->request->isAjaxRequest)
-            Yii::app()->end();
         Yii::import('site.common.models.interest.*');
-        $categories = InterestCategory::model()->findAll();
-        $user_interests = Interest::findAllByUser(Yii::app()->user->id);
+        $categories = InterestCategory::model()->with('interests')->findAll();
+        $user_interests = Yii::app()->user->model->interests;
         $this->renderPartial('interests', compact('categories', 'user_interests'), false, true);
     }
 
     public function actionSaveInterests()
     {
-        if (!Yii::app()->request->isAjaxRequest)
-            Yii::app()->end();
         Yii::import('site.common.models.interest.*');
-        Interest::saveByUser(Yii::app()->user->id, Yii::app()->request->getPost('Interest'));
+        Yii::import('site.frontend.widgets.user.*');
 
+        if (Interest::saveByUser(Yii::app()->user->id, Yii::app()->request->getPost('Interest'))){
+            ob_start();
+            $this->widget('InterestsWidget', array('user' => Yii::app()->user->model));
+            $content = ob_get_clean();
+
+            echo CJSON::encode(array(
+                'status' => true,
+                'html' => $content,
+                'full' => (Yii::app()->user->model->getScores()->full == 1)?true:false
+            ));
+        }else
+            echo CJSON::encode(array('status' => false));
+        /*
         $interests = Yii::app()->user->model->interests;
         $html = CHtml::openTag('ul', array('id' => 'user_interests_list'));
         foreach ($interests as $interest)
             $html .= CHtml::tag('li', array(), CHtml::tag('span', array('class' => 'interest selected ' . $interest->category->css_class), $interest->title));
         $html .= CHtml::closeTag('ul');
         echo $html;
+        */
     }
 
     public function actionToggleFavourites()
@@ -511,6 +545,8 @@ class AjaxController extends HController
                     'with' => 'answers.user',
                 ));
                 if (count($question->answers) == 2) {
+                    UserAction::model()->add($question->answers[0]->user_id, UserAction::USER_ACTION_DUEL, array('model' => $question));
+                    UserAction::model()->add($question->answers[1]->user_id, UserAction::USER_ACTION_DUEL, array('model' => $question));
                     $question->ends = new CDbExpression('NOW() + INTERVAL 3 DAY');
                     if ($question->save())
                         Yii::app()->cache->set('activityLastUpdated', time());
@@ -545,9 +581,9 @@ class AjaxController extends HController
 
         $id = Yii::app()->request->getPost('_id');
 
-        if (!empty($id)){
+        if (!empty($id)) {
             $model = $this->loadModel($id);
-        }else{
+        } else {
             $model = PageMetaTag::getModel(urldecode($route), unserialize(urldecode($params)), true);
         }
 
@@ -558,12 +594,12 @@ class AjaxController extends HController
             $model->attributes = $_POST['meta'];
             $model->save();
             echo CJSON::encode(array('status' => true));
-        }
-        else
+        } else
             $this->renderPartial('_edit_meta', compact('model', 'dataProvider', 'page'));
     }
 
-    public function actionArticleVisits(){
+    public function actionArticleVisits()
+    {
 
     }
 
@@ -575,9 +611,40 @@ class AjaxController extends HController
     public function loadModel($id)
     {
         $model = PageMetaTag::model()->findByPk(new MongoId($id));
-        if ($model === null){
+        if ($model === null) {
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
         }
         return $model;
+    }
+
+    public function actionBirthday()
+    {
+        Yii::import('site.common.models.forms.DateForm');
+        Yii::import('site.frontend.widgets.user.*');
+        $date = new DateForm();
+        $date->attributes = $_POST['DateForm'];
+        if (isset($_POST['ajax'])) {
+            echo CActiveForm::validate($date);
+            Yii::app()->end();
+        }
+
+        $date->validate();
+        $user = Yii::app()->user->getModel();
+        $user->birthday = trim($date->date);
+        UserScores::checkProfileScores($user->id, ScoreAction::ACTION_PROFILE_BIRTHDAY);
+
+        if ($user->save('birthday')) {
+            ob_start();
+            $this->widget('HoroscopeWidget', array('user' => $user));
+            $horoscope = ob_get_clean();
+
+            echo CJSON::encode(array(
+                'status' => true,
+                'text' => '<span>День рождения:</span>' . Yii::app()->dateFormatter->format("d MMMM", $user->birthday) . ' (' . $user->normalizedAge . ')',
+                'horoscope' => $horoscope,
+                'full' => ($user->getScores()->full == 0)?false:true
+            ));
+        } else
+            echo CJSON::encode(array('status' => false));
     }
 }

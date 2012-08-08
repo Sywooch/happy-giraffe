@@ -73,6 +73,7 @@ class RecipeBookDisease extends HActiveRecord
         return array(
             'category' => array(self::BELONGS_TO, 'RecipeBookDiseaseCategory', 'category_id'),
             'recipes' => array(self::HAS_MANY, 'RecipeBookRecipe', 'disease_id'),
+            'recipesCount' => array(self::STAT, 'RecipeBookRecipe', 'disease_id'),
             'photo' => array(self::BELONGS_TO, 'AlbumPhoto', 'photo_id'),
         );
     }

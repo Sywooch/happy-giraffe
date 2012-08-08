@@ -3,8 +3,7 @@
  * @var $model Horoscope
  */
 if (isset($model)){
-?><li>
-    <div class="img">
+?><li><div class="img">
         <img src="/images/widget/horoscope/small/<?=$model->zodiac ?>.png">
         <div class="date"><span><?=$model->zodiacText() ?></span><?=$model->zodiacDates() ?></div>
     </div>

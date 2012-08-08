@@ -5,6 +5,7 @@ $(function() {
             $('#searchRecipeForm').serialize(),
             function(response) {
                 $('div.result').html(response);
+                $('.scroll').jScrollPane({showArrows: true});
             }
         );
     });

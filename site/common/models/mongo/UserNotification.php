@@ -29,7 +29,7 @@ class UserNotification extends EMongoDocument
             'templates' => array(
                 'CommunityContent' => '{comments} к вашей записи {post} в клубе {club}',
                 'RecipeBookRecipe' => '{comments} к вашей записи {post} в сервисе {recipeBook}',
-                'AlbumPhoto' => '{comments} к фотографии {photo} в альбомe {album}',
+                'AlbumPhoto' => '{comments} к фотографии {photo}',
                 'BlogContent' => '{comments} к вашей записи {post} в блоге',
                 'User' => '{records} в гостевой книге',
             ),
@@ -39,7 +39,7 @@ class UserNotification extends EMongoDocument
             'templates' => array(
                 'CommunityContent' => '{replies} на ваш комментарий к записи {post} в клубе {club}',
                 'RecipeBookRecipe' => '{replies} на ваш комментарий к записи {post} в сервисе {recipeBook}',
-                'AlbumPhoto' => '{replies} на ваш комментарий к фотографии {photo} в альбоме {album}',
+                'AlbumPhoto' => '{replies} на ваш комментарий к фотографии {photo}',
                 'BlogContent' => '{replies} на ваш комментарий к записи {post} в вашем блоге',
             ),
         ),
@@ -283,7 +283,6 @@ class UserNotification extends EMongoDocument
             case 'AlbumPhoto':
                 $params = array(
                     '{photo}' => $entity->title,
-                    '{album}' => $entity->album->title,
                 );
                 break;
             case 'RecipeBookRecipe':

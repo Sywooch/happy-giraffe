@@ -56,7 +56,7 @@ var UserLocation = {
                         direction:'rl',
                         speed:400,
                         color:'#fff',
-                        content:response.main,
+                        content:response.main
                     });
                 }
             }

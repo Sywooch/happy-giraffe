@@ -2,6 +2,7 @@
 class RegisterWidget extends CWidget
 {
     public $show_form = false;
+    public $odnoklassniki = false;
 
     public function run()
     {
@@ -9,7 +10,8 @@ class RegisterWidget extends CWidget
             if (strpos(Yii::app()->getRequest()->urlReferrer, 'http://www.odnoklassniki.ru/') === 0) {
                 //чел пришел из одноклассников
                 $this->show_form = true;
-                Yii::app()->user->setState('comes_from_social', 'odnoklassniki');
+                $this->odnoklassniki = true;
+                Yii::app()->user->setState('redirectUrl', Yii::app()->request->getRequestUri());
             }
             if (strpos(Yii::app()->getRequest()->urlReferrer, 'http://'.$_SERVER['HTTP_HOST']) === false) {
                 //чел пришел с другого сайта, предлагаем зарегаться
@@ -17,7 +19,7 @@ class RegisterWidget extends CWidget
                     $this->show_form = true;
             }
             $model = new User;
-            $this->render('form', array('model' => $model, 'show_form' => $this->show_form));
+            $this->render('form', array('model' => $model, 'show_form' => $this->show_form, 'odnoklassniki'=>$this->odnoklassniki));
         }
     }
 }

@@ -3,7 +3,7 @@
 class ParseController extends SController
 {
     public $layout = '//layouts/empty';
-    public $cookie = 'pwd=1lwsZTdjVuTb2TFFwKo; suid=0IwZPl0hY8W_; per_page=100; adv-uid=d2ea12.d2608c.b9b2c0';
+    public $cookie = 'pwd=0c8qXfphlvGBbZpku1o; suid=0IzWxI1JTum_; per_page=100; total=yes; adv-uid=8c5784.ea809d.cc79f6';
 
     public function beforeAction($action)
     {
@@ -423,28 +423,29 @@ class ParseController extends SController
 
     public function actionEncode()
     {
-        $site_id = 4;
+        $sites = array(5, 6);
+        foreach ($sites as $site_id) {
+            $criteria = new CDbCriteria;
+            $criteria->compare('site_id', $site_id);
+            $criteria->limit = 100;
+            $criteria->offset = 0;
+            $criteria->with = array('keyword');
 
-        $criteria = new CDbCriteria;
-        $criteria->compare('site_id', $site_id);
-        $criteria->limit = 100;
-        $criteria->offset = 0;
-        $criteria->with = array('keyword');
+            $i = 0;
+            $models = array(0);
+            while (!empty($models)) {
+                $models = SiteKeywordVisit::model()->findAll($criteria);
 
-        $i = 0;
-        $models = array(0);
-        while (!empty($models)) {
-            $models = SiteKeywordVisit::model()->findAll($criteria);
+                foreach ($models as $model) {
+                    $model2 = new SitesKeywordsVisit2();
+                    $model2->attributes = $model->attributes;
+                    $model2->keyword = $model->keyword->name;
+                    $model2->save();
+                }
 
-            foreach ($models as $model) {
-                $model2 = new SitesKeywordsVisit2();
-                $model2->attributes = $model->attributes;
-                $model2->keyword = $model->keyword->name;
-                $model2->save();
+                $i++;
+                $criteria->offset = $i * 100;
             }
-
-            $i++;
-            $criteria->offset = $i * 100;
         }
     }
 

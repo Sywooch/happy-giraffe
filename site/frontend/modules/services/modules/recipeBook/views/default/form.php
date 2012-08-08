@@ -92,7 +92,7 @@
                             <?=$form->label($recipe, 'disease_id', array('class' => 'row-title'))?><br/>
 										
 										<span class="chzn-v2">
-											<?=$form->dropDownList($recipe, 'disease_id', (isset($recipe->disease) ? CHtml::listData($recipe->disease->category->diseases, 'id', 'title') : ''), array('class' => 'chzn', 'prompt' => 'не выбрана'))?>
+											<?=$form->dropDownList($recipe, 'disease_id', (isset($recipe->disease) ? CHtml::listData($recipe->disease->category->diseases, 'id', 'title') : array()), array('class' => 'chzn', 'prompt' => 'не выбрана'))?>
 										</span>
 
                         </div>

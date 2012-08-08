@@ -167,7 +167,9 @@ class CommunityController extends HController
 
     public function actionEdit($content_id)
     {
+        $this->meta_title = 'Редактирование записи';
         $model = CommunityContent::model()->full()->findByPk($content_id);
+        $model->scenario = 'default';
         if ($model === null)
             throw CHttpException(404, 'Запись не найдена');
 

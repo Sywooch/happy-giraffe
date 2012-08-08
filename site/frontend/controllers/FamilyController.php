@@ -240,6 +240,7 @@ class FamilyController extends HController
         Yii::import('application.widgets.user.UserCoreWidget');
         $this->widget('application.widgets.user.FamilyWidget', array(
             'user' => $this->user,
+            'showEmpty'=>true
         ));
     }
 

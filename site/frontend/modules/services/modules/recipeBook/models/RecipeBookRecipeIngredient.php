@@ -51,7 +51,7 @@ class RecipeBookRecipeIngredient extends HActiveRecord
             array('recipe_id', 'exist', 'attributeName' => 'id', 'className' => 'RecipeBookRecipe'),
             array('ingredient_id', 'exist', 'attributeName' => 'id', 'className' => 'RecipeBookIngredient'),
             array('unit_id', 'exist', 'attributeName' => 'id', 'className' => 'RecipeBookUnit'),
-            array('value', 'numerical', 'min' => '0.01', 'max' => '9999.99'),
+            array('value', 'numerical', 'min' => '0.01', 'max' => '9999.99', 'message'=>'Количество ингридиента должно быть числом'),
             array('title', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -83,7 +83,7 @@ class RecipeBookRecipeIngredient extends HActiveRecord
 			'recipe_id' => 'Recipe',
 			'unit_id' => 'Unit',
 			'ingredient_id' => 'Ingredient',
-			'value' => 'Value',
+			'value' => 'Количество ингридиента',
 			'display_value' => 'Display Value',
 		);
 	}

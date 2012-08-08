@@ -8,19 +8,26 @@ if (!isset($redirectUrl))
 
 
 $js = "
-            $('#preview').click(function (e) {
-                e.preventDefault();
-                $.ajax({
-                    url: '/ajax/video/',
-                    type: 'POST',
-                    data: {
-                        url: $('#CommunityVideo_link').val(),
-                    },
-                    success: function(response) {
-                        $('div.test-video div.img').html(response);
-                    },
-                });
+        $('#preview').click(function (e) {
+            e.preventDefault();
+            $.ajax({
+                url: '/ajax/video/',
+                type: 'POST',
+                dataType:'JSON',
+                data: {
+                    url: $('#CommunityVideo_link').val(),
+                },
+                success: function(response) {
+                    if (response.status){
+                        $('div.test-video div.img').html(response.html);
+                        $('#CommunityVideo_link').parents('.row').removeClass('error');
+                    }
+                    else
+                        if (!$('#CommunityVideo_link').parents('.row').hasClass('error'))
+                            $('#CommunityVideo_link').parents('.row').addClass('error');
+                },
             });
+        });
         ";
 
 $cs
@@ -60,10 +67,14 @@ $cs
         'clientOptions' => array(
             'validateOnSubmit' => true,
             'validateOnChange' => false,
+            'beforeValidate'=>'js:function(form){
+                        $(".row-elements textarea").val(CKEDITOR.instances["CommunityPost[text]"].getData());
+                        return true;
+                    }'
         ),
     )); ?>
         <?php echo $form->errorSummary(array($model, $slave_model)); ?>
-        <div class="hidden">
+        <div class="hidden" style="display: none;">
             <?php
             echo $form->error($model, 'title');
             echo $form->error($slave_model, 'text');

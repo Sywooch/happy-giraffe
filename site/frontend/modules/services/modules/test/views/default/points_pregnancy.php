@@ -114,7 +114,7 @@ foreach ($test->testQuestions as $question):?>
 </div>
 <?php endforeach; ?>
 </div>
-
+<br><br>
 <div class="wysiwyg-content">
     <h1><?php echo $test->title ?></h1>
     <?php echo $test->text ?>

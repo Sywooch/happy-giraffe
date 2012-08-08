@@ -63,9 +63,8 @@ class UserController extends HController
         //if (!$user->calculateAccess('profile_access', Yii::app()->user->id))
         //    throw new CHttpException(403, 'Вы не можете просматривать страницу этого пользователя');
 
-        if ($user->id == Yii::app()->user->id) {
+        if ($user->id == Yii::app()->user->id)
             UserNotification::model()->deleteByEntity(UserNotification::NEW_COMMENT, $user);
-        }
 
         $this->pageTitle = $user->fullName . ' на Веселом Жирафе';
 

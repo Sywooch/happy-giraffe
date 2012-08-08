@@ -3,7 +3,7 @@ var MyLinkCommand = {
         var mySelection = editor.getSelection().getSelectedText();
         $.ajax({
             type:'GET',
-            url:base_url + '/site/link/',
+            url:base_url + '/ajax/link/',
             data:{text:mySelection},
             success:function (data) {
                 $.fancybox.open(data);
@@ -15,6 +15,9 @@ var MyLinkCommand = {
 
 function epic_func_mylink(el) {
     var title = $(el).parents('.popup').find('.link-name').val();
+    if (!title){
+
+    }
     var href = $(el).parents('.popup').find('.link-address').val();
     var urlRegex = /^((?:http|https):\/\/)?(.*)$/;
 

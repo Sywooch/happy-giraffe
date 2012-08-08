@@ -9,7 +9,7 @@
 
     <div class="wysiwyg-content">
 
-        <h1><?=Horoscope::model()->zodiac_list[$model->zodiac1].' и '.Horoscope::model()->zodiac_list[$model->zodiac2]  ?> - гороскоп совместимости</h1>
+        <h1>Гороскоп совместимости &mdash; <?=Horoscope::model()->zodiac_list[$model->zodiac1].' и '.Horoscope::model()->zodiac_list[$model->zodiac2] ?></h1>
 
         <div id="result">
             <?php if (!empty($model->text)) echo $model->text; ?>

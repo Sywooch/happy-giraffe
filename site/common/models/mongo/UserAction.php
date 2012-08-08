@@ -117,10 +117,6 @@ class UserAction extends EMongoDocument
                     'entity' => get_class($model),
                     'entity_id' => $model->id,
                 );
-            case self::USER_ACTION_LEVELUP:
-                $community = Community::model()->findByPk($params['community_id']);
-                return $community->getAttributes(array('id'));
-                break;
             default:
                 return $params;
         }

@@ -1446,7 +1446,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 .gallery-photos-new ul li .img .btn {border-radius:0 !important;}
 }
 .gallery-photos-new ul li .img a:hover .btn {display:block;}
-.gallery-photos-new ul li .item-title {display:block;font-weight:bold;padding:14px 10px 10px;font-size:11px;}
+.gallery-photos-new ul li .item-title {display:block;font-weight:bold;padding:14px 10px 10px;font-size:11px;overflow: hidden;}
 .gallery-photos-new ul li .user {padding:10px 10px 0px;margin-bottom:-4px;}
 .gallery-photos-new ul li .user-info {}
 .gallery-photos-new ul li .user-info .details {margin-left:30px;}

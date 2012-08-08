@@ -33,7 +33,7 @@ class OnlineUsersCommand extends CConsoleCommand
                 continue;
             $user->online = 1;
             $user->last_active = date("Y-m-d H:i:s");
-            $user->save();
+            $user->save(false, array('online','last_active'));
             ScoreVisits::addTodayVisit($user->id);
         }
 

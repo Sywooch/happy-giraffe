@@ -51,6 +51,10 @@ class SignupController extends HController
                 $model->first_name = $regdata['first_name'];
             if (isset($regdata['last_name']))
                 $model->last_name = $regdata['last_name'];
+            if (isset($regdata['email']))
+                $model->email = $regdata['email'];
+            if (isset($regdata['email']))
+                $model->email = $regdata['email'];
 
             $this->registerUserModel = $model;
 
@@ -122,7 +126,6 @@ class SignupController extends HController
                     UserScores::checkProfileScores($model->id, ScoreAction::ACTION_PROFILE_PHOTO);
                 }
 
-                /*Yii::app()->mc->sendToEmail($model->email, $model, 'user_registration');*/
                 Yii::app()->mandrill->send($model, 'confirmEmail', array(
                     'password' => $_POST['User']['password'],
                     'code' => $model->confirmationCode,

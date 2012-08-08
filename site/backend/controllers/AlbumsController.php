@@ -686,6 +686,7 @@ class AlbumsController extends BController
         }
 
         $collection = $model->photoCollection;
+        $currentIndex = 0;
         foreach ($collection['photos'] as $i => $p) {
             if ($photo->id == $p->id) {
                 $currentIndex = $i + 1;

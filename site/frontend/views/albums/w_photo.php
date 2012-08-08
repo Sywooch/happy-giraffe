@@ -9,6 +9,7 @@
     $photos = $collection['photos'];
     $count = count($photos);
 
+    $currentIndex = 0;
     foreach ($photos as $i => $p) {
         if ($p->id == $photo->id) {
             $photo = $p;

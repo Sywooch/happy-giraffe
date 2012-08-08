@@ -33,7 +33,7 @@
 
     <div class="top-line clearfix">
 
-        <a href="javascript:void(0)" class="close"></a>
+        <a onclick="$.fancybox.close();" href="javascript:void(0);" class="close"></a>
 
         <div class="user">
             <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array(

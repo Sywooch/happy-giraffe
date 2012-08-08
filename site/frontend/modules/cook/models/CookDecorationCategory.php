@@ -97,8 +97,8 @@ class CookDecorationCategory extends HActiveRecord
         if ($this->id)
             $sql .= " WHERE id = " . $this->id;
 
-        $collection = Yii::app()->cache->get($cacheId);
-
+        //$collection = Yii::app()->cache->get($cacheId);
+        $collection = false;
         if ($collection === false) {
             if (empty($this->id))
                 $decorations = CookDecoration::model()->findAll();

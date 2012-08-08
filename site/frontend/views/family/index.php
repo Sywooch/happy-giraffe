@@ -20,7 +20,7 @@ Yii::app()->clientScript->registerScript('family-edit',$js)
 <div class="user-cols clearfix">
 
     <div class="col-1">
-        <?php $this->widget('application.widgets.user.FamilyWidget', array('user' => $user)); ?>
+        <?php $this->widget('application.widgets.user.FamilyWidget', array('user' => $user, 'showEmpty'=>true)); ?>
     </div>
 
     <div class="col-23 clearfix">

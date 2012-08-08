@@ -1,4 +1,4 @@
-<?php if (($user->babyCount() > 0) || ($user->hasPartner() && !empty($user->partner->name))):?>
+<?php if (($user->babyCount() > 0) || ($user->hasPartner() && !empty($user->partner->name)) || $this->showEmpty):?>
 <div class="user-family">
     <div class="t"></div>
     <div class="c">

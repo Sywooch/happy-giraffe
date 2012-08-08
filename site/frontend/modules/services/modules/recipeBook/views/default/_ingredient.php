@@ -12,5 +12,7 @@
             <?=$form->hiddenField($model, '[' . $n . ']' . 'unit_id')?>
         </div>
     </td>
-    <td class="col-4"><a href="javascript:void(0)" class="remove tooltip" title="Удалить ингредиент"></a></td>
+    <?php if ($n != 0 && isset($canHideRemoveLink) || !$canHideRemoveLink):?>
+        <td class="col-4"><a href="javascript:void(0)" class="remove tooltip" title="Удалить ингредиент"></a></td>
+    <?php endif ?>
 </tr>

@@ -3300,3 +3300,6 @@ label {
 
 .seo-table .table-box tr:hover td {background:#f2f8fe !important;}
 
+/****** ALEX ********/
+#fancybox-content{overflow: visible !important;}
+#fancybox-content > div {overflow: visible !important;}

@@ -653,6 +653,10 @@ class AlbumsController extends HController
         if ($photo === null)
             throw new CHttpException(404, 'Фото не найдено');
 
+        if ($photo->author_id == Yii::app()->user->id)
+            UserNotification::model()->deleteByEntity(UserNotification::NEW_COMMENT, $photo);
+        UserNotification::model()->deleteByEntity(UserNotification::NEW_REPLY, $photo);
+
         switch ($entity) {
             case 'CommunityContentGallery':
                 $content_id = Yii::app()->request->getQuery('content_id');

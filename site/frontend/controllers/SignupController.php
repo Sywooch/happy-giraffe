@@ -51,6 +51,10 @@ class SignupController extends HController
                 $model->first_name = $regdata['first_name'];
             if (isset($regdata['last_name']))
                 $model->last_name = $regdata['last_name'];
+            if (isset($regdata['email']))
+                $model->email = $regdata['email'];
+            if (isset($regdata['email']))
+                $model->email = $regdata['email'];
 
             $this->registerUserModel = $model;
 
@@ -92,37 +96,47 @@ class SignupController extends HController
                         mkdir($original_dir, 0755);
 
                     $src = $original_dir . DIRECTORY_SEPARATOR . 'avatar.jpeg';
-                    file_put_contents($src, file_get_contents($url));
 
-                    $photo = new AlbumPhoto;
-                    $photo->file_name = 'avatar.jpeg';
-                    $photo->fs_name = 'avatar.jpeg';
-                    $photo->author_id = $model->id;
-                    $photo->save();
+                    $ch = curl_init();
+                    curl_setopt($ch, CURLOPT_URL, $url);
+                    curl_setopt($ch, CURLOPT_HEADER, false);
+                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
+                    $data = curl_exec($ch);
+                    curl_close($ch);
 
-                    $picture = new Imagick($src);
+                    if ($data) {
+                        file_put_contents($src, $data);
 
-                    $a1 = clone $picture;
-                    $a1->resizeimage(24, 24, imagick::COLOR_OPACITY, 1);
-                    $a1->writeImage($photo->getAvatarPath('small'));
+                        $photo = new AlbumPhoto;
+                        $photo->file_name = 'avatar.jpeg';
+                        $photo->fs_name = 'avatar.jpeg';
+                        $photo->author_id = $model->id;
+                        $photo->save();
 
-                    $a2 = clone $picture;
-                    $a2->resizeimage(72, 72, imagick::COLOR_OPACITY, 1);
-                    $a2->writeImage($photo->getAvatarPath('ava'));
+                        $picture = new Imagick($src);
 
-                    $attach = new AttachPhoto;
-                    $attach->entity = 'User';
-                    $attach->entity_id = $model->id;
-                    $attach->photo_id = $photo->id;
-                    $attach->save();
+                        $a1 = clone $picture;
+                        $a1->resizeimage(24, 24, imagick::COLOR_OPACITY, 1);
+                        $a1->writeImage($photo->getAvatarPath('small'));
 
-                    $model->avatar_id = $photo->id;
-                    $model->save();
+                        $a2 = clone $picture;
+                        $a2->resizeimage(72, 72, imagick::COLOR_OPACITY, 1);
+                        $a2->writeImage($photo->getAvatarPath('ava'));
 
-                    UserScores::checkProfileScores($model->id, ScoreAction::ACTION_PROFILE_PHOTO);
+                        $attach = new AttachPhoto;
+                        $attach->entity = 'User';
+                        $attach->entity_id = $model->id;
+                        $attach->photo_id = $photo->id;
+                        $attach->save();
+
+                        $model->avatar_id = $photo->id;
+                        $model->save();
+
+                        UserScores::checkProfileScores($model->id, ScoreAction::ACTION_PROFILE_PHOTO);
+                    }
                 }
 
-                /*Yii::app()->mc->sendToEmail($model->email, $model, 'user_registration');*/
                 Yii::app()->mandrill->send($model, 'confirmEmail', array(
                     'password' => $_POST['User']['password'],
                     'code' => $model->confirmationCode,

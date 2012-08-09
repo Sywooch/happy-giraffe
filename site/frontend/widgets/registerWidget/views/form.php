@@ -117,13 +117,15 @@ if (Yii::app()->controller->registerUserData !== null) {
 
         <div class="clearfix">
 
-            <div class="ava-box">
+                <div class="ava-box">
 
-                <div class="ava"<?php if (!isset($regdata['avatar'])) echo ' style="display:none;"' ?>></div>
+                    <div class="ava"<?php if (!isset($regdata['avatar'])) echo ' style="display:none;"' ?>>
+                        <?php if (isset($regdata['photo'])) echo CHtml::image($regdata['photo'], 'Это Вы') ?>
+                    </div>
 
-            </div>
-            <?=CHtml::hiddenField('form_type', $type) ?>
-            <?php if (isset($regdata['avatar'])) echo $form->hiddenField($model, 'avatar', array('value' => $regdata['avatar'])); ?>
+                </div>
+                <?=CHtml::hiddenField('form_type', $type) ?>
+                <?php if (isset($regdata['avatar'])) echo $form->hiddenField($model, 'avatar', array('value' => $regdata['avatar'])); ?>
 
             <div class="form-in">
 
@@ -192,6 +194,7 @@ if (Yii::app()->controller->registerUserData !== null) {
                         )); ?>
                         </div>
                         <br>
+
                         <div class="row-error">
                             <i class="error-ok"></i>
                             <?=$form->error($model, 'gender'); ?>
@@ -200,12 +203,16 @@ if (Yii::app()->controller->registerUserData !== null) {
 
                     <div class="row clearfix" style="display: inline-block;">
                         <div class="row-elements">
-                            <span class="chzn-v2"><?=$form->dropDownList($model, 'day', HDate::Range(1, 31), array('class' => 'chzn', 'empty' => 'День', 'style'=>'width:60px;')); ?></span>
-                            <span class="chzn-v2"><?=$form->dropDownList($model, 'month', HDate::ruMonths(), array('class' => 'chzn', 'empty' => 'Месяц', 'style'=>'width:80px;')); ?></span>
-                            <span class="chzn-v2"><?=$form->dropDownList($model, 'year', HDate::Range(date('Y') - 18, 1900), array('class' => 'chzn', 'empty' => 'Год', 'style'=>'width:60px;')); ?></span>
-                            <?=$form->textField($model, 'birthday', array('style'=>'display:none;')); ?>
+                            <span
+                                class="chzn-v2"><?=$form->dropDownList($model, 'day', HDate::Range(1, 31), array('class' => 'chzn', 'empty' => 'День', 'style' => 'width:60px;')); ?></span>
+                            <span
+                                class="chzn-v2"><?=$form->dropDownList($model, 'month', HDate::ruMonths(), array('class' => 'chzn', 'empty' => 'Месяц', 'style' => 'width:80px;')); ?></span>
+                            <span
+                                class="chzn-v2"><?=$form->dropDownList($model, 'year', HDate::Range(date('Y') - 18, 1900), array('class' => 'chzn', 'empty' => 'Год', 'style' => 'width:60px;')); ?></span>
+                            <?=$form->textField($model, 'birthday', array('style' => 'display:none;')); ?>
                         </div>
                         <br>
+
                         <div class="row-error">
                             <i class="error-ok"></i>
                             <?= $form->error($model, 'birthday'); ?>

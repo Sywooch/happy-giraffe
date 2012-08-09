@@ -77,9 +77,8 @@ class SimpleGoogleWeather
         $params .= "&hl=" . trim($lang);
         $params .= "&oe=" . trim($charset);
         $url = $base . "?" . $params;
-        try{
-            $this->xml = simplexml_load_file($url);
-        }catch (Exception $err){
+        $this->xml = @simplexml_load_file($url);
+        if (!$this->xml) {
             $this->xml = null;
         }
     }

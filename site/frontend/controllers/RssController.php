@@ -96,6 +96,9 @@ class RssController extends HController
             $contents = $this->getContents($sql, $page, array(':author_id' => $user->id));
         }
 
+        if (empty($contents))
+            Yii::app()->end();
+
         foreach ($contents as $c) {
             $item = $feed->createNewItem();
             $item->addTag('guid', $c->getUrl(false, true), array('isPermaLink'=>'true'));
@@ -106,8 +109,8 @@ class RssController extends HController
             $item->title = $c->title;
             $item->addTag('comments', $c->getUrl(true, true));
             $feed->addItem($item);
-        }
 
+        }
         $feed->generateFeed();
         Yii::app()->end();
     }

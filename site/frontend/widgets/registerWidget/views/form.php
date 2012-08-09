@@ -119,7 +119,9 @@ if (Yii::app()->controller->registerUserData !== null) {
 
             <div class="ava-box">
 
-                <div class="ava"<?php if (!isset($regdata['avatar'])) echo ' style="display:none;"' ?>></div>
+                <div class="ava"<?php if (!isset($regdata['avatar'])) echo ' style="display:none;"' ?>>
+                    <?=CHtml::image($regdata['photo'], 'Это Вы') ?>
+                </div>
 
             </div>
             <?=CHtml::hiddenField('form_type', $type) ?>

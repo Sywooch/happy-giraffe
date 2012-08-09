@@ -61,8 +61,7 @@ class MailCommand extends CConsoleCommand
                         $token = UserToken::model()->generate($user->id, 86400);
                         $dialogUsers = Im::model($user->id)->getUsersWithNewMessages();
                         $contents = $this->renderFile(Yii::getPathOfAlias('site.common.tpl.newMessages') . '.php', compact('dialogUsers', 'unread', 'user', 'token'), true);
-                        if ($user->id == 10)
-                            Yii::app()->mandrill->send($user, 'newMessages', array('messages' => $contents, 'token' => $token));
+                        Yii::app()->mandrill->send($user, 'newMessages', array('messages' => $contents, 'token' => $token));
                         echo $user->id."\n";
 
                         if ($model ===  null){

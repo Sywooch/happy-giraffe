@@ -117,15 +117,17 @@ if (Yii::app()->controller->registerUserData !== null) {
 
         <div class="clearfix">
 
-            <div class="ava-box">
+            <?php if (isset($regdata)):?>
+                <div class="ava-box">
 
-                <div class="ava"<?php if (!isset($regdata['avatar'])) echo ' style="display:none;"' ?>>
-                    <?=CHtml::image($regdata['photo'], 'Это Вы') ?>
+                    <div class="ava"<?php if (!isset($regdata['avatar'])) echo ' style="display:none;"' ?>>
+                        <?=CHtml::image($regdata['photo'], 'Это Вы') ?>
+                    </div>
+
                 </div>
-
-            </div>
-            <?=CHtml::hiddenField('form_type', $type) ?>
-            <?php if (isset($regdata['avatar'])) echo $form->hiddenField($model, 'avatar', array('value' => $regdata['avatar'])); ?>
+                <?=CHtml::hiddenField('form_type', $type) ?>
+                <?php if (isset($regdata['avatar'])) echo $form->hiddenField($model, 'avatar', array('value' => $regdata['avatar'])); ?>
+            <?php endif ?>
 
             <div class="form-in">
 

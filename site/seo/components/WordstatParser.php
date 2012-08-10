@@ -35,11 +35,11 @@ class WordstatParser extends ProxyParserThread
                 if (!$success) {
                     $this->log('not valid page loaded');
                     $this->fails++;
-//                    if ($this->fails > 10) {
-//                        $this->removeCookieFile();
-//                        $this->getCookie();
-//                        $this->fails = 0;
-//                    } else
+                    if ($this->fails > 10) {
+                        $this->removeCookieFile();
+                        $this->getCookie();
+                        $this->fails = 0;
+                    } else
                     $this->changeBadProxy();
                 } else {
                     $this->success_loads++;

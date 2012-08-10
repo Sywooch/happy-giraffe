@@ -1,4 +1,10 @@
 $(document).ready(function () {
+    $.ajaxSetup({
+        complete: function() {
+
+        }
+    });
+
     $('body').delegate('a.fancy', 'click', function () {
         Register.start = true;
         var onComplete_function = function () {

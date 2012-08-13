@@ -24,6 +24,7 @@
  * @property integer $remember_code
  * @property int $age
  * @property int $avatar_id
+ * @property int $group
  *
  * The followings are the available model relations:
  * @property BagOffer[] $bagOffers

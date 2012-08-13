@@ -41,9 +41,10 @@ foreach ($test->testQuestions as $question):?>
 				<?php foreach ($question->testQuestionAnswers as $answer): ?>
 					<li>
 
-						<label for="value<?php echo $i . $answer->number ?>" onclick="Test.Next(this);">
+						<label for="value<?php echo $i . $answer->number ?>">
                             <input
                                data-points="<?php echo $answer->points ?>"
+                               onchange="Test.Next(this);"
                                type="radio"
                                name="v"
                                rel="<?php echo $answer->number ?>"

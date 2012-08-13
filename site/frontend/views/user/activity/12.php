@@ -42,7 +42,7 @@
                     <div class="added-to">
                         <span>к фото</span>
                     </div>
-                    <div class="img"><?=CHtml::image($model->getPreviewUrl(303, null, Image::WIDTH))?></div>
+                    <div class="img"><?=CHtml::link(CHtml::image($model->getPreviewUrl(303, null, Image::WIDTH)), $model->getUrl())?></div>
                 <?php endif; ?>
                 <div class="comment">
                     <div class="date"><?=Yii::app()->dateFormatter->format("dd MMMM yyyy, HH:mm", $comment->created)?></div>

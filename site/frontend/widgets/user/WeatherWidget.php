@@ -17,6 +17,8 @@ class WeatherWidget extends UserCoreWidget
         $data = Yii::app()->cache->get('WeatherWidget_' . date("Y-m-d") . $this->user->getUserAddress()->getLocationString());
         if ($data == false) {
             $gw = new SimpleGoogleWeather(urlencode($this->user->getUserAddress()->getLocationString()));
+            if ($gw->xml === null)
+                return ;
             $gw_today = $gw->getCurrentWeather();
             if ($gw_today === false)
                 return;
@@ -49,7 +51,6 @@ class SimpleGoogleWeather
         'Преимущественно облачно' => 3,
         'Облачно с прояснениями' => 3,
         'Сплошная облачность' => 3,
-        'Переменная облачность' => 2,
         'Небольшой снег' => 4,
         'Возможен снег' => 4,
         'Снег' => 4,
@@ -61,7 +62,6 @@ class SimpleGoogleWeather
         'Туман' => 3,
         'Изморозь' => 1,
         'Морось' => 1,
-        'Дождь со снегом'=>4,
         'Ветер'=>6,
         'Буря'=>6,
         'Возможен шторм'=>6,
@@ -77,7 +77,10 @@ class SimpleGoogleWeather
         $params .= "&hl=" . trim($lang);
         $params .= "&oe=" . trim($charset);
         $url = $base . "?" . $params;
-        $this->xml = simplexml_load_file($url);
+        $this->xml = @simplexml_load_file($url);
+        if (!$this->xml) {
+            $this->xml = null;
+        }
     }
 
     function getInfo()

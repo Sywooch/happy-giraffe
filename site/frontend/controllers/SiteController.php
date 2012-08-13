@@ -33,6 +33,7 @@ class SiteController extends HController
 
     public function actionSearch($text = false, $index = false)
     {
+        $this->meta_title = 'Поск по сайту Веселый Жираф';
         $index = $index ? $index : 'community';
         $pages = new CPagination();
         $pages->pageSize = 100000;
@@ -319,7 +320,7 @@ class SiteController extends HController
         curl_close($ch);
 
         $xml = new SimpleXMLElement($res);
-        var_dump(isset($xml->result[0]->fsdfs));
+        var_dump($xml->result[0]);
         die;
         echo $xml->result[0]->fsdfs;
     }
@@ -337,8 +338,6 @@ class SiteController extends HController
         $user = User::model()->findByPk($user_id);
         if ($user === null || $user->email_confirmed || $code != $user->confirmationCode)
             throw new CHttpException(404);
-
-
 
         $user->email_confirmed = 1;
         if ($user->update(array('email_confirmed')))
@@ -400,18 +399,5 @@ class SiteController extends HController
                 'message' => '<span>На ваш e-mail адрес было выслано письмо с вашим паролем</span><br/><span>(также проверьте, пожалуйста, папку «Спам»)</span>',
             ));
         }
-    }
-
-    public function actionTest2(){
-        $unread = Im::model(Yii::app()->user->id)->getUnreadMessagesCount();
-        $dialogUsers = Im::model(Yii::app()->user->id)->getUsersWithNewMessages();
-
-        $this->renderFile(Yii::getPathOfAlias('site.common.tpl.newMessages').'.php', array(
-            'user'=>Yii::app()->user->model,
-            'unread'=>$unread,
-            'dialogUsers'=>$dialogUsers,
-        ));
-//        $articles = Favourites::model()->getWeekPosts();
-//        $this->renderFile(Yii::getPathOfAlias('site.common.tpl.weeklyNews').'.php', array('models'=>$articles));
     }
 }

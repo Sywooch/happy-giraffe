@@ -6,7 +6,7 @@
 ?>
 <div
     style="margin:30px 0;text-align:center;font:25px arial, helvetica, sans-serif;color:#2a2a2a;">
-    У вас <?php echo $unread ?> новых <?php echo HDate::GenerateNoun(array('сообщение', 'сообщения', 'сообщений'), $unread) ?>!
+    У вас <?php echo $unread ?> <?php echo HDate::GenerateNoun(array('новое сообщение', 'новых сообщения', 'новых сообщений'), $unread) ?>!
 </div>
 
 <table width="100%" cellpadding="0" cellspacing="0">

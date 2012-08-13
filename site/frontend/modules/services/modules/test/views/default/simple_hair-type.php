@@ -10,11 +10,13 @@
     var result = new Array();
     var step_count = <?php echo $test->questionsCount ?>;
     var priority = null;
+    var path = null;
 
     $(function () {
         priority = new Array();
-        <?php foreach ($test->testResults as $result): ?>
-        priority[<?php echo $result->number ?>] = <?php echo empty($result->priority)?0:$result->priority ?>;
+        path = document.location.href;
+    <?php foreach ($test->testResults as $result): ?>
+        priority[<?php echo $result->number ?>] = <?php echo empty($result->priority) ? 0 : $result->priority ?>;
         <?php endforeach; ?>
 
         $('.RadioClass').attr('checked', false);
@@ -53,7 +55,7 @@
             step_result = $(this).attr('rel');
             result.push(step_result);
 
-            if($(this).attr('data-last')=="1"){
+            if ($(this).attr('data-last') == "1") {
                 $('#step' + active_step).fadeOut(300, function () {
                     ShowResult();
                 });
@@ -65,12 +67,12 @@
             console.log(step_result);
         });
 
-        $('.step-in a.yes_button').click(function(){
+        $('.step-in a.yes_button').click(function () {
             result.push(2);
             NextStep();
             return false;
         });
-        $('.step-in a.no_button').click(function(){
+        $('.step-in a.no_button').click(function () {
             result.push(1);
             NextStep();
             return false;
@@ -79,8 +81,9 @@
         //$('.<?php //echo $test->css_class ?>').show();
     });
 
-    function NextStep(){
-        if (step_count == active_step){
+    function NextStep() {
+        logPage(active_step);
+        if (step_count == active_step) {
             $('#step' + active_step).fadeOut(300, function () {
                 ShowResult();
             });
@@ -95,7 +98,7 @@
 
     function ShowResult() {
         //console.log(result);
-        
+
         var res_count = new Array();
         for (var i = 0; i <= result.length - 1; i++) {
             if (isNaN(res_count[result[i]]))
@@ -105,16 +108,16 @@
         }
 
         //check result that has maximum answers
-        <?php if ($test->NoPointResults()):?>
-            <?php foreach ($test->testResults as $result): ?>
-                if (ElementIsMax(res_count, <?php echo $result->number ?>)){
-                    $('#result<?php echo $result->number ?>').fadeIn(300);
-                    return;
-                }
+    <?php if ($test->NoPointResults()): ?>
+        <?php foreach ($test->testResults as $result): ?>
+            if (ElementIsMax(res_count, <?php echo $result->number ?>)) {
+                $('#result<?php echo $result->number ?>').fadeIn(300);
+                return;
+            }
             <?php endforeach; ?>
         <?php else: ?>
-            <?php foreach ($test->testResults as $result): ?>
-            if (HasPoints(res_count, <?php echo $result->number ?>, <?php echo $result->points ?>)){
+        <?php foreach ($test->testResults as $result): ?>
+            if (HasPoints(res_count, <?php echo $result->number ?>, <?php echo $result->points ?>)) {
                 $('#result<?php echo $result->number ?>').fadeIn(300);
                 return;
             }
@@ -124,7 +127,7 @@
         $('#unknown_result').fadeIn(300);
     }
 
-    function ElementIsMax(arr, el_index){
+    function ElementIsMax(arr, el_index) {
         if (isNaN(arr[el_index]))
             return false;
 
@@ -134,7 +137,7 @@
                 return false;
 
             //if equal then check priority
-            if (key != el_index && val == arr[el_index]){
+            if (key != el_index && val == arr[el_index]) {
                 if (priority[el_index] <= priority[key])
                     return false;
             }
@@ -142,120 +145,144 @@
         return true;
     }
 
-    function HasPoints(arr, el_index, points){
+    function HasPoints(arr, el_index, points) {
         if (isNaN(arr[el_index]))
             return false;
 
         if (arr[el_index] >= points)
             return true;
     }
+
+    function logPage(step) {
+        if (typeof(window.history.pushState) == 'function') {
+            window.history.pushState(null, null, path + '?step=' + step);
+            _gaq.push(['_trackPageview', path + '?step=' + step]);
+            yaCounter11221648.hit(path + '?step=' + step);
+        }
+    }
 </script>
 
 <div class="test" id="hair_type_bl">
 
-<div class="step" id="step0">
-    
-	<img src="/images/test/<?php echo $test->id . '/' . $test->start_image ?>" alt=""/>
-    
-	<div class="step-in">
-	
-		<div class="btn"><button class="test_begin">ПРОЙТИ ТЕСТ</button></div>
-		
-	</div>
-	
-</div>
+    <div class="step" id="step0">
 
-<?php
-$i = 1;
-foreach ($test->testQuestions as $question):?>
+        <img src="/images/test/<?php echo $test->id . '/' . $test->start_image ?>" alt=""/>
 
-<div class="step" id="step<?php echo $i; $i++ ?>" style="display: none;">
-    
-	<img src="/images/test/<?php echo $test->id . '/' . $question->image ?>" alt="" title=""/>
+        <div class="step-in">
 
-    <div class="step-in">
-		<div class="question">
-			<form action="">
-				<div class="q-title"><?php echo $question->title ?></div>
+            <div class="btn">
+                <button class="test_begin">ПРОЙТИ ТЕСТ</button>
+            </div>
 
-                <?php if ($test->type == Test::TYPE_YES_NO):?>
-					<a href="#" class="yes_button">Да</a>
-					<a href="#" class="no_button">Нет</a>
-				<?php else: ?>
-				<ul class="q-options">
-				<?php foreach ($question->testQuestionAnswers as $answer): ?>
-					<li>
-						
-						<label for="value<?php echo $i . $answer->number ?>"><input type="radio" name="v" rel="<?php echo $answer->number ?>" id="value<?php echo $i . $answer->number ?>" data-last="<?=$answer->islast?>" /> <span><?php
-							echo $answer->text ?></span></label>
-					</li>
-					<?php endforeach; ?>
-				</ul>
-				<?php endif ?>
-			
-			</form>
-		</div>
+        </div>
+
     </div>
-</div>
 
-<?php endforeach; ?>
+    <?php
+    $i = 1;
+    foreach ($test->testQuestions as $question):?>
 
-<div class="step result-div" id="unknown_result" style="display: none;">
-    <img src="/images/test/<?php echo $test->id ?>/<?php
-        echo empty($test->unknown_result_image)?$test->result_image:$test->unknown_result_image ?>" alt="" title="" />
-    <div class="step-in">
-       
-		<div class="result">
-								
-			<div class="r-title">Результат</div>
-			
-			<div class="r-text">
+        <div class="step" id="step<?php echo $i; $i++ ?>" style="display: none;">
 
-                <div class="your_res"><?php echo $test->result_title ?>: <ins>Неизвестен</ins></div>
+            <img src="/images/test/<?php echo $test->id . '/' . $question->image ?>" alt="" title=""/>
+
+            <div class="step-in">
+                <div class="question">
+                    <form action="">
+                        <div class="q-title"><?php echo $question->title ?></div>
+
+                        <?php if ($test->type == Test::TYPE_YES_NO): ?>
+                        <a href="#" class="yes_button">Да</a>
+                        <a href="#" class="no_button">Нет</a>
+                        <?php else: ?>
+                        <ul class="q-options">
+                            <?php foreach ($question->testQuestionAnswers as $answer): ?>
+                            <li>
+
+                                <label for="value<?php echo $i . $answer->number ?>"><input type="radio" name="v"
+                                                                                            rel="<?php echo $answer->number ?>"
+                                                                                            id="value<?php echo $i . $answer->number ?>"
+                                                                                            data-last="<?=$answer->islast?>"/> <span><?php
+                                    echo $answer->text ?></span></label>
+                            </li>
+                            <?php endforeach; ?>
+                        </ul>
+                        <?php endif ?>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <?php endforeach; ?>
+
+    <div class="step result-div" id="unknown_result" style="display: none;">
+        <img src="/images/test/<?php echo $test->id ?>/<?php
+        echo empty($test->unknown_result_image) ? $test->result_image : $test->unknown_result_image ?>" alt=""
+             title=""/>
+
+        <div class="step-in">
+
+            <div class="result">
+
+                <div class="r-title">Результат</div>
+
+                <div class="r-text">
+
+                    <div class="your_res"><?php echo $test->result_title ?>:
+                        <ins>Неизвестен</ins>
+                    </div>
+
+                    <div class="r-text">
+
+                        <span class="your_rec">Рекомендации</span>
+                        <?php echo $test->unknown_result_text ?>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="btn">
+                <button class="test_begin">ПРОЙТИ ТЕСТ</button>
+            </div>
+
+
+        </div>
+    </div>
+
+    <?php foreach ($test->testResults as $result): ?>
+    <div class="step result-div" id="result<?php echo $result->number ?>" style="display: none;">
+        <img src="/images/test/<?php echo $test->id ?>/<?php
+            echo empty($result->image) ? $test->result_image : $result->image ?>" alt="" title=""/>
+
+        <div class="step-in">
+
+            <div class="result">
+
+                <div class="r-title">Результат</div>
+
+                <div class="your_res"><?php echo $test->result_title ?>:
+                    <ins><?php echo $result->title ?></ins>
+                </div>
 
                 <div class="r-text">
 
                     <span class="your_rec">Рекомендации</span>
-                    <?php echo $test->unknown_result_text ?>
+                    <?php echo $result->text ?>
 
                 </div>
 
-			</div>
-		
-		</div>
-		
-		<div class="btn"><button class="test_begin">ПРОЙТИ ТЕСТ</button></div>
-		
+            </div>
 
+            <div class="btn">
+                <button class="test_begin">ПРОЙТИ ТЕСТ</button>
+            </div>
+
+        </div>
     </div>
-</div>
-
-<?php foreach ($test->testResults as $result): ?>
-<div class="step result-div" id="result<?php echo $result->number ?>" style="display: none;">
-    <img src="/images/test/<?php echo $test->id ?>/<?php
-        echo empty($result->image)?$test->result_image:$result->image ?>" alt="" title="" />
-    <div class="step-in">
-
-        <div class="result">
-								
-			<div class="r-title">Результат</div>
-
-            <div class="your_res"><?php echo $test->result_title ?>: <ins><?php echo $result->title ?></ins></div>
-
-            <div class="r-text">
-
-                <span class="your_rec">Рекомендации</span>
-                <?php echo $result->text ?>
-				
-			</div>
-
-		</div>
-		
-		<div class="btn"><button class="test_begin">ПРОЙТИ ТЕСТ</button></div>
-		
-    </div>
-</div>
-<?php endforeach; ?>
+    <?php endforeach; ?>
 </div>
 
 <div class="wysiwyg-content">

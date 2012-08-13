@@ -683,6 +683,7 @@ class AlbumsController extends HController
                 break;
         }
 
+        $currentIndex = 0;
         $collection = $model->photoCollection;
         foreach ($collection['photos'] as $i => $p) {
             if ($photo->id == $p->id) {

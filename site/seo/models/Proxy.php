@@ -8,6 +8,7 @@
  * @property string $value
  * @property integer $active
  * @property integer $rank
+ * @property string $created
  */
 class Proxy extends HActiveRecord
 {
@@ -70,6 +71,16 @@ class Proxy extends HActiveRecord
 			'active' => 'Active',
 		);
 	}
+
+    public function behaviors()
+    {
+        return array(
+            'CTimestampBehavior' => array(
+                'class' => 'zii.behaviors.CTimestampBehavior',
+                'createAttribute' => 'created',
+            ),
+        );
+    }
 
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.

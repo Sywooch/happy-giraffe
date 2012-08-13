@@ -300,6 +300,12 @@ class CommunityContent extends HActiveRecord
         return $text;
     }
 
+    public function beforeSave()
+    {
+        $this->title = strip_tags($this->title);
+        return parent::beforeSave();
+    }
+
     public function afterSave()
     {
         if ($this->isNewRecord && $this->type_id != 4) {

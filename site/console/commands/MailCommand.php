@@ -44,6 +44,9 @@ class MailCommand extends CConsoleCommand
         $criteria->limit = 100;
         $criteria->offset = 0;
 
+        //fired moderators
+        $bad_users = array(10186, 10127, 12678, 10229, 12980);
+
         $i = 0;
         $users = array(0);
         while (!empty($users)) {
@@ -51,18 +54,18 @@ class MailCommand extends CConsoleCommand
             $users = User::model()->findAll($criteria);
             foreach ($users as $user) {
                 $unread = Im::model($user->id)->getUnreadMessagesCount();
-                if ($unread > 0) {
+                if ($unread > 0 && !in_array($user->id, $bad_users)) {
 
                     $m_criteria = new EMongoCriteria;
                     $m_criteria->type('==', MailDelivery::TYPE_IM);
                     $m_criteria->user_id('==', (int)$user->id);
                     $model = MailDelivery::model()->find($m_criteria);
+
                     if ($model === null || $model->needSend()) {
                         $token = UserToken::model()->generate($user->id, 86400);
                         $dialogUsers = Im::model($user->id)->getUsersWithNewMessages();
                         $contents = $this->renderFile(Yii::getPathOfAlias('site.common.tpl.newMessages') . '.php', compact('dialogUsers', 'unread', 'user', 'token'), true);
-                        if ($user->id == 10)
-                            Yii::app()->mandrill->send($user, 'newMessages', array('messages' => $contents, 'token' => $token));
+                        Yii::app()->mandrill->send($user, 'newMessages', array('messages' => $contents, 'token' => $token));
                         echo $user->id."\n";
 
                         if ($model ===  null){

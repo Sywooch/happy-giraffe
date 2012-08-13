@@ -99,8 +99,8 @@
                         <?php endif ?>
                     </div>
 
-                    <div class="user-activity-link">
-                        <a href="<?=$this->createUrl('/user/activity', array('user_id'=>$user->id)) ?>">Что нового</a>
+                    <div class="user-activity-link" style="display: block;">
+                        <a href="<?=$this->createUrl('/user/activity', array('user_id'=>$user->id, 'type' => 'my')) ?>">Что нового</a>
                     </div>
                 <?php endif ?>
 

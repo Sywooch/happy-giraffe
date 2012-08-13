@@ -73,15 +73,16 @@ class RecipeController extends HController
             $recipe->attributes = $_POST[$this->modelName];
             if ($recipe->isNewRecord)
                 $recipe->author_id = Yii::app()->user->id;
-            foreach ($_POST['CookRecipeIngredient'] as $i) {
-                if (! empty($i['ingredient_id']) || ! empty($i['value']) || $i['unit_id'] != CookRecipeIngredient::EMPTY_INGREDIENT_UNIT) {
-                    $ingredient = new CookRecipeIngredient;
-                    $ingredient->attributes = $i;
-                    $ingredient->setValue();
-                    $ingredient->recipe_id = $recipe->id;
-                    $ingredients[] = $ingredient;
+            if (isset($_POST['CookRecipeIngredient']))
+                foreach ($_POST['CookRecipeIngredient'] as $i) {
+                    if (!empty($i['ingredient_id']) || !empty($i['value']) || $i['unit_id'] != CookRecipeIngredient::EMPTY_INGREDIENT_UNIT) {
+                        $ingredient = new CookRecipeIngredient;
+                        $ingredient->attributes = $i;
+                        $ingredient->setValue();
+                        $ingredient->recipe_id = $recipe->id;
+                        $ingredients[] = $ingredient;
+                    }
                 }
-            }
             $recipe->ingredients = $ingredients;
             if ($recipe->withRelated->save(true, array('ingredients'))) {
                 $this->redirect(array('/cook/recipe/view', 'id' => $recipe->id, 'section' => $this->section));
@@ -137,15 +138,16 @@ class RecipeController extends HController
             $ingredients = array();
             $recipe->attributes = $_POST['CookRecipe'];
             $recipe->author_id = $content->author_id;
-            foreach ($_POST['CookRecipeIngredient'] as $i) {
-                if (!empty($i['ingredient_id']) || !empty($i['value']) || $i['unit_id'] != CookRecipeIngredient::EMPTY_INGREDIENT_UNIT) {
-                    $ingredient = new CookRecipeIngredient;
-                    $ingredient->attributes = $i;
-                    $ingredient->setValue();
-                    $ingredient->recipe_id = $recipe->id;
-                    $ingredients[] = $ingredient;
+            if (isset($_POST['CookRecipeIngredient']))
+                foreach ($_POST['CookRecipeIngredient'] as $i) {
+                    if (!empty($i['ingredient_id']) || !empty($i['value']) || $i['unit_id'] != CookRecipeIngredient::EMPTY_INGREDIENT_UNIT) {
+                        $ingredient = new CookRecipeIngredient;
+                        $ingredient->attributes = $i;
+                        $ingredient->setValue();
+                        $ingredient->recipe_id = $recipe->id;
+                        $ingredients[] = $ingredient;
+                    }
                 }
-            }
             $recipe->ingredients = $ingredients;
             if ($recipe->withRelated->save(true, array('ingredients'))) {
                 $content->removed = 1;
@@ -277,8 +279,7 @@ class RecipeController extends HController
             ->select('id, created, updated')
             ->from('cook__recipes')
             ->queryAll();
-        foreach ($models as $model)
-        {
+        foreach ($models as $model) {
             $data[] = array(
                 'params' => array(
                     'id' => $model['id'],
@@ -321,7 +322,7 @@ class RecipeController extends HController
                             $ingredient->addChild('quantity', $i->display_value);
                             break;
                         case 'undefined':
-                            $ingredient->addChild('name', $i->title . ' '. $i->unit->title);
+                            $ingredient->addChild('name', $i->title . ' ' . $i->unit->title);
                             break;
                         default:
                             $ingredient->addChild('name', $i->title);

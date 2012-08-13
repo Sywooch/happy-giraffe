@@ -180,6 +180,9 @@ class BlogController extends HController
             UserNotification::model()->deleteByEntity(UserNotification::NEW_COMMENT, $content);
         UserNotification::model()->deleteByEntity(UserNotification::NEW_REPLY, $content);
 
+        if (!empty($content->uniqueness) && $content->uniqueness < 50)
+            Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
+
         $this->render('view', array(
             'data' => $content,
         ));

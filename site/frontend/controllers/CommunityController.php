@@ -70,6 +70,9 @@ class CommunityController extends HController
         $this->rubric_id = $rubric_id;
         $this->content_type_slug = $content_type_slug;
 
+        if (!empty($content_type_slug) && !in_array($content_type_slug, array('post', 'video')))
+            throw new CHttpException(404, 'Страницы не существует');
+
         if ($rubric_id !== null) {
             $rubric = CommunityRubric::model()->findByPk($rubric_id);
             if ($rubric === null)

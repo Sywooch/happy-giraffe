@@ -112,7 +112,7 @@ class ProxyParserThread
                 if (strpos($content, 'Нам очень жаль, но запросы, поступившие с вашего IP-адреса, похожи на автоматические.')){
                     $this->log('ip banned');
                     //file_put_contents(Yii::getPathOfAlias('site.common.cookies') . DIRECTORY_SEPARATOR . 'banned.txt', $this->proxy->value."\n", FILE_APPEND);
-                    $this->changeBadProxy();
+                    $this->changeBadProxy(0);
                     return $this->query($url, $ref, $post, $attempt);
                 }
                 $this->log('page loaded by curl');
@@ -123,11 +123,15 @@ class ProxyParserThread
         return '';
     }
 
-    protected function changeBadProxy()
+    protected function changeBadProxy($rank = null)
     {
         $this->log('Change proxy');
 
-        $this->proxy->rank = floor((($this->proxy->rank + $this->success_loads) / 5) * 4);
+        if ($rank !== null)
+            $this->proxy->rank = $rank;
+        else
+            $this->proxy->rank = floor((($this->proxy->rank + $this->success_loads) / 5) * 4);
+
         $this->proxy->active = 0;
         $this->proxy->save();
         $this->getProxy();

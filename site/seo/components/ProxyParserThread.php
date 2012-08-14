@@ -27,7 +27,7 @@ class ProxyParserThread
 
     function __construct()
     {
-        sleep(rand(0, 40));
+        //sleep(rand(0, 40));
         Yii::import('site.frontend.extensions.phpQuery.phpQuery');
         $this->thread_id = substr(sha1(microtime()), 0, 10);
         $this->getProxy();
@@ -195,7 +195,7 @@ class ProxyParserThread
 
     protected function log($state)
     {
-        if ($this->debug) {
+        //if ($this->debug) {
             echo $state."\n";
 //            $fh = fopen($dir = Yii::getPathOfAlias('application.runtime') . DIRECTORY_SEPARATOR . 'my_log.txt', 'a');
 //            $t = microtime(true);
@@ -203,6 +203,6 @@ class ProxyParserThread
 //            $d = new DateTime(date('Y-m-d H:i:s.' . $micro, $t));
 //
 //            fwrite($fh, $d->format("Y-m-d H:i:s.u") . ':  ' . $state . "\n");
-        }
+        //}
     }
 }

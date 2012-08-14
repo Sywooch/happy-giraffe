@@ -927,11 +927,14 @@ class User extends HActiveRecord
                 'interests' => array(
                     'together' => false,
                 ),
-                'userAddress',
+                'userAddress' => array(
+                    'together' => true,
+                ),
                 'babies' => array(
                     'together' => true,
                     //'condition' => 'sex != 0 OR type IS NOT NULL',
                 ),
+                'status'
             ),
             'order' => 'register_date DESC',
             'limit' => $limit,

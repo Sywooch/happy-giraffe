@@ -26,7 +26,7 @@
 
                 <div class="col-2">
 
-<?php if($this->beginCache('home-page-1', array('duration'=>1))) { ?>
+<?php if($this->beginCache('home-page-1', array('duration'=>60))) { ?>
 
                     <?php $this->widget('MostPopularWidget'); ?>
                     <?php $this->widget('OurServicesWidget'); ?>

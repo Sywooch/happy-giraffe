@@ -19,7 +19,7 @@ class CustomMailruService extends MailruOAuthService {
 				'app_id' => $this->client_id,
 			),
 		));
-		
+
 		$info = $info[0];
 		
 		$this->attributes['id'] = $info->uid;

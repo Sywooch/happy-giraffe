@@ -85,7 +85,7 @@
 
                 <ul class="clearfix">
                     <?php
-                        $dp = $this->user->getFriends(array('limit' => 30, 'order' => 'RAND()'));
+                        $dp = $this->user->getFriends(array('limit' => 30, 'order' => 'RAND()', 'with'=>'avatar'));
                         $dp->pagination = array(
                             'pageSize' => 30,
                         );

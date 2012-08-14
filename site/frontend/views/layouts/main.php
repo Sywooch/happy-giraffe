@@ -19,7 +19,6 @@
     $cs
         ->registerPackage('comet')
         ->registerScript('Realplexor-reg', 'comet.connect(\'http://' . Yii::app()->comet->host . '\', \'' . Yii::app()->comet->namespace . '\', \'' . UserCache::GetCurrentUserCache() . '\');')
-
         ->registerCssFile('/stylesheets/common.css?'.$release_id)
         ->registerCssFile('/stylesheets/global.css?'.$release_id)
         ->registerCssFile('/stylesheets/ie.css', 'screen')

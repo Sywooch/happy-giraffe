@@ -13,6 +13,10 @@ class BlogWidget extends CWidget
             'select' => array('slug')
         ), 'post' => array(
             'select' => array('text')
+        ), 'contentAuthor' => array(
+            'select' => array('id', 'avatar_id', 'first_name', 'last_name', 'online')
+//        ), 'contentAuthor.avatar' => array(
+//            'select' => array('id', 'file_name', 'fs_name')
         ),'video','travel');
         $criteria->select = array('t.id', 't.title', 't.type_id', 'rubric_id', 'author_id');
 //        $criteria->condition = ' rubric.user_id IS NOT NULL ';

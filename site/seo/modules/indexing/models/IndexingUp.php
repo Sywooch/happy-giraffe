@@ -12,6 +12,8 @@
  */
 class IndexingUp extends HActiveRecord
 {
+    public $text_urls = array();
+
     /**
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.
@@ -92,13 +94,13 @@ class IndexingUp extends HActiveRecord
     public function defaultScope()
     {
         return array(
-            'order' => $this->getTableAlias(false, false) .'.id desc',
+            'order' => $this->getTableAlias(false, false) . '.id desc',
         );
     }
 
     public function beforeSave()
     {
-        $exist = self::model()->find('date = "'.$this->date.'"');
+        $exist = self::model()->find('date = "' . $this->date . '"');
         if ($exist !== null)
             return false;
         return parent::beforeSave();
@@ -106,39 +108,58 @@ class IndexingUp extends HActiveRecord
 
     public function getUrls($plus)
     {
+        $this->getUpUrls();
         $prev_up = $this->getPrevUp();
         if ($prev_up == null)
-            return ($plus) ? $this->urls : array();
+            return ($plus) ? $this->text_urls : array();
+        $prev_up->getUpUrls();
 
         $change = array();
         if ($plus) {
-            foreach ($this->urls as $url)
-                if (!$prev_up->hasUrl($url->url_id))
+            foreach ($this->text_urls as $url)
+                if (!$prev_up->hasUrl($url))
                     $change [] = $url;
         } else {
-            foreach ($prev_up->urls as $url)
-                if (!$this->hasUrl($url->url_id))
+            foreach ($prev_up->text_urls as $url)
+                if (!$this->hasUrl($url))
                     $change [] = $url;
         }
 
         return $change;
     }
 
-    public function hasUrl($id)
+    public function hasUrl($find_url)
     {
-        foreach ($this->urls as $url)
-            if ($url->url_id == $id)
+        foreach ($this->text_urls as $url)
+            if ($url == $find_url)
                 return true;
         return false;
     }
 
+    /**
+     * @return IndexingUp
+     */
     public function getPrevUp()
     {
         $criteria = new CDbCriteria;
         $criteria->order = 't.id desc';
         $criteria->condition = ' t.id < ' . $this->id;
-        //$criteria->with = array('urls', 'urls.url');
 
         return IndexingUp::model()->find($criteria);
+    }
+
+    public function getUpUrls()
+    {
+        $data = Yii::app()->db_seo->createCommand()
+            ->select('t2.id, t2.url')
+            ->from('indexing__up_urls as t')
+            ->where('up_id = ' . $this->id)
+            ->join('indexing__urls as t2', 't.url_id = t2.id')
+            ->queryAll();
+
+        $this->text_urls = array();
+        foreach($data as $row){
+            $this->text_urls[$row['id']] = $row['url'];
+        }
     }
 }

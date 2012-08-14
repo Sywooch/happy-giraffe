@@ -1,7 +1,10 @@
 var Test = {
+    step:0,
+    path:'',
     Init:function () {
         Test.Yes = 0;
         Test.No = 0;
+        Test.path = document.location.href;
     },
     Start:function () {
         Test.Init();
@@ -15,6 +18,7 @@ var Test = {
             Test.Yes++;
         else
             Test.No++;
+        Test.logPage();
 
         $('.step:visible').fadeOut(300, function () {
             if (link.closest('.step.q').next('.step.q').length) {
@@ -38,5 +42,13 @@ var Test = {
 
     Restart:function () {
         Test.Start();
+    },
+    logPage:function () {
+        Test.step++;
+        if (typeof(window.history.pushState) == 'function') {
+            window.history.pushState(null, null, Test.path + '?step=' + Test.step);
+            _gaq.push(['_trackPageview', Test.path + '?step=' + Test.step]);
+            yaCounter11221648.hit(Test.path + '?step=' + Test.step);
+        }
     }
 }

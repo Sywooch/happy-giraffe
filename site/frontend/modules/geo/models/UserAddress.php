@@ -119,6 +119,8 @@ class UserAddress extends HActiveRecord
         if (!empty($this->country_id))
             UserScores::checkProfileScores($this->user_id, ScoreAction::ACTION_PROFILE_LOCATION);
 
+        User::model()->UpdateUser($this->user_id);
+
         return parent::beforeSave();
     }
 

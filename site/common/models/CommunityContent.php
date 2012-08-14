@@ -36,88 +36,88 @@ class CommunityContent extends HActiveRecord
 {
     const USERS_COMMUNITY = 999999;
 
-	/**
-	 * Returns the static model of the specified AR class.
-	 * @return CommunityContent the static model class
-	 */
-	public static function model($className=__CLASS__)
-	{
-		return parent::model($className);
-	}
+    /**
+     * Returns the static model of the specified AR class.
+     * @return CommunityContent the static model class
+     */
+    public static function model($className = __CLASS__)
+    {
+        return parent::model($className);
+    }
 
-	/**
-	 * @return string the associated database table name
-	 */
-	public function tableName()
-	{
-		return 'community__contents';
-	}
+    /**
+     * @return string the associated database table name
+     */
+    public function tableName()
+    {
+        return 'community__contents';
+    }
 
-	/**
-	 * @return array validation rules for model attributes.
-	 */
-	public function rules()
-	{
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
-		return array(
-			array('title, author_id, type_id', 'required'),
+    /**
+     * @return array validation rules for model attributes.
+     */
+    public function rules()
+    {
+        // NOTE: you should only define rules for those attributes that
+        // will receive user inputs.
+        return array(
+            array('title, author_id, type_id', 'required'),
             array('rubric_id', 'required', 'on' => 'default'),
-			array('title, meta_title, meta_description, meta_keywords', 'length', 'max' => 255),
-			array('author_id, rubric_id, type_id', 'length', 'max' => 11),
-			array('author_id, rubric_id, type_id', 'numerical', 'integerOnly' => true),
-			array('rubric_id', 'exist', 'attributeName' => 'id', 'className' => 'CommunityRubric'),
-			array('author_id', 'exist', 'attributeName' => 'id', 'className' => 'User'),
-			array('by_happy_giraffe', 'boolean'),
+            array('title, meta_title, meta_description, meta_keywords', 'length', 'max' => 255),
+            array('author_id, rubric_id, type_id', 'length', 'max' => 11),
+            array('author_id, rubric_id, type_id', 'numerical', 'integerOnly' => true),
+            array('rubric_id', 'exist', 'attributeName' => 'id', 'className' => 'CommunityRubric'),
+            array('author_id', 'exist', 'attributeName' => 'id', 'className' => 'User'),
+            array('by_happy_giraffe', 'boolean'),
             array('preview', 'safe'),
 
-			// The following rule is used by search().
-			// Please remove those attributes that should not be searched.
-			array('id, by_happy_giraffe, title, meta_title, meta_description, meta_keywords, created, author_id, rubric_id, type_id', 'safe', 'on'=>'search'),
-		);
-	}
+            // The following rule is used by search().
+            // Please remove those attributes that should not be searched.
+            array('id, by_happy_giraffe, title, meta_title, meta_description, meta_keywords, created, author_id, rubric_id, type_id', 'safe', 'on' => 'search'),
+        );
+    }
 
-	/**
-	 * @return array relational rules.
-	 */
-	public function relations()
-	{
-		// NOTE: you may need to adjust the relation name and the related
-		// class name for the relations automatically generated below.
-		return array(
-			'rubric' => array(self::BELONGS_TO, 'CommunityRubric', 'rubric_id'),
-			'type' => array(self::BELONGS_TO, 'CommunityContentType', 'type_id'),
+    /**
+     * @return array relational rules.
+     */
+    public function relations()
+    {
+        // NOTE: you may need to adjust the relation name and the related
+        // class name for the relations automatically generated below.
+        return array(
+            'rubric' => array(self::BELONGS_TO, 'CommunityRubric', 'rubric_id'),
+            'type' => array(self::BELONGS_TO, 'CommunityContentType', 'type_id'),
             'commentsCount' => array(self::STAT, 'Comment', 'entity_id', 'condition' => 'entity=:modelName', 'params' => array(':modelName' => get_class($this))),
             'comments' => array(self::HAS_MANY, 'Comment', 'entity_id', 'condition' => 'entity=:modelName', 'params' => array(':modelName' => get_class($this))),
             'travel' => array(self::HAS_ONE, 'CommunityTravel', 'content_id', 'on' => "slug = 'travel'"),
             'video' => array(self::HAS_ONE, 'CommunityVideo', 'content_id', 'on' => "slug = 'video'"),
             'post' => array(self::HAS_ONE, 'CommunityPost', 'content_id', 'on' => "slug = 'post'"),
-			'contentAuthor' => array(self::BELONGS_TO, 'User', 'author_id'),
+            'contentAuthor' => array(self::BELONGS_TO, 'User', 'author_id'),
             'author' => array(self::BELONGS_TO, 'User', 'author_id'),
             'remove' => array(self::HAS_ONE, 'Removed', 'entity_id', 'condition' => 'remove.entity = :entity', 'params' => array(':entity' => get_class($this))),
             'photoPost' => array(self::HAS_ONE, 'CommunityPhotoPost', 'content_id'),
             'userPhotos' => array(self::HAS_MANY, 'UserPhoto', 'content_id'),
             'editor' => array(self::BELONGS_TO, 'User', 'editor_id'),
             'gallery' => array(self::HAS_ONE, 'CommunityContentGallery', 'content_id'),
-		);
-	}
+        );
+    }
 
-	/**
-	 * @return array customized attribute labels (name=>label)
-	 */
-	public function attributeLabels()
-	{
-		return array(
-			'id' => 'ID',
-			'title' => 'Заголовок',
-			'created' => 'Created',
-			'author_id' => 'Автор',
-			'rubric_id' => 'Рубрика',
-			'type_id' => 'Type',
+    /**
+     * @return array customized attribute labels (name=>label)
+     */
+    public function attributeLabels()
+    {
+        return array(
+            'id' => 'ID',
+            'title' => 'Заголовок',
+            'created' => 'Created',
+            'author_id' => 'Автор',
+            'rubric_id' => 'Рубрика',
+            'type_id' => 'Type',
             'by_happy_giraffe' => 'От Весёлого Жирафа',
             'meta_title' => 'Заголовок страницы',
-		);
-	}
+        );
+    }
 
     public function behaviors()
     {
@@ -129,7 +129,7 @@ class CommunityContent extends HActiveRecord
             ),
             'purified' => array(
                 'class' => 'site.common.behaviors.PurifiedBehavior',
-                'attributes' => array( 'preview'),
+                'attributes' => array('preview'),
             ),
             'pingable' => array(
                 'class' => 'site.common.behaviors.PingableBehavior',
@@ -137,130 +137,128 @@ class CommunityContent extends HActiveRecord
         );
     }
 
-	/**
-	 * Retrieves a list of models based on the current search/filter conditions.
-	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
-	 */
-	public function search()
-	{
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
+    /**
+     * Retrieves a list of models based on the current search/filter conditions.
+     * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
+     */
+    public function search()
+    {
+        // Warning: Please modify the following code to remove attributes that
+        // should not be searched.
 
-		$criteria=new CDbCriteria;
+        $criteria = new CDbCriteria;
 
-		$criteria->compare('id',$this->id,true);
-		$criteria->compare('title',$this->title,true);
-		$criteria->compare('created',$this->created,true);
-		$criteria->compare('author_id',$this->author_id,true);
-		$criteria->compare('rubric_id',$this->rubric_id,true);
-		$criteria->compare('type_id',$this->type_id,true);
+        $criteria->compare('id', $this->id, true);
+        $criteria->compare('title', $this->title, true);
+        $criteria->compare('created', $this->created, true);
+        $criteria->compare('author_id', $this->author_id, true);
+        $criteria->compare('rubric_id', $this->rubric_id, true);
+        $criteria->compare('type_id', $this->type_id, true);
 
-		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
+        return new CActiveDataProvider($this, array(
+            'criteria' => $criteria,
             'pagination' => array('pageSize' => 30),
-		));
-	}
+        ));
+    }
 
-	public function community($community_id)
-	{
-		$this->getDbCriteria()->mergeWith(array(
-			'with' => array(
-				'rubric' => array(
-					'select' => FALSE,
-					'with' => array(
-						'community' => array(
-							'select' => FALSE,
-							'condition' => 'community_id=:community_id',
-							'params' => array(':community_id' => $community_id),
-						)
-					),
-				),
-				'post',
-				'video',
-				'commentsCount',
-				'travel' => array(
-					'with' => array(
-						'waypoints' => array(
-							'with' => array(
-								'city',
-								'country',
-							),
-						),
-					)
-				),
-			),
-			'order' => 't.id DESC',
-		));
-		return $this;
-	}
+    public function community($community_id)
+    {
+        $this->getDbCriteria()->mergeWith(array(
+            'with' => array(
+                'rubric' => array(
+                    'select' => FALSE,
+                    'with' => array(
+                        'community' => array(
+                            'select' => FALSE,
+                            'condition' => 'community_id=:community_id',
+                            'params' => array(':community_id' => $community_id),
+                        )
+                    ),
+                ),
+                'post',
+                'video',
+                'commentsCount',
+                'travel' => array(
+                    'with' => array(
+                        'waypoints' => array(
+                            'with' => array(
+                                'city',
+                                'country',
+                            ),
+                        ),
+                    )
+                ),
+            ),
+            'order' => 't.id DESC',
+        ));
+        return $this;
+    }
 
-	public function type($type_id)
-	{
-		if ($type_id !== null)
-		{
-			$this->getDbCriteria()->mergeWith(array(
-				'with' => array(
-					'rubric' => array(
-						'condition' => 'type_id=:type_id',
-						'params' => array(':type_id' => $type_id),
-					),
-				),
-			));
-		}
-		return $this;
-	}
+    public function type($type_id)
+    {
+        if ($type_id !== null) {
+            $this->getDbCriteria()->mergeWith(array(
+                'with' => array(
+                    'rubric' => array(
+                        'condition' => 'type_id=:type_id',
+                        'params' => array(':type_id' => $type_id),
+                    ),
+                ),
+            ));
+        }
+        return $this;
+    }
 
-	public function rubric($rubric_id)
-	{
-		if ($rubric_id !== null)
-		{
-			$this->getDbCriteria()->mergeWith(array(
-				'with' => array(
-					'rubric' => array(
-						'condition' => 'rubric_id=:rubric_id',
-						'params' => array(':rubric_id' => $rubric_id),
-					),
-				),
-			));
-		}
-		return $this;
-	}
+    public function rubric($rubric_id)
+    {
+        if ($rubric_id !== null) {
+            $this->getDbCriteria()->mergeWith(array(
+                'with' => array(
+                    'rubric' => array(
+                        'condition' => 'rubric_id=:rubric_id',
+                        'params' => array(':rubric_id' => $rubric_id),
+                    ),
+                ),
+            ));
+        }
+        return $this;
+    }
 
-	/*public function scopes()
-	{
-		return array(
-			'view' => array(
-				'with' => array(
-					'rubric' => array(
-						'with' => array(
-							'community' => array(
-								'with' => array(
-									'rubrics',
-								),
-							),
-						),
-					),
-					'post',
-					'video',
-					'commentsCount',
-					'contentAuthor',
-					'travel' => array(
-						'with' => array(
-							'waypoints' => array(
-								'with' => array(
-									'city',
-									'country',
-								),
-							),
-						)
-					),
-				),
-			),
-            'active'=>array(
-                'condition'=>'removed=0'
-            )
-		);
-	}*/
+    /*public function scopes()
+     {
+         return array(
+             'view' => array(
+                 'with' => array(
+                     'rubric' => array(
+                         'with' => array(
+                             'community' => array(
+                                 'with' => array(
+                                     'rubrics',
+                                 ),
+                             ),
+                         ),
+                     ),
+                     'post',
+                     'video',
+                     'commentsCount',
+                     'contentAuthor',
+                     'travel' => array(
+                         'with' => array(
+                             'waypoints' => array(
+                                 'with' => array(
+                                     'city',
+                                     'country',
+                                 ),
+                             ),
+                         )
+                     ),
+                 ),
+             ),
+             'active'=>array(
+                 'condition'=>'removed=0'
+             )
+         );
+     }*/
 
     public function beforeDelete()
     {
@@ -268,7 +266,7 @@ class CommunityContent extends HActiveRecord
 
         if ($this->isFromBlog && count($this->contentAuthor->blogPosts) == 0) {
             UserScores::removeScores($this->author_id, ScoreAction::ACTION_FIRST_BLOG_RECORD, 1, $this);
-        }else
+        } else
             UserScores::removeScores($this->author_id, ScoreAction::ACTION_RECORD, 1, $this);
         //сообщаем пользователю
         UserNotification::model()->create(UserNotification::DELETED, array('entity' => $this));
@@ -282,7 +280,7 @@ class CommunityContent extends HActiveRecord
     {
         $p = new CHtmlPurifier();
         $p->options = array(
-            'URI.AllowedSchemes'=>array(
+            'URI.AllowedSchemes' => array(
                 'http' => true,
                 'https' => true,
             ),
@@ -323,7 +321,7 @@ class CommunityContent extends HActiveRecord
 
             if ($this->isFromBlog)
                 $signal->signal_type = UserSignal::TYPE_NEW_BLOG_POST;
-            else{
+            else {
                 if ($this->type->slug == 'video')
                     $signal->signal_type = UserSignal::TYPE_NEW_USER_VIDEO;
                 else
@@ -334,10 +332,10 @@ class CommunityContent extends HActiveRecord
                 Yii::log('NewComers signal not saved', 'warning', 'application');
             }
         }
-        if ($this->isNewRecord && $this->rubric_id !== null){
+        if ($this->isNewRecord && $this->rubric_id !== null) {
             if ($this->isFromBlog && count($this->contentAuthor->blogPosts) == 1) {
                 UserScores::addScores($this->author_id, ScoreAction::ACTION_FIRST_BLOG_RECORD, 1, $this);
-            }else
+            } else
                 UserScores::addScores($this->author_id, ScoreAction::ACTION_RECORD, 1, $this);
         }
         if ($this->isNewRecord) {
@@ -428,13 +426,11 @@ class CommunityContent extends HActiveRecord
 
         $criteria->compare('community_id', $community_id);
 
-        if ($rubric_id !== null)
-        {
+        if ($rubric_id !== null) {
             $criteria->compare('rubric_id', $rubric_id);
         }
 
-        if ($content_type_slug !== null)
-        {
+        if ($content_type_slug !== null) {
             $criteria->compare('slug', $content_type_slug);
         }
 
@@ -451,8 +447,7 @@ class CommunityContent extends HActiveRecord
             'params' => array(':user_id' => $user_id),
         ));
 
-        if ($rubric_id !== null)
-        {
+        if ($rubric_id !== null) {
             $criteria->compare('rubric_id', $rubric_id);
         }
 
@@ -466,7 +461,7 @@ class CommunityContent extends HActiveRecord
      */
     public function getPrevPost()
     {
-        if (! $this->isFromBlog) {
+        if (!$this->isFromBlog) {
             $prev = $this->full()->find(
                 array(
                     'condition' => 'rubric_id = :rubric_id AND t.id < :current_id',
@@ -500,7 +495,7 @@ class CommunityContent extends HActiveRecord
      */
     public function getNextPost()
     {
-        if (! $this->isFromBlog) {
+        if (!$this->isFromBlog) {
             $next = $this->full()->find(
                 array(
                     'condition' => 'rubric_id = :rubric_id AND t.id > :current_id',
@@ -557,8 +552,14 @@ class CommunityContent extends HActiveRecord
                 }
                 break;
             case 2:
-                $video = new Video($this->video->link);
-                return '<img src="' . $video->preview . '" alt="' . $video->title . '" />';
+                $value = Yii::app()->cache->get('video-preview-' . CHtml::encode($this->video->link));
+                if ($value === false) {
+                    $video = new Video($this->video->link);
+
+                    $value = '<img src="' . $video->preview . '" alt="' . $video->title . '" />';
+                    Yii::app()->cache->set('video-preview-' . CHtml::encode($this->video->link) . 3600, $value);
+                }
+                return $value;
                 break;
             default:
                 return '';
@@ -567,25 +568,24 @@ class CommunityContent extends HActiveRecord
 
     public function getContentImage()
     {
-        if ($this->type->slug == 'video'){
+        if ($this->type->slug == 'video') {
             $video = new Video($this->video->link);
             return $video->preview;
-        }
-        else{
+        } else {
             $image = false;
-            if (preg_match_all('/src="([^"]+)"/', $this->content->text, $matches)){
-                if (!empty($matches[0])){
+            if (preg_match_all('/src="([^"]+)"/', $this->content->text, $matches)) {
+                if (!empty($matches[0])) {
                     $image = false;
-                    for($i=0;$i<count($matches[0]);$i++){
+                    for ($i = 0; $i < count($matches[0]); $i++) {
                         $image_url = $matches[1][$i];
-                        if (strpos($image_url, '/images/widget/smiles/') !== 0){
+                        if (strpos($image_url, '/images/widget/smiles/') !== 0) {
                             $image = $image_url;
                             break;
                         }
                     }
                 }
                 if ($image !== false && strpos($image, 'http://') !== 0)
-                    $image = 'http://www.happy-giraffe.ru'.$image;
+                    $image = 'http://www.happy-giraffe.ru' . $image;
             }
             return $image;
         }
@@ -598,7 +598,7 @@ class CommunityContent extends HActiveRecord
 
     public function canEdit()
     {
-        if (Yii::app()->user->model->role == 'user'){
+        if (Yii::app()->user->model->role == 'user') {
             if ($this->author_id == Yii::app()->user->id)
                 return true;
             return false;
@@ -608,7 +608,7 @@ class CommunityContent extends HActiveRecord
 
     public function canRemove()
     {
-        if (Yii::app()->user->model->role == 'user'){
+        if (Yii::app()->user->model->role == 'user') {
             if ($this->author_id == Yii::app()->user->id)
                 return true;
             return false;
@@ -642,7 +642,7 @@ class CommunityContent extends HActiveRecord
 
     public function getArticleCommentsCount()
     {
-        if ($this->getIsFromBlog()){
+        if ($this->getIsFromBlog()) {
             $model = BlogContent::model()->findByPk($this->id);
             return $model->commentsCount;
         }
@@ -651,7 +651,7 @@ class CommunityContent extends HActiveRecord
 
     public function getArticleComments()
     {
-        if ($this->getIsFromBlog()){
+        if ($this->getIsFromBlog()) {
             $model = BlogContent::model()->findByPk($this->id);
             return $model->comments;
         }

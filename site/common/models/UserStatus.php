@@ -82,5 +82,7 @@ class UserStatus extends HActiveRecord
 
         if ($this->isNewRecord)
             UserAction::model()->add($this->user_id, UserAction::USER_ACTION_STATUS_CHANGED, array('model' => $this));
+
+        User::model()->UpdateUser($this->user_id);
     }
 }

@@ -15,7 +15,6 @@
  * @property GeoCountry $country
  * @property GeoDistrict $district
  * @property GeoRegion $region
- * @property GeoDistrict[] $geoDistricts
  * @property GeoZip[] $zips
  */
 class GeoCity extends HActiveRecord

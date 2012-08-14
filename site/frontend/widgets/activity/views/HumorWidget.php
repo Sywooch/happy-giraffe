@@ -34,7 +34,7 @@
                 ),
                 'main_selector' => '.options'
             )); ?>
-            <?php if (Yii::app()->authManager->checkAccess('manageActivity', Yii::app()->user->id)): ?>
+            <?php if (!Yii::app()->user->isGuest && Yii::app()->authManager->checkAccess('manageActivity', Yii::app()->user->id)): ?>
                 <br/>
                 <br/>
                 <?php

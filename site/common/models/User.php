@@ -930,6 +930,10 @@ class User extends HActiveRecord
                 'userAddress' => array(
                     'together' => true,
                 ),
+                'userAddress.country',
+                'userAddress.region',
+                'userAddress.city',
+                'userAddress.city.district',
                 'babies' => array(
                     'together' => true,
                     //'condition' => 'sex != 0 OR type IS NOT NULL',

@@ -37,7 +37,7 @@ class ProxyParserThread
     {
         $criteria = new CDbCriteria;
         $criteria->compare('active', 0);
-        $criteria->order = 'rand()';
+        $criteria->order = 'rank DESC, created DESC';
 
         $transaction = Yii::app()->db_seo->beginTransaction();
         try {

@@ -144,7 +144,6 @@ class IndexingUp extends HActiveRecord
         $criteria = new CDbCriteria;
         $criteria->order = 't.id desc';
         $criteria->condition = ' t.id < ' . $this->id;
-        //$criteria->with = array('urls', 'urls.url');
 
         return IndexingUp::model()->find($criteria);
     }

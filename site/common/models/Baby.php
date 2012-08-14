@@ -155,5 +155,7 @@ class Baby extends HActiveRecord
 
         if ($this->isNewRecord)
             UserAction::model()->add($this->parent_id, UserAction::USER_ACTION_FAMILY_UPDATED, array('model' => $this));
+
+        User::model()->UpdateUser($this->user_id);
     }
 }

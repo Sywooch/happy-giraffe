@@ -78,6 +78,7 @@ class Proxy extends HActiveRecord
             'CTimestampBehavior' => array(
                 'class' => 'zii.behaviors.CTimestampBehavior',
                 'createAttribute' => 'created',
+                'updateAttribute' => null,
             ),
         );
     }

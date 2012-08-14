@@ -16,8 +16,6 @@ class LiveWidget extends CWidget
                         'select' => 'id, title, position',
                     )
                 ),
-                'select' => array('community_id', 'user_id'),
-                'condition' => 'user_id IS NOT NULL'
             ),
             'type' => array(
                 'select' => array('slug')

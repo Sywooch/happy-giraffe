@@ -47,6 +47,7 @@ return array(
             'charset' => 'utf8',
             'enableProfiling' => false,
             'enableParamLogging' => true,
+            'schemaCachingDuration' => 60,
         ),
         'search' => array(
             'class' => 'site.frontend.extensions.DGSphinxSearch.DGSphinxSearch',

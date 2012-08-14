@@ -55,7 +55,7 @@ $income = count($addUrls) - count($removeUrls);
             <tbody>
                 <?php foreach ($addUrls as $url): ?>
                     <tr>
-                        <td class="al"><span class="big"><a href="<?=$url->url->url ?>" target="_blank"><?=$url->url->url ?></a></span>
+                        <td class="al"><span class="big"><a href="<?=$url ?>" target="_blank"><?=$url ?></a></span>
                         </td>
                         <td class="al"><span class="big"><b><?php //echo $url->url->getTitle() ?></b></span></td>
                     </tr>
@@ -78,7 +78,7 @@ $income = count($addUrls) - count($removeUrls);
             <tbody>
             <?php foreach ($removeUrls as $url): ?>
             <tr>
-                <td class="al"><span class="big"><a href="<?=$url->url->url ?>" target="_blank"><?=$url->url->url ?></a></span>
+                <td class="al"><span class="big"><a href="<?=$url ?>" target="_blank"><?=$url ?></a></span>
                 </td>
                 <td class="al"><span class="big"><b><?php //echo $url->url->getTitle() ?></b></span></td>
             </tr>

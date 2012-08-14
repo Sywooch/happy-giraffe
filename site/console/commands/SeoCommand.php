@@ -173,7 +173,8 @@ class SeoCommand extends CConsoleCommand
         echo $model->save();
     }
 
-    public function actionImportVisits(){
+    public function actionImportVisits()
+    {
         Yii::import('site.seo.modules.competitors.models.*');
 
         $criteria = new CDbCriteria;
@@ -197,19 +198,9 @@ class SeoCommand extends CConsoleCommand
         }
     }
 
-    public function actionProxy(){
-        $str = file_get_contents('http://awmproxy.com/socks_proxy.txt?');
-        if (strlen($str) > 10000){
-            Proxy::model()->deleteAll();
-            $proxies = explode("\n", $str);
-            foreach($proxies as $proxy){
-                $model = new Proxy();
-                $model->value = $proxy;
-                $model->save();
-            }
-        }else{
-            echo $str;
-        }
+    public function actionProxy()
+    {
+        ProxyRefresher::execute();
     }
 }
 

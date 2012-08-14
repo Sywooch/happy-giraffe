@@ -27,7 +27,7 @@ class ProxyParserThread
 
     function __construct()
     {
-        sleep(rand(0, 40));
+        //sleep(rand(0, 40));
         Yii::import('site.frontend.extensions.phpQuery.phpQuery');
         $this->thread_id = substr(sha1(microtime()), 0, 10);
         $this->getProxy();
@@ -37,7 +37,7 @@ class ProxyParserThread
     {
         $criteria = new CDbCriteria;
         $criteria->compare('active', 0);
-        $criteria->order = 'rand()';
+        $criteria->order = 'rank DESC, created DESC';
 
         $transaction = Yii::app()->db_seo->beginTransaction();
         try {
@@ -112,7 +112,7 @@ class ProxyParserThread
                 if (strpos($content, 'Нам очень жаль, но запросы, поступившие с вашего IP-адреса, похожи на автоматические.')){
                     $this->log('ip banned');
                     //file_put_contents(Yii::getPathOfAlias('site.common.cookies') . DIRECTORY_SEPARATOR . 'banned.txt', $this->proxy->value."\n", FILE_APPEND);
-                    $this->changeBadProxy();
+                    $this->changeBadProxy(0);
                     return $this->query($url, $ref, $post, $attempt);
                 }
                 $this->log('page loaded by curl');
@@ -123,11 +123,15 @@ class ProxyParserThread
         return '';
     }
 
-    protected function changeBadProxy()
+    protected function changeBadProxy($rank = null)
     {
         $this->log('Change proxy');
 
-        $this->proxy->rank = floor((($this->proxy->rank + $this->success_loads) / 5) * 4);
+        if ($rank !== null)
+            $this->proxy->rank = $rank;
+        else
+            $this->proxy->rank = floor((($this->proxy->rank + $this->success_loads) / 5) * 4);
+
         $this->proxy->active = 0;
         $this->proxy->save();
         $this->getProxy();
@@ -163,7 +167,8 @@ class ProxyParserThread
     protected function closeThread($reason = 'unknown reason')
     {
         //save proxy
-        $this->saveProxy();
+        if ($this->proxy !== null)
+            $this->saveProxy();
         $this->removeCookieFile();
 
         $this->log('Thread closed: ' . $reason);

@@ -163,7 +163,8 @@ class ProxyParserThread
     protected function closeThread($reason = 'unknown reason')
     {
         //save proxy
-        $this->saveProxy();
+        if ($this->proxy !== null)
+            $this->saveProxy();
         $this->removeCookieFile();
 
         $this->log('Thread closed: ' . $reason);

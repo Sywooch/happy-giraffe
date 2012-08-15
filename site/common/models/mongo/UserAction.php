@@ -132,7 +132,7 @@ class UserAction extends EMongoDocument
         $criteria->user_id = (int) $user_id;
         if ($blockData !== null)
             $criteria->blockData = $blockData;
-        $criteria->sort('created', EMongoCriteria::SORT_DESC);
+        $criteria->sort('data.created', EMongoCriteria::SORT_DESC);
 
         $stack = self::model()->find($criteria);
 

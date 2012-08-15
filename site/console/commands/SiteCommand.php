@@ -130,7 +130,7 @@ class SiteCommand extends CConsoleCommand
                     $file_name = $info['basename'];
                     echo $file_name;
 
-                    $dir =Yii::getPathOfAlias('site.common.uploads.photos.originals.') . DIRECTORY_SEPARATOR . '1';
+                    $dir = Yii::getPathOfAlias('site.common.uploads.photos.originals.') . DIRECTORY_SEPARATOR . '1';
                     if (!file_exists($dir))
                         mkdir($dir);
 
@@ -196,7 +196,8 @@ class SiteCommand extends CConsoleCommand
         }
     }
 
-    public function actionRemoveOldNotifications(){
+    public function actionRemoveOldNotifications()
+    {
         Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
         Yii::import('site.frontend.extensions.*');
         Yii::import('site.frontend.components.*');
@@ -208,7 +209,8 @@ class SiteCommand extends CConsoleCommand
         UserNotification::model()->deleteAll($criteria);
     }
 
-    public function actionFix(){
+    public function actionFix()
+    {
         Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
         Yii::import('site.frontend.extensions.*');
         Yii::import('site.frontend.components.*');
@@ -219,30 +221,40 @@ class SiteCommand extends CConsoleCommand
         $criteria->type('==', UserAction::USER_ACTION_LEVELUP);
         $actions = UserAction::model()->findAll($criteria);
         $users = array();
-        foreach($actions as $action){
-            $action->data = array('level_id'=>1);
-            if (!in_array($action->user_id, $users)){
+        foreach ($actions as $action) {
+            $action->data = array('level_id' => 1);
+            if (!in_array($action->user_id, $users)) {
                 $users[] = $action->user_id;
                 $action->save();
-            }
-            else
+            } else
                 $action->delete();
         }
     }
 
-    public function actionActionsFix(){
+    public function actionActionsFix()
+    {
         Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
         Yii::import('site.frontend.extensions.*');
         Yii::import('site.frontend.components.*');
         Yii::import('site.frontend.helpers.*');
         Yii::import('site.common.models.mongo.*');
 
-        $criteria = new EMongoCriteria();
-        $criteria->type('==', UserAction::USER_ACTION_FRIENDS_ADDED);
-        $actions = UserAction::model()->findAll($criteria);
-        foreach($actions as $action){
-            $action->created = $action->updated;
-            $action->save();
+        $actions = array(
+            UserAction::USER_ACTION_CLUBS_JOINED,
+            UserAction::USER_ACTION_INTERESTS_ADDED,
+            UserAction::USER_ACTION_USED_SERVICES,
+            UserAction::USER_ACTION_FRIENDS_ADDED,
+            UserAction::USER_ACTION_PHOTOS_ADDED,
+        );
+
+        foreach ($actions as $action) {
+            $criteria = new EMongoCriteria();
+            $criteria->type('==', $action);
+            $actions = UserAction::model()->findAll($criteria);
+            foreach ($actions as $action) {
+                $action->created = $action->updated;
+                $action->save();
+            }
         }
     }
 }

@@ -32,6 +32,7 @@ class UserAction extends EMongoDocument
 
     public $user_id;
     public $updated;
+//    public $created;
     public $type;
     public $data;
     public $blockData = null;
@@ -45,6 +46,14 @@ class UserAction extends EMongoDocument
     {
         return 'user_actions';
     }
+
+    /*public function beforeSave()
+    {
+        if ($this->isNewRecord)
+            $this->created = time();
+
+        return parent::beforeSave();
+    }*/
 
     public function add($user_id, $type, $params = array(), $blockData = null)
     {
@@ -132,7 +141,7 @@ class UserAction extends EMongoDocument
         $criteria->user_id = (int) $user_id;
         if ($blockData !== null)
             $criteria->blockData = $blockData;
-        $criteria->sort('data.created', EMongoCriteria::SORT_DESC);
+        $criteria->sort('created', EMongoCriteria::SORT_DESC);
 
         $stack = self::model()->find($criteria);
 

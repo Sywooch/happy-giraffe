@@ -79,8 +79,7 @@ class HController extends CController
                 $('[hashString]').each(function(){
                     var key = $(this).attr('hashString');
                     if($(this).attr('hashType') == 'href'){
-                        if ((seoHrefs.indexOf(key) != -1)
-                            $(this).attr('href', Base64.decode(seoHrefs[key]));
+                        $(this).attr('href', Base64.decode(seoHrefs[key]));
                     }else{
                         $(this).replaceWith(Base64.decode(seoContent[key]));
                     }

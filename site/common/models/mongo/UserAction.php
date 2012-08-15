@@ -153,9 +153,7 @@ class UserAction extends EMongoDocument
                 $result = (time() - $stack->updated < 60) && HDate::isSameDate($stack->updated, time());
                 break;
             default:
-                echo 'step3';
                 $result = HDate::isSameDate($stack->created, time());
-                echo $type.'-'.$user_id.'-'.$stack->created.'-'.time().'||';
         }
 
         return $result ? $stack : null;

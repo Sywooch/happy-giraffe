@@ -9,7 +9,7 @@ class HHtml extends CHtml
     {
         if ($url !== '') {
             $url = self::normalizeUrl($url);
-            if ($seoHide && !Yii::app()->request->isAjaxRequest) {
+            if ($seoHide && !Yii::app()->request->isAjaxRequest && $url != '#') {
                 $hashString = md5($url);
                 $htmlOptions['hashString'] = $hashString;
                 $htmlOptions['hashType'] = 'href';

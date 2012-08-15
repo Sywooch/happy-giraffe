@@ -32,7 +32,7 @@ class UserAction extends EMongoDocument
 
     public $user_id;
     public $updated;
-//    public $created;
+    public $created;
     public $type;
     public $data;
     public $blockData = null;
@@ -47,13 +47,13 @@ class UserAction extends EMongoDocument
         return 'user_actions';
     }
 
-    /*public function beforeSave()
+    public function beforeSave()
     {
         if ($this->isNewRecord)
             $this->created = time();
 
         return parent::beforeSave();
-    }*/
+    }
 
     public function add($user_id, $type, $params = array(), $blockData = null)
     {

@@ -229,4 +229,20 @@ class SiteCommand extends CConsoleCommand
                 $action->delete();
         }
     }
+
+    public function actionActionsFix(){
+        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
+        Yii::import('site.frontend.extensions.*');
+        Yii::import('site.frontend.components.*');
+        Yii::import('site.frontend.helpers.*');
+        Yii::import('site.common.models.mongo.*');
+
+        $criteria = new EMongoCriteria();
+        $criteria->type('==', UserAction::USER_ACTION_FRIENDS_ADDED);
+        $actions = UserAction::model()->findAll($criteria);
+        foreach($actions as $action){
+            $action->created = $action->updated;
+            $action->save();
+        }
+    }
 }

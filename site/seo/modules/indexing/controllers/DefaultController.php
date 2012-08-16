@@ -29,11 +29,7 @@ class DefaultController extends SController
      * @throws CHttpException
      */
     public function loadUp($id){
-        $model = IndexingUp::model()->with(array(
-            'urls',
-            'urls.url'=>array(
-                'order'=>'url.url'
-            )))->findByPk($id);
+        $model = IndexingUp::model()->findByPk($id);
         if ($model === null)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
         return $model;

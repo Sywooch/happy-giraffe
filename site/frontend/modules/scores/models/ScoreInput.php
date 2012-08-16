@@ -264,7 +264,7 @@ class ScoreInput extends EMongoDocument
     {
         $icon = $this->getIconName();
         if (empty($icon))
-            return '';
+            return '<i data-id="'.$this->action_id.'"></i>';
         return '<i class="' . $icon . '" data-id="'.$this->action_id.'"></i>';
     }
 

@@ -38,7 +38,7 @@
                 href="javascript:;" onclick="Indexing.showRemoveUrls();" class="red"><?=count($removeUrls) ?>
                 страниц</a>.</p>
 
-        <p><span>Итого в индексе</span> <?=$income > 0 ? '+' . $income : $income ?> страниц</p>
+        <p><span>Итого в индексе</span> <?= count($up->text_urls) ?> (<?=$income > 0 ? '+' . $income : $income ?>) страниц</p>
 
     </div>
 

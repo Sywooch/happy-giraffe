@@ -400,4 +400,19 @@ class SiteController extends HController
             ));
         }
     }
+
+    public function actionTest2(){
+        /*$unread = Im::model(Yii::app()->user->id)->getUnreadMessagesCount();
+        $dialogUsers = Im::model(Yii::app()->user->id)->getUsersWithNewMessages();
+        $token = UserToken::model()->generate(Yii::app()->user->id, 86400);
+
+        $this->renderFile(Yii::getPathOfAlias('site.common.tpl.newMessages').'.php', array(
+            'user'=>Yii::app()->user->model,
+            'unread'=>$unread,
+            'dialogUsers'=>$dialogUsers,
+            'token'=>$token,
+        ));*/
+//        $articles = Favourites::model()->getWeekPosts();
+//        $this->renderFile(Yii::getPathOfAlias('site.common.tpl.weeklyNews').'.php', array('models'=>$articles));
+    }
 }

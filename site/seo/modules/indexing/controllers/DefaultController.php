@@ -39,16 +39,8 @@ class DefaultController extends SController
         return $model;
     }
 
-    public function actionTest(){
-        Yii::import('site.frontend.extensions.phpQuery.phpQuery');
-        $content = <<<EOD
-EOD;
-        $document = phpQuery::newDocument($content);
-
-        $el = $document->find('div.b-bottom-wizard div.b-pager span.b-pager__arrow:eq(1)');
-        if (pq($el)->hasClass('b-pager__inactive'))
-            echo 1;
-        else
-            echo 0;
+    public function actionDeleteCache($id)
+    {
+        Yii::app()->cache->delete('indexation-'.$id);
     }
 }

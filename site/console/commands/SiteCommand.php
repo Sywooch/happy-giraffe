@@ -87,7 +87,6 @@ class SiteCommand extends CConsoleCommand
     public function actionFormatDiseases()
     {
         Yii::import('site.frontend.modules.services.modules.recipeBook.models.*');
-        Yii::import('site.frontend.extensions.ESaveRelatedBehavior');
         Yii::import('site.frontend.extensions.phpQuery.phpQuery');
         Yii::import('site.frontend.helpers.*');
 
@@ -254,6 +253,16 @@ class SiteCommand extends CConsoleCommand
             foreach ($actions as $action) {
                 $action->created = $action->updated;
                 $action->save();
+            }
+        }
+    }
+
+    public function actionFix2(){
+        $users = User::model()->findAll(array('select'=>'id'));
+        foreach($users as $user){
+            $count = Baby::model()->count('parent_id='.$user->id);
+            if ($count > 4){
+                Baby::model()->deleteAll('parent_id='.$user->id.' limit '.($count - 4));
             }
         }
     }

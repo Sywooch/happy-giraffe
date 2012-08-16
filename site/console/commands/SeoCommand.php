@@ -135,7 +135,6 @@ class SeoCommand extends CConsoleCommand
     {
         Yii::import('site.seo.modules.indexing.components.*');
         Yii::import('site.seo.modules.indexing.models.*');
-        Yii::import('site.frontend.extensions.ESaveRelatedBehavior');
         Yii::import('site.frontend.components.CutBehavior');
 
         IndexParserThread::collectUrls();

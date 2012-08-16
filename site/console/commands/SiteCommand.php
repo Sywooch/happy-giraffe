@@ -260,9 +260,9 @@ class SiteCommand extends CConsoleCommand
     public function actionFix2(){
         $users = Yii::app()->db->createCommand()->select('id')->from('users')->queryColumn();
         foreach($users as $user){
-            $count = Baby::model()->count('parent_id='.$user['id']);
+            $count = Baby::model()->count('parent_id='.$user);
             if ($count > 4){
-                Baby::model()->deleteAll('parent_id='.$user['id'].' limit '.($count - 4));
+                Baby::model()->deleteAll('parent_id='.$user.' limit '.($count - 4));
             }
         }
     }

@@ -52,11 +52,6 @@ class DefaultController extends HController
             ScoreInput::model()->deleteAll($criteria);
             ScoreOutput::model()->deleteAll($criteria);
             ScoreVisits::model()->deleteAll($criteria);
-            UserScores::model()->updateByPk($id, array(
-                'scores'=>0,
-                'full'=>0,
-                'level_id'=>null,
-            ));
         }
     }
 }

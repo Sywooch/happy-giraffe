@@ -108,11 +108,14 @@ class IndexingUp extends HActiveRecord
 
     public function getUrls($plus)
     {
-        $this->getUpUrls();
+        if (empty($this->text_urls))
+            $this->getUpUrls();
         $prev_up = $this->getPrevUp();
         if ($prev_up == null)
             return ($plus) ? $this->text_urls : array();
-        $prev_up->getUpUrls();
+
+        if (empty($prev_up->text_urls))
+            $prev_up->getUpUrls();
 
         $change = array();
         if ($plus) {

@@ -423,7 +423,7 @@ class ParseController extends SController
 
     public function actionEncode()
     {
-        $sites = array(5, 6);
+        $sites = range(7,29);
         foreach ($sites as $site_id) {
             $criteria = new CDbCriteria;
             $criteria->compare('site_id', $site_id);

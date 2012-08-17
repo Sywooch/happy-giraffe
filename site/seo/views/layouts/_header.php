@@ -25,9 +25,12 @@
 </div>
 
 <?php if (!empty($this->fast_nav)): ?>
-<div class="fast-nav">
-    <?php $this->widget('zii.widgets.CMenu', array(
-    'items' => $this->fast_nav
-));?>
-</div>
+<?php foreach ($this->fast_nav as $nav): ?>
+    <div class="fast-nav">
+        <?php $this->widget('zii.widgets.CMenu', array(
+        'items' => $nav
+    ));?>
+    </div>
+<?php endforeach; ?>
+<br clear="all"><br>
 <?php endif ?>

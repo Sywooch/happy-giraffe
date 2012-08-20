@@ -15,6 +15,7 @@ class ServicesController extends BController
             'update' => 'application.components.actions.Update',
             'delete' => 'application.components.actions.Delete',
             'admin' => 'application.components.actions.Admin',
+            'addPhoto' => 'application.components.actions.UploadPhoto'
         );
     }
 }

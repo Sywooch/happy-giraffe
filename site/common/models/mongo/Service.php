@@ -8,6 +8,7 @@
  * @property string $title
  * @property string $description
  * @property string $url
+ * @property string $photo_id
  *
  * The followings are the available model relations:
  * @property CalendarPeriodsServices[] $calendarPeriodsServices
@@ -42,6 +43,8 @@ class Service extends HActiveRecord
         return array(
             array('title, description, url', 'required'),
             array('title, url', 'length', 'max'=>255),
+            array('url', 'url'),
+            array('photo_id', 'numerical', 'integerOnly' => true),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('id, title, description, url', 'safe', 'on'=>'search'),
@@ -57,6 +60,7 @@ class Service extends HActiveRecord
         // class name for the relations automatically generated below.
         return array(
             'calendarPeriodsServices' => array(self::HAS_MANY, 'CalendarPeriodsServices', 'service_id'),
+            'photo' => array(self::BELONGS_TO, 'AlbumPhoto', 'photo_id'),
         );
     }
 
@@ -70,6 +74,7 @@ class Service extends HActiveRecord
             'title' => 'Название',
             'description' => 'Описание',
             'url' => 'Ссылка',
+            'photo_id' => 'Фото',
         );
     }
 
@@ -92,5 +97,14 @@ class Service extends HActiveRecord
         return new CActiveDataProvider($this, array(
             'criteria'=>$criteria,
         ));
+    }
+
+    public function getImage()
+    {
+        if (!empty($this->photo_id)) {
+            return CHtml::image($this->photo->getPreviewUrl(70, 70));
+        }
+
+        return '';
     }
 }

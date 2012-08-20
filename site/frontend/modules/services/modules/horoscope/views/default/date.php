@@ -40,7 +40,7 @@
                 'model' => $model,
                 'type' => '3_btns',
                 'options' => array(
-                    'title' => CHtml::encode($this->title),
+                    'title' => $this->social_title,
                     'image' => '/images/widget/horoscope/big/'.$model->zodiac.'.jpg',
                     'description' => Str::truncate($model->text, 250),
                 ),

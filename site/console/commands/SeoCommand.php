@@ -235,5 +235,56 @@ class SeoCommand extends CConsoleCommand
             $i++;
         }
     }
+
+    public function actionFixPages()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->limit = 100;
+
+        $i = 0;
+        $pages = array(1);
+        while (!empty($pages)) {
+            $criteria->offset = 100 * $i;
+
+            $pages = Page::model()->findAll($criteria);
+            foreach ($pages as $page) {
+                $url = $page->url;
+                preg_match("/http:\/\/www.happy-giraffe.ru\/community\/[\d]+\/forum\/(post|video)\/([\d]+)\/$/", $url, $match);
+                if (isset($match[2])) {
+                    $entity_id = $match[2];
+                    $entity = 'CommunityContent';
+                } else {
+                    preg_match("/http:\/\/www.happy-giraffe.ru\/user\/[\d]+\/blog\/post([\d]+)\/$/", $url, $match);
+                    if (isset($match[1])) {
+                        $entity_id = $match[1];
+                        $entity = 'BlogContent';
+                    } else {
+                        preg_match("/http:\/\/www.happy-giraffe.ru\/cook\/multivarka\/([\d]+)\/$/", $url, $match);
+                        if (isset($match[1])) {
+                            $entity_id = $match[1];
+                            $entity = 'MultivarkaRecipe';
+                        } else {
+                            preg_match("/http:\/\/www.happy-giraffe.ru\/cook\/recipe\/([\d]+)\/$/", $url, $match);
+                            if (isset($match[1])) {
+                                $entity_id = $match[1];
+                                $entity = 'CookRecipe';
+                            }
+                        }
+                    }
+                }
+
+                if (isset($entity) && isset($entity_id)) {
+                    if ($page->entity != $entity) {
+                        $page->entity = $entity;
+                        $page->entity_id = $entity_id;
+                        $page->save();
+                        echo $entity . "\n";
+                    }
+                }
+            }
+
+            $i++;
+        }
+    }
 }
 

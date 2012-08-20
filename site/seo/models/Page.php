@@ -194,29 +194,50 @@ class Page extends CActiveRecord
             $model = new Page();
             $model->url = $url;
 
-            preg_match("/\/([\d]+)\/$/", $url, $match);
-            if (isset($match[1])) {
-                $id = $match[1];
+            preg_match("/http:\/\/www.happy-giraffe.ru\/community\/[\d]+\/forum\/(post|video)\/([\d]+)\/$/", $url, $match);
+            if (isset($match[2])) {
+                $entity_id = $match[2];
+                $entity = 'CommunityContent';
+            } else {
+                preg_match("/http:\/\/www.happy-giraffe.ru\/user\/[\d]+\/blog\/post([\d]+)\/$/", $url, $match);
+                if (isset($match[1])) {
+                    $entity_id = $match[1];
+                    $entity = 'BlogContent';
+                } else {
+                    preg_match("/http:\/\/www.happy-giraffe.ru\/cook\/multivarka\/([\d]+)\/$/", $url, $match);
+                    if (isset($match[1])) {
+                        $entity_id = $match[1];
+                        $entity = 'MultivarkaRecipe';
+                    }else {
+                        preg_match("/http:\/\/www.happy-giraffe.ru\/cook\/recipe\/([\d]+)\/$/", $url, $match);
+                        if (isset($match[1])) {
+                            $entity_id = $match[1];
+                            $entity = 'CookRecipe';
+                        }
+                    }
+                }
+            }
 
-                $article = CommunityContent::model()->findByPk($id);
+            if (isset($entity) && isset($entity_id)){
+                $article = CActiveRecord::model($entity)->findByPk($entity_id);
                 if ($article !== null) {
                     $exist = Page::model()->findByAttributes(array(
-                        'entity' => 'CommunityContent',
-                        'entity_id' => $article->id,
+                        'entity' => $entity,
+                        'entity_id' => $entity_id,
                     ));
                     if ($exist !== null) {
                         $model = $exist;
                         //$exist->keywordGroup->addKeyword($keyword_id);
                     } else {
-                        $model->entity = 'CommunityContent';
-                        $model->entity_id = $article->id;
+                        $model->entity = $entity;
+                        $model->entity_id = $entity_id;
                         $model->keyword_group_id = $keyword_group->id;
                         $model->save();
                     }
                 } else {
                     return null;
                 }
-            } else {
+            }else{
                 $model->keyword_group_id = $keyword_group->id;
                 $model->save();
             }
@@ -262,11 +283,11 @@ class Page extends CActiveRecord
 
     public function getVisits($se, $period)
     {
-        if ($se == 2){
+        if ($se == 2) {
             if ($period == 1)
                 return $this->yandex_week_visits;
             return $this->yandex_month_visits;
-        }elseif($se == 3){
+        } elseif ($se == 3) {
             if ($period == 1)
                 return $this->google_week_visits;
             return $this->google_month_visits;

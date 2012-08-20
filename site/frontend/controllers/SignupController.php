@@ -115,6 +115,13 @@ class SignupController extends HController
                         $photo->save();
 
                         $picture = new Imagick($src);
+                        $d = $picture->getImageGeometry();
+                        $w = $d['width'];
+                        $h = $d['height'];
+                        if ($w > $h)
+                            $picture->cropimage($h, $h, round(($w - $h)/2), 0);
+                        if ($w < $h)
+                            $picture->cropimage($w, $w, 0, round(($h - $w)/2));
 
                         $a1 = clone $picture;
                         $a1->resizeimage(24, 24, imagick::COLOR_OPACITY, 1);

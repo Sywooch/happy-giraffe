@@ -35,7 +35,7 @@ class DefaultController extends HController
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
         $this->title = 'Гороскоп на сегодня ' . $model->zodiacText();
-        $this->social_title = 'Гороскоп на ' . Yii::app()->dateFormatter->format('dd MMMM yyyy', strtotime($model->date)) .' '. $model->zodiacText();
+        $this->social_title = 'Гороскоп на сегодня ' . Yii::app()->dateFormatter->format('dd MMMM yyyy', strtotime($model->date)) .' '. $model->zodiacText();
         $this->breadcrumbs = array('Сервисы' => array('/'), 'Гороскоп' => array('index'), $this->title);
         $this->meta_title = 'Гороскоп на сегодня ' . $model->zodiacText() . ' для женщин и мужчин - Веселый Жираф';
         $this->meta_description = 'Бесплатный гороскоп ' . $model->zodiacText() . ' на сегодня для женщин и мужчин. Обновляется ежедневно!';

@@ -98,19 +98,41 @@ class TaskController extends SController
     {
         $task_id = Yii::app()->request->getPost('id');
         $task = $this->loadTask($task_id);
+        if ($task->status != SeoTask::STATUS_TAKEN && $task->status != SeoTask::STATUS_PUBLICATION)
+            Yii::app()->end();
+
 
         $url = trim(Yii::app()->request->getPost('url'));
 
-        $page_exist = Page::model()->findByAttributes(array('url'=>$url));
-        if ($page_exist !== null){
-            $page_exist->keyword_group_id = $task->keyword_group_id;
-            if ($page_exist->save()){
-                echo CJSON::encode(array('status' => true));
+        $page = Page::model()->findByAttributes(array('url' => $url));
+        if ($page !== null) {
+            $page->keyword_group_id = $task->keyword_group_id;
+
+            $article = CommunityContent::model()->findByPk($page->entity_id);
+
+            if ($article === null) {
+                echo CJSON::encode(array(
+                    'status' => false,
+                    'error' => 'Статья не найдена'
+                ));
                 Yii::app()->end();
             }
-        }
 
-        if (!empty($url)) {
+            if (!$page->save()) {
+                $errorText = '';
+                foreach ($page->getErrors() as $error) {
+                    foreach ($error as $errorPart)
+                        $errorText .= $errorPart . ' ';
+                }
+
+                echo CJSON::encode(array(
+                    'status' => false,
+                    'error' => 'Ошибка сохранения статьи',
+                    'errorText' => $errorText
+                ));
+                Yii::app()->end();
+            }
+        } elseif (!empty($url)) {
             preg_match("/([\d]+)\/$/", $url, $match);
             if (!isset($match[1])) {
                 echo CJSON::encode(array(
@@ -152,15 +174,6 @@ class TaskController extends SController
                 ));
                 Yii::app()->end();
             }
-
-            $task->article_id = $page->id;
-            if (empty($task->article_title))
-                $task->article_title = $article->title;
-
-            if ($task->status != SeoTask::STATUS_TAKEN && $task->status != SeoTask::STATUS_PUBLICATION)
-                Yii::app()->end();
-
-            $task->status = SeoTask::STATUS_PUBLISHED;
         } else {
             if ($task->type == SeoTask::TYPE_EDITOR)
                 $task->status = SeoTask::STATUS_WRITTEN;
@@ -172,6 +185,14 @@ class TaskController extends SController
                 Yii::app()->end();
             }
         }
+
+        if (isset($article)) {
+            $task->article_id = $page->id;
+            if (empty($task->article_title))
+                $task->article_title = $article->title;
+        }
+
+        $task->status = SeoTask::STATUS_PUBLISHED;
 
         echo CJSON::encode(array('status' => $task->save()));
     }

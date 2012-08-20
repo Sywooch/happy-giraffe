@@ -56,7 +56,12 @@ class StatController extends SController
             $days = round((strtotime($last_date) - strtotime($date)) / 86400) + 1;
 
         $period = $this->getPeriod($last_date, $days);
-        $this->render('users_stats', compact('last_date', 'date', 'days', 'period'));
+        if ($days == 1){
+            $users = $this->getUsers($last_date);
+            $this->render('users_detail_stats', compact('last_date', 'date', 'period', 'users'));
+        }else{
+            $this->render('users_stats', compact('last_date', 'date', 'days', 'period'));
+        }
     }
 
     public function actionGroups($date = null, $last_date = null)
@@ -108,5 +113,45 @@ class StatController extends SController
             ->from('auth__assignments')
             ->where('itemname = "moderator"')
             ->queryColumn();
+    }
+
+    public function getUsers($date)
+    {
+        $a1 = Yii::app()->db->createCommand()
+            ->select('author_id')
+            ->from('community__contents as t')
+            ->where('t.created >= "'.$date.' 00:00:00" AND t.created <= "'.$date.' 23:59:59" AND users.group=0')
+            ->join('users', 't.author_id=users.id')
+            ->queryColumn();
+
+        $a2 = Yii::app()->db->createCommand()
+            ->select('author_id')
+            ->from('comments as t')
+            ->where('t.created >= "'.$date.' 00:00:00" AND t.created <= "'.$date.' 23:59:59" AND users.group=0')
+            ->join('users', 't.author_id=users.id')
+            ->queryColumn();
+
+        $a3 = Yii::app()->db->createCommand()
+            ->select('author_id')
+            ->from('cook__recipes as t')
+            ->where('t.created >= "'.$date.' 00:00:00" AND t.created <= "'.$date.' 23:59:59" AND users.group=0')
+            ->join('users', 't.author_id=users.id')
+            ->queryColumn();
+
+        $a4 = Yii::app()->db->createCommand()
+            ->select('author_id')
+            ->from('album__photos as t')
+            ->where('t.created >= "'.$date.' 00:00:00" AND t.created <= "'.$date.' 23:59:59" AND users.group=0')
+            ->join('users', 't.author_id=users.id')
+            ->queryColumn();
+
+        $a5 = Yii::app()->db->createCommand()
+            ->select('user_id')
+            ->from('im__messages as t')
+            ->where('t.created >= "'.$date.' 00:00:00" AND t.created <= "'.$date.' 23:59:59" AND users.group=0')
+            ->join('users', 't.user_id=users.id')
+            ->queryColumn();
+
+        return array_unique(array_merge($a1, $a2, $a3, $a4, $a5));
     }
 }

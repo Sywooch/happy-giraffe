@@ -199,6 +199,11 @@ class UserStats
         return ($fromCount + $toCount);
     }
 
+    /*************** GET USERS WRITERS ******************/
+    public function postWriters()
+    {
+
+    }
 
     /*************** GLOBAL ******************/
     /**

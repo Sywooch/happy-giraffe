@@ -201,5 +201,39 @@ class SeoCommand extends CConsoleCommand
     {
         ProxyRefresher::execute();
     }
+
+    public function actionAddToParsing()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->limit = 1000;
+
+        $i = 0;
+        $visits = array(1);
+        while (!empty($visits)) {
+            $criteria->offset = 1000 * $i;
+
+            $visits = SiteKeywordVisit::model()->findAll($criteria);
+            foreach ($visits as $visit) {
+                $parsed = ParsedKeywords::model()->find('keyword_id =' . $visit->keyword_id);
+                if ($parsed !== null && empty($parsed->depth))
+                    continue;
+
+                $model = ParsingKeyword::model()->find('keyword_id =' . $visit->keyword_id);
+                if ($model === null) {
+                    $parse = new ParsingKeyword();
+                    $parse->keyword_id = $visit->keyword_id;
+                    $parse->priority = 4;
+                    if (!$parse->save()) {
+                        var_dump($parse->getErrors());
+                        Yii::app()->end();
+                    }
+                } else {
+                    $model->priority = 4;
+                    $model->save();
+                }
+            }
+            $i++;
+        }
+    }
 }
 

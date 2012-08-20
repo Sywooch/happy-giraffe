@@ -4,6 +4,7 @@ class DefaultController extends HController
 {
     public $layout = 'horoscope';
     public $title;
+    public $social_title;
 
     public function filters()
     {
@@ -34,6 +35,7 @@ class DefaultController extends HController
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
         $this->title = 'Гороскоп на сегодня ' . $model->zodiacText();
+        $this->social_title = 'Гороскоп на сегодня ' . Yii::app()->dateFormatter->format('dd MMMM yyyy', strtotime($model->date)) .' '. $model->zodiacText();
         $this->breadcrumbs = array('Сервисы' => array('/'), 'Гороскоп' => array('index'), $this->title);
         $this->meta_title = 'Гороскоп на сегодня ' . $model->zodiacText() . ' для женщин и мужчин - Веселый Жираф';
         $this->meta_description = 'Бесплатный гороскоп ' . $model->zodiacText() . ' на сегодня для женщин и мужчин. Обновляется ежедневно!';
@@ -52,6 +54,7 @@ class DefaultController extends HController
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
         $this->title = 'Гороскоп на вчера ' . $model->zodiacText();
+        $this->social_title = 'Гороскоп на ' . Yii::app()->dateFormatter->format('dd MMMM yyyy', strtotime($model->date)) .' '. $model->zodiacText();
         $this->breadcrumbs = array('Сервисы' => array('/'), 'Гороскоп' => array('index'), $this->title);
         $this->meta_title = 'Гороскоп на вчера ' . $model->zodiacText() . ' для мужчин и женщин - Веселый Жираф';
         $this->meta_description = 'Бесплатный гороскоп ' . $model->zodiacText() . ' на вчера для женщин и мужчин. Познай судьбу!';
@@ -70,6 +73,7 @@ class DefaultController extends HController
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
         $this->title = 'Гороскоп на завтра ' . $model->zodiacText();
+        $this->social_title = 'Гороскоп на ' . Yii::app()->dateFormatter->format('dd MMMM yyyy', strtotime($model->date)) .' '. $model->zodiacText();
         $this->breadcrumbs = array('Сервисы' => array('/'), 'Гороскоп' => array('index'), $this->title);
         $this->meta_title = 'Гороскоп на завтра ' . $model->zodiacText() . ' для мужчин и женщин - Веселый Жираф';
         $this->meta_description = 'Бесплатный гороскоп ' . $model->zodiacText() . ' на завтра для женщин и мужчин. Обновляется ежедневно!';
@@ -86,11 +90,11 @@ class DefaultController extends HController
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
         $this->title = 'Гороскоп ' . $model->zodiacText() . ' на месяц';
+        $this->social_title = 'Гороскоп ' . $model->zodiacText() . ' на '.HDate::ruMonth(date('n'));
         $this->breadcrumbs = array('Сервисы' => array('/'), 'Гороскоп' => array('index'), $this->title);
         $this->meta_title = 'Гороскоп на каждый месяц ' . $model->zodiacText() . ' - Веселый Жираф';
         $this->meta_description = 'Бесплатный гороскоп на месяц ' . $model->zodiacText() . ' для женщин и мужчин. Обновляется ежемесячно!';
         $this->meta_keywords = 'Гороскоп на месяц ' . $model->zodiacText() . ', ежемесячный гороскоп ' . $model->zodiacText();
-
 
         $this->render('date', compact('model'));
     }
@@ -103,6 +107,7 @@ class DefaultController extends HController
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
         $this->title = 'Гороскоп ' . $model->zodiacText() . ' на ' . date('Y') . ' год';
+        $this->social_title = $this->title;
         $this->breadcrumbs = array('Сервисы' => array('/'), 'Гороскоп' => array('index'), $this->title);
         $this->meta_title = 'Гороскоп ' . $model->zodiacText() . ' на ' . date('Y') . ' год для женщин и мужчин – Веселый Жираф';
         $this->meta_description = 'Бесплатный гороскоп ' . $model->zodiacText() . ' на ' . date('Y') . ' на завтра для женщин и мужчин. Познай свою судьбу!';

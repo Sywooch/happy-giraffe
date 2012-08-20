@@ -16,7 +16,8 @@ return array(
     'import' => array(
         'site.common.components.*',
         'site.common.models.*',
-        'site.common.helpers.*'
+        'site.common.helpers.*',
+        'site.frontend.extensions.ESaveRelatedBehavior'
     ),
     'components' => array(
         'comet'=>array(

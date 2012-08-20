@@ -14,12 +14,11 @@
         <title><?=CHtml::encode($this->pageTitle)?></title>
     <?php endif;
 
-    $release_id = 332;
+    $release_id = 334;
     $cs = Yii::app()->clientScript;
     $cs
         ->registerPackage('comet')
         ->registerScript('Realplexor-reg', 'comet.connect(\'http://' . Yii::app()->comet->host . '\', \'' . Yii::app()->comet->namespace . '\', \'' . UserCache::GetCurrentUserCache() . '\');')
-
         ->registerCssFile('/stylesheets/common.css?'.$release_id)
         ->registerCssFile('/stylesheets/global.css?'.$release_id)
         ->registerCssFile('/stylesheets/ie.css', 'screen')

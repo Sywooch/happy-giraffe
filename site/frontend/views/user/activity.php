@@ -20,7 +20,7 @@
                 <div class="d"><?=Yii::app()->dateFormatter->format("dd", $this->user->register_date)?></div>
                 <div class="m"><?=Yii::app()->dateFormatter->format("MMM", $this->user->register_date)?></div>
             </div>
-            <span>Присоединился к «Весёлому Жирафу»</span>
+            <span><?=($this->user->gender == 0)?'Присоединилась':'Присоединился' ?> к «Весёлому Жирафу»</span>
         </div>
 
     <?php else: ?>

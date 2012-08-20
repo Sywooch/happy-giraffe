@@ -25,7 +25,7 @@ return array(
         '/' => 'site/index',
         'js_dynamics/<hash:\w+>.js' => 'site/seoHide',
         'search' => 'site/search',
-        'site/<_a:(confirmEmail|resendConfirmEmail|passwordRecovery|passwordRecoveryForm|login|logout|link|test|users)>' => 'site/<_a>',
+        'site/<_a:(confirmEmail|resendConfirmEmail|passwordRecovery|passwordRecoveryForm|login|logout|link|test2|users)>' => 'site/<_a>',
         'contest' => 'site/contest',
 
         // ajax controller

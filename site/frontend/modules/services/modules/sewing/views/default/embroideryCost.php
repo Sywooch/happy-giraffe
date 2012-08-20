@@ -1,5 +1,5 @@
 <?php
-/* @var $this Controller
+/* @var $this HController
  * @var $form CActiveForm
  */
 
@@ -109,7 +109,7 @@ $model = new EmbroideryCostForm();
                 <span class="units">Размер канвы в схеме:</span>
 
                 <?php echo $form->dropDownList($model, 'canva', array('1' => '7','2' => '11','3' => '14','5' => '16',
-                '10' => '18','15' => '20','20' => '22','25' => '25'), array('class'=>'chzn','empty'=>'-', 'disabled'=>'disabled')) ?>
+                '10' => '18','15' => '20','20' => '22','25' => '25'), array('class'=>'chzn','empty'=>'-', 'disabled'=>'disabled', 'style'=>'width:65px;')) ?>
                 <?php echo $form->error($model, 'canva'); ?>
 
                 <div class="clear"></div>

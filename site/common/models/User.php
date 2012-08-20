@@ -1008,6 +1008,6 @@ class User extends HActiveRecord
 
     public function UpdateUser($id)
     {
-        Yii::app()->db->createCommand()->update($this->tableName(), array('updated' => date("Y-m-d H:i:s")), 'id='.$id)->execute();
+        Yii::app()->db->createCommand()->update($this->tableName(), array('updated' => date("Y-m-d H:i:s")), 'id='.$id);
     }
 }

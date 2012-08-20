@@ -203,6 +203,7 @@ a.info {display:inline-block;width:13px;height:13px;background:url(../images/com
 .user-fast-nav > ul > li {float:left;padding-left:5px;margin-left:5px;border-left:1px solid #a4cce8;}
 .user-fast-nav > ul > li:first-child {border-left:0;margin-left:0;padding-left:0;}
 .user-fast-nav .drp-list {font-size:11px;}
+#user .details .user-fast-nav {margin-left: -75px;}
 
 .user-info-big {margin-bottom:25px;}
 .user-info-big .ava, .user-info-big .details {margin-bottom:10px;}

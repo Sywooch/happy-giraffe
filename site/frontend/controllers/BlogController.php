@@ -186,7 +186,6 @@ class BlogController extends HController
         $this->render('view', array(
             'data' => $content,
         ));
-        //
     }
 
     public function actionEmpty()

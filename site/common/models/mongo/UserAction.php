@@ -32,6 +32,7 @@ class UserAction extends EMongoDocument
 
     public $user_id;
     public $updated;
+    public $created;
     public $type;
     public $data;
     public $blockData = null;
@@ -44,6 +45,14 @@ class UserAction extends EMongoDocument
     public function getCollectionName()
     {
         return 'user_actions';
+    }
+
+    public function beforeSave()
+    {
+        if ($this->isNewRecord)
+            $this->created = time();
+
+        return parent::beforeSave();
     }
 
     public function add($user_id, $type, $params = array(), $blockData = null)
@@ -132,10 +141,10 @@ class UserAction extends EMongoDocument
         $criteria->user_id = (int) $user_id;
         if ($blockData !== null)
             $criteria->blockData = $blockData;
-        $criteria->sort('created', EMongoCriteria::SORT_DESC);
+        $criteria->sort('updated', EMongoCriteria::SORT_DESC);
+        $criteria->created('>=', strtotime(date("Y-m-d").'00:00:00'));
 
         $stack = self::model()->find($criteria);
-
         if ($stack === null)
             return null;
 
@@ -144,7 +153,7 @@ class UserAction extends EMongoDocument
                 $result = (time() - $stack->updated < 60) && HDate::isSameDate($stack->updated, time());
                 break;
             default:
-                $result = HDate::isSameDate($stack->updated, time());
+                $result = HDate::isSameDate($stack->created, time());
         }
 
         return $result ? $stack : null;

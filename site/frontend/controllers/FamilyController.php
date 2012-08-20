@@ -58,6 +58,10 @@ class FamilyController extends HController
         $sex = Yii::app()->request->getPost('sex');
         $type = Yii::app()->request->getPost('type');
 
+        $count = Baby::model()->count('parent_id='.Yii::app()->user->id);
+        if ($count > 5)
+            Yii::app()->end();
+
         if ($type == 1 || $type == 2) {
             $model = new Baby();
             $model->sex = $sex;

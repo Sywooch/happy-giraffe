@@ -12,12 +12,22 @@ class DefaultController extends SController
             SeoUserAttributes::setAttribute(Yii::app()->user->id, 'last_competitor_site_id', $site_id);
 
         $sites = Site::model()->findAll();
-        foreach ($sites as $site)
-            $this->fast_nav [] = array(
+        $nav = array();
+        foreach ($sites as $site){
+            $nav [] = array(
                 'label' => $site->name,
                 'url' => $this->createUrl('default/index', array('site_id' => $site->id)),
                 'active' => $site_id == $site->id
             );
+
+            if (count($nav) == 6){
+                $this->fast_nav [] = $nav;
+                $nav = array();
+            }
+        }
+
+        if (!empty($nav))
+            $this->fast_nav [] = $nav;
 
         $model = new SiteKeywordVisit;
         $model->attributes = $_GET;

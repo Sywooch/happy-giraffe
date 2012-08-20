@@ -12,6 +12,11 @@
         'description',
         'url',
         array(
+            'name' => 'photo_id',
+            'value' => '$data->getImage()',
+            'type' => 'raw'
+        ),
+        array(
             'class' => 'CButtonColumn',
             'template' => '{update}{delete}'
         ),

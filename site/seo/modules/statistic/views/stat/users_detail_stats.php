@@ -2,7 +2,7 @@
 /**
  * @var $last_date string
  * @var $date string
- * @var $user_id int
+ * @var $users array
  */
 ?>
 <div class="seo-table">
@@ -35,14 +35,14 @@
             </thead>
             <tbody>
             <?php
-            foreach($moderators as $moderator){
+            foreach($users as $user){
                 echo '<tr>';
                 $stats = new UserStats;
                 $stats->date = $last_date;
                 $stats->date2 = $date;
-                $stats->user_id = $moderator;
+                $stats->user_id = $user;
 
-                echo '<td><a href="'.$this->createUrl('/statistic/stat/moderators/', array('user_id'=>$moderator)).'">'.User::getUserById($moderator)->fullName.'</a></td>';
+                echo '<td><a href="http://www.happy-giraffe.ru/user/'.$user.'/" target="_blank">'.User::getUserById($user)->fullName.'</a></td>';
                 $this->renderPartial('_table_row',compact('stats'));
 
                 echo '</tr>';

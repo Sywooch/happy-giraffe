@@ -91,7 +91,7 @@ class StatController extends SController
 
     public function getPeriod($date, $days)
     {
-        if ($date !== date("Y-m-d")) {
+        if ($date != date("Y-m-d")) {
             if ($date == date("Y-m-d", strtotime('-1 day')) && $days == 1)
                 return 'yesterday';
             return 'manual';
@@ -100,7 +100,7 @@ class StatController extends SController
             return 'today';
         if ($days == 7)
             return 'week';
-        if ($days > 28 && $days < 32)
+        if ($days >= 29 && $days <= 32)
             return 'month';
 
         return 'manual';

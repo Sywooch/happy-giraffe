@@ -7,7 +7,7 @@ var Test = {
     Start:function () {
         Test.Init();
         $('.step:visible').fadeOut(300, function () {
-            $('.step.q:first .q-number span').text(Test.step);
+            $('.step.q:first .q-number span').text(Test.step+1);
             $('.step.q:first').fadeIn(300);
         });
     },
@@ -19,7 +19,7 @@ var Test = {
         var resultPoints = parseInt(input.attr('data-points'));
         if (nextId > 0) {
             $('.step:visible').fadeOut(300, function () {
-                $('.step.q[data-id="' + nextId + '"] .q-number span').text(Test.step);
+                $('.step.q[data-id="' + nextId + '"] .q-number span').text(Test.step+1);
                 $('.step.q[data-id="' + nextId + '"]').fadeIn(300);
             });
         }

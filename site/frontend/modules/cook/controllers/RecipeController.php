@@ -60,8 +60,9 @@ class RecipeController extends HController
             $recipe = new $this->modelName;
             $ingredients = array();
         } else {
+            //убрал так как появились рецепты без ингридиентов
 //            $recipe = CActiveRecord::model($this->modelName)->with('ingredients.unit', 'ingredients.ingredient.availableUnits')->findByPk($id);
-            $recipe = CActiveRecord::model($this->modelName)->findByPk($id);
+            $recipe = CActiveRecord::model($this->modelName)->with('ingredients')->findByPk($id);
             if ($recipe === null)
                 throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 

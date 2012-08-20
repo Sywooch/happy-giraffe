@@ -108,4 +108,10 @@ class SiteController extends SController
     public function actionModules(){
         $this->render('modules');
     }
+
+    public function actionTest(){
+//        $url = 'http://www.happy-giraffe.ru/cook/multivarka/14899/';
+//        preg_match("/http:\/\/www.happy-giraffe.ru\/cook\/multivarka\/([\d]+)\/$/", $url, $match);
+//        var_dump($match);
+    }
 }

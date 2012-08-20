@@ -44,3 +44,49 @@
     <?php $this->endWidget(); ?>
 
 </div><!-- form -->
+
+<?php if (!$model->isNewRecord) { ?>
+<div>
+    <h1>Фотография</h1>
+    <table width="100%" style="margin: 30px 0;">
+        <tr>
+            <td>Выберите фото</td>
+            <td>
+                <div id="photo-upload-block">
+                    <img src="<?php if (!empty($model->photo_id)) echo $model->photo->getPreviewUrl() ?>" alt="">
+                    <?php $form = $this->beginWidget('CActiveForm', array(
+                    'id' => 'photo_upload',
+                    'action' => $this->createUrl('addPhoto'),
+                    'htmlOptions' => array(
+                        'enctype' => 'multipart/form-data',
+                    ),
+                )); ?>
+                    <?php echo CHtml::hiddenField('id', $model->id); ?>
+                    <?php echo CHtml::fileField('photo', '', array('class' => 'photo-file')); ?>
+                    <?php $this->endWidget(); ?>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+<?php } ?>
+
+<script type="text/javascript">
+    $(function () {
+
+        $('#photo_upload').iframePostForm({
+            json:true,
+            complete:function (response) {
+                if (response.status) {
+                    $('#photo-upload-block img').attr('src', response.image);
+                }
+            }
+        });
+
+        $('#photo_upload input').change(function () {
+            $(this).parents('form').submit();
+            return false;
+        });
+
+    })
+</script>

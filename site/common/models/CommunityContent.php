@@ -552,13 +552,13 @@ class CommunityContent extends HActiveRecord
                 }
                 break;
             case 2:
-                $value = Yii::app()->cache->get('video-preview-' . CHtml::encode($this->video->link));
-                if ($value === false) {
+//                $value = Yii::app()->cache->get('video-preview-' . CHtml::encode($this->video->link));
+//                if ($value === false) {
                     $video = new Video($this->video->link);
 
                     $value = '<img src="' . $video->preview . '" alt="' . $video->title . '" />';
-                    Yii::app()->cache->set('video-preview-' . CHtml::encode($this->video->link) . 3600, $value);
-                }
+//                    Yii::app()->cache->set('video-preview-' . CHtml::encode($this->video->link) . 3600, $value);
+//                }
                 return $value;
                 break;
             default:

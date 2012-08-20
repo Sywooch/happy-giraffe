@@ -6,6 +6,7 @@
 
 Yii::import('site.seo.models.*');
 Yii::import('site.seo.models.mongo.*');
+Yii::import('site.common.models.mongo.*');
 Yii::import('site.seo.components.*');
 Yii::import('site.seo.modules.competitors.models.*');
 Yii::import('site.seo.modules.writing.models.*');

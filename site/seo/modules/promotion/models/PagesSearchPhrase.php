@@ -175,7 +175,7 @@ class PagesSearchPhrase extends HActiveRecord
             return '';
 
         if (count($se_positions) == 1)
-            return $this->getPosition($se);
+            return $this->showPosition($this->getPosition($se));
 
         $last = $se_positions[0];
         $prev = $se_positions[1];
@@ -189,13 +189,21 @@ class PagesSearchPhrase extends HActiveRecord
         }
 
         if ($last->position < $prev->position){
-            return $last->position.' <i class="icon-up"></i> '.'<a onmouseover="SeoLinking.showPositions(this, '.$se.', '.$this->id.')" href="javascript:;">'.$prev->position.'</a>';
+            return $this->showPosition($last->position).' <i class="icon-up"></i> '.'<a onmouseover="SeoLinking.showPositions(this, '.$se.', '.$this->id.')" href="javascript:;">'.$prev->position.'</a>';
         }
         if ($last->position > $prev->position){
-            return $last->position.' <i class="icon-down"></i> '.'<a onmouseover="SeoLinking.showPositions(this, '.$se.', '.$this->id.')" href="javascript:;">'.$prev->position.'</a>';
+            return $this->showPosition($last->position).' <i class="icon-down"></i> '.'<a onmouseover="SeoLinking.showPositions(this, '.$se.', '.$this->id.')" href="javascript:;">'.$prev->position.'</a>';
         }
 
-        return $last->position;
+        return $this->showPosition($last->position);
+    }
+
+    public function showPosition($position)
+    {
+        if ($position >= 1000)
+            return '> 100';
+
+        return $position;
     }
 
     /**

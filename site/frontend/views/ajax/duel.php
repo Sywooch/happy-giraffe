@@ -36,7 +36,7 @@
             )); ?>
                 <?=$form->hiddenField($answer, 'question_id')?>
 
-                <label>Введите в форму Ваш вариант ответа</label>
+                <label>Введите в форму ваш вариант ответа</label>
 
                 <?=$form->textArea($answer, 'text', array('class' => 'cap', 'onfocus' => 'if ($(this).hasClass("cap")) $(this).removeClass("cap").val("");'))?>
 

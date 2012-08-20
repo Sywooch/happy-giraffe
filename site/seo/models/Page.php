@@ -208,7 +208,7 @@ class Page extends CActiveRecord
                     if (isset($match[1])) {
                         $entity_id = $match[1];
                         $entity = 'MultivarkaRecipe';
-                    }else {
+                    } else {
                         preg_match("/http:\/\/www.happy-giraffe.ru\/cook\/recipe\/([\d]+)\/$/", $url, $match);
                         if (isset($match[1])) {
                             $entity_id = $match[1];
@@ -218,7 +218,7 @@ class Page extends CActiveRecord
                 }
             }
 
-            if (isset($entity) && isset($entity_id)){
+            if (isset($entity) && isset($entity_id)) {
                 $article = CActiveRecord::model($entity)->findByPk($entity_id);
                 if ($article !== null) {
                     $exist = Page::model()->findByAttributes(array(
@@ -237,7 +237,7 @@ class Page extends CActiveRecord
                 } else {
                     return null;
                 }
-            }else{
+            } else {
                 $model->keyword_group_id = $keyword_group->id;
                 $model->save();
             }
@@ -294,5 +294,44 @@ class Page extends CActiveRecord
         }
 
         return 0;
+    }
+
+    public static function ParseUrl($url)
+    {
+        preg_match("/http:\/\/www.happy-giraffe.ru\/community\/[\d]+\/forum\/(post|video)\/([\d]+)\/$/", $url, $match);
+        if (isset($match[2])) {
+            $entity_id = $match[2];
+            $entity = 'CommunityContent';
+        } else {
+            //check services
+            $service = Service::model()->findByAttributes(array('url' => $url));
+            if ($service !== null) {
+                $entity_id = $service->id;
+                $entity = 'Service';
+            } else {
+                preg_match("/http:\/\/www.happy-giraffe.ru\/user\/[\d]+\/blog\/post([\d]+)\/$/", $url, $match);
+                if (isset($match[1])) {
+                    $entity_id = $match[1];
+                    $entity = 'BlogContent';
+                } else {
+                    preg_match("/http:\/\/www.happy-giraffe.ru\/cook\/multivarka\/([\d]+)\/$/", $url, $match);
+                    if (isset($match[1])) {
+                        $entity_id = $match[1];
+                        $entity = 'MultivarkaRecipe';
+                    } else {
+                        preg_match("/http:\/\/www.happy-giraffe.ru\/cook\/recipe\/([\d]+)\/$/", $url, $match);
+                        if (isset($match[1])) {
+                            $entity_id = $match[1];
+                            $entity = 'CookRecipe';
+                        }
+                    }
+                }
+            }
+        }
+
+        if (isset($entity) && isset($entity_id))
+            return array($entity, $entity_id);
+
+        return array(null, null);
     }
 }

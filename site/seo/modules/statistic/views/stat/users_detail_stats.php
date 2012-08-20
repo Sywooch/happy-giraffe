@@ -42,7 +42,7 @@
                 $stats->date2 = $date;
                 $stats->user_id = $user;
 
-                echo '<td><a href="'.$this->createUrl('/statistic/stat/moderators/', array('user_id'=>$user)).'">'.User::getUserById($user)->fullName.'</a></td>';
+                echo '<td><a href="http://www.happy-giraffe.ru/user/'.$user.'/">'.User::getUserById($user)->fullName.'</a></td>';
                 $this->renderPartial('_table_row',compact('stats'));
 
                 echo '</tr>';

@@ -194,31 +194,9 @@ class Page extends CActiveRecord
             $model = new Page();
             $model->url = $url;
 
-            preg_match("/http:\/\/www.happy-giraffe.ru\/community\/[\d]+\/forum\/(post|video)\/([\d]+)\/$/", $url, $match);
-            if (isset($match[2])) {
-                $entity_id = $match[2];
-                $entity = 'CommunityContent';
-            } else {
-                preg_match("/http:\/\/www.happy-giraffe.ru\/user\/[\d]+\/blog\/post([\d]+)\/$/", $url, $match);
-                if (isset($match[1])) {
-                    $entity_id = $match[1];
-                    $entity = 'BlogContent';
-                } else {
-                    preg_match("/http:\/\/www.happy-giraffe.ru\/cook\/multivarka\/([\d]+)\/$/", $url, $match);
-                    if (isset($match[1])) {
-                        $entity_id = $match[1];
-                        $entity = 'MultivarkaRecipe';
-                    } else {
-                        preg_match("/http:\/\/www.happy-giraffe.ru\/cook\/recipe\/([\d]+)\/$/", $url, $match);
-                        if (isset($match[1])) {
-                            $entity_id = $match[1];
-                            $entity = 'CookRecipe';
-                        }
-                    }
-                }
-            }
+            list($entity, $entity_id) = Page::ParseUrl($url);
 
-            if (isset($entity) && isset($entity_id)) {
+            if ($entity != null && $entity_id != null) {
                 $article = CActiveRecord::model($entity)->findByPk($entity_id);
                 if ($article !== null) {
                     $exist = Page::model()->findByAttributes(array(

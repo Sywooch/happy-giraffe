@@ -58,12 +58,11 @@ class PagesSearchPhrase extends HActiveRecord
      */
     public function relations()
     {
-        // NOTE: you may need to adjust the relation name and the related
-        // class name for the relations automatically generated below.
         return array(
             'keyword' => array(self::BELONGS_TO, 'Keyword', 'keyword_id'),
             'page' => array(self::BELONGS_TO, 'Page', 'page_id'),
             'positions' => array(self::HAS_MANY, 'SearchPhrasePosition', 'search_phrase_id', 'order' => 'date desc'),
+            'lastPosition' => array(self::HAS_ONE, 'SearchPhrasePosition', 'search_phrase_id', 'order' => 'lastPosition.date desc'),
             'visits' => array(self::HAS_MANY, 'SearchPhraseVisit', 'search_phrase_id'),
         );
     }

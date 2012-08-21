@@ -84,8 +84,8 @@ return array(
             'useCursor' => false
         ),
         'cache' => array(
-            'class' => 'CFileCache',
-//            'class' => 'CDummyCache',
+//            'class' => 'CFileCache',
+            'class' => 'CDummyCache',
         ),
 //        'log' => array(
 //            'class' => 'CLogRouter',

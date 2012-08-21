@@ -11,8 +11,8 @@ class HHtml extends CHtml
             $url = self::normalizeUrl($url);
             if ($seoHide && !Yii::app()->request->isAjaxRequest && $url != '#') {
                 $hashString = md5($url);
-                $htmlOptions['hashString'] = $hashString;
-                $htmlOptions['hashType'] = 'href';
+                $htmlOptions['data-key'] = $hashString;
+                $htmlOptions['data-type'] = 'href';
                 Yii::app()->controller->seoHrefs[$hashString] = base64_encode($url);
             } else {
                 $htmlOptions['href'] = $url;

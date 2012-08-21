@@ -1,6 +1,3 @@
-[submodule "site/common/extensions/wr"]
-	path = site/common/extensions/wr
-	url = git://github.com/yiiext/with-related-behavior.git
 [submodule "site/frontend/extensions/yiinfinite-scroll"]
 	path = site/frontend/extensions/yiinfinite-scroll
 	url = https://github.com/davialexandre/yiinfinite-scroll

@@ -86,4 +86,19 @@ class QueriesController extends SController
 
         echo CJSON::encode($response);
     }
+
+    public function getDates($period)
+    {
+        $week_day = date('N');
+        if ($period == 1) {
+            $i = 1;
+        } else {
+            $i = 4;
+
+        }
+        $time1 = strtotime('-' . (7 * $i + $week_day - 1) . ' days', time());
+        $time2 = strtotime('-' . ($week_day) . ' days', time());
+        return Yii::app()->dateFormatter->format('d MMMM', $time1) . ' - '
+            . Yii::app()->dateFormatter->format('d MMMM', $time2);
+    }
 }

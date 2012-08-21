@@ -15,7 +15,7 @@ class CommunityArticlesWidget extends CWidget
         $criteria->compare('rubric.community_id', $this->community_id);
         $criteria->select = array('t.id');
         $criteria->with = array('rubric');
-        $count = CommunityContent::model()->count($criteria);
+        $count = ($this->community_id == 22) ? SimpleRecipe::model()->count() : CommunityContent::model()->count($criteria);
 
         $criteria->limit = 2;
         $criteria->with = array('rubric' => array(

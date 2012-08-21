@@ -42,8 +42,10 @@ class QueriesController extends SController
         Yii::import('site.frontend.modules.cook.models.*');
         $criteria = new CDbCriteria;
 
-        if (!empty($mode))
+        if (!empty($mode)){
             $criteria->with = array('phrases', 'phrases.keyword', 'phrases.keyword.yandex', 'phrases.lastPosition');
+            $criteria->together = true;
+        }
         else
             $criteria->with = array('phrases');
 

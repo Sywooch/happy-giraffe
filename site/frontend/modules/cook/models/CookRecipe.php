@@ -294,7 +294,8 @@ class CookRecipe extends CActiveRecord
 
     protected function afterSave()
     {
-        UserAction::model()->add($this->author_id, UserAction::USER_ACTION_RECIPE_ADDED, array('model' => $this));
+        if ($this->isNewRecord)
+            UserAction::model()->add($this->author_id, UserAction::USER_ACTION_RECIPE_ADDED, array('model' => $this));
 
         parent::afterSave();
     }

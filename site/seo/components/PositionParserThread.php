@@ -77,6 +77,7 @@ class PositionParserThread extends ProxyParserThread
 
     public function parsePage()
     {
+        $found = false;
         for ($i = 0; $i < $this->pages; $i++) {
             $links = array();
             while (empty($links)) {
@@ -93,7 +94,6 @@ class PositionParserThread extends ProxyParserThread
             }
             $this->success_loads++;
 
-            $found = false;
             foreach ($links as $key => $link) {
                 if ($this->startsWith($link, 'http://www.happy-giraffe.ru/')) {
                     $this->savePosition($link, $this->perPage() * $i + $key + 1);
@@ -103,6 +103,25 @@ class PositionParserThread extends ProxyParserThread
 
             if ($found)
                 break;
+        }
+
+        if (!$found){
+            $this->notFound();
+        }
+    }
+
+    public function notFound()
+    {
+        //save 1000 position
+        $search_phrases = PagesSearchPhrase::model()->findAllByAttributes(array(
+            'keyword_id' => $this->query->keyword->id
+        ));
+        foreach($search_phrases as $search_phrase){
+            $search_phrase_position = new SearchPhrasePosition();
+            $search_phrase_position->se_id = $this->se;
+            $search_phrase_position->search_phrase_id = $search_phrase->id;
+            $search_phrase_position->position = 1000;
+            $search_phrase_position->save();
         }
     }
 

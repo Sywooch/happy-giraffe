@@ -260,7 +260,9 @@ if (Yii::app()->controller->registerUserData !== null) {
 
     <div class="green">Ура, вы с нами!</div>
 
-    <div class="ava"<?php if (!isset($regdata['avatar'])) echo ' style="display:none;"' ?>></div>
+    <div class="ava"<?php if (!isset($regdata['avatar'])) echo ' style="display:none;"' ?>>
+        <?php if (isset($regdata['photo'])) echo CHtml::image($regdata['photo'], 'Это Вы') ?>
+    </div>
 
     <div class="preparing"><?=$this->template[$type]['step3']['title1'] ?><span><span
         id="reg_timer">3</span> сек.</span></div>

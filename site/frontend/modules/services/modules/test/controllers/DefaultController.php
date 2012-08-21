@@ -43,7 +43,7 @@ class DefaultController extends HController
 
         $basePath = Yii::getPathOfAlias('test') . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'assets';
         $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
-        Yii::app()->clientScript->registerScriptFile($baseUrl . "/" . $test->getTypeName() . ".js?2", CClientScript::POS_HEAD);
+        Yii::app()->clientScript->registerScriptFile($baseUrl . "/" . $test->getTypeName() . ".js?3", CClientScript::POS_HEAD);
         $this->meta_description = $test->meta_description;
 
         $this->render($test->getTypeName() . '_' . $test->slug, array(

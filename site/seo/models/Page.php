@@ -171,7 +171,7 @@ class Page extends CActiveRecord
         if (!empty($this->entity)) {
             $model = CActiveRecord::model($this->entity)->findByPk($this->entity_id);
             if ($model !== null)
-                return CHtml::link($icon ? '' : $model->title, 'http://www.happy-giraffe.ru' . $model->getUrl(), array('target' => '_blank'));
+                return CHtml::link($icon ? '' : $model->title, 'http://www.happy-giraffe.ru' . ltrim($model->url, 'http://www.happy-giraffe.ru'), array('target' => '_blank'));
         }
         return CHtml::link($this->url, $this->url, array('target' => '_blank'));
     }
@@ -194,31 +194,9 @@ class Page extends CActiveRecord
             $model = new Page();
             $model->url = $url;
 
-            preg_match("/http:\/\/www.happy-giraffe.ru\/community\/[\d]+\/forum\/(post|video)\/([\d]+)\/$/", $url, $match);
-            if (isset($match[2])) {
-                $entity_id = $match[2];
-                $entity = 'CommunityContent';
-            } else {
-                preg_match("/http:\/\/www.happy-giraffe.ru\/user\/[\d]+\/blog\/post([\d]+)\/$/", $url, $match);
-                if (isset($match[1])) {
-                    $entity_id = $match[1];
-                    $entity = 'BlogContent';
-                } else {
-                    preg_match("/http:\/\/www.happy-giraffe.ru\/cook\/multivarka\/([\d]+)\/$/", $url, $match);
-                    if (isset($match[1])) {
-                        $entity_id = $match[1];
-                        $entity = 'MultivarkaRecipe';
-                    } else {
-                        preg_match("/http:\/\/www.happy-giraffe.ru\/cook\/recipe\/([\d]+)\/$/", $url, $match);
-                        if (isset($match[1])) {
-                            $entity_id = $match[1];
-                            $entity = 'CookRecipe';
-                        }
-                    }
-                }
-            }
+            list($entity, $entity_id) = Page::ParseUrl($url);
 
-            if (isset($entity) && isset($entity_id)) {
+            if ($entity != null && $entity_id != null) {
                 $article = CActiveRecord::model($entity)->findByPk($entity_id);
                 if ($article !== null) {
                     $exist = Page::model()->findByAttributes(array(

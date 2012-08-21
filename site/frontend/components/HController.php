@@ -82,7 +82,6 @@ class HController extends CController
                     var key = $element.data("key");
                     switch($element.data("type")) {
                         case "href":
-                            alert(seoHrefs[key]);
                             $element.attr("href", Base64.decode(seoHrefs[key]));
                             break;
                         case "content":

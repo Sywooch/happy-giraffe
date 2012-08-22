@@ -25,7 +25,7 @@ class UserController extends HController
                 'users' => array('*'),
             ),
             array('allow',
-                'actions' => array('myFriendRequests', 'createRelated', 'updateMood', 'testt'),
+                'actions' => array('myFriendRequests', 'createRelated', 'updateMood', 'activityAll'),
                 'users' => array('@'),
             ),
             array('deny',
@@ -104,6 +104,50 @@ class UserController extends HController
         $this->pageTitle = $title;
         $this->layout = 'user_new';
         $this->render('activity', compact('actions', 'nextPage', 'title', 'type', 'users'));
+    }
+
+    public function actionActivityAll($page = 1)
+    {
+        $limit = 50;
+        $offset = ($page - 1) * $limit;
+
+        $criteria = new EMongoCriteria(array(
+            'conditions' => array(
+                'type' => array('in' => array(
+                    UserAction::USER_ACTION_PHOTOS_ADDED,
+                    UserAction::USER_ACTION_COMMUNITY_CONTENT_ADDED,
+                    UserAction::USER_ACTION_COMMENT_ADDED,
+                    UserAction::USER_ACTION_FAMILY_UPDATED,
+                    UserAction::USER_ACTION_CLUBS_JOINED,
+                    UserAction::USER_ACTION_BLOG_CONTENT_ADDED,
+                    UserAction::USER_ACTION_DUEL,
+                )),
+                'user_id' => array('notIn' => User::getWorkersIds()),
+            ),
+        ));
+        $title = 'Что нового у пользователей';
+
+        $total = UserAction::model()->count($criteria);
+        $nextPage = ($total > ($limit + $offset)) ? $page + 1 : false;
+
+        $criteria->limit($limit);
+        $criteria->offset($offset);
+        $criteria->sort('updated', EMongoCriteria::SORT_DESC);
+
+        $actions = UserAction::model()->findAll($criteria);
+        $this->user = Yii::app()->user->model;
+        $userIds = array();
+        foreach ($actions as $a)
+            $userIds[$a->user_id] = $a->user_id;
+        $criteria = new CDbCriteria;
+        $criteria->addInCondition('id', $userIds);
+        $criteria->index = 'id';
+        $users = User::model()->findAll($criteria);
+
+        $this->pageTitle = $title;
+        $this->layout = 'user_new';
+        $type = 'friends';
+        $this->render('//user/activity', compact('actions', 'nextPage', 'title', 'users', 'type'));
     }
 
     public function actionClubs($user_id)

@@ -70,7 +70,7 @@ return array(
         'user/<id:\d+>/albums' => 'albums/user',
         'user/<user_id:\d+>/albums/<id:\d+>' => 'albums/view',
         'user/<user_id:\d+>/albums/<album_id:\d+>/photo<id:\d+>' => 'albums/photo',
-        'user/<_a:(updateMood)>' => 'user/<_a>',
+        'user/<_a:(updateMood|activityAll)>' => 'user/<_a>',
         'user/createRelated/relation/<relation:\w+>/'=>'user/createRelated',
         'user/myFriendRequests/<direction:\w+>/'=>'user/myFriendRequests',
 

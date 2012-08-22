@@ -14,7 +14,7 @@ $basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPAR
 $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
 
 Yii::app()->clientScript->registerScript('family-edit',$js)
-    ->registerScriptFile($baseUrl. '/family.js?r=34', CClientScript::POS_HEAD);
+    ->registerScriptFile($baseUrl. '/family.js?35', CClientScript::POS_HEAD);
 
 ?>
 <div class="user-cols clearfix">

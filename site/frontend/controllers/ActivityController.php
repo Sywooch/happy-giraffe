@@ -50,34 +50,4 @@ class ActivityController extends HController
 
         $this->renderPartial('_friends', compact('friends'));
     }
-
-    public function actionUsers($page = 1)
-    {
-        $limit = 50;
-        $offset = ($page - 1) * $limit;
-
-        $criteria = new EMongoCriteria;
-        $criteria->user_id('notIn', array());
-        $title = 'Что нового у пользователей';
-
-        $total = UserAction::model()->count($criteria);
-        $nextPage = ($total > ($limit + $offset)) ? $page + 1 : false;
-
-        $criteria->limit($limit);
-        $criteria->offset($offset);
-        $criteria->sort('updated', EMongoCriteria::SORT_DESC);
-        $actions = UserAction::model()->findAll($criteria);
-
-        $userIds = array();
-        foreach ($actions as $a)
-            $userIds[$a->user_id] = $a->user_id;
-        $criteria = new CDbCriteria;
-        $criteria->addInCondition('id', $userIds);
-        $criteria->index = 'id';
-        $users = User::model()->findAll($criteria);
-
-        $this->pageTitle = $title;
-        $this->layout = 'user_new';
-        $this->render('activity', compact('actions', 'nextPage', 'title', 'type', 'users'));
-    }
 }

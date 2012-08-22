@@ -147,7 +147,8 @@ class UserController extends HController
         $this->pageTitle = $title;
         $this->layout = 'user_new';
         $type = 'friends';
-        $this->render('//user/activity', compact('actions', 'nextPage', 'title', 'users', 'type'));
+        $allActivity = true;
+        $this->render('//user/activity', compact('actions', 'nextPage', 'title', 'users', 'type', 'allActivity'));
     }
 
     public function actionClubs($user_id)

@@ -302,7 +302,7 @@ button.btn-gray-small {height:20px;}
 #seo .positions .block-title i {vertical-align:middle;position:relative;top:-1px;margin-left:3px;}
 #seo .positions ul {list-style:none;}
 #seo .positions ul li {}
-#seo .positions ul li .num {display:inline-block;font-size:11px;width:30px;text-align:right;}
+#seo .positions ul li .num {display:inline-block;font-size:11px;width:40px;text-align:right;}
 #seo .positions ul li .date {display:inline-block;font-size:9px;color:#a7a8a8;font-family:tahoma, arial, helvetica, sans-serif;width:55px;text-align:center;}
 
 #seo .donors {background:#fdf9d6;padding:15px 20px;border:1px solid #f3eca9;margin:20px 0 0 30px;float:left;width:250px;}

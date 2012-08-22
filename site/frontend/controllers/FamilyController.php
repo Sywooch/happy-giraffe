@@ -8,7 +8,7 @@
 class FamilyController extends HController
 {
     public $user;
-    public $layout = 'user';
+    public $layout = 'user_new';
 
     public function filters()
     {

@@ -434,7 +434,7 @@ var Family = {
 }
 
 $(function () {
-    $('#addPhoto1, #partner_photo_upload2').iframePostForm({
+    $('#addPhoto1, #partner_photo_upload2, #partner_photo_upload1').iframePostForm({
         json:true,
         complete:function (response) {
             if (response.status) {

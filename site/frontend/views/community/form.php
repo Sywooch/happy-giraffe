@@ -184,8 +184,7 @@ $cs
                 </div>
             </div>
 
-            <?php /*if(Yii::app()->user->model->id == '9990'): */?>
-            <?php if(Yii::app()->user->checkAccess('moderator') || Yii::app()->user->checkAccess('editor') || Yii::app()->user->checkAccess('administrator') || Yii::app()->user->checkAccess('supermoderator')): ?>
+            <?php if(Yii::app()->user->checkAccess('moderator') || Yii::app()->user->checkAccess('editor') || Yii::app()->user->checkAccess('administrator') || Yii::app()->user->checkAccess('supermoderator') || Yii::app()->user->checkAccess('virtual_user')): ?>
             <div class="row row-gallery">
                 <div class="row-title">
                     <span class="title-in">Фотогалерея</span>

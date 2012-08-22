@@ -16,7 +16,7 @@ class PageView extends EMongoDocument
     public function rules()
     {
         return array(
-            array('views, updated', 'safe'),
+            array('views_old, updated', 'safe'),
         );
     }
 

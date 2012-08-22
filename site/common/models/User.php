@@ -404,7 +404,10 @@ class User extends HActiveRecord
                 UserScores::checkProfileScores($this->id, ScoreAction::ACTION_PROFILE_FAMILY);
         }
 
-        return true;
+        if ($this->trackable->isChanged('online'))
+            $this->sendOnlineStatus();
+
+        parent::afterSave();
     }
 
     public function beforeDelete()
@@ -452,7 +455,7 @@ class User extends HActiveRecord
             ),
             'trackable' => array(
                 'class' => 'site.common.behaviors.TrackableBehavior',
-                'attributes' => array('mood_id'),
+                'attributes' => array('mood_id', 'online'),
             ),
             'CTimestampBehavior' => array(
                 'class' => 'zii.behaviors.CTimestampBehavior',
@@ -1009,5 +1012,29 @@ class User extends HActiveRecord
     public function UpdateUser($id)
     {
         Yii::app()->db->createCommand()->update($this->tableName(), array('updated' => date("Y-m-d H:i:s")), 'id='.$id);
+    }
+
+    public function sendOnlineStatus()
+    {
+        $additionalCriteria = new CDbCriteria(array(
+            'select' => 'id',
+            'index' => 'id',
+        ));
+
+        $contactsCriteria = Im::model()->getUserContactsCriteria($this->id, IM::IM_CONTACTS_ALL);
+        $contactsCriteria->mergeWith($additionalCriteria);
+        $contacts = $this->findAll($contactsCriteria);
+
+        $friendsCriteria = $this->getFriendSelectCriteria();
+        $friendsCriteria->mergeWith($additionalCriteria);
+        $friends = $this->findAll($friendsCriteria);
+
+        $users = CMap::mergeArray($contacts, $friends);
+
+        $comet = new CometModel;
+        $comet->type = CometModel::TYPE_ONLINE_STATUS_CHANGE;
+        foreach ($users as $u) {
+            $comet->send($u->id, array('online' => $this->online, 'user_id' => $this->id));
+        }
     }
 }

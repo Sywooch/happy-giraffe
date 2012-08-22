@@ -12,7 +12,7 @@ class TileController extends HController
     {
         $this->pageTitle = 'Расчет плитки для ванной комнаты';
 
-        $basePath = Yii::getPathOfAlias('repair') . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'tile' . DIRECTORY_SEPARATOR . 'assets';
+        $basePath = Yii::getPathOfAlias('repair') . DIRECTORY_SEPARATOR . 'views_old' . DIRECTORY_SEPARATOR . 'tile' . DIRECTORY_SEPARATOR . 'assets';
         $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
         Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js', CClientScript::POS_HEAD);
 

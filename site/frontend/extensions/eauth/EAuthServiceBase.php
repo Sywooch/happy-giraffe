@@ -22,7 +22,7 @@ abstract class EAuthServiceBase extends CComponent implements IAuthService {
 	
 	/**
 	 *
-	 * @var string the service title to display in views. 
+	 * @var string the service title to display in views_old.
 	 */
 	protected $title;
 	

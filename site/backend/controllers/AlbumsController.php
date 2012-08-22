@@ -224,7 +224,7 @@ class AlbumsController extends BController
         $model->attributes = $_POST;
         $model->save();
         if (Yii::app()->request->getPost('return_html')) {
-            $this->renderPartial('site.frontend.widgets.fileAttach.views._list', array(
+            $this->renderPartial('site.frontend.widgets.fileAttach.views_old._list', array(
                 'attaches' => AttachPhoto::model()->findByEntity($_POST['entity'], $_POST['entity_id']),
             ));
         }
@@ -417,7 +417,7 @@ class AlbumsController extends BController
             $title = '';
         }
 
-        $this->renderPartial('site.frontend.widgets.fileAttach.views._community_content', array(
+        $this->renderPartial('site.frontend.widgets.fileAttach.views_old._community_content', array(
             'title' => $title,
             'widget_id' => Yii::app()->request->getPost('widget_id'),
             'photo' => $photo,
@@ -470,7 +470,7 @@ class AlbumsController extends BController
             if ($image->width < 400 || $image->height < 400) {
                 echo CJSON::encode(array(
                     'status' => false,
-                    'html' => $this->renderPartial('site.frontend.widgets.fileAttach.views._upload_error', array(
+                    'html' => $this->renderPartial('site.frontend.widgets.fileAttach.views_old._upload_error', array(
                         'error' => 'Слишком маленькое изображение, минимум 400x400 пикселей',
                     ), true)
                 ));
@@ -479,7 +479,7 @@ class AlbumsController extends BController
             $title = '';
         }
 
-        $data['html'] = $this->renderPartial('site.frontend.widgets.fileAttach.views._cook_decoration', array(
+        $data['html'] = $this->renderPartial('site.frontend.widgets.fileAttach.views_old._cook_decoration', array(
             'title' => $title,
             'widget_id' => Yii::app()->request->getPost('widget_id'),
             'photo' => $photo,
@@ -545,7 +545,7 @@ class AlbumsController extends BController
 
         $params = $this->saveImage($val);
 
-        $this->renderPartial('site.frontend.widgets.fileAttach.views._crop', array(
+        $this->renderPartial('site.frontend.widgets.fileAttach.views_old._crop', array(
             'src' => $params['src'],
             'val' => $val,
             'widget_id' => Yii::app()->request->getPost('widget_id')

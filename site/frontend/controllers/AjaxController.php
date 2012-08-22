@@ -530,7 +530,7 @@ class AjaxController extends HController
         $data = array('data' => $model);
         switch ($containerClass) {
             case 'short':
-                $view = 'application.widgets.activity.views._live_entry';
+                $view = 'application.widgets.activity.views_old._live_entry';
                 break;
             case 'full':
                 $view = '//community/_post';

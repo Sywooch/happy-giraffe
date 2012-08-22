@@ -663,7 +663,7 @@ class MCAPI {
      * @return array reports the abuse reports for this campaign
      * @returnf string date date/time the abuse report was received and processed
      * @returnf string email the email address that reported abuse
-     * @returnf string type an internal type generally specifying the orginating mail provider - may not be useful outside of filling report views
+     * @returnf string type an internal type generally specifying the orginating mail provider - may not be useful outside of filling report views_old
      */
     function campaignAbuseReports($cid, $since=NULL, $start=0, $limit=500) {
         $params = array();
@@ -703,7 +703,7 @@ class MCAPI {
      * @param string $cid the campaign id to pull bounces for (can be gathered using campaigns())
      * @return array analytics we've collected for the passed campaign.
      * @returnf int visits number of visits
-     * @returnf int pages number of page views
+     * @returnf int pages number of page views_old
      * @returnf int new_visits new visits recorded
      * @returnf int bounces vistors who "bounced" from your site
      * @returnf double time_on_site the total time visitors spent on your sites
@@ -1794,7 +1794,7 @@ class MCAPI {
             string date date/time the abuse report was received and processed
             string email the email address that reported abuse
             string campaign_id the unique id for the campaign that report was made against
-            string type an internal type generally specifying the orginating mail provider - may not be useful outside of filling report views
+            string type an internal type generally specifying the orginating mail provider - may not be useful outside of filling report views_old
      */
     function listAbuseReports($id, $start=0, $limit=500, $since=NULL) {
         $params = array();

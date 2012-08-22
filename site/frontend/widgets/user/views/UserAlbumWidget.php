@@ -7,7 +7,7 @@ Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl . '/stylesheets/us
     <div class="box-title">
         <?php if(!Yii::app()->user->isGuest && $this->user->id == Yii::app()->user->id): ?>
             <?php
-                Yii::import('application.controllers.AlbumsController');
+                Yii::import('application.controllers_old.AlbumsController');
                 AlbumsController::loadUploadScritps();
                 $link = Yii::app()->createUrl('/albums/addPhoto')
             ?>

@@ -80,7 +80,7 @@ class DbProfileLogRoute extends CProfileLogRoute
 
 	/**
 	 * Renders the view.
-	 * @param string $view the view name (file name without extension). The file is assumed to be located under framework/data/views.
+	 * @param string $view the view name (file name without extension). The file is assumed to be located under framework/data/views_old.
 	 * @param array $data data to be passed to the view
 	 */
 	protected function render($view,$data)
@@ -100,7 +100,7 @@ class DbProfileLogRoute extends CProfileLogRoute
 		else if(!($app instanceof CWebApplication) || $isAjax)
 			return;
 
-		include dirname(__FILE__).DIRECTORY_SEPARATOR.'views'.DIRECTORY_SEPARATOR.$view.'.php';
+		include dirname(__FILE__).DIRECTORY_SEPARATOR.'views_old'.DIRECTORY_SEPARATOR.$view.'.php';
 	}
 
 	/**

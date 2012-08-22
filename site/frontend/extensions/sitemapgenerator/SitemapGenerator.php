@@ -56,14 +56,14 @@ class SitemapGenerator
 	public $default_changefreq='monthly';
 	public $default_priority=0.8;
 	public $default_lastmod;
-	public $default_routeStructure='application,modules,controllers';
+	public $default_routeStructure='application,modules,controllers_old';
 	public $default_model_params='model:id';
 	public $default_view_param='view';
 	
 	/**
-	 * @var array of aliases to controllers location
+	 * @var array of aliases to controllers_old location
 	 */
-	private $_aliases=array('application.controllers');
+	private $_aliases=array('application.controllers_old');
 	
 	private $_xml;
 	private $_url_counter=0;
@@ -201,7 +201,7 @@ XMLINDEX;
 	}
 	
 	/**
-	 * Parses controllers methods to gain urls data
+	 * Parses controllers_old methods to gain urls data
 	 * @param string $alias Alias of Controler class file
 	 */
 	private function parseController($alias)
@@ -351,7 +351,7 @@ XMLINDEX;
 	}
 	
 	/**
-	 * Harvests views URLs by given parameters
+	 * Harvests views_old URLs by given parameters
 	 * Used for CViewAction class
 	 * Returns all harvested data into $params['urls_data']
 	 * @link http://www.yiiframework.com/doc/api/1.1/CViewAction
@@ -470,7 +470,7 @@ XMLINDEX;
 	 * lastmod			- given by user lastmod
 	 * 
 	 * urls_data		- data array returned by dataSource method of controller
-	 * dataSource		- controllers method name to gain 'url_data'
+	 * dataSource		- controllers_old method name to gain 'url_data'
 	 */
 	private function parseUrls($route,$data)
 	{

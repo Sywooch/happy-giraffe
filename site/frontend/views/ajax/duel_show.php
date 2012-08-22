@@ -5,7 +5,7 @@
 
         <div class="title">Дуэль</div>
 
-        <?php $this->renderPartial('application.widgets.activity.views_old._duel', array('question' => $question, 'votes' => true)); ?>
+        <?php $this->renderPartial('application.widgets.activity.views._duel', array('question' => $question, 'votes' => true)); ?>
 
     </div>
 

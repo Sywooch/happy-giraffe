@@ -282,7 +282,7 @@ class ScoreInput extends EMongoDocument
                     return 'icon-comments';
                 return 'icon-comment-d';
             case ScoreAction::ACTION_100_VIEWS:
-                return 'icon-views_old';
+                return 'icon-views';
             case ScoreAction::ACTION_PROFILE_PHOTO:
             case ScoreAction::ACTION_PROFILE_FAMILY:
             case ScoreAction::ACTION_PROFILE_INTERESTS:

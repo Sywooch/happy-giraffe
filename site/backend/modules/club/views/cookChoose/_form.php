@@ -1,6 +1,6 @@
 <?php
-//$basePath = Yii::getPathOfAlias('application.views_old.club.cookChoose.assets');
-$basePath = Yii::getPathOfAlias('application.modules.club.views_old.cookChoose.assets');
+//$basePath = Yii::getPathOfAlias('application.views.club.cookChoose.assets');
+$basePath = Yii::getPathOfAlias('application.modules.club.views.cookChoose.assets');
 $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
 Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js', CClientScript::POS_HEAD);
 ?>

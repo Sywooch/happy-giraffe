@@ -60,7 +60,7 @@ class DeliveryModule extends CWebModule
 		// import the module-level models and components
 		$this->setImport(array(
 			'delivery.models.*',
-			'delivery.controllers_old.*',
+			'delivery.controllers.*',
 		));
 
 		if($this->returnUrl)

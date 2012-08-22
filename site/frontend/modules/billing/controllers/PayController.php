@@ -20,7 +20,7 @@ class PayController extends HController
 		$model->unsetAttributes();
 		$model->payment_invoice_id = $invoice_id;
 		if (!($invoice=BillingInvoice::model()->findByPk($invoice_id))) {
-			throw new CHttpException(404,Yii::t('controllers_old','Page not found.'));
+			throw new CHttpException(404,Yii::t('controllers','Page not found.'));
 		}
 
 		if (isset($_POST['BillingPayment']))

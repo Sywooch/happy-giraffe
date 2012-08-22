@@ -1,5 +1,5 @@
 <?php
-$basePath = Yii::getPathOfAlias('application.modules.cook.views_old.converter.assets');
+$basePath = Yii::getPathOfAlias('application.modules.cook.views.converter.assets');
 $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
 Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js', CClientScript::POS_HEAD);
 

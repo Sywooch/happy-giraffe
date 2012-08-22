@@ -75,7 +75,7 @@ class Email extends CApplicationComponent {
 	
 	/**
 	 * @var string The view to use as the content of the email, as an alternative to setting $this->message.
-	 * Must be located in application.views_old.email directory.  This email object is availiable within the view
+	 * Must be located in application.views.email directory.  This email object is availiable within the view
 	 * through $email, thus letting you define things such as the subject within the view (helps maintain 
 	 * seperation of logic and output).
 	 */
@@ -88,7 +88,7 @@ class Email extends CApplicationComponent {
 	
 	/**
 	 * @var string The layout for the view to be imbedded in. Must be located in
-	 * application.views_old.email.layouts directory.  Not required even if you are using a view
+	 * application.views.email.layouts directory.  Not required even if you are using a view
 	 */
 	public $layout = null;
 	
@@ -98,7 +98,7 @@ class Email extends CApplicationComponent {
 	public $lineLength = 70;
 	
 	public function __construct() {
-		Yii::setPathOfAlias('email', dirname(__FILE__).'/views_old');
+		Yii::setPathOfAlias('email', dirname(__FILE__).'/views');
 	}
 	
 	/**
@@ -113,11 +113,11 @@ class Email extends CApplicationComponent {
 			else
 				$vars = $arg1;
 			
-			$view = Yii::app()->controller->renderPartial('application.views_old.email.'.$this->view, array_merge($vars, array('email'=>$this)), true);
+			$view = Yii::app()->controller->renderPartial('application.views.email.'.$this->view, array_merge($vars, array('email'=>$this)), true);
 			if ($this->layout === null) {
 				$message = $view;
 			} else {
-				$message = Yii::app()->controller->renderPartial('application.views_old.email.layouts.'.$this->layout, array('content'=>$view), true);
+				$message = Yii::app()->controller->renderPartial('application.views.email.layouts.'.$this->layout, array('content'=>$view), true);
 			}
 		} else {
 			if ($arg1 === null) {

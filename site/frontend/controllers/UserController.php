@@ -168,7 +168,7 @@ class UserController extends HController
                 $model->refresh();
                 $response = array(
                     'status' => true,
-                    'html' => $this->renderPartial('application.widgets.user.views_old._' . $relation, array(
+                    'html' => $this->renderPartial('application.widgets.user.views._' . $relation, array(
                         $relation => $model,
                         'canUpdate' => true,
                     ), true),
@@ -188,7 +188,7 @@ class UserController extends HController
             $user = Yii::app()->user->model;
             $user->mood_id = Yii::app()->request->getPost('mood_id');
             if ($user->save(true, array('mood_id'))) {
-                echo $this->renderPartial('application.widgets.user.views_old._mood', array(
+                echo $this->renderPartial('application.widgets.user.views._mood', array(
                     'mood' => $user->mood,
                     'canUpdate' => true,
                 ));

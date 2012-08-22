@@ -26,11 +26,11 @@ class PSAction extends CAction
 
 	function Fail404()
 	{
-		throw new CHttpException(404,Yii::t('controllers_old','Page not found.'));
+		throw new CHttpException(404,Yii::t('controllers','Page not found.'));
 	}
 	function Fail500($msg='Internal server error')
 	{
-		throw new CHttpException(500,Yii::t('controllers_old',$msg));
+		throw new CHttpException(500,Yii::t('controllers',$msg));
 	}
 	function Fail($errcode)
 	{

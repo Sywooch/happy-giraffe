@@ -110,7 +110,7 @@ class ShopController extends HController {
 		$modelCities = new GeoRusSettlement();
 		$modelCities->unsetAttributes();
 
-		$this->renderPartial('delivery.views_old.default.actionSelectDestination', array(
+		$this->renderPartial('delivery.views.default.actionSelectDestination', array(
 				'modelCities' => $modelCities,
 				'modelRegions' => $modelRegions,
 				'modelDistrict' => $modelDistrict,

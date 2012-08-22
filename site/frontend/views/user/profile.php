@@ -86,7 +86,7 @@
 
             <div class="user-top-block clearfix">
 
-                <?php $this->renderPartial('_user_menu',compact('user')); ?>
+                <?php $showFamily = true;$this->renderPartial('_user_menu',compact('user', 'showFamily')); ?>
 
                 <?php if ($user->id != Yii::app()->user->id):?>
                     <div class="user-fast-buttons">

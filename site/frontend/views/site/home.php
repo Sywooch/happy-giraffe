@@ -30,9 +30,9 @@
 
                     <?php $this->widget('MostPopularWidget'); ?>
                     <?php $this->widget('OurServicesWidget'); ?>
-                    <?php $this->widget('BlogWidget'); ?>
 
 <?php $this->endCache(); } ?>
+                    <?php $this->widget('BlogWidget'); ?>
 
                 </div>
 

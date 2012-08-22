@@ -1010,4 +1010,14 @@ class User extends HActiveRecord
     {
         Yii::app()->db->createCommand()->update($this->tableName(), array('updated' => date("Y-m-d H:i:s")), 'id='.$id);
     }
+
+    public static function getWorkersIds()
+    {
+        return Yii::app()->db
+            ->createCommand()
+            ->select('id')
+            ->from('users')
+            ->where('`group` > 0')
+            ->queryColumn();
+    }
 }

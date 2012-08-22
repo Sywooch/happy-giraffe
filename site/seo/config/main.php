@@ -9,7 +9,6 @@ return array(
         'site.common.models.*',
         'site.common.components.*',
         'site.common.behaviors.*',
-        'site.common.behaviors.*',
         'site.common.extensions.wr.WithRelatedBehavior',
 
         'site.frontend.helpers.FileHandler',
@@ -84,8 +83,8 @@ return array(
             'useCursor' => false
         ),
         'cache' => array(
-            'class' => 'CFileCache',
-//            'class' => 'CDummyCache',
+//            'class' => 'CFileCache',
+            'class' => 'CDummyCache',
         ),
 //        'log' => array(
 //            'class' => 'CLogRouter',

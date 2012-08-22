@@ -414,5 +414,7 @@ class SiteController extends HController
         ));*/
 //        $articles = Favourites::model()->getWeekPosts();
 //        $this->renderFile(Yii::getPathOfAlias('site.common.tpl.weeklyNews').'.php', array('models'=>$articles));
+
+        SocialPosting::sendPost(null);
     }
 }

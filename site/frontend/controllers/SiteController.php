@@ -13,7 +13,7 @@ class SiteController extends HController
 				'class'=>'CCaptchaAction',
 				'backColor'=>0xFFFFFF,
 			),
-			// page action renders "static" pages stored under 'protected/views/site/pages'
+			// page action renders "static" pages stored under 'protected/views_old/site/pages'
 			// They can be accessed via: index.php?r=site/page&view=FileName
 			'page'=>array(
 				'class'=>'CViewAction',
@@ -88,7 +88,7 @@ class SiteController extends HController
 	    		echo $error['message'];
 	    	else
             {
-                if(file_exists(Yii::getPathOfAlias('application.views.system.' . $error['code']) . '.php'))
+                if(file_exists(Yii::getPathOfAlias('application.views_old.system.' . $error['code']) . '.php'))
                 {
                     $this->layout = '//system/layout';
                     Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl . '/stylesheets/common.css');

@@ -3,8 +3,8 @@
 class AttributeSetMapController extends HController
 {
 	/**
-	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
-	 * using two-column layout. See 'protected/views/layouts/column2.php'.
+	 * @var string the default layout for the views_old. Defaults to '//layouts/column2', meaning
+	 * using two-column layout. See 'protected/views_old/layouts/column2.php'.
 	 */
 	public $layout='//layouts/column2';
 

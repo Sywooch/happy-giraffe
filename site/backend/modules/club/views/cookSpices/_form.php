@@ -4,7 +4,7 @@
  * @var $model CookSpice
  */
 
-$basePath = Yii::getPathOfAlias('application.modules.club.views.cookSpices.assets');
+$basePath = Yii::getPathOfAlias('application.modules.club.views_old.cookSpices.assets');
 $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
 Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js', CClientScript::POS_HEAD);
 

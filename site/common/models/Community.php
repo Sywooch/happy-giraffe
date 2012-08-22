@@ -103,7 +103,7 @@ class Community extends HActiveRecord
 
         $keys = array();
         $initial = array('csum' => 0);
-        $reduce = 'function(obj, prev) { prev.csum += obj.views; }';
+        $reduce = 'function(obj, prev) { prev.csum += obj.views_old; }';
         $condition = array(
             '_id' => array('$regex' => '/community/' . $this->id . '/'),
         );

@@ -13,12 +13,12 @@ class JFormInputElement extends CFormInputElement
 		{
 			case 'dropdownlist':
 			case 'radiolist':
-				return Yii::app()->getController()->renderPartial('application.components.views.JForm_radio', array(
+				return Yii::app()->getController()->renderPartial('application.components.views_old.JForm_radio', array(
 					'element' => $this,
 				), true);
 				break;
 			case 'checkboxlist':
-				return Yii::app()->getController()->renderPartial('application.components.views.JForm_check', array(
+				return Yii::app()->getController()->renderPartial('application.components.views_old.JForm_check', array(
 					'element' => $this,
 				), true);
 				break;

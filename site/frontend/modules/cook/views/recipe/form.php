@@ -1,5 +1,5 @@
 <?php
-    $basePath = Yii::getPathOfAlias('cook') . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'recipe' . DIRECTORY_SEPARATOR . 'assets';
+    $basePath = Yii::getPathOfAlias('cook') . DIRECTORY_SEPARATOR . 'views_old' . DIRECTORY_SEPARATOR . 'recipe' . DIRECTORY_SEPARATOR . 'assets';
     $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
 
     $cs = Yii::app()->clientScript;

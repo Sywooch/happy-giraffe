@@ -5,6 +5,11 @@
  */
 class Im
 {
+    const IM_CONTACTS_ALL = 0;
+    const IM_CONTACTS_NEW = 1;
+    const IM_CONTACTS_ONLINE = 2;
+    const IM_CONTACTS_FRIENDS = 3;
+
     /*
      * Instance for each user
      */
@@ -268,4 +273,56 @@ class Im
 
         return $result;
     }
+
+    /**
+     * @param int $user_id
+     * @param int $type
+     * @return CDbCriteria
+     */
+    public function getUserContactsCriteria($user_id, $type)
+    {
+        if ($type == self::IM_CONTACTS_FRIENDS) {
+            $user = User::model();
+            $user->id = $user_id;
+            $criteria = $user->getFriendsCriteria('online = 1');
+        } else {
+            $criteria = new CDbCriteria;
+
+            switch ($type) {
+                case self::IM_CONTACTS_ALL:
+                    $sql = "SELECT du1.user_id
+                            FROM im__dialog_users du1
+                            JOIN im__dialog_users du2 ON du1.dialog_id = du2.dialog_id AND du2.user_id = :user_id
+                            WHERE du1.user_id != :user_id";
+                    break;
+                case self::IM_CONTACTS_ONLINE:
+                    $sql = "SELECT du1.user_id
+                            FROM im__dialog_users du1
+                            JOIN im__dialog_users du2 ON du1.dialog_id = du2.dialog_id AND du2.user_id = :user_id
+                            JOIN users u ON du1.user_id = u.id
+                            WHERE du1.user_id != :user_id AND u.online = 1";
+                    break;
+                case self::IM_CONTACTS_NEW:
+                    $sql = "SELECT du1.user_id
+                            FROM im__dialog_users du1
+                            JOIN im__dialog_users du2 ON du1.dialog_id = du2.dialog_id AND du2.user_id = :user_id
+                            JOIN im__dialogs d ON du1.dialog_id = d.id
+                            JOIN im__messages m ON d.last_message_id = m.id
+                            WHERE du1.user_id != :user_id AND m.read_status = 0";
+                    break;
+            }
+
+            $command = Yii::app()->db->createCommand($sql);
+            $command->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+            $rows = $command->queryAll();
+            $ids = array();
+            foreach ($rows as $r)
+                $ids[] = $r['user_id'];
+            $criteria->addInCondition('t.id', $ids);
+        }
+
+        return $criteria;
+    }
 }
+
+

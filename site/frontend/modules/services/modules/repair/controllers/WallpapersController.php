@@ -10,7 +10,7 @@ class WallpapersController extends HController
      */
     public function actionIndex()
     {
-        $basePath = Yii::getPathOfAlias('repair') . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'wallpapers' . DIRECTORY_SEPARATOR . 'assets';
+        $basePath = Yii::getPathOfAlias('repair') . DIRECTORY_SEPARATOR . 'views_old' . DIRECTORY_SEPARATOR . 'wallpapers' . DIRECTORY_SEPARATOR . 'assets';
         $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
         Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js', CClientScript::POS_HEAD);
         Yii::app()->user->setState('wallpapersCalcAreas', array());

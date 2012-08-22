@@ -1,5 +1,5 @@
 <?php
-    Yii::import('application.controllers.AlbumsController');
+    Yii::import('application.controllers_old.AlbumsController');
     AlbumsController::loadUploadScritps();
     $link = Yii::app()->createUrl('/albums/addPhoto')
 ?>

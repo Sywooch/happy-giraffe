@@ -111,7 +111,7 @@ class SeoTask extends CActiveRecord
                 'createAttribute' => 'created',
                 'updateAttribute' => null,
             ),
-            'OldAttributesBehavior'
+            'TrackableBehavior'
         );
     }
 

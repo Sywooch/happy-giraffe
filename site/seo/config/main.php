@@ -9,7 +9,6 @@ return array(
         'site.common.models.*',
         'site.common.components.*',
         'site.common.behaviors.*',
-        'site.common.behaviors.*',
         'site.common.extensions.wr.WithRelatedBehavior',
 
         'site.frontend.helpers.FileHandler',

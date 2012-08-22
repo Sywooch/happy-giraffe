@@ -41,6 +41,8 @@ return array(
 
         // rss controller
         'rss/page<page:\d+>' => 'rss/index',
+        'rss/social/' => 'rss/social',
+        'rss/social/page<page:\d+>' => 'rss/social',
 
         // morning controller
         'morning/<id:\d+>' => 'morning/view',

@@ -24,6 +24,8 @@ class SocialPosting
         curl_setopt($curl, CURLOPT_POST, true);
         curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($data));
         curl_setopt($curl, CURLOPT_URL, 'https://api.hootsuite.com/api/2/messages');
-        curl_exec($curl);
+        $response = curl_exec($curl);
+
+        var_dump($response);
     }
 }

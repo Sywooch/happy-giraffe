@@ -1017,7 +1017,7 @@ class User extends HActiveRecord
     public function sendOnlineStatus()
     {
         $additionalCriteria = new CDbCriteria(array(
-            'select' => 'id',
+            'select' => 't.id',
             'index' => 'id',
         ));
 
@@ -1029,12 +1029,11 @@ class User extends HActiveRecord
         $friendsCriteria->mergeWith($additionalCriteria);
         $friends = $this->findAll($friendsCriteria);
 
-        $users = CMap::mergeArray($contacts, $friends);
+        $users = $contacts + $friends;
 
         $comet = new CometModel;
         $comet->type = CometModel::TYPE_ONLINE_STATUS_CHANGE;
-        foreach ($users as $u) {
+        foreach ($users as $u)
             $comet->send($u->id, array('online' => $this->online, 'user_id' => $this->id));
-        }
     }
 }

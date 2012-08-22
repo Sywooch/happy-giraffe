@@ -261,4 +261,11 @@ class DefaultController extends HController
 
         throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
     }
+
+    public function actionTest()
+    {
+        $contacts = User::model()->findAll(Im::model()->getUserContactsCriteria(Yii::app()->user->id, IM::IM_CONTACTS_ALL));
+        foreach ($contacts as $c)
+            echo $c->id . '<br />';
+    }
 }

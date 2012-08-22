@@ -25,7 +25,7 @@
                             <div class="album-title"><b>Альбом <?=CHtml::link($album->title, $album->url)?></b>
                                 <?php if(!Yii::app()->user->isGuest && $this->user->id == Yii::app()->user->id): ?>
                                     <?php
-                                    Yii::import('application.controllers_old.AlbumsController');
+                                    Yii::import('application.controllers.AlbumsController');
                                     AlbumsController::loadUploadScritps();
                                     $link = Yii::app()->createUrl('/albums/addPhoto')
                                     ?>

@@ -1,5 +1,5 @@
 <?php
-$basePath = Yii::getPathOfAlias('dailyCalories') . DIRECTORY_SEPARATOR . 'views_old' . DIRECTORY_SEPARATOR . 'default' . DIRECTORY_SEPARATOR . 'assets';
+$basePath = Yii::getPathOfAlias('dailyCalories') . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'default' . DIRECTORY_SEPARATOR . 'assets';
 $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
 Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js', CClientScript::POS_HEAD);
 ?>

@@ -281,45 +281,56 @@ class Im
      */
     public function getUserContactsCriteria($user_id, $type)
     {
-        if ($type == self::IM_CONTACTS_FRIENDS) {
-            $user = User::model();
-            $user->id = $user_id;
-            $criteria = $user->getFriendsCriteria('online = 1');
-        } else {
-            $criteria = new CDbCriteria;
+        $criteria = new CDbCriteria;
 
-            switch ($type) {
-                case self::IM_CONTACTS_ALL:
-                    $sql = "SELECT du1.user_id
-                            FROM im__dialog_users du1
-                            JOIN im__dialog_users du2 ON du1.dialog_id = du2.dialog_id AND du2.user_id = :user_id
-                            WHERE du1.user_id != :user_id";
-                    break;
-                case self::IM_CONTACTS_ONLINE:
-                    $sql = "SELECT du1.user_id
-                            FROM im__dialog_users du1
-                            JOIN im__dialog_users du2 ON du1.dialog_id = du2.dialog_id AND du2.user_id = :user_id
-                            JOIN users u ON du1.user_id = u.id
-                            WHERE du1.user_id != :user_id AND u.online = 1";
-                    break;
-                case self::IM_CONTACTS_NEW:
-                    $sql = "SELECT du1.user_id
-                            FROM im__dialog_users du1
-                            JOIN im__dialog_users du2 ON du1.dialog_id = du2.dialog_id AND du2.user_id = :user_id
-                            JOIN im__dialogs d ON du1.dialog_id = d.id
-                            JOIN im__messages m ON d.last_message_id = m.id
-                            WHERE du1.user_id != :user_id AND m.read_status = 0";
-                    break;
-            }
-
-            $command = Yii::app()->db->createCommand($sql);
-            $command->bindValue(':user_id', $user_id, PDO::PARAM_INT);
-            $rows = $command->queryAll();
-            $ids = array();
-            foreach ($rows as $r)
-                $ids[] = $r['user_id'];
-            $criteria->addInCondition('t.id', $ids);
+        switch ($type) {
+            case self::IM_CONTACTS_ALL:
+                $sql = "SELECT du1.user_id
+                    FROM im__dialog_users du1
+                    JOIN im__dialog_users du2 ON du1.dialog_id = du2.dialog_id AND du2.user_id = :user_id
+                    JOIN im__dialogs d ON du1.dialog_id = d.id
+                    JOIN im__messages m ON d.last_message_id = m.id
+                    WHERE du1.user_id != :user_id
+                    ORDER BY m.created DESC";
+                break;
+            case self::IM_CONTACTS_NEW:
+                $sql = "SELECT du1.user_id
+                        FROM im__dialog_users du1
+                        JOIN im__dialog_users du2 ON du1.dialog_id = du2.dialog_id AND du2.user_id = :user_id
+                        JOIN im__dialogs d ON du1.dialog_id = d.id
+                        JOIN im__messages m ON d.last_message_id = m.id
+                        WHERE du1.user_id != :user_id AND m.read_status = 0
+                        ORDER BY m.created DESC";
+                break;
+            case self::IM_CONTACTS_ONLINE:
+                $sql = "SELECT du1.user_id
+                        FROM im__dialog_users du1
+                        JOIN im__dialog_users du2 ON du1.dialog_id = du2.dialog_id AND du2.user_id = :user_id
+                        JOIN im__dialogs d ON du1.dialog_id = d.id
+                        JOIN im__messages m ON d.last_message_id = m.id
+                        JOIN users u ON du1.user_id = u.id
+                        WHERE du1.user_id != :user_id AND u.online = 1
+                        ORDER BY m.created DESC";
+                break;
+            case self::IM_CONTACTS_FRIENDS:
+                $sql = "SELECT u.id
+                        FROM users u
+                        JOIN friends f ON (u.id = f.user1_id AND f.user2_id = :user_id) OR (u.id = f.user2_id AND f.user1_id = :user_id)
+                        LEFT OUTER JOIN im__dialog_users du1 ON u.id = du1.user_id AND EXISTS (SELECT * FROM im__dialog_users du2 WHERE du1.dialog_id = du2.dialog_id AND du2.user_id = :user_id)
+                        LEFT OUTER JOIN im__dialogs d ON du1.dialog_id = d.id
+                        LEFT OUTER JOIN im__messages m ON d.last_message_id = m.id
+                        ORDER BY m.created DESC";
+                break;
         }
+
+        $command = Yii::app()->db->createCommand($sql);
+        $command->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        $rows = $command->queryAll();
+        $ids = array();
+        foreach ($rows as $r)
+            $ids[] = $r['user_id'];
+        $criteria->addInCondition('t.id', $ids);
+        $criteria->order = new CDbExpression('FIELD(id, ' . implode(',', $ids) . ')');
 
         return $criteria;
     }

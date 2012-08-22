@@ -172,17 +172,25 @@ class CookIngredient extends HActiveRecord
         $criteriaMore = clone $criteria;
 
         $criteria->compare('t.title', $term . '%', true, 'AND', false);
-        $criteria->compare('cook__ingredient_synonyms.title', $term . '%', true, 'OR', false);
         $ingredients = $this->findAll($criteria);
 
         if (count($ingredients) < $limit) {
-            $criteriaMore->compare('t.title', $term, true, 'AND');
-            $criteriaMore->compare('cook__ingredient_synonyms.title', $term, true, 'OR');
+            $criteria->compare('cook__ingredient_synonyms.title', $term . '%', true, 'OR', false);
             $ingredientsMore = $this->findAll($criteriaMore);
-
             while (count($ingredients) < $limit && !empty($ingredientsMore)) {
                 array_push($ingredients, $ingredientsMore[0]);
                 array_shift($ingredientsMore);
+            }
+
+            if (count($ingredients) < $limit) {
+                $criteriaMore->compare('t.title', $term, true, 'AND');
+                $criteriaMore->compare('cook__ingredient_synonyms.title', $term, true, 'OR');
+                $ingredientsMore = $this->findAll($criteriaMore);
+
+                while (count($ingredients) < $limit && !empty($ingredientsMore)) {
+                    array_push($ingredients, $ingredientsMore[0]);
+                    array_shift($ingredientsMore);
+                }
             }
         }
 
@@ -219,7 +227,7 @@ class CookIngredient extends HActiveRecord
                 foreach ($ing->units as $unit)
                     $i['units'][$unit->unit_id] = $unit->weight;
                 foreach ($ing->units as $unit)
-                    $i['units_titles'][] = array('id'=>$unit->unit_id, 'title'=>$unit->unit->title);
+                    $i['units_titles'][] = array('id' => $unit->unit_id, 'title' => $unit->unit->title);
             }
             $result[] = $i;
         }

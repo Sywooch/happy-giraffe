@@ -27,7 +27,7 @@ Yii::app()->clientScript->registerScript('family-edit',$js)
 
     <div class="user-top-block clearfix" style="margin-bottom: 10px;height: auto;">
 
-        <?php $showFamily = true;$this->renderPartial('//user/_user_menu',compact('user', 'showFamily')); ?>
+        <?php $this->renderPartial('//user/_user_menu',compact('user')); ?>
 
     </div>
 

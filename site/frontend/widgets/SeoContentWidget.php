@@ -14,7 +14,7 @@ class SeoContentWidget extends CWidget
     {
         $contents = ob_get_clean();
         $hashString = md5($contents);
-        echo CHtml::tag('span', array('data-type' => 'content', 'data-key' => md5($contents)));
+        echo CHtml::tag('span', array('data-type' => 'content', 'data-key' => md5($contents)), '');
         Yii::app()->controller->seoContent[$hashString] = base64_encode($contents);
     }
 }

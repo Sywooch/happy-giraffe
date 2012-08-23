@@ -46,6 +46,8 @@ class HController extends CController
             unset($_GET['token']);
         }
 
+        $received_params = array('utm_source', 'utm_medium');
+
         // seo-фильтр get-параметров
         if (in_array($this->uniqueId, array(
             'blog',
@@ -61,7 +63,7 @@ class HController extends CController
             foreach ($parametersObjects as $p)
                 $parametersNames[] = $p->name;
             foreach ($this->actionParams as $p => $v)
-                if (array_search($p, $parametersNames) === false && strpos($p, '_page') === false)
+                if (array_search($p, $parametersNames) === false && strpos($p, '_page') === false && !in_array($p, $received_params))
                     throw new CHttpException(404, 'Такой записи не существует');
         }
 

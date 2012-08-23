@@ -41,11 +41,47 @@ class DefaultController extends SController
     }
 
     public function actionTest(){
-        $parser = new IndexParserThread;
+        /*$parser = new IndexParserThread;
         $parser->debug = true;
         $parser->up_id = 45;
         $parser->use_proxy = false;
         $parser->url = IndexingUrl::model()->findByPk(42270);
-        $parser->parsePage();
+        $parser->parsePage();*/
+
+        $ids = '10815
+12272
+2966
+6217
+15296
+5907
+2521
+10634
+8520
+9632
+2808
+5247
+3773
+16871
+14075
+11800
+13537
+3110
+20439
+13833
+16813
+7472
+8552
+9834
+16819
+5033
+20953
+8727
+15100
+4206';
+        $ids = explode("\n", $ids);
+        $urlCollector = new UrlCollector;
+        $res = $urlCollector->getIdsForQueries($ids);
+        foreach($res as $r)
+            echo $r.'<br>';
     }
 }

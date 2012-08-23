@@ -1,0 +1,202 @@
+<?php
+/**
+ * Author: alexk984
+ * Date: 23.08.12
+ */
+class UrlCollector
+{
+    function __construct()
+    {
+        Yii::import('site.frontend.modules.services.modules.recipeBook.models.*');
+        Yii::import('site.frontend.modules.services.modules.names.models.*');
+        Yii::import('site.frontend.components.ManyToManyBehavior');
+        Yii::import('site.frontend.modules.cook.models.*');
+    }
+
+    public function collectUrls()
+    {
+        //Community
+        $communities = Community::model()->findAll();
+        foreach ($communities as $community) {
+            $this->addUrl('http://www.happy-giraffe.ru/community/' . $community->id . '/forum/', 1);
+
+            $this->addUrl('http://www.happy-giraffe.ru/community/' . $community->id . '/forum/post/', 1);
+            foreach (range(1, 9) as $letter)
+                $this->addUrl('http://www.happy-giraffe.ru/community/' . $community->id . '/forum/post/' . $letter, 1);
+
+            $this->addUrl('http://www.happy-giraffe.ru/community/' . $community->id . '/forum/video/', 1);
+            foreach (range(1, 9) as $letter)
+                $this->addUrl('http://www.happy-giraffe.ru/community/' . $community->id . '/forum/video/' . $letter, 1);
+        }
+
+        $this->collectBlogs();
+
+        //morning
+        $morning = array_merge(range(14, 21), range(146, 213));
+        foreach ($morning as $letter)
+            $this->addUrl('http://www.happy-giraffe.ru/morning/' . $letter, 1);
+
+        //весь контент
+        $articles = array(1);
+        $criteria = new CDbCriteria;
+        $criteria->limit = 100;
+        $criteria->offset = 0;
+        $i = 0;
+        while (!empty($articles)) {
+            $articles = CommunityContent::model()->full()->active()->findAll($criteria);
+            foreach ($articles as $article) {
+                $url = $article->getUrl();
+                $url = trim($url, '.');
+                $this->addUrl('http://www.happy-giraffe.ru' . $url);
+            }
+            $i++;
+            $criteria->offset = $i * 100;
+        }
+
+        $this->collectServices();
+    }
+
+    public function collectBlogs()
+    {
+        $users = User::model()->findAll('t.deleted = 0');
+        foreach ($users as $user) {
+            $posts = $user->blogPosts;
+            if (count($posts) > 0) {
+                foreach ($posts as $post) {
+
+                }
+            }
+            //$this->addUrl('http://www.happy-giraffe.ru/user/' . $user->id . '/blog/', 1);
+        }
+    }
+
+    public function getIdsForQueries($ids, $start = '')
+    {
+        $limit = 10;
+        $result = array();
+        for ($i = 0; $i <= 9; $i++) {
+            $count = 0;
+            foreach ($ids as $id) {
+                if (strpos($id, $start . $i) === 0)
+                    $count++;
+            }
+
+            if ($count > 1 && $count < $limit) {
+                $result [] = $start . $i;
+                //remove from array
+                foreach ($ids as $key => $id) {
+                    if (strpos($id, $start . $i) === 0)
+                        unset($ids[$key]);
+                }
+
+            } elseif ($count >= $limit) {
+                $ids2 = array();
+                foreach ($ids as $key => $id) {
+                    if (strpos($id, $start . $i) === 0) {
+                        $ids2[] = $id;
+                        unset($ids[$key]);
+                    }
+                }
+
+                $q = $this->getIdsForQueries($ids2, $start . $i);
+                $result = array_merge($q, $result);
+            }
+        }
+
+        return $result;
+    }
+
+    public function collectServices()
+    {
+        //services
+        $this->addUrl('http://www.happy-giraffe.ru/names/saint/');
+        $this->addUrl('http://www.happy-giraffe.ru/names/top10/');
+        foreach (range('A', 'Z') as $letter)
+            $this->addUrl('http://www.happy-giraffe.ru/names/' . $letter, 1);
+        $this->addUrl('http://www.happy-giraffe.ru/names/');
+        $names = Name::model()->findAll();
+        foreach ($names as $name)
+            $this->addUrl('http://www.happy-giraffe.ru/names/' . $name->slug . '/');
+
+
+        $this->addUrl('http://www.happy-giraffe.ru/babySex/');
+        $this->addUrl('http://www.happy-giraffe.ru/sewing/');
+
+        $this->addUrl('http://www.happy-giraffe.ru/horoscope/');
+        $this->addUrl('http://www.happy-giraffe.ru/horoscope/compatibility/');
+        foreach (array('a', 't', 'g', 'c', 'l', 'v', 's', 'p') as $letter)
+            $this->addUrl('http://www.happy-giraffe.ru/horoscope/' . $letter, 1);
+        foreach (array('a', 't', 'g', 'c', 'l', 'v', 's', 'p') as $letter)
+            $this->addUrl('http://www.happy-giraffe.ru/horoscope/compatibility/' . $letter, 1);
+
+        $this->addUrl('http://www.happy-giraffe.ru/test/');
+        $this->addUrl('http://www.happy-giraffe.ru/pregnancyWeight/');
+        $this->addUrl('http://www.happy-giraffe.ru/placentaThickness/');
+        $this->addUrl('http://www.happy-giraffe.ru/menstrualCycle/');
+        $this->addUrl('http://www.happy-giraffe.ru/babyBloodGroup/');
+        $this->addUrl('http://www.happy-giraffe.ru/contractionsTime/');
+
+        $this->addUrl('http://www.happy-giraffe.ru/childrenDiseases/');
+        foreach (range('a', 'z') as $letter)
+            $this->addUrl('http://www.happy-giraffe.ru/childrenDiseases/' . $letter, 1);
+        $models = RecipeBookDisease::model()->findAll();
+        foreach ($models as $model)
+            $this->addUrl('http://www.happy-giraffe.ru/childrenDiseases/' . $model->slug . '/');
+        $models = RecipeBookDiseaseCategory::model()->findAll();
+        foreach ($models as $model)
+            $this->addUrl('http://www.happy-giraffe.ru/childrenDiseases/' . $model->slug . '/');
+
+        // Cook recipes
+        $this->addUrl('http://www.happy-giraffe.ru/cook/recipe/');
+        foreach (range(1, 999) as $letter)
+            $this->addUrl('http://www.happy-giraffe.ru/cook/recipe/' . $letter, 1);
+        $models = CookRecipe::model()->findAll();
+        foreach ($models as $model)
+            $this->addUrl('http://www.happy-giraffe.ru/cook/recipe/' . $model->id . '/');
+
+        $this->addUrl('http://www.happy-giraffe.ru/cook/converter/');
+        $this->addUrl('http://www.happy-giraffe.ru/cook/calorisator/');
+
+        // Cook choose
+        foreach (range('a', 'z') as $letter)
+            $this->addUrl('http://www.happy-giraffe.ru/cook/choose/' . $letter, 1);
+        $models = CookChoose::model()->findAll();
+        foreach ($models as $model)
+            $this->addUrl('http://www.happy-giraffe.ru/cook/choose/' . $model->slug . '/');
+        $models = CookChooseCategory::model()->findAll();
+        foreach ($models as $model)
+            $this->addUrl('http://www.happy-giraffe.ru/cook/choose/' . $model->slug . '/');
+
+        // Cook spices
+        foreach (range('a', 'z') as $letter)
+            $this->addUrl('http://www.happy-giraffe.ru/cook/spice/' . $letter, 1);
+        $models = CookSpice::model()->findAll();
+        foreach ($models as $model)
+            $this->addUrl('http://www.happy-giraffe.ru/cook/spice/' . $model->slug . '/');
+        $models = CookSpiceCategory::model()->findAll();
+        foreach ($models as $model)
+            $this->addUrl('http://www.happy-giraffe.ru/cook/spice/' . $model->slug . '/');
+
+        $this->addUrl('http://www.happy-giraffe.ru/cook/decor/');
+        for ($i = 0; $i <= 7; $i++) {
+            $this->addUrl('http://www.happy-giraffe.ru/cook/decor/' . $i . '/', 1);
+        }
+    }
+
+    public function addUrl($url, $type = 0)
+    {
+        $model = IndexingUrl::model()->findByAttributes(array('url' => $url));
+        if ($model === null) {
+            $model = new IndexingUrl;
+            $model->url = $url;
+            $model->type = $type;
+            $model->active = 0;
+            $model->save();
+        } else {
+            if ($type != 0 && $model->type != $type) {
+                $model->type = $type;
+                $model->save();
+            }
+        }
+    }
+}

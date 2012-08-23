@@ -8,12 +8,12 @@ class IndexParserThread extends ProxyParserThread
     /**
      * @var IndexingUrl
      */
-    protected $url;
+    public $url;
     /**
      * @var int search engine id
      */
     protected $pages = 10;
-    protected $up_id = null;
+    public $up_id = null;
 
     function __construct()
     {
@@ -36,6 +36,8 @@ class IndexParserThread extends ProxyParserThread
 
             if (Config::getAttribute('stop_threads') == 1)
                 break;
+
+            sleep(10);
         }
     }
 
@@ -48,7 +50,7 @@ class IndexParserThread extends ProxyParserThread
     {
         $criteria = new CDbCriteria;
         $criteria->compare('active', 0);
-        //$criteria->compare('type', 1);
+        $criteria->compare('old', 0);
         $criteria->order = 'type DESC';
 
         $transaction = Yii::app()->db_seo->beginTransaction();
@@ -70,20 +72,20 @@ class IndexParserThread extends ProxyParserThread
     public function parsePage()
     {
         $links = $this->loadYandexPage();
-        if ($this->debug)
-            echo 'Page loaded, links count: ' . count($links) . "\n";
+        $this->log('Page loaded, links count: ' . count($links));
 
         $this->success_loads++;
 
-        foreach ($links as $link) {
+        foreach ($links as $link)
             $this->saveUrl($link);
-        }
-        sleep(10);
+
+        if ($this->url->type == 1 && count($links) < $this->perPage())
+            $this->checkNotFoundUrls();
     }
 
     private function loadYandexPage()
     {
-        $content = $this->query('http://yandex.ru/yandsearch?text=' . urlencode('url:' . rtrim($this->url->url, '/').'*') . '&numdoc=' . $this->perPage() . '&lr=38');
+        $content = $this->query('http://yandex.ru/yandsearch?text=' . urlencode('url:' . rtrim($this->url->url, '/') . '*') . '&numdoc=' . $this->perPage() . '&lr=38');
 
         if (strpos($content, 'Искомая комбинация слов нигде не встречается') !== false)
             return array();
@@ -111,6 +113,20 @@ class IndexParserThread extends ProxyParserThread
             return false;
 
         return true;
+    }
+
+    /**
+     * Если в выдачу попали все урлы с частичным совпадением, значит остальные
+     * с таким же совпадением урла не в индексе, помечаем их. Например по запросу
+     * http://www.happy-giraffe.ru/community/1/forum/11*
+     * найдено 5 урлов, значит остальные урлы, которые начинаются
+     * на http://www.happy-giraffe.ru/community/1/forum/11
+     * не в индексе
+     */
+    private function checkNotFoundUrls()
+    {
+        $count = IndexingUrl::model()->updateAll(array('active' => 2), 'url LIKE "' . $this->url->url . '%"');
+        $this->log($count.' urls excluded');
     }
 
     public function saveUrl($url)
@@ -158,21 +174,21 @@ class IndexParserThread extends ProxyParserThread
 
             self::addUrl('http://www.happy-giraffe.ru/community/' . $community->id . '/forum/post/', 1);
             foreach (range(1, 9) as $letter)
-                self::addUrl('http://www.happy-giraffe.ru/community/' . $community->id . '/forum/post/'.$letter, 1);
+                self::addUrl('http://www.happy-giraffe.ru/community/' . $community->id . '/forum/post/' . $letter, 1);
 
             self::addUrl('http://www.happy-giraffe.ru/community/' . $community->id . '/forum/video/', 1);
             foreach (range(1, 9) as $letter)
-                self::addUrl('http://www.happy-giraffe.ru/community/' . $community->id . '/forum/video/'.$letter, 1);
+                self::addUrl('http://www.happy-giraffe.ru/community/' . $community->id . '/forum/video/' . $letter, 1);
         }
 
         //блоги сотрудников
         $users = User::model()->findAll('t.group > 0 AND t.deleted = 0');
-        foreach($users as $user)
+        foreach ($users as $user)
             self::addUrl('http://www.happy-giraffe.ru/user/' . $user->id . '/blog/', 1);
 
         //morning
-        $morning = array_merge(range(14,21), range(146,213));
-        foreach($morning as $letter)
+        $morning = array_merge(range(14, 21), range(146, 213));
+        foreach ($morning as $letter)
             self::addUrl('http://www.happy-giraffe.ru/morning/' . $letter, 1);
 
         //весь контент
@@ -196,7 +212,7 @@ class IndexParserThread extends ProxyParserThread
         self::addUrl('http://www.happy-giraffe.ru/names/saint/');
         self::addUrl('http://www.happy-giraffe.ru/names/top10/');
         foreach (range('A', 'Z') as $letter)
-            self::addUrl('http://www.happy-giraffe.ru/names/'.$letter, 1);
+            self::addUrl('http://www.happy-giraffe.ru/names/' . $letter, 1);
         self::addUrl('http://www.happy-giraffe.ru/names/');
         $names = Name::model()->findAll();
         foreach ($names as $name)
@@ -208,10 +224,10 @@ class IndexParserThread extends ProxyParserThread
 
         self::addUrl('http://www.happy-giraffe.ru/horoscope/');
         self::addUrl('http://www.happy-giraffe.ru/horoscope/compatibility/');
-        foreach (array('a', 't','g', 'c', 'l', 'v', 's', 'p') as $letter)
-            self::addUrl('http://www.happy-giraffe.ru/horoscope/'.$letter, 1);
-        foreach (array('a', 't','g', 'c', 'l', 'v', 's', 'p') as $letter)
-            self::addUrl('http://www.happy-giraffe.ru/horoscope/compatibility/'.$letter, 1);
+        foreach (array('a', 't', 'g', 'c', 'l', 'v', 's', 'p') as $letter)
+            self::addUrl('http://www.happy-giraffe.ru/horoscope/' . $letter, 1);
+        foreach (array('a', 't', 'g', 'c', 'l', 'v', 's', 'p') as $letter)
+            self::addUrl('http://www.happy-giraffe.ru/horoscope/compatibility/' . $letter, 1);
 
         self::addUrl('http://www.happy-giraffe.ru/test/');
         self::addUrl('http://www.happy-giraffe.ru/pregnancyWeight/');
@@ -276,8 +292,8 @@ class IndexParserThread extends ProxyParserThread
             $model->type = $type;
             $model->active = 0;
             $model->save();
-        }else{
-            if ($type != 0 && $model->type != $type){
+        } else {
+            if ($type != 0 && $model->type != $type) {
                 $model->type = $type;
                 $model->save();
             }

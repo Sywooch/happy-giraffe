@@ -48,7 +48,7 @@ class IndexParserThread extends ProxyParserThread
     {
         $criteria = new CDbCriteria;
         $criteria->compare('active', 0);
-        //$criteria->compare('type', 1);
+        $criteria->compare('old', 0);
         $criteria->order = 'type DESC';
 
         $transaction = Yii::app()->db_seo->beginTransaction();

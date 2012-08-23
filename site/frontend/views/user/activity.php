@@ -70,7 +70,11 @@
         <?php endforeach; ?>
 
         <?php if ($nextPage !== false): ?>
-            <?=CHtml::link('Что еще нового', array('user/activity', 'user_id' => $this->user->id, 'type' => $type, 'page' => $nextPage), array('class' => 'more-btn'))?>
+            <?php if (isset($allActivity)):?>
+                <?=CHtml::link('Что еще нового', array('user/activityAll', 'page' => $nextPage), array('class' => 'more-btn'))?>
+            <?php else: ?>
+                <?=CHtml::link('Что еще нового', array('user/activity', 'user_id' => $this->user->id, 'type' => $type, 'page' => $nextPage), array('class' => 'more-btn'))?>
+            <?php endif ?>
         <?php endif; ?>
 
     </div>

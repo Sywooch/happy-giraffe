@@ -9,7 +9,6 @@ return array(
         'site.common.models.*',
         'site.common.components.*',
         'site.common.behaviors.*',
-        'site.common.behaviors.*',
         'site.common.extensions.wr.WithRelatedBehavior',
 
         'site.frontend.helpers.FileHandler',
@@ -26,6 +25,7 @@ return array(
         'application.modules.competitors.models.*',
         'application.modules.writing.models.*',
         'application.modules.promotion.models.*',
+        'application.modules.indexing.models.*',
     ),
     'modules' => array(
         'competitors',

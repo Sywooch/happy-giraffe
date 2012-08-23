@@ -15,6 +15,8 @@
 	
 	<script type="text/javascript" src="/javascripts/jquery.tooltip.pack.js"></script>
 	
+	<script type="text/javascript" src="/javascripts/jquery.placeholder.min.js"></script>
+	
 	<script type="text/javascript" src="/javascripts/jquery.jcarousel.js"></script>
 	<script type="text/javascript" src="/javascripts/jquery.jcarousel.control.js"></script>
 	
@@ -24,33 +26,41 @@
 	<script type="text/javascript" src="/javascripts/common.js"></script>
 	
 	<script>
+	
 		$(function(){
 			
-			carousel = $('#photo-thumbs .jcarousel').jcarousel();			
-			
-			$('#photo-thumbs .prev').jcarouselControl({target: '-=1',carousel: carousel});
-			$('#photo-thumbs .next').jcarouselControl({target: '+=1',carousel: carousel});
+			userDialogsCalc(); // append
 			
 		})
 		
-		var st;
-		var carousel;
+		$(window).bind('resize', function(){
 		
-		function openPhoto(){
+			userDialogsCalc();
 			
-			$('#photo-window-bg, #photo-window').fadeIn(600, function(){
-				st = $('body').scrollTop();
-				$('body').scrollTop(0).css('overflow', 'hidden');
-				
-			});
-			
-			$(window).resize();
-			
-		}
+		})
 		
-		function closePhoto(){
-			$('#photo-window-bg, #photo-window').hide();
-			$('body').css('overflow', 'auto').scrollTop(st);
+		function userDialogsCalc(){
+			
+			var box = $('#user-dialogs');
+			
+			var windowH = $(window).height();
+			var headerH = 90;
+			var textareaH = 100;
+			var wannachatH = 140;
+			var userH = 110;
+			var marginH = 30;
+			
+			var hasWannachat = box.hasClass('has-wannachat') ? 1 : 0;
+			
+			var generalH = windowH - marginH*2 - headerH;
+			if (generalH < 400) generalH = 400;
+			
+			box.find('.contacts').height(generalH);
+			box.find('.dialog').height(generalH);
+			
+			box.find('.contacts .list').height(generalH - wannachatH*hasWannachat);
+			box.find('.dialog .dialog-messages').height(generalH - textareaH - userH);
+						
 		}
 		
 	</script>
@@ -923,7 +933,7 @@
 	
   <!--<a id="btn-seo" href="#seo_tags" class="fancy" data-theme='white-square'></a>-->
   
-	<div id="user-dialogs" class="clearfix">
+	<div id="user-dialogs" class="clearfix has-wannachat">
 		
 		<div class="header">
 			

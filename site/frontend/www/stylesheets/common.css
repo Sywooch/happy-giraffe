@@ -187,8 +187,9 @@ a.info {display:inline-block;width:13px;height:13px;background:url(../images/com
 .user-info.medium .icon-status {margin-left:-16px;}
 .user-info .details .username {font-size:12px;line-height:1.2;text-decoration:none;vertical-align:top;width:85px;margin:0;padding:0;overflow:hidden;display:inline-block;}
 .user-info .details .username:hover {text-decoration:underline;}
-.user-info .details .location {margin:3px 0;}
+.user-info .details .location {margin:3px 0;font-size:13px;}
 .user-info .details .location .flag {display:inline-block;margin-right:5px;position:relative;top:1px;}
+.user-info .details .location .flag-big {display:inline-block;margin-right:5px;position:relative;top:-2px;vertical-align:middle;}
 .user-info .details .birthday span {color:#aeaeae;}
 .user-info .details .date {color:#b3b3b3;font-size:9px;margin-top:3px;margin-left:15px;}
 
@@ -895,7 +896,7 @@ body.nav-fixed #header-new .header-in {display:none;}
 #header-new {margin-bottom:20px;position:relative;}
 #header-new .header-in {background:url(/images/bg_header.gif) no-repeat;}
 #header-new.guest .header-in {background-image:url(/images/bg_header_guest.gif);}
-#header-new .top-line {background:#a17dc4;border-bottom:1px solid #fff;position:relative;z-index:6;}
+#header-new .top-line {background:#a17dc4;border-bottom:1px solid #fff;position:relative;z-index:12;}
 
 body.nav-fixed #header-new .top-line {position:fixed;left:50%;margin-left:-500px;top:0;width:1000px;border:0;}
 
@@ -928,7 +929,7 @@ body.nav-fixed #header-new .top-line {position:fixed;left:50%;margin-left:-500px
 #header-new .user-nav ul li > a .count {background:#75bb6e;color:#fff;text-decoration:none;font:bold 10px/12px arial, helvetica, sans-serif;height:13px;padding:0 5px;margin:4px 0 0 2px;float:left;}
 #header-new .user-nav ul li > a .count {/*css3*/ -moz-border-radius:2px;-webkit-border-radius:2px;border-radius:2px;behavior: url(/stylesheets/PIE.htc);}
 
-#header-new .user-nav .drp {position:absolute;top:30px;left:50%;margin-left:-86px;width:170px;border:1px solid #ded2e9;background:#fff;display:none;}
+#header-new .user-nav .drp {position:absolute;top:30px;left:50%;margin-left:-86px;width:170px;border:1px solid #ded2e9;background:#fff;display:none;z-index:12;}
 #header-new .user-nav .drp .drp-title {font-size:13px;color:#6d6d6d;text-align:center;padding:5px 0;}
 #header-new .user-nav > ul > li:hover .drp {display:block;}
 
@@ -1274,7 +1275,103 @@ body.nav-fixed #header-new .top-line {position:fixed;left:50%;margin-left:-500px
 #dialog .new-message .buttons {padding-top:10px;text-align:right;}
 #dialog .cke_bottom {display: none;}
 #dialog .dialog-inn {min-height: 200px;}
+
+
+/* **** */
+
+#user-dialogs {background:#fff;position:absolute;left:50%;margin-left:-500px;width:1000px;top:30px;z-index:11;border-bottom:1px solid #d7e9ff;}
+
+#user-dialogs .header {height:30px;padding:30px 0;text-align:center;position:relative;border:1px solid #d7e9ff;}
+
+#user-dialogs .header .close {color:#fa753b;font-size:11px;position:absolute;right:10px;top:10px;}
+
+#user-dialogs .header .title {font-size:30px;line-height:1;color:#3b3b3b;display:inline-block;*zoom:1;*display:inline;margin-right:20px;vertical-align:middle;}
+#user-dialogs .header .title span {}
+
+#user-dialogs .header .nav {display:inline-block;*zoom:1;*display:inline;vertical-align:middle;}
+#user-dialogs .header .nav ul {list-style:none;}
+#user-dialogs .header .nav ul li {float:left;padding:0 10px;border-left:1px solid #aed8f5;}
+#user-dialogs .header .nav ul li:first-child {border-left:0;}
+#user-dialogs .header .nav ul li a {display:inline-block;padding:2px 5px;}
+#user-dialogs .header .nav ul li .count {font-size:10px;font-weight:bold;color:#75bb6e;position:relative;top:-5px;}
+#user-dialogs .header .nav ul li.active a {background:#489ddf;color:#fff;text-decoration:none;}
+#user-dialogs .header .nav ul li.disabled a {color:#8fbfe0;text-decoration:none;cursor:default;}
+
+#user-dialogs .header .search {display:inline-block;*zoom:1;*display:inline;margin-left:20px;vertical-align:middle;}
+#user-dialogs .header .search input[type=search] {-webkit-appearance:none;width:150px;height:22px;border:1px solid #cbdbef; padding-left:7px;padding-right:2px;box-sizing: border-box;-moz-box-sizing: border-box;color:#444343;font-size:13px;font-family:arial;}
+#user-dialogs .header .search input[type=search]:focus {border-color:#91d88a;}
+#user-dialogs .header .search input[type=search]::-webkit-search-cancel-button {-webkit-appearance: none;width: 10px;height: 12px;background: url(/images/common.png) no-repeat -315px -136px;cursor: pointer;}
+#user-dialogs .header .search input[type=search]::-webkit-search-cancel-button:hover {background-position:-315px -149px;}
+
+#user-dialogs .contacts {width:265px;border-left:1px solid #d7e9ff;float:left;height:560px;}
+
+#user-dialogs .contacts .list {height:420px;overflow:auto;}
+#user-dialogs .contacts .list ul {width:220px;list-style:none;padding:14px;}
+#user-dialogs .contacts .list ul li {cursor:pointer;height:50px;padding:7px 15px;margin-bottom:10px;}
+#user-dialogs .contacts .list ul li:hover {background:#edf5ff;}
+#user-dialogs .contacts .list ul li.active {background:#5490d1;}
+#user-dialogs .contacts .list ul li.active .in .username {color:#fff;}
+#user-dialogs .contacts .list ul li .in {margin-left:44px;font-size:12px;line-height:14px;}
+#user-dialogs .contacts .list ul li .in .username {text-decoration:none;display:inline-block;*zoom:1;*display:inline;width:100px;vertical-align:top;margin-bottom:5px;}
+#user-dialogs .contacts .list ul li .in .username:hover {text-decoration:underline;}
+#user-dialogs .contacts .list ul li .in .icon-status {margin-left:-15px;}
+#user-dialogs .contacts .list ul li .in .new {display:inline-block;*zoom:1;*display:inline;height:13px;line-height:13px;font-size:10px;font-weight:bold;color:#fff;background:#75bb6e;padding:0 7px;-moz-border-radius:3px;-webkit-border-radius:3px;border-radius:3px;}
+
+#user-dialogs .contacts .wannachat {border-top:1px solid #d7e9ff;padding:15px;height:109px;}
+#user-dialogs .contacts .wannachat .block-title {font-size:20px;line-height:1;color:#3b3b3b;text-align:center;margin-bottom:15px;}
+#user-dialogs .contacts .wannachat ul {list-style:none;width:192px;margin:0 auto;}
+#user-dialogs .contacts .wannachat ul li {float:left;padding:4px;}
+
+#user-dialogs .dialog {float:left;width:732px;border-left:1px solid #d7e9ff;border-right:1px solid #d7e9ff;height:560px;overflow:auto;}
+
+#user-dialogs .dialog .dialog-header {background:#edf5ff;padding:12px 45px;height:86px;}
+#user-dialogs .dialog .dialog-header .user-info .details {width:310px;}
+#user-dialogs .dialog .dialog-header .user-info .user-fast-nav {margin:0;}
+
+#user-dialogs .dialog .dialog-messages {padding:0 55px;height:350px;overflow:auto;position:relative;}
+#user-dialogs .dialog .dialog-messages ul {list-style:none;padding:8px 0;}
+#user-dialogs .dialog .dialog-messages ul li {padding:12px 0 0;overflow:hidden;}
+#user-dialogs .dialog .dialog-messages ul li .in {margin-left:34px;}
+#user-dialogs .dialog .dialog-messages ul li .in .meta {margin-top:0;}
+#user-dialogs .dialog .dialog-messages ul li .in .username {font-size:13px;text-decoration:none;}
+#user-dialogs .dialog .dialog-messages ul li .in .username:hover {text-decoration:underline;}
+#user-dialogs .dialog .dialog-messages ul li .in .date {color:#bfc1c1;font-size:9px;font-family:tahoma, arial, helvetica, sans-serif;margin-left:15px;}
+#user-dialogs .dialog .dialog-messages ul li .in .message-label {margin-left:15px;font-size:11px;}
+#user-dialogs .dialog .dialog-messages ul li .in .label-read {color:#47c05a;}
+#user-dialogs .dialog .dialog-messages ul li .in .label-unread {color:#fe8a57;}
+
+#user-dialogs .dialog .dialog-messages .empty {padding-bottom:140px;background:url(/images/dialogs_no_messages.gif) no-repeat bottom;text-align:center;font-size:22px;color:#999999;line-height:26px;position:absolute;left:0;top:50%;margin-top:-90px;width:100%;}
+
+#user-dialogs .dialog .dialog-input {padding:22px 50px;background:#edf5ff;height:56px;}
+#user-dialogs .dialog .dialog-input .input {width:520px;float:left;}
+#user-dialogs .dialog .dialog-input .input textarea {height:32px;padding:7px 15px;border:1px solid #d6e5f8;width:488px;resize:none;}
+#user-dialogs .dialog .dialog-input .btn {width:110px;float:left;text-align:right;}
+#user-dialogs .dialog .dialog-input .btn button {border:0;background:url(/images/btn_dialogs_send.png) no-repeat;width:85px;height:46px;text-indent:-9999px;cursor:pointer;}
+
+#user-dialogs .no-messages {padding:45px;}
+#user-dialogs .no-messages .block-title {font-size:22px;color:#3e3e3e;line-height:1;margin-bottom:20px;}
+#user-dialogs .no-messages .find-friends {font-size:17px;margin-top:15px;}
+#user-dialogs .no-messages .wannachat {display:inline-block;*zoom:1;*display:inline;display:inline-block;background:#a888c6;color:#fff;font:normal 24px/36px tahoma, arial, helvetica, sans-serif;padding:2px 18px;text-decoration:none;margin-left:2px;-moz-border-radius:15px;-webkit-border-radius:15px;border-radius:15px;margin-left:15px;}
+
+#user-dialogs .friends {padding:0 45px;margin-bottom:20px;}
+#user-dialogs .friends .block-title {font-size:18px;color:#3e3e3e;margin-bottom:20px;}
+#user-dialogs .friends .block-title a {font-size:12px;margin-left:30px;}
+#user-dialogs .friends ul {list-style:none;}
+#user-dialogs .friends ul li {float:left;width:32%;padding-bottom:30px;font-size:11px;padding-right:1%;position:relative;}
+#user-dialogs .friends ul li .ava {float:left;}
+#user-dialogs .friends ul li .details {margin-left:90px;}
+#user-dialogs .friends ul li .details .icon-status {margin-left:-16px;}
+#user-dialogs .friends ul li .details .username {width:100px;}
+#user-dialogs .friends ul li .remove {width:12px;height:14px;background:url(/images/common.png) no-repeat -314px -135px;position:relative;margin-right:8px;vertical-align:middle;}
+#user-dialogs .friends ul li .remove:hover {background-position:-314px -148px;}
+#user-dialogs .friends ul li.empty .img {width:72px;height:72px;background:#f4f4f4;}
+#user-dialogs .friends ul li.empty .img {/*css3*/ -moz-border-radius:36px;-webkit-border-radius:36px;border-radius:36px;behavior: url(/stylesheets/PIE.htc);}
+
+
+
 /* dialogs end */
+
+
 
 
 /* select */
@@ -3049,209 +3146,210 @@ label {
     height: 32px;
     background:url(/images/flags_32.png) no-repeat;
 }
-.flag-big.flag-big-ad{ background-position: 0 0; width: 32px; height: 32px; }
-.flag-big.flag-big-ae{ background-position: 0 -33px; width: 32px; height: 32px; }
-.flag-big.flag-big-af{ background-position: 0 -66px; width: 32px; height: 32px; }
-.flag-big.flag-big-ag{ background-position: 0 -99px; width: 32px; height: 32px; }
-.flag-big.flag-big-ai{ background-position: 0 -132px; width: 32px; height: 32px; }
-.flag-big.flag-big-al{ background-position: 0 -165px; width: 32px; height: 32px; }
-.flag-big.flag-big-am{ background-position: 0 -198px; width: 32px; height: 32px; }
-.flag-big.flag-big-ao{ background-position: 0 -231px; width: 32px; height: 32px; }
-.flag-big.flag-big-aq{ background-position: 0 -264px; width: 32px; height: 32px; }
-.flag-big.flag-big-ar{ background-position: 0 -297px; width: 32px; height: 32px; }
-.flag-big.flag-big-as{ background-position: 0 -330px; width: 32px; height: 32px; }
-.flag-big.flag-big-at{ background-position: 0 -363px; width: 32px; height: 32px; }
-.flag-big.flag-big-au{ background-position: 0 -396px; width: 32px; height: 32px; }
-.flag-big.flag-big-aw{ background-position: 0 -429px; width: 32px; height: 32px; }
-.flag-big.flag-big-az{ background-position: 0 -462px; width: 32px; height: 32px; }
-.flag-big.flag-big-ba{ background-position: 0 -495px; width: 32px; height: 32px; }
-.flag-big.flag-big-bb{ background-position: 0 -528px; width: 32px; height: 32px; }
-.flag-big.flag-big-bd{ background-position: 0 -561px; width: 32px; height: 32px; }
-.flag-big.flag-big-be{ background-position: 0 -594px; width: 32px; height: 32px; }
-.flag-big.flag-big-bf{ background-position: 0 -627px; width: 32px; height: 32px; }
-.flag-big.flag-big-bg{ background-position: 0 -660px; width: 32px; height: 32px; }
-.flag-big.flag-big-bh{ background-position: 0 -693px; width: 32px; height: 32px; }
-.flag-big.flag-big-bi{ background-position: 0 -726px; width: 32px; height: 32px; }
-.flag-big.flag-big-bj{ background-position: 0 -759px; width: 32px; height: 32px; }
-.flag-big.flag-big-bn{ background-position: 0 -792px; width: 32px; height: 32px; }
-.flag-big.flag-big-bo{ background-position: 0 -825px; width: 32px; height: 32px; }
-.flag-big.flag-big-br{ background-position: 0 -858px; width: 32px; height: 32px; }
-.flag-big.flag-big-bs{ background-position: 0 -891px; width: 32px; height: 32px; }
-.flag-big.flag-big-bt{ background-position: 0 -924px; width: 32px; height: 32px; }
-.flag-big.flag-big-bw{ background-position: 0 -957px; width: 32px; height: 32px; }
-.flag-big.flag-big-by{ background-position: 0 -990px; width: 32px; height: 32px; }
-.flag-big.flag-big-bz{ background-position: 0 -1023px; width: 32px; height: 32px; }
-.flag-big.flag-big-ca{ background-position: 0 -1056px; width: 32px; height: 32px; }
-.flag-big.flag-big-cf{ background-position: 0 -1089px; width: 32px; height: 32px; }
-.flag-big.flag-big-cg{ background-position: 0 -1122px; width: 32px; height: 32px; }
-.flag-big.flag-big-ch00{ background-position: 0 -1155px; width: 32px; height: 32px; }
-.flag-big.flag-big-ch{ background-position: 0 -1188px; width: 32px; height: 32px; }
-.flag-big.flag-big-ci{ background-position: 0 -1221px; width: 32px; height: 32px; }
-.flag-big.flag-big-cl{ background-position: 0 -1254px; width: 32px; height: 32px; }
-.flag-big.flag-big-cm{ background-position: 0 -1287px; width: 32px; height: 32px; }
-.flag-big.flag-big-cn{ background-position: 0 -1320px; width: 32px; height: 32px; }
-.flag-big.flag-big-co{ background-position: 0 -1353px; width: 32px; height: 32px; }
-.flag-big.flag-big-cr{ background-position: 0 -1386px; width: 32px; height: 32px; }
-.flag-big.flag-big-cu{ background-position: 0 -1419px; width: 32px; height: 32px; }
-.flag-big.flag-big-cv{ background-position: 0 -1452px; width: 32px; height: 32px; }
-.flag-big.flag-big-cy{ background-position: 0 -1485px; width: 32px; height: 32px; }
-.flag-big.flag-big-cz{ background-position: 0 -1518px; width: 32px; height: 32px; }
-.flag-big.flag-big-de{ background-position: 0 -1551px; width: 32px; height: 32px; }
-.flag-big.flag-big-dj{ background-position: 0 -1584px; width: 32px; height: 32px; }
-.flag-big.flag-big-dk{ background-position: 0 -1617px; width: 32px; height: 32px; }
-.flag-big.flag-big-dm{ background-position: 0 -1650px; width: 32px; height: 32px; }
-.flag-big.flag-big-do{ background-position: 0 -1683px; width: 32px; height: 32px; }
-.flag-big.flag-big-dz{ background-position: 0 -1716px; width: 32px; height: 32px; }
-.flag-big.flag-big-ec{ background-position: 0 -1749px; width: 32px; height: 32px; }
-.flag-big.flag-big-ee{ background-position: 0 -1782px; width: 32px; height: 32px; }
-.flag-big.flag-big-eg{ background-position: 0 -1815px; width: 32px; height: 32px; }
-.flag-big.flag-big-er{ background-position: 0 -1848px; width: 32px; height: 32px; }
-.flag-big.flag-big-es{ background-position: 0 -1881px; width: 32px; height: 32px; }
-.flag-big.flag-big-et{ background-position: 0 -1914px; width: 32px; height: 32px; }
-.flag-big.flag-big-eu{ background-position: 0 -1947px; width: 32px; height: 32px; }
-.flag-big.flag-big-fi{ background-position: 0 -1980px; width: 32px; height: 32px; }
-.flag-big.flag-big-fj{ background-position: -33px 0; width: 32px; height: 32px; }
-.flag-big.flag-big-fm{ background-position: -33px -33px; width: 32px; height: 32px; }
-.flag-big.flag-big-fo{ background-position: -33px -66px; width: 32px; height: 32px; }
-.flag-big.flag-big-fr{ background-position: -33px -99px; width: 32px; height: 32px; }
-.flag-big.flag-big-ga{ background-position: -33px -132px; width: 32px; height: 32px; }
-.flag-big.flag-big-gb{ background-position: -33px -165px; width: 32px; height: 32px; }
-.flag-big.flag-big-gd{ background-position: -33px -198px; width: 32px; height: 32px; }
-.flag-big.flag-big-ge{ background-position: -33px -231px; width: 32px; height: 32px; }
-.flag-big.flag-big-gh{ background-position: -33px -264px; width: 32px; height: 32px; }
-.flag-big.flag-big-gm{ background-position: -33px -297px; width: 32px; height: 32px; }
-.flag-big.flag-big-gn{ background-position: -33px -330px; width: 32px; height: 32px; }
-.flag-big.flag-big-gq{ background-position: -33px -363px; width: 32px; height: 32px; }
-.flag-big.flag-big-gr{ background-position: -33px -396px; width: 32px; height: 32px; }
-.flag-big.flag-big-gt{ background-position: -33px -429px; width: 32px; height: 32px; }
-.flag-big.flag-big-gw{ background-position: -33px -462px; width: 32px; height: 32px; }
-.flag-big.flag-big-gy{ background-position: -33px -495px; width: 32px; height: 32px; }
-.flag-big.flag-big-hk{ background-position: -33px -528px; width: 32px; height: 32px; }
-.flag-big.flag-big-hn{ background-position: -33px -561px; width: 32px; height: 32px; }
-.flag-big.flag-big-hr{ background-position: -33px -594px; width: 32px; height: 32px; }
-.flag-big.flag-big-ht{ background-position: -33px -627px; width: 32px; height: 32px; }
-.flag-big.flag-big-hu{ background-position: -33px -660px; width: 32px; height: 32px; }
-.flag-big.flag-big-id{ background-position: -33px -693px; width: 32px; height: 32px; }
-.flag-big.flag-big-ie{ background-position: -33px -726px; width: 32px; height: 32px; }
-.flag-big.flag-big-il{ background-position: -33px -759px; width: 32px; height: 32px; }
-.flag-big.flag-big-in{ background-position: -33px -792px; width: 32px; height: 32px; }
-.flag-big.flag-big-iq{ background-position: -33px -825px; width: 32px; height: 32px; }
-.flag-big.flag-big-ir{ background-position: -33px -858px; width: 32px; height: 32px; }
-.flag-big.flag-big-is{ background-position: -33px -891px; width: 32px; height: 32px; }
-.flag-big.flag-big-it{ background-position: -33px -924px; width: 32px; height: 32px; }
-.flag-big.flag-big-jm{ background-position: -33px -957px; width: 32px; height: 32px; }
-.flag-big.flag-big-jo{ background-position: -33px -990px; width: 32px; height: 32px; }
-.flag-big.flag-big-jp{ background-position: -33px -1023px; width: 32px; height: 32px; }
-.flag-big.flag-big-ke{ background-position: -33px -1056px; width: 32px; height: 32px; }
-.flag-big.flag-big-kg{ background-position: -33px -1089px; width: 32px; height: 32px; }
-.flag-big.flag-big-kh{ background-position: -33px -1122px; width: 32px; height: 32px; }
-.flag-big.flag-big-ki{ background-position: -33px -1155px; width: 32px; height: 32px; }
-.flag-big.flag-big-km{ background-position: -33px -1188px; width: 32px; height: 32px; }
-.flag-big.flag-big-kn{ background-position: -33px -1221px; width: 32px; height: 32px; }
-.flag-big.flag-big-kp{ background-position: -33px -1254px; width: 32px; height: 32px; }
-.flag-big.flag-big-kr{ background-position: -33px -1287px; width: 32px; height: 32px; }
-.flag-big.flag-big-kw{ background-position: -33px -1320px; width: 32px; height: 32px; }
-.flag-big.flag-big-kz{ background-position: -33px -1353px; width: 32px; height: 32px; }
-.flag-big.flag-big-la{ background-position: -33px -1386px; width: 32px; height: 32px; }
-.flag-big.flag-big-lb{ background-position: -33px -1419px; width: 32px; height: 32px; }
-.flag-big.flag-big-lc{ background-position: -33px -1452px; width: 32px; height: 32px; }
-.flag-big.flag-big-li{ background-position: -33px -1485px; width: 32px; height: 32px; }
-.flag-big.flag-big-lk{ background-position: -33px -1518px; width: 32px; height: 32px; }
-.flag-big.flag-big-lr{ background-position: -33px -1551px; width: 32px; height: 32px; }
-.flag-big.flag-big-ls{ background-position: -33px -1584px; width: 32px; height: 32px; }
-.flag-big.flag-big-lt{ background-position: -33px -1617px; width: 32px; height: 32px; }
-.flag-big.flag-big-lu{ background-position: -33px -1650px; width: 32px; height: 32px; }
-.flag-big.flag-big-lv{ background-position: -33px -1683px; width: 32px; height: 32px; }
-.flag-big.flag-big-ly{ background-position: -33px -1716px; width: 32px; height: 32px; }
-.flag-big.flag-big-ma{ background-position: -33px -1749px; width: 32px; height: 32px; }
-.flag-big.flag-big-mc{ background-position: -33px -1782px; width: 32px; height: 32px; }
-.flag-big.flag-big-md{ background-position: -33px -1815px; width: 32px; height: 32px; }
-.flag-big.flag-big-mg{ background-position: -33px -1848px; width: 32px; height: 32px; }
-.flag-big.flag-big-mh{ background-position: -33px -1881px; width: 32px; height: 32px; }
-.flag-big.flag-big-mk{ background-position: -33px -1914px; width: 32px; height: 32px; }
-.flag-big.flag-big-ml{ background-position: -33px -1947px; width: 32px; height: 32px; }
-.flag-big.flag-big-mm{ background-position: -33px -1980px; width: 32px; height: 32px; }
-.flag-big.flag-big-mn{ background-position: -66px 0; width: 32px; height: 32px; }
-.flag-big.flag-big-mo{ background-position: -66px -33px; width: 32px; height: 32px; }
-.flag-big.flag-big-mr{ background-position: -66px -66px; width: 32px; height: 32px; }
-.flag-big.flag-big-mt{ background-position: -66px -99px; width: 32px; height: 32px; }
-.flag-big.flag-big-mu{ background-position: -66px -132px; width: 32px; height: 32px; }
-.flag-big.flag-big-mv{ background-position: -66px -165px; width: 32px; height: 32px; }
-.flag-big.flag-big-mw{ background-position: -66px -198px; width: 32px; height: 32px; }
-.flag-big.flag-big-mx{ background-position: -66px -231px; width: 32px; height: 32px; }
-.flag-big.flag-big-my{ background-position: -66px -264px; width: 32px; height: 32px; }
-.flag-big.flag-big-mz{ background-position: -66px -297px; width: 32px; height: 32px; }
-.flag-big.flag-big-na{ background-position: -66px -330px; width: 32px; height: 32px; }
-.flag-big.flag-big-ne{ background-position: -66px -363px; width: 32px; height: 32px; }
-.flag-big.flag-big-ng{ background-position: -66px -396px; width: 32px; height: 32px; }
-.flag-big.flag-big-ni{ background-position: -66px -429px; width: 32px; height: 32px; }
-.flag-big.flag-big-nl{ background-position: -66px -462px; width: 32px; height: 32px; }
-.flag-big.flag-big-no{ background-position: -66px -495px; width: 32px; height: 32px; }
-.flag-big.flag-big-np{ background-position: -66px -528px; width: 32px; height: 32px; }
-.flag-big.flag-big-nr{ background-position: -66px -561px; width: 32px; height: 32px; }
-.flag-big.flag-big-nz{ background-position: -66px -594px; width: 32px; height: 32px; }
-.flag-big.flag-big-om{ background-position: -66px -627px; width: 32px; height: 32px; }
-.flag-big.flag-big-pa{ background-position: -66px -660px; width: 32px; height: 32px; }
-.flag-big.flag-big-pe{ background-position: -66px -693px; width: 32px; height: 32px; }
-.flag-big.flag-big-pg{ background-position: -66px -726px; width: 32px; height: 32px; }
-.flag-big.flag-big-ph{ background-position: -66px -759px; width: 32px; height: 32px; }
-.flag-big.flag-big-pk{ background-position: -66px -792px; width: 32px; height: 32px; }
-.flag-big.flag-big-pl{ background-position: -66px -825px; width: 32px; height: 32px; }
-.flag-big.flag-big-pr{ background-position: -66px -858px; width: 32px; height: 32px; }
-.flag-big.flag-big-ps{ background-position: -66px -891px; width: 32px; height: 32px; }
-.flag-big.flag-big-pt{ background-position: -66px -924px; width: 32px; height: 32px; }
-.flag-big.flag-big-pw{ background-position: -66px -957px; width: 32px; height: 32px; }
-.flag-big.flag-big-py{ background-position: -66px -990px; width: 32px; height: 32px; }
-.flag-big.flag-big-qa{ background-position: -66px -1023px; width: 32px; height: 32px; }
-.flag-big.flag-big-ro{ background-position: -66px -1056px; width: 32px; height: 32px; }
-.flag-big.flag-big-rs{ background-position: -66px -1089px; width: 32px; height: 32px; }
-.flag-big.flag-big-ru{ background-position: -66px -1122px; width: 32px; height: 32px; }
-.flag-big.flag-big-rw{ background-position: -66px -1155px; width: 32px; height: 32px; }
-.flag-big.flag-big-sa{ background-position: -66px -1188px; width: 32px; height: 32px; }
-.flag-big.flag-big-sb{ background-position: -66px -1221px; width: 32px; height: 32px; }
-.flag-big.flag-big-sc{ background-position: -66px -1254px; width: 32px; height: 32px; }
-.flag-big.flag-big-sd{ background-position: -66px -1287px; width: 32px; height: 32px; }
-.flag-big.flag-big-se{ background-position: -66px -1320px; width: 32px; height: 32px; }
-.flag-big.flag-big-sg{ background-position: -66px -1353px; width: 32px; height: 32px; }
-.flag-big.flag-big-si{ background-position: -66px -1386px; width: 32px; height: 32px; }
-.flag-big.flag-big-sk{ background-position: -66px -1419px; width: 32px; height: 32px; }
-.flag-big.flag-big-sl{ background-position: -66px -1452px; width: 32px; height: 32px; }
-.flag-big.flag-big-sm{ background-position: -66px -1485px; width: 32px; height: 32px; }
-.flag-big.flag-big-sn{ background-position: -66px -1518px; width: 32px; height: 32px; }
-.flag-big.flag-big-so{ background-position: -66px -1551px; width: 32px; height: 32px; }
-.flag-big.flag-big-sr{ background-position: -66px -1584px; width: 32px; height: 32px; }
-.flag-big.flag-big-st{ background-position: -66px -1617px; width: 32px; height: 32px; }
-.flag-big.flag-big-sy{ background-position: -66px -1650px; width: 32px; height: 32px; }
-.flag-big.flag-big-td{ background-position: -66px -1683px; width: 32px; height: 32px; }
-.flag-big.flag-big-tg{ background-position: -66px -1716px; width: 32px; height: 32px; }
-.flag-big.flag-big-th{ background-position: -66px -1749px; width: 32px; height: 32px; }
-.flag-big.flag-big-tj{ background-position: -66px -1782px; width: 32px; height: 32px; }
-.flag-big.flag-big-tl{ background-position: -66px -1815px; width: 32px; height: 32px; }
-.flag-big.flag-big-tm{ background-position: -66px -1848px; width: 32px; height: 32px; }
-.flag-big.flag-big-tn{ background-position: -66px -1881px; width: 32px; height: 32px; }
-.flag-big.flag-big-to{ background-position: -66px -1914px; width: 32px; height: 32px; }
-.flag-big.flag-big-tp{ background-position: -66px -1947px; width: 32px; height: 32px; }
-.flag-big.flag-big-tr{ background-position: -66px -1980px; width: 32px; height: 32px; }
-.flag-big.flag-big-tt{ background-position: -99px 0; width: 32px; height: 32px; }
-.flag-big.flag-big-tv{ background-position: -99px -33px; width: 32px; height: 32px; }
-.flag-big.flag-big-tw{ background-position: -99px -66px; width: 32px; height: 32px; }
-.flag-big.flag-big-tz{ background-position: -99px -99px; width: 32px; height: 32px; }
-.flag-big.flag-big-ua{ background-position: -99px -132px; width: 32px; height: 32px; }
-.flag-big.flag-big-ug{ background-position: -99px -165px; width: 32px; height: 32px; }
-.flag-big.flag-big-us{ background-position: -99px -198px; width: 32px; height: 32px; }
-.flag-big.flag-big-uy{ background-position: -99px -231px; width: 32px; height: 32px; }
-.flag-big.flag-big-uz{ background-position: -99px -264px; width: 32px; height: 32px; }
-.flag-big.flag-big-va{ background-position: -99px -297px; width: 32px; height: 32px; }
-.flag-big.flag-big-vc{ background-position: -99px -330px; width: 32px; height: 32px; }
-.flag-big.flag-big-ve{ background-position: -99px -363px; width: 32px; height: 32px; }
-.flag-big.flag-big-vn{ background-position: -99px -396px; width: 32px; height: 32px; }
-.flag-big.flag-big-vu{ background-position: -99px -429px; width: 32px; height: 32px; }
-.flag-big.flag-big-ws{ background-position: -99px -462px; width: 32px; height: 32px; }
-.flag-big.flag-big-ye{ background-position: -99px -495px; width: 32px; height: 32px; }
-.flag-big.flag-big-za{ background-position: -99px -528px; width: 32px; height: 32px; }
-.flag-big.flag-big-zm{ background-position: -99px -561px; width: 32px; height: 32px; }
-.flag-big.flag-big-zr{ background-position: -99px -594px; width: 32px; height: 32px; }
-.flag-big.flag-big-zw{ background-position: -99px -627px; width: 32px; height: 32px; }
+.flag-big.flag-big-ad{ background-position: 0 0; width: 32px; height: 32px; } 
+.flag-big.flag-big-ae{ background-position: 0 -33px; width: 32px; height: 32px; } 
+.flag-big.flag-big-af{ background-position: 0 -66px; width: 32px; height: 32px; } 
+.flag-big.flag-big-ag{ background-position: 0 -99px; width: 32px; height: 32px; } 
+.flag-big.flag-big-ai{ background-position: 0 -132px; width: 32px; height: 32px; } 
+.flag-big.flag-big-al{ background-position: 0 -165px; width: 32px; height: 32px; } 
+.flag-big.flag-big-am{ background-position: 0 -198px; width: 32px; height: 32px; } 
+.flag-big.flag-big-ao{ background-position: 0 -231px; width: 32px; height: 32px; } 
+.flag-big.flag-big-aq{ background-position: 0 -264px; width: 32px; height: 32px; } 
+.flag-big.flag-big-ar{ background-position: 0 -297px; width: 32px; height: 32px; } 
+.flag-big.flag-big-as{ background-position: 0 -330px; width: 32px; height: 32px; } 
+.flag-big.flag-big-at{ background-position: 0 -363px; width: 32px; height: 32px; } 
+.flag-big.flag-big-au{ background-position: 0 -396px; width: 32px; height: 32px; } 
+.flag-big.flag-big-aw{ background-position: 0 -429px; width: 32px; height: 32px; } 
+.flag-big.flag-big-az{ background-position: 0 -462px; width: 32px; height: 32px; } 
+.flag-big.flag-big-ba{ background-position: 0 -495px; width: 32px; height: 32px; } 
+.flag-big.flag-big-bb{ background-position: 0 -528px; width: 32px; height: 32px; } 
+.flag-big.flag-big-bd{ background-position: 0 -561px; width: 32px; height: 32px; } 
+.flag-big.flag-big-be{ background-position: 0 -594px; width: 32px; height: 32px; } 
+.flag-big.flag-big-bf{ background-position: 0 -627px; width: 32px; height: 32px; } 
+.flag-big.flag-big-bg{ background-position: 0 -660px; width: 32px; height: 32px; } 
+.flag-big.flag-big-bh{ background-position: 0 -693px; width: 32px; height: 32px; } 
+.flag-big.flag-big-bi{ background-position: 0 -726px; width: 32px; height: 32px; } 
+.flag-big.flag-big-bj{ background-position: 0 -759px; width: 32px; height: 32px; } 
+.flag-big.flag-big-bn{ background-position: 0 -792px; width: 32px; height: 32px; } 
+.flag-big.flag-big-bo{ background-position: 0 -825px; width: 32px; height: 32px; } 
+.flag-big.flag-big-br{ background-position: 0 -858px; width: 32px; height: 32px; } 
+.flag-big.flag-big-bs{ background-position: 0 -891px; width: 32px; height: 32px; } 
+.flag-big.flag-big-bt{ background-position: 0 -924px; width: 32px; height: 32px; } 
+.flag-big.flag-big-bw{ background-position: 0 -957px; width: 32px; height: 32px; } 
+.flag-big.flag-big-by{ background-position: 0 -990px; width: 32px; height: 32px; } 
+.flag-big.flag-big-bz{ background-position: 0 -1023px; width: 32px; height: 32px; } 
+.flag-big.flag-big-ca{ background-position: 0 -1056px; width: 32px; height: 32px; } 
+.flag-big.flag-big-cf{ background-position: 0 -1089px; width: 32px; height: 32px; } 
+.flag-big.flag-big-cg{ background-position: 0 -1122px; width: 32px; height: 32px; } 
+.flag-big.flag-big-ch00{ background-position: 0 -1155px; width: 32px; height: 32px; } 
+.flag-big.flag-big-ch{ background-position: 0 -1188px; width: 32px; height: 32px; } 
+.flag-big.flag-big-ci{ background-position: 0 -1221px; width: 32px; height: 32px; } 
+.flag-big.flag-big-cl{ background-position: 0 -1254px; width: 32px; height: 32px; } 
+.flag-big.flag-big-cm{ background-position: 0 -1287px; width: 32px; height: 32px; } 
+.flag-big.flag-big-cn{ background-position: 0 -1320px; width: 32px; height: 32px; } 
+.flag-big.flag-big-co{ background-position: 0 -1353px; width: 32px; height: 32px; } 
+.flag-big.flag-big-cr{ background-position: 0 -1386px; width: 32px; height: 32px; } 
+.flag-big.flag-big-cu{ background-position: 0 -1419px; width: 32px; height: 32px; } 
+.flag-big.flag-big-cv{ background-position: 0 -1452px; width: 32px; height: 32px; } 
+.flag-big.flag-big-cy{ background-position: 0 -1485px; width: 32px; height: 32px; } 
+.flag-big.flag-big-cz{ background-position: 0 -1518px; width: 32px; height: 32px; } 
+.flag-big.flag-big-de{ background-position: 0 -1551px; width: 32px; height: 32px; } 
+.flag-big.flag-big-dj{ background-position: 0 -1584px; width: 32px; height: 32px; } 
+.flag-big.flag-big-dk{ background-position: 0 -1617px; width: 32px; height: 32px; } 
+.flag-big.flag-big-dm{ background-position: 0 -1650px; width: 32px; height: 32px; } 
+.flag-big.flag-big-do{ background-position: 0 -1683px; width: 32px; height: 32px; } 
+.flag-big.flag-big-dz{ background-position: 0 -1716px; width: 32px; height: 32px; } 
+.flag-big.flag-big-ec{ background-position: 0 -1749px; width: 32px; height: 32px; } 
+.flag-big.flag-big-ee{ background-position: 0 -1782px; width: 32px; height: 32px; } 
+.flag-big.flag-big-eg{ background-position: 0 -1815px; width: 32px; height: 32px; } 
+.flag-big.flag-big-er{ background-position: 0 -1848px; width: 32px; height: 32px; } 
+.flag-big.flag-big-es{ background-position: 0 -1881px; width: 32px; height: 32px; } 
+.flag-big.flag-big-et{ background-position: 0 -1914px; width: 32px; height: 32px; } 
+.flag-big.flag-big-eu{ background-position: 0 -1947px; width: 32px; height: 32px; } 
+.flag-big.flag-big-fi{ background-position: 0 -1980px; width: 32px; height: 32px; } 
+.flag-big.flag-big-fj{ background-position: -33px 0; width: 32px; height: 32px; } 
+.flag-big.flag-big-fm{ background-position: -33px -33px; width: 32px; height: 32px; } 
+.flag-big.flag-big-fo{ background-position: -33px -66px; width: 32px; height: 32px; } 
+.flag-big.flag-big-fr{ background-position: -33px -99px; width: 32px; height: 32px; } 
+.flag-big.flag-big-ga{ background-position: -33px -132px; width: 32px; height: 32px; } 
+.flag-big.flag-big-gb{ background-position: -33px -165px; width: 32px; height: 32px; } 
+.flag-big.flag-big-gd{ background-position: -33px -198px; width: 32px; height: 32px; } 
+.flag-big.flag-big-ge{ background-position: -33px -231px; width: 32px; height: 32px; } 
+.flag-big.flag-big-gh{ background-position: -33px -264px; width: 32px; height: 32px; } 
+.flag-big.flag-big-gm{ background-position: -33px -297px; width: 32px; height: 32px; } 
+.flag-big.flag-big-gn{ background-position: -33px -330px; width: 32px; height: 32px; } 
+.flag-big.flag-big-gq{ background-position: -33px -363px; width: 32px; height: 32px; } 
+.flag-big.flag-big-gr{ background-position: -33px -396px; width: 32px; height: 32px; } 
+.flag-big.flag-big-gt{ background-position: -33px -429px; width: 32px; height: 32px; } 
+.flag-big.flag-big-gw{ background-position: -33px -462px; width: 32px; height: 32px; } 
+.flag-big.flag-big-gy{ background-position: -33px -495px; width: 32px; height: 32px; } 
+.flag-big.flag-big-hk{ background-position: -33px -528px; width: 32px; height: 32px; } 
+.flag-big.flag-big-hn{ background-position: -33px -561px; width: 32px; height: 32px; } 
+.flag-big.flag-big-hr{ background-position: -33px -594px; width: 32px; height: 32px; } 
+.flag-big.flag-big-ht{ background-position: -33px -627px; width: 32px; height: 32px; } 
+.flag-big.flag-big-hu{ background-position: -33px -660px; width: 32px; height: 32px; } 
+.flag-big.flag-big-id{ background-position: -33px -693px; width: 32px; height: 32px; } 
+.flag-big.flag-big-ie{ background-position: -33px -726px; width: 32px; height: 32px; } 
+.flag-big.flag-big-il{ background-position: -33px -759px; width: 32px; height: 32px; } 
+.flag-big.flag-big-in{ background-position: -33px -792px; width: 32px; height: 32px; } 
+.flag-big.flag-big-iq{ background-position: -33px -825px; width: 32px; height: 32px; } 
+.flag-big.flag-big-ir{ background-position: -33px -858px; width: 32px; height: 32px; } 
+.flag-big.flag-big-is{ background-position: -33px -891px; width: 32px; height: 32px; } 
+.flag-big.flag-big-it{ background-position: -33px -924px; width: 32px; height: 32px; } 
+.flag-big.flag-big-jm{ background-position: -33px -957px; width: 32px; height: 32px; } 
+.flag-big.flag-big-jo{ background-position: -33px -990px; width: 32px; height: 32px; } 
+.flag-big.flag-big-jp{ background-position: -33px -1023px; width: 32px; height: 32px; } 
+.flag-big.flag-big-ke{ background-position: -33px -1056px; width: 32px; height: 32px; } 
+.flag-big.flag-big-kg{ background-position: -33px -1089px; width: 32px; height: 32px; } 
+.flag-big.flag-big-kh{ background-position: -33px -1122px; width: 32px; height: 32px; } 
+.flag-big.flag-big-ki{ background-position: -33px -1155px; width: 32px; height: 32px; } 
+.flag-big.flag-big-km{ background-position: -33px -1188px; width: 32px; height: 32px; } 
+.flag-big.flag-big-kn{ background-position: -33px -1221px; width: 32px; height: 32px; } 
+.flag-big.flag-big-kp{ background-position: -33px -1254px; width: 32px; height: 32px; } 
+.flag-big.flag-big-kr{ background-position: -33px -1287px; width: 32px; height: 32px; } 
+.flag-big.flag-big-kw{ background-position: -33px -1320px; width: 32px; height: 32px; } 
+.flag-big.flag-big-kz{ background-position: -33px -1353px; width: 32px; height: 32px; } 
+.flag-big.flag-big-la{ background-position: -33px -1386px; width: 32px; height: 32px; } 
+.flag-big.flag-big-lb{ background-position: -33px -1419px; width: 32px; height: 32px; } 
+.flag-big.flag-big-lc{ background-position: -33px -1452px; width: 32px; height: 32px; } 
+.flag-big.flag-big-li{ background-position: -33px -1485px; width: 32px; height: 32px; } 
+.flag-big.flag-big-lk{ background-position: -33px -1518px; width: 32px; height: 32px; } 
+.flag-big.flag-big-lr{ background-position: -33px -1551px; width: 32px; height: 32px; } 
+.flag-big.flag-big-ls{ background-position: -33px -1584px; width: 32px; height: 32px; } 
+.flag-big.flag-big-lt{ background-position: -33px -1617px; width: 32px; height: 32px; } 
+.flag-big.flag-big-lu{ background-position: -33px -1650px; width: 32px; height: 32px; } 
+.flag-big.flag-big-lv{ background-position: -33px -1683px; width: 32px; height: 32px; } 
+.flag-big.flag-big-ly{ background-position: -33px -1716px; width: 32px; height: 32px; } 
+.flag-big.flag-big-ma{ background-position: -33px -1749px; width: 32px; height: 32px; } 
+.flag-big.flag-big-mc{ background-position: -33px -1782px; width: 32px; height: 32px; } 
+.flag-big.flag-big-md{ background-position: -33px -1815px; width: 32px; height: 32px; } 
+.flag-big.flag-big-mg{ background-position: -33px -1848px; width: 32px; height: 32px; } 
+.flag-big.flag-big-mh{ background-position: -33px -1881px; width: 32px; height: 32px; } 
+.flag-big.flag-big-mk{ background-position: -33px -1914px; width: 32px; height: 32px; } 
+.flag-big.flag-big-ml{ background-position: -33px -1947px; width: 32px; height: 32px; } 
+.flag-big.flag-big-mm{ background-position: -33px -1980px; width: 32px; height: 32px; } 
+.flag-big.flag-big-mn{ background-position: -66px 0; width: 32px; height: 32px; } 
+.flag-big.flag-big-mo{ background-position: -66px -33px; width: 32px; height: 32px; } 
+.flag-big.flag-big-mr{ background-position: -66px -66px; width: 32px; height: 32px; } 
+.flag-big.flag-big-mt{ background-position: -66px -99px; width: 32px; height: 32px; } 
+.flag-big.flag-big-mu{ background-position: -66px -132px; width: 32px; height: 32px; } 
+.flag-big.flag-big-mv{ background-position: -66px -165px; width: 32px; height: 32px; } 
+.flag-big.flag-big-mw{ background-position: -66px -198px; width: 32px; height: 32px; } 
+.flag-big.flag-big-mx{ background-position: -66px -231px; width: 32px; height: 32px; } 
+.flag-big.flag-big-my{ background-position: -66px -264px; width: 32px; height: 32px; } 
+.flag-big.flag-big-mz{ background-position: -66px -297px; width: 32px; height: 32px; } 
+.flag-big.flag-big-na{ background-position: -66px -330px; width: 32px; height: 32px; } 
+.flag-big.flag-big-ne{ background-position: -66px -363px; width: 32px; height: 32px; } 
+.flag-big.flag-big-ng{ background-position: -66px -396px; width: 32px; height: 32px; } 
+.flag-big.flag-big-ni{ background-position: -66px -429px; width: 32px; height: 32px; } 
+.flag-big.flag-big-nl{ background-position: -66px -462px; width: 32px; height: 32px; } 
+.flag-big.flag-big-no{ background-position: -66px -495px; width: 32px; height: 32px; } 
+.flag-big.flag-big-np{ background-position: -66px -528px; width: 32px; height: 32px; } 
+.flag-big.flag-big-nr{ background-position: -66px -561px; width: 32px; height: 32px; } 
+.flag-big.flag-big-nz{ background-position: -66px -594px; width: 32px; height: 32px; } 
+.flag-big.flag-big-om{ background-position: -66px -627px; width: 32px; height: 32px; } 
+.flag-big.flag-big-pa{ background-position: -66px -660px; width: 32px; height: 32px; } 
+.flag-big.flag-big-pe{ background-position: -66px -693px; width: 32px; height: 32px; } 
+.flag-big.flag-big-pg{ background-position: -66px -726px; width: 32px; height: 32px; } 
+.flag-big.flag-big-ph{ background-position: -66px -759px; width: 32px; height: 32px; } 
+.flag-big.flag-big-pk{ background-position: -66px -792px; width: 32px; height: 32px; } 
+.flag-big.flag-big-pl{ background-position: -66px -825px; width: 32px; height: 32px; } 
+.flag-big.flag-big-pr{ background-position: -66px -858px; width: 32px; height: 32px; } 
+.flag-big.flag-big-ps{ background-position: -66px -891px; width: 32px; height: 32px; } 
+.flag-big.flag-big-pt{ background-position: -66px -924px; width: 32px; height: 32px; } 
+.flag-big.flag-big-pw{ background-position: -66px -957px; width: 32px; height: 32px; } 
+.flag-big.flag-big-py{ background-position: -66px -990px; width: 32px; height: 32px; } 
+.flag-big.flag-big-qa{ background-position: -66px -1023px; width: 32px; height: 32px; } 
+.flag-big.flag-big-ro{ background-position: -66px -1056px; width: 32px; height: 32px; } 
+.flag-big.flag-big-rs{ background-position: -66px -1089px; width: 32px; height: 32px; } 
+.flag-big.flag-big-ru{ background-position: -66px -1122px; width: 32px; height: 32px; } 
+.flag-big.flag-big-rw{ background-position: -66px -1155px; width: 32px; height: 32px; } 
+.flag-big.flag-big-sa{ background-position: -66px -1188px; width: 32px; height: 32px; } 
+.flag-big.flag-big-sb{ background-position: -66px -1221px; width: 32px; height: 32px; } 
+.flag-big.flag-big-sc{ background-position: -66px -1254px; width: 32px; height: 32px; } 
+.flag-big.flag-big-sd{ background-position: -66px -1287px; width: 32px; height: 32px; } 
+.flag-big.flag-big-se{ background-position: -66px -1320px; width: 32px; height: 32px; } 
+.flag-big.flag-big-sg{ background-position: -66px -1353px; width: 32px; height: 32px; } 
+.flag-big.flag-big-si{ background-position: -66px -1386px; width: 32px; height: 32px; } 
+.flag-big.flag-big-sk{ background-position: -66px -1419px; width: 32px; height: 32px; } 
+.flag-big.flag-big-sl{ background-position: -66px -1452px; width: 32px; height: 32px; } 
+.flag-big.flag-big-sm{ background-position: -66px -1485px; width: 32px; height: 32px; } 
+.flag-big.flag-big-sn{ background-position: -66px -1518px; width: 32px; height: 32px; } 
+.flag-big.flag-big-so{ background-position: -66px -1551px; width: 32px; height: 32px; } 
+.flag-big.flag-big-sr{ background-position: -66px -1584px; width: 32px; height: 32px; } 
+.flag-big.flag-big-st{ background-position: -66px -1617px; width: 32px; height: 32px; } 
+.flag-big.flag-big-sy{ background-position: -66px -1650px; width: 32px; height: 32px; } 
+.flag-big.flag-big-td{ background-position: -66px -1683px; width: 32px; height: 32px; } 
+.flag-big.flag-big-tg{ background-position: -66px -1716px; width: 32px; height: 32px; } 
+.flag-big.flag-big-th{ background-position: -66px -1749px; width: 32px; height: 32px; } 
+.flag-big.flag-big-tj{ background-position: -66px -1782px; width: 32px; height: 32px; } 
+.flag-big.flag-big-tl{ background-position: -66px -1815px; width: 32px; height: 32px; } 
+.flag-big.flag-big-tm{ background-position: -66px -1848px; width: 32px; height: 32px; } 
+.flag-big.flag-big-tn{ background-position: -66px -1881px; width: 32px; height: 32px; } 
+.flag-big.flag-big-to{ background-position: -66px -1914px; width: 32px; height: 32px; } 
+.flag-big.flag-big-tp{ background-position: -66px -1947px; width: 32px; height: 32px; } 
+.flag-big.flag-big-tr{ background-position: -66px -1980px; width: 32px; height: 32px; } 
+.flag-big.flag-big-tt{ background-position: -99px 0; width: 32px; height: 32px; } 
+.flag-big.flag-big-tv{ background-position: -99px -33px; width: 32px; height: 32px; } 
+.flag-big.flag-big-tw{ background-position: -99px -66px; width: 32px; height: 32px; } 
+.flag-big.flag-big-tz{ background-position: -99px -99px; width: 32px; height: 32px; } 
+.flag-big.flag-big-ua{ background-position: -99px -132px; width: 32px; height: 32px; } 
+.flag-big.flag-big-ug{ background-position: -99px -165px; width: 32px; height: 32px; } 
+.flag-big.flag-big-us{ background-position: -99px -198px; width: 32px; height: 32px; } 
+.flag-big.flag-big-uy{ background-position: -99px -231px; width: 32px; height: 32px; } 
+.flag-big.flag-big-uz{ background-position: -99px -264px; width: 32px; height: 32px; } 
+.flag-big.flag-big-va{ background-position: -99px -297px; width: 32px; height: 32px; } 
+.flag-big.flag-big-vc{ background-position: -99px -330px; width: 32px; height: 32px; } 
+.flag-big.flag-big-ve{ background-position: -99px -363px; width: 32px; height: 32px; } 
+.flag-big.flag-big-vn{ background-position: -99px -396px; width: 32px; height: 32px; } 
+.flag-big.flag-big-vu{ background-position: -99px -429px; width: 32px; height: 32px; } 
+.flag-big.flag-big-ws{ background-position: -99px -462px; width: 32px; height: 32px; } 
+.flag-big.flag-big-ye{ background-position: -99px -495px; width: 32px; height: 32px; } 
+.flag-big.flag-big-za{ background-position: -99px -528px; width: 32px; height: 32px; } 
+.flag-big.flag-big-zm{ background-position: -99px -561px; width: 32px; height: 32px; } 
+.flag-big.flag-big-zr{ background-position: -99px -594px; width: 32px; height: 32px; } 
+.flag-big.flag-big-zw{ background-position: -99px -627px; width: 32px; height: 32px; } 
+
 
 
 /* */

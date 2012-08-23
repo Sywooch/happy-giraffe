@@ -8,7 +8,7 @@
 class FamilyController extends HController
 {
     public $user;
-    public $layout = 'user';
+    public $layout = 'user_new';
 
     public function filters()
     {
@@ -57,6 +57,10 @@ class FamilyController extends HController
         $name = Yii::app()->request->getPost('name');
         $sex = Yii::app()->request->getPost('sex');
         $type = Yii::app()->request->getPost('type');
+
+        $count = Baby::model()->count('parent_id='.Yii::app()->user->id);
+        if ($count > 5)
+            Yii::app()->end();
 
         if ($type == 1 || $type == 2) {
             $model = new Baby();
@@ -240,6 +244,7 @@ class FamilyController extends HController
         Yii::import('application.widgets.user.UserCoreWidget');
         $this->widget('application.widgets.user.FamilyWidget', array(
             'user' => $this->user,
+            'showEmpty'=>true
         ));
     }
 

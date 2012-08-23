@@ -106,14 +106,14 @@ class UserRolesController extends BController
         $password = $this->createPassword(12);
         $model->password = $model->hashPassword($password);
 
-        if ($model->save()) {
+        if ($model->save('password')) {
             $response = array(
                 'status' => true,
                 'result' => $model->id.' - '.$model->getFullName().'. Новый пароль: '.$password
             );
         } else
             $response = array('status' => false);
-
+        var_dump($model->getErrors());
         echo CJSON::encode($response);
     }
 

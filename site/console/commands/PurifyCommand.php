@@ -7,7 +7,6 @@ class PurifyCommand extends CConsoleCommand
 {
     public function actionIndex($cli = 0, $id = null, $by_happy_giraffe = 0)
     {
-        Yii::import('site.frontend.extensions.ESaveRelatedBehavior');
         Yii::import('site.frontend.extensions.phpQuery.phpQuery');
         Yii::import('site.frontend.helpers.*');
 

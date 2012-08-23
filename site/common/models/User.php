@@ -24,6 +24,8 @@
  * @property integer $remember_code
  * @property int $age
  * @property int $avatar_id
+ * @property int $group
+ * @property string $updated
  *
  * The followings are the available model relations:
  * @property BagOffer[] $bagOffers
@@ -74,6 +76,9 @@ class User extends HActiveRecord
     public $commentatorsRate;
     public $interestsCount;
     public $babiesCount;
+    public $day;
+    public $month;
+    public $year;
 
     public $women_rel = array(
         1 => 'Замужем',
@@ -156,10 +161,10 @@ class User extends HActiveRecord
     {
         return array(
             //general
-            array('first_name', 'length', 'max' => 50, 'message'=>'Слишком длинное имя'),
-            array('last_name', 'length', 'max' => 50, 'message'=>'Слишком длинная фамилия'),
+            array('first_name', 'length', 'max' => 50, 'message' => 'Слишком длинное имя'),
+            array('last_name', 'length', 'max' => 50, 'message' => 'Слишком длинная фамилия'),
             array('email', 'email', 'message' => 'E-mail не является правильным E-Mail адресом'),
-            array('password, current_password, new_password, new_password_repeat', 'length', 'min' => 6, 'max' => 12, 'on' => 'signup', 'tooShort'=>'минимум 6 символов', 'tooLong'=>'максимум 15 символов'),
+            array('password, current_password, new_password, new_password_repeat', 'length', 'min' => 6, 'max' => 12, 'on' => 'signup', 'tooShort' => 'минимум 6 символов', 'tooLong' => 'максимум 15 символов'),
             array('online, relationship_status', 'numerical', 'integerOnly' => true),
             array('email', 'unique', 'on' => 'signup'),
             array('gender', 'boolean'),
@@ -179,10 +184,11 @@ class User extends HActiveRecord
             array('password', 'passwordValidator', 'on' => 'login'),
 
             //signup
-            array('first_name, last_name, email, password', 'required', 'on' => 'signup', 'message'=>'Поле является обязательным'),
-            array('gender', 'required', 'on' => 'signup', 'message'=>'укажите свой пол'),
-            array('email', 'unique', 'on' => 'signup'),
-            array('first_name, last_name, gender, birthday, photo', 'safe', 'on' => 'signup'),
+            array('first_name, last_name, email, password', 'required', 'on' => 'signup,signup_full', 'message' => 'Поле является обязательным'),
+            array('birthday', 'required', 'on' => 'signup_full', 'message' => 'Поле является обязательным'),
+            array('gender', 'required', 'on' => 'signup,signup_full', 'message' => 'укажите свой пол'),
+            array('email', 'unique', 'on' => 'signup,signup_full'),
+            array('first_name, last_name, gender, birthday, photo', 'safe', 'on' => 'signup,signup_full'),
 
             //change_password
             array('new_password', 'required', 'on' => 'change_password'),
@@ -191,7 +197,7 @@ class User extends HActiveRecord
             array('verifyCode', 'captcha', 'on' => 'change_password', 'allowEmpty' => false),
 
             //remember_password
-            array('password', 'length', 'min' => 6, 'max' => 15, 'on' => 'remember_password', 'tooShort'=>'минимум 6 символов', 'tooLong'=>'максимум 15 символов'),
+            array('password', 'length', 'min' => 6, 'max' => 15, 'on' => 'remember_password', 'tooShort' => 'минимум 6 символов', 'tooLong' => 'максимум 15 символов'),
         );
     }
 
@@ -221,12 +227,10 @@ class User extends HActiveRecord
                 $userModel->online = 1;
                 $userModel->last_ip = $_SERVER['REMOTE_ADDR'];
                 $userModel->save(false);
-            }
-            else {
+            } else {
                 $this->addError('password', 'Ошибка авторизации');
             }
-        }
-        else {
+        } else {
             $this->addError('password', 'Ошибка авторизации');
         }
     }
@@ -327,7 +331,7 @@ class User extends HActiveRecord
             'last_name' => 'Фамилия',
             'assigns' => 'Права',
             'last_active' => 'Последняя активность',
-            'url'=>'Профиль'
+            'url' => 'Профиль'
         );
     }
 
@@ -355,15 +359,11 @@ class User extends HActiveRecord
     protected function beforeSave()
     {
         if (parent::beforeSave()) {
-            if ($this->isNewRecord) {
-                $this->register_date = date("Y-m-d H:i:s");
-            }
             if ($this->isNewRecord || $this->scenario == 'change_password' || $this->scenario == 'remember_password') {
                 $this->password = $this->hashPassword($this->password);
             }
             return true;
-        }
-        else
+        } else
             return false;
     }
 
@@ -454,6 +454,11 @@ class User extends HActiveRecord
                 'class' => 'site.common.behaviors.TrackableBehavior',
                 'attributes' => array('mood_id'),
             ),
+            'CTimestampBehavior' => array(
+                'class' => 'zii.behaviors.CTimestampBehavior',
+                'createAttribute' => 'register_date',
+                'updateAttribute' => 'updated',
+            ),
         );
     }
 
@@ -496,11 +501,11 @@ class User extends HActiveRecord
 
     public function getAva($size = 'ava')
     {
-        if(empty($this->avatar_id)){
+        if (empty($this->avatar_id)) {
             //if ($this->user->gender)
             return false;
         }
-        if($size != 'big')
+        if ($size != 'big')
             return $this->avatar->getAvatarUrl($size);
         else
             return $this->avatar->getPreviewUrl(240, 400, Image::WIDTH);
@@ -508,12 +513,12 @@ class User extends HActiveRecord
 
     public function getAvaOrDefaultImage($size = 'ava')
     {
-        if(empty($this->avatar_id)){
+        if (empty($this->avatar_id)) {
             if ($this->gender == 1)
                 return '';
             return false;
         }
-        if($size != 'big')
+        if ($size != 'big')
             return $this->avatar->getAvatarUrl($size);
         else
             return $this->avatar->getPreviewUrl(240, 400, Image::WIDTH);
@@ -645,7 +650,7 @@ class User extends HActiveRecord
     {
         return new CDbCriteria(array(
             'join' => 'JOIN ' . Friend::model()->tableName() . ' ON (t.id = friends.user1_id AND friends.user2_id = :user_id) OR (t.id = friends.user2_id AND friends.user1_id = :user_id)',
-            'scopes'=>array('active'),
+            'scopes' => array('active'),
             'params' => array(':user_id' => $this->id),
         ));
     }
@@ -830,7 +835,7 @@ class User extends HActiveRecord
     public function getScores()
     {
         $criteria = new CDbCriteria;
-        $criteria->with =array('level' => array('select' => array('title')));
+        $criteria->with = array('level' => array('select' => array('title')));
         $criteria->compare('user_id', $this->id);
         $model = UserScores::model()->find($criteria);
         if ($model === null) {
@@ -867,7 +872,7 @@ class User extends HActiveRecord
 
     public function hasBaby($type = null)
     {
-        foreach($this->babies as $baby)
+        foreach ($this->babies as $baby)
             if ($baby->type == $type)
                 return true;
         return false;
@@ -876,7 +881,7 @@ class User extends HActiveRecord
     public function babyCount()
     {
         $i = 0;
-        foreach($this->babies as $baby)
+        foreach ($this->babies as $baby)
             if (empty($baby->type))
                 $i++;
         return $i;
@@ -886,7 +891,7 @@ class User extends HActiveRecord
     {
         if ($this->_role === null) {
             $roles = Yii::app()->authManager->getRoles($this->id);
-            foreach($roles as $role){
+            foreach ($roles as $role) {
                 $this->_role = $role->name;
                 return $role->name;
             }
@@ -903,7 +908,7 @@ class User extends HActiveRecord
 
     public function checkAuthItem($item)
     {
-        if ($this->_authItems === null){
+        if ($this->_authItems === null) {
             $this->_authItems = Yii::app()->authManager->getAuthAssignments($this->id);
         }
 
@@ -913,7 +918,7 @@ class User extends HActiveRecord
     public static function findFriends($limit, $offset = 0)
     {
         $criteria = new CDbCriteria(array(
-            'select' => 't.*, count(interest__users_interests.user_id) AS interestsCount, count(' . Baby::model()->getTableAlias() .  '.id) AS babiesCount',
+            'select' => 't.*, count(interest__users_interests.user_id) AS interestsCount, count(' . Baby::model()->getTableAlias() . '.id) AS babiesCount',
             'group' => 't.id',
             'having' => 'interestsCount > 0 AND (babiesCount > 0 OR t.relationship_status IS NOT NULL)',
             'condition' => 't.birthday IS NOT NULL AND t.avatar_id IS NOT NULL AND userAddress.country_id IS NOT NULL',
@@ -922,18 +927,25 @@ class User extends HActiveRecord
                 'interests' => array(
                     'together' => false,
                 ),
-                'userAddress',
+                'userAddress' => array(
+                    'together' => true,
+                ),
+                'userAddress.country',
+                'userAddress.region',
+                'userAddress.city',
+                'userAddress.city.district',
                 'babies' => array(
                     'together' => true,
                     //'condition' => 'sex != 0 OR type IS NOT NULL',
                 ),
+                'status'
             ),
             'order' => 'register_date DESC',
             'limit' => $limit,
             'offset' => $offset,
         ));
 
-        if (! Yii::app()->user->isGuest) {
+        if (!Yii::app()->user->isGuest) {
             $criteria->join .= ' LEFT JOIN friends ON (friends.user1_id = :me AND friends.user2_id = t.id) OR (friends.user2_id = :me AND friends.user1_id = t.id)';
             $criteria->addCondition('t.id != :me AND friends.id IS NULL');
             $criteria->params = array(':me' => Yii::app()->user->id);
@@ -947,8 +959,8 @@ class User extends HActiveRecord
         $connection = Yii::app()->db;
         $sql = '
             SELECT count(*)
-            FROM ' . DuelQuestion::model()->tableName() .' q
-            JOIN ' . DuelAnswer::model()->tableName() .' a ON q.id = a.question_id
+            FROM ' . DuelQuestion::model()->tableName() . ' q
+            JOIN ' . DuelAnswer::model()->tableName() . ' a ON q.id = a.question_id
             WHERE (ends > NOW() OR ends IS NULL) AND user_id = :user_id;
         ';
         $command = $connection->createCommand($sql);
@@ -983,7 +995,7 @@ class User extends HActiveRecord
         $i = 0;
         $password = "";
         while ($i <= $length) {
-            $password .= $chars{mt_rand(0,strlen($chars) - 1)};
+            $password .= $chars{mt_rand(0, strlen($chars) - 1)};
             $i++;
         }
         return $password;
@@ -992,5 +1004,20 @@ class User extends HActiveRecord
     function getConfirmationCode()
     {
         return md5($this->email . md5($this->password));
+    }
+
+    public function UpdateUser($id)
+    {
+        Yii::app()->db->createCommand()->update($this->tableName(), array('updated' => date("Y-m-d H:i:s")), 'id='.$id);
+    }
+
+    public static function getWorkersIds()
+    {
+        return Yii::app()->db
+            ->createCommand()
+            ->select('id')
+            ->from('users')
+            ->where('`group` > 0')
+            ->queryColumn();
     }
 }

@@ -83,7 +83,8 @@ class Video extends CComponent
 		foreach($var as $val)
 		{
 			$x          = explode('=', $val);
-			$arr[$x[0]] = $x[1];
+            if (count($x) > 1)
+			    $arr[$x[0]] = $x[1];
 		}
 		unset($val, $x, $var);
 		return $arr;

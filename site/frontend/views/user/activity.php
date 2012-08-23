@@ -20,7 +20,7 @@
                 <div class="d"><?=Yii::app()->dateFormatter->format("dd", $this->user->register_date)?></div>
                 <div class="m"><?=Yii::app()->dateFormatter->format("MMM", $this->user->register_date)?></div>
             </div>
-            <span>Присоединился к «Весёлому Жирафу»</span>
+            <span><?=($this->user->gender == 0)?'Присоединилась':'Присоединился' ?> к «Весёлому Жирафу»</span>
         </div>
 
     <?php else: ?>
@@ -70,7 +70,11 @@
         <?php endforeach; ?>
 
         <?php if ($nextPage !== false): ?>
-            <?=CHtml::link('Что еще нового', array('user/activity', 'user_id' => $this->user->id, 'type' => $type, 'page' => $nextPage), array('class' => 'more-btn'))?>
+            <?php if (isset($allActivity)):?>
+                <?=CHtml::link('Что еще нового', array('user/activityAll', 'page' => $nextPage), array('class' => 'more-btn'))?>
+            <?php else: ?>
+                <?=CHtml::link('Что еще нового', array('user/activity', 'user_id' => $this->user->id, 'type' => $type, 'page' => $nextPage), array('class' => 'more-btn'))?>
+            <?php endif ?>
         <?php endif; ?>
 
     </div>

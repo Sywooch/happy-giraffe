@@ -26,13 +26,13 @@
 
                 <div class="col-2">
 
-<?php if($this->beginCache('home-page-1', array('duration'=>1))) { ?>
+<?php if($this->beginCache('home-page-1', array('duration'=>60))) { ?>
 
                     <?php $this->widget('MostPopularWidget'); ?>
                     <?php $this->widget('OurServicesWidget'); ?>
-                    <?php $this->widget('BlogWidget'); ?>
 
 <?php $this->endCache(); } ?>
+                    <?php $this->widget('BlogWidget'); ?>
 
                 </div>
 
@@ -56,7 +56,7 @@
 
                     <div class="box homepage-articles homepage-recipes">
 
-                        <div class="title">Кулинарные <span>рецепты</span> <i>- <b>1000</b> рецептов</i></div>
+                        <div class="title">Кулинарные <span>рецепты</span> <i>- <b>6000</b> рецептов</i></div>
 
                         <?php $this->widget('CommunityArticlesWidget', array(
                             'community_id' => 22,

@@ -25,7 +25,7 @@ return array(
         '/' => 'site/index',
         'js_dynamics/<hash:\w+>.js' => 'site/seoHide',
         'search' => 'site/search',
-        'site/<_a:(confirmEmail|resendConfirmEmail|passwordRecovery|passwordRecoveryForm|login|logout|link|test|test2|users)>' => 'site/<_a>',
+        'site/<_a:(confirmEmail|resendConfirmEmail|passwordRecovery|passwordRecoveryForm|login|logout|link|test2|users)>' => 'site/<_a>',
         'contest' => 'site/contest',
 
         // ajax controller
@@ -41,6 +41,8 @@ return array(
 
         // rss controller
         'rss/page<page:\d+>' => 'rss/index',
+        'rss/social/' => 'rss/social',
+        'rss/social/page<page:\d+>' => 'rss/social',
 
         // morning controller
         'morning/<id:\d+>' => 'morning/view',
@@ -70,7 +72,7 @@ return array(
         'user/<id:\d+>/albums' => 'albums/user',
         'user/<user_id:\d+>/albums/<id:\d+>' => 'albums/view',
         'user/<user_id:\d+>/albums/<album_id:\d+>/photo<id:\d+>' => 'albums/photo',
-        'user/<_a:(updateMood)>' => 'user/<_a>',
+        'user/<_a:(updateMood|activityAll)>' => 'user/<_a>',
         'user/createRelated/relation/<relation:\w+>/'=>'user/createRelated',
         'user/myFriendRequests/<direction:\w+>/'=>'user/myFriendRequests',
 

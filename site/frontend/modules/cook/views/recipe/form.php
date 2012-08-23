@@ -61,7 +61,9 @@
 
                             <table>
                                 <?php foreach ($ingredients as $k => $i): ?>
-                                    <?php $this->renderPartial('_ingredient', array('n' => $k, 'form' => $form, 'model' => $i, 'units' => ($recipe->isNewRecord) ? $units : $i->ingredient->availableUnits)); ?>
+                                    <?php if (isset($i->ingredient)):?>
+                                        <?php $this->renderPartial('_ingredient', array('n' => $k, 'form' => $form, 'model' => $i, 'units' => ($recipe->isNewRecord) ? $units : $i->ingredient->availableUnits)); ?>
+                                    <?php endif ?>
                                 <?php endforeach; ?>
 
                             </table>

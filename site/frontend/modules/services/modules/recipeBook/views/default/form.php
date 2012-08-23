@@ -46,7 +46,7 @@
 
                             <table>
                                 <?php foreach ($ingredients as $k => $i): ?>
-                                    <?php $this->renderPartial('_ingredient', array('n' => $k, 'form' => $form, 'model' => $i, 'units' => $units)); ?>
+                                    <?php $this->renderPartial('_ingredient', array('n' => $k, 'form' => $form, 'model' => $i, 'units' => $units,'canHideRemoveLink'=>true)); ?>
                                 <?php endforeach; ?>
 
                             </table>
@@ -82,7 +82,7 @@
                             <?=$form->label($recipe, 'category_id', array('class' => 'row-title'))?><br/>
 										
 										<span class="chzn-v2">
-											<?=CHtml::dropDownList('category_id', ($recipe->isNewRecord ? '' : $recipe->disease->category_id), CHtml::listData($diseaseCategories, 'id', 'title'), array('class' => 'chzn', 'prompt' => 'не выбран'))?>
+											<?=CHtml::dropDownList('category_id', (isset($recipe->disease) ? $recipe->disease->category_id:''), CHtml::listData($diseaseCategories, 'id', 'title'), array('class' => 'chzn', 'prompt' => 'не выбран'))?>
 										</span>
 
                         </div>
@@ -92,7 +92,7 @@
                             <?=$form->label($recipe, 'disease_id', array('class' => 'row-title'))?><br/>
 										
 										<span class="chzn-v2">
-											<?=$form->dropDownList($recipe, 'disease_id', ($recipe->isNewRecord ? array() : CHtml::listData($recipe->disease->category->diseases, 'id', 'title')), array('class' => 'chzn', 'prompt' => 'не выбрана'))?>
+											<?=$form->dropDownList($recipe, 'disease_id', (isset($recipe->disease) ? CHtml::listData($recipe->disease->category->diseases, 'id', 'title') : array()), array('class' => 'chzn', 'prompt' => 'не выбрана'))?>
 										</span>
 
                         </div>
@@ -127,5 +127,6 @@
         'form' => $form,
         'model' => RecipeBookRecipeIngredient::model()->emptyModel,
         'units' => $units,
+        'canHideRemoveLink'=>false
     )); ?>
 </script>

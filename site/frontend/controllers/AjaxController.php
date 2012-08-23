@@ -329,19 +329,33 @@ class AjaxController extends HController
     public function actionVideo()
     {
         $link = $_POST['url'];
+        if ($this->isValidURL($link)) {
+            $video = new Video($link);
 
-        $video = new Video($link);
+            if (empty($video->preview))
+                echo CJSON::encode(array('status' => false));
 
-        $host = parse_url($link, PHP_URL_HOST);
-        $favicon_url = 'http://www.google.com/s2/favicons?domain=' . $host;
-        $favicon = strtr($host, array('.' => '_')) . '.png';
-        $favicon_path = Yii::getPathOfAlias('webroot') . '/upload/favicons/' . $favicon;
-        file_put_contents($favicon_path, file_get_contents($favicon_url));
+            $host = parse_url($link, PHP_URL_HOST);
+            $favicon_url = 'http://www.google.com/s2/favicons?domain=' . $host;
+            $favicon = strtr($host, array('.' => '_')) . '.png';
+            $favicon_path = Yii::getPathOfAlias('webroot') . '/upload/favicons/' . $favicon;
+            file_put_contents($favicon_path, file_get_contents($favicon_url));
 
-        $this->renderPartial('video_preview', array(
-            'video' => $video,
-            'favicon' => $favicon,
-        ));
+            echo CJSON::encode(array(
+                'status' => true,
+                'html' => $this->renderPartial('video_preview', array(
+                    'video' => $video,
+                    'favicon' => $favicon,
+                ), true)
+            ));
+        } else {
+            echo CJSON::encode(array('status' => false));
+        }
+    }
+
+    function isValidURL($url)
+    {
+        return preg_match('|^http(s)?://[a-z0-9-]+(.[a-z0-9-]+)*(:[0-9]+)?(/.*)?$|i', $url);
     }
 
     public function actionSource()
@@ -461,7 +475,7 @@ class AjaxController extends HController
         Yii::import('site.common.models.interest.*');
         Yii::import('site.frontend.widgets.user.*');
 
-        if (Interest::saveByUser(Yii::app()->user->id, Yii::app()->request->getPost('Interest'))){
+        if (Interest::saveByUser(Yii::app()->user->id, Yii::app()->request->getPost('Interest'))) {
             ob_start();
             $this->widget('InterestsWidget', array('user' => Yii::app()->user->model));
             $content = ob_get_clean();
@@ -469,9 +483,9 @@ class AjaxController extends HController
             echo CJSON::encode(array(
                 'status' => true,
                 'html' => $content,
-                'full' => (Yii::app()->user->model->getScores()->full == 1)?true:false
+                'full' => (Yii::app()->user->model->getScores()->full == 1) ? true : false
             ));
-        }else
+        } else
             echo CJSON::encode(array('status' => false));
         /*
         $interests = Yii::app()->user->model->interests;
@@ -642,9 +656,37 @@ class AjaxController extends HController
                 'status' => true,
                 'text' => '<span>День рождения:</span>' . Yii::app()->dateFormatter->format("d MMMM", $user->birthday) . ' (' . $user->normalizedAge . ')',
                 'horoscope' => $horoscope,
-                'full' => ($user->getScores()->full == 0)?false:true
+                'full' => ($user->getScores()->full == 0) ? false : true
             ));
         } else
             echo CJSON::encode(array('status' => false));
+    }
+
+    public function actionLink($text = null)
+    {
+        Yii::import('site.common.models.forms.*');
+        $model = new LinkForm();
+        if (!empty($text))
+            $model->title = $text;
+
+        if (isset($_POST['LinkForm']))
+            $model->attributes = $_POST['LinkForm'];
+
+        if (isset($_POST['ajax'])) {
+            echo CActiveForm::validate($model);
+            Yii::app()->end();
+        }
+
+        Yii::app()->clientScript->scriptMap = array(
+            'jquery.js' => false,
+            'jquery.min.js' => false,
+            'jquery-ui.js' => false,
+            'jquery-ui.min.js' => false,
+            'jquery.ba-bbq.js' => false,
+            'jquery-ui.css' => false,
+            //'jquery.yiiactiveform.js'=>false
+        );
+
+        $this->renderPartial('link', compact('model'), false, true);
     }
 }

@@ -25,7 +25,7 @@ Interest.save = function () {
                 window.location.reload();
             $.fancybox.close();
             $('div.interests-wrapper').html(response.html);
-            if (Bonus !== undefined)
+            if (typeof(Bonus) !== undefined)
                 Bonus.closeStep(5);
         }
     }, 'json');

@@ -37,14 +37,32 @@ class QueriesController extends SController
         $this->render('index');
     }
 
-    public function actionAdmin($period = 1, $sort = 'yandex_visits')
+    public function actionAdmin($period = 1, $sort = 'yandex_visits', $mode = null)
     {
+        Yii::import('site.frontend.modules.cook.models.*');
         $criteria = new CDbCriteria;
-        $criteria->with = array('phrases');
-        if ($period == 2)
-            $criteria->condition = 'yandex_month_visits != 0 OR google_month_visits != 0';
+
+        if (!empty($mode)){
+            $criteria->with = array('phrases', 'phrases.keyword', 'phrases.keyword.yandex', 'phrases.lastPosition');
+            $criteria->together = true;
+        }
         else
-            $criteria->condition = 'yandex_week_visits != 0 OR google_week_visits != 0';
+            $criteria->with = array('phrases');
+
+        if ($period == 2)
+            $criteria->condition = '(yandex_month_visits != 0 OR google_month_visits != 0)';
+        else
+            $criteria->condition = '(yandex_week_visits != 0 OR google_week_visits != 0)';
+
+        if ($mode == 1)
+            $criteria->condition.= ' AND `yandex`.`value` >= 10000 AND `lastPosition`.`position` > 20 AND `lastPosition`.`position` < 1000 ';
+        elseif ($mode == 2)
+            $criteria->condition.= ' AND `yandex`.`value` >= 10000 AND `lastPosition`.`position` > 10 AND `lastPosition`.`position` <= 20';
+        elseif ($mode == 3)
+            $criteria->condition.= ' AND `yandex`.`value` > 1500 AND `yandex`.`value` < 10000 AND `lastPosition`.`position` > 20 AND `lastPosition`.`position` < 1000 ';
+        elseif ($mode == 4)
+            $criteria->condition.= ' AND `yandex`.`value` > 1500 AND `yandex`.`value` < 10000 AND `lastPosition`.`position` > 10 AND `lastPosition`.`position` <= 20 ';
+
 
         if ($sort == 'yandex_visits' && $period == 1) {
             $criteria->order = 'yandex_week_visits DESC';
@@ -62,11 +80,14 @@ class QueriesController extends SController
 
         $count = Page::model()->count($criteria);
         $pages = new CPagination($count);
-        $pages->setPageSize(20);
+        if (!empty($mode))
+            $pages->setPageSize(2000);
+        else
+            $pages->setPageSize(20);
         $pages->applyLimit($criteria);
 
         $models = Page::model()->findAll($criteria);
-        $this->render('admin', compact('models', 'pages', 'period'));
+        $this->render('admin', compact('models', 'pages', 'period', 'mode'));
     }
 
     public function actionParse()
@@ -84,5 +105,20 @@ class QueriesController extends SController
         );
 
         echo CJSON::encode($response);
+    }
+
+    public function getDates($period)
+    {
+        $week_day = date('N');
+        if ($period == 1) {
+            $i = 1;
+        } else {
+            $i = 4;
+
+        }
+        $time1 = strtotime('-' . (7 * $i + $week_day - 1) . ' days', time());
+        $time2 = strtotime('-' . ($week_day) . ' days', time());
+        return Yii::app()->dateFormatter->format('d MMMM', $time1) . ' - '
+            . Yii::app()->dateFormatter->format('d MMMM', $time2);
     }
 }

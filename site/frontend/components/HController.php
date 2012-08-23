@@ -73,20 +73,23 @@ class HController extends CController
 
     protected function afterRender($view, &$output)
     {
-        $js = "$(function() {
-                var seoHrefs = " . CJSON::encode($this->seoHrefs) . ";
-                var seoContent = " . CJSON::encode($this->seoContent) . ";
-                $('[hashString]').each(function(){
-                    var key = $(this).attr('hashString');
-                    if($(this).attr('hashType') == 'href'){
-                        $(this).attr('href', Base64.decode(seoHrefs[key]));
-                    }else{
-                        $(this).replaceWith(Base64.decode(seoContent[key]));
+        $js = '$(function() {
+                var seoHrefs = ' . CJSON::encode($this->seoHrefs) . ';
+                var seoContent = ' . CJSON::encode($this->seoContent) . ';
+                var $elements = $("[data-key]");
+                for(var i = 0, count = $elements.length; i < count; i++) {
+                    var $element = $elements.eq(i);
+                    var key = $element.data("key");
+                    switch($element.data("type")) {
+                        case "href":
+                            $element.attr("href", Base64.decode(seoHrefs[key]));
+                            break;
+                        case "content":
+                            $element.replaceWith(Base64.decode(seoContent[key]));
+                            break;
                     }
-                });
-
-
-            });";
+                }
+            });';
 
         $hash = md5($js);
         $cacheId = 'seoHide_' . $hash;

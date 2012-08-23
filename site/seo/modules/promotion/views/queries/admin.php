@@ -13,9 +13,29 @@
         <a onclick="$('#period').val(1);$('#page-form').submit();return false;" href="#"<?php if ($period==1) echo ' class="active"'?>>Неделя</a>
         |
         <a onclick="$('#period').val(2);$('#page-form').submit();return false;" href="#"<?php if ($period==2) echo ' class="active"'?>>Месяц</a>
+
+        <span><?= $this->getDates($period) ?></span>
+        <span style="padding-left: 100px;">
+
+            &nbsp;&nbsp;
+        <a onclick="$('#mode').val(1);$('#page-form').submit();return false;" href="#"<?php if ($mode==1) echo ' class="active"'?>>ВЧ > 20</a>
+        |
+        <a onclick="$('#mode').val(2);$('#page-form').submit();return false;" href="#"<?php if ($mode==2) echo ' class="active"'?>>ВЧ > 10</a>
+            |
+        <a onclick="$('#mode').val(3);$('#page-form').submit();return false;" href="#"<?php if ($mode==3) echo ' class="active"'?>>CЧ > 20</a>
+            |
+        <a onclick="$('#mode').val(4);$('#page-form').submit();return false;" href="#"<?php if ($mode==4) echo ' class="active"'?>>CЧ > 10</a>
+
+        <?php if (!empty($mode)):?>
+                |
+            <a onclick="$('#mode').val('');$('#page-form').submit();return false;" href="#">очистить</a>
+        <?php endif ?>
+
+        </span>
     </div>
     <form action="/promotion/queries/admin/" id="page-form">
-        <input type="hidden" name="period" id="period">
+        <input type="hidden" name="period" id="period" value="<?=$period ?>">
+        <input type="hidden" name="mode" id="mode">
     </form>
 
     <div class="table-box">
@@ -43,15 +63,29 @@
             <?php foreach ($models as $model): ?>
                 <?php $goodPhrases = $model->goodPhrases($period); ?>
                 <tr id="key-<?=$model->id ?>">
-                    <td rowspan="<?=count($goodPhrases) ?>" class="col-1 row-col">
+                    <td rowspan="<?=count($goodPhrases) > 1 ? count($goodPhrases) + 1 : 1 ?>" class="col-1 row-col">
                         <?=$model->getArticleLink() ?>
                     </td>
+
+
+                <?php if (count($goodPhrases) > 1):?>
+                    <td><b>Все ключевые слова и фразы</b></td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td><b><?=$visits1 = $model->getVisits(2, $period) ?></b></td>
+                    <td>-</td>
+                    <td><b><?=$visits2 = $model->getVisits(3, $period) ?></b></td>
+                    <td><b><?=($visits1+$visits2) ?></b></td>
+                    <td></td>
+                    </tr><tr>
+                <?php endif ?>
+
                 <?php foreach ($goodPhrases as $phrase): ?>
                     <td><?=$phrase->keyword->name ?></td>
                     <td><?=$phrase->keyword->getFrequency() ?></td>
-                    <td><?=$phrase->getPositionView(2) ?></td>
+                    <td style="width: 60px;"><?=$phrase->getPositionView(2) ?></td>
                     <td><?=$visits1 = $phrase->getVisits(2, $period) ?></td>
-                    <td><?=$phrase->getPositionView(3) ?></td>
+                    <td style="width: 60px;"><?=$phrase->getPositionView(3) ?></td>
                     <td><?=$visits2 =$phrase->getVisits(3, $period) ?></td>
                     <td><?=($visits1+$visits2) ?></td>
                     <td><a href="javascript:;" class="icon-plus"></a></td><?php

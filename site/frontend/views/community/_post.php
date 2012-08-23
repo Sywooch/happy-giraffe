@@ -12,7 +12,7 @@
             if (!empty($data->meta_description))
                 $this->meta_description = $data->meta_description;
             else
-                $this->meta_description = trim(Str::truncate(strip_tags($data->content->text), 300));
+                $this->meta_description = trim(Str::truncate(trim(strip_tags($data->content->text)), 300));
         }
     }
 ?>
@@ -20,9 +20,9 @@
 
     <div class="entry-header">
         <?php if ($full): ?>
-            <h1><?php echo CHtml::encode($data->title); ?></h1>
+            <h1><?= $data->title ?></h1>
         <?php else: ?>
-            <?php echo CHtml::link(CHtml::encode($data->title), $data->url, array('class' => 'entry-title')); ?>
+            <?= CHtml::link($data->title, $data->url, array('class' => 'entry-title')); ?>
         <?php endif; ?>
 
         <noindex>
@@ -44,7 +44,7 @@
                         echo $views = PageView::model()->viewsByPath(str_replace('http://www.happy-giraffe.ru', '', $data->url), true);
                     ?></span></div>
                 <br/>
-                <?=CHtml::link('Комментариев: ' . $data->commentsCount, $data->getUrl(true))?>
+                <?=CHtml::link('Комментариев: ' . $data->getArticleCommentsCount(), $data->getUrl(true))?>
                 <?php if($full) { Rating::model()->saveByEntity($data, 'vw', floor($views / 100)); } ?>
             </div>
         </noindex>
@@ -236,7 +236,7 @@
             'model' => $data,
             'type' => 'simple',
             'options' => array(
-                'title' => CHtml::encode($data->title),
+                'title' => $data->title,
                 'image' => $data->getContentImage(),
                 'description' => $data->getContent()->text,
             ),

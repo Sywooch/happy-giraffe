@@ -1,14 +1,18 @@
 var Test = {
+    step:0,
+    path:'',
     Init:function () {
-
+        Test.path = document.location.href;
     },
     Start:function () {
+        Test.Init();
         $('.step:visible').fadeOut(300, function () {
             $('#step1').fadeIn(300);
         });
     },
     Next:function (el) {
-        var input = $(el).find('input');
+        var input = $(el);
+        Test.logPage();
         if (input.attr('data-last') == "1") {
             input.closest('div.question-div').fadeOut(300, function () {
                 Test.Finish();
@@ -22,7 +26,6 @@ var Test = {
                 Test.Finish();
             }
         });
-
     },
     Finish:function () {
         var points = 0;
@@ -44,5 +47,13 @@ var Test = {
     Restart:function () {
         $(".step input:radio:checked").removeAttr("checked");
         Test.Start();
+    },
+    logPage:function () {
+        Test.step++;
+        if (typeof(window.history.pushState) == 'function') {
+            window.history.pushState(null, null, Test.path + '?step=' + Test.step);
+            _gaq.push(['_trackPageview', Test.path + '?step=' + Test.step]);
+            yaCounter11221648.hit(Test.path + '?step=' + Test.step);
+        }
     }
 }

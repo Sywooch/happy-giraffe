@@ -70,6 +70,9 @@ class CommunityController extends HController
         $this->rubric_id = $rubric_id;
         $this->content_type_slug = $content_type_slug;
 
+        if (!empty($content_type_slug) && !in_array($content_type_slug, array('post', 'video')))
+            throw new CHttpException(404, 'Страницы не существует');
+
         if ($rubric_id !== null) {
             $rubric = CommunityRubric::model()->findByPk($rubric_id);
             if ($rubric === null)
@@ -143,16 +146,18 @@ class CommunityController extends HController
             $this->user = $content->rubric->user;
         }
 
+        if (!empty($content->uniqueness) && $content->uniqueness < 50)
+            Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
+
         $this->community = Community::model()->with('rubrics')->findByPk($community_id);
         $this->rubric_id = $content->rubric->id;
         $this->content_type_slug = $content_type_slug;
 
         $this->meta_title = (empty($content->meta_title)) ? $content->title : $content->title . ' \\ ' . $content->meta_title;
 
-        if ($content->author_id == Yii::app()->user->id) {
+        if ($content->author_id == Yii::app()->user->id)
             UserNotification::model()->deleteByEntity(UserNotification::NEW_COMMENT, $content);
-            UserNotification::model()->deleteByEntity(UserNotification::NEW_REPLY, $content);
-        }
+        UserNotification::model()->deleteByEntity(UserNotification::NEW_REPLY, $content);
 
         $this->breadcrumbs = array(
             'Клубы' => array('/community'),
@@ -168,7 +173,9 @@ class CommunityController extends HController
 
     public function actionEdit($content_id)
     {
+        $this->meta_title = 'Редактирование записи';
         $model = CommunityContent::model()->full()->findByPk($content_id);
+        $model->scenario = 'default';
         if ($model === null)
             throw CHttpException(404, 'Запись не найдена');
 

@@ -1,7 +1,7 @@
 <?php
 
 return array(
-	'schemaCachingDuration' => 3600,
+	'schemaCachingDuration' => 60,
 	'enableProfiling' => true,
 	'enableParamLogging' => true,
 	'tablePrefix'=> '',

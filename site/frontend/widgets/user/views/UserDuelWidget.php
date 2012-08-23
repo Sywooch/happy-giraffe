@@ -1,3 +1,4 @@
+<?php Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts/duel.js');?>
 <div class="<?=($this->activityType === false) ? 'user-duel' : 'user-duel list-item'?>">
 
     <?php if ($this->activityType !== false): ?>

@@ -37,7 +37,6 @@ class CommunityCommand extends CConsoleCommand
 
     public function actionCutConvert()
     {
-        Yii::import('site.frontend.extensions.ESaveRelatedBehavior');
         Yii::import('site.frontend.components.CutBehavior');
         $community = CommunityContent::model()->full()->findAll();
         foreach ($community as $model) {
@@ -80,7 +79,6 @@ class CommunityCommand extends CConsoleCommand
 
     public function actionPurify()
     {
-        Yii::import('site.frontend.extensions.ESaveRelatedBehavior');
         Yii::import('site.frontend.extensions.phpQuery.phpQuery');
         Yii::import('site.frontend.helpers.*');
         require_once(Yii::getPathOfAlias('site.frontend') . '/vendor/simplehtmldom_1_5/simple_html_dom.php');
@@ -99,7 +97,6 @@ class CommunityCommand extends CConsoleCommand
 
     public function actionPurifyNonGiraffe()
     {
-        Yii::import('site.frontend.extensions.ESaveRelatedBehavior');
         Yii::import('site.frontend.extensions.phpQuery.phpQuery');
         Yii::import('site.frontend.helpers.*');
         require_once(Yii::getPathOfAlias('site.frontend') . '/vendor/simplehtmldom_1_5/simple_html_dom.php');
@@ -230,7 +227,6 @@ class CommunityCommand extends CConsoleCommand
 
     public function actionCleanImages()
     {
-        Yii::import('site.frontend.extensions.ESaveRelatedBehavior');
         Yii::import('site.frontend.extensions.image.Image');
         Yii::import('site.frontend.helpers.*');
 

@@ -51,7 +51,7 @@ $i = 0;
                     <td style="padding-right:10px;">
                     <span style="color:#737575;font:12px arial, helvetica, sans-serif;">
                         <img src="http://www.happy-giraffe.ru/images/mail/icon_views.gif"
-                             style="margin-right:5px;vertical-align:top;"><?php echo PageView::model()->viewsByPath(str_replace('http://www.happy-giraffe.ru', '', $model->url), true); ?>
+                             style="margin-right:5px;vertical-align:top;"><?php echo PageView::model()->viewsByPath(ltrim($model->url, '.'), true); ?>
                     </span>
                     </td>
                     <td style="padding-right:15px;">

@@ -40,7 +40,7 @@ class UserNotification extends EMongoDocument
                 'CommunityContent' => '{replies} на ваш комментарий к записи {post} в клубе {club}',
                 'RecipeBookRecipe' => '{replies} на ваш комментарий к записи {post} в сервисе {recipeBook}',
                 'AlbumPhoto' => '{replies} на ваш комментарий к фотографии {photo}',
-                'BlogContent' => '{replies} на ваш комментарий к записи {post} в вашем блоге',
+                'BlogContent' => '{replies} на ваш комментарий к записи {post} в блоге',
             ),
         ),
         self::DELETED => array(
@@ -102,6 +102,7 @@ class UserNotification extends EMongoDocument
             'type' => $type,
             'entity.name' => get_class($entity),
             'entity.id' => (int)$entity->id,
+            'user_id' => (int)Yii::app()->user->id
         ));
         if ($notification !== null) {
             $notification->delete();

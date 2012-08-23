@@ -33,7 +33,7 @@ class OnlineUsersCommand extends CConsoleCommand
                 continue;
             $user->online = 1;
             $user->last_active = date("Y-m-d H:i:s");
-            $user->save();
+            $user->save(false, array('online','last_active'));
             ScoreVisits::addTodayVisit($user->id);
         }
 
@@ -53,7 +53,7 @@ class OnlineUsersCommand extends CConsoleCommand
                     }
                     $user->online = 1;
                     $user->last_active = date("Y-m-d H:i:s");
-                    $user->save();
+                    $user->save(false, array('online','last_active'));
                     ScoreVisits::addTodayVisit($user->id);
                     $this->SendOnlineNotice($user->id, 1);
 
@@ -68,7 +68,7 @@ class OnlineUsersCommand extends CConsoleCommand
                     }
                     $user->online = 0;
                     $user->last_active = date("Y-m-d H:i:s", strtotime(' - 15 minutes'));
-                    $user->save();
+                    $user->save(false, array('online','last_active'));
                     $this->SendOnlineNotice($user->id, 0);
 
                     echo "user offline: {$user->id}\n";

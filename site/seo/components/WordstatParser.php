@@ -40,7 +40,7 @@ class WordstatParser extends ProxyParserThread
                         $this->getCookie();
                         $this->fails = 0;
                     } else
-                        $this->changeBadProxy();
+                    $this->changeBadProxy();
                 } else {
                     $this->success_loads++;
                     $this->fails = 0;

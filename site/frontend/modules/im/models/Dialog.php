@@ -126,6 +126,15 @@ class Dialog extends HActiveRecord
         Message::model()->updateAll(array('read_status' => '1'), 'dialog_id=' . $dialog_id
             . ' AND read_status=0 AND user_id != ' . $user_id . ' AND id <= ' . $last_message_id);
 
+        //if user read all messages - update mail delivery
+        $unread = Im::model($user_id)->getUnreadMessagesCount();
+        if ($unread == 0){
+            $m_criteria = new EMongoCriteria;
+            $m_criteria->type('==', MailDelivery::TYPE_IM);
+            $m_criteria->user_id('==', (int)$user_id);
+            MailDelivery::model()->deleteAll($m_criteria);
+        }
+
         $comet = new CometModel();
         $comet->type = CometModel::TYPE_MESSAGE_READ;
         $comet->attributes = array('message_id' => $last_message_id);

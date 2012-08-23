@@ -13,6 +13,8 @@
  * @property string $book_author
  * @property string $book_name
  * @property string $content_id
+ *
+ * @property CommunityContent $content
  */
 class CommunityPost extends HActiveRecord
 {
@@ -133,9 +135,9 @@ class CommunityPost extends HActiveRecord
 
     protected function afterSave()
     {
-        if ($this->isNewRecord) {
-            //$this->content->uniqueness = CopyScape::getUniquenessByText($this->text);
-            //$this->content->update(array('uniqueness'));
+        if ($this->isNewRecord && ($this->content->contentAuthor->group == UserGroup::USER || $this->content->contentAuthor->group == UserGroup::ENGINEER)) {
+            $this->content->uniqueness = CopyScape::getUniquenessByText($this->text);
+            $this->content->update(array('uniqueness'));
         }
 
         parent::afterSave();

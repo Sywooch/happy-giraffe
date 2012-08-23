@@ -126,7 +126,7 @@ class IndexParserThread extends ProxyParserThread
     private function checkNotFoundUrls()
     {
         $count = IndexingUrl::model()->updateAll(array('active' => 2), 'url LIKE "' . $this->url->url . '%"');
-        $this->log($count.' urls excluded');
+        $this->log($count . ' urls excluded');
     }
 
     public function saveUrl($url)
@@ -280,6 +280,24 @@ class IndexParserThread extends ProxyParserThread
         self::addUrl('http://www.happy-giraffe.ru/cook/decor/');
         for ($i = 0; $i <= 7; $i++) {
             self::addUrl('http://www.happy-giraffe.ru/cook/decor/' . $i . '/', 1);
+        }
+    }
+
+    public static function getBlogQueries($user_id, $ids)
+    {
+        $result = array();
+        for ($i = 0; $i < 9; $i++) {
+            $count = 0;
+            foreach ($ids as $id) {
+                if (strpos($id, $i) === 0)
+                    $count++;
+            }
+
+            if ($count > 1 && $count < 30) {
+                $result [] = 'http://www.happy-giraffe.ru/user/' . $user_id . '/blog/'.$i;
+            } elseif ($count >= 30) {
+
+            }
         }
     }
 

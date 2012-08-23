@@ -224,7 +224,7 @@ class RssController extends HController
             $item->addTag('author', $this->createAbsoluteUrl('blog/list', array('user_id' => $c->author->id)));
             $item->date = $c->created;
             $item->link = $c->getUrl(false, true);
-            $item->description = $c->rssContent;
+            $item->description = $c->getUrl(false, true);
             $item->title = $c->title;
             $item->addTag('comments', $c->getUrl(true, true));
             $feed->addItem($item);

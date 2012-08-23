@@ -96,6 +96,9 @@ class RssController extends HController
             $contents = $this->getContents($sql, $page, array(':author_id' => $user->id));
         }
 
+        if (empty($contents))
+            Yii::app()->end();
+
         foreach ($contents as $c) {
             $item = $feed->createNewItem();
             $item->addTag('guid', $c->getUrl(false, true), array('isPermaLink'=>'true'));
@@ -106,8 +109,8 @@ class RssController extends HController
             $item->title = $c->title;
             $item->addTag('comments', $c->getUrl(true, true));
             $feed->addItem($item);
-        }
 
+        }
         $feed->generateFeed();
         Yii::app()->end();
     }
@@ -196,6 +199,39 @@ class RssController extends HController
         if ($a->created == $b->created)
             return 0;
         return ($a->created > $b->created) ? -1 : 1;
+    }
+
+    public function actionSocial($page = 1){
+        $feed = new EFeed();
+        $this->limit = 1;
+        $feed->title= 'Веселый Жираф - сайт для всей семьи';
+        $feed->link = 'http://www.happy-giraffe.ru/';
+        $feed->description = 'Социальная сеть для родителей и их детей';
+        $feed->addChannelTag('generator', 'MyBlogEngine 1.1');
+        //$feed->addChannelTag('wfw:commentRss', $this->createAbsoluteUrl('rss/comments'));
+        $feed->addChannelTag('ya:more', $this->createAbsoluteUrl('rss/index', array('page' => $page + 1)));
+        $feed->addChannelTag('image', array('url' => 'http://www.happy-giraffe.ru/images/logo_2.0.png', 'width' => 199, 'height' => 92));
+
+        $sql = "SELECT id, created, 'CommunityContent' AS entity FROM community__contents
+                ORDER BY created DESC
+                LIMIT :limit
+                OFFSET :offset";
+        $contents = $this->getContents($sql, $page);
+
+        foreach ($contents as $c) {
+            $item = $feed->createNewItem();
+            $item->addTag('guid', $c->getUrl(false, true), array('isPermaLink'=>'true'));
+            $item->addTag('author', $this->createAbsoluteUrl('blog/list', array('user_id' => $c->author->id)));
+            $item->date = $c->created;
+            $item->link = $c->getUrl(false, true);
+            $item->description = $c->rssContent;
+            $item->title = $c->title;
+            $item->addTag('comments', $c->getUrl(true, true));
+            $feed->addItem($item);
+        }
+
+        $feed->generateFeed();
+        Yii::app()->end();
     }
 }
 

@@ -172,10 +172,9 @@ class AlbumsController extends BController
         $photo = AlbumPhoto::model()->findByPk($id);
         $this->user = $photo->author;
 
-        if ($photo->author_id == Yii::app()->user->id) {
+        if ($photo->author_id == Yii::app()->user->id)
             UserNotification::model()->deleteByEntity(UserNotification::NEW_COMMENT, $photo);
-            UserNotification::model()->deleteByEntity(UserNotification::NEW_REPLY, $photo);
-        }
+        UserNotification::model()->deleteByEntity(UserNotification::NEW_REPLY, $photo);
 
         if (!Yii::app()->request->isAjaxRequest)
             $this->render('photo', compact('photo'));
@@ -352,8 +351,6 @@ class AlbumsController extends BController
 
     public function actionCookDecorationPhoto()
     {
-        header('Content-type: application/json');
-
         $title = trim(Yii::app()->request->getPost('title'));
         if (!$title) {
             echo CJSON::encode(array(
@@ -399,7 +396,10 @@ class AlbumsController extends BController
             $attach->entity_id = $decoration->id;
             $attach->photo_id = $model->id;
             if ($attach->save())
-                echo CJSON::encode(array('status' => true));
+                echo CJSON::encode(array(
+                    'status' => true,
+                    'id'=>$model->id
+                ));
 
         } else
             echo CJSON::encode(array('status' => false));
@@ -687,6 +687,7 @@ class AlbumsController extends BController
         }
 
         $collection = $model->photoCollection;
+        $currentIndex = 0;
         foreach ($collection['photos'] as $i => $p) {
             if ($photo->id == $p->id) {
                 $currentIndex = $i + 1;

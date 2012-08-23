@@ -36,9 +36,9 @@
             )); ?>
                 <?=$form->hiddenField($answer, 'question_id')?>
 
-                <label>Введите в форму Ваш вариант ответа</label>
+                <label>Введите в форму ваш вариант ответа</label>
 
-                <?=$form->textArea($answer, 'text', array('class' => 'cap', 'onfocus' => '$(this).removeClass("cap").val("");'))?>
+                <?=$form->textArea($answer, 'text', array('class' => 'cap', 'onfocus' => 'if ($(this).hasClass("cap")) $(this).removeClass("cap").val("");'))?>
 
                 <div class="note"><span>Внимание!</span> Ответ должен быть кратким не более 500 символов</div>
 

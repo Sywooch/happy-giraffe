@@ -33,6 +33,7 @@ class SiteController extends HController
 
     public function actionSearch($text = false, $index = false)
     {
+        $this->meta_title = 'Поск по сайту Веселый Жираф';
         $index = $index ? $index : 'community';
         $pages = new CPagination();
         $pages->pageSize = 100000;
@@ -280,11 +281,6 @@ class SiteController extends HController
          $this->render('contest');
     }
 
-    public function actionLink($text)
-    {
-        $this->renderPartial('link', compact('text'));
-    }
-
     public function actionTest()
     {
         $data = array(
@@ -324,7 +320,7 @@ class SiteController extends HController
         curl_close($ch);
 
         $xml = new SimpleXMLElement($res);
-        var_dump(isset($xml->result[0]->fsdfs));
+        var_dump($xml->result[0]);
         die;
         echo $xml->result[0]->fsdfs;
     }
@@ -342,8 +338,6 @@ class SiteController extends HController
         $user = User::model()->findByPk($user_id);
         if ($user === null || $user->email_confirmed || $code != $user->confirmationCode)
             throw new CHttpException(404);
-
-
 
         $user->email_confirmed = 1;
         if ($user->update(array('email_confirmed')))
@@ -408,15 +402,19 @@ class SiteController extends HController
     }
 
     public function actionTest2(){
-        $unread = Im::model(Yii::app()->user->id)->getUnreadMessagesCount();
+        /*$unread = Im::model(Yii::app()->user->id)->getUnreadMessagesCount();
         $dialogUsers = Im::model(Yii::app()->user->id)->getUsersWithNewMessages();
+        $token = UserToken::model()->generate(Yii::app()->user->id, 86400);
 
         $this->renderFile(Yii::getPathOfAlias('site.common.tpl.newMessages').'.php', array(
             'user'=>Yii::app()->user->model,
             'unread'=>$unread,
             'dialogUsers'=>$dialogUsers,
-        ));
+            'token'=>$token,
+        ));*/
 //        $articles = Favourites::model()->getWeekPosts();
 //        $this->renderFile(Yii::getPathOfAlias('site.common.tpl.weeklyNews').'.php', array('models'=>$articles));
+
+        SocialPosting::sendPost(null);
     }
 }

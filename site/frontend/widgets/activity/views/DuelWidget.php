@@ -1,6 +1,4 @@
-<?php
-    Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts/duel.js');
-?>
+<?php Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts/duel.js');?>
 
 <div class="box activity-duel">
 

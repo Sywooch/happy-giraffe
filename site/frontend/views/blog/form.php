@@ -14,11 +14,18 @@
             $.ajax({
                 url: '/ajax/video/',
                 type: 'POST',
+                dataType:'JSON',
                 data: {
                     url: $('#CommunityVideo_link').val(),
                 },
                 success: function(response) {
-                    $('div.test-video div.img').html(response);
+                    if (response.status){
+                        $('div.test-video div.img').html(response.html);
+                        $('#CommunityVideo_link').parents('.row').removeClass('error');
+                    }
+                    else
+                        if (!$('#CommunityVideo_link').parents('.row').hasClass('error'))
+                            $('#CommunityVideo_link').parents('.row').addClass('error');
                 },
             });
         });

@@ -28,6 +28,11 @@ class TrackableBehavior extends CActiveRecordBehavior
         $this->_old_attributes = $this->owner->getAttributes($this->attributes);
     }
 
+    public function getOldAttribute($attribute)
+    {
+        return $this->_old_attributes[$attribute];
+    }
+
     public function isChanged($attribute)
     {
         return $this->owner->getAttribute($attribute) != $this->_old_attributes[$attribute];

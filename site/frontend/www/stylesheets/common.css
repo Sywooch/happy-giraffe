@@ -204,6 +204,7 @@ a.info {display:inline-block;width:13px;height:13px;background:url(../images/com
 .user-fast-nav > ul > li {float:left;padding-left:5px;margin-left:5px;border-left:1px solid #a4cce8;}
 .user-fast-nav > ul > li:first-child {border-left:0;margin-left:0;padding-left:0;}
 .user-fast-nav .drp-list {font-size:11px;}
+#user .details .user-fast-nav {margin-left: -75px;}
 
 .user-info-big {margin-bottom:25px;}
 .user-info-big .ava, .user-info-big .details {margin-bottom:10px;}
@@ -759,7 +760,7 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 #photoPick .photo-title label {font-size:16px;font-style:italic;font-family:arial, helvetica, sans-serif;color:#898888;margin-left:11px;display:inline-block;margin-bottom:8px;}
 #photoPick .photo-title label span {color:#b6b5b5;font-size:11px;font-style:normal;}
 #photoPick .photo-title input[type=text]{border-color:#dbcfe7;height:auto;padding:0px 10px;color:#333;font-size:12px;font-weight:normal;}
-#photoPick .photo-title textarea {border-color:#dbcfe7;height:auto;padding:5px 10px;color:#333;font-size:12px;font-weight:normal;height:90px;width:340px;}
+#photoPick .photo-title textarea {border:1px solid #DBCFE7;height:auto;padding:5px 10px;color:#333;font-size:12px;font-weight:normal;height:90px;width:340px;}
 
 #photoPick .photo-title select {width:220px}
 
@@ -1543,7 +1544,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 .gallery-photos-new ul li .img .btn {border-radius:0 !important;}
 }
 .gallery-photos-new ul li .img a:hover .btn {display:block;}
-.gallery-photos-new ul li .item-title {display:block;font-weight:bold;padding:14px 10px 10px;font-size:11px;}
+.gallery-photos-new ul li .item-title {display:block;font-weight:bold;padding:14px 10px 10px;font-size:11px;overflow: hidden;}
 .gallery-photos-new ul li .user {padding:10px 10px 0px;margin-bottom:-4px;}
 .gallery-photos-new ul li .user-info {}
 .gallery-photos-new ul li .user-info .details {margin-left:30px;}
@@ -3397,3 +3398,6 @@ label {
 
 .seo-table .table-box tr:hover td {background:#f2f8fe !important;}
 
+/****** ALEX ********/
+#fancybox-content{overflow: visible !important;}
+#fancybox-content > div {overflow: visible !important;}

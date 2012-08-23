@@ -187,10 +187,11 @@ Attach.prototype.insertToCookDecoration = function (id) {
         },
         function (data) {
             if (data.status) {
-                $('#dishes').load(document.location+' #dishes', function(){
-                    $('.list-view li.dish div.img a').pGallery({entity:'CookDecorationCategory', entity_id:photo_gallery_entity_id});
-                });
-                $.fancybox.close();
+//                $('#dishes').load(document.location+' #dishes', function(){
+//                    $('.list-view li.dish div.img a').pGallery({entity:'CookDecorationCategory', entity_id:data.id});
+//                });
+                window.location.href = '/cook/decor/photo'+data.id+'/';
+                //$.fancybox.close();
             } else {
                 if (data.message) {
                     alert(data.message);
@@ -198,7 +199,7 @@ Attach.prototype.insertToCookDecoration = function (id) {
                     alert('Ошибка загрузки, попробуйте еще раз');
                 }
             }
-        });
+        }, 'json');
 }
 
 Attach.prototype.CookDecorationEdit = function (fsn) {

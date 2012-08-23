@@ -103,6 +103,9 @@ return array(
 	// application components
 	'components'=>array(
         'clientScript' => array(
+//            'scriptMap'=>array(
+//                'jquery'=>'http://code.jquery.com/jquery-1.8.0.min.js',
+//            ),
             'packages' => array(
                 'comet' => array(
                     'baseUrl' => '/',

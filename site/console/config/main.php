@@ -16,7 +16,8 @@ return array(
     'import' => array(
         'site.common.components.*',
         'site.common.models.*',
-        'site.common.helpers.*'
+        'site.common.helpers.*',
+        'site.frontend.extensions.ESaveRelatedBehavior'
     ),
     'components' => array(
         'comet'=>array(
@@ -47,6 +48,7 @@ return array(
             'charset' => 'utf8',
             'enableProfiling' => false,
             'enableParamLogging' => true,
+            'schemaCachingDuration' => 60,
         ),
         'search' => array(
             'class' => 'site.frontend.extensions.DGSphinxSearch.DGSphinxSearch',

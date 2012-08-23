@@ -6,7 +6,7 @@
 ?>
 <div
     style="margin:30px 0;text-align:center;font:25px arial, helvetica, sans-serif;color:#2a2a2a;">
-    У вас <?php echo $unread ?> новых <?php echo HDate::GenerateNoun(array('сообщение', 'сообщения', 'сообщений'), $unread) ?>!
+    У вас <?php echo $unread ?> <?php echo HDate::GenerateNoun(array('новое сообщение', 'новых сообщения', 'новых сообщений'), $unread) ?>!
 </div>
 
 <table width="100%" cellpadding="0" cellspacing="0">
@@ -31,7 +31,10 @@
                                 <span style="color:#2aa908;font:11px/18px tahoma, helvetica, sans-serif;"></span><br/>
                             <?php endif ?>
                             <span style="color:#0d81d5;font:18px/20px arial, helvetica, sans-serif;">
-                                <a href="<?php echo 'http://www.happy-giraffe.ru'.Yii::app()->createUrl('/im/default/dialog', array('id'=>$dialogUser->dialog_id, 'token'=>$token->content)) ?>" target="_blank" style="color:#0d81d5;font:18px/20px arial, helvetica, sans-serif;"><?php $current_unread = Dialog::getUnreadMessagesCount($dialogUser->dialog_id, $user->id); echo $current_unread ?> <?php echo HDate::GenerateNoun(array('сообщение', 'сообщения', 'сообщений'), $current_unread) ?></a>
+                                <a href="<?php echo 'http://www.happy-giraffe.ru/im/dialog/?id='.$dialogUser->dialog_id.'&token='.$token->content ?>" target="_blank" style="color:#0d81d5;font:18px/20px arial, helvetica, sans-serif;">
+                                    <?php $current_unread = Dialog::getUnreadMessagesCount($dialogUser->dialog_id, $user->id); echo $current_unread ?>
+                                    <?php echo HDate::GenerateNoun(array('сообщение', 'сообщения', 'сообщений'), $current_unread) ?>
+                                </a>
                             </span>
                         </td>
                     </tr>
@@ -51,6 +54,6 @@
 
 <?php if (count($dialogUsers) > 4):?>
     <div style="margin:10px 0;text-align:center;font:20px arial, helvetica, sans-serif;color:#0483e0;">
-        <a href="http://www.happy-giraffe.ru<?php echo Yii::app()->createUrl('/im/default/new', array('token'=>$token->content)) ?>" style="font:20px arial, helvetica, sans-serif;color:#0483e0;">... еще <?php echo $unread - $unreadShown ?> <?php echo HDate::GenerateNoun(array('сообщение', 'сообщения', 'сообщений'), $unread - $unreadShown) ?></a></span>
+        <a href="http://www.happy-giraffe.ru/im/new/?token=<?= $token->content ?>" style="font:20px arial, helvetica, sans-serif;color:#0483e0;">... еще <?php echo $unread - $unreadShown ?> <?php echo HDate::GenerateNoun(array('сообщение', 'сообщения', 'сообщений'), $unread - $unreadShown) ?></a></span>
     </div>
 <?php endif ?>

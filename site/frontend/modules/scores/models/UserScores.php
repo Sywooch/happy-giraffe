@@ -216,7 +216,7 @@ class UserScores extends HActiveRecord
     public static function checkProfileScores($user_id, $action_id)
     {
         $model = self::getModel($user_id);
-        if (!$model->full) {
+        if ($model->full == 0) {
             $score = ScoreInput::model()->findByAttributes(array(
                 'action_id' => (int)$action_id,
                 'user_id' => (int)$user_id

@@ -255,6 +255,10 @@ class DefaultController extends HController
         $model = Dialog::model()->findByPk($id);
         if ($model === null)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
-        return $model;
+        foreach($model->dialogUsers as $dialogUser)
+            if ($dialogUser->user_id == Yii::app()->user->id)
+                return $model;
+
+        throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
     }
 }

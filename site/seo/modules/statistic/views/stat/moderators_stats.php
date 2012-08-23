@@ -11,7 +11,7 @@
         <table>
             <thead>
             <tr>
-                <th rowspan="2"><span class="big">Группа</span></th>
+                <th rowspan="2"><span class="big">Имя</span></th>
                 <th colspan="3"><span class="big">Клубы</span></th>
                 <th colspan="3"><span class="big">Блоги</span></th>
                 <th colspan="2"><span class="big">Сервисы</span></th>

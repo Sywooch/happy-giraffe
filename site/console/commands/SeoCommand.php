@@ -135,7 +135,6 @@ class SeoCommand extends CConsoleCommand
     {
         Yii::import('site.seo.modules.indexing.components.*');
         Yii::import('site.seo.modules.indexing.models.*');
-        Yii::import('site.frontend.extensions.ESaveRelatedBehavior');
         Yii::import('site.frontend.components.CutBehavior');
 
         IndexParserThread::collectUrls();
@@ -173,7 +172,8 @@ class SeoCommand extends CConsoleCommand
         echo $model->save();
     }
 
-    public function actionImportVisits(){
+    public function actionImportVisits()
+    {
         Yii::import('site.seo.modules.competitors.models.*');
 
         $criteria = new CDbCriteria;
@@ -197,18 +197,70 @@ class SeoCommand extends CConsoleCommand
         }
     }
 
-    public function actionProxy(){
-        $str = file_get_contents('http://awmproxy.com/socks_proxy.txt?');
-        if (strlen($str) > 10000){
-            Proxy::model()->deleteAll();
-            $proxies = explode("\n", $str);
-            foreach($proxies as $proxy){
-                $model = new Proxy();
-                $model->value = $proxy;
-                $model->save();
+    public function actionProxy()
+    {
+        ProxyRefresher::execute();
+    }
+
+    public function actionAddToParsing()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->limit = 1000;
+
+        $i = 0;
+        $visits = array(1);
+        while (!empty($visits)) {
+            $criteria->offset = 1000 * $i;
+
+            $visits = SiteKeywordVisit::model()->findAll($criteria);
+            foreach ($visits as $visit) {
+                $parsed = ParsedKeywords::model()->find('keyword_id =' . $visit->keyword_id);
+                if ($parsed !== null && empty($parsed->depth))
+                    continue;
+
+                $model = ParsingKeyword::model()->find('keyword_id =' . $visit->keyword_id);
+                if ($model === null) {
+                    $parse = new ParsingKeyword();
+                    $parse->keyword_id = $visit->keyword_id;
+                    $parse->priority = 4;
+                    if (!$parse->save()) {
+                        var_dump($parse->getErrors());
+                        Yii::app()->end();
+                    }
+                } else {
+                    $model->priority = 4;
+                    $model->save();
+                }
             }
-        }else{
-            echo $str;
+            $i++;
+        }
+    }
+
+    public function actionFixPages()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->limit = 100;
+
+        $i = 0;
+        $pages = array(1);
+        while (!empty($pages)) {
+            $criteria->offset = 100 * $i;
+
+            $pages = Page::model()->findAll($criteria);
+            foreach ($pages as $page) {
+                list($entity, $entity_id) = Page::ParseUrl($page->url);
+
+                if ($entity != null && $entity_id != null) {
+                    if ($page->entity != $entity) {
+                        $page->entity = $entity;
+                        $page->entity_id = $entity_id;
+                        $page->save();
+                        echo $entity . "\n";
+                    }
+                }
+            }
+
+            $i++;
         }
     }
 }

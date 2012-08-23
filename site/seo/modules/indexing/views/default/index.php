@@ -2,10 +2,6 @@
 /* @var $this Controller
  * @var $up IndexingUp
  */
-
-$addUrls = $up->getUrls(true);
-$removeUrls = $up->getUrls(false);
-$income = count($addUrls) - count($removeUrls);
 ?>
 <div class="indexation">
 
@@ -29,14 +25,22 @@ $income = count($addUrls) - count($removeUrls);
 
     </div>
 
+    <?php if($this->beginCache('indexation-'.$up->id, array(
+    'duration'=>'3600000',
+    'dependency'=>array(
+    'class'=>'system.caching.dependencies.CDbCacheDependency',
+    'sql'=>'SELECT count(id) FROM happy_giraffe_seo.indexing__up_urls WHERE up_id='.$up->id)))) { ?>
     <div class="text">
-
+        <?php $addUrls = $up->getUrls(true);
+        $removeUrls = $up->getUrls(false);
+        $income = count($addUrls) - count($removeUrls);
+        ?>
         <p><span><?=Yii::app()->dateFormatter->format('dd MMMM yyyy', strtotime($up->date))?></span> Яндекс добавил в
             индекс <a href="javascript:;" onclick="Indexing.showAddUrls()"><?=count($addUrls) ?> страниц</a>, удалил <a
                 href="javascript:;" onclick="Indexing.showRemoveUrls();" class="red"><?=count($removeUrls) ?>
                 страниц</a>.</p>
 
-        <p><span>Итого в индексе</span> <?=$income > 0 ? '+' . $income : $income ?> страниц</p>
+        <p><span>Итого в индексе</span> <?= count($up->text_urls) ?> (<?=$income > 0 ? '+' . $income : $income ?>) страниц</p>
 
     </div>
 
@@ -55,7 +59,7 @@ $income = count($addUrls) - count($removeUrls);
             <tbody>
                 <?php foreach ($addUrls as $url): ?>
                     <tr>
-                        <td class="al"><span class="big"><a href="<?=$url->url->url ?>" target="_blank"><?=$url->url->url ?></a></span>
+                        <td class="al"><span class="big"><a href="<?=$url ?>" target="_blank"><?=$url ?></a></span>
                         </td>
                         <td class="al"><span class="big"><b><?php //echo $url->url->getTitle() ?></b></span></td>
                     </tr>
@@ -78,7 +82,7 @@ $income = count($addUrls) - count($removeUrls);
             <tbody>
             <?php foreach ($removeUrls as $url): ?>
             <tr>
-                <td class="al"><span class="big"><a href="<?=$url->url->url ?>" target="_blank"><?=$url->url->url ?></a></span>
+                <td class="al"><span class="big"><a href="<?=$url ?>" target="_blank"><?=$url ?></a></span>
                 </td>
                 <td class="al"><span class="big"><b><?php //echo $url->url->getTitle() ?></b></span></td>
             </tr>
@@ -87,3 +91,4 @@ $income = count($addUrls) - count($removeUrls);
         </table>
     </div>
 </div>
+<?php $this->endCache(); } ?>

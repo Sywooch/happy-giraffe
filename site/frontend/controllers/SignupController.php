@@ -34,8 +34,8 @@ class SignupController extends HController
                 );
             }
 
-			$authIdentity->redirect();
-		}else{
+            $authIdentity->redirect();
+        } else {
             $regdata = Yii::app()->user->getFlash('regdata');
 
             if (empty($regdata))
@@ -51,34 +51,38 @@ class SignupController extends HController
                 $model->first_name = $regdata['first_name'];
             if (isset($regdata['last_name']))
                 $model->last_name = $regdata['last_name'];
+            if (isset($regdata['email']))
+                $model->email = $regdata['email'];
+            if (isset($regdata['email']))
+                $model->email = $regdata['email'];
 
             $this->registerUserModel = $model;
 
-            $this->render('/site/home',array('user'=>Yii::app()->user));
+            $this->render('/site/home', array('user' => Yii::app()->user));
         }
-	}
-	
-	public function actionFinish()
-	{
-		$session = Yii::app()->session;
-		$model = new User('signup');
-	
-		if(isset($_POST['User']))
-		{
-			$model->attributes=$_POST['User'];
-			$current_service = $session['service'];
-			if ($current_service)
-			{
-				$service = new UserSocialService;
-				$service->setAttributes(array(
-					'service' => $current_service['name'],
-					'service_id' => $current_service['id'],
-				));
-				$model->social_services = array($service);
-			}
-			$model->register_date = date('Y-m-d H:i:s');
-			if($model->save(true, array('first_name', 'last_name', 'password', 'email', 'gender', 'birthday')))
-			{
+    }
+
+    public function actionFinish()
+    {
+        $session = Yii::app()->session;
+        $model = new User('signup');
+
+        if (isset($_POST['User'])) {
+            $model->attributes = $_POST['User'];
+            if (isset($_POST['User']['day']) && isset($_POST['User']['month']) && isset($_POST['User']['year'])) {
+                $model->birthday = $_POST['User']['year'] . '-' . str_pad($_POST['User']['month'], 2, '0', STR_PAD_LEFT) . '-' . str_pad($_POST['User']['day'], 2, '0', STR_PAD_LEFT);
+            }
+            $current_service = $session['service'];
+            if ($current_service) {
+                $service = new UserSocialService;
+                $service->setAttributes(array(
+                    'service' => $current_service['name'],
+                    'service_id' => $current_service['id'],
+                ));
+                $model->social_services = array($service);
+            }
+            $model->register_date = date('Y-m-d H:i:s');
+            if ($model->save(true, array('first_name', 'last_name', 'password', 'email', 'gender', 'birthday'))) {
                 if (!empty($model->birthday))
                     UserScores::checkProfileScores($model->id, ScoreAction::ACTION_PROFILE_BIRTHDAY);
 
@@ -92,42 +96,59 @@ class SignupController extends HController
                         mkdir($original_dir, 0755);
 
                     $src = $original_dir . DIRECTORY_SEPARATOR . 'avatar.jpeg';
-                    file_put_contents($src, file_get_contents($url));
 
-                    $photo = new AlbumPhoto;
-                    $photo->file_name = 'avatar.jpeg';
-                    $photo->fs_name = 'avatar.jpeg';
-                    $photo->author_id = $model->id;
-                    $photo->save();
+                    $ch = curl_init();
+                    curl_setopt($ch, CURLOPT_URL, $url);
+                    curl_setopt($ch, CURLOPT_HEADER, false);
+                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
+                    $data = curl_exec($ch);
+                    curl_close($ch);
 
-                    $picture = new Imagick($src);
+                    if ($data) {
+                        file_put_contents($src, $data);
 
-                    $a1 = clone $picture;
-                    $a1->resizeimage(24, 24, imagick::COLOR_OPACITY, 1);
-                    $a1->writeImage($photo->getAvatarPath('small'));
+                        $photo = new AlbumPhoto;
+                        $photo->file_name = 'avatar.jpeg';
+                        $photo->fs_name = 'avatar.jpeg';
+                        $photo->author_id = $model->id;
+                        $photo->save();
 
-                    $a2 = clone $picture;
-                    $a2->resizeimage(72, 72, imagick::COLOR_OPACITY, 1);
-                    $a2->writeImage($photo->getAvatarPath('ava'));
+                        $picture = new Imagick($src);
+                        $d = $picture->getImageGeometry();
+                        $w = $d['width'];
+                        $h = $d['height'];
+                        if ($w > $h)
+                            $picture->cropimage($h, $h, round(($w - $h)/2), 0);
+                        if ($w < $h)
+                            $picture->cropimage($w, $w, 0, 0);
 
-                    $attach = new AttachPhoto;
-                    $attach->entity = 'User';
-                    $attach->entity_id = $model->id;
-                    $attach->photo_id = $photo->id;
-                    $attach->save();
+                        $a1 = clone $picture;
+                        $a1->resizeimage(24, 24, imagick::COLOR_OPACITY, 1);
+                        $a1->writeImage($photo->getAvatarPath('small'));
 
-                    $model->avatar_id = $photo->id;
-                    $model->save();
+                        $a2 = clone $picture;
+                        $a2->resizeimage(72, 72, imagick::COLOR_OPACITY, 1);
+                        $a2->writeImage($photo->getAvatarPath('ava'));
 
-                    UserScores::checkProfileScores($model->id, ScoreAction::ACTION_PROFILE_PHOTO);
+                        $attach = new AttachPhoto;
+                        $attach->entity = 'User';
+                        $attach->entity_id = $model->id;
+                        $attach->photo_id = $photo->id;
+                        $attach->save();
+
+                        $model->avatar_id = $photo->id;
+                        $model->save();
+
+                        UserScores::checkProfileScores($model->id, ScoreAction::ACTION_PROFILE_PHOTO);
+                    }
                 }
 
-                /*Yii::app()->mc->sendToEmail($model->email, $model, 'user_registration');*/
                 Yii::app()->mandrill->send($model, 'confirmEmail', array(
                     'password' => $_POST['User']['password'],
                     'code' => $model->confirmationCode,
                 ));
-				unset($session['service']);
+                unset($session['service']);
                 $identity = new UserIdentity($model->getAttributes());
                 $identity->authenticate();
                 Yii::app()->user->login($identity);
@@ -136,16 +157,15 @@ class SignupController extends HController
                 $model->save(false);
 
                 $redirectUrl = Yii::app()->user->getState('redirectUrl');
-                if (!empty($redirectUrl)){
+                if (!empty($redirectUrl)) {
                     $url = $redirectUrl;
                     Yii::app()->user->setState('redirectUrl', null);
-                }
-                else
-                    $url = Yii::app()->createAbsoluteUrl('user/profile', array('user_id'=>$model->id));
+                } else
+                    $url = Yii::app()->createAbsoluteUrl('user/profile', array('user_id' => $model->id));
 
-                    echo CJSON::encode(array(
+                echo CJSON::encode(array(
                     'status' => true,
-                    'profile'=>$url
+                    'profile' => $url
                 ));
                 Yii::app()->end();
             }
@@ -157,12 +177,25 @@ class SignupController extends HController
     {
         $steps = array(
             array('email'),
-            array('first_name', 'last_name', 'password', 'gender', 'email'),
+            array('first_name', 'last_name', 'password', 'gender', 'email', 'birthday'),
         );
 
-        $model = new User('signup');
-        $model->setAttributes($_POST['User']);
+        if (isset($_POST['form_type']) && $_POST['form_type'] == 'horoscope') {
+            $model = new User('signup_full');
+        } else
+            $model = new User('signup');
 
-        echo CActiveForm::validate($model, $steps[$step - 1]);
+        $model->setAttributes($_POST['User']);
+        if (isset($_POST['User']['day']) && isset($_POST['User']['month']) && isset($_POST['User']['year'])
+            && !empty($_POST['User']['day']) && !empty($_POST['User']['month']) && !empty($_POST['User']['year'])
+        ) {
+            $model->birthday = $_POST['User']['year'] . '-' . str_pad($_POST['User']['month'], 2, '0', STR_PAD_LEFT) . '-' . str_pad($_POST['User']['day'], 2, '0', STR_PAD_LEFT);
+        }
+
+        $model->validate($steps[$step - 1]);
+        $result = array();
+        foreach ($model->getErrors() as $attribute => $errors)
+            $result[CHtml::activeId($model, $attribute)] = $errors;
+        echo CJSON::encode($result);
     }
 }

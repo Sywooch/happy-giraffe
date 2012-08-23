@@ -9,10 +9,10 @@ class HHtml extends CHtml
     {
         if ($url !== '') {
             $url = self::normalizeUrl($url);
-            if ($seoHide) {
+            if ($seoHide && !Yii::app()->request->isAjaxRequest && $url != '#') {
                 $hashString = md5($url);
-                $htmlOptions['hashString'] = $hashString;
-                $htmlOptions['hashType'] = 'href';
+                $htmlOptions['data-key'] = $hashString;
+                $htmlOptions['data-type'] = 'href';
                 Yii::app()->controller->seoHrefs[$hashString] = base64_encode($url);
             } else {
                 $htmlOptions['href'] = $url;

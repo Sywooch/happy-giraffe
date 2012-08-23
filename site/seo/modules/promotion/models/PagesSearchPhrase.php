@@ -58,12 +58,11 @@ class PagesSearchPhrase extends HActiveRecord
      */
     public function relations()
     {
-        // NOTE: you may need to adjust the relation name and the related
-        // class name for the relations automatically generated below.
         return array(
             'keyword' => array(self::BELONGS_TO, 'Keyword', 'keyword_id'),
             'page' => array(self::BELONGS_TO, 'Page', 'page_id'),
             'positions' => array(self::HAS_MANY, 'SearchPhrasePosition', 'search_phrase_id', 'order' => 'date desc'),
+            'lastPosition' => array(self::HAS_ONE, 'SearchPhrasePosition', 'search_phrase_id', 'order' => 'lastPosition.date desc'),
             'visits' => array(self::HAS_MANY, 'SearchPhraseVisit', 'search_phrase_id'),
         );
     }
@@ -175,7 +174,7 @@ class PagesSearchPhrase extends HActiveRecord
             return '';
 
         if (count($se_positions) == 1)
-            return $this->getPosition($se);
+            return $this->showPosition($this->getPosition($se));
 
         $last = $se_positions[0];
         $prev = $se_positions[1];
@@ -189,13 +188,21 @@ class PagesSearchPhrase extends HActiveRecord
         }
 
         if ($last->position < $prev->position){
-            return $last->position.' <i class="icon-up"></i> '.'<a onmouseover="SeoLinking.showPositions(this, '.$se.', '.$this->id.')" href="javascript:;">'.$prev->position.'</a>';
+            return $this->showPosition($last->position).' <i class="icon-up"></i> '.'<a onmouseover="SeoLinking.showPositions(this, '.$se.', '.$this->id.')" href="javascript:;">'.$prev->position.'</a>';
         }
         if ($last->position > $prev->position){
-            return $last->position.' <i class="icon-down"></i> '.'<a onmouseover="SeoLinking.showPositions(this, '.$se.', '.$this->id.')" href="javascript:;">'.$prev->position.'</a>';
+            return $this->showPosition($last->position).' <i class="icon-down"></i> '.'<a onmouseover="SeoLinking.showPositions(this, '.$se.', '.$this->id.')" href="javascript:;">'.$prev->position.'</a>';
         }
 
-        return $last->position;
+        return $this->showPosition($last->position);
+    }
+
+    public function showPosition($position)
+    {
+        if ($position >= 1000)
+            return '> 100';
+
+        return $position;
     }
 
     /**

@@ -1,4 +1,10 @@
 $(document).ready(function () {
+    $.ajaxSetup({
+        complete: function() {
+
+        }
+    });
+
     $('body').delegate('a.fancy', 'click', function () {
         Register.start = true;
         var onComplete_function = function () {
@@ -402,6 +408,9 @@ var Register = {
         $('.reg1').hide();
         $('.reg2').show();
         $('.regmail2').val($('.regmail1').val());
+        $('.reg2 select').each(function () {
+            $(this).trigger("liszt:updated");
+        });
     },
     timer:function () {
         var obj = document.getElementById('reg_timer');

@@ -187,8 +187,9 @@ a.info {display:inline-block;width:13px;height:13px;background:url(../images/com
 .user-info.medium .icon-status {margin-left:-16px;}
 .user-info .details .username {font-size:12px;line-height:1.2;text-decoration:none;vertical-align:top;width:85px;margin:0;padding:0;overflow:hidden;display:inline-block;}
 .user-info .details .username:hover {text-decoration:underline;}
-.user-info .details .location {margin:3px 0;}
+.user-info .details .location {margin:3px 0;font-size:13px;}
 .user-info .details .location .flag {display:inline-block;margin-right:5px;position:relative;top:1px;}
+.user-info .details .location .flag-big {display:inline-block;margin-right:5px;position:relative;top:-2px;vertical-align:middle;}
 .user-info .details .birthday span {color:#aeaeae;}
 .user-info .details .date {color:#b3b3b3;font-size:9px;margin-top:3px;margin-left:15px;}
 
@@ -894,7 +895,7 @@ body.nav-fixed #header-new .header-in {display:none;}
 #header-new {margin-bottom:20px;position:relative;}
 #header-new .header-in {background:url(/images/bg_header.gif) no-repeat;}
 #header-new.guest .header-in {background-image:url(/images/bg_header_guest.gif);}
-#header-new .top-line {background:#a17dc4;border-bottom:1px solid #fff;position:relative;z-index:6;}
+#header-new .top-line {background:#a17dc4;border-bottom:1px solid #fff;position:relative;z-index:12;}
 
 body.nav-fixed #header-new .top-line {position:fixed;left:50%;margin-left:-500px;top:0;width:1000px;border:0;}
 
@@ -927,7 +928,7 @@ body.nav-fixed #header-new .top-line {position:fixed;left:50%;margin-left:-500px
 #header-new .user-nav ul li > a .count {background:#75bb6e;color:#fff;text-decoration:none;font:bold 10px/12px arial, helvetica, sans-serif;height:13px;padding:0 5px;margin:4px 0 0 2px;float:left;}
 #header-new .user-nav ul li > a .count {/*css3*/ -moz-border-radius:2px;-webkit-border-radius:2px;border-radius:2px;behavior: url(/stylesheets/PIE.htc);}
 
-#header-new .user-nav .drp {position:absolute;top:30px;left:50%;margin-left:-86px;width:170px;border:1px solid #ded2e9;background:#fff;display:none;}
+#header-new .user-nav .drp {position:absolute;top:30px;left:50%;margin-left:-86px;width:170px;border:1px solid #ded2e9;background:#fff;display:none;z-index:12;}
 #header-new .user-nav .drp .drp-title {font-size:13px;color:#6d6d6d;text-align:center;padding:5px 0;}
 #header-new .user-nav > ul > li:hover .drp {display:block;}
 
@@ -1273,7 +1274,103 @@ body.nav-fixed #header-new .top-line {position:fixed;left:50%;margin-left:-500px
 #dialog .new-message .buttons {padding-top:10px;text-align:right;}
 #dialog .cke_bottom {display: none;}
 #dialog .dialog-inn {min-height: 200px;}
+
+
+/* **** */
+
+#user-dialogs {background:#fff;position:absolute;left:50%;margin-left:-500px;width:1000px;top:30px;z-index:11;border-bottom:1px solid #d7e9ff;}
+
+#user-dialogs .header {height:30px;padding:30px 0;text-align:center;position:relative;border:1px solid #d7e9ff;}
+
+#user-dialogs .header .close {color:#fa753b;font-size:11px;position:absolute;right:10px;top:10px;}
+
+#user-dialogs .header .title {font-size:30px;line-height:1;color:#3b3b3b;display:inline-block;*zoom:1;*display:inline;margin-right:20px;vertical-align:middle;}
+#user-dialogs .header .title span {}
+
+#user-dialogs .header .nav {display:inline-block;*zoom:1;*display:inline;vertical-align:middle;}
+#user-dialogs .header .nav ul {list-style:none;}
+#user-dialogs .header .nav ul li {float:left;padding:0 10px;border-left:1px solid #aed8f5;}
+#user-dialogs .header .nav ul li:first-child {border-left:0;}
+#user-dialogs .header .nav ul li a {display:inline-block;padding:2px 5px;}
+#user-dialogs .header .nav ul li .count {font-size:10px;font-weight:bold;color:#75bb6e;position:relative;top:-5px;}
+#user-dialogs .header .nav ul li.active a {background:#489ddf;color:#fff;text-decoration:none;}
+#user-dialogs .header .nav ul li.disabled a {color:#8fbfe0;text-decoration:none;cursor:default;}
+
+#user-dialogs .header .search {display:inline-block;*zoom:1;*display:inline;margin-left:20px;vertical-align:middle;}
+#user-dialogs .header .search input[type=search] {-webkit-appearance:none;width:150px;height:22px;border:1px solid #cbdbef; padding-left:7px;padding-right:2px;box-sizing: border-box;-moz-box-sizing: border-box;color:#444343;font-size:13px;font-family:arial;}
+#user-dialogs .header .search input[type=search]:focus {border-color:#91d88a;}
+#user-dialogs .header .search input[type=search]::-webkit-search-cancel-button {-webkit-appearance: none;width: 10px;height: 12px;background: url(/images/common.png) no-repeat -315px -136px;cursor: pointer;}
+#user-dialogs .header .search input[type=search]::-webkit-search-cancel-button:hover {background-position:-315px -149px;}
+
+#user-dialogs .contacts {width:265px;border-left:1px solid #d7e9ff;float:left;height:560px;}
+
+#user-dialogs .contacts .list {height:420px;overflow:auto;}
+#user-dialogs .contacts .list ul {width:220px;list-style:none;padding:14px;}
+#user-dialogs .contacts .list ul li {cursor:pointer;height:50px;padding:7px 15px;margin-bottom:10px;}
+#user-dialogs .contacts .list ul li:hover {background:#edf5ff;}
+#user-dialogs .contacts .list ul li.active {background:#5490d1;}
+#user-dialogs .contacts .list ul li.active .in .username {color:#fff;}
+#user-dialogs .contacts .list ul li .in {margin-left:44px;font-size:12px;line-height:14px;}
+#user-dialogs .contacts .list ul li .in .username {text-decoration:none;display:inline-block;*zoom:1;*display:inline;width:100px;vertical-align:top;margin-bottom:5px;}
+#user-dialogs .contacts .list ul li .in .username:hover {text-decoration:underline;}
+#user-dialogs .contacts .list ul li .in .icon-status {margin-left:-15px;}
+#user-dialogs .contacts .list ul li .in .new {display:inline-block;*zoom:1;*display:inline;height:13px;line-height:13px;font-size:10px;font-weight:bold;color:#fff;background:#75bb6e;padding:0 7px;-moz-border-radius:3px;-webkit-border-radius:3px;border-radius:3px;}
+
+#user-dialogs .contacts .wannachat {border-top:1px solid #d7e9ff;padding:15px;height:109px;}
+#user-dialogs .contacts .wannachat .block-title {font-size:20px;line-height:1;color:#3b3b3b;text-align:center;margin-bottom:15px;}
+#user-dialogs .contacts .wannachat ul {list-style:none;width:192px;margin:0 auto;}
+#user-dialogs .contacts .wannachat ul li {float:left;padding:4px;}
+
+#user-dialogs .dialog {float:left;width:732px;border-left:1px solid #d7e9ff;border-right:1px solid #d7e9ff;height:560px;overflow:auto;}
+
+#user-dialogs .dialog .dialog-header {background:#edf5ff;padding:12px 45px;height:86px;}
+#user-dialogs .dialog .dialog-header .user-info .details {width:310px;}
+#user-dialogs .dialog .dialog-header .user-info .user-fast-nav {margin:0;}
+
+#user-dialogs .dialog .dialog-messages {padding:0 55px;height:350px;overflow:auto;position:relative;}
+#user-dialogs .dialog .dialog-messages ul {list-style:none;padding:8px 0;}
+#user-dialogs .dialog .dialog-messages ul li {padding:12px 0 0;overflow:hidden;}
+#user-dialogs .dialog .dialog-messages ul li .in {margin-left:34px;}
+#user-dialogs .dialog .dialog-messages ul li .in .meta {margin-top:0;}
+#user-dialogs .dialog .dialog-messages ul li .in .username {font-size:13px;text-decoration:none;}
+#user-dialogs .dialog .dialog-messages ul li .in .username:hover {text-decoration:underline;}
+#user-dialogs .dialog .dialog-messages ul li .in .date {color:#bfc1c1;font-size:9px;font-family:tahoma, arial, helvetica, sans-serif;margin-left:15px;}
+#user-dialogs .dialog .dialog-messages ul li .in .message-label {margin-left:15px;font-size:11px;}
+#user-dialogs .dialog .dialog-messages ul li .in .label-read {color:#47c05a;}
+#user-dialogs .dialog .dialog-messages ul li .in .label-unread {color:#fe8a57;}
+
+#user-dialogs .dialog .dialog-messages .empty {padding-bottom:140px;background:url(/images/dialogs_no_messages.gif) no-repeat bottom;text-align:center;font-size:22px;color:#999999;line-height:26px;position:absolute;left:0;top:50%;margin-top:-90px;width:100%;}
+
+#user-dialogs .dialog .dialog-input {padding:22px 50px;background:#edf5ff;height:56px;}
+#user-dialogs .dialog .dialog-input .input {width:520px;float:left;}
+#user-dialogs .dialog .dialog-input .input textarea {height:32px;padding:7px 15px;border:1px solid #d6e5f8;width:488px;resize:none;}
+#user-dialogs .dialog .dialog-input .btn {width:110px;float:left;text-align:right;}
+#user-dialogs .dialog .dialog-input .btn button {border:0;background:url(/images/btn_dialogs_send.png) no-repeat;width:85px;height:46px;text-indent:-9999px;cursor:pointer;}
+
+#user-dialogs .no-messages {padding:45px;}
+#user-dialogs .no-messages .block-title {font-size:22px;color:#3e3e3e;line-height:1;margin-bottom:20px;}
+#user-dialogs .no-messages .find-friends {font-size:17px;margin-top:15px;}
+#user-dialogs .no-messages .wannachat {display:inline-block;*zoom:1;*display:inline;display:inline-block;background:#a888c6;color:#fff;font:normal 24px/36px tahoma, arial, helvetica, sans-serif;padding:2px 18px;text-decoration:none;margin-left:2px;-moz-border-radius:15px;-webkit-border-radius:15px;border-radius:15px;}
+
+#user-dialogs .friends {padding:0 45px;margin-bottom:20px;}
+#user-dialogs .friends .block-title {font-size:18px;color:#3e3e3e;margin-bottom:20px;}
+#user-dialogs .friends .block-title a {font-size:12px;margin-left:30px;}
+#user-dialogs .friends ul {list-style:none;}
+#user-dialogs .friends ul li {float:left;width:32%;padding-bottom:30px;font-size:11px;padding-right:1%;position:relative;}
+#user-dialogs .friends ul li .ava {float:left;}
+#user-dialogs .friends ul li .details {margin-left:90px;}
+#user-dialogs .friends ul li .details .icon-status {margin-left:-16px;}
+#user-dialogs .friends ul li .details .username {width:100px;}
+#user-dialogs .friends ul li .remove {width:12px;height:14px;background:url(/images/common.png) no-repeat -314px -135px;position:relative;margin-right:8px;vertical-align:middle;}
+#user-dialogs .friends ul li .remove:hover {background-position:-314px -148px;}
+#user-dialogs .friends ul li.empty .img {width:72px;height:72px;background:#f4f4f4;}
+#user-dialogs .friends ul li.empty .img {/*css3*/ -moz-border-radius:36px;-webkit-border-radius:36px;border-radius:36px;behavior: url(/stylesheets/PIE.htc);}
+
+
+
 /* dialogs end */
+
+
 
 
 /* select */

@@ -16,32 +16,48 @@
 	<link rel="stylesheet" type="text/css" href="/stylesheets/jquery.fancybox-1.3.4.css" />
 	<script type="text/javascript" src="/javascripts/jquery.fancybox-1.3.4.pack.js"></script>
 	
+	<script type="text/javascript" src="/javascripts/jquery.placeholder.min.js"></script>
+	
 	<script type="text/javascript" src="/javascripts/jquery.jcarousel.js"></script>
 	
 	<script type="text/javascript" src="/javascripts/common.js"></script>
 	
 	<script>
-		
+	
 		$(function(){
-			$('#photo-thumbs .jcarousel').jcarousel();
+			
+			userDialogsCalc(); // append
+			
 		})
 		
-		var st;
+		$(window).bind('resize', function(){
 		
-		function openPhoto(){
-      st = $('body').scrollTop();
-      alert(st);
-			$('#photo-window-bg, #photo-window').fadeIn(600, function(){
-				$('body').scrollTop(0).css('overflow', 'hidden').addClass('nav-fixed');
-			});
-		}
-		
-		function closePhoto(){
-			$('#photo-window-bg, #photo-window').hide(function(){
-        $('body').removeClass('nav-fixed').css('overflow', 'auto');
-        $('body, html').scrollTop(st);
-      });
+			userDialogsCalc();
 			
+		})
+		
+		function userDialogsCalc(){
+			
+			var box = $('#user-dialogs');
+			
+			var windowH = $(window).height();
+			var headerH = 90;
+			var textareaH = 100;
+			var wannachatH = 140;
+			var userH = 110;
+			var marginH = 30;
+			
+			var hasWannachat = box.hasClass('has-wannachat') ? 1 : 0;
+			
+			var generalH = windowH - marginH*2 - headerH;
+			if (generalH < 400) generalH = 400;
+			
+			box.find('.contacts').height(generalH);
+			box.find('.dialog').height(generalH);
+			
+			box.find('.contacts .list').height(generalH - wannachatH*hasWannachat);
+			box.find('.dialog .dialog-messages').height(generalH - textareaH - userH);
+						
 		}
 		
 	</script>
@@ -1230,6 +1246,477 @@
 		
 	</div>
 	
+	
+	<div id="user-dialogs" class="clearfix has-wannachat">
+		
+		<div class="header">
+			
+			<div class="title">
+				<span>Мои диалоги</span>
+			</div>
+			
+			<div class="nav">
+				<ul>
+					<li class="active"><a href="">Все</a></li>
+					<li><a href="">Новые</a><span class="count">5</span></li>
+					<li><a href="">Кто в онлайне</a><span class="count">10</span></li>
+					<li><a href="">Друзья на сайте</a><span class="count">6</span></li>
+				</ul>
+			</div>
+			
+			<div class="search">
+				<input type="search" placeholder="Найти по имени" />
+			</div>
+			
+			<a href="" class="close">Закрыть диалоги</a>
+			
+		</div>
+		
+		<div class="contacts">
+			
+			<div class="list">
+				
+				<ul>
+					
+					<li class="active">
+						
+						<a href="" class="ava small"></a>
+						
+						<div class="in">
+							
+							<span class="icon-status status-online"></span>
+						
+							<a href="" class="username">Александр Богоявленский</a>
+							
+							<span class="new">1 новое</span>
+							
+						</div>
+						
+					</li>
+					
+					<li>
+						
+						<a href="" class="ava small"></a>
+						
+						<div class="in">
+							
+							<span class="icon-status status-online"></span>
+						
+							<a href="" class="username">Александр</a>
+							
+							<span class="new">2 новых</span>
+							
+						</div>
+						
+					</li>
+					
+					<li>
+						
+						<a href="" class="ava small"></a>
+						
+						<div class="in">
+							
+							<span class="icon-status status-online"></span>
+						
+							<a href="" class="username">Александр Богоявленский</a>
+							
+							<span class="new">100500 новых</span>
+							
+						</div>
+						
+					</li>
+					
+					<li>
+						
+						<a href="" class="ava small"></a>
+						
+						<div class="in">
+							
+							<span class="icon-status status-online"></span>
+						
+							<a href="" class="username">Александр Богоявленский</a>
+							
+							<span class="new">1 новое</span>
+							
+						</div>
+						
+					</li>
+					
+					<li>
+						
+						<a href="" class="ava small"></a>
+						
+						<div class="in">
+							
+							<span class="icon-status status-online"></span>
+						
+							<a href="" class="username">Александр</a>
+							
+							<span class="new">2 новых</span>
+							
+						</div>
+						
+					</li>
+					
+					<li>
+						
+						<a href="" class="ava small"></a>
+						
+						<div class="in">
+							
+							<span class="icon-status status-online"></span>
+						
+							<a href="" class="username">Александр Богоявленский</a>
+							
+							<span class="new">100500 новых</span>
+							
+						</div>
+						
+					</li>
+					
+					<li>
+						
+						<a href="" class="ava small"></a>
+						
+						<div class="in">
+							
+							<span class="icon-status status-online"></span>
+						
+							<a href="" class="username">Александр Богоявленский</a>
+							
+							<span class="new">1 новое</span>
+							
+						</div>
+						
+					</li>
+					
+					<li>
+						
+						<a href="" class="ava small"></a>
+						
+						<div class="in">
+							
+							<span class="icon-status status-online"></span>
+						
+							<a href="" class="username">Александр</a>
+							
+							<span class="new">2 новых</span>
+							
+						</div>
+						
+					</li>
+					
+					<li>
+						
+						<a href="" class="ava small"></a>
+						
+						<div class="in">
+							
+							<span class="icon-status status-online"></span>
+						
+							<a href="" class="username">Александр Богоявленский</a>
+							
+							<span class="new">100500 новых</span>
+							
+						</div>
+						
+					</li>
+					
+				</ul>
+				
+			</div>
+			
+			<div class="wannachat clearfix">
+				
+				<div class="block-title">
+					<span>Хотят общаться</span>
+				</div>
+				
+				<ul>
+					<li><a href="" class="ava small"></a></li>
+					<li><a href="" class="ava small"></a></li>
+					<li><a href="" class="ava small"></a></li>
+					<li><a href="" class="ava small"></a></li>
+					<li><a href="" class="ava small"></a></li>
+					<li><a href="" class="ava small"></a></li>
+					<li><a href="" class="ava small"></a></li>
+					<li><a href="" class="ava small"></a></li>
+					<li><a href="" class="ava small"></a></li>
+					<li><a href="" class="ava small"></a></li>
+					<li><a href="" class="ava small"></a></li>
+					<li><a href="" class="ava small"></a></li>
+					
+				</ul>
+				
+			</div>
+			
+		</div>
+		
+		<div class="dialog">
+			
+			<div class="dialog-header clearfix">
+				
+				<div class="user-info medium">
+					
+					<a href="" class="ava female"></a>
+					
+					<div class="details">
+						
+						<span class="icon-status status-online"></span>
+						
+						<a href="" class="username">Александр Богоявленский</a>
+						
+						<div class="location">
+							<div class="flag-big flag-big-ru"></div> Магадан
+						</div>
+						
+						<div class="user-fast-nav">
+							<ul>
+								<a href="">Анкета</a>&nbsp;|&nbsp;<a href="">Блог</a>&nbsp;|&nbsp;<a href="">Фото</a>&nbsp;|&nbsp;<a href="">Что нового</a>&nbsp;|&nbsp;<span class="drp-list"><a href="" class="more">Еще</a><ul><li><a href="">Семья</a></li><li><a href="">Друзья</a></li></ul>
+								</span>
+								
+							</ul>
+						</div>
+						
+					</div>
+					
+				</div>
+				
+			</div>
+			
+			<div class="dialog-messages">
+				
+				<ul>
+					
+					<li>
+						
+						<a href="" class="ava small male"></a>
+						
+						<div class="in">
+							
+							<div class="meta">
+								
+								<a href="" class="username">Анастасия</a>								
+								<span class="date"> 28 янв 2012, 13:45</span>								
+								<span class="message-label label-unread">Сообщение не прочитано</span>
+								
+							</div>
+							
+							<div class="content">
+								
+								<div class="wysiwyg-content"><p>Привет! Очень рада за вас, вот для твоего сына новая колыбельная</p></div>
+								
+							</div>
+							
+						</div>
+						
+					</li>
+					
+					<li>
+						
+						<a href="" class="ava small male"></a>
+						
+						<div class="in">
+							
+							<div class="meta">
+								
+								<a href="" class="username">Анастасия</a>								
+								<span class="date"> 28 янв 2012, 13:45</span>								
+								<span class="message-label label-read">Сообщение прочитано</span>
+								
+							</div>
+							
+							<div class="content">
+								
+								<div class="wysiwyg-content"><p>Привет! Очень рада за вас, вот для твоего сына новая колыбельная</p></div>
+								
+							</div>
+							
+						</div>
+						
+					</li>
+					
+					<li>
+						
+						<a href="" class="ava small male"></a>
+						
+						<div class="in">
+							
+							<div class="meta">
+								
+								<a href="" class="username">Анастасия</a>								
+								<span class="date"> 28 янв 2012, 13:45</span>
+								
+							</div>
+							
+							<div class="content">
+								
+								<div class="wysiwyg-content"><p>Привет! Очень рада за вас, вот для твоего сына новая колыбельная. Привет! Очень рада за вас, вот для твоего сына новая колыбельная</p></div>
+								
+							</div>
+							
+						</div>
+						
+					</li>
+					
+					<li>
+						
+						<a href="" class="ava small male"></a>
+						
+						<div class="in">
+							
+							<div class="meta">
+								
+								<a href="" class="username">Анастасия</a>								
+								<span class="date"> 28 янв 2012, 13:45</span>								
+								<span class="message-label label-unread">Сообщение не прочитано</span>
+								
+							</div>
+							
+							<div class="content">
+								
+								<div class="wysiwyg-content"><p>Привет! Очень рада за вас, вот для твоего сына новая колыбельная</p></div>
+								
+							</div>
+							
+						</div>
+						
+					</li>
+					
+					<li>
+						
+						<a href="" class="ava small male"></a>
+						
+						<div class="in">
+							
+							<div class="meta">
+								
+								<a href="" class="username">Анастасия</a>								
+								<span class="date"> 28 янв 2012, 13:45</span>								
+								<span class="message-label label-read">Сообщение прочитано</span>
+								
+							</div>
+							
+							<div class="content">
+								
+								<div class="wysiwyg-content"><p>Привет! Очень рада за вас, вот для твоего сына новая колыбельная</p></div>
+								
+							</div>
+							
+						</div>
+						
+					</li>
+					
+					<li>
+						
+						<a href="" class="ava small male"></a>
+						
+						<div class="in">
+							
+							<div class="meta">
+								
+								<a href="" class="username">Анастасия</a>								
+								<span class="date"> 28 янв 2012, 13:45</span>
+								
+							</div>
+							
+							<div class="content">
+								
+								<div class="wysiwyg-content"><p>Привет! Очень рада за вас, вот для твоего сына новая колыбельная. Привет! Очень рада за вас, вот для твоего сына новая колыбельная</p></div>
+								
+							</div>
+							
+						</div>
+						
+					</li>
+					
+					<li>
+						
+						<a href="" class="ava small male"></a>
+						
+						<div class="in">
+							
+							<div class="meta">
+								
+								<a href="" class="username">Анастасия</a>								
+								<span class="date"> 28 янв 2012, 13:45</span>								
+								<span class="message-label label-unread">Сообщение не прочитано</span>
+								
+							</div>
+							
+							<div class="content">
+								
+								<div class="wysiwyg-content"><p>Привет! Очень рада за вас, вот для твоего сына новая колыбельная</p></div>
+								
+							</div>
+							
+						</div>
+						
+					</li>
+					
+					<li>
+						
+						<a href="" class="ava small male"></a>
+						
+						<div class="in">
+							
+							<div class="meta">
+								
+								<a href="" class="username">Анастасия</a>								
+								<span class="date"> 28 янв 2012, 13:45</span>								
+								<span class="message-label label-read">Сообщение прочитано</span>
+								
+							</div>
+							
+							<div class="content">
+								
+								<div class="wysiwyg-content"><p>Привет! Очень рада за вас, вот для твоего сына новая колыбельная</p></div>
+								
+							</div>
+							
+						</div>
+						
+					</li>
+					
+					<li>
+						
+						<a href="" class="ava small male"></a>
+						
+						<div class="in">
+							
+							<div class="meta">
+								
+								<a href="" class="username">Анастасия</a>								
+								<span class="date"> 28 янв 2012, 13:45</span>
+								
+							</div>
+							
+							<div class="content">
+								
+								<div class="wysiwyg-content"><p>Привет! Очень рада за вас, вот для твоего сына новая колыбельная. Привет! Очень рада за вас, вот для твоего сына новая колыбельная</p></div>
+								
+							</div>
+							
+						</div>
+						
+					</li>
+					
+				</ul>
+				
+			</div>
+			
+			<div class="dialog-input clearfix">
+				
+				<div class="input"><textarea placeholder="Введите ваше сообщение"></textarea></div>
+				
+				<div class="btn"><button>Отправить сообщение</button></div>
+				
+			</div>
+			
+		</div>
+		
+	</div>
+  
 	
 </body>
 </html>

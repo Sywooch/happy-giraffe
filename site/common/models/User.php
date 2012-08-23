@@ -1036,4 +1036,14 @@ class User extends HActiveRecord
         foreach ($users as $u)
             $comet->send($u->id, array('online' => $this->online, 'user_id' => $this->id));
     }
+
+    public static function getWorkersIds()
+    {
+        return Yii::app()->db
+            ->createCommand()
+            ->select('id')
+            ->from('users')
+            ->where('`group` > 0')
+            ->queryColumn();
+    }
 }

@@ -112,6 +112,10 @@
                     'label' => 'Парсинг LI',
                     'url' => array('/competitors/parse/index'),
                 ),
+                array(
+                    'label' => 'Урлы индексации',
+                    'url' => array('/admin/indexingUrl/admin/'),
+                ),
             )));
     ?>
 </div>

@@ -17,6 +17,7 @@ class Dialog extends HActiveRecord
 {
     public $unreadByMe = 0;
     public $unreadByPal = 0;
+    public $unreadMessagesCount;
 
 	/**
 	 * Returns the static model of the specified AR class.

@@ -79,7 +79,6 @@ class UrlCollector
             foreach ($types as $key => $type) {
                 $posts = CommunityContent::model()->full()->findAll('community.id=' . $community->id . ' AND type.id = ' . $key);
                 if (count($posts) > 0) {
-                    echo count($posts) . '<br>';
                     $this->addUrl('http://www.happy-giraffe.ru/community/' . $community->id . '/forum/' . $type . '/', 1);
 
                     if (count($posts) >= 30) {
@@ -100,41 +99,6 @@ class UrlCollector
 
     }
 
-    public function getIdsForQueries($ids, $start = '')
-    {
-        $limit = 10;
-        $result = array();
-        for ($i = 0; $i <= 9; $i++) {
-            $count = 0;
-            foreach ($ids as $id) {
-                if (strpos($id, $start . $i) === 0)
-                    $count++;
-            }
-
-            if ($count > 1 && $count < $limit) {
-                $result [] = $start . $i;
-                //remove from array
-                foreach ($ids as $key => $id) {
-                    if (strpos($id, $start . $i) === 0)
-                        unset($ids[$key]);
-                }
-
-            } elseif ($count >= $limit) {
-                $ids2 = array();
-                foreach ($ids as $key => $id) {
-                    if (strpos($id, $start . $i) === 0) {
-                        $ids2[] = $id;
-                        unset($ids[$key]);
-                    }
-                }
-
-                $q = $this->getIdsForQueries($ids2, $start . $i);
-                $result = array_merge($q, $result);
-            }
-        }
-
-        return $result;
-    }
 
     public function collectServices()
     {
@@ -210,20 +174,58 @@ class UrlCollector
 
     public function collectCookRecipes()
     {
-        $ids = Yii::app()->db
-            ->createCommand()
-            ->select('id')
-            ->from('cook__recipes')
-            ->where('section = 0')
-            ->queryColumn();
+        $types = array(0 => 'recipe', 1 => 'multivarka');
+        foreach ($types as $key => $type) {
+            $ids = Yii::app()->db
+                ->createCommand()
+                ->select('id')
+                ->from('cook__recipes')
+                ->where('section = '.$key)
+                ->queryColumn();
 
-        foreach ($ids as $id)
-            $this->addUrl('http://www.happy-giraffe.ru/cook/recipe/' . $id . '/');
+            foreach ($ids as $id)
+                $this->addUrl('http://www.happy-giraffe.ru/cook/'.$type.'/' . $id . '/');
 
-        $ids = $this->getIdsForQueries($ids);
-        foreach ($ids as $id)
-            $this->addUrl('http://www.happy-giraffe.ru/cook/recipe/' . $id, 1);
+            $ids = $this->getIdsForQueries($ids);
+            foreach ($ids as $id)
+                $this->addUrl('http://www.happy-giraffe.ru/cook/'.$type.'/' . $id, 1);
+        }
+    }
 
+    public function getIdsForQueries($ids, $start = '')
+    {
+        $limit = 10;
+        $result = array();
+        for ($i = 0; $i <= 9; $i++) {
+            $count = 0;
+            foreach ($ids as $id) {
+                if (strpos($id, $start . $i) === 0)
+                    $count++;
+            }
+
+            if ($count > 1 && $count < $limit) {
+                $result [] = $start . $i;
+                //remove from array
+                foreach ($ids as $key => $id) {
+                    if (strpos($id, $start . $i) === 0)
+                        unset($ids[$key]);
+                }
+
+            } elseif ($count >= $limit) {
+                $ids2 = array();
+                foreach ($ids as $key => $id) {
+                    if (strpos($id, $start . $i) === 0) {
+                        $ids2[] = $id;
+                        unset($ids[$key]);
+                    }
+                }
+
+                $q = $this->getIdsForQueries($ids2, $start . $i);
+                $result = array_merge($q, $result);
+            }
+        }
+
+        return $result;
     }
 
     public function addUrl($url, $type = 0)

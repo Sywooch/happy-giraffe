@@ -101,7 +101,6 @@ class TaskController extends SController
         if ($task->status != SeoTask::STATUS_TAKEN && $task->status != SeoTask::STATUS_PUBLICATION)
             Yii::app()->end();
 
-
         $url = trim(Yii::app()->request->getPost('url'));
 
         $page = Page::model()->findByAttributes(array('url' => $url));
@@ -175,8 +174,11 @@ class TaskController extends SController
                 Yii::app()->end();
             }
         } else {
-            if ($task->type == SeoTask::TYPE_EDITOR)
+            if ($task->type == SeoTask::TYPE_EDITOR){
                 $task->status = SeoTask::STATUS_WRITTEN;
+                echo CJSON::encode(array('status' => $task->save()));
+                Yii::app()->end();
+            }
             else {
                 echo CJSON::encode(array(
                     'status' => false,

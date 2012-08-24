@@ -264,6 +264,9 @@ class SeoCommand extends CConsoleCommand
 
             $models = ParsingKeyword::model()->findAll($criteria);
             foreach ($models as $model) {
+                $parsed = new ParsedKeywords;
+                $parsed->keyword_id = $model->keyword_id;
+                $parsed->save();
                 $model->delete();
             }
 

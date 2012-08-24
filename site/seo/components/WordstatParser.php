@@ -173,7 +173,9 @@ class WordstatParser extends ProxyParserThread
             $value = (int)pq($link)->parent()->next()->next()->text();
             if (!empty($keyword) && !empty($value)) {
                 $keyword = preg_replace('/(\+)[\w]*/', '', $keyword);
-                $model = $this->AddToParsingInclusiveKeyword($keyword);
+                $model = Keyword::GetKeyword($keyword);
+                if ($value >= 100)
+                    $this->AddToParsingInclusiveKeyword($model);
                 $this->AddStat($model, $value);
             }
         }
@@ -186,7 +188,9 @@ class WordstatParser extends ProxyParserThread
                 $value = (int)pq($link)->parent()->next()->next()->text();
                 if (!empty($keyword) && !empty($value)) {
                     $keyword = preg_replace('/(\+)[\w]*/', '', $keyword);
-                    $model = $this->AddToParsingAdjacentKeyword($keyword);
+                    $model = Keyword::GetKeyword($keyword);
+                    if ($value >= 100)
+                        $this->AddToParsingAdjacentKeyword($model);
                     $this->AddStat($model, $value);
                 }
             }
@@ -211,25 +215,19 @@ class WordstatParser extends ProxyParserThread
         return true;
     }
 
-    public function AddToParsingInclusiveKeyword($keyword)
+    public function AddToParsingInclusiveKeyword($model)
     {
-        $model = Keyword::GetKeyword($keyword);
         if (empty($this->keyword->depth)) {
             $this->AddKeywordToParsing($model->id);
         } elseif ($this->keyword->depth >= 2)
             $this->AddKeywordToParsing($model->id, 1);
-
-        return $model;
     }
 
-    public function AddToParsingAdjacentKeyword($keyword)
+    public function AddToParsingAdjacentKeyword($model)
     {
-        $model = Keyword::GetKeyword($keyword);
         if (empty($this->keyword->depth)) {
             $this->AddKeywordToParsing($model->id, 2);
         }
-
-        return $model;
     }
 
     /**

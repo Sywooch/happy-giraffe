@@ -13,12 +13,15 @@
 	
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 	
-	<link rel="stylesheet" type="text/css" href="/stylesheets/jquery.fancybox-1.3.4.css" />
-	<script type="text/javascript" src="/javascripts/jquery.fancybox-1.3.4.pack.js"></script>
+	<script type="text/javascript" src="/javascripts/jquery.tooltip.pack.js"></script>
 	
 	<script type="text/javascript" src="/javascripts/jquery.placeholder.min.js"></script>
 	
 	<script type="text/javascript" src="/javascripts/jquery.jcarousel.js"></script>
+	<script type="text/javascript" src="/javascripts/jquery.jcarousel.control.js"></script>
+	
+	<link rel="stylesheet" type="text/css" href="/stylesheets/jquery.fancybox-1.3.4.css" />
+	<script type="text/javascript" src="/javascripts/jquery.fancybox-1.3.4.js"></script>
 	
 	<script type="text/javascript" src="/javascripts/common.js"></script>
 	
@@ -83,39 +86,6 @@
 						</li>
 						<li>
 							<a href=""><i class="icon icon-messages"></i><span class="count">5</span></a>
-							<div class="drp">
-								<div class="drp-title">Диалоги</div>
-								<ul class="list">
-									<li>
-										<a href="">
-											<span class="name">Александр  Богоявленский</span>
-											<span class="text">Привет! У меня  нормально. Напиши как приедешь...</span>
-											<span class="date">Сегодня 10:45</span>
-										</a>
-									</li>
-									<li>
-										<a href="">
-											<span class="name">Александр  Богоявленский</span>
-											<span class="text">Привет! У меня  нормально. Напиши как приедешь...</span>
-											<span class="date">Сегодня 10:45</span>
-										</a>
-									</li>
-									<li>
-										<a href="">
-											<span class="name">Александр  Богоявленский</span>
-											<span class="text">Привет! У меня  нормально. Напиши как приедешь...</span>
-											<span class="date">Сегодня 10:45</span>
-										</a>
-									</li>							
-								</ul>
-								<div class="actions">
-									<ul>
-										<li><a href="">Все диалоги <span>(156)</span></a></li>
-										<li><a href="">Новых</a> <a href="" class="count">5</a></li>
-										<li><a href="">Кто онлайн</a> <span>8</span></li>
-									</ul>
-								</div>
-							</div>
 						</li>
 						<li>
 							<a href=""><i class="icon icon-friends"></i><span class="count">777</span></a>
@@ -160,7 +130,9 @@
 						</li>
 						<li class="user">
                                 <div class="link">
-									<a class="ava male small" href="/user/profile/user_id/10020/"></a>
+									<a class="ava male small" href="/user/profile/user_id/10020/">
+										<img src="" alt="">
+									</a>
 									<a href="/user/profile/user_id/10020/">
                                         <span class="username">Ижецкий Денис Владимирович<i class="arr"></i></span>
                                     </a>
@@ -196,6 +168,12 @@
 							<input type="text" />
 						</div>
 						<button class="btn btn-green-medium"><span><span>Поиск</span></span></button>					
+						
+						<div class="fast-actions">
+							<a href="" class="newest active"><i class="icon"></i>Самое<br/>свежее</a>
+							<a href="" class="find-friend"><i class="icon"></i>Найти<br/>друзей</a>
+						</div>
+						
 					</div>
 					
 					<div class="logo-box">
@@ -210,10 +188,11 @@
 				</div>
 				
 				<div class="nav">
-					<ul class="clearfix width-2">
+					<ul class="clearfix">
 						<!--<li class="morning">
 							<a href=""><i class="text"></i></a>
 						</li>-->
+            <li class="fday"><a href=""><i class="text"></i></a></li>
 						<li class="kids navdrp">
 							<a href="javascript:void(0);" onclick="navDrpOpen(this);"><i class="text"></i></a>
 							<div class="drp">
@@ -458,477 +437,30 @@
 						</li>
 					</ul>
 				</div>
+			
 			</div>
 			
 		</div>
 		
 		<div id="content" class="clearfix">
 			
+			<div class="flag flag-ua"></div>
+			<br/>
+			<div class="flag flag-ru"></div>
 			
+			<br/>
 			
-			<div id="homepage">
-				
-				<div class="content-cols clearfix">
-					
-					<div class="col-1">
-						
-						<div class="box homepage-clubs">
-							
-							<div class="title">Клубы <span>для общения</span></div>
-							
-							<ul>
-								<li class="kids">
-									<div class="category-title">Дети и беременность</div>
-									<ul>
-										<li>
-											<a href="">
-												<span class="club-img"><img src="/images/club_img_1.png" /></span>
-												<span class="club-title">Планирование</span>
-											</a>
-										</li>
-										<li>
-											<a href="">
-												<span class="club-img"><img src="/images/club_img_4.png" /></span>
-												<span class="club-title">Дети до года</span>
-											</a>
-										</li>
-										<li>
-											<a href="">
-												<span class="club-img"><img src="/images/club_img_8.png" /></span>
-												<span class="club-title">Дети старше года</span>
-											</a>
-										</li>
-										<li>
-											<a href="">
-												<span class="club-img"><img src="/images/club_img_12.png" /></span>
-												<span class="club-title">Дошкольники</span>
-											</a>
-										</li>
-										<li>
-											<a href="">
-												<span class="club-img"><img src="/images/club_img_15.png" /></span>
-												<span class="club-title">Школьники</span>
-											</a>
-										</li>
-										
-									</ul>
-								</li>
-								<li class="manwoman">
-									<div class="category-title">Мужчина <span>&amp;</span> женщина</div>
-									<ul>
-										<li>
-											<a href="">
-												<span class="club-img"><img src="/images/club_img_19.png" /></span>
-												<span class="club-title">Отношения</span>
-											</a>
-										</li>
-										<li>
-											<a href="">
-												<span class="club-img"><img src="/images/club_img_20.png" /></span>
-												<span class="club-title">Свадьба</span>
-											</a>
-										</li>
-									</ul>
-								</li>
-								<li class="beauty">
-									<div class="category-title">Красота и здоровье</div>
-									<ul>
-										<li>
-											<a href="">
-												<span class="club-img"><img src="/images/club_img_21.png" /></span>
-												<span class="club-title">Красота</span>
-											</a>
-										</li>
-										<li>
-											<a href="">
-												<span class="club-img"><img src="/images/club_img_22.png" /></span>
-												<span class="club-title">Мода и шопинг</span>
-											</a>
-										</li>
-										<li>
-											<a href="">
-												<span class="club-img"><img src="/images/club_img_23.png" /></span>
-												<span class="club-title">Здоровье родителей</span>
-											</a>
-										</li>
-										
-									</ul>
-								</li>
-								<li class="home">
-									<div class="category-title">Дом</div>
-									<ul>
-										<li>
-											<a href="">
-												<span class="club-img"><img src="/images/club_img_24.png" /></span>
-												<span class="club-title">Кулинарные рецепты</span>
-											</a>
-										</li>
-										<li>
-											<a href="">
-												<span class="club-img"><img src="/images/club_img_25.png" /></span>
-												<span class="club-title">Детские рецепты</span>
-											</a>
-										</li>
-										<li>
-											<a href="">
-												<span class="club-img"><img src="/images/club_img_26.png" /></span>
-												<span class="club-title">Интерьер и дизайн</span>
-											</a>
-										</li>
-										<li>
-											<a href="">
-												<span class="club-img"><img src="/images/club_img_27.png" /></span>
-												<span class="club-title">Домашние хлопоты</span>
-											</a>
-										</li>
-										<li>
-											<a href="">
-												<span class="club-img"><img src="/images/club_img_28.png" /></span>
-												<span class="club-title">Загородная жизнь</span>
-											</a>
-										</li>
-										
-									</ul>
-								</li>
-								<li class="hobbies">
-									<div class="category-title">Интересы и увлечения</div>
-									<ul>
-										<li>
-											<a href="">
-												<span class="club-img"><img src="/images/club_img_29.png" /></span>
-												<span class="club-title">Своими руками</span>
-											</a>
-										</li>
-										<li>
-											<a href="">
-												<span class="club-img"><img src="/images/club_img_30.png" /></span>
-												<span class="club-title">Мастерим детям</span>
-											</a>
-										</li>
-										<li>
-											<a href="">
-												<span class="club-img"><img src="/images/club_img_31.png" /></span>
-												<span class="club-title">За рулем</span>
-											</a>
-										</li>
-										<li>
-											<a href="">
-												<span class="club-img"><img src="/images/club_img_32.png" /></span>
-												<span class="club-title">Цветоводство</span>
-											</a>
-										</li>
-										
-									</ul>
-								</li>
-								<li class="rest">
-									<div class="category-title">Отдых</div>
-									<ul>
-										<li>
-											<a href="">
-												<span class="club-img"><img src="/images/club_img_29.png" /></span>
-												<span class="club-title">Выходные с ребенком</span>
-											</a>
-										</li>
-										<li>
-											<a href="">
-												<span class="club-img"><img src="/images/club_img_30.png" /></span>
-												<span class="club-title">Путешествия семьей</span>
-											</a>
-										</li>
-										<li>
-											<a href="">
-												<span class="club-img"><img src="/images/club_img_31.png" /></span>
-												<span class="club-title">Праздники</span>
-											</a>
-										</li>
-									</ul>
-								</li>
-								
-							</ul>
-						</div>
-						
-						<div class="box">
-							<a href=""><img src="/images/banner_03.png" /></a>
-						</div>
-						
-					</div>
-					
-					<div class="col-23">
-						
-						<div class="box homepage-auth">
-							
-							<div class="t">
-								<p><span>Веселый жираф</span> - это интернет-сообщество, где мамы и папы встречаются каждый день, чтобы общаться, делиться советами, находить новых друзей и многое другое.</p>
-								<div class="gray"><b>Это полезно, это интересно и это очень весело!</b></div>
-							</div>
-							
-							<div class="b">
-								<a href="" class="register"></a>
-								<br/>
-								<small>Уже зарегистрированы?</small> &nbsp; <a href="">Войти</a>
-							</div>
-							
-						</div>
-						
-						<div class="box homepage-auth">
-							
-							<div class="t">
-								<div class="hello">Привет,</div>
-							</div>
-							
-							<div class="b">
-								<div class="name">Александр</div>
-							</div>
-							
-						</div>
-						
-						<div class="clearfix">
-					
-							<div class="col-2">	
-							
-								<div class="box homepage-most">
-									
-									<div class="title">Самое-самое <span>интересное</span></div>
-									
-									<ul>
-										<li>
-											<a href="">Самые красивые девушки мира 2012</a>
-											<a href=""><img src="/images/homepage_most_img_01.jpg" /></a>
-										</li>
-										<li>
-											<a href="">25 самых красивых мест планеты</a>
-											<a href=""><img src="/images/homepage_most_img_02.jpg" /></a>
-										</li>
-									</ul>
-									
-								</div>
-								
-								<div class="box homepage-services">
-									
-									<div class="title">Сервисы <span>попробуй!</span></div>
-									
-									<div class="clearfix">
-										
-										<div class="fast-service child-gender">
-											
-											<div class="img"><img src="/images/homepage_service_img_01.png" /></div>
-											
-											<big>Определение пола ребенка</big>
-											
-											<ul>
-												<li><a href="">Китайский метод</a></li>
-												<li><a href="">Японский метод</a></li>
-												<li><a href="">По дням рождения</a></li>
-												<li><a href="">По группе крови</a></li>
-												<li><a href="">По овуляции</a></li>
-											</ul>
-											
-										</div>
-										
-										<div class="fast-service child-name">
-											
-											<div class="img"><img src="/images/homepage_service_img_02.png" /></div>
-											
-											<big><a href="">Выбираем имя</a></big>
-											
-										</div>
-										
-									</div>
-									
-									<div class="list clearfix">
-										
-										<big>Еще сервисы</big>
-										
-										<ul>
-											<li>
-												<ul>
-													<li><a href="">Календарь прививок ребенка</a></li>
-													<li><a href="">Вес при беременности</a></li>
-													<li><a href="">Толщина плаценты</a></li>
-													<li><a href="">Женский календарь</a></li>
-													<li><a href="">Сумка в роддом</a></li>
-													<li><a href="">Определение пола ребенка</a></li>
-													<li><a href="">Расчет ниток для вышивания</a></li>
-													<li><a href="">Сколько пряжи для вязания нужно?</a></li>
-												</ul>
-											</li>
-											<li>
-												<ul>
-													<li><a href="">Тест. Определение типа волос</a></li>
-													<li><a href="">Справочник детских болезней</a></li>
-													<li><a href="">Книга народных рецептов от детских болезней</a></li>
-													<li><a href="">Женский календарь</a></li>
-													<li><a href="">Калькулятор петель</a></li>
-													<li><a href="">Расчет стоимости вышивки</a></li>
-													<li><a href="">Калькулятор ткани</a></li>
-												</ul>
-											</li>
-											
-										</ul>
-										
-									</div>
-									
-								</div>
-								
-								<div class="box homepage-blogs">
-									
-									<div class="title">Блоги <span>мам и пап</span></div>
-									
-									<ul>
-										<li>
-											<div class="clearfix">
-												<div class="user-info">
-													<a href="" class="ava small female"></a>
-													<div class="details">
-														<span class="icon-status status-online"></span>
-														<a href="" class="username">Александр</a>
-													</div>
-												</div>
-											</div>
-											<b><a href="">В гостях у Айболита</b></a>
-											<div class="img"><a href=""><img src="/images/homepage_blogs_img_01.jpg" /></a></div>
-										</li>
-										<li>
-											<div class="clearfix">
-												<div class="user-info">
-													<a href="" class="ava small female"></a>
-													<div class="details">
-														<span class="icon-status status-online"></span>
-														<a href="" class="username">Александр</a>
-													</div>
-												</div>
-											</div>
-											<b><a href="">Наш малыш будет похож на папу</b></a>
-											<div class="img"><a href=""><img src="/images/homepage_blogs_img_02.jpg" /></a></div>
-										</li>
-										<li>
-											<div class="clearfix">
-												<div class="user-info">
-													<a href="" class="ava small female"></a>
-													<div class="details">
-														<span class="icon-status status-offline"></span>
-														<a href="" class="username">Александр</a>
-													</div>
-												</div>
-											</div>
-											<b><a href="">Фруктовые пюре - ЗА и ПРОТИВ!</b></a>
-											<div class="img"><a href=""><img src="/images/homepage_blogs_img_03.jpg" /></a></div>
-										</li>
-										<li>
-											<div class="clearfix">
-												<div class="user-info">
-													<a href="" class="ava small female"></a>
-													<div class="details">
-														<span class="icon-status status-offline"></span>
-														<a href="" class="username">Александр</a>
-													</div>
-												</div>
-											</div>
-											<b><a href="">Почему завтракать – так полезно?</b></a>
-											<div class="img"><a href=""><img src="/images/homepage_blogs_img_04.jpg" /></a></div>
-										</li>
-										<li>
-											<div class="clearfix">
-												<div class="user-info">
-													<a href="" class="ava small female"></a>
-													<div class="details">
-														<span class="icon-status status-online"></span>
-														<a href="" class="username">Александр</a>
-													</div>
-												</div>
-											</div>
-											<b><a href="">Социальная помощь – служба помощи семье</b></a>
-											<div class="img"><a href=""><img src="/images/homepage_blogs_img_05.jpg" /></a></div>
-										</li>
-										<li>
-											<div class="clearfix">
-												<div class="user-info">
-													<a href="" class="ava small female"></a>
-													<div class="details">
-														<span class="icon-status status-offline"></span>
-														<a href="" class="username">Александр</a>
-													</div>
-												</div>
-											</div>
-											<b><a href="">Кризисы семейной жизни</b></a>
-											<div class="img"><a href=""><img src="/images/homepage_blogs_img_06.jpg" /></a></div>
-										</li>
-										
-									</ul>
-									
-								</div>
-								
-							</div>
-							
-							<div class="col-3">
-							
-								<div class="box homepage-parents clearfix">
-									
-									<div class="title">Наши <span>мамы и папы</span></div>
-									
-									<ul>
-										<li><a href="" class="ava"></a></li>
-										<li><a href="" class="ava male"></a></li>
-										<li><a href="" class="ava"></a></li>
-										<li><a href="" class="ava female"><img src="http://img.happy-giraffe.ru/avatars/10511/ava/a781a44ec177f6794047f923ac016716.JPG" /></a></li>
-										<li><a href="" class="ava male"></a></li>
-										<li><a href="" class="ava female"></a></li>
-										<li><a href="" class="ava"></a></li>
-										<li><a href="" class="ava female"></a></li>
-										<li><a href="" class="ava"></a></li>
-										<li><a href="" class="ava male"></a></li>
-										<li><a href="" class="ava"></a></li>
-										<li><a href="" class="ava female"></a></li>
-									</ul>
-									
-									<div class="join">
-										<a href="">Присоединяйтесь!</a>
-									</div>
-									
-								</div>
-								
-								<div class="box homepage-articles">
-									
-									<div class="title">Интерьер <span>и дизайн</span> <i>- сделаем все красиво!</i></div>
-									
-									<ul>
-										<li><a href=""><img src="/images/homepage_articles_img.jpg" /></a></li>
-										<li><a href="">Сделаем хай-тек у себя на кухне собственными силами</a></li>
-										<a href=""><li>Состав и свойства наливного пола. Заливаем пол сами</a></li>
-									</ul>
-									
-									<div class="all-link"><a href="">Все статьи (2589)</a></div>
-									
-								</div>
-								
-								<div class="box homepage-articles homepage-recipes">
-									
-									<div class="title">Кулинарные <span>рецепты</span> <i>- <b>1000</b> рецептов</i></div>
-									
-									<ul>
-										<li><a href=""><img src="/images/homepage_recipes_img.jpg" /></a></li>
-										<li><a href="">Как приготовить в домашних условиях суши</a></li>
-										<li><a href="">У меня очень придирчивые мои любимые дети. Все им не вкусно!</a></li>
-									</ul>
-									
-									<div class="all-link"><a href="">Все рецепты (2589)</a></div>
-									
-								</div>
-								
-							</div>
-							
-						</div>
-						
-					</div>
-					
-				</div>
-				
-			</div>
+			<div class="flag-big flag-big-ua"></div>
+			<br/>
+			<div class="flag-big flag-big-kz tooltip" title="Казахстан, че"></div>
+			
+			<a href="javascript:void(0);" onclick="openPhoto();">Открыть фотку</a>			
+			<br/>
+			
+			<img src="/images/test_loader.gif" />
 			
 		</div>  	
 		
-    <a href="javascript:void(0);" class="tooltip" title="Тайтл" onclick="openPhoto();">Открыть фотку</a>			
-    
 		<div class="push"></div>
 		
 	</div>
@@ -946,7 +478,8 @@
 	</div>
 	
 	<div style="display:none">
-		<div id="login" class="popup">
+		
+    <div id="login" class="popup">
 			
 			<a href="javascript:void(0);" onclick="$.fancybox.close();" class="popup-close"><span class="tip">Закрыть</span></a>
 			
@@ -999,14 +532,161 @@
 			
 		</div>
 		
+    <div id="seo_tags" class="popup">
+      
+      <a href="javascript:void(0);" class="popup-close tooltip" title="Закрыть окно" onclick="$.fancybox.close();"></a>
+      
+      <div class="block-title">
+        Мета-теги
+        <span>8 июля - День семьи, любви и верности</span>
+      </div>
+      
+      <div class="clearfix">
+        
+        <div class="pagination">
+          <ul>
+            <li class="page selected"><a href="">1</a></li>
+            <li class="page"><a href="">2</a></li>
+            <li class="page"><a href="">3</a></li>
+          </ul>
+        </div>
+        
+        <div class="seo-table table-result table-promotion">
+          
+          <div class="table-box">
+            <table>
+              <thead>
+                <tr>
+                  <th rowspan="2" class="col-1">Ключевые слова и фразы</th>
+                  <th colspan="3"><i class="icon-yandex"></i></th>
+                  <th colspan="2"><i class="icon-google"></i></th>
+                  <th rowspan="2">Общие визиты</th>
+                </tr>
+                <tr>
+                  <th>Частота</th>
+                  <th>Позиции</th>
+                  <th>Визиты</th>
+                  <th>Позиции</th>
+                  <th>Визиты</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="col-1" width="50%">кесарева сечение</td>
+                  <td>1025</td>
+                  <td>5</td>
+                  <td>540</td>
+                  <td>5</td>
+                  <td>540</td>
+                  <td>1025</td>              
+                </tr>
+                <tr>
+                  <td class="col-1">кесарева сечение</td>
+                  <td>1025</td>
+                  <td>5</td>
+                  <td>540</td>
+                  <td>5</td>
+                  <td>540</td>
+                  <td>1025</td>              
+                </tr>
+                <tr>
+                  <td class="col-1">кесарева сечение</td>
+                  <td>1025</td>
+                  <td>5</td>
+                  <td>540</td>
+                  <td>5</td>
+                  <td>540</td>
+                  <td>1025</td>              
+                </tr>
+                <tr>
+                  <td class="col-1">кесарева сечение</td>
+                  <td>1025</td>
+                  <td>5</td>
+                  <td>540</td>
+                  <td>5</td>
+                  <td>540</td>
+                  <td>1025</td>              
+                </tr>
+                <tr>
+                  <td class="col-1">кесарева сечение</td>
+                  <td>1025</td>
+                  <td>5</td>
+                  <td>540</td>
+                  <td>5</td>
+                  <td>540</td>
+                  <td>1025</td>              
+                </tr>
+                <tr>
+                  <td class="col-1">кесарева сечение</td>
+                  <td>1025</td>
+                  <td>5</td>
+                  <td>540</td>
+                  <td>5</td>
+                  <td>540</td>
+                  <td>1025</td>              
+                </tr>
+                <tr>
+                  <td class="col-1">кесарева сечение</td>
+                  <td>1025</td>
+                  <td>5</td>
+                  <td>540</td>
+                  <td>5</td>
+                  <td>540</td>
+                  <td>1025</td>              
+                </tr>
+                
+              </tbody>
+              
+            </table>
+          </div>
+          
+        </div>
+      
+        
+      </div>
+      
+      <form class="seo-tags">
+        
+        <div class="row clearfix">
+          <div class="row-title"><label>Title:</label></div>
+          <div class="row-elements">
+            <input type="text" value="День семьи и верности" />
+          </div>
+        </div>
+        
+        <div class="row clearfix">
+          <div class="row-title"><label>Keywords:</label></div>
+          <div class="row-elements">
+            <input type="text" value="День семьи и верности" />
+          </div>
+        </div>
+        
+        <div class="row clearfix">
+          <div class="row-title"><label>Description:</label></div>
+          <div class="row-elements">
+            <textarea>Семья – самое важное в жизни человека. Семья дает человеку любовь, уважение,
+солидарность, привязанность, то без чего не бывает ни одно общество, без чего не может
+человек.</textarea>
+          </div>
+        </div>
+        
+        <div class="row row-btn">
+          <input type="submit" />
+        </div>
+        
+      </form>
+      
+    </div>
+    
+    
+    
 	</div>
-	
 	
 	<div id="photo-window-bg" style="display:none;"></div>
 	
 	<div id="photo-window" style="display:none;">
 		
-		<div id="photo-window-in" style="left:9px;">
+		<div id="photo-window-in">
 			
 			<div class="top-line clearfix">
 				
@@ -1024,17 +704,17 @@
 				
 				<div class="photo-info">
 					Альбом  «Оформление вторые блюда» - <span class="count">3 фото из 158</span>
-					<div class="title">Жареный картофель с беконом</div>
+					<div class="title">Жареный картофель с беконом <a href="" class="edit"></a></div>
+					<div class="title"><input type="text" value="Жареный картофель с беконом"/> <button class="btn btn-green-small"><span><span>Ok</span></span></button></div>
 				</div>
 				
-			</div>			
+			</div>
+			
 			
 			<div id="photo">
 				
 				<div class="img">
-					<table><tr><td>
-            <img src="/images/example/ex6.jpg" />
-          </td></tr></table>
+					<img src="/images/example/ex5.jpg" />
 				</div>
 				
 				<a href="" class="prev"><i class="icon"></i>предыдушая</a>
@@ -1042,10 +722,15 @@
 				
 			</div>
 			
+			
 			<div class="photo-comment">
-				<p>Квашеная капуста с клюквой, грибами, соусом, зеленью и еще очень длинный комментарий про это оформление блюда, да нужно двести знаков для этого комментария, уже вроде набралось или нет кто будет считать</p>
+				<p>Квашеная капуста с клюквой, грибами, соусом, зеленью квашеная квашеная капуста с клюквой, грибами, капуста соусом, зеленью квашеная, Квашеная капуста с клюквой, грибами, соусом, зеленью квашеная квашеная <a href="" class="edit"></a></p>
 			</div>
-
+			
+			<div class="photo-comment">
+				<textarea>Квашеная капуста с клюквой, грибами, соусом, зеленью квашеная квашеная капуста с клюквой, грибами, капуста соусом, зеленью квашеная, Квашеная капуста с клюквой, грибами, соусом, зеленью квашеная квашеная</textarea>
+				<button class="btn btn-green-small"><span><span>Ok</span></span></button>
+			</div>
 			
 			<div id="photo-content">
 				
@@ -1246,7 +931,8 @@
 		
 	</div>
 	
-	
+  <!--<a id="btn-seo" href="#seo_tags" class="fancy" data-theme='white-square'></a>-->
+  
 	<div id="user-dialogs" class="clearfix has-wannachat">
 		
 		<div class="header">
@@ -1486,222 +1172,11 @@
 			
 			<div class="dialog-messages">
 				
-				<ul>
+				<div class="empty">
 					
-					<li>
-						
-						<a href="" class="ava small male"></a>
-						
-						<div class="in">
-							
-							<div class="meta">
-								
-								<a href="" class="username">Анастасия</a>								
-								<span class="date"> 28 янв 2012, 13:45</span>								
-								<span class="message-label label-unread">Сообщение не прочитано</span>
-								
-							</div>
-							
-							<div class="content">
-								
-								<div class="wysiwyg-content"><p>Привет! Очень рада за вас, вот для твоего сына новая колыбельная</p></div>
-								
-							</div>
-							
-						</div>
-						
-					</li>
+					<p>В этом диалоге нет новых сообщений.<br/>Ваше может быть первым!</p>
 					
-					<li>
-						
-						<a href="" class="ava small male"></a>
-						
-						<div class="in">
-							
-							<div class="meta">
-								
-								<a href="" class="username">Анастасия</a>								
-								<span class="date"> 28 янв 2012, 13:45</span>								
-								<span class="message-label label-read">Сообщение прочитано</span>
-								
-							</div>
-							
-							<div class="content">
-								
-								<div class="wysiwyg-content"><p>Привет! Очень рада за вас, вот для твоего сына новая колыбельная</p></div>
-								
-							</div>
-							
-						</div>
-						
-					</li>
-					
-					<li>
-						
-						<a href="" class="ava small male"></a>
-						
-						<div class="in">
-							
-							<div class="meta">
-								
-								<a href="" class="username">Анастасия</a>								
-								<span class="date"> 28 янв 2012, 13:45</span>
-								
-							</div>
-							
-							<div class="content">
-								
-								<div class="wysiwyg-content"><p>Привет! Очень рада за вас, вот для твоего сына новая колыбельная. Привет! Очень рада за вас, вот для твоего сына новая колыбельная</p></div>
-								
-							</div>
-							
-						</div>
-						
-					</li>
-					
-					<li>
-						
-						<a href="" class="ava small male"></a>
-						
-						<div class="in">
-							
-							<div class="meta">
-								
-								<a href="" class="username">Анастасия</a>								
-								<span class="date"> 28 янв 2012, 13:45</span>								
-								<span class="message-label label-unread">Сообщение не прочитано</span>
-								
-							</div>
-							
-							<div class="content">
-								
-								<div class="wysiwyg-content"><p>Привет! Очень рада за вас, вот для твоего сына новая колыбельная</p></div>
-								
-							</div>
-							
-						</div>
-						
-					</li>
-					
-					<li>
-						
-						<a href="" class="ava small male"></a>
-						
-						<div class="in">
-							
-							<div class="meta">
-								
-								<a href="" class="username">Анастасия</a>								
-								<span class="date"> 28 янв 2012, 13:45</span>								
-								<span class="message-label label-read">Сообщение прочитано</span>
-								
-							</div>
-							
-							<div class="content">
-								
-								<div class="wysiwyg-content"><p>Привет! Очень рада за вас, вот для твоего сына новая колыбельная</p></div>
-								
-							</div>
-							
-						</div>
-						
-					</li>
-					
-					<li>
-						
-						<a href="" class="ava small male"></a>
-						
-						<div class="in">
-							
-							<div class="meta">
-								
-								<a href="" class="username">Анастасия</a>								
-								<span class="date"> 28 янв 2012, 13:45</span>
-								
-							</div>
-							
-							<div class="content">
-								
-								<div class="wysiwyg-content"><p>Привет! Очень рада за вас, вот для твоего сына новая колыбельная. Привет! Очень рада за вас, вот для твоего сына новая колыбельная</p></div>
-								
-							</div>
-							
-						</div>
-						
-					</li>
-					
-					<li>
-						
-						<a href="" class="ava small male"></a>
-						
-						<div class="in">
-							
-							<div class="meta">
-								
-								<a href="" class="username">Анастасия</a>								
-								<span class="date"> 28 янв 2012, 13:45</span>								
-								<span class="message-label label-unread">Сообщение не прочитано</span>
-								
-							</div>
-							
-							<div class="content">
-								
-								<div class="wysiwyg-content"><p>Привет! Очень рада за вас, вот для твоего сына новая колыбельная</p></div>
-								
-							</div>
-							
-						</div>
-						
-					</li>
-					
-					<li>
-						
-						<a href="" class="ava small male"></a>
-						
-						<div class="in">
-							
-							<div class="meta">
-								
-								<a href="" class="username">Анастасия</a>								
-								<span class="date"> 28 янв 2012, 13:45</span>								
-								<span class="message-label label-read">Сообщение прочитано</span>
-								
-							</div>
-							
-							<div class="content">
-								
-								<div class="wysiwyg-content"><p>Привет! Очень рада за вас, вот для твоего сына новая колыбельная</p></div>
-								
-							</div>
-							
-						</div>
-						
-					</li>
-					
-					<li>
-						
-						<a href="" class="ava small male"></a>
-						
-						<div class="in">
-							
-							<div class="meta">
-								
-								<a href="" class="username">Анастасия</a>								
-								<span class="date"> 28 янв 2012, 13:45</span>
-								
-							</div>
-							
-							<div class="content">
-								
-								<div class="wysiwyg-content"><p>Привет! Очень рада за вас, вот для твоего сына новая колыбельная. Привет! Очень рада за вас, вот для твоего сына новая колыбельная</p></div>
-								
-							</div>
-							
-						</div>
-						
-					</li>
-					
-				</ul>
+				</div>
 				
 			</div>
 			
@@ -1717,6 +1192,5 @@
 		
 	</div>
   
-	
 </body>
 </html>

@@ -25,6 +25,7 @@ return array(
         'application.modules.competitors.models.*',
         'application.modules.writing.models.*',
         'application.modules.promotion.models.*',
+        'application.modules.indexing.models.*',
     ),
     'modules' => array(
         'competitors',

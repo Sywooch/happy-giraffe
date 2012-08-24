@@ -8,6 +8,7 @@
  * @property string $url
  * @property integer $active
  * @property integer $type
+ * @property integer $old
  *
  * The followings are the available model relations:
  * @property IndexingUpUrl[] $urls
@@ -43,7 +44,7 @@ class IndexingUrl extends HActiveRecord
 		// will receive user inputs.
 		return array(
 			array('url', 'required'),
-			array('active, type', 'numerical', 'integerOnly'=>true),
+			array('active, type, old', 'numerical', 'integerOnly'=>true),
 			array('url', 'length', 'max'=>1024),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -60,6 +61,7 @@ class IndexingUrl extends HActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'urls' => array(self::HAS_MANY, 'IndexingUpUrl', 'url_id', 'order'=>'url'),
+			'countUrls' => array(self::STAT, 'IndexingUpUrl', 'url_id'),
 		);
 	}
 
@@ -90,9 +92,11 @@ class IndexingUrl extends HActiveRecord
 		$criteria->compare('url',$this->url,true);
 		$criteria->compare('active',$this->active);
 		$criteria->compare('type',$this->type);
+		$criteria->compare('old',$this->old);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+            'pagination' => array('pageSize' => 20),
 		));
 	}
 

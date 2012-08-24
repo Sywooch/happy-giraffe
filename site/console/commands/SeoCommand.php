@@ -274,6 +274,7 @@ class SeoCommand extends CConsoleCommand
             }
 
             $i++;
+            echo $i."\n";
         }
     }
 }

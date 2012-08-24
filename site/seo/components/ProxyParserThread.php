@@ -21,9 +21,10 @@ class ProxyParserThread
 
     protected $delay_min = 10;
     protected $delay_max = 10;
-    protected $debug = false;
+    public $debug = false;
     protected $timeout = 15;
     protected $removeCookieOnChangeProxy = true;
+    public $use_proxy = true;
 
     function __construct()
     {
@@ -54,7 +55,7 @@ class ProxyParserThread
             $this->closeThread('Fail with getting proxy');
         }
 
-        $this->log('proxy: '.$this->proxy->value);
+        $this->log('proxy: ' . $this->proxy->value);
     }
 
     protected function query($url, $ref = null, $post = false, $attempt = 0)
@@ -71,12 +72,15 @@ class ProxyParserThread
             if (!empty($ref))
                 curl_setopt($ch, CURLOPT_REFERER, $url);
 
-            curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
-            curl_setopt($ch, CURLOPT_PROXY, $this->proxy->value);
-            if (getenv('SERVER_ADDR') != '5.9.7.81') {
-                curl_setopt($ch, CURLOPT_PROXYUSERPWD, "alexk984:Nokia12345");
-                curl_setopt($ch, CURLOPT_PROXYAUTH, 1);
+            if ($this->use_proxy) {
+                curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
+                curl_setopt($ch, CURLOPT_PROXY, $this->proxy->value);
+                if (getenv('SERVER_ADDR') != '5.9.7.81') {
+                    curl_setopt($ch, CURLOPT_PROXYUSERPWD, "alexk984:Nokia12345");
+                    curl_setopt($ch, CURLOPT_PROXYAUTH, 1);
+                }
             }
+
             curl_setopt($ch, CURLOPT_COOKIEFILE, $this->getCookieFile());
             curl_setopt($ch, CURLOPT_COOKIEJAR, $this->getCookieFile());
             curl_setopt($ch, CURLOPT_HEADER, 1);
@@ -92,7 +96,7 @@ class ProxyParserThread
 
             if ($content === false) {
                 if (curl_errno($ch)) {
-                    $this->log('Error while curl: ' . curl_error($ch) );
+                    $this->log('Error while curl: ' . curl_error($ch));
                     curl_close($ch);
 
                     $attempt += 1;
@@ -109,7 +113,7 @@ class ProxyParserThread
                 return $this->query($url, $ref, $post, $attempt);
             } else {
                 curl_close($ch);
-                if (strpos($content, 'Нам очень жаль, но запросы, поступившие с вашего IP-адреса, похожи на автоматические.')){
+                if (strpos($content, 'Нам очень жаль, но запросы, поступившие с вашего IP-адреса, похожи на автоматические.')) {
                     $this->log('ip banned');
                     //file_put_contents(Yii::getPathOfAlias('site.common.cookies') . DIRECTORY_SEPARATOR . 'banned.txt', $this->proxy->value."\n", FILE_APPEND);
                     $this->changeBadProxy(0);
@@ -200,7 +204,7 @@ class ProxyParserThread
     protected function log($state)
     {
         if ($this->debug) {
-            echo $state."\n";
+            echo $state . "\n";
 //            $fh = fopen($dir = Yii::getPathOfAlias('application.runtime') . DIRECTORY_SEPARATOR . 'my_log.txt', 'a');
 //            $t = microtime(true);
 //            $micro = sprintf("%06d", ($t - floor($t)) * 1000000);

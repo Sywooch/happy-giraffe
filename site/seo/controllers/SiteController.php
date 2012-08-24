@@ -6,11 +6,11 @@ class SiteController extends SController
     {
         return array(
             array('allow',
-                'actions'=>array('index', 'logout', 'modules'),
+                'actions' => array('index', 'logout', 'modules'),
                 'users' => array('@'),
             ),
             array('allow',
-                'actions'=>array('login', 'test'),
+                'actions' => array('login', 'test'),
                 'users' => array('*'),
             ),
             array('deny',
@@ -19,8 +19,8 @@ class SiteController extends SController
         );
     }
 
-	public function actionIndex()
-	{
+    public function actionIndex()
+    {
         if (count($this->getUserModules()) > 1)
             $this->redirect($this->createUrl('site/modules'));
 
@@ -50,7 +50,7 @@ class SiteController extends SController
 
         if (Yii::app()->user->checkAccess('promotion'))
             $this->redirect($this->createUrl('promotion/queries/admin'));
-	}
+    }
 
     /**
      * Displays the login page
@@ -58,42 +58,38 @@ class SiteController extends SController
     public function actionLogin()
     {
         $this->layout = 'none';
-        $model=new LoginForm;
+        $model = new LoginForm;
 
         // if it is ajax validation request
-        if(isset($_POST['ajax']) && $_POST['ajax']==='login-form')
-        {
+        if (isset($_POST['ajax']) && $_POST['ajax'] === 'login-form') {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }
 
         // collect user input data
-        if(isset($_POST['LoginForm']))
-        {
-            $model->attributes=$_POST['LoginForm'];
+        if (isset($_POST['LoginForm'])) {
+            $model->attributes = $_POST['LoginForm'];
 
             $userModel = new SeoUser('login');
             $userModel = $userModel->find(array(
                 'condition' => 'email=:email AND password=:password',
-                'params'=>array(
-                    ':email'=>$model->username,
-                    ':password'=>md5($model->password),
+                'params' => array(
+                    ':email' => $model->username,
+                    ':password' => md5($model->password),
                 )));
 
-            if ($userModel !== null){
-                $identity=new SeoUserIdentity($userModel->getAttributes());
+            if ($userModel !== null) {
+                $identity = new SeoUserIdentity($userModel->getAttributes());
                 $identity->authenticate();
-                if ($identity->errorCode == SeoUserIdentity::ERROR_NONE)
-                {
+                if ($identity->errorCode == SeoUserIdentity::ERROR_NONE) {
                     Yii::app()->user->login($identity);
                     $this->redirect(array('site/index'));
                 }
-            }
-            else
+            } else
                 $model->addError('username', 'Неправильный логин или пароль');
         }
         // display the login form
-        $this->render('login',array('model'=>$model));
+        $this->render('login', array('model' => $model));
     }
 
     /**
@@ -105,13 +101,42 @@ class SiteController extends SController
         $this->redirect(Yii::app()->homeUrl);
     }
 
-    public function actionModules(){
+    public function actionModules()
+    {
         $this->render('modules');
     }
 
-    public function actionTest(){
-//        $url = 'http://www.happy-giraffe.ru/cook/multivarka/14899/';
-//        preg_match("/http:\/\/www.happy-giraffe.ru\/cook\/multivarka\/([\d]+)\/$/", $url, $match);
-//        var_dump($match);
+    public function actionTest()
+    {
+        $proxy = '82.192.85.54:60504';
+
+        $ch = curl_init('http://wordstat.yandex.ru/?cmd=words&page=1&t=%D0%BC%D0%B0%D0%BC%D0%B0+%2B%D0%B8+%D1%81%D1%8B%D0%BD&geo=&text_geo=');
+        curl_setopt($ch, CURLOPT_USERAGENT, 'Opera/9.80 (Windows NT 6.1; WOW64; U; ru) Presto/2.10.289 Version/12.00');
+
+        //curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
+        curl_setopt($ch, CURLOPT_PROXY, $proxy);
+//            if (getenv('SERVER_ADDR') != '5.9.7.81') {
+//                curl_setopt($ch, CURLOPT_PROXYUSERPWD, "alexk984:Nokia12345");
+//                curl_setopt($ch, CURLOPT_PROXYAUTH, 1);
+//            }
+
+        curl_setopt($ch, CURLOPT_HEADER, 1);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 15);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 15);
+        $content = curl_exec($ch);
+
+        if ($content === false) {
+            if (curl_errno($ch)) {
+                echo curl_errno($ch).'-'.curl_error($ch);
+            }
+        }
+        curl_close($ch);
+
+        //Errors
+        // 7-couldn't connect to host
+        // 7-Failed to receive SOCKS5 connect request ack.
+        // <title>Статистика ключевых слов на Яндексе
     }
 }

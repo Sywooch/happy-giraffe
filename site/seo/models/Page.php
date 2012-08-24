@@ -171,7 +171,7 @@ class Page extends CActiveRecord
         if (!empty($this->entity)) {
             $model = CActiveRecord::model($this->entity)->findByPk($this->entity_id);
             if ($model !== null)
-                return CHtml::link($icon ? '' : $model->title, 'http://www.happy-giraffe.ru' . ltrim($model->url, 'http://www.happy-giraffe.ru'), array('target' => '_blank'));
+                return CHtml::link($icon ? '' : $model->title, 'http://www.happy-giraffe.ru' . $model->url, array('target' => '_blank'));
         }
         return CHtml::link($this->url, $this->url, array('target' => '_blank'));
     }

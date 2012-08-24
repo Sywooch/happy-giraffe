@@ -289,6 +289,7 @@ class User extends HActiveRecord
 
             'blog_rubrics' => array(self::HAS_MANY, 'CommunityRubric', 'user_id'),
             'blogPostsCount' => array(self::STAT, 'CommunityContent', 'author_id', 'join' => 'JOIN community__rubrics ON t.rubric_id = community__rubrics.id', 'condition' => 'community__rubrics.user_id = t.author_id'),
+            'communityPostsCount' => array(self::STAT, 'CommunityContent', 'author_id', 'join' => 'JOIN community__rubrics ON t.rubric_id = community__rubrics.id', 'condition' => 'community__rubrics.user_id IS NULL'),
 
             'communitiesCount' => array(self::STAT, 'Community', 'user__users_communities(user_id, community_id)'),
             'userDialogs' => array(self::HAS_MANY, 'DialogUser', 'user_id'),

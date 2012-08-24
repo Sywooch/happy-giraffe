@@ -41,11 +41,14 @@ class DefaultController extends SController
     }
 
     public function actionTest(){
-        $parser = new IndexParserThread;
+        /*$parser = new IndexParserThread;
         $parser->debug = true;
         $parser->up_id = 45;
         $parser->use_proxy = false;
         $parser->url = IndexingUrl::model()->findByPk(42270);
-        $parser->parsePage();
+        $parser->parsePage();*/
+
+        $urlCollector = new UrlCollector;
+        $urlCollector->collectCookRecipes();
     }
 }

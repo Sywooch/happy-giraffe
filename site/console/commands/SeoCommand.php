@@ -137,7 +137,18 @@ class SeoCommand extends CConsoleCommand
         Yii::import('site.seo.modules.indexing.models.*');
         Yii::import('site.frontend.components.CutBehavior');
 
-        IndexParserThread::collectUrls();
+        $urlCollector = new UrlCollector;
+        $urlCollector->collectUrls();
+    }
+
+    public function actionDropUrls()
+    {
+        Yii::import('site.seo.modules.indexing.components.*');
+        Yii::import('site.seo.modules.indexing.models.*');
+        Yii::import('site.frontend.components.CutBehavior');
+
+        $urlCollector = new UrlCollector;
+        $urlCollector->removeUrls();
     }
 
     public function actionRefreshParsing()
@@ -236,31 +247,34 @@ class SeoCommand extends CConsoleCommand
         }
     }
 
-    public function actionFixPages()
+    public function actionFix()
     {
         $criteria = new CDbCriteria;
-        $criteria->limit = 100;
+        $criteria->limit = 1000;
+        $criteria->with = array(
+            'yandex' => array(
+                'condition' => 'value < 100'
+            )
+        );
 
         $i = 0;
-        $pages = array(1);
-        while (!empty($pages)) {
-            $criteria->offset = 100 * $i;
+        $models = array(1);
+        while (!empty($models)) {
+            $criteria->offset = 1000 * $i;
 
-            $pages = Page::model()->findAll($criteria);
-            foreach ($pages as $page) {
-                list($entity, $entity_id) = Page::ParseUrl($page->url);
-
-                if ($entity != null && $entity_id != null) {
-                    if ($page->entity != $entity) {
-                        $page->entity = $entity;
-                        $page->entity_id = $entity_id;
-                        $page->save();
-                        echo $entity . "\n";
-                    }
+            $models = ParsingKeyword::model()->findAll($criteria);
+            foreach ($models as $model) {
+                $parsed = new ParsedKeywords;
+                $parsed->keyword_id = $model->keyword_id;
+                try {
+                    $parsed->save();
+                } catch (Exception $err) {
                 }
+                $model->delete();
             }
 
             $i++;
+            echo $i."\n";
         }
     }
 }

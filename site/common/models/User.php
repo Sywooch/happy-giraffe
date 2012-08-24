@@ -1021,13 +1021,8 @@ class User extends HActiveRecord
             'index' => 'id',
         ));
 
-        $contactsCriteria = Im::model()->getUserContactsCriteria($this->id, IM::IM_CONTACTS_ALL);
-        $contactsCriteria->mergeWith($additionalCriteria);
-        $contacts = $this->findAll($contactsCriteria);
-
-        $friendsCriteria = $this->getFriendSelectCriteria();
-        $friendsCriteria->mergeWith($additionalCriteria);
-        $friends = $this->findAll($friendsCriteria);
+        $contacts = Im::getContacts($this->id, Im::IM_CONTACTS_ALL, $additionalCriteria);
+        $friends = $this->getFriends($additionalCriteria);
 
         $users = $contacts + $friends;
 

@@ -206,9 +206,17 @@ XMLINDEX;
 	 */
 	private function parseController($alias)
 	{
-		$parts=explode('.',$alias);
+        $fs_name = Yii::getPathOfAlias($alias) . '.php';
+        $file = file_get_contents($fs_name);
+        $tempName = uniqid('SitemapGenerator');
+        $file = preg_replace('#class \w+#', 'class ' . $tempName, $file);
+        $tempAlias = 'application.runtime.' . $tempName;
+        $tempFile = Yii::getPathOfAlias($tempAlias) . '.php';
+        file_put_contents($tempFile, $file);
+
+		$parts=explode('.',$tempAlias);
 		$class=array_pop($parts);
-		Yii::import($alias,true);
+		Yii::import($tempAlias,true);
 		$cntr=new ReflectionClass($class);
 		$controller_instance=null;
 		$methods=$cntr->getMethods();
@@ -258,6 +266,8 @@ XMLINDEX;
 				}
 			}
 		}
+
+        unlink($tempFile);
 	}
 	
 	/**

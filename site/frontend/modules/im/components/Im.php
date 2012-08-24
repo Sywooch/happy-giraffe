@@ -353,7 +353,7 @@ class Im
                 $criteria->condition = 'userDialog.user_id != :user_id';
                 break;
             case self::IM_CONTACTS_NEW:
-                $criteria->condition = 'userDialog.user_id != :user_id AND read_status = 0';
+                $criteria->condition = 'userDialog.user_id != :user_id AND lastMessage.read_status = 0';
                 break;
             case self::IM_CONTACTS_ONLINE:
                 $criteria->condition = 'userDialog.user_id != :user_id AND online = 1';
@@ -361,10 +361,11 @@ class Im
             case self::IM_CONTACTS_FRIENDS:
                 $aCriteria = new CDbCriteria(array(
                     'with' => array(
-                        'userDialogs' => array(
+                        'userDialog' => array(
                             'joinType' => 'LEFT OUTER JOIN',
                         ),
                     ),
+                    'condition' => 'online = 1',
                 ));
 
                 $user = User::model();

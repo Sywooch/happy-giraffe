@@ -13,11 +13,11 @@
         </div>
 
         <div class="nav">
-            <ul>
-                <li class="active"><a href="">Все</a></li>
-                <li><a href="">Новые</a><span class="count">5</span></li>
-                <li><a href="">Кто в онлайне</a><span class="count">10</span></li>
-                <li><a href="">Друзья на сайте</a><span class="count">6</span></li>
+            <ul id="user-dialogs-nav">
+                <li><a onclick="Messages.setList(0);" href="javascript:void(0)">Все</a></li>
+                <li><a onclick="Messages.setList(1);" href="javascript:void(0)">Новые</a><span class="count">5</span></li>
+                <li><a onclick="Messages.setList(2);" href="javascript:void(0)">Кто в онлайне</a><span class="count">10</span></li>
+                <li><a onclick="Messages.setList(3);" href="javascript:void(0)">Друзья на сайте</a><span class="count">6</span></li>
             </ul>
         </div>
 
@@ -33,151 +33,9 @@
 
         <div class="list">
 
-            <ul>
+            <ul id="user-dialogs-contacts">
 
-                <li>
 
-                    <span class="ava small"></span>
-
-                    <div class="in">
-
-                        <span class="icon-status status-online"></span>
-
-                        <span class="username">Александр Богоявленский</span>
-
-                        <span class="new">1 новое</span>
-
-                    </div>
-
-                </li>
-
-                <li>
-
-                    <a href="" class="ava small"></a>
-
-                    <div class="in">
-
-                        <span class="icon-status status-online"></span>
-
-                        <a href="" class="username">Александр</a>
-
-                        <span class="new">2 новых</span>
-
-                    </div>
-
-                </li>
-
-                <li>
-
-                    <a href="" class="ava small"></a>
-
-                    <div class="in">
-
-                        <span class="icon-status status-online"></span>
-
-                        <a href="" class="username">Александр Богоявленский</a>
-
-                        <span class="new">100500 новых</span>
-
-                    </div>
-
-                </li>
-
-                <li>
-
-                    <a href="" class="ava small"></a>
-
-                    <div class="in">
-
-                        <span class="icon-status status-online"></span>
-
-                        <a href="" class="username">Александр Богоявленский</a>
-
-                        <span class="new">1 новое</span>
-
-                    </div>
-
-                </li>
-
-                <li>
-
-                    <a href="" class="ava small"></a>
-
-                    <div class="in">
-
-                        <span class="icon-status status-online"></span>
-
-                        <a href="" class="username">Александр</a>
-
-                        <span class="new">2 новых</span>
-
-                    </div>
-
-                </li>
-
-                <li>
-
-                    <a href="" class="ava small"></a>
-
-                    <div class="in">
-
-                        <span class="icon-status status-online"></span>
-
-                        <a href="" class="username">Александр Богоявленский</a>
-
-                        <span class="new">100500 новых</span>
-
-                    </div>
-
-                </li>
-
-                <li>
-
-                    <a href="" class="ava small"></a>
-
-                    <div class="in">
-
-                        <span class="icon-status status-online"></span>
-
-                        <a href="" class="username">Александр Богоявленский</a>
-
-                        <span class="new">1 новое</span>
-
-                    </div>
-
-                </li>
-
-                <li>
-
-                    <a href="" class="ava small"></a>
-
-                    <div class="in">
-
-                        <span class="icon-status status-online"></span>
-
-                        <a href="" class="username">Александр</a>
-
-                        <span class="new">2 новых</span>
-
-                    </div>
-
-                </li>
-
-                <li>
-
-                    <a href="" class="ava small"></a>
-
-                    <div class="in">
-
-                        <span class="icon-status status-online"></span>
-
-                        <a href="" class="username">Александр Богоявленский</a>
-
-                        <span class="new">100500 новых</span>
-
-                    </div>
-
-                </li>
 
             </ul>
 

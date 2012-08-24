@@ -23,7 +23,7 @@ class DefaultController extends HController
 
     public function actionIndex()
     {
-        $this->renderPartial('index');
+        $this->renderPartial('index', null, false, true);
     }
 
     public function actionContacts($type = Im::IM_CONTACTS_ALL)

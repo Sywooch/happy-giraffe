@@ -141,6 +141,16 @@ class SeoCommand extends CConsoleCommand
         $urlCollector->collectUrls();
     }
 
+    public function actionDropUrls()
+    {
+        Yii::import('site.seo.modules.indexing.components.*');
+        Yii::import('site.seo.modules.indexing.models.*');
+        Yii::import('site.frontend.components.CutBehavior');
+
+        $urlCollector = new UrlCollector;
+        $urlCollector->removeUrls();
+    }
+
     public function actionRefreshParsing()
     {
         Yii::app()->db_seo->createCommand('update proxies set active = 0')->execute();

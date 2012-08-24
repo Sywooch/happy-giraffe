@@ -247,28 +247,24 @@ class SeoCommand extends CConsoleCommand
         }
     }
 
-    public function actionFixPages()
+    public function actionFix()
     {
         $criteria = new CDbCriteria;
-        $criteria->limit = 100;
+        $criteria->limit = 1000;
+        $criteria->with = array(
+            'yandex'=>array(
+                'condition'=>'value < 100'
+            )
+        );
 
         $i = 0;
-        $pages = array(1);
-        while (!empty($pages)) {
-            $criteria->offset = 100 * $i;
+        $models = array(1);
+        while (!empty($models)) {
+            $criteria->offset = 1000 * $i;
 
-            $pages = Page::model()->findAll($criteria);
-            foreach ($pages as $page) {
-                list($entity, $entity_id) = Page::ParseUrl($page->url);
-
-                if ($entity != null && $entity_id != null) {
-                    if ($page->entity != $entity) {
-                        $page->entity = $entity;
-                        $page->entity_id = $entity_id;
-                        $page->save();
-                        echo $entity . "\n";
-                    }
-                }
+            $models = ParsingKeyword::model()->findAll($criteria);
+            foreach ($models as $model) {
+                $model->delete();
             }
 
             $i++;

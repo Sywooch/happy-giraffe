@@ -252,8 +252,8 @@ class SeoCommand extends CConsoleCommand
         $criteria = new CDbCriteria;
         $criteria->limit = 1000;
         $criteria->with = array(
-            'yandex'=>array(
-                'condition'=>'value < 100'
+            'yandex' => array(
+                'condition' => 'value < 100'
             )
         );
 
@@ -266,7 +266,10 @@ class SeoCommand extends CConsoleCommand
             foreach ($models as $model) {
                 $parsed = new ParsedKeywords;
                 $parsed->keyword_id = $model->keyword_id;
-                $parsed->save();
+                try {
+                    $parsed->save();
+                } catch (Exception $err) {
+                }
                 $model->delete();
             }
 

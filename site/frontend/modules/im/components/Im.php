@@ -274,18 +274,11 @@ class Im
         return $result;
     }
 
-    /**
-     * @param int $user_id
-     * @param int $type
-     * @return CDbCriteria
-     */
-    public function getUserContactsCriteria($user_id, $type)
+    public static function getContactsRows($user_id, $type)
     {
-        $criteria = new CDbCriteria;
-
         switch ($type) {
             case self::IM_CONTACTS_ALL:
-                $sql = "SELECT du1.user_id
+                $sql = "SELECT du1.user_id, du1.dialog_id
                     FROM im__dialog_users du1
                     JOIN im__dialog_users du2 ON du1.dialog_id = du2.dialog_id AND du2.user_id = :user_id
                     JOIN im__dialogs d ON du1.dialog_id = d.id
@@ -294,7 +287,7 @@ class Im
                     ORDER BY m.created DESC";
                 break;
             case self::IM_CONTACTS_NEW:
-                $sql = "SELECT du1.user_id
+                $sql = "SELECT du1.user_id, du1.dialog_id
                         FROM im__dialog_users du1
                         JOIN im__dialog_users du2 ON du1.dialog_id = du2.dialog_id AND du2.user_id = :user_id
                         JOIN im__dialogs d ON du1.dialog_id = d.id
@@ -303,7 +296,7 @@ class Im
                         ORDER BY m.created DESC";
                 break;
             case self::IM_CONTACTS_ONLINE:
-                $sql = "SELECT du1.user_id
+                $sql = "SELECT du1.user_id, du1.dialog_id
                         FROM im__dialog_users du1
                         JOIN im__dialog_users du2 ON du1.dialog_id = du2.dialog_id AND du2.user_id = :user_id
                         JOIN im__dialogs d ON du1.dialog_id = d.id
@@ -313,7 +306,7 @@ class Im
                         ORDER BY m.created DESC";
                 break;
             case self::IM_CONTACTS_FRIENDS:
-                $sql = "SELECT u.id
+                $sql = "SELECT u.id user_id, du1.dialog_id
                         FROM users u
                         JOIN friends f ON (u.id = f.user1_id AND f.user2_id = :user_id) OR (u.id = f.user2_id AND f.user1_id = :user_id)
                         LEFT OUTER JOIN im__dialog_users du1 ON u.id = du1.user_id AND EXISTS (SELECT * FROM im__dialog_users du2 WHERE du1.dialog_id = du2.dialog_id AND du2.user_id = :user_id)
@@ -326,14 +319,82 @@ class Im
         $command = Yii::app()->db->createCommand($sql);
         $command->bindValue(':user_id', $user_id, PDO::PARAM_INT);
         $rows = $command->queryAll();
-        $ids = array();
-        foreach ($rows as $r)
-            $ids[] = $r['user_id'];
-        $criteria->addInCondition('t.id', $ids);
-        $criteria->order = new CDbExpression('FIELD(id, ' . implode(',', $ids) . ')');
-
-        return $criteria;
+        return $rows;
     }
+
+    public static function getContacts($user_id, $type = IM::IM_CONTACTS_ALL)
+    {
+        $criteria = new CDbCriteria(array(
+            'select' => 'id, online, first_name, last_name, count(im__messages.id) AS unreadMessagesCount',
+            'with' => array(
+                'avatar',
+                'userDialog' => array(
+                    'joinType' => 'INNER JOIN',
+                    'on' => 'EXISTS (SELECT * FROM im__dialog_users du WHERE userDialog.dialog_id = du.dialog_id AND du.user_id = :user_id)',
+                    'with' => array(
+                        'dialog' => array(
+                            'with' => array(
+                                'lastMessage' => array(
+                                    'select' => false,
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+            'join' => 'INNER JOIN im__messages m ON dialog.id = m.dialog_id AND m.read_status = 0 AND m.user_id != :user_id',
+            'order' => 'lastMessage.created DESC',
+            'params' => array(':user_id' => $user_id),
+        ));
+
+        switch ($type) {
+            case self::IM_CONTACTS_ALL:
+                $criteria->condition = 'userDialog.user_id != :user_id';
+                break;
+            case self::IM_CONTACTS_NEW:
+                $criteria->condition = 'userDialog.user_id != :user_id AND read_status = 0';
+                break;
+            case self::IM_CONTACTS_ONLINE:
+                $criteria->condition = 'userDialog.user_id != :user_id AND online = 1';
+                break;
+            case self::IM_CONTACTS_FRIENDS:
+                $aCriteria = new CDbCriteria(array(
+                    'with' => array(
+                        'userDialogs' => array(
+                            'joinType' => 'LEFT OUTER JOIN',
+                        ),
+                    ),
+                ));
+
+                $user = User::model();
+                $user->id = $user_id;
+                $friendsCriteria = $user->getFriendSelectCriteria();
+
+                $criteria->mergeWith($aCriteria);
+                $criteria->mergeWith($friendsCriteria);
+                break;
+        }
+
+        return User::model()->findAll($criteria);
+    }
+
+/*$ids = array();
+foreach ($rows as $r)
+$ids[] = $r['user_id'];
+$criteria->addInCondition('t.id', $ids);
+$criteria->order = new CDbExpression('FIELD(id, ' . implode(',', $ids) . ')');
+
+return $criteria;
+
+SELECT SQL_NO_CACHE u.id
+FROM users u
+JOIN im__dialog_users du1 ON u.id = du1.user_id AND EXISTS (SELECT * FROM im__dialog_users du2 WHERE du1.dialog_id = du2.dialog_id AND du2.user_id =12936)
+JOIN im__dialogs d ON du1.dialog_id = d.id
+JOIN im__messages m ON d.last_message_id = m.id
+WHERE du1.user_id != 12936
+ORDER BY m.created DESC;
+
+ */
 }
 
 

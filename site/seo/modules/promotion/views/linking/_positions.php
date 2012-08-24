@@ -22,7 +22,7 @@
         ?>
             <li>
                 <div class="date"><?= Yii::app()->dateFormatter->format("d MMM y", $positions[$i]->date); ?></div>
-                <div class="num"><?=$positions[$i]->position ?> <?=$icon ?></div>
+                <div class="num"><?=($positions[$i]->position == 1000)?'> 100':$positions[$i]->position ?> <?=$icon ?></div>
             </li>
        <?php } ?>
     </ul>

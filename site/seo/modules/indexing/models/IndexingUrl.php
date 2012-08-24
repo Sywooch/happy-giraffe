@@ -61,6 +61,7 @@ class IndexingUrl extends HActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'urls' => array(self::HAS_MANY, 'IndexingUpUrl', 'url_id', 'order'=>'url'),
+			'countUrls' => array(self::STAT, 'IndexingUpUrl', 'url_id'),
 		);
 	}
 

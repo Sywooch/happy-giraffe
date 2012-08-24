@@ -138,7 +138,6 @@ class BlogController extends HController
     public function actionList($user_id, $rubric_id = null)
     {
         $this->layout = '//layouts/user_blog';
-        $this->rssFeed = $this->createUrl('rss/user', array('user_id' => $user_id));
 
         $this->user = User::model()->findByPk($user_id);
         if ($this->user === null)
@@ -149,6 +148,8 @@ class BlogController extends HController
 
         $this->rubric_id = $rubric_id;
 
+        if ($contents)
+            $this->rssFeed = $this->createUrl('rss/user', array('user_id' => $user_id));
         $this->render('list', array(
             'contents' => $contents,
         ));

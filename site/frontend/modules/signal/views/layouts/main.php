@@ -13,6 +13,7 @@
     <?php Yii::app()->clientScript
     ->registerCoreScript('jquery')
     ->registerScriptFile('/javascripts/common.js')
+    ->registerScriptFile('/javascripts/comet.js')
     ->registerScriptFile('/javascripts/jquery.placeholder.min.js')
     ->registerCssFile('/stylesheets/common.css')
     ->registerScriptFile('/javascripts/dklab_realplexor.js')

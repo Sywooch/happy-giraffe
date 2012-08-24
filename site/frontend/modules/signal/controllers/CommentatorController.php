@@ -20,8 +20,8 @@ class CommentatorController extends HController
 
     protected function beforeAction($action)
     {
-        if (!Yii::app()->user->checkAccess('commentator_panel'))
-            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+//        if (!Yii::app()->user->checkAccess('commentator_panel'))
+//            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
         $this->user = Yii::app()->user->model;
         return parent::beforeAction($action);
@@ -29,47 +29,59 @@ class CommentatorController extends HController
 
     public function actionIndex()
     {
+        $this->render('index');
+    }
+
+    public function actionBlog()
+    {
         $criteria = new CDbCriteria;
         $criteria->compare('author_id', $this->user->id);
         $criteria->condition = 'created > "' . date("Y-m-d") . ' 00:00:00"';
+        $criteria->order = 'created desc';
         $criteria->with = array(
             'rubric' => array(
                 'condition' => 'user_id = ' . $this->user->id
             )
         );
-        $blog_records_count = CommunityContent::model()->count($criteria);
-        echo $blog_records_count;
 
-        $criteria = new CDbCriteria;
-        $criteria->compare('author_id', $this->user->id);
-        $criteria->condition = 'created > "' . date("Y-m-d") . ' 00:00:00"';
-        $criteria->with = array(
-            'rubric' => array(
-                'condition' => 'user_id IS NULL'
-            )
-        );
-        $club_records_count = CommunityContent::model()->count($criteria);
-        echo $club_records_count;
+        $blog_posts = CommunityContent::model()->findAll($criteria);
+        $this->renderPartial('_blog_posts', compact('blog_posts'));
+    }
 
+    public function actionClub()
+    {
         $criteria = new CDbCriteria;
         $criteria->compare('author_id', $this->user->id);
         $criteria->condition = 'created > "' . date("Y-m-d") . ' 00:00:00"';
         $criteria->order = 'created desc';
-        $club_records_count = Comment::model()->count($criteria);
-        echo $club_records_count;
-
-        //themes with 0 comments
-        $criteria = new CDbCriteria;
-        $criteria->compare('author_id', $this->user->id);
-        $criteria->condition = 'created > "' . date("Y-m-d") . ' 00:00:00"';
         $criteria->with = array(
             'rubric' => array(
                 'condition' => 'user_id IS NULL'
             )
         );
-        $criteria->limit = 5;
-        $club_records_without_comments = CommunityContent::model()->count($criteria);
 
-        $this->render('index');
+        $club_posts = CommunityContent::model()->findAll($criteria);
+        $this->renderPartial('_club_posts', compact('club_posts'));
+    }
+
+    public function actionComments()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->compare('author_id', $this->user->id);
+        $criteria->condition = 'created > "' . date("Y-m-d") . ' 00:00:00"';
+        $criteria->order = 'created desc';
+
+        $comments = Comment::model()->findAll($criteria);
+        $this->renderPartial('_comments', compact('comments'));
+    }
+
+    public function actionPosts()
+    {
+
+    }
+
+    public function actionAdditionalPosts()
+    {
+
     }
 }

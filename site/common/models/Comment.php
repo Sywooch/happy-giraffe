@@ -181,6 +181,11 @@ class Comment extends HActiveRecord
                 'id'=>$this->entity_id, 'name'=>$this->entity));
 
             UserAction::model()->add($this->author_id, UserAction::USER_ACTION_COMMENT_ADDED, array('model' => $this));
+
+            if (Yii::app()->user->checkAccess('commentator_panel')){
+                $comet = new CometModel;
+                $comet->send(Yii::app()->user->id, array('update_part'=>CometModel::UPDATE_COMMENTS), CometModel::TYPE_COMMENTATOR_UPDATE);
+            }
         }
         parent::afterSave();
     }
@@ -320,6 +325,19 @@ class Comment extends HActiveRecord
 
         $method = $absolute ? 'createAbsoluteUrl' : 'createUrl';
         return Yii::app()->$method($route, $params);
+    }
+
+    public function getLink($absolute = false)
+    {
+        if (! in_array($this->entity, array('CommunityContent', 'BlogContent', 'CookRecipe')))
+            return false;
+
+        $entity = CActiveRecord::model($this->entity)->findByPk($this->entity_id);
+        list($route, $params) = $entity->urlParams;
+        $params['#'] = 'comment_' . $this->id;
+
+        $method = $absolute ? 'createAbsoluteUrl' : 'createUrl';
+        return CHtml::link($entity->title.' #'.$this->id, Yii::app()->$method($route, $params), array('target'=>'_blank'));
     }
 
     public function isEntityAuthor($user_id)

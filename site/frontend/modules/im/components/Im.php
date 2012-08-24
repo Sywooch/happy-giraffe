@@ -274,7 +274,7 @@ class Im
         return $result;
     }
 
-    public static function getContactsRows($user_id, $type)
+    /*public static function getContactsRows($user_id, $type)
     {
         switch ($type) {
             case self::IM_CONTACTS_ALL:
@@ -320,12 +320,12 @@ class Im
         $command->bindValue(':user_id', $user_id, PDO::PARAM_INT);
         $rows = $command->queryAll();
         return $rows;
-    }
+    }*/
 
-    public static function getContacts($user_id, $type = IM::IM_CONTACTS_ALL)
+    public static function getContacts($user_id, $type, $condition = '', $params = array())
     {
         $criteria = new CDbCriteria(array(
-            'select' => 'id, online, first_name, last_name, count(im__messages.id) AS unreadMessagesCount',
+            'select' => 'id, online, first_name, last_name, count(m.id) AS unreadMessagesCount',
             'with' => array(
                 'avatar',
                 'userDialog' => array(
@@ -338,11 +338,12 @@ class Im
                                     'select' => false,
                                 ),
                             ),
+                            'join' => 'LEFT OUTER JOIN im__messages m ON dialog.id = m.dialog_id AND m.read_status = 0 AND m.user_id != :user_id',
+                            'group' => 'm.id',
                         ),
                     ),
                 ),
             ),
-            'join' => 'INNER JOIN im__messages m ON dialog.id = m.dialog_id AND m.read_status = 0 AND m.user_id != :user_id',
             'order' => 'lastMessage.created DESC',
             'params' => array(':user_id' => $user_id),
         ));
@@ -375,26 +376,10 @@ class Im
                 break;
         }
 
+        $criteria->mergeWith(Yii::app()->db->getCommandBuilder()->createCriteria($condition, $params));
+
         return User::model()->findAll($criteria);
     }
-
-/*$ids = array();
-foreach ($rows as $r)
-$ids[] = $r['user_id'];
-$criteria->addInCondition('t.id', $ids);
-$criteria->order = new CDbExpression('FIELD(id, ' . implode(',', $ids) . ')');
-
-return $criteria;
-
-SELECT SQL_NO_CACHE u.id
-FROM users u
-JOIN im__dialog_users du1 ON u.id = du1.user_id AND EXISTS (SELECT * FROM im__dialog_users du2 WHERE du1.dialog_id = du2.dialog_id AND du2.user_id =12936)
-JOIN im__dialogs d ON du1.dialog_id = d.id
-JOIN im__messages m ON d.last_message_id = m.id
-WHERE du1.user_id != 12936
-ORDER BY m.created DESC;
-
- */
 }
 
 

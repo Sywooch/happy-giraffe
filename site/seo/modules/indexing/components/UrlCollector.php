@@ -244,4 +244,13 @@ class UrlCollector
             }
         }
     }
+
+    public function removeUrls()
+    {
+        $models = IndexingUrl::model()->findAll('type=1');
+        foreach($models as $model){
+            if ($model->countUrls == 0)
+                $model->delete();
+        }
+    }
 }

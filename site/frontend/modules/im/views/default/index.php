@@ -1,78 +1,475 @@
 <?php
-/* @var $this Controller
- * @var $dialogs Dialog[]
- */
+    $cs = Yii::app()->clientScript;
+
+    $cs->registerScriptFile('/javascripts/messages.js');
 ?>
-<div class="dialog-list">
-    <?php foreach ($dialogs as $dialog): ?>
-    <div class="dialog-message dialog-message-<?php
-        if ($dialog->unreadByMe) echo 'new-in';
-        elseif ($dialog->unreadByPal) echo 'new-out';
-        else {
-            echo ($dialog->lastMessage->sent()) ? 'out' : 'in';
-        }
-        ?>" id="Dialog_<?php echo $dialog->id; ?>">
-        <input type="hidden" value="<?php echo $this->createUrl('/im/default/dialog', array('id' => $dialog->id)) ?>"
-               class="dialog_url">
-        <input type="hidden" value="<?php echo $dialog->id ?>"
-               class="dialog_id">
-        <table>
-            <tr>
-                <td class="user">
-                    <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => $dialog->GetInterlocutor())); ?>
-                </td>
-                <td class="message-icon">
-                    <div class="icon"></div>
-                    <div class="date">
-                        <span><?php echo HDate::GetFormattedTime($dialog->lastMessage->created, '<br/>'); ?></span>
-                    </div>
-                </td>
-                <td class="content">
-                    <?php echo CHtml::decode($dialog->lastMessage->text) ?>
-                </td>
-                <td class="actions">
 
-                    <a href="" class="remove"></a>
-                    <a href="" class="claim"></a>
+<div id="user-dialogs" class="clearfix has-wannachat">
 
-                </td>
-            </tr>
-        </table>
+    <div class="header">
+
+        <div class="title">
+            <span>Мои диалоги</span>
+        </div>
+
+        <div class="nav">
+            <ul>
+                <li class="active"><a href="">Все</a></li>
+                <li><a href="">Новые</a><span class="count">5</span></li>
+                <li><a href="">Кто в онлайне</a><span class="count">10</span></li>
+                <li><a href="">Друзья на сайте</a><span class="count">6</span></li>
+            </ul>
+        </div>
+
+        <div class="search">
+            <input type="search" placeholder="Найти по имени" />
+        </div>
+
+        <a href="" class="close">Закрыть диалоги</a>
 
     </div>
-    <?php endforeach; ?>
+
+    <div class="contacts">
+
+        <div class="list">
+
+            <ul>
+
+                <li class="active">
+
+                    <a href="" class="ava small"></a>
+
+                    <div class="in">
+
+                        <span class="icon-status status-online"></span>
+
+                        <a href="" class="username">Александр Богоявленский</a>
+
+                        <span class="new">1 новое</span>
+
+                    </div>
+
+                </li>
+
+                <li>
+
+                    <a href="" class="ava small"></a>
+
+                    <div class="in">
+
+                        <span class="icon-status status-online"></span>
+
+                        <a href="" class="username">Александр</a>
+
+                        <span class="new">2 новых</span>
+
+                    </div>
+
+                </li>
+
+                <li>
+
+                    <a href="" class="ava small"></a>
+
+                    <div class="in">
+
+                        <span class="icon-status status-online"></span>
+
+                        <a href="" class="username">Александр Богоявленский</a>
+
+                        <span class="new">100500 новых</span>
+
+                    </div>
+
+                </li>
+
+                <li>
+
+                    <a href="" class="ava small"></a>
+
+                    <div class="in">
+
+                        <span class="icon-status status-online"></span>
+
+                        <a href="" class="username">Александр Богоявленский</a>
+
+                        <span class="new">1 новое</span>
+
+                    </div>
+
+                </li>
+
+                <li>
+
+                    <a href="" class="ava small"></a>
+
+                    <div class="in">
+
+                        <span class="icon-status status-online"></span>
+
+                        <a href="" class="username">Александр</a>
+
+                        <span class="new">2 новых</span>
+
+                    </div>
+
+                </li>
+
+                <li>
+
+                    <a href="" class="ava small"></a>
+
+                    <div class="in">
+
+                        <span class="icon-status status-online"></span>
+
+                        <a href="" class="username">Александр Богоявленский</a>
+
+                        <span class="new">100500 новых</span>
+
+                    </div>
+
+                </li>
+
+                <li>
+
+                    <a href="" class="ava small"></a>
+
+                    <div class="in">
+
+                        <span class="icon-status status-online"></span>
+
+                        <a href="" class="username">Александр Богоявленский</a>
+
+                        <span class="new">1 новое</span>
+
+                    </div>
+
+                </li>
+
+                <li>
+
+                    <a href="" class="ava small"></a>
+
+                    <div class="in">
+
+                        <span class="icon-status status-online"></span>
+
+                        <a href="" class="username">Александр</a>
+
+                        <span class="new">2 новых</span>
+
+                    </div>
+
+                </li>
+
+                <li>
+
+                    <a href="" class="ava small"></a>
+
+                    <div class="in">
+
+                        <span class="icon-status status-online"></span>
+
+                        <a href="" class="username">Александр Богоявленский</a>
+
+                        <span class="new">100500 новых</span>
+
+                    </div>
+
+                </li>
+
+            </ul>
+
+        </div>
+
+        <div class="wannachat clearfix">
+
+            <div class="block-title">
+                <span>Хотят общаться</span>
+            </div>
+
+            <ul>
+                <li><a href="" class="ava small"></a></li>
+                <li><a href="" class="ava small"></a></li>
+                <li><a href="" class="ava small"></a></li>
+                <li><a href="" class="ava small"></a></li>
+                <li><a href="" class="ava small"></a></li>
+                <li><a href="" class="ava small"></a></li>
+                <li><a href="" class="ava small"></a></li>
+                <li><a href="" class="ava small"></a></li>
+                <li><a href="" class="ava small"></a></li>
+                <li><a href="" class="ava small"></a></li>
+                <li><a href="" class="ava small"></a></li>
+                <li><a href="" class="ava small"></a></li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+    <div class="dialog">
+
+        <div class="dialog-header clearfix">
+
+            <div class="user-info medium">
+
+                <a href="" class="ava female"></a>
+
+                <div class="details">
+
+                    <span class="icon-status status-online"></span>
+
+                    <a href="" class="username">Александр Богоявленский</a>
+
+                    <div class="location">
+                        <div class="flag-big flag-big-ru"></div> Магадан
+                    </div>
+
+                    <div class="user-fast-nav">
+                        <ul>
+                            <a href="">Анкета</a>&nbsp;|&nbsp;<a href="">Блог</a>&nbsp;|&nbsp;<a href="">Фото</a>&nbsp;|&nbsp;<a href="">Что нового</a>&nbsp;|&nbsp;<span class="drp-list"><a href="" class="more">Еще</a><ul><li><a href="">Семья</a></li><li><a href="">Друзья</a></li></ul>
+                            </span>
+
+                        </ul>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="dialog-messages">
+
+            <ul>
+
+                <li>
+
+                    <a href="" class="ava small male"></a>
+
+                    <div class="in">
+
+                        <div class="meta">
+
+                            <a href="" class="username">Анастасия</a>
+                            <span class="date"> 28 янв 2012, 13:45</span>
+                            <span class="message-label label-unread">Сообщение не прочитано</span>
+
+                        </div>
+
+                        <div class="content">
+
+                            <div class="wysiwyg-content"><p>Привет! Очень рада за вас, вот для твоего сына новая колыбельная</p></div>
+
+                        </div>
+
+                    </div>
+
+                </li>
+
+                <li>
+
+                    <a href="" class="ava small male"></a>
+
+                    <div class="in">
+
+                        <div class="meta">
+
+                            <a href="" class="username">Анастасия</a>
+                            <span class="date"> 28 янв 2012, 13:45</span>
+                            <span class="message-label label-read">Сообщение прочитано</span>
+
+                        </div>
+
+                        <div class="content">
+
+                            <div class="wysiwyg-content"><p>Привет! Очень рада за вас, вот для твоего сына новая колыбельная</p></div>
+
+                        </div>
+
+                    </div>
+
+                </li>
+
+                <li>
+
+                    <a href="" class="ava small male"></a>
+
+                    <div class="in">
+
+                        <div class="meta">
+
+                            <a href="" class="username">Анастасия</a>
+                            <span class="date"> 28 янв 2012, 13:45</span>
+
+                        </div>
+
+                        <div class="content">
+
+                            <div class="wysiwyg-content"><p>Привет! Очень рада за вас, вот для твоего сына новая колыбельная. Привет! Очень рада за вас, вот для твоего сына новая колыбельная</p></div>
+
+                        </div>
+
+                    </div>
+
+                </li>
+
+                <li>
+
+                    <a href="" class="ava small male"></a>
+
+                    <div class="in">
+
+                        <div class="meta">
+
+                            <a href="" class="username">Анастасия</a>
+                            <span class="date"> 28 янв 2012, 13:45</span>
+                            <span class="message-label label-unread">Сообщение не прочитано</span>
+
+                        </div>
+
+                        <div class="content">
+
+                            <div class="wysiwyg-content"><p>Привет! Очень рада за вас, вот для твоего сына новая колыбельная</p></div>
+
+                        </div>
+
+                    </div>
+
+                </li>
+
+                <li>
+
+                    <a href="" class="ava small male"></a>
+
+                    <div class="in">
+
+                        <div class="meta">
+
+                            <a href="" class="username">Анастасия</a>
+                            <span class="date"> 28 янв 2012, 13:45</span>
+                            <span class="message-label label-read">Сообщение прочитано</span>
+
+                        </div>
+
+                        <div class="content">
+
+                            <div class="wysiwyg-content"><p>Привет! Очень рада за вас, вот для твоего сына новая колыбельная</p></div>
+
+                        </div>
+
+                    </div>
+
+                </li>
+
+                <li>
+
+                    <a href="" class="ava small male"></a>
+
+                    <div class="in">
+
+                        <div class="meta">
+
+                            <a href="" class="username">Анастасия</a>
+                            <span class="date"> 28 янв 2012, 13:45</span>
+
+                        </div>
+
+                        <div class="content">
+
+                            <div class="wysiwyg-content"><p>Привет! Очень рада за вас, вот для твоего сына новая колыбельная. Привет! Очень рада за вас, вот для твоего сына новая колыбельная</p></div>
+
+                        </div>
+
+                    </div>
+
+                </li>
+
+                <li>
+
+                    <a href="" class="ava small male"></a>
+
+                    <div class="in">
+
+                        <div class="meta">
+
+                            <a href="" class="username">Анастасия</a>
+                            <span class="date"> 28 янв 2012, 13:45</span>
+                            <span class="message-label label-unread">Сообщение не прочитано</span>
+
+                        </div>
+
+                        <div class="content">
+
+                            <div class="wysiwyg-content"><p>Привет! Очень рада за вас, вот для твоего сына новая колыбельная</p></div>
+
+                        </div>
+
+                    </div>
+
+                </li>
+
+                <li>
+
+                    <a href="" class="ava small male"></a>
+
+                    <div class="in">
+
+                        <div class="meta">
+
+                            <a href="" class="username">Анастасия</a>
+                            <span class="date"> 28 янв 2012, 13:45</span>
+                            <span class="message-label label-read">Сообщение прочитано</span>
+
+                        </div>
+
+                        <div class="content">
+
+                            <div class="wysiwyg-content"><p>Привет! Очень рада за вас, вот для твоего сына новая колыбельная</p></div>
+
+                        </div>
+
+                    </div>
+
+                </li>
+
+                <li>
+
+                    <a href="" class="ava small male"></a>
+
+                    <div class="in">
+
+                        <div class="meta">
+
+                            <a href="" class="username">Анастасия</a>
+                            <span class="date"> 28 янв 2012, 13:45</span>
+
+                        </div>
+
+                        <div class="content">
+
+                            <div class="wysiwyg-content"><p>Привет! Очень рада за вас, вот для твоего сына новая колыбельная. Привет! Очень рада за вас, вот для твоего сына новая колыбельная</p></div>
+
+                        </div>
+
+                    </div>
+
+                </li>
+
+            </ul>
+
+        </div>
+
+        <div class="dialog-input clearfix">
+
+            <div class="input"><textarea placeholder="Введите ваше сообщение"></textarea></div>
+
+            <div class="btn"><button>Отправить сообщение</button></div>
+
+        </div>
+
+    </div>
 
 </div>
-
-<script type="text/javascript">
-    $(function () {
-        $('.dialog-message .actions a.remove').click(function () {
-            if (confirm("Удалить диалог?")) {
-                $.ajax({
-                    url:'<?php echo Yii::app()->createUrl("/im/default/removeDialog") ?>',
-                    data:{id:$(this).parents('.dialog-message').find('input.dialog_id').val()},
-                    type:'POST',
-                    dataType:'JSON',
-                    success:function (response) {
-                        if (response.status) {
-                            $(this).parents('.dialog-message').remove();
-                            if (response.active_dialog_url == '')
-                                $('.nav .opened').hide();
-                            else
-                                $('.nav .opened a').attr("href", response.active_dialog_url);
-                        }
-                    },
-                    context:$(this)
-                });
-            }
-            return false;
-        });
-
-        $('div.dialog-message').click(function () {
-            var url = $(this).find('.dialog_url').val();
-            window.location = url;
-        });
-    });
-</script>
-
-

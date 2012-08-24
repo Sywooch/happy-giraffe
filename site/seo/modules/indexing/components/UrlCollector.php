@@ -15,20 +15,7 @@ class UrlCollector
 
     public function collectUrls()
     {
-        //Community
-        $communities = Community::model()->findAll();
-        foreach ($communities as $community) {
-            $this->addUrl('http://www.happy-giraffe.ru/community/' . $community->id . '/forum/', 1);
-
-            $this->addUrl('http://www.happy-giraffe.ru/community/' . $community->id . '/forum/post/', 1);
-            foreach (range(1, 9) as $letter)
-                $this->addUrl('http://www.happy-giraffe.ru/community/' . $community->id . '/forum/post/' . $letter, 1);
-
-            $this->addUrl('http://www.happy-giraffe.ru/community/' . $community->id . '/forum/video/', 1);
-            foreach (range(1, 9) as $letter)
-                $this->addUrl('http://www.happy-giraffe.ru/community/' . $community->id . '/forum/video/' . $letter, 1);
-        }
-
+        $this->collectClubContent();
         $this->collectBlogs();
 
         //morning
@@ -59,15 +46,58 @@ class UrlCollector
     public function collectBlogs()
     {
         $users = User::model()->findAll('t.deleted = 0');
+
         foreach ($users as $user) {
+
             $posts = $user->blogPosts;
             if (count($posts) > 0) {
-                foreach ($posts as $post) {
+                $this->addUrl('http://www.happy-giraffe.ru/user/' . $user->id . '/', 1);
+                $ids = array();
 
+                foreach ($posts as $post) {
+                    $ids [] = $post->id;
+                }
+                if (count($ids) >= 30) {
+                    $ids = $this->getIdsForQueries($ids);
+                    foreach ($ids as $id)
+                        $this->addUrl('http://www.happy-giraffe.ru/user/' . $user->id . '/blog/post' . $id, 1);
+                    $this->addUrl('http://www.happy-giraffe.ru/user/' . $user->id . '/blog/', 1);
+                } elseif (count($ids) < 30 && count($ids) > 1)
+                    $this->addUrl('http://www.happy-giraffe.ru/user/' . $user->id . '/blog/', 1);
+            } else {
+                if ($user->commentsCount > 0 || $user->communityPostsCount > 0)
+                    $this->addUrl('http://www.happy-giraffe.ru/user/' . $user->id . '/', 1);
+            }
+        }
+    }
+
+    public function collectClubContent()
+    {
+        $communities = Community::model()->findAll();
+        foreach ($communities as $community) {
+            $types = array(1 => 'post', 2 => 'video');
+            foreach ($types as $key => $type) {
+                $posts = CommunityContent::model()->full()->findAll('community.id=' . $community->id . ' AND type.id = ' . $key);
+                if (count($posts) > 0) {
+                    echo count($posts) . '<br>';
+                    $this->addUrl('http://www.happy-giraffe.ru/community/' . $community->id . '/forum/' . $type . '/', 1);
+
+                    if (count($posts) >= 30) {
+                        $ids = array();
+
+                        foreach ($posts as $post) {
+                            $ids [] = $post->id;
+                        }
+                        if (count($ids) >= 30) {
+                            $ids = $this->getIdsForQueries($ids);
+                            foreach ($ids as $id)
+                                $this->addUrl('http://www.happy-giraffe.ru/community/' . $community->id . '/forum/' . $type . '/' . $id, 1);
+                        }
+                    }
                 }
             }
-            //$this->addUrl('http://www.happy-giraffe.ru/user/' . $user->id . '/blog/', 1);
         }
+
     }
 
     public function getIdsForQueries($ids, $start = '')
@@ -147,12 +177,7 @@ class UrlCollector
             $this->addUrl('http://www.happy-giraffe.ru/childrenDiseases/' . $model->slug . '/');
 
         // Cook recipes
-        $this->addUrl('http://www.happy-giraffe.ru/cook/recipe/');
-        foreach (range(1, 999) as $letter)
-            $this->addUrl('http://www.happy-giraffe.ru/cook/recipe/' . $letter, 1);
-        $models = CookRecipe::model()->findAll();
-        foreach ($models as $model)
-            $this->addUrl('http://www.happy-giraffe.ru/cook/recipe/' . $model->id . '/');
+        $this->collectCookRecipes();
 
         $this->addUrl('http://www.happy-giraffe.ru/cook/converter/');
         $this->addUrl('http://www.happy-giraffe.ru/cook/calorisator/');
@@ -181,6 +206,24 @@ class UrlCollector
         for ($i = 0; $i <= 7; $i++) {
             $this->addUrl('http://www.happy-giraffe.ru/cook/decor/' . $i . '/', 1);
         }
+    }
+
+    public function collectCookRecipes()
+    {
+        $ids = Yii::app()->db
+            ->createCommand()
+            ->select('id')
+            ->from('cook__recipes')
+            ->where('section = 0')
+            ->queryColumn();
+
+        foreach ($ids as $id)
+            $this->addUrl('http://www.happy-giraffe.ru/cook/recipe/' . $id . '/');
+
+        $ids = $this->getIdsForQueries($ids);
+        foreach ($ids as $id)
+            $this->addUrl('http://www.happy-giraffe.ru/cook/recipe/' . $id, 1);
+
     }
 
     public function addUrl($url, $type = 0)

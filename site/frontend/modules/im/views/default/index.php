@@ -35,15 +35,15 @@
 
             <ul>
 
-                <li class="active">
+                <li>
 
-                    <a href="" class="ava small"></a>
+                    <span class="ava small"></span>
 
                     <div class="in">
 
                         <span class="icon-status status-online"></span>
 
-                        <a href="" class="username">Александр Богоявленский</a>
+                        <span class="username">Александр Богоявленский</span>
 
                         <span class="new">1 новое</span>
 

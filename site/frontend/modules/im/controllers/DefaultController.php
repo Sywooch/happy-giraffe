@@ -26,14 +26,9 @@ class DefaultController extends HController
         $this->renderPartial('index');
     }
 
-    public function actionTest()
+    public function actionContacts($type = Im::IM_CONTACTS_ALL)
     {
-        $contacts = Im::getContacts(Yii::app()->user->id, IM::IM_CONTACTS_ALL);
-        foreach ($contacts as $c) {
-            echo 'User #' . $c->id . '<br />';
-            echo 'Dialog #' . $c->userDialog->dialog->id . '<br />';
-            echo 'New - ' . $c->userDialog->dialog->unreadMessagesCount . '<br />';
-            echo '<br />';
-        }
+        $contacts = Im::getContacts(Yii::app()->user->id, $type);
+        echo $this->renderPartial('contacts', compact('contacts'));
     }
 }

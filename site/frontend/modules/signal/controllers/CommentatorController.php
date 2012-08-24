@@ -20,8 +20,8 @@ class CommentatorController extends HController
 
     protected function beforeAction($action)
     {
-//        if (!Yii::app()->user->checkAccess('commentator_panel'))
-//            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        if (!Yii::app()->user->checkAccess('commentator_panel'))
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
         $this->user = Yii::app()->user->model;
         return parent::beforeAction($action);
@@ -82,6 +82,17 @@ class CommentatorController extends HController
 
     public function actionAdditionalPosts()
     {
+        //themes with 0 comments
+        $criteria = new CDbCriteria;
+        $criteria->compare('author_id', $this->user->id);
+        $criteria->with = array(
+            'rubric' => array(
+                'condition' => 'user_id IS NULL'
+            )
+        );
+        $criteria->limit = 10;
+        $posts = CommunityContent::model()->count($criteria);
 
+        $this->render('_posts', compact('posts'));
     }
 }

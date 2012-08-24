@@ -1,3 +1,3 @@
-<?php foreach ($contacts as $c): ?>
-    <?php $this->renderPartial('_contact', compact($c)); ?>
+<?php foreach ($contacts as $contact): ?>
+    <?php $this->renderPartial('_contact', compact('contact')); ?>
 <?php endforeach; ?>

@@ -1,15 +1,23 @@
 <?php
-/**
- * Author: alexk984
- * Date: 23.08.12
- */
+$basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR;
+$baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
+Yii::app()->clientScript->registerScriptFile($baseUrl . '/' . 'script.js', CClientScript::POS_BEGIN);
 
 ?>
-<div>
-    1. Record in blog
-    <br>
+<div id="blog-posts">
 
-    <div id="blog-records">
+</div>
+<div id="club-posts">
 
-    </div>
+</div>
+<div id="comments">
+
+</div>
+
+<div id="posts">
+
+</div>
+
+<div id="additional_posts">
+
 </div>

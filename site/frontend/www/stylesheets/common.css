@@ -1312,8 +1312,7 @@ body.nav-fixed #header-new .top-line {position:fixed;left:50%;margin-left:-500px
 #user-dialogs .contacts .list ul li.active {background:#5490d1;}
 #user-dialogs .contacts .list ul li.active .in .username {color:#fff;}
 #user-dialogs .contacts .list ul li .in {margin-left:44px;font-size:12px;line-height:14px;}
-#user-dialogs .contacts .list ul li .in .username {text-decoration:none;display:inline-block;*zoom:1;*display:inline;width:100px;vertical-align:top;margin-bottom:5px;}
-#user-dialogs .contacts .list ul li .in .username:hover {text-decoration:underline;}
+#user-dialogs .contacts .list ul li .in .username {text-decoration:none;display:inline-block;*zoom:1;*display:inline;width:100px;vertical-align:top;margin-bottom:5px;color:#029AD2;}
 #user-dialogs .contacts .list ul li .in .icon-status {margin-left:-15px;}
 #user-dialogs .contacts .list ul li .in .new {display:inline-block;*zoom:1;*display:inline;height:13px;line-height:13px;font-size:10px;font-weight:bold;color:#fff;background:#75bb6e;padding:0 7px;-moz-border-radius:3px;-webkit-border-radius:3px;border-radius:3px;}
 

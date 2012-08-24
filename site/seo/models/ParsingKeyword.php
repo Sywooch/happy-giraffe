@@ -64,6 +64,7 @@ class ParsingKeyword extends HActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'keyword' => array(self::BELONGS_TO, 'Keyword', 'keyword_id'),
+            'yandex' => array(self::HAS_ONE, 'YandexPopularity', 'keyword_id'),
 		);
 	}
 

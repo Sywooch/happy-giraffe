@@ -148,8 +148,8 @@ class BlogController extends HController
 
         $this->rubric_id = $rubric_id;
 
-        if ($contents)
-            $this->rssFeed = $this->createUrl('rss/user', array('user_id' => $user_id));
+        //if ($contents)
+        //    $this->rssFeed = $this->createUrl('rss/user', array('user_id' => $user_id));
         $this->render('list', array(
             'contents' => $contents,
         ));

@@ -17,8 +17,8 @@ class WordstatParser extends ProxyParserThread
     {
         Config::setAttribute('stop_threads', 0);
 
-        $this->delay_min = 1;
-        $this->delay_max = 3;
+        $this->delay_min = 2;
+        $this->delay_max = 6;
         $this->timeout = 15;
         $this->debug = $mode;
         $this->removeCookieOnChangeProxy = false;
@@ -51,7 +51,6 @@ class WordstatParser extends ProxyParserThread
 
                 sleep(1);
             }
-            sleep(rand(10, 12));
         }
     }
 

@@ -66,7 +66,7 @@ class WordstatParser extends ProxyParserThread
     {
         $this->keyword = null;
 
-        $this->startTimer('getting keyword');
+        $this->startTimer('start getting keyword');
         $transaction = Yii::app()->db_seo->beginTransaction();
         try {
             //выбираем максимальный приоритет
@@ -87,12 +87,18 @@ class WordstatParser extends ProxyParserThread
 //            $criteria2->order = 'depth DESC';
 //            $criteria2->compare('priority', $max_priority->priority);
 
+            $this->endTimer();
+            $this->startTimer('find keyword');
+
             $criteria = new CDbCriteria;
             $criteria->condition = 'depth IS NULL';
             $criteria->compare('active', 0);
             $criteria->order = 'priority asc';
-
             $this->keyword = ParsingKeyword::model()->find($criteria);
+
+            $this->endTimer();
+            $this->startTimer('save active=0');
+
             if ($this->keyword === null) {
                 $criteria = new CDbCriteria;
                 $criteria->compare('active', 0);
@@ -105,7 +111,10 @@ class WordstatParser extends ProxyParserThread
 
             $this->keyword->active = 1;
             $this->keyword->save();
+            $this->endTimer();
+            $this->startTimer('commit transaction');
             $transaction->commit();
+            $this->endTimer();
         } catch (Exception $e) {
             $transaction->rollback();
             $this->closeThread('get keyword transaction failed');

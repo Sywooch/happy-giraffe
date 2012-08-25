@@ -66,6 +66,7 @@ class WordstatParser extends ProxyParserThread
     {
         $this->keyword = null;
 
+        $this->startTimer('getting keyword');
         $transaction = Yii::app()->db_seo->beginTransaction();
         try {
             //выбираем максимальный приоритет
@@ -102,6 +103,8 @@ class WordstatParser extends ProxyParserThread
         }
 
         $this->first_page = true;
+
+        $this->endTimer();
     }
 
     private function getCookie()
@@ -237,6 +240,7 @@ class WordstatParser extends ProxyParserThread
      */
     public function AddKeywordToParsing($keyword_id, $depth = null)
     {
+        $this->startTimer('add keyword to parsing');
         if ($keyword_id == $this->keyword->keyword_id)
             return;
 
@@ -266,6 +270,8 @@ class WordstatParser extends ProxyParserThread
             } catch (Exception $e) {
             }
         }
+
+        $this->endTimer();
     }
 
     /**
@@ -294,6 +300,8 @@ class WordstatParser extends ProxyParserThread
      */
     public function RemoveCurrentKeywordFromParsing()
     {
+        $this->startTimer('Remove Current Keyword From Parsing');
+
         //проверяем не изменилась ли глубина за время парсинга
         $old_depth = $this->keyword->depth;
         $this->keyword->refresh();
@@ -337,5 +345,7 @@ class WordstatParser extends ProxyParserThread
                     sleep(1);
             }
         }
+
+        $this->endTimer();
     }
 }

@@ -25,6 +25,8 @@ class ProxyParserThread
     protected $timeout = 15;
     protected $removeCookieOnChangeProxy = true;
     public $use_proxy = true;
+    private $_start_time = null;
+    private $_time_stamp_title = '';
 
     function __construct()
     {
@@ -72,14 +74,14 @@ class ProxyParserThread
             if (!empty($ref))
                 curl_setopt($ch, CURLOPT_REFERER, $url);
 
-            if ($this->use_proxy) {
-                curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
-                curl_setopt($ch, CURLOPT_PROXY, $this->proxy->value);
-                if (getenv('SERVER_ADDR') != '5.9.7.81') {
-                    curl_setopt($ch, CURLOPT_PROXYUSERPWD, "alexk984:Nokia12345");
-                    curl_setopt($ch, CURLOPT_PROXYAUTH, 1);
-                }
-            }
+//            if ($this->use_proxy) {
+//                curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
+//                curl_setopt($ch, CURLOPT_PROXY, $this->proxy->value);
+//                if (getenv('SERVER_ADDR') != '5.9.7.81') {
+//                    curl_setopt($ch, CURLOPT_PROXYUSERPWD, "alexk984:Nokia12345");
+//                    curl_setopt($ch, CURLOPT_PROXYAUTH, 1);
+//                }
+//            }
 
             curl_setopt($ch, CURLOPT_COOKIEFILE, $this->getCookieFile());
             curl_setopt($ch, CURLOPT_COOKIEJAR, $this->getCookieFile());
@@ -199,6 +201,19 @@ class ProxyParserThread
     protected function afterProxyChange()
     {
 
+    }
+
+    public function startTimer($title)
+    {
+        $this->_start_time = microtime();
+        $this->_time_stamp_title = $title;
+    }
+
+    public function endTimer()
+    {
+        $fh = fopen($dir = Yii::getPathOfAlias('application.runtime') . DIRECTORY_SEPARATOR . 'my_log.txt', 'a');
+        $long_time = 1000*(microtime() - $this->_start_time);
+        fwrite($fh, $this->_time_stamp_title.': '. $long_time . "\n");
     }
 
     protected function log($state)

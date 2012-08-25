@@ -88,7 +88,7 @@ class CommunityContent extends HActiveRecord
             'rubric' => array(self::BELONGS_TO, 'CommunityRubric', 'rubric_id'),
             'type' => array(self::BELONGS_TO, 'CommunityContentType', 'type_id'),
             'commentsCount' => array(self::STAT, 'Comment', 'entity_id', 'condition' => 'entity=:modelName', 'params' => array(':modelName' => get_class($this))),
-            'comments' => array(self::HAS_MANY, 'Comment', 'entity_id', 'condition' => 'entity=:modelName', 'params' => array(':modelName' => get_class($this))),
+            'comments' => array(self::HAS_MANY, 'Comment', 'entity_id', 'on' => 'entity=:modelName', 'params' => array(':modelName' => get_class($this))),
             'travel' => array(self::HAS_ONE, 'CommunityTravel', 'content_id', 'on' => "slug = 'travel'"),
             'video' => array(self::HAS_ONE, 'CommunityVideo', 'content_id', 'on' => "slug = 'video'"),
             'post' => array(self::HAS_ONE, 'CommunityPost', 'content_id', 'on' => "slug = 'post'"),
@@ -535,8 +535,9 @@ class CommunityContent extends HActiveRecord
 
     public function defaultScope()
     {
+        $alias = $this->getTableAlias(false, false);
         return array(
-            'condition' => 'removed = 0',
+            'condition' => ($alias) ? $alias . '.removed = 0' : 'removed = 0',
         );
     }
 

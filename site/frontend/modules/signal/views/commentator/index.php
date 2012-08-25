@@ -4,20 +4,20 @@ $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG
 Yii::app()->clientScript->registerScriptFile($baseUrl . '/' . 'script.js', CClientScript::POS_BEGIN);
 
 ?>
-<div id="blog-posts">
+<div id="block-blog">
 
 </div>
-<div id="club-posts">
+<div id="block-club">
 
 </div>
-<div id="comments">
-
-</div>
-
-<div id="posts">
+<div id="block-comments">
 
 </div>
 
-<div id="additional_posts">
+<div id="block-posts">
+
+</div>
+
+<div id="block-additionalPosts">
 
 </div>

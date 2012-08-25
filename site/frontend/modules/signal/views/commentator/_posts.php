@@ -3,7 +3,6 @@
  * @var CommunityContent[] $posts
  */
 ?>
-
 1. Posts to comment
 <br>
 <?php foreach ($posts as $post): ?>

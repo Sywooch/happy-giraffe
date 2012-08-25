@@ -29,6 +29,7 @@ class CommentatorController extends HController
 
     public function actionIndex()
     {
+
         $this->render('index');
     }
 
@@ -77,22 +78,60 @@ class CommentatorController extends HController
 
     public function actionPosts()
     {
+        //пользовательские темы
+        $criteria = new CDbCriteria;
+        $criteria->condition = 'created > "' . date("Y-m-d") . ' 00:00:00" AND author_id != '.$this->user->id;
+        $criteria->order = 'created desc';
+        $criteria->with = array(
+            'author' => array(
+                'condition' => 'author.group = 0',
+                'together'=>true,
+            )
+        );
+        $posts = CommunityContent::model()->findAll($criteria);
 
+        //новые темы членов нашей команды
+        $criteria = new CDbCriteria;
+        $criteria->condition = 'created > "' . date("Y-m-d") . ' 00:00:00" AND author_id != '.$this->user->id;
+        $criteria->order = 'created desc';
+        $criteria->with = array(
+            'author' => array(
+                'condition' => 'author.group > 0',
+                'together'=>true,
+            )
+        );
+        $posts = array_merge($posts, CommunityContent::model()->findAll($criteria));
+
+        //Статьи которые завтра будут на главной
+        $criteria = new CDbCriteria;
+        $criteria->order = 'created desc';
+        $criteria->compare('t.id', Favourites::getIdList(Favourites::BLOCK_INTERESTING, 2));
+        $posts = array_merge($posts, CommunityContent::model()->findAll($criteria));
+
+        //Статьи которые размещаются в соц сетях
+
+        $this->renderPartial('_posts', compact('posts'));
     }
 
     public function actionAdditionalPosts()
     {
         //themes with 0 comments
-        $criteria = new CDbCriteria;
-        $criteria->compare('author_id', $this->user->id);
-        $criteria->with = array(
-            'rubric' => array(
-                'condition' => 'user_id IS NULL'
-            )
-        );
-        $criteria->limit = 10;
-        $posts = CommunityContent::model()->count($criteria);
+        $criteria = new CDbCriteria(array(
+            'condition' => 'comments.id IS NULL',
+            'with' => array(
+                'comments'=>array(
+                    'select'=>'id',
+                    'together'=>true,
+                ),
+                'rubric' => array(
+                    'select'=>'id',
+                    'condition' => 'user_id IS NULL'
+                ),
+            ),
+            'limit' => 10,
+        ));
+        $posts = CommunityContent::model()->findAll($criteria);
 
-        $this->render('_posts', compact('posts'));
+        $this->renderPartial('_posts', compact('posts'));
     }
 }

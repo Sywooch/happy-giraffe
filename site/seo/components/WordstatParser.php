@@ -249,7 +249,7 @@ class WordstatParser extends ProxyParserThread
      */
     public function AddKeywordToParsing($keyword_id, $depth = null)
     {
-        //$this->startTimer('add keyword to parsing');
+        $this->startTimer('add keyword to parsing');
         if ($keyword_id == $this->keyword->keyword_id)
             return;
 
@@ -280,7 +280,7 @@ class WordstatParser extends ProxyParserThread
             }
         }
 
-        //$this->endTimer();
+        $this->endTimer();
     }
 
     /**

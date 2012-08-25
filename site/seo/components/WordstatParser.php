@@ -70,26 +70,35 @@ class WordstatParser extends ProxyParserThread
         $transaction = Yii::app()->db_seo->beginTransaction();
         try {
             //выбираем максимальный приоритет
-            $criteria = new CDbCriteria;
-            $criteria->order = 'priority desc';
-            $criteria->compare('active', 0);
-            $max_priority = ParsingKeyword::model()->find($criteria);
+//            $criteria = new CDbCriteria;
+//            $criteria->order = 'priority desc';
+//            $criteria->compare('active', 0);
+//            $max_priority = ParsingKeyword::model()->find($criteria);
 
             //сначала выбираем с бесконечной глубиной парсинга
+//            $criteria = new CDbCriteria;
+//            $criteria->condition = 'depth IS NULL';
+//            $criteria->compare('active', 0);
+//            $criteria->compare('priority', $max_priority->priority);
+
+            //затем все остальные упорядоченные по глубине парсинга
+//            $criteria2 = new CDbCriteria;
+//            $criteria2->compare('active', 0);
+//            $criteria2->order = 'depth DESC';
+//            $criteria2->compare('priority', $max_priority->priority);
+
             $criteria = new CDbCriteria;
             $criteria->condition = 'depth IS NULL';
             $criteria->compare('active', 0);
-            $criteria->compare('priority', $max_priority->priority);
-
-            //затем все остальные упорядоченные по глубине парсинга
-            $criteria2 = new CDbCriteria;
-            $criteria2->compare('active', 0);
-            $criteria2->order = 'depth DESC';
-            $criteria2->compare('priority', $max_priority->priority);
+            $criteria->order = 'priority asc';
 
             $this->keyword = ParsingKeyword::model()->find($criteria);
             if ($this->keyword === null) {
-                $this->keyword = ParsingKeyword::model()->find($criteria2);
+                $criteria = new CDbCriteria;
+                $criteria->compare('active', 0);
+                $criteria->order = 'depth DESC';
+
+                $this->keyword = ParsingKeyword::model()->find($criteria);
                 if ($this->keyword === null)
                     $this->closeThread('Keywords for parsing ended');
             }

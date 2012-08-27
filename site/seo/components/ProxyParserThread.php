@@ -81,14 +81,14 @@ class ProxyParserThread
             if (!empty($ref))
                 curl_setopt($ch, CURLOPT_REFERER, $url);
 
-            /*if ($this->use_proxy) {
+            if ($this->use_proxy) {
                 curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
                 curl_setopt($ch, CURLOPT_PROXY, $this->proxy->value);
                 if (getenv('SERVER_ADDR') != '5.9.7.81') {
                     curl_setopt($ch, CURLOPT_PROXYUSERPWD, "alexk984:Nokia12345");
                     curl_setopt($ch, CURLOPT_PROXYAUTH, 1);
                 }
-            }*/
+            }
 
             curl_setopt($ch, CURLOPT_COOKIEFILE, $this->getCookieFile());
             curl_setopt($ch, CURLOPT_COOKIEJAR, $this->getCookieFile());

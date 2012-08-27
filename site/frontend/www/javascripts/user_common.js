@@ -143,7 +143,10 @@ function openMessages()
     $.get('/im/', function(data) {
         $('body').append(data);
         setMessagesHeight();
-        $(window).on('resize', function(){
+        $('body').css('overflow', 'hidden');
+        $('#body-overlay').show();
+        $('body').addClass('nav-fixed');
+        $(window).on('resize', function() {
             setMessagesHeight();
         })
     });

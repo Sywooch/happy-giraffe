@@ -480,8 +480,6 @@
 
     </div>
 
-    <div id="body-overlay"></div>
-
     <?php if (! Yii::app()->user->isGuest): ?>
         <script id="notificationTmpl" type="text/x-jquery-tmpl">
             <li><?php echo CHtml::link('{{html text}}<i class="icon icon-settings"></i>', '${url}') ;?></li>

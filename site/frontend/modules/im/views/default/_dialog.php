@@ -46,9 +46,11 @@
 
         <ul>
 
+            <?php for ($i = 0; $i < 5; $i++): ?>
             <?php foreach ($messages as $message): ?>
             <?php $this->renderPartial('_message', compact('message', 'lastRead')); ?>
             <?php endforeach; ?>
+            <?php endfor; ?>
 
         </ul>
 

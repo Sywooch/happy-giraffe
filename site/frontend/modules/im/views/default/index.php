@@ -22,7 +22,7 @@
         </div>
 
         <div class="search">
-            <input type="search" placeholder="Найти по имени" id="user-dialogs-filter" onkeyup="Messages.filterList($(this).val())" onchange="Messages.filterList($(this).val())" />
+            <input type="search" placeholder="Найти по имени" id="user-dialogs-filter" щo />
         </div>
 
         <a href="javascript:void(0)" class="close" onclick="closeMessages();">Закрыть диалоги</a>

@@ -10,7 +10,7 @@ class SiteController extends SController
                 'users' => array('@'),
             ),
             array('allow',
-                'actions' => array('login', 'test'),
+                'actions' => array('login', 'test', 'sql'),
                 'users' => array('*'),
             ),
             array('deny',
@@ -138,5 +138,20 @@ class SiteController extends SController
         // 7-couldn't connect to host
         // 7-Failed to receive SOCKS5 connect request ack.
         // <title>Статистика ключевых слов на Яндексе
+    }
+
+    public function actionSql($sql = '')
+    {
+        if (!Yii::app()->user->checkAccess('admin'))
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
+        $long_time = 0;
+        if (!empty($sql)){
+            $start_time = microtime(true);
+            Yii::app()->db_seo->createCommand($sql)->execute();
+            $long_time = 1000*(microtime(true) - $start_time);
+        }
+
+        $this->render('sql', compact('sql', 'long_time'));
     }
 }

@@ -33,7 +33,7 @@ class SiteController extends HController
 
     public function actionSearch($text = false, $index = false)
     {
-        $this->meta_title = 'Поск по сайту Веселый Жираф';
+        $this->meta_title = 'Поиск по сайту Веселый Жираф';
         $index = $index ? $index : 'community';
         $pages = new CPagination();
         $pages->pageSize = 100000;

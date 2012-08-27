@@ -25,10 +25,12 @@ class ProxyParserThread
     protected $timeout = 15;
     protected $removeCookieOnChangeProxy = true;
     public $use_proxy = true;
+    private $_start_time = null;
+    private $_time_stamp_title = '';
 
     function __construct()
     {
-        //sleep(rand(0, 40));
+        sleep(rand(0, 10));
         Yii::import('site.frontend.extensions.phpQuery.phpQuery');
         $this->thread_id = substr(sha1(microtime()), 0, 10);
         $this->getProxy();
@@ -38,18 +40,25 @@ class ProxyParserThread
     {
         $criteria = new CDbCriteria;
         $criteria->compare('active', 0);
-        $criteria->order = 'rank DESC, created DESC';
+        $criteria->order = 'rank DESC';
 
         $transaction = Yii::app()->db_seo->beginTransaction();
         try {
+//            $this->startTimer('find proxy');
             $this->proxy = Proxy::model()->find($criteria);
+//            $this->endTimer();
             if ($this->proxy === null) {
                 $this->closeThread('No proxy');
             }
 
             $this->proxy->active = 1;
+//            $this->startTimer('save proxy');
             $this->proxy->save();
+//            $this->endTimer();
+
+//            $this->startTimer('commit proxy');
             $transaction->commit();
+//            $this->endTimer();
         } catch (Exception $e) {
             $transaction->rollback();
             $this->closeThread('Fail with getting proxy');
@@ -199,6 +208,19 @@ class ProxyParserThread
     protected function afterProxyChange()
     {
 
+    }
+
+    public function startTimer($title)
+    {
+        $this->_start_time = microtime(true);
+        $this->_time_stamp_title = $title;
+    }
+
+    public function endTimer()
+    {
+        $fh = fopen($dir = Yii::getPathOfAlias('application.runtime') . DIRECTORY_SEPARATOR . 'my_log.txt', 'a');
+        $long_time = 1000*(microtime(true) - $this->_start_time);
+        fwrite($fh, $this->_time_stamp_title.': '. $long_time . "\n");
     }
 
     protected function log($state)

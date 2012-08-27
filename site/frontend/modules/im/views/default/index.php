@@ -15,9 +15,9 @@
         <div class="nav">
             <ul id="user-dialogs-nav">
                 <li><a onclick="Messages.setList(0);" href="javascript:void(0)">Все</a></li>
-                <li><a onclick="Messages.setList(1);" href="javascript:void(0)">Новые</a><span class="count">5</span></li>
-                <li><a onclick="Messages.setList(2);" href="javascript:void(0)">Кто в онлайне</a><span class="count">10</span></li>
-                <li><a onclick="Messages.setList(3);" href="javascript:void(0)">Друзья на сайте</a><span class="count">6</span></li>
+                <li><a onclick="Messages.setList(1);" href="javascript:void(0)">Новые</a><span class="count" id="user-dialogs-newCount"><?=$newCount?></span></li>
+                <li><a onclick="Messages.setList(2);" href="javascript:void(0)">Кто в онлайне</a><span class="count" id="user-dialogs-onlineCount"><?=$onlineCount?></span></li>
+                <li><a onclick="Messages.setList(3);" href="javascript:void(0)">Друзья на сайте</a><span class="count" id="user-dialogs-friendsCount"><?=$friendsCount?></span></li>
             </ul>
         </div>
 
@@ -25,7 +25,7 @@
             <input type="search" placeholder="Найти по имени" />
         </div>
 
-        <a href="" class="close">Закрыть диалоги</a>
+        <a href="javascript:void(0)" class="close" onclick="closeMessages();">Закрыть диалоги</a>
 
     </div>
 

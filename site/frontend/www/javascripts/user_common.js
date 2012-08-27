@@ -148,3 +148,8 @@ function openMessages()
         })
     });
 }
+
+function closeMessages()
+{
+    $('#user-dialogs').remove();
+}

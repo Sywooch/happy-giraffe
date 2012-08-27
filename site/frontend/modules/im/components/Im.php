@@ -322,7 +322,7 @@ class Im
         return $rows;
     }*/
 
-    public static function getContacts($user_id, $type, $condition = '', $params = array())
+    public static function getContactsCriteria($user_id, $type, $condition = '', $params = array())
     {
         $criteria = new CDbCriteria(array(
             'select' => 'id, online, first_name, last_name, count(m.id) AS unreadMessagesCount',
@@ -379,7 +379,21 @@ class Im
 
         $criteria->mergeWith(Yii::app()->db->getCommandBuilder()->createCriteria($condition, $params));
 
+        return $criteria;
+    }
+
+    public static function getContacts($user_id, $type, $condition = '', $params = array())
+    {
+        $criteria = self::getContactsCriteria($user_id, $type, $condition, $params);
+
         return User::model()->findAll($criteria);
+    }
+
+    public static function getContactsCount($user_id, $type, $condition = '', $params = array())
+    {
+        $criteria = self::getContactsCriteria($user_id, $type, $condition, $params);
+
+        return User::model()->count($criteria);
     }
 }
 

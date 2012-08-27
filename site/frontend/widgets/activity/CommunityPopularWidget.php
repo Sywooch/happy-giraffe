@@ -14,7 +14,8 @@ class CommunityPopularWidget extends CWidget
         $communityContents = CommunityContent::model()->full()->findAll(array(
             'limit' => 3,
             'order' => 'rate DESC',
-            'condition' => 'rubric.community_id IS NOT NULL AND DATE_SUB(CURDATE(), INTERVAL 3 DAY) <= created',
+            'condition' => 'rubric.community_id IS NOT NULL AND DATE_SUB(CURDATE(), INTERVAL 3 DAY) <= created AND author_id != :happy_giraffe',
+            'params' => array(':happy_giraffe' => User::HAPPY_GIRAFFE),
         ));
 
         $this->render('CommunityPopularWidget', compact('communityContents'));

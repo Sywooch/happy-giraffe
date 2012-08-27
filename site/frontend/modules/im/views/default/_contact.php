@@ -1,4 +1,4 @@
-<li data-userid="<?=$contact->id?>" onclick="Messages.setDialog(this, <?=$contact->id?>);">
+<li data-userid="<?=$contact->id?>" onclick="Messages.setDialog(<?=$contact->id?>);">
 
     <span class="ava small"><?=$contact->getAva('small') ? CHtml::image($contact->getAva('small')):''?></span>
 

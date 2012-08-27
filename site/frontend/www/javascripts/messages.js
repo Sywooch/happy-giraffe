@@ -7,19 +7,37 @@ Messages.setList = function(type) {
         $('#user-dialogs-contacts').html(data);
         $('#user-dialogs-nav li.active').removeClass('active');
         $('#user-dialogs-nav li:eq(' + type + ')').addClass('active');
+
+        Messages.setDialog($('#user-dialogs-contacts > li:first').data('userid'));
     });
 }
 
-Messages.setDialog = function(el, interlocutor_id) {
+Messages.setDialog = function(interlocutor_id) {
     $.get('/im/dialog/', {interlocutor_id: interlocutor_id}, function(data) {
         $('#user-dialogs-dialog').html(data);
-        $('#user-dialogs-contacts > li:active').removeClass('active');
-        $(el).addClass('active');
-    })
+        $('#user-dialogs-contacts li.active').removeClass('active');
+        $('#user-dialogs-contacts li[data-userid="' + interlocutor_id + '"]').addClass('active');
+    });
 }
 
 Messages.updateCounter = function(selector, diff) {
-    $(selector).text(parseInt($(selector).text()) + diff);
+    var newValue = parseInt($(selector).text()) + diff;
+    $(selector).text(newValue);
+    if (newValue == 0) {
+        $(selector).parents('li').addClass('disabled');
+    } else {
+        if ($(selector).parents('li').hasClass('disabled'))
+            $(selector).parents('li').removeClass('disabled');
+    }
+}
+
+Messages.filterList = function(filter) {
+    if (filter) {
+        $('#user-dialogs-contacts').find("span.username:not(:Contains(" + filter + "))").parents('li').slideUp();
+        $('#user-dialogs-contacts').find("span.username:Contains(" + filter + ")").parents('li').slideDown();
+    } else {
+        $('#user-dialogs-contacts > li').slideDown();
+    }
 }
 
 Comet.prototype.updateStatus = function (result, id) {

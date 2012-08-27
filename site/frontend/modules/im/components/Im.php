@@ -325,7 +325,7 @@ class Im
     public static function getContactsCriteria($user_id, $type, $condition = '', $params = array())
     {
         $criteria = new CDbCriteria(array(
-            'select' => 'id, online, first_name',
+            'select' => 'id, online, first_name, last_name',
             'with' => array(
                 'avatar',
                 'userDialog' => array(
@@ -354,7 +354,8 @@ class Im
                 $criteria->condition = 'userDialog.user_id != :user_id';
                 break;
             case self::IM_CONTACTS_NEW:
-                $criteria->condition = 'userDialog.user_id != :user_id AND lastMessage.read_status = 0';
+                $criteria->condition = 'userDialog.user_id != :user_id';
+                $criteria->having = 'unreadMessagesCount > 0';
                 break;
             case self::IM_CONTACTS_ONLINE:
                 $criteria->condition = 'userDialog.user_id != :user_id AND online = 1';
@@ -392,9 +393,9 @@ class Im
 
     public static function getContactsCount($user_id, $type, $condition = '', $params = array())
     {
-        $criteria = self::getContactsCriteria($user_id, $type, $condition, $params);
+        $contacts = self::getContacts($user_id, $type, $condition, $params);
 
-        return User::model()->count($criteria);
+        return count($contacts);
     }
 
     public static function getDialogWith($user_id, $interlocutor_id)
@@ -402,7 +403,6 @@ class Im
         $criteria = new CDbCriteria(array(
             'with' => array(
                 'userDialog' => array(
-                    'joinType' => 'INNER JOIN',
                     'on' => 'EXISTS (SELECT * FROM im__dialog_users du WHERE userDialog.dialog_id = du.dialog_id AND du.user_id = :user_id)',
                     'with' => array(
                         'dialog' => array(

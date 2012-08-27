@@ -1,5 +1,13 @@
 <?php
-    $messages = $contact->userDialog->dialog->messages;
+    if ($contact->userDialog) {
+        $lastRead = null;
+        $messages = $contact->userDialog->dialog->messages;
+        for ($i = (count($messages) - 1); $i >= 0; $i--) {
+            $message = $messages[$i];
+            if ($message->user_id == Yii::app()->user->id && $message->read_status == 1)
+                $lastRead = $message_id;
+        }
+    }
 ?>
 
 <div class="dialog-header clearfix">
@@ -34,23 +42,23 @@
 
 <div class="dialog-messages">
 
-    <?php if (! $messages): ?>
-
-        <div class="empty">
-
-            <p>В этом диалоге нет новых сообщений.<br/>Ваше может быть первым!</p>
-
-        </div>
-
-    <?php else: ?>
+    <?php if ($contact->userDialog !== null && ! empty($messages)): ?>
 
         <ul>
 
             <?php foreach ($messages as $message): ?>
-                <?php $this->renderPartial('_message', compact('message')); ?>
+            <?php $this->renderPartial('_message', compact('message', 'lastRead')); ?>
             <?php endforeach; ?>
 
         </ul>
+
+    <?php else: ?>
+
+        <div class="empty">
+
+            <p>В этом диалоге нет сообщений.<br/>Ваше может быть первым!</p>
+
+        </div>
 
     <?php endif; ?>
 

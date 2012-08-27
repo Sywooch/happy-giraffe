@@ -31,4 +31,11 @@ class DefaultController extends HController
         $contacts = Im::getContacts(Yii::app()->user->id, $type);
         echo $this->renderPartial('contacts', compact('contacts'));
     }
+
+    public function actionTest()
+    {
+        $user = User::getUserById(10023);
+        $user->online = ! $user->online;
+        $user->save(false, array('online'));
+    }
 }

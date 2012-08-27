@@ -153,6 +153,9 @@ class DefaultController extends HController
         ));
     }
 
+    /**
+     * @sitemap dataSource=getNamesUrls
+     */
     public function actionName($name)
     {
         $this->SetLikes();
@@ -465,4 +468,23 @@ class DefaultController extends HController
             sleep(1);
         }
     }*/
+
+    public function getNamesUrls()
+    {
+        $models = Yii::app()->db->createCommand()
+            ->select('slug')
+            ->from('name__names')
+            ->queryAll();
+        foreach ($models as $model)
+        {
+            $data[] = array(
+                'params' => array(
+                    'slug' => $model['slug'],
+                ),
+                'priority' => 0.5,
+            );
+        }
+        return $data;
+
+    }
 }

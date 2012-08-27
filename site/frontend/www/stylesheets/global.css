@@ -83,8 +83,8 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 .entry-body .entry-header {position:absolute;top:0;left:0;width:100%;}
 
 .entry .entry-header .where {float:left;}
-.entry .entry-header .where span {display:inline-block;vertical-align:middle;font-size:22px;color:#535454;padding-right:10px;}
-.entry .entry-header .where .map-box {display:inline-block;vertical-align:middle;}
+.entry .entry-header .where span {display:inline-block;*zoom:1;*display:inline;vertical-align:middle;font-size:22px;color:#535454;padding-right:10px;}
+.entry .entry-header .where .map-box {display:inline-block;*zoom:1;*display:inline;vertical-align:middle;}
 .entry .entry-header .where .map-box img {display:block;}
 
 .morning-entry {}
@@ -111,7 +111,7 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 
 .entry .traditional-recipes-ingredients {background:#f2fce8;width:270px;float:left;padding:15px;}
 .entry .traditional-recipes-ingredients .block-title {font-size:14px;font-weight:bold;color:#2e2e2e;margin-bottom:10px;}
-.entry .traditional-recipes-ingredients .block-title .icon {display:inline-block;width:23px;height:23px;background:url(/images/common.png) no-repeat -563px -301px;vertical-align:middle;margin-right:5px;}
+.entry .traditional-recipes-ingredients .block-title .icon {display:inline-block;*zoom:1;*display:inline;width:23px;height:23px;background:url(/images/common.png) no-repeat -563px -301px;vertical-align:middle;margin-right:5px;}
 .entry .traditional-recipes-ingredients ul {list-style:disc;padding-left:20px;}
 .entry .traditional-recipes-ingredients ul li {margin:10px 0;}
 
@@ -151,7 +151,7 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 
 .entry .meta {float:right;color:#737575;text-align:right;font-size:13px;overflow:hidden;padding-top:1px;}
 
-.entry .meta .seen {background:#fdfccc;width:auto;display:inline-block;text-align:center;padding:0 8px;height:21px;line-height:21px;}
+.entry .meta .seen {background:#fdfccc;width:auto;display:inline-block;*zoom:1;*display:inline;text-align:center;padding:0 8px;height:21px;line-height:21px;}
 
 .entry .meta .rate {
     zoom: 1;
@@ -186,7 +186,7 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 .entry-content ul.tr_map li span {
     position: relative;
     top: -18px;
-    display: inline-block;
+    display: *zoom:1;*display:inline;
     width: 20px;
     height: 32px;
     background: url(../images/map_marker.png) 0 0 no-repeat;
@@ -199,7 +199,7 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
     font: bold 12px/18px tahoma, sans-serif;
     color: #535252;
     background: #f6f5b3;
-    display: inline-block;
+    display: *zoom:1;*display:inline;
     padding: 0 5px;
 }
 
@@ -277,15 +277,15 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 
 .entry .entry-footer .admin-actions {float:right;margin-right:35px;background:#f7f7f7;padding:3px 9px;margin-top:-2px;}
 
-.entry .entry-footer .admin-actions .edit {display:inline-block;vertical-align:middle;margin-right:5px;}
-.entry .entry-footer .admin-actions .edit .icon {display:block;width:14px;height:18px;background:url(../images/common.png) no-repeat -383px -204px;margin:2px auto 0;}
+.entry .entry-footer .admin-actions .edit {display:inline-block;*zoom:1;*display:inline;vertical-align:middle;margin-right:5px;}
+.entry .entry-footer .admin-actions .edit .icon {display:inline-block;*zoom:1;*display:inline;width:14px;height:18px;background:url(../images/common.png) no-repeat -383px -204px;margin:2px auto 0;}
 .entry .entry-footer .admin-actions .edit:hover .icon {background-position: -341px -136px;}
 
 .entry .entry-footer .admin-actions .move {color:#bebdbd;text-decoration:none;border-bottom:1px dashed #bebdbd;}
 .entry .entry-footer .admin-actions .move:hover {color:#029ad2;border-color:#029ad2;}
 
-.entry .entry-footer .admin-actions .remove {display:inline-block;vertical-align:middle;margin-left:5px;}
-.entry .entry-footer .admin-actions .remove .icon {display:inline-block;width:12px;height:14px;background:url(/images/common.png) no-repeat -314px -135px;vertical-align:middle;position:relative;top:-1px;}
+.entry .entry-footer .admin-actions .remove {display:inline-block;*zoom:1;*display:inline;vertical-align:middle;margin-left:5px;}
+.entry .entry-footer .admin-actions .remove .icon {display:inline-block;*zoom:1;*display:inline;width:12px;height:14px;background:url(/images/common.png) no-repeat -314px -135px;vertical-align:middle;position:relative;top:-1px;}
 .entry .entry-footer .admin-actions .remove:hover .icon {background-position:-314px -148px;}
 
 .entry .entry-footer .claim {color:#f56b95;font-size:13px;text-decoration:none;border-bottom:1px dashed #f56b95;margin-right:25px;}
@@ -306,7 +306,7 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 }
 
 .content-more big.title .btn, .photo-block  big.title .btn {
-    display: inline-block;
+    display: *zoom:1;*display:inline;
     margin: 0px 0px 0 30px;
     position: relative;
     top: -5px
@@ -328,7 +328,7 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 }
 
 .content-more .block  a {
-    display: inline-block;
+    display: *zoom:1;*display:inline;
 	margin-bottom:5px;
 }
 
@@ -528,7 +528,7 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 .inner .add_photos_changer ul li a {
     font: 13px/25px arial, sans-serif;
     color: #0d8ca3;
-    display: inline-block;
+    display: *zoom:1;*display:inline;
     padding: 0 5px;
     text-decoration: none;
 }
@@ -536,7 +536,7 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 .inner .add_photos_changer ul li.current a {
     font: 13px/25px arial, sans-serif;
     color: #0d8ca3;
-    display: inline-block;
+    display: *zoom:1;*display:inline;
     padding: 0 5px;
     text-decoration: none;
     background: #cff3f7;
@@ -552,7 +552,7 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 }
 
 .inner a.or_bt_average {
-    display: inline-block;
+    display: *zoom:1;*display:inline;
     font: bold 13px/30px tahoma, sans-serif;
     color: #fff;
     border: 1px solid #f99337;
@@ -585,7 +585,7 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 }
 
 .inner ul.downloaded_items .remove {
-    display: inline-block;
+    display: *zoom:1;*display:inline;
     padding: 0 0 0 25px;
     color: #9c9b9b;
     font-size: 11px;
@@ -775,7 +775,7 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 
 #contest {padding:20px;}
 
-#contest h4 {text-align: left;color: #0281b0;font: bold 14px Arial, Helvetica, sans-serif;padding: 6px 18px;background: #d4f5fc;display:inline-block;clear: both;margin: 15px 0 15px;}
+#contest h4 {text-align: left;color: #0281b0;font: bold 14px Arial, Helvetica, sans-serif;padding: 6px 18px;background: #d4f5fc;display:inline-block;*zoom:1;*display:inline;clear: both;margin: 15px 0 15px;}
 
 #contest .contest-rules p {margin:5px 0;line-height:normal;}
 #contest .contest-rules ul {list-style-position:inside;margin-left:20px;padding:10px 0;}
@@ -793,11 +793,11 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 #contest .winners-list .winner-box {margin:0 30px;background:#f9fafa;padding:10px 25px;float:left;width:183px;}
 #contest .winners-list .winner-box .place {color:#d5d5d5;font:normal 20px tahoma, arial, helvetica, sans-serif;text-align:center;line-height:33px;}
 
-#contest .winners-list .winner-box .place .num {display:inline-block;width:36px;height:33px;background:url(/images/winners_sprite.png) no-repeat -124px 0;color:#fff;font-weight:bold;text-align:center;line-height:33px;vertical-align:middle;}
+#contest .winners-list .winner-box .place .num {display:inline-block;*zoom:1;*display:inline;width:36px;height:33px;background:url(/images/winners_sprite.png) no-repeat -124px 0;color:#fff;font-weight:bold;text-align:center;line-height:33px;vertical-align:middle;}
 
-#contest .winners-list .winner-box .place span {display:inline-block;vertical-align:middle;}
+#contest .winners-list .winner-box .place span {display:inline-block;*zoom:1;*display:inline;vertical-align:middle;}
 
-#contest .winners-list .winner-box .place .cup {display:inline-block;width:36px;height:56px;vertical-align:middle;background:url(/images/winners_sprite.png) no-repeat 36px 56px;}
+#contest .winners-list .winner-box .place .cup {display:inline-block;*zoom:1;*display:inline;width:36px;height:56px;vertical-align:middle;background:url(/images/winners_sprite.png) no-repeat 36px 56px;}
 
 #contest .winners-list .winner-box.winner-place-1 .place .cup {background-position:-2px -22px;}
 #contest .winners-list .winner-box.winner-place-2 .place .cup {background-position:-41px -22px;}
@@ -821,8 +821,8 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 
 #contest .photo-rank {background:#fffedf;float:right;padding:15px 30px;}
 #contest .photo-rank span {font:bold 36px/1 tahoma, arial, helvetica, sans-serif;color:#fb7a03;position:relative;top:4px;}
-#contest .photo-rank .text {display:inline-block;vertical-align:middle;text-align:right;color:#535353;font-size:16px;font-family:tahoma, arial, helvetica, sans-serif;}
-#contest .photo-rank .cup {display:inline-block;width:58px;height:91px;background:url(/images/winners_sprite.png) no-repeat 58px 91px;vertical-align:middle;}
+#contest .photo-rank .text {display:inline-block;*zoom:1;*display:inline;vertical-align:middle;text-align:right;color:#535353;font-size:16px;font-family:tahoma, arial, helvetica, sans-serif;}
+#contest .photo-rank .cup {display:inline-block;*zoom:1;*display:inline;width:58px;height:91px;background:url(/images/winners_sprite.png) no-repeat 58px 91px;vertical-align:middle;}
 #contest .photo-rank.place-1 .cup {background-position:-1px -154px;}
 #contest .photo-rank.place-2 .cup {background-position:-64px -154px;}
 #contest .photo-rank.place-3 .cup {background-position:-127px -154px;}
@@ -1233,7 +1233,7 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 .embroidery_service .list_yarn .cusel {
     height: 18px;
     background-position: left top;
-    display: inline-block;
+    display: *zoom:1;*display:inline;
     position: relative;
     cursor: pointer;
     font-size: 14px;
@@ -1319,7 +1319,7 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 }
 
 .embroidery_service .list_yarn ul li span.title_h {
-    display: inline-block;
+    display: *zoom:1;*display:inline;
     padding: 8px;
     background: url(../images/wh_tr_form.png) 0 0 repeat;
 }
@@ -1392,7 +1392,7 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 .embroidery_service .list_thread .cusel {
     height: 18px;
     background-position: left top;
-    display: inline-block;
+    display: *zoom:1;*display:inline;
     position: relative;
     cursor: pointer;
     font-size: 14px;
@@ -1632,7 +1632,7 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 .tissue_calc ul li .cusel {
     height: 18px;
     background-position: left top;
-    display: inline-block;
+    display: *zoom:1;*display:inline;
     position: relative;
     cursor: pointer;
     font-size: 14px;
@@ -1867,7 +1867,7 @@ table.fr_recipe_tb td {
 }
 
 .settings-l table.ingr_f_recipe_tb a {
-    display: inline-block;
+    display: *zoom:1;*display:inline;
 }
 
 .settings-l table.ingr_f_recipe_tb a img {
@@ -1967,7 +1967,7 @@ table.fr_recipe_tb td {
 }
 
 .rec_in {
-    display: inline-block;
+    display: *zoom:1;*display:inline;
     padding: 0 75px 0 0;
     margin: 0 0 20px 0;
     background: url(../images/recipe_icon.png) 100% center no-repeat;
@@ -1998,7 +1998,7 @@ table.fr_recipe_tb td {
 	text-align:center;
 }
 
-.your_opinion > div {display:inline-block;margin:0 15px;}
+.your_opinion > div {display:inline-block;*zoom:1;*display:inline;margin:0 15px;}
 
 .your_opinion .green {
     color: #2ba74b;
@@ -2085,7 +2085,7 @@ big.title ins.clr_bl {
 }
 
 .art_lk_recipes ul.quest_fun li.agree_u a {
-    display: inline-block;
+    display: *zoom:1;*display:inline;
     padding: 0 10px;
     height: 18px;
     border: 1px solid #8dd562;
@@ -2099,7 +2099,7 @@ big.title ins.clr_bl {
 }
 
 .art_lk_recipes ul.quest_fun li.disagree_u a {
-    display: inline-block;
+    display: *zoom:1;*display:inline;
     padding: 0 10px;
     height: 18px;
     border: 1px solid #e35e5e;
@@ -2134,7 +2134,7 @@ big.title ins.clr_bl {
     color: #fff;
     font-family: Tahoma, Geneva, Kalimati, sans-serif;
     font-weight: normal;
-    display: inline-block;
+    display: *zoom:1;*display:inline;
     line-height: 50px;
     zoom: 1;
     *display: inline;
@@ -2384,7 +2384,7 @@ big.title ins.clr_bl {
 
 .right_block .cost_calculation .CheckBoxLabelClass {
     background: url("../images/no_check.png") no-repeat scroll 0 0 transparent;
-    display: inline-block;
+    display: *zoom:1;*display:inline;
     line-height: 16px;
     margin: 0;
     padding: 2px 0 0 25px;
@@ -2714,7 +2714,7 @@ ul.letters li a:hover {
 }
 .content_block .names_header.like {
     background: url("../images/heart_like_big.png") no-repeat right top;
-    display: inline-block;
+    display: *zoom:1;*display:inline;
     *display: inline;
     padding: 36px 74px 0 0;
 }
@@ -2825,7 +2825,7 @@ ul.letters li a:hover {
 }
 
 #content .name_info h1 {
-    display: inline-block;
+    display: *zoom:1;*display:inline;
     *display: inline;
     padding: 20px 0 8px 0;
     margin: 0;
@@ -2834,7 +2834,7 @@ ul.letters li a:hover {
     color: #fb3da8;
 }
 #content .name_info a.like_name{
-    display: inline-block;
+    display: *zoom:1;*display:inline;
     *display: inline;
     background: url("../images/name_heart_big.png") no-repeat right top;
     width: 70px;
@@ -3105,11 +3105,11 @@ ul.letters li a:hover {
 #decree-time .form .row-btn button {font:bold 30px arial, helvetica, sans-serif;color: #a46307;width: 220px;height: 58px;border: 1px solid #f1d419;background: url(../images/bg_yellow_av.png) 0 0 repeat-x;cursor:pointer;}
 #decree-time .form .row-btn button {/*css3*/ border-radius: 10px;-moz-border-radius: 10px;-webkit-border-radius: 10px;behavior: url(/stylesheets/PIE.htc);}
 
-#decree-time .form .pregnancy-type label {display:inline-block;vertical-align:top;padding-right:65px;margin-left:15px;}
+#decree-time .form .pregnancy-type label {display:inline-block;*zoom:1;*display:inline;vertical-align:top;padding-right:65px;margin-left:15px;}
 #decree-time .form .pregnancy-type label input {float:left;margin-left:-15px;position:relative;top:-2px;}
 
-#decree-time .form .pregnancy-type .icon-type-1 {display:inline-block;width:35px;height:31px;background:url(/images/common.png) no-repeat -557px -267px;margin-bottom:5px;}
-#decree-time .form .pregnancy-type .icon-type-2 {display:inline-block;width:70px;height:31px;background:url(/images/common.png) no-repeat -557px -267px;margin-bottom:5px;}
+#decree-time .form .pregnancy-type .icon-type-1 {display:inline-block;*zoom:1;*display:inline;width:35px;height:31px;background:url(/images/common.png) no-repeat -557px -267px;margin-bottom:5px;}
+#decree-time .form .pregnancy-type .icon-type-2 {display:inline-block;*zoom:1;*display:inline;width:70px;height:31px;background:url(/images/common.png) no-repeat -557px -267px;margin-bottom:5px;}
 
 #decree-time .form .rest input {padding:2px 10px;font-size:19px;color:#906ab6;width:25px;margin:0 5px;color:#906ab6;border-color:#e8d2fd;text-align:center;}
 
@@ -3127,10 +3127,10 @@ ul.letters li a:hover {
 #horoscope .horoscope-list {padding:20px;border:1px solid #ededed;margin-bottom:20px;}
 #horoscope .horoscope-list p {font-size:13px;line-height:19px;}
 #horoscope .horoscope-list ul {list-style:none;padding-top:10px;}
-#horoscope .horoscope-list ul li {display:inline-block;width:31%;padding-right:2%;padding-top:15px;}
+#horoscope .horoscope-list ul li {display:inline-block;*zoom:1;*display:inline;width:31%;padding-right:2%;padding-top:15px;}
 #horoscope .horoscope-list ul li .img {margin-bottom:10px;}
 #horoscope .horoscope-list ul li .img img {vertical-align:top;}
-#horoscope .horoscope-list ul li .img .date {display:inline-block;vertical-align:top;text-align:center;padding-top:20px;color:#2d2d2d;font-size:10px;}
+#horoscope .horoscope-list ul li .img .date {display:inline-block;*zoom:1;*display:inline;vertical-align:top;text-align:center;padding-top:20px;color:#2d2d2d;font-size:10px;}
 #horoscope .horoscope-list ul li .img .date span {font:italic 25px/1 times new roman, serif;display:block;color:#2d87be;}
 #horoscope .horoscope-list ul li .text {font-size:11px;line-height:17px;color:#626262;}
 
@@ -3146,14 +3146,14 @@ ul.letters li a:hover {
 #horoscope .horoscope-one .right .date > span > span {font-size:35px;display:block;line-height:1;}
 
 #horoscope .horoscope-one .img {margin-bottom:15px;text-align:center;}
-#horoscope .horoscope-one .img .in {display:inline-block;vertical-align:top;}
-#horoscope .horoscope-one .img .date {display:inline-block;vertical-align:top;text-align:center;padding-top:45px;color:#858585;font-size:16px;width:240px;text-align:center;}
+#horoscope .horoscope-one .img .in {display:inline-block;*zoom:1;*display:inline;vertical-align:top;}
+#horoscope .horoscope-one .img .date {display:inline-block;*zoom:1;*display:inline;vertical-align:top;text-align:center;padding-top:45px;color:#858585;font-size:16px;width:240px;text-align:center;}
 #horoscope .horoscope-one .img .date span {font:italic 45px/1.2 times new roman, serif;display:block;color:#2d87be;}
 
 #horoscope .horoscope-one .dates {text-align:center;margin:20px 0;}
 #horoscope .horoscope-one .dates ul {font-size:14px;list-style:none;}
 #horoscope .horoscope-one .dates ul li {display:inline;padding:0 12px;}
-#horoscope .horoscope-one .dates ul li a {display:inline-block;padding:2px 5px;}
+#horoscope .horoscope-one .dates ul li a {display:inline-block;*zoom:1;*display:inline;padding:2px 5px;}
 #horoscope .horoscope-one .dates ul li.active a {background:#fff8bb;text-decoration:none;cursor:default;}
 
 #horoscope .horoscope-one .text {padding-top:20px;}
@@ -3205,33 +3205,33 @@ ul.letters li a:hover {
 
 .horoscope-compatibility-list {padding-top:12px;}
 .horoscope-compatibility-list > ul {list-style:none;}
-.horoscope-compatibility-list > ul > li {width:21%;padding-right:3%;display:inline-block;vertical-align:top;margin-bottom:25px;}
+.horoscope-compatibility-list > ul > li {width:21%;padding-right:3%;display:inline-block;*zoom:1;*display:inline;vertical-align:top;margin-bottom:25px;}
 .horoscope-compatibility-list.wide > ul > li {width:28%;}
 .horoscope-compatibility-list > ul > li ul {list-style:none;}
 .horoscope-compatibility-list > ul > li ul li {padding:5px 0;}
 .horoscope-compatibility-list > ul > li .img {margin-bottom:10px;}
 .horoscope-compatibility-list > ul > li .img img {vertical-align:top;}
-.horoscope-compatibility-list > ul > li .img .date {display:inline-block;vertical-align:top;padding-top:15px;color:#2d2d2d;font-size:10px;}
+.horoscope-compatibility-list > ul > li .img .date {display:inline-block;*zoom:1;*display:inline;vertical-align:top;padding-top:15px;color:#2d2d2d;font-size:10px;}
 .horoscope-compatibility-list > ul > li .img .date span {font:italic 20px/1 times new roman, serif;display:block;color:#2d87be;}
 .horoscope-compatibility-list > ul > li .text {font-size:11px;line-height:17px;color:#626262;}
 
 
 .fast-horoscope {padding:20px;border:1px solid #f1eaf6;width:200px;float:right;}
 .fast-horoscope .block-title {margin-bottom:10px;}
-.fast-horoscope .block-title .in {color:#2f2f2f;font:italic 23px/23px times new roman, serif;display:inline-block;width:130px;text-align:center;}
-.fast-horoscope .block-title .date {color:#fa717c;font-size:18px;line-height:25px;display:inline-block;width:55px;text-align:center;font-weight:bold;}
+.fast-horoscope .block-title .in {color:#2f2f2f;font:italic 23px/23px times new roman, serif;display:inline-block;*zoom:1;*display:inline;width:130px;text-align:center;}
+.fast-horoscope .block-title .date {color:#fa717c;font-size:18px;line-height:25px;display:inline-block;*zoom:1;*display:inline;width:55px;text-align:center;font-weight:bold;}
 .fast-horoscope .block-title .date b {font-size:30px;}
 .fast-horoscope ul {list-style:none;}
 .fast-horoscope ul li {list-style:none;margin-bottom:15px;}
 .fast-horoscope ul li .img {margin-bottom:10px;}
 .fast-horoscope ul li .img img {vertical-align:top;}
-.fast-horoscope ul li .img .date {display:inline-block;vertical-align:top;padding-top:15px;color:#2d2d2d;font-size:10px;}
+.fast-horoscope ul li .img .date {display:inline-block;*zoom:1;*display:inline;vertical-align:top;padding-top:15px;color:#2d2d2d;font-size:10px;}
 .fast-horoscope ul li .img .date span {font:italic 20px/1 times new roman, serif;display:block;color:#2d87be;}
 .fast-horoscope ul li .text {font-size:11px;line-height:17px;color:#626262;}
 
 .horoscope-subscribe {margin-top:20px;border:1px solid #f0ecf3;text-align:center;padding-bottom:15px;}
 .horoscope-subscribe  p {margin:5px 20px;color:#8b8c8c;font-size:13px;line-height:19px;text-align:left;}
-.horoscope-subscribe .btn-want {display:inline-block;width:144px;height:53px;background:url(/images/btn_horoscope_subscribe.png) no-repeat;color:#fff;text-align:center;line-height:53px;font-weight:bold;font-size:35px;text-decoration:none;margin:10px auto;}
+.horoscope-subscribe .btn-want {display:inline-block;*zoom:1;*display:inline;width:144px;height:53px;background:url(/images/btn_horoscope_subscribe.png) no-repeat;color:#fff;text-align:center;line-height:53px;font-weight:bold;font-size:35px;text-decoration:none;margin:10px auto;}
 
 
 
@@ -3247,7 +3247,7 @@ ul.letters li a:hover {
 #repair-wallpapers .form .form-in .row .row-title {font:normal 20px/1 arial, helvetica, sans-serif;color:#82649f;margin-bottom:5px;margin-left:15px;}
 #repair-wallpapers .form .form-in .row .row-title span {font-weight:normal;font-size:14px;}
 #repair-wallpapers .form .form-in .row .row-elements {background:#efdffb;padding:5px;}
-#repair-wallpapers .form .form-in .row .row-elements .col {width:32%;vertical-align:top;display:inline-block;font-size:16px;color:#3e3e3e;font-weight:bold;padding:5px 0;text-align:center;}
+#repair-wallpapers .form .form-in .row .row-elements .col {width:32%;vertical-align:top;display:inline-block;*zoom:1;*display:inline;font-size:16px;color:#3e3e3e;font-weight:bold;padding:5px 0;text-align:center;}
 #repair-wallpapers .form .form-in .row .row-elements .col small {font-size:11px;line-height:1;color:#7b6190;font-weight:normal;line-height:normal;}
 #repair-wallpapers .form .form-in .row .row-elements .col input[type=text] {padding:0px 12px;font-size:16px;color:#906ab6;width:45px;margin:0 5px;color:#906ab6;text-align:center;border:1px solid #dac8e7;vertical-align:top;margin-top:2px;}
 #repair-wallpapers .form .form-in .row .small {text-align:center;font-size:10px;line-height:1;color:#999;font-weight:normal;line-height:normal;padding-top:5px;}
@@ -3262,14 +3262,14 @@ ul.letters li a:hover {
 #repair-wallpapers .form .row.except span {color:#949394;font-size:11px;font-weight:normal;}
 #repair-wallpapers .form .row.except a.pseudo {text-decoration:none;border-bottom:1px dashed #029AD2;}
 #repair-wallpapers .form .row.except a.pseudo:hover {border:0;}
-#repair-wallpapers .form .row.except .except-area {padding:8px 10px;background:#fff;border:1px solid #badef1;display:inline-block;margin-left:-15px;position:relative;margin-top:12px;margin-bottom:8px;}
+#repair-wallpapers .form .row.except .except-area {padding:8px 10px;background:#fff;border:1px solid #badef1;display:inline-block;*zoom:1;*display:inline;margin-left:-15px;position:relative;margin-top:12px;margin-bottom:8px;}
 #repair-wallpapers .form .row.except .except-area input {height:16px;line-height:16px;border:1px solid #c9eaf1;padding:0 4px;font-size:11px;color:#464646;margin-right:3px;font-weight:normal;}
 
 #repair-wallpapers .form .row.except .except-area span {color:#fff;}
 #repair-wallpapers .form .row.except .cut {display:block;width:334px;height:21px;background:url(/images/repair_wallpapers_cut.png) no-repeat;margin-top:-25px;margin-left:-15px;}
 #repair-wallpapers .form .row.except ul {list-style:none;}
-#repair-wallpapers .form .row.except ul li {width:45%;padding-right:4%;display:inline-block;vertical-align:top;padding:5px 0;}
-#repair-wallpapers .form .row.except ul li .remove {display:inline-block;width:12px;height:14px;background:url(/images/common.png) no-repeat -314px -135px;vertical-align:middle;position:relative;top:-1px;}
+#repair-wallpapers .form .row.except ul li {width:45%;padding-right:4%;display:inline-block;*zoom:1;*display:inline;vertical-align:top;padding:5px 0;}
+#repair-wallpapers .form .row.except ul li .remove {display:inline-block;*zoom:1;*display:inline;width:12px;height:14px;background:url(/images/common.png) no-repeat -314px -135px;vertical-align:middle;position:relative;top:-1px;}
 #repair-wallpapers .form .row.except ul li .remove:hover {background-position:-314px -148px;}
 
 #repair-wallpapers .form .row.except .except-area input:nth-child(2){width:95px}
@@ -3280,8 +3280,8 @@ ul.letters li a:hover {
 #repair-wallpapers #empty-area-form{display:none;}
 #repair-wallpapers .form .row.except .cut {display:block;width:334px;height:21px;background:url(/images2/repair_wallpapers_cut.png) no-repeat;margin-top:-25px;margin-left:-15px;}
 #repair-wallpapers .form .row.except ul#emptyareas {list-style:none;}
-#repair-wallpapers .form .row.except ul#emptyareas li {width:95%;padding-right:4%;display:inline-block;vertical-align:top;padding:5px 0;}
-#repair-wallpapers .form .row.except ul#emptyareas li .remove {display:inline-block;width:12px;height:14px;background:url(/images2/common.png) no-repeat -314px -135px;vertical-align:middle;position:relative;top:-1px;}
+#repair-wallpapers .form .row.except ul#emptyareas li {width:95%;padding-right:4%;display:inline-block;*zoom:1;*display:inline;vertical-align:top;padding:5px 0;}
+#repair-wallpapers .form .row.except ul#emptyareas li .remove {display:inline-block;*zoom:1;*display:inline;width:12px;height:14px;background:url(/images2/common.png) no-repeat -314px -135px;vertical-align:middle;position:relative;top:-1px;}
 #repair-wallpapers .form .row.except ul#emptyareas li .remove:hover {background-position:-314px -148px;}
 
 
@@ -3345,20 +3345,20 @@ ul.letters li a:hover {
 #repair-bathroom-tile .form .title p {font-size:13px;color:#434343;width:480px;}
 #repair-bathroom-tile .form .title .red {font-size:11px;color:#ff5741;font-style:italic;margin-top:0px; min-height: 10px;}
 #repair-bathroom-tile .form .title .red ul{ width: 400px }
-#repair-bathroom-tile .form .title .red li{ display: inline-block; width: 200px }
+#repair-bathroom-tile .form .title .red li{ display: *zoom:1;*display:inline; width: 200px }
 
 
 #repair-bathroom-tile .form .form-in {margin-top:20px;width:355px;}
 #repair-bathroom-tile .form .form-in .row { padding: 0}
 #repair-bathroom-tile .form .form-in .row .row-line {padding-bottom:5px;font-size:16px;color:#3e3e3e;font-weight:bold;}
-#repair-bathroom-tile .form .form-in .row .row-line .text {display:inline-block;width:140px;}
+#repair-bathroom-tile .form .form-in .row .row-line .text {display:inline-block;*zoom:1;*display:inline;width:140px;}
 #repair-bathroom-tile .form .form-in .row .row-line input {padding:4px 4px;font-size:16px;color:#906ab6;width:37px;color:#906ab6;text-align:center;border:1px solid #e8d2fd;vertical-align:top;height:16px;line-height:16px;margin-top:-2px;margin-left:5px;}
 #repair-bathroom-tile .form .form-in .row .row-line span {font-weight:normal;color:#737272;}
 #repair-bathroom-tile .form .form-in .row .img {float:right;position:relative;}
 #repair-bathroom-tile .form .form-in .row .img .val {position:absolute;right:7px;bottom:10px;width:34px;height:19px;text-align:center;line-height:19px;font-size:13px;color:#5e8bc9;font-weight:bold;}
 
 #repair-bathroom-tile .form .form-in .row.error {height: 25px; padding: 0 0 5px 0}
-#repair-bathroom-tile .form .form-in .row.error div{display: inline-block; padding: 0 10px 0 0;}
+#repair-bathroom-tile .form .form-in .row.error div{display: *zoom:1;*display:inline; padding: 0 10px 0 0;}
 
 #repair-bathroom-tile .form .row.row-btn {text-align:center;background:url(/images/repair_bathroom_tile_dash.gif) no-repeat top;padding-top:21px;}
 #repair-bathroom-tile .form .row-btn button {font:bold 30px arial, helvetica, sans-serif;color: #a46307;width: 220px;height: 58px;border: 1px solid #f1d419;background: url(../images/bg_yellow_av.png) 0 0 repeat-x;cursor:pointer;}
@@ -3393,7 +3393,7 @@ ul.letters li a:hover {
 #repair-paint .form .form-in .row .row-title big {font-size:20px;font-weight:bold;color:#3e3e3e;}
 #repair-paint .form .form-in .row .chzn-container-single .chzn-single span {font-size:11px;}
 #repair-paint .form .form-in .row .row-elements {padding-bottom:5px;}
-#repair-paint .form .form-in .row .row-elements .col {width:32%;vertical-align:top;display:inline-block;font-size:16px;color:#3e3e3e;font-weight:bold;padding:5px 0;text-align:center;}
+#repair-paint .form .form-in .row .row-elements .col {width:32%;vertical-align:top;display:inline-block;*zoom:1;*display:inline;font-size:16px;color:#3e3e3e;font-weight:bold;padding:5px 0;text-align:center;}
 #repair-paint .form .form-in .row .row-elements .col small {font-size:11px;line-height:1;color:#7b6190;font-weight:normal;line-height:normal;}
 #repair-paint .form .form-in .row .row-elements .col input[type=text] {padding:0px 12px;font-size:16px;color:#906ab6;width:45px;margin:0 5px;color:#906ab6;text-align:center;border:1px solid #dac8e7;vertical-align:top;margin-top:2px;}
 #repair-paint #PaintForm_paintType{ width: 200px}
@@ -3410,7 +3410,7 @@ ul.letters li a:hover {
 #repair-paint .form .row.except span {color:#949394;font-size:11px;font-weight:normal;}
 #repair-paint .form .row.except a.pseudo {text-decoration:none;border-bottom:1px dashed #029AD2;}
 #repair-paint .form .row.except a.pseudo:hover {border:0;}
-#repair-paint .form .row.except .except-area {padding:8px 10px;background:#fff;border:1px solid #badef1;display:inline-block;margin-left:-15px;position:relative;margin-top:12px;margin-bottom:8px; display: none}
+#repair-paint .form .row.except .except-area {padding:8px 10px;background:#fff;border:1px solid #badef1;display:inline-block;*zoom:1;*display:inline;margin-left:-15px;position:relative;margin-top:12px;margin-bottom:8px; display: none}
 #repair-paint .form .row.except .except-area input {height:16px;line-height:16px;border:1px solid #c9eaf1;padding:0 4px;font-size:11px;color:#464646;margin-right:3px;font-weight:normal;}
 #repair-paint .form .row.except .except-area input#PaintAreaForm_title{ width:95px }
 #repair-paint .form .row.except .except-area input#PaintAreaForm_height{ width:30px }
@@ -3420,8 +3420,8 @@ ul.letters li a:hover {
 #repair-paint .form .row.except .except-area span {color:#fff;}
 #repair-paint .form .row.except .cut {display:block;width:334px;height:21px;background:url(/images/repair_wallpapers_cut.png) no-repeat;margin-top:-25px;margin-left:-15px;}
 #repair-paint .form .row.except ul {list-style:none;}
-#repair-paint .form .row.except ul li {width:45%;padding-right:4%;display:inline-block;vertical-align:top;padding:5px 0;}
-#repair-paint .form .row.except ul li .remove {display:inline-block;width:12px;height:14px;background:url(/images/common.png) no-repeat -314px -135px;vertical-align:middle;position:relative;top:-1px;}
+#repair-paint .form .row.except ul li {width:45%;padding-right:4%;display:inline-block;*zoom:1;*display:inline;vertical-align:top;padding:5px 0;}
+#repair-paint .form .row.except ul li .remove {display:inline-block;*zoom:1;*display:inline;width:12px;height:14px;background:url(/images/common.png) no-repeat -314px -135px;vertical-align:middle;position:relative;top:-1px;}
 #repair-paint .form .row.except ul li .remove:hover {background-position:-314px -148px;}
 
 #repair-paint .form .row.except .tale {display:block;content:'';width:18px;height:17px;background:url(/images/common.png) no-repeat -536px -251px;position:absolute;top:-17px;left:13px;}
@@ -3449,7 +3449,7 @@ ul.letters li a:hover {
 #repair-floor .form .form-in .row .chzn-container {position:relative;top:-2px;}
 #repair-floor .form .form-in div.row select#FlooringForm_flooringType{ width: 168px}
 #repair-floor .form .form-in .row .row-elements {background:#e9ddf2;padding:5px 10px;font-size:18px;color:#3e3e3e;font-weight:bold;margin-bottom:10px;}
-#repair-floor .form .form-in .row .row-elements .text {display:inline-block;line-height:24px;font-size:20px;width:200px;}
+#repair-floor .form .form-in .row .row-elements .text {display:inline-block;*zoom:1;*display:inline;line-height:24px;font-size:20px;width:200px;}
 #repair-floor .form .form-in .row .row-elements .row-line {padding:10px 0 10px;}
 #repair-floor .form .form-in .row  input[type=text] {padding:0px 7px;font-size:16px;color:#906ab6;width:45px;margin:0 5px;color:#906ab6;text-align:center;border:1px solid #dac8e7;vertical-align:top;margin-top:2px;}
 #repair-floor .form .form-in .row.row-btn {text-align:center;border-top:1px solid #f6e8ff;background:#faf6cf;background:rgba(250,246,207, 0.75);padding:15px 0;}
@@ -3499,7 +3499,7 @@ ul.letters li a:hover {
 #test-pregnancy .step .question .q-options label {font-size:22px;color:#969696;cursor:pointer;}
 #test-pregnancy .step .question .q-options label:hover {color:#5d5c5c;}
 #test-pregnancy .step .question .q-options label:active {color:#8b5fb5;}
-#test-pregnancy .step .question .q-options label span {display:inline-block;vertical-align:top;margin-top:5px;}
+#test-pregnancy .step .question .q-options label span {display:inline-block;*zoom:1;*display:inline;vertical-align:top;margin-top:5px;}
 
 #test-pregnancy .step .result {}
 #test-pregnancy .step .result .r-title {font-size:24px;margin-left:25px;margin-bottom:10px;}
@@ -3531,7 +3531,7 @@ ul.letters li a:hover {
 #test-navel .step .question .q-options label {font-size:22px;color:#969696;cursor:pointer;}
 #test-navel .step .question .q-options label:hover {color:#5d5c5c;}
 #test-navel .step .question .q-options label:active {color:#8b5fb5;}
-#test-navel .step .question .q-options label span {/*display:inline-block;vertical-align:top;margin-top:5px;*/}
+#test-navel .step .question .q-options label span {/*display:inline-block;*zoom:1;*display:inline;vertical-align:top;margin-top:5px;*/}
 
 #test-navel .step .result {width:300px;margin-left:330px;}
 #test-navel .step .result .r-title {font-size:80px;color:#ebe1f5;font-weight:bold;margin-top:35px;text-align:center;margin-bottom:100px;line-height: 100px;}
@@ -3839,7 +3839,7 @@ ul.letters li a:hover {
 #calories-calculator .calculator table tr.summary .col-1 {background:#fff;}
 #calories-calculator .calculator table tr.summary .col-23 {text-align:right;font-weight:bold;}
 #calories-calculator .calculator table tr.summary .col-8 {background:#fff;}
-#calories-calculator .calculator table .remove {display:inline-block;width:12px;height:14px;background:url(/images/common.png) no-repeat -314px -135px;vertical-align:middle;position:relative;top:-1px;}
+#calories-calculator .calculator table .remove {display:inline-block;*zoom:1;*display:inline;width:12px;height:14px;background:url(/images/common.png) no-repeat -314px -135px;vertical-align:middle;position:relative;top:-1px;}
 #calories-calculator .calculator table .remove:hover {background-position:-314px -148px;}
 
 
@@ -3858,9 +3858,9 @@ ul.letters li a:hover {
 #calories-calculator-daily .calculator .col .num {margin-bottom:12px;}
 #calories-calculator-daily .calculator .col .num span {display:block;width:64px;height:64px;background:#a4c6f5;border-radius:32px;-moz-border-radius:32px;-webkit-border-radius:32px;line-height:64px;color:#fff;font-weight:bold;font-size:36px;margin:0 auto;}
 #calories-calculator-daily .calculator .col .label {margin-bottom:12px;}
-#calories-calculator-daily .calculator .col .label span {font-size:23px;display:inline-block;padding:2px 6px;background:#fef9a8;color:#4c4d4d;}
+#calories-calculator-daily .calculator .col .label span {font-size:23px;display:inline-block;*zoom:1;*display:inline;padding:2px 6px;background:#fef9a8;color:#4c4d4d;}
 #calories-calculator-daily .calculator .col .input {}
-#calories-calculator-daily .calculator .col .input .units {display:inline-block;width:25px;padding-left:5px;margin-right:-33px;text-align:left;}
+#calories-calculator-daily .calculator .col .input .units {display:inline-block;*zoom:1;*display:inline;width:25px;padding-left:5px;margin-right:-33px;text-align:left;}
 #calories-calculator-daily .calculator .col .input label {}
 #calories-calculator-daily .calculator .col .input input[type=text] {width:35px;border:1px solid #a9c8f3;color:#5596d8;font-size:16px;font-weight:bold;text-align:center;line-height:22px;height:23px;margin:0;padding:0 5px;}
 #calories-calculator-daily .calculator .col .input input[type=radio] {position:relative;top:1px;}
@@ -3871,12 +3871,12 @@ ul.letters li a:hover {
 #calories-calculator-daily  .row-btn input[type=submit].disabled {background-position:0 100%;border-color:#c9c9c9;}
 
 #calories-calculator-daily .result {margin-top:30px;font-size:16px;color:#3f3f3f;}
-#calories-calculator-daily .result ul {list-style:none;display:inline-block;}
-#calories-calculator-daily .result ul li {font-size:15px;padding:5px 0;display:inline-block;margin-left:25px;}
-#calories-calculator-daily .result ul li .icon {display:inline-block;text-align:center;font-size:10px;font:tahoma, arial, helvetica, sans-serif;color:#9e9d9d;vertical-align:middle;position:relative;top:4px;line-height:1;margin-right:5px;}
-#calories-calculator-daily .result ul li .icon i {display:block;margin:0 auto 2px;width:20px;height:20px;background:#f0f0f0;color:#333;text-align:center;line-height:20px;font-size:14px;font-style:normal;font-weight:bold;}
+#calories-calculator-daily .result ul {list-style:none;display:inline-block;*zoom:1;*display:inline;}
+#calories-calculator-daily .result ul li {font-size:15px;padding:5px 0;display:inline-block;*zoom:1;*display:inline;margin-left:25px;}
+#calories-calculator-daily .result ul li .icon {display:inline-block;*zoom:1;*display:inline;text-align:center;font-size:10px;font:tahoma, arial, helvetica, sans-serif;color:#9e9d9d;vertical-align:middle;position:relative;top:4px;line-height:1;margin-right:5px;*width:1%;}
+#calories-calculator-daily .result ul li .icon i {display:block;margin:0 auto 2px;width:20px;height:20px;background:#f0f0f0;color:#333;text-align:center;line-height:20px;font-size:14px;font-style:normal;font-weight:bold;*zoom:1;*display:inline;position:relative;}
 #calories-calculator-daily .result ul li .icon i {/*css3*/ -moz-border-radius:10px;-webkit-border-radius:10px;border-radius:10px;behavior: url(/stylesheets/PIE.htc);}
-#calories-calculator-daily .result ul li .icon .units {width:50px;margin:0 -25px;}
+#calories-calculator-daily .result ul li .icon .units {width:50px;}
 #calories-calculator-daily .result ul li.n-calories .icon i {background-color:#62a0f5;width:30px;height:30px;line-height:30px;font-size:20px;color:#fff;}
 #calories-calculator-daily .result ul li.n-calories .icon i {/*css3*/  -moz-border-radius:15px;-webkit-border-radius:15px;border-radius:15px;behavior: url(/stylesheets/PIE.htc);}
 #calories-calculator-daily .result ul li.n-protein .icon i {background-color:#f68704;color:#fff;}
@@ -3896,7 +3896,7 @@ ul.letters li a:hover {
 #spices .title h2 {font-size:60px;font-weight:normal;line-height:1;color:#464546;}
 #spices .title h2 span {font-size:50px;display:block;}
 
-#spices .spices-in {width:830px;float:left;margin-left:130px;padding-top:25px;}
+#spices .spices-in {width:700px;float:left;margin-left:240px;padding-top:25px;padding-left:20px;}
 #spices .spices-in .cat-img {float:right;margin:0 0 15px 15px;}
 #spices .spices-in .cat-img img {display:block;}
 
@@ -3904,12 +3904,12 @@ ul.letters li a:hover {
 #spices .spices-abc .block-title {font-size:14px;font-weight:bold;color:#585758;margin-bottom:5px;}
 #spices .spices-abc > ul {list-style:none;}
 #spices .spices-abc > ul > li {float:left;width:23%;padding-right:2%;}
-#spices .spices-abc > ul > li .letter {display:inline-block;background:#6bc545;width:25px;height:25px;line-height:25px;text-align:center;color:#fff;font-size:16px;font-weight:bold;}
+#spices .spices-abc > ul > li .letter {display:inline-block;*zoom:1;*display:inline;background:#6bc545;width:25px;height:25px;line-height:25px;text-align:center;color:#fff;font-size:16px;font-weight:bold;}
 #spices .spices-abc > ul > li ul {list-style:none;margin:10px 0 30px;}
 #spices .spices-abc > ul > li ul li {padding:5px 0;}
 #spices .spices-abc > ul > li ul li a {display:block;line-height:1.2;}
 
-#spices .chef-advice {background:#fffedf;padding:10px 30px 30px 70px;width:460px;}
+#spices .chef-advice {background:#fffedf;padding:10px 30px 30px 70px;width:340px;}
 #spices .chef-advice .block-title {display:block;margin:0 auto;height:75px;background:url(/images/bg_chef_advice_title.gif) no-repeat center;text-indent:-9999px;margin-bottom:20px;}
 #spices .chef-advice ul {list-style:none;}
 #spices .chef-advice ul li {padding-bottom:10px;line-height:1.5em;}
@@ -3919,11 +3919,11 @@ ul.letters li a:hover {
 #spices .perfect-to {width:200px;float:right;padding:10px 30px;}
 #spices .perfect-to .block-title {text-align:center;font-size:22px;line-height:1;color:#575757;margin-bottom:10px;}
 #spices .perfect-to ul {list-style:none;text-align:center;}
-#spices .perfect-to ul li {width:90px;display:inline-block;vertical-align:bottom;text-align:center;padding:10px 0;}
+#spices .perfect-to ul li {width:90px;display:inline-block;*zoom:1;*display:inline;vertical-align:bottom;text-align:center;padding:10px 0;}
 #spices .perfect-to ul li .cook-cat span {display:block;height:2em;}
 
-#spices .spices-categories {float:left;margin-left:-100%;width:110px;}
-#spices .spices-categories ul {border-right:1px solid #ead8f9;padding:10px 0;}
+#spices .spices-categories {float:left;margin-left:-100%;width:240px;}
+#spices .spices-categories ul {border-right:1px solid #ead8f9;padding:10px 0;list-style:none;}
 #spices .spices-categories ul li {padding:20px 10px;display:block;text-align:center;margin-right:-1px;}
 #spices .spices-categories ul li.active {border:1px solid #ead8f9;border-right-color:#fff;}
 #spices .spices-categories ul li.active {/*css3*/ -moz-border-radius:10px 0 0 8px;-webkit-border-radius:10px 0 0 8px;border-radius:10px 0 0 8px;behavior: url(/stylesheets/PIE.htc);}
@@ -3935,7 +3935,7 @@ ul.letters li a:hover {
 .cook-cat:hover span, .disease-cat:hover span {text-decoration:none;}
 
 
-.cook-cat .icon-cook-cat, .disease-cat .icon-disease-cat {display:inline-block;margin:0 auto 2px;background:url(/images/cook_sprite.png) no-repeat 100px 100px;}
+.cook-cat .icon-cook-cat, .disease-cat .icon-disease-cat {display:inline-block;*zoom:1;*display:inline;margin:0 auto 2px;background:url(/images/cook_sprite.png) no-repeat 100px 100px;}
 .disease-cat .icon-disease-cat {background-image:url(/images/disease_sprite.png);}
 
 .cook-cat .icon-spice-0 {width:41px;height:54px;background-position:0 0;}
@@ -4128,12 +4128,12 @@ ul.letters li a:hover {
 #measure .calculator .product span {margin-left:11px;font-size:11px;font-family:tahoma, arial, helvetica, sans-serif;}
 #measure .calculator .values {padding-bottom:40px;}
 #measure .calculator .values * {vertical-align:middle;}
-#measure .calculator .values .input {display:inline-block;position:relative;top:8px;text-align:center;color:#858484;margin-right:10px;font-size:11px;font-family:tahoma, arial, helvetica, sans-serif;margin-bottom:15px;}
+#measure .calculator .values .input {display:inline-block;*zoom:1;*display:inline;position:relative;top:8px;text-align:center;color:#858484;margin-right:10px;font-size:11px;font-family:tahoma, arial, helvetica, sans-serif;margin-bottom:15px;}
 #measure .calculator .values input {padding:2px 10px;border:1px solid #a9c8f3;margin:0;font-size:30px;line-height:30px;color:#575757;width:70px;text-align:center;background:#fff;margin-bottom:3px;}
-#measure .calculator .equal {display:inline-block;width:23px;height:32px;background:url(/images/cook_sprite.png) no-repeat -42px -1px;margin:0 15px;margin-bottom:15px;}
+#measure .calculator .equal {display:inline-block;*zoom:1;*display:inline;width:23px;height:32px;background:url(/images/cook_sprite.png) no-repeat -42px -1px;margin:0 15px;margin-bottom:15px;}
 #measure .calculator .equal:hover {background-position:-67px -1px;}
 #measure .calculator .value {color:#585757;font-size:30px;margin-right:10px;}
-#measure .calculator .values .value {margin-bottom:15px;display:inline-block;margin-right:10px;}
+#measure .calculator .values .value {margin-bottom:15px;display:inline-block;*zoom:1;*display:inline;margin-right:10px;}
 #measure .calculator .values .drp-list {margin-bottom:15px;}
 #measure .calculator .btn {margin-right:10px;}
 #measure .calculator .btn:hover {color:#fff;}
@@ -4145,13 +4145,13 @@ ul.letters li a:hover {
 #measure .saved-calculations ul li {padding:5px 0;}
 #measure .saved-calculations ul li .product-name {font-size:15px;color:#598dd6;}
 #measure .saved-calculations ul li .value {font-size:18px;color:#848383;margin:0 5px;}
-#measure .saved-calculations ul li .remove {display:inline-block;width:12px;height:14px;background:url(/images/common.png) no-repeat -314px -135px;vertical-align:middle;position:relative;top:-1px;margin-left:10px;}
+#measure .saved-calculations ul li .remove {display:inline-block;*zoom:1;*display:inline;width:12px;height:14px;background:url(/images/common.png) no-repeat -314px -135px;vertical-align:middle;position:relative;top:-1px;margin-left:10px;}
 #measure .saved-calculations ul li .remove:hover {background-position:-314px -148px;}
 
 .measure-calculator {padding:10px 0;}
 .measure-calculator * {vertical-align:middle;}
 .measure-calculator input {padding:2px 10px;border:1px solid #a9c8f3;margin:0;font-size:30px;line-height:30px;color:#575757;width:70px;text-align:center;margin-right:20px;}
-.measure-calculator .equal {display:inline-block;width:23px;height:32px;background:url(/images/cook_sprite.png) no-repeat -42px -1px;margin:0 30px;}
+.measure-calculator .equal {display:inline-block;*zoom:1;*display:inline;width:23px;height:32px;background:url(/images/cook_sprite.png) no-repeat -42px -1px;margin:0 30px;}
 .measure-calculator .equal:hover {background-position:-67px -1px;}
 .measure-calculator .value {color:#585757;font-size:30px;margin-right:20px;}
 
@@ -4167,8 +4167,8 @@ ul.letters li a:hover {
 #dishes .dishes-cats ul {list-style:none;}
 #dishes .dishes-cats ul li {width:100px;padding:0 10px;background:url(/images/bg_dishes_sep.gif) no-repeat left;float:left;height:85px;text-align:center;}
 #dishes .dishes-cats ul li:first-child {background:none;}
-#dishes .dishes-cats ul li .valign {display:inline-block;width:1px;height:85px;vertical-align:bottom;}
-#dishes .dishes-cats ul li .cook-cat {vertical-align:bottom;width:70px;display:inline-block;}
+#dishes .dishes-cats ul li .valign {display:inline-block;*zoom:1;*display:inline;width:1px;height:85px;vertical-align:bottom;}
+#dishes .dishes-cats ul li .cook-cat {vertical-align:bottom;width:70px;display:inline-block;*zoom:1;*display:inline;}
 #dishes .dishes-cats ul li .cook-cat span {height:4em;display:block;}
 
 #dishes .dishes-list {}
@@ -4196,12 +4196,12 @@ ul.letters li a:hover {
 #cook-add-recipe {}
 
 #cook-add-recipe .title {color:#7f5ca1;font-size:25px;font-weight:bold;text-align:center;padding:15px 0;}
-#cook-add-recipe .title .icon {display:inline-block;width:42px;height:73px;background:url(/images/cook_sprite.png) no-repeat 0 -1416px;vertical-align:middle;margin-right:10px;position:relative;top:-2px;}
+#cook-add-recipe .title .icon {display:inline-block;*zoom:1;*display:inline;width:42px;height:73px;background:url(/images/cook_sprite.png) no-repeat 0 -1416px;vertical-align:middle;margin-right:10px;position:relative;top:-2px;}
 
 #cook-add-recipe .form-in {background:#fbf7ff;position:relative;}
 #cook-add-recipe .row {padding:15px 25px 25px;}
 #cook-add-recipe .row .col {width:50%;float:left;}
-#cook-add-recipe .row-title {color:#3c3c3c;font-size:18px;margin-left:10px;display:inline-block;margin-bottom:5px;}
+#cook-add-recipe .row-title {color:#3c3c3c;font-size:18px;margin-left:10px;display:inline-block;*zoom:1;*display:inline;margin-bottom:5px;}
 #cook-add-recipe .row-title span {color:#858383;font-size:14px;}
 
 #cook-add-recipe .recipe-name input {font-size:22px;line-height:30px;padding:11px 9px;background:#fff;border:1px solid #c2e1f6;width:580px;color:#1e95d9;}
@@ -4214,41 +4214,41 @@ ul.letters li a:hover {
 #cook-add-recipe .product-list table td.col-1 input {width:400px;font-weight:bold;}
 #cook-add-recipe .product-list table td.col-2 {}
 #cook-add-recipe .product-list table td.col-2 input {width:70px;font-size:20px;line-height:24px;color:#585757;text-align:center;}
-#cook-add-recipe .product-list .remove {display:inline-block;width:12px;height:14px;background:url(/images/common.png) no-repeat -314px -135px;vertical-align:middle;position:relative;top:-1px;margin-left:10px;}
+#cook-add-recipe .product-list .remove {display:inline-block;*zoom:1;*display:inline;width:12px;height:14px;background:url(/images/common.png) no-repeat -314px -135px;vertical-align:middle;position:relative;top:-1px;margin-left:10px;}
 #cook-add-recipe .product-list .remove:hover {background-position:-314px -148px;}
 #cook-add-recipe .product-list .add-btn {text-decoration:none;}
-#cook-add-recipe .product-list .add-btn .icon {display:inline-block;width:16px;height:16px;background:url(/images/common.png) no-repeat -139px -174px;vertical-align:top;margin-right:5px;}
+#cook-add-recipe .product-list .add-btn .icon {display:inline-block;*zoom:1;*display:inline;width:16px;height:16px;background:url(/images/common.png) no-repeat -139px -174px;vertical-align:top;margin-right:5px;}
 #cook-add-recipe .product-list .add-btn span {border-bottom:1px dashed #029AD2;}
 #cook-add-recipe .product-list .add-btn:hover span {border:0;}
 
 #cook-add-recipe .add-photo {}
 #cook-add-recipe .add-photo a {display:block;width:280px;height:180px;background:#fff;border:1px dashed #d0ced3;text-decoration:none;text-align:center;padding-top:70px;font-size:16px;}
 #cook-add-recipe .add-photo a {/*css3*/ -moz-border-radius:15px;-webkit-border-radius:15px;border-radius:15px;}
-#cook-add-recipe .add-photo a .icon {display:inline-block;width:94px;height:73px;background:url(/images/cook_sprite.png) no-repeat 0 -1343px;margin-top:30px;}
+#cook-add-recipe .add-photo a .icon {display:inline-block;*zoom:1;*display:inline;width:94px;height:73px;background:url(/images/cook_sprite.png) no-repeat 0 -1343px;margin-top:30px;}
 #cook-add-recipe .add-photo a span {border-bottom:1px dashed #029AD2;}
 #cook-add-recipe .add-photo a:hover span {border:0;}
 #cook-add-recipe .add-photo.uploaded a {border-style:solid;padding:0;display:table-cell;text-align:center;vertical-align:middle;height:250px;}
 #cook-add-recipe .add-photo.uploaded a img {max-width:260px;max-height:160px;}
 
 #cook-add-recipe .dish-types {}
-#cook-add-recipe .dish-types .radio-box {width:48%;display:inline-block;vertical-align:top;color:#1e95d9;padding:7px 0;cursor:pointer;}
+#cook-add-recipe .dish-types .radio-box {width:48%;display:inline-block;*zoom:1;*display:inline;vertical-align:top;color:#1e95d9;padding:7px 0;cursor:pointer;}
 #cook-add-recipe .dish-types .radio-box input {float:left;position:relative;top:-2px;margin-left:-5px;margin-right:5px;}
 #cook-add-recipe .dish-types .radio-box label {color:#1e95d9;font-size:13px;}
 
 #cook-add-recipe select {width:280px;}
 
 #cook-add-recipe .country {line-height:36px;color:#1e95d9;margin:8px 0 0 10px;}
-#cook-add-recipe .country .flag-big {display:inline-block;vertical-align:top;margin-right:10px;}
+#cook-add-recipe .country .flag-big {display:inline-block;*zoom:1;*display:inline;vertical-align:top;margin-right:10px;}
 
 #cook-add-recipe .times {background:#f5ebfc;padding:15px;color:#636363;}
 #cook-add-recipe .times {/*css3*/ -moz-border-radius:15px;-webkit-border-radius:15px;border-radius:15px;}
-#cook-add-recipe .times .input {color:#999999;text-align:center;display:inline-block;vertical-align:middle;position:relative;top:5px;}
+#cook-add-recipe .times .input {color:#999999;text-align:center;display:inline-block;*zoom:1;*display:inline;vertical-align:middle;position:relative;top:5px;}
 #cook-add-recipe .times .input input {font-size:16px;height:18px;line-height:18px;padding:5px 0px;background:#fff;border:1px solid #c2e1f6;color:#1e95d9;width:40px;text-align:center;font-weight:bold;}
-#cook-add-recipe .times .time-1 .icon {display:inline-block;width:26px;height:26px;background:url(/images/cook_sprite.png) no-repeat -43px -1417px;vertical-align:middle;position:relative;top:-2px;}
-#cook-add-recipe .times .time-2 .icon {display:inline-block;width:15px;height:27px;background:url(/images/cook_sprite.png) no-repeat -43px -1445px;vertical-align:middle;position:relative;top:-4px;}
+#cook-add-recipe .times .time-1 .icon {display:inline-block;*zoom:1;*display:inline;width:26px;height:26px;background:url(/images/cook_sprite.png) no-repeat -43px -1417px;vertical-align:middle;position:relative;top:-2px;}
+#cook-add-recipe .times .time-2 .icon {display:inline-block;*zoom:1;*display:inline;width:15px;height:27px;background:url(/images/cook_sprite.png) no-repeat -43px -1445px;vertical-align:middle;position:relative;top:-4px;}
 
-#cook-add-recipe .portions {display:inline-block;margin-left:20px}
-#cook-add-recipe .portions a {display:inline-block;width:33px;height:20px;border:1px solid #c2e1f6;line-height:20px;text-align:center;background:#fff;font-weight:bold;text-decoration:none;margin:0 4px;}
+#cook-add-recipe .portions {display:inline-block;*zoom:1;*display:inline;margin-left:20px}
+#cook-add-recipe .portions a {display:inline-block;*zoom:1;*display:inline;width:33px;height:20px;border:1px solid #c2e1f6;line-height:20px;text-align:center;background:#fff;font-weight:bold;text-decoration:none;margin:0 4px;}
 #cook-add-recipe .portions a {/*css3*/ -moz-border-radius:10px;-webkit-border-radius:10px;border-radius:10px;}
 #cook-add-recipe .portions a.active {background:#7dbbe2;color:#fff;}
 
@@ -4278,7 +4278,7 @@ ul.letters li a:hover {
 #cook-recipe .search {float:left;margin-left:30px;width:650px;background:#f7f1fe;padding:15px 25px 25px;margin-bottom:40px;}
 #cook-recipe .search .links {float:right;padding-right:90px;margin-top:23px;}
 #cook-recipe .search .title {margin-bottom:5px;}
-#cook-recipe .search .title .icon {display:inline-block;width:23px;height:41px;background:url(/images/cook_sprite.png) no-repeat -71px -1417px;vertical-align:bottom;position:relative;margin-left:11px;margin-right:5px;}
+#cook-recipe .search .title .icon {display:inline-block;*zoom:1;*display:inline;width:23px;height:41px;background:url(/images/cook_sprite.png) no-repeat -71px -1417px;vertical-align:bottom;position:relative;margin-left:11px;margin-right:5px;}
 #cook-recipe .search .title span {color:#575757;font-size:16px;font-weight:bold;}
 #cook-recipe .search .title a {margin-left:15px;}
 #cook-recipe .search input[type=text] {border:1px solid #e4d0f6;background:#fff;height:18px;font-size:13px;font-family:tahoma, arial, helvetica, sans-serif;padding:4px 13px;float:left;margin:0;width:550px;}
@@ -4289,8 +4289,8 @@ ul.letters li a:hover {
 #cook-recipe .recipe-categories ul li {text-align:center;padding:20px 0;margin-right:-1px;}
 #cook-recipe .recipe-categories ul li.active {border:1px solid #e6d4f7;border-right:1px solid #fff;}
 #cook-recipe .recipe-categories ul li.active {/*css3*/ -moz-border-radius:10px 0 0 8px;-webkit-border-radius:10px 0 0 8px;border-radius:10px 0 0 8px;behavior: url(/stylesheets/PIE.htc);}
-#cook-recipe .recipe-categories ul li .cook-cat {display:inline-block;vertical-align:middle;}
-#cook-recipe .recipe-categories ul li .count {display:inline-block;color:#616061;position:relative;font-size:10px;text-decoration:none;vertical-align:top;width:40px;margin-right:-40px;text-align:left;white-space:nowrap;position:relative;}
+#cook-recipe .recipe-categories ul li .cook-cat {display:inline-block;*zoom:1;*display:inline;vertical-align:middle;}
+#cook-recipe .recipe-categories ul li .count {display:inline-block;*zoom:1;*display:inline;color:#616061;position:relative;font-size:10px;text-decoration:none;vertical-align:top;width:40px;margin-right:-40px;text-align:left;white-space:nowrap;position:relative;}
 #cook-recipe .recipe-categories ul li.active .count {font-size:25px;vertical-align:middle;width:auto;margin-right:0;left:0;}
 
 #cook-recipe .hrecipe {color:#020202;padding-bottom:30px;}
@@ -4301,7 +4301,7 @@ ul.letters li a:hover {
 
 #cook-recipe .ingredients {list-style:none;margin-bottom:30px;}
 #cook-recipe .ingredients > li {margin:10px 0;background:url(/images/marker_04.gif) no-repeat left 4px;padding-left:20px;}
-#cook-recipe .ingredients .calculator-trigger {width:12px;height:13px;background:url(/images/cook_sprite.png) no-repeat -92px -1px;vertical-align:middle;position:relative;top:-2px;margin-left:5px;display:inline-block;visibility:hidden}
+#cook-recipe .ingredients .calculator-trigger {width:12px;height:13px;background:url(/images/cook_sprite.png) no-repeat -92px -1px;vertical-align:middle;position:relative;top:-2px;margin-left:5px;display:inline-block;*zoom:1;*display:inline;visibility:hidden}
 #cook-recipe .ingredients > li:hover .calculator-trigger {visibility:visible;}
 
 #cook-recipe p {margin-bottom:1em;line-height:19px;}
@@ -4336,35 +4336,35 @@ ul.letters li a:hover {
 #cook-recipe .hrecipe .recipe-description ul {padding:10px 20px;border:1px solid #f4eff8;list-style:none;}
 #cook-recipe .hrecipe .recipe-description ul li {padding:10px 0;color:#949596;font-size:11px;font-family:tahoma, arial, helvetica, sans-serif;}
 #cook-recipe .hrecipe .recipe-description ul li .nationality {display:inline;color:#2f3030;font-size:13px;margin-left:10px;}
-#cook-recipe .hrecipe .recipe-description ul li .nationality .flag {display:inline-block;vertical-align:middle;position:relative;top:-1px;}
+#cook-recipe .hrecipe .recipe-description ul li .nationality .flag {display:inline-block;*zoom:1;*display:inline;vertical-align:middle;position:relative;top:-1px;}
 #cook-recipe .hrecipe .recipe-description ul li .time-1 {color:#2f3030;font-size:13px;margin-left:10px;}
-#cook-recipe .hrecipe .recipe-description ul li .time-1 .icon {display:inline-block;width:18px;height:18px;background:url(/images/cook_sprite.png) no-repeat -43px -1474px;vertical-align:middle;position:relative;top:-1px;margin-right:5px;}
+#cook-recipe .hrecipe .recipe-description ul li .time-1 .icon {display:inline-block;*zoom:1;*display:inline;width:18px;height:18px;background:url(/images/cook_sprite.png) no-repeat -43px -1474px;vertical-align:middle;position:relative;top:-1px;margin-right:5px;}
 #cook-recipe .hrecipe .recipe-description ul li .time-2 {color:#2f3030;font-size:13px;margin-left:10px;}
-#cook-recipe .hrecipe .recipe-description ul li .time-2 .icon {display:inline-block;width:9px;height:16px;background:url(/images/cook_sprite.png) no-repeat -60px -1445px;vertical-align:middle;position:relative;top:-2px;margin-right:5px;}
+#cook-recipe .hrecipe .recipe-description ul li .time-2 .icon {display:inline-block;*zoom:1;*display:inline;width:9px;height:16px;background:url(/images/cook_sprite.png) no-repeat -60px -1445px;vertical-align:middle;position:relative;top:-2px;margin-right:5px;}
 #cook-recipe .hrecipe .recipe-description ul li .yield-count {color:#2f3030;font-size:13px;margin-left:10px;}
-#cook-recipe .hrecipe .recipe-description ul li .yield-count .icon {display:inline-block;width:18px;height:24px;background:url(/images/cook_sprite.png) no-repeat -62px -1463px;vertical-align:middle;position:relative;top:-2px;margin-right:5px;}
+#cook-recipe .hrecipe .recipe-description ul li .yield-count .icon {display:inline-block;*zoom:1;*display:inline;width:18px;height:24px;background:url(/images/cook_sprite.png) no-repeat -62px -1463px;vertical-align:middle;position:relative;top:-2px;margin-right:5px;}
 
 #cook-recipe .hrecipe .recipe-description .actions {padding:20px;font-size:11px;font-family:tahoma, arial, helvetica, sans-serif;color:#8a8a8a;}
 #cook-recipe .hrecipe .recipe-description .actions .action {padding:10px 0;}
 #cook-recipe .hrecipe .recipe-description .actions .action .print {padding-left:30px;}
-#cook-recipe .hrecipe .recipe-description .actions .action .print .icon {display:inline-block;width:19px;height:14px;background:url(/images/cook_sprite.png) no-repeat -82px -1480px;vertical-align:middle;position:relative;top:-2px;float:left;margin-right:-19px;}
+#cook-recipe .hrecipe .recipe-description .actions .action .print .icon {display:inline-block;*zoom:1;*display:inline;width:19px;height:14px;background:url(/images/cook_sprite.png) no-repeat -82px -1480px;vertical-align:middle;position:relative;top:-2px;float:left;margin-right:-19px;}
 #cook-recipe .hrecipe .recipe-description .actions .action .add-to-cookbook {padding-left:30px;}
-#cook-recipe .hrecipe .recipe-description .actions .action .add-to-cookbook .icon {display:inline-block;width:14px;height:18px;background:url(/images/cook_sprite.png) no-repeat -82px -1460px;vertical-align:middle;position:relative;float:left;margin-right:-14px;}
+#cook-recipe .hrecipe .recipe-description .actions .action .add-to-cookbook .icon {display:inline-block;*zoom:1;*display:inline;width:14px;height:18px;background:url(/images/cook_sprite.png) no-repeat -82px -1460px;vertical-align:middle;position:relative;float:left;margin-right:-14px;}
 
-#cook-recipe .hrecipe .recipe-description .actions .yashare-auto-init {display:inline-block;vertical-align:middle;}
+#cook-recipe .hrecipe .recipe-description .actions .yashare-auto-init {display:inline-block;*zoom:1;*display:inline;vertical-align:middle;}
 
 #cook-recipe .hrecipe .nutrition {width:200px;padding:20px 19px;border:1px solid #d4e5fd;margin:70px 0 0 0;}
 #cook-recipe .hrecipe .nutrition .block-title {color:#363535;font-size:14px;margin-bottom:10px;}
 #cook-recipe .hrecipe .nutrition .block-title span {color:#9e9d9d;}
 #cook-recipe .hrecipe .nutrition .portion {margin-bottom:10px;color:#038ae0;font-size:11px;font-family:tahoma, arial, helvetica, sans-serif;}
-#cook-recipe .hrecipe .nutrition .portion a {display:inline-block;padding:1px 0px;text-decoration:none;border-bottom:1px dashed #038ae0;margin:0 5px;}
+#cook-recipe .hrecipe .nutrition .portion a {display:inline-block;*zoom:1;*display:inline;padding:1px 0px;text-decoration:none;border-bottom:1px dashed #038ae0;margin:0 5px;}
 #cook-recipe .hrecipe .nutrition .portion a.active {background:#fff9d2;border:0;padding:1px 5px;margin:0;}
 #cook-recipe .hrecipe .nutrition .portion a:hover {border-color:#fff;}
 #cook-recipe .hrecipe .nutrition .portion a.disabled {color:#c5c6c7;border:0;}
 
 #cook-recipe .hrecipe .nutrition ul {list-style:none;}
 #cook-recipe .hrecipe .nutrition ul li {font-size:15px;padding:5px 0;}
-#cook-recipe .hrecipe .nutrition ul li .icon {display:inline-block;width:50px;text-align:center;margin-right:15px;font-size:10px;font:tahoma, arial, helvetica, sans-serif;color:#9e9d9d;vertical-align:middle;position:relative;top:4px;line-height:1;}
+#cook-recipe .hrecipe .nutrition ul li .icon {display:inline-block;*zoom:1;*display:inline;width:50px;text-align:center;margin-right:15px;font-size:10px;font:tahoma, arial, helvetica, sans-serif;color:#9e9d9d;vertical-align:middle;position:relative;top:4px;line-height:1;}
 #cook-recipe .hrecipe .nutrition ul li .icon i {display:block;margin:0 auto 2px;width:20px;height:20px;background:#f0f0f0;color:#333;text-align:center;line-height:20px;font-size:14px;font-style:normal;font-weight:bold;}
 #cook-recipe .hrecipe .nutrition ul li .icon i {/*css3*/ -moz-border-radius:10px;-webkit-border-radius:10px;border-radius:10px;behavior: url(/stylesheets/PIE.htc);}
 #cook-recipe .hrecipe .nutrition ul li.n-calories .icon i {background-color:#62a0f5;width:30px;height:30px;line-height:30px;font-size:20px;color:#fff;}
@@ -4384,9 +4384,9 @@ ul.letters li a:hover {
 #cook-recipe-search {}
 
 #cook-recipe-search .title {margin-bottom:70px;}
-#cook-recipe-search .title .icon {display:inline-block;width:23px;height:41px;background:url(/images/cook_sprite.png) no-repeat -71px -1417px;vertical-align:bottom;position:relative;margin-left:5px;margin-right:5px;}
+#cook-recipe-search .title .icon {display:inline-block;*zoom:1;*display:inline;width:23px;height:41px;background:url(/images/cook_sprite.png) no-repeat -71px -1417px;vertical-align:bottom;position:relative;margin-left:5px;margin-right:5px;}
 #cook-recipe-search .title span {font-size:25px;font-weight:bold;color:#0281b0;}
-#cook-recipe-search .title .nav {display:inline-block;margin-left:40px;vertical-align:top;margin-top:15px;}
+#cook-recipe-search .title .nav {display:inline-block;*zoom:1;*display:inline;margin-left:40px;vertical-align:top;margin-top:15px;}
 #cook-recipe-search .title ul {list-style:none;}
 #cook-recipe-search .title li {height:25px;line-height:25px;padding:0 15px;float:Left;}
 #cook-recipe-search .title li.active {background:#f1e4fd;}
@@ -4397,10 +4397,10 @@ ul.letters li a:hover {
 #cook-recipe-search .ingredients ul {margin-top:25px;line-height:normal;margin-bottom:10px;}
 #cook-recipe-search .ingredients ul li {list-style:none;padding-bottom:10px;}
 #cook-recipe-search .ingredients ul li input {border:1px solid #c3e2f6;background:#fff;height:18px;font-size:16px;font-family:arial, helvetica, sans-serif;padding:4px 9px;margin:0;width:250px;font-weight:bold;color:#3595cc;}
-#cook-recipe-search .ingredients ul li .remove {display:inline-block;width:12px;height:14px;background:url(/images/common.png) no-repeat -314px -135px;vertical-align:middle;position:relative;top:-1px;margin-left:5px;}
+#cook-recipe-search .ingredients ul li .remove {display:inline-block;*zoom:1;*display:inline;width:12px;height:14px;background:url(/images/common.png) no-repeat -314px -135px;vertical-align:middle;position:relative;top:-1px;margin-left:5px;}
 #cook-recipe-search .ingredients ul li .remove:hover {background-position:-314px -148px;}
-#cook-recipe-search .ingredients .add-btn {text-decoration:none;display:inline-block;}
-#cook-recipe-search .ingredients .add-btn .icon {display:inline-block;width:16px;height:16px;background:url(/images/common.png) no-repeat -139px -174px;vertical-align:top;margin-right:5px;}
+#cook-recipe-search .ingredients .add-btn {text-decoration:none;display:inline-block;*zoom:1;*display:inline;}
+#cook-recipe-search .ingredients .add-btn .icon {display:inline-block;*zoom:1;*display:inline;width:16px;height:16px;background:url(/images/common.png) no-repeat -139px -174px;vertical-align:top;margin-right:5px;}
 #cook-recipe-search .ingredients .add-btn span {border-bottom:1px dashed #029AD2;}
 #cook-recipe-search .ingredients .add-btn:hover span {border:0;}
 
@@ -4410,14 +4410,14 @@ ul.letters li a:hover {
 #cook-recipe-search .advanced .row label {font-size:13px;font-weight:bold;display:block;margin-bottom:3px;padding:0 5px;}
 #cook-recipe-search .advanced .row select {width:200px;}
 #cook-recipe-search .advanced .radiogroup {}
-#cook-recipe-search .advanced .radiogroup .checkbox {display:inline-block;width:45%;padding:0px 4% 10px 0;}
+#cook-recipe-search .advanced .radiogroup .checkbox {display:inline-block;*zoom:1;*display:inline;width:45%;padding:0px 4% 10px 0;}
 #cook-recipe-search .advanced .radiogroup .checkbox input {position:relative;top:1px;}
-#cook-recipe-search .advanced .icon-time-1  {display:inline-block;width:18px;height:18px;background:url(/images/cook_sprite.png) no-repeat -43px -1474px;vertical-align:middle;position:relative;top:-1px;margin-right:5px;}
-#cook-recipe-search .advanced .icon-time-2  {display:inline-block;width:15px;height:27px;background:url(/images/cook_sprite.png) no-repeat -43px -1445px;vertical-align:middle;position:relative;top:-4px;margin-right:5px;}
+#cook-recipe-search .advanced .icon-time-1  {display:inline-block;*zoom:1;*display:inline;width:18px;height:18px;background:url(/images/cook_sprite.png) no-repeat -43px -1474px;vertical-align:middle;position:relative;top:-1px;margin-right:5px;}
+#cook-recipe-search .advanced .icon-time-2  {display:inline-block;*zoom:1;*display:inline;width:15px;height:27px;background:url(/images/cook_sprite.png) no-repeat -43px -1445px;vertical-align:middle;position:relative;top:-4px;margin-right:5px;}
 
 #cook-recipe-search .result {float:left;width:600px;margin-left:40px;padding-left:19px;border-left:1px dashed #cde1f6;text-align:center;}
-#cook-recipe-search .result .arrow {width:50px;height:139px;background:url(/images/cook_recipe_search_arrow.gif) no-repeat;display:inline-block;vertical-align:middle;}
-#cook-recipe-search .result .text {display:inline-block;vertical-align:middle;width:320px;margin-left:40px;margin:90px 0;font-size:18px;color:#676767;}
+#cook-recipe-search .result .arrow {width:50px;height:139px;background:url(/images/cook_recipe_search_arrow.gif) no-repeat;display:inline-block;*zoom:1;*display:inline;vertical-align:middle;}
+#cook-recipe-search .result .text {display:inline-block;*zoom:1;*display:inline;vertical-align:middle;width:320px;margin-left:40px;margin:90px 0;font-size:18px;color:#676767;}
 #cook-recipe-search .result .text span {font-size:30px;display:block;color:#c5c3c3;line-height:36px;margin:10px 0;}
 
 #cook-recipe-search .result .result-title {padding-bottom:5px;border-bottom:1px solid #d0e2f5;position:relative;top:-50px;margin-bottom:-50px;}
@@ -4427,7 +4427,7 @@ ul.letters li a:hover {
 
 #cook-recipe-search .result .recipe-list {text-align:left;padding:20px 0;border-bottom:1px solid #d0e2f5;width:600px;}
 #cook-recipe-search .result .recipe-list ul {max-height:570px;width:600px;}
-#cook-recipe-search .result .recipe-list li {width:30%;padding-right:3%;display:inline-block;vertical-align:top;margin-bottom:30px;font-size:11px;line-height:14px;font-family:tahoma, arial, helvetica, sans-serif;}
+#cook-recipe-search .result .recipe-list li {width:30%;padding-right:3%;display:inline-block;*zoom:1;*display:inline;vertical-align:top;margin-bottom:30px;font-size:11px;line-height:14px;font-family:tahoma, arial, helvetica, sans-serif;}
 #cook-recipe-search .result .recipe-list li .item-title {font-weight:bold;margin-bottom:10px;}
 #cook-recipe-search .result .recipe-list li .content {color:#535454;}
 
@@ -4445,24 +4445,24 @@ ul.letters li a:hover {
 #product-choose .product-choose-abc {padding:20px;background:#fffbf5;margin-top:30px;}
 #product-choose .product-choose-abc > ul {list-style:none;}
 #product-choose .product-choose-abc > ul > li {float:left;width:30%;padding-right:3%;}
-#product-choose .product-choose-abc > ul > li .letter {display:inline-block;background:#6bc545;width:25px;height:25px;line-height:25px;text-align:center;color:#fff;font-size:16px;font-weight:bold;}
+#product-choose .product-choose-abc > ul > li .letter {display:inline-block;*zoom:1;*display:inline;background:#6bc545;width:25px;height:25px;line-height:25px;text-align:center;color:#fff;font-size:16px;font-weight:bold;}
 #product-choose .product-choose-abc > ul > li ul {list-style:none;margin:10px 0 30px;}
 #product-choose .product-choose-abc > ul > li ul li {padding:5px 0;}
 #product-choose .product-choose-abc > ul > li ul li a {display:block;line-height:1.2;}
 #product-choose .product-choose-abc .cook-cat {color:#585758;text-decoration:none;font-size:11px;cursor:default;}
-#product-choose .product-choose-abc .cook-cat .icon-cook-cat {display:inline-block;vertical-align:middle;}
-#product-choose .product-choose-abc .cook-cat span {text-decoration:none;width:60%;vertical-align:middle;display:inline-block;margin-left:10px;}
+#product-choose .product-choose-abc .cook-cat .icon-cook-cat {display:inline-block;*zoom:1;*display:inline;vertical-align:middle;}
+#product-choose .product-choose-abc .cook-cat span {text-decoration:none;width:60%;vertical-align:middle;display:inline-block;*zoom:1;*display:inline;margin-left:10px;}
 
 
 #product-choose .product-choose-categories {float:left;margin-left:-100%;width:220px;}
-#product-choose .product-choose-categories ul {border-right:1px solid #ead8f9;padding:10px 0;}
+#product-choose .product-choose-categories ul {border-right:1px solid #ead8f9;padding:10px 0;list-style:none;}
 #product-choose .product-choose-categories ul li {padding:20px 40px;display:block;text-align:center;margin-right:-1px;}
 #product-choose .product-choose-categories ul li.active {border:1px solid #ead8f9;border-right-color:#fff;}
 #product-choose .product-choose-categories ul li.active {/*css3*/ -moz-border-radius:10px 0 0 8px;-webkit-border-radius:10px 0 0 8px;border-radius:10px 0 0 8px;behavior: url(/stylesheets/PIE.htc);}
 
 #product-choose .product-choose-cat-list {margin:40px 0;}
 #product-choose .product-choose-cat-list ul {list-style:none;}
-#product-choose .product-choose-cat-list ul li {width:29%;padding:0 2%;display:inline-block;vertical-align:top;text-align:center;}
+#product-choose .product-choose-cat-list ul li {width:29%;padding:0 2%;display:inline-block;*zoom:1;*display:inline;vertical-align:top;text-align:center;}
 #product-choose .product-choose-cat-list ul li a {display:block;font-weight:bold;}
 #product-choose .product-choose-cat-list ul li a img {display:block;margin:0 auto 5px;}
 
@@ -4470,7 +4470,7 @@ ul.letters li a:hover {
 #cook .search {background:#f7f1fe;padding:15px 25px 25px;margin-bottom:30px;}
 #cook .search .links {float:right;padding-right:90px;margin-top:23px;}
 #cook .search .title {margin-bottom:5px;}
-#cook .search .title .icon {display:inline-block;width:23px;height:41px;background:url(/images/cook_sprite.png) no-repeat -71px -1417px;vertical-align:bottom;position:relative;margin-left:11px;margin-right:5px;}
+#cook .search .title .icon {display:inline-block;*zoom:1;*display:inline;width:23px;height:41px;background:url(/images/cook_sprite.png) no-repeat -71px -1417px;vertical-align:bottom;position:relative;margin-left:11px;margin-right:5px;}
 #cook .search .title span {color:#575757;font-size:16px;font-weight:bold;}
 #cook .search .title a {margin-left:15px;}
 #cook .search input[type=text] {border:1px solid #e4d0f6;background:#fff;height:18px;font-size:13px;font-family:tahoma, arial, helvetica, sans-serif;padding:4px 13px;float:left;margin:0;width:550px;}
@@ -4486,17 +4486,17 @@ ul.letters li a:hover {
 
 #cook .recipe-list .block-title {}
 
-#cook .recipe-list .block-title .title-in {display:inline-block;width:300px;vertical-align:middle;font-size:23px;color:#131312;}
+#cook .recipe-list .block-title .title-in {display:inline-block;*zoom:1;*display:inline;width:300px;vertical-align:middle;font-size:23px;color:#131312;}
 #cook .recipe-list .block-title .title-in span {padding:0 5px;}
 #cook .recipe-list .block-title .title-in span.yellow {background:#fdfccc;}
 
-#cook .recipe-list .block-title .all-link {display:inline-block;width:150px;vertical-align:middle;text-align:center;}
+#cook .recipe-list .block-title .all-link {display:inline-block;*zoom:1;*display:inline;width:150px;vertical-align:middle;text-align:center;}
 #cook .recipe-list .block-title .all-link span {color:#6a6b6c;background:#fdfccc;padding:0 5px;}
 
-#cook .recipe-list .block-title .add-btn {display:inline-block;width:190px;vertical-align:middle;text-align:right;}
+#cook .recipe-list .block-title .add-btn {display:inline-block;*zoom:1;*display:inline;width:190px;vertical-align:middle;text-align:right;}
 
 #cook .recipe-list .list {list-style:none;}
-#cook .recipe-list .list li {display:inline-block;vertical-align:top;width:30%;padding-right:3%;padding-top:30px;}
+#cook .recipe-list .list li {display:inline-block;*zoom:1;*display:inline;vertical-align:top;width:30%;padding-right:3%;padding-top:30px;}
 #cook .recipe-list .list li .user {margin-bottom:5px;}
 #cook .recipe-list .list li .user .user-info {}
 #cook .recipe-list .list li .user .user-info .details {margin-left:30px;}
@@ -4526,7 +4526,7 @@ ul.letters li a:hover {
 #cook .dish-list .block-title {font-size:23px;color:#131312;width:570px;margin:0 auto 30px;}
 #cook .dish-list .block-title .btn {float:right;}
 #cook .dish-list .list {list-style:none;width:570px;margin:0 auto;}
-#cook .dish-list .list li {display:inline-block;vertical-align:top;width:176px;padding:6px;}
+#cook .dish-list .list li {display:inline-block;*zoom:1;*display:inline;vertical-align:top;width:176px;padding:6px;}
 #cook .dish-list .list li img {max-width:176px;}
 
 #cook .banner-box {margin-bottom:30px;}
@@ -4546,13 +4546,13 @@ ul.letters li a:hover {
 #disease .disease-abc .block-title {font-weight:bold;color:#484848;font-size:14px;}
 #disease .disease-abc > ul {list-style:none;}
 #disease .disease-abc > ul > li {float:left;width:30%;padding-right:3%;}
-#disease .disease-abc > ul > li .letter {display:inline-block;background:#6bc545;width:25px;height:25px;line-height:25px;text-align:center;color:#fff;font-size:16px;font-weight:bold;}
+#disease .disease-abc > ul > li .letter {display:inline-block;*zoom:1;*display:inline;background:#6bc545;width:25px;height:25px;line-height:25px;text-align:center;color:#fff;font-size:16px;font-weight:bold;}
 #disease .disease-abc > ul > li ul {list-style:none;margin:20px 0 20px;}
 #disease .disease-abc > ul > li ul li {padding:5px 0;}
 #disease .disease-abc > ul > li ul li a {display:block;line-height:1.2;}
 #disease .disease-abc .disease-cat {color:#585758;text-decoration:none;font-size:11px;cursor:default;}
-#disease .disease-abc .disease-cat .icon-disease-cat {display:inline-block;vertical-align:middle;}
-#disease .disease-abc .disease-cat span {text-decoration:none;width:60%;vertical-align:middle;display:inline-block;margin-left:10px;}
+#disease .disease-abc .disease-cat .icon-disease-cat {display:inline-block;*zoom:1;*display:inline;vertical-align:middle;}
+#disease .disease-abc .disease-cat span {text-decoration:none;width:60%;vertical-align:middle;display:inline-block;*zoom:1;*display:inline;margin-left:10px;}
 
 #disease .fast-nav {color:#029AD2;text-align:center;clear:both;margin:20px 0 30px;}
 #disease .fast-nav a {text-decoration:none;border-bottom:1px dashed #029AD2;}
@@ -4560,7 +4560,7 @@ ul.letters li a:hover {
 #disease .fast-nav a.active {padding:0 5px;background:#fefad2;border:0;}
 
 #disease .disease-categories {float:left;margin-left:-100%;width:220px;}
-#disease .disease-categories ul {border-right:1px solid #ead8f9;padding:10px 0;}
+#disease .disease-categories ul {border-right:1px solid #ead8f9;padding:10px 0;list-style:none;}
 #disease .disease-categories ul li {padding:20px 40px;display:block;text-align:center;margin-right:-1px;}
 #disease .disease-categories ul li.active {border:1px solid #ead8f9;border-right-color:#fff;}
 #disease .disease-categories ul li.active {/*css3*/ -moz-border-radius:10px 0 0 8px;-webkit-border-radius:10px 0 0 8px;border-radius:10px 0 0 8px;behavior: url(/stylesheets/PIE.htc);}

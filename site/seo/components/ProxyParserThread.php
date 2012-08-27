@@ -30,7 +30,7 @@ class ProxyParserThread
 
     function __construct()
     {
-        //sleep(rand(0, 40));
+        sleep(rand(0, 10));
         Yii::import('site.frontend.extensions.phpQuery.phpQuery');
         $this->thread_id = substr(sha1(microtime()), 0, 10);
         $this->getProxy();
@@ -40,18 +40,25 @@ class ProxyParserThread
     {
         $criteria = new CDbCriteria;
         $criteria->compare('active', 0);
-        $criteria->order = 'rank DESC, created DESC';
+        $criteria->order = 'rank DESC';
 
         $transaction = Yii::app()->db_seo->beginTransaction();
         try {
+            $this->startTimer('find proxy');
             $this->proxy = Proxy::model()->find($criteria);
+            $this->endTimer();
             if ($this->proxy === null) {
                 $this->closeThread('No proxy');
             }
 
             $this->proxy->active = 1;
+            $this->startTimer('save proxy');
             $this->proxy->save();
+            $this->endTimer();
+
+            $this->startTimer('commit proxy');
             $transaction->commit();
+            $this->endTimer();
         } catch (Exception $e) {
             $transaction->rollback();
             $this->closeThread('Fail with getting proxy');
@@ -74,14 +81,14 @@ class ProxyParserThread
             if (!empty($ref))
                 curl_setopt($ch, CURLOPT_REFERER, $url);
 
-            if ($this->use_proxy) {
+            /*if ($this->use_proxy) {
                 curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
                 curl_setopt($ch, CURLOPT_PROXY, $this->proxy->value);
                 if (getenv('SERVER_ADDR') != '5.9.7.81') {
                     curl_setopt($ch, CURLOPT_PROXYUSERPWD, "alexk984:Nokia12345");
                     curl_setopt($ch, CURLOPT_PROXYAUTH, 1);
                 }
-            }
+            }*/
 
             curl_setopt($ch, CURLOPT_COOKIEFILE, $this->getCookieFile());
             curl_setopt($ch, CURLOPT_COOKIEJAR, $this->getCookieFile());

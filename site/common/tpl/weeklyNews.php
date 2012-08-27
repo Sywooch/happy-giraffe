@@ -34,7 +34,7 @@ $i = 0;
 
             <div style="margin-bottom:5px;">
                 <a href="http://www.happy-giraffe.ru<?php echo ltrim($model->getUrl(), '.') ?>" target="_blank" style="text-decoration: none;">
-                    <img src="<?php echo $model->getContentImage() ?>" width="318" border="0" style="display:block;"></a>
+                    <img src="<?php echo $model->getContentImage() ?>" border="0" style="display:block;max-width: 318px;"></a>
             </div>
 
             <div style="font:13px/18px arial, helvetica, sans-serif;color:#040404;">

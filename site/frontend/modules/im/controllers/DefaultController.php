@@ -38,7 +38,7 @@ class DefaultController extends HController
     public function actionDialog($interlocutor_id)
     {
         $contact = Im::getDialogWith(Yii::app()->user->id, $interlocutor_id);
-        $this->renderPartial('_dialog', compact('contact'));
+        $this->renderPartial('_dialog', compact('contact', 'interlocutor_id'));
     }
 
     public function actionChangeStatus($id)
@@ -46,5 +46,11 @@ class DefaultController extends HController
         $user = User::getUserById($id);
         $user->online = ! $user->online;
         $user->save(false, array('online'));
+    }
+
+    public function actionTest()
+    {
+        $onlineCount = Im::getContactsCount(Yii::app()->user->id, Im::IM_CONTACTS_NEW);
+        echo $onlineCount;
     }
 }

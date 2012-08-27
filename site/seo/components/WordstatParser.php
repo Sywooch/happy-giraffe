@@ -66,45 +66,59 @@ class WordstatParser extends ProxyParserThread
     {
         $this->keyword = null;
 
-        $this->startTimer('getting keyword');
         $transaction = Yii::app()->db_seo->beginTransaction();
         try {
             //выбираем максимальный приоритет
-            $criteria = new CDbCriteria;
-            $criteria->order = 'priority desc';
-            $criteria->compare('active', 0);
-            $max_priority = ParsingKeyword::model()->find($criteria);
+//            $criteria = new CDbCriteria;
+//            $criteria->order = 'priority desc';
+//            $criteria->compare('active', 0);
+//            $max_priority = ParsingKeyword::model()->find($criteria);
 
             //сначала выбираем с бесконечной глубиной парсинга
+//            $criteria = new CDbCriteria;
+//            $criteria->condition = 'depth IS NULL';
+//            $criteria->compare('active', 0);
+//            $criteria->compare('priority', $max_priority->priority);
+
+            //затем все остальные упорядоченные по глубине парсинга
+//            $criteria2 = new CDbCriteria;
+//            $criteria2->compare('active', 0);
+//            $criteria2->order = 'depth DESC';
+//            $criteria2->compare('priority', $max_priority->priority);
+
             $criteria = new CDbCriteria;
             $criteria->condition = 'depth IS NULL';
             $criteria->compare('active', 0);
-            $criteria->compare('priority', $max_priority->priority);
-
-            //затем все остальные упорядоченные по глубине парсинга
-            $criteria2 = new CDbCriteria;
-            $criteria2->compare('active', 0);
-            $criteria2->order = 'depth DESC';
-            $criteria2->compare('priority', $max_priority->priority);
-
+            $criteria->order = 'priority asc';
+            $this->startTimer('find keyword');
             $this->keyword = ParsingKeyword::model()->find($criteria);
+            $this->endTimer();
+
             if ($this->keyword === null) {
-                $this->keyword = ParsingKeyword::model()->find($criteria2);
+                $criteria = new CDbCriteria;
+                $criteria->compare('active', 0);
+                $criteria->order = 'depth DESC';
+
+                $this->keyword = ParsingKeyword::model()->find($criteria);
                 if ($this->keyword === null)
                     $this->closeThread('Keywords for parsing ended');
             }
 
             $this->keyword->active = 1;
+            $this->startTimer('save keyword');
             $this->keyword->save();
+            $this->endTimer();
+
+            $this->startTimer('commit getting keyword');
             $transaction->commit();
+            $this->endTimer();
+
         } catch (Exception $e) {
             $transaction->rollback();
             $this->closeThread('get keyword transaction failed');
         }
 
         $this->first_page = true;
-
-        $this->endTimer();
     }
 
     private function getCookie()
@@ -300,11 +314,12 @@ class WordstatParser extends ProxyParserThread
      */
     public function RemoveCurrentKeywordFromParsing()
     {
-        $this->startTimer('Remove Current Keyword From Parsing');
-
+        $this->startTimer('remove_from_parsing  check depth rise');
         //проверяем не изменилась ли глубина за время парсинга
         $old_depth = $this->keyword->depth;
         $this->keyword->refresh();
+        $this->endTimer();
+
         if ($this->keyword->depth > $old_depth) {
             //если глубина увеличилась, переходим к следующему слову
             $this->keyword->active = 0;
@@ -313,8 +328,11 @@ class WordstatParser extends ProxyParserThread
             //иначе удаляем кейворд из парсинга
             $this->log($this->keyword->keyword_id . " - remove keyword from parsing");
 
+            $this->startTimer('remove_from_parsing  remove');
             ParsingKeyword::model()->deleteByPk($this->keyword->keyword_id);
+            $this->endTimer();
 
+            $this->startTimer('remove_from_parsing  check parsed');
             $success = false;
             while (!$success) {
                 //и добавляем в спарсенные
@@ -344,8 +362,8 @@ class WordstatParser extends ProxyParserThread
                 if (!$success)
                     sleep(1);
             }
+            $this->endTimer();
         }
 
-        $this->endTimer();
     }
 }

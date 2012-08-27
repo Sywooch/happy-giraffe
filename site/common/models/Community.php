@@ -149,8 +149,9 @@ class Community extends HActiveRecord
 
     public function defaultScope()
     {
+        $alias = $this->getTableAlias(false, false);
         return array(
-            'order' => 'position asc',
+            'order' => ($alias) ? $alias . '.position asc' : 'position asc',
         );
     }
 

@@ -1,7 +1,5 @@
 .ie7 .clearfix {height:1%;zoom:1;position:relative;}
 
-.ie7 #registration .members-count .subtitle p, .ie7 #registration .members-count ul .controls .inc, .ie7 #registration .members-count ul .controls .dec, .ie7 #registration .members-count ul .img .valign, .ie7 #registration .members-count ul .age-title, .ie7 #registration .header .login-link .login-q, .ie7 .file-fake, .ie7 .btn, .ie7 .breadcrumbs span, .ie7 .meta .seen, .ie7 .user .avatar, .ie7 .user a.username, .ie7 .paginator .txt, .ie7 .paginator .pages, .ie7 .paginator .pages a.next, .ie7 .paginator .pages a.prev, .ie7 .paginator .pages  a, .ie7 .paginator .pages .current, .ie7  .more .block  a, .ie7 .comments .c-header .left-s span, .ie7 .comments .c-header .left-s .col, .ie7 .comments .item .report, .ie7 .photo-block .item, .ie7 .win, .ie7 .win .place span, .ie7 .inner.contest.winners .like-block .cup, .ie7 .inner.contest.winners .like-block .block, .ie7 #nav .fast-cart .in, .ie7 #profile .access-list ul li .radiogroup, .ie7 #profile .profile-form-in .row .col, .ie7 .file-fake, .ie7 .pagination .summary, .ie7 .pagination ul , .ie7 .pagination ul li, .ie7 .counter, .ie7 .product-list li .item-price .col, .ie7 #cart .info-form .row .col, .ie7 #product .price-box .col, .ie7 .side-filter .filter-radiogroup-inline ul li, .ie7 #user .user-meta .location .flag, .ie7 #user .user-blog ul li, .ie7 #user .user-weather .img, .ie7 #user .user-weather .text, .ie7 #user .user-horoscope .date, .ie7 #gallery .gallery-photos ul li, .ie7 .like-btn, .ie7 .like-btn .count, .ie7 .like-btn .btn-icon, .ie7 .inner .new-header a, .ie7 .entry-content ul.tr_map li span, .ie7 .buy-else-horizontal .buy-else-title, .ie7 #baby .favor-services ul li a .text, .ie7 #baby .favor-services ul li a .img, .ie7 #baby .handbook_names_alfa ul li, .ie7 .rec_in, .ie7 .your_opinion > div, .ie7 #baby .vaccination-tabs .nav li, .ie7 #baby .hospital-bag .items .item-box, .ie7 #baby .hospital-bag-item-fast .item-box, .ie7 #baby .comments .item-useful div, .ie7 #baby .vaccination-table .result-box {zoom:1;display:inline;}
-
 .ie7 .search .btn {margin-top:3px;margin-left:14px;}
 
 .ie7 .inner.contest.winners .like-block .block {float:left;}
@@ -108,3 +106,48 @@
 
 .ie7 .content-search > span {float:left;width:125px;}
 .ie7 .content-search form {float:left;margin:0;}
+
+.ie7 #header-new {z-index:4;}
+.ie7 #header-new .nav .drp {left:-10px;margin-top:-8px;}
+.ie7 #header-new .nav .cols .col {margin-left:-1px;}
+
+.ie7 #calories-calculator-daily .calculator .col .input input[type="text"] {*vertical-align:middle;}
+
+.ie7 #cook .search .title .icon {vertical-align:baseline;}
+.ie7 #cook .search .btn {top:-7px;}
+
+.ie7 .btn .arr-r {top:-1px;margin-left:5px;left:5px;}
+
+.ie7 .user-info .details .icon-status {top:0px;}
+
+.ie7 #product-choose .product-choose-categories ul li {position:relative;right:-1px;}
+
+.ie7 #cook-recipe .recipe-categories ul li.active {behavior:url('');}
+.ie7 #cook-recipe .hrecipe .recipe-description ul li .nationality .flag {margin-right:4px;}
+
+.ie7 .pagination ul li.selected img {display:none;}
+
+.ie7 #cook-recipe-search .ingredients ul li .remove {top:-7px;}
+
+.ie7 #spices .spices-categories ul li {position:relative;right:-1px;}
+.ie7 #spices .chef-advice ul .num {behavior:url('');zoom:1;display:inline;height:auto;}
+.ie7 #spices .chef-advice ul li {zoom:1;}
+
+.ie7 #baby .age-list ul li a {position:relative;top:20px;}
+.ie7 #baby .age-list ul li.active a, .ie7 #baby .age-list ul li a:hover {position:relative;top:15px;}
+.ie7 #baby .age-list ul li .flag .icon {display:inline;zoom:1;float:none;vertical-align:top;}
+.ie7 #baby .age-list ul li .icon-birthing {top:-48px;}
+.ie7 #baby .age-list ul li .icon-pregnant {top:-23px;}
+
+.ie7 #disease .disease-categories ul li.active {behavior:url('');}
+
+.ie7 #repair-wallpapers .form .row.except .cut {position:relative;left:-15px;}
+
+.ie7 .form .row-gallery .remove {top:-5px;margin-left:5px;}
+.ie7 .form .row-gallery .add-gallery {top:-2px;margin-right:5px;}
+
+.ie7 .default-nav ul li {padding-bottom:0;}
+
+.ie7 .fast-like-block {width:400px;}
+
+.ie7 #header-new .top-line {height:auto;}

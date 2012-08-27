@@ -14,7 +14,7 @@
 #registration .header .logo-box .logo {display:block;width:198px;height:93px;background:url(../images/common.png) no-repeat 0 -200px;text-indent:-9999px;}
 
 #registration .header .login-link {padding-top:20px;}
-#registration .header .login-link .login-q {background:#fefeda;font:italic 14px/40px arial;display:inline-block;padding:0 25px;margin-right:8px;vertical-align:middle;color:#575757;}
+#registration .header .login-link .login-q {background:#fefeda;font:italic 14px/40px arial;display:inline-block;*zoom:1;*display:inline;padding:0 25px;margin-right:8px;vertical-align:middle;color:#575757;}
 
 #registration .content {zoom:1;}
 
@@ -56,17 +56,17 @@
 #registration .members-count big span {color:#79c2ca;font-size:20px;}
 #registration .members-count .subtitle {color:#575757;}
 #registration .members-count .subtitle span {font:bold italic 14px arial, sans-serif;display:block;margin-bottom:6px;}
-#registration .members-count .subtitle p {padding:0 8px;margin-left:-8px;background:#ffffd9;display:inline-block;line-height:22px;font-size:11px;color:#575757;}
+#registration .members-count .subtitle p {padding:0 8px;margin-left:-8px;background:#ffffd9;display:inline-block;*zoom:1;*display:inline;line-height:22px;font-size:11px;color:#575757;}
 #registration .members-count ul {list-style:none;}
 #registration .members-count ul li {float:left;text-align:center;padding-right:21px;}
 #registration .members-count ul li a {}
 #registration .members-count ul .controls input[type=text] {width:26px;height:16px;padding:0;font-size:12px;font-weight:bold;text-align:center;line-height:16px;margin:0 6px;vertical-align:middle;}
-#registration .members-count ul .controls .dec {display:inline-block;width:10px;height:14px;background:url(../images/common.png) no-repeat -41px -100px;vertical-align:middle;cursor:pointer;}
-#registration .members-count ul .controls .inc {display:inline-block;width:10px;height:14px;background:url(../images/common.png) no-repeat -51px -100px;vertical-align:middle;cursor:pointer;}
+#registration .members-count ul .controls .dec {display:inline-block;*zoom:1;*display:inline;width:10px;height:14px;background:url(../images/common.png) no-repeat -41px -100px;vertical-align:middle;cursor:pointer;}
+#registration .members-count ul .controls .inc {display:inline-block;*zoom:1;*display:inline;width:10px;height:14px;background:url(../images/common.png) no-repeat -51px -100px;vertical-align:middle;cursor:pointer;}
 #registration .members-count ul .img {height:200px;}
-#registration .members-count ul .img .valign {display:inline-block;height:200px;width:1px;vertical-align:bottom;}
+#registration .members-count ul .img .valign {display:inline-block;*zoom:1;*display:inline;height:200px;width:1px;vertical-align:bottom;}
 #registration .members-count ul .img img {vertical-align:bottom;}
-#registration .members-count ul .age-title {display:inline-block;padding:0 10px;background:#ffffd9;font-family:tahoma, arial, sans-serif;color:#2296b0;line-height:20px;margin:5px 0 15px;}
+#registration .members-count ul .age-title {display:inline-block;*zoom:1;*display:inline;padding:0 10px;background:#ffffd9;font-family:tahoma, arial, sans-serif;color:#2296b0;line-height:20px;margin:5px 0 15px;}
 #registration .members-count ul .age-title b {font-size:11px;}
 
 #registration.finish .registration-t {background:url(../images/bg_registration_finish_t.png) no-repeat;}

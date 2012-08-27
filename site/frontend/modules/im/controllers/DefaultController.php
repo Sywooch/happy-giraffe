@@ -35,14 +35,15 @@ class DefaultController extends HController
         echo $this->renderPartial('contacts', compact('contacts'));
     }
 
-    public function actionTest()
+    public function actionDialog($interlocutor_id)
     {
-        $contacts = Im::getContacts(Yii::app()->user->id, Im::IM_CONTACTS_FRIENDS);
-        foreach ($contacts as $c)
-            echo $c->id . '<br />';
+        $contact = Im::getDialogWith(Yii::app()->user->id, $interlocutor_id);
+        $this->renderPartial('_dialog', compact('contact'));
+    }
 
-        Yii::app()->end();
-        $user = User::getUserById(10023);
+    public function actionChangeStatus($id)
+    {
+        $user = User::getUserById($id);
         $user->online = ! $user->online;
         $user->save(false, array('online'));
     }

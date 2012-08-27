@@ -15,6 +15,9 @@ class DefaultController extends HController
         ));
     }
 
+    /**
+     * @sitemap dataSource=getDiseasesUrls
+     */
     public function actionView($id)
     {
         $model = $this->loadModel($id);
@@ -55,5 +58,24 @@ class DefaultController extends HController
     {
         $model = RecipeBookDiseaseCategory::model()->findByAttributes(array('slug' => $id));
         return $model;
+    }
+
+    public function getDiseasesUrls()
+    {
+        $models = Yii::app()->db->createCommand()
+            ->select('id')
+            ->from('recipe_book__diseases')
+            ->queryAll();
+        foreach ($models as $model)
+        {
+            $data[] = array(
+                'params' => array(
+                    'id' => $model['id'],
+                ),
+                'priority' => 0.5,
+            );
+        }
+        return $data;
+
     }
 }

@@ -89,6 +89,8 @@ body.body-club {background:#f6f6f6;}
 #footer .copy {padding-left:20px;color:#9e9d9e;}
 #footer .a-right {color:#0498b8;padding-right:20px;}
 
+#body-overlay {position:fixed;height:100%;width:100%;top:0;left:0;z-index:98;background:url(/images/bg_black_alpha_40.png);}
+
 .clear { width: 99%; clear: both;}
 
 .nopadding {padding:0 !important;}
@@ -1284,7 +1286,7 @@ body.nav-fixed #header-new .top-line {position:fixed;left:50%;margin-left:-500px
 
 #user-dialogs .header {height:30px;padding:30px 0;text-align:center;position:relative;border:1px solid #d7e9ff;}
 
-#user-dialogs .header .close {color:#fa753b;font-size:11px;position:absolute;right:10px;top:10px;}
+#user-dialogs .header .close {color:#fa753b;font-size:11px;position:absolute;right:20px;top:5px;}
 
 #user-dialogs .header .title {font-size:30px;line-height:1;color:#3b3b3b;display:inline-block;*zoom:1;*display:inline;margin-right:20px;vertical-align:middle;}
 #user-dialogs .header .title span {}
@@ -2722,9 +2724,10 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 
 body.gallery {overflow:hidden;}
 
-#photo-window-bg {position:fixed;height:100%;width:100%;top:0;left:0;z-index:98;background:url(/images/bg_black_alpha_40.png);}
+
 #photo-window  {max-height:100%;position:absolute;width:100%;z-index:99;top:0;left:0;overflow:auto;min-width:1000px;color:#dcdcdc;}
 #photo-window-in {background:#fff;width:1000px;margin:30px auto;position:relative;}
+#photo-window-bg {position:fixed;height:100%;width:100%;top:0;left:0;z-index:98;background:url(/images/bg_black_alpha_40.png);}
 
 #photo-window .top-line {background:#2a2a2a;position:relative;padding:15px 20px 5px;}
 

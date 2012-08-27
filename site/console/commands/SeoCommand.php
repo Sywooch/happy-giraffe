@@ -274,8 +274,42 @@ class SeoCommand extends CConsoleCommand
             }
 
             $i++;
-            echo $i."\n";
+            echo $i . "\n";
         }
+    }
+
+    public function actionProxyMongo()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->limit = 1000;
+        $i = 0;
+        $proxies = array(1);
+        while (!empty($proxies)) {
+            $criteria->offset = 1000 * $i;
+
+            $proxies = Proxy::model()->findAll($criteria);
+            foreach ($proxies as $proxy) {
+                $mongo_proxy = new ProxyMongo;
+                $mongo_proxy->value = $proxy->value;
+                $mongo_proxy->rank = $proxy->rank;
+                $mongo_proxy->created = strtotime($proxy->created);
+                $mongo_proxy->save();
+            }
+
+            $i++;
+        }
+    }
+
+    public function actionProxyMongoCheck()
+    {
+        $start_time = microtime(true);
+        $criteria = new EMongoCriteria;
+        $criteria->active('==', 0);
+        $criteria->sort('rank', EMongoCriteria::SORT_DESC);
+        $criteria->sort('created', EMongoCriteria::SORT_DESC);
+        ProxyMongo::model()->find($criteria);
+
+        echo 1000*(microtime(true) - $start_time);
     }
 }
 

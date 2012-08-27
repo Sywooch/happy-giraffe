@@ -1029,8 +1029,13 @@ class User extends HActiveRecord
 
         $comet = new CometModel;
         $comet->type = CometModel::TYPE_ONLINE_STATUS_CHANGE;
-        foreach ($users as $u)
-            $comet->send($u->id, array('online' => $this->online, 'user_id' => $this->id));
+        foreach ($users as $k => $u) {
+            $comet->send($u->id, array(
+                'online' => $this->online,
+                'user_id' => $this->id,
+                'is_friend' => isset($friends[$k]),
+            ));
+        }
     }
 
     public static function getWorkersIds()

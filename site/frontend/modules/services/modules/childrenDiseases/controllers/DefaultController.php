@@ -70,7 +70,7 @@ class DefaultController extends HController
         {
             $data[] = array(
                 'params' => array(
-                    'slug' => $model['id'],
+                    'id' => $model['id'],
                 ),
                 'priority' => 0.5,
             );

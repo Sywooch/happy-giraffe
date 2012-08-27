@@ -7,6 +7,10 @@
 <br>
 <?php foreach ($posts as $post): ?>
 <div>
-    <?=CHtml::link($post->title, $post->url, array('target'=>'_blank')) ?>
+    <?=CHtml::link($post->title, $post->url, array(
+    'target' => '_blank',
+    'data-entity_id' => $post->id,
+    'data-entity' => get_class($post)
+)) ?>
 </div>
 <?php endforeach; ?>

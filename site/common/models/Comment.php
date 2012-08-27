@@ -182,9 +182,15 @@ class Comment extends HActiveRecord
 
             UserAction::model()->add($this->author_id, UserAction::USER_ACTION_COMMENT_ADDED, array('model' => $this));
 
-            if (Yii::app()->user->checkAccess('commentator_panel')){
+            //send signals to commentator panel
+            if (Yii::app()->user->checkAccess('commentator_panel')) {
                 $comet = new CometModel;
-                $comet->send(Yii::app()->user->id, array('update_part'=>CometModel::UPDATE_COMMENTS), CometModel::TYPE_COMMENTATOR_UPDATE);
+                $comet->send(Yii::app()->user->id, array(
+                    'update_part' => CometModel::UPDATE_COMMENTS,
+                    'link' => $this->getLink(),
+                    'entity_id' => $this->entity_id,
+                    'entity' => $this->entity
+                ), CometModel::TYPE_COMMENTATOR_UPDATE);
             }
         }
         parent::afterSave();

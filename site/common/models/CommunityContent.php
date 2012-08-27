@@ -313,38 +313,54 @@ class CommunityContent extends HActiveRecord
 
         if (get_class(Yii::app()) == 'CConsoleApplication')
             return parent::afterSave();
-        if ($this->contentAuthor->isNewComer() && $this->isNewRecord) {
-            $signal = new UserSignal();
-            $signal->user_id = (int)$this->author_id;
-            $signal->item_id = (int)$this->id;
-            $signal->item_name = 'CommunityContent';
 
-            if ($this->isFromBlog)
-                $signal->signal_type = UserSignal::TYPE_NEW_BLOG_POST;
-            else {
-                if ($this->type->slug == 'video')
-                    $signal->signal_type = UserSignal::TYPE_NEW_USER_VIDEO;
-                else
-                    $signal->signal_type = UserSignal::TYPE_NEW_USER_POST;
-            }
-
-            if (!$signal->save()) {
-                Yii::log('NewComers signal not saved', 'warning', 'application');
-            }
-        }
-        if ($this->isNewRecord && $this->rubric_id !== null) {
-            if ($this->isFromBlog && count($this->contentAuthor->blogPosts) == 1) {
-                UserScores::addScores($this->author_id, ScoreAction::ACTION_FIRST_BLOG_RECORD, 1, $this);
-            } else
-                UserScores::addScores($this->author_id, ScoreAction::ACTION_RECORD, 1, $this);
-        }
         if ($this->isNewRecord) {
+            if ($this->contentAuthor->isNewComer()) {
+                $signal = new UserSignal();
+                $signal->user_id = (int)$this->author_id;
+                $signal->item_id = (int)$this->id;
+                $signal->item_name = 'CommunityContent';
+
+                if ($this->isFromBlog)
+                    $signal->signal_type = UserSignal::TYPE_NEW_BLOG_POST;
+                else {
+                    if ($this->type->slug == 'video')
+                        $signal->signal_type = UserSignal::TYPE_NEW_USER_VIDEO;
+                    else
+                        $signal->signal_type = UserSignal::TYPE_NEW_USER_POST;
+                }
+
+                if (!$signal->save()) {
+                    Yii::log('NewComers signal not saved', 'warning', 'application');
+                }
+            }
+
+            if ($this->rubric_id !== null) {
+                if ($this->isFromBlog && count($this->contentAuthor->blogPosts) == 1) {
+                    UserScores::addScores($this->author_id, ScoreAction::ACTION_FIRST_BLOG_RECORD, 1, $this);
+                } else
+                    UserScores::addScores($this->author_id, ScoreAction::ACTION_RECORD, 1, $this);
+            }
             if ($this->isFromBlog) {
                 UserAction::model()->add($this->author_id, UserAction::USER_ACTION_BLOG_CONTENT_ADDED, array('model' => $this));
             } else {
                 UserAction::model()->add($this->author_id, UserAction::USER_ACTION_COMMUNITY_CONTENT_ADDED, array('model' => $this));
             }
+
+            //send signals to commentator panel
+            if (Yii::app()->user->checkAccess('commentator_panel')) {
+                $comet = new CometModel;
+                if ($this->isFromBlog)
+                    $comet->send(Yii::app()->user->id, array(
+                        'update_part' => CometModel::UPDATE_BLOG,
+                    ), CometModel::TYPE_COMMENTATOR_UPDATE);
+                else
+                    $comet->send(Yii::app()->user->id, array(
+                        'update_part' => CometModel::UPDATE_CLUB,
+                    ), CometModel::TYPE_COMMENTATOR_UPDATE);
+            }
         }
+
         parent::afterSave();
     }
 
@@ -555,9 +571,9 @@ class CommunityContent extends HActiveRecord
             case 2:
 //                $value = Yii::app()->cache->get('video-preview-' . CHtml::encode($this->video->link));
 //                if ($value === false) {
-                    $video = new Video($this->video->link);
+                $video = new Video($this->video->link);
 
-                    $value = '<img src="' . $video->preview . '" alt="' . $video->title . '" />';
+                $value = '<img src="' . $video->preview . '" alt="' . $video->title . '" />';
 //                    Yii::app()->cache->set('video-preview-' . CHtml::encode($this->video->link) . 3600, $value);
 //                }
                 return $value;

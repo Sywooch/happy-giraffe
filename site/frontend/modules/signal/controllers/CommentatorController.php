@@ -29,6 +29,10 @@ class CommentatorController extends HController
 
     public function actionIndex()
     {
+        Yii::import('site.seo.components.*');
+        //echo $this->blogVisits();
+        $metrika = new YandexMetrica();
+        $metrika->searchesCount();
 
         $this->render('index');
     }
@@ -125,7 +129,12 @@ class CommentatorController extends HController
                 ),
                 'rubric' => array(
                     'select'=>'id',
-                    'condition' => 'user_id IS NULL'
+                    'condition' => 'user_id IS NULL',
+                    'with' => array(
+                        'community' => array(
+                            'select' => 'id',
+                        )
+                    ),
                 ),
             ),
             'limit' => 10,
@@ -133,5 +142,54 @@ class CommentatorController extends HController
         $posts = CommunityContent::model()->findAll($criteria);
 
         $this->renderPartial('_posts', compact('posts'));
+    }
+
+    public function FriendsCount()
+    {
+        //SELECT count(id) FROM `friend_requests` WHERE status="accepted" and `updated` > "2012-08-01 13:44:35"
+    }
+
+    public function getMessagesCount()
+    {
+        $dialogs = Dialog::model()->findAll(array(
+            'with'=>array(
+                'dialogUsers'=>array(
+                    'condition'=>'dialogUsers.user_id = '.$this->user->id
+                ),
+                'messages'=>array(
+                    'condition'=>'messages.created >= "'.date("Y-m").'-01 00:00:00"'
+                ),
+                'together'=>true
+            )
+        ));
+
+        $res = 0;
+        foreach($dialogs as $dialog)
+            $res += count($dialog->messages);
+
+        return $res;
+    }
+
+    public function blogVisits()
+    {
+        //http://www.happy-giraffe.ru/user/83/blog/
+        Yii::import('site.frontend.extensions.GoogleAnalytics');
+        $ga = new GoogleAnalytics('alexk984@gmail.com', Yii::app()->params['gaPass']);
+        $ga->setProfile('ga:53688414');
+        $ga->setDateRange(date("Y-m"). '-01', date('Y-m-d'));
+        $report = $ga->getReport(array(
+            'metrics'=>urlencode('ga:visitors,ga:pageViews'),
+            'filters'=>urlencode('ga:pagePath=~' . '/user/83/blog/*'),
+        ));
+        var_dump($report);
+        $report = $ga->getReport(array(
+            'metrics'=>urlencode('ga:visitors,ga:uniquePageviews'),
+            'filters'=>urlencode('ga:pagePath=~' . '/user/83/*'),
+        ));
+        var_dump($report);
+        Yii::app()->end();
+        if(!$report || !isset($report['/user/83/blog/']))
+            return false;
+        $count = $report['/user/83/blog/']['ga:uniquePageviews'];
     }
 }

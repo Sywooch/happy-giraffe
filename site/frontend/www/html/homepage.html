@@ -9,6 +9,7 @@
 	
 	
 	<link rel="stylesheet" type="text/css" href="/stylesheets/common.css" />
+	<link rel="stylesheet" type="text/css" href="/stylesheets/ie.css" />
 	
 	
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
@@ -63,7 +64,7 @@
 	</script>
 	
 </head>
-<body class="body-club">
+<body class="body-club nav-fixed" style="overflow:hidden;">
 	
 	<div id="layout" class="wrapper">
 	
@@ -1002,7 +1003,7 @@
 	</div>
 	
 	
-	<div id="photo-window-bg" style="display:none;"></div>
+	<div id="photo-window-bg"></div>
 	
 	<div id="photo-window" style="display:none;">
 		
@@ -1265,7 +1266,8 @@
 			</div>
 			
 			<div class="search">
-				<input type="search" placeholder="Найти по имени" />
+				<input type="text" placeholder="Найти по имени" />
+				<a href="javascript:void(0);" class="icon-search icon-clear"></a>
 			</div>
 			
 			<a href="" class="close">Закрыть диалоги</a>

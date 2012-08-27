@@ -327,6 +327,7 @@ return array(
                             'application.controllers',
                             'application.modules.cook.controllers.RecipeController',
                             'application.modules.services.modules.recipeBook.controllers',
+                            'application.modules.services.modules.names.controllers',
                             'application.modules.calendar.controllers',
                             'application.modules.services.modules.pregnancyWeight.controllers',
                             'application.modules.services.modules.contractionsTime.controllers',

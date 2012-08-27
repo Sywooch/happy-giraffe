@@ -673,6 +673,13 @@ class User extends HActiveRecord
         ));
     }
 
+    public function getFriendsModels($condition = '', $params = array())
+    {
+        $criteria = $this->getFriendsCriteria($condition, $params);
+
+        return $this->findAll($criteria);
+    }
+
     public function getFriendsCriteria($condition = '', $params = array())
     {
         $criteria = $this->getFriendSelectCriteria();
@@ -1023,7 +1030,7 @@ class User extends HActiveRecord
         ));
 
         $contacts = Im::getContacts($this->id, Im::IM_CONTACTS_ALL, $additionalCriteria);
-        $friends = $this->getFriends($additionalCriteria)->data;
+        $friends = $this->getFriendsModels($additionalCriteria);
 
         $users = $contacts + $friends;
 

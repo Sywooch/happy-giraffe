@@ -325,7 +325,7 @@ class Im
     public static function getContactsCriteria($user_id, $type, $condition = '', $params = array())
     {
         $criteria = new CDbCriteria(array(
-            'select' => 'id, online, first_name, last_name, count(m.id) AS unreadMessagesCount',
+            'select' => 'id, online, first_name',
             'with' => array(
                 'avatar',
                 'userDialog' => array(
@@ -333,13 +333,14 @@ class Im
                     'on' => 'EXISTS (SELECT * FROM im__dialog_users du WHERE userDialog.dialog_id = du.dialog_id AND du.user_id = :user_id)',
                     'with' => array(
                         'dialog' => array(
+                            'select' => 'dialog.*, count(m.id) AS unreadMessagesCount',
                             'with' => array(
                                 'lastMessage' => array(
                                     'select' => false,
                                 ),
                             ),
                             'join' => 'LEFT OUTER JOIN im__messages m ON dialog.id = m.dialog_id AND m.read_status = 0 AND m.user_id != :user_id',
-                            'group' => 'm.id',
+                            'group' => 't.id',
                         ),
                     ),
                 ),
@@ -394,6 +395,31 @@ class Im
         $criteria = self::getContactsCriteria($user_id, $type, $condition, $params);
 
         return User::model()->count($criteria);
+    }
+
+    public static function getDialogWith($user_id, $interlocutor_id)
+    {
+        $criteria = new CDbCriteria(array(
+            'with' => array(
+                'userDialog' => array(
+                    'joinType' => 'INNER JOIN',
+                    'on' => 'EXISTS (SELECT * FROM im__dialog_users du WHERE userDialog.dialog_id = du.dialog_id AND du.user_id = :user_id)',
+                    'with' => array(
+                        'dialog' => array(
+                            'with' => array(
+                                'messages' => array(
+                                    'order' => 'messages.created DESC',
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+            'condition' => 't.id = :interlocutor_id',
+            'params' => array(':user_id' => $user_id, ':interlocutor_id' => $interlocutor_id),
+        ));
+
+        return User::model()->find($criteria);
     }
 }
 

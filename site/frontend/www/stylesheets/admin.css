@@ -15,7 +15,7 @@
 #admin-cook-measures  input[type=text] {height:18px; line-height:18px; padding:1px 5px; border:1px solid #c9eaf1; background:#fff; color:#514f4f; font-size:13px; font-family:arial, sans-serif; margin:13px 0; font-weight:normal; width:250px;}
 #admin-cook-measures  input[type=text].big {height:24px; line-height:24px; font-size:16px; padding:10px 5px; margin:0; width:500px;}
 #admin-cook-measures  input[type=text].short {width:80px;}
-#admin-cook-measures .col {padding-bottom:40px; width:44%; padding-right:5%; display:inline-block;vertical-align:top;}
+#admin-cook-measures .col {padding-bottom:40px; width:44%; padding-right:5%; display:inline-block;*zoom:1;*display:inline;vertical-align:top;}
 #admin-cook-measures .col > label {font-size:14px; font-weight:bold; color:#474747; display:block; margin-bottom:15px;}
 #admin-cook-measures .col > label span {color:#7f7c7c; font-size:12px; font-weight:normal;}
 #admin-cook-measures .col input[type=text] {margin:0;}
@@ -25,7 +25,7 @@
 #admin-cook-measures .checkbox label {margin-left:3px;}
 
 #admin-cook-measures .value-row {margin-bottom:10px;}
-#admin-cook-measures .value-row span {display:inline-block;width:100px;}
+#admin-cook-measures .value-row span {display:inline-block;*zoom:1;*display:inline;width:100px;}
 #admin-cook-measures .value-row input[type=text] {margin-right:5px;}
 
 #admin-cook-measures .row-btn {text-align:center;}

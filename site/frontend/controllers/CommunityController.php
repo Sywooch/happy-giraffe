@@ -186,7 +186,7 @@ class CommunityController extends HController
 
         if (
             $model->author_id != Yii::app()->user->id &&
-            ! Yii::app()->authManager->checkAccess('removeCommunityContent', Yii::app()->user->id, array('community_id' => $community_id)) &&
+            ! Yii::app()->authManager->checkAccess('editCommunityContent', Yii::app()->user->id, array('community_id' => $community_id)) &&
             ! Yii::app()->authManager->checkAccess('transfer post', Yii::app()->user->id)
         )
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');

@@ -32,10 +32,16 @@ $i = 0;
                 <span style="color:#b6b9ba;font:9px tahoma, arial, helvetica, sans-serif;"><?php echo  Yii::app()->dateFormatter->format("d MMMM yyyy, H:mm", $model->created); ?></span>
             </div>
 
+            <?php
+            $image_url = $model->getContentImage();
+            $image_size = getimagesize($image_url);
+            if ($image_size[0]>100){
+            ?>
             <div style="margin-bottom:5px;">
                 <a href="http://www.happy-giraffe.ru<?php echo ltrim($model->getUrl(), '.') ?>" target="_blank" style="text-decoration: none;">
-                    <img src="<?php echo $model->getContentImage() ?>" width="318" border="0" style="display:block;"></a>
+                    <img src="<?php echo $image_url ?>" width="318" border="0" style="display:block;"></a>
             </div>
+            <?php } ?>
 
             <div style="font:13px/18px arial, helvetica, sans-serif;color:#040404;">
                 <?php echo  $model->getContentText(450); ?>

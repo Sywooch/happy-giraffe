@@ -1,4 +1,4 @@
-<li>
+<li data-userid="<?=$contact->id?>">
 
     <span class="ava small"><?=$contact->getAva('small') ? CHtml::image($contact->getAva('small')):''?></span>
 

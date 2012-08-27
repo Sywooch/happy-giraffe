@@ -1023,7 +1023,7 @@ class User extends HActiveRecord
         ));
 
         $contacts = Im::getContacts($this->id, Im::IM_CONTACTS_ALL, $additionalCriteria);
-        $friends = $this->getFriends($additionalCriteria);
+        $friends = $this->getFriends($additionalCriteria)->data;
 
         $users = $contacts + $friends;
 

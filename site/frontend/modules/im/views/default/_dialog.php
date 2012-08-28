@@ -1,9 +1,19 @@
 <?php
-    if ($contact->userDialog)
-        $messages = $contact->userDialog->dialog->messages;
+    $messages = ($contact->userDialog) ? $contact->userDialog->dialog->messages : array();
 ?>
 
 <div class="dialog-header clearfix">
+
+    <?php
+        $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
+            'user' => $contact,
+            'nav' => true,
+            'sendButton' => false,
+        ));
+
+    ?>
+
+    <?php if (false): ?>
 
     <div class="user-info medium">
 
@@ -30,6 +40,8 @@
         </div>
 
     </div>
+
+    <?php endif; ?>
 
 </div>
 

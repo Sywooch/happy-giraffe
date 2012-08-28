@@ -14,7 +14,7 @@ class WantToChatWidget extends CWidget
         if ($this->onlyButton) {
             $this->render('_chatButton');
         } else {
-            $users = WantToChat::getList();
+            $users = WantToChat::getList(3);
             $this->render('WantToChatWidget', compact('users'));
         }
     }

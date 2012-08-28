@@ -26,7 +26,8 @@ class DefaultController extends HController
         $newCount = Im::getContactsCount(Yii::app()->user->id, Im::IM_CONTACTS_NEW);
         $onlineCount = Im::getContactsCount(Yii::app()->user->id, Im::IM_CONTACTS_ONLINE);
         $friendsCount = Im::getContactsCount(Yii::app()->user->id, Im::IM_CONTACTS_FRIENDS);
-        $this->renderPartial('index', compact('newCount', 'onlineCount', 'friendsCount'), false, true);
+        $wantToChat = WantToChat::getList(12);
+        $this->renderPartial('index', compact('newCount', 'onlineCount', 'friendsCount', 'wantToChat'), false, true);
     }
 
     public function actionContacts($type = Im::IM_CONTACTS_ALL)

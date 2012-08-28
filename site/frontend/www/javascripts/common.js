@@ -58,7 +58,7 @@ $(document).ready(function () {
         $('.user-fast-nav .drp-list > ul:visible').hide();
     });
 
-    $('.user-fast-nav .more').click(function(event){
+    $('body').on('click', '.user-fast-nav .more', function(event){
         event.stopPropagation();
     });
 

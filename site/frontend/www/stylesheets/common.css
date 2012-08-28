@@ -1348,7 +1348,7 @@ body.nav-fixed #header-new .top-line {position:fixed;left:50%;margin-left:-500px
 #user-dialogs .dialog .dialog-messages .empty {padding-bottom:140px;background:url(/images/dialogs_no_messages.gif) no-repeat bottom;text-align:center;font-size:22px;color:#999999;line-height:26px;position:absolute;left:0;top:50%;margin-top:-90px;width:100%;}
 
 #user-dialogs .dialog .dialog-input {padding:22px 50px;background:#edf5ff;height:56px;}
-#user-dialogs .dialog .dialog-input .wysiwyg {display:none;}
+#user-dialogs .dialog .dialog-input .wysiwyg {display:none;width:520px;float:left;}
 #user-dialogs .dialog .dialog-input .input {width:520px;float:left;display:block;}
 #user-dialogs .dialog .dialog-input .input textarea {height:32px;padding:7px 15px;border:1px solid #d6e5f8;width:488px;resize:none;}
 #user-dialogs .dialog .dialog-input .btn {width:110px;float:left;text-align:right;}

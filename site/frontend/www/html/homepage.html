@@ -40,23 +40,22 @@
 		function userDialogsCalc(){
 			
 			var box = $('#user-dialogs');
-			
+
 			var windowH = $(window).height();
 			var headerH = 90;
-			var textareaH = 150;
-			var wannachatH = 150;
+			var textareaH = box.find('.dialog-input').hasClass('wysiwyg-input') ? 150 : 100;
 			var userH = 110;
 			var marginH = 30;
-			
-			var hasWannachat = box.hasClass('has-wannachat') ? 1 : 0;
+
+			var wannaChatH = box.find('.wannachat').size() > 0 ? 150 : 0;
 			
 			var generalH = windowH - marginH*2 - headerH;
 			if (generalH < 400) generalH = 400;
-			
+
 			box.find('.contacts').height(generalH);
 			box.find('.dialog').height(generalH);
-			
-			box.find('.contacts .list').height(generalH - wannachatH*hasWannachat);
+
+			box.find('.contacts .list').height(generalH - wannaChatH);
 			box.find('.dialog .dialog-messages').height(generalH - textareaH - userH);
 						
 		}
@@ -1248,7 +1247,7 @@
 	</div>
 	
 	
-	<div id="user-dialogs" class="clearfix has-wannachat">
+	<div id="user-dialogs" class="clearfix">
 		
 		<div class="header">
 			
@@ -1710,6 +1709,8 @@
 			<div class="dialog-input clearfix wysiwyg-input">
 				
 				<div class="input"><textarea placeholder="Введите ваше сообщение"></textarea></div>
+				
+				<div class="wysiwyg"><textarea placeholder="Введите ваше сообщение"></textarea></div>
 				
 				<div class="btn"><button>Отправить сообщение</button></div>
 				

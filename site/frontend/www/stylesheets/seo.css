@@ -18,18 +18,18 @@ a:hover {text-decoration:none;}
 a.pseudo {text-decoration:none;border-bottom:1px dashed #2371dd;}
 
 
-.btn-green {display:inline-block;*zoom:1;*display:inline;text-decoration:none;height:41px;line-height:38px;border:1px solid #34ac51;background:url(/images/seo_sprite.png) repeat-x 0 -195px;color:#fff;font-weight:bold;padding:0 15px;font-size:25px;vertical-align:middle;cursor:pointer;white-space:nowrap;}
+.btn-green {display:inline-block;*zoom:1;*display:inline;text-decoration:none;height:41px;line-height:38px;border:1px solid #34ac51;background:url(/images/seo_sprite.png) repeat-x 0 -195px;color:#fff;font-weight:bold;padding:0 15px;font-size:25px;vertical-align:middle;cursor:pointer;white-space:nowrap;color:#fff !important;}
 button.btn-green {height:43px;}
 .btn-green {/*css3*/ -moz-border-radius:7px;-webkit-border-radius:7px;border-radius:7px;behavior: url(/stylesheets/PIE.htc);}
 
-.btn-green-small {display:inline-block;*zoom:1;*display:inline;text-decoration:none;height:18px;line-height:16px;border:1px solid #34ac51;background:url(/images/seo_sprite.png) repeat-x 0 -238px;color:#fff;font-weight:bold;padding:0 10px;font-size:11px;vertical-align:middle;cursor:pointer;white-space:nowrap;}
+.btn-green-small {display:inline-block;*zoom:1;*display:inline;text-decoration:none;height:18px;line-height:16px;border:1px solid #34ac51;background:url(/images/seo_sprite.png) repeat-x 0 -238px;color:#fff;font-weight:bold;padding:0 10px;font-size:11px;vertical-align:middle;cursor:pointer;white-space:nowrap;color:#fff !important;}
 button.btn-green-small {height:20px;}
 .btn-green-small {/*css3*/ -moz-border-radius:7px;-webkit-border-radius:7px;border-radius:7px;behavior: url(/stylesheets/PIE.htc);}
 
 .btn-green-27 {display:inline-block;*zoom:1;*display:inline;text-decoration:none;height:27px;line-height:27px;border:0;background:url(/images/seo_sprite.png) repeat-x 0 -365px;color:#fff !important;padding:0 10px;font-size:13px;vertical-align:middle;cursor:pointer;white-space:nowrap;}
 .btn-green-27 {/*css3*/ -moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;behavior: url(/stylesheets/PIE.htc);}
 
-.btn-gray-small {display:inline-block;*zoom:1;*display:inline;text-decoration:none;height:18px;line-height:16px;border:1px solid #d1d1d1;background:url(/images/seo_sprite.png) repeat-x 0 -258px;color:#fff;font-weight:bold;padding:0 10px;font-size:11px;vertical-align:middle;cursor:pointer;white-space:nowrap;}
+.btn-gray-small {display:inline-block;*zoom:1;*display:inline;text-decoration:none;height:18px;line-height:16px;border:1px solid #d1d1d1;background:url(/images/seo_sprite.png) repeat-x 0 -258px;color:#fff;font-weight:bold;padding:0 10px;font-size:11px;vertical-align:middle;cursor:pointer;white-space:nowrap;color:#fff !important;}
 button.btn-gray-small {height:20px;}
 .btn-gray-small {/*css3*/ -moz-border-radius:7px;-webkit-border-radius:7px;border-radius:7px;behavior: url(/stylesheets/PIE.htc);}
 .btn-gray-small:hover {background:url(/images/seo_sprite.png) repeat-x 0 -238px;border-color:#34ac51;}
@@ -135,7 +135,7 @@ button.btn-gray-small {height:20px;}
 #seo .default-nav ul li .count a {display:block;width:56px;height:56px;border:2px solid #ecdcfb;text-align:center;line-height:56px;margin:0;font-size:25px;text-decoration:underline;background:#fff;cursor:pointer;}
 #seo .default-nav ul li .count a {/*css3*/ border-radius:33px;behavior: url(/stylesheets/PIE.htc);}
 #seo .default-nav ul li .count a:hover {text-decoration:none;}
-#seo .default-nav .date {color:#b6b9ba;font:normal 9px tahoma, arial, helvetica, sans-serif;margin-right:10px;}
+#seo .default-nav .date {color:#b6b9ba;font:normal 11px tahoma, arial, helvetica, sans-serif;margin-right:10px;}
 
 
 #seo .search {padding-left:40px;color:#474748;margin-bottom:30px;}
@@ -372,18 +372,19 @@ button.btn-gray-small {height:20px;}
 #seo .indexation .text .red {color:#f2602c;}
 #seo .indexation .text p {padding:15px 0;}
 
-#seo .task-list {list-style:none;font-size:22px;}
+#seo .task-list {list-style:none;font-size:22px;color:#515151;}
+#seo .task-list a {color:#029AD2;}
 #seo .task-list > li {padding:15px 0;}
 #seo .task-list .table-task {width:100%;}
-#seo .task-list .table-task .col-1 {padding-left:20px;}
-#seo .task-list .table-task .col-2 {font-size:11px;width:100px;}
-#seo .task-list .table-task .col-3 {width:140px;text-align:center;}
-#seo .task-list .table-task .col-4 {font-size:13px;width:140px;text-align:center;}
+#seo .task-list .table-task .col-1 {padding-left:40px;}
+#seo .task-list .table-task .col-1 .pseudo {font-size:11px;margin-left:10px;}
+#seo .task-list .table-task .col-2 {width:140px;text-align:center;}
+#seo .task-list .table-task .col-3 {font-size:13px;width:140px;text-align:center;}
 #seo .task-list .table-task .place {display:inline-block;*zoom:1;*display:inline;height:17px;line-height:17px;padding:0 8px;-moz-border-radius:6px;-webkit-border-radius:6px;border-radius:6px;}
 #seo .task-list .table-task .place-1 {background:#f8cb30;color:#fff;}
 #seo .task-list .table-task .place-2 {background:#5488d0;color:#fff;}
 #seo .task-list .table-task .place-3 {background:#6bc545;color:#fff;}
-#seo .task-list .table-task .col-5 {font-size:11px;width:180px;}
+#seo .task-list .table-task .col-4 {font-size:11px;width:180px;}
 #seo .task-list .table-box {margin-top:15px;}
 
 #seo td.task-done {background:#eefde7 !important;}
@@ -392,9 +393,15 @@ button.btn-gray-small {height:20px;}
 
 #seo .seo-table .table-box tr:hover td {background:#f2f8fe;}
 
-#seo .task-list .task {font-size:13px;}
-#seo .task-list .task .item-title {font-size:22px;}
+#seo .task-list .task {font-size:13px;line-height:normal;padding-left:40px;}
+#seo .task-list .task .item-title {font-size:22px;margin-right:10px;line-height:1;}
+#seo .task-list .task .progress {width:100px;border:1px solid #47a3dd;height:21px;display:inline-block;*zoom:1;*display:inline;position:relative;top:5px;-moz-border-radius:6px;-webkit-border-radius:6px;border-radius:6px;overflow:hidden;margin-left:10px;}
+#seo .task-list .task .progress span {display:block;height:21px;background:#a7dafe;}
 #seo .task-list .task .done {display:inline-block;*zoom:1;*display:inline;color:#3fb550;font-size:13px;margin-left:5px;}
 #seo .task-list .task .done .icon {display:inline-block;*zoom:1;*display:inline;width:11px;height:8px;background:url(/images/first_steps_done.png) no-repeat;margin-right:5px;}
 #seo .task-list .task .date {display:inline-block;*zoom:1;*display:inline;color:#b6b9ba;font:normal 9px tahoma, arial, helvetica, sans-serif;margin-left:5px;}
-#seo .task-list .task ul {list-style:none;padding:15px 25px;}
+#seo .task-list .task ul {list-style:none;padding:10px 25px;}
+#seo .task-list .task ul li {padding:5px 0;}
+#seo .task-list .task .next {color:#ff5e26;font-size:22px;margin-right:17px;}
+#seo .task-list .task .btn-green-small {margin-left:10px;}
+#seo .task-list .task .skip {margin-left:10px;color:#8a898b;font-size:11px;}

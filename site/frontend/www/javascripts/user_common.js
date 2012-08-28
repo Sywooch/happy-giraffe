@@ -120,12 +120,11 @@ function setMessagesHeight(){
 
     var windowH = $(window).height();
     var headerH = 90;
-    var textareaH = 100;
-    var wannachatH = 150;
+    var textareaH = box.find('.dialog-input').hasClass('wysiwyg-input') ? 150 : 100;
     var userH = 110;
     var marginH = 30;
 
-    var hasWannachat = box.hasClass('has-wannachat') ? 1 : 0;
+    var wannaChatH = box.find('.wannachat').size() > 0 ? 150 : 0;
 
     var generalH = windowH - marginH*2 - headerH;
     if (generalH < 400) generalH = 400;
@@ -133,7 +132,7 @@ function setMessagesHeight(){
     box.find('.contacts').height(generalH);
     box.find('.dialog').height(generalH);
 
-    box.find('.contacts .list').height(generalH - wannachatH*hasWannachat);
+    box.find('.contacts .list').height(generalH - wannaChatH);
     box.find('.dialog .dialog-messages').height(generalH - textareaH - userH);
 
 }

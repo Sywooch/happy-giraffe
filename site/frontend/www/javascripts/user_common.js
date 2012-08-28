@@ -142,9 +142,8 @@ function openMessages()
 {
     $.get('/im/', function(data) {
         $('body').append(data);
-        setMessagesHeight();
         $('body').css('overflow', 'hidden');
-        $('#body-overlay').show();
+        $('body').append('<div id="body-overlay"></div>');
         $('body').addClass('nav-fixed');
         $(window).on('resize', function() {
             setMessagesHeight();
@@ -155,4 +154,12 @@ function openMessages()
 function closeMessages()
 {
     $('#user-dialogs').remove();
+    $('body').css('overflow', '');
+    $('#body-overlay').remove();
+    $('body').removeClass('nav-fixed');
+}
+
+function toggleMessages()
+{
+    ($('#user-dialogs').length > 0) ? closeMessages() : openMessages();
 }

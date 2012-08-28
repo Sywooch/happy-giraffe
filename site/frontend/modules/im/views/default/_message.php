@@ -7,14 +7,7 @@
         <div class="meta">
 
             <?=CHtml::link($message->user->first_name, $message->user->url, array('class' => 'username'))?>
-            <span class="date"><?=Yii::app()->dateFormatter->format("d MMMM yyyy, H:mm", $message->created); ?></span>
-            <?php if ($message->user_id == Yii::app()->user->id): ?>
-                <?php if ($message->read_status == 0): ?>
-                    <span class="message-label label-unread">Сообщение не прочитано</span>
-                <?php elseif ($message->id == $lastRead): ?>
-                    <span class="message-label label-read">Сообщение прочитано</span>
-                <?php endif; ?>
-            <?php endif; ?>
+            <span class="date"><?=HDate::GetFormattedTime($message->created)?></span>
 
         </div>
 

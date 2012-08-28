@@ -75,9 +75,15 @@
 
         <div class="dialog-input clearfix">
 
-            <div class="input"><textarea placeholder="Введите ваше сообщение"></textarea></div>
+            <?=CHtml::beginForm('/im/message/', 'post', array(
+                'onsubmit' => 'Messages.sendMessage(this); return false;',
+            ))?>
 
-            <div class="btn"><button>Отправить сообщение</button></div>
+                <div class="input"><textarea name="text" placeholder="Введите ваше сообщение"></textarea></div>
+
+                <div class="btn"><button>Отправить сообщение</button></div>
+
+            <?=CHtml::endForm()?>
 
         </div>
 

@@ -37,9 +37,70 @@ class DefaultController extends HController
 
     public function actionDialog($interlocutor_id)
     {
-        $contact = Im::getDialogWith(Yii::app()->user->id, $interlocutor_id);
-        $this->renderPartial('_dialog', compact('contact', 'interlocutor_id'));
+        $contact = Im::getContact(Yii::app()->user->id, $interlocutor_id);
+        $html = $this->renderPartial('_dialog', compact('contact', 'interlocutor_id'), true);
+        $response = array(
+            'html' => $html,
+            'dialogid' => $contact->userDialog ? $contact->userDialog->dialog->id : 'undefined',
+        );
+
+        echo CJSON::encode($response);
     }
+
+    /**
+     * @todo заменить на withrelated
+     */
+    public function actionMessage()
+    {
+        $interlocutor_id = Yii::app()->request->getPost('interlocutor_id');
+        $text = Yii::app()->request->getPost('text');
+
+        $dialog_id = Im::getDialogId(Yii::app()->user->id, $interlocutor_id);
+        if ($dialog_id === false) {
+            $dialog = new Dialog;
+            $dialog->save();
+            $ud1 = new DialogUser;
+            $ud1->dialog_id = $dialog->id;
+            $ud1->user_id = Yii::app()->user->id;
+            $ud2 = new DialogUser;
+            $ud2->dialog_id = $dialog->id;
+            $ud2->user_id = $interlocutor_id;
+            $ud1->save();
+            $ud2->save();
+        } else {
+            $dialog = Dialog::model()->findByPk($dialog_id);
+        }
+
+        $message = new Message;
+        $message->dialog_id = $dialog->id;
+        $message->user_id = Yii::app()->user->id;
+        $message->text = $text;
+        if ($message->save()) {
+            $message->created = date("Y-m-d H:i:s");
+            $html = $this->renderPartial('_message',compact('message'), true);
+
+            $comet = new CometModel;
+            $comet->type = CometModel::TYPE_NEW_MESSAGE;
+            $comet->attributes = array(
+                'html' => $html,
+                'from' => Yii::app()->user->id,
+            );
+            $comet->send($interlocutor_id);
+
+            $response = array(
+                'status' => true,
+                'html' => $html,
+            );
+        } else {
+            $response = array(
+                'status' => false,
+            );
+        }
+
+        echo CJSON::encode($response);
+    }
+
+    // test
 
     public function actionChangeStatus($id)
     {

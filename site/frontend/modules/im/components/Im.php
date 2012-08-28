@@ -398,7 +398,7 @@ class Im
         return count($contacts);
     }
 
-    public static function getDialogWith($user_id, $interlocutor_id)
+    public static function getContact($user_id, $interlocutor_id)
     {
         $criteria = new CDbCriteria(array(
             'with' => array(
@@ -408,7 +408,13 @@ class Im
                         'dialog' => array(
                             'with' => array(
                                 'messages' => array(
-                                    'order' => 'messages.created DESC',
+                                    'with' => array(
+                                        'user' => array(
+                                            'select' => 'id, first_name, last_name',
+                                            'with' => 'avatar',
+                                        ),
+                                    ),
+                                    'order' => 'messages.created ASC',
                                 ),
                             ),
                         ),
@@ -420,6 +426,18 @@ class Im
         ));
 
         return User::model()->find($criteria);
+    }
+
+    public static function getDialogId($user_id, $interlocutor_id)
+    {
+        $sql = "SELECT dialog_id
+                FROM im__dialog_users du1
+                WHERE du1.user_id = :user_id AND EXISTS(SELECT * FROM im__dialog_users du2 WHERE du1.dialog_id = du2.dialog_id AND du2.user_id = :interlocutor_id)";
+
+        $command = Yii::app()->db->createCommand($sql);
+        $command->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        $command->bindValue(':interlocutor_id', $interlocutor_id, PDO::PARAM_INT);
+        return $command->queryScalar();
     }
 }
 

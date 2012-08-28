@@ -1,13 +1,6 @@
 <?php
-    if ($contact->userDialog) {
-        $lastRead = null;
+    if ($contact->userDialog)
         $messages = $contact->userDialog->dialog->messages;
-        for ($i = (count($messages) - 1); $i >= 0; $i--) {
-            $message = $messages[$i];
-            if ($message->user_id == Yii::app()->user->id && $message->read_status == 1)
-                $lastRead = $message_id;
-        }
-    }
 ?>
 
 <div class="dialog-header clearfix">
@@ -46,11 +39,9 @@
 
         <ul>
 
-            <?php for ($i = 0; $i < 5; $i++): ?>
             <?php foreach ($messages as $message): ?>
-            <?php $this->renderPartial('_message', compact('message', 'lastRead')); ?>
+                <?php $this->renderPartial('_message', compact('message', 'lastRead')); ?>
             <?php endforeach; ?>
-            <?php endfor; ?>
 
         </ul>
 

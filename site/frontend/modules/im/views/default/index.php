@@ -78,19 +78,19 @@
                 'onsubmit' => 'Messages.sendMessage(this); return false;',
             ))?>
 
-
-                <?php
-                    $this->widget('ext.ckeditor.CKEditorWidget', array(
-                        'model' => $message,
-                        'attribute' => 'text',
-                        'config' => array(
-                            'toolbar' => 'Chat',
-                            'width' => 520,
-                            'height' => 56,
-                            'resize_enabled' => false,
-                        ),
-                    ));
-                ?>
+                <div class="input"><textarea name="text" placeholder="Введите ваше сообщение" onfocus="$('.dialog-input').addClass('wysiwyg-input');"></textarea></div>
+                <div class="wysiwyg">
+                    <?php
+                        $this->widget('ext.ckeditor.CKEditorWidget', array(
+                            'model' => $message,
+                            'attribute' => 'text',
+                            'config' => array(
+                                'toolbar' => 'Chat',
+                                'resize_enabled' => false,
+                            ),
+                        ));
+                    ?>
+                </div>
 
                 <div class="btn"><button>Отправить сообщение</button></div>
 

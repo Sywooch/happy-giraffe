@@ -156,6 +156,9 @@ function closeMessages()
     $('body').css('overflow', '');
     $('#body-overlay').remove();
     $('body').removeClass('nav-fixed');
+    if (CKEDITOR.instances['Message[text]']) {
+        CKEDITOR.instances['Message[text]'].destroy(true);
+    }
 }
 
 function toggleMessages()

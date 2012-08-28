@@ -1,5 +1,5 @@
 var Messages = {
-
+    editor: null
 }
 
 Messages.setList = function(type) {
@@ -24,12 +24,16 @@ Messages.setDialog = function(interlocutor_id) {
     }, 'json');
 }
 
-Messages.sendMessage = function(form) {
-    var values = $(form).serialize();
-    values += "&interlocutor_id=" + encodeURIComponent($('#user-dialogs-dialog').data('interlocutorid'));
-    $.post($(form).attr('action'), values, function(data) {
+Messages.sendMessage = function() {
+    var form = $('#user-dialogs-form');
+
+    $.post(form.attr('action'), {
+        interlocutor_id: $('#user-dialogs-dialog').data('interlocutorid'),
+        text: Messages.editor.getData()
+    }, function(data) {
         if (data.status == 1) {
-            form.reset();
+            Messages.editor.setData('');
+            Messages.editor.focus();
             $('.dialog-messages > ul').append(data.html);
             Messages.scrollDown();
         }
@@ -60,6 +64,20 @@ Messages.scrollDown = function() {
     $(".dialog-messages").prop('scrollTop', $(".dialog-messages").prop("scrollHeight"));
 }
 
+Messages.showInput = function() {
+    $('.dialog-input').addClass('wysiwyg-input');
+    setMessagesHeight();
+    Messages.editor = CKEDITOR.instances['Message[text]'];
+    Messages.editor.focus();
+    Messages.editor.focus();
+    Messages.editor.focus();
+    Messages.editor.on('key', function (e) {
+        if (e.data.keyCode == 1114125) {
+            Messages.sendMessage();
+        }
+    });
+}
+
 Comet.prototype.updateStatus = function (result, id) {
     var indicators = $('[data-userid=' + result.user_id +'] .icon-status');
     if (result.online == 1) {
@@ -74,7 +92,6 @@ Comet.prototype.updateStatus = function (result, id) {
             Messages.updateCounter('#user-dialogs-friendsCount', -1);
     }
 }
-comet.addEvent(3, 'updateStatus');
 
 Comet.prototype.receiveMessage = function (result, id) {
     if (result.from == $('#user-dialogs-dialog').data('interlocutorid')) {
@@ -82,11 +99,11 @@ Comet.prototype.receiveMessage = function (result, id) {
         Messages.scrollDown();
     }
 }
-comet.addEvent(1, 'receiveMessage');
+
+
 
 $(function() {
     Messages.setList(0);
-    $('.user-fast-nav .more').click(function(event){
-        event.stopPropagation();
-    });
+    comet.addEvent(3, 'updateStatus');
+    comet.addEvent(1, 'receiveMessage');
 });

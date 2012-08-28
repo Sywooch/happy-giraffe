@@ -121,7 +121,7 @@ function setMessagesHeight(){
     var windowH = $(window).height();
     var headerH = 90;
     var textareaH = 100;
-    var wannachatH = 140;
+    var wannachatH = 150;
     var userH = 110;
     var marginH = 30;
 

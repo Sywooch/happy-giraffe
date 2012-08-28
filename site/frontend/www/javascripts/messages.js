@@ -86,4 +86,7 @@ comet.addEvent(1, 'receiveMessage');
 
 $(function() {
     Messages.setList(0);
+    $('.user-fast-nav .more').click(function(event){
+        event.stopPropagation();
+    });
 });

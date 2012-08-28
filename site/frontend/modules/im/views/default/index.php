@@ -2,6 +2,8 @@
     $cs = Yii::app()->clientScript;
 
     $cs->registerScriptFile('/javascripts/messages.js');
+
+    $message = new Message;
 ?>
 
 <div id="user-dialogs" class="clearfix has-wannachat">
@@ -22,7 +24,8 @@
         </div>
 
         <div class="search">
-            <input type="search" placeholder="Найти по имени" id="user-dialogs-filter" щo />
+            <input type="text" placeholder="Найти по имени" onkeyup="Messages.filterList($(this).val()); $(this).next().toggleClass('icon-clear', $(this).val() != '');" />
+            <a href="javascript:void(0)" class="icon-search" onclick="$(this).prev().val(''); Messages.filterList('');"></a>
         </div>
 
         <a href="javascript:void(0)" class="close" onclick="closeMessages();">Закрыть диалоги</a>
@@ -41,29 +44,25 @@
 
         </div>
 
-        <div class="wannachat clearfix">
+        <?php if ($wantToChat): ?>
+            <div class="wannachat clearfix">
 
-            <div class="block-title">
-                <span>Хотят общаться</span>
+                <div class="block-title">
+                    <span>Хотят общаться</span>
+                </div>
+
+                <ul>
+                    <?php foreach ($wantToChat as $u): ?>
+                        <?php
+                            $class = 'ava small';
+                            if ($u->gender !== null) $class .= ' ' . (($u->gender) ? 'male' : 'female');
+                        ?>
+                        <li><?=CHtml::link(CHtml::image($u->getAva('small')), $u->url, array('class' => $class))?></li>
+                    <?php endforeach; ?>
+                </ul>
+
             </div>
-
-            <ul>
-                <li><a href="" class="ava small"></a></li>
-                <li><a href="" class="ava small"></a></li>
-                <li><a href="" class="ava small"></a></li>
-                <li><a href="" class="ava small"></a></li>
-                <li><a href="" class="ava small"></a></li>
-                <li><a href="" class="ava small"></a></li>
-                <li><a href="" class="ava small"></a></li>
-                <li><a href="" class="ava small"></a></li>
-                <li><a href="" class="ava small"></a></li>
-                <li><a href="" class="ava small"></a></li>
-                <li><a href="" class="ava small"></a></li>
-                <li><a href="" class="ava small"></a></li>
-
-            </ul>
-
-        </div>
+        <?php endif; ?>
 
     </div>
 
@@ -79,7 +78,19 @@
                 'onsubmit' => 'Messages.sendMessage(this); return false;',
             ))?>
 
-                <div class="input"><textarea name="text" placeholder="Введите ваше сообщение"></textarea></div>
+
+                <?php
+                    $this->widget('ext.ckeditor.CKEditorWidget', array(
+                        'model' => $message,
+                        'attribute' => 'text',
+                        'config' => array(
+                            'toolbar' => 'Chat',
+                            'width' => 520,
+                            'height' => 56,
+                            'resize_enabled' => false,
+                        ),
+                    ));
+                ?>
 
                 <div class="btn"><button>Отправить сообщение</button></div>
 

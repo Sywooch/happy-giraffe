@@ -75,17 +75,19 @@
         <div class="dialog-input clearfix">
 
             <?=CHtml::beginForm('/im/message/', 'post', array(
-                'onsubmit' => 'Messages.sendMessage(this); return false;',
+                'id' => 'user-dialogs-form',
+                'onsubmit' => 'Messages.sendMessage(); return false;',
             ))?>
 
-                <div class="input"><textarea placeholder="Введите ваше сообщение" onfocus="$('.dialog-input').addClass('wysiwyg-input'); setMessagesHeight(); CKEDITOR.instances[cke_instance].focus();"></textarea></div>
-                <div class="input wysiwyg">
+                <div class="input"><textarea placeholder="Введите ваше сообщение" onfocus="Messages.showInput()"></textarea></div>
+                <div class="wysiwyg">
                     <?php
+
                         $this->widget('ext.ckeditor.CKEditorWidget', array(
                             'model' => $message,
                             'attribute' => 'text',
                             'config' => array(
-                                'width' => 210,
+                                'width' => 400,
                                 'height' => 56,
                                 'toolbar' => 'Chat',
                                 'resize_enabled' => false,
@@ -104,6 +106,14 @@
 
 </div>
 
-<script type="text/javascript">
-    var cke_instance = '<?php echo get_class($message); ?>[text]';
-</script>
+<div style="display: none;">
+    <div class="upload-btn">
+        <?php
+        $fileAttach = $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
+            'model' => $message,
+        ));
+        $fileAttach->button();
+        $this->endWidget();
+        ?>
+    </div>
+</div>

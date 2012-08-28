@@ -54,6 +54,7 @@ class DefaultController extends HController
     public function actionMessage()
     {
         $interlocutor_id = Yii::app()->request->getPost('interlocutor_id');
+        $text = Yii::app()->request->getPost('text');
 
         $dialog_id = Im::getDialogId(Yii::app()->user->id, $interlocutor_id);
         if ($dialog_id === false) {
@@ -72,7 +73,7 @@ class DefaultController extends HController
         }
 
         $message = new Message;
-        $message->attributes = $_POST['Message'];
+        $message->text = $text;
         $message->dialog_id = $dialog->id;
         $message->user_id = Yii::app()->user->id;
         if ($message->save()) {

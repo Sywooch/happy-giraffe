@@ -1352,6 +1352,9 @@ body.nav-fixed #header-new .top-line {position:fixed;left:50%;margin-left:-500px
 #user-dialogs .dialog .dialog-input .input textarea {height:32px;padding:7px 15px;border:1px solid #d6e5f8;width:488px;resize:none;}
 #user-dialogs .dialog .dialog-input .btn {width:110px;float:left;text-align:right;}
 #user-dialogs .dialog .dialog-input .btn button {border:0;background:url(/images/btn_dialogs_send.png) no-repeat;width:85px;height:46px;text-indent:-9999px;cursor:pointer;}
+#user-dialogs .dialog .dialog-input.wysiwyg-input {padding:15px 50px;height:120px;}
+#user-dialogs .dialog .dialog-input.wysiwyg-input .btn {margin-top:31px;}
+
 
 #user-dialogs .no-messages {padding:45px;}
 #user-dialogs .no-messages .block-title {font-size:22px;color:#3e3e3e;line-height:1;margin-bottom:20px;}

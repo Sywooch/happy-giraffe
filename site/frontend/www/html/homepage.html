@@ -21,13 +21,27 @@
 	
 	<script type="text/javascript" src="/javascripts/jquery.jcarousel.js"></script>
 	
+	<script type="text/javascript" src="/ckeditor/ckeditor.js"></script>
+	
 	<script type="text/javascript" src="/javascripts/common.js"></script>
+	
+	
 	
 	<script>
 	
 		$(function(){
 			
 			userDialogsCalc(); // append
+			
+			CKEDITOR.replace( 'editor', {
+				skin : 'hgru',
+				toolbar : [				
+					['Bold','Italic','Underline','Strike','-','Image', 'Smiley']
+				],
+				toolbarCanCollapse: false,
+				resize_enabled: false
+			});
+			
 			
 		})
 		
@@ -1710,7 +1724,7 @@
 				
 				<div class="input"><textarea placeholder="Введите ваше сообщение"></textarea></div>
 				
-				<div class="wysiwyg"><textarea placeholder="Введите ваше сообщение"></textarea></div>
+				<div class="wysiwyg"><textarea  id="editor" name="editor" ></textarea></div>
 				
 				<div class="btn"><button>Отправить сообщение</button></div>
 				

@@ -392,9 +392,15 @@ button.btn-gray-small {height:20px;}
 
 #seo .seo-table .table-box tr:hover td {background:#f2f8fe;}
 
-#seo .task-list .task {font-size:13px;}
-#seo .task-list .task .item-title {font-size:22px;}
+#seo .task-list .task {font-size:13px;line-height:normal;}
+#seo .task-list .task .item-title {font-size:22px;margin-right:10px;line-height:1;}
+#seo .task-list .task .progress {width:100px;border:1px solid #47a3dd;height:21px;display:inline-block;*zoom:1;*display:inline;position:relative;top:5px;-moz-border-radius:6px;-webkit-border-radius:6px;border-radius:6px;overflow:hidden;margin-left:10px;}
+#seo .task-list .task .progress span {display:block;height:21px;background:#a7dafe;}
 #seo .task-list .task .done {display:inline-block;*zoom:1;*display:inline;color:#3fb550;font-size:13px;margin-left:5px;}
 #seo .task-list .task .done .icon {display:inline-block;*zoom:1;*display:inline;width:11px;height:8px;background:url(/images/first_steps_done.png) no-repeat;margin-right:5px;}
 #seo .task-list .task .date {display:inline-block;*zoom:1;*display:inline;color:#b6b9ba;font:normal 9px tahoma, arial, helvetica, sans-serif;margin-left:5px;}
-#seo .task-list .task ul {list-style:none;padding:15px 25px;}
+#seo .task-list .task ul {list-style:none;padding:10px 25px;}
+#seo .task-list .task ul li {padding:5px 0;}
+#seo .task-list .task .next {color:#ff5e26;font-size:22px;margin-right:17px;}
+#seo .task-list .task .btn-green-small {margin-left:10px;}
+#seo .task-list .task .skip {margin-left:10px;color:#8a898b;font-size:11px;}

@@ -6,7 +6,7 @@
     $message = new Message;
 ?>
 
-<div id="user-dialogs" class="clearfix has-wannachat">
+<div id="user-dialogs" class="clearfix">
 
     <div class="header">
 
@@ -78,13 +78,15 @@
                 'onsubmit' => 'Messages.sendMessage(this); return false;',
             ))?>
 
-                <div class="input"><textarea name="text" placeholder="Введите ваше сообщение" onfocus="$('.dialog-input').addClass('wysiwyg-input');"></textarea></div>
-                <div class="wysiwyg">
+                <div class="input"><textarea placeholder="Введите ваше сообщение" onfocus="$('.dialog-input').addClass('wysiwyg-input'); setMessagesHeight(); CKEDITOR.instances[cke_instance].focus();"></textarea></div>
+                <div class="input wysiwyg">
                     <?php
                         $this->widget('ext.ckeditor.CKEditorWidget', array(
                             'model' => $message,
                             'attribute' => 'text',
                             'config' => array(
+                                'width' => 210,
+                                'height' => 56,
                                 'toolbar' => 'Chat',
                                 'resize_enabled' => false,
                             ),
@@ -101,3 +103,7 @@
     </div>
 
 </div>
+
+<script type="text/javascript">
+    var cke_instance = '<?php echo get_class($message); ?>[text]';
+</script>

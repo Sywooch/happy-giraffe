@@ -26,6 +26,9 @@ button.btn-green {height:43px;}
 button.btn-green-small {height:20px;}
 .btn-green-small {/*css3*/ -moz-border-radius:7px;-webkit-border-radius:7px;border-radius:7px;behavior: url(/stylesheets/PIE.htc);}
 
+.btn-green-27 {display:inline-block;*zoom:1;*display:inline;text-decoration:none;height:27px;line-height:27px;border:0;background:url(/images/seo_sprite.png) repeat-x 0 -365px;color:#fff !important;padding:0 10px;font-size:13px;vertical-align:middle;cursor:pointer;white-space:nowrap;}
+.btn-green-27 {/*css3*/ -moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;behavior: url(/stylesheets/PIE.htc);}
+
 .btn-gray-small {display:inline-block;*zoom:1;*display:inline;text-decoration:none;height:18px;line-height:16px;border:1px solid #d1d1d1;background:url(/images/seo_sprite.png) repeat-x 0 -258px;color:#fff;font-weight:bold;padding:0 10px;font-size:11px;vertical-align:middle;cursor:pointer;white-space:nowrap;}
 button.btn-gray-small {height:20px;}
 .btn-gray-small {/*css3*/ -moz-border-radius:7px;-webkit-border-radius:7px;border-radius:7px;behavior: url(/stylesheets/PIE.htc);}
@@ -132,6 +135,8 @@ button.btn-gray-small {height:20px;}
 #seo .default-nav ul li .count a {display:block;width:56px;height:56px;border:2px solid #ecdcfb;text-align:center;line-height:56px;margin:0;font-size:25px;text-decoration:underline;background:#fff;cursor:pointer;}
 #seo .default-nav ul li .count a {/*css3*/ border-radius:33px;behavior: url(/stylesheets/PIE.htc);}
 #seo .default-nav ul li .count a:hover {text-decoration:none;}
+#seo .default-nav .date {color:#b6b9ba;font:normal 9px tahoma, arial, helvetica, sans-serif;margin-right:10px;}
+
 
 #seo .search {padding-left:40px;color:#474748;margin-bottom:30px;}
 #seo .search .input {width:430px;float:left;}
@@ -167,8 +172,10 @@ button.btn-gray-small {height:20px;}
 #seo .seo-table .fast-filter {text-align:center;margin-bottom:10px;color:#0784d3;font-size:13px;}
 #seo .seo-table .fast-filter span {color:#4f4f4f;}
 #seo .seo-table .fast-filter a {font-size:11px;font-family:tahoma, arial, helvetica, sans-serif;margin:0 5px;}
-#seo .seo-table .fast-filter a.active {background:#fefad2;text-decoration:none;padding:0 5px;}
+#seo .seo-table .fast-filter .active {background:#fffe93;text-decoration:none;padding:0 5px;}
 #seo .seo-table .fast-filter input[type=text] {border:1px solid #aecdf2;font-size:11px;line-height:13px;height:13px;padding:2px 5px;width:60px;font-family:tahoma, arial, helvetica, sans-serif;margin:0 5px;vertical-align:middle;}
+
+#seo .seo-table .fast-filter-community {font-size:11px;font-family:tahoma, arial, helvetica, sans-serif;color:#b3b1b1;}
 
 #seo .seo-table .table-nav {display:inline-block;*zoom:1;*display:inline;margin-bottom:20px;overflow:hidden;}
 #seo .seo-table .table-nav ul {}
@@ -195,7 +202,7 @@ button.btn-gray-small {height:20px;}
 #seo .seo-table .table-box table .col-1 {text-align:center;}
 #seo .seo-table .table-box table tbody .col-1 {font-weight:bold;}
 
-#seo .seo-table .table-box tr:hover td {background:#f2f8fe !important;}
+
 
 #seo .seo-table .table-box table .al {text-align:left;}
 #seo .seo-table .table-box table .ac {text-align:center;}
@@ -364,3 +371,30 @@ button.btn-gray-small {height:20px;}
 #seo .indexation .text span {color:#030303;font-weight:bold;margin-right:20px;}
 #seo .indexation .text .red {color:#f2602c;}
 #seo .indexation .text p {padding:15px 0;}
+
+#seo .task-list {list-style:none;font-size:22px;}
+#seo .task-list > li {padding:15px 0;}
+#seo .task-list .table-task {width:100%;}
+#seo .task-list .table-task .col-1 {padding-left:20px;}
+#seo .task-list .table-task .col-2 {font-size:11px;width:100px;}
+#seo .task-list .table-task .col-3 {width:140px;text-align:center;}
+#seo .task-list .table-task .col-4 {font-size:13px;width:140px;text-align:center;}
+#seo .task-list .table-task .place {display:inline-block;*zoom:1;*display:inline;height:17px;line-height:17px;padding:0 8px;-moz-border-radius:6px;-webkit-border-radius:6px;border-radius:6px;}
+#seo .task-list .table-task .place-1 {background:#f8cb30;color:#fff;}
+#seo .task-list .table-task .place-2 {background:#5488d0;color:#fff;}
+#seo .task-list .table-task .place-3 {background:#6bc545;color:#fff;}
+#seo .task-list .table-task .col-5 {font-size:11px;width:180px;}
+#seo .task-list .table-box {margin-top:15px;}
+
+#seo td.task-done {background:#eefde7 !important;}
+#seo td.task-not-done {background:#fef1ea !important;}
+#seo td.task-overdone {background:#b5ef9a !important;}
+
+#seo .seo-table .table-box tr:hover td {background:#f2f8fe;}
+
+#seo .task-list .task {font-size:13px;}
+#seo .task-list .task .item-title {font-size:22px;}
+#seo .task-list .task .done {display:inline-block;*zoom:1;*display:inline;color:#3fb550;font-size:13px;margin-left:5px;}
+#seo .task-list .task .done .icon {display:inline-block;*zoom:1;*display:inline;width:11px;height:8px;background:url(/images/first_steps_done.png) no-repeat;margin-right:5px;}
+#seo .task-list .task .date {display:inline-block;*zoom:1;*display:inline;color:#b6b9ba;font:normal 9px tahoma, arial, helvetica, sans-serif;margin-left:5px;}
+#seo .task-list .task ul {list-style:none;padding:15px 25px;}

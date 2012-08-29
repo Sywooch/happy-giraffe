@@ -117,14 +117,15 @@ Messages.setDialog = function(interlocutor_id) {
         $('#user-dialogs-contacts li[data-userid="' + interlocutor_id + '"]').addClass('active');
         $('#user-dialogs-contacts li[data-userid="' + interlocutor_id + '"]').data('unread', 0);
         Messages.updateNew($('#user-dialogs-contacts li[data-userid="' + interlocutor_id + '"]'));
-        Messages.setHeight();
-        Messages.scrollDown();
 
         if ($('.dialog-input').is(':hidden'))
             $('.dialog-input').show();
         if (interlocutor_id == 1) {
             $('.dialog-input').hide();
         }
+
+        Messages.setHeight();
+        Messages.scrollDown();
     }, 'json');
 }
 

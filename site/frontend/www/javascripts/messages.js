@@ -80,8 +80,10 @@ Messages.setList = function(type, showEmpty, interlocutor_id) {
             Messages.updateNew(this);
         });
 
+        //switch nav
         $('#user-dialogs-nav li.active span.count').show();
         $('#user-dialogs-nav li.active').removeClass('active');
+        $('#user-dialogs-nav li:eq(' + type + ') span.count').text($('#user-dialogs-contacts li').length);
         $('#user-dialogs-nav li:eq(' + type + ')').addClass('active');
         $('#user-dialogs-nav li.active span.count').hide();
 
@@ -152,16 +154,20 @@ Messages.sendMessage = function() {
         if ($('#user-dialogs-contacts li[data-userid="' + $('#user-dialogs-dialog').data('interlocutorid') + '"]').index() != 0)
             $('#user-dialogs-contacts li:first').before($('#user-dialogs-contacts li[data-userid="' + $('#user-dialogs-dialog').data('interlocutorid') + '"]'));
 
+        if (data.newDialog)
+            Messages.updateCounter('#user-dialogs-allCount', 1);
         setTimeout(function() {
             if (message.data('read') == 0) {
                 message.find('span.read_status').html('<span class="message-label label-unread">Сообщение не прочитано</span>');
             }
-        }, 2000)
+        }, 2000);
     }, 'json');
 }
 
-Messages.updateCounter = function(selector, diff) {
-    var newValue = parseInt($(selector).text()) + diff;
+Messages.updateCounter = function(selector, value, diff) {
+    diff = (typeof diff === "undefined") ? true : diff;
+
+    var newValue = (diff) ? parseInt($(selector).text()) + value : value;
     $(selector).text(newValue);
     if (newValue == 0) {
         $(selector).parents('li').addClass('disabled');
@@ -250,6 +256,10 @@ Comet.prototype.receiveMessage = function (result, id) {
         Messages.markAsRead();
         Messages.scrollDown();
     }
+
+    Messages.updateCounter('#user-dialogs-newCount', result.newCount);
+    if (result.newDialog)
+        Messages.updateCounter('#user-dialogs-allCount', 1);
 
     //update contact-list
     if ($('#user-dialogs-contacts li[data-userid="' + result.from + '"]').length != 0) {

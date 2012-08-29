@@ -74,6 +74,7 @@ class DefaultController extends HController
 
     /**
      * @todo заменить на withrelated
+     * @todo newCount при отправке комет-сообщения - костыль
      */
     public function actionMessage()
     {
@@ -92,8 +93,10 @@ class DefaultController extends HController
             $ud2->user_id = $interlocutor_id;
             $ud1->save();
             $ud2->save();
+            $newDialog = true;
         } else {
             $dialog = Dialog::model()->findByPk($dialog_id);
+            $newDialog = false;
         }
 
         $message = new Message;
@@ -112,6 +115,8 @@ class DefaultController extends HController
                 'html' => $html,
                 'contactHtml' => $contactHtml,
                 'from' => Yii::app()->user->id,
+                'newDialog' => $newDialog,
+                'newCount' => Im::getContactsCount($interlocutor_id, Im::IM_CONTACTS_NEW),
             );
             $comet->send($interlocutor_id);
 
@@ -119,6 +124,7 @@ class DefaultController extends HController
                 'status' => true,
                 'html' => $html,
                 'message_id' => $message->id,
+                'newDialog' => $newDialog,
             );
         } else {
             $response = array(

@@ -2,24 +2,89 @@ var Messages = {
     editor: null
 }
 
-Messages.setList = function(type) {
+Messages.open = function(interlocutor_id) {
+    interlocutor_id = (typeof interlocutor_id === "undefined") ? null : interlocutor_id;
+
+    $.get('/im/', function(data) {
+        $('body').append(data);
+        $('body').css('overflow', 'hidden');
+        $('body').append('<div id="body-overlay"></div>');
+        $('body').addClass('nav-fixed');
+        Messages.setList(0, interlocutor_id);
+        comet.addEvent(3, 'updateStatus');
+        comet.addEvent(1, 'receiveMessage');
+        $(window).on('resize', function() {
+            Messages.setHeight();
+        })
+    });
+}
+
+Messages.close = function() {
+    $('#user-dialogs').remove();
+    $('body').css('overflow', '');
+    $('#body-overlay').remove();
+    $('body').removeClass('nav-fixed');
+    if (CKEDITOR.instances['Message[text]']) {
+        CKEDITOR.instances['Message[text]'].destroy(true);
+    }
+    comet.delEvent(3, 'updateStatus');
+    comet.delEvent(1, 'receiveMessage');
+    $(window).off('resize', function() {
+        Messages.setHeight();
+    })
+}
+
+Messages.toggle = function() {
+    ($('#user-dialogs').length > 0) ? Messages.close() : Messages.open();
+}
+
+Messages.setHeight  = function() {
+    var box = $('#user-dialogs');
+
+    var windowH = $(window).height();
+    var headerH = 90;
+    var textareaH = box.find('.dialog-input').hasClass('wysiwyg-input') ? 150 : 100;
+    var userH = 110;
+    var marginH = 30;
+
+    var wannaChatH = box.find('.wannachat').size() > 0 ? 150 : 0;
+
+    var generalH = windowH - marginH*2 - headerH;
+    if (generalH < 400) generalH = 400;
+
+    box.find('.contacts').height(generalH);
+    box.find('.dialog').height(generalH);
+
+    box.find('.contacts .list').height(generalH - wannaChatH);
+    box.find('.dialog .dialog-messages').height(generalH - textareaH - userH);
+}
+
+Messages.setList = function(type, interlocutor_id) {
+    interlocutor_id = (typeof interlocutor_id === "undefined") ? null : interlocutor_id;
+
     $.get('/im/contacts/', {type: type}, function(data) {
         $('#user-dialogs-contacts').html(data);
         $('#user-dialogs-nav li.active').removeClass('active');
         $('#user-dialogs-nav li:eq(' + type + ')').addClass('active');
 
-        Messages.setDialog($('#user-dialogs-contacts > li:first').data('userid'));
+        var openDialog = (interlocutor_id === null) ? $('#user-dialogs-contacts > li:first').data('userid') : interlocutor_id;
+
+        Messages.setDialog(openDialog);
     });
 }
 
 Messages.setDialog = function(interlocutor_id) {
     $.get('/im/dialog/', {interlocutor_id: interlocutor_id}, function(data) {
+        if ($('#user-dialogs-contacts li[data-userid="' + interlocutor_id + '"]').length == 0) {
+            $('#user-dialogs-contacts').prepend(data.contactHtml);
+        }
+
         $('#user-dialogs-dialog').html(data.html);
         $('#user-dialogs-dialog').data('dialogid', data.dialogid);
         $('#user-dialogs-dialog').data('interlocutorid', interlocutor_id);
         $('#user-dialogs-contacts li.active').removeClass('active');
         $('#user-dialogs-contacts li[data-userid="' + interlocutor_id + '"]').addClass('active');
-        setMessagesHeight();
+        Messages.setHeight();
         Messages.scrollDown();
     }, 'json');
 }
@@ -35,6 +100,8 @@ Messages.sendMessage = function() {
             Messages.editor.setData('');
             Messages.editor.focus();
             $('.dialog-messages > ul').append(data.html);
+            if ($('.dialog-messages > .empty:visible').length > 0)
+                $('.dialog-messages > .empty').hide();
             Messages.scrollDown();
         }
     }, 'json');
@@ -100,10 +167,13 @@ Comet.prototype.receiveMessage = function (result, id) {
     }
 }
 
-
-
-$(function() {
-    Messages.setList(0);
-    comet.addEvent(3, 'updateStatus');
-    comet.addEvent(1, 'receiveMessage');
-});
+function removeA(arr){
+    var what, a= arguments, L= a.length, ax;
+    while(L> 1 && arr.length){
+        what= a[--L];
+        while((ax= arr.indexOf(what))!= -1){
+            arr.splice(ax, 1);
+        }
+    }
+    return arr;
+}

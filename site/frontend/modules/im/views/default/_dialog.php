@@ -47,9 +47,7 @@
 
 <div class="dialog-messages">
 
-    <?php if ($contact->userDialog !== null && ! empty($messages)): ?>
-
-        <ul>
+       <ul>
 
             <?php foreach ($messages as $message): ?>
                 <?php $this->renderPartial('_message', compact('message', 'lastRead')); ?>
@@ -57,7 +55,7 @@
 
         </ul>
 
-    <?php else: ?>
+    <?php if ($contact->userDialog === null || empty($messages)): ?>
 
         <div class="empty">
 

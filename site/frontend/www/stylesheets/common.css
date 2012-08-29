@@ -1321,9 +1321,9 @@ body.nav-fixed #header-new .top-line {position:fixed;left:50%;margin-left:-500px
 #user-dialogs .contacts .list ul li .in .new {display:inline-block;*zoom:1;*display:inline;height:13px;line-height:13px;font-size:10px;font-weight:bold;color:#fff;background:#75bb6e;padding:0 7px;-moz-border-radius:3px;-webkit-border-radius:3px;border-radius:3px;}
 #user-dialogs .contacts .list ul li * {position:relative;*position:static;}
 
-#user-dialogs .contacts .wannachat {border-top:1px solid #d7e9ff;padding:15px;height:109px;}
+#user-dialogs .contacts .wannachat {border-top:1px solid #d7e9ff;padding:15px;height:119px;}
 #user-dialogs .contacts .wannachat .block-title {font-size:20px;line-height:1;color:#3b3b3b;text-align:center;margin-bottom:15px;}
-#user-dialogs .contacts .wannachat ul {list-style:none;width:192px;margin:0 auto;}
+#user-dialogs .contacts .wannachat ul {list-style:none;width:192px;margin:5px auto;}
 #user-dialogs .contacts .wannachat ul li {float:left;padding:4px;}
 
 #user-dialogs .dialog {float:left;width:732px;border-left:1px solid #d7e9ff;border-right:1px solid #d7e9ff;height:560px;overflow:auto;}
@@ -1348,10 +1348,18 @@ body.nav-fixed #header-new .top-line {position:fixed;left:50%;margin-left:-500px
 #user-dialogs .dialog .dialog-messages .empty {padding-bottom:140px;background:url(/images/dialogs_no_messages.gif) no-repeat bottom;text-align:center;font-size:22px;color:#999999;line-height:26px;position:absolute;left:0;top:50%;margin-top:-90px;width:100%;}
 
 #user-dialogs .dialog .dialog-input {padding:22px 50px;background:#edf5ff;height:56px;}
-#user-dialogs .dialog .dialog-input .input {width:520px;float:left;}
-#user-dialogs .dialog .dialog-input .input textarea {height:32px;padding:7px 15px;border:1px solid #d6e5f8;width:488px;resize:none;}
+#user-dialogs .dialog .dialog-input .wysiwyg {display:none;width:500px;float:left;}
+#user-dialogs .dialog .dialog-input .wysiwyg textarea {width:500px;height:20px;}
+#user-dialogs .dialog .dialog-input .input {width:500px;float:left;display:block;}
+#user-dialogs .dialog .dialog-input .input textarea {height:32px;padding:7px 15px;border:1px solid #d6e5f8;width:468px;resize:none;}
 #user-dialogs .dialog .dialog-input .btn {width:110px;float:left;text-align:right;}
 #user-dialogs .dialog .dialog-input .btn button {border:0;background:url(/images/btn_dialogs_send.png) no-repeat;width:85px;height:46px;text-indent:-9999px;cursor:pointer;}
+#user-dialogs .dialog .dialog-input.wysiwyg-input {padding:15px 50px;height:120px;}
+#user-dialogs .dialog .dialog-input.wysiwyg-input .btn {margin-top:31px;}
+#user-dialogs .dialog .dialog-input.wysiwyg-input .input {display:none;}
+#user-dialogs .dialog .dialog-input.wysiwyg-input .wysiwyg {display:block;}
+
+
 
 #user-dialogs .no-messages {padding:45px;}
 #user-dialogs .no-messages .block-title {font-size:22px;color:#3e3e3e;line-height:1;margin-bottom:20px;}

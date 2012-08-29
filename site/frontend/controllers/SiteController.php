@@ -34,6 +34,7 @@ class SiteController extends HController
     public function actionSearch($text = false, $index = false)
     {
         $this->meta_title = 'Поиск по сайту Веселый Жираф';
+        if (!empty($text)){
         $index = $index ? $index : 'community';
         $pages = new CPagination();
         $pages->pageSize = 100000;
@@ -60,8 +61,9 @@ class SiteController extends HController
             'keyField' => 'id',
         ));
 
-        $viewData = compact('dataProvider', 'criteria', 'index', 'text', 'allCount', 'textCount', 'videoCount', 'travelCount');
-
+            $viewData = compact('dataProvider', 'criteria', 'index', 'text', 'allCount', 'textCount', 'videoCount', 'travelCount');
+        }else
+            $viewData = array('dataProvider'=>null, 'criteria'=>null, 'index'=>$index, 'text'=>'', 'allCount'=>0, 'textCount'=>0, 'videoCount'=>0, 'travelCount'=>0);
         $this->render('search', $viewData);
     }
 

@@ -1,5 +1,4 @@
 var Messages = {
-    active: false,
     editor: null,
     activeTab: null
 }
@@ -7,7 +6,7 @@ var Messages = {
 Messages.open = function(interlocutor_id) {
     interlocutor_id = (typeof interlocutor_id === "undefined") ? null : interlocutor_id;
 
-    if (! Messages.active) {
+    if (! Messages.isActive()) {
         $.get('/im/', function(data) {
             $('body').append(data.html);
             $('body').css('overflow', 'hidden');
@@ -20,7 +19,6 @@ Messages.open = function(interlocutor_id) {
             $(window).on('resize', function() {
                 Messages.setHeight();
             });
-            Messages.active = true;
         }, 'json');
     } else {
         Messages.setDialog(interlocutor_id);
@@ -41,11 +39,14 @@ Messages.close = function() {
     $(window).off('resize', function() {
         Messages.setHeight();
     });
-    Messages.active = false;
 }
 
 Messages.toggle = function() {
-    Messages.active ? Messages.close() : Messages.open();
+    Messages.isActive() ? Messages.close() : Messages.open();
+}
+
+Messages.active = function() {
+    return $('#user-dialogs').length != 0;
 }
 
 Messages.setHeight  = function() {

@@ -47,6 +47,10 @@ class DefaultController extends HController
             'dialogid' => $contact->userDialog ? $contact->userDialog->dialog->id : 'undefined',
         );
 
+        if ($contact->userDialog) {
+            $contact->userDialog->dialog->markAsReadFrom($interlocutor_id);
+        }
+
         echo CJSON::encode($response);
     }
 
@@ -81,11 +85,14 @@ class DefaultController extends HController
         if ($message->save()) {
             $message->created = date("Y-m-d H:i:s");
             $html = $this->renderPartial('_message',compact('message'), true);
+            $contact = Im::getContact($interlocutor_id, Yii::app()->user->id);
+            $contactHtml = $this->renderPartial('_contact', compact('contact'), true);
 
             $comet = new CometModel;
             $comet->type = CometModel::TYPE_NEW_MESSAGE;
             $comet->attributes = array(
                 'html' => $html,
+                'contactHtml' => $contactHtml,
                 'from' => Yii::app()->user->id,
             );
             $comet->send($interlocutor_id);
@@ -93,6 +100,7 @@ class DefaultController extends HController
             $response = array(
                 'status' => true,
                 'html' => $html,
+                'message_id' => $message->id,
             );
         } else {
             $response = array(
@@ -101,6 +109,15 @@ class DefaultController extends HController
         }
 
         echo CJSON::encode($response);
+    }
+
+    public function actionMarkAsRead()
+    {
+        $interlocutor_id = Yii::app()->request->getPost('interlocutor_id');
+        $dialog_id = Yii::app()->request->getPost('dialog_id');
+
+        $dialog = Dialog::model()->findByPk($dialog_id);
+        $dialog->markAsReadFrom($interlocutor_id);
     }
 
     // test

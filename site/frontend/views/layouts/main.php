@@ -33,6 +33,7 @@
         ->registerScriptFile('/javascripts/common.js?'.$release_id)
         ->registerScriptFile('/javascripts/base64.js')
         ->registerScriptFile('/javascripts/jquery.tooltip.pack.js')
+        ->registerScriptFile('/javascripts/jquery.dataSelector.js')
     ;
 
     $cs->registerMetaTag(trim($this->meta_description), 'description');

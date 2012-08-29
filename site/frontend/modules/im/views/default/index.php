@@ -113,3 +113,9 @@
         ?>
     </div>
 </div>
+
+<script id="newTmpl" type="text/x-jquery-tmpl">
+    {{if number != 0}}
+    <span class="new">${number} ${noun}</span>
+    {{/if}}
+</script>

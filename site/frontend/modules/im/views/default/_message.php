@@ -1,4 +1,4 @@
-<li>
+<li data-read="<?=$message->read_status?>" data-authorid="<?=$message->user->id?>" data-id="<?=$message->id?>">
 
     <a href="<?=$message->user->url?>" class="ava small"><?=$message->user->getAva('small') ? CHtml::image($message->user->getAva('small')):''?></a>
 
@@ -8,6 +8,7 @@
 
             <?=CHtml::link($message->user->first_name, $message->user->url, array('class' => 'username'))?>
             <span class="date"><?=HDate::GetFormattedTime($message->created)?></span>
+            <span class="read_status"></span>
 
         </div>
 

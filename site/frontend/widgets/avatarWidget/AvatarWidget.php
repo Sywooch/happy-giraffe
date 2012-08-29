@@ -17,6 +17,8 @@ class AvatarWidget extends CWidget
 
 	public function run()
 	{
-		$this->render('view');
+        if ($this->user->id != User::HAPPY_GIRAFFE) {
+		    $this->render('view');
+        }
 	}
 }

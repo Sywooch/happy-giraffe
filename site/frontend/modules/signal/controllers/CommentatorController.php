@@ -5,11 +5,15 @@
  */
 class CommentatorController extends HController
 {
-    public $layout = 'main';
+    public $layout = 'commentator';
     /**
      * @var User
      */
     public $user;
+    /**
+     * @var CommentatorWork
+     */
+    public $commentator;
 
     public function filters()
     {
@@ -24,20 +28,30 @@ class CommentatorController extends HController
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
         $this->user = Yii::app()->user->model;
+        $this->commentator = CommentatorWork::getCurrentUser();
         return parent::beforeAction($action);
     }
 
     public function actionIndex()
     {
-        Yii::import('site.seo.components.*');
-        //echo $this->blogVisits();
-        $metrika = new YandexMetrica();
-        $metrika->searchesCount();
+        if (!$this->commentator->IsWorksToday(Yii::app()->user->id))
+            $this->redirect('/signal/commentator/statistic');
 
         $this->render('index');
     }
 
+    public function actionStatistic($period = null){
+        if (empty($period))
+            $period = date("Y-m");
+        $this->render('statistic', compact('period'));
+    }
+
     public function actionBlog()
+    {
+        $this->renderPartial('_blog_posts', array('blog_posts'=>$this->userBlogPosts()));
+    }
+
+    public function userBlogPosts()
     {
         $criteria = new CDbCriteria;
         $criteria->compare('author_id', $this->user->id);
@@ -49,12 +63,15 @@ class CommentatorController extends HController
             )
         );
 
-        $blog_posts = CommunityContent::model()->findAll($criteria);
-        $this->renderPartial('_blog_posts', compact('blog_posts'));
+        return CommunityContent::model()->findAll($criteria);
     }
 
     public function actionClub()
     {
+        $this->renderPartial('_club_posts', array('club_posts'=>$this->userClubPosts()));
+    }
+
+    public function userClubPosts(){
         $criteria = new CDbCriteria;
         $criteria->compare('author_id', $this->user->id);
         $criteria->condition = 'created > "' . date("Y-m-d") . ' 00:00:00"';
@@ -65,19 +82,22 @@ class CommentatorController extends HController
             )
         );
 
-        $club_posts = CommunityContent::model()->findAll($criteria);
-        $this->renderPartial('_club_posts', compact('club_posts'));
+        return  CommunityContent::model()->findAll($criteria);
     }
 
     public function actionComments()
+    {
+        $this->renderPartial('_comments', array('comments_count'=>$this->userComments()));
+    }
+
+    public function userComments()
     {
         $criteria = new CDbCriteria;
         $criteria->compare('author_id', $this->user->id);
         $criteria->condition = 'created > "' . date("Y-m-d") . ' 00:00:00"';
         $criteria->order = 'created desc';
 
-        $comments = Comment::model()->findAll($criteria);
-        $this->renderPartial('_comments', compact('comments'));
+        return  Comment::model()->count($criteria);
     }
 
     public function actionPosts()
@@ -144,35 +164,13 @@ class CommentatorController extends HController
         $this->renderPartial('_posts', compact('posts'));
     }
 
-    public function FriendsCount()
-    {
-        //SELECT count(id) FROM `friend_requests` WHERE status="accepted" and `updated` > "2012-08-01 13:44:35"
-    }
-
-    public function getMessagesCount()
-    {
-        $dialogs = Dialog::model()->findAll(array(
-            'with'=>array(
-                'dialogUsers'=>array(
-                    'condition'=>'dialogUsers.user_id = '.$this->user->id
-                ),
-                'messages'=>array(
-                    'condition'=>'messages.created >= "'.date("Y-m").'-01 00:00:00"'
-                ),
-                'together'=>true
-            )
-        ));
-
-        $res = 0;
-        foreach($dialogs as $dialog)
-            $res += count($dialog->messages);
-
-        return $res;
+    public function actionIAmWorking(){
+        $this->commentator->WorksToday(Yii::app()->user->id);
+        $this->redirect($this->createUrl('/signal/commentator/index'));
     }
 
     public function blogVisits()
     {
-        //http://www.happy-giraffe.ru/user/83/blog/
         Yii::import('site.frontend.extensions.GoogleAnalytics');
         $ga = new GoogleAnalytics('alexk984@gmail.com', Yii::app()->params['gaPass']);
         $ga->setProfile('ga:53688414');

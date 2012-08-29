@@ -1,23 +1,25 @@
-<?php
-$basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR;
-$baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
-Yii::app()->clientScript->registerScriptFile($baseUrl . '/' . 'script.js', CClientScript::POS_BEGIN);
+<div class="seo-table">
 
-?>
-<div id="block-blog">
+    <ul class="task-list">
 
-</div>
-<div id="block-club">
+        <li>
+            <div class="task" id="block-blog">
+                <?php $this->renderPartial('_blog_posts', array('blog_posts' => $this->userBlogPosts())) ?>
+            </div>
+        </li>
 
-</div>
-<div id="block-comments">
+        <li>
+            <div class="task" id="block-club">
+                <?php $this->renderPartial('_club_posts', array('club_posts' => $this->userClubPosts())) ?>
+            </div>
+        </li>
 
-</div>
+        <li>
+            <div class="task" id="block-comments">
+                <?php $this->renderPartial('_comments', array('comments_count' => $this->userComments())) ?>
+            </div>
+        </li>
 
-<div id="block-posts">
-
-</div>
-
-<div id="block-additionalPosts">
+    </ul>
 
 </div>

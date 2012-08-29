@@ -1,15 +1,15 @@
 <?php
 /* @var $this HController
- * @var Comment[] $comments
+ * @var int $comments_count
  */
+$progress = ($comments_count == 0)?0:round(100*$comments_count/CommentatorWork::COMMENTS_COUNT);
 ?>
-
-1. 100 комментариев <?php if (count($comments) < 100): ?>(еще <?= 100 - count($comments) ?>)<?php endif ?>
-<br>
-<div class="inner">
-    <?php foreach ($comments as $comment): ?>
-    <div>
-        <?=$comment->getLink(); ?>
-    </div>
-    <?php endforeach; ?>
-</div>
+<span class="item-title">3. Написать <?=CommentatorWork::COMMENTS_COUNT ?> комментариев</span><span class="done"><i class="icon"></i><?=$comments_count ?></span><span class="progress"><span style="width:<?=$progress?>%"></span></span>
+<ul>
+    <li>
+        <span class="next">NEXT</span>
+        <a href="">Дети и кондиционер, совместимы ли</a>
+        <a href="" class="btn-green-small">Ok</a>
+        <a href="" class="pseudo skip">Пропустить</a>
+    </li>
+</ul>

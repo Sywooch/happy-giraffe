@@ -89,4 +89,14 @@ class SignalCommand extends CConsoleCommand
             ->where('itemname = "moderator"')
             ->queryColumn();
     }
+
+    /*public function actionCommentators(){
+        $criteria = new EMongoCriteria;
+        $criteria->days->date('==', date("Y-m-d", strtotime('-1 day')));
+        $commentators = CommentatorWork::model()->findAll($criteria);
+
+        foreach($commentators as $commentator){
+
+        }
+    }*/
 }

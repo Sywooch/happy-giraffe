@@ -45,7 +45,7 @@ Messages.toggle = function() {
     Messages.isActive() ? Messages.close() : Messages.open();
 }
 
-Messages.active = function() {
+Messages.isActive = function() {
     return $('#user-dialogs').length != 0;
 }
 

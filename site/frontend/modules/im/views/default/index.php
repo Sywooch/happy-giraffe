@@ -77,7 +77,7 @@
                 'onsubmit' => 'Messages.sendMessage(); return false;',
             ))?>
 
-                <div class="input"><textarea placeholder="Введите ваше сообщение" onfocus="Messages.showInput()"></textarea></div>
+                <div class="input"><textarea placeholder="Введите ваше сообщение" onclick="Messages.showInput();"></textarea></div>
                 <div class="wysiwyg">
                     <?php
 

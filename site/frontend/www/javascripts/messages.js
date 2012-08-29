@@ -145,24 +145,30 @@ Messages.sendMessage = function() {
     }, function(data) {
         if (data.status == 1) {
             Messages.editor.setData('');
-            Messages.editor.focus();
+
             $('.dialog-messages > ul').append(data.html);
             var message = $('.dialog-messages > ul > li:data(id=' + data.message_id + ')');
             if ($('.dialog-messages > .empty:visible').length > 0)
                 $('.dialog-messages > .empty').hide();
             Messages.scrollDown();
+
+            //move top
+            if ($('#user-dialogs-contacts li[data-userid="' + $('#user-dialogs-dialog').data('interlocutorid') + '"]').index() != 0)
+                $('#user-dialogs-contacts li:first').before($('#user-dialogs-contacts li[data-userid="' + $('#user-dialogs-dialog').data('interlocutorid') + '"]'));
+
+            //update counter
+            if (data.newDialog)
+                Messages.updateCounter('#user-dialogs-allCount', 1);
+
+            //set read status as unread if message is not read in 2 sec
+            setTimeout(function() {
+                if (message.data('read') == 0) {
+                    message.find('span.read_status').html('<span class="message-label label-unread">Сообщение не прочитано</span>');
+                }
+            }, 2000);
+
+            Messages.editor.focus();
         }
-
-        if ($('#user-dialogs-contacts li[data-userid="' + $('#user-dialogs-dialog').data('interlocutorid') + '"]').index() != 0)
-            $('#user-dialogs-contacts li:first').before($('#user-dialogs-contacts li[data-userid="' + $('#user-dialogs-dialog').data('interlocutorid') + '"]'));
-
-        if (data.newDialog)
-            Messages.updateCounter('#user-dialogs-allCount', 1);
-        setTimeout(function() {
-            if (message.data('read') == 0) {
-                message.find('span.read_status').html('<span class="message-label label-unread">Сообщение не прочитано</span>');
-            }
-        }, 2000);
     }, 'json');
 }
 
@@ -201,16 +207,20 @@ Messages.scrollDown = function() {
 }
 
 Messages.showInput = function() {
-    $('.dialog-input').addClass('wysiwyg-input');
-    setMessagesHeight();
     Messages.editor = CKEDITOR.instances['Message[text]'];
-    Messages.editor.focus();
+
+    $('.dialog-input').addClass('wysiwyg-input');
+
+    setMessagesHeight();
     Messages.scrollDown();
+
     Messages.editor.on('key', function (e) {
         if (e.data.keyCode == 1114125) {
             Messages.sendMessage();
         }
     });
+
+    Messages.editor.focus();
 }
 
 Messages.updateNew = function(el) {

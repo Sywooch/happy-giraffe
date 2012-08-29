@@ -46,7 +46,7 @@ class HController extends CController
             unset($_GET['token']);
         }
 
-        $received_params = array('utm_source', 'utm_medium');
+        $received_params = array('utm_source', 'utm_medium', 'startDialogWith');
 
         // seo-фильтр get-параметров
         if (in_array($this->uniqueId, array(

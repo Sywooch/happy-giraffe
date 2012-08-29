@@ -388,7 +388,11 @@ class Im
     {
         $criteria = self::getContactsCriteria($user_id, $type, $condition, $params);
 
-        return User::model()->findAll($criteria);
+        $users = User::model()->findAll($criteria);
+        if ($type == Im::IM_CONTACTS_ALL)
+            $users[] = User::getUserById(User::HAPPY_GIRAFFE);
+
+        return $users;
     }
 
     public static function getContactsCount($user_id, $type, $condition = '', $params = array())
@@ -438,6 +442,11 @@ class Im
         $command->bindValue(':user_id', $user_id, PDO::PARAM_INT);
         $command->bindValue(':interlocutor_id', $interlocutor_id, PDO::PARAM_INT);
         return $command->queryScalar();
+    }
+
+    public static function hasMessages($user_id)
+    {
+        return DialogUser::model()->exists('user_id = :user_id', array(':user_id' => $user_id));
     }
 }
 

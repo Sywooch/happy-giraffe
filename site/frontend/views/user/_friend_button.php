@@ -1,7 +1,7 @@
 <?php if (!Yii::app()->user->isGuest):?>
     <?php if ($user->isFriend(Yii::app()->user->id)): ?>
             <span class="friend">друг</span>
-            <?php if (! ($this->route == 'user/friends' && $this->user->id != Yii::app()->user->id)): ?>
+            <?php if ($this->route == 'user/friends' && $this->user->id == Yii::app()->user->id): ?>
                 <a href="javascript:void(0)" onclick="deleteFriend(this, <?php echo $user->id; ?>, <?=($this->route == 'user/friends') ? 'true' : 'false'?>);" class="remove tooltip" title="Удалить из друзей"></a>
             <?php endif; ?>
         <?php elseif ($user->isInvitedBy(Yii::app()->user->id)): ?>

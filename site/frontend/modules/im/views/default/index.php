@@ -1,8 +1,4 @@
 <?php
-    $cs = Yii::app()->clientScript;
-
-    $cs->registerScriptFile('/javascripts/messages.js');
-
     $message = new Message;
 ?>
 
@@ -87,7 +83,7 @@
                             'model' => $message,
                             'attribute' => 'text',
                             'config' => array(
-                                'width' => 400,
+                                'width' => 506,
                                 'height' => 56,
                                 'toolbar' => 'Chat',
                                 'resize_enabled' => false,

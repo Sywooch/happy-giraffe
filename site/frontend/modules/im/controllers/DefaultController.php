@@ -40,8 +40,10 @@ class DefaultController extends HController
     {
         $contact = Im::getContact(Yii::app()->user->id, $interlocutor_id);
         $html = $this->renderPartial('_dialog', compact('contact', 'interlocutor_id'), true);
+        $contactHtml = $this->renderPartial('_contact', compact('contact'), true);
         $response = array(
             'html' => $html,
+            'contactHtml' => $contactHtml,
             'dialogid' => $contact->userDialog ? $contact->userDialog->dialog->id : 'undefined',
         );
 

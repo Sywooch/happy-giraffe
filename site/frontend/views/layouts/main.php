@@ -36,6 +36,10 @@
         ->registerScriptFile('/javascripts/jquery.dataSelector.js')
     ;
 
+    if (($interlocutor_id = Yii::app()->request->getQuery('startDialogWith')) !== null) {
+        $cs->registerScript('stardDialog', 'Messages.open(' . $interlocutor_id . ')', CClientScript::POS_HEAD);
+    }
+
     $cs->registerMetaTag(trim($this->meta_description), 'description');
     if (!empty($this->meta_keywords))
         $cs->registerMetaTag(trim($this->meta_keywords), 'keywords');

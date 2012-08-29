@@ -1,4 +1,5 @@
 var Messages = {
+    active: false,
     editor: null,
     activeTab: null
 }
@@ -6,19 +7,24 @@ var Messages = {
 Messages.open = function(interlocutor_id) {
     interlocutor_id = (typeof interlocutor_id === "undefined") ? null : interlocutor_id;
 
-    $.get('/im/', function(data) {
-        $('body').append(data);
-        $('body').css('overflow', 'hidden');
-        $('body').append('<div id="body-overlay"></div>');
-        $('body').addClass('nav-fixed');
-        Messages.setList(0, interlocutor_id);
-        comet.addEvent(3, 'updateStatus');
-        comet.addEvent(1, 'receiveMessage');
-        comet.addEvent(21, 'updateReadStatuses');
-        $(window).on('resize', function() {
-            Messages.setHeight();
-        })
-    });
+    if (! Messages.active) {
+        $.get('/im/', function(data) {
+            $('body').append(data.html);
+            $('body').css('overflow', 'hidden');
+            $('body').append('<div id="body-overlay"></div>');
+            $('body').addClass('nav-fixed');
+            Messages.setList(0, interlocutor_id == null && ! data.hasMessages, interlocutor_id);
+            comet.addEvent(3, 'updateStatus');
+            comet.addEvent(1, 'receiveMessage');
+            comet.addEvent(21, 'updateReadStatuses');
+            $(window).on('resize', function() {
+                Messages.setHeight();
+            });
+            Messages.active = true;
+        }, 'json');
+    } else {
+        Messages.setDialog(interlocutor_id);
+    }
 }
 
 Messages.close = function() {
@@ -34,11 +40,12 @@ Messages.close = function() {
     comet.delEvent(21, 'updateReadStatuses');
     $(window).off('resize', function() {
         Messages.setHeight();
-    })
+    });
+    Messages.active = false;
 }
 
 Messages.toggle = function() {
-    ($('#user-dialogs').length > 0) ? Messages.close() : Messages.open();
+    Messages.active ? Messages.close() : Messages.open();
 }
 
 Messages.setHeight  = function() {
@@ -50,7 +57,7 @@ Messages.setHeight  = function() {
     var userH = 110;
     var marginH = 30;
 
-    var wannaChatH = box.find('.wannachat').size() > 0 ? 150 : 0;
+    var wannaChatH = box.find('.contacts .wannachat').size() > 0 ? 150 : 0;
 
     var generalH = windowH - marginH*2 - headerH;
     if (generalH < 400) generalH = 400;
@@ -62,9 +69,10 @@ Messages.setHeight  = function() {
     box.find('.dialog .dialog-messages').height(generalH - textareaH - userH);
 }
 
-Messages.setList = function(type, interlocutor_id) {
+Messages.setList = function(type, showEmpty, interlocutor_id) {
     interlocutor_id = (typeof interlocutor_id === "undefined") ? null : interlocutor_id;
     Messages.activeTab = type;
+
 
     $.get('/im/contacts/', {type: type}, function(data) {
         $('#user-dialogs-contacts').html(data);
@@ -72,11 +80,21 @@ Messages.setList = function(type, interlocutor_id) {
             Messages.updateNew(this);
         });
 
+        $('#user-dialogs-nav li.active span.count').show();
         $('#user-dialogs-nav li.active').removeClass('active');
         $('#user-dialogs-nav li:eq(' + type + ')').addClass('active');
+        $('#user-dialogs-nav li.active span.count').hide();
 
         var openDialog = (interlocutor_id === null) ? $('#user-dialogs-contacts > li:first').data('userid') : interlocutor_id;
-        Messages.setDialog(openDialog);
+        (showEmpty) ? Messages.showEmpty() : Messages.setDialog(openDialog);
+    });
+}
+
+Messages.showEmpty = function() {
+    $.get('/im/empty/', function(data) {
+        $('#user-dialogs-dialog').html(data);
+        $('.dialog-input').hide();
+        Messages.setHeight();
     });
 }
 
@@ -98,6 +116,12 @@ Messages.setDialog = function(interlocutor_id) {
         Messages.updateNew($('#user-dialogs-contacts li[data-userid="' + interlocutor_id + '"]'));
         Messages.setHeight();
         Messages.scrollDown();
+
+        if ($('.dialog-input').is(':hidden'))
+            $('.dialog-input').show();
+        if (interlocutor_id == 1) {
+            $('.dialog-input').hide();
+        }
     }, 'json');
 }
 

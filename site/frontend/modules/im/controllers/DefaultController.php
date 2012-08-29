@@ -23,11 +23,18 @@ class DefaultController extends HController
 
     public function actionIndex()
     {
+        $allCount = Im::getContactsCount(Yii::app()->user->id, Im::IM_CONTACTS_ALL);
         $newCount = Im::getContactsCount(Yii::app()->user->id, Im::IM_CONTACTS_NEW);
         $onlineCount = Im::getContactsCount(Yii::app()->user->id, Im::IM_CONTACTS_ONLINE);
         $friendsCount = Im::getContactsCount(Yii::app()->user->id, Im::IM_CONTACTS_FRIENDS);
         $wantToChat = WantToChat::getList(12);
-        $this->renderPartial('index', compact('newCount', 'onlineCount', 'friendsCount', 'wantToChat'), false, true);
+        $hasMessages = Im::hasMessages(Yii::app()->user->id);
+        $response = array(
+            'html' => $this->renderPartial('index', compact('allCount', 'newCount', 'onlineCount', 'friendsCount', 'wantToChat', 'hasMessages'), true),
+            'hasMessages' => $hasMessages,
+        );
+
+        echo CJSON::encode($response);
     }
 
     public function actionContacts($type = Im::IM_CONTACTS_ALL)
@@ -52,6 +59,17 @@ class DefaultController extends HController
         }
 
         echo CJSON::encode($response);
+    }
+
+    public function actionEmpty()
+    {
+        $wantToChat = WantToChat::getList(3);
+        $friends = Yii::app()->user->model->getFriendsModels(array(
+            'condition' => 'online = 1',
+            'limit' => 6,
+        ));
+
+        $this->renderPartial('empty', compact('wantToChat', 'friends'));
     }
 
     /**

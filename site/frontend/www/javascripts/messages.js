@@ -126,6 +126,8 @@ Messages.setDialog = function(interlocutor_id) {
 
         Messages.setHeight();
         Messages.scrollDown();
+
+        Messages.editor.focus();
     }, 'json');
 }
 

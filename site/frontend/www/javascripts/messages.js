@@ -1,5 +1,6 @@
 var Messages = {
-    editor: null
+    editor: null,
+    activeTab: null
 }
 
 Messages.open = function(interlocutor_id) {
@@ -13,6 +14,7 @@ Messages.open = function(interlocutor_id) {
         Messages.setList(0, interlocutor_id);
         comet.addEvent(3, 'updateStatus');
         comet.addEvent(1, 'receiveMessage');
+        comet.addEvent(21, 'updateReadStatuses');
         $(window).on('resize', function() {
             Messages.setHeight();
         })
@@ -29,6 +31,7 @@ Messages.close = function() {
     }
     comet.delEvent(3, 'updateStatus');
     comet.delEvent(1, 'receiveMessage');
+    comet.delEvent(21, 'updateReadStatuses');
     $(window).off('resize', function() {
         Messages.setHeight();
     })
@@ -61,14 +64,18 @@ Messages.setHeight  = function() {
 
 Messages.setList = function(type, interlocutor_id) {
     interlocutor_id = (typeof interlocutor_id === "undefined") ? null : interlocutor_id;
+    Messages.activeTab = type;
 
     $.get('/im/contacts/', {type: type}, function(data) {
         $('#user-dialogs-contacts').html(data);
+        $('#user-dialogs-contacts li').each(function () {
+            Messages.updateNew(this);
+        });
+
         $('#user-dialogs-nav li.active').removeClass('active');
         $('#user-dialogs-nav li:eq(' + type + ')').addClass('active');
 
         var openDialog = (interlocutor_id === null) ? $('#user-dialogs-contacts > li:first').data('userid') : interlocutor_id;
-
         Messages.setDialog(openDialog);
     });
 }
@@ -82,11 +89,23 @@ Messages.setDialog = function(interlocutor_id) {
         $('#user-dialogs-dialog').html(data.html);
         $('#user-dialogs-dialog').data('dialogid', data.dialogid);
         $('#user-dialogs-dialog').data('interlocutorid', interlocutor_id);
+
+        Messages.setReadStatus();
+
         $('#user-dialogs-contacts li.active').removeClass('active');
         $('#user-dialogs-contacts li[data-userid="' + interlocutor_id + '"]').addClass('active');
+        $('#user-dialogs-contacts li[data-userid="' + interlocutor_id + '"]').data('unread', 0);
+        Messages.updateNew($('#user-dialogs-contacts li[data-userid="' + interlocutor_id + '"]'));
         Messages.setHeight();
         Messages.scrollDown();
     }, 'json');
+}
+
+Messages.markAsRead = function() {
+    $.post('/im/markAsRead/', {
+        dialog_id: $('#user-dialogs-dialog').data('dialogid'),
+        interlocutor_id: $('#user-dialogs-dialog').data('interlocutorid')
+    });
 }
 
 Messages.sendMessage = function() {
@@ -100,10 +119,20 @@ Messages.sendMessage = function() {
             Messages.editor.setData('');
             Messages.editor.focus();
             $('.dialog-messages > ul').append(data.html);
+            var message = $('.dialog-messages > ul > li:data(id=' + data.message_id + ')');
             if ($('.dialog-messages > .empty:visible').length > 0)
                 $('.dialog-messages > .empty').hide();
             Messages.scrollDown();
         }
+
+        if ($('#user-dialogs-contacts li[data-userid="' + $('#user-dialogs-dialog').data('interlocutorid') + '"]').index() != 0)
+            $('#user-dialogs-contacts li:first').before($('#user-dialogs-contacts li[data-userid="' + $('#user-dialogs-dialog').data('interlocutorid') + '"]'));
+
+        setTimeout(function() {
+            if (message.data('read') == 0) {
+                message.find('span.read_status').html('<span class="message-label label-unread">Сообщение не прочитано</span>');
+            }
+        }, 2000)
     }, 'json');
 }
 
@@ -120,8 +149,16 @@ Messages.updateCounter = function(selector, diff) {
 
 Messages.filterList = function(filter) {
     if (filter) {
-        $('#user-dialogs-contacts').find("span.username:not(:Contains(" + filter + "))").parents('li').slideUp();
-        $('#user-dialogs-contacts').find("span.username:Contains(" + filter + ")").parents('li').slideDown();
+        $('#user-dialogs-contacts > li').filter(function(index) {
+            var un = $(this).find('span.username').text().toUpperCase();
+            var term = filter.toUpperCase();
+            return un.indexOf(' ' + term) != -1 || un.indexOf(term) == 0;
+        }).slideDown();
+        $('#user-dialogs-contacts > li').filter(function(index) {
+            var un = $(this).find('span.username').text().toUpperCase();
+            var term = filter.toUpperCase();
+            return !(un.indexOf(' ' + term) != -1 || un.indexOf(term) == 0);
+        }).slideUp();
     } else {
         $('#user-dialogs-contacts > li').slideDown();
     }
@@ -136,13 +173,35 @@ Messages.showInput = function() {
     setMessagesHeight();
     Messages.editor = CKEDITOR.instances['Message[text]'];
     Messages.editor.focus();
-    Messages.editor.focus();
-    Messages.editor.focus();
+    Messages.scrollDown();
     Messages.editor.on('key', function (e) {
         if (e.data.keyCode == 1114125) {
             Messages.sendMessage();
         }
     });
+}
+
+Messages.updateNew = function(el) {
+    var number = $(el).data('unread');
+    var noun = declOfNum(number, ['новое', 'новых', 'новых']);
+    $(el).find('span.unread').html($('#newTmpl').tmpl({number: number, noun: noun}));
+}
+
+Messages.setReadStatus = function()
+{
+    var interlocutor_id = $('#user-dialogs-dialog').data('interlocutorid');
+    $('.dialog-messages span.read_status').html('');
+    $('.dialog-messages > ul > li[data-authorid!="' + interlocutor_id + '"]:data(read=0) span.read_status').html('<span class="message-label label-unread">Сообщение не прочитано</span>');
+    $('.dialog-messages > ul > li[data-authorid!="' + interlocutor_id + '"]:data(read=1):last span.read_status').html('<span class="message-label label-read">Сообщение прочитано</span>');
+}
+
+Comet.prototype.updateReadStatuses = function (result, id) {
+    var dialog_id = $('#user-dialogs-dialog').data('dialogid');
+    var interlocutor_id = $('#user-dialogs-dialog').data('interlocutorid');
+    if (result.dialog_id == $('#user-dialogs-dialog').data('dialogid')) {
+        $('.dialog-messages > ul > li[data-authorid!="' + interlocutor_id + '"]').data('read', '1');
+        Messages.setReadStatus();
+    }
 }
 
 Comet.prototype.updateStatus = function (result, id) {
@@ -161,19 +220,28 @@ Comet.prototype.updateStatus = function (result, id) {
 }
 
 Comet.prototype.receiveMessage = function (result, id) {
+    //add message
     if (result.from == $('#user-dialogs-dialog').data('interlocutorid')) {
         $('.dialog-messages > ul').append(result.html);
+        Messages.markAsRead();
         Messages.scrollDown();
     }
-}
 
-function removeA(arr){
-    var what, a= arguments, L= a.length, ax;
-    while(L> 1 && arr.length){
-        what= a[--L];
-        while((ax= arr.indexOf(what))!= -1){
-            arr.splice(ax, 1);
+    //update contact-list
+    if ($('#user-dialogs-contacts li[data-userid="' + result.from + '"]').length != 0) {
+        //move contact on top
+        if ($('#user-dialogs-contacts li[data-userid="' + result.from + '"]').index() != 0)
+            $('#user-dialogs-contacts li:first').before($('#user-dialogs-contacts li[data-userid="' + result.from + '"]'));
+
+        //update unread counter
+        if ($('#user-dialogs-dialog').data('interlocutorid') != result.from) {
+            $('#user-dialogs-contacts li[data-userid="' + result.from + '"]').data('unread', $('#user-dialogs-contacts li[data-userid="' + result.from + '"]').data('unread') + 1);
+            Messages.updateNew($('#user-dialogs-contacts li[data-userid="' + result.from + '"]'));
+        }
+    } else {
+        //add contact
+        if (Messages.activeTab == 0 || Messages.activeTab == 1) {
+            $('#user-dialogs-contacts').prepend(result.contactHtml);
         }
     }
-    return arr;
 }

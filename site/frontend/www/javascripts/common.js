@@ -1,6 +1,19 @@
-jQuery.extend(jQuery.expr[':'].Contains = function(a, i, m) {
-    return (a.textContent || a.innerText || "").toUpperCase().indexOf(m[3].toUpperCase())>=0;
-})
+function declOfNum(number, titles)
+{
+    cases = [2, 0, 1, 1, 1, 2];
+    return titles[ (number%100>4 && number%100<20)? 2 : cases[(number%10<5)?number%10:5] ];
+}
+
+function removeA(arr){
+    var what, a= arguments, L= a.length, ax;
+    while(L> 1 && arr.length){
+        what= a[--L];
+        while((ax= arr.indexOf(what))!= -1){
+            arr.splice(ax, 1);
+        }
+    }
+    return arr;
+}
 
 $(document).ready(function () {
     $.ajaxSetup({

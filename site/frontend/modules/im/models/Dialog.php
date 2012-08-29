@@ -327,4 +327,19 @@ class Dialog extends HActiveRecord
         ))
             ->queryScalar();
     }
+
+    public function markAsReadFrom($interlocutor_id)
+    {
+        Message::model()->updateAll(array('read_status' => 1), 'user_id = :interlocutor_id AND dialog_id = :dialog_id', array(
+            ':interlocutor_id' => $interlocutor_id,
+            ':dialog_id' => $this->id,
+        ));
+
+        $comet = new CometModel;
+        $comet->type = CometModel::TYPE_DIALOG_READ;
+        $comet->attributes = array(
+            'dialog_id' => $this->id,
+        );
+        $comet->send($interlocutor_id);
+    }
 }

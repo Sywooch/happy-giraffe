@@ -18,7 +18,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
     font-size: 100%;
     vertical-align: baseline;
     background: transparent;
-}
+}                                          f
 body {
     line-height: normal;
 }
@@ -917,7 +917,7 @@ body.nav-fixed #header-new .top-line {position:fixed;left:50%;margin-left:-500px
 #header-new .user-nav > ul > li > .link > a {display:block;height:30px;line-height:30px;text-decoration:none;position:relative;color:#fff;padding:0 10px 0 0;float:left;overflow:hidden;}
 #header-new .user-nav > ul > li > .link .ava {margin-left:10px;position:relative;top:3px;padding:0;}
 #header-new .user-nav > ul > li > .link:hover, #header-new .user-nav > ul > li > a:hover {background:#c7aae3;}
-
+#header-new .user-nav > ul > li.active {background:#c7aae3;}
 
 #header-new .user-nav ul li.user {min-width:150px;}
 #header-new .user-nav ul li.user .username {color:#fff;padding-right:14px;position:relative;padding-left:7px;white-space:nowrap;}

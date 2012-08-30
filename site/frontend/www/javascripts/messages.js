@@ -13,6 +13,7 @@ Messages.open = function(interlocutor_id) {
             $('body').css('overflow', 'hidden');
             $('body').append('<div id="body-overlay"></div>');
             $('body').addClass('nav-fixed');
+            $('#user-nav-messages').addClass('active');
             Messages.setList(0, interlocutor_id == null && ! data.hasMessages, interlocutor_id);
             comet.addEvent(3, 'updateStatus');
             comet.addEvent(1, 'receiveMessage');
@@ -31,6 +32,7 @@ Messages.close = function() {
     $('body').css('overflow', '');
     $('#body-overlay').remove();
     $('body').removeClass('nav-fixed');
+    $('#user-nav-messages').removeClass('active');
     if (CKEDITOR.instances['Message[text]']) {
         CKEDITOR.instances['Message[text]'].destroy(true);
     }

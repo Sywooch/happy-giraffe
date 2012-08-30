@@ -4,15 +4,16 @@ var Messages = {
     hasMessages: true
 }
 
-Messages.open = function(interlocutor_id) {
+Messages.open = function(interlocutor_id, list_id) {
     interlocutor_id = (typeof interlocutor_id === "undefined") ? null : interlocutor_id;
+    list_id = (typeof list_id === "undefined") ? 0 : list_id;
 
     if (! Messages.isActive()) {
         $('#user-dialogs').show();
         $('body').css('overflow', 'hidden');
         $('body').append('<div id="body-overlay"></div>');
         $('body').addClass('nav-fixed');
-        Messages.setList(0, interlocutor_id == null && ! Messages.hasMessages, interlocutor_id);
+        Messages.setList(list_id, interlocutor_id == null && ! Messages.hasMessages, interlocutor_id);
         comet.addEvent(3, 'updateStatus');
         comet.addEvent(1, 'receiveMessage');
         comet.addEvent(21, 'updateReadStatuses');

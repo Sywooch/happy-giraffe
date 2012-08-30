@@ -25,7 +25,7 @@ Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl . '/stylesheets/us
                     <div class="preview">
                         <?php $index = 1; ?>
                         <?php foreach($album->getRelated('photos', true, array('limit' => 3)) as $photo): ?>
-                            <?php echo CHtml::link(CHtml::image($photo->getPreviewUrl(180, 180), '', array('class' => 'img-' . $index)), $photo->url); ?>
+                            <?php echo CHtml::link(CHtml::image($photo->getPreviewUrl(150, 150), '', array('class' => 'img-' . $index)), $photo->url); ?>
                             <?php $index++; ?>
                         <?php endforeach; ?>
                     </div>

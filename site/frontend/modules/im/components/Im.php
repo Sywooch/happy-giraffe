@@ -326,7 +326,7 @@ class Im
     public static function getContactsCriteria($user_id, $type, $condition = '', $params = array())
     {
         $criteria = new CDbCriteria(array(
-            'select' => 'id, online, first_name, last_name',
+            'select' => 'id, online, first_name, last_name, avatar_id',
             'with' => array(
                 'avatar',
                 'userDialog' => array(
@@ -415,7 +415,7 @@ class Im
                                 'messages' => array(
                                     'with' => array(
                                         'user' => array(
-                                            'select' => 'id, first_name, last_name',
+                                            'select' => 'id, first_name, last_name, avatar_id',
                                             'with' => 'avatar',
                                         ),
                                     ),

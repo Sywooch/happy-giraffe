@@ -97,4 +97,28 @@ class SignalCommand extends CConsoleCommand
 
         }
     }*/
+
+    public function actionCommentatorsStats(){
+        $month = CommentatorsMonthStats::model()->find(new EMongoCriteria(array(
+            'conditions' => array(
+                'period' => array('==' => date("Y-m") )
+            ),
+        )));
+        if ($month === null){
+            $month = new CommentatorsMonthStats;
+            $month->period = date("Y-m");
+        }
+        $month->calculate();
+        $month->save();
+    }
+
+    public function actionCommentatorsEndMonth(){
+        $month = CommentatorsMonthStats::model()->find(new EMongoCriteria(array(
+            'conditions' => array(
+                'period' => array('==' => date("Y-m", strtotime('-10 days')))
+            ),
+        )));
+        $month->calculate();
+        $month->save();
+    }
 }

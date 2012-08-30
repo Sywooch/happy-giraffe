@@ -259,7 +259,7 @@ class CommentatorWork extends EMongoDocument
 
     public function blogVisits($period)
     {
-        $id = 'blog-visits-' . $this->user_id;
+        $id = 'blog-visits-' . $this->user_id.'-'.$period;
         $value = Yii::app()->cache->get($id);
         if ($value === false) {
             Yii::import('site.frontend.extensions.GoogleAnalytics');
@@ -281,7 +281,7 @@ class CommentatorWork extends EMongoDocument
     public function profileUniqueViews($period)
     {
 
-        $id = 'profile-pageViews-' . $this->user_id;
+        $id = 'profile-pageViews-' . $this->user_id.'-'.$period;
         $value = Yii::app()->cache->get($id);
         if ($value === false) {
             Yii::import('site.frontend.extensions.GoogleAnalytics');

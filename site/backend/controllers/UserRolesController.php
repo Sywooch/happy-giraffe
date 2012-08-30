@@ -21,7 +21,7 @@ class UserRolesController extends BController
     {
         $model = $this->loadModel($id);
 
-        if (isset($_POST['User']['group'])){
+        if (isset($_POST['User']['group'])) {
             $model->group = $_POST['User']['group'];
             $model->save();
         }
@@ -33,8 +33,23 @@ class UserRolesController extends BController
                 Yii::app()->authManager->revoke($assignment->itemName, $model->id);
 
             //assign role
-            if (isset($_POST['User']['role']) && !empty($_POST['User']['role']))
-                Yii::app()->authManager->assign($_POST['User']['role'], $model->id);
+            if (isset($_POST['User']['role']) && !empty($_POST['User']['role'])) {
+                $role = $_POST['User']['role'];
+                Yii::app()->authManager->assign($role, $model->id);
+
+                if ($model->group == 0) {
+                    if ($role == 'commentator')
+                        $model->group = UserGroup::COMMENTATOR;
+                    elseif ($role == 'moderator')
+                        $model->group = UserGroup::MODERATOR;
+                    elseif ($role == 'admin')
+                        $model->group = UserGroup::ENGINEER;
+                    elseif ($role == 'editor')
+                        $model->group = UserGroup::EDITOR;
+
+                    $model->save();
+                }
+            }
 
             //assign operations
             if (isset($_POST['Operation']))
@@ -109,7 +124,7 @@ class UserRolesController extends BController
         if ($model->save('password')) {
             $response = array(
                 'status' => true,
-                'result' => $model->id.' - '.$model->getFullName().'. Новый пароль: '.$password
+                'result' => $model->id . ' - ' . $model->getFullName() . '. Новый пароль: ' . $password
             );
         } else
             $response = array('status' => false);
@@ -117,12 +132,13 @@ class UserRolesController extends BController
         echo CJSON::encode($response);
     }
 
-    function createPassword($length) {
+    function createPassword($length)
+    {
         $chars = 'abcefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
         $i = 0;
         $password = "";
         while ($i <= $length) {
-            $password .= $chars{mt_rand(0,strlen($chars) - 1)};
+            $password .= $chars{mt_rand(0, strlen($chars) - 1)};
             $i++;
         }
         return $password;

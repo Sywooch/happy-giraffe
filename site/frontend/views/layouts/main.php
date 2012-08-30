@@ -81,8 +81,10 @@
                                         <ul>
                                             <?php $dialogsCount = Im::model()->getDialogsCountAndOnlineDialogsCount(Yii::app()->user->id) ?>
                                             <li><a href="javascript:void(0)" onclick="Messages.open(null, 0);">Все диалоги (<?php echo $dialogsCount[0] ?>)</a></li>
-                                            <li><a href="javascript:void(0)" onclick="Messages.open(null, 1);">Новых</a> <a href="<?php echo $this->createUrl('/im/new') ?>" class="count<?php if (($incoming_count = Im::model()->getUnreadMessagesCount()) == 0): ?> count-gray<?php endif; ?>"><?php echo $incoming_count ?></a></li>
-                                            <li><a href="javascript:void(0)" onclick="Messages.open(null, 3);">Кто онлайн</a> <span class="online-count"><?php echo $dialogsCount[1] ?></span></li>
+                                            <?php if (false): ?>
+                                                <li><a href="javascript:void(0)" onclick="Messages.open(null, 1);">Новых</a> <a href="<?php echo $this->createUrl('/im/new') ?>" class="count<?php if (($incoming_count = Im::model()->getUnreadMessagesCount()) == 0): ?> count-gray<?php endif; ?>"><?php echo $incoming_count ?></a></li>
+                                                <li><a href="javascript:void(0)" onclick="Messages.open(null, 2);">Кто онлайн</a> <span class="online-count"><?php echo $dialogsCount[1] ?></span></li>
+                                            <?php endif; ?>
                                         </ul>
                                     </div>
                                 </div>

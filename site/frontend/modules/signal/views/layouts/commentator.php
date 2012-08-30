@@ -10,6 +10,8 @@
     ->registerScriptFile('/javascripts/comet.js')
     ->registerScriptFile('/javascripts/jquery.placeholder.min.js')
     ->registerCssFile('/stylesheets/seo.css')
+    ->registerScriptFile('/javascripts/jquery.pnotify.min.js')
+    ->registerCssFile('/stylesheets/jquery.pnotify.css')
     ->registerScriptFile('/javascripts/dklab_realplexor.js')
     ->registerScript('Realplexor-reg', '
     comet.connect("http://' . Yii::app()->comet->host . '", "' . Yii::app()->comet->namespace . '",

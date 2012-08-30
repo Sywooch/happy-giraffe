@@ -66,8 +66,6 @@ class SignalCommand extends CConsoleCommand
         )
             ->queryColumn();
 
-        print_r($friends);
-
         foreach($this->moderators as $moder_id){
             if (!in_array($moder_id, $friends))
                 return $moder_id;

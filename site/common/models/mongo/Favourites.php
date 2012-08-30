@@ -11,6 +11,7 @@ class Favourites extends EMongoDocument
     const BLOCK_THEME = 4;
     const BLOCK_VIDEO = 5;
     const WEEKLY_MAIL = 6;
+    const SOCIAL_NETWORKS = 7;
 
     public $block;
     public $entity;

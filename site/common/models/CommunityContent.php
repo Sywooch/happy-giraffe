@@ -349,6 +349,8 @@ class CommunityContent extends HActiveRecord
 
             //send signals to commentator panel
             if (Yii::app()->user->checkAccess('commentator_panel')) {
+                Yii::import('site.frontend.modules.signal.models.*');
+                CommentatorWork::getCurrentUser()->refreshCurrentDayPosts();
                 $comet = new CometModel;
                 if ($this->isFromBlog)
                     $comet->send(Yii::app()->user->id, array(

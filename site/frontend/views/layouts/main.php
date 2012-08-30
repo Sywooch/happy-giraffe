@@ -497,7 +497,7 @@
         </script>
 
         <script id="imNotificationTmpl" type="text/x-jquery-tmpl">
-            <li><?php echo CHtml::link('{{html text}}', '${url}') ;?></li>
+            <li><?php echo CHtml::link('{{html text}}', 'javascript:void(0)', array('onclick' => '${ok}')) ;?></li>
         </script>
     <?php endif; ?>
 

@@ -17,7 +17,7 @@ class MessagesWidget extends CWidget
         $onlineCount = Im::getContactsCount(Yii::app()->user->id, Im::IM_CONTACTS_ONLINE);
         $friendsCount = Im::getContactsCount(Yii::app()->user->id, Im::IM_CONTACTS_FRIENDS);
         $wantToChat = WantToChat::getList(12);
-        $hasMessages = Im::hasMessages(Yii::app()->user->id);
+        $hasMessages = $newCount > 0;
         $this->render('index', compact('allCount', 'newCount', 'onlineCount', 'friendsCount', 'wantToChat', 'hasMessages'));
     }
 }

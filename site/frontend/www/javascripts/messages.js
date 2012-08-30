@@ -13,7 +13,7 @@ Messages.open = function(interlocutor_id) {
         $('body').append('<div id="body-overlay"></div>');
         $('body').addClass('nav-fixed');
         $('#user-nav-messages').addClass('active');
-        Messages.setList(0, interlocutor_id == null && ! data.hasMessages, interlocutor_id);
+        Messages.setList(0, interlocutor_id == null && ! Messages.hasMessages, interlocutor_id);
         comet.addEvent(3, 'updateStatus');
         comet.addEvent(1, 'receiveMessage');
         comet.addEvent(21, 'updateReadStatuses');

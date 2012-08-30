@@ -29,7 +29,6 @@ Attach.prototype.changeAlbum = function (link) {
 };
 
 Attach.prototype.selectPhoto = function (button, id) {
-    alert('1');
     var image = $(button).parent().siblings('a').children('img').clone(true);
     $('.upload-file .photo').find('a').hide();
     $('.upload-file .photo .upload-container').append(image);
@@ -40,7 +39,6 @@ Attach.prototype.selectPhoto = function (button, id) {
         this.crop(id);
     }
     else if (this.entity == 'Message' || this.entity == 'Comment' || this.entity == 'CommunityPost' || this.entity == 'CommunityVideo') {
-        alert('2');
         this.insertToComment(id);
     } else if (this.entity == "PhotoComment") {
         this.saveCommentPhoto(id);

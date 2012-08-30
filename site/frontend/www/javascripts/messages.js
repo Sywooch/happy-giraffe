@@ -1,12 +1,48 @@
 var Messages = {
     editor: null,
-    activeTab: null
+    activeTab: null,
+    hasMessages: true
 }
 
 Messages.open = function(interlocutor_id) {
     interlocutor_id = (typeof interlocutor_id === "undefined") ? null : interlocutor_id;
 
-    $.fancybox.showActivity();
+    if (! Messages.isActive()) {
+        $('#user-dialogs').show();
+        $('body').css('overflow', 'hidden');
+        $('body').append('<div id="body-overlay"></div>');
+        $('body').addClass('nav-fixed');
+        Messages.setList(0, interlocutor_id == null && ! Messages.hasMessages, interlocutor_id);
+        comet.addEvent(3, 'updateStatus');
+        comet.addEvent(1, 'receiveMessage');
+        comet.addEvent(21, 'updateReadStatuses');
+        $(window).on('resize', function() {
+            Messages.setHeight();
+        });
+    } else {
+        Messages.setDialog(interlocutor_id);
+    }
+}
+
+Messages.close = function() {
+    $('#user-dialogs').hide();
+    $('body').css('overflow', '');
+    $('#body-overlay').remove();
+    $('body').removeClass('nav-fixed');
+    if (CKEDITOR.instances['Message[text]']) {
+        CKEDITOR.instances['Message[text]'].destroy(true);
+    }
+    comet.delEvent(3, 'updateStatus');
+    comet.delEvent(1, 'receiveMessage');
+    comet.delEvent(21, 'updateReadStatuses');
+    $(window).off('resize', function() {
+        Messages.setHeight();
+    });
+}
+
+/*
+Messages.open = function(interlocutor_id) {
+    interlocutor_id = (typeof interlocutor_id === "undefined") ? null : interlocutor_id;
 
     if (! Messages.isActive()) {
         $.get('/im/', function(data) {
@@ -25,8 +61,6 @@ Messages.open = function(interlocutor_id) {
     } else {
         Messages.setDialog(interlocutor_id);
     }
-
-    $.fancybox.hideActivity();
 }
 
 Messages.close = function() {
@@ -44,13 +78,14 @@ Messages.close = function() {
         Messages.setHeight();
     });
 }
+*/
 
 Messages.toggle = function() {
     Messages.isActive() ? Messages.close() : Messages.open();
 }
 
 Messages.isActive = function() {
-    return $('#user-dialogs').length != 0;
+    return $('#user-dialogs:visible').length != 0;
 }
 
 Messages.setHeight  = function() {

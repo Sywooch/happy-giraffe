@@ -3,7 +3,7 @@
 <?php
     $cs = Yii::app()->clientScript;
     $cs
-        ->registerCssFile('/stylesheets/user.css');
+        ->registerCssFile('/stylesheets/user.css?2');
 ?>
 
 <div id="user">

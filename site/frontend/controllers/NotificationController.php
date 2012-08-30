@@ -8,7 +8,7 @@ class NotificationController extends HController
     public function filters()
     {
         return array(
-            'ajaxOnly',
+            //'ajaxOnly',
         );
     }
 

@@ -187,6 +187,7 @@ class Im
             $data[] = array(
                 'text' => self::getNotificationText($m),
                 'url' => Yii::app()->createUrl('/im/default/dialog', array('id' => $m['dialog_id'])),
+                'ok' => 'Messages.open(' . $m['user_id'] . ');'
             );
         }
 

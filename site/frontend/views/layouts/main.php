@@ -502,6 +502,8 @@
 <?php if (Yii::app()->user->isGuest) {
     $this->widget('application.widgets.registerWidget.RegisterWidget');
     $this->widget('application.widgets.loginWidget.LoginWidget');
+} else {
+    $this->widget('application.widgets.messagesWidget.MessagesWidget');
 }?>
 <noindex>
         <!-- Yandex.Metrika counter -->

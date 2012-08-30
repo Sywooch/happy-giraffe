@@ -67,7 +67,7 @@ Attach.prototype.selectBrowsePhoto = function (button) {
         this.saveProductPhoto(fsn);
     } else if (this.entity == "PhotoComment") {
         this.saveCommentPhoto(fsn);
-    } else if (this.entity == 'Comment' || this.entity == 'CommunityPost' || this.entity == 'CommunityVideo') {
+    } else if (this.entity == 'Message' || this.entity == 'Comment' || this.entity == 'CommunityPost' || this.entity == 'CommunityVideo') {
         this.insertToComment(fsn);
     } else if (this.entity == 'Humor') {
         this.insertToHumor(fsn);
@@ -99,6 +99,7 @@ Attach.prototype.closeUpload = function (link) {
 };
 
 Attach.prototype.insertToComment = function (val) {
+    alert(cke_instance);
     var title = $('#photo_title').size() > 0 ? $('#photo_title').val() : null;
     $.post(base_url + '/albums/commentPhoto/', {val:val, title:title}, function (data) {
         if (CKEDITOR.instances[cke_instance] != undefined) {

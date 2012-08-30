@@ -184,13 +184,18 @@ class Comment extends HActiveRecord
 
             //send signals to commentator panel
             if (Yii::app()->user->checkAccess('commentator_panel')) {
-                $comet = new CometModel;
-                $comet->send(Yii::app()->user->id, array(
-                    'update_part' => CometModel::UPDATE_COMMENTS,
-                    'link' => $this->getLink(),
-                    'entity_id' => $this->entity_id,
-                    'entity' => $this->entity
-                ), CometModel::TYPE_COMMENTATOR_UPDATE);
+                Yii::import('site.frontend.modules.signal.components.*');
+                $commentator = CommentatorWork::getCurrentUser();
+                if ($commentator->comment_entity == $this->entity && $commentator->comment_entity_id == $this->entity_id || !empty($this->response_id)){
+                    $commentator->incCommentsCount();
+                    $comet = new CometModel;
+                    $comet->send(Yii::app()->user->id, array(
+                        'update_part' => CometModel::UPDATE_COMMENTS,
+                        'link' => $this->getLink(),
+                        'entity_id' => $this->entity_id,
+                        'entity' => $this->entity
+                    ), CometModel::TYPE_COMMENTATOR_UPDATE);
+                }
             }
         }
         parent::afterSave();

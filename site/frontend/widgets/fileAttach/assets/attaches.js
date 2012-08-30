@@ -29,6 +29,7 @@ Attach.prototype.changeAlbum = function (link) {
 };
 
 Attach.prototype.selectPhoto = function (button, id) {
+    alert('1');
     var image = $(button).parent().siblings('a').children('img').clone(true);
     $('.upload-file .photo').find('a').hide();
     $('.upload-file .photo .upload-container').append(image);
@@ -39,6 +40,7 @@ Attach.prototype.selectPhoto = function (button, id) {
         this.crop(id);
     }
     else if (this.entity == 'Message' || this.entity == 'Comment' || this.entity == 'CommunityPost' || this.entity == 'CommunityVideo') {
+        alert('2');
         this.insertToComment(id);
     } else if (this.entity == "PhotoComment") {
         this.saveCommentPhoto(id);
@@ -99,7 +101,6 @@ Attach.prototype.closeUpload = function (link) {
 };
 
 Attach.prototype.insertToComment = function (val) {
-    alert(cke_instance);
     var title = $('#photo_title').size() > 0 ? $('#photo_title').val() : null;
     $.post(base_url + '/albums/commentPhoto/', {val:val, title:title}, function (data) {
         if (CKEDITOR.instances[cke_instance] != undefined) {

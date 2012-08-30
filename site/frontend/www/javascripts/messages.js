@@ -6,22 +6,31 @@ var Messages = {
 
 Messages.open = function(interlocutor_id, type) {
     interlocutor_id = (typeof interlocutor_id === "undefined") ? null : interlocutor_id;
+    type = (typeof type === "undefined") ? null : type;
 
     if (! Messages.isActive()) {
         $('#user-dialogs').show();
         $('body').css('overflow', 'hidden');
         $('body').append('<div id="body-overlay"></div>');
         $('body').addClass('nav-fixed');
-        Messages.setList(0, interlocutor_id == null && ! Messages.hasMessages, interlocutor_id);
+
         comet.addEvent(3, 'updateStatus');
         comet.addEvent(1, 'receiveMessage');
         comet.addEvent(21, 'updateReadStatuses');
         $(window).on('resize', function() {
             Messages.setHeight();
         });
-    } else {
-        Messages.setDialog(interlocutor_id);
     }
+    if (interlocutor_id == null && type == null) {
+        Messages.setList(0, interlocutor_id == null && ! Messages.hasMessages, interlocutor_id);
+    }
+    else {
+        if (interlocutor_id != null)
+            Messages.setDialog(interlocutor_id);
+        if (type != null)
+            Messages.setList(type, false);
+    }
+
 }
 
 Messages.close = function() {

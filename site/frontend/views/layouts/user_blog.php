@@ -112,7 +112,7 @@
 
                     <div class="preview">
                         <?php $i = 0; foreach($photos as $p): ?>
-                            <?=CHtml::image($p->getPreviewUrl(150, 120), $p->title, array('class' => 'img-' . ++$i))?>
+                            <?=CHtml::image($p->getPreviewUrl(150, 150), $p->title, array('class' => 'img-' . ++$i))?>
                         <?php endforeach; ?>
                     </div>
 

@@ -4,33 +4,33 @@ var Messages = {
     hasMessages: true
 }
 
-Messages.open = function(interlocutor_id, type) {
+Messages.open = function(interlocutor_id) {
     interlocutor_id = (typeof interlocutor_id === "undefined") ? null : interlocutor_id;
 
     if (! Messages.isActive()) {
-        $('#user-dialogs').show();
-        $('body').css('overflow', 'hidden');
-        $('body').append('<div id="body-overlay"></div>');
-        $('body').addClass('nav-fixed');
-        $('#user-nav-messages').addClass('active');
-        Messages.setList(0, interlocutor_id == null && ! Messages.hasMessages, interlocutor_id);
-        comet.addEvent(3, 'updateStatus');
-        comet.addEvent(1, 'receiveMessage');
-        comet.addEvent(21, 'updateReadStatuses');
-        $(window).on('resize', function() {
-            Messages.setHeight();
-        });
+        $.get('/im/', function(data) {
+            $('body').append(data.html);
+            $('body').css('overflow', 'hidden');
+            $('body').append('<div id="body-overlay"></div>');
+            $('body').addClass('nav-fixed');
+            Messages.setList(0, interlocutor_id == null && ! data.hasMessages, interlocutor_id);
+            comet.addEvent(3, 'updateStatus');
+            comet.addEvent(1, 'receiveMessage');
+            comet.addEvent(21, 'updateReadStatuses');
+            $(window).on('resize', function() {
+                Messages.setHeight();
+            });
+        }, 'json');
     } else {
         Messages.setDialog(interlocutor_id);
     }
 }
 
 Messages.close = function() {
-    $('#user-dialogs').hide();
+    $('#user-dialogs').remove();
     $('body').css('overflow', '');
     $('#body-overlay').remove();
     $('body').removeClass('nav-fixed');
-    $('#user-nav-messages').removeClass('active');
     if (CKEDITOR.instances['Message[text]']) {
         CKEDITOR.instances['Message[text]'].destroy(true);
     }

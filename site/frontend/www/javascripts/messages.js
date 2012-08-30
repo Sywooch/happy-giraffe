@@ -6,6 +6,8 @@ var Messages = {
 Messages.open = function(interlocutor_id) {
     interlocutor_id = (typeof interlocutor_id === "undefined") ? null : interlocutor_id;
 
+    $.fancybox.showActivity();
+
     if (! Messages.isActive()) {
         $.get('/im/', function(data) {
             $('body').append(data.html);
@@ -23,6 +25,8 @@ Messages.open = function(interlocutor_id) {
     } else {
         Messages.setDialog(interlocutor_id);
     }
+
+    $.fancybox.hideActivity();
 }
 
 Messages.close = function() {

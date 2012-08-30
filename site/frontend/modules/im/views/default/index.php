@@ -24,7 +24,7 @@
             <a href="javascript:void(0)" class="icon-search" onclick="$(this).prev().val(''); Messages.filterList('');"></a>
         </div>
 
-        <a href="javascript:void(0)" class="close" onclick="closeMessages();">Закрыть диалоги</a>
+        <a href="javascript:void(0)" class="close" onclick="Messages.close();">Закрыть диалоги</a>
 
     </div>
 

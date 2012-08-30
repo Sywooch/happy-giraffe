@@ -104,7 +104,7 @@
 
             </div>
 
-            <?php $photos = $this->user->getRelated('photos', false, array('limit' => 3, 'order' => 'photos.created DESC', 'with'=>array('album'=>array('condition'=>'album.type = 0')))); ?>
+            <?php $photos = $this->user->getRelated('photos', false, array('limit' => 3, 'order' => 'photos.created DESC', 'with'=>array('album'=>array('condition'=>'album.type <= 1')))); ?>
             <?php if (count($photos)>0):?>
                 <div class="fast-photos">
 
@@ -112,7 +112,7 @@
 
                     <div class="preview">
                         <?php $i = 0; foreach($photos as $p): ?>
-                            <?=CHtml::image($p->getPreviewUrl(180, 180), $p->title, array('class' => 'img-' . ++$i))?>
+                            <?=CHtml::image($p->getPreviewUrl(150, 150), $p->title, array('class' => 'img-' . ++$i))?>
                         <?php endforeach; ?>
                     </div>
 

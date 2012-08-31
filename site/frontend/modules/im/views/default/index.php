@@ -1,78 +1,123 @@
 <?php
-/* @var $this Controller
- * @var $dialogs Dialog[]
- */
+    $message = new Message;
 ?>
-<div class="dialog-list">
-    <?php foreach ($dialogs as $dialog): ?>
-    <div class="dialog-message dialog-message-<?php
-        if ($dialog->unreadByMe) echo 'new-in';
-        elseif ($dialog->unreadByPal) echo 'new-out';
-        else {
-            echo ($dialog->lastMessage->sent()) ? 'out' : 'in';
-        }
-        ?>" id="Dialog_<?php echo $dialog->id; ?>">
-        <input type="hidden" value="<?php echo $this->createUrl('/im/default/dialog', array('id' => $dialog->id)) ?>"
-               class="dialog_url">
-        <input type="hidden" value="<?php echo $dialog->id ?>"
-               class="dialog_id">
-        <table>
-            <tr>
-                <td class="user">
-                    <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => $dialog->GetInterlocutor())); ?>
-                </td>
-                <td class="message-icon">
-                    <div class="icon"></div>
-                    <div class="date">
-                        <span><?php echo HDate::GetFormattedTime($dialog->lastMessage->created, '<br/>'); ?></span>
-                    </div>
-                </td>
-                <td class="content">
-                    <?php echo CHtml::decode($dialog->lastMessage->text) ?>
-                </td>
-                <td class="actions">
 
-                    <a href="" class="remove"></a>
-                    <a href="" class="claim"></a>
+<div id="user-dialogs" class="clearfix">
 
-                </td>
-            </tr>
-        </table>
+    <div class="header">
+
+        <div class="title">
+            <span>Мои диалоги</span>
+        </div>
+
+        <div class="nav">
+            <ul id="user-dialogs-nav">
+                <li<?php if ($allCount == 0): ?> class="disabled"<?php endif; ?>><a onclick="Messages.setList(0);" href="javascript:void(0)">Все</a><span class="count" id="user-dialogs-allCount"><?=$allCount?></span></li>
+                <li<?php if ($newCount == 0): ?> class="disabled"<?php endif; ?>><a onclick="Messages.setList(1);" href="javascript:void(0)">Новые</a><span class="count" id="user-dialogs-newCount"><?=$newCount?></span></li>
+                <li<?php if ($onlineCount == 0): ?> class="disabled"<?php endif; ?>><a onclick="Messages.setList(2);" href="javascript:void(0)">Кто в онлайне</a><span class="count" id="user-dialogs-onlineCount"><?=$onlineCount?></span></li>
+                <li<?php if ($friendsCount == 0): ?> class="disabled"<?php endif; ?>><a onclick="Messages.setList(3);" href="javascript:void(0)">Друзья на сайте</a><span class="count" id="user-dialogs-friendsCount"><?=$friendsCount?></span></li>
+            </ul>
+        </div>
+
+        <div class="search">
+            <input type="text" placeholder="Найти по имени" onkeyup="Messages.filterList($(this).val()); $(this).next().toggleClass('icon-clear', $(this).val() != '');" />
+            <a href="javascript:void(0)" class="icon-search" onclick="$(this).prev().val(''); Messages.filterList('');"></a>
+        </div>
+
+        <a href="javascript:void(0)" class="close" onclick="Messages.close();">Закрыть диалоги</a>
 
     </div>
-    <?php endforeach; ?>
+
+    <div class="contacts">
+
+        <div class="list">
+
+            <ul id="user-dialogs-contacts">
+
+
+
+            </ul>
+
+        </div>
+
+        <?php if ($wantToChat): ?>
+            <div class="wannachat clearfix">
+
+                <div class="block-title">
+                    <span>Хотят общаться</span>
+                </div>
+
+                <ul>
+                    <?php foreach ($wantToChat as $u): ?>
+                        <?php
+                            $class = 'ava small';
+                            if ($u->gender !== null) $class .= ' ' . (($u->gender) ? 'male' : 'female');
+                        ?>
+                        <li><?=CHtml::link(CHtml::image($u->getAva('small')), $u->url, array('class' => $class))?></li>
+                    <?php endforeach; ?>
+                </ul>
+
+            </div>
+        <?php endif; ?>
+
+    </div>
+
+    <div class="dialog">
+
+        <div id="user-dialogs-dialog">
+
+
+
+        </div>
+
+        <div class="dialog-input clearfix">
+
+            <?=CHtml::beginForm('/im/message/', 'post', array(
+                'id' => 'user-dialogs-form',
+                'onsubmit' => 'Messages.sendMessage(); return false;',
+            ))?>
+
+                <div class="input"><textarea placeholder="Введите ваше сообщение" onclick="Messages.showInput();"></textarea></div>
+                <div class="wysiwyg">
+                    <?php
+
+                        $this->widget('ext.ckeditor.CKEditorWidget', array(
+                            'model' => $message,
+                            'attribute' => 'text',
+                            'config' => array(
+                                'width' => 506,
+                                'height' => 56,
+                                'toolbar' => 'Chat',
+                                'resize_enabled' => false,
+                            ),
+                        ));
+                    ?>
+                </div>
+
+                <div class="btn"><button>Отправить сообщение</button></div>
+
+            <?=CHtml::endForm()?>
+
+        </div>
+
+    </div>
 
 </div>
 
-<script type="text/javascript">
-    $(function () {
-        $('.dialog-message .actions a.remove').click(function () {
-            if (confirm("Удалить диалог?")) {
-                $.ajax({
-                    url:'<?php echo Yii::app()->createUrl("/im/default/removeDialog") ?>',
-                    data:{id:$(this).parents('.dialog-message').find('input.dialog_id').val()},
-                    type:'POST',
-                    dataType:'JSON',
-                    success:function (response) {
-                        if (response.status) {
-                            $(this).parents('.dialog-message').remove();
-                            if (response.active_dialog_url == '')
-                                $('.nav .opened').hide();
-                            else
-                                $('.nav .opened a').attr("href", response.active_dialog_url);
-                        }
-                    },
-                    context:$(this)
-                });
-            }
-            return false;
-        });
+<div style="display: none;">
+    <div class="upload-btn">
+        <?php
+        $fileAttach = $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
+            'model' => $message,
+        ));
+        $fileAttach->button();
+        $this->endWidget();
+        ?>
+    </div>
+</div>
 
-        $('div.dialog-message').click(function () {
-            var url = $(this).find('.dialog_url').val();
-            window.location = url;
-        });
-    });
+<script id="newTmpl" type="text/x-jquery-tmpl">
+    {{if number != 0}}
+    <span class="new">${number} ${noun}</span>
+    {{/if}}
 </script>
-
-

@@ -95,7 +95,7 @@ class DefaultController extends HController
         $text = Yii::app()->request->getPost('text');
 
         $dialog_id = Im::getDialogId(Yii::app()->user->id, $interlocutor_id);
-        if ($dialog_id === false) {
+        if ($dialog_id === false && $interlocutor_id !== null) {
             $dialog = new Dialog;
             $dialog->save();
             $ud1 = new DialogUser;

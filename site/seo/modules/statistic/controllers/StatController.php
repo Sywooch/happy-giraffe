@@ -35,12 +35,7 @@ class StatController extends SController
         if ($user_id === null) {
             $this->render('moderators_stats', compact('last_date', 'date', 'days', 'moderators', 'period'));
         } else {
-            $moderators = Yii::app()->user->getState('moderators');
-            if (!is_array($moderators))
-                $moderators = array($user_id);
-            elseif (!in_array($user_id, $moderators))
-                $moderators[] = $user_id;
-            Yii::app()->user->setState('moderators', $moderators);
+            $this->addEntityToFastList('moderators', $user_id);
 
             $this->render('moderator_stats', compact('last_date', 'date', 'days', 'user_id', 'period'));
         }

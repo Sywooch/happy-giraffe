@@ -180,6 +180,19 @@ class CommentatorWork extends EMongoDocument
         return $model;
     }
 
+    /**
+     * @static
+     * @param int $user_id
+     * @return CommentatorWork
+     */
+    public static function getUser($user_id)
+    {
+        $criteria = new EMongoCriteria;
+        $criteria->user_id('==', (int)$user_id);
+        $model = self::model()->find($criteria);
+        return $model;
+    }
+
     public function blogPosts()
     {
         $criteria = new CDbCriteria;

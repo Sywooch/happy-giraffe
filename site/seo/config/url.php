@@ -18,6 +18,7 @@ return array(
         'tasks' => 'writing/editor/tasks',
         'competitors/' => 'competitors/default/index',
 
+        'commentators/user/<user_id:[\d]+>/<period:[\w-]+>'=>'commentators/default/commentator',
         'commentators/user/<user_id:[\d]+>'=>'commentators/default/commentator',
         'commentators/<period:[\w-]+>/<day:\d+>'=>'commentators/default/index',
         'commentators/<period:[\w-]+>'=>'commentators/default/index',

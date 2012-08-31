@@ -50,11 +50,11 @@ else {
             <?php if ($this->nav): ?>
                 <div class="user-fast-nav">
                     <ul>
-                        <?=CHtml::link('Анкета', array('user/profile', 'user_id' => $this->user->id))?>&nbsp;|&nbsp;<?=CHtml::link('Блог', array('blog/list', 'user_id' => $this->user->id))?>&nbsp;|&nbsp;<?=CHtml::link('Фото', array('albums/user', 'id' => $this->user->id))?>&nbsp;|&nbsp;<?=CHtml::link('Что нового', array('user/activity', 'user_id' => $this->user->id, 'type' => 'my'))?> &nbsp;|&nbsp;<span class="drp-list">
-                            <a href="javascript:void(0)" class="more" onclick="$(this).next().toggle(); return false;">Еще</a>
-                            <ul style="display: none;">
-                                <li><?=CHtml::link('Друзья', array('user/friends', 'user_id' => $this->user->id))?></li>
-                                <li><?=CHtml::link('Клубы', array('user/clubs', 'user_id' => $this->user->id))?></li>
+                        <?=CHtml::link('Анкета', array('/user/profile', 'user_id' => $this->user->id))?>&nbsp;|&nbsp;<?=CHtml::link('Блог', array('/blog/list', 'user_id' => $this->user->id))?>&nbsp;|&nbsp;<?=CHtml::link('Фото', array('/albums/user', 'id' => $this->user->id))?>&nbsp;|&nbsp;<?=CHtml::link('Что нового', array('/user/activity', 'user_id' => $this->user->id, 'type' => 'my'))?> &nbsp;|&nbsp;<span class="drp-list">
+                            <a href="javascript:void(0)" class="more" onclick="$(this).next().toggle();">Еще</a>
+                            <ul style="display: none;"">
+                                <li><?=CHtml::link('Друзья', array('/user/friends', 'user_id' => $this->user->id))?></li>
+                                <li><?=CHtml::link('Клубы', array('/user/clubs', 'user_id' => $this->user->id))?></li>
                             </ul>
                         </span>
                     </ul>

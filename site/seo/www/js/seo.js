@@ -140,6 +140,14 @@ var SeoModule = {
                 $(el).parents('li').remove();
             }
         }, 'json');
+    },
+    show:function(id, el){
+        $('#'+id).toggle();
+
+        if ($(el).text() == 'Показать')
+            $(el).text('Скрыть');
+        else
+            $(el).text('Показать');
     }
 }
 

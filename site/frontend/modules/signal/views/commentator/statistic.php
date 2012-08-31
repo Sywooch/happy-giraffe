@@ -9,9 +9,9 @@ $months = $this->commentator->getWorkingMonths();
     <div class="fast-filter fast-filter-community">
         <?php foreach ($months as $key => $month): ?>
             <?php if ($period == $month):?>
-                <span class="active" style="text-transform: capitalize;"><?=Yii::app()->dateFormatter->format('MMM yyyy',strtotime($month)) ?></span>
+                <span class="active"><?=HDate::formatMonthYear($month) ?></span>
             <?php else: ?>
-                <a style="text-transform: capitalize;" href="<?=$this->createUrl('/signal/commentator/statistic', array('period'=>$month)) ?>"><?=Yii::app()->dateFormatter->format('MMM yyyy',strtotime($month)) ?></a>
+                <a href="<?=$this->createUrl('/signal/commentator/statistic', array('period'=>$month)) ?>"><?=HDate::formatMonthYear($month) ?></a>
             <?php endif ?>
         <?php if ($key + 1 < count($months)):?>
             &nbsp;|&nbsp;
@@ -81,7 +81,7 @@ $months = $this->commentator->getWorkingMonths();
 
             <table class="table-task">
                 <tr>
-                    <td class="col-1">5.  Заходов из поисковых систем <a href="" class="pseudo">Скрыть</a></td>
+                    <td class="col-1">5.  Заходов из поисковых систем <a href="javascript:;" class="pseudo" onclick="CommentatorPanel.show('traffic-stat', this);">Показать</a></td>
 
                     <td class="col-2"><?=$this->commentator->seVisits($period) ?></td>
                     <td class="col-3"><?=$this->commentator->getPlace($period, CommentatorsMonthStats::SE_VISITS) ?></td>
@@ -89,7 +89,7 @@ $months = $this->commentator->getWorkingMonths();
                 </tr>
             </table>
 
-            <div class="table-box table-statistic">
+            <div class="table-box table-statistic" id="traffic-stat">
                 <table>
                     <thead>
                     <tr>

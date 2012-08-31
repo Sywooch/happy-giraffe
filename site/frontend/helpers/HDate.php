@@ -48,6 +48,11 @@ class HDate
         return $arr[$n];
     }
 
+    public static function formatMonthYear($month)
+    {
+        return HDate::ruShortMonth(date('n',strtotime($month))). '. '.date('Y',strtotime($month));
+    }
+
     public static function ruMonth($num)
     {
         switch ($num) {

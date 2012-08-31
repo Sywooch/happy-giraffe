@@ -10,6 +10,7 @@ class DefaultController extends SController
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
         Yii::import('site.frontend.modules.signal.models.*');
         Yii::import('site.frontend.modules.signal.components.*');
+        Yii::import('site.frontend.modules.im.models.*');
 
         $this->pageTitle = 'комментаторы';
         return true;
@@ -30,10 +31,16 @@ class DefaultController extends SController
 		$this->render('index', compact('period', 'month', 'day'));
 	}
 
-    public function actionCommentator($user_id)
+    public function actionCommentator($user_id, $period = null)
     {
         $this->addEntityToFastList('commentators', $user_id);
         $commentator = CommentatorWork::getUser($user_id);
-        $this->render('commentator', compact('commentator'));
+        $this->render('commentator', compact('commentator', 'period'));
+    }
+
+    public function actionCommentatorStats($user_id, $period)
+    {
+        $commentator = CommentatorWork::getUser($user_id);
+        $this->render('_commentator_stats', compact('commentator', 'period'));
     }
 }

@@ -9,6 +9,7 @@
             'items' => array(
                 array(
                     'label' => 'Статистика',
+                    'active'=>Yii::app()->controller->uniqueId == 'commentators/default',
                     'url' => array('/commentators/default/index'),
                 ),
             )));
@@ -20,11 +21,14 @@
 
     <div class="fast-nav">
         <ul>
-            <li<?php if (!isset($_GET['user_id'])) echo ' class="active"' ?>><a href="<?=$this->createUrl('/statistic/stat/moderators/')?>">Все модераторы</a></li>
+            <li<?php if (!isset($_GET['user_id'])) echo ' class="active"' ?>><a href="<?=$this->createUrl('/commentators/default/index/')?>">Все комментаторы</a></li>
             <?php $commentators = Yii::app()->user->getState('commentators') ?>
             <?php if (is_array($commentators)):?>
             <?php foreach ($commentators as $commentator): ?>
-                <li<?php if (isset($_GET['user_id']) && $_GET['user_id'] == $commentator) echo ' class="active"' ?>><a href="<?=$this->createUrl('/statistic/stat/moderators/', array('user_id'=>$commentator))?>"><?=User::getUserById($commentator)->fullName ?></a><a href="javascript:;" class="remove" onclick="SeoModule.removeUser('commentators', <?=$commentator ?>, this)"></a></li>
+                <li<?php if (isset($_GET['user_id']) && $_GET['user_id'] == $commentator) echo ' class="active"'
+                    ?>><a href="<?=$this->createUrl('/commentators/default/commentator/', array('user_id'=>$commentator))
+                    ?>"><?=User::getUserById($commentator)->fullName
+                    ?></a><a href="javascript:;" class="remove" onclick="SeoModule.removeUser('commentators', <?=$commentator ?>, this)"></a></li>
                 <?php endforeach; ?>
             <?php endif ?>
         </ul>

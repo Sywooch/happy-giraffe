@@ -30,8 +30,10 @@ class DefaultController extends SController
 		$this->render('index', compact('period', 'month', 'day'));
 	}
 
-    public function actionCommentator()
+    public function actionCommentator($user_id)
     {
-
+        $this->addEntityToFastList('commentators', $user_id);
+        $commentator = CommentatorWork::getUser($user_id);
+        $this->render('commentator', compact('commentator'));
     }
 }

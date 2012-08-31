@@ -72,7 +72,7 @@ $months = CommentatorsMonthStats::getMonths();
                         $working_commentators_count++;
                         ?>
                         <tr>
-                            <td class="al"><span class="big"><a href="">Алексей Киреев</a></span></td>
+                            <td class="al"><span class="big"><a href="<?=$this->createUrl('/commentators/default/commentator', array('user_id'=>$commentator->user_id)) ?>">Алексей Киреев</a></span></td>
                             <td><?=$commentator_day->blog_posts ?></td>
                             <td><?=$commentator_day->club_posts ?></td>
                             <td><?=$commentator_day->comments ?></td>

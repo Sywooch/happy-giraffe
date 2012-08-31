@@ -1,18 +1,9 @@
-<div class="clearfix user-info-center">
-    <div class="user-info ">
-        <a href="" class="ava"></a>
-        <div class="details">
-            <a href="" class="username">Алексей Киреев</a>
-            <div class="user-fast-nav">
-                <ul>
-                    <a href="">Анкета</a>&nbsp;|&nbsp;<a href="">Блог</a>&nbsp;|&nbsp;<a href="">Фото</a>&nbsp;|&nbsp;<a href="">Что нового</a>&nbsp;|&nbsp;<span class="drp-list"><a href="" class="more">Еще</a><ul><li><a href="">Семья</a></li><li><a href="">Друзья</a></li></ul>
-							</span>
-
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
+<?php
+/* @var $this Controller
+ * @var $commentator CommentatorWork
+ */
+?>
+<?php $this->renderPartial('_avatar',compact('commentator')); ?>
 
 <div class="seo-table">
 

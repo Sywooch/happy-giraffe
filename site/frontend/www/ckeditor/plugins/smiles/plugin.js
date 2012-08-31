@@ -1,5 +1,6 @@
 var SmilesCommand = {
     exec : function(editor) {
+        cke_instance = editor.name;
         $.fancybox.open('<div id="wysiwygAddSmile" class="popup">'+
             '<a href="javascript:void(0);" class="popup-close" onclick="$.fancybox.close();">закрыть</a>'+
             '<div class="title">Вставить смайл</div>'+

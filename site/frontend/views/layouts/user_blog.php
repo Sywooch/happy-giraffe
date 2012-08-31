@@ -104,7 +104,7 @@
 
             </div>
 
-            <?php $photos = $this->user->getRelated('photos', false, array('limit' => 3, 'order' => 'photos.created DESC', 'with'=>array('album'=>array('condition'=>'album.type <= 1')))); ?>
+            <?php $photos = $this->user->getRelated('photos', false, array('limit' => 3, 'order' => 'photos.created DESC', 'with'=>array('album'=>array('condition'=>'album.type = 1 OR album.type = 0')))); ?>
             <?php if (count($photos)>0):?>
                 <div class="fast-photos">
 

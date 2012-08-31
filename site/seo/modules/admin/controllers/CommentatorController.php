@@ -1,31 +1,24 @@
 <?php
 
-class IndexingUrlController extends SController
+class CommentatorController extends SController
 {
 	public $defaultAction='admin';
     public $layout = '//layouts/empty';
 
-    public function beforeAction($action)
-    {
-        if (!Yii::app()->user->checkAccess('admin'))
-            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
-        return true;
-    }
-
-    /**
+	/**
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
 	public function actionCreate()
 	{
-		$model=new IndexingUrl;
+		$model=new Commentator;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['IndexingUrl']))
+		if(isset($_POST['Commentator']))
 		{
-			$model->attributes=$_POST['IndexingUrl'];
+			$model->attributes=$_POST['Commentator'];
 			if($model->save())
 				$this->redirect(array('admin'));
 		}
@@ -47,9 +40,9 @@ class IndexingUrlController extends SController
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['IndexingUrl']))
+		if(isset($_POST['Commentator']))
 		{
-			$model->attributes=$_POST['IndexingUrl'];
+			$model->attributes=$_POST['Commentator'];
 			if($model->save())
 				$this->redirect(array('admin'));
 		}
@@ -84,10 +77,10 @@ class IndexingUrlController extends SController
 	 */
 	public function actionAdmin()
 	{
-		$model=new IndexingUrl('search');
+		$model=new Commentator('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['IndexingUrl']))
-			$model->attributes=$_GET['IndexingUrl'];
+		if(isset($_GET['Commentator']))
+			$model->attributes=$_GET['Commentator'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -101,7 +94,7 @@ class IndexingUrlController extends SController
 	 */
 	public function loadModel($id)
 	{
-		$model=IndexingUrl::model()->findByPk((int)$id);
+		$model=Commentator::model()->findByPk((int)$id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -113,7 +106,7 @@ class IndexingUrlController extends SController
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='indexing-url-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='commentator-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

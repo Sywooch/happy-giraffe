@@ -36,7 +36,7 @@ class CommentatorController extends HController
     {
         if (!$this->commentator->IsWorksToday(Yii::app()->user->id))
             $this->redirect('/signal/commentator/statistic');
-
+        //$this->getSeVisits();
         $this->render('index');
     }
 
@@ -81,5 +81,22 @@ class CommentatorController extends HController
             $response = array('status' => false);
 
         echo CJSON::encode($response);
+    }
+
+    public function getSeVisits()
+    {
+        //ga:organicSearches
+        $period = '2012-08';
+        Yii::import('site.frontend.extensions.GoogleAnalytics');
+        $ga = new GoogleAnalytics('alexk984@gmail.com', Yii::app()->params['gaPass']);
+        $ga->setProfile('ga:53688414');
+        $ga->setDateRange($period . '-01', $period . '-31');
+        $report = $ga->getReport(array(
+            'metrics' => urlencode('ga:organicSearches'),
+            'filters' => urlencode('ga:pagePath=~'.'/community/33/forum/post/*'),
+            'max-results'=>'1000'
+        ));
+
+        var_dump($report);
     }
 }

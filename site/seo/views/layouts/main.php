@@ -8,9 +8,9 @@
     <?php
     echo CHtml::linkTag('shortcut icon', null, '/favicon.bmp');
 
-    $release_id = 23;
+    $release_id = 24;
     Yii::app()->clientScript
-        ->registerCssFile('/css/seo.css?r='.$release_id)
+        ->registerCssFile('/css/seo.css?'.$release_id)
         ->registerCssFile('/css/form.css')
         ->registerCssFile('/css/my.css')
 

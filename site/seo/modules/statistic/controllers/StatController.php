@@ -78,17 +78,6 @@ class StatController extends SController
         $this->render('groups_stats', compact('last_date', 'date', 'period'));
     }
 
-    public function actionRemoveUser()
-    {
-        $moderators = Yii::app()->user->getState('moderators');
-        $user_id = Yii::app()->request->getPost('user_id');
-        foreach ($moderators as $key => $moderator)
-            if ($moderator == $user_id)
-                unset($moderators[$key]);
-        Yii::app()->user->setState('moderators', $moderators);
-        echo CJSON::encode(array('status' => true));
-    }
-
     public function getPeriod($date, $days)
     {
         if ($date != date("Y-m-d")) {

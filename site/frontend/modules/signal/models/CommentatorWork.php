@@ -31,7 +31,7 @@ class CommentatorWork extends EMongoDocument
     {
         return array(
             'embeddedArrays' => array(
-                'class' => 'ext.YiiMongoDbSuite.extra.EEmbeddedArraysBehavior',
+                'class' => 'site.frontend.extensions.YiiMongoDbSuite.extra.EEmbeddedArraysBehavior',
                 'arrayPropertyName' => 'days',
                 'arrayDocClassName' => 'CommentatorDay'
             ),
@@ -50,6 +50,15 @@ class CommentatorWork extends EMongoDocument
         return null;
     }
 
+    public function getDay($day)
+    {
+        foreach ($this->days as $_day)
+            if ($_day->date == $day)
+                return $_day;
+
+        return null;
+    }
+
     public function IsWorksToday()
     {
         foreach ($this->days as $day)
@@ -57,6 +66,25 @@ class CommentatorWork extends EMongoDocument
                 return true;
 
         return false;
+    }
+
+    public function IsWorks($day)
+    {
+        foreach ($this->days as $_day)
+            if ($_day->date == $day)
+                return true;
+
+        return false;
+    }
+
+    public function getEntitiesCount($entity, $period)
+    {
+        $result = 0;
+        foreach ($this->days as $day)
+            if (strpos($day->date, $period) === 0)
+                $result += $day->$entity;
+
+        return $result;
     }
 
     public function WorksToday()
@@ -77,6 +105,11 @@ class CommentatorWork extends EMongoDocument
             $this->days[] = $day;
 
         list($this->comment_entity, $this->comment_entity_id) = PostsWithoutCommentsCommentator::getPost();
+
+        //add working day
+        $month = CommentatorsMonthStats::getOrCreateWorkingMonth();
+        $month->workingDays [] = date("Y-m-d");
+        $month->save();
 
         return $this->save();
     }
@@ -257,10 +290,14 @@ class CommentatorWork extends EMongoDocument
         return $res;
     }
 
-    public function blogVisits($period)
+    public function blogVisits($period, $cache = true)
     {
-        $id = 'blog-visits-' . $this->user_id.'-'.$period;
-        $value = Yii::app()->cache->get($id);
+        $id = 'blog-visits-' . $this->user_id . '-' . $period;
+        if ($cache)
+            $value = Yii::app()->cache->get($id);
+        else
+            $value = false;
+
         if ($value === false) {
             Yii::import('site.frontend.extensions.GoogleAnalytics');
             $ga = new GoogleAnalytics('alexk984@gmail.com', Yii::app()->params['gaPass']);
@@ -278,11 +315,14 @@ class CommentatorWork extends EMongoDocument
         return $value;
     }
 
-    public function profileUniqueViews($period)
+    public function profileUniqueViews($period, $cache = true)
     {
 
-        $id = 'profile-pageViews-' . $this->user_id.'-'.$period;
-        $value = Yii::app()->cache->get($id);
+        $id = 'profile-pageViews-' . $this->user_id . '-' . $period;
+        if ($cache)
+            $value = Yii::app()->cache->get($id);
+        else
+            $value = false;
         if ($value === false) {
             Yii::import('site.frontend.extensions.GoogleAnalytics');
             $ga = new GoogleAnalytics('alexk984@gmail.com', Yii::app()->params['gaPass']);
@@ -300,7 +340,7 @@ class CommentatorWork extends EMongoDocument
         return $value;
     }
 
-    public function seVisits($period)
+    public function seVisits($period, $cache = true)
     {
         return 0;
     }
@@ -331,21 +371,16 @@ class CommentatorWork extends EMongoDocument
 
     public function getPlace($period, $counter)
     {
-        $month = CommentatorsMonthStats::model()->find(new EMongoCriteria(array(
-            'conditions' => array(
-                'period' => array('==' => $period)
-            ),
-        )));
-        if ($month === null){
-            $month = new CommentatorsMonthStats;
-            $month->period = $period;
-            $month->calculate();
-            $month->save();
-        }
+        $month = CommentatorsMonthStats::getOrCreateWorkingMonth($period);
 
-        $place =  $month->getPlace($this->user_id, $counter);
+        $place = $month->getPlace($this->user_id, $counter);
         if ($place < 4)
-            return '<span class="place place-'.$place.'">'.$place.' место</span>';
-        return '<span class="place">'.$place.' место</span>';
+            return '<span class="place place-' . $place . '">' . $place . ' место</span>';
+        return '<span class="place">' . $place . ' место</span>';
+    }
+
+    public function getStatusView($period)
+    {
+        return '<td></td>';
     }
 }

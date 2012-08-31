@@ -9,6 +9,7 @@ class CometModel extends CComponent
     const TYPE_MESSAGE_READ = 2;
     const TYPE_ONLINE_STATUS_CHANGE = 3;
     const TYPE_USER_TYPING = 4;
+    const TYPE_DIALOG_READ = 21;
 
     //moderator signals
     const TYPE_SIGNAL_UPDATE = 5;

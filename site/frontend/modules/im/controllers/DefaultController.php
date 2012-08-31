@@ -37,6 +37,17 @@ class DefaultController extends HController
         echo CJSON::encode($response);
     }
 
+    public function actionInit() {
+        $allCount = Im::getContactsCount(Yii::app()->user->id, Im::IM_CONTACTS_ALL);
+        $newCount = Im::getContactsCount(Yii::app()->user->id, Im::IM_CONTACTS_NEW);
+        $onlineCount = Im::getContactsCount(Yii::app()->user->id, Im::IM_CONTACTS_ONLINE);
+        $friendsCount = Im::getContactsCount(Yii::app()->user->id, Im::IM_CONTACTS_FRIENDS);
+        $hasMessages = $newCount > 0;
+
+        $response = compact('allCount', 'newCount', 'onlineCount', 'friendsCount', 'hasMessages');
+        echo CJSON::encode($response);
+    }
+
     public function actionContacts($type = Im::IM_CONTACTS_ALL)
     {
         $contacts = Im::getContacts(Yii::app()->user->id, $type);
@@ -48,15 +59,17 @@ class DefaultController extends HController
         $contact = Im::getContact(Yii::app()->user->id, $interlocutor_id);
         $html = $this->renderPartial('_dialog', compact('contact', 'interlocutor_id'), true);
         $contactHtml = $this->renderPartial('_contact', compact('contact'), true);
-        $response = array(
-            'html' => $html,
-            'contactHtml' => $contactHtml,
-            'dialogid' => $contact->userDialog ? $contact->userDialog->dialog->id : 'undefined',
-        );
 
         if ($contact->userDialog) {
             $contact->userDialog->dialog->markAsReadFrom($interlocutor_id);
         }
+
+        $response = array(
+            'html' => $html,
+            'contactHtml' => $contactHtml,
+            'dialogid' => $contact->userDialog ? $contact->userDialog->dialog->id : 'undefined',
+            'newCount' => Im::getContactsCount(Yii::app()->user->id, Im::IM_CONTACTS_NEW),
+        );
 
         echo CJSON::encode($response);
     }

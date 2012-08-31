@@ -1,5 +1,6 @@
 var AttachCommand = {
     exec : function(editor) {
+        cke_instance = editor.name;
         $.ajax({
             type : 'GET',
             url: $('.upload-btn a.btn').attr('href'),
@@ -13,7 +14,7 @@ var AttachCommand = {
 
 CKEDITOR.plugins.add('attach', {
     init : function(editor) {
-        cke_instance = editor.name;
+        //cke_instance = editor.name;
         var command = editor.addCommand('attach', AttachCommand);
         command.canUndo = true;
 

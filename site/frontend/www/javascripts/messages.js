@@ -4,24 +4,49 @@ var Messages = {
     hasMessages: true
 }
 
-Messages.open = function(interlocutor_id) {
+Messages.open = function(interlocutor_id, type) {
+    type = (typeof type === "undefined") ? 0 : type;
     interlocutor_id = (typeof interlocutor_id === "undefined") ? null : interlocutor_id;
 
     if (! Messages.isActive()) {
-        $('#user-dialogs').show();
-        $('body').css('overflow', 'hidden');
-        $('body').append('<div id="body-overlay"></div>');
-        $('body').addClass('nav-fixed');
-        $('#user-nav-messages').addClass('active');
-        Messages.setList(0, interlocutor_id == null && ! Messages.hasMessages, interlocutor_id);
-        comet.addEvent(3, 'updateStatus');
-        comet.addEvent(1, 'receiveMessage');
-        comet.addEvent(21, 'updateReadStatuses');
-        $(window).on('resize', function() {
-            Messages.setHeight();
-        });
+        $.get('/im/init/', function(data) {
+            $('#user-dialogs').show();
+            $('body').css('overflow', 'hidden');
+            $('body').append('<div id="body-overlay"></div>');
+            $('body').addClass('nav-fixed');
+            $('#user-nav-messages').addClass('active');
+
+            comet.addEvent(3, 'updateStatus');
+            comet.addEvent(1, 'receiveMessage');
+            comet.addEvent(21, 'updateReadStatuses');
+            $(window).on('resize', function() {
+                Messages.setHeight();
+            });
+
+            Messages.updateCounter('#user-dialogs-allCount', data.allCount, false);
+            Messages.updateCounter('#user-dialogs-newCount', data.newCount, false);
+            Messages.updateCounter('#user-dialogs-onlineCount', data.onlineCount, false);
+            Messages.updateCounter('#user-dialogs-friendsCount', data.friendsCount, false);
+            Messages.hasMessages = data.hasMessages;
+            Messages.initialize(interlocutor_id, type);
+        }, 'json');
+    }
+    else {
+        Messages.initialize(interlocutor_id, type);
+    }
+}
+
+Messages.initialize = function(interlocutor_id, type) {
+    if (Messages.activeTab != type) {
+        if (Messages.hasMessages) {
+            Messages.setList(type, interlocutor_id);
+        } else {
+            Messages.setList(type, false);
+            Messages.showEmpty();
+        }
     } else {
-        Messages.setDialog(interlocutor_id);
+        if (interlocutor_id != null)
+            Messages.setDialog(interlocutor_id);
     }
 }
 
@@ -31,15 +56,16 @@ Messages.close = function() {
     $('#body-overlay').remove();
     $('body').removeClass('nav-fixed');
     $('#user-nav-messages').removeClass('active');
-    if (CKEDITOR.instances['Message[text]']) {
-        CKEDITOR.instances['Message[text]'].destroy(true);
-    }
+    if (Messages.editor)
+        Messages.editor.destroy(true);
     comet.delEvent(3, 'updateStatus');
     comet.delEvent(1, 'receiveMessage');
     comet.delEvent(21, 'updateReadStatuses');
     $(window).off('resize', function() {
         Messages.setHeight();
     });
+
+    Messages.activeTab = null;
 }
 
 /*
@@ -111,7 +137,7 @@ Messages.setHeight  = function() {
     box.find('.dialog .dialog-messages').height(generalH - textareaH - userH);
 }
 
-Messages.setList = function(type, showEmpty, interlocutor_id) {
+Messages.setList = function(type, interlocutor_id) {
     interlocutor_id = (typeof interlocutor_id === "undefined") ? null : interlocutor_id;
     Messages.activeTab = type;
 
@@ -129,8 +155,10 @@ Messages.setList = function(type, showEmpty, interlocutor_id) {
         $('#user-dialogs-nav li:eq(' + type + ')').addClass('active');
         $('#user-dialogs-nav li.active span.count').hide();
 
-        var openDialog = (interlocutor_id === null) ? $('#user-dialogs-contacts > li:first').data('userid') : interlocutor_id;
-        (showEmpty) ? Messages.showEmpty() : Messages.setDialog(openDialog);
+        if (interlocutor_id != false) {
+            var dialog = (interlocutor_id == null) ? $('#user-dialogs-contacts > li:first').data('userid') : interlocutor_id;
+            Messages.setDialog(dialog);
+        }
     });
 }
 
@@ -144,19 +172,27 @@ Messages.showEmpty = function() {
 
 Messages.setDialog = function(interlocutor_id) {
     $.get('/im/dialog/', {interlocutor_id: interlocutor_id}, function(data) {
-        if ($('#user-dialogs-contacts li[data-userid="' + interlocutor_id + '"]').length == 0) {
-            $('#user-dialogs-contacts').prepend(data.contactHtml);
-        }
+        //update new counter
+        Messages.updateCounter('#user-dialogs-newCount', data.newCount, false);
 
+        //add contact if its absent
+        if ($('#user-dialogs-contacts li[data-userid="' + interlocutor_id + '"]').length == 0)
+            $('#user-dialogs-contacts').prepend(data.contactHtml);
+
+        //show dialog
         $('#user-dialogs-dialog').html(data.html);
         $('#user-dialogs-dialog').data('dialogid', data.dialogid);
         $('#user-dialogs-dialog').data('interlocutorid', interlocutor_id);
 
+        //set read statuses
         Messages.setReadStatus();
 
+        //switch active dialog
         $('#user-dialogs-contacts li.active').removeClass('active');
         $('#user-dialogs-contacts li[data-userid="' + interlocutor_id + '"]').addClass('active');
         $('#user-dialogs-contacts li[data-userid="' + interlocutor_id + '"]').data('unread', 0);
+
+        //update counter
         Messages.updateNew($('#user-dialogs-contacts li[data-userid="' + interlocutor_id + '"]'));
 
         if ($('.dialog-input').is(':hidden'))
@@ -168,7 +204,8 @@ Messages.setDialog = function(interlocutor_id) {
         Messages.setHeight();
         Messages.scrollDown();
 
-        Messages.editor.focus();
+        if (Messages.editor)
+            Messages.editor.focus();
     }, 'json');
 }
 
@@ -312,7 +349,7 @@ Comet.prototype.receiveMessage = function (result, id) {
         Messages.scrollDown();
     }
 
-    Messages.updateCounter('#user-dialogs-newCount', result.newCount);
+    Messages.updateCounter('#user-dialogs-newCount', result.newCount, false);
     if (result.newDialog)
         Messages.updateCounter('#user-dialogs-allCount', 1);
 

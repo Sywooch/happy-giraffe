@@ -10,14 +10,7 @@ class MessagesWidget extends CWidget
 {
     public function run()
     {
-        echo 'хуй';
-
-        $allCount = Im::getContactsCount(Yii::app()->user->id, Im::IM_CONTACTS_ALL);
-        $newCount = Im::getContactsCount(Yii::app()->user->id, Im::IM_CONTACTS_NEW);
-        $onlineCount = Im::getContactsCount(Yii::app()->user->id, Im::IM_CONTACTS_ONLINE);
-        $friendsCount = Im::getContactsCount(Yii::app()->user->id, Im::IM_CONTACTS_FRIENDS);
         $wantToChat = WantToChat::getList(12);
-        $hasMessages = $newCount > 0;
-        $this->render('index', compact('allCount', 'newCount', 'onlineCount', 'friendsCount', 'wantToChat', 'hasMessages'));
+        $this->render('index', compact('wantToChat'));
     }
 }

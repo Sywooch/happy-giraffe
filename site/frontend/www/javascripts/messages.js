@@ -38,11 +38,11 @@ Messages.open = function(interlocutor_id, type) {
 
 Messages.initialize = function(interlocutor_id, type) {
     if (Messages.activeTab != type) {
-        if (Messages.hasMessages) {
-            Messages.setList(type, interlocutor_id);
-        } else {
+        if (! Messages.hasMessages && interlocutor_id == null) {
             Messages.setList(type, false);
             Messages.showEmpty();
+        } else {
+            Messages.setList(type, interlocutor_id);
         }
     } else {
         if (interlocutor_id != null)

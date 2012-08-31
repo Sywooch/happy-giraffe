@@ -120,6 +120,8 @@ return array(
                         'javascripts/jquery.tmpl.min.js',
                         'javascripts/im.js',
                         'javascripts/user_common.js',
+                        'javascripts/messages.js',
+                        'javascripts/wantToChat.js',
                     ),
                     'css' => array(
                         'stylesheets/user_common.css',

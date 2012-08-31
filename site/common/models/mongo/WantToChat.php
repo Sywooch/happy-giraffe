@@ -21,7 +21,7 @@ class WantToChat extends EMongoDocument
         return 'want_to_chat';
     }
 
-    public static function getList()
+    public static function getList($limit = null)
     {
         $criteria = new EMongoCriteria;
         $criteria->created('>', time() - self::CHAT_DURATION);
@@ -35,7 +35,7 @@ class WantToChat extends EMongoDocument
         $criteria = new CDbCriteria;
         $criteria->addInCondition('id', $modelsIds);
         $criteria->order = 'RAND()';
-        $criteria->limit = 3;
+        $criteria->limit = $limit;
         return User::model()->findAll($criteria);
     }
 

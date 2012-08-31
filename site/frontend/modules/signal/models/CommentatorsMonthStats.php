@@ -10,6 +10,8 @@ class CommentatorsMonthStats extends EMongoDocument
 
     public $period;
     public $commentators = array();
+    public $workingDays = array();
+    public $working_days_count = 22;
 
     public static function model($className = __CLASS__)
     {
@@ -21,7 +23,42 @@ class CommentatorsMonthStats extends EMongoDocument
         return 'commentators_month_stats';
     }
 
-    public function calculate()
+    /**
+     * @static
+     * @param string $period
+     * @return CommentatorsMonthStats
+     */
+    public static function getOrCreateWorkingMonth($period = null)
+    {
+        if (empty($period))
+            $period = date("Y-m");
+
+        $month = CommentatorsMonthStats::getWorkingMonth($period);
+        if ($month === null && $period == date("Y-m")) {
+            $month = new CommentatorsMonthStats;
+            $month->period = date("Y-m");
+            $month->calculate();
+            $month->save();
+        }
+
+        return $month;
+    }
+
+    /**
+     * @static
+     * @param string $period
+     * @return CommentatorsMonthStats
+     */
+    public static function getWorkingMonth($period)
+    {
+        return CommentatorsMonthStats::model()->find(new EMongoCriteria(array(
+            'conditions' => array(
+                'period' => array('==' => $period)
+            ),
+        )));
+    }
+
+    public function calculate($cache = true)
     {
         $commentators = User::model()->findAll('`group`=' . UserGroup::COMMENTATOR);
         $this->commentators = array();
@@ -31,10 +68,10 @@ class CommentatorsMonthStats extends EMongoDocument
             if ($model !== null) {
                 $result = array(
                     self::NEW_FRIENDS => (int)$model->newFriends($this->period),
-                    self::BLOG_VISITS => (int)$model->blogVisits($this->period),
-                    self::PROFILE_UNIQUE_VIEWS => (int)$model->profileUniqueViews($this->period),
+                    self::BLOG_VISITS => (int)$model->blogVisits($this->period,$cache),
+                    self::PROFILE_UNIQUE_VIEWS => (int)$model->profileUniqueViews($this->period, $cache),
                     self::IM_MESSAGES => (int)$model->imMessages($this->period),
-                    self::SE_VISITS => (int)$model->seVisits($this->period),
+                    self::SE_VISITS => (int)$model->seVisits($this->period, $cache),
                 );
                 $this->commentators[(int)$commentator->id] = $result;
             }
@@ -67,5 +104,27 @@ class CommentatorsMonthStats extends EMongoDocument
         }
 
         return null;
+    }
+
+    public static function getMonths()
+    {
+        $result = array();
+        $models = CommentatorsMonthStats::model()->findAll();
+        foreach ($models as $model) {
+            $result[] = $model->period;
+        }
+
+        return array_reverse($result);
+    }
+
+    public static function getDays()
+    {
+        $result = array();
+        $models = CommentatorsMonthStats::model()->findAll();
+        foreach ($models as $model) {
+            $result[] = $model->period;
+        }
+
+        return array_reverse($result);
     }
 }

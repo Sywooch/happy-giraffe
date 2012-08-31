@@ -16,6 +16,10 @@ return array(
         'logout' => 'site/logout',
         'keywords' => 'writing/editor/index',
         'tasks' => 'writing/editor/tasks',
-        'competitors/' => 'competitors/default/index'
+        'competitors/' => 'competitors/default/index',
+
+        'commentators/<period:[\w-]+>/<day:\d+>'=>'commentators/default/index',
+        'commentators/<period:[\w-]+>'=>'commentators/default/index',
+        'commentators'=>'commentators/default/index',
     ),
 );

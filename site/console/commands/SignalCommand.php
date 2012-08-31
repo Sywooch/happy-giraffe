@@ -88,17 +88,13 @@ class SignalCommand extends CConsoleCommand
             ->queryColumn();
     }
 
-    /*public function actionCommentators(){
-        $criteria = new EMongoCriteria;
-        $criteria->days->date('==', date("Y-m-d", strtotime('-1 day')));
-        $commentators = CommentatorWork::model()->findAll($criteria);
-
-        foreach($commentators as $commentator){
-
-        }
-    }*/
-
     public function actionCommentatorsStats(){
+        Yii::import('site.frontend.modules.signal.models.*');
+        Yii::import('site.frontend.modules.signal.components.*');
+        Yii::import('site.common.models.mongo.*');
+        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
+        Yii::import('site.frontend.modules.im.models.*');
+
         $month = CommentatorsMonthStats::model()->find(new EMongoCriteria(array(
             'conditions' => array(
                 'period' => array('==' => date("Y-m") )

@@ -26,6 +26,7 @@ return array(
         'application.modules.writing.models.*',
         'application.modules.promotion.models.*',
         'application.modules.indexing.models.*',
+        'application.modules.commentators.models.*',
     ),
     'modules' => array(
         'competitors',
@@ -34,6 +35,7 @@ return array(
         'admin',
         'indexing',
         'statistic',
+        'commentators',
     ),
     'components' => array(
         'user' => array(

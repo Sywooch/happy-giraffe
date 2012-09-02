@@ -103,7 +103,7 @@ class CommentatorsMonthStats extends EMongoDocument
         foreach ($this->commentators as $_user_id => $data)
             $arr[$_user_id] = $data[$counter];
 
-        asort($arr);
+        arsort($arr);
         $i = 1;
         foreach ($arr as $_user_id => $data) {
             if ($_user_id == $user_id || $data == $arr[$user_id])

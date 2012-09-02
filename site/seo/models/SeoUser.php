@@ -204,4 +204,13 @@ class SeoUser extends HActiveRecord
             return $user->getAva($size);
         }
     }
+
+    public function commentatorIds()
+    {
+        $result = array();
+        foreach($this->commentators as $commentator)
+            $result [] = $commentator->id;
+
+        return $result;
+    }
 }

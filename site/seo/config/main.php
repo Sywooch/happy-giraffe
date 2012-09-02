@@ -85,6 +85,14 @@ return array(
             'safeFlag' => true,
             'useCursor' => false
         ),
+        'mongodb_production' => array(
+            'class' => 'EMongoDB',
+            'connectionString' => 'mongodb://localhost',
+            'dbName' => 'happy_giraffe_production',
+            'fsyncFlag' => true,
+            'safeFlag' => true,
+            'useCursor' => false
+        ),
         'cache' => array(
             'class' => 'CFileCache',
 //            'class' => 'CDummyCache',

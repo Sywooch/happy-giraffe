@@ -185,8 +185,14 @@ class Comment extends HActiveRecord
             //send signals to commentator panel
             if (Yii::app()->user->checkAccess('commentator_panel')) {
                 Yii::import('site.frontend.modules.signal.components.*');
+                Yii::import('site.frontend.modules.signal.models.*');
                 $commentator = CommentatorWork::getCurrentUser();
-                if ($commentator->comment_entity == $this->entity && $commentator->comment_entity_id == $this->entity_id || !empty($this->response_id)){
+                if ($this->entity == 'BlogContent')
+                    $entity = 'CommunityContent';
+                else
+                    $entity = $this->entity;
+
+                if ($commentator->comment_entity == $entity && $commentator->comment_entity_id == $this->entity_id || !empty($this->response_id)){
                     $commentator->incCommentsCount();
                     $comet = new CometModel;
                     $comet->send(Yii::app()->user->id, array(

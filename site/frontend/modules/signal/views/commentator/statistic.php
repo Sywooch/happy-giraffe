@@ -89,7 +89,7 @@ $months = $this->commentator->getWorkingMonths();
                 </tr>
             </table>
 
-            <div class="table-box table-statistic" id="traffic-stat">
+            <div class="table-box table-statistic" id="traffic-stat" style="display: none;">
                 <table>
                     <thead>
                     <tr>
@@ -98,26 +98,12 @@ $months = $this->commentator->getWorkingMonths();
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td class="al"><span class="big"><a href="">Секреты счастливых семейных пар</a></span></td>
-                        <td>34</td>
-                    </tr>
-                    <tr>
-                        <td class="al"><span class="big"><a href="">Кесарево сечение</a></span></td>
-                        <td>23</td>
-                    </tr>
-                    <tr>
-                        <td class="al"><span class="big"><a href="">После кесарева сечения</a></span></td>
-                        <td>21</td>
-                    </tr>
-                    <tr>
-                        <td class="al"><span class="big"><a href="">5 языков любви: Пойми любимого с полуслова</a></span></td>
-                        <td>10</td>
-                    </tr>
-                    <tr>
-                        <td class="al"><span class="big"><a href="">Беременность после 30: правда и вымысел</a></span></td>
-                        <td>4</td>
-                    </tr>
+                    <?php foreach ($this->commentator->getPosts($period) as $post): ?>
+                        <tr>
+                            <td class="al"><span class="big"><a target="_blank" href="<?=$post->url ?>"><?=$post->title ?></a></span></td>
+                            <td>0</td>
+                        </tr>
+                    <?php endforeach; ?>
                     </tbody>
                 </table>
             </div>

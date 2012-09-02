@@ -19,8 +19,11 @@ class CommentatorController extends SController
 		if(isset($_POST['Commentator']))
 		{
 			$model->attributes=$_POST['Commentator'];
-			if($model->save())
-				$this->redirect(array('admin'));
+			if($model->save()){
+                Yii::import('site.frontend.modules.signal.models.*');
+                CommentatorWork::getOrCreateUser($model->commentator_id);
+                $this->redirect(array('admin'));
+            }
 		}
 
 		$this->render('create',array(

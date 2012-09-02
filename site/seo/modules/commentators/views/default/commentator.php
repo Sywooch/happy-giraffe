@@ -4,18 +4,22 @@
  * @var $period
  */
 $months = $commentator->getWorkingMonths();
+if (!empty($months))
+{
+$user_id = $commentator->user_id;
 if (empty($period))
     $period = $months[0];
+$month = CommentatorsMonthStats::getWorkingMonth($period);
 $this->renderPartial('_avatar', compact('commentator'));
 ?>
 <div class="seo-table">
 
     <div class="fast-filter fast-filter-community">
-        <?php foreach ($months as $key => $month): ?>
-        <?php if ($period == $month): ?>
-            <span class="active"><?=HDate::formatMonthYear($month) ?></span>
+        <?php foreach ($months as $key => $_month): ?>
+        <?php if ($period == $_month): ?>
+            <span class="active"><?=HDate::formatMonthYear($_month) ?></span>
             <?php else: ?>
-            <a href="<?=$this->createUrl('/commentators/default/commentator', array('user_id' => $commentator->user_id, 'period' => $month)) ?>"><?=HDate::formatMonthYear($month) ?></a>
+            <a href="<?=$this->createUrl('/commentators/default/commentator', array('user_id' => $commentator->user_id, 'period' => $_month)) ?>"><?=HDate::formatMonthYear($_month) ?></a>
             <?php endif ?>
         <?php if ($key + 1 < count($months)): ?>
             &nbsp;|&nbsp;
@@ -31,9 +35,9 @@ $this->renderPartial('_avatar', compact('commentator'));
                 <tr>
                     <td class="col-1">1. Друзей за месяц</td>
 
-                    <td class="col-2"><?=$commentator->newFriends($period) ?></td>
-                    <td class="col-3"><?=$commentator->getPlace($period, CommentatorsMonthStats::NEW_FRIENDS) ?></td>
-                    <td class="col-4"><a href="">Как найти друзей</a></td>
+                    <td class="col-2"><?=$month->getStatValue($user_id, CommentatorsMonthStats::NEW_FRIENDS) ?></td>
+                    <td class="col-3"><?=$month->getPlaceView($user_id, CommentatorsMonthStats::NEW_FRIENDS) ?></td>
+                    <td class="col-4"></td>
                 </tr>
             </table>
 
@@ -45,9 +49,9 @@ $this->renderPartial('_avatar', compact('commentator'));
                 <tr>
                     <td class="col-1">2. Уникальных посетителей блога</td>
 
-                    <td class="col-2"><?=$commentator->blogVisits($period) ?></td>
-                    <td class="col-3"><?=$commentator->getPlace($period, CommentatorsMonthStats::BLOG_VISITS) ?></td>
-                    <td class="col-4"><a href="">Как найти друзей</a></td>
+                    <td class="col-2"><?=$month->getStatValue($user_id, CommentatorsMonthStats::BLOG_VISITS) ?></td>
+                    <td class="col-3"><?=$month->getPlaceView($user_id, CommentatorsMonthStats::BLOG_VISITS) ?></td>
+                    <td class="col-4"></td>
                 </tr>
             </table>
 
@@ -59,9 +63,9 @@ $this->renderPartial('_avatar', compact('commentator'));
                 <tr>
                     <td class="col-1">3. Количество просмотров анкеты</td>
 
-                    <td class="col-2"><?=$commentator->profileUniqueViews($period) ?></td>
-                    <td class="col-3"><?=$commentator->getPlace($period, CommentatorsMonthStats::PROFILE_UNIQUE_VIEWS) ?></td>
-                    <td class="col-4"><a href="">Как увеличить кол-во просмотров анкеты</a></td>
+                    <td class="col-2"><?=$month->getStatValue($user_id, CommentatorsMonthStats::PROFILE_UNIQUE_VIEWS) ?></td>
+                    <td class="col-3"><?=$month->getPlaceView($user_id, CommentatorsMonthStats::PROFILE_UNIQUE_VIEWS) ?></td>
+                    <td class="col-4"></td>
                 </tr>
             </table>
 
@@ -73,9 +77,9 @@ $this->renderPartial('_avatar', compact('commentator'));
                 <tr>
                     <td class="col-1">4. Количество личных сообщений</td>
 
-                    <td class="col-2"><?=$commentator->imMessages($period) ?></td>
-                    <td class="col-3"><?=$commentator->getPlace($period, CommentatorsMonthStats::IM_MESSAGES) ?></td>
-                    <td class="col-4"><a href="">Как строить общение</a></td>
+                    <td class="col-2"><?=$month->getStatValue($user_id, CommentatorsMonthStats::IM_MESSAGES) ?></td>
+                    <td class="col-3"><?=$month->getPlaceView($user_id, CommentatorsMonthStats::IM_MESSAGES) ?></td>
+                    <td class="col-4"></td>
                 </tr>
             </table>
 
@@ -89,9 +93,9 @@ $this->renderPartial('_avatar', compact('commentator'));
                                                                         onclick="SeoModule.show('traffic-stat', this);">Показать</a>
                     </td>
 
-                    <td class="col-2"><?=$commentator->seVisits($period) ?></td>
-                    <td class="col-3"><?=$commentator->getPlace($period, CommentatorsMonthStats::SE_VISITS) ?></td>
-                    <td class="col-4"><a href="">Как получить много трафика из поисковых систем</a></td>
+                    <td class="col-2"><?=$month->getStatValue($user_id, CommentatorsMonthStats::SE_VISITS) ?></td>
+                    <td class="col-3"><?=$month->getPlaceView($user_id, CommentatorsMonthStats::SE_VISITS) ?></td>
+                    <td class="col-4"></td>
                 </tr>
             </table>
 
@@ -104,10 +108,12 @@ $this->renderPartial('_avatar', compact('commentator'));
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td class="al"><span class="big"><a href="">Секреты счастливых семейных пар</a></span></td>
-                        <td>34</td>
-                    </tr>
+                    <?php foreach ($commentator->getPosts($period) as $post): ?>
+                        <tr>
+                            <td class="al"><span class="big"><a target="_blank" href="http://www.happy-giraffe.ru<?=$post->url ?>"><?=$post->title ?></a></span></td>
+                            <td>0</td>
+                        </tr>
+                    <?php endforeach; ?>
                     </tbody>
                 </table>
             </div>
@@ -124,3 +130,4 @@ $this->renderPartial('_avatar', compact('commentator'));
     </ul>
 
 </div>
+<?php } ?>

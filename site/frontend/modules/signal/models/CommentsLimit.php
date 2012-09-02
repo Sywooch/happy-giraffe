@@ -16,11 +16,17 @@ class CommentsLimit extends EMongoDocument
         return 'comments_limit';
     }
 
+    public function getMongoDBComponent()
+    {
+        return Yii::app()->getComponent('mongodb_production');
+    }
+
     /**
      * @static
      * @param string $entity
      * @param int $entity_id
      * @param int $limit
+     * @param int $limit_max
      * @return int
      */
     public static function getLimit($entity, $entity_id, $limit, $limit_max = null)

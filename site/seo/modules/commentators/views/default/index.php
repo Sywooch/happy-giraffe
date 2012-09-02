@@ -3,6 +3,7 @@
  * @var $period string
  * @var $month CommentatorsMonthStats
  * @var $day int
+ * @var $commentators CommentatorWork[]
  */
 
 $date = $period.'-'.str_pad($day, 2, "0", STR_PAD_LEFT);
@@ -61,7 +62,7 @@ $months = CommentatorsMonthStats::getMonths();
             <tbody>
             <?php $summary = array(0, 0, 0); ?>
             <?php $working_commentators_count = 0 ?>
-            <?php foreach (CommentatorWork::model()->findAll() as $commentator): ?>
+            <?php foreach ($commentators as $commentator): ?>
                 <?php if (!empty($day)):?>
                     <?php $commentator_day = $commentator->getDay($date) ?>
                     <?php if ($commentator_day !== null):?>
@@ -72,7 +73,7 @@ $months = CommentatorsMonthStats::getMonths();
                         $working_commentators_count++;
                         ?>
                         <tr>
-                            <td class="al"><span class="big"><a href="<?=$this->createUrl('/commentators/default/commentator', array('user_id'=>$commentator->user_id)) ?>">Алексей Киреев</a></span></td>
+                            <td class="al"><span class="big"><?php $this->renderPartial('_user_link',array('user'=>User::getUserById($commentator->user_id))); ?></span></td>
                             <td><?=$commentator_day->blog_posts ?></td>
                             <td><?=$commentator_day->club_posts ?></td>
                             <td><?=$commentator_day->comments ?></td>
@@ -80,7 +81,7 @@ $months = CommentatorsMonthStats::getMonths();
                         </tr>
                     <?php else: ?>
                         <tr class="task-red">
-                            <td class="al"><span class="big"><a href="">Алексей Киреев</a></span></td><td></td><td></td><td></td><td></td>
+                            <td class="al"><span class="big"><?php $this->renderPartial('_user_link',array('user'=>User::getUserById($commentator->user_id))); ?></span></td><td></td><td></td><td></td><td></td>
                         </tr>
                     <?php endif ?>
                 <?php else: ?>
@@ -94,7 +95,7 @@ $months = CommentatorsMonthStats::getMonths();
                         $summary[2] += $comments;
                     ?>
                     <tr>
-                        <td class="al"><span class="big"><a href="">Алексей Киреев</a></span></td>
+                        <td class="al"><span class="big"><?php $this->renderPartial('_user_link',array('user'=>User::getUserById($commentator->user_id))); ?></span></td>
                         <td><?=$blog_posts?></td>
                         <td><?=$club_posts?></td>
                         <td><?=$comments?></td>
@@ -133,7 +134,7 @@ $months = CommentatorsMonthStats::getMonths();
                         ):?>
                         <td><span class="task-done">Выполнен</span></td>
                     <?php else: ?>
-                        <td><span class="task-not-done">Невыполнен</span></td>
+                        <td><span class="task-not-done">Не выполнен</span></td>
                     <?php endif ?>
                 </tr>
             <?php endif ?>

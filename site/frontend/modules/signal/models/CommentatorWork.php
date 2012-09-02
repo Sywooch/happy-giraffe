@@ -8,7 +8,7 @@ class CommentatorWork extends EMongoDocument
     const MAX_SKIPS = 10;
 
     public $user_id;
-    public $clubs;
+    public $clubs = array();
     /**
      * @var CommentatorDay[]
      */
@@ -27,6 +27,11 @@ class CommentatorWork extends EMongoDocument
         return 'commentator_work';
     }
 
+    public function getMongoDBComponent()
+    {
+        return Yii::app()->getComponent('mongodb_production');
+    }
+
     public function behaviors()
     {
         return array(
@@ -36,6 +41,14 @@ class CommentatorWork extends EMongoDocument
                 'arrayDocClassName' => 'CommentatorDay'
             ),
         );
+    }
+
+    public function beforeSave()
+    {
+        $day = $this->getCurrentDay();
+        if (isset($day))
+            $day->checkStatus();
+        return parent::beforeSave();
     }
 
     /**
@@ -127,7 +140,6 @@ class CommentatorWork extends EMongoDocument
     public function incCommentsCount()
     {
         $this->getCurrentDay()->comments++;
-        $this->getCurrentDay()->checkStatus();
         list($this->comment_entity, $this->comment_entity_id) = $this->getNextPost();
         $this->save();
     }
@@ -173,7 +185,25 @@ class CommentatorWork extends EMongoDocument
         if ($model === null) {
             $model = new CommentatorWork();
             $model->user_id = (int)Yii::app()->user->id;
-            $model->clubs = array(1, 2, 3, 4);
+            $model->save();
+        }
+
+        return $model;
+    }
+
+    /**
+     * @static
+     * @param int $user_id
+     * @return CommentatorWork
+     */
+    public static function getOrCreateUser($user_id)
+    {
+        $criteria = new EMongoCriteria;
+        $criteria->user_id('==', (int)$user_id);
+        $model = self::model()->find($criteria);
+        if ($model === null) {
+            $model = new CommentatorWork();
+            $model->user_id = (int)$user_id;
             $model->save();
         }
 
@@ -196,8 +226,8 @@ class CommentatorWork extends EMongoDocument
     public function blogPosts()
     {
         $criteria = new CDbCriteria;
-        $criteria->compare('author_id', $this->user_id);
         $criteria->condition = 'created > "' . date("Y-m-d") . ' 00:00:00"';
+        $criteria->compare('author_id', $this->user_id);
         $criteria->order = 'created desc';
         $criteria->with = array(
             'rubric' => array(
@@ -211,8 +241,8 @@ class CommentatorWork extends EMongoDocument
     public function clubPosts()
     {
         $criteria = new CDbCriteria;
-        $criteria->compare('author_id', $this->user_id);
         $criteria->condition = 'created > "' . date("Y-m-d") . ' 00:00:00"';
+        $criteria->compare('author_id', $this->user_id);
         $criteria->order = 'created desc';
         $criteria->with = array(
             'rubric' => array(
@@ -236,8 +266,8 @@ class CommentatorWork extends EMongoDocument
     public function comments()
     {
         $criteria = new CDbCriteria;
-        $criteria->compare('author_id', $this->user_id);
         $criteria->condition = 'created > "' . date("Y-m-d") . ' 00:00:00"';
+        $criteria->compare('author_id', $this->user_id);
         $criteria->order = 'created desc';
 
         return Comment::model()->count($criteria);
@@ -315,13 +345,17 @@ class CommentatorWork extends EMongoDocument
             Yii::import('site.frontend.extensions.GoogleAnalytics');
             $ga = new GoogleAnalytics('alexk984@gmail.com', Yii::app()->params['gaPass']);
             $ga->setProfile('ga:53688414');
-            $ga->setDateRange($period . '-01', $period . '-31');
+            $ga->setDateRange($period . '-01', $period . '-'.$this->getLastPeriodDay($period));
             $report = $ga->getReport(array(
                 'metrics' => urlencode('ga:visitors'),
                 'filters' => urlencode('ga:pagePath=~' . '/user/' . $this->user_id . '/blog/*'),
             ));
 
-            $value = $report['']['ga:visitors'];
+            if (!empty($report))
+                $value = $report['']['ga:visitors'];
+            else
+                $value = 0;
+
             Yii::app()->cache->set($id, $value, 7200);
         }
 
@@ -330,7 +364,6 @@ class CommentatorWork extends EMongoDocument
 
     public function profileUniqueViews($period, $cache = true)
     {
-
         $id = 'profile-pageViews-' . $this->user_id . '-' . $period;
         if ($cache)
             $value = Yii::app()->cache->get($id);
@@ -340,13 +373,17 @@ class CommentatorWork extends EMongoDocument
             Yii::import('site.frontend.extensions.GoogleAnalytics');
             $ga = new GoogleAnalytics('alexk984@gmail.com', Yii::app()->params['gaPass']);
             $ga->setProfile('ga:53688414');
-            $ga->setDateRange($period . '-01', $period . '-31');
+            $ga->setDateRange($period . '-01', $period . '-'.$this->getLastPeriodDay($period));
             $report = $ga->getReport(array(
                 'metrics' => urlencode('ga:uniquePageviews'),
                 'filters' => urlencode('ga:pagePath=~' . '/user/' . $this->user_id . '/'),
             ));
 
-            $value = $report['']['ga:uniquePageviews'];
+            if (!empty($report))
+                $value = $report['']['ga:uniquePageviews'];
+            else
+                $value = 0;
+
             Yii::app()->cache->set($id, $value, 7200);
         }
 
@@ -395,5 +432,27 @@ class CommentatorWork extends EMongoDocument
     public function getStatusView($period)
     {
         return '<td></td>';
+    }
+
+    public function getName()
+    {
+        return User::getUserById($this->user_id)->fullName;
+    }
+
+    public function getPosts($period)
+    {
+        $last_day = $this->getLastPeriodDay($period);
+        $criteria = new CDbCriteria;
+        $criteria->condition = 'created >= "' . $period . '-01 00:00:00" AND created <= "' . $period . '-'.$last_day.' 23:59:59"';
+        $criteria->compare('author_id', $this->user_id);
+        $criteria->order = 'created desc';
+        $criteria->with = array('rubric', 'rubric.community', 'type');
+
+        return CommunityContent::model()->findAll($criteria);
+    }
+
+    public function getLastPeriodDay($period)
+    {
+        return str_pad(cal_days_in_month(CAL_GREGORIAN, date('n', strtotime($period)), date('Y', strtotime($period))), 2, "0", STR_PAD_LEFT);
     }
 }

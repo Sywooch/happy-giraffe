@@ -16,11 +16,6 @@ class CommentatorDay extends EMongoEmbeddedDocument
     public $comments = 0;
     public $status = 0;
 
-    public function getCollectionName()
-    {
-        return 'commentator_day';
-    }
-
     public function checkStatus()
     {
         if ($this->blog_posts == CommentatorWork::BLOG_POSTS_COUNT &&

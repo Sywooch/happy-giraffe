@@ -23,6 +23,11 @@ class CommentatorsMonthStats extends EMongoDocument
         return 'commentators_month_stats';
     }
 
+    public function getMongoDBComponent()
+    {
+        return Yii::app()->getComponent('mongodb_production');
+    }
+
     /**
      * @static
      * @param string $period
@@ -91,6 +96,9 @@ class CommentatorsMonthStats extends EMongoDocument
 
     public function getPlace($user_id, $counter)
     {
+        if (!isset($this->commentators[$user_id]))
+            return 0;
+
         $arr = array();
         foreach ($this->commentators as $_user_id => $data)
             $arr[$_user_id] = $data[$counter];
@@ -104,6 +112,22 @@ class CommentatorsMonthStats extends EMongoDocument
         }
 
         return null;
+    }
+
+    public function getPlaceView($user_id, $counter)
+    {
+        $place = $this->getPlace($user_id, $counter);
+        if ($place < 4)
+            return '<span class="place place-' . $place . '">' . $place . ' место</span>';
+        return '<span class="place">' . $place . ' место</span>';
+    }
+
+    public function getStatValue($user_id, $counter)
+    {
+        foreach ($this->commentators as $_user_id => $data)
+            if ($_user_id == $user_id )
+                return $data[$counter];
+        return  0;
     }
 
     public static function getMonths()

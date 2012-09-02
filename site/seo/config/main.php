@@ -26,6 +26,7 @@ return array(
         'application.modules.writing.models.*',
         'application.modules.promotion.models.*',
         'application.modules.indexing.models.*',
+        'application.modules.commentators.models.*',
     ),
     'modules' => array(
         'competitors',
@@ -34,6 +35,7 @@ return array(
         'admin',
         'indexing',
         'statistic',
+        'commentators',
     ),
     'components' => array(
         'user' => array(
@@ -83,9 +85,17 @@ return array(
             'safeFlag' => true,
             'useCursor' => false
         ),
+        'mongodb_production' => array(
+            'class' => 'EMongoDB',
+            'connectionString' => 'mongodb://localhost',
+            'dbName' => 'happy_giraffe_production',
+            'fsyncFlag' => true,
+            'safeFlag' => true,
+            'useCursor' => false
+        ),
         'cache' => array(
-//            'class' => 'CFileCache',
-            'class' => 'CDummyCache',
+            'class' => 'CFileCache',
+//            'class' => 'CDummyCache',
         ),
 //        'log' => array(
 //            'class' => 'CLogRouter',

@@ -6,7 +6,7 @@ class SiteController extends SController
     {
         return array(
             array('allow',
-                'actions' => array('index', 'logout', 'modules'),
+                'actions' => array('index', 'logout', 'modules', 'removeUser'),
                 'users' => array('@'),
             ),
             array('allow',
@@ -129,7 +129,7 @@ class SiteController extends SController
 
         if ($content === false) {
             if (curl_errno($ch)) {
-                echo curl_errno($ch).'-'.curl_error($ch);
+                echo curl_errno($ch) . '-' . curl_error($ch);
             }
         }
         curl_close($ch);
@@ -146,12 +146,24 @@ class SiteController extends SController
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
         $long_time = 0;
-        if (!empty($sql)){
+        if (!empty($sql)) {
             $start_time = microtime(true);
             Yii::app()->db_seo->createCommand($sql)->execute();
-            $long_time = 1000*(microtime(true) - $start_time);
+            $long_time = 1000 * (microtime(true) - $start_time);
         }
 
         $this->render('sql', compact('sql', 'long_time'));
+    }
+
+    public function actionRemoveUser()
+    {
+        $entity_id = Yii::app()->request->getPost('entity_id');
+        $list_name = Yii::app()->request->getPost('list_name');
+        $entities = Yii::app()->user->getState($list_name);
+        foreach ($entities as $key => $entity)
+            if ($entity == $entity_id)
+                unset($entities[$key]);
+        Yii::app()->user->setState($list_name, $entities);
+        echo CJSON::encode(array('status' => true));
     }
 }

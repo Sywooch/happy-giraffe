@@ -34,4 +34,8 @@ Comet.prototype.addEvent = function(type, event) {
     this.events[type][this.events[type].length] = event;
 }
 
+Comet.prototype.delEvent = function(type, event) {
+    removeA(this.events[type], event);
+}
+
 var comet = new Comet;

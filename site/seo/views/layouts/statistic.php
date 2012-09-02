@@ -32,7 +32,7 @@
                 <?php $moderators = Yii::app()->user->getState('moderators') ?>
                 <?php if (is_array($moderators)):?>
                     <?php foreach ($moderators as $moderator): ?>
-                        <li<?php if (isset($_GET['user_id']) && $_GET['user_id'] == $moderator) echo ' class="active"' ?>><a href="<?=$this->createUrl('/statistic/stat/moderators/', array('user_id'=>$moderator))?>"><?=User::getUserById($moderator)->fullName ?></a><a href="javascript:;" class="remove" onclick="Statistic.removeUser(<?=$moderator ?>, this)"></a></li>
+                        <li<?php if (isset($_GET['user_id']) && $_GET['user_id'] == $moderator) echo ' class="active"' ?>><a href="<?=$this->createUrl('/statistic/stat/moderators/', array('user_id'=>$moderator))?>"><?=User::getUserById($moderator)->fullName ?></a><a href="javascript:;" class="remove" onclick="SeoModule.removeUser('moderators', <?=$moderator ?>, this)"></a></li>
                     <?php endforeach; ?>
                 <?php endif ?>
             </ul>

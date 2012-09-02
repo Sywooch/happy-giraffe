@@ -5,6 +5,11 @@
  */
 class Im
 {
+    const IM_CONTACTS_ALL = 0;
+    const IM_CONTACTS_NEW = 1;
+    const IM_CONTACTS_ONLINE = 2;
+    const IM_CONTACTS_FRIENDS = 3;
+
     /*
      * Instance for each user
      */
@@ -182,6 +187,7 @@ class Im
             $data[] = array(
                 'text' => self::getNotificationText($m),
                 'url' => Yii::app()->createUrl('/im/default/dialog', array('id' => $m['dialog_id'])),
+                'ok' => 'Messages.open(' . $m['user_id'] . ');'
             );
         }
 
@@ -268,4 +274,181 @@ class Im
 
         return $result;
     }
+
+    /*public static function getContactsRows($user_id, $type)
+    {
+        switch ($type) {
+            case self::IM_CONTACTS_ALL:
+                $sql = "SELECT du1.user_id, du1.dialog_id
+                    FROM im__dialog_users du1
+                    JOIN im__dialog_users du2 ON du1.dialog_id = du2.dialog_id AND du2.user_id = :user_id
+                    JOIN im__dialogs d ON du1.dialog_id = d.id
+                    JOIN im__messages m ON d.last_message_id = m.id
+                    WHERE du1.user_id != :user_id
+                    ORDER BY m.created DESC";
+                break;
+            case self::IM_CONTACTS_NEW:
+                $sql = "SELECT du1.user_id, du1.dialog_id
+                        FROM im__dialog_users du1
+                        JOIN im__dialog_users du2 ON du1.dialog_id = du2.dialog_id AND du2.user_id = :user_id
+                        JOIN im__dialogs d ON du1.dialog_id = d.id
+                        JOIN im__messages m ON d.last_message_id = m.id
+                        WHERE du1.user_id != :user_id AND m.read_status = 0
+                        ORDER BY m.created DESC";
+                break;
+            case self::IM_CONTACTS_ONLINE:
+                $sql = "SELECT du1.user_id, du1.dialog_id
+                        FROM im__dialog_users du1
+                        JOIN im__dialog_users du2 ON du1.dialog_id = du2.dialog_id AND du2.user_id = :user_id
+                        JOIN im__dialogs d ON du1.dialog_id = d.id
+                        JOIN im__messages m ON d.last_message_id = m.id
+                        JOIN users u ON du1.user_id = u.id
+                        WHERE du1.user_id != :user_id AND u.online = 1
+                        ORDER BY m.created DESC";
+                break;
+            case self::IM_CONTACTS_FRIENDS:
+                $sql = "SELECT u.id user_id, du1.dialog_id
+                        FROM users u
+                        JOIN friends f ON (u.id = f.user1_id AND f.user2_id = :user_id) OR (u.id = f.user2_id AND f.user1_id = :user_id)
+                        LEFT OUTER JOIN im__dialog_users du1 ON u.id = du1.user_id AND EXISTS (SELECT * FROM im__dialog_users du2 WHERE du1.dialog_id = du2.dialog_id AND du2.user_id = :user_id)
+                        LEFT OUTER JOIN im__dialogs d ON du1.dialog_id = d.id
+                        LEFT OUTER JOIN im__messages m ON d.last_message_id = m.id
+                        ORDER BY m.created DESC";
+                break;
+        }
+
+        $command = Yii::app()->db->createCommand($sql);
+        $command->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        $rows = $command->queryAll();
+        return $rows;
+    }*/
+
+    public static function getContactsCriteria($user_id, $type, $condition = '', $params = array())
+    {
+        $criteria = new CDbCriteria(array(
+            'select' => 'id, online, first_name, last_name, avatar_id',
+            'with' => array(
+                'avatar',
+                'userDialog' => array(
+                    'joinType' => 'INNER JOIN',
+                    'on' => 'EXISTS (SELECT * FROM im__dialog_users du WHERE userDialog.dialog_id = du.dialog_id AND du.user_id = :user_id)',
+                    'with' => array(
+                        'dialog' => array(
+                            'select' => 'dialog.*, count(m.id) AS unreadMessagesCount',
+                            'with' => array(
+                                'lastMessage' => array(
+                                    'select' => false,
+                                ),
+                            ),
+                            'join' => 'LEFT OUTER JOIN im__messages m ON dialog.id = m.dialog_id AND m.read_status = 0 AND m.user_id != :user_id',
+                            'group' => 't.id',
+                        ),
+                    ),
+                ),
+            ),
+            'order' => 'lastMessage.created DESC',
+            'params' => array(':user_id' => $user_id),
+        ));
+
+        switch ($type) {
+            case self::IM_CONTACTS_ALL:
+                $criteria->condition = 'userDialog.user_id != :user_id';
+                break;
+            case self::IM_CONTACTS_NEW:
+                $criteria->condition = 'userDialog.user_id != :user_id';
+                $criteria->having = 'unreadMessagesCount > 0';
+                break;
+            case self::IM_CONTACTS_ONLINE:
+                $criteria->condition = 'userDialog.user_id != :user_id AND online = 1';
+                break;
+            case self::IM_CONTACTS_FRIENDS:
+                $aCriteria = new CDbCriteria(array(
+                    'with' => array(
+                        'userDialog' => array(
+                            'joinType' => 'LEFT OUTER JOIN',
+                        ),
+                    ),
+                    'condition' => 'online = 1',
+                ));
+
+                $user = User::model();
+                $user->id = $user_id;
+                $friendsCriteria = $user->getFriendSelectCriteria();
+
+                $criteria->mergeWith($aCriteria);
+                $criteria->mergeWith($friendsCriteria);
+                break;
+        }
+
+        $criteria->mergeWith(Yii::app()->db->getCommandBuilder()->createCriteria($condition, $params));
+
+        return $criteria;
+    }
+
+    public static function getContacts($user_id, $type, $condition = '', $params = array())
+    {
+        $criteria = self::getContactsCriteria($user_id, $type, $condition, $params);
+
+        $users = User::model()->findAll($criteria);
+        if ($type == Im::IM_CONTACTS_ALL)
+            $users[] = User::getUserById(User::HAPPY_GIRAFFE);
+
+        return $users;
+    }
+
+    public static function getContactsCount($user_id, $type, $condition = '', $params = array())
+    {
+        $contacts = self::getContacts($user_id, $type, $condition, $params);
+
+        return count($contacts);
+    }
+
+    public static function getContact($user_id, $interlocutor_id)
+    {
+        $criteria = new CDbCriteria(array(
+            'with' => array(
+                'userDialog' => array(
+                    'on' => 'EXISTS (SELECT * FROM im__dialog_users du WHERE userDialog.dialog_id = du.dialog_id AND du.user_id = :user_id)',
+                    'with' => array(
+                        'dialog' => array(
+                            'with' => array(
+                                'messages' => array(
+                                    'with' => array(
+                                        'user' => array(
+                                            'select' => 'id, first_name, last_name, avatar_id',
+                                            'with' => 'avatar',
+                                        ),
+                                    ),
+                                    'order' => 'messages.created ASC',
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+            'condition' => 't.id = :interlocutor_id',
+            'params' => array(':user_id' => $user_id, ':interlocutor_id' => $interlocutor_id),
+        ));
+
+        return User::model()->find($criteria);
+    }
+
+    public static function getDialogId($user_id, $interlocutor_id)
+    {
+        $sql = "SELECT dialog_id
+                FROM im__dialog_users du1
+                WHERE du1.user_id = :user_id AND EXISTS(SELECT * FROM im__dialog_users du2 WHERE du1.dialog_id = du2.dialog_id AND du2.user_id = :interlocutor_id)";
+
+        $command = Yii::app()->db->createCommand($sql);
+        $command->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        $command->bindValue(':interlocutor_id', $interlocutor_id, PDO::PARAM_INT);
+        return $command->queryScalar();
+    }
+
+    public static function hasMessages($user_id)
+    {
+        return DialogUser::model()->exists('user_id = :user_id', array(':user_id' => $user_id));
+    }
 }
+
+

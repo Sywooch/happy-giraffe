@@ -3466,7 +3466,7 @@ ul.letters li a:hover {
 #repair-floor .wysiwyg-content{ margin-top: 30px}
 
 
-.test {border:1px solid #fff;}
+.test {border:1px solid #fff;margin-bottom:30px;}
 .test .step {position:relative;}
 .test .step > img {position:relative;z-index:1;}
 .test .step-in {position:absolute;z-index:2;}

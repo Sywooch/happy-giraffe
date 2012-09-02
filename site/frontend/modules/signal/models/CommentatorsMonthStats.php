@@ -43,7 +43,8 @@ class CommentatorsMonthStats extends EMongoDocument
             $month = new CommentatorsMonthStats;
             $month->period = date("Y-m");
             $month->calculate();
-            $month->save();
+            if (!$month->save())
+                var_dump($month->getErrors());
         }
 
         return $month;

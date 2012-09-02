@@ -30,14 +30,14 @@
         <div class="default-nav">
             <ul>
                 <?php if ($this->commentator->IsWorksToday(Yii::app()->user->id)):?>
-                    <li><span class="date"><?=Yii::app()->dateFormatter->format('dd MMM yyyy',time())?></span></li>
+                    <li><span class="date"><?=Yii::app()->dateFormatter->format('d MMM yyyy',time())?></span></li>
                     <li<?php if (Yii::app()->controller->action->id == 'index') echo ' class="active"'; ?>><a href="<?=$this->createUrl('/signal/commentator/index') ?>">Задания</a>
                         <?php if (Yii::app()->controller->action->id == 'index'):?>
                             <span class="tale"><img src="/images/default_nav_active.gif"></span>
                         <?php endif ?>
                     </li>
                 <?php else: ?>
-                    <li><span class="date"><?=Yii::app()->dateFormatter->format('dd MMM yyyy',time())?></span><button class="btn-green-27" onclick="CommentatorPanel.iAmWorking();">Я сегодня работаю</button></li>
+                    <li><span class="date"><?=Yii::app()->dateFormatter->format('d MMM yyyy',time())?></span><button class="btn-green-27" onclick="CommentatorPanel.iAmWorking();">Я сегодня работаю</button></li>
                 <?php endif ?>
                 <li<?php if (Yii::app()->controller->action->id == 'statistic') echo ' class="active"'; ?>><a href="<?=$this->createUrl('/signal/commentator/statistic') ?>">Премия</a>
                     <?php if (Yii::app()->controller->action->id == 'statistic'):?>

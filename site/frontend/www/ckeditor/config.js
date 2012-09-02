@@ -45,8 +45,8 @@ CKEDITOR.editorConfig = function (config) {
 
     config.toolbar_Chat =
         [
-            { name:'basicstyles', items:[ 'Bold', 'Italic', 'Underline' ] },
-            { name:'insert', items:[ 'Smiles' ] }
+            { name:'basicstyles', items:[ 'Bold', 'Italic', 'Underline', '-' ] },
+            { name:'insert', items:[ 'Attach', 'Smiles' ] }
         ];
 
     config.toolbar_Simple =

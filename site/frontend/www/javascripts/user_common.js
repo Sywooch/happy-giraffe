@@ -113,3 +113,55 @@ function deleteFriend(el, user_id, friendPage) {
         }
     });
 }
+
+function setMessagesHeight(){
+
+    var box = $('#user-dialogs');
+
+    var windowH = $(window).height();
+    var headerH = 90;
+    var textareaH = box.find('.dialog-input').hasClass('wysiwyg-input') ? 150 : 100;
+    var userH = 110;
+    var marginH = 30;
+
+    var wannaChatH = box.find('.wannachat').size() > 0 ? 150 : 0;
+
+    var generalH = windowH - marginH*2 - headerH;
+    if (generalH < 400) generalH = 400;
+
+    box.find('.contacts').height(generalH);
+    box.find('.dialog').height(generalH);
+
+    box.find('.contacts .list').height(generalH - wannaChatH);
+    box.find('.dialog .dialog-messages').height(generalH - textareaH - userH);
+
+}
+
+function openMessages()
+{
+    $.get('/im/', function(data) {
+        $('body').append(data);
+        $('body').css('overflow', 'hidden');
+        $('body').append('<div id="body-overlay"></div>');
+        $('body').addClass('nav-fixed');
+        $(window).on('resize', function() {
+            setMessagesHeight();
+        })
+    });
+}
+
+function closeMessages()
+{
+    $('#user-dialogs').remove();
+    $('body').css('overflow', '');
+    $('#body-overlay').remove();
+    $('body').removeClass('nav-fixed');
+    if (CKEDITOR.instances['Message[text]']) {
+        CKEDITOR.instances['Message[text]'].destroy(true);
+    }
+}
+
+function toggleMessages()
+{
+    ($('#user-dialogs').length > 0) ? closeMessages() : openMessages();
+}

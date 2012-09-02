@@ -27,31 +27,46 @@ class SController extends CController
         );
     }
 
-    public function getUserModules(){
+    public function getUserModules()
+    {
+        $menu = array();
         if (Yii::app()->user->checkAccess('superuser'))
-            return array(
-                'Ключевые слова'=>$this->createUrl('/competitors/default/index'),
-                'Готовое'=>$this->createUrl('/writing/existArticles/index'),
-                'Продвижение'=>$this->createUrl('/promotion/queries/admin'),
-                'Статистика'=>$this->createUrl('/statistic/stat/groups'),
-                'Индексация'=>$this->createUrl('/indexing/default/index'),
+            $menu = array(
+                'Ключевые слова' => $this->createUrl('/competitors/default/index'),
+                'Готовое' => $this->createUrl('/writing/existArticles/index'),
+                'Продвижение' => $this->createUrl('/promotion/queries/admin'),
+                'Статистика' => $this->createUrl('/statistic/stat/groups'),
+                'Индексация' => $this->createUrl('/indexing/default/index'),
             );
 
         if (Yii::app()->user->checkAccess('editor'))
-            return array(
-                'Ключевые слова'=>$this->createUrl('/competitors/default/index'),
-                'Продвижение'=>$this->createUrl('/promotion/queries/admin'),
-                'Статистика'=>$this->createUrl('/statistic/stat/groups'),
+            $menu = array(
+                'Ключевые слова' => $this->createUrl('/competitors/default/index'),
+                'Продвижение' => $this->createUrl('/promotion/queries/admin'),
+                'Статистика' => $this->createUrl('/statistic/stat/groups'),
             );
 
         if (Yii::app()->user->checkAccess('admin'))
-            return array(
-                'Ключевые слова'=>$this->createUrl('/competitors/default/index'),
-                'Продвижение'=>$this->createUrl('/promotion/queries/admin'),
-                'Статистика'=>$this->createUrl('/statistic/stat/groups'),
-                'Индексация'=>$this->createUrl('/indexing/default/index'),
+            $menu = array(
+                'Ключевые слова' => $this->createUrl('/competitors/default/index'),
+                'Продвижение' => $this->createUrl('/promotion/queries/admin'),
+                'Статистика' => $this->createUrl('/statistic/stat/groups'),
+                'Индексация' => $this->createUrl('/indexing/default/index'),
             );
 
-        return array();
+        if (Yii::app()->user->checkAccess('commentator-manager-panel'))
+            $menu ['Комментаторы'] = $this->createUrl('/commentators/default/index');
+
+        return $menu;
+    }
+
+    public function addEntityToFastList($list_name, $entity_id)
+    {
+        $entities = Yii::app()->user->getState($list_name);
+        if (!is_array($entities))
+            $entities = array($entity_id);
+        elseif (!in_array($entity_id, $entities))
+            $entities[] = $entity_id;
+        Yii::app()->user->setState($list_name, $entities);
     }
 }

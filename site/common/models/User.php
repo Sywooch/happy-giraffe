@@ -293,6 +293,7 @@ class User extends HActiveRecord
 
             'communitiesCount' => array(self::STAT, 'Community', 'user__users_communities(user_id, community_id)'),
             'userDialogs' => array(self::HAS_MANY, 'DialogUser', 'user_id'),
+            'userDialog' => array(self::HAS_ONE, 'DialogUser', 'user_id'),
             'blogPosts' => array(self::HAS_MANY, 'CommunityContent', 'author_id', 'with' => 'rubric', 'condition' => 'rubric.user_id IS NOT null', 'select' => 'id'),
             'userAddress' => array(self::HAS_ONE, 'UserAddress', 'user_id'),
 
@@ -405,7 +406,10 @@ class User extends HActiveRecord
                 UserScores::checkProfileScores($this->id, ScoreAction::ACTION_PROFILE_FAMILY);
         }
 
-        return true;
+        if ($this->trackable->isChanged('online'))
+            $this->sendOnlineStatus();
+
+        parent::afterSave();
     }
 
     public function beforeDelete()
@@ -453,7 +457,7 @@ class User extends HActiveRecord
             ),
             'trackable' => array(
                 'class' => 'site.common.behaviors.TrackableBehavior',
-                'attributes' => array('mood_id'),
+                'attributes' => array('mood_id', 'online'),
             ),
             'CTimestampBehavior' => array(
                 'class' => 'zii.behaviors.CTimestampBehavior',
@@ -651,7 +655,6 @@ class User extends HActiveRecord
     {
         return new CDbCriteria(array(
             'join' => 'JOIN ' . Friend::model()->tableName() . ' ON (t.id = friends.user1_id AND friends.user2_id = :user_id) OR (t.id = friends.user2_id AND friends.user1_id = :user_id)',
-            'scopes' => array('active'),
             'params' => array(':user_id' => $this->id),
         ));
     }
@@ -668,6 +671,13 @@ class User extends HActiveRecord
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
         ));
+    }
+
+    public function getFriendsModels($condition = '', $params = array())
+    {
+        $criteria = $this->getFriendsCriteria($condition, $params);
+
+        return $this->findAll($criteria);
     }
 
     public function getFriendsCriteria($condition = '', $params = array())
@@ -1010,6 +1020,29 @@ class User extends HActiveRecord
     public function UpdateUser($id)
     {
         Yii::app()->db->createCommand()->update($this->tableName(), array('updated' => date("Y-m-d H:i:s")), 'id='.$id);
+    }
+
+    public function sendOnlineStatus()
+    {
+        $additionalCriteria = new CDbCriteria(array(
+            'select' => 't.id',
+            'index' => 'id',
+        ));
+
+        $contacts = Im::getContacts($this->id, Im::IM_CONTACTS_ALL, $additionalCriteria);
+        $friends = $this->getFriendsModels($additionalCriteria);
+
+        $users = $contacts + $friends;
+
+        $comet = new CometModel;
+        $comet->type = CometModel::TYPE_ONLINE_STATUS_CHANGE;
+        foreach ($users as $k => $u) {
+            $comet->send($u->id, array(
+                'online' => $this->online,
+                'user_id' => $this->id,
+                'is_friend' => isset($friends[$k]),
+            ));
+        }
     }
 
     public static function getWorkersIds()

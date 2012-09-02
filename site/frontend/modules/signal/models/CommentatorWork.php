@@ -278,6 +278,9 @@ class CommentatorWork extends EMongoDocument
      */
     public function communities()
     {
+        if (empty($this->clubs))
+            return array();
+
         $criteria = new CDbCriteria;
         $criteria->compare('id', $this->clubs);
         return Community::model()->findAll($criteria);
@@ -356,7 +359,7 @@ class CommentatorWork extends EMongoDocument
             else
                 $value = 0;
 
-            Yii::app()->cache->set($id, $value, 7200);
+            Yii::app()->cache->set($id, $value, 3600*5);
         }
 
         return $value;
@@ -384,7 +387,7 @@ class CommentatorWork extends EMongoDocument
             else
                 $value = 0;
 
-            Yii::app()->cache->set($id, $value, 7200);
+            Yii::app()->cache->set($id, $value, 3600*5);
         }
 
         return $value;

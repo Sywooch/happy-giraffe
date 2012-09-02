@@ -36,7 +36,7 @@ class CommentatorController extends HController
     {
         if (!$this->commentator->IsWorksToday(Yii::app()->user->id))
             $this->redirect('/signal/commentator/statistic');
-        //$this->getSeVisits();
+
         $this->render('index');
     }
 

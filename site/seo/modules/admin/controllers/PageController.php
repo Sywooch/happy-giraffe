@@ -3,8 +3,16 @@
 class PageController extends SController
 {
 	public $defaultAction='admin';
+    public $layout = '//layouts/empty';
 
-	/**
+    public function beforeAction($action)
+    {
+        if (!Yii::app()->user->checkAccess('admin'))
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        return true;
+    }
+
+    /**
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */

@@ -253,4 +253,30 @@ class YandexMetrica
             $i++;
         }
     }
+
+    public function searchesCount()
+    {
+        echo '<br>';
+        $this->date1 = date("Ym").'01';
+        $this->date2 = date("Ymd");
+        $next = 'http://api-metrika.yandex.ru/stat/sources/search_engines?id=11221648&table_mode=plain&oauth_token=' . $this->token . '&per_page=100&date1=' . $this->date1 . '&date2=' . $this->date2;
+        while (!empty($next)) {
+            $val = $this->loadPage($next);
+            var_dump($val);
+            Yii::app()->end();
+
+            $next = $this->getNextLink($val);
+
+            if (is_array($val['data']))
+                foreach ($val['data'] as $row) {
+                    var_dump($row);
+                    echo '<br>';
+                    //echo $row['url'].'<br>';
+                }
+            else
+                break;
+
+            break;
+        }
+    }
 }

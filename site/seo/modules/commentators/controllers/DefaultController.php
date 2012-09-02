@@ -28,8 +28,6 @@ class DefaultController extends SController
         }*/
 
         $month = CommentatorsMonthStats::getOrCreateWorkingMonth($period);
-        var_dump($month);
-        Yii::app()->end();
         if (Yii::app()->user->checkAccess('commentator-manager')) {
             $criteria = new EMongoCriteria();
             $criteria->user_id('in', Yii::app()->user->model->commentatorIds());

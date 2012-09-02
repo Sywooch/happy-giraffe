@@ -39,10 +39,7 @@ class CommentatorsMonthStats extends EMongoDocument
             $period = date("Y-m");
 
         $month = CommentatorsMonthStats::getWorkingMonth($period);
-        var_dump($month);
-        echo $period;
         if ($month === null && $period == date("Y-m")) {
-            echo 'sdhdsh';
             $month = new CommentatorsMonthStats;
             $month->period = date("Y-m");
             $month->calculate();

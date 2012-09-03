@@ -38,7 +38,7 @@ Messages.open = function(interlocutor_id, type) {
 
 Messages.initialize = function(interlocutor_id, type) {
     if (Messages.activeTab != type) {
-        if (! Messages.hasMessages && interlocutor_id == null) {
+        if (! Messages.hasMessages && interlocutor_id == null && ! Messages.isActive()) {
             Messages.setList(type, false);
             Messages.showEmpty();
         } else {

@@ -126,6 +126,8 @@ class CommentatorWork extends EMongoDocument
         $month->workingDays [] = date("Y-m-d");
         $month->save();
 
+        $this->skipUrls = array();
+
         return $this->save();
     }
 

@@ -7,51 +7,67 @@ class TrafficPostForCommentator extends PostForCommentator
 {
     const CACHE_ID = 'traffic-posts-for-comments';
 
-    public static function getPost()
+    public function getPost()
     {
-        $ids = self::getPostIds();
+        $this->way [] = 'TrafficPostForCommentator';
+        $posts = $this->getPosts();
 
-        $criteria = new CDbCriteria;
-        $criteria->compare('id', $ids);
-        $criteria->order = 'rand()';
-        $posts = CommunityContent::model()->findAll($criteria);
+        if (empty($posts))
+            return $this->nextGroup();
 
-        $not_commented_yet = array();
-        foreach($posts as $post){
-            $entity = $post->isFromBlog?'BlogContent':'CommunityContent';
-            if (!self::recentlyCommented($entity, $post->id))
-                $not_commented_yet [] = $post;
-        }
-
-        if (count($not_commented_yet) == 0) {
-            return PostsWithoutCommentsCommentator::getPost();
+        if (count($posts) == 0) {
+            return $this->nextGroup();
         } else {
-            return array('CommunityContent', $not_commented_yet[0]->id);
+            return array('CommunityContent', $posts[0]->id);
         }
     }
 
-    public static function getPostIds()
+    public function nextGroup()
+    {
+        $model = new PostsWithoutCommentsCommentator;
+        $model->skipUrls = $this->skipUrls;
+        $model->way [] = get_class($model);
+        if (count($model->way) > 10) {
+            var_dump($model->way);
+            Yii::app()->end();
+        }
+        return $model->getPost();
+    }
+
+    public function getPosts()
     {
         $posts = Yii::app()->cache->get(self::CACHE_ID);
         if (empty($posts))
-            $posts = self::getNewPosts();
+            $posts = $this->getNewPosts();
 
+        $posts = $this->filterPosts($posts);
+
+        if (empty($posts)) {
+            $posts = $this->getNewPosts();
+            $posts = $this->filterPosts($posts);
+        }
+
+        return $posts;
+    }
+
+    public function filterPosts($posts)
+    {
         $result = array();
-        while (empty($result)) {
-            $result = array();
-            foreach ($posts as $post) {
-                $model = CommunityContent::model()->active()->findByPk($post);
-                if ($model !== null && $model->commentsCount < CommentsLimit::getLimit('CommunityContent', $post, 25))
-                    $result [] = $post;
+
+        foreach ($posts as $post) {
+            $model = CommunityContent::model()->active()->findByPk($post);
+            if (!$this->IsSkipped('CommunityContent', $model->id)) {
+                $entity = $model->isFromBlog ? 'BlogContent' : 'CommunityContent';
+                if (!$this->recentlyCommented($entity, $model->id))
+                    if ($model !== null && $model->commentsCount < CommentsLimit::getLimit('CommunityContent', $model->id, 25))
+                        $result [] = $model;
             }
-            if (empty($result))
-                $posts = self::getNewPosts();
         }
 
         return $result;
     }
 
-    public static function getNewPosts()
+    public function getNewPosts()
     {
         $value = array();
         $date = strtotime('-1 month');
@@ -69,6 +85,8 @@ class TrafficPostForCommentator extends PostForCommentator
                 ->selectDistinct('search_phrase_id')
                 ->from('pages_search_phrases_visits')
                 ->where('week >= ' . date('W', $date) . ' AND year = ' . date('Y', $date))
+                ->order('rand()')
+                ->limit(100)
                 ->queryColumn();
 
         if (empty($phrases))

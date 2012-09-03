@@ -35,13 +35,23 @@ Messages.open = function(interlocutor_id, type) {
     else {
         Messages.initialize(interlocutor_id, type);
     }
-
-    Messages.active = true;
 }
 
 Messages.initialize = function(interlocutor_id, type) {
-    if (Messages.activeTab != type) {
-        if (! Messages.hasMessages && interlocutor_id == null && ! Messages.isActive()) {
+    if (! Messages.hasMessages && ! Messages.isActive() && interlocutor_id == null) {
+        Messages.setList(type, false);
+        Messages.showEmpty();
+    } else {
+        if (Messages.activeTab != type) {
+            Messages.setList(type, interlocutor_id);
+        } else {
+            Messages.setDialog(interlocutor_id);
+        }
+    }
+    Messages.active = true;
+
+    /*if (Messages.activeTab != type) {
+        if (! Messages.hasMessages && interlocutor_id == null) {
             Messages.setList(type, false);
             Messages.showEmpty();
         } else {
@@ -50,7 +60,7 @@ Messages.initialize = function(interlocutor_id, type) {
     } else {
         if (interlocutor_id != null)
             Messages.setDialog(interlocutor_id);
-    }
+    }*/
 }
 
 Messages.close = function() {

@@ -5,47 +5,69 @@
  */
 class SocialPostForCommentator extends PostForCommentator
 {
-    public static function getPost()
+    public function getPost()
     {
-        $posts = self::getPosts();
+        $this->way [] = 'SocialPostForCommentator';
+        $posts = $this->getPosts();
 
-        if (empty($posts)) {
-            return CoWorkersPostCommentator::getPost();
-        } else {
+        if (count($posts) == 0)
+            return $this->nextGroup();
+        else
             return array('CommunityContent', $posts[0]->id);
-        }
     }
 
-    public static function getPosts()
+    public function getPosts()
     {
         $result = array();
-        $criteria = self::getSimpleCriteria();
-        $ids = array_merge(Favourites::getIdList(Favourites::BLOCK_SOCIAL_NETWORKS));
+        $criteria = $this->getSimpleCriteria();
+        $ids = Favourites::getIdList(Favourites::BLOCK_SOCIAL_NETWORKS);
+
         if (empty($ids))
             return array();
 
         $criteria->compare('id', $ids);
-        $posts = CommunityContent::model()->findAll($criteria);
+        $posts = CommunityContent::model()->active()->findAll($criteria);
+        $posts = $this->filterPosts($posts);
 
-        foreach ($posts as $post)
-            if ($post->commentsCount < CommentsLimit::getLimit('CommunityContent', $post->id, 40)){
-                $entity = $post->isFromBlog?'BlogContent':'CommunityContent';
-                if (!self::recentlyCommented($entity, $post->id))
-                    $result [] = $post;
-            }
-
-        if (count($result) == 0) {
+        if (count($posts) == 0) {
             //check if all posts count is 0
-            $criteria = self::getSimpleCriteria();
-            $criteria->condition = self::maxTimeCondition();
+            $criteria = new CDbCriteria;
+            $criteria->condition = $this->maxTimeCondition();
             $criteria->compare('id', $ids);
-            $posts = CommunityContent::model()->findAll($criteria);
+            $posts = $this->filterPosts(CommunityContent::model()->findAll($criteria));
             if (count($posts) == 0)
                 return array();
             else
-                return self::getPosts();
+                return $this->getPosts();
         }
 
         return $result;
+    }
+
+    public function filterPosts($posts)
+    {
+        $result = array();
+
+        foreach ($posts as $post)
+            if (!$this->IsSkipped('CommunityContent', $post->id))
+                if ($post->commentsCount < CommentsLimit::getLimit('CommunityContent', $post->id, 40)) {
+                    $entity = $post->isFromBlog ? 'BlogContent' : 'CommunityContent';
+                    if (!$this->recentlyCommented($entity, $post->id))
+                        $result [] = $post;
+                }
+
+        return $result;
+    }
+
+    public function nextGroup()
+    {
+        $model = new TrafficPostForCommentator;
+        $model->skipUrls = $this->skipUrls;
+        $model->way [] = get_class($model);
+        if (count($model->way) > 10) {
+            var_dump($model->way);
+            Yii::app()->end();
+        }
+        return $model->getPost();
     }
 }

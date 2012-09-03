@@ -143,8 +143,9 @@ class CommentatorWork extends EMongoDocument
     public function incCommentsCount()
     {
         $this->getCurrentDay()->comments++;
-        list($this->comment_entity, $this->comment_entity_id) = $this->getNextPost();
-        $this->save();
+
+        if ($this->getNextPostForComment())
+            $this->save();
     }
 
     public function skipComment()
@@ -153,41 +154,39 @@ class CommentatorWork extends EMongoDocument
             return false;
 
         $this->skipArticle();
-        list($this->comment_entity, $this->comment_entity_id) = $this->getNextPost();
-
-        $this->getCurrentDay()->skip_count++;
         $this->save();
-        return true;
-    }
+        if ($this->getNextPostForComment()) {
 
-    public function skipArticle()
-    {
-        $model = CActiveRecord::model($this->comment_entity)->findByPk($this->comment_entity_id);
-        if ($model !== null) {
-            if (empty($this->skipUrls))
-                $this->skipUrls = array($model->url);
-            else
-                $this->skipUrls[] = $model->url;
+            $this->getCurrentDay()->skip_count++;
+            $this->save();
+            return true;
         }
+        return false;
     }
 
     /**
      * получить следующий пост (в блоге, в клубах, рецепт) для комментарирования
      *
      */
-    public function getNextPost()
+    public function getNextPostForComment()
     {
-        $rand = rand(0, 99);
-        if ($rand < 50)
-            return UserPostForCommentator::getPost();
-        elseif ($rand < 65)
-            return MainPagePostForCommentator::getPost();
-        elseif ($rand < 80)
-            return SocialPostForCommentator::getPost();
-        elseif ($rand < 90)
-            return TrafficPostForCommentator::getPost();
+        list($this->comment_entity, $this->comment_entity_id) = PostForCommentator::getNextPost($this->skipUrls);
 
-        return CoWorkersPostCommentator::getPost();
+        return true;
+    }
+
+    public function skipArticle()
+    {
+        if (empty($this->skipUrls))
+            $this->skipUrls = array(array($this->comment_entity, $this->comment_entity_id));
+        elseif (!empty($this->comment_entity) && !empty($this->comment_entity_id)){
+            $exist = false;
+            foreach($this->skipUrls as $skip_url)
+                if ($skip_url[0] == $this->comment_entity && $skip_url[1] == $this->comment_entity_id)
+                    $exist = true;
+            if (!$exist)
+                $this->skipUrls[] = array($this->comment_entity, $this->comment_entity_id);
+        }
     }
 
     /**

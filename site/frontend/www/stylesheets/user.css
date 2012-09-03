@@ -291,17 +291,17 @@
 
 #interestsManage .interests-steps .step-3 .selected-interests-list {}
 #interestsManage .interests-steps .step-3 .selected-interests-list ul {list-style: none; font-size: 11px; line-height: 12px; margin-bottom: 30px;}
-#interestsManage .interests-steps .step-3 .selected-interests-list ul li {width:160px; display: *zoom:1;*display:inline; vertical-align: middle; padding: 10px 5px 10px 0;}
-#interestsManage .interests-steps .step-3 .selected-interests-list ul li .img {display: *zoom:1;*display:inline; width: 50px; text-align: right; vertical-align: middle; margin-right: 3px;}
+#interestsManage .interests-steps .step-3 .selected-interests-list ul li {width:160px; display:inline-block; *zoom:1;*display:inline; vertical-align: middle; padding: 10px 5px 10px 0;}
+#interestsManage .interests-steps .step-3 .selected-interests-list ul li .img {display:inline-block; *zoom:1;*display:inline; width: 50px; text-align: right; vertical-align: middle; margin-right: 3px;}
 #interestsManage .interests-steps .step-3 .selected-interests-list ul li .img img {}
-#interestsManage .interests-steps .step-3 .selected-interests-list ul li .text {display: *zoom:1;*display:inline; max-width: 85px; vertical-align: middle;}
+#interestsManage .interests-steps .step-3 .selected-interests-list ul li .text {display:inline-block; *zoom:1;*display:inline; max-width: 85px; vertical-align: middle;}
 #interestsManage .interests-steps .step-3 .selected-interests-list ul li .text a {color: #292929; font-family: tahoma; text-decoration: none; vertical-align:top;display:inline-block;*zoom:1;*display:inline;max-width:78px;}
 #interestsManage .interests-steps .step-3 .selected-interests-list ul li .text .remove {color: #4d92d9; font-family: tahoma; text-decoration: none;}
-#interestsManage .interests-steps .step-3 .selected-interests-list ul li .remove {display: *zoom:1;*display:inline; width: 12px; height: 14px; background: url(/images/common.png) no-repeat -314px -135px; vertical-align: middle; position: relative;margin-right:-12px;margin-left:3px;}
+#interestsManage .interests-steps .step-3 .selected-interests-list ul li .remove {display:inline-block; *zoom:1;*display:inline; width: 12px; height: 14px; background: url(/images/common.png) no-repeat -314px -135px; vertical-align: middle; position: relative;margin-right:-12px;margin-left:3px;}
 #interestsManage .interests-steps .step-3 .selected-interests-list ul li .remove:hover {background-position:-314px -148px;}
 
 #interestsManage .interests-steps .step-3 .selected-interests-list .btn-box {text-align: center;}
-#interestsManage .interests-steps .step-3 .selected-interests-list .btn-box .btn-finish {display: *zoom:1;*display:inline; height: 58px; border: 1px solid #34ac51; background: #46b14e url(/images/btn_green_60.gif) repeat-x; line-height: 58px; color: #fff; font-size: 18px; font-weight: bold; text-decoration: none; padding: 0 30px;}
+#interestsManage .interests-steps .step-3 .selected-interests-list .btn-box .btn-finish {display:inline-block; *zoom:1;*display:inline; height: 58px; border: 1px solid #34ac51; background: #46b14e url(/images/btn_green_60.gif) repeat-x; line-height: 58px; color: #fff; font-size: 18px; font-weight: bold; text-decoration: none; padding: 0 30px;}
 #interestsManage .interests-steps .step-3 .selected-interests-list .btn-box .btn-finish {/*css3*/ border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; behavior: url(/stylesheets/PIE.htc);}
 
 
@@ -335,7 +335,7 @@
 #blogSettings .rubrics .list .col ul li .remove:hover {background-position:-314px -148px;}
 #blogSettings .rubrics .list .col ul li .edit {display:none;width:14px;height:18px;background:url(../images/common.png) no-repeat -383px -204px;margin-left:5px;position:relative;vertical-align:middle;}
 #blogSettings .rubrics .list .col ul li .edit:hover {background-position:-341px -136px;}
-#blogSettings .rubrics .list .col ul li:hover .remove, #blogSettings .rubrics .list .col ul li:hover .edit {display: *zoom:1;*display:inline;}
+#blogSettings .rubrics .list .col ul li:hover .remove, #blogSettings .rubrics .list .col ul li:hover .edit {display:inline-block; *zoom:1;*display:inline;}
 #blogSettings .rubrics .list .col ul li .icon-add {display:inline-block;*zoom:1;*display:inline;width:16px;height:16px;background:url(/images/common.png) no-repeat -139px -174px;position:relative;top:-2px;}
 #blogSettings .rubrics .list .col ul li input[type=text] {padding:3px 5px;border:1px solid #cbdcea;background:#fff;width:270px;color:#3d3d3d;vertical-align:middle;font-size:11px;font-family:tahoma, arial, helvetica, sans-serif;margin-top:5px;}
 #blogSettings .rubrics .list .col ul li .btn {vertical-align:middle;position:relative;top:1px;margin-left:5px;}
@@ -349,7 +349,7 @@
 
 #blogSettings .rubrics .btn-box {float:right;}
 
-#blogSettings .btn-finish {display: *zoom:1;*display:inline; height: 58px; border: 1px solid #34ac51; background: #46b14e url(/images/btn_green_60.gif) repeat-x; line-height: 58px; color: #fff; font-size: 18px; font-weight: bold; text-decoration: none; padding: 0 30px;}
+#blogSettings .btn-finish {display:inline-block; *zoom:1;*display:inline; height: 58px; border: 1px solid #34ac51; background: #46b14e url(/images/btn_green_60.gif) repeat-x; line-height: 58px; color: #fff; font-size: 18px; font-weight: bold; text-decoration: none; padding: 0 30px;}
 #blogSettings .btn-finish {/*css3*/ border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; behavior: url(/stylesheets/PIE.htc);}
 
 
@@ -378,22 +378,25 @@
 #user .user-family .c {background:url(/images/bg_user_family.png) repeat-y 100% 0;padding:10px 30px 10px;}
 #user .user-family .b {height:18px;background:url(/images/bg_user_family.png) no-repeat 0 100%;}
 #user .user-family ul {list-style:none;}
-#user .user-family ul li {list-style:none;margin-top:15px;}
+#user .user-family ul li {list-style:none;margin-top:20px;}
 #user .user-family ul li:first-child {margin-top:0;}
 #user .user-family ul li big {font-size:18px;color:#4c4d4d;display:block;line-height:1;margin-bottom:5px;}
 #user .user-family ul li big small {font-size:11px;color:#939697;}
 #user .user-family ul li big span {font-size:14px;}
 #user .user-family ul li .img {margin-bottom:5px;}
 #user .user-family ul li .img img {display:block;margin:auto;max-width:180px;}
-#user .user-family ul li .comment {margin-bottom:8px;position:relative;color:#3c93bc;font-size:13px;font-family:times new roman, serif;font-style:italic;padding:8px 10px;line-height:14px;position:relative;}
+#user .user-family ul li .comment {margin-bottom:8px;position:relative;color:#3c93bc;font-size:13px;font-family:times new roman, serif;font-style:italic;padding:8px 10px;line-height:14px;position:relative;background:#CDECFF;}
 #user .user-family ul li .comment {/*css3*/ -moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;behavior: url(/stylesheets/PIE.htc);}
-#user .user-family ul li .comment.purple {background:#f3e8fe;}
-#user .user-family ul li .comment.blue {background:#dbeefc;}
-#user .user-family ul li .comment.pink {background:#ffe3f9;}
-#user .user-family ul li .comment .tale {position:absolute;display:block;width:30px;height:23px;right:65px;top:100%;}
-#user .user-family ul li .comment.purple .tale {background:url(/images/common.png) no-repeat -472px -251px;}
-#user .user-family ul li .comment.blue .tale {background:url(/images/common.png) no-repeat -504px -251px;}
-#user .user-family ul li .comment.pink .tale {background:url(/images/common.png) no-repeat -472px -276px;}
+#user .user-family ul li .comment .tale {position:absolute;display:block;width:30px;height:23px;right:65px;top:100%;background:url(/images/common.png) no-repeat -504px -251px;}
+#user .user-family ul li.waiting {}
+#user .user-family ul li.waiting .icon {width:59px;height:45px;display:block;background:url(/images/user_family_waiting.png) no-repeat;float:left;}
+#user .user-family ul li.waiting .in {margin-left:70px;color:#4c4d4d;line-height:22px;}
+#user .user-family ul li.waiting .time {color:#f56bbf;font-size:11px;}
+#user .user-family ul li.waiting .gender i {display:inline-block;*zoom:1;*display:inline;width:22px;height:21px;background:url(/images/common.png) no-repeat 22px 21px;margin-right:3px;position:relative;vertical-align:middle;top:-2px;}
+#user .user-family ul li.waiting .gender .icon-male {background-position:-556px -221px}
+#user .user-family ul li.waiting .gender .icon-female {background-position:-580px -221px}
+#user .user-family ul li.waiting .gender .icon-question {width:11px;background-position:-623px -221px}
+#user .user-family .watch-album {color:#fd6c01;font-size:15px;display:block;text-align:center;margin:20px 0;}
 
 
 
@@ -405,29 +408,35 @@
 #user .family {padding-left:30px;}
 #user .family .content-title {margin-bottom:20px;}
 
-#user .family .family-radiogroup {background:#f1e4fd;margin-left:-15px;padding:10px 15px;margin-bottom:15px;display:inline-block;*zoom:1;*display:inline;}
+#user .family .family-radiogroup {background:#f1e4fd;margin-left:-20px;padding:15px 20px;margin-bottom:20px;}
 #user .family .family-radiogroup .radiogroup {display:inline-block;*zoom:1;*display:inline;vertical-align:top;}
 #user .family .family-radiogroup .title {font-size:22px;color:#484747;line-height:1;margin-bottom:10px;}
-#user .family .family-radiogroup .radio-label {padding:0 10px;height:19px;display:inline-block;*zoom:1;*display:inline;line-height:19px;text-align:center;background:#fff;border:1px solid #dcc7ee;font-size:13px;color:#aeadad;cursor:pointer;}
-#user .family .family-radiogroup .radio-label {/*css3*/ -moz-border-radius:10px;-webkit-border-radius:10px;border-radius:10px;behavior: url(/stylesheets/PIE.htc);}
+#user .family .family-radiogroup .title span {color:#714399;font-size:18px;margin:0 15px;}
+#user .family .family-radiogroup .title a {font-size:13px;}
+#user .family .family-radiogroup small {font-size:13px;}
+#user .family .family-radiogroup .subtitle {font-size:13px;color:#7e7b7b;line-height:1;margin-bottom:10px;}
+#user .family .family-radiogroup .radio-label {padding:0 16px;height:31px;display:inline-block;*zoom:1;*display:inline;line-height:31px;text-align:center;background:#fff;border:1px solid #dcc7ee;font-size:18px;color:#aeadad;cursor:pointer;}
+#user .family .family-radiogroup .radio-label {/*css3*/ -moz-border-radius:14px;-webkit-border-radius:14px;border-radius:14px;behavior: url(/stylesheets/PIE.htc);}
 #user .family .family-radiogroup .radio-label.checked {background:#dcc7ee;color:#714399;}
 #user .family .family-radiogroup .radio-label input {display:none;}
+#user .family .family-radiogroup .icon-waiting {display:inline-block;*zoom:1;*display:inline;width:24px;height:23px;background:url(/images/user_family_radio_waiting.png) no-repeat;vertical-align:middle;position:relative;left:5px;top:-2px;}
 
-#user .family .family-member {font-size:13px;padding-bottom:20px;}
+#user .family .family-member {font-size:13px;padding-bottom:20px;color:#7e7b7b;}
 
+#user .family .family-member > p {margin-bottom:1em;}
 
-#user .family .family-member .data {margin-bottom:10px;}
+#user .family .family-member .data {margin-bottom:15px;}
 
-#user .family .family-member .data .d-text {color:#929292;float:left;margin-right:10px;}
+#user .family .family-member .member-title {color:#434242;font-size:15px;margin-bottom:15px;}
+
+#user .family .family-member .data .d-text {color:#434242;float:left;font-size:15px;margin-right:10px;display:inline-block;*zoom:1;*display:inline;}
 
 #user .family .family-member .data .name {float:left;margin-right:10px;}
-#user .family .family-member .data .name .text {font-size:15px;color:#2584b0;font-weight:bold;float:left;}
+#user .family .family-member .data .name .text {font-size:15px;color:#3c9cd7;font-weight:bold;display:inline-block;*zoom:1;*display:inline;}
 #user .family .family-member .data .name .input {float:left;}
-#user .family .family-member .data .name .input input {border:1px solid #badef1;font-size:15px;line-height:1;padding:2px 7px;margin:-2px 0 0 0;font-size:15px;font-weight:bold;color:#2584b0;}
-#user .family .family-member .data .name .edit {display:block;width:14px;height:18px;background:url(/images/common.png) no-repeat -383px -204px;margin:0 auto;position:relative;text-decoration:none;font-weight:normal;z-index:3;float:left;margin-left:5px;}
-#user .family .family-member .data .name .edit:hover {background-position:-341px -136px;}
+#user .family .family-member .data .name .input input {border:1px solid #badef1;font-size:15px;line-height:1;padding:2px 7px;margin:-2px 0 0 0;font-size:15px;font-weight:bold;color:#3c9cd7;}
 
-#user .family .family-member .data .gender {display:block;width:22px;height:21px;background:url(/images/common.png) no-repeat 22px 21px;float:left;margin-right:3px;position:relative;margin-top:-2px;}
+#user .family .family-member .data .gender {display:inline-block;*zoom:1;*display:inline;width:22px;height:21px;background:url(/images/common.png) no-repeat 22px 21px;margin-right:3px;position:relative;vertical-align:middle;top:-2px;}
 #user .family .family-member .data .gender.male {background-position:-556px -244px}
 #user .family .family-member .data .gender.male:hover, #user .family .family-member .data .gender.male.active {background-position:-556px -221px;}
 #user .family .family-member .data .gender.female {background-position:-580px -244px}
@@ -435,49 +444,34 @@
 #user .family .family-member .data .gender.question {width:11px;background-position:-623px -244px}
 #user .family .family-member .data .gender.question:hover, #user .family .family-member .data .gender.question.active {width:11px;background-position:-623px -221px}
 
-#user .family .family-member .data .age {float:left;color:#2584b0;font-size:15px;margin-left:5px;}
+#user .family .family-member .data .age {float:left;color:#3c9cd7;font-size:15px;margin-left:5px;}
 
-#user .family .family-member .data div.date {display:block;width:18px;height:17px;float:left;margin-left:8px;position:relative;}
-#user .family .family-member .data div.date a.date {display:block;width:18px;height:17px;background:url(/images/common.png) no-repeat -603px -244px;}
-#user .family .family-member .data div.date .datepicker {position:absolute;top:30px;left:-115px;border:1px solid #badef1;width:360px;padding:10px 0;background:#fff;padding-top:50;text-align:center;z-index:5;}
-#user .family .family-member .data div.date .datepicker .tale {display:block;content:'';width:18px;height:17px;background:url(/images/common.png) no-repeat -536px -251px;position:absolute;top:-17px;left:93px;}
-#user .family .family-member .data div.date .datepicker .w-1 {width:60px;}
-#user .family .family-member .data div.date .datepicker .w-2 {width:120px;}
-#user .family .family-member .data div.date .datepicker .w-3 {width:80px;}
-#user .family .family-member .data div.date a.date:hover {background-position:-603px -221px;}
-
-#user .family .family-member .data .comment {display:block;width:25px;height:19px;background:url(/images/common.png) no-repeat -636px -244px;float:left;margin-left:8px;position:relative;}
-#user .family .family-member .data .comment:hover {background-position:-636px -221px;}
-
-#user .family .family-member .data .photo {display:block;width:22px;height:16px;background:url(/images/common.png) no-repeat -663px -244px;float:left;margin-left:8px;position:relative;}
-#user .family .family-member .data .photo:hover {background-position:-663px -221px;}
-#user .family .family-member .data .photo form {position:absolute;width:22px;height:16px;overflow:hidden;left:0;top:0;}
-#user .family .family-member .data .photo input[type=file] {opacity:0;position:absolute;z-index:3;right:0;top:0;height:100%;display:block;filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0);width:210px;cursor: pointer;}
+#user .family .family-member .data div.date {display:inline-block;*zoom:1;*display:inline;}
+#user .family .family-member .data div.date .w-1 {width:50px;}
+#user .family .family-member .data div.date .w-2 {width:100px;}
+#user .family .family-member .data div.date .w-3 {width:70px;}
+#user .family .family-member .data div.date .text {font-size:15px;color:#3c9cd7;font-weight:bold;}
 
 
-#user .family .family-member .comment {}
-#user .family .family-member .comment .text {font-size:13px;color:#484747;width:350px;}
-#user .family .family-member .comment .text .edit {display:inline-block;*zoom:1;*display:inline;width:14px;height:18px;background:url(/images/common.png) no-repeat -383px -204px;margin:0 auto;position:relative;text-decoration:none;font-weight:normal;z-index:3;vertical-align:middle;}
-#user .family .family-member .comment .text .edit:hover {background-position:-341px -136px;}
+#user .family .family-member .comment {background:#cdecff;width:292px;padding:10px 15px;text-align:right;margin-top:10px;margin-bottom:10px;-moz-border-radius:10px;-webkit-border-radius:10px;border-radius:10px;position:relative;}
+#user .family .family-member .comment .text {color:#177fb2;text-align:left;font:italic 14px times new roman, times, serif; display:inline-block;*zoom:1;*display:inline;}
+#user .family .family-member  .edit {display:inline-block;*zoom:1;*display:inline;width:14px;height:18px;background:url(/images/common.png) no-repeat -383px -204px;margin:0 auto;position:relative;text-decoration:none;font-weight:normal;z-index:3;vertical-align:middle;top:-3px;}
+#user .family .family-member  .edit:hover {background-position:-341px -136px;}
+#user .family .family-member  .remove {display:inline-block;*zoom:1;*display:inline;width:12px;height:14px;background:url(/images/common.png) no-repeat -314px -135px;position:relative;margin-right:8px;vertical-align:middle;top:-2px;}
+#user .family .family-member  .remove:hover {background-position:-314px -148px;}
 #user .family .family-member .comment .input {position:relative;}
-#user .family .family-member .comment .input .tale {display:block;content:'';width:18px;height:17px;background:url(/images/common.png) no-repeat -536px -251px;position:absolute;top:-19px;left:110px;}
-#user .family .family-member .comment .input textarea {font-size:15px;line-height:1;padding:2px 7px;margin:-3px 0 0 -8px;font-size:15px;overflow:auto;width:350px;height:30px;font-size:13px;color:#484747;vertical-align:bottom;border:1px solid #badef1;max-width:350px;resize:none;}
+#user .family .family-member .comment .tale {display:block;content:'';width:11px;height:34px;background:url(/images/common.png) no-repeat -447px -274px;position:absolute;top:-6px;left:-11px;}
+#user .family .family-member .comment .input textarea {font-size:15px;line-height:1;padding:5px 5px;font-size:15px;overflow:auto;width:280px;height:50px;font-size:13px;color:#484747;vertical-align:bottom;border:1px solid #badef1;max-width:290px;resize:none;margin-bottom:5px;}
 
-#user .family .family-member .photos {margin-top:10px;}
-#user .family .family-member .photos ul {overflow:hidden;}
-#user .family .family-member .photos ul li {position:relative;display:inline-block;*zoom:1;*display:inline;margin:0 10px 10px 0;vertical-align:bottom;}
-#user .family .family-member .photos ul li:first-child {margin-left:0;}
-#user .family .family-member .photos ul li img {display:block;}
-#user .family .family-member .photos ul li .remove {display:none;width:20px;height:18px;background:url(../images/common.png) no-repeat -2px -101px;position:absolute;top:0;right:0;}
-#user .family .family-member .photos ul li:hover .remove {display:block;}
-#user .family .family-member .photos ul li.add {text-align:center;line-height:normal;}
-#user .family .family-member .photos ul li.add a {position:relative;display:block;width:148px;height:50px;background:url(/images/gallery_photos_add.png) no-repeat;text-decoration:none;padding-top:60px;overflow:hidden;}
-#user .family .family-member .photos ul li.add a:hover .icon {background-position:-429px -191px;}
-#user .family .family-member .photos ul li.add a .icon {display:block;width:33px;height:33px;background:url(/images/common.png) no-repeat -464px -191px;top:20px;left:50%;margin-left:-16px;position:absolute;}
-#user .family .family-member .photos ul li.add a span {margin-top:60px;border-bottom:1px dashed #1b98c5;}
-#user .family .family-member .photos ul li.add a:hover span {border:0;}
-#user .family .family-member .photos ul li.add a input[type=file] {opacity:0;position:absolute;z-index:3;right:0;top:0;height:100%;display:block;filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0);width:210px;}
+#user .family .family-member .gallery-photos-new {margin-top:15px;margin-left:-50px;}
+#user .family .family-member .gallery-photos-new .add {text-align:center;}
+#user .family .family-member .gallery-photos-new .add a {text-decoration:none;display:block;padding:30px 0;}
+#user .family .family-member .gallery-photos-new .add .icon {display:block;margin:10px auto 10px;width:33px;height:33px;background:url(/images/common.png) no-repeat -464px -191px;}
+#user .family .family-member .gallery-photos-new .add a:hover .icon {background-position:-429px -191px;}
+#user .family .family-member .gallery-photos-new .add  span {border-bottom:1px dashed #238ed9;}
 
+#user .family .family-member .icon-waiting {display:inline-block;*zoom:1;*display:inline;width:47px;height:36px;background:url(/images/user_family_member_waiting.png) no-repeat;position:relative;top:3px;margin-right:5px;}
+#user .family .family-member .couple {display:inline-block;*zoom:1;*display:inline;width:16px;height:16px;background:url(/images/common.png) no-repeat -139px -174px;position:relative;top:3px;margin-right:3px;}
 
 #user .user-weather {margin-bottom:20px;padding:10px 14px;border:1px solid #e8e8e8;height: 185px;}
 #user .user-weather .box-title a.pseudo {margin-top:7px;}

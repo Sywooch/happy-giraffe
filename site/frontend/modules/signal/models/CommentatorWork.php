@@ -16,6 +16,7 @@ class CommentatorWork extends EMongoDocument
     public $stat;
     public $comment_entity;
     public $comment_entity_id;
+    public $skipUrls = array();
 
     public static function model($className = __CLASS__)
     {
@@ -148,13 +149,26 @@ class CommentatorWork extends EMongoDocument
 
     public function skipComment()
     {
-        list($this->comment_entity, $this->comment_entity_id) = $this->getNextPost();
         if ($this->getCurrentDay()->skip_count >= self::MAX_SKIPS)
             return false;
+
+        $this->skipArticle();
+        list($this->comment_entity, $this->comment_entity_id) = $this->getNextPost();
 
         $this->getCurrentDay()->skip_count++;
         $this->save();
         return true;
+    }
+
+    public function skipArticle()
+    {
+        $model = CActiveRecord::model($this->comment_entity)->findByPk($this->comment_entity_id);
+        if ($model !== null) {
+            if (empty($this->skipUrls))
+                $this->skipUrls = array($model->url);
+            else
+                $this->skipUrls[] = $model->url;
+        }
     }
 
     /**
@@ -354,7 +368,7 @@ class CommentatorWork extends EMongoDocument
             Yii::import('site.frontend.extensions.GoogleAnalytics');
             $ga = new GoogleAnalytics('alexk984@gmail.com', Yii::app()->params['gaPass']);
             $ga->setProfile('ga:53688414');
-            $ga->setDateRange($period . '-01', $period . '-'.$this->getLastPeriodDay($period));
+            $ga->setDateRange($period . '-01', $period . '-' . $this->getLastPeriodDay($period));
             $report = $ga->getReport(array(
                 'metrics' => urlencode('ga:visitors'),
                 'filters' => urlencode('ga:pagePath=~' . '/user/' . $this->user_id . '/blog/*'),
@@ -365,7 +379,7 @@ class CommentatorWork extends EMongoDocument
             else
                 $value = 0;
 
-            Yii::app()->cache->set($id, $value, 3600*5);
+            Yii::app()->cache->set($id, $value, 3600 * 5);
         }
 
         return $value;
@@ -382,7 +396,7 @@ class CommentatorWork extends EMongoDocument
             Yii::import('site.frontend.extensions.GoogleAnalytics');
             $ga = new GoogleAnalytics('alexk984@gmail.com', Yii::app()->params['gaPass']);
             $ga->setProfile('ga:53688414');
-            $ga->setDateRange($period . '-01', $period . '-'.$this->getLastPeriodDay($period));
+            $ga->setDateRange($period . '-01', $period . '-' . $this->getLastPeriodDay($period));
             $report = $ga->getReport(array(
                 'metrics' => urlencode('ga:uniquePageviews'),
                 'filters' => urlencode('ga:pagePath=~' . '/user/' . $this->user_id . '/'),
@@ -393,7 +407,7 @@ class CommentatorWork extends EMongoDocument
             else
                 $value = 0;
 
-            Yii::app()->cache->set($id, $value, 3600*5);
+            Yii::app()->cache->set($id, $value, 3600 * 5);
         }
 
         return $value;
@@ -452,7 +466,7 @@ class CommentatorWork extends EMongoDocument
     {
         $last_day = $this->getLastPeriodDay($period);
         $criteria = new CDbCriteria;
-        $criteria->condition = 'created >= "' . $period . '-01 00:00:00" AND created <= "' . $period . '-'.$last_day.' 23:59:59"';
+        $criteria->condition = 'created >= "' . $period . '-01 00:00:00" AND created <= "' . $period . '-' . $last_day . ' 23:59:59"';
         $criteria->compare('author_id', $this->user_id);
         $criteria->order = 'created desc';
         $criteria->with = array('rubric', 'rubric.community', 'type');
@@ -463,5 +477,10 @@ class CommentatorWork extends EMongoDocument
     public function getLastPeriodDay($period)
     {
         return str_pad(cal_days_in_month(CAL_GREGORIAN, date('n', strtotime($period)), date('Y', strtotime($period))), 2, "0", STR_PAD_LEFT);
+    }
+
+    public function skipped($url)
+    {
+        return in_array($url, $this->skipUrls);
     }
 }

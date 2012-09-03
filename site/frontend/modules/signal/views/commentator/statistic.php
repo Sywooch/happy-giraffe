@@ -29,7 +29,7 @@ $months = $this->commentator->getWorkingMonths();
 
                     <td class="col-2"><?=$this->commentator->newFriends($period) ?></td>
                     <td class="col-3"><?=$this->commentator->getPlace($period, CommentatorsMonthStats::NEW_FRIENDS) ?></td>
-                    <td class="col-4"><a href="">Как найти друзей</a></td>
+                    <td class="col-4"><a href="<?=$this->createUrl('/signal/commentator/help/') ?>#friends">Как завести наибольшее количество дружеских связей (больше всего друзей на сайте)</a></td>
                 </tr>
             </table>
 
@@ -43,7 +43,7 @@ $months = $this->commentator->getWorkingMonths();
 
                     <td class="col-2"><?=$this->commentator->blogVisits($period) ?></td>
                     <td class="col-3"><?=$this->commentator->getPlace($period, CommentatorsMonthStats::BLOG_VISITS) ?></td>
-                    <td class="col-4"><a href="">Как найти друзей</a></td>
+                    <td class="col-4"><a href="<?=$this->createUrl('/signal/commentator/help/') ?>#blog-visits">Как сделать блог наиболее посещаемым по уникальным посетителям</a></td>
                 </tr>
             </table>
 
@@ -57,7 +57,7 @@ $months = $this->commentator->getWorkingMonths();
 
                     <td class="col-2"><?=$this->commentator->profileUniqueViews($period) ?></td>
                     <td class="col-3"><?=$this->commentator->getPlace($period, CommentatorsMonthStats::PROFILE_UNIQUE_VIEWS) ?></td>
-                    <td class="col-4"><a href="">Как увеличить кол-во просмотров анкеты</a></td>
+                    <td class="col-4"><a href="<?=$this->createUrl('/signal/commentator/help/') ?>#profile-views">Как сделать личную страницу (включая блог и фотогалерею) наиболее посещаемой по количеству просмотров</a></td>
                 </tr>
             </table>
 
@@ -71,7 +71,7 @@ $months = $this->commentator->getWorkingMonths();
 
                     <td class="col-2"><?=$this->commentator->imMessages($period) ?></td>
                     <td class="col-3"><?=$this->commentator->getPlace($period, CommentatorsMonthStats::IM_MESSAGES) ?></td>
-                    <td class="col-4"><a href="">Как строить общение</a></td>
+                    <td class="col-4"><a href="<?=$this->createUrl('/signal/commentator/help/') ?>#im">Самый коммуникабельный сотрудник (тот, кто больше всего отправил сообщений по внутренней почте) – входящие и исходящие сообщения</a></td>
                 </tr>
             </table>
 
@@ -85,7 +85,7 @@ $months = $this->commentator->getWorkingMonths();
 
                     <td class="col-2"><?=$this->commentator->seVisits($period) ?></td>
                     <td class="col-3"><?=$this->commentator->getPlace($period, CommentatorsMonthStats::SE_VISITS) ?></td>
-                    <td class="col-4"><a href="">Как получить много трафика из поисковых систем</a></td>
+                    <td class="col-4"><a href="<?=$this->createUrl('/signal/commentator/help/') ?>#se">Как писать посты, которые приведут на сайт наибольшее количество людей из поисковиков (блог и записи в клубах)</a></td>
                 </tr>
             </table>
 

@@ -44,6 +44,11 @@
                         <span class="tale"><img src="/images/default_nav_active.gif"></span>
                     <?php endif ?>
                 </li>
+                <li<?php if (Yii::app()->controller->action->id == 'help') echo ' class="active"'; ?>><a href="<?=$this->createUrl('/signal/commentator/help') ?>">Вопросы</a>
+                    <?php if (Yii::app()->controller->action->id == 'help'):?>
+                        <span class="tale"><img src="/images/default_nav_active.gif"></span>
+                        <?php endif ?>
+                </li>
             </ul>
         </div>
 

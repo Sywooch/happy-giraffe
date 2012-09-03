@@ -93,16 +93,16 @@ class User extends HActiveRecord
         4 => 'Есть подруга',
     );
     public $women_of = array(
-        1 => 'жены',
+        1 => array('моей жены', 'моей жене'),
         2 => '',
-        3 => 'невесты',
-        4 => 'подруги',
+        3 => array('моей невесты', 'моей невесте'),
+        4 => array('моей подруги', 'моей подруге'),
     );
     public $men_of = array(
-        1 => 'мужа',
+        1 => array('моего мужа', 'моём муже'),
         2 => '',
-        3 => 'жениха',
-        4 => 'друга',
+        3 => array('моего жениха', 'моём женихе'),
+        4 => array('моего друга', 'моём друге'),
     );
 
     public $accessLabels = array(
@@ -741,7 +741,7 @@ class User extends HActiveRecord
 
     public function getRelationshipStatusString()
     {
-        return $this->relationship_status === null ? '' : mb_strtolower($this->relashionshipList[$this->relationship_status], 'utf-8');
+        return $this->relationship_status === null ? '' : $this->relashionshipList[$this->relationship_status];
     }
 
     public function getPartnerTitle($id)
@@ -765,14 +765,14 @@ class User extends HActiveRecord
         return '';
     }
 
-    public function getPartnerTitleOf($id = null)
+    public function getPartnerTitleOf($id = null, $n = 0)
     {
         if ($id === null)
             $id = $this->relationship_status;
 
         $list = $this->getPartnerTitlesOf();
-        if (isset($list[$id]))
-            return $list[$id];
+        if (isset($list[$id][$n]))
+            return $list[$id][$n];
         return '';
     }
 

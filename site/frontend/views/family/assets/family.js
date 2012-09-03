@@ -5,6 +5,12 @@ var Family = {
     baby_count:null,
     tmp:null,
     future_baby_type:null,
+    relationshipStatus: null,
+
+    changeStatus: function() {
+        $('.relationship-choice').show();
+        $('.relationship-status').hide();
+    },
 
     setStatusRadio:function (el, status_id) {
         $.ajax({
@@ -21,10 +27,16 @@ var Family = {
                     $(el).parents('.radiogroup').find('.radio-label').removeClass('checked');
                     $(el).addClass('checked').find('input').attr('checked', 'checked');
 
+                    $('.relationship-choice').hide();
+                    $('.relationship-status .title').text($(el).text());
+                    $('.relationship-status').show();
+
                     if (status_id == 2) {
                         $('#user-partner').hide();
                     } else {
-                        $('#user-partner .d-text span').text(Family.partnerOf[status_id]);
+                        $('#user-partner .d-text:eq(0) span').text(Family.partnerOf[status_id][0]);
+                        $('#user-partner .d-text:eq(1) span').text(Family.partnerOf[status_id][1]);
+                        $('#user-partner .d-text:eq(2) span').text(Family.partnerOf[status_id][0]);
                         $('#user-partner').show();
                     }
 
@@ -66,9 +78,10 @@ var Family = {
     editDate:function (el) {
         $(el).next().show();
     },
-    editPartnerNotice:function (el) {
-        $('#user-partner div.comment').show();
+    editPartnerNotice:function (el, del) {
         $('#user-partner div.comment div.text').hide();
+        if (del)
+            $('#user-partner div.comment div.input textarea').val('');
         $('#user-partner div.comment div.input').show();
     },
     savePartnerNotice:function (el) {

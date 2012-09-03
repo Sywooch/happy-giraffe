@@ -10,7 +10,7 @@ class SocialPostForCommentator extends PostForCommentator
         $posts = self::getPosts();
 
         if (empty($posts)) {
-            return UserPostForCommentator::getPost();
+            return CoWorkersPostCommentator::getPost();
         } else {
             return array('CommunityContent', $posts[0]->id);
         }
@@ -28,9 +28,11 @@ class SocialPostForCommentator extends PostForCommentator
         $posts = CommunityContent::model()->findAll($criteria);
 
         foreach ($posts as $post)
-            if ($post->commentsCount < CommentsLimit::getLimit('CommunityContent', $post->id, 40))
-                if (!self::recentlyCommented('CommunityContent', $post->id))
+            if ($post->commentsCount < CommentsLimit::getLimit('CommunityContent', $post->id, 40)){
+                $entity = $post->isFromBlog?'BlogContent':'CommunityContent';
+                if (!self::recentlyCommented($entity, $post->id))
                     $result [] = $post;
+            }
 
         if (count($result) == 0) {
             //check if all posts count is 0

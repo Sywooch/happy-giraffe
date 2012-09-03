@@ -122,5 +122,16 @@ class MailCommand extends CConsoleCommand
 
         Yii::app()->mc->deleteUsers();
     }
+
+    public function actionTest(){
+        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
+        Yii::import('site.frontend.extensions.*');
+        Yii::import('site.frontend.components.*');
+        Yii::import('site.common.models.mongo.*');
+
+        $articles = Favourites::model()->getWeekPosts();
+
+        echo $articles[0]->url;
+    }
 }
 

@@ -46,7 +46,9 @@
             ->registerScript('im-urls', 'im.GetLastUrl="'.Yii::app()->createUrl('/im/default/getLast').';"')
         ;
 
-        if (($interlocutor_id = Yii::app()->request->getQuery('im_interlocutor_id', 'null')) !== 'null' || ($type = Yii::app()->request->getQuery('im_type', 'null')) !== 'null') {
+        $interlocutor_id = Yii::app()->request->getQuery('im_interlocutor_id', 'null');
+        $type = Yii::app()->request->getQuery('im_type', 'null');
+        if ($interlocutor_id !== 'null' || $type !== 'null') {
             $cs->registerScript('openMessages', 'Messages.open(' . $interlocutor_id . ', ' . $type . ')', CClientScript::POS_HEAD);
         }
     }
@@ -472,6 +474,12 @@
         <div class="push"></div>
 
     </div>
+
+<?php if (Yii::app()->user->checkAccess('commentator_panel')):?>
+    <div id="commentator-link" style="position: absolute;top:30px;left: 0;">
+        <a target="_blank" href="<?=$this->createUrl('/signal/commentator/index') ?>" style="color: #333;font-weight:bold;">Панель для работы</a>
+    </div>
+<?php endif ?>
 
     <div id="footer" class="wrapper clearfix">
 

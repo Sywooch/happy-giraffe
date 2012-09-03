@@ -48,6 +48,8 @@ class CommentatorWork extends EMongoDocument
         $day = $this->getCurrentDay();
         if (isset($day))
             $day->checkStatus();
+        $day->club_posts = $this->clubPostsCount();
+
         return parent::beforeSave();
     }
 
@@ -170,6 +172,7 @@ class CommentatorWork extends EMongoDocument
             return SocialPostForCommentator::getPost();
         elseif ($rand < 90)
             return TrafficPostForCommentator::getPost();
+
         return CoWorkersPostCommentator::getPost();
     }
 
@@ -255,6 +258,9 @@ class CommentatorWork extends EMongoDocument
 
     public function clubPostsCount()
     {
+        if (empty($this->clubs))
+            return count($this->clubPosts());
+
         $count = 0;
         foreach ($this->clubPosts() as $post)
             if (in_array($post->rubric->community_id, $this->clubs))

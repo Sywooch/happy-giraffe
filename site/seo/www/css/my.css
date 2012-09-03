@@ -88,7 +88,7 @@
 #admin-menu {
     position: absolute;
     right: 0;
-    top: 130px;
+    top: 0;
     padding: 10px;
     background: #49484a;
     opacity: 0.6;

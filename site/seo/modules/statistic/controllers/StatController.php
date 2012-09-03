@@ -35,12 +35,7 @@ class StatController extends SController
         if ($user_id === null) {
             $this->render('moderators_stats', compact('last_date', 'date', 'days', 'moderators', 'period'));
         } else {
-            $moderators = Yii::app()->user->getState('moderators');
-            if (!is_array($moderators))
-                $moderators = array($user_id);
-            elseif (!in_array($user_id, $moderators))
-                $moderators[] = $user_id;
-            Yii::app()->user->setState('moderators', $moderators);
+            $this->addEntityToFastList('moderators', $user_id);
 
             $this->render('moderator_stats', compact('last_date', 'date', 'days', 'user_id', 'period'));
         }
@@ -76,17 +71,6 @@ class StatController extends SController
 
         $period = $this->getPeriod($last_date, $days);
         $this->render('groups_stats', compact('last_date', 'date', 'period'));
-    }
-
-    public function actionRemoveUser()
-    {
-        $moderators = Yii::app()->user->getState('moderators');
-        $user_id = Yii::app()->request->getPost('user_id');
-        foreach ($moderators as $key => $moderator)
-            if ($moderator == $user_id)
-                unset($moderators[$key]);
-        Yii::app()->user->setState('moderators', $moderators);
-        echo CJSON::encode(array('status' => true));
     }
 
     public function getPeriod($date, $days)

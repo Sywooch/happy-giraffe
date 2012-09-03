@@ -11,9 +11,18 @@ class CometModel extends CComponent
     const TYPE_USER_TYPING = 4;
     const TYPE_DIALOG_READ = 21;
 
+    //moderator signals
     const TYPE_SIGNAL_UPDATE = 5;
     const TYPE_SIGNAL_EXECUTED = 8;
+    const TYPE_COMMENTATOR_UPDATE = 9;
 
+    const UPDATE_BLOG = 0;
+    const UPDATE_CLUB = 1;
+    const UPDATE_COMMENTS = 2;
+    const UPDATE_POSTS = 3;
+    const UPDATE_ADDITIONAL_POSTS = 4;
+
+    //user notifications
     const TYPE_UPDATE_NOTIFICATIONS = 100;
     const TYPE_UPDATE_FRIEND_NOTIFICATIONS = 101;
     const TYPE_INVITES_PLUS_ONE = 102;

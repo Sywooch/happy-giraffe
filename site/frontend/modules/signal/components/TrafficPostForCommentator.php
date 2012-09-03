@@ -26,7 +26,7 @@ class TrafficPostForCommentator extends PostForCommentator
         if (count($not_commented_yet) == 0) {
             return PostsWithoutCommentsCommentator::getPost();
         } else {
-            return array('CommunityContent', $posts[0]->id);
+            return array('CommunityContent', $not_commented_yet[0]->id);
         }
     }
 

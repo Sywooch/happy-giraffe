@@ -47,6 +47,10 @@ class CommentatorController extends HController
         $this->render('statistic', compact('period'));
     }
 
+    public function actionHelp(){
+        $this->render('help');
+    }
+
     public function actionBlog()
     {
         $this->renderPartial('_blog_posts', array('blog_posts' => $this->commentator->blogPosts()));

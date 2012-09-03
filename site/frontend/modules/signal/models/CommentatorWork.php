@@ -49,7 +49,6 @@ class CommentatorWork extends EMongoDocument
         $day = $this->getCurrentDay();
         if (isset($day))
             $day->checkStatus();
-        $day->club_posts = $this->clubPostsCount();
 
         return parent::beforeSave();
     }
@@ -120,7 +119,7 @@ class CommentatorWork extends EMongoDocument
         else
             $this->days[] = $day;
 
-        list($this->comment_entity, $this->comment_entity_id) = PostsWithoutCommentsCommentator::getPost();
+        $this->getNextPostForComment();
 
         //add working day
         $month = CommentatorsMonthStats::getOrCreateWorkingMonth();

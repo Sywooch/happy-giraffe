@@ -408,6 +408,7 @@ class CommentatorWork extends EMongoDocument
                     'filters' => urlencode('ga:pagePath=~' . '/user/' . $this->user_id . '/'),
                 ));
             } catch (Exception $err) {
+                echo $err->getMessage().' ';
                 echo $this->user_id . " - error\n";
                 return 0;
             }

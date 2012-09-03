@@ -5,7 +5,7 @@ class CommentatorWork extends EMongoDocument
     const BLOG_POSTS_COUNT = 1;
     const CLUB_POSTS_COUNT = 2;
     const COMMENTS_COUNT = 100;
-    const MAX_SKIPS = 10;
+    const MAX_SKIPS = 100;
 
     public $user_id;
     public $clubs = array();
@@ -48,6 +48,8 @@ class CommentatorWork extends EMongoDocument
         $day = $this->getCurrentDay();
         if (isset($day))
             $day->checkStatus();
+        $day->club_posts = $this->clubPostsCount();
+
         return parent::beforeSave();
     }
 
@@ -147,7 +149,7 @@ class CommentatorWork extends EMongoDocument
     public function skipComment()
     {
         list($this->comment_entity, $this->comment_entity_id) = $this->getNextPost();
-        if ($this->getCurrentDay()->skip_count >= 10)
+        if ($this->getCurrentDay()->skip_count >= self::MAX_SKIPS)
             return false;
 
         $this->getCurrentDay()->skip_count++;
@@ -170,6 +172,7 @@ class CommentatorWork extends EMongoDocument
             return SocialPostForCommentator::getPost();
         elseif ($rand < 90)
             return TrafficPostForCommentator::getPost();
+
         return CoWorkersPostCommentator::getPost();
     }
 
@@ -255,6 +258,9 @@ class CommentatorWork extends EMongoDocument
 
     public function clubPostsCount()
     {
+        if (empty($this->clubs))
+            return count($this->clubPosts());
+
         $count = 0;
         foreach ($this->clubPosts() as $post)
             if (in_array($post->rubric->community_id, $this->clubs))

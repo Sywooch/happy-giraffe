@@ -12,6 +12,7 @@
  * @property DialogDeleted $lastDeleted
  * @property DialogUser[] $dialogUsers
  * @property Message $lastMessage
+ * @property Message[] $messages
  */
 class Dialog extends HActiveRecord
 {

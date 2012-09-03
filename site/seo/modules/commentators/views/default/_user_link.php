@@ -1,0 +1,1 @@
+<a href="<?= $this->createUrl('/commentators/default/commentator', array('user_id'=>$user->id)) ?>"><?=$user->fullName ?></a>

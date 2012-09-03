@@ -1,7 +1,8 @@
 var Messages = {
     editor: null,
     activeTab: null,
-    hasMessages: true
+    hasMessages: true,
+    active: false
 }
 
 Messages.open = function(interlocutor_id, type) {
@@ -34,6 +35,8 @@ Messages.open = function(interlocutor_id, type) {
     else {
         Messages.initialize(interlocutor_id, type);
     }
+
+    Messages.active = true;
 }
 
 Messages.initialize = function(interlocutor_id, type) {
@@ -66,6 +69,7 @@ Messages.close = function() {
     });
 
     Messages.activeTab = null;
+    Messages.active = false;
 }
 
 /*
@@ -113,7 +117,7 @@ Messages.toggle = function() {
 }
 
 Messages.isActive = function() {
-    return $('#user-dialogs:visible').length != 0;
+    return Messages.active;
 }
 
 Messages.setHeight  = function() {

@@ -42,6 +42,17 @@ class HDate
             12 => "Дек");
     }
 
+    public static function ruShortMonth($n)
+    {
+        $arr = self::ruShortMonths();
+        return $arr[$n];
+    }
+
+    public static function formatMonthYear($month)
+    {
+        return HDate::ruShortMonth(date('n',strtotime($month))). '. '.date('Y',strtotime($month));
+    }
+
     public static function ruMonth($num)
     {
         switch ($num) {

@@ -3,14 +3,14 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
-    <title>Администратор</title>
+    <title>SEO-жираф</title>
 
     <?php
     echo CHtml::linkTag('shortcut icon', null, '/favicon.bmp');
 
-    $release_id = 23;
+    $release_id = 24;
     Yii::app()->clientScript
-        ->registerCssFile('/css/seo.css?r='.$release_id)
+        ->registerCssFile('/css/seo.css?'.$release_id)
         ->registerCssFile('/css/form.css')
         ->registerCssFile('/css/my.css')
 
@@ -115,6 +115,10 @@
                 array(
                     'label' => 'Урлы индексации',
                     'url' => array('/admin/indexingUrl/admin/'),
+                ),
+                array(
+                    'label' => 'Комментаторы',
+                    'url' => array('/admin/Commentator/admin/'),
                 ),
             )));
     ?>

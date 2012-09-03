@@ -75,6 +75,8 @@ Attach.prototype.selectBrowsePhoto = function (button) {
         this.CookDecorationEdit(fsn);
     } else if (this.entity == 'CookRecipe' || this.entity == 'SimpleRecipe' || this.entity == 'MultivarkaRecipe') {
         this.insertToRecipe(fsn);
+    } else if (this.entity == 'UserPartner') {
+        this.insertToPartner(fsn);
     } else if (this.entity == 'CommunityContent') {
         this.saveCommunityContent(fsn);
     } else {
@@ -131,6 +133,15 @@ Attach.prototype.insertToRecipe = function (fsn) {
             } else {
                 document.location.reload();
             }
+        }
+    }, 'json');
+}
+
+Attach.prototype.insertToPartner = function (fsn) {
+    var $this = this;
+    $.post(base_url + '/albums/partnerPhoto/', {val:fsn, many:this.many,entity:this.entity,entity_id:this.entity_id}, function (data) {
+        if (data.status) {
+            console.log(data);
         }
     }, 'json');
 }

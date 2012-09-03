@@ -411,7 +411,7 @@
 #user .family .family-radiogroup {background:#f1e4fd;margin-left:-20px;padding:15px 20px;margin-bottom:20px;}
 #user .family .family-radiogroup .radiogroup {display:inline-block;*zoom:1;*display:inline;vertical-align:top;}
 #user .family .family-radiogroup .title {font-size:22px;color:#484747;line-height:1;margin-bottom:10px;}
-#user .family .family-radiogroup .title span {color:#714399;font-size:18px;margin:0 15px;}
+#user .family .family-radiogroup .title span.title {color:#714399;font-size:18px;margin:0 15px;}
 #user .family .family-radiogroup .title a {font-size:13px;}
 #user .family .family-radiogroup small {font-size:13px;}
 #user .family .family-radiogroup .subtitle {font-size:13px;color:#7e7b7b;line-height:1;margin-bottom:10px;}

@@ -163,8 +163,14 @@ class BlogController extends HController
         $this->layout = '//layouts/user_blog';
 
         $content = BlogContent::model()->active()->full()->findByPk($content_id);
+
         if ($content === null)
             throw new CHttpException(404, 'Такой записи не существует');
+        if (strpos(Yii::app()->request->url, '/var/www/happy-giraffe.ru/public/site') !== false ) {
+            header("HTTP/1.1 301 Moved Permanently");
+            header("Location: " . $content->url);
+            Yii::app()->end();
+        }
 
         if (! preg_match('#^\/user\/(\d+)\/blog\/post(\d+)\/#', Yii::app()->request->requestUri)) {
             header("HTTP/1.1 301 Moved Permanently");

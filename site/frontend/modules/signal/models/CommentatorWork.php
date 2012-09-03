@@ -409,6 +409,7 @@ class CommentatorWork extends EMongoDocument
                 ));
             } catch (Exception $err) {
                 echo $err->getMessage().' ';
+                echo $period . '-01', $period . '-' . $this->getLastPeriodDay($period)."\n";
                 echo $this->user_id . " - error\n";
                 return 0;
             }

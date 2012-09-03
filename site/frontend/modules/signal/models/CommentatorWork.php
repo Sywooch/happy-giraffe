@@ -180,9 +180,9 @@ class CommentatorWork extends EMongoDocument
     {
         if (empty($this->skipUrls))
             $this->skipUrls = array(array($this->comment_entity, $this->comment_entity_id));
-        elseif (!empty($this->comment_entity) && !empty($this->comment_entity_id)){
+        elseif (!empty($this->comment_entity) && !empty($this->comment_entity_id)) {
             $exist = false;
-            foreach($this->skipUrls as $skip_url)
+            foreach ($this->skipUrls as $skip_url)
                 if ($skip_url[0] == $this->comment_entity && $skip_url[1] == $this->comment_entity_id)
                     $exist = true;
             if (!$exist)
@@ -369,13 +369,13 @@ class CommentatorWork extends EMongoDocument
             $ga = new GoogleAnalytics('alexk984@gmail.com', Yii::app()->params['gaPass']);
             $ga->setProfile('ga:53688414');
             $ga->setDateRange($period . '-01', $period . '-' . $this->getLastPeriodDay($period));
-            try{
+            try {
                 $report = $ga->getReport(array(
                     'metrics' => urlencode('ga:visitors'),
                     'filters' => urlencode('ga:pagePath=~' . '/user/' . $this->user_id . '/blog/*'),
                 ));
-            }catch (Exception $err){
-                var_dump($err);
+            } catch (Exception $err) {
+                echo $this->user_id . " - error\n";
                 return 0;
             }
 
@@ -402,10 +402,15 @@ class CommentatorWork extends EMongoDocument
             $ga = new GoogleAnalytics('alexk984@gmail.com', Yii::app()->params['gaPass']);
             $ga->setProfile('ga:53688414');
             $ga->setDateRange($period . '-01', $period . '-' . $this->getLastPeriodDay($period));
-            $report = $ga->getReport(array(
-                'metrics' => urlencode('ga:uniquePageviews'),
-                'filters' => urlencode('ga:pagePath=~' . '/user/' . $this->user_id . '/'),
-            ));
+            try {
+                $report = $ga->getReport(array(
+                    'metrics' => urlencode('ga:uniquePageviews'),
+                    'filters' => urlencode('ga:pagePath=~' . '/user/' . $this->user_id . '/'),
+                ));
+            } catch (Exception $err) {
+                echo $this->user_id . " - error\n";
+                return 0;
+            }
 
             if (!empty($report))
                 $value = $report['']['ga:uniquePageviews'];

@@ -84,6 +84,23 @@ class MailCommand extends CConsoleCommand
         }
     }
 
+    public function actionTestMessage(){
+        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
+        Yii::import('site.frontend.extensions.*');
+        Yii::import('site.frontend.components.*');
+        Yii::import('site.frontend.helpers.*');
+        Yii::import('site.frontend.modules.im.models.*');
+        Yii::import('site.frontend.modules.geo.models.*');
+        Yii::import('site.frontend.modules.im.components.*');
+        Yii::import('site.common.models.mongo.*');
+
+        $user = User::getUserById(10);
+        $token = UserToken::model()->generate($user->id, 86400);
+        $dialogUsers = Im::model($user->id)->getUsersWithNewMessages();
+        $contents = $this->renderFile(Yii::getPathOfAlias('site.common.tpl.newMessages') . '.php', compact('dialogUsers', 'unread', 'user', 'token'), true);
+        Yii::app()->mandrill->send($user, 'newMessages', array('messages' => $contents, 'token' => $token));
+    }
+
     public function actionUsers()
     {
         Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');

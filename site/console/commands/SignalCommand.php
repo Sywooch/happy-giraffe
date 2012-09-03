@@ -66,8 +66,6 @@ class SignalCommand extends CConsoleCommand
         )
             ->queryColumn();
 
-        print_r($friends);
-
         foreach($this->moderators as $moder_id){
             if (!in_array($moder_id, $friends))
                 return $moder_id;
@@ -88,5 +86,35 @@ class SignalCommand extends CConsoleCommand
             ->from('auth__assignments')
             ->where('itemname = "moderator"')
             ->queryColumn();
+    }
+
+    public function actionCommentatorsStats(){
+        Yii::import('site.frontend.modules.signal.models.*');
+        Yii::import('site.frontend.modules.signal.components.*');
+        Yii::import('site.common.models.mongo.*');
+        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
+        Yii::import('site.frontend.modules.im.models.*');
+
+        $month = CommentatorsMonthStats::model()->find(new EMongoCriteria(array(
+            'conditions' => array(
+                'period' => array('==' => date("Y-m") )
+            ),
+        )));
+        if ($month === null){
+            $month = new CommentatorsMonthStats;
+            $month->period = date("Y-m");
+        }
+        $month->calculate();
+        $month->save();
+    }
+
+    public function actionCommentatorsEndMonth(){
+        $month = CommentatorsMonthStats::model()->find(new EMongoCriteria(array(
+            'conditions' => array(
+                'period' => array('==' => date("Y-m", strtotime('-10 days')))
+            ),
+        )));
+        $month->calculate();
+        $month->save();
     }
 }

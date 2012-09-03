@@ -38,6 +38,14 @@ return array(
             'safeFlag'         => true,
             'useCursor'        => false
         ),
+        'mongodb_production' => array(
+            'class' => 'EMongoDB',
+            'connectionString' => 'mongodb://localhost',
+            'dbName' => 'happy_giraffe_production',
+            'fsyncFlag' => true,
+            'safeFlag' => true,
+            'useCursor' => false
+        ),
         'db'=>require_once(dirname(__FILE__).'/db.php'),
         'db_seo' => array(
             'class'=>'CDbConnection',

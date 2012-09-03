@@ -7,6 +7,7 @@
  * @property string $id
  * @property string $user1_id
  * @property string $user2_id
+ * @property string $created
  *
  * The followings are the available model relations:
  * @property User $user2
@@ -65,4 +66,15 @@ class Friend extends HActiveRecord
 			'user2_id' => 'Пользователь 2',
 		);
 	}
+
+    public function behaviors()
+    {
+        return array(
+            'CTimestampBehavior' => array(
+                'class' => 'zii.behaviors.CTimestampBehavior',
+                'createAttribute' => 'created',
+                'updateAttribute' => null,
+            )
+        );
+    }
 }

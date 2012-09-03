@@ -38,7 +38,7 @@
 <?php if ($friends): ?>
     <div class="friends clearfix">
 
-        <div class="block-title"><span>Друзья на сайте</span> <?=CHtml::link('javascript:void(0)', array('/user/friends', 'user_id' => Yii::app()->user->id, 'show' => 'online'), array('onclick' => 'Messages.openMessages(null, 3)'))?></div>
+        <div class="block-title"><span>Друзья на сайте</span> <?=CHtml::link('Все друзья на сайте', 'javascript:void(0)', array('onclick' => 'Messages.openMessages(null, 3)'))?></div>
 
         <ul>
 

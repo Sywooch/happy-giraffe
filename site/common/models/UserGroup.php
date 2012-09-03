@@ -11,6 +11,7 @@ class UserGroup
     const EDITOR = 3;
     const ENGINEER = 4;
     const VIRTUAL = 5;
+    const COMMENTATOR = 6;
 
     public $name = array(
         0=>'Пользователи',
@@ -19,6 +20,7 @@ class UserGroup
         3=>'Редакция',
         4=>'Тех отдел',
         5=>'Виртуалы',
+        6=>'Комментаторы',
     );
 
     public static function getName($i){
@@ -29,6 +31,7 @@ class UserGroup
             case 3: return 'Редакция';
             case 4: return 'Тех отдел';
             case 5: return 'Виртуалы';
+            case 6: return 'Комментаторы';
         }
     }
 

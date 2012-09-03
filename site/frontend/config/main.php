@@ -120,6 +120,8 @@ return array(
                         'javascripts/jquery.tmpl.min.js',
                         'javascripts/im.js',
                         'javascripts/user_common.js',
+                        'javascripts/messages.js',
+                        'javascripts/wantToChat.js',
                     ),
                     'css' => array(
                         'stylesheets/user_common.css',
@@ -276,6 +278,14 @@ return array(
             'fsyncFlag'        => true,
             'safeFlag'         => true,
             'useCursor'        => false
+        ),
+        'mongodb_production' => array(
+            'class' => 'EMongoDB',
+            'connectionString' => 'mongodb://localhost',
+            'dbName' => 'happy_giraffe_production',
+            'fsyncFlag' => true,
+            'safeFlag' => true,
+            'useCursor' => false
         ),
         'comet'=>array(
             'class' => 'ext.Dklab_Realplexor',

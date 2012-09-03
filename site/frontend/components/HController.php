@@ -46,7 +46,7 @@ class HController extends CController
             unset($_GET['token']);
         }
 
-        $received_params = array('utm_source', 'utm_medium');
+        $received_params = array('utm_source', 'utm_medium', 'im_interlocutor_id', 'im_type');
 
         // seo-фильтр get-параметров
         if (in_array($this->uniqueId, array(

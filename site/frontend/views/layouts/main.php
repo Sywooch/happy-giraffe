@@ -33,6 +33,7 @@
         ->registerScriptFile('/javascripts/common.js?'.$release_id)
         ->registerScriptFile('/javascripts/base64.js')
         ->registerScriptFile('/javascripts/jquery.tooltip.pack.js')
+        ->registerScriptFile('/javascripts/jquery.dataSelector.js')
     ;
 
     $cs->registerMetaTag(trim($this->meta_description), 'description');
@@ -44,6 +45,12 @@
             ->registerPackage('user')
             ->registerScript('im-urls', 'im.GetLastUrl="'.Yii::app()->createUrl('/im/default/getLast').';"')
         ;
+
+        $interlocutor_id = Yii::app()->request->getQuery('im_interlocutor_id', 'null');
+        $type = Yii::app()->request->getQuery('im_type', 'null');
+        if ($interlocutor_id !== 'null' || $type !== 'null') {
+            $cs->registerScript('openMessages', 'Messages.open(' . $interlocutor_id . ', ' . $type . ')', CClientScript::POS_HEAD);
+        }
     }
 
     if (!Yii::app()->user->isGuest)
@@ -66,8 +73,8 @@
                         <ul>
                             <li><a href="<?php echo $this->createUrl('/user/profile', array('user_id'=>Yii::app()->user->id)) ?>"><i class="icon icon-home"></i></a></li>
                             <li id="user-nav-messages">
-                                <a href="/im/"><i class="icon icon-messages"></i><span class="count"></span></a>
-                                <div class="drp">
+                                <a href="javascript:void(0)" onclick="Messages.toggle()"><i class="icon icon-messages"></i><span class="count"></span></a>
+                                <div class="drp" style="display: none;">
                                     <div class="drp-title">Диалоги</div>
                                     <ul class="list">
 
@@ -75,9 +82,9 @@
                                     <div class="actions">
                                         <ul>
                                             <?php $dialogsCount = Im::model()->getDialogsCountAndOnlineDialogsCount(Yii::app()->user->id) ?>
-                                            <li><a href="<?php echo $this->createUrl('/im/') ?>">Все диалоги (<?php echo $dialogsCount[0] ?>)</a></li>
-                                            <li><a href="<?php echo $this->createUrl('/im/new') ?>">Новых</a> <a href="<?php echo $this->createUrl('/im/new') ?>" class="count<?php if (($incoming_count = Im::model()->getUnreadMessagesCount()) == 0): ?> count-gray<?php endif; ?>"><?php echo $incoming_count ?></a></li>
-                                            <li><a href="<?php echo $this->createUrl('/im/online') ?>">Кто онлайн</a> <span class="online-count"><?php echo $dialogsCount[1] ?></span></li>
+                                            <li><a href="javascript:void(0)" onclick="Messages.open();">Все диалоги (<?php echo $dialogsCount[0] ?>)</a></li>
+                                            <li><a href="javascript:void(0)" onclick="Messages.open(null, 1);">Новых</a> <a href="<?php echo $this->createUrl('/im/new') ?>" class="count<?php if (($incoming_count = Im::model()->getUnreadMessagesCount()) == 0): ?> count-gray<?php endif; ?>"><?php echo $incoming_count ?></a></li>
+                                            <li><a href="javascript:void(0)" onclick="Messages.open(null, 2);">Кто онлайн</a> <span class="online-count"><?php echo $dialogsCount[1] ?></span></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -490,13 +497,15 @@
         </script>
 
         <script id="imNotificationTmpl" type="text/x-jquery-tmpl">
-            <li><?php echo CHtml::link('{{html text}}', '${url}') ;?></li>
+            <li><?php echo CHtml::link('{{html text}}', 'javascript:void(0)', array('onclick' => '${ok}')) ;?></li>
         </script>
     <?php endif; ?>
 
 <?php if (Yii::app()->user->isGuest) {
     $this->widget('application.widgets.registerWidget.RegisterWidget');
     $this->widget('application.widgets.loginWidget.LoginWidget');
+} else {
+    $this->widget('application.widgets.messagesWidget.MessagesWidget');
 }?>
 <noindex>
         <!-- Yandex.Metrika counter -->

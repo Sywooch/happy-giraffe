@@ -147,7 +147,7 @@ class CommentatorWork extends EMongoDocument
     public function skipComment()
     {
         list($this->comment_entity, $this->comment_entity_id) = $this->getNextPost();
-        if ($this->getCurrentDay()->skip_count >= 10)
+        if ($this->getCurrentDay()->skip_count >= self::MAX_SKIPS)
             return false;
 
         $this->getCurrentDay()->skip_count++;

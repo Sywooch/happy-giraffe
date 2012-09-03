@@ -291,17 +291,17 @@
 
 #interestsManage .interests-steps .step-3 .selected-interests-list {}
 #interestsManage .interests-steps .step-3 .selected-interests-list ul {list-style: none; font-size: 11px; line-height: 12px; margin-bottom: 30px;}
-#interestsManage .interests-steps .step-3 .selected-interests-list ul li {width:160px; display: *zoom:1;*display:inline; vertical-align: middle; padding: 10px 5px 10px 0;}
-#interestsManage .interests-steps .step-3 .selected-interests-list ul li .img {display: *zoom:1;*display:inline; width: 50px; text-align: right; vertical-align: middle; margin-right: 3px;}
+#interestsManage .interests-steps .step-3 .selected-interests-list ul li {width:160px; display:inline-block; *zoom:1;*display:inline; vertical-align: middle; padding: 10px 5px 10px 0;}
+#interestsManage .interests-steps .step-3 .selected-interests-list ul li .img {display:inline-block; *zoom:1;*display:inline; width: 50px; text-align: right; vertical-align: middle; margin-right: 3px;}
 #interestsManage .interests-steps .step-3 .selected-interests-list ul li .img img {}
-#interestsManage .interests-steps .step-3 .selected-interests-list ul li .text {display: *zoom:1;*display:inline; max-width: 85px; vertical-align: middle;}
+#interestsManage .interests-steps .step-3 .selected-interests-list ul li .text {display:inline-block; *zoom:1;*display:inline; max-width: 85px; vertical-align: middle;}
 #interestsManage .interests-steps .step-3 .selected-interests-list ul li .text a {color: #292929; font-family: tahoma; text-decoration: none; vertical-align:top;display:inline-block;*zoom:1;*display:inline;max-width:78px;}
 #interestsManage .interests-steps .step-3 .selected-interests-list ul li .text .remove {color: #4d92d9; font-family: tahoma; text-decoration: none;}
-#interestsManage .interests-steps .step-3 .selected-interests-list ul li .remove {display: *zoom:1;*display:inline; width: 12px; height: 14px; background: url(/images/common.png) no-repeat -314px -135px; vertical-align: middle; position: relative;margin-right:-12px;margin-left:3px;}
+#interestsManage .interests-steps .step-3 .selected-interests-list ul li .remove {display:inline-block; *zoom:1;*display:inline; width: 12px; height: 14px; background: url(/images/common.png) no-repeat -314px -135px; vertical-align: middle; position: relative;margin-right:-12px;margin-left:3px;}
 #interestsManage .interests-steps .step-3 .selected-interests-list ul li .remove:hover {background-position:-314px -148px;}
 
 #interestsManage .interests-steps .step-3 .selected-interests-list .btn-box {text-align: center;}
-#interestsManage .interests-steps .step-3 .selected-interests-list .btn-box .btn-finish {display: *zoom:1;*display:inline; height: 58px; border: 1px solid #34ac51; background: #46b14e url(/images/btn_green_60.gif) repeat-x; line-height: 58px; color: #fff; font-size: 18px; font-weight: bold; text-decoration: none; padding: 0 30px;}
+#interestsManage .interests-steps .step-3 .selected-interests-list .btn-box .btn-finish {display:inline-block; *zoom:1;*display:inline; height: 58px; border: 1px solid #34ac51; background: #46b14e url(/images/btn_green_60.gif) repeat-x; line-height: 58px; color: #fff; font-size: 18px; font-weight: bold; text-decoration: none; padding: 0 30px;}
 #interestsManage .interests-steps .step-3 .selected-interests-list .btn-box .btn-finish {/*css3*/ border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; behavior: url(/stylesheets/PIE.htc);}
 
 
@@ -335,7 +335,7 @@
 #blogSettings .rubrics .list .col ul li .remove:hover {background-position:-314px -148px;}
 #blogSettings .rubrics .list .col ul li .edit {display:none;width:14px;height:18px;background:url(../images/common.png) no-repeat -383px -204px;margin-left:5px;position:relative;vertical-align:middle;}
 #blogSettings .rubrics .list .col ul li .edit:hover {background-position:-341px -136px;}
-#blogSettings .rubrics .list .col ul li:hover .remove, #blogSettings .rubrics .list .col ul li:hover .edit {display: *zoom:1;*display:inline;}
+#blogSettings .rubrics .list .col ul li:hover .remove, #blogSettings .rubrics .list .col ul li:hover .edit {display:inline-block; *zoom:1;*display:inline;}
 #blogSettings .rubrics .list .col ul li .icon-add {display:inline-block;*zoom:1;*display:inline;width:16px;height:16px;background:url(/images/common.png) no-repeat -139px -174px;position:relative;top:-2px;}
 #blogSettings .rubrics .list .col ul li input[type=text] {padding:3px 5px;border:1px solid #cbdcea;background:#fff;width:270px;color:#3d3d3d;vertical-align:middle;font-size:11px;font-family:tahoma, arial, helvetica, sans-serif;margin-top:5px;}
 #blogSettings .rubrics .list .col ul li .btn {vertical-align:middle;position:relative;top:1px;margin-left:5px;}
@@ -349,7 +349,7 @@
 
 #blogSettings .rubrics .btn-box {float:right;}
 
-#blogSettings .btn-finish {display: *zoom:1;*display:inline; height: 58px; border: 1px solid #34ac51; background: #46b14e url(/images/btn_green_60.gif) repeat-x; line-height: 58px; color: #fff; font-size: 18px; font-weight: bold; text-decoration: none; padding: 0 30px;}
+#blogSettings .btn-finish {display:inline-block; *zoom:1;*display:inline; height: 58px; border: 1px solid #34ac51; background: #46b14e url(/images/btn_green_60.gif) repeat-x; line-height: 58px; color: #fff; font-size: 18px; font-weight: bold; text-decoration: none; padding: 0 30px;}
 #blogSettings .btn-finish {/*css3*/ border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; behavior: url(/stylesheets/PIE.htc);}
 
 

@@ -36,10 +36,6 @@
         ->registerScriptFile('/javascripts/jquery.dataSelector.js')
     ;
 
-    if (($interlocutor_id = Yii::app()->request->getQuery('startDialogWith')) !== null) {
-        $cs->registerScript('stardDialog', 'Messages.open(' . $interlocutor_id . ')', CClientScript::POS_HEAD);
-    }
-
     $cs->registerMetaTag(trim($this->meta_description), 'description');
     if (!empty($this->meta_keywords))
         $cs->registerMetaTag(trim($this->meta_keywords), 'keywords');
@@ -49,6 +45,10 @@
             ->registerPackage('user')
             ->registerScript('im-urls', 'im.GetLastUrl="'.Yii::app()->createUrl('/im/default/getLast').';"')
         ;
+
+        if (($interlocutor_id = Yii::app()->request->getQuery('im_interlocutor_id', 'null')) !== 'null' || ($type = Yii::app()->request->getQuery('im_type', 'null')) !== 'null') {
+            $cs->registerScript('openMessages', 'Messages.open(' . $interlocutor_id . ', ' . $type . ')', CClientScript::POS_HEAD);
+        }
     }
 
     if (!Yii::app()->user->isGuest)
@@ -72,7 +72,7 @@
                             <li><a href="<?php echo $this->createUrl('/user/profile', array('user_id'=>Yii::app()->user->id)) ?>"><i class="icon icon-home"></i></a></li>
                             <li id="user-nav-messages">
                                 <a href="javascript:void(0)" onclick="Messages.toggle()"><i class="icon icon-messages"></i><span class="count"></span></a>
-                                <div class="drp">
+                                <div class="drp" style="display: none;">
                                     <div class="drp-title">Диалоги</div>
                                     <ul class="list">
 

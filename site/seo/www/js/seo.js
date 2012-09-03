@@ -133,6 +133,21 @@ var SeoModule = {
                 });
             }
         }, 'json');
+    },
+    removeUser:function (list_name, entity_id, el) {
+        $.post('/site/removeUser/', {list_name:list_name, entity_id:entity_id}, function (response) {
+            if (response.status) {
+                $(el).parents('li').remove();
+            }
+        }, 'json');
+    },
+    show:function(id, el){
+        $('#'+id).toggle();
+
+        if ($(el).text() == 'Показать')
+            $(el).text('Скрыть');
+        else
+            $(el).text('Показать');
     }
 }
 
@@ -192,16 +207,6 @@ var Competitors = {
                     pnotify_type:'error',
                     pnotify_text:response.error
                 });
-        }, 'json');
-    }
-}
-
-var Statistic = {
-    removeUser:function (user_id, el) {
-        $.post('/statistic/stat/removeUser/', {user_id:user_id}, function (response) {
-            if (response.status) {
-                $(el).parents('li').remove();
-            }
         }, 'json');
     }
 }

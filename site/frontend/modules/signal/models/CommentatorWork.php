@@ -369,10 +369,15 @@ class CommentatorWork extends EMongoDocument
             $ga = new GoogleAnalytics('alexk984@gmail.com', Yii::app()->params['gaPass']);
             $ga->setProfile('ga:53688414');
             $ga->setDateRange($period . '-01', $period . '-' . $this->getLastPeriodDay($period));
-            $report = $ga->getReport(array(
-                'metrics' => urlencode('ga:visitors'),
-                'filters' => urlencode('ga:pagePath=~' . '/user/' . $this->user_id . '/blog/*'),
-            ));
+            try{
+                $report = $ga->getReport(array(
+                    'metrics' => urlencode('ga:visitors'),
+                    'filters' => urlencode('ga:pagePath=~' . '/user/' . $this->user_id . '/blog/*'),
+                ));
+            }catch (Exception $err){
+                var_dump($err);
+                return 0;
+            }
 
             if (!empty($report))
                 $value = $report['']['ga:visitors'];

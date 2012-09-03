@@ -7,19 +7,19 @@ class UserPostForCommentator extends PostForCommentator
 {
     public static function getPost()
     {
-        $posts = self::getPosts();
-        $recipes = self::getRecipes();
+        $criteria = self::getCriteria();
+        $posts = self::getPosts($criteria);
+        $recipes = self::getRecipes($criteria);
 
         $all_count = count($recipes) + count($posts);
         if ($all_count == 0) {
-            //check if all posts count is 0
-            $criteria = self::getCriteria();
-            $criteria->condition = self::maxTimeCondition();
-            if (CommunityContent::model()->count($criteria) == 0)
+
+            if (self::isCategoryEmpty())
                 return MainPagePostForCommentator::getPost();
             else
                 return self::getPost();
         } else {
+
             if (count($posts) == 0)
                 return array('CookRecipe', $recipes[0]->id);
             if (count($recipes) == 0)
@@ -33,24 +33,24 @@ class UserPostForCommentator extends PostForCommentator
         }
     }
 
-    public static function getPosts()
+    public static function getPosts($criteria)
     {
         $result = array();
-        $criteria = self::getCriteria();
 
         $posts = CommunityContent::model()->findAll($criteria);
         foreach ($posts as $post)
-            if ($post->commentsCount < CommentsLimit::getLimit('CommunityContent', $post->id, 50, 60))
-                if (!self::recentlyCommented('CommunityContent', $post->id))
+            if ($post->commentsCount < CommentsLimit::getLimit('CommunityContent', $post->id, 50, 60)){
+                $entity = $post->isFromBlog?'BlogContent':'CommunityContent';
+                if (!self::recentlyCommented($entity, $post->id))
                     $result [] = $post;
+            }
 
         return $result;
     }
 
-    public static function getRecipes()
+    public static function getRecipes($criteria)
     {
         $result = array();
-        $criteria = self::getCriteria();
 
         $posts = CookRecipe::model()->findAll($criteria);
         foreach ($posts as $post)
@@ -59,5 +59,19 @@ class UserPostForCommentator extends PostForCommentator
                     $result [] = $post;
 
         return $result;
+    }
+
+    public static function isCategoryEmpty()
+    {
+        $criteria = self::getCriteria();
+        $criteria->condition = self::maxTimeCondition();
+
+        $posts = self::getPosts($criteria);
+        $recipes = self::getRecipes($criteria);
+
+        if (count($posts) + count($recipes) == 0)
+            return true;
+
+        return false;
     }
 }

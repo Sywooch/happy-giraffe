@@ -17,12 +17,14 @@ class TrafficPostForCommentator extends PostForCommentator
         $posts = CommunityContent::model()->findAll($criteria);
 
         $not_commented_yet = array();
-        foreach($posts as $post)
-            if (!self::recentlyCommented('CommunityContent', $post->id))
+        foreach($posts as $post){
+            $entity = $post->isFromBlog?'BlogContent':'CommunityContent';
+            if (!self::recentlyCommented($entity, $post->id))
                 $not_commented_yet [] = $post;
+        }
 
         if (count($not_commented_yet) == 0) {
-            return UserPostForCommentator::getPost();
+            return PostsWithoutCommentsCommentator::getPost();
         } else {
             return array('CommunityContent', $posts[0]->id);
         }

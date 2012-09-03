@@ -11,7 +11,10 @@ class PostsWithoutCommentsCommentator extends PostForCommentator
     {
         Yii::import('site.seo.models.*');
         Yii::import('site.seo.modules.promotion.models.*');
+
         $ids = self::getPostIds();
+        if (empty($ids))
+            return UserPostForCommentator::getPost();
 
         $criteria = new CDbCriteria;
         $criteria->compare('id', $ids);
@@ -19,9 +22,11 @@ class PostsWithoutCommentsCommentator extends PostForCommentator
         $posts = CommunityContent::model()->findAll($criteria);
 
         $not_commented_yet = array();
-        foreach($posts as $post)
-            if (!self::recentlyCommented('CommunityContent', $post->id))
-                $not_commented_yet [] = $post;
+        foreach($posts as $post){
+            $entity = $post->isFromBlog?'BlogContent':'CommunityContent';
+            if (!self::recentlyCommented($entity, $post->id))
+                $result [] = $post;
+        }
 
         if (count($not_commented_yet) == 0) {
             return UserPostForCommentator::getPost();

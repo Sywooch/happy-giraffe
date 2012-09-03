@@ -133,7 +133,6 @@ class Favourites extends EMongoDocument
 
         $criteria = new CDbCriteria;
         $criteria->compare('t.id', $ids);
-        //$criteria->condition = 'created > "'.date("Y-m-d 00:00:00", strtotime('-7 days')).'"';
         $models = CommunityContent::model()->full()->findAll($criteria);
 
         return $models;

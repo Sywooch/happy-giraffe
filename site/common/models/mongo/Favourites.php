@@ -11,7 +11,7 @@ class Favourites extends EMongoDocument
     const BLOCK_THEME = 4;
     const BLOCK_VIDEO = 5;
     const WEEKLY_MAIL = 6;
-    const SOCIAL_NETWORKS = 7;
+    const BLOCK_SOCIAL_NETWORKS = 7;
 
     public $block;
     public $entity;
@@ -79,6 +79,28 @@ class Favourites extends EMongoDocument
     {
         $criteria = new EMongoCriteria;
         $criteria->block('==', (int)$index);
+        if (!$random)
+            $criteria->sort('created', EMongoCriteria::SORT_DESC);
+        else
+            $criteria->sort('created', EMongoCriteria::SORT_DESC);
+        if ($limit !== null)
+            $criteria->limit($limit);
+        if ($param !== null)
+            $criteria->param('==', $param);
+
+        $models = self::model()->findAll($criteria);
+        $ids = array();
+        foreach($models as $model)
+            $ids [] = $model->entity_id;
+
+        return $ids;
+    }
+
+    public static function getIdListForView($index, $limit = null, $random = false, $param = null)
+    {
+        $criteria = new EMongoCriteria;
+        $criteria->block('==', (int)$index);
+        $criteria->created('<', strtotime(date("Y-m-d", strtotime('-1 day')).' 00:00:00' ));
         if (!$random)
             $criteria->sort('created', EMongoCriteria::SORT_DESC);
         else

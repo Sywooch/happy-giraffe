@@ -20,7 +20,7 @@ class SocialPostForCommentator extends PostForCommentator
     {
         $result = array();
         $criteria = self::getSimpleCriteria();
-        $ids = array_merge(Favourites::getIdList(Favourites::SOCIAL_NETWORKS));
+        $ids = array_merge(Favourites::getIdList(Favourites::BLOCK_SOCIAL_NETWORKS));
         if (empty($ids))
             return array();
 

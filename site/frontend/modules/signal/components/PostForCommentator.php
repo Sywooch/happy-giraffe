@@ -28,7 +28,6 @@ class PostForCommentator
             $model = new TrafficPostForCommentator;
         } else
             $model = new CoWorkersPostCommentator;
-        $model = new MainPagePostForCommentator;
         $model->skipUrls = $skipUrls;
         $post =  $model->getPost();
         return $post;

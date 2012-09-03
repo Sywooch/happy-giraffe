@@ -46,7 +46,9 @@
             ->registerScript('im-urls', 'im.GetLastUrl="'.Yii::app()->createUrl('/im/default/getLast').';"')
         ;
 
-        if (($interlocutor_id = Yii::app()->request->getQuery('im_interlocutor_id', 'null')) !== 'null' || ($type = Yii::app()->request->getQuery('im_type', 'null')) !== 'null') {
+        $interlocutor_id = Yii::app()->request->getQuery('im_interlocutor_id', 'null');
+        $type = Yii::app()->request->getQuery('im_type', 'null');
+        if ($interlocutor_id !== 'null' || $type !== 'null') {
             $cs->registerScript('openMessages', 'Messages.open(' . $interlocutor_id . ', ' . $type . ')', CClientScript::POS_HEAD);
         }
     }

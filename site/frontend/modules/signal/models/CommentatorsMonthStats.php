@@ -129,6 +129,9 @@ class CommentatorsMonthStats extends EMongoDocument
 
     public function getStatValue($user_id, $counter)
     {
+        if (!isset($this->commentators[$user_id]))
+            return 0;
+
         foreach ($this->commentators as $_user_id => $data)
             if ($_user_id == $user_id)
                 return $data[$counter];

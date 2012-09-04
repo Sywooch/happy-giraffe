@@ -3,13 +3,13 @@
  * Author: alexk984
  * Date: 30.08.12
  */
-class CoWorkersPostCommentator extends PostForCommentator
+class CoWorkersPosts extends PostForCommentator
 {
     protected $entities = array(
-        'CommunityContent' => array(15),
+        'CommunityContent' => array(10),
         'CookRecipe' => array(2, 3),
     );
-    protected $nextGroup = 'TrafficPostForCommentator';
+    protected $nextGroup = 'ZeroCommentsPosts';
 
     public function getPost()
     {

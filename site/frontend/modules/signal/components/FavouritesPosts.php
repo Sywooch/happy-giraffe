@@ -3,9 +3,10 @@
  * Author: alexk984
  * Date: 30.08.12
  */
-class SocialPostForCommentator extends PostForCommentator
+class FavouritesPosts extends PostForCommentator
 {
-    protected $nextGroup = 'TrafficPostForCommentator';
+    const LIMIT = 10;
+    protected $nextGroup = 'TrafficPosts';
 
     public function getPost()
     {
@@ -22,7 +23,12 @@ class SocialPostForCommentator extends PostForCommentator
     {
         $result = array();
         $criteria = $this->getSimpleCriteria();
-        $ids = Favourites::getIdList(Favourites::BLOCK_SOCIAL_NETWORKS);
+        $ids = array_merge(
+            Favourites::getIdList(Favourites::BLOCK_INTERESTING)
+                + Favourites::getIdList(Favourites::BLOCK_BLOGS)
+                + Favourites::getIdList(Favourites::BLOCK_SOCIAL_NETWORKS)
+                + Favourites::getIdList(Favourites::BLOCK_VIDEO)
+        );
 
         if (empty($ids))
             return array();
@@ -52,7 +58,7 @@ class SocialPostForCommentator extends PostForCommentator
 
         foreach ($posts as $post)
             if (!$this->IsSkipped('CommunityContent', $post->id))
-                if ($post->commentsCount < CommentsLimit::getLimit('CommunityContent', $post->id, 40)) {
+                if ($post->commentsCount < CommentsLimit::getLimit('CommunityContent', $post->id, self::LIMIT)) {
                     $entity = $post->isFromBlog ? 'BlogContent' : 'CommunityContent';
                     if (!$this->recentlyCommented($entity, $post->id))
                         $result [] = $post;

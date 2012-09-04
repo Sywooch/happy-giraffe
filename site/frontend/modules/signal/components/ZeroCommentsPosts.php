@@ -3,10 +3,11 @@
  * Author: alexk984
  * Date: 30.08.12
  */
-class PostsWithoutCommentsCommentator extends PostForCommentator
+class ZeroCommentsPosts extends PostForCommentator
 {
+    const LIMIT = 5;
     const CACHE_ID = 'posts-without-comments';
-    protected $nextGroup = 'UserPostForCommentator';
+    protected $nextGroup = 'UserPosts';
 
     public function getPost()
     {
@@ -26,9 +27,7 @@ class PostsWithoutCommentsCommentator extends PostForCommentator
         $not_commented_yet = array();
         foreach ($posts as $post) {
             if (!$this->IsSkipped(get_class($post), $post->id)) {
-                $entity = $post->isFromBlog ? 'BlogContent' : 'CommunityContent';
-                if (!$this->recentlyCommented($entity, $post->id))
-                    $not_commented_yet [] = $post;
+                $not_commented_yet [] = $post;
             }
         }
 
@@ -50,7 +49,7 @@ class PostsWithoutCommentsCommentator extends PostForCommentator
         if (!empty($posts))
             foreach ($posts as $post) {
                 $model = CommunityContent::model()->active()->findByPk($post);
-                if ($model !== null && $model->commentsCount < CommentsLimit::getLimit('CommunityContent', $post, array(3, 6)))
+                if ($model !== null && $model->commentsCount < CommentsLimit::getLimit('CommunityContent', $post, self::LIMIT))
                     $result [] = $post;
             }
 

@@ -3,13 +3,13 @@
  * Author: alexk984
  * Date: 30.08.12
  */
-class UserPostForCommentator extends PostForCommentator
+class UserPosts extends PostForCommentator
 {
     protected $entities = array(
-        'CommunityContent' => array(50),
-        'CookRecipe' => array(8, 12),
+        'CommunityContent' => array(10),
+        'CookRecipe' => array(2, 3),
     );
-    protected $nextGroup = 'MainPagePostForCommentator';
+    protected $nextGroup = 'FavouritesPosts';
 
     public function getPost()
     {

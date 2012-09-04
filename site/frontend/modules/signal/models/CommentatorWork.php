@@ -5,7 +5,7 @@ class CommentatorWork extends EMongoDocument
     const BLOG_POSTS_COUNT = 1;
     const CLUB_POSTS_COUNT = 2;
     const COMMENTS_COUNT = 100;
-    const MAX_SKIPS = 100000;
+    const MAX_SKIPS = 100;
 
     public $user_id;
     public $clubs = array();
@@ -125,8 +125,6 @@ class CommentatorWork extends EMongoDocument
         $month = CommentatorsMonthStats::getOrCreateWorkingMonth();
         $month->workingDays [] = date("Y-m-d");
         $month->save();
-
-        $this->skipUrls = array();
 
         return $this->save();
     }

@@ -165,8 +165,9 @@ var Family = {
                     context:el
                 });
             }
-            else
+            else {
                 this.showTypeTitle(el, type);
+            }
         }
     },
     showTypeTitle:function (el, type) {
@@ -175,9 +176,9 @@ var Family = {
 
         Family.future_baby_type = type;
         if (type == 1)
-            $('#future-baby div.d-text').html('Кого ждем:');
+            $('#future-baby .member-title').html('<i class="icon-waiting"></i> Ждем еще');
         else
-            $('#future-baby div.d-text').html('Кого планируем:');
+            $('#future-baby .member-title').html('Планируем еще');
     },
     setBaby:function (el, num) {
         if ($(el).hasClass('checked')) {
@@ -303,7 +304,9 @@ var Family = {
                 context:el
             });
     },
-    saveBabyDate:function (el) {
+    saveBabyDate:function (el, date) {
+        date = (typeof date === "undefined") ? false : date;
+
         var d = $(el).parent().find('select.date').val();
         var m = $(el).parent().find('select.month').val();
         var y = $(el).parent().find('select.year').val();
@@ -323,7 +326,7 @@ var Family = {
                 if (response.status) {
                     $('.datepicker').hide();
                     $('.dateshower').show();
-                    $('.dateshower span.age').text(response.age);
+                    $('.dateshower span.age').text(date ? response.birthday : response.age);
                     Family.updateWidget();
                 }
             },
@@ -421,6 +424,10 @@ var Family = {
                 context:el
             });
     },
+    addBabyRadio:function(el) {
+        var n = $(el).siblings().length - 1;
+        $(el).before($('#babyRadioTmpl').tmpl({n: n}));
+    },
     addBaby:function (el, name) {
         $.ajax({
             url:'/family/addBaby/',
@@ -437,7 +444,7 @@ var Family = {
                     $(el).parents('div.family-member').find('input.baby-id').val(response.id);
                     $(el).parents('div.family-member').find('input.baby_id_2').val(response.id);
 
-                    Family.updateWidget();
+                    window.location.reload();
                 }
             },
             context:el

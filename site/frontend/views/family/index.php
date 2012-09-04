@@ -149,13 +149,14 @@
                         <div class="radio-label<?php if($user->babyCount() == 1) echo ' checked'?>" onclick="Family.setBaby(this, 1);"><span>1 ребенок</span><input type="radio" name="radio-3"></div>
                         <div class="radio-label<?php if($user->babyCount() == 2) echo ' checked'?>" onclick="Family.setBaby(this, 2);"><span>2 ребенка</span><input type="radio" name="radio-3"></div>
                         <div class="radio-label<?php if($user->babyCount() == 3) echo ' checked'?>" onclick="Family.setBaby(this, 3);"><span>3 ребенка</span><input type="radio" name="radio-3"></div>
+                        <div class="radio-label" onclick="Family.addBabyRadio(this)"><span>+</span></div>
                     </div>
                 </div>
             </div>
 
-            <?php foreach ($user->babies as $baby): ?>
+            <?php $i = 1; foreach ($user->babies as $baby): ?>
                 <?php if (empty($baby->type)):?>
-                    <div class="family-member">
+                    <div class="family-member" id="baby-<?=$i ?>">
 
                         <input type="hidden" value="<?=$baby->id ?>" class="baby-id">
 
@@ -265,10 +266,75 @@
                             </ul>
                         </div>
                     </div>
-                <?php endif ?>
+                <?php $i++; endif; ?>
             <?php endforeach; ?>
 
-            <?php for ($i = $user->babyCount(); $i < 5; $i++): ?>
+            <div class="family-member" id="future-baby"<?=($future_baby === null)?' style="display:none;"':'' ?>>
+                <input type="hidden" value="<?=($future_baby === null)?'':$future_baby->id ?>" class="baby-id">
+
+                <div class="member-title"><i class="icon-waiting"></i> Ждем еще</div>
+
+
+                <div class="data clearfix">
+                    Пол будущего ребенка:
+                    <a href="javascript:void(0);" onclick="Family.saveBabyGender(this, 1)" class="gender tooltip male<?=($future_baby !== null && $future_baby->sex == 1)?' active':'' ?>" title="Мальчик"></a>
+                    <a href="javascript:void(0);" onclick="Family.saveBabyGender(this, 0)" class="gender tooltip female<?=($future_baby !== null && $future_baby->sex == 0)?' active':'' ?>" title="Девочка"></a>
+                    <a href="javascript:void(0);" onclick="Family.saveBabyGender(this, 2)" class="gender tooltip question<?=($future_baby !== null && $future_baby->sex == 2)?' active':'' ?>" title="Не знаем"></a>
+
+                </div>
+
+
+                <div class="data clearfix">
+
+                    Приблизительная дата родов ребенка:
+
+                    <div class="date">
+
+                        <div class="datepicker"<?php if ($future_baby !== null && $future_baby->birthday !== null): ?> style="display:none;"<?php endif; ?>>
+                                    <span class="chzn-v2">
+                                        <?php echo CHtml::dropDownList('baby_d_'.$i, ($future_baby !== null) ? $future_baby->getBDatePart('j') : '', array(''=>' ')+HDate::Days(), array(
+                                        'class'=>'chzn w-1 date',
+                                        'data-placeholder'=>' '
+                                    )) ?>
+                                    </span>
+                            &nbsp;
+                                    <span class="chzn-v2">
+                                        <?php echo CHtml::dropDownList('baby_m_'.$i, ($future_baby !== null) ? $future_baby->getBDatePart('n') : '', array(''=>' ')+HDate::ruMonths(), array(
+                                        'class'=>'chzn w-2 month',
+                                        'data-placeholder'=>' '
+                                    )) ?>
+                                    </span>
+                            &nbsp;
+                                    <span class="chzn-v2">
+                                        <?php echo CHtml::dropDownList('baby_y_'.$i, ($future_baby !== null) ? $future_baby->getBDatePart('Y') : '', array(''=>' ')+HDate::Range(date('Y'), date('Y') - 50), array(
+                                        'class'=>'chzn w-3 year',
+                                        'data-placeholder'=>' '
+                                    )) ?>
+                                    </span>
+                            &nbsp;
+                            <button class="btn btn-green-small" onclick="Family.saveBabyDate(this, true)"><span><span>Ok</span></span></button>
+                        </div>
+
+                        <div class="dateshower"<?php if ($future_baby === null || $future_baby->birthday === null): ?> style="display:none;"<?php endif; ?>>
+                            <div class="text"><span class="age"><?=$future_baby->birthday?></span>&nbsp;<a href="javascript:void(0);" onclick="Family.editDate(this);" class="edit tooltip" title="Редактировать имя"></a></div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="data clearfix">
+                    Пол и дата рождения ребенка:
+                    <a href="javascript:void(0);" class="gender male active"><span class="tip">Мальчик</span></a>
+                    <a href="javascript:void(0);" class="gender female"><span class="tip">Девочка</span></a>
+                    <div class="date">
+                        <div class="text">18 недель <a href="javascript:void(0);" class="edit tooltip" title="Редактировать дату"></a></div>
+                    </div>
+                </div>
+
+                <p><a href="" class="couple"></a> Нажмите "+" если двойня</p>
+            </div>
+
+            <?php for ($i = $user->babyCount(); $i < 10; $i++): ?>
                 <?php $this->renderPartial('_empty_child', array('i'=>$i)); ?>
             <?php endfor; ?>
 
@@ -292,4 +358,8 @@
         </div>
         <div class="item-title">${title}</div>
     </li>
+</script>
+
+<script id="babyRadioTmpl" type="text/x-jquery-tmpl">
+    <div class="radio-label" onclick="Family.setBaby(this, ${n});"><span>${n}</span><input type="radio" name="radio-3"></div>
 </script>

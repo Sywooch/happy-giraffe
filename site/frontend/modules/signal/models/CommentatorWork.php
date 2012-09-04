@@ -145,7 +145,7 @@ class CommentatorWork extends EMongoDocument
     {
         $this->getCurrentDay()->comments++;
 
-        if ($this->getNextPostForComment()){
+        if ($this->getNextPostForComment()) {
             $this->save();
             return true;
         }
@@ -175,7 +175,7 @@ class CommentatorWork extends EMongoDocument
     public function getNextPostForComment()
     {
         $list = PostForCommentator::getNextPost($this->skipUrls);
-        if ($list === false){
+        if ($list === false) {
             return false;
         }
 
@@ -465,7 +465,9 @@ class CommentatorWork extends EMongoDocument
         $month = CommentatorsMonthStats::getOrCreateWorkingMonth($period);
 
         $place = $month->getPlace($this->user_id, $counter);
-        if ($place < 4)
+        if ($place == 0) {
+            return '<span class="place"></span>';
+        } elseif ($place < 4)
             return '<span class="place place-' . $place . '">' . $place . ' место</span>';
         return '<span class="place">' . $place . ' место</span>';
     }

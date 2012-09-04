@@ -382,7 +382,7 @@ class CommentatorWork extends EMongoDocument
                     'filters' => urlencode('ga:pagePath=~' . '/user/' . $this->user_id . '/blog/*'),
                 ));
             } catch (Exception $err) {
-                echo $this->user_id . " - error\n";
+                Yii::app()->cache->set($id, 0, 3600 * 5);
                 return 0;
             }
 
@@ -415,9 +415,7 @@ class CommentatorWork extends EMongoDocument
                     'filters' => urlencode('ga:pagePath=~' . '/user/' . $this->user_id . '/'),
                 ));
             } catch (Exception $err) {
-                echo $err->getMessage().' ';
-                echo $period . '-01', $period . '-' . $this->getLastPeriodDay($period)."\n";
-                echo $this->user_id . " - error\n";
+                Yii::app()->cache->set($id, 0, 3600 * 5);
                 return 0;
             }
 

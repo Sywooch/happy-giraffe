@@ -5,7 +5,7 @@ class CommentatorWork extends EMongoDocument
     const BLOG_POSTS_COUNT = 1;
     const CLUB_POSTS_COUNT = 2;
     const COMMENTS_COUNT = 100;
-    const MAX_SKIPS = 10;
+    const MAX_SKIPS = 100000;
 
     public $user_id;
     public $clubs = array();
@@ -16,6 +16,7 @@ class CommentatorWork extends EMongoDocument
     public $stat;
     public $comment_entity;
     public $comment_entity_id;
+    public $skipUrls = array();
 
     public static function model($className = __CLASS__)
     {
@@ -48,6 +49,7 @@ class CommentatorWork extends EMongoDocument
         $day = $this->getCurrentDay();
         if (isset($day))
             $day->checkStatus();
+
         return parent::beforeSave();
     }
 
@@ -117,12 +119,14 @@ class CommentatorWork extends EMongoDocument
         else
             $this->days[] = $day;
 
-        list($this->comment_entity, $this->comment_entity_id) = PostsWithoutCommentsCommentator::getPost();
+        $this->getNextPostForComment();
 
         //add working day
         $month = CommentatorsMonthStats::getOrCreateWorkingMonth();
         $month->workingDays [] = date("Y-m-d");
         $month->save();
+
+        $this->skipUrls = array();
 
         return $this->save();
     }
@@ -140,37 +144,57 @@ class CommentatorWork extends EMongoDocument
     public function incCommentsCount()
     {
         $this->getCurrentDay()->comments++;
-        list($this->comment_entity, $this->comment_entity_id) = $this->getNextPost();
-        $this->save();
+
+        if ($this->getNextPostForComment()){
+            $this->save();
+            return true;
+        }
+        return false;
     }
 
     public function skipComment()
     {
-        list($this->comment_entity, $this->comment_entity_id) = $this->getNextPost();
-        if ($this->getCurrentDay()->skip_count >= 10)
+        if ($this->getCurrentDay()->skip_count >= self::MAX_SKIPS)
             return false;
 
-        $this->getCurrentDay()->skip_count++;
+        $this->skipArticle();
         $this->save();
-        return true;
+        if ($this->getNextPostForComment()) {
+
+            $this->getCurrentDay()->skip_count++;
+            $this->save();
+            return true;
+        }
+        return false;
     }
 
     /**
      * получить следующий пост (в блоге, в клубах, рецепт) для комментарирования
      *
      */
-    public function getNextPost()
+    public function getNextPostForComment()
     {
-        $rand = rand(0, 99);
-        if ($rand < 50)
-            return UserPostForCommentator::getPost();
-        elseif ($rand < 65)
-            return MainPagePostForCommentator::getPost();
-        elseif ($rand < 80)
-            return SocialPostForCommentator::getPost();
-        elseif ($rand < 90)
-            return TrafficPostForCommentator::getPost();
-        return CoWorkersPostCommentator::getPost();
+        $list = PostForCommentator::getNextPost($this->skipUrls);
+        if ($list === false){
+            return false;
+        }
+
+        list($this->comment_entity, $this->comment_entity_id) = $list;
+        return true;
+    }
+
+    public function skipArticle()
+    {
+        if (empty($this->skipUrls))
+            $this->skipUrls = array(array($this->comment_entity, $this->comment_entity_id));
+        elseif (!empty($this->comment_entity) && !empty($this->comment_entity_id)) {
+            $exist = false;
+            foreach ($this->skipUrls as $skip_url)
+                if ($skip_url[0] == $this->comment_entity && $skip_url[1] == $this->comment_entity_id)
+                    $exist = true;
+            if (!$exist)
+                $this->skipUrls[] = array($this->comment_entity, $this->comment_entity_id);
+        }
     }
 
     /**
@@ -255,6 +279,9 @@ class CommentatorWork extends EMongoDocument
 
     public function clubPostsCount()
     {
+        if (empty($this->clubs))
+            return count($this->clubPosts());
+
         $count = 0;
         foreach ($this->clubPosts() as $post)
             if (in_array($post->rubric->community_id, $this->clubs))
@@ -348,18 +375,23 @@ class CommentatorWork extends EMongoDocument
             Yii::import('site.frontend.extensions.GoogleAnalytics');
             $ga = new GoogleAnalytics('alexk984@gmail.com', Yii::app()->params['gaPass']);
             $ga->setProfile('ga:53688414');
-            $ga->setDateRange($period . '-01', $period . '-'.$this->getLastPeriodDay($period));
-            $report = $ga->getReport(array(
-                'metrics' => urlencode('ga:visitors'),
-                'filters' => urlencode('ga:pagePath=~' . '/user/' . $this->user_id . '/blog/*'),
-            ));
+            $ga->setDateRange($period . '-01', $period . '-' . $this->getLastPeriodDay($period));
+            try {
+                $report = $ga->getReport(array(
+                    'metrics' => urlencode('ga:visitors'),
+                    'filters' => urlencode('ga:pagePath=~' . '/user/' . $this->user_id . '/blog/*'),
+                ));
+            } catch (Exception $err) {
+                echo $this->user_id . " - error\n";
+                return 0;
+            }
 
             if (!empty($report))
                 $value = $report['']['ga:visitors'];
             else
                 $value = 0;
 
-            Yii::app()->cache->set($id, $value, 3600*5);
+            Yii::app()->cache->set($id, $value, 3600 * 5);
         }
 
         return $value;
@@ -376,18 +408,25 @@ class CommentatorWork extends EMongoDocument
             Yii::import('site.frontend.extensions.GoogleAnalytics');
             $ga = new GoogleAnalytics('alexk984@gmail.com', Yii::app()->params['gaPass']);
             $ga->setProfile('ga:53688414');
-            $ga->setDateRange($period . '-01', $period . '-'.$this->getLastPeriodDay($period));
-            $report = $ga->getReport(array(
-                'metrics' => urlencode('ga:uniquePageviews'),
-                'filters' => urlencode('ga:pagePath=~' . '/user/' . $this->user_id . '/'),
-            ));
+            $ga->setDateRange($period . '-01', $period . '-' . $this->getLastPeriodDay($period));
+            try {
+                $report = $ga->getReport(array(
+                    'metrics' => urlencode('ga:uniquePageviews'),
+                    'filters' => urlencode('ga:pagePath=~' . '/user/' . $this->user_id . '/'),
+                ));
+            } catch (Exception $err) {
+                echo $err->getMessage().' ';
+                echo $period . '-01', $period . '-' . $this->getLastPeriodDay($period)."\n";
+                echo $this->user_id . " - error\n";
+                return 0;
+            }
 
             if (!empty($report))
                 $value = $report['']['ga:uniquePageviews'];
             else
                 $value = 0;
 
-            Yii::app()->cache->set($id, $value, 3600*5);
+            Yii::app()->cache->set($id, $value, 3600 * 5);
         }
 
         return $value;
@@ -395,6 +434,7 @@ class CommentatorWork extends EMongoDocument
 
     public function seVisits($period, $cache = true)
     {
+        #TODO check visits from se
         return 0;
     }
 
@@ -446,7 +486,7 @@ class CommentatorWork extends EMongoDocument
     {
         $last_day = $this->getLastPeriodDay($period);
         $criteria = new CDbCriteria;
-        $criteria->condition = 'created >= "' . $period . '-01 00:00:00" AND created <= "' . $period . '-'.$last_day.' 23:59:59"';
+        $criteria->condition = 'created >= "' . $period . '-01 00:00:00" AND created <= "' . $period . '-' . $last_day . ' 23:59:59"';
         $criteria->compare('author_id', $this->user_id);
         $criteria->order = 'created desc';
         $criteria->with = array('rubric', 'rubric.community', 'type');
@@ -457,5 +497,10 @@ class CommentatorWork extends EMongoDocument
     public function getLastPeriodDay($period)
     {
         return str_pad(cal_days_in_month(CAL_GREGORIAN, date('n', strtotime($period)), date('Y', strtotime($period))), 2, "0", STR_PAD_LEFT);
+    }
+
+    public function skipped($url)
+    {
+        return in_array($url, $this->skipUrls);
     }
 }

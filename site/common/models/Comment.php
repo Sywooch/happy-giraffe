@@ -187,12 +187,10 @@ class Comment extends HActiveRecord
                 Yii::import('site.frontend.modules.signal.components.*');
                 Yii::import('site.frontend.modules.signal.models.*');
                 $commentator = CommentatorWork::getCurrentUser();
-                if ($this->entity == 'BlogContent')
-                    $entity = 'CommunityContent';
-                else
-                    $entity = $this->entity;
+                $entity =  ($this->entity == 'BlogContent')?'CommunityContent':$this->entity;
+                $_entity =  ($commentator->comment_entity == 'BlogContent')?'CommunityContent':$commentator->comment_entity;
 
-                if ($commentator->comment_entity == $entity && $commentator->comment_entity_id == $this->entity_id || !empty($this->response_id)){
+                if ($_entity == $entity && $commentator->comment_entity_id == $this->entity_id || !empty($this->response_id)){
                     $commentator->incCommentsCount();
                     $comet = new CometModel;
                     $comet->send(Yii::app()->user->id, array(

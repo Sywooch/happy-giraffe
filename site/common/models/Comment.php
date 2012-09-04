@@ -196,7 +196,6 @@ class Comment extends HActiveRecord
                     $comet = new CometModel;
                     $comet->send(Yii::app()->user->id, array(
                         'update_part' => CometModel::UPDATE_COMMENTS,
-                        'link' => $this->getLink(),
                         'entity_id' => $this->entity_id,
                         'entity' => $this->entity
                     ), CometModel::TYPE_COMMENTATOR_UPDATE);
@@ -204,7 +203,7 @@ class Comment extends HActiveRecord
                     $commentator->incCommentsCount(false);
                     $comet = new CometModel;
                     $comet->send(Yii::app()->user->id, array(
-                        'update_part' => CometModel::UPDATE_COMMENTS_COUNT,
+                        'update_part' => CometModel::UPDATE_COMMENTS,
                         'entity_id' => $this->entity_id,
                         'entity' => $this->entity
                     ), CometModel::TYPE_COMMENTATOR_UPDATE);

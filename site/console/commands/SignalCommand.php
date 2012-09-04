@@ -117,4 +117,23 @@ class SignalCommand extends CConsoleCommand
         $month->calculate();
         $month->save();
     }
+
+    public function actionTest(){
+        $period = date("Y-m");
+        Yii::import('site.frontend.extensions.GoogleAnalytics');
+        $ga = new GoogleAnalytics('alexk984@gmail.com', Yii::app()->params['gaPass']);
+        $ga->setProfile('ga:53688414');
+        $ga->setDateRange($period . '-01', $period . '-30');
+        try {
+            $report = $ga->getReport(array(
+                'metrics' => urlencode('ga:visitors'),
+                'filters' => urlencode('ga:pagePath=~' . '/user/15322/blog/*'),
+            ));
+        } catch (Exception $err) {
+            var_dump($err->getMessage());
+            Yii::app()->end();
+        }
+
+       var_dump($report['']['ga:visitors']);
+    }
 }

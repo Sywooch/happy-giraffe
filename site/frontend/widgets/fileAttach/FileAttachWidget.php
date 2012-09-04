@@ -108,7 +108,7 @@ class FileAttachWidget extends CWidget
             $this->button_title = 'Продолжить';
             $this->disableNavigation = true;
         }
-        elseif($this->entity == 'UserPartner')
+        elseif($this->entity == 'UserPartner' || $this->entity == 'Baby')
         {
             $this->title = 'Загрузка фото';
             $this->button_title = 'Продолжить';

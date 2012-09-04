@@ -75,7 +75,7 @@ Attach.prototype.selectBrowsePhoto = function (button) {
         this.CookDecorationEdit(fsn);
     } else if (this.entity == 'CookRecipe' || this.entity == 'SimpleRecipe' || this.entity == 'MultivarkaRecipe') {
         this.insertToRecipe(fsn);
-    } else if (this.entity == 'UserPartner') {
+    } else if (this.entity == 'UserPartner' || this.entity == 'Baby') {
         this.insertToPartner(fsn);
     } else if (this.entity == 'CommunityContent') {
         this.saveCommunityContent(fsn);
@@ -141,7 +141,11 @@ Attach.prototype.insertToPartner = function (fsn) {
     var $this = this;
     $.post(base_url + '/albums/partnerPhoto/', {val:fsn, many:this.many,entity:this.entity,entity_id:this.entity_id}, function (data) {
         if (data.status) {
-            console.log(data);
+            var list = $('ul:data(entity=' + $this.entity + '):data(entityId=' + $this.entity_id + ')');
+            var box = $('#photoTmpl').tmpl({img: data.src, title: ($this.entity == 'UserPartner') ? Family.partnerOf[Family.relationshipStatus][2] : 'Мой ребёнок' + ' - фото ' + list.find('li').length});
+            list.append(box).masonry('appended', box);
+
+            $.fancybox.close();
         }
     }, 'json');
 }

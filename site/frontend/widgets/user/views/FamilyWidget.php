@@ -5,9 +5,9 @@
         <ul>
             <?php if ($user->hasPartner() && !empty($user->partner->name)): ?>
             <li>
-                <big><?= $user->partner->name ?> &nbsp; <small><?php echo $user->getPartnerTitle($user->relationship_status) ?></small></big>
+                <big><?= $user->partner->name ?> <small>- <?php echo $user->getPartnerTitleOf(null, 3) ?></small></big>
                 <?php if (!empty($user->partner->notice)):?>
-                    <div class="comment purple">
+                    <div class="comment">
                         <?= $user->partner->notice ?>
                         <span class="tale"></span>
                     </div>
@@ -22,9 +22,9 @@
             <?php foreach ($user->babies as $baby): ?>
             <?php if (empty($baby->type)):?>
                 <li>
-                    <big><?php echo $baby->name ?><span><?php if (!empty($baby->birthday)) echo ', '.$baby->getTextAge(false) ?></span></big>
+                    <big><?php echo $baby->name ?> <small>- <?=($baby->sex) ? 'мой сын' : 'моя дочь'?><?php if (!empty($baby->birthday)) echo ', '.$baby->getTextAge(false) ?></small></big>
                     <?php if (!empty($baby->notice)):?>
-                    <div class="comment <?= ($baby->sex == 1)?'blue':'pink' ?>">
+                    <div class="comment">
                         <?= $baby->notice ?>
                         <span class="tale"></span>
                     </div>

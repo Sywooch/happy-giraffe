@@ -12,6 +12,12 @@ var Family = {
         $('.relationship-status').hide();
     },
 
+    changeBabies: function() {
+        $('.baby-choice').show();
+        $('.baby-status').hide();
+        $('.baby-notice').show();
+    },
+
     setStatusRadio:function (el, status_id) {
         $.ajax({
             url:'/ajax/setValue/',
@@ -23,6 +29,7 @@ var Family = {
             },
             type:'POST',
             success:function (response) {
+                Family.relationshipStatus = status_id;
                 if (response == '1') {
                     $(el).parents('.radiogroup').find('.radio-label').removeClass('checked');
                     $(el).addClass('checked').find('input').attr('checked', 'checked');
@@ -37,6 +44,7 @@ var Family = {
                         $('#user-partner .d-text:eq(0) span').text(Family.partnerOf[status_id][0]);
                         $('#user-partner .d-text:eq(1) span').text(Family.partnerOf[status_id][1]);
                         $('#user-partner .d-text:eq(2) span').text(Family.partnerOf[status_id][0]);
+                        $('#user-partner .gallery-photos-new .item-title span').text(Family.partnerOf[status_id][2]);
                         $('#user-partner').show();
                     }
 
@@ -76,13 +84,31 @@ var Family = {
         });
     },
     editDate:function (el) {
-        $(el).next().show();
+        $('.datepicker').show();
+        $('.dateshower').hide();
     },
-    editPartnerNotice:function (el, del) {
+    editPartnerNotice:function (el) {
         $('#user-partner div.comment div.text').hide();
-        if (del)
-            $('#user-partner div.comment div.input textarea').val('');
         $('#user-partner div.comment div.input').show();
+    },
+    delPartnerNotice: function (el) {
+        $.ajax({
+            url:'/ajax/setValue/',
+            data:{
+                entity:'UserPartner',
+                entity_id:this.partner_id,
+                attribute:'notice',
+                value:''
+            },
+            type:'POST',
+            success:function (response) {
+                $('#user-partner div.comment div.input textarea').val('');
+                $('#user-partner div.comment div.text').hide();
+                $('#user-partner div.comment div.input').show();
+                Family.updateWidget();
+            },
+            context:el
+        });
     },
     savePartnerNotice:function (el) {
         var notice = $(el).prev().val();
@@ -295,8 +321,9 @@ var Family = {
             dataType:'JSON',
             success:function (response) {
                 if (response.status) {
-                    $(el).parent().hide();
-                    $(el).parents('div.date').prev().html(response.age).show();
+                    $('.datepicker').hide();
+                    $('.dateshower').show();
+                    $('.dateshower span.age').text(response.age);
                     Family.updateWidget();
                 }
             },
@@ -308,6 +335,28 @@ var Family = {
         bl.find('div.comment').show();
         bl.find('div.comment div.text').hide();
         bl.find('div.comment div.input').show();
+    },
+    delBabyNotice:function (el) {
+        $.ajax({
+            url:'/ajax/setValue/',
+            data:{
+                entity:'Baby',
+                entity_id:this.getBabyId(el),
+                attribute:'notice',
+                value:''
+            },
+            type:'POST',
+            success:function (response) {
+                if (response == '1') {
+                    var bl = $(el).parents('div.family-member');
+                    bl.find('div.comment div.input textarea').val('');
+                    bl.find('div.comment div.text').hide();
+                    bl.find('div.comment div.input').show();
+                    Family.updateWidget();
+                }
+            },
+            context:el
+        });
     },
     saveBabyNotice:function (el) {
         var notice = $(el).prev().val();
@@ -447,6 +496,19 @@ var Family = {
 }
 
 $(function () {
+    var $container = $('.gallery-photos-new ul');
+
+    $container.imagesLoaded( function(){
+
+        $container.masonry({
+            itemSelector : 'li',
+            columnWidth: 240,
+            isAnimated: false,
+            animationOptions: { queue: false, duration: 500 }
+        });
+
+    });
+
     $('#addPhoto1, #partner_photo_upload2, #partner_photo_upload1').iframePostForm({
         json:true,
         complete:function (response) {

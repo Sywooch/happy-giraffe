@@ -13,6 +13,7 @@ class MailCommand extends CConsoleCommand
         Yii::import('site.frontend.extensions.*');
         Yii::import('site.frontend.components.*');
         Yii::import('site.common.models.mongo.*');
+        Yii::import('site.common.extensions.mailchimp.*');
 
         $articles = Favourites::model()->getWeekPosts();
         $contents = $this->renderFile(Yii::getPathOfAlias('site.common.tpl.weeklyNews') . '.php', array('models' => $articles), true);

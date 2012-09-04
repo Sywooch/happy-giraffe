@@ -125,19 +125,7 @@
                             </li>
 
                             <?php foreach ($user->partner->photos as $k => $p): ?>
-                                <li>
-                                    <div class="img">
-                                        <a href="">
-                                            <?=CHtml::image($p->photo->getPreviewUrl(210, null, Image::WIDTH))?>
-                                            <span class="btn">Посмотреть</span>
-                                        </a>
-                                        <div class="actions">
-                                            <a href="" class="edit tooltip" title="Редактировать"></a>
-                                            <a href="" class="remove tooltip" title="Удалить"></a>
-                                        </div>
-                                    </div>
-                                    <div class="item-title"><?=(! empty($p->photo->title)) ? $p->photo->title : '<span>' . ucfirst($user->getPartnerTitleOf(null, 2)) . '</span> - фото ' . ($k + 1)?></div>
-                                </li>
+                                <?php $this->renderPartial('//albums/_photo', array('data' => $p->photo)); ?>
                             <?php endforeach; ?>
                         </ul>
                     </div>
@@ -257,19 +245,7 @@
                                 </li>
 
                                 <?php foreach ($baby->photos as $k => $p): ?>
-                                <li>
-                                    <div class="img">
-                                        <a href="">
-                                            <?=CHtml::image($p->photo->getPreviewUrl(210, null, Image::WIDTH))?>
-                                            <span class="btn">Посмотреть</span>
-                                        </a>
-                                        <div class="actions">
-                                            <a href="" class="edit tooltip" title="Редактировать"></a>
-                                            <a href="" class="remove tooltip" title="Удалить"></a>
-                                        </div>
-                                    </div>
-                                    <div class="item-title"><?=(! empty($p->photo->title)) ? $p->photo->title : 'Мой ребёнок - фото ' . ($k + 1)?></div>
-                                </li>
+                                    <?php $this->renderPartial('//albums/_photo', array('data' => $p->photo)); ?>
                                 <?php endforeach; ?>
                             </ul>
                         </div>

@@ -145,8 +145,11 @@ class CommentatorWork extends EMongoDocument
     {
         $this->getCurrentDay()->comments++;
 
-        if ($this->getNextPostForComment())
+        if ($this->getNextPostForComment()){
             $this->save();
+            return true;
+        }
+        return false;
     }
 
     public function skipComment()
@@ -171,8 +174,12 @@ class CommentatorWork extends EMongoDocument
      */
     public function getNextPostForComment()
     {
-        list($this->comment_entity, $this->comment_entity_id) = PostForCommentator::getNextPost($this->skipUrls);
+        $list = PostForCommentator::getNextPost($this->skipUrls);
+        if ($list === false){
+            return false;
+        }
 
+        list($this->comment_entity, $this->comment_entity_id) = $list;
         return true;
     }
 
@@ -427,6 +434,7 @@ class CommentatorWork extends EMongoDocument
 
     public function seVisits($period, $cache = true)
     {
+        #TODO check visits from se
         return 0;
     }
 

@@ -8,6 +8,8 @@ class PostForCommentator
     protected $entities = array();
     protected $skipUrls = array();
     protected $way = array();
+    protected $nextGroup = 'UserPostForCommentator';
+    protected $error = '';
 
     public static function getNextPost($skipUrls)
     {
@@ -30,6 +32,7 @@ class PostForCommentator
             $model = new CoWorkersPostCommentator;
         $model->skipUrls = $skipUrls;
         $post =  $model->getPost();
+        $this->error = $model->error;
         return $post;
     }
 
@@ -159,5 +162,17 @@ class PostForCommentator
         }
 
         return false;
+    }
+
+    public function nextGroup()
+    {
+        $model = new $this->nextGroup;
+        $model->skipUrls = $this->skipUrls;
+        $model->way [] = get_class($model);
+        if (count($model->way) > 10){
+            $this->error = 'Не найдены тема для комментирования, обратитесь к разработчику';
+            return false;
+        }
+        return $model->getPost();
     }
 }

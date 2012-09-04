@@ -9,10 +9,11 @@ class CoWorkersPostCommentator extends PostForCommentator
         'CommunityContent' => array(15),
         'CookRecipe' => array(2, 3),
     );
+    protected $nextGroup = 'TrafficPostForCommentator';
 
     public function getPost()
     {
-        $this->way [] = 'CoWorkersPostCommentator';
+        $this->way [] = get_class($this);
 
         $criteria = $this->getCriteria(false);
         $posts = $this->getPosts($criteria);
@@ -26,17 +27,5 @@ class CoWorkersPostCommentator extends PostForCommentator
         } else {
             return array(get_class($posts[0]), $posts[0]->id);
         }
-    }
-
-    public function nextGroup()
-    {
-        $model = new TrafficPostForCommentator;
-        $model->skipUrls = $this->skipUrls;
-        $model->way [] = get_class($model);
-        if (count($model->way) > 10){
-            var_dump($model->way);
-            Yii::app()->end();
-        }
-        return $model->getPost();
     }
 }

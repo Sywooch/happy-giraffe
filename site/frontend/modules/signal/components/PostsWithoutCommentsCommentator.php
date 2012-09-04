@@ -6,12 +6,13 @@
 class PostsWithoutCommentsCommentator extends PostForCommentator
 {
     const CACHE_ID = 'posts-without-comments';
+    protected $nextGroup = 'UserPostForCommentator';
 
     public function getPost()
     {
         Yii::import('site.seo.models.*');
         Yii::import('site.seo.modules.promotion.models.*');
-        $this->way [] = 'PostsWithoutCommentsCommentator';
+        $this->way [] = get_class($this);
 
         $ids = $this->getPostIds();
         if (empty($ids))
@@ -36,18 +37,6 @@ class PostsWithoutCommentsCommentator extends PostForCommentator
         } else {
             return array(get_class($not_commented_yet[0]), $not_commented_yet[0]->id);
         }
-    }
-
-    public function nextGroup()
-    {
-        $model = new UserPostForCommentator;
-        $model->skipUrls = $this->skipUrls;
-        $model->way [] = get_class($model);
-        if (count($model->way) > 10){
-            var_dump($model->way);
-            Yii::app()->end();
-        }
-        return $model->getPost();
     }
 
     public function getPostIds()

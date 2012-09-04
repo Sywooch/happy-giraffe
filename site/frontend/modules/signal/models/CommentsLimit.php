@@ -5,6 +5,7 @@ class CommentsLimit extends EMongoDocument
     public $entity;
     public $entity_id;
     public $limit;
+    public $comment_timings = array();
 
     public static function model($className = __CLASS__)
     {

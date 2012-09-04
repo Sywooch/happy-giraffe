@@ -3,10 +3,11 @@
  * Author: alexk984
  * Date: 30.08.12
  */
-class TrafficPostForCommentator extends PostForCommentator
+class TrafficPosts extends PostForCommentator
 {
     const CACHE_ID = 'traffic-posts-for-comments';
-    protected $nextGroup = 'PostsWithoutCommentsCommentator';
+    const LIMIT = 10;
+    protected $nextGroup = 'CoWorkersPosts';
 
     public function getPost()
     {
@@ -48,7 +49,7 @@ class TrafficPostForCommentator extends PostForCommentator
             if (!$this->IsSkipped('CommunityContent', $model->id)) {
                 $entity = $model->isFromBlog ? 'BlogContent' : 'CommunityContent';
                 if (!$this->recentlyCommented($entity, $model->id))
-                    if ($model !== null && $model->commentsCount < CommentsLimit::getLimit('CommunityContent', $model->id, 25))
+                    if ($model !== null && $model->commentsCount < CommentsLimit::getLimit('CommunityContent', $model->id, self::LIMIT))
                         $result [] = $model;
             }
         }
@@ -99,7 +100,7 @@ class TrafficPostForCommentator extends PostForCommentator
         foreach ($pages as $row) {
             if ($row['entity'] == 'CommunityContent' || $row['entity'] == 'BlogContent') {
                 $model = CActiveRecord::model($row['entity'])->active()->findByPk($row['entity_id']);
-                if ($model !== null && $model->commentsCount < CommentsLimit::getLimit('CommunityContent', $model->id, 25))
+                if ($model !== null && $model->commentsCount < CommentsLimit::getLimit('CommunityContent', $model->id, self::LIMIT))
                     $value [] = $row['entity_id'];
 
                 if (count($value) > 10)

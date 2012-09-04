@@ -19,6 +19,14 @@
         ->registerScriptFile($baseUrl. '/family.js?35', CClientScript::POS_HEAD)
         ->registerScriptFile('/javascripts/jquery.masonry.min.js')
     ;
+
+
+    $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
+        'selector' => '.img > a',
+        'entity' => 'User',
+        'entity_id' => $user->id,
+    ));
+
 ?>
 
 <div class="user-cols clearfix">

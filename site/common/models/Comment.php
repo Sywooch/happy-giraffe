@@ -183,7 +183,7 @@ class Comment extends HActiveRecord
             UserAction::model()->add($this->author_id, UserAction::USER_ACTION_COMMENT_ADDED, array('model' => $this));
 
             //send signals to commentator panel
-            if (Yii::app()->user->checkAccess('commentator_panel')) {
+            if (Yii::app()->user->checkAccess('commentator_panel') && strlen(trim(strip_tags($this->text))) >= 80) {
                 Yii::import('site.frontend.modules.signal.components.*');
                 Yii::import('site.frontend.modules.signal.models.*');
                 $commentator = CommentatorWork::getCurrentUser();

@@ -183,7 +183,7 @@ class Comment extends HActiveRecord
             UserAction::model()->add($this->author_id, UserAction::USER_ACTION_COMMENT_ADDED, array('model' => $this));
 
             //send signals to commentator panel
-            if (Yii::app()->user->checkAccess('commentator_panel') && strlen($this->text > 100)) {
+            if (Yii::app()->user->checkAccess('commentator_panel')) {
                 Yii::import('site.frontend.modules.signal.components.*');
                 Yii::import('site.frontend.modules.signal.models.*');
                 $commentator = CommentatorWork::getCurrentUser();
@@ -202,6 +202,12 @@ class Comment extends HActiveRecord
                     ), CometModel::TYPE_COMMENTATOR_UPDATE);
                 }elseif (!empty($this->response_id) || $model->author_id == $this->author_id){
                     $commentator->incCommentsCount(false);
+                    $comet = new CometModel;
+                    $comet->send(Yii::app()->user->id, array(
+                        'update_part' => CometModel::UPDATE_COMMENTS_COUNT,
+                        'entity_id' => $this->entity_id,
+                        'entity' => $this->entity
+                    ), CometModel::TYPE_COMMENTATOR_UPDATE);
                 }
             }
         }

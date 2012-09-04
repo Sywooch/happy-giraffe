@@ -145,11 +145,14 @@ class CommentatorWork extends EMongoDocument
     {
         $this->getCurrentDay()->comments++;
 
-        if ($next)
+        if ($next) {
             if ($this->getNextPostForComment()) {
                 $this->save();
                 return true;
             }
+        } else
+            $this->save();
+
         return false;
     }
 

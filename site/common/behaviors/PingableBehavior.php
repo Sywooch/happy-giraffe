@@ -21,6 +21,9 @@ class PingableBehavior extends CActiveRecordBehavior
 
     public function send()
     {
+        if (get_class(Yii::app()) == 'CConsoleApplication')
+            return ;
+
         if (get_class($this->owner) == 'CommunityContent' && ($this->owner->type_id == 4 || $this->owner->by_happy_giraffe)) {
             $pingUserId = 1;
         } else {

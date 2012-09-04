@@ -22,7 +22,9 @@ class AddImageTagsBehavior extends CActiveRecordBehavior
                     pq($image)->addClass('content-img-right');
                 if ($align == 'left')
                     pq($image)->addClass('content-img');
-            } elseif (!pq($image)->hasClass('smile'))
+            } elseif (!pq($image)->hasClass('smile') && !pq($image)->addClass('content-img')
+                && !pq($image)->addClass('content-img-right')
+            )
                 pq($image)->addClass('content-img');
 
             if (empty($alt) || empty($title)) {

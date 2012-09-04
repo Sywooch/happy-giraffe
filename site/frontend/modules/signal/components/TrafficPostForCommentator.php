@@ -6,10 +6,11 @@
 class TrafficPostForCommentator extends PostForCommentator
 {
     const CACHE_ID = 'traffic-posts-for-comments';
+    protected $nextGroup = 'PostsWithoutCommentsCommentator';
 
     public function getPost()
     {
-        $this->way [] = 'TrafficPostForCommentator';
+        $this->way [] = get_class($this);
         $posts = $this->getPosts();
 
         if (empty($posts))
@@ -20,18 +21,6 @@ class TrafficPostForCommentator extends PostForCommentator
         } else {
             return array('CommunityContent', $posts[0]->id);
         }
-    }
-
-    public function nextGroup()
-    {
-        $model = new PostsWithoutCommentsCommentator;
-        $model->skipUrls = $this->skipUrls;
-        $model->way [] = get_class($model);
-        if (count($model->way) > 10) {
-            var_dump($model->way);
-            Yii::app()->end();
-        }
-        return $model->getPost();
     }
 
     public function getPosts()

@@ -5,9 +5,11 @@
  */
 class MainPagePostForCommentator extends PostForCommentator
 {
+    protected $nextGroup = 'SocialPostForCommentator';
+
     public function getPost()
     {
-        $this->way [] = 'MainPagePostForCommentator';
+        $this->way [] = get_class($this);
         $posts = $this->getPosts();
 
         if (count($posts) == 0)
@@ -58,17 +60,5 @@ class MainPagePostForCommentator extends PostForCommentator
                 }
 
         return $result;
-    }
-
-    public function nextGroup()
-    {
-        $model = new SocialPostForCommentator;
-        $model->skipUrls = $this->skipUrls;
-        $model->way [] = get_class($model);
-        if (count($model->way) > 10) {
-            var_dump($model->way);
-            Yii::app()->end();
-        }
-        return $model->getPost();
     }
 }

@@ -14,8 +14,11 @@
     $basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR;
     $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
 
-    Yii::app()->clientScript->registerScript('family-edit',$js)
-        ->registerScriptFile($baseUrl. '/family.js?35', CClientScript::POS_HEAD);
+    Yii::app()->clientScript
+        ->registerScript('family-edit',$js)
+        ->registerScriptFile($baseUrl. '/family.js?35', CClientScript::POS_HEAD)
+        ->registerScriptFile('/javascripts/jquery.masonry.min.js')
+    ;
 ?>
 
 <div class="user-cols clearfix">
@@ -23,76 +26,18 @@
     <div class="col-1">
 
         <div class="clearfix user-info-big">
-            <div class="user-info">
-                <div class="ava female"></div>
-                <div class="details">
-                    <span class="icon-status status-online"></span>
-                    <a href="" class="username">Александр Богоявленский</a>
-                </div>
-                <div class="user-fast-nav">
-                        <ul>
-                            <a href="">Анкета</a>&nbsp;|&nbsp;<a href="">Блог</a>&nbsp;|&nbsp;<a href="">Фото</a>&nbsp;|&nbsp;<a href="">Что нового</a>&nbsp;|&nbsp;<span class="drp-list"><a href="" class="more">Еще</a><ul><li><a href="">Семья</a></li><li><a href="">Друзья</a></li></ul>
-                            </span>
-
-                        </ul>
-                    </div>
-                <div class="text-status">
-                    <p>Привет всем! У меня все ok! Единственное, что имеет значение.</p>
-                    <span class="tale"></span>
-                </div>
-            </div>
+            <?php
+                $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
+                    'user' => $this->user,
+                    'location' => false,
+                    'friendButton' => true,
+                    'nav' => true,
+                    'status' => true,
+                ));
+            ?>
         </div>
 
-        <div class="user-family">
-            <div class="t"></div>
-            <div class="c">
-                <ul>
-                    <li>
-                        <big>Катя <small>-&nbsp;моя&nbsp;невеста</small></big>
-                        <div class="comment blue">
-                            Очень любит готовить, заниматься с детьми, очень добрая и отзывчивая
-                            <span class="tale"></span>
-                        </div>
-                        <div class="img">
-                            <img src="/images/example/ex1.png" />
-                        </div>
-                    </li>
-                    <li>
-                        <big>Вильгельмина <small>-&nbsp;моя&nbsp;невеста</small></big>
-                        <div class="comment">
-                            Очень любит готовить, заниматься с детьми, очень добрая и отзывчивая
-                            <span class="tale"></span>
-                        </div>
-                        <div class="img">
-                            <img src="/images/example/ex2.png" />
-                        </div>
-                    </li>
-                    <li>
-                        <big>Артем <small>- мой сын, 10 лет</small></big>
-                        <div class="comment">
-                            Очень любит готовить, заниматься с детьми, очень добрая и отзывчивая
-                            <span class="tale"></span>
-                        </div>
-                        <div class="img">
-                            <img src="/images/example/ex3.jpg" />
-                        </div>
-                    </li>
-                    <li class="waiting clearfix">
-                        <i class="icon"></i>
-                        <div class="in">
-                            <big>Ждем еще</big>
-                            <div class="gender">Девочку <i class="icon-female"></i></div>
-                            <div class="time">7-я неделя</div>
-                        </div>
-                    </li>
-
-                </ul>
-
-                <a href="" class="watch-album">Смотреть семейный<br/>альбом</a>
-
-            </div>
-            <div class="b"></div>
-        </div>
+        <?php $this->widget('application.widgets.user.FamilyWidget', array('user' => $user, 'showEmpty'=>true)); ?>
 
     </div>
 
@@ -143,8 +88,8 @@
                         </div>
                         <div class="text"<?php if (empty($user->partner->notice)) echo ' style="display:none;"' ?>>
                             <span class="text"><?=$user->partner->notice?></span>
-                            <a href="javascript:void(0);" onclick="Family.editPartnerNotice(this, false)" class="edit tooltip" title="Редактировать"></a>
-                            <a href="javascript:void(0);" onclick="Family.editPartnerNotice(this, true)" class="remove tooltip" title="Удалить"></a>
+                            <a href="javascript:void(0);" onclick="Family.editPartnerNotice(this)" class="edit tooltip" title="Редактировать"></a>
+                            <a href="javascript:void(0);" onclick="Family.delPartnerNotice(this)" class="remove tooltip" title="Удалить"></a>
                         </div>
                     </div>
                 </div>
@@ -155,7 +100,7 @@
                     Загрузите фото, нажав на кнопку “+”
 
                     <div class="gallery-photos-new cols-3 clearfix">
-                        <ul>
+                        <ul data-entity-id="<?=$user->partner->id?>" data-entity="<?=get_class($user->partner)?>">
 
                             <li class="add">
                                 <?php
@@ -170,6 +115,22 @@
                                     $this->endWidget();
                                 ?>
                             </li>
+
+                            <?php foreach ($user->partner->photos as $k => $p): ?>
+                                <li>
+                                    <div class="img">
+                                        <a href="">
+                                            <?=CHtml::image($p->photo->getPreviewUrl(210, null, Image::WIDTH))?>
+                                            <span class="btn">Посмотреть</span>
+                                        </a>
+                                        <div class="actions">
+                                            <a href="" class="edit tooltip" title="Редактировать"></a>
+                                            <a href="" class="remove tooltip" title="Удалить"></a>
+                                        </div>
+                                    </div>
+                                    <div class="item-title"><?=(! empty($p->photo->title)) ? $p->photo->title : '<span>' . ucfirst($user->getPartnerTitleOf(null, 2)) . '</span> - фото ' . ($k + 1)?></div>
+                                </li>
+                            <?php endforeach; ?>
                         </ul>
                     </div>
 
@@ -177,8 +138,158 @@
 
             </div>
 
+            <div class="family-radiogroup">
+                <div class="title">Мои дети <span class="baby-status"<?php if ($user->babyCount(true) == 0): ?> style="display: none;"<?php endif; ?>><span class="title"><?=$user->babyString?></span> <a href="javascript:void(0)" onclick="Family.changeBabies()" class="pseudo">Изменить</a></span><small class="baby-notice"<?php if ($user->babyCount(true) > 0): ?> style="display: none;"<?php endif; ?>>(а также планирование и беременность)</small></div>
+                <div class="baby-choice"<?php if ($user->babyCount(true) > 0): ?> style="display: none;"<?php endif; ?>>
+                    <div class="subtitle">Выберите один или два варианта ответа (если у вас более 3-х детей нажмите на кнопку "+")</div>
+                    <div class="radiogroup">
+                        <div class="radio-label<?php if($user->hasBaby(Baby::TYPE_PLANNING) == 1) echo ' checked'?>" onclick="Family.setFutureBaby(this, <?=Baby::TYPE_PLANNING ?>);"><span>Планируем</span><input type="radio" name="radio-2"></div>
+                        <div class="radio-label<?php if($user->hasBaby(Baby::TYPE_WAIT) == 1) echo ' checked'?>" onclick="Family.setFutureBaby(this, <?=Baby::TYPE_WAIT ?>);"><span>Ждем<i class="icon-waiting"></i></span><input type="radio" name="radio-2"></div>
+
+                        <div class="radio-label<?php if($user->babyCount() == 1) echo ' checked'?>" onclick="Family.setBaby(this, 1);"><span>1 ребенок</span><input type="radio" name="radio-3"></div>
+                        <div class="radio-label<?php if($user->babyCount() == 2) echo ' checked'?>" onclick="Family.setBaby(this, 2);"><span>2 ребенка</span><input type="radio" name="radio-3"></div>
+                        <div class="radio-label<?php if($user->babyCount() == 3) echo ' checked'?>" onclick="Family.setBaby(this, 3);"><span>3 ребенка</span><input type="radio" name="radio-3"></div>
+                    </div>
+                </div>
+            </div>
+
+            <?php foreach ($user->babies as $baby): ?>
+                <?php if (empty($baby->type)):?>
+                    <div class="family-member">
+
+                        <input type="hidden" value="<?=$baby->id ?>" class="baby-id">
+
+                        <div class="member-title"><?=$i?>-ый ребенок:</div>
+
+                        <div class="data clearfix">
+                            Пол и дата рождения ребенка:
+                            <a href="javascript:void(0);" onclick="Family.saveBabyGender(this, 1)" class="gender male<?php if ($baby->sex == 1) echo ' active'?>"><span class="tip">Мальчик</span></a>
+                            <a href="javascript:void(0);" onclick="Family.saveBabyGender(this, 0)" class="gender female<?php if ($baby->sex == 0) echo ' active'?>"><span class="tip">Девочка</span></a>
+
+                            <div class="date">
+
+                                <div class="datepicker"<?php if ($baby->birthday !== null): ?> style="display:none;"<?php endif; ?>>
+                                    <span class="chzn-v2">
+                                        <?php echo CHtml::dropDownList('baby_d_'.$i, $baby->getBDatePart('j'), array(''=>' ')+HDate::Days(), array(
+                                            'class'=>'chzn w-1 date',
+                                            'data-placeholder'=>' '
+                                        )) ?>
+                                    </span>
+                                    &nbsp;
+                                    <span class="chzn-v2">
+                                        <?php echo CHtml::dropDownList('baby_m_'.$i, $baby->getBDatePart('n'), array(''=>' ')+HDate::ruMonths(), array(
+                                            'class'=>'chzn w-2 month',
+                                            'data-placeholder'=>' '
+                                        )) ?>
+                                    </span>
+                                    &nbsp;
+                                    <span class="chzn-v2">
+                                        <?php echo CHtml::dropDownList('baby_y_'.$i, $baby->getBDatePart('Y'), array(''=>' ')+HDate::Range(date('Y'), date('Y') - 50), array(
+                                            'class'=>'chzn w-3 year',
+                                            'data-placeholder'=>' '
+                                        )) ?>
+                                    </span>
+                                    &nbsp;
+                                    <button class="btn btn-green-small" onclick="Family.saveBabyDate(this)"><span><span>Ok</span></span></button>
+                                </div>
+
+                                <div class="dateshower"<?php if ($baby->birthday === null): ?> style="display:none;"<?php endif; ?>>
+                                    <div class="text"><span class="age"><?=$baby->textAge?></span>&nbsp;<a href="javascript:void(0);" onclick="Family.editDate(this);" class="edit tooltip" title="Редактировать имя"></a></div>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+                        <div class="data clearfix">
+                            <div class="d-text">Имя ребенка:</div>
+                            <div class="name">
+                                <div class="text"<?php if (empty($baby->name)) echo ' style="display:none;"' ?>><?=$baby->name ?></div>
+                                <div class="input"<?php if (!empty($baby->name)) echo ' style="display:none;"' ?>>
+                                    <input type="text">
+                                    <button class="btn btn-green-small" onclick="Family.saveBabyName(this);"><span><span>Ok</span></span></button>
+                                </div>
+                                <a href="javascript:void(0);" onclick="Family.editBabyName(this)" class="edit tooltip"<?php if (empty($baby->name)) echo ' style="display:none;"' ?> title="Редактировать имя"></a>
+                            </div>
+                        </div>
+
+                        <div class="data clearfix">
+                            Добавьте короткий рассказ (не более 100 знаков)
+                            <div class="comment">
+                                <span class="tale"></span>
+                                <div class="input"<?php if (! empty($baby->notice)) echo ' style="display:none;"' ?>>
+                                    <textarea><?=$baby->notice?></textarea>
+                                    <button class="btn btn-green-small" onclick="Family.saveBabyNotice(this)"><span><span>Ok</span></span></button>
+                                </div>
+                                <div class="text"<?php if (empty($baby->notice)) echo ' style="display:none;"' ?>>
+                                    <span class="text"><?=$baby->notice?></span>
+                                    <a href="javascript:void(0);" onclick="Family.editBabyNotice(this)" class="edit tooltip" title="Редактировать"></a>
+                                    <a href="javascript:void(0);" onclick="Family.delBabyNotice(this)" class="remove tooltip" title="Удалить"></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="gallery-photos-new cols-3 clearfix">
+                            <ul data-entity-id="<?=$baby->id?>" data-entity="<?=get_class($baby)?>">
+
+                                <li class="add">
+                                    <?php
+                                    $fileAttach = $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
+                                        'model' => $baby,
+                                        'customButton' => true,
+                                    ));
+                                    ?>
+                                    <i class="icon"></i>
+                                    <span>Загрузить  еще фото</span>
+                                    <?php
+                                    $this->endWidget();
+                                    ?>
+                                </li>
+
+                                <?php foreach ($baby->photos as $k => $p): ?>
+                                <li>
+                                    <div class="img">
+                                        <a href="">
+                                            <?=CHtml::image($p->photo->getPreviewUrl(210, null, Image::WIDTH))?>
+                                            <span class="btn">Посмотреть</span>
+                                        </a>
+                                        <div class="actions">
+                                            <a href="" class="edit tooltip" title="Редактировать"></a>
+                                            <a href="" class="remove tooltip" title="Удалить"></a>
+                                        </div>
+                                    </div>
+                                    <div class="item-title"><?=(! empty($p->photo->title)) ? $p->photo->title : 'Мой ребёнок - фото ' . ($k + 1)?></div>
+                                </li>
+                                <?php endforeach; ?>
+                            </ul>
+                        </div>
+                    </div>
+                <?php endif ?>
+            <?php endforeach; ?>
+
+            <?php for ($i = $user->babyCount(); $i < 5; $i++): ?>
+                <?php $this->renderPartial('_empty_child', array('i'=>$i)); ?>
+            <?php endfor; ?>
+
         </div>
 
     </div>
 
 </div>
+
+<script id="photoTmpl" type="text/x-jquery-tmpl">
+    <li>
+        <div class="img">
+            <a href="">
+                <img src="${img}">
+                <span class="btn">Посмотреть</span>
+            </a>
+            <div class="actions">
+                <a href="" class="edit tooltip" title="Редактировать"></a>
+                <a href="" class="remove tooltip" title="Удалить"></a>
+            </div>
+        </div>
+        <div class="item-title">${title}</div>
+    </li>
+</script>

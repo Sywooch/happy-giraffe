@@ -93,16 +93,16 @@ class User extends HActiveRecord
         4 => 'Есть подруга',
     );
     public $women_of = array(
-        1 => array('моей жены', 'моей жене'),
+        1 => array('моей жены', 'моей жене', 'Моя жена', 'моя жена'),
         2 => '',
-        3 => array('моей невесты', 'моей невесте'),
-        4 => array('моей подруги', 'моей подруге'),
+        3 => array('моей невесты', 'моей невесте', 'Моя невеста', 'моя невеста'),
+        4 => array('моей подруги', 'моей подруге', 'Моя подруга', 'моя подруга'),
     );
     public $men_of = array(
-        1 => array('моего мужа', 'моём муже'),
+        1 => array('моего мужа', 'моём муже', 'Мой муж', 'мой муж'),
         2 => '',
-        3 => array('моего жениха', 'моём женихе'),
-        4 => array('моего друга', 'моём друге'),
+        3 => array('моего жениха', 'моём женихе', 'Мой жених', 'мой жених'),
+        4 => array('моего друга', 'моём друге', 'Мой друг', 'мой друг'),
     );
 
     public $accessLabels = array(
@@ -889,13 +889,25 @@ class User extends HActiveRecord
         return false;
     }
 
-    public function babyCount()
+    public function babyCount($total = false)
     {
         $i = 0;
         foreach ($this->babies as $baby)
-            if (empty($baby->type))
+            if (empty($baby->type) || $total)
                 $i++;
         return $i;
+    }
+
+    public function getBabyString()
+    {
+        $array = array();
+        if ($this->babyCount() != 0)
+            $array[] = $this->babyCount() . ' ' . HDate::GenerateNoun(array('ребёнок', 'ребёнка', 'детей'), $this->babyCount());
+        if ($this->hasBaby(Baby::TYPE_PLANNING))
+            $array[] =  ' + Планируем';
+        if ($this->hasBaby(Baby::TYPE_WAIT))
+            $array[] =  ' + Ждём';
+        return implode(' + ', $array);
     }
 
     function getRole()

@@ -121,6 +121,7 @@ class SignalCommand extends CConsoleCommand
     public function actionTest(){
         $period = date("Y-m");
         Yii::import('site.frontend.extensions.GoogleAnalytics');
+        echo Yii::app()->params['gaPass'];
         $ga = new GoogleAnalytics('alexk984@gmail.com', Yii::app()->params['gaPass']);
         $ga->setProfile('ga:53688414');
         $ga->setDateRange($period . '-01', $period . '-30');

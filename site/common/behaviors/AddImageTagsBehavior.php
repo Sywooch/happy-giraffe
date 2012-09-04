@@ -14,15 +14,25 @@ class AddImageTagsBehavior extends CActiveRecordBehavior
         foreach (pq('img') as $image) {
             $alt = pq($image)->attr('alt');
             $title = pq($image)->attr('title');
+            $align = pq($image)->attr('align');
 
-            if (empty($alt) || empty($title)){
+            if (!empty($align)) {
+                pq($image)->removeAttr('align');
+                if ($align == 'right')
+                    pq($image)->addClass('content-img-right');
+                if ($align == 'left')
+                    pq($image)->addClass('content-img');
+            } elseif (!pq($image)->hasClass('smile'))
+                pq($image)->addClass('content-img');
+
+            if (empty($alt) || empty($title)) {
                 $i++;
 
                 if (empty($alt))
-                    pq($image)->attr('alt', $this->owner->content->title.' фото '.$i);
+                    pq($image)->attr('alt', $this->owner->content->title . ' фото ' . $i);
 
                 if (empty($title))
-                    pq($image)->attr('title', $this->owner->content->title.' фото '.$i);
+                    pq($image)->attr('title', $this->owner->content->title . ' фото ' . $i);
             }
         }
         $this->owner->text = $doc->html();

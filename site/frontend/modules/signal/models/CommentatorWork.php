@@ -5,7 +5,7 @@ class CommentatorWork extends EMongoDocument
     const BLOG_POSTS_COUNT = 1;
     const CLUB_POSTS_COUNT = 2;
     const COMMENTS_COUNT = 100;
-    const MAX_SKIPS = 100;
+    const MAX_SKIPS = 100000;
 
     public $user_id;
     public $clubs = array();
@@ -49,7 +49,6 @@ class CommentatorWork extends EMongoDocument
         $day = $this->getCurrentDay();
         if (isset($day))
             $day->checkStatus();
-        $day->club_posts = $this->clubPostsCount();
 
         return parent::beforeSave();
     }
@@ -120,12 +119,14 @@ class CommentatorWork extends EMongoDocument
         else
             $this->days[] = $day;
 
-        list($this->comment_entity, $this->comment_entity_id) = PostsWithoutCommentsCommentator::getPost();
+        $this->getNextPostForComment();
 
         //add working day
         $month = CommentatorsMonthStats::getOrCreateWorkingMonth();
         $month->workingDays [] = date("Y-m-d");
         $month->save();
+
+        $this->skipUrls = array();
 
         return $this->save();
     }
@@ -143,8 +144,12 @@ class CommentatorWork extends EMongoDocument
     public function incCommentsCount()
     {
         $this->getCurrentDay()->comments++;
-        list($this->comment_entity, $this->comment_entity_id) = $this->getNextPost();
-        $this->save();
+
+        if ($this->getNextPostForComment()){
+            $this->save();
+            return true;
+        }
+        return false;
     }
 
     public function skipComment()
@@ -153,41 +158,43 @@ class CommentatorWork extends EMongoDocument
             return false;
 
         $this->skipArticle();
-        list($this->comment_entity, $this->comment_entity_id) = $this->getNextPost();
-
-        $this->getCurrentDay()->skip_count++;
         $this->save();
-        return true;
-    }
+        if ($this->getNextPostForComment()) {
 
-    public function skipArticle()
-    {
-        $model = CActiveRecord::model($this->comment_entity)->findByPk($this->comment_entity_id);
-        if ($model !== null) {
-            if (empty($this->skipUrls))
-                $this->skipUrls = array($model->url);
-            else
-                $this->skipUrls[] = $model->url;
+            $this->getCurrentDay()->skip_count++;
+            $this->save();
+            return true;
         }
+        return false;
     }
 
     /**
      * получить следующий пост (в блоге, в клубах, рецепт) для комментарирования
      *
      */
-    public function getNextPost()
+    public function getNextPostForComment()
     {
-        $rand = rand(0, 99);
-        if ($rand < 50)
-            return UserPostForCommentator::getPost();
-        elseif ($rand < 65)
-            return MainPagePostForCommentator::getPost();
-        elseif ($rand < 80)
-            return SocialPostForCommentator::getPost();
-        elseif ($rand < 90)
-            return TrafficPostForCommentator::getPost();
+        $list = PostForCommentator::getNextPost($this->skipUrls);
+        if ($list === false){
+            return false;
+        }
 
-        return CoWorkersPostCommentator::getPost();
+        list($this->comment_entity, $this->comment_entity_id) = $list;
+        return true;
+    }
+
+    public function skipArticle()
+    {
+        if (empty($this->skipUrls))
+            $this->skipUrls = array(array($this->comment_entity, $this->comment_entity_id));
+        elseif (!empty($this->comment_entity) && !empty($this->comment_entity_id)) {
+            $exist = false;
+            foreach ($this->skipUrls as $skip_url)
+                if ($skip_url[0] == $this->comment_entity && $skip_url[1] == $this->comment_entity_id)
+                    $exist = true;
+            if (!$exist)
+                $this->skipUrls[] = array($this->comment_entity, $this->comment_entity_id);
+        }
     }
 
     /**
@@ -369,10 +376,15 @@ class CommentatorWork extends EMongoDocument
             $ga = new GoogleAnalytics('alexk984@gmail.com', Yii::app()->params['gaPass']);
             $ga->setProfile('ga:53688414');
             $ga->setDateRange($period . '-01', $period . '-' . $this->getLastPeriodDay($period));
-            $report = $ga->getReport(array(
-                'metrics' => urlencode('ga:visitors'),
-                'filters' => urlencode('ga:pagePath=~' . '/user/' . $this->user_id . '/blog/*'),
-            ));
+            try {
+                $report = $ga->getReport(array(
+                    'metrics' => urlencode('ga:visitors'),
+                    'filters' => urlencode('ga:pagePath=~' . '/user/' . $this->user_id . '/blog/*'),
+                ));
+            } catch (Exception $err) {
+                echo $this->user_id . " - error\n";
+                return 0;
+            }
 
             if (!empty($report))
                 $value = $report['']['ga:visitors'];
@@ -397,10 +409,17 @@ class CommentatorWork extends EMongoDocument
             $ga = new GoogleAnalytics('alexk984@gmail.com', Yii::app()->params['gaPass']);
             $ga->setProfile('ga:53688414');
             $ga->setDateRange($period . '-01', $period . '-' . $this->getLastPeriodDay($period));
-            $report = $ga->getReport(array(
-                'metrics' => urlencode('ga:uniquePageviews'),
-                'filters' => urlencode('ga:pagePath=~' . '/user/' . $this->user_id . '/'),
-            ));
+            try {
+                $report = $ga->getReport(array(
+                    'metrics' => urlencode('ga:uniquePageviews'),
+                    'filters' => urlencode('ga:pagePath=~' . '/user/' . $this->user_id . '/'),
+                ));
+            } catch (Exception $err) {
+                echo $err->getMessage().' ';
+                echo $period . '-01', $period . '-' . $this->getLastPeriodDay($period)."\n";
+                echo $this->user_id . " - error\n";
+                return 0;
+            }
 
             if (!empty($report))
                 $value = $report['']['ga:uniquePageviews'];
@@ -415,6 +434,7 @@ class CommentatorWork extends EMongoDocument
 
     public function seVisits($period, $cache = true)
     {
+        #TODO check visits from se
         return 0;
     }
 

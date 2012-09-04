@@ -25,11 +25,10 @@ class CommentsLimit extends EMongoDocument
      * @static
      * @param string $entity
      * @param int $entity_id
-     * @param int $limit
-     * @param int $limit_max
+     * @param array|int $limit
      * @return int
      */
-    public static function getLimit($entity, $entity_id, $limit, $limit_max = null)
+    public static function getLimit($entity, $entity_id, $limit)
     {
         $criteria = new EMongoCriteria;
         $criteria->entity('==', $entity);
@@ -39,10 +38,14 @@ class CommentsLimit extends EMongoDocument
             $model = new CommentsLimit();
             $model->entity = $entity;
             $model->entity_id = (int)$entity_id;
-            if (empty($limit_max))
+            if (is_array($limit) && count($limit) > 1)
+                $model->limit = rand($limit[0], $limit[1]);
+            else{
+                if (is_array($limit))
+                    $limit = $limit[0];
                 $model->limit = rand(round($limit - $limit/8), round($limit + $limit/8));
-            else
-                $model->limit = rand($limit, $limit_max);
+            }
+
             $model->save();
         }
 

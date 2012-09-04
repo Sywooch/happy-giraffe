@@ -1,7 +1,8 @@
 var Messages = {
     editor: null,
     activeTab: null,
-    hasMessages: true
+    hasMessages: true,
+    active: false
 }
 
 Messages.open = function(interlocutor_id, type) {
@@ -37,7 +38,19 @@ Messages.open = function(interlocutor_id, type) {
 }
 
 Messages.initialize = function(interlocutor_id, type) {
-    if (Messages.activeTab != type) {
+    if (! Messages.hasMessages && ! Messages.isActive() && interlocutor_id == null) {
+        Messages.setList(type, false);
+        Messages.showEmpty();
+    } else {
+        if (Messages.activeTab != type) {
+            Messages.setList(type, interlocutor_id);
+        } else {
+            Messages.setDialog(interlocutor_id);
+        }
+    }
+    Messages.active = true;
+
+    /*if (Messages.activeTab != type) {
         if (! Messages.hasMessages && interlocutor_id == null) {
             Messages.setList(type, false);
             Messages.showEmpty();
@@ -47,7 +60,7 @@ Messages.initialize = function(interlocutor_id, type) {
     } else {
         if (interlocutor_id != null)
             Messages.setDialog(interlocutor_id);
-    }
+    }*/
 }
 
 Messages.close = function() {
@@ -66,6 +79,7 @@ Messages.close = function() {
     });
 
     Messages.activeTab = null;
+    Messages.active = false;
 }
 
 /*
@@ -113,7 +127,7 @@ Messages.toggle = function() {
 }
 
 Messages.isActive = function() {
-    return $('#user-dialogs:visible').length != 0;
+    return Messages.active;
 }
 
 Messages.setHeight  = function() {

@@ -23,7 +23,7 @@ class CommentatorDay extends EMongoEmbeddedDocument
             $this->comments == CommentatorWork::COMMENTS_COUNT
         )
             $this->status = self::STATUS_SUCCESS;
-        if ($this->blog_posts >= CommentatorWork::BLOG_POSTS_COUNT &&
+        elseif ($this->blog_posts >= CommentatorWork::BLOG_POSTS_COUNT &&
             $this->club_posts >= CommentatorWork::CLUB_POSTS_COUNT &&
             $this->comments >= CommentatorWork::COMMENTS_COUNT
         )

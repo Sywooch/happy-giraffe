@@ -15,6 +15,9 @@
         <a class="tooltip green add-to-favourites<?php if (Favourites::inFavourites($model, Favourites::BLOCK_BLOGS)) echo ' active'; ?>" href="#"
            onclick="Favourites.toggle(this, 3);return false;" title="Поместить в Блоги">Б</a>
 
+        <a class="tooltip green add-to-favourites<?php if (Favourites::inFavourites($model, Favourites::BLOCK_SOCIAL_NETWORKS)) echo ' active'; ?>" href="#"
+           onclick="Favourites.toggle(this, 7);return false;" title="Поместить в Соц Сети">S</a>
+
         <?php if ($model->type_id == 2): ?>
             <a class="tooltip lilac add-to-favourites<?php if (Favourites::inFavourites($model, Favourites::BLOCK_VIDEO)) echo ' active'; ?>" href="#"
                onclick="Favourites.toggle(this, 5);return false;" title="Поместить в Видео Дня">В</a>
@@ -44,6 +47,9 @@
             <a class="tooltip lilac add-to-favourites<?php if (Favourites::inFavourites($model, Favourites::BLOCK_VIDEO)) echo ' active'; ?>" href="#"
                onclick="Favourites.toggle(this, 5);return false;" title="Поместить в Видео Дня">В</a>
         <?php endif; ?>
+
+        <a class="tooltip green add-to-favourites<?php if (Favourites::inFavourites($model, Favourites::BLOCK_SOCIAL_NETWORKS)) echo ' active'; ?>" href="#"
+           onclick="Favourites.toggle(this, 7);return false;" title="Поместить в Соц Сети">S</a>
 
     <a class="tooltip mailer add-to-favourites<?php if (Favourites::inFavourites($model, Favourites::WEEKLY_MAIL)) echo ' active'; ?>" href="#"
        onclick="Favourites.toggle(this, <?=Favourites::WEEKLY_MAIL ?>);return false;" title="Поместить в рассылку">Р</a>

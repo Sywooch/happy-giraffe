@@ -86,8 +86,8 @@ class Baby extends HActiveRecord
         $date2 = new DateTime(date('Y-m-d'));
         $interval = $date1->diff($date2);
 
-        $years_text = ($bold?$interval->y:$interval->y.' ').HDate::GenerateNoun(array('год', 'года', 'лет'), $interval->y);
-        $month_text = ($bold?$interval->m:$interval->m.' ').HDate::GenerateNoun(array('месяц', 'месяца', 'месяцев'), $interval->m);
+        $years_text = ($bold?$interval->y.' ':$interval->y.' ').HDate::GenerateNoun(array('год', 'года', 'лет'), $interval->y);
+        $month_text = ($bold?$interval->m.' ':$interval->m.' ').HDate::GenerateNoun(array('месяц', 'месяца', 'месяцев'), $interval->m);
         if ($interval->y == 0)
             return $month_text;
         if ($interval->y <= 3)

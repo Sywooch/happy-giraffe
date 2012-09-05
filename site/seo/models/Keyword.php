@@ -262,7 +262,8 @@ class Keyword extends HActiveRecord
         return 4;
     }
 
-    public function getFrequency(){
+    public function getFrequency()
+    {
         if (isset($this->yandex))
             return $this->yandex->value;
         return '';
@@ -274,12 +275,12 @@ class Keyword extends HActiveRecord
             return '';
 
         if ($this->yandex->value > 1000)
-            return round($this->yandex->value/1000,1);
+            return round($this->yandex->value / 1000, 1);
 
         if ($this->yandex->value > 100)
-            return round($this->yandex->value/1000,2);
+            return round($this->yandex->value / 1000, 2);
 
-        return round($this->yandex->value/1000,3);
+        return round($this->yandex->value / 1000, 3);
     }
 
     /**
@@ -387,17 +388,28 @@ class Keyword extends HActiveRecord
             ));
         }
 
-        $models = $this->getSimilarArticles();
-        if (!empty($models)) {
-            $res .= '<a href="javascript:;" class="icon-links-trigger" onclick="$(this).toggleClass(\'triggered\').next().toggle();"></a><div class="links" style="display:none;">';
-            foreach ($models as $model){
-                $res .= CHtml::link($model->title, 'http://www.happy-giraffe.ru' . $model->url, array('target' => '_blank')).'  ';
-                $res .= CHtml::link('', 'javascript:;', array(
-                    'onclick' => 'SeoModule.bindKeywordToArticle('.$this->id.', '.$model->id.', this);',
-                    'class'=>'icon-link'
-                )) . '<br>';
+        $res .= $this->getSimilarArticlesHtml();
+        return $res;
+    }
+
+    public function getSimilarArticlesHtml()
+    {
+        $res = Yii::app()->cache->get('similar_articles_' . $this->name);
+        if ($res === false) {
+            $models = $this->getSimilarArticles();
+            if (!empty($models)) {
+                $res .= '<a href="javascript:;" class="icon-links-trigger" onclick="$(this).toggleClass(\'triggered\').next().toggle();"></a><div class="links" style="display:none;">';
+                foreach ($models as $model) {
+                    $res .= CHtml::link($model->title, 'http://www.happy-giraffe.ru' . $model->url, array('target' => '_blank')) . '  ';
+                    $res .= CHtml::link('', 'javascript:;', array(
+                        'onclick' => 'SeoModule.bindKeywordToArticle(' . $this->id . ', ' . $model->id . ', this);',
+                        'class' => 'icon-link'
+                    )) . '<br>';
+                }
+                $res .= '</div>';
             }
-            $res .= '</div>';
+
+            Yii::app()->cache->set('similar_articles_' . $this->name, $res);
         }
 
         return $res;

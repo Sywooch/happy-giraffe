@@ -72,7 +72,7 @@ Album.savePhoto = function (button) {
 Album.removePhoto = function (button, data) {
     $('#album_photo_' + data['Removed[entity_id]']).remove();
     if (!this.editMode) {
-        $.fn.yiiListView.update('photosList');
+        $('#photosList').length == 0 ? $('*:data(id=' + data['Removed[entity_id]'] + ')').parents('li').remove() : $.fn.yiiListView.update('photosList');
     }
 };
 

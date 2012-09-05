@@ -24,6 +24,13 @@
     </div>
 
     <div class="row">
+        <?php echo $form->labelEx($model, 'category_id'); ?>
+        <?php echo $form->dropDownList($model, 'category_id',
+        CHtml::listData(ServiceCategory::model()->findAll(), 'id', 'title')); ?>
+        <?php echo $form->error($model, 'category_id'); ?>
+    </div>
+
+    <div class="row">
         <?php echo $form->labelEx($model,'url'); ?>
         <?php echo $form->textField($model,'url',array('size'=>60,'maxlength'=>255)); ?>
         <?php echo $form->error($model,'url'); ?>

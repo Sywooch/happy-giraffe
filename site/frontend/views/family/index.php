@@ -312,7 +312,7 @@
                     </div>
                 </div>
 
-                <div class="data clearfix">
+                <!--<div class="data clearfix">
                     Пол и дата рождения ребенка:
                     <a href="javascript:void(0);" class="gender male active"><span class="tip">Мальчик</span></a>
                     <a href="javascript:void(0);" class="gender female"><span class="tip">Девочка</span></a>
@@ -321,7 +321,7 @@
                     </div>
                 </div>
 
-                <p><a href="" class="couple"></a> Нажмите "+" если двойня</p>
+                <p><a href="" class="couple"></a> Нажмите "+" если двойня</p>-->
             </div>
 
             <?php for ($i = $user->babyCount(); $i < 10; $i++): ?>

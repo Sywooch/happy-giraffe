@@ -8,7 +8,7 @@ Comet.prototype.CommentatorPanelUpdate = function (result, id) {
 }
 
 var CommentatorPanel = {
-    blocks:['blog', 'club', 'comments', 'posts', 'additionalPosts'],
+    blocks:['blog', 'club', 'comments'],
     timer:null,
     update:function (block) {
         CommentatorPanel.updateByName(CommentatorPanel.blocks[block]);

@@ -16,6 +16,7 @@
  * @property string $meta_description
  * @property integer $by_happy_giraffe
  * @property string $uniqueness
+ * @property string $full
  *
  * The followings are the available model relations:
  *

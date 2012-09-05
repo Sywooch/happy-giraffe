@@ -44,6 +44,7 @@ var Family = {
                         $('#user-partner .d-text:eq(0) span').text(Family.partnerOf[status_id][0]);
                         $('#user-partner .d-text:eq(1) span').text(Family.partnerOf[status_id][1]);
                         $('#user-partner .d-text:eq(2) span').text(Family.partnerOf[status_id][0]);
+                        $('#user-partner span.partner-title').text(Family.partnerOf[status_id][4]);
                         $('#user-partner').show();
                     }
 

@@ -69,8 +69,8 @@ Messages.close = function() {
     $('#body-overlay').remove();
     $('body').removeClass('nav-fixed');
     $('#user-nav-messages').removeClass('active');
-    if (Messages.editor)
-        Messages.editor.destroy(true);
+    //if (Messages.editor)
+    //    Messages.editor.destroy(true);
     comet.delEvent(3, 'updateStatus');
     comet.delEvent(1, 'receiveMessage');
     comet.delEvent(21, 'updateReadStatuses');

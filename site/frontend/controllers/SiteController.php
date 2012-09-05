@@ -21,6 +21,19 @@ class SiteController extends HController
 		);
 	}
 
+    public function actionServices($category_id = null)
+    {
+        $categories = ServiceCategory::model()->with('servicesCount')->findAll();
+
+        $criteria = new CDbCriteria;
+        $criteria->compare('t.id', $category_id);
+
+        $services = ServiceCategory::model()->with('services')->findAll($criteria);
+
+        $this->pageTitle = 'Полезные сервисы для всей семьи';
+        $this->render('services', compact('categories', 'services', 'category_id'));
+    }
+
     public function actionSeoHide($hash)
     {
         header('Content-type: text/javascript');

@@ -5,7 +5,7 @@ class CommentatorWork extends EMongoDocument
     const BLOG_POSTS_COUNT = 1;
     const CLUB_POSTS_COUNT = 2;
     const COMMENTS_COUNT = 100;
-    const MAX_SKIPS = 100000;
+    const MAX_SKIPS = 100;
 
     public $user_id;
     public $clubs = array();
@@ -126,8 +126,6 @@ class CommentatorWork extends EMongoDocument
         $month->workingDays [] = date("Y-m-d");
         $month->save();
 
-        $this->skipUrls = array();
-
         return $this->save();
     }
 
@@ -178,7 +176,7 @@ class CommentatorWork extends EMongoDocument
      */
     public function getNextPostForComment()
     {
-        $list = PostForCommentator::getNextPost($this->skipUrls);
+        $list = PostForCommentator::getNextPost($this->user_id, $this->skipUrls);
         if ($list === false) {
             return false;
         }
@@ -192,12 +190,9 @@ class CommentatorWork extends EMongoDocument
         if (empty($this->skipUrls))
             $this->skipUrls = array(array($this->comment_entity, $this->comment_entity_id));
         elseif (!empty($this->comment_entity) && !empty($this->comment_entity_id)) {
-            $exist = false;
-            foreach ($this->skipUrls as $skip_url)
-                if ($skip_url[0] == $this->comment_entity && $skip_url[1] == $this->comment_entity_id)
-                    $exist = true;
-            if (!$exist)
-                $this->skipUrls[] = array($this->comment_entity, $this->comment_entity_id);
+            if ($this->comment_entity == 'BlogContent')
+                $this->comment_entity = 'CommunityContent';
+            $this->skipUrls[] = array($this->comment_entity, $this->comment_entity_id);
         }
     }
 

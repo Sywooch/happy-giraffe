@@ -1,7 +1,7 @@
 <li>
     <div class="img">
         <a href="javascript:void(0)" data-id="<?=$data->id?>">
-            <?=CHtml::image($data->getPreviewUrl(210, null, Image::WIDTH))?>
+            <?=CHtml::image('http://happy-giraffe.dev/images/banner_02.png')?>
             <span class="btn">Посмотреть</span>
         </a>
         <?php if (Yii::app()->user->id == $this->user->id): ?>

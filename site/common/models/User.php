@@ -1067,29 +1067,8 @@ class User extends HActiveRecord
             ->queryColumn();
     }
 
-    public function getPhotoCollection()
+    public function getSystemAlbum($type)
     {
-        $photos = array();
-
-        $partnerAttaches = $this->partner->photos;
-        foreach ($partnerAttaches as $i => $a) {
-            $photo = $a->photo;
-            $photo->w_title = $this->getPartnerTitleOf(null, 2) . ' - фото ' . ($i + 1);
-            $photos[] = $photo;
-        }
-
-        foreach ($this->babies as $b) {
-            foreach ($b->photos as $i => $a) {
-                $photo = $a->photo;
-                $babyTitle = ($b->name) ? $b->name : ($b->sex == 1) ? 'Мой сын' : 'Моя дочь';
-                $photo->w_title = $babyTitle . ' - фото ' . ($i + 1);
-                $photos[] = $photo;
-            }
-        }
-
-        return array(
-            'title' => 'Семейный альбом пользователя ' . CHtml::link($this->fullName, $this->url),
-            'photos' => $photos,
-        );
+        return Album::model()->find('type = :type AND author_id = :user_id', array(':type' => $type, ':user_id' => $this->id));
     }
 }

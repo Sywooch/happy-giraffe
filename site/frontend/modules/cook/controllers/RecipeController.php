@@ -60,9 +60,7 @@ class RecipeController extends HController
             $recipe = new $this->modelName;
             $ingredients = array();
         } else {
-            //убрал так как появились рецепты без ингридиентов
-//            $recipe = CActiveRecord::model($this->modelName)->with('ingredients.unit', 'ingredients.ingredient.availableUnits')->findByPk($id);
-            $recipe = CActiveRecord::model($this->modelName)->with('ingredients')->findByPk($id);
+            $recipe = CActiveRecord::model($this->modelName)->with('ingredients.unit', 'ingredients.ingredient.availableUnits')->findByPk($id);
             if ($recipe === null)
                 throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
@@ -277,13 +275,14 @@ class RecipeController extends HController
     public function getContentUrls()
     {
         $models = Yii::app()->db->createCommand()
-            ->select('id, created, updated')
+            ->select('id, section, created, updated')
             ->from('cook__recipes')
             ->queryAll();
         foreach ($models as $model) {
             $data[] = array(
                 'params' => array(
                     'id' => $model['id'],
+                    'section' => $model['section'],
                 ),
                 'priority' => 0.5,
                 'changefreq' => 'daily',

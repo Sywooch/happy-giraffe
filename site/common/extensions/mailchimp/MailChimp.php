@@ -6,10 +6,11 @@
 class MailChimp extends CApplicationComponent
 {
     const WEEKLY_NEWS_LIST_ID = 'd8ced52317';
+    const WEEKLY_NEWS_TEST_LIST_ID = 'ee63e4d551';
 
     public $apiKey;
     public $list;
-    protected $_api;
+    public $_api;
 
     /**
      * @return MCAPI

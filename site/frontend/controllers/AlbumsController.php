@@ -22,7 +22,7 @@ class AlbumsController extends HController
         return array(
             'accessControl',
             'ajaxOnly + attachView, editDescription, editPhotoTitle, changeTitle, changePermission,
-                removeUploadPhoto, communityContentEdit, communityContentSave, recipePhoto, cookDecorationPhoto,
+                removeUploadPhoto, communityContentEdit, communityContentSave, partnerPhoto, recipePhoto, cookDecorationPhoto,
                 cookDecorationCategory, commentPhoto, crop, changeAvatar, wPhoto',
         );
     }
@@ -331,6 +331,41 @@ class AlbumsController extends HController
                 $attach->photo_id = $model->primaryKey;
                 $attach->save();
             }
+            $response = array(
+                'status' => true,
+                'src' => $model->getPreviewUrl(325, 252),
+                'id' => $model->primaryKey,
+                'title' => $model->title,
+            );
+        }
+        echo CJSON::encode($response);
+        Yii::app()->end();
+    }
+
+    public function actionPartnerPhoto()
+    {
+        $val = Yii::app()->request->getPost('val');
+        if (is_numeric($val)) {
+            AlbumPhoto::model()->findByPk($val);
+        } else {
+            $model = new AlbumPhoto;
+            $model->file_name = $val;
+            $model->author_id = Yii::app()->user->id;
+            $model->create(true);
+        }
+
+
+        if ($model === null) {
+            $response = array(
+                'status' => false,
+            );
+        } else {
+            $attach = new AttachPhoto;
+            $attach->entity = Yii::app()->request->getPost('entity');
+            $attach->entity_id = Yii::app()->request->getPost('entity_id');
+            $attach->photo_id = $model->primaryKey;
+            $attach->save();
+
             $response = array(
                 'status' => true,
                 'src' => $model->getPreviewUrl(325, 252),

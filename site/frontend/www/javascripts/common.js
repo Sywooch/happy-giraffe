@@ -4,6 +4,14 @@ function declOfNum(number, titles)
     return titles[ (number%100>4 && number%100<20)? 2 : cases[(number%10<5)?number%10:5] ];
 }
 
+String.prototype.ucFirst = function() {
+    var str = this;
+    if(str.length) {
+        str = str.charAt(0).toUpperCase() + str.slice(1);
+    }
+    return str;
+};
+
 function removeA(arr){
     var what, a= arguments, L= a.length, ax;
     while(L> 1 && arr.length){

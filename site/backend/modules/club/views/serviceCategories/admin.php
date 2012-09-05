@@ -1,4 +1,4 @@
-<h1>Сервисы</h1>
+<h1>Категории сервисов</h1>
 
 <?=CHtml::link('Cоздать', array('create'))?>
 
@@ -9,18 +9,6 @@
     'columns'=>array(
         'id',
         'title',
-        'description',
-        'url',
-        array(
-            'name' => 'photo_id',
-            'value' => '$data->getImage()',
-            'type' => 'raw'
-        ),
-        array(
-            'name' => 'category_id',
-            'value' => '$data->category->title',
-            'type' => 'raw'
-        ),
         array(
             'class' => 'CButtonColumn',
             'template' => '{update}{delete}'

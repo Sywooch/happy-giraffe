@@ -153,6 +153,16 @@
                 'url' => array('/club/services'),
                 'active' => (Yii::app()->controller->uniqueId == 'club/services'),
                 'visible' => Yii::app()->user->checkAccess('services'),
+                'items' => array(
+                    array(
+                        'label' => 'Сервисы',
+                        'url' => array('/club/services'),
+                    ),
+                    array(
+                        'label' => 'Категории сервисов',
+                        'url' => array('/club/serviceCategories'),
+                    ),
+                ),
             ),
         ),
     ));?>

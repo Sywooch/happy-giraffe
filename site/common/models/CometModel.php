@@ -21,6 +21,7 @@ class CometModel extends CComponent
     const UPDATE_COMMENTS = 2;
     const UPDATE_POSTS = 3;
     const UPDATE_ADDITIONAL_POSTS = 4;
+    const UPDATE_COMMENTS_COUNT = 5;
 
     //user notifications
     const TYPE_UPDATE_NOTIFICATIONS = 100;

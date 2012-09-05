@@ -73,7 +73,7 @@ class CommentatorsMonthStats extends EMongoDocument
             if ($model !== null) {
                 $result = array(
                     self::NEW_FRIENDS => (int)$model->newFriends($this->period),
-                    self::BLOG_VISITS => (int)$model->blogVisits($this->period,$cache),
+                    self::BLOG_VISITS => (int)$model->blogVisits($this->period, $cache),
                     self::PROFILE_UNIQUE_VIEWS => (int)$model->profileUniqueViews($this->period, $cache),
                     self::IM_MESSAGES => (int)$model->imMessages($this->period),
                     self::SE_VISITS => (int)$model->seVisits($this->period, $cache),
@@ -106,28 +106,36 @@ class CommentatorsMonthStats extends EMongoDocument
         arsort($arr);
         $i = 1;
         foreach ($arr as $_user_id => $data) {
-            if ($_user_id == $user_id || $data == $arr[$user_id])
+            if ($_user_id == $user_id || $data == $arr[$user_id]) {
+                if ($data == 0)
+                    return 0;
                 return $i;
+            }
             $i++;
         }
 
-        return null;
+        return 0;
     }
 
     public function getPlaceView($user_id, $counter)
     {
         $place = $this->getPlace($user_id, $counter);
-        if ($place < 4)
+        if ($place == 0) {
+            return '<span class="place"></span>';
+        } elseif ($place < 4)
             return '<span class="place place-' . $place . '">' . $place . ' место</span>';
         return '<span class="place">' . $place . ' место</span>';
     }
 
     public function getStatValue($user_id, $counter)
     {
+        if (!isset($this->commentators[$user_id]))
+            return 0;
+
         foreach ($this->commentators as $_user_id => $data)
-            if ($_user_id == $user_id )
+            if ($_user_id == $user_id)
                 return $data[$counter];
-        return  0;
+        return 0;
     }
 
     public static function getMonths()

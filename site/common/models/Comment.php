@@ -183,19 +183,27 @@ class Comment extends HActiveRecord
             UserAction::model()->add($this->author_id, UserAction::USER_ACTION_COMMENT_ADDED, array('model' => $this));
 
             //send signals to commentator panel
-            if (Yii::app()->user->checkAccess('commentator_panel')) {
+            if (Yii::app()->user->checkAccess('commentator_panel') && strlen(trim(strip_tags($this->text))) >= 80) {
                 Yii::import('site.frontend.modules.signal.components.*');
                 Yii::import('site.frontend.modules.signal.models.*');
                 $commentator = CommentatorWork::getCurrentUser();
                 $entity =  ($this->entity == 'BlogContent')?'CommunityContent':$this->entity;
                 $_entity =  ($commentator->comment_entity == 'BlogContent')?'CommunityContent':$commentator->comment_entity;
+                $model = CActiveRecord::model($this->entity)->findByPk($this->entity_id);
 
-                if ($_entity == $entity && $commentator->comment_entity_id == $this->entity_id || !empty($this->response_id)){
-                    $commentator->incCommentsCount();
+                if ($_entity == $entity && $commentator->comment_entity_id == $this->entity_id){
+                    $commentator->incCommentsCount(true);
                     $comet = new CometModel;
                     $comet->send(Yii::app()->user->id, array(
                         'update_part' => CometModel::UPDATE_COMMENTS,
-                        'link' => $this->getLink(),
+                        'entity_id' => $this->entity_id,
+                        'entity' => $this->entity
+                    ), CometModel::TYPE_COMMENTATOR_UPDATE);
+                }elseif (!empty($this->response_id) || $model->author_id == $this->author_id){
+                    $commentator->incCommentsCount(false);
+                    $comet = new CometModel;
+                    $comet->send(Yii::app()->user->id, array(
+                        'update_part' => CometModel::UPDATE_COMMENTS,
                         'entity_id' => $this->entity_id,
                         'entity' => $this->entity
                     ), CometModel::TYPE_COMMENTATOR_UPDATE);

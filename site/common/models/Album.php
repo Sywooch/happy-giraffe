@@ -114,10 +114,10 @@ class Album extends HActiveRecord
                 'condition' => $this->tableAlias . '.removed = 0',
             ),
             'noSystem' => array(
-                'condition' => $this->tableAlias . '.type = 0 or ' . $this->tableAlias . '.type = 1',
+                'condition' => $this->tableAlias . '.type = 0 or ' . $this->tableAlias . '.type = 1 or ' . $this->tableAlias . '.type = 3',
             ),
             'system' => array(
-                'condition' => $this->tableAlias . '.type != 0 and ' . $this->tableAlias . '.type != 1',
+                'condition' => $this->tableAlias . '.type != 0 and ' . $this->tableAlias . '.type != 1 and ' . $this->tableAlias . '.type != 3',
             ),
             'permission' => /*$permission->toArray()*/array(),
         );

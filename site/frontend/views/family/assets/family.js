@@ -5,6 +5,18 @@ var Family = {
     baby_count:null,
     tmp:null,
     future_baby_type:null,
+    relationshipStatus: null,
+
+    changeStatus: function() {
+        $('.relationship-choice').show();
+        $('.relationship-status').hide();
+    },
+
+    changeBabies: function() {
+        $('.baby-choice').show();
+        $('.baby-status').hide();
+        $('.baby-notice').show();
+    },
 
     setStatusRadio:function (el, status_id) {
         $.ajax({
@@ -17,17 +29,25 @@ var Family = {
             },
             type:'POST',
             success:function (response) {
+                Family.relationshipStatus = status_id;
                 if (response == '1') {
                     $(el).parents('.radiogroup').find('.radio-label').removeClass('checked');
                     $(el).addClass('checked').find('input').attr('checked', 'checked');
 
+                    $('.relationship-choice').hide();
+                    $('.relationship-status .title').text($(el).text());
+                    $('.relationship-status').show();
+
                     if (status_id == 2) {
                         $('#user-partner').hide();
                     } else {
-                        $('#user-partner .d-text span').text(Family.partnerOf[status_id]);
+                        $('#user-partner .d-text:eq(0) span').text(Family.partnerOf[status_id][0]);
+                        $('#user-partner .d-text:eq(1) span').text(Family.partnerOf[status_id][1]);
+                        $('#user-partner .d-text:eq(2) span').text(Family.partnerOf[status_id][0]);
                         $('#user-partner').show();
                     }
 
+                    Family.masonryInit();
                     Family.updateWidget();
                 }
             },
@@ -64,12 +84,31 @@ var Family = {
         });
     },
     editDate:function (el) {
-        $(el).next().show();
+        $('.datepicker').show();
+        $('.dateshower').hide();
     },
     editPartnerNotice:function (el) {
-        $('#user-partner div.comment').show();
         $('#user-partner div.comment div.text').hide();
         $('#user-partner div.comment div.input').show();
+    },
+    delPartnerNotice: function (el) {
+        $.ajax({
+            url:'/ajax/setValue/',
+            data:{
+                entity:'UserPartner',
+                entity_id:this.partner_id,
+                attribute:'notice',
+                value:''
+            },
+            type:'POST',
+            success:function (response) {
+                $('#user-partner div.comment div.input textarea').val('');
+                $('#user-partner div.comment div.text').hide();
+                $('#user-partner div.comment div.input').show();
+                Family.updateWidget();
+            },
+            context:el
+        });
     },
     savePartnerNotice:function (el) {
         var notice = $(el).prev().val();
@@ -126,8 +165,9 @@ var Family = {
                     context:el
                 });
             }
-            else
+            else {
                 this.showTypeTitle(el, type);
+            }
         }
     },
     showTypeTitle:function (el, type) {
@@ -136,9 +176,9 @@ var Family = {
 
         Family.future_baby_type = type;
         if (type == 1)
-            $('#future-baby div.d-text').html('Кого ждем:');
+            $('#future-baby .member-title').html('<i class="icon-waiting"></i> Ждем еще');
         else
-            $('#future-baby div.d-text').html('Кого планируем:');
+            $('#future-baby .member-title').html('Планируем еще');
     },
     setBaby:function (el, num) {
         if ($(el).hasClass('checked')) {
@@ -264,7 +304,9 @@ var Family = {
                 context:el
             });
     },
-    saveBabyDate:function (el) {
+    saveBabyDate:function (el, date) {
+        date = (typeof date === "undefined") ? false : date;
+
         var d = $(el).parent().find('select.date').val();
         var m = $(el).parent().find('select.month').val();
         var y = $(el).parent().find('select.year').val();
@@ -282,8 +324,9 @@ var Family = {
             dataType:'JSON',
             success:function (response) {
                 if (response.status) {
-                    $(el).parent().hide();
-                    $(el).parents('div.date').prev().html(response.age).show();
+                    $('.datepicker').hide();
+                    $('.dateshower').show();
+                    $('.dateshower span.age').text(date ? response.birthday : response.age);
                     Family.updateWidget();
                 }
             },
@@ -295,6 +338,28 @@ var Family = {
         bl.find('div.comment').show();
         bl.find('div.comment div.text').hide();
         bl.find('div.comment div.input').show();
+    },
+    delBabyNotice:function (el) {
+        $.ajax({
+            url:'/ajax/setValue/',
+            data:{
+                entity:'Baby',
+                entity_id:this.getBabyId(el),
+                attribute:'notice',
+                value:''
+            },
+            type:'POST',
+            success:function (response) {
+                if (response == '1') {
+                    var bl = $(el).parents('div.family-member');
+                    bl.find('div.comment div.input textarea').val('');
+                    bl.find('div.comment div.text').hide();
+                    bl.find('div.comment div.input').show();
+                    Family.updateWidget();
+                }
+            },
+            context:el
+        });
     },
     saveBabyNotice:function (el) {
         var notice = $(el).prev().val();
@@ -359,6 +424,10 @@ var Family = {
                 context:el
             });
     },
+    addBabyRadio:function(el) {
+        var n = $(el).siblings().length - 1;
+        $(el).before($('#babyRadioTmpl').tmpl({n: n}));
+    },
     addBaby:function (el, name) {
         $.ajax({
             url:'/family/addBaby/',
@@ -375,7 +444,7 @@ var Family = {
                     $(el).parents('div.family-member').find('input.baby-id').val(response.id);
                     $(el).parents('div.family-member').find('input.baby_id_2').val(response.id);
 
-                    Family.updateWidget();
+                    window.location.reload();
                 }
             },
             context:el
@@ -430,10 +499,26 @@ var Family = {
 
         block.find('div.photos').show();
         Family.updateWidget();
+    },
+    masonryInit:function () {
+        var $container = $('.gallery-photos-new ul');
+
+        $container.imagesLoaded( function(){
+
+            $container.masonry({
+                itemSelector : 'li',
+                columnWidth: 240,
+                isAnimated: false,
+                animationOptions: { queue: false, duration: 500 }
+            });
+
+        });
     }
 }
 
 $(function () {
+    Family.masonryInit();
+
     $('#addPhoto1, #partner_photo_upload2, #partner_photo_upload1').iframePostForm({
         json:true,
         complete:function (response) {

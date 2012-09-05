@@ -72,7 +72,9 @@
 
         </ul>
 
-        <?=CHtml::link('Смотреть семейный<br/>альбом', $user->getSystemAlbum(3)->url, array('class' => 'watch-album'))?>
+        <?php if ($album = $user->getSystemAlbum(3)): ?>
+            <?=CHtml::link('Смотреть семейный<br/>альбом', $album->url, array('class' => 'watch-album'))?>
+        <?php endif; ?>
     </div>
     <div class="b"></div>
 </div>

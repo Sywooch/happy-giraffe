@@ -32,18 +32,7 @@ class DefaultController extends HController
 
     public function getSitemapUrls()
     {
-        $data = array(
-            array(
-                'params' => array(
-                    'calendar' => 0,
-                ),
-            ),
-            array(
-                'params' => array(
-                    'calendar' => 1,
-                ),
-            ),
-        );
+        $data = array();
 
         $models = Yii::app()->db->createCommand()
             ->select('calendar, slug')

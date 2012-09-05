@@ -44,6 +44,7 @@ var Family = {
                         $('#user-partner .d-text:eq(0) span').text(Family.partnerOf[status_id][0]);
                         $('#user-partner .d-text:eq(1) span').text(Family.partnerOf[status_id][1]);
                         $('#user-partner .d-text:eq(2) span').text(Family.partnerOf[status_id][0]);
+                        $('#user-partner span.partner-title').text(Family.partnerOf[status_id][4]);
                         $('#user-partner').show();
                     }
 
@@ -171,7 +172,7 @@ var Family = {
         }
     },
     showTypeTitle:function (el, type) {
-        $(el).parents('.radiogroup').find('.radio-label').removeClass('checked');
+        $(el).parents('.radiogroup').find('.radio-label:has(input[name="radio-2"])').removeClass('checked');
         $(el).addClass('checked').find('input').attr('checked', 'checked');
 
         Family.future_baby_type = type;
@@ -267,7 +268,7 @@ var Family = {
         $('#baby-' + i + ' .gender').removeClass('active');
     },
     refreshBabyRadio:function (el) {
-        $(el).parents('.radiogroup').find('.radio-label').removeClass('checked');
+        $(el).parents('.radiogroup').find('.radio-label:has(input[name="radio-3"])').removeClass('checked');
         $(el).addClass('checked').find('input').attr('checked', 'checked');
     },
     editBabyName:function (el) {

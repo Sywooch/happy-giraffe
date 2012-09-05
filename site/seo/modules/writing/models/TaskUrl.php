@@ -1,22 +1,22 @@
 <?php
 
 /**
- * This is the model class for table "temp_keywords".
+ * This is the model class for table "task_urls".
  *
- * The followings are the available columns in table 'temp_keywords':
- * @property integer $keyword_id
- * @property string $owner_id
+ * The followings are the available columns in table 'task_urls':
+ * @property integer $id
+ * @property string $task_id
+ * @property string $url
  *
  * The followings are the available model relations:
- * @property Keyword $keyword
- * @property SeoUser $owner
+ * @property SeoTask $task
  */
-class TempKeyword extends CActiveRecord
+class TaskUrl extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return TempKeyword the static model class
+	 * @return TaskUrl the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -28,7 +28,7 @@ class TempKeyword extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'happy_giraffe_seo.temp_keywords';
+		return 'happy_giraffe_seo.rewrite_urls';
 	}
 
     public function getDbConnection()
@@ -44,12 +44,12 @@ class TempKeyword extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('keyword_id, owner_id', 'required'),
-			array('keyword_id', 'numerical', 'integerOnly'=>true),
-			array('owner_id', 'length', 'max'=>10),
+			array('task_id, url', 'required'),
+			array('task_id', 'length', 'max'=>10),
+			array('url', 'length', 'max'=>1024),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('keyword_id, owner_id', 'safe', 'on'=>'search'),
+			array('id, task_id, url', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -61,8 +61,7 @@ class TempKeyword extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'keyword' => array(self::BELONGS_TO, 'Keyword', 'keyword_id'),
-			'owner' => array(self::BELONGS_TO, 'SeoUser', 'owner_id'),
+			'task' => array(self::BELONGS_TO, 'SeoTask', 'task_id'),
 		);
 	}
 
@@ -72,8 +71,9 @@ class TempKeyword extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'keyword_id' => 'Keyword',
-			'owner_id' => 'Owner',
+			'id' => 'ID',
+			'task_id' => 'Task',
+			'url' => 'Url',
 		);
 	}
 
@@ -88,27 +88,12 @@ class TempKeyword extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('keyword_id',$this->keyword_id);
-		$criteria->compare('owner_id',$this->owner_id,true);
+		$criteria->compare('id',$this->id);
+		$criteria->compare('task_id',$this->task_id,true);
+		$criteria->compare('url',$this->url,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
 	}
-
-    public static function filterBusyKeywords()
-    {
-        $tempKeywords = TempKeyword::model()->findAll('owner_id=' . Yii::app()->user->id);
-        foreach ($tempKeywords as $tempKeyword) {
-            if (!empty($tempKeyword->keyword->group)) {
-                $success = false;
-                foreach ($tempKeyword->keyword->group as $group)
-                    if (empty($group->seoTasks) && empty($group->page))
-                        $success = $group->delete();
-
-                if (!$success)
-                    $tempKeyword->delete();
-            }
-        }
-    }
 }

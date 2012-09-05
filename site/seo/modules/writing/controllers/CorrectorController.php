@@ -16,7 +16,7 @@ class CorrectorController extends SController
         return true;
     }
 
-    public function actionCorrector()
+    public function actionIndex()
     {
         $tasks = SeoTask::getTasks();
         $executing = SeoTask::getActiveTask();
@@ -24,7 +24,7 @@ class CorrectorController extends SController
         $this->render('_corrector', compact('tasks', 'executing'));
     }
 
-    public function actionCorrectorReports()
+    public function actionReports()
     {
         $tasks = SeoTask::TodayExecutedTasks();
         $this->render('_corrector_reports', compact('tasks'));

@@ -65,18 +65,7 @@ class EditorController extends SController
 
     public function actionTasks()
     {
-        $tempKeywords = TempKeyword::model()->findAll('owner_id=' . Yii::app()->user->id);
-        foreach ($tempKeywords as $tempKeyword) {
-            if (!empty($tempKeyword->keyword->group)) {
-                $success = false;
-                foreach ($tempKeyword->keyword->group as $group)
-                    if (empty($group->seoTasks) && empty($group->page))
-                        $success = $group->delete();
-
-                if (!$success)
-                    $tempKeyword->delete();
-            }
-        }
+        TempKeyword::filterBusyKeywords();
         $tempKeywords = TempKeyword::model()->findAll('owner_id=' . Yii::app()->user->id);
 
         $criteria = new CDbCriteria;
@@ -121,13 +110,6 @@ class EditorController extends SController
             echo CJSON::encode(array('status' => $temp->save()));
         } else
             echo CJSON::encode(array('status' => false));
-    }
-
-    public function actionCancelSelectKeyword()
-    {
-        $key_id = Yii::app()->request->getPost('id');
-        TempKeyword::model()->deleteByPk($key_id);
-        echo CJSON::encode(array('status' => true));
     }
 
     public function actionHideKey()
@@ -183,7 +165,7 @@ class EditorController extends SController
             if ($task->save()) {
                 if (!empty($urls)) {
                     foreach ($urls as $url) {
-                        $r_url = new RewriteUrl();
+                        $r_url = new TaskUrl();
                         $r_url->task_id = $task->id;
                         $r_url->url = $url;
                         $r_url->save();
@@ -242,6 +224,7 @@ class EditorController extends SController
         $criteria = new CDbCriteria;
         $criteria->compare('owner_id', Yii::app()->user->id);
         $criteria->compare('status >', SeoTask::STATUS_NEW);
+        $criteria->compare('section', SeoTask::SECTION_MAIN);
         $criteria->order = 'created desc';
         $tasks = SeoTask::model()->findAll($criteria);
 

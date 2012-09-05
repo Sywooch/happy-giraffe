@@ -9,29 +9,21 @@ class ContentController extends SController
 
     public function beforeAction($action)
     {
-        if (!Yii::app()->user->checkAccess('corrector'))
-            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
-
-        $this->pageTitle = 'корректор';
-        return true;
-    }
-
-    public function actionContentManager()
-    {
         if (!Yii::app()->user->checkAccess('content-manager'))
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
         $this->pageTitle = 'контент-менеджер';
+        return true;
+    }
+
+    public function actionIndex()
+    {
         $tasks = SeoTask::getTasks();
         $this->render('_cm', compact('tasks'));
     }
 
-    public function actionContentManagerReports()
+    public function actionReports()
     {
-        if (!Yii::app()->user->checkAccess('content-manager'))
-            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
-
-        $this->pageTitle = 'контент-менеджер';
         $tasks = SeoTask::TodayExecutedTasks();
         $this->render('_cm_reports', compact('tasks'));
     }

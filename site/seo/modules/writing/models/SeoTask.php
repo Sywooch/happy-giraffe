@@ -14,12 +14,14 @@
  * @property integer $status
  * @property string $created
  * @property string $rewrite
+ * @property int $section
+ * @property bool $multivarka
  *
  * The followings are the available model relations:
  * @property SeoUser $owner
  * @property KeywordGroup $keywordGroup
  * @property SeoUser $executor
- * @property RewriteUrl[] $rewriteUrls
+ * @property TaskUrl[] $urls
  */
 class SeoTask extends CActiveRecord
 {
@@ -35,6 +37,9 @@ class SeoTask extends CActiveRecord
 
     const TYPE_MODER = 1;
     const TYPE_EDITOR = 2;
+
+    const SECTION_MAIN = 1;
+    const SECTION_COOK = 2;
 
     /**
      * Returns the static model of the specified AR class.
@@ -65,7 +70,7 @@ class SeoTask extends CActiveRecord
         // will receive user inputs.
         return array(
             array('keyword_group_id', 'required'),
-            array('type, status', 'numerical', 'integerOnly' => true),
+            array('type, status, section, multivarka', 'numerical', 'integerOnly' => true),
             array('keyword_group_id, executor_id', 'length', 'max' => 10),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
@@ -81,7 +86,7 @@ class SeoTask extends CActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'rewriteUrls' => array(self::HAS_MANY, 'RewriteUrl', 'task_id'),
+            'urls' => array(self::HAS_MANY, 'TaskUrl', 'task_id'),
             'keywordGroup' => array(self::BELONGS_TO, 'KeywordGroup', 'keyword_group_id'),
             'owner' => array(self::BELONGS_TO, 'SeoUser', 'owner_id'),
             'executor' => array(self::BELONGS_TO, 'SeoUser', 'executor_id'),

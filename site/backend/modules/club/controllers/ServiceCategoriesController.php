@@ -11,7 +11,7 @@ class ServiceCategoriesController extends BController
     public $defaultAction = 'admin';
     public $section = 'club';
     public $layout = '//layouts/club';
-    public $_class = 'Service';
+    public $_class = 'ServiceCategory';
     public $authItem = 'services';
 
     public function actions()

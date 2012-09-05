@@ -128,7 +128,7 @@ class Keyword extends HActiveRecord
                 ->searchRaw();
             $ids = array();
 
-            $blacklist = Yii::app()->db->createCommand('select keyword_id from ' . KeywordBlacklist::model()->tableName())->queryColumn();
+            $blacklist = Yii::app()->db_seo->createCommand('select keyword_id from ' . KeywordBlacklist::model()->tableName())->queryColumn();
             foreach ($allSearch['matches'] as $key => $m) {
                 if (!in_array($key, $blacklist))
                     $ids [] = $key;

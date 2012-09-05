@@ -631,7 +631,7 @@ class CommunityCommand extends CConsoleCommand
                     }
                     $doc->unloadDocument();
                 } catch (Exception $error) {
-                    echo $error->getMessage()."\n";
+                    echo $error->getMessage() . "\n";
                 }
             }
         }
@@ -716,11 +716,21 @@ class CommunityCommand extends CConsoleCommand
                     }
                     $doc->unloadDocument();
                 } catch (Exception $error) {
-                    echo $error->getMessage()."\n";
+                    echo $error->getMessage() . "\n";
                 }
             }
         }
 
         return $k;
+    }
+
+
+    public function actionFixArticleImages($user_id)
+    {
+        $posts = CommunityContent::model()->with(array('type', 'post'))->findAll('author_id=' . $user_id);
+        foreach ($posts as $post) {
+            if (isset($post->post))
+                $post->post->save();
+        }
     }
 }

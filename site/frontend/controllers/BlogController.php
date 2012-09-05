@@ -210,7 +210,7 @@ class BlogController extends HController
             ->from('community__contents c')
             ->join('community__rubrics r', 'c.rubric_id = r.id')
             ->join('community__content_types ct', 'c.type_id = ct.id')
-            ->where('r.user_id IS NOT NULL AND c.removed = 0')
+            ->where('r.user_id IS NOT NULL AND c.removed = 0 AND c.uniqueness >= 50')
             ->queryAll();
         foreach ($models as $model)
         {

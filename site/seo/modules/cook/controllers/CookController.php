@@ -23,17 +23,38 @@ class CookController extends SController
         ));
     }
 
-    public function actionRecipes(){
+    public function actionRecipes()
+    {
         $model = new Keyword();
-        $this->render('by_name', array(
-            'model' => $model,
-        ));
+        $tasks = SeoTask::getTasksByName();
+        $this->render('by_name', compact('tasks', 'model'));
     }
 
     public function actionAddByName()
     {
         $urls = Yii::app()->request->getPost('urls');
-        $name = Yii::app()->request->getPost('name');
+        $title = Yii::app()->request->getPost('title');
+
+        if (!empty($title)) {
+            $task = new SeoTask('cook');
+            $task->article_title = $title;
+            $task->status = SeoTask::STATUS_NEW;
+            $task->owner_id = Yii::app()->user->id;
+            if ($task->save())
+                foreach ($urls as $url)
+                    if (!empty($url)) {
+                        $task_url = new TaskUrl();
+                        $task_url->url = $url;
+                        $task_url->task_id = $task->id;
+                        $task_url->save();
+                    }
+            echo CJSON::encode(array(
+                'status' => true,
+                'title' => $task->article_title
+            ));
+        } else
+            echo CJSON::encode(array('status' => false));
+
     }
 
     public function actionTasks()
@@ -41,15 +62,10 @@ class CookController extends SController
         TempKeyword::filterBusyKeywords();
         $tempKeywords = TempKeyword::model()->findAll('owner_id=' . Yii::app()->user->id);
 
-        $criteria = new CDbCriteria;
-        $criteria->condition = 'owner_id=' . Yii::app()->user->id . ' AND status = 0';
-        $criteria->order = 'created desc';
-        $tasks = SeoTask::model()->findAll($criteria);
+        $by_name_tasks = SeoTask::getTasksByName();
+        $tasks = SeoTask::getNewTasks();
 
-        $this->render('tasks', array(
-            'tasks' => $tasks,
-            'tempKeywords' => $tempKeywords,
-        ));
+        $this->render('tasks', compact('by_name_tasks', 'tasks', 'tempKeywords'));
     }
 
     public function actionAddGroupTask()

@@ -7,63 +7,48 @@ class FavouritesPosts extends PostForCommentator
 {
     const LIMIT = 10;
     protected $nextGroup = 'TrafficPosts';
+    protected $entities = array(
+        'CommunityContent' => array(10),
+    );
 
     public function getPost()
     {
-        $this->way [] = get_class($this);
-        $posts = $this->getPosts();
+        Yii::import('site.common.models.mongo.*');
 
-        if (count($posts) == 0)
+        $criteria = $this->getCriteria();
+        if ($criteria === null)
             return $this->nextGroup();
-        else
-            return array('CommunityContent', $posts[0]->id);
+
+        $posts = $this->getPosts($criteria);
+        $this->logState(count($posts));
+
+        if (count($posts) == 0) {
+            return $this->nextGroup();
+        } else {
+            return array(get_class($posts[0]), $posts[0]->id);
+        }
     }
 
-    public function getPosts()
+    /**
+     * @return CDbCriteria
+     */
+    public function getCriteria()
     {
-        $result = array();
-        $criteria = $this->getSimpleCriteria();
         $ids = array_merge(
             Favourites::getIdList(Favourites::BLOCK_INTERESTING)
                 + Favourites::getIdList(Favourites::BLOCK_BLOGS)
                 + Favourites::getIdList(Favourites::BLOCK_SOCIAL_NETWORKS)
                 + Favourites::getIdList(Favourites::BLOCK_VIDEO)
         );
-
         if (empty($ids))
-            return array();
+            return null;
 
-        $criteria->compare('id', $ids);
-        $posts = CommunityContent::model()->active()->findAll($criteria);
-        $posts = $this->filterPosts($posts);
+        $criteria = new CDbCriteria;
+        $criteria->select = 't.*, `comments`.`id` as comment_id';
+        $criteria->condition = 't.created >= "' . date("Y-m-d H:i:s", strtotime('-48 hour')) . '" AND `full` IS NULL AND comments.id IS NULL';
+        $criteria->compare('t.id', $ids);
+        $criteria->join = 'LEFT OUTER JOIN `comments` `comments` ON (`comments`.`entity_id`=`t`.`id` AND `comments`.`author_id` = '.$this->user_id.') ';
 
-        if (count($posts) == 0) {
-            //check if all posts count is 0
-            $criteria = new CDbCriteria;
-            $criteria->condition = $this->maxTimeCondition();
-            $criteria->compare('id', $ids);
-            $posts = $this->filterPosts(CommunityContent::model()->findAll($criteria));
-            if (count($posts) == 0)
-                return array();
-            else
-                return $this->getPosts();
-        }
-
-        return $result;
-    }
-
-    public function filterPosts($posts)
-    {
-        $result = array();
-
-        foreach ($posts as $post)
-            if (!$this->IsSkipped('CommunityContent', $post->id))
-                if ($post->commentsCount < CommentsLimit::getLimit('CommunityContent', $post->id, self::LIMIT)) {
-                    $entity = $post->isFromBlog ? 'BlogContent' : 'CommunityContent';
-                    if (!$this->recentlyCommented($entity, $post->id))
-                        $result [] = $post;
-                }
-
-        return $result;
+        return $criteria;
     }
 }

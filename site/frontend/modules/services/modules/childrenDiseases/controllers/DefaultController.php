@@ -63,14 +63,14 @@ class DefaultController extends HController
     public function getDiseasesUrls()
     {
         $models = Yii::app()->db->createCommand()
-            ->select('id')
+            ->select('slug')
             ->from('recipe_book__diseases')
             ->queryAll();
         foreach ($models as $model)
         {
             $data[] = array(
                 'params' => array(
-                    'id' => $model['id'],
+                    'id' => $model['slug'],
                 ),
                 'priority' => 0.5,
             );

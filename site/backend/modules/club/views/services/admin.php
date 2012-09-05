@@ -17,6 +17,11 @@
             'type' => 'raw'
         ),
         array(
+            'name' => 'category_id',
+            'value' => '$data->category->title',
+            'type' => 'raw'
+        ),
+        array(
             'class' => 'CButtonColumn',
             'template' => '{update}{delete}'
         ),

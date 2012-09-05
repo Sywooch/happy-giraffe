@@ -23,8 +23,8 @@
 
     $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
         'selector' => '.img > a',
-        'entity' => 'User',
-        'entity_id' => $user->id,
+        'entity' => 'Album',
+        'entity_id' => $user->getSystemAlbum(3)->id,
     ));
 
 ?>
@@ -125,7 +125,12 @@
                             </li>
 
                             <?php foreach ($user->partner->photos as $k => $p): ?>
-                                <?php $this->renderPartial('//albums/_photo', array('data' => $p->photo)); ?>
+                                <?php
+                                    $photo = $p->photo;
+                                    if (! $photo->title)
+                                        $photo->title = $user->getPartnerTitleOf(null, 2) . ' - фото ' . ($k + 1);
+                                ?>
+                                <?php $this->renderPartial('//albums/_photo', array('data' => $photo)); ?>
                             <?php endforeach; ?>
                         </ul>
                     </div>
@@ -300,7 +305,7 @@
                         </div>
 
                         <div class="dateshower"<?php if ($future_baby === null || $future_baby->birthday === null): ?> style="display:none;"<?php endif; ?>>
-                            <div class="text"><span class="age"><?=$future_baby->birthday?></span>&nbsp;<a href="javascript:void(0);" onclick="Family.editDate(this);" class="edit tooltip" title="Редактировать имя"></a></div>
+                            <div class="text"><span class="age"><?=($future_baby === null) ? '' : $future_baby->birthday?></span>&nbsp;<a href="javascript:void(0);" onclick="Family.editDate(this);" class="edit tooltip" title="Редактировать имя"></a></div>
                         </div>
 
                     </div>

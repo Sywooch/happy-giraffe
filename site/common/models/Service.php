@@ -45,6 +45,7 @@ class Service extends HActiveRecord
             array('title, url', 'length', 'max'=>255),
             array('url', 'url'),
             array('photo_id', 'numerical', 'integerOnly' => true),
+            array('content_id', 'exist', 'attributeName' => 'id', 'className' => 'ServiceCategory'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('id, title, description, url', 'safe', 'on'=>'search'),
@@ -75,6 +76,7 @@ class Service extends HActiveRecord
             'description' => 'Описание',
             'url' => 'Ссылка',
             'photo_id' => 'Фото',
+            'category_id' => 'Категория'
         );
     }
 

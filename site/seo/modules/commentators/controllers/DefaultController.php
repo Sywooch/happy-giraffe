@@ -74,4 +74,8 @@ class DefaultController extends SController
         }
         echo CJSON::encode(array('status' => $commentator->save()));
     }
+
+    public function actionTest(){
+        PostForCommentator::getNextPost(23, array());
+    }
 }

@@ -171,7 +171,7 @@ var Family = {
         }
     },
     showTypeTitle:function (el, type) {
-        $(el).parents('.radiogroup').find('.radio-label').removeClass('checked');
+        $(el).parents('.radiogroup').find('.radio-label:has(input[name="radio-2"])').removeClass('checked');
         $(el).addClass('checked').find('input').attr('checked', 'checked');
 
         Family.future_baby_type = type;
@@ -267,7 +267,7 @@ var Family = {
         $('#baby-' + i + ' .gender').removeClass('active');
     },
     refreshBabyRadio:function (el) {
-        $(el).parents('.radiogroup').find('.radio-label').removeClass('checked');
+        $(el).parents('.radiogroup').find('.radio-label:has(input[name="radio-3"])').removeClass('checked');
         $(el).addClass('checked').find('input').attr('checked', 'checked');
     },
     editBabyName:function (el) {

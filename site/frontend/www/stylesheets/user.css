@@ -411,7 +411,7 @@
 #user .family .family-radiogroup {background:#f1e4fd;margin-left:-20px;padding:15px 20px;margin-bottom:20px;}
 #user .family .family-radiogroup .radiogroup {display:inline-block;*zoom:1;*display:inline;vertical-align:top;}
 #user .family .family-radiogroup .title {font-size:22px;color:#484747;line-height:1;margin-bottom:10px;}
-#user .family .family-radiogroup .title span {color:#714399;font-size:18px;margin:0 15px;}
+#user .family .family-radiogroup .title span.title {color:#714399;font-size:18px;margin:0 15px;}
 #user .family .family-radiogroup .title a {font-size:13px;}
 #user .family .family-radiogroup small {font-size:13px;}
 #user .family .family-radiogroup .subtitle {font-size:13px;color:#7e7b7b;line-height:1;margin-bottom:10px;}
@@ -454,7 +454,7 @@
 
 
 #user .family .family-member .comment {background:#cdecff;width:292px;padding:10px 15px;text-align:right;margin-top:10px;margin-bottom:10px;-moz-border-radius:10px;-webkit-border-radius:10px;border-radius:10px;position:relative;}
-#user .family .family-member .comment .text {color:#177fb2;text-align:left;font:italic 14px times new roman, times, serif; display:inline-block;*zoom:1;*display:inline;}
+#user .family .family-member .comment .text {color:#177fb2;text-align:left;font:italic 14px times new roman, times, serif;}
 #user .family .family-member  .edit {display:inline-block;*zoom:1;*display:inline;width:14px;height:18px;background:url(/images/common.png) no-repeat -383px -204px;margin:0 auto;position:relative;text-decoration:none;font-weight:normal;z-index:3;vertical-align:middle;top:-3px;}
 #user .family .family-member  .edit:hover {background-position:-341px -136px;}
 #user .family .family-member  .remove {display:inline-block;*zoom:1;*display:inline;width:12px;height:14px;background:url(/images/common.png) no-repeat -314px -135px;position:relative;margin-right:8px;vertical-align:middle;top:-2px;}

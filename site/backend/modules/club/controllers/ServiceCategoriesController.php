@@ -6,7 +6,7 @@
  * Time: 1:23 PM
  * To change this template use File | Settings | File Templates.
  */
-class ServiceCategories extends BController
+class ServiceCategoriesController extends BController
 {
     public $defaultAction = 'admin';
     public $section = 'club';

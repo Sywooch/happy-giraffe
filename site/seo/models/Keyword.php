@@ -409,7 +409,7 @@ class Keyword extends HActiveRecord
                 $res .= '</div>';
             }
 
-            Yii::app()->cache->set('similar_articles_' . $this->name, $res);
+            Yii::app()->cache->set('similar_articles_' . $this->name, $res, 24*3600);
         }
 
         return $res;

@@ -70,7 +70,7 @@
 
             <div class="family-member" id="user-partner"<?php if (!$user->hasPartner()) echo ' style="display:none;"' ?>>
 
-                <p>Расскажите немного о вашей невесте и загрузите её фото (по желанию)</p>
+                <p>Расскажите немного о <span class="partner-title"><?=$user->getPartnerTitleOf(null, 4)?></span> и загрузите её фото (по желанию)</p>
 
                 <div class="data clearfix">
 
@@ -296,7 +296,7 @@
                                     </span>
                             &nbsp;
                                     <span class="chzn-v2">
-                                        <?php echo CHtml::dropDownList('baby_y_'.$i, ($future_baby !== null) ? $future_baby->getBDatePart('Y') : '', array(''=>' ')+HDate::Range(date('Y'), date('Y') - 50), array(
+                                        <?php echo CHtml::dropDownList('baby_y_'.$i, ($future_baby !== null) ? $future_baby->getBDatePart('Y') : '', array(''=>' ')+HDate::Range(date('Y') + 5, date('Y') - 50), array(
                                         'class'=>'chzn w-3 year',
                                         'data-placeholder'=>' '
                                     )) ?>

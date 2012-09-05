@@ -1,28 +1,18 @@
 <div class="cook-recipes clearfix">
 
     <div class="btn">
-        <button onclick="CookModule.addTaskByName(this)">Отправить в задачи</button>
+        <button onclick="CookModule.addTaskByName();">Отправить в задачи</button>
     </div>
 
     <form id="add-by-name" action="">
         <div class="input">
             <label>Введите название рецепта</label>
-            <input name="name" type="text" class="item-title"/><br/>
+            <input name="title" type="text" class="item-title"/><br/>
         </div>
 
-        <div class="input">
+        <div class="input" id="urls">
             <label>Ссылки на примеры</label>
-            <input name="urls[]" type="text" onkeyup="$(this).next().next().show()"/><br/>
-            <input style="display: none;" name="urls[]" type="text" onkeyup="$(this).next().next().show()"/><br/>
-            <input style="display: none;" name="urls[]" type="text" onkeyup="$(this).next().next().show()"/><br/>
-            <input style="display: none;" name="urls[]" type="text" onkeyup="$(this).next().next().show()"/><br/>
-            <input style="display: none;" name="urls[]" type="text" onkeyup="$(this).next().next().show()"/><br/>
-            <input style="display: none;" name="urls[]" type="text" onkeyup="$(this).next().next().show()"/><br/>
-            <input style="display: none;" name="urls[]" type="text" onkeyup="$(this).next().next().show()"/><br/>
-            <input style="display: none;" name="urls[]" type="text" onkeyup="$(this).next().next().show()"/><br/>
-            <input style="display: none;" name="urls[]" type="text" onkeyup="$(this).next().next().show()"/><br/>
-            <input style="display: none;" name="urls[]" type="text" onkeyup="$(this).next().next().show()"/><br/>
-            <input style="display: none;" name="urls[]" type="text" onkeyup="$(this).next().next().show()"/><br/>
+            <input name="urls[]" type="text"/><br/>
         </div>
 
     </form>
@@ -35,10 +25,17 @@
         раздачу</a></div>
 
     <ol>
-        <li>Вишневый пирог</li>
-        <li>Зелень по-русски</li>
-        <li>Отбивная из телятины</li>
+        <?php foreach ($tasks as $task): ?>
+            <li><?=$task->article_title ?></li>
+        <?php endforeach; ?>
     </ol>
 
 </div>
-		
+
+<script type="text/javascript">
+    $(function() {
+        $('body').delegate('.cook-recipes div.input input:last', 'keyup', function(e){
+            $(this).parent().append('<input name="urls[]" type="text"/><br/>');
+        });
+    });
+</script>

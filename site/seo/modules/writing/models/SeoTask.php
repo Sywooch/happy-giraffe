@@ -35,6 +35,8 @@ class SeoTask extends CActiveRecord
     const STATUS_PUBLISHED = 7;
     const STATUS_CLOSED = 8;
 
+    const STATUS_PRENEW = -1;
+
     const TYPE_MODER = 1;
     const TYPE_EDITOR = 2;
 
@@ -69,7 +71,7 @@ class SeoTask extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('keyword_group_id', 'required'),
+            array('keyword_group_id', 'required', 'except' => 'cook'),
             array('type, status, section, multivarka', 'numerical', 'integerOnly' => true),
             array('keyword_group_id, executor_id', 'length', 'max' => 10),
             // The following rule is used by search().
@@ -143,10 +145,11 @@ class SeoTask extends CActiveRecord
     public function getText()
     {
         $res = '';
-        foreach ($this->keywordGroup->keywords as $key)
-            $res .= $key->name . '<br>';
+        if (isset($this->keywordGroup))
+            foreach ($this->keywordGroup->keywords as $key)
+                $res .= $key->name . '<br>';
         if ($this->rewrite)
-            foreach ($this->rewriteUrls as $url)
+            foreach ($this->urls as $url)
                 $res .= $url->url . '<br>';
         return trim($res, '<br>');
     }
@@ -159,7 +162,7 @@ class SeoTask extends CActiveRecord
 
         foreach ($this->keywordGroup->keywords as $key) {
             $hint_keywords = $key->getChildKeywords(20);
-            foreach ($hint_keywords as $hint_keyword){
+            foreach ($hint_keywords as $hint_keyword) {
                 if (!in_array($hint_keyword->name, $keys))
                     $res[] = $hint_keyword->name;
                 if (count($res) >= 10)
@@ -285,5 +288,29 @@ class SeoTask extends CActiveRecord
         }
 
         return $text;
+    }
+
+    public static function getTasksByName()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->condition = 'executor_id IS NULL';
+        $criteria->compare('owner_id', Yii::app()->user->id);
+        $criteria->compare('status', SeoTask::STATUS_NEW);
+        $criteria->compare('keyword_group_id', NULL);
+        $criteria->compare('section', SeoTask::SECTION_COOK);
+
+        return SeoTask::model()->findAll($criteria);
+    }
+
+    public static function getNewTasks()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->condition = 'executor_id IS NOT NULL';
+        $criteria->compare('owner_id', Yii::app()->user->id);
+        $criteria->compare('status', SeoTask::STATUS_NEW);
+        $criteria->compare('keyword_group_id', NULL);
+        $criteria->compare('section', SeoTask::SECTION_COOK);
+
+        return SeoTask::model()->findAll($criteria);
     }
 }

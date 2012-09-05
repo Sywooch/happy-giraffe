@@ -5,61 +5,51 @@
  */
 class TrafficPosts extends PostForCommentator
 {
-    const CACHE_ID = 'traffic-posts-for-comments';
-    const LIMIT = 10;
     protected $nextGroup = 'CoWorkersPosts';
+    protected $entities = array(
+        'CommunityContent' => array(10),
+    );
 
     public function getPost()
     {
-        $this->way [] = get_class($this);
-        $posts = $this->getPosts();
-
-        if (empty($posts))
+        if (rand(0, 10) > 7)
             return $this->nextGroup();
+
+        $criteria = $this->getCriteria();
+        if ($criteria === null)
+            return $this->nextGroup();
+
+        $posts = $this->getPosts($criteria);
+        $this->logState(count($posts));
 
         if (count($posts) == 0) {
             return $this->nextGroup();
         } else {
-            return array('CommunityContent', $posts[0]->id);
+            return array(get_class($posts[0]), $posts[0]->id);
         }
     }
 
-    public function getPosts()
+    /**
+     * @return CDbCriteria
+     */
+    public function getCriteria()
     {
-        $posts = Yii::app()->cache->get(self::CACHE_ID);
-        if (empty($posts))
-            $posts = $this->getNewPosts();
+        $post_ids = $this->getPostIds();
+        if (empty($post_ids))
+            return null;
 
-        $posts = $this->filterPosts($posts);
+        $criteria = new CDbCriteria;
+        $criteria->select = 't.*, `comments`.`id` as comment_id';
+        $criteria->condition = '`t`.`full` IS NULL AND `comments`.`id` IS NULL';
+        $criteria->compare('`t`.`id`', $post_ids);
+        $criteria->join = 'LEFT OUTER JOIN `comments` `comments` ON (`comments`.`entity_id`=`t`.`id` AND `comments`.`author_id` = ' . $this->user_id . ') ';
 
-        if (empty($posts)) {
-            $posts = $this->getNewPosts();
-            $posts = $this->filterPosts($posts);
-        }
-
-        return $posts;
+        return $criteria;
     }
 
-    public function filterPosts($posts)
+    public function getPostIds()
     {
         $result = array();
-
-        foreach ($posts as $post) {
-            $model = CommunityContent::model()->active()->findByPk($post);
-            if (!$this->IsSkipped('CommunityContent', $model->id)) {
-                $entity = $model->isFromBlog ? 'BlogContent' : 'CommunityContent';
-                if (!$this->recentlyCommented($entity, $model->id))
-                    if ($model !== null && $model->commentsCount < CommentsLimit::getLimit('CommunityContent', $model->id, self::LIMIT))
-                        $result [] = $model;
-            }
-        }
-
-        return $result;
-    }
-
-    public function getNewPosts()
-    {
-        $value = array();
         $date = strtotime('-1 month');
 
         if (date('Y', $date) != date('Y'))
@@ -97,19 +87,10 @@ class TrafficPosts extends PostForCommentator
             ->where('id IN (' . implode(',', $pageIds) . ')')
             ->queryAll();
 
-        foreach ($pages as $row) {
-            if ($row['entity'] == 'CommunityContent' || $row['entity'] == 'BlogContent') {
-                $model = CActiveRecord::model($row['entity'])->active()->findByPk($row['entity_id']);
-                if ($model !== null && $model->commentsCount < CommentsLimit::getLimit('CommunityContent', $model->id, self::LIMIT))
-                    $value [] = $row['entity_id'];
+        foreach ($pages as $row)
+            if ($row['entity'] == 'CommunityContent' || $row['entity'] == 'BlogContent')
+                $result [] = $row['entity_id'];
 
-                if (count($value) > 10)
-                    break;
-            }
-        }
-
-        Yii::app()->cache->set(self::CACHE_ID, $value);
-
-        return $value;
+        return $result;
     }
 }

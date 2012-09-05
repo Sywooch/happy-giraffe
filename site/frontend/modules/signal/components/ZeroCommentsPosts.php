@@ -5,98 +5,58 @@
  */
 class ZeroCommentsPosts extends PostForCommentator
 {
-    const LIMIT = 5;
-    const CACHE_ID = 'posts-without-comments';
-    protected $nextGroup = 'UserPosts';
+    protected $entities = array(
+        'CommunityContent' => array(2, 3),
+    );
+    protected $nextGroup = 'TrafficPosts';
 
     public function getPost()
     {
-        Yii::import('site.seo.models.*');
-        Yii::import('site.seo.modules.promotion.models.*');
-        $this->way [] = get_class($this);
+        Yii::import('site.frontend.modules.cook.models.*');
 
-        $ids = $this->getPostIds();
-        if (empty($ids))
-            return $this->nextGroup();
+        $criteria = $this->getCriteria();
+        $posts = $this->getPosts($criteria);
 
-        $criteria = new CDbCriteria;
-        $criteria->compare('id', $ids);
-        $criteria->order = 'rand()';
-        $posts = CommunityContent::model()->findAll($criteria);
+        $this->logState(count($posts));
 
-        $not_commented_yet = array();
-        foreach ($posts as $post) {
-            if (!$this->IsSkipped(get_class($post), $post->id)) {
-                $not_commented_yet [] = $post;
-            }
-        }
-
-        if (count($not_commented_yet) == 0) {
+        if (count($posts) == 0) {
             return $this->nextGroup();
         } else {
-            return array(get_class($not_commented_yet[0]), $not_commented_yet[0]->id);
+            return array(get_class($posts[0]), $posts[0]->id);
         }
     }
 
-    public function getPostIds()
+    public function getPosts($criteria)
     {
         $result = array();
-        $posts = Yii::app()->cache->get(self::CACHE_ID);
 
-        if (empty($posts))
-            $posts = $this->getNewPosts();
-
-        if (!empty($posts))
+        foreach ($this->entities as $entity => $limits) {
+            $posts = CActiveRecord::model($entity)->findAll($criteria);
             foreach ($posts as $post) {
-                $model = CommunityContent::model()->active()->findByPk($post);
-                if ($model !== null && $model->commentsCount < CommentsLimit::getLimit('CommunityContent', $post, self::LIMIT))
-                    $result [] = $post;
-            }
+                list($count_limit, $post_time) = CommentsLimit::getLimit($entity, $post->id, $limits, $this->times);
 
-        if (empty($result)) {
-            $this->getNewPosts();
-            return $this->getPostIds();
+                if ($post->commentsCount < $count_limit) {
+                    if (!$this->IsSkipped($entity, $post->id))
+                        $result [] = $post;
+                }
+            }
         }
 
+        shuffle($result);
         return $result;
     }
 
-    public function getNewPosts()
+    /**
+     * @return CDbCriteria
+     */
+    public function getCriteria()
     {
-        $value = array();
-        $criteria = new CDbCriteria(array(
-            'condition' => 'comments.id IS NULL',
-            'with' => array(
-                'comments' => array(
-                    'select' => 'id',
-                    'together' => true,
-                ),
-                'rubric' => array(
-                    'select' => 'id',
-                    'condition' => 'user_id IS NULL',
-                    'with' => array(
-                        'community' => array(
-                            'select' => 'id',
-                        )
-                    ),
-                ),
-            ),
-            'limit' => 100,
-            'order' => 'rand()'
-        ));
-        $posts = CommunityContent::model()->findAll($criteria);
+        $criteria = new CDbCriteria;
+        $criteria->select = 't.*, `comments`.`id` as comment_id';
+        $criteria->condition = 't.type_id < 3 AND t.created < "2012-08-20 00:00:00" AND `full` IS NULL AND comments.id IS NULL';
+        $criteria->join = 'LEFT OUTER JOIN `comments` `comments` ON (`comments`.`entity_id`=`t`.`id` AND `comments`.`author_id` = '.$this->user_id.') ';
+        $criteria->limit = 10;
 
-        foreach ($posts as $post) {
-            $criteria = new CDbCriteria;
-            $criteria->compare('entity', $post->isFromBlog ? 'BlogContent' : 'CommunityContent');
-            $criteria->compare('entity_id', $post->id);
-            $page = Page::model()->with('phrases')->find($criteria);
-            if ($page === null || empty($page->phrases))
-                $value[] = $post->id;
-        }
-
-        Yii::app()->cache->set(self::CACHE_ID, $value);
-
-        return $value;
+        return $criteria;
     }
 }

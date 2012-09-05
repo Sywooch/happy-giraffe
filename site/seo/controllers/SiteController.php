@@ -50,6 +50,9 @@ class SiteController extends SController
 
         if (Yii::app()->user->checkAccess('promotion'))
             $this->redirect($this->createUrl('promotion/queries/admin'));
+
+        if (Yii::app()->user->checkAccess('cook-manager'))
+            $this->redirect($this->createUrl('cook/cook'));
     }
 
     /**

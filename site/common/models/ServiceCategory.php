@@ -1,24 +1,21 @@
 <?php
 
 /**
- * This is the model class for table "services".
+ * This is the model class for table "service_categories".
  *
- * The followings are the available columns in table 'services':
+ * The followings are the available columns in table 'service_categories':
  * @property string $id
  * @property string $title
- * @property string $description
- * @property string $url
- * @property string $photo_id
  *
  * The followings are the available model relations:
- * @property CalendarPeriodsServices[] $calendarPeriodsServices
+ * @property Services[] $services
  */
-class Service extends HActiveRecord
+class ServiceCategory extends CActiveRecord
 {
     /**
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.
-     * @return Service the static model class
+     * @return ServiceCategory the static model class
      */
     public static function model($className=__CLASS__)
     {
@@ -30,7 +27,7 @@ class Service extends HActiveRecord
      */
     public function tableName()
     {
-        return 'services';
+        return 'service_categories';
     }
 
     /**
@@ -41,13 +38,11 @@ class Service extends HActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('title, description, url', 'required'),
-            array('title, url', 'length', 'max'=>255),
-            array('url', 'url'),
-            array('photo_id', 'numerical', 'integerOnly' => true),
+            array('title', 'required'),
+            array('title', 'length', 'max'=>255),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, title, description, url', 'safe', 'on'=>'search'),
+            array('id, title', 'safe', 'on'=>'search'),
         );
     }
 
@@ -59,8 +54,7 @@ class Service extends HActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'category' => array(self::BELONGS_TO, 'ServiceCategory', 'category_id'),
-            'photo' => array(self::BELONGS_TO, 'AlbumPhoto', 'photo_id'),
+            'services' => array(self::HAS_MANY, 'Services', 'category_id'),
         );
     }
 
@@ -71,10 +65,7 @@ class Service extends HActiveRecord
     {
         return array(
             'id' => 'ID',
-            'title' => 'Название',
-            'description' => 'Описание',
-            'url' => 'Ссылка',
-            'photo_id' => 'Фото',
+            'title' => 'Title',
         );
     }
 
@@ -91,20 +82,9 @@ class Service extends HActiveRecord
 
         $criteria->compare('id',$this->id,true);
         $criteria->compare('title',$this->title,true);
-        $criteria->compare('description',$this->description,true);
-        $criteria->compare('url',$this->url,true);
 
         return new CActiveDataProvider($this, array(
             'criteria'=>$criteria,
         ));
-    }
-
-    public function getImage()
-    {
-        if (!empty($this->photo_id)) {
-            return CHtml::image($this->photo->getPreviewUrl(70, 70));
-        }
-
-        return '';
     }
 }

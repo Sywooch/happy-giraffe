@@ -28,105 +28,105 @@ class Comment extends HActiveRecord
     const CONTENT_TYPE_PHOTO = 2;
     const CONTENT_TYPE_ONLY_TEXT = 3;
 
-	/**
-	 * Returns the static model of the specified AR class.
-	 * @return Comment the static model class
-	 */
-	public static function model($className=__CLASS__)
-	{
-		return parent::model($className);
-	}
+    /**
+     * Returns the static model of the specified AR class.
+     * @return Comment the static model class
+     */
+    public static function model($className = __CLASS__)
+    {
+        return parent::model($className);
+    }
 
-	/**
-	 * @return string the associated database table name
-	 */
-	public function tableName()
-	{
-		return 'comments';
-	}
+    /**
+     * @return string the associated database table name
+     */
+    public function tableName()
+    {
+        return 'comments';
+    }
 
-	/**
-	 * @return array validation rules for model attributes.
-	 */
-	public function rules()
-	{
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
-		return array(
-			array('author_id, entity, entity_id', 'required'),
-            array('text', 'required', 'on'=>'default'),
-			array('author_id, entity_id, response_id, quote_id', 'length', 'max'=>11),
-			array('entity', 'length', 'max'=>255),
+    /**
+     * @return array validation rules for model attributes.
+     */
+    public function rules()
+    {
+        // NOTE: you should only define rules for those attributes that
+        // will receive user inputs.
+        return array(
+            array('author_id, entity, entity_id', 'required'),
+            array('text', 'required', 'on' => 'default'),
+            array('author_id, entity_id, response_id, quote_id', 'length', 'max' => 11),
+            array('entity', 'length', 'max' => 255),
             array('position, quote_text, selectable_quote', 'safe'),
             array('removed', 'boolean'),
-			// The following rule is used by search().
-			// Please remove those attributes that should not be searched.
-			array('id, text, created, author_id, entity, entity_id', 'safe', 'on'=>'search'),
-		);
-	}
+            // The following rule is used by search().
+            // Please remove those attributes that should not be searched.
+            array('id, text, created, author_id, entity, entity_id', 'safe', 'on' => 'search'),
+        );
+    }
 
-	/**
-	 * @return array relational rules.
-	 */
-	public function relations()
-	{
-		// NOTE: you may need to adjust the relation name and the related
-		// class name for the relations automatically generated below.
-		return array(
-			'author' => array(self::BELONGS_TO, 'User', 'author_id'),
+    /**
+     * @return array relational rules.
+     */
+    public function relations()
+    {
+        // NOTE: you may need to adjust the relation name and the related
+        // class name for the relations automatically generated below.
+        return array(
+            'author' => array(self::BELONGS_TO, 'User', 'author_id'),
             'response' => array(self::BELONGS_TO, 'Comment', 'response_id'),
             'quote' => array(self::BELONGS_TO, 'Comment', 'quote_id'),
             'remove' => array(self::HAS_ONE, 'Removed', 'entity_id', 'condition' => '`remove`.`entity` = :entity', 'params' => array(':entity' => get_class($this))),
             'photoAttaches' => array(self::HAS_MANY, 'AttachPhoto', 'entity_id', 'condition' => 'entity = :entity', 'params' => array(':entity' => get_class($this))),
             'photoAttach' => array(self::HAS_ONE, 'AttachPhoto', 'entity_id', 'condition' => 'entity = :entity', 'params' => array(':entity' => get_class($this))),
-		);
-	}
+        );
+    }
 
-	/**
-	 * @return array customized attribute labels (name=>label)
-	 */
-	public function attributeLabels()
-	{
-		return array(
-			'id' => 'ID',
-			'text' => 'Text',
-			'created' => 'Created',
-			'author_id' => 'Author',
-			'entity' => 'Entity',
-			'entity_id' => 'Entity PK',
+    /**
+     * @return array customized attribute labels (name=>label)
+     */
+    public function attributeLabels()
+    {
+        return array(
+            'id' => 'ID',
+            'text' => 'Text',
+            'created' => 'Created',
+            'author_id' => 'Author',
+            'entity' => 'Entity',
+            'entity_id' => 'Entity PK',
             'response_id' => 'Response id',
             'quote_id' => 'Quote id',
             'quote_text' => 'Quote text',
             'position' => 'Позиция',
             'removed' => 'Удален',
-		);
-	}
+        );
+    }
 
-	/**
-	 * Retrieves a list of models based on the current search/filter conditions.
-	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
-	 */
-	public function search()
-	{
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
+    /**
+     * Retrieves a list of models based on the current search/filter conditions.
+     * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
+     */
+    public function search()
+    {
+        // Warning: Please modify the following code to remove attributes that
+        // should not be searched.
 
-		$criteria=new CDbCriteria;
+        $criteria = new CDbCriteria;
 
-		$criteria->compare('id',$this->id,true);
-		$criteria->compare('text',$this->text,true);
-		$criteria->compare('created',$this->created,true);
-		$criteria->compare('author_id',$this->author_id,true);
-		$criteria->compare('entity',$this->entity,true);
-		$criteria->compare('entity_id',$this->entity_id,true);
-        $criteria->compare('response_id',$this->response_id,true);
-        $criteria->compare('quote_id',$this->quote_id,true);
-        $criteria->compare('removed',$this->removed,true);
+        $criteria->compare('id', $this->id, true);
+        $criteria->compare('text', $this->text, true);
+        $criteria->compare('created', $this->created, true);
+        $criteria->compare('author_id', $this->author_id, true);
+        $criteria->compare('entity', $this->entity, true);
+        $criteria->compare('entity_id', $this->entity_id, true);
+        $criteria->compare('response_id', $this->response_id, true);
+        $criteria->compare('quote_id', $this->quote_id, true);
+        $criteria->compare('removed', $this->removed, true);
 
-		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-		));
-	}
+        return new CActiveDataProvider($this, array(
+            'criteria' => $criteria,
+        ));
+    }
 
     public function behaviors()
     {
@@ -144,19 +144,19 @@ class Comment extends HActiveRecord
     }
 
     public function get($entity, $entity_id, $type)
-	{
-		return new CActiveDataProvider(get_class($this), array(
-			'criteria' => array(
-				'condition' => 'entity=:entity AND entity_id=:entity_id',
-				'params' => array(':entity' => $entity, ':entity_id' => $entity_id),
-				'with' => array('author'),
-				'order' => ($type != 'guestBook') ? 'created ASC' : 'created DESC',
-			),
-			'pagination' => array(
-				'pageSize' => 25,
-			),
-		));
-	}
+    {
+        return new CActiveDataProvider(get_class($this), array(
+            'criteria' => array(
+                'condition' => 'entity=:entity AND entity_id=:entity_id',
+                'params' => array(':entity' => $entity, ':entity_id' => $entity_id),
+                'with' => array('author'),
+                'order' => ($type != 'guestBook') ? 'created ASC' : 'created DESC',
+            ),
+            'pagination' => array(
+                'pageSize' => 25,
+            ),
+        ));
+    }
 
     public function afterSave()
     {
@@ -167,40 +167,52 @@ class Comment extends HActiveRecord
             //проверяем на предмет выполненного модератором задания
             UserSignal::CheckComment($this);
 
-            if (in_array($this->entity, array('CommunityContent', 'BlogContent', 'RecipeBookRecipe', 'User', 'AlbumPhoto')))
-            {
+            if (in_array($this->entity, array('CommunityContent', 'BlogContent', 'RecipeBookRecipe', 'User', 'AlbumPhoto'))) {
                 UserNotification::model()->create(UserNotification::NEW_COMMENT, array('comment' => $this));
             }
 
-            if (in_array($this->entity, array('CommunityContent', 'BlogContent', 'RecipeBookRecipe', 'AlbumPhoto')) && $this->response_id !== null)
-            {
+            if (in_array($this->entity, array('CommunityContent', 'BlogContent', 'RecipeBookRecipe', 'AlbumPhoto')) && $this->response_id !== null) {
                 UserNotification::model()->create(UserNotification::NEW_REPLY, array('comment' => $this));
             }
 
             UserScores::addScores($this->author_id, ScoreAction::ACTION_OWN_COMMENT, 1, array(
-                'id'=>$this->entity_id, 'name'=>$this->entity));
+                'id' => $this->entity_id, 'name' => $this->entity));
 
             UserAction::model()->add($this->author_id, UserAction::USER_ACTION_COMMENT_ADDED, array('model' => $this));
 
             //send signals to commentator panel
-            if (Yii::app()->user->checkAccess('commentator_panel') && strlen(trim(strip_tags($this->text))) >= 80) {
-                Yii::import('site.frontend.modules.signal.components.*');
-                Yii::import('site.frontend.modules.signal.models.*');
-                $commentator = CommentatorWork::getCurrentUser();
-                $entity =  ($this->entity == 'BlogContent')?'CommunityContent':$this->entity;
-                $_entity =  ($commentator->comment_entity == 'BlogContent')?'CommunityContent':$commentator->comment_entity;
-                $model = CActiveRecord::model($this->entity)->findByPk($this->entity_id);
+            if (Yii::app()->user->checkAccess('commentator_panel')) {
+                if (strlen(trim(strip_tags($this->text))) >= 80) {
+                    Yii::import('site.frontend.modules.signal.components.*');
+                    Yii::import('site.frontend.modules.signal.models.*');
+                    $commentator = CommentatorWork::getCurrentUser();
+                    $entity = ($this->entity == 'BlogContent') ? 'CommunityContent' : $this->entity;
+                    $_entity = ($commentator->comment_entity == 'BlogContent') ? 'CommunityContent' : $commentator->comment_entity;
+                    $model = CActiveRecord::model($this->entity)->findByPk($this->entity_id);
 
-                if ($_entity == $entity && $commentator->comment_entity_id == $this->entity_id){
-                    $commentator->incCommentsCount(true);
-                    $comet = new CometModel;
-                    $comet->send(Yii::app()->user->id, array(
-                        'update_part' => CometModel::UPDATE_COMMENTS,
-                        'entity_id' => $this->entity_id,
-                        'entity' => $this->entity
-                    ), CometModel::TYPE_COMMENTATOR_UPDATE);
-                }elseif (!empty($this->response_id) || $model->author_id == $this->author_id){
-                    $commentator->incCommentsCount(false);
+                    if ($_entity == $entity && $commentator->comment_entity_id == $this->entity_id) {
+                        $commentator->incCommentsCount(true);
+                        $comet = new CometModel;
+                        $comet->send(Yii::app()->user->id, array(
+                            'update_part' => CometModel::UPDATE_COMMENTS,
+                            'entity_id' => $this->entity_id,
+                            'entity' => $this->entity
+                        ), CometModel::TYPE_COMMENTATOR_UPDATE);
+                    } elseif (!empty($this->response_id) || $model->author_id == $this->author_id) {
+                        $commentator->incCommentsCount(false);
+                        $comet = new CometModel;
+                        $comet->send(Yii::app()->user->id, array(
+                            'update_part' => CometModel::UPDATE_COMMENTS,
+                            'entity_id' => $this->entity_id,
+                            'entity' => $this->entity
+                        ), CometModel::TYPE_COMMENTATOR_UPDATE);
+                    }
+                }else{
+                    Yii::import('site.frontend.modules.signal.components.*');
+                    Yii::import('site.frontend.modules.signal.models.*');
+                    $commentator = CommentatorWork::getCurrentUser();
+                    $commentator->skipArticle();
+                    $commentator->save();
                     $comet = new CometModel;
                     $comet->send(Yii::app()->user->id, array(
                         'update_part' => CometModel::UPDATE_COMMENTS,
@@ -218,29 +230,23 @@ class Comment extends HActiveRecord
         /* Вырезка цитаты */
         $find = '/<div class="quote">(.*)<\/div>/ims';
         preg_match($find, $this->text, $matches);
-        if(isset($this->quote_id))
-        {
-            if(count($matches) > 0)
-            {
+        if (isset($this->quote_id)) {
+            if (count($matches) > 0) {
                 $this->text = preg_replace($find, '', $this->text);
-                if($this->selectable_quote == 1)
-                {
+                if ($this->selectable_quote == 1) {
                     $this->quote_text = $matches[1];
                 }
-            }
-            else
-            {
+            } else {
                 $this->quote_text = '';
                 $this->quote_id = null;
             }
         }
 
-        if(isset($this->response_id) && $this->response_id == '')
+        if (isset($this->response_id) && $this->response_id == '')
             $this->response_id = null;
 
 
-        if($this->isNewRecord)
-        {
+        if ($this->isNewRecord) {
             $criteria = new CDbCriteria(array(
                 'select' => 'position',
                 'order' => 'created DESC',
@@ -249,7 +255,7 @@ class Comment extends HActiveRecord
                 'params' => array(':entity' => $this->entity, ':entity_id' => $this->entity_id)
             ));
             $model = $this->find($criteria);
-            if(!$model)
+            if (!$model)
                 $position = 1;
             else
                 $position = $model->position + 1;
@@ -263,7 +269,7 @@ class Comment extends HActiveRecord
         Comment::model()->updateByPk($this->id, array('removed' => 1));
 
         UserScores::removeScores($this->author_id, ScoreAction::ACTION_OWN_COMMENT, 1, array(
-            'id'=>$this->entity_id, 'name'=>$this->entity));
+            'id' => $this->entity_id, 'name' => $this->entity));
 
         UserNotification::model()->create(UserNotification::DELETED, array('entity' => $this));
 
@@ -278,14 +284,14 @@ class Comment extends HActiveRecord
 
     public static function getUserAvarageCommentsCount($user)
     {
-        $comments_count = Comment::model()->count('author_id='.$user->id);
+        $comments_count = Comment::model()->count('author_id=' . $user->id);
         if ($comments_count == 0)
             return 0;
-        $days = ceil(strtotime(date("Y-m-d H:i:s")) - strtotime($user->register_date)/86400);
+        $days = ceil(strtotime(date("Y-m-d H:i:s")) - strtotime($user->register_date) / 86400);
         if ($days == 0)
             $days = 1;
 
-        return round($comments_count/$days);
+        return round($comments_count / $days);
     }
 
 
@@ -302,8 +308,7 @@ class Comment extends HActiveRecord
         ));
         $index = 0;
         $comments = Comment::model()->findAll($criteria);
-        foreach($comments as $model)
-        {
+        foreach ($comments as $model) {
             $index++;
             $model->position = $index;
             $model->save();
@@ -320,16 +325,14 @@ class Comment extends HActiveRecord
         $criteria->group = 'entity, entity_id';
         $criteria->select = '*';
         $comments = Comment::model()->findAll($criteria);
-        foreach($comments as $c)
-        {
+        foreach ($comments as $c) {
             $cr = new CDbCriteria;
             $cr->condition = 'entity = :entity and entity_id = :entity_id';
             $cr->params = array(':entity' => $c->entity, ':entity_id' => $c->entity_id);
             $cr->order = 'created ASC';
             $comment = Comment::model()->findAll($cr);
             $index = 0;
-            foreach($comment as $km)
-            {
+            foreach ($comment as $km) {
                 $index++;
                 $km->position = $index;
                 $km->save(false);
@@ -339,7 +342,7 @@ class Comment extends HActiveRecord
 
     public function getUrl($absolute = false)
     {
-        if (! in_array($this->entity, array('CommunityContent', 'BlogContent', 'CookRecipe')))
+        if (!in_array($this->entity, array('CommunityContent', 'BlogContent', 'CookRecipe')))
             return false;
 
         $entity = CActiveRecord::model($this->entity)->findByPk($this->entity_id);
@@ -352,7 +355,7 @@ class Comment extends HActiveRecord
 
     public function getLink($absolute = false)
     {
-        if (! in_array($this->entity, array('CommunityContent', 'BlogContent', 'CookRecipe')))
+        if (!in_array($this->entity, array('CommunityContent', 'BlogContent', 'CookRecipe')))
             return false;
 
         $entity = CActiveRecord::model($this->entity)->findByPk($this->entity_id);
@@ -360,7 +363,7 @@ class Comment extends HActiveRecord
         $params['#'] = 'comment_' . $this->id;
 
         $method = $absolute ? 'createAbsoluteUrl' : 'createUrl';
-        return CHtml::link($entity->title.' #'.$this->id, Yii::app()->$method($route, $params), array('target'=>'_blank'));
+        return CHtml::link($entity->title . ' #' . $this->id, Yii::app()->$method($route, $params), array('target' => '_blank'));
     }
 
     public function isEntityAuthor($user_id)
@@ -368,7 +371,7 @@ class Comment extends HActiveRecord
         $class = $this->entity;
         $pk = $this->entity_id;
         $model = $class::model()->cache(1)->findByPk($pk);
-        if ($model !== null){
+        if ($model !== null) {
             if (isset($model->author_id) && $model->author_id == $user_id)
                 return true;
             if ($this->entity == 'User' && $model->id == $user_id)

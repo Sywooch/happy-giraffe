@@ -5,14 +5,14 @@
  */
 class AuthorController extends SController
 {
-    public $layout = '//layouts/writing';
+    public $layout = '/layouts/cook';
 
     public function beforeAction($action)
     {
-        if (!Yii::app()->user->checkAccess('author'))
+        if (!Yii::app()->user->checkAccess('cook-author'))
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
-        $this->pageTitle = 'автор';
+        $this->pageTitle = 'кулинар';
         return true;
     }
 

@@ -3,30 +3,28 @@
  * Author: alexk984
  * Date: 02.04.12
  */
-class ModeratorController extends SController
+class ContentController extends SController
 {
-    public $layout = '//layouts/writing';
+    public $layout = '/layouts/cook';
 
     public function beforeAction($action)
     {
-        if (!Yii::app()->user->checkAccess('moderator'))
+        if (!Yii::app()->user->checkAccess('cook-content-manager'))
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
-        $this->pageTitle = 'модератор';
+        $this->pageTitle = 'контент';
         return true;
     }
 
     public function actionIndex()
     {
         $tasks = SeoTask::getTasks();
-        $executing = SeoTask::getActiveTask();
-
-        $this->render('_moderator', compact('tasks', 'executing'));
+        $this->render('_cm', compact('tasks'));
     }
 
     public function actionReports()
     {
         $tasks = SeoTask::TodayExecutedTasks();
-        $this->render('_moderator_reports', compact('tasks'));
+        $this->render('_cm_reports', compact('tasks'));
     }
 }

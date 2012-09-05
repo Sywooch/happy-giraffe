@@ -14,6 +14,7 @@
  * @property string $cuisine_id
  * @property integer $type
  * @property string $author_id
+ * @property string $full
  *
  * The followings are the available model relations:
  * @property CookRecipeIngredients[] $cookRecipeIngredients

@@ -4,7 +4,7 @@ return array(
     'urlFormat' => 'path',
     'showScriptName' => false,
     'urlSuffix' => '/',
-    'useStrictParsing' => true,
+    //'useStrictParsing' => true,
     'rules' => array(
        /*************************
         *      CONTROLLERS      *
@@ -27,6 +27,8 @@ return array(
         'search' => 'site/search',
         'site/<_a:(confirmEmail|resendConfirmEmail|passwordRecovery|passwordRecoveryForm|login|logout|link|test2|users)>' => 'site/<_a>',
         'contest' => 'site/contest',
+        'services/<category_id:\d+>' => 'site/services',
+        'services' =>  'site/services',
 
         // ajax controller
         'ajax/duelShow/question_id/<question_id:\d+>' => 'ajax/duelShow',

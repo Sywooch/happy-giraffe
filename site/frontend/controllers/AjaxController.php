@@ -67,7 +67,8 @@ class AjaxController extends HController
         if ($model->update($attribute)) {
             $response = array(
                 'status' => true,
-                'age' => $model->getAge()
+                'age' => $model->getAge(),
+                'birthday' => $model->birthday,
             );
         } else {
             $response = array(

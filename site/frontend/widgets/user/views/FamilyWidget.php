@@ -5,9 +5,9 @@
         <ul>
             <?php if ($user->hasPartner() && !empty($user->partner->name)): ?>
             <li>
-                <big><?= $user->partner->name ?> &nbsp; <small><?php echo $user->getPartnerTitle($user->relationship_status) ?></small></big>
+                <big><?= $user->partner->name ?> <small>- <?php echo $user->getPartnerTitleOf(null, 3) ?></small></big>
                 <?php if (!empty($user->partner->notice)):?>
-                    <div class="comment purple">
+                    <div class="comment">
                         <?= $user->partner->notice ?>
                         <span class="tale"></span>
                     </div>
@@ -20,25 +20,59 @@
             </li>
             <?php endif ?>
             <?php foreach ($user->babies as $baby): ?>
-            <?php if (empty($baby->type)):?>
-                <li>
-                    <big><?php echo $baby->name ?><span><?php if (!empty($baby->birthday)) echo ', '.$baby->getTextAge(false) ?></span></big>
-                    <?php if (!empty($baby->notice)):?>
-                    <div class="comment <?= ($baby->sex == 1)?'blue':'pink' ?>">
-                        <?= $baby->notice ?>
-                        <span class="tale"></span>
-                    </div>
-                    <?php endif ?>
-
-                    <?php if (count($baby->photos) != 0):?>
-                        <div class="img">
-                            <img src="<?php echo $baby->getRandomPhotoUrl() ?>">
+                <?php if (empty($baby->type)):?>
+                    <li>
+                        <big><?php echo $baby->name ?> <small>- <?=($baby->sex) ? 'мой сын' : 'моя дочь'?><?php if (!empty($baby->birthday)) echo ', '.$baby->getTextAge(false) ?></small></big>
+                        <?php if (!empty($baby->notice)):?>
+                        <div class="comment">
+                            <?= $baby->notice ?>
+                            <span class="tale"></span>
                         </div>
-                    <?php endif ?>
-                </li>
-            <?php endif ?>
+                        <?php endif ?>
+
+                        <?php if (count($baby->photos) != 0):?>
+                            <div class="img">
+                                <img src="<?php echo $baby->getRandomPhotoUrl() ?>">
+                            </div>
+                        <?php endif ?>
+                    </li>
+                <?php endif ?>
             <?php endforeach; ?>
+
+            <?php foreach ($user->babies as $baby): ?>
+                <?php if ($baby->type == Baby::TYPE_WAIT): ?>
+                    <li class="waiting clearfix">
+                        <i class="icon"></i>
+                        <div class="in">
+                            <big>Ждем еще</big>
+                            <?php if ($baby->sex == 0): ?>
+                                <div class="gender">Девочку <i class="icon-female"></i></div>
+                            <?php endif; ?>
+                            <?php if ($baby->sex == 1): ?>
+                                <div class="gender">Мальчика <i class="icon-male"></i></div>
+                            <?php endif; ?>
+                            <?php if ($baby->sex == 2): ?>
+                                <div class="gender">Не знаем <i class="icon-question"></i></div>
+                            <?php endif; ?>
+                            <?php if ($baby->birthday): ?>
+                                <?php
+                                    $now = new DateTime();
+                                    $birthday = new DateTime($baby->birthday);
+                                    $conception = clone $birthday;
+                                    $conception->modify('-9 month');
+                                    $interval = $now->diff($conception);
+                                    $week = ceil($interval->days / 7);
+                                ?>
+                                <?php if ($week <= 40): ?><div class="time"><?=$week?>-я неделя</div><?php endif; ?>
+                            <?php endif; ?>
+                        </div>
+                    </li>
+                <?php endif; ?>
+            <?php endforeach; ?>
+
         </ul>
+
+        <?=CHtml::link('Смотреть семейный<br/>альбом', $user->getSystemAlbum(3)->url, array('class' => 'watch-album'))?>
     </div>
     <div class="b"></div>
 </div>

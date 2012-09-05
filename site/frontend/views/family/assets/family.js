@@ -44,10 +44,10 @@ var Family = {
                         $('#user-partner .d-text:eq(0) span').text(Family.partnerOf[status_id][0]);
                         $('#user-partner .d-text:eq(1) span').text(Family.partnerOf[status_id][1]);
                         $('#user-partner .d-text:eq(2) span').text(Family.partnerOf[status_id][0]);
-                        $('#user-partner .gallery-photos-new .item-title span').text(Family.partnerOf[status_id][2]);
                         $('#user-partner').show();
                     }
 
+                    Family.masonryInit();
                     Family.updateWidget();
                 }
             },
@@ -499,22 +499,25 @@ var Family = {
 
         block.find('div.photos').show();
         Family.updateWidget();
+    },
+    masonryInit:function () {
+        var $container = $('.gallery-photos-new ul');
+
+        $container.imagesLoaded( function(){
+
+            $container.masonry({
+                itemSelector : 'li',
+                columnWidth: 240,
+                isAnimated: false,
+                animationOptions: { queue: false, duration: 500 }
+            });
+
+        });
     }
 }
 
 $(function () {
-    var $container = $('.gallery-photos-new ul');
-
-    $container.imagesLoaded( function(){
-
-        $container.masonry({
-            itemSelector : 'li',
-            columnWidth: 240,
-            isAnimated: false,
-            animationOptions: { queue: false, duration: 500 }
-        });
-
-    });
+    Family.masonryInit();
 
     $('#addPhoto1, #partner_photo_upload2, #partner_photo_upload1').iframePostForm({
         json:true,

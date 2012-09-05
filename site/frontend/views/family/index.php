@@ -18,6 +18,7 @@
         ->registerScript('family-edit',$js)
         ->registerScriptFile($baseUrl. '/family.js?35', CClientScript::POS_HEAD)
         ->registerScriptFile('/javascripts/jquery.masonry.min.js')
+        ->registerScriptFile('/javascripts/album.js')
     ;
 
 
@@ -332,6 +333,14 @@
     </div>
 
 </div>
+
+<?php
+    if (Yii::app()->user->id == $this->user->id) {
+        $remove_tmpl = $this->beginWidget('site.frontend.widgets.removeWidget.RemoveWidget');
+        $remove_tmpl->registerTemplates();
+        $this->endWidget();
+    }
+?>
 
 <script id="photoTmpl" type="text/x-jquery-tmpl">
     <li>

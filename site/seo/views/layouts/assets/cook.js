@@ -61,5 +61,13 @@ var CookModule = {
 
         }, 'json');
         return false;
+    },
+    returnTask:function (el) {
+        $.post('/cook/cook/returnTask/', {id:$(el).parent('td').data('id')}, function (response) {
+            if (response.status) {
+                $(el).parents('tr').remove();
+                $('.table-cook tbody').append(response.html);
+            }
+        }, 'json');
     }
 }

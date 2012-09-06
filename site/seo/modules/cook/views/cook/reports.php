@@ -1,4 +1,8 @@
-<div class="seo-table table-report tabs">
+<?php
+/* @var $this Controller
+ * @var $tasks SeoTask[]
+ */
+?><div class="seo-table table-report tabs">
     <div class="table-title">Список заданий</div>
 
     <div class="table-nav nav">
@@ -32,8 +36,10 @@
             <table>
                 <thead>
                 <tr>
-                    <th class="al">Ключевые слова и фразы</th>
-                    <th>Исполнитель</th>
+                    <th class="al">Название рецепта или<br>ключевое слово</th>
+                    <th>Примеры</th>
+                    <th></th>
+                    <th>Кулинар</th>
                     <th>Статус</th>
                 </tr>
                 </thead>
@@ -41,7 +47,9 @@
                 <?php foreach ($tasks as $task) if ($task->status == SeoTask::STATUS_READY || $task->status == SeoTask::STATUS_TAKEN) { ?>
                 <tr>
                     <td class="al"><?=$task->getText() ?></td>
-                    <td><?=$task->getExecutor() ?></td>
+                    <td><?=$task->getUrlsText() ?></td>
+                    <td><?=$task->getMultiVarka() ?></td>
+                    <td><?=$task->executor->name ?></td>
                     <td class="seo-status-new-<?=$task->status ?>"><?=$task->statusText ?></td>
                 </tr>
                     <?php } ?>

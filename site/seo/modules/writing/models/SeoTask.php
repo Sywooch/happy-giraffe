@@ -144,14 +144,30 @@ class SeoTask extends CActiveRecord
 
     public function getText()
     {
+        if ($this->section == self::SECTION_COOK)
+            return $this->getRecipeText();
+
         $res = '';
         if (isset($this->keywordGroup))
             foreach ($this->keywordGroup->keywords as $key)
                 $res .= $key->name . '<br>';
+
         if ($this->rewrite)
             foreach ($this->urls as $url)
                 $res .= $url->url . '<br>';
         return trim($res, '<br>');
+    }
+
+    public function getRecipeText()
+    {
+        $res = '';
+        if (isset($this->keywordGroup)){
+            foreach ($this->keywordGroup->keywords as $key)
+                $res .= $key->name . '<br>';
+            return $res;
+        }else{
+            return $this->article_title.' <span class="sup-h">H</span>';
+        }
     }
 
     public function getHints()
@@ -288,6 +304,19 @@ class SeoTask extends CActiveRecord
         }
 
         return $text;
+    }
+
+    public function getUrlsText(){
+        $res = '';
+        foreach ($this->urls as $url)
+            $res .= $url->url . '<br>';
+        return trim($res, '<br>');
+    }
+
+    public function getMultiVarka(){
+        if ($this->multivarka)
+            return '<span class="icon-m">M</span>';
+        return '';
     }
 
     public static function getTasksByName()

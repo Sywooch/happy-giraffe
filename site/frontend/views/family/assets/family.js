@@ -179,10 +179,14 @@ var Family = {
         $(el).addClass('checked').find('input').attr('checked', 'checked');
 
         Family.future_baby_type = type;
-        if (type == 1)
+        if (type == 1) {
+            $('.futbab div.data:has(.date)').show();
             $('#future-baby-1 .member-title').html((Family.baby_count == 0) ? '<i class="icon-waiting"></i> Ждём' : '<i class="icon-waiting"></i> Ждем ещё');
-        else
+        }
+        else {
+            $('.futbab div.data:has(.date)').hide();
             $('#future-baby-1 .member-title').html((Family.baby_count == 0) ? 'Планируем' : 'Планируем ещё');
+        }
     },
     setBaby:function (el, num) {
         if ($(el).hasClass('checked')) {

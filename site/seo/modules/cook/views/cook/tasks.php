@@ -15,29 +15,11 @@ Yii::app()->clientScript->registerCoreScript('jquery.ui'); ?>
                 <th>Кулинар</th>
             </tr>
             <?php foreach ($tempKeywords as $tempKeyword): ?>
-                <tr data-key_id="<?=$tempKeyword->keyword_id ?>">
-                    <td class="al"><?=$tempKeyword->keyword->name ?> </td>
-                    <td width="300">
-                        <input type="text" name="urls[]" class="example" /><br/>
-                    </td>
-                    <td><input type="checkbox" name="multivarka" /></td>
-                    <td>
-                        <?php $this->renderPartial('_author'); ?>
-                    </td>
-                </tr>
+                <?php $this->renderPartial('_task1',array('type'=>1, 'keyword'=>$tempKeyword->keyword)); ?>
             <?php endforeach; ?>
 
             <?php foreach ($by_name_tasks as $by_name_task): ?>
-            <tr data-task_id="<?=$by_name_task->id ?>">
-                <td class="al"><?=$by_name_task->article_title ?></td>
-                <td width="300">
-                    <?php $this->renderPartial('_urls', array('urls'=>$by_name_task->urls)); ?>
-                </td>
-                <td><input type="checkbox" name="multivarka" /></td>
-                <td>
-                    <?php $this->renderPartial('_author'); ?>
-                </td>
-            </tr>
+                <?php $this->renderPartial('_task1',array('type'=>2, 'by_name_task'=>$by_name_task)); ?>
             <?php endforeach; ?>
 
         </table>

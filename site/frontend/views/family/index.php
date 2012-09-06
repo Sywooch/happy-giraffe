@@ -263,7 +263,7 @@
                 <input type="hidden" value="<?=($future_baby === null)?'':$future_baby->id ?>" class="baby-id">
 
                 <div class="member-title">
-                    <?=($future_baby->type == Baby::TYPE_WAIT) ? '<i class="icon-waiting"></i> Ждем' : 'Планируем'?><?php if ($user->hasBaby()): ?> еще<?php endif; ?>
+                    <?=($future_baby->type == Baby::TYPE_WAIT) ? '<i class="icon-waiting"></i> Ждём' : 'Планируем'?><?php if ($user->hasBaby()): ?> ещё<?php endif; ?>
                 </div>
 
 

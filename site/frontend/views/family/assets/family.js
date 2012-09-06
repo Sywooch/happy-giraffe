@@ -177,9 +177,9 @@ var Family = {
 
         Family.future_baby_type = type;
         if (type == 1)
-            $('#future-baby .member-title').html((Family.baby_count == 0) ? '<i class="icon-waiting"></i> Ждем' : '<i class="icon-waiting"></i> Ждем еще');
+            $('#future-baby .member-title').html((Family.baby_count == 0) ? '<i class="icon-waiting"></i> Ждём' : '<i class="icon-waiting"></i> Ждем ещё');
         else
-            $('#future-baby .member-title').html((Family.baby_count == 0) ? 'Планируем' : 'Планируем еще');
+            $('#future-baby .member-title').html((Family.baby_count == 0) ? 'Планируем' : 'Планируем ещё');
     },
     setBaby:function (el, num) {
         if ($(el).hasClass('checked')) {

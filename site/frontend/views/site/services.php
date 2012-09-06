@@ -2,13 +2,13 @@
 
     <div class="main-in">
 
-        <div class="content-title-new content-title-left">Полезные сервисы для всей семьи</div>
+        <div class="content-title-new content-title-left"><?=($category_id === null) ? 'Полезные сервисы для всей семьи' : 'Сервисы ' . mb_strtolower($category->title, 'UTF-8')?></div>
 
         <div class="services-list">
 
             <?php foreach ($services as $category): ?>
                 <?php if ($category->services): ?>
-                    <div class="block-title">Сервисы <?=mb_strtolower($category->title, 'UTF-8')?></div>
+                    <?php if ($category_id === null): ?><div class="block-title">Сервисы <?=mb_strtolower($category->title, 'UTF-8')?></div><?php endif; ?>
 
                     <ul>
                         <?php foreach ($category->services as $service): ?>

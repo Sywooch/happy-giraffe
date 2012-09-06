@@ -42,14 +42,14 @@ class FamilyController extends HController
             $this->user->partner = $partner;
         }
 
-        $future_babies = arrau(null, null);
+        $future_baby = null;
         foreach ($this->user->babies as $baby) {
             if (!empty($baby->type))
-                $future_babies[] = $baby;
+                $future_baby = $baby;
         }
 
         Yii::import('application.widgets.user.UserCoreWidget');
-        $this->render('index', array('user' => $this->user, 'future_baby' => $future_babies));
+        $this->render('index', array('user' => $this->user, 'future_baby' => $future_baby));
     }
 
     public function actionAddBaby()

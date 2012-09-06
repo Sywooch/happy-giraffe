@@ -311,5 +311,21 @@ class SeoCommand extends CConsoleCommand
 
         echo 1000*(microtime(true) - $start_time);
     }
+
+    public function actionAddPages(){
+        //Yii::import('site.frontend.modules.signal.models.*');
+
+        for($i=1;$i<=40;$i++){
+            $keyword = Keyword::GetKeyword($i.' неделя беременности');
+            $group = new KeywordGroup();
+            $group->keywords = array($keyword->id);
+            $group->save();
+            $page = new Page();
+            $page->url = 'http://www.happy-giraffe.ru/pregnancyCalendar/week'.$i.'/';
+            $page->keyword_group_id =$group->id;
+            if ($page->save())
+                echo $i."\n";
+        }
+    }
 }
 

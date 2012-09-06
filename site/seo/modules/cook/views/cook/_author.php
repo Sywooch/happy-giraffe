@@ -1,0 +1,13 @@
+<div class="btn-cooks-container">
+
+    <a href="" class="btn-cooks" onclick="$(this).next().toggle();return false;"></a>
+    <ul style="display: none;">
+        <?php
+        $users = SeoUser::model()->findAll('owner_id = '.Yii::app()->user->id);
+        foreach ($users as $author): ?>
+            <?php if (Yii::app()->authManager->checkAccess('cook-author', $author->id)):?>
+                <li><a href="" onclick="TaskDistribution.addGroup(2, <?php echo $author->id ?>,0);$(this).parents('ul').hide();return false;"><?=$author->name ?></a></li>
+                <?php endif ?>
+            <?php endforeach; ?>
+    </ul>
+</div>

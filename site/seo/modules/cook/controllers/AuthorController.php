@@ -5,7 +5,7 @@
  */
 class AuthorController extends SController
 {
-    public $layout = '/layouts/cook';
+    public $layout = '//layouts/cook';
 
     public function beforeAction($action)
     {

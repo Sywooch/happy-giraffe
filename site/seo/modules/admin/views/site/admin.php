@@ -8,6 +8,7 @@
 		'id',
 		'name',
 		'url',
+		'section',
 		array(
 			'class'=>'CButtonColumn',
 			'template' => '{update}{delete}'

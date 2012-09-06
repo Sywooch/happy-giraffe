@@ -12,7 +12,8 @@ return array(
         'logout' => 'site/logout',
         'keywords' => 'writing/editor/index',
         'tasks' => 'writing/editor/tasks',
-        'competitors/' => 'competitors/default/index',
+        'competitors' => array('competitors/default/index', 'defaultParams' => array('section' => 1)),
+        'competitors/cook' => array('competitors/default/index', 'defaultParams' => array('section' => 2)),
 
         'commentators/user/<user_id:[\d]+>/<period:[\w-]+>'=>'commentators/default/commentator',
         'commentators/user/<user_id:[\d]+>'=>'commentators/default/commentator',

@@ -123,6 +123,7 @@
 <?php echo CHtml::hiddenField('year', $year) ?>
 <?php echo CHtml::hiddenField('key_name', $model->key_name) ?>
 <?php echo CHtml::hiddenField('freq', $model->freq) ?>
+<?php echo CHtml::hiddenField('section', $section) ?>
 <?php echo CHtml::hiddenField('SiteKeywordVisit_sort', isset($_GET['SiteKeywordVisit_sort'])?$_GET['SiteKeywordVisit_sort']:'') ?>
 <?php $this->endWidget(); ?>
 

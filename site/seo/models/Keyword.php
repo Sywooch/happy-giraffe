@@ -12,7 +12,7 @@
  * @property KeyStats[] $seoStats
  * @property KeywordGroup[] $group
  * @property PastuhovYandexPopularity $pastuhovYandex
- * @property KeywordBlacklist $keywordBlacklist
+ * @property KeywordBlacklist $blacklist
  * @property YandexPopularity $yandex
  * @property TempKeyword $tempKeyword
  */
@@ -64,7 +64,7 @@ class Keyword extends HActiveRecord
             'pastuhovYandex' => array(self::HAS_ONE, 'PastuhovYandexPopularity', 'keyword_id'),
             'yandex' => array(self::HAS_ONE, 'YandexPopularity', 'keyword_id'),
             'tempKeyword' => array(self::HAS_ONE, 'TempKeyword', 'keyword_id'),
-            'keywordBlacklist' => array(self::HAS_ONE, 'KeywordBlacklist', 'keyword_id'),
+            'blacklist' => array(self::HAS_ONE, 'KeywordBlacklist', 'keyword_id'),
         );
     }
 
@@ -349,7 +349,9 @@ class Keyword extends HActiveRecord
             elseif ($this->hasOpenedTask())
                 return '';
             else
-                return '<input type="hidden" value="' . $this->id . '"><a href="" class="icon-add" onclick="SeoKeywords.Select(this, ' . (int)$short . ');return false;"></a>';
+                return '<input type="hidden" value="' . $this->id . '">
+                <a href="" class="icon-add" onclick="SeoKeywords.Select(this, ' . (int)$short . ');return false;"></a>
+                <a href="" class="icon-hat" data-id="'. $this->id .'" onclick="SeoKeywords.Hide(this);return false;"></a>';
 
         }
         if ($this->inBuffer()) {
@@ -362,7 +364,7 @@ class Keyword extends HActiveRecord
         else
             return '<input type="hidden" value="' . $this->id . '">
             <a href="" class="icon-add" onclick="SeoKeywords.Select(this, ' . (int)$short . ');return false;"></a>
-            <a href="" class="icon-hat" onclick="SeoKeywords.Hide(this);return false;"></a>';
+            <a href="" class="icon-hat" data-id="'. $this->id .'" onclick="SeoKeywords.Hide(this);return false;"></a>';
 
         return '';
     }

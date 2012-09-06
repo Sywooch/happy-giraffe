@@ -47,8 +47,11 @@ class CommentatorWork extends EMongoDocument
     public function beforeSave()
     {
         $day = $this->getCurrentDay();
-        if (isset($day))
+        if (isset($day)){
             $day->checkStatus();
+            $day->blog_posts = count($this->blogPosts());
+            $day->club_posts = $this->clubPostsCount();
+        }
 
         return parent::beforeSave();
     }
@@ -276,10 +279,20 @@ class CommentatorWork extends EMongoDocument
         return CommunityContent::model()->findAll($criteria);
     }
 
+    public function recipes()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->condition = 'created > "' . date("Y-m-d") . ' 00:00:00"';
+        $criteria->compare('author_id', $this->user_id);
+        $criteria->order = 'created desc';
+
+        return CookRecipe::model()->findAll($criteria);
+    }
+
     public function clubPostsCount()
     {
         if (empty($this->clubs))
-            return count($this->clubPosts());
+            return count($this->clubPosts() + $this->recipes());
 
         $count = 0;
         foreach ($this->clubPosts() as $post)

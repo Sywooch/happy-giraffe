@@ -145,7 +145,7 @@ class SignalCommand extends CConsoleCommand
         Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
         Yii::import('site.frontend.modules.im.models.*');
 
-        $user = CommentatorWork::getUser($user);
-        $user->getDay($date)->status = $status;
+        $user = CommentatorWork::getUser((int)$user);
+        $user->getDay($date)->status = (int)$status;
     }
 }

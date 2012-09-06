@@ -195,10 +195,13 @@ class EditorController extends SController
         $id = Yii::app()->request->getPost('id');
         $withKeys = Yii::app()->request->getPost('withKeys');
         $task = SeoTask::model()->findByPk($id);
-        $group = $task->keywordGroup;
-        $keywords = $task->keywordGroup->keywords;
+        if (isset($task->keywordGroup)){
+            $group = $task->keywordGroup;
+            $keywords = $task->keywordGroup->keywords;
+        }
         $task->delete();
-        $group->delete();
+        if (isset($group))
+            $group->delete();
 
         $keys = array();
         foreach ($keywords as $keyword) {

@@ -147,5 +147,6 @@ class SignalCommand extends CConsoleCommand
 
         $user = CommentatorWork::getUser((int)$user);
         $user->getDay($date)->status = (int)$status;
+        $user->save();
     }
 }

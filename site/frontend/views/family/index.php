@@ -263,7 +263,7 @@
             <?php endforeach; ?>
 
             <?php foreach ($future_babies as $k => $future_baby): ?>
-            <div class="family-member" id="future-baby-<?=($k+1)?>"<?=($future_baby === null)?' style="display:none;"':'' ?>>
+            <div class="family-member futbab" id="future-baby-<?=($k+1)?>"<?=($future_baby === null)?' style="display:none;"':'' ?>>
                 <input type="hidden" value="<?=($future_baby === null)?'':$future_baby->id ?>" class="baby-id">
 
                 <?php if ($k == 0): ?>
@@ -288,7 +288,7 @@
 
                         Приблизительная дата родов ребенка:
 
-                        <div class="date">
+                        <div class="date"<?php if ($future_baby !== null && $future_baby->type == Baby::TYPE_PLANNING): ?> style="display:none;"<?php endif; ?>>
 
                             <div class="datepicker"<?php if ($future_baby !== null && $future_baby->birthday !== null): ?> style="display:none;"<?php endif; ?>>
                                         <span class="chzn-v2">

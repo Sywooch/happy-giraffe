@@ -189,8 +189,10 @@ class SiteKeywordVisit extends HActiveRecord
             else
                 $criteria->condition .= ' AND keyword.id IN (' . implode(',', $this->temp_ids) . ')';
         }
+
+        $criteria->condition .= ' AND blacklist.keyword_id IS NULL';
         $criteria->compare('yandex.value', $this->popular);
-        $criteria->with = array('keyword', 'keyword.group', 'keyword.yandex', 'keyword.tempKeyword');
+        $criteria->with = array('keyword', 'keyword.group', 'keyword.yandex', 'keyword.tempKeyword', 'keyword.blacklist');
         $criteria->together = true;
 
         return $criteria;

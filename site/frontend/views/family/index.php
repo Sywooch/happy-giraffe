@@ -165,7 +165,7 @@
 
                         <input type="hidden" value="<?=$baby->id ?>" class="baby-id">
 
-                        <div class="member-title"><?=$i?>-ый ребенок:</div>
+                        <div class="member-title"><?=$i?>-<?=HDate::GenerateNoun(array('ый', 'ой', 'ий'), $i)?> ребенок:</div>
 
                         <div class="data clearfix">
                             Пол и дата рождения ребенка:

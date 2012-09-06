@@ -315,15 +315,15 @@ class SeoCommand extends CConsoleCommand
     public function actionAddPages()
     {
 
-        $keyword = Keyword::GetKeyword('Календарь беременности');
-        $group = new KeywordGroup();
-        $group->keywords = array($keyword->id);
-        $group->save();
-        $page = new Page();
-        $page->url = 'http://www.happy-giraffe.ru/pregnancyCalendar/';
-        $page->keyword_group_id = $group->id;
-        if ($page->save())
-            echo "success \n";
+//        $keyword = Keyword::GetKeyword('Календарь беременности');
+//        $group = new KeywordGroup();
+//        $group->keywords = array($keyword->id);
+//        $group->save();
+//        $page = new Page();
+//        $page->url = 'http://www.happy-giraffe.ru/pregnancyCalendar/';
+//        $page->keyword_group_id = $group->id;
+//        if ($page->save())
+//            echo "success \n";
     }
 }
 

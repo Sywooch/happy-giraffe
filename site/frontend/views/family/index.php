@@ -262,7 +262,9 @@
             <div class="family-member" id="future-baby"<?=($future_baby === null)?' style="display:none;"':'' ?>>
                 <input type="hidden" value="<?=($future_baby === null)?'':$future_baby->id ?>" class="baby-id">
 
-                <div class="member-title"><i class="icon-waiting"></i> Ждем еще</div>
+                <div class="member-title">
+                    <?=($future_baby->type == Baby::TYPE_WAIT) ? '<i class="icon-waiting"></i> Ждем' : 'Планируем'?><?php if ($user->hasBaby()): ?> еще<?php endif; ?>
+                </div>
 
 
                 <div class="data clearfix">

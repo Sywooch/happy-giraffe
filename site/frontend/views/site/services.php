@@ -2,7 +2,7 @@
 
     <div class="main-in">
 
-        <div class="content-title-new content-title-left"><?=($category_id === null) ? 'Полезные сервисы для всей семьи' : 'Сервисы ' . mb_strtolower($category->title, 'UTF-8')?></div>
+        <div class="content-title-new content-title-left"><?=($category_id === null) ? 'Полезные сервисы для всей семьи' : 'Сервисы ' . mb_strtolower($services[0]->title, 'UTF-8')?></div>
 
         <div class="services-list">
 

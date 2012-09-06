@@ -380,4 +380,25 @@ class HDate
     {
         return date('Ymd', $ts1) == date('Ymd', $ts2);
     }
+
+    public static function govnokod($n)
+    {
+        switch ($n) {
+            case 1:
+            case 4:
+            case 5:
+            case 9:
+                return 'ый';
+                break;
+            case 2:
+            case 6:
+            case 7:
+            case 8:
+                return 'ой';
+                break;
+            case 3:
+                return 'ий';
+                break;
+        }
+    }
 }

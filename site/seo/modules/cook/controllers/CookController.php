@@ -69,38 +69,66 @@ class CookController extends SController
         $this->render('tasks', compact('by_name_tasks', 'tasks', 'tempKeywords'));
     }
 
-    public function actionAddGroupTask()
+    public function actionAddTask()
     {
-        $key_ids = Yii::app()->request->getPost('id');
+        $key_id = Yii::app()->request->getPost('key_id');
+        $task_id = Yii::app()->request->getPost('task_id');
         $urls = Yii::app()->request->getPost('urls');
-
         $author_id = Yii::app()->request->getPost('author_id');
-        $keywords = Keyword::model()->with('group')->findAllByPk($key_ids);
 
-        foreach ($keywords as $keyword)
+        if (empty($task_id)) {
+            $keyword = Keyword::model()->with('group')->findByPk($key_id);
             if (!empty($keyword->group)) {
                 $response = array(
                     'status' => false,
-                    'error' => 'Ошибка, ключевое слово ' . $keyword->id . ' уже использовалось'
+                    'error' => 'Ошибка, ключевое слово ' . $keyword->name . ' уже использовалось'
                 );
                 echo CJSON::encode($response);
                 Yii::app()->end();
             }
 
-        if (empty($keywords)) {
-            $response = array(
-                'status' => false,
-                'error' => 'Ошибка, вы не выбрали ключевые слова'
-            );
-            echo CJSON::encode($response);
-            Yii::app()->end();
-        }
+            if (empty($keyword)) {
+                $response = array(
+                    'status' => false,
+                    'error' => 'Ошибка, вы не выбрали ключевые слова'
+                );
+                echo CJSON::encode($response);
+                Yii::app()->end();
+            }
 
-        $group = new KeywordGroup();
-        $group->keywords = $keywords;
-        if ($group->save()) {
-            $task = new SeoTask();
-            $task->keyword_group_id = $group->id;
+            $group = new KeywordGroup();
+            $group->keywords = $keyword;
+            $group->save();
+
+
+            if ($group->save()) {
+                $task = new SeoTask();
+                $task->keyword_group_id = $group->id;
+                $task->executor_id = $author_id;
+                $task->owner_id = Yii::app()->user->id;
+                $task->section = SeoTask::SECTION_COOK;
+                $task->multivarka = Yii::app()->request->getPost('multivarka');
+
+                if ($task->save()) {
+                    if (!empty($urls)) {
+                        foreach ($urls as $url) {
+                            $r_url = new TaskUrl();
+                            $r_url->task_id = $task->id;
+                            $r_url->url = $url;
+                            $r_url->save();
+                        }
+                    }
+                    $response = array(
+                        'status' => true,
+                        'html' => $this->renderPartial('_task2', array('task' => $task), true)
+                    );
+                } else
+                    $response = array('status' => false);
+            } else
+                $response = array('status' => false);
+        } else {
+            $task = SeoTask::model()->findByPk($task_id);
+            $task->scenario = 'cook';
             $task->type = SeoTask::TYPE_EDITOR;
             $task->executor_id = $author_id;
             $task->owner_id = Yii::app()->user->id;
@@ -108,6 +136,9 @@ class CookController extends SController
             $task->multivarka = Yii::app()->request->getPost('multivarka');
 
             if ($task->save()) {
+                foreach($task->urls as $url)
+                    $url->delete();
+
                 if (!empty($urls)) {
                     foreach ($urls as $url) {
                         $r_url = new TaskUrl();
@@ -118,17 +149,17 @@ class CookController extends SController
                 }
                 $response = array(
                     'status' => true,
-                    'html' => $this->renderPartial('_distrib_task', array('task' => $task), true)
+                    'html' => $this->renderPartial('_task2', array('task' => $task), true)
                 );
             } else
-                $response = array('status' => false);
-        } else
-            $response = array('status' => false);
+                $response = array('status' => false, 'error'=>$task->getErrors());
+        }
 
         echo CJSON::encode($response);
     }
 
-    public function actionReports()
+    public
+    function actionReports()
     {
         $criteria = new CDbCriteria;
         $criteria->compare('owner_id', Yii::app()->user->id);
@@ -147,7 +178,8 @@ class CookController extends SController
      * @return SeoTask
      * @throws CHttpException
      */
-    public function loadTask($id)
+    public
+    function loadTask($id)
     {
         $model = SeoTask::model()->findByPk($id);
         if ($model === null)

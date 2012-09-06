@@ -27,5 +27,39 @@ var CookModule = {
                 });
             }
         }, 'json');
+    },
+    addTask:function (el, author_id) {
+        var urls = new Array();
+        $(el).parents('tr').find('input.example').each(function (index, val) {
+            if ($(this).val() != '')
+                urls.push($(this).val());
+        });
+
+        var multivarka = 0;
+        if ($(el).parents('tr').find('input[name="multivarka"]').attr("checked") == "checked")
+            multivarka = 1;
+        var key_id = $(el).parents('tr').data('key_id');
+        var task_id = $(el).parents('tr').data('task_id');
+
+        $.post('/cook/cook/addTask/', {
+            author_id:author_id,
+            urls:urls,
+            multivarka:multivarka,
+            key_id:key_id,
+            task_id:task_id
+        }, function (response) {
+            if (response.status) {
+                $(el).parents('tr').remove();
+                $('.current-tasks tbody').append(response.html);
+                TaskDistribution.group = new Array();
+            } else
+                $.pnotify({
+                    pnotify_title:'Ошибка',
+                    pnotify_type:'error',
+                    pnotify_text:response.error
+                });
+
+        }, 'json');
+        return false;
     }
 }

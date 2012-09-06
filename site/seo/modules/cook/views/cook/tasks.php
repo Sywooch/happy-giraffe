@@ -15,7 +15,7 @@ Yii::app()->clientScript->registerCoreScript('jquery.ui'); ?>
                 <th>Кулинар</th>
             </tr>
             <?php foreach ($tempKeywords as $tempKeyword): ?>
-                <tr>
+                <tr data-key_id="<?=$tempKeyword->keyword_id ?>">
                     <td class="al"><?=$tempKeyword->keyword->name ?> </td>
                     <td width="300">
                         <input type="text" name="urls[]" class="example" /><br/>
@@ -28,7 +28,7 @@ Yii::app()->clientScript->registerCoreScript('jquery.ui'); ?>
             <?php endforeach; ?>
 
             <?php foreach ($by_name_tasks as $by_name_task): ?>
-            <tr>
+            <tr data-task_id="<?=$by_name_task->id ?>">
                 <td class="al"><?=$by_name_task->article_title ?></td>
                 <td width="300">
                     <?php $this->renderPartial('_urls', array('urls'=>$by_name_task->urls)); ?>
@@ -56,18 +56,8 @@ Yii::app()->clientScript->registerCoreScript('jquery.ui'); ?>
                 <th>Действие</th>
             </tr>
 
-            <?php foreach ($tasks as $task): ?>
-                <tr>
-                    <td class="al"><?=$task->getText() ?> <?php if (empty($task->keyword_group_id)):?><span class="sup-h">H</span><?php endif ?></td>
-                    <td><?php if ($task->multivarka):?><span class="icon-m">M</span><?php endif ?></td>
-                    <td><?=$task->getExecutor() ?></td>
-                    <td>
-                        <a href="javascript:;" class="icon-remove" onclick="TaskDistribution.removeTask(this)"></a>
-                        <a href="javascript:;" class="icon-return" onclick="TaskDistribution.returnTask(this)"></a>
-                        <a href="javascript:;" class="btn-green-small" onclick="TaskDistribution.readyTask(this)">Ok</a>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
+            <?php foreach ($tasks as $task)
+                $this->renderPartial('_task2',compact('task')); ?>
 
         </table>
     </div>

@@ -6,7 +6,7 @@
         $users = SeoUser::model()->findAll('owner_id = '.Yii::app()->user->id);
         foreach ($users as $author): ?>
             <?php if (Yii::app()->authManager->checkAccess('cook-author', $author->id)):?>
-                <li><a href="" onclick="TaskDistribution.addGroup(2, <?php echo $author->id ?>,0);$(this).parents('ul').hide();return false;"><?=$author->name ?></a></li>
+                <li><a href="" onclick="CookModule.addTask(this, <?php echo $author->id ?>);$(this).parents('ul').hide();return false;"><?=$author->name ?></a></li>
                 <?php endif ?>
             <?php endforeach; ?>
     </ul>

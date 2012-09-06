@@ -71,7 +71,7 @@ class SeoTask extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('keyword_group_id', 'required', 'except' => 'cook'),
+            //array('keyword_group_id', 'required', 'except' => 'cook'),
             array('type, status, section, multivarka', 'numerical', 'integerOnly' => true),
             array('keyword_group_id, executor_id', 'length', 'max' => 10),
             // The following rule is used by search().

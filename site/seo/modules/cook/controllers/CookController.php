@@ -6,7 +6,7 @@
 class CookController extends SController
 {
     public $pageTitle = 'Кулинария';
-    public $layout = '/layouts/cook';
+    public $layout = '//layouts/cook';
 
     public function beforeAction($action)
     {
@@ -40,6 +40,7 @@ class CookController extends SController
             $task->article_title = $title;
             $task->status = SeoTask::STATUS_NEW;
             $task->owner_id = Yii::app()->user->id;
+            $task->section = SeoTask::SECTION_COOK;
             if ($task->save())
                 foreach ($urls as $url)
                     if (!empty($url)) {

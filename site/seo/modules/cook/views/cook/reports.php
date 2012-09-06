@@ -69,9 +69,20 @@
                 </tr>
                 </thead>
                 <tbody>
-                <?php foreach ($tasks as $task) if ($task->status == SeoTask::STATUS_WRITTEN || $task->status == SeoTask::STATUS_CORRECTING)
-                    $this->renderPartial('_correcting_task',compact('task'));
-                ?>
+                <?php foreach ($tasks as $task) if ($task->status == SeoTask::STATUS_WRITTEN || $task->status == SeoTask::STATUS_CORRECTING) { ?>
+                <tr>
+                    <td class="al"><?=$task->getText() ?></td>
+                    <td class="al"><?=$task->getArticleText() ?></td>
+                    <td><?=$task->getExecutor() ?></td>
+                    <td class="seo-status-correction-<?=($task->status == SeoTask::STATUS_WRITTEN) ? 1 : 2 ?>"><?=$task->statusText ?></td>
+                    <?php if ($task->status == SeoTask::STATUS_WRITTEN): ?>
+                    <td><a href="" class="btn-green-small"
+                           onclick="SeoTasks.ToCorrection(this, <?=$task->id ?>);return false;">На коррекцию</a></td>
+                    <?php else: ?>
+                    <td></td>
+                    <?php endif ?>
+                </tr>
+                    <?php } ?>
                 </tbody>
             </table>
         </div>
@@ -100,9 +111,10 @@
                     <td class="al"><?=$task->getText() ?></td>
                     <td class="al"><?=$task->getArticleText() ?></td>
                     <td><?=$task->getExecutor() ?></td>
-                    <td class="seo-status-publish-<?=($task->status == SeoTask::STATUS_CORRECTED)?1:2 ?>"><?=$task->statusText ?></td>
+                    <td class="seo-status-publish-<?=($task->status == SeoTask::STATUS_CORRECTED) ? 1 : 2 ?>"><?=$task->statusText ?></td>
                     <?php if ($task->status == SeoTask::STATUS_CORRECTED): ?>
-                    <td><a href="" class="btn-green-small" onclick="SeoTasks.ToPublishing(this, <?=$task->id ?>);return false;">На публикацию</a></td>
+                    <td><a href="" class="btn-green-small"
+                           onclick="SeoTasks.ToPublishing(this, <?=$task->id ?>);return false;">На публикацию</a></td>
                     <?php else: ?>
                     <td></td>
                     <?php endif ?>
@@ -136,7 +148,8 @@
                     <td class="al"><?=$task->getText() ?></td>
                     <td class="al"><?=$task->getArticleText() ?></td>
                     <td><?=$task->getExecutor() ?></td>
-                    <td><a href="" class="btn-green-small" onclick="SeoTasks.CloseTask(this, <?=$task->id ?>);return false;">Проверено</a></td>
+                    <td><a href="" class="btn-green-small"
+                           onclick="SeoTasks.CloseTask(this, <?=$task->id ?>);return false;">Проверено</a></td>
                 </tr>
                     <?php } ?>
                 </tbody>
@@ -162,8 +175,14 @@
                 </tr>
                 </thead>
                 <tbody>
-                <?php foreach ($tasks as $task) if ($task->status == SeoTask::STATUS_CLOSED)
-                    $this->renderPartial('_closed_task',compact('task')); ?>
+                <?php foreach ($tasks as $task) if ($task->status == SeoTask::STATUS_CLOSED) { ?>
+                <tr>
+                    <td class="al"><?=$task->getText() ?></td>
+                    <td class="al"><?=$task->getArticleText() ?></td>
+                    <td><?=$task->getExecutor() ?></td>
+                    <td><?=StatusDates::getTime($task, SeoTask::STATUS_CLOSED) ?></td>
+                </tr>
+                    <?php } ?>
                 </tbody>
             </table>
         </div>
@@ -172,7 +191,7 @@
 </div>
 
 <script type="text/javascript">
-    $(function() {
+    $(function () {
         calcTaskCount();
     });
 
@@ -188,10 +207,10 @@
         }
     }
 
-    function calcTaskCount(){
-        $('div.table-box').each(function(index, Element){
+    function calcTaskCount() {
+        $('div.table-box').each(function (index, Element) {
             var tabs_count = $(this).find('tr').length - 1;
-            $('.table-nav li:eq('+index+') span.count').html(tabs_count);
+            $('.table-nav li:eq(' + index + ') span.count').html(tabs_count);
         });
     }
 </script>

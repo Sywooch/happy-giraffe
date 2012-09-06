@@ -3,19 +3,20 @@
 <?php
 $basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR;
 $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
-Yii::app()->clientScript->registerScriptFile($baseUrl . '/script.js');
+Yii::app()->clientScript->registerScriptFile($baseUrl . '/cook.js');
 ?>
 <div class="clearfix">
     <div class="default-nav">
 
         <?php
-        if (Yii::app()->user->checkAccess('cook-manager'))
+        if (Yii::app()->user->checkAccess('cook-manager-panel'))
             $this->widget('zii.widgets.CMenu', array(
                 'itemTemplate' => '{menu}<span class="tale"><img src="/images/default_nav_active.gif"></span>',
                 'items' => array(
                     array(
                         'label' => '1. Конкуренты',
-                        'url' => array('/cook/cook/index'),
+                        'url' => $this->createUrl('/competitors/default/index', array('section'=>2)),
+                        'active'=>Yii::app()->controller->uniqueId == 'competitors/default'
                     ),
                     array(
                         'label' => '2. Рецепты',

@@ -2,7 +2,7 @@
 <tr data-key_id="<?=$keyword->id ?>">
     <td class="al"><?=$keyword->name ?> </td>
     <td width="300">
-        <input type="text" name="urls[]" class="example"/><br/>
+        <?php $this->renderPartial('_urls', array('urls' => array())); ?>
     </td>
     <td><input type="checkbox" name="multivarka"/></td>
     <td>

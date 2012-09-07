@@ -47,7 +47,7 @@ Yii::app()->clientScript->registerCoreScript('jquery.ui'); ?>
 
 <script type="text/javascript">
     $(function() {
-        $('body').delegate('input.example:last', 'keyup', function(e){
+        $('tr').delegate('td input.example:last', 'keyup', function(e){
             $(this).parent().append('<input name="urls[]" type="text" class="example"/><br/>');
         });
     });

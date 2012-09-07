@@ -134,6 +134,28 @@ var SeoModule = {
             }
         }, 'json');
     },
+    bindKeyword:function(el, keyword_id){
+        var url = $(el).prev().val();
+
+        $.post('/writing/editor/bindKeyword/', {
+            url:url,
+            keyword:keyword_id
+        }, function (response) {
+            if (response.status) {
+                $(el).parents('tr').removeAttr('class').addClass('on-site');
+                $(el).parents('tr').find('td:last').html('');
+                $(el).parents('td').find('a.icon-link').remove();
+                $(el).parents('td').find('div').before(response.html);
+                $(el).parent().remove();
+            } else {
+                $.pnotify({
+                    pnotify_title:'Ошибка',
+                    pnotify_type:'error',
+                    pnotify_text:response.error
+                });
+            }
+        }, 'json');
+    },
     removeUser:function (list_name, entity_id, el) {
         $.post('/site/removeUser/', {list_name:list_name, entity_id:entity_id}, function (response) {
             if (response.status) {

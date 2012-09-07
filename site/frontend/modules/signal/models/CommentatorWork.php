@@ -521,7 +521,7 @@ class CommentatorWork extends EMongoDocument
     public function getCommentatorGroups()
     {
         $criteria = new EMongoCriteria();
-        $criteria->sort('created', EMongoCriteria::SORT_DESC);
+        $criteria->sort('created', EMongoCriteria::SORT_ASC);
         return CommentatorWork::model()->findAll($criteria);
     }
 }

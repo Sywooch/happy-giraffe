@@ -156,6 +156,12 @@ class SignalCommand extends CConsoleCommand
 
     public function actionSetCreated()
     {
+        Yii::import('site.frontend.modules.signal.models.*');
+        Yii::import('site.frontend.modules.signal.components.*');
+        Yii::import('site.common.models.mongo.*');
+        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
+        Yii::import('site.frontend.modules.im.models.*');
+
         $users = CommentatorWork::model()->findAll();
         foreach ($users as $user)
             if (in_array($user->user_id, array(15468, 15472)))

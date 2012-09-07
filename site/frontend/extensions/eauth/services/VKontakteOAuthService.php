@@ -111,6 +111,8 @@ class VKontakteOAuthService extends EOAuth2Service {
 	 */
 	protected function fetchJsonError($json) {
 		if (isset($json->error)) {
+            var_dump($json->error);
+            Yii::app()->end();
 			return array(
 				'code' => $json->error->error_code,
 				'message' => $json->error->error_msg,

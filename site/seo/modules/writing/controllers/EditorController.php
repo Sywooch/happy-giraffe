@@ -346,6 +346,47 @@ class EditorController extends SController
         echo CJSON::encode(array('status' => true));
     }
 
+    public function actionBindKeyword()
+    {
+        $url = Yii::app()->request->getPost('url');
+        $keyword_id = Yii::app()->request->getPost('keyword');
+
+        $exist = Page::model()->findByAttributes(array(
+            'url' => $url,
+        ));
+        if ($exist !== null) {
+            $response = array(
+                'status' => false,
+                'error' => 'Вы уже вводили эту статью.',
+            );
+        } else {
+            $group = new KeywordGroup();
+            $group->keywords = array($keyword_id);
+
+            if ($group->save()) {
+                $page = new Page();
+                $page->url = $url;
+                $page->keyword_group_id = $group->id;
+                if ($page->save()) {
+                    $response = array(
+                        'status' => true,
+                        'html' => '<a target="_blank" class="icon-article" href="' . $url . '"></a>',
+                    );
+                } else
+                    $response = array(
+                        'status' => false,
+                        'error' => 'Не удалось сохранить статью, обратитесь к разработчикам.',
+                    );
+            }  else
+                $response = array(
+                    'status' => false,
+                    'error' => 'Не удалось сохранить группу кейвордов, обратитесь к разработчикам.',
+                );
+        }
+
+        echo CJSON::encode($response);
+    }
+
     /**
      * @param int $id model id
      * @return SeoTask

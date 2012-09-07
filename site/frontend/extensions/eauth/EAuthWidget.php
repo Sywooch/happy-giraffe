@@ -39,6 +39,8 @@ class EAuthWidget extends CWidget {
 	 */
 	public $action = null;
 
+    public $mode = null;
+
 	/**
 	 * Initializes the widget.
 	 * This method is called by {@link CBaseController::createWidget}

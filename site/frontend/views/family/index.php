@@ -8,6 +8,7 @@
         Family.partner_id='.$user->partner->id.';
         Family.partnerOf = '.CJavaScript::encode($user->getPartnerTitlesOf()).';
         Family.baby_count = '.$user->babyCount().';
+        Family.future_baby_type = '.(($future_babies[0] === null) ? 'null' : $future_babies[0]->type).';
         Family.relationshipStatus = '.(($user->relationship_status === null) ? 'null' : $user->relationship_status).';
     ';
 
@@ -22,11 +23,13 @@
     ;
 
 
-    $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
-        'selector' => '.img > a',
-        'entity' => 'Album',
-        'entity_id' => $user->getSystemAlbum(3)->id,
-    ));
+    if ($user->getSystemAlbum(3) !== null) {
+        $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
+            'selector' => '.img > a',
+            'entity' => 'Album',
+            'entity_id' => $user->getSystemAlbum(3)->id,
+        ));
+    }
 
 ?>
 
@@ -162,7 +165,7 @@
 
                         <input type="hidden" value="<?=$baby->id ?>" class="baby-id">
 
-                        <div class="member-title"><?=$i?>-ый ребенок:</div>
+                        <div class="member-title"><?=$i?>-<?=HDate::govnokod($i)?> ребенок:</div>
 
                         <div class="data clearfix">
                             Пол и дата рождения ребенка:
@@ -259,11 +262,17 @@
                 <?php $i++; endif; ?>
             <?php endforeach; ?>
 
-            <div class="family-member" id="future-baby"<?=($future_baby === null)?' style="display:none;"':'' ?>>
+            <?php foreach ($future_babies as $k => $future_baby): ?>
+            <div class="family-member futbab" id="future-baby-<?=($k+1)?>"<?=($future_baby === null)?' style="display:none;"':'' ?>>
                 <input type="hidden" value="<?=($future_baby === null)?'':$future_baby->id ?>" class="baby-id">
 
-                <div class="member-title"><i class="icon-waiting"></i> Ждем еще</div>
-
+                <?php if ($k == 0): ?>
+                    <div class="member-title">
+                        <?php if ($future_baby !== null): ?>
+                            <?=($future_baby->type == Baby::TYPE_WAIT) ? '<i class="icon-waiting"></i> Ждём' : 'Планируем'?><?php if ($user->hasBaby()): ?> ещё<?php endif; ?>
+                        <?php endif; ?>
+                    </div>
+                <?php endif; ?>
 
                 <div class="data clearfix">
                     Пол будущего ребенка:
@@ -274,43 +283,49 @@
                 </div>
 
 
-                <div class="data clearfix">
+                <?php if ($k == 0): ?>
+                    <div class="data clearfix">
 
-                    Приблизительная дата родов ребенка:
+                        Приблизительная дата родов ребенка:
 
-                    <div class="date">
+                        <div class="date"<?php if ($future_baby !== null && $future_baby->type == Baby::TYPE_PLANNING): ?> style="display:none;"<?php endif; ?>>
 
-                        <div class="datepicker"<?php if ($future_baby !== null && $future_baby->birthday !== null): ?> style="display:none;"<?php endif; ?>>
-                                    <span class="chzn-v2">
-                                        <?php echo CHtml::dropDownList('baby_d_'.$i, ($future_baby !== null) ? $future_baby->getBDatePart('j') : '', array(''=>' ')+HDate::Days(), array(
-                                        'class'=>'chzn w-1 date',
-                                        'data-placeholder'=>' '
-                                    )) ?>
-                                    </span>
-                            &nbsp;
-                                    <span class="chzn-v2">
-                                        <?php echo CHtml::dropDownList('baby_m_'.$i, ($future_baby !== null) ? $future_baby->getBDatePart('n') : '', array(''=>' ')+HDate::ruMonths(), array(
-                                        'class'=>'chzn w-2 month',
-                                        'data-placeholder'=>' '
-                                    )) ?>
-                                    </span>
-                            &nbsp;
-                                    <span class="chzn-v2">
-                                        <?php echo CHtml::dropDownList('baby_y_'.$i, ($future_baby !== null) ? $future_baby->getBDatePart('Y') : '', array(''=>' ')+HDate::Range(date('Y') + 5, date('Y') - 50), array(
-                                        'class'=>'chzn w-3 year',
-                                        'data-placeholder'=>' '
-                                    )) ?>
-                                    </span>
-                            &nbsp;
-                            <button class="btn btn-green-small" onclick="Family.saveBabyDate(this, true)"><span><span>Ok</span></span></button>
+                            <div class="datepicker"<?php if ($future_baby !== null && $future_baby->birthday !== null): ?> style="display:none;"<?php endif; ?>>
+                                        <span class="chzn-v2">
+                                            <?php echo CHtml::dropDownList('baby_d_'.$i, ($future_baby !== null) ? $future_baby->getBDatePart('j') : '', array(''=>' ')+HDate::Days(), array(
+                                            'class'=>'chzn w-1 date',
+                                            'data-placeholder'=>' '
+                                        )) ?>
+                                        </span>
+                                &nbsp;
+                                        <span class="chzn-v2">
+                                            <?php echo CHtml::dropDownList('baby_m_'.$i, ($future_baby !== null) ? $future_baby->getBDatePart('n') : '', array(''=>' ')+HDate::ruMonths(), array(
+                                            'class'=>'chzn w-2 month',
+                                            'data-placeholder'=>' '
+                                        )) ?>
+                                        </span>
+                                &nbsp;
+                                        <span class="chzn-v2">
+                                            <?php echo CHtml::dropDownList('baby_y_'.$i, ($future_baby !== null) ? $future_baby->getBDatePart('Y') : '', array(''=>' ')+HDate::Range(date('Y') + 5, date('Y') - 50), array(
+                                            'class'=>'chzn w-3 year',
+                                            'data-placeholder'=>' '
+                                        )) ?>
+                                        </span>
+                                &nbsp;
+                                <button class="btn btn-green-small" onclick="Family.saveBabyDate(this, true)"><span><span>Ok</span></span></button>
+                            </div>
+
+                            <div class="dateshower"<?php if ($future_baby === null || $future_baby->birthday === null): ?> style="display:none;"<?php endif; ?>>
+                                <div class="text"><span class="age"><?=($future_baby === null) ? '' : $future_baby->birthday?></span>&nbsp;<a href="javascript:void(0);" onclick="Family.editDate(this);" class="edit tooltip" title="Редактировать имя"></a></div>
+                            </div>
+
                         </div>
-
-                        <div class="dateshower"<?php if ($future_baby === null || $future_baby->birthday === null): ?> style="display:none;"<?php endif; ?>>
-                            <div class="text"><span class="age"><?=($future_baby === null) ? '' : $future_baby->birthday?></span>&nbsp;<a href="javascript:void(0);" onclick="Family.editDate(this);" class="edit tooltip" title="Редактировать имя"></a></div>
-                        </div>
-
                     </div>
-                </div>
+                <?php endif; ?>
+
+                <?php if ($k == 0): ?>
+                    <p class="double"<?php if ($future_babies[1] !== null): ?> style="display: none;"<?php endif; ?>><a href="javascript:void(0)" onclick="$(this).parent().hide(); $('#future-baby-2').show();" class="couple"></a> Нажмите "+" если двойня</p>
+                <?php endif; ?>
 
                 <!--<div class="data clearfix">
                     Пол и дата рождения ребенка:
@@ -323,6 +338,7 @@
 
                 <p><a href="" class="couple"></a> Нажмите "+" если двойня</p>-->
             </div>
+            <?php endforeach; ?>
 
             <?php for ($i = $user->babyCount(); $i < 10; $i++): ?>
                 <?php $this->renderPartial('_empty_child', array('i'=>$i)); ?>

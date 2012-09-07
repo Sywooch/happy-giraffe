@@ -213,4 +213,10 @@ class SeoUser extends HActiveRecord
 
         return $result;
     }
+
+    public function getTasksCount()
+    {
+        return SeoTask::model()->count('executor_id='.$this->id.' AND status >= '.SeoTask::STATUS_READY
+            .' AND status <= '.SeoTask::STATUS_TAKEN);
+    }
 }

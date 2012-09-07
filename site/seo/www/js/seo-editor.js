@@ -39,7 +39,7 @@ var SeoKeywords = {
     },
     CancelSelect:function (el, short) {
         var id = this.getId(el);
-        $.post('/writing/editor/CancelSelectKeyword/', {id:id}, function (response) {
+        $.post('/writing/editor/removeFromSelected/', {id:id}, function (response) {
             if (response.status) {
                 $(el).parents('tr').removeClass('in-buffer');
                 if (short)
@@ -225,7 +225,7 @@ var SeoTasks = {
         }, 'json');
     },
     Corrected:function (el, id) {
-        $.post('/writing/task/corrected/', {id:id}, function (response) {
+        $.post('/writing/corrector/corrected/', {id:id}, function (response) {
             if (response.status) {
                 $(el).parents('tr').remove();
             }

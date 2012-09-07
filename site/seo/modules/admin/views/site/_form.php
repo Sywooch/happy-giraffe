@@ -21,7 +21,13 @@
 		<?php echo $form->error($model,'url'); ?>
 	</div>
 
-	<div class="row buttons">
+     <div class="row">
+         <?php echo $form->labelEx($model,'section'); ?>
+         <?php echo $form->textField($model,'section',array('size'=>60,'maxlength'=>255)); ?>
+         <?php echo $form->error($model,'section'); ?>
+     </div>
+
+     <div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
 	</div>
 

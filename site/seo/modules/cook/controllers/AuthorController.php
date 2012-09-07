@@ -32,13 +32,21 @@ class AuthorController extends SController
 
     public function actionExecuted()
     {
+        $title = Yii::app()->request->getPost('name');
         $task = $this->loadTask(Yii::app()->request->getPost('id'));
         $task->status = SeoTask::STATUS_WRITTEN;
-        $task->article_title = Yii::app()->request->getPost('name');
-        if (empty($task->article_title)) {
+
+        if (empty($title) && empty($task->article_title))
             echo CJSON::encode(array('status' => false, 'error' => 'Введите название рецепта'));
-        } else
-            echo CJSON::encode(array('status' => $task->save()));
+        else {
+            if (!empty($title))
+                $task->article_title = $title;
+
+            if (empty($task->article_title)) {
+                echo CJSON::encode(array('status' => false, 'error' => 'Введите название рецепта'));
+            } else
+                echo CJSON::encode(array('status' => $task->save()));
+        }
     }
 
     /**

@@ -9,7 +9,7 @@ class CorrectorController extends SController
 
     public function beforeAction($action)
     {
-        if (!Yii::app()->user->checkAccess('corrector'))
+        if (!Yii::app()->user->checkAccess('corrector') && !Yii::app()->user->checkAccess('cook-manager'))
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
         $this->pageTitle = 'корректор';

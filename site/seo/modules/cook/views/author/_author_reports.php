@@ -1,4 +1,8 @@
-<div class="seo-table table-report">
+<?php
+/* @var $this Controller
+ * @var $task SeoTask
+ */
+?><div class="seo-table table-report">
     <div class="table-box">
         <table>
             <colgroup>
@@ -10,20 +14,22 @@
             </colgroup>
             <tbody>
             <tr>
-                <th class="al">Ключевые слова и фразы</th>
-                <th class="al">Название статьи, ссылка</th>
+                <th class="al">Название рецепта, ссылка</th>
+                <th class="al">Ключевое слово</th>
+                <th></th>
                 <th>Статус</th>
                 <th>Дата</th>
             </tr>
             <?php foreach ($tasks as $task) { ?>
             <tr>
-                <td class="al"><?=$task->getText() ?></td>
                 <td class="al"><?=$task->getArticleText() ?></td>
+                <td class="al"><?=$task->getKeywordsText() ?></td>
+                <td><?=$task->getMultiVarka() ?></td>
                 <td class="seo-status-author-<?=$task->status ?>"><?=$task->statusText ?></td>
                 <td>
-                    Написана <span class="date"><?=StatusDates::getTime($task, SeoTask::STATUS_WRITTEN) ?></span>
+                    Написан <span class="date"><?=StatusDates::getTime($task, SeoTask::STATUS_WRITTEN) ?></span>
                     <?php if ($task->status >= SeoTask::STATUS_PUBLISHED): ?>
-                    Размещена <span class="date"><?=StatusDates::getTime($task, SeoTask::STATUS_PUBLISHED) ?></span>
+                    Размещен <span class="date"><?=StatusDates::getTime($task, SeoTask::STATUS_PUBLISHED) ?></span>
                     <?php endif ?>
                 </td>
             </tr>

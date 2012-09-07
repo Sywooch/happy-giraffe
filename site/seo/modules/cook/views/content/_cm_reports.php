@@ -4,7 +4,8 @@
         <table>
             <thead>
             <tr>
-                <th>Название статьи</th>
+                <th>Название рецепта, ссылка</th>
+                <th></th>
                 <th class="ac">Дата задания</th>
                 <th class="ac">Дата размещения</th>
             </tr>
@@ -13,6 +14,7 @@
             <?php foreach ($tasks as $task) { ?>
             <tr>
                 <td><?=$task->getArticleText() ?></td>
+                <td><?=$task->getMultiVarka() ?></td>
                 <td class="ac"><span class="date"><?=StatusDates::getTime($task, SeoTask::STATUS_PUBLICATION) ?></span></td>
                 <td class="ac"><span class="date"><?=StatusDates::getTime($task, SeoTask::STATUS_PUBLISHED) ?></span></td>
             </tr>

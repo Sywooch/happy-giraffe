@@ -267,12 +267,12 @@ class EditorController extends SController
 
     public function actionPublish()
     {
-        if (!Yii::app()->user->checkAccess('editor'))
+        if (!Yii::app()->user->checkAccess('editor') && !Yii::app()->user->checkAccess('cook-manager-panel') )
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
         $task_id = Yii::app()->request->getPost('id');
         $task = $this->loadTask($task_id);
-        if ($task->status == SeoTask::STATUS_CORRECTED) {
+        if ($task->status == SeoTask::STATUS_CORRECTED || $task->status == SeoTask::STATUS_WRITTEN) {
             $task->status = SeoTask::STATUS_PUBLICATION;
             echo CJSON::encode(array('status' => $task->save()));
         } else

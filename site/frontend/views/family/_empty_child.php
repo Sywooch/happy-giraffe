@@ -2,7 +2,7 @@
 
     <input type="hidden" value="" class="baby-id">
 
-    <div class="member-title"><?=$i?>-ый ребенок:</div>
+    <div class="member-title"><?=$i?>-<?=HDate::govnokod($i)?> ребенок:</div>
 
     <div class="data clearfix">
         <div class="d-text">Имя ребенка:</div>

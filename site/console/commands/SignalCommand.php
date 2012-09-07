@@ -137,4 +137,16 @@ class SignalCommand extends CConsoleCommand
 
        var_dump($report['']['ga:visitors']);
     }
+
+    public function actionSetStatus($user, $date, $status){
+        Yii::import('site.frontend.modules.signal.models.*');
+        Yii::import('site.frontend.modules.signal.components.*');
+        Yii::import('site.common.models.mongo.*');
+        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
+        Yii::import('site.frontend.modules.im.models.*');
+
+        $user = CommentatorWork::getUser((int)$user);
+        $user->getDay($date)->status = (int)$status;
+        $user->save();
+    }
 }

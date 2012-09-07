@@ -2,8 +2,7 @@
     $cs = Yii::app()->clientScript;
 
     $cs
-        ->registerScriptFile('/javascripts/jquery.masonry.min.js')
-        ->registerScriptFile('/javascripts/viewAlbum.js')
+
     ;
 ?>
 
@@ -16,40 +15,62 @@
                 Фотоальбомы
             </div>
 
-
             <div id="gallery" class="nopadding">
-                <?php foreach ($dataProvider->data as $album): ?>
-                    <?php if (count($album->photos) > 0 || $this->user->id == Yii::app()->user->id):?>
-                        <div class="gallery-album" data-count="<?=count($album->photos)?>">
 
-                            <div class="album-title"><b>Альбом <?=CHtml::link($album->title, $album->url)?></b>
-                                <?php if(!Yii::app()->user->isGuest && $this->user->id == Yii::app()->user->id): ?>
-                                    <?php
-                                    Yii::import('application.controllers.AlbumsController');
-                                    AlbumsController::loadUploadScritps();
-                                    $link = Yii::app()->createUrl('/albums/addPhoto')
-                                    ?>
-                                    <a class="btn btn-orange-smallest fancy" href="<?php echo $link; ?>"><span><span>Загрузить фото</span></span></a>
-                                    <?php endif; ?>
-                            </div>
-                            <?php if ($album->description): ?>
-                                <div class="album-description"><?=$album->description?></div>
+                <?php foreach ($dataProvider->data as $model): ?>
+
+                    <?php if ($model->photoCount > 0): ?>
+
+                        <?php
+                            $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
+                                'selector' => '.gallery-album:data(id=' . $model->id . ') .img > a, .gallery-album:data(id=' . $model->id . ') .slideshow',
+                                'entity' => 'Album',
+                                'entity_id' => $model->id,
+                                'entity_url' => $model->url,
+                            ));
+
+                            $_firstPhoto = $model->getRelated('photos', false, array('limit' => 1, 'order' => 'id ASC'));
+                            $firstPhoto = $_firstPhoto[0];
+                        ?>
+
+                        <div class="gallery-album clearfix" data-id="<?=$model->id?>">
+
+                            <div class="album-title"><?=CHtml::link($model->title, $model->url)?><?php if (Yii::app()->user->id == $this->user->id): ?> <?= CHtml::link('', array('albums/updateAlbum', 'id' => $model->id), array('class' => 'settings tooltip fancy', 'title' => 'Настройки альбома')) ?><?php endif; ?></div>
+                            <?php if ($model->description): ?>
+                                <div class="album-description"><?=$model->description?></div>
                             <?php endif; ?>
+
+                            <div class="album-actions">
+
+                                <span class="count"><i class="icon"></i> <?=$model->photoCount?> фото</span>
+                                <a href="javascript:void(0)" class="slideshow" data-id="<?=$firstPhoto->id?>">Слайд-шоу</a>
+                                <?=CHtml::link('Открыть альбом', $model->url)?>
+
+                            </div>
 
                             <div class="album-photos">
 
-                                <ul>
-                                    <?php foreach ($album->getRelated('photos', false, array('order' => 'RAND()', 'limit' => 5)) as $photo): ?>
-                                        <li><?=CHtml::link(CHtml::image($photo->getPreviewUrl(210, null, Image::WIDTH)), $album->url)?></li>
-                                    <?php endforeach; ?>
-                                    <li class="more"><?=CHtml::link('<i class="icon"></i>еще <span class="count"></span> фото', $album->url)?></li>
-                                </ul>
+                                <div class="gallery-photos-new cols-3 clearfix">
+                                    <ul>
+
+                                        <?php foreach ($model->getRelated('photos', false, array('limit' => 3, 'order' => new CDbExpression('RAND()'))) as $photo): ?>
+                                            <?=$this->renderPartial('_photo', array('data' => $photo))?>
+                                        <?php endforeach; ?>
+
+                                    </ul>
+                                </div>
+
 
                             </div>
 
                         </div>
-                    <?php endif ?>
+
+                    <?php endif; ?>
+
                 <?php endforeach; ?>
+
+                <?=CHtml::link('', array('addPhoto'), array('class' => 'fancy btn-album-create'))?>
+
             </div>
 
         </div>

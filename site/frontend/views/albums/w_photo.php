@@ -28,6 +28,21 @@
         $preload[$currentNext] = $photos[$currentNext];
         $preload[$currentPrev] = $photos[$currentPrev];
     }
+
+    $more = Album::model()->findAll(array(
+        'limit' => 3,
+        'order' => new CDbExpression('RAND()'),
+        'scopes' => array('noSystem'),
+        'condition' => 'id != :current_id',
+        'params' => array(':current_id' => $model->id),
+        'with' => array(
+            'photos' => array(
+                'joinType' => 'INNER JOIN',
+                'limit' => 1,
+                'order' => new CDbExpression('RAND()'),
+            ),
+        ),
+    ));
 ?>
 
 <div id="photo-window-in">
@@ -36,18 +51,20 @@
 
         <a onclick="$.fancybox.close();" href="javascript:void(0);" class="close"></a>
 
-        <div class="user">
-            <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
-                'user' => $photo->author,
-                'size' => 'small',
-                'sendButton' => false,
-                'location' => false
-            )); ?>
-        </div>
+            <div class="user">
+                <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
+                    'user' => $photo->author,
+                    'size' => 'small',
+                    'sendButton' => false,
+                    'location' => false
+                )); ?>
+            </div>
 
-        <div class="photo-info">
-            <?=$title?> - <span class="count"><span><?=($currentIndex + 1)?></span> фото из <?=$count?></span>
-            <div class="title"><?=$photo->w_title?></div>
+        <div class="photo-container">
+            <div class="photo-info">
+                <?=$title?> - <span class="count"><span><?=($currentIndex + 1)?></span> фото из <?=$count?></span>
+                <div class="title"><?=$photo->w_title?></div>
+            </div>
         </div>
 
     </div>
@@ -88,24 +105,66 @@
         pGallery.last = <?=end($photos)->id?>;
     </script>
 
-    <div id="photo">
+    <div class="photo-container">
+        <div id="photo">
 
-        <div class="img">
-            <table><tr><td><?=CHtml::image($photo->getPreviewUrl(960, 627, Image::HEIGHT, true), '')?></td></tr></table>
+            <div class="img">
+                <table><tr><td><?=CHtml::image($photo->getPreviewUrl(960, 627, Image::HEIGHT, true), '')?></td></tr></table>
+            </div>
+
+            <a href="javascript:void(0)" class="prev"><i class="icon"></i>предыдушая</a>
+            <a href="javascript:void(0)" class="next"><i class="icon"></i>следующая</a>
+
         </div>
 
-        <a href="javascript:void(0)" class="prev"><i class="icon"></i>предыдушая</a>
-        <a href="javascript:void(0)" class="next"><i class="icon"></i>следующая</a>
+        <div class="photo-comment">
+            <p><?=$photo->w_description?></p>
+        </div>
 
+
+        <div id="w-photo-content">
+            <?php $this->renderPartial('w_photo_content', compact('model', 'photo')); ?>
+        </div>
     </div>
 
-    <div class="photo-comment">
-        <p><?=$photo->w_description?></p>
-    </div>
+    <div class="rewatch-container" style="display: none;">
 
+        <div class="album-end">
 
-    <div id="w-photo-content">
-        <?php $this->renderPartial('w_photo_content', compact('model', 'photo')); ?>
+            <div class="block-title">Вы посмотрели альбом "<?=$title?>"</div>
+
+            <span class="count"><?=$count?> фото</span>
+
+            <a href="javascript:void(0)" class="re-watch"><i class="icon"></i><span>Посмотреть еще раз</span></a>
+
+        </div>
+
+        <div class="more-albums">
+            <div class="block-in">
+                <div class="block-title"><span>Другие альбомы</span></div>
+
+                <div class="gallery-photos-new clearfix">
+                    <ul>
+
+                        <?php foreach ($more as $album): ?>
+                            <li>
+                                <div class="img" data-id="<?=$album->photos[0]->id?>" data-entity="<?=get_class($album)?>" data-entity-id="<?=$album->id?>" data-entity-url="<?=$album->url?>">
+                                    <a href="javascript:void(0)">
+                                        <?=CHtml::image($album->photos[0]->getPreviewUrl(210, null, Image::WIDTH))?>
+                                        <span class="count"><i class="icon"></i> <?=$album->photoCount?> фото</span>
+                                        <span class="btn">Посмотреть</span>
+                                    </a>
+                                </div>
+                                <div class="item-title"><?=CHtml::link($album->title, $album->url)?></div>
+                            </li>
+                        <?php endforeach; ?>
+
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
     </div>
 
 </div>

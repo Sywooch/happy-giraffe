@@ -60,35 +60,24 @@
 
         <div class="table-box tab-box tab-box-2" style="display: none; ">
             <table>
-                <colgroup>
-                    <col width="400">
-                    <col>
-                    <col>
-                    <col>
-                    <col>
-                </colgroup>
                 <thead>
                 <tr>
-                    <th class="al">Ключевые слова и фразы</th>
-                    <th class="al">Название статьи</th>
-                    <th>Исполнитель</th>
-                    <th>Статус</th>
+                    <th class="al">Название рецепта</th>
+                    <th class="al">Ключевое слово</th>
+                    <th></th>
+                    <th>Кулинар</th>
                     <th>Действие</th>
                 </tr>
                 </thead>
                 <tbody>
-                <?php foreach ($tasks as $task) if ($task->status == SeoTask::STATUS_WRITTEN || $task->status == SeoTask::STATUS_CORRECTING) { ?>
+                <?php foreach ($tasks as $task) if ($task->status == SeoTask::STATUS_WRITTEN) { ?>
                 <tr>
-                    <td class="al"><?=$task->getText() ?></td>
-                    <td class="al"><?=$task->getArticleText() ?></td>
-                    <td><?=$task->getExecutor() ?></td>
-                    <td class="seo-status-correction-<?=($task->status == SeoTask::STATUS_WRITTEN) ? 1 : 2 ?>"><?=$task->statusText ?></td>
-                    <?php if ($task->status == SeoTask::STATUS_WRITTEN): ?>
-                    <td><a href="" class="btn-green-small"
-                           onclick="SeoTasks.ToCorrection(this, <?=$task->id ?>);return false;">На коррекцию</a></td>
-                    <?php else: ?>
-                    <td></td>
-                    <?php endif ?>
+                    <td class="al"><?=$task->article_title ?></td>
+                    <td class="al"><?=$task->getKeywordsText() ?></td>
+                    <td><?=$task->getMultiVarka() ?></td>
+                    <td><?=$task->executor->name ?></td>
+                    <td><a href="javascript:;" class="btn-green-small"
+                           onclick="CookModule.toPublishing(this, <?=$task->id ?>);">На публикацию</a></td>
                 </tr>
                     <?php } ?>
                 </tbody>
@@ -96,7 +85,7 @@
         </div>
 
         <div class="table-box tab-box tab-box-3" style="display: none; ">
-            <table>
+            <table id="publish-table">
                 <colgroup>
                     <col width="400">
                     <col>
@@ -106,26 +95,21 @@
                 </colgroup>
                 <thead>
                 <tr>
-                    <th class="al">Ключевые слова и фразы</th>
-                    <th class="al">Название статьи</th>
-                    <th>Исполнитель</th>
+                    <th class="al">Название рецепта</th>
+                    <th class="al">Ключевое слово</th>
+                    <th></th>
+                    <th>Кулинар</th>
                     <th>Статус</th>
-                    <th>Действие</th>
                 </tr>
                 </thead>
                 <tbody>
-                <?php foreach ($tasks as $task) if ($task->status == SeoTask::STATUS_CORRECTED || $task->status == SeoTask::STATUS_PUBLICATION) { ?>
+                <?php foreach ($tasks as $task) if ($task->status == SeoTask::STATUS_PUBLICATION) { ?>
                 <tr>
-                    <td class="al"><?=$task->getText() ?></td>
-                    <td class="al"><?=$task->getArticleText() ?></td>
-                    <td><?=$task->getExecutor() ?></td>
-                    <td class="seo-status-publish-<?=($task->status == SeoTask::STATUS_CORRECTED) ? 1 : 2 ?>"><?=$task->statusText ?></td>
-                    <?php if ($task->status == SeoTask::STATUS_CORRECTED): ?>
-                    <td><a href="" class="btn-green-small"
-                           onclick="SeoTasks.ToPublishing(this, <?=$task->id ?>);return false;">На публикацию</a></td>
-                    <?php else: ?>
-                    <td></td>
-                    <?php endif ?>
+                    <td class="al"><?=$task->article_title ?></td>
+                    <td class="al"><?=$task->getKeywordsText() ?></td>
+                    <td><?=$task->getMultiVarka() ?></td>
+                    <td><?=$task->executor->name ?></td>
+                    <td class="seo-status-publish-2"><?=$task->statusText ?></td>
                 </tr>
                     <?php } ?>
 
@@ -135,27 +119,22 @@
 
         <div class="table-box tab-box tab-box-4" style="display: none; ">
             <table>
-                <colgroup>
-                    <col width="400">
-                    <col>
-                    <col>
-                    <col>
-                    <col>
-                </colgroup>
                 <thead>
                 <tr>
-                    <th class="al">Ключевые слова и фразы</th>
-                    <th class="al">Опубликованные статьи</th>
-                    <th>Исполнитель</th>
+                    <th class="al">Опубликованный рецепт, ссылка</th>
+                    <th class="al">Ключевое слово</th>
+                    <th></th>
+                    <th>Кулинар</th>
                     <th>Действие</th>
                 </tr>
                 </thead>
                 <tbody>
                 <?php foreach ($tasks as $task) if ($task->status == SeoTask::STATUS_PUBLISHED) { ?>
                 <tr>
-                    <td class="al"><?=$task->getText() ?></td>
                     <td class="al"><?=$task->getArticleText() ?></td>
-                    <td><?=$task->getExecutor() ?></td>
+                    <td class="al"><?=$task->getKeywordsText() ?></td>
+                    <td><?=$task->getMultiVarka() ?></td>
+                    <td><?=$task->executor->name ?></td>
                     <td><a href="" class="btn-green-small"
                            onclick="SeoTasks.CloseTask(this, <?=$task->id ?>);return false;">Проверено</a></td>
                 </tr>
@@ -167,27 +146,22 @@
 
         <div class="table-box tab-box tab-box-5" style="display: none; ">
             <table>
-                <colgroup>
-                    <col width="400">
-                    <col>
-                    <col>
-                    <col>
-                    <col>
-                </colgroup>
                 <thead>
                 <tr>
-                    <th class="al">Ключевые слова и фразы</th>
-                    <th class="al">Опубликованные статьи</th>
-                    <th>Исполнитель</th>
+                    <th class="al">Опубликованный рецепт, ссылка</th>
+                    <th class="al">Ключевое слово</th>
+                    <th></th>
+                    <th>Кулинар</th>
                     <th>Дата завершения</th>
                 </tr>
                 </thead>
                 <tbody>
                 <?php foreach ($tasks as $task) if ($task->status == SeoTask::STATUS_CLOSED) { ?>
                 <tr>
-                    <td class="al"><?=$task->getText() ?></td>
                     <td class="al"><?=$task->getArticleText() ?></td>
-                    <td><?=$task->getExecutor() ?></td>
+                    <td class="al"><?=$task->getKeywordsText() ?></td>
+                    <td><?=$task->getMultiVarka() ?></td>
+                    <td><?=$task->executor->name ?></td>
                     <td><?=StatusDates::getTime($task, SeoTask::STATUS_CLOSED) ?></td>
                 </tr>
                     <?php } ?>

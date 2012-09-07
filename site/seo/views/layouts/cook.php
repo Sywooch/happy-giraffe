@@ -25,7 +25,7 @@ Yii::app()->clientScript->registerScriptFile($baseUrl . '/cook.js');
                     array(
                         'label' => 'Раздача заданий',
                         'url' => array('/cook/cook/tasks/'),
-                        'template' => '{menu}<span class="tale"><img src="/images/default_nav_active.gif"></span><div class="count"><a href="' . $this->createUrl('/cook/editor/tasks') . '">' . TempKeyword::model()->count('owner_id=' . Yii::app()->user->id) . '</a></div>',
+                        'template' => '{menu}<span class="tale"><img src="/images/default_nav_active.gif"></span><div class="count"><a href="' . $this->createUrl('/cook/cook/tasks') . '">' . ( TempKeyword::model()->count('owner_id=' . Yii::app()->user->id) + SeoTask::model()->count('owner_id=' . Yii::app()->user->id.' AND executor_id IS NULL') ). '</a></div>',
                     ),
                     array(
                         'label' => 'Отчеты',
@@ -39,11 +39,11 @@ Yii::app()->clientScript->registerScriptFile($baseUrl . '/cook.js');
                 'items' => array(
                     array(
                         'label' => 'В работу',
-                        'url' => array('/cook/task/author'),
+                        'url' => array('/cook/author/index'),
                     ),
                     array(
                         'label' => 'Отчеты',
-                        'url' => array('/cook/task/authorReports'),
+                        'url' => array('/cook/author/reports'),
                     ),
                 )));
 
@@ -53,11 +53,11 @@ Yii::app()->clientScript->registerScriptFile($baseUrl . '/cook.js');
                 'items' => array(
                     array(
                         'label' => 'В работу',
-                        'url' => array('/cook/task/contentManager'),
+                        'url' => array('/cook/content/index'),
                     ),
                     array(
                         'label' => 'Отчеты',
-                        'url' => array('/cook/task/contentManagerReports'),
+                        'url' => array('/cook/content/reports'),
                     ),
                 )));
 

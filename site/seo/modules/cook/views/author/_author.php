@@ -1,16 +1,22 @@
-<?php if (!$executing) {    ?>
+<?php
+/* @var $tasks SeoTask[]
+ * @var $executing SeoTask
+ */
+?><?php if (!$executing) {    ?>
 <div class="seo-table">
     <div class="table-title">Список текущих заданий</div>
     <div class="table-box">
         <table>
             <tbody><tr>
-                <th>Ключевое слово или фраза</th>
+                <th>Название рецепта или ключевое слово</th>
+                <th></th>
                 <th class="ac">Действие</th>
             </tr>
                 <?php foreach ($tasks as $task){ ?>
                 <tr>
-                    <td><?=$task->getText() ?></td>
-                    <td class="ac"><a href="" class="btn-green-small" onclick="SeoTasks.TakeTask(<?=$task->id ?>);return false;">Взять в обработку</a></td>
+                    <td class="al"><?=$task->getText() ?></td>
+                    <td><?=$task->getMultiVarka() ?></td>
+                    <td class="ac"><a href="" class="btn-green-small" onclick="SeoTasks.TakeTask(<?=$task->id ?>);return false;">Взять в работку</a></td>
                 </tr>
                     <?php } ?>
             </tbody></table>
@@ -24,22 +30,23 @@
     <div class="table-box">
         <table>
             <tbody><tr>
-                <th>Ключевое слово или фраза</th>
-                <th>Подсказки</th>
+                <th>Название рецепта или ключевое слово</th>
+                <th></th>
+                <th>Примеры</th>
             </tr>
             <tr>
                 <td><?=$executing->getText() ?></td>
-                <td><?=$executing->getHints() ?></td>
+                <td><?=$executing->getMultiVarka() ?></td>
+                <td><?=$executing->getUrlsText() ?></td>
             </tr>
             </tbody></table>
     </div>
 </div>
 
-
 <div class="article-ready">
+    <div class="block-title">Введите название рецепта</div>
 
-    <span class="text">После того, как Вы передали готовую статью<br>шеф-редактору, нажмите кнопку</span>
-    <a href="" class="btn-green" onclick="SeoTasks.Written(<?=$executing->id ?>, this);return false;">Готово</a>
-
+    <input type="text" value="">
+    <button class="btn-green" onclick="CookModule.written(<?=$executing->id ?>, this)">Готово</button>
 </div>
 <?php endif; ?>

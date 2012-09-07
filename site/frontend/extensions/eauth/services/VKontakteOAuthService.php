@@ -110,13 +110,13 @@ class VKontakteOAuthService extends EOAuth2Service {
 	 * @return array the error array with 2 keys: code and message. Should be null if no errors.
 	 */
 	protected function fetchJsonError($json) {
-		if (isset($json->error)) {
-			return array(
-				'code' => $json->error->error_code,
-				'message' => $json->error->error_msg,
-			);
-		}
-		else
-			return null;
+        if (isset($json->error)) {
+            return array(
+                'code' => 0,
+                'message' => $json->error,
+            );
+        }
+        else
+            return null;
 	}
 }

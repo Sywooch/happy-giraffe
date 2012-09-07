@@ -1,0 +1,56 @@
+<?php
+/**
+ * Author: alexk984
+ * Date: 02.04.12
+ */
+class AuthorController extends SController
+{
+    public $layout = '//layouts/cook';
+
+    public function beforeAction($action)
+    {
+        if (!Yii::app()->user->checkAccess('cook-author'))
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
+        $this->pageTitle = 'кулинар';
+        return true;
+    }
+
+    public function actionIndex()
+    {
+        $tasks = SeoTask::getTasks();
+        $executing = SeoTask::getActiveTask();
+
+        $this->render('_author', compact('tasks', 'executing'));
+    }
+
+    public function actionReports()
+    {
+        $tasks = SeoTask::TodayExecutedTasks();
+        $this->render('_author_reports', compact('tasks'));
+    }
+
+    public function actionExecuted()
+    {
+        $task = $this->loadTask(Yii::app()->request->getPost('id'));
+        $task->status = SeoTask::STATUS_WRITTEN;
+        $task->article_title = Yii::app()->request->getPost('name');
+        if (empty($task->article_title)) {
+            echo CJSON::encode(array('status' => false, 'error' => 'Введите название рецепта'));
+        } else
+            echo CJSON::encode(array('status' => $task->save()));
+    }
+
+    /**
+     * @param int $id model id
+     * @return SeoTask
+     * @throws CHttpException
+     */
+    public function loadTask($id)
+    {
+        $model = SeoTask::model()->findByPk($id);
+        if ($model === null)
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        return $model;
+    }
+}

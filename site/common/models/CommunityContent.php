@@ -593,6 +593,8 @@ class CommunityContent extends HActiveRecord
             return $video->preview;
         } else {
             $image = false;
+            if (!isset($this->content))
+                return '';
             if (preg_match_all('/src="([^"]+)"/', $this->content->text, $matches)) {
                 if (!empty($matches[0])) {
                     $image = false;

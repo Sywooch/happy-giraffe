@@ -54,7 +54,8 @@ class ServiceCategory extends CActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'services' => array(self::HAS_MANY, 'Services', 'category_id'),
+            'services' => array(self::HAS_MANY, 'Service', 'category_id'),
+            'servicesCount' => array(self::STAT, 'Service', 'category_id'),
         );
     }
 

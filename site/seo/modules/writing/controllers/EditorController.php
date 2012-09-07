@@ -11,7 +11,7 @@ class EditorController extends SController
     public function beforeAction($action)
     {
         if (!Yii::app()->user->checkAccess('admin') && !Yii::app()->user->checkAccess('editor')
-            && !Yii::app()->user->checkAccess('superuser')
+            && !Yii::app()->user->checkAccess('superuser') && !Yii::app()->user->checkAccess('cook-manager-panel')
         )
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
         return true;
@@ -65,18 +65,7 @@ class EditorController extends SController
 
     public function actionTasks()
     {
-        $tempKeywords = TempKeyword::model()->findAll('owner_id=' . Yii::app()->user->id);
-        foreach ($tempKeywords as $tempKeyword) {
-            if (!empty($tempKeyword->keyword->group)) {
-                $success = false;
-                foreach ($tempKeyword->keyword->group as $group)
-                    if (empty($group->seoTasks) && empty($group->page))
-                        $success = $group->delete();
-
-                if (!$success)
-                    $tempKeyword->delete();
-            }
-        }
+        TempKeyword::filterBusyKeywords();
         $tempKeywords = TempKeyword::model()->findAll('owner_id=' . Yii::app()->user->id);
 
         $criteria = new CDbCriteria;
@@ -121,13 +110,6 @@ class EditorController extends SController
             echo CJSON::encode(array('status' => $temp->save()));
         } else
             echo CJSON::encode(array('status' => false));
-    }
-
-    public function actionCancelSelectKeyword()
-    {
-        $key_id = Yii::app()->request->getPost('id');
-        TempKeyword::model()->deleteByPk($key_id);
-        echo CJSON::encode(array('status' => true));
     }
 
     public function actionHideKey()
@@ -183,7 +165,7 @@ class EditorController extends SController
             if ($task->save()) {
                 if (!empty($urls)) {
                     foreach ($urls as $url) {
-                        $r_url = new RewriteUrl();
+                        $r_url = new TaskUrl();
                         $r_url->task_id = $task->id;
                         $r_url->url = $url;
                         $r_url->save();
@@ -213,17 +195,21 @@ class EditorController extends SController
         $id = Yii::app()->request->getPost('id');
         $withKeys = Yii::app()->request->getPost('withKeys');
         $task = SeoTask::model()->findByPk($id);
-        $group = $task->keywordGroup;
-        $keywords = $task->keywordGroup->keywords;
+        if (isset($task->keywordGroup)) {
+            $group = $task->keywordGroup;
+            $keywords = $task->keywordGroup->keywords;
+        }
         $task->delete();
-        $group->delete();
+        if (isset($group))
+            $group->delete();
 
         $keys = array();
-        foreach ($keywords as $keyword) {
-            $keys [] = $keyword->id;
-            if ($withKeys)
-                TempKeyword::model()->deleteAll('keyword_id=' . $keyword->id);
-        }
+        if (isset($keywords))
+            foreach ($keywords as $keyword) {
+                $keys [] = $keyword->id;
+                if ($withKeys)
+                    TempKeyword::model()->deleteAll('keyword_id=' . $keyword->id);
+            }
 
         echo CJSON::encode(array('status' => true, 'keys' => $keys));
     }
@@ -242,6 +228,7 @@ class EditorController extends SController
         $criteria = new CDbCriteria;
         $criteria->compare('owner_id', Yii::app()->user->id);
         $criteria->compare('status >', SeoTask::STATUS_NEW);
+        $criteria->compare('section', SeoTask::SECTION_MAIN);
         $criteria->order = 'created desc';
         $tasks = SeoTask::model()->findAll($criteria);
 
@@ -281,12 +268,12 @@ class EditorController extends SController
 
     public function actionPublish()
     {
-        if (!Yii::app()->user->checkAccess('editor'))
+        if (!Yii::app()->user->checkAccess('editor') && !Yii::app()->user->checkAccess('cook-manager-panel'))
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
         $task_id = Yii::app()->request->getPost('id');
         $task = $this->loadTask($task_id);
-        if ($task->status == SeoTask::STATUS_CORRECTED) {
+        if ($task->status == SeoTask::STATUS_CORRECTED || $task->status == SeoTask::STATUS_WRITTEN) {
             $task->status = SeoTask::STATUS_PUBLICATION;
             echo CJSON::encode(array('status' => $task->save()));
         } else
@@ -324,7 +311,7 @@ class EditorController extends SController
             }
         } else {
             $model = CommunityContent::model()->findByPk($article_id);
-            if ($model === null){
+            if ($model === null) {
                 echo CJSON::encode(array(
                     'status' => false,
                     'error' => 'Статья не найдена'
@@ -334,7 +321,7 @@ class EditorController extends SController
             $article_keywords = new Page();
             $article_keywords->entity = 'CommunityContent';
             $article_keywords->entity_id = $article_id;
-            $article_keywords->url = 'http://www.happy-giraffe.ru'.$model->getUrl();
+            $article_keywords->url = 'http://www.happy-giraffe.ru' . $model->getUrl();
 
             $group = new KeywordGroup();
             $group->keywords = array($keyword_id);
@@ -346,7 +333,7 @@ class EditorController extends SController
                 Yii::app()->end();
             }
             $article_keywords->keyword_group_id = $group->id;
-            if (!$article_keywords->save()){
+            if (!$article_keywords->save()) {
                 echo CJSON::encode(array(
                     'status' => false,
                     'error' => 'Ошибка при сохранении статьи '
@@ -357,6 +344,47 @@ class EditorController extends SController
         }
 
         echo CJSON::encode(array('status' => true));
+    }
+
+    public function actionBindKeyword()
+    {
+        $url = Yii::app()->request->getPost('url');
+        $keyword_id = Yii::app()->request->getPost('keyword');
+
+        $exist = Page::model()->findByAttributes(array(
+            'url' => $url,
+        ));
+        if ($exist !== null) {
+            $response = array(
+                'status' => false,
+                'error' => 'Вы уже вводили эту статью.',
+            );
+        } else {
+            $group = new KeywordGroup();
+            $group->keywords = array($keyword_id);
+
+            if ($group->save()) {
+                $page = new Page();
+                $page->url = $url;
+                $page->keyword_group_id = $group->id;
+                if ($page->save()) {
+                    $response = array(
+                        'status' => true,
+                        'html' => '<a target="_blank" class="icon-article" href="' . $url . '"></a>',
+                    );
+                } else
+                    $response = array(
+                        'status' => false,
+                        'error' => 'Не удалось сохранить статью, обратитесь к разработчикам.',
+                    );
+            }  else
+                $response = array(
+                    'status' => false,
+                    'error' => 'Не удалось сохранить группу кейвордов, обратитесь к разработчикам.',
+                );
+        }
+
+        echo CJSON::encode($response);
     }
 
     /**

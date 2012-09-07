@@ -60,8 +60,8 @@ class UserPartner extends HActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'user' => array(self::BELONGS_TO, 'User', 'user_id'),
-            'photos' => array(self::HAS_MANY, 'AttachPhoto', 'entity_id', 'condition' => 'entity=:modelName', 'params' => array(':modelName' => get_class($this))),
-            'photosCount' => array(self::STAT, 'AttachPhoto', 'entity_id', 'condition' => 'entity=:modelName', 'params' => array(':modelName' => get_class($this))),
+            'photos' => array(self::HAS_MANY, 'AttachPhoto', 'entity_id', 'with' => 'photo', 'on' => 'photo.removed = 0 AND entity = :modelName', 'params' => array(':modelName' => get_class($this))),
+            'photosCount' => array(self::STAT, 'AttachPhoto', 'entity_id', 'condition' => 'entity =: modelName', 'params' => array(':modelName' => get_class($this))),
         );
 	}
 

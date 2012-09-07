@@ -28,7 +28,7 @@ class SignalCommand extends CConsoleCommand
         foreach ($new_users as $user_id) {
             if (rand(0, $this->getNum(3)) == 1) {
                 $moder = $this->getModerator($user_id);
-                if ($moder != null){
+                if ($moder != null) {
                     $friendRequest = new FriendRequest();
                     $friendRequest->from_id = $moder;
                     $friendRequest->to_id = $user_id;
@@ -66,7 +66,7 @@ class SignalCommand extends CConsoleCommand
         )
             ->queryColumn();
 
-        foreach($this->moderators as $moder_id){
+        foreach ($this->moderators as $moder_id) {
             if (!in_array($moder_id, $friends))
                 return $moder_id;
         }
@@ -88,7 +88,8 @@ class SignalCommand extends CConsoleCommand
             ->queryColumn();
     }
 
-    public function actionCommentatorsStats(){
+    public function actionCommentatorsStats()
+    {
         Yii::import('site.frontend.modules.signal.models.*');
         Yii::import('site.frontend.modules.signal.components.*');
         Yii::import('site.common.models.mongo.*');
@@ -97,10 +98,10 @@ class SignalCommand extends CConsoleCommand
 
         $month = CommentatorsMonthStats::model()->find(new EMongoCriteria(array(
             'conditions' => array(
-                'period' => array('==' => date("Y-m") )
+                'period' => array('==' => date("Y-m"))
             ),
         )));
-        if ($month === null){
+        if ($month === null) {
             $month = new CommentatorsMonthStats;
             $month->period = date("Y-m");
         }
@@ -108,7 +109,8 @@ class SignalCommand extends CConsoleCommand
         $month->save();
     }
 
-    public function actionCommentatorsEndMonth(){
+    public function actionCommentatorsEndMonth()
+    {
         $month = CommentatorsMonthStats::model()->find(new EMongoCriteria(array(
             'conditions' => array(
                 'period' => array('==' => date("Y-m", strtotime('-10 days')))
@@ -118,7 +120,8 @@ class SignalCommand extends CConsoleCommand
         $month->save();
     }
 
-    public function actionTest(){
+    public function actionTest()
+    {
         $period = date("Y-m");
         Yii::import('site.frontend.extensions.GoogleAnalytics');
         echo Yii::app()->params['gaPass'];
@@ -135,6 +138,37 @@ class SignalCommand extends CConsoleCommand
             Yii::app()->end();
         }
 
-       var_dump($report['']['ga:visitors']);
+        var_dump($report['']['ga:visitors']);
+    }
+
+    public function actionSetStatus($user, $date, $status)
+    {
+        Yii::import('site.frontend.modules.signal.models.*');
+        Yii::import('site.frontend.modules.signal.components.*');
+        Yii::import('site.common.models.mongo.*');
+        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
+        Yii::import('site.frontend.modules.im.models.*');
+
+        $user = CommentatorWork::getUser((int)$user);
+        $user->getDay($date)->status = (int)$status;
+        $user->save();
+    }
+
+    public function actionSetCreated()
+    {
+        Yii::import('site.frontend.modules.signal.models.*');
+        Yii::import('site.frontend.modules.signal.components.*');
+        Yii::import('site.common.models.mongo.*');
+        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
+        Yii::import('site.frontend.modules.im.models.*');
+
+        $users = CommentatorWork::model()->findAll();
+        foreach ($users as $user){
+            if (in_array($user->user_id, array(15468, 15472)))
+                $user->created = time();
+            else
+                $user->created = strtotime('-5 days');
+            $user->save();
+        }
     }
 }

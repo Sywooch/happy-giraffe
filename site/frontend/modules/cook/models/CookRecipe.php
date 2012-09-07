@@ -295,8 +295,24 @@ class CookRecipe extends CActiveRecord
 
     protected function afterSave()
     {
-        if ($this->isNewRecord)
+        if ($this->isNewRecord){
             UserAction::model()->add($this->author_id, UserAction::USER_ACTION_RECIPE_ADDED, array('model' => $this));
+
+            //send signals to commentator panel
+            if (Yii::app()->user->checkAccess('commentator_panel')) {
+                Yii::import('site.frontend.modules.signal.models.*');
+                CommentatorWork::getCurrentUser()->refreshCurrentDayPosts();
+                $comet = new CometModel;
+                if ($this->isFromBlog)
+                    $comet->send(Yii::app()->user->id, array(
+                        'update_part' => CometModel::UPDATE_BLOG,
+                    ), CometModel::TYPE_COMMENTATOR_UPDATE);
+                else
+                    $comet->send(Yii::app()->user->id, array(
+                        'update_part' => CometModel::UPDATE_CLUB,
+                    ), CometModel::TYPE_COMMENTATOR_UPDATE);
+            }
+        }
 
         parent::afterSave();
     }

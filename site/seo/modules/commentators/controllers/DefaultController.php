@@ -27,7 +27,7 @@ class DefaultController extends SController
             $criteria->user_id('in', Yii::app()->user->model->commentatorIds());
             $commentators = CommentatorWork::model()->findAll($criteria);
         } else
-            $commentators = CommentatorWork::model()->findAll();
+            $commentators = CommentatorWork::model()->getCommentatorGroups();
 
         $this->render('index', compact('period', 'month', 'day', 'commentators'));
     }
@@ -73,9 +73,5 @@ class DefaultController extends SController
                 unset($commentator->clubs[$key]);
         }
         echo CJSON::encode(array('status' => $commentator->save()));
-    }
-
-    public function actionTest(){
-        PostForCommentator::getNextPost(23, array());
     }
 }

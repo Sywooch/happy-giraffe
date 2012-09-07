@@ -139,14 +139,17 @@ var Family = {
                 if (response.status) {
                     $(el).removeClass('checked');
                     $(el).parents('.radiogroup').find('input').removeAttr('checked');
-                    $('#future-baby').hide();
-                    $('#future-baby .baby-id').val('');
-                    $('#future-baby a.gender').removeClass('active');
+                    $('#future-baby-1').hide();
+                    $('#future-baby-1 .baby-id').val('');
+                    $('#future-baby-1 a.gender').removeClass('active');
+                    $('#future-baby-2').hide();
+                    $('#future-baby-2 .baby-id').val('');
+                    $('#future-baby-2 a.gender').removeClass('active');
                 }
             }, 'json');
         } else {
-            $('#future-baby').show();
-            var id = $('#future-baby input.baby-id').val();
+            $('#future-baby-1').show();
+            var id = $('#future-baby-1 input.baby-id').val();
 
             if (id != '') {
                 $.ajax({
@@ -176,10 +179,14 @@ var Family = {
         $(el).addClass('checked').find('input').attr('checked', 'checked');
 
         Family.future_baby_type = type;
-        if (type == 1)
-            $('#future-baby .member-title').html('<i class="icon-waiting"></i> Ждем еще');
-        else
-            $('#future-baby .member-title').html('Планируем еще');
+        if (type == 1) {
+            $('.futbab div.data:has(.date)').show();
+            $('#future-baby-1 .member-title').html((Family.baby_count == 0) ? '<i class="icon-waiting"></i> Ждём' : '<i class="icon-waiting"></i> Ждем ещё');
+        }
+        else {
+            $('.futbab div.data:has(.date)').hide();
+            $('#future-baby-1 .member-title').html((Family.baby_count == 0) ? 'Планируем' : 'Планируем ещё');
+        }
     },
     setBaby:function (el, num) {
         if ($(el).hasClass('checked')) {

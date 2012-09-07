@@ -52,8 +52,7 @@ var SeoKeywords = {
         }, 'json');
     },
     Hide:function (el) {
-        var id = this.getId(el);
-        $.post('/writing/editor/hideKey/', {id:id}, function (response) {
+        $.post('/writing/editor/hideKey/', {id:$(el).data('id')}, function (response) {
             if (response.status) {
                 $(el).parents('tr').remove();
             }

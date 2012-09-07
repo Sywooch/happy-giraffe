@@ -309,7 +309,21 @@ class SeoCommand extends CConsoleCommand
         $criteria->sort('created', EMongoCriteria::SORT_DESC);
         ProxyMongo::model()->find($criteria);
 
-        echo 1000*(microtime(true) - $start_time);
+        echo 1000 * (microtime(true) - $start_time);
+    }
+
+    public function actionAddPages()
+    {
+
+//        $keyword = Keyword::GetKeyword('Календарь беременности');
+//        $group = new KeywordGroup();
+//        $group->keywords = array($keyword->id);
+//        $group->save();
+//        $page = new Page();
+//        $page->url = 'http://www.happy-giraffe.ru/pregnancyCalendar/';
+//        $page->keyword_group_id = $group->id;
+//        if ($page->save())
+//            echo "success \n";
     }
 }
 

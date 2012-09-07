@@ -17,6 +17,7 @@ class CommentatorWork extends EMongoDocument
     public $comment_entity;
     public $comment_entity_id;
     public $skipUrls = array();
+    public $created;
 
     public static function model($className = __CLASS__)
     {
@@ -50,6 +51,9 @@ class CommentatorWork extends EMongoDocument
         if (isset($day)){
             $day->checkStatus();
         }
+
+        if ($this->isNewRecord)
+            $this->created = time();
 
         return parent::beforeSave();
     }

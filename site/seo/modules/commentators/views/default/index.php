@@ -66,6 +66,7 @@ $months = CommentatorsMonthStats::getMonths();
 
                 <?php $i++; if ($i > 10):?>
                     <tr><td colspan="10"></td></tr>
+                    <?php $i = 0; ?>
                 <?php endif ?>
 
                 <?php if (!empty($day)):?>

@@ -23,7 +23,7 @@
                     $link_text = '<span class="auth-icon ' . $service->id . '"><i></i></span>';
                     $html .= HHtml::link($link_text, array('/'.$action, 'service' => $name), array(
                         'class' => 'auth-link ' . $service->id,
-                    ), true);
+                    ));
                 }
             }
             else
@@ -31,7 +31,7 @@
                 echo '<li class="auth-service ' . $service->id . '">';
                 $html = HHtml::link('', array('/'.$action, 'service' => $name), array(
                     'class' => 'auth-link ' . $service->id,
-                ), true);
+                ));
             }
             echo $html;
 

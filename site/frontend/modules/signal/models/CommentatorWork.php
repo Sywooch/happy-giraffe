@@ -513,4 +513,9 @@ class CommentatorWork extends EMongoDocument
     {
         return in_array($url, $this->skipUrls);
     }
+
+    public function getCommentatorGroups()
+    {
+        return CommentatorWork::model()->findAll(array('order'=>'id desc'));
+    }
 }

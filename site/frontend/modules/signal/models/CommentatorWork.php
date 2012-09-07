@@ -520,6 +520,6 @@ class CommentatorWork extends EMongoDocument
 
     public function getCommentatorGroups()
     {
-        return CommentatorWork::model()->findAll(array('order'=>'id desc'));
+        return CommentatorWork::model()->findAll(array('order'=>'created desc'));
     }
 }

@@ -23,7 +23,7 @@ class AlbumsController extends HController
             'accessControl',
             'ajaxOnly + attachView, editDescription, editPhotoTitle, changeTitle, changePermission,
                 removeUploadPhoto, communityContentEdit, communityContentSave, partnerPhoto, recipePhoto, cookDecorationPhoto,
-                cookDecorationCategory, commentPhoto, crop, changeAvatar, wPhoto',
+                cookDecorationCategory, commentPhoto, crop, changeAvatar',
         );
     }
 
@@ -681,6 +681,12 @@ class AlbumsController extends HController
     {
         $photo = AlbumPhoto::model()->findByPk($id);
         $this->renderPartial('updatePhoto', compact('photo'), false, true);
+    }
+
+    public function actionUpdateAlbum($id)
+    {
+        $album = Album::model()->findByPk($id);
+        $this->renderPartial('updateAlbum', compact('album'), false, true);
     }
 
     public function actionSinglePhoto($entity, $photo_id)

@@ -13,38 +13,41 @@ jQuery.fn.pGallery = function(options) {
         plugin.history = null,
         plugin.init = false;
         plugin.originalTitle = null;
+        plugin.entity_url = null;
+        plugin.start_url = document.location.href;
 
     plugin.openWindow = function(id) {
-        if(this.init)
-            return false;
-        this.init = true;
-        this.originalTitle = document.title;
-        this.bg = $('<div id="photo-window-bg" style="display:none"></div>');
-        this.window = $('<div id="photo-window" style="display:none"></div>');
-        this.window.css('top', $(document).scrollTop());
-        this.bg.appendTo('body');
-        this.window.appendTo('body');
+        if(! this.init) {
+
+            this.init = true;
+            this.originalTitle = document.title;
+            this.bg = $('<div id="photo-window-bg" style="display:none"></div>');
+            this.window = $('<div id="photo-window" style="display:none"></div>');
+            this.window.css('top', $(document).scrollTop());
+            this.bg.appendTo('body');
+            this.window.appendTo('body');
+
+            this.history = new AjaxHistory('photo_view');
+            this.history.loadCallback = function(id, url) {
+                if(/\/photo(\d+)/.test(url)) {
+                    var id = url.split(/\/photo(\d+)/)[1];
+                    if(plugin.init == true)
+                        plugin.openImage(id);
+                    else
+                        plugin.openWindow(id);
+                } else {
+                    if(plugin.init)
+                        plugin.closeWindow();
+                }
+            }
+        }
 
         delete this.data.go;
         this.data.id = id;
 
-        this.history = new AjaxHistory('photo_view');
-        this.history.loadCallback = function(id, url) {
-            if(/\/photo(\d+)/.test(url)) {
-                var id = url.split(/\/photo(\d+)/)[1];
-                if(plugin.init == true)
-                    plugin.openImage(id);
-                else
-                    plugin.openWindow(id);
-            } else {
-                if(plugin.init)
-                    plugin.closeWindow();
-            }
-        }
-
         $.get(base_url + '/albums/wPhoto/', plugin.data, function(html) {
             pGallery.currentPhoto = plugin.data.id;
-            $('#photo-window').append(html);
+            $('#photo-window').html(html);
 
             $('#photo-window-in', this.window).css('left', Math.ceil(getScrollBarWidth()/2) + 'px');
 
@@ -58,6 +61,20 @@ jQuery.fn.pGallery = function(options) {
             plugin.window.on('click', '#photo a.prev', function() {
                 plugin.prev();
                 return false;
+            });
+
+            plugin.window.on('click', '.re-watch', function() {
+                plugin.openImage(pGallery.first);
+                $('.photo-container', this.window).show();
+                $('.rewatch-container', this.window).hide();
+                return false;
+            });
+
+            plugin.window.on('click', '.more-albums .img > a', function() {
+                plugin.data.entity = $(this).parent().data('entity');
+                plugin.data.entity_id = $(this).parent().data('entityId');
+                plugin.data.entity_url = $(this).parent().data('entityUrl');
+                plugin.openWindow($(this).parent().data('id'));
             });
 
             /*$('html').on('click', function() {
@@ -170,8 +187,11 @@ jQuery.fn.pGallery = function(options) {
     plugin.next = function () {
         console.log('next');
         var next = pGallery.photos[pGallery.currentPhoto].next;
-        var goTo =  (next != null) ? next : pGallery.first;
-        this.openImage(goTo);
+        if (next !== null) {
+            this.openImage(next);
+        } else {
+            this.showAlbumEnd();
+        }
     };
 
     plugin.prev = function () {
@@ -179,6 +199,11 @@ jQuery.fn.pGallery = function(options) {
         var prev = pGallery.photos[pGallery.currentPhoto].prev;
         var goTo =  (prev != null) ? prev : pGallery.last;
         this.openImage(goTo);
+    };
+
+    plugin.showAlbumEnd = function() {
+        $('.photo-container', this.window).hide();
+        $('.rewatch-container', this.window).show();
     };
 
     plugin.preloadPhotos = function() {
@@ -205,7 +230,7 @@ jQuery.fn.pGallery = function(options) {
             //$('html').off('click');
             document.title = plugin.originalTitle;
             if (! plugin.data.singlePhoto)
-                plugin.history.changeBrowserUrl(plugin.getEntityUrl());
+                plugin.history.changeBrowserUrl(plugin.start_url);
             $('body').css('overflow', 'auto');
             plugin.window.remove();
             plugin.bg.remove();
@@ -213,7 +238,8 @@ jQuery.fn.pGallery = function(options) {
     }
 
     plugin.getEntityUrl = function() {
-        return document.location.href.replace(/photo(.*)/, '');
+        var base = (plugin.data.entity_url === null) ? document.location.href : plugin.data.entity_url;
+        return base.replace(/photo(.*)/, '');
     }
 
     if(/\/photo(\d+)/.test(document.location.href)) {

@@ -11,7 +11,7 @@ class VideoWidget extends CWidget
 {
     public function run()
     {
-        $videoIds = Favourites::getIdList(Favourites::BLOCK_VIDEO, 1);
+        $videoIds = Favourites::getIdListForView(Favourites::BLOCK_VIDEO, 1);
         if (! empty($videoIds)) {
             $video = CommunityContent::model()->full()->findByPk($videoIds[0]);
             $data = new Video($video->video->link);

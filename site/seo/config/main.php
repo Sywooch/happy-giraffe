@@ -36,6 +36,7 @@ return array(
         'indexing',
         'statistic',
         'commentators',
+        'cook'
     ),
     'components' => array(
         'user' => array(

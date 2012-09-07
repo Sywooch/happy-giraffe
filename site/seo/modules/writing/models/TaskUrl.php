@@ -1,23 +1,22 @@
 <?php
 
 /**
- * This is the model class for table "sites__sites".
+ * This is the model class for table "task_urls".
  *
- * The followings are the available columns in table 'sites__sites':
+ * The followings are the available columns in table 'task_urls':
  * @property integer $id
- * @property string $name
+ * @property string $task_id
  * @property string $url
- * @property int $section
  *
  * The followings are the available model relations:
- * @property SiteKeywordVisit[] $seoKeyStats
+ * @property SeoTask $task
  */
-class Site extends HActiveRecord
+class TaskUrl extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return Site the static model class
+	 * @return TaskUrl the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -29,7 +28,7 @@ class Site extends HActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'happy_giraffe_seo.sites__sites';
+		return 'happy_giraffe_seo.task_urls';
 	}
 
     public function getDbConnection()
@@ -45,12 +44,12 @@ class Site extends HActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name', 'required'),
-			array('name, url', 'length', 'max'=>255),
-            array('section', 'numerical', 'integerOnly' => true),
+			array('task_id, url', 'required'),
+			array('task_id', 'length', 'max'=>10),
+			array('url', 'length', 'max'=>1024),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, name, url', 'safe', 'on'=>'search'),
+			array('id, task_id, url', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -62,7 +61,7 @@ class Site extends HActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'seoKeyStats' => array(self::HAS_MANY, 'SiteKeywordVisit', 'site_id'),
+			'task' => array(self::BELONGS_TO, 'SeoTask', 'task_id'),
 		);
 	}
 
@@ -73,7 +72,7 @@ class Site extends HActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'name' => 'Name',
+			'task_id' => 'Task',
 			'url' => 'Url',
 		);
 	}
@@ -90,8 +89,8 @@ class Site extends HActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('name',$this->name,true);
-		$criteria->compare('url',$this->url);
+		$criteria->compare('task_id',$this->task_id,true);
+		$criteria->compare('url',$this->url,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

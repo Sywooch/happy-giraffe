@@ -84,7 +84,7 @@ class SiteController extends HController
 	 * @sitemap
 	 */
 	public function actionIndex()
-	{print_r(Yii::app()->session['viewedAlbums']);die;
+	{
 		$this->pageTitle = 'Веселый Жираф - сайт для всей семьи';
         Yii::import('site.frontend.widgets.*');
         Yii::import('site.frontend.widgets.home.*');

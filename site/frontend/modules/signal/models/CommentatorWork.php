@@ -49,8 +49,6 @@ class CommentatorWork extends EMongoDocument
         $day = $this->getCurrentDay();
         if (isset($day)){
             $day->checkStatus();
-            $day->blog_posts = count($this->blogPosts());
-            $day->club_posts = $this->clubPostsCount();
         }
 
         return parent::beforeSave();

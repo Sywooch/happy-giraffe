@@ -65,7 +65,7 @@ $months = CommentatorsMonthStats::getMonths();
             <?php foreach ($commentators as $commentator): ?>
 
                 <?php $i++; if ($i > 10):?>
-                    <tr><td rowspan="10"></td></tr>
+                    <tr><td colspan="10"></td></tr>
                 <?php endif ?>
 
                 <?php if (!empty($day)):?>

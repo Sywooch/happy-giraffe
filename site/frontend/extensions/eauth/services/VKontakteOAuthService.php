@@ -2,7 +2,7 @@
 /**
  * VKontakteOAuthService class file.
  *
- * Register application: http://vkontakte.ru/editapp?act=create&site=1
+ * Register application: http://vk.com/editapp?act=create&site=1
  * 
  * @author Maxim Zemskov <nodge@yandex.ru>
  * @link http://code.google.com/p/yii-eauth/
@@ -26,14 +26,14 @@ class VKontakteOAuthService extends EOAuth2Service {
 	protected $client_secret = '';
 	protected $scope = '';
 	protected $providerOptions = array(
-		'authorize' => 'http://api.vkontakte.ru/oauth/authorize',
-		'access_token' => 'https://api.vkontakte.ru/oauth/access_token',
+		'authorize' => 'http://api.vk.com/oauth/authorize',
+		'access_token' => 'https://api.vk.com/oauth/access_token',
 	);
 	
 	protected $uid = null;
 	
 	protected function fetchAttributes() {
-		$info = (array)$this->makeSignedRequest('https://api.vkontakte.ru/method/getProfiles', array(
+		$info = (array)$this->makeSignedRequest('https://api.vk.com/method/getProfiles', array(
 			'query' => array(
 				'uids' => $this->uid,
 				'fields' => '', // uid, first_name and last_name is always available
@@ -45,7 +45,7 @@ class VKontakteOAuthService extends EOAuth2Service {
 
 		$this->attributes['id'] = $info->uid;
 		$this->attributes['name'] = $info->first_name.' '.$info->last_name;
-		$this->attributes['url'] = 'http://vkontakte.ru/id'.$info->uid;
+		$this->attributes['url'] = 'http://vk.com/id'.$info->uid;
 		
 		/*if (!empty($info->nickname))
 			$this->attributes['username'] = $info->nickname;

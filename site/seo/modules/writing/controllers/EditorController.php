@@ -11,7 +11,7 @@ class EditorController extends SController
     public function beforeAction($action)
     {
         if (!Yii::app()->user->checkAccess('admin') && !Yii::app()->user->checkAccess('editor')
-            && !Yii::app()->user->checkAccess('superuser')
+            && !Yii::app()->user->checkAccess('superuser') && !Yii::app()->user->checkAccess('cook-manager-panel')
         )
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
         return true;

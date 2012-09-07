@@ -167,7 +167,7 @@ class SignalCommand extends CConsoleCommand
             if (in_array($user->user_id, array(15468, 15472)))
                 $user->created = time();
             else
-                $user->created = time('-5 days');
+                $user->created = strtotime('-5 days');
             $user->save();
         }
     }

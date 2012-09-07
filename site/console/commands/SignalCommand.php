@@ -163,11 +163,12 @@ class SignalCommand extends CConsoleCommand
         Yii::import('site.frontend.modules.im.models.*');
 
         $users = CommentatorWork::model()->findAll();
-        foreach ($users as $user)
+        foreach ($users as $user){
             if (in_array($user->user_id, array(15468, 15472)))
                 $user->created = time();
             else
                 $user->created = time('-5 days');
-
+            $user->save();
+        }
     }
 }

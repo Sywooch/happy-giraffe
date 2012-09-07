@@ -14,7 +14,7 @@ class CustomVKontakteService extends VKontakteOAuthService {
 	// protected $scope = 'friends';
 	
 	protected function fetchAttributes() {
-		$info = (array)$this->makeSignedRequest('https://api.vkontakte.ru/method/getProfiles', array(
+		$info = (array)$this->makeSignedRequest('https://api.vk.com/method/getProfiles', array(
 			'query' => array(
 				'uids' => $this->uid,
 				//'fields' => '', // uid, first_name and last_name is always available
@@ -27,7 +27,7 @@ class CustomVKontakteService extends VKontakteOAuthService {
 		$this->attributes['name'] = $info->first_name.' '.$info->last_name;
         $this->attributes['first_name'] = $info->first_name;
         $this->attributes['last_name'] = $info->last_name;
-		$this->attributes['url'] = 'http://vkontakte.ru/id'.$info->uid;
+		$this->attributes['url'] = 'http://vk.com/id'.$info->uid;
 		
 		if (!empty($info->nickname))
 			$this->attributes['username'] = $info->nickname;

@@ -195,7 +195,7 @@ class EditorController extends SController
         $id = Yii::app()->request->getPost('id');
         $withKeys = Yii::app()->request->getPost('withKeys');
         $task = SeoTask::model()->findByPk($id);
-        if (isset($task->keywordGroup)){
+        if (isset($task->keywordGroup)) {
             $group = $task->keywordGroup;
             $keywords = $task->keywordGroup->keywords;
         }
@@ -204,11 +204,12 @@ class EditorController extends SController
             $group->delete();
 
         $keys = array();
-        foreach ($keywords as $keyword) {
-            $keys [] = $keyword->id;
-            if ($withKeys)
-                TempKeyword::model()->deleteAll('keyword_id=' . $keyword->id);
-        }
+        if (isset($keywords))
+            foreach ($keywords as $keyword) {
+                $keys [] = $keyword->id;
+                if ($withKeys)
+                    TempKeyword::model()->deleteAll('keyword_id=' . $keyword->id);
+            }
 
         echo CJSON::encode(array('status' => true, 'keys' => $keys));
     }
@@ -267,7 +268,7 @@ class EditorController extends SController
 
     public function actionPublish()
     {
-        if (!Yii::app()->user->checkAccess('editor') && !Yii::app()->user->checkAccess('cook-manager-panel') )
+        if (!Yii::app()->user->checkAccess('editor') && !Yii::app()->user->checkAccess('cook-manager-panel'))
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
         $task_id = Yii::app()->request->getPost('id');
@@ -310,7 +311,7 @@ class EditorController extends SController
             }
         } else {
             $model = CommunityContent::model()->findByPk($article_id);
-            if ($model === null){
+            if ($model === null) {
                 echo CJSON::encode(array(
                     'status' => false,
                     'error' => 'Статья не найдена'
@@ -320,7 +321,7 @@ class EditorController extends SController
             $article_keywords = new Page();
             $article_keywords->entity = 'CommunityContent';
             $article_keywords->entity_id = $article_id;
-            $article_keywords->url = 'http://www.happy-giraffe.ru'.$model->getUrl();
+            $article_keywords->url = 'http://www.happy-giraffe.ru' . $model->getUrl();
 
             $group = new KeywordGroup();
             $group->keywords = array($keyword_id);
@@ -332,7 +333,7 @@ class EditorController extends SController
                 Yii::app()->end();
             }
             $article_keywords->keyword_group_id = $group->id;
-            if (!$article_keywords->save()){
+            if (!$article_keywords->save()) {
                 echo CJSON::encode(array(
                     'status' => false,
                     'error' => 'Ошибка при сохранении статьи '

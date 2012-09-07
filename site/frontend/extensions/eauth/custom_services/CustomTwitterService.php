@@ -3,7 +3,7 @@
  * An example of extending the provider class.
  *
  * @author Maxim Zemskov <nodge@yandex.ru>
- * @link http://code.google.com/p/yii-eauth/
+ * @link http://github.com/Nodge/yii-eauth/
  * @license http://www.opensource.org/licenses/bsd-license.php
  */
  
@@ -13,15 +13,9 @@ class CustomTwitterService extends TwitterOAuthService {
 	
 	protected function fetchAttributes() {
 		$info = $this->makeSignedRequest('https://api.twitter.com/1/account/verify_credentials.json');
+	
 		$this->attributes['id'] = $info->id;
 		$this->attributes['name'] = $info->name;
-        $name_parts = explode(' ', $info->name);
-        if (count($name_parts) > 1){
-            $this->attributes['first_name'] = $name_parts[0];
-            $this->attributes['last_name'] = $name_parts[1];
-        }else
-            $this->attributes['first_name'] = $info->name;
-
 		$this->attributes['url'] = 'http://twitter.com/account/redirect_by_id?id='.$info->id_str;
 
 		$this->attributes['username'] = $info->screen_name;

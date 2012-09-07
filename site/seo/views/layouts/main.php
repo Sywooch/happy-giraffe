@@ -8,11 +8,11 @@
     <?php
     echo CHtml::linkTag('shortcut icon', null, '/favicon.bmp');
 
-    $release_id = 24;
+    $release_id = 26;
     Yii::app()->clientScript
         ->registerCssFile('/css/seo.css?'.$release_id)
         ->registerCssFile('/css/form.css')
-        ->registerCssFile('/css/my.css')
+        ->registerCssFile('/css/my.css?'.$release_id)
 
         ->registerCoreScript('jquery')
         ->registerCoreScript('jquery.ui')
@@ -25,8 +25,8 @@
 
         ->registerScriptFile('/js/jquery.tooltip.js')
 
-        ->registerScriptFile('/js/seo.js')
-        ->registerScriptFile('/js/seo-editor.js')
+        ->registerScriptFile('/js/seo.js?'.$release_id)
+        ->registerScriptFile('/js/seo-editor.js?'.$release_id)
 
         ->registerScriptFile('/js/jquery.tmpl.min.js')
 

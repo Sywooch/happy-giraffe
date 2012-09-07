@@ -17,6 +17,7 @@ class CommentatorWork extends EMongoDocument
     public $comment_entity;
     public $comment_entity_id;
     public $skipUrls = array();
+    public $created;
 
     public static function model($className = __CLASS__)
     {
@@ -47,8 +48,12 @@ class CommentatorWork extends EMongoDocument
     public function beforeSave()
     {
         $day = $this->getCurrentDay();
-        if (isset($day))
+        if (isset($day)){
             $day->checkStatus();
+        }
+
+        if ($this->isNewRecord)
+            $this->created = time();
 
         return parent::beforeSave();
     }
@@ -276,10 +281,20 @@ class CommentatorWork extends EMongoDocument
         return CommunityContent::model()->findAll($criteria);
     }
 
+    public function recipes()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->condition = 'created > "' . date("Y-m-d") . ' 00:00:00"';
+        $criteria->compare('author_id', $this->user_id);
+        $criteria->order = 'created desc';
+
+        return CookRecipe::model()->findAll($criteria);
+    }
+
     public function clubPostsCount()
     {
         if (empty($this->clubs))
-            return count($this->clubPosts());
+            return count($this->clubPosts() + $this->recipes());
 
         $count = 0;
         foreach ($this->clubPosts() as $post)
@@ -501,5 +516,12 @@ class CommentatorWork extends EMongoDocument
     public function skipped($url)
     {
         return in_array($url, $this->skipUrls);
+    }
+
+    public function getCommentatorGroups()
+    {
+        $criteria = new EMongoCriteria();
+        $criteria->sort('created', EMongoCriteria::SORT_ASC);
+        return CommentatorWork::model()->findAll($criteria);
     }
 }

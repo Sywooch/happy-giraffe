@@ -10,7 +10,7 @@ class ExistArticlesController extends SController
 
     public function beforeAction($action)
     {
-        if (!Yii::app()->user->checkAccess('input-old-articles'))
+        if (!Yii::app()->user->checkAccess('input-old-articles', 'editor', 'cook-manager'))
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
         return true;
     }
@@ -47,10 +47,10 @@ class ExistArticlesController extends SController
                     'error' => 'Вы уже вводили эту статью.',
                 );
             } else {
-                $article_keywords = new Page();
-                $article_keywords->entity = 'CommunityContent';
-                $article_keywords->entity_id = $article->id;
-                $article_keywords->url = $url;
+                $page = new Page();
+                $page->entity = 'CommunityContent';
+                $page->entity_id = $article->id;
+                $page->url = $url;
 
                 $group = new KeywordGroup();
 
@@ -88,11 +88,11 @@ class ExistArticlesController extends SController
                     $group->keywords = $keyword_models;
                     $group->save();
 
-                    $article_keywords->keyword_group_id = $group->id;
-                    if ($article_keywords->save()) {
+                    $page->keyword_group_id = $group->id;
+                    if ($page->save()) {
                         $response = array(
                             'status' => true,
-                            'html' => $this->renderPartial('_article', array('model' => $article_keywords), true),
+                            'html' => $this->renderPartial('_article', array('model' => $page), true),
                             'keysCount' => count($keyword_models)
                         );
                     } else

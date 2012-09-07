@@ -25,31 +25,38 @@ class SiteController extends SController
             $this->redirect($this->createUrl('site/modules'));
 
         if (Yii::app()->user->checkAccess('moderator'))
-            $this->redirect($this->createUrl('writing/task/moderator'));
+            $this->redirect($this->createUrl('writing/moderator/index'));
 
         if (Yii::app()->user->checkAccess('admin'))
             $this->redirect($this->createUrl('user/'));
 
         if (Yii::app()->user->checkAccess('author'))
-            $this->redirect($this->createUrl('writing/task/author'));
+            $this->redirect($this->createUrl('writing/author'));
 
         if (Yii::app()->user->checkAccess('editor'))
             $this->redirect($this->createUrl('competitors/default/index'));
 
         if (Yii::app()->user->checkAccess('content-manager'))
-            $this->redirect($this->createUrl('writing/task/ContentManager'));
+            $this->redirect($this->createUrl('writing/content/index'));
 
         if (Yii::app()->user->checkAccess('articles-input'))
-            $this->redirect($this->createUrl('writing/existArticles/index'));
+            $this->redirect($this->createUrl('writing/existArticles'));
 
         if (Yii::app()->user->checkAccess('corrector'))
-            $this->redirect($this->createUrl('writing/task/corrector'));
+            $this->redirect($this->createUrl('writing/corrector/index'));
 
         if (Yii::app()->user->checkAccess('superuser'))
             $this->redirect($this->createUrl('competitors/default/index'));
 
         if (Yii::app()->user->checkAccess('promotion'))
             $this->redirect($this->createUrl('promotion/queries/admin'));
+
+        if (Yii::app()->user->checkAccess('cook-manager'))
+            $this->redirect('/competitors/cook/');
+        if (Yii::app()->user->checkAccess('cook-author'))
+            $this->redirect($this->createUrl('cook/author'));
+        if (Yii::app()->user->checkAccess('cook-content-manager'))
+            $this->redirect($this->createUrl('cook/content'));
     }
 
     /**

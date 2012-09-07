@@ -8,7 +8,8 @@ class SeoUserAttributes extends EMongoDocument
     public $user_id;
     public $attributes;
     private $default = array(
-        'last_competitor_site_id'=>1
+        'last_competitor_site_id_section_1'=>1,
+        'last_competitor_site_id_section_2'=>11
     );
 
     public static function model($className = __CLASS__)

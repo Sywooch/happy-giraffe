@@ -61,8 +61,14 @@ $months = CommentatorsMonthStats::getMonths();
             </thead>
             <tbody>
             <?php $summary = array(0, 0, 0); ?>
-            <?php $working_commentators_count = 0 ?>
+            <?php $working_commentators_count = 0;$i = 0; ?>
             <?php foreach ($commentators as $commentator): ?>
+
+                <?php $i++; if ($i > 11):?>
+                    <tr><td colspan="10">-----------------------------------------------------------------------------------------------------------------------------------------------------------------</td></tr>
+                    <?php $i = 1; ?>
+                <?php endif ?>
+
                 <?php if (!empty($day)):?>
                     <?php $commentator_day = $commentator->getDay($date) ?>
                     <?php if ($commentator_day !== null):?>

@@ -10,7 +10,7 @@
                 <?php foreach ($tasks as $task){ ?>
                 <tr>
                     <td><?=$task->getText() ?></td>
-                    <td class="ac"><a href="" class="btn-green-small" onclick="SeoTasks.TakeTask(<?=$task->id ?>);return false;">Взять в обработку</a></td>
+                    <td class="ac"><a href="" class="btn-green-small" onclick="SeoTasks.TakeTask(<?=$task->id ?>);return false;">Взять в работку</a></td>
                 </tr>
                     <?php } ?>
             </tbody></table>

@@ -12,7 +12,7 @@
  * @property KeyStats[] $seoStats
  * @property KeywordGroup[] $group
  * @property PastuhovYandexPopularity $pastuhovYandex
- * @property KeywordBlacklist $keywordBlacklist
+ * @property KeywordBlacklist $blacklist
  * @property YandexPopularity $yandex
  * @property TempKeyword $tempKeyword
  */
@@ -64,7 +64,7 @@ class Keyword extends HActiveRecord
             'pastuhovYandex' => array(self::HAS_ONE, 'PastuhovYandexPopularity', 'keyword_id'),
             'yandex' => array(self::HAS_ONE, 'YandexPopularity', 'keyword_id'),
             'tempKeyword' => array(self::HAS_ONE, 'TempKeyword', 'keyword_id'),
-            'keywordBlacklist' => array(self::HAS_ONE, 'KeywordBlacklist', 'keyword_id'),
+            'blacklist' => array(self::HAS_ONE, 'KeywordBlacklist', 'keyword_id'),
         );
     }
 
@@ -262,7 +262,8 @@ class Keyword extends HActiveRecord
         return 4;
     }
 
-    public function getFrequency(){
+    public function getFrequency()
+    {
         if (isset($this->yandex))
             return $this->yandex->value;
         return '';
@@ -274,12 +275,12 @@ class Keyword extends HActiveRecord
             return '';
 
         if ($this->yandex->value > 1000)
-            return round($this->yandex->value/1000,1);
+            return round($this->yandex->value / 1000, 1);
 
         if ($this->yandex->value > 100)
-            return round($this->yandex->value/1000,2);
+            return round($this->yandex->value / 1000, 2);
 
-        return round($this->yandex->value/1000,3);
+        return round($this->yandex->value / 1000, 3);
     }
 
     /**
@@ -348,7 +349,9 @@ class Keyword extends HActiveRecord
             elseif ($this->hasOpenedTask())
                 return '';
             else
-                return '<input type="hidden" value="' . $this->id . '"><a href="" class="icon-add" onclick="SeoKeywords.Select(this, ' . (int)$short . ');return false;"></a>';
+                return '<input type="hidden" value="' . $this->id . '">
+                <a href="" class="icon-add" onclick="SeoKeywords.Select(this, ' . (int)$short . ');return false;"></a>
+                <a href="" class="icon-hat" data-id="'. $this->id .'" onclick="SeoKeywords.Hide(this);return false;"></a>';
 
         }
         if ($this->inBuffer()) {
@@ -361,7 +364,7 @@ class Keyword extends HActiveRecord
         else
             return '<input type="hidden" value="' . $this->id . '">
             <a href="" class="icon-add" onclick="SeoKeywords.Select(this, ' . (int)$short . ');return false;"></a>
-            <a href="" class="icon-hat" onclick="SeoKeywords.Hide(this);return false;"></a>';
+            <a href="" class="icon-hat" data-id="'. $this->id .'" onclick="SeoKeywords.Hide(this);return false;"></a>';
 
         return '';
     }
@@ -387,17 +390,36 @@ class Keyword extends HActiveRecord
             ));
         }
 
-        $models = $this->getSimilarArticles();
-        if (!empty($models)) {
-            $res .= '<a href="javascript:;" class="icon-links-trigger" onclick="$(this).toggleClass(\'triggered\').next().toggle();"></a><div class="links" style="display:none;">';
-            foreach ($models as $model){
-                $res .= CHtml::link($model->title, 'http://www.happy-giraffe.ru' . $model->url, array('target' => '_blank')).'  ';
+        $res .= $this->getSimilarArticlesHtml();
+        return $res;
+    }
+
+    public function getSimilarArticlesHtml()
+    {
+        $res = Yii::app()->cache->get('similar_articles_5' . $this->name);
+        if ($res === false) {
+            $models = $this->getSimilarArticles();
+            if (!empty($models)) {
+                $res .= '<a href="javascript:;" class="icon-links-trigger" onclick="$(this).toggleClass(\'triggered\').next().toggle();"></a><div class="links" style="display:none;">';
+                foreach ($models as $model) {
+                    $res .= CHtml::link($model->title, 'http://www.happy-giraffe.ru' . $model->url, array('target' => '_blank')) . '  ';
+                    $res .= CHtml::link('', 'javascript:;', array(
+                        'onclick' => 'SeoModule.bindKeywordToArticle(' . $this->id . ', ' . $model->id . ', this);',
+                        'class' => 'icon-link'
+                    )) . '<br>';
+                }
+                $res .= '</div>';
+            } else{
                 $res .= CHtml::link('', 'javascript:;', array(
-                    'onclick' => 'SeoModule.bindKeywordToArticle('.$this->id.', '.$model->id.', this);',
-                    'class'=>'icon-link'
-                )) . '<br>';
+                    'onclick' => '$(this).next().toggle()',
+                    'class' => 'icon-link'
+                )) . '<div style="display:none;">
+                          <input type="text" size="40">
+                          <a href="javascript:;" class="btn-green-small" onclick="SeoModule.bindKeyword(this, ' . $this->id . ');">Ok</a>
+                      </div>';
             }
-            $res .= '</div>';
+
+            Yii::app()->cache->set('similar_articles_' . $this->name, $res, 24*3600);
         }
 
         return $res;

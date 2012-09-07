@@ -42,14 +42,17 @@ class FamilyController extends HController
             $this->user->partner = $partner;
         }
 
-        $future_baby = null;
+        $future_babies = array(null, null);
+        $i = 0;
         foreach ($this->user->babies as $baby) {
-            if (!empty($baby->type))
-                $future_baby = $baby;
+            if (!empty($baby->type)) {
+                $future_babies[$i] = $baby;
+                $i++;
+            }
         }
 
         Yii::import('application.widgets.user.UserCoreWidget');
-        $this->render('index', array('user' => $this->user, 'future_baby' => $future_baby));
+        $this->render('index', array('user' => $this->user, 'future_babies' => $future_babies));
     }
 
     public function actionAddBaby()
@@ -213,14 +216,9 @@ class FamilyController extends HController
         $criteria = new CDbCriteria;
         $criteria->compare('parent_id', Yii::app()->user->id);
         $criteria->compare('type', array(Baby::TYPE_PLANNING, Baby::TYPE_WAIT));
-        $baby = Baby::model()->find($criteria);
-        if ($baby !== null) {
-            if ($baby->delete()) {
-                $response = array('status' => true);
-            } else
-                $response = array('status' => false);
-        } else
-            $response = array('status' => true);
+        $response = array(
+            'status' => Baby::model()->deleteAll($criteria) > 0,
+        );
 
         echo CJSON::encode($response);
     }

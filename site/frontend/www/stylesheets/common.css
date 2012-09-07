@@ -943,7 +943,7 @@ body.nav-fixed #header-new .top-line {position:fixed;left:50%;margin-left:-500px
 
 #header-new .user-nav {float:right;height:30px;padding-right:15px;}
 #header-new .user-nav ul {list-style:none;}
-#header-new .user-nav > ul > li {height:30px;float:left;position:relative;}
+#header-new .user-nav > ul > li {height:30px;float:left;position:relative;margin-left:1px;}
 #header-new .user-nav > ul > li > a {padding:0 10px;height:30px;line-height:30px;color:#fff;text-decoration:none;display:block;white-space:wrap;}
 #header-new .user-nav > ul > li > .link {height:30px;}
 #header-new .user-nav > ul > li > .link > a {display:block;height:30px;line-height:30px;text-decoration:none;position:relative;color:#fff;padding:0 10px 0 0;float:left;overflow:hidden;}
@@ -1665,7 +1665,8 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 #gallery .gallery-album .album-title .settings {display:inline-block;*zoom:1;*display:inline;width:15px;height:15px;background:url(/images/common.png) no-repeat -313px -190px;position:relative;top:2px;}
 #gallery .gallery-album .album-title .settings:hover {background-position:-330px -190px;}
 
-#gallery .gallery-album .album-description {margin-bottom:15px;font-size:11px;font-family:tahoma, arial, helvetica, sans-serif;}
+#gallery .gallery-album .album-description {margin-bottom:15px;font-size:13px;font-family:tahoma, arial, helvetica, sans-serif;background:#fefdd9;padding:8px 12px;position:relative;-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;behavior: url(/stylesheets/PIE.htc);color:#040404;}
+#gallery .gallery-album .album-description:after {display:block;content:'';width:8px;height:19px;background:url(/images/common.png) no-repeat -460px -289px;position:absolute;left:-8px;top:2px;}
 
 #gallery .gallery-album .album-actions {font-size:11px;margin-bottom:15px;}
 #gallery .gallery-album .album-actions .count {color:#8353b0;font-size:16px;}
@@ -1673,7 +1674,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 #gallery .gallery-album .album-actions .slideshow {color:#ffffff;font-size:15px;height:19px;line-height:19px;display:inline-block;*zoom:1;*display:inline;background:#24b828;text-decoration:none;padding:0 8px;-moz-border-radius:10px;-webkit-border-radius:10px;border-radius:10px;margin:0 10px;}
 
 #gallery .gallery-album .album-photos ul {list-style:none;}
-#gallery .gallery-album .album-photos ul li {float:left;margin:0 20px 20px 0;width:210px;}
+#gallery .gallery-album .album-photos ul li {float:left;margin:0 00px 20px 20px;width:210px;}
 #gallery .gallery-album .album-photos ul li.more {font-size:13px;padding-top:30px;text-align:center;width:160px;display:none;}
 #gallery .gallery-album .album-photos ul li.more a {color:#b9b9b9;text-decoration:none;}
 #gallery .gallery-album .album-photos ul li.more .icon {display:block;width:56px;height:56px;background:url(../images/common.png) no-repeat -499px -135px;margin:0 auto;margin-bottom:10px;}

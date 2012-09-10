@@ -115,6 +115,9 @@ class GoogleAnalytics {
 		//call the API
 		$xml = $this->_callAPI($apiUrl);
 
+        var_dump($xml);
+        Yii::app()->end();
+
 		//get the results
 		if ($xml) {
 			$dom = new DOMDocument();

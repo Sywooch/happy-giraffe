@@ -69,7 +69,7 @@
 
                 <?php endforeach; ?>
 
-                <?=CHtml::link('', array('addPhoto'), array('class' => 'fancy btn-album-create'))?>
+                <?php if ($model->author_id == Yii::app()->user->id) echo CHtml::link('', array('addPhoto'), array('class' => 'fancy btn-album-create'))?>
 
             </div>
 

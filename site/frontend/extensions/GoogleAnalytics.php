@@ -255,7 +255,7 @@ class GoogleAnalytics {
 		$response = curl_exec($ch);
 
         $info = curl_getinfo($ch);
-        var_dump($info);
+        var_dump($response);
         Yii::app()->end();
 
         curl_close($ch);

@@ -429,6 +429,7 @@ function savePhotoTitleInWindow(button) {
 var Register = {
     url:null,
     start:false,
+    show_window_delay:3000,
     step1:function(){
         $('.reg1').hide();
         $('.reg2').show();
@@ -474,7 +475,7 @@ var Register = {
             if (!Register.start){
                 $('#reg-main-btn').trigger('click');
             }
-        }, 3000);
+        }, Register.show_window_delay);
     }
 }
 

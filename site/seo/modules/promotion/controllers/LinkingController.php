@@ -1,5 +1,7 @@
 <?php
 
+Yii::import('site.frontend.extensions.phpQuery.phpQuery');
+
 class LinkingController extends SController
 {
     public $pageTitle = 'продвижение';
@@ -28,7 +30,21 @@ class LinkingController extends SController
 
     public function actionAutoLinking()
     {
+        $phrase = PagesSearchPhrase::getActualPhrase();
 
+        $parser = new SimilarArticlesParser;
+        $pages = $parser->getArticles($phrase->keyword->name);
+        $keywords = $phrase->getSimilarKeywords();
+
+        $this->render('auto_linking', compact('phrase', 'pages', 'keywords'));
+    }
+
+    public function actionSkip()
+    {
+        $phrase = $this->loadPhrase(Yii::app()->request->getPost('phrase_id'));
+
+        $response = $this->nextLink();
+        echo CJSON::encode($response);
     }
 
     public function actionAdd()
@@ -53,17 +69,37 @@ class LinkingController extends SController
                 'status' => false,
                 'error' => $link->getErrorsText(),
             ));
-        } else
-            echo CJSON::encode(array(
-                'status' => true,
-                'linkInfo' => $this->renderPartial('_link_info', array('input_link' => $link), true)
-            ));
+        } else {
+
+            if (Yii::app()->request->getPost('next_link') == 1) {
+                $response = $this->nextLink();
+            } else
+                $response = array(
+                    'status' => true,
+                    'linkInfo' => $this->renderPartial('_link_info', array('input_link' => $link), true)
+                );
+            echo CJSON::encode($response);
+        }
+    }
+
+    public function nextLink()
+    {
+        $phrase = PagesSearchPhrase::getActualPhrase();
+        $page = $phrase->page;
+        $parser = new SimilarArticlesParser;
+        $pages = $parser->getArticles($phrase->keyword->name);
+        $keywords = $phrase->getSimilarKeywords();
+
+        return array(
+            'status' => true,
+            'html' => $this->renderPartial('_auto_linking', compact('phrase', 'pages', 'keywords', 'page'), true),
+            'page_id' => $page->id,
+            'phrase_id' => $phrase->id,
+        );
     }
 
     public function actionPhraseInfo()
     {
-        Yii::import('site.frontend.extensions.phpQuery.phpQuery');
-
         $parser = new SimilarArticlesParser;
         $phrase = $this->loadPhrase(Yii::app()->request->getPost('phrase_id'));
         $pages = $parser->getArticles($phrase->keyword->name);

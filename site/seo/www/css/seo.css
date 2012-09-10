@@ -112,6 +112,7 @@ button.btn-gray-small {height:20px;}
 #seo .icon-m {color:#f5811a;font-weight:bold;font-size:15px;}
 
 #seo .sup-h {color:#7340a2;font-weight:bold;font-size:11px;position:relative;top:-4px;margin-left:5px;}
+#seo .sup {color:#59595a;font-size:8px;position:relative;top:-4px;margin-left:5px;}
 
 #seo .remove {}
 
@@ -188,6 +189,8 @@ button.btn-gray-small {height:20px;}
 #seo .seo-table {margin-bottom:30px;}
 
 #seo .seo-table .table-title {display:inline-block;*zoom:1;*display:inline;margin-right:30px;font-size:25px;margin-bottom:20px;margin-left:20px;}
+
+#seo .seo-table .table-inline-title {float:left;width:444px;color:#3f8ccd;font-size:16px;text-align:center;margin:40px 0;}
 
 #seo .seo-table .fast-filter {text-align:center;margin-bottom:10px;color:#0784d3;font-size:13px;}
 #seo .seo-table .fast-filter span {color:#4f4f4f;}
@@ -365,7 +368,13 @@ button.btn-gray-small {height:20px;}
 #seo .promotion-links .step .input {}
 #seo .promotion-links .step .input .input-title {font-size:13px;color:#535353;font-weight:bold;margin-bottom:5px;overflow:hidden;}
 #seo .promotion-links .step .input input {height:18px;padding:2px 10px;border:1px solid #c6dffc;width:238px;}
-#seo .promotion-links .btn {margin-top:70px;float:left;}
+#seo .promotion-links .btn {margin-top:70px;float:left;text-align:center;}
+#seo .promotion-links .btn .btn-green {margin-bottom:5px;}
+#seo .promotion-links .btn .skip {color:#676767;font-size:13px;text-decoration:none;border-bottom:1px dashed #676767;}
+
+#seo .inner-links-count {font-weight:bold;font-size:16px;margin:0 0 25px 65px;}
+#seo .inner-links-count span {color:#f27c26;font-size:20px;}
+#seo .inner-links-count a {font-size:11px;font-weight:normal;margin-left:5px;}
 
 
 #seo .seo-table .table-statistic table {width:100%;font-size:11px;font-family:tahoma, arial, helvetica, sans-serif;text-align:center;}

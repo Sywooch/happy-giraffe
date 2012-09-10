@@ -13,6 +13,7 @@
  * @property Page $page
  * @property SearchPhrasePosition[] $positions
  * @property SearchPhraseVisit[] $visits
+ * @property InnerLink[] $links
  */
 class PagesSearchPhrase extends HActiveRecord
 {
@@ -64,6 +65,7 @@ class PagesSearchPhrase extends HActiveRecord
             'positions' => array(self::HAS_MANY, 'SearchPhrasePosition', 'search_phrase_id', 'order' => 'date desc'),
             'lastPosition' => array(self::HAS_ONE, 'SearchPhrasePosition', 'search_phrase_id', 'order' => 'lastPosition.date desc'),
             'visits' => array(self::HAS_MANY, 'SearchPhraseVisit', 'search_phrase_id'),
+            'links' => array(self::HAS_MANY, 'InnerLink', 'phrase_id', 'order' => 'date desc'),
         );
     }
 
@@ -203,6 +205,15 @@ class PagesSearchPhrase extends HActiveRecord
             return '> 100';
 
         return $position;
+    }
+
+    /**
+     * @static
+     * @return PagesSearchPhrase
+     */
+    public static function getActualPhrase()
+    {
+        return PagesSearchPhrase::model()->find(array('order'=>'rand()'));
     }
 
     /**

@@ -8,6 +8,16 @@
         $current = Yii::app()->session->get('viewedAlbums', array());
         $current[$model->id] = $model->id;
         Yii::app()->session['viewedAlbums'] = $current;
+
+
+        $more = Album::model()->findAll(array(
+            'scopes' => array('noSystem'),
+            'condition' => 't.author_id = :author_id AND t.id != :current_id',
+            'params' => array(':author_id' => $model->author_id, ':current_id' => $model->id),
+            'order' => 't.id IN(' . implode(',', Yii::app()->session->get('viewedAlbums', array())) . '), RAND()',
+        ));
+    } else {
+        $more = null;
     }
 
     $collection = $model->photoCollection;
@@ -34,13 +44,6 @@
         $preload[$currentNext] = $photos[$currentNext];
         $preload[$currentPrev] = $photos[$currentPrev];
     }
-
-    $more = Album::model()->findAll(array(
-        'scopes' => array('noSystem'),
-        'condition' => 't.author_id = :author_id AND t.id != :current_id',
-        'params' => array(':author_id' => $model->author_id, ':current_id' => $model->id),
-        'order' => 't.id IN(' . implode(',', Yii::app()->session->get('viewedAlbums', array())) . '), RAND()',
-    ));
 ?>
 
 <div id="photo-window-in">
@@ -137,7 +140,7 @@
 
         </div>
 
-        <?php if (get_class($model) == 'Album'): ?>
+        <?php if ($more !== null): ?>
             <div class="more-albums">
                 <div class="block-in">
                     <div class="block-title"><span>Другие альбомы</span></div>

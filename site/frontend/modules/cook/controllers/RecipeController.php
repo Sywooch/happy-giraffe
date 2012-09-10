@@ -60,7 +60,19 @@ class RecipeController extends HController
             $recipe = new $this->modelName;
             $ingredients = array();
         } else {
-            $recipe = CActiveRecord::model($this->modelName)->with('ingredients.unit', 'ingredients.ingredient.availableUnits')->findByPk($id);
+            $recipe = CActiveRecord::model($this->modelName)->with(array(
+                'photo',
+                'cuisine',
+                'ingredients' => array(
+                    'order' => 'ingredients.id',
+                    'with' => array(
+                        'ingredient' => array(
+                            'with' => 'availableUnits',
+                        ),
+                        'unit',
+                    )
+                ),
+            ))->findByPk($id);
             if ($recipe === null)
                 throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
@@ -168,7 +180,18 @@ class RecipeController extends HController
      */
     public function actionView($id, $section, $lastPage = null, $ajax = null)
     {
-        $recipe = CActiveRecord::model($this->modelName)->with('photo', 'attachPhotos', 'cuisine', 'ingredients.ingredient', 'ingredients.unit')->findByPk($id);
+        $recipe = CActiveRecord::model($this->modelName)->with(array(
+            'photo',
+            'attachPhotos',
+            'cuisine',
+            'ingredients' => array(
+                'order' => 'ingredients.id',
+                'with' => array(
+                    'ingredient',
+                    'unit',
+                )
+            ),
+        ))->findByPk($id);
         if ($recipe === null)
             throw new CHttpException(404, 'Такого рецепта не существует');
 

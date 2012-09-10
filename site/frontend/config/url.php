@@ -67,7 +67,6 @@ return array(
         'user/<user_id:\d+>/blog/rubric<rubric_id:\d+>' => 'blog/list',
         'user/<user_id:\d+>/blog' => 'blog/list',
         'user/<user_id:\d+>/blog/post<content_id:\d+>' => 'blog/view',
-        'var/www/happy-giraffe.ru/public/site/user/<user_id:\d+>/blog/post<content_id:\d+>' => 'blog/view',
         'user/<user_id:\d+>/rss/page<page:\d+>' => 'rss/user',
         'user/<user_id:\d+>/rss' => 'rss/user',
         'user/<user_id:\d+>/comments/rss/page<page:\d+>' => 'rss/comments',
@@ -91,7 +90,6 @@ return array(
         'community/<community_id:\d+>/forum/<content_type_slug:\w+>' => 'community/list',
         'community/<community_id:\d+>/forum' => 'community/list',
         'community/<community_id:\d+>/forum/<content_type_slug:\w+>/<content_id:\d+>' => 'community/view',
-        'var/www/happy-giraffe.ru/public/site/community/<community_id:\d+>/forum/<content_type_slug:\w+>/<content_id:\d+>' => 'community/view',
         'community/<community_id:\d+>/forum/<content_type_slug:\w+>/<content_id:\d+>/uploadImage' => 'community/uploadImage',
 
         'community/edit/content_id/<content_id:\d+>' => 'community/edit',

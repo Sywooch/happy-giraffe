@@ -701,6 +701,7 @@ class AlbumsController extends HController
 
         switch ($entity) {
             case 'CommunityContentGallery':
+                Yii::app()->user->setState('ban_register_window', 1);
                 $content_id = Yii::app()->request->getQuery('content_id');
                 $model = CActiveRecord::model($entity)->findByAttributes(array('content_id' => $content_id));
                 break;

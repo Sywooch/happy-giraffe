@@ -42,9 +42,19 @@ class RegisterWidget extends CWidget
         if (Yii::app()->user->isGuest) {
             if (Yii::app()->controller->uniqueId == 'services/horoscope/default'){
                 $this->type = 'horoscope';
-            }
-            elseif (strpos(Yii::app()->getRequest()->urlReferrer, 'http://www.odnoklassniki.ru/') === 0) {
+            } elseif (strpos(Yii::app()->getRequest()->urlReferrer, 'http://www.odnoklassniki.ru/') === 0) {
                 $this->odnoklassniki = true;
+            } elseif (!empty(Yii::app()->getRequest()->urlReferrer) && strpos(Yii::app()->getRequest()->urlReferrer, 'http://'.$_SERVER['SERVER_NAME'].'/') !== 0) {
+                Yii::app()->user->setState('show_register_window', 1);
+            } elseif (Yii::app()->user->getState('show_register_window') == 1) {
+                Yii::app()->user->setState('show_register_window', 0);
+                $this->show_form = true;
+            }
+
+            if (Yii::app()->user->getState('ban_register_window') == 1){
+                Yii::app()->user->setState('show_register_window', 0);
+                Yii::app()->user->setState('ban_register_window', 0);
+                $this->show_form = false;
             }
 
             $model = new User;

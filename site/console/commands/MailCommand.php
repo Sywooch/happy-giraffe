@@ -46,7 +46,7 @@ class MailCommand extends CConsoleCommand
         $criteria->offset = 0;
 
         //fired moderators
-        $bad_users = array(10186, 10127, 12678, 10229, 12980);
+        $bad_users = array(10186, 10127, 12678, 10229, 12980, 10264, 10064);
 
         $i = 0;
         $users = array(0);

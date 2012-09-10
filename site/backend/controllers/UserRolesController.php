@@ -128,7 +128,7 @@ class UserRolesController extends BController
             );
         } else
             $response = array('status' => false);
-        var_dump($model->getErrors());
+
         echo CJSON::encode($response);
     }
 

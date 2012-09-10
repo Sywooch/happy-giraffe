@@ -135,12 +135,6 @@ class CommunityController extends HController
         if ($content === null)
             throw new CHttpException(404, 'Такой записи не существует');
 
-        if (strpos(Yii::app()->request->url, '/var/www/happy-giraffe.ru/public/site') !== false ) {
-            header("HTTP/1.1 301 Moved Permanently");
-            header("Location: " . $content->url);
-            Yii::app()->end();
-        }
-
         if ($community_id != $content->rubric->community->id || $content_type_slug != $content->type->slug) {
             header("HTTP/1.1 301 Moved Permanently");
             header("Location: " . $content->url);

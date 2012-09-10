@@ -68,11 +68,11 @@
                 'items' => array(
                     array(
                         'label' => 'В работу',
-                        'url' => array('/writing/task/moderator'),
+                        'url' => array('/writing/moderator/index'),
                     ),
                     array(
                         'label' => 'Отчеты',
-                        'url' => array('/writing/task/moderatorReports'),
+                        'url' => array('/writing/moderator/reports'),
                     ),
                 )));
 
@@ -82,11 +82,11 @@
                 'items' => array(
                     array(
                         'label' => 'В работу',
-                        'url' => array('/writing/task/author'),
+                        'url' => array('/writing/author/index'),
                     ),
                     array(
                         'label' => 'Отчеты',
-                        'url' => array('/writing/task/authorReports'),
+                        'url' => array('/writing/author/reports'),
                     ),
                 )));
 
@@ -96,11 +96,11 @@
                 'items' => array(
                     array(
                         'label' => 'В работу',
-                        'url' => array('/writing/task/corrector'),
+                        'url' => array('/writing/corrector/index'),
                     ),
                     array(
                         'label' => 'Отчеты',
-                        'url' => array('/writing/task/correctorReports'),
+                        'url' => array('/writing/corrector/reports'),
                     ),
                 )));
 
@@ -110,11 +110,11 @@
                 'items' => array(
                     array(
                         'label' => 'В работу',
-                        'url' => array('/writing/task/contentManager'),
+                        'url' => array('/writing/content/index'),
                     ),
                     array(
                         'label' => 'Отчеты',
-                        'url' => array('/writing/task/contentManagerReports'),
+                        'url' => array('/writing/content/reports'),
                     ),
                 )));
 

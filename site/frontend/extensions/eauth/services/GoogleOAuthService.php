@@ -5,7 +5,7 @@
  * Register application: https://code.google.com/apis/console/
  * 
  * @author Maxim Zemskov <nodge@yandex.ru>
- * @link http://code.google.com/p/yii-eauth/
+ * @link http://github.com/Nodge/yii-eauth/
  * @license http://www.opensource.org/licenses/bsd-license.php
  */
 
@@ -17,7 +17,7 @@ require_once dirname(dirname(__FILE__)).'/EOAuth2Service.php';
  */
 class GoogleOAuthService extends EOAuth2Service {	
 	
-	protected $name = 'google';
+	protected $name = 'google_oauth';
 	protected $title = 'Google';
 	protected $type = 'OAuth';
 	protected $jsArguments = array('popup' => array('width' => 500, 'height' => 450));

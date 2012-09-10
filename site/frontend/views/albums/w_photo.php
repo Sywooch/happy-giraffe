@@ -4,6 +4,22 @@
      * @var AlbumPhoto $photo
      */
 
+    if (get_class($model) == 'Album') {
+        $current = Yii::app()->session->get('viewedAlbums', array());
+        $current[$model->id] = $model->id;
+        Yii::app()->session['viewedAlbums'] = $current;
+
+
+        $more = Album::model()->findAll(array(
+            'scopes' => array('noSystem'),
+            'condition' => 't.author_id = :author_id AND t.id != :current_id',
+            'params' => array(':author_id' => $model->author_id, ':current_id' => $model->id),
+            'order' => 't.id IN(' . implode(',', Yii::app()->session->get('viewedAlbums', array())) . '), RAND()',
+        ));
+    } else {
+        $more = null;
+    }
+
     $collection = $model->photoCollection;
     $title = $collection['title'];
     $photos = $collection['photos'];
@@ -28,21 +44,6 @@
         $preload[$currentNext] = $photos[$currentNext];
         $preload[$currentPrev] = $photos[$currentPrev];
     }
-
-    $more = Album::model()->findAll(array(
-        'limit' => 3,
-        'order' => new CDbExpression('RAND()'),
-        'scopes' => array('noSystem'),
-        'condition' => 'id != :current_id',
-        'params' => array(':current_id' => $model->id),
-        'with' => array(
-            'photos' => array(
-                'joinType' => 'INNER JOIN',
-                'limit' => 1,
-                'order' => new CDbExpression('RAND()'),
-            ),
-        ),
-    ));
 ?>
 
 <div id="photo-window-in">
@@ -139,31 +140,37 @@
 
         </div>
 
-        <div class="more-albums">
-            <div class="block-in">
-                <div class="block-title"><span>Другие альбомы</span></div>
+        <?php if ($more !== null): ?>
+            <div class="more-albums">
+                <div class="block-in">
+                    <div class="block-title"><span>Другие альбомы</span></div>
 
-                <div class="gallery-photos-new clearfix">
-                    <ul>
+                    <div class="gallery-photos-new clearfix">
+                        <ul>
 
-                        <?php foreach ($more as $album): ?>
-                            <li>
-                                <div class="img" data-id="<?=$album->photos[0]->id?>" data-entity="<?=get_class($album)?>" data-entity-id="<?=$album->id?>" data-entity-url="<?=$album->url?>">
-                                    <a href="javascript:void(0)">
-                                        <?=CHtml::image($album->photos[0]->getPreviewUrl(210, null, Image::WIDTH))?>
-                                        <span class="count"><i class="icon"></i> <?=$album->photoCount?> фото</span>
-                                        <span class="btn">Посмотреть</span>
-                                    </a>
-                                </div>
-                                <div class="item-title"><?=CHtml::link($album->title, $album->url)?></div>
-                            </li>
-                        <?php endforeach; ?>
+                            <?php $i = 0; foreach ($more as $album): ?>
+                                <?php if ($album->photos): ?>
+                                    <?php $i++; ?>
+                                    <li>
+                                        <div class="img" data-id="<?=$album->photos[0]->id?>" data-entity="<?=get_class($album)?>" data-entity-id="<?=$album->id?>" data-entity-url="<?=$album->url?>">
+                                            <a href="javascript:void(0)">
+                                                <?=CHtml::image($album->photos[0]->getPreviewUrl(210, null, Image::WIDTH))?>
+                                                <span class="count"><i class="icon"></i> <?=$album->photoCount?> фото</span>
+                                                <span class="btn">Посмотреть</span>
+                                            </a>
+                                        </div>
+                                        <div class="item-title"><?=CHtml::link($album->title, $album->url)?></div>
+                                    </li>
+                                    <?php if ($i == 3) break; ?>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
 
-                    </ul>
+                        </ul>
+                    </div>
                 </div>
-            </div>
 
-        </div>
+            </div>
+        <?php endif; ?>
 
     </div>
 

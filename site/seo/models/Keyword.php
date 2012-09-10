@@ -396,7 +396,7 @@ class Keyword extends HActiveRecord
 
     public function getSimilarArticlesHtml()
     {
-        $res = Yii::app()->cache->get('similar_articles_' . $this->name);
+        $res = Yii::app()->cache->get('similar_articles_5' . $this->name);
         if ($res === false) {
             $models = $this->getSimilarArticles();
             if (!empty($models)) {
@@ -409,6 +409,14 @@ class Keyword extends HActiveRecord
                     )) . '<br>';
                 }
                 $res .= '</div>';
+            } else{
+                $res .= CHtml::link('', 'javascript:;', array(
+                    'onclick' => '$(this).next().toggle()',
+                    'class' => 'icon-link'
+                )) . '<div style="display:none;">
+                          <input type="text" size="40">
+                          <a href="javascript:;" class="btn-green-small" onclick="SeoModule.bindKeyword(this, ' . $this->id . ');">Ok</a>
+                      </div>';
             }
 
             Yii::app()->cache->set('similar_articles_' . $this->name, $res, 24*3600);

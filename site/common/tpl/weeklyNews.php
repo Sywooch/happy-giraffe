@@ -34,7 +34,10 @@ $i = 0;
 
             <?php
             $image_url = $model->getContentImage();
-            $image_size = getimagesize($image_url);
+            if (!empty($image_url))
+                $image_size = getimagesize($image_url);
+            else
+                $image_size = array(0);
             if ($image_size[0]>100){
             ?>
             <div style="margin-bottom:5px;">

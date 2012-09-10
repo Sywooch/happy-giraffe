@@ -14,12 +14,14 @@
  * @property integer $status
  * @property string $created
  * @property string $rewrite
+ * @property int $section
+ * @property bool $multivarka
  *
  * The followings are the available model relations:
  * @property SeoUser $owner
  * @property KeywordGroup $keywordGroup
  * @property SeoUser $executor
- * @property RewriteUrl[] $rewriteUrls
+ * @property TaskUrl[] $urls
  */
 class SeoTask extends CActiveRecord
 {
@@ -33,8 +35,13 @@ class SeoTask extends CActiveRecord
     const STATUS_PUBLISHED = 7;
     const STATUS_CLOSED = 8;
 
+    const STATUS_PRENEW = -1;
+
     const TYPE_MODER = 1;
     const TYPE_EDITOR = 2;
+
+    const SECTION_MAIN = 1;
+    const SECTION_COOK = 2;
 
     /**
      * Returns the static model of the specified AR class.
@@ -64,8 +71,8 @@ class SeoTask extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('keyword_group_id', 'required'),
-            array('type, status', 'numerical', 'integerOnly' => true),
+            //array('keyword_group_id', 'required', 'except' => 'cook'),
+            array('type, status, section, multivarka', 'numerical', 'integerOnly' => true),
             array('keyword_group_id, executor_id', 'length', 'max' => 10),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
@@ -81,7 +88,7 @@ class SeoTask extends CActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'rewriteUrls' => array(self::HAS_MANY, 'RewriteUrl', 'task_id'),
+            'urls' => array(self::HAS_MANY, 'TaskUrl', 'task_id'),
             'keywordGroup' => array(self::BELONGS_TO, 'KeywordGroup', 'keyword_group_id'),
             'owner' => array(self::BELONGS_TO, 'SeoUser', 'owner_id'),
             'executor' => array(self::BELONGS_TO, 'SeoUser', 'executor_id'),
@@ -128,8 +135,9 @@ class SeoTask extends CActiveRecord
         }
 
         if ($this->status == self::STATUS_READY) {
-            foreach ($this->keywordGroup->keywords as $keyword)
-                TempKeyword::model()->deleteAll('keyword_id=' . $keyword->id);
+            if (isset($this->keywordGroup))
+                foreach ($this->keywordGroup->keywords as $keyword)
+                    TempKeyword::model()->deleteAll('keyword_id=' . $keyword->id);
         }
 
         return parent::beforeSave();
@@ -137,13 +145,38 @@ class SeoTask extends CActiveRecord
 
     public function getText()
     {
+        if ($this->section == self::SECTION_COOK)
+            return $this->getRecipeText();
+
+        $res = '';
+        if (isset($this->keywordGroup))
+            foreach ($this->keywordGroup->keywords as $key)
+                $res .= $key->name . '<br>';
+
+        if ($this->rewrite)
+            foreach ($this->urls as $url)
+                $res .= $url->url . '<br>';
+        return trim($res, '<br>');
+    }
+
+    public function getRecipeText()
+    {
+        if (isset($this->keywordGroup)) {
+            return $this->getKeywordsText();
+        } else {
+            return $this->article_title . ' <span class="sup-h">H</span>';
+        }
+    }
+
+    public function getKeywordsText()
+    {
+        if (!isset($this->keywordGroup))
+            return '';
+
         $res = '';
         foreach ($this->keywordGroup->keywords as $key)
             $res .= $key->name . '<br>';
-        if ($this->rewrite)
-            foreach ($this->rewriteUrls as $url)
-                $res .= $url->url . '<br>';
-        return trim($res, '<br>');
+        return $res;
     }
 
     public function getHints()
@@ -154,7 +187,7 @@ class SeoTask extends CActiveRecord
 
         foreach ($this->keywordGroup->keywords as $key) {
             $hint_keywords = $key->getChildKeywords(20);
-            foreach ($hint_keywords as $hint_keyword){
+            foreach ($hint_keywords as $hint_keyword) {
                 if (!in_array($hint_keyword->name, $keys))
                     $res[] = $hint_keyword->name;
                 if (count($res) >= 10)
@@ -188,7 +221,19 @@ class SeoTask extends CActiveRecord
         } elseif (Yii::app()->user->checkAccess('editor')) {
             $criteria->compare('status', SeoTask::STATUS_CLOSED);
             $criteria->compare('owner_id', Yii::app()->user->id);
+
+        } elseif (Yii::app()->user->checkAccess('cook-author')) {
+            $criteria->compare('section', SeoTask::SECTION_COOK);
+            $criteria->condition = 'executor_id = :executor_id AND status > ' . SeoTask::STATUS_TAKEN;
+            $criteria->params = array('executor_id' => Yii::app()->user->id);
+
+        } elseif (Yii::app()->user->checkAccess('cook-content-manager')) {
+            $criteria->compare('section', SeoTask::SECTION_COOK);
+            $criteria->condition = 'owner_id = :owner_id AND status > ' . SeoTask::STATUS_PUBLICATION;
+            $criteria->params = array('owner_id' => Yii::app()->user->getModel()->owner_id);
+
         }
+        $criteria->order = 'created desc';
 
         return SeoTask::model()->findAll($criteria);
     }
@@ -215,6 +260,16 @@ class SeoTask extends CActiveRecord
             $criteria->compare('status', SeoTask::STATUS_PUBLICATION);
             $criteria->compare('owner_id', Yii::app()->user->getModel()->owner_id);
 
+        } elseif (Yii::app()->user->checkAccess('cook-author')) {
+            $criteria->compare('section', SeoTask::SECTION_COOK);
+            $criteria->compare('status', SeoTask::STATUS_READY);
+            $criteria->compare('executor_id', Yii::app()->user->id);
+            $criteria->compare('owner_id', Yii::app()->user->getModel()->owner_id);
+
+        } elseif (Yii::app()->user->checkAccess('cook-content-manager')) {
+            $criteria->compare('section', SeoTask::SECTION_COOK);
+            $criteria->compare('status', SeoTask::STATUS_PUBLICATION);
+            $criteria->compare('owner_id', Yii::app()->user->getModel()->owner_id);
         }
         $criteria->order = 'created DESC';
 
@@ -247,23 +302,47 @@ class SeoTask extends CActiveRecord
 
     public function getStatusText()
     {
-        switch ($this->status) {
-            case self::STATUS_READY:
-                return 'Новое';
-            case self::STATUS_TAKEN:
-                return 'Написание';
-            case self::STATUS_WRITTEN:
-                return 'Статья написана';
-            case self::STATUS_CORRECTING:
-                return 'На коррекции';
-            case self::STATUS_CORRECTED:
-                return 'Откорректировано';
-            case self::STATUS_PUBLICATION:
-                return 'На публикации';
-            case self::STATUS_PUBLISHED:
-                return 'Опубликована';
-            case self::STATUS_CLOSED:
-                return 'Проверено';
+        switch ($this->section) {
+            case self::SECTION_MAIN:
+                switch ($this->status) {
+                    case self::STATUS_READY:
+                        return 'Новое';
+                    case self::STATUS_TAKEN:
+                        return 'Написание';
+                    case self::STATUS_WRITTEN:
+                        return 'Статья написана';
+                    case self::STATUS_CORRECTING:
+                        return 'На коррекции';
+                    case self::STATUS_CORRECTED:
+                        return 'Откорректировано';
+                    case self::STATUS_PUBLICATION:
+                        return 'На публикации';
+                    case self::STATUS_PUBLISHED:
+                        return 'Опубликована';
+                    case self::STATUS_CLOSED:
+                        return 'Проверено';
+                }
+                break;
+            case self::SECTION_COOK:
+                switch ($this->status) {
+                    case self::STATUS_READY:
+                        return 'Новое';
+                    case self::STATUS_TAKEN:
+                        return 'Написание';
+                    case self::STATUS_WRITTEN:
+                        return 'Рецепт написан';
+                    case self::STATUS_CORRECTING:
+                        return 'На коррекции';
+                    case self::STATUS_CORRECTED:
+                        return 'Откорректировано';
+                    case self::STATUS_PUBLICATION:
+                        return 'На публикации';
+                    case self::STATUS_PUBLISHED:
+                        return 'Рецепт размещен';
+                    case self::STATUS_CLOSED:
+                        return 'Проверен';
+                }
+                break;
         }
 
         return '';
@@ -280,5 +359,44 @@ class SeoTask extends CActiveRecord
         }
 
         return $text;
+    }
+
+    public function getUrlsText()
+    {
+        $res = '';
+        foreach ($this->urls as $url)
+            $res .= $url->url . '<br>';
+        return trim($res, '<br>');
+    }
+
+    public function getMultiVarka()
+    {
+        if ($this->multivarka)
+            return '<span class="icon-m">M</span>';
+        return '';
+    }
+
+    public static function getTasksByName()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->condition = 'executor_id IS NULL';
+        $criteria->compare('owner_id', Yii::app()->user->id);
+        $criteria->compare('status', SeoTask::STATUS_NEW);
+        $criteria->compare('keyword_group_id', NULL);
+        $criteria->compare('section', SeoTask::SECTION_COOK);
+
+        return SeoTask::model()->findAll($criteria);
+    }
+
+    public static function getNewTasks()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->condition = 'executor_id IS NOT NULL';
+        $criteria->compare('owner_id', Yii::app()->user->id);
+        $criteria->compare('status', SeoTask::STATUS_NEW);
+        $criteria->compare('keyword_group_id', NULL);
+        $criteria->compare('section', SeoTask::SECTION_COOK);
+
+        return SeoTask::model()->findAll($criteria);
     }
 }

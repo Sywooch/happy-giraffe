@@ -3,7 +3,7 @@
  * An example of extending the provider class.
  *
  * @author ChooJoy <choojoy.work@gmail.com>
- * @link http://code.google.com/p/yii-eauth/
+ * @link http://github.com/Nodge/yii-eauth/
  * @license http://www.opensource.org/licenses/bsd-license.php
  */
  
@@ -19,11 +19,11 @@ class CustomMailruService extends MailruOAuthService {
 				'app_id' => $this->client_id,
 			),
 		));
-
-		$info = $info[0];
 		
-		$this->attributes['id'] = $info->uid;
-		$this->attributes['name'] = $info->first_name;
+		$info = $info[0];
+
+        $this->attributes['id'] = $info->uid;
+        $this->attributes['name'] = $info->first_name;
 
         $this->attributes['first_name'] = $info->first_name;
         $this->attributes['last_name'] = $info->last_name;
@@ -33,4 +33,5 @@ class CustomMailruService extends MailruOAuthService {
             $this->attributes['avatar'] = $info->pic_big;
         }
 	}
+	
 }

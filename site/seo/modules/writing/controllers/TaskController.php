@@ -5,95 +5,6 @@
  */
 class TaskController extends SController
 {
-    public $layout = '//layouts/writing';
-
-    public function actionModerator()
-    {
-        if (!Yii::app()->user->checkAccess('moderator'))
-            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
-
-        $this->pageTitle = 'модератор';
-
-        $tasks = SeoTask::getTasks();
-        $executing = SeoTask::getActiveTask();
-
-        $this->render('_moderator', compact('tasks', 'executing'));
-    }
-
-    public function actionModeratorReports()
-    {
-        if (!Yii::app()->user->checkAccess('moderator'))
-            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
-
-        $this->pageTitle = 'модератор';
-        $tasks = SeoTask::TodayExecutedTasks();
-        $this->render('_moderator_reports', compact('tasks'));
-    }
-
-    public function actionAuthor()
-    {
-        if (!Yii::app()->user->checkAccess('author'))
-            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
-
-        $this->pageTitle = 'автор';
-        $tasks = SeoTask::getTasks();
-        $executing = SeoTask::getActiveTask();
-
-        $this->render('_author', compact('tasks', 'executing'));
-    }
-
-    public function actionAuthorReports()
-    {
-        if (!Yii::app()->user->checkAccess('author'))
-            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
-
-        $this->pageTitle = 'автор';
-        $tasks = SeoTask::TodayExecutedTasks();
-        $this->render('_author_reports', compact('tasks'));
-    }
-
-    public function actionCorrector()
-    {
-        if (!Yii::app()->user->checkAccess('corrector'))
-            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
-        $this->pageTitle = 'корректор';
-
-        $tasks = SeoTask::getTasks();
-        $executing = SeoTask::getActiveTask();
-
-        $this->render('_corrector', compact('tasks', 'executing'));
-    }
-
-    public function actionCorrectorReports()
-    {
-        if (!Yii::app()->user->checkAccess('corrector'))
-            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
-
-        $this->pageTitle = 'корректор';
-        $tasks = SeoTask::TodayExecutedTasks();
-        $this->render('_corrector_reports', compact('tasks'));
-    }
-
-    public function actionContentManager()
-    {
-        if (!Yii::app()->user->checkAccess('content-manager'))
-            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
-
-        $this->pageTitle = 'контент-менеджер';
-        $tasks = SeoTask::getTasks();
-        $this->render('_cm', compact('tasks'));
-    }
-
-    public function actionContentManagerReports()
-    {
-        if (!Yii::app()->user->checkAccess('content-manager'))
-            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
-
-        $this->pageTitle = 'контент-менеджер';
-        $tasks = SeoTask::TodayExecutedTasks();
-        $this->render('_cm_reports', compact('tasks'));
-    }
-
     public function actionExecuted()
     {
         $task_id = Yii::app()->request->getPost('id');
@@ -224,21 +135,6 @@ class TaskController extends SController
             }
         } else
             echo CJSON::encode(array('status' => false));
-    }
-
-    public function actionCorrected()
-    {
-        if (!Yii::app()->user->checkAccess('corrector'))
-            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
-
-        $task_id = Yii::app()->request->getPost('id');
-        $task = $this->loadTask($task_id);
-        if ($task->status == SeoTask::STATUS_CORRECTING) {
-            $task->status = SeoTask::STATUS_CORRECTED;
-            echo CJSON::encode(array('status' => $task->save()));
-        } else
-            echo CJSON::encode(array('status' => false));
-
     }
 
     /**

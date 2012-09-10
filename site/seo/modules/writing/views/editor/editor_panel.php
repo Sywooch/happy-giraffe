@@ -24,7 +24,8 @@ Yii::app()->clientScript->registerCoreScript('jquery.ui'); ?>
                     $users = SeoUser::model()->findAll();
                     foreach ($users as $author): ?>
                         <?php if (Yii::app()->authManager->checkAccess('author', $author->id)):?>
-                            <li><a href="" onclick="TaskDistribution.addGroup(2, <?php echo $author->id ?>,0);$(this).parents('ul').hide();return false;"><?=$author->name ?></a></li>
+                            <li><a href="" onclick="TaskDistribution.addGroup(2, <?php echo $author->id ?>,0);$(this).parents('ul').hide();return false;"><?=$author->name ?></a>
+                                <span class="count"><?=$author->getTasksCount() ?></span></li>
                         <?php endif ?>
                     <?php endforeach; ?>
                 </ul>

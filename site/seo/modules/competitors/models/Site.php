@@ -7,6 +7,7 @@
  * @property integer $id
  * @property string $name
  * @property string $url
+ * @property int $section
  *
  * The followings are the available model relations:
  * @property SiteKeywordVisit[] $seoKeyStats
@@ -46,6 +47,7 @@ class Site extends HActiveRecord
 		return array(
 			array('name', 'required'),
 			array('name, url', 'length', 'max'=>255),
+            array('section', 'numerical', 'integerOnly' => true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, name, url', 'safe', 'on'=>'search'),

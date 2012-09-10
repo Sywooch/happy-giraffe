@@ -51,6 +51,12 @@ class RegisterWidget extends CWidget
                 $this->show_form = true;
             }
 
+            if (Yii::app()->user->getState('ban_register_window') == 1){
+                Yii::app()->user->setState('show_register_window', 0);
+                Yii::app()->user->setState('ban_register_window', 0);
+                $this->show_form = false;
+            }
+
             $model = new User;
             $this->render('form', array(
                 'model' => $model,

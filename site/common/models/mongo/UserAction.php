@@ -105,7 +105,7 @@ class UserAction extends EMongoDocument
                 break;
             case self::USER_ACTION_RECIPE_ADDED:
                 $model = $params['model'];
-                $data = $model->getAttributes(array('id', 'title'));
+                $data = $model->getAttributes(array('id', 'title', 'section'));
                 $data['created'] = time();
                 $data['contentImage'] = $model->contentImage;
                 return $data;

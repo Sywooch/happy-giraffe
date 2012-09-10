@@ -26,6 +26,11 @@ class LinkingController extends SController
         $this->render('view', compact('page', 'selected_phrase_id', 'period'));
     }
 
+    public function actionAutoLinking()
+    {
+
+    }
+
     public function actionAdd()
     {
         $phrase = $this->loadPhrase(Yii::app()->request->getPost('phrase_id'));

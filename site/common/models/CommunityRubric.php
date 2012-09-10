@@ -108,6 +108,23 @@ class CommunityRubric extends HActiveRecord
 		);
 	}
 
+    public function search()
+    {
+        // Warning: Please modify the following code to remove attributes that
+        // should not be searched.
+
+        $criteria=new CDbCriteria;
+
+        $criteria->compare('id',$this->id);
+        $criteria->compare('title',$this->title,true);
+        $criteria->compare('user_id',$this->user_id);
+        $criteria->compare('community_id',$this->community_id);
+
+        return new CActiveDataProvider($this, array(
+            'criteria'=>$criteria,
+        ));
+    }
+
     public function getUrl()
     {
         return Yii::app()->createUrl('community/list', array(

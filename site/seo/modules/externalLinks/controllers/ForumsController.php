@@ -1,6 +1,6 @@
 <?php
 
-class DefaultController extends Controller
+class ForumsController extends Controller
 {
 	public function actionIndex()
 	{

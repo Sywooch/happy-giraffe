@@ -49,9 +49,6 @@ class PageView extends EMongoDocument
                 'filters' => urlencode('ga:pagePath==' . $path),
                 'max-results' => 1,
             ));
-
-            var_dump($report);
-            Yii::app()->end();
             if (!$report || !isset($report[$path]))
                 return false;
             $count = $report[$path]['ga:uniquePageviews'];

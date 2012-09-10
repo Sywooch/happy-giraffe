@@ -140,7 +140,6 @@ class GoogleAnalytics {
 				$mets='';
 			}
 		} else {
-            Yii::app()->end();
 			throw new Exception('getReport() failed to get a valid XML from Google Analytics API service');
 		}
 		return $results;
@@ -254,9 +253,7 @@ class GoogleAnalytics {
 		}
 
 		$response = curl_exec($ch);
-
         $info = curl_getinfo($ch);
-        var_dump($response);
 
         curl_close($ch);
 

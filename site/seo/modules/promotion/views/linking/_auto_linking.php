@@ -3,6 +3,7 @@
  * @var $phrase PagesSearchPhrase
  */
 $period = 2;
+$phrase->refresh();
 ?>
 <div class="seo-table table-result table-promotion">
 

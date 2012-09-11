@@ -314,7 +314,8 @@ class CookRecipe extends CActiveRecord
             }
         } else {
             $text = 'User: '  . Yii::app()->user->id . "\n" .
-                    'Route: '  . Yii::app()->controller->route . "\n";
+                    'Route: '  . Yii::app()->controller->route . "\n" .
+                    'ID: '  . $this->id . "\n";
             Yii::trace($text);
         }
 

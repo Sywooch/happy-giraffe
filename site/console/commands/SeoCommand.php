@@ -330,17 +330,18 @@ class SeoCommand extends CConsoleCommand
         Yii::import('site.seo.modules.promotion.models.*');
 
         $criteria = new CDbCriteria;
-        //$criteria->compare('week', date("W") - 1);
-        $criteria->compare('week', 36);
+        $criteria->condition = 'visits > 0';
+        $criteria->compare('week', date("W") - 1);
         $criteria->compare('year', date("Y", strtotime('-1 week')));
         $criteria->compare('se_id', 3);
 
-        $models = SearchPhraseVisit::model()->with('phrase')->findAll($criteria);
+        $models = SearchPhraseVisit::model()->findAll($criteria);
         PagesSearchPhrase::model()->updateAll(array('google_traffic'=>0));
 
         foreach($models as $model){
+            echo $model->visits."\n";
             $model->phrase->google_traffic = $model->visits;
-            $model->phrase->update('google_traffic');
+            $model->phrase->update(array('google_traffic'));
         }
     }
 }

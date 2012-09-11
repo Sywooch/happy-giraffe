@@ -239,15 +239,12 @@ class PagesSearchPhrase extends HActiveRecord
         $criteria->group = 't.id';
         $criteria->having = 'links_count <= :links_count';
         $criteria->together = true;
-
-        if (SeoUserAttributes::getAttribute(Yii::app()->user->id, 'google_traffic') == 1) {
-
-        }
-        $criteria->condition = 'skip.phrase_id IS NULL';
+        $criteria->condition = 'skip.phrase_id IS NULL AND google_traffic >= :google_traffic';
 
         $links_count = SeoUserAttributes::getAttribute(Yii::app()->user->id, 'links_count');
         $criteria->params = array(
-            ':links_count' => $links_count
+            ':links_count' => $links_count,
+            ':google_traffic' => SeoUserAttributes::getAttribute(Yii::app()->user->id, 'google_traffic')
         );
 
         $model = PagesSearchPhrase::model()->find($criteria);

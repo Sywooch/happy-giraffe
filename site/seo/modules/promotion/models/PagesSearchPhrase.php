@@ -8,6 +8,7 @@
  * @property string $page_id
  * @property integer $keyword_id
  * @property integer $last_yandex_position
+ * @property integer $google_traffic
  *
  * The followings are the available model relations:
  * @property Keyword $keyword
@@ -51,7 +52,7 @@ class PagesSearchPhrase extends HActiveRecord
         // will receive user inputs.
         return array(
             array('page_id, keyword_id', 'required'),
-            array('keyword_id, last_yandex_position', 'numerical', 'integerOnly' => true),
+            array('keyword_id, last_yandex_position, google_traffic', 'numerical', 'integerOnly' => true),
             array('page_id', 'length', 'max' => 11),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.

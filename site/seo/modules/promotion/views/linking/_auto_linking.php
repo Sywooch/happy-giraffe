@@ -63,7 +63,17 @@ $period = 2;
 
 </div>
 
-<div class="seo-table table-result" id="page-links">
+<div class="inner-links-count">
+
+    Всего внутренних ссылок - <span><?=count($phrase->links) ?></span>
+    <a id="show-page-links" href="javascript:;" class="pseudo"
+       onclick="$('#page-links').toggle();$('#hide-page-links').show();$(this).hide();">Показать</a>
+    <a id="hide-page-links" href="javascript:;" style="display: none;" class="pseudo"
+       onclick="$('#page-links').toggle();$('#show-page-links').show();$(this).hide();">Скрыть</a>
+
+</div>
+
+<div class="seo-table table-result" id="page-links" style="display: none;">
 
     <div class="table-box">
         <table>

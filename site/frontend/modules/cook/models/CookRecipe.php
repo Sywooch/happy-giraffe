@@ -316,7 +316,7 @@ class CookRecipe extends CActiveRecord
             $text = 'User: '  . Yii::app()->user->id . "\n" .
                     'Route: '  . Yii::app()->controller->route . "\n" .
                     'ID: '  . $this->id . "\n";
-            Yii::trace($text);
+            Yii::log($text, 'warning');
         }
 
         parent::afterSave();

@@ -295,7 +295,7 @@ class CookRecipe extends CActiveRecord
 
     protected function afterSave()
     {
-        if ($this->isNewRecord){
+        if ($this->isNewRecord) {
             UserAction::model()->add($this->author_id, UserAction::USER_ACTION_RECIPE_ADDED, array('model' => $this));
 
             //send signals to commentator panel
@@ -312,6 +312,11 @@ class CookRecipe extends CActiveRecord
                         'update_part' => CometModel::UPDATE_CLUB,
                     ), CometModel::TYPE_COMMENTATOR_UPDATE);
             }
+        } else {
+            $text = 'User: '  . Yii::app()->user->id . "\n" .
+                    'Route: '  . Yii::app()->controller->route . "\n" .
+                    'ID: '  . $this->id . "\n";
+            Yii::log($text, 'warning');
         }
 
         parent::afterSave();

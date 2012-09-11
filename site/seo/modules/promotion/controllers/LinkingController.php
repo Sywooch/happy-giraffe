@@ -32,8 +32,7 @@ class LinkingController extends SController
     {
         $phrase = PagesSearchPhrase::getActualPhrase(false);
 
-        $parser = new SimilarArticlesParser;
-        $pages = $parser->getArticles($phrase->keyword->name);
+        $pages = $this->getSimilarPages($phrase);
         $keywords = $phrase->getSimilarKeywords();
 
         $this->render('auto_linking', compact('phrase', 'pages', 'keywords'));

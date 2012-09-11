@@ -6,7 +6,7 @@ class CookDecorationController extends BController
     public $section = 'club';
     public $layout = '//layouts/club';
     public $_class = 'CookDecoration';
-    public $authItem = 'cook_ingredients';
+    public $authItem = 'cook_decorations';
 
     public function actions()
     {

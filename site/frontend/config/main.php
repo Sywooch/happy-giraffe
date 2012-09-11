@@ -247,7 +247,7 @@ return array(
 				),
                 array(
                     'class'=>'CEmailLogRoute',
-                    'levels'=>'trace',
+                    'levels'=>'error, warning',
                     'emails'=>'nikita@happy-giraffe.ru',
                 ),
 //				array(

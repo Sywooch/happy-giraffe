@@ -10,7 +10,10 @@ class m120911_053228_cook_decorations extends CDbMigration
 `description` ,
 `bizrule` ,
 `data`
-)");
+)
+VALUES (
+'cook_decorations',  '0',  'Украшения блюд', NULL , NULL
+);");
 	}
 
 	public function down()

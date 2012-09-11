@@ -30,7 +30,7 @@ class LinkingController extends SController
 
     public function actionAutoLinking()
     {
-        $phrase = PagesSearchPhrase::getActualPhrase();
+        $phrase = PagesSearchPhrase::getActualPhrase(false);
 
         $parser = new SimilarArticlesParser;
         $pages = $parser->getArticles($phrase->keyword->name);

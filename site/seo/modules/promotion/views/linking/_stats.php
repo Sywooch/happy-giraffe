@@ -25,6 +25,6 @@
     <td><?=$phrase->getPosition(3) ?></td>
     <td><?=$visits2 = $phrase->getVisits(3, $period) ?></td>
     <td><?=($visits1 + $visits2) ?></td>
-    <td><b><a><?=$phrase->getLinksCount() ?></a></b></td>
+    <td><b><a><?=$phrase->linksCount ?></a></b></td>
 </tr>
 <?php endforeach; ?>

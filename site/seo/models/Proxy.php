@@ -24,7 +24,7 @@ class Proxy extends HActiveRecord
 
     public function tableName()
     {
-        return 'happy_giraffe_seo.proxies';
+        return 'proxies';
     }
 
     public function getDbConnection()

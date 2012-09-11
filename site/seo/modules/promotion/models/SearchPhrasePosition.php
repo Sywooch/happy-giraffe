@@ -32,7 +32,7 @@ class SearchPhrasePosition extends HActiveRecord
 
     public function tableName()
     {
-        return 'happy_giraffe_seo.pages_search_phrases_positions';
+        return 'pages_search_phrases_positions';
     }
 
     /**
@@ -117,6 +117,16 @@ class SearchPhrasePosition extends HActiveRecord
         }
 
         return parent::beforeSave();
+    }
+
+    public function afterSave()
+    {
+        if ($this->isNewRecord && $this->se_id == 2) {
+            $this->phrase->last_yandex_position = $this->position;
+            $this->phrase->save();
+        }
+
+        parent::afterSave();
     }
 
     public function getSe()

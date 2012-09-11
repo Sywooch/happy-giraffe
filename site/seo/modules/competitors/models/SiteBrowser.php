@@ -27,7 +27,7 @@ class SiteBrowser extends HActiveRecord
     }
 
     public function tableName(){
-        return 'happy_giraffe_seo.sites__browsers';
+        return 'sites__browsers';
 	}
 
 	/**

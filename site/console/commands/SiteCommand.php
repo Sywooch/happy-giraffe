@@ -310,7 +310,7 @@ class SiteCommand extends CConsoleCommand
 16095';
         $ids = explode("\n", $ids);
 
-        Yii::import('site.frontend.modules.cook.models.CookRecipe');
+        Yii::import('site.frontend.modules.cook.models.*');
 
         $recipes = CookRecipe::model()->findAllByPk($ids);
         foreach($recipes as $recipe)

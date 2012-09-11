@@ -112,7 +112,7 @@
                     array(
                         'label' => 'Украшения блюд',
                         'url' => array('/club/cookDecoration/'),
-                        'visible' => Yii::app()->user->checkAccess('cook_choose'),
+                        'visible' => Yii::app()->user->checkAccess('cook_decorations'),
                     ),
                 )
             ),

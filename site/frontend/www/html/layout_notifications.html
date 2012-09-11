@@ -53,7 +53,7 @@
 			var generalH = windowH - marginH*3 - headerH;
 			if (generalH < 400) generalH = 400;
 			
-			box.find('.notifications ul').height(generalH);
+			box.find('.notifications ul').css('max-height', generalH);
 			
 						
 		}

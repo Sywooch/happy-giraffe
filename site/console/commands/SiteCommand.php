@@ -54,7 +54,7 @@ class SiteCommand extends CConsoleCommand
         $users = User::model()->findAll($criteria);
         foreach ($users as $user) {
             $user->group = UserGroup::MODERATOR;
-            $user->update('group');
+            $user->update(array('group'));
         }
 
         $criteria = new CDbCriteria;
@@ -63,7 +63,7 @@ class SiteCommand extends CConsoleCommand
         $users = User::model()->findAll($criteria);
         foreach ($users as $user) {
             $user->group = UserGroup::SMO;
-            $user->update('group');
+            $user->update(array('group'));
         }
 
         $criteria = new CDbCriteria;
@@ -72,7 +72,7 @@ class SiteCommand extends CConsoleCommand
         $users = User::model()->findAll($criteria);
         foreach ($users as $user) {
             $user->group = UserGroup::EDITOR;
-            $user->update('group');
+            $user->update(array('group'));
         }
 
         //virtuals
@@ -80,7 +80,7 @@ class SiteCommand extends CConsoleCommand
         foreach ($users as $user_id) {
             $user = User::getUserById($user_id);
             $user->group = UserGroup::VIRTUAL;
-            $user->update('group');
+            $user->update(array('group'));
         }
     }*/
 

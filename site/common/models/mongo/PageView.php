@@ -36,9 +36,9 @@ class PageView extends EMongoDocument
 
     public function updateByPath($path)
     {
-        $value = Yii::app()->cache->get($path);
+//        $value = Yii::app()->cache->get($path);
 
-        if ($value === false) {
+//        if ($value === false) {
             Yii::import('site.frontend.extensions.GoogleAnalytics');
             $ga = new GoogleAnalytics('alexk984@gmail.com', Yii::app()->params['gaPass']);
             $ga->setProfile('ga:53688414');
@@ -63,7 +63,7 @@ class PageView extends EMongoDocument
             $model->updated = time();
             $model->save();
             return $model;
-        } else
-            return $this->findByPath($path);
+//        } else
+//            return $this->findByPath($path);
     }
 }

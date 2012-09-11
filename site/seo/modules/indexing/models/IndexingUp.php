@@ -26,7 +26,7 @@ class IndexingUp extends HActiveRecord
 
     public function tableName()
     {
-        return 'happy_giraffe_seo.indexing__ups';
+        return 'indexing__ups';
     }
 
     public function getDbConnection()

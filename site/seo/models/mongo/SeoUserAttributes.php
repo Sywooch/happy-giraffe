@@ -8,8 +8,16 @@ class SeoUserAttributes extends EMongoDocument
     public $user_id;
     public $attributes;
     private $default = array(
-        'last_competitor_site_id_section_1'=>1,
-        'last_competitor_site_id_section_2'=>11
+        'last_competitor_site_id_section_1' => 1,
+        'last_competitor_site_id_section_2' => 11,
+        'wordstat_min' => 500,
+        'min_yandex_position' => 10,
+        'max_yandex_position' => 100,
+        'yandex_traffic' => 1,
+        'yandex_sort' => 1,
+        'google_visits_min' => 30,
+        'google_traffic' => 1,
+        'links_count' => 0,
     );
 
     public static function model($className = __CLASS__)
@@ -22,16 +30,17 @@ class SeoUserAttributes extends EMongoDocument
         return 'seo_user_attributes';
     }
 
-    public static function getAttribute($user_id, $title){
+    public static function getAttribute($user_id, $title)
+    {
         $model = self::model()->findByAttributes(array(
             'user_id' => (int)$user_id
         ));
 
-        if ($model !== null){
-            if (isset($model->attributes[$title])){
+        if ($model !== null) {
+            if (isset($model->attributes[$title])) {
                 return $model->attributes[$title];
             }
-        }else{
+        } else {
             $model = new SeoUserAttributes;
             $model->user_id = (int)$user_id;
             $model->attributes = array();
@@ -44,11 +53,12 @@ class SeoUserAttributes extends EMongoDocument
         return null;
     }
 
-    public static function setAttribute($user_id, $title, $value){
+    public static function setAttribute($user_id, $title, $value)
+    {
         $model = self::model()->findByAttributes(array(
             'user_id' => (int)$user_id
         ));
-        if ($model === null){
+        if ($model === null) {
             $model = new SeoUserAttributes;
             $model->user_id = (int)$user_id;
             $model->attributes = array();

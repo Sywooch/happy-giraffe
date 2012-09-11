@@ -42,6 +42,15 @@ class LinkingController extends SController
     public function actionSkip()
     {
         $phrase = $this->loadPhrase(Yii::app()->request->getPost('phrase_id'));
+        $skip = new ILSkip;
+        $skip->phrase_id = $phrase->id;
+        if (!$skip->save()){
+            echo CJSON::encode(array(
+                'status' => false,
+                'error' => $skip->getErrorsText(),
+            ));
+            Yii::app()->end();
+        }
 
         $response = $this->nextLink();
         echo CJSON::encode($response);
@@ -86,8 +95,7 @@ class LinkingController extends SController
     {
         $phrase = PagesSearchPhrase::getActualPhrase();
         $page = $phrase->page;
-        $parser = new SimilarArticlesParser;
-        $pages = $parser->getArticles($phrase->keyword->name);
+        $pages = $this->getSimilarPages($phrase);
         $keywords = $phrase->getSimilarKeywords();
 
         return array(
@@ -100,8 +108,22 @@ class LinkingController extends SController
 
     public function actionPhraseInfo()
     {
-        $parser = new SimilarArticlesParser;
         $phrase = $this->loadPhrase(Yii::app()->request->getPost('phrase_id'));
+        $pages = $this->getSimilarPages($phrase);
+
+        $keywords = $phrase->getSimilarKeywords();
+
+        $this->renderPartial('_phrase_view', compact('pages', 'keywords', 'phrase'));
+    }
+
+
+    /**
+     * @param $phrase
+     * @return Page[]
+     */
+    public function getSimilarPages($phrase)
+    {
+        $parser = new SimilarArticlesParser;
         $pages = $parser->getArticles($phrase->keyword->name);
 
         $pages = $this->filterPages($phrase, $pages);
@@ -120,9 +142,7 @@ class LinkingController extends SController
         if (count($pages) > 10)
             $pages = array_slice($pages, 0, 10);
 
-        $keywords = $phrase->getSimilarKeywords();
-
-        $this->renderPartial('_phrase_view', compact('pages', 'keywords', 'phrase'));
+        return $pages;
     }
 
     /**

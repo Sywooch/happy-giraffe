@@ -28,7 +28,7 @@ class QuerySearchEngine extends HActiveRecord
 
     public function tableName()
     {
-        return 'happy_giraffe_seo.query_search_engines';
+        return 'query_search_engines';
     }
 
     public function getDbConnection()

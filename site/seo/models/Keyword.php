@@ -34,7 +34,7 @@ class Keyword extends HActiveRecord
      */
     public function tableName()
     {
-        return 'happy_giraffe_seo.keywords';
+        return 'keywords';
     }
 
     public function getDbConnection()

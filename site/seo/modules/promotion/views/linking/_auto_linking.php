@@ -38,8 +38,8 @@ $period = 2;
                 <td><?=$visits1 = $phrase->getVisits(2, $period) ?></td>
                 <td><?=$phrase->getPosition(3) ?></td>
                 <td><?=$visits2 = $phrase->getVisits(3, $period) ?></td>
-                <td><?=($visits1 + $visits2) ?><span class="sup"></span></td>
-                <td><b><a><?=$phrase->getLinksCount() ?></a></b></td>
+                <td><?=($visits1 + $visits2) ?><span class="sup"><?=$phrase->getAverageVisits() ?></span></td>
+                <td><b><a><?=$phrase->linksCount ?></a></b></td>
             </tr>
 
             </tbody>
@@ -60,7 +60,6 @@ $period = 2;
         <a href="javascript:;" onclick="SeoLinking.skip()" class="skip">Пропустить</a>
 
     </div>
-
 
 </div>
 

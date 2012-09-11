@@ -1,22 +1,21 @@
 <?php
 
 /**
- * This is the model class for table "task_urls".
+ * This is the model class for table "inner_linking__skips".
  *
- * The followings are the available columns in table 'task_urls':
- * @property integer $id
- * @property string $task_id
- * @property string $url
+ * The followings are the available columns in table 'inner_linking__skips':
+ * @property string $phrase_id
+ * @property string $date
  *
  * The followings are the available model relations:
- * @property SeoTask $task
+ * @property PagesSearchPhrase $phrase
  */
-class TaskUrl extends CActiveRecord
+class ILSkip extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return TaskUrl the static model class
+	 * @return ILSkip the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -24,17 +23,20 @@ class TaskUrl extends CActiveRecord
 	}
 
 	/**
+	 * @return CDbConnection database connection
+	 */
+	public function getDbConnection()
+	{
+		return Yii::app()->db_seo;
+	}
+
+	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'task_urls';
+		return 'inner_linking__skips';
 	}
-
-    public function getDbConnection()
-    {
-        return Yii::app()->db_seo;
-    }
 
 	/**
 	 * @return array validation rules for model attributes.
@@ -44,12 +46,11 @@ class TaskUrl extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('task_id, url', 'required'),
-			array('task_id', 'length', 'max'=>10),
-			array('url', 'length', 'max'=>1024),
+			array('phrase_id', 'required'),
+			array('phrase_id', 'length', 'max'=>11),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, task_id, url', 'safe', 'on'=>'search'),
+			array('phrase_id, date', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -61,7 +62,7 @@ class TaskUrl extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'task' => array(self::BELONGS_TO, 'SeoTask', 'task_id'),
+			'phrase' => array(self::BELONGS_TO, 'PagesSearchPhrase', 'phrase_id'),
 		);
 	}
 
@@ -71,9 +72,8 @@ class TaskUrl extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
-			'task_id' => 'Task',
-			'url' => 'Url',
+			'phrase_id' => 'Phrase',
+			'date' => 'Date',
 		);
 	}
 
@@ -88,12 +88,22 @@ class TaskUrl extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('id',$this->id);
-		$criteria->compare('task_id',$this->task_id,true);
-		$criteria->compare('url',$this->url,true);
+		$criteria->compare('phrase_id',$this->phrase_id,true);
+		$criteria->compare('date',$this->date,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
 	}
+
+    public function behaviors()
+    {
+        return array(
+            'CTimestampBehavior' => array(
+                'class' => 'zii.behaviors.CTimestampBehavior',
+                'createAttribute' => 'date',
+                'updateAttribute' => null,
+            ),
+        );
+    }
 }

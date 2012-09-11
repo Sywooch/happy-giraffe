@@ -27,7 +27,7 @@ class PastuhovYandexPopularity extends HActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'happy_giraffe_seo.pastuhov_yandex_popularity';
+		return 'pastuhov_yandex_popularity';
 	}
 
 	/**

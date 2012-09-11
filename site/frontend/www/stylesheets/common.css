@@ -2942,7 +2942,7 @@ body.gallery {overflow:hidden;}
 .fast-photos .block-title {font-size:20px;color:#262626;line-height:1;margin-bottom:15px;text-align:left;}
 .fast-photos .block-title span {font-size:44px;color:#262626;font-weight:bold;float:left;margin-right:10px;}
 .fast-photos .preview {position:relative;width:200px;height:180px;}
-.fast-photos .preview img {position:absolute;display:block;border:1px solid #dbdbdb;}
+.fast-photos .preview img {position:absolute;display:block;border:1px solid #dbdbdb;max-width:80%;max-height:80%;}
 .fast-photos .preview img.img-1 {top:0;left:0;}
 .fast-photos .preview img.img-2 {right:0;top:20px;}
 .fast-photos .preview img.img-3 {left:20px;bottom:0;}

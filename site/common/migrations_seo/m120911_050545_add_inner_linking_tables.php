@@ -28,6 +28,7 @@ class m120911_050545_add_inner_linking_tables extends CDbMigration
 
         $this->_table = 'pages_search_phrases';
         $this->addColumn($this->_table, 'last_yandex_position', 'int unsigned default 1000');
+        $this->addColumn($this->_table, 'google_traffic', 'int unsigned default 0');
     }
 
     public function down()

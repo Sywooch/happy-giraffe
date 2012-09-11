@@ -325,5 +325,23 @@ class SeoCommand extends CConsoleCommand
 //        if ($page->save())
 //            echo "success \n";
     }
+
+    public function actionCalcGoogleVisits(){
+        Yii::import('site.seo.modules.promotion.models.*');
+
+        $criteria = new CDbCriteria;
+        //$criteria->compare('week', date("W") - 1);
+        $criteria->compare('week', 36);
+        $criteria->compare('year', date("Y", strtotime('-1 week')));
+        $criteria->compare('se_id', 3);
+
+        $models = SearchPhraseVisit::model()->with('phrase')->findAll($criteria);
+        PagesSearchPhrase::model()->updateAll(array('google_traffic'=>0));
+
+        foreach($models as $model){
+            $model->phrase->google_traffic = $model->visits;
+            $model->phrase->update('google_traffic');
+        }
+    }
 }
 

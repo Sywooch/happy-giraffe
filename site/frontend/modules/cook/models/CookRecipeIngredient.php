@@ -48,7 +48,7 @@ class CookRecipeIngredient extends CActiveRecord
 		// will receive user inputs.
 		return array(
             array('recipe_id, ingredient_id, unit_id, value, display_value', 'required'),
-            array('recipe_id', 'exist', 'attributeName' => 'id', 'className' => 'CookRecipe'),
+            //array('recipe_id', 'exist', 'attributeName' => 'id', 'className' => 'CookRecipe'),
             array('ingredient_id', 'exist', 'attributeName' => 'id', 'className' => 'CookIngredient'),
             array('unit_id', 'exist', 'attributeName' => 'id', 'className' => 'CookUnit'),
             array('value', 'numerical', 'min' => '0.01', 'max' => '9999.99'),

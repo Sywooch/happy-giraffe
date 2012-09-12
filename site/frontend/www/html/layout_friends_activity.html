@@ -28,41 +28,13 @@
 	
 	<script>
 	
+		var friendsCarousel
+	
 		$(function(){
 			
-			userDialogsCalc(); // append
+			friendsCarousel = $('#user-friends .jcarousel').jcarousel({wrap:'circular'});
 			
 		})
-		
-		$(window).bind('resize', function(){
-		
-			userDialogsCalc();
-			
-		})
-		
-		function userDialogsCalc(){
-			
-			var box = $('#user-dialogs');
-			
-			var windowH = $(window).height();
-			var headerH = 90;
-			var textareaH = 100;
-			var wannachatH = 140;
-			var userH = 110;
-			var marginH = 30;
-			
-			var hasWannachat = box.hasClass('has-wannachat') ? 1 : 0;
-			
-			var generalH = windowH - marginH*2 - headerH;
-			if (generalH < 400) generalH = 400;
-			
-			box.find('.contacts').height(generalH);
-			box.find('.dialog').height(generalH);
-			
-			box.find('.contacts .list').height(generalH - wannachatH*hasWannachat);
-			box.find('.dialog .dialog-messages').height(generalH - textareaH - userH);
-						
-		}
 		
 	</script>
 	
@@ -1306,11 +1278,12 @@
 		
 			<div class="invitation">
 				
-				<div class="friends-count">18 <a href="" class="more"><i class="icon"></i></a></div>
+				<div class="friends-count">18 <a href="javascript:void(0);" onclick="friendsCarousel.jcarousel('scroll', '+=1');" class="more"><i class="icon"></i></a></div>
 				
 				<div class="block-title">У вас новые предложения дружбы</div>
 				
-				<ul>
+				<div class="jcarousel">
+					<ul>
 						
 						<li>
 							
@@ -1388,8 +1361,46 @@
 							
 						</li>
 					
+						<li>
+							
+							<div class="clearfix">
+								<div class="user-info medium">
+									<a class="ava female"></a>
+									<div class="details">
+										<span class="icon-status status-online"></span>
+										<a href="" class="username">Богоявленский</a>
+										<div class="user-fast-buttons">
+											<a href="" class="accept">Принять</a>
+											<a class="remove tooltip" href="" title="удалить из друзей"></a>
+											<a href="" class="new-message"><span class="tip">Написать сообщение</span></a>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+						</li>
+					
+						<li>
+							
+							<div class="clearfix">
+								<div class="user-info medium">
+									<a class="ava female"></a>
+									<div class="details">
+										<span class="icon-status status-online"></span>
+										<a href="" class="username">Богоявленский</a>
+										<div class="user-fast-buttons">
+											<a href="" class="accept">Принять</a>
+											<a class="remove tooltip" href="" title="удалить из друзей"></a>
+											<a href="" class="new-message"><span class="tip">Написать сообщение</span></a>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+						</li>
+					
 					</ul>
-				
+				</div>
 			</div>
 			
 			<div class="find-friend">

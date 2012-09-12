@@ -240,12 +240,12 @@ class CommunityCommand extends CConsoleCommand
             if ($this->containsJunk($model->preview)) {
                 $model->preview = $this->cleanAttributes($model->preview);
                 //$model->preview = $this->fixImage($model->preview);
-                $model->update('preview');
+                $model->update(array('preview'));
             }
             if ($this->containsJunk($model->content->text)) {
                 $model->content->text = $this->cleanAttributes($model->content->text);
                 $model->content->text = $this->fixImage($model->content->text);
-                $model->content->update('text');
+                $model->content->update(array('text'));
             }
         }
     }

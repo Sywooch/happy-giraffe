@@ -54,7 +54,7 @@ class SiteCommand extends CConsoleCommand
         $users = User::model()->findAll($criteria);
         foreach ($users as $user) {
             $user->group = UserGroup::MODERATOR;
-            $user->update('group');
+            $user->update(array('group'));
         }
 
         $criteria = new CDbCriteria;
@@ -63,7 +63,7 @@ class SiteCommand extends CConsoleCommand
         $users = User::model()->findAll($criteria);
         foreach ($users as $user) {
             $user->group = UserGroup::SMO;
-            $user->update('group');
+            $user->update(array('group'));
         }
 
         $criteria = new CDbCriteria;
@@ -72,7 +72,7 @@ class SiteCommand extends CConsoleCommand
         $users = User::model()->findAll($criteria);
         foreach ($users as $user) {
             $user->group = UserGroup::EDITOR;
-            $user->update('group');
+            $user->update(array('group'));
         }
 
         //virtuals
@@ -80,7 +80,7 @@ class SiteCommand extends CConsoleCommand
         foreach ($users as $user_id) {
             $user = User::getUserById($user_id);
             $user->group = UserGroup::VIRTUAL;
-            $user->update('group');
+            $user->update(array('group'));
         }
     }*/
 
@@ -210,51 +210,111 @@ class SiteCommand extends CConsoleCommand
 
     public function actionFix()
     {
-        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
-        Yii::import('site.frontend.extensions.*');
-        Yii::import('site.frontend.components.*');
-        Yii::import('site.frontend.helpers.*');
-        Yii::import('site.common.models.mongo.*');
 
-        $criteria = new EMongoCriteria();
-        $criteria->type('==', UserAction::USER_ACTION_LEVELUP);
-        $actions = UserAction::model()->findAll($criteria);
-        $users = array();
-        foreach ($actions as $action) {
-            $action->data = array('level_id' => 1);
-            if (!in_array($action->user_id, $users)) {
-                $users[] = $action->user_id;
-                $action->save();
-            } else
-                $action->delete();
-        }
-    }
+        $ids = '15631
+15633
+15636
+15645
+15647
+15654
+15658
+15674
+15685
+15689
+15701
+15712
+15713
+15714
+15715
+15718
+15727
+15730
+15741
+15747
+15748
+15772
+15775
+15776
+15786
+15787
+15788
+15789
+15790
+15864
+15878
+15880
+15882
+15884
+15887
+15888
+15889
+15891
+15904
+15917
+15932
+15934
+15938
+15943
+15946
+15954
+15961
+15966
+15967
+15968
+15969
+15970
+15971
+15972
+15973
+15975
+15977
+15979
+15982
+15983
+15985
+15988
+15990
+15991
+15993
+15994
+15995
+15997
+15999
+16001
+16002
+16005
+16006
+16010
+16011
+16012
+16015
+16018
+16020
+16021
+16024
+16029
+16043
+16045
+16047
+16048
+16049
+16050
+16058
+16067
+16068
+16071
+16072
+16073
+16074
+16091
+16095';
+        $ids = explode("\n", $ids);
 
-    public function actionActionsFix()
-    {
-        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
-        Yii::import('site.frontend.extensions.*');
-        Yii::import('site.frontend.components.*');
-        Yii::import('site.frontend.helpers.*');
-        Yii::import('site.common.models.mongo.*');
+        Yii::import('site.frontend.modules.cook.models.*');
 
-        $actions = array(
-            UserAction::USER_ACTION_CLUBS_JOINED,
-            UserAction::USER_ACTION_INTERESTS_ADDED,
-            UserAction::USER_ACTION_USED_SERVICES,
-            UserAction::USER_ACTION_FRIENDS_ADDED,
-            UserAction::USER_ACTION_PHOTOS_ADDED,
-        );
-
-        foreach ($actions as $action) {
-            $criteria = new EMongoCriteria();
-            $criteria->type('==', $action);
-            $actions = UserAction::model()->findAll($criteria);
-            foreach ($actions as $action) {
-                $action->created = $action->updated;
-                $action->save();
-            }
-        }
+        $recipes = CookRecipe::model()->findAllByPk($ids);
+        foreach($recipes as $recipe)
+            echo $recipe->url."\n";
     }
 
     public function actionFix2(){

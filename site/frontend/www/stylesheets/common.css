@@ -1466,6 +1466,7 @@ body.nav-fixed #header-new .top-line {position:fixed;left:50%;margin-left:-500px
 #user-friends .friends .jcarousel {height:100px;width:960px;margin:0 auto;}
 #user-friends .friends .jcarousel ul {padding:0;}
 #user-friends .friends .jcarousel ul li {padding:0 20px;}
+#user-friends .friends .jcarousel ul li.hide * {display:none;}
 #user-friends .friends ul {padding:0 26px;}
 #user-friends .friends ul li {border:0;float:none;display:inline-block;*zoom:1;*display:inline;width:200px;vertical-align:top;margin-bottom:20px;}
 
@@ -1479,7 +1480,7 @@ body.nav-fixed #header-new .top-line {position:fixed;left:50%;margin-left:-500px
 
 #user-friends .recent .recent-friend {background:#f7eeff;height:205px;padding:20px;width:429px;float:left;position:relative;}
 #user-friends .recent .recent-friend .block-title {color:#3b3b3b;font-size:22px;margin-bottom:50px;}
-#user-friends .recent .recent-friend .user-info {float:left;width:200px;}
+#user-friends .recent .recent-friend #moveFriendArea {float:left;width:200px;}
 #user-friends .recent .recent-friend .become-friends {float:left;width:150px;text-align:center;color:#a7a7a8;font-size:11px;}
 #user-friends .recent .recent-friend .become-friends .icon {display:block;width:44px;height:46px;background:url(/images/common.png) no-repeat -320px -341px;margin:0 auto 5px;}
 #user-friends .recent .recent-friend .date {width:70px;float:left;color:#b6b9ba;font-size:9px;font-family:tahoma, arial, helvetica, sans-serif;line-height:12px;text-align:center;}
@@ -1505,6 +1506,9 @@ body.nav-fixed #header-new .top-line {position:fixed;left:50%;margin-left:-500px
 #user-friends .recent .news .all-link {text-align:right;font-size:17px;position:absolute;bottom:16px;right:20px;}
 #user-friends .recent .news .all-link a {}
 #user-friends .recent .news .all-link a .icon {display:inline-block;*zoom:1;*display:inline;width:30px;height:31px;background:url(/images/common.png) no-repeat -232px -243px;vertical-align:middle;margin-right:5px;}
+
+#moveFriend {position:absolute;top:0;left:0;z-index:10001;padding:0 20px;}
+#moveFriend .user-fast-buttons {display:none;}
 
 
 #user-settings {background:#fff;position:absolute;left:50%;margin-left:-500px;width:998px;top:30px;z-index:99;border:1px solid #d7e9ff;*height:auto;}

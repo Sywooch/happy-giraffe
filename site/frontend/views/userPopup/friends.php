@@ -12,53 +12,53 @@
 
     <div class="friends activity-find-friend">
 
-    <div class="invitation">
+        <div class="invitation">
 
-        <div class="friends-count">18 <a href="javascript:void(0)" class="more"><i class="icon"></i></a></div>
+            <div class="friends-count">18 <a href="javascript:void(0)" class="more"><i class="icon"></i></a></div>
 
-        <div class="block-title">У вас новые предложения дружбы</div>
+            <div class="block-title">У вас новые предложения дружбы</div>
 
-        <?php
-            $this->widget('zii.widgets.CListView', array(
-                'id' => 'friendRequestList',
-                'dataProvider' => $requests,
-                'itemView' => '//user/_friendRequest',
-                'itemsTagName' => 'ul',
-                'template' =>
-                '
-                        <div class="friends clearfix">
-                            {items}
-                        </div>
-                        <div class="pagination pagination-center clearfix">
-                            {pager}
-                        </div>
-                    ',
-                'pager' => array(
-                    'class' => 'MyLinkPager',
-                    'header' => '',
-                ),
-                'viewData' => array(
-                    'direction' => 'incoming',
-                ),
-            ));
-        ?>
+            <?php
+                $this->widget('zii.widgets.CListView', array(
+                    'id' => 'friendRequestList',
+                    'dataProvider' => $requests,
+                    'itemView' => '//user/_friendRequest',
+                    'itemsTagName' => 'ul',
+                    'template' =>
+                    '
+                            <div class="friends clearfix">
+                                {items}
+                            </div>
+                            <div class="pagination pagination-center clearfix">
+                                {pager}
+                            </div>
+                        ',
+                    'pager' => array(
+                        'class' => 'MyLinkPager',
+                        'header' => '',
+                    ),
+                    'viewData' => array(
+                        'direction' => 'incoming',
+                    ),
+                ));
+            ?>
 
-    </div>
+        </div>
 
-    <div class="find-friend">
+        <div class="find-friend">
 
 
-        <div class="block-title"><?=($hasInvitations) ? 'Возможно вам будет интересно подружиться' : 'У вас пока нет новых друзей. Возможно вам будет интересно подружиться'?></div>
+            <div class="block-title"><?=($hasInvitations) ? 'Возможно вам будет интересно подружиться' : 'У вас пока нет новых друзей. Возможно вам будет интересно подружиться'?></div>
 
-        <ul>
+            <ul>
 
-            <?php foreach ($findFriends as $f): ?>
-                <?php $this->renderPartial('application.widgets.activity.views._friend', array('f' => $f, 'full' => false)); ?>
-            <?php endforeach; ?>
+                <?php foreach ($findFriends as $f): ?>
+                    <?php $this->renderPartial('application.widgets.activity.views._friend', array('f' => $f, 'full' => false)); ?>
+                <?php endforeach; ?>
 
-        </ul>
+            </ul>
 
-    </div>
+        </div>
 
     </div>
 

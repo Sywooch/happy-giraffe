@@ -1463,6 +1463,9 @@ body.nav-fixed #header-new .top-line {position:fixed;left:50%;margin-left:-500px
 #user-friends .friends .friends-count {font-size:40px;line-height:1;color:#fa753b;float:right;font-weight:bold;margin-right:40px;margin-top:-18px;}
 #user-friends .friends .friends-count .more {display:inline-block;*zoom:1;*display:inline;width:22px;height:23px;background:url(/images/common.png) no-repeat -677px -101px;vertical-align:middle;position:relative;top:-4px;}
 #user-friends .friends .block-title {padding:0 40px;font-size:18px;color:#127abb;margin-bottom:20px;}
+#user-friends .friends .jcarousel {height:100px;width:960px;margin:0 auto;}
+#user-friends .friends .jcarousel ul {padding:0;}
+#user-friends .friends .jcarousel ul li {padding:0 20px;}
 #user-friends .friends ul {padding:0 26px;}
 #user-friends .friends ul li {border:0;float:none;display:inline-block;*zoom:1;*display:inline;width:200px;vertical-align:top;margin-bottom:20px;}
 

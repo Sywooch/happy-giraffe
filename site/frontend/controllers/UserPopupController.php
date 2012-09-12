@@ -34,9 +34,6 @@ class UserPopupController extends HController
         $newsCriteria->limit = 3;
         $news = UserAction::model()->findAll($newsCriteria);
 
-        echo count($news);
-        die;
-
         $this->renderPartial('friends', compact('requests', 'friendsCount', 'lastFriend', 'hasInvitations', 'findFriends', 'news'), false, true);
     }
 

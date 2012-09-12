@@ -3,8 +3,7 @@
  * @var $form CActiveForm
  */
 ?>
-
-<script>
+<script type="text/javascript">
     $(function () {
         $('#check-all-oper').bind('change', function () {
             if ($(this).is(':checked')) {

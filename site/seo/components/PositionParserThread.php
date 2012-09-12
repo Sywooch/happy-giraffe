@@ -3,6 +3,8 @@
  * Author: alexk984
  * Date: 31.05.12
  */
+
+Yii::import('site.frontend.modules.cook.models.*');
 class PositionParserThread extends ProxyParserThread
 {
     const SE_YANDEX = 2;

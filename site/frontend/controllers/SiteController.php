@@ -399,6 +399,8 @@ class SiteController extends HController
             ));
             Yii::app()->end();
         }
+        if ($user->recovery_disable)
+            Yii::app()->end();
 
         $password = $user->createPassword(12);
         $user->password = $user->hashPassword($password);
@@ -430,6 +432,6 @@ class SiteController extends HController
 //        $articles = Favourites::model()->getWeekPosts();
 //        $this->renderFile(Yii::getPathOfAlias('site.common.tpl.weeklyNews').'.php', array('models'=>$articles));
 
-        SocialPosting::sendPost(null);
+        //SocialPosting::sendPost(null);
     }
 }

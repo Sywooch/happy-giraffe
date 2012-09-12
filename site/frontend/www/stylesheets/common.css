@@ -1480,7 +1480,7 @@ body.nav-fixed #header-new .top-line {position:fixed;left:50%;margin-left:-500px
 
 #user-friends .recent .recent-friend {background:#f7eeff;height:205px;padding:20px;width:429px;float:left;position:relative;}
 #user-friends .recent .recent-friend .block-title {color:#3b3b3b;font-size:22px;margin-bottom:50px;}
-#user-friends .recent .recent-friend .user-info {float:left;width:200px;}
+#user-friends .recent .recent-friend #moveFriendArea {float:left;width:200px;}
 #user-friends .recent .recent-friend .become-friends {float:left;width:150px;text-align:center;color:#a7a7a8;font-size:11px;}
 #user-friends .recent .recent-friend .become-friends .icon {display:block;width:44px;height:46px;background:url(/images/common.png) no-repeat -320px -341px;margin:0 auto 5px;}
 #user-friends .recent .recent-friend .date {width:70px;float:left;color:#b6b9ba;font-size:9px;font-family:tahoma, arial, helvetica, sans-serif;line-height:12px;text-align:center;}

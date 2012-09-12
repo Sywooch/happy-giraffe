@@ -28,7 +28,8 @@
 	
 	<script>
 	
-		var friendsCarousel
+		var friendsCarousel;
+		var friendsCarouselHold = false;
 	
 		$(function(){
 			
@@ -38,44 +39,60 @@
 		
 		function moveFriend(el){
 			
-			var count = friendsCarousel.find('li').size();
-			var li = $(el).parents('li');
-			$('body').append('<div id="moveFriend"></div>')
-			
-			li.addClass('hide');
-			
-			$('#moveFriend').html(li.html());
-			
-			var moveItemT = li.offset().top;
-			var moveItemL = li.offset().left;
-			
-			var moveAreaT = $('#moveFriendArea').offset().top+50;
-			var moveAreaL = $('#moveFriendArea').offset().left+150;
-			
-			$('#moveFriend').css({left: moveItemL, top: moveItemT}).animate({left: moveAreaL, top: moveAreaT, opacity:0.4}, 500, function(){
+			if (!friendsCarouselHold){
 				
-				$('#moveFriend').remove();
-				$('#friendsCount').html(parseInt($('#friendsCount').html())+1);
+				friendsCarouselHold = true;
 				
-				if (count>1) {
-					li.animate({width: 0, padding: 0}, 400, function(){
-						$(this).remove();
-						friendsCarousel.jcarousel('reload');
-					})
+				var count = friendsCarousel.find('li').size();
+				
+				var li = $(el).parents('li');
+				$('body').append('<div id="moveFriend"></div>')
+				
+				li.addClass('hide');
+				
+				$('#moveFriend').html(li.html());
+				
+				var moveItemT = li.offset().top;
+				var moveItemL = li.offset().left;
+				
+				var moveAreaT = $('#moveFriendArea').offset().top;
+				var moveAreaL = $('#moveFriendArea').offset().left;
+				
+				$('#moveFriend').css({left: moveItemL, top: moveItemT}).animate({left: moveAreaL, top: moveAreaT, opacity:0.4}, 500, function(){
 					
-				} else {
-					friendsCarousel.jcarousel('reload');
-					$('#user-friends .invitation').remove();
-				}
+					$('#moveFriendArea').html($('#moveFriend').html());
+					
+					$('#moveFriendArea').find('.user-fast-buttons .accept, .user-fast-buttons .remove').remove();
+					$('#moveFriendArea').find('.user-fast-buttons').prepend('<span class="friend">друг</span>');
+					
+					$('#moveFriend').remove();
+
+					$('#friendsCount').html(parseInt($('#friendsCount').html())+1);
+					
+					if (count>1) {
+						
+						li.animate({width: 0, padding: 0}, 200, function(){
+							$(this).remove();
+							friendsCarousel.jcarousel('reload');
+							friendsCarouselHold = false;
+						})
+						
+					} else {
+						friendsCarousel.jcarousel('reload');
+						$('#user-friends .invitation').remove();
+					}
+					
+					
+					
+				});
 				
-			});
-			
+			}
 		}
 		
 	</script>
 	
 </head>
-<body class="body-club nav-fixed" style="overflow:hidden;">
+<body class="body-club nav-fixed">
 	
 	<div id="layout" class="wrapper">
 	
@@ -1558,28 +1575,33 @@
 			
 		<div class="recent clearfix">
 			
-			<div class="recent-friend" id="moveFriendArea">
+			<div class="recent-friend">
 				
 				<div class="block-title">Мои друзья</div>
 				
 				<div class="clearfix">
-					
-					<div class="user-info medium">
-						<a class="ava female"></a>
-						<div class="details">
-							<span class="icon-status status-online"></span>
-							<a href="" class="username">Богоявленский Александр</a>
-							<div class="user-fast-buttons">
-								<span class="friend">друг</span>
-								<a href="" class="new-message"><span class="tip">Написать сообщение</span></a>
+					<div id="moveFriendArea">
+					 
+						<div class="clearfix">
+							<div class="user-info medium">
+								<a class="ava female"></a>
+								<div class="details">
+									<span class="icon-status status-online"></span>
+									<a href="" class="username">Богоявленский Александр</a>
+									<div class="user-fast-buttons">
+										<span class="friend">друг</span>
+										<a href="" class="new-message"><span class="tip">Написать сообщение</span></a>
+									</div>
+								</div>
 							</div>
 						</div>
+						
 					</div>
 				
 					<div class="become-friends"><i class="icon"></i>Подружились</div>
-				
+					
 					<div class="date">Сегодня<br/>13:25</div>
-				
+					
 				</div>
 				
 				<div class="all-link">

@@ -22,6 +22,9 @@
  */
 class ELLink extends HActiveRecord
 {
+    const TYPE_LINK = 1;
+    const TYPE_COMMENT = 2;
+    const TYPE_POST = 3;
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.

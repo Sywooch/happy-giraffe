@@ -28,7 +28,12 @@ var ExtLinks = {
         $.post('/externalLinks/sites/addToBlacklist/', {url:$('#site_url').val()}, function (response) {
             if (response.status) {
                 ExtLinks.CancelSite();
-            }
+            } else
+                $.pnotify({
+                    pnotify_title:'Ошибка',
+                    pnotify_type:'error',
+                    pnotify_text:response.error
+                });
         }, 'json');
     }
 }

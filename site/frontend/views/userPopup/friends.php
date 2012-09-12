@@ -48,113 +48,13 @@
     <div class="find-friend">
 
 
-        <div class="block-title"><?($hasInvitations) ? 'Возможно вам будет интересно подружиться' : 'У вас пока нет новых друзей. Возможно вам будет интересно подружиться' ?></div>
+        <div class="block-title"><?=($hasInvitations) ? 'Возможно вам будет интересно подружиться' : 'У вас пока нет новых друзей. Возможно вам будет интересно подружиться'?></div>
 
         <ul>
 
-            <li>
-
-                <div class="clearfix">
-                    <div class="user-info medium">
-                        <a class="ava female"></a>
-                        <div class="details">
-                            <span class="icon-status status-online"></span>
-                            <a href="" class="username">Богоявленский</a>
-                            <div class="user-fast-buttons">
-                                <a href="" class="add-friend"><span class="tip">Пригласить в друзья</span></a>
-                                <a href="" class="new-message"><span class="tip">Написать сообщение</span></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="info">
-
-                    <p class="location"><span class="flag-big flag-big-ru"></span> <span>Россия</span></p>
-
-                    <p>35 лет, замужем &nbsp; <i class="icon-kid-boy"></i> <i class="icon-kid-girl"></i> <i class="icon-kid-wait"></i></p>
-
-                </div>
-
-            </li>
-
-            <li>
-
-                <div class="clearfix">
-                    <div class="user-info medium">
-                        <a class="ava female"></a>
-                        <div class="details">
-                            <span class="icon-status status-online"></span>
-                            <a href="" class="username">Богоявленский</a>
-                            <div class="user-fast-buttons">
-                                <a href="" class="add-friend"><span class="tip">Пригласить в друзья</span></a>
-                                <a href="" class="new-message"><span class="tip">Написать сообщение</span></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="info">
-
-                    <p class="location"><span class="flag-big flag-big-ru"></span> <span>Россия</span></p>
-
-                    <p>35 лет, замужем &nbsp; <i class="icon-kid-boy"></i> <i class="icon-kid-girl"></i> <i class="icon-kid-wait"></i></p>
-
-                </div>
-
-            </li>
-
-            <li>
-
-                <div class="clearfix">
-                    <div class="user-info medium">
-                        <a class="ava female"></a>
-                        <div class="details">
-                            <span class="icon-status status-online"></span>
-                            <a href="" class="username">Богоявленский</a>
-                            <div class="user-fast-buttons">
-                                <a href="" class="add-friend"><span class="tip">Пригласить в друзья</span></a>
-                                <a href="" class="new-message"><span class="tip">Написать сообщение</span></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="info">
-
-                    <p class="location"><span class="flag-big flag-big-ru"></span> <span>Россия</span></p>
-
-                    <p>35 лет, замужем &nbsp; <i class="icon-kid-boy"></i> <i class="icon-kid-girl"></i> <i class="icon-kid-wait"></i></p>
-
-                </div>
-
-            </li>
-
-            <li>
-
-                <div class="clearfix">
-                    <div class="user-info medium">
-                        <a class="ava female"></a>
-                        <div class="details">
-                            <span class="icon-status status-online"></span>
-                            <a href="" class="username">Богоявленский Александр</a>
-                            <div class="user-fast-buttons">
-                                <a href="" class="add-friend"><span class="tip">Пригласить в друзья</span></a>
-                                <a href="" class="new-message"><span class="tip">Написать сообщение</span></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="info">
-
-                    <p class="location"><span class="flag-big flag-big-ru"></span> <span>Россия, Россия, Россия, Россия, Россия, Россия</span></p>
-
-                    <p>35 лет, замужем &nbsp; <i class="icon-kid-boy"></i> <i class="icon-kid-girl"></i> <i class="icon-kid-wait"></i></p>
-
-                </div>
-
-            </li>
+            <?php foreach ($findFriends as $f): ?>
+                <?php $this->renderPartial('application.widgets.activity.views._friend', array('f' => $f, 'full' => false)); ?>
+            <?php endforeach; ?>
 
         </ul>
 
@@ -196,51 +96,36 @@
 
         <div class="news">
 
-            <div class="block-title">Что нового у моих друзей</div>
+            <?php if (empty($news)): ?>
 
-            <ul>
-                <li>
-                    <div class="date">Сегодня<br/>13:25</div>
-                    <div class="in">
-                        <div class="user">
-                            <a href="" class="ava small"></a>
-                            <span class="icon-status status-online"></span>
-                        </div>
-                        <div class="text">
-                            <a href="">Александра Богоявленская</a> добавила новые фото <b>в альбом <a href="">Зимние каникулы</a></b>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="date">Сегодня<br/>13:25</div>
-                    <div class="in">
-                        <div class="user">
-                            <a href="" class="ava small"></a>
-                            <span class="icon-status status-offline"></span>
-                        </div>
-                        <div class="text">
-                            <a href="">Ирина</a> добавила запись <b>в клубе <a href="">Ранее развитие и обучение</a></b>
-                        </div>
-                    </div>
-                </li>
-                <li>
-                    <div class="date">Сегодня<br/>13:25</div>
-                    <div class="in">
-                        <div class="user">
-                            <a href="" class="ava small"></a>
-                            <span class="icon-status status-offline"></span>
-                        </div>
-                        <div class="text">
-                            <a href="">Виктория</a> оставила комментарий <b>в блоге <span class="user"><span class="icon-status status-online"></span> <a href="">Настя</a></span> <a href="">Как построить бревенчатый дом. Нюансы, тонкости, приспособления</a></b>
-                        </div>
-                    </div>
-                </li>
+                <div class="empty"><i class="icon"></i>Здесь скоро появятся<br/>новости моих друзей</div>
 
-            </ul>
+            <?php else: ?>
 
-            <div class="all-link">
-                <a href=""><i class="icon"></i>Все новости моих друзей</a>
-            </div>
+                <div class="block-title">Что нового у моих друзей</div>
+
+                <ul>
+                    <?php foreach ($news as $n): ?>
+                        <li>
+                            <div class="date"><?php echo HDate::GetFormattedTime($n->updated); ?></div>
+                            <div class="in">
+                                <div class="user">
+                                    <a href="" class="ava small"></a>
+                                    <span class="icon-status status-online"></span>
+                                </div>
+                                <div class="text">
+                                    <?=$n->text?>
+                                </div>
+                            </div>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+
+                <div class="all-link">
+                    <?=CHtml::link('<i class="icon"></i>Все новости моих друзей', array('user/activity', 'user_id' => Yii::app()->user->id, 'type' => 'friends'))?>
+                </div>
+
+            <?php endif; ?>
 
         </div>
 

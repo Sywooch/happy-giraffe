@@ -22,6 +22,10 @@ class UserPopupController extends HController
         $hasInvitations = $requests->itemCount > 0;
         $findFriends = Yii::app()->user->model->findFriends($hasInvitations ? 4 : 8);
 
+        $newsCriteria = UserAction::model()->getFriendsCriteria(Yii::app()->user->id);
+        $newsCriteria->limit = 3;
+        $news = UserAction::model()->findAll($newsCriteria);
+
         $this->renderPartial('friends', compact('requests', 'hasInvitations', 'findFriends'), false, true);
     }
 

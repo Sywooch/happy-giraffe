@@ -126,4 +126,9 @@ class ELLink extends HActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+    public static function checkCount()
+    {
+        return 0;
+    }
 }

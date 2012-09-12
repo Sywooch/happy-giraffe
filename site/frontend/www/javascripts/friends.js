@@ -1,5 +1,6 @@
 var Friends = {
-
+    friendsCarousel: null,
+    friendsCarouselHold: false
 }
 
 Friends.open = function() {
@@ -9,6 +10,8 @@ Friends.open = function() {
         $('body').append('<div id="body-overlay"></div>');
         $('body').addClass('nav-fixed');
         $('#user-nav-friends').addClass('active');
+
+        $('#friendRequestList .friends').jcarousel();
     });
 }
 

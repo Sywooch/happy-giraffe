@@ -36,6 +36,37 @@
 			
 		})
 		
+		function moveFriend(el){
+			
+			var count = friendsCarousel.find('li').size();
+			
+			$('body').append('<div id="moveFriend"></div>')
+			
+			$('#moveFriend').html($(el).parents('li').html());
+			
+			var moveItemT = $(el).parents('li').offset().top;
+			var moveItemL = $(el).parents('li').offset().left;
+			
+			var moveAreaT = $('#moveFriendArea').offset().top+50;
+			var moveAreaL = $('#moveFriendArea').offset().left+150;
+			
+			$('#moveFriend').css({left: moveItemL, top: moveItemT}).animate({left: moveAreaL, top: moveAreaT, opacity:0.4}, 500, function(){
+				
+				$('#moveFriend').remove();
+				$('#friendsCount').html(parseInt($('#friendsCount').html())+1);
+				
+				if (count>1) {
+					$(el).parents('li').remove();
+					friendsCarousel.jcarousel('reload');
+				} else {
+					friendsCarousel.jcarousel('reload');
+					$('#user-friends .invitation').remove();
+				}
+				
+			});
+			
+		}
+		
 	</script>
 	
 </head>
@@ -1292,9 +1323,9 @@
 									<a class="ava female"></a>
 									<div class="details">
 										<span class="icon-status status-online"></span>
-										<a href="" class="username">Богоявленский</a>
+										<a href="" class="username">11111111</a>
 										<div class="user-fast-buttons">
-											<a href="" class="accept">Принять</a>
+											<a href="javascript:void(0);" onclick="moveFriend(this);" class="accept">Принять</a>
 											<a class="remove tooltip" href="" title="удалить из друзей"></a>
 											<a href="" class="new-message"><span class="tip">Написать сообщение</span></a>
 										</div>
@@ -1311,9 +1342,9 @@
 									<a class="ava female"></a>
 									<div class="details">
 										<span class="icon-status status-online"></span>
-										<a href="" class="username">Богоявленский</a>
+										<a href="" class="username">2222222222</a>
 										<div class="user-fast-buttons">
-											<a href="" class="accept">Принять</a>
+											<a href="javascript:void(0);" onclick="moveFriend(this);" class="accept">Принять</a>
 											<a class="remove tooltip" href="" title="удалить из друзей"></a>
 											<a href="" class="new-message"><span class="tip">Написать сообщение</span></a>
 										</div>
@@ -1330,9 +1361,9 @@
 									<a class="ava female"></a>
 									<div class="details">
 										<span class="icon-status status-online"></span>
-										<a href="" class="username">Богоявленский</a>
+										<a href="" class="username">333333333</a>
 										<div class="user-fast-buttons">
-											<a href="" class="accept">Принять</a>
+											<a href="javascript:void(0);" onclick="moveFriend(this);" class="accept">Принять</a>
 											<a class="remove tooltip" href="" title="удалить из друзей"></a>
 											<a href="" class="new-message"><span class="tip">Написать сообщение</span></a>
 										</div>
@@ -1349,9 +1380,9 @@
 									<a class="ava female"></a>
 									<div class="details">
 										<span class="icon-status status-online"></span>
-										<a href="" class="username">Богоявленский</a>
+										<a href="" class="username">4444444444</a>
 										<div class="user-fast-buttons">
-											<a href="" class="accept">Принять</a>
+											<a href="javascript:void(0);" onclick="moveFriend(this);" class="accept">Принять</a>
 											<a class="remove tooltip" href="" title="удалить из друзей"></a>
 											<a href="" class="new-message"><span class="tip">Написать сообщение</span></a>
 										</div>
@@ -1368,9 +1399,9 @@
 									<a class="ava female"></a>
 									<div class="details">
 										<span class="icon-status status-online"></span>
-										<a href="" class="username">Богоявленский</a>
+										<a href="" class="username">55555555555</a>
 										<div class="user-fast-buttons">
-											<a href="" class="accept">Принять</a>
+											<a href="javascript:void(0);" onclick="moveFriend(this);" class="accept">Принять</a>
 											<a class="remove tooltip" href="" title="удалить из друзей"></a>
 											<a href="" class="new-message"><span class="tip">Написать сообщение</span></a>
 										</div>
@@ -1387,9 +1418,9 @@
 									<a class="ava female"></a>
 									<div class="details">
 										<span class="icon-status status-online"></span>
-										<a href="" class="username">Богоявленский</a>
+										<a href="" class="username">6666666666</a>
 										<div class="user-fast-buttons">
-											<a href="" class="accept">Принять</a>
+											<a href="javascript:void(0);" onclick="moveFriend(this);" class="accept">Принять</a>
 											<a class="remove tooltip" href="" title="удалить из друзей"></a>
 											<a href="" class="new-message"><span class="tip">Написать сообщение</span></a>
 										</div>
@@ -1522,7 +1553,7 @@
 			
 		<div class="recent clearfix">
 			
-			<div class="recent-friend">
+			<div class="recent-friend" id="moveFriendArea">
 				
 				<div class="block-title">Мои друзья</div>
 				
@@ -1547,7 +1578,7 @@
 				</div>
 				
 				<div class="all-link">
-					<a href=""><i class="icon"></i>Все мои друзья (26)</a>
+					<a href=""><i class="icon"></i>Все мои друзья (<span id="friendsCount">26</span>)</a>
 				</div>
 				
 			</div>

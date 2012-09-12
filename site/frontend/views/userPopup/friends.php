@@ -118,34 +118,34 @@
 
                 <?php if (empty($news)): ?>
 
-                <div class="empty"><i class="icon"></i>Здесь скоро появятся<br/>новости моих друзей</div>
+                    <div class="empty"><i class="icon"></i>Здесь скоро появятся<br/>новости моих друзей</div>
 
                 <?php else: ?>
 
-                <div class="block-title">Что нового у моих друзей</div>
+                    <div class="block-title">Что нового у моих друзей</div>
 
-                <ul>
-                    <?php foreach ($news as $n): ?>
-                    <li>
-                        <div class="date"><?php echo HDate::GetFormattedTime($n->updated); ?></div>
-                        <div class="in">
-                            <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
-                                'user' => $c->contentAuthor,
-                                'size' => 'small',
-                                'sendButton' => false,
-                                'location' => false,
-                            )); ?>
-                            <div class="text">
-                                <?=$n->text?>
+                    <ul>
+                        <?php foreach ($news as $n): ?>
+                        <li>
+                            <div class="date"><?php echo HDate::GetFormattedTime($n->updated); ?></div>
+                            <div class="in">
+                                <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
+                                    'user' => $c->contentAuthor,
+                                    'size' => 'small',
+                                    'sendButton' => false,
+                                    'location' => false,
+                                )); ?>
+                                <div class="text">
+                                    <?=$n->text?>
+                                </div>
                             </div>
-                        </div>
-                    </li>
-                    <?php endforeach; ?>
-                </ul>
+                        </li>
+                        <?php endforeach; ?>
+                    </ul>
 
-                <div class="all-link">
-                    <?=CHtml::link('<i class="icon"></i>Все новости моих друзей', array('user/activity', 'user_id' => Yii::app()->user->id, 'type' => 'friends'))?>
-                </div>
+                    <div class="all-link">
+                        <?=CHtml::link('<i class="icon"></i>Все новости моих друзей', array('user/activity', 'user_id' => Yii::app()->user->id, 'type' => 'friends'))?>
+                    </div>
 
                 <?php endif; ?>
 

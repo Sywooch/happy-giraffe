@@ -52,11 +52,11 @@ class PostForCommentator
 
                     } else {
                         $post->full = 1;
-                        $post->update('full');
+                        $post->update(array('full'));
                     }
                 } else {
                     $post->full = 1;
-                    $post->update('full');
+                    $post->update(array('full'));
                 }
             }
         }

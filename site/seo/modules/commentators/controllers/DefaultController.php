@@ -3,6 +3,7 @@
 class DefaultController extends SController
 {
     public $layout = '/layout/commentators';
+    public $icon = 2;
 
     public function beforeAction($action)
     {

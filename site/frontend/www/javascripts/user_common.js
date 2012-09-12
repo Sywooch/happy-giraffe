@@ -137,10 +137,14 @@ function setMessagesHeight(){
 
 }
 
-function friendRequest(request_id, action) {
+function friendRequest(request_id, action, el) {
     $.get('/friendRequests/update/', {request_id: request_id, action: action}, function (data, textStatus, jqXHR) {
         if (jqXHR.status == 200) {
-            $.fn.yiiListView.update('friendRequestList');
+            if (Friends.isActive() && action == 'accept') {
+                Friends.moveFriend(el);
+            } else {
+                $.fn.yiiListView.update('friendRequestList');
+            }
         }
     })
 }

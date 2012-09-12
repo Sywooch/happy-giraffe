@@ -30,10 +30,10 @@ else {
             <div class="user-fast-buttons">
                 <?php if ($this->friendRequest !== false): ?>
                     <?php if ($this->friendRequest['direction'] == 'incoming'): ?>
-                        <?=CHtml::link('Принять', 'javascript:void(0)', array('class' => 'accept', 'onclick' => 'friendRequest(' . $this->friendRequest['id'] . ', \'accept\')'))?>
-                        <?=CHtml::link('', 'javascript:void(0)', array('class' => 'remove tooltip', 'title' => 'Отклонить', 'onclick' => 'friendRequest(' . $this->friendRequest['id'] . ', \'decline\')'))?>
+                        <?=CHtml::link('Принять', 'javascript:void(0)', array('class' => 'accept', 'onclick' => 'friendRequest(' . $this->friendRequest['id'] . ', \'accept\', this)'))?>
+                        <?=CHtml::link('', 'javascript:void(0)', array('class' => 'remove tooltip', 'title' => 'Отклонить', 'onclick' => 'friendRequest(' . $this->friendRequest['id'] . ', \'decline\', this)'))?>
                     <?php else: ?>
-                        <?=CHtml::link('Отменить', 'javascript:void(0)', array('class' => 'accept cancel', 'onclick' => 'friendRequest(' . $this->friendRequest['id'] . ', \'cancel\')'))?>
+                        <?=CHtml::link('Отменить', 'javascript:void(0)', array('class' => 'accept cancel', 'onclick' => 'friendRequest(' . $this->friendRequest['id'] . ', \'cancel\', this)'))?>
                     <?php endif; ?>
                 <?php endif; ?>
                 <?php if ($this->friendButton && $this->user->id != Yii::app()->user->id): ?>

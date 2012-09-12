@@ -11,7 +11,7 @@ Friends.open = function() {
         $('body').addClass('nav-fixed');
         $('#user-nav-friends').addClass('active');
 
-        $('#friendRequestList .friends').jcarousel();
+        friendsCarousel = $('#user-friends .friends').jcarousel({wrap:'circular'});
     });
 }
 
@@ -29,4 +29,56 @@ Friends.toggle = function() {
 
 Friends.isActive = function() {
     return $('#user-friends:visible').length > 0;
+}
+
+Friends.moveFriend = function moveFriend(el) {
+
+    if (!this.friendsCarouselHold){
+
+        this.friendsCarouselHold = true;
+
+        var count = this.friendsCarousel.find('li').size();
+
+        var li = $(el).parents('li');
+        $('body').append('<div id="moveFriend"></div>')
+
+        li.addClass('hide');
+
+        $('#moveFriend').html(li.html());
+
+        var moveItemT = li.offset().top;
+        var moveItemL = li.offset().left;
+
+        var moveAreaT = $('#moveFriendArea').offset().top;
+        var moveAreaL = $('#moveFriendArea').offset().left;
+
+        $('#moveFriend').css({left: moveItemL, top: moveItemT}).animate({left: moveAreaL, top: moveAreaT, opacity:0.4}, 500, function(){
+
+            $('#moveFriendArea').html($('#moveFriend').html());
+
+            $('#moveFriendArea').find('.user-fast-buttons .accept, .user-fast-buttons .remove').remove();
+            $('#moveFriendArea').find('.user-fast-buttons').prepend('<span class="friend">друг</span>');
+
+            $('#moveFriend').remove();
+
+            $('#friendsCount').html(parseInt($('#friendsCount').html())+1);
+
+            if (count>1) {
+
+                li.animate({width: 0, padding: 0}, 200, function(){
+                    $(this).remove();
+                    this.friendsCarousel.jcarousel('reload');
+                    this.friendsCarouselHold = false;
+                })
+
+            } else {
+                this.friendsCarousel.jcarousel('reload');
+                $('#user-friends .invitation').remove();
+            }
+
+
+
+        });
+
+    }
 }

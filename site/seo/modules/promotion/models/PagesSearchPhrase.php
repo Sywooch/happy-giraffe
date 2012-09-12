@@ -241,7 +241,7 @@ class PagesSearchPhrase extends HActiveRecord
         $criteria->together = true;
         $criteria->condition = 'skip.phrase_id IS NULL AND google_traffic >= :google_traffic';
 
-        $links_count = SeoUserAttributes::getAttribute(Yii::app()->user->id, 'links_count');
+        $links_count = SeoUserAttributes::getAttribute(0, 'links_count_google');
         $criteria->params = array(
             ':links_count' => $links_count,
             ':google_traffic' => SeoUserAttributes::getAttribute(Yii::app()->user->id, 'google_traffic')
@@ -249,8 +249,8 @@ class PagesSearchPhrase extends HActiveRecord
 
         $model = PagesSearchPhrase::model()->find($criteria);
         if ($model === null) {
-            SeoUserAttributes::setAttribute(Yii::app()->user->id, 'links_count', $links_count + 1);
-            return self::getActualPhrase();
+            SeoUserAttributes::setAttribute(0, 'links_count_google', $links_count + 1);
+            return self::getGooglePhrase();
         }
 
         return $model;
@@ -282,7 +282,7 @@ class PagesSearchPhrase extends HActiveRecord
         $criteria->condition = 'skip.phrase_id IS NULL AND last_yandex_position > :min_yandex_position
                                 AND last_yandex_position < :max_yandex_position';
 
-        $links_count = SeoUserAttributes::getAttribute(Yii::app()->user->id, 'links_count');
+        $links_count = SeoUserAttributes::getAttribute(0, 'links_count_yandex');
         $criteria->params = array(
             ':min_yandex_position' => SeoUserAttributes::getAttribute(Yii::app()->user->id, 'min_yandex_position'),
             ':max_yandex_position' => SeoUserAttributes::getAttribute(Yii::app()->user->id, 'max_yandex_position'),
@@ -291,8 +291,8 @@ class PagesSearchPhrase extends HActiveRecord
 
         $model = PagesSearchPhrase::model()->find($criteria);
         if ($model === null) {
-            SeoUserAttributes::setAttribute(Yii::app()->user->id, 'links_count', $links_count + 1);
-            return self::getActualPhrase();
+            SeoUserAttributes::setAttribute(0, 'links_count_yandex', $links_count + 1);
+            return self::getYandexPhrase();
         }
 
         return $model;

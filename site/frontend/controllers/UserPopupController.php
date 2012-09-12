@@ -22,11 +22,19 @@ class UserPopupController extends HController
         $hasInvitations = $requests->itemCount > 0;
         $findFriends = Yii::app()->user->model->findFriends($hasInvitations ? 4 : 8);
 
+        $friendsCount = Yii::app()->user->model->getFriendsCount();
+
+        $lastFriendCriteria = Yii::app()->user->model->getFriendsCriteria(array(
+            'order' => 'friends.created DESC',
+        ));
+
+        $lastFriend = User::model()->find($lastFriendCriteria);
+
         $newsCriteria = UserAction::model()->getFriendsCriteria(Yii::app()->user->id);
         $newsCriteria->limit = 3;
         $news = UserAction::model()->findAll($newsCriteria);
 
-        $this->renderPartial('friends', compact('requests', 'hasInvitations', 'findFriends'), false, true);
+        $this->renderPartial('friends', compact('requests', 'friendsCount', 'lastFriend', 'hasInvitations', 'findFriends'), false, true);
     }
 
     public function actionTest()

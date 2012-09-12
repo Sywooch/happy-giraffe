@@ -61,6 +61,8 @@ class Video extends CComponent
 	protected function youtubeData()
 	{
 		$query = $this->parseQuery();
+        if (!isset($query['v']))
+            return false;
 		$v = $query['v'];
 		
 		$dom = new DOMDocument;

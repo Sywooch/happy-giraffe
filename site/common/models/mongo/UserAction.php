@@ -184,7 +184,7 @@ class UserAction extends EMongoDocument
                     self::USER_ACTION_BLOG_CONTENT_ADDED,
                     self::USER_ACTION_DUEL,
                 )),
-                'user_id' => array('in' => $friendsIds),
+                //'user_id' => array('in' => $friendsIds),
             ),
         ));
 

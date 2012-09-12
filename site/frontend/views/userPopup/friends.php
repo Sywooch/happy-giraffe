@@ -6,7 +6,7 @@
             <span>Друзья</span>
         </div>
 
-        <a href="" class="close">Закрыть вкладку</a>
+        <a href="javascript:void(0)" onclick="Friends.close()" class="close">Закрыть вкладку</a>
 
     </div>
 

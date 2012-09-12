@@ -1,4 +1,8 @@
-<div class="ext-links-add">
+<?php
+/* @var $this SitesController
+ * @var $form CActiveForm
+ */
+?><div class="ext-links-add">
 
     <div class="nav clearfix">
         <?php
@@ -22,7 +26,7 @@
     </div>
 
     <div class="check-url">
-        <input id="site_url" type="text" placeholder="Введите URL сайта " />
+        <input id="site_url" type="text" placeholder="Введите URL сайта "/>
         <button class="btn-g" onclick="ExtLinks.CheckSite()">Проверить</button>
     </div>
 
@@ -30,11 +34,11 @@
 
         <span class="new-site">Новый сайт</span>
 
-        <button class="btn-g"onclick="$('div.form').show()" >Добавить</button>
+        <button class="btn-g" onclick="$('div.form').show()">Добавить</button>
 
         <a href="javascript:;" class="pseudo" onclick="ExtLinks.CancelSite()">Отмена</a>
 
-        <a href="" class="icon-blacklist">ЧС</a>
+        <a href="javascript:;" class="icon-blacklist" onclick="ExtLinks.AddToBL()">ЧС</a>
 
     </div>
 
@@ -46,13 +50,13 @@
 
         <a href="javascript:;" class="pseudo" onclick="ExtLinks.CancelSite()">Отмена</a>
 
-        <a href="javascript:;" class="icon-blacklist">ЧС</a>
+        <a href="javascript:;" class="icon-blacklist" onclick="ExtLinks.AddToBL()">ЧС</a>
 
     </div>
 
     <div class="url-actions" id="site_status_3" style="display: none;">
 
-        <span class="in-blacklist">В черном списке</span>
+        <span class="in-blacklist" onclick="ExtLinks.AddToBL()">В черном списке</span>
 
         <button class="btn-g orange" onclick="ExtLinks.CancelSite()">Отмена</button>
 
@@ -68,90 +72,108 @@
 
     </div>
 
-    <div class="form" style="display: none;">
+    <?php $form=$this->beginWidget('CActiveForm', array(
+        'id'=>'link-form',
+        'enableAjaxValidation'=>false,
+    ));
+    $model = new ELLink();
+    $model->author_id = Yii::app()->user->id;
+    $model->created = date("Y-m-d");
+    ?>
+        <div class="form" <?php //style="display: none;" ?>>
 
-        <div class="row">
-            <div class="row-title">
-                <span>Внешний сайт</span> - адрес страницы <small>(на которой проставлена ссылка)</small>
-            </div>
-            <div class="row-elements">
-                <input type="text" placeholder="Введите URL" />
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="row-title">
-                <span>Наш сайт</span> - адрес статьи / сервиса <small>(которые мы продвигаем)</small>
-            </div>
-            <div class="row-elements">
-                <input type="text" placeholder="Введите URL" />
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="row-title">
-                <span>Анкор</span>
-            </div>
-            <div class="row-elements">
-                <input type="text" /> <a href="" class="icon-btn-add"></a>
-                <input type="text" />
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="row-title">
-                <span>Кто поставил</span>
-            </div>
-            <div class="row-elements">
-                <div class="col">
-                    <select>
-                        <option></option>
-                    </select>
+            <div class="row">
+                <div class="row-title">
+                    <span>Внешний сайт</span> - адрес страницы
+                    <small>(на которой проставлена ссылка)</small>
                 </div>
-                <div class="col">
-                    <input type="text" class="date" placeholder="Дата" /> <a href="" class="icon-date"></a>
+                <div class="row-elements">
+                    <?=$form->textField($model, 'url', array('placeholder'=>'Введите URL')) ?>
+                    <?=$form->error($model, 'url') ?>
                 </div>
-
             </div>
-        </div>
 
-        <div class="row">
-            <div class="row-title">
-                <span>Тип ссылки</span>
+            <div class="row">
+                <div class="row-title">
+                    <span>Наш сайт</span> - адрес статьи / сервиса
+                    <small>(которые мы продвигаем)</small>
+                </div>
+                <div class="row-elements">
+                    <?=$form->textField($model, 'our_link', array('placeholder'=>'Введите URL')) ?>
+                    <?=$form->error($model, 'our_link') ?>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="row-title">
+                    <span>Анкор</span>
+                </div>
+                <div class="row-elements">
+                    <input type="text"/> <a href="" class="icon-btn-add"></a>
+                    <input type="text"/>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="row-title">
+                    <span>Кто поставил</span>
+                </div>
+                <div class="row-elements">
+                    <div class="col">
+                        <?=$form->dropDownList($model, 'author_id', CHtml::listData(SeoUser::getSmoUsers(), 'id', 'name')) ?>
+                        <?=$form->error($model, 'author_id') ?>
+                    </div>
+                    <div class="col">
+                        <?=$form->dateField($model, 'created', array('placeholder'=>'Дата', 'class'=>'date')) ?>
+                        <a href="" class="icon-date"></a>
+                        <?=$form->error($model, 'created') ?>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="row-title">
+                    <span>Тип ссылки</span>
 						<span class="link-types">
-							<a href="" class="icon-link link">С</a> - ссылка
-							<a href="" class="icon-link comment">К</a> - комментарий
-							<a href="" class="icon-link post">П</a> - постовой
+							<a href="javascript:;" class="icon-link link" onclick="$('#ELLink_link_type').val(<?=ELLink::TYPE_LINK ?>);">С</a> - ссылка
+							<a href="javascript:;" class="icon-link comment" onclick="$('#ELLink_link_type').val(<?=ELLink::TYPE_COMMENT ?>);">К</a> - комментарий
+							<a href="javascript:;" class="icon-link post" onclick="$('#ELLink_link_type').val(<?=ELLink::TYPE_POST ?>);">П</a> - постовой
 						</span>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="row-title">
-                <span>Платная</span>
-                <span class="title-cost">Стоимость</span>
-                <span class="title-sys">Система</span>
-
-            </div>
-            <div class="row-elements">
-                <div class="col col-free">
-                    <input type="checkbox" />
-                </div>
-                <div class="col col-cost">
-                    <input type="text" /> руб.
-                </div>
-                <div class="col col-sys">
-                    <select>
-                        <option></option>
-                    </select>
+                    <?=$form->hiddenField($model, 'link_type') ?>
+                    <?=$form->error($model, 'link_type') ?>
                 </div>
             </div>
+
+            <div class="row">
+                <div class="row-title">
+                    <span>Платная</span>
+                    <span class="title-cost">Стоимость</span>
+                    <span class="title-sys">Система</span>
+
+                </div>
+                <div class="row-elements">
+                    <div class="col col-free">
+                        <input type="checkbox"/>
+                    </div>
+                    <div class="col col-cost">
+                        <?=$form->textField($model, 'link_cost') ?> руб.
+                        <?=$form->error($model, 'link_cost') ?>
+                    </div>
+                    <div class="col col-sys">
+                        <?=$form->dropDownList($model, 'system_id', CHtml::listData(ELSystem::model()->findAll(), 'id', 'name')) ?>
+                        <?=$form->error($model, 'system_id') ?>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row row-btn">
+                <button class="btn-g">Добавить</button>
+            </div>
+
         </div>
 
-        <div class="row row-btn">
-            <button class="btn-g">Добавить</button>
-        </div>
+    <?php $this->endWidget(); ?>
 
-    </div>
 
 </div>

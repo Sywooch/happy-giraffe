@@ -58,7 +58,7 @@ class ELSite extends HActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('url, created', 'required'),
+			array('url', 'required'),
 			array('type, status', 'numerical', 'integerOnly'=>true),
 			array('url', 'length', 'max'=>255),
 			// The following rule is used by search().
@@ -116,4 +116,15 @@ class ELSite extends HActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+    public function behaviors()
+    {
+        return array(
+            'CTimestampBehavior' => array(
+                'class' => 'zii.behaviors.CTimestampBehavior',
+                'createAttribute' => 'created',
+                'updateAttribute' => null,
+            ),
+        );
+    }
 }

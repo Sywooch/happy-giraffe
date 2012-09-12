@@ -15,7 +15,7 @@
         <?php if ($hasInvitations): ?>
             <div class="invitation">
 
-                <div class="friends-count"><span><?=$requests->itemCount?></span> <a href="javascript:void(0);" onclick="Friends.friendsCarousel.jcarousel('scroll', '+=1');" class="more"><i class="icon"></i></a></div>
+                <div class="friends-count"><span><?=$requests->itemCount?></span> <a href="javascript:void(0);" onclick="Friends.friendsCarousel.jcarousel('scroll', '+=4');" class="more"><i class="icon"></i></a></div>
 
                 <div class="block-title">У вас новые предложения дружбы</div>
 

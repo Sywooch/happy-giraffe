@@ -11,7 +11,10 @@ Friends.open = function() {
         $('body').addClass('nav-fixed');
         $('#user-nav-friends').addClass('active');
 
-        Friends.friendsCarousel = $('#user-friends .jcarousel').jcarousel({wrap:'circular'});
+        Friends.friendsCarousel = $('#user-friends .jcarousel').jcarousel({
+            scroll: 4,
+            wrap:'circular'
+        });
     });
 }
 

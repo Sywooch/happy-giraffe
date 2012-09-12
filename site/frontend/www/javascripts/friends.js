@@ -11,7 +11,7 @@ Friends.open = function() {
         $('body').addClass('nav-fixed');
         $('#user-nav-friends').addClass('active');
 
-        friendsCarousel = $('#user-friends .friends').jcarousel({wrap:'circular'});
+        Friends.friendsCarousel = $('#user-friends .jcarousel').jcarousel({wrap:'circular'});
     });
 }
 
@@ -33,11 +33,11 @@ Friends.isActive = function() {
 
 Friends.moveFriend = function moveFriend(el) {
 
-    if (!this.friendsCarouselHold){
+    if (!Friends.friendsCarouselHold){
 
-        this.friendsCarouselHold = true;
+        Friends.friendsCarouselHold = true;
 
-        var count = this.friendsCarousel.find('li').size();
+        var count = Friends.friendsCarousel.find('li').size();
 
         var li = $(el).parents('li');
         $('body').append('<div id="moveFriend"></div>')
@@ -67,12 +67,12 @@ Friends.moveFriend = function moveFriend(el) {
 
                 li.animate({width: 0, padding: 0}, 200, function(){
                     $(this).remove();
-                    this.friendsCarousel.jcarousel('reload');
-                    this.friendsCarouselHold = false;
+                    Friends.friendsCarousel.jcarousel('reload');
+                    Friends.friendsCarouselHold = false;
                 })
 
             } else {
-                this.friendsCarousel.jcarousel('reload');
+                Friends.friendsCarousel.jcarousel('reload');
                 $('#user-friends .invitation').remove();
             }
 

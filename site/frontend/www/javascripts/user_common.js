@@ -145,6 +145,8 @@ function friendRequest(request_id, action, el) {
             } else {
                 $.fn.yiiListView.update('friendRequestList');
             }
+            if (Friends.isActive())
+                $('.invitation .friends-count span').text(parseInt($('.invitation .friends-count span').text()) - 1);
         }
     })
 }

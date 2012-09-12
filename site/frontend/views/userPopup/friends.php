@@ -6,44 +6,47 @@
             <span>Друзья</span>
         </div>
 
-        <a href="javascript:void(0)" onclick="Friends.close()" class="close">Закрыть вкладку</a>
+        <a href="" class="close">Закрыть вкладку</a>
 
     </div>
 
     <div class="friends activity-find-friend">
 
-        <div class="invitation">
+        <?php if ($hasInvitations): ?>
+            <div class="invitation">
 
-            <div class="friends-count">18 <a href="javascript:void(0)" class="more"><i class="icon"></i></a></div>
+                <div class="friends-count"><span><?=$requests->itemCount?></span> <a href="javascript:void(0);" onclick="Friends.friendsCarousel.jcarousel('scroll', '+=1');" class="more"><i class="icon"></i></a></div>
 
-            <div class="block-title">У вас новые предложения дружбы</div>
+                <div class="block-title">У вас новые предложения дружбы</div>
 
-            <?php
-                $this->widget('zii.widgets.CListView', array(
-                    'id' => 'friendRequestList',
-                    'dataProvider' => $requests,
-                    'itemView' => '//user/_friendRequest',
-                    'itemsTagName' => 'ul',
-                    'template' =>
-                    '
-                            <div class="friends clearfix">
-                                {items}
-                            </div>
-                            <div class="pagination pagination-center clearfix">
-                                {pager}
-                            </div>
-                        ',
-                    'pager' => array(
-                        'class' => 'MyLinkPager',
-                        'header' => '',
-                    ),
-                    'viewData' => array(
-                        'direction' => 'incoming',
-                    ),
-                ));
-            ?>
-
-        </div>
+                <div class="jcarousel">
+                    <?php
+                        $this->widget('zii.widgets.CListView', array(
+                            'id' => 'friendRequestList',
+                            'dataProvider' => $requests,
+                            'itemView' => '//user/_friendRequest',
+                            'itemsTagName' => 'ul',
+                            'template' =>
+                            '
+                                            <div class="friends clearfix">
+                                                {items}
+                                            </div>
+                                            <div class="pagination pagination-center clearfix">
+                                                {pager}
+                                            </div>
+                                        ',
+                            'pager' => array(
+                                'class' => 'MyLinkPager',
+                                'header' => '',
+                            ),
+                            'viewData' => array(
+                                'direction' => 'incoming',
+                            ),
+                        ));
+                    ?>
+                </div>
+            </div>
+        <?php endif; ?>
 
         <div class="find-friend">
 
@@ -53,7 +56,7 @@
             <ul>
 
                 <?php foreach ($findFriends as $f): ?>
-                    <?php $this->renderPartial('application.widgets.activity.views._friend', array('f' => $f, 'full' => false)); ?>
+                <?php $this->renderPartial('application.widgets.activity.views._friend', array('f' => $f, 'full' => false)); ?>
                 <?php endforeach; ?>
 
             </ul>
@@ -64,60 +67,79 @@
 
     <div class="recent clearfix">
 
-        <div class="recent-friend">
+        <?php if ($friendsCount == 0): ?>
 
-            <div class="block-title">Мои друзья</div>
+            <div class="find">
 
-            <div class="clearfix">
+                <div class="block-title">Найти друзей</div>
 
-                <div class="user-info medium">
-                    <a class="ava female"></a>
-                    <div class="details">
-                        <span class="icon-status status-online"></span>
-                        <a href="" class="username">Богоявленский Александр</a>
-                        <div class="user-fast-buttons">
-                            <span class="friend">друг</span>
-                            <a href="" class="new-message"><span class="tip">Написать сообщение</span></a>
-                        </div>
-                    </div>
+                <div class="button">
+
+                    <?=CHtml::link('Найти<br/>друзей', array('activity/friends'), array('class' => 'btn-green'))?>
+
                 </div>
 
-                <div class="become-friends"><i class="icon"></i>Подружились</div>
-
-                <div class="date">Сегодня<br/>13:25</div>
+                <p>Вы можете найти друзей по интересам, по месту жительства, по похожему семейному положению, отправить им приглашение дружбы или просто написать им.<br/><br/>Желаем вам найти много друзей! Удачи!</p>
 
             </div>
 
-            <div class="all-link">
-                <a href=""><i class="icon"></i>Все мои друзья (26)</a>
+        <?php else: ?>
+
+            <div class="recent-friend">
+
+                <div class="block-title">Мои друзья</div>
+
+                <div class="clearfix">
+                    <div id="moveFriendArea">
+
+                        <div class="clearfix">
+                            <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
+                                'user' => $lastFriend,
+                                'location' => false,
+                                'friendButton' => true,
+                            )); ?>
+                        </div>
+
+                    </div>
+
+                    <div class="become-friends"><i class="icon"></i>Подружились</div>
+
+                    <div class="date">Сегодня<br/>13:25</div>
+
+                </div>
+
+                <div class="all-link">
+                    <a href=""><i class="icon"></i>Все мои друзья (<span id="friendsCount"><?=$friendsCount?></span>)</a>
+                </div>
+
             </div>
 
-        </div>
+            <div class="news">
 
-        <div class="news">
-
-            <?php if (empty($news)): ?>
+                <?php if (empty($news)): ?>
 
                 <div class="empty"><i class="icon"></i>Здесь скоро появятся<br/>новости моих друзей</div>
 
-            <?php else: ?>
+                <?php else: ?>
 
                 <div class="block-title">Что нового у моих друзей</div>
 
                 <ul>
                     <?php foreach ($news as $n): ?>
-                        <li>
-                            <div class="date"><?php echo HDate::GetFormattedTime($n->updated); ?></div>
-                            <div class="in">
-                                <div class="user">
-                                    <a href="" class="ava small"></a>
-                                    <span class="icon-status status-online"></span>
-                                </div>
-                                <div class="text">
-                                    <?=$n->text?>
-                                </div>
+                    <li>
+                        <div class="date"><?php echo HDate::GetFormattedTime($n->updated); ?></div>
+                        <div class="in">
+                            <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
+                                'user' => $c->contentAuthor,
+                                'size' => 'small',
+                                'sendButton' => false,
+                                'location' => false,
+                            )); ?>
+                            <div class="text">
+                                <?=$n->text?>
                             </div>
-                        </li>
+                        </div>
+                    </li>
                     <?php endforeach; ?>
                 </ul>
 
@@ -125,9 +147,11 @@
                     <?=CHtml::link('<i class="icon"></i>Все новости моих друзей', array('user/activity', 'user_id' => Yii::app()->user->id, 'type' => 'friends'))?>
                 </div>
 
-            <?php endif; ?>
+                <?php endif; ?>
 
-        </div>
+            </div>
+
+        <?php endif; ?>
 
     </div>
 

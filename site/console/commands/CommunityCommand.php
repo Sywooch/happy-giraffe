@@ -435,10 +435,11 @@ class CommunityCommand extends CConsoleCommand
         $k = 0;
 
         $rows = 1;
+        $i = 0;
+
         while (!empty($rows)) {
             $rows = Yii::app()->db->createCommand()->select('id, ' . $field_name)->from($table)->limit(100)->offset($k * 100)->queryAll();
 
-            $i = 0;
             foreach ($rows as $row) {
                 try {
                     $doc = phpQuery::newDocumentXHTML($row[$field_name], $charset = 'utf-8');

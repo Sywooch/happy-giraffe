@@ -21,8 +21,9 @@
         ?>
     </div>
 
-    <div class="flash-message added" style="display: none;">
-        Ваша ссылка добавлена &nbsp;&nbsp; <a href="">Перейти</a>
+    <div style="height: 30px;">
+        <div class="flash-message added" style="display: none;">Ваша ссылка добавлена &nbsp;&nbsp;
+            <a href="<?=$this->createUrl('reports')?>">Перейти</a></div>
     </div>
 
     <div class="check-url">
@@ -34,7 +35,7 @@
 
         <span class="new-site">Новый сайт</span>
 
-        <button class="btn-g" onclick="$('div.form').show()">Добавить</button>
+        <button class="btn-g" onclick="ExtLinks.AddSite()">Добавить</button>
 
         <a href="javascript:;" class="pseudo" onclick="ExtLinks.CancelSite()">Отмена</a>
 
@@ -46,7 +47,7 @@
 
         <span class="have-links">Есть ссылки</span>
 
-        <button class="btn-g disabled" onclick="$('div.form').show()">Добавить</button>
+        <button class="btn-g disabled" onclick="ExtLinks.AddSite()">Добавить</button>
 
         <a href="javascript:;" class="pseudo" onclick="ExtLinks.CancelSite()">Отмена</a>
 
@@ -56,31 +57,46 @@
 
     <div class="url-actions" id="site_status_3" style="display: none;">
 
-        <span class="in-blacklist" onclick="ExtLinks.AddToBL()">В черном списке</span>
+        <span class="in-blacklist">В черном списке</span>
 
         <button class="btn-g orange" onclick="ExtLinks.CancelSite()">Отмена</button>
 
-        <a href="javascript:;" onclick="$('div.form').show()" class="pseudo">Добавить</a>
+        <a href="javascript:;" onclick="ExtLinks.AddSite()" class="pseudo">Добавить</a>
 
     </div>
 
-    <div class="url-list" style="display: none;">
+    <div class="url-list">
 
-        <ul>
-            <li><a href=""></a></li>
-        </ul>
 
     </div>
 
     <?php $form=$this->beginWidget('CActiveForm', array(
         'id'=>'link-form',
-        'enableAjaxValidation'=>false,
-    ));
+    'enableAjaxValidation' => true,
+    'enableClientValidation' => false,
+    'action' => '#',
+    'clientOptions' => array(
+        'validateOnSubmit' => true,
+        'validateOnChange' => false,
+        'validateOnType' => false,
+        'validationUrl' => $this->createUrl('add'),
+        'afterValidate' => "js:function(form, data, hasError) {
+                                if (!hasError){
+                                    ExtLinks.ClearFrom();
+                                    $('.flash-message.added').show().delay(3000).fadeOut(3000);
+                                }
+                                return false;
+                              }",
+    )));
+
     $model = new ELLink();
     $model->author_id = Yii::app()->user->id;
     $model->created = date("Y-m-d");
     ?>
-        <div class="form" <?php //style="display: none;" ?>>
+        <?=$form->hiddenField($model, 'site_id') ?>
+        <div class="form" style="display: none;">
+
+            <?=$form->error($model, 'site_id') ?>
 
             <div class="row">
                 <div class="row-title">
@@ -104,14 +120,14 @@
                 </div>
             </div>
 
-            <div class="row">
+            <div class="row anchors">
                 <div class="row-title">
                     <span>Анкор</span>
                 </div>
                 <div class="row-elements">
-                    <?=$form->textField($model, 'anchor1') ?>
+                    <input name="ELLink[anchors][]" type="text">
                     <a href="javascript:;" class="icon-btn-add" onclick="$(this).hide().next().show()"></a>
-                    <?=$form->textField($model, 'anchor2', array('style'=>'display:none;')) ?>
+                    <input name="ELLink[anchors][]" type="text" style="display: none;">
                 </div>
             </div>
 
@@ -125,8 +141,20 @@
                         <?=$form->error($model, 'author_id') ?>
                     </div>
                     <div class="col">
-                        <?=$form->dateField($model, 'created', array('placeholder'=>'Дата', 'class'=>'date')) ?>
-                        <a href="" class="icon-date"></a>
+                        <?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+                            'model' => $model,
+                            'attribute' => 'created',
+                            'language' => 'ru',
+                            'options' => array(
+                                'showAnim' => 'fold',
+                                'dateFormat' => 'yy-mm-dd',
+                            ),
+                            'htmlOptions' => array(
+                                'placeholder'=>'Дата',
+                                'class'=>'date'
+                            ),
+                        )); ?>
+                        <a href="javascript:;" class="icon-date" onclick="$(this).prev().trigger('focus')"></a>
                         <?=$form->error($model, 'created') ?>
                     </div>
 
@@ -137,9 +165,9 @@
                 <div class="row-title">
                     <span>Тип ссылки</span>
 						<span class="link-types">
-							<a href="javascript:;" class="icon-link link" onclick="$('#ELLink_link_type').val(<?=ELLink::TYPE_LINK ?>);">С</a> - ссылка
-							<a href="javascript:;" class="icon-link comment" onclick="$('#ELLink_link_type').val(<?=ELLink::TYPE_COMMENT ?>);">К</a> - комментарий
-							<a href="javascript:;" class="icon-link post" onclick="$('#ELLink_link_type').val(<?=ELLink::TYPE_POST ?>);">П</a> - постовой
+							<a href="javascript:;" class="icon-link link" onclick="ExtLinks.CheckLinkType(this, <?=ELLink::TYPE_LINK ?>)">С</a> - ссылка
+							<a href="javascript:;" class="icon-link comment" onclick="ExtLinks.CheckLinkType(this, <?=ELLink::TYPE_COMMENT ?>)">К</a> - комментарий
+							<a href="javascript:;" class="icon-link post" onclick="ExtLinks.CheckLinkType(this, <?=ELLink::TYPE_POST ?>)">П</a> - постовой
 						</span>
                     <?=$form->hiddenField($model, 'link_type') ?>
                     <?=$form->error($model, 'link_type') ?>
@@ -155,7 +183,7 @@
                 </div>
                 <div class="row-elements">
                     <div class="col col-free">
-                        <input type="checkbox"/>
+                        <input type="checkbox" name="paid_link" />
                     </div>
                     <div class="col col-cost">
                         <?=$form->textField($model, 'link_cost') ?> руб.
@@ -169,7 +197,7 @@
             </div>
 
             <div class="row row-btn">
-                <button class="btn-g">Добавить</button>
+                <button class="btn-g" onclick="$(this).form.submit()">Добавить</button>
             </div>
 
         </div>

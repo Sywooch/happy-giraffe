@@ -76,7 +76,7 @@ class ELSite extends HActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'account' => array(self::HAS_ONE, 'ELAccount', 'site_id'),
-			'link' => array(self::HAS_MANY, 'ELLink', 'site_id'),
+			'links' => array(self::HAS_MANY, 'ELLink', 'site_id'),
 			'tasks' => array(self::HAS_MANY, 'ELTask', 'site_id'),
 		);
 	}

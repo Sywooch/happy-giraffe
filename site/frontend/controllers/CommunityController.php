@@ -63,7 +63,7 @@ class CommunityController extends HController
 
     public function actionList($community_id, $rubric_id = null, $content_type_slug = null)
     {
-        $this->layout = '//layouts/community';
+        $this->layout = ($community_id == Community::COMMUNITY_NEWS) ? '//layouts/news' : '//layouts/community';
         $this->community = Community::model()->with('rubrics')->findByPk($community_id);
         if ($this->community === null)
             throw new CHttpException(404, 'Клуб не найден');
@@ -130,7 +130,7 @@ class CommunityController extends HController
         }
         /* </ИМПОРТ РЕЦЕПТОВ> */
 
-        $this->layout = '//layouts/community';
+        $this->layout = ($community_id == Community::COMMUNITY_NEWS) ? '//layouts/news' : '//layouts/community';
         $content = CommunityContent::model()->full()->findByPk($content_id);
         if ($content === null)
             throw new CHttpException(404, 'Такой записи не существует');
@@ -160,12 +160,20 @@ class CommunityController extends HController
             UserNotification::model()->deleteByEntity(UserNotification::NEW_COMMENT, $content);
         UserNotification::model()->deleteByEntity(UserNotification::NEW_REPLY, $content);
 
-        $this->breadcrumbs = array(
-            'Клубы' => array('/community'),
-            $this->community->title => $this->community->url,
-            $content->rubric->title => $content->rubric->url,
-            $content->title,
-        );
+        if ($community_id !== Community::COMMUNITY_NEWS) {
+            $this->breadcrumbs = array(
+                'Клубы' => array('/community'),
+                $this->community->title => $this->community->url,
+                $content->rubric->title => $content->rubric->url,
+                $content->title,
+            );
+        } else {
+            $this->breadcrumbs = array(
+                $this->community->title => $this->community->url,
+                $content->rubric->title => $content->rubric->url,
+                $content->title,
+            );
+        }
 
         $this->render('view', array(
             'data' => $content,
@@ -245,7 +253,7 @@ class CommunityController extends HController
             }
         }
 
-        $this->render('form', array(
+        $this->render($community_id == Community::COMMUNITY_NEWS ? 'form_news' : 'form', array(
             'model' => $model,
             'slave_model' => $slave_model,
             'communities' => $communities,
@@ -360,7 +368,7 @@ class CommunityController extends HController
         else
             $redirectUrl =Yii::app()->request->urlReferrer;
 
-        $this->render('form', array(
+        $this->render($community_id == Community::COMMUNITY_NEWS ? 'form_news' : 'form', array(
             'model' => $model,
             'slave_model' => $slave_model,
             'communities' => $communities,

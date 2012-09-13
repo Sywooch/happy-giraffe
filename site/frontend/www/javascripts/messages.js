@@ -9,6 +9,9 @@ Messages.open = function(interlocutor_id, type) {
     type = (typeof type === "undefined") ? 0 : type;
     interlocutor_id = (typeof interlocutor_id === "undefined") ? null : interlocutor_id;
 
+    if (Friends.isActive())
+        Friends.close();
+
     if (! Messages.isActive()) {
         $.get('/im/init/', function(data) {
             $('#user-dialogs').show();

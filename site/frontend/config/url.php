@@ -100,7 +100,7 @@ return array(
         'community/<_a:(join|add|transfer|edit|editTravel|weeklyMail)>' => 'community/<_a>',
 
         //global
-        '<_c:(activity|ajax|notification|profile|friendRequests|communityRubric|family|morning)>/<_a>' => '<_c>/<_a>',
+        '<_c:(activity|ajax|notification|profile|friendRequests|communityRubric|family|morning|userPopup)>/<_a>' => '<_c>/<_a>',
         '<_c:(activity|profile|rss|family|morning|community)>' => '<_c>/index',
 
         //others

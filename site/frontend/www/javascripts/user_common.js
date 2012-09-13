@@ -137,31 +137,17 @@ function setMessagesHeight(){
 
 }
 
-function openMessages()
-{
-    $.get('/im/', function(data) {
-        $('body').append(data);
-        $('body').css('overflow', 'hidden');
-        $('body').append('<div id="body-overlay"></div>');
-        $('body').addClass('nav-fixed');
-        $(window).on('resize', function() {
-            setMessagesHeight();
-        })
-    });
+function friendRequest(request_id, action, el) {
+    $.get('/friendRequests/update/', {request_id: request_id, action: action}, function (data, textStatus, jqXHR) {
+        if (jqXHR.status == 200) {
+            if (Friends.isActive() && action == 'accept') {
+                Friends.moveFriend(el);
+            } else {
+                $.fn.yiiListView.update('friendRequestList');
+            }
+            if (Friends.isActive())
+                $('.invitation .friends-count span').text(parseInt($('.invitation .friends-count span').text()) - 1);
+        }
+    })
 }
 
-function closeMessages()
-{
-    $('#user-dialogs').remove();
-    $('body').css('overflow', '');
-    $('#body-overlay').remove();
-    $('body').removeClass('nav-fixed');
-    if (CKEDITOR.instances['Message[text]']) {
-        CKEDITOR.instances['Message[text]'].destroy(true);
-    }
-}
-
-function toggleMessages()
-{
-    ($('#user-dialogs').length > 0) ? closeMessages() : openMessages();
-}

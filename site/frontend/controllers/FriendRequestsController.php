@@ -6,7 +6,7 @@ class FriendRequestsController extends HController
     {
         return array(
             'accessControl',
-            'ajaxOnly + send, delete'
+            'ajaxOnly + send, delete, update'
         );
     }
 
@@ -107,6 +107,7 @@ class FriendRequestsController extends HController
                 $request->delete();
                 break;
         }
-        $this->redirect(Yii::app()->request->urlReferrer);
+        if (! Yii::app()->request->isAjaxRequest)
+            $this->redirect(Yii::app()->request->urlReferrer);
     }
 }

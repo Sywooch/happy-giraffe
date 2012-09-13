@@ -4,7 +4,7 @@
 
     <ul class="clearfix">
         <?php foreach ($friends as $f): ?>
-            <?php $this->render('_friend', array('f' => $f)); ?>
+            <?php $this->render('_friend', array('f' => $f, 'full' => true)); ?>
         <?php endforeach; ?>
 
     </ul>

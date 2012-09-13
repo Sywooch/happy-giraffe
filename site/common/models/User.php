@@ -725,6 +725,10 @@ class User extends HActiveRecord
         ));
     }
 
+    public function getFriendRequestsModels($direction) {
+        return FriendRequest::model()->findAll($this->getFriendRequestsCriteria($direction));
+    }
+
     public function getFriendRequestsCount($direction)
     {
         return FriendRequest::model()->count($this->getFriendRequestsCriteria($direction));

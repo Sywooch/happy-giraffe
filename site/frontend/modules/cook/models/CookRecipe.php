@@ -161,7 +161,7 @@ class CookRecipe extends CActiveRecord
                 ),
                 'order' => 'attachPhoto.created ASC',
             ),
-            'commentsCount' => array(self::STAT, 'Comment', 'entity_id', 'condition' => 'entity = :entity', 'params' => array(':entity' => get_class($this))),
+            'commentsCount' => array(self::STAT, 'Comment', 'entity_id', 'condition' => 'entity = :entity', 'params' => array(':entity' => 'CookRecipe')),
         );
     }
 

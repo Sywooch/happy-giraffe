@@ -431,7 +431,7 @@ class CommunityCommand extends CConsoleCommand
     public function fixRedirectUrls($table, $field_name)
     {
         Yii::import('site.frontend.extensions.phpQuery.phpQuery');
-
+        echo $table."\n";
         $k = 0;
 
         $rows = 1;
@@ -472,7 +472,7 @@ class CommunityCommand extends CConsoleCommand
                 }
 
                 if ($i % 1000 == 0)
-                    echo ($i*1000)."\n";
+                    echo ($i)."\n";
                 $i++;
             }
         }

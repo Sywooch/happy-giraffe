@@ -438,7 +438,7 @@ class CommunityCommand extends CConsoleCommand
         $i = 0;
 
         while (!empty($rows)) {
-            $rows = Yii::app()->db->createCommand()->select('id, ' . $field_name)->from($table)->limit(100)->offset($k * 100)->queryAll();
+            $rows = Yii::app()->db->createCommand()->select('id, ' . $field_name)->from($table)->limit(100)->offset($i * 100)->queryAll();
 
             foreach ($rows as $row) {
                 try {
@@ -471,10 +471,11 @@ class CommunityCommand extends CConsoleCommand
                     echo $error->getMessage() . "\n";
                 }
 
-                if ($i % 1000 == 0)
-                    echo ($i)."\n";
-                $i++;
             }
+            if ($i % 10 == 0)
+                echo ($i*100)."\n";
+
+            $i++;
         }
         return $k;
     }

@@ -32,6 +32,20 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #2371dd;}
 .user-fast-nav > ul > li:first-child {border-left:0;margin-left:0;padding-left:0;}
 .user-fast-nav .drp-list {font-size:11px;}
 
+.pagination {font-size:23px;padding:15px 0;color:#ababab;font-family:times new roman, serif;font-style:italic;line-height:1;}
+.pagination.pagination-center {text-align:center;}
+.pagination .pager {text-align:left;}
+.pagination.pagination-center .pager {text-align:center;}
+.pagination ul {list-style:none;}
+.pagination ul li {display:inline-block;*zoom:1;*display:inline;padding:6px 8px;text-indent:0 !important;margin:0 !important;position:relative;}
+.pagination ul li a {padding:0 3px;display:block;color:#45a5c9;}
+.pagination ul li.selected {background:#f1e4fd;}
+.pagination ul li.selected img {position:absolute;top:-9px;width:100%;left:0;height:9px;}
+.pagination ul li.selected a {color:#7f8181;text-decoration:none;}
+.pagination ul li.previous a, .pagination ul li.next a {}
+.pagination ul li.next a {background-position:-157px -101px;}
+.pagination .hidden {display:none;}
+
 .btn-g {
 	display: inline-block;
   *display: inline;
@@ -62,6 +76,9 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #2371dd;}
 	
 	-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;
 }
+
+.btn-g.small {padding:0px 6px;font-size:11px;-moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px;font-weight:bold;}
+
 
 .btn-g.orange {
 	background-color: #ee7103;
@@ -257,7 +274,7 @@ button.btn-gray-small {height:20px;}
 
 #seo .seo-table {margin-bottom:30px;}
 
-#seo .seo-table .table-title {display:inline-block;*zoom:1;*display:inline;margin-right:30px;font-size:25px;margin-bottom:20px;margin-left:20px;}
+#seo .seo-table .table-title {display:inline-block;*zoom:1;*display:inline;margin-right:30px;font-size:16px;margin-bottom:20px;margin-left:20px;color:#323334;}
 
 #seo .seo-table .table-inline-title {float:left;width:444px;color:#3f8ccd;font-size:16px;text-align:center;margin:40px 0;}
 
@@ -300,6 +317,9 @@ button.btn-gray-small {height:20px;}
 #seo .seo-table.table-green {border-color:#deeeda;}
 #seo .seo-table.table-green .table-box table th {background:#deeeda;color:#37921a;}
 
+#seo .seo-table .table-grey tbody td {color:#565757;}
+
+#seo .seo-table .hl {background:#fcee76;}
 
 #seo .seo-table .table-box table .al {text-align:left;}
 #seo .seo-table .table-box table .ac {text-align:center;}

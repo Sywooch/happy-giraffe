@@ -135,15 +135,13 @@ class CommunityController extends HController
         if ($content === null)
             throw new CHttpException(404, 'Такой записи не существует');
 
+        if ($content->isFromBlog)
+            throw new CHttpException(404, 'Такой записи не существует');
+
         if ($community_id != $content->rubric->community->id || $content_type_slug != $content->type->slug) {
             header("HTTP/1.1 301 Moved Permanently");
             header("Location: " . $content->url);
             Yii::app()->end();
-        }
-
-        if ($content->isFromBlog) {
-            $this->layout = '//layouts/user_blog';
-            $this->user = $content->rubric->user;
         }
 
         if (!empty($content->uniqueness) && $content->uniqueness < 50)

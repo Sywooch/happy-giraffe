@@ -341,20 +341,6 @@ class CommunityCommand extends CConsoleCommand
 
     }
 
-    public function actionCheckNameFamous()
-    {
-        Yii::import('site.frontend.modules.services.modules.names.models.*');
-        Yii::import('site.frontend.components.ManyToManyBehavior');
-        $names = Name::model()->findAll();
-        foreach ($names as $name) {
-            foreach ($name->famous as $famous) {
-                $path = Yii::getPathOfAlias('site.frontend.www') . DIRECTORY_SEPARATOR . $famous->uploadTo() . $famous->photo;
-                if (!file_exists($path))
-                    echo 'http://www.happy-giraffe.ru/names/' . $name->slug . "\n";
-            }
-        }
-    }
-
     public function actionRemoveDeletedVideo($thread)
     {
         $this->getProxy();
@@ -455,10 +441,10 @@ class CommunityCommand extends CConsoleCommand
             foreach ($rows as $row) {
                 try {
                     $doc = phpQuery::newDocumentXHTML($row[$field_name], $charset = 'utf-8');
-                    $links = $doc->find('a');
+                    $links = $doc->find('img');
 
                     foreach ($links as $link) {
-                        $url = pq($link)->attr('href');
+                        $url = pq($link)->attr('src');
                         $parsed_url = parse_url($url);
 
                         if (isset($parsed_url['host']) and strpos($parsed_url['host'], 'happy-giraffe') === false) {

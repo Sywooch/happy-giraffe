@@ -92,7 +92,7 @@
                                 </div>
                             </li>
                             <li id="user-nav-friends">
-                                <a href="javascript:void(0)" onclick="Friends.toggle()"><i class="icon icon-friends"></i><span class="count">0</span></a>
+                                <a href="#"><i class="icon icon-friends"></i><span class="count">0</span></a>
                                 <div class="drp drp-closable">
                                     <div class="drp-title">Друзья</div>
                                     <ul class="list"></ul>

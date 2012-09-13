@@ -6,4 +6,16 @@ class ForumsController extends ELController
 	{
 		$this->render('index');
 	}
+
+    public function actionTasks(){
+
+    }
+
+    public function actionExecuted(){
+
+    }
+
+    public function actionReports(){
+
+    }
 }

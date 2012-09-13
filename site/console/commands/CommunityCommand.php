@@ -439,7 +439,10 @@ class CommunityCommand extends CConsoleCommand
         $i = 0;
 
         while (!empty($rows)) {
-            $rows = Yii::app()->db->createCommand()->select('id, ' . $field_name)->from($table)->limit(100)->offset($i * 100)->queryAll();
+            if ($table == 'community__posts')
+                $rows = Yii::app()->db->createCommand()->select('id, content_id, ' . $field_name)->from($table)->limit(100)->offset($i * 100)->queryAll();
+            else
+                $rows = Yii::app()->db->createCommand()->select('id, ' . $field_name)->from($table)->limit(100)->offset($i * 100)->queryAll();
 
             foreach ($rows as $row) {
                 try {
@@ -455,7 +458,11 @@ class CommunityCommand extends CConsoleCommand
                             $effectiveUrl = $this->getEffectiveUrl($url);
 
                             if ($effectiveUrl !== false) {
-                                echo $row['id'].'-'.$url . ' -> ' . $effectiveUrl . ' REDIRECT' . "\r\n";
+                                if (isset($row['content_id']))
+                                    echo $row['content_id'].'-'.$url . ' -> ' . $effectiveUrl . ' REDIRECT' . "\r\n";
+                                else
+                                    echo $row['id'].'-'.$url . ' -> ' . $effectiveUrl . ' REDIRECT' . "\r\n";
+
                                 pq($link)->attr('src', $effectiveUrl);
                                 $field_value = $doc->html();
 

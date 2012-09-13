@@ -456,7 +456,7 @@ class CommunityCommand extends CConsoleCommand
 
                             if ($effectiveUrl !== false) {
                                 echo $url . ' -> ' . $effectiveUrl . ' REDIRECT' . "\r\n";
-                                pq($link)->attr('href', $effectiveUrl);
+                                pq($link)->attr('src', $effectiveUrl);
                                 $field_value = $doc->html();
 
                                 Yii::app()->db->createCommand()->update($table, array($field_name => $field_value), 'id=' . $row['id']);

@@ -453,7 +453,8 @@ class CommunityCommand extends CConsoleCommand
                         $url = pq($link)->attr('src');
                         $parsed_url = parse_url($url);
 
-                        if (isset($parsed_url['host']) and strpos($parsed_url['host'], 'happy-giraffe') === false) {
+                        if (isset($parsed_url['host']) && strpos($parsed_url['host'], 'happy-giraffe') === false
+                            && strpos($parsed_url['host'], 'odnoklassniki.ru') === false) {
 
                             $effectiveUrl = $this->getEffectiveUrl($url);
 

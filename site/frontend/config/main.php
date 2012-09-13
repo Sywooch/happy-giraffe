@@ -341,7 +341,7 @@ return array(
                     'sitemap.xml' => array(
                         'aliases' => array(
                             'application.controllers',
-                            /*'application.modules.cook.controllers.RecipeController',
+                            'application.modules.cook.controllers.RecipeController',
                             'application.modules.services.modules.recipeBook.controllers',
                             'application.modules.services.modules.names.controllers',
                             'application.modules.services.modules.childrenDiseases.controllers',
@@ -354,7 +354,7 @@ return array(
                             'application.modules.services.modules.babyBloodGroup.controllers',
                             'application.modules.services.modules.repair.controllers',
                             'application.modules.services.modules.horoscope.controllers',
-                            'application.modules.services.modules.test.controllers',*/
+                            'application.modules.services.modules.test.controllers',
                         ),
                     ),
                 ),

@@ -455,7 +455,7 @@ class CommunityCommand extends CConsoleCommand
                             $effectiveUrl = $this->getEffectiveUrl($url);
 
                             if ($effectiveUrl !== false) {
-                                echo $url . ' -> ' . $effectiveUrl . ' REDIRECT' . "\r\n";
+                                echo $row['id'].'-'.$url . ' -> ' . $effectiveUrl . ' REDIRECT' . "\r\n";
                                 pq($link)->attr('src', $effectiveUrl);
                                 $field_value = $doc->html();
 

@@ -423,9 +423,9 @@ class CommunityCommand extends CConsoleCommand
 
     public function actionFixRedirectUrls()
     {
-        echo $this->fixRedirectUrls('cook__recipes', 'text') . "\n";
         echo $this->fixRedirectUrls('community__posts', 'text') . "\n";
         echo $this->fixRedirectUrls('community__contents', 'preview') . "\n";
+        echo $this->fixRedirectUrls('cook__recipes', 'text') . "\n";
         echo $this->fixRedirectUrls('comments', 'text') . "\n";
     }
 

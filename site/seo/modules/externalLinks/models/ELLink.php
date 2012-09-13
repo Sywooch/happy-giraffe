@@ -10,6 +10,7 @@
  * @property string $our_link
  * @property string $author_id
  * @property string $created
+ * @property string $check_link_time
  * @property integer $link_type
  * @property double $link_cost
  * @property integer $system_id
@@ -134,7 +135,6 @@ class ELLink extends HActiveRecord
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
-            'pagination' => array('pageSize' => 2),
         ));
     }
 
@@ -156,12 +156,37 @@ class ELLink extends HActiveRecord
 
     public static function checkCount()
     {
-        return 0;
+        return ELLink::model()->count('check_link_time < "' . date("Y-m-d H:i:s") . '"');
+    }
+
+    public function nextCheckTime()
+    {
+        $days = (time() - strtotime($this->created))/(3600*24);
+
+        if ($days >= 29)
+            $this->check_link_time = date("Y-m-d H:i:s", strtotime('+1 month'));
+        elseif ($days >= 14)
+            $this->check_link_time = date("Y-m-d H:i:s", strtotime('+15 days'));
+        elseif ($days >= 7)
+            $this->check_link_time = date("Y-m-d H:i:s", strtotime('+7 days'));
+        else
+            $this->check_link_time = date("Y-m-d H:i:s", strtotime('+4 days'));
+
+        return $this->save();
+    }
+
+    public function addToBlacklist()
+    {
+        $this->check_link_time = null;
+        $this->save();
+
+        $this->site->status = ELSite::STATUS_BLACKLIST;
+        return $this->site->save();
     }
 
     public function getPageTitle()
     {
-        $model = Page::model()->findByAttributes(array('url'=>$this->our_link));
+        $model = Page::model()->findByAttributes(array('url' => $this->our_link));
         if ($model !== null)
             return $model->getArticleTitle();
         return '';
@@ -175,10 +200,19 @@ class ELLink extends HActiveRecord
             return '<span class="icon-link active post">П</span>';
         if ($this->link_type == self::TYPE_COMMENT)
             return '<span class="icon-link comment active">К</span>';
+
+        return '';
     }
 
     public function getLinkPrice()
     {
         return $this->link_cost;
+    }
+
+    public function getUrlWithEmphasizedHost()
+    {
+        $parse = parse_url($this->url);
+
+        return '<span class="hl">' . $parse['scheme'] . '://' . $parse['host'] . '</span>' . $parse['path'];
     }
 }

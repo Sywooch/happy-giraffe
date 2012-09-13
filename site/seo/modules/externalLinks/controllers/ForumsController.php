@@ -1,6 +1,6 @@
 <?php
 
-class ForumsController extends SController
+class ForumsController extends ELController
 {
 	public function actionIndex()
 	{

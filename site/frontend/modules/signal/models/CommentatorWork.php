@@ -301,6 +301,9 @@ class CommentatorWork extends EMongoDocument
             if (in_array($post->rubric->community_id, $this->clubs))
                 $count++;
 
+        if (in_array(22, $this->clubs))
+            $count = $count + count($this->recipes());
+
         return $count;
     }
 

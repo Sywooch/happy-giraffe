@@ -438,6 +438,7 @@ class CommunityCommand extends CConsoleCommand
         while (!empty($rows)) {
             $rows = Yii::app()->db->createCommand()->select('id, ' . $field_name)->from($table)->limit(100)->offset($k * 100)->queryAll();
 
+            $i = 0;
             foreach ($rows as $row) {
                 try {
                     $doc = phpQuery::newDocumentXHTML($row[$field_name], $charset = 'utf-8');
@@ -459,8 +460,6 @@ class CommunityCommand extends CConsoleCommand
                                 Yii::app()->db->createCommand()->update($table, array($field_name => $field_value), 'id=' . $row['id']);
 
                                 $k++;
-                                if ($k % 100 == 0)
-                                    echo ($k*100)."\n";
                             } else {
                                 //echo $url . ' is OK' . "\r\n";
                             }
@@ -470,6 +469,10 @@ class CommunityCommand extends CConsoleCommand
                 } catch (Exception $error) {
                     echo $error->getMessage() . "\n";
                 }
+
+                if ($i % 1000 == 0)
+                    echo ($i*1000)."\n";
+                $i++;
             }
         }
         return $k;

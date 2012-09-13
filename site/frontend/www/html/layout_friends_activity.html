@@ -28,46 +28,71 @@
 	
 	<script>
 	
+		var friendsCarousel;
+		var friendsCarouselHold = false;
+	
 		$(function(){
 			
-			userDialogsCalc(); // append
+			friendsCarousel = $('#user-friends .jcarousel').jcarousel({wrap:'circular'});
 			
 		})
 		
-		$(window).bind('resize', function(){
-		
-			userDialogsCalc();
+		function moveFriend(el){
 			
-		})
-		
-		function userDialogsCalc(){
-			
-			var box = $('#user-dialogs');
-			
-			var windowH = $(window).height();
-			var headerH = 90;
-			var textareaH = 100;
-			var wannachatH = 140;
-			var userH = 110;
-			var marginH = 30;
-			
-			var hasWannachat = box.hasClass('has-wannachat') ? 1 : 0;
-			
-			var generalH = windowH - marginH*2 - headerH;
-			if (generalH < 400) generalH = 400;
-			
-			box.find('.contacts').height(generalH);
-			box.find('.dialog').height(generalH);
-			
-			box.find('.contacts .list').height(generalH - wannachatH*hasWannachat);
-			box.find('.dialog .dialog-messages').height(generalH - textareaH - userH);
+			if (!friendsCarouselHold){
+				
+				friendsCarouselHold = true;
+				
+				var count = friendsCarousel.find('li').size();
+				
+				var li = $(el).parents('li');
+				$('body').append('<div id="moveFriend"></div>')
+				
+				li.addClass('hide');
+				
+				$('#moveFriend').html(li.html());
+				
+				var moveItemT = li.offset().top;
+				var moveItemL = li.offset().left;
+				
+				var moveAreaT = $('#moveFriendArea').offset().top;
+				var moveAreaL = $('#moveFriendArea').offset().left;
+				
+				$('#moveFriend').css({left: moveItemL, top: moveItemT}).animate({left: moveAreaL, top: moveAreaT, opacity:0.4}, 500, function(){
+					
+					$('#moveFriendArea').html($('#moveFriend').html());
+					
+					$('#moveFriendArea').find('.user-fast-buttons .accept, .user-fast-buttons .remove').remove();
+					$('#moveFriendArea').find('.user-fast-buttons').prepend('<span class="friend">друг</span>');
+					
+					$('#moveFriend').remove();
+
+					$('#friendsCount').html(parseInt($('#friendsCount').html())+1);
+					
+					if (count>1) {
 						
+						li.animate({width: 0, padding: 0}, 200, function(){
+							$(this).remove();
+							friendsCarousel.jcarousel('reload');
+							friendsCarouselHold = false;
+						})
+						
+					} else {
+						friendsCarousel.jcarousel('reload');
+						$('#user-friends .invitation').remove();
+					}
+					
+					
+					
+				});
+				
+			}
 		}
 		
 	</script>
 	
 </head>
-<body class="body-club nav-fixed" style="overflow:hidden;">
+<body class="body-club nav-fixed">
 	
 	<div id="layout" class="wrapper">
 	
@@ -1306,11 +1331,12 @@
 		
 			<div class="invitation">
 				
-				<div class="friends-count">18 <a href="" class="more"><i class="icon"></i></a></div>
+				<div class="friends-count">18 <a href="javascript:void(0);" onclick="friendsCarousel.jcarousel('scroll', '+=1');" class="more"><i class="icon"></i></a></div>
 				
 				<div class="block-title">У вас новые предложения дружбы</div>
 				
-				<ul>
+				<div class="jcarousel">
+					<ul>
 						
 						<li>
 							
@@ -1319,9 +1345,9 @@
 									<a class="ava female"></a>
 									<div class="details">
 										<span class="icon-status status-online"></span>
-										<a href="" class="username">Богоявленский</a>
+										<a href="" class="username">11111111</a>
 										<div class="user-fast-buttons">
-											<a href="" class="accept">Принять</a>
+											<a href="javascript:void(0);" onclick="moveFriend(this);" class="accept">Принять</a>
 											<a class="remove tooltip" href="" title="удалить из друзей"></a>
 											<a href="" class="new-message"><span class="tip">Написать сообщение</span></a>
 										</div>
@@ -1338,9 +1364,9 @@
 									<a class="ava female"></a>
 									<div class="details">
 										<span class="icon-status status-online"></span>
-										<a href="" class="username">Богоявленский</a>
+										<a href="" class="username">2222222222</a>
 										<div class="user-fast-buttons">
-											<a href="" class="accept">Принять</a>
+											<a href="javascript:void(0);" onclick="moveFriend(this);" class="accept">Принять</a>
 											<a class="remove tooltip" href="" title="удалить из друзей"></a>
 											<a href="" class="new-message"><span class="tip">Написать сообщение</span></a>
 										</div>
@@ -1357,9 +1383,9 @@
 									<a class="ava female"></a>
 									<div class="details">
 										<span class="icon-status status-online"></span>
-										<a href="" class="username">Богоявленский</a>
+										<a href="" class="username">333333333</a>
 										<div class="user-fast-buttons">
-											<a href="" class="accept">Принять</a>
+											<a href="javascript:void(0);" onclick="moveFriend(this);" class="accept">Принять</a>
 											<a class="remove tooltip" href="" title="удалить из друзей"></a>
 											<a href="" class="new-message"><span class="tip">Написать сообщение</span></a>
 										</div>
@@ -1376,9 +1402,47 @@
 									<a class="ava female"></a>
 									<div class="details">
 										<span class="icon-status status-online"></span>
-										<a href="" class="username">Богоявленский</a>
+										<a href="" class="username">4444444444</a>
 										<div class="user-fast-buttons">
-											<a href="" class="accept">Принять</a>
+											<a href="javascript:void(0);" onclick="moveFriend(this);" class="accept">Принять</a>
+											<a class="remove tooltip" href="" title="удалить из друзей"></a>
+											<a href="" class="new-message"><span class="tip">Написать сообщение</span></a>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+						</li>
+					
+						<li>
+							
+							<div class="clearfix">
+								<div class="user-info medium">
+									<a class="ava female"></a>
+									<div class="details">
+										<span class="icon-status status-online"></span>
+										<a href="" class="username">55555555555</a>
+										<div class="user-fast-buttons">
+											<a href="javascript:void(0);" onclick="moveFriend(this);" class="accept">Принять</a>
+											<a class="remove tooltip" href="" title="удалить из друзей"></a>
+											<a href="" class="new-message"><span class="tip">Написать сообщение</span></a>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+						</li>
+					
+						<li>
+							
+							<div class="clearfix">
+								<div class="user-info medium">
+									<a class="ava female"></a>
+									<div class="details">
+										<span class="icon-status status-online"></span>
+										<a href="" class="username">6666666666</a>
+										<div class="user-fast-buttons">
+											<a href="javascript:void(0);" onclick="moveFriend(this);" class="accept">Принять</a>
 											<a class="remove tooltip" href="" title="удалить из друзей"></a>
 											<a href="" class="new-message"><span class="tip">Написать сообщение</span></a>
 										</div>
@@ -1389,7 +1453,7 @@
 						</li>
 					
 					</ul>
-				
+				</div>
 			</div>
 			
 			<div class="find-friend">
@@ -1516,27 +1580,32 @@
 				<div class="block-title">Мои друзья</div>
 				
 				<div class="clearfix">
-					
-					<div class="user-info medium">
-						<a class="ava female"></a>
-						<div class="details">
-							<span class="icon-status status-online"></span>
-							<a href="" class="username">Богоявленский Александр</a>
-							<div class="user-fast-buttons">
-								<span class="friend">друг</span>
-								<a href="" class="new-message"><span class="tip">Написать сообщение</span></a>
+					<div id="moveFriendArea">
+					 
+						<div class="clearfix">
+							<div class="user-info medium">
+								<a class="ava female"></a>
+								<div class="details">
+									<span class="icon-status status-online"></span>
+									<a href="" class="username">Богоявленский Александр</a>
+									<div class="user-fast-buttons">
+										<span class="friend">друг</span>
+										<a href="" class="new-message"><span class="tip">Написать сообщение</span></a>
+									</div>
+								</div>
 							</div>
 						</div>
+						
 					</div>
 				
 					<div class="become-friends"><i class="icon"></i>Подружились</div>
-				
+					
 					<div class="date">Сегодня<br/>13:25</div>
-				
+					
 				</div>
 				
 				<div class="all-link">
-					<a href=""><i class="icon"></i>Все мои друзья (26)</a>
+					<a href=""><i class="icon"></i>Все мои друзья (<span id="friendsCount">26</span>)</a>
 				</div>
 				
 			</div>

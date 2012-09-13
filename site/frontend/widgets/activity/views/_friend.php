@@ -16,13 +16,13 @@
 
     <div class="clearfix user-info-big">
         <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
-        'user' => $f, 'location' => false, 'friendButton' => true
-    )); ?>
-        <?php if ($f->status): ?>
-        <div class="text-status">
-            <span class="tale"></span>
-            <?=$f->status->text?>
-        </div>
+            'user' => $f, 'location' => false, 'friendButton' => true
+        )); ?>
+        <?php if ($full && $f->status): ?>
+            <div class="text-status">
+                <span class="tale"></span>
+                <?=$f->status->text?>
+            </div>
         <?php endif; ?>
     </div>
 
@@ -34,7 +34,7 @@
         <?php endif; ?>
 
         <p>
-            <?=$f->normalizedAge?>, <?=$f->RelationshipStatusString?> &nbsp;
+            <?=$f->normalizedAge?>, <?=mb_strtolower($f->RelationshipStatusString, 'UTF-8')?> &nbsp;
             <?php if ($f->babies): ?>
             <?php foreach ($f->babies as $b): ?>
                 <?php if ($b->type == 1): ?>
@@ -46,18 +46,20 @@
             <?php endif; ?>
         </p>
 
-        <div class="interests">
-            <?php foreach ($_interests as $category_id => $interests): ?>
-            <div class="interest-cat">
-                <img src="/images/interest_icon_<?=$category_id?>.png"/>
-            </div>
-            <ul class="interests-list">
-                <?php foreach ($interests as $i): ?>
-                <li><a class="interest"><?=$i->title?></a></li>
+        <?php if ($full): ?>
+            <div class="interests">
+                <?php foreach ($_interests as $category_id => $interests): ?>
+                <div class="interest-cat">
+                    <img src="/images/interest_icon_<?=$category_id?>.png"/>
+                </div>
+                <ul class="interests-list">
+                    <?php foreach ($interests as $i): ?>
+                    <li><a class="interest"><?=$i->title?></a></li>
+                    <?php endforeach; ?>
+                </ul>
                 <?php endforeach; ?>
-            </ul>
-            <?php endforeach; ?>
-        </div>
+            </div>
+        <?php endif; ?>
 
     </div>
 

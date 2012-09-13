@@ -211,7 +211,7 @@
 #user .user-blog ul li a {font-weight:bold;}
 #user .user-blog ul li .date {color:#b6b9ba;font-size:9px;font-family:tahoma, arial, helvetica, sans-serif;margin:6px 0 8px;}
 #user .user-blog ul li img {max-width:140px;}
-#user .user-blog ul li p {font-size:11px;}
+#user .user-blog ul li p {font-size:12px;line-height:19px;}
 #user .user-blog .box-title .btn {margin-right:0;margin-top:-2px;}
 
 #user .user-photo-add {padding:5px;border:1px solid #e8e8e8;}

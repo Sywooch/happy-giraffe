@@ -25,6 +25,10 @@ class ELLink extends HActiveRecord
     const TYPE_LINK = 1;
     const TYPE_COMMENT = 2;
     const TYPE_POST = 3;
+
+    public $anchor1;
+    public $anchor2;
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -64,6 +68,7 @@ class ELLink extends HActiveRecord
 			array('link_cost', 'numerical'),
 			array('site_id, author_id', 'length', 'max'=>11),
 			array('url', 'length', 'max'=>2048),
+            array('anchor1, anchor2', 'length', 'max'=>255),
 			array('our_link', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.

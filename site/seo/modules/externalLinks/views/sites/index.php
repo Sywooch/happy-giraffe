@@ -109,8 +109,9 @@
                     <span>Анкор</span>
                 </div>
                 <div class="row-elements">
-                    <input type="text"/> <a href="" class="icon-btn-add"></a>
-                    <input type="text"/>
+                    <?=$form->textField($model, 'anchor1') ?>
+                    <a href="javascript:;" class="icon-btn-add" onclick="$(this).hide().next().show()"></a>
+                    <?=$form->textField($model, 'anchor2', array('style'=>'display:none;')) ?>
                 </div>
             </div>
 

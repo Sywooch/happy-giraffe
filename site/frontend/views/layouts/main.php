@@ -34,6 +34,8 @@
         ->registerScriptFile('/javascripts/base64.js')
         ->registerScriptFile('/javascripts/jquery.tooltip.pack.js')
         ->registerScriptFile('/javascripts/jquery.dataSelector.js')
+        ->registerScriptFile('/javascripts/jquery.jcarousel.js')
+        ->registerScriptFile('/javascripts/jquery.jcarousel.control.js')
     ;
 
     $cs->registerMetaTag(trim($this->meta_description), 'description');

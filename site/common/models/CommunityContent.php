@@ -620,6 +620,10 @@ class CommunityContent extends HActiveRecord
 
     public function canEdit()
     {
+        if ($this->rubric->community_id == Community::COMMUNITY_NEWS) {
+            return Yii::app()->authManager->checkAccess('news', Yii::app()->user->id);
+        }
+
         if (Yii::app()->user->model->role == 'user') {
             if ($this->author_id == Yii::app()->user->id)
                 return true;
@@ -630,6 +634,10 @@ class CommunityContent extends HActiveRecord
 
     public function canRemove()
     {
+        if ($this->rubric->community_id == Community::COMMUNITY_NEWS) {
+            return Yii::app()->authManager->checkAccess('news', Yii::app()->user->id);
+        }
+
         if (Yii::app()->user->model->role == 'user') {
             if ($this->author_id == Yii::app()->user->id)
                 return true;

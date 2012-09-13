@@ -13,6 +13,7 @@
 class Community extends HActiveRecord
 {
     const USERS_COMMUNITY = 999999;
+    const COMMUNITY_NEWS = 36;
 	private $_typeCounts = null;
 
 	public function getCount($type_id = null)
@@ -159,7 +160,8 @@ class Community extends HActiveRecord
     {
         return array(
             'public' => array(
-                'condition' => 'id != 999999',
+                'condition' => 'id != :news_community',
+                'params' => array(':news_community' => self::COMMUNITY_NEWS),
             ),
         );
     }

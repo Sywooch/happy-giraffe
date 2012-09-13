@@ -141,7 +141,7 @@ class Im
 
             //check online status
             if ($dialogUser->user_id != $this->_user_id) {
-                if ($dialogUser->user->online)
+                if (isset($dialogUser->user) && $dialogUser->user->online)
                     $online_count++;
             }
         }

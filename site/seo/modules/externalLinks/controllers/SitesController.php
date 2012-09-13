@@ -1,18 +1,7 @@
 <?php
 
-class SitesController extends SController
+class SitesController extends ELController
 {
-    public $layout = '/layouts/externalLinks';
-    public $icon = 2;
-    public $pageTitle = 'Внешние ссылки';
-
-    public function beforeAction($action)
-    {
-        if (!Yii::app()->user->checkAccess('externalLinks-manager-panel'))
-            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
-        return true;
-    }
-
     public function actionIndex()
     {
         $this->render('index');
@@ -27,7 +16,6 @@ class SitesController extends SController
         $count = ELLink::model()->count($dataProvider->criteria);
 
         $pages = new CPagination($count);
-        $pages->pageSize = 2;
         $pages->currentPage = $page;
         $pages->applyLimit($dataProvider->criteria);
 

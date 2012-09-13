@@ -1,6 +1,6 @@
 <?php
 
-class TasksController extends SController
+class TasksController extends ELController
 {
 	public function actionIndex()
 	{

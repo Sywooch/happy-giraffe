@@ -47,10 +47,8 @@
             <tbody>
             <?php foreach ($models as $model): ?>
             <tr>
-                <td style="vertical-align: top;"><a href="<?=$model->url?>"><span class="hl"><?=$model->url?></span></a>
-                </td>
-                <td><a href="<?=$model->our_link?>" target="_blank"><?=$model->our_link?></a><br><?=$model->getPageTitle() ?>
-                </td>
+                <td style="vertical-align: top;"><a href="<?=$model->url?>" target="_blank"><?=$model->getUrlWithEmphasizedHost() ?></a></td>
+                <td><a href="<?=$model->our_link?>" target="_blank"><?=$model->our_link?></a><br><?=$model->getPageTitle() ?></td>
                 <td class="ac">
                     <?=$model->getLinkTypeText()?>
                 </td>
@@ -61,7 +59,6 @@
                     <span class="date"><?=Yii::app()->dateFormatter->format('d MMM yyyy',strtotime($model->created))?></span>
                     <?=$model->author->name ?>
                 </td>
-
             </tr>
                 <?php endforeach; ?>
 
@@ -82,3 +79,9 @@
 
 
 </div>
+
+<style type="text/css">
+    .yiiPager .first, .yiiPager .previous, .yiiPager .next, .yiiPager .last {
+        display: none;
+    }
+</style>

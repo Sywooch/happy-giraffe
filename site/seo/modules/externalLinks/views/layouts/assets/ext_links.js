@@ -24,7 +24,7 @@ var ExtLinks = {
     CancelSite:function () {
         ExtLinks.ClearFrom();
     },
-    AddSite:function(){
+    AddSite:function () {
         $.post('/externalLinks/sites/addSite/', {url:$('#site_url').val()}, function (response) {
             if (response.status) {
                 $('#ELLink_site_id').val(response.id);
@@ -49,12 +49,12 @@ var ExtLinks = {
                 });
         }, 'json');
     },
-    CheckLinkType:function(el, type){
+    CheckLinkType:function (el, type) {
         $('#ELLink_link_type').val(type);
         $('.link-types .icon-link').removeClass('active');
         $(el).addClass('active')
     },
-    ClearFrom:function(){
+    ClearFrom:function () {
         $('div.form').hide();
         $('.url-actions').hide();
         $('#site_url').val('');
@@ -68,5 +68,19 @@ var ExtLinks = {
 
         $('input [name="paid_link"]').attr('checked', false);
         $('#ELLink_link_cost').val('');
+    },
+    Checked:function (el, id, success) {
+        $.post('/externalLinks/check/checked/', {id:id, success:success}, function (response) {
+            if (response.status) {
+                $(el).parents('tr').remove();
+                $('div.count a').text(parseInt($('div.count a').text()) - 1);
+            } else
+                $.pnotify({
+                    pnotify_title:'Ошибка',
+                    pnotify_type:'error',
+                    pnotify_text:'Ошибка, обратитесь к разработчикам'
+                });
+
+        }, 'json');
     }
 }

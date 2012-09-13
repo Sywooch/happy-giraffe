@@ -21,5 +21,7 @@ return array(
         'commentators/<period:[\w-]+>/<day:\d+>'=>'commentators/default/index',
         'commentators/<period:[\w-]+>'=>'commentators/default/index',
         'commentators'=>'commentators/default/index',
+
+        'externalLinks/sites/reports/<page:[\d]+>'=>'externalLinks/sites/reports',
     ),
 );

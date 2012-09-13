@@ -18,9 +18,22 @@ class SitesController extends SController
         $this->render('index');
     }
 
-    public function actionReports()
+    public function actionReports($page = 0)
     {
-        $this->render('reports');
+        $model = new ELLink();
+
+        $dataProvider = $model->search();
+        $criteria = $dataProvider->criteria;
+        $count = ELLink::model()->count($dataProvider->criteria);
+
+        $pages = new CPagination($count);
+        $pages->pageSize = 2;
+        $pages->currentPage = $page;
+        $pages->applyLimit($dataProvider->criteria);
+
+        $models = ELLink::model()->findAll($criteria);
+
+        $this->render('reports', compact('models', 'pages'));
     }
 
     public function actionCheckSite()
@@ -39,11 +52,39 @@ class SitesController extends SController
                 $response = array(
                     'type' => 3,
                 );
-            else
+            elseif (!empty($model->links))
                 $response = array(
                     'type' => 2,
+                    'links' => $this->renderPartial('_links', array('links'=>$model->links), true)
+                );
+            else
+                $response = array(
+                    'type' => 1,
                 );
         }
+
+        echo CJSON::encode($response);
+    }
+
+    public function actionAddSite()
+    {
+        $url = Yii::app()->request->getPost('url');
+        $parse = parse_url($url);
+        $host = $parse['host'];
+
+        $model = ELSite::model()->findByAttributes(array('url' => $host));
+        if ($model === null) {
+            $model = new ELSite;
+            $model->url = $host;
+            if ($model->save()) {
+                $response = array(
+                    'status' => true,
+                    'id' => $model->id
+                );
+            } else
+                $response = array('status' => false);
+        } else
+            $response = array('status' => true, 'id' => $model->id);
 
         echo CJSON::encode($response);
     }
@@ -81,6 +122,29 @@ class SitesController extends SController
 
     public function actionAdd()
     {
+        $model = new ELLink();
+        if (Yii::app()->request->getPost('paid_link') == 'on')
+            $model->scenario = 'paid';
 
+        $model->attributes = Yii::app()->request->getPost('ELLink');
+
+        if (!empty($_POST['ELLink']['anchors'])) {
+            $result = array();
+            foreach ($_POST['ELLink']['anchors'] as $anchor) {
+                $anchor = trim($anchor);
+                if (!empty($anchor))
+                    $result [] = Keyword::GetKeyword($anchor);
+            }
+            $model->keywords = $result;
+        }
+
+        echo CActiveForm::validate($model);
+
+        if ($model->validate()) {
+            $model->site->status = 0;
+            $model->site->save();
+            if (!$model->withRelated->save(true, array('keywords')))
+                var_dump($model->getErrors());
+        }
     }
 }

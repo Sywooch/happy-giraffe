@@ -34,6 +34,8 @@
         ->registerScriptFile('/javascripts/base64.js')
         ->registerScriptFile('/javascripts/jquery.tooltip.pack.js')
         ->registerScriptFile('/javascripts/jquery.dataSelector.js')
+        ->registerScriptFile('/javascripts/jquery.jcarousel.js')
+        ->registerScriptFile('/javascripts/jquery.jcarousel.control.js')
     ;
 
     $cs->registerMetaTag(trim($this->meta_description), 'description');
@@ -90,7 +92,7 @@
                                 </div>
                             </li>
                             <li id="user-nav-friends">
-                                <a href="#"><i class="icon icon-friends"></i><span class="count">0</span></a>
+                                <a href="javascript:void(0)" onclick="Friends.toggle()"><i class="icon icon-friends"></i><span class="count">0</span></a>
                                 <div class="drp drp-closable">
                                     <div class="drp-title">Друзья</div>
                                     <ul class="list"></ul>

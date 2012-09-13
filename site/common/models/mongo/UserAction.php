@@ -190,4 +190,30 @@ class UserAction extends EMongoDocument
 
         return $criteria;
     }
+
+    public function getText()
+    {
+        $user = User::model()->findByPk($this->user_id);
+        $userLink = CHtml::link($user->name, $user->url);
+        switch ($this->type) {
+            case self::USER_ACTION_PHOTOS_ADDED:
+                $album = Album::model()->findByPk($this->data['id']);
+                $text = $userLink . ' ' . (($user->gender == 0) ? 'добавила' : 'добавил') . 'новые фото <b>в альбом</b> ' . CHtml::link($album->title, $album->url);
+                break;
+            case self::USER_ACTION_COMMUNITY_CONTENT_ADDED:
+                $content = CommunityContent::model()->findByPk($this->data['id']);
+                $text = $userLink . ' ' . (($user->gender == 0) ? 'добавила' : 'добавил') . 'запись <b>в клубе</b> ' . CHtml::link($content->rubric->community->title, $content->rubric->community->url);
+                break;
+            case self::USER_ACTION_BLOG_CONTENT_ADDED:
+                $text = $userLink . ' ' . (($user->gender == 0) ? 'добавила' : 'добавил') . 'запись <b>в свой блог</b>';
+                break;
+            case self::USER_ACTION_DUEL:
+                $text = $userLink . ' ' . (($user->gender == 0) ? 'поучастововала' : 'поучастовал') . '<b>в дуэли</b>';
+                break;
+            default:
+                $text = null;
+        }
+
+        return $text;
+    }
 }

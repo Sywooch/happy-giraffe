@@ -17,5 +17,5 @@
             ?>
         </div>
     </div>
-    <div class="item-title"><?=$data->title;?></div>
+    <div class="item-title"><?=$data->title?></div>
 </li>

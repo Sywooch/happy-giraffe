@@ -85,6 +85,11 @@ return array(
         'blog/<_a:(add|empty)>' => 'blog/<_a>',
 
         // community/*
+        'community/36.*' => 404,
+        'news/rubric<rubric_id:\d+>' => array('community/list', 'defaultParams' => array('community_id' => 36)),
+        'news' => array('community/list', 'defaultParams' => array('community_id' => 36)),
+        'news/<content_type_slug:[a-z]+><content_id:\d+>' => array('community/view', 'defaultParams' => array('community_id' => 36)),
+
         'community/<community_id:\d+>/forum/rubric/<rubric_id:\d+>/<content_type_slug:\w+>' => 'community/list',
         'community/<community_id:\d+>/forum/rubric/<rubric_id:\d+>' => 'community/list',
         'community/<community_id:\d+>/forum/<content_type_slug:\w+>' => 'community/list',

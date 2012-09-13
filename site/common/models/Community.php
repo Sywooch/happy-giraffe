@@ -160,7 +160,8 @@ class Community extends HActiveRecord
     {
         return array(
             'public' => array(
-                'condition' => 'id != 999999',
+                'condition' => 'id != :news_community',
+                'params' => array(':news_community' => self::COMMUNITY_NEWS),
             ),
         );
     }

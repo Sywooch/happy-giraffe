@@ -10,7 +10,7 @@
             </div>
             <ul>
                 <?php foreach ($category->interests as $interest): ?>
-                    <li><a class="interest"><?=$interest->title?><span><?=$interest->usersCount?></span></a></li>
+                    <li><span class="interest"><?=$interest->title?><span><?=$interest->usersCount?></span></span></li>
                 <?php endforeach; ?>
             </ul>
         </li>

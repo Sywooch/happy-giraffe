@@ -333,8 +333,10 @@ class AjaxController extends HController
         if ($this->isValidURL($link)) {
             $video = new Video($link);
 
-            if (empty($video->preview))
+            if (empty($video->preview)){
                 echo CJSON::encode(array('status' => false));
+                Yii::app()->end();
+            }
 
             $host = parse_url($link, PHP_URL_HOST);
             $favicon_url = 'http://www.google.com/s2/favicons?domain=' . $host;

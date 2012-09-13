@@ -459,6 +459,8 @@ class CommunityCommand extends CConsoleCommand
                                 Yii::app()->db->createCommand()->update($table, array($field_name => $field_value), 'id=' . $row['id']);
 
                                 $k++;
+                                if ($k % 1000)
+                                    echo ($k*1000)."\n";
                             } else {
                                 //echo $url . ' is OK' . "\r\n";
                             }

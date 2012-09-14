@@ -18,6 +18,7 @@ class CommentatorWork extends EMongoDocument
     public $comment_entity_id;
     public $skipUrls = array();
     public $created;
+    public $ignoreUsers = array();
 
     public static function model($className = __CLASS__)
     {
@@ -181,7 +182,7 @@ class CommentatorWork extends EMongoDocument
      */
     public function getNextPostForComment()
     {
-        $list = PostForCommentator::getNextPost($this->user_id, $this->skipUrls);
+        $list = PostForCommentator::getNextPost($this);
         if ($list === false) {
             return false;
         }

@@ -227,4 +227,21 @@ class ELTask extends HActiveRecord
 
         return ELTask::model()->find($criteria);
     }
+
+    public static function showTaskCount()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->condition = 'closed IS NULL AND start_date >= :start_date';
+        $criteria->params = array(':start_date'=>date("Y-m-d"));
+        $criteria->compare('type', self::TYPE_REGISTER);
+
+        $reg_task_count = ELTask::model()->count($criteria);
+
+        $criteria->condition = 'closed IS NULL AND start_date >= :start_date AND type > 1';
+        $criteria->params = array(':start_date'=>date("Y-m-d"));
+
+        $tasks_count = ELTask::model()->count($criteria);
+
+        return $reg_task_count*2 + $tasks_count - 1;
+    }
 }

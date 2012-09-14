@@ -273,27 +273,6 @@ class CommunityCommand extends CConsoleCommand
             return $attr;
     }
 
-    public function fixImage($attr)
-    {
-        preg_match_all("|src=\"http://img.happy-giraffe.ru/thumbs/300x185/([\d]+)/([\w\.]+)\"|", $attr, $matches);
-        for ($i = 0; $i < count($matches[0]); $i++) {
-            $user_id = $matches[1][$i];
-            $pic_name = $matches[2][$i];
-
-            $model = AlbumPhoto::model()->findByAttributes(array('author_id' => $user_id, 'fs_name' => $pic_name));
-            if ($model) {
-                $model->getPreviewUrl(650, 650);
-
-                return str_replace('src="http://img.happy-giraffe.ru/thumbs/300x185/',
-                    'src="http://img.happy-giraffe.ru/thumbs/650x650/', $attr);
-            } else {
-                echo 'picture not found';
-            }
-        }
-
-        return $attr;
-    }
-
     public function actionDistribute(array $editors)
     {
         $offset = 0;
@@ -322,136 +301,6 @@ class CommunityCommand extends CConsoleCommand
             $command->execute();
             $offset += 500;
         }
-    }
-
-    public function actionFixLinks()
-    {
-        $find = 'http://www.nepropadu.ru/uploads/images';
-        $replace = 'http://nepropadu.ru/uploads/images';
-
-        echo $this->fixLink('community__contents', 'preview', $find, $replace) . "\n";
-        echo $this->fixLink('community__posts', 'text', $find, $replace) . "\n";
-        echo $this->fixLink('comments', 'text', $find, $replace) . "\n";
-    }
-
-    public function actionFixImages()
-    {
-        echo $this->fixLink('community__contents', 'preview', '/club/upload/images/', '/upload/images/') . "\n";
-        echo $this->fixLink('community__posts', 'text', '/club/upload/images/', '/upload/images/') . "\n";
-    }
-
-    public function actionFixUrls()
-    {
-        echo $this->fixBlogUrl('community__contents', 'preview') . "\n";
-        echo $this->fixBlogUrl('community__posts', 'text') . "\n";
-        echo $this->fixBlogUrl('comments', 'text') . "\n";
-
-        echo $this->fixCommunityUrl('community__contents', 'preview') . "\n";
-        echo $this->fixCommunityUrl('community__posts', 'text') . "\n";
-        echo $this->fixCommunityUrl('comments', 'text') . "\n";
-    }
-
-    public function fixBlogUrl($table, $field_name)
-    {
-        $j = 0;
-        $k = 0;
-
-        $raws = 1;
-        while (!empty($raws)) {
-            $raws = Yii::app()->db->createCommand()
-                ->select('*')
-                ->from($table)
-                ->limit(1000)
-                ->offset($k * 1000)
-                ->queryAll();
-
-            foreach ($raws as $raw) {
-                if (strpos($raw[$field_name], '/blog/view/content_id/')) {
-                    preg_match_all('/\/blog\/view\/content_id\/([\d]+)\//', $raw[$field_name], $matches);
-                    for ($i = 0; $i < count($matches[0]); $i++) {
-                        $post = BlogContent::model()->findByPk($matches[1][$i]);
-                        $field_value = str_replace('/blog/view/content_id/' . $post->id . '/', '/user/' . $post->author_id . '/blog/post' . $post->id . '/', $raw[$field_name]);
-                        Yii::app()->db->createCommand()
-                            ->update($table, array(
-                            $field_name => $field_value
-                        ), 'id=' . $raw['id']);
-                        $j++;
-                        echo $post->id . "\n";
-                    }
-                }
-            }
-
-            $k++;
-        }
-        return $j;
-    }
-
-    public function fixCommunityUrl($table, $field_name)
-    {
-        $j = 0;
-        $k = 0;
-
-        $raws = 1;
-        while (!empty($raws)) {
-            $raws = Yii::app()->db->createCommand()
-                ->select('*')
-                ->from($table)
-                ->limit(1000)
-                ->offset($k * 1000)
-                ->queryAll();
-
-            foreach ($raws as $raw) {
-                if (strpos($raw[$field_name], '/community/view/content_id/')) {
-                    preg_match_all('/\/community\/view\/content_id\/([\d]+)\//', $raw[$field_name], $matches);
-                    for ($i = 0; $i < count($matches[0]); $i++) {
-                        $post = CommunityContent::model()->findByPk($matches[1][$i]);
-                        if (isset($post->community_id)) {
-                            $field_value = str_replace('/community/' . $post->community_id . '/', '/forum/post/' . $post->id . '/', $raw[$field_name]);
-                            Yii::app()->db->createCommand()
-                                ->update($table, array(
-                                $field_name => $field_value
-                            ), 'id=' . $raw['id']);
-                            $j++;
-                            echo $post->id . "\n";
-                        }
-                    }
-                }
-            }
-
-            $k++;
-        }
-        return $j;
-    }
-
-    public function fixLink($table, $field_name, $find, $replace)
-    {
-        $i = 0;
-        $k = 0;
-
-        $raws = 1;
-        while (!empty($raws)) {
-            $raws = Yii::app()->db->createCommand()
-                ->select('*')
-                ->from($table)
-                ->limit(1000)
-                ->offset($k * 1000)
-                ->queryAll();
-
-            foreach ($raws as $raw) {
-                if (strpos($raw[$field_name], $find)) {
-                    $field_value = str_replace($find, $replace, $raw[$field_name]);
-                    Yii::app()->db->createCommand()
-                        ->update($table, array(
-                        $field_name => $field_value
-                    ), 'id=' . $raw['id']);
-                    $i++;
-                }
-            }
-
-            $k++;
-        }
-        return $i;
-
     }
 
     public function actionFixRutube()
@@ -490,20 +339,6 @@ class CommunityCommand extends CConsoleCommand
         }
         return $i;
 
-    }
-
-    public function actionCheckNameFamous()
-    {
-        Yii::import('site.frontend.modules.services.modules.names.models.*');
-        Yii::import('site.frontend.components.ManyToManyBehavior');
-        $names = Name::model()->findAll();
-        foreach ($names as $name) {
-            foreach ($name->famous as $famous) {
-                $path = Yii::getPathOfAlias('site.frontend.www') . DIRECTORY_SEPARATOR . $famous->uploadTo() . $famous->photo;
-                if (!file_exists($path))
-                    echo 'http://www.happy-giraffe.ru/names/' . $name->slug . "\n";
-            }
-        }
     }
 
     public function actionRemoveDeletedVideo($thread)
@@ -590,26 +425,32 @@ class CommunityCommand extends CConsoleCommand
     {
         echo $this->fixRedirectUrls('community__posts', 'text') . "\n";
         echo $this->fixRedirectUrls('community__contents', 'preview') . "\n";
+        echo $this->fixRedirectUrls('cook__recipes', 'text') . "\n";
         echo $this->fixRedirectUrls('comments', 'text') . "\n";
     }
 
     public function fixRedirectUrls($table, $field_name)
     {
         Yii::import('site.frontend.extensions.phpQuery.phpQuery');
-
+        echo $table."\n";
         $k = 0;
 
         $rows = 1;
+        $i = 0;
+
         while (!empty($rows)) {
-            $rows = Yii::app()->db->createCommand()->select('id, ' . $field_name)->from($table)->limit(100)->offset($k * 100)->queryAll();
+            if ($table == 'community__posts')
+                $rows = Yii::app()->db->createCommand()->select('id, content_id, ' . $field_name)->from($table)->limit(100)->offset($i * 100)->queryAll();
+            else
+                $rows = Yii::app()->db->createCommand()->select('id, ' . $field_name)->from($table)->limit(100)->offset($i * 100)->queryAll();
 
             foreach ($rows as $row) {
                 try {
                     $doc = phpQuery::newDocumentXHTML($row[$field_name], $charset = 'utf-8');
-                    $links = $doc->find('a');
+                    $links = $doc->find('img');
 
                     foreach ($links as $link) {
-                        $url = pq($link)->attr('href');
+                        $url = pq($link)->attr('src');
                         $parsed_url = parse_url($url);
 
                         if (isset($parsed_url['host']) and strpos($parsed_url['host'], 'happy-giraffe') === false) {
@@ -617,8 +458,12 @@ class CommunityCommand extends CConsoleCommand
                             $effectiveUrl = $this->getEffectiveUrl($url);
 
                             if ($effectiveUrl !== false) {
-                                echo $url . ' -> ' . $effectiveUrl . ' REDIRECT' . "\r\n";
-                                pq($link)->attr('href', $effectiveUrl);
+                                if (isset($row['content_id']))
+                                    echo $row['content_id'].'-'.$url . ' -> ' . $effectiveUrl . ' REDIRECT' . "\r\n";
+                                else
+                                    echo $row['id'].'-'.$url . ' -> ' . $effectiveUrl . ' REDIRECT' . "\r\n";
+
+                                pq($link)->attr('src', $effectiveUrl);
                                 $field_value = $doc->html();
 
                                 Yii::app()->db->createCommand()->update($table, array($field_name => $field_value), 'id=' . $row['id']);
@@ -633,7 +478,12 @@ class CommunityCommand extends CConsoleCommand
                 } catch (Exception $error) {
                     echo $error->getMessage() . "\n";
                 }
+
             }
+            if ($i % 10 == 0)
+                echo ($i*100)."\n";
+
+            $i++;
         }
         return $k;
     }

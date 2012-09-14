@@ -74,20 +74,20 @@ class m120910_064539_external_links extends CDbMigration
             'id' => 'int(11) unsigned NOT NULL AUTO_INCREMENT',
             'site_id' => 'int(11) unsigned NOT NULL',
             'type' => 'tinyint NOT NULL',
-            'user_id' => 'int(11) unsigned NOT NULL',
-            'created' => 'datetime NOT NULL',
-            'closed' => 'datetime NOT NULL',
+            'user_id' => 'int(11) unsigned',
+            'created' => 'date NOT NULL',
+            'start_date' => 'date NOT NULL',
+            'closed' => 'datetime',
             'PRIMARY KEY (`id`)'
         ), 'ENGINE=Innodb DEFAULT CHARSET=utf8');
         $this->addForeignKey('fk_' . $this->_table . '_site', $this->_table, 'site_id', 'externalLinks__sites', 'id', 'CASCADE', "CASCADE");
         $this->addForeignKey('fk_' . $this->_table . '_user', $this->_table, 'user_id', 'users', 'id', 'CASCADE', "CASCADE");
-
     }
 
     public function down()
     {
-        echo "m120910_064539_external_links does not support migration down.\n";
-        return false;
+//        echo "m120910_064539_external_links does not support migration down.\n";
+//        return false;
     }
 
     /*

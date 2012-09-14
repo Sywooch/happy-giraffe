@@ -70,9 +70,9 @@ var SeoKeywords = {
 
 
 var TaskDistribution = {
-    group:new Array(),
+    group:[],
     getId:function (el) {
-        return $(el).parents('tr').attr("id").replace(/[a-zA-Z]*-/ig, "");
+        return $(el).parents('tr').data("id");
     },
     addToGroup:function (el) {
         var id = this.getId(el);
@@ -103,7 +103,7 @@ var TaskDistribution = {
         }, 'json');
     },
     addGroup:function (type, author_id, rewrite) {
-        var urls = new Array();
+        var urls = [];
         if (rewrite == 1) {
             $('.urls input').each(function (index, val) {
                 if ($(this).val() != '')
@@ -119,7 +119,7 @@ var TaskDistribution = {
             if (response.status) {
                 $('.tasks-list').html('');
                 $('.current-tasks tbody').append(response.html);
-                TaskDistribution.group = new Array();
+                TaskDistribution.group = [];
             } else
                 $.pnotify({
                     pnotify_title:'Ошибка',

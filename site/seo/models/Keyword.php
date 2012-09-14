@@ -369,7 +369,7 @@ class Keyword extends HActiveRecord
         return '';
     }
 
-    public function getKeywordAndSimilarArticles()
+    public function getKeywordAndSimilarArticles($section = 1)
     {
         $res = $this->name;
         if ($this->hasOpenedTask())
@@ -378,39 +378,47 @@ class Keyword extends HActiveRecord
             if (empty($this->group))
                 return $res;
 
-            foreach ($this->group as $group_) {
+            foreach ($this->group as $group_)
                 $group = $group_;
-            }
             if (empty($group->page))
                 return $res;
 
             return $res . CHtml::link('', $group->page->url, array(
                 'target' => '_blank',
                 'class' => 'icon-article'
-            ));
+            )).'<a onclick="SeoModule.unbindKeyword(this, '.$this->id.')" class="icon-link active" href="javascript:;"></a>';
         }
 
-        $res .= $this->getSimilarArticlesHtml();
+        $res .= $this->getSimilarArticlesHtml($section);
         return $res;
     }
 
-    public function getSimilarArticlesHtml()
+    public function getSimilarArticlesHtml($section = 1)
     {
-        $res = Yii::app()->cache->get('similar_articles_5' . $this->name);
-        if ($res === false) {
-            $models = $this->getSimilarArticles();
+        Yii::import('site.frontend.modules.cook.models.*');
+        Yii::import('site.frontend.extensions.*');
+
+//        $res = Yii::app()->cache->get('similar_articles_5' . $this->name);
+//        if ($res === false) {
+            $models = $this->getSimilarArticles($section);
             if (!empty($models)) {
-                $res .= '<a href="javascript:;" class="icon-links-trigger" onclick="$(this).toggleClass(\'triggered\').next().toggle();"></a><div class="links" style="display:none;">';
+                $res = '<a href="javascript:;" class="icon-links-trigger" onclick="$(this).toggleClass(\'triggered\').next().toggle();"></a><div class="links" style="display:none;">';
                 foreach ($models as $model) {
                     $res .= CHtml::link($model->title, 'http://www.happy-giraffe.ru' . $model->url, array('target' => '_blank')) . '  ';
                     $res .= CHtml::link('', 'javascript:;', array(
-                        'onclick' => 'SeoModule.bindKeywordToArticle(' . $this->id . ', ' . $model->id . ', this);',
+                        'onclick' => 'SeoModule.bindKeywordToArticle(' . $this->id . ', ' . $model->id . ', ' . $section . ', this);',
                         'class' => 'icon-link'
                     )) . '<br>';
                 }
-                $res .= '</div>';
-            } else{
                 $res .= CHtml::link('', 'javascript:;', array(
+                    'onclick' => '$(this).next().toggle()',
+                    'class' => 'icon-link'
+                )) . '<div style="display:none;">
+                          <input type="text" size="40">
+                          <a href="javascript:;" class="btn-green-small" onclick="SeoModule.bindKeyword(this, ' . $this->id . ');">Ok</a>
+                      </div></div>';
+            } else{
+                $res = CHtml::link('', 'javascript:;', array(
                     'onclick' => '$(this).next().toggle()',
                     'class' => 'icon-link'
                 )) . '<div style="display:none;">
@@ -419,22 +427,28 @@ class Keyword extends HActiveRecord
                       </div>';
             }
 
-            Yii::app()->cache->set('similar_articles_' . $this->name, $res, 24*3600);
-        }
+//            Yii::app()->cache->set('similar_articles_' . $this->name, $res, 24*3600);
+//        }
 
         return $res;
     }
 
-    public function getSimilarArticles()
+    public function getSimilarArticles($section)
     {
-        Yii::import('site.frontend.extensions.*');
+        $limit = 10;
         $this->name = str_replace('/', '', $this->name);
+
+        $sphinx_index = 'communityTextTitle';
+        if ($section == SeoTask::SECTION_COOK)
+            $sphinx_index = 'recipe';
+
         $allSearch = Yii::app()->search
             ->select('*')
-            ->from('communityTextTitle')
+            ->from($sphinx_index)
             ->where(' ' . CHtml::encode($this->name) . ' ')
-            ->limit(0, 5)
+            ->limit(0, $limit)
             ->searchRaw();
+
         if (empty($allSearch['matches']))
             return null;
 
@@ -444,15 +458,20 @@ class Keyword extends HActiveRecord
         foreach ($allSearch['matches'] as $key => $m) {
             $ids [] = $key;
             $i++;
-            if ($i > 5)
+            if ($i > $limit)
                 break;
         }
 
         $criteria = new CDbCriteria;
         $criteria->compare('t.id', $ids);
-        $criteria->limit = 5;
+        $criteria->limit = $limit;
 
-        $models = CommunityContent::model()->resetScope()->findAll($criteria);
+        $class = 'CommunityContent';
+        if ($section == SeoTask::SECTION_COOK)
+            $class = 'CookRecipe';
+
+        $models = $class::model()->resetScope()->findAll($criteria);
+
         return $models;
     }
 }

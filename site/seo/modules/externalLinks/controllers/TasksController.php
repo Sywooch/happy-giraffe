@@ -8,6 +8,6 @@ class TasksController extends ELController
         if ($task === null)
 		    $this->render('empty');
         else
-            $this->render('index');
+            $this->render('task', compact('task'));
 	}
 }

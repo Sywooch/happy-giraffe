@@ -26,7 +26,7 @@
         <?php endif; ?>
 
         <noindex>
-            <?php if (! $data->by_happy_giraffe && $data->author_id != User::HAPPY_GIRAFFE): ?>
+            <?php if (! $data->by_happy_giraffe && $data->author_id != User::HAPPY_GIRAFFE && $data->rubric->community_id != Community::COMMUNITY_NEWS): ?>
                 <div class="user">
                     <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => $data->contentAuthor, 'friendButton' => true, 'location' => false)); ?>
                 </div>
@@ -64,7 +64,7 @@
                         echo $data->purified->preview;
                 }
             ?>
-            <?php if ($data->isFromBlog): ?>
+            <?php if ($data->isFromBlog || $data->rubric->community_id == Community::COMMUNITY_NEWS): ?>
                 <?=CHtml::link('Читать всю запись<i class="icon"></i>', $data->url, array('class' => 'read-more'))?>
             <?php endif; ?>
             <div class="clear"></div>

@@ -54,7 +54,7 @@
                 </div>
                 <ul class="interests-list">
                     <?php foreach ($interests as $i): ?>
-                    <li><a class="interest"><?=$i->title?></a></li>
+                    <li><span class="interest"><?=$i->title?></span></li>
                     <?php endforeach; ?>
                 </ul>
                 <?php endforeach; ?>

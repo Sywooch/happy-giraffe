@@ -144,11 +144,6 @@ class ELLink extends HActiveRecord
             'withRelated' => array(
                 'class' => 'site.common.extensions.wr.WithRelatedBehavior',
             ),
-            'CTimestampBehavior' => array(
-                'class' => 'zii.behaviors.CTimestampBehavior',
-                'createAttribute' => 'created',
-                'updateAttribute' => null,
-            ),
         );
     }
 
@@ -163,6 +158,7 @@ class ELLink extends HActiveRecord
     {
         if (strpos($this->our_link, 'http://www.happy-giraffe.ru/') === false)
             $this->addError('our_link', 'Введите урл с НАШЕГО сайта');
+
         return parent::beforeValidate();
     }
 
@@ -190,8 +186,7 @@ class ELLink extends HActiveRecord
         $this->check_link_time = null;
         $this->save();
 
-        $this->site->status = ELSite::STATUS_BLACKLIST;
-        return $this->site->save();
+        return $this->site->addToBlacklist();
     }
 
     public function getPageTitle()

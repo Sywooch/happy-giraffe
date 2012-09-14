@@ -48,7 +48,7 @@ class ELAccount extends HActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('login, password, created', 'required'),
+			array('site_id, login, password', 'required'),
 			array('login, password', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -101,4 +101,15 @@ class ELAccount extends HActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+    public function behaviors()
+    {
+        return array(
+            'CTimestampBehavior' => array(
+                'class' => 'zii.behaviors.CTimestampBehavior',
+                'createAttribute' => 'created',
+                'updateAttribute' => null,
+            ),
+        );
+    }
 }

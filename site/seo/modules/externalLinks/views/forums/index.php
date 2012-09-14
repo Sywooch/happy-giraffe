@@ -15,11 +15,11 @@
                     'url' => array('/externalLinks/forums/index')
                 ),
                 array(
-                    'label' => 'Отчеты',
+                    'label' => 'Задания',
                     'url' => array('/externalLinks/forums/tasks'),
                 ),
                 array(
-                    'label' => 'Отчеты',
+                    'label' => 'Выполнено',
                     'url' => array('/externalLinks/forums/executed'),
                 ),
                 array(
@@ -31,12 +31,11 @@
     </div>
 
     <div style="height: 30px;">
-        <div class="flash-message added" style="display: none;">Ваша ссылка добавлена &nbsp;&nbsp;
-            <a href="<?=$this->createUrl('reports')?>">Перейти</a></div>
+        <div class="flash-message added" style="display: none;"></div>
     </div>
 
     <div class="check-url">
-        <input id="site_url" type="text" placeholder="Введите URL сайта "/>
+        <input id="site_url" type="text" placeholder="Введите URL форума"/>
         <button class="btn-g" onclick="ExtLinks.CheckSite()">Проверить</button>
     </div>
 
@@ -44,11 +43,11 @@
 
         <span class="new-site">Новый сайт</span>
 
-        <button class="btn-g" onclick="ExtLinks.AddSite()">Добавить</button>
+        <button class="btn-g" onclick="ExtLinks.AddForum()">Добавить</button>
 
         <a href="javascript:;" class="pseudo" onclick="ExtLinks.CancelSite()">Отмена</a>
 
-        <a href="javascript:;" class="icon-blacklist" onclick="ExtLinks.AddToBL()">ЧС</a>
+        <a href="javascript:;" class="icon-blacklist" onclick="ExtLinks.AddToBL(2)">ЧС</a>
 
     </div>
 
@@ -56,11 +55,9 @@
 
         <span class="have-links">Есть ссылки</span>
 
-        <button class="btn-g disabled" onclick="ExtLinks.AddSite()">Добавить</button>
-
         <a href="javascript:;" class="pseudo" onclick="ExtLinks.CancelSite()">Отмена</a>
 
-        <a href="javascript:;" class="icon-blacklist" onclick="ExtLinks.AddToBL()">ЧС</a>
+        <a href="javascript:;" class="icon-blacklist" onclick="ExtLinks.AddToBL(2)">ЧС</a>
 
     </div>
 
@@ -70,7 +67,7 @@
 
         <button class="btn-g orange" onclick="ExtLinks.CancelSite()">Отмена</button>
 
-        <a href="javascript:;" onclick="ExtLinks.AddSite()" class="pseudo">Добавить</a>
+        <a href="javascript:;" onclick="ExtLinks.AddForum()" class="pseudo">Добавить</a>
 
     </div>
 

@@ -7,6 +7,7 @@ var ExtLinks = {
     CheckSite:function () {
         var url = $('#site_url').val();
         $.post('/externalLinks/sites/checkSite/', {url:url}, function (response) {
+            $('.url-actions').hide();
             switch (response.type) {
                 case 1:
                     $('#site_status_1').show();
@@ -37,10 +38,36 @@ var ExtLinks = {
                 });
         }, 'json');
     },
-    AddToBL:function () {
-        $.post('/externalLinks/sites/addToBlacklist/', {url:$('#site_url').val()}, function (response) {
+    AddForum:function () {
+        var url = $('#site_url').val();
+        $.post('/externalLinks/forums/add/', {url:url}, function (response) {
             if (response.status) {
-                ExtLinks.ClearFrom();
+                $('.flash-message.added').html('Форум &nbsp;<a target="_blank" href="' + url +
+                    '">' + url + '</a> добавлен в задачи').show().delay(3000).fadeOut(3000);
+                ExtLinks.ClearForum();
+            } else
+                $.pnotify({
+                    pnotify_title:'Ошибка',
+                    pnotify_type:'error',
+                    pnotify_text:'Ошибка, обратитесь к разработчикам'
+                });
+        }, 'json');
+    },
+    AddToBL:function (site) {
+        var url = $('#site_url').val();
+        $.post('/externalLinks/sites/addToBlacklist/', {url:url}, function (response) {
+            if (response.status) {
+                var flash = $('.flash-message.added');
+                if (site == 1) {
+                    flash.html('Сайт &nbsp;<a target="_blank" href="' + url +
+                        '">' + url + '</a> помещен в черный список').show().delay(3000).fadeOut(3000);
+                    ExtLinks.ClearFrom();
+                }
+                else {
+                    flash.html('Форум &nbsp;<a target="_blank" href="' + url +
+                        '">' + url + '</a> помещен в черный список').show().delay(3000).fadeOut(3000);
+                    ExtLinks.ClearForum();
+                }
             } else
                 $.pnotify({
                     pnotify_title:'Ошибка',
@@ -69,6 +96,10 @@ var ExtLinks = {
         $('input [name="paid_link"]').attr('checked', false);
         $('#ELLink_link_cost').val('');
     },
+    ClearForum:function(){
+        $('#site_url').val('');
+        $('.url-actions').hide();
+    },
     Checked:function (el, id, success) {
         $.post('/externalLinks/check/checked/', {id:id, success:success}, function (response) {
             if (response.status) {
@@ -82,5 +113,10 @@ var ExtLinks = {
                 });
 
         }, 'json');
+    },
+    AfterSiteAdd:function(){
+        ExtLinks.ClearFrom();
+        var flash = $('.flash-message.added');
+        flash.html('Ваша ссылка добавлена &nbsp;<a href="/externalLinks/sites/reports/">Перейти</a>').show().delay(3000).fadeOut(3000);
     }
 }

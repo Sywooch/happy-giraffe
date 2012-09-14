@@ -36,7 +36,7 @@
         array(
             'name' => 'key_name',
             'type'=>'raw',
-            'value' => '$data->keyword->getKeywordAndSimilarArticles()',
+            'value' => '$data->keyword->getKeywordAndSimilarArticles('.$section.')',
             'headerHtmlOptions' => array('class' => 'col-1'),
             'htmlOptions' => array('class' => 'col-1')
         ),

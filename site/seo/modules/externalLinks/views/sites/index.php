@@ -39,7 +39,7 @@
 
         <a href="javascript:;" class="pseudo" onclick="ExtLinks.CancelSite()">Отмена</a>
 
-        <a href="javascript:;" class="icon-blacklist" onclick="ExtLinks.AddToBL()">ЧС</a>
+        <a href="javascript:;" class="icon-blacklist" onclick="ExtLinks.AddToBL(1)">ЧС</a>
 
     </div>
 
@@ -51,7 +51,7 @@
 
         <a href="javascript:;" class="pseudo" onclick="ExtLinks.CancelSite()">Отмена</a>
 
-        <a href="javascript:;" class="icon-blacklist" onclick="ExtLinks.AddToBL()">ЧС</a>
+        <a href="javascript:;" class="icon-blacklist" onclick="ExtLinks.AddToBL(1)">ЧС</a>
 
     </div>
 
@@ -81,10 +81,9 @@
         'validateOnType' => false,
         'validationUrl' => $this->createUrl('add'),
         'afterValidate' => "js:function(form, data, hasError) {
-                                if (!hasError){
-                                    ExtLinks.ClearFrom();
-                                    $('.flash-message.added').show().delay(3000).fadeOut(3000);
-                                }
+                                if (!hasError)
+                                    ExtLinks.AfterSiteAdd();
+
                                 return false;
                               }",
     )));
@@ -197,7 +196,7 @@
             </div>
 
             <div class="row row-btn">
-                <button class="btn-g" onclick="$(this).form.submit()">Добавить</button>
+                <button class="btn-g">Добавить</button>
             </div>
 
         </div>

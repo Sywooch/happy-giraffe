@@ -144,6 +144,18 @@ class ELLink extends HActiveRecord
             'withRelated' => array(
                 'class' => 'site.common.extensions.wr.WithRelatedBehavior',
             ),
+            'CTimestampBehavior' => array(
+                'class' => 'zii.behaviors.CTimestampBehavior',
+                'createAttribute' => 'created',
+                'updateAttribute' => null,
+            ),
+        );
+    }
+
+    public function defaultScope()
+    {
+        return array(
+            'order' => 'id desc',
         );
     }
 
@@ -161,15 +173,13 @@ class ELLink extends HActiveRecord
 
     public function nextCheckTime()
     {
-        $days = (time() - strtotime($this->created))/(3600*24);
+        $days = (time() - strtotime($this->created)) / (3600 * 24);
 
         if ($days >= 29)
             $this->check_link_time = date("Y-m-d H:i:s", strtotime('+1 month'));
         elseif ($days >= 14)
-            $this->check_link_time = date("Y-m-d H:i:s", strtotime('+15 days'));
-        elseif ($days >= 7)
-            $this->check_link_time = date("Y-m-d H:i:s", strtotime('+7 days'));
-        else
+            $this->check_link_time = date("Y-m-d H:i:s", strtotime('+15 days')); elseif ($days >= 7)
+            $this->check_link_time = date("Y-m-d H:i:s", strtotime('+7 days')); else
             $this->check_link_time = date("Y-m-d H:i:s", strtotime('+4 days'));
 
         return $this->save();

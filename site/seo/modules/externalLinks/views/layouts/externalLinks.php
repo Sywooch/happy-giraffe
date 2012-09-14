@@ -15,6 +15,7 @@ Yii::app()->clientScript->registerScriptFile($baseUrl . '/ext_links.js')->regist
                     array(
                         'label' => 'Сайты',
                         'url' => array('/externalLinks/sites/index'),
+                        'active'=>Yii::app()->controller->id == 'sites'
                     ),
                     array(
                         'label' => 'Форумы',

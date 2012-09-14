@@ -135,4 +135,13 @@ class ELSite extends HActiveRecord
         }
         parent::afterSave();
     }
+
+    public function addToBlacklist()
+    {
+        $this->status = ELSite::STATUS_BLACKLIST;
+        ELTask::model()->updateAll(array('closed'=>date("Y-m-d H:i:s")), 'site_id = :site_id AND closed IS NULL', array(
+            ':site_id'=> $this->id
+        ));
+        return $this->save();
+    }
 }

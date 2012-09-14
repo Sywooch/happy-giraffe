@@ -7,6 +7,24 @@
 	
 	<link rel="stylesheet" type="text/css" href="/stylesheets/seo.css" />
 	
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	
+	<script type="text/javascript">
+		
+		function setTab(el, num) {
+			var tabs = $(el).parents('.tabs');
+			var li = $(el).parent();
+			if (!li.hasClass('active')) {
+				tabs.find('li').removeClass('active');
+				li.addClass('active');
+				tabs.find('.tab-box-' + num).fadeIn();				
+				tabs.find('.tab-box').not('.tab-box-' + num).hide();
+
+			}
+		}
+		
+	</script>
+	
 </head>
 <body>
 	<div id="seo" class="wrapper">
@@ -27,6 +45,48 @@
 			
 		</div>
 		
+		<div class="linking-filter tabs">
+			<div class="nav">
+				<a href="" class="toggle">Свернуть</a>
+				<ul>
+					<li class="active"><a href="javascript:void(0)" onclick="setTab(this, 1);"><i class="icon-yandex"></i> Яндекс</a></li>
+					<li><a href="javascript:void(0)" onclick="setTab(this, 2);"><i class="icon-google"></i> Google</a></li>
+				</ul>
+			</div>
+			<div class="content">
+				<div class="tab-box tab-box-1" style="display:block;">
+					<table class="table-1">
+						<tr>
+							<td class="col-1"><input type="text" value="100"/> - Позиции - </td>
+							<td class="col-2"><input type="text" value="100"/></td>
+							<td class="col-3" rowspan="2">
+								Тип подбора<br/>
+								<input type="radio" /> <label>По позициям</label><br/>
+								<input type="radio" /> <label>По частоте</label>
+							</td>
+							<td class="col-4" rowspan="2"><input type="checkbox" /><br/><label>Только<br/>с трафиком</label></td>
+							<td class="col-5" rowspan="2"><button class="btn-g">Ok</button></td>
+						</tr>
+						<tr>
+							<td class="col-1">Минимальная частота</td>
+							<td class="col-2"><input type="text" value="100"/></td>
+						</tr>
+						
+					</table>
+				</div>
+				<div class="tab-box tab-box-2">
+					<table class="table-2">
+						<tr>
+							<td class="col-1">Минимальная частота <input type="text" value="500" /></td>
+							<td class="col-2">Трафик из Google &nbsp;&nbsp;&nbsp;&nbsp; > <input type="text" value="100" /></td>
+							<td class="col-3"><button class="btn-g">Ok</button></td>
+						</tr>
+						
+					</table>
+				</div>
+				
+			</div>
+		</div>
 		
 		<div class="seo-table table-result table-promotion">
 			

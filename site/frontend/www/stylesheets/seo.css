@@ -77,7 +77,8 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #2371dd;}
 	-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;
 }
 
-.btn-g.small {padding:0px 6px;font-size:11px;-moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px;font-weight:bold;}
+.btn-g.small {padding:0px 9px;font-size:11px;-moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px;font-weight:bold;}
+button.btn-g.small {padding:2px 9px;}
 
 
 .btn-g.orange {
@@ -319,7 +320,7 @@ button.btn-gray-small {height:20px;}
 
 #seo .seo-table .table-grey tbody td {color:#565757;}
 
-#seo .seo-table .hl {background:#fcee76;}
+#seo .hl {background:#fcee76;padding:1px 0;}
 
 #seo .seo-table .table-box table .al {text-align:left;}
 #seo .seo-table .table-box table .ac {text-align:center;}
@@ -589,8 +590,8 @@ button.btn-gray-small {height:20px;}
 #seo .ext-links-add .url-list ul {list-style:none;}
 #seo .ext-links-add .url-list ul li {padding:5px 0;}
 
-#seo .ext-links-add .form {width:500px;}
-#seo .ext-links-add .form .row {padding-bottom:30px;}
+#seo .ext-links-add .form {width:500px;padding-bottom:50px;}
+#seo .ext-links-add .form .row {padding-bottom:20px;}
 #seo .ext-links-add .form .row .row-title {font-size:15px;color:#474849;padding-bottom:5px;}
 #seo .ext-links-add .form .row .row-title span {font-size:16px;color:#323334;}
 #seo .ext-links-add .form .row .row-title small {font-size:11px;color:#919292;font-family:tahoma, arial, helvetica, sans-serif;margin-left:5px;}
@@ -612,3 +613,32 @@ button.btn-gray-small {height:20px;}
 
 #seo .ext-links-add .form .row-btn {text-align:right;padding-top:20px;}
 #seo .ext-links-add .form .row-btn .btn-g {font-size:30px;padding:25px 45px;line-height:30px;}
+
+#seo .ext-links-add .form .row-btn-done {padding-top:20px;}
+#seo .ext-links-add .form .row-btn-done button.btn-g {font-size:20px;padding:25px 15px;line-height:20px;vertical-align:middle;}
+#seo .ext-links-add .form .row-btn-done .problem {vertical-align:middle;display:inline-block;padding-left:40px;position:relative;margin-left:10px;}
+#seo .ext-links-add .form .row-btn-done .problem .pseudo {font-size:13px;}
+#seo .ext-links-add .form .row-btn-done .problem-in {background:#f4ebfc;padding:3px 6px;position:absolute;left:0;top:25px;width:195px;}
+#seo .ext-links-add .form .row-btn-done .problem-in .btn-g {float:right;margin-top:38px;}
+#seo .ext-links-add .form .row-btn-done .problem-in .radio {display:block;width:150px;border:1px solid #dcc7ee;text-align:center;color:#b4b3b3;background:#fff;padding:5px 0;line-height:14px;font-size:14px;margin:6px 0;overflow:hidden;text-decoration:none;-moz-border-radius:14px;-webkit-border-radius:14px;border-radius:14px;}
+#seo .ext-links-add .form .row-btn-done .problem-in .radio.active {background:#dcc7ee;color:#714399;}
+
+#seo .ext-links-add .tasks-count {color:#242424;font-size:22px;text-align:center;margin:40px 0;}
+#seo .ext-links-add .tasks-count span {color:#ab8bc8;font-weight:bold;font-size:25px;margin-left:5px;}
+
+#seo .ext-links-add .tasks-list {}
+#seo .ext-links-add .tasks-list ul {list-style:none;}
+#seo .ext-links-add .tasks-list ul li {padding-bottom:20px;}
+#seo .ext-links-add .tasks-list .task-title {font-size:16px;color:#323334;margin-bottom:5px;}
+#seo .ext-links-add .tasks-list .task-title a {font-size:13px;}
+#seo .ext-links-add .tasks-list .task {padding:8px 0;}
+#seo .ext-links-add .tasks-list .reg-form {margin-top:5px;width:350px;padding:16px 15px;background:#fef7d2;}
+#seo .ext-links-add .tasks-list .reg-form button {float:right;margin-top:30px;}
+#seo .ext-links-add .tasks-list .reg-form label {display:inline-block;width:80px;font-size:14px;}
+#seo .ext-links-add .tasks-list .reg-form input[type=text], #seo .ext-links-add .tasks-list .reg-form input[type=password] {padding:2px 9px;overflow:auto;width:180px;border:1px solid #d8c7ea;background:#fff;vertical-align:middle;color:#2881d4;height:25px;line-height:25px;vertical-align:middle;margin:4px 0;color:#222;font-size:15px;}
+#seo .ext-links-add .tasks-list .reg-form.revealed {width:300px;}
+#seo .ext-links-add .tasks-list .reg-form.revealed input {color:#b9b8b9;}
+
+
+
+

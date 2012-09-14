@@ -35,6 +35,15 @@ class AuthorController extends SController
         $title = Yii::app()->request->getPost('name');
         $task = $this->loadTask(Yii::app()->request->getPost('id'));
         $task->status = SeoTask::STATUS_WRITTEN;
+        if (empty($task->keyword_group_id)){
+            $keyword = Keyword::GetKeyword($task->article_title);
+            $group = new KeywordGroup();
+            $group->keywords = array($keyword);
+            if (!$group->save())
+                var_dump($group->getErrors());
+
+            $task->keyword_group_id = $group->id;
+        }
 
         if (empty($title) && empty($task->article_title))
             echo CJSON::encode(array('status' => false, 'error' => 'Введите название рецепта'));

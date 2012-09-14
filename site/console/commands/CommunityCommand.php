@@ -425,18 +425,24 @@ class CommunityCommand extends CConsoleCommand
     {
         echo $this->fixRedirectUrls('community__posts', 'text') . "\n";
         echo $this->fixRedirectUrls('community__contents', 'preview') . "\n";
+        echo $this->fixRedirectUrls('cook__recipes', 'text') . "\n";
         echo $this->fixRedirectUrls('comments', 'text') . "\n";
     }
 
     public function fixRedirectUrls($table, $field_name)
     {
         Yii::import('site.frontend.extensions.phpQuery.phpQuery');
-
+        echo $table."\n";
         $k = 0;
 
         $rows = 1;
+        $i = 0;
+
         while (!empty($rows)) {
-            $rows = Yii::app()->db->createCommand()->select('id, ' . $field_name)->from($table)->limit(100)->offset($k * 100)->queryAll();
+            if ($table == 'community__posts')
+                $rows = Yii::app()->db->createCommand()->select('id, content_id, ' . $field_name)->from($table)->limit(100)->offset($i * 100)->queryAll();
+            else
+                $rows = Yii::app()->db->createCommand()->select('id, ' . $field_name)->from($table)->limit(100)->offset($i * 100)->queryAll();
 
             foreach ($rows as $row) {
                 try {
@@ -452,15 +458,17 @@ class CommunityCommand extends CConsoleCommand
                             $effectiveUrl = $this->getEffectiveUrl($url);
 
                             if ($effectiveUrl !== false) {
-                                echo $url . ' -> ' . $effectiveUrl . ' REDIRECT' . "\r\n";
-                                pq($link)->attr('href', $effectiveUrl);
+                                if (isset($row['content_id']))
+                                    echo $row['content_id'].'-'.$url . ' -> ' . $effectiveUrl . ' REDIRECT' . "\r\n";
+                                else
+                                    echo $row['id'].'-'.$url . ' -> ' . $effectiveUrl . ' REDIRECT' . "\r\n";
+
+                                pq($link)->attr('src', $effectiveUrl);
                                 $field_value = $doc->html();
 
                                 Yii::app()->db->createCommand()->update($table, array($field_name => $field_value), 'id=' . $row['id']);
 
                                 $k++;
-                                if ($k % 1000)
-                                    echo ($k*1000)."\n";
                             } else {
                                 //echo $url . ' is OK' . "\r\n";
                             }
@@ -470,7 +478,12 @@ class CommunityCommand extends CConsoleCommand
                 } catch (Exception $error) {
                     echo $error->getMessage() . "\n";
                 }
+
             }
+            if ($i % 10 == 0)
+                echo ($i*100)."\n";
+
+            $i++;
         }
         return $k;
     }

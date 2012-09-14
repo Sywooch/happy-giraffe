@@ -21,5 +21,8 @@ return array(
         'commentators/<period:[\w-]+>/<day:\d+>'=>'commentators/default/index',
         'commentators/<period:[\w-]+>'=>'commentators/default/index',
         'commentators'=>'commentators/default/index',
+
+        'cook/recipe/<id:\d+>' => array('cook/recipe/view', 'defaultParams' => array('section' => 0)),
+        'cook/multivarka/<id:\d+>' => array('cook/recipe/view', 'defaultParams' => array('section' => 1)),
     ),
 );

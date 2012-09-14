@@ -283,7 +283,7 @@ class AjaxController extends HController
             Yii::app()->end();
 
         //if user remove commentator comment, then commentator will ignore this users
-        if (Yii::app()->user->model->group == UserGroup::USER) {
+        if (Yii::app()->user->model->group == UserGroup::USER && $is_entity_author) {
             Yii::import('site.frontend.modules.signal.models.*');
             $commentator = CommentatorWork::getUser($model->author_id);
             if ($commentator !== null) {

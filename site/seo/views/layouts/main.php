@@ -25,6 +25,7 @@
 
         ->registerScriptFile('/js/jquery.tooltip.js')
 
+        ->registerScriptFile('/js/common.js?'.$release_id)
         ->registerScriptFile('/js/seo.js?'.$release_id)
         ->registerScriptFile('/js/seo-editor.js?'.$release_id)
 

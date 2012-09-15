@@ -4,6 +4,8 @@
  */
 $period = 2;
 $phrase->refresh();
+
+$this->renderPartial('_settings');
 ?>
 <div class="seo-table table-result table-promotion">
 

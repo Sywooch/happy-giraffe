@@ -16,8 +16,6 @@ class SeoUserAttributes extends EMongoDocument
         'yandex_traffic' => 1,
         'yandex_sort' => 1,
         'google_visits_min' => 30,
-        'links_count_google' => 0,
-        'links_count_yandex' => 0,
     );
 
     public static function model($className = __CLASS__)
@@ -30,8 +28,11 @@ class SeoUserAttributes extends EMongoDocument
         return 'seo_user_attributes';
     }
 
-    public static function getAttribute($user_id, $title)
+    public static function getAttribute($title, $user_id= null)
     {
+        if ($user_id === null)
+            $user_id = Yii::app()->user->id;
+
         $model = self::model()->findByAttributes(array(
             'user_id' => (int)$user_id
         ));
@@ -53,14 +54,14 @@ class SeoUserAttributes extends EMongoDocument
         return null;
     }
 
-    public static function setAttribute($user_id, $title, $value)
+    public static function setAttribute($title, $value)
     {
         $model = self::model()->findByAttributes(array(
-            'user_id' => (int)$user_id
+            'user_id' => (int)Yii::app()->user->id
         ));
         if ($model === null) {
             $model = new SeoUserAttributes;
-            $model->user_id = (int)$user_id;
+            $model->user_id = (int)Yii::app()->user->id;
             $model->attributes = array();
         }
 

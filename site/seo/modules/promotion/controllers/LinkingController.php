@@ -32,10 +32,16 @@ class LinkingController extends SController
     {
         $phrase = PagesSearchPhrase::getActualPhrase();
 
-        $pages = $this->getSimilarPages($phrase);
-        $keywords = $phrase->getSimilarKeywords();
+        if ($phrase === null) {
+            $this->render('auto_linking_empty');
+        } else {
 
-        $this->render('auto_linking', compact('phrase', 'pages', 'keywords'));
+            //$pages = $this->getSimilarPages($phrase);
+            $pages = array();
+            $keywords = $phrase->getSimilarKeywords();
+
+            $this->render('auto_linking', compact('phrase', 'pages', 'keywords'));
+        }
     }
 
     public function actionSkip()
@@ -43,7 +49,7 @@ class LinkingController extends SController
         $phrase = $this->loadPhrase(Yii::app()->request->getPost('phrase_id'));
         $skip = new ILSkip;
         $skip->phrase_id = $phrase->id;
-        if (!$skip->save()){
+        if (!$skip->save()) {
             echo CJSON::encode(array(
                 'status' => false,
                 'error' => $skip->getErrorsText(),
@@ -230,6 +236,15 @@ class LinkingController extends SController
             $pages = array_slice($pages, 0, 10);
 
         $this->renderPartial('_pages', compact('pages'));
+    }
+
+    public function actionSaveSettings()
+    {
+        foreach($_POST as $key => $attr){
+            SeoUserAttributes::setAttribute($key, $attr);
+        }
+
+        echo CJSON::encode(array('status' => true));
     }
 
     /**

@@ -15,9 +15,9 @@ class DefaultController extends SController
                 break;
         }
         if (empty($site_id))
-            $site_id = SeoUserAttributes::getAttribute(Yii::app()->user->id, 'last_competitor_site_id_section_' . $section);
+            $site_id = SeoUserAttributes::getAttribute('last_competitor_site_id_section_' . $section);
         else
-            SeoUserAttributes::setAttribute(Yii::app()->user->id, 'last_competitor_site_id_section_' . $section, $site_id);
+            SeoUserAttributes::setAttribute('last_competitor_site_id_section_' . $section, $site_id);
 
         $sites = Site::model()->findAllByAttributes(array('section' => $section));
         $nav = array();

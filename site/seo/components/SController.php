@@ -7,6 +7,7 @@ class SController extends CController
 {
     public $pageTitle = '';
     public $fast_nav = array();
+    public $icon = 1;
 
     public function filters()
     {

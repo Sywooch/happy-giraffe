@@ -6,15 +6,15 @@ class m120910_064539_external_links extends CDbMigration
 
     public function up()
     {
-        $this->insert($this->_table, array('name' => 'externalLinks-manager', 'type' => 2, 'description' => 'Шеф-редактор внешних ссылок'));
-        $this->insert($this->_table, array('name' => 'externalLinks-manager-panel', 'type' => 0, 'description' => 'Панель Шеф-редактора внешних ссылок'));
-        $this->insert('auth__items_childs', array('parent' => 'externalLinks-manager', 'child' => 'externalLinks-manager-panel'));
+        $this->insert($this->_table, array('name' => 'externallinks-manager', 'type' => 2, 'description' => 'Шеф-редактор внешних ссылок'));
+        $this->insert($this->_table, array('name' => 'externallinks-manager-panel', 'type' => 0, 'description' => 'Панель Шеф-редактора внешних ссылок'));
+        $this->insert('auth__items_childs', array('parent' => 'externallinks-manager', 'child' => 'externallinks-manager-panel'));
 
-        $this->insert($this->_table, array('name' => 'externalLinks-worker', 'type' => 2, 'description' => 'Шеф-редактор внешних ссылок'));
-        $this->insert($this->_table, array('name' => 'externalLinks-worker-panel', 'type' => 0, 'description' => 'Панель Шеф-редактора внешних ссылок'));
-        $this->insert('auth__items_childs', array('parent' => 'externalLinks-worker', 'child' => 'externalLinks-worker-panel'));
+        $this->insert($this->_table, array('name' => 'externallinks-worker', 'type' => 2, 'description' => 'Шеф-редактор внешних ссылок'));
+        $this->insert($this->_table, array('name' => 'externallinks-worker-panel', 'type' => 0, 'description' => 'Панель Шеф-редактора внешних ссылок'));
+        $this->insert('auth__items_childs', array('parent' => 'externallinks-worker', 'child' => 'externallinks-worker-panel'));
 
-        $this->_table = 'externalLinks__sites';
+        $this->_table = 'externallinks__sites';
         $this->createTable($this->_table, array(
             'id' => 'int(11) unsigned NOT NULL AUTO_INCREMENT',
             'url' => 'varchar(255) NOT NULL',
@@ -24,7 +24,7 @@ class m120910_064539_external_links extends CDbMigration
             'PRIMARY KEY (`id`)'
         ), 'ENGINE=Innodb DEFAULT CHARSET=utf8');
 
-        $this->_table = 'externalLinks__systems';
+        $this->_table = 'externallinks__systems';
         $this->createTable($this->_table, array(
             'id' => 'tinyint unsigned NOT NULL AUTO_INCREMENT',
             'name' => 'varchar(255) NOT NULL',
@@ -32,7 +32,7 @@ class m120910_064539_external_links extends CDbMigration
             'PRIMARY KEY (`id`)'
         ), 'ENGINE=Innodb DEFAULT CHARSET=utf8');
 
-        $this->_table = 'externalLinks__links';
+        $this->_table = 'externallinks__links';
         $this->createTable($this->_table, array(
             'id' => 'int(11) unsigned NOT NULL AUTO_INCREMENT',
             'site_id' => 'int(11) unsigned NOT NULL',
@@ -46,20 +46,20 @@ class m120910_064539_external_links extends CDbMigration
             'system_id' => 'tinyint unsigned',
             'PRIMARY KEY (`id`)'
         ), 'ENGINE=Innodb DEFAULT CHARSET=utf8');
-        $this->addForeignKey('fk_' . $this->_table . '_site', $this->_table, 'site_id', 'externalLinks__sites', 'id', 'CASCADE', "CASCADE");
+        $this->addForeignKey('fk_' . $this->_table . '_site', $this->_table, 'site_id', 'externallinks__sites', 'id', 'CASCADE', "CASCADE");
         $this->addForeignKey('fk_' . $this->_table . '_author', $this->_table, 'author_id', 'users', 'id', 'CASCADE', "CASCADE");
-        $this->addForeignKey('fk_' . $this->_table . '_system', $this->_table, 'system_id', 'externalLinks__systems', 'id', 'CASCADE', "CASCADE");
+        $this->addForeignKey('fk_' . $this->_table . '_system', $this->_table, 'system_id', 'externallinks__systems', 'id', 'CASCADE', "CASCADE");
 
-        $this->_table = 'externalLinks__anchors';
+        $this->_table = 'externallinks__anchors';
         $this->createTable($this->_table, array(
             'link_id' => 'int(11) unsigned NOT NULL',
             'keyword_id' => 'int(11) NOT NULL',
             'PRIMARY KEY (`link_id`, `keyword_id`)'
         ), 'ENGINE=Innodb DEFAULT CHARSET=utf8');
-        $this->addForeignKey('fk_' . $this->_table . '_link', $this->_table, 'link_id', 'externalLinks__links', 'id', 'CASCADE', "CASCADE");
+        $this->addForeignKey('fk_' . $this->_table . '_link', $this->_table, 'link_id', 'externallinks__links', 'id', 'CASCADE', "CASCADE");
         $this->addForeignKey('fk_' . $this->_table . '_keyword', $this->_table, 'keyword_id', 'keywords', 'id', 'CASCADE', "CASCADE");
 
-        $this->_table = 'externalLinks__accounts';
+        $this->_table = 'externallinks__accounts';
         $this->createTable($this->_table, array(
             'site_id' => 'int(11) unsigned NOT NULL AUTO_INCREMENT',
             'login' => 'varchar(255) NOT NULL',
@@ -67,9 +67,9 @@ class m120910_064539_external_links extends CDbMigration
             'created' => 'datetime NOT NULL',
             'PRIMARY KEY (`site_id`)'
         ), 'ENGINE=Innodb DEFAULT CHARSET=utf8');
-        $this->addForeignKey('fk_' . $this->_table . '_site', $this->_table, 'site_id', 'externalLinks__sites', 'id', 'CASCADE', "CASCADE");
+        $this->addForeignKey('fk_' . $this->_table . '_site', $this->_table, 'site_id', 'externallinks__sites', 'id', 'CASCADE', "CASCADE");
 
-        $this->_table = 'externalLinks__tasks';
+        $this->_table = 'externallinks__tasks';
         $this->createTable($this->_table, array(
             'id' => 'int(11) unsigned NOT NULL AUTO_INCREMENT',
             'site_id' => 'int(11) unsigned NOT NULL',
@@ -80,7 +80,7 @@ class m120910_064539_external_links extends CDbMigration
             'closed' => 'datetime',
             'PRIMARY KEY (`id`)'
         ), 'ENGINE=Innodb DEFAULT CHARSET=utf8');
-        $this->addForeignKey('fk_' . $this->_table . '_site', $this->_table, 'site_id', 'externalLinks__sites', 'id', 'CASCADE', "CASCADE");
+        $this->addForeignKey('fk_' . $this->_table . '_site', $this->_table, 'site_id', 'externallinks__sites', 'id', 'CASCADE', "CASCADE");
         $this->addForeignKey('fk_' . $this->_table . '_user', $this->_table, 'user_id', 'users', 'id', 'CASCADE', "CASCADE");
     }
 

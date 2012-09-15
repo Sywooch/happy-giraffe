@@ -38,7 +38,7 @@ class SeoUser extends HActiveRecord
      */
     public function tableName()
     {
-        return 'happy_giraffe_seo.users';
+        return 'users';
     }
 
     public function getDbConnection()

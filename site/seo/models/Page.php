@@ -46,7 +46,7 @@ class Page extends CActiveRecord
 
     public function tableName()
     {
-        return 'happy_giraffe_seo.pages';
+        return 'pages';
     }
 
     /**

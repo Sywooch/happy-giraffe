@@ -44,7 +44,7 @@ class SitePageVisit extends HActiveRecord
     }
 
     public function tableName(){
-        return 'happy_giraffe_seo.sites__pages_visits';
+        return 'sites__pages_visits';
 	}
 
 	/**

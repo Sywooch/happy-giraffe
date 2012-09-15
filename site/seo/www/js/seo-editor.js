@@ -265,28 +265,8 @@ var SeoLinking = {
     keyword_id:null,
     phrase_id:null,
     AddLink:function () {
-        if (SeoLinking.keyword_id == null && $('#own-keyword').val() == '') {
-            $.pnotify({
-                pnotify_title:'Ошибка',
-                pnotify_type:'error',
-                pnotify_text:'Выберите ключевое слово'
-            });
-            return false;
-        }
-        if (SeoLinking.phrase_id == null) {
-            $.pnotify({
-                pnotify_title:'Ошибка',
-                pnotify_type:'error',
-                pnotify_text:'Выберите строку в верхней таблице'
-            });
-        }
-        if (SeoLinking.page_id == null) {
-            $.pnotify({
-                pnotify_title:'Ошибка',
-                pnotify_type:'error',
-                pnotify_text:'Выберите страницу с которой ставить ссылку'
-            });
-        }
+        if (!SeoLinking.checkAddLnk())
+            return;
 
         $.post('/promotion/linking/add/', {page_id:SeoLinking.page_id, phrase_id:SeoLinking.phrase_id, keyword_id:SeoLinking.keyword_id, keyword:$('#own-keyword').val()}, function (response) {
             if (response.status) {
@@ -304,6 +284,62 @@ var SeoLinking = {
                 });
             }
         }, 'json');
+    },
+    AddLinkAuto:function () {
+        if (!SeoLinking.checkAddLnk())
+            return;
+
+        $('#auto-linking').fadeOut(1000);
+
+        $.post('/promotion/linking/add/', {
+            page_id:SeoLinking.page_id,
+            phrase_id:SeoLinking.phrase_id,
+            keyword_id:SeoLinking.keyword_id,
+            keyword:$('#own-keyword').val(),
+            next_link:1
+        }, function (response) {
+            if (response.status) {
+
+                SeoLinking.keyword_id = null;
+                SeoLinking.phrase_id = response.phrase_id;
+                SeoLinking.page_id = response.page_id;
+                $('#auto-linking').removeClass('loading-block').html(response.html).fadeIn(500);
+            } else {
+                $.pnotify({
+                    pnotify_title:'Ошибка',
+                    pnotify_type:'error',
+                    pnotify_text:response.error
+                });
+            }
+        }, 'json');
+    },
+    checkAddLnk:function(){
+        if (SeoLinking.keyword_id == null && $('#own-keyword').val() == '') {
+            $.pnotify({
+                pnotify_title:'Ошибка',
+                pnotify_type:'error',
+                pnotify_text:'Выберите ключевое слово'
+            });
+            return false;
+        }
+        if (SeoLinking.phrase_id == null) {
+            $.pnotify({
+                pnotify_title:'Ошибка',
+                pnotify_type:'error',
+                pnotify_text:'Выберите строку в верхней таблице'
+            });
+            return false;
+        }
+        if (SeoLinking.page_id == null) {
+            $.pnotify({
+                pnotify_title:'Ошибка',
+                pnotify_type:'error',
+                pnotify_text:'Выберите страницу с которой ставить ссылку'
+            });
+            return false;
+        }
+
+        return true;
     },
     removeLink:function (el, page_id, page_to_id) {
         if (confirm("Вы точно хотите удалить ссылку?")) {
@@ -374,6 +410,27 @@ var SeoLinking = {
         $.post('/promotion/linking/searchPages/', {phrase_id:phrase_id, keyword:keyword}, function (response) {
             $('#similar-pages').html(response).removeClass('loading-block');
         });
+    },
+    skip:function () {
+        $('#auto-linking').fadeOut(1000);
+
+        $.post('/promotion/linking/skip/', {
+            phrase_id:SeoLinking.phrase_id
+        }, function (response) {
+            if (response.status) {
+                SeoLinking.keyword_id = null;
+                SeoLinking.phrase_id = response.phrase_id;
+                SeoLinking.page_id = response.page_id;
+                $('#auto-linking').removeClass('loading-block').html(response.html).fadeIn(500);
+
+            } else {
+                $.pnotify({
+                    pnotify_title:'Ошибка',
+                    pnotify_type:'error',
+                    pnotify_text:response.error
+                });
+            }
+        }, 'json');
     }
 }
 

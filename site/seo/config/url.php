@@ -24,5 +24,7 @@ return array(
 
         'cook/recipe/<id:\d+>' => array('cook/recipe/view', 'defaultParams' => array('section' => 0)),
         'cook/multivarka/<id:\d+>' => array('cook/recipe/view', 'defaultParams' => array('section' => 1)),
+
+        'externalLinks/sites/reports/<page:[\d]+>'=>'externalLinks/sites/reports',
     ),
 );

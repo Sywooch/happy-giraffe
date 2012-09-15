@@ -21,8 +21,13 @@
             </div>
         </div>
 
-        <i class="img"></i>
-        <span>SEO-<span>жираф</span></span> &nbsp; <?= $this->pageTitle ?>
+        <?php if ($this->icon == 1):?>
+            <i class="img"></i>
+            <span>SEO-<span>жираф</span></span> &nbsp; <?= $this->pageTitle ?>
+        <?php else: ?>
+            <i class="statistic-img"></i>
+            <?= $this->pageTitle ?>
+        <?php endif ?>
     </div>
 <?php endif ?>
 

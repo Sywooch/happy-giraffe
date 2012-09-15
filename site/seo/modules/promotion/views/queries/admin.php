@@ -91,7 +91,7 @@
                     <td><a href="javascript:;" class="icon-plus"></a></td><?php
                     $url = $this->createUrl('/promotion/linking/view', array('id'=>$phrase->page_id, 'selected_phrase_id'=>$phrase->id));
                     ?>
-                    <td><b><a onmouseover="SeoLinking.showDonors(this, <?=$phrase->page_id ?>)" target="_blank" href="<?=$url ?>"><?=$phrase->getLinksCount() ?></a></b><a target="_blank" href="<?=$url ?>" class="icon-arr-r"></a></td>
+                    <td><b><a onmouseover="SeoLinking.showDonors(this, <?=$phrase->page_id ?>)" target="_blank" href="<?=$url ?>"><?=$phrase->linksCount ?></a></b><a target="_blank" href="<?=$url ?>" class="icon-arr-r"></a></td>
                 </tr><tr>
                     <?php endforeach; ?>
                 </tr>

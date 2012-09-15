@@ -230,28 +230,22 @@ class PagesSearchPhrase extends HActiveRecord
             'keyword.yandex' => array(
                 'select' => 'value',
                 'condition' => 'value >= :wordstat_min',
-                'params' => array(':wordstat_min' => SeoUserAttributes::getAttribute(Yii::app()->user->id, 'wordstat_min'))
+                'params' => array(':wordstat_min' => SeoUserAttributes::getAttribute('wordstat_min'))
             ),
             'skip',
             'links'
         );
 
         $criteria->group = 't.id';
-        $criteria->having = 'links_count <= :links_count';
+        $criteria->having = 'links_count < 1';
         $criteria->together = true;
         $criteria->condition = 'skip.phrase_id IS NULL AND google_traffic >= :google_traffic';
 
-        $links_count = SeoUserAttributes::getAttribute(0, 'links_count_google');
         $criteria->params = array(
-            ':links_count' => $links_count,
-            ':google_traffic' => SeoUserAttributes::getAttribute(Yii::app()->user->id, 'google_traffic')
+            ':google_traffic' => SeoUserAttributes::getAttribute('google_traffic')
         );
 
         $model = PagesSearchPhrase::model()->find($criteria);
-        if ($model === null) {
-            SeoUserAttributes::setAttribute(0, 'links_count_google', $links_count + 1);
-            return self::getGooglePhrase();
-        }
 
         return $model;
     }
@@ -265,35 +259,29 @@ class PagesSearchPhrase extends HActiveRecord
             'keyword.yandex' => array(
                 'select' => 'value',
                 'condition' => 'value >= :wordstat_min',
-                'params' => array(':wordstat_min' => SeoUserAttributes::getAttribute(Yii::app()->user->id, 'wordstat_min'))
+                'params' => array(':wordstat_min' => SeoUserAttributes::getAttribute('wordstat_min'))
             ),
             'skip',
             'links'
         );
 
         $criteria->group = 't.id';
-        $criteria->having = 'links_count <= :links_count';
+        $criteria->having = 'links_count < 1';
         $criteria->together = true;
 
-        if (SeoUserAttributes::getAttribute(Yii::app()->user->id, 'yandex_sort') == self::SORT_BY_POSITION)
+        if (SeoUserAttributes::getAttribute('yandex_sort') == self::SORT_BY_POSITION)
             $criteria->order = 'last_yandex_position asc';
         else
             $criteria->order = 'yandex.value desc';
         $criteria->condition = 'skip.phrase_id IS NULL AND last_yandex_position > :min_yandex_position
                                 AND last_yandex_position < :max_yandex_position';
 
-        $links_count = SeoUserAttributes::getAttribute(0, 'links_count_yandex');
         $criteria->params = array(
-            ':min_yandex_position' => SeoUserAttributes::getAttribute(Yii::app()->user->id, 'min_yandex_position'),
-            ':max_yandex_position' => SeoUserAttributes::getAttribute(Yii::app()->user->id, 'max_yandex_position'),
-            ':links_count' => $links_count
+            ':min_yandex_position' => SeoUserAttributes::getAttribute('min_yandex_position'),
+            ':max_yandex_position' => SeoUserAttributes::getAttribute('max_yandex_position'),
         );
 
         $model = PagesSearchPhrase::model()->find($criteria);
-        if ($model === null) {
-            SeoUserAttributes::setAttribute(0, 'links_count_yandex', $links_count + 1);
-            return self::getYandexPhrase();
-        }
 
         return $model;
     }

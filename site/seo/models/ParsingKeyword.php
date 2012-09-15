@@ -29,7 +29,7 @@ class ParsingKeyword extends HActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'happy_giraffe_seo.parsing_keywords';
+		return 'parsing_keywords';
 	}
 
     public function getDbConnection()

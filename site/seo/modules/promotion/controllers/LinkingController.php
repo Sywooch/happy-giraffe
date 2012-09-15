@@ -1,5 +1,7 @@
 <?php
 
+Yii::import('site.frontend.extensions.phpQuery.phpQuery');
+
 class LinkingController extends SController
 {
     public $pageTitle = 'продвижение';
@@ -26,6 +28,33 @@ class LinkingController extends SController
         $this->render('view', compact('page', 'selected_phrase_id', 'period'));
     }
 
+    public function actionAutoLinking()
+    {
+        $phrase = PagesSearchPhrase::getActualPhrase();
+
+        $pages = $this->getSimilarPages($phrase);
+        $keywords = $phrase->getSimilarKeywords();
+
+        $this->render('auto_linking', compact('phrase', 'pages', 'keywords'));
+    }
+
+    public function actionSkip()
+    {
+        $phrase = $this->loadPhrase(Yii::app()->request->getPost('phrase_id'));
+        $skip = new ILSkip;
+        $skip->phrase_id = $phrase->id;
+        if (!$skip->save()){
+            echo CJSON::encode(array(
+                'status' => false,
+                'error' => $skip->getErrorsText(),
+            ));
+            Yii::app()->end();
+        }
+
+        $response = $this->nextLink();
+        echo CJSON::encode($response);
+    }
+
     public function actionAdd()
     {
         $phrase = $this->loadPhrase(Yii::app()->request->getPost('phrase_id'));
@@ -48,19 +77,52 @@ class LinkingController extends SController
                 'status' => false,
                 'error' => $link->getErrorsText(),
             ));
-        } else
-            echo CJSON::encode(array(
-                'status' => true,
-                'linkInfo' => $this->renderPartial('_link_info', array('input_link' => $link), true)
-            ));
+        } else {
+
+            if (Yii::app()->request->getPost('next_link') == 1) {
+                $response = $this->nextLink();
+            } else
+                $response = array(
+                    'status' => true,
+                    'linkInfo' => $this->renderPartial('_link_info', array('input_link' => $link), true)
+                );
+            echo CJSON::encode($response);
+        }
+    }
+
+    public function nextLink()
+    {
+        $phrase = PagesSearchPhrase::getActualPhrase();
+        $page = $phrase->page;
+        $pages = $this->getSimilarPages($phrase);
+        $keywords = $phrase->getSimilarKeywords();
+
+        return array(
+            'status' => true,
+            'html' => $this->renderPartial('_auto_linking', compact('phrase', 'pages', 'keywords', 'page'), true),
+            'page_id' => $page->id,
+            'phrase_id' => $phrase->id,
+        );
     }
 
     public function actionPhraseInfo()
     {
-        Yii::import('site.frontend.extensions.phpQuery.phpQuery');
-
-        $parser = new SimilarArticlesParser;
         $phrase = $this->loadPhrase(Yii::app()->request->getPost('phrase_id'));
+        $pages = $this->getSimilarPages($phrase);
+
+        $keywords = $phrase->getSimilarKeywords();
+
+        $this->renderPartial('_phrase_view', compact('pages', 'keywords', 'phrase'));
+    }
+
+
+    /**
+     * @param $phrase
+     * @return Page[]
+     */
+    public function getSimilarPages($phrase)
+    {
+        $parser = new SimilarArticlesParser;
         $pages = $parser->getArticles($phrase->keyword->name);
 
         $pages = $this->filterPages($phrase, $pages);
@@ -79,9 +141,7 @@ class LinkingController extends SController
         if (count($pages) > 10)
             $pages = array_slice($pages, 0, 10);
 
-        $keywords = $phrase->getSimilarKeywords();
-
-        $this->renderPartial('_phrase_view', compact('pages', 'keywords', 'phrase'));
+        return $pages;
     }
 
     /**

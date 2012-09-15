@@ -24,7 +24,7 @@ class SiteStatisticType extends HActiveRecord
     }
 
     public function tableName(){
-        return 'happy_giraffe_seo.visits_names';
+        return 'visits_names';
 	}
 
 	/**

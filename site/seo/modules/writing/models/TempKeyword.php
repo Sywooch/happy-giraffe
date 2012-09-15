@@ -28,7 +28,7 @@ class TempKeyword extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'happy_giraffe_seo.temp_keywords';
+		return 'temp_keywords';
 	}
 
     public function getDbConnection()

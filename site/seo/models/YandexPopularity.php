@@ -25,7 +25,7 @@ class YandexPopularity extends HActiveRecord
 
     public function tableName()
     {
-        return 'happy_giraffe_seo.yandex_popularity';
+        return 'yandex_popularity';
     }
 
     public function getDbConnection()

@@ -42,7 +42,7 @@ var ExtLinks = {
     },
     AddForum:function () {
         var url = $('#site_url').val();
-        $.post('/externalLinks/forums/add/', {url:url}, function (response) {
+        $.post('/externalLinks/forums/add/', {url:url, create_task:1}, function (response) {
             if (response.status) {
                 $('.flash-message.added').html('Форум &nbsp;<a target="_blank" href="' + url +
                     '">' + url + '</a> добавлен в задачи').show().delay(3000).fadeOut(3000);

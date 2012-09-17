@@ -22,8 +22,8 @@ class ELTask extends HActiveRecord
     const TYPE_COMMENT = 2;
     const TYPE_POST_LINK = 3;
 
-    const MINIMUM_COMMENTS = 1;
-    const LINK_PROBABILITY = 90;
+    const MINIMUM_COMMENTS = 2;
+    const LINK_PROBABILITY = 30;
 
     /**
      * Returns the static model of the specified AR class.
@@ -145,6 +145,15 @@ class ELTask extends HActiveRecord
             var_dump($task->getErrors());
     }
 
+    public static function taskForExecuted($site_id)
+    {
+        $task = new ELTask();
+        $task->type = ELTask::TYPE_COMMENT;
+        $task->start_date = date("Y-m-d", strtotime('+2 weeks'));
+        $task->site_id = $site_id;
+        $task->save();
+    }
+
     /**
      * Create comment task
      *
@@ -182,25 +191,44 @@ class ELTask extends HActiveRecord
             //create comment task instantly
             $this->createCommentTask(date("Y-m-d"), $this->user_id);
         } elseif ($this->type == self::TYPE_COMMENT) {
-            $comments_count = self::getCommentsCount($this->site_id);
-            if ($comments_count >= self::MINIMUM_COMMENTS) {
-                if (rand(0, 100) > self::LINK_PROBABILITY)
-                    $this->createCommentTask(date("Y-m-d", strtotime('+1 week')));
-                else
-                    $this->createLinkTask(date("Y-m-d", strtotime('+1 week')));
-            } else {
-                $this->createCommentTask(date("Y-m-d", strtotime('+1 day')));
-            }
-        } elseif ($this->type == self::TYPE_POST_LINK) {
-            if (rand(0, 100) > self::LINK_PROBABILITY)
-                $this->createCommentTask(date("Y-m-d", strtotime('+1 week')));
+            $prev_comments_count = $this->getPreviousCommentsCount();
+            if ($prev_comments_count < 2 || ($prev_comments_count < 5 && rand(1,9) > 5))
+                $this->createCommentTask(date("Y-m-d", strtotime('+'.rand(1,3).' days')));
             else
-                $this->createLinkTask(date("Y-m-d", strtotime('+1 week')));
+                $this->createLinkTask(date("Y-m-d", strtotime('+'.rand(1,3).' days')));
+        } elseif ($this->type == self::TYPE_POST_LINK) {
+            $this->createCommentTask(date("Y-m-d", strtotime('+'.rand(30,40).' days')));
         }
 
         $this->closed = date("Y-m-d H:i:s");
         $this->user_id = Yii::app()->user->id;
         return $this->save();
+    }
+
+    public function getPreviousCommentsCount()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->compare('site_id', $this->site_id);
+        $criteria->compare('type', self::TYPE_POST_LINK);
+        $criteria->order = 'created desc';
+
+        $latest_link_comment = self::model()->find($criteria);
+        if ($latest_link_comment === null){
+            $criteria = new CDbCriteria;
+            $criteria->compare('site_id', $this->site_id);
+            $criteria->compare('type', self::TYPE_COMMENT);
+            return self::model()->count($criteria);
+        }
+
+        $criteria = new CDbCriteria;
+        $criteria->condition = 'created >= :last_link_time';
+        $criteria->compare('site_id', $this->site_id);
+        $criteria->compare('type', self::TYPE_COMMENT);
+        $criteria->params = array(':last_link_time'=>$latest_link_comment->created);
+
+        $criteria->order = 'created desc';
+
+        return self::model()->count($criteria);
     }
 
     public static function getCommentsCount($site_id)
@@ -246,7 +274,12 @@ class ELTask extends HActiveRecord
         $criteria->condition = 'closed IS NULL AND start_date <= :start_date AND user_id IS NULL';
         $criteria->params = array(':start_date' => date("Y-m-d"));
 
-        return ELTask::model()->find($criteria);
+        $model  =ELTask::model()->find($criteria);
+        if ($model !== null){
+            $model->user_id = Yii::app()->user->id;
+            $model->update(array('user_id'));
+        }
+        return $model;
     }
 
     public static function showTaskCount()

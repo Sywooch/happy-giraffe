@@ -68,6 +68,7 @@ class SitesController extends ELController
         if ($model === null) {
             $model = new ELSite;
             $model->url = $host;
+            $model->type = ELSite::TYPE_SITE;
             if ($model->save()) {
                 $response = array(
                     'status' => true,

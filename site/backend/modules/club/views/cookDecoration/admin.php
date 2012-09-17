@@ -11,8 +11,12 @@
 		    'value'=>'CHtml::image($data->photo->getPreviewUrl(70, 70))',
             'type'=>'raw'
 		),
-		'category.title',
 		'title',
+        'description',
+        array(
+            'value' => 'CHtml::link($data->photo->author->fullName, $data->photo->author->url)',
+            'type' => 'raw',
+        ),
 		'created',
 		array(
 			'class'=>'CButtonColumn',

@@ -149,8 +149,9 @@ class ELLink extends HActiveRecord
 
     public function defaultScope()
     {
+        $alias = $this->getTableAlias(false, false);
         return array(
-            'order' => 'id desc',
+            'order' => ($alias)?$alias.'.id desc':'id desc',
         );
     }
 

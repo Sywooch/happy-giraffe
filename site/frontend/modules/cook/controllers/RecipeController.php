@@ -80,10 +80,11 @@ class RecipeController extends HController
         }
 
         if (isset($_POST[$this->modelName])) {
-            $ingredients = array();
             $recipe->attributes = $_POST[$this->modelName];
             if ($recipe->isNewRecord)
                 $recipe->author_id = Yii::app()->user->id;
+
+            $ingredients = array();
             if (isset($_POST['CookRecipeIngredient']))
                 foreach ($_POST['CookRecipeIngredient'] as $i) {
                     if (!empty($i['ingredient_id']) || !empty($i['value']) || $i['unit_id'] != CookRecipeIngredient::EMPTY_INGREDIENT_UNIT) {
@@ -95,7 +96,10 @@ class RecipeController extends HController
                     }
                 }
             $recipe->ingredients = $ingredients;
-            if ($recipe->withRelated->save(true, array('ingredients'))) {
+
+            if ($recipe->withRelated->validate(array('ingredients'))) {
+                CookRecipeIngredient::model()->deleteAll('recipe_id = :recipe_id', array(':recipe_id' => $recipe->id));
+                $recipe->withRelated->save(false, array('ingredients'));
                 $this->redirect(array('/cook/recipe/view', 'id' => $recipe->id, 'section' => $this->section));
             }
         }

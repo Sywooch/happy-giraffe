@@ -28,6 +28,7 @@ class CommentatorController extends HController
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
         Yii::import('site.frontend.modules.cook.models.*');
+        Yii::import('site.frontend.modules.cook.components.*');
 
         $this->user = Yii::app()->user->model;
         $this->commentator = CommentatorWork::getCurrentUser();

@@ -185,6 +185,7 @@ class Comment extends HActiveRecord
                 Yii::import('site.frontend.modules.signal.components.*');
                 Yii::import('site.frontend.modules.signal.models.*');
                 Yii::import('site.frontend.modules.cook.models.*');
+                Yii::import('site.frontend.modules.cook.components.*');
 
                 if (strlen(trim(strip_tags($this->text))) >= 80) {
                     $commentator = CommentatorWork::getCurrentUser();

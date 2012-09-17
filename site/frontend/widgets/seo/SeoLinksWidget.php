@@ -27,6 +27,7 @@ class SeoLinksWidget extends CWidget
     static function getPage()
     {
         $criteria = new CDbCriteria;
+
         $criteria->compare('url', 'http://www.happy-giraffe.ru' . Yii::app()->request->getRequestUri());
         return Page::model()->find($criteria);
     }

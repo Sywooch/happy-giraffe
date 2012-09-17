@@ -318,7 +318,7 @@ class EditorController extends SController
                     'error' => 'Ошибка при сохранении группы кейвордов'
                 ));
                 Yii::app()->end();
-            }else{
+            } else {
                 if (empty($article->keywordGroup)) {
                     $article->keyword_group_id = $group->id;
                     $article->save();
@@ -420,17 +420,21 @@ class EditorController extends SController
         $keyword = Keyword::model()->findByPk($keyword_id);
 
         foreach ($keyword->group as $group) {
-            $group->page->keyword_group_id = null;
-            $group->page->update(array('keyword_group_id'));
-            if ($group->delete()) {
-                $response = array(
-                    'status' => true,
-                    'html' => $keyword->name
-                );
-            } else
-                $response = array('status' => false);
+            if (isset($group->page)) {
+                $group->page->keyword_group_id = null;
+                $group->page->update(array('keyword_group_id'));
+                if ($group->delete()) {
+                    $response = array(
+                        'status' => true,
+                        'html' => $keyword->name
+                    );
+                } else
+                    $response = array('status' => false);
 
-            echo CJSON::encode($response);
+                echo CJSON::encode($response);
+            }else{
+                $group->delete();
+            }
         }
     }
 

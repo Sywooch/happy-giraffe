@@ -5,6 +5,7 @@
 
 var ExtLinks = {
     problem_type:0,
+    site_id:null,
     CheckSite:function () {
         var url = $('#site_url').val();
         $.post('/externalLinks/sites/checkSite/', {url:url}, function (response) {
@@ -46,6 +47,22 @@ var ExtLinks = {
                 $('.flash-message.added').html('Форум &nbsp;<a target="_blank" href="' + url +
                     '">' + url + '</a> добавлен в задачи').show().delay(3000).fadeOut(3000);
                 ExtLinks.ClearForum();
+            } else
+                $.pnotify({
+                    pnotify_title:'Ошибка',
+                    pnotify_type:'error',
+                    pnotify_text:'Ошибка, обратитесь к разработчикам'
+                });
+        }, 'json');
+    },
+    AddForumExecuted:function () {
+        var url = $('#site_url').val();
+        $.post('/externalLinks/forums/add/', {url:url}, function (response) {
+            if (response.status) {
+                $('div.form').show();
+                ExtLinks.site_id = response.id;
+                $('#ELLink_site_id').val(response.id);
+                $('div.reg-form').replaceWith(response.account);
             } else
                 $.pnotify({
                     pnotify_title:'Ошибка',
@@ -140,10 +157,12 @@ var ExtLinks = {
         $.post('/externalLinks/tasks/addForumLogin/', {
             login:login,
             password:password,
-            site_id:site_id
+            site_id:ExtLinks.site_id
         }, function (response) {
             if (response.status) {
                 $(el).hide();
+                $(el).next().show();
+                $(el).parents('.reg-form input[type="text"]').disable();
             } else
                 $.pnotify({
                     pnotify_title:'Ошибка',
@@ -151,6 +170,11 @@ var ExtLinks = {
                     pnotify_text:response.error
                 });
         }, 'json');
+    },
+    EditLogin:function(el){
+        $(el).hide();
+        $(el).prev().show();
+        $(el).parents('.reg-form input[type="text"]').enable();
     },
     Problem:function (id) {
         $.post('/externalLinks/tasks/problem/', {
@@ -186,5 +210,5 @@ var ExtLinks = {
                     pnotify_text:response.error
                 });
         }, 'json');
-    },
+    }
 }

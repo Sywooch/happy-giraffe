@@ -1,6 +1,8 @@
 <?php
 /** @var $task ELTask
  */
+
+Yii::app()->clientScript->registerScript('init_site_id','ExtLinks.site_id = '.$task->site_id);
 ?>
 <div class="tasks-list">
 
@@ -15,11 +17,7 @@
         <?php if (empty($task->site->account)): ?>
         <li>
             <div class="task-title">Внесите данные регистрации</div>
-            <div class="reg-form">
-                <button class="btn-g small" onclick="ExtLinks.AddForumLogin(this, <?=$task->site_id?>)">Ok</button>
-                <label>Логин:</label><input id="forum-login" type="text"><br>
-                <label>Пароль:</label><input id="forum-password" type="text"><br>
-            </div>
+            <?php $this->renderPartial('/forums/_reg_data'); ?>
         </li>
         <?php else: ?>
         <li>

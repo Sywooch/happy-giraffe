@@ -26,7 +26,7 @@ class KeywordBlacklist extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'happy_giraffe_seo.keyword_blacklist';
+		return 'keyword_blacklist';
 	}
 
     public function getDbConnection(){

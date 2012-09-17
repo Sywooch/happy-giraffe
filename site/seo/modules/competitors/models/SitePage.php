@@ -24,7 +24,7 @@ class SitePage extends HActiveRecord
     }
 
     public function tableName(){
-        return 'happy_giraffe_seo.sites__pages';
+        return 'sites__pages';
 	}
 
 	/**

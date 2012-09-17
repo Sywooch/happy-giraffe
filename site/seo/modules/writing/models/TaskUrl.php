@@ -28,7 +28,7 @@ class TaskUrl extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'happy_giraffe_seo.task_urls';
+		return 'task_urls';
 	}
 
     public function getDbConnection()

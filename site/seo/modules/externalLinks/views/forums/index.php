@@ -5,30 +5,7 @@
 ?>
 <div class="ext-links-add">
 
-    <div class="nav clearfix">
-        <?php
-
-        $this->widget('zii.widgets.CMenu', array(
-            'items' => array(
-                array(
-                    'label' => 'Добавить',
-                    'url' => array('/externalLinks/forums/index')
-                ),
-                array(
-                    'label' => 'Задания',
-                    'url' => array('/externalLinks/forums/tasks'),
-                ),
-                array(
-                    'label' => 'Выполнено',
-                    'url' => array('/externalLinks/forums/executed'),
-                ),
-                array(
-                    'label' => 'Отчеты',
-                    'url' => array('/externalLinks/forums/reports'),
-                ),
-            )));
-        ?>
-    </div>
+    <?php $this->renderPartial('sub_menu')?>
 
     <div style="height: 30px;">
         <div class="flash-message added" style="display: none;"></div>

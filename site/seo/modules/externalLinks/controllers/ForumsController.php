@@ -7,16 +7,24 @@ class ForumsController extends ELController
 		$this->render('index');
 	}
 
-    public function actionTasks(){
-
-    }
-
     public function actionExecuted(){
-
+        $this->render('executed');
     }
 
-    public function actionReports(){
+    public function actionReports($page = 0){
+        $model = new ELLink();
 
+        $dataProvider = $model->search();
+        $criteria = $dataProvider->criteria;
+        $count = ELLink::model()->count($dataProvider->criteria);
+
+        $pages = new CPagination($count);
+        $pages->currentPage = $page;
+        $pages->applyLimit($dataProvider->criteria);
+
+        $models = ELLink::model()->findAll($criteria);
+
+        $this->render('reports', compact('models', 'pages'));
     }
 
     public function actionAdd()

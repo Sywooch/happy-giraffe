@@ -36,8 +36,7 @@ class LinkingController extends SController
             $this->render('auto_linking_empty');
         } else {
 
-            //$pages = $this->getSimilarPages($phrase);
-            $pages = array();
+            $pages = $this->getSimilarPages($phrase);
             $keywords = $phrase->getSimilarKeywords();
 
             $this->render('auto_linking', compact('phrase', 'pages', 'keywords'));

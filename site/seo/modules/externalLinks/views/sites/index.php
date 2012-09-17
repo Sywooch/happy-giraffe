@@ -164,9 +164,9 @@
                 <div class="row-title">
                     <span>Тип ссылки</span>
 						<span class="link-types">
-							<a href="javascript:;" class="icon-link link" onclick="ExtLinks.CheckLinkType(this, <?=ELLink::TYPE_LINK ?>)">С</a> - ссылка
-							<a href="javascript:;" class="icon-link comment" onclick="ExtLinks.CheckLinkType(this, <?=ELLink::TYPE_COMMENT ?>)">К</a> - комментарий
-							<a href="javascript:;" class="icon-link post" onclick="ExtLinks.CheckLinkType(this, <?=ELLink::TYPE_POST ?>)">П</a> - постовой
+							<a href="javascript:;" class="icon-links link" onclick="ExtLinks.CheckLinkType(this, <?=ELLink::TYPE_LINK ?>)">С</a> - ссылка
+							<a href="javascript:;" class="icon-links comment" onclick="ExtLinks.CheckLinkType(this, <?=ELLink::TYPE_COMMENT ?>)">К</a> - комментарий
+							<a href="javascript:;" class="icon-links post" onclick="ExtLinks.CheckLinkType(this, <?=ELLink::TYPE_POST ?>)">П</a> - постовой
 						</span>
                     <?=$form->hiddenField($model, 'link_type') ?>
                     <?=$form->error($model, 'link_type') ?>

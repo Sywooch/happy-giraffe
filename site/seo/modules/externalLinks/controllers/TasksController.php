@@ -36,10 +36,12 @@ class TasksController extends ELController
     {
         $login = Yii::app()->request->getPost('login');
         $password = Yii::app()->request->getPost('password');
-        $site_id = Yii::app()->request->getPost('site_id');
+        $site = $this->loadSite(Yii::app()->request->getPost('site_id'));
 
-        $account = new ELAccount();
-        $account->site_id = $site_id;
+        if (empty($site->account))
+            $account = new ELAccount();
+        else
+            $account = $site->account;
         $account->login = $login;
         $account->password = $password;
         if ($account->save()) {
@@ -135,6 +137,18 @@ class TasksController extends ELController
     public function loadModel($id)
     {
         $model = ELTask::model()->findByPk($id);
+        if ($model === null)
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        return $model;
+    }
+
+    /**
+     * @param int $id model id
+     * @return ELSite
+     * @throws CHttpException
+     */
+    public function loadSite($id){
+        $model = ELSite::model()->findByPk($id);
         if ($model === null)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
         return $model;

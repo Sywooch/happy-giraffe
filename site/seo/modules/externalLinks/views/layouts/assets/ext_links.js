@@ -162,7 +162,7 @@ var ExtLinks = {
             if (response.status) {
                 $(el).hide();
                 $(el).next().show();
-                $(el).parents('.reg-form input[type="text"]').disable();
+                $(el).parents('.reg-form').find('input[type="text"]').prop('disabled', true);
             } else
                 $.pnotify({
                     pnotify_title:'Ошибка',
@@ -174,7 +174,7 @@ var ExtLinks = {
     EditLogin:function(el){
         $(el).hide();
         $(el).prev().show();
-        $(el).parents('.reg-form input[type="text"]').enable();
+        $(el).parents('.reg-form').find('input[type="text"]').prop('disabled', false);
     },
     Problem:function (id) {
         $.post('/externalLinks/tasks/problem/', {

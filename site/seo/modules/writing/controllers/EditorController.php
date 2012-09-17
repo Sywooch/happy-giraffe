@@ -293,6 +293,7 @@ class EditorController extends SController
         ));
         if ($article !== null) {
             $keyword_ids = array();
+            if (!empty($article->keywordGroup))
             foreach ($article->keywordGroup->keywords as $keyword) {
                 if ($keyword->id == $keyword_id) {
                     echo CJSON::encode(array(

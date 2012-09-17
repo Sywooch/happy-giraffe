@@ -188,13 +188,16 @@ button.btn-gray-small {height:20px;}
 #seo .icon-btn-add {display:inline-block;*zoom:1;*display:inline;width:16px;height:16px;background:url(/images/seo_sprite.png) no-repeat -42px -172px;vertical-align:middle;}
 #seo .icon-date {display:inline-block;*zoom:1;*display:inline;width:18px;height:17px;background:url(/images/seo_sprite.png) no-repeat -60px -172px;vertical-align:middle;position:relative;top:-2px;}
 
+#seo .icon-edit {display:inline-block;*zoom:1;*display:inline;width:14px;height:18px;background:url(../images/common.png) no-repeat -383px -204px;margin:0 auto;position:relative;text-decoration:none;font-weight:normal;z-index:3;vertical-align:middle;margin-left:10px;top:-2px;}
+#seo .icon-edit:hover {background-position:-341px -136px;}
+
 #seo .icon-blacklist {width:28px;height:28px;display:inline-block;*zoom:1;*display:inline;background:#5e5c5c;color:#fff;line-height:28px;text-align:center;font-size:12px;text-decoration:none;-moz-border-radius:14px;-webkit-border-radius:14px;border-radius:14px;}
 
-#seo .icon-link {width:18px;height:18px;display:inline-block;*zoom:1;*display:inline;background:#fff;color:#686767;line-height:18px;text-align:center;font-size:11px;text-decoration:none;-moz-border-radius:20px;-webkit-border-radius:20px;border-radius:20px;font-weight:bold;border:1px solid #cfcfcf;}
-#seo .icon-link:hover, #seo .icon-link.active {color:#fff;}
-#seo .icon-link.link:hover, #seo .icon-link.link.active {background:#5488d0;border-color:#5488d0;}
-#seo .icon-link.comment:hover, #seo .icon-link.comment.active {background:#6bc545;border-color:#6bc545;}
-#seo .icon-link.post:hover, #seo .icon-link.post.active {background:#f18b2f;border-color:#f18b2f;}
+#seo .icon-links {width:18px;height:18px;display:inline-block;*zoom:1;*display:inline;background:#fff;color:#686767;line-height:18px;text-align:center;font-size:11px;text-decoration:none;-moz-border-radius:20px;-webkit-border-radius:20px;border-radius:20px;font-weight:bold;border:1px solid #cfcfcf;}
+#seo .icon-links:hover, #seo .icon-links.active {color:#fff;}
+#seo .icon-links.link:hover, #seo .icon-links.link.active {background:#5488d0;border-color:#5488d0;}
+#seo .icon-links.comment:hover, #seo .icon-links.comment.active {background:#6bc545;border-color:#6bc545;}
+#seo .icon-links.post:hover, #seo .icon-links.post.active {background:#f18b2f;border-color:#f18b2f;}
 
 #seo .icon-m {color:#f5811a;font-weight:bold;font-size:15px;}
 
@@ -633,7 +636,7 @@ button.btn-gray-small {height:20px;}
 #seo .ext-links-add .tasks-list .task-title a {font-size:13px;}
 #seo .ext-links-add .tasks-list .task {padding:8px 0;}
 #seo .ext-links-add .tasks-list .reg-form {margin-top:5px;width:350px;padding:16px 15px;background:#fef7d2;}
-#seo .ext-links-add .tasks-list .reg-form button {float:right;margin-top:30px;}
+#seo .ext-links-add .tasks-list .reg-form button {float:right;margin-top:30px;border:0;}
 #seo .ext-links-add .tasks-list .reg-form label {display:inline-block;width:80px;font-size:14px;}
 #seo .ext-links-add .tasks-list .reg-form input[type=text], #seo .ext-links-add .tasks-list .reg-form input[type=password] {padding:2px 9px;overflow:auto;width:180px;border:1px solid #d8c7ea;background:#fff;vertical-align:middle;color:#2881d4;height:25px;line-height:25px;vertical-align:middle;margin:4px 0;color:#222;font-size:15px;}
 #seo .ext-links-add .tasks-list .reg-form.revealed {width:300px;}

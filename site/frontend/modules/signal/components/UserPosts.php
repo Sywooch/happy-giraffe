@@ -7,7 +7,7 @@ class UserPosts extends PostForCommentator
 {
     protected $entities = array(
         'CommunityContent' => array(20),
-//        'CookRecipe' => array(2, 3),
+        'CookRecipe' => array(2, 3),
     );
     protected $nextGroup = 'FavouritesPosts';
 

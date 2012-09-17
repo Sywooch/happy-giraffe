@@ -117,9 +117,12 @@ class TasksController extends ELController
         if ($model->validate()) {
             if (!$model->withRelated->save(true, array('keywords')))
                 var_dump($model->getErrors());
-            else{
-                $task = $this->loadModel(Yii::app()->request->getPost('id'));
-                $task->closeTask();
+            else {
+                $task_id = Yii::app()->request->getPost('id');
+                if (!empty($task_id)) {
+                    $task = $this->loadModel(Yii::app()->request->getPost('id'));
+                    $task->closeTask();
+                }
             }
         }
     }

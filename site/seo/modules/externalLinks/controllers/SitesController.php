@@ -13,6 +13,10 @@ class SitesController extends ELController
 
         $dataProvider = $model->search();
         $criteria = $dataProvider->criteria;
+        $criteria->with = array('site'=>array(
+            'select'=>array('type')
+        ));
+        $criteria->compare('site.type', ELSite::TYPE_SITE);
         $count = ELLink::model()->count($dataProvider->criteria);
 
         $pages = new CPagination($count);

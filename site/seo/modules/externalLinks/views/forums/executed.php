@@ -16,22 +16,57 @@
         <button class="btn-g" onclick="ExtLinks.CheckSite()">Добавить</button>
     </div>
 
-    <div class="tasks-list">
+    <div class="url-actions" id="site_status_1" style="display: none;">
 
-        <ul>
-            <li>
-                <div class="task-title">Данные регистрации</div>
-                <div class="reg-form">
-                    <button class="btn-g small" onclick="ExtLinks.AddForumLogin(this)">Ok</button>
-                    <label>Логин:</label><input id="forum-login" type="text"><br>
-                    <label>Пароль:</label><input id="forum-password" type="text"><br>
-                </div>
-            </li>
-        </ul>
+        <span class="new-site">Новый сайт</span>
+
+        <button class="btn-g" onclick="ExtLinks.AddSite()">Добавить</button>
+
+        <a href="javascript:;" class="pseudo" onclick="ExtLinks.CancelSite()">Отмена</a>
+
+        <a href="javascript:;" class="icon-blacklist" onclick="ExtLinks.AddToBL(1)">ЧС</a>
 
     </div>
 
-    <div class="form">
+    <div class="url-actions" id="site_status_2" style="display: none;">
+
+        <span class="have-links">Есть ссылки</span>
+
+        <button class="btn-g disabled" onclick="ExtLinks.AddSite()">Добавить</button>
+
+        <a href="javascript:;" class="pseudo" onclick="ExtLinks.CancelSite()">Отмена</a>
+
+        <a href="javascript:;" class="icon-blacklist" onclick="ExtLinks.AddToBL(1)">ЧС</a>
+
+    </div>
+
+    <div class="url-actions" id="site_status_3" style="display: none;">
+
+        <span class="in-blacklist">В черном списке</span>
+
+        <button class="btn-g orange" onclick="ExtLinks.CancelSite()">Отмена</button>
+
+        <a href="javascript:;" onclick="ExtLinks.AddSite()" class="pseudo">Добавить</a>
+
+    </div>
+
+    <div class="form" style="display:none;">
+
+        <div class="tasks-list">
+
+            <ul>
+                <li>
+                    <div class="task-title">Данные регистрации</div>
+                    <div class="reg-form">
+                        <button class="btn-g small" onclick="ExtLinks.AddForumLogin(this)">Ok</button>
+                        <label>Логин:</label><input id="forum-login" type="text"><br>
+                        <label>Пароль:</label><input id="forum-password" type="text"><br>
+                    </div>
+                </li>
+            </ul>
+
+        </div>
+
         <?php $form = $this->beginWidget('CActiveForm', array(
         'id' => 'link-form',
         'enableAjaxValidation' => true,
@@ -41,7 +76,7 @@
             'validateOnSubmit' => true,
             'validateOnChange' => false,
             'validateOnType' => false,
-            'validationUrl' => $this->createUrl('addLink'),
+            'validationUrl' => $this->createUrl('/externalLinks/tasks/addLink'),
             'afterValidate' => "js:function(form, data, hasError) {
                                 if (!hasError)
                                     window.location.reload();
@@ -116,8 +151,10 @@
             </div>
         </div>
 
-        <div class="row row-btn">
-            <button class="btn-g">Добавить</button>
+        <div class="row row-btn-done">
+
+            <button class="btn-g">Выполнено</button>
+
         </div>
 
         <?php $this->endWidget(); ?>

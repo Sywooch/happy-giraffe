@@ -20,6 +20,7 @@ Yii::app()->clientScript->registerScriptFile($baseUrl . '/ext_links.js')->regist
                     array(
                         'label' => 'Форумы',
                         'url' => array('/externalLinks/forums/index/'),
+                        'active'=>in_array(Yii::app()->controller->id, array('tasks','forums'))
                     ),
                     array(
                         'label' => 'Проверка ссылок',

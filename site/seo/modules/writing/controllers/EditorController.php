@@ -292,6 +292,15 @@ class EditorController extends SController
             'entity_id' => $article_id
         ));
         if ($article !== null) {
+            if ($section == 1)
+                $class = 'CommunityContent';
+            else
+                $class = 'CookRecipe';
+            if (!empty($article->entity)){
+                $article->entity = $class;
+                $article->save();
+            }
+
             $keyword_ids = array();
             if (!empty($article->keywordGroup)) {
                 $group = $article->keywordGroup;

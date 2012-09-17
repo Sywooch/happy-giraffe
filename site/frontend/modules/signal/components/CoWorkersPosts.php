@@ -35,14 +35,14 @@ class CoWorkersPosts extends PostForCommentator
     {
         $criteria = new CDbCriteria;
         $criteria->select = 't.*, `comments`.`id` as comment_id';
-        $criteria->condition = 't.created >= "' . date("Y-m-d H:i:s", strtotime('-48 hour')) . '" AND `full` IS NULL AND comments.id IS NULL AND t.author_id != '.$this->user_id;
+        $criteria->condition = 't.created >= "' . date("Y-m-d H:i:s", strtotime('-48 hour')) . '" AND `full` IS NULL AND comments.id IS NULL AND t.author_id != '.$this->commentator->user_id;
         $criteria->with = array(
             'author' => array(
                 'condition' => ($simple_users) ? 'author.group = 0' : 'author.group > 0',
                 'together' => true,
             ),
         );
-        $criteria->join = 'LEFT OUTER JOIN `comments` `comments` ON (`comments`.`entity_id`=`t`.`id` AND `comments`.`author_id` = '.$this->user_id.') ';
+        $criteria->join = 'LEFT OUTER JOIN `comments` `comments` ON (`comments`.`entity_id`=`t`.`id` AND `comments`.`author_id` = '.$this->commentator->user_id.') ';
 
         return $criteria;
     }

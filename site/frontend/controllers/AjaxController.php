@@ -219,8 +219,7 @@ class AjaxController extends HController
         if (isset($_POST['CommentProduct']))
             $model = 'CommentProduct';
         elseif (isset($_POST['Comment']))
-            $model = 'Comment';
-        else
+            $model = 'Comment'; else
             Yii::app()->end();
         if (!isset($_POST[$model]['text']))
             Yii::app()->end();
@@ -283,6 +282,18 @@ class AjaxController extends HController
         if (!Yii::app()->user->checkAccess('remove' . get_class($model), array('user_id' => $model->author_id)) && !$is_entity_author)
             Yii::app()->end();
 
+        //if user remove commentator comment, then commentator will ignore this users
+        if (Yii::app()->user->model->group == UserGroup::USER && $is_entity_author && Yii::app()->user->id != $model->author_id) {
+            Yii::import('site.frontend.modules.signal.models.*');
+            $commentator = CommentatorWork::getUser($model->author_id);
+            if ($commentator !== null) {
+                if (!in_array(Yii::app()->user->id, $commentator->ignoreUsers)) {
+                    $commentator->ignoreUsers [] = (int)Yii::app()->user->id;
+                    $commentator->save();
+                }
+            }
+        }
+
         $removed = new Removed;
         $removed->user_id = Yii::app()->user->id;
         $removed->attributes = $_POST['Removed'];
@@ -333,7 +344,7 @@ class AjaxController extends HController
         if ($this->isValidURL($link)) {
             $video = new Video($link);
 
-            if (empty($video->preview)){
+            if (empty($video->preview)) {
                 echo CJSON::encode(array('status' => false));
                 Yii::app()->end();
             }

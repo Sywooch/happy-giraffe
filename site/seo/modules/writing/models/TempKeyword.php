@@ -28,7 +28,7 @@ class TempKeyword extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'happy_giraffe_seo.temp_keywords';
+		return 'temp_keywords';
 	}
 
     public function getDbConnection()
@@ -98,7 +98,7 @@ class TempKeyword extends CActiveRecord
 
     public static function filterBusyKeywords()
     {
-        $tempKeywords = TempKeyword::model()->findAll('owner_id=' . Yii::app()->user->id);
+        /*$tempKeywords = TempKeyword::model()->findAll('owner_id=' . Yii::app()->user->id);
         foreach ($tempKeywords as $tempKeyword) {
             if (!empty($tempKeyword->keyword->group)) {
                 $success = false;
@@ -109,6 +109,6 @@ class TempKeyword extends CActiveRecord
                 if (!$success)
                     $tempKeyword->delete();
             }
-        }
+        }*/
     }
 }

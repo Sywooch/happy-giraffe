@@ -1,4 +1,4 @@
-<tr id="task-<?=$task->id; ?>">
+<tr data-id="<?=$task->id; ?>">
     <td><?=$task->getText() ?></td>
     <td><?=$task->getExecutor() ?></td>
     <td>

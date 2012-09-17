@@ -51,7 +51,7 @@ class SiteKeywordVisit extends HActiveRecord
      */
     public function tableName()
     {
-        return 'happy_giraffe_seo.sites__keywords_visits';
+        return 'sites__keywords_visits';
     }
 
     public function getDbConnection()

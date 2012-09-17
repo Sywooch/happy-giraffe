@@ -6,24 +6,30 @@
 class PostForCommentator
 {
     protected $entities = array();
-    protected $skipUrls = array();
     protected $way = array();
     protected $nextGroup = 'UserPosts';
     protected $error = '';
-    protected $user_id;
-    public $times = array(3, 3, 2, 2);
+    public $times = array(6, 6, 4, 4);
+    /**
+     * @var CommentatorWork
+     */
+    protected $commentator;
 
-    public static function getNextPost($user_id, $skipUrls)
+    /**
+     * @param CommentatorWork $commentator
+     * @return array|bool
+     */
+    public static function getNextPost($commentator)
     {
         $model = new PostForCommentator;
-        return $model->nextPost($user_id, $skipUrls);
+        $model->commentator = $commentator;
+        return $model->nextPost();
     }
 
-    public function nextPost($user_id, $skipUrls)
+    public function nextPost()
     {
         $model = new UserPosts();
-        $model->skipUrls = $skipUrls;
-        $model->user_id = $user_id;
+        $model->commentator = $this->commentator;
         $post = $model->getPost();
         $this->error = $model->error;
         return $post;
@@ -40,6 +46,9 @@ class PostForCommentator
         foreach ($this->entities as $entity => $limits) {
             $posts = CActiveRecord::model($entity)->findAll($criteria);
             foreach ($posts as $post) {
+                if (!empty($this->commentator->ignoreUsers) && in_array($post->author_id, $this->commentator->ignoreUsers))
+                    continue;
+
                 list($count_limit, $post_time) = CommentsLimit::getLimit($entity, $post->id, $limits, $this->times);
 
                 if (isset($post_time[$post->commentsCount])) {
@@ -66,7 +75,7 @@ class PostForCommentator
 
     public function IsSkipped($entity, $entity_id)
     {
-        foreach ($this->skipUrls as $skipped) {
+        foreach ($this->commentator->skipUrls as $skipped) {
             if ($skipped[0] == $entity && $skipped[1] == $entity_id)
                 return true;
         }
@@ -77,8 +86,7 @@ class PostForCommentator
     public function nextGroup()
     {
         $model = new $this->nextGroup;
-        $model->skipUrls = $this->skipUrls;
-        $model->user_id = $this->user_id;
+        $model->commentator = $this->commentator;
         $model->way [] = get_class($model);
         if (count($model->way) > 10) {
             $this->error = 'Не найдены тема для комментирования, обратитесь к разработчику';
@@ -92,6 +100,6 @@ class PostForCommentator
         $this->way [] = get_class($this);
 
         $fh = fopen($dir = Yii::getPathOfAlias('application.runtime') . DIRECTORY_SEPARATOR . 'commentators_log.txt', 'a');
-        fwrite($fh, get_class($this) . ', user_id: ' . $this->user_id . " posts_count: " . $posts_count . "\n");
+        fwrite($fh, get_class($this) . ', user_id: ' . $this->commentator->user_id . " posts_count: " . $posts_count . "\n");
     }
 }

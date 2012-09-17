@@ -89,8 +89,8 @@ $this->renderPartial('_avatar', compact('commentator'));
 
             <table class="table-task">
                 <tr>
-                    <td class="col-1">5. Заходов из поисковых систем <a href="javascript:;" class="pseudo"
-                                                                        onclick="SeoModule.show('traffic-stat', this);">Показать</a>
+                    <td class="col-1">5. Заходов из поисковых систем
+                        <a href="javascript:;" class="pseudo" onclick="ShowHide(this, 'traffic-stat');">Показать</a>
                     </td>
 
                     <td class="col-2"><?=$month->getStatValue($user_id, CommentatorsMonthStats::SE_VISITS) ?></td>

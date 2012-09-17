@@ -42,7 +42,7 @@ class TrafficPosts extends PostForCommentator
         $criteria->select = 't.*, `comments`.`id` as comment_id';
         $criteria->condition = '`t`.`full` IS NULL AND `comments`.`id` IS NULL';
         $criteria->compare('`t`.`id`', $post_ids);
-        $criteria->join = 'LEFT OUTER JOIN `comments` `comments` ON (`comments`.`entity_id`=`t`.`id` AND `comments`.`author_id` = ' . $this->user_id . ') ';
+        $criteria->join = 'LEFT OUTER JOIN `comments` `comments` ON (`comments`.`entity_id`=`t`.`id` AND `comments`.`author_id` = ' . $this->commentator->user_id . ') ';
 
         return $criteria;
     }

@@ -27,7 +27,7 @@ class IndexingUrl extends HActiveRecord
 
     public function tableName()
     {
-        return 'happy_giraffe_seo.indexing__urls';
+        return 'indexing__urls';
     }
 
     public function getDbConnection()

@@ -111,10 +111,11 @@ var SeoModule = {
             }
         }, 'json');
     },
-    bindKeywordToArticle:function (keyword_id, article_id, el) {
+    bindKeywordToArticle:function (keyword_id, article_id, section, el) {
         $.post('/writing/editor/bindKeywordToArticle/', {
             keyword_id:keyword_id,
-            article_id:article_id
+            article_id:article_id,
+            section:section
         }, function (response) {
             if (response.status) {
                 $.pnotify({
@@ -143,10 +144,23 @@ var SeoModule = {
         }, function (response) {
             if (response.status) {
                 $(el).parents('tr').removeAttr('class').addClass('on-site');
-                $(el).parents('tr').find('td:last').html('');
-                $(el).parents('td').find('a.icon-link').remove();
-                $(el).parents('td').find('div').before(response.html);
-                $(el).parent().remove();
+                $(el).parents('td').html(response.html);
+            } else {
+                $.pnotify({
+                    pnotify_title:'Ошибка',
+                    pnotify_type:'error',
+                    pnotify_text:response.error
+                });
+            }
+        }, 'json');
+    },
+    unbindKeyword:function(el, keyword_id){
+        $.post('/writing/editor/unbindKeyword/', {
+            keyword:keyword_id
+        }, function (response) {
+            if (response.status) {
+                $(el).parents('tr').removeAttr('class');
+                $(el).parents('td').html(response.html);
             } else {
                 $.pnotify({
                     pnotify_title:'Ошибка',
@@ -162,14 +176,6 @@ var SeoModule = {
                 $(el).parents('li').remove();
             }
         }, 'json');
-    },
-    show:function(id, el){
-        $('#'+id).toggle();
-
-        if ($(el).text() == 'Показать')
-            $(el).text('Скрыть');
-        else
-            $(el).text('Показать');
     }
 }
 

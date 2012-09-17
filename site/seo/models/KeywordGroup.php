@@ -32,7 +32,7 @@ class KeywordGroup extends CActiveRecord
 
     public function tableName()
     {
-        return 'happy_giraffe_seo.keyword_groups';
+        return 'keyword_groups';
     }
 
     /**

@@ -1,9 +1,9 @@
 <?php
 
 /**
- * This is the model class for table "inner_links".
+ * This is the model class for table "inner_linking__links".
  *
- * The followings are the available columns in table 'inner_links':
+ * The followings are the available columns in table 'inner_linking__links':
  * @property string $page_id
  * @property string $phrase_id
  * @property string $page_to_id
@@ -33,7 +33,7 @@ class InnerLink extends HActiveRecord
 	 */
     public function tableName()
     {
-        return 'happy_giraffe_seo.inner_links';
+        return 'inner_linking__links';
     }
 
     public function getDbConnection()

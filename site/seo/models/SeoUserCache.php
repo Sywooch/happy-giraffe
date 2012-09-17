@@ -29,7 +29,7 @@ class SeoUserCache extends HActiveRecord
      */
     public function tableName()
     {
-        return 'happy_giraffe_seo.user_cache';
+        return 'user_cache';
     }
 
     public function getDbConnection()

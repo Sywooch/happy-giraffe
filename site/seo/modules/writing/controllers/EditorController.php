@@ -282,8 +282,11 @@ class EditorController extends SController
 
     public function actionBindKeywordToArticle()
     {
+        Yii::import('site.frontend.modules.cook.models.*');
+
         $keyword_id = Yii::app()->request->getPost('keyword_id');
         $article_id = Yii::app()->request->getPost('article_id');
+        $section = Yii::app()->request->getPost('section');
 
         $article = Page::model()->findByAttributes(array(
             'entity_id' => $article_id
@@ -310,7 +313,13 @@ class EditorController extends SController
                 Yii::app()->end();
             }
         } else {
-            $model = CommunityContent::model()->findByPk($article_id);
+            if ($section == 2)
+                $class = 'CommunityContent';
+            else
+                $class = 'CookRecipe';
+
+            $model = $class::model()->findByPk($article_id);
+
             if ($model === null) {
                 echo CJSON::encode(array(
                     'status' => false,
@@ -319,7 +328,7 @@ class EditorController extends SController
                 Yii::app()->end();
             }
             $article_keywords = new Page();
-            $article_keywords->entity = 'CommunityContent';
+            $article_keywords->entity = $class;
             $article_keywords->entity_id = $article_id;
             $article_keywords->url = 'http://www.happy-giraffe.ru' . $model->getUrl();
 
@@ -350,6 +359,7 @@ class EditorController extends SController
     {
         $url = Yii::app()->request->getPost('url');
         $keyword_id = Yii::app()->request->getPost('keyword');
+        $keyword = Keyword::model()->findByPk($keyword_id);
 
         $exist = Page::model()->findByAttributes(array(
             'url' => $url,
@@ -366,11 +376,16 @@ class EditorController extends SController
             if ($group->save()) {
                 $page = new Page();
                 $page->url = $url;
+                list($entity, $entity_id) = Page::ParseUrl($url);
+                if (!empty($entity) && !empty($entity_id)){
+                    $page->entity = $entity;
+                    $page->entity_id = $entity_id;
+                }
                 $page->keyword_group_id = $group->id;
                 if ($page->save()) {
                     $response = array(
                         'status' => true,
-                        'html' => '<a target="_blank" class="icon-article" href="' . $url . '"></a>',
+                        'html' => $keyword->name.' <a target="_blank" class="icon-article" href="' . $url . '"></a>',
                     );
                 } else
                     $response = array(
@@ -385,6 +400,26 @@ class EditorController extends SController
         }
 
         echo CJSON::encode($response);
+    }
+
+    public function actionUnbindKeyword()
+    {
+        $keyword_id = Yii::app()->request->getPost('keyword');
+        $keyword = Keyword::model()->findByPk($keyword_id);
+
+        foreach($keyword->group as $group){
+            $group->page->keyword_group_id = null;
+            $group->page->update(array('keyword_group_id'));
+            if ($group->delete()){
+                $response = array(
+                    'status' => true,
+                    'html'=>$keyword->name
+                );
+            }else
+                $response = array('status' => false);
+
+            echo CJSON::encode($response);
+        }
     }
 
     /**

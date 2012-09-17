@@ -293,20 +293,26 @@ class EditorController extends SController
         ));
         if ($article !== null) {
             $keyword_ids = array();
-            if (!empty($article->keywordGroup))
-            foreach ($article->keywordGroup->keywords as $keyword) {
-                if ($keyword->id == $keyword_id) {
-                    echo CJSON::encode(array(
-                        'status' => false,
-                        'error' => 'Уже привязан'
-                    ));
-                    Yii::app()->end();
+            if (!empty($article->keywordGroup)) {
+                $group = $article->keywordGroup;
+                foreach ($group->keywords as $keyword) {
+                    if ($keyword->id == $keyword_id) {
+                        echo CJSON::encode(array(
+                            'status' => false,
+                            'error' => 'Уже привязан'
+                        ));
+                        Yii::app()->end();
+                    }
+                    $keyword_ids [] = $keyword->id;
                 }
-                $keyword_ids [] = $keyword->id;
+                $keyword_ids[] = $keyword_id;
+                $group->keywords = $keyword_ids;
+            } else {
+                $group = new KeywordGroup();
+                $group->keywords = array($keyword_id);
             }
-            $keyword_ids[] = $keyword_id;
-            $article->keywordGroup->keywords = $keyword_ids;
-            if (!$article->keywordGroup->save()) {
+
+            if (!$group->save()) {
                 echo CJSON::encode(array(
                     'status' => false,
                     'error' => 'Ошибка при сохранении группы кейвордов'
@@ -378,7 +384,7 @@ class EditorController extends SController
                 $page = new Page();
                 $page->url = $url;
                 list($entity, $entity_id) = Page::ParseUrl($url);
-                if (!empty($entity) && !empty($entity_id)){
+                if (!empty($entity) && !empty($entity_id)) {
                     $page->entity = $entity;
                     $page->entity_id = $entity_id;
                 }
@@ -386,14 +392,14 @@ class EditorController extends SController
                 if ($page->save()) {
                     $response = array(
                         'status' => true,
-                        'html' => $keyword->name.' <a target="_blank" class="icon-article" href="' . $url . '"></a>',
+                        'html' => $keyword->name . ' <a target="_blank" class="icon-article" href="' . $url . '"></a>',
                     );
                 } else
                     $response = array(
                         'status' => false,
                         'error' => 'Не удалось сохранить статью, обратитесь к разработчикам.',
                     );
-            }  else
+            } else
                 $response = array(
                     'status' => false,
                     'error' => 'Не удалось сохранить группу кейвордов, обратитесь к разработчикам.',
@@ -408,15 +414,15 @@ class EditorController extends SController
         $keyword_id = Yii::app()->request->getPost('keyword');
         $keyword = Keyword::model()->findByPk($keyword_id);
 
-        foreach($keyword->group as $group){
+        foreach ($keyword->group as $group) {
             $group->page->keyword_group_id = null;
             $group->page->update(array('keyword_group_id'));
-            if ($group->delete()){
+            if ($group->delete()) {
                 $response = array(
                     'status' => true,
-                    'html'=>$keyword->name
+                    'html' => $keyword->name
                 );
-            }else
+            } else
                 $response = array('status' => false);
 
             echo CJSON::encode($response);

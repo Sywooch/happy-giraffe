@@ -7,7 +7,7 @@ class TrafficPosts extends PostForCommentator
 {
     protected $nextGroup = 'CoWorkersPosts';
     protected $entities = array(
-        'CommunityContent' => array(10),
+        'CommunityContent' => array(25),
     );
 
     public function getPost()

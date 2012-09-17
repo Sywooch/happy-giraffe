@@ -13,8 +13,12 @@
                     ),
                     array(
                         'label' => 'Перелинковка',
-                        'active'=> Yii::app()->controller->id == 'linking' ,
+                        'active'=> (Yii::app()->controller->id == 'linking' && Yii::app()->controller->action->id != 'autoLinking'),
                         'url' => 'javascript:;',
+                    ),
+                    array(
+                        'label' => 'Автомат',
+                        'url' => array('/promotion/linking/autoLinking'),
                     ),
                     array(
                         'label' => 'SAPE',

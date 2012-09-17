@@ -29,7 +29,7 @@
         <?php endif; ?>
 
         <div class="banner-box">
-            <a href=""><img src="/images/banner_09.png" /></a>
+            <img src="/images/banner_09.png" />
         </div>
 
         <div class="club-topics-list-new">

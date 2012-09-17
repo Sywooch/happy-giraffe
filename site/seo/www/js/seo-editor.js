@@ -70,16 +70,15 @@ var SeoKeywords = {
 
 
 var TaskDistribution = {
-    group:new Array(),
+    group:[],
     getId:function (el) {
-        return $(el).parents('tr').attr("id").replace(/[a-zA-Z]*-/ig, "");
+        return $(el).parents('tr').data("id");
     },
     addToGroup:function (el) {
         var id = this.getId(el);
         TaskDistribution.group.push(id);
-//        console.log(TaskDistribution.group);
 
-        $('.tasks-list').append('<div class="task-box"><a class="remove" href="" onclick="TaskDistribution.removeFromGroup(this, ' + id + ');return false; "></a><div class="drag"></div>' +
+        $('.tasks-list').append('<div class="task-box"><a class="remove" href="javascript:;" onclick="TaskDistribution.removeFromGroup(this, ' + id + ')"></a><div class="drag"></div>' +
             el.parents('tr').find('.col-1 span').text() + '</div>');
         TaskDistribution.hideKeyword(id);
 
@@ -89,7 +88,6 @@ var TaskDistribution = {
     removeFromGroup:function (el, id) {
         $('#keyword-' + id).show();
         TaskDistribution.group.pop(id);
-//        console.log(TaskDistribution.group);
         $(el).parents('.task-box').remove();
         TaskDistribution.showKeyword(id);
     },
@@ -103,14 +101,15 @@ var TaskDistribution = {
         }, 'json');
     },
     addGroup:function (type, author_id, rewrite) {
-        var urls = new Array();
+        var urls = [];
         if (rewrite == 1) {
             $('.urls input').each(function (index, val) {
                 if ($(this).val() != '')
                     urls.push($(this).val());
             });
         }
-        $.post('/writing/editor/addGroupTask/', {id:this.group,
+        $.post('/writing/editor/addGroupTask/', {
+            id:this.group,
             type:type,
             author_id:author_id,
             urls:urls,
@@ -119,7 +118,7 @@ var TaskDistribution = {
             if (response.status) {
                 $('.tasks-list').html('');
                 $('.current-tasks tbody').append(response.html);
-                TaskDistribution.group = new Array();
+                TaskDistribution.group = [];
             } else
                 $.pnotify({
                     pnotify_title:'Ошибка',
@@ -154,6 +153,7 @@ var TaskDistribution = {
         var id = TaskDistribution.getId(el);
         $.post('/writing/editor/removeTask/', {id:id}, function (response) {
             if (response.status) {
+                console.log(response.keys);
                 $(el).parents('tr').remove();
                 for (var key in response.keys) {
                     var key_id = response.keys[key];
@@ -265,28 +265,8 @@ var SeoLinking = {
     keyword_id:null,
     phrase_id:null,
     AddLink:function () {
-        if (SeoLinking.keyword_id == null && $('#own-keyword').val() == '') {
-            $.pnotify({
-                pnotify_title:'Ошибка',
-                pnotify_type:'error',
-                pnotify_text:'Выберите ключевое слово'
-            });
-            return false;
-        }
-        if (SeoLinking.phrase_id == null) {
-            $.pnotify({
-                pnotify_title:'Ошибка',
-                pnotify_type:'error',
-                pnotify_text:'Выберите строку в верхней таблице'
-            });
-        }
-        if (SeoLinking.page_id == null) {
-            $.pnotify({
-                pnotify_title:'Ошибка',
-                pnotify_type:'error',
-                pnotify_text:'Выберите страницу с которой ставить ссылку'
-            });
-        }
+        if (!SeoLinking.checkAddLnk())
+            return;
 
         $.post('/promotion/linking/add/', {page_id:SeoLinking.page_id, phrase_id:SeoLinking.phrase_id, keyword_id:SeoLinking.keyword_id, keyword:$('#own-keyword').val()}, function (response) {
             if (response.status) {
@@ -304,6 +284,62 @@ var SeoLinking = {
                 });
             }
         }, 'json');
+    },
+    AddLinkAuto:function () {
+        if (!SeoLinking.checkAddLnk())
+            return;
+
+        $('#auto-linking').fadeOut(1000);
+
+        $.post('/promotion/linking/add/', {
+            page_id:SeoLinking.page_id,
+            phrase_id:SeoLinking.phrase_id,
+            keyword_id:SeoLinking.keyword_id,
+            keyword:$('#own-keyword').val(),
+            next_link:1
+        }, function (response) {
+            if (response.status) {
+
+                SeoLinking.keyword_id = null;
+                SeoLinking.phrase_id = response.phrase_id;
+                SeoLinking.page_id = response.page_id;
+                $('#auto-linking').removeClass('loading-block').html(response.html).fadeIn(500);
+            } else {
+                $.pnotify({
+                    pnotify_title:'Ошибка',
+                    pnotify_type:'error',
+                    pnotify_text:response.error
+                });
+            }
+        }, 'json');
+    },
+    checkAddLnk:function(){
+        if (SeoLinking.keyword_id == null && $('#own-keyword').val() == '') {
+            $.pnotify({
+                pnotify_title:'Ошибка',
+                pnotify_type:'error',
+                pnotify_text:'Выберите ключевое слово'
+            });
+            return false;
+        }
+        if (SeoLinking.phrase_id == null) {
+            $.pnotify({
+                pnotify_title:'Ошибка',
+                pnotify_type:'error',
+                pnotify_text:'Выберите строку в верхней таблице'
+            });
+            return false;
+        }
+        if (SeoLinking.page_id == null) {
+            $.pnotify({
+                pnotify_title:'Ошибка',
+                pnotify_type:'error',
+                pnotify_text:'Выберите страницу с которой ставить ссылку'
+            });
+            return false;
+        }
+
+        return true;
     },
     removeLink:function (el, page_id, page_to_id) {
         if (confirm("Вы точно хотите удалить ссылку?")) {
@@ -374,6 +410,27 @@ var SeoLinking = {
         $.post('/promotion/linking/searchPages/', {phrase_id:phrase_id, keyword:keyword}, function (response) {
             $('#similar-pages').html(response).removeClass('loading-block');
         });
+    },
+    skip:function () {
+        $('#auto-linking').fadeOut(1000);
+
+        $.post('/promotion/linking/skip/', {
+            phrase_id:SeoLinking.phrase_id
+        }, function (response) {
+            if (response.status) {
+                SeoLinking.keyword_id = null;
+                SeoLinking.phrase_id = response.phrase_id;
+                SeoLinking.page_id = response.page_id;
+                $('#auto-linking').removeClass('loading-block').html(response.html).fadeIn(500);
+
+            } else {
+                $.pnotify({
+                    pnotify_title:'Ошибка',
+                    pnotify_type:'error',
+                    pnotify_text:response.error
+                });
+            }
+        }, 'json');
     }
 }
 

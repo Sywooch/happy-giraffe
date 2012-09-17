@@ -33,7 +33,7 @@ class SearchPhraseVisit extends HActiveRecord
 
     public function tableName()
     {
-        return 'happy_giraffe_seo.pages_search_phrases_visits';
+        return 'pages_search_phrases_visits';
     }
 
     /**

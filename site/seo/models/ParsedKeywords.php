@@ -27,7 +27,7 @@ class ParsedKeywords extends HActiveRecord
 	 */
 	public function tableName()
 	{
-        return 'happy_giraffe_seo.parsed_keywords';
+        return 'parsed_keywords';
     }
 
     public function getDbConnection()

@@ -1,7 +1,5 @@
 <?php
 
-Yii::import('site.frontend.modules.cook.models.*');
-
 class CommentatorWork extends EMongoDocument
 {
     const BLOG_POSTS_COUNT = 1;

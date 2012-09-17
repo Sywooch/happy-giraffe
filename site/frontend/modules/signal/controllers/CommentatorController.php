@@ -27,6 +27,8 @@ class CommentatorController extends HController
         if (!Yii::app()->user->checkAccess('commentator_panel'))
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
+        Yii::import('site.frontend.modules.cook.models.*');
+
         $this->user = Yii::app()->user->model;
         $this->commentator = CommentatorWork::getCurrentUser();
         return parent::beforeAction($action);

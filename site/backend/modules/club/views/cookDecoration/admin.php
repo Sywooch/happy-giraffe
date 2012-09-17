@@ -14,6 +14,7 @@
 		'title',
         'description',
         array(
+            'label' => 'Автор',
             'value' => 'CHtml::link($data->photo->author->fullName, $data->photo->author->url)',
             'type' => 'raw',
         ),

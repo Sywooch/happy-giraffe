@@ -77,9 +77,8 @@ var TaskDistribution = {
     addToGroup:function (el) {
         var id = this.getId(el);
         TaskDistribution.group.push(id);
-//        console.log(TaskDistribution.group);
 
-        $('.tasks-list').append('<div class="task-box"><a class="remove" href="" onclick="TaskDistribution.removeFromGroup(this, ' + id + ');return false; "></a><div class="drag"></div>' +
+        $('.tasks-list').append('<div class="task-box"><a class="remove" href="javascript:;" onclick="TaskDistribution.removeFromGroup(this, ' + id + ')"></a><div class="drag"></div>' +
             el.parents('tr').find('.col-1 span').text() + '</div>');
         TaskDistribution.hideKeyword(id);
 
@@ -89,7 +88,6 @@ var TaskDistribution = {
     removeFromGroup:function (el, id) {
         $('#keyword-' + id).show();
         TaskDistribution.group.pop(id);
-//        console.log(TaskDistribution.group);
         $(el).parents('.task-box').remove();
         TaskDistribution.showKeyword(id);
     },
@@ -110,7 +108,8 @@ var TaskDistribution = {
                     urls.push($(this).val());
             });
         }
-        $.post('/writing/editor/addGroupTask/', {id:this.group,
+        $.post('/writing/editor/addGroupTask/', {
+            id:this.group,
             type:type,
             author_id:author_id,
             urls:urls,
@@ -154,6 +153,7 @@ var TaskDistribution = {
         var id = TaskDistribution.getId(el);
         $.post('/writing/editor/removeTask/', {id:id}, function (response) {
             if (response.status) {
+                console.log(response.keys);
                 $(el).parents('tr').remove();
                 for (var key in response.keys) {
                     var key_id = response.keys[key];

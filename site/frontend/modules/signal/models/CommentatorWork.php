@@ -148,14 +148,14 @@ class CommentatorWork extends EMongoDocument
     public function incCommentsCount($next = true)
     {
         $this->getCurrentDay()->comments++;
-
         if ($next) {
+            $this->save();
             if ($this->getNextPostForComment()) {
                 $this->save();
                 return true;
             }
         } else
-            $this->save();
+            return $this->save();
 
         return false;
     }

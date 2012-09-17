@@ -16,7 +16,7 @@ class DefaultController extends HController
     }
 
     /**
-     * @sitemap dataSource=getDiseasesUrls
+     * @sitemap dataSource=sitemapView
      */
     public function actionView($id)
     {
@@ -60,12 +60,14 @@ class DefaultController extends HController
         return $model;
     }
 
-    public function getDiseasesUrls()
+    public function sitemapView()
     {
         $models = Yii::app()->db->createCommand()
             ->select('slug')
             ->from('recipe_book__diseases')
             ->queryAll();
+
+        $data = array();
         foreach ($models as $model)
         {
             $data[] = array(
@@ -75,6 +77,7 @@ class DefaultController extends HController
                 'priority' => 0.5,
             );
         }
+
         return $data;
 
     }

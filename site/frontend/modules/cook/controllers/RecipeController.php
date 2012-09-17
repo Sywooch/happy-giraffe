@@ -180,7 +180,7 @@ class RecipeController extends HController
     }
 
     /**
-     * @sitemap dataSource=getContentUrls
+     * @sitemap dataSource=sitemapView
      */
     public function actionView($id, $section, $lastPage = null, $ajax = null)
     {
@@ -299,23 +299,25 @@ class RecipeController extends HController
         echo CJSON::encode($ingredients);
     }
 
-    public function getContentUrls()
+    public function sitemapView()
     {
         $models = Yii::app()->db->createCommand()
             ->select('id, section, created, updated')
             ->from('cook__recipes')
             ->queryAll();
+
+        $data = array();
         foreach ($models as $model) {
             $data[] = array(
                 'params' => array(
                     'id' => $model['id'],
                     'section' => $model['section'],
                 ),
-                'priority' => 0.5,
                 'changefreq' => 'daily',
                 'lastmod' => ($model['updated'] === null) ? $model['created'] : $model['updated'],
             );
         }
+
         return $data;
     }
 

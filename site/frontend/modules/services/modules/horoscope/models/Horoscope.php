@@ -17,8 +17,8 @@ class Horoscope extends HActiveRecord
     public $type;
 
     public $zodiac_list = array(
-        '1' => 'Овен',
-        '2' => 'Телец',
+        1 => 'Овен',
+        2 => 'Телец',
         '3' => 'Близнецы',
         '4' => 'Рак',
         '5' => 'Лев',

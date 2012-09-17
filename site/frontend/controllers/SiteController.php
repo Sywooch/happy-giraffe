@@ -81,7 +81,7 @@ class SiteController extends HController
     }
 
 	/**
-	 * @sitemap
+	 * @sitemap changefreq=daily
 	 */
 	public function actionIndex()
 	{

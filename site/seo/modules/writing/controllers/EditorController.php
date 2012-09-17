@@ -299,7 +299,7 @@ class EditorController extends SController
             if (!empty($article->entity)){
                 $model = $class::model()->findByPk($article_id);
                 $article->entity = $class;
-                $article->url = $model->url;
+                $article->url = 'http://www.happy-giraffe.ru'.$model->url;
                 if (!$article->save())
                     var_dump($article->getErrors());
             }

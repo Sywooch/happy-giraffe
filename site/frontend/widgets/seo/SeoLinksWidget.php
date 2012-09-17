@@ -14,7 +14,7 @@ class SeoLinksWidget extends CWidget
 
         try {
             $page = self::getPage();
-            if ($page !== null && isset($page->outputLinks) && !empty($page->outputLinks))
+            if ($page !== null && !empty($page->outputLinks))
                 $this->render('index', array('link_pages' => $page->outputLinks));
         } catch (Exception $err) {
         }

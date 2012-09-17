@@ -79,7 +79,7 @@ var ExtLinks = {
     },
     CheckLinkType:function (el, type) {
         $('#ELLink_link_type').val(type);
-        $('.link-types .icon-link').removeClass('active');
+        $('.link-types .icon-links').removeClass('active');
         $(el).addClass('active')
     },
     ClearFrom:function () {

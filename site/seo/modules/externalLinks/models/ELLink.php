@@ -200,11 +200,11 @@ class ELLink extends HActiveRecord
     public function getLinkTypeText()
     {
         if ($this->link_type == self::TYPE_LINK)
-            return '<span class="icon-link link active">С</span>';
+            return '<span class="icon-links link active">С</span>';
         if ($this->link_type == self::TYPE_POST)
-            return '<span class="icon-link active post">П</span>';
+            return '<span class="icon-links active post">П</span>';
         if ($this->link_type == self::TYPE_COMMENT)
-            return '<span class="icon-link comment active">К</span>';
+            return '<span class="icon-links comment active">К</span>';
 
         return '';
     }

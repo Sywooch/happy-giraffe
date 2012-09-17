@@ -23,10 +23,7 @@ Yii::app()->clientScript->registerScript('init_site_id','ExtLinks.site_id = '.$t
         <li>
             <a href="javascript:;" class="pseudo" onclick="$(this).next().toggle()">Показать данные</a>
 
-            <div class="reg-form" style="display: none;">
-                <label>Логин:</label><input type="text" value="<?=$task->site->account->login ?>"><br>
-                <label>Пароль:</label><input type="text" value="<?=$task->site->account->password ?>"><br>
-            </div>
+            <?php $this->renderPartial('/forums/_reg_data', array('show'=>false, 'account'=>$task->site->account)); ?>
         </li>
         <?php endif ?>
     </ul>

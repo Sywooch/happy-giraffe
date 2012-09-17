@@ -297,7 +297,9 @@ class EditorController extends SController
             else
                 $class = 'CookRecipe';
             if (!empty($article->entity)){
+                $model = $class::model()->findByPk($article_id);
                 $article->entity = $class;
+                $article->url = $model->url;
                 $article->save();
             }
 

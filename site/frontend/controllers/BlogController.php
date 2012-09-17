@@ -156,7 +156,7 @@ class BlogController extends HController
     }
 
     /**
-     * @sitemap dataSource=getContentUrls
+     * @sitemap dataSource=sitemapView
      */
     public function actionView($content_id, $user_id, $lastPage = null, $ajax = null)
     {
@@ -198,15 +198,17 @@ class BlogController extends HController
         $this->render('empty');
     }
 
-    public function getContentUrls()
+    public function sitemapView()
     {
         $models = Yii::app()->db->createCommand()
             ->select('c.id, c.created, c.updated, c.author_id')
             ->from('community__contents c')
             ->join('community__rubrics r', 'c.rubric_id = r.id')
             ->join('community__content_types ct', 'c.type_id = ct.id')
-            ->where('r.user_id IS NOT NULL AND c.removed = 0 AND c.uniqueness >= 50')
+            ->where('r.user_id IS NOT NULL AND c.removed = 0 AND (c.uniqueness >= 50 OR c.uniqueness IS NULL)')
             ->queryAll();
+
+        $data = array();
         foreach ($models as $model)
         {
             $data[] = array(
@@ -214,11 +216,11 @@ class BlogController extends HController
                     'content_id' => $model['id'],
                     'user_id' => $model['author_id'],
                 ),
-                'priority' => 0.5,
                 'changefreq' => 'daily',
                 'lastmod' => ($model['updated'] === null) ? $model['created'] : $model['updated'],
             );
         }
+
         return $data;
     }
 }

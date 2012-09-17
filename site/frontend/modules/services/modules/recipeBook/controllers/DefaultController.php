@@ -55,7 +55,7 @@ class DefaultController extends HController
     }
 
     /**
-     * @sitemap dataSource=getContentUrls
+     * @sitemap dataSource=sitemapView
      */
     public function actionView($id)
     {
@@ -137,23 +137,25 @@ class DefaultController extends HController
         echo CJSON::encode($_ingredients);
     }
 
-    public function getContentUrls()
+    public function sitemapView()
     {
         $models = Yii::app()->db->createCommand()
-            ->select('r.id, r.created, r.updated')
-            ->from('recipe_book__recipes r')
+            ->select('id, created, updated')
+            ->from('recipe_book__recipes')
             ->queryAll();
+
+        $data = array();
         foreach ($models as $model)
         {
             $data[] = array(
                 'params' => array(
                     'id' => $model['id'],
                 ),
-                'priority' => 0.5,
                 'changefreq' => 'daily',
                 'lastmod' => ($model['updated'] === null) ? $model['created'] : $model['updated'],
             );
         }
+
         return $data;
 
     }

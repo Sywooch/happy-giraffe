@@ -114,7 +114,7 @@ class CommunityController extends HController
     }
 
     /**
-     * @sitemap dataSource=getContentUrls
+     * @sitemap dataSource=sitemapView
      */
     public function actionView($community_id, $content_type_slug, $content_id, $lastPage = null, $ajax = null)
     {
@@ -525,7 +525,7 @@ class CommunityController extends HController
         ));
     }
 
-    public function getContentUrls()
+    public function sitemapView()
     {
         $models = Yii::app()->db->createCommand()
             ->select('c.id, c.created, c.updated, r.community_id, ct.slug')
@@ -534,6 +534,8 @@ class CommunityController extends HController
             ->join('community__content_types ct', 'c.type_id = ct.id')
             ->where('r.community_id IS NOT NULL AND c.removed = 0 AND (c.uniqueness >= 50 OR c.uniqueness IS NULL)')
             ->queryAll();
+
+        $data = array();
         foreach ($models as $model)
         {
             $data[] = array(
@@ -543,10 +545,10 @@ class CommunityController extends HController
                     'content_type_slug' => $model['slug'],
                 ),
                 'priority' => 0.5,
-                'changefreq' => 'daily',
                 'lastmod' => ($model['updated'] === null) ? $model['created'] : $model['updated'],
             );
         }
+
         return $data;
     }
 

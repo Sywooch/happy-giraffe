@@ -2,6 +2,9 @@
 
 class ChooseController extends HController
 {
+    /**
+     * @sitemap
+     */
     public function actionIndex()
     {
         $this->pageTitle = 'Как выбрать продукты?';
@@ -11,6 +14,9 @@ class ChooseController extends HController
         ));
     }
 
+    /**
+     * @sitemap dataSource=sitemapView
+     */
     public function actionView($id)
     {
         $model = CookChooseCategory::model()->with('photo', 'chooses')->findByAttributes(array('slug' => $id));
@@ -26,5 +32,23 @@ class ChooseController extends HController
             $this->pageTitle = 'Как выбрать  ' . $model->title_accusative;
             $this->render('category', compact('model'));
         }
+    }
+
+    public function sitemapView()
+    {
+        $sql = 'SELECT slug FROM cook__choose UNION SELECT slug FROM cook__choose__categories';
+        $command = Yii::app()->db->createCommand($sql);
+        $models = $command->queryAll();
+
+        $data = array();
+        foreach ($models as $model) {
+            $data[] = array(
+                'params' => array(
+                    'id' => $model['slug'],
+                ),
+            );
+        }
+
+        return $data;
     }
 }

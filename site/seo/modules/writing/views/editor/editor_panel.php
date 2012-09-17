@@ -24,13 +24,14 @@ Yii::app()->clientScript->registerCoreScript('jquery.ui'); ?>
                     $users = SeoUser::model()->findAll();
                     foreach ($users as $author): ?>
                         <?php if (Yii::app()->authManager->checkAccess('author', $author->id)):?>
-                            <li><a href="" onclick="TaskDistribution.addGroup(2, <?php echo $author->id ?>,0);$(this).parents('ul').hide();return false;"><?=$author->name ?></a>
-                                <span class="count"><?=$author->getTasksCount() ?></span></li>
+                            <li>
+                                <a href="" onclick="TaskDistribution.addGroup(2, <?php echo $author->id ?>,0);$(this).parents('ul').hide();return false;"><?=$author->name ?></a>
+                            </li>
                         <?php endif ?>
                     <?php endforeach; ?>
                 </ul>
             </div>
-            <a href="" class="btn-moderators" onclick="TaskDistribution.addGroup(1, '', 0);return false;"></a>
+            <a href="javascript:;" class="btn-moderators" onclick="TaskDistribution.addGroup(1, '', 0)"></a>
         </div>
 
     </div>
@@ -44,15 +45,17 @@ Yii::app()->clientScript->registerCoreScript('jquery.ui'); ?>
                     <th>Действие</th>
                 </tr>
                 <?php foreach ($tempKeywords as $tempKeyword): ?>
-                <tr id="keyword-<?=$tempKeyword->keyword->id ?>"<?php if (!empty($tempKeyword->keyword->group)) echo ' style="display:none;"' ?>>
+                <tr data-id="<?=$tempKeyword->keyword->id; ?>" id="keyword-<?=$tempKeyword->keyword->id ?>"<?php if (!empty($tempKeyword->keyword->group)) echo ' style="display:none;"' ?>>
                     <td class="col-1">
                         <div class="item"><div class="drag"></div>
                             <span><?=$tempKeyword->keyword->name ?></span>
                         </div>
                     </td>
                     <td><span><?=$tempKeyword->keyword->getFreqIcon() ?></span> <span class="freq-val"><?= $tempKeyword->keyword->getRoundFrequency() ?></span></td>
-                    <td><a href="" class="btn-green-small" onclick="TaskDistribution.addToGroup($(this));return false;">Ok</a>
-                        <a href="" class="icon-remove" onclick="TaskDistribution.removeFromSelected(this);return false;"></a></td>
+                    <td>
+                        <a href="javascript:;" class="btn-green-small" onclick="TaskDistribution.addToGroup($(this))">Ok</a>
+                        <a href="javascript:;" class="icon-remove" onclick="TaskDistribution.removeFromSelected(this)"></a>
+                    </td>
                 </tr>
                 <?php endforeach; ?>
             </table>

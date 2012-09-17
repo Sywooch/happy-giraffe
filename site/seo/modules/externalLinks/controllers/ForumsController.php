@@ -38,6 +38,7 @@ class ForumsController extends ELController
         $url = Yii::app()->request->getPost('url');
         $parse = parse_url($url);
         $host = $parse['host'];
+        $create_task = Yii::app()->request->getPost('create_task');
 
         $model = ELSite::model()->findByAttributes(array('url' => $host));
         if ($model === null) {
@@ -45,9 +46,13 @@ class ForumsController extends ELController
             $model->url = $host;
             $model->type = ELSite::TYPE_FORUM;
             if ($model->save()) {
+                if ($create_task)
+                    ELTask::createRegisterTask($model->id);
+
                 $response = array(
                     'status' => true,
-                    'id' => $model->id
+                    'id' => $model->id,
+                    'account' => $this->renderPartial('_reg_data', array('account' => $model->account), true)
                 );
             } else
                 $response = array('status' => false);

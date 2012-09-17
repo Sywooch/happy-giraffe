@@ -128,14 +128,6 @@ class ELSite extends HActiveRecord
         );
     }
 
-    public function afterSave()
-    {
-        if ($this->isNewRecord && $this->type == self::TYPE_FORUM){
-            ELTask::createRegisterTask($this->id);
-        }
-        parent::afterSave();
-    }
-
     public function addToBlacklist()
     {
         $this->status = ELSite::STATUS_BLACKLIST;

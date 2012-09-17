@@ -39,7 +39,7 @@ Yii::app()->clientScript->registerScriptFile($baseUrl . '/ext_links.js')->regist
                     ),
                     array(
                         'label' => 'Отчеты',
-                        'url' => array('/externalLinks/forums/reports/'),
+                        'url' => array('/externalLinks/tasks/reports/'),
                     ),
                 )));
 

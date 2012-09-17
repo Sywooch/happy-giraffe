@@ -27,6 +27,8 @@ class ELLink extends HActiveRecord
     const TYPE_COMMENT = 2;
     const TYPE_POST = 3;
 
+    const CHECK_DAYS = 7;
+
     public $anchors;
 
     /**
@@ -147,6 +149,15 @@ class ELLink extends HActiveRecord
         );
     }
 
+    public function beforeSave()
+    {
+        if ($this->isNewRecord && $this->site->type == ELSite::TYPE_FORUM){
+            $this->check_link_time = date("Y-m-d", strtotime('+'.self::CHECK_DAYS.' days'));
+        }
+
+        return parent::beforeSave();
+    }
+
     public function defaultScope()
     {
         $alias = $this->getTableAlias(false, false);
@@ -172,12 +183,14 @@ class ELLink extends HActiveRecord
     {
         $days = (time() - strtotime($this->created)) / (3600 * 24);
 
-        if ($days >= 29)
+        if ($days >= 90)
+            $this->check_link_time = date("Y-m-d H:i:s", strtotime('+3 month'));
+        elseif ($days >= 29)
             $this->check_link_time = date("Y-m-d H:i:s", strtotime('+1 month'));
         elseif ($days >= 14)
-            $this->check_link_time = date("Y-m-d H:i:s", strtotime('+15 days')); elseif ($days >= 7)
-            $this->check_link_time = date("Y-m-d H:i:s", strtotime('+7 days')); else
-            $this->check_link_time = date("Y-m-d H:i:s", strtotime('+4 days'));
+            $this->check_link_time = date("Y-m-d H:i:s", strtotime('+15 days'));
+        else
+            $this->check_link_time = date("Y-m-d H:i:s", strtotime('+7 days'));
 
         return $this->save();
     }

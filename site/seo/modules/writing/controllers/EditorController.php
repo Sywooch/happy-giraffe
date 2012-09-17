@@ -318,9 +318,14 @@ class EditorController extends SController
                     'error' => 'Ошибка при сохранении группы кейвордов'
                 ));
                 Yii::app()->end();
+            }else{
+                if (empty($article->keywordGroup)) {
+                    $article->keyword_group_id = $group->id;
+                    $article->save();
+                }
             }
         } else {
-            if ($section == 2)
+            if ($section == 1)
                 $class = 'CommunityContent';
             else
                 $class = 'CookRecipe';

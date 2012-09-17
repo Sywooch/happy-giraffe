@@ -304,7 +304,6 @@ class RecipeController extends HController
         $models = Yii::app()->db->createCommand()
             ->select('id, section, created, updated')
             ->from('cook__recipes')
-            ->limit(10)
             ->queryAll();
 
         $data = array();

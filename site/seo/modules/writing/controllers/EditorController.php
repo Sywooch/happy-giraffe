@@ -300,7 +300,8 @@ class EditorController extends SController
                 $model = $class::model()->findByPk($article_id);
                 $article->entity = $class;
                 $article->url = $model->url;
-                $article->save();
+                if (!$article->save())
+                    var_dump($article->getErrors());
             }
 
             $keyword_ids = array();

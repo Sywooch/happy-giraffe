@@ -162,7 +162,7 @@ return array(
         'cook/multivarka/searchByIngredientsResult' => array('cook/recipe/searchByIngredientsResult', 'defaultParams' => array('section' => 1)),
 
         'cook/recipe/feed.xml' => 'cook/recipe/feed',
-        'cook/recipe/<_a:(ac|import|search)>' => 'cook/recipe/<_a>',
+        'cook/recipe/<_a:(ac|import|search|test)>' => 'cook/recipe/<_a>',
 
         'cook/spices/category/<id:[\w_]+>' => 'cook/spices/category',
         'cook/spices/<id:[\w_]+>' => 'cook/spices/view',

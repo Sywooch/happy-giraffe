@@ -386,4 +386,14 @@ class RecipeController extends HController
 
         echo $feed;
     }
+
+    public function actionTest()
+    {
+        $recipes = CookRecipe::model()->with('ingredients')->findAll('full = 1');
+        foreach($recipes as $recipe){
+            if (empty($recipe->ingredients)) {
+                echo CHtml::link($recipe->url, 'http://www.happy-giraffe.ru' . $recipe->url) . '<br>';
+            }
+        }
+    }
 }

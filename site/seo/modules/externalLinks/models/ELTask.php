@@ -193,9 +193,9 @@ class ELTask extends HActiveRecord
         } elseif ($this->type == self::TYPE_COMMENT) {
             $prev_comments_count = $this->getPreviousCommentsCount();
             if ($prev_comments_count < 2 || ($prev_comments_count < 5 && rand(1, 9) > 5))
-                $this->createCommentTask(date("Y-m-d", strtotime('+' . rand(1, 3) . ' days')));
+                $this->createCommentTask(date("Y-m-d", strtotime('+' . rand(1, 2) . ' days')));
             else
-                $this->createLinkTask(date("Y-m-d", strtotime('+' . rand(1, 3) . ' days')));
+                $this->createLinkTask(date("Y-m-d", strtotime('+' . rand(1, 2) . ' days')));
         } elseif ($this->type == self::TYPE_POST_LINK) {
             $this->createCommentTask(date("Y-m-d", strtotime('+' . rand(30, 40) . ' days')));
         }

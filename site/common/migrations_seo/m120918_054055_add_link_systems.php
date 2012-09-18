@@ -5,8 +5,7 @@ class m120918_054055_add_link_systems extends CDbMigration
 	public function up()
 	{
 
-        $this->execute("TRUNCATE TABLE  `externallinks__systems`;
-        INSERT INTO `externallinks__systems` (`id`, `name`, `fee`) VALUES
+        $this->execute("INSERT INTO `externallinks__systems` (`id`, `name`, `fee`) VALUES
 (1, 'Ротапост', 15.8),
 (2, 'GoGetLinks', 10.8),
 (3, 'Миралинкс', 12.8);");

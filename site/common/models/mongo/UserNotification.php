@@ -47,6 +47,26 @@ class UserNotification extends EMongoDocument
         );
     }
 
+    public function getUserCriteria($user_id)
+    {
+        $criteria = new EMongoCriteria;
+        $criteria->recipient_id = $user_id;
+        $criteria->sort('created', EMongoCriteria::SORT_DESC);
+        return $criteria;
+    }
+
+    public function getUserCount($user_id)
+    {
+        return $this->count($this->getUserCriteria($user_id));
+    }
+
+    public function getUserNotifications($user_id)
+    {
+        return new EMongoDocumentDataProvider($this, array(
+            'criteria' => $this->getUserCriteria($user_id),
+        ));
+    }
+
     public function create($type, $params = array())
     {
         $model = new self;

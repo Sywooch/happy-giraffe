@@ -12,7 +12,7 @@ class CheckController extends ELController
 
 	public function actionIndex()
 	{
-        $models = ELLink::model()->findAll('check_link_time < "'.date("Y-m-d H:i:s") .'" AND check_link_time IS NOT NULL');
+        $models = ELLink::model()->findAll('check_link_time < "'.date("Y-m-d H:i:s") .'" AND check_link_time IS NOT NULL AND check_link_time != "0000-00-00 00:00:00"');
 
 		$this->render('index', compact('models'));
 	}

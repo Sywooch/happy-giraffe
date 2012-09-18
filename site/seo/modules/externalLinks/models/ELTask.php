@@ -157,13 +157,18 @@ class ELTask extends HActiveRecord
     /**
      * Create comment task
      *
-     * @param $date string
+     * @param string $date
+     * @param int $user_id
+     * @return void
      */
-    public function createCommentTask($date)
+    public function createCommentTask($date, $user_id = null)
     {
         $task = new ELTask();
         $task->type = ELTask::TYPE_COMMENT;
         $task->start_date = $date;
+        if (!empty($user_id))
+            $task->user_id = $user_id;
+
         $task->site_id = $this->site_id;
         $task->save();
     }

@@ -138,4 +138,16 @@ class StatController extends SController
 
         return array_unique(array_merge($a1, $a2, $a3, $a4, $a5));
     }
+
+    public function actionTest(){
+        $criteria = new CDbCriteria;
+        $criteria->with = array(
+            'author' => array(
+                'condition' => 'author.group = ' . UserGroup::USER
+            )
+        );
+
+        $criteria->condition = 't.created >= "2012-08-27 00:00:00" AND t.created <= "2012-08-27 00:00:00" AND uniqueness IS NOT NULL';
+        $models = CommunityContent::model()->findAll();
+    }
 }

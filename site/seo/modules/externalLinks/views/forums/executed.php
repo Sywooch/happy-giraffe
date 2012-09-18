@@ -73,6 +73,7 @@
         )));
 
         $model = new ELLink();
+        $model->created = date("Y-m-d");
         echo $form->hiddenField($model, 'site_id');
         ?>
 

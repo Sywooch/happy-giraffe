@@ -261,7 +261,7 @@ class CommentatorsMonthStats extends EMongoDocument
 
     public function addPageVisit($url, $value)
     {
-        $this->page_visits[$url] = $value;
+        $this->page_visits[$url] = (int)$value;
     }
 
     public function getPageVisitsCount($url)

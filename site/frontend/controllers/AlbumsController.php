@@ -165,10 +165,6 @@ class AlbumsController extends HController
         $photo = AlbumPhoto::model()->findByPk($id);
         $this->user = $photo->author;
 
-        if ($photo->author_id == Yii::app()->user->id)
-            UserNotification::model()->deleteByEntity(UserNotification::NEW_COMMENT, $photo);
-        UserNotification::model()->deleteByEntity(UserNotification::NEW_REPLY, $photo);
-
         if (!Yii::app()->request->isAjaxRequest)
             $this->render('photo', compact('photo'));
         else
@@ -694,10 +690,6 @@ class AlbumsController extends HController
         $photo = AlbumPhoto::model()->findByPk($photo_id);
         if ($photo === null)
             throw new CHttpException(404, 'Фото не найдено');
-
-        if ($photo->author_id == Yii::app()->user->id)
-            UserNotification::model()->deleteByEntity(UserNotification::NEW_COMMENT, $photo);
-        UserNotification::model()->deleteByEntity(UserNotification::NEW_REPLY, $photo);
 
         switch ($entity) {
             case 'CommunityContentGallery':

@@ -154,10 +154,6 @@ class CommunityController extends HController
         if (empty($this->meta_title))
             $this->meta_title = (empty($content->meta_title)) ? $content->title : $content->title . ' \\ ' . $content->meta_title;
 
-        if ($content->author_id == Yii::app()->user->id)
-            UserNotification::model()->deleteByEntity(UserNotification::NEW_COMMENT, $content);
-        UserNotification::model()->deleteByEntity(UserNotification::NEW_REPLY, $content);
-
         if ($community_id !== Community::COMMUNITY_NEWS) {
             $this->breadcrumbs = array(
                 'Клубы' => array('/community'),
@@ -273,8 +269,6 @@ class CommunityController extends HController
 
         $model->attributes = $_POST['CommunityContent'];
         if ($model->save()) {
-            UserNotification::model()->create(UserNotification::TRANSFERRED, array('entity' => $model));
-
             $url = $this->createUrl('community/view', array(
                 'community_id' => $model->rubric->community->id,
                 'content_type_slug' => $model->type->slug,

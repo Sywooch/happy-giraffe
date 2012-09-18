@@ -401,4 +401,9 @@ class HDate
                 break;
         }
     }
+
+    public static function simpleVerb($word, $gender)
+    {
+        return ($gender) ? $word : $word . 'а';
+    }
 }

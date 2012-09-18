@@ -8,6 +8,10 @@ var ExtLinks = {
     site_id:null,
     CheckSite:function () {
         var url = $('#site_url').val();
+
+        $('div.form').hide();
+        $('.url-actions').hide();
+        $('.url-list').hide().html('');
         $.post('/externalLinks/sites/checkSite/', {url:url}, function (response) {
             $('.url-actions').hide();
             switch (response.type) {

@@ -93,7 +93,7 @@ class SitesController extends ELController
             $model = new ELSite();
             $model->url = $host;
             $model->status = ELSite::STATUS_BLACKLIST;
-            $model->type = 1;
+            $model->type = ELSite::TYPE_SITE;
         } else {
             if ($model->status == ELSite::STATUS_BLACKLIST) {
                 echo CJSON::encode(array('status' => true));

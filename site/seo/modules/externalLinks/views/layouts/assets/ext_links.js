@@ -26,6 +26,8 @@ var ExtLinks = {
                     $('#site_status_3').show();
                     break;
             }
+
+            $('#ELLink_url').val(url);
         }, 'json');
     },
     CancelSite:function () {
@@ -80,6 +82,7 @@ var ExtLinks = {
                 ExtLinks.site_id = response.id;
                 $('#ELLink_site_id').val(response.id);
                 $('div.reg-form').replaceWith(response.account);
+                $('#ELLink_url').val(url);
             } else
                 $.pnotify({
                     pnotify_title:'Ошибка',
@@ -220,6 +223,21 @@ var ExtLinks = {
         }, function (response) {
             if (response.status) {
                 window.location.reload();
+            } else
+                $.pnotify({
+                    pnotify_title:'Ошибка',
+                    pnotify_type:'error',
+                    pnotify_text:response.error
+                });
+        }, 'json');
+    },
+    loadPage:function(){
+        $.post('/externalLinks/sites/loadUrl/', {
+            url:$('#ELLink_url').val()
+        }, function (response) {
+            if (response.status) {
+                $('#ELLink_our_link').val(response.url);
+                $('.anchors input:first').val(response.anchor);
             } else
                 $.pnotify({
                     pnotify_title:'Ошибка',

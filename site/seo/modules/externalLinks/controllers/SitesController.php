@@ -13,8 +13,8 @@ class SitesController extends ELController
 
         $dataProvider = $model->search();
         $criteria = $dataProvider->criteria;
-        $criteria->with = array('site'=>array(
-            'select'=>array('type')
+        $criteria->with = array('site' => array(
+            'select' => array('type')
         ));
         $criteria->compare('site.type', ELSite::TYPE_SITE);
         $count = ELLink::model()->count($dataProvider->criteria);
@@ -47,9 +47,8 @@ class SitesController extends ELController
             elseif (!empty($model->links))
                 $response = array(
                     'type' => 2,
-                    'links' => $this->renderPartial('_links', array('links'=>$model->links), true)
-                );
-            else
+                    'links' => $this->renderPartial('_links', array('links' => $model->links), true)
+                ); else
                 $response = array(
                     'type' => 1,
                 );
@@ -138,6 +137,31 @@ class SitesController extends ELController
             $model->site->save();
             if (!$model->withRelated->save(true, array('keywords')))
                 var_dump($model->getErrors());
+        }
+    }
+
+    public function actionLoadUrl()
+    {
+        Yii::import('site.frontend.extensions.phpQuery.phpQuery');
+        $url = Yii::app()->request->getPost('url');
+        $html = file_get_contents($url);
+        $document = phpQuery::newDocument($html);
+
+        foreach ($document->find('a') as $link) {
+            $href = trim(pq($link)->attr('href'));
+            if (strpos($href, 'http://www.happy-giraffe.ru/') !== false) {
+                if (trim(pq($link)->text()) == $href)
+                    $anchor = '';
+                else
+                    $anchor = trim(pq($link)->text());
+
+                echo CJSON::encode(array(
+                    'status' => true,
+                    'url' => $href,
+                    'anchor' => $anchor
+                ));
+                Yii::app()->end();
+            }
         }
     }
 }

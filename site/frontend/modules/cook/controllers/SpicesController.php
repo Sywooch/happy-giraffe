@@ -2,6 +2,9 @@
 
 class SpicesController extends HController
 {
+    /**
+     * @sitemap
+     */
     public function actionIndex()
     {
         $this->pageTitle = 'Приправы и специи';
@@ -10,6 +13,9 @@ class SpicesController extends HController
         $this->render('index', compact('obj'));
     }
 
+    /**
+     * @sitemap dataSource=sitemapView
+     */
     public function actionView($id)
     {
         $model = CookSpiceCategory::model()->with('spices', 'photo')->findByAttributes(array('slug' => $id));
@@ -28,5 +34,23 @@ class SpicesController extends HController
 
             $this->render('category', compact('model'));
         }
+    }
+
+    public function sitemapView()
+    {
+        $sql = 'SELECT slug FROM cook__spices UNION SELECT slug FROM cook__spices__categories';
+        $command = Yii::app()->db->createCommand($sql);
+        $models = $command->queryAll();
+
+        $data = array();
+        foreach ($models as $model) {
+            $data[] = array(
+                'params' => array(
+                    'id' => $model['slug'],
+                ),
+            );
+        }
+
+        return $data;
     }
 }

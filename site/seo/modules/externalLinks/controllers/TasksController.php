@@ -2,6 +2,15 @@
 
 class TasksController extends ELController
 {
+    public function beforeAction($action)
+    {
+        if (!Yii::app()->user->checkAccess('externalLinks-manager-panel') &&
+            !Yii::app()->user->checkAccess('externalLinks-worker-panel')
+        )
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        return true;
+    }
+
     public function actionIndex()
     {
         $task = ELTask::getNextTask();
@@ -36,12 +45,15 @@ class TasksController extends ELController
     {
         $login = Yii::app()->request->getPost('login');
         $password = Yii::app()->request->getPost('password');
-        $site_id = Yii::app()->request->getPost('site_id');
+        $site = $this->loadSite(Yii::app()->request->getPost('site_id'));
 
-        $account = new ELAccount();
-        $account->site_id = $site_id;
+        if (empty($site->account))
+            $account = new ELAccount();
+        else
+            $account = $site->account;
         $account->login = $login;
         $account->password = $password;
+        $account->site_id = $site->id;
         if ($account->save()) {
             $response = array(
                 'status' => true,
@@ -122,9 +134,28 @@ class TasksController extends ELController
                 if (!empty($task_id)) {
                     $task = $this->loadModel(Yii::app()->request->getPost('id'));
                     $task->closeTask();
+                }else{
+                    ELTask::taskForExecuted($model->site_id);
                 }
             }
         }
+    }
+
+    public function actionReports($page = 0){
+        $model = new ELLink();
+
+        $dataProvider = $model->search();
+        $criteria = $dataProvider->criteria;
+        $criteria->compare('author_id', Yii::app()->user->id);
+        $count = ELLink::model()->count($dataProvider->criteria);
+
+        $pages = new CPagination($count);
+        $pages->currentPage = $page;
+        $pages->applyLimit($dataProvider->criteria);
+
+        $models = ELLink::model()->findAll($criteria);
+
+        $this->render('reports', compact('models', 'pages'));
     }
 
     /**
@@ -135,6 +166,18 @@ class TasksController extends ELController
     public function loadModel($id)
     {
         $model = ELTask::model()->findByPk($id);
+        if ($model === null)
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        return $model;
+    }
+
+    /**
+     * @param int $id model id
+     * @return ELSite
+     * @throws CHttpException
+     */
+    public function loadSite($id){
+        $model = ELSite::model()->findByPk($id);
         if ($model === null)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
         return $model;

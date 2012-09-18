@@ -27,6 +27,8 @@ class ELLink extends HActiveRecord
     const TYPE_COMMENT = 2;
     const TYPE_POST = 3;
 
+    const CHECK_DAYS = 7;
+
     public $anchors;
 
     /**
@@ -123,11 +125,11 @@ class ELLink extends HActiveRecord
 
         $criteria = new CDbCriteria;
 
-        $criteria->compare('id', $this->id, true);
-        $criteria->compare('site_id', $this->site_id, true);
+        $criteria->compare('id', $this->id);
+        $criteria->compare('site_id', $this->site_id);
         $criteria->compare('url', $this->url, true);
         $criteria->compare('our_link', $this->our_link, true);
-        $criteria->compare('author_id', $this->author_id, true);
+        $criteria->compare('author_id', $this->author_id);
         $criteria->compare('created', $this->created, true);
         $criteria->compare('link_type', $this->link_type);
         $criteria->compare('link_cost', $this->link_cost);
@@ -145,6 +147,15 @@ class ELLink extends HActiveRecord
                 'class' => 'site.common.extensions.wr.WithRelatedBehavior',
             ),
         );
+    }
+
+    public function beforeSave()
+    {
+        if ($this->isNewRecord && $this->site->type == ELSite::TYPE_FORUM){
+            $this->check_link_time = date("Y-m-d", strtotime('+'.self::CHECK_DAYS.' days'));
+        }
+
+        return parent::beforeSave();
     }
 
     public function defaultScope()
@@ -165,19 +176,21 @@ class ELLink extends HActiveRecord
 
     public static function checkCount()
     {
-        return ELLink::model()->count('check_link_time < "' . date("Y-m-d H:i:s") . '"');
+        return ELLink::model()->count('check_link_time < "'.date("Y-m-d H:i:s") .'" AND check_link_time IS NOT NULL AND check_link_time != "0000-00-00 00:00:00"');
     }
 
     public function nextCheckTime()
     {
         $days = (time() - strtotime($this->created)) / (3600 * 24);
 
-        if ($days >= 29)
+        if ($days >= 90)
+            $this->check_link_time = date("Y-m-d H:i:s", strtotime('+3 month'));
+        elseif ($days >= 29)
             $this->check_link_time = date("Y-m-d H:i:s", strtotime('+1 month'));
         elseif ($days >= 14)
-            $this->check_link_time = date("Y-m-d H:i:s", strtotime('+15 days')); elseif ($days >= 7)
-            $this->check_link_time = date("Y-m-d H:i:s", strtotime('+7 days')); else
-            $this->check_link_time = date("Y-m-d H:i:s", strtotime('+4 days'));
+            $this->check_link_time = date("Y-m-d H:i:s", strtotime('+15 days'));
+        else
+            $this->check_link_time = date("Y-m-d H:i:s", strtotime('+7 days'));
 
         return $this->save();
     }
@@ -212,7 +225,10 @@ class ELLink extends HActiveRecord
 
     public function getLinkPrice()
     {
-        return $this->link_cost;
+        if (!empty($this->link_cost) && !empty($this->system_id))
+            return $this->link_cost.' ('.round($this->link_cost*(1+$this->system->fee/100)).')';
+        else
+            return '';
     }
 
     public function getUrlWithEmphasizedHost()

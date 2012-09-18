@@ -106,8 +106,8 @@ class ELSite extends HActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('id',$this->id,true);
-		$criteria->compare('url',$this->url,true);
+		$criteria->compare('id',$this->id);
+		$criteria->compare('url',$this->url);
 		$criteria->compare('type',$this->type);
 		$criteria->compare('status',$this->status);
 		$criteria->compare('created',$this->created,true);
@@ -126,14 +126,6 @@ class ELSite extends HActiveRecord
                 'updateAttribute' => null,
             ),
         );
-    }
-
-    public function afterSave()
-    {
-        if ($this->isNewRecord && $this->type == self::TYPE_FORUM){
-            ELTask::createRegisterTask($this->id);
-        }
-        parent::afterSave();
     }
 
     public function addToBlacklist()

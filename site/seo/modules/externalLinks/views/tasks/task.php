@@ -5,7 +5,7 @@
     <?php endif ?>
 
     <div class="ext-links-add">
-        <div class="tasks-count">Еще заданий сегодня <span><?=ELTask::showTaskCount() ?></span></div>
+        <div class="tasks-count">Еще заданий сегодня <span><?=ELTask::todayTaskCount() ?></span></div>
         <?php
         if (is_array($task))
             $this->renderPartial('task_1', array('tasks' => $task));

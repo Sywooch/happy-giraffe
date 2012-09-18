@@ -154,7 +154,7 @@ class DefaultController extends HController
     }
 
     /**
-     * @sitemap dataSource=getNamesUrls
+     * @sitemap dataSource=sitemapView
      */
     public function actionName($name)
     {
@@ -469,21 +469,23 @@ class DefaultController extends HController
         }
     }*/
 
-    public function getNamesUrls()
+    public function sitemapView()
     {
         $models = Yii::app()->db->createCommand()
             ->select('slug')
             ->from('name__names')
             ->queryAll();
+
+        $data = array();
         foreach ($models as $model)
         {
             $data[] = array(
                 'params' => array(
                     'name' => $model['slug'],
                 ),
-                'priority' => 0.5,
             );
         }
+
         return $data;
 
     }

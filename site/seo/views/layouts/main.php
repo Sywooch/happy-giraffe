@@ -8,7 +8,7 @@
     <?php
     echo CHtml::linkTag('shortcut icon', null, '/favicon.bmp');
 
-    $release_id = 27;
+    $release_id = 29;
     Yii::app()->clientScript
         ->registerCssFile('/css/seo.css?'.$release_id)
         ->registerCssFile('/css/form.css')
@@ -121,6 +121,19 @@
                     'label' => 'Комментаторы',
                     'url' => array('/admin/Commentator/admin/'),
                 ),
+                array(
+                    'label' => 'Внешние ссылки - сайты',
+                    'url' => array('/externalLinks/site/admin/'),
+                ),
+                array(
+                    'label' => 'Внешние ссылки - ссылки',
+                    'url' => array('/externalLinks/link/admin/'),
+                ),
+                array(
+                    'label' => 'Внешние ссылки - задания',
+                    'url' => array('/externalLinks/task/admin/'),
+                ),
+
             )));
     ?>
 </div>

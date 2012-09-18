@@ -55,7 +55,7 @@ class ZeroCommentsPosts extends PostForCommentator
         $criteria->select = 't.*, `comments`.`id` as comment_id';
         $criteria->condition = 't.type_id < 3 AND t.created < "2012-08-20 00:00:00" AND `full` IS NULL AND comments.id IS NULL';
         $criteria->join = 'LEFT OUTER JOIN `comments` `comments` ON (`comments`.`entity_id`=`t`.`id` AND `comments`.`author_id` = '.$this->commentator->user_id.') ';
-        $criteria->limit = 10;
+        $criteria->limit = 100;
 
         return $criteria;
     }

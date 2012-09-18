@@ -9,7 +9,7 @@ class PostForCommentator
     protected $way = array();
     protected $nextGroup = 'UserPosts';
     protected $error = '';
-    public $times = array(6, 6, 4, 4);
+    public $times = array(10, 8, 8, 8);
     /**
      * @var CommentatorWork
      */

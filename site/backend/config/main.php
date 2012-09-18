@@ -58,6 +58,7 @@ return array(
             'showScriptName'=>false,
             'urlSuffix' => '/',
             'rules' => array(
+                'http://www.happy-giraffe.ru/user/<user_id:\d+>' => 'user/profile',
                 'http://www.happy-giraffe.ru/community/<community_id:\d+>/forum/<content_type_slug:\w+>/<content_id:\d+>' => 'community/view',
             ),
 		),

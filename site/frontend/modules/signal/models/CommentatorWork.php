@@ -381,76 +381,30 @@ class CommentatorWork extends EMongoDocument
         return $res;
     }
 
-    public function blogVisits($period, $cache = true)
+    public function blogVisits($period)
     {
-        $id = 'blog-visits-' . $this->user_id . '-' . $period;
-        if ($cache)
-            $value = Yii::app()->cache->get($id);
-        else
-            $value = false;
+        $month = CommentatorsMonthStats::getOrCreateWorkingMonth($period);
+        if (isset($month->commentators[(int)$this->user_id][CommentatorsMonthStats::BLOG_VISITS]))
+            return $month->commentators[(int)$this->user_id][CommentatorsMonthStats::BLOG_VISITS];
 
-        if ($value === false) {
-            Yii::import('site.frontend.extensions.GoogleAnalytics');
-            $ga = new GoogleAnalytics('alexk984@gmail.com', Yii::app()->params['gaPass']);
-            $ga->setProfile('ga:53688414');
-            $ga->setDateRange($period . '-01', $period . '-' . $this->getLastPeriodDay($period));
-            try {
-                $report = $ga->getReport(array(
-                    'metrics' => urlencode('ga:visitors'),
-                    'filters' => urlencode('ga:pagePath=~' . '/user/' . $this->user_id . '/blog/*'),
-                ));
-            } catch (Exception $err) {
-                Yii::app()->cache->set($id, 0, 3600 * 5);
-                return 0;
-            }
-
-            if (!empty($report))
-                $value = $report['']['ga:visitors'];
-            else
-                $value = 0;
-
-            Yii::app()->cache->set($id, $value, 3600 * 5);
-        }
-
-        return $value;
+        return 0;
     }
 
-    public function profileUniqueViews($period, $cache = true)
+    public function profileUniqueViews($period)
     {
-        $id = 'profile-pageViews-' . $this->user_id . '-' . $period;
-        if ($cache)
-            $value = Yii::app()->cache->get($id);
-        else
-            $value = false;
-        if ($value === false) {
-            Yii::import('site.frontend.extensions.GoogleAnalytics');
-            $ga = new GoogleAnalytics('alexk984@gmail.com', Yii::app()->params['gaPass']);
-            $ga->setProfile('ga:53688414');
-            $ga->setDateRange($period . '-01', $period . '-' . $this->getLastPeriodDay($period));
-            try {
-                $report = $ga->getReport(array(
-                    'metrics' => urlencode('ga:uniquePageviews'),
-                    'filters' => urlencode('ga:pagePath=~' . '/user/' . $this->user_id . '/'),
-                ));
-            } catch (Exception $err) {
-                Yii::app()->cache->set($id, 0, 3600 * 5);
-                return 0;
-            }
+        $month = CommentatorsMonthStats::getOrCreateWorkingMonth($period);
+        if (isset($month->commentators[(int)$this->user_id][CommentatorsMonthStats::PROFILE_UNIQUE_VIEWS]))
+            return $month->commentators[(int)$this->user_id][CommentatorsMonthStats::PROFILE_UNIQUE_VIEWS];
 
-            if (!empty($report))
-                $value = $report['']['ga:uniquePageviews'];
-            else
-                $value = 0;
-
-            Yii::app()->cache->set($id, $value, 3600 * 5);
-        }
-
-        return $value;
+        return 0;
     }
 
-    public function seVisits($period, $cache = true)
+    public function seVisits($period)
     {
-        #TODO check visits from se
+        $month = CommentatorsMonthStats::getOrCreateWorkingMonth($period);
+        if (isset($month->commentators[(int)$this->user_id][CommentatorsMonthStats::SE_VISITS]))
+            return $month->commentators[(int)$this->user_id][CommentatorsMonthStats::SE_VISITS];
+
         return 0;
     }
 
@@ -509,7 +463,7 @@ class CommentatorWork extends EMongoDocument
     {
         $last_day = $this->getLastPeriodDay($period);
         $criteria = new CDbCriteria;
-        $criteria->condition = 'created >= "' . $period . '-01 00:00:00" AND created <= "' . $period . '-' . $last_day . ' 23:59:59"';
+        //$criteria->condition = 'created >= "' . $period . '-01 00:00:00" AND created <= "' . $period . '-' . $last_day . ' 23:59:59"';
         $criteria->compare('author_id', $this->user_id);
         $criteria->order = 'created desc';
         $criteria->with = array('rubric', 'rubric.community', 'type');

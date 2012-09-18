@@ -12,6 +12,7 @@ class CommentatorsMonthStats extends EMongoDocument
     public $commentators = array();
     public $workingDays = array();
     public $working_days_count = 22;
+    public $page_visits = array();
 
     public static function model($className = __CLASS__)
     {
@@ -63,7 +64,7 @@ class CommentatorsMonthStats extends EMongoDocument
         )));
     }
 
-    public function calculate($cache = true)
+    public function calculate()
     {
         $commentators = User::model()->findAll('`group`=' . UserGroup::COMMENTATOR);
         $this->commentators = array();
@@ -71,12 +72,15 @@ class CommentatorsMonthStats extends EMongoDocument
         foreach ($commentators as $commentator) {
             $model = $this->loadCommentator($commentator);
             if ($model !== null) {
+
+                echo 'user: ' . $commentator->id . "\n";
+
                 $result = array(
                     self::NEW_FRIENDS => (int)$model->newFriends($this->period),
-                    self::BLOG_VISITS => (int)$model->blogVisits($this->period, $cache),
-                    self::PROFILE_UNIQUE_VIEWS => (int)$model->profileUniqueViews($this->period, $cache),
+                    self::BLOG_VISITS => (int)$this->blogVisits($commentator->id),
+                    self::PROFILE_UNIQUE_VIEWS => (int)$this->profileUniqueViews($commentator->id),
                     self::IM_MESSAGES => (int)$model->imMessages($this->period),
-                    self::SE_VISITS => (int)$model->seVisits($this->period, $cache),
+                    self::SE_VISITS => (int)$this->getSeVisits($commentator->id),
                 );
                 $this->commentators[(int)$commentator->id] = $result;
             }
@@ -158,5 +162,107 @@ class CommentatorsMonthStats extends EMongoDocument
         }
 
         return array_reverse($result);
+    }
+
+    public function profileUniqueViews($user_id)
+    {
+        Yii::import('site.frontend.extensions.GoogleAnalytics');
+        $ga = new GoogleAnalytics('alexk984@gmail.com', Yii::app()->params['gaPass']);
+        $ga->setProfile('ga:53688414');
+        $ga->setDateRange($this->period . '-01', $this->period . '-' . $this->getLastPeriodDay($this->period));
+        try {
+            $report = $ga->getReport(array(
+                'metrics' => urlencode('ga:uniquePageviews'),
+                'filters' => urlencode('ga:pagePath==' . '/user/' . $user_id . '/'),
+            ));
+        } catch (Exception $err) {
+
+            return 0;
+        }
+
+        if (!empty($report))
+            $value = $report['']['ga:uniquePageviews'];
+        else
+            $value = 0;
+
+        return $value;
+    }
+
+    public function blogVisits($user_id)
+    {
+        Yii::import('site.frontend.extensions.GoogleAnalytics');
+        $ga = new GoogleAnalytics('alexk984@gmail.com', Yii::app()->params['gaPass']);
+        $ga->setProfile('ga:53688414');
+        $ga->setDateRange($this->period . '-01', $this->period . '-' . $this->getLastPeriodDay($this->period));
+        try {
+            $report = $ga->getReport(array(
+                'metrics' => urlencode('ga:visitors'),
+                'filters' => urlencode('ga:pagePath=~' . '/user/' . $user_id . '/blog/*'),
+            ));
+        } catch (Exception $err) {
+            return 0;
+        }
+
+        if (!empty($report))
+            $value = $report['']['ga:visitors'];
+        else
+            $value = 0;
+
+        return $value;
+    }
+
+    public function getSeVisits($user_id)
+    {
+        $models = CommunityContent::model()->findAll('author_id = ' . $user_id);
+
+        $all_count = 0;
+        foreach ($models as $model) {
+            $url = trim($model->url, '.');
+            $visits = $this->getVisits($url);
+            echo $url . ' - ' . $visits . "\n";
+            $all_count += $visits;
+
+            $this->addPageVisit($url, $visits);
+        }
+
+        echo $all_count . "\n";
+        return $all_count;
+    }
+
+    public function getVisits($url)
+    {
+        Yii::import('site.frontend.extensions.GoogleAnalytics');
+
+        $period = date("Y-m");
+        $ga = new GoogleAnalytics('alexk984@gmail.com', Yii::app()->params['gaPass']);
+        $ga->setProfile('ga:53688414');
+        $ga->setDateRange($period . '-01', $period . '-' . $this->getLastPeriodDay($period));
+
+        $report = $ga->getReport(array(
+            'metrics' => urlencode('ga:organicSearches'),
+            'filters' => urlencode('ga:pagePath==' . $url),
+        ));
+
+        sleep(1);
+        if (isset($report[""]['ga:organicSearches']))
+            return $report[""]['ga:organicSearches'];
+        return 0;
+    }
+
+    public function addPageVisit($url, $value)
+    {
+        $this->page_visits[$url] = $value;
+    }
+
+    public function getPageVisitsCount($url)
+    {
+        if (isset($this->page_visits[$url]))
+            return $this->page_visits[$url];
+        return 0;
+    }
+
+    public function getLastPeriodDay($period)
+    {
+        return str_pad(cal_days_in_month(CAL_GREGORIAN, date('n', strtotime($period)), date('Y', strtotime($period))), 2, "0", STR_PAD_LEFT);
     }
 }

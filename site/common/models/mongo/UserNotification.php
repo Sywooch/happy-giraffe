@@ -47,6 +47,17 @@ class UserNotification extends EMongoDocument
         );
     }
 
+    protected function afterSave()
+    {
+        $comet = new CometModel;
+        $comet->send($this->recipient_id, array(
+                'html' => Yii::app()->controller->renderPartial('//userPopup/_notification', array('data' => $this))
+            ),
+            CometModel::TYPE_NEW_NOTIFICATION);
+
+        parent::afterSave();
+    }
+
     public function getUserCriteria($user_id)
     {
         $criteria = new EMongoCriteria;
@@ -84,7 +95,7 @@ class UserNotification extends EMongoDocument
     {
         $entity = CActiveRecord::model($comment->entity)->findByPk($comment->entity_id);
         $entityName = get_class($entity);
-        if (! (in_array($entityName, array('CommunityContent', 'User', 'CookRecipe')) || $entityName == 'AlbumPhoto' && $entity->album !== null))
+        if (! (in_array($entityName, array('CommunityContent', 'BlogContent', 'User', 'CookRecipe')) || $entityName == 'AlbumPhoto' && $entity->album !== null))
             return false;
 
         $this->recipient_id = (int) ($entityName != 'User') ? $entity->author_id : $entity->id;
@@ -93,12 +104,11 @@ class UserNotification extends EMongoDocument
 
         $line1 = CHtml::link($comment->author->fullName, $comment->author->url) . ' ' . HDate::simpleVerb('добавил', $comment->author->gender) . ' ' . (($entityName == 'User') ? 'запись' : 'комментарий') . CHtml::tag('br');
         switch (get_class($entity)) {
+            case 'BlogContent':
+                $line2 = 'к вашей записи ' . CHtml::link($entity->title, $entity->url) . ' в блоге';
+                break;
             case 'CommunityContent':
-                if ($entity->isFromBlog) {
-                    $line2 = 'к вашей записи ' . CHtml::link($entity->title, $entity->url) . ' в блоге';
-                } else {
-                    $line2 = 'к вашей записи ' . CHtml::link($entity->title, $entity->url) . ' в сообществе ' . CHtml::link($entity->rubric->community->title, $entity->rubric->community->url);
-                }
+                $line2 = 'к вашей записи ' . CHtml::link($entity->title, $entity->url) . ' в сообществе ' . CHtml::link($entity->rubric->community->title, $entity->rubric->community->url);
                 break;
             case 'User':
                 $line2 = 'в вашей гостевой книге';

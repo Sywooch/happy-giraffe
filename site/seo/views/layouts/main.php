@@ -121,6 +121,19 @@
                     'label' => 'Комментаторы',
                     'url' => array('/admin/Commentator/admin/'),
                 ),
+                array(
+                    'label' => 'Внешние ссылки - сайты',
+                    'url' => array('/externalLinks/site/admin/'),
+                ),
+                array(
+                    'label' => 'Внешние ссылки - ссылки',
+                    'url' => array('/externalLinks/link/admin/'),
+                ),
+                array(
+                    'label' => 'Внешние ссылки - задания',
+                    'url' => array('/externalLinks/task/admin/'),
+                ),
+
             )));
     ?>
 </div>

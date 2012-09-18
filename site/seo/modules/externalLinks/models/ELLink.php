@@ -176,7 +176,7 @@ class ELLink extends HActiveRecord
 
     public static function checkCount()
     {
-        return ELLink::model()->count('check_link_time < "' . date("Y-m-d H:i:s") . '"');
+        return ELLink::model()->count('check_link_time < "'.date("Y-m-d H:i:s") .'" AND check_link_time IS NOT NULL AND check_link_time != "0000-00-00 00:00:00"');
     }
 
     public function nextCheckTime()

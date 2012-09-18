@@ -164,4 +164,24 @@ class SitesController extends ELController
             }
         }
     }
+
+    public function actionRemove()
+    {
+        $site_id = Yii::app()->request->getPost('site_id');
+        $site = $this->loadSite($site_id);
+
+        echo CJSON::encode(array('status' => $site->delete()));
+    }
+
+    /**
+     * @param int $id model id
+     * @return ELSite
+     * @throws CHttpException
+     */
+    public function loadSite($id){
+        $model = ELSite::model()->findByPk($id);
+        if ($model === null)
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        return $model;
+    }
 }

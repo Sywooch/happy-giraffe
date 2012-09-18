@@ -147,7 +147,13 @@ class StatController extends SController
             )
         );
 
-        $criteria->condition = 't.created >= "2012-08-27 00:00:00" AND t.created <= "2012-08-27 00:00:00" AND uniqueness IS NOT NULL';
-        $models = CommunityContent::model()->findAll();
+        $criteria->condition = 't.created >= "2012-08-27 00:00:00" AND t.created <= "2012-09-17 00:00:00" AND uniqueness > 50 AND uniqueness IS NOT NULL';
+        $good = CommunityContent::model()->count($criteria);
+        echo $good.'<br>';
+        $criteria->condition = 't.created >= "2012-08-27 00:00:00" AND t.created <= "2012-09-17 00:00:00" AND uniqueness <= 50 AND uniqueness IS NOT NULL';
+        $bad = CommunityContent::model()->count($criteria);
+        echo $bad.'<br>';
+        if (($good + $bad) != 0)
+            echo round($good/($good+ $bad)*100);
     }
 }

@@ -16,6 +16,34 @@
         <button class="btn-g" onclick="ExtLinks.AddForumExecuted()">Добавить</button>
     </div>
 
+    <div class="url-actions" id="site_status_1" style="display: none;">
+
+        <span class="new-site">Новый сайт</span>
+
+        <a href="javascript:;" class="pseudo" onclick="ExtLinks.CancelSite()">Отмена</a>
+
+        <a href="javascript:;" class="icon-blacklist" onclick="ExtLinks.AddToBL(2)">ЧС</a>
+
+    </div>
+
+    <div class="url-actions" id="site_status_2" style="display: none;">
+
+        <span class="have-links">В работе</span>
+
+        <a href="javascript:;" class="pseudo" onclick="ExtLinks.CancelSite()">Отмена</a>
+
+        <a href="javascript:;" class="icon-blacklist" onclick="ExtLinks.AddToBL(2)">ЧС</a>
+
+    </div>
+
+    <div class="url-actions" id="site_status_3" style="display: none;">
+
+        <span class="in-blacklist">В черном списке</span>
+
+        <button class="btn-g orange" onclick="ExtLinks.CancelSite()">Отмена</button>
+
+    </div>
+
     <div class="form" style="display:none;">
 
         <div class="tasks-list">

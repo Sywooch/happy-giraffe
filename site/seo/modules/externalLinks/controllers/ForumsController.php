@@ -49,9 +49,17 @@ class ForumsController extends ELController
                 if ($create_task)
                     ELTask::createRegisterTask($model->id);
 
+                if ($model->status == ELSite::STATUS_BLACKLIST)
+                    $type = 3;
+                elseif (!empty($model->links))
+                    $type = 2;
+                else
+                    $type = 1;
+
                 $response = array(
                     'status' => true,
                     'id' => $model->id,
+                    'type' => $type,
                     'account' => $this->renderPartial('_reg_data', array('account' => $model->account), true)
                 );
             } else
@@ -59,11 +67,19 @@ class ForumsController extends ELController
         } else {
             $model->url = $host;
             $model->type = ELSite::TYPE_FORUM;
-            $model->status = ELSite::STATUS_NORMAL;
             if ($model->save()) {
+
+                if ($model->status == ELSite::STATUS_BLACKLIST)
+                    $type = 3;
+                elseif (!empty($model->tasks))
+                    $type = 2;
+                else
+                    $type = 1;
+
                 $response = array(
                     'status' => true,
                     'id' => $model->id,
+                    'type' => $type,
                     'account' => $this->renderPartial('_reg_data', array('account' => $model->account), true)
                 );
             } else

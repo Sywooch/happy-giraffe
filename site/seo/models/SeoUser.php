@@ -226,8 +226,6 @@ class SeoUser extends HActiveRecord
             ->where('itemname = "externalLinks-manager" OR itemname = "externalLinks-worker"')
             ->queryColumn();
 
-        return SeoUser::model()->findAllByAttributes(array(
-            'id' => implode(',', $users)
-        ));
+        return SeoUser::model()->findAllByPk($users);
     }
 }

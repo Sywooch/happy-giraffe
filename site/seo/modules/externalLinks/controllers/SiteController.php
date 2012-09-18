@@ -121,10 +121,12 @@ class SiteController extends ELController
 
     public function actionFix()
     {
-        $forums = ELSite::model()->findAll();
+        $forums = ELSite::model()->findAll('type=2');
         foreach($forums as $forum){
-            if (empty($forum->tasks))
+            if (empty($forum->tasks)){
                 var_dump($forum->attributes);
+                echo '<br><br>';
+            }
         }
     }
 }

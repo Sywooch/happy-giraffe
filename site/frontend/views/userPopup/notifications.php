@@ -14,6 +14,7 @@
 
         <?php
             $this->widget('zii.widgets.CListView', array(
+                'id' => 'notificationsList',
                 'dataProvider' => $dp,
                 'itemView' => '_notification',
                 'itemsTagName' => 'ul',

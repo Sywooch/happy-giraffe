@@ -33,6 +33,24 @@ Notifications.isActive = function() {
     return $('#user-notifications:visible').length > 0;
 }
 
+Notifications.delete = function(el, id) {
+    var li = $(el).parents('li');
+    $.post('/notification/delete2/', {id: id}, function(response) {
+        if (response == 1) {
+            Notifications.updateCounter(-1);
+            $.fn.yiiListView.update('notificationsList');
+        }
+    });
+}
+
+Notifications.updateCounter = function(diff) {
+    var counter = $('#user-nav-notifications .count');
+    var newVal = parseInt(counter.text()) + diff;
+    counter.text(newVal);
+
+    counter.toggle(newVal != 0);
+}
+
 Notifications.setHeight = function() {
     var box = $('#user-notifications');
 
@@ -46,3 +64,16 @@ Notifications.setHeight = function() {
 
     box.find('.notifications ul').css('max-height', generalH);
 }
+
+$(function() {
+    Comet.prototype.receiveNotification = function(result, id) {
+        Notifications.updateCounter(1);
+        if (Notifications.isActive())
+            $.fn.yiiListView.update('notificationsList');
+    }
+
+    comet.addEvent(1000, 'receiveNotification');
+
+
+});
+

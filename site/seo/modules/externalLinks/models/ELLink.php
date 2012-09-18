@@ -125,11 +125,11 @@ class ELLink extends HActiveRecord
 
         $criteria = new CDbCriteria;
 
-        $criteria->compare('id', $this->id, true);
-        $criteria->compare('site_id', $this->site_id, true);
+        $criteria->compare('id', $this->id);
+        $criteria->compare('site_id', $this->site_id);
         $criteria->compare('url', $this->url, true);
         $criteria->compare('our_link', $this->our_link, true);
-        $criteria->compare('author_id', $this->author_id, true);
+        $criteria->compare('author_id', $this->author_id);
         $criteria->compare('created', $this->created, true);
         $criteria->compare('link_type', $this->link_type);
         $criteria->compare('link_cost', $this->link_cost);

@@ -225,7 +225,10 @@ class ELLink extends HActiveRecord
 
     public function getLinkPrice()
     {
-        return $this->link_cost;
+        if (!empty($this->link_cost) && !empty($this->system_id))
+            return $this->link_cost.' ('.round($this->link_cost*(1+$this->system->fee/100)).')';
+        else
+            return '';
     }
 
     public function getUrlWithEmphasizedHost()

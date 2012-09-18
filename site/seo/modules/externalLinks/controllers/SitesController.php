@@ -13,8 +13,8 @@ class SitesController extends ELController
 
         $dataProvider = $model->search();
         $criteria = $dataProvider->criteria;
-        $criteria->with = array('site'=>array(
-            'select'=>array('type')
+        $criteria->with = array('site' => array(
+            'select' => array('type')
         ));
         $criteria->compare('site.type', ELSite::TYPE_SITE);
         $count = ELLink::model()->count($dataProvider->criteria);
@@ -47,9 +47,8 @@ class SitesController extends ELController
             elseif (!empty($model->links))
                 $response = array(
                     'type' => 2,
-                    'links' => $this->renderPartial('_links', array('links'=>$model->links), true)
-                );
-            else
+                    'links' => $this->renderPartial('_links', array('links' => $model->links), true)
+                ); else
                 $response = array(
                     'type' => 1,
                 );
@@ -68,6 +67,7 @@ class SitesController extends ELController
         if ($model === null) {
             $model = new ELSite;
             $model->url = $host;
+            $model->type = ELSite::TYPE_SITE;
             if ($model->save()) {
                 $response = array(
                     'status' => true,
@@ -92,7 +92,7 @@ class SitesController extends ELController
             $model = new ELSite();
             $model->url = $host;
             $model->status = ELSite::STATUS_BLACKLIST;
-            $model->type = 1;
+            $model->type = ELSite::TYPE_SITE;
         } else {
             if ($model->status == ELSite::STATUS_BLACKLIST) {
                 echo CJSON::encode(array('status' => true));
@@ -138,5 +138,50 @@ class SitesController extends ELController
             if (!$model->withRelated->save(true, array('keywords')))
                 var_dump($model->getErrors());
         }
+    }
+
+    public function actionLoadUrl()
+    {
+        Yii::import('site.frontend.extensions.phpQuery.phpQuery');
+        $url = Yii::app()->request->getPost('url');
+        $html = file_get_contents($url);
+        $document = phpQuery::newDocument($html);
+
+        foreach ($document->find('a') as $link) {
+            $href = trim(pq($link)->attr('href'));
+            if (strpos($href, 'http://www.happy-giraffe.ru/') !== false) {
+                if (trim(pq($link)->text()) == $href)
+                    $anchor = '';
+                else
+                    $anchor = trim(pq($link)->text());
+
+                echo CJSON::encode(array(
+                    'status' => true,
+                    'url' => $href,
+                    'anchor' => $anchor
+                ));
+                Yii::app()->end();
+            }
+        }
+    }
+
+    public function actionRemove()
+    {
+        $site_id = Yii::app()->request->getPost('site_id');
+        $site = $this->loadSite($site_id);
+
+        echo CJSON::encode(array('status' => $site->delete()));
+    }
+
+    /**
+     * @param int $id model id
+     * @return ELSite
+     * @throws CHttpException
+     */
+    public function loadSite($id){
+        $model = ELSite::model()->findByPk($id);
+        if ($model === null)
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        return $model;
     }
 }

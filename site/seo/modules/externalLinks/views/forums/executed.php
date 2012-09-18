@@ -13,30 +13,26 @@
 
     <div class="check-url">
         <input id="site_url" type="text" placeholder="Введите URL форума"/>
-        <button class="btn-g" onclick="ExtLinks.CheckSite()">Добавить</button>
+        <button class="btn-g" onclick="ExtLinks.AddForumExecuted()">Добавить</button>
     </div>
 
     <div class="url-actions" id="site_status_1" style="display: none;">
 
         <span class="new-site">Новый сайт</span>
 
-        <button class="btn-g" onclick="ExtLinks.AddSite()">Добавить</button>
-
         <a href="javascript:;" class="pseudo" onclick="ExtLinks.CancelSite()">Отмена</a>
 
-        <a href="javascript:;" class="icon-blacklist" onclick="ExtLinks.AddToBL(1)">ЧС</a>
+        <a href="javascript:;" class="icon-blacklist" onclick="ExtLinks.AddToBL(2)">ЧС</a>
 
     </div>
 
     <div class="url-actions" id="site_status_2" style="display: none;">
 
-        <span class="have-links">Есть ссылки</span>
-
-        <button class="btn-g disabled" onclick="ExtLinks.AddSite()">Добавить</button>
+        <span class="have-links">В работе</span>
 
         <a href="javascript:;" class="pseudo" onclick="ExtLinks.CancelSite()">Отмена</a>
 
-        <a href="javascript:;" class="icon-blacklist" onclick="ExtLinks.AddToBL(1)">ЧС</a>
+        <a href="javascript:;" class="icon-blacklist" onclick="ExtLinks.AddToBL(2)">ЧС</a>
 
     </div>
 
@@ -45,8 +41,6 @@
         <span class="in-blacklist">В черном списке</span>
 
         <button class="btn-g orange" onclick="ExtLinks.CancelSite()">Отмена</button>
-
-        <a href="javascript:;" onclick="ExtLinks.AddSite()" class="pseudo">Добавить</a>
 
     </div>
 
@@ -57,15 +51,9 @@
             <ul>
                 <li>
                     <div class="task-title">Данные регистрации</div>
-                    <div class="reg-form">
-                        <button class="btn-g small" onclick="ExtLinks.AddForumLogin(this)">Ok</button>
-                        <label>Логин:</label><input id="forum-login" type="text"><br>
-                        <label>Пароль:</label><input id="forum-password" type="text"><br>
-                    </div>
+                    <?php $this->renderPartial('/forums/_reg_data'); ?>
                 </li>
             </ul>
-
-        </div>
 
         <?php $form = $this->beginWidget('CActiveForm', array(
         'id' => 'link-form',
@@ -85,6 +73,7 @@
         )));
 
         $model = new ELLink();
+        $model->created = date("Y-m-d");
         echo $form->hiddenField($model, 'site_id');
         ?>
 
@@ -95,6 +84,7 @@
             </div>
             <div class="row-elements">
                 <?=$form->textField($model, 'url', array('placeholder' => 'Введите URL')) ?>
+                <a href="javascript:;" class="btn-green-small" onclick="ExtLinks.loadPage()">load</a>
                 <?=$form->error($model, 'url') ?>
             </div>
         </div>
@@ -158,6 +148,8 @@
         </div>
 
         <?php $this->endWidget(); ?>
+
+    </div>
 
     </div>
 

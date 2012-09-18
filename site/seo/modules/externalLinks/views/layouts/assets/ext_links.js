@@ -5,8 +5,13 @@
 
 var ExtLinks = {
     problem_type:0,
+    site_id:null,
     CheckSite:function () {
         var url = $('#site_url').val();
+
+        $('div.form').hide();
+        $('.url-actions').hide();
+        $('.url-list').hide().html('');
         $.post('/externalLinks/sites/checkSite/', {url:url}, function (response) {
             $('.url-actions').hide();
             switch (response.type) {
@@ -21,6 +26,8 @@ var ExtLinks = {
                     $('#site_status_3').show();
                     break;
             }
+
+            $('#ELLink_url').val(url);
         }, 'json');
     },
     CancelSite:function () {
@@ -41,11 +48,41 @@ var ExtLinks = {
     },
     AddForum:function () {
         var url = $('#site_url').val();
-        $.post('/externalLinks/forums/add/', {url:url}, function (response) {
+        $.post('/externalLinks/forums/add/', {url:url, create_task:1}, function (response) {
             if (response.status) {
                 $('.flash-message.added').html('Форум &nbsp;<a target="_blank" href="' + url +
                     '">' + url + '</a> добавлен в задачи').show().delay(3000).fadeOut(3000);
                 ExtLinks.ClearForum();
+            } else
+                $.pnotify({
+                    pnotify_title:'Ошибка',
+                    pnotify_type:'error',
+                    pnotify_text:'Ошибка, обратитесь к разработчикам'
+                });
+        }, 'json');
+    },
+    AddForumExecuted:function () {
+        var url = $('#site_url').val();
+        $.post('/externalLinks/forums/add/', {url:url}, function (response) {
+            if (response.status) {
+                $('.url-actions').hide();
+                switch (response.type) {
+                    case 1:
+                        $('#site_status_1').show();
+                        break;
+                    case 2:
+                        $('#site_status_2').show();
+                        break;
+                    case 3:
+                        $('#site_status_3').show();
+                        break;
+                }
+
+                $('div.form').show();
+                ExtLinks.site_id = response.id;
+                $('#ELLink_site_id').val(response.id);
+                $('div.reg-form').replaceWith(response.account);
+                $('#ELLink_url').val(url);
             } else
                 $.pnotify({
                     pnotify_title:'Ошибка',
@@ -140,10 +177,12 @@ var ExtLinks = {
         $.post('/externalLinks/tasks/addForumLogin/', {
             login:login,
             password:password,
-            site_id:site_id
+            site_id:ExtLinks.site_id
         }, function (response) {
             if (response.status) {
                 $(el).hide();
+                $(el).next().show();
+                $(el).parents('.reg-form').find('input[type="text"]').prop('disabled', true);
             } else
                 $.pnotify({
                     pnotify_title:'Ошибка',
@@ -151,6 +190,11 @@ var ExtLinks = {
                     pnotify_text:response.error
                 });
         }, 'json');
+    },
+    EditLogin:function(el){
+        $(el).hide();
+        $(el).prev().show();
+        $(el).parents('.reg-form').find('input[type="text"]').prop('disabled', false);
     },
     Problem:function (id) {
         $.post('/externalLinks/tasks/problem/', {
@@ -187,4 +231,19 @@ var ExtLinks = {
                 });
         }, 'json');
     },
+    loadPage:function(){
+        $.post('/externalLinks/sites/loadUrl/', {
+            url:$('#ELLink_url').val()
+        }, function (response) {
+            if (response.status) {
+                $('#ELLink_our_link').val(response.url);
+                $('.anchors input:first').val(response.anchor);
+            } else
+                $.pnotify({
+                    pnotify_title:'Ошибка',
+                    pnotify_type:'error',
+                    pnotify_text:response.error
+                });
+        }, 'json');
+    }
 }

@@ -53,10 +53,18 @@ class SiteController extends SController
 
         if (Yii::app()->user->checkAccess('cook-manager'))
             $this->redirect('/competitors/cook/');
+
         if (Yii::app()->user->checkAccess('cook-author'))
             $this->redirect($this->createUrl('cook/author'));
+
         if (Yii::app()->user->checkAccess('cook-content-manager'))
             $this->redirect($this->createUrl('cook/content'));
+
+        if (Yii::app()->user->checkAccess('externalLinks-manager'))
+            $this->redirect($this->createUrl('externalLinks/sites/index'));
+
+        if (Yii::app()->user->checkAccess('externalLinks-worker'))
+            $this->redirect($this->createUrl('externalLinks/tasks/index'));
     }
 
     /**

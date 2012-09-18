@@ -4,7 +4,7 @@ class DefaultController extends HController
 {
 
     /**
-     * @sitemap dataSource=getSitemapUrls
+     * @sitemap dataSource=sitemapIndex
      */
 	public function actionIndex($calendar, $slug = null)
 	{
@@ -30,7 +30,7 @@ class DefaultController extends HController
         $this->render('index', compact('period', 'periods'));
 	}
 
-    public function getSitemapUrls()
+    public function sitemapIndex()
     {
         $data = array();
 
@@ -45,10 +45,9 @@ class DefaultController extends HController
                     'calendar' => $model['calendar'],
                     'slug' => $model['slug'],
                 ),
-                'priority' => 0.5,
-                'changefreq' => 'daily',
             );
         }
+
         return $data;
     }
 }

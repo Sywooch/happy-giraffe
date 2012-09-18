@@ -182,9 +182,12 @@ class Comment extends HActiveRecord
 
             //send signals to commentator panel
             if (Yii::app()->user->checkAccess('commentator_panel')) {
+                Yii::import('site.frontend.modules.signal.components.*');
+                Yii::import('site.frontend.modules.signal.models.*');
+                Yii::import('site.frontend.modules.cook.models.*');
+                Yii::import('site.frontend.modules.cook.components.*');
+
                 if (strlen(trim(strip_tags($this->text))) >= 80) {
-                    Yii::import('site.frontend.modules.signal.components.*');
-                    Yii::import('site.frontend.modules.signal.models.*');
                     $commentator = CommentatorWork::getCurrentUser();
                     $entity = ($this->entity == 'BlogContent') ? 'CommunityContent' : $this->entity;
                     $_entity = ($commentator->comment_entity == 'BlogContent') ? 'CommunityContent' : $commentator->comment_entity;
@@ -208,8 +211,6 @@ class Comment extends HActiveRecord
                         ), CometModel::TYPE_COMMENTATOR_UPDATE);
                     }
                 }else{
-                    Yii::import('site.frontend.modules.signal.components.*');
-                    Yii::import('site.frontend.modules.signal.models.*');
                     $commentator = CommentatorWork::getCurrentUser();
                     $commentator->skipArticle();
                     $commentator->save();

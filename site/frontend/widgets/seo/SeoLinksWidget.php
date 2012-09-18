@@ -14,7 +14,7 @@ class SeoLinksWidget extends CWidget
 
         try {
             $page = self::getPage();
-            if ($page !== null && isset($page->outputLinks) && !empty($page->outputLinks))
+            if ($page !== null && !empty($page->outputLinks))
                 $this->render('index', array('link_pages' => $page->outputLinks));
         } catch (Exception $err) {
         }
@@ -27,6 +27,7 @@ class SeoLinksWidget extends CWidget
     static function getPage()
     {
         $criteria = new CDbCriteria;
+
         $criteria->compare('url', 'http://www.happy-giraffe.ru' . Yii::app()->request->getRequestUri());
         return Page::model()->find($criteria);
     }

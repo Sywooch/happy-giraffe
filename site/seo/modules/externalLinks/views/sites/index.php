@@ -104,6 +104,7 @@
                 </div>
                 <div class="row-elements">
                     <?=$form->textField($model, 'url', array('placeholder'=>'Введите URL')) ?>
+                    <a href="javascript:;" class="btn-green-small" onclick="ExtLinks.loadPage()">load</a>
                     <?=$form->error($model, 'url') ?>
                 </div>
             </div>

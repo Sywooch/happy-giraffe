@@ -107,10 +107,10 @@ class ELTask extends HActiveRecord
 
         $criteria = new CDbCriteria;
 
-        $criteria->compare('id', $this->id, true);
-        $criteria->compare('site_id', $this->site_id, true);
+        $criteria->compare('id', $this->id);
+        $criteria->compare('site_id', $this->site_id);
         $criteria->compare('type', $this->type);
-        $criteria->compare('user_id', $this->user_id, true);
+        $criteria->compare('user_id', $this->user_id);
         $criteria->compare('created', $this->created, true);
         $criteria->compare('closed', $this->closed, true);
 

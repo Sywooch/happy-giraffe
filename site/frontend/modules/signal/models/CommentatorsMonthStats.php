@@ -224,7 +224,10 @@ class CommentatorsMonthStats extends EMongoDocument
             echo $url . ' - ' . $visits . "\n";
             $all_count += $visits;
 
-            $this->addPageVisit($url, $visits);
+            if ($visits !== null)
+                $this->addPageVisit($url, $visits);
+            else
+                $all_count += $this->getPageVisitsCount($url);
         }
 
         echo $all_count . "\n";
@@ -240,15 +243,20 @@ class CommentatorsMonthStats extends EMongoDocument
         $ga->setProfile('ga:53688414');
         $ga->setDateRange($period . '-01', $period . '-' . $this->getLastPeriodDay($period));
 
-        $report = $ga->getReport(array(
-            'metrics' => urlencode('ga:organicSearches'),
-            'filters' => urlencode('ga:pagePath==' . $url),
-        ));
+        try {
+            $report = $ga->getReport(array(
+                'metrics' => urlencode('ga:organicSearches'),
+                'filters' => urlencode('ga:pagePath==' . $url),
+            ));
+
+        } catch (Exception $err) {
+            return null;
+        }
 
         sleep(1);
         if (isset($report[""]['ga:organicSearches']))
             return $report[""]['ga:organicSearches'];
-        return 0;
+        return null;
     }
 
     public function addPageVisit($url, $value)

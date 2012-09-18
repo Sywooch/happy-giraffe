@@ -121,7 +121,7 @@ class SiteController extends SController
         $this->render('modules');
     }
 
-    public function actionTest()
+    public function actionTest2()
     {
         $proxy = '82.192.85.54:60504';
 
@@ -153,6 +153,25 @@ class SiteController extends SController
         // 7-couldn't connect to host
         // 7-Failed to receive SOCKS5 connect request ack.
         // <title>Статистика ключевых слов на Яндексе
+    }
+
+    public function actionTest(){
+        $period = date("Y-m");
+        Yii::import('site.frontend.extensions.GoogleAnalytics');
+        $ga = new GoogleAnalytics('alexk984@gmail.com', Yii::app()->params['gaPass']);
+        $ga->setProfile('ga:53688414');
+        $ga->setDateRange($period . '-01', $period . '-30');
+        try {
+            $report = $ga->getReport(array(
+                'metrics' => urlencode('ga:organicSearches'),
+                'filters' => urlencode('ga:pagePath==/community/8/forum/post/24191/'),
+            ));
+        } catch (Exception $err) {
+            var_dump($err->getMessage());
+            Yii::app()->end();
+        }
+
+        echo $report[""]['ga:organicSearches'];
     }
 
     public function actionSql($sql = '')

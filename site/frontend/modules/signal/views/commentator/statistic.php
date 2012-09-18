@@ -102,7 +102,7 @@ $current_month = CommentatorsMonthStats::getWorkingMonth($period);
                     <?php foreach ($this->commentator->getPosts($period) as $post): ?>
                         <tr>
                             <td class="al"><span class="big"><a target="_blank" href="<?=$post->url ?>"><?=$post->title ?></a></span></td>
-                            <td>0</td>
+                            <td><?=$current_month->getPageVisitsCount($post->url) ?></td>
                         </tr>
                     <?php endforeach; ?>
                     </tbody>

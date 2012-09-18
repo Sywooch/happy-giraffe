@@ -63,6 +63,19 @@ var ExtLinks = {
         var url = $('#site_url').val();
         $.post('/externalLinks/forums/add/', {url:url}, function (response) {
             if (response.status) {
+                $('.url-actions').hide();
+                switch (response.type) {
+                    case 1:
+                        $('#site_status_1').show();
+                        break;
+                    case 2:
+                        $('#site_status_2').show();
+                        break;
+                    case 3:
+                        $('#site_status_3').show();
+                        break;
+                }
+
                 $('div.form').show();
                 ExtLinks.site_id = response.id;
                 $('#ELLink_site_id').val(response.id);

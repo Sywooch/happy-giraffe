@@ -83,10 +83,10 @@ class CommentatorsMonthStats extends EMongoDocument
                     self::SE_VISITS => (int)$this->getSeVisits($commentator->id),
                 );
                 $this->commentators[(int)$commentator->id] = $result;
-
-                $this->save();
             }
         }
+
+        $this->save();
     }
 
     /**

@@ -118,4 +118,13 @@ class SiteController extends ELController
 			Yii::app()->end();
 		}
 	}
+
+    public function actionFix()
+    {
+        $forums = ELSite::model()->findAll();
+        foreach($forums as $forum){
+            if (empty($forum->tasks))
+                var_dump($forum->attributes);
+        }
+    }
 }

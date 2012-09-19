@@ -160,6 +160,16 @@ class BlogController extends HController
      */
     public function actionView($content_id, $user_id, $lastPage = null, $ajax = null)
     {
+        /*$notification = UserNotification::model()->find();
+        for ($i = 0; $i < 50; $i++) {
+            $n = new UserNotification;
+            foreach ($notification->attributes as $k => $v)
+                if ($k != '_id')
+                    $n->$k = $v;
+            $n->save();
+        }
+        die; */
+
         $this->layout = '//layouts/user_blog';
 
         $content = BlogContent::model()->active()->full()->findByPk($content_id);
@@ -182,7 +192,7 @@ class BlogController extends HController
             Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
 
         if (! Yii::app()->user->isGuest)
-            UserNotification::model()->deleteByEntity($content, Yii::app()->user->id);
+            //UserNotification::model()->deleteByEntity($content, Yii::app()->user->id);
 
         $this->render('view', array(
             'data' => $content,

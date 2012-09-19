@@ -18,7 +18,15 @@
                 'dataProvider' => $dp,
                 'itemView' => '_notification',
                 'itemsTagName' => 'ul',
-                'template' => '{items}',
+                'template' => '{items} {pager}',
+                'pager' => array(
+                    'class' => 'ext.infiniteScroll.IasPager',
+                    'rowSelector' => 'li',
+                    'listViewId' => 'notificationsList',
+                    'options' => array(
+                        'scrollContainer' => new CJavaScriptExpression('$(\'#notificationsList .items\')'),
+                    ),
+                ),
             ));
         ?>
 

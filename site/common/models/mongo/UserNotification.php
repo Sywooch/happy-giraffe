@@ -56,12 +56,11 @@ class UserNotification extends EMongoDocument
 
     public function deleteByEntity($entity, $user_id)
     {
-        $criteria = new EMongoCriteria;
-        $criteria->user_id = $user_id;
-        $criteria->entity = array(
-            'name' => get_class($entity),
-            'id' => (int) $entity->id,
-        );
+        $criteria = new EMongoCriteria(array(
+            'recipient_id' => $user_id,
+            'entity.id' => $entity->id,
+            'entity.name' => get_class($entity),
+        ));
 
         $this->deleteAll($criteria);
     }
@@ -83,6 +82,9 @@ class UserNotification extends EMongoDocument
     {
         return new EMongoDocumentDataProvider($this, array(
             'criteria' => $this->getUserCriteria($user_id),
+            'pagination' => array(
+                'pageSize' => 20,
+            ),
         ));
     }
 

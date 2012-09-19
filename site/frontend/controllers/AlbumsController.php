@@ -729,6 +729,10 @@ class AlbumsController extends HController
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
         $this->layout = '//layouts/main';
+
+        if (! Yii::app()->user->isGuest)
+            UserNotification::model()->deleteByEntity($photo, Yii::app()->user->id);
+
         $this->render('singlePhoto', compact('model', 'collection', 'photo', 'currentIndex'));
     }
 

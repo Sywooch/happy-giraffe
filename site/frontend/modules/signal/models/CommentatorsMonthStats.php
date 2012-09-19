@@ -191,6 +191,8 @@ class CommentatorsMonthStats extends EMongoDocument
         $ga = new GoogleAnalytics('alexk984@gmail.com', Yii::app()->params['gaPass']);
         $ga->setProfile('ga:53688414');
         $ga->setDateRange($this->period . '-01', $this->period . '-' . $this->getLastPeriodDay($this->period));
+        sleep(1);
+
         try {
             $report = $ga->getReport(array(
                 'metrics' => urlencode('ga:uniquePageviews'),
@@ -215,6 +217,8 @@ class CommentatorsMonthStats extends EMongoDocument
         $ga = new GoogleAnalytics('alexk984@gmail.com', Yii::app()->params['gaPass']);
         $ga->setProfile('ga:53688414');
         $ga->setDateRange($this->period . '-01', $this->period . '-' . $this->getLastPeriodDay($this->period));
+        sleep(1);
+
         try {
             $report = $ga->getReport(array(
                 'metrics' => urlencode('ga:visitors'),
@@ -261,6 +265,7 @@ class CommentatorsMonthStats extends EMongoDocument
         $ga = new GoogleAnalytics('alexk984@gmail.com', Yii::app()->params['gaPass']);
         $ga->setProfile('ga:53688414');
         $ga->setDateRange($period . '-01', $period . '-' . $this->getLastPeriodDay($period));
+        sleep(1);
 
         try {
             $report = $ga->getReport(array(
@@ -272,7 +277,6 @@ class CommentatorsMonthStats extends EMongoDocument
             return null;
         }
 
-        sleep(1);
         if (isset($report[""]['ga:organicSearches']))
             return $report[""]['ga:organicSearches'];
         return null;

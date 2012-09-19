@@ -133,10 +133,7 @@ class IndexingUp extends HActiveRecord
 
     public function hasUrl($find_url)
     {
-        foreach ($this->text_urls as $url)
-            if ($url == $find_url)
-                return true;
-        return false;
+        return in_array($find_url, $this->text_urls);
     }
 
     /**

@@ -42,7 +42,7 @@ class UserNotification extends EMongoDocument
     public function rules()
     {
         return array(
-            array('recipient_id', 'compare', 'compareAttribute' => 'initiator_id', 'operator' => '!='),
+            //array('recipient_id', 'compare', 'compareAttribute' => 'initiator_id', 'operator' => '!='),
         );
     }
 
@@ -117,6 +117,10 @@ class UserNotification extends EMongoDocument
                 break;
         }
         $this->text = $line1 . $line2;
+        $this->entity = array(
+            'name' => $entityName,
+            'id' => $entity->id,
+        );
         return true;
     }
 
@@ -150,6 +154,10 @@ class UserNotification extends EMongoDocument
                 break;
         }
         $this->text = $line1 . $line2;
+        $this->entity = array(
+            'name' => $entityName,
+            'id' => $entity->id,
+        );
         return true;
     }
 }

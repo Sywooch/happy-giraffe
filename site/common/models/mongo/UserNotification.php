@@ -128,7 +128,7 @@ class UserNotification extends EMongoDocument
     {
         $entity = CActiveRecord::model($comment->entity)->findByPk($comment->entity_id);
         $entityName = get_class($entity);
-        if (! (in_array($entityName, array('CommunityContent', 'User', 'CookRecipe')) || $entityName == 'AlbumPhoto' && $entity->album !== null))
+        if (! (in_array($entityName, array('CommunityContent', 'BlogContent', 'CookRecipe')) || $entityName == 'AlbumPhoto' && $entity->album !== null))
             return false;
 
         $this->recipient_id = (int) $comment->response->author_id;

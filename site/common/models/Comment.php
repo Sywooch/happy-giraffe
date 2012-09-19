@@ -201,7 +201,7 @@ class Comment extends HActiveRecord
                             'entity_id' => $this->entity_id,
                             'entity' => $this->entity
                         ), CometModel::TYPE_COMMENTATOR_UPDATE);
-                    } elseif (!empty($this->response_id) || $model->author_id == $this->author_id) {
+                    } elseif (!empty($this->response_id) || ($model->hasProperty('author_id') && $model->author_id == $this->author_id)) {
                         $commentator->incCommentsCount(false);
                         $comet = new CometModel;
                         $comet->send(Yii::app()->user->id, array(

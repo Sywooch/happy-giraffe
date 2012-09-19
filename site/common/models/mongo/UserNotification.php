@@ -54,6 +54,18 @@ class UserNotification extends EMongoDocument
         parent::afterSave();
     }
 
+    public function deleteByEntity($entity, $user_id)
+    {
+        $criteria = new EMongoCriteria;
+        $criteria->user_id = $user_id;
+        $criteria->entity = array(
+            'name' => get_class($entity),
+            'id' => (int) $entity->id,
+        );
+
+        $this->deleteAll($criteria);
+    }
+
     public function getUserCriteria($user_id)
     {
         $criteria = new EMongoCriteria;
@@ -119,7 +131,7 @@ class UserNotification extends EMongoDocument
         $this->text = $line1 . $line2;
         $this->entity = array(
             'name' => $entityName,
-            'id' => $entity->id,
+            'id' => (int) $entity->id,
         );
         return true;
     }
@@ -156,7 +168,7 @@ class UserNotification extends EMongoDocument
         $this->text = $line1 . $line2;
         $this->entity = array(
             'name' => $entityName,
-            'id' => $entity->id,
+            'id' => (int) $entity->id,
         );
         return true;
     }

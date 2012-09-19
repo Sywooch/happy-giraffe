@@ -147,6 +147,7 @@ class SeoCommand extends CConsoleCommand
         Yii::import('site.seo.modules.indexing.models.*');
         Yii::import('site.frontend.components.CutBehavior');
 
+        echo "start\n";
         $urlCollector = new UrlCollector;
         $urlCollector->removeUrls();
     }
@@ -244,37 +245,6 @@ class SeoCommand extends CConsoleCommand
                 }
             }
             $i++;
-        }
-    }
-
-    public function actionFix()
-    {
-        $criteria = new CDbCriteria;
-        $criteria->limit = 1000;
-        $criteria->with = array(
-            'yandex' => array(
-                'condition' => 'value < 100'
-            )
-        );
-
-        $i = 0;
-        $models = array(1);
-        while (!empty($models)) {
-            $criteria->offset = 1000 * $i;
-
-            $models = ParsingKeyword::model()->findAll($criteria);
-            foreach ($models as $model) {
-                $parsed = new ParsedKeywords;
-                $parsed->keyword_id = $model->keyword_id;
-                try {
-                    $parsed->save();
-                } catch (Exception $err) {
-                }
-                $model->delete();
-            }
-
-            $i++;
-            echo $i . "\n";
         }
     }
 

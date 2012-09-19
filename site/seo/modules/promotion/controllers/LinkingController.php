@@ -171,12 +171,14 @@ class LinkingController extends SController
             $article = $phrase->page->getArticle();
             $our_article = $page->getArticle();
             if (!empty($article) && !empty($our_article)) {
-                $post = $article->getPrevPost();
-                if ($post !== null && $post->id == $our_article->id)
-                    unset($pages[$key]);
-                $post = $article->getNextPost();
-                if ($post !== null && $post->id == $our_article->id)
-                    unset($pages[$key]);
+                if (method_exists('article', 'getPrevPost')) {
+                    $post = $article->getPrevPost();
+                    if ($post !== null && $post->id == $our_article->id)
+                        unset($pages[$key]);
+                    $post = $article->getNextPost();
+                    if ($post !== null && $post->id == $our_article->id)
+                        unset($pages[$key]);
+                }
             }
         }
 
@@ -239,7 +241,7 @@ class LinkingController extends SController
 
     public function actionSaveSettings()
     {
-        foreach($_POST as $key => $attr){
+        foreach ($_POST as $key => $attr) {
             SeoUserAttributes::setAttribute($key, $attr);
         }
 

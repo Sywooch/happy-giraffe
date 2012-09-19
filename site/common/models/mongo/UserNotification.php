@@ -14,11 +14,9 @@ class UserNotification extends EMongoDocument
     private $_types = array(
         self::NEW_COMMENT => array(
             'method' => 'newComment',
-            'view' => 'site.common.views.UserNotification.newComment',
         ),
         self::NEW_REPLY => array(
             'method' => 'newReply',
-            'view' => 'site.common.views.UserNotification.newReply',
         ),
     );
 
@@ -29,6 +27,7 @@ class UserNotification extends EMongoDocument
     public $initiator_id;
     public $text;
     public $url;
+    public $entity;
 
     public function getCollectionName()
     {
@@ -137,12 +136,11 @@ class UserNotification extends EMongoDocument
 
         $line1 = CHtml::link($comment->author->fullName, $comment->author->url) . ' ' . HDate::simpleVerb('ответил', $comment->author->gender) . ' на ваш комментарий' . CHtml::tag('br');
         switch (get_class($entity)) {
+            case 'BlogContent':
+                $line2 = 'к записи ' . CHtml::link($entity->title, $entity->url) . ' в блоге';
+                break;
             case 'CommunityContent':
-                if ($entity->isFromBlog) {
-                    $line2 = 'к записи ' . CHtml::link($entity->title, $entity->url) . ' в блоге';
-                } else {
-                    $line2 = 'к записи ' . CHtml::link($entity->title, $entity->url) . ' в сообществе ' . CHtml::link($entity->rubric->community->title, $entity->rubric->community->url);
-                }
+                $line2 = 'к записи ' . CHtml::link($entity->title, $entity->url) . ' в сообществе ' . CHtml::link($entity->rubric->community->title, $entity->rubric->community->url);
                 break;
             case 'CookRecipe':
                 $line2 = 'к рецепту ' . CHtml::link($entity->title, $entity->url);

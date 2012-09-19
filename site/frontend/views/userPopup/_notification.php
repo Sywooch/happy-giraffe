@@ -4,7 +4,7 @@
 
 <li class="clearfix">
     <div class="actions">
-        <a href="<?=$data->url?>" class="btn-green small" target="_blank">Перейти</a>
+        <a href="<?=$data->url?>" class="btn-green small">Перейти</a>
         <a href="javascript:void(0)" onclick="Notifications.delete(this, '<?=$data->_id?>')" class="skip">Я знаю</a>
     </div>
     <div class="content">

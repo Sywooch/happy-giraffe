@@ -171,7 +171,7 @@ class LinkingController extends SController
             $article = $phrase->page->getArticle();
             $our_article = $page->getArticle();
             if (!empty($article) && !empty($our_article)) {
-                if (method_exists('article', 'getPrevPost')) {
+                if (method_exists($article, 'getPrevPost')) {
                     $post = $article->getPrevPost();
                     if ($post !== null && $post->id == $our_article->id)
                         unset($pages[$key]);

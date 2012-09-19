@@ -67,7 +67,7 @@ class CommentatorsMonthStats extends EMongoDocument
     public function calculate()
     {
         $commentators = User::model()->findAll('`group`=' . UserGroup::COMMENTATOR);
-        $this->commentators = array();
+        //$this->commentators = array();
 
         foreach ($commentators as $commentator) {
             $model = $this->loadCommentator($commentator);
@@ -75,14 +75,33 @@ class CommentatorsMonthStats extends EMongoDocument
 
                 echo 'user: ' . $commentator->id . "\n";
 
-                $result = array(
-                    self::NEW_FRIENDS => (int)$model->newFriends($this->period),
-                    self::BLOG_VISITS => (int)$this->blogVisits($commentator->id),
-                    self::PROFILE_UNIQUE_VIEWS => (int)$this->profileUniqueViews($commentator->id),
-                    self::IM_MESSAGES => (int)$model->imMessages($this->period),
-                    self::SE_VISITS => (int)$this->getSeVisits($commentator->id),
-                );
-                $this->commentators[(int)$commentator->id] = $result;
+                $new_friends = $model->newFriends($this->period);
+                $im_messages = $model->imMessages($this->period);
+                $blog_visits = $this->blogVisits($commentator->id);
+                $profile_view = $this->profileUniqueViews($commentator->id);
+                $se_visits = $this->getSeVisits($commentator->id);
+
+                if (isset($this->commentators[(int)$commentator->id])) {
+                    $this->commentators[(int)$commentator->id][self::NEW_FRIENDS] = (int)$new_friends;
+                    $this->commentators[(int)$commentator->id][self::IM_MESSAGES] = (int)$im_messages;
+                    $this->commentators[(int)$commentator->id][self::SE_VISITS] = (int)$se_visits;
+
+                    if ($blog_visits !== null)
+                        $this->commentators[(int)$commentator->id][self::BLOG_VISITS] = (int)$blog_visits;
+                    if ($profile_view !== null)
+                        $this->commentators[(int)$commentator->id][self::PROFILE_UNIQUE_VIEWS] = (int)$profile_view;
+                } else {
+
+                    $result = array(
+                        self::NEW_FRIENDS => (int)$model->newFriends($this->period),
+                        self::BLOG_VISITS => (int)$this->blogVisits($commentator->id),
+                        self::PROFILE_UNIQUE_VIEWS => (int)$this->profileUniqueViews($commentator->id),
+                        self::IM_MESSAGES => (int)$model->imMessages($this->period),
+                        self::SE_VISITS => (int)$this->getSeVisits($commentator->id),
+                    );
+                    $this->commentators[(int)$commentator->id] = $result;
+                }
+                $this->save();
             }
         }
 
@@ -179,7 +198,7 @@ class CommentatorsMonthStats extends EMongoDocument
             ));
         } catch (Exception $err) {
 
-            return 0;
+            return null;
         }
 
         if (!empty($report))
@@ -202,7 +221,7 @@ class CommentatorsMonthStats extends EMongoDocument
                 'filters' => urlencode('ga:pagePath=~' . '/user/' . $user_id . '/blog/*'),
             ));
         } catch (Exception $err) {
-            return 0;
+            return null;
         }
 
         if (!empty($report))

@@ -332,7 +332,7 @@ class RecipeController extends HController
         if ($feed === false) {
             $recipes = CookRecipe::model()->with('cuisine', 'author', 'ingredients.ingredient', 'ingredients.unit')->findAll(array(
                 'order' => 'created DESC',
-                'condition' => 'id != 16589',
+                'condition' => 't.id != 16589',
                 'limit' => 3000,
             ));
 

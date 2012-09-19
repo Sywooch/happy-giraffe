@@ -25,6 +25,12 @@
 
     </div>
 
+    <?php if($this->beginCache('indexation-'.$up->id, array(
+    'dependency'=>array(
+        'class'=>'system.caching.dependencies.CDbCacheDependency',
+        'connectionID'=>'db_seo',
+        'sql'=>'SELECT count(id) FROM indexing__up_urls WHERE up_id='.$up->id)
+    ))) { ?>
     <div class="text">
         <?php $addUrls = $up->getUrls(true);
         $removeUrls = $up->getUrls(false);
@@ -86,3 +92,4 @@
         </table>
     </div>
 </div>
+<?php $this->endCache(); } ?>

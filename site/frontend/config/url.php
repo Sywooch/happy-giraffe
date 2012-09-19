@@ -51,6 +51,7 @@ return array(
         'morning/<date:[\d\d\d\d-\d\d-\d\d]*>' => 'morning/index',
 
         // albums controller
+        'albums/addPhoto/a/<a:\d+>/text/<text:\w+>/u/<u:\d+>' => 'albums/addPhoto',
         'albums/addPhoto/a/<a:\d+>' => 'albums/addPhoto',
         'albums/addPhoto' => 'albums/addPhoto',
         'albums/redirect/<id:\d+>' => 'albums/redirect',

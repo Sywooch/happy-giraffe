@@ -50,10 +50,7 @@ class UserNotification extends EMongoDocument
     protected function afterSave()
     {
         $comet = new CometModel;
-        $comet->send($this->recipient_id, array(
-                'html' => Yii::app()->controller->renderPartial('//userPopup/_notification', array('data' => $this))
-            ),
-            CometModel::TYPE_NEW_NOTIFICATION);
+        $comet->send($this->recipient_id, null, CometModel::TYPE_NEW_NOTIFICATION);
 
         parent::afterSave();
     }

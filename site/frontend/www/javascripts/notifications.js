@@ -73,7 +73,5 @@ $(function() {
     }
 
     comet.addEvent(1000, 'receiveNotification');
-
-
 });
 

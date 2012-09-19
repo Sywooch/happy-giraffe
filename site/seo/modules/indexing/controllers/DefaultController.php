@@ -43,6 +43,7 @@ class DefaultController extends SController
     public function actionTest(){
         for($i=0;$i<60;$i++){
             echo $i."\n";
+            sleep(1);
         }
     }
 }

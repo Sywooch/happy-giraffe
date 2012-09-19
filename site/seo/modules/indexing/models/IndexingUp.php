@@ -118,15 +118,15 @@ class IndexingUp extends HActiveRecord
             $prev_up->getUpUrls();
 
         $change = array();
-        if ($plus) {
-            foreach ($this->text_urls as $url)
-                if (!$prev_up->hasUrl($url))
-                    $change [] = $url;
-        } else {
-            foreach ($prev_up->text_urls as $url)
-                if (!$this->hasUrl($url))
-                    $change [] = $url;
-        }
+//        if ($plus) {
+//            foreach ($this->text_urls as $url)
+//                if (!$prev_up->hasUrl($url))
+//                    $change [] = $url;
+//        } else {
+//            foreach ($prev_up->text_urls as $url)
+//                if (!$this->hasUrl($url))
+//                    $change [] = $url;
+//        }
 
         return $change;
     }

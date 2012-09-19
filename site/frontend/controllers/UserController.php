@@ -65,6 +65,8 @@ class UserController extends HController
 
         $this->pageTitle = $user->fullName . ' на Веселом Жирафе';
 
+        if (! Yii::app()->user->isGuest)
+            UserNotification::model()->deleteByEntity($user, Yii::app()->user->id);
 
         $this->render('profile', array(
             'user' => $user,

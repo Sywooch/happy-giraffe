@@ -338,7 +338,7 @@ class RecipeController extends HController
                 'order' => 'created DESC',
                 'limit' => $limit,
                 'offset' => $offset,
-                'condition' => 't.id = 16589',
+                'condition' => 't.id != 16589',
             ))) {
                 foreach ($recipes as $r) {
                     if (empty($r->ingredients))
@@ -376,7 +376,7 @@ class RecipeController extends HController
                         $nutrition->addChild('value', $value);
                     }
 
-                    $recipe->addChild('instructions', CHtml::cdata($r->text));
+                    $recipe->addChild('instructions', html_entity_decode(strip_tags($r->text), ENT_COMPAT, 'utf-8'));
                     $recipe->addChild('calorie', $r->nutritionals['total']['nutritionals'][1] . ' ккал');
                     $recipe->addChild('weight', $r->nutritionals['total']['weight'] . ' г');
                     if ($r->mainPhoto !== null) {

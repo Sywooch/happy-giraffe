@@ -395,6 +395,11 @@ class RecipeController extends HController
         echo $feed;
     }
 
+    public function actionFlushFeed()
+    {
+        Yii::app()->cache->delete('recipesFeed');
+    }
+
     public function actionTest()
     {
         $recipes = CookRecipe::model()->with('ingredients')->findAll('full = 1');

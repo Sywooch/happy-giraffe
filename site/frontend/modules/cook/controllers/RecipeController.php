@@ -323,6 +323,8 @@ class RecipeController extends HController
 
     public function actionFeed()
     {
+        Yii::app()->cache->delete('recipesFeed');
+
         header("Content-type: text/xml; charset=utf-8");
         $feed = Yii::app()->cache->get('recipesFeed');
         if ($feed === false) {
@@ -393,11 +395,6 @@ class RecipeController extends HController
         }
 
         echo $feed;
-    }
-
-    public function actionFlushFeed()
-    {
-        Yii::app()->cache->delete('recipesFeed');
     }
 
     public function actionTest()

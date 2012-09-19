@@ -338,7 +338,7 @@ class RecipeController extends HController
                 'order' => 'created DESC',
                 'limit' => $limit,
                 'offset' => $offset,
-                'condition' => 'id = 16589',
+                'condition' => 't.id = 16589',
             ))) {
                 foreach ($recipes as $r) {
                     if (empty($r->ingredients))

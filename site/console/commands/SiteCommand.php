@@ -211,6 +211,7 @@ class SiteCommand extends CConsoleCommand
     public function actionFix2()
     {
         Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
+        Yii::import('site.frontend.modules.cook.models.*');
         Yii::import('site.common.models.mongo.*');
 
         $users = Yii::app()->db->createCommand()->select('id')->from('users')->where('`group` = 6')->queryColumn();

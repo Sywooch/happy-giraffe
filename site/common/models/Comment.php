@@ -164,16 +164,12 @@ class Comment extends HActiveRecord
             return parent::afterSave();
 
         if ($this->isNewRecord) {
+            UserNotification::model()->create(UserNotification::NEW_COMMENT, array('comment' => $this));
+            if ($this->response_id !== null)
+                UserNotification::model()->create(UserNotification::NEW_REPLY, array('comment' => $this));
+
             //проверяем на предмет выполненного модератором задания
             UserSignal::CheckComment($this);
-
-            if (in_array($this->entity, array('CommunityContent', 'BlogContent', 'RecipeBookRecipe', 'User', 'AlbumPhoto'))) {
-                UserNotification::model()->create(UserNotification::NEW_COMMENT, array('comment' => $this));
-            }
-
-            if (in_array($this->entity, array('CommunityContent', 'BlogContent', 'RecipeBookRecipe', 'AlbumPhoto')) && $this->response_id !== null) {
-                UserNotification::model()->create(UserNotification::NEW_REPLY, array('comment' => $this));
-            }
 
             UserScores::addScores($this->author_id, ScoreAction::ACTION_OWN_COMMENT, 1, array(
                 'id' => $this->entity_id, 'name' => $this->entity));
@@ -182,9 +178,12 @@ class Comment extends HActiveRecord
 
             //send signals to commentator panel
             if (Yii::app()->user->checkAccess('commentator_panel')) {
+                Yii::import('site.frontend.modules.signal.components.*');
+                Yii::import('site.frontend.modules.signal.models.*');
+                Yii::import('site.frontend.modules.cook.models.*');
+                Yii::import('site.frontend.modules.cook.components.*');
+
                 if (strlen(trim(strip_tags($this->text))) >= 80) {
-                    Yii::import('site.frontend.modules.signal.components.*');
-                    Yii::import('site.frontend.modules.signal.models.*');
                     $commentator = CommentatorWork::getCurrentUser();
                     $entity = ($this->entity == 'BlogContent') ? 'CommunityContent' : $this->entity;
                     $_entity = ($commentator->comment_entity == 'BlogContent') ? 'CommunityContent' : $commentator->comment_entity;
@@ -208,8 +207,6 @@ class Comment extends HActiveRecord
                         ), CometModel::TYPE_COMMENTATOR_UPDATE);
                     }
                 }else{
-                    Yii::import('site.frontend.modules.signal.components.*');
-                    Yii::import('site.frontend.modules.signal.models.*');
                     $commentator = CommentatorWork::getCurrentUser();
                     $commentator->skipArticle();
                     $commentator->save();
@@ -270,8 +267,6 @@ class Comment extends HActiveRecord
 
         UserScores::removeScores($this->author_id, ScoreAction::ACTION_OWN_COMMENT, 1, array(
             'id' => $this->entity_id, 'name' => $this->entity));
-
-        UserNotification::model()->create(UserNotification::DELETED, array('entity' => $this));
 
         return false;
     }
@@ -342,7 +337,7 @@ class Comment extends HActiveRecord
 
     public function getUrl($absolute = false)
     {
-        if (!in_array($this->entity, array('CommunityContent', 'BlogContent', 'CookRecipe')))
+        if (!in_array($this->entity, array('CommunityContent', 'BlogContent', 'CookRecipe', 'User', 'AlbumPhoto')))
             return false;
 
         $entity = CActiveRecord::model($this->entity)->findByPk($this->entity_id);
@@ -355,7 +350,7 @@ class Comment extends HActiveRecord
 
     public function getLink($absolute = false)
     {
-        if (!in_array($this->entity, array('CommunityContent', 'BlogContent', 'CookRecipe')))
+        if (!in_array($this->entity, array('CommunityContent', 'BlogContent', 'CookRecipe', 'User', 'AlbumPhoto')))
             return false;
 
         $entity = CActiveRecord::model($this->entity)->findByPk($this->entity_id);

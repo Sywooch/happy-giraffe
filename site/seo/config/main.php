@@ -27,6 +27,8 @@ return array(
         'application.modules.promotion.models.*',
         'application.modules.indexing.models.*',
         'application.modules.commentators.models.*',
+
+        'application.modules.externalLinks.models.*',
     ),
     'modules' => array(
         'competitors',
@@ -36,7 +38,8 @@ return array(
         'indexing',
         'statistic',
         'commentators',
-        'cook'
+        'cook',
+        'externalLinks',
     ),
     'components' => array(
         'user' => array(

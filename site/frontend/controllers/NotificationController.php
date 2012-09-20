@@ -8,17 +8,15 @@ class NotificationController extends HController
     public function filters()
     {
         return array(
-            //'ajaxOnly',
+            'ajaxOnly',
         );
     }
 
     public function actionGetLast()
     {
-        $notifications = UserNotification::model()->getUserData(Yii::app()->user->id);
         $friends = UserFriendNotification::model()->getUserData(Yii::app()->user->id);
         $im = Im::model()->getNotificationMessages();
         $response = array(
-            'notifications' => $notifications,
             'friends' => $friends,
             'im' => $im
         );
@@ -29,6 +27,13 @@ class NotificationController extends HController
     {
         $id = Yii::app()->request->getPost('id');
         $model = UserFriendNotification::model()->findByPk(new MongoID($id));
+        echo $model->delete();
+    }
+
+    public function actionDelete2()
+    {
+        $id = Yii::app()->request->getPost('id');
+        $model = UserNotification::model()->findByPk(new MongoID($id));
         echo $model->delete();
     }
 }

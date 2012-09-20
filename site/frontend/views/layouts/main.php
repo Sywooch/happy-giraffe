@@ -70,6 +70,9 @@
             <div class="top-line clearfix">
 
                 <?php if (! Yii::app()->user->isGuest): ?>
+                    <?php
+                        $notificationsCount = UserNotification::model()->getUserCount(Yii::app()->user->id);
+                    ?>
                     <div class="user-nav">
 
                         <ul>
@@ -107,16 +110,7 @@
                                 </div>
                             </li>
                             <li id="user-nav-notifications">
-                                <a href="#"><i class="icon icon-notifications"></i><span class="count">0</span></a>
-                                <div class="drp drp-icons">
-                                    <div class="drp-title">Уведомления</div>
-                                    <ul class="list"></ul>
-                                    <!--<div class="actions">
-                                        <ul>
-                                            <li><a href="">Все уведомления (<span>0</span>)</a></li>
-                                        </ul>
-                                    </div>-->
-                                </div>
+                                <a href="javascript:void(0)" onclick="Notifications.toggle()"><i class="icon icon-notifications"></i><span class="count"<?php if ($notificationsCount == 0): ?> style="display: none;"<?php endif; ?>><?=$notificationsCount?></span></a>
                             </li>
                             <li>
                                 <a href="<?=$this->createUrl('/scores/default/index') ?>"><i class="icon icon-points"></i><span class="count"><?= $user->getScores()->scores ?></span></a>

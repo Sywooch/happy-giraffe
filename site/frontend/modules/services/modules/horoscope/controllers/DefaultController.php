@@ -24,6 +24,9 @@ class DefaultController extends HController
         $this->render('index', compact('models'));
     }
 
+    /**
+     * @sitemap dataSource=sitemapView
+     */
     public function actionView($zodiac, $date = null)
     {
         if (empty($date))
@@ -44,6 +47,10 @@ class DefaultController extends HController
         $this->render('date', compact('model'));
     }
 
+
+    /**
+     * @sitemap dataSource=sitemapView
+     */
     public function actionYesterday($zodiac)
     {
         $date = date("Y-m-d", strtotime('-1 day'));
@@ -63,6 +70,10 @@ class DefaultController extends HController
         $this->render('date', compact('model'));
     }
 
+
+    /**
+     * @sitemap dataSource=sitemapView
+     */
     public function actionTomorrow($zodiac)
     {
         $date = date("Y-m-d", strtotime('+1 day'));
@@ -82,6 +93,9 @@ class DefaultController extends HController
         $this->render('date', compact('model'));
     }
 
+    /**
+     * @sitemap dataSource=sitemapView
+     */
     public function actionMonth($zodiac)
     {
         $zodiac = Horoscope::model()->getZodiacId($zodiac);
@@ -99,6 +113,9 @@ class DefaultController extends HController
         $this->render('date', compact('model'));
     }
 
+    /**
+     * @sitemap dataSource=sitemapView
+     */
     public function actionYear($zodiac)
     {
         $zodiac = Horoscope::model()->getZodiacId($zodiac);
@@ -116,6 +133,9 @@ class DefaultController extends HController
         $this->render('date', compact('model'));
     }
 
+    /**
+     * @sitemap dataSource=sitemapCompatibility
+     */
     public function actionCompatibility($zodiac1 = null, $zodiac2 = null)
     {
         if ($zodiac1 == null && $zodiac2 != null)
@@ -160,5 +180,44 @@ class DefaultController extends HController
             $model->attributes = $_POST['HoroscopeCompatibility'];
             echo CActiveForm::validate($model);
         }
+    }
+
+    public function sitemapView()
+    {
+        Yii::import('application.modules.services.modules.horoscope.models.Horoscope');
+
+        $data = array();
+
+        foreach (Horoscope::model()->zodiac_list_eng as $z) {
+            $data[] = array(
+                'params' => array(
+                    'zodiac' => $z,
+                ),
+            );
+        }
+
+        return $data;
+    }
+
+    public function sitemapCompatibility()
+    {
+        Yii::import('application.modules.services.modules.horoscope.models.Horoscope');
+
+        $data = array();
+
+        foreach (Horoscope::model()->zodiac_list_eng as $k1 => $z1) {
+            foreach (Horoscope::model()->zodiac_list_eng as $k2 => $z2) {
+                if ($k2 >= $k1)
+                    $data[] = array(
+                        'params' => array(
+                            'zodiac1' => $z1,
+                            'zodiac2' => $z2,
+                        ),
+                    );
+
+            }
+        }
+
+        return $data;
     }
 }

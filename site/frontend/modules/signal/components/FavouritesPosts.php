@@ -5,10 +5,9 @@
  */
 class FavouritesPosts extends PostForCommentator
 {
-    const LIMIT = 10;
     protected $nextGroup = 'TrafficPosts';
     protected $entities = array(
-        'CommunityContent' => array(10),
+        'CommunityContent' => array(30),
     );
 
     public function getPost()
@@ -47,7 +46,7 @@ class FavouritesPosts extends PostForCommentator
         $criteria->select = 't.*, `comments`.`id` as comment_id';
         $criteria->condition = 't.created >= "' . date("Y-m-d H:i:s", strtotime('-48 hour')) . '" AND `full` IS NULL AND comments.id IS NULL';
         $criteria->compare('t.id', $ids);
-        $criteria->join = 'LEFT OUTER JOIN `comments` `comments` ON (`comments`.`entity_id`=`t`.`id` AND `comments`.`author_id` = '.$this->user_id.') ';
+        $criteria->join = 'LEFT OUTER JOIN `comments` `comments` ON (`comments`.`entity_id`=`t`.`id` AND `comments`.`author_id` = '.$this->commentator->user_id.') ';
 
         return $criteria;
     }

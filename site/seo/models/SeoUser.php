@@ -38,7 +38,7 @@ class SeoUser extends HActiveRecord
      */
     public function tableName()
     {
-        return 'happy_giraffe_seo.users';
+        return 'users';
     }
 
     public function getDbConnection()
@@ -96,12 +96,10 @@ class SeoUser extends HActiveRecord
                 $duration = $this->remember == 1 ? 2592000 : 0;
                 Yii::app()->user->login($identity, $duration);
                 $userModel->save(false);
-            }
-            else {
+            } else {
                 $this->addError('password', 'Ошибка авторизации');
             }
-        }
-        else {
+        } else {
             $this->addError('password', 'Ошибка авторизации');
         }
     }
@@ -116,14 +114,14 @@ class SeoUser extends HActiveRecord
 
     public function beforeSave()
     {
-        if (empty($this->related_user_id)){
+        if (empty($this->related_user_id)) {
             $frontend_model_id = Yii::app()->db->createCommand()
                 ->select('id')
                 ->from(User::model()->tableName())
-                ->where('email = :email', array(':email'=>$this->email))
+                ->where('email = :email', array(':email' => $this->email))
                 ->queryScalar();
 
-            if ($frontend_model_id !== null){
+            if ($frontend_model_id !== null) {
                 $this->related_user_id = $frontend_model_id;
             }
         }
@@ -188,7 +186,7 @@ class SeoUser extends HActiveRecord
      */
     public function getRelatedUser()
     {
-        if (!empty($this->related_user_id)){
+        if (!empty($this->related_user_id)) {
             $user = User::model()->findByPk($this->related_user_id);
 
             return $user;
@@ -200,7 +198,7 @@ class SeoUser extends HActiveRecord
     public function getAva($size = 'small')
     {
         $user = $this->getRelatedUser();
-        if ($user != null){
+        if ($user != null) {
             return $user->getAva($size);
         }
     }
@@ -208,7 +206,7 @@ class SeoUser extends HActiveRecord
     public function commentatorIds()
     {
         $result = array();
-        foreach($this->commentators as $commentator)
+        foreach ($this->commentators as $commentator)
             $result [] = $commentator->id;
 
         return $result;
@@ -216,7 +214,18 @@ class SeoUser extends HActiveRecord
 
     public function getTasksCount()
     {
-        return SeoTask::model()->count('executor_id='.$this->id.' AND status >= '.SeoTask::STATUS_READY
-            .' AND status <= '.SeoTask::STATUS_TAKEN);
+        return SeoTask::model()->count('executor_id=' . $this->id . ' AND status >= ' . SeoTask::STATUS_READY
+            . ' AND status <= ' . SeoTask::STATUS_TAKEN);
+    }
+
+    public static function getSmoUsers()
+    {
+        $users = Yii::app()->db_seo->createCommand()
+            ->select('userId')
+            ->from('auth__assignments')
+            ->where('itemname = "externalLinks-manager" OR itemname = "externalLinks-worker"')
+            ->queryColumn();
+
+        return SeoUser::model()->findAllByPk($users);
     }
 }

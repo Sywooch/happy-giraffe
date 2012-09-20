@@ -1,4 +1,4 @@
-<tr id="task-<?=$task->id ?>">
+<tr data-id="<?=$task->id ?>">
     <td class="al"><?=$task->getText() ?></td>
     <td><?php if ($task->multivarka):?><span class="icon-m">M</span><?php endif ?></td>
     <td><?=$task->executor->name ?></td>

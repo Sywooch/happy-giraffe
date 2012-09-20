@@ -7,15 +7,22 @@
  * @property string $id
  * @property string $page_id
  * @property integer $keyword_id
+ * @property integer $last_yandex_position
+ * @property integer $google_traffic
  *
  * The followings are the available model relations:
  * @property Keyword $keyword
  * @property Page $page
  * @property SearchPhrasePosition[] $positions
  * @property SearchPhraseVisit[] $visits
+ * @property InnerLink[] $links
+ * @property int $linksCount
  */
 class PagesSearchPhrase extends HActiveRecord
 {
+    const SORT_BY_POSITION = 1;
+    const SORT_BY_FREQ = 2;
+
     /**
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.
@@ -33,7 +40,7 @@ class PagesSearchPhrase extends HActiveRecord
 
     public function tableName()
     {
-        return 'happy_giraffe_seo.pages_search_phrases';
+        return 'pages_search_phrases';
     }
 
     /**
@@ -45,7 +52,7 @@ class PagesSearchPhrase extends HActiveRecord
         // will receive user inputs.
         return array(
             array('page_id, keyword_id', 'required'),
-            array('keyword_id', 'numerical', 'integerOnly' => true),
+            array('keyword_id, last_yandex_position, google_traffic', 'numerical', 'integerOnly' => true),
             array('page_id', 'length', 'max' => 11),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
@@ -64,6 +71,9 @@ class PagesSearchPhrase extends HActiveRecord
             'positions' => array(self::HAS_MANY, 'SearchPhrasePosition', 'search_phrase_id', 'order' => 'date desc'),
             'lastPosition' => array(self::HAS_ONE, 'SearchPhrasePosition', 'search_phrase_id', 'order' => 'lastPosition.date desc'),
             'visits' => array(self::HAS_MANY, 'SearchPhraseVisit', 'search_phrase_id'),
+            'links' => array(self::HAS_MANY, 'InnerLink', 'phrase_id'),
+            'linksCount' => array(self::STAT, 'InnerLink', 'phrase_id'),
+            'skip' => array(self::HAS_ONE, 'ILSkip', 'phrase_id'),
         );
     }
 
@@ -159,13 +169,6 @@ class PagesSearchPhrase extends HActiveRecord
         return $keywords;
     }
 
-    public function getLinksCount()
-    {
-        return InnerLink::model()->countByAttributes(array(
-            'phrase_id' => $this->id
-        ));
-    }
-
     public function getPositionView($se)
     {
         $se_positions = $this->getPositionsArray($se);
@@ -180,18 +183,18 @@ class PagesSearchPhrase extends HActiveRecord
         $prev = $se_positions[1];
 
         $i = 2;
-        while($prev->position == $last->position){
+        while ($prev->position == $last->position) {
             if (!isset($se_positions[$i]))
                 break;
             $prev = $se_positions[$i];
             $i++;
         }
 
-        if ($last->position < $prev->position){
-            return $this->showPosition($last->position).' <i class="icon-up"></i> '.'<a onmouseover="SeoLinking.showPositions(this, '.$se.', '.$this->id.')" href="javascript:;">'.$prev->position.'</a>';
+        if ($last->position < $prev->position) {
+            return $this->showPosition($last->position) . ' <i class="icon-up"></i> ' . '<a onmouseover="SeoLinking.showPositions(this, ' . $se . ', ' . $this->id . ')" href="javascript:;">' . $prev->position . '</a>';
         }
-        if ($last->position > $prev->position){
-            return $this->showPosition($last->position).' <i class="icon-down"></i> '.'<a onmouseover="SeoLinking.showPositions(this, '.$se.', '.$this->id.')" href="javascript:;">'.$prev->position.'</a>';
+        if ($last->position > $prev->position) {
+            return $this->showPosition($last->position) . ' <i class="icon-down"></i> ' . '<a onmouseover="SeoLinking.showPositions(this, ' . $se . ', ' . $this->id . ')" href="javascript:;">' . $prev->position . '</a>';
         }
 
         return $this->showPosition($last->position);
@@ -206,18 +209,109 @@ class PagesSearchPhrase extends HActiveRecord
     }
 
     /**
+     * @static
+     * @param bool $yandex
+     * @return PagesSearchPhrase
+     */
+    public static function getActualPhrase($yandex = true)
+    {
+        if ($yandex)
+            return self::getYandexPhrase();
+        else
+            return self::getGooglePhrase();
+    }
+
+    public static function getGooglePhrase()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->select = 't.*, `skip`.`phrase_id` as skips, count(links.date) as links_count';
+        $criteria->with = array(
+            'keyword' => array('select' => 'name'),
+            'keyword.yandex' => array(
+                'select' => 'value',
+                'condition' => 'value >= :wordstat_min',
+                'params' => array(':wordstat_min' => SeoUserAttributes::getAttribute('wordstat_min'))
+            ),
+            'skip',
+            'links'
+        );
+
+        $criteria->group = 't.id';
+        $criteria->having = 'links_count < 1';
+        $criteria->together = true;
+        $criteria->condition = 'skip.phrase_id IS NULL AND google_traffic >= :google_traffic';
+
+        $criteria->params = array(
+            ':google_traffic' => SeoUserAttributes::getAttribute('google_traffic')
+        );
+
+        $model = PagesSearchPhrase::model()->find($criteria);
+
+        return $model;
+    }
+
+    public static function getYandexPhrase()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->select = 't.*, `skip`.`phrase_id` as skips, count(links.date) as links_count';
+        $criteria->with = array(
+            'keyword' => array('select' => 'name'),
+            'keyword.yandex' => array(
+                'select' => 'value',
+                'condition' => 'value >= :wordstat_min',
+                'params' => array(':wordstat_min' => SeoUserAttributes::getAttribute('wordstat_min'))
+            ),
+            'skip',
+            'links'
+        );
+
+        $criteria->group = 't.id';
+        $criteria->having = 'links_count < 1';
+        $criteria->together = true;
+
+        if (SeoUserAttributes::getAttribute('yandex_sort') == self::SORT_BY_POSITION)
+            $criteria->order = 'last_yandex_position asc';
+        else
+            $criteria->order = 'yandex.value desc';
+        $criteria->condition = 'skip.phrase_id IS NULL AND last_yandex_position > :min_yandex_position
+                                AND last_yandex_position < :max_yandex_position';
+
+        $criteria->params = array(
+            ':min_yandex_position' => SeoUserAttributes::getAttribute('min_yandex_position'),
+            ':max_yandex_position' => SeoUserAttributes::getAttribute('max_yandex_position'),
+        );
+
+        $model = PagesSearchPhrase::model()->find($criteria);
+
+        return $model;
+    }
+
+    /**
      * @param int $se
      * @return SearchPhrasePosition[]
      */
     public function getPositionsArray($se)
     {
         $se_positions = array();
-        foreach ($this->positions as $position){
+        foreach ($this->positions as $position) {
             if ($position->se_id == $se)
                 $se_positions[] = $position;
             if (count($se_positions) >= 10)
                 break;
         }
         return $se_positions;
+    }
+
+    public function getAverageVisits()
+    {
+        $sum = 0;
+        $models = SearchPhraseVisit::model()->findAll('visits != 0 AND search_phrase_id = ' . $this->id);
+        foreach ($models as $model)
+            $sum += $model->visits;
+
+        if (count($models) == 0)
+            return 0;
+
+        return round($sum / (count($models)));
     }
 }

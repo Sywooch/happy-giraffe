@@ -114,7 +114,7 @@ class CommunityController extends HController
     }
 
     /**
-     * @sitemap dataSource=getContentUrls
+     * @sitemap dataSource=sitemapView
      */
     public function actionView($community_id, $content_type_slug, $content_id, $lastPage = null, $ajax = null)
     {
@@ -135,15 +135,13 @@ class CommunityController extends HController
         if ($content === null)
             throw new CHttpException(404, 'Такой записи не существует');
 
+        if ($content->isFromBlog)
+            throw new CHttpException(404, 'Такой записи не существует');
+
         if ($community_id != $content->rubric->community->id || $content_type_slug != $content->type->slug) {
             header("HTTP/1.1 301 Moved Permanently");
             header("Location: " . $content->url);
             Yii::app()->end();
-        }
-
-        if ($content->isFromBlog) {
-            $this->layout = '//layouts/user_blog';
-            $this->user = $content->rubric->user;
         }
 
         if (!empty($content->uniqueness) && $content->uniqueness < 50)
@@ -155,10 +153,6 @@ class CommunityController extends HController
 
         if (empty($this->meta_title))
             $this->meta_title = (empty($content->meta_title)) ? $content->title : $content->title . ' \\ ' . $content->meta_title;
-
-        if ($content->author_id == Yii::app()->user->id)
-            UserNotification::model()->deleteByEntity(UserNotification::NEW_COMMENT, $content);
-        UserNotification::model()->deleteByEntity(UserNotification::NEW_REPLY, $content);
 
         if ($community_id !== Community::COMMUNITY_NEWS) {
             $this->breadcrumbs = array(
@@ -174,6 +168,9 @@ class CommunityController extends HController
                 $content->title,
             );
         }
+
+        if (! Yii::app()->user->isGuest)
+            UserNotification::model()->deleteByEntity($content, Yii::app()->user->id);
 
         $this->render('view', array(
             'data' => $content,
@@ -275,8 +272,6 @@ class CommunityController extends HController
 
         $model->attributes = $_POST['CommunityContent'];
         if ($model->save()) {
-            UserNotification::model()->create(UserNotification::TRANSFERRED, array('entity' => $model));
-
             $url = $this->createUrl('community/view', array(
                 'community_id' => $model->rubric->community->id,
                 'content_type_slug' => $model->type->slug,
@@ -527,7 +522,7 @@ class CommunityController extends HController
         ));
     }
 
-    public function getContentUrls()
+    public function sitemapView()
     {
         $models = Yii::app()->db->createCommand()
             ->select('c.id, c.created, c.updated, r.community_id, ct.slug')
@@ -536,6 +531,8 @@ class CommunityController extends HController
             ->join('community__content_types ct', 'c.type_id = ct.id')
             ->where('r.community_id IS NOT NULL AND c.removed = 0 AND (c.uniqueness >= 50 OR c.uniqueness IS NULL)')
             ->queryAll();
+
+        $data = array();
         foreach ($models as $model)
         {
             $data[] = array(
@@ -545,10 +542,10 @@ class CommunityController extends HController
                     'content_type_slug' => $model['slug'],
                 ),
                 'priority' => 0.5,
-                'changefreq' => 'daily',
                 'lastmod' => ($model['updated'] === null) ? $model['created'] : $model['updated'],
             );
         }
+
         return $data;
     }
 

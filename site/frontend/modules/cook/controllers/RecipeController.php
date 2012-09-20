@@ -80,10 +80,11 @@ class RecipeController extends HController
         }
 
         if (isset($_POST[$this->modelName])) {
-            $ingredients = array();
             $recipe->attributes = $_POST[$this->modelName];
             if ($recipe->isNewRecord)
                 $recipe->author_id = Yii::app()->user->id;
+
+            $ingredients = array();
             if (isset($_POST['CookRecipeIngredient']))
                 foreach ($_POST['CookRecipeIngredient'] as $i) {
                     if (!empty($i['ingredient_id']) || !empty($i['value']) || $i['unit_id'] != CookRecipeIngredient::EMPTY_INGREDIENT_UNIT) {
@@ -95,7 +96,10 @@ class RecipeController extends HController
                     }
                 }
             $recipe->ingredients = $ingredients;
-            if ($recipe->withRelated->save(true, array('ingredients'))) {
+
+            if ($recipe->withRelated->validate(array('ingredients'))) {
+                CookRecipeIngredient::model()->deleteAll('recipe_id = :recipe_id', array(':recipe_id' => $recipe->id));
+                $recipe->withRelated->save(false, array('ingredients'));
                 $this->redirect(array('/cook/recipe/view', 'id' => $recipe->id, 'section' => $this->section));
             }
         }
@@ -176,7 +180,7 @@ class RecipeController extends HController
     }
 
     /**
-     * @sitemap dataSource=getContentUrls
+     * @sitemap dataSource=sitemapView
      */
     public function actionView($id, $section, $lastPage = null, $ajax = null)
     {
@@ -199,6 +203,9 @@ class RecipeController extends HController
         $this->currentType = $recipe->type;
         $this->layout = '//layouts/recipe';
         $this->pageTitle = $recipe->title;
+
+        if (! Yii::app()->user->isGuest)
+            UserNotification::model()->deleteByEntity($recipe, Yii::app()->user->id);
 
         $this->render('view', compact('recipe'));
     }
@@ -295,23 +302,25 @@ class RecipeController extends HController
         echo CJSON::encode($ingredients);
     }
 
-    public function getContentUrls()
+    public function sitemapView()
     {
         $models = Yii::app()->db->createCommand()
             ->select('id, section, created, updated')
             ->from('cook__recipes')
             ->queryAll();
+
+        $data = array();
         foreach ($models as $model) {
             $data[] = array(
                 'params' => array(
                     'id' => $model['id'],
                     'section' => $model['section'],
                 ),
-                'priority' => 0.5,
                 'changefreq' => 'daily',
                 'lastmod' => ($model['updated'] === null) ? $model['created'] : $model['updated'],
             );
         }
+
         return $data;
     }
 

@@ -278,10 +278,6 @@ class CookRecipe extends CActiveRecord
     {
         $this->tags = $this->tagsIds;
 
-        if (! $this->isNewRecord) {
-            CookRecipeIngredient::model()->deleteAll('recipe_id = :recipe_id', array(':recipe_id' => $this->id));
-        }
-
         if ($this->ingredients) {
             if ($this->servings) {
                 $this->lowFat = $this->getNutritionalsPerServing(2) <= self::COOK_RECIPE_LOWFAT;
@@ -303,14 +299,9 @@ class CookRecipe extends CActiveRecord
                 Yii::import('site.frontend.modules.signal.models.*');
                 CommentatorWork::getCurrentUser()->refreshCurrentDayPosts();
                 $comet = new CometModel;
-                if ($this->isFromBlog)
-                    $comet->send(Yii::app()->user->id, array(
-                        'update_part' => CometModel::UPDATE_BLOG,
-                    ), CometModel::TYPE_COMMENTATOR_UPDATE);
-                else
-                    $comet->send(Yii::app()->user->id, array(
-                        'update_part' => CometModel::UPDATE_CLUB,
-                    ), CometModel::TYPE_COMMENTATOR_UPDATE);
+                $comet->send(Yii::app()->user->id, array(
+                    'update_part' => CometModel::UPDATE_CLUB,
+                ), CometModel::TYPE_COMMENTATOR_UPDATE);
             }
         } else {
             $text = 'User: '  . Yii::app()->user->id . "\n" .

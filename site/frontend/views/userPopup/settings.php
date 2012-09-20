@@ -169,54 +169,7 @@
 
                 <p>Свяжите свой профиль с вашими аккаунтами на других сайтах. <br/>Это позволит входить на сайт, используя любой из привязанных аккаунтов.</p>
 
-                <div class="profiles-list">
-
-                    <div class="list-title clearfix">
-
-                        <div class="col col-1">Социальная сеть</div>
-                        <div class="col col-2">Имя</div>
-                        <div class="col col-3">Удалить профиль </div>
-
-                    </div>
-
-                    <ul>
-                        <li class="clearfix">
-                            <div class="col col-1"><span class="social-logo vkontakte"></span></div>
-                            <div class="col col-2"><a href="">Александр Кувыркин</a></div>
-                            <div class="col col-3"><a href="" class="btn-remove"><i class="icon"></i>Удалить профиль</a></div>
-                        </li>
-                        <li class="clearfix">
-                            <div class="col col-1"><span class="social-logo facebook"></span></div>
-                            <div class="col col-2"><a href="">Александр Кувыркин</a></div>
-                            <div class="col col-3"><a href="" class="btn-remove"><i class="icon"></i>Удалить профиль</a></div>
-                        </li>
-                        <li class="clearfix">
-                            <div class="col col-1"><span class="social-logo odnoklassniki"></span></div>
-                            <div class="col col-2"><a href="">Александр Кувыркин</a></div>
-                            <div class="col col-3"><a href="" class="btn-remove"><i class="icon"></i>Удалить профиль</a></div>
-                        </li>
-                        <li class="clearfix">
-                            <div class="col col-1"><span class="social-logo mailru"></span></div>
-                            <div class="col col-2"><a href="">Александр Кувыркин</a></div>
-                            <div class="col col-3"><a href="" class="btn-remove"><i class="icon"></i>Удалить профиль</a></div>
-                        </li>
-
-                    </ul>
-
-                </div>
-
-                <div class="add-profile">
-
-                    <div class="block-title">Добавить профиль</div>
-
-                    <ul class="auth-services">
-                        <li class="auth-service mailru"><a href="" class="auth-link mailru"></a></li>
-                        <li class="auth-service odnoklassniki"><a href="" class="auth-link odnoklassniki"></a></li>
-                        <li class="auth-service vkontakte"><a href="" class="auth-link vkontakte"></a></li>
-                        <li class="auth-service facebook"><a href="" class="auth-link facebook"></a></li>
-                    </ul>
-
-                </div>
+                <?php Yii::app()->eauth->renderWidget(array('mode' => 'profile', 'action' => 'site/login')); ?>
 
             </div>
 
@@ -283,6 +236,7 @@
 
                             <div class="col">
                                 <?=$form->textField($model, 'verifyCode', array('class' => 'input-big'))?><br/>
+                                <?=$form->error($model, 'verifyCode')?>
                                 <div class="small">Введите цифры, которые Вы видите на картинке.</div>
                             </div>
 

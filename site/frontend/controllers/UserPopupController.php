@@ -24,6 +24,7 @@ class UserPopupController extends HController
                 'width' => 125,
                 'height' => 46,
                 'onlyDigits' => TRUE,
+                'testLimit' => 3,
             ),
         );
     }

@@ -15,11 +15,24 @@ class SafeUserIdentity extends CUserIdentity
     public function authenticate()
     {
         $user = User::model()->findByPk($this->user_id);
-        return $user !== null;
+        if ($user !== null){
+            $this->setNotGuestCookie();
+            return true;
+        }
+
+        return false;
     }
 
     public function getId()
     {
         return $this->user_id;
+    }
+
+    public function setNotGuestCookie()
+    {
+        //set cookie for user that autentificated somewhere
+        $cookie = new CHttpCookie('not_guest', '1');
+        $cookie->expire = time() + 3600*24*100;
+        Yii::app()->request->cookies['not_guest'] = $cookie;
     }
 }

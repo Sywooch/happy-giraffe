@@ -6,11 +6,11 @@ class SiteController extends SController
     {
         return array(
             array('allow',
-                'actions' => array('index', 'logout', 'modules', 'removeUser'),
+                'actions' => array('index', 'logout', 'modules', 'removeUser', 'test', 'sql'),
                 'users' => array('@'),
             ),
             array('allow',
-                'actions' => array('login', 'test', 'sql'),
+                'actions' => array('login', 'maintenance'),
                 'users' => array('*'),
             ),
             array('deny',
@@ -199,5 +199,13 @@ class SiteController extends SController
                 unset($entities[$key]);
         Yii::app()->user->setState($list_name, $entities);
         echo CJSON::encode(array('status' => true));
+    }
+
+    public function actionMaintenance()
+    {
+        header('HTTP/1.1 503 Service Temporarily Unavailable');
+        $this->layout = '//system/layout';
+        Yii::app()->clientScript->registerCssFile('http://www.happy-giraffe.ru/stylesheets/maintenance.css');
+        $this->render('//system/maintenance');
     }
 }

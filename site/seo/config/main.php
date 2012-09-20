@@ -30,6 +30,12 @@ return array(
 
         'application.modules.externalLinks.models.*',
     ),
+
+    /* Техническое обслуживание */
+    'catchAllRequest' => (in_array($_SERVER['REMOTE_ADDR'], array('188.233.4.142')))?null:array(
+        '/site/maintenance',
+    ),
+
     'modules' => array(
         'competitors',
         'writing',

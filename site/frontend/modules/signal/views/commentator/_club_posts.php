@@ -6,9 +6,9 @@ $filled = array();
 foreach($club_posts as $club_post)
     $filled[] = $club_post->rubric->community_id;
 
-$progress = ($this->commentator->clubPostsCount() == 0)?0:round(100*$this->commentator->clubPostsCount()/CommentatorWork::CLUB_POSTS_COUNT);
+$progress = ($this->commentator->clubPostsCount() == 0)?0:round(100*$this->commentator->clubPostsCount()/$this->commentator->getClubPostsLimit());
 ?>
-<span class="item-title">2. Написать <?=CommentatorWork::CLUB_POSTS_COUNT ?> <?=HDate::GenerateNoun(array('запись','записи','записей'), CommentatorWork::CLUB_POSTS_COUNT) ?> в клубы</span><span class="progress"><span style="width:<?=$progress?>%"></span></span>
+<span class="item-title">2. Написать <?=$this->commentator->getClubPostsLimit() ?> <?=HDate::GenerateNoun(array('запись','записи','записей'), $this->commentator->getClubPostsLimit()) ?> в клубы</span><span class="progress"><span style="width:<?=$progress?>%"></span></span>
 
 <ul>
     <?php foreach ($this->commentator->communities() as $community): ?>

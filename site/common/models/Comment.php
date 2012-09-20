@@ -167,14 +167,6 @@ class Comment extends HActiveRecord
             //проверяем на предмет выполненного модератором задания
             UserSignal::CheckComment($this);
 
-            if (in_array($this->entity, array('CommunityContent', 'BlogContent', 'RecipeBookRecipe', 'User', 'AlbumPhoto'))) {
-                UserNotification::model()->create(UserNotification::NEW_COMMENT, array('comment' => $this));
-            }
-
-            if (in_array($this->entity, array('CommunityContent', 'BlogContent', 'RecipeBookRecipe', 'AlbumPhoto')) && $this->response_id !== null) {
-                UserNotification::model()->create(UserNotification::NEW_REPLY, array('comment' => $this));
-            }
-
             UserScores::addScores($this->author_id, ScoreAction::ACTION_OWN_COMMENT, 1, array(
                 'id' => $this->entity_id, 'name' => $this->entity));
 
@@ -223,6 +215,14 @@ class Comment extends HActiveRecord
                         'entity' => $this->entity
                     ), CometModel::TYPE_COMMENTATOR_UPDATE);
                 }
+            }
+
+            if (in_array($this->entity, array('CommunityContent', 'BlogContent', 'RecipeBookRecipe', 'User', 'AlbumPhoto'))) {
+                UserNotification::model()->create(UserNotification::NEW_COMMENT, array('comment' => $this));
+            }
+
+            if (in_array($this->entity, array('CommunityContent', 'BlogContent', 'RecipeBookRecipe', 'AlbumPhoto')) && $this->response_id !== null) {
+                UserNotification::model()->create(UserNotification::NEW_REPLY, array('comment' => $this));
             }
         }
         parent::afterSave();

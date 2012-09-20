@@ -16,16 +16,19 @@ class CommentatorDay extends EMongoEmbeddedDocument
     public $comments = 0;
     public $status = 0;
 
-    public function checkStatus()
+    /**
+     * @param $commentator CommentatorWork
+     */
+    public function checkStatus($commentator)
     {
-        if ($this->blog_posts == CommentatorWork::BLOG_POSTS_COUNT &&
-            $this->club_posts == CommentatorWork::CLUB_POSTS_COUNT &&
-            $this->comments == CommentatorWork::COMMENTS_COUNT
+        if ($this->blog_posts == $commentator->getBlogPostsLimit() &&
+            $this->club_posts == $commentator->getClubPostsLimit() &&
+            $this->comments == $commentator->getCommentsLimit()
         )
             $this->status = self::STATUS_SUCCESS;
-        elseif ($this->blog_posts >= CommentatorWork::BLOG_POSTS_COUNT &&
-            $this->club_posts >= CommentatorWork::CLUB_POSTS_COUNT &&
-            $this->comments >= CommentatorWork::COMMENTS_COUNT
+        elseif ($this->blog_posts >= $commentator->getBlogPostsLimit() &&
+            $this->club_posts >= $commentator->getClubPostsLimit() &&
+            $this->comments >= $commentator->getCommentsLimit()
         )
             $this->status = self::STATUS_EXCEEDED;
     }

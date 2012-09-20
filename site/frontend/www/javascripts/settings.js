@@ -39,7 +39,7 @@ Settings.openTab = function(index) {
 Settings.changePassword = function(form) {
     $.post($(form).attr('action'), $(form).serialize(), function(data) {
         if (data == 'true') {
-            $(form).find('input:text').val('');
+            $(form).find('input:text, input:password').val('');
             $('.refresh').trigger('click');
         }
     });

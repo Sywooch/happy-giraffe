@@ -69,11 +69,12 @@ class CommentatorsMonthStats extends EMongoDocument
         $commentators = User::model()->findAll('`group`=' . UserGroup::COMMENTATOR);
         //$this->commentators = array();
 
+        $active_commentators = array();
         foreach ($commentators as $commentator) {
             $model = $this->loadCommentator($commentator);
             if ($model !== null) {
-
-                echo 'user: ' . $commentator->id . "\n";
+                echo 'commentator: ' . $commentator->id . "\n";
+                $active_commentators [] = $commentator->id;
 
                 $new_friends = $model->newFriends($this->period);
                 $im_messages = $model->imMessages($this->period);
@@ -93,17 +94,22 @@ class CommentatorsMonthStats extends EMongoDocument
                 } else {
 
                     $result = array(
-                        self::NEW_FRIENDS => (int)$model->newFriends($this->period),
-                        self::BLOG_VISITS => (int)$this->blogVisits($commentator->id),
-                        self::PROFILE_UNIQUE_VIEWS => (int)$this->profileUniqueViews($commentator->id),
-                        self::IM_MESSAGES => (int)$model->imMessages($this->period),
-                        self::SE_VISITS => (int)$this->getSeVisits($commentator->id),
+                        self::NEW_FRIENDS => (int)$new_friends,
+                        self::BLOG_VISITS => (int)$blog_visits,
+                        self::PROFILE_UNIQUE_VIEWS => (int)$profile_view,
+                        self::IM_MESSAGES => (int)$im_messages,
+                        self::SE_VISITS => (int)$se_visits,
                     );
                     $this->commentators[(int)$commentator->id] = $result;
                 }
                 $this->save();
             }
         }
+
+        //remove deleted commentators
+        foreach($this->commentators as $commentator_id => $val)
+            if (!in_array($commentator_id, $active_commentators))
+                unset($this->commentators[$commentator_id]);
 
         $this->save();
     }

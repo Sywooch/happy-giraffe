@@ -61,7 +61,7 @@ $months = CommentatorsMonthStats::getMonths();
             </thead>
             <tbody>
             <?php $summary = array(0, 0, 0); ?>
-            <?php $working_commentators_count = 0;$i = 0; ?>
+            <?php $working_commentators = array();$i = 0; ?>
             <?php foreach ($commentators as $commentator): ?>
 
                 <?php $i++; if ($i > 11):?>
@@ -76,7 +76,7 @@ $months = CommentatorsMonthStats::getMonths();
                         $summary[0] += $commentator_day->blog_posts;
                         $summary[1] += $commentator_day->club_posts;
                         $summary[2] += $commentator_day->comments;
-                        $working_commentators_count++;
+                        $working_commentators [] = $commentator;
                         ?>
                         <tr>
                             <td class="al"><span class="big"><?php $this->renderPartial('_user_link',array('user'=>User::getUserById($commentator->user_id))); ?></span></td>
@@ -95,7 +95,7 @@ $months = CommentatorsMonthStats::getMonths();
                     $blog_posts = $commentator->getEntitiesCount('blog_posts', $period);
                     $club_posts = $commentator->getEntitiesCount('club_posts', $period);
                     $comments = $commentator->getEntitiesCount('comments', $period);
-                        $working_commentators_count++;
+                    $working_commentators [] = $commentator;
                         $summary[0] += $blog_posts;
                         $summary[1] += $club_posts;
                         $summary[2] += $comments;
@@ -110,9 +110,9 @@ $months = CommentatorsMonthStats::getMonths();
                         <td><?=$month->getPlace($commentator->user_id, CommentatorsMonthStats::PROFILE_UNIQUE_VIEWS) ?></td>
                         <td><?=$month->getPlace($commentator->user_id, CommentatorsMonthStats::IM_MESSAGES) ?></td>
                         <td><?=$month->getPlace($commentator->user_id, CommentatorsMonthStats::SE_VISITS) ?></td>
-                        <?php if ($blog_posts/$month->working_days_count >= CommentatorWork::BLOG_POSTS_COUNT
-                        && $club_posts/$month->working_days_count >= CommentatorWork::CLUB_POSTS_COUNT
-                        && $comments/$month->working_days_count >= CommentatorWork::COMMENTS_COUNT
+                        <?php if ($blog_posts/$month->working_days_count >= $commentator->getBlogPostsLimit()
+                        && $club_posts/$month->working_days_count >= $commentator->getClubPostsLimit()
+                        && $comments/$month->working_days_count >= $commentator->getCommentsLimit()
                     ):?>
                             <td class="task-done">Выполнен</td>
                         <?php else: ?>
@@ -121,7 +121,7 @@ $months = CommentatorsMonthStats::getMonths();
                     </tr>
                 <?php endif ?>
             <?php endforeach; ?>
-            <?php if ($working_commentators_count > 0):?>
+            <?php if (count($working_commentators) > 0):?>
                 <tr class="total">
                     <td class="al"><span class="big">Всего</span></td>
                     <td><?=$summary[0] ?></td>
@@ -134,10 +134,7 @@ $months = CommentatorsMonthStats::getMonths();
                         <td></td>
                         <td></td>
                     <?php endif ?>
-                    <?php if ($summary[0]/$working_commentators_count >= CommentatorWork::BLOG_POSTS_COUNT * $days_count
-                            && $summary[1]/$working_commentators_count >= CommentatorWork::CLUB_POSTS_COUNT * $days_count
-                            && $summary[2]/$working_commentators_count >= CommentatorWork::COMMENTS_COUNT * $days_count
-                        ):?>
+                    <?php if (CommentatorWork::getExecutedStatus($working_commentators, $summary, $days_count)):?>
                         <td><span class="task-done">Выполнен</span></td>
                     <?php else: ?>
                         <td><span class="task-not-done">Не выполнен</span></td>

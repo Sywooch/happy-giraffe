@@ -15,6 +15,11 @@ class UserPopupController extends HController
         );
     }
 
+    public function actionSettings()
+    {
+        $this->renderPartial('settings', null, false, true);
+    }
+
     public function actionNotifications()
     {
         $dp = UserNotification::model()->getUserNotifications(Yii::app()->user->id);

@@ -208,12 +208,28 @@ class SiteCommand extends CConsoleCommand
         UserNotification::model()->deleteAll($criteria);
     }
 
-    public function actionFix2(){
-        $users = Yii::app()->db->createCommand()->select('id')->from('users')->queryColumn();
-        foreach($users as $user){
-            $count = Baby::model()->count('parent_id='.$user);
-            if ($count > 4){
-                Baby::model()->deleteAll('parent_id='.$user.' limit '.($count - 4));
+    public function actionFix2()
+    {
+        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
+        Yii::import('site.common.models.mongo.*');
+
+        $users = Yii::app()->db->createCommand()->select('id')->from('users')->where('`group` = 6')->queryColumn();
+        foreach ($users as $user) {
+            $criteria = new EMongoCriteria();
+            $criteria->type = UserAction::USER_ACTION_COMMENT_ADDED;
+            $criteria->user_id = (int)$user;
+
+            $actions = UserAction::model()->findAll($criteria);
+            echo count($actions) . "\n";
+            foreach ($actions as $action) {
+                $comment = Comment::model()->findByPk($action->data['id']);
+                if ($comment !== null) {
+                    $model = CActiveRecord::model($comment->entity)->findByPk($comment->entity_id);
+                    if (empty($model->rubric_id)) {
+                        $action->delete();
+                        echo "+\n";
+                    }
+                }
             }
         }
     }

@@ -8,7 +8,7 @@
     <?php
     echo CHtml::linkTag('shortcut icon', null, '/favicon.bmp');
 
-    $release_id = 26;
+    $release_id = 29;
     Yii::app()->clientScript
         ->registerCssFile('/css/seo.css?'.$release_id)
         ->registerCssFile('/css/form.css')
@@ -25,6 +25,7 @@
 
         ->registerScriptFile('/js/jquery.tooltip.js')
 
+        ->registerScriptFile('/js/common.js?'.$release_id)
         ->registerScriptFile('/js/seo.js?'.$release_id)
         ->registerScriptFile('/js/seo-editor.js?'.$release_id)
 
@@ -120,10 +121,25 @@
                     'label' => 'Комментаторы',
                     'url' => array('/admin/Commentator/admin/'),
                 ),
+                array(
+                    'label' => 'Внешние ссылки - сайты',
+                    'url' => array('/externalLinks/site/admin/'),
+                ),
+                array(
+                    'label' => 'Внешние ссылки - ссылки',
+                    'url' => array('/externalLinks/link/admin/'),
+                ),
+                array(
+                    'label' => 'Внешние ссылки - задания',
+                    'url' => array('/externalLinks/task/admin/'),
+                ),
+
             )));
     ?>
 </div>
 <?php endif; ?>
-
+<!--Отработало за <?=sprintf('%0.5f',Yii::getLogger()->getExecutionTime())?> с. Скушано памяти: <?=round(memory_get_peak_usage()/(1024*1024),2)."MB"?>-->
+<!--<?php $sql_stats = YII::app()->db->getStats();
+echo $sql_stats[0] . ' запросов к БД, время выполнения запросов - ' . sprintf('%0.5f', $sql_stats[1]) . ' c.'; ?>-->
 </body>
 </html>

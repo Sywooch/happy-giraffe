@@ -156,10 +156,20 @@ class BlogController extends HController
     }
 
     /**
-     * @sitemap dataSource=getContentUrls
+     * @sitemap dataSource=sitemapView
      */
     public function actionView($content_id, $user_id, $lastPage = null, $ajax = null)
     {
+        /*$notification = UserNotification::model()->find();
+        for ($i = 0; $i < 50; $i++) {
+            $n = new UserNotification;
+            foreach ($notification->attributes as $k => $v)
+                if ($k != '_id')
+                    $n->$k = $v;
+            $n->save();
+        }
+        die; */
+
         $this->layout = '//layouts/user_blog';
 
         $content = BlogContent::model()->active()->full()->findByPk($content_id);
@@ -178,12 +188,11 @@ class BlogController extends HController
         $this->user = $content->author;
         $this->rubric_id = $content->rubric->id;
 
-        if ($content->author_id == Yii::app()->user->id)
-            UserNotification::model()->deleteByEntity(UserNotification::NEW_COMMENT, $content);
-        UserNotification::model()->deleteByEntity(UserNotification::NEW_REPLY, $content);
-
         if (!empty($content->uniqueness) && $content->uniqueness < 50)
             Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
+
+        if (! Yii::app()->user->isGuest)
+            //UserNotification::model()->deleteByEntity($content, Yii::app()->user->id);
 
         $this->render('view', array(
             'data' => $content,
@@ -198,15 +207,17 @@ class BlogController extends HController
         $this->render('empty');
     }
 
-    public function getContentUrls()
+    public function sitemapView()
     {
         $models = Yii::app()->db->createCommand()
             ->select('c.id, c.created, c.updated, c.author_id')
             ->from('community__contents c')
             ->join('community__rubrics r', 'c.rubric_id = r.id')
             ->join('community__content_types ct', 'c.type_id = ct.id')
-            ->where('r.user_id IS NOT NULL AND c.removed = 0 AND c.uniqueness >= 50')
+            ->where('r.user_id IS NOT NULL AND c.removed = 0 AND (c.uniqueness >= 50 OR c.uniqueness IS NULL)')
             ->queryAll();
+
+        $data = array();
         foreach ($models as $model)
         {
             $data[] = array(
@@ -214,11 +225,11 @@ class BlogController extends HController
                     'content_id' => $model['id'],
                     'user_id' => $model['author_id'],
                 ),
-                'priority' => 0.5,
                 'changefreq' => 'daily',
                 'lastmod' => ($model['updated'] === null) ? $model['created'] : $model['updated'],
             );
         }
+
         return $data;
     }
 }

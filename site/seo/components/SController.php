@@ -7,6 +7,7 @@ class SController extends CController
 {
     public $pageTitle = '';
     public $fast_nav = array();
+    public $icon = 1;
 
     public function filters()
     {
@@ -56,6 +57,10 @@ class SController extends CController
 
         if (Yii::app()->user->checkAccess('commentator-manager-panel'))
             $menu ['Комментаторы'] = $this->createUrl('/commentators/default/index');
+        if (Yii::app()->user->checkAccess('cook-manager-panel'))
+            $menu ['Кулинария'] = $this->createUrl('/competitors/default/index', array('section'=>2));
+        if (Yii::app()->user->checkAccess('externalLinks-manager-panel'))
+            $menu ['Внешние ссылки'] = $this->createUrl('/externalLinks/sites/index');
 
         return $menu;
     }

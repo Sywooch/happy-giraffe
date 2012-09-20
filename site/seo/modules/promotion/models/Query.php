@@ -36,7 +36,7 @@ class Query extends HActiveRecord
 
     public function tableName()
     {
-        return 'happy_giraffe_seo.queries';
+        return 'queries';
     }
 
     public function getDbConnection()

@@ -3,6 +3,8 @@
  * Author: alexk984
  * Date: 25.06.12
  */
+
+Yii::import('site.frontend.modules.cook.models.*');
 class SimilarArticlesParser
 {
 

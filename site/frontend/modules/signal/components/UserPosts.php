@@ -6,7 +6,7 @@
 class UserPosts extends PostForCommentator
 {
     protected $entities = array(
-        'CommunityContent' => array(10),
+        'CommunityContent' => array(50),
         'CookRecipe' => array(2, 3),
     );
     protected $nextGroup = 'FavouritesPosts';
@@ -41,7 +41,7 @@ class UserPosts extends PostForCommentator
                 'together' => true,
             ),
         );
-        $criteria->join = 'LEFT OUTER JOIN `comments` `comments` ON (`comments`.`entity_id`=`t`.`id` AND `comments`.`author_id` = '.$this->user_id.') ';
+        $criteria->join = 'LEFT OUTER JOIN `comments` `comments` ON (`comments`.`entity_id`=`t`.`id` AND `comments`.`author_id` = '.$this->commentator->user_id.') ';
 
         return $criteria;
     }

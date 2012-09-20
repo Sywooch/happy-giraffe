@@ -817,10 +817,21 @@ class User extends HActiveRecord
         }
     }
 
+    public function getUrlParams()
+    {
+        return array(
+            'user/profile',
+            array(
+                'user_id' => $this->id,
+            ),
+        );
+    }
+
     public function getUrl($absolute = false)
     {
+        list($route, $params) = $this->urlParams;
         $method = $absolute ? 'createAbsoluteUrl' : 'createUrl';
-        return Yii::app()->$method('user/profile', array('user_id' => $this->id));
+        return Yii::app()->$method($route, $params);
     }
 
     public function addCommunity($community_id)

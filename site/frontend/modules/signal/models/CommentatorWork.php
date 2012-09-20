@@ -18,6 +18,7 @@ class CommentatorWork extends EMongoDocument
     public $comment_entity_id;
     public $skipUrls = array();
     public $created;
+    public $ignoreUsers = array();
 
     public static function model($className = __CLASS__)
     {
@@ -147,14 +148,14 @@ class CommentatorWork extends EMongoDocument
     public function incCommentsCount($next = true)
     {
         $this->getCurrentDay()->comments++;
-
         if ($next) {
+            $this->save();
             if ($this->getNextPostForComment()) {
                 $this->save();
                 return true;
             }
         } else
-            $this->save();
+            return $this->save();
 
         return false;
     }
@@ -181,7 +182,7 @@ class CommentatorWork extends EMongoDocument
      */
     public function getNextPostForComment()
     {
-        $list = PostForCommentator::getNextPost($this->user_id, $this->skipUrls);
+        $list = PostForCommentator::getNextPost($this);
         if ($list === false) {
             return false;
         }
@@ -459,6 +460,11 @@ class CommentatorWork extends EMongoDocument
     public function nextComment()
     {
         $model = CActiveRecord::model($this->comment_entity)->findByPk($this->comment_entity_id);
+        if ($model === null){
+            $this->getNextPostForComment();
+            $this->save();
+            $model = CActiveRecord::model($this->comment_entity)->findByPk($this->comment_entity_id);
+        }
 
         return CHtml::link($model->title, $model->url, array('target' => '_blank'));
     }

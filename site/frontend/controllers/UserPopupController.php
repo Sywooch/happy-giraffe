@@ -15,9 +15,46 @@ class UserPopupController extends HController
         );
     }
 
+    public function actions()
+    {
+        return array(
+            'captcha' => array(
+                'class' => 'CaptchaAction',
+                'backColor' => 0xFFFFFF,
+                'width' => 125,
+                'height' => 46,
+                'onlyDigits' => TRUE,
+            ),
+        );
+    }
+
     public function actionSettings()
     {
-        $this->renderPartial('settings', null, false, true);
+        $this->renderPartial('settings', array('model' => Yii::app()->user->model), false, true);
+    }
+
+    public function actionChangePassword()
+    {
+        $model = Yii::app()->user->model;
+        $model->scenario = 'change_password';
+        $this->performAjaxValidation($model);
+
+        if (isset($_POST['User'])) {
+            $model->attributes = $_POST['User'];
+            if ($model->validate(array('current_password', 'new_password', 'new_password_repeat', 'verifyCode'))) {
+                $model->password = $model->new_password;
+                echo CJavaScript::encode($model->update(array('password')));
+            }
+        }
+    }
+
+    protected function performAjaxValidation($model)
+    {
+        if(isset($_POST['ajax']) && $_POST['ajax']==='password-form')
+        {
+            echo CActiveForm::validate($model, array('current_password', 'new_password', 'new_password_repeat', 'verifyCode'));
+            Yii::app()->end();
+        }
     }
 
     public function actionNotifications()

@@ -1,9 +1,10 @@
 var Settings = {
-
+    entity: null,
+    entity_id: null
 }
 
 Settings.open = function() {
-    $.get('/userPopup/settings', function(data) {
+    $.get('/settings/', function(data) {
         $('body').append(data);
         $('body').css('overflow', 'hidden');
         $('body').append('<div id="body-overlay"></div>');
@@ -36,11 +37,40 @@ Settings.openTab = function(index) {
     $('#user-settings .settings-in:eq(' + index + ')').show();
 }
 
+Settings.showInput = function(el) {
+    $(el).parents('.row-elements').find('.value').hide();
+    $(el).parents('.row-elements').find('.input').show();
+}
+
+Settings.saveInput = function(el, attribute) {
+    $.post('/ajax/setValue/', {
+        entity: Settings.entity,
+        entity_id: Settings.entity_id,
+        attribute: attribute,
+        value: $(el).prev().val()
+    }, function(response) {
+        if (response) {
+            $(el).parents('.row-elements').find('.input').hide();
+            $(el).parents('.row-elements').find('.value').show();
+            $(el).parents('.row-elements').find('.value span').text($(el).prev().val());
+        }
+    });
+}
+
 Settings.changePassword = function(form) {
     $.post($(form).attr('action'), $(form).serialize(), function(data) {
         if (data == 'true') {
             $(form).find('input:text, input:password').val('');
             $('.refresh').trigger('click');
         }
+    });
+}
+
+Settings.changeGender = function(el) {
+    $.post('/ajax/setValue/', {
+        entity: Settings.entity,
+        entity_id: Settings.entity_id,
+        attribute: 'gender',
+        value: $(el).val()
     });
 }

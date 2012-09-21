@@ -1561,6 +1561,7 @@ body.nav-fixed #header-new .top-line {position:fixed;left:50%;margin-left:-500px
 #user-settings .settings .settings-form.password-form .row-captcha .row-elements .input-big {height:42px;width:155px}
 #user-settings .settings .settings-form.password-form .row-captcha .row-elements .captcha-img {border:1px solid #c9eaf1;margin-bottom:7px;}
 #user-settings .settings .settings-form.password-form .btn-orange {font-weight:bold;font-size:16px;padding:8px 15px;}
+#user-settings .settings .settings-form.password-form .success {color:#3cae31;font-size:13px;margin-left:30px;position:relative;top:4px;}
 
 #user-settings .settings .socials {color:#515151;}
 #user-settings .settings .socials p {margin-bottom:20px;}

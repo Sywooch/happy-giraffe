@@ -276,24 +276,44 @@ class SeoCommand extends CConsoleCommand
         $criteria = new EMongoCriteria;
         $criteria->active('==', 0);
         $criteria->sort('rank', EMongoCriteria::SORT_DESC);
-        $criteria->sort('created', EMongoCriteria::SORT_DESC);
-        ProxyMongo::model()->find($criteria);
+        $model = ProxyMongo::model()->find($criteria);
 
-        echo 1000 * (microtime(true) - $start_time);
+        echo 1000 * (microtime(true) - $start_time) . "\n";
+        $start_time = microtime(true);
+
+        $model->findAndModify(array(
+            'update' => array('==' => array('active' => 1)),
+            'query' => $criteria,
+        ));
+
+        echo 1000 * (microtime(true) - $start_time) . "\n";
+        $start_time = microtime(true);
+
+        $model->delete();
+
+        echo 1000 * (microtime(true) - $start_time) . "\n";
     }
 
-    public function actionAddPages()
+    public function actionProxyCheck()
     {
+        $start_time = microtime(true);
+        $criteria = new CDbCriteria();
+        $criteria->compare('active', 0);
+        $criteria->order = 'rank, id desc';
+        $model = Proxy::model()->find($criteria);
 
-//        $keyword = Keyword::GetKeyword('Календарь беременности');
-//        $group = new KeywordGroup();
-//        $group->keywords = array($keyword->id);
-//        $group->save();
-//        $page = new Page();
-//        $page->url = 'http://www.happy-giraffe.ru/pregnancyCalendar/';
-//        $page->keyword_group_id = $group->id;
-//        if ($page->save())
-//            echo "success \n";
+        echo 1000 * (microtime(true) - $start_time) . "\n";
+        $start_time = microtime(true);
+
+        $model->rank = 4;
+        $model->save();
+
+        echo 1000 * (microtime(true) - $start_time) . "\n";
+        $start_time = microtime(true);
+
+        $model->delete();
+
+        echo 1000 * (microtime(true) - $start_time) . "\n";
     }
 
     public function actionCalcGoogleVisits()

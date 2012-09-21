@@ -295,8 +295,6 @@ class WordstatParser extends ProxyParserThread
     public function AddStat($model, $value)
     {
         YandexPopularity::model()->addValue($model->id, $value);
-        $model->our = 1;
-        $model->save();
     }
 
     public function closeThread($reason = 'unknown reason')

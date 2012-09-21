@@ -11,6 +11,12 @@ Settings.open = function() {
         $('body').addClass('nav-fixed');
         $('#user-nav-settings').addClass('active');
         Settings.openTab(0);
+        $('.chzn').each(function () {
+            var $this = $(this);
+            $this.chosen({
+                allow_single_deselect:$this.hasClass('chzn-deselect')
+            })
+        });
     });
 }
 
@@ -57,10 +63,28 @@ Settings.saveInput = function(el, attribute) {
     });
 }
 
+Settings.saveBirthday = function(el) {
+    $.post('/ajax/setDate/', {
+        entity: Settings.entity,
+        entity_id: Settings.entity_id,
+        attribute: 'birthday',
+        d: $('#User_birthday_d').val(),
+        m: $('#User_birthday_m').val(),
+        y: $('#User_birthday_y').val()
+    }, function(response) {
+        if (response) {
+            $(el).parents('.row-elements').find('.input').hide();
+            $(el).parents('.row-elements').find('.value').show();
+            $(el).parents('.row-elements').find('.value span').text(response.birthday_str);
+        }
+    }, 'json');
+}
+
 Settings.changePassword = function(form) {
     $.post($(form).attr('action'), $(form).serialize(), function(data) {
         if (data == 'true') {
             $(form).find('input:text, input:password').val('');
+            $(form).find('span.success').show().fadeOut(5000);
             $('.refresh').trigger('click');
         }
     });

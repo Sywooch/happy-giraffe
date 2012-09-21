@@ -42,28 +42,25 @@ class ProxyParserThread
         $criteria->compare('active', 0);
         $criteria->order = 'rank DESC';
 
+        $this->startTimer('find proxy');
+
         $transaction = Yii::app()->db_seo->beginTransaction();
         try {
-//            $this->startTimer('find proxy');
             $this->proxy = Proxy::model()->find($criteria);
-//            $this->endTimer();
             if ($this->proxy === null) {
                 $this->closeThread('No proxy');
             }
 
             $this->proxy->active = 1;
-//            $this->startTimer('save proxy');
             $this->proxy->save();
-//            $this->endTimer();
 
-//            $this->startTimer('commit proxy');
             $transaction->commit();
-//            $this->endTimer();
         } catch (Exception $e) {
             $transaction->rollback();
             $this->closeThread('Fail with getting proxy');
         }
 
+        $this->endTimer();
         $this->log('proxy: ' . $this->proxy->value);
     }
 

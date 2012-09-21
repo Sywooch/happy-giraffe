@@ -27,4 +27,18 @@ class ProxyMongo extends EMongoDocument
 
         parent::afterSave();
     }
+
+    public function findAndModify ($param=array())
+    {
+        if (!array_key_exists('update',$param) AND !array_key_exists('remove',$param))  //one is required
+        {return false;
+        }
+
+        $collection['findAndModify']=$this->getCollectionName();
+        $param=array_merge($collection,$param);
+
+        $result = $this->getDb()->command($param);
+        $result["lastErrorObject"]["ok"]=1?$return= $result["value"]:$return= false;
+        return $return;
+    }
 }

@@ -56,6 +56,29 @@
 
                 <div class="row clearfix">
 
+                    <div class="row-title">Дата рождения:</div>
+
+                    <div class="row-elements">
+                        <div class="value"<?php if (! $this->user->birthday): ?> style="display: none;"<?php endif; ?>>
+                            <span class="value"><?=Yii::app()->dateFormatter->format("d MMMM", $this->user->birthday)?> (<?=$this->user->normalizedAge?>)</span>
+                            <a href="javascript:void(0)" onclick="Settings.showInput(this)" class="edit tooltip" title="Изменить"></a>
+                        </div>
+
+                        <div class="input"<?php if ($this->user->birthday): ?> style="display: none;"<?php endif; ?>>
+                            <?php
+                                $this->widget('DateWidget', array(
+                                    'model' => $this->user,
+                                    'attribute' => 'birthday',
+                                ));
+                            ?>
+                            <button onclick="Settings.saveBirthday(this)" class="btn-green small">Ok</button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row clearfix">
+
                     <div class="row-title">Пол:</div>
 
                     <div class="row-elements">
@@ -120,12 +143,11 @@
                     'enableAjaxValidation' => true,
                     'enableClientValidation' => true,
                     'clientOptions' => array(
+                        'validateOnSubmit' => true,
                         'validateOnChange' => false,
+                        'afterValidate' => 'js:function(form, data, hasError) {if (! hasError) Settings.changePassword(form);}',
                     ),
-                    'action' => array('userPopup/changePassword'),
-                    'htmlOptions' => array(
-                        'onsubmit' => 'Settings.changePassword(this); return false;',
-                    ),
+                    'action' => array('changePassword'),
                 ));?>
 
                     <div class="row clearfix">
@@ -190,6 +212,7 @@
                         <div class="row-elements">
 
                             <button class="btn-orange">Изменить</button>
+                            <span class="success" style="display: none;">Пароль успешно изменён</span>
 
                         </div>
 

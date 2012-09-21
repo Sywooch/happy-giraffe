@@ -152,6 +152,7 @@
                     <li><a href="/">Главная</a></li>
                     <li><a href="<?php echo $this->createUrl('/community') ?>">Клубы</a></li>
                     <li><?=CHtml::link('Сервисы', array('/site/services'))?></li>
+                    <li><?=CHtml::link('Новости', array('/community/list', 'community_id' => 36))?></li>
                     <li><?=HHtml::link('Конкурсы', $this->createUrl('/contest/default/view', array('id' => 1)), array(), Yii::app()->controller->getRoute() == 'site/index'?false:true)?></li>
                 </ul>
 

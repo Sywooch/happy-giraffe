@@ -25,8 +25,8 @@ class ProxyRefresher
                         $i++;
                     }
                 }
-                if (Proxy::model()->count() > 50000){
-                    Proxy::model()->deleteAll('active = 0 AND rank <= 10 order by rank ASC limit 20000');
+                if (Proxy::model()->count() > 100000){
+                    Proxy::model()->deleteAll('active = 0 AND rank <= 10 order by rank ASC limit 5000');
                 }
 
                 $transaction->commit();

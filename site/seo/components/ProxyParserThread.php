@@ -40,7 +40,7 @@ class ProxyParserThread
     {
         $criteria = new CDbCriteria;
         $criteria->compare('active', 0);
-        $criteria->order = 'rank DESC';
+        $criteria->order = 'rank desc';
 
         $this->startTimer('find proxy');
 

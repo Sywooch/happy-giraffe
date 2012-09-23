@@ -43,6 +43,7 @@ class ProxyParserThread
         $criteria->order = 'rank desc';
 
         $this->startTimer('find proxy');
+        $this->log('get proxy');
 
         $transaction = Yii::app()->db_seo->beginTransaction();
         try {

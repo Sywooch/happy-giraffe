@@ -22,7 +22,7 @@ class ProxyParserThread
     protected $delay_min = 10;
     protected $delay_max = 10;
     public $debug = false;
-    protected $timeout = 40;
+    protected $timeout = 30;
     protected $removeCookieOnChangeProxy = true;
     public $use_proxy = true;
     private $_start_time = null;
@@ -223,14 +223,8 @@ class ProxyParserThread
 
     protected function log($state)
     {
-        if ($this->debug) {
+//        if ($this->debug) {
             echo $state . "\n";
-//            $fh = fopen($dir = Yii::getPathOfAlias('application.runtime') . DIRECTORY_SEPARATOR . 'my_log.txt', 'a');
-//            $t = microtime(true);
-//            $micro = sprintf("%06d", ($t - floor($t)) * 1000000);
-//            $d = new DateTime(date('Y-m-d H:i:s.' . $micro, $t));
-//
-//            fwrite($fh, $d->format("Y-m-d H:i:s.u") . ':  ' . $state . "\n");
-        }
+//        }
     }
 }

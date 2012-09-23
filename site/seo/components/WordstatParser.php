@@ -19,7 +19,7 @@ class WordstatParser extends ProxyParserThread
 
         $this->delay_min = 2;
         $this->delay_max = 6;
-        $this->timeout = 15;
+        $this->timeout = 45;
         $this->debug = $mode;
         $this->removeCookieOnChangeProxy = false;
 

@@ -30,7 +30,7 @@ class ProxyParserThread
 
     function __construct()
     {
-        sleep(rand(0, 10));
+        time_nanosleep(rand(0, 5), rand(0, 1000000000));
         Yii::import('site.frontend.extensions.phpQuery.phpQuery');
         $this->thread_id = substr(sha1(microtime()), 0, 10);
         $this->getProxy();
@@ -45,21 +45,12 @@ class ProxyParserThread
         $this->startTimer('find proxy');
         $this->log('get proxy');
 
-        $transaction = Yii::app()->db_seo->beginTransaction();
-        try {
-            $this->proxy = Proxy::model()->find($criteria);
-            if ($this->proxy === null) {
-                $this->closeThread('No proxy');
-            }
+        $this->proxy = Proxy::model()->find($criteria);
+        if ($this->proxy === null)
+            $this->closeThread('No proxy');
 
-            $this->proxy->active = 1;
-            $this->proxy->save();
-
-            $transaction->commit();
-        } catch (Exception $e) {
-            $transaction->rollback();
-            $this->closeThread('Fail with getting proxy');
-        }
+        $this->proxy->active = 1;
+        $this->proxy->save();
 
         $this->endTimer();
         $this->log('proxy: ' . $this->proxy->value);

@@ -131,13 +131,13 @@ class WordstatParser extends ProxyParserThread
         while (!$success) {
             $data = $this->query($url);
             $success = true;
-//            if (preg_match('/<img src="\/\/mc.yandex.ru\/watch\/([\d]+)"/', $data, $res)) {
-//                $mc_url = 'http://mc.yandex.ru/watch/' . $res[1];
-//                $html = $this->query($mc_url, $url);
-//                if (strpos($html, 'Set-Cookie:') === false)
-//                    $success = false;
-//            } else
-//                $success = false;
+            if (preg_match('/<img src="\/\/mc.yandex.ru\/watch\/([\d]+)"/', $data, $res)) {
+                $mc_url = 'http://mc.yandex.ru/watch/' . $res[1];
+                $html = $this->query($mc_url, $url);
+                if (strpos($html, 'Set-Cookie:') === false)
+                    $success = false;
+            } else
+                $success = false;
             $html = $this->query('http://kiks.yandex.ru/su/', $url);
             if (strpos($html, 'Set-Cookie:') === false){
                 $success = false;

@@ -12,30 +12,21 @@ class ProxyRefresher
         if (strlen($str) > 10000) {
 
             $proxies = explode("\n", $str);
-            $transaction = Yii::app()->db_seo->beginTransaction();
-
-            try {
-                foreach ($proxies as $proxy) {
-                    $proxy = trim($proxy);
-                    $model = Proxy::model()->find('value="' . $proxy . '"');
-                    if ($model === null) {
-                        $model = new Proxy;
-                        $model->value = $proxy;
-                        $model->save();
-                        $i++;
-                    }
+            foreach ($proxies as $proxy) {
+                $proxy = trim($proxy);
+                $model = Proxy::model()->find('value="' . $proxy . '"');
+                if ($model === null) {
+                    $model = new Proxy;
+                    $model->value = $proxy;
+                    $model->save();
+                    $i++;
                 }
-                if (Proxy::model()->count() > 80000){
-                    Proxy::model()->deleteAll('active = 0 AND rank <= 10 order by rank ASC limit 10000');
-                }
-
-                $transaction->commit();
-            } catch (Exception $e) {
-                $transaction->rollback();
-                echo 'update proxy failed';
+            }
+            if (Proxy::model()->count() > 80000) {
+                Proxy::model()->deleteAll('active = 0 AND rank <= 10 order by rank ASC limit 10000');
             }
         }
 
-        echo $i.' -new proxies';
+        echo $i . ' -new proxies';
     }
 }

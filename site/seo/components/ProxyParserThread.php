@@ -22,7 +22,7 @@ class ProxyParserThread
     protected $delay_min = 10;
     protected $delay_max = 10;
     public $debug = false;
-    protected $timeout = 15;
+    protected $timeout = 40;
     protected $removeCookieOnChangeProxy = true;
     public $use_proxy = true;
     private $_start_time = null;

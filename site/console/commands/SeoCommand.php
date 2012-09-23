@@ -89,6 +89,7 @@ class SeoCommand extends CConsoleCommand
 
     public function actionWordstat($mode = 0)
     {
+        echo 'start';
         $parser = new WordstatParser();
         $parser->start($mode);
     }

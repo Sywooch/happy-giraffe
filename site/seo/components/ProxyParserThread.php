@@ -43,7 +43,6 @@ class ProxyParserThread
         $criteria->order = 'rank desc';
 
         $this->startTimer('find proxy');
-        $this->log('get proxy');
 
         $this->proxy = Proxy::model()->find($criteria);
         if ($this->proxy === null)
@@ -214,8 +213,8 @@ class ProxyParserThread
 
     protected function log($state)
     {
-//        if ($this->debug) {
+        if ($this->debug) {
             echo $state . "\n";
-//        }
+        }
     }
 }

@@ -139,8 +139,10 @@ class WordstatParser extends ProxyParserThread
 //            } else
 //                $success = false;
             $html = $this->query('http://kiks.yandex.ru/su/', $url);
-            if (strpos($html, 'Set-Cookie:') === false)
+            if (strpos($html, 'Set-Cookie:') === false){
                 $success = false;
+                $this->log('kiks.yandex.ru set cookie failed');
+            }
 
             if (Config::getAttribute('stop_threads') == 1)
                 $this->closeThread('manual exit');

@@ -5,10 +5,8 @@ var Friends = {
 
 Friends.open = function() {
     $.get('/userPopup/friends', function(data) {
+        Popup.load('Friends');
         $('body').append(data);
-        $('body').css('overflow', 'hidden');
-        $('body').append('<div id="body-overlay"></div>');
-        $('body').addClass('nav-fixed');
         $('#user-nav-friends').addClass('active');
 
         Friends.friendsCarousel = $('#user-friends .jcarousel').jcarousel({
@@ -20,9 +18,7 @@ Friends.open = function() {
 
 Friends.close = function() {
     $('#user-friends').remove();
-    $('body').css('overflow', '');
-    $('#body-overlay').remove();
-    $('body').removeClass('nav-fixed');
+    Popup.unload();
     $('#user-nav-friends').removeClass('active');
 }
 

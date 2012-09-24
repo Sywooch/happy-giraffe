@@ -4,10 +4,8 @@ var Notifications = {
 
 Notifications.open = function() {
     $.get('/userPopup/notifications', function(data) {
+        Popup.load('Notifications');
         $('body').append(data);
-        $('body').css('overflow', 'hidden');
-        $('body').append('<div id="body-overlay"></div>');
-        $('body').addClass('nav-fixed');
         $('#user-nav-notifications').addClass('active');
         Notifications.setHeight();
         $(window).on('resize', function() {
@@ -19,9 +17,7 @@ Notifications.open = function() {
 
 Notifications.close = function() {
     $('#user-notifications').remove();
-    $('body').css('overflow', '');
-    $('#body-overlay').remove();
-    $('body').removeClass('nav-fixed');
+    Popup.unload();
     $('#user-nav-notifications').removeClass('active');
     $(window).off('resize');
 }
@@ -76,8 +72,3 @@ $(function() {
     comet.addEvent(1000, 'receiveNotification');
 });
 
-var ul = $('#user-friends .news ul');
-for (var i = 6; i > 0; i++) {
-    ul.find('li:eq(' + i + ')').fadeIn(300);
-    if (i < 3) ul.find('li:eq(' + i + ')').fadeOut(300);
-}

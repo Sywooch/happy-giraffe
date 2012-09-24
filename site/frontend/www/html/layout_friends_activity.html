@@ -34,6 +34,16 @@
 		$(function(){
 			
 			friendsCarousel = $('#user-friends .jcarousel').jcarousel({wrap:'circular'});
+
+            var ul = $('#user-friends .news ul');
+            var i = 6;
+            setInterval(function() {
+                i--;
+                ul.find('li:eq(' + i + ')').fadeIn();
+                if (i < 3) ul.find('li:eq(' + i + ')').fadeOut();
+                if ($(ul.find('li:first:visible')).length > 0)
+                    clearInterval();
+            }, 400);
 			
 		})
 		
@@ -88,30 +98,8 @@
 				
 			}
 		}
-		
-		function friendsActivity(){
-			
-			var ul = $('#user-friends .news ul');
-			var current = ul.attr('data-current');
-			
-			current--;
-			
-			ul.find('li').eq(current).fadeIn(300, 'linear');
-			if (current < 3) ul.find('li').eq(current+3).hide();
-			
-			ul.attr('data-current', current);
-			
-			if (current > 0){
-			
-				setTimeout(function(){
-					friendsActivity();
-				}, 300);
-				
-			}
-			
-		}
-		
-	</script>
+
+    </script>
 	
 </head>
 <body class="body-club nav-fixed">
@@ -1636,7 +1624,7 @@
 				
 				<div class="block-title">Что нового у моих друзей</div>
 				
-				<ul data-current="6">
+				<ul>
 					<li style="display:none;">
 						<div class="date">Сегодня<br/>13:25</div>
 						<div class="in">
@@ -1711,10 +1699,6 @@
 					</li>
 					
 				</ul>
-				
-				<script type="text/javascript">
-					friendsActivity();
-				</script>
 				
 				<div class="all-link">
 					<a href=""><i class="icon"></i>Все новости моих друзей</a>

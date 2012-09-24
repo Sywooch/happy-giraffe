@@ -132,6 +132,9 @@
                                     </div>
                                 </div>
                             </li>
+                            <li id="user-nav-settings">
+                                <a href="javascript:void(0)" onclick="Settings.toggle()"><i class="icon icon-settings"></i></a>
+                            </li>
                         </ul>
 
                     </div>

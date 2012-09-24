@@ -69,7 +69,7 @@ $(function() {
     Comet.prototype.receiveNotification = function(result, id) {
         Notifications.updateCounter(1);
         if (Notifications.isActive())
-            $.fn.yiiListView.update('notificationsList');
+            $(result.html).hide().prependTo('#notificationsList .items').fadeIn();
     }
 
     comet.addEvent(1000, 'receiveNotification');

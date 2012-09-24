@@ -164,7 +164,7 @@ class User extends HActiveRecord
             array('first_name', 'length', 'max' => 50, 'message' => 'Слишком длинное имя'),
             array('last_name', 'length', 'max' => 50, 'message' => 'Слишком длинная фамилия'),
             array('email', 'email', 'message' => 'E-mail не является правильным E-Mail адресом'),
-            array('password, current_password, new_password, new_password_repeat', 'length', 'min' => 6, 'max' => 12, 'on' => 'signup', 'tooShort' => 'минимум 6 символов', 'tooLong' => 'максимум 15 символов'),
+            array('password, current_password, new_password, new_password_repeat', 'length', 'min' => 6, 'max' => 15, 'on' => 'signup, change_password', 'tooShort' => 'минимум 6 символов', 'tooLong' => 'максимум 15 символов'),
             array('online, relationship_status', 'numerical', 'integerOnly' => true),
             array('email', 'unique', 'on' => 'signup'),
             array('gender', 'boolean'),
@@ -194,7 +194,8 @@ class User extends HActiveRecord
             array('new_password', 'required', 'on' => 'change_password'),
             array('current_password', 'validatePassword', 'on' => 'change_password'),
             array('new_password_repeat', 'compare', 'on' => 'change_password', 'compareAttribute' => 'new_password'),
-            array('verifyCode', 'captcha', 'on' => 'change_password', 'allowEmpty' => false),
+            array('verifyCode', 'required', 'on' => 'change_password'),
+            array('verifyCode', 'captcha', 'on' => 'change_password', 'skipOnError' => true),
 
             //remember_password
             array('password', 'length', 'min' => 6, 'max' => 15, 'on' => 'remember_password', 'tooShort' => 'минимум 6 символов', 'tooLong' => 'максимум 15 символов'),
@@ -203,7 +204,7 @@ class User extends HActiveRecord
 
     public function validatePassword($attribute, $params)
     {
-        if ($this->password !== $this->hashPassword($this->current_password)) $this->addError('password', 'Текущий пароль введён неверно.');
+        if ($this->password !== $this->hashPassword($this->current_password)) $this->addError($attribute, 'Текущий пароль введён неверно.');
 
     }
 

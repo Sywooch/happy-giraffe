@@ -1492,8 +1492,8 @@ body.nav-fixed #header-new .top-line {position:fixed;left:50%;margin-left:-500px
 #user-friends .recent .news .empty {color:#2f8bc4;font-size:18px;position:absolute;top:50%;margin-top:-30px;left:50%;margin-left:-135px;width:270px;}
 #user-friends .recent .news .empty .icon {display:block;float:left;margin-top:-10px;margin-right:15px;width:60px;height:56px;background:url(/images/common.png) no-repeat -367px -340px;}
 #user-friends .recent .news .block-title {color:#3b3b3b;font-size:22px;margin-bottom:10px;}
-#user-friends .recent .news ul {list-style:none;}
-#user-friends .recent .news ul li {border-top:1px solid #d6e5f8;padding:8px 4px;overflow:hidden;}
+#user-friends .recent .news ul {list-style:none;height:140px;overflow:hidden;}
+#user-friends .recent .news ul li {border-top:1px solid #d6e5f8;padding:8px 4px;overflow:hidden;width:421px;}
 #user-friends .recent .news ul li:first-child {border-top:0;}
 #user-friends .recent .news ul li .date {float:right;width:50px;color:#b6b9ba;font-size:9px;font-family:tahoma, arial, helvetica, sans-serif;line-height:12px;text-align:center;}
 #user-friends .recent .news ul li .in {float:left;width:360px;}

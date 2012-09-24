@@ -39,7 +39,7 @@ class UserPopupController extends HController
 
         $newsCriteria = UserAction::model()->getFriendsCriteria(Yii::app()->user->id);
         $newsCriteria->limit = 3;
-        $news = UserAction::model()->findAll($newsCriteria);
+        $news = UserAction::model()->findAll();
 
         $this->renderPartial('friends', compact('requests', 'friendsCount', 'lastFriend', 'hasInvitations', 'findFriends', 'news'), false, true);
     }

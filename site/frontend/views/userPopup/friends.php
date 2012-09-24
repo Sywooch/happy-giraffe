@@ -19,32 +19,21 @@
 
                 <div class="block-title">У вас новые предложения дружбы</div>
 
-                <div class="jcarousel">
-                    <?php
-                        $this->widget('zii.widgets.CListView', array(
-                            'id' => 'friendRequestList',
-                            'dataProvider' => $requests,
-                            'itemView' => '//user/_friendRequest',
-                            'itemsTagName' => 'ul',
-                            'template' =>
-                            '
-                                            <div class="friends clearfix">
-                                                {items}
-                                            </div>
-                                            <div class="pagination pagination-center clearfix">
-                                                {pager}
-                                            </div>
-                                        ',
-                            'pager' => array(
-                                'class' => 'MyLinkPager',
-                                'header' => '',
-                            ),
-                            'viewData' => array(
-                                'direction' => 'incoming',
-                            ),
-                        ));
-                    ?>
-                </div>
+                <?php
+                    $this->widget('zii.widgets.CListView', array(
+                        'id' => 'friendRequestList',
+                        'dataProvider' => $requests,
+                        'itemView' => '//user/_friendRequest',
+                        'itemsTagName' => 'ul',
+                        'template' => '{items}',
+                        'viewData' => array(
+                            'direction' => 'incoming',
+                        ),
+                        'htmlOptions' => array(
+                            'class' => 'jcarousel',
+                        ),
+                    ));
+                ?>
             </div>
         <?php endif; ?>
 
@@ -126,20 +115,20 @@
 
                     <ul>
                         <?php foreach ($news as $n): ?>
-                        <li>
-                            <div class="date"><?php echo HDate::GetFormattedTime($n->updated); ?></div>
-                            <div class="in">
-                                <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
-                                    'user' => $c->contentAuthor,
-                                    'size' => 'small',
-                                    'sendButton' => false,
-                                    'location' => false,
-                                )); ?>
-                                <div class="text">
-                                    <?=$n->text?>
+                            <li>
+                                <div class="date"><?php echo HDate::GetFormattedTime($n->updated); ?></div>
+                                <div class="in">
+                                    <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
+                                        'user' => User::getUserById($n->user_id),
+                                        'size' => 'small',
+                                        'sendButton' => false,
+                                        'location' => false,
+                                    )); ?>
+                                    <div class="text">
+                                        <?=$n->text?>
+                                    </div>
                                 </div>
-                            </div>
-                        </li>
+                            </li>
                         <?php endforeach; ?>
                     </ul>
 

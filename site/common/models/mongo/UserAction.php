@@ -194,21 +194,46 @@ class UserAction extends EMongoDocument
     public function getText()
     {
         $user = User::model()->findByPk($this->user_id);
-        $userLink = CHtml::link($user->name, $user->url);
+        $userLink = CHtml::link($user->first_name, $user->url);
         switch ($this->type) {
             case self::USER_ACTION_PHOTOS_ADDED:
                 $album = Album::model()->findByPk($this->data['id']);
-                $text = $userLink . ' ' . (($user->gender == 0) ? 'добавила' : 'добавил') . 'новые фото <b>в альбом</b> ' . CHtml::link($album->title, $album->url);
+                $text = $userLink . ' ' . HDate::simpleVerb('добавил', $user->gender) . ' ' . 'новые фото <b>в альбом</b>' . ' ' . CHtml::link($album->title, $album->url);
                 break;
             case self::USER_ACTION_COMMUNITY_CONTENT_ADDED:
                 $content = CommunityContent::model()->findByPk($this->data['id']);
-                $text = $userLink . ' ' . (($user->gender == 0) ? 'добавила' : 'добавил') . 'запись <b>в клубе</b> ' . CHtml::link($content->rubric->community->title, $content->rubric->community->url);
+                $text = $userLink . ' ' . HDate::simpleVerb('добавил', $user->gender) . ' ' . 'запись <b>в клубе</b>' . ' ' . CHtml::link($content->rubric->community->title, $content->rubric->community->url);
                 break;
             case self::USER_ACTION_BLOG_CONTENT_ADDED:
-                $text = $userLink . ' ' . (($user->gender == 0) ? 'добавила' : 'добавил') . 'запись <b>в свой блог</b>';
+                $text = $userLink . ' ' . HDate::simpleVerb('добавил', $user->gender) . ' ' . 'запись <b>в свой блог</b>';
                 break;
             case self::USER_ACTION_DUEL:
-                $text = $userLink . ' ' . (($user->gender == 0) ? 'поучастововала' : 'поучастовал') . '<b>в дуэли</b>';
+                $text = $userLink . ' ' . HDate::simpleVerb('поучаствовал', $user->gender) . ' ' . '<b>в дуэли</b>';
+                break;
+            case self::USER_ACTION_CLUBS_JOINED:
+                $club = Community::model()->findByPk($this->data['id']);
+                $text = $userLink . ' ' . HDate::simpleVerb('вступил', $user->gender) . ' ' . CHtml::link($club->title, $club->url);
+                break;
+            case self::USER_ACTION_FAMILY_UPDATED:
+                $text = $userLink . ' ' . HDate::simpleVerb('обновил', $user->gender) . ' ' . 'информацию о семье';
+                break;
+            case self::USER_ACTION_COMMENT_ADDED:
+                $comment = Comment::model()->findByPk($this->data['id']);
+                $entity = CActiveRecord::model($comment->entity)->findByPk($comment->entity_id);
+                switch (get_class($entity)) {
+                    case 'BlogContent':
+                        $line2 = 'к вашей записи ' . CHtml::link($entity->title, $entity->url) . ' <b>в блоге</b>';
+                        break;
+                    case 'CommunityContent':
+                        $line2 = 'к вашей записи ' . CHtml::link($entity->title, $entity->url) . ' <b>в сообществе</b> ' . CHtml::link($entity->rubric->community->title, $entity->rubric->community->url);
+                        break;
+                    case 'CookRecipe':
+                        $line2 = 'к вашему рецепту ' . CHtml::link($entity->title, $entity->url);
+                        break;
+                    case 'AlbumPhoto':
+                        $line2 = 'к вашему фото ' . CHtml::link($entity->title, $entity->url) . ' <b>в альбоме</b> ' . CHtml::link($entity->album->title, $entity->album->url);
+                        break;
+                }
                 break;
             default:
                 $text = null;

@@ -93,7 +93,7 @@
 
                     <div class="become-friends"><i class="icon"></i>Подружились</div>
 
-                    <div class="date">Сегодня<br/>13:25</div>
+                    <div class="date"><?=HDate::GetFormattedTime($lastFriend->fCreated)?></div>
 
                 </div>
 
@@ -114,21 +114,23 @@
                     <div class="block-title">Что нового у моих друзей</div>
 
                     <ul>
-                        <?php foreach ($news as $n): ?>
-                            <li>
-                                <div class="date"><?php echo HDate::GetFormattedTime($n->updated); ?></div>
-                                <div class="in">
-                                    <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
-                                        'user' => User::getUserById($n->user_id),
-                                        'size' => 'small',
-                                        'sendButton' => false,
-                                        'location' => false,
-                                    )); ?>
-                                    <div class="text">
-                                        <?=$n->text?>
+                        <?php $i = 0; foreach ($news as $n): ?>
+                            <?php if ($n->text !== null): ?>
+                                <li>
+                                    <div class="date"><?php echo HDate::GetFormattedTime($n->updated); ?></div>
+                                    <div class="in">
+                                        <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
+                                            'user' => User::getUserById($n->user_id),
+                                            'size' => 'small',
+                                            'small' => true,
+                                        )); ?>
+                                        <div class="text">
+                                            <?=$n->text?>
+                                        </div>
                                     </div>
-                                </div>
-                            </li>
+                                </li>
+                                <?php $i++; if ($i == 3) break; ?>
+                            <?php endif; ?>
                         <?php endforeach; ?>
                     </ul>
 

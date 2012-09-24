@@ -64,6 +64,7 @@ Friends.moveFriend = function moveFriend(el) {
 
             $('#moveFriend').remove();
 
+            $('.recent-friend .date').text('Только что');
             $('#friendsCount').html(parseInt($('#friendsCount').html())+1);
 
             if (count>1) {

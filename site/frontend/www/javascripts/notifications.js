@@ -13,6 +13,7 @@ Notifications.open = function() {
         $(window).on('resize', function() {
             Notifications.setHeight();
         });
+
     });
 }
 
@@ -75,3 +76,8 @@ $(function() {
     comet.addEvent(1000, 'receiveNotification');
 });
 
+var ul = $('#user-friends .news ul');
+for (var i = 6; i > 0; i++) {
+    ul.find('li:eq(' + i + ')').fadeIn(300);
+    if (i < 3) ul.find('li:eq(' + i + ')').fadeOut(300);
+}

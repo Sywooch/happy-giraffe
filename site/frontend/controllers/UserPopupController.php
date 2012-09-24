@@ -32,6 +32,7 @@ class UserPopupController extends HController
         $friendsCount = Yii::app()->user->model->getFriendsCount();
 
         $lastFriendCriteria = Yii::app()->user->model->getFriendsCriteria(array(
+            'select' => 't.*, friends.created AS fCreated',
             'order' => 'friends.created DESC',
         ));
 

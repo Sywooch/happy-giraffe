@@ -222,18 +222,19 @@ class UserAction extends EMongoDocument
                 $entity = CActiveRecord::model($comment->entity)->findByPk($comment->entity_id);
                 switch (get_class($entity)) {
                     case 'BlogContent':
-                        $line2 = 'к вашей записи ' . CHtml::link($entity->title, $entity->url) . ' <b>в блоге</b>';
+                        $to = 'к вашей записи ' . CHtml::link($entity->title, $entity->url) . ' <b>в блоге</b>';
                         break;
                     case 'CommunityContent':
-                        $line2 = 'к вашей записи ' . CHtml::link($entity->title, $entity->url) . ' <b>в сообществе</b> ' . CHtml::link($entity->rubric->community->title, $entity->rubric->community->url);
+                        $to = 'к вашей записи ' . CHtml::link($entity->title, $entity->url) . ' <b>в сообществе</b> ' . CHtml::link($entity->rubric->community->title, $entity->rubric->community->url);
                         break;
                     case 'CookRecipe':
-                        $line2 = 'к вашему рецепту ' . CHtml::link($entity->title, $entity->url);
+                        $to = 'к вашему рецепту ' . CHtml::link($entity->title, $entity->url);
                         break;
                     case 'AlbumPhoto':
-                        $line2 = 'к вашему фото ' . CHtml::link($entity->title, $entity->url) . ' <b>в альбоме</b> ' . CHtml::link($entity->album->title, $entity->album->url);
+                        $to = 'к вашему фото ' . CHtml::link($entity->title, $entity->url) . ' <b>в альбоме</b> ' . CHtml::link($entity->album->title, $entity->album->url);
                         break;
                 }
+                $text = $userLink . ' ' . HDate::simpleVerb('оставил', $user->gender) . ' комментарий ' . $to;
                 break;
             default:
                 $text = null;

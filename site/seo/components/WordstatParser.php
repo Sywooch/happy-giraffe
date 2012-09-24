@@ -6,6 +6,10 @@
 class WordstatParser extends ProxyParserThread
 {
     /**
+     * @var ParsingKeyword[]
+     */
+    public $keywords = array();
+    /**
      * @var ParsingKeyword
      */
     public $keyword = null;
@@ -40,7 +44,7 @@ class WordstatParser extends ProxyParserThread
                         $this->getCookie();
                         $this->fails = 0;
                     } else
-                    $this->changeBadProxy();
+                        $this->changeBadProxy();
                 } else {
                     $this->success_loads++;
                     $this->fails = 0;
@@ -62,63 +66,59 @@ class WordstatParser extends ProxyParserThread
         }
     }
 
-    public function getKeyword()
+    public function loadKeywords()
     {
-        $this->keyword = null;
+        $this->startTimer('load keywords');
 
         $transaction = Yii::app()->db_seo->beginTransaction();
+
         try {
-            //выбираем максимальный приоритет
-//            $criteria = new CDbCriteria;
-//            $criteria->order = 'priority desc';
-//            $criteria->compare('active', 0);
-//            $max_priority = ParsingKeyword::model()->find($criteria);
-
-            //сначала выбираем с бесконечной глубиной парсинга
-//            $criteria = new CDbCriteria;
-//            $criteria->condition = 'depth IS NULL';
-//            $criteria->compare('active', 0);
-//            $criteria->compare('priority', $max_priority->priority);
-
-            //затем все остальные упорядоченные по глубине парсинга
-//            $criteria2 = new CDbCriteria;
-//            $criteria2->compare('active', 0);
-//            $criteria2->order = 'depth DESC';
-//            $criteria2->compare('priority', $max_priority->priority);
-
             $criteria = new CDbCriteria;
             $criteria->condition = 'depth IS NULL';
             $criteria->compare('active', 0);
             $criteria->order = 'priority asc';
-            $this->startTimer('find keyword');
-            $this->keyword = ParsingKeyword::model()->find($criteria);
-            $this->endTimer();
+            $criteria->limit = 100;
+            $this->keywords = ParsingKeyword::model()->findAll($criteria);
 
-            if ($this->keyword === null) {
+            if (empty($keywords)) {
                 $criteria = new CDbCriteria;
                 $criteria->compare('active', 0);
                 $criteria->order = 'depth DESC';
+                $criteria->limit = 100;
 
-                $this->keyword = ParsingKeyword::model()->find($criteria);
-                if ($this->keyword === null)
+                $this->keywords = ParsingKeyword::model()->findAll($criteria);
+                if (empty($this->keywords))
                     $this->closeThread('Keywords for parsing ended');
             }
 
-            $this->keyword->active = 1;
-            $this->startTimer('save keyword');
-            $this->keyword->save();
-            $this->endTimer();
+            //update active
+            $keys = array();
+            foreach ($this->keywords as $key)
+                $keys [] = $key->keyword_id;
 
-            $this->startTimer('commit getting keyword');
+            Yii::app()->db_seo->createCommand()->update('parsing_keywords', array('active' => 1),
+                'keyword_id IN (' . implode(',', $keys).')');
+
             $transaction->commit();
-            $this->endTimer();
 
         } catch (Exception $e) {
+            var_dump($e->getMessage());
             $transaction->rollback();
             $this->closeThread('get keyword transaction failed');
         }
 
+        $this->endTimer();
+        $this->log(count($this->keywords).' keywords loaded');
+    }
+
+    public function getKeyword()
+    {
         $this->first_page = true;
+
+        if (empty($this->keywords))
+            $this->loadKeywords();
+
+        $this->keyword = array_pop($this->keywords);
     }
 
     private function getCookie()
@@ -134,14 +134,14 @@ class WordstatParser extends ProxyParserThread
             if (preg_match('/<img src="\/\/mc.yandex.ru\/watch\/([\d]+)"/', $data, $res)) {
                 $mc_url = 'http://mc.yandex.ru/watch/' . $res[1];
                 $html = $this->query($mc_url, $url);
-                if (strpos($html, 'Set-Cookie:') === false){
+                if (strpos($html, 'Set-Cookie:') === false) {
                     $success = false;
                     $this->log('mc.yandex.ru set cookie failed');
                 }
             } else
                 $success = false;
             $html = $this->query('http://kiks.yandex.ru/su/', $url);
-            if (strpos($html, 'Set-Cookie:') === false){
+            if (strpos($html, 'Set-Cookie:') === false) {
                 $success = false;
                 $this->log('kiks.yandex.ru set cookie failed');
             }
@@ -279,8 +279,7 @@ class WordstatParser extends ProxyParserThread
             if (empty($depth) && !empty($exist->depth))
                 $exist->depth = null;
             elseif (!empty($exist->depth) && $exist->depth < $depth)
-                $exist->depth = $depth;
-            else
+                $exist->depth = $depth; else
                 return;
 
             try {

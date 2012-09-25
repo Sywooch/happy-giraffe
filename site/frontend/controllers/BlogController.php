@@ -193,8 +193,8 @@ class BlogController extends HController
         if (!empty($content->uniqueness) && $content->uniqueness < 50)
             Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
 
-        ///if (! Yii::app()->user->isGuest)
-        //    UserNotification::model()->deleteByEntity($content, Yii::app()->user->id);
+        if (! Yii::app()->user->isGuest)
+            UserNotification::model()->deleteByEntity($content, Yii::app()->user->id);
 
 
 

@@ -133,8 +133,6 @@ class UserNotification extends EMongoDocument
             case 'AlbumPhoto':
                 $line2 = 'к вашему фото ' . CHtml::link($entity->title, $entity->url) . ' в альбоме ' . CHtml::link($entity->album->title, $entity->album->url);
                 break;
-            default:
-                return false;
         }
         $this->text = $line1 . $line2;
         $this->entity = array(
@@ -172,8 +170,6 @@ class UserNotification extends EMongoDocument
             case 'AlbumPhoto':
                 $line2 = 'к фото ' . CHtml::link($entity->title, $entity->url) . ' в альбоме ' . CHtml::link($entity->album->title, $entity->album->url);
                 break;
-            default:
-                return false;
         }
         $this->text = $line1 . $line2;
         $this->entity = array(

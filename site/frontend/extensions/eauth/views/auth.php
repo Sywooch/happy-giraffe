@@ -36,7 +36,13 @@
                     <?php if(($us = UserSocialService::model()->findByUser($name, Yii::app()->user->id)) != null): ?>
                         <li class="clearfix">
                             <div class="col col-1"><span class="social-logo <?=$service->id?>"></span></div>
-                            <div class="col col-2"><?php if (! empty($us->name) && ! empty($us->url)): ?><?=CHtml::link($us->name, $us->url)?><?php endif; ?></div>
+                            <div class="col col-2">
+                                <?php if ($us->urlString != ''): ?>
+                                    <?=CHtml::link($us->nameString, $us->urlString, array('target' => '_blank'))?>
+                                <?php else: ?>
+                                    <?=$us->nameString?>
+                                <?php endif; ?>
+                            </div>
                             <div class="col col-3"><a href="javascript:void(0)" onclick="Settings.removeService(this, <?=$us->id?>, '<?=$service->id?>')" class="btn-remove"><i class="icon"></i>Удалить</a></div>
                         </li>
                     <?php endif; ?>

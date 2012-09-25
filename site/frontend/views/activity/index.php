@@ -34,23 +34,26 @@
 
                 <div class="col-2">
 
-                    <?php $this->widget('VideoWidget'); ?>
+                    <?php if ($this->beginCache('activity-page-2', array('duration' => 60))) { ?>
+                        <?php $this->widget('VideoWidget'); ?>
+                    <?php $this->endCache(); } ?>
 
-                    <?php if ($this->beginCache('activity-page-2', array('duration' => 600))) { ?>
+                    <?php if ($this->beginCache('activity-page-3', array('duration' => 600))) { ?>
                         <?php $this->widget('FriendsWidget'); ?>
-
                         <?php $this->widget('RandomPhotosWidget'); ?>
                     <?php $this->endCache(); } ?>
-                        <?php $this->widget('DuelWidget'); ?>
 
+                    <?php if ($this->beginCache('activity-page-4', array('duration' => 60))) { ?>
+                        <?php $this->widget('DuelWidget'); ?>
                         <?php $this->widget('HumorWidget'); ?>
+                    <?php $this->endCache(); } ?>
 
 
                 </div>
 
                 <div class="col-3">
 
-                    <?php if ($this->beginCache('activity-page-3', array('duration' => 600))) { ?>
+                    <?php if ($this->beginCache('activity-page-5', array('duration' => 600))) { ?>
                         <?php $this->widget('TopFiveWidget'); ?>
                         <?php $this->widget('BlogPopularWidget'); ?>
                         <?php $this->widget('CommunityPopularWidget'); ?>

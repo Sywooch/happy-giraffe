@@ -289,52 +289,5 @@ class SeoCommand extends CConsoleCommand
             $model->phrase->update(array('google_traffic'));
         }
     }
-
-    public function actionCount()
-    {
-        echo Yii::app()->db_seo->createCommand()
-            ->select('count(id)')
-            ->from('keywords')
-            ->where('our=1')
-            ->queryScalar();
-    }
-
-    public function actionKeywords()
-    {
-        $this->updateTable('keyword_group_keywords', 'keyword_id');
-        $this->updateTable('externallinks__anchors', 'keyword_id');
-        $this->updateTable('inner_linking__links', 'keyword_id');
-        $this->updateTable('inner_linking__urls', 'keyword_id');
-        $this->updateTable('keyword_blacklist', 'keyword_id');
-        $this->updateTable('pages_search_phrases', 'keyword_id');
-        $this->updateTable('parsed_keywords', 'keyword_id');
-        $this->updateTable('parsing_keywords', 'keyword_id');
-        $this->updateTable('queries', 'keyword_id');
-        $this->updateTable('sites__keywords_visits', 'keyword_id');
-        $this->updateTable('temp_keywords', 'keyword_id');
-    }
-
-    public function updateTable($table_name, $field_name)
-    {
-        $ids = Yii::app()->db_seo->createCommand()
-            ->select($field_name)
-            ->from($table_name)
-            ->queryColumn();
-
-        $temp = array();
-        for ($i = 0; $i < count($ids); $i++) {
-            $temp [] = $ids[$i];
-            if ($i % 100 == 0 && $i > 0) {
-                Yii::app()->db_seo->createCommand()
-                    ->update('keywords', array('our' => 1), 'id IN (' . implode(',', $temp) . ')');
-                $temp = array();
-                echo ($i / 100) . "\n";
-            }
-        }
-
-        if (!empty($temp))
-            Yii::app()->db_seo->createCommand()
-                ->update('keywords', array('our' => 1), 'id IN (' . implode(',', $temp) . ')');
-    }
 }
 

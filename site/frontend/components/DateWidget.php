@@ -62,18 +62,18 @@ class DateWidget extends CWidget
 	
 	public function run()
 	{
-		echo CHtml::dropDownList(CHtml::activeId($this->model, $this->attribute . '_d'), $this->_current['d'], $this->_d, array(
+		echo CHtml::tag('span', array('class' => 'chzn-v2'), CHtml::dropDownList(CHtml::activeId($this->model, $this->attribute . '_d'), $this->_current['d'], $this->_d, array(
 			'prompt' => '-',
-            'class' => 'chzn',
-		)).'&nbsp;&nbsp;';
-		echo CHtml::dropDownList(CHtml::activeId($this->model, $this->attribute . '_m'), $this->_current['m'], $this->_m, array(
+            'class' => 'chzn w-1',
+		))).'&nbsp;&nbsp;';
+		echo CHtml::tag('span', array('class' => 'chzn-v2'), CHtml::dropDownList(CHtml::activeId($this->model, $this->attribute . '_m'), $this->_current['m'], $this->_m, array(
 			'prompt' => '-',
-            'class' => 'chzn',
-		)).'&nbsp;&nbsp;';
-		echo CHtml::dropDownList(CHtml::activeId($this->model, $this->attribute . '_y'), $this->_current['y'], $this->_y, array(
+            'class' => 'chzn w-2',
+		))).'&nbsp;&nbsp;';
+		echo CHtml::tag('span', array('class' => 'chzn-v2'), CHtml::dropDownList(CHtml::activeId($this->model, $this->attribute . '_y'), $this->_current['y'], $this->_y, array(
 			'prompt' => '-',
-            'class' => 'chzn',
-		));
+            'class' => 'chzn w-3',
+		)));
 		echo CHtml::activeHiddenField($this->model, $this->attribute);
 
         $dateWidget = "function dateWidget(element, day, month, year) {

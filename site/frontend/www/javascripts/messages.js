@@ -14,10 +14,8 @@ Messages.open = function(interlocutor_id, type) {
 
     if (! Messages.isActive()) {
         $.get('/im/init/', function(data) {
+            Popup.load('Messages');
             $('#user-dialogs').show();
-            $('body').css('overflow', 'hidden');
-            $('body').append('<div id="body-overlay"></div>');
-            $('body').addClass('nav-fixed');
             $('#user-nav-messages').addClass('active');
 
             comet.addEvent(3, 'updateStatus');
@@ -68,9 +66,7 @@ Messages.initialize = function(interlocutor_id, type) {
 
 Messages.close = function() {
     $('#user-dialogs').hide();
-    $('body').css('overflow', '');
-    $('#body-overlay').remove();
-    $('body').removeClass('nav-fixed');
+    Popup.unload();
     $('#user-nav-messages').removeClass('active');
     //if (Messages.editor)
     //    Messages.editor.destroy(true);

@@ -383,9 +383,23 @@ class AlbumPhoto extends HActiveRecord
         ));
     }
 
-    public function getUrl()
+    public function getUrlParams()
     {
-        return Yii::app()->createUrl('albums/photo', array('user_id' => $this->author_id, 'album_id' => $this->album_id, 'id' => $this->id));
+        return array(
+            'albums/photo',
+            array(
+                'user_id' => $this->author_id,
+                'album_id' => $this->album_id,
+                'id' => $this->id
+            ),
+        );
+    }
+
+    public function getUrl($absolute = false)
+    {
+        list($route, $params) = $this->urlParams;
+        $method = $absolute ? 'createAbsoluteUrl' : 'createUrl';
+        return Yii::app()->$method($route, $params);
     }
 
     public function getCheckAccess()

@@ -188,6 +188,9 @@ class SiteController extends HController
                     $social_service->user_id = Yii::app()->user->id;
                     $social_service->service = $name;
                     $social_service->service_id = $id;
+                    $social_service->name = implode(' ', array($authIdentity->getAttribute('first_name'), $authIdentity->getAttribute('last_name')));
+                    if ($name == 'mailru')
+                        $social_service->url = $authIdentity->getAttribute('link');
                     $social_service->save();
                 }
                 else

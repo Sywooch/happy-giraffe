@@ -194,7 +194,7 @@ class BlogController extends HController
             Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
 
         if (! Yii::app()->user->isGuest)
-            UserNotification::model()->deleteByEntity($content, Yii::app()->user->id);
+            //UserNotification::model()->deleteByEntity($content, Yii::app()->user->id);
 
 
 

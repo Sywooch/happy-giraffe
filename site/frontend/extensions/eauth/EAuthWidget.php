@@ -103,12 +103,13 @@ class EAuthWidget extends CWidget {
 		// Open the authorization dilalog in popup window.
 		if ($this->popup) {
 			$cs->registerScriptFile($url.'/js/auth.js', CClientScript::POS_HEAD);
-			$js = '';
+			$js = '$(function() {';
 			foreach ($this->services as $name => $service) {
 				$args = $service->jsArguments;
 				$args['id'] = $service->id;
 				$js .= '$(".auth-service.'.$service->id.' a").eauth('.json_encode($args).');'."\n";
 			}
+            $js .= '});';
 			$cs->registerScript('eauth-services', $js, CClientScript::POS_READY);
 		}
 	}

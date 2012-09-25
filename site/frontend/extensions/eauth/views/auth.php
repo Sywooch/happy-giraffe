@@ -54,7 +54,7 @@
         <ul class="auth-services">
             <?php foreach ($services as $name => $service): ?>
                 <li class="auth-service <?=$service->id?>"<?php if(UserSocialService::model()->findByUser($name, Yii::app()->user->id) !== null): ?> style="display: none;"<?php endif; ?>>
-                    <?=HHtml::link('', array('/' . $action, 'service' => $name), array(
+                    <?=HHtml::link('', array('/' . $action, 'service' => $name, 'settings' => true), array(
                         'class' => 'auth-link ' . $service->id,
                     ), true)?>
                 </li>

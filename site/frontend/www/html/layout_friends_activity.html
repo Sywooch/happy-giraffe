@@ -92,21 +92,14 @@
 		function friendsActivity(){
 			
 			var ul = $('#user-friends .news ul');
-			var current = ul.attr('data-current');
 			
-			current--;
+			ul.find('li').hide();
 			
-			ul.find('li').eq(current).fadeIn(300, 'linear');
-			if (current < 3) ul.find('li').eq(current+3).hide();
-			
-			ul.attr('data-current', current);
-			
-			if (current > 0){
-			
-				setTimeout(function(){
-					friendsActivity();
+			for (var i = 6; i > 0; i--) {
+				setTimeout(function() {
+					ul.find('li:eq(' + i + ')').fadeIn();
+					if (i < 3) ul.find('li:eq(' + i + ')').fadeOut();
 				}, 300);
-				
 			}
 			
 		}

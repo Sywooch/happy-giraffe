@@ -37,12 +37,12 @@
 
             var ul = $('#user-friends .news ul');
             var i = 6;
-            setInterval(function() {
+            int = setInterval(function() {
                 i--;
                 ul.find('li:eq(' + i + ')').fadeIn();
-                if (i < 3) ul.find('li:eq(' + i + ')').fadeOut();
-                if ($(ul.find('li:first:visible')).length > 0)
-                    clearInterval();
+                if (i < 3) ul.find('li:eq(' + (i + 3) + ')').fadeOut();
+                if (i == 0)
+                    clearInterval(int);
             }, 400);
 			
 		})

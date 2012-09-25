@@ -13,6 +13,17 @@ Friends.open = function() {
             scroll: 4,
             wrap:'circular'
         });
+
+        var ul = $('#user-friends .news ul');
+        console.log(ul);
+        var i = 6;
+        int = setInterval(function() {
+            i--;
+            ul.find('li:eq(' + i + ')').fadeIn();
+            if (i < 3) ul.find('li:eq(' + (i + 3) + ')').fadeOut();
+            if (i == 0)
+                clearInterval(int);
+        }, 400);
     });
 }
 

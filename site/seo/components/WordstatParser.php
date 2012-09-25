@@ -76,7 +76,7 @@ class WordstatParser extends ProxyParserThread
             $criteria = new CDbCriteria;
             $criteria->condition = 'depth IS NULL';
             $criteria->compare('active', 0);
-            $criteria->order = 'priority asc';
+            $criteria->order = 'priority desc';
             $criteria->limit = 100;
             $this->keywords = ParsingKeyword::model()->findAll($criteria);
 
@@ -258,21 +258,16 @@ class WordstatParser extends ProxyParserThread
      */
     public function AddKeywordToParsing($keyword_id, $depth = null)
     {
-        $this->startTimer('add_keyword_to_parsing find parsed');
+        $this->startTimer('add_keyword_to_parsing');
         if ($keyword_id == $this->keyword->keyword_id)
             return;
 
         $parsed = ParsedKeywords::model()->findByPk($keyword_id);
-        $this->endTimer();
         if ($parsed !== null && (empty($parsed->depth) || $parsed->depth >= $depth))
             return;
 
-        $this->startTimer('add_keyword_to_parsing find parsing');
         $exist = ParsingKeyword::model()->findByPk($keyword_id);
-        $this->endTimer();
-
         if ($exist === null) {
-            $this->startTimer('add_keyword_to_parsing insert parsing');
             $parsing_model = new ParsingKeyword();
             $parsing_model->keyword_id = $keyword_id;
             $parsing_model->depth = $depth;
@@ -289,8 +284,6 @@ class WordstatParser extends ProxyParserThread
                 return;
 
             try {
-                $this->startTimer('add_keyword_to_parsing update parsing');
-
                 $exist->save();
             } catch (Exception $e) {
             }

@@ -58,7 +58,15 @@ class UserNotification extends EMongoDocument
 
     public function deleteByEntity($entity, $user_id)
     {
+        $criteria = new EMongoCriteria(array(
+            'conditions' => array(
+                'recipient_id' => array('equals' => (int) $user_id),
+                'entity.id' => array('equals' => (int) $entity->id),
+                'entity.name' => array('equals' => get_class($entity)),
+            ),
+        ));
 
+        $this->deleteAll($criteria);
     }
 
     public function getUserCriteria($user_id)

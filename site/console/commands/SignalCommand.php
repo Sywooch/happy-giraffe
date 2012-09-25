@@ -120,4 +120,9 @@ class SignalCommand extends CConsoleCommand
         $month->calculate();
         $month->save();
     }
+
+    public function actionTest(){
+        $model = CommunityContent::model()->findByPk(30058);
+        echo $model->url;
+    }
 }

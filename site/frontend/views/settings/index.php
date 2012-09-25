@@ -128,7 +128,7 @@
 
                 <p>Свяжите свой профиль с вашими аккаунтами на других сайтах. <br/>Это позволит входить на сайт, используя любой из привязанных аккаунтов.</p>
 
-                <?php //Yii::app()->eauth->renderWidget(array('mode' => 'profile', 'action' => 'site/login')); ?>
+                <?php Yii::app()->eauth->renderWidget(array('mode' => 'profile', 'action' => 'site/login')); ?>
 
             </div>
 
@@ -168,7 +168,7 @@
                         <div class="row-elements">
                             <?=$form->passwordField($this->user, 'new_password', array('class' => 'input-big'))?><br/>
                             <?=$form->error($this->user, 'new_password')?>
-                            <div class="small">Придумайте сложный пароль</div>
+                            <div class="small">Придумайте сложный пароль, который нельзя подобрать,<br />от 6 до 16 символов - цифры и английские буквы.</div>
                         </div>
 
                     </div>

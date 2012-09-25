@@ -79,6 +79,7 @@ class User extends HActiveRecord
     public $day;
     public $month;
     public $year;
+    public $fCreated;
 
     public $women_rel = array(
         1 => 'Замужем',

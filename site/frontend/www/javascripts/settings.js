@@ -5,10 +5,8 @@ var Settings = {
 
 Settings.open = function() {
     $.get('/settings/', function(data) {
+        Popup.load('Settings');
         $('body').append(data);
-        $('body').css('overflow', 'hidden');
-        $('body').append('<div id="body-overlay"></div>');
-        $('body').addClass('nav-fixed');
         $('#user-nav-settings').addClass('active');
         Settings.openTab(0);
         $('.chzn').each(function () {
@@ -21,9 +19,8 @@ Settings.open = function() {
 }
 
 Settings.close = function() {
+    Popup.unload();
     $('#user-settings').remove();
-    $('body').css('overflow', '');
-    $('#body-overlay').remove();
     $('body').removeClass('nav-fixed');
     $('#user-nav-settings').removeClass('active');
 }
@@ -39,7 +36,7 @@ Settings.isActive = function() {
 Settings.openTab = function(index) {
     $('#user-settings .nav ul li.active').removeClass('active');
     $('#user-settings .settings-in:visible').hide();
-    $('#user-settings .nav ul li:eq(' + index + ')').addClass('active')
+    $('#user-settings .nav ul li:eq(' + index + ')').addClass('active');
     $('#user-settings .settings-in:eq(' + index + ')').show();
 }
 
@@ -97,4 +94,17 @@ Settings.changeGender = function(el) {
         attribute: 'gender',
         value: $(el).val()
     });
+}
+
+Settings.removeService = function (el, id, service) {
+    $.post('/settings/removeService/', {
+        id: id
+    }, function(response) {
+        if (response == 'true') {
+            $(el).parents('li').remove();
+            $('.auth-services li.' + service).show();
+            if ($('.profiles-list ul li').length == 0)
+                $('.profiles-list').hide();
+        }
+    })
 }

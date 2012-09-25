@@ -19,29 +19,33 @@
 
 <?php else: ?>
 
-    <div class="profiles-list">
+    <?php if (Yii::app()->user->model->userSocialServices): ?>
 
-        <div class="list-title clearfix">
+        <div class="profiles-list">
 
-            <div class="col col-1">Социальная сеть</div>
-            <div class="col col-2">Имя</div>
-            <div class="col col-3">Удалить профиль </div>
+            <div class="list-title clearfix">
+
+                <div class="col col-1">Социальная сеть</div>
+                <div class="col col-2">Имя</div>
+                <div class="col col-3">Удалить профиль </div>
+
+            </div>
+
+            <ul>
+                <?php foreach ($services as $name => $service): ?>
+                    <?php if(($us = UserSocialService::model()->findByUser($name, Yii::app()->user->id)) != null): ?>
+                        <li class="clearfix">
+                            <div class="col col-1"><span class="social-logo <?=$service->id?>"></span></div>
+                            <div class="col col-2"><?php if (! empty($us->name) && ! empty($us->url)): ?><?=CHtml::link($us->name, $us->url)?><?php endif; ?></div>
+                            <div class="col col-3"><a href="javascript:void(0)" onclick="Settings.removeService(this, <?=$us->id?>, '<?=$service->id?>')" class="btn-remove"><i class="icon"></i>Удалить</a></div>
+                        </li>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            </ul>
 
         </div>
 
-        <ul>
-            <?php foreach ($services as $name => $service): ?>
-                <?php if(UserSocialService::model()->findByUser($name, Yii::app()->user->id) != null): ?>
-                    <li class="clearfix">
-                        <div class="col col-1"><span class="social-logo <?=$service->id?>"></span></div>
-                        <div class="col col-2"><a href="">Александр Кувыркин</a></div>
-                        <div class="col col-3"><a href="" class="btn-remove"><i class="icon"></i>Удалить профиль</a></div>
-                    </li>
-                <?php endif; ?>
-            <?php endforeach; ?>
-        </ul>
-
-    </div>
+    <?php endif; ?>
 
     <div class="add-profile">
 
@@ -49,13 +53,11 @@
 
         <ul class="auth-services">
             <?php foreach ($services as $name => $service): ?>
-                <?php if(UserSocialService::model()->findByUser($name, Yii::app()->user->id) === null): ?>
-                    <li class="auth-service <?=$service->id?>">
-                        <?=HHtml::link('', array('/' . $action, 'service' => $name), array(
-                            'class' => 'auth-link ' . $service->id,
-                        ), true)?>
-                    </li>
-                <?php endif; ?>
+                <li class="auth-service <?=$service->id?>"<?php if(UserSocialService::model()->findByUser($name, Yii::app()->user->id) !== null): ?> style="display: none;"<?php endif; ?>>
+                    <?=HHtml::link('', array('/' . $action, 'service' => $name), array(
+                        'class' => 'auth-link ' . $service->id,
+                    ), true)?>
+                </li>
             <?php endforeach; ?>
         </ul>
 

@@ -72,42 +72,18 @@
                 <?php if (! Yii::app()->user->isGuest): ?>
                     <?php
                         $notificationsCount = UserNotification::model()->getUserCount(Yii::app()->user->id);
+                        $friendsCount = UserFriendNotification::model()->getCount(Yii::app()->user->id);
+                        $imCount = Im::model()->getUnreadMessagesCount();
                     ?>
                     <div class="user-nav">
 
                         <ul>
                             <li><a href="<?php echo $this->createUrl('/user/profile', array('user_id'=>Yii::app()->user->id)) ?>"><i class="icon icon-home"></i></a></li>
                             <li id="user-nav-messages">
-                                <a href="javascript:void(0)" onclick="Messages.toggle()"><i class="icon icon-messages"></i><span class="count"></span></a>
-                                <div class="drp" style="display: none;">
-                                    <div class="drp-title">Диалоги</div>
-                                    <ul class="list">
-
-                                    </ul>
-                                    <div class="actions">
-                                        <ul>
-                                            <?php $dialogsCount = Im::model()->getDialogsCountAndOnlineDialogsCount(Yii::app()->user->id) ?>
-                                            <li><a href="javascript:void(0)" onclick="Messages.open();">Все диалоги (<?php echo $dialogsCount[0] ?>)</a></li>
-                                            <li><a href="javascript:void(0)" onclick="Messages.open(null, 1);">Новых</a> <a href="<?php echo $this->createUrl('/im/new') ?>" class="count<?php if (($incoming_count = Im::model()->getUnreadMessagesCount()) == 0): ?> count-gray<?php endif; ?>"><?php echo $incoming_count ?></a></li>
-                                            <li><a href="javascript:void(0)" onclick="Messages.open(null, 2);">Кто онлайн</a> <span class="online-count"><?php echo $dialogsCount[1] ?></span></li>
-                                        </ul>
-                                    </div>
-                                </div>
+                                <a href="javascript:void(0)" onclick="Messages.toggle()"><i class="icon icon-messages"></i><span class="count"<?php if ($imCount == 0): ?> style="display: none;"<?php endif; ?>><?=$imCount?></span></a>
                             </li>
                             <li id="user-nav-friends">
-                                <a href="#"><i class="icon icon-friends"></i><span class="count">0</span></a>
-                                <div class="drp drp-closable">
-                                    <div class="drp-title">Друзья</div>
-                                    <ul class="list"></ul>
-                                    <div class="actions">
-                                        <ul>
-                                            <li><a href="<?php echo $this->createUrl('/user/friends', array('user_id' => $user->id)); ?>">Все друзья (<?php echo $user->getFriendsCount(false); ?>)</a></li>
-                                            <li><a href="<?php echo $this->createUrl('/user/friends', array('user_id' => $user->id, 'show' => 'online')); ?>">Кто онлайн</a> <span class="online-count"><?php echo $user->getFriendsCount(true); ?></span></li>
-                                            <li><a href="<?php echo $this->createUrl('/user/myFriendRequests', array('direction' => 'incoming')); ?>">Предложения дружбы</a> <a href="#" class="count<?php if (($incoming_count = $user->getFriendRequestsCount('incoming')) == 0): ?> count-gray<?php endif; ?>"><?php echo $incoming_count; ?></a></li>
-                                            <li><a href="<?php echo $this->createUrl('/user/myFriendRequests', array('direction' => 'outgoing')); ?>">Мои предложения</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
+                                <a href="javascript:void(0)" onclick="Friends.toggle()"><i class="icon icon-friends"></i><span class="count"<?php if ($friendsCount == 0): ?> style="display: none;"<?php endif; ?>><?=$friendsCount?></span></a>
                             </li>
                             <li id="user-nav-notifications">
                                 <a href="javascript:void(0)" onclick="Notifications.toggle()"><i class="icon icon-notifications"></i><span class="count"<?php if ($notificationsCount == 0): ?> style="display: none;"<?php endif; ?>><?=$notificationsCount?></span></a>
@@ -115,25 +91,14 @@
                             <li>
                                 <a href="<?=$this->createUrl('/scores/default/index') ?>"><i class="icon icon-points"></i><span class="count"><?= $user->getScores()->scores ?></span></a>
                             </li>
-                            <li class="user">
-                                <div class="link">
-                                    <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => Yii::app()->user->model, 'size' => 'small', 'small' => true, 'sendButton' => false)); ?>
-                                    <a href="<?php echo $this->createUrl('/user/profile', array('user_id'=>Yii::app()->user->id)) ?>">
-                                        <span class="username"><?php echo CHtml::encode($user->first_name); ?><i class="arr"></i></span>
-                                    </a>
-                                </div>
-                                <div class="drp">
-                                    <div class="actions">
-                                        <ul>
-                                            <li><a href="<?php echo $this->createUrl('/user/profile', array('user_id'=>Yii::app()->user->id)) ?>">Мой профайл<i class="icon icon-profile"></i></a></li>
-                                            <li><a href="<?php echo $this->createUrl('/profile') ?>">Мои настройки<i class="icon icon-settings"></i></a></li>
-                                            <li><a href="<?php echo $this->createUrl('/site/logout') ?>">Выйти<i class="icon icon-logout"></i></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
+                            <li>
+                                <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => Yii::app()->user->model, 'size' => 'small', 'small' => true, 'sendButton' => false)); ?>
                             </li>
                             <li id="user-nav-settings">
                                 <a href="javascript:void(0)" onclick="Settings.toggle()"><i class="icon icon-settings"></i></a>
+                            </li>
+                            <li>
+                                <a href="<?php echo $this->createUrl('/site/logout') ?>"><i class="icon icon-logout"></i></a>
                             </li>
                         </ul>
 
@@ -512,7 +477,7 @@
 } else {
     $this->widget('application.widgets.messagesWidget.MessagesWidget');
 }?>
-<noindex>
+    <noindex>
         <!-- Yandex.Metrika counter -->
         <script type="text/javascript">
             (function (d, w, c) {
@@ -551,9 +516,6 @@
 
         </script>
     </noindex>
-
-    <!--Отработало за <?=sprintf('%0.5f',Yii::getLogger()->getExecutionTime())?> с. Скушано памяти: <?=round(memory_get_peak_usage()/(1024*1024),2)."MB"?>-->
-    <!--<?php $sql_stats = YII::app()->db->getStats();
-    echo $sql_stats[0] . ' запросов к БД, время выполнения запросов - ' . sprintf('%0.5f', $sql_stats[1]) . ' c.'; ?>-->
+    <div id="body-overlay" style="display: none;"></div>
 </body>
 </html>

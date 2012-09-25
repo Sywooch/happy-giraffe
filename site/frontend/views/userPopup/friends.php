@@ -119,11 +119,14 @@
                                 <li style="display: none;">
                                     <div class="date"><?php echo HDate::GetFormattedTime($n->updated); ?></div>
                                     <div class="in">
-                                        <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
-                                            'user' => User::getUserById($n->user_id),
-                                            'size' => 'small',
-                                            'small' => true,
-                                        )); ?>
+                                        <div class="user">
+                                            <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
+                                                'user' => $initiator,
+                                                'small' => true,
+                                                'size' => 'small',
+                                            )); ?>
+                                            <span class="icon-status status-<?=($initiator->online) ? 'online' : 'offline'?>"></span>
+                                        </div>
                                         <div class="text">
                                             <?=$n->text?>
                                         </div>

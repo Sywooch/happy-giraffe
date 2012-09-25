@@ -92,15 +92,15 @@
 		function friendsActivity(){
 			
 			var ul = $('#user-friends .news ul');
+			var i = 6;
 			
-			ul.find('li').hide();
-			
-			for (var i = 6; i > 0; i--) {
-				setTimeout(function() {
-					ul.find('li:eq(' + i + ')').fadeIn();
-					if (i < 3) ul.find('li:eq(' + i + ')').fadeOut();
-				}, 300);
-			}
+			int = setInterval(function() {
+				i--;
+				ul.find('li:eq(' + i + ')').fadeIn();
+				if (i < 3) ul.find('li:eq(' + (i + 3) + ')').fadeOut();
+				if (i == 0)
+						clearInterval(int);
+			}, 400);
 			
 		}
 		

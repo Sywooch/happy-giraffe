@@ -36,6 +36,7 @@
         ->registerScriptFile('/javascripts/jquery.dataSelector.js')
         ->registerScriptFile('/javascripts/jquery.jcarousel.js')
         ->registerScriptFile('/javascripts/jquery.jcarousel.control.js')
+        ->registerCoreScript('yiiactiveform')
     ;
 
     $cs->registerMetaTag(trim($this->meta_description), 'description');

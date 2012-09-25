@@ -37,7 +37,11 @@ class SettingsController extends HController
 
     public function actionIndex()
     {
-        $this->renderPartial('index', null, false, true);
+        Yii::app()->clientScript->scriptMap = array(
+            'jquery.yiiactiveform.js' => false,
+        );
+
+        $this->renderPartial('index', null, false, false);
     }
 
     public function actionRemoveService()

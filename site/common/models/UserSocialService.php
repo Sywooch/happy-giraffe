@@ -97,4 +97,32 @@ class UserSocialService extends HActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+    public function getUrlString()
+    {
+        if (empty($this->url)) {
+            switch ($this->service) {
+                case 'vkontakte':
+                    $url = 'http://vk.com/id' . $this->service_id;
+                    break;
+                case 'facebook':
+                    $url = 'http://www.facebook.com/profile.php?id=' . $this->service_id;
+                    break;
+                case 'odnoklassniki':
+                    $url = 'http://www.odnoklassniki.ru/profile/' . $this->service_id;
+                    break;
+                default:
+                    $url = '';
+            }
+        } else {
+            $url = $this->url;
+        }
+
+        return $url;
+    }
+
+    public function getNameString()
+    {
+        return (! empty($this->name)) ? $this->name : $this->getUrlString();
+    }
 }

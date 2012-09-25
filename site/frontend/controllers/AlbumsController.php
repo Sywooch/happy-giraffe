@@ -165,10 +165,6 @@ class AlbumsController extends HController
         $photo = AlbumPhoto::model()->findByPk($id);
         $this->user = $photo->author;
 
-        if ($photo->author_id == Yii::app()->user->id)
-            UserNotification::model()->deleteByEntity(UserNotification::NEW_COMMENT, $photo);
-        UserNotification::model()->deleteByEntity(UserNotification::NEW_REPLY, $photo);
-
         if (!Yii::app()->request->isAjaxRequest)
             $this->render('photo', compact('photo'));
         else
@@ -695,10 +691,6 @@ class AlbumsController extends HController
         if ($photo === null)
             throw new CHttpException(404, 'Фото не найдено');
 
-        if ($photo->author_id == Yii::app()->user->id)
-            UserNotification::model()->deleteByEntity(UserNotification::NEW_COMMENT, $photo);
-        UserNotification::model()->deleteByEntity(UserNotification::NEW_REPLY, $photo);
-
         switch ($entity) {
             case 'CommunityContentGallery':
                 Yii::app()->user->setState('ban_register_window', 1);
@@ -737,6 +729,10 @@ class AlbumsController extends HController
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
         $this->layout = '//layouts/main';
+
+        if (! Yii::app()->user->isGuest)
+            UserNotification::model()->deleteByEntity($photo, Yii::app()->user->id);
+
         $this->render('singlePhoto', compact('model', 'collection', 'photo', 'currentIndex'));
     }
 

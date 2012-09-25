@@ -70,6 +70,8 @@ class AjaxController extends HController
                 'age' => $model->getAge(),
                 'birthday' => $model->birthday,
             );
+            if ($modelName == 'User')
+                $response['birthday_str'] = Yii::app()->dateFormatter->format("d MMMM", $model->birthday) . ' (' . $model->normalizedAge . ')';
         } else {
             $response = array(
                 'status' => false,

@@ -19,32 +19,21 @@
 
                 <div class="block-title">У вас новые предложения дружбы</div>
 
-                <div class="jcarousel">
-                    <?php
-                        $this->widget('zii.widgets.CListView', array(
-                            'id' => 'friendRequestList',
-                            'dataProvider' => $requests,
-                            'itemView' => '//user/_friendRequest',
-                            'itemsTagName' => 'ul',
-                            'template' =>
-                            '
-                                            <div class="friends clearfix">
-                                                {items}
-                                            </div>
-                                            <div class="pagination pagination-center clearfix">
-                                                {pager}
-                                            </div>
-                                        ',
-                            'pager' => array(
-                                'class' => 'MyLinkPager',
-                                'header' => '',
-                            ),
-                            'viewData' => array(
-                                'direction' => 'incoming',
-                            ),
-                        ));
-                    ?>
-                </div>
+                <?php
+                    $this->widget('zii.widgets.CListView', array(
+                        'id' => 'friendRequestList',
+                        'dataProvider' => $requests,
+                        'itemView' => '//user/_friendRequest',
+                        'itemsTagName' => 'ul',
+                        'template' => '{items}',
+                        'viewData' => array(
+                            'direction' => 'incoming',
+                        ),
+                        'htmlOptions' => array(
+                            'class' => 'jcarousel',
+                        ),
+                    ));
+                ?>
             </div>
         <?php endif; ?>
 
@@ -104,7 +93,7 @@
 
                     <div class="become-friends"><i class="icon"></i>Подружились</div>
 
-                    <div class="date">Сегодня<br/>13:25</div>
+                    <div class="date"><?=HDate::GetFormattedTime($lastFriend->fCreated)?></div>
 
                 </div>
 
@@ -125,21 +114,23 @@
                     <div class="block-title">Что нового у моих друзей</div>
 
                     <ul>
-                        <?php foreach ($news as $n): ?>
-                        <li>
-                            <div class="date"><?php echo HDate::GetFormattedTime($n->updated); ?></div>
-                            <div class="in">
-                                <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
-                                    'user' => $c->contentAuthor,
-                                    'size' => 'small',
-                                    'sendButton' => false,
-                                    'location' => false,
-                                )); ?>
-                                <div class="text">
-                                    <?=$n->text?>
-                                </div>
-                            </div>
-                        </li>
+                        <?php $i = 0; foreach ($news as $n): ?>
+                            <?php if ($n->text !== null): ?>
+                                <li style="display: none;">
+                                    <div class="date"><?php echo HDate::GetFormattedTime($n->updated); ?></div>
+                                    <div class="in">
+                                        <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
+                                            'user' => User::getUserById($n->user_id),
+                                            'size' => 'small',
+                                            'small' => true,
+                                        )); ?>
+                                        <div class="text">
+                                            <?=$n->text?>
+                                        </div>
+                                    </div>
+                                </li>
+                                <?php $i++; if ($i == 6) break; ?>
+                            <?php endif; ?>
                         <?php endforeach; ?>
                     </ul>
 

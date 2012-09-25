@@ -15,6 +15,13 @@ class UserPopupController extends HController
         );
     }
 
+    public function actionNotifications()
+    {
+        $dp = UserNotification::model()->getUserNotifications(Yii::app()->user->id);
+
+        $this->renderPartial('notifications', compact('dp'), false, true);
+    }
+
     public function actionFriends()
     {
         $requests = Yii::app()->user->model->getFriendRequests('incoming');
@@ -25,13 +32,15 @@ class UserPopupController extends HController
         $friendsCount = Yii::app()->user->model->getFriendsCount();
 
         $lastFriendCriteria = Yii::app()->user->model->getFriendsCriteria(array(
+            'select' => 't.*, friends.created AS fCreated',
             'order' => 'friends.created DESC',
         ));
 
         $lastFriend = User::model()->find($lastFriendCriteria);
 
         $newsCriteria = UserAction::model()->getFriendsCriteria(Yii::app()->user->id);
-        $newsCriteria->limit = 3;
+        $newsCriteria->limit = 10;
+        $newsCriteria->sort('updated', EMongoCriteria::SORT_DESC);
         $news = UserAction::model()->findAll($newsCriteria);
 
         $this->renderPartial('friends', compact('requests', 'friendsCount', 'lastFriend', 'hasInvitations', 'findFriends', 'news'), false, true);

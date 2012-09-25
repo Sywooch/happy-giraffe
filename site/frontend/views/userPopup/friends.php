@@ -116,7 +116,7 @@
                     <ul>
                         <?php $i = 0; foreach ($news as $n): ?>
                             <?php if ($n->text !== null): ?>
-                                <li>
+                                <li style="display: none;">
                                     <div class="date"><?php echo HDate::GetFormattedTime($n->updated); ?></div>
                                     <div class="in">
                                         <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
@@ -129,7 +129,7 @@
                                         </div>
                                     </div>
                                 </li>
-                                <?php $i++; if ($i == 3) break; ?>
+                                <?php $i++; if ($i == 6) break; ?>
                             <?php endif; ?>
                         <?php endforeach; ?>
                     </ul>

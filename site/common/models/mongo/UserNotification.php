@@ -42,7 +42,7 @@ class UserNotification extends EMongoDocument
     public function rules()
     {
         return array(
-            //array('recipient_id', 'compare', 'compareAttribute' => 'initiator_id', 'operator' => '!='),
+            array('recipient_id', 'compare', 'compareAttribute' => 'initiator_id', 'operator' => '!='),
         );
     }
 

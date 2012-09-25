@@ -42,7 +42,7 @@ class UserNotification extends EMongoDocument
     public function rules()
     {
         return array(
-            array('recipient_id', 'compare', 'compareAttribute' => 'initiator_id', 'operator' => '!='),
+            //array('recipient_id', 'compare', 'compareAttribute' => 'initiator_id', 'operator' => '!='),
         );
     }
 
@@ -59,8 +59,8 @@ class UserNotification extends EMongoDocument
     public function deleteByEntity($entity, $user_id)
     {
         $criteria = new EMongoCriteria(array(
-            'recipient_id' => $user_id,
-            'entity.id' => $entity->id,
+            'recipient_id' => (int) $user_id,
+            'entity.id' => (int) $entity->id,
             'entity.name' => get_class($entity),
         ));
 
@@ -70,7 +70,7 @@ class UserNotification extends EMongoDocument
     public function getUserCriteria($user_id)
     {
         $criteria = new EMongoCriteria;
-        $criteria->recipient_id = $user_id;
+        $criteria->recipient_id = (int) $user_id;
         $criteria->sort('created', EMongoCriteria::SORT_DESC);
         return $criteria;
     }
@@ -110,7 +110,7 @@ class UserNotification extends EMongoDocument
         if (! (in_array($entityName, array('CommunityContent', 'BlogContent', 'User', 'CookRecipe')) || $entityName == 'AlbumPhoto' && $entity->album !== null))
             return false;
 
-        $this->recipient_id = (int) ($entityName != 'User') ? $entity->author_id : $entity->id;
+        $this->recipient_id = (int) (($entityName != 'User') ? $entity->author_id : $entity->id);
         $this->initiator_id = (int) $comment->author_id;
         $this->url = $comment->url;
 
@@ -131,6 +131,8 @@ class UserNotification extends EMongoDocument
             case 'AlbumPhoto':
                 $line2 = 'к вашему фото ' . CHtml::link($entity->title, $entity->url) . ' в альбоме ' . CHtml::link($entity->album->title, $entity->album->url);
                 break;
+            default:
+                return false;
         }
         $this->text = $line1 . $line2;
         $this->entity = array(
@@ -168,6 +170,8 @@ class UserNotification extends EMongoDocument
             case 'AlbumPhoto':
                 $line2 = 'к фото ' . CHtml::link($entity->title, $entity->url) . ' в альбоме ' . CHtml::link($entity->album->title, $entity->album->url);
                 break;
+            default:
+                return false;
         }
         $this->text = $line1 . $line2;
         $this->entity = array(

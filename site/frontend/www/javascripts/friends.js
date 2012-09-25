@@ -5,24 +5,31 @@ var Friends = {
 
 Friends.open = function() {
     $.get('/userPopup/friends', function(data) {
+        Popup.load('Friends');
         $('body').append(data);
-        $('body').css('overflow', 'hidden');
-        $('body').append('<div id="body-overlay"></div>');
-        $('body').addClass('nav-fixed');
         $('#user-nav-friends').addClass('active');
 
         Friends.friendsCarousel = $('#user-friends .jcarousel').jcarousel({
             scroll: 4,
             wrap:'circular'
         });
+
+        var ul = $('#user-friends .news ul');
+        console.log(ul);
+        var i = 6;
+        int = setInterval(function() {
+            i--;
+            ul.find('li:eq(' + i + ')').fadeIn();
+            if (i < 3) ul.find('li:eq(' + (i + 3) + ')').fadeOut();
+            if (i == 0)
+                clearInterval(int);
+        }, 400);
     });
 }
 
 Friends.close = function() {
     $('#user-friends').remove();
-    $('body').css('overflow', '');
-    $('#body-overlay').remove();
-    $('body').removeClass('nav-fixed');
+    Popup.unload();
     $('#user-nav-friends').removeClass('active');
 }
 
@@ -64,6 +71,7 @@ Friends.moveFriend = function moveFriend(el) {
 
             $('#moveFriend').remove();
 
+            $('.recent-friend .date').text('Только что');
             $('#friendsCount').html(parseInt($('#friendsCount').html())+1);
 
             if (count>1) {

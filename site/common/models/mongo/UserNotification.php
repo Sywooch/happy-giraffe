@@ -42,14 +42,16 @@ class UserNotification extends EMongoDocument
     public function rules()
     {
         return array(
-            //array('recipient_id', 'compare', 'compareAttribute' => 'initiator_id', 'operator' => '!='),
+            array('recipient_id', 'compare', 'compareAttribute' => 'initiator_id', 'operator' => '!='),
         );
     }
 
     protected function afterSave()
     {
         $comet = new CometModel;
-        $comet->send($this->recipient_id, null, CometModel::TYPE_NEW_NOTIFICATION);
+        $comet->send($this->recipient_id, array(
+            'html' => Yii::app()->controller->renderPartial('//userPopup/_notification', array('data' => $this), true),
+        ), CometModel::TYPE_NEW_NOTIFICATION);
 
         parent::afterSave();
     }

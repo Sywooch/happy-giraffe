@@ -18,8 +18,9 @@
                 'dataProvider' => $dp,
                 'itemView' => '_notification',
                 'itemsTagName' => 'ul',
-                'template' => '{items} {pager}',
+                'template' => "{items}\n{pager}",
                 'pager' => array(
+                    'header' => '',
                     'class' => 'ext.infiniteScroll.IasPager',
                     'rowSelector' => 'li',
                     'listViewId' => 'notificationsList',

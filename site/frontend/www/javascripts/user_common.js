@@ -1,3 +1,25 @@
+var Popup = {
+    list : ['Messages', 'Friends', 'Notifications', 'Settings'],
+    current : null
+}
+
+Popup.load = function(name) {
+    if (this.current !== null && this.current != name)
+        window[this.current]['close']();
+
+    this.current = name;
+
+    $('body').css('overflow', 'hidden');
+    $('body').addClass('nav-fixed');
+    $('#body-overlay').show();
+}
+
+Popup.unload = function() {
+    $('body').css('overflow', '');
+    $('body').removeClass('nav-fixed');
+    $('#body-overlay').hide();
+}
+
 $(function() {
     $.ajax({
         dataType: 'json',

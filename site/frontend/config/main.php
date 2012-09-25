@@ -244,6 +244,9 @@ return array(
 		'log'=>array(
 			'class'=>'CLogRouter',
 			'routes'=>array(
+                array(
+                    'class' => 'CProfileLogRoute',
+                ),
 				array(
 					'class'=>'CFileLogRoute',
 					'levels'=>'error, warning',

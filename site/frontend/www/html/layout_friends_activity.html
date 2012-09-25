@@ -34,6 +34,16 @@
 		$(function(){
 			
 			friendsCarousel = $('#user-friends .jcarousel').jcarousel({wrap:'circular'});
+
+            var ul = $('#user-friends .news ul');
+            var i = 6;
+            int = setInterval(function() {
+                i--;
+                ul.find('li:eq(' + i + ')').fadeIn();
+                if (i < 3) ul.find('li:eq(' + (i + 3) + ')').fadeOut();
+                if (i == 0)
+                    clearInterval(int);
+            }, 400);
 			
 		})
 		
@@ -88,8 +98,28 @@
 				
 			}
 		}
+<<<<<<< HEAD
+		
+		function friendsActivity(){
+			
+			var ul = $('#user-friends .news ul');
+			var i = 6;
+			
+			int = setInterval(function() {
+				i--;
+				ul.find('li:eq(' + i + ')').fadeIn();
+				if (i < 3) ul.find('li:eq(' + (i + 3) + ')').fadeOut();
+				if (i == 0)
+						clearInterval(int);
+			}, 400);
+			
+		}
 		
 	</script>
+=======
+
+    </script>
+>>>>>>> e5518cedceebfaab9c177fe9506a9b088d84af98
 	
 </head>
 <body class="body-club nav-fixed">
@@ -1615,7 +1645,7 @@
 				<div class="block-title">Что нового у моих друзей</div>
 				
 				<ul>
-					<li>
+					<li style="display:none;">
 						<div class="date">Сегодня<br/>13:25</div>
 						<div class="in">
 							<div class="user">
@@ -1627,7 +1657,7 @@
 							</div>
 						</div>
 					</li>
-					<li>
+					<li style="display:none;">
 						<div class="date">Сегодня<br/>13:25</div>
 						<div class="in">
 							<div class="user">
@@ -1639,7 +1669,43 @@
 							</div>
 						</div>
 					</li>
-					<li>
+					<li style="display:none;">
+						<div class="date">Сегодня<br/>13:25</div>
+						<div class="in">
+							<div class="user">
+								<a href="" class="ava small"></a>
+								<span class="icon-status status-offline"></span>
+							</div>
+							<div class="text">
+								<a href="">Виктория</a> оставила комментарий <b>в блоге <span class="user"><span class="icon-status status-online"></span> <a href="">Настя</a></span> <a href="">Как построить бревенчатый дом. Нюансы, тонкости, приспособления</a></b>
+							</div>
+						</div>
+					</li>
+					<li style="display:none;">
+						<div class="date">Сегодня<br/>13:25</div>
+						<div class="in">
+							<div class="user">
+								<a href="" class="ava small"></a>
+								<span class="icon-status status-online"></span>
+							</div>
+							<div class="text">
+								<a href="">Александра Богоявленская</a> добавила новые фото <b>в альбом <a href="">Зимние каникулы</a></b>
+							</div>
+						</div>
+					</li>
+					<li style="display:none;">
+						<div class="date">Сегодня<br/>13:25</div>
+						<div class="in">
+							<div class="user">
+								<a href="" class="ava small"></a>
+								<span class="icon-status status-offline"></span>
+							</div>
+							<div class="text">
+								<a href="">Ирина</a> добавила запись <b>в клубе <a href="">Ранее развитие и обучение</a></b>
+							</div>
+						</div>
+					</li>
+					<li style="display:none;">
 						<div class="date">Сегодня<br/>13:25</div>
 						<div class="in">
 							<div class="user">

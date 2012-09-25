@@ -204,8 +204,8 @@ class RecipeController extends HController
         $this->layout = '//layouts/recipe';
         $this->pageTitle = $recipe->title;
 
-        //if (! Yii::app()->user->isGuest)
-        //    UserNotification::model()->deleteByEntity($recipe, Yii::app()->user->id);
+        if (! Yii::app()->user->isGuest)
+            UserNotification::model()->deleteByEntity($recipe, Yii::app()->user->id);
 
         $this->render('view', compact('recipe'));
     }

@@ -319,18 +319,20 @@ class HDate
      */
     public static function GetFormattedTime($time, $delimiter = ' ')
     {
+        $ts = (is_int($time)) ? $time : strtotime($time);
+
         $result = '';
-        if (date("Y:m:d", strtotime($time)) == date("Y:m:d"))
+        if (date("Y:m:d", $ts) == date("Y:m:d"))
             $result .= 'Сегодня';
-        elseif (date("Y", strtotime($time)) == date("Y"))
-            $result .= date("j", strtotime($time)) . ' '
-                . self::ruMonthShort(date("m", strtotime($time)));
+        elseif (date("Y", $ts) == date("Y"))
+            $result .= date("j", $ts) . ' '
+                . self::ruMonthShort(date("m", $ts));
         else
-            $result .= date("Y", strtotime($time)) . $delimiter .
-                date("j", strtotime($time)) . ' '
-                . self::ruMonthShort(date("m", strtotime($time)));
+            $result .= date("Y", $ts) . $delimiter .
+                date("j", $ts) . ' '
+                . self::ruMonthShort(date("m", $ts));
         $result .= $delimiter;
-        $result .= date("H:i", strtotime($time));
+        $result .= date("H:i", $ts);
 
         return $result;
     }
@@ -400,5 +402,10 @@ class HDate
                 return 'ий';
                 break;
         }
+    }
+
+    public static function simpleVerb($word, $gender)
+    {
+        return ($gender) ? $word : $word . 'а';
     }
 }

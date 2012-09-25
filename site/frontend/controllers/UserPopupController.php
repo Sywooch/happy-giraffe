@@ -11,7 +11,7 @@ class UserPopupController extends HController
     public function filters()
     {
         return array(
-            'ajaxOnly',
+            //'ajaxOnly',
         );
     }
 

@@ -135,6 +135,7 @@ class SiteController extends HController
 	public function actionLogin()
 	{
 		$service = Yii::app()->request->getQuery('service');
+        $settings = Yii::app()->request->getQuery('settings');
 		if (isset($service)) {
             if (! in_array($service, array_keys(Yii::app()->eauth->services)))
                 throw new CHttpException(404, 'Страница не найдена');
@@ -146,6 +147,14 @@ class SiteController extends HController
                 if($url_info['host'] == $_SERVER['HTTP_HOST'])
                 {
                     $redirectUrl = $url_info['path'];
+                    if ($settings !== null && strpos($redirectUrl, 'openSettings') === false) {
+                        if (isset($url_info['query'])) {
+                            $redirectUrl .= '&openSettings=1';
+                        }
+                        else {
+                            $redirectUrl .= '?openSettings=1';
+                        }
+                    }
                     Yii::app()->user->setState('social_redirect', $redirectUrl);
                 }
             }

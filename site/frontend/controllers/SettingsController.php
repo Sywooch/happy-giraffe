@@ -26,7 +26,7 @@ class SettingsController extends HController
     public function filters()
     {
         return array(
-            'ajaxOnly + index, changePassword',
+            'ajaxOnly + index, changePassword, removeService',
         );
     }
 
@@ -38,6 +38,17 @@ class SettingsController extends HController
     public function actionIndex()
     {
         $this->renderPartial('index', null, false, true);
+    }
+
+    public function actionRemoveService()
+    {
+        $id = Yii::app()->request->getPost('id');
+        $service = UserSocialService::model()->findByAttributes(array(
+            'id' => $id,
+            'user_id' => Yii::app()->user->id,
+        ));
+        if ($service !== null)
+            echo CJavaScript::encode($service->delete());
     }
 
     public function actionChangePassword()

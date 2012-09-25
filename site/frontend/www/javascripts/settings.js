@@ -95,3 +95,16 @@ Settings.changeGender = function(el) {
         value: $(el).val()
     });
 }
+
+Settings.removeService = function (el, id, service) {
+    $.post('/settings/removeService/', {
+        id: id
+    }, function(response) {
+        if (response == 'true') {
+            $(el).parents('li').remove();
+            $('.auth-services li.' + service).show();
+            if ($('.profiles-list ul li').length == 0)
+                $('.profiles-list').hide();
+        }
+    })
+}

@@ -12,7 +12,7 @@
     if ($show != 'all' || $dataProvider->itemCount >= 6 || $this->user->id !== Yii::app()->user->id):?>
         <?php
         $this->widget('zii.widgets.CListView', array(
-            'id' => 'friends',
+            'id' => 'friendRequestList',
             'ajaxUpdate' => true,
             'dataProvider' => $dataProvider,
             'itemView' => '_friend',

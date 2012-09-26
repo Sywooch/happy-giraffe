@@ -220,14 +220,6 @@ class Comment extends HActiveRecord
                     ), CometModel::TYPE_COMMENTATOR_UPDATE);
                 }
             }
-
-            if (in_array($this->entity, array('CommunityContent', 'BlogContent', 'RecipeBookRecipe', 'User', 'AlbumPhoto'))) {
-                UserNotification::model()->create(UserNotification::NEW_COMMENT, array('comment' => $this));
-            }
-
-            if (in_array($this->entity, array('CommunityContent', 'BlogContent', 'RecipeBookRecipe', 'AlbumPhoto')) && $this->response_id !== null) {
-                UserNotification::model()->create(UserNotification::NEW_REPLY, array('comment' => $this));
-            }
         }
         parent::afterSave();
     }

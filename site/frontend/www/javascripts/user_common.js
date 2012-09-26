@@ -25,7 +25,6 @@ $(function() {
         dataType: 'json',
         url: '/notification/getLast/',
         success: function(response) {
-            updateFriends(response.friends.count, response.friends.data);
             updateIm(response.im.count, response.im.data);
         }
     });
@@ -68,28 +67,11 @@ $(function() {
     });
 });
 
-function updateFriends(count, data, invite)
-{
-    $('#user-nav-friends span.count').text(count).toggle(count != 0);
-    $('#user-nav-friends ul.list').html($('#friendNotificationTmpl').tmpl(data));
-    if (invite) {
-        var el = $('#user-nav-friends a.count');
-        var c = parseInt(el.text()) + 1;
-        el.text(c).toggleClass('count-gray', c == 0);
-    }
-}
-
 function updateIm(count, data)
 {
     $('#user-nav-messages span.count').text(count).toggle(count != 0);
     $('#user-nav-messages ul.list').html($('#imNotificationTmpl').tmpl(data));
 }
-
-Comet.prototype.updateFriends = function(result, id) {
-    updateFriends(result.count, result.data, result.invite);
-}
-
-comet.addEvent(101, 'updateFriends');
 
 function sendInvite(el, user_id) {
     $.ajax({
@@ -146,18 +128,3 @@ function setMessagesHeight(){
     box.find('.dialog .dialog-messages').height(generalH - textareaH - userH);
 
 }
-
-function friendRequest(request_id, action, el) {
-    $.get('/friendRequests/update/', {request_id: request_id, action: action}, function (data, textStatus, jqXHR) {
-        if (jqXHR.status == 200) {
-            if (Friends.isActive() && action == 'accept') {
-                Friends.moveFriend(el);
-            } else {
-                $.fn.yiiListView.update('friendRequestList');
-            }
-            if (Friends.isActive())
-                $('.invitation .friends-count span').text(parseInt($('.invitation .friends-count span').text()) - 1);
-        }
-    })
-}
-

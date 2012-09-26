@@ -92,3 +92,5 @@
         'model' => $data,
     ));
 ?>
+
+<?php $this->widget('application.widgets.seo.SeoLinksWidget'); ?>

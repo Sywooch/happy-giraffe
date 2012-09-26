@@ -6,11 +6,11 @@ class SiteController extends SController
     {
         return array(
             array('allow',
-                'actions' => array('index', 'logout', 'modules', 'removeUser'),
+                'actions' => array('index', 'logout', 'modules', 'removeUser', 'test', 'sql'),
                 'users' => array('@'),
             ),
             array('allow',
-                'actions' => array('login', 'test', 'sql'),
+                'actions' => array('login', 'maintenance'),
                 'users' => array('*'),
             ),
             array('deny',
@@ -121,7 +121,7 @@ class SiteController extends SController
         $this->render('modules');
     }
 
-    public function actionTest()
+    public function actionTest2()
     {
         $proxy = '82.192.85.54:60504';
 
@@ -155,6 +155,25 @@ class SiteController extends SController
         // <title>Статистика ключевых слов на Яндексе
     }
 
+    public function actionTest(){
+        $period = date("Y-m");
+        Yii::import('site.frontend.extensions.GoogleAnalytics');
+        $ga = new GoogleAnalytics('alexk984@gmail.com', Yii::app()->params['gaPass']);
+        $ga->setProfile('ga:53688414');
+        $ga->setDateRange($period . '-01', $period . '-30');
+        try {
+            $report = $ga->getReport(array(
+                'metrics' => urlencode('ga:organicSearches'),
+                'filters' => urlencode('ga:pagePath==/community/8/forum/post/24191/'),
+            ));
+        } catch (Exception $err) {
+            var_dump($err->getMessage());
+            Yii::app()->end();
+        }
+
+        echo $report[""]['ga:organicSearches'];
+    }
+
     public function actionSql($sql = '')
     {
         if (!Yii::app()->user->checkAccess('admin'))
@@ -180,5 +199,13 @@ class SiteController extends SController
                 unset($entities[$key]);
         Yii::app()->user->setState($list_name, $entities);
         echo CJSON::encode(array('status' => true));
+    }
+
+    public function actionMaintenance()
+    {
+        header('HTTP/1.1 503 Service Temporarily Unavailable');
+        $this->layout = '//system/layout';
+        Yii::app()->clientScript->registerCssFile('http://www.happy-giraffe.ru/stylesheets/maintenance.css');
+        $this->render('//system/maintenance');
     }
 }

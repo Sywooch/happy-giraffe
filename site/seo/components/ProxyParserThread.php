@@ -22,7 +22,7 @@ class ProxyParserThread
     protected $delay_min = 10;
     protected $delay_max = 10;
     public $debug = false;
-    protected $timeout = 15;
+    protected $timeout = 30;
     protected $removeCookieOnChangeProxy = true;
     public $use_proxy = true;
     private $_start_time = null;
@@ -30,7 +30,7 @@ class ProxyParserThread
 
     function __construct()
     {
-        sleep(rand(0, 10));
+        time_nanosleep(rand(0, 5), rand(0, 1000000000));
         Yii::import('site.frontend.extensions.phpQuery.phpQuery');
         $this->thread_id = substr(sha1(microtime()), 0, 10);
         $this->getProxy();
@@ -40,30 +40,18 @@ class ProxyParserThread
     {
         $criteria = new CDbCriteria;
         $criteria->compare('active', 0);
-        $criteria->order = 'rank DESC';
+        $criteria->order = 'rank desc';
 
-        $transaction = Yii::app()->db_seo->beginTransaction();
-        try {
-//            $this->startTimer('find proxy');
-            $this->proxy = Proxy::model()->find($criteria);
-//            $this->endTimer();
-            if ($this->proxy === null) {
-                $this->closeThread('No proxy');
-            }
+        $this->startTimer('find proxy');
 
-            $this->proxy->active = 1;
-//            $this->startTimer('save proxy');
-            $this->proxy->save();
-//            $this->endTimer();
+        $this->proxy = Proxy::model()->find($criteria);
+        if ($this->proxy === null)
+            $this->closeThread('No proxy');
 
-//            $this->startTimer('commit proxy');
-            $transaction->commit();
-//            $this->endTimer();
-        } catch (Exception $e) {
-            $transaction->rollback();
-            $this->closeThread('Fail with getting proxy');
-        }
+        $this->proxy->active = 1;
+        $this->proxy->save();
 
+        $this->endTimer();
         $this->log('proxy: ' . $this->proxy->value);
     }
 
@@ -227,12 +215,6 @@ class ProxyParserThread
     {
         if ($this->debug) {
             echo $state . "\n";
-//            $fh = fopen($dir = Yii::getPathOfAlias('application.runtime') . DIRECTORY_SEPARATOR . 'my_log.txt', 'a');
-//            $t = microtime(true);
-//            $micro = sprintf("%06d", ($t - floor($t)) * 1000000);
-//            $d = new DateTime(date('Y-m-d H:i:s.' . $micro, $t));
-//
-//            fwrite($fh, $d->format("Y-m-d H:i:s.u") . ':  ' . $state . "\n");
         }
     }
 }

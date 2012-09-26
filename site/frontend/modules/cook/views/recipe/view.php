@@ -320,3 +320,5 @@
     $remove_tmpl->registerTemplates();
     $this->endWidget();
 ?>
+
+<?php $this->widget('application.widgets.seo.SeoLinksWidget'); ?>

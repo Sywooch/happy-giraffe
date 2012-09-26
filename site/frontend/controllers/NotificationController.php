@@ -17,7 +17,6 @@ class NotificationController extends HController
         $friends = UserFriendNotification::model()->getUserData(Yii::app()->user->id);
         $im = Im::model()->getNotificationMessages();
         $response = array(
-            'friends' => $friends,
             'im' => $im
         );
         echo CJSON::encode($response);

@@ -5,7 +5,11 @@ class CommentatorWork extends EMongoDocument
     const BLOG_POSTS_COUNT = 1;
     const CLUB_POSTS_COUNT = 2;
     const COMMENTS_COUNT = 100;
-    const MAX_SKIPS = 1000;
+    const MAX_SKIPS = 200;
+
+    const CHIEF_BLOG_POSTS_COUNT = 1;
+    const CHIEF_CLUB_POSTS_COUNT = 1;
+    const CHIEF_COMMENTS_COUNT = 60;
 
     public $user_id;
     public $clubs = array();
@@ -19,6 +23,7 @@ class CommentatorWork extends EMongoDocument
     public $skipUrls = array();
     public $created;
     public $ignoreUsers = array();
+    public $chief = 0;
 
     public static function model($className = __CLASS__)
     {
@@ -50,13 +55,28 @@ class CommentatorWork extends EMongoDocument
     {
         $day = $this->getCurrentDay();
         if (isset($day)){
-            $day->checkStatus();
+            $day->checkStatus($this);
         }
 
         if ($this->isNewRecord)
             $this->created = time();
 
         return parent::beforeSave();
+    }
+
+    public function getCommentsLimit()
+    {
+        return ($this->chief == 1)?self::CHIEF_COMMENTS_COUNT:self::COMMENTS_COUNT;
+    }
+
+    public function getBlogPostsLimit()
+    {
+        return ($this->chief == 1)?self::CHIEF_BLOG_POSTS_COUNT:self::BLOG_POSTS_COUNT;
+    }
+
+    public function getClubPostsLimit()
+    {
+        return ($this->chief == 1)?self::CHIEF_CLUB_POSTS_COUNT:self::CLUB_POSTS_COUNT;
     }
 
     /**
@@ -381,76 +401,30 @@ class CommentatorWork extends EMongoDocument
         return $res;
     }
 
-    public function blogVisits($period, $cache = true)
+    public function blogVisits($period)
     {
-        $id = 'blog-visits-' . $this->user_id . '-' . $period;
-        if ($cache)
-            $value = Yii::app()->cache->get($id);
-        else
-            $value = false;
+        $month = CommentatorsMonthStats::getOrCreateWorkingMonth($period);
+        if (isset($month->commentators[(int)$this->user_id][CommentatorsMonthStats::BLOG_VISITS]))
+            return $month->commentators[(int)$this->user_id][CommentatorsMonthStats::BLOG_VISITS];
 
-        if ($value === false) {
-            Yii::import('site.frontend.extensions.GoogleAnalytics');
-            $ga = new GoogleAnalytics('alexk984@gmail.com', Yii::app()->params['gaPass']);
-            $ga->setProfile('ga:53688414');
-            $ga->setDateRange($period . '-01', $period . '-' . $this->getLastPeriodDay($period));
-            try {
-                $report = $ga->getReport(array(
-                    'metrics' => urlencode('ga:visitors'),
-                    'filters' => urlencode('ga:pagePath=~' . '/user/' . $this->user_id . '/blog/*'),
-                ));
-            } catch (Exception $err) {
-                Yii::app()->cache->set($id, 0, 3600 * 5);
-                return 0;
-            }
-
-            if (!empty($report))
-                $value = $report['']['ga:visitors'];
-            else
-                $value = 0;
-
-            Yii::app()->cache->set($id, $value, 3600 * 5);
-        }
-
-        return $value;
+        return 0;
     }
 
-    public function profileUniqueViews($period, $cache = true)
+    public function profileUniqueViews($period)
     {
-        $id = 'profile-pageViews-' . $this->user_id . '-' . $period;
-        if ($cache)
-            $value = Yii::app()->cache->get($id);
-        else
-            $value = false;
-        if ($value === false) {
-            Yii::import('site.frontend.extensions.GoogleAnalytics');
-            $ga = new GoogleAnalytics('alexk984@gmail.com', Yii::app()->params['gaPass']);
-            $ga->setProfile('ga:53688414');
-            $ga->setDateRange($period . '-01', $period . '-' . $this->getLastPeriodDay($period));
-            try {
-                $report = $ga->getReport(array(
-                    'metrics' => urlencode('ga:uniquePageviews'),
-                    'filters' => urlencode('ga:pagePath=~' . '/user/' . $this->user_id . '/'),
-                ));
-            } catch (Exception $err) {
-                Yii::app()->cache->set($id, 0, 3600 * 5);
-                return 0;
-            }
+        $month = CommentatorsMonthStats::getOrCreateWorkingMonth($period);
+        if (isset($month->commentators[(int)$this->user_id][CommentatorsMonthStats::PROFILE_UNIQUE_VIEWS]))
+            return $month->commentators[(int)$this->user_id][CommentatorsMonthStats::PROFILE_UNIQUE_VIEWS];
 
-            if (!empty($report))
-                $value = $report['']['ga:uniquePageviews'];
-            else
-                $value = 0;
-
-            Yii::app()->cache->set($id, $value, 3600 * 5);
-        }
-
-        return $value;
+        return 0;
     }
 
-    public function seVisits($period, $cache = true)
+    public function seVisits($period)
     {
-        #TODO check visits from se
+        $month = CommentatorsMonthStats::getOrCreateWorkingMonth($period);
+        if (isset($month->commentators[(int)$this->user_id][CommentatorsMonthStats::SE_VISITS]))
+            return $month->commentators[(int)$this->user_id][CommentatorsMonthStats::SE_VISITS];
+
         return 0;
     }
 
@@ -509,7 +483,7 @@ class CommentatorWork extends EMongoDocument
     {
         $last_day = $this->getLastPeriodDay($period);
         $criteria = new CDbCriteria;
-        $criteria->condition = 'created >= "' . $period . '-01 00:00:00" AND created <= "' . $period . '-' . $last_day . ' 23:59:59"';
+        //$criteria->condition = 'created >= "' . $period . '-01 00:00:00" AND created <= "' . $period . '-' . $last_day . ' 23:59:59"';
         $criteria->compare('author_id', $this->user_id);
         $criteria->order = 'created desc';
         $criteria->with = array('rubric', 'rubric.community', 'type');
@@ -532,5 +506,33 @@ class CommentatorWork extends EMongoDocument
         $criteria = new EMongoCriteria();
         $criteria->sort('created', EMongoCriteria::SORT_ASC);
         return CommentatorWork::model()->findAll($criteria);
+    }
+
+    /**
+     * @param $working_commentators CommentatorWork[]
+     * @param $summary array
+     * @param $days_count int
+     * @return bool
+     */
+    public static function getExecutedStatus($working_commentators, $summary, $days_count)
+    {
+        $summary_comment_limit = 0;
+        foreach($working_commentators as $commentator)
+            $summary_comment_limit += $commentator->getCommentsLimit();
+
+        $summary_club_limit = 0;
+        foreach($working_commentators as $commentator)
+            $summary_club_limit += $commentator->getClubPostsLimit();
+
+        $summary_blog_limit = 0;
+        foreach($working_commentators as $commentator)
+            $summary_blog_limit += $commentator->getBlogPostsLimit();
+
+        if ($summary[0]/count($working_commentators) >= $summary_blog_limit * $days_count
+            && $summary[1]/count($working_commentators) >= $summary_club_limit * $days_count
+            && $summary[2]/count($working_commentators) >= $summary_comment_limit * $days_count)
+            return true;
+
+        return false;
     }
 }

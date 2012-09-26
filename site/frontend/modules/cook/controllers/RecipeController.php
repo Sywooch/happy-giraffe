@@ -329,7 +329,11 @@ class RecipeController extends HController
         header("Content-type: text/xml; charset=utf-8");
         $feed = Yii::app()->cache->get('recipesFeed');
         if ($feed === false) {
-            $recipes = CookRecipe::model()->with('cuisine', 'author', 'ingredients.ingredient', 'ingredients.unit')->findAll(array('order' => 'created DESC'));
+            $recipes = CookRecipe::model()->with('cuisine', 'author', 'ingredients.ingredient', 'ingredients.unit')->findAll(array(
+                'order' => 'created DESC',
+                'condition' => 't.id != 16589',
+                'limit' => 3000,
+            ));
 
             $xml = new SimpleXMLElement('<?xml version="1.0" encoding="utf-8"?><entities/>');
 

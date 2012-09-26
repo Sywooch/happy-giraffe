@@ -145,7 +145,7 @@
 
         </div>
 
-        <?php if ($this->action->id == 'view'): ?>
+        <?php if ($this->action->id == 'view' && false): ?>
             <div id="yandex_ad"></div>
             <script type="text/javascript">
                 (function(w, d, n, s, t) {

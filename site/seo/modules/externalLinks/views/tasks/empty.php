@@ -4,6 +4,6 @@
     <?php endif ?>
 
     <div class="ext-links-add">
-        <div class="tasks-count">Доступных заданий сейчас нет. Обновите страницу позже.</div>
+        <div class="tasks-count">Норма выполнена или доступных заданий больше нет</div>
     </div>
 </div>

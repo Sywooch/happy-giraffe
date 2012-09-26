@@ -21,9 +21,10 @@ if (Yii::app()->controller->registerUserData !== null) {
     $("a.auth-service2.odnoklassniki").eauth({"popup":{"width":680,"height":500},"id":"odnoklassniki"});
     Register.showRegisterWindow();
 ');
-} elseif($this->show_form){
+} elseif($this->show_form && empty(Yii::app()->request->cookies['not_guest'])){
     Yii::app()->clientScript->registerScript('show_reg_form', 'Register.show_window_delay = 1000;Register.showRegisterWindow();');
 }
+
 ?>
 <div style="display:none">
 <div id="register" class="popup">

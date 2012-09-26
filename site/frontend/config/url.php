@@ -51,10 +51,11 @@ return array(
         'morning/<date:[\d\d\d\d-\d\d-\d\d]*>' => 'morning/index',
 
         // albums controller
+        'albums/addPhoto/a/<a:\d+>/text/<text:\w+>/u/<u:\d+>' => 'albums/addPhoto',
         'albums/addPhoto/a/<a:\d+>' => 'albums/addPhoto',
         'albums/addPhoto' => 'albums/addPhoto',
         'albums/redirect/<id:\d+>' => 'albums/redirect',
-        'albums/<_a:(attach|wPhoto|attachView|editDescription|editPhotoTitle|changeTitle|changePermission|removeUploadPhoto|communityContentEdit|communityContentSave|partnerPhoto|recipePhoto|cookDecorationPhoto|cookDecorationCategory|commentPhoto|crop|changeAvatar|humorPhoto|albumSettings|updatePhoto|postLoad)>' => 'albums/<_a>',
+        'albums/<_a:(attach|wPhoto|attachView|editDescription|editPhotoTitle|changeTitle|changePermission|removeUploadPhoto|communityContentEdit|communityContentSave|partnerPhoto|recipePhoto|cookDecorationPhoto|cookDecorationCategory|commentPhoto|crop|changeAvatar|humorPhoto|albumSettings|updatePhoto|postLoad|updateAlbum)>' => 'albums/<_a>',
 
         // user/*
         'user/<user_id:\d+>' => 'user/profile',
@@ -162,7 +163,7 @@ return array(
         'cook/multivarka/searchByIngredientsResult' => array('cook/recipe/searchByIngredientsResult', 'defaultParams' => array('section' => 1)),
 
         'cook/recipe/feed.xml' => 'cook/recipe/feed',
-        'cook/recipe/<_a:(ac|import|search)>' => 'cook/recipe/<_a>',
+        'cook/recipe/<_a:(ac|import|search|test)>' => 'cook/recipe/<_a>',
 
         'cook/spices/category/<id:[\w_]+>' => 'cook/spices/category',
         'cook/spices/<id:[\w_]+>' => 'cook/spices/view',

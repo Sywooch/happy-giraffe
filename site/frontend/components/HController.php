@@ -27,8 +27,13 @@ class HController extends CController
     {
         // отключение повторной подгрузки jquery
         if (Yii::app()->request->isAjaxRequest) {
-            Yii::app()->clientScript->scriptMap['jquery.js'] = false;
-            Yii::app()->clientScript->scriptMap['jquery.min.js'] = false;
+            Yii::app()->clientScript->scriptMap = array(
+                'jquery.js' => false,
+                'jquery.min.js' => false,
+                'jquery.yiiactiveform.js' => false,
+                'jquery.ba-bbq.js' => false,
+                'jquery.yiilistview.js'=>false,
+            );
         }
 
         // noindex для дева

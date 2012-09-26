@@ -111,7 +111,7 @@ $this->renderPartial('_avatar', compact('commentator'));
                     <?php foreach ($commentator->getPosts($period) as $post): ?>
                         <tr>
                             <td class="al"><span class="big"><a target="_blank" href="http://www.happy-giraffe.ru<?=$post->url ?>"><?=$post->title ?></a></span></td>
-                            <td>0</td>
+                            <td><?=$month->getPageVisitsCount($post->url) ?></td>
                         </tr>
                     <?php endforeach; ?>
                     </tbody>

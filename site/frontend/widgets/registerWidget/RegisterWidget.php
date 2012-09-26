@@ -46,7 +46,7 @@ class RegisterWidget extends CWidget
                 $this->odnoklassniki = true;
             } elseif (!empty(Yii::app()->getRequest()->urlReferrer) && strpos(Yii::app()->getRequest()->urlReferrer, 'http://'.$_SERVER['SERVER_NAME'].'/') !== 0) {
                 Yii::app()->user->setState('show_register_window', 1);
-            } elseif (Yii::app()->user->getState('show_register_window') == 1) {
+            } elseif (Yii::app()->user->getState('show_register_window') == 1 && !empty(Yii::app()->request->urlReferrer)) {
                 Yii::app()->user->setState('show_register_window', 0);
                 $this->show_form = true;
             }

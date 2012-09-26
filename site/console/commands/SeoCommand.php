@@ -147,6 +147,7 @@ class SeoCommand extends CConsoleCommand
         Yii::import('site.seo.modules.indexing.models.*');
         Yii::import('site.frontend.components.CutBehavior');
 
+        echo "start\n";
         $urlCollector = new UrlCollector;
         $urlCollector->removeUrls();
     }
@@ -247,86 +248,30 @@ class SeoCommand extends CConsoleCommand
         }
     }
 
-    public function actionFix()
-    {
-        $criteria = new CDbCriteria;
-        $criteria->limit = 1000;
-        $criteria->with = array(
-            'yandex' => array(
-                'condition' => 'value < 100'
-            )
-        );
-
-        $i = 0;
-        $models = array(1);
-        while (!empty($models)) {
-            $criteria->offset = 1000 * $i;
-
-            $models = ParsingKeyword::model()->findAll($criteria);
-            foreach ($models as $model) {
-                $parsed = new ParsedKeywords;
-                $parsed->keyword_id = $model->keyword_id;
-                try {
-                    $parsed->save();
-                } catch (Exception $err) {
-                }
-                $model->delete();
-            }
-
-            $i++;
-            echo $i . "\n";
-        }
-    }
-
-    public function actionProxyMongo()
-    {
-        $criteria = new CDbCriteria;
-        $criteria->limit = 1000;
-        $i = 0;
-        $proxies = array(1);
-        while (!empty($proxies)) {
-            $criteria->offset = 1000 * $i;
-
-            $proxies = Proxy::model()->findAll($criteria);
-            foreach ($proxies as $proxy) {
-                $mongo_proxy = new ProxyMongo;
-                $mongo_proxy->value = $proxy->value;
-                $mongo_proxy->rank = $proxy->rank;
-                $mongo_proxy->created = strtotime($proxy->created);
-                $mongo_proxy->save();
-            }
-
-            $i++;
-        }
-    }
-
-    public function actionProxyMongoCheck()
+    public function actionProxyCheck()
     {
         $start_time = microtime(true);
-        $criteria = new EMongoCriteria;
-        $criteria->active('==', 0);
-        $criteria->sort('rank', EMongoCriteria::SORT_DESC);
-        $criteria->sort('created', EMongoCriteria::SORT_DESC);
-        ProxyMongo::model()->find($criteria);
+        $criteria = new CDbCriteria();
+        $criteria->compare('active', 0);
+        $criteria->order = 'rank desc';
+        $model = Proxy::model()->find($criteria);
 
-        echo 1000 * (microtime(true) - $start_time);
+        echo 1000 * (microtime(true) - $start_time) . "\n";
+        $start_time = microtime(true);
+
+        $model->rank = 4;
+        $model->save();
+
+        echo 1000 * (microtime(true) - $start_time) . "\n";
+        $start_time = microtime(true);
+
+        $model->delete();
+
+        echo 1000 * (microtime(true) - $start_time) . "\n";
     }
 
-    public function actionAddPages()
+    public function actionCalcGoogleVisits()
     {
-
-//        $keyword = Keyword::GetKeyword('Календарь беременности');
-//        $group = new KeywordGroup();
-//        $group->keywords = array($keyword->id);
-//        $group->save();
-//        $page = new Page();
-//        $page->url = 'http://www.happy-giraffe.ru/pregnancyCalendar/';
-//        $page->keyword_group_id = $group->id;
-//        if ($page->save())
-//            echo "success \n";
-    }
-
-    public function actionCalcGoogleVisits(){
         Yii::import('site.seo.modules.promotion.models.*');
 
         $criteria = new CDbCriteria;
@@ -336,10 +281,10 @@ class SeoCommand extends CConsoleCommand
         $criteria->compare('se_id', 3);
 
         $models = SearchPhraseVisit::model()->findAll($criteria);
-        PagesSearchPhrase::model()->updateAll(array('google_traffic'=>0));
+        PagesSearchPhrase::model()->updateAll(array('google_traffic' => 0));
 
-        foreach($models as $model){
-            echo $model->visits."\n";
+        foreach ($models as $model) {
+            echo $model->visits . "\n";
             $model->phrase->google_traffic = $model->visits;
             $model->phrase->update(array('google_traffic'));
         }

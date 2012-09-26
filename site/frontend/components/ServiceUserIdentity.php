@@ -26,7 +26,8 @@ class ServiceUserIdentity extends UserIdentity {
             $this->setState('id', $this->service->id);
             $this->setState('name', $this->username);
             $this->setState('service', $this->service->serviceName);
-            $this->errorCode = self::ERROR_NONE;        
+            $this->errorCode = self::ERROR_NONE;
+            $this->setNotGuestCookie();
         }
         else {
             $this->errorCode = self::ERROR_NOT_AUTHENTICATED;

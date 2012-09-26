@@ -1,11 +1,11 @@
 <?php
-/* @var $this HController
+/* @var $this CommentatorController
  * @var CommunityContent[] $blog_posts
  */
-$progress = (count($blog_posts) == 0)?0:round(100*count($blog_posts)/CommentatorWork::BLOG_POSTS_COUNT);
+$progress = (count($blog_posts) == 0)?0:round(100*count($blog_posts)/$this->commentator->getBlogPostsLimit());
 ?>
 
-<span class="item-title">1. Написать <?=CommentatorWork::BLOG_POSTS_COUNT<=1?'':CommentatorWork::BLOG_POSTS_COUNT ?> <?=HDate::GenerateNoun(array('запись','записи','записей'), CommentatorWork::BLOG_POSTS_COUNT) ?> в блог</span><span class="progress"><span style="width:<?=$progress ?>%"></span></span>
+<span class="item-title">1. Написать <?=$this->commentator->getBlogPostsLimit() <= 1 ? '':$this->commentator->getBlogPostsLimit() ?> <?=HDate::GenerateNoun(array('запись','записи','записей'), $this->commentator->getBlogPostsLimit()) ?> в блог</span><span class="progress"><span style="width:<?=$progress ?>%"></span></span>
 <ul>
     <?php
 foreach ($blog_posts as $post): ?>

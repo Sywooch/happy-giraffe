@@ -42,7 +42,7 @@ class UserNotification extends EMongoDocument
     public function rules()
     {
         return array(
-            array('recipient_id', 'compare', 'compareAttribute' => 'initiator_id', 'operator' => '!='),
+            //array('recipient_id', 'compare', 'compareAttribute' => 'initiator_id', 'operator' => '!='),
         );
     }
 
@@ -59,9 +59,11 @@ class UserNotification extends EMongoDocument
     public function deleteByEntity($entity, $user_id)
     {
         $criteria = new EMongoCriteria(array(
-            'recipient_id' => $user_id,
-            'entity.id' => $entity->id,
-            'entity.name' => get_class($entity),
+            'conditions' => array(
+                'recipient_id' => array('equals' => (int) $user_id),
+                'entity.id' => array('equals' => (int) $entity->id),
+                'entity.name' => array('equals' => get_class($entity)),
+            ),
         ));
 
         $this->deleteAll($criteria);
@@ -70,7 +72,7 @@ class UserNotification extends EMongoDocument
     public function getUserCriteria($user_id)
     {
         $criteria = new EMongoCriteria;
-        $criteria->recipient_id = $user_id;
+        $criteria->recipient_id = (int) $user_id;
         $criteria->sort('created', EMongoCriteria::SORT_DESC);
         return $criteria;
     }
@@ -110,7 +112,7 @@ class UserNotification extends EMongoDocument
         if (! (in_array($entityName, array('CommunityContent', 'BlogContent', 'User', 'CookRecipe')) || $entityName == 'AlbumPhoto' && $entity->album !== null))
             return false;
 
-        $this->recipient_id = (int) ($entityName != 'User') ? $entity->author_id : $entity->id;
+        $this->recipient_id = (int) (($entityName != 'User') ? $entity->author_id : $entity->id);
         $this->initiator_id = (int) $comment->author_id;
         $this->url = $comment->url;
 

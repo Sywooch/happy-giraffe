@@ -51,8 +51,12 @@
         $interlocutor_id = Yii::app()->request->getQuery('im_interlocutor_id', 'null');
         $type = Yii::app()->request->getQuery('im_type', 'null');
         if ($interlocutor_id !== 'null' || $type !== 'null') {
-            $cs->registerScript('openMessages', 'Messages.open(' . $interlocutor_id . ', ' . $type . ')', CClientScript::POS_HEAD);
+            $cs->registerScript('openMessages', '$(function(){Messages.open(' . $interlocutor_id . ', ' . $type . ');});', CClientScript::POS_HEAD);
         }
+
+        $openSettings = Yii::app()->request->getQuery('openSettings');
+        if ($openSettings !== null)
+            $cs->registerScript('openSettings', '$(function(){Settings.open(' . $openSettings . ');});', CClientScript::POS_HEAD);
     }
 
     if (!Yii::app()->user->isGuest)
@@ -91,7 +95,7 @@
                             <li>
                                 <a href="<?=$this->createUrl('/scores/default/index') ?>"><i class="icon icon-points"></i><span class="count"><?= $user->getScores()->scores ?></span></a>
                             </li>
-                            <li>
+                            <li class="item-ava">
                                 <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => Yii::app()->user->model, 'size' => 'small', 'small' => true, 'sendButton' => false)); ?>
                             </li>
                             <li id="user-nav-settings">

@@ -3,12 +3,14 @@ var Settings = {
     entity_id: null
 }
 
-Settings.open = function() {
+Settings.open = function(tab) {
+    tab = (typeof tab === "undefined") ? 0 : tab;
+
     $.get('/settings/', function(data) {
         Popup.load('Settings');
         $('body').append(data);
         $('#user-nav-settings').addClass('active');
-        Settings.openTab(0);
+        Settings.openTab(tab);
         $('.chzn').each(function () {
             var $this = $(this);
             $this.chosen({

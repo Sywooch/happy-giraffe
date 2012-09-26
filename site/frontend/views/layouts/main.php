@@ -36,6 +36,8 @@
         ->registerScriptFile('/javascripts/jquery.dataSelector.js')
         ->registerScriptFile('/javascripts/jquery.jcarousel.js')
         ->registerScriptFile('/javascripts/jquery.jcarousel.control.js')
+        ->registerCoreScript('yiiactiveform')
+        ->registerCoreScript('bbq')
     ;
 
     $cs->registerMetaTag(trim($this->meta_description), 'description');
@@ -76,7 +78,7 @@
                 <?php if (! Yii::app()->user->isGuest): ?>
                     <?php
                         $notificationsCount = UserNotification::model()->getUserCount(Yii::app()->user->id);
-                        $friendsCount = UserFriendNotification::model()->getCount(Yii::app()->user->id);
+                        $friendsCount = FriendRequest::model()->getUserCount(Yii::app()->user->id);
                         $imCount = Im::model()->getUnreadMessagesCount();
                     ?>
                     <div class="user-nav">

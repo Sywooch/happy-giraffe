@@ -35,15 +35,17 @@
 			
 			friendsCarousel = $('#user-friends .jcarousel').jcarousel({wrap:'circular'});
 
-            var ul = $('#user-friends .news ul');
-            var i = 6;
-            int = setInterval(function() {
-                i--;
-                ul.find('li:eq(' + i + ')').fadeIn();
-                if (i < 3) ul.find('li:eq(' + (i + 3) + ')').fadeOut();
-                if (i == 0)
-                    clearInterval(int);
-            }, 400);
+			var ul = $('#user-friends .news ul');
+			var i = 6;
+			int = setInterval(function() {
+					i--;
+					ul.find('li:eq(' + i + ')').fadeIn();
+					if (i < 3) ul.find('li:eq(' + (i + 3) + ')').fadeOut();
+					if (i == 0)
+							clearInterval(int);
+			}, 400);
+			
+			$('#user-friends .friends-count .more').jcarouselControl({target: '+=4',carousel: friendsCarousel});
 			
 		})
 		
@@ -98,7 +100,7 @@
 				
 			}
 		}
-<<<<<<< HEAD
+
 		
 		function friendsActivity(){
 			
@@ -116,11 +118,8 @@
 		}
 		
 	</script>
-=======
 
     </script>
->>>>>>> e5518cedceebfaab9c177fe9506a9b088d84af98
-	
 </head>
 <body class="body-club nav-fixed">
 	
@@ -1345,6 +1344,7 @@
 		
 	</div>
   
+	<div id="user-popup">
 	<div id="user-friends" class="clearfix">
 		
 		<div class="header">
@@ -1361,7 +1361,7 @@
 		
 			<div class="invitation">
 				
-				<div class="friends-count">18 <a href="javascript:void(0);" onclick="friendsCarousel.jcarousel('scroll', '+=1');" class="more"><i class="icon"></i></a></div>
+				<div class="friends-count">18 <a href="javascript:void(0);" class="more"><i class="icon"></i></a></div>
 				
 				<div class="block-title">У вас новые предложения дружбы</div>
 				
@@ -1728,6 +1728,7 @@
 			
 		</div>
 		
+	</div>
 	</div>
 	
 </body>

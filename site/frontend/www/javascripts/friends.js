@@ -41,6 +41,29 @@ Friends.isActive = function() {
     return $('#user-friends:visible').length > 0;
 }
 
+Friends.updateCounter = function(diff) {
+    var counter = $('#user-nav-friends .count');
+    var newVal = parseInt(counter.text()) + diff;
+    counter.text(newVal);
+    counter.toggle(newVal != 0);
+
+    if (Friends.isActive()) {
+        $('#user-friends .friends-count span').text(newVal);
+        $('#user-friends .friends-count .more').toggle(newVal > 4)
+    }
+}
+
+Friends.request = function(request_id, action, el) {
+    $.get('/friendRequests/update/', {request_id: request_id, action: action}, function (data, textStatus, jqXHR) {
+        if (jqXHR.status == 200) {
+            Friends.updateCounter(-1);
+
+            if (Friends.isActive())
+                (action == 'accepted') ? Friends.moveFriend(el) : $.fn.yiiListView.update('friendRequestList');
+        }
+    })
+}
+
 Friends.moveFriend = function moveFriend(el) {
 
     if (!Friends.friendsCarouselHold){
@@ -93,3 +116,13 @@ Friends.moveFriend = function moveFriend(el) {
 
     }
 }
+
+$(function() {
+    Comet.prototype.receiveRequest = function(result, id) {
+        Friends.updateCounter(1);
+        if (Friends.isActive())
+            $.fn.yiiListView.update('friendRequestList');
+    }
+
+    comet.addEvent(1001, 'receiveRequest');
+});

@@ -25,6 +25,7 @@ class CometModel extends CComponent
 
     //user notifications
     const TYPE_NEW_NOTIFICATION = 1000;
+    const TYPE_NEW_FRIEND_REQUEST = 1001;
 
     const TYPE_UPDATE_NOTIFICATIONS = 100;
     const TYPE_UPDATE_FRIEND_NOTIFICATIONS = 101;

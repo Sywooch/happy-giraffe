@@ -39,8 +39,12 @@ class FriendRequest extends HActiveRecord
 
     protected function afterSave()
     {
-        UserFriendNotification::model()->createByRequest($this);
-        if ($this->status != 'pending') UserFriendNotification::model()->deleteInvitation($this->id);
+        if ($this->isNewRecord) {
+            $comet = new CometModel;
+            $comet->send($this->to_id, null, CometModel::TYPE_NEW_FRIEND_REQUEST);
+        }
+
+        parent::afterSave();
     }
 
 	/**
@@ -123,6 +127,6 @@ class FriendRequest extends HActiveRecord
 
     public function getUserCount($user_id)
     {
-        return $this->countByAttributes(array('to_id' => $user_id, 'status' => 'accepted'));
+        return $this->countByAttributes(array('to_id' => $user_id, 'status' => 'pending'));
     }
 }

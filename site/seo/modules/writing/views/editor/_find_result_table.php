@@ -7,7 +7,7 @@ foreach ($models as $model):?>
     <td class="col-1"><?=$model->getKeywordAndSimilarArticles() ?></td>
     <td><?=$model->getFreqIcon() ?></td>
     <td><?= isset($model->yandex) ? $model->yandex->value : '' ?></td>
-    <td><?= isset($model->pastuhovYandex) ? $model->pastuhovYandex->value : '' ?></td>
+    <td></td>
     <td><?=$model->getStats(1) ?></td>
     <td><?=$model->getStats(2) ?></td>
     <td>

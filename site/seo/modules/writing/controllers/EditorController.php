@@ -42,7 +42,7 @@ class EditorController extends SController
 
             $counts = Keyword::model()->getFreqCount($criteria);
             $criteria2 = clone $criteria;
-            $criteria2->with = array('yandex', 'pastuhovYandex', 'seoStats', 'group', 'tempKeyword');
+            $criteria2->with = array('yandex', 'seoStats', 'group', 'tempKeyword');
             $models = Keyword::model()->findAll($criteria2);
             $response = array(
                 'status' => true,

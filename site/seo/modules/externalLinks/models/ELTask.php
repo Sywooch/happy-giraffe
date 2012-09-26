@@ -22,8 +22,10 @@ class ELTask extends HActiveRecord
     const TYPE_COMMENT = 2;
     const TYPE_POST_LINK = 3;
 
-    const FORUM_MANAGER_LIMIT = 10;
-    const FORUM_WORKER_LIMIT = 3;
+    const FORUM_MANAGER_LIMIT = 15;
+    const FORUM_MANAGER_REG_LIMIT = 7;
+    const FORUM_WORKER_LIMIT = 6;
+    const FORUM_WORKER_REG_LIMIT = 3;
 
     /**
      * Returns the static model of the specified AR class.
@@ -249,19 +251,32 @@ class ELTask extends HActiveRecord
     /**
      * @return ELTask
      */
-    public static function getNextTask()
+    public function getNextTask()
+    {
+        //first get register tasks
+        $tasks = $this->getRegisterTasks();
+        if (!empty($tasks))
+            return $tasks;
+
+        return $this->getSimpleTask();
+    }
+
+    public function getRegisterTasks()
     {
         //get user specified task
         $criteria = new CDbCriteria;
-        $criteria->condition = 'closed IS NULL AND start_date <= :start_date AND user_id = :user_id';
+        $criteria->condition = 'closed IS NULL AND start_date <= :today AND user_id = :user_id';
         $criteria->params = array(
-            ':start_date' => date("Y-m-d"),
+            ':today' => date("Y-m-d"),
             ':user_id' => Yii::app()->user->id
         );
 
         $task = ELTask::model()->find($criteria);
         if ($task !== null)
             return $task;
+
+        if ($this->todayRegisterTaskCount() >= $this->getRegTaskLimit())
+            return null;
 
         //check free register tasks
         $criteria = new CDbCriteria;
@@ -270,14 +285,19 @@ class ELTask extends HActiveRecord
         $criteria->compare('type', self::TYPE_REGISTER);
 
         $reg_tasks = ELTask::model()->findAll($criteria);
-        if (!empty($reg_tasks))
-            return $reg_tasks;
+        return $reg_tasks;
+    }
+
+    public function getSimpleTask()
+    {
+        if ($this->todayPostTaskCount() - $this->todayRegisterTaskCount() >= $this->getTaskLimit())
+            return null;
 
         //check other tasks
         $criteria = new CDbCriteria;
         $criteria->params = array(':start_date' => date("Y-m-d"));
-        $criteria->condition = 'closed IS NULL AND start_date <= :start_date AND user_id IS NULL';
-        $criteria->params = array(':start_date' => date("Y-m-d"));
+        $criteria->condition = 'closed IS NULL AND start_date <= :today AND user_id IS NULL AND type > 1';
+        $criteria->params = array(':today' => date("Y-m-d"));
 
         $model = ELTask::model()->find($criteria);
         if ($model !== null) {
@@ -287,14 +307,14 @@ class ELTask extends HActiveRecord
         return $model;
     }
 
-    public static function todayTaskCount()
+    public function todayTaskCount()
     {
-        return self::model()->todayRegisterTaskCount() + self::model()->todayPostTaskCount();
+        return $this->getTaskLimit() - $this->todayPostTaskCount();
     }
 
     public function todayRegisterTaskCount()
     {
-        //считаем сколько уже выполнено регистраций и сколько осталось исходя из лимита
+        //считаем сколько уже выполнено регистраций
         $criteria = new CDbCriteria;
         $criteria->condition = 'closed >= :today AND user_id = :user_id';
         $criteria->params = array(
@@ -302,23 +322,26 @@ class ELTask extends HActiveRecord
             ':user_id' => Yii::app()->user->id,
         );
         $criteria->compare('type', self::TYPE_REGISTER);
-        $today_reg_count = ELTask::model()->count($criteria);
-
-        if ($today_reg_count < $this->getTaskLimit())
-            return $this->getTaskLimit() - $today_reg_count;
-
-        return 0;
+        return ELTask::model()->count($criteria);
     }
 
     public function todayPostTaskCount()
     {
         $criteria = new CDbCriteria;
-        $criteria->condition = 'closed IS NULL AND start_date <= :start_date AND type > 1 AND (user_id IS NULL OR user_id = :user_id)';
+        $criteria->condition = 'closed >= :today AND type > 1 AND  user_id = :user_id';
         $criteria->params = array(
-            ':start_date' => date("Y-m-d"),
+            ':today' => date("Y-m-d"),
             ':user_id' => Yii::app()->user->id
         );
         return ELTask::model()->count($criteria);
+    }
+
+    public function getRegTaskLimit()
+    {
+        if (Yii::app()->user->checkAccess('externalLinks-manager-panel'))
+            return self::FORUM_MANAGER_REG_LIMIT;
+        else
+            return self::FORUM_WORKER_REG_LIMIT;
     }
 
     public function getTaskLimit()

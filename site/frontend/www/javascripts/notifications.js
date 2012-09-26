@@ -3,7 +3,7 @@ var Notifications = {
 }
 
 Notifications.open = function() {
-    $.get('/userPopup/notifications', function(data) {
+    $.get('/userPopup/notifications/', function(data) {
         Popup.load('Notifications');
         $('body').append(data);
         $('#user-nav-notifications').addClass('active');

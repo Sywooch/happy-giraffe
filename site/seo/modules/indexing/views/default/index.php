@@ -26,11 +26,10 @@
     </div>
 
     <?php if($this->beginCache('indexation-'.$up->id, array(
-    'duration'=>'3600000',
     'dependency'=>array(
         'class'=>'system.caching.dependencies.CDbCacheDependency',
         'connectionID'=>'db_seo',
-        'sql'=>'SELECT count(id) FROM happy_giraffe_seo.indexing__up_urls WHERE up_id='.$up->id)
+        'sql'=>'SELECT count(id) FROM indexing__up_urls WHERE up_id='.$up->id)
     ))) { ?>
     <div class="text">
         <?php $addUrls = $up->getUrls(true);

@@ -29,16 +29,26 @@ class UserIdentity extends CUserIdentity {
 				$this->_id = $user->id;
 				$this->saveParams($user);
 			}
-            //UserCache::UpdateUserCache($this->_id);
+
+            $this->setNotGuestCookie();
 			return $this->errorCode = self::ERROR_NONE;
 		} 
 		else {
 			$this->_id = $user->id;
 			$this->saveParams($user);
 		}
-        //UserCache::UpdateUserCache($this->_id);
-		return $this->errorCode = self::ERROR_NONE;
+
+        $this->setNotGuestCookie();
+        return $this->errorCode = self::ERROR_NONE;
 	}
+
+    public function setNotGuestCookie()
+    {
+        //set cookie for user that autentificated somewhere
+        $cookie = new CHttpCookie('not_guest', '1');
+        $cookie->expire = time() + 3600*24*100;
+        Yii::app()->request->cookies['not_guest'] = $cookie;
+    }
 
 	public function getId() {
 		return $this->_id;

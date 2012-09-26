@@ -40,7 +40,7 @@ class TrafficPosts extends PostForCommentator
 
         $criteria = new CDbCriteria;
         $criteria->select = 't.*, `comments`.`id` as comment_id';
-        $criteria->condition = '`t`.`full` IS NULL AND `comments`.`id` IS NULL';
+        $criteria->condition = '`t`.`full` IS NULL AND `comments`.`id` IS NULL AND t.type_id < 3';
         $criteria->compare('`t`.`id`', $post_ids);
         $criteria->join = 'LEFT OUTER JOIN `comments` `comments` ON (`comments`.`entity_id`=`t`.`id` AND `comments`.`author_id` = ' . $this->commentator->user_id . ') ';
 

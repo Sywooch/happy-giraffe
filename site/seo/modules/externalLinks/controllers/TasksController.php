@@ -13,8 +13,8 @@ class TasksController extends ELController
 
     public function actionIndex()
     {
-        $task = ELTask::getNextTask();
-        if ($task === null)
+        $task = ELTask::model()->getNextTask();
+        if (empty($task))
             $this->render('empty');
         else
             $this->render('task', compact('task'));

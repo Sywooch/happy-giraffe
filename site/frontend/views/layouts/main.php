@@ -36,6 +36,8 @@
         ->registerScriptFile('/javascripts/jquery.dataSelector.js')
         ->registerScriptFile('/javascripts/jquery.jcarousel.js')
         ->registerScriptFile('/javascripts/jquery.jcarousel.control.js')
+        ->registerCoreScript('yiiactiveform')
+        ->registerCoreScript('bbq')
     ;
 
     $cs->registerMetaTag(trim($this->meta_description), 'description');
@@ -76,7 +78,7 @@
                 <?php if (! Yii::app()->user->isGuest): ?>
                     <?php
                         $notificationsCount = UserNotification::model()->getUserCount(Yii::app()->user->id);
-                        $friendsCount = UserFriendNotification::model()->getCount(Yii::app()->user->id);
+                        $friendsCount = FriendRequest::model()->getUserCount(Yii::app()->user->id);
                         $imCount = Im::model()->getUnreadMessagesCount();
                     ?>
                     <div class="user-nav">
@@ -118,6 +120,7 @@
                     <li><a href="/">Главная</a></li>
                     <li><a href="<?php echo $this->createUrl('/community') ?>">Клубы</a></li>
                     <li><?=CHtml::link('Сервисы', array('/site/services'))?></li>
+                    <li><?=CHtml::link('Новости', array('/community/list', 'community_id' => 36))?></li>
                     <li><?=HHtml::link('Конкурсы', $this->createUrl('/contest/default/view', array('id' => 1)), array(), Yii::app()->controller->getRoute() == 'site/index'?false:true)?></li>
                 </ul>
 

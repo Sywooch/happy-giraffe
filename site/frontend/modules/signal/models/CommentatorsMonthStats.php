@@ -12,6 +12,7 @@ class CommentatorsMonthStats extends EMongoDocument
     public $commentators = array();
     public $workingDays = array();
     public $working_days_count = 22;
+    public $page_visits = array();
 
     public static function model($className = __CLASS__)
     {
@@ -63,24 +64,54 @@ class CommentatorsMonthStats extends EMongoDocument
         )));
     }
 
-    public function calculate($cache = true)
+    public function calculate()
     {
         $commentators = User::model()->findAll('`group`=' . UserGroup::COMMENTATOR);
-        $this->commentators = array();
+        //$this->commentators = array();
 
+        $active_commentators = array();
         foreach ($commentators as $commentator) {
             $model = $this->loadCommentator($commentator);
             if ($model !== null) {
-                $result = array(
-                    self::NEW_FRIENDS => (int)$model->newFriends($this->period),
-                    self::BLOG_VISITS => (int)$model->blogVisits($this->period, $cache),
-                    self::PROFILE_UNIQUE_VIEWS => (int)$model->profileUniqueViews($this->period, $cache),
-                    self::IM_MESSAGES => (int)$model->imMessages($this->period),
-                    self::SE_VISITS => (int)$model->seVisits($this->period, $cache),
-                );
-                $this->commentators[(int)$commentator->id] = $result;
+                echo 'commentator: ' . $commentator->id . "\n";
+                $active_commentators [] = $commentator->id;
+
+                $new_friends = $model->newFriends($this->period);
+                $im_messages = $model->imMessages($this->period);
+                $blog_visits = $this->blogVisits($commentator->id);
+                $profile_view = $this->profileUniqueViews($commentator->id);
+                $se_visits = $this->getSeVisits($commentator->id);
+
+                if (isset($this->commentators[(int)$commentator->id])) {
+                    $this->commentators[(int)$commentator->id][self::NEW_FRIENDS] = (int)$new_friends;
+                    $this->commentators[(int)$commentator->id][self::IM_MESSAGES] = (int)$im_messages;
+                    $this->commentators[(int)$commentator->id][self::SE_VISITS] = (int)$se_visits;
+
+                    if ($blog_visits !== null)
+                        $this->commentators[(int)$commentator->id][self::BLOG_VISITS] = (int)$blog_visits;
+                    if ($profile_view !== null)
+                        $this->commentators[(int)$commentator->id][self::PROFILE_UNIQUE_VIEWS] = (int)$profile_view;
+                } else {
+
+                    $result = array(
+                        self::NEW_FRIENDS => (int)$new_friends,
+                        self::BLOG_VISITS => (int)$blog_visits,
+                        self::PROFILE_UNIQUE_VIEWS => (int)$profile_view,
+                        self::IM_MESSAGES => (int)$im_messages,
+                        self::SE_VISITS => (int)$se_visits,
+                    );
+                    $this->commentators[(int)$commentator->id] = $result;
+                }
+                $this->save();
             }
         }
+
+        //remove deleted commentators
+        foreach($this->commentators as $commentator_id => $val)
+            if (!in_array($commentator_id, $active_commentators))
+                unset($this->commentators[$commentator_id]);
+
+        $this->save();
     }
 
     /**
@@ -158,5 +189,119 @@ class CommentatorsMonthStats extends EMongoDocument
         }
 
         return array_reverse($result);
+    }
+
+    public function profileUniqueViews($user_id)
+    {
+        Yii::import('site.frontend.extensions.GoogleAnalytics');
+        $ga = new GoogleAnalytics('alexk984@gmail.com', Yii::app()->params['gaPass']);
+        $ga->setProfile('ga:53688414');
+        $ga->setDateRange($this->period . '-01', $this->period . '-' . $this->getLastPeriodDay($this->period));
+        sleep(1);
+
+        try {
+            $report = $ga->getReport(array(
+                'metrics' => urlencode('ga:uniquePageviews'),
+                'filters' => urlencode('ga:pagePath==' . '/user/' . $user_id . '/'),
+            ));
+        } catch (Exception $err) {
+
+            return null;
+        }
+
+        if (!empty($report))
+            $value = $report['']['ga:uniquePageviews'];
+        else
+            $value = 0;
+
+        return $value;
+    }
+
+    public function blogVisits($user_id)
+    {
+        Yii::import('site.frontend.extensions.GoogleAnalytics');
+        $ga = new GoogleAnalytics('alexk984@gmail.com', Yii::app()->params['gaPass']);
+        $ga->setProfile('ga:53688414');
+        $ga->setDateRange($this->period . '-01', $this->period . '-' . $this->getLastPeriodDay($this->period));
+        sleep(1);
+
+        try {
+            $report = $ga->getReport(array(
+                'metrics' => urlencode('ga:visitors'),
+                'filters' => urlencode('ga:pagePath=~' . '/user/' . $user_id . '/blog/*'),
+            ));
+        } catch (Exception $err) {
+            return null;
+        }
+
+        if (!empty($report))
+            $value = $report['']['ga:visitors'];
+        else
+            $value = 0;
+
+        return $value;
+    }
+
+    public function getSeVisits($user_id)
+    {
+        $models = CommunityContent::model()->findAll('author_id = ' . $user_id);
+
+        $all_count = 0;
+        foreach ($models as $model) {
+            $url = trim($model->url, '.');
+            $visits = $this->getVisits($url);
+            echo $url . ' - ' . $visits . "\n";
+            $all_count += $visits;
+
+            if ($visits !== null)
+                $this->addPageVisit($url, $visits);
+            else
+                $all_count += $this->getPageVisitsCount($url);
+        }
+
+        echo $all_count . "\n";
+        return $all_count;
+    }
+
+    public function getVisits($url)
+    {
+        Yii::import('site.frontend.extensions.GoogleAnalytics');
+
+        $period = date("Y-m");
+        $ga = new GoogleAnalytics('alexk984@gmail.com', Yii::app()->params['gaPass']);
+        $ga->setProfile('ga:53688414');
+        $ga->setDateRange($period . '-01', $period . '-' . $this->getLastPeriodDay($period));
+        sleep(1);
+
+        try {
+            $report = $ga->getReport(array(
+                'metrics' => urlencode('ga:organicSearches'),
+                'filters' => urlencode('ga:pagePath==' . $url),
+            ));
+
+        } catch (Exception $err) {
+            return null;
+        }
+
+        if (isset($report[""]['ga:organicSearches']))
+            return $report[""]['ga:organicSearches'];
+        return null;
+    }
+
+    public function addPageVisit($url, $value)
+    {
+        $this->page_visits[$url] = (int)$value;
+    }
+
+    public function getPageVisitsCount($url)
+    {
+        if (isset($this->page_visits[$url]))
+            return $this->page_visits[$url];
+        return 0;
+    }
+
+    public function getLastPeriodDay($period)
+    {
+        return str_pad(cal_days_in_month(CAL_GREGORIAN, date('n', strtotime($period)), date('Y', strtotime($period))), 2, "0", STR_PAD_LEFT);
     }
 }

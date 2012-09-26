@@ -11,7 +11,6 @@
  * The followings are the available model relations:
  * @property KeyStats[] $seoStats
  * @property KeywordGroup[] $group
- * @property PastuhovYandexPopularity $pastuhovYandex
  * @property KeywordBlacklist $blacklist
  * @property YandexPopularity $yandex
  * @property TempKeyword $tempKeyword
@@ -61,7 +60,6 @@ class Keyword extends HActiveRecord
         return array(
             'seoStats' => array(self::HAS_MANY, 'SiteKeywordVisit', 'keyword_id'),
             'group' => array(self::MANY_MANY, 'KeywordGroup', 'keyword_group_keywords(keyword_id, group_id)'),
-            'pastuhovYandex' => array(self::HAS_ONE, 'PastuhovYandexPopularity', 'keyword_id'),
             'yandex' => array(self::HAS_ONE, 'YandexPopularity', 'keyword_id'),
             'tempKeyword' => array(self::HAS_ONE, 'TempKeyword', 'keyword_id'),
             'blacklist' => array(self::HAS_ONE, 'KeywordBlacklist', 'keyword_id'),

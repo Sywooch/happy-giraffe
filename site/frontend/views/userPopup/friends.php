@@ -15,7 +15,7 @@
         <?php if ($hasInvitations): ?>
             <div class="invitation">
 
-                <div class="friends-count"><span><?=$requests->itemCount?></span> <a href="javascript:void(0);" onclick="Friends.friendsCarousel.jcarousel('scroll', '+=4');" class="more"><i class="icon"></i></a></div>
+                <div class="friends-count"><span><?=$requests->itemCount?></span> <a href="javascript:void(0);" onclick="Friends.friendsCarousel.jcarousel('scroll', '+=4');" class="more"<?php if ($requests->itemCount <= 4): ?> style="display: none;"<?php endif; ?>><i class="icon"></i></a></div>
 
                 <div class="block-title">У вас новые предложения дружбы</div>
 
@@ -119,11 +119,14 @@
                                 <li style="display: none;">
                                     <div class="date"><?php echo HDate::GetFormattedTime($n->updated); ?></div>
                                     <div class="in">
-                                        <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
-                                            'user' => User::getUserById($n->user_id),
-                                            'size' => 'small',
-                                            'small' => true,
-                                        )); ?>
+                                        <div class="user">
+                                            <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
+                                                'user' => $initiator,
+                                                'small' => true,
+                                                'size' => 'small',
+                                            )); ?>
+                                            <span class="icon-status status-<?=($initiator->online) ? 'online' : 'offline'?>"></span>
+                                        </div>
                                         <div class="text">
                                             <?=$n->text?>
                                         </div>

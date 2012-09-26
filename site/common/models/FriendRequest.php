@@ -120,4 +120,9 @@ class FriendRequest extends HActiveRecord
     {
         return $this->_status[$this->status];
     }
+
+    public function getUserCount($user_id)
+    {
+        return $this->countByAttributes(array('to_id' => $user_id, 'status' => 'accepted'));
+    }
 }

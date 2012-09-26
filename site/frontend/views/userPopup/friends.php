@@ -98,7 +98,7 @@
                 </div>
 
                 <div class="all-link">
-                    <a href=""><i class="icon"></i>Все мои друзья (<span id="friendsCount"><?=$friendsCount?></span>)</a>
+                    <a href="<?=$this->createUrl('user/friends', array('user_id' => Yii::app()->user->id))?>"><i class="icon"></i>Все мои друзья (<span id="friendsCount"><?=$friendsCount?></span>)</a>
                 </div>
 
             </div>

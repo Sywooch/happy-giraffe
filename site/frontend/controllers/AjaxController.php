@@ -325,9 +325,10 @@ class AjaxController extends HController
         $accepted_models = array(
             'Comment',
             'CommunityContent',
+            'BlogContent',
             'RecipeBookRecipe',
             'Dialog',
-            'Message'
+            'Message',
         );
         $source_data = $_POST['source_data'];
         if (in_array($source_data['model'], $accepted_models)) {

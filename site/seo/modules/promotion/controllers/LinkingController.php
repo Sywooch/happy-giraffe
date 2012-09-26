@@ -143,8 +143,8 @@ class LinkingController extends SController
             $pages = $this->filterPages($phrase, $pages);
         }
 
-        if (count($pages) > 10)
-            $pages = array_slice($pages, 0, 10);
+//        if (count($pages) > 10)
+//            $pages = array_slice($pages, 0, 10);
 
         return $pages;
     }

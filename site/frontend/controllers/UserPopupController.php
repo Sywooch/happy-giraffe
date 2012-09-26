@@ -63,7 +63,7 @@ class UserPopupController extends HController
     {
         $rUsers = User::model()->findAll(array(
             'order' => 'RAND()',
-            'limit' => 20,
+            'limit' => 3,
             'condition' => 'id != 12936',
         ));
 

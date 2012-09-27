@@ -18,7 +18,15 @@
 
         <div class="col-1">
 
-            <?php $this->widget('LiveWidget'); ?>
+            <?php if($this->beginCache('activity-page-live', array(
+                'duration' => 600,
+                'dependency' => array(
+                    'class' => 'CDbCacheDependency',
+                    'sql' => 'SELECT MAX(created) FROM community__contents',
+                ),
+            ))): ?>
+                <?php $this->widget('LiveWidget'); ?>
+            <?php $this->endCache(); endif;  ?>
 
             <?php $this->widget('WantToChatWidget'); ?>
 
@@ -32,11 +40,25 @@
 
                 <div class="col-2">
 
-                    <?php $this->widget('VideoWidget'); ?>
+                    <?php if($this->beginCache('activity-page-video', array(
+                        'duration' => 600,
+                        'varyByExpression' => Favourites::getIdListForView(Favourites::BLOCK_VIDEO, 1),
+                    ))): ?>
+                        <?php $this->widget('VideoWidget'); ?>
+                    <?php $this->endCache(); endif;  ?>
 
-                    <?php $this->widget('FriendsWidget'); ?>
+                    <?php if($this->beginCache('activity-page-friends', array(
+                        'duration' => 600,
+                        'varyBySession' => true,
+                    ))): ?>
+                        <?php $this->widget('FriendsWidget'); ?>
+                    <?php $this->endCache(); endif;  ?>
 
-                    <?php $this->widget('RandomPhotosWidget'); ?>
+                    <?php if($this->beginCache('activity-page-random-photos', array(
+                        'duration' => 600,
+                    ))): ?>
+                        <?php $this->widget('RandomPhotosWidget'); ?>
+                    <?php $this->endCache(); endif;  ?>
 
                     <?php $this->widget('DuelWidget'); ?>
 
@@ -46,9 +68,23 @@
 
                 <div class="col-3">
 
+                <?php if($this->beginCache('activity-page-top-five', array(
+                    'duration' => 600,
+                ))): ?>
                     <?php $this->widget('TopFiveWidget'); ?>
+                <?php $this->endCache(); endif;  ?>
+
+                <?php if($this->beginCache('activity-page-blog-popular', array(
+                    'duration' => 600,
+                ))): ?>
                     <?php $this->widget('BlogPopularWidget'); ?>
+                <?php $this->endCache(); endif; ?>
+
+                <?php if($this->beginCache('activity-page-community-popular', array(
+                    'duration' => 600,
+                ))): ?>
                     <?php $this->widget('CommunityPopularWidget'); ?>
+                <?php $this->endCache(); endif; ?>
 
                 </div>
 

@@ -118,6 +118,13 @@
 
                 </div>
 
+                <div class="row clearfix">
+
+                    <?=CHtml::activeCheckBox($this->user->getMailSubs(), 'weekly_news', array('onclick' => 'Settings.changeMailSub(this, "weekly_news")'))?>
+                    <label>Хочу получать еженедельные новости от Веселого Жирафа</label>
+
+                </div>
+
             </div>
 
         </div>

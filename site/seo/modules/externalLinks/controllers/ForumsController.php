@@ -12,7 +12,7 @@ class ForumsController extends ELController
         $this->render('executed');
     }
 
-    public function actionReports($page = 0)
+    public function actionReports($page = 1)
     {
         $model = new ELLink();
 
@@ -25,7 +25,7 @@ class ForumsController extends ELController
         $count = ELLink::model()->count($dataProvider->criteria);
 
         $pages = new CPagination($count);
-        $pages->currentPage = $page;
+        $pages->currentPage = $page - 1;
         $pages->applyLimit($dataProvider->criteria);
 
         $models = ELLink::model()->findAll($criteria);

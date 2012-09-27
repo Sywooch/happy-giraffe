@@ -24,6 +24,7 @@
 </div>
 
 <div class="seo-table">
+    <p>Всего ссылок: <?=ELLink::model()->with('site')->count('site.type = 1'); ?></p>
     <div class="table-box table-grey">
         <table>
             <colgroup>

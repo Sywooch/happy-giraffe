@@ -7,7 +7,7 @@ class SitesController extends ELController
         $this->render('index');
     }
 
-    public function actionReports($page = 0)
+    public function actionReports($page = 1)
     {
         $model = new ELLink();
 
@@ -20,7 +20,8 @@ class SitesController extends ELController
         $count = ELLink::model()->count($dataProvider->criteria);
 
         $pages = new CPagination($count);
-        $pages->currentPage = $page;
+        $pages->currentPage = $page - 1;
+        $pages->pageSize = 10;
         $pages->applyLimit($dataProvider->criteria);
 
         $models = ELLink::model()->findAll($criteria);

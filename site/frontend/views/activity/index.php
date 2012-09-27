@@ -42,7 +42,7 @@
 
                     <?php if($this->beginCache('activity-page-video', array(
                         'duration' => 600,
-                        'varyByExpression' => Favourites::getIdListForView(Favourites::BLOCK_VIDEO, 1),
+                        'varyByExpression' => 'Favourites::getIdListForView(Favourites::BLOCK_VIDEO, 1)',
                     ))): ?>
                         <?php $this->widget('VideoWidget'); ?>
                     <?php $this->endCache(); endif;  ?>

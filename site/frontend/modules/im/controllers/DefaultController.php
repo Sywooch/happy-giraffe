@@ -58,7 +58,7 @@ class DefaultController extends HController
     public function actionDialog($interlocutor_id)
     {
         $contact = Im::getContact(Yii::app()->user->id, $interlocutor_id);
-        $html = $this->renderPartial('_dialog', compact('contact', 'interlocutor_id'), true);
+        $html = $this->renderPartial('_dialog', compact('contact', 'interlocutor_id'), true, true);
         $contactHtml = $this->renderPartial('_contact', compact('contact'), true);
 
         if ($contact->userDialog) {
@@ -83,7 +83,7 @@ class DefaultController extends HController
             'limit' => 6,
         ));
 
-        $this->renderPartial('empty', compact('wantToChat', 'friends'));
+        $this->renderPartial('empty', compact('wantToChat', 'friends'), false, true);
     }
 
     /**

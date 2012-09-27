@@ -147,17 +147,22 @@ class PagesSearchPhrase extends HActiveRecord
 
     public function getWeekVisits($se, $week, $year)
     {
-        $criteria = new CDbCriteria;
-        $criteria->compare('keyword_id', $this->keyword_id);
-        $criteria->compare('week', $week);
-        $criteria->compare('year', $year);
-        $models = Query::model()->findAll($criteria);
+        $cache_id = 'phrase_week_visits_' . $this->id . '-' . $se . '-' . $week . '-' . $year;
+        $value = Yii::app()->cache->get($cache_id);
+        if ($value === false) {
+            $criteria = new CDbCriteria;
+            $criteria->compare('keyword_id', $this->keyword_id);
+            $criteria->compare('week', $week);
+            $criteria->compare('year', $year);
+            $models = Query::model()->findAll($criteria);
 
-        $value = 0;
-        foreach ($models as $model) {
-            foreach ($model->searchEngines as $searchEngine)
-                if ($searchEngine->se_id == $se)
-                    $value = $searchEngine->visits;
+            $value = 0;
+            foreach ($models as $model) {
+                foreach ($model->searchEngines as $searchEngine)
+                    if ($searchEngine->se_id == $se)
+                        $value = $searchEngine->visits;
+            }
+            Yii::app()->cache->set($cache_id, $value);
         }
 
         return (int)$value;
@@ -178,7 +183,7 @@ class PagesSearchPhrase extends HActiveRecord
             return '';
 
         if (count($se_positions) == 1)
-            return $this->showPosition($this->getPosition($se));
+            return $this->showPosition(PromotionHelper::model()->getPosition($this->id, $se));
 
         $last = $se_positions[0];
         $prev = $se_positions[1];

@@ -183,9 +183,9 @@ class AlbumsController extends HController
             $model = $model->findByPk($entity_id);
 
         if (!Yii::app()->request->getQuery('go')) {
-            $this->renderPartial('w_photo', compact('model', 'photo'), false, true);
+            $this->renderPartial('w_photo', compact('model', 'photo'));
         } else {
-            $this->renderPartial('w_photo_content', compact('model', 'photo'), false, true);
+            $this->renderPartial('w_photo_content', compact('model', 'photo'));
         }
     }
 

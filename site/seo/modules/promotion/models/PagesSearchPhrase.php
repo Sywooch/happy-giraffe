@@ -153,13 +153,14 @@ class PagesSearchPhrase extends HActiveRecord
         $criteria->compare('year', $year);
         $models = Query::model()->findAll($criteria);
 
+        $value = 0;
         foreach ($models as $model) {
             foreach ($model->searchEngines as $searchEngine)
                 if ($searchEngine->se_id == $se)
-                    return $searchEngine->visits;
+                    $value = $searchEngine->visits;
         }
 
-        return 0;
+        return (int)$value;
     }
 
     public function getSimilarKeywords()
@@ -292,14 +293,14 @@ class PagesSearchPhrase extends HActiveRecord
      */
     public function getPositionsArray($se)
     {
-        $se_positions = array();
+        $value = array();
         foreach ($this->positions as $position) {
             if ($position->se_id == $se)
-                $se_positions[] = $position;
-            if (count($se_positions) >= 10)
+                $value[] = $position;
+            if (count($value) >= 10)
                 break;
         }
-        return $se_positions;
+        return $value;
     }
 
     public function getAverageVisits()

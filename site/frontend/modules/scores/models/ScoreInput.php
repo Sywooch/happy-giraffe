@@ -108,6 +108,9 @@ class ScoreInput extends EMongoDocument
     {
         //check can we continue active task
         $action_info = ScoreAction::getActionInfo($action_id);
+        if (!isset($action_info['wait_time']))
+            return null;
+
         if ($action_info['wait_time'] == 0)
             return null;
 

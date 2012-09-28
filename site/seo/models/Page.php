@@ -168,12 +168,19 @@ class Page extends CActiveRecord
 
     public function getArticleLink($icon = false)
     {
-        if (!empty($this->entity)) {
-            $model = CActiveRecord::model($this->entity)->findByPk($this->entity_id);
-            if ($model !== null)
-                return CHtml::link($icon ? '' : $model->title, 'http://www.happy-giraffe.ru' . $model->url, array('target' => '_blank'));
+        $cache_id = 'page_link_' . $this->id . ((int)$icon);
+        $value = Yii::app()->cache->get($cache_id);
+        if ($value === false) {
+            if (!empty($this->entity)) {
+                $model = CActiveRecord::model($this->entity)->findByPk($this->entity_id);
+                if ($model !== null)
+                    $value = CHtml::link($icon ? '' : $model->title, 'http://www.happy-giraffe.ru' . $model->url, array('target' => '_blank'));
+            } else
+                $value = CHtml::link($this->url, $this->url, array('target' => '_blank'));
+            Yii::app()->cache->set($cache_id, $value);
         }
-        return CHtml::link($this->url, $this->url, array('target' => '_blank'));
+
+        return $value;
     }
 
     /**

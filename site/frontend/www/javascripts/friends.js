@@ -4,8 +4,9 @@ var Friends = {
 }
 
 Friends.open = function() {
+    Popup.load('Friends');
     $.get('/userPopup/friends/', function(data) {
-        Popup.load('Friends');
+        $('#popup-preloader').hide();
         $('body').append(data);
         $('#user-nav-friends').addClass('active');
 

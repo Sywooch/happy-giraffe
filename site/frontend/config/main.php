@@ -123,7 +123,7 @@ return array(
                         'javascripts/messages.js',
                         'javascripts/friends.js',
                         'javascripts/notifications.js',
-                        'javascripts/settings.js',
+                        'javascripts/settings.js?2',
                         'javascripts/wantToChat.js',
                     ),
                     'css' => array(

@@ -6,8 +6,9 @@ var Settings = {
 Settings.open = function(tab) {
     tab = (typeof tab === "undefined") ? 0 : tab;
 
+    Popup.load('Settings');
     $.get('/settings/', function(data) {
-        Popup.load('Settings');
+        $('#popup-preloader').hide();
         $('body').append(data);
         $('#user-nav-settings').addClass('active');
         Settings.openTab(tab);
@@ -109,4 +110,18 @@ Settings.removeService = function (el, id, service) {
                 $('.profiles-list').hide();
         }
     })
+}
+
+
+Settings.changeMailSub = function(el, name) {
+    var value = 0 ;
+    if ($(el).is(':checked'))
+        value = 1;
+
+    $.post('/ajax/setValue/', {
+        entity: 'UserMailSub',
+        entity_id: Settings.entity_id,
+        attribute: name,
+        value: value
+    });
 }

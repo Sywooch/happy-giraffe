@@ -64,9 +64,14 @@ class BlogController extends HController
             $slave_model->attributes = $_POST[$slave_model_name];
 
             if ($_POST['CommunityRubric']['title'] != '') {
-                $rubric_model->user_id = Yii::app()->user->id;
-                $rubric_model->title = $_POST['CommunityRubric']['title'];
-                $rubric_model->save();
+                $existingRubric = CommunityRubric::model()->findByAttributes(array('user_id' => Yii::app()->user->id, 'title' => $_POST['CommunityRubric']['title']));
+                if ($existingRubric === null) {
+                    $rubric_model->user_id = Yii::app()->user->id;
+                    $rubric_model->title = $_POST['CommunityRubric']['title'];
+                    $rubric_model->save();
+                } else {
+                    $rubric_model = $existingRubric;
+                }
                 $model->rubric_id = $rubric_model->id;
             }
 

@@ -9,12 +9,11 @@ Messages.open = function(interlocutor_id, type) {
     type = (typeof type === "undefined") ? 0 : type;
     interlocutor_id = (typeof interlocutor_id === "undefined") ? null : interlocutor_id;
 
-    if (Friends.isActive())
-        Friends.close();
+    Popup.load('Messages');
 
     if (! Messages.isActive()) {
         $.get('/im/init/', function(data) {
-            Popup.load('Messages');
+            $('#popup-preloader').hide();
             $('#user-dialogs').show();
             $('#user-nav-messages').addClass('active');
 

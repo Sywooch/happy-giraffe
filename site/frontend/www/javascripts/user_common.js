@@ -12,6 +12,7 @@ Popup.load = function(name) {
     $('body').css('overflow', 'hidden');
     $('body').addClass('nav-fixed');
     $('#body-overlay').show();
+    $('#popup-preloader').show();
 }
 
 Popup.unload = function() {

@@ -10,6 +10,9 @@
 </div>
 
 <div class="seo-table">
+    <p>Всего ссылок: <?=ELLink::model()->with('site')->count('site.type = '.ELSite::TYPE_FORUM); ?></p>
+    <p>Форумов в черном списке: <?=ELSite::model()->count('status = '.ELSite::STATUS_BLACKLIST); ?></p>
+
     <div class="table-box table-grey">
         <table>
             <thead>

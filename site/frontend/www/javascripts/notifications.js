@@ -3,8 +3,9 @@ var Notifications = {
 }
 
 Notifications.open = function() {
+    Popup.load('Notifications');
     $.get('/userPopup/notifications/', function(data) {
-        Popup.load('Notifications');
+        $('#popup-preloader').hide();
         $('body').append(data);
         $('#user-nav-notifications').addClass('active');
         Notifications.setHeight();

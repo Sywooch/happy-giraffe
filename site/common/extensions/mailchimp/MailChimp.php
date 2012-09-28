@@ -47,7 +47,7 @@ class MailChimp extends CApplicationComponent
 
         $i = 0;
         while (!empty($users)) {
-            $criteria->offset = $i*100;
+            $criteria->offset = $i * 100;
             $users = User::model()->findAll($criteria);
             $options = array();
             foreach ($users as $user)
@@ -63,23 +63,35 @@ class MailChimp extends CApplicationComponent
     {
         //пользователи которые зарегистрировались после 1 мая + наши сотрудники
         $criteria = new CDbCriteria;
-        $criteria->condition = '(t.group < 5 AND t.group > 0) OR (t.group = 0 AND t.register_date >= "2012-05-01 00:00:00")';
+        $criteria->with = array(
+            'mail_subs'
+        );
+        $criteria->condition = '(t.group < 5 AND t.group > 0 OR t.group = 6) OR (t.group = 0 AND t.register_date >= "2012-05-01 00:00:00")';
         $criteria->scopes = array('active');
         $criteria->limit = 100;
         $users = array(1);
 
         $i = 0;
+        $unsubscribe_mails = array();
         while (!empty($users)) {
-            $criteria->offset = $i*100;
+            $criteria->offset = $i * 100;
             $users = User::model()->findAll($criteria);
             $options = array();
-            foreach ($users as $user)
-                $options[] = $this->getUserOptions($user);
+            foreach ($users as $user) {
+                if ($user->mail_subs === null || $user->mail_subs->weekly_news == 1)
+                    $options[] = $this->getUserOptions($user);
+                else
+                    $unsubscribe_mails [] = $user->email;
+            }
 
-            $res = $this->api->listBatchSubscribe($this->list, $options, false, true, false);
-            echo $res;
+            $this->api->listBatchSubscribe($this->list, $options, false, true, false);
             $i++;
+            echo ($i * 100) . "\n";
         }
+
+        echo 'unsubscribes: ';
+        print_r($unsubscribe_mails);
+        $this->api->listBatchUnsubscribe($this->list, $unsubscribe_mails, false, false, false);
     }
 
     public function deleteUsers()
@@ -93,7 +105,7 @@ class MailChimp extends CApplicationComponent
 
         $i = 0;
         while (!empty($users)) {
-            $criteria->offset = $i*100;
+            $criteria->offset = $i * 100;
             $users = User::model()->findAll($criteria);
             $options = array();
             foreach ($users as $user)

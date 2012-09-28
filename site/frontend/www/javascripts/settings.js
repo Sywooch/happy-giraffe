@@ -110,3 +110,17 @@ Settings.removeService = function (el, id, service) {
         }
     })
 }
+
+
+Settings.changeMailSub = function(el, name) {
+    var value = 0 ;
+    if ($(el).is(':checked'))
+        value = 1;
+
+    $.post('/ajax/setValue/', {
+        entity: 'UserMailSub',
+        entity_id: Settings.entity_id,
+        attribute: name,
+        value: value
+    });
+}

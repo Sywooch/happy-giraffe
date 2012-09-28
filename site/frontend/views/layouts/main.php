@@ -524,5 +524,10 @@
         </script>
     </noindex>
     <div id="body-overlay" style="display: none;"></div>
+    <div id="popup-preloader" style="display: none;">
+
+        <div class="loading"><img src="/images/big_preloader.gif"></div>
+
+    </div>
 </body>
 </html>

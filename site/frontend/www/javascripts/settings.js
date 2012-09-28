@@ -6,8 +6,9 @@ var Settings = {
 Settings.open = function(tab) {
     tab = (typeof tab === "undefined") ? 0 : tab;
 
+    Popup.load('Settings');
     $.get('/settings/', function(data) {
-        Popup.load('Settings');
+        $('#popup-preloader').hide();
         $('body').append(data);
         $('#user-nav-settings').addClass('active');
         Settings.openTab(tab);

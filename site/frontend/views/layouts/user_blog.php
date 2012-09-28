@@ -40,12 +40,13 @@
                     $items = array();
 
                     foreach ($this->user->blog_rubrics as $rubric) {
-                        $items[] = array(
-                            'label' => $rubric->title,
-                            'url' => $this->getUrl(array('rubric_id' => $rubric->id)),
-                            'template' => '<span>{menu}</span><div class="count">' . $rubric->contentsCount . '</div>',
-                            'active' => $rubric->id == $this->rubric_id,
-                        );
+                        if ($rubric->contentsCount > 0)
+                            $items[] = array(
+                                'label' => $rubric->title,
+                                'url' => $this->getUrl(array('rubric_id' => $rubric->id)),
+                                'template' => '<span>{menu}</span><div class="count">' . $rubric->contentsCount . '</div>',
+                                'active' => $rubric->id == $this->rubric_id,
+                            );
                     }
 
                     $this->widget('zii.widgets.CMenu', array(

@@ -963,7 +963,7 @@ class User extends HActiveRecord
             'select' => 't.*, count(interest__users_interests.user_id) AS interestsCount, count(' . Baby::model()->getTableAlias() . '.id) AS babiesCount',
             'group' => 't.id',
             'having' => 'interestsCount > 0 AND (babiesCount > 0 OR t.relationship_status IS NOT NULL)',
-            'condition' => 't.birthday IS NOT NULL AND t.avatar_id IS NOT NULL AND userAddress.country_id IS NOT NULL',
+            'condition' => 't.birthday IS NOT NULL AND t.avatar_id IS NOT NULL AND userAddress.country_id IS NOT NULL AND t.id != :lol',
             'join' => 'LEFT JOIN interest__users_interests ON interest__users_interests.user_id = t.id',
             'with' => array(
                 'interests' => array(
@@ -988,9 +988,13 @@ class User extends HActiveRecord
         ));
 
         if (!Yii::app()->user->isGuest) {
-            $criteria->join .= ' LEFT JOIN friends ON (friends.user1_id = :me AND friends.user2_id = t.id) OR (friends.user2_id = :me AND friends.user1_id = t.id)';
-            $criteria->addCondition('t.id != :me AND friends.id IS NULL');
-            $criteria->params = array(':me' => Yii::app()->user->id);
+            $criteria->addCondition('
+                t.id != :me AND t.id NOT IN (
+                SELECT user1_id FROM friends WHERE user2_id = :me
+                UNION
+                SELECT user2_id FROM friends WHERE user1_id = :me
+            )');
+            $criteria->params = array(':me' => Yii::app()->user->id, ':lol' => time());
         }
 
         return User::model()->findAll($criteria);

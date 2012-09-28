@@ -194,6 +194,8 @@ a.info {display:inline-block;*zoom:1;*display:inline;width:13px;height:13px;back
 .user-info .details .location .flag-big {display:inline-block;*zoom:1;*display:inline;margin-right:5px;position:relative;top:-2px;vertical-align:middle;}
 .user-info .details .birthday span {color:#aeaeae;}
 .user-info .details .date {color:#b3b3b3;font-size:9px;margin-top:3px;margin-left:15px;}
+.user-info .details .visit {color:#b9b8b8;font:normal 9px tahoma, arial, helvetica, sans-serif;}
+.user-info .details .visit span {background:#fdfaaf;padding:0px 2px;margin-left:-2px;}
 
 .user-info-big .text-status {clear:both;background:#cce7fe;position:relative;padding:10px 15px;font-size:11px;color:#5e5e5e;line-height:14px;width:200px;}
 .user-info-big .text-status {/*css3*/ -moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px;}
@@ -500,6 +502,7 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 .meta .views .icon {display:inline-block;*zoom:1;*display:inline;width:24px;height:13px;background:url(/images/common.png) no-repeat -199px -275px;vertical-align:middle;position:relative;top:-2px;margin-right:3px;}
 .meta .comments {margin-right:10px;font-weight:normal !important;}
 .meta .comments .icon {display:inline-block;*zoom:1;*display:inline;width:20px;height:17px;background:url(/images/common.png) no-repeat -225px -275px;vertical-align:middle;margin-right:3px;}
+.entry .meta .comments {margin:0;}
 
 
 .CheckBoxClass,.RadioClass{
@@ -1084,35 +1087,35 @@ body.nav-fixed #header-new .top-line {position:fixed;left:50%;margin-left:-500px
 
 #header-new .nav .width-2 {width:850px;padding:0 75px 0 57px;}
 
-#header-new .nav ul li i.text {display:block;height:37px;}
+#header-new .nav ul li i.text {display:block;height:37px;background:url(/images/common.png) no-repeat;}
 
-#header-new .nav ul li.morning i.text {height:74px;position:relative;top:-34px;width:109px;background:url(/images/nav_text_morning.png) no-repeat;}
+#header-new .nav ul li.morning i.text {height:74px;position:relative;top:-34px;width:109px;background-position:-105px -512px;}
 #header-new .nav ul li.morning > a {background:url(/images/bg_nav_morning.gif) repeat-x;padding:0;}
 
-#header-new .nav ul li.fday i.text {height:47px;position:relative;top:-10px;width:104px;background:url(/images/nav_text_fday.png) no-repeat;}
+#header-new .nav ul li.fday i.text {height:47px;position:relative;top:-10px;width:104px;background-position:0 -536px;}
 #header-new .nav ul li.fday > a {background:url(/images/bg_nav_morning.gif) repeat-x;padding:0;}
 
-#header-new .nav ul li.kids i.text {width:55px;background:url(/images/nav_text_kids.png) no-repeat;}
+#header-new .nav ul li.kids i.text {width:55px;background-position:0 -472px;}
 #header-new .nav ul li.kids > a {background:#5488d0;}
 #header-new .nav ul li.kids:hover > a, #header-new .nav ul li.kids.active > a {background:#97bbea;}
 
-#header-new .nav ul li.manwoman i.text {width:179px;background:url(/images/nav_text_manwoman.png) no-repeat;}
+#header-new .nav ul li.manwoman i.text {width:179px;background-position:-55px -472px;}
 #header-new .nav ul li.manwoman > a {background:#6bc545;}
 #header-new .nav ul li.manwoman:hover > a, #header-new .nav ul li.manwoman.active > a {background:#9adf7c;}
 
-#header-new .nav ul li.beauty i.text {width:159px;background:url(/images/nav_text_beauty.png) no-repeat;}
+#header-new .nav ul li.beauty i.text {width:159px;background-position:-234px -472px;}
 #header-new .nav ul li.beauty > a {background:#f8cb30;}
 #header-new .nav ul li.beauty:hover > a, #header-new .nav ul li.beauty.active > a {background:#ffe478;}
 
-#header-new .nav ul li.home i.text {width:48px;background:url(/images/nav_text_home.png) no-repeat;}
+#header-new .nav ul li.home i.text {width:48px;background-position:-393px -472px;}
 #header-new .nav ul li.home > a {background:#a582c7;}
 #header-new .nav ul li.home:hover > a, #header-new .nav ul li.home.active > a {background:#c7ade0;}
 
-#header-new .nav ul li.hobbies i.text {width:184px;background:url(/images/nav_text_hobbies.png) no-repeat;}
+#header-new .nav ul li.hobbies i.text {width:184px;background-position:-441px -472px;}
 #header-new .nav ul li.hobbies > a {background:#f18b2f;}
 #header-new .nav ul li.hobbies:hover > a, #header-new .nav ul li.hobbies.active > a {background:#ffc05e;}
 
-#header-new .nav ul li.rest i.text {width:62px;background:url(/images/nav_text_rest.png) no-repeat;}
+#header-new .nav ul li.rest i.text {width:62px;background-position:-625px -472px;}
 #header-new .nav ul li.rest > a {background:#40b2dc;}
 #header-new .nav ul li.rest:hover > a, #header-new .nav ul li.rest.active > a {background:#7dd7f8;}
 
@@ -2750,6 +2753,8 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 
 .wysiwyg-content.side {margin-left:330px;padding-top:15px;}
 
+#user .entry-content.user-status {font:italic 36px/43px times new roman, times, serif;color:#0281b0;padding:15px 30px;}
+#user .entry-content.user-status:after {left:40px;top:-29px;width:30px;height:29px;background-position:-634px -330px;}
 
 /* homepage */
 

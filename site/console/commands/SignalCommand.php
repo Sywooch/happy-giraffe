@@ -118,7 +118,19 @@ class SignalCommand extends CConsoleCommand
             ),
         )));
         $month->calculate();
-        $month->save();
+    }
+
+    public function actionPartialStats(){
+        $month = CommentatorsMonthStats::model()->find(new EMongoCriteria(array(
+            'conditions' => array(
+                'period' => array('==' => date("Y-m"))
+            ),
+        )));
+        if ($month === null) {
+            $month = new CommentatorsMonthStats;
+            $month->period = date("Y-m");
+        }
+        $month->calculate(false);
     }
 
     public function actionTest(){

@@ -147,7 +147,7 @@ class CommunityController extends HController
         if (!empty($content->uniqueness) && $content->uniqueness < 50)
             Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
 
-        $this->community = Community::model()->with('rubrics')->findByPk($community_id);
+        $this->community = Community::model()->with('rubrics.contentsCount')->findByPk($community_id);
         $this->rubric_id = $content->rubric->id;
         $this->content_type_slug = $content_type_slug;
 

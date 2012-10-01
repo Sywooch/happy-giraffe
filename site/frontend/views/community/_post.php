@@ -26,7 +26,7 @@
         <?php endif; ?>
 
         <noindex>
-            <?php if (! $data->by_happy_giraffe && $data->author_id != User::HAPPY_GIRAFFE && $data->rubric->community_id != Community::COMMUNITY_NEWS): ?>
+            <?php if ($data->type_id == 5 || (! $data->by_happy_giraffe && $data->author_id != User::HAPPY_GIRAFFE && $data->rubric->community_id != Community::COMMUNITY_NEWS)): ?>
                 <div class="user">
                     <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => $data->contentAuthor, 'friendButton' => true, 'location' => false)); ?>
                 </div>
@@ -52,10 +52,13 @@
     </div>
 
     <?php if (! $full): ?>
-        <div class="entry-content wysiwyg-content">
+        <div class="entry-content <?=($data->type_id == 5) ? 'user-status' : 'wysiwyg-content'?>">
             <?php
                 switch ($data->type->slug)
                 {
+                    case 'status':
+                        echo $data->status->status->text;
+                        break;
                     case 'video':
                         $video = new Video($data->video->link);
                         echo $data->purified->preview . '<div style="text-align: center; margin-bottom: 10px;">' . $video->code . '</div>';
@@ -64,7 +67,7 @@
                         echo $data->purified->preview;
                 }
             ?>
-            <?php if ($data->isFromBlog || $data->rubric->community_id == Community::COMMUNITY_NEWS): ?>
+            <?php if ($data->type_id != 5 && ($data->isFromBlog || $data->rubric->community_id == Community::COMMUNITY_NEWS)): ?>
                 <?=CHtml::link('Читать всю запись<i class="icon"></i>', $data->url, array('class' => 'read-more'))?>
             <?php endif; ?>
             <div class="clear"></div>
@@ -184,31 +187,33 @@
         </div>
     <?php endif; ?>
 
-    <div class="entry-footer">
-        <?php if(!Yii::app()->user->isGuest && $full){
-            $report = $this->beginWidget('site.frontend.widgets.reportWidget.ReportWidget', array('model' => $data));
-            $report->button("$('.report-container')");
-            $this->endWidget();
-        }
+    <?php if ($data->type_id != 5): ?>
+        <div class="entry-footer">
+            <?php if(!Yii::app()->user->isGuest && $full){
+                $report = $this->beginWidget('site.frontend.widgets.reportWidget.ReportWidget', array('model' => $data));
+                $report->button("$('.report-container')");
+                $this->endWidget();
+            }
 
-        $this->renderPartial('//community/admin_actions',array(
-            'c'=>$data,
-            'communities'=>Community::model()->findAll(),
-        ));
+            $this->renderPartial('//community/admin_actions',array(
+                'c'=>$data,
+                'communities'=>Community::model()->findAll(),
+            ));
 
-        $this->renderPartial('//community/parts/move_post_popup',array('c'=>$data));
+            $this->renderPartial('//community/parts/move_post_popup',array('c'=>$data));
 
-        if (isset($this->community) && ! $data->isFromBlog && $this->community->id == 22 && Yii::app()->authManager->checkAccess('importCookRecipes', Yii::app()->user->id))
-            echo CHtml::link('Перенести в рецепты', array('/cook/recipe/import', 'content_id' => $data->id));
+            if (isset($this->community) && ! $data->isFromBlog && $this->community->id == 22 && Yii::app()->authManager->checkAccess('importCookRecipes', Yii::app()->user->id))
+                echo CHtml::link('Перенести в рецепты', array('/cook/recipe/import', 'content_id' => $data->id));
 
-        if ($data->by_happy_giraffe): ?>
-            <div class="source">Источник:&nbsp;
-                Весёлый Жираф
-            </div>
-        <?php endif; ?>
+            if ($data->by_happy_giraffe): ?>
+                <div class="source">Источник:&nbsp;
+                    Весёлый Жираф
+                </div>
+            <?php endif; ?>
 
-        <div class="clear"></div>
-    </div>
+            <div class="clear"></div>
+        </div>
+    <?php endif; ?>
     <div class="report-container"></div>
 </div>
 

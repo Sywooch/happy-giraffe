@@ -209,8 +209,7 @@ class LinkingController extends SController
 
     public function actionDonors()
     {
-        $page = $this->loadPage(Yii::app()->request->getPost('page_id'));
-        $links = $page->inputLinks;
+        $links = InnerLink::model()->findAllByAttributes(array('phrase_id'=>Yii::app()->request->getPost('phrase_id')));
         $this->renderPartial('_donors', compact('links'));
     }
 

@@ -7,6 +7,7 @@
  * @property string $id
  * @property string $status_id
  * @property string $content_id
+ * @property string $text
  *
  * The followings are the available model relations:
  * @property CommunityContents $content
@@ -65,6 +66,7 @@ class CommunityStatus extends CActiveRecord
             'id' => 'ID',
             'status_id' => 'Status',
             'content_id' => 'Content',
+            'text' => 'Text',
         );
     }
 
@@ -82,6 +84,7 @@ class CommunityStatus extends CActiveRecord
         $criteria->compare('id',$this->id,true);
         $criteria->compare('status_id',$this->status_id,true);
         $criteria->compare('content_id',$this->content_id,true);
+        $criteria->compare('text',$this->text,true);
 
         return new CActiveDataProvider($this, array(
             'criteria'=>$criteria,

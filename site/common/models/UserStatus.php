@@ -87,6 +87,7 @@ class UserStatus extends HActiveRecord
 
             $status = new CommunityStatus;
             $status->status_id = $this->id;
+            $status->text = $this->text;
 
             $content->status = $status;
             if (!$content->withRelated->save(true, array('status'))) {

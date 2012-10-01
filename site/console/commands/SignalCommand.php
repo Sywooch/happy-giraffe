@@ -122,7 +122,20 @@ class SignalCommand extends CConsoleCommand
     }
 
     public function actionTest(){
-        $model = CommunityContent::model()->findByPk(30058);
-        echo $model->url;
+        Yii::import('site.frontend.extensions.GoogleAnalytics');
+        $ga = new GoogleAnalytics('alexk984@gmail.com', Yii::app()->params['gaPass']);
+        $ga->setProfile('ga:53688414');
+        $ga->setDateRange('2012-09-01', '2012-09-30');
+
+        try {
+            $report = $ga->getReport(array(
+                'metrics' => urlencode('ga:visitors'),
+                'filters' => urlencode('ga:pagePath==' . '/user/' . 15385 . '/blog/*'),
+            ));
+
+            var_dump($report);
+        } catch (Exception $err) {
+            echo $err->getMessage();
+        }
     }
 }

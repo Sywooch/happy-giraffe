@@ -4,7 +4,6 @@
      * @var AlbumPhoto $photo
      */
 
-    Yii::beginProfile('pre');
     if (get_class($model) == 'Album') {
         $current = Yii::app()->session->get('viewedAlbums', array());
         $current[$model->id] = $model->id;
@@ -20,17 +19,12 @@
     } else {
         $more = null;
     }
-    Yii::endProfile('pre');
 
-    Yii::beginProfile('getCollection');
     $collection = $model->photoCollection;
-Yii::endProfile('getCollection');
 
-Yii::beginProfile('post');
     $title = $collection['title'];
     $photos = $collection['photos'];
     $count = count($photos);
-
 
     $currentIndex = 0;
     foreach ($photos as $i => $p) {
@@ -51,8 +45,6 @@ Yii::beginProfile('post');
         $preload[$currentNext] = $photos[$currentNext];
         $preload[$currentPrev] = $photos[$currentPrev];
     }
-
-    Yii::endProfile('post');
 ?>
 
 <div id="photo-window-in">

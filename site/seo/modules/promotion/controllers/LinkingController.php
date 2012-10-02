@@ -122,31 +122,43 @@ class LinkingController extends SController
 
 
     /**
-     * @param $phrase
+     * @param PagesSearchPhrase $phrase
      * @return Page[]
      */
     public function getSimilarPages($phrase)
     {
         $parser = new SimilarArticlesParser;
-        $pages = $parser->getArticles($phrase->keyword->name);
+        if ($this->startsWith($phrase->page->url, 'http://www.happy-giraffe.ru/horoscope/')) {
+            $pages = $parser->getArticles('url:http://www.happy-giraffe.ru/community* '.$phrase->keyword->name);
 
-        $pages = $this->filterPages($phrase, $pages);
-        if (empty($pages)) {
-            //если яндекс не нашел статьи по запросу - выводим статьи из рубрики
-            $url = $phrase->page->getRubricUrl();
-            $pages = $parser->getArticles($url);
-        }
-        $pages = $this->filterPages($phrase, $pages);
-
-        if (empty($pages)) {
-            $pages = $parser->getArticles('http://www.happy-giraffe.ru/community/');
             $pages = $this->filterPages($phrase, $pages);
+        } else {
+            $pages = $parser->getArticles($phrase->keyword->name);
+
+            $pages = $this->filterPages($phrase, $pages);
+            if (empty($pages)) {
+                //если яндекс не нашел статьи по запросу - выводим статьи из рубрики
+                $url = $phrase->page->getRubricUrl();
+                $pages = $parser->getArticles($url);
+            }
+            $pages = $this->filterPages($phrase, $pages);
+
+            if (empty($pages)) {
+                $pages = $parser->getArticles('http://www.happy-giraffe.ru/community/');
+                $pages = $this->filterPages($phrase, $pages);
+            }
         }
 
 //        if (count($pages) > 10)
 //            $pages = array_slice($pages, 0, 10);
 
         return $pages;
+    }
+
+    function startsWith($haystack, $needle)
+    {
+        $length = strlen($needle);
+        return (substr($haystack, 0, $length) === $needle);
     }
 
     /**
@@ -209,7 +221,7 @@ class LinkingController extends SController
 
     public function actionDonors()
     {
-        $links = InnerLink::model()->findAllByAttributes(array('phrase_id'=>Yii::app()->request->getPost('phrase_id')));
+        $links = InnerLink::model()->findAllByAttributes(array('phrase_id' => Yii::app()->request->getPost('phrase_id')));
         $this->renderPartial('_donors', compact('links'));
     }
 

@@ -71,7 +71,7 @@
 <?php endif ?>
     <div id="layout" class="wrapper">
 
-        <div id="header-new" class="<?php if (Yii::app()->user->isGuest): ?>guest <?php endif; ?>clearfix">
+        <div id="header-new" class="<?php if (Yii::app()->user->isGuest): ?>guest <?php endif; ?>clearfix top-line-fixed">
 
             <div class="top-line clearfix">
 
@@ -79,34 +79,71 @@
                     <?php
                         $notificationsCount = UserNotification::model()->getUserCount(Yii::app()->user->id);
                         $friendsCount = FriendRequest::model()->getUserCount(Yii::app()->user->id);
-                        $imCount = Im::model()->getUnreadMessagesCount();
+                        $imCount = Im::model()->getUnreadMessagesCount(Yii::app()->user->id);
                     ?>
-                    <div class="user-nav">
+                    <div class="user-nav-2">
 
                         <ul>
-                            <li><a href="<?php echo $this->createUrl('/user/profile', array('user_id'=>Yii::app()->user->id)) ?>"><i class="icon icon-home"></i></a></li>
-                            <li id="user-nav-messages">
-                                <a href="javascript:void(0)" onclick="Messages.toggle()"><i class="icon icon-messages"></i><span class="count"<?php if ($imCount == 0): ?> style="display: none;"<?php endif; ?>><?=$imCount?></span></a>
-                            </li>
-                            <li id="user-nav-friends">
-                                <a href="javascript:void(0)" onclick="Friends.toggle()"><i class="icon icon-friends"></i><span class="count"<?php if ($friendsCount == 0): ?> style="display: none;"<?php endif; ?>><?=$friendsCount?></span></a>
-                            </li>
-                            <li id="user-nav-notifications">
-                                <a href="javascript:void(0)" onclick="Notifications.toggle()"><i class="icon icon-notifications"></i><span class="count"<?php if ($notificationsCount == 0): ?> style="display: none;"<?php endif; ?>><?=$notificationsCount?></span></a>
-                            </li>
-                            <li>
-                                <a href="<?=$this->createUrl('/scores/default/index') ?>"><i class="icon icon-points"></i><span class="count"><?= $user->getScores()->scores ?></span></a>
-                            </li>
                             <li class="item-ava">
-                                <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => Yii::app()->user->model, 'size' => 'small', 'small' => true, 'sendButton' => false)); ?>
+                                <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
+                                    'user' => Yii::app()->user->model,
+                                    'size' => 'small',
+                                    'small' => true,
+                                    'sendButton' => false,
+                                )); ?>
                             </li>
-                            <li id="user-nav-settings">
-                                <a href="javascript:void(0)" onclick="Settings.toggle()"><i class="icon icon-settings"></i></a>
+                            <li class="item-dialogs<?php if ($imCount > 0): ?> new<?php endif; ?>">
+                                <a href="javascript:void(0)" onclick="Messages.toggle()">
+                                    <i class="icon-dialogs"></i>
+                                    <div class="count"><span class="count-red"><?=$imCount?></span></div>
+                                </a>
                             </li>
-                            <li>
-                                <a href="<?php echo $this->createUrl('/site/logout') ?>"><i class="icon icon-logout"></i></a>
+                            <li class="item-friends<?php if ($friendsCount > 0): ?> new<?php endif; ?>">
+                                <a href="javascript:void(0)" onclick="Friends.toggle()">
+                                    <i class="icon-friends"></i>
+                                    <div class="count"><span class="count-red"><?=$friendsCount?></span></div>
+                                </a>
                             </li>
+                            <li class="item-notifications<?php if ($notificationsCount > 0): ?> new<?php endif; ?>">
+                                <a href="javascript:void(0)" onclick="Notifications.toggle()">
+                                    <i class="icon-notifications"></i>
+                                    <div class="count"><span class="count-red">+ <span><?=$notificationsCount?></span></span></div>
+                                </a>
+                            </li>
+                            <li class="item-settings">
+                                <a href="javascript:void(0)" onclick="Settings.toggle()"><i class="icon-settings"></i></a>
+                            </li>
+                            <li class="item-logout">
+                                <a href="<?php echo $this->createUrl('/site/logout') ?>"><i class="icon-logout"></i></a>
+                            </li>
+
                         </ul>
+                        <?php if (false): ?>
+                            <ul>
+                                <li><a href="<?php echo $this->createUrl('/user/profile', array('user_id'=>Yii::app()->user->id)) ?>"><i class="icon icon-home"></i></a></li>
+                                <li id="user-nav-messages">
+                                    <a href="javascript:void(0)" onclick="Messages.toggle()"><i class="icon icon-messages"></i><span class="count"<?php if ($imCount == 0): ?> style="display: none;"<?php endif; ?>><?=$imCount?></span></a>
+                                </li>
+                                <li id="user-nav-friends">
+                                    <a href="javascript:void(0)" onclick="Friends.toggle()"><i class="icon icon-friends"></i><span class="count"<?php if ($friendsCount == 0): ?> style="display: none;"<?php endif; ?>><?=$friendsCount?></span></a>
+                                </li>
+                                <li id="user-nav-notifications">
+                                    <a href="javascript:void(0)" onclick="Notifications.toggle()"><i class="icon icon-notifications"></i><span class="count"<?php if ($notificationsCount == 0): ?> style="display: none;"<?php endif; ?>><?=$notificationsCount?></span></a>
+                                </li>
+                                <li>
+                                    <a href="<?=$this->createUrl('/scores/default/index') ?>"><i class="icon icon-points"></i><span class="count"><?= $user->getScores()->scores ?></span></a>
+                                </li>
+                                <li class="item-ava">
+                                    <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => Yii::app()->user->model, 'size' => 'small', 'small' => true, 'sendButton' => false)); ?>
+                                </li>
+                                <li id="user-nav-settings">
+                                    <a href="javascript:void(0)" onclick="Settings.toggle()"><i class="icon icon-settings"></i></a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo $this->createUrl('/site/logout') ?>"><i class="icon icon-logout"></i></a>
+                                </li>
+                            </ul>
+                        <?php endif; ?>
 
                     </div>
                 <?php else: ?>

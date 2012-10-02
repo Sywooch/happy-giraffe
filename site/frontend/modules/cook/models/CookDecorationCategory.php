@@ -93,25 +93,38 @@ class CookDecorationCategory extends HActiveRecord
     public function getPhotoCollection()
     {
         $cacheId = ($this->id) ? 'wPhoto_decor_' . $this->id : 'wPhoto_decor_all';
-        $sql = "SELECT * FROM " . CookDecoration::model()->tableName();
+        $sql = 'SELECT MAX(created) FROM ' . CookDecoration::model()->tableName();
         if ($this->id)
-            $sql .= " WHERE id = " . $this->id;
+            $sql .= ' WHERE id = ' . $this->id;
 
-        //$collection = Yii::app()->cache->get($cacheId);
-        $collection = false;
+        $collection = Yii::app()->cache->get($cacheId);
         if ($collection === false) {
+            $criteria = new CDbCriteria(array(
+                'with' => array(
+                    'photo' => array(
+                        'with' => array(
+                            'author' => array(
+                                'select' => 'id, first_name, last_name, online',
+                                'with' => 'avatar',
+                            ),
+                        ),
+                    ),
+                ),
+            ));
+
             if (empty($this->id))
-                $decorations = CookDecoration::model()->findAll();
+                $decorations = CookDecoration::model()->findAll($criteria);
             else
-                $decorations = $this->decorations;
+                $decorations = $this->getRelated('decorations', false, $criteria);
 
             $photos = array();
             foreach($decorations as $model)
             {
                 $model->photo->w_title = $model->title;
                 $model->photo->w_description = $model->description;
-                array_push($photos, $model->photo);
+                $photos [] = $model->photo;
             }
+
             $collection = array(
                 'title' => (empty($this->id)) ?
                     'Фотоальбом к сервису ' . CHtml::link('Офомление блюд', array('cook/decor/index'))

@@ -129,7 +129,7 @@ class LinkingController extends SController
     {
         $parser = new SimilarArticlesParser;
         if ($this->startsWith($phrase->page->url, 'http://www.happy-giraffe.ru/horoscope/')) {
-            $pages = $parser->getArticles('url:http://www.happy-giraffe.ru/community* '.$phrase->keyword->name);
+            $pages = $parser->getArticles('inurl:community гороскоп');
 
             $pages = $this->filterPages($phrase, $pages);
         } else {

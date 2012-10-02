@@ -7,7 +7,7 @@ Notifications.open = function() {
     $.get('/userPopup/notifications/', function(data) {
         $('#popup-preloader').hide();
         $('body').append(data);
-        $('#user-nav-notifications').addClass('active');
+        $('.user-nav-2 .item-notifications').addClass('active');
         Notifications.setHeight();
         $(window).on('resize', function() {
             Notifications.setHeight();
@@ -19,7 +19,7 @@ Notifications.open = function() {
 Notifications.close = function() {
     $('#user-notifications').remove();
     Popup.unload();
-    $('#user-nav-notifications').removeClass('active');
+    $('.user-nav-2 .item-notifications').removeClass('active');
     $(window).off('resize');
 }
 
@@ -42,11 +42,12 @@ Notifications.delete = function(el, id) {
 }
 
 Notifications.updateCounter = function(diff) {
-    var counter = $('#user-nav-notifications .count');
+    var li = $('.user-nav-2 .item-notifications');
+    var counter = li.find('.count span.count-red span');
     var newVal = parseInt(counter.text()) + diff;
-    counter.text(newVal);
 
-    counter.toggle(newVal != 0);
+    counter.text(newVal);
+    li.toggleClass('new', newVal != 0);
 }
 
 Notifications.setHeight = function() {

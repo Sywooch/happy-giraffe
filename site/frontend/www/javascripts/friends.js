@@ -8,7 +8,7 @@ Friends.open = function() {
     $.get('/userPopup/friends/', function(data) {
         $('#popup-preloader').hide();
         $('body').append(data);
-        $('#user-nav-friends').addClass('active');
+        $('.user-nav-2 .item-friends').addClass('active');
 
         Friends.friendsCarousel = $('#user-friends .jcarousel').jcarousel({
             scroll: 4,
@@ -31,7 +31,7 @@ Friends.open = function() {
 Friends.close = function() {
     $('#user-friends').remove();
     Popup.unload();
-    $('#user-nav-friends').removeClass('active');
+    $('.user-nav-2 .item-friends').removeClass('active');
 }
 
 Friends.toggle = function() {
@@ -43,14 +43,17 @@ Friends.isActive = function() {
 }
 
 Friends.updateCounter = function(diff) {
-    var counter = $('#user-nav-friends .count');
+    var li = $('.user-nav-2 .item-friends');
+    var counter = li.find('.count span.count-red');
     var newVal = parseInt(counter.text()) + diff;
+
     counter.text(newVal);
-    counter.toggle(newVal != 0);
+    li.toggleClass('new', newVal != 0);
 
     if (Friends.isActive()) {
         $('#user-friends .friends-count span').text(newVal);
         $('#user-friends .friends-count .more').toggle(newVal > 4)
+        $('#user-friends .invitation').toggle(newVal > 0)
     }
 }
 

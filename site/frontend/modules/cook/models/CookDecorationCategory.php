@@ -97,7 +97,8 @@ class CookDecorationCategory extends HActiveRecord
         if ($this->id)
             $sql .= ' WHERE id = ' . $this->id;
 
-        $collection = Yii::app()->cache->get($cacheId);
+        //$collection = Yii::app()->cache->get($cacheId);
+        $collection = false;
         if ($collection === false) {
             $criteria = new CDbCriteria(array(
                 'with' => array(

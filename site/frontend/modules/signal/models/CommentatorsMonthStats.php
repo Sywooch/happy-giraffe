@@ -127,13 +127,21 @@ class CommentatorsMonthStats extends EMongoDocument
         $criteria = new EMongoCriteria;
         $criteria->user_id('==', (int)$commentator->id);
         $model = CommentatorWork::model()->find($criteria);
-        if ($model === null)
-            return null;
-
-        if (!Yii::app()->authManager->checkAccess('commentator_panel', $model->user_id))
+        if ($model === null || $this->isNotWorkingAlready($commentator->id))
             return null;
 
         return $model;
+    }
+
+    public function isNotWorkingAlready($user_id)
+    {
+        $auth_item = Yii::app()->db->createCommand()
+            ->select('itemname')
+            ->from('auth__assignments')
+            ->where('itemname = "commentator_panel" AND userid = '.$user_id)
+            ->queryScalar();
+        return empty($auth_item);
+
     }
 
     public function getPlace($user_id, $counter)

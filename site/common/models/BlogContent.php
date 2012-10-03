@@ -9,4 +9,12 @@ class BlogContent extends CommunityContent
     {
         return parent::model($className);
     }
+
+    public function defaultScope()
+    {
+        $alias = $this->getTableAlias(false, false);
+        return array(
+            'condition' => ($alias) ? $alias . '.removed = 0' : 'removed = 0',
+        );
+    }
 }

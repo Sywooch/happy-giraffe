@@ -563,7 +563,7 @@ class CommunityContent extends HActiveRecord
     {
         $alias = $this->getTableAlias(false, false);
         return array(
-            'condition' => ($alias) ? $alias . '.removed = 0' : 'removed = 0',
+            'condition' => ($alias) ? $alias . '.removed = 0 AND type_id != 5' : 'removed = 0 AND type_id != 5',
         );
     }
 

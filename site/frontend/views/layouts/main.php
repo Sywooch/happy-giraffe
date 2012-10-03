@@ -47,7 +47,7 @@
     if (! Yii::app()->user->isGuest) {
         $cs
             ->registerPackage('user')
-            ->registerScript('im-urls', 'im.GetLastUrl="'.Yii::app()->createUrl('/im/default/getLast').';"')
+            //->registerScript('im-urls', 'im.GetLastUrl="'.Yii::app()->createUrl('/im/default/getLast').';"')
         ;
 
         $interlocutor_id = Yii::app()->request->getQuery('im_interlocutor_id', 'null');
@@ -114,7 +114,7 @@
                                 <a href="javascript:void(0)" onclick="Settings.toggle()"><i class="icon-settings"></i></a>
                             </li>
                             <li class="item-logout">
-                                <a href="<?php echo $this->createUrl('/site/logout') ?>"><i class="icon-logout"></i></a>
+                                <a href="<?php echo $this->createUrl('/site/logout') ?>" class="tooltip" title="Выход"><i class="icon-logout"></i></a>
                             </li>
 
                         </ul>

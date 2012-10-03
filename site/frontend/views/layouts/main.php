@@ -92,7 +92,7 @@
                                     'sendButton' => false,
                                 )); ?>
                             </li>
-                            <li class="item-dialogs tooltip<?php if ($imCount > 0): ?> new<?php endif; ?>" title="Мои сообщения">
+                            <li class="item-dialogs tooltip<?php if ($imCount > 0): ?> new<?php endif; ?>" title="Мои диалоги">
                                 <a href="javascript:void(0)" onclick="Messages.toggle()">
                                     <i class="icon-dialogs"></i>
                                     <div class="count"><span class="count-red"><?=$imCount?></span></div>

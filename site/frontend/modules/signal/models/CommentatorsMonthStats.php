@@ -111,9 +111,9 @@ class CommentatorsMonthStats extends EMongoDocument
         }
 
         //remove deleted commentators
-        foreach ($this->commentators as $commentator_id => $val)
-            if (!in_array($commentator_id, $active_commentators))
-                unset($this->commentators[$commentator_id]);
+        foreach ($this->commentators as $key => $commentator)
+            if (!in_array($commentator->id, $active_commentators))
+                unset($this->commentators[$key]);
 
         $this->save();
     }
@@ -130,7 +130,7 @@ class CommentatorsMonthStats extends EMongoDocument
         if ($model === null)
             return null;
         $user = User::model()->findByPk($model->user_id);
-        if ($user === null || $user->group == UserGroup::USER)
+        if ($user === null)
             return null;
 
         return $model;

@@ -111,7 +111,7 @@ class CommentatorsMonthStats extends EMongoDocument
         }
 
         //remove deleted commentators
-        foreach($this->commentators as $commentator_id => $val)
+        foreach ($this->commentators as $commentator_id => $val)
             if (!in_array($commentator_id, $active_commentators))
                 unset($this->commentators[$commentator_id]);
 
@@ -126,15 +126,12 @@ class CommentatorsMonthStats extends EMongoDocument
     {
         $criteria = new EMongoCriteria;
         $criteria->user_id('==', (int)$commentator->id);
-        $models =  CommentatorWork::model()->find($criteria);
-        foreach($models as $key=>$model)
-        {
-            $user = User::model()->findByPk($model->user_id);
-            if ($user === null || $user->group == UserGroup::USER)
-                unset($models[$key]);
-        }
+        $model = CommentatorWork::model()->find($criteria);
+        $user = User::model()->findByPk($model->user_id);
+        if ($user === null || $user->group == UserGroup::USER)
+            return null;
 
-        return $models;
+        return $model;
     }
 
     public function getPlace($user_id, $counter)

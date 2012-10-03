@@ -47,6 +47,8 @@ class DefaultController extends HController
             if ($disease === null)
                 throw new CHttpException(404);
             $this->disease_id = $disease->id;
+            Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
+            $this->meta_title = 'Народные рецепты от болезни '.$disease->title;
         }
 
         $dp = RecipeBookRecipe::model()->getByDisease($this->disease_id);

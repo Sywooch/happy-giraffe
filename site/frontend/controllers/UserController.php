@@ -60,6 +60,13 @@ class UserController extends HController
         ))->findByPk($user_id);
         if ($user === null)
             throw new CHttpException(404, 'Пользователь не найден');
+
+        foreach($this->actionParams as $p => $v)
+            if ($p == 'Comment_page'){
+                header("HTTP/1.1 301 Moved Permanently");
+                header("Location: " . $this->createUrl('user/profile', array('user_id'=>$user_id)));
+                Yii::app()->end();
+            }
         //if (!$user->calculateAccess('profile_access', Yii::app()->user->id))
         //    throw new CHttpException(403, 'Вы не можете просматривать страницу этого пользователя');
 

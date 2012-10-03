@@ -84,7 +84,7 @@
                     <div class="user-nav-2">
 
                         <ul>
-                            <li class="item-ava">
+                            <li class="item-ava tooltip" title="Моя анкета">
                                 <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
                                     'user' => Yii::app()->user->model,
                                     'size' => 'small',
@@ -92,29 +92,29 @@
                                     'sendButton' => false,
                                 )); ?>
                             </li>
-                            <li class="item-dialogs<?php if ($imCount > 0): ?> new<?php endif; ?>">
-                                <a href="javascript:void(0)" onclick="Messages.toggle()" class="tooltip" title="Уведомления">
+                            <li class="item-dialogs tooltip<?php if ($imCount > 0): ?> new<?php endif; ?>" title="Мои уведомления">
+                                <a href="javascript:void(0)" onclick="Messages.toggle()">
                                     <i class="icon-dialogs"></i>
                                     <div class="count"><span class="count-red"><?=$imCount?></span></div>
                                 </a>
                             </li>
-                            <li class="item-friends<?php if ($friendsCount > 0): ?> new<?php endif; ?>">
-                                <a href="javascript:void(0)" onclick="Friends.toggle()" class="tooltip" title="Друзья">
+                            <li class="item-friends tooltip<?php if ($friendsCount > 0): ?> new<?php endif; ?>" title="Мои друзья">
+                                <a href="javascript:void(0)" onclick="Friends.toggle()">
                                     <i class="icon-friends"></i>
                                     <div class="count"><span class="count-red"><?=$friendsCount?></span></div>
                                 </a>
                             </li>
-                            <li class="item-notifications<?php if ($notificationsCount > 0): ?> new<?php endif; ?>">
-                                <a href="javascript:void(0)" onclick="Notifications.toggle()" class="tooltip" title="Уведомления">
+                            <li class="item-notifications tooltip<?php if ($notificationsCount > 0): ?> new<?php endif; ?>" title="Мои уведомления">
+                                <a href="javascript:void(0)" onclick="Notifications.toggle()">
                                     <i class="icon-notifications"></i>
                                     <div class="count"><span class="count-red">+ <span><?=$notificationsCount?></span></span></div>
                                 </a>
                             </li>
-                            <li class="item-settings">
-                                <a href="javascript:void(0)" onclick="Settings.toggle()" class="tooltip" title="Настройки"><i class="icon-settings"></i></a>
+                            <li class="item-settings tooltip" title="Мои настройки">
+                                <a href="javascript:void(0)" onclick="Settings.toggle()"><i class="icon-settings"></i></a>
                             </li>
-                            <li class="item-logout">
-                                <a href="<?php echo $this->createUrl('/site/logout') ?>" class="tooltip" title="Выход"><i class="icon-logout"></i></a>
+                            <li class="item-logout tooltip" title="Выход">
+                                <a href="<?php echo $this->createUrl('/site/logout') ?>"><i class="icon-logout"></i></a>
                             </li>
 
                         </ul>

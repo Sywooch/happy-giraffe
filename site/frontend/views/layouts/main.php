@@ -104,13 +104,13 @@
                                     <div class="count"><span class="count-red"><?=$friendsCount?></span></div>
                                 </a>
                             </li>
-                            <li class="item-notifications tooltip<?php if ($notificationsCount > 0): ?> new<?php endif; ?>" title="Мои уведомления">
+                            <li class="item-notifications tooltip<?php if ($notificationsCount > 0): ?> new<?php endif; ?>" title="Уведомления">
                                 <a href="javascript:void(0)" onclick="Notifications.toggle()">
                                     <i class="icon-notifications"></i>
                                     <div class="count"><span class="count-red">+ <span><?=$notificationsCount?></span></span></div>
                                 </a>
                             </li>
-                            <li class="item-settings tooltip" title="Мои настройки">
+                            <li class="item-settings tooltip" title="Настройки">
                                 <a href="javascript:void(0)" onclick="Settings.toggle()"><i class="icon-settings"></i></a>
                             </li>
                             <li class="item-logout tooltip" title="Выход">

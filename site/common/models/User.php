@@ -987,14 +987,14 @@ class User extends HActiveRecord
             'offset' => $offset,
         ));
 
-        if (!Yii::app()->user->isGuest) {
+        if (! Yii::app()->user->isGuest) {
             $criteria->addCondition('
                 t.id != :me AND t.id NOT IN (
                 SELECT user1_id FROM friends WHERE user2_id = :me
                 UNION
                 SELECT user2_id FROM friends WHERE user1_id = :me
             )');
-            $criteria->params = array(':me' => Yii::app()->user->id, ':lol' => time());
+            $criteria->params = array(':me' => Yii::app()->user->id);
         }
 
         return User::model()->findAll($criteria);

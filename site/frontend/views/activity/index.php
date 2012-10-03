@@ -49,7 +49,7 @@
 
                     <?php if($this->beginCache('activity-page-friends', array(
                         'duration' => 600,
-                        'varyBySession' => true,
+                        'varyByExpression' => 'Yii::app()->user->id',
                     ))): ?>
                         <?php $this->widget('FriendsWidget'); ?>
                     <?php $this->endCache(); endif;  ?>

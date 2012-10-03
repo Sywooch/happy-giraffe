@@ -138,7 +138,7 @@ class CommentatorsMonthStats extends EMongoDocument
         $auth_item = Yii::app()->db->createCommand()
             ->select('itemname')
             ->from('auth__assignments')
-            ->where('itemname = "commentator_panel" AND userid = '.$user_id)
+            ->where('itemname = "commentator" AND userid = '.$user_id)
             ->queryScalar();
         return empty($auth_item);
 

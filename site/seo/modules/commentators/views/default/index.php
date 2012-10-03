@@ -63,8 +63,9 @@ $months = CommentatorsMonthStats::getMonths();
             <?php $summary = array(0, 0, 0); ?>
             <?php $working_commentators = array();$i = 0; ?>
             <?php foreach ($commentators as $commentator): ?>
-
-                <?php $i++; if ($i > 11):?>
+                <?php if ($month->period == '2012-09') $group_size = 11;
+                else $group_size = 9;?>
+                <?php $i++; if ($i > $group_size):?>
                     <tr><td colspan="10">-----------------------------------------------------------------------------------------------------------------------------------------------------------------</td></tr>
                     <?php $i = 2; ?>
                 <?php endif ?>

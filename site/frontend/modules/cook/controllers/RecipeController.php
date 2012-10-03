@@ -298,7 +298,7 @@ class RecipeController extends HController
 
     public function actionAc($term)
     {
-        $ingredients = CookIngredient::model()->autoComplete($term, 10, false, true);
+        $ingredients = CookIngredient::model()->autoComplete($term, 100, false, true);
         echo CJSON::encode($ingredients);
     }
 

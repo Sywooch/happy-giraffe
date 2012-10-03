@@ -93,25 +93,25 @@
                                 )); ?>
                             </li>
                             <li class="item-dialogs<?php if ($imCount > 0): ?> new<?php endif; ?>">
-                                <a href="javascript:void(0)" onclick="Messages.toggle()">
+                                <a href="javascript:void(0)" onclick="Messages.toggle()" class="tooltip" title="Уведомления">
                                     <i class="icon-dialogs"></i>
                                     <div class="count"><span class="count-red"><?=$imCount?></span></div>
                                 </a>
                             </li>
                             <li class="item-friends<?php if ($friendsCount > 0): ?> new<?php endif; ?>">
-                                <a href="javascript:void(0)" onclick="Friends.toggle()">
+                                <a href="javascript:void(0)" onclick="Friends.toggle()" class="tooltip" title="Друзья">
                                     <i class="icon-friends"></i>
                                     <div class="count"><span class="count-red"><?=$friendsCount?></span></div>
                                 </a>
                             </li>
                             <li class="item-notifications<?php if ($notificationsCount > 0): ?> new<?php endif; ?>">
-                                <a href="javascript:void(0)" onclick="Notifications.toggle()">
+                                <a href="javascript:void(0)" onclick="Notifications.toggle()" class="tooltip" title="Уведомления">
                                     <i class="icon-notifications"></i>
                                     <div class="count"><span class="count-red">+ <span><?=$notificationsCount?></span></span></div>
                                 </a>
                             </li>
                             <li class="item-settings">
-                                <a href="javascript:void(0)" onclick="Settings.toggle()"><i class="icon-settings"></i></a>
+                                <a href="javascript:void(0)" onclick="Settings.toggle()" class="tooltip" title="Настройки"><i class="icon-settings"></i></a>
                             </li>
                             <li class="item-logout">
                                 <a href="<?php echo $this->createUrl('/site/logout') ?>" class="tooltip" title="Выход"><i class="icon-logout"></i></a>

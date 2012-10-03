@@ -111,9 +111,9 @@ class CommentatorsMonthStats extends EMongoDocument
         }
 
         //remove deleted commentators
-        foreach ($this->commentators as $key => $commentator)
-            if (!in_array($commentator->id, $active_commentators))
-                unset($this->commentators[$key]);
+        foreach ($this->commentators as $commentator_id => $val)
+            if (!in_array($commentator_id, $active_commentators))
+                unset($this->commentators[$commentator_id]);
 
         $this->save();
     }

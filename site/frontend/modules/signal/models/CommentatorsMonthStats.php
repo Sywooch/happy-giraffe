@@ -126,7 +126,15 @@ class CommentatorsMonthStats extends EMongoDocument
     {
         $criteria = new EMongoCriteria;
         $criteria->user_id('==', (int)$commentator->id);
-        return CommentatorWork::model()->find($criteria);
+        $models =  CommentatorWork::model()->find($criteria);
+        foreach($models as $key=>$model)
+        {
+            $user = User::model()->findByPk($model->user_id);
+            if ($user === null || $user->group == UserGroup::USER)
+                unset($models[$key]);
+        }
+
+        return $models;
     }
 
     public function getPlace($user_id, $counter)

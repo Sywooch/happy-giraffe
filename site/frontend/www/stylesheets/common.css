@@ -1515,6 +1515,7 @@ body.nav-fixed #header-new .top-line {position:fixed;left:50%;margin-left:-500px
 #user-friends .friends .jcarousel ul li {padding:0 20px;}
 #user-friends .friends .jcarousel ul li.hide * {display:none;}
 #user-friends .friends ul {padding:0 26px;}
+#user-friends.smallscreen .friends ul {height:176px;overflow:hidden;}
 #user-friends .friends ul li {border:0;float:none;display:inline-block;*zoom:1;*display:inline;width:200px;vertical-align:top;margin-bottom:20px;}
 
 #user-friends .recent {padding:0 20px 20px;}

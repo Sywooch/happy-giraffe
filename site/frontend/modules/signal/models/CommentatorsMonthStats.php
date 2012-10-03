@@ -127,6 +127,8 @@ class CommentatorsMonthStats extends EMongoDocument
         $criteria = new EMongoCriteria;
         $criteria->user_id('==', (int)$commentator->id);
         $model = CommentatorWork::model()->find($criteria);
+        if ($model === null)
+            return null;
         $user = User::model()->findByPk($model->user_id);
         if ($user === null || $user->group == UserGroup::USER)
             return null;

@@ -129,8 +129,8 @@ class CommentatorsMonthStats extends EMongoDocument
         $model = CommentatorWork::model()->find($criteria);
         if ($model === null)
             return null;
-        $user = User::model()->findByPk($model->user_id);
-        if ($user === null)
+
+        if (!Yii::app()->authManager->checkAccess('commentator_panel', $model->user_id))
             return null;
 
         return $model;

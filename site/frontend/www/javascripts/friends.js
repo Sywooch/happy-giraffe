@@ -9,6 +9,7 @@ Friends.open = function() {
         $('#popup-preloader').hide();
         $('body').append(data);
         $('.user-nav-2 .item-friends').addClass('active');
+        Friends.setHeight();
 
         Friends.friendsCarousel = $('#user-friends .jcarousel').jcarousel({
             scroll: 4,
@@ -16,7 +17,6 @@ Friends.open = function() {
         });
 
         var ul = $('#user-friends .news ul');
-        console.log(ul);
         var i = 6;
         int = setInterval(function() {
             i--;
@@ -25,11 +25,27 @@ Friends.open = function() {
             if (i == 0)
                 clearInterval(int);
         }, 400);
+
+        $(window).on('resize', function() {
+            Friends.setHeight();
+        });
     });
+}
+
+Friends.setHeight = function() {
+    var userFriends = $("#user-friends");
+    if ( $(window).height() < userFriends.height() + userFriends.position().top) {
+        userFriends.addClass(" smallscreen");
+    }else{
+        if ( $(window).height() - 180 > userFriends.height() + userFriends.position().top ) {
+            userFriends.removeClass("smallscreen");
+        }
+    }
 }
 
 Friends.close = function() {
     $('#user-friends').remove();
+    $('window').off('resize');
     Popup.unload();
     $('.user-nav-2 .item-friends').removeClass('active');
 }

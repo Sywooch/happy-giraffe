@@ -7,3 +7,6 @@
 [submodule "site/frontend/extensions/yii-eauth"]
 	path = site/frontend/extensions/yii-eauth
 	url = https://github.com/Nodge/yii-eauth.git
+[submodule "site/frontend/www-submodule"]
+	path = site/frontend/www-submodule
+	url = git@github.com:beknown/happy-giraffe-www-frontend.git

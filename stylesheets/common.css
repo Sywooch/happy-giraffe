@@ -190,7 +190,7 @@ a.info {display:inline-block;*zoom:1;*display:inline;width:13px;height:13px;back
 .user-info .ava {float:left;position:relative;}
 .user-info .details {margin-left:80px;text-align:left !important;padding:0 !important;}
 .user-info.medium .details {margin-left:90px;}
-.user-info.medium .icon-status {margin-left:-16px;}
+.user-info.medium .icon-status {margin-left:-16px;*float:left;}
 .user-info .details .username {font-size:12px;line-height:1.2;text-decoration:none;vertical-align:top;width:85px;margin:0;padding:0;overflow:hidden;display:inline-block;*zoom:1;*display:inline;}
 .user-info .details .username:hover {text-decoration:underline;}
 .user-info .details .location {margin:3px 0;font-size:13px;}
@@ -1518,7 +1518,7 @@ body.nav-fixed #header-new .top-line {position:fixed;left:50%;margin-left:-500px
 #user-friends .friends .jcarousel ul {padding:0;}
 #user-friends .friends .jcarousel ul li {padding:0 20px;}
 #user-friends .friends .jcarousel ul li.hide * {display:none;}
-#user-friends .friends ul {padding:0 26px;}
+#user-friends .friends ul {padding:0 26px;position:relative;}
 #user-friends.smallscreen .friends ul {height:176px;overflow:hidden;}
 #user-friends .friends ul li {border:0;float:none;display:inline-block;*zoom:1;*display:inline;width:200px;vertical-align:top;margin-bottom:20px;}
 

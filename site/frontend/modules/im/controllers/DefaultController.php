@@ -70,6 +70,7 @@ class DefaultController extends HController
             'contactHtml' => $contactHtml,
             'dialogid' => $contact->userDialog ? $contact->userDialog->dialog->id : 'undefined',
             'newCount' => Im::getContactsCount(Yii::app()->user->id, Im::IM_CONTACTS_NEW),
+            'menuCount' => Im::model()->getUnreadMessagesCount(Yii::app()->user->id),
         );
 
         echo CJSON::encode($response);

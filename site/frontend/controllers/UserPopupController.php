@@ -11,7 +11,7 @@ class UserPopupController extends HController
     public function filters()
     {
         return array(
-            //'ajaxOnly',
+            'ajaxOnly',
         );
     }
 
@@ -22,7 +22,7 @@ class UserPopupController extends HController
         $this->renderPartial('notifications', compact('dp'), false, true);
     }
 
-    public function actionFriends()
+    public function actionFriends($ajax = false)
     {
         Yii::beginProfile('requests');
         $requests = Yii::app()->user->model->getFriendRequests('incoming');
@@ -55,7 +55,7 @@ class UserPopupController extends HController
         Yii::endProfile('actions');
 
         Yii::beginProfile('render');
-        $this->renderPartial('friends', compact('requests', 'friendsCount', 'lastFriend', 'hasInvitations', 'findFriends', 'news'), false, true);
+        $this->renderPartial('friends', compact('requests', 'friendsCount', 'lastFriend', 'hasInvitations', 'findFriends', 'news', 'ajax'), false, true);
         Yii::endProfile('render');
     }
 

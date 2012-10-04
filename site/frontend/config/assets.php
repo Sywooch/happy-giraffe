@@ -2,6 +2,6 @@
 
 return array(
 	'class'=>'CAssetManager',
-	'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'www' . DIRECTORY_SEPARATOR . 'assets',
+	'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'www-submodule' . DIRECTORY_SEPARATOR . 'assets',
 	'baseUrl' => '/assets',
 );

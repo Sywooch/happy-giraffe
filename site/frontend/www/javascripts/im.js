@@ -2,6 +2,8 @@
  * User: alexk984
  * Date: 14.03.12
  */
+
+/*
 var im = new Im;
 
 Comet.prototype.NewMessage = function (result, id) {
@@ -71,4 +73,4 @@ Im.prototype.OnlineCount = function (result) {
 
         el.text(current_count).toggleClass('count-gray', current_count == 0);
     }
-}
+}                 */

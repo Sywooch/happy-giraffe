@@ -12,7 +12,7 @@
 
     <div class="friends activity-find-friend">
 
-        <?php if ($hasInvitations): ?>
+        <?php if ($hasInvitations || $ajax == 'friendRequestList'): ?>
             <div class="invitation">
 
                 <div class="friends-count"><span><?=$requests->itemCount?></span> <a href="javascript:void(0);" onclick="Friends.friendsCarousel.jcarousel('scroll', '+=4');" class="more"<?php if ($requests->itemCount <= 4): ?> style="display: none;"<?php endif; ?>><i class="icon"></i></a></div>

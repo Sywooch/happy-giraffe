@@ -26,7 +26,7 @@
         <?php endif; ?>
 
         <noindex>
-            <?php if (! $data->by_happy_giraffe && $data->author_id != User::HAPPY_GIRAFFE && $data->rubric->community_id != Community::COMMUNITY_NEWS): ?>
+            <?php if ($data->type_id == 5 || (! $data->by_happy_giraffe && $data->author_id != User::HAPPY_GIRAFFE && $data->rubric->community_id != Community::COMMUNITY_NEWS)): ?>
                 <div class="user">
                     <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => $data->contentAuthor, 'friendButton' => true, 'location' => false)); ?>
                 </div>
@@ -52,169 +52,189 @@
     </div>
 
     <?php if (! $full): ?>
-        <div class="entry-content wysiwyg-content">
-            <?php
-                switch ($data->type->slug)
-                {
-                    case 'video':
-                        $video = new Video($data->video->link);
-                        echo $data->purified->preview . '<div style="text-align: center; margin-bottom: 10px;">' . $video->code . '</div>';
-                        break;
-                    default:
-                        echo $data->purified->preview;
-                }
-            ?>
-            <?php if ($data->isFromBlog || $data->rubric->community_id == Community::COMMUNITY_NEWS): ?>
-                <?=CHtml::link('Читать всю запись<i class="icon"></i>', $data->url, array('class' => 'read-more'))?>
-            <?php endif; ?>
-            <div class="clear"></div>
-        </div>
-    <?php else: ?>
-        <div class="entry-content">
-            <div class="wysiwyg-content">
-                <?
-                switch ($data->type->slug)
-                {
-                    case 'post':
-                        echo $data->post->purified->text;
-                        break;
-                    case 'video':
-                        $video = new Video($data->video->link);
-                        echo '<noindex><div style="text-align: center; margin-bottom: 10px;">' . $video->code . '</div></noindex>';
-                        echo $data->video->purified->text;
-                        break;
-                    case 'travel':
-                        if ($data->travel->waypoints) {
-                            $icon = new EGMapMarkerImage('/images/map_marker.png');
-                            $icon->setSize(20, 32);
-
-                            $gMap = new EGMap();
-                            $gMap->width = '100%';
-                            $gMap->height = '325';
-                            $gMap->zoom = (count($data->travel->waypoints) == 1) ? 5 : 2;
-                            $incLat = 0;
-                            $incLng = 0;
-                            foreach ($data->travel->waypoints as $w)
-                            {
-                                $address = $w->country->name . ', ' . $w->city->name;
-                                $geocoded_address = new EGMapGeocodedAddress($address);
-                                $geocoded_address->geocode($gMap->getGMapClient());
-                                $gMap->addMarker(
-                                    new EGMapMarker($geocoded_address->getLat(), $geocoded_address->getLng(), array('title' => 'a', 'icon' => $icon))
-                                );
-                                $incLat += $geocoded_address->getLat();
-                                $incLng += $geocoded_address->getLng();
-                            }
-                            $dataenterLat = $incLat / count($data->travel->waypoints);
-                            $dataenterLng = $incLng / count($data->travel->waypoints);
-                            $gMap->setCenter($dataenterLat, $dataenterLng);
-
-                            $gMap->renderMap();
-                            ?>
-                            <ul class="tr_map">
-                                <li>
-                                    <ins>Посетили:</ins>
-                                </li>
-                                <li>
-                                    <ul>
-                                        <?php $i = 0; foreach ($data->travel->waypoints as $w): ?>
-                                        <li><?php echo $w->country_name; ?> -
-                                            <span><?php echo ++$i; ?></span> <?php echo $w->city_name; ?></li>
-                                        <?php endforeach; ?>
-                                    </ul>
-                                </li>
-                            </ul>
-                            <?php
-                        }
-                        ?>
-                            <div class="clear"></div>
-
-                            <?php
-                            $data_text = $data->travel->text;
-                        echo $data->travel->text;
-                        ?>
-                            <div class="clear"></div>
-                            <div class="travel_photo">
-                                <ul class="photo-list">
-                                    <?php foreach ($data->travel->images as $i): ?>
-                                    <li>
-                                        <div class="img-box">
-                                            <?php echo CHtml::link(CHtml::image($i->getUrl('thumb')), $i->getUrl('original'), array(
-                                            'class' => 'lol',
-                                            'rel' => 'group',
-                                        )); ?>
-                                        </div>
-                                    </li>
-                                    <?php endforeach; ?>
-                                </ul>
-                                <div class="clear"></div>
-                                <!-- .clear -->
-                            </div><!-- .travel_photo -->
-                            <?php
-                        break;
-                }
+        <?php if ($data->type_id == 5): ?>
+            <div class="entry-content user-status">
+                <?=CHtml::link($data->status->status->text, $data->url)?>
+            </div>
+        <?php else: ?>
+            <div class="entry-content wysiwyg-content">
+                <?php
+                    switch ($data->type->slug)
+                    {
+                        case 'video':
+                            $video = new Video($data->video->link);
+                            echo $data->purified->preview . '<div style="text-align: center; margin-bottom: 10px;">' . $video->code . '</div>';
+                            break;
+                        default:
+                            echo $data->purified->preview;
+                    }
                 ?>
-
+                <?php if ($data->type_id != 5 && ($data->isFromBlog || $data->rubric->community_id == Community::COMMUNITY_NEWS)): ?>
+                    <?=CHtml::link('Читать всю запись<i class="icon"></i>', $data->url, array('class' => 'read-more'))?>
+                <?php endif; ?>
                 <div class="clear"></div>
             </div>
+        <?php endif; ?>
+    <?php else: ?>
+        <?php if ($data->type_id == 5): ?>
+            <div class="entry-content user-status">
+                <?=$data->status->status->text?>
+            </div>
+        <?php else: ?>
+            <div class="entry-content">
+                <div class="wysiwyg-content">
+                    <?
+                    switch ($data->type->slug)
+                    {
+                        case 'status':
+                            echo $data->status->status->text;
+                            break;
+                        case 'post':
+                            echo $data->post->purified->text;
+                            break;
+                        case 'video':
+                            $video = new Video($data->video->link);
+                            echo '<noindex><div style="text-align: center; margin-bottom: 10px;">' . $video->code . '</div></noindex>';
+                            echo $data->video->purified->text;
+                            break;
+                        case 'travel':
+                            if ($data->travel->waypoints) {
+                                $icon = new EGMapMarkerImage('/images/map_marker.png');
+                                $icon->setSize(20, 32);
 
-            <?php if($data->gallery !== null && count($data->gallery->items) > 0): ?>
-                <?php $photo = $data->gallery->items[0]; ?>
-                <div class="gallery-box">
-                    <a class="img" data-id="<?=$data->gallery->items[0]->photo->id?>">
-                        <?php echo CHtml::image($photo->photo->getPreviewUrl(695, 463, Image::WIDTH)) ?>
+                                $gMap = new EGMap();
+                                $gMap->width = '100%';
+                                $gMap->height = '325';
+                                $gMap->zoom = (count($data->travel->waypoints) == 1) ? 5 : 2;
+                                $incLat = 0;
+                                $incLng = 0;
+                                foreach ($data->travel->waypoints as $w)
+                                {
+                                    $address = $w->country->name . ', ' . $w->city->name;
+                                    $geocoded_address = new EGMapGeocodedAddress($address);
+                                    $geocoded_address->geocode($gMap->getGMapClient());
+                                    $gMap->addMarker(
+                                        new EGMapMarker($geocoded_address->getLat(), $geocoded_address->getLng(), array('title' => 'a', 'icon' => $icon))
+                                    );
+                                    $incLat += $geocoded_address->getLat();
+                                    $incLng += $geocoded_address->getLng();
+                                }
+                                $dataenterLat = $incLat / count($data->travel->waypoints);
+                                $dataenterLng = $incLng / count($data->travel->waypoints);
+                                $gMap->setCenter($dataenterLat, $dataenterLng);
 
-                        <div class="title">
-                            <?=CHtml::encode($data->gallery->title)?>
-                        </div>
-                        <div class="count">
-                            смотреть <span><?=count($data->gallery->items)?> ФОТО</span>
-                        </div>
-                        <i class="icon-play"></i>
-                    </a>
+                                $gMap->renderMap();
+                                ?>
+                                <ul class="tr_map">
+                                    <li>
+                                        <ins>Посетили:</ins>
+                                    </li>
+                                    <li>
+                                        <ul>
+                                            <?php $i = 0; foreach ($data->travel->waypoints as $w): ?>
+                                            <li><?php echo $w->country_name; ?> -
+                                                <span><?php echo ++$i; ?></span> <?php echo $w->city_name; ?></li>
+                                            <?php endforeach; ?>
+                                        </ul>
+                                    </li>
+                                </ul>
+                                <?php
+                            }
+                            ?>
+                                <div class="clear"></div>
+
+                                <?php
+                                $data_text = $data->travel->text;
+                            echo $data->travel->text;
+                            ?>
+                                <div class="clear"></div>
+                                <div class="travel_photo">
+                                    <ul class="photo-list">
+                                        <?php foreach ($data->travel->images as $i): ?>
+                                        <li>
+                                            <div class="img-box">
+                                                <?php echo CHtml::link(CHtml::image($i->getUrl('thumb')), $i->getUrl('original'), array(
+                                                'class' => 'lol',
+                                                'rel' => 'group',
+                                            )); ?>
+                                            </div>
+                                        </li>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                    <div class="clear"></div>
+                                    <!-- .clear -->
+                                </div><!-- .travel_photo -->
+                                <?php
+                            break;
+                    }
+                    ?>
+
+                    <div class="clear"></div>
                 </div>
-                <?php
-                $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
-                    'selector' => '.gallery-box a',
-                    'entity' => get_class($data->gallery),
-                    'entity_id' => (int)$data->gallery->primaryKey,
-                ));
-                ?>
-            <?php endif; ?>
-        </div>
-    <?php endif; ?>
 
-    <div class="entry-footer">
-        <?php if(!Yii::app()->user->isGuest && $full){
-            $report = $this->beginWidget('site.frontend.widgets.reportWidget.ReportWidget', array('model' => $data));
-            $report->button("$('.report-container')");
-            $this->endWidget();
-        }
+                <?php if($data->gallery !== null && count($data->gallery->items) > 0): ?>
+                    <?php $photo = $data->gallery->items[0]; ?>
+                    <div class="gallery-box">
+                        <a class="img" data-id="<?=$data->gallery->items[0]->photo->id?>">
+                            <?php echo CHtml::image($photo->photo->getPreviewUrl(695, 463, Image::WIDTH)) ?>
 
-        $this->renderPartial('//community/admin_actions',array(
-            'c'=>$data,
-            'communities'=>Community::model()->findAll(),
-        ));
-
-        $this->renderPartial('//community/parts/move_post_popup',array('c'=>$data));
-
-        if (isset($this->community) && ! $data->isFromBlog && $this->community->id == 22 && Yii::app()->authManager->checkAccess('importCookRecipes', Yii::app()->user->id))
-            echo CHtml::link('Перенести в рецепты', array('/cook/recipe/import', 'content_id' => $data->id));
-
-        if ($data->by_happy_giraffe): ?>
-            <div class="source">Источник:&nbsp;
-                Весёлый Жираф
+                            <div class="title">
+                                <?=CHtml::encode($data->gallery->title)?>
+                            </div>
+                            <div class="count">
+                                смотреть <span><?=count($data->gallery->items)?> ФОТО</span>
+                            </div>
+                            <i class="icon-play"></i>
+                        </a>
+                    </div>
+                    <?php
+                    $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
+                        'selector' => '.gallery-box a',
+                        'entity' => get_class($data->gallery),
+                        'entity_id' => (int)$data->gallery->primaryKey,
+                    ));
+                    ?>
+                <?php endif; ?>
             </div>
         <?php endif; ?>
+    <?php endif; ?>
 
-        <div class="clear"></div>
-    </div>
+    <?php if ($data->type_id != 5): ?>
+        <div class="entry-footer">
+            <?php if(!Yii::app()->user->isGuest && $full){
+                $report = $this->beginWidget('site.frontend.widgets.reportWidget.ReportWidget', array('model' => $data));
+                $report->button("$('.report-container')");
+                $this->endWidget();
+            }
+
+            $this->renderPartial('//community/admin_actions',array(
+                'c'=>$data,
+                'communities'=>Community::model()->findAll(),
+            ));
+
+            $this->renderPartial('//community/parts/move_post_popup',array('c'=>$data));
+
+            if (isset($this->community) && ! $data->isFromBlog && $this->community->id == 22 && Yii::app()->authManager->checkAccess('importCookRecipes', Yii::app()->user->id))
+                echo CHtml::link('Перенести в рецепты', array('/cook/recipe/import', 'content_id' => $data->id));
+
+            if ($data->by_happy_giraffe): ?>
+                <div class="source">Источник:&nbsp;
+                    Весёлый Жираф
+                </div>
+            <?php endif; ?>
+
+            <div class="clear"></div>
+        </div>
+    <?php endif; ?>
     <div class="report-container"></div>
 </div>
 
 <?php if ($full): ?>
     <?php
         switch ($data->type->slug) {
+            case 'status':
+                $like_title = 'Вам понравился статус? Отметьте!';
+                $like_notice = '<big>Рейтинг статуса</big><p>Он показывает, насколько нравится ваш статус другим пользователям. Если статус интересный, то пользователи его читают, комментируют, увеличивают лайки социальных сетей.</p>';
             case 'post':
                 $like_title = 'Вам понравилась статья? Отметьте!';
                 $like_notice = '<big>Рейтинг статьи</big><p>Он показывает, насколько нравится ваша статья другим пользователям. Если статья интересная, то пользователи её читают, комментируют, увеличивают лайки социальных сетей.</p>';

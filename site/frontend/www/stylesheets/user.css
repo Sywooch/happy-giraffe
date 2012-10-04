@@ -92,6 +92,8 @@
 #user .user-top-block .user-fast-buttons a:hover {text-decoration:none;}
 #user .user-top-block .user-fast-buttons .add-friend .icon {display:block;width:50px;height:40px;background:url(/images/icon_add_friend_50x40.png) no-repeat;float:left;margin-top:-7px;margin-right:10px;position:absolute;left:0;}
 #user .user-top-block .user-fast-buttons .new-message .icon {display:block;width:52px;height:40px;background:url(/images/icon_new_message_52x40.png) no-repeat;float:left;margin-top:-7px;margin-right:10px;position:absolute;left:-2px;}
+#user .user-top-block .user-fast-buttons .request-sent {opacity:.33;text-decoration:none;}
+#user .user-top-block .user-fast-buttons .is-friend {float:left;font-size:25px;color:#48ac37;margin-right:25px;}
 
 #user .user-top-block .user-activity-link {float:left;font-size:16px;line-height:30px;margin-left:35px;}
 #user .user-top-block .user-activity-link a {color:#e87004;}

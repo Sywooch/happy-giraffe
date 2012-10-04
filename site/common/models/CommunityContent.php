@@ -62,7 +62,8 @@ class CommunityContent extends HActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('title, author_id, type_id', 'required'),
+            array('title', 'required', 'except' => 'status'),
+            array('author_id, type_id', 'required'),
             array('rubric_id', 'required', 'on' => 'default'),
             array('title, meta_title, meta_description, meta_keywords', 'length', 'max' => 255),
             array('author_id, rubric_id, type_id', 'length', 'max' => 11),
@@ -90,9 +91,10 @@ class CommunityContent extends HActiveRecord
             'type' => array(self::BELONGS_TO, 'CommunityContentType', 'type_id'),
             'commentsCount' => array(self::STAT, 'Comment', 'entity_id', 'condition' => 'entity=:modelName', 'params' => array(':modelName' => get_class($this))),
             'comments' => array(self::HAS_MANY, 'Comment', 'entity_id', 'on' => 'entity=:modelName', 'params' => array(':modelName' => get_class($this))),
-            'travel' => array(self::HAS_ONE, 'CommunityTravel', 'content_id', 'on' => "slug = 'travel'"),
-            'video' => array(self::HAS_ONE, 'CommunityVideo', 'content_id', 'on' => "slug = 'video'"),
-            'post' => array(self::HAS_ONE, 'CommunityPost', 'content_id', 'on' => "slug = 'post'"),
+            'status' => array(self::HAS_ONE, 'CommunityStatus', 'content_id', 'on' => 'type_id = 5'),
+            'travel' => array(self::HAS_ONE, 'CommunityTravel', 'content_id', 'on' => 'type_id = 3'),
+            'video' => array(self::HAS_ONE, 'CommunityVideo', 'content_id', 'on' => 'type_id = 2'),
+            'post' => array(self::HAS_ONE, 'CommunityPost', 'content_id', 'on' => 'type_id = 1'),
             'contentAuthor' => array(self::BELONGS_TO, 'User', 'author_id'),
             'author' => array(self::BELONGS_TO, 'User', 'author_id'),
             'remove' => array(self::HAS_ONE, 'Removed', 'entity_id', 'condition' => 'remove.entity = :entity', 'params' => array(':entity' => get_class($this))),
@@ -123,6 +125,9 @@ class CommunityContent extends HActiveRecord
     public function behaviors()
     {
         return array(
+            'withRelated' => array(
+                'class' => 'site.common.extensions.wr.WithRelatedBehavior',
+            ),
             'CTimestampBehavior' => array(
                 'class' => 'zii.behaviors.CTimestampBehavior',
                 'createAttribute' => 'created',
@@ -426,6 +431,7 @@ class CommunityContent extends HActiveRecord
                     'post',
                     'video',
                     'travel',
+                    'status',
                     'commentsCount',
                     'contentAuthor' => array(
                         'select' => 'id, first_name, last_name, avatar_id, online, blocked, deleted',
@@ -463,7 +469,7 @@ class CommunityContent extends HActiveRecord
     {
         $criteria = new CDbCriteria(array(
             'order' => 't.created DESC',
-            'condition' => 'rubric.user_id IS NOT NULL AND t.author_id = :user_id',
+            'condition' => '(rubric.user_id IS NOT NULL OR t.type_id = 5) AND t.author_id = :user_id',
             'params' => array(':user_id' => $user_id),
         ));
 
@@ -550,14 +556,14 @@ class CommunityContent extends HActiveRecord
 
     public function getIsFromBlog()
     {
-        return ($this->rubric_id !== null) && ($this->getRelated('rubric')->user_id !== null);
+        return ($this->rubric_id !== null && $this->getRelated('rubric')->user_id !== null) || $this->type_id == 5;
     }
 
     public function defaultScope()
     {
         $alias = $this->getTableAlias(false, false);
         return array(
-            'condition' => ($alias) ? $alias . '.removed = 0' : 'removed = 0',
+            'condition' => ($alias) ? $alias . '.removed = 0 AND type_id != 5' : 'removed = 0 AND type_id != 5',
         );
     }
 

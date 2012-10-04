@@ -42,12 +42,11 @@ Yii::app()->clientScript->registerScript('init_site_id','ExtLinks.site_id = '.$t
                 <a href="javascript:;" class="btn-g small" onclick="ExtLinks.Problem(<?=$task->id ?>)">Ok</a>
 
                 <?php if (empty($task->site->account)): ?>
-                    <a href="javascript:;" class="radio" onclick="ExtLinks.checkProblem(this, 2)">Письмо не пришло</a>
-                    <a href="javascript:;" class="radio" onclick="ExtLinks.checkProblem(this, 1)">Невозможно
-                    зарегистрироваться</a>
+                <a href="javascript:;" class="radio" onclick="ExtLinks.checkProblem(this, 1)">В черный список</a>
+                <a href="javascript:;" class="radio" onclick="ExtLinks.checkProblem(this, 2)">Отложить на 3 дня</a>
                 <?php else: ?>
-                    <a href="javascript:;" class="radio" onclick="ExtLinks.checkProblem(this, 1)">Аккаунт заблокировали</a>
-                    <a href="javascript:;" class="radio" onclick="ExtLinks.checkProblem(this, 2)">Сайт недоступен</a>
+                    <a href="javascript:;" class="radio" onclick="ExtLinks.checkProblem(this, 1)">В черный список</a>
+                    <a href="javascript:;" class="radio" onclick="ExtLinks.checkProblem(this, 2)">Отложить на 3 дня</a>
                 <?php endif ?>
 
             </div>

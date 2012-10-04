@@ -76,7 +76,8 @@ class ParseController extends SController
                 $result = $this->loadPage($page_url, $url);
 
                 $document = phpQuery::newDocument($result);
-                $this->ParseDocument($document, $month, $year, $site_id);
+                if ($this->ParseDocument($document, $month, $year, $site_id) === false)
+                    break;
 
                 sleep(rand(1, 2));
             }
@@ -95,9 +96,6 @@ class ParseController extends SController
             if (is_numeric($name))
                 $max_pages = $name;
         }
-
-        if ($max_pages > 50)
-            $max_pages = 50;
 
         return $max_pages;
     }
@@ -411,8 +409,12 @@ class ParseController extends SController
                         continue;
 
                     $stats = trim(pq($tr)->find('td:eq(2)')->text());
+                    $stats = str_replace(',', '', $stats);
+                    if ($stats < 5)
+                        return false;
+
                     $keyword_model = Keyword::GetKeyword($keyword);
-                    SiteKeywordVisit::SaveValue($site_id, $keyword_model->id, $month, $year, str_replace(',', '', $stats));
+                    SiteKeywordVisit::SaveValue($site_id, $keyword_model->id, $month, $year, $stats);
                     $count++;
                 }
             }

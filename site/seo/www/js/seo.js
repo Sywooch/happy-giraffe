@@ -214,31 +214,6 @@ var WordStat = {
     }
 }
 
-var Competitors = {
-    Parse:function (mode) {
-        $.post('/competitors/parse/parse/', {
-            site_id:$('#site').val(),
-            year:$('#year').val(),
-            month_from:$('#month_from').val(),
-            month_to:$('#month_to').val(),
-            mode:mode
-        }, function (response) {
-            if (response.status)
-                $.pnotify({
-                    pnotify_title:'Успешно',
-                    pnotify_text:response.count + ' новых запросов спарсили',
-                    pnotify_hide:false
-                });
-            else
-                $.pnotify({
-                    pnotify_title:'Ошибка',
-                    pnotify_type:'error',
-                    pnotify_text:response.error
-                });
-        }, 'json');
-    }
-}
-
 var Indexing = {
     showRemoveUrls:function(){
         $('#add-urls').hide();

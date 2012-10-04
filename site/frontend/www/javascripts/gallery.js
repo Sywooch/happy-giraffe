@@ -238,7 +238,7 @@ jQuery.fn.pGallery = function(options) {
     }
 
     plugin.getEntityUrl = function() {
-        var base = (plugin.data.entity_url === null) ? document.location.href : plugin.data.entity_url;
+        var base = (plugin.data.entity_url === null || plugin.data.entity_url === undefined) ? document.location.href : plugin.data.entity_url;
         return base.replace(/photo(.*)/, '');
     }
 

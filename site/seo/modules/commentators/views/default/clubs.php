@@ -2,13 +2,7 @@
 Yii::app()->clientScript->registerCoreScript('jquery.ui');
 
 $clubs = Community::model()->findAll();
-$commentator_ids = Yii::app()->db_seo->createCommand()
-    ->selectDistinct('commentator_id')
-    ->from('commentators')
-    ->queryColumn();
-$commentators = CommentatorWork::model()->findAll(new EMongoCriteria(array(
-    'condition' => array('user_id', 'in', $commentator_ids)
-)));
+$commentators = CommentatorWork::getWorkingCommentators();
 
 $clubs_count = array();
 foreach($commentators as $commentator){

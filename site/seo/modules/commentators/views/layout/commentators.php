@@ -9,8 +9,13 @@
             'items' => array(
                 array(
                     'label' => 'Статистика',
-                    'active'=>Yii::app()->controller->uniqueId == 'commentators/default',
+                    'active'=>Yii::app()->controller->action->id != 'clubs',
                     'url' => array('/commentators/default/index'),
+                ),
+                array(
+                    'label' => 'Распределение клубов',
+                    'active'=>Yii::app()->controller->action->id == 'clubs',
+                    'url' => array('/commentators/default/clubs'),
                 ),
             )));
 

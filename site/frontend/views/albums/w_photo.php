@@ -121,25 +121,19 @@
             <p><?=$photo->w_description?></p>
         </div>
 
-    </div>
+        <div class="rewatch-container" style="display: none;">
 
-    <div id="w-photo-content photo-container"">
-        <?php $this->renderPartial('w_photo_content', compact('model', 'photo')); ?>
-    </div>
+            <div class="album-end">
 
-    <div class="rewatch-container" style="display: none;">
+                <div class="block-title">Вы посмотрели альбом "<?=$title?>"</div>
 
-        <div class="album-end">
+                <span class="count"><?=$count?> фото</span>
 
-            <div class="block-title">Вы посмотрели альбом "<?=$title?>"</div>
+                <a href="javascript:void(0)" class="re-watch"><i class="icon"></i><span>Посмотреть еще раз</span></a>
 
-            <span class="count"><?=$count?> фото</span>
+            </div>
 
-            <a href="javascript:void(0)" class="re-watch"><i class="icon"></i><span>Посмотреть еще раз</span></a>
-
-        </div>
-
-        <?php if ($more !== null): ?>
+            <?php if ($more !== null): ?>
             <div class="more-albums">
                 <div class="block-in">
                     <div class="block-title"><span>Другие альбомы</span></div>
@@ -148,19 +142,19 @@
                         <ul>
 
                             <?php $i = 0; foreach ($more as $album): ?>
-                                <?php if ($album->photos): ?>
-                                    <?php $i++; ?>
-                                    <li>
-                                        <div class="img" data-id="<?=$album->photos[0]->id?>" data-entity="<?=get_class($album)?>" data-entity-id="<?=$album->id?>" data-entity-url="<?=$album->url?>">
-                                            <a href="javascript:void(0)">
-                                                <?=CHtml::image($album->photos[0]->getPreviewUrl(210, null, Image::WIDTH))?>
-                                                <span class="count"><i class="icon"></i> <?=$album->photoCount?> фото</span>
-                                                <span class="btn">Посмотреть</span>
-                                            </a>
-                                        </div>
-                                        <div class="item-title"><?=CHtml::link($album->title, $album->url)?></div>
-                                    </li>
-                                    <?php if ($i == 3) break; ?>
+                            <?php if ($album->photos): ?>
+                                <?php $i++; ?>
+                                <li>
+                                    <div class="img" data-id="<?=$album->photos[0]->id?>" data-entity="<?=get_class($album)?>" data-entity-id="<?=$album->id?>" data-entity-url="<?=$album->url?>">
+                                        <a href="javascript:void(0)">
+                                            <?=CHtml::image($album->photos[0]->getPreviewUrl(210, null, Image::WIDTH))?>
+                                            <span class="count"><i class="icon"></i> <?=$album->photoCount?> фото</span>
+                                            <span class="btn">Посмотреть</span>
+                                        </a>
+                                    </div>
+                                    <div class="item-title"><?=CHtml::link($album->title, $album->url)?></div>
+                                </li>
+                                <?php if ($i == 3) break; ?>
                                 <?php endif; ?>
                             <?php endforeach; ?>
 
@@ -169,8 +163,14 @@
                 </div>
 
             </div>
-        <?php endif; ?>
+            <?php endif; ?>
 
+        </div>
+
+    </div>
+
+    <div id="w-photo-content photo-container"">
+        <?php $this->renderPartial('w_photo_content', compact('model', 'photo')); ?>
     </div>
 
 </div>

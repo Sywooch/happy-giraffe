@@ -7,11 +7,11 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>Untitled Document</title>
 	
-	
 	<link rel="stylesheet" type="text/css" href="/stylesheets/common.css" />
 	
+	<!--<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>-->
 	
-	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	<script type="text/javascript" src="/html/jquery-1.8.0.min.js"></script>
 	
 	<script type="text/javascript" src="/javascripts/jquery.tooltip.pack.js"></script>
 	
@@ -66,7 +66,7 @@
 	</script>
 	
 </head>
-<body class="body-club">
+<body class="body-club nav-fixed">
 	
 	<div id="layout" class="wrapper">
 	
@@ -615,89 +615,223 @@
     
 	</div>
 	
-	<div id="photo-window-bg" style="display:none;"></div>
+	<div id="photo-window-bg" style="display:block;"></div>
 	
-	<div id="photo-window" style="display:none;">
+	<div id="photo-window">
 		
-		<div id="photo-window-in">
+		<div id="photo-window-in" style="left:8px;">
 			
-			<div class="top-line clearfix">
+			<div class="photo-bg">
 				
-				<a href="javascript:void(0);" class="close" onclick="closePhoto();"></a>
-				
-				<div class="user">
-					<div class="user-info clearfix">
-						<a class="ava female small"></a>
-						<div class="details">
-							<span class="icon-status status-online"></span>
-							<a href="" class="username">Александр Богоявленский</a>
+				<div class="top-line clearfix">
+					
+					<a href="javascript:void(0);" class="close" onclick="closePhoto();"></a>
+					
+					<div class="user">
+						<div class="user-info clearfix">
+							<a class="ava female small"></a>
+							<div class="details">
+								<span class="icon-status status-online"></span>
+								<a href="" class="username">Александр Богоявленский</a>
+							</div>
 						</div>
 					</div>
+					
+					<div class="photo-info">
+						Альбом  «Оформление вторые блюда» - <span class="count">3 фото из 158</span>
+						<div class="title">Жареный картофель с беконом</div>
+					</div>
+					
 				</div>
 				
-				<div class="photo-info">
-					Альбом  «Оформление вторые блюда» - <span class="count">3 фото из 158</span>
-					<div class="title">Жареный картофель с беконом <a href="" class="edit"></a></div>
-					<div class="title"><input type="text" value="Жареный картофель с беконом"/> <button class="btn btn-green-small"><span><span>Ok</span></span></button></div>
+				<div id="photo">
+					
+					<div class="img">
+						<table><tr><td>
+							<img src="/images/example/ex5.jpg" />
+						</td></tr></table>
+					</div>
+					
+					<a href="" class="prev"><i class="icon"></i>предыдушая</a>
+					<a href="" class="next"><i class="icon"></i>следующая</a>
+					
+				</div>
+				
+				<div class="photo-comment">
+					<p>Квашеная капуста с клюквой, грибами, соусом, зеленью квашеная квашеная капуста с клюквой, грибами, капуста соусом, зеленью квашеная, Квашеная капуста с клюквой, грибами, соусом, зеленью квашеная квашеная</p>
 				</div>
 				
 			</div>
 			
-			
-			<div id="photo">
+			<div class="photo-bg photo-bg-1 photo-bg-bright">
 				
-				<div class="img">
-					<img src="/images/example/ex5.jpg" />
+				<div class="top-line clearfix">
+					
+					<a href="javascript:void(0);" class="close" onclick="closePhoto();"></a>
+					
+					<div class="user">
+						<div class="user-info clearfix">
+							<a class="ava female small"></a>
+							<div class="details">
+								<span class="icon-status status-online"></span>
+								<a href="" class="username">Александр Богоявленский</a>
+							</div>
+						</div>
+					</div>
+					
+					<div class="photo-info">
+						Альбом  «Оформление вторые блюда» - <span class="count">3 фото из 158</span>
+						<div class="title">Жареный картофель с беконом</div>
+					</div>
+					
 				</div>
 				
-				<a href="" class="prev"><i class="icon"></i>предыдушая</a>
-				<a href="" class="next"><i class="icon"></i>следующая</a>
+				<div id="photo">
+					
+					<div class="img">
+						<table><tr><td>
+							<img src="/images/example/ex6.jpg" />
+						</td></tr></table>
+					</div>
+					
+					<a href="" class="prev"><i class="icon"></i>предыдушая</a>
+					<a href="" class="next"><i class="icon"></i>следующая</a>
+					
+				</div>
+				
+				<div class="photo-comment">
+					<p>Квашеная капуста с клюквой, грибами, соусом, зеленью квашеная квашеная капуста с клюквой, грибами, капуста соусом, зеленью квашеная, Квашеная капуста с клюквой, грибами, соусом, зеленью квашеная квашеная</p>
+				</div>
 				
 			</div>
 			
-			
-			<div class="photo-comment">
-				<p>Квашеная капуста с клюквой, грибами, соусом, зеленью квашеная квашеная капуста с клюквой, грибами, капуста соусом, зеленью квашеная, Квашеная капуста с клюквой, грибами, соусом, зеленью квашеная квашеная <a href="" class="edit"></a></p>
+			<div class="photo-bg photo-bg-2 photo-bg-dark">
+				
+				<div class="top-line clearfix">
+					
+					<a href="javascript:void(0);" class="close" onclick="closePhoto();"></a>
+					
+					<div class="user">
+						<div class="user-info clearfix">
+							<a class="ava female small"></a>
+							<div class="details">
+								<span class="icon-status status-online"></span>
+								<a href="" class="username">Александр Богоявленский</a>
+							</div>
+						</div>
+					</div>
+					
+					<div class="photo-info">
+						<span>Альбом  «Оформление вторые блюда» - <span class="count">3 фото из 158</span></span>
+						<div class="title">Жареный картофель с беконом </div>
+					</div>
+					
+				</div>
+				
+				<div id="photo">
+					
+					<div class="img">
+						<table><tr><td>
+							<img src="/images/example/ex4.jpg" />
+						</td></tr></table>
+					</div>
+					
+					<a href="" class="prev"><i class="icon"></i>предыдушая</a>
+					<a href="" class="next"><i class="icon"></i>следующая</a>
+					
+				</div>
+				
+				<div class="photo-comment">
+					<p>Квашеная капуста с клюквой, грибами, соусом, зеленью квашеная квашеная капуста с клюквой, грибами, капуста соусом, зеленью квашеная, Квашеная капуста с клюквой, грибами, соусом, зеленью квашеная квашеная </p>
+				</div>
+				
 			</div>
 			
-			<div class="photo-comment">
-				<textarea>Квашеная капуста с клюквой, грибами, соусом, зеленью квашеная квашеная капуста с клюквой, грибами, капуста соусом, зеленью квашеная, Квашеная капуста с клюквой, грибами, соусом, зеленью квашеная квашеная</textarea>
-				<button class="btn btn-green-small"><span><span>Ok</span></span></button>
+			<div class="photo-bg photo-bg-3 photo-bg-dark">
+				
+				<div class="top-line clearfix">
+					
+					<a href="javascript:void(0);" class="close" onclick="closePhoto();"></a>
+					
+					<div class="user">
+						<div class="user-info clearfix">
+							<a class="ava female small"></a>
+							<div class="details">
+								<span class="icon-status status-online"></span>
+								<a href="" class="username">Александр Богоявленский</a>
+							</div>
+						</div>
+					</div>
+					
+					<div class="photo-info">
+						Альбом  «Оформление вторые блюда» - <span class="count">3 фото из 158</span>
+						<div class="title">Жареный картофель с беконом</div>
+					</div>
+					
+				</div>
+				
+				<div id="photo">
+					
+					<div class="img">
+						<table><tr><td>
+							<img src="/images/example/ex5.jpg" />
+						</td></tr></table>
+					</div>
+					
+					<a href="" class="prev"><i class="icon"></i>предыдушая</a>
+					<a href="" class="next"><i class="icon"></i>следующая</a>
+					
+				</div>
+				
+				<div class="photo-comment">
+					<p>Квашеная капуста с клюквой, грибами, соусом, зеленью квашеная квашеная капуста с клюквой, грибами, капуста соусом, зеленью квашеная, Квашеная капуста с клюквой, грибами, соусом, зеленью квашеная квашеная</p>
+				</div>
+				
+			</div>
+			
+			<div class="photo-bg photo-bg-4 photo-bg-bright">
+				
+				<div class="top-line clearfix">
+					
+					<a href="javascript:void(0);" class="close" onclick="closePhoto();"></a>
+					
+					<div class="user">
+						<div class="user-info clearfix">
+							<a class="ava female small"></a>
+							<div class="details">
+								<span class="icon-status status-online"></span>
+								<a href="" class="username">Александр Богоявленский</a>
+							</div>
+						</div>
+					</div>
+					
+					<div class="photo-info">
+						Альбом  «Оформление вторые блюда» - <span class="count">3 фото из 158</span>
+						<div class="title">Жареный картофель с беконом</div>
+					</div>
+					
+				</div>
+				
+				<div id="photo">
+					
+					<div class="img">
+						<table><tr><td>
+							<img src="/images/example/ex3.jpg" />
+						</td></tr></table>
+					</div>
+					
+					<a href="" class="prev"><i class="icon"></i>предыдушая</a>
+					<a href="" class="next"><i class="icon"></i>следующая</a>
+					
+				</div>
+				
+				<div class="photo-comment">
+					<p>Квашеная капуста с клюквой, грибами, соусом, зеленью квашеная квашеная капуста с клюквой, грибами, капуста соусом, зеленью квашеная, Квашеная капуста с клюквой, грибами, соусом, зеленью квашеная квашеная</p>
+				</div>
+				
 			</div>
 			
 			<div id="photo-content">
-				
-				<div class="like-block fast-like-block">
-							
-					<div class="box-1">
-						<script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
-						Поделиться
-						<div class="yashare-auto-init" data-yasharel10n="ru" data-yasharetype="none" data-yasharequickservices="vkontakte,facebook,twitter,odnoklassniki,moimir,gplus"><span class="b-share"><a rel="nofollow" target="_blank" title="ВКонтакте" class="b-share__handle b-share__link" href="http://share.yandex.ru/go.xml?service=vkontakte&amp;url=http%3A%2F%2Fhg.local%2Fhtml%2Fsocial%2Farticle_2.0.html&amp;title=Untitled%20Document" data-service="vkontakte"><span class="b-share-icon b-share-icon_vkontakte"></span></a><a rel="nofollow" target="_blank" title="Facebook" class="b-share__handle b-share__link" href="http://share.yandex.ru/go.xml?service=facebook&amp;url=http%3A%2F%2Fhg.local%2Fhtml%2Fsocial%2Farticle_2.0.html&amp;title=Untitled%20Document" data-service="facebook"><span class="b-share-icon b-share-icon_facebook"></span></a><a rel="nofollow" target="_blank" title="Twitter" class="b-share__handle b-share__link" href="http://share.yandex.ru/go.xml?service=twitter&amp;url=http%3A%2F%2Fhg.local%2Fhtml%2Fsocial%2Farticle_2.0.html&amp;title=Untitled%20Document" data-service="twitter"><span class="b-share-icon b-share-icon_twitter"></span></a><a rel="nofollow" target="_blank" title="Одноклассники" class="b-share__handle b-share__link" href="http://share.yandex.ru/go.xml?service=odnoklassniki&amp;url=http%3A%2F%2Fhg.local%2Fhtml%2Fsocial%2Farticle_2.0.html&amp;title=Untitled%20Document" data-service="odnoklassniki"><span class="b-share-icon b-share-icon_odnoklassniki"></span></a><a rel="nofollow" target="_blank" title="Мой Мир" class="b-share__handle b-share__link" href="http://share.yandex.ru/go.xml?service=moimir&amp;url=http%3A%2F%2Fhg.local%2Fhtml%2Fsocial%2Farticle_2.0.html&amp;title=Untitled%20Document" data-service="moimir"><span class="b-share-icon b-share-icon_moimir"></span></a><a rel="nofollow" target="_blank" title="Google Plus" class="b-share__handle b-share__link" href="http://share.yandex.ru/go.xml?service=gplus&amp;url=http%3A%2F%2Fhg.local%2Fhtml%2Fsocial%2Farticle_2.0.html&amp;title=Untitled%20Document" data-service="gplus"><span class="b-share-icon b-share-icon_gplus"></span></a></span></div>
-					</div>
-					
-					<div class="box-2">
-						
-						<div class="like-btn">
-							<a href="" class="btn-icon heart active"></a>
-							<div class="count">286</div>
-						</div>
-						
-					</div>
-					
-					<div class="box-3">
-						<div class="rating"><span>286</span></div>
-						<div class="icon-info">
-							<div class="tip">
-								<big>Рейтинг статьи</big>
-								<p>Как правило, кроватку новорождому приобретают незадолго до его появления на свет. При этом многие молодые родители обращают внимание главным образом на ее внешний вид.</p>
-
-								<p>Как правило, кроватку новорождому приобретают незадолго до его появления на свет. При этом многие молодые родители обращают внимание главным образом на ее внешний вид.</p>
-							</div>
-						</div>
-						<span class="label">баллов</span>
-					</div>
-					
-				</div>				
 				
 				<div class="default-comments">
 					
@@ -864,7 +998,7 @@
 		
 	</div>
 	
-  <a id="btn-seo" href="#seo_tags" class="fancy" data-theme='white-square'></a>
+  <!--<a id="btn-seo" href="#seo_tags" class="fancy" data-theme='white-square'></a>-->
   
 </body>
 </html>

@@ -14,7 +14,7 @@
         <title><?=CHtml::encode($this->pageTitle)?></title>
     <?php endif;
 
-    $release_id = 335;
+    $release_id = 336;
     $cs = Yii::app()->clientScript;
     $cs
         ->registerPackage('comet')

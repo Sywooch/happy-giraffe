@@ -66,27 +66,6 @@ class SeoCommand extends CConsoleCommand
         Config::setAttribute('stop_threads', 1);
     }
 
-    public function actionPreparePositionParsing()
-    {
-        Yii::app()->db_seo->createCommand('update queries set yandex_parsed = 0, google_parsed = 0, parsing = 0;')->execute();
-    }
-
-    public function actionParseQueriesYandex($debug = 0)
-    {
-        Config::setAttribute('stop_threads', 0);
-
-        $parser = new PositionParserThread(PositionParserThread::SE_YANDEX, $debug);
-        $parser->start();
-    }
-
-    public function actionParseQueriesGoogle($debug = 0)
-    {
-        Config::setAttribute('stop_threads', 0);
-
-        $parser = new PositionParserThread(PositionParserThread::SE_GOOGLE, $debug);
-        $parser->start();
-    }
-
     public function actionWordstat($mode = 0)
     {
         $parser = new WordstatParser();
@@ -97,12 +76,6 @@ class SeoCommand extends CConsoleCommand
     {
         $metrica = new YandexMetrica();
         $metrica->calculateMain();
-    }
-
-    public function actionDelete1Visits()
-    {
-        $metrica = new YandexMetrica();
-        $metrica->delete1Visits();
     }
 
     public function actionAddSeVisitsToWordStat()
@@ -268,26 +241,6 @@ class SeoCommand extends CConsoleCommand
         $model->delete();
 
         echo 1000 * (microtime(true) - $start_time) . "\n";
-    }
-
-    public function actionCalcGoogleVisits()
-    {
-        Yii::import('site.seo.modules.promotion.models.*');
-
-        $criteria = new CDbCriteria;
-        $criteria->condition = 'visits > 0';
-        $criteria->compare('week', date("W") - 1);
-        $criteria->compare('year', date("Y", strtotime('-1 week')));
-        $criteria->compare('se_id', 3);
-
-        $models = SearchPhraseVisit::model()->findAll($criteria);
-        PagesSearchPhrase::model()->updateAll(array('google_traffic' => 0));
-
-        foreach ($models as $model) {
-            echo $model->visits . "\n";
-            $model->phrase->google_traffic = $model->visits;
-            $model->phrase->update(array('google_traffic'));
-        }
     }
 }
 

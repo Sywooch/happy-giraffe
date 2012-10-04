@@ -517,12 +517,21 @@ class CommentatorWork extends EMongoDocument
         $criteria = new EMongoCriteria();
         $criteria->sort('created', EMongoCriteria::SORT_ASC);
         $models = CommentatorWork::model()->findAll($criteria);
+
+        return $models;
+    }
+
+    public static function getWorkingCommentators()
+    {
+        $criteria = new EMongoCriteria();
+        $criteria->sort('created', EMongoCriteria::SORT_ASC);
+        $models = CommentatorWork::model()->findAll($criteria);
         foreach($models as $k=>$model)
             if ($model->isNotWorkingAlready()){
                 unset($models[$k]);
                 echo $model->user_id.'<br>';
                 $model->clubs = array();
-                //$model->save();
+                $model->save();
             }
 
         return $models;

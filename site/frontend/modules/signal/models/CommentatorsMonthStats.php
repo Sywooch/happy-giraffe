@@ -119,7 +119,7 @@ class CommentatorsMonthStats extends EMongoDocument
     }
 
     /**
-     * @param $commentator
+     * @param User $commentator
      * @return CommentatorWork
      */
     public function loadCommentator($commentator)
@@ -127,21 +127,10 @@ class CommentatorsMonthStats extends EMongoDocument
         $criteria = new EMongoCriteria;
         $criteria->user_id('==', (int)$commentator->id);
         $model = CommentatorWork::model()->find($criteria);
-        if ($model === null || $this->isNotWorkingAlready($commentator->id))
+        if ($model === null || $model->isNotWorkingAlready())
             return null;
 
         return $model;
-    }
-
-    public function isNotWorkingAlready($user_id)
-    {
-        $auth_item = Yii::app()->db->createCommand()
-            ->select('itemname')
-            ->from('auth__assignments')
-            ->where('itemname = "commentator" AND userid = '.$user_id)
-            ->queryScalar();
-        return empty($auth_item);
-
     }
 
     public function getPlace($user_id, $counter)

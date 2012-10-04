@@ -384,11 +384,11 @@ var SeoLinking = {
             $(el).addClass('active');
         });
     },
-    showDonors:function (el, page_id) {
+    showDonors:function (el, phrase_id) {
         if ($(el).text() == '0')
             return false;
 
-        $.post('/promotion/linking/donors/', {page_id:page_id}, function (response) {
+        $.post('/promotion/linking/donors/', {phrase_id:phrase_id}, function (response) {
             $('#donors').html(response);
             $('#donors').show();
             var offset = $(el).offset();
@@ -435,7 +435,7 @@ var SeoLinking = {
 }
 
 $(function () {
-    $('body').click(function () {
+    $('html').click(function () {
         $('#donors').hide();
         $('#positions').hide();
     });

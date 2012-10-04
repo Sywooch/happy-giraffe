@@ -316,11 +316,11 @@ class WordstatParser extends ProxyParserThread
      */
     public function RemoveCurrentKeywordFromParsing()
     {
-        $this->startTimer('remove_from_parsing  check depth rise');
+        $this->startTimer('remove_from_parsing');
         //проверяем не изменилась ли глубина за время парсинга
         $old_depth = $this->keyword->depth;
         $this->keyword->refresh();
-        $this->endTimer();
+//        $this->endTimer();
 
         if ($this->keyword->depth > $old_depth) {
             //если глубина увеличилась, переходим к следующему слову
@@ -328,13 +328,13 @@ class WordstatParser extends ProxyParserThread
             $this->keyword->save();
         } else {
             //иначе удаляем кейворд из парсинга
-            $this->log($this->keyword->keyword_id . " - remove keyword from parsing");
+//            $this->log($this->keyword->keyword_id . " - remove keyword from parsing");
 
-            $this->startTimer('remove_from_parsing  remove');
+//            $this->startTimer('remove_from_parsing  remove');
             ParsingKeyword::model()->deleteByPk($this->keyword->keyword_id);
-            $this->endTimer();
+//            $this->endTimer();
 
-            $this->startTimer('remove_from_parsing  check parsed');
+//            $this->startTimer('remove_from_parsing  check parsed');
             $success = false;
             while (!$success) {
                 //и добавляем в спарсенные
@@ -364,8 +364,8 @@ class WordstatParser extends ProxyParserThread
                 if (!$success)
                     sleep(1);
             }
-            $this->endTimer();
         }
 
+        $this->endTimer();
     }
 }

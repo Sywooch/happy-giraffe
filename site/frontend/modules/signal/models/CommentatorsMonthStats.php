@@ -64,7 +64,7 @@ class CommentatorsMonthStats extends EMongoDocument
         )));
     }
 
-    public function calculate()
+    public function calculate($all = true)
     {
         $commentators = User::model()->findAll('`group`=' . UserGroup::COMMENTATOR);
         //$this->commentators = array();
@@ -80,12 +80,16 @@ class CommentatorsMonthStats extends EMongoDocument
                 $im_messages = $model->imMessages($this->period);
                 $blog_visits = $this->blogVisits($commentator->id);
                 $profile_view = $this->profileUniqueViews($commentator->id);
-                $se_visits = $this->getSeVisits($commentator->id);
+                if ($all)
+                    $se_visits = $this->getSeVisits($commentator->id);
+                else
+                    $se_visits = null;
 
                 if (isset($this->commentators[(int)$commentator->id])) {
                     $this->commentators[(int)$commentator->id][self::NEW_FRIENDS] = (int)$new_friends;
                     $this->commentators[(int)$commentator->id][self::IM_MESSAGES] = (int)$im_messages;
-                    $this->commentators[(int)$commentator->id][self::SE_VISITS] = (int)$se_visits;
+                    if ($se_visits !== null)
+                        $this->commentators[(int)$commentator->id][self::SE_VISITS] = (int)$se_visits;
 
                     if ($blog_visits !== null)
                         $this->commentators[(int)$commentator->id][self::BLOG_VISITS] = (int)$blog_visits;
@@ -107,7 +111,7 @@ class CommentatorsMonthStats extends EMongoDocument
         }
 
         //remove deleted commentators
-        foreach($this->commentators as $commentator_id => $val)
+        foreach ($this->commentators as $commentator_id => $val)
             if (!in_array($commentator_id, $active_commentators))
                 unset($this->commentators[$commentator_id]);
 
@@ -115,14 +119,18 @@ class CommentatorsMonthStats extends EMongoDocument
     }
 
     /**
-     * @param $commentator
+     * @param User $commentator
      * @return CommentatorWork
      */
     public function loadCommentator($commentator)
     {
         $criteria = new EMongoCriteria;
         $criteria->user_id('==', (int)$commentator->id);
-        return CommentatorWork::model()->find($criteria);
+        $model = CommentatorWork::model()->find($criteria);
+        if ($model === null || $model->isNotWorkingAlready())
+            return null;
+
+        return $model;
     }
 
     public function getPlace($user_id, $counter)

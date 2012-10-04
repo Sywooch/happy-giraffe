@@ -21,6 +21,7 @@
     }
 
     $collection = $model->photoCollection;
+
     $title = $collection['title'];
     $photos = $collection['photos'];
     $count = count($photos);

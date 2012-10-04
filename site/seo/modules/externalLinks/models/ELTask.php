@@ -253,6 +253,9 @@ class ELTask extends HActiveRecord
      */
     public function getNextTask()
     {
+        if ($this->todayTaskCount() <= 0)
+            return null;
+
         //first get register tasks
         $tasks = $this->getRegisterTasks();
         if (!empty($tasks))
@@ -309,7 +312,8 @@ class ELTask extends HActiveRecord
 
     public function todayTaskCount()
     {
-        return $this->getTaskLimit() - $this->todayPostTaskCount();
+        $count = $this->getTaskLimit() - $this->todayPostTaskCount();
+        return ($count <= 0) ? 0 : $count;
     }
 
     public function todayRegisterTaskCount()

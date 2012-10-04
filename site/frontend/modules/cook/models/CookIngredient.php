@@ -172,9 +172,10 @@ class CookIngredient extends HActiveRecord
         $criteriaMore = clone $criteria;
 
         $criteria->compare('t.title', $term . '%', true, 'AND', false);
+        $criteria->compare('cook__ingredient_synonyms.title', $term . '%', true, 'OR', false);
         $ingredients = $this->findAll($criteria);
 
-        if (count($ingredients) < $limit) {
+        /*if (count($ingredients) < $limit) {
             $criteria->compare('cook__ingredient_synonyms.title', $term . '%', true, 'OR', false);
             $ingredientsMore = $this->findAll($criteriaMore);
             while (count($ingredients) < $limit && !empty($ingredientsMore)) {
@@ -192,7 +193,7 @@ class CookIngredient extends HActiveRecord
                     array_shift($ingredientsMore);
                 }
             }
-        }
+        } */
 
         return $ingredients;
     }

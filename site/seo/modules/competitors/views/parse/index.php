@@ -1,3 +1,7 @@
+<?php
+Yii::app()->clientScript->registerScriptFile('http://www.happy-giraffe.ru/javascripts/soundmanager2.js');
+
+?>
 <div class="form">
 
     <div class="row">
@@ -24,7 +28,43 @@
     <input type="text" value="" style="width:400px;">
     <?php echo CHtml::link('установить куки', '#', array('onclick' => 'SeoModule.setConfigAttribute("liveinternet-cookie", $(this).prev().val())')); ?>
 
-<!--    <input type="text" value="" style="width:400px;">-->
+    <!--    <input type="text" value="" style="width:400px;">-->
     <?php //echo CHtml::link('дополнить урл', '#', array('onclick' => 'SeoModule.setConfigAttribute("liveinternet-add-url", $(this).prev().val())')); ?>
 
+    <br><br>
+    <a href="javascript:;" onclick="Competitors.Play()">Play</a>
 </div>
+
+<script type="text/javascript">
+    soundManager.url = '/swf/';
+
+    var Competitors = {
+        Parse:function (mode) {
+            $.post('/competitors/parse/parse/', {
+                site_id:$('#site').val(),
+                year:$('#year').val(),
+                month_from:$('#month_from').val(),
+                month_to:$('#month_to').val(),
+                mode:mode
+            }, function (response) {
+                if (response.status)
+                    $.pnotify({
+                        pnotify_title:'Успешно',
+                        pnotify_text:response.count + ' новых запросов спарсили',
+                        pnotify_hide:false
+                    });
+                else
+                    $.pnotify({
+                        pnotify_title:'Ошибка',
+                        pnotify_type:'error',
+                        pnotify_text:response.error
+                    });
+                Competitors.Play();
+            }, 'json');
+        },
+        Play:function () {
+            soundManager.createSound({id:'s', url:'/audio/1.mp3'});
+            soundManager.play('s');
+        }
+    }
+</script>

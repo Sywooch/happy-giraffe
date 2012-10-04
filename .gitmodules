@@ -9,4 +9,4 @@
 	url = https://github.com/Nodge/yii-eauth.git
 [submodule "site/frontend/www-submodule"]
 	path = site/frontend/www-submodule
-	url = git@github.com:beknown/happy-giraffe-www-frontend.git
+	url = git@frontend.github.com:beknown/happy-giraffe-www-frontend.git

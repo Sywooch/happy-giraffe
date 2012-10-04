@@ -410,7 +410,7 @@ class ParseController extends SController
 
                     $stats = trim(pq($tr)->find('td:eq(2)')->text());
                     $stats = str_replace(',', '', $stats);
-                    if ($stats < 2)
+                    if ($stats < 5)
                         return false;
 
                     $keyword_model = Keyword::GetKeyword($keyword);

@@ -529,9 +529,9 @@ class CommentatorWork extends EMongoDocument
         foreach($models as $k=>$model)
             if ($model->isNotWorkingAlready()){
                 unset($models[$k]);
-                echo $model->user_id.'<br>';
-                $model->clubs = array();
-                $model->save();
+//                echo $model->user_id.'<br>';
+//                $model->clubs = array();
+//                $model->save();
             }
 
         return $models;

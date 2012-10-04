@@ -7,6 +7,7 @@ $page = $phrase->page;
 
 Yii::app()->clientScript->registerScript('set_phrase', '
 SeoLinking.phrase_id = "' . $phrase->id . '";
+console.log("phrase_id="+' . $phrase->id . ');
 ');
 ?>
 <div id="auto-linking">

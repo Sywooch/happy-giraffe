@@ -16,6 +16,7 @@ class SeoUserAttributes extends EMongoDocument
         'yandex_traffic' => 1,
         'yandex_sort' => 1,
         'google_visits_min' => 30,
+        'se_tab' => 1,
     );
 
     public static function model($className = __CLASS__)

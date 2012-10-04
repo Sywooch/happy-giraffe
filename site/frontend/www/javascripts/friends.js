@@ -8,7 +8,8 @@ Friends.open = function() {
     $.get('/userPopup/friends/', function(data) {
         $('#popup-preloader').hide();
         $('body').append(data);
-        $('#user-nav-friends').addClass('active');
+        $('.user-nav-2 .item-friends').addClass('active');
+        Friends.setHeight();
 
         Friends.friendsCarousel = $('#user-friends .jcarousel').jcarousel({
             scroll: 4,
@@ -16,7 +17,6 @@ Friends.open = function() {
         });
 
         var ul = $('#user-friends .news ul');
-        console.log(ul);
         var i = 6;
         int = setInterval(function() {
             i--;
@@ -25,13 +25,29 @@ Friends.open = function() {
             if (i == 0)
                 clearInterval(int);
         }, 400);
+
+        $(window).on('resize', function() {
+            Friends.setHeight();
+        });
     });
+}
+
+Friends.setHeight = function() {
+    var userFriends = $("#user-friends");
+    if ( $(window).height() < userFriends.height() + userFriends.position().top) {
+        userFriends.addClass(" smallscreen");
+    }else{
+        if ( $(window).height() - 180 > userFriends.height() + userFriends.position().top ) {
+            userFriends.removeClass("smallscreen");
+        }
+    }
 }
 
 Friends.close = function() {
     $('#user-friends').remove();
+    $('window').off('resize');
     Popup.unload();
-    $('#user-nav-friends').removeClass('active');
+    $('.user-nav-2 .item-friends').removeClass('active');
 }
 
 Friends.toggle = function() {
@@ -43,14 +59,17 @@ Friends.isActive = function() {
 }
 
 Friends.updateCounter = function(diff) {
-    var counter = $('#user-nav-friends .count');
+    var li = $('.user-nav-2 .item-friends');
+    var counter = li.find('.count span.count-red');
     var newVal = parseInt(counter.text()) + diff;
+
     counter.text(newVal);
-    counter.toggle(newVal != 0);
+    li.toggleClass('new', newVal != 0);
 
     if (Friends.isActive()) {
         $('#user-friends .friends-count span').text(newVal);
         $('#user-friends .friends-count .more').toggle(newVal > 4)
+        $('#user-friends .invitation').toggle(newVal > 0)
     }
 }
 

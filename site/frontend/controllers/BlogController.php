@@ -193,7 +193,7 @@ class BlogController extends HController
         $this->pageTitle = $content->title;
 
         $this->user = $content->author;
-        $this->rubric_id = $content->rubric->id;
+        $this->rubric_id = ($content->type_id == 5) ? null : $content->rubric->id;
 
         if (!empty($content->uniqueness) && $content->uniqueness < 50)
             Yii::app()->clientScript->registerMetaTag('noindex', 'robots');

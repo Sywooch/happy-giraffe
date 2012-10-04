@@ -474,6 +474,17 @@ class CommentatorWork extends EMongoDocument
         return '<td></td>';
     }
 
+    public function isNotWorkingAlready()
+    {
+        $auth_item = Yii::app()->db->createCommand()
+            ->select('itemname')
+            ->from('auth__assignments')
+            ->where('itemname = "commentator" AND userid = '.$this->user_id)
+            ->queryScalar();
+        return empty($auth_item);
+
+    }
+
     public function getName()
     {
         return User::getUserById($this->user_id)->fullName;
@@ -505,7 +516,25 @@ class CommentatorWork extends EMongoDocument
     {
         $criteria = new EMongoCriteria();
         $criteria->sort('created', EMongoCriteria::SORT_ASC);
-        return CommentatorWork::model()->findAll($criteria);
+        $models = CommentatorWork::model()->findAll($criteria);
+
+        return $models;
+    }
+
+    public static function getWorkingCommentators()
+    {
+        $criteria = new EMongoCriteria();
+        $criteria->sort('created', EMongoCriteria::SORT_ASC);
+        $models = CommentatorWork::model()->findAll($criteria);
+        foreach($models as $k=>$model)
+            if ($model->isNotWorkingAlready()){
+                unset($models[$k]);
+//                echo $model->user_id.'<br>';
+//                $model->clubs = array();
+//                $model->save();
+            }
+
+        return $models;
     }
 
     /**

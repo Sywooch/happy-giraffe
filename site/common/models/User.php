@@ -963,7 +963,7 @@ class User extends HActiveRecord
             'select' => 't.*, count(interest__users_interests.user_id) AS interestsCount, count(' . Baby::model()->getTableAlias() . '.id) AS babiesCount',
             'group' => 't.id',
             'having' => 'interestsCount > 0 AND (babiesCount > 0 OR t.relationship_status IS NOT NULL)',
-            'condition' => 't.birthday IS NOT NULL AND t.avatar_id IS NOT NULL AND userAddress.country_id IS NOT NULL AND t.id != :lol',
+            'condition' => 't.birthday IS NOT NULL AND t.avatar_id IS NOT NULL AND userAddress.country_id IS NOT NULL',
             'join' => 'LEFT JOIN interest__users_interests ON interest__users_interests.user_id = t.id',
             'with' => array(
                 'interests' => array(
@@ -987,14 +987,14 @@ class User extends HActiveRecord
             'offset' => $offset,
         ));
 
-        if (!Yii::app()->user->isGuest) {
+        if (! Yii::app()->user->isGuest) {
             $criteria->addCondition('
                 t.id != :me AND t.id NOT IN (
                 SELECT user1_id FROM friends WHERE user2_id = :me
                 UNION
                 SELECT user2_id FROM friends WHERE user1_id = :me
             )');
-            $criteria->params = array(':me' => Yii::app()->user->id, ':lol' => time());
+            $criteria->params = array(':me' => Yii::app()->user->id);
         }
 
         return User::model()->findAll($criteria);

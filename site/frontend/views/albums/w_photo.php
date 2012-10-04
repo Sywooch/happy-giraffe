@@ -48,9 +48,11 @@
 
 <div id="photo-window-in">
 
-    <div class="top-line clearfix">
+    <div class="photo-bg">
 
-        <a onclick="$.fancybox.close();" href="javascript:void(0);" class="close"></a>
+        <div class="top-line clearfix">
+
+            <a onclick="$.fancybox.close();" href="javascript:void(0);" class="close"></a>
 
             <div class="user">
                 <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
@@ -61,53 +63,50 @@
                 )); ?>
             </div>
 
-        <div class="photo-container">
-            <div class="photo-info">
+            <div class="photo-info photo-container">
                 <?=$title?> - <span class="count"><span><?=($currentIndex + 1)?></span> фото из <?=$count?></span>
                 <div class="title"><?=$photo->w_title?></div>
             </div>
+
         </div>
 
-    </div>
+        <script type="text/javascript">
+            <?php ob_start(); ?>
+            <?php foreach ($preload as $i => $p): ?>
+                pGallery.photos[<?php echo $p->id ?>] = {
+                    idx : <?=$i + 1?>,
+                    prev : <?=($i != 0) ? $photos[$i - 1]->id : 'null'?>,
+                    next : <?=($i < $count - 1) ? $photos[$i + 1]->id : 'null'?>,
+                    src : '<?php echo $p->getPreviewUrl(960, 627, Image::HEIGHT, true); ?>',
+                    title : <?=($p->w_title === null) ? 'null' : '\'' . CJavaScript::quote($p->w_title) . '\''?>,
+                    description : <?=($p->w_description === null) ? 'null' : '\'' . CJavaScript::quote($p->w_description) . '\''?>,
+                    avatar : '<?php
+                            $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
+                                'user' => $p->author,
+                                'size' => 'small',
+                                'sendButton' => false,
+                                'location' => false
+                            ));
+                    ?>'
+                };
+            <?php endforeach; ?>
+            <?php
+                $ob = ob_get_clean();
+                echo str_replace(array("\n", "\r"), '', $ob);
+            ?>
+            $.ajax({
+                url : '/albums/postLoad/',
+                data : {
+                    entity : '<?=get_class($model)?>',
+                    entity_id : '<?=($model->id !== null) ? $model->id : 'null'?>'
+                },
+                dataType : 'script'
+            });
+            pGallery.first = <?=$photos[0]->id?>;
+            pGallery.last = <?=end($photos)->id?>;
+        </script>
 
-    <script type="text/javascript">
-        <?php ob_start(); ?>
-        <?php foreach ($preload as $i => $p): ?>
-            pGallery.photos[<?php echo $p->id ?>] = {
-                idx : <?=$i + 1?>,
-                prev : <?=($i != 0) ? $photos[$i - 1]->id : 'null'?>,
-                next : <?=($i < $count - 1) ? $photos[$i + 1]->id : 'null'?>,
-                src : '<?php echo $p->getPreviewUrl(960, 627, Image::HEIGHT, true); ?>',
-                title : <?=($p->w_title === null) ? 'null' : '\'' . CJavaScript::quote($p->w_title) . '\''?>,
-                description : <?=($p->w_description === null) ? 'null' : '\'' . CJavaScript::quote($p->w_description) . '\''?>,
-                avatar : '<?php
-                        $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
-                            'user' => $p->author,
-                            'size' => 'small',
-                            'sendButton' => false,
-                            'location' => false
-                        ));
-                ?>'
-            };
-        <?php endforeach; ?>
-        <?php
-            $ob = ob_get_clean();
-            echo str_replace(array("\n", "\r"), '', $ob);
-        ?>
-        $.ajax({
-            url : '/albums/postLoad/',
-            data : {
-                entity : '<?=get_class($model)?>',
-                entity_id : '<?=($model->id !== null) ? $model->id : 'null'?>'
-            },
-            dataType : 'script'
-        });
-        pGallery.first = <?=$photos[0]->id?>;
-        pGallery.last = <?=end($photos)->id?>;
-    </script>
-
-    <div class="photo-container">
-        <div id="photo">
+        <div id="photo" class="photo-container">
 
             <div class="img">
                 <table><tr><td><?=CHtml::image($photo->getPreviewUrl(960, 627, Image::HEIGHT, true), '')?></td></tr></table>
@@ -118,14 +117,14 @@
 
         </div>
 
-        <div class="photo-comment">
+        <div class="photo-comment photo-container"">
             <p><?=$photo->w_description?></p>
         </div>
 
+    </div>
 
-        <div id="w-photo-content">
-            <?php $this->renderPartial('w_photo_content', compact('model', 'photo')); ?>
-        </div>
+    <div id="w-photo-content photo-container"">
+        <?php $this->renderPartial('w_photo_content', compact('model', 'photo')); ?>
     </div>
 
     <div class="rewatch-container" style="display: none;">

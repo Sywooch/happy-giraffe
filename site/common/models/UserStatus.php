@@ -80,8 +80,22 @@ class UserStatus extends HActiveRecord
     {
         parent::afterSave();
 
-        if ($this->isNewRecord)
+        if ($this->isNewRecord) {
+            $content = new CommunityContent('status');
+            $content->type_id = 5;
+            $content->author_id = $this->user_id;
+
+            $status = new CommunityStatus;
+            $status->status_id = $this->id;
+            $status->text = $this->text;
+
+            $content->status = $status;
+            if (!$content->withRelated->save(true, array('status'))) {
+                print_r($content->errors);
+                die;
+            }
             UserAction::model()->add($this->user_id, UserAction::USER_ACTION_STATUS_CHANGED, array('model' => $this));
+        }
 
         User::model()->UpdateUser($this->user_id);
     }

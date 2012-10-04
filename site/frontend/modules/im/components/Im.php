@@ -97,15 +97,15 @@ class Im
         return (substr($haystack, 0, $length) === $needle);
     }
 
-    public function getUnreadMessagesCount()
+    public function getUnreadMessagesCount($user_id)
     {
         if ($this->unread_counts !== null)
             return $this->unread_counts;
 
         return Yii::app()->db->createCommand()
-            ->select('COUNT( id )')
+            ->select('COUNT( * )')
             ->from(Message::model()->tableName())
-            ->where('`dialog_id` IN (SELECT DISTINCT (dialog_id) FROM im__dialog_users WHERE user_id = :user_id) AND user_id != :user_id AND read_status = 0', array(':user_id' => $this->_user_id))
+            ->where('`dialog_id` IN (SELECT DISTINCT (dialog_id) FROM im__dialog_users WHERE user_id = :user_id) AND user_id != :user_id AND read_status = 0', array(':user_id' => $user_id))
             ->queryScalar();
     }
 

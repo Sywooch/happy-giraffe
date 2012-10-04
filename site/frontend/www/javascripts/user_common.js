@@ -22,14 +22,6 @@ Popup.unload = function() {
 }
 
 $(function() {
-    $.ajax({
-        dataType: 'json',
-        url: '/notification/getLast/',
-        success: function(response) {
-            updateIm(response.im.count, response.im.data);
-        }
-    });
-
     $('#user-nav-friends').delegate('i.close', 'click', function(e) {
         e.preventDefault();
         var el = $(this).closest('li');

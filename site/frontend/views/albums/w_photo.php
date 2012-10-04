@@ -49,9 +49,11 @@
 
 <div id="photo-window-in">
 
-    <div class="top-line clearfix">
+    <div class="photo-bg">
 
-        <a onclick="$.fancybox.close();" href="javascript:void(0);" class="close"></a>
+        <div class="top-line clearfix">
+
+            <a onclick="$.fancybox.close();" href="javascript:void(0);" class="close"></a>
 
             <div class="user">
                 <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
@@ -62,53 +64,50 @@
                 )); ?>
             </div>
 
-        <div class="photo-container">
-            <div class="photo-info">
+            <div class="photo-info photo-container">
                 <?=$title?> - <span class="count"><span><?=($currentIndex + 1)?></span> фото из <?=$count?></span>
                 <div class="title"><?=$photo->w_title?></div>
             </div>
+
         </div>
 
-    </div>
+        <script type="text/javascript">
+            <?php ob_start(); ?>
+            <?php foreach ($preload as $i => $p): ?>
+                pGallery.photos[<?php echo $p->id ?>] = {
+                    idx : <?=$i + 1?>,
+                    prev : <?=($i != 0) ? $photos[$i - 1]->id : 'null'?>,
+                    next : <?=($i < $count - 1) ? $photos[$i + 1]->id : 'null'?>,
+                    src : '<?php echo $p->getPreviewUrl(960, 627, Image::HEIGHT, true); ?>',
+                    title : <?=($p->w_title === null) ? 'null' : '\'' . CJavaScript::quote($p->w_title) . '\''?>,
+                    description : <?=($p->w_description === null) ? 'null' : '\'' . CJavaScript::quote($p->w_description) . '\''?>,
+                    avatar : '<?php
+                            $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
+                                'user' => $p->author,
+                                'size' => 'small',
+                                'sendButton' => false,
+                                'location' => false
+                            ));
+                    ?>'
+                };
+            <?php endforeach; ?>
+            <?php
+                $ob = ob_get_clean();
+                echo str_replace(array("\n", "\r"), '', $ob);
+            ?>
+            $.ajax({
+                url : '/albums/postLoad/',
+                data : {
+                    entity : '<?=get_class($model)?>',
+                    entity_id : '<?=($model->id !== null) ? $model->id : 'null'?>'
+                },
+                dataType : 'script'
+            });
+            pGallery.first = <?=$photos[0]->id?>;
+            pGallery.last = <?=end($photos)->id?>;
+        </script>
 
-    <script type="text/javascript">
-        <?php ob_start(); ?>
-        <?php foreach ($preload as $i => $p): ?>
-            pGallery.photos[<?php echo $p->id ?>] = {
-                idx : <?=$i + 1?>,
-                prev : <?=($i != 0) ? $photos[$i - 1]->id : 'null'?>,
-                next : <?=($i < $count - 1) ? $photos[$i + 1]->id : 'null'?>,
-                src : '<?php echo $p->getPreviewUrl(960, 627, Image::HEIGHT, true); ?>',
-                title : <?=($p->w_title === null) ? 'null' : '\'' . CJavaScript::quote($p->w_title) . '\''?>,
-                description : <?=($p->w_description === null) ? 'null' : '\'' . CJavaScript::quote($p->w_description) . '\''?>,
-                avatar : '<?php
-                        $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
-                            'user' => $p->author,
-                            'size' => 'small',
-                            'sendButton' => false,
-                            'location' => false
-                        ));
-                ?>'
-            };
-        <?php endforeach; ?>
-        <?php
-            $ob = ob_get_clean();
-            echo str_replace(array("\n", "\r"), '', $ob);
-        ?>
-        $.ajax({
-            url : '/albums/postLoad/',
-            data : {
-                entity : '<?=get_class($model)?>',
-                entity_id : '<?=($model->id !== null) ? $model->id : 'null'?>'
-            },
-            dataType : 'script'
-        });
-        pGallery.first = <?=$photos[0]->id?>;
-        pGallery.last = <?=end($photos)->id?>;
-    </script>
-
-    <div class="photo-container">
-        <div id="photo">
+        <div id="photo" class="photo-container">
 
             <div class="img">
                 <table><tr><td><?=CHtml::image($photo->getPreviewUrl(960, 627, Image::HEIGHT, true), '')?></td></tr></table>
@@ -119,29 +118,23 @@
 
         </div>
 
-        <div class="photo-comment">
+        <div class="photo-comment photo-container"">
             <p><?=$photo->w_description?></p>
         </div>
 
+        <div class="rewatch-container" style="display: none;">
 
-        <div id="w-photo-content">
-            <?php $this->renderPartial('w_photo_content', compact('model', 'photo')); ?>
-        </div>
-    </div>
+            <div class="album-end">
 
-    <div class="rewatch-container" style="display: none;">
+                <div class="block-title">Вы посмотрели альбом "<?=$title?>"</div>
 
-        <div class="album-end">
+                <span class="count"><?=$count?> фото</span>
 
-            <div class="block-title">Вы посмотрели альбом "<?=$title?>"</div>
+                <a href="javascript:void(0)" class="re-watch"><i class="icon"></i><span>Посмотреть еще раз</span></a>
 
-            <span class="count"><?=$count?> фото</span>
+            </div>
 
-            <a href="javascript:void(0)" class="re-watch"><i class="icon"></i><span>Посмотреть еще раз</span></a>
-
-        </div>
-
-        <?php if ($more !== null): ?>
+            <?php if ($more !== null): ?>
             <div class="more-albums">
                 <div class="block-in">
                     <div class="block-title"><span>Другие альбомы</span></div>
@@ -150,19 +143,19 @@
                         <ul>
 
                             <?php $i = 0; foreach ($more as $album): ?>
-                                <?php if ($album->photos): ?>
-                                    <?php $i++; ?>
-                                    <li>
-                                        <div class="img" data-id="<?=$album->photos[0]->id?>" data-entity="<?=get_class($album)?>" data-entity-id="<?=$album->id?>" data-entity-url="<?=$album->url?>">
-                                            <a href="javascript:void(0)">
-                                                <?=CHtml::image($album->photos[0]->getPreviewUrl(210, null, Image::WIDTH))?>
-                                                <span class="count"><i class="icon"></i> <?=$album->photoCount?> фото</span>
-                                                <span class="btn">Посмотреть</span>
-                                            </a>
-                                        </div>
-                                        <div class="item-title"><?=CHtml::link($album->title, $album->url)?></div>
-                                    </li>
-                                    <?php if ($i == 3) break; ?>
+                            <?php if ($album->photos): ?>
+                                <?php $i++; ?>
+                                <li>
+                                    <div class="img" data-id="<?=$album->photos[0]->id?>" data-entity="<?=get_class($album)?>" data-entity-id="<?=$album->id?>" data-entity-url="<?=$album->url?>">
+                                        <a href="javascript:void(0)">
+                                            <?=CHtml::image($album->photos[0]->getPreviewUrl(210, null, Image::WIDTH))?>
+                                            <span class="count"><i class="icon"></i> <?=$album->photoCount?> фото</span>
+                                            <span class="btn">Посмотреть</span>
+                                        </a>
+                                    </div>
+                                    <div class="item-title"><?=CHtml::link($album->title, $album->url)?></div>
+                                </li>
+                                <?php if ($i == 3) break; ?>
                                 <?php endif; ?>
                             <?php endforeach; ?>
 
@@ -171,8 +164,14 @@
                 </div>
 
             </div>
-        <?php endif; ?>
+            <?php endif; ?>
 
+        </div>
+
+    </div>
+
+    <div id="w-photo-content photo-container"">
+        <?php $this->renderPartial('w_photo_content', compact('model', 'photo')); ?>
     </div>
 
 </div>

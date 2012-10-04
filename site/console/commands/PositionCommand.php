@@ -26,7 +26,7 @@ class PositionCommand extends CConsoleCommand
         ParsingPosition::collectPagesKeywords();
     }
 
-    public function actionParseQueriesYandex($debug = 0)
+    public function actionParseYandex($debug = 0)
     {
         Config::setAttribute('stop_threads', 0);
 
@@ -34,7 +34,7 @@ class PositionCommand extends CConsoleCommand
         $parser->start();
     }
 
-    public function actionParseQueriesGoogle($debug = 0)
+    public function actionParseGoogle($debug = 0)
     {
         Config::setAttribute('stop_threads', 0);
 

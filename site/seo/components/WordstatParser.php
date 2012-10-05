@@ -314,8 +314,6 @@ class WordstatParser extends ProxyParserThread
      */
     public function RemoveCurrentKeywordFromParsing()
     {
-        $this->startTimer('remove_from_parsing');
-
         if (!empty($this->keyword->depth)) {
             //проверяем не изменилась ли глубина за время парсинга
             $old_depth = $this->keyword->depth;
@@ -329,22 +327,33 @@ class WordstatParser extends ProxyParserThread
         }
 
         //иначе удаляем кейворд из парсинга
+        $this->startTimer('remove_from_parsing remove');
         ParsingKeyword::model()->deleteByPk($this->keyword->keyword_id);
+        $this->endTimer();
 
+        $this->startTimer('remove_from_parsing save_parsed');
         //и добавляем в спарсенные
-        $parsed = ParsedKeywords::model()->findByPk($this->keyword->keyword_id);
-        if ($parsed !== null) {
-            if (($parsed->depth < $this->keyword->depth) ||
-                (empty($this->keyword->depth) && !empty($parsed->depth))
-            ) {
+        $transaction = Yii::app()->db_seo->beginTransaction();
+        try {
+            $parsed = ParsedKeywords::model()->findByPk($this->keyword->keyword_id);
+            if ($parsed !== null) {
+                if (($parsed->depth < $this->keyword->depth) ||
+                    (empty($this->keyword->depth) && !empty($parsed->depth))
+                ) {
+                    $parsed->depth = $this->keyword->depth;
+                    $parsed->save();
+                }
+            } else {
+                $parsed = new ParsedKeywords;
+                $parsed->keyword_id = $this->keyword->keyword_id;
                 $parsed->depth = $this->keyword->depth;
                 $parsed->save();
             }
-        } else {
-            $parsed = new ParsedKeywords;
-            $parsed->keyword_id = $this->keyword->keyword_id;
-            $parsed->depth = $this->keyword->depth;
-            $parsed->save();
+
+            $transaction->commit();
+        } catch (Exception $e) {
+            var_dump($e->getMessage());
+            $this->closeThread('remove keyword transaction failed');
         }
 
         $this->endTimer();

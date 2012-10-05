@@ -13,10 +13,9 @@ class SimilarArticlesParser
      */
     public function getArticles($keyword)
     {
-        if ($this->startsWith($keyword, 'http://')){
+        if ($this->startsWith($keyword, 'http://')) {
             $content = $this->query('http://yandex.ru/sitesearch?text=site%3A' . urlencode($keyword) . '&searchid=1883818&reqenc=utf-8&l10n=ru&web=0&lr=38&numdoc=50');
-        }
-        else
+        } else
             $content = $this->query('http://yandex.ru/sitesearch?text=' . urlencode($keyword) . '&searchid=1883818&reqenc=utf-8&l10n=ru&web=0&lr=38&numdoc=50');
 
         $document = phpQuery::newDocument($content);
@@ -32,6 +31,16 @@ class SimilarArticlesParser
                 $p = Page::model()->getOrCreate($link);
                 if ($p !== null)
                     $pages[] = $p;
+            }
+
+
+        $keyword_model = Keyword::model()->find('name="' . $keyword . '"');
+        if ($keyword_model !== null)
+            foreach ($pages as $page) {
+                $model = new YandexSearchResult;
+                $model->keyword_id = $keyword_model->id;
+                $model->page_id = $page->id;
+                $model->save();
             }
 
         return $pages;

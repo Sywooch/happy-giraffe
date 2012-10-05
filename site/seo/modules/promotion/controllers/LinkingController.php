@@ -157,8 +157,8 @@ class LinkingController extends SController
             }
         }
 
-//        if (count($pages) > 10)
-//            $pages = array_slice($pages, 0, 10);
+        if (count($pages) > 10)
+            $pages = array_slice($pages, 0, 20);
 
         return $pages;
     }

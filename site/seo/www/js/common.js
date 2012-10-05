@@ -29,18 +29,21 @@ function ShowHide(el, id, show_title, hide_title) {
         $(el).text(show_title);
 }
 
-function SaveSettings(el) {
+function SaveSettings(el, reload) {
     $.post('/promotion/linking/saveSettings/', $(el).parents('form').serialize(), function (response) {
         if (response.status) {
-            $.pnotify({
-                pnotify_title: 'Успешно',
-                pnotify_text: 'Настройки изменены'
-            });
+            if (reload)
+                location.reload();
+            else
+                $.pnotify({
+                    pnotify_title:'Успешно',
+                    pnotify_text:'Настройки изменены'
+                });
         }
     }, 'json');
 }
 
-function CheckboxNext(el){
+function CheckboxNext(el) {
     console.log($(el).is(':checked'));
     if ($(el).is(':checked'))
         $(el).next().val(1);

@@ -91,6 +91,10 @@ class CommentatorWork extends EMongoDocument
         return null;
     }
 
+    /**
+     * @param CommentatorDay $day
+     * @return CommentatorDay|null
+     */
     public function getDay($day)
     {
         foreach ($this->days as $_day)
@@ -275,7 +279,7 @@ class CommentatorWork extends EMongoDocument
     public function blogPosts()
     {
         $criteria = new CDbCriteria;
-        $criteria->condition = 'created > "' . date("Y-m-d") . ' 00:00:00"';
+        $criteria->condition = 'created >= "' . date("Y-m-d") . ' 00:00:00"';
         $criteria->compare('author_id', $this->user_id);
         $criteria->order = 'created desc';
         $criteria->with = array(
@@ -290,7 +294,7 @@ class CommentatorWork extends EMongoDocument
     public function clubPosts()
     {
         $criteria = new CDbCriteria;
-        $criteria->condition = 'created > "' . date("Y-m-d") . ' 00:00:00"';
+        $criteria->condition = 'created >= "' . date("Y-m-d") . ' 00:00:00"';
         $criteria->compare('author_id', $this->user_id);
         $criteria->order = 'created desc';
         $criteria->with = array(
@@ -305,7 +309,7 @@ class CommentatorWork extends EMongoDocument
     public function recipes()
     {
         $criteria = new CDbCriteria;
-        $criteria->condition = 'created > "' . date("Y-m-d") . ' 00:00:00"';
+        $criteria->condition = 'created >= "' . date("Y-m-d") . ' 00:00:00"';
         $criteria->compare('author_id', $this->user_id);
         $criteria->order = 'created desc';
 
@@ -331,7 +335,7 @@ class CommentatorWork extends EMongoDocument
     public function comments()
     {
         $criteria = new CDbCriteria;
-        $criteria->condition = 'created > "' . date("Y-m-d") . ' 00:00:00"';
+        $criteria->condition = 'created >= "' . date("Y-m-d") . ' 00:00:00"';
         $criteria->compare('author_id', $this->user_id);
         $criteria->order = 'created desc';
 

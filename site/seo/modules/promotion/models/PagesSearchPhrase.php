@@ -9,6 +9,7 @@
  * @property integer $keyword_id
  * @property integer $last_yandex_position
  * @property integer $google_traffic
+ * @property integer $yandex_traffic
  *
  * The followings are the available model relations:
  * @property Keyword $keyword
@@ -52,7 +53,7 @@ class PagesSearchPhrase extends HActiveRecord
         // will receive user inputs.
         return array(
             array('page_id, keyword_id', 'required'),
-            array('keyword_id, last_yandex_position, google_traffic', 'numerical', 'integerOnly' => true),
+            array('keyword_id, last_yandex_position, google_traffic, yandex_traffic', 'numerical', 'integerOnly' => true),
             array('page_id', 'length', 'max' => 11),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
@@ -147,30 +148,25 @@ class PagesSearchPhrase extends HActiveRecord
 
     public function getWeekVisits($se, $week, $year)
     {
-        $cache_id = 'phrase_week_visits_' . $this->id . '-' . $se . '-' . $week . '-' . $year;
-        $value = Yii::app()->cache->get($cache_id);
-        if ($value === false) {
-            $criteria = new CDbCriteria;
-            $criteria->compare('keyword_id', $this->keyword_id);
-            $criteria->compare('week', $week);
-            $criteria->compare('year', $year);
-            $models = Query::model()->findAll($criteria);
+        $criteria = new CDbCriteria;
+        $criteria->compare('search_phrase_id', $this->id);
+        $criteria->compare('week', $week);
+        $criteria->compare('year', $year);
+        $criteria->compare('se_id', $se);
+        $model = SearchPhraseVisit::model()->find($criteria);
+        if ($model===null)
+            return 0;
 
-            $value = 0;
-            foreach ($models as $model) {
-                foreach ($model->searchEngines as $searchEngine)
-                    if ($searchEngine->se_id == $se)
-                        $value = $searchEngine->visits;
-            }
-            Yii::app()->cache->set($cache_id, $value);
-        }
-
-        return (int)$value;
+        return $model->visits;
     }
 
     public function getSimilarKeywords()
     {
         $keywords = $this->keyword->getChildKeywords(10);
+        foreach ($keywords as $key => $keyword)
+            if ($keyword->id == $this->keyword->id)
+                unset($keywords[$key]);
+        array_unshift($keywords, $this->keyword);
 
         return $keywords;
     }
@@ -216,12 +212,11 @@ class PagesSearchPhrase extends HActiveRecord
 
     /**
      * @static
-     * @param bool $yandex
      * @return PagesSearchPhrase
      */
-    public static function getActualPhrase($yandex = true)
+    public static function getActualPhrase()
     {
-        if ($yandex)
+        if (SeoUserAttributes::getAttribute('se_tab') == 1)
             return self::getYandexPhrase();
         else
             return self::getGooglePhrase();
@@ -245,10 +240,10 @@ class PagesSearchPhrase extends HActiveRecord
         $criteria->group = 't.id';
         $criteria->having = 'links_count < 1';
         $criteria->together = true;
-        $criteria->condition = 'skip.phrase_id IS NULL AND google_traffic >= :google_traffic';
+        $criteria->condition = 'skip.phrase_id IS NULL AND google_traffic >= :google_visits_min';
 
         $criteria->params = array(
-            ':google_traffic' => SeoUserAttributes::getAttribute('google_traffic')
+            ':google_visits_min' => SeoUserAttributes::getAttribute('google_visits_min')
         );
 
         $model = PagesSearchPhrase::model()->find($criteria);
@@ -286,6 +281,9 @@ class PagesSearchPhrase extends HActiveRecord
             ':min_yandex_position' => SeoUserAttributes::getAttribute('min_yandex_position'),
             ':max_yandex_position' => SeoUserAttributes::getAttribute('max_yandex_position'),
         );
+
+        if (SeoUserAttributes::getAttribute('yandex_traffic'))
+            $criteria->condition .= ' AND yandex_traffic > 0';
 
         $model = PagesSearchPhrase::model()->find($criteria);
 

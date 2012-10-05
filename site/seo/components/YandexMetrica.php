@@ -232,28 +232,6 @@ class YandexMetrica
         }
     }
 
-    public function delete1Visits()
-    {
-        $criteria = new CDbCriteria;
-        $criteria->limit = 1000;
-        $criteria->compare('visits', 1);
-        $queries = Query::model()->findAll($criteria);
-
-        $i = 1;
-
-        while (!empty($queries)) {
-            foreach ($queries as $query) {
-                PagesSearchPhrase::model()->deleteAllByAttributes(array(
-                    'keyword_id' => $query->keyword_id
-                ));
-                $query->delete();
-            }
-            $criteria->offset = $i * 1000;
-            $queries = Query::model()->findAll($criteria);
-            $i++;
-        }
-    }
-
     public function searchesCount()
     {
         echo '<br>';

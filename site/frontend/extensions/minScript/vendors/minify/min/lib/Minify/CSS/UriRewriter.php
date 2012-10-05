@@ -283,7 +283,7 @@ class Minify_CSS_UriRewriter {
                 : substr($m[1], 1, strlen($m[1]) - 2);
         }
         // analyze URI
-        if ('/' !== $uri[0]                  // root-relative
+        if ((isset($uri[0]) && '/' !== $uri[0])                  // root-relative
             && false === strpos($uri, '//')  // protocol (non-data)
             && 0 !== strpos($uri, 'data:')   // data protocol
         ) {

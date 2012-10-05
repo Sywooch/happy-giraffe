@@ -352,8 +352,7 @@ class WordstatParser extends ProxyParserThread
 
             $transaction->commit();
         } catch (Exception $e) {
-            var_dump($e->getMessage());
-            $this->closeThread('remove keyword transaction failed');
+
         }
 
         $this->endTimer();

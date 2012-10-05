@@ -15,7 +15,6 @@ class SearchResultsParser extends ProxyParserThread
 
     public function start()
     {
-        $this->use_proxy = false;
         while (true) {
             $this->getQuery();
             $this->parseQuery();

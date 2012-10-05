@@ -128,24 +128,32 @@ class LinkingController extends SController
     public function getSimilarPages($phrase)
     {
         $parser = new SimilarArticlesParser;
-        if ($this->startsWith($phrase->page->url, 'http://www.happy-giraffe.ru/horoscope/')) {
-            $pages = $parser->getArticles('inurl:community гороскоп');
 
+        //check parsed phrases
+        $pages = YandexSearchResult::model()->findAll('keyword_id=' . $phrase->keyword_id);
+        if (!empty($pages)) {
             $pages = $this->filterPages($phrase, $pages);
         } else {
-            $pages = $parser->getArticles($phrase->keyword->name);
 
-            $pages = $this->filterPages($phrase, $pages);
-            if (empty($pages)) {
-                //если яндекс не нашел статьи по запросу - выводим статьи из рубрики
-                $url = $phrase->page->getRubricUrl();
-                $pages = $parser->getArticles($url);
-            }
-            $pages = $this->filterPages($phrase, $pages);
+            if ($this->startsWith($phrase->page->url, 'http://www.happy-giraffe.ru/horoscope/')) {
+                $pages = $parser->getArticles('inurl:community гороскоп');
 
-            if (empty($pages)) {
-                $pages = $parser->getArticles('http://www.happy-giraffe.ru/community/');
                 $pages = $this->filterPages($phrase, $pages);
+            } else {
+                $pages = $parser->getArticles($phrase->keyword->name);
+
+                $pages = $this->filterPages($phrase, $pages);
+                if (empty($pages)) {
+                    //если яндекс не нашел статьи по запросу - выводим статьи из рубрики
+                    $url = $phrase->page->getRubricUrl();
+                    $pages = $parser->getArticles($url);
+                }
+                $pages = $this->filterPages($phrase, $pages);
+
+                if (empty($pages)) {
+                    $pages = $parser->getArticles('http://www.happy-giraffe.ru/community/');
+                    $pages = $this->filterPages($phrase, $pages);
+                }
             }
         }
 

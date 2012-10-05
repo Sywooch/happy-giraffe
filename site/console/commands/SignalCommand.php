@@ -120,7 +120,8 @@ class SignalCommand extends CConsoleCommand
         $month->calculate();
     }
 
-    public function actionPartialStats(){
+    public function actionPartialStats()
+    {
         $month = CommentatorsMonthStats::model()->find(new EMongoCriteria(array(
             'conditions' => array(
                 'period' => array('==' => date("Y-m"))
@@ -133,7 +134,36 @@ class SignalCommand extends CConsoleCommand
         $month->calculate(false);
     }
 
-    public function actionTest(){
+    public function actionFixArticles()
+    {
+        $date = '2012-10-05';
+
+        $commentators = CommentatorWork::model()->findAll();
+
+        foreach ($commentators as $commentator) {
+            $day = $commentator->getDay($date);
+
+            if ($day !== null) {
+
+                $criteria = new CDbCriteria;
+                $criteria->condition = 'created >= "' . $date . ' 00:00:00" AND created <= "' . $date . ' 23:59:59"';
+                $criteria->compare('author_id', $this->user_id);
+                $criteria->order = 'created desc';
+                $criteria->with = array(
+                    'rubric' => array(
+                        'condition' => 'user_id IS NULL'
+                    )
+                );
+
+                $count = CommunityContent::model()->count($criteria);
+                $day->club_posts = $count;
+                $commentator->save();
+            }
+        }
+    }
+
+    public function actionTest()
+    {
         Yii::import('site.frontend.extensions.GoogleAnalytics');
         $ga = new GoogleAnalytics('alexk984@gmail.com', Yii::app()->params['gaPass']);
         $ga->setProfile('ga:53688414');

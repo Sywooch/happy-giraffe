@@ -132,7 +132,11 @@ class LinkingController extends SController
         //check parsed phrases
         $pages = YandexSearchResult::model()->findAll('keyword_id=' . $phrase->keyword_id);
         if (!empty($pages)) {
-            $pages = $this->filterPages($phrase, $pages);
+            $res = array();
+            foreach ($pages as $page)
+                $res [] = $page->page;
+            $pages = $this->filterPages($phrase, $res);
+
         } else {
 
             if ($this->startsWith($phrase->page->url, 'http://www.happy-giraffe.ru/horoscope/')) {

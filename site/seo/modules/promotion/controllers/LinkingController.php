@@ -127,17 +127,18 @@ class LinkingController extends SController
      */
     public function getSimilarPages($phrase)
     {
-        $parser = new SimilarArticlesParser;
-
         //check parsed phrases
         $pages = YandexSearchResult::model()->findAll('keyword_id=' . $phrase->keyword_id);
         if (!empty($pages)) {
+            echo "взято из спарсенного";
             $res = array();
             foreach ($pages as $page)
                 $res [] = $page->page;
             $pages = $this->filterPages($phrase, $res);
 
         } else {
+            echo "парсинг яндекса";
+            $parser = new SimilarArticlesParser;
 
             if ($this->startsWith($phrase->page->url, 'http://www.happy-giraffe.ru/horoscope/')) {
                 $pages = $parser->getArticles('inurl:community гороскоп');

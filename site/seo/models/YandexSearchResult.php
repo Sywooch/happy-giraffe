@@ -9,8 +9,8 @@
  * @property string $page_id
  *
  * The followings are the available model relations:
- * @property Pages $page
- * @property Keywords $keyword
+ * @property Page $page
+ * @property Keyword $keyword
  */
 class YandexSearchResult extends HActiveRecord
 {
@@ -65,8 +65,8 @@ class YandexSearchResult extends HActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'page' => array(self::BELONGS_TO, 'Pages', 'page_id'),
-			'keyword' => array(self::BELONGS_TO, 'Keywords', 'keyword_id'),
+			'page' => array(self::BELONGS_TO, 'Page', 'page_id'),
+			'keyword' => array(self::BELONGS_TO, 'Keyword', 'keyword_id'),
 		);
 	}
 

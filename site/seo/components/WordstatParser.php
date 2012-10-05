@@ -333,7 +333,6 @@ class WordstatParser extends ProxyParserThread
 
         $this->startTimer('remove_from_parsing save_parsed');
         //и добавляем в спарсенные
-        $transaction = Yii::app()->db_seo->beginTransaction();
         try {
             $parsed = ParsedKeywords::model()->findByPk($this->keyword->keyword_id);
             if ($parsed !== null) {
@@ -349,8 +348,6 @@ class WordstatParser extends ProxyParserThread
                 $parsed->depth = $this->keyword->depth;
                 $parsed->save();
             }
-
-            $transaction->commit();
         } catch (Exception $e) {
 
         }

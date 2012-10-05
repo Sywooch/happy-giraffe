@@ -257,9 +257,10 @@ class WordstatParser extends ProxyParserThread
      */
     public function AddKeywordToParsing($keyword_id, $depth = null)
     {
-        $this->startTimer('add_keyword_to_parsing');
         if ($keyword_id == $this->keyword->keyword_id)
             return;
+
+        $this->startTimer('add_keyword_to_parsing');
 
         $parsed = ParsedKeywords::model()->findByPk($keyword_id);
         if ($parsed !== null && (empty($parsed->depth) || $parsed->depth >= $depth))
@@ -301,9 +302,12 @@ class WordstatParser extends ProxyParserThread
 
     public function closeThread($reason = 'unknown reason')
     {
-        if ($this->keyword !== null) {
-            $this->keyword->active = 0;
-            $this->keyword->save();
+        if (!empty($this->keyword))
+            $this->keywords [] = $this->keyword;
+
+        foreach ($this->keywords as $keyword) {
+            $keyword->active = 0;
+            $keyword->save();
         }
 
         parent::closeThread($reason);

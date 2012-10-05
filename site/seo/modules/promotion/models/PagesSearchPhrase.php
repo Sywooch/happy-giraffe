@@ -240,7 +240,7 @@ class PagesSearchPhrase extends HActiveRecord
         $criteria->group = 't.id';
         $criteria->having = 'links_count < 1';
         $criteria->together = true;
-        $criteria->condition = 'skip.phrase_id IS NULL AND google_traffic >= :google_visits_min';
+        $criteria->condition = 'skip.phrase_id IS NULL AND google_traffic >= :google_visits_min AND last_yandex_position > 3';
 
         $criteria->params = array(
             ':google_visits_min' => SeoUserAttributes::getAttribute('google_visits_min')

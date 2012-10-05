@@ -14,7 +14,7 @@ Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
 
 class PositionCommand extends CConsoleCommand
 {
-    public function actionPreparePositionParsing()
+    public function actionPrepare()
     {
         ParsingPosition::model()->deleteAll();
         ParsingPosition::collectKeywords();

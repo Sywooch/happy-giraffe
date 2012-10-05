@@ -127,30 +127,45 @@ class LinkingController extends SController
      */
     public function getSimilarPages($phrase)
     {
-        $parser = new SimilarArticlesParser;
-        if ($this->startsWith($phrase->page->url, 'http://www.happy-giraffe.ru/horoscope/')) {
-            $pages = $parser->getArticles('inurl:community гороскоп');
+        //check parsed phrases
+        $criteria = new CDbCriteria;
+        $criteria->compare('keyword_id', $phrase->keyword_id);
+        $criteria->limit = 50;
+        $pages = YandexSearchResult::model()->findAll($criteria);
 
-            $pages = $this->filterPages($phrase, $pages);
+        if (!empty($pages)) {
+            $res = array();
+            foreach ($pages as $page)
+                $res [] = $page->page;
+            $pages = $this->filterPages($phrase, $res);
+
         } else {
-            $pages = $parser->getArticles($phrase->keyword->name);
+            $parser = new SimilarArticlesParser;
 
-            $pages = $this->filterPages($phrase, $pages);
-            if (empty($pages)) {
-                //если яндекс не нашел статьи по запросу - выводим статьи из рубрики
-                $url = $phrase->page->getRubricUrl();
-                $pages = $parser->getArticles($url);
-            }
-            $pages = $this->filterPages($phrase, $pages);
+            if ($this->startsWith($phrase->page->url, 'http://www.happy-giraffe.ru/horoscope/')) {
+                $pages = $parser->getArticles('inurl:community гороскоп');
 
-            if (empty($pages)) {
-                $pages = $parser->getArticles('http://www.happy-giraffe.ru/community/');
                 $pages = $this->filterPages($phrase, $pages);
+            } else {
+                $pages = $parser->getArticles($phrase->keyword->name);
+
+                $pages = $this->filterPages($phrase, $pages);
+                if (empty($pages)) {
+                    //если яндекс не нашел статьи по запросу - выводим статьи из рубрики
+                    $url = $phrase->page->getRubricUrl();
+                    $pages = $parser->getArticles($url);
+                }
+                $pages = $this->filterPages($phrase, $pages);
+
+                if (empty($pages)) {
+                    $pages = $parser->getArticles('http://www.happy-giraffe.ru/community/');
+                    $pages = $this->filterPages($phrase, $pages);
+                }
             }
         }
 
-//        if (count($pages) > 10)
-//            $pages = array_slice($pages, 0, 10);
+        if (count($pages) > 10)
+            $pages = array_slice($pages, 0, 20);
 
         return $pages;
     }
@@ -168,6 +183,15 @@ class LinkingController extends SController
      */
     private function filterPages($phrase, $pages)
     {
+        //удалим дубликаты
+        $exist = array();
+        foreach ($pages as $key => $page) {
+            if (in_array($page->id, $exist))
+                unset($pages[$key]);
+            else
+                $exist[] = $page->id;
+        }
+
         //удалим текущий
         foreach ($pages as $key => $page) {
             if ($page->id == $phrase->page_id)

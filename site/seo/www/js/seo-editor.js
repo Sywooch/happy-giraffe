@@ -302,6 +302,7 @@ var SeoLinking = {
 
                 SeoLinking.keyword_id = null;
                 SeoLinking.phrase_id = response.phrase_id;
+                console.log("phrase_id="+response.phrase_id);
                 SeoLinking.page_id = response.page_id;
                 $('#auto-linking').removeClass('loading-block').html(response.html).fadeIn(500);
             } else {

@@ -10,14 +10,14 @@ class PositionParserThread extends ProxyParserThread
     const SE_YANDEX = 2;
     const SE_GOOGLE = 3;
     /**
-     * @var Query
+     * @var ParsingPosition
      */
     protected $query;
     /**
      * @var int search engine id
      */
     protected $se;
-    protected $pages = 5;
+    protected $pages = 20;
 
     function __construct($se, $debug = 0)
     {
@@ -43,7 +43,7 @@ class PositionParserThread extends ProxyParserThread
         if ($this->se == self::SE_GOOGLE)
             return 10;
         if ($this->se == self::SE_YANDEX)
-            return 20;
+            return 10;
 
         return 10;
     }
@@ -51,23 +51,21 @@ class PositionParserThread extends ProxyParserThread
     public function getPage()
     {
         $criteria = new CDbCriteria;
-        $criteria->order = 't.id asc';
         if ($this->se === self::SE_GOOGLE)
-            $criteria->condition = 'google_parsed = 0';
+            $criteria->condition = 'google = 0';
         else
-            $criteria->condition = 'yandex_parsed = 0';
-        $criteria->compare('parsing', 0);
-        $criteria->compare('week', date('W') - 1);
+            $criteria->condition = 'yandex = 0';
+        $criteria->compare('active', 0);
 
         $transaction = Yii::app()->db_seo->beginTransaction();
         try {
-            $this->log('load new query');
-            $this->query = Query::model()->find($criteria);
+            $this->log('load new keyword for position parsing');
+            $this->query = ParsingPosition::model()->find($criteria);
             if ($this->query === null) {
                 $this->closeThread('no queries');
             }
 
-            $this->query->parsing = 1;
+            $this->query->active = 1;
             $this->query->save();
             $transaction->commit();
         }
@@ -194,11 +192,11 @@ class PositionParserThread extends ProxyParserThread
     public function closeQuery()
     {
         if ($this->se == self::SE_GOOGLE)
-            $this->query->google_parsed = 1;
+            $this->query->google = 1;
         if ($this->se == self::SE_YANDEX)
-            $this->query->yandex_parsed = 1;
+            $this->query->yandex = 1;
 
-        $this->query->parsing = 0;
+        $this->query->active = 0;
         $this->query->save();
     }
 

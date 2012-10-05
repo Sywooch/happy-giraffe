@@ -12,6 +12,9 @@ Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
 class LinkingCommand extends CConsoleCommand
 {
     public function actionPrepareParsing(){
+        Yii::app()->db->createCommand()->delete('pages_search_phrases');
+        Yii::app()->db->createCommand()->delete('yandex_search_results');
+
         $kewords = Yii::app()->db_seo->createCommand()
             ->selectDistinct('keyword_id')
             ->from('pages_search_phrases')

@@ -11,8 +11,6 @@ return array(
         *************************/
 
         // global
-        'min/serve/g/<g:\w+>/lm/<lm:\d+>' => 'min/serve',
-        'min/serve/g/<g:\w+>' => 'min/serve',
         '.*/index' => 404,
 
         // photo view

@@ -331,34 +331,20 @@ class WordstatParser extends ProxyParserThread
         //иначе удаляем кейворд из парсинга
         ParsingKeyword::model()->deleteByPk($this->keyword->keyword_id);
 
-        $success = false;
-        while (!$success) {
-            //и добавляем в спарсенные
-            $parsed = ParsedKeywords::model()->findByPk($this->keyword->keyword_id);
-            if ($parsed !== null) {
-                if (($parsed->depth < $this->keyword->depth) ||
-                    (empty($this->keyword->depth) && !empty($parsed->depth))
-                ) {
-                    $parsed->depth = $this->keyword->depth;
-                    try {
-                        $success = $parsed->save();
-                    } catch (Exception $err) {
-                        $success = false;
-                    }
-                } else
-                    $success = true;
-            } else {
-                $parsed = new ParsedKeywords;
-                $parsed->keyword_id = $this->keyword->keyword_id;
+        //и добавляем в спарсенные
+        $parsed = ParsedKeywords::model()->findByPk($this->keyword->keyword_id);
+        if ($parsed !== null) {
+            if (($parsed->depth < $this->keyword->depth) ||
+                (empty($this->keyword->depth) && !empty($parsed->depth))
+            ) {
                 $parsed->depth = $this->keyword->depth;
-                try {
-                    $success = $parsed->save();
-                } catch (Exception $err) {
-                    $success = false;
-                }
+                $parsed->save();
             }
-            if (!$success)
-                sleep(1);
+        } else {
+            $parsed = new ParsedKeywords;
+            $parsed->keyword_id = $this->keyword->keyword_id;
+            $parsed->depth = $this->keyword->depth;
+            $parsed->save();
         }
 
         $this->endTimer();

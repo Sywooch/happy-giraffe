@@ -106,6 +106,7 @@ return array(
 //            'scriptMap'=>array(
 //                'jquery'=>'http://code.jquery.com/jquery-1.8.0.min.js',
 //            ),
+            'class'=>'ext.minScript.components.ExtMinScript',
             'packages' => array(
                 'comet' => array(
                     'baseUrl' => '/',
@@ -340,6 +341,9 @@ return array(
 	),
 
         'controllerMap' => array(
+            'min'=>array(
+                'class'=>'ext.minScript.controllers.ExtMinScriptController',
+            ),
             'sitemap' => array(
                 'class' => 'ext.sitemapgenerator.SGController',
                 'config' => array(

@@ -147,7 +147,7 @@ class SignalCommand extends CConsoleCommand
 
                 $criteria = new CDbCriteria;
                 $criteria->condition = 'created >= "' . $date . ' 00:00:00" AND created <= "' . $date . ' 23:59:59"';
-                $criteria->compare('author_id', $this->user_id);
+                $criteria->compare('author_id', $commentator->user_id);
                 $criteria->order = 'created desc';
                 $criteria->with = array(
                     'rubric' => array(

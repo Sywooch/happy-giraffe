@@ -62,7 +62,7 @@ class MailCommand extends CConsoleCommand
             $criteria->offset = $i * 100;
             $users = User::model()->findAll($criteria);
             foreach ($users as $user) {
-                $unread = Im::model($user->id)->getUnreadMessagesCount();
+                $unread = Im::model($user->id)->getUnreadMessagesCount($user->id);
                 if ($unread > 0 && !in_array($user->id, $bad_users)) {
 
                     $m_criteria = new EMongoCriteria;

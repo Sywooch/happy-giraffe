@@ -9,7 +9,7 @@
             <div class="col-2">Ссылок в блоке</div>
         </div>
 
-        <ul id="similar-pages">
+        <ul id="similar-pages" style="min-height: 50px;">
             <?php $this->renderPartial('_pages', compact('pages')); ?>
         </ul>
 

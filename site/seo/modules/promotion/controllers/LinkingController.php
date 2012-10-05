@@ -183,6 +183,15 @@ class LinkingController extends SController
      */
     private function filterPages($phrase, $pages)
     {
+        //удалим дубликаты
+        $exist = array();
+        foreach ($pages as $key => $page) {
+            if (in_array($page->id, $exist))
+                unset($pages[$key]);
+            else
+                $exist[] = $page->id;
+        }
+
         //удалим текущий
         foreach ($pages as $key => $page) {
             if ($page->id == $phrase->page_id)

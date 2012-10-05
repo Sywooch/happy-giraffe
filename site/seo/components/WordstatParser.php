@@ -97,7 +97,7 @@ class WordstatParser extends ProxyParserThread
                 $keys [] = $key->keyword_id;
 
             Yii::app()->db_seo->createCommand()->update('parsing_keywords', array('active' => 1),
-                'keyword_id IN (' . implode(',', $keys).')');
+                'keyword_id IN (' . implode(',', $keys) . ')');
 
             $transaction->commit();
 
@@ -108,7 +108,7 @@ class WordstatParser extends ProxyParserThread
         }
 
         $this->endTimer();
-        $this->log(count($this->keywords).' keywords loaded');
+        $this->log(count($this->keywords) . ' keywords loaded');
     }
 
     public function getKeyword()
@@ -246,15 +246,14 @@ class WordstatParser extends ProxyParserThread
     public function AddToParsingAdjacentKeyword($model)
     {
         if (empty($this->keyword->depth)) {
-            $this->AddKeywordToParsing($model->id, 2);
+            $this->AddKeywordToParsing($model->id);
         }
     }
 
     /**
      * @param int $keyword_id
      * @param int $depth
-     * @return
-     * @internal param \Keyword $model
+     * @return void
      */
     public function AddKeywordToParsing($keyword_id, $depth = null)
     {
@@ -279,8 +278,7 @@ class WordstatParser extends ProxyParserThread
             if (empty($depth) && !empty($exist->depth))
                 $exist->depth = null;
             elseif (!empty($exist->depth) && $exist->depth < $depth)
-                $exist->depth = $depth;
-            else
+                $exist->depth = $depth; else
                 return;
 
             try {
@@ -317,53 +315,50 @@ class WordstatParser extends ProxyParserThread
     public function RemoveCurrentKeywordFromParsing()
     {
         $this->startTimer('remove_from_parsing');
-        //проверяем не изменилась ли глубина за время парсинга
-        $old_depth = $this->keyword->depth;
-        $this->keyword->refresh();
-//        $this->endTimer();
 
-        if ($this->keyword->depth > $old_depth) {
-            //если глубина увеличилась, переходим к следующему слову
-            $this->keyword->active = 0;
-            $this->keyword->save();
-        } else {
-            //иначе удаляем кейворд из парсинга
-//            $this->log($this->keyword->keyword_id . " - remove keyword from parsing");
+        if (!empty($this->keyword->depth)) {
+            //проверяем не изменилась ли глубина за время парсинга
+            $old_depth = $this->keyword->depth;
+            $this->keyword->refresh();
+            if ($this->keyword->depth > $old_depth) {
+                //если глубина увеличилась, переходим к следующему слову
+                $this->keyword->active = 0;
+                $this->keyword->save();
+                return;
+            }
+        }
 
-//            $this->startTimer('remove_from_parsing  remove');
-            ParsingKeyword::model()->deleteByPk($this->keyword->keyword_id);
-//            $this->endTimer();
+        //иначе удаляем кейворд из парсинга
+        ParsingKeyword::model()->deleteByPk($this->keyword->keyword_id);
 
-//            $this->startTimer('remove_from_parsing  check parsed');
-            $success = false;
-            while (!$success) {
-                //и добавляем в спарсенные
-                $parsed = ParsedKeywords::model()->findByPk($this->keyword->keyword_id);
-                if ($parsed !== null) {
-                    if (($parsed->depth < $this->keyword->depth) ||
-                        (empty($this->keyword->depth) && !empty($parsed->depth))
-                    ) {
-                        $parsed->depth = $this->keyword->depth;
-                        try {
-                            $success = $parsed->save();
-                        } catch (Exception $err) {
-                            $success = false;
-                        }
-                    } else
-                        $success = true;
-                } else {
-                    $parsed = new ParsedKeywords;
-                    $parsed->keyword_id = $this->keyword->keyword_id;
+        $success = false;
+        while (!$success) {
+            //и добавляем в спарсенные
+            $parsed = ParsedKeywords::model()->findByPk($this->keyword->keyword_id);
+            if ($parsed !== null) {
+                if (($parsed->depth < $this->keyword->depth) ||
+                    (empty($this->keyword->depth) && !empty($parsed->depth))
+                ) {
                     $parsed->depth = $this->keyword->depth;
                     try {
                         $success = $parsed->save();
                     } catch (Exception $err) {
                         $success = false;
                     }
+                } else
+                    $success = true;
+            } else {
+                $parsed = new ParsedKeywords;
+                $parsed->keyword_id = $this->keyword->keyword_id;
+                $parsed->depth = $this->keyword->depth;
+                try {
+                    $success = $parsed->save();
+                } catch (Exception $err) {
+                    $success = false;
                 }
-                if (!$success)
-                    sleep(1);
             }
+            if (!$success)
+                sleep(1);
         }
 
         $this->endTimer();

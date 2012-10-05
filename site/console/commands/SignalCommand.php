@@ -136,7 +136,7 @@ class SignalCommand extends CConsoleCommand
 
     public function actionFixArticles()
     {
-        $date = '2012-10-05';
+        $date = '2012-10-04';
 
         $commentators = CommentatorWork::model()->findAll();
 

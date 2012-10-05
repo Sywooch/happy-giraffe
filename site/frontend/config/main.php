@@ -106,8 +106,8 @@ return array(
 //            'scriptMap'=>array(
 //                'jquery'=>'http://code.jquery.com/jquery-1.8.0.min.js',
 //            ),
-            'class'=>'ext.minScript.components.ExtMinScript',
-            'minScriptLmCache' => 600,
+            //'class'=>'ext.minScript.components.ExtMinScript',
+            //'minScriptLmCache' => 600,
             'packages' => array(
                 'comet' => array(
                     'baseUrl' => '/',

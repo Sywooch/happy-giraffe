@@ -13,6 +13,7 @@ class SimilarArticlesParser
      */
     public function getArticles($keyword)
     {
+        //test
         if ($this->startsWith($keyword, 'http://')) {
             $content = $this->query('http://yandex.ru/sitesearch?text=url%3A' . urlencode($keyword) . '*&searchid=1883818&reqenc=utf-8&l10n=ru&web=0&lr=38&numdoc=50');
         } else

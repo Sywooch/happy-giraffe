@@ -145,24 +145,20 @@ class LinkingController extends SController
 
             if ($this->startsWith($phrase->page->url, 'http://www.happy-giraffe.ru/horoscope/')) {
                 $pages = $parser->getArticles('inurl:community гороскоп');
-
                 $pages = $this->filterPages($phrase, $pages);
             } else {
                 $pages = $parser->getArticles($phrase->keyword->name);
-
                 $pages = $this->filterPages($phrase, $pages);
-                if (empty($pages)) {
-                    //если яндекс не нашел статьи по запросу - выводим статьи из рубрики
-                    $url = $phrase->page->getRubricUrl();
-                    $pages = $parser->getArticles($url);
-                }
-                $pages = $this->filterPages($phrase, $pages);
-
-                if (empty($pages)) {
-                    $pages = $parser->getArticles('http://www.happy-giraffe.ru/community/');
-                    $pages = $this->filterPages($phrase, $pages);
-                }
             }
+        }
+
+        if (empty($pages)) {
+            //если яндекс не нашел статьи по запросу - выводим статьи из рубрики
+            $url = $phrase->page->getRubricUrl();
+
+            $parser = new SimilarArticlesParser;
+            $pages = $parser->getArticles($url);
+            $pages = $this->filterPages($phrase, $pages);
         }
 
         if (count($pages) > 10)

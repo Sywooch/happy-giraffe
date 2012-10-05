@@ -4,8 +4,6 @@
  * Date: 05.10.12
  */
 
-Yii::import('site.frontend.modules.cook.models.*');
-
 class SearchResultsParser extends ProxyParserThread
 {
     /**
@@ -15,6 +13,8 @@ class SearchResultsParser extends ProxyParserThread
 
     public function start()
     {
+        Yii::import('site.frontend.modules.cook.models.*');
+
         while (true) {
             $this->getQuery();
             $this->parseQuery();
@@ -63,11 +63,12 @@ class SearchResultsParser extends ProxyParserThread
         $document->unloadDocument();
 
         $pages = array();
-        foreach ($links as $link) {
-            $p = Page::model()->getOrCreate($link);
-            if ($p !== null)
-                $pages[] = $p;
-        }
+        foreach ($links as $link)
+            if (strpos($link, '?Comment_page=') === false) {
+                $p = Page::model()->getOrCreate($link);
+                if ($p !== null)
+                    $pages[] = $p;
+            }
 
         foreach ($pages as $page) {
             $model = new YandexSearchResult;

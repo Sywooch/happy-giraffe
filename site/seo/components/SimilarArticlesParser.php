@@ -7,7 +7,6 @@
 Yii::import('site.frontend.modules.cook.models.*');
 class SimilarArticlesParser
 {
-
     /**
      * @param string $keyword
      * @return Page[]
@@ -28,11 +27,12 @@ class SimilarArticlesParser
         $document->unloadDocument();
 
         $pages = array();
-        foreach($links as $link){
-            $p = Page::model()->getOrCreate($link);
-            if ($p !== null)
-                $pages[] = $p;
-        }
+        foreach ($links as $link)
+            if (strpos($link, '?Comment_page=') === false) {
+                $p = Page::model()->getOrCreate($link);
+                if ($p !== null)
+                    $pages[] = $p;
+            }
 
         return $pages;
     }

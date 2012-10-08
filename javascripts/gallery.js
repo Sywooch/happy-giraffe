@@ -92,7 +92,7 @@ jQuery.fn.pGallery = function(options) {
                 return false;
             });*/
 
-            $('body').css('overflow', 'hidden');
+            //$('body').css('overflow', 'hidden');
             var newUrl = plugin.getEntityUrl() + 'photo' + plugin.data.id + '/';
             if (typeof history.pushState !== 'undefined') {
                 plugin.history.changeBrowserUrl(newUrl);
@@ -231,7 +231,7 @@ jQuery.fn.pGallery = function(options) {
             document.title = plugin.originalTitle;
             if (! plugin.data.singlePhoto)
                 plugin.history.changeBrowserUrl(plugin.start_url);
-            $('body').css('overflow', 'auto');
+            //$('body').css('overflow', 'auto');
             plugin.window.remove();
             plugin.bg.remove();
         });

@@ -31,7 +31,10 @@ class UrlCollector
         $criteria = new CDbCriteria;
         $criteria->limit = 100;
         $criteria->offset = 0;
-        $criteria->condition = 'rubric.user_id IS NULL';
+        $criteria->condition = 'rubric.user_id IS NULL AND created > :created';
+        $criteria->params = array(
+            ':created' => date("Y-m-d H:i:s", strtotime('-4 weeks'))
+        );
         $criteria->with = array(
             'rubric' => array(
                 'with' => array(

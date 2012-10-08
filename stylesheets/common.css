@@ -1806,26 +1806,26 @@ body.nav-fixed #header-new.top-line-fixed {padding-top:0;}
 #user-career .achievement-one {background:#e8d8f5 url(/images/pattern_purple.gif);padding:120px 39px;position:relative;}
 #user-career .achievement-one .back {text-decoration:none;border-bottom:1px dashed #029AD2;line-height:14px;font-size:11px;position:absolute;top:25px;right:20px;}
 
-#achievements {height:265px;width:920px;}
-#achievements > ul {}
-#achievements > ul > li {width:740px;padding:0 90px;}
-#achievements > ul > li .img {width:262px;float:left;}
-#achievements > ul > li .img .img-progress {width:262px;height:262px;position:relative;}
-#achievements > ul > li .img .img-progress .progress-in {width:262px;position:absolute;left:0;bottom:0;background-position:bottom;}
-#achievements > ul > li .in {margin-left:300px;padding-top:10px;}
-#achievements > ul > li .in .date {color:#a2a2a2;font-size:9px;font-family:tahoma, arial, helvetica, sans-serif;line-height:12px;margin-bottom:10px;}
-#achievements > ul > li .in .item-title {font-size:30px;line-height:1;color:#2274b7;margin-bottom:20px;}
-#achievements > ul > li .in .text {color:#515151;font-size:12px;margin-bottom:15px;}
-#achievements > ul > li .in .who-else {}
-#achievements > ul > li .in .who-else .pseudo {text-decoration:none;border-bottom:1px dashed #029AD2;line-height:14px;}
-#achievements > ul > li .in .who-else ul {padding-top:15px;list-style:none;}
-#achievements > ul > li .in .who-else ul li {float:left;padding-right:20px;}
-#achievements > ul > li .in .count {color:#58565a;font-size:12px;background:#fef9a8;padding:4px 5px 2px;display:inline-block;*zoom:1;*display:inline;margin-bottom:10px;}
-#achievements > ul > li .in .count b {font-size:16px;}
-#achievements .prev {position:absolute;left:0;display:block;width:25px;height:34px;background:url(/images/common.png) no-repeat -159px -164px;top:120px;}
-#achievements .prev.jcarousel-control-inactive {background-position:-634px -293px;cursor:default;}
-#achievements .next {position:absolute;right:0;display:block;width:25px;height:34px;background:url(/images/common.png) no-repeat -240px -164px;top:120px;}
-#achievements .next.jcarousel-control-inactive {background-position:-661px -293px;cursor:default;}
+.achievement-one .jcarousel {height:265px;width:920px;}
+.achievement-one .jcarousel {}
+.achievement-one .jcarousel li {width:740px;padding:0 90px;}
+.achievement-one .jcarousel li .img {width:262px;float:left;}
+.achievement-one .jcarousel li .img .img-progress {width:262px;height:262px;position:relative;}
+.achievement-one .jcarousel li .img .img-progress .progress-in {width:262px;position:absolute;left:0;bottom:0;background-position:bottom;}
+.achievement-one .jcarousel li .in {margin-left:300px;padding-top:10px;}
+.achievement-one .jcarousel li .in .date {color:#a2a2a2;font-size:9px;font-family:tahoma, arial, helvetica, sans-serif;line-height:12px;margin-bottom:10px;}
+.achievement-one .jcarousel li .in .item-title {font-size:30px;line-height:1;color:#2274b7;margin-bottom:20px;}
+.achievement-one .jcarousel li .in .text {color:#515151;font-size:12px;margin-bottom:15px;}
+.achievement-one .jcarousel li .in .who-else {}
+.achievement-one .jcarousel li .in .who-else .pseudo {text-decoration:none;border-bottom:1px dashed #029AD2;line-height:14px;}
+.achievement-one .jcarousel li .in .who-else ul {padding-top:15px;list-style:none;}
+.achievement-one .jcarousel li .in .who-else ul li {float:left;padding:0 20px 0 0;width:auto;}
+.achievement-one .jcarousel li .in .count {color:#58565a;font-size:12px;background:#fef9a8;padding:4px 5px 2px;display:inline-block;*zoom:1;*display:inline;margin-bottom:10px;}
+.achievement-one .jcarousel li .in .count b {font-size:16px;}
+.achievement-one .jcarousel .prev {position:absolute;left:0;display:block;width:25px;height:34px;background:url(/images/common.png) no-repeat -159px -164px;top:120px;}
+.achievement-one .jcarousel .prev.jcarousel-control-inactive {background-position:-634px -293px;cursor:default;}
+.achievement-one .jcarousel .next {position:absolute;right:0;display:block;width:25px;height:34px;background:url(/images/common.png) no-repeat -240px -164px;top:120px;}
+.achievement-one .jcarousel .next.jcarousel-control-inactive {background-position:-661px -293px;cursor:default;}
 
 #user-career > .how {background:#e8d8f5 url(/images/pattern_purple.gif);padding:50px 19px 20px;position:relative;}
 #user-career > .how .back {text-decoration:none;border-bottom:1px dashed #029AD2;line-height:14px;font-size:11px;position:absolute;top:15px;right:20px;}

@@ -263,7 +263,7 @@ class Page extends CActiveRecord
         if ($model->getIsFromBlog()) {
             return 'http://www.happy-giraffe.ru/user/';
         } else
-            return 'http://www.happy-giraffe.ru/community/' . $model->rubric->community_id . '/forum/rubric/' . $model->rubric_id . '/';
+            return 'http://www.happy-giraffe.ru/community/' . $model->rubric->community_id;
     }
 
     public function getVisits($se, $period)

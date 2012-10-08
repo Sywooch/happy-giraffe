@@ -12,7 +12,7 @@
                     <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => $c->author, 'size' => 'small', 'location' => false, 'sendButton' => false)); ?>
                 </div>
                 <div class="item-title"><?=CHtml::link(CHtml::encode($c->title), $c->url)?></div>
-                <div class="content"><?=$c->short?></div>
+                <div class="content"><?=$c->getShort(178)?></div>
                 <div class="meta">
                     <span class="rating"><?=$c->rate?></span>
                     <span class="views">Просмотров: <?=PageView::model()->viewsByPath(str_replace('http://www.happy-giraffe.ru', '', $c->url), true)?></span>

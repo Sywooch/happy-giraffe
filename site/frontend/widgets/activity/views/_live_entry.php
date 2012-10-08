@@ -9,5 +9,5 @@
         <?php endif ?>
     </div>
     <?=CHtml::link($data->title, $data->url)?>
-    <?=$data->short?>
+    <?=$data->getShort(200)?>
 </li>

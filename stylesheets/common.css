@@ -1720,8 +1720,8 @@ body.nav-fixed #header-new.top-line-fixed {padding-top:0;}
 #user-notifications .notifications ul li .content .meta .date {color:#b7b8b7;font-size:9px;font-family:tahoma, arial, helvetica, sans-serif;}
 
 
-#user-career {position:absolute;left:0;top:0;margin-top:43px;z-index:99;border:1px solid #e6ddf0;width:100%;overflow: auto;min-width:1000px;max-height:100%;}
-#user-career-in {background:#fff;width:998px;margin:0 auto 20px;position:relative;}
+#user-career {position:absolute;left:0;top:0;margin-top:43px;z-index:99;width:100%;overflow: auto;min-width:1000px;max-height:100%;}
+#user-career-in {background:#fff;width:998px;margin:0 auto 20px;position:relative;border:1px solid #e6ddf0;}
 
 #user-career .header {height:30px;padding:30px 60px;position:relative;}
 

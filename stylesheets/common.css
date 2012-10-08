@@ -83,8 +83,8 @@ html, body {
 	min-width:1000px;
 }
 
-html {overflow-y:hidden;}
-body {overflow-y:hidden;overflow-x:hidden;}
+/* html {overflow-y:hidden;}
+body {overflow-y:hidden;overflow-x:hidden;} */
 body.body-club {background:#f6f6f6;}
 
 .layout-container {
@@ -2168,14 +2168,14 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 
 #albumSettings .album-style .step2 {position:relative;}
 #albumSettings .album-style .overlay {position:absolute;width:100%;height:100%;left:0;top:0;background:#fff;}
-#albumSettings .pattern-list {list-style:none;width:330px;}
-#albumSettings .pattern-list li {float:left;width:65px;margin:0 1px 1px 0;}
-#albumSettings .pattern-list a {display:block;border:2px solid transparent;padding:3px;behavior: url(PIE.htc);position:relative;text-decoration:none;}
-#albumSettings .pattern-list a.active,
-#albumSettings .pattern-list a:hover{border:2px solid #9c7fb7;-webkit-border-radius: 5px;-moz-border-radius: 5px;-ms-border-radius: 5px;border-radius: 5px;}
-#albumSettings .pattern-list a .pattern {display:block;height:28px;-webkit-border-radius: 3px;-moz-border-radius: 3px;-ms-border-radius: 3px;border-radius: 3px; behavior: url(PIE.htc);-webkit-box-shadow: inset 2px 1px 2px rgba(0,0,0,0.3);-moz-box-shadow: inset 2px 1px 2px rgba(0,0,0,0.3);box-shadow: inset 2px 1px 2px rgba(0,0,0,0.3);color:#5a5a5a;text-align:center;padding:5px 5px;line-height:13px;font-size:11px;}
-#albumSettings .pattern-list a.active .pattern,
-#albumSettings .pattern-list a:hover .pattern {-webkit-box-shadow: none;-moz-box-shadow: none;box-shadow: none;}
+.pattern-list {list-style:none;width:330px;}
+.pattern-list li {float:left;width:65px;margin:0 1px 1px 0;}
+.pattern-list a {display:block;border:2px solid transparent;padding:3px;behavior: url(PIE.htc);position:relative;text-decoration:none;}
+.pattern-list a.active,
+.pattern-list a:hover{border:2px solid #9c7fb7;-webkit-border-radius: 5px;-moz-border-radius: 5px;-ms-border-radius: 5px;border-radius: 5px;}
+.pattern-list a .pattern {display:block;height:28px;-webkit-border-radius: 3px;-moz-border-radius: 3px;-ms-border-radius: 3px;border-radius: 3px; behavior: url(PIE.htc);-webkit-box-shadow: inset 2px 1px 2px rgba(0,0,0,0.3);-moz-box-shadow: inset 2px 1px 2px rgba(0,0,0,0.3);box-shadow: inset 2px 1px 2px rgba(0,0,0,0.3);color:#5a5a5a;text-align:center;padding:5px 5px;line-height:13px;font-size:11px;}
+.pattern-list a.active .pattern,
+.pattern-list a:hover .pattern {-webkit-box-shadow: none;-moz-box-shadow: none;box-shadow: none;}
 
 #content .main #gallery #photo .big-photo {width:678px;}
 #content .main #gallery #photo .gallery-photos {width:600px;}

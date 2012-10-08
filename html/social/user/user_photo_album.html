@@ -70,7 +70,17 @@
         $('.gallery-photos-new').masonry( 'appended', newItems, false);
       })
       
-      
+	  /* fancybox Настройки фотоальбома. Переключение шагов. */
+      $('#advise-album').click(function(){
+		if ($('#advise-album').is(':checked')) {
+			$('#albumSettings .step2 .overlay').hide();
+			$('#albumSettings .advise-mark').removeClass("opacity-10");
+		} else {
+			$('#albumSettings .step2 .overlay').show();
+			$('#albumSettings .advise-mark').addClass("opacity-10");
+		}
+
+	  });
       
 		});
 		
@@ -780,7 +790,7 @@
 							<li><a href="#"><span class="pattern pattern-3"></span></a></li>
 							<li><a href="#"><span class="pattern pattern-4"></span></a></li>
 						</ul>
-						<div class="overlay opacity-10"></div>
+						<div class="overlay opacity-80"></div>
 					</div>
 				</div>
 			</div>

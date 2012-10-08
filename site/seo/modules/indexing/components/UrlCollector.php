@@ -15,14 +15,18 @@ class UrlCollector
 
     public function collectUrls()
     {
+        echo "club posts\n";
         $this->collectClubContent();
+        echo "blog posts\n";
         $this->collectBlogs();
 
         //morning
+        echo "morning\n";
         $morning = array_merge(range(14, 21), range(146, 213));
         foreach ($morning as $letter)
             $this->addUrl('http://www.happy-giraffe.ru/morning/' . $letter, 1);
 
+        echo "all club posts\n";
         //весь контент
         $articles = array(1);
         $criteria = new CDbCriteria;
@@ -38,6 +42,8 @@ class UrlCollector
             }
             $i++;
             $criteria->offset = $i * 100;
+
+            echo $i."\n";
         }
 
         $this->collectServices();
@@ -104,6 +110,7 @@ class UrlCollector
     public function collectServices()
     {
         //services
+        echo "names\n";
         $this->addUrl('http://www.happy-giraffe.ru/names/saint/');
         $this->addUrl('http://www.happy-giraffe.ru/names/top10/');
         foreach (range('A', 'Z') as $letter)
@@ -117,6 +124,7 @@ class UrlCollector
         $this->addUrl('http://www.happy-giraffe.ru/babySex/');
         $this->addUrl('http://www.happy-giraffe.ru/sewing/');
 
+        echo "horoscope\n";
         $this->addUrl('http://www.happy-giraffe.ru/horoscope/');
         $this->addUrl('http://www.happy-giraffe.ru/horoscope/compatibility/');
         foreach (array('a', 't', 'g', 'c', 'l', 'v', 's', 'p') as $letter)
@@ -131,6 +139,7 @@ class UrlCollector
         $this->addUrl('http://www.happy-giraffe.ru/babyBloodGroup/');
         $this->addUrl('http://www.happy-giraffe.ru/contractionsTime/');
 
+        echo "childrenDiseases\n";
         $this->addUrl('http://www.happy-giraffe.ru/childrenDiseases/');
         foreach (range('a', 'z') as $letter)
             $this->addUrl('http://www.happy-giraffe.ru/childrenDiseases/' . $letter, 1);
@@ -142,12 +151,14 @@ class UrlCollector
             $this->addUrl('http://www.happy-giraffe.ru/childrenDiseases/' . $model->slug . '/');
 
         // Cook recipes
+        echo "Cook recipes\n";
         $this->collectCookRecipes();
 
         $this->addUrl('http://www.happy-giraffe.ru/cook/converter/');
         $this->addUrl('http://www.happy-giraffe.ru/cook/calorisator/');
 
         // Cook choose
+        echo "Cook choose\n";
         foreach (range('a', 'z') as $letter)
             $this->addUrl('http://www.happy-giraffe.ru/cook/choose/' . $letter, 1);
         $models = CookChoose::model()->findAll();
@@ -158,6 +169,7 @@ class UrlCollector
             $this->addUrl('http://www.happy-giraffe.ru/cook/choose/' . $model->slug . '/');
 
         // Cook spices
+        echo "Cook spices\n";
         foreach (range('a', 'z') as $letter)
             $this->addUrl('http://www.happy-giraffe.ru/cook/spice/' . $letter, 1);
         $models = CookSpice::model()->findAll();
@@ -167,6 +179,7 @@ class UrlCollector
         foreach ($models as $model)
             $this->addUrl('http://www.happy-giraffe.ru/cook/spice/' . $model->slug . '/');
 
+        echo "Cook decor\n";
         $this->addUrl('http://www.happy-giraffe.ru/cook/decor/');
         for ($i = 0; $i <= 7; $i++) {
             $this->addUrl('http://www.happy-giraffe.ru/cook/decor/' . $i . '/', 1);

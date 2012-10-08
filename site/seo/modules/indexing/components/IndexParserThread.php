@@ -94,7 +94,7 @@ class IndexParserThread extends ProxyParserThread
         $document = phpQuery::newDocument($content);
 
         $links = array();
-        foreach ($document->find('.b-body-items h2 a.b-serp-item__title-link') as $link) {
+        foreach ($document->find('.b-body-items h3 a.b-serp-item__title-link') as $link) {
             $links [] = pq($link)->attr('href');
         }
 
@@ -163,7 +163,7 @@ class IndexParserThread extends ProxyParserThread
 
     public function customLog($state)
     {
-        $fh = fopen($dir = Yii::getPathOfAlias('application.runtime') . DIRECTORY_SEPARATOR . 'indexing_log.txt', 'a');
-        fwrite($fh, $state . ' thread('.$this->thread_id. ")\n");
+        $str = $state . ' thread('.$this->thread_id. ")\n";
+        file_put_contents(Yii::getPathOfAlias('application.runtime') . DIRECTORY_SEPARATOR . 'indexing_log.txt', $str);
     }
 }

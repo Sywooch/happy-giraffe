@@ -289,7 +289,7 @@ var SeoLinking = {
         if (!SeoLinking.checkAddLnk())
             return;
 
-        $('#auto-linking').fadeOut(1000);
+        $('#auto-linking').fadeOut(100);
 
         $.post('/promotion/linking/add/', {
             page_id:SeoLinking.page_id,
@@ -304,7 +304,7 @@ var SeoLinking = {
                 SeoLinking.phrase_id = response.phrase_id;
                 console.log("phrase_id="+response.phrase_id);
                 SeoLinking.page_id = response.page_id;
-                $('#auto-linking').removeClass('loading-block').html(response.html).fadeIn(500);
+                $('#auto-linking').removeClass('loading-block').html(response.html).fadeIn(100);
             } else {
                 $.pnotify({
                     pnotify_title:'Ошибка',
@@ -413,7 +413,7 @@ var SeoLinking = {
         });
     },
     skip:function () {
-        $('#auto-linking').fadeOut(1000);
+        $('#auto-linking').fadeOut(100);
 
         $.post('/promotion/linking/skip/', {
             phrase_id:SeoLinking.phrase_id
@@ -422,7 +422,7 @@ var SeoLinking = {
                 SeoLinking.keyword_id = null;
                 SeoLinking.phrase_id = response.phrase_id;
                 SeoLinking.page_id = response.page_id;
-                $('#auto-linking').removeClass('loading-block').html(response.html).fadeIn(500);
+                $('#auto-linking').removeClass('loading-block').html(response.html).fadeIn(100);
 
             } else {
                 $.pnotify({

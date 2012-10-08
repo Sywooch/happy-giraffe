@@ -1720,7 +1720,7 @@ body.nav-fixed #header-new.top-line-fixed {padding-top:0;}
 #user-notifications .notifications ul li .content .meta .date {color:#b7b8b7;font-size:9px;font-family:tahoma, arial, helvetica, sans-serif;}
 
 
-#user-career {position:absolute;left:0;top:0;margin-top:43px;z-index:99;width:100%;overflow: auto;min-width:1000px;max-height:100%;}
+#user-career {position:absolute;left:0;top:0;bottom:0;margin-top:43px;z-index:99;width:100%;overflow-y:auto;overflow-x:hidden;min-width:1000px;}
 #user-career-in {background:#fff;width:998px;margin:0 auto 20px;position:relative;border:1px solid #e6ddf0;}
 #user-career .header {height:30px;padding:30px 60px;position:relative;}
 
@@ -1800,14 +1800,13 @@ body.nav-fixed #header-new.top-line-fixed {padding-top:0;}
 #user-career .achievements-list ul li .count b {font-size:16px;}
 #user-career .achievements-list ul li .item-title {font-size:12px;font-weight:bold;font-family:tahoma, arial, helvetica, sans-serif;}
 #user-career .achievements-list ul li .date {color:#a2a2a2;font-size:9px;font-family:tahoma, arial, helvetica, sans-serif;line-height:12px;}
-#user-career .achievements-list .how {text-align:center;}
+#user-career .achievements-list .how-get-level {text-align:center;}
 #user-career .achievements-list.trophies ul li {text-align:center;}
 
 #user-career .achievement-one {background:#e8d8f5 url(/images/pattern_purple.gif);padding:120px 39px;position:relative;}
 #user-career .achievement-one .back {text-decoration:none;border-bottom:1px dashed #029AD2;line-height:14px;font-size:11px;position:absolute;top:25px;right:20px;}
 
 .achievement-one .jcarousel {height:265px;width:920px;}
-.achievement-one .jcarousel {}
 .achievement-one .jcarousel li {width:740px;padding:0 90px;}
 .achievement-one .jcarousel li .img {width:262px;float:left;}
 .achievement-one .jcarousel li .img .img-progress {width:262px;height:262px;position:relative;}
@@ -1827,12 +1826,12 @@ body.nav-fixed #header-new.top-line-fixed {padding-top:0;}
 .achievement-one .jcarousel .next {position:absolute;right:0;display:block;width:25px;height:34px;background:url(/images/common.png) no-repeat -240px -164px;top:120px;}
 .achievement-one .jcarousel .next.jcarousel-control-inactive {background-position:-661px -293px;cursor:default;}
 
-#user-career > .how {background:#e8d8f5 url(/images/pattern_purple.gif);padding:50px 19px 20px;position:relative;}
-#user-career > .how .back {text-decoration:none;border-bottom:1px dashed #029AD2;line-height:14px;font-size:11px;position:absolute;top:15px;right:20px;}
-#user-career > .how .block-title {color:#454445;font-size:30px;text-align:center;line-height:1;margin-bottom:15px;}
-#user-career > .how .content {height:480px;background:url(/images/user_career_how.png) no-repeat top;position:relative;}
-#user-career > .how .be-active {position:absolute;right:0;bottom:0;color:#603386;font-size:25px;line-height:1;}
-#user-career > .how .be-active .icon {display:inline-block;*zoom:1;*display:inline;width:63px;height:65px;background:url(/images/user_career_be_active.png) no-repeat;}
+#user-career .how {background:#e8d8f5 url(/images/pattern_purple.gif);padding:50px 19px 20px;position:relative;}
+#user-career .how .back {text-decoration:none;border-bottom:1px dashed #029AD2;line-height:14px;font-size:11px;position:absolute;top:15px;right:20px;}
+#user-career .how .block-title {color:#454445;font-size:30px;text-align:center;line-height:1;margin-bottom:15px;}
+#user-career .how .content {height:480px;background:url(/images/user_career_how.png) no-repeat top;position:relative;}
+#user-career .how .be-active {position:absolute;right:0;bottom:0;color:#603386;font-size:25px;line-height:1;}
+#user-career .how .be-active .icon {display:inline-block;*zoom:1;*display:inline;width:63px;height:65px;background:url(/images/user_career_be_active.png) no-repeat;}
 
 #user-career .stripes {position:relative;}
 #user-career .stripes:before {display:block;content:'';height:10px;width:100%;position:absolute;top:0;left:0;background:url(/images/user_career_t.gif) repeat-x;}
@@ -2170,10 +2169,12 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 #albumSettings .album-style .step2 {position:relative;}
 #albumSettings .album-style .overlay {position:absolute;width:100%;height:100%;left:0;top:0;background:#fff;}
 #albumSettings .pattern-list {list-style:none;width:330px;}
-#albumSettings .pattern-list li {float:left;width:65px;margin-right:1px;}
+#albumSettings .pattern-list li {float:left;width:65px;margin:0 1px 1px 0;}
 #albumSettings .pattern-list a {display:block;border:2px solid transparent;padding:3px;behavior: url(PIE.htc);position:relative;text-decoration:none;}
+#albumSettings .pattern-list a.active,
 #albumSettings .pattern-list a:hover{border:2px solid #9c7fb7;-webkit-border-radius: 5px;-moz-border-radius: 5px;-ms-border-radius: 5px;border-radius: 5px;}
 #albumSettings .pattern-list a .pattern {display:block;height:28px;-webkit-border-radius: 3px;-moz-border-radius: 3px;-ms-border-radius: 3px;border-radius: 3px; behavior: url(PIE.htc);-webkit-box-shadow: inset 2px 1px 2px rgba(0,0,0,0.3);-moz-box-shadow: inset 2px 1px 2px rgba(0,0,0,0.3);box-shadow: inset 2px 1px 2px rgba(0,0,0,0.3);color:#5a5a5a;text-align:center;padding:5px 5px;line-height:13px;font-size:11px;}
+#albumSettings .pattern-list a.active .pattern,
 #albumSettings .pattern-list a:hover .pattern {-webkit-box-shadow: none;-moz-box-shadow: none;box-shadow: none;}
 
 #content .main #gallery #photo .big-photo {width:678px;}
@@ -3218,7 +3219,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 body.gallery {overflow:hidden;}
 
 
-#photo-window  {max-height:100%;position:absolute;width:100%;z-index:99;top:0;left:0;overflow:auto;min-width:1000px;color:#dcdcdc;margin-top:43px;}
+#photo-window  {position:absolute;width:100%;z-index:99;top:0;left:0;bottom:0;overflow-y:auto;overflow-x:hidden;min-width:1000px;color:#dcdcdc;margin-top:43px;}
 #photo-window-in {background:#fff;width:1000px;margin:0 auto 20px;position:relative;}
 #photo-window-bg {position:fixed;height:100%;width:100%;top:0;left:0;z-index:98;background:url(/images/bg_black_alpha_40.png);}
 
@@ -3960,8 +3961,8 @@ label {
 .pattern-4 {background:url(/images/bg_pattern_4.gif);}
 .pattern-5 {background:url(/images/bg_pattern_5.png);}
 .pattern-6 {background:url(/images/bg_pattern_6.png);}
-.pattern-7 {background:url(/images/bg_pattern_7.png);}
-.pattern-8 {background:url(/images/bg_pattern_8.png);}
+.pattern-7 {background:url(/images/bg_pattern_7.gif);}
+.pattern-8 {background:url(/images/bg_pattern_8.jpg);}
 .pattern-9 {background:url(/images/bg_pattern_9.png);}
 
 /* tooltip-new */
@@ -3989,7 +3990,7 @@ label {
 
 /* new-capability */
 .new-capability {
-	margin:10px 0 25px;
+	margin:10px 0 30px;
 	padding:18px 26px 18px 35px;
 	border:1px solid #dcf7db;
 	background:#e1fde0;

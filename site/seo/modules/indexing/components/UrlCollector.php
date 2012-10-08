@@ -279,6 +279,10 @@ class UrlCollector
 
     public function removeUrls()
     {
-        IndexingUrl::model()->deleteAll('type=1');
+        $models = IndexingUrl::model()->findAll('type=1');
+        foreach ($models as $model) {
+            if ($model->countUrls == 0)
+                $model->delete();
+        }
     }
 }

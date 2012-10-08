@@ -70,7 +70,17 @@
         $('.gallery-photos-new').masonry( 'appended', newItems, false);
       })
       
-      
+	  /* fancybox Настройки фотоальбома. Переключение шагов. */
+      $('#advise-album').click(function(){
+		if ($('#advise-album').is(':checked')) {
+			$('#albumSettings .step2 .overlay').hide();
+			$('#albumSettings .advise-mark').removeClass("opacity-10");
+		} else {
+			$('#albumSettings .step2 .overlay').show();
+			$('#albumSettings .advise-mark').addClass("opacity-10");
+		}
+
+	  });
       
 		});
 		
@@ -82,130 +92,49 @@
 	
 </head>
 <body class="body-club">
-	<div id="layout" class="wrapper">
-		
-		<div id="header-new" class="clearfix">
-			
-			<div class="top-line clearfix">
+  <div class="top-line-menu">
+		<div class="top-line-menu-holder">
+			<div class="user-nav-2">
 				
-				<div class="user-nav">
+				<ul>
+					<li class="item-ava">
+						<a href="" class="ava small female"></a>
+					</li>
+					<li class="item-dialogs">
+						<a href=""><i class="icon-dialogs"></i></a>
+					</li>
+					<li class="item-friends">
+						<a href=""><i class="icon-friends"></i></a>
+					</li>
+					<li class="item-notifications">
+						<a href=""><i class="icon-notifications"></i></a>
+					</li>
+					<li class="item-career">
+						<a href=""><i class="icon-career"></i></a>
+					</li>
+					<li class="item-settings">
+						<a href=""><i class="icon-settings"></i></a>
+					</li>
+					<li class="item-logout">
+						<a href=""><i class="icon-logout"></i></a>
+					</li>
 					
-					<ul>
-						<li><a href=""><i class="icon icon-home"></i></a></li>
-						<li>
-							<a href="">Прелоадер ;)</a>
-							<div class="drp">
-								<div class="drp-title"><img src="/images/loader_01.gif" /></div>
-							</div>
-						</li>
-						<li>
-							<a href=""><i class="icon icon-messages"></i><span class="count">5</span></a>
-							<div class="drp">
-								<div class="drp-title">Диалоги</div>
-								<ul class="list">
-									<li>
-										<a href="">
-											<span class="name">Александр  Богоявленский</span>
-											<span class="text">Привет! У меня  нормально. Напиши как приедешь...</span>
-											<span class="date">Сегодня 10:45</span>
-										</a>
-									</li>
-									<li>
-										<a href="">
-											<span class="name">Александр  Богоявленский</span>
-											<span class="text">Привет! У меня  нормально. Напиши как приедешь...</span>
-											<span class="date">Сегодня 10:45</span>
-										</a>
-									</li>
-									<li>
-										<a href="">
-											<span class="name">Александр  Богоявленский</span>
-											<span class="text">Привет! У меня  нормально. Напиши как приедешь...</span>
-											<span class="date">Сегодня 10:45</span>
-										</a>
-									</li>							
-								</ul>
-								<div class="actions">
-									<ul>
-										<li><a href="">Все диалоги <span>(156)</span></a></li>
-										<li><a href="">Новых</a> <a href="" class="count">5</a></li>
-										<li><a href="">Кто онлайн</a> <span>8</span></li>
-									</ul>
-								</div>
-							</div>
-						</li>
-						<li>
-							<a href=""><i class="icon icon-friends"></i><span class="count">777</span></a>
-							<div class="drp drp-closable">
-								<div class="drp-title">Друзья</div>
-								<ul class="list">
-									<li>
-										<a href=""><span class="red">ОГО!</span>&nbsp;&nbsp;<span class="name">Александр Богоявленский</span> предлагает подружиться<i class="close"></i></a>
-									</li>
-									<li>
-										<a href=""><span class="yellow">УРА!</span>&nbsp;&nbsp;<span class="name">Ирина Гусева</span> ответила согласием на Вашу дружбу<i class="close"></i></a>
-									</li>
-									<li>
-										<a href=""><span class="green">ЖАЛЬ!</span>&nbsp;&nbsp;<span class="name">Иван захаров</span> ответил отказом на Вашу дружбу<i class="close"></i></a>
-									</li>									
-								</ul>
-								<div class="actions">
-									<ul>
-										<li><a href="">Все друзья <span>(18)</span></a></li>
-										<li><a href="">Кто онлайн</a> <span>8</span></li>
-										<li><a href="">Предложения дружбы</a> <a href="" class="count count-gray">0</a></li>
-										<li><a href="">Мои предложения</a></li>
-									</ul>
-								</div>
-							</div>
-						</li>
-						<li>
-							<a href=""><i class="icon icon-notifications"></i><span class="count">44</span></a>
-							<div class="drp drp-icons">
-								<div class="drp-title">Уведомления</div>
-								<ul class="list">
-									<li>
-										<a href="">2 новых комментария  к Вашей записи <span class="black">Я боюсь рожать</span>  в клубе <span class="black">Роды</span><i class="icon icon-settings"></i></a>
-									</li>
-								</ul>
-								<div class="actions">
-									<ul>
-										<li><a href="">Все уведомления (43)</a></li>
-									</ul>
-								</div>
-							</div>
-						</li>
-						<li class="user">
-                                <div class="link">
-									<a class="ava male small" href="/user/profile/user_id/10020/">
-										<img src="" alt="">
-									</a>
-									<a href="/user/profile/user_id/10020/">
-                                        <span class="username">Ижецкий Денис Владимирович<i class="arr"></i></span>
-                                    </a>
-                                </div>
-                                <div class="drp">
-                                    <div class="actions">
-                                        <ul>
-                                            <li><a href="/user/profile/user_id/10020/">Мой профайл<i class="icon icon-profile"></i></a></li>
-                                            <li><a href="/profile/index/">Мои настройки<i class="icon icon-settings"></i></a></li>
-                                            <li><a href="/site/logout/">Выйти<i class="icon icon-logout"></i></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </li>
-					</ul>
-					
-				</div>
-				
-				<ul class="fast-links clearfix">
-					<li><a href="">Главная</a></li>
-					<li><a href="">Клубы</a></li>
-					<li><a href="">Сервисы</a></li>
-					<li><a href="">Конкурсы</a></li>
 				</ul>
 				
 			</div>
+			
+			<ul class="fast-links clearfix">
+				<li><a href="">Главная</a></li>
+				<li><a href="">Клубы</a></li>
+				<li><a href="">Сервисы</a></li>
+				<li><a href="">Конкурсы</a></li>
+			</ul>
+		</div>
+	</div>
+  <div class="layout-container">
+	<div id="layout" class="wrapper">
+		
+		<div id="header-new" class="clearfix">
 			
 			<div class="header-in">
 				<div class="clearfix">
@@ -490,94 +419,94 @@
 						
 						<div class="content-title-new">
 							Альбом «Зимние каникулы» <a href="#albumSettings" class="settings tooltip fancy" title="Настройки альбома"></a>
-							<span>Хлопоты понемногу утихли а значит можно хорошо провести зимние выходные. В Славяногороске погода зимняя. </span>
+							<div class="description">Одним из основных свидетельств течения беременности является набор веса согласно принятым</div>
 						</div>
 						
 						<div id="gallery" class="nopadding">
 						
-							<div class="gallery-photos-new cols-3 clearfix">
-                <ul>
-                  
-                  <li>
-                    <div class="img">
-                      <a href="">
-                        <img src="/images/example/gallery_album_img_01.jpg">
-                        <span class="btn">Посмотреть</span>
-                      </a>
-                    </div>
-                    <div class="item-title">Разнообразие десертов сицилийского стиля</div>
-                  </li>
-                  
-                  <li>
-                    <div class="img">
-                      <a href="">
-                        <img src="/images/example/gallery_album_img_02.jpg">
-                        <span class="btn">Посмотреть</span>
-                      </a>
-                    </div>
-                    <div class="item-title">Разнообразие десертов сицилийского стиля</div>
-                  </li>
-                  
-                  <li>
-                    <div class="img">
-                      <a href="">
-                        <img src="/images/example/gallery_album_img_03.jpg">
-                        <span class="btn">Посмотреть</span>
-                      </a>
-                    </div>
-                    <div class="item-title">Разнообразие десертов сицилийского стиля</div>
-                  </li>
-                  
-                  <li>
-                    <div class="img">
-                      <a href="">
-                        <img src="/images/example/gallery_album_img_04.jpg">
-                        <span class="btn">Посмотреть</span>
-                      </a>
-                    </div>
-                    <div class="item-title">Разнообразие десертов сицилийского стиля</div>
-                  </li>
-                  
-                  <li>
-                    <div class="img">
-                      <a href="">
-                        <img src="/images/example/gallery_album_img_05.jpg">
-                        <span class="btn">Посмотреть</span>
-                      </a>
-                    </div>
-                    <div class="item-title">Разнообразие десертов сицилийского стиля</div>
-                  </li>
-                  
-                  <li>
-                    <div class="img">
-                      <a href="">
-                        <img src="/images/example/gallery_album_img_06.jpg">
-                        <span class="btn">Посмотреть</span>
-                      </a>
-                    </div>
-                    <div class="item-title">Разнообразие десертов сицилийского стиля</div>
-                  </li>
-                  
-                  <li>
-                    <div class="img">
-                      <a href="">
-                        <img src="/images/example/gallery_album_img_07.jpg">
-                        <span class="btn">Посмотреть</span>
-                      </a>
-                    </div>
-                    <div class="item-title">Разнообразие десертов сицилийского стиля</div>
-                  </li>
-                  
-                  <li>
-                    <div class="img">
-                      <a href="">
-                        <img src="/images/example/gallery_album_img_08.jpg">
-                        <span class="btn">Посмотреть</span>
-                      </a>
-                    </div>
-                    <div class="item-title">Разнообразие десертов сицилийского стиля</div>
-                  </li>
-                </ul>
+							<div class="gallery-photos-new cols-3 clearfix pattern-2">
+								<ul>
+								  
+								  <li>
+									<div class="img">
+									  <a href="">
+										<img src="/images/example/gallery_album_img_01.jpg">
+										<span class="btn">Посмотреть</span>
+									  </a>
+									</div>
+									<div class="item-title">Разнообразие десертов сицилийского стиля</div>
+								  </li>
+								  
+								  <li>
+									<div class="img">
+									  <a href="">
+										<img src="/images/example/gallery_album_img_02.jpg">
+										<span class="btn">Посмотреть</span>
+									  </a>
+									</div>
+									<div class="item-title">Разнообразие десертов сицилийского стиля</div>
+								  </li>
+								  
+								  <li>
+									<div class="img">
+									  <a href="">
+										<img src="/images/example/gallery_album_img_03.jpg">
+										<span class="btn">Посмотреть</span>
+									  </a>
+									</div>
+									<div class="item-title">Разнообразие десертов сицилийского стиля</div>
+								  </li>
+								  
+								  <li>
+									<div class="img">
+									  <a href="">
+										<img src="/images/example/gallery_album_img_04.jpg">
+										<span class="btn">Посмотреть</span>
+									  </a>
+									</div>
+									<div class="item-title">Разнообразие десертов сицилийского стиля</div>
+								  </li>
+								  
+								  <li>
+									<div class="img">
+									  <a href="">
+										<img src="/images/example/gallery_album_img_05.jpg">
+										<span class="btn">Посмотреть</span>
+									  </a>
+									</div>
+									<div class="item-title">Разнообразие десертов сицилийского стиля</div>
+								  </li>
+								  
+								  <li>
+									<div class="img">
+									  <a href="">
+										<img src="/images/example/gallery_album_img_06.jpg">
+										<span class="btn">Посмотреть</span>
+									  </a>
+									</div>
+									<div class="item-title">Разнообразие десертов сицилийского стиля</div>
+								  </li>
+								  
+								  <li>
+									<div class="img">
+									  <a href="">
+										<img src="/images/example/gallery_album_img_07.jpg">
+										<span class="btn">Посмотреть</span>
+									  </a>
+									</div>
+									<div class="item-title">Разнообразие десертов сицилийского стиля</div>
+								  </li>
+								  
+								  <li>
+									<div class="img">
+									  <a href="">
+										<img src="/images/example/gallery_album_img_08.jpg">
+										<span class="btn">Посмотреть</span>
+									  </a>
+									</div>
+									<div class="item-title">Разнообразие десертов сицилийского стиля</div>
+								  </li>
+								</ul>
 							</div>
 							
               <a class="more-btn" id="more-btn" data-loading="0" href="javascript:void(0);">Показать еще фотографии</a>
@@ -623,11 +552,11 @@
 						
 						<ul>
 							<li><span><a href="">Все альбомы</a></span></li>
-              <li class="active"><span><a href="">Зимние каникулы</a></span><div class="count">15</div></li>							
+							<li class="active"><span><a href="">Зимние каникулы</a></span><div class="count">15</div></li>							
 							<li><span><a href="">Фотография</a></span><div class="count">15</div></li>
 							<li><span><a href="">Прикольное видео и другие фишки</a></span><div class="count">15</div></li>
 							<li><span><a href="">Школа восточного танца</a></span><div class="count">15</div></li>
-							<li><span><a href="">Футбол</a></span><div class="count">15</div></li>
+							<li class="advise"><span><a href="">Футбол</a></span><div class="count">15</div><div class="advise-text">Советую!</div></li>
 							<li><span><a href="">Детские передачи</a></span><div class="count">15</div></li>
 						</ul>
 						
@@ -647,6 +576,7 @@
 	<div id="footer" class="wrapper">
 		f
 	</div>
+  </div>
 <div style="display:none">
 	<div id="login" class="popup">
 		
@@ -797,50 +727,79 @@
     <a href="javascript:void(0);" onclick="$.fancybox.close();" class="popup-close tooltip" title="Закрыть"></a>
     
     <div class="popup-title">Настройки фотоальбома</div>
-    
-    <div class="default-nav">
-      <ul>
-        <li class="active"><a href="">Название альбома</a></li>
-        <li class="disabled"><a>Настройки 2</a></li>
-        <li class="disabled"><a>Настройки 3</a></li>
-      </ul>
+    <div class="tabs">
+		<div class="default-nav">
+		  <ul>
+			<li class=""><a href="javascript:void(0);" onclick="setTab(this, 1);">Название альбома</a></li>
+			<li class="active"><a href="javascript:void(0);" onclick="setTab(this, 2);">Стиль альбома</a><span class="tooltip-new">новое</span></li>
+		  </ul>
+		</div>
+		
+		<form action="">
+		
+			<div class="tabs-container">
+				<div class="settings-form tab-box tab-box-1">
+				
+					<div class="row">
+						<div class="row-title">Название альбома <span>(не более 30 знаков)</span></div>
+						<div class="row-elements">
+						  <span class="item-title">Блокнот натуралиста</span>
+						  <a href="" class="edit tooltip" title="Редактировать название альбома"></a>
+						</div>
+						<div class="row-elements">
+						  <input type="text" placeholder="Введите название альбома" />
+						  <button class="btn btn-green-small"><span><span>Ok</span></span></button>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="row-title">Комментарий к альбому</div>
+						<div class="row-elements">
+						  <p>Семья – самое важное в жизни человека. Семья дает человеку любовь, уважение, солидарность, привязанность, то без чего не бывает ни одно общество, без чего не может человек.<a href="" class="edit tooltip" title="Редактировать описание альбома"></a></p>
+						</div>
+						<div class="row-elements">
+						  <textarea>Семья – самое важное в жизни человека. Семья дает человеку любовь, уважение, солидарность, привязанность, то без чего не бывает ни одно общество, без чего не может человек.</textarea>
+						  <button class="btn btn-green-small"><span><span>Ok</span></span></button>
+						</div>
+					</div>
+				</div>
+				<div class="album-style tab-box tab-box-2" style="display:block;">
+					
+					<h3>Шаг 1</h3>
+					<p>Для того чтобы сделать этот альбом оригинальным, нужно сначало сделать его избранным</p>
+					<div class="row-elements clearfix">
+					  <input type="checkbox" id="advise-album"/>
+					  <label for="advise-album">Сделать избранным</label>
+					  <div class="advise-mark opacity-10">
+						  <div class="advise-text">Советую!</div>
+						  <span class="remark">На обложке альбома  появится этот значок</span>
+					  </div>
+					</div>
+					<div class="step2">
+						<h3>Шаг 2</h3>
+						<p>Выберите стиль для вашего альбома копия</p>
+						<ul class="pattern-list clearfix">
+							<li><a href="#"><span class="pattern"></span></a></li>
+							<li><a href="#"><span class="pattern pattern-2"></span></a></li>
+							<li><a href="#"><span class="pattern pattern-3"></span></a></li>
+							<li><a href="#"><span class="pattern pattern-4"></span></a></li>
+							<li><a href="#"><span class="pattern pattern-2"></span></a></li>
+							<li><a href="#"><span class="pattern pattern-3"></span></a></li>
+							<li><a href="#"><span class="pattern pattern-4"></span></a></li>
+							<li><a href="#"><span class="pattern pattern-2"></span></a></li>
+							<li><a href="#"><span class="pattern pattern-3"></span></a></li>
+							<li><a href="#"><span class="pattern pattern-4"></span></a></li>
+						</ul>
+						<div class="overlay opacity-80"></div>
+					</div>
+				</div>
+			</div>
+		</form>
+		
+		<div class="bottom">
+		  <button class="btn btn-green-medium"><span><span>Сохранить настройки</span></span></button>
+		</div>
     </div>
-    
-    <div class="settings-form">
-      <div class="row">
-        <div class="row-title">Название альбома <span>(не более 30 знаков)</span></div>
-        <div class="row-elements">
-          <span class="item-title">Блокнот натуралиста</span>
-          <a href="" class="edit tooltip" title="Редактировать название альбома"></a>
-        </div>
-        <div class="row-elements">
-          <input type="text" placeholder="Введите название альбома" />
-          <button class="btn btn-green-small"><span><span>Ok</span></span></button>
-        </div>
-        
-      </div>
-      <div class="row">
-        <div class="row-title">Комментарий к альбому</div>
-        <div class="row-elements">
-          <p>Семья – самое важное в жизни человека. Семья дает человеку любовь, уважение,
-солидарность, привязанность, то без чего не бывает ни одно общество, без чего не может
-человек.<a href="" class="edit tooltip" title="Редактировать описание альбома"></a></p>
-        </div>
-        <div class="row-elements">
-          <textarea>Семья – самое важное в жизни человека. Семья дает человеку любовь, уважение,
-солидарность, привязанность, то без чего не бывает ни одно общество, без чего не может
-человек.</textarea>
-          <button class="btn btn-green-small"><span><span>Ok</span></span></button>
-        </div>
-        
-      </div>
-      
-    </div>
-    
-    <div class="bottom">
-      <button class="btn btn-green-medium"><span><span>Сохранить настройки</span></span></button>
-    </div>
-    
   </div>
   
 </div>

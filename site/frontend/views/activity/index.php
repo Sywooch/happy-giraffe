@@ -18,15 +18,9 @@
 
         <div class="col-1">
 
-            <?php if($this->beginCache('activity-page-live', array(
-                'duration' => 600,
-                'dependency' => array(
-                    'class' => 'CDbCacheDependency',
-                    'sql' => 'SELECT MAX(created) FROM community__contents',
-                ),
-            ))): ?>
+
                 <?php $this->widget('LiveWidget'); ?>
-            <?php $this->endCache(); endif;  ?>
+
 
             <?php $this->widget('WantToChatWidget'); ?>
 

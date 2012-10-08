@@ -163,7 +163,7 @@ class IndexParserThread extends ProxyParserThread
 
     public function customLog($state)
     {
-        $str = $state . ' thread('.$this->thread_id. ")\n";
-        file_put_contents(Yii::getPathOfAlias('application.runtime') . DIRECTORY_SEPARATOR . 'indexing_log.txt', $str);
+        $fh = fopen($dir = Yii::getPathOfAlias('application.runtime') . DIRECTORY_SEPARATOR . 'indexing_log.txt', 'a');
+        fwrite($fh, $state . ' thread('.$this->thread_id. ")\n");
     }
 }

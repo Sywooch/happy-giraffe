@@ -567,7 +567,7 @@ class CommunityContent extends HActiveRecord
         );
     }
 
-    public function getShort($width = null)
+    public function getShort($width = 700)
     {
         switch ($this->type_id) {
             case 1:
@@ -586,7 +586,7 @@ class CommunityContent extends HActiveRecord
         }
     }
 
-    public function getContentImage($width = null)
+    public function getContentImage($width = 700)
     {
         if ($this->type->slug == 'video') {
             $video = new Video($this->video->link);

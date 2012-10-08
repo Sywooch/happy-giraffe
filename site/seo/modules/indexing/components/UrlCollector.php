@@ -15,26 +15,39 @@ class UrlCollector
 
     public function collectUrls()
     {
-        echo "club posts\n";
-        $this->collectClubContent();
-        echo "blog posts\n";
-        $this->collectBlogs();
+//        echo "club posts\n";
+//        $this->collectClubContent();
+//        echo "blog posts\n";
+//        $this->collectBlogs();
+//
+//        //morning
+//        echo "morning\n";
+//        $morning = array_merge(range(14, 21), range(146, 213));
+//        foreach ($morning as $letter)
+//            $this->addUrl('http://www.happy-giraffe.ru/morning/' . $letter, 1);
 
-        //morning
-        echo "morning\n";
-        $morning = array_merge(range(14, 21), range(146, 213));
-        foreach ($morning as $letter)
-            $this->addUrl('http://www.happy-giraffe.ru/morning/' . $letter, 1);
-
-        echo "all club posts\n";
         //весь контент
         $articles = array(1);
         $criteria = new CDbCriteria;
         $criteria->limit = 100;
         $criteria->offset = 0;
+        $criteria->condition = 'rubric.user_id IS NULL';
+        $criteria->with = array(
+            'rubric' => array(
+                'with' => array(
+                    'community' => array(
+                        'select' => 'id, title, position',
+                    )
+                ),
+            ),
+            'type' => array(
+                'select' => 'slug',
+            ));
         $i = 0;
+
+        echo "all club posts\n";
         while (!empty($articles)) {
-            $articles = CommunityContent::model()->full()->active()->findAll($criteria);
+            $articles = CommunityContent::model()->findAll($criteria);
             foreach ($articles as $article) {
                 $url = $article->getUrl();
                 $url = trim($url, '.');
@@ -43,7 +56,7 @@ class UrlCollector
             $i++;
             $criteria->offset = $i * 100;
 
-            echo $i."\n";
+            echo $i . "\n";
         }
 
         $this->collectServices();
@@ -81,7 +94,7 @@ class UrlCollector
     {
         $communities = Community::model()->findAll();
         foreach ($communities as $community) {
-            echo 'community '.$community->id."\n";
+            echo 'community ' . $community->id . "\n";
             $types = array(1 => 'post', 2 => 'video');
             foreach ($types as $key => $type) {
                 $posts = CommunityContent::model()->full()->findAll('community.id=' . $community->id . ' AND type.id = ' . $key);
@@ -194,15 +207,15 @@ class UrlCollector
                 ->createCommand()
                 ->select('id')
                 ->from('cook__recipes')
-                ->where('section = '.$key)
+                ->where('section = ' . $key)
                 ->queryColumn();
 
             foreach ($ids as $id)
-                $this->addUrl('http://www.happy-giraffe.ru/cook/'.$type.'/' . $id . '/');
+                $this->addUrl('http://www.happy-giraffe.ru/cook/' . $type . '/' . $id . '/');
 
             $ids = $this->getIdsForQueries($ids);
             foreach ($ids as $id)
-                $this->addUrl('http://www.happy-giraffe.ru/cook/'.$type.'/' . $id, 1);
+                $this->addUrl('http://www.happy-giraffe.ru/cook/' . $type . '/' . $id, 1);
         }
     }
 
@@ -262,7 +275,7 @@ class UrlCollector
     public function removeUrls()
     {
         $models = IndexingUrl::model()->findAll('type=1');
-        foreach($models as $model){
+        foreach ($models as $model) {
             if ($model->countUrls == 0)
                 $model->delete();
         }

@@ -68,7 +68,7 @@
 <body class="body-club" onload="if (typeof(ODKL) !== 'undefined') ODKL.init();">
 
     <div class="top-line-menu">
-        <div class="top-line-holder">
+        <div class="top-line-menu-holder">
 
             <?php if (! Yii::app()->user->isGuest): ?>
             <?php
@@ -165,7 +165,7 @@
     <div class="layout-container">
             <div id="layout" class="wrapper">
 
-                <div id="header-new" class="<?php if (Yii::app()->user->isGuest): ?>guest <?php endif; ?>clearfix top-line-fixed">
+                <div id="header-new" class="<?php if (Yii::app()->user->isGuest): ?>guest <?php endif; ?>clearfix">
 
                     <div class="header-in">
                         <div class="clearfix">

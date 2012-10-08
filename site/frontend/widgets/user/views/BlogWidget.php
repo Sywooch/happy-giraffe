@@ -8,7 +8,7 @@
             <li>
                 <a href="<?=$post->getUrl() ?>"><?=$post->title ?></a>
                 <div class="date"><?php echo Yii::app()->dateFormatter->format("dd MMMM yyyy, HH:mm", $post->created); ?></div>
-                <p><?=$post->short?></p>
+                <p><?=$post->getShort(140)?></p>
             </li>
         <?php endforeach; ?>
 

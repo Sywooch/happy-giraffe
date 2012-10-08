@@ -15,16 +15,16 @@ class UrlCollector
 
     public function collectUrls()
     {
-//        echo "club posts\n";
-//        $this->collectClubContent();
-//        echo "blog posts\n";
-//        $this->collectBlogs();
-//
-//        //morning
-//        echo "morning\n";
-//        $morning = array_merge(range(14, 21), range(146, 213));
-//        foreach ($morning as $letter)
-//            $this->addUrl('http://www.happy-giraffe.ru/morning/' . $letter, 1);
+        echo "club posts\n";
+        $this->collectClubContent();
+        echo "blog posts\n";
+        $this->collectBlogs();
+
+        //morning
+        echo "morning\n";
+        $morning = array_merge(range(14, 21), range(146, 213));
+        foreach ($morning as $letter)
+            $this->addUrl('http://www.happy-giraffe.ru/morning/' . $letter, 1);
 
         //весь контент
         $articles = array(1);

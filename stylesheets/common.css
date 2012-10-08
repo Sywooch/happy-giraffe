@@ -2168,7 +2168,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 #albumSettings .album-style .remark {color:#515151;font:10px/11px Tahoma, Arial, Verdana, sans-serif;float:left;width:110px;}
 
 #albumSettings .album-style .step2 {position:relative;}
-#albumSettings .album-style .overlay {position:absolute;width:100%;height:100%;left:0;top:0;}
+#albumSettings .album-style .overlay {position:absolute;width:100%;height:100%;left:0;top:0;background:#fff;}
 #albumSettings .pattern-list {list-style:none;width:330px;}
 #albumSettings .pattern-list li {float:left;width:65px;margin-right:1px;}
 #albumSettings .pattern-list a {display:block;border:2px solid transparent;padding:3px;behavior: url(PIE.htc);position:relative;}

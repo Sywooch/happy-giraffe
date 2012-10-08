@@ -595,7 +595,7 @@ class CommunityContent extends HActiveRecord
             $image = false;
             if (!isset($this->content))
                 return '';
-            if (preg_match('/<img src="http:\/\/img.happy-giraffe.ru\/(?:.*)\/(.*)"/', $this->content->text, $m)) {
+            if (preg_match('/<img src="http:\/\/img.happy-giraffe.ru\/thumbs\/(?:\w+)\/(?:\d+)\/(.*)"/U', $this->content->text, $m)) {
                 $photo = AlbumPhoto::model()->findByAttributes(array('fs_name' => $m[1]));
                 return $photo->getPreviewUrl($width, null, Image::WIDTH);
             }

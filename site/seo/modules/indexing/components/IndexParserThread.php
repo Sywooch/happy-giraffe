@@ -126,8 +126,8 @@ class IndexParserThread extends ProxyParserThread
      */
     private function checkNotFoundUrls()
     {
-        $count = IndexingUrl::model()->updateAll(array('active' => 2), 'url LIKE "' . $this->url->url . '%"');
-        $this->customLog($this->url->url.' : '.$count . ' urls excluded');
+//        $count = IndexingUrl::model()->updateAll(array('active' => 2), 'url LIKE "' . $this->url->url . '%"');
+//        $this->customLog($this->url->url.' : '.$count . ' urls excluded');
     }
 
     public function saveUrl($url)

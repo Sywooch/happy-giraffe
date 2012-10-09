@@ -19,23 +19,23 @@
     <div class="recipe-list">
 
         <?php
-        $this->widget('zii.widgets.CListView', array(
-            'id' => 'recipesList',
-            'dataProvider' => $recipes,
-            'itemView' => '_search_result',
-            'itemsTagName' => 'ul',
-            'template' => "{items}\n{pager}",
-            'pager' => array(
-                'header' => '',
-                'class' => 'ext.infiniteScroll.IasPager',
-                'rowSelector' => 'li',
-                'listViewId' => 'recipesList',
-                'options' => array(
-                    'loader' => 'Загрузка...',
-                    'scrollContainer' => new CJavaScriptExpression('$(\'#recipesList .items\')'),
+            $this->widget('zii.widgets.CListView', array(
+                'id' => 'recipesList',
+                'dataProvider' => $recipes,
+                'itemView' => '_search_result',
+                'itemsTagName' => 'ul',
+                'template' => "{items}\n{pager}",
+                'pager' => array(
+                    'header' => '',
+                    'class' => 'ext.infiniteScroll.IasPager',
+                    'rowSelector' => 'li',
+                    'listViewId' => 'recipesList',
+                    'options' => array(
+                        'loader' => 'Загрузка...',
+                        'scrollContainer' => new CJavaScriptExpression('$(\'#recipesList .items\')'),
+                    ),
                 ),
-            ),
-        ));
+            ));
         ?>
 
     </div>

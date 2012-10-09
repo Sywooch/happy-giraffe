@@ -273,7 +273,7 @@ class RecipeController extends HController
         $forDiabetics = $forDiabetics1 || $forDiabetics2;
 
         $recipes = CActiveRecord::model($this->modelName)->findAdvanced($cuisine_id, $type, $preparation_duration, $cooking_duration, $lowFat, $lowCal, $forDiabetics);
-        $this->renderPartial('advancedSearchResult', compact('recipes'));
+        $this->renderPartial('advancedSearchResult', compact('recipes'), false, true);
     }
 
     public function actionAcOld($term)

@@ -82,9 +82,9 @@ html, body {
     line-height:18px;
 	min-width:1000px;
 }
-
+/* 
 html {overflow-y:hidden;}
-body {overflow-y:hidden;overflow-x:hidden;}
+body {overflow-y:hidden;overflow-x:hidden;}  */
 body.body-club {background:#f6f6f6;}
 
 .layout-container {
@@ -2663,9 +2663,9 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 /* services-list */
 
 .services-list {margin-bottom:20px;margin-top:40px;}
-.services-list .block-title {font-size:18px;color:#0281b0;font-weight:bold;}
-.services-list ul {list-style:none;margin-bottom:50px;}
-.services-list ul li {display:inline-block;*zoom:1;*display:inline;width:44%;padding-right:5%;vertical-align:top;margin-top:25px;}
+.services-list .block-title {font-size:18px;color:#0281b0;font-weight:bold;margin-bottom:25px;}
+.services-list ul {list-style:none;margin-bottom:25px;}
+.services-list ul li {display:inline-block;*zoom:1;*display:inline;width:44%;padding-right:5%;vertical-align:top;margin-bottom:25px;}
 .services-list ul li .img {float:left;}
 .services-list ul li .text {margin-left:120px;font-size:13px;color:#494a4a;}
 .services-list ul li .item-title {font-size:12px;font-family:tahoma, arial, helvetica, sans-serif;font-weight:bold;margin-bottom:5px;line-height:1.2;}
@@ -2862,11 +2862,6 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 .wysiwyg-content .brushed{ background: none repeat scroll 0 0 #FCFBD5; margin: 20px 0; padding: 10px;}
 
 .wysiwyg-content.side {margin-left:330px;padding-top:15px;}
-
-#user .entry-content.user-status {font:italic 36px/43px times new roman, times, serif;color:#0281b0;padding:15px 30px;}
-#user .entry-content.user-status a {text-decoration:none;}
-#user .entry-content.user-status a:hover {text-decoration:underline;}
-#user .entry-content.user-status:after {left:40px;top:-29px;width:30px;height:29px;background-position:-634px -330px;}
 
 /* homepage */
 
@@ -3964,6 +3959,16 @@ label {
 .pattern-7 {background:url(/images/bg_pattern_7.gif);}
 .pattern-8 {background:url(/images/bg_pattern_8.jpg);}
 .pattern-9 {background:url(/images/bg_pattern_9.png);}
+.pattern-10 {background:url(/images/bg_pattern_10.jpg);}
+.pattern-11 {background:url(/images/bg_pattern_11.jpg);}
+.pattern-12 {background:url(/images/bg_pattern_12.jpg);}
+.pattern-13 {background:url(/images/bg_pattern_13.jpg);}
+.pattern-14 {background:url(/images/bg_pattern_14.jpg);}
+.pattern-15 {background:url(/images/bg_pattern_15.jpg);}
+.pattern-16 {background:url(/images/bg_pattern_16.jpg);}
+.pattern-17 {background:url(/images/bg_pattern_17.jpg);}
+.pattern-18 {background:url(/images/bg_pattern_18.jpg);}
+
 
 /* tooltip-new */
 .tooltip-new  {

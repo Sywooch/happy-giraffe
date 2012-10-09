@@ -3,17 +3,19 @@
 
     <ul>
         <?php foreach ($this->interests as $category): ?>
-        <li>
-            <div class="interest-cat">
-                <span class="img"><img src="/images/interest_icon_<?=$category->id?>.png" /></span>
-                <span class="text"><?=$category->title?></span>
-            </div>
-            <ul>
-                <?php foreach ($category->interests as $interest): ?>
-                    <li><span class="interest"><?=$interest->title?><span><?=$interest->usersCount?></span></span></li>
-                <?php endforeach; ?>
-            </ul>
-        </li>
+        <ul>
+            </li>
+            <li>
+                <div class="interest-cat">
+                    <img src="/images/interest_icon_<?=$category->id?>.png" />
+                </div>
+                <ul class="interests-list">
+                    <?php foreach ($category->interests as $i): ?>
+                    <li><span class="interest"><?=$i->title?></span></li>
+                    <?php endforeach; ?>
+                </ul>
+            </li>
+        </ul>
         <?php endforeach; ?>
 
     </ul>

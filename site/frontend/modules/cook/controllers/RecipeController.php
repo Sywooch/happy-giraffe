@@ -14,7 +14,7 @@ class RecipeController extends HController
     {
         return array(
             'accessControl',
-            //'ajaxOnly + ac, searchByIngredientsResult, advancedSearchResult'
+            //'ajaxOnly + ac, searchByIngredientsResult, advancedSearchResult, autoSelect'
         );
     }
 
@@ -252,7 +252,7 @@ class RecipeController extends HController
         $type = Yii::app()->request->getQuery('type', null);
         $ingredients = array_filter($ingredients);
         $recipes = CActiveRecord::model($this->modelName)->findByIngredients($ingredients, $type);
-        $this->renderPartial('searchByIngredientsResult', compact('recipes', 'type'));
+        $this->renderPartial('searchByIngredientsResult', compact('recipes', 'type'), false, true);
     }
 
     public function actionAdvancedSearch()
@@ -273,7 +273,7 @@ class RecipeController extends HController
         $forDiabetics = $forDiabetics1 || $forDiabetics2;
 
         $recipes = CActiveRecord::model($this->modelName)->findAdvanced($cuisine_id, $type, $preparation_duration, $cooking_duration, $lowFat, $lowCal, $forDiabetics);
-        $this->renderPartial('advancedSearchResult', compact('recipes'));
+        $this->renderPartial('advancedSearchResult', compact('recipes'), false, true);
     }
 
     public function actionAcOld($term)
@@ -300,6 +300,30 @@ class RecipeController extends HController
     {
         $ingredients = CookIngredient::model()->autoComplete($term, 100, false, true);
         echo CJSON::encode($ingredients);
+    }
+
+    public function actionAutoSelect($term)
+    {
+        $ing = CookIngredient::model()->with('unit')->findOneByName($term);
+        if ($ing !== null) {
+            $response = array(
+                'success' => true,
+                'i' => array(
+                    'value' => $ing->title,
+                    'label' => $ing->title,
+                    'id' => $ing->id,
+                    'unit_id' => $ing->unit_id,
+                    'density' => $ing->density,
+                    'unit' => $ing->unit->title
+                ),
+            );
+        } else {
+            $response = array(
+                'success' => false,
+            );
+        }
+
+        echo CJSON::encode($response);
     }
 
     public function sitemapView()

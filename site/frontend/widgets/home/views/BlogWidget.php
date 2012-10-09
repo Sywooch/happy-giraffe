@@ -16,7 +16,7 @@
             <b><?=CHtml::link($c->title, $c->url)?></b>
             <div class="img">
                 <?php
-                $image = $c->getContentImage();
+                $image = $c->getContentImage(200);
                 if ($image)
                     echo CHtml::link(CHtml::image($image, $c->title), $c->url);
                 else

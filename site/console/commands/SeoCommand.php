@@ -189,5 +189,44 @@ class SeoCommand extends CConsoleCommand
 
         echo 1000 * (microtime(true) - $start_time) . "\n";
     }
+
+    public function actionDeletePageDuplicates()
+    {
+        Yii::import('site.common.behaviors.*');
+        $criteria = new CDbCriteria;
+        $criteria->limit = 100;
+        $criteria->offset = 7000;
+
+        $i = 0;
+        $models = array(0);
+        while (!empty($models)) {
+            $models = Page::model()->findAll($criteria);
+
+            foreach ($models as $model) {
+                $criteria2 = new CDbCriteria;
+                $criteria2->compare('url', $model->url);
+                $criteria2->order = 'id asc';
+                $samePages = Page::model()->findAll($criteria2);
+                if (count($samePages) > 1) {
+                    echo $model->url . ' - ' . count($samePages) . "\n";
+                    foreach ($samePages as $samePage) {
+                        echo $samePage->outputLinksCount . ' : ' . $samePage->inputLinksCount
+                            . ' : ' . $samePage->taskCount . ' : ' . $samePage->phrasesCount . "\n";
+                        if ($samePage->outputLinksCount == 0 && $samePage->inputLinksCount == 0 &&
+                            $samePage->taskCount == 0 && $samePage->phrasesCount == 0
+                            && empty($samePage->keywordGroup->keywords))
+                        {
+                            Page::model()->deleteAll('id>' . $samePages[0]->id.' AND url="'.$model->url.'"');
+                        }
+                    }
+                }
+            }
+
+            $criteria->offset = $criteria->offset + 100;
+            $i++;
+            if ($i % 10 == 0)
+                echo $i . "\n";
+        }
+    }
 }
 

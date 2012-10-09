@@ -9,24 +9,41 @@ CookRecipe.selectServings = function(el)
     $(el).parent().next().val($(el).text());
 }
 
+CookRecipe.selectIngredient = function (el, item)
+{
+    el.next('input').val(item.id);
+    var div = el.parents('tr').find('div.drp-list');
+    div.children('ul').html($('#unitTmpl').tmpl(item.units_titles));
+    div.children('a.trigger').text(item.unit);
+    div.children('input').val(item.unit_id);
+}
+
 $(function() {
     $('div.product-list').delegate('input.inAc', 'focusin', function(e) {
+        $(this).data('empty', '1');
         $(this).autocomplete({
             minLength: 3,
             source: '/cook/recipe/ac/',
             select: function(event, ui) {
-                $(this).next('input').val(ui.item.id);
-                var div = $(this).parents('tr').find('div.drp-list');
-                div.children('ul').html($('#unitTmpl').tmpl(ui.item.units_titles));
-                div.children('a.trigger').text(ui.item.unit);
-                div.children('input').val(ui.item.unit_id);
+                $(this).data('empty', '0');
+                CookRecipe.selectIngredient($(this), ui.item);
             }
         });
     });
 
-    $('div.product-list').delegate('a.trigger', 'click', function(e) {
-        $('.drp-list ul').hide();
-        $(this).next('ul').toggle();
+    $('div.product-list').delegate('input.inAc', 'focusout', function(e) {
+        var el = $(this);
+        setTimeout(function() {
+            if (el.data('empty') == 1) {
+                $.get('/cook/recipe/autoSelect/', {term: el.val()}, function(response) {
+                    if (response.success) {
+                        CookRecipe.selectIngredient(el, response.i);
+                    } else {
+                        el.val('');
+                    }
+                }, 'json');
+            }
+        }, 400);
     });
 
     $('div.product-list').delegate('a.add-btn', 'click', function(e) {

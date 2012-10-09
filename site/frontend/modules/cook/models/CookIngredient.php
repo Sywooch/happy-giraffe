@@ -160,6 +160,11 @@ class CookIngredient extends HActiveRecord
         return $this->findByName($term, $limit, $criteria);
     }
 
+    public function findOneByName($term)
+    {
+        return $this->with('synonyms')->find('t.title = :term OR synonyms.title = :term', array(':term' => $term));
+    }
+
     public function findByName($term, $limit = 10, $condition = '', $params = array())
     {
         $additionalCriteria = $this->getCommandBuilder()->createCriteria($condition, $params);
@@ -171,8 +176,8 @@ class CookIngredient extends HActiveRecord
         $criteria->order = 't.title ASC';
         $criteriaMore = clone $criteria;
 
-        $criteria->compare('t.title', $term . '%', true, 'AND', false);
-        $criteria->compare('cook__ingredient_synonyms.title', $term . '%', true, 'OR', false);
+        $criteria->compare('t.title', '%' . $term . '%', true, 'AND', false);
+        $criteria->compare('cook__ingredient_synonyms.title', '%' . $term . '%', true, 'OR', false);
         $ingredients = $this->findAll($criteria);
 
         /*if (count($ingredients) < $limit) {

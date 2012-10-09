@@ -3,23 +3,32 @@
 
         <div class="count">
             Найдено рецептов
-            <span><?=count($recipes)?></span>
+            <span><?=$recipes->totalItemCount?></span>
         </div>
 
     </div>
 
     <div class="recipe-list">
 
-        <ul class="scroll">
-            <?php foreach ($recipes as $r): ?>
-                <li>
-                    <div class="item-title"><?=CHtml::link($r->title, $r->url)?></div>
-                    <div class="content">
-                        <?=$r->preview?>
-                    </div>
-                </li>
-            <?php endforeach; ?>
-        </ul>
+        <?php
+            $this->widget('zii.widgets.CListView', array(
+                'id' => 'recipesList',
+                'dataProvider' => $recipes,
+                'itemView' => '_search_result',
+                'itemsTagName' => 'ul',
+                'template' => "{items}\n{pager}",
+                'pager' => array(
+                    'header' => '',
+                    'class' => 'ext.infiniteScroll.IasPager',
+                    'rowSelector' => 'li',
+                    'listViewId' => 'recipesList',
+                    'options' => array(
+                        'loader' => 'Загрузка...',
+                        'scrollContainer' => new CJavaScriptExpression('$(\'#recipesList .items\')'),
+                    ),
+                ),
+            ));
+        ?>
 
     </div>
 <?php else: ?>

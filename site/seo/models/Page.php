@@ -82,8 +82,11 @@ class Page extends CActiveRecord
             'phrases' => array(self::HAS_MANY, 'PagesSearchPhrase', 'page_id'),
             'outputLinks' => array(self::HAS_MANY, 'InnerLink', 'page_id', 'order' => 'date desc'),
             'inputLinks' => array(self::HAS_MANY, 'InnerLink', 'page_to_id', 'order' => 'date desc'),
+
             'outputLinksCount' => array(self::STAT, 'InnerLink', 'page_id'),
             'inputLinksCount' => array(self::STAT, 'InnerLink', 'page_to_id'),
+            'taskCount' => array(self::STAT, 'SeoTask', 'article_id'),
+            'phrasesCount' => array(self::STAT, 'PagesSearchPhrase', 'page_id'),
         );
     }
 
@@ -191,6 +194,7 @@ class Page extends CActiveRecord
      */
     public function getOrCreate($url, $keyword_id = null)
     {
+        $url = trim($url);
         $model = Page::model()->findByAttributes(array('url' => $url));
         if ($model === null) {
             $keyword_group = new KeywordGroup();

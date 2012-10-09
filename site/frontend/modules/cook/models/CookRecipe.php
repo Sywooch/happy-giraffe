@@ -382,7 +382,12 @@ class CookRecipe extends CActiveRecord
             $criteria->compare('forDiabetics', 1);
         }
 
-        return $this->findAll($criteria);
+        return new CActiveDataProvider($this, array(
+            'criteria' => $criteria,
+            'pagination' => array(
+                'pageSize' => 36,
+            ),
+        ));
     }
 
     public function findByIngredients($ingredients, $type = null)
@@ -400,7 +405,12 @@ class CookRecipe extends CActiveRecord
         if ($type !== null)
             $criteria->compare('type', $type);
 
-        return $this->findAll($criteria);
+        return new CActiveDataProvider($this, array(
+            'criteria' => $criteria,
+            'pagination' => array(
+                'pageSize' => 36,
+            ),
+        ));
     }
 
     /**

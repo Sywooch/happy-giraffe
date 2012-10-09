@@ -20,29 +20,33 @@ CookRecipe.selectIngredient = function (el, item)
 
 $(function() {
     $('div.product-list').delegate('input.inAc', 'focusin', function(e) {
+        $(this).val('');
+        $(this).next('input').removeAttr('value');
+        $(this).data('empty', '1');
         $(this).autocomplete({
             minLength: 3,
             source: '/cook/recipe/ac/',
             select: function(event, ui) {
-                $(this).data('selected', 1);
+                $(this).data('empty', '0');
                 CookRecipe.selectIngredient($(this), ui.item);
             }
         });
     });
 
-    /*$('div.product-list').delegate('input.inAc', 'focusout', function(e) {
+    $('div.product-list').delegate('input.inAc', 'focusout', function(e) {
         var el = $(this);
         setTimeout(function() {
-            if (el.data('selected') != 1) {
+            if (el.data('empty') == 1) {
                 $.get('/cook/recipe/autoSelect/', {term: el.val()}, function(response) {
-                    if (response.success)
+                    if (response.success) {
                         CookRecipe.selectIngredient(el, response.i);
+                    } else {
+                        el.val('');
+                    }
                 }, 'json');
-            } else {
-                el.removeData('selected');
             }
         }, 400);
-    }); */
+    });
 
     $('div.product-list').delegate('a.add-btn', 'click', function(e) {
         $('div.product-list > table').append($('#ingredientTmpl').tmpl({n: $('div.product-list tr').length}));

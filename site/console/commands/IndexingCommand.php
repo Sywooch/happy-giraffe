@@ -38,6 +38,11 @@ class IndexingCommand extends CConsoleCommand
 
     public function actionRefresh()
     {
+        //remove log file
+        $file = Yii::getPathOfAlias('application.runtime') . DIRECTORY_SEPARATOR . 'indexing_log.txt';
+        if (file_exists($file))
+            unlink($file);
+
         Yii::app()->db_seo->createCommand('update proxies set active = 0')->execute();
         Yii::app()->db_seo->createCommand('update indexing__urls set active = 0')->execute();
     }

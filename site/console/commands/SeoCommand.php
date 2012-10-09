@@ -208,7 +208,7 @@ class SeoCommand extends CConsoleCommand
                 $samePages = Page::model()->findAllByAttributes(array('url' => $model->url));
                 if (count($samePages) > 1) {
                     echo $model->url . ' - ' . count($samePages) . "\n";
-                    //Page::model()->deleteAll('id>' . $samePages[0]->id);
+                    Page::model()->deleteAll('id>' . $samePages[0]->id);
                 }
             }
 

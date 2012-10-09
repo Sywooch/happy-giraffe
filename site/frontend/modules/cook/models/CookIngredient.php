@@ -176,8 +176,8 @@ class CookIngredient extends HActiveRecord
         $criteria->order = 't.title ASC';
         $criteriaMore = clone $criteria;
 
-        $criteria->compare('t.title', $term . '%', true, 'AND', false);
-        $criteria->compare('cook__ingredient_synonyms.title', $term . '%', true, 'OR', false);
+        $criteria->compare('t.title', '%' . $term . '%', true, 'AND', false);
+        $criteria->compare('cook__ingredient_synonyms.title', '%' . $term . '%', true, 'OR', false);
         $ingredients = $this->findAll($criteria);
 
         /*if (count($ingredients) < $limit) {

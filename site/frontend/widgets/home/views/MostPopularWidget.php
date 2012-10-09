@@ -13,7 +13,7 @@
                 <?php
                 echo CHtml::link($model->title, $model->url);
 
-                $image = $model->getContentImage();
+                $image = $model->getContentImage(200);
                 if ($image)
                     echo CHtml::link(CHtml::image($image, $model->title), $model->url);
                 else

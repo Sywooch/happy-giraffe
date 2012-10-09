@@ -617,7 +617,7 @@ class CommunityContent extends HActiveRecord
         }
     }
 
-    public function getContentText($length = 80)
+    public function getContentText($length = 128)
     {
         return Str::truncate(strip_tags($this->content->text), $length);
     }

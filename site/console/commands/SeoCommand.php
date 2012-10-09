@@ -195,7 +195,7 @@ class SeoCommand extends CConsoleCommand
         Yii::import('site.common.behaviors.*');
         $criteria = new CDbCriteria;
         $criteria->limit = 100;
-        $criteria->offset = 7000;
+        $criteria->offset = 22000;
 
         $i = 0;
         $models = array(0);
@@ -203,21 +203,32 @@ class SeoCommand extends CConsoleCommand
             $models = Page::model()->findAll($criteria);
 
             foreach ($models as $model) {
+                echo $model->id."\n";
                 $criteria2 = new CDbCriteria;
                 $criteria2->compare('url', $model->url);
                 $criteria2->order = 'id asc';
                 $samePages = Page::model()->findAll($criteria2);
                 if (count($samePages) > 1) {
                     echo $model->url . ' - ' . count($samePages) . "\n";
+
+                    $first = true;
                     foreach ($samePages as $samePage) {
                         echo $samePage->outputLinksCount . ' : ' . $samePage->inputLinksCount
-                            . ' : ' . $samePage->taskCount . ' : ' . $samePage->phrasesCount . "\n";
-                        if ($samePage->outputLinksCount == 0 && $samePage->inputLinksCount == 0 &&
-                            $samePage->taskCount == 0 && $samePage->phrasesCount == 0
-                            && empty($samePage->keywordGroup->keywords))
-                        {
-                            Page::model()->deleteAll('id>' . $samePages[0]->id.' AND url="'.$model->url.'"');
+                            . ' : ' . $samePage->taskCount . ' : ' . $samePage->phrasesCount
+                            . ' : ' . $samePage->keywordGroup->taskCount . "\n";
+
+                        if ($samePage->outputLinksCount == 0
+                            && $samePage->inputLinksCount == 0
+                            && $samePage->taskCount == 0
+                            && $samePage->phrasesCount == 0
+                            && empty($samePage->keywordGroup->keywords)
+                            && $samePage->keywordGroup->taskCount == 0
+                        ) {
+                            if (!$first)
+                                $samePage->delete();
                         }
+
+                        $first = false;
                     }
                 }
             }

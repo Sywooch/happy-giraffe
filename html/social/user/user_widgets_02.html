@@ -22,36 +22,46 @@
 	
 	<script type="text/javascript" src="/javascripts/common.js"></script>	
 	
+	<script type="text/javascript" src="/javascripts/tooltipsy.min.js"></script>
+	<script type="text/javascript">
+	$(document).ready(function () {
+		$('.tooltipsy-title').tooltipsy({
+			offset: [0, 1]
+		});
+	});
+	</script>
+	
 	<!--[if IE 7]>
 		<link rel="stylesheet" href='/stylesheets/ie.css' type="text/css" media="screen" />
 	<![endif]-->
 	
 </head>
 <body class="body-club">
+
 	<div class="top-line-menu">
 		<div class="top-line-menu-holder">
 			<div class="user-nav-2">
 				
 				<ul>
-					<li class="item-ava">
+					<li class="item-ava tooltipsy-title" title="Моя анкета">
 						<a href="" class="ava small female"></a>
 					</li>
-					<li class="item-dialogs">
+					<li class="item-dialogs tooltipsy-title" title="Мои диалоги">
 						<a href=""><i class="icon-dialogs"></i></a>
 					</li>
-					<li class="item-friends">
+					<li class="item-friends tooltipsy-title" title="Мои друзья">
 						<a href=""><i class="icon-friends"></i></a>
 					</li>
-					<li class="item-notifications">
+					<li class="item-notifications tooltipsy-title" title="Уведомления">
 						<a href=""><i class="icon-notifications"></i></a>
 					</li>
-					<li class="item-career">
+					<li class="item-career tooltipsy-title" title="Мои успехи">
 						<a href=""><i class="icon-career"></i></a>
 					</li>
-					<li class="item-settings">
+					<li class="item-settings tooltipsy-title" title="Настройки">
 						<a href=""><i class="icon-settings"></i></a>
 					</li>
-					<li class="item-logout">
+					<li class="item-logout tooltipsy-title" title="Выход">
 						<a href=""><i class="icon-logout"></i></a>
 					</li>
 					
@@ -437,7 +447,7 @@
 									Единственное, что имеет значение в конце нашего пребывания на земле, - это то, как сильно мы любили. </p>
 								</div>
 								
-								<div class="user-status pattern-11">
+								<div class="user-status pattern-17">
 									
 									<div class="date"><a href="" class="a-right pseudo">Новый статус</a>20 февраля 2012, 13:45</div>
 									<p>Привет всем! У меня все ok!<br/>
@@ -448,7 +458,7 @@
 									</div>
 								</div>
 								<!-- всего 9 паттернов и один стиль по умолчанию -->
-								<div class="user-status pattern-11 toggled">
+								<div class="user-status pattern-17 toggled">
 									
 									<div class="date"><a href="" class="a-right pseudo">Новый статус</a>20 февраля 2012, 13:45</div>
 									<p>Привет всем! У меня все ok!<br/>

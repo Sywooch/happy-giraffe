@@ -84,16 +84,17 @@ html, body {
 }
 
 
-/* html {overflow-y:hidden;}
-body {overflow-y:hidden;overflow-x:hidden;} */
+html.top-nav-fixed {overflow-y:hidden;}
+.top-nav-fixed body {overflow-y:hidden;overflow-x:hidden;} 
 
 body.body-club {background:#f6f6f6;}
 
+.top-nav-fixed .layout-container {position:absolute;}
 .layout-container {
 	bottom: 0;
     height: auto;
     left: 0;
-    position: absolute;
+    position: relative;
     right: 0;
     top: 43px;
     width: 100%;
@@ -148,9 +149,14 @@ input.w-500, textarea.w-500 {width:476px;}
 
 a.info {display:inline-block;*zoom:1;*display:inline;width:13px;height:13px;background:url(../images/common.png) no-repeat -267px -101px;}
 
-#tooltip {display:block;position:absolute;background:#fffac8;color:#929292;padding:2px 10px;border:1px solid #f3eca9;font-size:12px;z-index:3000;}
-#tooltip {/*css3*/ -moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;behavior: url(/stylesheets/PIE.htc);}
+#tooltip {display:block;position:absolute;background:#fffac8;color:#929292;padding:2px 10px;border:1px solid #f3eca9;font-size:12px;z-index:3000;-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;behavior: url(/stylesheets/PIE.htc);}
 #tooltip h3 {font-weight:normal;font-size:12px;}
+
+.tooltipsy {background:#fffac8;color:#6f6f6f;padding:1px 10px;border:1px solid #f3eca9;font-size:12px;-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;
+ -webkit-box-shadow: 1px 1px 1px rgba(0,0,0,.2);
+-moz-box-shadow:1px 1px 1px rgba(0,0,0,.2);
+-ms-box-shadow:1px 1px 1px rgba(0,0,0,.2);
+box-shadow:1px 1px 1px rgba(0,0,0,.2);behavior: url(/stylesheets/PIE.htc);}
 
 .tip {display:none !important;}
 
@@ -1019,7 +1025,7 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 .top-line-menu .user-nav-2 .item-dialogs .count {margin-left:-2px;}
 .top-line-menu .user-nav-2 .item-notifications .count {margin-left:-7px;margin-top:19px}
 .top-line-menu .user-nav-2 .item-career .count {margin-left:4px;}
-
+.top-nav-fixed #header-new,
 body.nav-fixed #header-new {z-index:90;}
 
 #header-new {margin-bottom:20px;position:relative;}
@@ -1027,7 +1033,8 @@ body.nav-fixed #header-new {z-index:90;}
 #header-new.guest .header-in {background-image:url(/images/bg_header_guest.gif);}
 #header-new .top-line {background:#a17dc4;border-bottom:1px solid #fff;position:relative;z-index:13;}
 
-body.nav-fixed #header-new .top-line {position:fixed;left:50%;margin-left:-500px;top:0;width:1000px;border:0;}
+.top-nav-fixed #header-new .top-line,
+body.nav-fixed #header-new .top-line {position:fixed;left:50%;margin-left:-500px;top:0;width:1000px;border:0;z-index:1100;}
 
 #header-new .top-line .fast-links {list-style:none;font:normal 11px/14px tahoma, arial, helvetica, sans-serif;padding:8px 20px 2px 14px;height:16px;}
 #header-new .top-line .fast-links li {float:left;border-left:1px solid #c5a7e2;margin-left:8px;padding-left:8px;padding-bottom:2px;height:14px;}
@@ -1109,6 +1116,7 @@ body.nav-fixed #header-new .top-line {position:fixed;left:50%;margin-left:-500px
 
 
 #header-new.top-line-fixed {padding-top:43px;}
+.top-nav-fixed #header-new.top-line-fixed,
 body.nav-fixed #header-new.top-line-fixed {padding-top:0;}
 #header-new.top-line-fixed .top-line {height:42px;position:fixed;width:1000px;left:50%;margin-left:-500px;top:0;}
 #header-new.top-line-fixed .fast-links {padding:14px 20px 2px 20px;font-size:12px;}
@@ -3216,8 +3224,13 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 body.gallery {overflow:hidden;}
 
 
-#photo-window  {position:absolute;width:100%;z-index:99;top:0;left:0;bottom:0;overflow-y:auto;overflow-x:hidden;min-width:1000px;color:#dcdcdc;margin-top:43px;}
-#photo-window-in {background:#fff;width:1000px;margin:0 auto 20px;position:relative;}
+.top-nav-fixed #photo-window  {position:absolute;width:100%;z-index:99;top:0;left:0;bottom:0;overflow-y:auto;overflow-x:hidden;min-width:1000px;color:#dcdcdc;margin-top:43px;}
+.top-nav-fixed #photo-window-in {background:#fff;width:1000px;margin:0 auto 20px;position:relative;}
+#photo-window  {max-height:100%;position:absolute;width:100%;z-index:99;top:0;left:0;overflow:auto;min-width:1000px;color:#dcdcdc;}
+#photo-window-in {background:#fff;width:1000px;margin:40px auto 20px;position:relative;}
+
+
+
 #photo-window-bg {position:fixed;height:100%;width:100%;top:0;left:0;z-index:98;background:url(/images/bg_black_alpha_40.png);}
 
 

@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<!--[if lt IE 7]> <html xmlns="http://www.w3.org/1999/xhtml"> <![endif]-->
-<!--[if IE 7]>    <html xmlns="http://www.w3.org/1999/xhtml" class="ie7"> <![endif]-->
-<!--[if gt IE 7]><!--> <html xmlns="http://www.w3.org/1999/xhtml" > <!--<![endif]-->
+<!--[if lt IE 7]> <html xmlns="http://www.w3.org/1999/xhtml" class="top-nav-fixed"> <![endif]-->
+<!--[if IE 7]>    <html xmlns="http://www.w3.org/1999/xhtml" class="ie7 top-nav-fixed"> <![endif]-->
+<!--[if gt IE 7]><!--> <html xmlns="http://www.w3.org/1999/xhtml" class="top-nav-fixed" > <!--<![endif]-->
 <head>
 	
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -64,6 +64,14 @@
 		}
 		
 	</script>
+	<script type="text/javascript" src="/javascripts/tooltipsy.min.js"></script>
+	<script type="text/javascript">
+	$(document).ready(function () {
+		$('.tooltipsy-title').tooltipsy({
+			offset: [0, 1]
+		});
+	});
+	</script>
 	
 </head>
 <body class="body-club">
@@ -72,25 +80,25 @@
 			<div class="user-nav-2">
 				
 				<ul>
-					<li class="item-ava">
+					<li class="item-ava tooltipsy-title" title="Моя анкета">
 						<a href="" class="ava small female"></a>
 					</li>
-					<li class="item-dialogs">
+					<li class="item-dialogs tooltipsy-title" title="Мои диалоги">
 						<a href=""><i class="icon-dialogs"></i></a>
 					</li>
-					<li class="item-friends">
+					<li class="item-friends tooltipsy-title" title="Мои друзья">
 						<a href=""><i class="icon-friends"></i></a>
 					</li>
-					<li class="item-notifications">
+					<li class="item-notifications tooltipsy-title" title="Уведомления">
 						<a href=""><i class="icon-notifications"></i></a>
 					</li>
-					<li class="item-career">
+					<li class="item-career tooltipsy-title" title="Мои успехи">
 						<a href=""><i class="icon-career"></i></a>
 					</li>
-					<li class="item-settings">
+					<li class="item-settings tooltipsy-title" title="Настройки">
 						<a href=""><i class="icon-settings"></i></a>
 					</li>
-					<li class="item-logout">
+					<li class="item-logout tooltipsy-title" title="Выход">
 						<a href=""><i class="icon-logout"></i></a>
 					</li>
 					

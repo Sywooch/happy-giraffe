@@ -195,43 +195,52 @@ class Page extends CActiveRecord
     public function getOrCreate($url, $keyword_id = null)
     {
         $url = trim($url);
-        $model = Page::model()->findByAttributes(array('url' => $url));
-        if ($model === null) {
-            $keyword_group = new KeywordGroup();
-            if (!empty($keyword_id))
-                $keyword_group->keywords = array($keyword_id);
-            $keyword_group->save();
 
-            $model = new Page();
-            $model->url = $url;
+        $transaction = Yii::app()->db_seo->beginTransaction();
+        try {
+            $model = Page::model()->findByAttributes(array('url' => $url));
+            if ($model === null) {
+                $keyword_group = new KeywordGroup();
+                if (!empty($keyword_id))
+                    $keyword_group->keywords = array($keyword_id);
+                $keyword_group->save();
 
-            list($entity, $entity_id) = Page::ParseUrl($url);
+                $model = new Page();
+                $model->url = $url;
 
-            if ($entity != null && $entity_id != null) {
-                $article = CActiveRecord::model($entity)->findByPk($entity_id);
-                if ($article !== null) {
-                    $exist = Page::model()->findByAttributes(array(
-                        'entity' => $entity,
-                        'entity_id' => $entity_id,
-                    ));
-                    if ($exist !== null) {
-                        $model = $exist;
-                        //$exist->keywordGroup->addKeyword($keyword_id);
+                list($entity, $entity_id) = Page::ParseUrl($url);
+
+                if ($entity != null && $entity_id != null) {
+                    $article = CActiveRecord::model($entity)->findByPk($entity_id);
+                    if ($article !== null) {
+                        $exist = Page::model()->findByAttributes(array(
+                            'entity' => $entity,
+                            'entity_id' => $entity_id,
+                        ));
+                        if ($exist !== null) {
+                            $model = $exist;
+                            //$exist->keywordGroup->addKeyword($keyword_id);
+                        } else {
+                            $model->entity = $entity;
+                            $model->entity_id = $entity_id;
+                            $model->keyword_group_id = $keyword_group->id;
+                            $model->save();
+                        }
                     } else {
-                        $model->entity = $entity;
-                        $model->entity_id = $entity_id;
-                        $model->keyword_group_id = $keyword_group->id;
-                        $model->save();
+                        $model = null;
                     }
                 } else {
-                    return null;
+                    $model->keyword_group_id = $keyword_group->id;
+                    $model->save();
                 }
             } else {
-                $model->keyword_group_id = $keyword_group->id;
-                $model->save();
+                //$model->keywordGroup->addKeyword($keyword_id);
             }
-        } else {
-            //$model->keywordGroup->addKeyword($keyword_id);
+
+            $transaction->commit();
+        } catch (Exception $e) {
+            $transaction->rollback();
+            Yii::app()->end();
         }
 
         return $model;

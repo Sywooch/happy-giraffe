@@ -30,7 +30,7 @@ $(function() {
         });
     });
 
-    $('div.product-list').delegate('input.inAc', 'focusout', function(e) {
+    /*$('div.product-list').delegate('input.inAc', 'focusout', function(e) {
         var el = $(this);
         setTimeout(function() {
             if (el.data('selected') != 1) {
@@ -42,7 +42,7 @@ $(function() {
                 el.removeData('selected');
             }
         }, 400);
-    });
+    }); */
 
     $('div.product-list').delegate('a.add-btn', 'click', function(e) {
         $('div.product-list > table').append($('#ingredientTmpl').tmpl({n: $('div.product-list tr').length}));

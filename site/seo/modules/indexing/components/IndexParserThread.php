@@ -37,20 +37,19 @@ class IndexParserThread extends ProxyParserThread
             if (Config::getAttribute('stop_threads') == 1)
                 break;
 
-            sleep(10);
+            sleep(2);
         }
     }
 
     public function perPage()
     {
-        return 30;
+        return 50;
     }
 
     public function getUrl()
     {
         $criteria = new CDbCriteria;
         $criteria->compare('active', 0);
-        $criteria->compare('old', 0);
         $criteria->order = 'type DESC';
 
         $transaction = Yii::app()->db_seo->beginTransaction();
@@ -72,28 +71,30 @@ class IndexParserThread extends ProxyParserThread
     public function parsePage()
     {
         $links = $this->loadYandexPage();
-        $this->log('Page loaded, links count: ' . count($links));
+        $this->customLog($this->url->url.' : '.'page loaded, links count: ' . count($links));
 
         $this->success_loads++;
 
         foreach ($links as $link)
             $this->saveUrl($link);
 
-        if ($this->url->type == 1 && count($links) < $this->perPage())
+        if ($this->url->type == 1 && count($links) < ($this->perPage() - 10))
             $this->checkNotFoundUrls();
     }
 
     private function loadYandexPage()
     {
-        $content = $this->query('http://yandex.ru/yandsearch?text=' . urlencode('url:' . rtrim($this->url->url, '/') . '*') . '&numdoc=' . $this->perPage() . '&lr=38');
+        $content = $this->query('http://yandex.ru/sitesearch?text=' . urlencode('url:' . rtrim($this->url->url, '/') . '*') . '&numdoc=' . $this->perPage() . '&searchid=1883818&lr=38');
 
-        if (strpos($content, 'Искомая комбинация слов нигде не встречается') !== false)
+        if (strpos($content, 'Искомая комбинация слов нигде не встречается') !== false){
+            $this->customLog($this->url->url.' : '.'Искомая комбинация слов нигде не встречается');
             return array();
+        }
 
         $document = phpQuery::newDocument($content);
 
         $links = array();
-        foreach ($document->find('.b-body-items h2 a.b-serp-item__title-link') as $link) {
+        foreach ($document->find('.b-body-items h3 a.b-serp-item__title-link') as $link) {
             $links [] = pq($link)->attr('href');
         }
 
@@ -125,8 +126,8 @@ class IndexParserThread extends ProxyParserThread
      */
     private function checkNotFoundUrls()
     {
-        $count = IndexingUrl::model()->updateAll(array('active' => 2), 'url LIKE "' . $this->url->url . '%"');
-        $this->log($count . ' urls excluded');
+//        $count = IndexingUrl::model()->updateAll(array('active' => 2), 'url LIKE "' . $this->url->url . '%"');
+//        $this->customLog($this->url->url.' : '.$count . ' urls excluded');
     }
 
     public function saveUrl($url)
@@ -158,5 +159,11 @@ class IndexParserThread extends ProxyParserThread
             $this->url->save();
         }
         parent::closeThread($reason);
+    }
+
+    public function customLog($state)
+    {
+        $fh = fopen($dir = Yii::getPathOfAlias('application.runtime') . DIRECTORY_SEPARATOR . 'indexing_log.txt', 'a');
+        fwrite($fh, $state . ' thread('.$this->thread_id. ")\n");
     }
 }

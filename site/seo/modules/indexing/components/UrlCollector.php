@@ -5,6 +5,8 @@
  */
 class UrlCollector
 {
+    const PER_PAGE = 50;
+
     function __construct()
     {
         Yii::import('site.frontend.modules.services.modules.recipeBook.models.*');
@@ -79,12 +81,12 @@ class UrlCollector
                 foreach ($posts as $post) {
                     $ids [] = $post->id;
                 }
-                if (count($ids) >= 30) {
+                if (count($ids) >= self::PER_PAGE) {
                     $ids = $this->getIdsForQueries($ids);
                     foreach ($ids as $id)
                         $this->addUrl('http://www.happy-giraffe.ru/user/' . $user->id . '/blog/post' . $id, 1);
                     $this->addUrl('http://www.happy-giraffe.ru/user/' . $user->id . '/blog/', 1);
-                } elseif (count($ids) < 30 && count($ids) > 1)
+                } elseif (count($ids) < self::PER_PAGE && count($ids) > 1)
                     $this->addUrl('http://www.happy-giraffe.ru/user/' . $user->id . '/blog/', 1);
             } else {
                 if ($user->commentsCount > 0 || $user->communityPostsCount > 0)
@@ -104,13 +106,13 @@ class UrlCollector
                 if (count($posts) > 0) {
                     $this->addUrl('http://www.happy-giraffe.ru/community/' . $community->id . '/forum/' . $type . '/', 1);
 
-                    if (count($posts) >= 30) {
+                    if (count($posts) >= self::PER_PAGE) {
                         $ids = array();
 
                         foreach ($posts as $post) {
                             $ids [] = $post->id;
                         }
-                        if (count($ids) >= 30) {
+                        if (count($ids) >= self::PER_PAGE) {
                             $ids = $this->getIdsForQueries($ids);
                             foreach ($ids as $id)
                                 $this->addUrl('http://www.happy-giraffe.ru/community/' . $community->id . '/forum/' . $type . '/' . $id, 1);

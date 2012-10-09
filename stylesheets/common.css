@@ -82,9 +82,11 @@ html, body {
     line-height:18px;
 	min-width:1000px;
 }
-/* 
+
+
 html {overflow-y:hidden;}
-body {overflow-y:hidden;overflow-x:hidden;}  */
+body {overflow-y:hidden;overflow-x:hidden;}
+
 body.body-club {background:#f6f6f6;}
 
 .layout-container {

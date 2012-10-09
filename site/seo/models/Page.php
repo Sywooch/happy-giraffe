@@ -82,8 +82,11 @@ class Page extends CActiveRecord
             'phrases' => array(self::HAS_MANY, 'PagesSearchPhrase', 'page_id'),
             'outputLinks' => array(self::HAS_MANY, 'InnerLink', 'page_id', 'order' => 'date desc'),
             'inputLinks' => array(self::HAS_MANY, 'InnerLink', 'page_to_id', 'order' => 'date desc'),
+
             'outputLinksCount' => array(self::STAT, 'InnerLink', 'page_id'),
             'inputLinksCount' => array(self::STAT, 'InnerLink', 'page_to_id'),
+            'taskCount' => array(self::STAT, 'SeoTask', 'article_id'),
+            'phrasesCount' => array(self::STAT, 'PagesSearchPhrase', 'page_id'),
         );
     }
 

@@ -191,6 +191,7 @@ class Page extends CActiveRecord
      */
     public function getOrCreate($url, $keyword_id = null)
     {
+        $url = trim($url);
         $model = Page::model()->findByAttributes(array('url' => $url));
         if ($model === null) {
             $keyword_group = new KeywordGroup();

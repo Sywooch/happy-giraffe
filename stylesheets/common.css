@@ -84,8 +84,8 @@ html, body {
 }
 
 
-html {overflow-y:hidden;}
-body {overflow-y:hidden;overflow-x:hidden;}
+/* html {overflow-y:hidden;}
+body {overflow-y:hidden;overflow-x:hidden;} */
 
 body.body-club {background:#f6f6f6;}
 

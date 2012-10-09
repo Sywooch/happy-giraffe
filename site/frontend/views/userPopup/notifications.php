@@ -16,7 +16,7 @@
             $this->widget('zii.widgets.CListView', array(
                 'id' => 'notificationsList',
                 'dataProvider' => $dp,
-                'itemView' => '_search_result',
+                'itemView' => '_notification',
                 'itemsTagName' => 'ul',
                 'template' => "{items}\n{pager}",
                 'pager' => array(

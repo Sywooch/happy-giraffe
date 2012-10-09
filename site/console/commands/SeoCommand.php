@@ -194,7 +194,7 @@ class SeoCommand extends CConsoleCommand
     {
         $criteria = new CDbCriteria;
         $criteria->limit = 100;
-        $criteria->offset = 0;
+        $criteria->offset = 6000;
 
         $i = 0;
         $models = array(0);
@@ -212,8 +212,8 @@ class SeoCommand extends CConsoleCommand
                 }
             }
 
+            $criteria->offset = $criteria->offset + 100;
             $i++;
-            $criteria->offset = $i * 100;
             if ($i % 10 == 0)
                 echo $i."\n";
         }

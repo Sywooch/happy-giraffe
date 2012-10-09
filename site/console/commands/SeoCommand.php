@@ -189,5 +189,34 @@ class SeoCommand extends CConsoleCommand
 
         echo 1000 * (microtime(true) - $start_time) . "\n";
     }
+
+    public function actionDeletePageDuplicates()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->limit = 100;
+        $criteria->offset = 0;
+
+        $i = 0;
+        $models = array(0);
+        while (!empty($models)) {
+            $models = Page::model()->findAll($criteria);
+
+            foreach ($models as $model) {
+                $criteria2 = new CDbCriteria;
+                $criteria2->compare('url', $model->url);
+                $criteria2->order = 'id asc';
+                $samePages = Page::model()->findAllByAttributes(array('url' => $model->url));
+                if (count($samePages) > 1) {
+                    echo $model->url . ' - ' . count($samePages) . "\n";
+                    //Page::model()->deleteAll('id>' . $samePages[0]->id);
+                }
+            }
+
+            $i++;
+            $criteria->offset = $i * 100;
+            if ($i % 10 == 0)
+                echo $i."\n";
+        }
+    }
 }
 

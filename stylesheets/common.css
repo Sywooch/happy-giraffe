@@ -89,8 +89,8 @@ html.top-nav-fixed {overflow-y:hidden;}
 
 body.body-club {background:#f6f6f6;}
 
-.top-nav-fixed .layout-container {position:absolute;}
-.layout-container {
+.top-nav-fixed .layout-container {
+	position:absolute;
 	bottom: 0;
     height: auto;
     left: 0;
@@ -101,6 +101,7 @@ body.body-club {background:#f6f6f6;}
 	overflow-y:auto;
 	overflow-x: hidden;
 }
+
 #layout {min-height:100%;background:#fff;}
 #layout .push {height:80px;}
 #layout .layout-in {}

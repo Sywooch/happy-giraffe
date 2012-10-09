@@ -22,10 +22,13 @@ class ELTask extends HActiveRecord
     const TYPE_COMMENT = 2;
     const TYPE_POST_LINK = 3;
 
-    const FORUM_MANAGER_LIMIT = 17;
     const FORUM_MANAGER_REG_LIMIT = 7;
-    const FORUM_WORKER_LIMIT = 7;
+    const FORUM_MANAGER_LINK_LIMIT = 5;
+    const FORUM_MANAGER_COMMENT_LIMIT = 7;
+
     const FORUM_WORKER_REG_LIMIT = 3;
+    const FORUM_WORKER_LINK_LIMIT = 3;
+    const FORUM_WORKER_COMMENT_LIMIT = 4;
 
     /**
      * Returns the static model of the specified AR class.
@@ -199,10 +202,11 @@ class ELTask extends HActiveRecord
             $this->createCommentTask(date("Y-m-d"), $this->user_id);
         } elseif ($this->type == self::TYPE_COMMENT) {
             $prev_comments_count = $this->getPreviousCommentsCount();
-            if ($prev_comments_count < 2 || ($prev_comments_count < 5 && rand(1, 9) > 5))
-                $this->createCommentTask(date("Y-m-d", strtotime('+' . rand(1, 2) . ' days')));
-            else
+            if ($prev_comments_count >= 2)
                 $this->createLinkTask(date("Y-m-d", strtotime('+' . rand(1, 2) . ' days')));
+            else
+                $this->createCommentTask(date("Y-m-d", strtotime('+' . rand(1, 2) . ' days')));
+
         } elseif ($this->type == self::TYPE_POST_LINK) {
             $this->createCommentTask(date("Y-m-d", strtotime('+' . rand(30, 40) . ' days')));
         }
@@ -296,6 +300,20 @@ class ELTask extends HActiveRecord
         if ($this->todayPostTaskCount() - $this->todayRegisterTaskCount() >= $this->getTaskLimit())
             return null;
 
+        //get links first
+        if ($this->todayLinkTaskCount() < $this->getLinkTaskLimit()) {
+            $criteria = new CDbCriteria;
+            $criteria->params = array(':start_date' => date("Y-m-d"));
+            $criteria->condition = 'closed IS NULL AND start_date <= :today AND user_id IS NULL AND type = '.self::TYPE_POST_LINK;
+            $criteria->params = array(':today' => date("Y-m-d"));
+            $model = ELTask::model()->find($criteria);
+            if ($model !== null) {
+                $model->user_id = Yii::app()->user->id;
+                $model->update(array('user_id'));
+            }
+            return $model;
+        }
+
         //check other tasks
         $criteria = new CDbCriteria;
         $criteria->params = array(':start_date' => date("Y-m-d"));
@@ -329,6 +347,17 @@ class ELTask extends HActiveRecord
         return ELTask::model()->count($criteria);
     }
 
+    public function todayLinkTaskCount()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->condition = 'closed >= :today AND type = 3 AND  user_id = :user_id';
+        $criteria->params = array(
+            ':today' => date("Y-m-d"),
+            ':user_id' => Yii::app()->user->id
+        );
+        return ELTask::model()->count($criteria);
+    }
+
     public function todayPostTaskCount()
     {
         $criteria = new CDbCriteria;
@@ -348,11 +377,19 @@ class ELTask extends HActiveRecord
             return self::FORUM_WORKER_REG_LIMIT;
     }
 
+    public function getLinkTaskLimit()
+    {
+        if (Yii::app()->user->checkAccess('externalLinks-manager-panel'))
+            return self::FORUM_MANAGER_LINK_LIMIT;
+        else
+            return self::FORUM_WORKER_LINK_LIMIT;
+    }
+
     public function getTaskLimit()
     {
         if (Yii::app()->user->checkAccess('externalLinks-manager-panel'))
-            return self::FORUM_MANAGER_LIMIT;
+            return self::FORUM_MANAGER_REG_LIMIT + self::FORUM_MANAGER_LINK_LIMIT + self::FORUM_MANAGER_COMMENT_LIMIT;
         else
-            return self::FORUM_WORKER_LIMIT;
+            return self::FORUM_WORKER_REG_LIMIT + self::FORUM_WORKER_LINK_LIMIT + self::FORUM_WORKER_COMMENT_LIMIT;
     }
 }

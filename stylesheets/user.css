@@ -190,15 +190,38 @@
 #user #userMoodTooltip {position:absolute;display:none;z-index:99;background:#fffeea;padding:3px 6px;border:1px solid #e7e395;font-size:14px;}
 #user #userMoodTooltip {/*css3*/ -moz-box-shadow:0px 0px 10px #e7e395;-webkit-box-shadow:0px 0px 10px #e7e395;box-shadow:0px 0px 10px #e7e395;behavior: url(/stylesheets/PIE.htc);}
 
-#user .user-status {background:#cdecff;padding:10px 15px;position:relative;margin-bottom:20px;min-height:40px;}
-#user .user-status {/*css3*/ -moz-border-radius:10px;-webkit-border-radius:10px;border-radius:10px;behavior: url(/stylesheets/PIE.htc);}
-#user .user-status:after {display:block;content:'';width:45px;height:44px;background:url(/images/common.png) no-repeat -557px -152px;position:absolute;right:100%;top:10px;}
-#user .user-status.toggled:after {background-position:-587px -300px;}
+#user .user-status {background-color:#cdecff;padding:10px 15px;position:relative;margin-bottom:20px;min-height:40px; -moz-border-radius:10px;-webkit-border-radius:10px;border-radius:10px;behavior: url(/stylesheets/PIE.htc);}
+#user .user-status:after {display:block;content:'';width:45px;height:44px;background:url(/images/bg_pattern_user_status.png) 0 -900px no-repeat;position:absolute;right:100%;top:10px;}
+#user .user-status.toggled:after {background-position:0 -950px;}
+#user .user-status.pattern-1:after {background-position:0 0;}
+#user .user-status.toggled.pattern-1:after {background-position:0 -50px;}
+#user .user-status.pattern-2:after {background-position:0 -100px;}
+#user .user-status.toggled.pattern-2:after {background-position:0 -157px;}
+#user .user-status.pattern-3:after {background-position:0 -200px;}
+#user .user-status.toggled.pattern-3:after {background-position:0 -250px;}
+#user .user-status.pattern-4:after {background-position:0 -300px;}
+#user .user-status.toggled.pattern-4:after {background-position:0 -350px;}
+#user .user-status.pattern-5:after {background-position:0 -400px;}
+#user .user-status.toggled.pattern-5:after {background-position:0 -450px;}
+#user .user-status.pattern-6:after {background-position:0 -500px;}
+#user .user-status.toggled.pattern-6:after {background-position:0 -550px;}
+#user .user-status.pattern-7:after {background-position:0 -600px;}
+#user .user-status.toggled.pattern-7:after {background-position:0 -650px;}
+#user .user-status.pattern-8:after {background-position:0 -700px;}
+#user .user-status.toggled.pattern-8:after {background-position:0 -750px;}
+#user .user-status.pattern-9:after {background-position:0 -800px;}
+#user .user-status.toggled.pattern-9:after {background-position:0 -850px;}
+
 #user .user-status .date {color:#b6b9ba;font-size:9px;font-family:tahoma, arial, helvetica, sans-serif;padding-bottom:8px;}
 #user .user-status p {color:#0281b0;font:italic 20px 'times new roman', 'times', arial, helvetica, sans-serif;}
 #user .user-status form {text-align:right;}
 #user .user-status textarea {vertical-align:bottom;overflow:auto;width:300px;max-width:300px;margin-right:5px;height:90px;padding:2px 5px;border:1px solid #c5e8ef;margin-bottom:5px;}
 #user .user-status .date a.pseudo {font-size:11px;position:relative;top:-2px;}
+#user .user-status .tooltip-new {position:relative;float:right;right:0;top:0;margin-left:10px;}
+
+#user .user-status-patterns {margin-bottom:20px;padding:0 7px;}
+#user .user-status-patterns p {font-size:14px;color:#3d3d3d;margin-bottom:10px;}
+#user .user-status-patterns .pattern {background-color:#cdecff;}
 
 #user .user-purpose {color:#4c4d4d;font-size:11px;position:relative;padding-left:100px;min-height:70px;margin-bottom:20px;}
 #user .user-purpose p {color:#fe4939;line-height:1;font-size:14px;margin-top:5px;}

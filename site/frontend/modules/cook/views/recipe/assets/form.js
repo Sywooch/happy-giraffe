@@ -20,8 +20,6 @@ CookRecipe.selectIngredient = function (el, item)
 
 $(function() {
     $('div.product-list').delegate('input.inAc', 'focusin', function(e) {
-        $(this).val('');
-        $(this).next('input').removeAttr('value');
         $(this).data('empty', '1');
         $(this).autocomplete({
             minLength: 3,

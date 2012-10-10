@@ -7,7 +7,7 @@ Friends.open = function() {
     Popup.load('Friends');
     $.get('/userPopup/friends/', function(data) {
         $('#popup-preloader').hide();
-        $('body').append(data);
+        $('.popup-container').append(data);
         $('.user-nav-2 .item-friends').addClass('active');
         Friends.setHeight();
 

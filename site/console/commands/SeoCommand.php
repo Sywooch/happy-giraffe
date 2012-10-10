@@ -195,7 +195,7 @@ class SeoCommand extends CConsoleCommand
         Yii::import('site.common.behaviors.*');
         $criteria = new CDbCriteria;
         $criteria->limit = 100;
-        $criteria->offset = 5000;
+        $criteria->offset = 19000;
 
         $i = 0;
         $models = array(0);
@@ -203,7 +203,9 @@ class SeoCommand extends CConsoleCommand
             $models = Page::model()->findAll($criteria);
 
             foreach ($models as $model) {
-                echo $model->id."\n";
+                if ($model->id % 1000 == 0)
+                    echo $model->id."\n";
+
                 $criteria2 = new CDbCriteria;
                 $criteria2->compare('url', $model->url);
                 $criteria2->order = 'id asc';

@@ -110,6 +110,8 @@ body.body-club {background:#f6f6f6;}
 #footer .a-right {color:#0498b8;padding-right:20px;}
 
 #body-overlay {position:fixed;height:100%;width:100%;top:0;left:0;z-index:98;background:url(/images/bg_black_alpha_40.png);}
+.popup-container {position:absolute;width:100%;top:0;left:0;bottom:0;z-index:100;overflow-x: hidden;}
+
 
 .clear { width: 99%; clear: both;}
 
@@ -1465,7 +1467,7 @@ body.nav-fixed #header-new.top-line-fixed {padding-top:0;}
 
 
 
-#user-dialogs {background:#fff;position:fixed;left:50%;margin-left:-500px;width:1000px;top:42px;z-index:99;border-bottom:1px solid #d7e9ff;*height:auto;}
+#user-dialogs {background:#fff;position:absolute;left:50%;margin-left:-500px;width:1000px;top:42px;z-index:99;border-bottom:1px solid #d7e9ff;*height:auto;}
 
 #user-dialogs .header {height:30px;padding:30px 0;text-align:center;position:relative;border:1px solid #d7e9ff;}
 

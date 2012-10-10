@@ -152,7 +152,7 @@ class CommunityPost extends HActiveRecord
     {
         if ($this->scenario == 'view') {
             if ($this->gallery !== null && count($this->gallery->items) > 0) {
-                $gallery = Yii::app()->controller->renderPartial('/community/_gallery', array('data' => $this));
+                $gallery = Yii::app()->controller->renderPartial('/community/_gallery', array('data' => $this), true);
                 if (strpos($this->text, '<!--gallery-->') === false) {
                     $this->text = $this->text . $gallery;
                 } else {

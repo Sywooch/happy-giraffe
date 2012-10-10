@@ -195,7 +195,7 @@ class SeoCommand extends CConsoleCommand
         Yii::import('site.common.behaviors.*');
         $criteria = new CDbCriteria;
         $criteria->limit = 1000;
-        $criteria->offset = 0;
+        $criteria->offset = 20000;
 
         $i = 0;
         $models = array(0);
@@ -217,7 +217,8 @@ class SeoCommand extends CConsoleCommand
                     foreach ($samePages as $samePage) {
                         echo $samePage->outputLinksCount . ' : ' . $samePage->inputLinksCount
                             . ' : ' . $samePage->taskCount . ' : ' . $samePage->phrasesCount
-                            . ' : ' . $samePage->keywordGroup->taskCount . "\n";
+                            . ' : ' . $samePage->keywordGroup->taskCount
+                            . ' : ' . count($samePage->keywordGroup->keywords). "\n";
 
                         if ($samePage->outputLinksCount == 0
                             && $samePage->inputLinksCount == 0

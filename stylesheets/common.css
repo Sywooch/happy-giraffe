@@ -987,6 +987,7 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 
 /* header 2.0 */
  /* top line menu */
+ 
 .top-line-menu {background:#a17dc4;border-bottom:1px solid #fff;position:relative;z-index:500;top:0;left:0;width:100%;height:42px;}
 .top-line-menu .top-line-menu-holder {width:1000px;margin:0 auto;padding-right:17px;}
 
@@ -1559,7 +1560,7 @@ body.nav-fixed #header-new.top-line-fixed {padding-top:0;}
 #user-dialogs .friends ul li * {position:static;}
 #user-dialogs .friends ul li .ava {float:left;}
 #user-dialogs .friends ul li .details {margin-left:90px;}
-#user-dialogs .friends ul li .details .icon-status {margin-left:-16px;}
+#user-dialogs .friends ul li .details .icon-status {margin-left:-16px;position:relative;}
 #user-dialogs .friends ul li .details .username {width:100px;}
 #user-dialogs .friends ul li .remove {width:12px;height:14px;background:url(/images/common.png) no-repeat -314px -135px;position:relative;margin-right:8px;vertical-align:middle;}
 #user-dialogs .friends ul li .remove:hover {background-position:-314px -148px;}

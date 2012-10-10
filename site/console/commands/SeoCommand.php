@@ -195,7 +195,7 @@ class SeoCommand extends CConsoleCommand
         Yii::import('site.common.behaviors.*');
         $criteria = new CDbCriteria;
         $criteria->limit = 1000;
-        $criteria->offset = 20000;
+        $criteria->offset = 0;
 
         $i = 0;
         $models = array(0);
@@ -236,7 +236,7 @@ class SeoCommand extends CConsoleCommand
                 }
             }
 
-            $criteria->offset = $criteria->offset + 950;
+            $criteria->offset = $criteria->offset + 700;
             $i++;
             echo $i . "\n";
         }

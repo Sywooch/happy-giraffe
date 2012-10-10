@@ -150,15 +150,20 @@ class CommunityPost extends HActiveRecord
 
     protected function afterFind()
     {
-        if ($this->scenario == 'view') {
-            if ($this->gallery !== null && count($this->gallery->items) > 0) {
-                $gallery = Yii::app()->controller->renderPartial('/community/_gallery', array('data' => $this), true);
-                if (strpos($this->text, '<!--gallery-->') === false) {
-                    $this->text = $this->text . $gallery;
-                } else {
-                    $this->text = str_replace('<!--gallery-->', $gallery, $this->text);
+        switch (Yii::app()->controller->route) {
+            case 'community/view':
+                if ($this->content->gallery !== null && count($this->content->gallery->items) > 0) {
+                    $gallery = Yii::app()->controller->renderPartial('/community/_gallery', array('data' => $this->content), true);
+                    if (strpos($this->text, '<!--gallery-->') === false) {
+                        $this->text = $this->text . $gallery;
+                    } else {
+                        $this->text = str_replace('<!--gallery-->', $gallery, $this->text);
+                    }
                 }
-            }
+                break;
+            case 'community/edit':
+                $this->text = str_replace('<!--gallery-->', '<hr class="gallery" />', $this->text);
+                break;
         }
     }
 }

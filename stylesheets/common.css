@@ -2359,8 +2359,8 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 .default-comments .new-comment .btn {margin:10px 5px;}
 .default-comments .removed-comment {color: #aaa;font-style: italic;}
 
-.default-comments .user-info .details .icon-status {vertical-align:middle;}
-.default-comments .user-info .details .username {width:auto;vertical-align:middle;}
+.default-comments .user-info .details .icon-status {}
+.default-comments .user-info .details .username {width:auto;}
 
 .default-comments .no-comments {background:#f8f8f8;margin-top:3px;padding:50px 0;text-align:center;color:#c7c6c6;font-size:16px;}
 .default-comments .no-comments img {margin-top:-30px;}

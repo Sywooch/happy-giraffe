@@ -9,16 +9,18 @@ Popup.load = function(name) {
 
     this.current = name;
 
-    $('body').css('overflow', 'hidden');
-    $('body').addClass('nav-fixed');
+    //$('body').css('overflow', 'hidden');
+    //$('body').addClass('nav-fixed');
     $('#body-overlay').show();
+    $('.popup-container').show();
     $('#popup-preloader').show();
 }
 
 Popup.unload = function() {
-    $('body').css('overflow', '');
-    $('body').removeClass('nav-fixed');
+    //$('body').css('overflow', '');
+    //$('body').removeClass('nav-fixed');
     $('#body-overlay').hide();
+    $('.popup-container').hide();
 }
 
 $(function() {

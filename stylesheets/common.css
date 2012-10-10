@@ -95,10 +95,11 @@ body.body-club {background:#f6f6f6;}
     height: auto;
     left: 0;
     right: 0;
-    top: 43px;
+    top: 42px;
     width: 100%;
 	overflow-y:auto;
 	overflow-x: hidden;
+	border-top:1px solid #fff;
 }
 
 #layout {min-height:100%;background:#fff;}
@@ -110,7 +111,7 @@ body.body-club {background:#f6f6f6;}
 #footer .a-right {color:#0498b8;padding-right:20px;}
 
 #body-overlay {position:fixed;height:100%;width:100%;top:0;left:0;z-index:98;background:url(/images/bg_black_alpha_40.png);}
-.popup-container {position:absolute;top:0;bottom:0;left:0;right:0;z-index:100;overflow-x: hidden;display:none;}
+.popup-container {position:absolute;top:0;bottom:0;left:0;right:0;z-index:100;overflow: hidden;display:none;}
 
 
 .clear { width: 99%; clear: both;}
@@ -209,7 +210,7 @@ box-shadow:1px 1px 1px rgba(0,0,0,.2);behavior: url(/stylesheets/PIE.htc);}
 
 .ava img {display:block;}
 
-.user-info {font-size:9px;line-height:12px;float:left;max-width:240px;}
+.user-info {font-size:9px;line-height:12px;float:left;max-width:240px;min-width:190px;}
 .user-info .ava {float:left;position:relative;}
 .user-info .details {margin-left:80px;text-align:left !important;padding:0 !important;}
 .user-info.medium .details {margin-left:90px;}
@@ -987,7 +988,8 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 
 /* header 2.0 */
  /* top line menu */
-.top-line-menu {background:#a17dc4;border-bottom:1px solid #fff;position:relative;z-index:500;top:0;left:0;width:100%;height:42px;}
+ 
+.top-line-menu {background:#a17dc4;position:relative;z-index:500;top:0;left:0;width:100%;height:42px;}
 .top-line-menu .top-line-menu-holder {width:1000px;margin:0 auto;padding-right:17px;}
 
 .top-line-menu .fast-links {list-style:none;font:normal 12px/14px tahoma, arial, helvetica, sans-serif;padding:14px 20px 2px 20px;height:16px;}
@@ -1559,7 +1561,7 @@ body.nav-fixed #header-new.top-line-fixed {padding-top:0;}
 #user-dialogs .friends ul li * {position:static;}
 #user-dialogs .friends ul li .ava {float:left;}
 #user-dialogs .friends ul li .details {margin-left:90px;}
-#user-dialogs .friends ul li .details .icon-status {margin-left:-16px;}
+#user-dialogs .friends ul li .details .icon-status {margin-left:-16px;position:relative;}
 #user-dialogs .friends ul li .details .username {width:100px;}
 #user-dialogs .friends ul li .remove {width:12px;height:14px;background:url(/images/common.png) no-repeat -314px -135px;position:relative;margin-right:8px;vertical-align:middle;}
 #user-dialogs .friends ul li .remove:hover {background-position:-314px -148px;}
@@ -2358,8 +2360,8 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 .default-comments .new-comment .btn {margin:10px 5px;}
 .default-comments .removed-comment {color: #aaa;font-style: italic;}
 
-.default-comments .user-info .details .icon-status {vertical-align:middle;}
-.default-comments .user-info .details .username {width:auto;vertical-align:middle;}
+.default-comments .user-info .details .icon-status {}
+.default-comments .user-info .details .username {width:auto;}
 
 .default-comments .no-comments {background:#f8f8f8;margin-top:3px;padding:50px 0;text-align:center;color:#c7c6c6;font-size:16px;}
 .default-comments .no-comments img {margin-top:-30px;}
@@ -3230,7 +3232,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 body.gallery {overflow:hidden;}
 
 
-.top-nav-fixed #photo-window  {position:absolute;width:100%;z-index:99;top:0;left:0;bottom:0;overflow-y:auto;overflow-x:hidden;min-width:1000px;color:#dcdcdc;margin-top:43px;}
+.top-nav-fixed #photo-window  {position:absolute;width:100%;z-index:99;top:0;left:0;bottom:0;overflow-y:auto;overflow-x:hidden;min-width:1000px;color:#dcdcdc;margin-top:42px;}
 .top-nav-fixed #photo-window-in {background:#fff;width:1000px;margin:0 auto 20px;position:relative;}
 #photo-window  {max-height:100%;position:absolute;width:100%;z-index:99;top:0;left:0;overflow:auto;min-width:1000px;color:#dcdcdc;}
 #photo-window-in {background:#fff;width:1000px;margin:40px auto 20px;position:relative;}

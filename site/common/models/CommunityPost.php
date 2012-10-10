@@ -142,4 +142,23 @@ class CommunityPost extends HActiveRecord
 
         parent::afterSave();
     }
+
+    protected function beforeSave()
+    {
+        $this->text = str_replace('<hr class="gallery" />', '<!--gallery-->', $this->text);
+    }
+
+    protected function afterFind()
+    {
+        if ($this->scenario == 'view') {
+            if ($this->gallery !== null && count($this->gallery->items) > 0) {
+                $gallery = Yii::app()->controller->renderPartial('/community/_gallery', array('data' => $this));
+                if (strpos($this->text, '<!--gallery-->') === false) {
+                    $this->text = $this->text . $gallery;
+                } else {
+                    $this->text = str_replace('<!--gallery-->', $gallery, $this->text);
+                }
+            }
+        }
+    }
 }

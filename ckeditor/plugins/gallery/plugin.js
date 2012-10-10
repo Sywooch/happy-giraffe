@@ -2,10 +2,12 @@ var galleryCmd =
 {
     exec: function( editor )
     {
-        var edata = editor.getData();
-        var replaced_text = edata.replace('<hr class="gallery" />', '');
-        editor.setData(replaced_text);
-        editor.insertHtml('<hr class="gallery" />');
+        var html = '<hr class="gallery" />';
+        if (editor.getData().indexOf(html) == -1) {
+            editor.insertHtml(html);
+        } else {
+            alert('В тексте может быть только одна галерея.');
+        }
     }
 };
 

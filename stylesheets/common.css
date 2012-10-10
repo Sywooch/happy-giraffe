@@ -2747,7 +2747,11 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 .default-nav ul li a.remove {width:12px;height:14px;background:url(/images/common.png) no-repeat -314px -135px;vertical-align:middle;margin:0;margin-left:5px;position:relative;top:-2px;margin-right:-5px;cursor:pointer;}
 .default-nav ul li a.remove:hover {background-position:-314px -148px;}
 .default-nav ul li.disabled a {color:#bebebe;cursor:default;}
-
+.default-nav ul li .tooltip-new  {
+	position:absolute;
+	top:-13px;
+	right:-35px; 
+}
 
 .default-v-nav {font-size:13px;}
 .default-v-nav .title {color:#636363;font-size:16px;margin:10px 15px;}
@@ -3987,15 +3991,19 @@ label {
 
 /* tooltip-new */
 .tooltip-new  {
-	position:absolute;
+/* 	position:absolute;
 	top:-13px;
-	right:-35px;
+	right:-35px; */
+	position:relative;
+	display:inline-block;
 	height:18px;
 	background:#fd3e3e;
 	padding:0 6px;
 	line-height:17px;
 	color:#fff;
 	font-size:11px;
+	*display:inline;
+	*zoom:1;
 }
 	.tooltip-new:after{
 		content:"";
@@ -4025,10 +4033,7 @@ label {
 	.new-capability-title {padding-bottom:10px;}
 	.new-capability-title .tooltip-new {
 		float:left;
-		position:relative;
 		margin:0 15px 0 0;
-		top:0;
-		right:0;
 	}
 	.new-capability-title span {
 		color:#2c2c2c;

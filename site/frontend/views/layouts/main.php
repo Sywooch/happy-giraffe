@@ -523,9 +523,7 @@
 <?php if (Yii::app()->user->isGuest) {
     $this->widget('application.widgets.registerWidget.RegisterWidget');
     $this->widget('application.widgets.loginWidget.LoginWidget');
-} else {
-    $this->widget('application.widgets.messagesWidget.MessagesWidget');
-}?>
+} ?>
     <noindex>
         <!-- Yandex.Metrika counter -->
         <script type="text/javascript">
@@ -566,10 +564,15 @@
         </script>
     </noindex>
     <div id="body-overlay" style="display: none;"></div>
-    <div id="popup-preloader" style="display: none;">
 
-        <div class="loading"><img src="/images/big_preloader.gif"></div>
+    <div class="popup-container">
+        <div id="popup-preloader" style="display: none;">
 
+            <div class="loading"><img src="/images/big_preloader.gif"></div>
+
+        </div>
+
+        <?php $this->widget('application.widgets.messagesWidget.MessagesWidget'); ?>
     </div>
 </body>
 </html>

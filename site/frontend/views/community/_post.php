@@ -90,7 +90,16 @@
                             echo $data->status->status->text;
                             break;
                         case 'post':
-                            echo $data->post->purified->text;
+                            $text = $data->post->purified->text;
+                            if ($data->gallery !== null && count($data->gallery->items) > 0) {
+                                $gallery = Yii::app()->controller->renderPartial('/community/_gallery', array('data' => $data), true);
+                                if (strpos($text, '<!--gallery-->') === false) {
+                                    $text = $text . $gallery;
+                                } else {
+                                    $text = str_replace('<!--gallery-->', $gallery, $text);
+                                }
+                            }
+                            echo $text;
                             break;
                         case 'video':
                             $video = new Video($data->video->link);

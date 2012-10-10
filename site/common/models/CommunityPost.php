@@ -41,6 +41,11 @@ class CommunityPost extends HActiveRecord
             'purified' => array(
                 'class' => 'site.common.behaviors.PurifiedBehavior',
                 'attributes' => array('text', 'preview'),
+                'options' => array(
+                    'HTML.AllowedComments' => array(
+                        'gallery' => true,
+                    ),
+                ),
             ),
 		);
 	}

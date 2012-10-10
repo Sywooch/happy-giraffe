@@ -172,21 +172,8 @@
                     <div class="clear"></div>
                 </div>
 
-                <?php if($data->gallery !== null && count($data->gallery->items) > 0 && false): ?>
+                <?php if($data->gallery !== null && count($data->gallery->items) > 0): ?>
                     <?php $photo = $data->gallery->items[0]; ?>
-                    <div class="gallery-box">
-                        <a class="img" data-id="<?=$data->gallery->items[0]->photo->id?>">
-                            <?php echo CHtml::image($photo->photo->getPreviewUrl(695, 463, Image::WIDTH)) ?>
-
-                            <div class="title">
-                                <?=CHtml::encode($data->gallery->title)?>
-                            </div>
-                            <div class="count">
-                                смотреть <span><?=count($data->gallery->items)?> ФОТО</span>
-                            </div>
-                            <i class="icon-play"></i>
-                        </a>
-                    </div>
                     <?php
                     $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
                         'selector' => '.gallery-box a',

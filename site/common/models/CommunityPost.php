@@ -146,6 +146,8 @@ class CommunityPost extends HActiveRecord
     protected function beforeSave()
     {
         $this->text = str_replace('<hr class="gallery" />', '<!--gallery-->', $this->text);
+
+        return parent::beforeSave();
     }
 
     protected function afterFind()
@@ -165,5 +167,7 @@ class CommunityPost extends HActiveRecord
                 $this->text = str_replace('<!--gallery-->', '<hr class="gallery" />', $this->text);
                 break;
         }
+
+        parent::afterFind();
     }
 }

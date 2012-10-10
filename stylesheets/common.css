@@ -110,7 +110,7 @@ body.body-club {background:#f6f6f6;}
 #footer .a-right {color:#0498b8;padding-right:20px;}
 
 #body-overlay {position:fixed;height:100%;width:100%;top:0;left:0;z-index:98;background:url(/images/bg_black_alpha_40.png);}
-.popup-container {position:absolute;top:0;bottom:0;left:0;right:0;z-index:100;overflow-x: hidden;display:none;}
+.popup-container {position:absolute;top:0;bottom:0;left:0;right:0;z-index:100;overflow: hidden;display:none;}
 
 
 .clear { width: 99%; clear: both;}

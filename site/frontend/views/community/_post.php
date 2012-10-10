@@ -172,7 +172,7 @@
                     <div class="clear"></div>
                 </div>
 
-                <?php if($data->gallery !== null && count($data->gallery->items) > 0): ?>
+                <?php if($data->gallery !== null && count($data->gallery->items) > 0 && false): ?>
                     <?php $photo = $data->gallery->items[0]; ?>
                     <div class="gallery-box">
                         <a class="img" data-id="<?=$data->gallery->items[0]->photo->id?>">

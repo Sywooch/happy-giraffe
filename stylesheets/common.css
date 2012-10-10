@@ -1462,7 +1462,7 @@ body.nav-fixed #header-new.top-line-fixed {padding-top:0;}
 
 /* **** */
 
-#popup-preloader {background:#fff;position:fixed;left:50%;margin-left:-500px;width:998px;top:42px;z-index:98;min-height:400px;border:1px solid #d7e9ff;}
+#popup-preloader {background:#fff;position:absolute;left:50%;margin-left:-500px;width:998px;top:42px;z-index:98;min-height:400px;border:1px solid #d7e9ff;}
 #popup-preloader .loading {position:absolute;text-align:center;width:100%;top:50%;margin-top:-5px;}
 
 

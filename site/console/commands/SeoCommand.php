@@ -203,9 +203,6 @@ class SeoCommand extends CConsoleCommand
             $models = Page::model()->findAll($criteria);
 
             foreach ($models as $model) {
-                if ($model->id % 1000 == 0)
-                    echo $model->id."\n";
-
                 $criteria2 = new CDbCriteria;
                 $criteria2->compare('url', $model->url);
                 $criteria2->order = 'id asc';
@@ -238,7 +235,6 @@ class SeoCommand extends CConsoleCommand
 
             $criteria->offset = $criteria->offset + 700;
             $i++;
-            echo $i . "\n";
         }
     }
 }

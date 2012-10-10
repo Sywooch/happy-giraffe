@@ -95,10 +95,11 @@ body.body-club {background:#f6f6f6;}
     height: auto;
     left: 0;
     right: 0;
-    top: 43px;
+    top: 42px;
     width: 100%;
 	overflow-y:auto;
 	overflow-x: hidden;
+	border-bottom:1px solid #fff;
 }
 
 #layout {min-height:100%;background:#fff;}
@@ -988,7 +989,7 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 /* header 2.0 */
  /* top line menu */
  
-.top-line-menu {background:#a17dc4;border-bottom:1px solid #fff;position:relative;z-index:500;top:0;left:0;width:100%;height:42px;}
+.top-line-menu {background:#a17dc4;position:relative;z-index:500;top:0;left:0;width:100%;height:42px;}
 .top-line-menu .top-line-menu-holder {width:1000px;margin:0 auto;padding-right:17px;}
 
 .top-line-menu .fast-links {list-style:none;font:normal 12px/14px tahoma, arial, helvetica, sans-serif;padding:14px 20px 2px 20px;height:16px;}

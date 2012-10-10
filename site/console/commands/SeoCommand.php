@@ -194,8 +194,8 @@ class SeoCommand extends CConsoleCommand
     {
         Yii::import('site.common.behaviors.*');
         $criteria = new CDbCriteria;
-        $criteria->limit = 100;
-        $criteria->offset = 7000;
+        $criteria->limit = 1000;
+        $criteria->offset = 0;
 
         $i = 0;
         $models = array(0);
@@ -209,23 +209,32 @@ class SeoCommand extends CConsoleCommand
                 $samePages = Page::model()->findAll($criteria2);
                 if (count($samePages) > 1) {
                     echo $model->url . ' - ' . count($samePages) . "\n";
+
+                    $first = true;
                     foreach ($samePages as $samePage) {
                         echo $samePage->outputLinksCount . ' : ' . $samePage->inputLinksCount
-                            . ' : ' . $samePage->taskCount . ' : ' . $samePage->phrasesCount . "\n";
-                        if ($samePage->outputLinksCount == 0 && $samePage->inputLinksCount == 0 &&
-                            $samePage->taskCount == 0 && $samePage->phrasesCount == 0
-                            && empty($samePage->keywordGroup->keywords))
-                        {
-                            Page::model()->deleteAll('id>' . $samePages[0]->id.' AND url="'.$model->url.'"');
+                            . ' : ' . $samePage->taskCount . ' : ' . $samePage->phrasesCount
+                            . ' : ' . $samePage->keywordGroup->taskCount
+                            . ' : ' . count($samePage->keywordGroup->keywords). "\n";
+
+                        if ($samePage->outputLinksCount == 0
+                            && $samePage->inputLinksCount == 0
+                            && $samePage->taskCount == 0
+                            && $samePage->phrasesCount == 0
+                            && empty($samePage->keywordGroup->keywords)
+                            && $samePage->keywordGroup->taskCount == 0
+                        ) {
+                            if (!$first)
+                                $samePage->delete();
                         }
+
+                        $first = false;
                     }
                 }
             }
 
-            $criteria->offset = $criteria->offset + 100;
+            $criteria->offset = $criteria->offset + 700;
             $i++;
-            if ($i % 10 == 0)
-                echo $i . "\n";
         }
     }
 }

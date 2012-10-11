@@ -108,8 +108,8 @@ class YandexPopularity extends HActiveRecord
         if ($yaPop !== null) {
             $yaPop->value = $value;
             try {
-                $yaPop->save();
                 $yaPop->theme = $theme;
+                $yaPop->save();
             }catch (Exception $e){
 
             }

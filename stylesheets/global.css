@@ -4425,7 +4425,7 @@ ul.letters li a:hover {
 #cook-recipe-search .result .result-title .count {color:#4a4b4b;font-size:18px;text-align:left;float:left;}
 #cook-recipe-search .result .result-title .count span {font-size:40px;line-height:1;color:#bfdeff;font-weight:bold;font-family:tahoma, arial, helvetica, sans-serif;}
 
-#cook-recipe-search .result .recipe-list {text-align:left;padding:20px 0;border-bottom:1px solid #d0e2f5;width:600px;}
+#cook-recipe-search .result .recipe-list {text-align:left;padding:20px 0;border-bottom:1px solid #d0e2f5;width:600px;overflow:hidden;}
 #cook-recipe-search .result .recipe-list ul {max-height:570px;width:600px;overflow:auto;}
 #cook-recipe-search .result .recipe-list li {width:30%;padding-right:3%;display:inline-block;*zoom:1;*display:inline;vertical-align:top;margin-bottom:30px;font-size:11px;line-height:14px;font-family:tahoma, arial, helvetica, sans-serif;}
 #cook-recipe-search .result .recipe-list li .item-title {font-weight:bold;margin-bottom:10px;}

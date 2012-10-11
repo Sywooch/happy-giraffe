@@ -3061,7 +3061,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 #activity .activity-top-5 .tabs .tabs-container ul li .place.place-4 {background:#b996da;}
 #activity .activity-top-5 .tabs .tabs-container ul li .place.place-5 {background:#f18b2f;}
 #activity .activity-top-5 .tabs .tabs-container ul li .value {width:35px;float:left;padding-left:5px;line-height:24px;color:#5c5c5c;font-size:16px;}
-#activity .activity-top-5 .tabs .tabs-container ul li .user-info {width:135px;}
+#activity .activity-top-5 .tabs .tabs-container ul li .user-info {width:135px;min-width:135px;}
 #activity .activity-top-5 .tabs .tabs-container ul li .user-info .details {margin-left:30px;}
 #activity .activity-top-5 .tabs .tabs-container ul li .user-info .details .username {width:85px;font-size:12px;}
 

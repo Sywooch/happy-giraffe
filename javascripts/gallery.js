@@ -191,7 +191,7 @@ jQuery.fn.pGallery = function(options) {
         if (next == pGallery.start && Object.keys(pGallery.photos).length > 3) {
             this.showAlbumEnd();
         } else {
-            this.openImage(next);
+            (next !== null) ? this.openImage(next) : this.openImage(pGallery.first);
         }
     };
 

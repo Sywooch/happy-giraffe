@@ -131,6 +131,7 @@ class CommunityController extends HController
         /* </ИМПОРТ РЕЦЕПТОВ> */
 
         $this->layout = ($community_id == Community::COMMUNITY_NEWS) ? '//layouts/news' : '//layouts/community';
+        CommunityPost::model()->scenario = 'view';
         $content = CommunityContent::model()->full()->findByPk($content_id);
         if ($content === null)
             throw new CHttpException(404, 'Такой записи не существует');

@@ -169,7 +169,7 @@ class WordstatParser extends ProxyParserThread
         //find and add our keyword
         $k = 0;
         if (preg_match('/— ([\d]+) показ[ов]*[а]* в месяц/', $html, $matches)) {
-            YandexPopularity::model()->addValue($this->keyword->keyword_id, $matches[1]);
+            YandexPopularity::model()->addValue($this->keyword->keyword_id, $matches[1], $this->keyword->theme);
             $k = 1;
         }
         if ($k == 0)
@@ -192,18 +192,18 @@ class WordstatParser extends ProxyParserThread
 
         //собирает кейворды из блока "Что еще искали люди, искавшие" - парсим только первую страницу
         //так как на остальных кейворды повторяются
-        if ($this->first_page)
-            foreach ($document->find('table.campaign tr td table:eq(1) td a') as $link) {
-                $keyword = trim(pq($link)->text());
-                $value = (int)pq($link)->parent()->next()->next()->text();
-                if (!empty($keyword) && !empty($value)) {
-                    $keyword = preg_replace('/(\+)[\w]*/', '', $keyword);
-                    $model = Keyword::GetKeyword($keyword);
-                    if ($value >= self::PARSE_LIMIT)
-                        $this->AddToParsingAdjacentKeyword($model);
-                    $this->AddStat($model, $value);
-                }
-            }
+//        if ($this->first_page)
+//            foreach ($document->find('table.campaign tr td table:eq(1) td a') as $link) {
+//                $keyword = trim(pq($link)->text());
+//                $value = (int)pq($link)->parent()->next()->next()->text();
+//                if (!empty($keyword) && !empty($value)) {
+//                    $keyword = preg_replace('/(\+)[\w]*/', '', $keyword);
+//                    $model = Keyword::GetKeyword($keyword);
+//                    if ($value >= self::PARSE_LIMIT)
+//                        $this->AddToParsingAdjacentKeyword($model);
+//                    $this->AddStat($model, $value);
+//                }
+//            }
 
         //ищем ссылку на следующую страницу
         $this->next_page = '';
@@ -227,19 +227,20 @@ class WordstatParser extends ProxyParserThread
 
     public function AddToParsingInclusiveKeyword($model)
     {
-        $this->AddKeywordToParsing($model->id);
+        $this->AddKeywordToParsing($model->id, $this->keyword->theme);
     }
 
-    public function AddToParsingAdjacentKeyword($model)
+    /*public function AddToParsingAdjacentKeyword($model)
     {
-        $this->AddKeywordToParsing($model->id);
-    }
+        $this->AddKeywordToParsing($model->id, 0);
+    }*/
 
     /**
      * @param int $keyword_id
+     * @param $theme
      * @return void
      */
-    public function AddKeywordToParsing($keyword_id)
+    public function AddKeywordToParsing($keyword_id, $theme)
     {
         if ($keyword_id == $this->keyword->keyword_id)
             return;
@@ -256,6 +257,8 @@ class WordstatParser extends ProxyParserThread
             if ($exist === null) {
                 $parsing_model = new ParsingKeyword();
                 $parsing_model->keyword_id = $keyword_id;
+                $parsing_model->priority = $this->keyword->priority;
+                $parsing_model->theme = $theme;
                 $parsing_model->save();
             }
             $transaction->commit();
@@ -272,7 +275,7 @@ class WordstatParser extends ProxyParserThread
      */
     public function AddStat($model, $value)
     {
-        YandexPopularity::model()->addValue($model->id, $value);
+        YandexPopularity::model()->addValue($model->id, $value, $this->keyword->theme);
     }
 
     public function closeThread($reason = 'unknown reason')

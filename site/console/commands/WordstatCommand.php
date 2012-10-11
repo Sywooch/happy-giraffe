@@ -29,23 +29,6 @@ class WordstatCommand extends CConsoleCommand
 
     public function actionSetParsed()
     {
-        $criteria = new CDbCriteria;
-        $criteria->limit = 100;
-        $criteria->offset = 0;
-        $criteria->condition = 'depth IS NULL';
 
-        $models = array(0);
-        while (!empty($models)) {
-            $models = ParsedKeywords::model()->findAll($criteria);
-
-            $ids = array();
-            foreach ($models as $model)
-                $ids[] = $model->keyword_id;
-            YandexPopularity::model()->updateAll(array('parsed' => 1), 'keyword_id IN (' . implode(',', $ids) . ')');
-
-            $criteria->offset += 100;
-            if ($criteria->offset % 10000 == 0)
-                echo $criteria->offset . "\n";
-        }
     }
 }

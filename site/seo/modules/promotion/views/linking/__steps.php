@@ -33,8 +33,9 @@
         </div>
 
         <ul>
+            <?php $first = true; ?>
             <?php foreach ($keywords as $keyword): ?>
-            <li onclick="SeoLinking.selectKeyword(this, <?=$keyword->id ?>)"><?=$keyword->name ?></li>
+            <li <?php if ($first) echo 'class="active" ' ?>onclick="SeoLinking.selectKeyword(this, <?=$keyword->id ?>)"><?=$keyword->name ?></li><?php $first = false; ?>
             <?php endforeach; ?>
         </ul>
     </div>
@@ -45,3 +46,7 @@
     </div>
 
 </div>
+
+<script type="text/javascript">
+    <?php echo 'SeoLinking.keyword_id = '.$keywords[0]->id.';' ?>
+</script>

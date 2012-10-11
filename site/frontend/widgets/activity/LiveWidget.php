@@ -32,7 +32,7 @@ class LiveWidget extends CWidget
 
         $criteria->order = 'created DESC';
         $criteria->select = array('t.id', 't.title', 't.type_id', 't.rubric_id', 't.author_id', 't.created');
-        $criteria->condition = 'type_id != 4 AND community_id != :news';
+        $criteria->condition = 'type_id != 4 AND (community_id IS NULL OR community_id != :news)';
         $criteria->params = array(':news' => Community::COMMUNITY_NEWS);
 
         $live = CommunityContent::model()->findAll($criteria);

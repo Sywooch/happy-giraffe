@@ -83,8 +83,8 @@ class SeoCommand extends CConsoleCommand
         $se = PagesSearchPhrase::model()->findAll();
 
         foreach ($se as $phrase) {
-            $parsed = ParsedKeywords::model()->find('keyword_id =' . $phrase->keyword_id);
-            if ($parsed !== null)
+            $yandex = YandexPopularity::model()->find('keyword_id =' . $phrase->keyword_id);
+            if ($yandex !== null && $yandex->parsed == 1)
                 continue;
 
             $model = ParsingKeyword::model()->find('keyword_id =' . $phrase->keyword_id);
@@ -146,8 +146,8 @@ class SeoCommand extends CConsoleCommand
 
             $visits = SiteKeywordVisit::model()->findAll($criteria);
             foreach ($visits as $visit) {
-                $parsed = ParsedKeywords::model()->find('keyword_id =' . $visit->keyword_id);
-                if ($parsed !== null && empty($parsed->depth))
+                $yandex = YandexPopularity::model()->find('keyword_id =' . $visit->keyword_id);
+                if ($yandex !== null && $yandex->parsed == 1)
                     continue;
 
                 $model = ParsingKeyword::model()->find('keyword_id =' . $visit->keyword_id);

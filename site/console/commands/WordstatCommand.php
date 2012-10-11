@@ -22,14 +22,15 @@ class WordstatCommand extends CConsoleCommand
         $criteria->limit = 100;
         $criteria->offset = 0;
         $criteria->with = array('yandex');
-        $criteria->condition = 'yandex.value IS NOT NULL AND yandex.value < '.self::WORDSTAT_LIMIT;
+        $criteria->condition = 'yandex.value IS NOT NULL AND yandex.value < ' . self::WORDSTAT_LIMIT;
 
         echo ParsingKeyword::model()->count($criteria);
     }
 
-    public function actionSetParsed(){
+    public function actionSetParsed()
+    {
         $criteria = new CDbCriteria;
-        $criteria->limit = 1000;
+        $criteria->limit = 100;
         $criteria->offset = 0;
         $criteria->condition = 'depth IS NULL';
 
@@ -37,19 +38,15 @@ class WordstatCommand extends CConsoleCommand
         while (!empty($models)) {
             $models = ParsedKeywords::model()->findAll($criteria);
 
+            $ids = array();
             foreach ($models as $model) {
-                $yandex = YandexPopularity::model()->findByPk($model->keyword_id);
-                if ($yandex !== null) {
-                    $yandex->parsed = 1;
-                    $yandex->save();
-                }else
-                    echo "error\n";
+                $ids[] = $model->keyword_id;
+                YandexPopularity::model()->updateAll(array('parsed' => 1), 'keyword_id IN (' . implode(',', $ids) . ')');
             }
 
-            $criteria->offset += 1000;
-
-            if ($criteria->offset % 250000 == 0)
-                echo $criteria->offset."\n";
+            $criteria->offset += 100;
+            if ($criteria->offset % 10000 == 0)
+                echo $criteria->offset . "\n";
         }
     }
 }

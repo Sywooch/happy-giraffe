@@ -8,6 +8,7 @@
  * @property string $date
  * @property integer $value
  * @property integer $parsed
+ * @property integer $theme
  *
  * The followings are the available model relations:
  * @property Keyword $keyword
@@ -43,7 +44,7 @@ class YandexPopularity extends HActiveRecord
         // will receive user inputs.
         return array(
             array('value', 'required'),
-            array('value, parsed', 'numerical', 'integerOnly' => true),
+            array('value, parsed, theme', 'numerical', 'integerOnly' => true),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('keyword_id, date, value', 'safe', 'on' => 'search'),
@@ -101,19 +102,21 @@ class YandexPopularity extends HActiveRecord
         ));
     }
 
-    public function addValue($keyword_id, $value)
+    public function addValue($keyword_id, $value, $theme)
     {
         $yaPop = YandexPopularity::model()->findByPk($keyword_id);
         if ($yaPop !== null) {
             $yaPop->value = $value;
             try {
                 $yaPop->save();
+                $yaPop->theme = $theme;
             }catch (Exception $e){
 
             }
         } else {
             $yaPop = new YandexPopularity;
             $yaPop->keyword_id = $keyword_id;
+            $yaPop->theme = $theme;
             $yaPop->value = $value;
             try {
                 $yaPop->save();

@@ -7,6 +7,7 @@
  * @property integer $keyword_id
  * @property string $date
  * @property integer $value
+ * @property integer $parsed
  *
  * The followings are the available model relations:
  * @property Keyword $keyword
@@ -42,7 +43,7 @@ class YandexPopularity extends HActiveRecord
         // will receive user inputs.
         return array(
             array('value', 'required'),
-            array('value', 'numerical', 'integerOnly' => true),
+            array('value, parsed', 'numerical', 'integerOnly' => true),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('keyword_id, date, value', 'safe', 'on' => 'search'),

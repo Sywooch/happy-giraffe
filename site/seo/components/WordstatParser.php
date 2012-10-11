@@ -5,6 +5,8 @@
  */
 class WordstatParser extends ProxyParserThread
 {
+    const PARSE_LIMIT = 300;
+
     /**
      * @var ParsingKeyword[]
      */
@@ -74,22 +76,10 @@ class WordstatParser extends ProxyParserThread
 
         try {
             $criteria = new CDbCriteria;
-            $criteria->condition = 'depth IS NULL';
             $criteria->compare('active', 0);
             $criteria->order = 'priority desc';
             $criteria->limit = 100;
             $this->keywords = ParsingKeyword::model()->findAll($criteria);
-
-            if (empty($keywords)) {
-                $criteria = new CDbCriteria;
-                $criteria->compare('active', 0);
-                $criteria->order = 'depth DESC';
-                $criteria->limit = 100;
-
-                $this->keywords = ParsingKeyword::model()->findAll($criteria);
-                if (empty($this->keywords))
-                    $this->closeThread('Keywords for parsing ended');
-            }
 
             //update active
             $keys = array();
@@ -194,7 +184,7 @@ class WordstatParser extends ProxyParserThread
             if (!empty($keyword) && !empty($value)) {
                 $keyword = preg_replace('/(\+)[\w]*/', '', $keyword);
                 $model = Keyword::GetKeyword($keyword);
-                if ($value >= 100)
+                if ($value >= self::PARSE_LIMIT)
                     $this->AddToParsingInclusiveKeyword($model);
                 $this->AddStat($model, $value);
             }
@@ -209,7 +199,7 @@ class WordstatParser extends ProxyParserThread
                 if (!empty($keyword) && !empty($value)) {
                     $keyword = preg_replace('/(\+)[\w]*/', '', $keyword);
                     $model = Keyword::GetKeyword($keyword);
-                    if ($value >= 100)
+                    if ($value >= self::PARSE_LIMIT)
                         $this->AddToParsingAdjacentKeyword($model);
                     $this->AddStat($model, $value);
                 }
@@ -237,55 +227,40 @@ class WordstatParser extends ProxyParserThread
 
     public function AddToParsingInclusiveKeyword($model)
     {
-        if (empty($this->keyword->depth)) {
-            $this->AddKeywordToParsing($model->id);
-        } elseif ($this->keyword->depth >= 2)
-            $this->AddKeywordToParsing($model->id, 1);
+        $this->AddKeywordToParsing($model->id);
     }
 
     public function AddToParsingAdjacentKeyword($model)
     {
-        if (empty($this->keyword->depth)) {
-            $this->AddKeywordToParsing($model->id);
-        }
+        $this->AddKeywordToParsing($model->id);
     }
 
     /**
      * @param int $keyword_id
-     * @param int $depth
      * @return void
      */
-    public function AddKeywordToParsing($keyword_id, $depth = null)
+    public function AddKeywordToParsing($keyword_id)
     {
         if ($keyword_id == $this->keyword->keyword_id)
             return;
 
         $this->startTimer('add_keyword_to_parsing');
 
-        $parsed = ParsedKeywords::model()->findByPk($keyword_id);
-        if ($parsed !== null && (empty($parsed->depth) || $parsed->depth >= $depth))
+        $yandex = YandexPopularity::model()->findByPk($keyword_id);
+        if ($yandex->parsed == 1)
             return;
 
-        $exist = ParsingKeyword::model()->findByPk($keyword_id);
-        if ($exist === null) {
-            $parsing_model = new ParsingKeyword();
-            $parsing_model->keyword_id = $keyword_id;
-            $parsing_model->depth = $depth;
-            try {
+        $transaction = Yii::app()->db_seo->beginTransaction();
+        try {
+            $exist = ParsingKeyword::model()->findByPk($keyword_id);
+            if ($exist === null) {
+                $parsing_model = new ParsingKeyword();
+                $parsing_model->keyword_id = $keyword_id;
                 $parsing_model->save();
-            } catch (Exception $err) {
             }
-        } else {
-            if (empty($depth) && !empty($exist->depth))
-                $exist->depth = null;
-            elseif (!empty($exist->depth) && $exist->depth < $depth)
-                $exist->depth = $depth; else
-                return;
-
-            try {
-                $exist->save();
-            } catch (Exception $e) {
-            }
+            $transaction->commit();
+        } catch (Exception $e) {
+            $transaction->rollback();
         }
 
         $this->endTimer();
@@ -318,18 +293,6 @@ class WordstatParser extends ProxyParserThread
      */
     public function RemoveCurrentKeywordFromParsing()
     {
-        if (!empty($this->keyword->depth)) {
-            //проверяем не изменилась ли глубина за время парсинга
-            $old_depth = $this->keyword->depth;
-            $this->keyword->refresh();
-            if ($this->keyword->depth > $old_depth) {
-                //если глубина увеличилась, переходим к следующему слову
-                $this->keyword->active = 0;
-                $this->keyword->save();
-                return;
-            }
-        }
-
         //иначе удаляем кейворд из парсинга
         $this->startTimer('remove_from_parsing remove');
         ParsingKeyword::model()->deleteByPk($this->keyword->keyword_id);
@@ -337,24 +300,11 @@ class WordstatParser extends ProxyParserThread
 
         $this->startTimer('remove_from_parsing save_parsed');
         //и добавляем в спарсенные
-        try {
-            $parsed = ParsedKeywords::model()->findByPk($this->keyword->keyword_id);
-            if ($parsed !== null) {
-                if (($parsed->depth < $this->keyword->depth) ||
-                    (empty($this->keyword->depth) && !empty($parsed->depth))
-                ) {
-                    $parsed->depth = $this->keyword->depth;
-                    $parsed->save();
-                }
-            } else {
-                $parsed = new ParsedKeywords;
-                $parsed->keyword_id = $this->keyword->keyword_id;
-                $parsed->depth = $this->keyword->depth;
-                $parsed->save();
+            $yandex = YandexPopularity::model()->findByPk($this->keyword->keyword_id);
+            if ($yandex !== null) {
+                $yandex->parsed = 1;
+                $yandex->save();
             }
-        } catch (Exception $e) {
-
-        }
 
         $this->endTimer();
     }

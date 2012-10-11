@@ -7,9 +7,6 @@
 Yii::import('site.seo.models.*');
 Yii::import('site.seo.models.mongo.*');
 Yii::import('site.seo.components.*');
-Yii::import('site.seo.modules.competitors.models.*');
-Yii::import('site.seo.modules.writing.models.*');
-Yii::import('site.seo.modules.promotion.models.*');
 Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
 
 class WordstatCommand extends CConsoleCommand
@@ -28,5 +25,31 @@ class WordstatCommand extends CConsoleCommand
         $criteria->condition = 'yandex.value IS NOT NULL AND yandex.value < '.self::WORDSTAT_LIMIT;
 
         echo ParsingKeyword::model()->count($criteria);
+    }
+
+    public function actionSetParsed(){
+        $criteria = new CDbCriteria;
+        $criteria->limit = 1000;
+        $criteria->offset = 0;
+        $criteria->condition = 'depth IS NULL';
+
+        $models = array(0);
+        while (!empty($models)) {
+            $models = ParsedKeywords::model()->findAll($criteria);
+
+            foreach ($models as $model) {
+                $yandex = YandexPopularity::model()->findByPk($model->keyword_id);
+                if ($yandex !== null) {
+                    $yandex->parsed = 1;
+                    $yandex->save();
+                }else
+                    echo "error\n";
+            }
+
+            $criteria->offset += 1000;
+
+            if ($criteria->offset % 250000 == 0)
+                echo $criteria->offset."\n";
+        }
     }
 }

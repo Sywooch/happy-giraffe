@@ -2,7 +2,8 @@ var pGallery = {
     photos : {},
     currentPhoto : null,
     first : null,
-    last : null
+    last : null,
+    start: null
 };
 
 jQuery.fn.pGallery = function(options) {
@@ -187,10 +188,10 @@ jQuery.fn.pGallery = function(options) {
     plugin.next = function () {
         console.log('next');
         var next = pGallery.photos[pGallery.currentPhoto].next;
-        if (next !== null) {
-            this.openImage(next);
-        } else {
+        if (next == pGallery.start && Object.keys(pGallery.photos).length > 3) {
             this.showAlbumEnd();
+        } else {
+            this.openImage(next);
         }
     };
 

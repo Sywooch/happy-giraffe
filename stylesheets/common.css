@@ -2183,11 +2183,11 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 #albumSettings .album-style .step2 {position:relative;}
 #albumSettings .album-style .overlay {position:absolute;width:100%;height:100%;left:0;top:0;background:#fff;}
 .pattern-list {list-style:none;width:330px;}
-.pattern-list li {float:left;width:65px;margin:0 1px 1px 0;}
+.pattern-list li {float:left;margin:0 1px 1px 0;}
 .pattern-list a {display:block;border:2px solid transparent;padding:3px;behavior: url(PIE.htc);position:relative;text-decoration:none;}
 .pattern-list a.active,
 .pattern-list a:hover{border:2px solid #9c7fb7;-webkit-border-radius: 5px;-moz-border-radius: 5px;-ms-border-radius: 5px;border-radius: 5px;}
-.pattern-list a .pattern {display:block;height:28px;-webkit-border-radius: 3px;-moz-border-radius: 3px;-ms-border-radius: 3px;border-radius: 3px; behavior: url(PIE.htc);-webkit-box-shadow: inset 2px 1px 2px rgba(0,0,0,0.3);-moz-box-shadow: inset 2px 1px 2px rgba(0,0,0,0.3);box-shadow: inset 2px 1px 2px rgba(0,0,0,0.3);color:#5a5a5a;text-align:center;padding:5px 5px;line-height:13px;font-size:11px;}
+.pattern-list a .pattern {display:block;height:28px;-webkit-border-radius: 3px;-moz-border-radius: 3px;-ms-border-radius: 3px;border-radius: 3px; behavior: url(PIE.htc);-webkit-box-shadow: inset 2px 1px 2px rgba(0,0,0,0.3);-moz-box-shadow: inset 2px 1px 2px rgba(0,0,0,0.3);box-shadow: inset 2px 1px 2px rgba(0,0,0,0.3);color:#5a5a5a;text-align:center;padding:5px 5px;line-height:13px;font-size:11px;width:45px;}
 .pattern-list a.active .pattern,
 .pattern-list a:hover .pattern {-webkit-box-shadow: none;-moz-box-shadow: none;box-shadow: none;}
 
@@ -3992,6 +3992,24 @@ label {
 .pattern-17 {background:url(/images/bg_pattern_17.jpg);}
 .pattern-18 {background:url(/images/bg_pattern_18.jpg);}
 
+/* fonts color */
+.font-color-0 {color:#353535 !important;}
+.font-color-1 {color:#4ba923 !important;}
+.font-color-2 {color:#d80303 !important;}
+.font-color-3 {color:#d87b03 !important;}
+.font-color-4 {color:#038ad8 !important;}
+.font-color-5 {color:#813bbd !important;}
+
+/* fonts family */
+.font-1 {font-family: 'Bad Script', cursive !important;}
+.font-2 {font-family: 'Istok Web', sans-serif !important;}
+.font-3 {font-family: 'Ruslan Display', cursive !important;}
+.font-4 {font-family: 'Marck Script', cursive !important;}
+.font-5 {font-family: 'Oranienbaum', serif !important;}
+.font-6 {font-family: 'Lobster', cursive !important;}
+.font-7 {font-family: 'Russo One', sans-serif !important;}
+.font-8 {font-family: 'Stalinist One', cursive !important;}
+.font-9 {font-family: 'Comfortaa', cursive !important;}
 
 /* tooltip-new */
 .tooltip-new  {

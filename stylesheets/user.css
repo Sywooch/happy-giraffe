@@ -405,7 +405,7 @@
 
 
 #blogSettings {width:740px;}
-#blogSettings .popup-title {text-align:left;margin-bottom:20px;}
+#blogSettings .popup-title {text-align:left;margin:0 5px 20px;}
 #blogSettings .settings-form {margin:20px 0;}
 #blogSettings .settings-form .row {margin-bottom:20px;}
 #blogSettings .settings-form .row .row-title {font-size:16px;color:#4c4d4d;}
@@ -449,20 +449,20 @@
 #blogSettings .btn-finish {display:inline-block; *zoom:1;*display:inline; height: 58px; border: 1px solid #34ac51; background: #46b14e url(/images/btn_green_60.gif) repeat-x; line-height: 58px; color: #fff; font-size: 18px; font-weight: bold; text-decoration: none; padding: 0 30px;}
 #blogSettings .btn-finish {/*css3*/ border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; behavior: url(/stylesheets/PIE.htc);}
 
-#blogSettings .headings-style {margin:15px 0 0;color:#3f3e3f;font-size:13px;}
+#blogSettings .headings-style {margin:40px 0 0;color:#3f3e3f;font-size:13px;}
 #blogSettings .headings-style p {margin:0 5px 4px;}
 #blogSettings .headings-style .fonts-style {float:left;width:400px;}
 #blogSettings .headings-style .fonts-style .pattern-list .pattern {font-size:18px;line-height:29px;white-space:nowrap;overflow:hidden;}
 
 #blogSettings .headings-style .color-style {float:left;}
-#blogSettings .headings-style .color-style .pattern-list .pattern {width:20px;height:17px;-webkit-box-shadow: none;-moz-box-shadow: none;-ms-box-shadow: none; box-shadow: none;background:#353535;}
+#blogSettings .headings-style .color-style .pattern-list .pattern {width:10px;height:8px;-webkit-box-shadow: none;-moz-box-shadow: none;-ms-box-shadow: none; box-shadow: none;background:#353535;}
 #blogSettings .headings-style .color-style .pattern-list .pattern.font-color-1 {background:#4ba923;}
 #blogSettings .headings-style .color-style .pattern-list .pattern.font-color-2 {background:#d80303;}
 #blogSettings .headings-style .color-style .pattern-list .pattern.font-color-3 {background:#d87b03;}
 #blogSettings .headings-style .color-style .pattern-list .pattern.font-color-4 {background:#038ad8;}
 #blogSettings .headings-style .color-style .pattern-list .pattern.font-color-5 {background:#813bbd;}
 
-#blogSettings .headings-style .heading-preview {margin:30px 5px;font-size:30px;}
+#blogSettings .headings-style .heading-preview {margin:35px 5px;font-size:30px;}
 
 #user .user-clubs {padding-bottom:20px;padding-left:15px;}
 #user .user-clubs ul {list-style:none;}

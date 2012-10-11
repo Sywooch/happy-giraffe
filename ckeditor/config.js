@@ -5,6 +5,7 @@
 
 CKEDITOR.editorConfig = function (config) {
     CKEDITOR.lang.languages['ru-hg'] = 1;
+    config.forcePasteAsPlainText = true;
     config.language = 'ru-hg';
     config.skin = 'hgru';
     config.filebrowserBrowseUrl = '/ckfinder/ckfinder.html';

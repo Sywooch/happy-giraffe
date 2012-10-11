@@ -39,10 +39,9 @@ class WordstatCommand extends CConsoleCommand
             $models = ParsedKeywords::model()->findAll($criteria);
 
             $ids = array();
-            foreach ($models as $model) {
+            foreach ($models as $model)
                 $ids[] = $model->keyword_id;
-                YandexPopularity::model()->updateAll(array('parsed' => 1), 'keyword_id IN (' . implode(',', $ids) . ')');
-            }
+            YandexPopularity::model()->updateAll(array('parsed' => 1), 'keyword_id IN (' . implode(',', $ids) . ')');
 
             $criteria->offset += 100;
             if ($criteria->offset % 10000 == 0)

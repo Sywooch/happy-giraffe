@@ -10,7 +10,7 @@
                 <div class="date"><?php echo Yii::app()->dateFormatter->format("dd MMMM yyyy, HH:mm", $post->created); ?></div>
                 <p><?=$post->getShort(140)?></p>
                 <div class="meta">
-                    <span class="views"><i class="icon"></i><?=PageView::model()->viewsByPath($post->url)?>/span>
+                    <span class="views"><i class="icon"></i><?=PageView::model()->viewsByPath($post->url)?></span>
                     <?=CHtml::link('<i class="icon"></i>' . $post->commentsCount, $post->getUrl(true), array('class' => 'comments'))?>
                 </div>
             </li>

@@ -5,7 +5,7 @@
  */
 class WordstatParser extends ProxyParserThread
 {
-    const PARSE_LIMIT = 300;
+    const PARSE_LIMIT = 100;
 
     /**
      * @var ParsingKeyword[]
@@ -39,7 +39,6 @@ class WordstatParser extends ProxyParserThread
                 $success = $this->parseQuery();
 
                 if (!$success) {
-                    $this->log('not valid page loaded');
                     $this->fails++;
                     if ($this->fails > 10) {
                         $this->removeCookieFile();
@@ -181,9 +180,15 @@ class WordstatParser extends ProxyParserThread
         foreach ($document->find('table.campaign tr td table:first td a') as $link) {
             $keyword = trim(pq($link)->text());
             $value = (int)pq($link)->parent()->next()->next()->text();
+
             if (!empty($keyword) && !empty($value)) {
-                $keyword = preg_replace('/(\+)[\w]*/', '', $keyword);
+                $this->startTimer('search keyword');
+                if (strpos($keyword, '+') !== false)
+                    $keyword = preg_replace('/(\+)[\w]*/', '', $keyword);
+
                 $model = Keyword::GetKeyword($keyword);
+                $this->endTimer();
+
                 if ($value >= self::PARSE_LIMIT)
                     $this->AddToParsingInclusiveKeyword($model);
                 $this->AddStat($model, $value);
@@ -248,7 +253,8 @@ class WordstatParser extends ProxyParserThread
         $this->startTimer('add_keyword_to_parsing');
 
         $yandex = YandexPopularity::model()->findByPk($keyword_id);
-        if ($yandex->parsed == 1)
+        //если уже спарсили полностью и была задана тематика
+        if ($yandex !== null && $yandex->parsed == 1 && !empty($yandex->theme) && !empty($theme))
             return;
 
         $transaction = Yii::app()->db_seo->beginTransaction();
@@ -260,6 +266,10 @@ class WordstatParser extends ProxyParserThread
                 $parsing_model->priority = $this->keyword->priority;
                 $parsing_model->theme = $theme;
                 $parsing_model->save();
+            }else{
+                $exist->priority = $this->keyword->priority;
+                $exist->theme = $theme;
+                $exist->save();
             }
             $transaction->commit();
         } catch (Exception $e) {

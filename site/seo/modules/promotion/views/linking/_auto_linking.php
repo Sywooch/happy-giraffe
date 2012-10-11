@@ -4,9 +4,12 @@
  */
 $period = 2;
 $phrase->refresh();
-
-$this->renderPartial('_settings');
 ?>
+<div>Всего ссылок: <?=InnerLink::model()->count() ?></div>
+<div>За сегодня: <?=InnerLink::model()->countByAttributes(array('date'=>date("Y-m-d"))) ?></div>
+
+<?php $this->renderPartial('_settings');?>
+
 <div class="seo-table table-result table-promotion">
 
     <div class="center-title">

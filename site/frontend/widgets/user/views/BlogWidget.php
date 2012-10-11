@@ -11,7 +11,7 @@
                 <p><?=$post->getShort(140)?></p>
                 <div class="meta">
                     <span class="views"><i class="icon"></i><?=PageView::model()->viewsByPath($post->url)?>/span>
-                    <?=CHtml::link('<i class="icon"></i>' . $c->commentsCount, $c->getUrl(true), array('class' => 'comments'))?>
+                    <?=CHtml::link('<i class="icon"></i>' . $post->commentsCount, $post->getUrl(true), array('class' => 'comments'))?>
                 </div>
             </li>
         <?php endforeach; ?>

@@ -90,7 +90,16 @@
                             echo $data->status->status->text;
                             break;
                         case 'post':
-                            echo $data->post->purified->text;
+                            $text = $data->post->purified->text;
+                            if ($data->gallery !== null && count($data->gallery->items) > 0) {
+                                $gallery = Yii::app()->controller->renderPartial('/community/_gallery', array('data' => $data), true);
+                                if (strpos($text, '<!--gallery-->') === false) {
+                                    $text = $text . $gallery;
+                                } else {
+                                    $text = str_replace('<!--gallery-->', $gallery, $text);
+                                }
+                            }
+                            echo $text;
                             break;
                         case 'video':
                             $video = new Video($data->video->link);
@@ -174,19 +183,6 @@
 
                 <?php if($data->gallery !== null && count($data->gallery->items) > 0): ?>
                     <?php $photo = $data->gallery->items[0]; ?>
-                    <div class="gallery-box">
-                        <a class="img" data-id="<?=$data->gallery->items[0]->photo->id?>">
-                            <?php echo CHtml::image($photo->photo->getPreviewUrl(695, 463, Image::WIDTH)) ?>
-
-                            <div class="title">
-                                <?=CHtml::encode($data->gallery->title)?>
-                            </div>
-                            <div class="count">
-                                смотреть <span><?=count($data->gallery->items)?> ФОТО</span>
-                            </div>
-                            <i class="icon-play"></i>
-                        </a>
-                    </div>
                     <?php
                     $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
                         'selector' => '.gallery-box a',

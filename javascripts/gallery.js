@@ -65,7 +65,7 @@ jQuery.fn.pGallery = function(options) {
             });
 
             plugin.window.on('click', '.re-watch', function() {
-                plugin.openImage(pGallery.first);
+                plugin.openImage(pGallery.start);
                 $('.photo-container', this.window).show();
                 $('.rewatch-container', this.window).hide();
                 return false;

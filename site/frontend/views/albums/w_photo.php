@@ -105,6 +105,7 @@
             });
             pGallery.first = <?=$photos[0]->id?>;
             pGallery.last = <?=end($photos)->id?>;
+            pGallery.start = <?=$photo->id?>;
         </script>
 
         <div id="photo" class="photo-container">
@@ -126,7 +127,7 @@
 
             <div class="album-end">
 
-                <div class="block-title">Вы посмотрели альбом "<?=$title?>"</div>
+                <div class="block-title">Вы посмотрели "<?=$title?>"</div>
 
                 <span class="count"><?=$count?> фото</span>
 

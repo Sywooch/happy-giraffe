@@ -26,6 +26,19 @@
 		<link rel="stylesheet" href='/stylesheets/ie.css' type="text/css" media="screen" />
 	<![endif]-->
 	
+	<script type="text/javascript">
+	$(document).ready(function () {
+		/* Слоган при показе новых настроений (смайлов) */
+		$(".user-mood .moods-list-settings-list a").click(function(){
+			$(".user-mood .moods-list-settings .slogan").hide();
+		});
+		$(".user-mood .moods-list-settings-list .new").click(function(){
+			$(".user-mood .moods-list-settings .slogan").show();
+		});
+		
+	});
+	</script>
+	
 </head>
 <body class="body-club">
 	<div id="layout" class="wrapper">
@@ -271,7 +284,7 @@
 									
 								</div>
 								
-							</div>					
+							</div>
 						
 						</div>
 						

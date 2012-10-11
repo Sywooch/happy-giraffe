@@ -197,7 +197,6 @@ class SeoCommand extends CConsoleCommand
         $criteria->limit = 1000;
         $criteria->offset = 0;
 
-        $i = 0;
         $models = array(0);
         while (!empty($models)) {
             $models = Page::model()->findAll($criteria);
@@ -217,24 +216,24 @@ class SeoCommand extends CConsoleCommand
                             . ' : ' . $samePage->keywordGroup->taskCount
                             . ' : ' . count($samePage->keywordGroup->keywords). "\n";
 
-                        if ($samePage->outputLinksCount == 0
-                            && $samePage->inputLinksCount == 0
-                            && $samePage->taskCount == 0
-                            && $samePage->phrasesCount == 0
-                            && empty($samePage->keywordGroup->keywords)
-                            && $samePage->keywordGroup->taskCount == 0
-                        ) {
+//                        if ($samePage->outputLinksCount == 0
+//                            && $samePage->inputLinksCount == 0
+//                            && $samePage->taskCount == 0
+//                            && $samePage->phrasesCount == 0
+//                            && empty($samePage->keywordGroup->keywords)
+//                            && $samePage->keywordGroup->taskCount == 0
+//                        ) {
                             if (!$first)
                                 $samePage->delete();
-                        }
+//                        }
 
                         $first = false;
                     }
                 }
             }
 
-            $criteria->offset = $criteria->offset + 700;
-            $i++;
+            echo $criteria->offset . "\n";
+            $criteria->offset += 900;
         }
     }
 }

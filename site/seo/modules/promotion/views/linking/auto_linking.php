@@ -11,7 +11,6 @@ console.log("phrase_id="+' . $phrase->id . ');
 ');
 ?>
 <div id="auto-linking">
-
     <?php $this->renderPartial('_auto_linking', compact('phrase', 'pages', 'keywords', 'page')); ?>
 
 </div>

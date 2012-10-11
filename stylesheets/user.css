@@ -194,6 +194,7 @@
 	background:#fbf8be;
 	padding:6px 18px;
 	font-size:12px;
+	line-height:18px;
 	margin-bottom:3px;
 }
 #user .user-mood .moods-list-settings-list {float:left;}
@@ -209,6 +210,7 @@
 }
 #user .user-mood .moods-list-settings-list li:last-child {border-right:0;}
 #user .user-mood .moods-list-settings-list li:hover,
+#user .user-mood .moods-list-settings-list .new,
 #user .user-mood .moods-list-settings-list .active {
 	padding:0 5px;
 	border-width:0 1px 0 0;
@@ -223,13 +225,22 @@
 	color:#938d14;
 	text-decoration:none;
 }
-#user .user-mood .moods-list-settings-list li:hover a,
-#user .user-mood .moods-list-settings-list .active a {
+#user .user-mood .moods-list-settings-list .active a,
+#user .user-mood .moods-list-settings-list li:hover a {
+	background:#bfba58;
+	color:#fff;
+	border:0;
+	padding:3px 5px 3px 6px;
+}
+#user .user-mood .moods-list-settings-list li.new a,
+#user .user-mood .moods-list-settings-list .new.active a {
 	color:#fff;
 	border:0;
 	background:#fd3e3e;
 	padding:3px 5px 3px 6px;
 }
+
+
 #user .user-mood .moods-list-settings .slogan {color:#1faa13;text-align:center;}
 
 #user #userMoodTooltip {position:absolute;display:none;z-index:99;background:#fffeea;padding:3px 6px;border:1px solid #e7e395;font-size:14px;/*css3*/ -moz-box-shadow:0px 0px 10px #e7e395;-webkit-box-shadow:0px 0px 10px #e7e395;box-shadow:0px 0px 10px #e7e395;behavior: url(/stylesheets/PIE.htc);}

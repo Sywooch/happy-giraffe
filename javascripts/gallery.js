@@ -2,7 +2,8 @@ var pGallery = {
     photos : {},
     currentPhoto : null,
     first : null,
-    last : null
+    last : null,
+    start: null
 };
 
 jQuery.fn.pGallery = function(options) {
@@ -64,7 +65,7 @@ jQuery.fn.pGallery = function(options) {
             });
 
             plugin.window.on('click', '.re-watch', function() {
-                plugin.openImage(pGallery.first);
+                plugin.openImage(pGallery.start);
                 $('.photo-container', this.window).show();
                 $('.rewatch-container', this.window).hide();
                 return false;
@@ -187,10 +188,10 @@ jQuery.fn.pGallery = function(options) {
     plugin.next = function () {
         console.log('next');
         var next = pGallery.photos[pGallery.currentPhoto].next;
-        if (next !== null) {
-            this.openImage(next);
-        } else {
+        if (next == pGallery.start && Object.keys(pGallery.photos).length > 3) {
             this.showAlbumEnd();
+        } else {
+            (next !== null) ? this.openImage(next) : this.openImage(pGallery.first);
         }
     };
 

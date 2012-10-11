@@ -104,10 +104,13 @@ $cs
                 <div class="row-title"><?php echo $form->label($slave_model, 'text') ?>:</div>
                 <div class="row-elements">
                     <?php
-                    $this->widget('ext.ckeditor.CKEditorWidget', array(
-                        'model' => $slave_model,
-                        'attribute' => 'text',
-                    ));
+                        $this->widget('ext.ckeditor.CKEditorWidget', array(
+                            'model' => $slave_model,
+                            'attribute' => 'text',
+                            'config' => array(
+                                'toolbar' => 'MainGallery',
+                            ),
+                        ));
                     ?>
                 </div>
             </div>

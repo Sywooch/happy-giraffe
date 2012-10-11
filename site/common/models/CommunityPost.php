@@ -41,6 +41,11 @@ class CommunityPost extends HActiveRecord
             'purified' => array(
                 'class' => 'site.common.behaviors.PurifiedBehavior',
                 'attributes' => array('text', 'preview'),
+                'options' => array(
+                    'HTML.AllowedComments' => array(
+                        'gallery' => true,
+                    ),
+                ),
             ),
 		);
 	}
@@ -141,5 +146,20 @@ class CommunityPost extends HActiveRecord
         }
 
         parent::afterSave();
+    }
+
+    protected function beforeSave()
+    {
+        $this->text = str_replace('<hr class="gallery" />', '<!--gallery-->', $this->text);
+
+        return parent::beforeSave();
+    }
+
+    protected function afterFind()
+    {
+        if (Yii::app()->controller->route == 'community/edit')
+            $this->text = str_replace('<!--gallery-->', '<hr class="gallery" />', $this->text);
+
+        parent::afterFind();
     }
 }

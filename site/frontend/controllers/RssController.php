@@ -28,6 +28,8 @@ class RssController extends HController
         $sql = "(SELECT id, created, 'CommunityContent' AS entity FROM community__contents)
                 UNION
                 (SELECT id, created, 'CookRecipe' AS entity FROM cook__recipes)
+                UNION
+                (SELECT id, created, 'AlbumPhoto' AS entity FROM album__photos WHERE album_id IS NOT NULL)
                 ORDER BY created DESC
                 LIMIT :limit
                 OFFSET :offset";
@@ -81,6 +83,8 @@ class RssController extends HController
                 $sql = "(SELECT community__contents.id, created, 'CommunityContent' AS entity FROM community__contents JOIN community__rubrics ON community__contents.rubric_id = community__rubrics.id WHERE author_id = :author_id AND type_id != 4 AND by_happy_giraffe = 0 AND community__rubrics.user_id IS NOT NULL)
                         UNION
                         (SELECT id, created, 'CookRecipe' AS entity FROM cook__recipes WHERE author_id = :author_id)
+                        UNION
+                        (SELECT id, created, 'AlbumPhoto' AS entity FROM album__photos WHERE album_id IS NOT NULL AND author_id = :author_id)
                         ORDER BY created DESC
                         LIMIT :limit
                         OFFSET :offset";
@@ -88,6 +92,8 @@ class RssController extends HController
                 $sql = "(SELECT id, created, 'CommunityContent' AS entity FROM community__contents WHERE author_id = :author_id AND type_id != 4 AND by_happy_giraffe = 0)
                         UNION
                         (SELECT id, created, 'CookRecipe' AS entity FROM cook__recipes WHERE author_id = :author_id)
+                        UNION
+                        (SELECT id, created, 'AlbumPhoto' AS entity FROM album__photos WHERE album_id IS NOT NULL AND author_id = :author_id)
                         ORDER BY created DESC
                         LIMIT :limit
                         OFFSET :offset";

@@ -113,21 +113,10 @@ class CookDecorationCategory extends HActiveRecord
                 ),
             ));
 
-            if ($start_id === null) {
-                if (empty($this->id))
-                    $decorations = CookDecoration::model()->cache(3600, new CDbCacheDependency($sql))->findAll($criteria);
-                else
-                    $decorations = $this->cache(3600, new CDbCacheDependency($sql))->getRelated('decorations', false, $criteria);
-            } else {
-                $decorations = array();
-
-                $startCriteria = clone $criteria;
-                $startCriteria->compare('id', $start_id);
-
-                $prevCriteria = clone $criteria;
-                $prevCriteria->limit = 3;
-                $prevCriteria->
-            }
+            if (empty($this->id))
+                $decorations = CookDecoration::model()->cache(3600, new CDbCacheDependency($sql))->findAll($criteria);
+            else
+                $decorations = $this->cache(3600, new CDbCacheDependency($sql))->getRelated('decorations', false, $criteria);
 
             $photos = array();
             foreach($decorations as $model)

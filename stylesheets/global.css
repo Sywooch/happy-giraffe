@@ -864,7 +864,7 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 
 .contest-nav {
 	position:relative;
-	margin:0 -40px ;
+	margin:0 -40px 40px;
 	padding:12px 50px;
 	background:#faf5ff;
 }

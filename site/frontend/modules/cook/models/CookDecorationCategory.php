@@ -113,7 +113,7 @@ class CookDecorationCategory extends HActiveRecord
                 ),
             ));
 
-            if ($preview === falset) {
+            if ($preview === false) {
                 if (empty($this->id))
                     $decorations = CookDecoration::model()->findAll($criteria);
                 else

@@ -773,7 +773,7 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 	margin:0 0 0 5px!important;
 }
 
-#contest {margin:20px;}
+#contest {margin:0px;}
 
 #contest h4 {text-align: left;color: #0281b0;font: bold 14px Arial, Helvetica, sans-serif;padding: 6px 18px;background: #d4f5fc;display:inline-block;*zoom:1;*display:inline;clear: both;margin: 15px 0 15px;}
 
@@ -864,8 +864,8 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 
 .contest-nav {
 	position:relative;
-	margin:0 -40px 40px;
-	padding:12px 50px;
+	margin:-20px -20px 40px;
+	padding:12px 10px;
 	background:#faf5ff;
 }
 	.contest-nav ul {list-style:none;}

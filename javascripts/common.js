@@ -83,7 +83,7 @@ $(document).ready(function () {
         event.stopPropagation();
     });
 
-
+    $('.popup-container').css('right', getScrollBarWidth() + 'px');
 });
 
 function addAttributesToCart(form, update) {

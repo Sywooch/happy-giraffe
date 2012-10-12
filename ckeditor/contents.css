@@ -31,3 +31,11 @@ blockquote, div.quote
     margin: 0 0 0 15px;
     padding: 8px 15px;
 }
+
+.gallery {
+    height: 111px;
+    background-image: url(/images/play.png);
+    background-repeat: no-repeat;
+    background-position: top center;
+    border: 0;
+}

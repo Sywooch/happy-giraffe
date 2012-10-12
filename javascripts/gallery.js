@@ -2,7 +2,8 @@ var pGallery = {
     photos : {},
     currentPhoto : null,
     first : null,
-    last : null
+    last : null,
+    start: null
 };
 
 jQuery.fn.pGallery = function(options) {
@@ -49,7 +50,7 @@ jQuery.fn.pGallery = function(options) {
             pGallery.currentPhoto = plugin.data.id;
             $('#photo-window').html(html);
 
-            $('#photo-window-in', this.window).css('left', Math.ceil(getScrollBarWidth()/2) + 'px');
+            //$('#photo-window-in', this.window).css('left', Math.ceil(getScrollBarWidth()/2) + 'px');
 
             plugin.window.find('.close').bind('click', function() {plugin.closeWindow();return false;});
 
@@ -64,7 +65,7 @@ jQuery.fn.pGallery = function(options) {
             });
 
             plugin.window.on('click', '.re-watch', function() {
-                plugin.openImage(pGallery.first);
+                plugin.openImage(pGallery.start);
                 $('.photo-container', this.window).show();
                 $('.rewatch-container', this.window).hide();
                 return false;
@@ -92,7 +93,7 @@ jQuery.fn.pGallery = function(options) {
                 return false;
             });*/
 
-            //$('body').css('overflow', 'hidden');
+            $('body').css('.top-nav-fixed overflow', 'hidden');
             var newUrl = plugin.getEntityUrl() + 'photo' + plugin.data.id + '/';
             if (typeof history.pushState !== 'undefined') {
                 plugin.history.changeBrowserUrl(newUrl);
@@ -187,10 +188,10 @@ jQuery.fn.pGallery = function(options) {
     plugin.next = function () {
         console.log('next');
         var next = pGallery.photos[pGallery.currentPhoto].next;
-        if (next !== null) {
-            this.openImage(next);
-        } else {
+        if (next == pGallery.start && Object.keys(pGallery.photos).length > 3) {
             this.showAlbumEnd();
+        } else {
+            (next !== null) ? this.openImage(next) : this.openImage(pGallery.first);
         }
     };
 
@@ -231,7 +232,7 @@ jQuery.fn.pGallery = function(options) {
             document.title = plugin.originalTitle;
             if (! plugin.data.singlePhoto)
                 plugin.history.changeBrowserUrl(plugin.start_url);
-            //$('body').css('overflow', 'auto');
+            $('.top-nav-fixed body').css('overflow', 'auto');
             plugin.window.remove();
             plugin.bg.remove();
         });

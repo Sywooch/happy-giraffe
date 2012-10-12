@@ -26,6 +26,19 @@
 		<link rel="stylesheet" href='/stylesheets/ie.css' type="text/css" media="screen" />
 	<![endif]-->
 	
+	<script type="text/javascript">
+	$(document).ready(function () {
+		/* Слоган при показе новых настроений (смайлов) */
+		$(".user-mood .moods-list-settings-list a").click(function(){
+			$(".user-mood .moods-list-settings .slogan").hide();
+		});
+		$(".user-mood .moods-list-settings-list .new").click(function(){
+			$(".user-mood .moods-list-settings .slogan").show();
+		});
+		
+	});
+	</script>
+	
 </head>
 <body class="body-club">
 	<div id="layout" class="wrapper">
@@ -174,6 +187,82 @@
 									<p>Хочу в этом году поехать<br/>с семьей на море</p>
 								</div>
 								
+								<div class="user-mood">
+
+									Мое настроение<img id="userMood" src="/images/widget/mood/5.png" />
+									<a href="" class="pseudo small">Изменить</a>
+									<a href="" class="tooltip-new">20 новых</a>
+									<div class="moods-list tabs">
+										<div class="moods-list-settings clearfix">
+											<ul class="moods-list-settings-list">
+												<li><a onclick="setTab(this, 1);" href="javascript:void(0);">Обычные</a></li>
+												<li class="active new"><a onclick="setTab(this, 2);" href="javascript:void(0);">Новые</a></li>
+											</ul>
+											<div class="slogan">Новые уровни - новые смайлы! Вперед!</div>
+										</div>
+										
+										<ul class="tab-box tab-box-1">
+											<li><a href=""><img src="/images/widget/mood/1.png" />Ем</a></li>
+											<li><a href=""><img src="/images/widget/mood/2.png" />Испуг</a></li>
+											<li><a href=""><img src="/images/widget/mood/3.png" />Грустный</a></li>
+											<li><a href=""><img src="/images/widget/mood/4.png" />Молчу</a></li>
+											<li><a href=""><img src="/images/widget/mood/5.png" />Подозрительно</a></li>
+											<li><a href=""><img src="/images/widget/mood/6.png" />Интересно</a></li>
+											<li><a href=""><img src="/images/widget/mood/7.png" />Все ОК</a></li>
+											<li><a href=""><img src="/images/widget/mood/8.png" />Голова кругом</a></li>
+											<li><a href=""><img src="/images/widget/mood/9.png" />Любовь</a></li>
+											<li><a href=""><img src="/images/widget/mood/10.png" />Подарок</a></li>
+											<li><a href=""><img src="/images/widget/mood/11.png" />Красотка</a></li>
+											<li><a href=""><img src="/images/widget/mood/12.png" />Радость</a></li>
+											<li><a href=""><img src="/images/widget/mood/13.png" />Задумался</a></li>
+											<li><a href=""><img src="/images/widget/mood/14.png" />Смущаюсь</a></li>
+											<li><a href=""><img src="/images/widget/mood/15.png" />Праздник</a></li>
+											<li><a href=""><img src="/images/widget/mood/16.png" />Стреляюсь</a></li>
+											<li><a href=""><img src="/images/widget/mood/17.png" />Драка</a></li>
+											<li><a href=""><img src="/images/widget/mood/18.png" />Отстой</a></li>
+											<li><a href=""><img src="/images/widget/mood/19.png" />Смешно</a></li>
+											<li><a href=""><img src="/images/widget/mood/20.png" />Улыбаюсь</a></li>
+											<li><a href=""><img src="/images/widget/mood/21.png" />Шопинг</a></li>
+											<li><a href=""><img src="/images/widget/mood/22.png" />Напеваю</a></li>
+											<li><a href=""><img src="/images/widget/mood/23.png" />Болею</a></li>
+											<li><a href=""><img src="/images/widget/mood/24.png" />Сплю</a></li>
+											<li><a href=""><img src="/images/widget/mood/25.png" />Плачу</a></li>
+											<li><a href=""><img src="/images/widget/mood/26.png" />Звезда</a></li>
+											<li><a href=""><img src="/images/widget/mood/27.png" />Падаю со смеху</a></li>
+											<li><a href=""><img src="/images/widget/mood/28.png" />Слушаю музыку</a></li>
+											<li><a href=""><img src="/images/widget/mood/29.png" />Тихо</a></li>
+											<li><a href=""><img src="/images/widget/mood/30.png" />В поиске</a></li>
+											<li><a href=""><img src="/images/widget/mood/31.png" />Отлично</a></li>
+											<li><a href=""><img src="/images/widget/mood/32.png" />Дразнюсь</a></li>
+											<li><a href=""><img src="/images/widget/mood/33.png" />Боюсь</a></li>
+											<li><a href=""><img src="/images/widget/mood/34.png" />В ярости</a></li>
+											<li><a href=""><img src="/images/widget/mood/35.png" />Есть повод</a></li>
+										</ul>
+										<ul class="tab-box tab-box-2" style="display:block;">
+											<li><a href=""><img src="/images/widget/mood/36.png" />Повар</a></li>
+											<li><a href=""><img src="/images/widget/mood/37.png" />Мастер</a></li>
+											<li><a href=""><img src="/images/widget/mood/38.png" />Я крут</a></li>
+											<li><a href=""><img src="/images/widget/mood/39.png" />Хочу денег</a></li>
+											<li><a href=""><img src="/images/widget/mood/40.png" />Ангел</a></li>
+											<li><a href=""><img src="/images/widget/mood/41.png" />И тебя вылечу</a></li>
+											<li><a href=""><img src="/images/widget/mood/42.png" />Дразнюсь</a></li>
+											<li><a href=""><img src="/images/widget/mood/43.png" />Ловелас</a></li>
+											<li><a href=""><img src="/images/widget/mood/44.png" />Любовь</a></li>
+											<li><a href=""><img src="/images/widget/mood/45.png" />В поиске</a></li>
+											<li><a href=""><img src="/images/widget/mood/46.png" />Учусь</a></li>
+											<li><a href=""><img src="/images/widget/mood/47.png" />Фоткаю</a></li>
+											<li><a href=""><img src="/images/widget/mood/48.png" />На югах</a></li>
+											<li><a href=""><img src="/images/widget/mood/49.png" />Не слышу</a></li>
+											<li><a href=""><img src="/images/widget/mood/50.png" />Все по фен-шуй</a></li>
+											<li><a href=""><img src="/images/widget/mood/51.png" />Смущаюсь</a></li>
+											<li><a href=""><img src="/images/widget/mood/52.png" />Заложник</a></li>
+											<li><a href=""><img src="/images/widget/mood/53.png" />Не вижу</a></li>
+											<li><a href=""><img src="/images/widget/mood/54.png" />Умора</a></li>
+											<li><a href=""><img src="/images/widget/mood/55.png" />Рисую</a></li>
+										</ul>
+									</div>
+								</div>
+								
 							</div>
 							
 							<div class="col-3">
@@ -195,7 +284,7 @@
 									
 								</div>
 								
-							</div>					
+							</div>
 						
 						</div>
 						

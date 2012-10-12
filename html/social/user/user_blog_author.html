@@ -597,7 +597,7 @@
 					
 					<div class="col-23 clearfix">
 						
-						<div class="blog-title">Блог Александра Богоявленского <a href="#blogSettings" class="settings fancy tooltip" title="Настройка блога"></a></div>
+						<div class="blog-title font-color-1 font-6">Блог Александра Богоявленского <a href="#blogSettings" class="settings fancy tooltip" title="Настройка блога"></a></div>
 						
 						<div class="entry entry-full">
 			
@@ -815,92 +815,143 @@
     <a href="javascript:void(0);" onclick="$.fancybox.close();" class="popup-close tooltip" title="Закрыть"></a>
     
     <div class="popup-title">Настройки блога</div>
-    
-    <div class="default-nav">
-      <ul>
-        <li class="active"><a href="">Название блога</a></li>
-        <li><a>Рубрики блога</a></li>
-        <li class="disabled"><a>Оформление блога</a></li>
-      </ul>
-    </div>
-    
-    <div class="settings-form">
-      <div class="row">
-        <div class="row-title">Название <span>(не более 30 знаков)</span></div>
-        <div class="row-elements">
-          <span class="item-title">Блокнот натуралиста</span>
-          <a href="" class="edit tooltip" title="Редактировать название блога"></a>
-        </div>
-        <div class="row-elements">
-          <input type="text" placeholder="Введите название блога" />
-          <button class="btn btn-green-small"><span><span>Ok</span></span></button>
-        </div>
-        
-      </div>
-    </div>
-    
-    <div class="bottom">
-      <div class="btn-box"><a href="" class="btn-finish">Завершить</a></div>
-    </div>
-    
-    <!-- ---------------- -->
-    
-    
-    <div class="rubrics">
-      
-      <div class="note">Редактируйте рубрики. Вы можете: создать новую, удалить, изменить название, переместить рубрику на другое место <span>*</span></div>
-      
-      <div class="list clearfix">
-        <div class="col">
+    <div class="tabs">
+        <div class="default-nav">
           <ul>
-            <li>
-              <span class="num">1</span>
-              <span class="rubric"><span></span>Свадьба - прекрасный миг</span>
-              <a href="" class="edit tooltip" title="редактировать"></a>
-              <a href="" class="remove tooltip" title="удалить"></a>
-            </li>
-            <li>
-              <span class="num">2</span>
-              <span class="rubric"><span></span>Прекрасный миг</span>
-              <a href="" class="edit tooltip" title="редактировать"></a>
-              <a href="" class="remove tooltip" title="удалить"></a>
-            </li>
-            
+            <li><a href="javascript:void(0);" onclick="setTab(this, 1);">Название блога</a></li>
+            <li><a href="javascript:void(0);" onclick="setTab(this, 2);">Рубрики блога</a></li>
+            <li class="active"><a href="javascript:void(0);" onclick="setTab(this, 3);">Стиль заголовка</a><span class="tooltip-new">новое</span></li>
           </ul>
         </div>
-         <div class="col">
-          <ul>
-            <li>
-              <span class="num">3</span>
-              <span class="rubric"><span></span>Свадьба</span>
-              <a href="" class="edit tooltip" title="редактировать"></a>
-              <a href="" class="remove tooltip" title="удалить"></a>
-            </li>
-            <li class="add">
-              <span class="num"><a href="" class="icon-add"></a></span>
-              Вы можете создать новую рубрику
-              <br/>
-              <input type="text" placeholder="Введите название рубрики (не более 30 символов)" />
-              <button class="btn btn-green-small"><span><span>Ok</span></span></button>
-            </li>
-            
-          </ul>
+        <div class="tab-box tab-box-1">
+            <div class="settings-form">
+                <div class="row">
+                    <div class="row-title">Название <span>(не более 30 знаков)</span></div>
+                    <div class="row-elements">
+                      <span class="item-title">Блокнот натуралиста</span>
+                      <a href="" class="edit tooltip" title="Редактировать название блога"></a>
+                    </div>
+                    <div class="row-elements">
+                      <input type="text" placeholder="Введите название блога" />
+                      <button class="btn btn-green-small"><span><span>Ok</span></span></button>
+                    </div>
+                
+                </div>
+            </div>
+        
+            <div class="bottom">
+              <div class="btn-box"><a href="" class="btn-finish">Завершить</a></div>
+            </div>
         </div>
         
-      </div>
-      
-      <div class="clearfix bottom-line">
-        <div class="btn-box"><a href="" class="btn-finish">Завершить</a></div>
-        <div class="note">
-          <span>*</span>
-          <div class="in">Чтобы переместить рубрику,<br/>подведи курсор, хватай и тащи</div>
-          <img src="/images/blog_settings_drag_note.gif" />
+		<!-- ---------------- -->
+		<div class="rubrics tab-box tab-box-2">
+		  
+		  <div class="note">Редактируйте рубрики. Вы можете: создать новую, удалить, изменить название, переместить рубрику на другое место <span>*</span></div>
+		  
+		  <div class="list clearfix">
+			<div class="col">
+			  <ul>
+				<li>
+				  <span class="num">1</span>
+				  <span class="rubric"><span></span>Свадьба - прекрасный миг</span>
+				  <a href="" class="edit tooltip" title="редактировать"></a>
+				  <a href="" class="remove tooltip" title="удалить"></a>
+				</li>
+				<li>
+				  <span class="num">2</span>
+				  <span class="rubric"><span></span>Прекрасный миг</span>
+				  <a href="" class="edit tooltip" title="редактировать"></a>
+				  <a href="" class="remove tooltip" title="удалить"></a>
+				</li>
+				
+			  </ul>
+			</div>
+			 <div class="col">
+			  <ul>
+				<li>
+				  <span class="num">3</span>
+				  <span class="rubric"><span></span>Свадьба</span>
+				  <a href="" class="edit tooltip" title="редактировать"></a>
+				  <a href="" class="remove tooltip" title="удалить"></a>
+				</li>
+				<li class="add">
+				  <span class="num"><a href="" class="icon-add"></a></span>
+				  Вы можете создать новую рубрику
+				  <br/>
+				  <input type="text" placeholder="Введите название рубрики (не более 30 символов)" />
+				  <button class="btn btn-green-small"><span><span>Ok</span></span></button>
+				</li>
+				
+			  </ul>
+			</div>
+			
+		  </div>
+		  
+		  <div class="clearfix bottom-line">
+			<div class="btn-box"><a href="" class="btn-finish">Завершить</a></div>
+			<div class="note">
+			  <span>*</span>
+			  <div class="in">Чтобы переместить рубрику,<br/>подведи курсор, хватай и тащи</div>
+			  <img src="/images/blog_settings_drag_note.gif" />
+			</div>
+		  </div>
+
+		</div>
+        
+        <div class="headings-style tab-box tab-box-3" style="display:block;">
+        <!-- google fonts -->
+        <script type="text/javascript">
+          WebFontConfig = {
+            google: { families: [ 'Bad+Script::latin,cyrillic', 'Istok+Web::latin,cyrillic', 'Ruslan+Display::latin,cyrillic', 'Marck+Script::latin,cyrillic', 'Oranienbaum::latin,cyrillic', 'Lobster::latin,cyrillic', 'Russo+One::latin,cyrillic', 'Stalinist+One::latin,cyrillic', 'Comfortaa::latin,cyrillic' ] }
+          };
+          (function() {
+            var wf = document.createElement('script');
+            wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+              '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+            wf.type = 'text/javascript';
+            wf.async = 'true';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(wf, s);
+          })(); </script>
+        
+            <div class="clearfix">
+                <div class="fonts-style">
+                    <p>Выберите шрифт</p>
+                    <ul class="pattern-list clearfix">
+                        <li><a href="#"><span class="pattern">Обычный</span></a></li>
+                        <li><a href="#"><span class="pattern font-1">Мой блог</span></a></li>
+                        <li><a href="#"><span class="pattern font-2">Мой блог</span></a></li>
+                        <li><a href="#"><span class="pattern font-3">Мой блог</span></a></li>
+                        <li><a href="#"><span class="pattern font-4">Мой блог</span></a></li>
+                        <li><a href="#"><span class="pattern font-5">Мой блог</span></a></li>
+                        <li><a href="#" class="active"><span class="pattern font-6">Мой блог</span></a></li>
+                        <li><a href="#"><span class="pattern font-7">Мой блог</span></a></li>
+                        <li><a href="#"><span class="pattern font-8">Мой блог</span></a></li>
+                        <li><a href="#"><span class="pattern font-9">Мой блог</span></a></li>
+                    </ul>
+                </div>
+                <div class="color-style">
+                    <p>Выберите цвет</p>
+                    <ul class="pattern-list clearfix">
+                        <li><a href="#"><span class="pattern"></span></a></li>
+                        <li><a href="#" class="active"><span class="pattern font-color-1"></span></a></li>
+                        <li><a href="#"><span class="pattern font-color-2"></span></a></li>
+                        <li><a href="#"><span class="pattern font-color-3"></span></a></li>
+                        <li><a href="#"><span class="pattern font-color-4"></span></a></li>
+                        <li><a href="#"><span class="pattern font-color-5"></span></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="heading-preview font-color-1 font-6">
+                Говорим о коллекциях и не только
+            </div>
+            <div class="bottom">
+                <button class="btn-green btn-green-medium">Сохранить настройки</button>
+            </div>
         </div>
-      </div>
-      
-      
-      
-    </div>
+        
+	</div>
     
   </div>
   

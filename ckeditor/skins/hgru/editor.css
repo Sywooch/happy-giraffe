@@ -259,6 +259,7 @@ a:hover.cke_colorauto,a:hover.cke_colormore,a:focus.cke_colorauto,a:focus.cke_co
 .cke_skin_hgru .cke_button_specialchar .cke_icon{background-position:0 -656px;}
 
 .cke_skin_hgru .cke_button_pagebreak .cke_icon {background-position:-236px 0;}
+.cke_skin_hgru .cke_button_play .cke_icon {background-position:-318px 0;}
 
 .cke_skin_hgru .cke_button_print .cke_icon{background-position:0 -176px;}
 .cke_skin_hgru .cke_button_checkspell .cke_icon,.cke_skin_hgru .cke_button_scayt .cke_icon{background-position:0 -192px;}

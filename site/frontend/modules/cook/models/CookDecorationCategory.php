@@ -90,7 +90,7 @@ class CookDecorationCategory extends HActiveRecord
 		));
 	}
 
-    public function getPhotoCollection()
+    public function getPhotoCollection($start_id = null)
     {
         $cacheId = ($this->id) ? 'wPhoto_decor_' . $this->id : 'wPhoto_decor_all';
         $sql = 'SELECT MAX(created) FROM ' . CookDecoration::model()->tableName();
@@ -113,10 +113,33 @@ class CookDecorationCategory extends HActiveRecord
                 ),
             ));
 
-            if (empty($this->id))
-                $decorations = CookDecoration::model()->findAll($criteria);
-            else
-                $decorations = $this->getRelated('decorations', false, $criteria);
+            if ($start_id === null) {
+                if (empty($this->id))
+                    $decorations = CookDecoration::model()->findAll($criteria);
+                else
+                    $decorations = $this->getRelated('decorations', false, $criteria);
+            } else {
+                $decorations = array();
+
+                $startCriteria = clone $criteria;
+                $startCriteria->compare('id', $start_id);
+                $start = CookDecoration::model()->find($startCriteria);
+                $decorations[] = $start;
+
+                $prevCriteria = clone $criteria;
+                $prevCriteria->limit = 3;
+                $prevCriteria->compare('id', '<' . $start_id);
+                $prev = CookDecoration::model()->findAll($prevCriteria);
+                foreach ($prev as $m)
+                    $decorations[] = $m;
+
+                $nextCriteria = clone $criteria;
+                $nextCriteria->limit = 3;
+                $nextCriteria->compare('id', '>' . $start_id);
+                $next = CookDecoration::model()->findAll($nextCriteria);
+                foreach ($next as $m)
+                    $decorations[] = $m;
+            }
 
             $photos = array();
             foreach($decorations as $model)

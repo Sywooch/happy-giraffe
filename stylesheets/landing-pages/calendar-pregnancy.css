@@ -69,8 +69,8 @@
 	background:url(/images/landing-pages/calendar-pregnancy/arrow.png) no-repeat 50% 100%;
 }
 .smallscreen .calendar-pregnancy-form .row {
-	background-size:42px;
-	margin-bottom:10px;
+	background-size:33px;
+	margin-bottom:6px;
 }
 .calendar-pregnancy-form .text {
 	width:312px;
@@ -92,7 +92,7 @@
 	 behavior: url(PIE.htc);
 }
 .smallscreen .calendar-pregnancy-form .text {
-	margin:10px 0;
+	margin:10px 0 23px;
 }
 
 .calendar-pregnancy-form .btn-green {

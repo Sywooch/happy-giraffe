@@ -514,6 +514,7 @@ input[type=text].error , input[type=password].error , textarea.error {border:1px
 .btn-blue {
     display: inline-block;
     *display: inline;
+	*zoom:1;
     padding: 4px 10px 4px;
     margin-bottom: 0;
     *margin-left: .3em;
@@ -546,6 +547,7 @@ input[type=text].error , input[type=password].error , textarea.error {border:1px
 .btn-blue-light {
     display: inline-block;
     *display: inline;
+	*zoom:1;
     padding: 4px 10px 4px;
     margin-bottom: 0;
     *margin-left: .3em;

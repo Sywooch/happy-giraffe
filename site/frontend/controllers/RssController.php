@@ -29,7 +29,7 @@ class RssController extends HController
                 UNION
                 (SELECT id, created, 'CookRecipe' AS entity FROM cook__recipes)
                 UNION
-                (SELECT id, created, 'AlbumPhoto' AS entity FROM album__photos WHERE album_id IS NOT NULL AND type != 2)
+                (SELECT id, created, 'AlbumPhoto' AS entity FROM album__photos WHERE album_id IS NOT NULL)
                 ORDER BY created DESC
                 LIMIT :limit
                 OFFSET :offset";
@@ -84,7 +84,7 @@ class RssController extends HController
                         UNION
                         (SELECT id, created, 'CookRecipe' AS entity FROM cook__recipes WHERE author_id = :author_id)
                         UNION
-                        (SELECT id, created, 'AlbumPhoto' AS entity FROM album__photos WHERE album_id IS NOT NULL AND type != 2 AND author_id = :author_id)
+                        (SELECT id, created, 'AlbumPhoto' AS entity FROM album__photos WHERE album_id IS NOT NULL AND author_id = :author_id)
                         ORDER BY created DESC
                         LIMIT :limit
                         OFFSET :offset";
@@ -93,7 +93,7 @@ class RssController extends HController
                         UNION
                         (SELECT id, created, 'CookRecipe' AS entity FROM cook__recipes WHERE author_id = :author_id)
                         UNION
-                        (SELECT id, created, 'AlbumPhoto' AS entity FROM album__photos WHERE album_id IS NOT NULL AND type != 2 AND author_id = :author_id)
+                        (SELECT id, created, 'AlbumPhoto' AS entity FROM album__photos WHERE album_id IS NOT NULL AND author_id = :author_id)
                         ORDER BY created DESC
                         LIMIT :limit
                         OFFSET :offset";

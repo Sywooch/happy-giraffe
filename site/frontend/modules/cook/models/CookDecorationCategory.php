@@ -122,20 +122,20 @@ class CookDecorationCategory extends HActiveRecord
                 $decorations = array();
 
                 $startCriteria = clone $criteria;
-                $startCriteria->compare('id', $start_id);
+                $startCriteria->compare('t.id', $start_id);
                 $start = CookDecoration::model()->find($startCriteria);
                 $decorations[] = $start;
 
                 $prevCriteria = clone $criteria;
                 $prevCriteria->limit = 3;
-                $prevCriteria->compare('id', '<' . $start_id);
+                $prevCriteria->compare('t.id', '<' . $start_id);
                 $prev = CookDecoration::model()->findAll($prevCriteria);
                 foreach ($prev as $m)
                     $decorations[] = $m;
 
                 $nextCriteria = clone $criteria;
                 $nextCriteria->limit = 3;
-                $nextCriteria->compare('id', '>' . $start_id);
+                $nextCriteria->compare('t.id', '>' . $start_id);
                 $next = CookDecoration::model()->findAll($nextCriteria);
                 foreach ($next as $m)
                     $decorations[] = $m;

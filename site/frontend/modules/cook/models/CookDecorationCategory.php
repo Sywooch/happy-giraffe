@@ -90,7 +90,7 @@ class CookDecorationCategory extends HActiveRecord
 		));
 	}
 
-    public function getPhotoCollection($start_id = null)
+    public function getPhotoCollection()
     {
         $cacheId = ($this->id) ? 'wPhoto_decor_' . $this->id : 'wPhoto_decor_all';
         $sql = 'SELECT MAX(created) FROM ' . CookDecoration::model()->tableName();

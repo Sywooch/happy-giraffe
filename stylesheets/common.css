@@ -4210,6 +4210,7 @@ label {
 	.contest-participant h3 {
 		color:#252525;
 		font-size:22px;
+		font-weight:normal;
 		margin-bottom:5px;
 	}
 	.contest-participant .img {

@@ -3393,7 +3393,7 @@ body.gallery {overflow:hidden;}
 
 #photo-window .top-line .photo-info {margin:0 180px;text-align:center;color:#9f9e9e;font-size:11px;}
 #photo-window .top-line .photo-info .count {color:#bfbfbf;font-size:12px;}
-#photo-window .top-line .photo-info .title {font-size:18px;color:#ffffff;margin-top:15px;}
+#photo-window .top-line .photo-info .title {font-size:18px;color:#ffffff;margin-top:10px;}
 #photo-window .top-line .photo-info .title input {width:75%;padding:2px 5px;border:1px solid #c5e8ef;vertical-align:middle;background:#fff;margin-left:-6px;}
 
 #photo-window #photo {position:relative;padding:10px 0 20px;}
@@ -4254,7 +4254,6 @@ label {
 		font-weight:normal;
 		font-size:25px;
 	}
-	
 	.contest-participant .ball {float:right;margin-right:45px;}
 	.contest-participant .ball .ball-count {color:#fd5807;font:italic 30px/25px 'Times New Roman', Georgia, Times, serif;float:right;}
 	.contest-participant .ball .ball-text {float:right;clear:right;font-size:10px;line-height:10px;color:#737373;}

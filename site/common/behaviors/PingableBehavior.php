@@ -29,6 +29,12 @@ class PingableBehavior extends CActiveRecordBehavior
         } else {
             $pingUserId = $this->owner->author_id;
         }
+
+        if (get_class($this->owner) == 'AlbumPhoto') {
+            if ($this->owner->album_id === null || $this->owner->type == 2)
+                return;
+        }
+
         $pingName = 'Блог пользователя ' . $this->owner->author->fullName;
         $pingUrl = Yii::app()->createAbsoluteUrl('rss/user', array('user_id' => $pingUserId));
 

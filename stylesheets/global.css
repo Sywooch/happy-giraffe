@@ -867,6 +867,8 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 	vertical-align:middle;
 	margin-bottom:15px;
 }
+.section-banner .button-holder {position:relative;} 
+.section-banner .button-holder .contest-error-hint {top:60px;margin-left:-130px;}
 
 .contest-nav {
 	position:relative;

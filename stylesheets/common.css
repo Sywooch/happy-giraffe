@@ -327,7 +327,7 @@ input[type=text].error , input[type=password].error , textarea.error {border:1px
 /* errors */
 
 
-
+/*  buttons */
 .btn-green {
     display: inline-block;
     *display: inline;
@@ -501,7 +501,7 @@ input[type=text].error , input[type=password].error , textarea.error {border:1px
 .btn.btn-purple-medium > span > span {padding-left:15px;height:32px;line-height:32px;background-position:0 -1600px;padding-right:10px;}
 
 .btn-wish-list .icon-wish-list {margin-right:-5px;position:relative;top:-2px;}
-
+.btn-green .arr-r,
 .btn .arr-r {display:inline-block;*zoom:1;*display:inline;width:10px;height:13px;background:url(/images/arrow_r.png) no-repeat;margin-left:8px;position:relative;top:2px;margin-right:-5px;}
 
 .btn .arr-b {display:inline-block;*zoom:1;*display:inline;width:8px;height:5px;background:url(/images/common.png) no-repeat -401px -208px;margin-left:8px;position:relative;top:-1px;margin-right:0px;vertical-align:middle;}

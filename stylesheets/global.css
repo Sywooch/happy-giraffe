@@ -789,6 +789,7 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 #contest .sticker big {color: #03a12a;background: none;display: block;float: none;width: 200px;margin: 20px 20px 0px 30px;font: italic 16px Arial, Helvetica, sans-serif;}
 #contest .sticker ul {width: 200px;margin: 0px 15px 10px 30px;}
 #contest .sticker ul li {list-style-image: url(../images/list.png);text-indent: 0;padding: 3px 0;}
+#contest .sticker .btn-green,
 #contest .sticker .btn {margin-right:30px;}
 
 #contest .winners-list {width:880px;margin:0 auto;padding-bottom:20px;}

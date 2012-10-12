@@ -65,7 +65,6 @@
 	line-height:47px;
 }
 .calendar-pregnancy-form .row {
-	padding-bottom:15px;
 	margin-bottom:15px;
 	background:url(/images/landing-pages/calendar-pregnancy/arrow.png) no-repeat 50% 100%;
 }
@@ -79,17 +78,17 @@
 	*display:inline;
 	*zoom:1;
 	text-align:center;
-	border:1px solid #ebddf8;
-	margin:40px 0;
+	border:1px solid #d7bcf1;
+	margin:20px 0 45px;
 	padding:10px 5px;
 	height:28px;
 	line-height:28px;
 	font-size:22px;
 	background:#fff;
-	-webkit-box-shadow: 0 0 32px rgba(219,193,244,1);
-	-moz-box-shadow: 0 0 32px rgba(219,193,244,1);
-	-ms-box-shadow: 0 0 32px rgba(219,193,244,1);
-	box-shadow: 0 0 32px rgba(219,193,244,1);
+	-webkit-box-shadow: 0 0 30px rgba(219,193,244,.7);
+	-moz-box-shadow: 0 0 30px rgba(219,193,244,.7);
+	-ms-box-shadow: 0 0 30px rgba(219,193,244,.7);
+	box-shadow: 0 0 30px rgba(219,193,244,.7);
 	 behavior: url(PIE.htc);
 }
 .smallscreen .calendar-pregnancy-form .text {

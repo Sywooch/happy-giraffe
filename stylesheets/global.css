@@ -793,7 +793,7 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 #contest .sticker .btn-green,
 #contest .sticker .btn {margin-right:30px;}
 
-#contest .contest-participant {float:right;width:298px;clear:right;}
+#contest .contest-participant {float:right;width:298px;clear:right;margin-left:30px;}
 
 #contest .winners-list {width:880px;margin:0 auto;padding-bottom:20px;}
 #contest .winners-list .winner-box {margin:0 30px;background:#f9fafa;padding:10px 25px;float:left;width:183px;}

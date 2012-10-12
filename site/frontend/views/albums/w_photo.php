@@ -20,7 +20,7 @@
         $more = null;
     }
 
-    $collection = (get_class($model) == 'CookDecorationCategory') ? $model->getPhotoCollection(Yii::app()->request->getQuery('id')) : $model->getPhotoCollection();
+    $collection = $model->getPhotoCollection(get_class($model) == 'CookDecorationCategory');
 
     $title = $collection['title'];
     $photos = $collection['photos'];

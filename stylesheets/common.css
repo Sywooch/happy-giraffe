@@ -2080,9 +2080,10 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 .gallery-photos-new ul li .actions .remove {display:inline-block;*zoom:1;*display:inline;width:10px;height:12px;background:url(../images/common.png) no-repeat -315px -149px !important;position:relative;top:2px;margin-right:5px;}
 .gallery-photos-new ul li .actions .edit {display:inline-block;*zoom:1;*display:inline;width:14px;height:18px;background:url(../images/common.png) no-repeat -341px -136px !important;margin:0 auto;position:relative;text-decoration:none;font-weight:normal;z-index:3;vertical-align:middle;margin-left:10px;top:-2px;margin-right:5px;}
 .gallery-photos-new ul li .count {background:#fff;background:rgba(255, 255, 255, .8);width:100%;padding:3px 0;position:absolute;left:0;bottom:0;text-align:center;}
-.gallery-photos-new ul li .actions .ball {position:absolute;right:6px;top:1px;}
-.gallery-photos-new ul li .actions .ball-count {color:#fd5807;font:italic 24px/21px 'Times New Roman', Georgia, Times, serif;float:right;}
-.gallery-photos-new ul li .actions .ball-text {float:right;clear:right;font-size:10px;line-height:10px;color:#737373;}
+.gallery-photos-new ul li .contest-ball {background:#fff;background:rgba(255, 255, 255, .8);width:100%;padding:3px 0;position:absolute;left:0;top:0;text-align:right;}
+.gallery-photos-new ul li .contest-ball .ball {position:absolute;right:6px;top:1px;}
+.gallery-photos-new ul li .contest-ball .ball-count {color:#fd5807;font:italic 24px/21px 'Times New Roman', Georgia, Times, serif;float:right;}
+.gallery-photos-new ul li .contest-ball .ball-text {float:right;clear:right;font-size:10px;line-height:10px;color:#737373;}
 
 #gallery .gallery-photos-new {padding-top:20px;}
 #gallery .gallery-album .gallery-photos-new {padding-top:10px;}

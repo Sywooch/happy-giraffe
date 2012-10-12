@@ -20,7 +20,7 @@
         $more = null;
     }
 
-    $collection = $model->getPhotoCollection(get_class($model) == 'CookDecorationCategory');
+    $collection = $model->photoCollection;
 
     $title = $collection['title'];
     $photos = $collection['photos'];

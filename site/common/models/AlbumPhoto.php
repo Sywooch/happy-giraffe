@@ -117,9 +117,9 @@ class AlbumPhoto extends HActiveRecord
                 'createAttribute' => 'created',
                 'updateAttribute' => 'updated',
             ),
-            'pingable' => array(
-                'class' => 'site.common.behaviors.PingableBehavior',
-            ),
+            //'pingable' => array(
+            //    'class' => 'site.common.behaviors.PingableBehavior',
+            //),
         );
     }
 

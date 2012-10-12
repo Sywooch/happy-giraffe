@@ -124,6 +124,17 @@ class Keyword extends HActiveRecord
         return count($allSearch['matches']);
     }
 
+    public function findSimilarIds($name)
+    {
+        $allSearch = Yii::app()->search
+            ->select('*')
+            ->from('keywords')
+            ->where(' ' . $name . ' ')
+            ->limit(0, 500000)
+            ->searchRaw();
+        return $allSearch['matches'];
+    }
+
     public function getChildKeywords($num)
     {
         $criteria = new CDbCriteria;

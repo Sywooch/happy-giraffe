@@ -90,16 +90,16 @@ class CookDecorationCategory extends HActiveRecord
 		));
 	}
 
-    public function getPhotoCollection()
+    public function getPhotoCollection($start_id = null)
     {
         $cacheId = ($this->id) ? 'wPhoto_decor_' . $this->id : 'wPhoto_decor_all';
         $sql = 'SELECT MAX(created) FROM ' . CookDecoration::model()->tableName();
         if ($this->id)
             $sql .= ' WHERE id = ' . $this->id;
 
-        $collection = Yii::app()->cache->get($cacheId);
+        //$collection = Yii::app()->cache->get($cacheId);
         //$collection = false;
-        if ($collection === false) {
+        //if ($collection === false) {
             $criteria = new CDbCriteria(array(
                 'with' => array(
                     'photo' => array(
@@ -113,10 +113,21 @@ class CookDecorationCategory extends HActiveRecord
                 ),
             ));
 
-            if (empty($this->id))
-                $decorations = CookDecoration::model()->findAll($criteria);
-            else
-                $decorations = $this->getRelated('decorations', false, $criteria);
+            if ($start_id === null) {
+                if (empty($this->id))
+                    $decorations = CookDecoration::model()->cache(3600, new CDbCacheDependency($sql))->findAll($criteria);
+                else
+                    $decorations = $this->cache(3600, new CDbCacheDependency($sql))->getRelated('decorations', false, $criteria);
+            } else {
+                $decorations = array();
+
+                $startCriteria = clone $criteria;
+                $startCriteria->compare('id', $start_id);
+
+                $prevCriteria = clone $criteria;
+                $prevCriteria->limit = 3;
+                $prevCriteria->
+            }
 
             $photos = array();
             foreach($decorations as $model)
@@ -135,8 +146,8 @@ class CookDecorationCategory extends HActiveRecord
                 'photos' => $photos,
             );
 
-            Yii::app()->cache->set($cacheId, $collection, 3600, new CDbCacheDependency($sql));
-        }
+            //Yii::app()->cache->set($cacheId, $collection, 0, new CDbCacheDependency($sql));
+        //}
         return $collection;
     }
 }

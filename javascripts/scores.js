@@ -1,7 +1,6 @@
 var Scores = {
     entity:null,
-    entity_id:null,
-    back_item:0
+    entity_id:null
 }
 
 Scores.open = function (tab) {
@@ -11,7 +10,7 @@ Scores.open = function (tab) {
         Popup.load('Scores');
         $('#popup-preloader').hide();
         $('body').append(data);
-        $('#user-nav-scores').addClass('active');
+        $('.user-nav-2 .item-career').addClass('active');
         Scores.openTab(tab);
     });
 }
@@ -20,7 +19,7 @@ Scores.close = function () {
     Popup.unload();
     $('#user-career').remove();
     $('body').removeClass('nav-fixed');
-    $('#user-nav-scores').removeClass('active');
+    $('.user-nav-2 .item-career').removeClass('active');
 }
 
 Scores.toggle = function () {
@@ -41,60 +40,64 @@ Scores.openTab = function (index) {
 
     this.block().find('.scores-in:visible').hide();
     this.block().find('.scores-in:eq(' + index + ')').show();
+
+    $('#achievements-list').hide();
+    $('#awards-list').hide();
 }
 
-Scores.help = function (index) {
-    this.back_item = index;
+Scores.help = function () {
     this.block().find('.scores-in:visible').hide();
     this.block().find('.header').hide();
-    this.block().find('.how.stripes').show();
+    this.block().find('#achievement-help').show();
 
-    if (index == 0)
-        this.block().find('.how.stripes .back').html('Вернуться к уровню');
-    if (index == 1)
-        this.block().find('.how.stripes .back').html('Вернуться к достижениям');
-    if (index == 2)
-        this.block().find('.how.stripes .back').html('Вернуться к трофеям');
+    this.block().find('#achievement-help .back').html(Scores.BackTitle());
 }
 
-Scores.back = function () {
-    this.block().find('.how.stripes').hide();
-    this.block().find('.scores-in:eq(' + Scores.back_item + ')').show();
+Scores.BackTitle = function(){
+    var index = $("#user-career div.nav li").index($('#user-career div.nav li.active'));
+
+    if (index == 0)
+        return 'Вернуться к уровню';
+    if (index == 1)
+        return 'Вернуться к достижениям';
+    if (index == 2)
+        return 'Вернуться к трофеям';
+
+    return 'Вернуться';
+}
+
+Scores.back = function (selector) {
+    var index = $("#user-career-in div.nav li").index($('#user-career-in div.nav li.active'));
+    this.block().find(selector).hide();
+    this.block().find('.scores-in:eq(' + index + ')').show();
     this.block().find('.header').show();
 }
 
 Scores.openTrophy = function (index) {
-    $('.achievements-list.trophies').hide();
+    $('#awards-list .back').html(Scores.BackTitle());
+    this.block().find('.scores-in:visible').hide();
     $('#awards-list').show();
 
-    var carousel = $('#achievements').jcarousel({
-        list:'>ul',
-        items:'>li'
-    });
-
-    $('#achievements > .prev').jcarouselControl({target:'-=1', carousel:carousel});
-    $('#achievements > .next').jcarouselControl({target:'+=1', carousel:carousel});
-
-    $('#achievements').jcarousel('scroll', $('#carousel-award-' + index));
-}
-Scores.openTrophyList = function () {
-    $('#achievements').hide();
-    $('.achievements-list.trophies').show();
+    Scores.initCarousel('#awards');
+    var carousel = jQuery('#awards').data('jcarousel');
+    carousel.scroll($('#carousel-award-' + index), false);
 }
 
 Scores.openAchieve = function (index) {
-    $('.achievements-list.trophies').hide();
-    $('#awards-list').show();
+    $('#achievements-list .back').html(Scores.BackTitle());
+    this.block().find('.scores-in:visible').hide();
+    $('#achievements-list').show();
 
-    var carousel = $('#achievements').jcarousel({
-        list:'>ul',
-        items:'>li'
-    });
+    Scores.initCarousel('#achievements');
+    var carousel = jQuery('#achievements').data('jcarousel');
+    carousel.scroll($('#carousel-achieve-' + index), false);
+}
 
-    $('#achievements > .prev').jcarouselControl({target:'-=1', carousel:carousel});
-    $('#achievements > .next').jcarouselControl({target:'+=1', carousel:carousel});
+Scores.initCarousel = function(selector){
+    var carousel = $(selector).jcarousel({list:'>ul',items:'>li'});
 
-    $('#achievements').jcarousel('scroll', $('#carousel-award-' + index));
+    $(selector+' > .prev').jcarouselControl({target:'-=1', carousel:carousel});
+    $(selector+' > .next').jcarouselControl({target:'+=1', carousel:carousel});
 }
 
 Scores.whoElse = function (el, type, id) {

@@ -785,13 +785,15 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 
 #contest .content-title .btn-blue-light-small {margin:0 30px;}
 
-#contest .sticker {background: url(../images/stiker.png) no-repeat;width: 260px;height: 255px;padding: 20px 30px 20px 30px;text-align: left;float:right;margin-left:50px;}
+#contest .sticker {background: url(../images/stiker.png) no-repeat;width: 260px;height: 255px;padding: 20px 30px 20px 30px;text-align: left;float:right;margin-left:50px;clear:right;}
 #contest .sticker big {color: #03a12a;background: none;display: block;float: none;width: 200px;margin: 20px 20px 0px 30px;font: italic 16px Arial, Helvetica, sans-serif;}
 #contest .sticker p {margin:15px 35px 20px 30px;}
 #contest .sticker ul {width: 200px;margin: 0px 15px 10px 30px;}
 #contest .sticker ul li {list-style-image: url(../images/list.png);text-indent: 0;padding: 3px 0;}
 #contest .sticker .btn-green,
 #contest .sticker .btn {margin-right:30px;}
+
+#contest .contest-participant {float:right;width:298px;clear:right;}
 
 #contest .winners-list {width:880px;margin:0 auto;padding-bottom:20px;}
 #contest .winners-list .winner-box {margin:0 30px;background:#f9fafa;padding:10px 25px;float:left;width:183px;}

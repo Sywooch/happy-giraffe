@@ -544,6 +544,10 @@ input[type=text].error , input[type=password].error , textarea.error {border:1px
 	font:bold 28px/55px Arial, Tahoma, Verdana, sans-serif;
 	padding:0 21px;
 }
+.btn-blue-30 {
+	font:16px/30px Arial, Tahoma, Verdana, sans-serif;
+	padding:0 13px;
+}
 .btn-blue-light {
     display: inline-block;
     *display: inline;
@@ -3392,7 +3396,7 @@ body.gallery {overflow:hidden;}
 #photo-window .top-line .photo-info .title {font-size:18px;color:#ffffff;margin-top:15px;}
 #photo-window .top-line .photo-info .title input {width:75%;padding:2px 5px;border:1px solid #c5e8ef;vertical-align:middle;background:#fff;margin-left:-6px;}
 
-#photo-window #photo {position:relative;padding:10px 0;}
+#photo-window #photo {position:relative;padding:10px 0 20px;}
 #photo-window #photo .img {position:relative;width:960px;margin:0 auto;}
 #photo-window #photo .img table {width:100%;}
 #photo-window #photo .img table td {text-align:center;vertical-align:middle;height:627px;}
@@ -4185,3 +4189,77 @@ label {
 	.new-capability img {
 		vertical-align:middle;
 	}
+
+/* contest */
+.contest-mother-i-advert {
+	position:relative;
+	background:url(../images/contest/contest-mother-i-advert.jpg) no-repeat;
+	border:1px solid #eeeded;
+	height:266px;
+	margin:-33px 0 55px;
+}
+	.contest-mother-i-advert .btn-blue {position:absolute;right:18px;top:16px;}
+	
+.contest-participant {
+	position:relative;
+	border:1px solid #eeeded;
+	margin:-33px 0 55px;
+	padding:20px;
+	text-align:center;
+}
+	.contest-participant h3 {
+		color:#252525;
+		font-size:22px;
+		margin-bottom:5px;
+	}
+	.contest-participant .img {
+		display:block;
+		position:relative;
+		margin:10px 0 5px;
+	}
+	.contest-participant .img a:hover img {
+		opacity:.5;
+		filter: alpha(opacity = 50);
+	}
+	.contest-participant .img .btn {
+		position:absolute;
+		left:50%;
+		top:50%;
+		width:130px;
+		height:30px;
+		line-height:30px;
+		font-size:16px;
+		color:#fff;
+		background:#24b828;
+		background:rgba(36,184,40,.9);
+		text-align:center;
+		margin-left:-65px;
+		margin-top:-15px;
+		display:none;
+		-moz-border-radius:15px;
+		-webkit-border-radius:15px;
+		border-radius:15px;
+	}
+	.contest-participant .img a:hover .btn {display:block;}
+	.contest-participant .position {
+		float:left;
+		color:#727272;
+		font-size:15px;
+		line-height:30px;
+		margin-left:45px;
+	}
+	.contest-participant .position strong {
+		color:#696767;
+		font-weight:normal;
+		font-size:25px;
+	}
+	
+	.contest-participant .ball {float:right;margin-right:45px;}
+	.contest-participant .ball .ball-count {color:#fd5807;font:italic 30px/25px 'Times New Roman', Georgia, Times, serif;float:right;}
+	.contest-participant .ball .ball-text {float:right;clear:right;font-size:10px;line-height:10px;color:#737373;}
+
+
+
+
+
+

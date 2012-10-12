@@ -22,7 +22,8 @@ class WordstatController extends SController
         $this->render('index');
     }
 
-    public function actionWordstatParse(){
+    public function actionWordstatParse()
+    {
         $parser = new WordstatParser();
         $parser->start(0);
     }
@@ -63,45 +64,19 @@ class WordstatController extends SController
         ));
     }
 
-    public function actionClearParsingKeywords(){
-        ParsingKeyword::model()->deleteAll();
-
-        echo CJSON::encode(array('status' => true));
-    }
-
-    public function actionRemovePlus()
+    public function actionSearchKeyword()
     {
-        $end = false;
-        $i = 0;
+        $name = Yii::app()->request->getPost('name');
+        $model = Keyword::model()->findByAttributes(array('name' => $name));
 
-        $criteria = new CDbCriteria;
-        $criteria->order = 'id';
-        $criteria->limit = 1000;
-        while (!$end) {
-            $criteria->condition = 'id >= ' . ($i * 1000) . ' AND id < ' . ($i*1000 + 1000);
-            $models = Keyword::model()->findAll($criteria);
-
-            foreach ($models as $model) {
-                if (preg_match_all('/\+([а-яА-Я]+)/', $model->name, $matches)) {
-                    echo $model->name.'<br>';
-                    $new_name = str_replace('+', '', $model->name);
-
-                    $keyword = Keyword::model()->findByAttributes(array('name' => $new_name));
-                    if ($keyword !== null) {
-                        //$model->delete();
-                    } else {
-                        $model->name = $new_name;
-                        //$model->save();
-                    }
-                }
-            }
-
-            $i++;
-            if ($i%100 == 0)
-                echo $i.'<br>';
-
-            if ($i > 230000)
-                $end = true;
-        }
+        if ($model !== null)
+            echo CJSON::encode(array(
+                'status' => true,
+                'html' => $this->renderPartial('keyword', array('yandex' => $model->yandex), true)
+            ));
+        else
+            echo CJSON::encode(array(
+                'status' => false,
+            ));
     }
 }

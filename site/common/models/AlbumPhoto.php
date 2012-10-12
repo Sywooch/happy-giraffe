@@ -116,7 +116,10 @@ class AlbumPhoto extends HActiveRecord
                 'class' => 'zii.behaviors.CTimestampBehavior',
                 'createAttribute' => 'created',
                 'updateAttribute' => 'updated',
-            )
+            ),
+            //'pingable' => array(
+            //    'class' => 'site.common.behaviors.PingableBehavior',
+            //),
         );
     }
 
@@ -395,9 +398,13 @@ class AlbumPhoto extends HActiveRecord
         );
     }
 
-    public function getUrl($absolute = false)
+    public function getUrl($comments = false, $absolute = false)
     {
         list($route, $params) = $this->urlParams;
+
+        if ($comments)
+            $params['#'] = 'comment_list';
+
         $method = $absolute ? 'createAbsoluteUrl' : 'createUrl';
         return Yii::app()->$method($route, $params);
     }
@@ -428,5 +435,10 @@ class AlbumPhoto extends HActiveRecord
             return CHtml::image($this->getOriginalUrl(460, 600), $this->title);
         else
             return CHtml::image($this->getPreviewUrl(460, 600), $this->title);
+    }
+
+    public function getRssContent()
+    {
+        return CHtml::image($this->getPreviewUrl(460, 600), $this->title);
     }
 }

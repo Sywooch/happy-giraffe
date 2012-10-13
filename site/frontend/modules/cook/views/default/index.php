@@ -113,7 +113,7 @@
             <div class="recipe-banner recipe-banner-1">
 
                 <div class="block-title">
-                    <span>1500 рецептов<br/>для мультиварки</span>
+                    <span>2500 рецептов<br/>для мультиварки</span>
                     <a href="<?=$this->createUrl('/cook/recipe/index', array('section' => 1))?>">Готовим в мультиварке <i class="arr">&rarr;</i></a>
                 </div>
 

@@ -10,6 +10,7 @@ class photoViewWidget extends CWidget
     public $entity_id;
     public $entity_url;
     public $singlePhoto = false;
+    public $query;
 
     public function init()
     {
@@ -24,7 +25,7 @@ class photoViewWidget extends CWidget
         $this->endWidget();
 
         Yii::app()->clientScript->registerScript('pGallery-' . $this->entity . '-' . $this->entity_id,
-            '$("' . $this->selector . '").pGallery(' . CJavaScript::encode(array('singlePhoto' => $this->singlePhoto, 'entity' => $this->entity, 'entity_id' => $this->entity_id, 'entity_url' => $this->entity_url)) . ');'
+            '$("' . $this->selector . '").pGallery(' . CJavaScript::encode(CMap::mergeArray(array('singlePhoto' => $this->singlePhoto, 'entity' => $this->entity, 'entity_id' => $this->entity_id, 'entity_url' => $this->entity_url), $this->query)) . ');'
         );
 
         Yii::app()->clientScript->registerScriptFile('/javascripts/history.js');

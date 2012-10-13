@@ -221,4 +221,42 @@ class Contest extends HActiveRecord
 
 		return parent::afterFind();
 	}
+
+    public function getPhotoCollection()
+    {
+        $criteria = new CDbCriteria(array(
+            'with' => array(
+                'photo' => array(
+                    'with' => array(
+                        'photo' => array(
+                            'alias' => 'albumphoto',
+                            'with' => array(
+                                'author' => array(
+                                    'with' => 'avatar',
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+            'condition' => 'contest_id = :contest_id',
+            'params' => array(':contest_id' => $this->id),
+        ));
+
+        $criteria->order = 't.' . Yii::app()->request->getQuery('sort') . ' DESC';
+
+        $works = ContestWork::model()->findAll($criteria);
+
+        $photos = array();
+        foreach ($works as $w) {
+            $p = $w->photo->photo;
+            $p->w_title = $w->title;
+            $photos[] = $p;
+        }
+
+        return array(
+            'title' => 'Фотоальбом ' . CHtml::link($this->title, $this->url),
+            'photos' => $photos,
+        );
+    }
 }

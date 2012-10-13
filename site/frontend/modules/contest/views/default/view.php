@@ -31,7 +31,7 @@
 <div class="contest-about clearfix">
 
     <div class="sticker">
-        <?php if (! Yii::app()->user->isGuest && Yii::app()->user->model->scores->full != 2): ?>
+        <?php if (! Yii::app()->user->isGuest && Yii::app()->user->model->scores->full == 2): ?>
             <p>Поздравляем! Вы влились в дружную семью Весёлого Жирафа и теперь можете принять участие в нашем конкурсе!</p>
         <?php else: ?>
             <big>Внимание!</big>

@@ -193,7 +193,7 @@
 
                             <div class="banner-box">
                                 <?php if (! Yii::app()->user->isGuest): ?>
-                                    <a href="<?=$this->createUrl('/contest/default/view', array('id' => 1)) ?>"><img src="/images/banner_02.png" /></a>
+                                    <a href="<?=$this->createUrl('/contest/default/view', array('id' => 2)) ?>"><img src="/images/meandmom.jpeg" /></a>
                                 <?php else: ?>
                                     <?=CHtml::link(CHtml::image('/images/banner_06.png'), '#register', array('class'=>'fancy', 'data-theme'=>'white-square'))?>
                                 <?php endif; ?>

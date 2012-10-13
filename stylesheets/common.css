@@ -2333,34 +2333,6 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 
 .like-btn {display:inline-block;*zoom:1;*display:inline;position:relative;}
 .like-btn .btn-icon {display:inline-block;*zoom:1;*display:inline;width:24px;height:24px;vertical-align:middle;background:url(../images/common.png) no-repeat 24px 24px;}
-.like-btn .like-error-hint {
-	position:absolute;
-	width:231px;
-	top:51px;
-	left:-109px;
-	padding:13px;
-	background:#fff2e2;
-	border:1px solid #fecfa7;
-	font-size:12px;
-	text-align:left;
-	-webkit-box-shadow: 0 6px 10px rgba(0,0,0,.1);
-	-moz-box-shadow: 0 6px 10px rgba(0,0,0,.1);
-	-ms-box-shadow: 0 6px 10px rgba(0,0,0,.1);
-	box-shadow: 0 6px 10px rgba(0,0,0,.1);
-	 behavior: url(PIE.htc);
-}
-.like-btn .like-error-hint:after{
-	content:"";
-	display:block;
-	position:absolute;
-	top:-13px;
-	left:50%;
-	width:18px;
-	height:13px;
-	margin:0 0 0 -9px;
-	background:url(../images/bg-like-error-hint.png) no-repeat;
-}
-.like-btn .like-error-hint h4 {margin-bottom:6px;color:#f95708;font-size:14px;font-weight:bold;}
 
 .like-btn .vk {background-position:-561px -101px;}
 .like-btn .gp {background-position:-587px -101px;}
@@ -4105,6 +4077,7 @@ label {
 .pattern-16 {background:url(/images/bg_pattern_16.jpg);}
 .pattern-17 {background:url(/images/bg_pattern_17.jpg);}
 .pattern-18 {background:url(/images/bg_pattern_18.jpg);}
+.pattern-19 {background:url(/images/bg_pattern_19.jpg);}
 
 /* fonts color */
 .font-color-0 {color:#353535 !important;}
@@ -4258,7 +4231,35 @@ label {
 	.contest-participant .ball .ball-count {color:#fd5807;font:italic 30px/25px 'Times New Roman', Georgia, Times, serif;float:right;}
 	.contest-participant .ball .ball-text {float:right;clear:right;font-size:10px;line-height:10px;color:#737373;}
 
-
+.contest-error-hint {
+	position:absolute;
+	width:231px;
+	top:51px;
+	left:50%;
+	padding:13px;
+	margin:0 0 0 -150px;
+	background:#fff2e2;
+	border:1px solid #fecfa7;
+	font-size:12px;
+	text-align:left;
+	-webkit-box-shadow: 0 6px 10px rgba(0,0,0,.1);
+	-moz-box-shadow: 0 6px 10px rgba(0,0,0,.1);
+	-ms-box-shadow: 0 6px 10px rgba(0,0,0,.1);
+	box-shadow: 0 6px 10px rgba(0,0,0,.1);
+	 behavior: url(PIE.htc);
+}
+.contest-error-hint:after{
+	content:"";
+	display:block;
+	position:absolute;
+	top:-13px;
+	left:50%;
+	width:18px;
+	height:13px;
+	margin:0 0 0 -9px;
+	background:url(../images/bg-like-error-hint.png) no-repeat;
+}
+.contest-error-hint h4 {margin-bottom:6px;color:#f95708;font-size:14px;font-weight:bold;}
 
 
 

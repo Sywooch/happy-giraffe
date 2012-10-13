@@ -5,9 +5,9 @@
  *
  * The followings are the available columns in table 'parsing_keywords':
  * @property integer $keyword_id
- * @property integer $depth
  * @property integer $active
  * @property integer $priority
+ * @property integer $theme
  *
  * The followings are the available model relations:
  * @property Keyword $keyword
@@ -47,11 +47,11 @@ class ParsingKeyword extends HActiveRecord
 		// will receive user inputs.
 		return array(
 			array('keyword_id', 'required'),
-			array('keyword_id, active, depth, priority', 'numerical', 'integerOnly'=>true),
+			array('keyword_id, active, priority, theme', 'numerical', 'integerOnly'=>true),
 			array('priority', 'default', 'value'=>0, 'setOnEmpty'=>true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('keyword_id, active, depth', 'safe', 'on'=>'search'),
+			array('keyword_id, active', 'safe', 'on'=>'search'),
 		);
 	}
 

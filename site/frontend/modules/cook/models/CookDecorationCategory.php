@@ -98,8 +98,8 @@ class CookDecorationCategory extends HActiveRecord
             $sql .= ' WHERE id = ' . $this->id;
 
         //$collection = Yii::app()->cache->get($cacheId);
-        $collection = false;
-        if ($collection === false) {
+        //$collection = false;
+        //if ($collection === false) {
             $criteria = new CDbCriteria(array(
                 'with' => array(
                     'photo' => array(
@@ -114,9 +114,9 @@ class CookDecorationCategory extends HActiveRecord
             ));
 
             if (empty($this->id))
-                $decorations = CookDecoration::model()->findAll($criteria);
+                $decorations = CookDecoration::model()->cache(3600, new CDbCacheDependency($sql))->findAll($criteria);
             else
-                $decorations = $this->getRelated('decorations', false, $criteria);
+                $decorations = $this->cache(3600, new CDbCacheDependency($sql))->getRelated('decorations', false, $criteria);
 
             $photos = array();
             foreach($decorations as $model)
@@ -135,8 +135,8 @@ class CookDecorationCategory extends HActiveRecord
                 'photos' => $photos,
             );
 
-            Yii::app()->cache->set($cacheId, $collection, 0, new CDbCacheDependency($sql));
-        }
+            //Yii::app()->cache->set($cacheId, $collection, 0, new CDbCacheDependency($sql));
+        //}
         return $collection;
     }
 }

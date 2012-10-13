@@ -135,7 +135,7 @@ var SeoModule = {
             }
         }, 'json');
     },
-    bindKeyword:function(el, keyword_id){
+    bindKeyword:function (el, keyword_id) {
         var url = $(el).prev().val();
 
         $.post('/writing/editor/bindKeyword/', {
@@ -154,7 +154,7 @@ var SeoModule = {
             }
         }, 'json');
     },
-    unbindKeyword:function(el, keyword_id){
+    unbindKeyword:function (el, keyword_id) {
         $.post('/writing/editor/unbindKeyword/', {
             keyword:keyword_id
         }, function (response) {
@@ -211,15 +211,24 @@ var WordStat = {
                 });
             }
         }, 'json');
+    },
+    searchKeyword:function (el) {
+        $.post('/wordstat/searchKeyword/', {name:$(el).prev().val()}, function (response) {
+            if (response.status) {
+                $('#result').html(response.html);
+            }
+            else
+                console.log('not found');
+        }, 'json');
     }
 }
 
 var Indexing = {
-    showRemoveUrls:function(){
+    showRemoveUrls:function () {
         $('#add-urls').hide();
         $('#remove-urls').show();
     },
-    showAddUrls:function(){
+    showAddUrls:function () {
         $('#add-urls').show();
         $('#remove-urls').hide();
     }

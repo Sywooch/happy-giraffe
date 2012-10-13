@@ -56,9 +56,10 @@ class DefaultController extends HController
 
     public function actionList($id, $sort = 'created')
     {
-        $this->pageTitle = 'Участники конкурса "Веселая семейка"';
         $contest = Contest::model()->findByPk($id);
-        if ($contest === null) throw new CHttpException(404, 'Такого конкурса не существует.');
+        if ($contest === null)
+            throw new CHttpException(404, 'Такого конкурса не существует.');
+        $this->pageTitle = 'Участники конкурса "' . $contest->title . '"';
 
         $this->contest = $contest;
 
@@ -67,19 +68,29 @@ class DefaultController extends HController
         $works->contest_id = $this->contest->id;
         $works = $works->search($sort);
 
-        $this->render('list', array(
-            'contest' => $contest,
-            'works' => $works->data,
-            'pages' => $works->pagination,
-            'sort' => $sort,
-        ));
+        if (Yii::app()->request->isAjaxRequest) {
+            $result = array(
+                'html' => $this->renderPartial('list', array(
+                    'contest' => $contest,
+                    'works' => $works,
+                    'sort' => $sort,
+                ), true),
+            );
+            echo CJSON::encode($result);
+        } else {
+            $this->render('list', array(
+                'contest' => $contest,
+                'works' => $works,
+                'sort' => $sort,
+            ));
+        }
     }
 
     public function actionRules($id)
     {
-        $this->pageTitle = 'Правила конкурса "Веселая семейка"';
         $contest = Contest::model()->findByPk($id);
         if ($contest === null) throw new CHttpException(404, 'Такого конкурса не существует.');
+        $this->pageTitle = 'Правила фотоконкурса "' . $contest->title . '"';
 
         $this->contest = $contest;
 

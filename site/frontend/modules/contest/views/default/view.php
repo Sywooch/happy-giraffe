@@ -31,11 +31,11 @@
 <div class="contest-about clearfix">
 
     <div class="sticker">
-        <?php if (! Yii::app()->user->isGuest || Yii::app()->user->model->scores->full != 2): ?>
+        <?php if (! Yii::app()->user->isGuest && Yii::app()->user->model->scores->full != 2): ?>
+            <p>Поздравляем! Вы влились в дружную семью Весёлого Жирафа и теперь можете принять участие в нашем конкурсе!</p>
+        <?php else: ?>
             <big>Внимание!</big>
             <p>Для того, чтобы принять участие в конкурсе, вы должны пройти 6 шагов заполнения анкеты</p>
-        <?php else: ?>
-            Поздравляем! Вы влились в дружную семью Весёлого Жирафа и теперь можете принять участие в нашем конкурсе!
         <?php endif; ?>
         <center>
             <a href="<?=$this->createUrl('/contest/default/statement', array('id' => $this->contest->id))?>" onclick="Contest.canParticipate(this, '<?=$this->createUrl('/contest/default/canParticipate', array('id' => $this->contest->id))?>'); return false;" class="btn-green btn-green-medium">Участвовать<i class="arr-r"></i></a>

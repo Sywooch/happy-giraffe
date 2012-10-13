@@ -16,7 +16,7 @@ class DefaultController extends HController
     {
         return array(
             array('allow',  // allow all users to perform 'index' and 'view' actions
-                'actions'=>array('index','view','list','rules', 'work', 'results'),
+                'actions'=>array('index','view','list','rules', 'work', 'results', 'canParticipate'),
                 'users'=>array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -40,17 +40,26 @@ class DefaultController extends HController
 
     public function actionView($id)
     {
-        $this->pageTitle = 'Фотоконкурс "Веселая семейка" на Веселом Жирафе';
         $contest = Contest::model()->with(array(
             'prizes' => array('with' => 'product'),
-            'works' => array('limit' => 15),
         ))->findByPk($id);
-        if ($contest === null) throw new CHttpException(404, 'Такого конкурса не существует.');
+        if ($contest === null)
+            throw new CHttpException(404, 'Такого конкурса не существует.');
+        $this->pageTitle = 'Фотоконкурс "' . $contest->title . '" на Веселом Жирафе';
 
         $this->contest = $contest;
 
+        $sort = 'created';
+        $works = new ContestWork('search');
+        $works->unsetAttributes();
+        $works->contest_id = $this->contest->id;
+        $works = $works->search($sort);
+        $works->pagination->pageSize = 12;
+
         $this->render('view', array(
             'contest' => $contest,
+            'works' => $works,
+            'sort' => $sort,
         ));
     }
 
@@ -150,14 +159,12 @@ class DefaultController extends HController
 
     public function actionStatement($id)
     {
-        $this->pageTitle = 'Участвовать в фотоконкурсе "Веселая семейка"';
         $this->contest = Contest::model()->findByPk($id);
 
-        if(time() > strtotime($this->contest->till_time))
-            throw new CHttpException(404, 'Конкурс завершен');
+        //if($this->contest->isStatement !== true)
+        //    throw new CHttpException(404, 'Вы уже участвуете в этом конкурсе');
 
-        if(!$this->contest->isStatement)
-            throw new CHttpException(404, 'Вы уже участвуете в этом конкурсе');
+        $this->pageTitle = 'Участвовать в фотоконкурсе "' . $this->contest->title . '"';
 
         $model = new ContestWork('upload');
         if(isset($_POST['ContestWork']))
@@ -192,5 +199,20 @@ class DefaultController extends HController
             }
         }
         $this->render('statement', array('model' => $model));
+    }
+
+    public function actionCanParticipate($id)
+    {
+        $contest = Contest::model()->findByPk($id);
+        $statement = $contest->isStatement;
+
+        $response = array(
+            'status' => $statement,
+        );
+
+        if ($statement == 1)
+            $response['id'] = Yii::app()->user->id;
+
+        echo CJSON::encode($response);
     }
 }

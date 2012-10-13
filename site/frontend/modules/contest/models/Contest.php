@@ -33,6 +33,8 @@
  */
 class Contest extends HActiveRecord
 {
+    const STATEMENT_GUEST = 0;
+    const STATEMENT_STEPS = 1;
 
 	public function behaviors()
 	{
@@ -177,11 +179,13 @@ class Contest extends HActiveRecord
 
     public function getIsStatement()
     {
-        if(Yii::app()->user->isGuest)
+        if (Yii::app()->user->isGuest)
+            return self::STATEMENT_GUEST;
+        if (Yii::app()->user->model->getScores()->full != 2)
+            return self::STATEMENT_STEPS;
+        if (ContestWork::model()->findByAttributes(array('user_id' => Yii::app()->user->id, 'contest_id' => $this->id)))
             return false;
-        if(ContestWork::model()->findByAttributes(array('user_id' => Yii::app()->user->id, 'contest_id' => $this->id)))
-            return false;
-        if(time() > strtotime($this->till_time))
+        if (time() > strtotime($this->till_time))
             return false;
         return true;
     }

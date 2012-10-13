@@ -4041,7 +4041,7 @@ label {
 
 /* */
 
-#btn-seo {display:block;width:58px;height:174px;background:url(/images/btn_seo.png) no-repeat;position:fixed;left:0;top:50%;margin-top:-87px;}
+#btn-seo {display:block;width:58px;height:174px;background:url(/images/btn_seo.png) no-repeat;position:fixed;left:0;top:50%;margin-top:-87px;z-index: 100;}
 
 #seo_tags.popup {width:760px;padding:20px 20px 20px 40px;}
 

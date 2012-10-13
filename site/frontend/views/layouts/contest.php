@@ -54,6 +54,6 @@
 
 <script id="oopsTmpl" type="text/x-jquery-tmpl">
     <div class="contest-error-hint">
-        <h4>Oops!</h4><p>Что бы проголосовать, вам нужно пройти <a href="<?=urldecode($this->createUrl('/user/profile', array('user_id' => '${id}', '#' => 'first-steps')))?>">Первые 6 шагов</a> в свой анкете </p>
+        <h4>Oops!</h4><p>Что бы принять участие в конкурсе, вам нужно пройти <a href="<?=urldecode($this->createUrl('/user/profile', array('user_id' => '${id}', '#' => 'first-steps')))?>">Первые 6 шагов</a> в свой анкете </p>
     </div>
 </script>

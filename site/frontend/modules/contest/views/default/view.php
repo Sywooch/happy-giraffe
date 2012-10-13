@@ -31,15 +31,19 @@
 <div class="contest-about clearfix">
 
     <div class="sticker">
-        <?php if (! Yii::app()->user->isGuest && Yii::app()->user->model->scores->full == 2): ?>
-            <p>Поздравляем! Вы влились в дружную семью Весёлого Жирафа и теперь можете принять участие в нашем конкурсе!</p>
+        <?php if (Yii::app()->user->isGuest): ?>
+            <big>Условия конкурса:</big>
+            <p>Для того, чтобы принять участие в конкурсе, вы должны <?=CHtml::link('зарегистрироваться', '#register', array('class' => 'fancy'))?></p>
+        <?php elseif (Yii::app()->user->model->scores->full != 2): ?>
+            <big>Условия конкурса:</big>
+            <p>Для того, чтобы принять участие в конкурсе, вы должны <?=CHtml::link('пройти 6 шагов', array('/user/profile', 'user_id' => Yii::app()->user->id, '#' => 'first-steps'))?> заполнения анкеты</p>
         <?php else: ?>
-            <big>Внимание!</big>
-            <p>Для того, чтобы принять участие в конкурсе, вы должны пройти 6 шагов заполнения анкеты</p>
+            <big>Поздравляем!</big>
+            <p>Вы влились в дружную семью Весёлого Жирафа и теперь можете принять участие в нашем конкурсе!</p>
+            <center>
+                <a href="<?=$this->createUrl('/contest/default/statement', array('id' => $this->contest->id))?>" onclick="Contest.canParticipate(this, '<?=$this->createUrl('/contest/default/canParticipate', array('id' => $this->contest->id))?>'); return false;" class="btn-green btn-green-medium">Участвовать<i class="arr-r"></i></a>
+            </center>
         <?php endif; ?>
-        <center>
-            <a href="<?=$this->createUrl('/contest/default/statement', array('id' => $this->contest->id))?>" onclick="Contest.canParticipate(this, '<?=$this->createUrl('/contest/default/canParticipate', array('id' => $this->contest->id))?>'); return false;" class="btn-green btn-green-medium">Участвовать<i class="arr-r"></i></a>
-        </center>
     </div>
 
     <div class="content-title">О конкурсе</div>

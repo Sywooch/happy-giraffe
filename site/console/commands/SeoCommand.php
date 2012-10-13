@@ -236,5 +236,29 @@ class SeoCommand extends CConsoleCommand
             $criteria->offset += 900;
         }
     }
+
+    public function actionCheckEntities(){
+        $criteria = new CDbCriteria;
+        $criteria->limit = 100;
+        $criteria->offset = 0;
+
+        $models = array(0);
+        while (!empty($models)) {
+            $models = Page::model()->findAll($criteria);
+
+            foreach ($models as $model) {
+                list($entity, $entity_id) = Page::ParseUrl($model->url);
+
+                if (!empty($entity) && !empty($entity_id) && $entity != $model->entity){
+                    echo $entity."\n";
+                    $model->entity = $entity;
+                    $model->entity_id = $entity_id;
+                    $model->save();
+                }
+            }
+
+            $criteria->offset += 100;
+        }
+    }
 }
 

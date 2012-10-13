@@ -332,4 +332,18 @@ class Page extends CActiveRecord
 
         return array(null, null);
     }
+
+    public function TestUrlParsing()
+    {
+        $r = Page::ParseUrl('http://www.happy-giraffe.ru/cook/recipe/18484/');
+        print_r($r);
+        $r = Page::ParseUrl('http://www.happy-giraffe.ru/cook/multivarka/16126/');
+        print_r($r);
+        $r = Page::ParseUrl('http://www.happy-giraffe.ru/placentaThickness/');
+        print_r($r);
+        $r = Page::ParseUrl('http://www.happy-giraffe.ru/community/31/forum/post/33879/');
+        print_r($r);
+        $r = Page::ParseUrl('http://www.happy-giraffe.ru/user/10/blog/post27381/');
+        print_r($r);
+    }
 }

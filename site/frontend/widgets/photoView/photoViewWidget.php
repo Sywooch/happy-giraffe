@@ -10,7 +10,7 @@ class photoViewWidget extends CWidget
     public $entity_id;
     public $entity_url;
     public $singlePhoto = false;
-    public $query;
+    public $query = array();
 
     public function init()
     {

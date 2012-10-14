@@ -39,14 +39,14 @@ class Contest extends HActiveRecord
 	public function behaviors()
 	{
 		return array(
-			'getUrl' => array(
+			/*'getUrl' => array(
 				'class' => 'ext.geturl.EGetUrlBehavior',
 				'route' => '/contest/contest/view',
 				'dataField' => array(
 					'id' => 'id',
 //					'title' => 'item_slug',
 				),
-			),
+			), */
 			'statuses' => array(
                 'class' => 'ext.status.EStatusBehavior',
                 'statusField' => 'status',
@@ -247,7 +247,7 @@ class Contest extends HActiveRecord
             'params' => array(':contest_id' => $this->id),
         ));
 
-        $criteria->order = 't.' . Yii::app()->request->getQuery('sort') . ' DESC';
+        $criteria->order = 't.' . Yii::app()->request->getQuery('sort', 'created') . ' DESC';
 
         $works = ContestWork::model()->findAll($criteria);
 
@@ -262,5 +262,10 @@ class Contest extends HActiveRecord
             'title' => 'Фотоальбом ' . CHtml::link($this->title, $this->url),
             'photos' => $photos,
         );
+    }
+
+    public function getUrl()
+    {
+        return Yii::app()->createUrl('/contest/default/view', array('id' => $this->id));
     }
 }

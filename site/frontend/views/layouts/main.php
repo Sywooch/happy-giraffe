@@ -38,6 +38,8 @@
         ->registerScriptFile('/javascripts/jquery.jcarousel.control.js')
         ->registerCoreScript('yiiactiveform')
         ->registerCoreScript('bbq')
+
+        ->registerScriptFile('http://vk.com/js/api/share.js?11')
     ;
 
     $cs->registerMetaTag(trim($this->meta_description), 'description');

@@ -716,6 +716,11 @@ class AlbumsController extends HController
                 if ($category_id !== null)
                     $model = $model->findByPk($category_id);
                 break;
+            case 'Contest':
+                Yii::import('application.modules.contest.models.*');
+                $contest_id = Yii::app()->request->getQuery('contest_id');
+                $model = CActiveRecord::model($entity)->findByPk($contest_id);
+                break;
         }
 
         $collection = $model->photoCollection;

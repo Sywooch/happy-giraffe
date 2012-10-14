@@ -9,6 +9,7 @@
                 'selector' => '.img > a',
                 'entity' => 'Contest',
                 'entity_id' => $this->contest_id,
+                'entity_url' => $contest->getUrl(),
                 'query' => array('sort' => 'created'),
             ));
     ?>
@@ -27,7 +28,7 @@
             </div>
             <div class="ball">
                 <div class="ball-count"><?=$this->_contest_work->rate?></div>
-                <div class="ball-text">баллов</div>
+                <div class="ball-text"><?=HDate::GenerateNoun(array('балл', 'балла', 'баллов'), $this->_contest_work->rate)?></div>
             </div>
         </div>
     </div>

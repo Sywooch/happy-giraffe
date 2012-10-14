@@ -141,14 +141,19 @@
 
                 <div class="col-3">
 
+                    <?php $this->widget('ContestWidget', array(
+                        'user' => $user,
+                        'contest_id' => 1,
+                    )); ?>
+
                     <?php $this->widget('UserFriendsWidget', array(
                         'user' => $user,
                     )); ?>
 
                     <div id="loc-flipbox">
-                        <?php $this->widget('LocationWidget', array(
-                            'user' => $user,
-                        )); ?>
+                        <?//php $this->widget('LocationWidget', array(
+                         //   'user' => $user,
+                       // )); ?>
                     </div>
 
                     <div class="weather-wrapper">

@@ -29,6 +29,11 @@ class DefaultController extends HController
         );
     }
 
+    public function init()
+    {
+        Yii::import('site.frontend.widgets.user.UserCoreWidget');
+    }
+
     public function actionIndex()
     {
         $this->layout = '//layouts/main';

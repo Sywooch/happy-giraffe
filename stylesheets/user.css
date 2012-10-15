@@ -532,11 +532,24 @@
 #user .user-family ul li.waiting .gender .icon-question {width:11px;background-position:-623px -221px}
 #user .user-family .watch-album {color:#fd6c01;font-size:15px;display:block;text-align:center;margin:20px 0;}
 
-
+#user .user-family .tooltip-new {margin-left:10px;}
 
 #user .user-family.user-family-cap .c {padding:0 17px;}
 #user .user-family .cap {display:block;width:100%;background:#f9f5ef url(/images/bg_user_family_cap.gif) no-repeat bottom;text-align:center;padding:15px 0 215px;font-size:15px;}
 #user .user-family .cap:hover {text-decoration:none;}
+
+#user .user-family-borders {padding:10px;}
+#user .user-family-borders p {font-size:14px;margin:0 7px 7px;}
+#user .user-family-borders .pattern-list {width:auto;}
+#user .user-family-borders .pattern {background:url(/images/bg_user_family_prev.png) no-repeat 10px 10px;padding:8px 13px 0 0;height:30px;width:42px;}
+#user .user-family-borders .pattern.user-family-border-1 {background-position:10px -50px;}
+#user .user-family-borders .pattern.user-family-border-2 {background-position:10px -110px;}
+#user .user-family-borders .pattern.user-family-border-3 {background-position:10px -170px;}
+#user .user-family-borders .pattern.user-family-border-4 {background-position:10px -230px;}
+#user .user-family-borders .pattern.user-family-border-5 {background-position:10px -290px;}
+#user .user-family-borders .pattern.user-family-border-6 {background-position:10px -350px;}
+#user .user-family-borders .pattern.user-family-border-7 {background-position:10px -410px;}
+#user .user-family-borders .pattern.user-family-border-8 {background-position:10px -470px;}
 
 
 #user .family {padding-left:20px;}

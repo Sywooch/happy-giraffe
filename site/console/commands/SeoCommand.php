@@ -83,8 +83,8 @@ class SeoCommand extends CConsoleCommand
         $se = PagesSearchPhrase::model()->findAll();
 
         foreach ($se as $phrase) {
-            $parsed = ParsedKeywords::model()->find('keyword_id =' . $phrase->keyword_id);
-            if ($parsed !== null)
+            $yandex = YandexPopularity::model()->find('keyword_id =' . $phrase->keyword_id);
+            if ($yandex !== null && $yandex->parsed == 1)
                 continue;
 
             $model = ParsingKeyword::model()->find('keyword_id =' . $phrase->keyword_id);
@@ -146,8 +146,8 @@ class SeoCommand extends CConsoleCommand
 
             $visits = SiteKeywordVisit::model()->findAll($criteria);
             foreach ($visits as $visit) {
-                $parsed = ParsedKeywords::model()->find('keyword_id =' . $visit->keyword_id);
-                if ($parsed !== null && empty($parsed->depth))
+                $yandex = YandexPopularity::model()->find('keyword_id =' . $visit->keyword_id);
+                if ($yandex !== null && $yandex->parsed == 1)
                     continue;
 
                 $model = ParsingKeyword::model()->find('keyword_id =' . $visit->keyword_id);
@@ -234,6 +234,30 @@ class SeoCommand extends CConsoleCommand
 
             echo $criteria->offset . "\n";
             $criteria->offset += 900;
+        }
+    }
+
+    public function actionCheckEntities(){
+        $criteria = new CDbCriteria;
+        $criteria->limit = 100;
+        $criteria->offset = 0;
+
+        $models = array(0);
+        while (!empty($models)) {
+            $models = Page::model()->findAll($criteria);
+
+            foreach ($models as $model) {
+                list($entity, $entity_id) = Page::ParseUrl($model->url);
+
+                if (!empty($entity) && !empty($entity_id) && $entity != $model->entity){
+                    echo $entity."\n";
+                    $model->entity = $entity;
+                    $model->entity_id = $entity_id;
+                    $model->save();
+                }
+            }
+
+            $criteria->offset += 100;
         }
     }
 }

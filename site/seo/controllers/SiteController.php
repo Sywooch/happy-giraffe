@@ -156,22 +156,16 @@ class SiteController extends SController
     }
 
     public function actionTest(){
-        $period = date("Y-m");
-        Yii::import('site.frontend.extensions.GoogleAnalytics');
-        $ga = new GoogleAnalytics('alexk984@gmail.com', Yii::app()->params['gaPass']);
-        $ga->setProfile('ga:53688414');
-        $ga->setDateRange($period . '-01', $period . '-30');
-        try {
-            $report = $ga->getReport(array(
-                'metrics' => urlencode('ga:organicSearches'),
-                'filters' => urlencode('ga:pagePath==/community/8/forum/post/24191/'),
-            ));
-        } catch (Exception $err) {
-            var_dump($err->getMessage());
-            Yii::app()->end();
-        }
+        $html = <<<EOD
+EOD;
+        Yii::import('site.frontend.extensions.phpQuery.phpQuery');
 
-        echo $report[""]['ga:organicSearches'];
+        $document = phpQuery::newDocument($html);
+        $links = array();
+        foreach ($document->find('a') as $link) {
+            $links [] = pq($link)->text();
+            echo pq($link)->text().'<br>';
+        }
     }
 
     public function actionSql($sql = '')

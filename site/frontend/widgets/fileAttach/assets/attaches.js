@@ -63,6 +63,7 @@ Attach.prototype.selectBrowsePhoto = function (button) {
     $('<a class="remove" href="javascript:;" onclick="' + this.object_name + '.closeUpload(this);"></a>').insertAfter($('.upload-file .photo'));
     if ($('#change_ava').size() > 0 && this.entity != 'PhotoComment' && this.entity != 'Comment' && this.entity != 'CommunityPost' && this.entity != 'CommunityVideo') {
         this.crop(fsn);
+        $.fancybox.center(true);
     } else if (this.entity == "Product") {
         this.saveProductPhoto(fsn);
     } else if (this.entity == "PhotoComment") {
@@ -262,6 +263,7 @@ Attach.prototype.saveCommentPhoto = function (val) {
 
 Attach.prototype.crop = function (val) {
     var $this = this;
+
     $.post(base_url + '/albums/crop/', {val:val, widget_id:this.object_name}, function (data) {
         $('#photoPick').replaceWith($(data));
         $('#crop_target').Jcrop({
@@ -276,6 +278,8 @@ Attach.prototype.showPreview = function (coords) {
     $('#photoPick .form-bottom').show();
     var rx = 72 / coords.w;
     var ry = 72 / coords.h;
+
+    $.fancybox.center(true);
 
     $('#coords_value').val(JSON.stringify(coords));
     $('#preview').css({

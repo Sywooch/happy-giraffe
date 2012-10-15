@@ -485,8 +485,32 @@
 
 #user .user-family {margin-bottom:20px;margin-top:3px;margin-top:20px;}
 #user .user-family .t {height:39px;background:url(/images/bg_user_family.png) no-repeat 0 0;}
-#user .user-family .c {background:url(/images/bg_user_family.png) repeat-y 100% 0;padding:10px 30px 10px;}
-#user .user-family .b {height:18px;background:url(/images/bg_user_family.png) no-repeat 0 100%;}
+#user .user-family .c {background:url(/images/bg_user_family.png) repeat-y -240px 0;padding:10px 30px 10px;}
+#user .user-family .b {height:18px;background:url(/images/bg_user_family.png) no-repeat 0 -42px;}
+#user .user-family.user-family-border-1 .t {background-position:-480px 0;}
+#user .user-family.user-family-border-1 .c {background-position:-720px 0;}
+#user .user-family.user-family-border-1 .b {background-position:-480px -42px;}
+#user .user-family.user-family-border-2 .t {background-position:-960px 0;}
+#user .user-family.user-family-border-2 .c {background-position:-1200px 0;}
+#user .user-family.user-family-border-2 .b {background-position:-960px -42px;}
+#user .user-family.user-family-border-3 .t {background-position:-1440px 0;}
+#user .user-family.user-family-border-3 .c {background-position:-1680px 0;}
+#user .user-family.user-family-border-3 .b {background-position:-1440px -42px;}
+#user .user-family.user-family-border-4 .t {background-position:-1920px 0;}
+#user .user-family.user-family-border-4 .c {background-position:-2160px 0;}
+#user .user-family.user-family-border-4 .b {background-position:-1920px -42px;}
+#user .user-family.user-family-border-5 .t {background-position:-2400px 0;}
+#user .user-family.user-family-border-5 .c {background-position:-2640px 0;}
+#user .user-family.user-family-border-5 .b {background-position:-2400px -42px;}
+#user .user-family.user-family-border-6 .t {background-position:-2880px 0;}
+#user .user-family.user-family-border-6 .c {background-position:-3120px 0;}
+#user .user-family.user-family-border-6 .b {background-position:-2880px -42px;}
+#user .user-family.user-family-border-7 .t {background-position:-3360px 0;}
+#user .user-family.user-family-border-7 .c {background-position:-3600px 0;}
+#user .user-family.user-family-border-7 .b {background-position:-3360px -42px;}
+#user .user-family.user-family-border-8 .t {background-position:-3840px 0;}
+#user .user-family.user-family-border-8 .c {background-position:-4080px 0;}
+#user .user-family.user-family-border-8 .b {background-position:-3840px -42px;}
 #user .user-family ul {list-style:none;}
 #user .user-family ul li {list-style:none;margin-top:20px;}
 #user .user-family ul li:first-child {margin-top:0;}

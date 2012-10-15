@@ -1,5 +1,5 @@
 <?php
-    if (get_class($this->model) == 'ContestWork') {
+    if (get_class($this->model) == 'ContestWork' && Yii::app()->request->isAjaxRequest) {
         $attach = AttachPhoto::model()->findByEntity('ContestWork', $this->model->id);
         $photo = $attach[0]->photo;
         $url = Yii::app()->createAbsoluteUrl('albums/singlePhoto', array('entity' => 'Contest', 'contest_id' => $this->model->contest_id, 'photo_id' => $photo->id));

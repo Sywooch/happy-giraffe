@@ -4,7 +4,7 @@ class m121012_150840_contest extends CDbMigration
 {
 	public function up()
 	{
-        $this->execute("INSERT INTO  `happy_giraffe`.`contest__contests` (
+        $this->execute("INSERT INTO  `contest__contests` (
 `id` ,
 `title` ,
 `text` ,

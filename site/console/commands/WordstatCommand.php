@@ -19,8 +19,7 @@ class WordstatCommand extends CConsoleCommand
     public function actionRemoveLowRanksFromParsing()
     {
         $criteria = new CDbCriteria;
-        $criteria->limit = 100;
-        $criteria->offset = 0;
+        $criteria->limit = 1000;
         $criteria->with = array('yandex');
         $criteria->condition = 'yandex.value IS NOT NULL AND yandex.value < ' . self::WORDSTAT_LIMIT;
 
@@ -183,8 +182,7 @@ skrapbook
     public function actionRemoveParsedKeywords()
     {
         $criteria = new CDbCriteria;
-        $criteria->limit = 100;
-        $criteria->offset = 0;
+        $criteria->limit = 1000;
         $criteria->with = array('yandex');
         $criteria->condition = 'yandex.parsed = 1 AND yandex.theme = 0';
 

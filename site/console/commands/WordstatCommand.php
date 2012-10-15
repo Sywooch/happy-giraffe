@@ -24,7 +24,17 @@ class WordstatCommand extends CConsoleCommand
         $criteria->with = array('yandex');
         $criteria->condition = 'yandex.value IS NOT NULL AND yandex.value < ' . self::WORDSTAT_LIMIT;
 
-        echo ParsingKeyword::model()->count($criteria);
+        $i = 0;
+        $models = array(1);
+        while (!empty($models)) {
+            $models = ParsingKeyword::model()->findAll($criteria);
+            foreach ($models as $model) {
+                $model->delete();
+                $i++;
+            }
+        }
+
+        echo $i . "\n";
     }
 
     public function actionAdd()
@@ -88,9 +98,9 @@ skrapbook
         $i = 0;
         foreach ($words as $word) {
             $keywordIds = Keyword::model()->findSimilarIds($word);
-            foreach($keywordIds as $key=>$value)
+            foreach ($keywordIds as $key => $value)
                 $this->addKeywordToParsing($key, 5);
-            echo $i."\n";
+            echo $i . "\n";
             $i++;
         }
 
@@ -170,7 +180,24 @@ skrapbook
         }
     }
 
-    public function actionRemoveKeywords(){
+    public function actionRemoveParsedKeywords()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->limit = 100;
+        $criteria->offset = 0;
+        $criteria->with = array('yandex');
+        $criteria->condition = 'yandex.parsed = 1 AND yandex.theme = 0';
 
+        $i = 0;
+        $models = array(1);
+        while (!empty($models)) {
+            $models = ParsingKeyword::model()->findAll($criteria);
+            foreach ($models as $model) {
+                $model->delete();
+                $i++;
+            }
+        }
+
+        echo $i . "\n";
     }
 }

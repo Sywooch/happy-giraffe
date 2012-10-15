@@ -58,7 +58,7 @@
 <?php $this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
     'title' => 'Вам понравилось фото?',
     'notice' => '<big>Рейтинг фото</big><p>Он показывает, насколько нравится ваше фото другим пользователям. Если фото интересное, то пользователи его смотрят, комментируют, увеличивают лайки социальных сетей.</p>',
-    'model' => $photo,
+    'model' => (get_class($model) == 'Contest') ? $photo->getAttachByEntity('ContestWork')->model : $photo,
     'type' => 'simple',
     'options' => array(
         'title' => CHtml::encode($photo->w_title),

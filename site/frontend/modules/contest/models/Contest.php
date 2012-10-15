@@ -33,18 +33,20 @@
  */
 class Contest extends HActiveRecord
 {
+    const STATEMENT_GUEST = 0;
+    const STATEMENT_STEPS = 1;
 
 	public function behaviors()
 	{
 		return array(
-			'getUrl' => array(
+			/*'getUrl' => array(
 				'class' => 'ext.geturl.EGetUrlBehavior',
 				'route' => '/contest/contest/view',
 				'dataField' => array(
 					'id' => 'id',
 //					'title' => 'item_slug',
 				),
-			),
+			), */
 			'statuses' => array(
                 'class' => 'ext.status.EStatusBehavior',
                 'statusField' => 'status',
@@ -177,11 +179,13 @@ class Contest extends HActiveRecord
 
     public function getIsStatement()
     {
-        if(Yii::app()->user->isGuest)
+        if (Yii::app()->user->isGuest)
+            return self::STATEMENT_GUEST;
+        if (Yii::app()->user->model->getScores()->full != 2)
+            return self::STATEMENT_STEPS;
+        if (ContestWork::model()->findByAttributes(array('user_id' => Yii::app()->user->id, 'contest_id' => $this->id)))
             return false;
-        if(ContestWork::model()->findByAttributes(array('user_id' => Yii::app()->user->id, 'contest_id' => $this->id)))
-            return false;
-        if(time() > strtotime($this->till_time))
+        if (time() > strtotime($this->till_time))
             return false;
         return true;
     }
@@ -221,4 +225,47 @@ class Contest extends HActiveRecord
 
 		return parent::afterFind();
 	}
+
+    public function getPhotoCollection()
+    {
+        $criteria = new CDbCriteria(array(
+            'with' => array(
+                'photo' => array(
+                    'with' => array(
+                        'photo' => array(
+                            'alias' => 'albumphoto',
+                            'with' => array(
+                                'author' => array(
+                                    'with' => 'avatar',
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+            'condition' => 'contest_id = :contest_id',
+            'params' => array(':contest_id' => $this->id),
+        ));
+
+        $criteria->order = 't.' . Yii::app()->request->getQuery('sort', 'created') . ' DESC';
+
+        $works = ContestWork::model()->findAll($criteria);
+
+        $photos = array();
+        foreach ($works as $w) {
+            $p = $w->photo->photo;
+            $p->w_title = $w->title;
+            $photos[] = $p;
+        }
+
+        return array(
+            'title' => 'Фотоальбом ' . CHtml::link($this->title, $this->url),
+            'photos' => $photos,
+        );
+    }
+
+    public function getUrl()
+    {
+        return Yii::app()->createUrl('/contest/default/view', array('id' => $this->id));
+    }
 }

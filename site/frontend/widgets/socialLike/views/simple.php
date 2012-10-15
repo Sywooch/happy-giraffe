@@ -2,7 +2,7 @@
     if (get_class($this->model) == 'ContestWork') {
         $attach = AttachPhoto::model()->findByEntity('ContestWork', $this->model->id);
         $photo = $attach[0]->photo;
-        $url = Yii::app()->createAbsoluteUrl('albums/singlePhoto', array('entity' => 'ContestWork', 'photo_id' => $photo->id));
+        $url = Yii::app()->createAbsoluteUrl('albums/singlePhoto', array('entity' => 'Contest', 'photo_id' => $photo->id));
     } else {
         $url = 'http://' . $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
     }

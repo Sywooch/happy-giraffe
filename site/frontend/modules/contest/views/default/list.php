@@ -4,7 +4,9 @@
 $('#sort').change(function() {
 	window.location.href = '" . $this->createAbsoluteUrl('/contest/' . $contest->id . '/list/') . "' + $(this).val() + '/';
 });
-			var $container = $(\'.gallery-photos-new\');
+	";
+    $js2 = '
+        			var $container = $(\'.gallery-photos-new\');
 
 			$container.imagesLoaded( function(){
 				$container.masonry({
@@ -15,9 +17,11 @@ $('#sort').change(function() {
 					resizeable: true
 				});
 			});
-	";
+    ';
+
 	$cs
         ->registerScript('contest_list', $js)
+        ->registerScript('contest_list2', $js2)
         ->registerScriptFile('/javascripts/jquery.masonry.min.js')
     ;
 ?>

@@ -33,38 +33,26 @@ $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
 
 <div class="content-title">Участники конкурса</div>
 
-<div class="gallery-photos-new cols-4 clearfix">
 
-    <?php
-        $this->widget('MyListView', array(
-            'dataProvider' => $works,
-            'itemView' => '_work',
-            'summaryText' => 'показано: {start} - {end} из {count}',
-            'pager' => array(
-                'class' => 'AlbumLinkPager',
-            ),
-            'id' => 'photosList',
-            'itemsTagName' => 'ul',
-            //'template' => '{items}<div class="pagination pagination-center clearfix">{pager}</div>',
-            'template' => '{items}',
-            'viewData' => array(
-                'currentPage' => $works->pagination->currentPage,
-            ),
-            'emptyText'=>'Станьте первым!',
-        ));
 
-        $this->widget('PhotosAjaxMasonry', array(
-                'dataProvider' => $works,
+<?php
+    $this->widget('zii.widgets.CListView', array(
+        'ajaxUpdate' => false,
+        'dataProvider' => $works,
+        'itemView' => '_work',
+        'itemsTagName' => 'ul',
+        'summaryText' => 'Показано: {start}-{end} из {count}',
+        'pager' => array(
+            'class' => 'AlbumLinkPager',
+        ),
+        'template' => '<div class="gallery-photos-new cols-4 clearfix">{items}</div>
+            <div class="pagination pagination-center clearfix">
+                {pager}
+            </div>
+        ',
+        'viewData' => array(
+            'full' => false,
+        ),
+    ));
+?>
 
-                'gallerySelector' => '.img > a',
-                'galleryEntity' => 'Album',
-                'galleryEntity_id' => $contest->id,
-
-                'masonryContainerSelector' => '#photosList ul.items',
-                'masonryItemSelector' => 'li',
-                'masonryColumnWidth' => 240
-            )
-        );
-    ?>
-
-</div>

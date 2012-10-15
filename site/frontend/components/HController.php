@@ -17,10 +17,10 @@ class HController extends CController
 
     public function filterAjaxOnly($filterChain)
     {
-        if(Yii::app()->getRequest()->getIsAjaxRequest())
+        if (Yii::app()->getRequest()->getIsAjaxRequest())
             $filterChain->run();
         else
-            throw new CHttpException(404,Yii::t('yii','Your request is invalid.'));
+            throw new CHttpException(404, Yii::t('yii', 'Your request is invalid.'));
     }
 
     protected function beforeAction($action)
@@ -32,12 +32,12 @@ class HController extends CController
                 'jquery.min.js' => false,
                 'jquery.yiiactiveform.js' => false,
                 'jquery.ba-bbq.js' => false,
-                'jquery.yiilistview.js'=>false,
+                'jquery.yiilistview.js' => false,
             );
         }
 
         // noindex для дева
-        if ($_SERVER['HTTP_HOST'] == 'dev.happy-giraffe.ru'){
+        if ($_SERVER['HTTP_HOST'] == 'dev.happy-giraffe.ru') {
             Yii::app()->clientScript->registerMetaTag('noindex,nofollow', 'robots');
         }
 
@@ -51,7 +51,16 @@ class HController extends CController
             unset($_GET['token']);
         }
 
-        $received_params = array('utm_source', 'utm_medium', 'im_interlocutor_id', 'im_type', 'openSettings');
+        $received_params = array('utm_source',
+            'utm_medium',
+            'im_interlocutor_id',
+            'im_type',
+            'openSettings',
+            'fb_action_ids',
+            'fb_action_types',
+            'fb_source',
+            'action_object_map'
+        );
 
         // seo-фильтр get-параметров
         if (in_array($this->uniqueId, array(
@@ -61,7 +70,8 @@ class HController extends CController
             'services/childrenDiseases/default',
             'cook/spices',
             'cook/choose',
-        )) || in_array($this->route, array('cook/recipe/view', 'cook/recipe/index'))) {
+        )) || in_array($this->route, array('cook/recipe/view', 'cook/recipe/index'))
+        ) {
             $reflector = new ReflectionClass($this);
             $parametersObjects = $reflector->getMethod('action' . $this->action->id)->getParameters();
             $parametersNames = array();

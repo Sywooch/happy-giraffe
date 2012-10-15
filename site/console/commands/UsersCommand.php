@@ -54,19 +54,17 @@ class UsersCommand extends CConsoleCommand
         foreach ($users as $user) {
             if ($user->communityContentsCount == 0 && $user->cookRecipesCount == 0
                 && $user->recipeBookRecipesCount == 0
-            ){
-                Yii::app()->db->createCommand()->delete('users', 'id='.$user->id);
-//                echo $user->id."\n";
-            $k++;
-    }
+            ) {
+                Yii::app()->db->createCommand()->delete('users', 'id=' . $user->id);
+                $k++;
+            }
         }
 
-        echo $k."\n";
+        echo $k . "\n";
 
 
         $criteria = new CDbCriteria;
-        $criteria->condition = '`group` = 0 AND last_active IS NULL AND login_date = "0000-00-00 00:00:00"
-        ';
+        $criteria->condition = '`group` = 0 AND last_active IS NULL AND login_date = "0000-00-00 00:00:00" AND id < 13000';
         //$criteria->params = array(':last_active' => date("Y-m-d H:i:s", strtotime('-2 month')));
 
         $users = User::model()->findAll($criteria);
@@ -74,13 +72,12 @@ class UsersCommand extends CConsoleCommand
         foreach ($users as $user) {
             if ($user->communityContentsCount == 0 && $user->cookRecipesCount == 0
                 && $user->recipeBookRecipesCount == 0
-            ){
-                Yii::app()->db->createCommand()->delete('users', 'id='.$user->id);
-//                echo $user->id."\n";
-            $k++;
+            ) {
+                Yii::app()->db->createCommand()->delete('users', 'id=' . $user->id);
+                $k++;
             }
         }
 
-        echo $k."\n";
+        echo $k . "\n";
     }
 }

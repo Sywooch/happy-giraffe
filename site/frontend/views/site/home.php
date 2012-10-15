@@ -12,8 +12,8 @@
             <?php $this->widget('CommunitiesWidget'); ?>
 
             <div class="box">
-                <a href="<?=$this->createUrl('/contest/default/view', array('id' => 1)) ?>"><img
-                    src="/images/banner_03.png"></a>
+                <a href="<?=$this->createUrl('/contest/default/view', array('id' => 2)) ?>"><img
+                    src="/images/bb.jpg"></a>
             </div>
 
         </div>

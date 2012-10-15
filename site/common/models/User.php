@@ -1105,4 +1105,9 @@ class User extends HActiveRecord
 
         return $this->mail_subs;
     }
+
+    public function getContestWork($contest_id)
+    {
+        return ContestWork::model()->findByAttributes(array('user_id' => $this->id, 'contest_id' => $contest_id));
+    }
 }

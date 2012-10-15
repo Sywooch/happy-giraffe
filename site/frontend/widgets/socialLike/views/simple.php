@@ -1,9 +1,9 @@
 <?php
 
 $js = "
-    $(function() {
+    setTimeout(function() {
         document.getElementById('vk_share_button').innerHTML = VK.Share.button(false,{type: 'round', text: 'Мне нравится'});
-    });
+    }, 500);
 ";
 
 Yii::app()->clientScript

@@ -4192,11 +4192,19 @@ label {
 	.contest-participant .img {
 		display:block;
 		position:relative;
-		margin:10px 0 5px;
+		margin:10px auto 5px;
+		width:210px;
+		padding:2px;
+		border:1px solid #e5e4e4;
 	}
 	.contest-participant .img a:hover img {
 		opacity:.5;
 		filter: alpha(opacity = 50);
+	}
+	.contest-participant .img .item-title {
+		padding:6px 10px;
+		font:bold 11px/13px Arial, Tahoma, Verdana, sans-serif;
+		text-align:left;
 	}
 	.contest-participant .img .btn {
 		position:absolute;

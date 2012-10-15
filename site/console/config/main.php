@@ -18,7 +18,7 @@ return array(
         'site.common.models.*',
         'site.common.helpers.*',
         'site.frontend.extensions.ESaveRelatedBehavior',
-        'site.frontend.image.Image',
+        'site.frontend.extensions.image.Image',
     ),
     'components' => array(
         'comet'=>array(

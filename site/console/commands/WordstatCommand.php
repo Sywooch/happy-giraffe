@@ -11,7 +11,7 @@ Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
 
 class WordstatCommand extends CConsoleCommand
 {
-    const WORDSTAT_LIMIT = 300;
+    const WORDSTAT_LIMIT = 200;
 
     /**
      * Удляем из парсинга кеи, для которых частота уже определена и она < LIMIT
@@ -168,5 +168,9 @@ skrapbook
         } catch (Exception $e) {
 
         }
+    }
+
+    public function actionRemoveKeywords(){
+
     }
 }

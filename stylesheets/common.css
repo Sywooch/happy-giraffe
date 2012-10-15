@@ -4250,6 +4250,7 @@ label {
 	-ms-box-shadow: 0 6px 10px rgba(0,0,0,.1);
 	box-shadow: 0 6px 10px rgba(0,0,0,.1);
 	 behavior: url(PIE.htc);
+	display:none;
 }
 .contest-error-hint:after{
 	content:"";

@@ -1,8 +1,9 @@
 <?php
 
 $js = "
-    console.log(document.location.href);
-    document.getElementById('vk_share_button').innerHTML = VK.Share.button(document.location.href,{type: 'round', text: 'Мне нравится'});
+    setTimeout(function() {
+        document.getElementById('vk_share_button').innerHTML = VK.Share.button(false,{type: 'round', text: 'Мне нравится'});
+    }, 500);
 ";
 
 Yii::app()->clientScript

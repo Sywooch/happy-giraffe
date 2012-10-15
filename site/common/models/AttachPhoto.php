@@ -104,4 +104,9 @@ class AttachPhoto extends HActiveRecord
     public function getContent($full_size = false){
         return $this->photo->getCommentContent($full_size);
     }
+
+    public function getModel()
+    {
+        return CActiveRecord::model($this->entity)->findByPk($this->entity_id);
+    }
 }

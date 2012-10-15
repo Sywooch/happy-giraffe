@@ -174,6 +174,7 @@ class AlbumsController extends HController
     public function actionWPhoto()
     {
         Yii::import('site.frontend.modules.cook.models.*');
+        Yii::import('site.frontend.modules.contest.models.*');
 
         $photo = AlbumPhoto::model()->findByPk(Yii::app()->request->getQuery('id'));
 
@@ -183,9 +184,9 @@ class AlbumsController extends HController
             $model = $model->findByPk($entity_id);
 
         if (!Yii::app()->request->getQuery('go')) {
-            $this->renderPartial('w_photo', compact('model', 'photo'));
+            $this->renderPartial('w_photo', compact('model', 'photo'), false, true);
         } else {
-            $this->renderPartial('w_photo_content', compact('model', 'photo'));
+            $this->renderPartial('w_photo_content', compact('model', 'photo'), false, true);
         }
     }
 
@@ -715,6 +716,11 @@ class AlbumsController extends HController
                 if ($category_id !== null)
                     $model = $model->findByPk($category_id);
                 break;
+            case 'Contest':
+                Yii::import('application.modules.contest.models.*');
+                $contest_id = Yii::app()->request->getQuery('contest_id');
+                $model = CActiveRecord::model($entity)->findByPk($contest_id);
+                break;
         }
 
         $collection = $model->photoCollection;
@@ -739,6 +745,7 @@ class AlbumsController extends HController
     public function actionPostLoad($entity)
     {
         Yii::import('site.frontend.modules.cook.models.*');
+        Yii::import('site.frontend.modules.contest.models.*');
         Yii::import('zii.behaviors.*');
         $model = CActiveRecord::model($entity);
         $entity_id = Yii::app()->request->getQuery('entity_id', 'null');

@@ -148,4 +148,9 @@ class ContestWork extends HActiveRecord
         $text = Str::truncate($this->title, 0.54*$width);
         return $text;
     }
+
+    public function getPosition()
+    {
+        return $this->count('rate > :rate AND contest_id = :contest_id', array(':rate' => $this->rate, ':contest_id' => $this->contest_id)) + 1;
+    }
 }

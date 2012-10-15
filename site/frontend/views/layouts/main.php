@@ -38,6 +38,8 @@
         ->registerScriptFile('/javascripts/jquery.jcarousel.control.js')
         ->registerCoreScript('yiiactiveform')
         ->registerCoreScript('bbq')
+
+        ->registerScriptFile('http://vk.com/js/api/share.js?11')
     ;
 
     $cs->registerMetaTag(trim($this->meta_description), 'description');
@@ -153,7 +155,7 @@
                 <li><a href="<?php echo $this->createUrl('/community') ?>">Клубы</a></li>
                 <li><?=CHtml::link('Сервисы', array('/site/services'))?></li>
                 <li><?=CHtml::link('Новости', array('/community/list', 'community_id' => 36))?></li>
-                <li><?=HHtml::link('Конкурсы', $this->createUrl('/contest/default/view', array('id' => 1)), array(), Yii::app()->controller->getRoute() == 'site/index'?false:true)?></li>
+                <li><?=HHtml::link('Конкурсы', $this->createUrl('/contest/default/view', array('id' => 2)), array(), Yii::app()->controller->getRoute() == 'site/index'?false:true)?></li>
             </ul>
 
         </div>
@@ -193,7 +195,7 @@
 
                             <div class="banner-box">
                                 <?php if (! Yii::app()->user->isGuest): ?>
-                                    <a href="<?=$this->createUrl('/contest/default/view', array('id' => 1)) ?>"><img src="/images/banner_02.png" /></a>
+                                    <a href="<?=$this->createUrl('/contest/default/view', array('id' => 2)) ?>"><img src="/images/meandmum.jpg" /></a>
                                 <?php else: ?>
                                     <?=CHtml::link(CHtml::image('/images/banner_06.png'), '#register', array('class'=>'fancy', 'data-theme'=>'white-square'))?>
                                 <?php endif; ?>

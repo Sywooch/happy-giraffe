@@ -1,116 +1,120 @@
+<?php
+    $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
+        'selector' => '.img > a',
+        'entity' => 'Contest',
+        'entity_id' => $contest->id,
+        'query' => array('sort' => $sort),
+    ));
+
+    $cs = Yii::app()->clientScript;
+
+    $js = '
+			var $container = $(\'.gallery-photos-new\');
+
+			$container.imagesLoaded( function(){
+				$container.masonry({
+					itemSelector : \'li\',
+					columnWidth: 240,
+					saveOptions: true,
+					singleMode: false,
+					resizeable: true
+				});
+			});
+    ';
+
+    $cs
+        ->registerScript('contest-view', $js)
+        ->registerScriptFile('/javascripts/jquery.masonry.min.js')
+    ;
+?>
+
 <div class="contest-about clearfix">
 
-    <div class="sticker">
-        <big>Для того, чтобы принять участие в конкурсе, вы должны</big>
-        <ul>
-            <li>Заполнить свой профиль;</li>
-
-            <li>Добавить информацию о членах своей семьи.</li>
-        </ul>
-        <?php if($this->contest->isStatement): ?>
-            <center><a href="<?=(Yii::app()->user->isGuest) ? '#login' : $this->createUrl('/contest/default/statement', array('id' => $this->contest->id))?>" class="btn btn-green-medium<?=(Yii::app()->user->isGuest) ? ' fancy' : ''?>" data-theme="white-square"><span><span>Участвовать<i class="arr-r"></i></span></span></a></center>
-        <?php endif; ?>
-    </div>
+    <?php if (! Yii::app()->user->isGuest && Yii::app()->user->model->getContestWork($this->contest->id) !== null): ?>
+        <?php $this->widget('site.frontend.widgets.user.ContestWidget', array(
+            'user' => Yii::app()->user->model,
+            'contest_id' => $this->contest->id,
+            'registerGallery' => false,
+        )); ?>
+    <?php else: ?>
+        <div class="sticker">
+            <?php if (Yii::app()->user->isGuest): ?>
+                <big>Условия конкурса:</big>
+                <p>Для того, чтобы принять участие в конкурсе, вы должны <?=CHtml::link('зарегистрироваться', '#register', array('class' => 'fancy', 'data-theme' => 'white-square'))?></p>
+            <?php elseif (Yii::app()->user->model->scores->full != 2): ?>
+                <big>Условия конкурса:</big>
+                <p>Для того, чтобы принять участие в конкурсе, вы должны <?=CHtml::link('пройти 6 шагов', array('/user/profile', 'user_id' => Yii::app()->user->id))?> заполнения анкеты</p>
+            <?php else: ?>
+                <big>Поздравляем!</big>
+                <p>Вы влились в дружную семью Весёлого Жирафа и теперь можете принять участие в нашем конкурсе!</p>
+                <center>
+                    <a href="<?=$this->createUrl('/contest/default/statement', array('id' => $this->contest->id))?>" onclick="Contest.canParticipate(this, '<?=$this->createUrl('/contest/default/canParticipate', array('id' => $this->contest->id))?>'); return false;" class="btn-green btn-green-medium">Участвовать<i class="arr-r"></i></a>
+                </center>
+            <?php endif; ?>
+        </div>
+    <?php endif; ?>
 
     <div class="content-title">О конкурсе</div>
 
-    <p><b>Весёлый жираф предлагает познакомиться!</b></p>
-    <p>Ваша семья самая весёлая, самая интересная  – в общем, самая-самая? Тогда приглашаем вас принять участие в конкурсе семейной фотографии. Присылайте свое фото и фото своих близких, сделанные на катке , море или даже рыбалке. Не важно, где сделан снимок, главное, чтобы он вызывал улыбку!</p>
-    <p><b>Обратите внимание:</b> к участию допускается только одно фото от одного пользователя! Победителей выберут пользователи путём голосования – поэтому смело приглашайте голосовать своих друзей и знакомых. Удачи!</p>
+    <p>Говорят, что самая прекрасная из женщин – это женщина с ребенком на руках. Общаясь на «Веселом Жирафе», мы поняли, что у нас самые прекрасные мамы, которые держат на руках самых красивых малышей. Теперь мы хотим показать их всем!</p>
+    <p>Примите участие в конкурсе «Мама и я» – покажитесь всему миру! Посмотрите на другие счастливые лица малышей и их мам из разных городов. А кроме приятного общения, которое гарантировано для всех участников конкурса, авторы самых интересных по мнению пользователей фотографий получат отличные призы.</p>
 
 </div>
 
 <div class="content-title">Вас ждут замечательные призы!</div>
 
-<div class="contest-prizes-list clearfix">
+<div class="contest-prizes-list contest-prizes-list-2 clearfix">
 
     <ul>
         <li>
             <div class="img">
-                <a href=""><img src="/images/prize_1.jpg" /></a>
+                <img src="/images/prize_6.jpg" />
             </div>
-            <div class="place place-1"></div>
+            <div class="place place-1-1"></div>
             <div class="title">
-                <a href="">Мультиварка<br/><b>Land Life YBW60-100A1 </b></a>
+                <a href="">Фотоаппарат<br/><b>SONY Cyber-shot DSC-HX10 </b></a>
             </div>
         </li>
         <li>
             <div class="img">
-                <a href=""><img src="/images/prize_2.jpg" /></a>
+                <img src="/images/prize_7.jpg" />
             </div>
-            <div class="place place-2"></div>
+            <div class="place place-2-3"></div>
             <div class="title">
-                <a href="">Мультиварка<br/><b>BRAND 37501</b></a>
-            </div>
-        </li>
-        <li>
-            <div class="img">
-                <a href=""><img src="/images/prize_3.jpg" /></a>
-            </div>
-            <div class="place place-3"></div>
-            <div class="title">
-                <a href="">Мультиварка<br/><b>Land Life YBD60-100A </b></a>
-            </div>
-        </li>
-        <li>
-            <div class="img">
-                <a href=""><img src="/images/prize_4.jpg" /></a>
-            </div>
-            <div class="place place-4"></div>
-            <div class="title">
-                <a href="">Мультиварка<br/><b>Polaris PMC 0506AD</b></a>
-            </div>
-        </li>
-        <li>
-            <div class="img">
-                <a href=""><img src="/images/prize_5.jpg" /></a>
-            </div>
-            <div class="place place-5"></div>
-            <div class="title">
-                <a href="">Мультиварка<br/><b>SUPRA MCS-4501</b></a>
+                <a href="">Фоторамка 8"<br/><b>SONY DPF-D830LB </b></a>
             </div>
         </li>
 
     </ul>
 
 </div>
-<?php /*if(count($contest->prizes) > 0): */?><!--
-    <div class="content-title">Вас ждут замечательные призы!</div>
-    <div class="prise-block clearfix">
-        <?php /*foreach ($contest->prizes as $p): */?>
-            <div class="item">
-                <?php /*echo CHtml::image(str_replace('club', 'shop', $p->product->product_image->getUrl('product_contest')), $p->product->product_title); */?>
-                <span><?php /*echo $p->prize_place; */?> место</span>
-                <p><?php /*echo $p->text; */?></p>
-            </div>
-        <?php /*endforeach; */?>
-    </div>
---><?php /*endif;*/ ?>
 
-<?php if(count($contest->works) > 0): ?>
+<?php if ($works->itemCount > 0): ?>
     <div class="content-title">
-        Последние добавленные работы
-        <?php echo CHtml::link('<span><span>Показать все</span></span>', array('/contest/default/list', 'id' => $this->contest->id), array(
-            'class' => 'btn btn-blue-small'
-        )); ?>
+        Последние добавленные фото
+        <a href="<?=$this->createUrl('/contest/default/list', array('id' => $this->contest->id))?>" class="btn-blue-light btn-blue-light-small">Показать все</a>
     </div>
-    <div id="gallery">
-        <div class="gallery-photos clearfix">
-            <ul>
-                <?php foreach ($contest->getRelated('works', false, array('limit' => 10, 'order' => 'id desc')) as $w): ?>
-                    <li>
-                        <table>
-                            <tr>
-                                <td class="img"><div><?php echo CHtml::link(CHtml::image($w->photo->photo->getPreviewUrl(150, 150), $w->title), $this->createUrl('/contest/default/work', array('id' => $w->id))); ?></div></td>
-                            </tr>
-                            <tr class="title">
-                                <td align="center"><div><?php echo $w->paredDownTitle; ?></div></td>
-                            </tr>
-                            <tr class="rank"><td><span><?php echo $w->rate; ?></span> баллов</td></tr>
-                        </table>
-                    </li>
-                <?php endforeach; ?>
-            </ul>
-        </div>
+
+    <div class="gallery-photos-new cols-4 clearfix">
+
+        <?php
+            $this->widget('MyListView', array(
+                'dataProvider' => $works,
+                'itemView' => '_work',
+                'summaryText' => 'показано: {start} - {end} из {count}',
+                'pager' => array(
+                    'class' => 'AlbumLinkPager',
+                ),
+                'id' => 'photosList',
+                'itemsTagName' => 'ul',
+                //'template' => '{items}<div class="pagination pagination-center clearfix">{pager}</div>',
+                'template' => '{items}',
+                'viewData' => array(
+                    'currentPage' => $works->pagination->currentPage,
+                ),
+                'emptyText'=>'В этом альбоме у вас нет фотографий'
+            ));
+        ?>
+
     </div>
 <?php endif; ?>

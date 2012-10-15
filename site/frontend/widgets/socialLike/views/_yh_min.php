@@ -1,15 +1,18 @@
+<?php if (! Yii::app()->user->isGuest): ?>
+    <?=CHtml::hiddenField('stepsLink', Yii::app()->user->model->url)?>
+<?php endif; ?>
 <div class="like-btn">
      <?php if (Yii::app()->user->isGuest):?>
          <a class="btn-icon heart fancy" href="#login" data-theme="white-square"></a>
      <?php else: ?>
-         <a class="btn-icon heart<?php echo isset($this->model->author) && Yii::app()->user->id == $this->model->author->id ? ' yohoho_me ' : '' ?><?php echo RatingYohoho::model()->findByEntity($this->model) ? ' active' : ''; ?>" href="javascript:;" onclick="pushYohoho(this);"></a>
+         <a class="btn-icon heart<?=(! Yii::app()->user->isGuest && Yii::app()->user->model->scores->full != 2) ? ' yohoho_steps':''?><?php echo isset($this->model->author) && Yii::app()->user->id == $this->model->author->id ? ' yohoho_me ' : '' ?><?php echo RatingYohoho::model()->findByEntity($this->model) ? ' active' : ''; ?>" href="javascript:;" onclick="pushYohoho(this);"></a>
      <?php endif ?>
 
      <div class="count"><?php echo Rating::model()->countByEntity($this->model, 'yh') / 2; ?></div>
  </div>
 <script type="text/javascript">
     function pushYohoho(elem) {
-        <?php if(Yii::app()->user->isGuest || (!Yii::app()->user->isGuest && isset($this->model->author) && Yii::app()->user->id == $this->model->author->id)): ?>
+        <?php if(Yii::app()->user->isGuest || (!Yii::app()->user->isGuest && isset($this->model->author) && Yii::app()->user->id == $this->model->author->id) || (! Yii::app()->user->isGuest && Yii::app()->user->model->scores->full != 2)): ?>
             return false;
         <?php else: ?>
             if($(elem).hasClass("disabled"))

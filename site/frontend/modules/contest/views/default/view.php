@@ -43,7 +43,7 @@
                 <p>Для того, чтобы принять участие в конкурсе, вы должны <?=CHtml::link('зарегистрироваться', '#register', array('class' => 'fancy'))?></p>
             <?php elseif (Yii::app()->user->model->scores->full != 2): ?>
                 <big>Условия конкурса:</big>
-                <p>Для того, чтобы принять участие в конкурсе, вы должны <?=CHtml::link('пройти 6 шагов', array('/user/profile', 'user_id' => Yii::app()->user->id, '#' => 'first-steps'))?> заполнения анкеты</p>
+                <p>Для того, чтобы принять участие в конкурсе, вы должны <?=CHtml::link('пройти 6 шагов', array('/user/profile', 'user_id' => Yii::app()->user->id))?> заполнения анкеты</p>
             <?php else: ?>
                 <big>Поздравляем!</big>
                 <p>Вы влились в дружную семью Весёлого Жирафа и теперь можете принять участие в нашем конкурсе!</p>
@@ -89,30 +89,32 @@
 
 </div>
 
-<div class="content-title">
-    Последние добавленные фото
-    <a href="<?=$this->createUrl('/contest/list', array('id' => $this->contest->id))?>" class="btn-blue-light btn-blue-light-small">Показать все</a>
-</div>
+<?php if ($works->itemCount > 0): ?>
+    <div class="content-title">
+        Последние добавленные фото
+        <a href="<?=$this->createUrl('/contest/list', array('id' => $this->contest->id))?>" class="btn-blue-light btn-blue-light-small">Показать все</a>
+    </div>
 
-<div class="gallery-photos-new cols-4 clearfix">
+    <div class="gallery-photos-new cols-4 clearfix">
 
-    <?php
-        $this->widget('MyListView', array(
-            'dataProvider' => $works,
-            'itemView' => '_work',
-            'summaryText' => 'показано: {start} - {end} из {count}',
-            'pager' => array(
-                'class' => 'AlbumLinkPager',
-            ),
-            'id' => 'photosList',
-            'itemsTagName' => 'ul',
-            //'template' => '{items}<div class="pagination pagination-center clearfix">{pager}</div>',
-            'template' => '{items}',
-            'viewData' => array(
-                'currentPage' => $works->pagination->currentPage,
-            ),
-            'emptyText'=>'В этом альбоме у вас нет фотографий'
-        ));
-    ?>
+        <?php
+            $this->widget('MyListView', array(
+                'dataProvider' => $works,
+                'itemView' => '_work',
+                'summaryText' => 'показано: {start} - {end} из {count}',
+                'pager' => array(
+                    'class' => 'AlbumLinkPager',
+                ),
+                'id' => 'photosList',
+                'itemsTagName' => 'ul',
+                //'template' => '{items}<div class="pagination pagination-center clearfix">{pager}</div>',
+                'template' => '{items}',
+                'viewData' => array(
+                    'currentPage' => $works->pagination->currentPage,
+                ),
+                'emptyText'=>'В этом альбоме у вас нет фотографий'
+            ));
+        ?>
 
-</div>
+    </div>
+<?php endif; ?>

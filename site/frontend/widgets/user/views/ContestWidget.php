@@ -21,6 +21,7 @@
                 <?=CHtml::image($this->_contest_work->photo->photo->getPreviewUrl(210, null, Image::WIDTH))?>
                 <span class="btn">Посмотреть</span>
             </a>
+            <div class="item-title"><?=$this->_contest_work->title?></div>
         </div>
         <div class="clearfix">
             <div class="position">

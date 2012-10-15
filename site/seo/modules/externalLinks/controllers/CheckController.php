@@ -5,6 +5,8 @@ class CheckController extends ELController
 
     public function beforeAction($action)
     {
+        Yii::import('site.frontend.modules.cook.models.*');
+
         if (!Yii::app()->user->checkAccess('externalLinks-manager-panel'))
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
         return true;

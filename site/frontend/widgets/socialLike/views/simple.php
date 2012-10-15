@@ -1,9 +1,7 @@
 <?php
 
 $js = "
-    setTimeout(function() {
-        document.getElementById('vk_share_button').innerHTML = VK.Share.button(false,{type: 'round', text: 'Мне нравится'});
-    }, 500);
+    document.getElementById('vk_share_button').innerHTML = VK.Share.button(false,{type: 'round', text: 'Мне нравится'});
 ";
 
 Yii::app()->clientScript
@@ -26,7 +24,7 @@ Yii::app()->clientScript
         <div class="clearfix">
             <table width="100%">
                 <tr>
-                    <td style="vertical-align:top;padding-right:0;text-align: left;">
+                    <td id="facebook-like-td" style="vertical-align:top;padding-right:0;text-align: left;">
                         <iframe src="//www.facebook.com/plugins/like.php?locale=ru_RU&amp;href=<?=urlencode('http://'.$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"]) ?>&amp;send=false&amp;layout=button_count&amp;width=150&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:150px; height:21px;" allowTransparency="true"></iframe>
                     </td>
                     <td style="vertical-align:top;width: 150px;" id="vk_share_button">

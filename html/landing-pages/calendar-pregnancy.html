@@ -37,10 +37,12 @@
 		} else {
 			$("body").addClass(" smallscreen");
 			formTop =  ($(window).height() - $(".calendar-pregnancy-form").height() ) / 2;
-			$(".calendar-pregnancy-form").css("top", formTop);
+			if (formTop > 0) {
+				$(".calendar-pregnancy-form").css("top", formTop);
+			}
 		}
 	}
-/*	
+	
 	$(document).ready(function () {
 		photoPregnancy();
 		
@@ -51,7 +53,7 @@
 		photoPregnancy();
 		
 		calendarPregnancyForm ();
-	}); */
+	});
 	</script>
 	
 </head>
@@ -72,12 +74,13 @@
 			</div>
 			<h2>Персональный календарь беременности</h2>
 			<div class="free">БЕСПЛАТНО!</div>
-			<p>Присоединяйтесь к сообществу будущих мам! <br /> Общайтесь, получайте советы по ведению беременности и пользуйтесь различными сервисами</p>
+			<p class="bigtext">Присоединяйтесь к сообществу будущих мам! <br /> Общайтесь, получайте советы по ведению беременности и пользуйтесь различными сервисами</p>
+			<p class="smalltext">Присоединяйтесь к сообществу будущих мам! <br /> Общайтесь, получайте советы по ведению беременности.</p>
 			<div class="row">
 				<input type="text" class="text" placeholder="Введите ваш e-mail адрес" value=""/>
 			</div>
 			<input type="submit" value="Продолжить"  class="btn-green"/>
-			<div class="row">
+			<div class="social-row clearfix">
 				<em>войти с помощью</em>
 				<ul class="social-list">
 					<li><a href="#" class="odnoklasniki"></a></li>

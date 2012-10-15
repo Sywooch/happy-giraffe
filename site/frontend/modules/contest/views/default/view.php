@@ -40,7 +40,7 @@
         <div class="sticker">
             <?php if (Yii::app()->user->isGuest): ?>
                 <big>Условия конкурса:</big>
-                <p>Для того, чтобы принять участие в конкурсе, вы должны <?=CHtml::link('зарегистрироваться', '#register', array('class' => 'fancy'))?></p>
+                <p>Для того, чтобы принять участие в конкурсе, вы должны <?=CHtml::link('зарегистрироваться', '#register', array('class' => 'fancy', 'data-theme' => 'white-square'))?></p>
             <?php elseif (Yii::app()->user->model->scores->full != 2): ?>
                 <big>Условия конкурса:</big>
                 <p>Для того, чтобы принять участие в конкурсе, вы должны <?=CHtml::link('пройти 6 шагов', array('/user/profile', 'user_id' => Yii::app()->user->id))?> заполнения анкеты</p>

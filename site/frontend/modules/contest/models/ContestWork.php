@@ -151,6 +151,6 @@ class ContestWork extends HActiveRecord
 
     public function getPosition()
     {
-        return $this->count('rate > :rate', array(':rate' => $this->rate)) + 1;
+        return $this->count('rate > :rate AND contest_id = :contest_id', array(':rate' => $this->rate, ':contest_id' => $this->contest_id)) + 1;
     }
 }

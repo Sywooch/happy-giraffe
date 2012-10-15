@@ -4,8 +4,22 @@
 $('#sort').change(function() {
 	window.location.href = '" . $this->createAbsoluteUrl('/contest/' . $contest->id . '/list/') . "' + $(this).val() + '/';
 });
+			var $container = $(\'.gallery-photos-new\');
+
+			$container.imagesLoaded( function(){
+				$container.masonry({
+					itemSelector : \'li\',
+					columnWidth: 240,
+					saveOptions: true,
+					singleMode: false,
+					resizeable: true
+				});
+			});
 	";
-	$cs->registerScript('contest_list', $js);
+	$cs
+        ->registerScript('contest_list', $js)
+        ->registerScriptFile('/javascripts/jquery.masonry.min.js')
+    ;
 ?>
 
 <?php

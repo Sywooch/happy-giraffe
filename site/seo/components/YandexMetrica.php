@@ -181,13 +181,13 @@ class YandexMetrica
         $criteria = new CDbCriteria;
         $criteria->limit = 100;
         $criteria->with = array('phrases', 'phrases.visits');
-        $pages = Page::model()->findAll($criteria);
+        $criteria->offset = 0;
 
-        $i = 1;
-
+        $pages = array(1);
         while (!empty($pages)) {
-            foreach ($pages as $page) {
+            $pages = Page::model()->findAll($criteria);
 
+            foreach ($pages as $page) {
                 $page->yandex_week_visits = 0;
                 $page->yandex_month_visits = 0;
                 $page->google_week_visits = 0;
@@ -202,20 +202,20 @@ class YandexMetrica
                     $page->google_week_visits += $phrase->getVisits(self::SE_GOOGLE, 1);
                     $page->google_month_visits += $phrase->getVisits(self::SE_GOOGLE, 2);
 
-                    $criteria = new CDbCriteria;
-                    $criteria->compare('search_phrase_id', $phrase->id);
-                    $criteria->compare('se_id', 2);
-                    $criteria->order = 'date desc';
-                    $model = SearchPhrasePosition::model()->find($criteria);
+                    $criteria2 = new CDbCriteria;
+                    $criteria2->compare('search_phrase_id', $phrase->id);
+                    $criteria2->compare('se_id', 2);
+                    $criteria2->order = 'date desc';
+                    $model = SearchPhrasePosition::model()->find($criteria2);
                     if ($model !== null && $model->position != 0 && $model->position < $page->yandex_pos)
                         $page->yandex_pos = $model->position;
 
 
-                    $criteria = new CDbCriteria;
-                    $criteria->compare('search_phrase_id', $phrase->id);
-                    $criteria->compare('se_id', 3);
-                    $criteria->order = 'date desc';
-                    $model = SearchPhrasePosition::model()->find($criteria);
+                    $criteria2 = new CDbCriteria;
+                    $criteria2->compare('search_phrase_id', $phrase->id);
+                    $criteria2->compare('se_id', 3);
+                    $criteria2->order = 'date desc';
+                    $model = SearchPhrasePosition::model()->find($criteria2);
                     if ($model !== null && $model->position != 0 && $model->position < $page->google_pos)
                         $page->google_pos = $model->position;
                 }
@@ -223,12 +223,9 @@ class YandexMetrica
                 $page->save();
             }
 
-            $criteria = new CDbCriteria;
-            $criteria->limit = 100;
-            $criteria->with = array('phrases', 'phrases.visits');
-            $criteria->offset = $i * 100;
-            $pages = Page::model()->findAll($criteria);
-            $i++;
+            $criteria->offset += 100;
+
+            echo $criteria->offset."\n";
         }
     }
 

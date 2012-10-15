@@ -53,6 +53,7 @@ class UserController extends HController
 
         Yii::import('application.widgets.user.*');
         Yii::import('site.common.models.interest.*');
+        Yii::import('site.frontend.modules.contest.models.*');
 
         $user = User::model()->active()->with(array(
             'status',

@@ -69,4 +69,7 @@ $(function() {
             '<div class="confirm-before">Вы не можете голосовать сами за себя</div>' +
         '</div>');
     });
+    $('body').delegate('.yohoho_steps', 'click', function() {
+        $('.contest-error-hint').show().delay(3000).fadeOut(2000);
+    });
 })

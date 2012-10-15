@@ -99,7 +99,8 @@
                 url : '/albums/postLoad/',
                 data : {
                     entity : '<?=get_class($model)?>',
-                    entity_id : '<?=($model->id !== null) ? $model->id : 'null'?>'
+                    entity_id : '<?=($model->id !== null) ? $model->id : 'null'?>',
+                    sort : '<?=(Yii::app()->request->getQuery('sort') !== null) ? Yii::app()->request->getQuery('sort') : 'null'?>'
                 },
                 dataType : 'script'
             });
@@ -171,7 +172,7 @@
 
     </div>
 
-    <div id="w-photo-content photo-container"">
+    <div id="w-photo-content" class="photo-container">
         <?php $this->renderPartial('w_photo_content', compact('model', 'photo')); ?>
     </div>
 

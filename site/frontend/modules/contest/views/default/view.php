@@ -45,7 +45,6 @@
                 <big>Условия конкурса:</big>
                 <p>Для того, чтобы принять участие в конкурсе, вы должны <?=CHtml::link('пройти 6 шагов', array('/user/profile', 'user_id' => Yii::app()->user->id))?> заполнения анкеты</p>
             <?php else: ?>
-                <big>Поздравляем!</big>
                 <p>Разместите фотографию, на которой вы с малышом получились наиболее удачно и примите участие в конкурсе! Не забудьте пригласить друзей в группу поддержки!                </p>
                 <center>
                     <a href="<?=$this->createUrl('/contest/default/statement', array('id' => $this->contest->id))?>" onclick="Contest.canParticipate(this, '<?=$this->createUrl('/contest/default/canParticipate', array('id' => $this->contest->id))?>'); return false;" class="btn-green btn-green-medium">Участвовать<i class="arr-r"></i></a>

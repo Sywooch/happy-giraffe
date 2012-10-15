@@ -166,6 +166,7 @@ jQuery.fn.pGallery = function(options) {
             plugin.history.changeBrowserUrl(newUrl);
 
             $('#w-photo-content', plugin.window).html(html);
+            document.getElementById('vk_share_button').innerHTML = VK.Share.button(newUrl,{type: 'round', text: 'Мне нравится'});
             link.parent().siblings('li.active').removeClass('active');
             link.parent().addClass('active');
             if(callback)

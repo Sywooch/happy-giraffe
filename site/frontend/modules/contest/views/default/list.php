@@ -13,6 +13,7 @@ $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
     'selector' => '.img > a',
     'entity' => 'Contest',
     'entity_id' => $contest->id,
+    'entity_url' => $contest->getUrl(),
     'query' => array('sort' => $sort),
 ));
 ?>
@@ -49,7 +50,7 @@ $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
             'viewData' => array(
                 'currentPage' => $works->pagination->currentPage,
             ),
-            'emptyText'=>'В этом альбоме у вас нет фотографий'
+            'emptyText'=>'Станьте первым!',
         ));
 
         $this->widget('PhotosAjaxMasonry', array(

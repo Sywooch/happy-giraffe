@@ -232,9 +232,9 @@ class ELTask extends HActiveRecord
         }
 
         $criteria = new CDbCriteria;
-        $criteria->condition = 'created >= :last_link_time';
         $criteria->compare('site_id', $this->site_id);
         $criteria->compare('type', self::TYPE_COMMENT);
+        $criteria->condition = 'created >= :last_link_time';
         $criteria->params = array(':last_link_time' => $latest_link_comment->created);
 
         $criteria->order = 'created desc';

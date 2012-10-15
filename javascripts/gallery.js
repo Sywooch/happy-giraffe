@@ -97,6 +97,7 @@ jQuery.fn.pGallery = function(options) {
             var newUrl = plugin.getEntityUrl() + 'photo' + plugin.data.id + '/';
             if (typeof history.pushState !== 'undefined') {
                 plugin.history.changeBrowserUrl(newUrl);
+                document.getElementById('vk_share_button').innerHTML = VK.Share.button(newUrl,{type: 'round', text: 'Мне нравится'});
             }
             $('#photo-window-bg, #photo-window').fadeIn(600, function(){
                 /*$('#photo-thumbs .jcarousel', plugin.window).jcarousel();

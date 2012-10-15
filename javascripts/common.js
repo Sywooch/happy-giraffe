@@ -569,3 +569,22 @@ var PasswordRecovery = {
         }, 'json');
     }
 }
+
+var Contest = {
+    canParticipate : function(el, url) {
+
+        $.get(url, function(data) {
+            switch (data.status) {
+                case 0:
+                    $('[href="#register"]').trigger('click');
+                    break;
+                case 1:
+                    $(el).after($('#oopsTmpl').tmpl({id: data.id}));
+                    $('.contest-error-hint').delay(3000).fadeOut(2000);
+                    break;
+                default:
+                    document.location.href = $(el).attr('href');
+            }
+        }, 'json');
+    }
+}

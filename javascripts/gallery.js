@@ -106,6 +106,7 @@ jQuery.fn.pGallery = function(options) {
                 $(window).resize();
             });
 
+            console.log(id);
             var title = pGallery.photos[id].title;
             if (title != null)
                 document.title = pGallery.photos[id].title;

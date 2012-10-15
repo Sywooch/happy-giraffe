@@ -1,7 +1,7 @@
 <?php
 
 $js = "
-    document.getElementById('vk_share_button').innerHTML = VK.Share.button(false,{type: 'round', text: 'Мне нравится'});
+    document.getElementById('vk_share_button').innerHTML = VK.Share.button(document.location.href,{type: 'round', text: 'Мне нравится'});
 ";
 
 Yii::app()->clientScript

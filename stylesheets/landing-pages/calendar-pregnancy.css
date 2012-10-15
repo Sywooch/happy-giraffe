@@ -1,20 +1,20 @@
 .calendar-pregnancy-form {
-	margin:0 auto;
 	position:relative;
 	top:5px;
-	width:440px;
+	margin:0 auto;
 	padding:0 20px;
-	background:#fff;
-	text-align:center;
-	color:#3c3c3c;
-	font-size:17px;
-	line-height:26px;
-	-webkit-box-shadow:  0px 8px 11px 0px rgba(0, 0, 0, 0.23);
-    box-shadow:  0px 8px 11px 0px rgba(0, 0, 0, 0.23);
+	width:440px;
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	-ms-border-radius: 5px;
 	border-radius: 5px;
+	background:#fff;
+	-webkit-box-shadow:  0px 8px 11px 0px rgba(0, 0, 0, 0.23);
+    box-shadow:  0px 8px 11px 0px rgba(0, 0, 0, 0.23);
+	color:#3c3c3c;
+	text-align:center;
+	font-size:17px;
+	line-height:26px;
 	 behavior: url(PIE.htc);
 }
 .smallscreen .calendar-pregnancy-form {
@@ -23,137 +23,177 @@
 }
 
 .calendar-pregnancy-form .logo-box {
-	width:280px;
-	text-align:center;
-	color:#8d5bbc;
-	text-transform:uppercase;
-	font-size:9px;
-	letter-spacing:3px;
-	line-height:25px;
-	padding-top:20px;
-	padding-bottom:10px;
 	display:inline-block;
+	padding:30px 0 10px;
+	width:280px;
+	color:#8d5bbc;
+	text-align:center;
+	text-transform:uppercase;
+	letter-spacing:3px;
+	font-size:9px;
+	line-height:25px;
 	*display:inline;
 	*zoom:1;
 }
-.smallscreen .calendar-pregnancy-form .logo-box {padding-bottom:0;}
+.smallscreen .calendar-pregnancy-form .logo-box {padding:20px 0 0;}
 .calendar-pregnancy-form .logo-box a.logo {
 	display:block;
+	margin:0 auto;
 	width:198px;
 	height:93px;
 	background:url(/images/common.png) no-repeat 0 -200px;
 	text-indent:-9999px;
-	margin:0 auto;
 }
 .calendar-pregnancy-form h2 {
+	margin-bottom:7px;
 	color:#232323;
 	font:30px/35px Arial, Tahoma, Verdana, sans-serif;
-	margin-bottom:7px;
 }
 .smallscreen .calendar-pregnancy-form h2 {
-	font-size:28px;
-	line-height:26px;
 	margin-bottom:4px;
+	font-size:26px;
+	line-height:26px;
 }
 .calendar-pregnancy-form .free {
+	margin-bottom:10px;
 	color:#05a6e2;
 	font-size:45px;
 	line-height:normal;
 }
+.smallscreen .calendar-pregnancy-form .free {margin-bottom:5px;}
+.calendar-pregnancy-form .bigtext {
+	font-size:17px;
+	line-height:26px;
+}
+.smallscreen .calendar-pregnancy-form .bigtext{display:none;}
+.calendar-pregnancy-form .smalltext {
+	font-size:15px;
+	line-height:20px;
+	display:none;
+}
+.smallscreen .calendar-pregnancy-form .smalltext {display:block;}
 .smallscreen .calendar-pregnancy-form .free {
 	font-size:40px;
 	line-height:47px;
 }
 .calendar-pregnancy-form .row {
 	margin-bottom:15px;
+	padding:20px 0 45px;
 	background:url(/images/landing-pages/calendar-pregnancy/arrow.png) no-repeat 50% 100%;
 }
 .smallscreen .calendar-pregnancy-form .row {
+	margin-bottom:8px;
+	padding:15px 0 22px;
 	background-size:33px;
-	margin-bottom:6px;
 }
 .calendar-pregnancy-form .text {
-	width:312px;
 	display:inline-block;
-	*display:inline;
-	*zoom:1;
-	text-align:center;
-	border:1px solid #d7bcf1;
-	margin:20px 0 45px;
 	padding:10px 5px;
+	width:312px;
 	height:28px;
-	line-height:28px;
-	font-size:22px;
+	border:1px solid #d7bcf1;
 	background:#fff;
 	-webkit-box-shadow: 0 0 30px rgba(219,193,244,.7);
 	-moz-box-shadow: 0 0 30px rgba(219,193,244,.7);
 	-ms-box-shadow: 0 0 30px rgba(219,193,244,.7);
 	box-shadow: 0 0 30px rgba(219,193,244,.7);
+	text-align:center;
+	font-size:22px;
+	line-height:28px;
+	*display:inline;
+	*zoom:1;
 	 behavior: url(PIE.htc);
-}
-.smallscreen .calendar-pregnancy-form .text {
-	margin:10px 0 23px;
 }
 
 .calendar-pregnancy-form .btn-green {
-	height:84px;
-	font:40px/84px Arial, Tahoma, Verdana, sans-serif;
-	letter-spacing:1px;
+	margin-bottom:25px;
 	width:318px;
-	margin-bottom:40px;
+	height:84px;
+	letter-spacing:1px;
+	font:40px/84px Arial, Tahoma, Verdana, sans-serif;
 }
 .smallscreen .calendar-pregnancy-form .btn-green {
 	margin-bottom:20px;
 	height:72px;
-	font-size:40px;
 	line-height:72px;
 }
 
+.social-row {
+	padding-bottom:40px;
+	color:#7d7d7d;
+	vertical-align:middle;
+	font:italic 14px/24px 'Times New Roman', Georgia, Times, serif;
+}
+.smallscreen .social-row {padding-bottom:20px;}
+.social-list {
+	display:inline-block;
+	margin:0 0 0 15px;
+	list-style:none;
+	vertical-align:middle;
+	*display:inline;
+	*zoom:1;
+}
+.social-list li {
+	display:inline-block;
+	margin:0 9px 0 0;
+	*display:inline;
+	*zoom:1;
+}
+.social-list li a {
+	display:block;
+	width:20px;
+	height:20px;
+	background:url(/images/icon-social.png) no-repeat;
+}
+.social-list li a.odnoklasniki{background-position:0 0;}
+.social-list li a.mailru{background-position:0 -20px;}
+.social-list li a.vk{background-position:0 -40px;}
+.social-list li a.fb{background-position:0 -60px;}
+
 .calendar-pregnancy-holder {
 	position:absolute;
-	max-width:1920px;
-	min-height:500px;
-	height:100%;
-	width:100%;
 	top:0;
 	left:0;
+	min-height:500px;
+	max-width:1920px;
+	width:100%;
+	height:100%;
 }
 
 .photo-pregnancy1 {
 	position:absolute;
-	left:15px;
 	top:40px;
+	left:15px;
 	border:11px solid #fff;
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
-	-ms-border-radius: 5px;
 	border-radius: 5px;
-	behavior: url(PIE.htc);
+    -webkit-transform: rotate(-8deg); /* Для Safari, Chrome, iOS */
 	-moz-transform: rotate(-8deg); /* Для Firefox */
     -ms-transform: rotate(-8deg); /* Для IE */
-    -webkit-transform: rotate(-8deg); /* Для Safari, Chrome, iOS */
     -o-transform: rotate(-8deg); /* Для Opera */
     transform: rotate(-8deg);
+	-ms-border-radius: 5px;
+	behavior: url(PIE.htc);
 
 }
 .ie8 .photo-pregnancy1 {-ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=0.9902680687415705, M12=0.13917310096006452, M21=-0.13917310096006452, M22=0.9902680687415705, SizingMethod='auto expand')";}
 
 .photo-pregnancy2 {
 	position:absolute;
-	right:20px;
 	top:50px;
+	right:20px;
 	border:11px solid #fff;
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
-	-ms-border-radius: 5px;
 	border-radius: 5px;
-	behavior: url(PIE.htc);
-
+    -webkit-transform: rotate(-3deg); /* Для Safari, Chrome, iOS */
 	-moz-transform: rotate(-3deg); /* Для Firefox */
     -ms-transform: rotate(-3deg); /* Для IE */
-    -webkit-transform: rotate(-3deg); /* Для Safari, Chrome, iOS */
     -o-transform: rotate(-3deg); /* Для Opera */
     transform: rotate(-3deg);
+	-ms-border-radius: 5px;
+	behavior: url(PIE.htc);
 
 }
 .ie8 .photo-pregnancy2 {-ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=0.9986295347545738, M12=0.05233595624294388, M21=-0.05233595624294388, M22=0.9986295347545738, SizingMethod='auto expand')";}
@@ -165,41 +205,35 @@
 	border:11px solid #fff;
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
-	-ms-border-radius: 5px;
 	border-radius: 5px;
-	behavior: url(PIE.htc);
+    -webkit-transform: rotate(9deg); /* Для Safari, Chrome, iOS */
 
 	-moz-transform: rotate(9deg); /* Для Firefox */
     -ms-transform: rotate(9deg); /* Для IE */
-    -webkit-transform: rotate(9deg); /* Для Safari, Chrome, iOS */
     -o-transform: rotate(9deg); /* Для Opera */
     transform: rotate(9deg);
+	-ms-border-radius: 5px;
+	behavior: url(PIE.htc);
 
 }
 .ie8 .photo-pregnancy3 {-ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=0.9876883405951377, M12=-0.1564344650402311, M21=0.1564344650402311, M22=0.9876883405951377, SizingMethod='auto expand')";}
 
 .photo-pregnancy4 {
 	position:absolute;
-	left:10px;
 	bottom:40px;
+	left:10px;
 	border:11px solid #fff;
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
-	-ms-border-radius: 5px;
 	border-radius: 5px;
-	behavior: url(PIE.htc);
+    -webkit-transform: rotate(5deg); /* Для Safari, Chrome, iOS */
 
 	-moz-transform: rotate(5deg); /* Для Firefox */
     -ms-transform: rotate(5deg); /* Для IE */
-    -webkit-transform: rotate(5deg); /* Для Safari, Chrome, iOS */
     -o-transform: rotate(5deg); /* Для Opera */
     transform: rotate(5deg);
+	-ms-border-radius: 5px;
+	behavior: url(PIE.htc);
 
 }
 .ie8 .photo-pregnancy4 {-ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=0.9961946980917455, M12=-0.08715574274765832, M21=0.08715574274765832, M22=0.9961946980917455, SizingMethod='auto expand')";}
-
-
-
-
-
-

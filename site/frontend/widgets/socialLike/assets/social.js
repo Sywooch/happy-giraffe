@@ -70,9 +70,6 @@ $(function() {
         '</div>');
     });
     $('body').delegate('.yohoho_steps', 'click', function() {
-        $.fancybox.open('<div class="popup-confirm popup">' +
-            '<a class="popup-close" onclick="$.fancybox.close();" href="javascript:void(0);">Закрыть</a>' +
-            '<div class="confirm-before">Для того, чтобы голосовать в конкурсе, нужно пройти <a href="' + $('#stepsLink').val() + '">первые 6 шагов</a></div>' +
-            '</div>');
+        $('.contest-error-hint').show().delay(3000).fadeOut(2000);
     });
 })

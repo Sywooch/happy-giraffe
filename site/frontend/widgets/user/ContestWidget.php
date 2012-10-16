@@ -9,7 +9,7 @@
 class ContestWidget extends UserCoreWidget
 {
     public $contest_id;
-    public $registerGallery;
+    public $registerGallery = true;
 
     public $_contest_work;
     public $_contest;

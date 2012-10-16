@@ -48,12 +48,14 @@ class UsersCommand extends CConsoleCommand
         $criteria->condition = '`group` = 0 AND last_active < :last_active AND login_date < :last_active
          AND (register_date IS NULL OR register_date < :last_active) AND id < 14000';
         $criteria->params = array(':last_active' => date("Y-m-d H:i:s", strtotime('-2 month')));
+        $criteria->limit = 1000;
 
         $users = User::model()->findAll($criteria);
         $k = 0;
         foreach ($users as $user) {
             if ($user->communityContentsCount == 0 && $user->cookRecipesCount == 0
-                && $user->recipeBookRecipesCount == 0
+                && $user->recipeBookRecipesCount == 0 && $user->commentsCount == 0
+                && $user->photosCount == 0
             ) {
                 Yii::app()->db->createCommand()->delete('users', 'id=' . $user->id);
                 $k++;
@@ -71,7 +73,8 @@ class UsersCommand extends CConsoleCommand
         $k = 0;
         foreach ($users as $user) {
             if ($user->communityContentsCount == 0 && $user->cookRecipesCount == 0
-                && $user->recipeBookRecipesCount == 0
+                && $user->recipeBookRecipesCount == 0 && $user->commentsCount == 0
+                && $user->photosCount == 0
             ) {
                 Yii::app()->db->createCommand()->delete('users', 'id=' . $user->id);
                 $k++;

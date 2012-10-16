@@ -2,7 +2,7 @@
      <?php if (Yii::app()->user->isGuest):?>
          <a class="btn-icon heart fancy" href="#login" data-theme="white-square"></a>
      <?php else: ?>
-         <a class="btn-icon heart<?=(! Yii::app()->user->isGuest && get_class($this->model) == 'ContestWork' && Yii::app()->user->model->scores->full != 2) ? ' yohoho_steps':''?><?php echo isset($this->model->author) && Yii::app()->user->id == $this->model->author->id ? ' yohoho_me ' : '' ?><?php echo RatingYohoho::model()->findByEntity($this->model) ? ' active' : ''; ?>" href="javascript:;" onclick="pushYohoho(this);"></a>
+         <a class="btn-icon heart heart2<?=(! Yii::app()->user->isGuest && get_class($this->model) == 'ContestWork' && Yii::app()->user->model->scores->full != 2) ? ' yohoho_steps':''?><?php echo isset($this->model->author) && Yii::app()->user->id == $this->model->author->id ? ' yohoho_me ' : '' ?><?php echo RatingYohoho::model()->findByEntity($this->model) ? ' active' : ''; ?>" href="javascript:;" onclick="pushYohoho(this);"></a>
      <?php endif ?>
 
      <div class="count"><?php echo Rating::model()->countByEntity($this->model, 'yh') / 2; ?></div>

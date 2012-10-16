@@ -8,8 +8,8 @@
             $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
                 'selector' => '.img > a',
                 'entity' => 'Contest',
-                'entity_id' => $this->contest_id,
-                'entity_url' => $contest->getUrl(),
+                'entity_id' => $this->_contest->id,
+                'entity_url' => $this->_contest->getUrl(),
                 'query' => array('sort' => 'created'),
             ));
     ?>

@@ -8,7 +8,7 @@ if (get_class($this->model) == 'ContestWork' && Yii::app()->request->isAjaxReque
 }
 
 $js = "
-    document.getElementById('vk_share_button').innerHTML = VK.Share.button(false,{type: 'round', text: 'Мне нравится'});
+    $('.vk_share_button').html(VK.Share.button(false,{type: 'round', text: 'Мне нравится'}));
 ";
 
 Yii::app()->clientScript
@@ -16,7 +16,7 @@ Yii::app()->clientScript
 //->registerScript('vk-init', "VK.init({apiId: " . Yii::app()->params['social']['vk']['api_id'] . ", onlyWidgets: true});", CClientScript::POS_HEAD)
     ->registerCssFile('http://stg.odnoklassniki.ru/share/odkl_share.css')
     ->registerScriptFile('http://stg.odnoklassniki.ru/share/odkl_share.js')
-    ->registerScriptFile('//connect.facebook.net/en_US/all.js')
+    ->registerScriptFile('//connect.facebook.net/ru_RU/all.js')
     ->registerMetaTag($this->options['title'], null, null, array('property' => 'og:title'))
     ->registerMetaTag($this->options['image'], null, null, array('property' => 'og:image'))
     ->registerMetaTag($this->options['description'], null, null, array('property' => 'og:description'))
@@ -37,7 +37,7 @@ Yii::app()->clientScript
                                 style="border:none; overflow:hidden; width:150px; height:21px;"
                                 allowTransparency="true"></iframe>
                     </td>
-                    <td style="vertical-align:top;width: 150px;" id="vk_share_button">
+                    <td style="vertical-align:top;width: 150px;" class="vk_share_button">
 
                     </td>
                     <td style="vertical-align:top;padding-right:15px;text-align: left;">
@@ -45,7 +45,7 @@ Yii::app()->clientScript
                            onclick="ODKL.Share(this);Social.updateLikesCount('ok');return false;"><span>0</span></a>
                     </td>
                     <td style="vertical-align:top;">
-                        <?=HHtml::link('Tweet', 'https://twitter.com/share', array('class' => 'twitter-share-button', 'data-lang' => 'en')) ?>
+                        <?=CHtml::link('Tweet', 'https://twitter.com/share', array('class' => 'twitter-share-button', 'data-lang' => 'en')) ?>
                         <script type="text/javascript" charset="utf-8">
                             window.twttr = (function (d, s, id) {
                                 var t, js, fjs = d.getElementsByTagName(s)[0];

@@ -34,10 +34,21 @@ class RatingQueue extends EMongoDocument
         if ($exist === null) {
             $exist = new RatingQueue;
             $exist->entity = $entity;
-            $exist->entity_id = $entity_id;
+            $exist->entity_id = (int)$entity_id;
             $exist->social_key = $social_key;
             $exist->time = time();
             $exist->save();
         }
+    }
+
+    public function updateEntity()
+    {
+        $modelName = $this->entity;
+        $model = $modelName::model()->findByPk($this->entity_id);
+        if ($model !== null) {
+            $url = 'http://www.happy-giraffe.ru'.ltrim($model->url, '.');
+            Rating::updateByApi($model, $this->social_key, $url);
+        }
+        $this->delete();
     }
 }

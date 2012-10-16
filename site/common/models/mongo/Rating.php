@@ -102,7 +102,7 @@ class Rating extends EMongoDocument
         }
 
         if (isset($entity->author_id)) {
-            UserScores::addScores($entity->author_id, ScoreAction::ACTION_LIKE, $model->sum - $old_sum, $entity);
+            //UserScores::addScores($entity->author_id, ScoreAction::ACTION_LIKE, $model->sum - $old_sum, $entity);
         }
 
         $model->save();
@@ -169,7 +169,10 @@ class Rating extends EMongoDocument
             $model->sum = 0;
         }
 
-        $model->ratings[$social_key]++;
+        if (isset($model->ratings[$social_key]))
+            $model->ratings[$social_key]++;
+        else
+            $model->ratings[$social_key] = 1;
         $model->save();
 
         return $model;

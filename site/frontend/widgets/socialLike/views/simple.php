@@ -8,7 +8,7 @@ if (get_class($this->model) == 'ContestWork' && Yii::app()->request->isAjaxReque
 }
 
 $js = "
-    $('.vk_share_button').html(VK.Share.button(false,{type: 'round', text: 'Мне нравится'}));
+    $('.vk_share_button').html(VK.Share.button(document.location.href,{type: 'round', text: 'Мне нравится'}));
 ";
 
 Yii::app()->clientScript

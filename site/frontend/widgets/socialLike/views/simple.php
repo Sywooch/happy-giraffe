@@ -45,7 +45,6 @@ Yii::app()->clientScript
                     <td style="vertical-align:top;">
                         <?=CHtml::link('Tweet', 'https://twitter.com/share', array('class'=>'twitter-share-button', 'data-lang'=>'en')) ?>
                         <script>!function (d, s, id) {
-                            alert('123');
                             var js, fjs = d.getElementsByTagName(s)[0];
                             if (!d.getElementById(id)) {
                                 js = d.createElement(s);

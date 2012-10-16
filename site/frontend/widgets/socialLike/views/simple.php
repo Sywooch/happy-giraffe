@@ -48,7 +48,7 @@ Yii::app()->clientScript
                     </td>
                     <td style="vertical-align:top;padding-right:15px;text-align: left;">
                         <a class="odkl-klass-oc" href="<?=$url?>"
-                           onclick="ODKL.Share(this);Social.updateLikesCount('ok');return false;"><span>0</span></a>
+                           onclick="Social.updateLikesCount('ok');ODKL.Share(this);return false;"><span>0</span></a>
                     </td>
                     <td style="vertical-align:top;">
                         <?=CHtml::link('Tweet', 'https://twitter.com/share', array('class' => 'twitter-share-button', 'data-lang' => 'en')) ?>

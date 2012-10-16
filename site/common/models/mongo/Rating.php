@@ -101,9 +101,9 @@ class Rating extends EMongoDocument
             $entity->save(false);
         }
 
-        if (isset($entity->author_id)) {
-            //UserScores::addScores($entity->author_id, ScoreAction::ACTION_LIKE, $model->sum - $old_sum, $entity);
-        }
+//        if (isset($entity->author_id)) {
+//            UserScores::addScores($entity->author_id, ScoreAction::ACTION_LIKE, $model->sum - $old_sum, $entity);
+//        }
 
         $model->save();
     }

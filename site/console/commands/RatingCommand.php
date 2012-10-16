@@ -15,21 +15,11 @@ class RatingCommand extends CConsoleCommand
     public function actionIndex()
     {
         $criteria = new EMongoCriteria;
-        $criteria->time('<', time() - 5*60);
+        $criteria->time('<', time() - 5 * 60);
         $models = RatingQueue::model()->findAll($criteria);
 
-        foreach($models as $model){
+        foreach ($models as $model) {
             $model->updateEntity();
-        }
-    }
-
-    public function actionTest(){
-        $criteria = new EMongoCriteria;
-        $criteria->time('<', time() - 3*60);
-        $models = RatingQueue::model()->findAll($criteria);
-
-        foreach($models as $model){
-            $model->updateEntity('http://dev.happy-giraffe.ru');
         }
     }
 }

@@ -102,7 +102,26 @@
 #user .user-photo {}
 #user .user-photo img {display:block;}
 
-#user  .details {color:#b6b9ba;font-size:9px;font-family:tahoma, arial, helvetica, sans-serif;padding:5px 10px;text-indent:0;text-align:center;}
+#user .details {color:#b6b9ba;font-size:9px;font-family:tahoma, arial, helvetica, sans-serif;padding:5px 10px;text-indent:0;text-align:center;background:#f3e9fc;}
+
+#user .user-trophies {background:#f3e9fc;padding:5px 14px;margin:0 0 10px;}
+#user .user-trophies .box-title .a-right{margin-top:7px;}
+#user .user-trophies .user-trophies-list {list-style:none;max-height:165px;overflow:hidden;}
+#user .user-trophies.trophies-long-list .user-trophies-list{max-height:none;}
+#user .user-trophies .user-trophies-list li {float:left;margin:0 3px 5px 0;}
+#user .trophie {display:block;width:50px;height:50px;background:url(/images/trophies.png) no-repeat;}
+#user .trophie.trophie-1  {background-position:0 0;}
+#user .trophie.trophie-2  {background-position:0 -50px;}
+#user .trophie.trophie-3  {background-position:0 -100px;}
+#user .trophie.trophie-4  {background-position:0 -150px;}
+#user .trophie.trophie-5  {background-position:0 -200px;}
+#user .trophie.trophie-6  {background-position:0 -250px;}
+#user .trophie.trophie-7  {background-position:0 -300px;}
+#user .trophie.trophie-8  {background-position:0 -350px;}
+#user .trophie.trophie-9  {background-position:0 -400px;}
+#user .trophie.trophie-10 {background-position:0 -450px;}
+#user .trophie.trophie-11 {background-position:0 -500px;}
+
 
 .user-lvl {width:240px;height:160px;margin-top:10px;}
 .user-lvl-0 {height:142px;background:url(/images/user_lvl_0.png) center no-repeat;}

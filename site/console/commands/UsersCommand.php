@@ -53,7 +53,8 @@ class UsersCommand extends CConsoleCommand
         $k = 0;
         foreach ($users as $user) {
             if ($user->communityContentsCount == 0 && $user->cookRecipesCount == 0
-                && $user->recipeBookRecipesCount == 0
+                && $user->recipeBookRecipesCount == 0 && $user->commentsCount == 0
+                && $user->photosCount == 0
             ) {
                 Yii::app()->db->createCommand()->delete('users', 'id=' . $user->id);
                 $k++;
@@ -71,7 +72,8 @@ class UsersCommand extends CConsoleCommand
         $k = 0;
         foreach ($users as $user) {
             if ($user->communityContentsCount == 0 && $user->cookRecipesCount == 0
-                && $user->recipeBookRecipesCount == 0
+                && $user->recipeBookRecipesCount == 0 && $user->commentsCount == 0
+                && $user->photosCount == 0
             ) {
                 Yii::app()->db->createCommand()->delete('users', 'id=' . $user->id);
                 $k++;

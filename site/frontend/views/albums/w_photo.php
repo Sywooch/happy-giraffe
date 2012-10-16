@@ -172,7 +172,7 @@
 
     </div>
 
-    <div id="w-photo-content photo-container"">
+    <div id="w-photo-content" class="photo-container">
         <?php $this->renderPartial('w_photo_content', compact('model', 'photo')); ?>
     </div>
 

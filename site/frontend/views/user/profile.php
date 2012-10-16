@@ -143,7 +143,7 @@
 
                     <?php $this->widget('ContestWidget', array(
                         'user' => $user,
-                        'contest_id' => 1,
+                        'contest_id' => 2,
                     )); ?>
 
                     <?php $this->widget('UserFriendsWidget', array(
@@ -151,9 +151,9 @@
                     )); ?>
 
                     <div id="loc-flipbox">
-                        <?//php $this->widget('LocationWidget', array(
-                         //   'user' => $user,
-                       // )); ?>
+                        <?php $this->widget('LocationWidget', array(
+                            'user' => $user,
+                        )); ?>
                     </div>
 
                     <div class="weather-wrapper">

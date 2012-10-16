@@ -266,7 +266,7 @@ class WordstatParser extends ProxyParserThread
                 $parsing_model->priority = $this->keyword->priority;
                 $parsing_model->theme = $theme;
                 $parsing_model->save();
-            }else{
+            } else {
                 $exist->priority = $this->keyword->priority;
                 $exist->theme = $theme;
                 $exist->save();
@@ -306,19 +306,16 @@ class WordstatParser extends ProxyParserThread
      */
     public function RemoveCurrentKeywordFromParsing()
     {
-        //иначе удаляем кейворд из парсинга
-        $this->startTimer('remove_from_parsing remove');
+        $this->startTimer('remove_from_parsing');
+        //добавляем в спарсенные
+        $yandex = YandexPopularity::model()->findByPk($this->keyword->keyword_id);
+        if ($yandex !== null) {
+            $yandex->parsed = 1;
+            $yandex->save();
+        }
+
+        //удаляем кейворд из парсинга
         ParsingKeyword::model()->deleteByPk($this->keyword->keyword_id);
-        $this->endTimer();
-
-        $this->startTimer('remove_from_parsing save_parsed');
-        //и добавляем в спарсенные
-            $yandex = YandexPopularity::model()->findByPk($this->keyword->keyword_id);
-            if ($yandex !== null) {
-                $yandex->parsed = 1;
-                $yandex->save();
-            }
-
         $this->endTimer();
     }
 }

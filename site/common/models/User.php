@@ -288,6 +288,7 @@ class User extends HActiveRecord
             'communityContentsCount' => array(self::STAT, 'CommunityContent', 'author_id'),
             'cookRecipesCount' => array(self::STAT, 'CookRecipe', 'author_id'),
             'recipeBookRecipesCount' => array(self::STAT, 'RecipeBookRecipe', 'author_id'),
+            'photosCount' => array(self::STAT, 'AlbumPhoto', 'author_id'),
 
             'communitiesCount' => array(self::STAT, 'Community', 'user__users_communities(user_id, community_id)'),
             'userDialogs' => array(self::HAS_MANY, 'DialogUser', 'user_id'),

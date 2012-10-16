@@ -59,8 +59,10 @@ class SController extends CController
             $menu ['Комментаторы'] = $this->createUrl('/commentators/default/index');
         if (Yii::app()->user->checkAccess('cook-manager-panel'))
             $menu ['Кулинария'] = $this->createUrl('/competitors/default/index', array('section'=>2));
-        if (Yii::app()->user->checkAccess('externalLinks-manager-panel'))
+        if (Yii::app()->user->checkAccess('externalLinks-manager-panel') || Yii::app()->user->checkAccess('externalLinks-manager'))
             $menu ['Внешние ссылки'] = $this->createUrl('/externalLinks/sites/index');
+        if (Yii::app()->user->checkAccess('promotion'))
+            $menu ['Перелинковка'] = $this->createUrl('/promotion/linking/autoLinking');
 
         return $menu;
     }

@@ -437,13 +437,13 @@ class AlbumPhoto extends HActiveRecord
             return CHtml::image($this->getPreviewUrl(460, 600), $this->title);
     }
 
-    public function getRssContent()
-    {
-        return CHtml::image($this->getPreviewUrl(460, 600), $this->title);
-    }
-
     public function getAttachByEntity($entity)
     {
         return AttachPhoto::model()->findByAttributes(array('entity' => $entity, 'photo_id' => $this->id));
+    }
+
+    public function getRssContent()
+    {
+        return CHtml::image($this->getPreviewUrl(460, 600), $this->title);
     }
 }

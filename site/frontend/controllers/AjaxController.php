@@ -109,6 +109,26 @@ class AjaxController extends HController
         Yii::app()->end();
     }
 
+    public function actionUpdateRating(){
+        Yii::import('contest.models.*');
+        Yii::import('services.modules.recipeBook.models.*');
+
+        $modelName = $_POST['modelName'];
+        $objectId = $_POST['objectId'];
+        $social_key = $_POST['key'];
+
+        $model = $modelName::model()->findByPk($objectId);
+        if (!$model)
+            Yii::app()->end();
+
+        $model = Rating::model()->inc($model, $social_key);
+        RatingQueue::model()->add($modelName, $objectId, $social_key);
+
+        echo CJSON::encode(array(
+            'sum' => $model->sum,
+        ));
+    }
+
     public function actionGetRate()
     {
         Yii::import('contest.models.*');

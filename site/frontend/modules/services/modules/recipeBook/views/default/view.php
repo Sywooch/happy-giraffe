@@ -16,6 +16,10 @@
                 'friendButton' => true,
                 'location' => false,
             ));
+
+            if (Yii::app()->request->getParam('Comment_page', null) !== null) {
+                Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
+            }
         ?>
 
         <div class="meta">

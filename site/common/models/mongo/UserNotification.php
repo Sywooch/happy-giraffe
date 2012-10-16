@@ -39,6 +39,13 @@ class UserNotification extends EMongoDocument
         return parent::model($className);
     }
 
+    public function init()
+    {
+        parent::init();
+
+        Yii::import('application.modules.contest.models.*');
+    }
+
     public function rules()
     {
         return array(
@@ -109,7 +116,7 @@ class UserNotification extends EMongoDocument
     {
         $entity = CActiveRecord::model($comment->entity)->findByPk($comment->entity_id);
         $entityName = get_class($entity);
-        if (! (in_array($entityName, array('CommunityContent', 'BlogContent', 'User', 'CookRecipe')) || $entityName == 'AlbumPhoto' && $entity->album !== null))
+        if (! (in_array($entityName, array('CommunityContent', 'BlogContent', 'User', 'CookRecipe')) || $entityName == 'AlbumPhoto' && ($entity->album !== null || ($attach = $entity->getAttachByEntity('ContestWork')) !== null)))
             return false;
 
         $this->recipient_id = (int) (($entityName != 'User') ? $entity->author_id : $entity->id);
@@ -131,7 +138,13 @@ class UserNotification extends EMongoDocument
                 $line2 = 'к вашему рецепту ' . CHtml::link($entity->title, $entity->url);
                 break;
             case 'AlbumPhoto':
-                $line2 = 'к вашему фото ' . CHtml::link($entity->title, $entity->url) . ' в альбоме ' . CHtml::link($entity->album->title, $entity->album->url);
+                if ($attach === null) {
+                    $line2 = 'к вашему фото ' . CHtml::link($entity->title, $entity->url) . ' в альбоме ' . CHtml::link($entity->album->title, $entity->album->url);
+                } else {
+                    $model = $attach->model;
+                    $line2 = 'к вашей работе ' . CHtml::link($model->title, Yii::app()->createUrl('/albums/singlePhoto', array('entity' => 'Contest', 'contest_id' => $model->contest_id, 'photo_id' => $entity->id))) . ' на конкурсе ' . CHtml::link($model->contest->title, $model->contest->url);
+                    $this->url = Yii::app()->createUrl('/albums/singlePhoto', array('entity' => 'Contest', 'contest_id' => $model->contest_id, 'photo_id' => $entity->id));
+                }
                 break;
         }
         $this->text = $line1 . $line2;

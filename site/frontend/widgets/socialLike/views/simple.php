@@ -74,16 +74,13 @@ Yii::app()->clientScript
                     if (VK && VK.Share && VK.Share.click) {
                         var oldShareClick = VK.Share.click;
                         VK.Share.click = function (index, el) {
-                            console.log('update vk shares');
                             Social.updateLikesCount('vk');
-
                             return oldShareClick.call(VK.Share, index, el);
                         }
                     }
 
                     twttr.ready(function (twttr) {
                         twttr.events.bind('tweet', function (event) {
-                            console.log('tweet event');
                             Social.updateLikesCount("tw")
                         });
                     });

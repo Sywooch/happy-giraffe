@@ -25,6 +25,7 @@ var Social = {
             this.timer = false;
         }
         this.timer = setInterval('Social.wait();', 100);
+        this.clicked = [];
         return false;
     },
     getRate:function () {

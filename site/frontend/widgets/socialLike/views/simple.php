@@ -71,10 +71,12 @@ Yii::app()->clientScript
                             Social.updateLikesCount('fb');
                         });
                     if (VK && VK.Share && VK.Share.click) {
+                        var oldShareClick = VK.Share.click;
                         VK.Share.click = function (index, el) {
                             console.log('update vk shares');
                             Social.updateLikesCount('vk');
-                            return true;
+
+                            return oldShareClick.call(VK.Share, index, el);
                         }
                     }
 

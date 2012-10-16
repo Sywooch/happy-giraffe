@@ -58,14 +58,18 @@ var Social = {
             "json");
     },
     updateLikesCount:function (key) {
-        if ($.inArray(key, this.clicked) == -1){
+        if ($.inArray(key, this.clicked) == -1) {
             this.clicked.push(key);
-            $.post('/ajax/updateRating/', {modelName:this.model_name, objectId:this.model_id, key:key, url:location.href},
-                function (response) {
-
-                }, 'json'
-            );
+            $.post('/ajax/updateRating/', {modelName:this.model_name, objectId:this.model_id, key:key, url:location.href});
         }
+    },
+    showFacebookPopup:function (el) {
+        Social.updateLikesCount('fb');
+        var sTop = window.screen.height / 2 - (150);
+        var sLeft = window.screen.width / 2 - (313);
+        window.open(el.href, 'sharer', 'toolbar=0,status=0,width=626,height=300,top=' + sTop + ',left=' + sLeft);
+
+        return false;
     }
 }
 $(function () {

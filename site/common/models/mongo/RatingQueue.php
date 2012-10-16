@@ -41,12 +41,12 @@ class RatingQueue extends EMongoDocument
         }
     }
 
-    public function updateEntity($host = 'http://www.happy-giraffe.ru')
+    public function updateEntity()
     {
         $modelName = $this->entity;
         $model = $modelName::model()->findByPk($this->entity_id);
         if ($model !== null) {
-            $url = $host.ltrim($model->url, '.');
+            $url = 'http://www.happy-giraffe.ru'.ltrim($model->url, '.');
             Rating::updateByApi($model, $this->social_key, $url);
         }
         $this->delete();

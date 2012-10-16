@@ -97,8 +97,10 @@ jQuery.fn.pGallery = function(options) {
             var newUrl = plugin.getEntityUrl() + 'photo' + plugin.data.id + '/';
             if (typeof history.pushState !== 'undefined') {
                 plugin.history.changeBrowserUrl(newUrl);
-                if (document.getElementById('vk_share_button') !== null)
-                    document.getElementById('vk_share_button').innerHTML = VK.Share.button(newUrl,{type: 'round', text: 'Мне нравится'});
+                if ($('#photo-window .vk_share_button').length > 0)
+                    $('#photo-window .vk_share_button').html(VK.Share.button(false,{type: 'round', text: 'Мне нравится'}));
+                if (typeof twttr !== 'undefined')
+                    twttr.widgets.load();
             }
             $('#photo-window-bg, #photo-window').fadeIn(600, function(){
                 /*$('#photo-thumbs .jcarousel', plugin.window).jcarousel();
@@ -168,8 +170,10 @@ jQuery.fn.pGallery = function(options) {
             plugin.history.changeBrowserUrl(newUrl);
 
             $('#w-photo-content', plugin.window).html(html);
-            if (document.getElementById('vk_share_button') !== null)
-                document.getElementById('vk_share_button').innerHTML = VK.Share.button(newUrl,{type: 'round', text: 'Мне нравится'});
+            if ($('#photo-window .vk_share_button').length > 0)
+                $('#photo-window .vk_share_button').html(VK.Share.button(false,{type: 'round', text: 'Мне нравится'}));
+            if (typeof twttr !== 'undefined')
+                twttr.widgets.load();
             link.parent().siblings('li.active').removeClass('active');
             link.parent().addClass('active');
             if(callback)

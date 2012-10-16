@@ -57,7 +57,7 @@ var Social = {
             "json");
     },
     updateLikesCount:function (key) {
-        if (!$.inArray(value, this.clicked)){
+        if ($.inArray(key, this.clicked) == -1){
             this.clicked.push(key);
             $.post('/ajax/updateRating/', {modelName:this.model_name, objectId:this.model_id, key:key, url:location.href},
                 function (response) {

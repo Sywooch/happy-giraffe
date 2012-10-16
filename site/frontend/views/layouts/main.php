@@ -14,7 +14,7 @@
         <title><?=CHtml::encode($this->pageTitle)?></title>
     <?php endif;
 
-    $release_id = 338;
+    $release_id = 339;
     $cs = Yii::app()->clientScript;
     $cs
         ->registerPackage('comet')
@@ -490,7 +490,7 @@
             </div>
 
             <?php if (Yii::app()->user->checkAccess('commentator_panel')):?>
-                <div id="commentator-link" style="position: absolute;top:30px;left: 0;">
+                <div id="commentator-link" style="position: fixed;top:70px;left: 0;z-index: 200;background:#42ff4c;">
                     <a target="_blank" href="<?=$this->createUrl('/signal/commentator/index') ?>" style="color: #333;font-weight:bold;">Панель для работы</a>
                 </div>
             <?php endif ?>

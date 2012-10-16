@@ -12,12 +12,14 @@ class ContestWidget extends UserCoreWidget
     public $registerGallery;
 
     public $_contest_work;
+    public $_contest;
 
     public function init()
     {
         parent::init();
 
         $this->_contest_work = $this->user->getContestWork($this->contest_id);
+        $this->_contest = Contest::model()->findByPk($contest_id);
         $this->visible = $this->isMyProfile || $this->_contest_work !== null;
     }
 }

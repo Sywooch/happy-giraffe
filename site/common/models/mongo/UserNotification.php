@@ -162,7 +162,7 @@ class UserNotification extends EMongoDocument
     {
         $entity = CActiveRecord::model($comment->entity)->findByPk($comment->entity_id);
         $entityName = get_class($entity);
-        if (! (in_array($entityName, array('CommunityContent', 'BlogContent', 'CookRecipe')) || $entityName == 'AlbumPhoto' && $entity->album !== null))
+        if (! (in_array($entityName, array('CommunityContent', 'BlogContent', 'CookRecipe')) || $entityName == 'AlbumPhoto' && ($entity->album !== null || ($attach = $entity->getAttachByEntity('ContestWork')) !== null)))
             return false;
 
         $this->recipient_id = (int) $comment->response->author_id;
@@ -181,7 +181,13 @@ class UserNotification extends EMongoDocument
                 $line2 = 'к рецепту ' . CHtml::link($entity->title, $entity->url);
                 break;
             case 'AlbumPhoto':
-                $line2 = 'к фото ' . CHtml::link($entity->title, $entity->url) . ' в альбоме ' . CHtml::link($entity->album->title, $entity->album->url);
+                if ($attach === null) {
+                    $line2 = 'к фото ' . CHtml::link($entity->title, $entity->url) . ' в альбоме ' . CHtml::link($entity->album->title, $entity->album->url);
+                } else {
+                    $model = $attach->model;
+                    $line2 = 'к работе ' . CHtml::link($model->title, Yii::app()->createUrl('/albums/singlePhoto', array('entity' => 'Contest', 'contest_id' => $model->contest_id, 'photo_id' => $entity->id))) . ' на конкурсе ' . CHtml::link($model->contest->title, $model->contest->url);
+                    $this->url = Yii::app()->createUrl('/albums/singlePhoto', array('entity' => 'Contest', 'contest_id' => $model->contest_id, 'photo_id' => $entity->id));
+                }
                 break;
         }
         $this->text = $line1 . $line2;

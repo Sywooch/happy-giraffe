@@ -539,7 +539,7 @@
 #user .user-family .cap {display:block;width:100%;background:#f9f5ef url(/images/bg_user_family_cap.gif) no-repeat bottom;text-align:center;padding:15px 0 215px;font-size:15px;}
 #user .user-family .cap:hover {text-decoration:none;}
 
-#user .user-family-borders {padding:10px;}
+#user .user-family-borders {padding:0 10px 10px;}
 #user .user-family-borders p {font-size:14px;margin:0 7px 7px;}
 #user .user-family-borders .pattern-list {width:auto;}
 #user .user-family-borders .pattern {background:url(/images/bg_user_family_prev.png) no-repeat 10px 10px;padding:8px 13px 0 0;height:30px;width:42px;}

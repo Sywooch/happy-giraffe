@@ -22,4 +22,14 @@ class RatingCommand extends CConsoleCommand
             $model->updateEntity();
         }
     }
+
+    public function actionTest(){
+        $criteria = new EMongoCriteria;
+        $criteria->time('<', time() - 3*60);
+        $models = RatingQueue::model()->findAll($criteria);
+
+        foreach($models as $model){
+            $model->updateEntity('http://dev.happy-giraffe.ru');
+        }
+    }
 }

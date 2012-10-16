@@ -4295,6 +4295,7 @@ label {
 .fb-custom-like {
 	height:21px;
 	width:150px;
+	text-decoration:none;
 }
 .fb-custom-like .fb-custom-text {
 	position:relative;
@@ -4309,6 +4310,7 @@ label {
 	padding: 0 5px 2px;
 	font:11px/13px 'lucida grande',​tahoma, ​verdana, ​arial, ​sans-serif;
 	font-family:'lucida grande',tahoma,verdana,arial,sans-serif;
+	text-decoration:none;
 }
 .fb-custom-like .fb-custom-text:hover {border-color:#9dacce;}
 .fb-custom-like i{

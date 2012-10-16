@@ -15,7 +15,7 @@ class RatingCommand extends CConsoleCommand
     public function actionIndex()
     {
         $criteria = new EMongoCriteria;
-        $criteria->time('<', time() - 0*60);
+        $criteria->time('<', time() - 5*60);
         $models = RatingQueue::model()->findAll($criteria);
 
         foreach($models as $model){

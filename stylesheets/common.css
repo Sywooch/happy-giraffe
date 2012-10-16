@@ -4103,9 +4103,6 @@ label {
 
 /* tooltip-new */
 .tooltip-new  {
-/* 	position:absolute;
-	top:-13px;
-	right:-35px; */
 	position:relative;
 	display:inline-block;
 	height:18px;

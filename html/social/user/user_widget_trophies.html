@@ -31,6 +31,8 @@
 			$(el).parents('.add-menu').find('ul').toggle();
 			$(el).parents('.add-menu').find('.btn i').toggleClass('arr-t');
 		}
+		
+		
 	</script>
 	
 	<!--[if IE 7]>
@@ -450,7 +452,7 @@
 						<div class="user-name nofloat">
 							<h1>Ден Ижецкий</h1>
 							<div class="online-status offline"><i class="icon"></i>Был на сайте <span class="date">Сегодня 16:39</span></div>
-						</div>					
+						</div>
 						
 						<div class="ava big male">
 							<a href="#photoPick" class="fancy renew">Обновить<br/>фото</a>
@@ -460,8 +462,58 @@
 							Зарегистрирван  25 февраля 2012
 						</div>
 						
-						<div class="user-lvl user-lvl-1"></div>
+						<div class="user-trophies">
+							
+							<script type="text/javascript">
+									$(document).ready(function () {
+										$(".user-trophies .pseudo").click(function(){
+											$(".user-trophies").toggleClass("trophies-long-list");
+											return false;
+										});
+										
+									});
+							</script>
+							
+							<div class="box-title"> <a class="a-right pseudo" href="#">Все трофеи (32)</a> Трофеи</div>
+							<ul class="user-trophies-list">
+								<li><a href="#" class="trophie trophie-1"></a></li>
+								<li><a href="#" class="trophie trophie-2"></a></li>
+								<li><a href="#" class="trophie trophie-3"></a></li>
+								<li><a href="#" class="trophie trophie-4"></a></li>
+								<li><a href="#" class="trophie trophie-5"></a></li>
+								<li><a href="#" class="trophie trophie-6"></a></li>
+								<li><a href="#" class="trophie trophie-7"></a></li>
+								<li><a href="#" class="trophie trophie-8"></a></li>
+								<li><a href="#" class="trophie trophie-9"></a></li>
+								<li><a href="#" class="trophie trophie-10"></a></li>
+								<li><a href="#" class="trophie trophie-11"></a></li>
+								<li><a href="#" class="trophie trophie-1"></a></li>
+								
+								<li><a href="#" class="trophie trophie-1"></a></li>
+								<li><a href="#" class="trophie trophie-2"></a></li>
+								<li><a href="#" class="trophie trophie-3"></a></li>
+								<li><a href="#" class="trophie trophie-4"></a></li>
+								<li><a href="#" class="trophie trophie-5"></a></li>
+								<li><a href="#" class="trophie trophie-6"></a></li>
+								<li><a href="#" class="trophie trophie-7"></a></li>
+								<li><a href="#" class="trophie trophie-8"></a></li>
+								<li><a href="#" class="trophie trophie-9"></a></li>
+								<li><a href="#" class="trophie trophie-10"></a></li>
+								
+								<li><a href="#" class="trophie trophie-1"></a></li>
+								<li><a href="#" class="trophie trophie-2"></a></li>
+								<li><a href="#" class="trophie trophie-3"></a></li>
+								<li><a href="#" class="trophie trophie-4"></a></li>
+								<li><a href="#" class="trophie trophie-5"></a></li>
+								<li><a href="#" class="trophie trophie-6"></a></li>
+								<li><a href="#" class="trophie trophie-7"></a></li>
+								<li><a href="#" class="trophie trophie-8"></a></li>
+								<li><a href="#" class="trophie trophie-9"></a></li>
+								<li><a href="#" class="trophie trophie-10"></a></li>
+							</ul>
+						</div>
 						
+						<div class="user-lvl user-lvl-1"></div>
 						
 						<div class="user-family">
 							<div class="t"></div>
@@ -509,17 +561,14 @@
 									</li>
 									
 								</ul>
+								<div class="user-family-settings clearfix">
+									<div class="a-right tooltip-new">9 новых</div>
+									<a class="a-right pseudo" href="">Стиль статуса</a>
+								</div>
 							</div>
 							<div class="b"></div>
 						</div>
-						
-						<div class="user-family user-family-cap">
-							<div class="t"></div>
-							<div class="c">
-								<a href="" class="cap"><span>Расскажите<br/>о своей семье</span></a>
-							</div>
-							<div class="b"></div>
-						</div>
+
 						
 						<div class="user-interests">
 							
@@ -778,32 +827,6 @@
 							
 							<div class="col-3">
 								
-								<div class="contest-mother-i-advert">
-									<a href="#" class="btn-blue btn-blue-30">Приять участие!</a>
-								</div>
-								<!-- <br /> нужен для отбивки блока, только на тестовой странице -->
-								<br /><br />
-								<div class="contest-participant">
-									<h3>Участвую в фотоконкурсе</h3>
-									<img src="/images/contest/widget-mother-i.jpg" alt="" calss="contest-title" />
-									<div class="img">
-										<a href="">
-											<img src="/images/example/gallery_album_img_01.jpg">
-											<span class="btn">Посмотреть</span>
-										</a>
-									<div class="item-title">Разнообразие десертов сицилийского стиля</div>
-									</div>
-									<div class="clearfix">
-										<div class="position">
-											<strong>18</strong> место
-										</div>
-										<div class="ball">
-											<div class="ball-count">186</div>
-											<div class="ball-text">баллов</div>
-										</div>
-									</div>
-								</div>
-								
 								<div class="user-friends clearfix">
 									
 									<div class="box-title">Друзья <a href="">Все друзья (105)</a></div>
@@ -828,6 +851,190 @@
 									<div class="box-title">Друзья <a href="">Найти друзей</a></div>
 									
 									<a href=""><img src="/images/cap_wannachat.png" /></a>
+									
+								</div>
+								
+								<div class="user-map">
+									<div class="header">
+										<div class="box-title">Я здесь</div>
+										<div class="sep"><img src="/images/map_marker.png" /></div>
+									</div>
+									<form>
+										<div class="row">
+											<label>Место жительства</label>
+											<select class="chzn w-100" data-placeholder="Страна">
+												<option></option>
+												<option>Россия</option>
+												<option>Украина</option>
+											</select>
+											&nbsp;&nbsp;
+											<span class="with-search">
+												<select class="chzn w-200" data-placeholder="Регион">
+													<option></option>
+													<option>Россия</option>
+													<option>Украина</option>
+												</select>
+											</span>
+										</div>
+										<div class="row">
+											<label>Населенный пункт</label>
+											<input type="text" /><br/>
+											<small>Введите свой город, поселок, село или деревню</small>
+										</div>
+										<div class="row" style="text-align:right;">
+											<button class="btn btn-green-medium"><span><span>Сохранить</span></span></button>
+										</div>
+									</form>
+								</div>
+								
+								<div class="user-map">
+									<div class="header">
+										<a href="#locationEdit" class="edit fancy"><span class="tip">Изменить</span></a>
+										<div class="box-title">Я здесь</div>
+										<div class="sep"><img src="/images/map_marker.png" /></div>
+										<div class="location">
+											<div class="flag flag-ru"></div> Россия
+											<p>Ярославская облась Гаврилов-Ямский р-он п. Великое</p>
+										</div>
+									</div>
+									<img src="/images/user_map_img.jpg" />
+								</div>
+								
+								<div class="user-map user-add">
+									<a href="javascript:void(0);" class="flip('#userMapForm);"><big>Я живу<br/>здесь</big><img src="/images/user_map_cap.png" /></a>
+								</div>
+								
+								<div class="user-weather">
+									
+									<div class="box-title"><a href="" class="a-right pseudo">Еще на три дня</a>Моя погода</div>
+									
+									<div class="clearfix">
+										
+										<div class="img"><img src="/images/widget/weather/big/3.png" /></div>
+										
+										<div class="text">
+											<big>-16</big>
+											<div class="row hl"><span>Ночью</span>-22</div>
+											<div class="row"><span>Завтра</span>-17</div>
+										</div>
+
+									</div>
+									
+								</div>
+								
+								<div class="user-weather">
+									
+									<div class="box-title"><a href="" class="a-right pseudo">Погода сейчас</a>Моя погода</div>
+									
+									<table>
+										<thead>
+											<tr>
+												<td>Завтра</td>
+												<td>Пн</td>
+												<td>Вт</td>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td><img src="/images/widget/weather/small/1.png" /></td>
+												<td><img src="/images/widget/weather/small/2.png" /></td>
+												<td><img src="/images/widget/weather/small/3.png" /></td>
+											</tr>
+											<tr>
+												<td>-16</td>
+												<td>-19</td>
+												<td>-25</td>												
+											</tr>
+											<tr class="hl">
+												<td>-16</td>
+												<td>-19</td>
+												<td>-25</td>											
+											</tr>											
+										</tbody>
+									</table>
+									
+								</div>
+								
+								<div class="user-horoscope">
+									
+									<div class="clearfix">
+										<div class="title">Близнецы</div>
+										<div class="img"><img src="/images/widget/horoscope/12.png" /></div>
+										<div class="date">2<span>апр</span></div>
+									</div>
+									
+									<p>Вы настроены на игривый лад – Вам больше хочется развлекаться, чем работать. Да и работа отвечает Вам взаимностью – дела стоят на месте, приходится возвращаться к, казалось бы, уже решенным вопросам и переделывать многое  
+									Вам хотелось бы организовать эффективное взаимодействие в совместных проектах. Однако идеи, которые придут к Вам сегодня, могут оказаться не слишком продуманными.</p>
+									
+								</div>
+								
+								<div class="user-duel">
+									
+									<div class="box-title">Моя <span>дуэль</span></div>
+									
+									<div class="question">
+										<p>Почему одна строка?</p>
+									</div>
+									
+									<div class="my-votes clearfix">
+										<a href="" class="ava male"></a>
+										<div class="in">
+											<span class="tale"></span>
+											<div class="label">Увы, проигрываю!</div>
+											<img src="/images/user_duel_smile_losing.png" />
+											<div class="count">
+												<span>86</span>
+												голосов
+											</div>
+											<br/>
+											<a href="#duel-takeapart" class="pseudo fancy">Посмотреть дуэль</a>
+										</div>
+									</div>
+									
+									<div class="my-votes clearfix">
+										<a href="" class="ava male"></a>
+										<div class="in">
+											<span class="tale"></span>
+											<div class="label">Ништяк, побеждаем!</div>
+											<img src="/images/user_duel_smile_winning.png" />
+											<div class="count">
+												<span>86</span>
+												голосов
+											</div>
+											<br/>
+											<a href="#duel-takeapart" class="pseudo fancy">Посмотреть дуэль</a>
+										</div>
+									</div>
+									
+									<div class="my-votes clearfix">
+										<a href="" class="ava male"></a>
+										<div class="in">
+											<span class="tale"></span>
+											<div class="label">Хех, ничья!</div>
+											<img src="/images/user_duel_smile_draw.png" />
+											<div class="count">
+												<span>86</span>
+												голосов
+											</div>
+											<br/>
+											<a href="#duel-takeapart" class="pseudo fancy">Посмотреть дуэль</a>
+										</div>
+									</div>
+									
+									<div class="opponent clearfix">
+										Мой противник
+										<div class="count">
+											<span>116</span>
+											голосов
+										</div>
+										<div class="user-info clearfix">
+											<a class="ava small female"></a>
+											<div class="details">
+												<span class="icon-status status-online"></span>
+												<a href="" class="username">Даша Ефросинина</a>
+											</div>
+										</div>
+									</div>
 									
 								</div>
 								

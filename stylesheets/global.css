@@ -793,7 +793,7 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 #contest .sticker .btn-green,
 #contest .sticker .btn {margin-right:30px;}
 
-#contest .contest-participant {float:right;width:298px;clear:right;margin:0 0 20px 40px;}
+#contest .contest-participant {float:right;width:298px;clear:right;margin:-10px 0 20px 40px;}
 
 #contest .winners-list {width:880px;margin:0 auto;padding-bottom:20px;}
 #contest .winners-list .winner-box {margin:0 30px;background:#f9fafa;padding:10px 25px;float:left;width:183px;}
@@ -832,6 +832,8 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 #contest .photo-rank.place-1 .cup {background-position:-1px -154px;}
 #contest .photo-rank.place-2 .cup {background-position:-64px -154px;}
 #contest .photo-rank.place-3 .cup {background-position:-127px -154px;}
+
+#contest .gallery-photos-new.cols-4 {margin-left:-10px;}
 
 .contest-takeapart {position:absolute;z-index:5;right:100px;bottom:28px;width:228px;height:59px;background:url(/images/btn_contest_takeapart.png) no-repeat;text-indent:-9999px;}
 

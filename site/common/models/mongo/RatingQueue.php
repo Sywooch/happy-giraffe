@@ -49,6 +49,7 @@ class RatingQueue extends EMongoDocument
             $attach = AttachPhoto::model()->findByEntity('ContestWork', $model->id);
             $photo = $attach[0]->photo;
             $url = 'http://www.happy-giraffe.ru' . Yii::app()->createUrl('albums/singlePhoto', array('entity' => 'Contest', 'contest_id' => $model->contest_id, 'photo_id' => $photo->id));
+            echo $url.": ";
             Rating::updateByApi($model, $this->social_key, $url);
         }
         $this->delete();

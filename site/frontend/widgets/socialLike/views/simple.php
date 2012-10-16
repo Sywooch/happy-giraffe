@@ -80,6 +80,7 @@ Yii::app()->clientScript
                         }
                     }
 
+                    if (typeof twttrF !== undefined)
                     twttrF.ready(function (twttrF) {
                         twttrF.events.bind('tweet', function (event) {
                             Social.updateLikesCount("tw")

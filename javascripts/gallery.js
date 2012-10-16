@@ -98,7 +98,7 @@ jQuery.fn.pGallery = function(options) {
             if (typeof history.pushState !== 'undefined') {
                 plugin.history.changeBrowserUrl(newUrl);
                 if ($('#photo-window .vk_share_button').length > 0)
-                    $('#photo-window .vk_share_button').html(VK.Share.button(false,{type: 'round', text: 'Мне нравится'}));
+                    $('#photo-window .vk_share_button').html(VK.Share.button(document.location.href,{type: 'round', text: 'Мне нравится'}));
                 if (typeof twttr !== 'undefined')
                     twttr.widgets.load();
             }
@@ -171,7 +171,7 @@ jQuery.fn.pGallery = function(options) {
 
             $('#w-photo-content', plugin.window).html(html);
             if ($('#photo-window .vk_share_button').length > 0)
-                $('#photo-window .vk_share_button').html(VK.Share.button(false,{type: 'round', text: 'Мне нравится'}));
+                $('#photo-window .vk_share_button').html(VK.Share.button(document.location.href,{type: 'round', text: 'Мне нравится'}));
             if (typeof twttr !== 'undefined')
                 twttr.widgets.load();
             link.parent().siblings('li.active').removeClass('active');

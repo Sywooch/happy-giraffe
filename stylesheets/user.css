@@ -104,7 +104,7 @@
 
 #user .details {color:#b6b9ba;font-size:9px;font-family:tahoma, arial, helvetica, sans-serif;padding:5px 10px;text-indent:0;text-align:center;background:#f3e9fc;}
 
-#user .user-trophies {background:#f3e9fc;padding:5px 14px;margin:0 0 10px;}
+#user .user-trophies {background:#f3e9fc;padding:5px 14px 12px;margin:0 0 10px;}
 #user .user-trophies .box-title .a-right{margin-top:7px;}
 #user .user-trophies .user-trophies-list {list-style:none;max-height:165px;overflow:hidden;}
 #user .user-trophies.trophies-long-list .user-trophies-list{max-height:none;}

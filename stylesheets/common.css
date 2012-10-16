@@ -905,6 +905,26 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 #register.popup .register-form .form-in .row-center {text-align:center;}
 #register.popup .register-form .form-in .row-center input[type=submit] {margin-left:-150px;}
 
+#pregnancy-calendar-self.popup {width:740px;}
+#pregnancy-calendar-self.popup .banner-mail {float:left;width:406px;margin:0 10px 0 20px;text-align:center;}
+#pregnancy-calendar-self.popup .banner-mail img {}
+#pregnancy-calendar-self.popup .banner-mail .mail-holder {margin:29px 0 0;padding:20px 33px 22px 25px;background:#e4d8f0;position:relative;}
+#pregnancy-calendar-self.popup .banner-mail .mail-holder:after{
+	content:"";
+	display:block;
+	position:absolute;
+	top:0;
+	right:-20px;
+	width: 0; 
+	height: 0;
+	border: 10px solid transparent;
+	border-width:37px 0 37px 20px;
+	border-left-color: #e4d8f0;
+}
+#pregnancy-calendar-self.popup .banner-mail .mail-holder .text{background:#FFFFFF; border: 1px solid #d8c9e7; color: #3D3D3D; font-size: 16px; padding: 5px 17px; width: 295px;}
+#pregnancy-calendar-self.popup .is-user {margin-top:30px;text-align:center;color:#6b6b6b;font-size:15px;}
+#pregnancy-calendar-self.popup .is-user a {margin-left:5px;}
+
 
 #takeapartPhotoContest {width:600px;}
 #takeapartPhotoContest .upload-file {width:170px;height:200px;background:#c7ebf8;position:relative;}
@@ -4272,4 +4292,66 @@ label {
 
 
 
+.fb-custom-like {
+	height:21px;
+	width:150px;
+	text-decoration:none;
+}
+.fb-custom-like .fb-custom-text {
+	position:relative;
+	background: #ECEEF5;
+	border: 1px solid #CAD4E7;
+	border-radius: 3px;
+	color: #3B5998;
+	cursor: pointer;
+	padding: 2px 6px 4px;
+	white-space: nowrap;
+	display: inline-block;
+	padding: 0 5px 2px;
+	font:11px/13px 'lucida grande',​tahoma, ​verdana, ​arial, ​sans-serif;
+	font-family:'lucida grande',tahoma,verdana,arial,sans-serif;
+	text-decoration:none;
+}
+.fb-custom-like .fb-custom-text:hover {border-color:#9dacce;}
+.fb-custom-like i{
+	background: url("http://static.ak.fbcdn.net/rsrc.php/v2/yI/x/1dQf_ATK831.png") no-repeat;
+	display: inline-block;
+	height: 14px;
+	width: 14px;
+	position: relative;
+	top: 3px;
+	margin-right: 2px;
+}
+.fb-custom-like .fb-custom-share-count {
+	background: none repeat scroll 0 0 white;
+	border: 1px solid #C1C1C1;
+	display: inline-block;
+	height: 14px;
+	line-height: 14px;
+	margin-left: 6px;
+	min-width: 15px;
+	padding: 1px 2px;
+	text-align: center;
+	white-space: nowrap;
+	font-size: 11px;
+	position: relative;
+	top: 1px;
+	vertical-align: top;
+}
+
+.fb-custom-like .fb-custom-share-count::before,
+.fb-custom-like .fb-custom-share-count::after {
+	content: '.';
+	display: block;
+	border-color: transparent #D7D7D7;
+	border-style: solid;
+	border-width: 4px 5px 4px 0;
+	display: block;
+	top: 4px;
+	position: absolute;
+	left: -5px;
+	height: 0;
+	line-height: 0;
+	font-size: 0;
+}
 

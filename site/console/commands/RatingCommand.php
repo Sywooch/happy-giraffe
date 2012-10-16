@@ -9,6 +9,7 @@ Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
 Yii::import('site.frontend.contest.models.*');
 Yii::import('site.frontend.modules.services.modules.recipeBook.models.*');
 Yii::import('site.frontend.modules.scores.models.*');
+Yii::import('site.frontend.modules.contest.models.*');
 
 class RatingCommand extends CConsoleCommand
 {

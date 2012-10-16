@@ -20,30 +20,38 @@
         $more = null;
     }
 
-    $collection = $model->photoCollection;
+    if (get_class($model) != 'Contest') {
+        $collection = $model->photoCollection;
 
-    $title = $collection['title'];
-    $photos = $collection['photos'];
-    $count = count($photos);
+        $title = $collection['title'];
+        $photos = $collection['photos'];
+        $count = count($photos);
 
-    $currentIndex = 0;
-    foreach ($photos as $i => $p) {
-        if ($p->id == $photo->id) {
-            $photo = $p;
-            $currentIndex = $i;
-            break;
+        $currentIndex = 0;
+        foreach ($photos as $i => $p) {
+            if ($p->id == $photo->id) {
+                $photo = $p;
+                $currentIndex = $i;
+                break;
+            }
         }
-    }
 
-    $preload = array();
-    $preload[$currentIndex] = $photos[$currentIndex];
-    $currentNext = $currentIndex;
-    $currentPrev = $currentIndex;
-    for ($i = 0; $i < 3; $i++) {
-        $currentNext = ($currentNext == ($count - 1)) ? 0 : ($currentNext + 1);
-        $currentPrev = ($currentPrev == 0) ? ($count - 1) : ($currentPrev - 1);
-        $preload[$currentNext] = $photos[$currentNext];
-        $preload[$currentPrev] = $photos[$currentPrev];
+        $preload = array();
+        $preload[$currentIndex] = $photos[$currentIndex];
+        $currentNext = $currentIndex;
+        $currentPrev = $currentIndex;
+        for ($i = 0; $i < 3; $i++) {
+            $currentNext = ($currentNext == ($count - 1)) ? 0 : ($currentNext + 1);
+            $currentPrev = ($currentPrev == 0) ? ($count - 1) : ($currentPrev - 1);
+            $preload[$currentNext] = $photos[$currentNext];
+            $preload[$currentPrev] = $photos[$currentPrev];
+        }
+    } else {
+        $collection = $model->getPhotoCollection($photo->getAttachByEntity('ContestWork')->model->id);
+        $title = $collection['title'];
+        $photos = $preload = $collection['photos'];
+        $count = $collection['count'];
+        $currentIndex = $collection['currentIndex'];
     }
 ?>
 
@@ -77,7 +85,7 @@
                 pGallery.photos[<?php echo $p->id ?>] = {
                     idx : <?=$i + 1?>,
                     prev : <?=($i != 0) ? $photos[$i - 1]->id : 'null'?>,
-                    next : <?=($i < $count - 1) ? $photos[$i + 1]->id : 'null'?>,
+                    next : <?=($i < count($preload) - 1) ? $photos[$i + 1]->id : 'null'?>,
                     src : '<?php echo $p->getPreviewUrl(960, 627, Image::HEIGHT, true); ?>',
                     title : <?=($p->w_title === null) ? 'null' : '\'' . CJavaScript::quote($p->w_title) . '\''?>,
                     description : <?=($p->w_description === null) ? 'null' : '\'' . CJavaScript::quote($p->w_description) . '\''?>,
@@ -100,7 +108,7 @@
                 data : {
                     entity : '<?=get_class($model)?>',
                     entity_id : '<?=($model->id !== null) ? $model->id : 'null'?>',
-                    sort : '<?=(Yii::app()->request->getQuery('sort') !== null) ? Yii::app()->request->getQuery('sort') : 'null'?>'
+                    sort : '<?=Yii::app()->request->getQuery('sort', 'created')?>'
                 },
                 dataType : 'script'
             });

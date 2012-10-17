@@ -164,7 +164,7 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
     font: bold 24px tahoma, sans-serif;
 }
 
-.entry .meta  .time {font-size:9px;color:#b3b3b3;padding:0 8px;}
+.entry .meta  .time {font-size:9px;color:#b3b3b3;padding:0 8px 6px;}
 
 .entry .meta  a {padding:0 8px;}
 

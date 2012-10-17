@@ -2,7 +2,7 @@
     <?php if (get_class($model) == 'Contest'): ?>
         <?php $this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
             'title' => 'Вам понравилось фото?',
-            'notice' => '<big>Рейтинг фото</big><p>Он показывает, насколько нравится ваше фото другим пользователям. Если фото интересное, то пользователи его смотрят, комментируют, увеличивают лайки социальных сетей.</p>',
+            'notice' => '<big>Это конкурсные баллы</big><p>Нажатие на кнопку социальных сетей +1 балл.<br />Нажатие сердечка от Весёлого Жирафа +2 балла.</p>',
             'model' => $photo->getAttachByEntity('ContestWork')->model,
             'type' => 'simple',
             'options' => array(

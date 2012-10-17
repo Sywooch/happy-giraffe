@@ -12,14 +12,18 @@
                 </a>
             </div>
         </li>
+        <?php if (empty($task->site->account)): ?>
+        <li>
+            <div class="task-title">Внесите данные регистрации</div>
+            <?php $this->renderPartial('/forums/_reg_data'); ?>
+        </li>
+        <?php else: ?>
         <li>
             <a href="javascript:;" class="pseudo" onclick="$(this).next().toggle()">Показать данные</a>
 
-            <div class="reg-form" style="display: none;">
-                <label>Логин:</label><input type="text" value="<?=$task->site->account->login ?>"><br>
-                <label>Пароль:</label><input type="text" value="<?=$task->site->account->password ?>"><br>
-            </div>
+            <?php $this->renderPartial('/forums/_reg_data', array('show'=>false, 'account'=>$task->site->account)); ?>
         </li>
+        <?php endif ?>
     </ul>
 
 </div>

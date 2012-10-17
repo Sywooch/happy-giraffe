@@ -4,6 +4,7 @@
         'entity' => get_class($model),
         'entity_id' => $model->id,
         'singlePhoto' => true,
+        'entity_url' => (get_class($model) ? $model->url : null),
     ));
 ?>
 
@@ -14,7 +15,7 @@
         <div class="clearfix">
 
             <div class="count">
-                <?=$currentIndex?> фото из <?=count($collection['photos'])?> <a href="javascript:void(0)" class="btn btn-green-smedium" data-id="<?=$photo->id?>"><span><span>Смотреть весь альбом</span></span></a>
+                <?php if (get_class($model) != 'Contest'): ?><?=$currentIndex?> фото из <?=count($collection['photos'])?> <?php endif; ?><a href="javascript:void(0)" class="btn btn-green-smedium" data-id="<?=$photo->id?>"><span><span><?=(get_class($model) == 'Contest') ? 'Смотреть всех участников' : 'Смотреть весь альбом'?></span></span></a>
             </div>
 
             <div class="album-title">
@@ -57,7 +58,7 @@
 
 <?php $this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
     'title' => 'Вам понравилось фото?',
-    'notice' => '<big>Рейтинг фото</big><p>Он показывает, насколько нравится ваше фото другим пользователям. Если фото интересное, то пользователи его смотрят, комментируют, увеличивают лайки социальных сетей.</p>',
+    'notice' => (get_class($model) == 'Contest') ? '<big>Это конкурсные баллы</big><p>Нажатие на кнопку социальных сетей +1 балл.<br />Нажатие сердечка от Весёлого Жирафа +2 балла.</p>' : '<big>Рейтинг фото</big><p>Он показывает, насколько нравится ваше фото другим пользователям. Если фото интересное, то пользователи его смотрят, комментируют, увеличивают лайки социальных сетей.</p>',
     'model' => (get_class($model) == 'Contest') ? $photo->getAttachByEntity('ContestWork')->model : $photo,
     'type' => 'simple',
     'options' => array(

@@ -2146,7 +2146,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 .gallery-photos-new ul li .count {background:#fff;background:rgba(255, 255, 255, .8);width:100%;padding:3px 0;position:absolute;left:0;bottom:0;text-align:center;}
 .gallery-photos-new ul li .contest-ball {background:#fff;background:rgba(255, 255, 255, .8);width:100%;padding:4px 0 7px;position:relative;left:0;top:0;text-align:right;}
 .gallery-photos-new ul li .contest-ball .user-info .details .username {width:110px;}
-.gallery-photos-new ul li .contest-ball .ball {position:absolute;right:6px;top:1px;}
+.gallery-photos-new ul li .contest-ball .ball {position:absolute;right:0;top:1px;}
 .gallery-photos-new ul li .contest-ball .ball-count {color:#fd5807;font:italic 24px/21px 'Times New Roman', Georgia, Times, serif;float:right;}
 .gallery-photos-new ul li .contest-ball .ball-text {float:right;clear:right;font-size:10px;line-height:10px;color:#737373;}
 

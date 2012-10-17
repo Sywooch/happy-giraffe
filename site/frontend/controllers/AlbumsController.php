@@ -79,7 +79,7 @@ class AlbumsController extends HController
                     'dataProvider' => $dataProvider,
                     'user' => $user,
                     'access' => $id == Yii::app()->user->id
-                )),
+                ), true),
             );
             echo CJSON::encode($result);
         } else {

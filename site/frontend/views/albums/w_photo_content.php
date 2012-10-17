@@ -11,6 +11,18 @@
                 'description' => $photo->w_description,
             ),
         ));  ?>
+
+        <?php
+            $url = Yii::app()->createAbsoluteUrl('albums/singlePhoto', array('entity' => 'Contest', 'contest_id' => $model->id, 'photo_id' => $photo->id));
+        ?>
+        <div class="sharelink-friends">
+            <div class="title-row">
+                Отправить ссылку друзьям
+                <input type="text" class="text" value="<?=$url?>" onclick="$(this).select();" />
+            </div>
+            <p>Хочешь победить в конкурсе? Разошли эту ссылку друзьям и знакомым, сделай подписью в скайпе, аське и статусом в социальных сетях. Чем больше человек проголосует за твоё фото - тем выше шансы на победу!</p>
+
+        </div>
     <?php endif; ?>
 
     <?php

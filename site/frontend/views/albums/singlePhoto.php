@@ -15,7 +15,7 @@
         <div class="clearfix">
 
             <div class="count">
-                <?=$currentIndex?> фото из <?=count($collection['photos'])?> <a href="javascript:void(0)" class="btn btn-green-smedium" data-id="<?=$photo->id?>"><span><span>Смотреть весь альбом</span></span></a>
+                <?php if (get_class($model) != 'Contest'): ?><?=$currentIndex?> фото из <?=count($collection['photos'])?> <?php endif; ?><a href="javascript:void(0)" class="btn btn-green-smedium" data-id="<?=$photo->id?>"><span><span><?=(get_class($model) == 'Contest') ? 'Смотреть всех участников' : 'Смотреть весь альбом'?></span></span></a>
             </div>
 
             <div class="album-title">

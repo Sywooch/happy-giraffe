@@ -46,6 +46,7 @@ return array(
         'commentators',
         'cook',
         'externalLinks',
+        'mailru',
     ),
     'components' => array(
         'user' => array(

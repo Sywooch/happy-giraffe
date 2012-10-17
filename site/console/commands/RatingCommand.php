@@ -40,7 +40,7 @@ class RatingCommand extends CConsoleCommand
             } else {
                 Rating::updateByApi($model, $social_key, $url);
             }
-            echo ($i + 1) . '/' . $count . "\n";
+            echo ($i + 1) . '/' . $count . '|' . $url . "\n";
         }
     }
 }

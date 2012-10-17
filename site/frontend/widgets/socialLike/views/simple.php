@@ -25,6 +25,14 @@ Yii::app()->clientScript
 ;
 ?>
 <div class="like-block fast-like-block">
+    <div class="box-2">
+        <?php
+            $this->render('_yh_min', array(
+                'options' => $this->providers['yh'],
+            ));
+        ?>
+    </div>
+
     <div class="box-1">
         <div class="clearfix">
             <table width="100%">
@@ -84,15 +92,6 @@ Yii::app()->clientScript
                 });
             </script>
         </div>
-    </div>
-
-    <div class="box-2">
-
-        <?php
-        $this->render('_yh_min', array(
-            'options' => $this->providers['yh'],
-        ));
-        ?>
     </div>
 
     <div class="box-3">

@@ -922,8 +922,13 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 	border-left-color: #e4d8f0;
 }
 #pregnancy-calendar-self.popup .banner-mail .mail-holder .text{background:#FFFFFF; border: 1px solid #d8c9e7; color: #3D3D3D; font-size: 16px; padding: 5px 17px; width: 295px;}
+#pregnancy-calendar-self.popup .right-col {float:right;width:285px;text-align:center;}
+#pregnancy-calendar-self.popup .right-col .free {color:#30ac24;font-size:35px;margin:45px 0 30px;}
+#pregnancy-calendar-self.popup .right-col .calendar-title {color:#aa82d1;font-size:37px;line-height:45px;margin:0 0 35px;}
+
 #pregnancy-calendar-self.popup .is-user {margin-top:30px;text-align:center;color:#6b6b6b;font-size:15px;}
 #pregnancy-calendar-self.popup .is-user a {margin-left:5px;}
+#pregnancy-calendar-self.popup .submit {width:273px;height:75px;margin:8px 0 0;font:32px/75px Arial, Tahoma, Verdana, sans-serif;}
 
 
 #takeapartPhotoContest {width:600px;}
@@ -4291,7 +4296,7 @@ label {
 .contest-error-hint h4 {margin-bottom:6px;color:#f95708;font-size:14px;font-weight:bold;}
 
 
-
+/* facebook custom like box */
 .fb-custom-like {
 	height:21px;
 	width:150px;
@@ -4338,7 +4343,6 @@ label {
 	top: 1px;
 	vertical-align: top;
 }
-
 .fb-custom-like .fb-custom-share-count::before,
 .fb-custom-like .fb-custom-share-count::after {
 	content: '.';
@@ -4354,4 +4358,36 @@ label {
 	line-height: 0;
 	font-size: 0;
 }
+
+/* social icons small 20*20px */
+.social-small-row {
+	text-align:center;
+	color:#7d7d7d;
+	vertical-align:middle;
+	font:italic 14px/24px 'Times New Roman', Georgia, Times, serif;
+}
+.social-list-small {
+	display:inline-block;
+	margin:0 0 0 15px;
+	list-style:none;
+	vertical-align:middle;
+	*display:inline;
+	*zoom:1;
+}
+.social-list-small li {
+	display:inline-block;
+	margin:0 9px 0 0;
+	*display:inline;
+	*zoom:1;
+}
+.social-list-small li a {
+	display:block;
+	width:20px;
+	height:20px;
+	background:url(/images/icon-social.png) no-repeat;
+}
+.social-list-small li a.odnoklasniki{background-position:0 0;}
+.social-list-small li a.mailru{background-position:0 -20px;}
+.social-list-small li a.vk{background-position:0 -40px;}
+.social-list-small li a.fb{background-position:0 -60px;}
 

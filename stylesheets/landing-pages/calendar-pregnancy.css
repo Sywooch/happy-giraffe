@@ -118,37 +118,9 @@
 	line-height:72px;
 }
 
-.social-row {
-	padding-bottom:40px;
-	color:#7d7d7d;
-	vertical-align:middle;
-	font:italic 14px/24px 'Times New Roman', Georgia, Times, serif;
-}
-.smallscreen .social-row {padding-bottom:20px;}
-.social-list {
-	display:inline-block;
-	margin:0 0 0 15px;
-	list-style:none;
-	vertical-align:middle;
-	*display:inline;
-	*zoom:1;
-}
-.social-list li {
-	display:inline-block;
-	margin:0 9px 0 0;
-	*display:inline;
-	*zoom:1;
-}
-.social-list li a {
-	display:block;
-	width:20px;
-	height:20px;
-	background:url(/images/icon-social.png) no-repeat;
-}
-.social-list li a.odnoklasniki{background-position:0 0;}
-.social-list li a.mailru{background-position:0 -20px;}
-.social-list li a.vk{background-position:0 -40px;}
-.social-list li a.fb{background-position:0 -60px;}
+.social-small-row {padding-bottom:40px;}
+.smallscreen .social-small-row {padding-bottom:20px;}
+
 
 .calendar-pregnancy-holder {
 	position:absolute;

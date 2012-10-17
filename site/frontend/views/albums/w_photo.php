@@ -52,6 +52,10 @@
         $photos = $preload = $collection['photos'];
         $count = $collection['count'];
         $currentIndex = $collection['currentIndex'];
+        foreach ($photos as $p) {
+            if ($p->id == $photo->id)
+                $photo = $p;
+        }
     }
 ?>
 
@@ -73,7 +77,7 @@
             </div>
 
             <div class="photo-info photo-container">
-                <?=$title?> - <span class="count"><span><?=($currentIndex + 1)?></span> фото из <?=$count?></span>
+                <?=$title?><?php if (get_class($model) != 'Contest'): ?> - <span class="count"><span><?=($currentIndex + 1)?></span> фото из <?=$count?></span><?php endif; ?>
                 <div class="title"><?=$photo->w_title?></div>
             </div>
 

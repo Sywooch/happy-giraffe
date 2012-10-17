@@ -290,7 +290,7 @@ class Contest extends HActiveRecord
         }
 
         return array(
-            'title' => 'Фотоальбом ' . CHtml::link($this->title, $this->url),
+            'title' => 'Фотоконкурс ' . CHtml::link($this->title, $this->url),
             'photos' => $photos,
             'currentIndex' => $currentIndex,
             'count' => $count,

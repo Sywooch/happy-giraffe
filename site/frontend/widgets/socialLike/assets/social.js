@@ -70,6 +70,9 @@ var Social = {
         var sLeft = window.screen.width / 2 - (313);
         window.open(el.href, 'sharer', 'toolbar=0,status=0,width=626,height=300,top=' + sTop + ',left=' + sLeft);
 
+        var r = $('#photo-window div.rating span').text();
+        r.val(parseInt(r.val()) + 1);
+
         return false;
     }
 }

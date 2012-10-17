@@ -25,7 +25,7 @@
     $cs
         ->registerScript('contest-view', $js)
         ->registerScriptFile('/javascripts/jquery.masonry.min.js')
-        ->registerMetaTag('/images/contest/widget-mother-i-3.jpg', null, null, array('property' => 'og:image'))
+        ->registerMetaTag('/images/contest/banner-mother-i-3.jpg', null, null, array('property' => 'og:image'))
     ;
 ?>
 

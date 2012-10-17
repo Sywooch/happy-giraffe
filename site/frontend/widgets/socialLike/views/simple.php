@@ -68,10 +68,11 @@ Yii::app()->clientScript
                         }
                     }
 
-
-                    twttr.events.bind('tweet', function (event) {
-                        console.log('tweet');
-                        Social.updateLikesCount("tw")
+                    twttr.ready(function (twttrF) {
+                        twttr.events.bind('tweet', function (event) {
+                            console.log('tweet');
+                            Social.updateLikesCount("tw")
+                        });
                     });
                 });
             </script>

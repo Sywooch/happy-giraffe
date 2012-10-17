@@ -175,6 +175,7 @@ jQuery.fn.pGallery = function(options) {
                 $('#photo-window .vk_share_button').html(VK.Share.button(document.location.href,{type: 'round', text: 'Мне нравится'}));
             if (typeof twttr.widgets != 'undefined')
                 twttr.widgets.load();
+            ODKL.initialized = false;
             ODKL.init();
             link.parent().siblings('li.active').removeClass('active');
             link.parent().addClass('active');

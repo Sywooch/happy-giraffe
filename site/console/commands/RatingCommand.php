@@ -31,7 +31,7 @@ class RatingCommand extends CConsoleCommand
         foreach ($models as $i => $model) {
             $attach = AttachPhoto::model()->findByEntity('ContestWork', $model->id);
             $photo = $attach[0]->photo;
-            $url = 'http://www.happy-giraffe.ru' . ltrim(Yii::app()->createUrl('albums/singlePhoto', array('entity' => 'Contest', 'contest_id' => $model->contest_id, 'photo_id' => $photo->id)), '.');
+            $url = 'http://www.happy-giraffe.ru/' . ltrim(Yii::app()->createUrl('albums/singlePhoto', array('entity' => 'Contest', 'contest_id' => $model->contest_id, 'photo_id' => $photo->id)), '.');
             if ($social_key === null) {
                 Rating::updateByApi($model, 'fb', $url);
                 Rating::updateByApi($model, 'tw', $url);

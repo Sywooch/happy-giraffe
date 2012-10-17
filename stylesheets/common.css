@@ -212,7 +212,7 @@ box-shadow:1px 1px 1px rgba(0,0,0,.2);behavior: url(/stylesheets/PIE.htc);}
 
 .user-info {font-size:9px;line-height:12px;float:left;max-width:240px;min-width:190px;}
 .user-info .ava {float:left;position:relative;}
-.user-info .details {margin-left:80px;text-align:left !important;padding:0 !important;}
+.user-info .details {margin-left:80px;text-align:left !important;padding:0 !important;background:none !important;}
 .user-info.medium .details {margin-left:90px;}
 .user-info.medium .icon-status {margin-left:-16px;*float:left;}
 .user-info .details .username {font-size:12px;line-height:1.2;text-decoration:none;vertical-align:top;width:85px;margin:0;padding:0;overflow:hidden;display:inline-block;*zoom:1;*display:inline;}
@@ -3425,7 +3425,7 @@ body.gallery {overflow:hidden;}
 #photo-window #photo .next:hover .icon {background-position:-137px -341px;}
 
 #photo-window #photo-content {background:#fff;margin:20px 130px 0;padding:0 25px 25px;}
-#photo-window #photo-content .like-block {margin:0 auto 50px;}
+#photo-window #photo-content .like-block {margin:0 -100px 50px;width:900px;}
 
 #photo-window .photo-comment {font-size:13px;color:#afaeae;font-family:arial, helvetica, sans-serif;padding:10px 150px 10px;text-align:center;line-height:14px;}
 #photo-window .photo-comment textarea {width:75%;padding:2px 5px;border:1px solid #c5e8ef;vertical-align:top;background:#fff;margin-left:-6px;height:60px;}

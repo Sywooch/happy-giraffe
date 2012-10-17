@@ -4,6 +4,7 @@
         'entity' => get_class($model),
         'entity_id' => $model->id,
         'singlePhoto' => true,
+        'entityUrl' => (get_class($model) ? $model->url : null),
     ));
 ?>
 

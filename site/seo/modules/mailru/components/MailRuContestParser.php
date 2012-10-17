@@ -3,9 +3,9 @@
  * Author: alexk984
  * Date: 17.10.12
  */
-class MailRuParser extends ProxyParserThread
+class MailRuContestParser extends ProxyParserThread
 {
-    public $cookie = 'VID=3vjQa30CpM11; p=wFAAAM2c0QAA; mrcu=3D044FE31A915E22652EFA01060A; b=DT0LAEA4HwQAiI07+OS14MC4gwsdDMTLOuCA7cDjkQOVwA4YSzQEAIBwyxPGCXE5AgAA; odklmapi=$$14qtcq4M9IEnmSONbJcUdP=gvfq14qm/Dk/GPq+zDgrrn2; myc=; __utma=56108983.385009715.1350452484.1350452484.1350452484.1; __utmc=56108983; __utmz=56108983.1350452484.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none); i=AQAbRX5QAQBdAAUCAQA=; Mpop=1350457172:7a7364524061545019050219081d00041c0600024966535c465d0002020607160105701658514704041658565c5d1a454c:aiv45@mail.ru:';
+    public $cookie = 'VID=3vjQa30CpM11; p=wFAAAM2c0QAA; mrcu=3D044FE31A915E22652EFA01060A; b=DT0cAFDeoAEAPIpgkK+TgjAiGMThqoCH/AV2LjDAa3gB4f8TzEdZEO3FAjG9F6QRwaDI7AR9LjAodIFBUOQL9gRggJPoAuT/F9g2wYAn8gU/kS8A6WxBrkoLUGVeqOUnwlqOMQIAgHCqVZhxqoyXcWbQF3G2VZgB; odklmapi=$$14qtcq4M9IEnmSONbJcUdP=gvfq14qm/Dk/GPq+zDgrrn2; __utma=56108983.385009715.1350452484.1350452484.1350452484.1; __utmz=56108983.1350452484.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none); i=AQAbRX5QAQBdAAUCAQA=; Mpop=1350475538:7a7364524061545019050219081d00041c0600024966535c465d0002020607160105701658514704041658565c5d1a454c:aiv45@mail.ru:; __utmc=56108983; myc=; __utma=213042059.1565892412.1350476006.1350476006.1350476006.1; __utmb=213042059.1.10.1350476006; __utmc=213042059; __utmz=213042059.1350476006.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none); _ym_visorc=b; mrc=app_id%3D522858%26is_app_user%3D0%26sig%3D4cfaebf07f4479b7494b281a7081b1fd; c=6KB+UAAAAMZnAAASAQAAfgCA';
     /**
      * @var MailruQuery
      */
@@ -47,11 +47,10 @@ class MailRuParser extends ProxyParserThread
             $this->parsePage();
         } else {
             $document = phpQuery::newDocument($content);
-            foreach ($document->find('div.person div.name_pt a') as $link) {
+            foreach ($document->find('.pic_author noscript a') as $link) {
                 $name = pq($link)->text();
-                $id = pq($link)->attr('id');
-                $email = str_replace('_Name', '', $id);
-                $this->addUsers($email, $name);
+                $url = pq($link)->attr('href');
+                $this->addUsers($url, $name);
             }
             $document->unloadDocument();
         }
@@ -79,15 +78,6 @@ class MailRuParser extends ProxyParserThread
         $this->query->save();
     }
 
-    public static function collectPages()
-    {
-        for($i=1;$i<417;$i++){
-            $q = new MailruQuery();
-            $q->text = 'http://my.mail.ru/community/momi/friends?&sort=&page='.$i;
-            $q->save();
-        }
-    }
-
     protected function query($url, $ref = null, $post = false, $attempt = 0)
     {
         if ($ch = curl_init($url)) {
@@ -110,6 +100,7 @@ class MailRuParser extends ProxyParserThread
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
             curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
             $content = curl_exec($ch);
+            $content = iconv("Windows-1251","UTF-8",$content);
 
             if ($content === false) {
                 if (curl_errno($ch)) {
@@ -135,6 +126,28 @@ class MailRuParser extends ProxyParserThread
         }
 
         return '';
+    }
+
+
+    public static function collectContests()
+    {
+        $contests = array(
+            'http://goodday.deti.mail.ru/contest/goodday',
+            'http://alfavit.deti.mail.ru/contest/alfavit',
+            'http://start.deti.mail.ru/contest/start',
+            'http://lakri.deti.mail.ru/contest/lakri',
+            'http://leto-2012.deti.mail.ru/contest/leto-2012',
+            'http://aventphoto.deti.mail.ru/contest/aventphoto',
+            'http://brighttime.deti.mail.ru/contest/brighttime',
+            'http://voroninyfoto.deti.mail.ru/contest/voroninyfoto',
+            'http://solnce.deti.mail.ru/contest/solnce',
+        );
+        foreach($contests as $contest)
+        for($i=1;$i<30;$i++){
+            $q = new MailruQuery();
+            $q->text = $contest.'?page='.$i.'&sort=d';
+            $q->save();
+        }
     }
 }
 

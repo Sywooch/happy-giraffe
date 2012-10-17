@@ -7,9 +7,13 @@
  * @property string $id
  * @property integer $active
  * @property string $text
+ * @property integer $type
  */
 class MailruQuery extends HActiveRecord
 {
+    const TYPE_FORUM = 0;
+    const TYPE_THEME = 1;
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -37,11 +41,11 @@ class MailruQuery extends HActiveRecord
 		// will receive user inputs.
 		return array(
 			array('text', 'required'),
-			array('active', 'numerical', 'integerOnly'=>true),
+			array('active, type', 'numerical', 'integerOnly'=>true),
 			array('text', 'length', 'max'=>2048),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, active, text', 'safe', 'on'=>'search'),
+			array('id, active, text, type', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -65,6 +69,7 @@ class MailruQuery extends HActiveRecord
 			'id' => 'ID',
 			'active' => 'Active',
 			'text' => 'Text',
+			'type' => 'Type',
 		);
 	}
 
@@ -82,6 +87,7 @@ class MailruQuery extends HActiveRecord
 		$criteria->compare('id',$this->id,true);
 		$criteria->compare('active',$this->active);
 		$criteria->compare('text',$this->text,true);
+		$criteria->compare('type',$this->type);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

@@ -38,7 +38,6 @@ class MailruUsers extends HActiveRecord
 		return array(
 			array('name, email', 'required'),
 			array('name, email', 'length', 'max'=>255),
-            array('email', 'email'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, name, email', 'safe', 'on'=>'search'),

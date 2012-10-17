@@ -496,6 +496,7 @@
             <div id="footer" class="wrapper clearfix">
 
                 <div class="a-right">
+                    <!--Отработало за <?=sprintf('%0.5f',Yii::getLogger()->getExecutionTime())?> c -->
                     <!--<a>Политика конфиденциальности</a> &nbsp; | &nbsp; <a>Пользовательское соглашение</a> &nbsp; | &nbsp; -->
                 </div>
 

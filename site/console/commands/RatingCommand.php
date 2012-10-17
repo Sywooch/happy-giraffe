@@ -27,7 +27,8 @@ class RatingCommand extends CConsoleCommand
     public function actionSync()
     {
         $models = ContestWork::model()->findAll();
-        foreach ($models as $model) {
+        $count = count($models);
+        foreach ($models as $i => $model) {
             $attach = AttachPhoto::model()->findByEntity('ContestWork', $model->id);
             $photo = $attach[0]->photo;
             $url = 'http://www.happy-giraffe.ru' . ltrim(Yii::app()->createUrl('albums/singlePhoto', array('entity' => 'Contest', 'contest_id' => $model->contest_id, 'photo_id' => $photo->id)), '.');
@@ -35,6 +36,7 @@ class RatingCommand extends CConsoleCommand
             Rating::updateByApi($model, 'tw', $url);
             Rating::updateByApi($model, 'vk', $url);
             Rating::updateByApi($model, 'ok', $url);
+            echo ($i + 1) . '/' . $count . "\n";
         }
     }
 }

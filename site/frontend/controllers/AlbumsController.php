@@ -66,29 +66,11 @@ class AlbumsController extends HController
         $dataProvider = Album::model()->findByUser($id, false, false, $scopes);
 
         $this->layout = '//layouts/main';
-
         $this->render('index', array(
             'dataProvider' => $dataProvider,
             'user' => $user,
             'access' => $id == Yii::app()->user->id
         ));
-
-        if (Yii::app()->request->isAjaxRequest) {
-            $result = array(
-                'html' => $this->renderPartial('index', array(
-                    'dataProvider' => $dataProvider,
-                    'user' => $user,
-                    'access' => $id == Yii::app()->user->id
-                ), true),
-            );
-            echo CJSON::encode($result);
-        } else {
-            $this->render('index', array(
-                'dataProvider' => $dataProvider,
-                'user' => $user,
-                'access' => $id == Yii::app()->user->id
-            ));
-        }
     }
 
     public function actionView($id)
@@ -109,7 +91,15 @@ class AlbumsController extends HController
         ));
 
         $this->layout = '//layouts/main';
-        $this->render('view', compact('model', 'dataProvider'));
+
+        if (Yii::app()->request->isAjaxRequest) {
+            $result = array(
+                'html' => $this->render('view', compact('model', 'dataProvider'));, true)
+            );
+            echo CJSON::encode($result);
+        } else {
+            $this->render('view', compact('model', 'dataProvider'));
+        }
     }
 
     public function actionAddPhoto($a = false, $text = false, $u = false)

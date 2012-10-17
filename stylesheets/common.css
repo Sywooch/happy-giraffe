@@ -1676,6 +1676,7 @@ body.nav-fixed #header-new.top-line-fixed {padding-top:0;}
 #user-dialogs .friends ul li.empty .img {width:72px;height:72px;background:#f4f4f4;}
 #user-dialogs .friends ul li.empty .img {/*css3*/ -moz-border-radius:36px;-webkit-border-radius:36px;border-radius:36px;behavior: url(/stylesheets/PIE.htc);}
 
+#user-dialogs .letter-happy-giraffe {background:url(/images/) no-repeat;}
 
 #user-friends {background:#fff;position:absolute;left:50%;margin-left:-500px;width:998px;top:42px;z-index:99;border:1px solid #d7e9ff;*height:auto;}
 
@@ -2378,7 +2379,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 
 .fast-like-block .box-1 {text-align:center;display:inline-block;*zoom:1;*display:inline;vertical-align:top;margin-top: 15px;}
 
-.fast-like-block .box-2 {text-align:center;display:inline-block;*zoom:1;*display:inline;vertical-align:top;margin-top: 5px;padding-left: 10px;}
+.fast-like-block .box-2 {text-align:center;display:inline-block;*zoom:1;*display:inline;vertical-align:top;margin-top: 5px;padding:0 10px;}
 
 .fast-like-block .box-2 .btn-icon {vertical-align:bottom;}
 .fast-like-block .box-2 .btn-icon.heart {width:43px;height:41px;background:url(/images/like_heart.png) 0 -41px;}
@@ -3432,6 +3433,10 @@ body.gallery {overflow:hidden;}
 #photo-window .photo-comment {font-size:13px;color:#afaeae;font-family:arial, helvetica, sans-serif;padding:10px 150px 10px;text-align:center;line-height:14px;}
 #photo-window .photo-comment textarea {width:75%;padding:2px 5px;border:1px solid #c5e8ef;vertical-align:top;background:#fff;margin-left:-6px;height:60px;}
 
+#photo-window #photo-content .sharelink-friends {background:#feefbb;padding:15px 35px;margin:0 0 10px;}
+#photo-window #photo-content .sharelink-friends .title-row {font-size:13px;color:#414041;margin-bottom:3px;}
+#photo-window #photo-content .sharelink-friends .title-row .text {display:inline-block;*zoom:1;*display:inline;width:300px;padding:0 5px;border:1px solid #f7e39d;margin:0 5px;background:#fff;}
+#photo-window #photo-content .sharelink-friends p {color:#2a2a2a;font:11px/16px Tahoma, Arial, Verdana, sans-serif;}
 
 #photo-window .album-end {text-align:center;padding:40px 0;}
 #photo-window .album-end .block-title {color:#fff;font-size:18px;margin-bottom:25px;}

@@ -25,7 +25,6 @@ Yii::app()->clientScript
 ;
 ?>
 <div class="like-block fast-like-block">
-
     <div class="box-1">
         <div class="clearfix">
             <table width="100%">
@@ -51,8 +50,8 @@ Yii::app()->clientScript
                            href="<?=$url?>"
                            onclick="ODKL.Share(this);return false;"><span>0</span></a>
                     </td>
-                    <td style="vertical-align:top;">
-                        <?=CHtml::link('Tweet', 'https://twitter.com/share', array('class' => 'twitter-share-button', 'data-lang' => 'en')) ?>
+                    <td style="vertical-align:top;" class="tw_share_button">
+                        <a href="https://twitter.com/share" class="twitter-share-button" data-lang="ru" data-url="<?=$url?>">Твитнуть</a>
                         <script type="text/javascript" charset="utf-8">
                                 if (typeof twttr == 'undefined')
                                     window.twttr = (function (d,s,id) {

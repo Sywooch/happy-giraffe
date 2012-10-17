@@ -94,7 +94,7 @@ class AlbumsController extends HController
 
         if (Yii::app()->request->isAjaxRequest) {
             $result = array(
-                'html' => $this->render('view', compact('model', 'dataProvider'));, true)
+                'html' => $this->render('view', compact('model', 'dataProvider'), true)
             );
             echo CJSON::encode($result);
         } else {

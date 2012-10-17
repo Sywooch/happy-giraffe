@@ -97,7 +97,7 @@ jQuery.fn.pGallery = function(options) {
             var newUrl = plugin.getEntityUrl() + 'photo' + plugin.data.id + '/';
             if (typeof history.pushState !== 'undefined') {
                 plugin.history.changeBrowserUrl(newUrl);
-                if (plugin.data.entity_url.indexOf('contest') != -1) {
+                if (plugin.data.entity_url !== null && plugin.data.entity_url.indexOf('contest') != -1) {
                     if ($('#photo-window .vk_share_button').length > 0)
                         $('#photo-window .vk_share_button').html(VK.Share.button(document.location.href,{type: 'round', text: 'Мне нравится'}));
                     if (typeof twttr != 'undefined' && typeof twttr.widgets != 'undefined')
@@ -176,7 +176,7 @@ jQuery.fn.pGallery = function(options) {
             plugin.history.changeBrowserUrl(newUrl);
 
             $('#w-photo-content', plugin.window).html(html);
-            if (plugin.data.entity_url.indexOf('contest') != -1) {
+            if (plugin.data.entity_url !== null && plugin.data.entity_url.indexOf('contest') != -1) {
                 if ($('#photo-window .vk_share_button').length > 0)
                     $('#photo-window .vk_share_button').html(VK.Share.button(document.location.href,{type: 'round', text: 'Мне нравится'}));
                 if (typeof twttr != 'undefined' && typeof twttr.widgets != 'undefined')

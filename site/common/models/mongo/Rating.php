@@ -131,7 +131,7 @@ class Rating extends EMongoDocument
                 $count = count($response) > 0 && isset($response[$url]) && isset($response[$url]['shares']) ? $response[$url]['shares'] : 0;
                 break;
             case 'ok' :
-                $response = file_get_contents('http://www.odnoklassniki.ru/dk?st.cmd=extOneClickLike&uid=odklock0&ref=' . trim(urlencode($url), '/'));
+                $response = file_get_contents('http://www.odnoklassniki.ru/dk?st.cmd=extOneClickLike&uid=odklock0&ref=' . urlencode(trim($url, '/')));
                 preg_match("/^ODKL.updateCountOC\('[\d\w]+','(\d+)','(\d+)','(\d+)'\);$/i", $response, $matches);
                 $count = $matches[1];
                 break;

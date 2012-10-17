@@ -260,5 +260,12 @@ class SeoCommand extends CConsoleCommand
             $criteria->offset += 100;
         }
     }
+
+    public function actionMailru(){
+        Yii::import('site.seo.modules.mailru.components.*');
+
+        $parser = new MailRuParser;
+        $parser->start();
+    }
 }
 

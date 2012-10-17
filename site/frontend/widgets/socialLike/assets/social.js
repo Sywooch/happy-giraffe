@@ -63,7 +63,7 @@ var Social = {
             if (this.model_name == 'ContestWork') {
                 $.post('/ajax/updateRating/', {modelName:this.model_name, objectId:this.model_id, key:key, url:location.href});
                 var r = $('div.rating span');
-                r.val(parseInt(r.val()) + 1)
+                r.text(parseInt(r.text()) + 1)
             }
         }
     },

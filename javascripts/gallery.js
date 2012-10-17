@@ -170,6 +170,7 @@ jQuery.fn.pGallery = function(options) {
             $('#w-photo-content', plugin.window).html(html);
             if ($('#photo-window .vk_share_button').length > 0)
                 $('#photo-window .vk_share_button').html(VK.Share.button(document.location.href,{type: 'round', text: 'Мне нравится'}));
+            twttr.widgets.load();
             link.parent().siblings('li.active').removeClass('active');
             link.parent().addClass('active');
             if(callback)

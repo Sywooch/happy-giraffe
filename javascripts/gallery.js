@@ -97,12 +97,16 @@ jQuery.fn.pGallery = function(options) {
             var newUrl = plugin.getEntityUrl() + 'photo' + plugin.data.id + '/';
             if (typeof history.pushState !== 'undefined') {
                 plugin.history.changeBrowserUrl(newUrl);
-                if ($('#photo-window .vk_share_button').length > 0)
-                    $('#photo-window .vk_share_button').html(VK.Share.button(document.location.href,{type: 'round', text: 'Мне нравится'}));
-                if (typeof twttr != 'undefined' && typeof twttr.widgets != 'undefined')
-                    twttr.widgets.load();
-                if (typeof ODKL != 'undefined')
+                if (plugin.data.entity_url.indexOf('contest') != -1) {
+                    if ($('#photo-window .vk_share_button').length > 0)
+                        $('#photo-window .vk_share_button').html(VK.Share.button(document.location.href,{type: 'round', text: 'Мне нравится'}));
+                    if (typeof twttr != 'undefined' && typeof twttr.widgets != 'undefined')
+                        twttr.widgets.load();
                     ODKL.init();
+                    $.getJSON("http://graph.facebook.com", { id : document.location.href }, function(json){
+                        $('.fb-custom-share-count').html(json.shares || '0');
+                    });
+                }
             }
             $('#photo-window-bg, #photo-window').fadeIn(600, function(){
                 /*$('#photo-thumbs .jcarousel', plugin.window).jcarousel();
@@ -172,13 +176,15 @@ jQuery.fn.pGallery = function(options) {
             plugin.history.changeBrowserUrl(newUrl);
 
             $('#w-photo-content', plugin.window).html(html);
-            if ($('#photo-window .vk_share_button').length > 0)
-                $('#photo-window .vk_share_button').html(VK.Share.button(document.location.href,{type: 'round', text: 'Мне нравится'}));
-            if (typeof twttr != 'undefined' && typeof twttr.widgets != 'undefined')
-                twttr.widgets.load();
-            if (typeof ODKL != 'undefined') {
-                ODKL.initialized = false;
-                ODKL.init();
+            if (plugin.data.entity_url.indexOf('contest') != -1) {
+                if ($('#photo-window .vk_share_button').length > 0)
+                    $('#photo-window .vk_share_button').html(VK.Share.button(document.location.href,{type: 'round', text: 'Мне нравится'}));
+                if (typeof twttr != 'undefined' && typeof twttr.widgets != 'undefined')
+                    twttr.widgets.load();
+                if (typeof ODKL != 'undefined') {
+                    ODKL.initialized = false;
+                    ODKL.init();
+                }
             }
             link.parent().siblings('li.active').removeClass('active');
             link.parent().addClass('active');

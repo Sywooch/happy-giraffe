@@ -60,8 +60,11 @@ var Social = {
     updateLikesCount:function (key) {
         if ($.inArray(key, this.clicked) == -1) {
             this.clicked.push(key);
-            if (this.model_name == 'ContestWork')
+            if (this.model_name == 'ContestWork') {
                 $.post('/ajax/updateRating/', {modelName:this.model_name, objectId:this.model_id, key:key, url:location.href});
+                var r = $('div.rating span').text();
+                r.val(parseInt(r.val()) + 1)
+            }
         }
     },
     showFacebookPopup:function (el) {
@@ -69,9 +72,6 @@ var Social = {
         var sTop = window.screen.height / 2 - (150);
         var sLeft = window.screen.width / 2 - (313);
         window.open(el.href, 'sharer', 'toolbar=0,status=0,width=626,height=300,top=' + sTop + ',left=' + sLeft);
-
-        var r = $('#photo-window div.rating span').text();
-        r.val(parseInt(r.val()) + 1);
 
         return false;
     }

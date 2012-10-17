@@ -81,9 +81,9 @@ class MailRuParser extends ProxyParserThread
 
     public static function collectPages()
     {
-        for($i=0;$i<420;$i++){
+        for($i=1;$i<417;$i++){
             $q = new MailruQuery();
-            $q->text = 'http://my.mail.ru/community/magij_rukodelij/friends?&sort=&page='.$i;
+            $q->text = 'http://my.mail.ru/community/momi/friends?&sort=&page='.$i;
             $q->save();
         }
     }

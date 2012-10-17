@@ -12,8 +12,8 @@ $js = "
 ";
 
 Yii::app()->clientScript
-//->registerScriptFile('http://vk.com/js/api/share.js?11')
-//->registerScript('vk-init', "VK.init({apiId: " . Yii::app()->params['social']['vk']['api_id'] . ", onlyWidgets: true});", CClientScript::POS_HEAD)
+    ->registerScriptFile('http://vk.com/js/api/share.js?11')
+    //->registerScript('vk-init', "VK.init({apiId: " . Yii::app()->params['social']['vk']['api_id'] . ", onlyWidgets: true});", CClientScript::POS_HEAD)
     ->registerCssFile('http://stg.odnoklassniki.ru/share/odkl_share.css')
     ->registerScriptFile('http://stg.odnoklassniki.ru/share/odkl_share.js')
     ->registerMetaTag($this->options['title'], null, null, array('property' => 'og:title'))
@@ -54,12 +54,13 @@ Yii::app()->clientScript
                     <td style="vertical-align:top;">
                         <?=CHtml::link('Tweet', 'https://twitter.com/share', array('class' => 'twitter-share-button', 'data-lang' => 'en')) ?>
                         <script type="text/javascript" charset="utf-8">
-                            window.twttr = (function (d,s,id) {
-                                var t, js, fjs = d.getElementsByTagName(s)[0];
-                                if (d.getElementById(id)) return; js=d.createElement(s); js.id=id;
-                                js.src="//platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs);
-                                return window.twttr || (t = { _e: [], ready: function(f){ t._e.push(f) } });
-                            }(document, "script", "twitter-wjs"));
+                                if (typeof twttr == 'undefined')
+                                    window.twttr = (function (d,s,id) {
+                                        var t, js, fjs = d.getElementsByTagName(s)[0];
+                                        if (d.getElementById(id)) return; js=d.createElement(s); js.id=id;
+                                        js.src="//platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs);
+                                        return window.twttr || (t = { _e: [], ready: function(f){ t._e.push(f) } });
+                                    }(document, "script", "twitter-wjs"));
                         </script>
                     </td>
                 </tr>

@@ -52,7 +52,10 @@
         $photos = $preload = $collection['photos'];
         $count = $collection['count'];
         $currentIndex = $collection['currentIndex'];
-        $photo = $photos[$currentIndex];
+        foreach ($photos as $p) {
+            if ($p->id == $photo->id)
+                $photo = $p;
+        }
     }
 ?>
 

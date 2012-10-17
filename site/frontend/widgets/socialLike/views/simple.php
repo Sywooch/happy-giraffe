@@ -80,6 +80,7 @@ Yii::app()->clientScript
                         }
                     }
 
+                    if (typeof twttr != "undefined")
                     twttr.ready(function (twttr) {
                         twttr.events.bind('tweet', function (event) {
                             console.log('tweet');

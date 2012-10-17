@@ -151,6 +151,7 @@ class Rating extends EMongoDocument
             default :
                 $count = 0;
         }
+        echo $count."\n";
         Rating::model()->saveByEntity($entity, $social_key, $count);
     }
 

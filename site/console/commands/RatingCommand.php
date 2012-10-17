@@ -26,7 +26,7 @@ class RatingCommand extends CConsoleCommand
 
     public function actionSync($social_key = null)
     {
-        $models = ContestWork::model()->findAll();
+        $models = ContestWork::model()->findAll('contest_id = 2');
         $count = count($models);
         foreach ($models as $i => $model) {
             $attach = AttachPhoto::model()->findByEntity('ContestWork', $model->id);

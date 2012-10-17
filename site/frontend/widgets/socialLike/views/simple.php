@@ -52,20 +52,8 @@ Yii::app()->clientScript
                            onclick="ODKL.Share(this);return false;"><span>0</span></a>
                     </td>
                     <td style="vertical-align:top;">
-                        <?=CHtml::link('Tweet', 'https://twitter.com/share', array('class' => 'twitter-share-button', 'data-lang' => 'en')) ?>
-                        <script type="text/javascript" charset="utf-8">
-                            window.twttrF = (function (d, s, id) {
-                                var t, js, fjs = d.getElementsByTagName(s)[0];
-                                if (d.getElementById(id)) return;
-                                js = d.createElement(s);
-                                js.id = id;
-                                js.src = "//platform.twitter.com/widgets.js";
-                                fjs.parentNode.insertBefore(js, fjs);
-                                return window.twttrF || (t = { _e:[], ready:function (f) {
-                                    t._e.push(f)
-                                } });
-                            }(document, "script", "twitter-wjs"));
-                        </script>
+                        <a href="https://twitter.com/share" class="twitter-share-button">Tweet</a>
+                        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
                     </td>
                 </tr>
             </table>
@@ -80,11 +68,9 @@ Yii::app()->clientScript
                         }
                     }
 
-                    if (typeof twttrF !== undefined)
-                    twttrF.ready(function (twttrF) {
-                        twttrF.events.bind('tweet', function (event) {
-                            Social.updateLikesCount("tw")
-                        });
+
+                    twttr.events.bind('tweet', function (event) {
+                        Social.updateLikesCount("tw")
                     });
                 });
             </script>

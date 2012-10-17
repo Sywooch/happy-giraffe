@@ -54,14 +54,14 @@ Yii::app()->clientScript
                     <td style="vertical-align:top;">
                         <?=CHtml::link('Tweet', 'https://twitter.com/share', array('class' => 'twitter-share-button', 'data-lang' => 'en')) ?>
                         <script type="text/javascript" charset="utf-8">
-                            window.twttrF = (function (d, s, id) {
+                            window.twttr = (function (d, s, id) {
                                 var t, js, fjs = d.getElementsByTagName(s)[0];
                                 if (d.getElementById(id)) return;
                                 js = d.createElement(s);
                                 js.id = id;
                                 js.src = "//platform.twitter.com/widgets.js";
                                 fjs.parentNode.insertBefore(js, fjs);
-                                return window.twttrF || (t = { _e:[], ready:function (f) {
+                                return window.twttr || (t = { _e:[], ready:function (f) {
                                     t._e.push(f)
                                 } });
                             }(document, "script", "twitter-wjs"));
@@ -80,9 +80,9 @@ Yii::app()->clientScript
                         }
                     }
 
-                    if (typeof twttrF !== undefined)
-                    twttrF.ready(function (twttrF) {
-                        twttrF.events.bind('tweet', function (event) {
+                    twttr.ready(function (twttr) {
+                        twttr.events.bind('tweet', function (event) {
+                            console.log('tweet');
                             Social.updateLikesCount("tw")
                         });
                     });

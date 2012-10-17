@@ -176,7 +176,7 @@ if (Yii::app()->controller->registerUserData !== null) {
                         <label>Пароль:</label>
                     </div>
                     <div class="row-elements">
-                        <?=$form->passwordField($model, 'password'); ?>
+                        <?=$form->passwordField($model, 'password', array('autocomplete'=>'off')); ?>
                     </div>
                     <div class="row-error">
                         <i class="error-ok"></i>

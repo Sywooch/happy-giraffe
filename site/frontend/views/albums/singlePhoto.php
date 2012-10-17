@@ -5,6 +5,12 @@
         'entity_id' => $model->id,
         'singlePhoto' => true,
     ));
+
+    $cs
+        ->registerScriptFile('http://vk.com/js/api/share.js?11')
+        ->registerCssFile('http://stg.odnoklassniki.ru/share/odkl_share.css')
+        ->registerScriptFile('http://stg.odnoklassniki.ru/share/odkl_share.js')
+    ;
 ?>
 
 <div id="photo-inline" itemscope itemtype="http://schema.org/ImageObject">

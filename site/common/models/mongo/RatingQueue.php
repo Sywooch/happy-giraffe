@@ -48,7 +48,7 @@ class RatingQueue extends EMongoDocument
         if ($model !== null && get_class($model) == 'ContestWork') {
             $attach = AttachPhoto::model()->findByEntity('ContestWork', $model->id);
             $photo = $attach[0]->photo;
-            $url = 'http://www.happy-giraffe.ru' . ltrim(Yii::app()->createUrl('albums/singlePhoto', array('entity' => 'Contest', 'contest_id' => $model->contest_id, 'photo_id' => $photo->id)), '.');
+            $url = 'http://www.happy-giraffe.ru/contest/' . $model->contest_id . '/photo' . $photo->id . '/';
             echo $url.": ";
             Rating::updateByApi($model, $this->social_key, $url);
         }

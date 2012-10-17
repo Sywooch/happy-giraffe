@@ -2372,7 +2372,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 
 /* fast-like-block */
 
-.fast-like-block {margin:20px auto;text-align:center;background:none;}
+.fast-like-block {margin:20px auto;text-align:center;background:none;width:auto;}
 
 .fast-like-block .box-1 {text-align:center;display:inline-block;*zoom:1;*display:inline;vertical-align:top;margin-top: 15px;}
 
@@ -4390,4 +4390,57 @@ label {
 .social-list-small li a.mailru{background-position:0 -20px;}
 .social-list-small li a.vk{background-position:0 -40px;}
 .social-list-small li a.fb{background-position:0 -60px;}
+
+/* blog statistic */
+.blog-statistic {
+	background:#fff1e8;
+	margin:0 0 30px;
+	padding:0 0 14px;
+	color:#3d3c3c;
+	font-size:13px;
+	line-height:22px;
+}
+.blog-statistic .block-title {
+	line-height:38px;
+	text-align:center;
+	background:#a582c7;
+	border-bottom:1px solid #fff;
+	margin-bottom:14px;
+	font-size:20px;
+	color:#fff;
+}
+.blog-statistic .counter-speed-img {
+	float:left;
+	margin:0 15px;
+	width:69px;
+	height:69px;
+	background:url(/images/counter-spped.png) no-repeat;
+}
+.blog-statistic .count-lines {
+	float:left;
+}
+.blog-statistic .blog-count-all {
+	display:inline-block;
+	*display:inline;
+	*zoom:1;
+	border:1px solid #fae3cd;
+	vertical-align:middle;
+}
+.blog-statistic .blog-count-all span {
+	float:left;
+	padding:0 1px;
+	border:1px solid #fff;
+	font-weight:bold;
+	font-size:14px;
+	line-height:16px;
+	background:url(/images/bg-counter.png) no-repeat;
+	color:#fff;
+}
+.blog-statistic .blog-count-all span.active {background-position:0 -16px;}
+
+
+
+
+
+
 

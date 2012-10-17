@@ -102,7 +102,7 @@
 #user .user-photo {}
 #user .user-photo img {display:block;}
 
-#user .details {color:#b6b9ba;font-size:9px;font-family:tahoma, arial, helvetica, sans-serif;padding:5px 10px;text-indent:0;text-align:center;background:#f3e9fc;}
+#user .details {color:#b6b9ba;font-size:9px;font-family:tahoma, arial, helvetica, sans-serif;padding:5px 10px;text-indent:0;text-align:center;}
 
 #user .user-trophies {background:#f3e9fc;padding:5px 14px 17px;margin:0 0 10px;}
 #user .user-trophies .box-title .a-right{margin-top:9px;font-size:11px;}
@@ -706,6 +706,14 @@
 #user .friends-total.empty {margin-top:-200px;}
 
 #user .friends .actions {padding-top:8px;}
+
+#user .friends-empty {margin:-25px 0 60px;}
+#user .friends-empty h3.title {font-size:17px;line-height:36px;font-weight:normal;color:#515151;text-align:center;}
+#user .friends-empty .find {background:#ebf4fe;margin:15px 0 0;padding:30px 35px;}
+#user .friends-empty .find .button {float:right;height:90px;padding:20px 0 20px 160px;background:url(/images/user_friends_recent_find.png) no-repeat left;}
+#user .friends-empty .find .button .btn-green {font-size:28px;line-height:1;padding:15px 35px;}
+#user .friends-empty .find p {width:285px;line-height:22px;font-size:13px;color:#515151;}
+#user .friends-empty .friends-total {width:auto;padding:25px 0 0;}
 
 .user-block-list {width:720px;}
 .user-block-list .list-item {width:340px;float:left;}

@@ -249,7 +249,6 @@ class Contest extends HActiveRecord
 
         $criteria->order = 't.' . Yii::app()->request->getQuery('sort', 'created') . ' DESC';
 
-        Yii::beginProfile('t');
         $currentIndex = null;
         $count = null;
         if ($preload_id === null) {
@@ -282,7 +281,6 @@ class Contest extends HActiveRecord
             $criteria->addInCondition('t.id', $preload);
             $works = ContestWork::model()->findAll($criteria);
         }
-        Yii::endProfile('t');
 
         $photos = array();
         foreach ($works as $w) {

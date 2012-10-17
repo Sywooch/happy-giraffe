@@ -9,6 +9,7 @@ if (get_class($this->model) == 'ContestWork' && Yii::app()->request->isAjaxReque
 
 $js = "
     $('.vk_share_button').html(VK.Share.button(document.location.href,{type: 'round', text: 'Мне нравится'}));
+    ODKL.init();
 ";
 
 Yii::app()->clientScript

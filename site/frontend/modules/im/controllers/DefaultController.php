@@ -5,8 +5,8 @@ class DefaultController extends HController
     public function filters()
     {
         return array(
-            'accessControl',
-            'ajaxOnly',
+            //'accessControl',
+            //'ajaxOnly',
         );
     }
 
@@ -29,7 +29,7 @@ class DefaultController extends HController
         $onlineCount = Im::getContactsCount(Yii::app()->user->id, Im::IM_CONTACTS_ONLINE);
         $friendsCount = Im::getContactsCount(Yii::app()->user->id, Im::IM_CONTACTS_FRIENDS);
         $wantToChat = WantToChat::getList(12);
-        $hasMessages = Im::hasMessages(Yii::app()->user->id);
+        $hasMessages = $newCount > 0;
         $response = array(
             'html' => $this->renderPartial('index', compact('allCount', 'newCount', 'onlineCount', 'friendsCount', 'wantToChat', 'hasMessages'), true),
             'hasMessages' => $hasMessages,
@@ -172,5 +172,10 @@ class DefaultController extends HController
     {
         $onlineCount = Im::getContactsCount(Yii::app()->user->id, Im::IM_CONTACTS_NEW);
         echo $onlineCount;
+    }
+
+    public function actionInput()
+    {
+        $this->renderPartial('_wysiwyg', null, false, true);
     }
 }

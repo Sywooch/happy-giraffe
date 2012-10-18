@@ -80,7 +80,6 @@
                 <div class="input"><textarea placeholder="Введите ваше сообщение" onclick="Messages.showInput();"></textarea></div>
                 <div class="wysiwyg">
                     <?php
-
                         $this->widget('ext.ckeditor.CKEditorWidget', array(
                             'model' => $message,
                             'attribute' => 'text',

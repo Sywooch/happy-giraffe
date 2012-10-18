@@ -311,7 +311,8 @@ class WordstatParser extends ProxyParserThread
         $yandex = YandexPopularity::model()->findByPk($this->keyword->keyword_id);
         if ($yandex !== null) {
             $yandex->parsed = 1;
-            $yandex->save();
+            if (!$yandex->save())
+                echo 'not saved!';
         }
 
         //удаляем кейворд из парсинга

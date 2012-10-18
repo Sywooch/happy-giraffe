@@ -91,7 +91,15 @@ class AlbumsController extends HController
         ));
 
         $this->layout = '//layouts/main';
-        $this->render('view', compact('model', 'dataProvider'));
+
+        if (Yii::app()->request->isAjaxRequest) {
+            $result = array(
+                'html' => $this->render('view', compact('model', 'dataProvider'), true)
+            );
+            echo CJSON::encode($result);
+        } else {
+            $this->render('view', compact('model', 'dataProvider'));
+        }
     }
 
     public function actionAddPhoto($a = false, $text = false, $u = false)
@@ -184,9 +192,9 @@ class AlbumsController extends HController
             $model = $model->findByPk($entity_id);
 
         if (!Yii::app()->request->getQuery('go')) {
-            $this->renderPartial('w_photo', compact('model', 'photo'), false, true);
+            $this->renderPartial('w_photo', compact('model', 'photo'));
         } else {
-            $this->renderPartial('w_photo_content', compact('model', 'photo'), false, true);
+            $this->renderPartial('w_photo_content', compact('model', 'photo'));
         }
     }
 

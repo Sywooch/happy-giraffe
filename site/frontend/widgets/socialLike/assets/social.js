@@ -60,7 +60,11 @@ var Social = {
     updateLikesCount:function (key) {
         if ($.inArray(key, this.clicked) == -1) {
             this.clicked.push(key);
-            $.post('/ajax/updateRating/', {modelName:this.model_name, objectId:this.model_id, key:key, url:location.href});
+            if (this.model_name == 'ContestWork') {
+                $.post('/ajax/updateRating/', {modelName:this.model_name, objectId:this.model_id, key:key, url:location.href});
+                var r = $('div.rating span');
+                r.text(parseInt(r.text()) + 1)
+            }
         }
     },
     showFacebookPopup:function (el) {

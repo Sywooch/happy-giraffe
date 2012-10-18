@@ -88,4 +88,29 @@ class ForumsController extends ELController
 
         echo CJSON::encode($response);
     }
+
+    public function actionCheck()
+    {
+        $url = Yii::app()->request->getPost('url');
+        $parse = parse_url($url);
+        $host = $parse['host'];
+
+        $model = ELSite::model()->findByAttributes(array('url' => $host));
+        if ($model === null)
+            $response = array(
+                'type' => 1,
+            );
+        else {
+            if ($model->status == ELSite::STATUS_BLACKLIST)
+                $response = array(
+                    'type' => 3,
+                );
+            else
+                $response = array(
+                    'type' => 2,
+                );
+        }
+
+        echo CJSON::encode($response);
+    }
 }

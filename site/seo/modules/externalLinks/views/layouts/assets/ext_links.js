@@ -30,6 +30,30 @@ var ExtLinks = {
             $('#ELLink_url').val(url);
         }, 'json');
     },
+    CheckForum:function () {
+        var url = $('#site_url').val();
+
+        $('div.form').hide();
+        $('.url-actions').hide();
+        $('.url-list').hide().html('');
+        $.post('/externalLinks/forums/check/', {url:url}, function (response) {
+            $('.url-actions').hide();
+            switch (response.type) {
+                case 1:
+                    $('#site_status_1').show();
+                    break;
+                case 2:
+                    $('#site_status_2').show();
+                    $('.url-list').html(response.links).show();
+                    break;
+                case 3:
+                    $('#site_status_3').show();
+                    break;
+            }
+
+            $('#ELLink_url').val(url);
+        }, 'json');
+    },
     CancelSite:function () {
         ExtLinks.ClearFrom();
     },

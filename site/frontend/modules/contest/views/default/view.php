@@ -25,6 +25,7 @@
     $cs
         ->registerScript('contest-view', $js)
         ->registerScriptFile('/javascripts/jquery.masonry.min.js')
+        ->registerMetaTag('/images/contest/banner-mother-i-3.jpg', null, null, array('property' => 'og:image'))
     ;
 ?>
 
@@ -71,7 +72,7 @@
             </div>
             <div class="place place-1-1"></div>
             <div class="title">
-                <a href="">Фотоаппарат<br/><b>SONY Cyber-shot DSC-HX10 </b></a>
+                <a href="">Фотоаппарат<br/><b>SONY Cyber-shot DSC-HX10</b></a>
             </div>
         </li>
         <li>
@@ -80,7 +81,7 @@
             </div>
             <div class="place place-2-3"></div>
             <div class="title">
-                <a href="">Фоторамка 8"<br/><b>SONY DPF-D830LB </b></a>
+                <a href="">Фоторамка<br/><b>SONY DPF-D830LB 8"</b></a>
             </div>
         </li>
 

@@ -4,7 +4,8 @@ class DefaultController extends SController
 {
 	public function actionIndex()
 	{
-        $parser = new MailRuForumThemeParser;
-        $parser->start();
+        $parser = new MailRuUserParser;
+        $parser->user = MailruUser::model()->findByPk(6);
+        $parser->parsePage();
 	}
 }

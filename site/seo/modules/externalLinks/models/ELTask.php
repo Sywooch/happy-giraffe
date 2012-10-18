@@ -198,11 +198,6 @@ class ELTask extends HActiveRecord
     public function closeTask()
     {
         if ($this->type == self::TYPE_REGISTER) {
-            if (!isset($this->site->account->login)){
-                $this->addError('type', 'Вы не ввели данные регистрации!');
-                return false;
-            }
-
             //create comment task instantly
             $this->createCommentTask(date("Y-m-d"), $this->user_id);
         } elseif ($this->type == self::TYPE_COMMENT) {

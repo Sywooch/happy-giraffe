@@ -49,9 +49,9 @@ class MailRuForumThemeParser extends ProxyParserThread
             $this->parsePage();
         } else {
             $document = phpQuery::newDocument($content);
-            foreach ($document->find('table.themesList > tr > td > div.t100 > a') as $link) {
+            foreach ($document->find('td.comment div.t75.nowrap > a') as $link) {
                 $url = pq($link)->attr('href');
-                $name = pq($link)->attr('text');
+                $name = pq($link)->text();
                 $this->addUser($url, $name);
             }
             $document->unloadDocument();
@@ -62,11 +62,11 @@ class MailRuForumThemeParser extends ProxyParserThread
     {
         $transaction = Yii::app()->db->beginTransaction();
         try {
-            if (MailruQuery::model()->findByAttributes(array('text' => $url)) == null) {
-                $user = new MailruUser();
-                $user->deti_url = $url;
-                $user->email = $user->calculateEmail();
-                $user->name = $name;
+            $user = new MailruUser();
+            $user->deti_url = $url;
+            $user->email = $user->calculateEmail();
+            if (!empty($user->email) && MailruUser::model()->findByAttributes(array('email' => $user->email)) == null) {
+                $user->name = trim(preg_replace("/  +/", " ", $name));
                 $user->save();
             }
             $transaction->commit();

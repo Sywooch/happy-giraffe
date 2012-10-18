@@ -9,7 +9,8 @@ Scores.open = function (tab) {
     $.get('/scores/', function (data) {
         Popup.load('Scores');
         $('#popup-preloader').hide();
-        $('body').append(data);
+        $('.popup-container').append(data);
+
         $('.user-nav-2 .item-career').addClass('active');
         Scores.openTab(tab);
     });

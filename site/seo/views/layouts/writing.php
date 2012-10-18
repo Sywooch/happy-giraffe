@@ -9,6 +9,16 @@
                 'itemTemplate' => '{menu}<span class="tale"><img src="/images/default_nav_active.gif"></span>',
                 'items' => array(
                     array(
+                        'label' => 'Рукоделие',
+                        'url' => $this->createUrl('/writing/editor/index', array('theme'=>5)),
+                        'active'=> Yii::app()->controller->action->id == 'index' && Yii::app()->request->getParam('theme') == 5
+                    ),
+                    array(
+                        'label' => 'Интерьер',
+                        'url' => $this->createUrl('/writing/editor/index', array('theme'=>6)),
+                        'active'=> Yii::app()->controller->action->id == 'index' && Yii::app()->request->getParam('theme') == 6
+                    ),
+                    array(
                         'label' => 'Конкуренты',
                         'url' => array('/competitors/default/index'),
                     ),

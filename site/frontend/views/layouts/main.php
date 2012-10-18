@@ -38,8 +38,6 @@
         ->registerScriptFile('/javascripts/jquery.jcarousel.control.js')
         ->registerCoreScript('yiiactiveform')
         ->registerCoreScript('bbq')
-
-        ->registerScriptFile('http://vk.com/js/api/share.js?11')
     ;
 
     $cs->registerMetaTag(trim($this->meta_description), 'description');
@@ -498,6 +496,7 @@
             <div id="footer" class="wrapper clearfix">
 
                 <div class="a-right">
+                    <!--Отработало за <?=sprintf('%0.5f',Yii::getLogger()->getExecutionTime())?> c -->
                     <!--<a>Политика конфиденциальности</a> &nbsp; | &nbsp; <a>Пользовательское соглашение</a> &nbsp; | &nbsp; -->
                 </div>
 

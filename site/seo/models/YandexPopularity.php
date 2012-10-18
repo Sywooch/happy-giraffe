@@ -43,7 +43,7 @@ class YandexPopularity extends HActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('value', 'required'),
+            array('keyword_id', 'required'),
             array('value, parsed, theme', 'numerical', 'integerOnly' => true),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
@@ -109,7 +109,8 @@ class YandexPopularity extends HActiveRecord
             $yaPop->value = $value;
             try {
                 $yaPop->theme = $theme;
-                $yaPop->save();
+                if (!$yaPop->save())
+                    echo 'not saved2';
             }catch (Exception $e){
 
             }
@@ -119,7 +120,8 @@ class YandexPopularity extends HActiveRecord
             $yaPop->theme = $theme;
             $yaPop->value = $value;
             try {
-                $yaPop->save();
+                if (!$yaPop->save())
+                    echo 'not saved2';
             }catch (Exception $e){
 
             }

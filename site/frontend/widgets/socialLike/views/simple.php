@@ -8,12 +8,12 @@ if (get_class($this->model) == 'ContestWork' && Yii::app()->request->isAjaxReque
 }
 
 $js = "
-    $('.vk_share_button').html(VK.Share.button(false,{type: 'round', text: 'Мне нравится'}));
+    $('.vk_share_button').html(VK.Share.button(document.location.href,{type: 'round', text: 'Мне нравится'}));
 ";
 
 Yii::app()->clientScript
-//->registerScriptFile('http://vk.com/js/api/share.js?11')
-//->registerScript('vk-init', "VK.init({apiId: " . Yii::app()->params['social']['vk']['api_id'] . ", onlyWidgets: true});", CClientScript::POS_HEAD)
+    ->registerScriptFile('http://vk.com/js/api/share.js?11')
+    //->registerScript('vk-init', "VK.init({apiId: " . Yii::app()->params['social']['vk']['api_id'] . ", onlyWidgets: true});", CClientScript::POS_HEAD)
     ->registerCssFile('http://stg.odnoklassniki.ru/share/odkl_share.css')
     ->registerScriptFile('http://stg.odnoklassniki.ru/share/odkl_share.js')
     ->registerMetaTag($this->options['title'], null, null, array('property' => 'og:title'))
@@ -25,6 +25,13 @@ Yii::app()->clientScript
 ;
 ?>
 <div class="like-block fast-like-block">
+    <div class="box-2">
+        <?php
+            $this->render('_yh_min', array(
+                'options' => $this->providers['yh'],
+            ));
+        ?>
+    </div>
 
     <div class="box-1">
         <div class="clearfix">
@@ -47,23 +54,20 @@ Yii::app()->clientScript
 
                     </td>
                     <td style="vertical-align:top;padding-right:15px;text-align: left;">
-                        <a class="odkl-klass-oc" href="<?=$url?>"
-                           onclick="ODKL.Share(this);return false;"><span>0</span></a>
+                        <a class="odkl-klass-oc"
+                           href="<?=$url?>"
+                           onclick="Social.updateLikesCount('ok'); ODKL.Share(this);return false;"><span>0</span></a>
                     </td>
-                    <td style="vertical-align:top;">
-                        <?=CHtml::link('Tweet', 'https://twitter.com/share', array('class' => 'twitter-share-button', 'data-lang' => 'en')) ?>
+                    <td style="vertical-align:top;" class="tw_share_button">
+                        <a href="https://twitter.com/share" class="twitter-share-button" data-lang="ru" data-url="<?=$url?>">Твитнуть</a>
                         <script type="text/javascript" charset="utf-8">
-                            window.twttr = (function (d, s, id) {
-                                var t, js, fjs = d.getElementsByTagName(s)[0];
-                                if (d.getElementById(id)) return;
-                                js = d.createElement(s);
-                                js.id = id;
-                                js.src = "//platform.twitter.com/widgets.js";
-                                fjs.parentNode.insertBefore(js, fjs);
-                                return window.twttr || (t = { _e:[], ready:function (f) {
-                                    t._e.push(f)
-                                } });
-                            }(document, "script", "twitter-wjs"));
+                                if (typeof twttr == 'undefined')
+                                    window.twttr = (function (d,s,id) {
+                                        var t, js, fjs = d.getElementsByTagName(s)[0];
+                                        if (d.getElementById(id)) return; js=d.createElement(s); js.id=id;
+                                        js.src="//platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs);
+                                        return window.twttr || (t = { _e: [], ready: function(f){ t._e.push(f) } });
+                                    }(document, "script", "twitter-wjs"));
                         </script>
                     </td>
                 </tr>
@@ -81,21 +85,13 @@ Yii::app()->clientScript
 
                     twttr.ready(function (twttr) {
                         twttr.events.bind('tweet', function (event) {
+                            console.log('tweet');
                             Social.updateLikesCount("tw")
                         });
                     });
                 });
             </script>
         </div>
-    </div>
-
-    <div class="box-2">
-
-        <?php
-        $this->render('_yh_min', array(
-            'options' => $this->providers['yh'],
-        ));
-        ?>
     </div>
 
     <div class="box-3">

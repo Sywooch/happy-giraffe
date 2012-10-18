@@ -226,7 +226,7 @@ class Contest extends HActiveRecord
 		return parent::afterFind();
 	}
 
-    public function getPhotoCollection()
+    public function getPhotoCollection($preload_id = null)
     {
         $criteria = new CDbCriteria(array(
             'with' => array(
@@ -249,7 +249,38 @@ class Contest extends HActiveRecord
 
         $criteria->order = 't.' . Yii::app()->request->getQuery('sort', 'created') . ' DESC';
 
-        $works = ContestWork::model()->findAll($criteria);
+        $currentIndex = null;
+        $count = null;
+        if ($preload_id === null) {
+            $works = ContestWork::model()->findAll($criteria);
+        } else {
+            $idsCriteria = clone $criteria;
+            $idsCriteria->select = 'id';
+            $idsCriteria->with = false;
+            $_ids = ContestWork::model()->findAll($idsCriteria);
+            $count = count($_ids);
+
+            foreach ($_ids as $i => $p) {
+                if ($p->id == $preload_id) {
+                    $currentIndex = $i;
+                    break;
+                }
+            }
+
+            $preload = array();
+            $preload[] = $_ids[$currentIndex]->id;
+            $currentNext = $currentIndex;
+            $currentPrev = $currentIndex;
+            for ($i = 0; $i < 3; $i++) {
+                $currentNext = ($currentNext == ($count - 1)) ? 0 : ($currentNext + 1);
+                $currentPrev = ($currentPrev == 0) ? ($count - 1) : ($currentPrev - 1);
+                $preload[] = $_ids[$currentNext]->id;
+                $preload[] = $_ids[$currentPrev]->id;
+            }
+
+            $criteria->addInCondition('t.id', $preload);
+            $works = ContestWork::model()->findAll($criteria);
+        }
 
         $photos = array();
         foreach ($works as $w) {
@@ -259,8 +290,10 @@ class Contest extends HActiveRecord
         }
 
         return array(
-            'title' => 'Фотоальбом ' . CHtml::link($this->title, $this->url),
+            'title' => 'Фотоконкурс ' . CHtml::link($this->title, $this->url),
             'photos' => $photos,
+            'currentIndex' => $currentIndex,
+            'count' => $count,
         );
     }
 

@@ -85,7 +85,8 @@ class CommunityController extends HController
         $contents = CommunityContent::model()->getContents($community_id, $rubric_id, $content_type_slug);
 
         $crumbs = array();
-        $crumbs['Клубы'] = array('/community');
+        if ($community_id !== Community::COMMUNITY_NEWS)
+            $crumbs['Клубы'] = array('/community');
         if ($rubric_id !== null) {
             $crumbs[$this->community->title] = $this->community->url;
             $crumbs[] = $rubric->title;

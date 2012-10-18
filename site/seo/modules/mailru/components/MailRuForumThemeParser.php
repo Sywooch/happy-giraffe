@@ -30,7 +30,7 @@ class MailRuForumThemeParser extends ProxyParserThread
         $criteria->compare('active', 0);
         $criteria->compare('type', MailruQuery::TYPE_THEME);
 
-        $transaction = Yii::app()->db->beginTransaction();
+        $transaction = Yii::app()->db_seo->beginTransaction();
         try {
             $this->query = MailruQuery::model()->find($criteria);
             if ($this->query === null)
@@ -71,7 +71,7 @@ class MailRuForumThemeParser extends ProxyParserThread
 
     public function addUser($url, $name)
     {
-        $transaction = Yii::app()->db->beginTransaction();
+        $transaction = Yii::app()->db_seo->beginTransaction();
         try {
             $user = new MailruUser();
             $user->deti_url = $url;

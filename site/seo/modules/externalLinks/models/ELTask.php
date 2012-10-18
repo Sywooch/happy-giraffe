@@ -288,7 +288,7 @@ class ELTask extends HActiveRecord
             ':user_id' => Yii::app()->user->id
         );
 
-        $task = ELTask::model()->find($criteria);
+        $task = ELTask::model()->findAll($criteria);
         if ($task !== null)
             return $task;
 

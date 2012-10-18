@@ -9,8 +9,6 @@
         <?php
         if (is_array($task))
             $this->renderPartial('task_1', array('tasks' => $task));
-        elseif ($task->type == 1)
-            $this->renderPartial('task_1', array('tasks' => array($task)));
         else
             $this->renderPartial('task_' . $task->type, compact('task'));
         ?>

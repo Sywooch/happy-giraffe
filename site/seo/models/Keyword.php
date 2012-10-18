@@ -94,7 +94,7 @@ class Keyword extends HActiveRecord
                 ->searchRaw();
             $ids = array();
 
-            $blacklist = Yii::app()->db->createCommand('select keyword_id from ' . KeywordBlacklist::model()->tableName())->queryColumn();
+            $blacklist = Yii::app()->db_seo->createCommand('select keyword_id from ' . KeywordBlacklist::model()->tableName())->queryColumn();
             foreach ($allSearch['matches'] as $key => $m) {
                 if (!in_array($key, $blacklist))
                     $ids [] = $key;
@@ -110,6 +110,40 @@ class Keyword extends HActiveRecord
 
         return new CActiveDataProvider('Keyword', array(
             'criteria' => $criteria,
+        ));
+    }
+
+    public function searchByTheme($theme)
+    {
+        $criteria = new CDbCriteria;
+        $criteria->with = array('yandex');
+        $criteria->order = 'yandex.value desc';
+        $criteria->condition = 'yandex.theme = '.$theme;
+
+        if (!empty($this->name)) {
+            $allSearch = Yii::app()->search
+                ->select('*')
+                ->from('keywords')
+                ->where(' ' . $this->name . ' ')
+                ->limit(0, 50000)
+                ->searchRaw();
+            $ids = array();
+
+            $blacklist = Yii::app()->db_seo->createCommand('select keyword_id from ' . KeywordBlacklist::model()->tableName())->queryColumn();
+            foreach ($allSearch['matches'] as $key => $m) {
+                if (!in_array($key, $blacklist))
+                    $ids [] = $key;
+            }
+
+            if (!empty($ids))
+                $criteria->compare('t.id', $ids);
+            else
+                $criteria->compare('t.id', 0);
+        }
+
+        return new CActiveDataProvider('Keyword', array(
+            'criteria' => $criteria,
+            'pagination' => array('pageSize' => 100),
         ));
     }
 

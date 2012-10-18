@@ -1,19 +1,24 @@
 <?php
 
 /**
- * This is the model class for table "mailru__users".
+ * This is the model class for table "mailru__babies".
  *
- * The followings are the available columns in table 'mailru__users':
+ * The followings are the available columns in table 'mailru__babies':
  * @property string $id
+ * @property string $parent_id
  * @property string $name
- * @property string $email
+ * @property string $birthday
+ * @property integer $gender
+ *
+ * The followings are the available model relations:
+ * @property MailruUsers $parent
  */
-class MailruUsers extends HActiveRecord
+class MailruBaby extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return MailruUsers the static model class
+	 * @return MailruBaby the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -25,7 +30,7 @@ class MailruUsers extends HActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'mailru__users';
+		return 'mailru__babies';
 	}
 
 	/**
@@ -36,11 +41,14 @@ class MailruUsers extends HActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name, email', 'required'),
-			array('name, email', 'length', 'max'=>255),
+			array('parent_id, name, gender', 'required'),
+			array('gender', 'numerical', 'integerOnly'=>true),
+			array('parent_id', 'length', 'max'=>10),
+			array('name', 'length', 'max'=>255),
+			array('birthday', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, name, email', 'safe', 'on'=>'search'),
+			array('id, parent_id, name, birthday, gender', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -52,6 +60,7 @@ class MailruUsers extends HActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'parent' => array(self::BELONGS_TO, 'MailruUsers', 'parent_id'),
 		);
 	}
 
@@ -62,8 +71,10 @@ class MailruUsers extends HActiveRecord
 	{
 		return array(
 			'id' => 'ID',
+			'parent_id' => 'Parent',
 			'name' => 'Name',
-			'email' => 'Email',
+			'birthday' => 'Birthday',
+			'gender' => 'Gender',
 		);
 	}
 
@@ -79,8 +90,10 @@ class MailruUsers extends HActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id,true);
+		$criteria->compare('parent_id',$this->parent_id,true);
 		$criteria->compare('name',$this->name,true);
-		$criteria->compare('email',$this->email,true);
+		$criteria->compare('birthday',$this->birthday,true);
+		$criteria->compare('gender',$this->gender);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

@@ -23,6 +23,8 @@ Messages.open = function(interlocutor_id, type) {
                 Messages.setHeight();
             });
 
+            Messages.editor = CKEDITOR.instances['Message[text]'];
+
             //Messages.updateCounter('#user-dialogs-allCount', data.allCount, false);
             //Messages.updateCounter('#user-dialogs-newCount', data.newCount, false);
             //Messages.updateCounter('#user-dialogs-onlineCount', data.onlineCount, false);

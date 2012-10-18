@@ -4,8 +4,7 @@ class m121018_122028_indexes extends CDbMigration
 {
 	public function up()
 	{
-        $this->execute("ALTER TABLE `comments` DROP INDEX `entity_id`");
-        $this->execute("ALTER TABLE `comments` ADD INDEX `updated`");
+        $this->execute("ALTER TABLE `comments` ADD INDEX (`updated`)");
 	}
 
 	public function down()

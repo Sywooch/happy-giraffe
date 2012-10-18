@@ -264,7 +264,7 @@ class SeoCommand extends CConsoleCommand
     public function actionMailru(){
         Yii::import('site.seo.modules.mailru.components.*');
 
-        $parser = new MailRuContestParser();
+        $parser = new MailRuForumThemeParser();
         $parser->start();
     }
 

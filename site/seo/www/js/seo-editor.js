@@ -34,7 +34,12 @@ var SeoKeywords = {
                 else
                     $(el).parent('td').html('в буфере <input type="hidden" value="' + id + '"><a href="" class="icon-remove" onclick="SeoKeywords.CancelSelect(this, ' + short + ');return false;"></a>');
                 $('.default-nav div.count a').text(parseInt($('.default-nav div.count a').text()) + 1);
-            }
+            }else
+                $.pnotify({
+                    pnotify_title:'Ошибка',
+                    pnotify_type:'error',
+                    pnotify_text:response.error
+                });
         }, 'json');
     },
     CancelSelect:function (el, short) {

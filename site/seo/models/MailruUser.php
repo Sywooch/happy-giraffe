@@ -36,6 +36,11 @@ class MailruUser extends HActiveRecord
 		return 'mailru__users';
 	}
 
+    public function getDbConnection()
+    {
+        return Yii::app()->db_seo;
+    }
+
 	/**
 	 * @return array validation rules for model attributes.
 	 */

@@ -33,6 +33,11 @@ class MailruBaby extends HActiveRecord
 		return 'mailru__babies';
 	}
 
+    public function getDbConnection()
+    {
+        return Yii::app()->db_seo;
+    }
+
 	/**
 	 * @return array validation rules for model attributes.
 	 */

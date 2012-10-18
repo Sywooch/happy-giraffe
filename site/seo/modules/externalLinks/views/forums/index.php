@@ -13,7 +13,7 @@
 
     <div class="check-url">
         <input id="site_url" type="text" placeholder="Введите URL форума"/>
-        <button class="btn-g" onclick="ExtLinks.CheckSite()">Проверить</button>
+        <button class="btn-g" onclick="ExtLinks.CheckForum()">Проверить</button>
     </div>
 
     <div class="url-actions" id="site_status_1" style="display: none;">
@@ -30,7 +30,7 @@
 
     <div class="url-actions" id="site_status_2" style="display: none;">
 
-        <span class="have-links">Есть ссылки</span>
+        <span class="have-links">В работе</span>
 
         <a href="javascript:;" class="pseudo" onclick="ExtLinks.CancelSite()">Отмена</a>
 

@@ -102,7 +102,10 @@ jQuery.fn.pGallery = function(options) {
                         $('#photo-window .vk_share_button').html(VK.Share.button(document.location.href,{type: 'round', text: 'Мне нравится'}));
                     if (typeof twttr != 'undefined' && typeof twttr.widgets != 'undefined')
                         twttr.widgets.load();
-                    ODKL.init();
+                    if (typeof ODKL != 'undefined') {
+                        ODKL.initialized = false;
+                        ODKL.init();
+                    }
                     $.getJSON("http://graph.facebook.com", { id : document.location.href }, function(json){
                         $('.fb-custom-share-count').html(json.shares || '0');
                     });

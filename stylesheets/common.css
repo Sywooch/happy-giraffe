@@ -4390,6 +4390,9 @@ label {
 	line-height: 0;
 	font-size: 0;
 }
+.odkl-klass-stat, .odkl-klass-oc {
+    height: 20px !important;
+}
 
 /* social icons small 20*20px */
 .social-small-row {

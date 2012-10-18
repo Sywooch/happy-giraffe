@@ -2,7 +2,7 @@
 <?php
 $basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR;
 $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
-Yii::app()->clientScript->registerScriptFile($baseUrl . '/ext_links.js')->registerCoreScript('jquery.ui');
+Yii::app()->clientScript->registerScriptFile($baseUrl . '/ext_links.js?5')->registerCoreScript('jquery.ui');
 ?>
 <div class="clearfix">
     <div class="default-nav">

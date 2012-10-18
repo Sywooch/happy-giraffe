@@ -228,7 +228,7 @@ box-shadow:1px 1px 1px rgba(0,0,0,.2);behavior: url(/stylesheets/PIE.htc);}
 .user-info-big .text-status {clear:both;background:#cce7fe;position:relative;padding:10px 15px;font-size:11px;color:#5e5e5e;line-height:14px;width:200px;}
 .user-info-big .text-status {/*css3*/ -moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px;}
 .user-info-big .text-status .tale {display:block;width:26px;height:11px;background:url("/images/bg_pattern_user_status.png") no-repeat -133px 0;position:absolute;top:-11px;left:8px;}
-.user-info-big .text-status.pattern{opacity:.7;color:#242424;}
+.user-info-big .text-status.pattern{opacity:.7;color:#242424;filter: alpha(opacity = 70);}
 .user-info-big .text-status.pattern-10 .tale {background-position:-133px -50px;}
 .user-info-big .text-status.pattern-11 .tale {background-position:-133px -100px;}
 .user-info-big .text-status.pattern-12 .tale {background-position:-133px -150px;}

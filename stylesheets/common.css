@@ -2979,7 +2979,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 #wysiwygSmile {width:525px;padding:0;position:absolute;top:0;left:0;}
 #wysiwygSmile .popup-close {top:10px;right:10px;background:url(/images/close-blue.png) no-repeat;}
 #wysiwygSmile .title-row {background:#d5e7fe;padding:10px 28px 0;-webkit-border-top-right-radius: 10px;-moz-border-top-right-radius: 10px;-ms-border-top-right-radius: 10px;border-top-right-radius: 10px;-webkit-border-top-left-radius: 10px;-moz-border-top-left-radius: 10px;-ms-border-top-left-radius: 10px;border-top-left-radius: 10px;behavior: url(PIE.htc);}
-#wysiwygSmile .title {font-size:18px;line-height:39px;color:#1d1d1d;float:left;margin:0 30px 0 0;}
+#wysiwygSmile .title {font-size:18px;line-height:39px;font-weight:normal;color:#1d1d1d;float:left;margin:0 30px 0 0;}
 #wysiwygSmile .nav-smile {float:left;list-style:none;}
 #wysiwygSmile .nav-smile li {float:left;margin:0 2px;}
 #wysiwygSmile .nav-smile a {display:inline-block;*zoom:1;*display:inline;vertical-align:middle;padding:0 10px;text-decoration:none;height:40px;}
@@ -4393,7 +4393,6 @@ label {
 .odkl-klass-stat, .odkl-klass-oc {
     height: 20px !important;
 }
-
 /* social icons small 20*20px */
 .social-small-row {
 	text-align:center;

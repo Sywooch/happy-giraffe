@@ -112,7 +112,10 @@ class EditorController extends SController
             $temp->owner_id = Yii::app()->user->id;
             echo CJSON::encode(array('status' => $temp->save()));
         } else
-            echo CJSON::encode(array('status' => false));
+            echo CJSON::encode(array(
+                'status' => false,
+                'error'=>'Уже в работе, обновите страницу'
+            ));
     }
 
     public function actionHideKey()

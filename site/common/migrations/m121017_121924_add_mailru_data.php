@@ -6,8 +6,6 @@ class m121017_121924_add_mailru_data extends CDbMigration
 
 	public function up()
 	{
-        //$this->addColumn($this->_table, 'type', 'tinyint default 0 not null');
-
         $this->_table = 'mailru__users';
         $this->dropTable($this->_table);
 

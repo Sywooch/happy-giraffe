@@ -14,7 +14,7 @@
         <title><?=CHtml::encode($this->pageTitle)?></title>
     <?php endif;
 
-    $release_id = 1;
+    $release_id = 1000;
     $cs = Yii::app()->clientScript;
     $cs
         ->registerPackage('comet')
@@ -572,8 +572,6 @@
             <div class="loading"><img src="/images/big_preloader.gif"></div>
 
         </div>
-
-        <?php $this->widget('application.widgets.messagesWidget.MessagesWidget'); ?>
     </div>
 </body>
 </html>

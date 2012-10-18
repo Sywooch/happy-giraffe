@@ -84,6 +84,7 @@ class Keyword extends HActiveRecord
     public function search()
     {
         $criteria = new CDbCriteria;
+        $criteria->condition = 'blacklist.keyword_id IS NULL';
 
         if (!empty($this->name)) {
             $allSearch = Yii::app()->search
@@ -105,7 +106,7 @@ class Keyword extends HActiveRecord
             else
                 $criteria->compare('t.id', 0);
         }
-        $criteria->with = array('yandex');
+        $criteria->with = array('yandex', 'blacklist');
         $criteria->order = 'yandex.value desc';
 
         return new CActiveDataProvider('Keyword', array(
@@ -116,9 +117,9 @@ class Keyword extends HActiveRecord
     public function searchByTheme($theme)
     {
         $criteria = new CDbCriteria;
-        $criteria->with = array('yandex');
+        $criteria->with = array('yandex', 'blacklist');
         $criteria->order = 'yandex.value desc';
-        $criteria->condition = 'yandex.theme = '.$theme;
+        $criteria->condition = 'yandex.theme = '.$theme.' AND blacklist.keyword_id IS NULL';
 
         if (!empty($this->name)) {
             $allSearch = Yii::app()->search

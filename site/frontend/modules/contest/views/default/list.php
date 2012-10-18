@@ -49,7 +49,7 @@ $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
     )); ?>
 </div>
 
-<div class="content-title">Участники конкурса</div>
+<div class="content-title">Участники конкурса (<?=$works->totalItemCount ?>)</div>
 
 
 

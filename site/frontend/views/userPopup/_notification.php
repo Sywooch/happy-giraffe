@@ -1,7 +1,9 @@
 <?php
     $initiator = User::model()->findByPk($data->initiator_id);
+    if ($initiator === null)
+        $data->delete();
+else{
 ?>
-
 <li class="clearfix">
     <div class="actions">
         <a href="<?=$data->url?>" class="btn-green small">Перейти</a>
@@ -23,4 +25,5 @@
             </div>
         </div>
     </div>
-</li>
+</li><?php
+}

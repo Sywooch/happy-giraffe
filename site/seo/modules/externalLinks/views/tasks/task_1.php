@@ -1,6 +1,11 @@
 <?php
 /** @var $tasks ELTask[]
  */
+
+if (!isset($tasks)){
+    echo $task->id;
+    Yii::app()->end();
+}
 ?>
 <div class="tasks-list">
 

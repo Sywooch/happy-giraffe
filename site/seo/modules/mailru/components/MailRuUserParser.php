@@ -42,6 +42,40 @@ class MailRuUserParser extends ProxyParserThread
     public function parsePage()
     {
         $content = $this->query($this->user->deti_url . '?p_tab=my_family');
+
+        //$this->parseBabies($content);
+        $this->parseMoiMir($content);
+    }
+
+    /**
+     * @param $content string
+     */
+    public function parseMoiMir($content)
+    {
+        $document = phpQuery::newDocument($content);
+        $moi_mir_link = trim($document->find('#personal_lay .p_links .p_acts.i_acts a.p_mm')->attr('href'));
+        if (!empty($moi_mir_link)) {
+            $content = $this->query($moi_mir_link);
+            $document = phpQuery::newDocument($content);
+            $birthday = trim($document->find('td.mf_vti div.mb3 span.mf_nobr:eq(0)')->text());
+            $birthday = date("Y-m-d", strtotime(HDate::translate_date($birthday)));
+            echo $birthday."<br>";
+
+            $last_visit = trim($document->find('td.mf_vti div.mb3.nobr')->children()->remove()->end()->text());
+            $last_visit = str_replace('в', '', $last_visit);
+            echo $last_visit."<br>";
+            $last_visit = date("Y-m-d", strtotime(HDate::translate_date($last_visit)));
+            echo $last_visit."<br>";
+
+            $document->unloadDocument();
+        }
+    }
+
+    /**
+     * @param $content string
+     */
+    public function parseBabies($content)
+    {
         $document = phpQuery::newDocument($content);
         foreach ($document->find('#pers_my_kids_all .b_rel') as $link) {
             $ava = pq($link)->find('.rel_ava a');
@@ -61,38 +95,29 @@ class MailRuUserParser extends ProxyParserThread
         //echo $name."<br>";
         $baby->name = $name;
 
-        $data = $document->find('#igrow_aboutme .post_text tr:eq(0)');
-        $gender = trim(pq($data)->find('span')->text());
+        $data = $document->find('#igrow_aboutme .post_text .g_body table tr:eq(0)');
+        $gender = trim(pq($data)->find('td:eq(0) span')->text());
         //echo $gender."<br>";
         if (!empty($gender))
-            $baby->gender = ($gender == 'Я родился')?1:0;
+            $baby->gender = ($gender == 'Я родился') ? 1 : 0;
 
         $birthday = trim(pq($data)->find('td:eq(1)')->text());
-        if (!empty($birthday))
+        if (!empty($birthday)) {
+            $birthday = substr($birthday, 0, 10);
             $baby->birthday = date("Y-m-d", strtotime($birthday));
+        }
         //echo $birthday."<br>";
 
         $document->unloadDocument();
 
         $baby->parent_id = $this->user->id;
-        $baby->save();
-    }
-
-    public function addUser($url, $name)
-    {
-        $transaction = Yii::app()->db->beginTransaction();
-        try {
-            $user = new MailruUser();
-            $user->deti_url = $url;
-            $user->email = $user->calculateEmail();
-            if (!empty($user->email) && MailruUser::model()->findByAttributes(array('email' => $user->email)) == null) {
-                $user->name = trim(preg_replace("/  +/", " ", $name));
-                $user->save();
-            }
-            $transaction->commit();
-        } catch (Exception $e) {
-            $transaction->rollback();
-        }
+        $exist = MailruBaby::model()->findByAttributes(array(
+            'name' => $baby->name,
+            'parent_id' => $baby->parent_id,
+            'birthday' => $baby->birthday
+        ));
+        if ($exist == null)
+            $baby->save();
     }
 
     private function closeQuery()
@@ -144,7 +169,9 @@ class MailRuUserParser extends ProxyParserThread
                 curl_close($ch);
                 $attempt++;
 
-                if (strpos($content, 'http://deti.mail.ru/') === false)
+                if (strpos($content, 'http://deti.mail.ru/') === false
+                    && strpos($content, 'http://my.mail.ru/') === false
+                )
                     return $this->query($url, $ref, $post, $attempt);
                 return $content;
             }

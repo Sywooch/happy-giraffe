@@ -227,7 +227,17 @@ box-shadow:1px 1px 1px rgba(0,0,0,.2);behavior: url(/stylesheets/PIE.htc);}
 
 .user-info-big .text-status {clear:both;background:#cce7fe;position:relative;padding:10px 15px;font-size:11px;color:#5e5e5e;line-height:14px;width:200px;}
 .user-info-big .text-status {/*css3*/ -moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px;}
-.user-info-big .text-status .tale {display:block;width:26px;height:11px;background:url(/images/common.png) no-repeat -424px -261px;position:absolute;top:-11px;left:8px;}
+.user-info-big .text-status .tale {display:block;width:26px;height:11px;background:url("/images/bg_pattern_user_status.png") no-repeat -133px 0;position:absolute;top:-11px;left:8px;}
+.user-info-big .text-status.pattern{opacity:.7;color:#242424;}
+.user-info-big .text-status.pattern-10 .tale {background-position:-133px -50px;}
+.user-info-big .text-status.pattern-11 .tale {background-position:-133px -100px;}
+.user-info-big .text-status.pattern-12 .tale {background-position:-133px -150px;}
+.user-info-big .text-status.pattern-13 .tale {background-position:-133px -200px;}
+.user-info-big .text-status.pattern-14 .tale {background-position:-133px -250px;}
+.user-info-big .text-status.pattern-15 .tale {background-position:-133px -300px;}
+.user-info-big .text-status.pattern-16 .tale {background-position:-133px -350px;}
+.user-info-big .text-status.pattern-17 .tale {background-position:-133px -400px;}
+.user-info-big .text-status.pattern-18 .tale {background-position:-133px -450px;}
 
 .user-fast-nav {font-size:11px;font-family:tahoma, arial, helvetica, sans-serif;color:#a4cce8;clear:left;margin-bottom:12px;margin-left:15px;line-height;12px;}
 .user-fast-nav .more {text-decoration:none;border-bottom:1px dashed #029AD2;}
@@ -4118,25 +4128,25 @@ label {
 #fancybox-content > div {overflow: visible !important;}
 
 /* patterns */
-.pattern-1 {background:url(/images/bg_pattern_1.gif);}
-.pattern-2 {background:url(/images/bg_pattern_2.png);}
-.pattern-3 {background:url(/images/bg_pattern_3.png);}
-.pattern-4 {background:url(/images/bg_pattern_4.gif);}
-.pattern-5 {background:url(/images/bg_pattern_5.png);}
-.pattern-6 {background:url(/images/bg_pattern_6.png);}
-.pattern-7 {background:url(/images/bg_pattern_7.gif);}
-.pattern-8 {background:url(/images/bg_pattern_8.jpg);}
-.pattern-9 {background:url(/images/bg_pattern_9.png);}
-.pattern-10 {background:url(/images/bg_pattern_10.jpg);}
-.pattern-11 {background:url(/images/bg_pattern_11.jpg);}
-.pattern-12 {background:url(/images/bg_pattern_12.jpg);}
-.pattern-13 {background:url(/images/bg_pattern_13.jpg);}
-.pattern-14 {background:url(/images/bg_pattern_14.jpg);}
-.pattern-15 {background:url(/images/bg_pattern_15.jpg);}
-.pattern-16 {background:url(/images/bg_pattern_16.jpg);}
-.pattern-17 {background:url(/images/bg_pattern_17.jpg);}
-.pattern-18 {background:url(/images/bg_pattern_18.jpg);}
-.pattern-19 {background:url(/images/bg_pattern_19.jpg);}
+.pattern-1 {background:url(/images/bg_pattern_1.gif) !important;}
+.pattern-2 {background:url(/images/bg_pattern_2.png) !important;}
+.pattern-3 {background:url(/images/bg_pattern_3.png) !important;}
+.pattern-4 {background:url(/images/bg_pattern_4.gif) !important;}
+.pattern-5 {background:url(/images/bg_pattern_5.png) !important;}
+.pattern-6 {background:url(/images/bg_pattern_6.png) !important;}
+.pattern-7 {background:url(/images/bg_pattern_7.gif) !important;}
+.pattern-8 {background:url(/images/bg_pattern_8.jpg) !important;}
+.pattern-9 {background:url(/images/bg_pattern_9.png) !important;}
+.pattern-10 {background:url(/images/bg_pattern_10.jpg) !important;}
+.pattern-11 {background:url(/images/bg_pattern_11.jpg) !important;}
+.pattern-12 {background:url(/images/bg_pattern_12.jpg) !important;}
+.pattern-13 {background:url(/images/bg_pattern_13.jpg) !important;}
+.pattern-14 {background:url(/images/bg_pattern_14.jpg) !important;}
+.pattern-15 {background:url(/images/bg_pattern_15.jpg) !important;}
+.pattern-16 {background:url(/images/bg_pattern_16.jpg) !important;}
+.pattern-17 {background:url(/images/bg_pattern_17.jpg) !important;}
+.pattern-18 {background:url(/images/bg_pattern_18.jpg) !important;}
+.pattern-19 {background:url(/images/bg_pattern_19.jpg) !important;}
 
 /* fonts color */
 .font-color-0 {color:#353535 !important;}

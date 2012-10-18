@@ -3,27 +3,32 @@
  * Author: alexk984
  * Date: 17.10.12
  */
-class MailRuContestParser extends ProxyParserThread
+class MailRuForumParser extends ProxyParserThread
 {
     public $cookie = 'VID=3vjQa30CpM11; p=wFAAAM2c0QAA; mrcu=3D044FE31A915E22652EFA01060A; b=DT0cAFDeoAEAPIpgkK+TgjAiGMThqoCH/AV2LjDAa3gB4f8TzEdZEO3FAjG9F6QRwaDI7AR9LjAodIFBUOQL9gRggJPoAuT/F9g2wYAn8gU/kS8A6WxBrkoLUGVeqOUnwlqOMQIAgHCqVZhxqoyXcWbQF3G2VZgB; odklmapi=$$14qtcq4M9IEnmSONbJcUdP=gvfq14qm/Dk/GPq+zDgrrn2; __utma=56108983.385009715.1350452484.1350452484.1350452484.1; __utmz=56108983.1350452484.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none); i=AQAbRX5QAQBdAAUCAQA=; Mpop=1350475538:7a7364524061545019050219081d00041c0600024966535c465d0002020607160105701658514704041658565c5d1a454c:aiv45@mail.ru:; __utmc=56108983; myc=; __utma=213042059.1565892412.1350476006.1350476006.1350476006.1; __utmb=213042059.1.10.1350476006; __utmc=213042059; __utmz=213042059.1350476006.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none); _ym_visorc=b; mrc=app_id%3D522858%26is_app_user%3D0%26sig%3D4cfaebf07f4479b7494b281a7081b1fd; c=6KB+UAAAAMZnAAASAQAAfgCA';
     /**
      * @var MailruQuery
      */
     private $query;
+    private $page = 1;
 
     public function start()
     {
+        $this->getPage();
         while (true) {
-            $this->getPage();
-            $this->parsePage();
-            $this->closeQuery();
+            $count = $this->parsePage();
+            if ($count == 0)
+                break;
+            $this->page++;
         }
+        $this->closeQuery();
     }
 
     public function getPage()
     {
         $criteria = new CDbCriteria;
         $criteria->compare('active', 0);
+        $criteria->compare('type', MailruQuery::TYPE_FORUM);
 
         $transaction = Yii::app()->db->beginTransaction();
         try {
@@ -41,30 +46,33 @@ class MailRuContestParser extends ProxyParserThread
 
     public function parsePage()
     {
-        $content = $this->query($this->query->text, $this->query->text);
-        if (strpos($content, 'http://my.mail.ru') === false) {
+        $content = $this->query($this->query->text.'&pg='.$this->page);
+        if (strpos($content, 'http://deti.mail.ru/') === false) {
             $this->changeBadProxy();
-            $this->parsePage();
+            $count = $this->parsePage();
         } else {
             $document = phpQuery::newDocument($content);
-            foreach ($document->find('.pic_author noscript a') as $link) {
-                $name = pq($link)->text();
-                $url = pq($link)->attr('href');
-                $this->addUsers($url, $name);
+            $count = 0;
+            foreach ($document->find('table.themesList > tr > td > div.t100 > a') as $link) {
+                $url = 'http://forum.deti.mail.ru'.pq($link)->attr('href');
+                $this->addTheme($url);
+                $count++;
             }
             $document->unloadDocument();
         }
+
+        return $count;
     }
 
-    public function addUsers($mail, $name)
+    public function addTheme($url)
     {
         $transaction = Yii::app()->db->beginTransaction();
         try {
-            if (MailruUsers::model()->findByAttributes(array('email' => $mail)) == null) {
-                $user = new MailruUsers();
-                $user->email = $mail;
-                $user->name = $name;
-                $user->save();
+            if (MailruQuery::model()->findByAttributes(array('text' => $url)) == null) {
+                $theme = new MailruQuery();
+                $theme->text = $url;
+                $theme->type = MailruQuery::TYPE_THEME;
+                $theme->save();
             }
             $transaction->commit();
         } catch (Exception $e) {
@@ -95,12 +103,13 @@ class MailRuContestParser extends ProxyParserThread
                 }
             }*/
 
-            curl_setopt($ch, CURLOPT_COOKIE, $this->cookie);
-            curl_setopt($ch, CURLOPT_HEADER, 1);
+            //curl_setopt($ch, CURLOPT_COOKIE, $this->cookie);
+            curl_setopt($ch, CURLOPT_HEADER, 0);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
             curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
             $content = curl_exec($ch);
-            $content = iconv("Windows-1251","UTF-8",$content);
+
+//            $content = iconv("Windows-1251","UTF-8",$content);
 
             if ($content === false) {
                 if (curl_errno($ch)) {
@@ -146,7 +155,8 @@ class MailRuContestParser extends ProxyParserThread
             'http://forum.deti.mail.ru/topics.html?fid=57',
             'http://forum.deti.mail.ru/topics.html?fid=104',
         );
-        foreach($contests as $contest){
+        foreach($contests as $contest)
+        for($i=1;$i<30;$i++){
             $q = new MailruQuery();
             $q->text = $contest;
             $q->save();

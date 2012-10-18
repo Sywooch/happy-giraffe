@@ -12,9 +12,9 @@ Messages.open = function(interlocutor_id, type) {
     Popup.load('Messages');
 
     if (! Messages.isActive()) {
-        $.get('/im/init/', function(data) {
+        $.get('/im/', function(data) {
             $('#popup-preloader').hide();
-            $('#user-dialogs').show();
+            $('.popup-container').append(data.html);
             $('.user-nav-2 .item-dialogs').addClass('active');
 
             comet.addEvent(3, 'updateStatus');
@@ -23,11 +23,12 @@ Messages.open = function(interlocutor_id, type) {
                 Messages.setHeight();
             });
 
-            Messages.updateCounter('#user-dialogs-allCount', data.allCount, false);
-            Messages.updateCounter('#user-dialogs-newCount', data.newCount, false);
-            Messages.updateCounter('#user-dialogs-onlineCount', data.onlineCount, false);
-            Messages.updateCounter('#user-dialogs-friendsCount', data.friendsCount, false);
+            //Messages.updateCounter('#user-dialogs-allCount', data.allCount, false);
+            //Messages.updateCounter('#user-dialogs-newCount', data.newCount, false);
+            //Messages.updateCounter('#user-dialogs-onlineCount', data.onlineCount, false);
+            //Messages.updateCounter('#user-dialogs-friendsCount', data.friendsCount, false);
             Messages.hasMessages = data.hasMessages;
+            console.log(data.hasMessages);
             Messages.initialize(interlocutor_id, type);
         }, 'json');
     }
@@ -63,11 +64,11 @@ Messages.initialize = function(interlocutor_id, type) {
 }
 
 Messages.close = function() {
-    $('#user-dialogs').hide();
+    $('#user-dialogs').remove();
     Popup.unload();
     $('.user-nav-2 .item-dialogs').removeClass('active');
-    //if (Messages.editor)
-    //    Messages.editor.destroy(true);
+    if (Messages.editor)
+        Messages.editor.destroy(true);
     comet.delEvent(3, 'updateStatus');
     comet.delEvent(21, 'updateReadStatuses');
     $(window).off('resize', function() {

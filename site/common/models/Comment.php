@@ -159,7 +159,7 @@ class Comment extends HActiveRecord
                         'with' => array(
                             'author' => array(
                                 'alias' => 'responseAuthor',
-                                'select' => 'id, first_name, last_name, online',
+                                'select' => 'id, first_name, last_name, online, avatar_id',
                                 'with' => array(
                                     'avatar' => array(
                                         'alias' => 'responseAuthorAvatar'

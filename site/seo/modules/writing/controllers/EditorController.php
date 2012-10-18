@@ -17,11 +17,14 @@ class EditorController extends SController
         return true;
     }
 
-    public function actionIndex()
+    public function actionIndex($theme = 0)
     {
         $model = new Keyword();
-        $this->render('index', array(
+        $model->attributes = $_GET;
+
+        $this->render('themes', array(
             'model' => $model,
+            'theme' => $theme,
         ));
     }
 

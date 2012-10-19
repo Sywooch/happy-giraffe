@@ -5,7 +5,7 @@
  */
 class MailRuUserParser extends ProxyParserThread
 {
-    public $cookie = 'VID=3vjQa30CpM11; p=wFAAAM2c0QAA; mrcu=3D044FE31A915E22652EFA01060A; b=DT0cAFDeoAEAPIpgkK+TgjAiGMThqoCH/AV2LjDAa3gB4f8TzEdZEO3FAjG9F6QRwaDI7AR9LjAodIFBUOQL9gRggJPoAuT/F9g2wYAn8gU/kS8A6WxBrkoLUGVeqOUnwlqOMQIAgHCqVZhxqoyXcWbQF3G2VZgB; odklmapi=$$14qtcq4M9IEnmSONbJcUdP=gvfq14qm/Dk/GPq+zDgrrn2; __utma=56108983.385009715.1350452484.1350452484.1350452484.1; __utmz=56108983.1350452484.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none); i=AQAbRX5QAQBdAAUCAQA=; Mpop=1350475538:7a7364524061545019050219081d00041c0600024966535c465d0002020607160105701658514704041658565c5d1a454c:aiv45@mail.ru:; __utmc=56108983; myc=; __utma=213042059.1565892412.1350476006.1350476006.1350476006.1; __utmb=213042059.1.10.1350476006; __utmc=213042059; __utmz=213042059.1350476006.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none); _ym_visorc=b; mrc=app_id%3D522858%26is_app_user%3D0%26sig%3D4cfaebf07f4479b7494b281a7081b1fd; c=6KB+UAAAAMZnAAASAQAAfgCA';
+    public $cookie = 'VID=3vjQa30CpM12; p=wFAAAM2c0QAA; mrcu=3D044FE31A915E22652EFA01060A; b=Dz0BAAAIhAcAIUpCCSQzSgCAUb5DiHJIZpi+LAEA; odklmapi=$$14qtcq4M9IEnmSONbJcUdP=gvfq14qm/Dk/GPq+zDgrrn2; __utma=56108983.385009715.1350452484.1350452484.1350625394.2; __utmz=56108983.1350625394.2.2.utmcsr=my.mail.ru|utmccn=(referral)|utmcmd=referral|utmcct=/mail/pryadkoa/; i=AQB36IBQAQBdAAUCAQA=; Mpop=1350625448:7a425f570a4f416f19050219081d00041c0600024966535c465d0002020607160105701658514704041658565c5d1a454c:aiv45@mail.ru:; tagcloud_state=show; calendar_state=show; c=reiAUAAAAMZnAAAjAgAAfAAAescJBAAA; __utmc=56108983; hses=1; myc=; __utmb=56108983.1.10.1350625394';
     /**
      * @var MailruUser
      */
@@ -43,7 +43,7 @@ class MailRuUserParser extends ProxyParserThread
     {
         $content = $this->query($this->user->deti_url . '?p_tab=my_family');
 
-        //$this->parseBabies($content);
+        $this->parseBabies($content);
         $this->parseMoiMir($content);
     }
 
@@ -55,19 +55,22 @@ class MailRuUserParser extends ProxyParserThread
         $document = phpQuery::newDocument($content);
         $moi_mir_link = trim($document->find('#personal_lay .p_links .p_acts.i_acts a.p_mm')->attr('href'));
         if (!empty($moi_mir_link)) {
-            $content = $this->query($moi_mir_link);
-            $document = phpQuery::newDocument($content);
-            $birthday = trim($document->find('td.mf_vti div.mb3 span.mf_nobr:eq(0)')->text());
-            $birthday = date("Y-m-d", strtotime(HDate::translate_date($birthday)));
-            echo $birthday."<br>";
-
-            $last_visit = trim($document->find('td.mf_vti div.mb3.nobr')->children()->remove()->end()->text());
-            $last_visit = str_replace('в', '', $last_visit);
-            echo $last_visit."<br>";
-            $last_visit = date("Y-m-d", strtotime(HDate::translate_date($last_visit)));
-            echo $last_visit."<br>";
-
-            $document->unloadDocument();
+            $this->user->moi_mir_url = $moi_mir_link;
+            $this->user->save();
+//            $content = $this->query($moi_mir_link);
+//            $document = phpQuery::newDocument($content);
+//            $birthday = trim($document->find('td.mf_vti div.mb3 span.mf_nobr:eq(0)')->text());
+//            $birthday = date("Y-m-d", strtotime(HDate::translate_date($birthday)));
+//            echo $birthday."<br>";
+//
+//            $last_visit = trim($document->find('td.mf_vti div.mb3.nobr')->text());
+//            $last_visit = str_replace('в', '', $last_visit);
+//            $last_visit = str_replace('Последний визит:', '', $last_visit);
+//            echo HDate::translate_date($last_visit)."<br>";
+//            $last_visit = date("Y-m-d", strtotime(HDate::translate_date($last_visit)));
+//            echo $last_visit."<br>";
+//
+//            $document->unloadDocument();
         }
     }
 
@@ -140,7 +143,7 @@ class MailRuUserParser extends ProxyParserThread
                 }
             }*/
 
-            curl_setopt($ch, CURLOPT_COOKIE, $this->cookie);
+            //curl_setopt($ch, CURLOPT_COOKIE, $this->cookie);
             curl_setopt($ch, CURLOPT_HEADER, 0);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
             curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);

@@ -18,12 +18,12 @@ Friends.open = function() {
 
         var ul = $('#user-friends .news ul');
         var i = 6;
-        int = setInterval(function() {
+        interval = setInterval(function() {
             i--;
             ul.find('li:eq(' + i + ')').fadeIn();
             if (i < 3) ul.find('li:eq(' + (i + 3) + ')').fadeOut();
             if (i == 0)
-                clearInterval(int);
+                clearInterval(interval);
         }, 400);
 
         $(window).on('resize', function() {

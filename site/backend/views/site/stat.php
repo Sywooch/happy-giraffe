@@ -15,7 +15,7 @@ echo 'Рецептов: ' . RecipeBookRecipe::model()->count() . '<br>';
 echo 'Болезней: ' . RecipeBookDisease::model()->count() . '<br><br><br>';
 
 
-$models = Rating::model()->findAllByAttributes(array('entity' => 'ContestWork'));
+$models = Rating::model()->findAllByAttributes(array('entity_name' => 'ContestWork'));
 
 $likes = array('tw' => 0, 'vk' => 0, 'ok' => 0, 'fb' => 0, 'yh' => 0);
 foreach ($models as $model) {

@@ -20,7 +20,8 @@ $models = Rating::model()->findAllByAttributes(array('entity_name' => 'ContestWo
 $likes = array('tw' => 0, 'vk' => 0, 'ok' => 0, 'fb' => 0, 'yh' => 0);
 foreach ($models as $model) {
     foreach ($likes as $social_key => $like)
-        $likes[$social_key] += $model->ratings[$social_key];
+        if (isset($model->ratings[$social_key]))
+            $likes[$social_key] += $model->ratings[$social_key];
 }
 
 echo 'Facebook: ' . $likes['fb'] . '<br>';

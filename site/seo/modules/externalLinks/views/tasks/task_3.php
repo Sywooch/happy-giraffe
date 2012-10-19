@@ -93,8 +93,8 @@
 
             <div class="problem-in" style="display: none;">
                 <a href="javascript:;" class="btn-g small" onclick="ExtLinks.Problem(<?=$task->id ?>)">Ok</a>
-                <a href="javascript:;" class="radio" onclick="ExtLinks.checkProblem(this, 1)">Аккаунт заблокировали</a>
-                <a href="javascript:;" class="radio" onclick="ExtLinks.checkProblem(this, 2)">Сайт недоступен</a>
+                <a href="javascript:;" class="radio" onclick="ExtLinks.checkProblem(this, 1)">В черный список</a>
+                <a href="javascript:;" class="radio" onclick="ExtLinks.checkProblem(this, 2)">Отложить на 3 дня</a>
             </div>
             <div class="problem-in" style="display: none;">
                 <a href="javascript:;" class="btn-g small" onclick="ExtLinks.Problem(<?=$task->id ?>)">Ok</a>

@@ -220,7 +220,8 @@ class Community extends HActiveRecord
             ON c.rubric_id = r.id
             WHERE r.community_id = {$this->id}
         ";
-        return CommunityContent::model()->cache(3600, new CDbCacheDependency($sql))->with('rubric', 'type')->findAll(array(
+        $dependency = new CDbCacheDependency($sql);
+        return CommunityContent::model()->with('rubric', 'type')->findAll(array(
             'limit' => $limit,
             'select' => 't.id, t.title, t.rubric_id, t.type_id',
             'order' => 'created DESC',

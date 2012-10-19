@@ -134,14 +134,14 @@ class MailRuUserParser extends ProxyParserThread
         if ($ch = curl_init($url)) {
             curl_setopt($ch, CURLOPT_USERAGENT, 'Opera/9.80 (Windows NT 6.1; WOW64; U; ru) Presto/2.10.289 Version/12.00');
 
-            /*if ($this->use_proxy) {
+            if ($this->use_proxy) {
                 curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
                 curl_setopt($ch, CURLOPT_PROXY, $this->proxy->value);
                 if (getenv('SERVER_ADDR') != '5.9.7.81') {
                     curl_setopt($ch, CURLOPT_PROXYUSERPWD, "alexk984:Nokia12345");
                     curl_setopt($ch, CURLOPT_PROXYAUTH, 1);
                 }
-            }*/
+            }
 
             //curl_setopt($ch, CURLOPT_COOKIE, $this->cookie);
             curl_setopt($ch, CURLOPT_HEADER, 0);

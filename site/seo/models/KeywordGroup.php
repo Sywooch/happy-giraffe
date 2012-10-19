@@ -65,7 +65,9 @@ class KeywordGroup extends CActiveRecord
     public function behaviors()
     {
         return array(
-            'site.frontend.components.ManyToManyBehavior'
+            'withRelated' => array(
+                'class' => 'site.common.extensions.wr.WithRelatedBehavior',
+            ),
         );
     }
 
@@ -111,7 +113,7 @@ class KeywordGroup extends CActiveRecord
 
     public function removeKeyword($keyword_id)
     {
-        Yii::app()->db->createCommand()->delete('keyword_group_keywords',
+        Yii::app()->db_seo->createCommand()->delete('keyword_group_keywords',
             'keyword_id = :keyword_id AND group_id=:group_id', array(
                 ':group_id' => $this->id,
                 ':keyword_id' => $keyword_id

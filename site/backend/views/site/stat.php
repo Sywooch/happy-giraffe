@@ -14,19 +14,21 @@ echo 'Имен: ' . Name::model()->count() . '<br>';
 echo 'Рецептов: ' . RecipeBookRecipe::model()->count() . '<br>';
 echo 'Болезней: ' . RecipeBookDisease::model()->count() . '<br><br><br>';
 
-
+Yii::import('site.frontend.modules.contest.models.*');
 $models = Rating::model()->findAllByAttributes(array('entity_name' => 'ContestWork'));
-echo count($models).'<br>';
+echo count($models) . '<br>';
 
 $likes = array('tw' => 0, 'vk' => 0, 'ok' => 0, 'fb' => 0, 'yh' => 0);
 foreach ($models as $model) {
-    foreach ($likes as $social_key => $like)
-        if (isset($model->ratings[$social_key]))
-            $likes[$social_key] += $model->ratings[$social_key];
+    $entity = ContestWork::model()->findByPk($model->entity_id);
+    if ($entity !== null && $entity->contest_id == 2)
+        foreach ($likes as $social_key => $like)
+            if (isset($model->ratings[$social_key]))
+                $likes[$social_key] += $model->ratings[$social_key];
 }
 
 echo 'Facebook: ' . $likes['fb'] . '<br>';
 echo 'Вконтакте: ' . $likes['vk'] . '<br>';
 echo 'Одноклассники: ' . $likes['ok'] . '<br>';
 echo 'Twitter: ' . $likes['tw'] . '<br>';
-echo 'Yohoho: ' . ($likes['yh']/2) . '<br>';
+echo 'Yohoho: ' . ($likes['yh'] / 2) . '<br>';

@@ -6,6 +6,6 @@
         'http://www.happy-giraffe.ru/cook/spices/',
         'http://www.happy-giraffe.ru/contest/2/',
     );
-    $n = rand(0, 4);
+    $n = rand(0, count($banners) - 1);
 ?>
 <?=CHtml::link(CHtml::image('/images/banners/' . $n . '.jpg'), $banners[$n])?>

@@ -28,4 +28,4 @@ echo 'Facebook: ' . $likes['fb'] . '<br>';
 echo 'Вконтакте: ' . $likes['vk'] . '<br>';
 echo 'Одноклассники: ' . $likes['ok'] . '<br>';
 echo 'Twitter: ' . $likes['tw'] . '<br>';
-echo 'Yohoho: ' . $likes['yh'] . '<br>';
+echo 'Yohoho: ' . ($likes['yh']/2) . '<br>';

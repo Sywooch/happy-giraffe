@@ -36,6 +36,11 @@ class MailruUser extends HActiveRecord
 		return 'mailru__users';
 	}
 
+    public function getDbConnection()
+    {
+        return Yii::app()->db_seo;
+    }
+
 	/**
 	 * @return array validation rules for model attributes.
 	 */
@@ -110,11 +115,12 @@ class MailruUser extends HActiveRecord
     public function calculateEmail()
     {
         preg_match('/http:\/\/deti.mail.ru\/(.+)\/(.+)/', $this->deti_url, $match);
-        if (count($match) == 3)
-            return $match[2].'@'.$match[1].'.ru';
+        if (count($match) == 3){
+//            echo $this->deti_url." success\n";
+            return trim($match[2].'@'.$match[1].'.ru');
+        }
         else{
-            echo $this->deti_url." failed\n";
-            Yii::app()->end();
+//            echo $this->deti_url." failed\n";
         }
 
         return null;

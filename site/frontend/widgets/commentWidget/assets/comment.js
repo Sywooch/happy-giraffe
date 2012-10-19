@@ -1,5 +1,5 @@
 var selected_keydown = null;
-var comment_scroll_container = null;
+var comment_scroll_container = ".layout-container";
 function Comment() {
     this.selected_text = null,
         this.save_url = null,

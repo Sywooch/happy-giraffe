@@ -23,6 +23,11 @@ class HController extends CController
             throw new CHttpException(404, Yii::t('yii', 'Your request is invalid.'));
     }
 
+    public function init()
+    {
+        $this->combineStatic();
+    }
+
     protected function beforeAction($action)
     {
         // отключение повторной подгрузки jquery
@@ -151,6 +156,23 @@ class HController extends CController
                     $this->meta_keywords = $this->page_meta_model->keywords;
                 if (!empty($this->page_meta_model->title))
                     $this->meta_title = $this->page_meta_model->title;
+            }
+        }
+    }
+
+    protected function combineStatic()
+    {
+        if (YII_DEBUG === false && false) {
+            $jsPath = Yii::getPathOfAlias('application.www-submodule.javascripts') . DIRECTORY_SEPARATOR;
+            $cssPath = Yii::getPathOfAlias('application.www-submodule.stylesheets') . DIRECTORY_SEPARATOR;
+
+            foreach (Yii::app()->params['combineMap'] as $all => $filesArray) {
+                $ext = pathinfo($all, PATHINFO_EXTENSION);
+                $filePath = (($ext == 'js') ? $jsPath : $cssPath) . $all;
+                if (file_exists($filePath)) {
+                    foreach ($filesArray as $f)
+                        Yii::app()->clientScript->scriptMap[$f] = $all;
+                }
             }
         }
     }

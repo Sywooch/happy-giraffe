@@ -334,7 +334,42 @@ return array(
 		),
         'frontend_url'=>'http://www.happy-giraffe.ru/',
         'yandex_map_key'=>'APNWO08BAAAAW2vMcQMAZXlfPtec2tbfe7OW5EsxvDs1as4AAAAAAAAAAACnuPxeb0WX5vAOrlYnXZpmrsJVtA==',
-        'google_map_key'=>'AIzaSyCk--cFAYpjqqxmbabeV9IIlwbmnYlzHfc'
+        'google_map_key'=>'AIzaSyCk--cFAYpjqqxmbabeV9IIlwbmnYlzHfc',
+        'combineMap' => array(
+            'all.js' => array(
+                'jquery.min.js',
+                'jquery.yiiactiveform.js',
+                'jquery.ba-bbq.js',
+                'jquery.fancybox-1.3.4.js',
+                'jquery.iframe-post-form.js',
+                'jquery.placeholder.min.js',
+                'chosen.jquery.min.js',
+                'checkbox.js',
+                'common.js',
+                'base64.js',
+                'jquery.tooltip.pack.js',
+                'jquery.dataSelector.js',
+                'jquery.jcarousel.js',
+                'jquery.jcarousel.control.js',
+            ),
+            'all_user.js' => array(
+                'comet.js',
+                'dklab_realplexor.js',
+                'user_common.js',
+                'messages.js',
+                'friends.js',
+                'notifications.js',
+                'settings.js',
+                'wantToChat.js',
+            ),
+            'all.css' => array(
+                'baby.css',
+                'common.css',
+                'global.css',
+                'jquery.fancybox-1.3.4.css',
+                'user.css',
+            ),
+        ),
 	),
 
         'controllerMap' => array(

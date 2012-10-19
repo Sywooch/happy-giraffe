@@ -120,6 +120,7 @@
             <?php endif ?>
         </div>
 
+        <?php Yii::beginProfile('rubrics'); ?>
         <div class="club-topics-all-link">
             <a href="<?=$this->getUrl(array('rubric_id' => null))?>">Все записи</a> <span class="count"><?=$this->community->getCount()?></span>
         </div>
@@ -132,6 +133,7 @@
                 ));
             ?>
         </div>
+        <?php Yii::endProfile('rubrics'); ?>
 
         <div class="recent-topics">
 

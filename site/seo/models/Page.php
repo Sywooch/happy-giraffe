@@ -98,7 +98,7 @@ class Page extends CActiveRecord
         return array(
             'id' => 'ID',
             'entity' => 'Entity',
-            'entity_id' => 'Entity',
+            'entity_id' => 'Entity id',
             'keyword_group_id' => 'Keyword Group',
         );
     }
@@ -114,10 +114,11 @@ class Page extends CActiveRecord
 
         $criteria = new CDbCriteria;
 
-        $criteria->compare('id', $this->id, true);
-        $criteria->compare('entity', $this->entity, true);
-        $criteria->compare('entity_id', $this->entity_id, true);
-        $criteria->compare('keyword_group_id', $this->keyword_group_id, true);
+        $criteria->compare('id', $this->id);
+        $criteria->compare('entity', $this->entity);
+        $criteria->compare('entity_id', $this->entity_id);
+        $criteria->compare('url', $this->url, true);
+        $criteria->compare('keyword_group_id', $this->keyword_group_id);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,

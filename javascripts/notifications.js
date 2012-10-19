@@ -31,7 +31,7 @@ Notifications.isActive = function() {
     return $('#user-notifications:visible').length > 0;
 }
 
-Notifications.delete = function(el, id) {
+Notifications.del = function(el, id) {
     var li = $(el).parents('li');
     $.post('/notification/delete2/', {id: id}, function(response) {
         if (response == 1) {

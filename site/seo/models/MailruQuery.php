@@ -32,6 +32,11 @@ class MailruQuery extends HActiveRecord
 		return 'mailru__queries';
 	}
 
+    public function getDbConnection()
+    {
+        return Yii::app()->db_seo;
+    }
+
 	/**
 	 * @return array validation rules for model attributes.
 	 */

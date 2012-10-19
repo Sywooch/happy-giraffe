@@ -14,6 +14,16 @@ Yii::app()->clientScript->registerScriptFile($baseUrl . '/cook.js');
                 'itemTemplate' => '{menu}<span class="tale"><img src="/images/default_nav_active.gif"></span>',
                 'items' => array(
                     array(
+                        'label' => 'Рукоделие',
+                        'url' => $this->createUrl('/cook/cook/index', array('theme'=>5)),
+                        'active'=> Yii::app()->controller->action->id == 'index' && Yii::app()->request->getParam('theme') == 5
+                    ),
+                    array(
+                        'label' => 'Интерьер',
+                        'url' => $this->createUrl('/cook/cook/index', array('theme'=>6)),
+                        'active'=> Yii::app()->controller->action->id == 'index' && Yii::app()->request->getParam('theme') == 6
+                    ),
+                    array(
                         'label' => '1. Конкуренты',
                         'url' => $this->createUrl('/competitors/default/index', array('section'=>2)),
                         'active'=>Yii::app()->controller->uniqueId == 'competitors/default'

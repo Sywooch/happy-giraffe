@@ -213,10 +213,18 @@ class Community extends HActiveRecord
 
     public function getLast($limit = 10)
     {
-        return CommunityContent::model()->full()->findAll(array(
+        $sql = "
+            SELECT MAX(created)
+            FROM community__contents c
+            JOIN community__rubrics r
+            ON c.rubric_id = r.id
+            WHERE r.community_id = {$this->id}
+        ";
+        return CommunityContent::model()->cache(3600, new CDbCacheDependency($sql))->with('rubric', 'type')->findAll(array(
             'limit' => $limit,
+            'select' => 't.id, t.title, t.rubric_id, t.type_id',
             'order' => 'created DESC',
-            'condition' => 'community.id = :community_id',
+            'condition' => 'rubric.community_id = :community_id',
             'params' => array(':community_id' => $this->id),
         ));
     }

@@ -127,30 +127,5 @@ class MailRuContestParser extends ProxyParserThread
 
         return '';
     }
-
-
-    public static function collectContests()
-    {
-        $contests = array(
-            'http://forum.deti.mail.ru/topics.html?fid=51',
-            'http://forum.deti.mail.ru/topics.html?fid=71',
-            'http://forum.deti.mail.ru/topics.html?fid=5',
-            'http://forum.deti.mail.ru/topics.html?fid=55',
-            'http://forum.deti.mail.ru/topics.html?fid=6',
-            'http://forum.deti.mail.ru/topics.html?fid=7',
-            'http://forum.deti.mail.ru/topics.html?fid=8',
-            'http://forum.deti.mail.ru/topics.html?fid=52',
-            'http://forum.deti.mail.ru/topics.html?fid=53',
-            'http://forum.deti.mail.ru/topics.html?fid=56',
-            'http://forum.deti.mail.ru/topics.html?fid=16',
-            'http://forum.deti.mail.ru/topics.html?fid=57',
-            'http://forum.deti.mail.ru/topics.html?fid=104',
-        );
-        foreach($contests as $contest){
-            $q = new MailruQuery();
-            $q->text = $contest;
-            $q->save();
-        }
-    }
 }
 

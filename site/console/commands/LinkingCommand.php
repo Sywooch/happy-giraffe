@@ -96,7 +96,7 @@ class LinkingCommand extends CConsoleCommand
             'http://www.happy-giraffe.ru/test/pregnancy/',
         );
 
-        $articles = $this->getArticles('тест на беменность');
+        $articles = $this->getArticles('тест на беременность');
         echo count($articles) . "\n";
 
         foreach ($urls as $url) {

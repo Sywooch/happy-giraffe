@@ -117,7 +117,6 @@ return array(
                 'user' => array(
                     'baseUrl' => '/',
                     'js' => array(
-                        'javascripts/jquery.tmpl.min.js',
                         'javascripts/user_common.js',
                         'javascripts/messages.js',
                         'javascripts/friends.js',

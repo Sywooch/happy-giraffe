@@ -234,7 +234,6 @@ return array(
             'password' => '',
             'charset' => 'utf8',
             'schemaCachingDuration' => 60,
-            'timeout'=>1,
         ),
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors

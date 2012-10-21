@@ -89,7 +89,7 @@ class UsersCommand extends CConsoleCommand
         Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
 
         $models = RatingYohoho::model()->findAllByAttributes(array(
-            'entity'=>'ContestWork',
+            'entity_name'=>'ContestWork',
             'entity_id'=>$work
         ));
 

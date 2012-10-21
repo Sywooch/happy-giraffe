@@ -12,23 +12,58 @@ class SeoLinksWidget extends CWidget
         Yii::import('site.seo.models.*');
         Yii::import('site.seo.modules.promotion.models.*');
 
-        try {
-            $page = self::getPage();
-            if ($page !== null && !empty($page->outputLinks))
-                $this->render('index', array('link_pages' => $page->outputLinks));
-        } catch (Exception $err) {
+        $html = $this->getCachedHtml();
+        echo $html;
+    }
+
+    public function getCachedHtml()
+    {
+        $cache_id = 'inner_links_' . urlencode($this->getUrl());
+        $html = Yii::app()->cache->get('temporary_' . $cache_id);
+        if ($html === false) {
+            $html = $this->getHtml();
+
+            if ($html !== false) {
+                Yii::app()->cache->set($cache_id, $html);
+                Yii::app()->cache->set('temporary_' . $cache_id, $html, 24 * 3600);
+            } else {
+                $html = Yii::app()->cache->get($cache_id);
+                if ($html === false)
+                    $html = '';
+            }
         }
+
+        return $html;
+    }
+
+    public function getHtml()
+    {
+        try {
+            $page = $this->getPage();
+            if ($page !== null && !empty($page->outputLinks))
+                $html = $this->render('index', array('link_pages' => $page->outputLinks), true);
+            else
+                $html = '';
+        } catch (Exception $err) {
+            $html = false;
+        }
+
+        return $html;
     }
 
     /**
-     * @static
      * @return Page
      */
-    static function getPage()
+    public function getPage()
     {
         $criteria = new CDbCriteria;
 
-        $criteria->compare('url', 'http://www.happy-giraffe.ru' . Yii::app()->request->getRequestUri());
+        $criteria->compare('url', $this->getUrl());
         return Page::model()->find($criteria);
+    }
+
+    public function getUrl()
+    {
+        return 'http://www.happy-giraffe.ru' . Yii::app()->request->getRequestUri();
     }
 }

@@ -1,4 +1,6 @@
 <?php
+Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
+
 $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
     'selector' => '.img > a',
     'entity' => 'Album',

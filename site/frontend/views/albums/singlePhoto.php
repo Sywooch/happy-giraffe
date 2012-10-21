@@ -1,4 +1,7 @@
 <?php
+    if (get_class($model) == 'Album')
+        Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
+
     $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
         'selector' => '.count > a',
         'entity' => get_class($model),

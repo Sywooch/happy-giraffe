@@ -164,4 +164,11 @@ class LinkingCommand extends CConsoleCommand
         $criteria->compare('id', $ids);
         return CommunityContent::model()->findAll($criteria);
     }
+
+    public function actionSync()
+    {
+        Yii::import('site.common.models.mongo.*');
+
+        InnerLinksBlock::model()->Sync($this);
+    }
 }

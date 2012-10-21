@@ -90,7 +90,7 @@ class UsersCommand extends CConsoleCommand
 
         $models = RatingYohoho::model()->findAllByAttributes(array(
             'entity_name'=>'ContestWork',
-            'entity_id'=>$work
+            'entity_id'=>(int)$work
         ));
 
         foreach($models as $model)

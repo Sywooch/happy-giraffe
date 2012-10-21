@@ -36,6 +36,9 @@ class UserController extends HController
 
     protected function beforeAction($action)
     {
+        if ($this->action->id != 'profile')
+            Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
+
         Yii::app()->clientScript->scriptMap = array(
             'global.css' => false,
         );

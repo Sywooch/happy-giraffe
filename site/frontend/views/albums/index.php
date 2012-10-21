@@ -1,4 +1,6 @@
 <?php
+    Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
+
     $cs = Yii::app()->clientScript;
 
     $cs

@@ -58,6 +58,7 @@ class InnerLinksBlock extends EMongoDocument
                 $exist->html = $html;
                 $exist->url = $page->url;
                 $exist->save();
+                $i++;
             } else {
                 if ($exist->html != $html) {
                     $exist->html = $html;

@@ -182,7 +182,7 @@ class UserScoresCommand extends CConsoleCommand
             $item->save();
 
             $i++;
-            if ($i % 10 == 0)
+            if ($i % 100 == 0)
                 echo $i."\n";
         }
     }

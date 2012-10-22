@@ -151,10 +151,41 @@ class UserScoresCommand extends CConsoleCommand
                 $criteria->entity_name('==', 'ContestWork');
                 $model = Rating::model()->find($criteria);
                 if ($model !== null) {
-                    $model->ratings['yh'] = $count*2;
+                    $model->ratings['yh'] = $count * 2;
                     $model->save();
                 }
             }
+        }
+    }
+
+    public function actionCheckCommunity()
+    {
+        $criteria = new EMongoCriteria;
+        $criteria->entity_name('==', 'CommunityContent');
+        $criteria->limit(100);
+
+        $models = array(0);
+        while (!empty($models)) {
+            $models = Rating::model()->findAll($criteria);
+
+            foreach ($models as $item) {
+                if (isset($item->ratings['fb']))
+                    unset($item->ratings['fb']);
+                if (isset($item->ratings['vk']))
+                    unset($item->ratings['vk']);
+                if (isset($item->ratings['tw']))
+                    unset($item->ratings['tw']);
+                if (isset($item->ratings['ok']))
+                    unset($item->ratings['ok']);
+                if (isset($item->ratings['mr']))
+                    unset($item->ratings['mr']);
+                if (isset($item->ratings['gp']))
+                    unset($item->ratings['gp']);
+
+                $item->save();
+            }
+            echo $criteria->getOffset()."\n";
+            $criteria->offset($criteria->getOffset() + 100);
         }
     }
 }

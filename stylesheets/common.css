@@ -2408,12 +2408,11 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 
 .fast-like-block {margin:5px auto 20px;text-align:center;background:none;width:auto;}
 
-.fast-like-block .box-1 {text-align:center;display:inline-block;*zoom:1;*display:inline;vertical-align:top;margin-top: 15px;max-width:500px;}
+.fast-like-block .box-1 {text-align:justify;display:inline-block;*zoom:1;*display:inline;vertical-align:top;margin-top: 15px;min-width:500px;}
 .fast-like-block .share_button {display:inline-block;*zoom:1;*display:inline;vertical-align:middle;text-align:left;}
 /* facebook custom like box */
 .fb-custom-like {
 	height:21px;
-	min-width:132px;
 	text-decoration:none;
 }
 .fb-custom-like .fb-custom-text {

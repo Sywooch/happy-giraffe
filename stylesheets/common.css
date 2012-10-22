@@ -2723,7 +2723,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 .recent-banner-article {position:relative;margin-bottom:30px;color:#fff;font-size:12px;}
 .recent-banner-article a {color:#fff;text-decoration:none;}
 .recent-banner-article img {margin:0 auto;display:block;}
-.recent-banner-article a:hover img {opacity:.5;filter: alpha(opacity = 50);}
+.recent-banner-article a:hover img {opacity:.8;filter: alpha(opacity = 80);}
 .recent-banner-article .title-box {display:block;padding:7px 12px 10px;}
 .recent-banner-article.green .title-box{background:#6eb746;}
 .recent-banner-article.blue .title-box{background:#6191d2;}

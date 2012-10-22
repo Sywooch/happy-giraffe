@@ -50,15 +50,15 @@ Yii::app()->clientScript
                             </script>
                         </div>
                     </td>
-                    <td style="vertical-align:top;width: 150px;" class="vk_share_button">
+                    <td style="vertical-align:top;" class="vk_share_button">
 
                     </td>
-                    <td style="vertical-align:top;padding-right:15px;text-align: left;">
+                    <td style="vertical-align:top;text-align: left;">
                         <a class="odkl-klass-oc"
                            href="<?=$url?>"
                            onclick="Social.updateLikesCount('ok'); ODKL.Share(this);return false;"><span>0</span></a>
                     </td>
-                    <td style="vertical-align:top;" class="tw_share_button">
+                    <td style="vertical-align:top;width:125px;" class="tw_share_button">
                         <a href="https://twitter.com/share" class="twitter-share-button" data-lang="ru" data-url="<?=$url?>">Твитнуть</a>
                         <script type="text/javascript" charset="utf-8">
                                 if (typeof twttr == 'undefined')

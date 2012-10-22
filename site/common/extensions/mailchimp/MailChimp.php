@@ -7,6 +7,7 @@ class MailChimp extends CApplicationComponent
 {
     const WEEKLY_NEWS_LIST_ID = 'd8ced52317';
     const WEEKLY_NEWS_TEST_LIST_ID = 'ee63e4d551';
+    const CONTEST_LIST = 'cf58a61969';
 
     public $apiKey;
     public $list;
@@ -92,6 +93,30 @@ class MailChimp extends CApplicationComponent
         echo 'unsubscribes: ';
         print_r($unsubscribe_mails);
         $this->api->listBatchUnsubscribe($this->list, $unsubscribe_mails, false, false, false);
+    }
+
+    public function updateMailruUsers()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->limit = 100;
+
+        $users = array(1);
+        while (!empty($users) && $criteria->offset < 10000) {
+            $users = MailruUser::model()->findAll($criteria);
+            $options = array();
+            foreach ($users as $user) {
+                $options[] = array(
+                    'EMAIL' => $user->email,
+                    'FNAME' => $user->name,
+                    'LNAME' => '',
+                );
+            }
+
+            $this->list = self::CONTEST_LIST;
+            $this->api->listBatchSubscribe($this->list, $options, false, true, false);
+
+            $criteria->offset += 100;
+        }
     }
 
     public function deleteUsers()

@@ -145,12 +145,31 @@ class Comment extends HActiveRecord
 
     public function get($entity, $entity_id, $type)
     {
-        return new CActiveDataProvider(get_class($this), array(
+        return new CActiveDataProvider($this, array(
             'criteria' => array(
-                'condition' => 'entity=:entity AND entity_id=:entity_id',
+                'condition' => 't.entity=:entity AND t.entity_id=:entity_id',
                 'params' => array(':entity' => $entity, ':entity_id' => $entity_id),
-                'with' => array('author'),
-                'order' => ($type != 'guestBook') ? 'created ASC' : 'created DESC',
+                'with' => array(
+                    'author' => array(
+                        'select' => 'id, first_name, last_name, online, avatar_id',
+                        'with' => 'avatar',
+                    ),
+                    'response' => array(
+                        'select' => 'position',
+                        'with' => array(
+                            'author' => array(
+                                'alias' => 'responseAuthor',
+                                'select' => 'id, first_name, last_name, online, avatar_id',
+                                'with' => array(
+                                    'avatar' => array(
+                                        'alias' => 'responseAuthorAvatar'
+                                    ),
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
+                'order' => ($type != 'guestBook') ? 't.created ASC' : 't.created DESC',
             ),
             'pagination' => array(
                 'pageSize' => 25,

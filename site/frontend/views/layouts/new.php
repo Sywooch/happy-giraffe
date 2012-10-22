@@ -11,7 +11,7 @@
 					<div class="side-left">
 
 						<div class="banner-box">
-                            <a href="/contest/1/"><img src="/images/banner_03.png"></a>
+                            <?=$this->renderPartial('//_banner')?>
 						</div>
 						
 					</div>

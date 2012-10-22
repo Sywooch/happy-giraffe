@@ -13,7 +13,7 @@
 
             <div class="box">
                 <a href="<?=$this->createUrl('/contest/default/view', array('id' => 2)) ?>"><img
-                    src="/images/bb.jpg"></a>
+                    src="/images/banners/4.jpg"></a>
             </div>
 
         </div>

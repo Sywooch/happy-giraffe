@@ -10,15 +10,18 @@ class MailRuForumThemeParser extends ProxyParserThread
      * @var MailruQuery
      */
     private $query;
+    public $page = '';
 
     public function start()
     {
         while (true) {
             $this->getPage();
-            $this->parsePage();
-            Yii::app()->end();
+
+            while (!empty($this->page))
+                $this->parsePage();
+
+            $this->closeQuery();
         }
-        $this->closeQuery();
     }
 
     public function getPage()
@@ -27,7 +30,7 @@ class MailRuForumThemeParser extends ProxyParserThread
         $criteria->compare('active', 0);
         $criteria->compare('type', MailruQuery::TYPE_THEME);
 
-        $transaction = Yii::app()->db->beginTransaction();
+        $transaction = Yii::app()->db_seo->beginTransaction();
         try {
             $this->query = MailruQuery::model()->find($criteria);
             if ($this->query === null)
@@ -39,34 +42,42 @@ class MailRuForumThemeParser extends ProxyParserThread
         } catch (Exception $e) {
             $transaction->rollback();
         }
+
+        $this->page = 1;
     }
 
     public function parsePage()
     {
-        $content = $this->query($this->query->text);
+        $content = $this->query($this->query->text.'&pg='.$this->page);
         if (strpos($content, 'http://deti.mail.ru/') === false) {
             $this->changeBadProxy();
             $this->parsePage();
         } else {
-            $document = phpQuery::newDocument($content);
-            foreach ($document->find('table.themesList > tr > td > div.t100 > a') as $link) {
-                $url = pq($link)->attr('href');
-                $name = pq($link)->attr('text');
-                $this->addUser($url, $name);
-            }
-            $document->unloadDocument();
+            if (strpos($content, iconv("UTF-8", "Windows-1251",'Нет такой страницы')) === false) {
+
+                $document = phpQuery::newDocument($content);
+                foreach ($document->find('td.comment div.t75.nowrap > a') as $link) {
+                    $url = pq($link)->attr('href');
+                    $name = pq($link)->text();
+                    $this->addUser($url, $name);
+                }
+                $document->unloadDocument();
+
+                $this->page++;
+            }else
+                $this->page = null;
         }
     }
 
     public function addUser($url, $name)
     {
-        $transaction = Yii::app()->db->beginTransaction();
+        $transaction = Yii::app()->db_seo->beginTransaction();
         try {
-            if (MailruQuery::model()->findByAttributes(array('text' => $url)) == null) {
-                $user = new MailruUser();
-                $user->deti_url = $url;
-                $user->email = $user->calculateEmail();
-                $user->name = $name;
+            $user = new MailruUser();
+            $user->deti_url = $url;
+            $user->email = $user->calculateEmail();
+            if (!empty($user->email) && MailruUser::model()->findByAttributes(array('email' => $user->email)) == null) {
+                $user->name = trim(preg_replace("/  +/", " ", $name));
                 $user->save();
             }
             $transaction->commit();
@@ -89,14 +100,14 @@ class MailRuForumThemeParser extends ProxyParserThread
             if (!empty($ref))
                 curl_setopt($ch, CURLOPT_REFERER, $url);
 
-            /*if ($this->use_proxy) {
+            if ($this->use_proxy) {
                 curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
                 curl_setopt($ch, CURLOPT_PROXY, $this->proxy->value);
                 if (getenv('SERVER_ADDR') != '5.9.7.81') {
                     curl_setopt($ch, CURLOPT_PROXYUSERPWD, "alexk984:Nokia12345");
                     curl_setopt($ch, CURLOPT_PROXYAUTH, 1);
                 }
-            }*/
+            }
 
             //curl_setopt($ch, CURLOPT_COOKIE, $this->cookie);
             curl_setopt($ch, CURLOPT_HEADER, 0);

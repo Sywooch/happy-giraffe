@@ -110,6 +110,66 @@ class MailCommand extends CConsoleCommand
         Yii::app()->mandrill->send($user, 'newMessages', array('messages' => $contents, 'token' => $token));
     }
 
+    public function actionContest(){
+        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
+        Yii::import('site.frontend.extensions.*');
+        Yii::import('site.frontend.components.*');
+        Yii::import('site.common.models.mongo.*');
+        Yii::import('site.common.extensions.mailchimp.*');
+
+        $subject = 'Новый фотоконкурс на "Веселом Жирафе"!';
+        $opts = array(
+            'list_id' => MailChimp::WEEKLY_NEWS_LIST_ID,
+            'from_email' => 'support@happy-giraffe.ru',
+            'from_name' => 'Веселый Жираф',
+            'template_id' => 49097,
+            'tracking' => array('opens' => true, 'html_clicks' => true, 'text_clicks' => false),
+            'authenticate' => true,
+            'subject' => $subject,
+            'title' => $subject,
+            'generate_text' => true,
+        );
+
+        $content = array(
+            'html_content' => '',
+        );
+
+        $campaignId = Yii::app()->mc->api->campaignCreate('regular', $opts, $content);
+        if ($campaignId)
+            return Yii::app()->mc->api->campaignSendNow($campaignId);
+        return false;
+    }
+
+    public function actionTestContest(){
+        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
+        Yii::import('site.frontend.extensions.*');
+        Yii::import('site.frontend.components.*');
+        Yii::import('site.common.models.mongo.*');
+        Yii::import('site.common.extensions.mailchimp.*');
+
+        $subject = 'Новый фотоконкурс на "Веселом Жирафе"!';
+        $opts = array(
+            'list_id' => MailChimp::WEEKLY_NEWS_TEST_LIST_ID,
+            'from_email' => 'support@happy-giraffe.ru',
+            'from_name' => 'Веселый Жираф',
+            'template_id' => 49097,
+            'tracking' => array('opens' => true, 'html_clicks' => true, 'text_clicks' => false),
+            'authenticate' => true,
+            'subject' => $subject,
+            'title' => $subject,
+            'generate_text' => true,
+        );
+
+        $content = array(
+            'html_content' => '',
+        );
+
+        $campaignId = Yii::app()->mc->api->campaignCreate('regular', $opts, $content);
+        if ($campaignId)
+            return Yii::app()->mc->api->campaignSendNow($campaignId);
+        return false;
+    }
+
     public function actionTestWeekly(){
         Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
         Yii::import('site.frontend.extensions.*');

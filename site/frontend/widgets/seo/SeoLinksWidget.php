@@ -12,23 +12,11 @@ class SeoLinksWidget extends CWidget
         Yii::import('site.seo.models.*');
         Yii::import('site.seo.modules.promotion.models.*');
 
-        try {
-            $page = self::getPage();
-            if ($page !== null && !empty($page->outputLinks))
-                $this->render('index', array('link_pages' => $page->outputLinks));
-        } catch (Exception $err) {
-        }
+        echo InnerLinksBlock::model()->getHtmlByUrl($this->getUrl());
     }
 
-    /**
-     * @static
-     * @return Page
-     */
-    static function getPage()
+    public function getUrl()
     {
-        $criteria = new CDbCriteria;
-
-        $criteria->compare('url', 'http://www.happy-giraffe.ru' . Yii::app()->request->getRequestUri());
-        return Page::model()->find($criteria);
+        return 'http://www.happy-giraffe.ru' . Yii::app()->request->getRequestUri();
     }
 }

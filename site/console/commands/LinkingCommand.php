@@ -7,11 +7,13 @@
 Yii::import('site.seo.models.*');
 Yii::import('site.seo.components.*');
 Yii::import('site.seo.models.mongo.*');
+Yii::import('site.seo.modules.promotion.models.*');
 Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
 
 class LinkingCommand extends CConsoleCommand
 {
-    public function actionPrepareParsing(){
+    public function actionPrepareParsing()
+    {
         Yii::app()->db_seo->createCommand()->delete('yandex_search_results');
         Yii::app()->db_seo->createCommand()->delete('yandex_search_keywords');
 
@@ -21,7 +23,7 @@ class LinkingCommand extends CConsoleCommand
             ->where('last_yandex_position < 1000 OR google_traffic > 0')
             ->queryColumn();
 
-        foreach($kewords as $keword){
+        foreach ($kewords as $keword) {
             $model = new YandexSearchKeyword;
             $model->keyword_id = $keword;
             $model->save();
@@ -34,5 +36,139 @@ class LinkingCommand extends CConsoleCommand
 
         $parser = new SearchResultsParser();
         $parser->start();
+    }
+
+    public function actionServiceLinks()
+    {
+        $urls = array(
+            //'http://www.happy-giraffe.ru/test/pregnancy/',
+            'http://www.happy-giraffe.ru/babySex/',
+            'http://www.happy-giraffe.ru/babySex/china/',
+            'http://www.happy-giraffe.ru/babySex/japan/',
+            'http://www.happy-giraffe.ru/babySex/bloodRefresh/',
+            'http://www.happy-giraffe.ru/babySex/blood/',
+            'http://www.happy-giraffe.ru/babySex/ovulation/',
+        );
+
+        $articles = $this->getArticles('определение пола');
+        echo count($articles) . "\n";
+
+        foreach ($urls as $url) {
+            echo $url . "\n";
+            $page = Page::model()->findByAttributes(array('url' => $url));
+            foreach ($page->keywordGroup->keywords as $keyword) {
+                $phrase = PagesSearchPhrase::model()->findByAttributes(array(
+                    'page_id' => $page->id,
+                    'keyword_id' => $keyword->id,
+                ));
+                if ($phrase === null) {
+                    $phrase = new PagesSearchPhrase;
+                    $phrase->keyword_id = $keyword->id;
+                    $phrase->page_id = $page->id;
+                    $phrase->save();
+                }
+
+                $exist = true;
+                while ($exist) {
+                    $from_article = $this->getRandomArticle($articles);
+                    $from_page = Page::model()->getOrCreate('http://www.happy-giraffe.ru' . trim($from_article->url, '.'));
+                    if ($from_page->outputLinksCount > 3)
+                        $exist = true;
+                    else
+                        $exist = InnerLink::model()->exists('page_id = ' . $from_page->id . ' and page_to_id=' . $page->id);
+                }
+
+                $link = new InnerLink();
+                $link->page_id = $from_page->id;
+                $link->page_to_id = $phrase->page_id;
+                $link->phrase_id = $phrase->id;
+                $link->keyword_id = $keyword->id;
+                $link->save();
+
+                echo $from_page->url . "\n";
+            }
+        }
+    }
+
+    public function actionServiceLinks2()
+    {
+        $urls = array(
+            'http://www.happy-giraffe.ru/test/pregnancy/',
+        );
+
+        $articles = $this->getArticles('тест на беременность');
+        echo count($articles) . "\n";
+
+        foreach ($urls as $url) {
+            echo $url . "\n";
+            $page = Page::model()->findByAttributes(array('url' => $url));
+            foreach ($page->keywordGroup->keywords as $keyword) {
+                $phrase = PagesSearchPhrase::model()->findByAttributes(array(
+                    'page_id' => $page->id,
+                    'keyword_id' => $keyword->id,
+                ));
+                if ($phrase === null) {
+                    $phrase = new PagesSearchPhrase;
+                    $phrase->keyword_id = $keyword->id;
+                    $phrase->page_id = $page->id;
+                    $phrase->save();
+                }
+
+                $exist = true;
+                while ($exist) {
+                    $from_article = $this->getRandomArticle($articles);
+                    $from_page = Page::model()->getOrCreate('http://www.happy-giraffe.ru' . trim($from_article->url, '.'));
+                    if ($from_page->outputLinksCount > 3)
+                        $exist = true;
+                    else
+                        $exist = InnerLink::model()->exists('page_id = ' . $from_page->id . ' and page_to_id=' . $page->id);
+                }
+
+                $link = new InnerLink();
+                $link->page_id = $from_page->id;
+                $link->page_to_id = $phrase->page_id;
+                $link->phrase_id = $phrase->id;
+                $link->keyword_id = $keyword->id;
+                $link->save();
+
+                echo $from_page->url . "\n";
+            }
+        }
+    }
+
+    private function getRandomArticle($articles)
+    {
+        $rand = rand(0, count($articles) - 1);
+        $result = $articles[$rand];
+        unset($articles[$rand]);
+
+        return $result;
+    }
+
+    private function getArticles($phrase)
+    {
+        $result = Yii::app()->search
+            ->select('*')
+            ->from('communityText')
+            ->where(' ' . $phrase . ' ')
+            ->limit(0, 2000)
+            ->searchRaw();
+        $ids = array();
+        foreach ($result['matches'] as $key => $m)
+            $ids [] = $key;
+
+        if (empty($ids))
+            throw new Exception('not found articles');
+
+        $criteria = new CDbCriteria;
+        $criteria->compare('id', $ids);
+        return CommunityContent::model()->findAll($criteria);
+    }
+
+    public function actionSync()
+    {
+        Yii::import('site.common.models.mongo.*');
+
+        InnerLinksBlock::model()->Sync($this);
     }
 }

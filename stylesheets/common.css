@@ -4431,6 +4431,7 @@ label {
 .odkl-klass-stat, .odkl-klass-oc {
     height: 20px !important;
 }
+.tw_share_button {width:130px;}
 /* social icons small 20*20px */
 .social-small-row {
 	text-align:center;

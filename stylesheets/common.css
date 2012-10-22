@@ -2409,7 +2409,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 .fast-like-block {margin:5px auto 20px;text-align:center;background:none;width:auto;}
 
 .fast-like-block .box-1 {text-align:center;display:inline-block;*zoom:1;*display:inline;vertical-align:top;margin-top: 15px;max-width:500px;}
-.fast-like-block .share_button {display:inline-block;*zoom:1;*display:inline;vertical-align:middle;}
+.fast-like-block .share_button {display:inline-block;*zoom:1;*display:inline;vertical-align:middle;text-align:left;}
 /* facebook custom like box */
 .fb-custom-like {
 	height:21px;
@@ -2730,6 +2730,8 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 .recent-banner-article .statistic {text-align:right;line-height:18px;}
 .recent-banner-article .icon-eye {display:inline-block;*zoom:1;*display:inline;background:url(/images/common.png) no-repeat -235px -317px;width:25px;height:14px;margin: 0 1px 3px;vertical-align:bottom;}
 .recent-banner-article .icon-comment {display:inline-block;*zoom:1;*display:inline;background:url(/images/common.png) no-repeat -261px -317px;width:21px;height:18px;margin:5px 0 0 5px;vertical-align:bottom;}
+.recent-banner-article .count-photo {position:absolute;left:-2px;top:10px;height:27px;background:#fd4602;padding:0 5px 0 12px;font:17px/27px Tahoma, Arial, Verdana, sans-serif;}
+.recent-banner-article .count-photo:after{content:" ";display:block;position:absolute;right:-11px;top:0;height:0;width:0;border:14px solid transparent;border-width:14px 0 14px 11px;border-left-color:#fd4602;}
 
 /* */
 

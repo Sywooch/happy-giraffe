@@ -471,12 +471,6 @@
 						
 						<div class="like-block fast-like-block">
 							
-							<div class="box-1">
-								<script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
-								Поделиться
-								<div class="yashare-auto-init" data-yashareL10n="ru" data-yashareType="none" data-yashareQuickServices="vkontakte,facebook,twitter,odnoklassniki,moimir,gplus"></div>
-							</div>
-							
 							<div class="box-2">
 								
 								<div class="like-btn">
@@ -486,6 +480,66 @@
 								
 							</div>
 							
+							<div class="box-1">
+								<div class="clearfix">
+									<table width="100%">
+										<tr>
+											<td style="vertical-align:top;padding-right:0;text-align: left;">
+												<div class="fb-custom-like">
+													<a href="http://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fdev.happy-giraffe.ru%2Fuser%2F13217%2Fblog%2Fpost22589%2F"
+													   onclick="return Social.showFacebookPopup(this);" class="fb-custom-text">
+														<i class="pluginButtonIcon img sp_like sx_like_fav"></i>Мне нравится</a>
+													<div class="fb-custom-share-count">0</div>
+													<script type="text/javascript">
+														$.getJSON("http://graph.facebook.com", { id : document.location.href }, function(json){
+															$('.fb-custom-share-count').html(json.shares || '0');
+														});
+													</script>
+												</div>
+											</td>
+											<td style="vertical-align:top;width: 150px;" class="vk_share_button">
+
+											</td>
+											<td style="vertical-align:top;padding-right:15px;text-align: left;">
+												<a class="odkl-klass-oc"
+												   href="http://dev.happy-giraffe.ru/user/13217/blog/post22589/"
+												   onclick="Social.updateLikesCount('ok'); ODKL.Share(this);return false;"><span>0</span></a>
+											</td>
+											<td style="vertical-align:top;" class="tw_share_button">
+												<a href="https://twitter.com/share" class="twitter-share-button" data-lang="ru" data-url="http://dev.happy-giraffe.ru/user/13217/blog/post22589/">Твитнуть</a>
+												<script type="text/javascript" charset="utf-8">
+														if (typeof twttr == 'undefined')
+															window.twttr = (function (d,s,id) {
+																var t, js, fjs = d.getElementsByTagName(s)[0];
+																if (d.getElementById(id)) return; js=d.createElement(s); js.id=id;
+																js.src="//platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs);
+																return window.twttr || (t = { _e: [], ready: function(f){ t._e.push(f) } });
+															}(document, "script", "twitter-wjs"));
+												</script>
+											</td>
+										</tr>
+									</table>
+									<script type="text/javascript">
+										$(function () {
+											//подписываемся на клик
+											if (VK && VK.Share && VK.Share.click) {
+												var oldShareClick = VK.Share.click;
+												VK.Share.click = function (index, el) {
+													Social.updateLikesCount('vk');
+													return oldShareClick.call(VK.Share, index, el);
+												}
+											}
+
+											twttr.ready(function (twttr) {
+												twttr.events.bind('tweet', function (event) {
+													console.log('tweet');
+													Social.updateLikesCount("tw")
+												});
+											});
+										});
+									</script>
+								</div>
+							</div>
 							<div class="box-3">
 								<div class="rating"><span>286</span></div>
 								<div class="icon-info">

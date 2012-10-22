@@ -1,10 +1,13 @@
 <?php
+    if (get_class($model) == 'Album')
+        Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
+
     $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
         'selector' => '.count > a',
         'entity' => get_class($model),
         'entity_id' => $model->id,
         'singlePhoto' => true,
-        'entity_url' => (get_class($model) ? $model->url : null),
+        'entity_url' => (get_class($model) == 'Contest') ? $model->url : null,
     ));
 ?>
 

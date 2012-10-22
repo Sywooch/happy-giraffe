@@ -214,7 +214,7 @@ class SeoCommand extends CConsoleCommand
                         echo $samePage->outputLinksCount . ' : ' . $samePage->inputLinksCount
                             . ' : ' . $samePage->taskCount . ' : ' . $samePage->phrasesCount
                             . ' : ' . $samePage->keywordGroup->taskCount
-                            . ' : ' . count($samePage->keywordGroup->keywords). "\n";
+                            . ' : ' . count($samePage->keywordGroup->keywords) . "\n";
 
 //                        if ($samePage->outputLinksCount == 0
 //                            && $samePage->inputLinksCount == 0
@@ -223,8 +223,8 @@ class SeoCommand extends CConsoleCommand
 //                            && empty($samePage->keywordGroup->keywords)
 //                            && $samePage->keywordGroup->taskCount == 0
 //                        ) {
-                            if (!$first)
-                                $samePage->delete();
+                        if (!$first)
+                            $samePage->delete();
 //                        }
 
                         $first = false;
@@ -237,7 +237,8 @@ class SeoCommand extends CConsoleCommand
         }
     }
 
-    public function actionCheckEntities(){
+    public function actionCheckEntities()
+    {
         $criteria = new CDbCriteria;
         $criteria->limit = 100;
         $criteria->offset = 0;
@@ -249,8 +250,8 @@ class SeoCommand extends CConsoleCommand
             foreach ($models as $model) {
                 list($entity, $entity_id) = Page::ParseUrl($model->url);
 
-                if (!empty($entity) && !empty($entity_id) && $entity != $model->entity){
-                    echo $entity."\n";
+                if (!empty($entity) && !empty($entity_id) && $entity != $model->entity) {
+                    echo $entity . "\n";
                     $model->entity = $entity;
                     $model->entity_id = $entity_id;
                     $model->save();
@@ -261,17 +262,35 @@ class SeoCommand extends CConsoleCommand
         }
     }
 
-    public function actionMailru(){
+    public function actionMailru()
+    {
         Yii::import('site.seo.modules.mailru.components.*');
 
-        $parser = new MailRuForumThemeParser();
+        $parser = new MailRuUserParser;
         $parser->start();
     }
 
-    public function actionMailruCollect(){
+    public function actionMailruCollect()
+    {
         Yii::import('site.seo.modules.mailru.components.*');
 
         MailRuContestParser::collectContests();
+    }
+
+    public function actionMailruCount()
+    {
+        Yii::import('site.seo.modules.mailru.components.*');
+
+        $models = Yii::app()->db_seo->createCommand()
+            ->selectDistinct('parent_id')
+            ->from('mailru__babies')
+            ->queryColumn();
+        echo count($models)." parents have children \n";
+
+        echo  Yii::app()->db_seo->createCommand()
+            ->select('count(id)')
+            ->from('mailru__babies')
+            ->queryScalar()." babies count\n";
     }
 }
 

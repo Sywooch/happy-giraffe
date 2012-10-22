@@ -83,4 +83,17 @@ class UsersCommand extends CConsoleCommand
 
         echo $k . "\n";
     }
+
+    public function actionShowLikes($work){
+        Yii::import('site.common.models.mongo.*');
+        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
+
+        $models = RatingYohoho::model()->findAllByAttributes(array(
+            'entity_name'=>'ContestWork',
+            'entity_id'=>(int)$work
+        ));
+
+        foreach($models as $model)
+            echo $model->user_id.' - '.User::getUserById($model->user_id)->last_ip."\n";
+    }
 }

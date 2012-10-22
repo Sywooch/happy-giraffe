@@ -14,16 +14,18 @@
         <title><?=CHtml::encode($this->pageTitle)?></title>
     <?php endif;
 
-    $release_id = 1;
+    $release_id = 1000;
     $cs = Yii::app()->clientScript;
     $cs
-        ->registerPackage('comet')
-        ->registerScript('Realplexor-reg', 'comet.connect(\'http://' . Yii::app()->comet->host . '\', \'' . Yii::app()->comet->namespace . '\', \'' . UserCache::GetCurrentUserCache() . '\');')
         ->registerCssFile('/stylesheets/common.css?'.$release_id)
         ->registerCssFile('/stylesheets/global.css?'.$release_id)
         ->registerCssFile('/stylesheets/ie.css', 'screen')
-        ->registerCoreScript('jquery')
         ->registerCssFile('/stylesheets/jquery.fancybox-1.3.4.css')
+
+        ->registerCoreScript('jquery')
+        ->registerCoreScript('yiiactiveform')
+        ->registerCoreScript('bbq')
+
         ->registerScriptFile('/javascripts/jquery.fancybox-1.3.4.js?'.$release_id)
         ->registerScriptFile('/javascripts/jquery.iframe-post-form.js')
         ->registerScriptFile('/javascripts/jquery.placeholder.min.js')
@@ -36,8 +38,9 @@
         ->registerScriptFile('/javascripts/jquery.dataSelector.js')
         ->registerScriptFile('/javascripts/jquery.jcarousel.js')
         ->registerScriptFile('/javascripts/jquery.jcarousel.control.js')
-        ->registerCoreScript('yiiactiveform')
-        ->registerCoreScript('bbq')
+        ->registerScriptFile('/javascripts/jquery.tmpl.min.js')
+
+        ->registerScriptFile('http://vk.com/js/api/share.js?11')
     ;
 
     $cs->registerMetaTag(trim($this->meta_description), 'description');
@@ -46,6 +49,8 @@
 
     if (! Yii::app()->user->isGuest) {
         $cs
+            ->registerPackage('comet')
+            ->registerScript('Realplexor-reg', 'comet.connect(\'http://' . Yii::app()->comet->host . '\', \'' . Yii::app()->comet->namespace . '\', \'' . UserCache::GetCurrentUserCache() . '\');')
             ->registerPackage('user')
             //->registerScript('im-urls', 'im.GetLastUrl="'.Yii::app()->createUrl('/im/default/getLast').';"')
         ;
@@ -153,7 +158,7 @@
                 <li><a href="<?php echo $this->createUrl('/community') ?>">Клубы</a></li>
                 <li><?=CHtml::link('Сервисы', array('/site/services'))?></li>
                 <li><?=CHtml::link('Новости', array('/community/list', 'community_id' => 36))?></li>
-                <li><?=HHtml::link('Конкурсы', $this->createUrl('/contest/default/view', array('id' => 2)), array(), Yii::app()->controller->getRoute() == 'site/index'?false:true)?></li>
+                <li><?=CHtml::link('Конкурсы', $this->createUrl('/contest/default/view', array('id' => 2)))?></li>
             </ul>
 
         </div>

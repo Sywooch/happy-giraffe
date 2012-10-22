@@ -43,8 +43,8 @@ class UserScoresCommand extends CConsoleCommand
             $criteria->offset = 100 * $i;
             $users = User::model()->with('userAddress', 'interests')->findAll($criteria);
 
-            foreach($users as $user){
-                if (empty($user->interests)){
+            foreach ($users as $user) {
+                if (empty($user->interests)) {
                     $e_criteria = new EMongoCriteria;
                     $e_criteria->addCond('user_id', '==', (int)$user->id);
                     $e_criteria->addCond('action_id', '==', (int)ScoreAction::ACTION_PROFILE_INTERESTS);
@@ -62,7 +62,7 @@ class UserScoresCommand extends CConsoleCommand
             }
 
             $i++;
-            echo ($i*100)."\n";
+            echo ($i * 100) . "\n";
         }
     }
 
@@ -112,5 +112,50 @@ class UserScoresCommand extends CConsoleCommand
             echo ($i*100)."\n";
         }
     }*/
+
+    public function actionCheckLikes()
+    {
+        $ids = Yii::app()->db->createCommand()
+            ->select('id')
+            ->from('contest__works')
+            ->where('contest_id = 2')
+            ->queryColumn();
+
+        foreach ($ids as $id) {
+            $models = RatingYohoho::model()->findAllByAttributes(array(
+                'entity_name' => 'ContestWork',
+                'entity_id' => (int)$id
+            ));
+
+            echo $id . ' - ' . count($models) . ' - likes count' . "\n";
+
+            $exec = false;
+            foreach ($models as $model) {
+                $user = User::getUserById($model->user_id);
+                if ($user === null || $user->getScores()->full == 0) {
+                    $model->delete();
+                    $exec = true;
+                }
+            }
+
+            if ($exec) {
+                $count = RatingYohoho::model()->countByAttributes(array(
+                    'entity_name' => 'ContestWork',
+                    'entity_id' => (int)$id
+                ));
+                echo $id . " hacked\n";
+                echo $count . " - now likes count \n";
+
+                $criteria = new EMongoCriteria;
+                $criteria->entity_id('==', (int)$id);
+                $criteria->entity_name('==', 'ContestWork');
+                $model = Rating::model()->find($criteria);
+                if ($model !== null) {
+                    $model->ratings['yh'] = $count*2;
+                    $model->save();
+                }
+            }
+        }
+    }
 }
 

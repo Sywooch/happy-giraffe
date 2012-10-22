@@ -388,8 +388,8 @@ input[type=text].error , input[type=password].error , textarea.error {border:1px
 }
 .btn-green-medium {font:bold 16px/32px Arial, Tahoma, Verdana, sans-serif;padding:0 14px;}
 .btn-green.twolines {}
-.btn-green.twolines .big{display:block;font-size:24px;line-height:27px;}
-.btn-green.twolines .small{display:block;font-size:20px;line-height:20px;padding-bottom:3px;}
+.btn-green.twolines .big{display:block;font-size:24px;line-height:26px;}
+.btn-green.twolines .small{display:block;font-size:20px;line-height:20px;padding-bottom:4px;}
 
 .btn-green.small {padding:2px 8px;font-size:12px;-moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px;line-height:16px;}
 

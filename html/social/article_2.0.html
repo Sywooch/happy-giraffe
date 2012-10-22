@@ -10,6 +10,11 @@
 	<link rel="stylesheet" type="text/css" href="/stylesheets/ie.css" />
 	<link rel="stylesheet" type="text/css" href="/stylesheets/global.css" />
 	
+	<link rel="stylesheet" type="text/css" href="http://stg.odnoklassniki.ru/share/odkl_share.css" />
+	
+<script type="text/javascript" src="http://vk.com/js/api/share.js?11"></script>
+<script type="text/javascript" src="http://stg.odnoklassniki.ru/share/odkl_share.js"></script>
+	
 	
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 	<script type="text/javascript" src="/javascripts/checkbox.js"></script>
@@ -471,12 +476,6 @@
 						
 						<div class="like-block fast-like-block">
 							
-							<div class="box-1">
-								<script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
-								Поделиться
-								<div class="yashare-auto-init" data-yashareL10n="ru" data-yashareType="none" data-yashareQuickServices="vkontakte,facebook,twitter,odnoklassniki,moimir,gplus"></div>
-							</div>
-							
 							<div class="box-2">
 								
 								<div class="like-btn">
@@ -486,6 +485,67 @@
 								
 							</div>
 							
+							<div class="box-1">
+								<div class="share_button">
+									<div class="fb-custom-like">
+										<a href="http://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fdev.happy-giraffe.ru%2Fuser%2F13217%2Fblog%2Fpost22589%2F"
+										   onclick="return Social.showFacebookPopup(this);" class="fb-custom-text">
+											<i class="pluginButtonIcon img sp_like sx_like_fav"></i>Мне нравится</a>
+										<div class="fb-custom-share-count">0</div>
+										<script type="text/javascript">
+											$.getJSON("http://graph.facebook.com", { id : document.location.href }, function(json){
+												$('.fb-custom-share-count').html(json.shares || '0');
+											});
+										</script>
+									</div>
+								</div>
+								
+								<div class="share_button">
+									<div class="vk_share_button">vk</div>
+								</div>
+								
+								<div class="share_button">
+									<a class="odkl-klass-oc"
+									   href="http://dev.happy-giraffe.ru/user/13217/blog/post22589/"
+									   onclick="Social.updateLikesCount('ok'); ODKL.Share(this);return false;"><span>0</span></a>
+								</div>
+								
+								<div class="share_button">
+									<div class="tw_share_button">
+										<a href="https://twitter.com/share" class="twitter-share-button" data-lang="ru" data-url="http://dev.happy-giraffe.ru/user/13217/blog/post22589/">Твитнуть</a>
+										<script type="text/javascript" charset="utf-8">
+												if (typeof twttr == 'undefined')
+													window.twttr = (function (d,s,id) {
+														var t, js, fjs = d.getElementsByTagName(s)[0];
+														if (d.getElementById(id)) return; js=d.createElement(s); js.id=id;
+														js.src="//platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs);
+														return window.twttr || (t = { _e: [], ready: function(f){ t._e.push(f) } });
+													}(document, "script", "twitter-wjs"));
+										</script>
+									</div>
+								</div>
+								
+								<script type="text/javascript">
+									$(function () {
+										//подписываемся на клик
+										if (VK && VK.Share && VK.Share.click) {
+											var oldShareClick = VK.Share.click;
+											VK.Share.click = function (index, el) {
+												Social.updateLikesCount('vk');
+												return oldShareClick.call(VK.Share, index, el);
+											}
+										}
+
+										twttr.ready(function (twttr) {
+											twttr.events.bind('tweet', function (event) {
+												console.log('tweet');
+												Social.updateLikesCount("tw")
+											});
+										});
+									});
+								</script>
+						
+							</div>
 							<div class="box-3">
 								<div class="rating"><span>286</span></div>
 								<div class="icon-info">
@@ -761,6 +821,32 @@
 							<button class="btn btn-green-small"><span><span>Ок</span></span></button>
 						</form>
 						<a href="" class="add"><i class="icon"></i></a>
+					</div>
+					
+					<div class="recent-banner-article green">
+						<div class="img">
+							<img src="/images/example/gallery_album_img_01.jpg" alt="" width="240"/>
+						</div>
+						<div class="title-box">
+							<div class="title">Как выбрать детскую кроватку?</div>
+							<div class="statistic clearfix">
+								<i class="icon-eye"></i> 265
+								<i class="icon-comment"></i> 12
+							</div>
+						</div>
+					</div>
+					
+					<div class="recent-banner-article blue">
+						<div class="img">
+							<img src="/images/example/gallery_album_img_01.jpg" alt="" width="240"/>
+						</div>
+						<div class="title-box">
+							<div class="title">Обязательства мешают любовным отношениям </div>
+							<div class="statistic clearfix">
+								<i class="icon-eye"></i> 265
+								<i class="icon-comment"></i> 12
+							</div>
+						</div>
 					</div>
 					
 					<div class="recent-topics">

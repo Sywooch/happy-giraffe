@@ -387,9 +387,9 @@ input[type=text].error , input[type=password].error , textarea.error {border:1px
     -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#54cf4e', EndColorStr='#089735')";
 }
 .btn-green-medium {font:bold 16px/32px Arial, Tahoma, Verdana, sans-serif;padding:0 14px;}
-.btn-green.twolines {width:100%;}
-.btn-green.twolines .big{display:block;font-size:24px;}
-.btn-green.twolines .small{display:block;font-size:20px;}
+.btn-green.twolines {}
+.btn-green.twolines .big{display:block;font-size:24px;line-height:22px;padding-top:5px;}
+.btn-green.twolines .small{display:block;font-size:20px;line-height:18px;padding-bottom:5px;}
 
 .btn-green.small {padding:2px 8px;font-size:12px;-moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px;line-height:16px;}
 
@@ -2641,10 +2641,8 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 #content .club-fast-nav .club-join-btn {display:block;height:36px;padding:0 24px;background:#59b4dd;color:#fff;line-height:36px;font-size:16px;font-weight:bold;text-decoration:none;position:relative;top:-3px;float:right;}
 #content .club-fast-nav .club-join-btn {/*css3*/ -moz-border-radius:15px;-webkit-border-radius:15px;border-radius:15px;behavior: url(/stylesheets/PIE.htc);}
 
-#content .club-fast-add {margin-bottom:10px;}
-#content .club-fast-add .btn {width:240px;}
-#content .club-fast-add .btn > span {width:222px;}
-#content .club-fast-add .btn > span > span {width:204px;text-align:center;text-transform:none;font-weight:bold;font-family:arial, helvetica, sans-serif;}
+#content .club-fast-add {margin:2px 0 40px;text-align:center;}
+#content .club-fast-add .btn-green {width:220px;}
 #content .club-fast-add ul {padding:10px 20px;background:#fffedf;margin-top:10px;list-style:none;overflow:hidden;}
 #content .club-fast-add ul li {float:left;width:50%;margin:5px 0;}
 #content .club-fast-add ul li a {color:#0281b0;font-weight:bold;font-size:14px;}
@@ -2677,8 +2675,8 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 #content .club-topics-all-link .count {font-size:20px;color:#6d6d6d;font-family:tahoma, arial, helvetica, sans-serif;position:relative;top:-3px;}
 
 
-#content .club-topics-list-new {margin-bottom:30px;}
-#content .club-topics-list-new .block-title {font-size:22px;color:#262626;margin-bottom:15px;}
+#content .club-topics-list-new {margin-bottom:40px;}
+#content .club-topics-list-new .block-title {font-size:22px;color:#262626;margin:0 6px 15px;}
 #content .club-topics-list-new ul {list-style:none;}
 #content .club-topics-list-new ul li {margin:10px 6px;}
 #content .club-topics-list-new ul li a {}
@@ -2690,7 +2688,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 #content .club-topics-list-new ul li.active span {padding:2px 6px;background:#f2e5ff;display:inline-block;*zoom:1;*display:inline;}
 
 #content .club-topics-list-new ul li.active a {text-decoration:none;}
-#content .club-topics-list-new ul li.active .count {font-size:20px;color:#474747;}
+#content .club-topics-list-new ul li.active .count {font-size:20px;color:#474747;top:2px;}
 
 .add-post-btn {margin-bottom:30px;}
 
@@ -2728,7 +2726,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 .recent-banner-article.green .title-box{background:#6eb746;}
 .recent-banner-article.blue .title-box{background:#6191d2;}
 .recent-banner-article .title {font:bold 18px/20px Tahoma, Arial, Verdana, sans-serif;}
-.recent-banner-article a:hover .title {border-bottom:1px solid #fd4502;text-decoration:none;}
+.recent-banner-article a:hover .title {text-decoration:underline;}
 .recent-banner-article .statistic {display:block;text-align:right;line-height:18px;}
 .recent-banner-article .icon-eye {display:inline-block;*zoom:1;*display:inline;background:url(/images/common.png) no-repeat -235px -317px;width:25px;height:14px;margin: 0 1px 3px;vertical-align:bottom;}
 .recent-banner-article .icon-comment {display:inline-block;*zoom:1;*display:inline;background:url(/images/common.png) no-repeat -261px -317px;width:21px;height:18px;margin:5px 0 0 5px;vertical-align:bottom;}

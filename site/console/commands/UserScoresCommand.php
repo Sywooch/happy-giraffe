@@ -151,7 +151,7 @@ class UserScoresCommand extends CConsoleCommand
                 $criteria->entity_name('==', 'ContestWork');
                 $model = Rating::model()->find($criteria);
                 if ($model !== null) {
-                    $model->ratings['yh'] = $count;
+                    $model->ratings['yh'] = $count*2;
                     $model->save();
                 }
             }

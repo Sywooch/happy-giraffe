@@ -92,6 +92,14 @@ class AjaxController extends HController
         $social_key = $_POST['key'];
         $value = $_POST['r'];
 
+        if ($modelName == 'ContestWork'
+            && $social_key == 'yh'
+            && Yii::app()->user->getModel()->getScores()->full == 0
+        ) {
+            echo 'обломитесь :)';
+            Yii::app()->end();
+        }
+
         $model = $modelName::model()->findByPk($objectId);
         if (!$model)
             Yii::app()->end();
@@ -106,10 +114,10 @@ class AjaxController extends HController
             'entity' => $social_key == 'yh' ? Rating::model()->countByEntity($model, $social_key) / 2 : Rating::model()->countByEntity($model, $social_key),
             'count' => Rating::model()->countByEntity($model),
         ));
-        Yii::app()->end();
     }
 
-    public function actionUpdateRating(){
+    public function actionUpdateRating()
+    {
         Yii::import('contest.models.*');
         Yii::import('services.modules.recipeBook.models.*');
 

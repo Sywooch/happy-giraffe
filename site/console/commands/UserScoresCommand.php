@@ -160,30 +160,32 @@ class UserScoresCommand extends CConsoleCommand
 
     public function actionCheckCommunity()
     {
-        $models = Rating::model()->findAllByAttributes(array(
-            'entity_name' => 'CommunityContent',
-        ));
+        $criteria = new EMongoCriteria;
+        $criteria->entity_name('==', 'CommunityContent');
+        $criteria->limit(100);
 
-        $i=0;
-        foreach ($models as $item) {
-            if (isset($item->ratings['fb']))
-                unset($item->ratings['fb']);
-            if (isset($item->ratings['vk']))
-                unset($item->ratings['vk']);
-            if (isset($item->ratings['tw']))
-                unset($item->ratings['tw']);
-            if (isset($item->ratings['ok']))
-                unset($item->ratings['ok']);
-            if (isset($item->ratings['mr']))
-                unset($item->ratings['mr']);
-            if (isset($item->ratings['gp']))
-                unset($item->ratings['gp']);
+        $models = array(0);
+        while (!empty($models)) {
+            $models = Rating::model()->findAll($criteria);
 
-            $item->save();
+            foreach ($models as $item) {
+                if (isset($item->ratings['fb']))
+                    unset($item->ratings['fb']);
+                if (isset($item->ratings['vk']))
+                    unset($item->ratings['vk']);
+                if (isset($item->ratings['tw']))
+                    unset($item->ratings['tw']);
+                if (isset($item->ratings['ok']))
+                    unset($item->ratings['ok']);
+                if (isset($item->ratings['mr']))
+                    unset($item->ratings['mr']);
+                if (isset($item->ratings['gp']))
+                    unset($item->ratings['gp']);
 
-            $i++;
-            if ($i % 100 == 0)
-                echo $i."\n";
+                $item->save();
+            }
+            echo $criteria->getOffset()."\n";
+            $criteria->offset($criteria->getOffset() + 100);
         }
     }
 }

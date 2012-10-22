@@ -14,7 +14,7 @@
  * @property string $last_visit
  *
  * The followings are the available model relations:
- * @property MailruBaby[] $mailruBabies
+ * @property MailruBaby[] $babies
  */
 class MailruUser extends HActiveRecord
 {
@@ -66,7 +66,7 @@ class MailruUser extends HActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'mailruBabies' => array(self::HAS_MANY, 'MailruBaby', 'parent_id'),
+			'babies' => array(self::HAS_MANY, 'MailruBaby', 'parent_id'),
 		);
 	}
 

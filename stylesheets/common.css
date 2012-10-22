@@ -370,7 +370,7 @@ input[type=text].error , input[type=password].error , textarea.error {border:1px
     -webkit-border-radius:5px;
     border-radius:5px;
 }
-/* .btn-green:hover {
+.btn-green:hover {
     background-color: #089735;
     *background-color: #089735;
     background-image: -ms-linear-gradient(top, #54cf4e, #089735);
@@ -385,11 +385,13 @@ input[type=text].error , input[type=password].error , textarea.error {border:1px
     filter: progid:dximagetransform.microsoft.gradient(enabled=false);
     *zoom: 1;
     -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#54cf4e', EndColorStr='#089735')";
-} */
+}
 .btn-green-medium {
     font:bold 16px/32px Arial, Tahoma, Verdana, sans-serif;
     padding:0 14px;
 }
+
+.btn-green.small {padding:2px 8px;font-size:12px;-moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px;line-height:16px;}
 
 .btn-orange {
 	display: inline-block;
@@ -421,8 +423,6 @@ input[type=text].error , input[type=password].error , textarea.error {border:1px
 	
 	-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;
 }
-
-.btn-green.small {padding:2px 8px;font-size:12px;-moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px;line-height:16px;}
 
 .btn {cursor:pointer;width:auto;overflow:visible;margin:0;border-width:0;background:none;white-space:nowrap;cursor:pointer;display:inline-block;*zoom:1;*display:inline;padding:0;text-decoration:none;font-family:arial, sans-serif;}
 .btn::-moz-focus-inner {border:0;padding:0;}
@@ -458,6 +458,7 @@ input[type=text].error , input[type=password].error , textarea.error {border:1px
 .btn.btn-gray-small > span {padding-right:7px;height:20px;background-position:100% -2870px;color:#9c9c9c;font-weight:bold;font-size:11px;}
 .btn.btn-gray-small > span > span {padding-left:10px;height:20px;line-height:20px;background-position:0 -2850px;padding-right:3px;}
 
+.btn.btn-green {background:none;}
 .btn.btn-green > span {padding-right:18px;height:46px;background-position:100% -446px;color:#fff;font-family:tahoma;font-size:20px;text-transform:uppercase;}
 .btn.btn-green > span > span {padding-left:18px;height:46px;line-height:46px;background-position:0 -400px;}
 
@@ -2407,9 +2408,76 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 
 .fast-like-block {margin:5px auto 20px;text-align:center;background:none;width:auto;}
 
-.fast-like-block .box-1 {text-align:center;display:inline-block;*zoom:1;*display:inline;vertical-align:top;margin-top: 15px;}
-.fast-like-block .box-1 table {width:500px;}
-
+.fast-like-block .box-1 {text-align:center;display:inline-block;*zoom:1;*display:inline;vertical-align:top;margin-top: 15px;max-width:500px;}
+.fast-like-block .share_button {display:inline-block;*zoom:1;*display:inline;vertical-align:middle;}
+/* facebook custom like box */
+.fb-custom-like {
+	height:21px;
+	min-width:132px;
+	text-decoration:none;
+}
+.fb-custom-like .fb-custom-text {
+	position:relative;
+	background: #ECEEF5;
+	border: 1px solid #CAD4E7;
+	border-radius: 3px;
+	color: #3B5998;
+	cursor: pointer;
+	padding: 2px 6px 4px;
+	white-space: nowrap;
+	display: inline-block;
+	padding: 0 5px 2px;
+	font:11px/13px 'lucida grande',​tahoma, ​verdana, ​arial, ​sans-serif;
+	font-family:'lucida grande',tahoma,verdana,arial,sans-serif;
+	text-decoration:none;
+}
+.fb-custom-like .fb-custom-text:hover {border-color:#9dacce;}
+.fb-custom-like i{
+	background: url("http://static.ak.fbcdn.net/rsrc.php/v2/yI/x/1dQf_ATK831.png") no-repeat;
+	display: inline-block;
+	height: 14px;
+	width: 14px;
+	position: relative;
+	top: 3px;
+	margin-right: 2px;
+}
+.fb-custom-like .fb-custom-share-count {
+	background: none repeat scroll 0 0 white;
+	border: 1px solid #C1C1C1;
+	display: inline-block;
+	*display:inline;
+	*zoom:1;
+	height: 14px;
+	line-height: 14px;
+	margin-left: 6px;
+	min-width: 15px;
+	padding: 1px 2px;
+	text-align: center;
+	white-space: nowrap;
+	font-size: 11px;
+	position: relative;
+	top: 1px;
+	vertical-align: top;
+}
+.fb-custom-like .fb-custom-share-count::before,
+.fb-custom-like .fb-custom-share-count::after {
+	content: '.';
+	display: block;
+	border-color: transparent #D7D7D7;
+	border-style: solid;
+	border-width: 4px 5px 4px 0;
+	display: block;
+	top: 4px;
+	position: absolute;
+	left: -5px;
+	height: 0;
+	line-height: 0;
+	font-size: 0;
+}
+.odkl-klass-stat, .odkl-klass-oc {
+    height: 20px !important;
+}
+.tw_share_button {max-width:111px}
 
 .fast-like-block .box-2 {text-align:center;display:inline-block;*zoom:1;*display:inline;vertical-align:top;margin-top: 5px;padding:0 10px 0 0;}
 
@@ -4363,74 +4431,6 @@ label {
 }
 .contest-error-hint h4 {margin-bottom:6px;color:#f95708;font-size:14px;font-weight:bold;}
 
-
-/* facebook custom like box */
-.fb-custom-like {
-	height:21px;
-	min-width:128px;
-	text-decoration:none;
-}
-.fb-custom-like .fb-custom-text {
-	position:relative;
-	background: #ECEEF5;
-	border: 1px solid #CAD4E7;
-	border-radius: 3px;
-	color: #3B5998;
-	cursor: pointer;
-	padding: 2px 6px 4px;
-	white-space: nowrap;
-	display: inline-block;
-	padding: 0 5px 2px;
-	font:11px/13px 'lucida grande',​tahoma, ​verdana, ​arial, ​sans-serif;
-	font-family:'lucida grande',tahoma,verdana,arial,sans-serif;
-	text-decoration:none;
-}
-.fb-custom-like .fb-custom-text:hover {border-color:#9dacce;}
-.fb-custom-like i{
-	background: url("http://static.ak.fbcdn.net/rsrc.php/v2/yI/x/1dQf_ATK831.png") no-repeat;
-	display: inline-block;
-	height: 14px;
-	width: 14px;
-	position: relative;
-	top: 3px;
-	margin-right: 2px;
-}
-.fb-custom-like .fb-custom-share-count {
-	background: none repeat scroll 0 0 white;
-	border: 1px solid #C1C1C1;
-	display: inline-block;
-	*display:inline;
-	*zoom:1;
-	height: 14px;
-	line-height: 14px;
-	margin-left: 6px;
-	min-width: 15px;
-	padding: 1px 2px;
-	text-align: center;
-	white-space: nowrap;
-	font-size: 11px;
-	position: relative;
-	top: 1px;
-	vertical-align: top;
-}
-.fb-custom-like .fb-custom-share-count::before,
-.fb-custom-like .fb-custom-share-count::after {
-	content: '.';
-	display: block;
-	border-color: transparent #D7D7D7;
-	border-style: solid;
-	border-width: 4px 5px 4px 0;
-	display: block;
-	top: 4px;
-	position: absolute;
-	left: -5px;
-	height: 0;
-	line-height: 0;
-	font-size: 0;
-}
-.odkl-klass-stat, .odkl-klass-oc {
-    height: 20px !important;
-}
 /* social icons small 20*20px */
 .social-small-row {
 	text-align:center;

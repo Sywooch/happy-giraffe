@@ -204,7 +204,7 @@ class Page extends CActiveRecord
                 $keyword_group = new KeywordGroup();
                 if (!empty($keyword_id))
                     $keyword_group->keywords = array($keyword_id);
-                $keyword_group->save();
+                $keyword_group->withRelated->save(true,array('keywords'));
 
                 $model = new Page();
                 $model->url = $url;

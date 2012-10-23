@@ -43,4 +43,19 @@ class RatingCommand extends CConsoleCommand
             echo ($i + 1) . '/' . $count . '|' . $url . "\n";
         }
     }
+
+    public function actionCalc()
+    {
+        $models = ContestWork::model()->findAll('contest_id = 2');
+
+        foreach ($models as $model) {
+            $criteria = new EMongoCriteria();
+            $criteria->entity_id('==', $model->entity_id);
+            $criteria->entity_name('==', $model->entity_name);
+            $yohoho = RatingYohoho::model()->count($criteria);
+            $model->ratings['yh'] = $yohoho*2;
+
+            echo $model->ratings['yh']."\n";
+        }
+    }
 }

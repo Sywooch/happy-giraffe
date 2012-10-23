@@ -50,12 +50,15 @@ class RatingCommand extends CConsoleCommand
 
         foreach ($models as $model) {
             $criteria = new EMongoCriteria();
-            $criteria->entity_id('==', $model->entity_id);
-            $criteria->entity_name('==', $model->entity_name);
+            $criteria->entity_id('==', (int)$model->id);
+            $criteria->entity_name('==', 'ContestWork');
             $yohoho = RatingYohoho::model()->count($criteria);
-            $model->ratings['yh'] = $yohoho*2;
 
-            echo $model->ratings['yh']."\n";
+            $rating = Rating::model()->find($criteria);
+            if ($rating !== null) {
+                $rating->ratings['yh'] = $yohoho * 2;
+                echo $rating->ratings['yh'] . "\n";
+            }
         }
     }
 }

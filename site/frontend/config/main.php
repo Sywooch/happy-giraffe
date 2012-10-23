@@ -121,7 +121,7 @@ return array(
                         'javascripts/messages.js',
                         'javascripts/friends.js',
                         'javascripts/notifications.js',
-                        'javascripts/settings.js?2',
+                        'javascripts/settings.js',
                         'javascripts/wantToChat.js',
                     ),
                     'depends' => array('comet'),

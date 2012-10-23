@@ -108,7 +108,15 @@ class BlogController extends HController
         $model = BlogContent::model()->full()->findByPk($content_id);
         $model->scenario = 'default';
         if ($model === null)
-            throw CHttpException(404, 'Запись не найдена');
+            throw new CHttpException(404, 'Запись не найдена');
+
+        //если не имеет прав на редактирование
+        if ($model->author_id != Yii::app()->user->id && ! Yii::app()->authManager->checkAccess('editBlogContent', Yii::app()->user->id))
+            throw new CHttpException(404, 'Запись не найдена.');
+
+        //уволенный сотрудник
+        if (UserAttributes::isFiredWorker(Yii::app()->user->id, $model->created))
+            throw new CHttpException(404, 'Запись не найдена.');
 
         $content_type = $model->type;
         $slave_model = $model->content;

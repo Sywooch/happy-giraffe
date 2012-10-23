@@ -58,4 +58,15 @@ class UserAttributes extends EMongoDocument
             return false;
         }
     }
+
+    public static function isFiredWorker($user_id, $created_time)
+    {
+        $fire_time = UserAttributes::get($user_id, 'fire_time');
+        if (!empty($fire_time)){
+            if ($fire_time > strtotime($created_time))
+                return true;
+        }
+
+        return false;
+    }
 }

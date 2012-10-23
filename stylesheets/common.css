@@ -341,6 +341,7 @@ input[type=text].error , input[type=password].error , textarea.error {border:1px
 .btn-green {
     display: inline-block;
     *display: inline;
+	*zoom: 1;
     padding: 4px 10px 4px;
     margin-bottom: 0;
     *margin-left: .3em;
@@ -361,15 +362,15 @@ input[type=text].error , input[type=password].error , textarea.error {border:1px
     background-image: -moz-linear-gradient(top, #71e16c, #21a34a);
     background-repeat: repeat-x;
 
-    filter: progid:dximagetransform.microsoft.gradient(startColorstr='#71e16c', endColorstr='#21a34a', GradientType=0);
-    filter: progid:dximagetransform.microsoft.gradient(enabled=false);
-    *zoom: 1;
+
+    
     -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#71e16c', EndColorStr='#21a34a')";
 
     -moz-border-radius:5px;
     -webkit-border-radius:5px;
     border-radius:5px;
 }
+.ie7 .btn-green {filter: progid:dximagetransform.microsoft.gradient(startColorstr='#71e16c', endColorstr='#21a34a', GradientType=0);}
 .btn-green:hover {
     background-color: #089735;
     *background-color: #089735;
@@ -2641,7 +2642,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 #content .club-fast-nav .club-join-btn {display:block;height:36px;padding:0 24px;background:#59b4dd;color:#fff;line-height:36px;font-size:16px;font-weight:bold;text-decoration:none;position:relative;top:-3px;float:right;}
 #content .club-fast-nav .club-join-btn {/*css3*/ -moz-border-radius:15px;-webkit-border-radius:15px;border-radius:15px;behavior: url(/stylesheets/PIE.htc);}
 
-#content .club-fast-add {margin:2px 0 40px;text-align:center;}
+#content .club-fast-add {margin:2px 0 30px;text-align:center;}
 #content .club-fast-add .btn-green {width:220px;}
 #content .club-fast-add ul {padding:10px 20px;background:#fffedf;margin-top:10px;list-style:none;overflow:hidden;}
 #content .club-fast-add ul li {float:left;width:50%;margin:5px 0;}
@@ -2711,7 +2712,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 .slide-nav > ul > li > ul li.active span {font-size:20px;color:#474747;top:0;}
 
 
-#content .recent-topics {margin-bottom:20px;padding:15px 20px;border:1px solid #d8f1ff;}
+#content .recent-topics {margin-bottom:20px;padding:15px 20px 20px;border:1px solid #d8f1ff;}
 #content .recent-topics .title {font-weight:bold;color:#666666;font-size:16px;}
 #content .recent-topics ul {list-style:none;}
 #content .recent-topics ul li {margin-top:15px;}

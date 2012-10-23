@@ -162,7 +162,7 @@ class HController extends CController
 
     protected function combineStatic()
     {
-        if (YII_DEBUG === false) {
+        if (YII_DEBUG === false && false) {
             $jsPath = Yii::getPathOfAlias('application.www-submodule.javascripts') . DIRECTORY_SEPARATOR;
             $cssPath = Yii::getPathOfAlias('application.www-submodule.stylesheets') . DIRECTORY_SEPARATOR;
 

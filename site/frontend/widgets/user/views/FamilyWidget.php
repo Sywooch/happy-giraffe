@@ -1,5 +1,9 @@
+<?php
+    $border = UserAttributes::get($user->id, 'familyBorder', 0);
+?>
+
 <?php if (($user->babyCount() > 0) || ($user->hasPartner() && !empty($user->partner->name)) || $this->showEmpty):?>
-<div class="user-family">
+<div class="user-family user-family-border-<?=$border?>">
     <div class="t"></div>
     <div class="c">
         <ul>
@@ -75,9 +79,26 @@
         <?php if ($album = $user->getSystemAlbum(3)): ?>
             <?=CHtml::link('Смотреть семейный<br/>альбом', $album->url, array('class' => 'watch-album'))?>
         <?php endif; ?>
+        <?php if ($this->isMyProfile && $user->hasFeature(1)): ?>
+            <div class="user-family-settings clearfix">
+                <div class="a-right tooltip-new">9 новых</div>
+                <a class="a-right pseudo" href="javascript:void(0)" onclick="$('.user-family-borders').toggle();">Стиль статуса</a>
+            </div>
+        <?php endif; ?>
     </div>
     <div class="b"></div>
 </div>
+
+    <?php if ($this->isMyProfile && $user->hasFeature(1)): ?>
+        <div class="user-family-borders" style="display: none;">
+            <p>Выберите стиль рамки</p>
+            <ul class="pattern-list clearfix">
+                <?php for ($i = 0; $i <= 8; $i++): ?>
+                    <li><a href="javascript:void(0)" onclick="Features.selectFeature('familyBorder', <?=$i?>, function(){Features.familyBorder(<?=$i?>)})"<?php if ($border == $i): ?> class="active"<?php endif; ?>><span class="pattern user-family-border-<?=$i?>"></span></a></li>
+                <?php endfor; ?>
+            </ul>
+        </div>
+    <?php endif; ?>
 <?php else: ?>
 <?php if ($this->user->relationship_status == 0 && $this->isMyProfile && $user->babyCount() == 0): ?>
     <div class="user-family user-family-cap">

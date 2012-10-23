@@ -39,6 +39,8 @@
     $cs
         ->registerScript('UserStatusWidget', $js)
         ->registerCss('UserStatusWidget', $css);
+
+    $statusStyle = UserAttributes::get($user->id, 'statusStyle', 0);
 ?>
 
 <div class="user-status<?php if ($user->getScores()->full != 2 && $user->id == Yii::app()->user->id) echo ' toggled' ?>">
@@ -66,3 +68,14 @@
         <?php echo CHtml::endForm(); ?>
     <?php endif; ?>
 </div>
+
+<?php if ($this->isMyProfile && $user->hasFeature(2)): ?>
+    <div class="user-status-patterns">
+        <p>Выберите подходящий вам стиль</p>
+        <ul class="pattern-list clearfix">
+            <?php for ($i = 10; $i <= 18; $i++): ?>
+                <li><a class="active" href="#"><span class="pattern pattern-15"></span></a></li>
+            <?php endfor; ?>
+        </ul>
+    </div>
+<?php endif; ?>

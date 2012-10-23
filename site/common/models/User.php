@@ -1111,4 +1111,9 @@ class User extends HActiveRecord
     {
         return ContestWork::model()->findByAttributes(array('user_id' => $this->id, 'contest_id' => $contest_id));
     }
+
+    public function hasFeature($feature_id)
+    {
+        return true;
+    }
 }

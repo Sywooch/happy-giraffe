@@ -351,6 +351,7 @@ return array(
                 'jquery.tmpl.min.js',
                 'login.js',
                 'auth.js',
+                'jquery.yiilistview.js',
             ),
             '/javascripts/all_user.js' => array(
                 'comet.js',

@@ -37,7 +37,7 @@ class MailChimp extends CApplicationComponent
         $this->api->listBatchSubscribe($this->list, $options, false, true, false);
     }
 
-    public function updateUsersTest()
+    /*public function updateUsersTest()
     {
         //пользователи которые зарегистрировались после 1 мая + наши сотрудники
         $criteria = new CDbCriteria;
@@ -58,7 +58,7 @@ class MailChimp extends CApplicationComponent
             echo $res;
             $i++;
         }
-    }
+    }*/
 
     public function updateUsers()
     {
@@ -99,9 +99,10 @@ class MailChimp extends CApplicationComponent
     {
         $criteria = new CDbCriteria;
         $criteria->limit = 100;
+        $criteria->offset = 10000;
 
         $users = array(1);
-        while (!empty($users) && $criteria->offset < 10000) {
+        while (!empty($users) && $criteria->offset < 20000) {
             $users = MailruUser::model()->findAll($criteria);
             $options = array();
             foreach ($users as $user) {

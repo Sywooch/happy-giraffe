@@ -63,7 +63,7 @@ class UserAttributes extends EMongoDocument
     {
         $fire_time = UserAttributes::get($user_id, 'fire_time');
         if (!empty($fire_time)){
-            if ($fire_time > $created_time)
+            if ($fire_time > strtotime($created_time))
                 return true;
         }
 

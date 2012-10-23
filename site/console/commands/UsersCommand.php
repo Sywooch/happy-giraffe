@@ -4,6 +4,9 @@
  * Date: 10.03.12
  *
  */
+
+Yii::import('site.common.models.mongo.*');
+Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
 class UsersCommand extends CConsoleCommand
 {
     public function actionIndex()
@@ -84,10 +87,8 @@ class UsersCommand extends CConsoleCommand
         echo $k . "\n";
     }
 
-    public function actionShowLikes($work){
-        Yii::import('site.common.models.mongo.*');
-        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
-
+    public function actionShowLikes($work)
+    {
         $models = RatingYohoho::model()->findAllByAttributes(array(
             'entity_name'=>'ContestWork',
             'entity_id'=>(int)$work
@@ -95,5 +96,11 @@ class UsersCommand extends CConsoleCommand
 
         foreach($models as $model)
             echo $model->user_id.' - '.User::getUserById($model->user_id)->last_ip."\n";
+    }
+
+    public function actionFire($user)
+    {
+        $user = User::model()->findByPk($user);
+        UserAttributes::set($user->id, 'fire_time', time());
     }
 }

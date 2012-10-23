@@ -166,7 +166,7 @@ class HController extends CController
 
     protected function combineStatic()
     {
-        if (YII_DEBUG === false || true) {
+        if (YII_DEBUG === false) {
             $wwwPath = Yii::getPathOfAlias('application.www-submodule');
 
             foreach (Yii::app()->params['combineMap'] as $all => $filesArray) {

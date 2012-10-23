@@ -39,7 +39,7 @@
                 </thead>
                 <tbody>
                 <?php foreach ($tasks as $task) if ($task->status == SeoTask::STATUS_READY || $task->status == SeoTask::STATUS_TAKEN) { ?>
-                <tr>
+                <tr data-id=<?=$task->id ?>>
                     <td class="al"><?=$task->getText() ?></td>
                     <td><?=$task->getExecutor() ?></td>
                     <td class="seo-status-new-<?=$task->status ?>"><?=$task->statusText ?></td>

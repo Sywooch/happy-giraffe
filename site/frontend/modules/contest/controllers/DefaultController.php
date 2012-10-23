@@ -31,6 +31,8 @@ class DefaultController extends HController
 
     public function init()
     {
+        parent::init();
+
         Yii::import('site.frontend.widgets.user.UserCoreWidget');
     }
 

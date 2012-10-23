@@ -15,7 +15,7 @@ class HController extends CController
     public $meta_title = null;
     public $page_meta_model = null;
 
-    protected $r = 1;
+    protected $r = 5;
 
     public function filterAjaxOnly($filterChain)
     {
@@ -27,6 +27,8 @@ class HController extends CController
 
     public function init()
     {
+        parent::init();
+
         $this->combineStatic();
     }
 
@@ -164,7 +166,7 @@ class HController extends CController
 
     protected function combineStatic()
     {
-        if (YII_DEBUG === false) {
+        if (YII_DEBUG === false || true) {
             $wwwPath = Yii::getPathOfAlias('application.www-submodule');
 
             foreach (Yii::app()->params['combineMap'] as $all => $filesArray) {

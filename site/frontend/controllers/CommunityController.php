@@ -185,17 +185,22 @@ class CommunityController extends HController
         $model = CommunityContent::model()->full()->findByPk($content_id);
         $model->scenario = 'default';
         if ($model === null)
-            throw CHttpException(404, 'Запись не найдена');
+            throw new CHttpException(404, 'Запись не найдена');
 
         $this->community = $model->rubric->community;
         $community_id = $model->rubric->community->id;
         $rubric_id = $model->rubric->id;
 
+        //если не имеет прав на редактирование
         if (
             $model->author_id != Yii::app()->user->id &&
             ! Yii::app()->authManager->checkAccess('editCommunityContent', Yii::app()->user->id, array('community_id' => $community_id)) &&
             ! Yii::app()->authManager->checkAccess('transfer post', Yii::app()->user->id)
         )
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
+        //уволенный сотрудник
+        if (UserAttributes::isFiredWorker(Yii::app()->user->id, $model->created))
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
         $content_type = $model->type;

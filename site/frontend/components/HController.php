@@ -168,12 +168,8 @@ class HController extends CController
             $wwwPath = Yii::getPathOfAlias('application.www-submodule');
 
             foreach (Yii::app()->params['combineMap'] as $all => $filesArray) {
-                $ext = pathinfo($all, PATHINFO_EXTENSION);
-                $dir = ($ext == 'js') ? 'javascripts' : 'stylesheets';
-                $path = $wwwPath . DIRECTORY_SEPARATOR . $dir . DIRECTORY_SEPARATOR . $all;
-
-                if (file_exists($path)) {
-                    $to = Yii::app()->request->isAjaxRequest ? false : DIRECTORY_SEPARATOR . $dir . DIRECTORY_SEPARATOR . $all . '?r=' . $this->r;
+                if (file_exists($wwwPath . $all)) {
+                    $to = Yii::app()->request->isAjaxRequest ? false : $all . '?r=' . $this->r;
                     foreach ($filesArray as $f)
                         Yii::app()->clientScript->scriptMap[$f] = $to;
                 }

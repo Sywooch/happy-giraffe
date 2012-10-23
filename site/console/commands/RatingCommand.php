@@ -59,6 +59,7 @@ class RatingCommand extends CConsoleCommand
             if ($rating !== null) {
                 $rating->ratings['yh'] = $yohoho * 2;
                 echo $rating->ratings['yh'] . "\n";
+                $rating->save();
             }
         }
     }

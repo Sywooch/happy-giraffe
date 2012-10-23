@@ -286,28 +286,29 @@ class SeoCommand extends CConsoleCommand
             ->selectDistinct('parent_id')
             ->from('mailru__babies')
             ->queryColumn();
-        echo count($models)." parents have children \n";
+        echo count($models) . " parents have children \n";
 
         echo  Yii::app()->db_seo->createCommand()
             ->select('count(id)')
             ->from('mailru__babies')
-            ->queryScalar()." babies count\n";
+            ->queryScalar() . " babies count\n";
     }
 
     public function actionPopular()
     {
         $criteria = new EMongoCriteria();
-        $criteria->limit = 100;
+        $criteria->limit(100);
 
         $result = array();
         $models = array(0);
         while (!empty($models)) {
             $models = PageView::model()->findAll($criteria);
 
-            foreach ($models as $model) {
-                if (strpos($model->path, '/cook/recipe/') || strpos($model->path, '/cook/multivarka/'))
-                    $result [] = array('path'=>$model->path, 'views'=>$model->views);
-            }
+            foreach ($models as $model)
+                if (strpos($model->_id, '/cook/recipe/') !== false
+                    || strpos($model->_id, '/cook/multivarka/') !== false
+                )
+                    $result [] = array('path' => $model->_id, 'views' => $model->views);
 
             $criteria->setOffset($criteria->getOffset() + 100);
         }
@@ -316,7 +317,7 @@ class SeoCommand extends CConsoleCommand
         usort($result, array($this, 'cmp'));
         $result = array_slice($result, 0, 100);
         foreach ($result as $model)
-            echo $model->url."\n";
+            echo 'http://www.happy-giraffe.ru'.$model['path'] . "\n";
     }
 
     function cmp($a, $b)

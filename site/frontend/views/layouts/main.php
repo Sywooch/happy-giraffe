@@ -17,8 +17,8 @@
     $release_id = 1001;
     $cs = Yii::app()->clientScript;
     $cs
-        ->registerCssFile('/stylesheets/common.css?'.$release_id)
-        ->registerCssFile('/stylesheets/global.css?'.$release_id)
+        ->registerCssFile('/stylesheets/common.css')
+        ->registerCssFile('/stylesheets/global.css')
         ->registerCssFile('/stylesheets/ie.css', 'screen')
         ->registerCssFile('/stylesheets/jquery.fancybox-1.3.4.css')
 
@@ -26,13 +26,13 @@
         ->registerCoreScript('yiiactiveform')
         ->registerCoreScript('bbq')
 
-        ->registerScriptFile('/javascripts/jquery.fancybox-1.3.4.js?'.$release_id)
+        ->registerScriptFile('/javascripts/jquery.fancybox-1.3.4.js')
         ->registerScriptFile('/javascripts/jquery.iframe-post-form.js')
         ->registerScriptFile('/javascripts/jquery.placeholder.min.js')
         ->registerScriptFile('/javascripts/chosen.jquery.min.js')
         ->registerScriptFile('/javascripts/checkbox.js')
         ->registerScript('base_url', 'var base_url = \'' . Yii::app()->baseUrl . '\';', CClientScript::POS_HEAD)
-        ->registerScriptFile('/javascripts/common.js?'.$release_id)
+        ->registerScriptFile('/javascripts/common.js')
         ->registerScriptFile('/javascripts/base64.js')
         ->registerScriptFile('/javascripts/jquery.tooltip.pack.js')
         ->registerScriptFile('/javascripts/jquery.dataSelector.js')

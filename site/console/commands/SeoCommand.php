@@ -6,6 +6,7 @@
 
 Yii::import('site.seo.models.*');
 Yii::import('site.seo.models.mongo.*');
+Yii::import('site.common.models.mongo.*');
 Yii::import('site.seo.components.*');
 Yii::import('site.seo.modules.competitors.models.*');
 Yii::import('site.seo.modules.writing.models.*');
@@ -291,6 +292,38 @@ class SeoCommand extends CConsoleCommand
             ->select('count(id)')
             ->from('mailru__babies')
             ->queryScalar()." babies count\n";
+    }
+
+    public function actionPopular()
+    {
+        $criteria = new EMongoCriteria();
+        $criteria->limit = 100;
+
+        $result = array();
+        $models = array(0);
+        while (!empty($models)) {
+            $models = PageView::model()->findAll($criteria);
+
+            foreach ($models as $model) {
+                if (strpos($model->path, '/cook/recipe/') || strpos($model->path, '/cook/multivarka/'))
+                    $result [] = array('path'=>$model->path, 'views'=>$model->views);
+            }
+
+            $criteria->setOffset($criteria->getOffset() + 100);
+        }
+
+        //sort array
+        usort($result, array($this, 'cmp'));
+        $result = array_slice($result, 0, 100);
+        foreach ($result as $model)
+            echo $model->url."\n";
+    }
+
+    function cmp($a, $b)
+    {
+        if ($a['views'] == $b['views'])
+            return 0;
+        return ($a['views'] > $b['views']) ? -1 : 1;
     }
 }
 

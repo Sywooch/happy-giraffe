@@ -15,6 +15,8 @@ class HController extends CController
     public $meta_title = null;
     public $page_meta_model = null;
 
+    protected $r = 1;
+
     public function filterAjaxOnly($filterChain)
     {
         if (Yii::app()->getRequest()->getIsAjaxRequest())
@@ -166,11 +168,9 @@ class HController extends CController
             $wwwPath = Yii::getPathOfAlias('application.www-submodule') . DIRECTORY_SEPARATOR;
 
             foreach (Yii::app()->params['combineMap'] as $all => $filesArray) {
-                $ext = pathinfo($all, PATHINFO_EXTENSION);
-                $filePath = $wwwPath . $all;
-                if (file_exists($filePath)) {
+                if (file_exists($wwwPath . $all)) {
                     foreach ($filesArray as $f)
-                        Yii::app()->clientScript->scriptMap[$f] = $all;
+                        Yii::app()->clientScript->scriptMap[$f] = $all . '?r=' . $this->r;
                 }
             }
         }

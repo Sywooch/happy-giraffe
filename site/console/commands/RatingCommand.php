@@ -46,7 +46,8 @@ class RatingCommand extends CConsoleCommand
 
     public function actionCalc()
     {
-        $models = ContestWork::model()->findAll('contest_id = 2');
+        //$models = ContestWork::model()->findAll('contest_id = 2');
+        $models = array(ContestWork::model()->findByPk(541));
 
         foreach ($models as $model) {
             $criteria = new EMongoCriteria();

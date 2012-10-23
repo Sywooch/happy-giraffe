@@ -24,39 +24,27 @@ class UserPopupController extends HController
 
     public function actionFriends($ajax = false)
     {
-        Yii::beginProfile('requests');
         $requests = Yii::app()->user->model->getFriendRequests('incoming');
         $requests->pagination->pageSize = 999;
         $hasInvitations = $requests->itemCount > 0;
-        Yii::endProfile('requests');
 
-        Yii::beginProfile('findFriends');
         $findFriends = Yii::app()->user->model->findFriends($hasInvitations ? 4 : 8);
-        Yii::endProfile('findFriends');
 
-        Yii::beginProfile('friendsCount');
         $friendsCount = Yii::app()->user->model->getFriendsCount();
-        Yii::endProfile('friendsCount');
 
-        Yii::beginProfile('lastFriend');
         $lastFriendCriteria = Yii::app()->user->model->getFriendsCriteria(array(
             'select' => 't.*, friends.created AS fCreated',
             'order' => 'friends.created DESC',
         ));
 
         $lastFriend = User::model()->find($lastFriendCriteria);
-        Yii::endProfile('lastFriend');
 
-        Yii::beginProfile('actions');
         $newsCriteria = UserAction::model()->getFriendsCriteria(Yii::app()->user->id);
         $newsCriteria->limit = 10;
         $newsCriteria->sort('updated', EMongoCriteria::SORT_DESC);
         $news = UserAction::model()->findAll($newsCriteria);
-        Yii::endProfile('actions');
 
-        Yii::beginProfile('render');
         $this->renderPartial('friends', compact('requests', 'friendsCount', 'lastFriend', 'hasInvitations', 'findFriends', 'news', 'ajax'), false, true);
-        Yii::endProfile('render');
     }
 
     public function actionTest()

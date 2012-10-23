@@ -163,12 +163,11 @@ class HController extends CController
     protected function combineStatic()
     {
         if (YII_DEBUG === false) {
-            $jsPath = Yii::getPathOfAlias('application.www-submodule.javascripts') . DIRECTORY_SEPARATOR;
-            $cssPath = Yii::getPathOfAlias('application.www-submodule.stylesheets') . DIRECTORY_SEPARATOR;
+            $wwwPath = Yii::getPathOfAlias('application.www-submodule') . DIRECTORY_SEPARATOR;
 
             foreach (Yii::app()->params['combineMap'] as $all => $filesArray) {
                 $ext = pathinfo($all, PATHINFO_EXTENSION);
-                $filePath = (($ext == 'js') ? $jsPath : $cssPath) . $all;
+                $filePath = $wwwPath . $all;
                 if (file_exists($filePath)) {
                     foreach ($filesArray as $f)
                         Yii::app()->clientScript->scriptMap[$f] = $all;

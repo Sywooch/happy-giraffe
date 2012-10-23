@@ -101,11 +101,9 @@ class CookController extends SController
             }
 
             $group = new KeywordGroup();
-            $group->keywords = $keyword;
-            $group->save();
+            $group->keywords = array($keyword);
 
-
-            if ($group->save()) {
+            if ($group->withRelated->save(true,array('keywords'))) {
                 $task = new SeoTask();
                 $task->keyword_group_id = $group->id;
                 $task->executor_id = $author_id;

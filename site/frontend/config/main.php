@@ -121,11 +121,8 @@ return array(
                         'javascripts/messages.js',
                         'javascripts/friends.js',
                         'javascripts/notifications.js',
-                        'javascripts/settings.js?2',
+                        'javascripts/settings.js',
                         'javascripts/wantToChat.js',
-                    ),
-                    'css' => array(
-                        'stylesheets/user_common.css',
                     ),
                     'depends' => array('comet'),
                 )
@@ -336,7 +333,7 @@ return array(
         'yandex_map_key'=>'APNWO08BAAAAW2vMcQMAZXlfPtec2tbfe7OW5EsxvDs1as4AAAAAAAAAAACnuPxeb0WX5vAOrlYnXZpmrsJVtA==',
         'google_map_key'=>'AIzaSyCk--cFAYpjqqxmbabeV9IIlwbmnYlzHfc',
         'combineMap' => array(
-            'all.js' => array(
+            '/javascripts/all.js' => array(
                 'jquery.min.js',
                 'jquery.yiiactiveform.js',
                 'jquery.ba-bbq.js',
@@ -351,8 +348,12 @@ return array(
                 'jquery.dataSelector.js',
                 'jquery.jcarousel.js',
                 'jquery.jcarousel.control.js',
+                'jquery.tmpl.min.js',
+                'login.js',
+                'auth.js',
+                'jquery.yiilistview.js',
             ),
-            'all_user.js' => array(
+            '/javascripts/all_user.js' => array(
                 'comet.js',
                 'dklab_realplexor.js',
                 'user_common.js',
@@ -362,12 +363,13 @@ return array(
                 'settings.js',
                 'wantToChat.js',
             ),
-            'all.css' => array(
+            '/stylesheets/all.css' => array(
                 'baby.css',
                 'common.css',
                 'global.css',
                 'jquery.fancybox-1.3.4.css',
                 'user.css',
+                'auth.css',
             ),
         ),
 	),

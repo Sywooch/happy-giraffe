@@ -15,6 +15,8 @@ class HController extends CController
     public $meta_title = null;
     public $page_meta_model = null;
 
+    protected $r = 1;
+
     public function filterAjaxOnly($filterChain)
     {
         if (Yii::app()->getRequest()->getIsAjaxRequest())
@@ -31,7 +33,7 @@ class HController extends CController
     protected function beforeAction($action)
     {
         // отключение повторной подгрузки jquery
-        if (Yii::app()->request->isAjaxRequest) {
+        /* if (Yii::app()->request->isAjaxRequest) {
             Yii::app()->clientScript->scriptMap = array(
                 'jquery.js' => false,
                 'jquery.min.js' => false,
@@ -39,7 +41,7 @@ class HController extends CController
                 'jquery.ba-bbq.js' => false,
                 'jquery.yiilistview.js' => false,
             );
-        }
+        } */
 
         // noindex для дева
         if ($_SERVER['HTTP_HOST'] == 'dev.happy-giraffe.ru') {
@@ -162,16 +164,14 @@ class HController extends CController
 
     protected function combineStatic()
     {
-        if (YII_DEBUG === false && false) {
-            $jsPath = Yii::getPathOfAlias('application.www-submodule.javascripts') . DIRECTORY_SEPARATOR;
-            $cssPath = Yii::getPathOfAlias('application.www-submodule.stylesheets') . DIRECTORY_SEPARATOR;
+        if (YII_DEBUG === false) {
+            $wwwPath = Yii::getPathOfAlias('application.www-submodule');
 
             foreach (Yii::app()->params['combineMap'] as $all => $filesArray) {
-                $ext = pathinfo($all, PATHINFO_EXTENSION);
-                $filePath = (($ext == 'js') ? $jsPath : $cssPath) . $all;
-                if (file_exists($filePath)) {
+                if (file_exists($wwwPath . $all)) {
+                    $to = Yii::app()->request->isAjaxRequest ? false : $all . '?r=' . $this->r;
                     foreach ($filesArray as $f)
-                        Yii::app()->clientScript->scriptMap[$f] = $all;
+                        Yii::app()->clientScript->scriptMap[$f] = $to;
                 }
             }
         }

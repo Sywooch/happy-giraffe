@@ -104,6 +104,11 @@ class AjaxController extends HController
         if (!$model)
             Yii::app()->end();
 
+        if ($social_key == 'yh')
+            $value = 2;
+        else
+            $value = 1;
+
         if ($url = Yii::app()->request->getPost('url')) {
             Rating::model()->updateByApi($model, $social_key, $url);
         } else {

@@ -1,7 +1,12 @@
 <?php
-$albumsCount = count($albums = $this->user->getRelated('albums', true, array('scopes' => array('noSystem'))));
-$albums = $this->user->getRelated('albums', true, array('limit' => 2, 'scopes' => array('noSystem')));
-Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl . '/stylesheets/user.css');
+$albumsCount = count($albums = $this->user->getRelated('albums', true, array('scopes' => array('noSystem'), 'with'=>array('photoCount'))));
+foreach($albums as $album)
+    if ($album->photoCount == 0)
+        $albumsCount--;
+
+if ($albumsCount > 0){
+    $albums = $this->user->getRelated('albums', true, array('limit' => 2, 'scopes' => array('noSystem')));
+    Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl . '/stylesheets/user.css');
 ?>
 <div class="user-albums">
     <div class="box-title">
@@ -39,3 +44,4 @@ Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl . '/stylesheets/us
         <?php endforeach; ?>
     </ul>
 </div>
+<?php } ?>

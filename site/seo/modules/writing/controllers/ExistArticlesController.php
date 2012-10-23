@@ -86,7 +86,7 @@ class ExistArticlesController extends SController
                 } else {
 
                     $group->keywords = $keyword_models;
-                    $group->save();
+                    $group->withRelated->save(true,array('keywords'));
 
                     $page->keyword_group_id = $group->id;
                     if ($page->save()) {

@@ -117,9 +117,9 @@ class MailCommand extends CConsoleCommand
         Yii::import('site.common.models.mongo.*');
         Yii::import('site.common.extensions.mailchimp.*');
 
-        $subject = 'Новый фотоконкурс на "Веселом Жирафе"!';
+        $subject = 'Фотоконкурс «Мама и Я» на «Веселом Жирафе»!';
         $opts = array(
-            'list_id' => MailChimp::WEEKLY_NEWS_LIST_ID,
+            'list_id' => MailChimp::CONTEST_LIST,
             'from_email' => 'support@happy-giraffe.ru',
             'from_name' => 'Веселый Жираф',
             'template_id' => 49097,
@@ -211,6 +211,18 @@ class MailCommand extends CConsoleCommand
         Yii::import('site.common.models.mongo.*');
 
         Yii::app()->mc->updateUsers();
+    }
+
+    public function actionMailruUsers()
+    {
+        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
+        Yii::import('site.frontend.extensions.*');
+        Yii::import('site.frontend.components.*');
+        Yii::import('site.frontend.helpers.*');
+        Yii::import('site.common.models.mongo.*');
+        Yii::import('site.seo.models.*');
+
+        Yii::app()->mc->updateMailruUsers();
     }
 
     public function actionDeleteUsers()

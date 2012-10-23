@@ -157,7 +157,7 @@ class EditorController extends SController
 
         $group = new KeywordGroup();
         $group->keywords = $keywords;
-        if ($group->save()) {
+        if ($group->withRelated->save(true,array('keywords'))) {
             $task = new SeoTask();
             $task->keyword_group_id = $group->id;
             $task->type = $type;
@@ -330,7 +330,7 @@ class EditorController extends SController
                 $group->keywords = array($keyword_id);
             }
 
-            if (!$group->save()) {
+            if (!$group->withRelated->save(true,array('keywords'))) {
                 echo CJSON::encode(array(
                     'status' => false,
                     'error' => 'Ошибка при сохранении группы кейвордов'
@@ -364,7 +364,7 @@ class EditorController extends SController
 
             $group = new KeywordGroup();
             $group->keywords = array($keyword_id);
-            if (!$group->save()) {
+            if (!$group->withRelated->save(true,array('keywords'))) {
                 echo CJSON::encode(array(
                     'status' => false,
                     'error' => 'Ошибка при сохранении группы кейвордов'
@@ -403,7 +403,7 @@ class EditorController extends SController
             $group = new KeywordGroup();
             $group->keywords = array($keyword_id);
 
-            if ($group->save()) {
+            if ($group->withRelated->save(true,array('keywords'))) {
                 $page = new Page();
                 $page->url = $url;
                 list($entity, $entity_id) = Page::ParseUrl($url);

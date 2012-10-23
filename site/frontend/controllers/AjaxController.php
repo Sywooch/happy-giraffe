@@ -312,6 +312,10 @@ class AjaxController extends HController
         if (!Yii::app()->user->checkAccess('remove' . get_class($model), array('user_id' => $model->author_id)) && !$is_entity_author)
             Yii::app()->end();
 
+        //уволенный сотрудник
+        if (UserAttributes::isFiredWorker(Yii::app()->user->id, $model->created))
+            Yii::app()->end();
+
         //if user remove commentator comment, then commentator will ignore this users
         if (Yii::app()->user->model->group == UserGroup::USER && $is_entity_author && Yii::app()->user->id != $model->author_id) {
             Yii::import('site.frontend.modules.signal.models.*');

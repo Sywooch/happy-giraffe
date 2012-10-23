@@ -102,7 +102,7 @@ class CookController extends SController
 
             $group = new KeywordGroup();
             $group->keywords = $keyword;
-            $group->save();
+            $group->withRelated->save(true,array('keywords'));
 
 
             if ($group->save()) {

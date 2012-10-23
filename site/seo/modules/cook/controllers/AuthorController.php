@@ -40,7 +40,7 @@ class AuthorController extends SController
             $keyword = Keyword::GetKeyword($task->article_title);
             $group = new KeywordGroup();
             $group->keywords = array($keyword);
-            if (!$group->save())
+            if (!$group->withRelated->save(true,array('keywords')))
                 var_dump($group->getErrors());
 
             $task->keyword_group_id = $group->id;

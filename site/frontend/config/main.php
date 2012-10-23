@@ -124,9 +124,6 @@ return array(
                         'javascripts/settings.js?2',
                         'javascripts/wantToChat.js',
                     ),
-                    'css' => array(
-                        'stylesheets/user_common.css',
-                    ),
                     'depends' => array('comet'),
                 )
             ),
@@ -351,6 +348,9 @@ return array(
                 'jquery.dataSelector.js',
                 'jquery.jcarousel.js',
                 'jquery.jcarousel.control.js',
+                'jquery.tmpl.min.js',
+                'login.js',
+                'auth.js',
             ),
             'javascripts/all_user.js' => array(
                 'comet.js',
@@ -368,6 +368,7 @@ return array(
                 'global.css',
                 'jquery.fancybox-1.3.4.css',
                 'user.css',
+                'auth.css',
             ),
         ),
 	),

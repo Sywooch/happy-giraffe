@@ -103,7 +103,7 @@ class CookController extends SController
             $group = new KeywordGroup();
             $group->keywords = array($keyword);
 
-            if ($group->withRelated->save(true,array('keywords'))) {
+            if ($group->withRelated->save(true, array('keywords'))) {
                 $task = new SeoTask();
                 $task->keyword_group_id = $group->id;
                 $task->executor_id = $author_id;
@@ -157,25 +157,26 @@ class CookController extends SController
         echo CJSON::encode($response);
     }
 
-    public function actionReturnTask(){
+    public function actionReturnTask()
+    {
         $task = $this->loadTask(Yii::app()->request->getPost('id'));
 
-        if (isset($task->keywordGroup)){
+        if (isset($task->keywordGroup)) {
             $group = $task->keywordGroup;
             $keywords = $task->keywordGroup->keywords;
             $task->delete();
             $group->delete();
             $response = array(
                 'status' => true,
-                'html' => $this->renderPartial('_task1',array('type'=>1, 'keyword'=>$keywords[0]), true)
+                'html' => $this->renderPartial('_task1', array('type' => 1, 'keyword' => $keywords[0]), true)
             );
-        }else{
+        } else {
             $task->executor_id = null;
             $task->multivarka = null;
             $task->save();
             $response = array(
                 'status' => true,
-                'html' => $this->renderPartial('_task1',array('type'=>2, 'by_name_task'=>$task), true)
+                'html' => $this->renderPartial('_task1', array('type' => 2, 'by_name_task' => $task), true)
             );
         }
 
@@ -196,12 +197,24 @@ class CookController extends SController
         ));
     }
 
+    public function actionPopular()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->condition = 'entity = "CookRecipe" OR entity = "CookContent"';
+        $criteria->order = 'yandex_month_visits desc';
+        $criteria->limit = 500;
+
+        $models = Page::model()->findAll($criteria);
+        foreach($models as $model)
+            echo $model->url."<br>";
+    }
+
     /**
      * @param int $id model id
      * @return SeoTask
      * @throws CHttpException
      */
-    public       function loadTask($id)
+    public function loadTask($id)
     {
         $model = SeoTask::model()->findByPk($id);
         if ($model === null)

@@ -333,7 +333,7 @@ return array(
         'yandex_map_key'=>'APNWO08BAAAAW2vMcQMAZXlfPtec2tbfe7OW5EsxvDs1as4AAAAAAAAAAACnuPxeb0WX5vAOrlYnXZpmrsJVtA==',
         'google_map_key'=>'AIzaSyCk--cFAYpjqqxmbabeV9IIlwbmnYlzHfc',
         'combineMap' => array(
-            'javascripts/all.js' => array(
+            '/javascripts/all.js' => array(
                 'jquery.min.js',
                 'jquery.yiiactiveform.js',
                 'jquery.ba-bbq.js',
@@ -352,7 +352,7 @@ return array(
                 'login.js',
                 'auth.js',
             ),
-            'javascripts/all_user.js' => array(
+            '/javascripts/all_user.js' => array(
                 'comet.js',
                 'dklab_realplexor.js',
                 'user_common.js',
@@ -362,7 +362,7 @@ return array(
                 'settings.js',
                 'wantToChat.js',
             ),
-            'stylesheets/all.css' => array(
+            '/stylesheets/all.css' => array(
                 'baby.css',
                 'common.css',
                 'global.css',

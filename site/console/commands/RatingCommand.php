@@ -58,8 +58,8 @@ class RatingCommand extends CConsoleCommand
 
     public function actionCalc()
     {
-        //$models = ContestWork::model()->findAll('contest_id = 2');
-        $models = array(ContestWork::model()->findByPk(445));
+        $models = ContestWork::model()->findAll('contest_id = 2');
+        //$models = array(ContestWork::model()->findByPk(445));
 
         foreach ($models as $model) {
             $criteria = new EMongoCriteria();
@@ -74,9 +74,10 @@ class RatingCommand extends CConsoleCommand
             $unique_likes = array_unique($likes);
 
             if (count($unique_likes) != count($likes)) {
+                echo $model->id." : ".count($likes). " : ";
                 $rating = Rating::model()->find($criteria);
                 if ($rating !== null) {
-                    $rating->ratings['yh'] = count($likes) * 2;
+                    $rating->ratings['yh'] = count($unique_likes) * 2;
                     echo $rating->ratings['yh'] . "\n";
                     //$rating->save();
                 }

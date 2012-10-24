@@ -74,7 +74,7 @@ class RatingCommand extends CConsoleCommand
             $unique_likes = array_unique($likes);
 
             if (count($unique_likes) != count($likes)) {
-                echo $model->id." : ".count($likes). " : ";
+                echo 'http://www.happy-giraffe.ru/user/'.$model->user_id."/ : ".count($likes). " : ";
                 $rating = Rating::model()->find($criteria);
                 if ($rating !== null) {
                     $rating->ratings['yh'] = count($unique_likes) * 2;

@@ -136,6 +136,9 @@ class CommunityContent extends HActiveRecord
             'purified' => array(
                 'class' => 'site.common.behaviors.PurifiedBehavior',
                 'attributes' => array('preview'),
+                'options' => array(
+                    'AutoFormat.Linkify' => true,
+                ),
             ),
             'pingable' => array(
                 'class' => 'site.common.behaviors.PingableBehavior',

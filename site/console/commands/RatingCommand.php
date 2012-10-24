@@ -24,6 +24,18 @@ class RatingCommand extends CConsoleCommand
         }
     }
 
+
+    public function actionShowLikes($work)
+    {
+        $models = RatingYohoho::model()->findAllByAttributes(array(
+            'entity_name'=>'ContestWork',
+            'entity_id'=>(int)$work
+        ));
+
+        foreach($models as $model)
+            echo $model->user_id.' - '.User::getUserById($model->user_id)->last_ip."\n";
+    }
+
     public function actionSync($social_key = null)
     {
         $models = ContestWork::model()->findAll('contest_id = 2');
@@ -47,19 +59,24 @@ class RatingCommand extends CConsoleCommand
     public function actionCalc()
     {
         //$models = ContestWork::model()->findAll('contest_id = 2');
-        $models = array(ContestWork::model()->findByPk(541));
+        $models = array(ContestWork::model()->findByPk(445));
 
         foreach ($models as $model) {
             $criteria = new EMongoCriteria();
             $criteria->entity_id('==', (int)$model->id);
             $criteria->entity_name('==', 'ContestWork');
-            $yohoho = RatingYohoho::model()->count($criteria);
+            $yohoho_models = RatingYohoho::model()->findAll($criteria);
+
+            $likes = array();
+            foreach($yohoho_models as $yohoho_model)
+                $likes [] = User::getUserById($yohoho_model)->last_ip;
+            $likes = array_unique($likes);
 
             $rating = Rating::model()->find($criteria);
             if ($rating !== null) {
-                $rating->ratings['yh'] = $yohoho * 2;
+                $rating->ratings['yh'] = $likes * 2;
                 echo $rating->ratings['yh'] . "\n";
-                $rating->save();
+                //$rating->save();
             }
         }
     }

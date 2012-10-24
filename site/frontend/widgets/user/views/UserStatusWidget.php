@@ -2,7 +2,7 @@
     $cs = Yii::app()->clientScript;
 
     $js = "
-        $('div.user-status').delegate('a.pseudo', 'click', function(e) {
+        $('div.user-status').delegate('a.pseudo:first', 'click', function(e) {
             e.preventDefault();
             $('div.status-container').hide();
             $('div.user-status > form').show();
@@ -43,7 +43,7 @@
     $statusStyle = UserAttributes::get($user->id, 'statusStyle', 0);
 ?>
 
-<div class="user-status<?php if ($user->getScores()->full != 2 && $user->id == Yii::app()->user->id) echo ' toggled' ?>">
+<div class="user-status<?php if ($statusStyle != 0): ?> pattern<?php endif; ?> pattern-<?=$statusStyle?><?php if ($user->getScores()->full != 2 && $user->id == Yii::app()->user->id) echo ' toggled' ?>" data-style="<?=$statusStyle?>">
     <div class="status-container">
         <?php if ($isMyProfile): ?>
             <?php if ($user->status === null): ?>
@@ -70,11 +70,11 @@
 </div>
 
 <?php if ($this->isMyProfile && $user->hasFeature(2)): ?>
-    <div class="user-status-patterns">
+    <div class="user-status-patterns" style="display: none;">
         <p>Выберите подходящий вам стиль</p>
         <ul class="pattern-list clearfix">
-            <?php for ($i = 10; $i <= 18; $i++): ?>
-                <li><a class="active" href="#"><span class="pattern pattern-15"></span></a></li>
+            <?php for ($i = 0; $i <= 18; ($i == 0) ? $i = 10 : $i++): ?>
+                <li><a href="javascript:void(0)" onclick="Features.selectFeature('statusStyle', <?=$i?>, function(){Features.statusStyle(<?=$i?>)})"<?php if ($statusStyle == $i): ?> class="active"<?php endif; ?>><span class="pattern pattern-<?=$i?>"></span></a></li>
             <?php endfor; ?>
         </ul>
     </div>

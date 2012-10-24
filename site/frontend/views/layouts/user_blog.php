@@ -6,6 +6,9 @@
         ->registerScriptFile('/javascripts/album.js')
         ->registerCssFile('/stylesheets/user.css')
     ;
+
+    $blogFontColor = UserAttributes::get($this->user->id, 'blogFontColor', 0);
+    $blogFontStyle = UserAttributes::get($this->user->id, 'blogFontStyle', 0);
 ?>
 
 <div id="user">
@@ -135,7 +138,7 @@
                 <div class="new-blog-btn"><a href="#login" class="btn btn-orange-smallest fancy"><span><span>Создать блог</span></span></a></div>
             <?php endif; ?>
 
-            <div class="blog-title"><?=($this->user->blog_title === null) ? 'Блог - ' . $this->user->fullName : $this->user->blog_title?><?php if ($this->user->id == Yii::app()->user->id):?> <a href="#blogSettings" class="settings fancy tooltip" title="Настройка блога"></a><?php endif; ?></div>
+            <div class="blog-title font-color-<?=$blogFontColor?> font-<?=$blogFontStyle?>"><?=($this->user->blog_title === null) ? 'Блог - ' . $this->user->fullName : $this->user->blog_title?><?php if ($this->user->id == Yii::app()->user->id):?> <a href="#blogSettings" class="settings fancy tooltip" title="Настройка блога"></a><?php endif; ?></div>
 
             <?=$content?>
 
@@ -155,51 +158,106 @@
 
         <div class="popup-title">Настройки блога</div>
 
-        <!--<div class="default-nav">
-            <ul>
-                <li class="active"><a href="">Название блога</a></li>
-                <li class="disabled"><a>Рубрики блога</a></li>
-                <li class="disabled"><a>Оформление блога</a></li>
-            </ul>
-        </div>-->
+        <div class="tabs">
 
-        <?php
-            $form = $this->beginWidget('CActiveForm', array(
-                'action' => array('/ajax/setValues/'),
-                'enableAjaxValidation' => true,
-                'clientOptions' => array(
-                    'validateOnType' => true,
-                ),
-                'htmlOptions' => array(
-                    'onsubmit' => 'ajaxSetValues(this, function(response) {if (response) {$.fancybox.close(); window.location.reload();}}); return false;',
-                ),
-            ));
-            $model = $this->user;
-        ?>
-        <?=CHtml::hiddenField('entity', get_class($model))?>
-        <?=CHtml::hiddenField('entity_id', $model->id)?>
+            <div class="default-nav">
+                <ul>
+                    <li class="active"><a href="javascript:void(0)" onclick="setTab(this, 1);">Название блога</a></li>
+                    <?php if (Yii::app()->user->id == $this->user->id && $this->user->hasFeature(3)): ?>
+                        <li><a href="javascript:void(0)" onclick="setTab(this, 2);">Оформление блога</a></li>
+                    <?php endif; ?>
+                </ul>
+            </div>
 
-        <div class="settings-form">
-            <div class="row">
-                <div class="row-title">Название <span>(не более 30 знаков)</span></div>
-                <div class="row-elements"<?php if (! $model->blog_title): ?> style="display: none;"<?php endif; ?>>
-                    <span class="item-title"><?=$model->blog_title?></span>
-                    <a href="javascript:void(0)" onclick="Album.updateField(this)" class="edit tooltip" title="Редактировать название альбома"></a>
+            <div class="tab-box tab-box-1" style="display: block;">
+
+                <?php
+                    $form = $this->beginWidget('CActiveForm', array(
+                        'action' => array('/ajax/setValues/'),
+                        'enableAjaxValidation' => true,
+                        'clientOptions' => array(
+                            'validateOnType' => true,
+                        ),
+                        'htmlOptions' => array(
+                            'onsubmit' => 'ajaxSetValues(this, function(response) {if (response) {$.fancybox.close(); window.location.reload();}}); return false;',
+                        ),
+                    ));
+                    $model = $this->user;
+                ?>
+                <?=CHtml::hiddenField('entity', get_class($model))?>
+                <?=CHtml::hiddenField('entity_id', $model->id)?>
+
+                <div class="settings-form">
+                    <div class="row">
+                        <div class="row-title">Название <span>(не более 30 знаков)</span></div>
+                        <div class="row-elements"<?php if (! $model->blog_title): ?> style="display: none;"<?php endif; ?>>
+                            <span class="item-title"><?=$model->blog_title?></span>
+                            <a href="javascript:void(0)" onclick="Album.updateField(this)" class="edit tooltip" title="Редактировать название альбома"></a>
+                        </div>
+                        <div class="row-elements"<?php if ($model->blog_title): ?> style="display: none;"<?php endif; ?>>
+                            <?=$form->textField($model, 'blog_title', array('placeholder' => 'Введите название альбома'))?>
+                            <button onclick="Album.updateFieldSubmit(this, '.item-title'); return false;" class="btn btn-green-small"><span><span>Ok</span></span></button>
+                        </div>
+                        <?=$form->error($model, 'blog_title')?>
+
+                    </div>
                 </div>
-                <div class="row-elements"<?php if ($model->blog_title): ?> style="display: none;"<?php endif; ?>>
-                    <?=$form->textField($model, 'blog_title', array('placeholder' => 'Введите название альбома'))?>
-                    <button onclick="Album.updateFieldSubmit(this, '.item-title'); return false;" class="btn btn-green-small"><span><span>Ok</span></span></button>
+
+                <div class="bottom">
+                    <button class="btn btn-green-medium"><span><span>Сохранить настройки</span></span></button>
                 </div>
-                <?=$form->error($model, 'blog_title')?>
+
+                <?php $this->endWidget(); ?>
 
             </div>
-        </div>
 
-        <div class="bottom">
-            <button class="btn btn-green-medium"><span><span>Сохранить настройки</span></span></button>
-        </div>
+            <?php if (Yii::app()->user->id == $this->user->id && $this->user->hasFeature(3)): ?>
 
-        <?php $this->endWidget(); ?>
+                <div class="headings-style tab-box tab-box-2">
+                    <!-- google fonts -->
+                    <script type="text/javascript">
+                        WebFontConfig = {
+                            google: { families: [ 'Bad+Script::latin,cyrillic', 'Istok+Web::latin,cyrillic', 'Ruslan+Display::latin,cyrillic', 'Marck+Script::latin,cyrillic', 'Oranienbaum::latin,cyrillic', 'Lobster::latin,cyrillic', 'Russo+One::latin,cyrillic', 'Stalinist+One::latin,cyrillic', 'Comfortaa::latin,cyrillic' ] }
+                        };
+                        (function() {
+                            var wf = document.createElement('script');
+                            wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+                                '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+                            wf.type = 'text/javascript';
+                            wf.async = 'true';
+                            var s = document.getElementsByTagName('script')[0];
+                            s.parentNode.insertBefore(wf, s);
+                        })(); </script>
+
+                    <div class="clearfix">
+                        <div class="fonts-style">
+                            <p>Выберите шрифт</p>
+                            <ul class="pattern-list clearfix">
+                                <?php for ($i = 0; $i <= 9; $i++): ?>
+                                    <li><a href="javascript:void(0)" onclick="Features.selectFeature('blogFontStyle', <?=$i?>, function(){Features.blogFontStyle(<?=$i?>)})"<?php if ($blogFontStyle == $i): ?> class="active"<?php endif; ?>><span class="pattern font-<?=$i?>"><?=($i == 0) ? 'Обычный' : 'Мой блог'?></span></a></li>
+                                <?php endfor; ?>
+                            </ul>
+                        </div>
+                        <div class="color-style">
+                            <p>Выберите цвет</p>
+                            <ul class="pattern-list clearfix">
+                                <?php for ($i = 0; $i <= 6; $i++): ?>
+                                    <li><a href="javascript:void(0)" onclick="Features.selectFeature('blogFontColor', <?=$i?>, function(){Features.blogFontColor(<?=$i?>)})"<?php if ($blogFontColor == $i): ?> class="active"<?php endif; ?>><span class="pattern font-color-<?=$i?>"></span></a></li>
+                                <?php endfor; ?>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="heading-preview font-color-<?=$blogFontColor?> font-<?=$blogFontStyle?>" data-font-color="<?=$blogFontColor?>" data-font-style="<?=$blogFontStyle?>">
+                        Говорим о коллекциях и не только
+                    </div>
+                    <div class="bottom">
+                        <button class="btn-green btn-green-medium" onclick="window.location.reload()">Сохранить настройки</button>
+                    </div>
+                </div>
+
+            <?php endif; ?>
+
+        </div>
 
     </div>
 

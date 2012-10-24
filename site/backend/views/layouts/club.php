@@ -14,6 +14,11 @@
                 'active' => (Yii::app()->controller->uniqueId == 'club/names'),
                 'visible' => Yii::app()->user->checkAccess('names')
             ),
+            array('label' => 'Баннеры',
+                'url' => array('/club/communityBanners'),
+                'active' => (Yii::app()->controller->uniqueId == 'club/communityBanners'),
+                'visible' => Yii::app()->user->checkAccess('communityBanners'),
+            ),
             array('label' => 'Болезни',
                 'url' => array('/club/recipeBookDisease/'),
                 'active' => (Yii::app()->controller->uniqueId == 'club/recipeBookDisease' || Yii::app()->controller->uniqueId == 'club/recipeBookDiseaseCategory'),

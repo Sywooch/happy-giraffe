@@ -28,12 +28,12 @@ class RatingCommand extends CConsoleCommand
     public function actionShowLikes($work)
     {
         $models = RatingYohoho::model()->findAllByAttributes(array(
-            'entity_name'=>'ContestWork',
-            'entity_id'=>(int)$work
+            'entity_name' => 'ContestWork',
+            'entity_id' => (int)$work
         ));
 
-        foreach($models as $model)
-            echo $model->user_id.' - '.User::getUserById($model->user_id)->last_ip."\n";
+        foreach ($models as $model)
+            echo $model->user_id . ' - ' . User::getUserById($model->user_id)->last_ip . "\n";
     }
 
     public function actionSync($social_key = null)
@@ -68,15 +68,18 @@ class RatingCommand extends CConsoleCommand
             $yohoho_models = RatingYohoho::model()->findAll($criteria);
 
             $likes = array();
-            foreach($yohoho_models as $yohoho_model)
-                $likes [] = User::getUserById($yohoho_model->user_id)->last_ip;
-            $likes = array_unique($likes);
+            foreach ($yohoho_models as $yohoho_model)
+                if (!empty(User::getUserById($yohoho_model->user_id)->last_ip))
+                    $likes [] = User::getUserById($yohoho_model->user_id)->last_ip;
+            $unique_likes = array_unique($likes);
 
-            $rating = Rating::model()->find($criteria);
-            if ($rating !== null) {
-                $rating->ratings['yh'] = count($likes) * 2;
-                echo $rating->ratings['yh'] . "\n";
-                $rating->save();
+            if (count($unique_likes) != count($likes)) {
+                $rating = Rating::model()->find($criteria);
+                if ($rating !== null) {
+                    $rating->ratings['yh'] = count($likes) * 2;
+                    echo $rating->ratings['yh'] . "\n";
+                    //$rating->save();
+                }
             }
         }
     }

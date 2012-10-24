@@ -76,7 +76,7 @@ class RatingCommand extends CConsoleCommand
             if ($rating !== null) {
                 $rating->ratings['yh'] = count($likes) * 2;
                 echo $rating->ratings['yh'] . "\n";
-                //$rating->save();
+                $rating->save();
             }
         }
     }

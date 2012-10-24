@@ -69,12 +69,12 @@ class RatingCommand extends CConsoleCommand
 
             $likes = array();
             foreach($yohoho_models as $yohoho_model)
-                $likes [] = User::getUserById($yohoho_model)->last_ip;
+                $likes [] = User::getUserById($yohoho_model->user_id)->last_ip;
             $likes = array_unique($likes);
 
             $rating = Rating::model()->find($criteria);
             if ($rating !== null) {
-                $rating->ratings['yh'] = $likes * 2;
+                $rating->ratings['yh'] = count($likes) * 2;
                 echo $rating->ratings['yh'] . "\n";
                 //$rating->save();
             }

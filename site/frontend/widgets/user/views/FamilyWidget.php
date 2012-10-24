@@ -3,7 +3,7 @@
 ?>
 
 <?php if (($user->babyCount() > 0) || ($user->hasPartner() && !empty($user->partner->name)) || $this->showEmpty):?>
-<div class="user-family user-family-border-<?=$border?>">
+<div class="user-family user-family-border-<?=$border?>" data-family-border="<?=$border?>">
     <div class="t"></div>
     <div class="c">
         <ul>
@@ -82,7 +82,7 @@
         <?php if ($this->isMyProfile && $user->hasFeature(1)): ?>
             <div class="user-family-settings clearfix">
                 <div class="a-right tooltip-new">9 новых</div>
-                <a class="a-right pseudo" href="javascript:void(0)" onclick="$('.user-family-borders').toggle();">Стиль статуса</a>
+                <a class="a-right pseudo" href="javascript:void(0)" onclick="$('.user-family-borders').toggle();">Стиль рамок</a>
             </div>
         <?php endif; ?>
     </div>

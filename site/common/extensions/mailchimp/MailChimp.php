@@ -99,10 +99,10 @@ class MailChimp extends CApplicationComponent
     {
         $criteria = new CDbCriteria;
         $criteria->limit = 100;
-        $criteria->offset = 10000;
+        $criteria->offset = 20000;
 
         $users = array(1);
-        while (!empty($users) && $criteria->offset < 20000) {
+        while (!empty($users) && $criteria->offset < 40000) {
             $users = MailruUser::model()->findAll($criteria);
             $options = array();
             foreach ($users as $user) {
@@ -111,6 +111,7 @@ class MailChimp extends CApplicationComponent
                     'FNAME' => $user->name,
                     'LNAME' => '',
                 );
+                echo $user->email.'<br>';
             }
 
             $this->list = self::CONTEST_LIST;

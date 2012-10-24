@@ -239,7 +239,11 @@ class UserController extends HController
     {
         if (Yii::app()->request->isAjaxRequest) {
             $user = Yii::app()->user->model;
-            $user->mood_id = Yii::app()->request->getPost('mood_id');
+            $mood_id = Yii::app()->request->getPost('mood_id');
+            if ($mood_id > 35 && ! $user->hasFeature(4))
+                throw new CHttpException(404);
+            $user->mood_id = $mood_id;
+
             if ($user->save(true, array('mood_id'))) {
                 echo $this->renderPartial('application.widgets.user.views._mood', array(
                     'mood' => $user->mood,

@@ -220,4 +220,15 @@ class Community extends HActiveRecord
             'params' => array(':community_id' => $this->id),
         ));
     }
+
+    public function getBanners($limit = 2)
+    {
+        return CommunityBanner::model()->findAll(array(
+            'with' => array('content', 'content.rubric', 'content.rubric', 'photo'),
+            'limit' => $limit,
+            'order' => new CDbExpression('RAND()'),
+            'condition' => 'rubric.community_id = :community_id AND t.photo_id IS NOT NULL',
+            'params' => array(':community_id' => $this->id),
+        ));
+    }
 }

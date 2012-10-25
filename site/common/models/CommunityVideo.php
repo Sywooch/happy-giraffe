@@ -33,6 +33,9 @@ class CommunityVideo extends HActiveRecord
             'purified' => array(
                 'class' => 'site.common.behaviors.PurifiedBehavior',
                 'attributes' => array('text'),
+                'options' => array(
+                    'AutoFormat.Linkify' => true,
+                ),
             ),
 		);
 	}

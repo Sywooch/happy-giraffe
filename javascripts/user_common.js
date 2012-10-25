@@ -123,3 +123,56 @@ function setMessagesHeight(){
     box.find('.dialog .dialog-messages').height(generalH - textareaH - userH);
 
 }
+
+
+var Features = {
+
+}
+
+Features.selectFeature = function(key, val, callback) {
+    $.post('/features/select/', {key: key, val: val}, function(data) {
+        if (data)
+            callback();
+    });
+}
+
+Features.familyBorder = function(newVal) {
+    $('.user-family-borders a.active').removeClass('active');
+    $('.user-family-borders a').has('.user-family-border-' + newVal).addClass('active');
+
+    $('.user-family').removeClass('user-family-border-' + $('.user-family').data('familyBorder'));
+    $('.user-family').addClass('user-family-border-' + newVal);
+
+    $('.user-family').data('familyBorder', newVal);
+}
+
+Features.statusStyle = function(newVal) {
+    $('.user-status-patterns a.active').removeClass('active');
+    $('.user-status-patterns a').has('.pattern-' + newVal).addClass('active');
+
+    $('.user-status').toggleClass('pattern', newVal != 0);
+    $('.user-status').removeClass('pattern-' + $('.user-status').data('style'));
+    $('.user-status').addClass('pattern-' + newVal);
+
+    $('.user-status').data('style', newVal);
+}
+
+Features.blogFontStyle = function(newVal) {
+    $('.fonts-style a.active').removeClass('active');
+    $('.fonts-style a').has('.font-' + newVal).addClass('active');
+
+    $('.heading-preview').removeClass('font-' + $('.heading-preview').data('fontStyle'));
+    $('.heading-preview').addClass('font-' + newVal);
+
+    $('.heading-preview').data('fontStyle', newVal);
+}
+
+Features.blogFontColor = function(newVal) {
+    $('.color-style a.active').removeClass('active');
+    $('.color-style a').has('.font-color-' + newVal).addClass('active');
+
+    $('.heading-preview').removeClass('font-color-' + $('.heading-preview').data('fontColor'));
+    $('.heading-preview').addClass('font-color-' + newVal);
+
+    $('.heading-preview').data('fontColor', newVal);
+}

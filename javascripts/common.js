@@ -594,3 +594,9 @@ var Contest = {
         }, 'json');
     }
 }
+
+function toggleRubric(el)
+{
+    $(this).next('ul.club-topics-list-new-drop').toggle();
+    $(this).toggleClass('minus');
+}

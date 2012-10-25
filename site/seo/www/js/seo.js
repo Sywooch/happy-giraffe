@@ -233,3 +233,11 @@ var Indexing = {
         $('#remove-urls').hide();
     }
 }
+
+var Advert = {
+    close:function () {
+        $.post('/site/closeAdvert/', function (response) {
+            $('div.advert').remove();
+        });
+    }
+}

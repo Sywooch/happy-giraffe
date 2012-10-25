@@ -42,7 +42,8 @@ class ContentController extends SController
 
         $page = Page::model()->findByAttributes(array('url' => $url));
         if ($page !== null) {
-            $recipe = CookRecipe::model()->findByPk($page->entity_id);
+            list($entity, $entity_id) = Page::ParseUrl($url);
+            $recipe = $entity::model()->findByPk($entity_id);
 
             if ($recipe === null) {
                 echo CJSON::encode(array(
@@ -61,17 +62,9 @@ class ContentController extends SController
                 Yii::app()->end();
             }
         } else {
-            preg_match("/([\d]+)\/$/", $url, $match);
-            if (!isset($match[1])) {
-                echo CJSON::encode(array(
-                    'status' => false,
-                    'error' => 'Статья не найдена'
-                ));
-                Yii::app()->end();
-            }
+            list($entity, $entity_id) = Page::ParseUrl($url);
+            $recipe = $entity::model()->findByPk($entity_id);
 
-            $recipe_id = $match[1];
-            $recipe = CookRecipe::model()->findByPk($recipe_id);
             if ($recipe === null) {
                 echo CJSON::encode(array(
                     'status' => false,
@@ -83,7 +76,7 @@ class ContentController extends SController
             $page = new Page();
         }
 
-        if ($recipe->section != $task->multivarka){
+        if ($entity == 'CookRecipe' && $recipe->section != $task->multivarka){
             echo CJSON::encode(array(
                 'status' => false,
                 'error' => 'Вы разместили рецепт не в тот раздел. '.($task->multivarka?' Нужен раздел мультиварка':' Нужен обычный раздел а не мультиварка')
@@ -91,8 +84,8 @@ class ContentController extends SController
             Yii::app()->end();
         }
 
-        $page->entity = 'CookRecipe';
-        $page->entity_id = $recipe->id;
+        $page->entity = $entity;
+        $page->entity_id = $entity_id;
         if (!empty($task->keyword_group_id))
             $page->keyword_group_id = $task->keyword_group_id;
         else{

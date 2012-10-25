@@ -467,6 +467,18 @@ class AjaxController extends HController
         echo CHtml::listOptions('', CHtml::listData($rubrics, 'id', 'title'), $htmlOptions);
     }
 
+    public function actionSubRubrics()
+    {
+        $rubrics = CommunityRubric::model()->findAll('parent_id = :rubric_id', array(':rubric_id' => Yii::app()->request->getPost('rubric_id')));
+        $htmlOptions = array('prompt' => 'Выберите подрубрику');
+        $response = array(
+            'status' => count($rubrics) > 0,
+            'html' => CHtml::listOptions('', CHtml::listData($rubrics, 'id', 'title'), $htmlOptions),
+        );
+
+        echo CJSON::encode($response);
+    }
+
     public function actionVote()
     {
         if (Yii::app()->request->isAjaxRequest && !Yii::app()->user->isGuest) {

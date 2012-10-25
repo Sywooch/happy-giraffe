@@ -142,7 +142,7 @@ class CookDecoration extends CActiveRecord
         return array(
             'albums/singlePhoto',
             array(
-                'photo_id' => $this->id,
+                'photo_id' => $this->photo->id,
                 'entity' => 'CookDecorationCategory',
             ),
         );

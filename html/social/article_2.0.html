@@ -786,8 +786,7 @@
 						<script type="text/javascript">
 							$(document).ready(function () {
 								$(".drop-activate-link").click(function(){
-									$(this).parent(".club-topics-list-new li").find(".club-topics-list-new-drop").toggle();
-									$(this).toggleClass("minus");
+									$(this).parent(".club-topics-list-new li").toggleClass("toggled");
 									return false
 								});
 							});
@@ -812,7 +811,7 @@
 									<li><span><a href="">Детские передачи</a></span><div class="count">15</div></li>
 								</ul>
 							</li>
-							<li  class="active">
+							<li  class="active toggled">
 								<span><a href="">Школа восточного танца</a></span>
 								<div class="count">15</div>
 								<a href="#" class="drop-activate-link"></a>

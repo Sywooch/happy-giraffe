@@ -94,6 +94,7 @@ class CommunityRubric extends HActiveRecord
 			'contents' => array(self::HAS_MANY, 'CommunityContent', 'rubric_id'),
             //'contentsCount' => array(self::STAT, 'CommunityContent', 'rubric_id', 'with' => 'rubric'),
             'childs' => array(self::HAS_MANY, 'CommunityRubric', 'parent_id'),
+            'parent' => array(self::BELONGS_TO, 'CommunityRubric', 'parent_id'),
 		);
 	}
 

@@ -208,7 +208,7 @@ class CommunityController extends HController
         $slave_model_name = get_class($slave_model);
 
         $communities = Community::model()->findAll();
-        $rubrics = ($community_id == '') ? array() : CommunityRubric::model()->findAllByAttributes(array('community_id' => $community_id));
+        $rubrics = ($community_id == '') ? array() : CommunityRubric::model()->findAll('community_id = :community_id AND parent_id IS NULL', array(':community_id' => $community_id));
 
         if (isset($_POST['CommunityContent'], $_POST[$slave_model_name]))
         {

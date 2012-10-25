@@ -175,35 +175,43 @@ $cs
                             'type' => 'POST',
                             'url' => $this->createUrl('ajax/rubrics'),
                             'success' => 'function(data) {
-                                            $("#CommunityContent_rubric_id").html(data);
-                                            $("#CommunityContent_rubric_id").trigger("liszt:updated");
+                                            $("#rubric_id").html(data);
+                                            $("#rubric_id").trigger("liszt:updated");
                                         }',
                         ),
                     )); ?>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <span class="subtitle">Рубрика</span>
                         <?php
-                            echo $form->dropDownList($model, 'rubric_id', CHtml::listData($rubrics, 'id', 'title'), array(
+                            echo CHtml::dropDownList('rubric_id', $model->isNewRecord ? '' : ($model->rubric->parent_id === null ? $model->rubric->id : $model->rubric->parent_id), CHtml::listData($rubrics, 'id', 'title'), array(
                                 'prompt' => 'Выберите рубрику',
                                 'class' => 'chzn w-200',
                                 'ajax' => array(
                                     'type' => 'POST',
+                                    'dataType' => 'json',
+                                    'url' => $this->createUrl('ajax/subRubrics'),
                                     'success' => 'function(data) {
-                                            $("#CommunityContent_rubric_id").html(data);
-                                            $("#CommunityContent_rubric_id").trigger("liszt:updated");
+                                        $(\'.subRubric\').toggle(data.status);
+
+                                            $("#subrubric_id").html(data.html);
+                                            $("#subrubric_id").trigger("liszt:updated");
                                         }',
                                 ),
+                                'onchange' => '$(\'#CommunityContent_rubric_id\').val($(this).val())',
                             ));
                         ?>
-                        <div class="subRubric">
+                        <div class="subRubric"<?php if ($model->isNewRecord || $model->rubric->parent_id === null): ?> style="display: none;"<?php endif; ?>>
                             <span class="subtitle">Подрубрика</span>
                             <?php
-                                echo $form->dropDownList($model, 'rubric_id', CHtml::listData($rubrics, 'id', 'title'), array(
+                                echo CHtml::dropDownList('subrubric_id', $model->isNewRecord || $model->rubric->parent_id === null ? '' : $model->rubric->id, $model->isNewRecord || $model->rubric->parent_id === null ? array() : CHtml::listData($model->rubric->parent->childs, 'id', 'title'), array(
                                     'prompt' => 'Выберите подрубрику',
                                     'class' => 'chzn w-200',
+                                    'onchange' => '$(\'#CommunityContent_rubric_id\').val($(this).val())',
                                 ));
                             ?>
                         </div>
+
+                        <?php echo $form->hiddenField($model, 'rubric_id'); ?>
                     </div>
                 </div>
             </div>

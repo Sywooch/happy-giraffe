@@ -2685,7 +2685,7 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 /* #content .club-topics-list-new ul li.active {margin-top:0;margin-bottom:0;} */
 #content .club-topics-list-new ul li.active > span {background:#f2e5ff;}
 
-#content .club-topics-list-new ul li.active a {text-decoration:none;}
+#content .club-topics-list-new ul li.active > span > a {text-decoration:none;}
 #content .club-topics-list-new ul li.active > .count {font-size:18px;color:#474747;top:2px;line-height:18px;}
 
 #content .club-topics-list-new.drop-holder ul {margin-left:15px;}

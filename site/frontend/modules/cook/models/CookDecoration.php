@@ -66,6 +66,15 @@ class CookDecoration extends CActiveRecord
         );
     }
 
+    public function behaviors()
+    {
+        return array(
+            'pingable' => array(
+                'class' => 'site.common.behaviors.PingableBehavior',
+            ),
+        );
+    }
+
     /**
      * @return array customized attribute labels (name=>label)
      */

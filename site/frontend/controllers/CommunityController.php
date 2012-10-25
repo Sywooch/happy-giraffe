@@ -149,7 +149,7 @@ class CommunityController extends HController
         if (!empty($content->uniqueness) && $content->uniqueness < 50)
             Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
 
-        $this->community = Community::model()->with('rubrics.contentsCount')->findByPk($community_id);
+        $this->community = Community::model()->with('rubrics')->findByPk($community_id);
         $this->rubric_id = $content->rubric->id;
         $this->content_type_slug = $content_type_slug;
 
@@ -314,7 +314,7 @@ class CommunityController extends HController
 
         $this->community = Community::model()->findByPk($community_id);
         $communities = Community::model()->findAll();
-        $rubrics = ($community_id === null) ? array() : CommunityRubric::model()->findAllByAttributes(array('community_id' => $community_id));
+        $rubrics = ($community_id === null) ? array() : CommunityRubric::model()->findAll('community_id = :community_id AND parent_id IS NULL', array(':community_id' => $community_id));
 
         if (isset($_POST['CommunityContent'], $_POST[$slave_model_name]))
         {

@@ -149,13 +149,36 @@ class ContestWork extends HActiveRecord
         return $text;
     }
 
-    public function getUrl()
+    public function getUrlParams()
     {
-        return '/contest/'.$this->contest_id.'/photo'.$this->id.'/';
+        return array(
+            'albums/singlePhoto',
+            array(
+                'contest_id' => $this->contest_id,
+                'photo_id' => $this->photo->photo->id,
+                'entity' => 'Contest',
+            ),
+        );
+    }
+
+    public function getUrl($comments = false, $absolute = false)
+    {
+        list($route, $params) = $this->urlParams;
+
+        if ($comments)
+            $params['#'] = 'comment_list';
+
+        $method = $absolute ? 'createAbsoluteUrl' : 'createUrl';
+        return Yii::app()->$method($route, $params);
     }
 
     public function getPosition()
     {
         return $this->count('rate > :rate AND contest_id = :contest_id', array(':rate' => $this->rate, ':contest_id' => $this->contest_id)) + 1;
+    }
+
+    public function getRssContent()
+    {
+        return CHtml::image($this->photo->photo->getPreviewUrl(960, 627, Image::HEIGHT, true), $this->title);
     }
 }

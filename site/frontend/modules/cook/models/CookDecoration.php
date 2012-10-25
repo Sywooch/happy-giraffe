@@ -136,9 +136,27 @@ class CookDecoration extends CActiveRecord
         return $this->findAll($criteria);
     }
 
-    public function getUrl()
+
+    public function getUrlParams()
     {
-        return Yii::app()->controller->createUrl('/cook/decor/') . 'photo' . $this->photo_id . '/';
+        return array(
+            'albums/singlePhoto',
+            array(
+                'photo_id' => $this->id,
+                'entity' => 'CookDecorationCategory',
+            ),
+        );
+    }
+
+    public function getUrl($comments = false, $absolute = false)
+    {
+        list($route, $params) = $this->urlParams;
+
+        if ($comments)
+            $params['#'] = 'comment_list';
+
+        $method = $absolute ? 'createAbsoluteUrl' : 'createUrl';
+        return Yii::app()->$method($route, $params);
     }
 
     public function getPreview($imageWidth = 240)
@@ -147,6 +165,13 @@ class CookDecoration extends CActiveRecord
         return $preview;
     }
 
+    public function getRssContent()
+    {
+        return CHtml::image($this->photo->getPreviewUrl(960, 627, Image::HEIGHT, true), $this->title);
+    }
 
-
+    public function getAuthor()
+    {
+        return $this->photo->author;
+    }
 }

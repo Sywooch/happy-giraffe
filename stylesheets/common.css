@@ -350,7 +350,6 @@ input[type=text].error , input[type=password].error , textarea.error {border:1px
     border:0;
     text-align: center;
     text-decoration:none;
-    vertical-align: middle;
     cursor: pointer;
 	width: auto; /* IE 7 input button fix */
 	overflow: visible; /* IE7 input button fix */

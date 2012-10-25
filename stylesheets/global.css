@@ -186,7 +186,7 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 .entry-content ul.tr_map li span {
     position: relative;
     top: -18px;
-    display: *zoom:1;*display:inline;
+    display:inline-block; *zoom:1;*display:inline;
     width: 20px;
     height: 32px;
     background: url(../images/map_marker.png) 0 0 no-repeat;
@@ -199,7 +199,7 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
     font: bold 12px/18px tahoma, sans-serif;
     color: #535252;
     background: #f6f5b3;
-    display: *zoom:1;*display:inline;
+    display:inline-block; *zoom:1;*display:inline;
     padding: 0 5px;
 }
 

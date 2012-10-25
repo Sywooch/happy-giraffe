@@ -75,7 +75,10 @@ class ContestWork extends HActiveRecord
                 'class' => 'zii.behaviors.CTimestampBehavior',
                 'createAttribute' => 'created',
                 'updateAttribute' => null,
-            )
+            ),
+            'pingable' => array(
+                'class' => 'site.common.behaviors.PingableBehavior',
+            ),
         );
     }
 

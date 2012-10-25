@@ -168,7 +168,7 @@ class DefaultController extends HController
     {
         $this->contest = Contest::model()->findByPk($id);
 
-        if($this->contest->isStatement !== true && Yii::app()->user->id != 10465)
+        if($this->contest->isStatement !== true && Yii::app()->user->id != 12936)
             throw new CHttpException(404);
 
         $this->pageTitle = 'Участвовать в фотоконкурсе "' . $this->contest->title . '"';

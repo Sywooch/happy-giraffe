@@ -10,6 +10,7 @@ class RssController extends HController
     public function init()
     {
         Yii::import('application.modules.cook.models.*');
+        Yii::import('application.modules.contest.models.*');
         Yii::import('ext.EFeed.*');
     }
 
@@ -29,7 +30,9 @@ class RssController extends HController
                 UNION
                 (SELECT id, created, 'CookRecipe' AS entity FROM cook__recipes)
                 UNION
-                (SELECT album__photos.id, album__photos.created, 'AlbumPhoto' AS entity FROM album__photos INNER JOIN album__albums ON album__photos.album_id = album__albums.id WHERE album_id IS NOT NULL AND album__albums.type != 2)
+                (SELECT id, created, 'ContestWork' AS entity FROM contest__works)
+                UNION
+                (SELECT id, created, 'CookDecoration' AS entity FROM cook__decorations)
                 ORDER BY created DESC
                 LIMIT :limit
                 OFFSET :offset";
@@ -84,7 +87,9 @@ class RssController extends HController
                         UNION
                         (SELECT id, created, 'CookRecipe' AS entity FROM cook__recipes WHERE author_id = :author_id)
                         UNION
-                        (SELECT album__photos.id, album__photos.created, 'AlbumPhoto' AS entity FROM album__photos INNER JOIN album__albums ON album__photos.album_id = album__albums.id WHERE album_id IS NOT NULL AND album__albums.type != 2 AND album__photos.author_id = :author_id)
+                        (SELECT id, created, 'ContestWork' AS entity FROM contest__works WHERE user_id = :author_id)
+                        UNION
+                        (SELECT cook__decorations.id, cook__decorations.created, 'CookDecoration' AS entity FROM cook__decorations INNER JOIN album__photos ON cook__decorations.photo_id = album__photos.id WHERE album__photos.author_id = :author_id)
                         ORDER BY created DESC
                         LIMIT :limit
                         OFFSET :offset";
@@ -93,7 +98,9 @@ class RssController extends HController
                         UNION
                         (SELECT id, created, 'CookRecipe' AS entity FROM cook__recipes WHERE author_id = :author_id)
                         UNION
-                        (SELECT album__photos.id, album__photos.created, 'AlbumPhoto' AS entity FROM album__photos INNER JOIN album__albums ON album__photos.album_id = album__albums.id WHERE album_id IS NOT NULL AND album__albums.type != 2 AND album__photos.author_id = :author_id)
+                        (SELECT id, created, 'ContestWork' AS entity FROM contest__works WHERE user_id = :author_id)
+                        UNION
+                        (SELECT cook__decorations.id, cook__decorations.created, 'CookDecoration' AS entity FROM cook__decorations INNER JOIN album__photos ON cook__decorations.photo_id = album__photos.id WHERE album__photos.author_id = :author_id)
                         ORDER BY created DESC
                         LIMIT :limit
                         OFFSET :offset";

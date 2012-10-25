@@ -154,3 +154,24 @@
 #seo .positions ul li .date{
     width: 70px;
 }
+
+.advert{
+    position: relative;
+    width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background: #5bbdff;
+    border-radius: 20px;
+}
+.advert span{
+    font-weight: bold;
+}
+.popup-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 10px;
+    height: 12px;
+    background: url(http://www.happy-giraffe.ru/images/common.png) no-repeat -315px -149px;
+    text-indent: -9999px;
+}

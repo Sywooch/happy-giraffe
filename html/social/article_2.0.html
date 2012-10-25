@@ -786,8 +786,8 @@
 						<script type="text/javascript">
 							$(document).ready(function () {
 								$(".drop-activate-link").click(function(){
-									console.log(this);
-									$(this).parent(".club-topics-list-new li").toggleClass("active");
+									$(this).parent(".club-topics-list-new li").find("ul").toggle();
+									$(this).toggleClass("minus");
 									return false
 								});
 							});
@@ -800,7 +800,7 @@
 								<span><a href="">Прикольное видео и другие прикольные фишки</a></span>
 								<div class="count">15</div>
 								<a href="#" class="drop-activate-link"></a>
-								<ul>
+								<ul class="club-topics-list-new-drop">
 									<li><span><a href="">Зимние каникулы</a></span><div class="count">15</div></li>							
 									<li><span><a href="">Фотография</a></span><div class="count">15</div></li>
 									<li><span><a href="">Прикольное видео и другие прикольные фишки</a></span><div class="count">15</div></li>
@@ -812,11 +812,11 @@
 									<li><span><a href="">Детские передачи</a></span><div class="count">15</div></li>
 								</ul>
 							</li>
-							<li  class="active active">
+							<li  class="active">
 								<span><a href="">Школа восточного танца</a></span>
 								<div class="count">15</div>
 								<a href="#" class="drop-activate-link"></a>
-								<ul>
+								<ul class="club-topics-list-new-drop">
 									<li><span><a href="">Зимние каникулы</a></span><div class="count">15</div></li>							
 									<li><span><a href="">Фотография</a></span><div class="count">15</div></li>
 									<li><span><a href="">Прикольное видео и другие фишки</a></span><div class="count">15</div></li>

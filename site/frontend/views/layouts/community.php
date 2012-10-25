@@ -137,10 +137,15 @@
 
         <div class="club-topics-list-new">
 
-            <div class="block-title">Рубрики</div>
-
             <?php
                 $items = array();
+
+                $items[] = array(
+                    'label' => 'Все записи клуба',
+                    'url' => $this->getUrl(array('rubric_id' => null)),
+                    'template' => '<span>{menu}</span><div class="count">' . $this->community->getCount() . '</div>',
+                    'active' => $this->rubric_id === null,
+                );
 
                 foreach ($this->community->rubrics as $rubric) {
                     if ($rubric->contentsCount > 0)

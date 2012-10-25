@@ -188,9 +188,22 @@ $cs
                                 'class' => 'chzn w-200',
                                 'ajax' => array(
                                     'type' => 'POST',
+                                    'success' => 'function(data) {
+                                            $("#CommunityContent_rubric_id").html(data);
+                                            $("#CommunityContent_rubric_id").trigger("liszt:updated");
+                                        }',
                                 ),
                             ));
                         ?>
+                        <div class="subRubric">
+                            <span class="subtitle">Подрубрика</span>
+                            <?php
+                                echo $form->dropDownList($model, 'rubric_id', CHtml::listData($rubrics, 'id', 'title'), array(
+                                    'prompt' => 'Выберите подрубрику',
+                                    'class' => 'chzn w-200',
+                                ));
+                            ?>
+                        </div>
                     </div>
                 </div>
             </div>

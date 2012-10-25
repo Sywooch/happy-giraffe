@@ -182,7 +182,15 @@ $cs
                     )); ?>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <span class="subtitle">Рубрика</span>
-                        <?php echo $form->dropDownList($model, 'rubric_id', CHtml::listData($rubrics, 'id', 'title'), array('prompt' => 'Выберите рубрику', 'class' => 'chzn w-200')); ?>
+                        <?php
+                            echo $form->dropDownList($model, 'rubric_id', CHtml::listData($rubrics, 'id', 'title'), array(
+                                'prompt' => 'Выберите рубрику',
+                                'class' => 'chzn w-200',
+                                'ajax' => array(
+                                    'type' => 'POST',
+                                ),
+                            ));
+                        ?>
                     </div>
                 </div>
             </div>

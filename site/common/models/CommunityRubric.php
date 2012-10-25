@@ -92,7 +92,8 @@ class CommunityRubric extends HActiveRecord
 			'community' => array(self::BELONGS_TO, 'Community', 'community_id'),
             'user' => array(self::BELONGS_TO, 'User', 'user_id'),
 			'contents' => array(self::HAS_MANY, 'CommunityContent', 'rubric_id'),
-            'contentsCount' => array(self::STAT, 'CommunityContent', 'rubric_id'),
+            //'contentsCount' => array(self::STAT, 'CommunityContent', 'rubric_id', 'with' => 'rubric'),
+            'childs' => array(self::HAS_MANY, 'CommunityRubric', 'parent_id'),
 		);
 	}
 
@@ -130,6 +131,15 @@ class CommunityRubric extends HActiveRecord
         return Yii::app()->createUrl('community/list', array(
             'community_id' => $this->community_id,
             'rubric_id' => $this->id,
+        ));
+    }
+
+    public function getContentsCount()
+    {
+        return CommunityContent::model()->count(array(
+            'with' => 'rubric',
+            'condition' => 'rubric.id = :rubric_id OR rubric.parent_id = :rubric_id',
+            'params' => array(':rubric_id' => $this->id),
         ));
     }
 }

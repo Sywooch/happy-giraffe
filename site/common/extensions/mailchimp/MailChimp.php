@@ -99,10 +99,10 @@ class MailChimp extends CApplicationComponent
     {
         $criteria = new CDbCriteria;
         $criteria->limit = 100;
-        $criteria->offset = 40000;
+        $criteria->offset = 60000;
 
         $users = array(1);
-        while (!empty($users) && $criteria->offset < 60000) {
+        while (!empty($users)) {
             $users = MailruUser::model()->findAll($criteria);
             $options = array();
             foreach ($users as $user) {

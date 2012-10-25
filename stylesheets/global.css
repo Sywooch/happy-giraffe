@@ -339,6 +339,7 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
     text-align: center;
 }
 
+.button_panel .btn-green,
 .button_panel .btn {
     margin: 0 5px;
 }

@@ -350,7 +350,6 @@ input[type=text].error , input[type=password].error , textarea.error {border:1px
     border:0;
     text-align: center;
     text-decoration:none;
-    vertical-align: middle;
     cursor: pointer;
 	width: auto; /* IE 7 input button fix */
 	overflow: visible; /* IE7 input button fix */
@@ -726,8 +725,9 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 .form a {color:#54afc3;}
 .form .row {padding-bottom:15px;}
 .form .row .row-title, .form .row .row-title label {color:#0d8ca3;font:italic 16px arial, sans-serif;padding-bottom:3px;}
-.form .row .subtitle {color:#0d8ca3;font:italic 14px arial, sans-serif;margin-right:5px;vertical-align:middle;}
+.form .row .subtitle {color:#0d8ca3;font:italic 14px arial, sans-serif;margin:0 5px 5px;vertical-align:middle;}
 .form .row .row-elements {}
+.form .row .select-box-col {float:left;margin:0 10px;}
 .form .row .row-bottom {font-size:10px;line-height:1.2;}
 .form .form-bottom {text-align:right;padding-top:40px;color:#808282;}
 .form .form-bottom .btn {margin-left:5px;vertical-align:middle;}

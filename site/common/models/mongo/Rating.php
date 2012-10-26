@@ -178,4 +178,19 @@ class Rating extends EMongoDocument
 
         return $model;
     }
+
+    public static function getShort($service_key)
+    {
+        switch ($service_key) {
+            case 'twitter':
+                return 'tw';
+            case 'facebook':
+                return 'fb';
+            case 'odnoklassniki':
+                return 'ok';
+            case 'vkontakte':
+                return 'vk';
+        }
+        return false;
+    }
 }

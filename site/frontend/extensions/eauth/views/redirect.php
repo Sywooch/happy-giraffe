@@ -4,7 +4,7 @@
 	<script type="text/javascript">
 		<?php
             if ($in_popup){
-                $code .= 'window.location = \''.addslashes($url).'\';';
+                $code .= 'window.opener.location = \''.addslashes($url).'\';';
             }else{
                 $code = 'if (window.opener) {';
                 $code .= 'window.close();';

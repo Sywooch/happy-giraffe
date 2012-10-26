@@ -48,16 +48,7 @@ class ContentController extends SController
             if ($recipe === null) {
                 echo CJSON::encode(array(
                     'status' => false,
-                    'error' => 'Статья не найдена'
-                ));
-                Yii::app()->end();
-            }
-
-            if (!$page->save()) {
-                echo CJSON::encode(array(
-                    'status' => false,
-                    'error' => 'Ошибка сохранения статьи',
-                    'errorText' => $page->getErrors()
+                    'error' => 'Статья не найдена 1'
                 ));
                 Yii::app()->end();
             }
@@ -68,7 +59,7 @@ class ContentController extends SController
             if ($recipe === null) {
                 echo CJSON::encode(array(
                     'status' => false,
-                    'error' => 'Статья не найдена'
+                    'error' => 'Статья не найдена 2'
                 ));
                 Yii::app()->end();
             }

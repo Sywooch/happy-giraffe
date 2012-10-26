@@ -158,8 +158,11 @@
 
                         if ($rubric->childs) {
                             $childs = array();
+                            $hasFullChilds = false;
                             foreach ($rubric->childs as $c) {
                                 if ($c->contentsCount > 0) {
+                                    $hasFullChilds = true;
+
                                     $childs[] = array(
                                         'label' => $c->title,
                                         'url' => $this->getUrl(array('rubric_id' => $c->id)),
@@ -174,9 +177,12 @@
                                     }
                                 }
                             }
-                            $item['items'] = $childs;
-                            $item['template'] .= '<a href="javascript:void(0)" class="drop-activate-link" onclick="$(this).parents(\'li\').toggleClass(\'toggled\');"></a>';
-                            $item['submenuOptions'] = array('class' => 'club-topics-list-new-drop');
+
+                            if ($hasFullChilds) {
+                                $item['items'] = $childs;
+                                $item['template'] .= '<a href="javascript:void(0)" class="drop-activate-link" onclick="$(this).parents(\'li\').toggleClass(\'toggled\');"></a>';
+                                $item['submenuOptions'] = array('class' => 'club-topics-list-new-drop');
+                            }
                         }
 
                         $items[] = $item;

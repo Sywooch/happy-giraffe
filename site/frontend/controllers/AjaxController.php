@@ -35,7 +35,7 @@ class AjaxController extends HController
 
             }
 
-            $authIdentity->redirect();
+            $authIdentity->redirect(null, 'share_redirect');
         }
     }
 

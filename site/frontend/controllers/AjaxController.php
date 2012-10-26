@@ -12,8 +12,10 @@ class AjaxController extends HController
     public function actionSocialVote()
     {
         $service = Yii::app()->request->getQuery('service');
-        $authIdentity = Yii::app()->eauth->getIdentity($service);
-        echo $authIdentity->getAttribute('id');
+        if (isset($service)) {
+            $authIdentity = Yii::app()->eauth->getIdentity($service);
+            echo $authIdentity->getAttribute('id');
+        }
     }
 
     public function actionSetValue()

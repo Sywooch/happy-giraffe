@@ -492,13 +492,16 @@ class Keyword extends HActiveRecord
         if ($section == SeoTask::SECTION_COOK)
             $sphinx_index = 'recipe';
 
+        try{
         $allSearch = Yii::app()->search
             ->select('*')
             ->from($sphinx_index)
             ->where(' ' . CHtml::encode($this->name) . ' ')
             ->limit(0, $limit)
             ->searchRaw();
-
+        }catch (Exception $e){
+            return null;
+        }
         if (empty($allSearch['matches']))
             return null;
 

@@ -120,17 +120,80 @@
             <?php endif ?>
         </div>
 
-        <div class="club-topics-all-link">
-            <a href="<?=$this->getUrl(array('rubric_id' => null))?>">Все записи</a> <span class="count"><?=$this->community->getCount()?></span>
-        </div>
+        <?php if (false): ?>
+            <div class="club-topics-all-link">
+                <a href="<?=$this->getUrl(array('rubric_id' => null))?>">Все записи</a> <span class="count"><?=$this->community->getCount()?></span>
+            </div>
 
-        <div class="club-topics-list">
+            <div class="club-topics-list">
+                <?php
+                    $this->renderPartial('parts/rubrics',array(
+                        'rubrics' => $this->community->rubrics,
+                        'type' => 'community',
+                    ));
+                ?>
+            </div>
+        <?php endif; ?>
+
+        <div class="club-topics-list-new drop-holder">
+
             <?php
-                $this->renderPartial('parts/rubrics',array(
-                    'rubrics' => $this->community->rubrics,
-                    'type' => 'community',
+                $items = array();
+
+                $items[] = array(
+                    'label' => 'Все записи клуба',
+                    'url' => $this->getUrl(array('rubric_id' => null)),
+                    'template' => '<span>{menu}</span><div class="count">' . $this->community->getCount() . '</div>',
+                    'active' => $this->rubric_id === null,
+                );
+
+                foreach ($this->community->rubrics as $rubric) {
+                    if ($rubric->contentsCount > 0 && $rubric->parent_id === null) {
+                        $item = array(
+                            'label' => $rubric->title,
+                            'url' => $this->getUrl(array('rubric_id' => $rubric->id)),
+                            'template' => '<span>{menu}</span><div class="count">' . $rubric->contentsCount . '</div>',
+                            'active' => $rubric->id == $this->rubric_id,
+                        );
+
+                        if ($rubric->childs) {
+                            $childs = array();
+                            $hasFullChilds = false;
+                            foreach ($rubric->childs as $c) {
+                                if ($c->contentsCount > 0) {
+                                    $hasFullChilds = true;
+
+                                    $childs[] = array(
+                                        'label' => $c->title,
+                                        'url' => $this->getUrl(array('rubric_id' => $c->id)),
+                                        'template' => '<span>{menu}</span><div class="count">' . $c->contentsCount . '</div>',
+                                        'active' => $c->id == $this->rubric_id,
+                                    );
+
+                                    if ($c->id == $this->rubric_id) {
+                                        $item['itemOptions'] = array(
+                                            'class' => 'toggled active',
+                                        );
+                                    }
+                                }
+                            }
+
+                            if ($hasFullChilds) {
+                                $item['items'] = $childs;
+                                $item['template'] .= '<a href="javascript:void(0)" class="drop-activate-link" onclick="$(this).parents(\'li\').toggleClass(\'toggled\');"></a>';
+                                $item['submenuOptions'] = array('class' => 'club-topics-list-new-drop');
+                            }
+                        }
+
+                        $items[] = $item;
+                    }
+                }
+
+                $this->widget('zii.widgets.CMenu', array(
+                    'items' => $items,
                 ));
             ?>
+
         </div>
 
         <div class="recent-topics">
@@ -144,6 +207,10 @@
             </ul>
 
         </div>
+
+        <?php foreach ($this->community->banners as $b): ?>
+            <?php $this->renderPartial('_banner', array('data' => $b)); ?>
+        <?php endforeach; ?>
 
         <?php if ($this->action->id == 'view' && false): ?>
             <div id="yandex_ad"></div>

@@ -163,6 +163,7 @@ class UserController extends SController
 
     public function actionSetGroup()
     {
+        Yii::import('site.frontend.modules.scores.models.*');
         $seo_users = SeoUser::getContentManagers();
 
         foreach($seo_users as $seo_user)
@@ -171,7 +172,7 @@ class UserController extends SController
             if ($user !== null){
                 $user->group = UserGroup::EDITOR;
                 $user->update(array('group'));
-                echo $user->id."\n";
+                echo $user->id."<br>";
             }
         }
     }

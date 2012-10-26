@@ -135,7 +135,7 @@
             </div>
         <?php endif; ?>
 
-        <div class="club-topics-list-new">
+        <div class="club-topics-list-new drop-holder">
 
             <?php
                 $items = array();
@@ -148,13 +148,45 @@
                 );
 
                 foreach ($this->community->rubrics as $rubric) {
-                    if ($rubric->contentsCount > 0)
-                        $items[] = array(
+                    if ($rubric->contentsCount > 0 && $rubric->parent_id === null) {
+                        $item = array(
                             'label' => $rubric->title,
                             'url' => $this->getUrl(array('rubric_id' => $rubric->id)),
                             'template' => '<span>{menu}</span><div class="count">' . $rubric->contentsCount . '</div>',
                             'active' => $rubric->id == $this->rubric_id,
                         );
+
+                        if ($rubric->childs) {
+                            $childs = array();
+                            $hasFullChilds = false;
+                            foreach ($rubric->childs as $c) {
+                                if ($c->contentsCount > 0) {
+                                    $hasFullChilds = true;
+
+                                    $childs[] = array(
+                                        'label' => $c->title,
+                                        'url' => $this->getUrl(array('rubric_id' => $c->id)),
+                                        'template' => '<span>{menu}</span><div class="count">' . $c->contentsCount . '</div>',
+                                        'active' => $c->id == $this->rubric_id,
+                                    );
+
+                                    if ($c->id == $this->rubric_id) {
+                                        $item['itemOptions'] = array(
+                                            'class' => 'toggled active',
+                                        );
+                                    }
+                                }
+                            }
+
+                            if ($hasFullChilds) {
+                                $item['items'] = $childs;
+                                $item['template'] .= '<a href="javascript:void(0)" class="drop-activate-link" onclick="$(this).parents(\'li\').toggleClass(\'toggled\');"></a>';
+                                $item['submenuOptions'] = array('class' => 'club-topics-list-new-drop');
+                            }
+                        }
+
+                        $items[] = $item;
+                    }
                 }
 
                 $this->widget('zii.widgets.CMenu', array(

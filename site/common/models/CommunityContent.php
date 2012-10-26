@@ -456,7 +456,9 @@ class CommunityContent extends HActiveRecord
         $criteria->compare('community_id', $community_id);
 
         if ($rubric_id !== null) {
-            $criteria->compare('rubric_id', $rubric_id);
+            $criteria->with = 'rubric';
+            $criteria->addCondition('rubric.id = :rubric_id OR rubric.parent_id = :rubric_id');
+            $criteria->params[':rubric_id'] = $rubric_id;
         }
 
         if ($content_type_slug !== null) {

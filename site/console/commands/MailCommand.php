@@ -93,23 +93,6 @@ class MailCommand extends CConsoleCommand
         }
     }
 
-    public function actionTestMessage(){
-        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
-        Yii::import('site.frontend.extensions.*');
-        Yii::import('site.frontend.components.*');
-        Yii::import('site.frontend.helpers.*');
-        Yii::import('site.frontend.modules.im.models.*');
-        Yii::import('site.frontend.modules.geo.models.*');
-        Yii::import('site.frontend.modules.im.components.*');
-        Yii::import('site.common.models.mongo.*');
-
-        $user = User::getUserById(10);
-        $token = UserToken::model()->generate($user->id, 86400);
-        $dialogUsers = Im::model($user->id)->getUsersWithNewMessages();
-        $contents = $this->renderFile(Yii::getPathOfAlias('site.common.tpl.newMessages') . '.php', compact('dialogUsers', 'unread', 'user', 'token'), true);
-        Yii::app()->mandrill->send($user, 'newMessages', array('messages' => $contents, 'token' => $token));
-    }
-
     public function actionContest(){
         Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
         Yii::import('site.frontend.extensions.*');
@@ -140,66 +123,9 @@ class MailCommand extends CConsoleCommand
         return false;
     }
 
-    public function actionTestContest(){
-        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
-        Yii::import('site.frontend.extensions.*');
-        Yii::import('site.frontend.components.*');
-        Yii::import('site.common.models.mongo.*');
-        Yii::import('site.common.extensions.mailchimp.*');
-
-        $subject = 'Новый фотоконкурс на "Веселом Жирафе"!';
-        $opts = array(
-            'list_id' => MailChimp::WEEKLY_NEWS_TEST_LIST_ID,
-            'from_email' => 'support@happy-giraffe.ru',
-            'from_name' => 'Веселый Жираф',
-            'template_id' => 49097,
-            'tracking' => array('opens' => true, 'html_clicks' => true, 'text_clicks' => false),
-            'authenticate' => true,
-            'subject' => $subject,
-            'title' => $subject,
-            'generate_text' => true,
-        );
-
-        $content = array(
-            'html_content' => '',
-        );
-
-        $campaignId = Yii::app()->mc->api->campaignCreate('regular', $opts, $content);
-        if ($campaignId)
-            return Yii::app()->mc->api->campaignSendNow($campaignId);
-        return false;
-    }
-
-    public function actionTestWeekly(){
-        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
-        Yii::import('site.frontend.extensions.*');
-        Yii::import('site.frontend.components.*');
-        Yii::import('site.common.models.mongo.*');
-        Yii::import('site.common.extensions.mailchimp.*');
-
-        $articles = Favourites::model()->getWeekPosts();
-        $contents = $this->renderFile(Yii::getPathOfAlias('site.common.tpl.weeklyNews') . '.php', array('models' => $articles), true);
-        $subject = 'Веселый Жираф - самое интересное за неделю - ТЕСТ';
-        $opts = array(
-            'list_id' => MailChimp::WEEKLY_NEWS_TEST_LIST_ID,
-            'from_email' => 'support@happy-giraffe.ru',
-            'from_name' => 'Веселый Жираф',
-            'template_id' => 24517,
-            'tracking' => array('opens' => true, 'html_clicks' => true, 'text_clicks' => false),
-            'authenticate' => true,
-            'subject' => $subject,
-            'title' => $subject,
-            'generate_text' => true,
-        );
-
-        $content = array(
-            'html_content' => $contents,
-        );
-
-        $campaignId = Yii::app()->mc->api->campaignCreate('regular', $opts, $content);
-        if ($campaignId)
-            return Yii::app()->mc->api->campaignSendNow($campaignId);
-        return false;
+    public function actionContestParticipants()
+    {
+        Yii::app()->mc->updateContestUsers();
     }
 
     public function actionUsers()
@@ -233,6 +159,55 @@ class MailCommand extends CConsoleCommand
         $articles = Favourites::model()->getWeekPosts();
 
         echo $articles[0]->url;
+    }
+
+    public function actionTestMessage(){
+        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
+        Yii::import('site.frontend.extensions.*');
+        Yii::import('site.frontend.components.*');
+        Yii::import('site.frontend.helpers.*');
+        Yii::import('site.frontend.modules.im.models.*');
+        Yii::import('site.frontend.modules.geo.models.*');
+        Yii::import('site.frontend.modules.im.components.*');
+        Yii::import('site.common.models.mongo.*');
+
+        $user = User::getUserById(10);
+        $token = UserToken::model()->generate($user->id, 86400);
+        $dialogUsers = Im::model($user->id)->getUsersWithNewMessages();
+        $contents = $this->renderFile(Yii::getPathOfAlias('site.common.tpl.newMessages') . '.php', compact('dialogUsers', 'unread', 'user', 'token'), true);
+        Yii::app()->mandrill->send($user, 'newMessages', array('messages' => $contents, 'token' => $token));
+    }
+
+    public function actionTestWeekly(){
+        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
+        Yii::import('site.frontend.extensions.*');
+        Yii::import('site.frontend.components.*');
+        Yii::import('site.common.models.mongo.*');
+        Yii::import('site.common.extensions.mailchimp.*');
+
+        $articles = Favourites::model()->getWeekPosts();
+        $contents = $this->renderFile(Yii::getPathOfAlias('site.common.tpl.weeklyNews') . '.php', array('models' => $articles), true);
+        $subject = 'Веселый Жираф - самое интересное за неделю - ТЕСТ';
+        $opts = array(
+            'list_id' => MailChimp::WEEKLY_NEWS_TEST_LIST_ID,
+            'from_email' => 'support@happy-giraffe.ru',
+            'from_name' => 'Веселый Жираф',
+            'template_id' => 24517,
+            'tracking' => array('opens' => true, 'html_clicks' => true, 'text_clicks' => false),
+            'authenticate' => true,
+            'subject' => $subject,
+            'title' => $subject,
+            'generate_text' => true,
+        );
+
+        $content = array(
+            'html_content' => $contents,
+        );
+
+        $campaignId = Yii::app()->mc->api->campaignCreate('regular', $opts, $content);
+        if ($campaignId)
+            return Yii::app()->mc->api->campaignSendNow($campaignId);
+        return false;
     }
 }
 

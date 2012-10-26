@@ -263,11 +263,19 @@ class SeoCommand extends CConsoleCommand
         }
     }
 
-    public function actionMailru()
+    public function actionMailruForumParser()
     {
         Yii::import('site.seo.modules.mailru.components.*');
 
-        $parser = new MailRuUserParser;
+        $parser = new MailRuForumParser;
+        $parser->start();
+    }
+
+    public function actionMailruForumThemeParser()
+    {
+        Yii::import('site.seo.modules.mailru.components.*');
+
+        $parser = new MailRuForumThemeParser;
         $parser->start();
     }
 
@@ -275,7 +283,7 @@ class SeoCommand extends CConsoleCommand
     {
         Yii::import('site.seo.modules.mailru.components.*');
 
-        MailRuContestParser::collectContests();
+        MailRuForumParser::collectContests();
     }
 
     public function actionMailruCount()

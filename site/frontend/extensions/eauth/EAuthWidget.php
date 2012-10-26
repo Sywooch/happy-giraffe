@@ -39,6 +39,8 @@ class EAuthWidget extends CWidget {
 	 */
 	public $action = null;
 
+    public $params = array();
+
     public $mode = null;
 
 	/**

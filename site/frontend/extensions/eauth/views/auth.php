@@ -1,4 +1,26 @@
-<?php if ($this->mode !== 'profile'): ?>
+<?php if ($this->mode == 'vote'): ?>
+
+<div class="services">
+    <ul class="auth-services">
+        <?php
+            $rating = Rating::model()->findByEntity($this->params['model']);
+
+
+        foreach ($services as $name => $service) {
+            echo '<li class="auth-service ' . $service->id . '">';
+            $html = HHtml::link($service->id . '[' . Rating::model()->countByEntity($this->params['model'], Rating::getShort($service->id)) . ']', Yii::app()->createUrl('/'.$action, array('service' => $name, 'entity_id' => $this->params['entity_id'], 'entity' => $this->params['entity'])), array(
+                'class' => 'auth-link ' . $service->id,
+            ), true);
+
+            echo $html;
+
+            echo '</li>';
+        }
+        ?>
+    </ul>
+</div>
+
+<?php elseif ($this->mode !== 'profile'): ?>
 
     <div class="services">
         <ul class="auth-services">

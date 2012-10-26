@@ -7,7 +7,7 @@
             'model' => $this->model
         ),
         'mode' => 'vote',
-        //'predefinedServices' => array('facebook', 'vkontakte', 'odnoklassniki', 'twitter'),
+        'predefinedServices' => array('facebook' => 'facebook', 'vkontakte' => 'vkontakte', 'odnoklassniki', 'twitter'),
     ));
     ?>
 <?php else: ?>

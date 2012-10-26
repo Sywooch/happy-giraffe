@@ -63,6 +63,6 @@ class HActiveRecord extends CActiveRecord
 
     public function getShareUrl()
     {
-        return $this->getUrl(true);
+        return $this->getUrl(false, true);
     }
 }

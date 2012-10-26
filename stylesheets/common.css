@@ -4902,5 +4902,6 @@ label {
 .assistance-users {float:right;position:relative;text-align:center;padding:5px 25px 5px 10px;width:335px;}
 .assistance-users_list {list-style:none;}
 .assistance-users_list-item {float:left;margin:0 5px 6px 4px;}
+.assistance-users_other {color:#9b63b9;}
 
 

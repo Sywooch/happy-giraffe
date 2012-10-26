@@ -15,9 +15,6 @@ class AjaxController extends HController
         Yii::import('site.frontend.modules.cook.models.*');
 
         if ($service !== null) {
-
-
-
             $authIdentity = Yii::app()->eauth->getIdentity($service);
             $model = CActiveRecord::model($entity)->findByPk($entity_id);
             $authIdentity->redirectUrl = $model->getShare($service);

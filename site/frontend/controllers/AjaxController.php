@@ -17,6 +17,7 @@ class AjaxController extends HController
         if ($service !== null) {
             $authIdentity = Yii::app()->eauth->getIdentity($service);
             $model = CActiveRecord::model($entity)->findByPk($entity_id);
+            $authIdentity->redirectUrl = $model->getShare($service);
 
             if ($authIdentity->authenticate()) {
                 $vote = new SocialVote;
@@ -31,7 +32,7 @@ class AjaxController extends HController
 
             }
 
-            $authIdentity->redirect($model->getShare($service), 'share_redirect');
+            $authIdentity->redirect(null, 'share_redirect');
         }
     }
 

@@ -178,8 +178,8 @@ class SiteController extends HController
                         $user->save(false);
                         $rediret_url = Yii::app()->user->getState('social_redirect');
                         if(Yii::app()->request->getQuery('register'))
-                            $authIdentity->redirect('/', true, true);
-						$authIdentity->redirect($rediret_url, true, true);
+                            $authIdentity->redirect('/', true);
+						$authIdentity->redirect($rediret_url, true);
 					}
 				}
                 elseif(!Yii::app()->user->isGuest)
@@ -201,11 +201,11 @@ class SiteController extends HController
                         'id' => $authIdentity->getAttribute('id'),
                     );
                     Yii::app()->user->setFlash('regdata', $authIdentity->getItemAttributes());
-                    $authIdentity->redirect(array('/signup/index'), true, true);
+                    $authIdentity->redirect(array('/signup/index'), true);
                 }
 			}
 
-			$authIdentity->redirect('', true, true);
+			$authIdentity->redirect('', true);
 		}
 
 		$userModel = new User('login');

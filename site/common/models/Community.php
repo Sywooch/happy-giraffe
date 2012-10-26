@@ -93,6 +93,7 @@ class Community extends HActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'rubrics' => array(self::HAS_MANY, 'CommunityRubric', 'community_id'),
+            'rootRubrics' => array(self::HAS_MANY, 'CommunityRubric', 'community_id', 'condition' => 'parent_id IS NULL'),
 			'users' => array(self::MANY_MANY, 'User', 'user__users_communities(user_id, community_id)'),
             'usersCount' => array(self::STAT, 'User', 'user__users_communities(user_id, community_id)'),
 		);
@@ -217,6 +218,17 @@ class Community extends HActiveRecord
             'limit' => $limit,
             'order' => 'created DESC',
             'condition' => 'community.id = :community_id',
+            'params' => array(':community_id' => $this->id),
+        ));
+    }
+
+    public function getBanners($limit = 2)
+    {
+        return CommunityBanner::model()->findAll(array(
+            'with' => array('content', 'content.rubric', 'content.rubric', 'photo'),
+            'limit' => $limit,
+            'order' => new CDbExpression('RAND()'),
+            'condition' => 'rubric.community_id = :community_id AND t.photo_id IS NOT NULL',
             'params' => array(':community_id' => $this->id),
         ));
     }

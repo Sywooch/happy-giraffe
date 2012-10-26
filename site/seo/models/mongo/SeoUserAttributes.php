@@ -5,6 +5,8 @@
  */
 class SeoUserAttributes extends EMongoDocument
 {
+    const ADVERT_ID = 1;
+
     public $user_id;
     public $attributes;
     private $default = array(

@@ -3,7 +3,7 @@
   <head>
 	<script type="text/javascript">
 		<?php
-            $code = 'window.opener.location = \''.addslashes($url).'\';';
+            $code = 'window.location = \''.addslashes($url).'\';';
 			echo $code;
 		?>
 	</script>

@@ -24,10 +24,23 @@ class PingableBehavior extends CActiveRecordBehavior
         if (get_class(Yii::app()) == 'CConsoleApplication')
             return ;
 
-        if (get_class($this->owner) == 'CommunityContent' && ($this->owner->type_id == 4 || $this->owner->by_happy_giraffe)) {
-            $pingUserId = 1;
-        } else {
-            $pingUserId = $this->owner->author_id;
+        $entity = get_class($this->owner);
+        switch ($entity) {
+            case 'CommunityContent':
+                if ($this->owner->type_id == 4 || $this->owner->by_happy_giraffe) {
+                    $pingUserId = 1;
+                } else {
+                    $pingUserId = $this->owner->author_id;
+                }
+                break;
+            case 'ContestWork':
+                $pingUserId = $this->owner->user_id;
+                break;
+            case 'CookDecoration':
+                $pingUserId = $this->owner->author->id;
+                break;
+            default:
+                $pingUserId = $this->owner->author_id;
         }
 
         $pingName = 'Блог пользователя ' . $this->owner->author->fullName;
@@ -55,6 +68,6 @@ class PingableBehavior extends CActiveRecordBehavior
         $output = curl_exec($ch);
         curl_close($ch);
 
-        Yii::log($output, 'error');
+        Yii::log("Entity:\n$entity\n\nUrl:\n$pingUrl\n\nUid:\n$pingUserId\n\nOutput:\n$output\n\n", 'error');
     }
 }

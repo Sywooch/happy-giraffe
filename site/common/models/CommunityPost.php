@@ -45,6 +45,7 @@ class CommunityPost extends HActiveRecord
                     'HTML.AllowedComments' => array(
                         'gallery' => true,
                     ),
+                    'AutoFormat.Linkify' => true,
                 ),
             ),
 		);

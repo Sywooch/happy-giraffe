@@ -169,46 +169,51 @@ $cs
                 <div class="row-title">Где разместить:</div>
                 <div class="row-elements">
                     <div class="select-box">
-                        <span class="subtitle">Клуб</span>
-                        <?php echo CHtml::dropDownList('community_id', $community_id, CHtml::listData(Yii::app()->user->model->communities, 'id', 'title'), array('prompt' => 'Выберите клуб', 'class' => 'chzn w-200',
-                        'ajax' => array(
-                            'type' => 'POST',
-                            'url' => $this->createUrl('ajax/rubrics'),
-                            'success' => 'function(data) {
-                                            $("#rubric_id").html(data);
-                                            $("#rubric_id").trigger("liszt:updated");
-                                        }',
-                        ),
-                    )); ?>
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <span class="subtitle">Рубрика</span>
-                        <?php
-                            echo CHtml::dropDownList('rubric_id', $model->isNewRecord ? '' : ($model->rubric->parent_id === null ? $model->rubric->id : $model->rubric->parent_id), CHtml::listData($rubrics, 'id', 'title'), array(
-                                'prompt' => 'Выберите рубрику',
-                                'class' => 'chzn w-200',
+                        <div class="select-box-col">
+                            <div class="subtitle">Клуб</div>
+                            <?php echo CHtml::dropDownList('community_id', $community_id, CHtml::listData(Yii::app()->user->model->communities, 'id', 'title'), array('prompt' => 'Выберите клуб', 'class' => 'chzn w-200',
                                 'ajax' => array(
                                     'type' => 'POST',
-                                    'dataType' => 'json',
-                                    'url' => $this->createUrl('ajax/subRubrics'),
+                                    'url' => $this->createUrl('ajax/rubrics'),
                                     'success' => 'function(data) {
-                                        $(\'.subRubric\').toggle(data.status);
-
-                                            $("#subrubric_id").html(data.html);
-                                            $("#subrubric_id").trigger("liszt:updated");
-                                        }',
+                                                    $("#rubric_id").html(data);
+                                                    $("#rubric_id").trigger("liszt:updated");
+                                                }',
                                 ),
-                                'onchange' => '$(\'#CommunityContent_rubric_id\').val($(this).val())',
-                            ));
-                        ?>
-                        <div class="subRubric"<?php if ($model->isNewRecord || $model->rubric->parent_id === null): ?> style="display: none;"<?php endif; ?>>
-                            <span class="subtitle">Подрубрика</span>
+                            )); ?>
+                        </div>
+                        <div class="select-box-col">
+                            <div class="subtitle">Рубрика</div>
                             <?php
-                                echo CHtml::dropDownList('subrubric_id', $model->isNewRecord || $model->rubric->parent_id === null ? '' : $model->rubric->id, $model->isNewRecord || $model->rubric->parent_id === null ? array() : CHtml::listData($model->rubric->parent->childs, 'id', 'title'), array(
-                                    'prompt' => 'Выберите подрубрику',
+                                echo CHtml::dropDownList('rubric_id', $model->isNewRecord ? '' : ($model->rubric->parent_id === null ? $model->rubric->id : $model->rubric->parent_id), CHtml::listData($rubrics, 'id', 'title'), array(
+                                    'prompt' => 'Выберите рубрику',
                                     'class' => 'chzn w-200',
+                                    'ajax' => array(
+                                        'type' => 'POST',
+                                        'dataType' => 'json',
+                                        'url' => $this->createUrl('ajax/subRubrics'),
+                                        'success' => 'function(data) {
+                                            $(\'.subRubric\').toggle(data.status);
+
+                                                $("#subrubric_id").html(data.html);
+                                                $("#subrubric_id").trigger("liszt:updated");
+                                            }',
+                                    ),
                                     'onchange' => '$(\'#CommunityContent_rubric_id\').val($(this).val())',
                                 ));
                             ?>
+                        </div>
+                        <div class="select-box-col">
+                            <div class="subRubric"<?php if ($model->isNewRecord || $model->rubric->parent_id === null): ?> style="display: none;"<?php endif; ?>>
+                                <div class="subtitle">Подрубрика</div>
+                                <?php
+                                    echo CHtml::dropDownList('subrubric_id', $model->isNewRecord || $model->rubric->parent_id === null ? '' : $model->rubric->id, $model->isNewRecord || $model->rubric->parent_id === null ? array() : CHtml::listData($model->rubric->parent->childs, 'id', 'title'), array(
+                                        'prompt' => 'Выберите подрубрику',
+                                        'class' => 'chzn w-200',
+                                        'onchange' => '$(\'#CommunityContent_rubric_id\').val($(this).val())',
+                                    ));
+                                ?>
+                            </div>
                         </div>
 
                         <?php echo $form->hiddenField($model, 'rubric_id'); ?>
@@ -269,7 +274,7 @@ $cs
             <div class="row row-buttons">
                 <button class="btn btn-gray-medium"<?php if ($model->isNewRecord) echo ' onclick="document.location.href =\''. $redirectUrl .'\';"'; ?>><span><span>Отменить</span></span></button>
                 <!--<button class="btn btn-yellow-medium"><span><span>Предпросмотр</span></span></button>-->
-                <button class="btn btn-green-medium">
+                <button class="btn-green btn-green-medium">
                     <span><span><?php echo ($model->isNewRecord) ? 'Добавить' : 'Сохранить'; ?></span></span></button>
             </div>
 

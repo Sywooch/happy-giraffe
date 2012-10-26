@@ -159,17 +159,19 @@
                         if ($rubric->childs) {
                             $childs = array();
                             foreach ($rubric->childs as $c) {
-                                $childs[] = array(
-                                    'label' => $c->title,
-                                    'url' => $this->getUrl(array('rubric_id' => $c->id)),
-                                    'template' => '<span>{menu}</span><div class="count">' . $c->contentsCount . '</div>',
-                                    'active' => $c->id == $this->rubric_id,
-                                );
-
-                                if ($c->id == $this->rubric_id) {
-                                    $item['itemOptions'] = array(
-                                        'class' => 'toggled',
+                                if ($c->contentsCount > 0) {
+                                    $childs[] = array(
+                                        'label' => $c->title,
+                                        'url' => $this->getUrl(array('rubric_id' => $c->id)),
+                                        'template' => '<span>{menu}</span><div class="count">' . $c->contentsCount . '</div>',
+                                        'active' => $c->id == $this->rubric_id,
                                     );
+
+                                    if ($c->id == $this->rubric_id) {
+                                        $item['itemOptions'] = array(
+                                            'class' => 'toggled active',
+                                        );
+                                    }
                                 }
                             }
                             $item['items'] = $childs;

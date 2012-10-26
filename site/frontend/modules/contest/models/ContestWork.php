@@ -184,4 +184,9 @@ class ContestWork extends HActiveRecord
     {
         return CHtml::image($this->photo->photo->getPreviewUrl(960, 627, Image::HEIGHT, true), $this->title);
     }
+
+    public function getShareImage()
+    {
+        return $this->photo->photo->getPreviewPath(180, 180);
+    }
 }

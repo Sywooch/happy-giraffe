@@ -29,7 +29,8 @@ class ContentController extends SController
         $this->render('_cm_reports', compact('tasks'));
     }
 
-    public function actionPublish(){
+    public function actionPublish()
+    {
 
         $task_id = Yii::app()->request->getPost('id');
         $task = $this->loadTask($task_id);
@@ -59,7 +60,9 @@ class ContentController extends SController
             if ($recipe === null) {
                 echo CJSON::encode(array(
                     'status' => false,
-                    'error' => 'Статья не найдена 2'
+                    'error' => 'Статья не найдена 2',
+                    'entity' => $entity,
+                    'entity_id' => $entity_id,
                 ));
                 Yii::app()->end();
             }
@@ -67,10 +70,10 @@ class ContentController extends SController
             $page = new Page();
         }
 
-        if ($entity == 'CookRecipe' && $recipe->section != $task->multivarka){
+        if ($entity == 'CookRecipe' && $recipe->section != $task->multivarka) {
             echo CJSON::encode(array(
                 'status' => false,
-                'error' => 'Вы разместили рецепт не в тот раздел. '.($task->multivarka?' Нужен раздел мультиварка':' Нужен обычный раздел а не мультиварка')
+                'error' => 'Вы разместили рецепт не в тот раздел. ' . ($task->multivarka ? ' Нужен раздел мультиварка' : ' Нужен обычный раздел а не мультиварка')
             ));
             Yii::app()->end();
         }
@@ -79,7 +82,7 @@ class ContentController extends SController
         $page->entity_id = $entity_id;
         if (!empty($task->keyword_group_id))
             $page->keyword_group_id = $task->keyword_group_id;
-        else{
+        else {
             $group = new KeywordGroup();
             $group->save();
             $page->keyword_group_id = $group->id;

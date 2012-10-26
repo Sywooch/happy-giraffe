@@ -158,4 +158,9 @@ class ContestWork extends HActiveRecord
     {
         return $this->count('rate > :rate AND contest_id = :contest_id', array(':rate' => $this->rate, ':contest_id' => $this->contest_id)) + 1;
     }
+
+    public function getShareImage()
+    {
+        return $this->photo->photo->getPreviewPath(180, 180);
+    }
 }

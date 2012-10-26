@@ -87,17 +87,6 @@ class UsersCommand extends CConsoleCommand
         echo $k . "\n";
     }
 
-    public function actionShowLikes($work)
-    {
-        $models = RatingYohoho::model()->findAllByAttributes(array(
-            'entity_name'=>'ContestWork',
-            'entity_id'=>(int)$work
-        ));
-
-        foreach($models as $model)
-            echo $model->user_id.' - '.User::getUserById($model->user_id)->last_ip."\n";
-    }
-
     public function actionFire($user)
     {
         $user = User::model()->findByPk($user);

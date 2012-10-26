@@ -15,7 +15,7 @@ class HController extends CController
     public $meta_title = null;
     public $page_meta_model = null;
 
-    protected $r = 1;
+    protected $r = 10;
 
     public function filterAjaxOnly($filterChain)
     {
@@ -27,6 +27,8 @@ class HController extends CController
 
     public function init()
     {
+        parent::init();
+
         $this->combineStatic();
     }
 

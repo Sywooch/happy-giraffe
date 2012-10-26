@@ -34,7 +34,7 @@ class MailRuForumThemeParser extends ProxyParserThread
         try {
             $this->query = MailruQuery::model()->find($criteria);
             if ($this->query === null)
-                Yii::app()->end();
+                throw new Exception(101);
 
             $this->query->active = 1;
             $this->query->save();

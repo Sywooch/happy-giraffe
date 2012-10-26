@@ -8,6 +8,7 @@ class MailChimp extends CApplicationComponent
     const WEEKLY_NEWS_LIST_ID = 'd8ced52317';
     const WEEKLY_NEWS_TEST_LIST_ID = 'ee63e4d551';
     const CONTEST_LIST = 'cf58a61969';
+    const CONTEST_PARC_LIST = '5fcdbab25f';
 
     public $apiKey;
     public $list;
@@ -36,29 +37,6 @@ class MailChimp extends CApplicationComponent
         $options = array($this->getUserOptions($user));
         $this->api->listBatchSubscribe($this->list, $options, false, true, false);
     }
-
-    /*public function updateUsersTest()
-    {
-        //пользователи которые зарегистрировались после 1 мая + наши сотрудники
-        $criteria = new CDbCriteria;
-        $criteria->condition = '(t.group = 4)';
-        $criteria->scopes = array('active');
-        $criteria->limit = 100;
-        $users = array(1);
-
-        $i = 0;
-        while (!empty($users)) {
-            $criteria->offset = $i * 100;
-            $users = User::model()->findAll($criteria);
-            $options = array();
-            foreach ($users as $user)
-                $options[] = $this->getUserOptions($user);
-
-            $res = $this->api->listBatchSubscribe($this->list, $options, false, true, false);
-            echo $res;
-            $i++;
-        }
-    }*/
 
     public function updateUsers()
     {
@@ -99,10 +77,10 @@ class MailChimp extends CApplicationComponent
     {
         $criteria = new CDbCriteria;
         $criteria->limit = 100;
-        $criteria->offset = 10000;
+        $criteria->offset = 60000;
 
         $users = array(1);
-        while (!empty($users) && $criteria->offset < 20000) {
+        while (!empty($users)) {
             $users = MailruUser::model()->findAll($criteria);
             $options = array();
             foreach ($users as $user) {
@@ -111,6 +89,7 @@ class MailChimp extends CApplicationComponent
                     'FNAME' => $user->name,
                     'LNAME' => '',
                 );
+                echo $user->email.'<br>';
             }
 
             $this->list = self::CONTEST_LIST;
@@ -118,6 +97,34 @@ class MailChimp extends CApplicationComponent
 
             $criteria->offset += 100;
         }
+    }
+
+    public function updateContestUsers()
+    {
+        Yii::import('site.frontend.modules.contest.models.*');
+        Yii::import('site.frontend.helpers.*');
+
+        $works = ContestWork::model()->findAll('contest_id=2');
+        $options = array();
+        foreach ($works as $work) {
+            $options[] = array(
+                'EMAIL' => $work->author->email,
+                'FNAME' => $work->author->first_name,
+                'LNAME' => $work->author->last_name,
+                'IMGSRC'=> $work->photo->photo->getPreviewUrl(210, null, Image::WIDTH),
+                'TITLE' => $work->title,
+                'PLACE' => $work->position,
+                'SCORES' => $work->rate,
+                'SCORESWORD' => HDate::GenerateNoun(array('балл', 'балла', 'баллов'), $work->rate),
+                'LINK' => trim($work->url, '.'),
+            );
+            //echo $work->author->email.'\n';
+        }
+
+        echo count($options)."\n";
+
+        $this->list = self::CONTEST_PARC_LIST;
+        $this->api->listBatchSubscribe($this->list, $options, false, true, false);
     }
 
     public function deleteUsers()

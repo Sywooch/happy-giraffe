@@ -1,15 +1,44 @@
 <?php if (get_class($this->model) == 'ContestWork'): ?>
-    <?php Yii::app()->eauth->renderWidget(array(
-        'action' => '/ajax/socialVote',
-        'params' => array(
-            'entity' => get_class($this->model),
-            'entity_id' => $this->model->id,
-            'model' => $this->model
-        ),
-        'mode' => 'vote',
-        'predefinedServices' => array('facebook' => 'facebook', 'vkontakte' => 'vkontakte', 'odnoklassniki', 'twitter'),
-    ));
-    ?>
+
+
+    <div class="like-block fast-like-block">
+        <div class="box-2">
+            <?php
+                $this->render('_yh_min', array(
+                    'options' => $this->providers['yh'],
+                ));
+            ?>
+        </div>
+
+        <div class="box-1 auth-services">
+
+            <?php
+                Yii::app()->eauth->renderWidget(array(
+                    'action' => '/ajax/socialVote',
+                    'params' => array(
+                        'entity' => get_class($this->model),
+                        'entity_id' => $this->model->id,
+                        'model' => $this->model
+                    ),
+                    'mode' => 'vote',
+                    'predefinedServices' => array('facebook' => 'facebook', 'vkontakte' => 'vkontakte', 'odnoklassniki', 'twitter'),
+                ));
+            ?>
+
+        </div>
+
+        <div class="box-3">
+            <div class="rating"><span><?php echo Rating::model()->countByEntity($this->model, false) ?></span></div>
+            <?php if ($this->notice != ''): ?>
+            <div class="icon-info">
+                <div class="tip">
+                    <?php echo $this->notice; ?>
+                </div>
+            </div>
+            <?php endif; ?>
+        </div>
+
+    </div>
 <?php else: ?>
 
     <?php

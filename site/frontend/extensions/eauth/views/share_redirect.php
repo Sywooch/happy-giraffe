@@ -3,7 +3,12 @@
   <head>
 	<script type="text/javascript">
 		<?php
-            $code = 'window.location = \''.addslashes($url).'\';';
+            $code = "
+                window.location = '" . addslashes($url) . "';
+                var el =  window.opener.$('.rating span');
+                el.text(parseInt(el.text()) + 1);
+
+            ";
 			echo $code;
 		?>
 	</script>

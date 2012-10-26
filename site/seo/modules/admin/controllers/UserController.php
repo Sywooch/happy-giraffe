@@ -138,9 +138,9 @@ class UserController extends SController
         if ($model->save('password')) {
             $response = array(
                 'status' => true,
-                'result' => $model->email . ' '.$model->name. '. Новый пароль: ' . $password
+                'result' => $model->email . ' ' . $model->name . '. Новый пароль: ' . $password
             );
-        } else{
+        } else {
             $response = array('status' => false);
             var_dump($model->getErrors());
             Yii::app()->end();
@@ -159,5 +159,20 @@ class UserController extends SController
             $i++;
         }
         return $password;
+    }
+
+    public function actionSetGroup()
+    {
+        $seo_users = SeoUser::getContentManagers();
+
+        foreach($seo_users as $seo_user)
+        if (!empty($seo_user->related_user_id)){
+            $user = User::model()->findByPk($seo_user->related_user_id);
+            if ($user !== null){
+                $user->group = UserGroup::EDITOR;
+                $user->update(array('group'));
+                echo $user->id."\n";
+            }
+        }
     }
 }

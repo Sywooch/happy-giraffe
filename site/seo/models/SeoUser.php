@@ -228,4 +228,15 @@ class SeoUser extends HActiveRecord
 
         return SeoUser::model()->findAllByPk($users);
     }
+
+    public static function getContentManagers()
+    {
+        $users = Yii::app()->db_seo->createCommand()
+            ->select('userId')
+            ->from('auth__assignments')
+            ->where('itemname = "content-manager" OR itemname = "cook-content-manager"')
+            ->queryColumn();
+
+        return SeoUser::model()->findAllByPk($users);
+    }
 }

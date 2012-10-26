@@ -1,5 +1,15 @@
 <?php if (get_class($this->model) == 'ContestWork'): ?>
-    <?php Yii::app()->eauth->renderWidget(array('action' => '/ajax/socialVote', 'params' => array('entity' => get_class($this->model), 'entity_id' => $this->model->id, 'model' => $this->model), 'mode' => 'vote')); ?>
+    <?php Yii::app()->eauth->renderWidget(array(
+        'action' => '/ajax/socialVote',
+        'params' => array(
+            'entity' => get_class($this->model),
+            'entity_id' => $this->model->id,
+            'model' => $this->model
+        ),
+        'mode' => 'vote',
+        'predefinedServices' => array('facebook', 'vkontakte', 'odnoklassniki', 'twitter'),
+    ));
+    ?>
 <?php else: ?>
 
     <?php

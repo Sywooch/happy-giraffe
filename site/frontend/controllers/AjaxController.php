@@ -14,7 +14,15 @@ class AjaxController extends HController
         $service = Yii::app()->request->getQuery('service');
         if (isset($service)) {
             $authIdentity = Yii::app()->eauth->getIdentity($service);
-            echo $authIdentity->getAttribute('id');
+
+            if ($authIdentity->authenticate()) {
+
+                $id = $authIdentity->getAttribute('id');
+
+                echo $id;
+            }
+
+
         }
     }
 

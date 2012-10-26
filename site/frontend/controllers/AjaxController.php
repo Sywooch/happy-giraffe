@@ -17,6 +17,7 @@ class AjaxController extends HController
         if ($service !== null) {
 
 
+
             $authIdentity = Yii::app()->eauth->getIdentity($service);
             $model = CActiveRecord::model($entity)->findByPk($entity_id);
             $authIdentity->redirectUrl = $model->getShare($service);
@@ -29,8 +30,7 @@ class AjaxController extends HController
                 $vote->service_id = $authIdentity->getAttribute('id');
                 try {
                     $vote->save();
-                    $rating = Rating::model()->findByEntity($model);
-                    $rating->inc($model, Rating::getShort($service));
+                    Rating::model()->inc($model, Rating::getShort($service));
                 } catch (MongoCursorException $e) {}
 
             }

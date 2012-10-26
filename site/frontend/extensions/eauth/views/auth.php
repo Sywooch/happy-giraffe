@@ -3,7 +3,6 @@
 <div class="services">
     <ul class="auth-services">
         <?php
-            $rating = Rating::model()->findByEntity($this->params['model']);
 
 
         foreach ($services as $name => $service) {

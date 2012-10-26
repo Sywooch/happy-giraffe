@@ -118,8 +118,10 @@ class MailChimp extends CApplicationComponent
                 'SCORESWORD' => HDate::GenerateNoun(array('балл', 'балла', 'баллов'), $work->rate),
                 'LINK' => trim($work->url, '.'),
             );
-            echo $work->author->email.'\n';
+            //echo $work->author->email.'\n';
         }
+
+        echo count($options)."\n";
 
         $this->list = self::CONTEST_PARC_LIST;
         $this->api->listBatchSubscribe($this->list, $options, false, true, false);

@@ -25,16 +25,17 @@
     <div class="services">
         <ul class="auth-services">
             <?php
-            foreach ($services as $name => $service) {
-                echo '<li class="auth-service ' . $service->id . '">';
-                $html = HHtml::link('', array('/'.$action, 'service' => $name), array(
-                    'class' => 'auth-link ' . $service->id,
-                ), true);
+            foreach ($services as $name => $service)
+                if ($service->id != 'twitter') {
+                    echo '<li class="auth-service ' . $service->id . '">';
+                    $html = HHtml::link('', array('/'.$action, 'service' => $name), array(
+                        'class' => 'auth-link ' . $service->id,
+                    ), true);
 
-                echo $html;
+                    echo $html;
 
-                echo '</li>';
-            }
+                    echo '</li>';
+                }
             ?>
         </ul>
     </div>

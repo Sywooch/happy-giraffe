@@ -18,6 +18,7 @@ class AjaxController extends HController
             $authIdentity = Yii::app()->eauth->getIdentity($service);
             $model = CActiveRecord::model($entity)->findByPk($entity_id);
             $authIdentity->redirectUrl = $model->getShare($service);
+            $inc = false;
 
             if ($authIdentity->authenticate()) {
                 $vote = new SocialVote;
@@ -28,11 +29,12 @@ class AjaxController extends HController
                 try {
                     $vote->save();
                     Rating::model()->inc($model, Rating::getShort($service));
+                    $inc = true;
                 } catch (MongoCursorException $e) {}
 
             }
 
-            $authIdentity->redirect(null, 'share_redirect');
+            $authIdentity->redirect(null, 'share_redirect', $inc);
         }
     }
 

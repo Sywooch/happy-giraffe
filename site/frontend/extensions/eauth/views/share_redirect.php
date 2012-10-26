@@ -4,9 +4,12 @@
 	<script type="text/javascript">
 		<?php
             $code = "
+                var inc = " . CJSON::encode($inc) . ";
                 window.location = '" . addslashes($url) . "';
-                var el =  window.opener.$('.rating span');
-                el.text(parseInt(el.text()) + 1);
+                if (inc) {
+                    var el =  window.opener.$('.rating span');
+                    el.text(parseInt(el.text()) + 1);
+                }
 
             ";
 			echo $code;

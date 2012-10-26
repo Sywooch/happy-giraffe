@@ -112,4 +112,4 @@ Yii::app()->clientScript
 
 </div>
 
-<?php Yii::app()->eauth->renderWidget(array('action' => '/ajax/socialVote', 'mode' => 'vote')); ?>
+<?php Yii::app()->eauth->renderWidget(array('action' => Yii::app()->createUrl('ajax/socialVote', array('entity' => get_class($this->model), 'entity_id' => $this->model->id)), 'mode' => 'vote')); ?>

@@ -5,8 +5,15 @@ class AjaxController extends HController
     public function filters()
     {
         return array(
-            'ajaxOnly',
+            'ajaxOnly - socialVote',
         );
+    }
+
+    public function actionSocialVote()
+    {
+        $service = Yii::app()->request->getQuery('service');
+        $authIdentity = Yii::app()->eauth->getIdentity($service);
+        echo $authIdentity->getAttribute('id');
     }
 
     public function actionSetValue()

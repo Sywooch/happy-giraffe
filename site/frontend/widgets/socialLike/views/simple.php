@@ -111,3 +111,5 @@ Yii::app()->clientScript
     </div>
 
 </div>
+
+<?php Yii::app()->eauth->renderWidget(array('action' => '/ajax/socialVote', 'mode' => 'vote')); ?>

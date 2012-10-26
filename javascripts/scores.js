@@ -1,6 +1,8 @@
 var Scores = {
     entity:null,
-    entity_id:null
+    entity_id:null,
+    page:1,
+    loading:false
 }
 
 Scores.open = function (tab) {
@@ -14,6 +16,8 @@ Scores.open = function (tab) {
         $('.user-nav-2 .item-career').addClass('active');
         Scores.openTab(tab);
     });
+
+
 }
 
 Scores.close = function () {
@@ -54,7 +58,7 @@ Scores.help = function () {
     this.block().find('#achievement-help .back').html(Scores.BackTitle());
 }
 
-Scores.BackTitle = function(){
+Scores.BackTitle = function () {
     var index = $("#user-career div.nav li").index($('#user-career div.nav li.active'));
 
     if (index == 0)
@@ -94,11 +98,11 @@ Scores.openAchieve = function (index) {
     carousel.scroll($('#carousel-achieve-' + index), false);
 }
 
-Scores.initCarousel = function(selector){
-    var carousel = $(selector).jcarousel({list:'>ul',items:'>li'});
+Scores.initCarousel = function (selector) {
+    var carousel = $(selector).jcarousel({list:'>ul', items:'>li'});
 
-    $(selector+' > .prev').jcarouselControl({target:'-=1', carousel:carousel});
-    $(selector+' > .next').jcarouselControl({target:'+=1', carousel:carousel});
+    $(selector + ' > .prev').jcarouselControl({target:'-=1', carousel:carousel});
+    $(selector + ' > .next').jcarouselControl({target:'+=1', carousel:carousel});
 }
 
 Scores.whoElse = function (el, type, id) {
@@ -111,4 +115,16 @@ Scores.checkPack = function (id) {
     $.post('/scores/getPack/', {id:id}, function (response) {
         $('#user-career').replaceWith(response);
     });
+}
+Scores.loadHistory = function () {
+    if (Scores.loading === false) {
+        Scores.loading = true;
+        $.post('/scores/history/', {page:Scores.page}, function (response) {
+            if (response != '') {
+                $('#user-career .lvl-list ul').append(response);
+                Scores.loading = false;
+                Scores.page++;
+            }
+        });
+    }
 }

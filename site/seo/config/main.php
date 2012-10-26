@@ -134,7 +134,12 @@ return array(
             'host' => 'plexor.www.happy-giraffe.ru',
             'port' => 10010,
             'namespace' => 'crm_',
-        )
+        ),
+        'mc' => array(
+            'class' => 'site.common.extensions.mailchimp.MailChimp',
+            'apiKey' => 'c0ff51b36480912260a410258b64af5f-us5',
+            'list' => 'd8ced52317'
+        ),
     ),
 
     'params' => array(

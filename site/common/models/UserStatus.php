@@ -59,7 +59,14 @@ class UserStatus extends HActiveRecord
                 'class' => 'zii.behaviors.CTimestampBehavior',
                 'createAttribute' => 'created',
                 'updateAttribute' => null,
-            )
+            ),
+            'purified' => array(
+                'class' => 'site.common.behaviors.PurifiedBehavior',
+                'attributes' => array('text'),
+                'options' => array(
+                    'AutoFormat.Linkify' => true,
+                ),
+            ),
         );
     }
 

@@ -24,6 +24,18 @@ class RatingCommand extends CConsoleCommand
         }
     }
 
+
+    public function actionShowLikes($work)
+    {
+        $models = RatingYohoho::model()->findAllByAttributes(array(
+            'entity_name' => 'ContestWork',
+            'entity_id' => (int)$work
+        ));
+
+        foreach ($models as $model)
+            echo $model->user_id . ' - ' . User::getUserById($model->user_id)->last_ip . "\n";
+    }
+
     public function actionSync($social_key = null)
     {
         $models = ContestWork::model()->findAll('contest_id = 2');
@@ -41,6 +53,35 @@ class RatingCommand extends CConsoleCommand
                 Rating::updateByApi($model, $social_key, $url);
             }
             echo ($i + 1) . '/' . $count . '|' . $url . "\n";
+        }
+    }
+
+    public function actionCalc()
+    {
+        $models = ContestWork::model()->findAll('contest_id = 2');
+        //$models = array(ContestWork::model()->findByPk(445));
+
+        foreach ($models as $model) {
+            $criteria = new EMongoCriteria();
+            $criteria->entity_id('==', (int)$model->id);
+            $criteria->entity_name('==', 'ContestWork');
+            $yohoho_models = RatingYohoho::model()->findAll($criteria);
+
+            $likes = array();
+            foreach ($yohoho_models as $yohoho_model)
+                if (!empty(User::getUserById($yohoho_model->user_id)->last_ip))
+                    $likes [] = User::getUserById($yohoho_model->user_id)->last_ip;
+            $unique_likes = array_unique($likes);
+
+            if (count($unique_likes) != count($likes)) {
+                echo 'http://www.happy-giraffe.ru/user/'.$model->user_id."/ : ".count($likes). " : ";
+                $rating = Rating::model()->find($criteria);
+                if ($rating !== null) {
+                    $rating->ratings['yh'] = count($unique_likes) * 2;
+                    echo $rating->ratings['yh'] . "\n";
+                    $rating->save();
+                }
+            }
         }
     }
 }

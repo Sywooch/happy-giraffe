@@ -8,7 +8,7 @@
     <?php
     echo CHtml::linkTag('shortcut icon', null, '/favicon.bmp');
 
-    $release_id = 29;
+    $release_id = 30;
     Yii::app()->clientScript
         ->registerCssFile('/css/seo.css?'.$release_id)
         ->registerCssFile('/css/form.css')
@@ -51,6 +51,13 @@
 <body>
 
 <div id="seo" class="wrapper">
+
+    <?php if (!SeoUserAttributes::getAttribute('close_advert_' . SeoUserAttributes::ADVERT_ID)): ?>
+        <div class="advert">
+            <a href="javascript:;" class="popup-close" onclick="Advert.close()"></a>
+            <span>В субботу 27 октября сео-сайт работать не будет, плановые технические работы. Спасибо :)</span>
+        </div>
+    <?php endif ?>
 
     <?=$content ?>
 
@@ -138,8 +145,5 @@
     ?>
 </div>
 <?php endif; ?>
-<!--Отработало за <?=sprintf('%0.5f',Yii::getLogger()->getExecutionTime())?> с. Скушано памяти: <?=round(memory_get_peak_usage()/(1024*1024),2)."MB"?>-->
-<!--<?php $sql_stats = YII::app()->db->getStats();
-echo $sql_stats[0] . ' запросов к БД, время выполнения запросов - ' . sprintf('%0.5f', $sql_stats[1]) . ' c.'; ?>-->
 </body>
 </html>

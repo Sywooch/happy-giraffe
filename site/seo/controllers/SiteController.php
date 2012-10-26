@@ -10,7 +10,7 @@ class SiteController extends SController
                 'users' => array('@'),
             ),
             array('allow',
-                'actions' => array('login', 'maintenance'),
+                'actions' => array('login', 'maintenance', 'closeAdvert'),
                 'users' => array('*'),
             ),
             array('deny',
@@ -155,7 +155,8 @@ class SiteController extends SController
         // <title>Статистика ключевых слов на Яндексе
     }
 
-    public function actionTest(){
+    public function actionTest()
+    {
         $html = <<<EOD
 EOD;
         Yii::import('site.frontend.extensions.phpQuery.phpQuery');
@@ -164,7 +165,7 @@ EOD;
         $links = array();
         foreach ($document->find('a') as $link) {
             $links [] = pq($link)->text();
-            echo pq($link)->text().'<br>';
+            echo pq($link)->text() . '<br>';
         }
     }
 
@@ -201,5 +202,10 @@ EOD;
         $this->layout = '//system/layout';
         Yii::app()->clientScript->registerCssFile('http://www.happy-giraffe.ru/stylesheets/maintenance.css');
         $this->render('//system/maintenance');
+    }
+
+    public function actionCloseAdvert()
+    {
+        SeoUserAttributes::setAttribute('close_advert_' . SeoUserAttributes::ADVERT_ID, 1);
     }
 }

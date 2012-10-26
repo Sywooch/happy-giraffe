@@ -24,7 +24,9 @@ class AjaxController extends HController
                 $vote->social_key = $service;
                 $vote->social_id = $authIdentity->getAttribute('id');
                 $vote->save();
+                print_r($vote->attributes);
 
+                print_r($vote->errors);
             }
 
 

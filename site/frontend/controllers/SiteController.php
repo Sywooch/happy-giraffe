@@ -205,7 +205,7 @@ class SiteController extends HController
                 }
 			}
 
-			$authIdentity->redirect();
+			$authIdentity->redirect('');
 		}
 
 		$userModel = new User('login');

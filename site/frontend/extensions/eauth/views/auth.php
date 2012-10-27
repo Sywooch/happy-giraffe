@@ -1,18 +1,58 @@
-<?php if ($this->mode !== 'profile'): ?>
+<?php if ($this->mode == 'vote'): ?>
+
+    <?php $this->controller->beginWidget('SeoContentWidget'); ?>
+
+        <div class="share_button auth-service facebook">
+            <div class="custom-like-fb">
+                <a href="<?=Yii::app()->createUrl('/'.$action, array('service' => 'facebook', 'entity_id' => $this->params['entity_id'], 'entity' => $this->params['entity']))?>" class="custom-like-fb-text">
+                    <i class="icon-fb"></i>Мне нравится
+                </a>
+                <div class="custom-like-fb-share-count"><?=Rating::model()->countByEntity($this->params['model'], 'fb')?></div>
+            </div>
+        </div>
+
+        <div class="share_button auth-service vkontakte">
+            <a href="<?=Yii::app()->createUrl('/'.$action, array('service' => 'vkontakte', 'entity_id' => $this->params['entity_id'], 'entity' => $this->params['entity']))?>" class="custom-like-vk">
+                <span class="custom-like-vk_text">Мне нравится</span>
+                <span class="custom-like-vk_logo"></span>
+                <span class="custom-like-vk_value"><?=Rating::model()->countByEntity($this->params['model'], 'vk')?></span>
+            </a>
+
+        </div>
+
+        <div class="share_button auth-service odnoklassniki">
+            <a class="custom-like-odkl" href="<?=Yii::app()->createUrl('/'.$action, array('service' => 'odnoklassniki', 'entity_id' => $this->params['entity_id'], 'entity' => $this->params['entity']))?>">
+                <span class="custom-like-odkl_value"><?=Rating::model()->countByEntity($this->params['model'], 'ok')?></span>
+            </a>
+        </div>
+
+        <div class="share_button auth-service twitter">
+            <div class="custom-like-tw">
+                <a href="<?=Yii::app()->createUrl('/'.$action, array('service' => 'twitter', 'entity_id' => $this->params['entity_id'], 'entity' => $this->params['entity']))?>" class="custom-like-tw_text">
+                    <i class="icon-tw"></i>Твитнуть
+                </a>
+                <span class="custom-like-tw_value"><?=Rating::model()->countByEntity($this->params['model'], 'tw')?></span>
+            </div>
+        </div>
+
+    <?php $this->controller->endWidget(); ?>
+
+<?php elseif ($this->mode !== 'profile'): ?>
 
     <div class="services">
         <ul class="auth-services">
             <?php
-            foreach ($services as $name => $service) {
-                echo '<li class="auth-service ' . $service->id . '">';
-                $html = HHtml::link('', array('/'.$action, 'service' => $name), array(
-                    'class' => 'auth-link ' . $service->id,
-                ), true);
+            foreach ($services as $name => $service)
+                if ($service->id != 'twitter') {
+                    echo '<li class="auth-service ' . $service->id . '">';
+                    $html = HHtml::link('', array('/'.$action, 'service' => $name), array(
+                        'class' => 'auth-link ' . $service->id,
+                    ), true);
 
-                echo $html;
+                    echo $html;
 
-                echo '</li>';
-            }
+                    echo '</li>';
+                }
             ?>
         </ul>
     </div>

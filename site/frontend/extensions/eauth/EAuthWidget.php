@@ -39,6 +39,8 @@ class EAuthWidget extends CWidget {
 	 */
 	public $action = null;
 
+    public $params = array();
+
     public $mode = null;
 
 	/**
@@ -61,10 +63,10 @@ class EAuthWidget extends CWidget {
 			$_services = array();
 			foreach ($this->predefinedServices as $_serviceName) {
 				if (isset($this->services[$_serviceName]))
-					$_services[] = $this->services[$_serviceName];
+					$_services[$_serviceName] = $this->services[$_serviceName];
 			}
 			$this->services = $_services;
-		}		
+		}
 		
 		if (!isset($this->popup))
 			$this->popup = $component->popup;

@@ -47,7 +47,7 @@ class UserAttributes extends EMongoDocument
         }
     }
 
-    public static function get($user_id, $key) {
+    public static function get($user_id, $key, $default = null) {
         $model = self::model()->findByAttributes(array(
             'user_id' => (int) $user_id,
         ));
@@ -55,7 +55,7 @@ class UserAttributes extends EMongoDocument
         if ($model !== null && isset($model->attributes[$key])) {
             return $model->attributes[$key];
         } else {
-            return false;
+            return $default;
         }
     }
 

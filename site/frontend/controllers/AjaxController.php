@@ -29,6 +29,7 @@ class AjaxController extends HController
 
         var_dump($_GET);
         var_dump($_POST);
+        var_dump(Yii::app()->session);
         Yii::app()->end();
 
         if ($service !== null) {

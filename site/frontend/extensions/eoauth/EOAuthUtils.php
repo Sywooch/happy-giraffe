@@ -108,8 +108,14 @@ class EOAuthUtils extends EOAuthComponent {
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
     $response = curl_exec($ch);
     $headers = curl_getinfo($ch);
+
     curl_close($ch);
-    if ($headers['http_code'] != 200) {
+
+      var_dump($response);
+      var_dump($headers);
+      Yii::app()->end();
+
+      if ($headers['http_code'] != 200) {
       throw new OAuthException($response);
     }
 

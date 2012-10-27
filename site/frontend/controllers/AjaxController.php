@@ -16,8 +16,7 @@ class AjaxController extends HController
         Yii::import('site.frontend.modules.cook.models.*');
 
         var_dump($entity, $entity_id, $service);
-        var_dump($_GET);
-        var_dump($_POST);
+        var_dump(getallheaders());
         Yii::app()->end();
 
         if ($service !== null) {

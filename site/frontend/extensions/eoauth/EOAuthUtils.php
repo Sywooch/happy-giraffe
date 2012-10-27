@@ -111,9 +111,6 @@ class EOAuthUtils extends EOAuthComponent {
 
     curl_close($ch);
 
-      //print_r($response);
-      //print_r($headers);
-      //Yii::app()->end();
 
       if ($headers['http_code'] != 200) {
       throw new OAuthException($response);

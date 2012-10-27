@@ -23,7 +23,9 @@ class AjaxController extends HController
                 $out[$key]=$value;
             }
         }
-        var_dump($out);
+
+        foreach($out as $key=>$value)
+            echo $key.' - '.$value.'<br>';
 
         Yii::app()->end();
 

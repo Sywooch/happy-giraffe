@@ -9,6 +9,24 @@
                 if (inc) {
                     var el =  window.opener.$('.rating span');
                     el.text(parseInt(el.text()) + 1);
+
+                    var service = " . CJSON::encode($service) . ";
+                    var counter;
+                    switch (service) {
+                        case 'facebook':
+                            counter = window.opener.$('.custom-like-fb-share-count');
+                            break;
+                        case 'vkontakte':
+                            counter = window.opener.$('.custom-like-vk_value');
+                            break;
+                        case 'odnoklassniki':
+                            counter = window.opener.$('.custom-like-odkl_value');
+                            break;
+                        case 'twitter':
+                            counter = window.opener.$('.custom-like-tw_value');
+                            break;
+                    }
+                    counter.text(parseInt(counter.text()) + 1);
                 }
 
             ";

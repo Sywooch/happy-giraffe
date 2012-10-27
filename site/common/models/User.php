@@ -1114,6 +1114,6 @@ class User extends HActiveRecord
 
     public function hasFeature($feature_id)
     {
-        return true;
+        return false;
     }
 }

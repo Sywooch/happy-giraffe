@@ -8,7 +8,7 @@
                 window.location = '" . addslashes($url) . "';
                 if (inc) {
                     var el =  window.opener.$('.rating span');
-                    el.text(parseInt(el.text()) + 1);
+                    el.text(parseInt(el.first().text()) + 1);
 
                     var service = " . CJSON::encode($service) . ";
                     var counter;
@@ -26,7 +26,8 @@
                             counter = window.opener.$('.custom-like-tw_value');
                             break;
                     }
-                    counter.text(parseInt(counter.text()) + 1);
+
+                    counter.text(parseInt(counter.first().text()) + 1);
                 }
 
             ";

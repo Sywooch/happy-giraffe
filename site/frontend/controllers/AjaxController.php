@@ -29,7 +29,7 @@ class AjaxController extends HController
                 $vote->service_id = $authIdentity->getAttribute('id');
                 try {
                     $vote->save();
-                    Rating::model()->inc($model, Rating::getShort($service));
+                    Rating::model()->saveByEntity($model, $service, 1, true);
                     $inc = true;
                 } catch (MongoCursorException $e) {}
 

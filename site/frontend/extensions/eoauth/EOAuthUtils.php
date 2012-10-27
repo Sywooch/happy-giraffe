@@ -111,8 +111,8 @@ class EOAuthUtils extends EOAuthComponent {
 
     curl_close($ch);
 
-      var_dump($response);
-      var_dump($headers);
+      print_r($response);
+      print_r($headers);
       Yii::app()->end();
 
       if ($headers['http_code'] != 200) {

@@ -28,7 +28,7 @@ class AjaxController extends HController
             echo $key.' - '.$value.'<br>';
 
         echo '<br>';
-        echo $_GET['code'];
+        var_dump($_REQUEST);
 
         Yii::app()->end();
 

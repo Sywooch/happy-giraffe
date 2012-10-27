@@ -29,6 +29,7 @@ class AjaxController extends HController
 
         var_dump($_GET);
         var_dump($_POST);
+        var_dump($_REQUEST);
         echo '<br>';
 
         Yii::app()->end();

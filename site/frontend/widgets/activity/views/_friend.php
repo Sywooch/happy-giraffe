@@ -7,6 +7,9 @@
 //    'duration' => 3600
 //))
 //) {
+
+    $statusStyle = UserAttributes::get($f->id, 'statusStyle');
+
     $_interests = array();
     foreach ($f->interests as $i)
         $_interests[$i->category_id][] = $i;
@@ -19,7 +22,7 @@
             'user' => $f, 'location' => false, 'friendButton' => true
         )); ?>
         <?php if ($full && $f->status): ?>
-            <div class="text-status">
+            <div class="text-status<?php if ($statusStyle != 0): ?> pattern<?php endif; ?> pattern-<?=$statusStyle?>">
                 <span class="tale"></span>
                 <?=$f->status->text?>
             </div>

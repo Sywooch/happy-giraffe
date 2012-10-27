@@ -5,8 +5,38 @@ class AjaxController extends HController
     public function filters()
     {
         return array(
-            'ajaxOnly',
+            'ajaxOnly - socialVote',
         );
+    }
+
+    public function actionSocialVote($entity, $entity_id, $service = null)
+    {
+        Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
+        Yii::import('site.frontend.modules.contest.models.*');
+        Yii::import('site.frontend.modules.cook.models.*');
+
+        if ($service !== null) {
+            $authIdentity = Yii::app()->eauth->getIdentity($service);
+            $model = CActiveRecord::model($entity)->findByPk($entity_id);
+            $authIdentity->redirectUrl = $model->getShare($service);
+            $inc = false;
+
+            if ($authIdentity->authenticate()) {
+                $vote = new SocialVote;
+                $vote->entity = $entity;
+                $vote->entity_id = $entity_id;
+                $vote->service_key = $service;
+                $vote->service_id = $authIdentity->getAttribute('id');
+                try {
+                    $vote->save();
+                    Rating::model()->saveByEntity($model, Rating::getShort($service), 1, true);
+                    $inc = true;
+                } catch (MongoCursorException $e) {}
+
+            }
+
+            $authIdentity->redirect(null, 'share_redirect', $inc);
+        }
     }
 
     public function actionSetValue()

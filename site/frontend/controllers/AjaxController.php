@@ -27,6 +27,8 @@ class AjaxController extends HController
         foreach($out as $key=>$value)
             echo $key.' - '.$value.'<br>';
 
+        var_dump($_GET);
+        var_dump($_POST);
         Yii::app()->end();
 
         if ($service !== null) {

@@ -98,7 +98,7 @@ jQuery.fn.pGallery = function(options) {
             if (typeof history.pushState !== 'undefined') {
                 plugin.history.changeBrowserUrl(newUrl);
                 if (plugin.data.entity == 'Contest') {
-                    if ($('#photo-window .vk_share_button').length > 0)
+                    /*if ($('#photo-window .vk_share_button').length > 0)
                         $('#photo-window .vk_share_button').html(VK.Share.button(document.location.href,{type: 'round', text: 'Мне нравится'}));
                     if (typeof twttr != 'undefined' && typeof twttr.widgets != 'undefined')
                         twttr.widgets.load();
@@ -108,7 +108,11 @@ jQuery.fn.pGallery = function(options) {
                     }
                     $.getJSON("http://graph.facebook.com", { id : document.location.href }, function(json){
                         $('.fb-custom-share-count').html(json.shares || '0');
-                    });
+                    });*/
+                    $(".auth-service.odnoklassniki a").eauth({"popup":{"width":680,"height":500},"id":"odnoklassniki"});
+                    $(".auth-service.vkontakte a").eauth({"popup":{"width":585,"height":350},"id":"vkontakte"});
+                    $(".auth-service.facebook a").eauth({"popup":{"width":585,"height":290},"id":"facebook"});
+                    $(".auth-service.twitter a").eauth({"popup":{"width":900,"height":550},"id":"twitter"});
                 }
             }
             $('#photo-window-bg, #photo-window').fadeIn(600, function(){
@@ -180,14 +184,18 @@ jQuery.fn.pGallery = function(options) {
 
             $('#w-photo-content', plugin.window).html(html);
             if (plugin.data.entity == 'Contest') {
-                if ($('#photo-window .vk_share_button').length > 0)
+                /*if ($('#photo-window .vk_share_button').length > 0)
                     $('#photo-window .vk_share_button').html(VK.Share.button(document.location.href,{type: 'round', text: 'Мне нравится'}));
                 if (typeof twttr != 'undefined' && typeof twttr.widgets != 'undefined')
                     twttr.widgets.load();
                 if (typeof ODKL != 'undefined') {
                     ODKL.initialized = false;
                     ODKL.init();
-                }
+                }*/
+                $(".auth-service.odnoklassniki a").eauth({"popup":{"width":680,"height":500},"id":"odnoklassniki"});
+                $(".auth-service.vkontakte a").eauth({"popup":{"width":585,"height":350},"id":"vkontakte"});
+                $(".auth-service.facebook a").eauth({"popup":{"width":585,"height":290},"id":"facebook"});
+                $(".auth-service.twitter a").eauth({"popup":{"width":900,"height":550},"id":"twitter"});
             }
             link.parent().siblings('li.active').removeClass('active');
             link.parent().addClass('active');

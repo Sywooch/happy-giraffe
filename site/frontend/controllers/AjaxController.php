@@ -15,21 +15,7 @@ class AjaxController extends HController
         Yii::import('site.frontend.modules.contest.models.*');
         Yii::import('site.frontend.modules.cook.models.*');
 
-        foreach($_SERVER as $key=>$value) {
-            if (substr($key,0,5)=="HTTP_") {
-                $key=str_replace(" ","-",ucwords(strtolower(str_replace("_"," ",substr($key,5)))));
-                $out[$key]=$value;
-            }else{
-                $out[$key]=$value;
-            }
-        }
-
-        foreach($out as $key=>$value)
-            echo $key.' - '.$value.'<br>';
-
-        echo '<br>';
         var_dump($_REQUEST);
-
         Yii::app()->end();
 
         if ($service !== null) {

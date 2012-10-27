@@ -27,6 +27,8 @@ class EAuthRedirectWidget extends CWidget {
 
     public $inc;
 
+    public $service;
+
     public $in_popup = false;
 
 	/**
@@ -41,6 +43,7 @@ class EAuthRedirectWidget extends CWidget {
 			'assets_path' => $assets_path,
             'in_popup' => $this->in_popup,
             'inc' => $this->inc,
+            'service' => $this->service,
 		));
 		Yii::app()->end();
     }

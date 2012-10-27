@@ -11,6 +11,7 @@ class AjaxController extends HController
 
     public function actionSocialVote($entity, $entity_id, $service = null)
     {
+        Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
         Yii::import('site.frontend.modules.contest.models.*');
         Yii::import('site.frontend.modules.cook.models.*');
 

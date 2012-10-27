@@ -15,9 +15,6 @@ class AjaxController extends HController
         Yii::import('site.frontend.modules.contest.models.*');
         Yii::import('site.frontend.modules.cook.models.*');
 
-        var_dump($_REQUEST);
-        Yii::app()->end();
-
         if ($service !== null) {
             $authIdentity = Yii::app()->eauth->getIdentity($service);
             $model = CActiveRecord::model($entity)->findByPk($entity_id);

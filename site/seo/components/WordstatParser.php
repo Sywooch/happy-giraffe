@@ -189,9 +189,11 @@ class WordstatParser extends ProxyParserThread
                 $model = Keyword::GetKeyword($keyword);
                 $this->endTimer();
 
-                if ($value >= self::PARSE_LIMIT)
-                    $this->AddToParsingInclusiveKeyword($model);
-                $this->AddStat($model, $value);
+                if ($model !== null){
+                    if ($value >= self::PARSE_LIMIT)
+                        $this->AddToParsingInclusiveKeyword($model);
+                    $this->AddStat($model, $value);
+                }
             }
         }
 

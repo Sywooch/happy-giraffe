@@ -54,11 +54,11 @@ class PageView extends EMongoDocument
     {
         if (!in_array($_SERVER['HTTP_USER_AGENT'], $this->getBots())) {
             $viewed_pages = Yii::app()->session->get('viewed_pages');
-            if (strpos($viewed_pages, $this->_id) === false) {
+            if (strpos($viewed_pages, $this->_id.',') === false) {
                 $this->views++;
                 $this->save();
 
-                $viewed_pages .= ' '.$this->_id;
+                $viewed_pages .= ' '.$this->_id.',';
                 Yii::app()->session['viewed_pages'] = $viewed_pages;
             }
         }

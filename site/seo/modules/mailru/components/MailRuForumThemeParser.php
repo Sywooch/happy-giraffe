@@ -29,6 +29,7 @@ class MailRuForumThemeParser extends ProxyParserThread
         $criteria = new CDbCriteria;
         $criteria->compare('active', 0);
         $criteria->compare('type', MailruQuery::TYPE_THEME);
+        $criteria->order = 'id desc';
 
         $transaction = Yii::app()->db_seo->beginTransaction();
         try {

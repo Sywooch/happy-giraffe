@@ -23,8 +23,8 @@ class WordstatParser extends ProxyParserThread
     {
         Config::setAttribute('stop_threads', 0);
 
-        $this->delay_min = 2;
-        $this->delay_max = 6;
+        $this->delay_min = 1;
+        $this->delay_max = 3;
         $this->timeout = 45;
         $this->debug = $mode;
         $this->removeCookieOnChangeProxy = false;
@@ -69,7 +69,7 @@ class WordstatParser extends ProxyParserThread
 
     public function loadKeywords()
     {
-        $this->startTimer('load keywords');
+//        $this->startTimer('load keywords');
 
         $transaction = Yii::app()->db_seo->beginTransaction();
 
@@ -96,8 +96,8 @@ class WordstatParser extends ProxyParserThread
             $this->closeThread('get keyword transaction failed');
         }
 
-        $this->endTimer();
-        $this->log(count($this->keywords) . ' keywords loaded');
+//        $this->endTimer();
+//        $this->log(count($this->keywords) . ' keywords loaded');
     }
 
     public function getKeyword()
@@ -115,7 +115,7 @@ class WordstatParser extends ProxyParserThread
         $url = 'http://wordstat.yandex.ru/';
         $success = false;
 
-        $this->log('starting get cookie');
+//        $this->log('starting get cookie');
 
         while (!$success) {
             $data = $this->query($url);
@@ -125,14 +125,14 @@ class WordstatParser extends ProxyParserThread
                 $html = $this->query($mc_url, $url);
                 if (strpos($html, 'Set-Cookie:') === false) {
                     $success = false;
-                    $this->log('mc.yandex.ru set cookie failed');
+//                    $this->log('mc.yandex.ru set cookie failed');
                 }
             } else
                 $success = false;
             $html = $this->query('http://kiks.yandex.ru/su/', $url);
             if (strpos($html, 'Set-Cookie:') === false) {
                 $success = false;
-                $this->log('kiks.yandex.ru set cookie failed');
+//                $this->log('kiks.yandex.ru set cookie failed');
             }
 
             if (Config::getAttribute('stop_threads') == 1)
@@ -145,7 +145,7 @@ class WordstatParser extends ProxyParserThread
             sleep(1);
         }
 
-        $this->log('cookie received successfully');
+//        $this->log('cookie received successfully');
     }
 
     private function parseQuery()
@@ -159,7 +159,7 @@ class WordstatParser extends ProxyParserThread
 
     public function parseData($html)
     {
-        $this->log('parse page');
+//        $this->log('parse page');
 
         $document = phpQuery::newDocument($html);
         $html = str_replace('&nbsp;', ' ', $html);
@@ -174,43 +174,25 @@ class WordstatParser extends ProxyParserThread
         if ($k == 0)
             return false;
 
-        $this->log('valid page loaded');
+//        $this->log('valid page loaded');
 
         //find keywords in block "Что искали со словом"
         foreach ($document->find('table.campaign tr td table:first td a') as $link) {
             $keyword = trim(pq($link)->text());
             $value = (int)pq($link)->parent()->next()->next()->text();
 
-            if (!empty($keyword) && !empty($value)) {
-                $this->startTimer('search keyword');
-                if (strpos($keyword, '+') !== false)
-                    $keyword = preg_replace('/(\+)[\w]*/', '', $keyword);
-
-                $model = Keyword::GetKeyword($keyword);
-                $this->endTimer();
-
-                if ($model !== null){
-                    if ($value >= self::PARSE_LIMIT)
-                        $this->AddToParsingInclusiveKeyword($model);
-                    $this->AddStat($model, $value);
-                }
-            }
+            $this->addData($keyword, $value);
         }
 
         //собирает кейворды из блока "Что еще искали люди, искавшие" - парсим только первую страницу
         //так как на остальных кейворды повторяются
-//        if ($this->first_page)
-//            foreach ($document->find('table.campaign tr td table:eq(1) td a') as $link) {
-//                $keyword = trim(pq($link)->text());
-//                $value = (int)pq($link)->parent()->next()->next()->text();
-//                if (!empty($keyword) && !empty($value)) {
-//                    $keyword = preg_replace('/(\+)[\w]*/', '', $keyword);
-//                    $model = Keyword::GetKeyword($keyword);
-//                    if ($value >= self::PARSE_LIMIT)
-//                        $this->AddToParsingAdjacentKeyword($model);
-//                    $this->AddStat($model, $value);
-//                }
-//            }
+        if ($this->first_page)
+            foreach ($document->find('table.campaign tr td table:eq(1) td a') as $link) {
+                $keyword = trim(pq($link)->text());
+                $value = (int)pq($link)->parent()->next()->next()->text();
+
+                $this->addData($keyword, $value);
+            }
 
         //ищем ссылку на следующую страницу
         $this->next_page = '';
@@ -224,7 +206,7 @@ class WordstatParser extends ProxyParserThread
             $this->RemoveCurrentKeywordFromParsing();
         else {
             $this->first_page = false;
-            $this->log('next page: ' . $this->next_page);
+//            $this->log('next page: ' . $this->next_page);
         }
 
         $document->unloadDocument();
@@ -232,7 +214,25 @@ class WordstatParser extends ProxyParserThread
         return true;
     }
 
-    public function AddToParsingInclusiveKeyword($model)
+    public function addData($keyword, $value)
+    {
+        if (!empty($keyword) && !empty($value)) {
+//            $this->startTimer('search keyword');
+            if (strpos($keyword, '+') !== false)
+                $keyword = preg_replace('/(\+)[\w]*/', '', $keyword);
+
+            $model = Keyword::GetKeyword($keyword);
+//            $this->endTimer();
+
+            if ($model !== null){
+                if ($value >= self::PARSE_LIMIT)
+                    $this->AddToParsing($model);
+                $this->AddStat($model, $value);
+            }
+        }
+    }
+
+    public function AddToParsing($model)
     {
         $this->AddKeywordToParsing($model->id, $this->keyword->theme);
     }
@@ -252,7 +252,7 @@ class WordstatParser extends ProxyParserThread
         if ($keyword_id == $this->keyword->keyword_id)
             return;
 
-        $this->startTimer('add_keyword_to_parsing');
+//        $this->startTimer('add_keyword_to_parsing');
 
         $yandex = YandexPopularity::model()->findByPk($keyword_id);
         //если уже спарсили полностью и была задана тематика
@@ -278,7 +278,7 @@ class WordstatParser extends ProxyParserThread
             $transaction->rollback();
         }
 
-        $this->endTimer();
+//        $this->endTimer();
     }
 
     /**
@@ -308,7 +308,7 @@ class WordstatParser extends ProxyParserThread
      */
     public function RemoveCurrentKeywordFromParsing()
     {
-        $this->startTimer('remove_from_parsing');
+//        $this->startTimer('remove_from_parsing');
         //добавляем в спарсенные
         $yandex = YandexPopularity::model()->findByPk($this->keyword->keyword_id);
         if ($yandex !== null) {
@@ -319,6 +319,6 @@ class WordstatParser extends ProxyParserThread
 
         //удаляем кейворд из парсинга
         ParsingKeyword::model()->deleteByPk($this->keyword->keyword_id);
-        $this->endTimer();
+//        $this->endTimer();
     }
 }

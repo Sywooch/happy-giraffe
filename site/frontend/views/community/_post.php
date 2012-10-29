@@ -26,11 +26,11 @@
         <?php endif; ?>
 
         <noindex>
-            <?php //if ($data->type_id == 5 || (! $data->by_happy_giraffe && $data->author_id != User::HAPPY_GIRAFFE && $data->rubric->community_id != Community::COMMUNITY_NEWS)): ?>
+            <?php if ($data->rubric->community_id != Community::COMMUNITY_NEWS): ?>
                 <div class="user">
                     <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => $data->contentAuthor, 'friendButton' => true, 'location' => false)); ?>
                 </div>
-            <?php //endif; ?>
+            <?php endif; ?>
             <?php $this->widget('site.frontend.widgets.favoritesWidget.FavouritesWidget', array('model' => $data)); ?>
 
             <div class="meta">

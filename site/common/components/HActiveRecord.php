@@ -42,7 +42,7 @@ class HActiveRecord extends CActiveRecord
             '{title}' => $this->shareTitle,
             '{description}' => $this->shareDescription,
             '{image}' => $this->shareImage,
-            '{url}' => $this->shareUrl,
+            '{url}' => urlencode($this->shareUrl),
         ));
     }
 

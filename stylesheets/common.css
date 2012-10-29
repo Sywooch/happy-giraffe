@@ -568,6 +568,7 @@ input[type=text].error , input[type=password].error , textarea.error {border:1px
 .btn-large {height:75px;line-height:75px;font-size:34px;font-weight:bold;padding:35px;}
 
 .btn {cursor:pointer;width:auto;overflow:visible;margin:0;border-width:0;background:none;white-space:nowrap;cursor:pointer;display:inline-block;*zoom:1;*display:inline;padding:0;text-decoration:none;font-family:arial, sans-serif;}
+.btn:hover {-webkit-border-radius: none;-moz-border-radius: none;-ms-border-radius: none;border-radius:none;background:none;}
 .btn::-moz-focus-inner {border:0;padding:0;}
 .btn:-moz-focus-inner {padding:0; border:none;}
 .btn > span {display:-moz-inline-stack;display:inline-block;*zoom:1;*display:inline;text-decoration:none;background:url(../images/btn.png);font-weight:normal;}
@@ -2809,16 +2810,17 @@ div.scrollbarpaper-drag {/*css3*/ -moz-border-radius:3px;-webkit-border-radius:3
 .custom-like-tw_value:after {
 	content:"";
 	position: absolute;
-	margin: -4px 0 0 -9px;
+	margin: -4px 0 0 -4px;
 	line-height: 0;
 	width: 0;
 	height: 0;
 	left: 0;
 	top: 50%;
 	border: 4px transparent solid;
-	border-right-color: white;
+	border-left:0;
+	border-right-color: #AAA;
 }
-.custom-like-tw_value:after {margin-left:-8px;}
+.custom-like-tw_value:after {margin-left:-3px;border-right-color: white;}
 
 .custom-like-odkl {
 	border-style: none;

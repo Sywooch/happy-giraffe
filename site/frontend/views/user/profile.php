@@ -33,7 +33,7 @@
                 <div class="info">
                     <p class="birthday"><?php if ($user->birthday): ?><span>День рождения:</span> <?=Yii::app()->dateFormatter->format("d MMMM", $user->birthday)?> (<?=$user->normalizedAge?>)<?php endif; ?></p>
                 </div>
-            <?php if(Yii::app()->user->checkAccess('manageFavourites')): ?>
+            <?php if(!Yii::app()->user->isGuest && Yii::app()->user->checkAccess('manageFavourites')): ?>
             <div class="user-buttons clearfix">
                 <?php $this->widget('site.frontend.widgets.favoritesWidget.FavouritesWidget', array('model' => $user)); ?>
             </div>
@@ -76,11 +76,11 @@
             <?php $this->widget('FamilyWidget', array(
                 'user' => $user,
             )); ?>
-
-            <div class="interests-wrapper">
-            <?php $this->widget('InterestsWidget', array(
-                'user' => $user,
-            )); ?>
+<!---->
+<!--            <div class="interests-wrapper">-->
+<!--            --><?php //$this->widget('InterestsWidget', array(
+//                'user' => $user,
+//            )); ?>
             </div>
 
         </div>
@@ -117,76 +117,76 @@
             <div class="clearfix">
                 <div class="col-2">
 
-                    <?php $this->widget('UserMoodWidget', array(
-                        'user' => $user,
-                    )); ?>
-
-                    <?php $this->widget('UserStatusWidget', array(
-                        'user' => $user,
-                    )); ?>
-
-                    <?php $this->widget('UserPurposeWidget', array(
-                        'user' => $user,
-                    )); ?>
-
-                    <?php $this->widget('BlogWidget', array(
-                        'user' => $user,
-                    )); ?>
-
-                    <?php $this->widget('UserCommunitiesWidget', array(
-                        'user' => $user
-                    )); ?>
-
-                    <?php $this->widget('UserAlbumWidget', array(
-                        'user' => $user,
-                    )); ?>
+<!--                    --><?php //$this->widget('UserMoodWidget', array(
+//                        'user' => $user,
+//                    )); ?>
+<!---->
+<!--                    --><?php //$this->widget('UserStatusWidget', array(
+//                        'user' => $user,
+//                    )); ?>
+<!---->
+<!--                    --><?php //$this->widget('UserPurposeWidget', array(
+//                        'user' => $user,
+//                    )); ?>
+<!---->
+<!--                    --><?php //$this->widget('BlogWidget', array(
+//                        'user' => $user,
+//                    )); ?>
+<!---->
+<!--                    --><?php //$this->widget('UserCommunitiesWidget', array(
+//                        'user' => $user
+//                    )); ?>
+<!---->
+<!--                    --><?php //$this->widget('UserAlbumWidget', array(
+//                        'user' => $user,
+//                    )); ?>
 
                 </div>
 
                 <div class="col-3">
 
-                    <?php $this->widget('ContestWidget', array(
-                        'user' => $user,
-                        'contest_id' => 2,
-                    )); ?>
+<!--                    --><?php //$this->widget('ContestWidget', array(
+//                        'user' => $user,
+//                        'contest_id' => 2,
+//                    )); ?>
 
                     <?php $this->widget('UserFriendsWidget', array(
                         'user' => $user,
                     )); ?>
 
-                    <div id="loc-flipbox">
-                        <?php $this->widget('LocationWidget', array(
-                            'user' => $user,
-                        )); ?>
-                    </div>
-
-                    <div class="weather-wrapper">
-                        <?php $this->widget('WeatherWidget', array(
-                            'user' => $user,
-                        )); ?>
-                    </div>
-
-                    <div class="horoscope-wrapper">
-                        <?php $this->widget('HoroscopeWidget', array(
-                            'user' => $user,
-                        )); ?>
-                    </div>
-
-                    <?php $this->widget('UserDuelWidget', array(
-                        'user' => $user,
-                    )); ?>
+<!--                    <div id="loc-flipbox">-->
+<!--                        --><?php //$this->widget('LocationWidget', array(
+//                            'user' => $user,
+//                        )); ?>
+<!--                    </div>-->
+<!---->
+<!--                    <div class="weather-wrapper">-->
+<!--                        --><?php //$this->widget('WeatherWidget', array(
+//                            'user' => $user,
+//                        )); ?>
+<!--                    </div>-->
+<!---->
+<!--                    <div class="horoscope-wrapper">-->
+<!--                        --><?php //$this->widget('HoroscopeWidget', array(
+//                            'user' => $user,
+//                        )); ?>
+<!--                    </div>-->
+<!---->
+<!--                    --><?php //$this->widget('UserDuelWidget', array(
+//                        'user' => $user,
+//                    )); ?>
 
                 </div>
 
             </div>
 
-            <?php $this->widget('application.widgets.commentWidget.CommentWidget', array(
-                'model' => $user,
-                'type' => 'guestBook',
-                'title' => 'Гостевая',
-                'button' => 'Добавить запись',
-                'actions' => false,
-            )); ?>
+<!--            --><?php //$this->widget('application.widgets.commentWidget.CommentWidget', array(
+//                'model' => $user,
+//                'type' => 'guestBook',
+//                'title' => 'Гостевая',
+//                'button' => 'Добавить запись',
+//                'actions' => false,
+//            )); ?>
 
         </div>
 
@@ -219,3 +219,8 @@
 
 <?php $sql_stats = YII::app()->db->getStats();
 echo $sql_stats[0] . ' запросов к БД, время выполнения запросов - ' . sprintf('%0.5f', $sql_stats[1]) . ' c.'; ?>
+<style type="text/css">
+    html.top-nav-fixed {overflow-y: auto !important;}
+    .top-nav-fixed body {overflow: auto !important;}
+    .top-nav-fixed .layout-container {position: relative !important;}
+</style>

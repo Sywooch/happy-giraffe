@@ -12,6 +12,11 @@ class UserFriendsWidget extends UserCoreWidget
         $criteria->limit = $this->limit;
         $criteria->order = 'RAND()';
         $criteria->condition = 'avatar_id IS NOT NULL';
+        $criteria->with = array(
+            'avatar' => array(
+                'select' => array('author_id', 'fs_name')
+            )
+        );
         $this->_friends = User::model()->findAll($this->user->getFriendsCriteria($criteria));
 
         $this->visible = $this->isMyProfile || (count($this->_friends) >= $this->limit);

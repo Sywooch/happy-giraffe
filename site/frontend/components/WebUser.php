@@ -12,6 +12,11 @@ class WebUser extends CWebUser
         return $this->_model;
     }
 
+    public function setModel($model)
+    {
+        $this->_model = $model;
+    }
+
     /**
      * @todo put real %
      * @return float

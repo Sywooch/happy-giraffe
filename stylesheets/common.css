@@ -565,7 +565,7 @@ input[type=text].error , input[type=password].error , textarea.error {border:1px
 
 .btn-medium {height:32px;font:bold 16px/32px Arial, Tahoma, Verdana, sans-serif;padding:0 14px;}
 .btn-big {height:70px;line-height:70px;padding:0 19px;font-size:16px;font-weight:bold;}
-.btn-large {height:75px;line-height:75px;font-size:34px;font-weight:bold;padding:35px;}
+.btn-large {height:75px;line-height:75px;font-size:34px;font-weight:bold;padding:0 35px;}
 
 .btn {cursor:pointer;width:auto;overflow:visible;margin:0;border-width:0;background:none;white-space:nowrap;cursor:pointer;display:inline-block;*zoom:1;*display:inline;padding:0;text-decoration:none;font-family:arial, sans-serif;}
 .btn:hover {-webkit-border-radius: none;-moz-border-radius: none;-ms-border-radius: none;border-radius:none;background:none;}

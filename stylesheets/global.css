@@ -3558,7 +3558,7 @@ ul.letters li a:hover {
 .test .step .question .q-options label:active {color:#8b5fb5;}
 .test .step .question .q-options label span {}
 
-#test-pregnancy {border:1px solid #f0e8f7;}
+#test-pregnancy {border:1px solid #f0e8f7;margin-bottom:30px;}
 #test-pregnancy .step {width:698px;height:555px;position:relative;}
 #test-pregnancy .step > img {position:relative;z-index:1;}
 #test-pregnancy .step-in {position:absolute;z-index:2;top:0;left:0;padding:25px;}
@@ -3566,6 +3566,7 @@ ul.letters li a:hover {
 #test-pregnancy .step .title span {color:#a582c7;font-size:48px;display:block;}
 #test-pregnancy .step .text {background:#fff;padding:15px 25px;width:310px;font:italic 18px times new roman, serif;color:#5f5e5e;margin-bottom:45px;}
 #test-pregnancy .step .text {/*css3*/ -webkit-border-radius:20px;-moz-border-radius:20px;border-radius:20px; box-shadow:0 0 5px #e8dbf7;behavior: url(/stylesheets/PIE.htc);}
+#test-pregnancy .step .btn-holder {width:385px;text-align:center;}
 #test-pregnancy .step .btn {width:360px;text-align:center;}
 #test-pregnancy .step .btn button {font:bold 30px arial, helvetica, sans-serif;color: #a46307;padding:0 25px;height: 58px;border: 1px solid #f1d419;background: url(../images/bg_yellow_av.png) 0 0 repeat-x;cursor:pointer;}
 #test-pregnancy .step .btn button {/*css3*/ border-radius: 10px;-moz-border-radius: 10px;-webkit-border-radius: 10px;behavior: url(/stylesheets/PIE.htc);}

@@ -39,10 +39,10 @@ class HActiveRecord extends CActiveRecord
         }
 
         return strtr($url, array(
-            '{title}' => $this->shareTitle,
-            '{description}' => $this->shareDescription,
-            '{image}' => $this->shareImage,
-            '{url}' => $this->shareUrl,
+            '{title}' => urlencode($this->shareTitle),
+            '{description}' => urlencode($this->shareDescription),
+            '{image}' => urlencode($this->shareImage),
+            '{url}' => urlencode($this->shareUrl),
         ));
     }
 

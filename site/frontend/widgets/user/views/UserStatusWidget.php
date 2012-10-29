@@ -2,7 +2,7 @@
     $cs = Yii::app()->clientScript;
 
     $js = "
-        $('div.user-status').delegate('a.pseudo:first', 'click', function(e) {
+        $('div.user-status').delegate('a.updateStatus', 'click', function(e) {
             e.preventDefault();
             $('div.status-container').hide();
             $('div.user-status > form').show();
@@ -47,7 +47,7 @@
     <div class="status-container">
         <?php if ($isMyProfile): ?>
             <?php if ($user->status === null): ?>
-                <p><a href="" class="pseudo">Что бы Вы хотели всем сообщить?</a></p>
+                <p><a href="" class="pseudo updateStatus">Что бы Вы хотели всем сообщить?</a></p>
             <?php else: ?>
                 <?php $this->render('_status', array(
                     'status' => $user->status,

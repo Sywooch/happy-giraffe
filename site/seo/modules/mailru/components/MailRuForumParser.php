@@ -141,25 +141,36 @@ class MailRuForumParser extends ProxyParserThread
     public static function collectContests()
     {
         $contests = array(
-            'http://forum.deti.mail.ru/topics.html?fid=83',
-            'http://forum.deti.mail.ru/topics.html?fid=84',
-            'http://forum.deti.mail.ru/topics.html?fid=85',
-            'http://forum.deti.mail.ru/topics.html?fid=91',
-            'http://forum.deti.mail.ru/topics.html?fid=89',
-            'http://forum.deti.mail.ru/topics.html?fid=88',
-            'http://forum.deti.mail.ru/topics.html?fid=90',
-            'http://forum.deti.mail.ru/topics.html?fid=86',
-
-            'http://forum.deti.mail.ru/topics.html?fid=31',
-            'http://forum.deti.mail.ru/topics.html?fid=35',
-            'http://forum.deti.mail.ru/topics.html?fid=32',
-            'http://forum.deti.mail.ru/topics.html?fid=34',
-            'http://forum.deti.mail.ru/topics.html?fid=11',
-            'http://forum.deti.mail.ru/topics.html?fid=73',
-
+            'http://forum.deti.mail.ru/topics.html?fid=75',
+            'http://forum.deti.mail.ru/topics.html?fid=2',
+            'http://forum.deti.mail.ru/topics.html?fid=3',
+            'http://forum.deti.mail.ru/topics.html?fid=4',
+            'http://forum.deti.mail.ru/topics.html?fid=58',
             'http://forum.deti.mail.ru/topics.html?fid=28',
             'http://forum.deti.mail.ru/topics.html?fid=29',
-            'http://forum.deti.mail.ru/topics.html?fid=58',
+            'http://forum.deti.mail.ru/topics.html?fid=74',
+            'http://forum.deti.mail.ru/topics.html?fid=45',
+            'http://forum.deti.mail.ru/topics.html?fid=46',
+            'http://forum.deti.mail.ru/topics.html?fid=47',
+
+            'http://forum.deti.mail.ru/topics.html?fid=136',
+            'http://forum.deti.mail.ru/topics.html?fid=137',
+            'http://forum.deti.mail.ru/topics.html?fid=18',
+            'http://forum.deti.mail.ru/topics.html?fid=49',
+            'http://forum.deti.mail.ru/topics.html?fid=50',
+            'http://forum.deti.mail.ru/topics.html?fid=21',
+            'http://forum.deti.mail.ru/topics.html?fid=120',
+            'http://forum.deti.mail.ru/topics.html?fid=119',
+            'http://forum.deti.mail.ru/topics.html?fid=124',
+            'http://forum.deti.mail.ru/topics.html?fid=134',
+            'http://forum.deti.mail.ru/topics.html?fid=117',
+
+            'http://forum.deti.mail.ru/topics.html?fid=10',
+            'http://forum.deti.mail.ru/topics.html?fid=113',
+            'http://forum.deti.mail.ru/topics.html?fid=37',
+            'http://forum.deti.mail.ru/topics.html?fid=38',
+            'http://forum.deti.mail.ru/topics.html?fid=9',
+            'http://forum.deti.mail.ru/topics.html?fid=126',
         );
         foreach ($contests as $contest) {
             $q = new MailruQuery();

@@ -27,6 +27,7 @@
                             break;
                     }
 
+                    console.log(counter.first().text());
                     counter.text(parseInt(counter.first().text()) + 1);
                 }
 

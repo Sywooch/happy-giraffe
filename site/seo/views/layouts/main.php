@@ -52,7 +52,7 @@
 
 <div id="seo" class="wrapper">
 
-    <?php if (!SeoUserAttributes::getAttribute('close_advert_' . SeoUserAttributes::ADVERT_ID)): ?>
+    <?php if (false && !SeoUserAttributes::getAttribute('close_advert_' . SeoUserAttributes::ADVERT_ID)): ?>
         <div class="advert">
             <a href="javascript:;" class="popup-close" onclick="Advert.close()"></a>
             <span>В субботу 27 октября сео-сайт работать не будет, плановые технические работы. Спасибо :)</span>

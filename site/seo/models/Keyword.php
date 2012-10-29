@@ -215,8 +215,12 @@ class Keyword extends HActiveRecord
 
         $model = new Keyword();
         $model->name = $word;
-        if (!$model->save())
-            throw new CHttpException(404, 'Кейворд не сохранен. ' . $word);
+        try{
+            $model->save();
+        }catch (Exception $e){
+            //значит кейворд создан в промежуток времени между запросами - повторим запрос
+            $model = self::model()->findByAttributes(array('name' => $word));
+        }
 
         return $model;
     }

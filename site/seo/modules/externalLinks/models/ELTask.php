@@ -30,6 +30,10 @@ class ELTask extends HActiveRecord
     const FORUM_WORKER_LINK_LIMIT = 3;
     const FORUM_WORKER_COMMENT_LIMIT = 4;
 
+    const FORUM_ANGRY_WORKER_REG_LIMIT = 10;
+    const FORUM_ANGRY_WORKER_LINK_LIMIT = 10;
+    const FORUM_ANGRY_WORKER_COMMENT_LIMIT = 20;
+
     /**
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.
@@ -378,6 +382,8 @@ class ELTask extends HActiveRecord
     {
         if (Yii::app()->user->checkAccess('externalLinks-manager-panel'))
             return self::FORUM_MANAGER_REG_LIMIT;
+        elseif (in_array(Yii::app()->user->id, array(141)))
+            return self::FORUM_ANGRY_WORKER_REG_LIMIT;
         else
             return self::FORUM_WORKER_REG_LIMIT;
     }
@@ -386,6 +392,8 @@ class ELTask extends HActiveRecord
     {
         if (Yii::app()->user->checkAccess('externalLinks-manager-panel'))
             return self::FORUM_MANAGER_LINK_LIMIT;
+        elseif (in_array(Yii::app()->user->id, array(141)))
+            return self::FORUM_ANGRY_WORKER_LINK_LIMIT;
         else
             return self::FORUM_WORKER_LINK_LIMIT;
     }
@@ -394,6 +402,8 @@ class ELTask extends HActiveRecord
     {
         if (Yii::app()->user->checkAccess('externalLinks-manager-panel'))
             return self::FORUM_MANAGER_REG_LIMIT + self::FORUM_MANAGER_LINK_LIMIT + self::FORUM_MANAGER_COMMENT_LIMIT;
+        elseif (in_array(Yii::app()->user->id, array(141)))
+            return self::FORUM_ANGRY_WORKER_REG_LIMIT + self::FORUM_ANGRY_WORKER_LINK_LIMIT + self::FORUM_ANGRY_WORKER_COMMENT_LIMIT;
         else
             return self::FORUM_WORKER_REG_LIMIT + self::FORUM_WORKER_LINK_LIMIT + self::FORUM_WORKER_COMMENT_LIMIT;
     }

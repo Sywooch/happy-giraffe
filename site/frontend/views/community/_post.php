@@ -26,7 +26,7 @@
         <?php endif; ?>
 
         <noindex>
-            <?php if ($data->type_id == 5 || (! $data->by_happy_giraffe && $data->author_id != User::HAPPY_GIRAFFE && $data->rubric->community_id != Community::COMMUNITY_NEWS)): ?>
+            <?php if ($data->rubric->community_id != Community::COMMUNITY_NEWS): ?>
                 <div class="user">
                     <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => $data->contentAuthor, 'friendButton' => true, 'location' => false)); ?>
                 </div>
@@ -213,11 +213,7 @@
             if (isset($this->community) && ! $data->isFromBlog && $this->community->id == 22 && Yii::app()->authManager->checkAccess('importCookRecipes', Yii::app()->user->id))
                 echo CHtml::link('Перенести в рецепты', array('/cook/recipe/import', 'content_id' => $data->id));
 
-            if ($data->by_happy_giraffe): ?>
-                <div class="source">Источник:&nbsp;
-                    Весёлый Жираф
-                </div>
-            <?php endif; ?>
+            ?>
 
             <div class="clear"></div>
         </div>

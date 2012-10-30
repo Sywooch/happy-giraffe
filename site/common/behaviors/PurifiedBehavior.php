@@ -28,9 +28,9 @@ class PurifiedBehavior extends CActiveRecordBehavior
                 $purifier = new CHtmlPurifier;
                 $purifier->options = CMap::mergeArray($this->_defaultOptions, $this->options);
                 $value = $this->getOwner()->$name;
-                $value = str_replace('&amp;', '&', $value);
+                //$value = str_replace('&amp;', '&', $value);
                 $value = $this->linkifyYouTubeURLs($value);
-                $value = str_replace('&', '&amp;', $value);
+                //$value = str_replace('&', '&amp;', $value);
                 $value = $purifier->purify($value);
                 $value = $this->wrapNoindexNofollow($value);
                 Yii::app()->cache->set($cacheId, $value);

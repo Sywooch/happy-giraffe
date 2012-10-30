@@ -170,6 +170,7 @@ class Album extends HActiveRecord
         array_push($criteria->scopes, 'active');
         array_push($criteria->scopes, 'permission');
         $criteria->scopes = array_merge($criteria->scopes, $scopes);
+        $criteria->with = array('photoCount');
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,

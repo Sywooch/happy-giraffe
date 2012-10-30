@@ -6,10 +6,11 @@
 class FamilyWidget extends UserCoreWidget
 {
     public $showEmpty = false;
+
     public function init()
     {
         parent::init();
-        $this->visible = ($this->user->babyCount() > 0)
+        $this->visible = (count($this->user->babies) > 0)
             || ($this->user->hasPartner() && !empty($this->user->partner->name))
             || $this->isMyProfile;
     }

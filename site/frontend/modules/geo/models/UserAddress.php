@@ -127,14 +127,29 @@ class UserAddress extends HActiveRecord
     public function getFlag($big = false, $element = 'div')
     {
         if (!empty($this->country_id)) {
-            if ($big)
-                return '<' . $element . ' class="flag-big flag-big-' . strtolower($this->country->iso_code)
-                    . '" title="' . $this->country->name . '"></' . $element . '>';
-            else
-                return '<' . $element . ' class="flag flag-' . strtolower($this->country->iso_code)
-                    . '" title="' . $this->country->name . '"></' . $element . '>';
-        }
-        else
+            if ($big){
+                $cache_id = 'geo_flag_big_'.$this->country_id.'_'.$element;
+                $value=Yii::app()->cache->get($cache_id);
+                if($value===false)
+                {
+                    $value = '<' . $element . ' class="flag-big flag-big-' . strtolower($this->country->iso_code)
+                        . '" title="' . $this->country->name . '"></' . $element . '>';
+                    Yii::app()->cache->set($cache_id,$value, 3600*10);
+                }
+                return $value;
+            }
+            else{
+                $cache_id = 'geo_flag_'.$this->country_id.'_'.$element;
+                $value=Yii::app()->cache->get($cache_id);
+                if($value===false)
+                {
+                    $value = '<' . $element . ' class="flag flag-' . strtolower($this->country->iso_code)
+                        . '" title="' . $this->country->name . '"></' . $element . '>';
+                    Yii::app()->cache->set($cache_id,$value, 3600*10);
+                }
+                return $value;
+            }
+        } else
             return '';
     }
 
@@ -143,38 +158,52 @@ class UserAddress extends HActiveRecord
         if (empty($this->country_id))
             return '';
 
-        $str = $this->country->name;
-        if (!empty($this->region_id)) {
-            $str .= ', ' . $this->region->name;
-            if (!empty($this->city_id)) {
-                if (empty($this->city->district_id)) {
-                    $str .= ', ' . $this->city->type . ' ' . $this->city->name;
-                } else {
-                    $str .= ', ' . $this->city->district->name . ' район, ' . $this->city->type . ' ' . $this->city->name;
+        $cache_id = 'geo_loc2_'.$this->country_id.'_'.$this->city_id.'_'.$this->region_id;
+        $value=Yii::app()->cache->get($cache_id);
+        if($value===false)
+        {
+            $value = $this->getCountryTitle();
+            if (!empty($this->region_id)) {
+                $value .= ', ' . $this->region->name;
+                if (!empty($this->city_id)) {
+                    if (empty($this->city->district_id)) {
+                        $value .= ', ' . $this->city->type . ' ' . $this->city->name;
+                    } else {
+                        $value .= ', ' . $this->city->district->name . ' район, ' . $this->city->type . ' ' . $this->city->name;
+                    }
                 }
             }
+            Yii::app()->cache->set($cache_id,$value);
         }
 
-        return $str;
+
+        return $value;
     }
 
     public function getLocationWithoutCountry()
     {
-        $str = '';
-        if (!empty($this->city_id)) {
-            $city_string = (empty($this->city->type)) ? $this->city->name : $this->city->type . ' ' . $this->city->name;
-            if (empty($this->region_id)) {
-                $str = $city_string;
-            } elseif (empty($this->city->district_id)) {
-                $str = str_replace('область', 'обл', $this->region->name) . '<br> ' . $city_string;
-            } else {
-                $str = str_replace('область', 'обл', $this->region->name) . '<br> ' . $this->city->district->name . ' р-н<br>'
-                    . $city_string;
+        $cache_id = 'geo_loc_'.$this->country_id.'_'.$this->city_id.'_'.$this->region_id;
+        $value=Yii::app()->cache->get($cache_id);
+        if($value===false)
+        {
+            if (!empty($this->city_id)) {
+                $city_string = (empty($this->city->type)) ? $this->city->name : $this->city->type . ' ' . $this->city->name;
+                if (empty($this->region_id)) {
+                    $value = $city_string;
+                } elseif (empty($this->city->district_id)) {
+                    $value = str_replace('область', 'обл', $this->region->name) . '<br> ' . $city_string;
+                } else {
+                    $value = str_replace('область', 'обл', $this->region->name) . '<br> ' . $this->city->district->name . ' р-н<br>'
+                        . $city_string;
+                }
+            } elseif (!empty($this->region_id)) {
+                $value = $this->region->name;
             }
-        } elseif (!empty($this->region_id)) {
-            $str = $this->region->name;
+
+            Yii::app()->cache->set($cache_id,$value);
         }
-        return $str;
+
+        return $value;
     }
 
     public function hasCity()
@@ -185,9 +214,56 @@ class UserAddress extends HActiveRecord
     public function getCityName()
     {
         if (!empty($this->city_id))
-            return $this->city->name;
-        if ($this->region !== null && $this->region->isCity())
-            return $this->region->name;
-        return '';
+            return $this->getCityTitle();
+        return $this->getRegionTitle();
+    }
+
+    public function getCountryTitle()
+    {
+        if (empty($this->country_id))
+            return '';
+
+        $cache_id = 'geo_county_' . $this->country_id;
+        $value = Yii::app()->cache->get($cache_id);
+        if ($value === false) {
+            $value = $this->country->name;
+            Yii::app()->cache->set($cache_id, $value, 3600*10);
+        }
+
+        return $value;
+    }
+
+    public function getCityTitle()
+    {
+        if (empty($this->city_id))
+            return '';
+
+        $cache_id = 'geo_city_' . $this->city_id;
+        $value = Yii::app()->cache->get($cache_id);
+        if ($value === false) {
+            $value = $this->city->name;
+            Yii::app()->cache->set($cache_id, $value, 3600*10);
+        }
+
+        return $value;
+    }
+
+    public function getRegionTitle()
+    {
+        if (empty($this->region_id))
+            return '';
+
+        $cache_id = 'geo_region_' . $this->region_id;
+        $value = Yii::app()->cache->get($cache_id);
+        if ($value === false) {
+            if ($this->region->isCity())
+                $value = $this->region->name;
+            else
+                $value ='';
+
+            Yii::app()->cache->set($cache_id, $value, 3600*10);
+        }
+
+        return $value;
     }
 }

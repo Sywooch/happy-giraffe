@@ -1,5 +1,6 @@
 <?php
     $border = UserAttributes::get($user->id, 'familyBorder', 0);
+    //$this->user->babies = Baby::model()->with(array('photos'))->findAll('parent_id = '.$this->user->id);
 ?>
 
 <?php if (($user->babyCount() > 0) || ($user->hasPartner() && !empty($user->partner->name)) || $this->showEmpty):?>

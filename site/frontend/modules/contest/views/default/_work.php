@@ -17,8 +17,8 @@
         </div>
     </div>
     <div class="img">
-        <a href="javascript:void(0)" data-id="<?=$data->photo->photo->id?>">
-            <?=CHtml::image($data->photo->photo->getPreviewUrl(210, null, Image::WIDTH))?>
+        <a href="javascript:void(0)" data-id="<?=$data->photoAttach->photo->id?>">
+            <?=CHtml::image($data->photoAttach->photo->getPreviewUrl(210, null, Image::WIDTH))?>
             <span class="btn">Посмотреть</span>
         </a>
     </div>

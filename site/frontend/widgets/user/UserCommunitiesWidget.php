@@ -9,12 +9,18 @@ class UserCommunitiesWidget extends UserCoreWidget
     public function init()
     {
         parent::init();
-        $this->_count = $this->user->communitiesCount;
+        $this->_count = count($this->user->communities);
         if ($this->_count != 0) {
-            $this->_communities = $this->user->getRelated('communities', false, array(
-                'limit' => $this->limit,
-                'order' => 'RAND()',
-            ));
+            if ($this->_count <= 9)
+                $this->_communities = $this->user->communities;
+            else{
+                $clubs = $this->user->communities;
+                //выбираем случайные клубы
+                while(count($this->_communities) < 9){
+                    shuffle($clubs);
+                    $this->_communities[] = array_pop($clubs);
+                }
+            }
         }
         $this->visible = ($this->isMyProfile && !empty($this->_communities)) || $this->_count >= $this->limit;
     }

@@ -60,9 +60,9 @@
             </div>
 
             <?php
-                $this->widget('application.widgets.blog.attendanceWidget.AttendanceWidget', array(
-                    'user_id' => $this->user->id,
-                ));
+                //$this->widget('application.widgets.blog.attendanceWidget.AttendanceWidget', array(
+                //    'user_id' => $this->user->id,
+                //));
             ?>
 
             <?php if ($this->user->blogPopular): ?>

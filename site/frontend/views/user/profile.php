@@ -14,6 +14,13 @@
 
     $score = $user->scores;
 ?>
+
+<?php
+    Yii::app()->eauth->renderWidget(array(
+        'mode' => 'assets',
+    ));
+?>
+
 <div id="user">
 
     <div class="user-cols clearfix">

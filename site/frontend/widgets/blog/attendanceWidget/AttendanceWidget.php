@@ -28,8 +28,6 @@ class AttendanceWidget extends CWidget {
             Yii::app()->cache->set($this->getCacheId('today'), $today, 600);
         }
 
-        echo $total;
-
         $this->render('index', compact('total', 'yesterday', 'today'));
     }
 

@@ -3,9 +3,6 @@
  * @var $user User
  */
 
-$assets_path = dirname(__FILE__).DIRECTORY_SEPARATOR.'assets';
-$url = Yii::app()->assetManager->publish($assets_path, false, -1, YII_DEBUG);
-
     $cs = Yii::app()->clientScript;
     $cs
         ->registerScriptFile(Yii::app()->baseUrl . '/javascripts/jquery.jscrollpane.min.js')
@@ -13,7 +10,6 @@ $url = Yii::app()->assetManager->publish($assets_path, false, -1, YII_DEBUG);
         ->registerScriptFile('http://vk.com/js/api/share.js?11')
         ->registerCssFile('http://stg.odnoklassniki.ru/share/odkl_share.css')
         ->registerScriptFile('http://stg.odnoklassniki.ru/share/odkl_share.js')
-        ->registerScriptFile($url.'/js/auth.js', CClientScript::POS_HEAD)
     ;
 
     $score = $user->scores;

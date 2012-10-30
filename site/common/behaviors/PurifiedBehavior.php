@@ -14,7 +14,9 @@ class PurifiedBehavior extends CActiveRecordBehavior
             'https' => true,
         ),
         'Attr.AllowedFrameTargets' => array('_blank' => true),
-        'Attr.AllowedRel' => array('nofollow')
+        'Attr.AllowedRel' => array('nofollow'),
+        'HTML.SafeIframe' => true,
+        'URI.SafeIframeRegexp' => '%^http://www.youtube.com/embed/%',
     );
 
     public function __get($name)
@@ -25,7 +27,11 @@ class PurifiedBehavior extends CActiveRecordBehavior
             if ($value === false) {
                 $purifier = new CHtmlPurifier;
                 $purifier->options = CMap::mergeArray($this->_defaultOptions, $this->options);
-                $value = $purifier->purify($this->getOwner()->$name);
+                $value = $this->getOwner()->$name;
+                //$value = str_replace('&amp;', '&', $value);
+                $value = $this->linkifyYouTubeURLs($value);
+                //$value = str_replace('&', '&amp;', $value);
+                $value = $purifier->purify($value);
                 $value = $this->wrapNoindexNofollow($value);
                 Yii::app()->cache->set($cacheId, $value);
             }
@@ -94,6 +100,40 @@ class PurifiedBehavior extends CActiveRecordBehavior
         $text = $doc->html();
         $doc->unloadDocument();
 
+        return $text;
+    }
+
+    public function fetchHtml($matches)
+    {
+        $json = file_get_contents('http://www.youtube.com/oembed?url=' . $matches[0] . '&format=json');
+        $response = json_decode($json);
+        return $response->html;
+    }
+
+    public function linkifyYouTubeURLs($text) {
+        $text = preg_replace_callback('~
+        # Match non-linked youtube URL in the wild. (Rev:20111012)
+        https?://         # Required scheme. Either http or https.
+        (?:[0-9A-Z-]+\.)? # Optional subdomain.
+        (?:               # Group host alternatives.
+          youtu\.be/      # Either youtu.be,
+        | youtube\.com    # or youtube.com followed by
+          \S*             # Allow anything up to VIDEO_ID,
+          [^\w\-\s]       # but char before ID is non-ID char.
+        )                 # End host alternatives.
+        ([\w\-]{11})      # $1: VIDEO_ID is exactly 11 chars.
+        (?=[^\w\-]|$)     # Assert next char is non-ID or EOS.
+        (?!               # Assert URL is not pre-linked.
+          [?=&+%\w]*      # Allow URL (query) remainder.
+          (?:             # Group pre-linked alternatives.
+            [\'"][^<>]*>  # Either inside a start tag,
+          | </a>          # or inside <a> element text contents.
+          )               # End recognized pre-linked alts.
+        )                 # End negative lookahead assertion.
+        [?=&+%\w-]*        # Consume any URL (query) remainder.
+        ~ix',
+            array($this, 'fetchHtml'),
+            $text);
         return $text;
     }
 }

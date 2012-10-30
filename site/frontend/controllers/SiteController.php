@@ -85,23 +85,6 @@ class SiteController extends HController
 	 */
 	public function actionIndex()
 	{
-        Yii::import('site.frontend.extensions.GoogleAnalytics');
-        $ga = new GoogleAnalytics('nikita@happy-giraffe.ru', 'V$6e}Ru6=2AkfUk');
-        $ga->setProfile('ga:53688414');
-
-
-        $ga->setDateRange(date('Y-m-d'), date('Y-m-d'));
-
-
-        $array = $ga->getReport(
-            array(
-                'metrics' => urlencode('ga:uniquePageviews'),
-                'filters' => urlencode('ga:pagePath=~/user/9990/blog/*'),
-            )
-        );
-
-        echo $array['']['ga:uniquePageviews'];
-
 		$this->pageTitle = 'Веселый Жираф - сайт для всей семьи';
         Yii::import('site.frontend.widgets.*');
         Yii::import('site.frontend.widgets.home.*');

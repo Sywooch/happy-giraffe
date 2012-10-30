@@ -80,7 +80,7 @@ class Album extends HActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
             'photos' => array(self::HAS_MANY, 'AlbumPhoto', 'album_id', 'scopes' => array('active')),
-            'photoCount' => array(self::STAT, 'AlbumPhoto', 'album_id', 'condition'=>'removed = 0'),
+            'photoCount' => array(self::STAT, 'AlbumPhoto', 'album_id', 'condition' => 'removed = 0'),
 			'author' => array(self::BELONGS_TO, 'User', 'author_id'),
             'remove' => array(self::HAS_ONE, 'Removed', 'entity_id', 'condition' => '`remove`.`entity` = :entity', 'params' => array(':entity' => get_class($this)))
 		);
@@ -89,7 +89,7 @@ class Album extends HActiveRecord
     public function defaultScope()
     {
         return array(
-            'order' => 'type asc'
+            'order' => $this->getTableAlias(false, false).'.type asc'
         );
     }
 

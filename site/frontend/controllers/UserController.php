@@ -3,6 +3,9 @@
 class UserController extends HController
 {
     public $layout = '//layouts/user';
+    /**
+     * @var User
+     */
     public $user;
     public $rubric_id;
     public $content_type_slug;
@@ -46,7 +49,7 @@ class UserController extends HController
         $user_id = (in_array($this->action->id, $this->_publicActions)) ? $this->actionParams['user_id'] : Yii::app()->user->id;
 
         if ($this->action->id != 'profile') {
-            $this->user = User::model()->getUserById($user_id);
+            $this->user = User::model()->with('avatar', 'status')->findByPk($user_id);
             if ($this->user === null)
                 throw new CHttpException(404, 'Пользователь не найден');
         }
@@ -68,9 +71,13 @@ class UserController extends HController
             'status',
             'purpose',
             'avatar' => array('select' => 'fs_name', 'author_id'),
-            'userAddress' => array('select' => 'country_id', 'region_id', 'city_id'),
+            'userAddress' => array('select' => array('country_id', 'region_id', 'city_id')),
             'partner',
-            'babies'
+            'babies',
+            'mood',
+            'score',
+            'communities',
+            'albumsCount',
         );
         $user = User::model()->find($criteria);
         if ($user === null)
@@ -195,6 +202,7 @@ class UserController extends HController
     {
         $this->pageTitle = 'Друзья';
         $dataProvider = ($show == 'online') ? $this->user->getFriends('online = 1') : $this->user->getFriends();
+        $dataProvider->criteria->mergeWith(array('with'=>'avatar'));
         $dataProvider->pagination = array(
             'pageSize' => 30,
         );

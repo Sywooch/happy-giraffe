@@ -1349,8 +1349,8 @@ body.nav-fixed #header-new {z-index:90;}
 #header-new {margin-bottom:20px;position:relative;}
 #header-new .header-in {background:url(/images/bg_header.gif) repeat-y bottom;}
 #header-new.guest .header-in {background-image:url(/images/bg_header_guest.gif);}
+/* устарелая навигация в шапке */
 #header-new .top-line {background:#a17dc4;border-bottom:1px solid #fff;position:relative;z-index:13;}
-
 #header-new.top-line-fixed .top-line,
 body.nav-fixed #header-new .top-line {position:fixed;left:50%;margin-left:-500px;top:0;width:1000px;border:0;z-index:1100;}
 
@@ -1388,7 +1388,7 @@ body.nav-fixed #header-new .top-line {position:fixed;left:50%;margin-left:-500px
 #header-new .user-nav > ul > li > a .icon-settings {width:17px;height:17px;background-position:-285px -221px;margin-top:7px;}
 #header-new .user-nav > ul > li > a .icon-logout {width:10px;height:12px;background-position:-265px -275px;margin-top:9px;}
 #header-new .user-nav ul li > a .count {background:#75bb6e;color:#fff;text-decoration:none;font:bold 10px/12px arial, helvetica, sans-serif;height:13px;padding:0 5px;margin:4px 0 0 2px;float:left;}
-#header-new .user-nav ul li > a .count {/*css3*/ -moz-border-radius:2px;-webkit-border-radius:2px;border-radius:2px;behavior: url(/stylesheets/PIE.htc);}
+#header-new .user-nav ul li > a .count { -moz-border-radius:2px;-webkit-border-radius:2px;border-radius:2px;behavior: url(/stylesheets/PIE.htc);}
 
 #header-new .user-nav .drp {position:absolute;top:30px;left:50%;margin-left:-86px;width:170px;border:1px solid #ded2e9;background:#fff;display:none;z-index:12;}
 #header-new .user-nav .drp .drp-title {font-size:13px;color:#6d6d6d;text-align:center;padding:5px 0;}
@@ -1422,7 +1422,7 @@ body.nav-fixed #header-new .top-line {position:fixed;left:50%;margin-left:-500px
 #header-new .user-nav .drp .actions a span {color:#a17dc4;}
 #header-new .user-nav .drp .actions .count {background:#75bb6e;color:#fff;text-decoration:none;font:bold 10px/12px arial, helvetica, sans-serif;height:13px;padding:0 5px;}
 #header-new .user-nav .drp .actions .count-gray {background:#c9c9c9;}
-#header-new .user-nav .drp .actions .count {/*css3*/ -moz-border-radius:2px;-webkit-border-radius:2px;border-radius:2px;behavior: url(/stylesheets/PIE.htc);}
+#header-new .user-nav .drp .actions .count { -moz-border-radius:2px;-webkit-border-radius:2px;border-radius:2px;behavior: url(/stylesheets/PIE.htc);}
 
 
 #header-new .user-nav ul li.user .drp {width:100%;left:-1px;margin:0;}
@@ -1431,8 +1431,8 @@ body.nav-fixed #header-new .top-line {position:fixed;left:50%;margin-left:-500px
 #header-new .user-nav ul li.user .drp .actions .icon-profile {width:12px;height:11px;background-position:-299px -176px;}
 #header-new .user-nav ul li.user .drp .actions .icon-settings {width:12px;height:12px;background-position:-314px -176px;}
 #header-new .user-nav ul li.user .drp .actions .icon-logout {width:10px;height:12px;background-position:-299px -189px;top:1px;}
-
-
+/* /устарелая навигация в шапке */
+ 
 #header-new.top-line-fixed {padding-top:43px;}
 .top-nav-fixed #header-new.top-line-fixed,
 body.nav-fixed #header-new.top-line-fixed {padding-top:0;}

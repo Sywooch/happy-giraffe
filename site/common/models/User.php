@@ -289,6 +289,7 @@ class User extends HActiveRecord
             'cookRecipesCount' => array(self::STAT, 'CookRecipe', 'author_id'),
             'recipeBookRecipesCount' => array(self::STAT, 'RecipeBookRecipe', 'author_id'),
             'photosCount' => array(self::STAT, 'AlbumPhoto', 'author_id'),
+            'albumsCount' => array(self::STAT, 'Album', 'author_id', 'condition' => 'removed = 0'),
 
             'communitiesCount' => array(self::STAT, 'Community', 'user__users_communities(user_id, community_id)'),
             'userDialogs' => array(self::HAS_MANY, 'DialogUser', 'user_id'),
@@ -301,6 +302,7 @@ class User extends HActiveRecord
 
             'photos' => array(self::HAS_MANY, 'AlbumPhoto', 'author_id'),
             'mail_subs' => array(self::HAS_ONE, 'UserMailSub', 'user_id'),
+            'score'=>array(self::HAS_ONE, 'UserScores', 'user_id'),
         );
     }
 
@@ -662,7 +664,7 @@ class User extends HActiveRecord
     /**
      * @param string $condition
      * @param array $params
-     * @return array
+     * @return CActiveDataProvider
      */
     public function getFriends($condition = '', $params = array())
     {
@@ -860,17 +862,14 @@ class User extends HActiveRecord
 
     public function getScores()
     {
-        $criteria = new CDbCriteria;
-        $criteria->with = array('level' => array('select' => array('title')));
-        $criteria->compare('user_id', $this->id);
-        $model = UserScores::model()->find($criteria);
-        if ($model === null) {
+        if (!isset($this->score->user_id)){
             $model = new UserScores;
             $model->user_id = $this->id;
             $model->save();
+            $this->score = $model;
         }
 
-        return $model;
+        return $this->score;
     }
 
     public function getUserAddress()
@@ -887,13 +886,23 @@ class User extends HActiveRecord
     public function getBlogWidget()
     {
         $criteria = new CDbCriteria(array(
+            'select'=>array('title', 'created', 'type_id', 'rubric_id', 'author_id'),
             'order' => new CDbExpression('RAND()'),
             'condition' => 'rubric.user_id IS NOT NULL AND t.author_id = :user_id',
             'params' => array(':user_id' => $this->id),
             'limit' => 4,
+            'with'=>array(
+                'rubric',
+                'type' => array(
+                    'select' => 'slug',
+                ),
+                'post'=>array('select'=>array('text')),
+                'video'=>array('select'=>array('link', 'text', 'content_id', 'photo_id')),
+                'commentsCount',
+            ),
         ));
 
-        return BlogContent::model()->full()->findAll($criteria);
+        return BlogContent::model()->findAll($criteria);
     }
 
     public function hasBaby($type = null)
@@ -1088,7 +1097,12 @@ class User extends HActiveRecord
 
     public function getSystemAlbum($type)
     {
-        return Album::model()->find('type = :type AND author_id = :user_id', array(':type' => $type, ':user_id' => $this->id));
+//        $album = Album::model()->cache(3600*24)->find('type = :type AND author_id = :user_id', array(':type' => $type, ':user_id' => $this->id));
+//        if ($album === null)
+//            return Album::model()->find('type = :type AND author_id = :user_id', array(':type' => $type, ':user_id' => $this->id));
+
+        $album = Album::model()->find('type = :type AND author_id = :user_id', array(':type' => $type, ':user_id' => $this->id));
+        return $album;
     }
 
     /**
@@ -1109,7 +1123,21 @@ class User extends HActiveRecord
 
     public function getContestWork($contest_id)
     {
-        return ContestWork::model()->findByAttributes(array('user_id' => $this->id, 'contest_id' => $contest_id));
+        $criteria = new CDbCriteria;
+        $criteria->select = array('title', 'rate', 'contest_id');
+        $criteria->compare('user_id', $this->id);
+        $criteria->compare('contest_id', $contest_id);
+        $criteria->with = array(
+            'photoAttach'=>array(
+                'select'=>array('id'),
+                'with'=>array(
+                    'photo'=>array('select'=>array('id', 'author_id', 'fs_name')),
+                )
+            ),
+        );
+        $criteria->together = true;
+
+        return ContestWork::model()->find($criteria);
     }
 
     public function hasFeature($feature_id)

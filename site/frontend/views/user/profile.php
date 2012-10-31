@@ -2,6 +2,7 @@
 /* @var $this Controller
  * @var $user User
  */
+
     $cs = Yii::app()->clientScript;
     $cs
         ->registerScriptFile(Yii::app()->baseUrl . '/javascripts/jquery.jscrollpane.min.js')
@@ -13,6 +14,13 @@
 
     $score = $user->scores;
 ?>
+
+<?php
+    Yii::app()->eauth->renderWidget(array(
+        'mode' => 'assets',
+    ));
+?>
+
 <div id="user">
 
     <div class="user-cols clearfix">
@@ -33,7 +41,7 @@
                 <div class="info">
                     <p class="birthday"><?php if ($user->birthday): ?><span>День рождения:</span> <?=Yii::app()->dateFormatter->format("d MMMM", $user->birthday)?> (<?=$user->normalizedAge?>)<?php endif; ?></p>
                 </div>
-            <?php if(Yii::app()->user->checkAccess('manageFavourites')): ?>
+            <?php if(!Yii::app()->user->isGuest && Yii::app()->user->model->group != UserGroup::USER && Yii::app()->user->checkAccess('manageFavourites')): ?>
             <div class="user-buttons clearfix">
                 <?php $this->widget('site.frontend.widgets.favoritesWidget.FavouritesWidget', array('model' => $user)); ?>
             </div>
@@ -160,11 +168,11 @@
                         )); ?>
                     </div>
 
-                    <div class="weather-wrapper">
-                        <?php $this->widget('WeatherWidget', array(
-                            'user' => $user,
-                        )); ?>
-                    </div>
+<!--                    <div class="weather-wrapper">-->
+<!--                        --><?php //$this->widget('WeatherWidget', array(
+//                            'user' => $user,
+//                        )); ?>
+<!--                    </div>-->
 
                     <div class="horoscope-wrapper">
                         <?php $this->widget('HoroscopeWidget', array(

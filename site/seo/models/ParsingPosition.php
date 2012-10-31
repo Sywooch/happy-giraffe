@@ -115,7 +115,11 @@ class ParsingPosition extends HActiveRecord
         foreach ($keywords as $keyword) {
             $p = new ParsingPosition;
             $p->keyword_id = $keyword;
-            $p->save();
+            try{
+                $p->save();
+            }catch (Exception $err){
+
+            }
         }
     }
 

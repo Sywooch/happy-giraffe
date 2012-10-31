@@ -158,7 +158,7 @@ class CommunityPost extends HActiveRecord
 
     protected function afterFind()
     {
-        if (Yii::app()->controller->route == 'community/edit')
+        if (isset(Yii::app()->controller->route) && Yii::app()->controller->route == 'community/edit')
             $this->text = str_replace('<!--gallery-->', '<hr class="gallery" />', $this->text);
 
         parent::afterFind();

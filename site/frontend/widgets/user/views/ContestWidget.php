@@ -17,8 +17,12 @@
         <h3>Участвую в фотоконкурсе</h3>
         <img src="/images/contest/widget-mother-i.jpg" alt="" calss="contest-title" />
         <div class="img">
-            <a href="javascript:void(0)" data-id="<?=$this->_contest_work->photo->photo->id?>">
-                <?=CHtml::image($this->_contest_work->photo->photo->getPreviewUrl(210, null, Image::WIDTH))?>
+            <a href="javascript:void(0)" data-id="<?=$this->
+                _contest_work->
+                photoAttach->
+                photo
+                ->id?>">
+                <?=CHtml::image($this->_contest_work->photoAttach->photo->getPreviewUrl(210, null, Image::WIDTH))?>
                 <span class="btn">Посмотреть</span>
             </a>
             <div class="item-title"><?=$this->_contest_work->title?></div>

@@ -1,2 +1,2 @@
-<div class="date"><?php if ($canUpdate): ?><a href="" class="a-right pseudo">Новый статус</a><?php endif; ?><?php echo Yii::app()->dateFormatter->format("dd MMMM yyyy, HH:mm", $status->created); ?></div>
+<div class="date"><?php if ($canUpdate): ?><a href="" class="a-right pseudo updateStatus">Новый статус</a><?php endif; ?><?php echo Yii::app()->dateFormatter->format("dd MMMM yyyy, HH:mm", $status->created); ?></div>
 <p><?php echo $status->purified->text; ?></p>

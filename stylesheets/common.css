@@ -2365,7 +2365,7 @@ div.scrollbarpaper-drag {-moz-border-radius:3px;-webkit-border-radius:3px;border
 .gallery-photos-new ul li .contest-ball .ball {position:absolute;right:0;top:1px;}
 .gallery-photos-new ul li .contest-ball .ball-count {color:#fd5807;font:italic 24px/21px 'Times New Roman', Georgia, Times, serif;float:right;}
 .gallery-photos-new ul li .contest-ball .ball-text {float:right;clear:right;font-size:10px;line-height:10px;color:#737373;}
-/*
+/* частично устаревший код */
 #gallery .gallery-photos-new {padding-top:20px;}
 #gallery .gallery-album .gallery-photos-new {padding-top:10px;}
 
@@ -2397,9 +2397,9 @@ div.scrollbarpaper-drag {-moz-border-radius:3px;-webkit-border-radius:3px;border
 
 #gallery .btn-album-create {display:block;width:698px;height:219px;background:url(/images/btn_album_create.png) no-repeat;}
 #gallery .btn-album-create:hover {background-position:0 100%;}
-*/
+/* /частично устаревший код */
 #gallery .fast-album {padding-bottom:20px;}
-/*
+/* частично устаревший код */
 #gallery .gallery-photos ul li.more {color:#b9b9b9;font-size:13px;padding-top:90px;text-align:center;}
 #gallery .gallery-photos ul li.more .icon {display:block;width:56px;height:56px;background:url(../images/common.png) no-repeat -499px -135px;margin:0 auto;margin-bottom:10px;}
 #gallery .gallery-photos ul li.more .icon:hover {background-position:-499px -193px;}
@@ -2436,11 +2436,12 @@ div.scrollbarpaper-drag {-moz-border-radius:3px;-webkit-border-radius:3px;border
 #gallery .visibility-picker .visibility-list ul li .album-visibility span {display:inline-block;*zoom:1;*display:inline;float:none;}
 #gallery .visibility-picker .visibility-list ul li:hover {background:#f9f2ff;}
 #gallery .visibility-picker .visibility-list ul li:hover .album-visibility span {background-position:-355px -209px;}
-*/
+/* частично устаревший код */
 
 #gallery .album-empty {padding:100px 0;text-align:center;color:#fc5353;font-size:18px;}
 
-/*#gallery #photo {clear:both;}
+/* частично устаревший код */
+#gallery #photo {clear:both;}
 
 #gallery #photo .title {text-align:center;font-weight:bold;font-size:25px;line-height:normal;color:#0297b8;margin-bottom:10px;}
 #gallery #photo .title .edit {display:inline-block;*zoom:1;*display:inline;width:14px;height:18px;background:url(../images/common.png) no-repeat -383px -204px;margin:0 auto;position:relative;text-decoration:none;font-weight:normal;z-index:3;vertical-align:middle;margin-left:10px;}
@@ -2475,7 +2476,7 @@ div.scrollbarpaper-drag {-moz-border-radius:3px;-webkit-border-radius:3px;border
 #gallery #photo .ad-thumb-list li a.ad-active table td.img div {border:10px solid #88cad8;border-bottom:0;padding:0px;}
 #gallery #photo .ad-thumb-list li a.ad-active table tr.title td {background:#fffedf;font-size:10px;}
 #gallery #photo .ad-thumb-list li a.ad-active table tr.title td div {border:10px solid #88cad8;border-top:0;margin:-7px -25px;padding:7px 25px;}
-*/
+/* частично устаревший код */
 
 
 #photo-inline {text-align:center;padding:20px 0;}

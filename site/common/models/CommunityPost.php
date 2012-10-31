@@ -180,6 +180,7 @@ class CommunityPost extends HActiveRecord
     public function getPhoto()
     {
         if (empty($this->photo_id)) {
+            $this->detachBehaviors();
             $this->update(array('photo_id'));
         }
 

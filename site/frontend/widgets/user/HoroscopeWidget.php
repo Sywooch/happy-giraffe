@@ -37,7 +37,7 @@ class HoroscopeWidget extends UserCoreWidget
                 'forecast' => $forecast
             ), true);
 
-            Yii::app()->cache->set($cache_id,$value, 3600);
+            Yii::app()->cache->set($cache_id,$value, 5*3600);
         }
 
         echo $value;

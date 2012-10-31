@@ -1097,9 +1097,11 @@ class User extends HActiveRecord
 
     public function getSystemAlbum($type)
     {
-        $album = Album::model()->cache(3600*24)->find('type = :type AND author_id = :user_id', array(':type' => $type, ':user_id' => $this->id));
-        if ($album === null)
-            return Album::model()->find('type = :type AND author_id = :user_id', array(':type' => $type, ':user_id' => $this->id));
+//        $album = Album::model()->cache(3600*24)->find('type = :type AND author_id = :user_id', array(':type' => $type, ':user_id' => $this->id));
+//        if ($album === null)
+//            return Album::model()->find('type = :type AND author_id = :user_id', array(':type' => $type, ':user_id' => $this->id));
+
+        $album = Album::model()->find('type = :type AND author_id = :user_id', array(':type' => $type, ':user_id' => $this->id));
         return $album;
     }
 

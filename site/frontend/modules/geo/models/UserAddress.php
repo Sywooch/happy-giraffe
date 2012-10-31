@@ -134,7 +134,7 @@ class UserAddress extends HActiveRecord
                 {
                     $value = '<' . $element . ' class="flag-big flag-big-' . strtolower($this->country->iso_code)
                         . '" title="' . $this->country->name . '"></' . $element . '>';
-                    Yii::app()->cache->set($cache_id,$value, 3600*10);
+                    Yii::app()->cache->set($cache_id,$value);
                 }
                 return $value;
             }
@@ -145,7 +145,7 @@ class UserAddress extends HActiveRecord
                 {
                     $value = '<' . $element . ' class="flag flag-' . strtolower($this->country->iso_code)
                         . '" title="' . $this->country->name . '"></' . $element . '>';
-                    Yii::app()->cache->set($cache_id,$value, 3600*10);
+                    Yii::app()->cache->set($cache_id,$value);
                 }
                 return $value;
             }
@@ -227,7 +227,7 @@ class UserAddress extends HActiveRecord
         $value = Yii::app()->cache->get($cache_id);
         if ($value === false) {
             $value = $this->country->name;
-            Yii::app()->cache->set($cache_id, $value, 3600*10);
+            Yii::app()->cache->set($cache_id, $value);
         }
 
         return $value;
@@ -242,7 +242,7 @@ class UserAddress extends HActiveRecord
         $value = Yii::app()->cache->get($cache_id);
         if ($value === false) {
             $value = $this->city->name;
-            Yii::app()->cache->set($cache_id, $value, 3600*10);
+            Yii::app()->cache->set($cache_id, $value);
         }
 
         return $value;
@@ -261,7 +261,7 @@ class UserAddress extends HActiveRecord
             else
                 $value ='';
 
-            Yii::app()->cache->set($cache_id, $value, 3600*10);
+            Yii::app()->cache->set($cache_id, $value);
         }
 
         return $value;

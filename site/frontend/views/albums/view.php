@@ -101,8 +101,14 @@ $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
                 'template' => '<span>{menu}</span>',
             );
 
-            foreach ($model->author->albums('albums:noSystem') as $album) {
-                if (count($album->photos) > 0 || $this->user->id == Yii::app()->user->id)
+            $criteria = new CDbCriteria;
+            $criteria->compare('author_id', $model->author->id);
+            $criteria->scopes = array('noSystem', 'active', 'permission');
+            $criteria->with = array('photoCount');
+            $albums = Album::model()->findAll($criteria);
+
+            foreach ($albums as $album) {
+                if ($album->photoCount > 0 || $this->user->id == Yii::app()->user->id)
                 $items[] = array(
                     'label' => $album->title,
                     'url' => $album->url,

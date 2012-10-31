@@ -84,18 +84,8 @@ class AttachPhoto extends HActiveRecord
                     default : $type = 0;
                 }
                 if($type != 0)
-                {
-                    $album = Album::model()->findByAttributes(array('author_id' => $this->photo->author_id, 'type' => $type));
-                    if(!$album)
-                    {
-                        $album = new Album;
-                        $album->author_id = $this->photo->author_id;
-                        $album->type = $type;
-                        $album->title = Album::$systems[$type];
-                        $album->save();
-                    }
-                    $this->photo->album_id = $album->primaryKey;
-                }
+                    $this->photo->album_id = Album::getAlbumByType($this->photo->author_id, $type)->id;
+
                 $this->photo->save(false);
             }
         }

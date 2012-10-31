@@ -14,6 +14,8 @@ class MailruQuery extends HActiveRecord
     const TYPE_FORUM = 0;
     const TYPE_THEME = 1;
 
+    const TYPE_SEARCH_USERS = 3;
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.

@@ -67,7 +67,7 @@
     }
 
     if (!Yii::app()->user->isGuest)
-        $user = User::getUserById(Yii::app()->user->id);
+        $user = Yii::app()->user->model;
     ?>
 </head>
 <body class="body-club" onload="if (typeof(ODKL) !== 'undefined') ODKL.init();">
@@ -164,7 +164,7 @@
         </div>
     </div>
 
-<?php if (!Yii::app()->user->isGuest && Yii::app()->user->checkAccess('editMeta')):?>
+<?php if (!Yii::app()->user->isGuest && Yii::app()->user->model->group != UserGroup::USER && Yii::app()->user->checkAccess('editMeta')):?>
     <a id="btn-seo" href="/ajax/editMeta/?route=<?=urlencode(Yii::app()->controller->route) ?>&params=<?=urlencode(serialize(Yii::app()->controller->actionParams)) ?>" class="fancy" data-theme="white-square"></a>
 <?php endif ?>
     <div class="layout-container">
@@ -492,7 +492,7 @@
 
             </div>
 
-            <?php if (Yii::app()->user->checkAccess('commentator_panel')):?>
+            <?php if (!Yii::app()->user->isGuest && Yii::app()->user->model->group != UserGroup::USER && Yii::app()->user->checkAccess('commentator_panel')):?>
                 <div id="commentator-link" style="position: fixed;top:70px;left: 0;z-index: 200;background:#42ff4c;">
                     <a target="_blank" href="<?=$this->createUrl('/signal/commentator/index') ?>" style="color: #333;font-weight:bold;">Панель для работы</a>
                 </div>

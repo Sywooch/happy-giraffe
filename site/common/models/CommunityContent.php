@@ -578,17 +578,10 @@ class CommunityContent extends HActiveRecord
             case 1:
                 return ($image = $this->getContentImage($width)) ? CHtml::image($image, $this->title) : $this->getContentText();
             case 2:
-//                $value = Yii::app()->cache->get('video-preview-' . CHtml::encode($this->video->link));
-//                if ($value === false) {
-                $video = new Video($this->video->link);
-
-                $value = '<img src="' . $video->preview . '" alt="' . $video->title . '" />';
-//                    Yii::app()->cache->set('video-preview-' . CHtml::encode($this->video->link) . 3600, $value);
-//                }
-                return $value;
-            default:
-                return '';
+                if ($this->video->getPhoto() !== null)
+                    return '<img src="' . $this->video->getPhoto()->getPreviewUrl($width, null, Image::WIDTH) . '" alt="' . $this->title . '" />';
         }
+        return '';
     }
 
     public function getContentImage($width = 700)
@@ -695,5 +688,15 @@ class CommunityContent extends HActiveRecord
             return $model->comments;
         }
         return $this->comments;
+    }
+
+    public function getLastCommentators($limit = 3)
+    {
+        return Comment::model()->with('author', 'author.avatar')->findAll(array(
+            'condition' => 'entity = :entity AND entity_id = :entity_id',
+            'params' => array(':entity' => get_class($this), ':entity_id' => $this->id),
+            'order' => 't.created DESC',
+            'limit' => 3,
+        ));
     }
 }

@@ -19,7 +19,7 @@ class ContestWidget extends UserCoreWidget
         parent::init();
 
         $this->_contest_work = $this->user->getContestWork($this->contest_id);
-        $this->_contest = Contest::model()->findByPk($this->contest_id);
+        $this->_contest = Contest::model()->cache(3600)->findByPk($this->contest_id);
         $this->visible = $this->isMyProfile || $this->_contest_work !== null;
     }
 }

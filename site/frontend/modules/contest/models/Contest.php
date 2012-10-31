@@ -230,7 +230,7 @@ class Contest extends HActiveRecord
     {
         $criteria = new CDbCriteria(array(
             'with' => array(
-                'photo' => array(
+                'photoAttach' => array(
                     'with' => array(
                         'photo' => array(
                             'alias' => 'albumphoto',
@@ -284,7 +284,7 @@ class Contest extends HActiveRecord
 
         $photos = array();
         foreach ($works as $w) {
-            $p = $w->photo->photo;
+            $p = $w->photoAttach->photo;
             $p->w_title = $w->title;
             $photos[] = $p;
         }

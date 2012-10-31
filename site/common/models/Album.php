@@ -27,7 +27,8 @@ class Album extends HActiveRecord
         2 => 'Диалоги',
         3 => 'Семейные',
         4 => 'Продукты',
-        5 => 'Мои рецепты'
+        5 => 'Мои рецепты',
+        6 => 'Видео превью'
     );
 
     public static $permissions = array(
@@ -80,7 +81,7 @@ class Album extends HActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
             'photos' => array(self::HAS_MANY, 'AlbumPhoto', 'album_id', 'scopes' => array('active')),
-            'photoCount' => array(self::STAT, 'AlbumPhoto', 'album_id', 'condition'=>'removed = 0'),
+            'photoCount' => array(self::STAT, 'AlbumPhoto', 'album_id', 'condition' => 'removed = 0'),
 			'author' => array(self::BELONGS_TO, 'User', 'author_id'),
             'remove' => array(self::HAS_ONE, 'Removed', 'entity_id', 'condition' => '`remove`.`entity` = :entity', 'params' => array(':entity' => get_class($this)))
 		);
@@ -89,7 +90,7 @@ class Album extends HActiveRecord
     public function defaultScope()
     {
         return array(
-            'order' => 'type asc'
+            'order' => $this->getTableAlias(false, false).'.type asc'
         );
     }
 
@@ -170,6 +171,7 @@ class Album extends HActiveRecord
         array_push($criteria->scopes, 'active');
         array_push($criteria->scopes, 'permission');
         $criteria->scopes = array_merge($criteria->scopes, $scopes);
+        $criteria->with = array('photoCount');
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
@@ -266,5 +268,25 @@ class Album extends HActiveRecord
             'title' => 'Фотоальбом ' . CHtml::link($this->title, $this->url),
             'photos' => $photos,
         );
+    }
+
+    /**
+     * @param int $author_id
+     * @param int $type
+     * @return Album
+     */
+    public static function getAlbumByType($author_id, $type)
+    {
+        $album = Album::model()->findByAttributes(array('author_id' => $author_id, 'type' => $type));
+        if(!$album)
+        {
+            $album = new Album;
+            $album->author_id = $author_id;
+            $album->type = $type;
+            $album->title = Album::$systems[$type];
+            $album->save();
+        }
+
+        return $album;
     }
 }

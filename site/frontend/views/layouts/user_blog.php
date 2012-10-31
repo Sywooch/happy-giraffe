@@ -39,7 +39,7 @@
                 'duration' => 600,
                 'dependency' => array(
                     'class' => 'CDbCacheDependency',
-                    'sql' => 'SELECT MAX(created) FROM community__contents c
+                    'sql' => 'SELECT MAX(updated) FROM community__contents c
                         JOIN community__rubrics r ON c.rubric_id = r.id
                         WHERE r.user_id = ' . $this->user->id,
                 ),

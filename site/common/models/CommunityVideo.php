@@ -134,6 +134,7 @@ class CommunityVideo extends HActiveRecord
             return false;
         $photo = AlbumPhoto::createByUrl($video->image, $this->content->author_id, 6);
         $this->photo_id = $photo->id;
+        $this->embed = $video->code;
 
         return parent::beforeSave();
     }
@@ -147,5 +148,13 @@ class CommunityVideo extends HActiveRecord
             $this->save(false);
 
         return $this->photo;
+    }
+
+    public function getEmbed()
+    {
+        if (empty($this->embed))
+            $this->save(false);
+
+        return $this->embed;
     }
 }

@@ -69,8 +69,7 @@
                     switch ($data->type->slug)
                     {
                         case 'video':
-                            $video = new Video($data->video->link);
-                            echo $data->purified->preview . '<div style="text-align: center; margin-bottom: 10px;">' . $video->code . '</div>';
+                            echo $data->purified->preview . '<div style="text-align: center; margin-bottom: 10px;">' . $data->video->getEmbed() . '</div>';
                             break;
                         default:
                             echo $data->purified->preview;
@@ -109,8 +108,7 @@
                             echo $text;
                             break;
                         case 'video':
-                            $video = new Video($data->video->link);
-                            echo '<noindex><div style="text-align: center; margin-bottom: 10px;">' . $video->code . '</div></noindex>';
+                            echo '<noindex><div style="text-align: center; margin-bottom: 10px;">' . $data->getEmbed() . '</div></noindex>';
                             echo $data->video->purified->text;
                             break;
                         case 'travel':

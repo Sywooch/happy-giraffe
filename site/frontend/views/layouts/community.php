@@ -207,19 +207,19 @@
 
             </div>
 
+            <div class="recent-topics">
+
+                <div class="title">Последние темы</div>
+
+                <ul>
+                    <?php foreach ($this->community->last as $c): ?>
+                        <li><?=CHtml::link(CHtml::encode($c->title), $c->url)?></li>
+                    <?php endforeach; ?>
+                </ul>
+
+            </div>
+
         <?php $this->endCache(); endif;  ?>
-
-        <div class="recent-topics">
-
-            <div class="title">Последние темы</div>
-
-            <ul>
-                <?php foreach ($this->community->last as $c): ?>
-                    <li><?=CHtml::link(CHtml::encode($c->title), $c->url)?></li>
-                <?php endforeach; ?>
-            </ul>
-
-        </div>
 
         <?php foreach ($this->community->banners as $b): ?>
             <?php $this->renderPartial('_banner', array('data' => $b)); ?>

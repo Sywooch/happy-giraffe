@@ -32,8 +32,15 @@ class RatingCommand extends CConsoleCommand
             'entity_id' => (int)$work
         ));
 
+        $likes = array();
         foreach ($models as $model)
-            echo $model->user_id . ' - ' . User::getUserById($model->user_id)->last_ip . "\n";
+            if (!empty(User::getUserById($model->user_id)->last_ip)){
+                echo $model->user_id . ' - ' . User::getUserById($model->user_id)->last_ip . "\n";
+                $likes [] = User::getUserById($model->user_id)->last_ip;
+            }
+        $unique_likes = array_unique($likes);
+        echo count($likes)."\n";
+        echo count($unique_likes)."\n";
     }
 
     public function actionSync($social_key = null)

@@ -29,6 +29,12 @@
     ;
 ?>
 
+<?php
+Yii::app()->eauth->renderWidget(array(
+    'mode' => 'assets',
+));
+?>
+
 <div class="contest-about clearfix">
 
     <?php if (! Yii::app()->user->isGuest && Yii::app()->user->model->getContestWork($this->contest->id) !== null): ?>

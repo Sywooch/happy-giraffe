@@ -35,29 +35,42 @@
                 </div>
             <?php endif; ?>
 
-            <div class="club-topics-list-new">
+            <?php if($this->beginCache('blog-rubrics', array(
+                'duration' => 600,
+                'dependency' => array(
+                    'class' => 'CDbCacheDependency',
+                    'sql' => 'SELECT MAX(updated) FROM community__contents c
+                        JOIN community__rubrics r ON c.rubric_id = r.id
+                        WHERE r.user_id = ' . $this->user->id,
+                ),
+                'varyByParam' => array('user_id'),
+            ))): ?>
 
-                <div class="block-title">О чем мой блог</div>
+                <div class="club-topics-list-new">
 
-                <?php
-                    $items = array();
+                    <div class="block-title">О чем мой блог</div>
 
-                    foreach ($this->user->blog_rubrics as $rubric) {
-                        if ($rubric->contentsCount > 0)
-                            $items[] = array(
-                                'label' => $rubric->title,
-                                'url' => $this->getUrl(array('rubric_id' => $rubric->id)),
-                                'template' => '<span>{menu}</span><div class="count">' . $rubric->contentsCount . '</div>',
-                                'active' => $rubric->id == $this->rubric_id,
-                            );
-                    }
+                    <?php
+                        $items = array();
 
-                    $this->widget('zii.widgets.CMenu', array(
-                        'items' => $items,
-                    ));
-                ?>
+                        foreach ($this->user->blog_rubrics as $rubric) {
+                            if ($rubric->contentsCount > 0)
+                                $items[] = array(
+                                    'label' => $rubric->title,
+                                    'url' => $this->getUrl(array('rubric_id' => $rubric->id)),
+                                    'template' => '<span>{menu}</span><div class="count">' . $rubric->contentsCount . '</div>',
+                                    'active' => $rubric->id == $this->rubric_id,
+                                );
+                        }
 
-            </div>
+                        $this->widget('zii.widgets.CMenu', array(
+                            'items' => $items,
+                        ));
+                    ?>
+
+                </div>
+
+            <?php $this->endCache(); endif;  ?>
 
             <?php
                 //$this->widget('application.widgets.blog.attendanceWidget.AttendanceWidget', array(
@@ -65,71 +78,103 @@
                 //));
             ?>
 
-            <?php if ($this->user->blogPopular): ?>
-                <div class="fast-articles">
+            <?php if($this->beginCache('blog-popular', array(
+                'duration' => 600,
+                'varyByParam' => array('user_id'),
+            ))): ?>
 
-                    <div class="block-title">
-                        <i class="icon-popular"></i> Самое популярное
+                <?php if ($this->user->blogPopular): ?>
+                    <div class="fast-articles">
+
+                        <div class="block-title">
+                            <i class="icon-popular"></i> Самое популярное
+                        </div>
+
+                        <ul>
+                            <?php foreach ($this->user->blogPopular as $b): ?>
+                            <li>
+                                <div class="item-title"><?=CHtml::link($b->title, $b->url)?></div>
+                                <div class="meta">
+                                    <div class="rating"><?=$b->rate?></div>
+                                    <span class="views">Просмотров:&nbsp;&nbsp;<?=PageView::model()->viewsByPath($b->url)?></span><br/>
+                                    <span class="comments"><?=CHtml::link('Комментариев:&nbsp;&nbsp;' . $b->commentsCount, $b->getUrl(true))?></span>
+                                </div>
+                            </li>
+                            <?php endforeach; ?>
+
+                        </ul>
+
                     </div>
+                <?php endif; ?>
 
-                    <ul>
-                        <?php foreach ($this->user->blogPopular as $b): ?>
-                        <li>
-                            <div class="item-title"><?=CHtml::link($b->title, $b->url)?></div>
-                            <div class="meta">
-                                <div class="rating"><?=$b->rate?></div>
-                                <span class="views">Просмотров:&nbsp;&nbsp;<?=PageView::model()->viewsByPath($b->url)?></span><br/>
-                                <span class="comments"><?=CHtml::link('Комментариев:&nbsp;&nbsp;' . $b->commentsCount, $b->getUrl(true))?></span>
-                            </div>
-                        </li>
+            <?php $this->endCache(); endif;  ?>
+
+            <?php if($this->beginCache('blog-readers', array(
+                'duration' => 600,
+                'dependency' => array(
+                    'class' => 'CDbCacheDependency',
+                    'sql' => 'SELECT MAX(created) FROM friends
+                        WHERE user1_id = ' . $this->user->id . ' OR user2_id = ' . $this->user->id,
+                ),
+                'varyByParam' => array('user_id'),
+            ))): ?>
+
+                <div class="readers">
+
+                    <div class="block-title"><i class="icon-readers"></i>Постоянные читатели <span>(<?=$this->user->friendsCount?>)</span></div>
+
+                    <ul class="clearfix">
+                        <?php
+                            $dp = $this->user->getFriends(array('condition'=>'blocked = 0 AND deleted = 0', 'limit' => 30, 'order' => 'RAND()', 'with'=>'avatar'));
+                            $dp->pagination = array(
+                                'pageSize' => 30,
+                            );
+                        ?>
+                        <?php foreach ($dp->data as $u): ?>
+                            <?php
+                            $class = 'ava small';
+                            if ($u->gender !== null) $class .= ' ' . (($u->gender) ? 'male' : 'female');
+                            ?>
+                            <li><?=CHtml::link(CHtml::image($u->getAva('small')), $u->url, array('class' => $class))?></li>
                         <?php endforeach; ?>
 
                     </ul>
 
+                    <!--<div class="add-author-btn"><a href=""><img src="/images/btn_add_author.png" /></a></div>-->
+
                 </div>
-            <?php endif; ?>
 
-            <div class="readers">
+            <?php $this->endCache(); endif;  ?>
 
-                <div class="block-title"><i class="icon-readers"></i>Постоянные читатели <span>(<?=$this->user->friendsCount?>)</span></div>
+            <?php if($this->beginCache('blog-photos', array(
+                'duration' => 600,
+                'dependency' => array(
+                    'class' => 'CDbCacheDependency',
+                    'sql' => 'SELECT MAX(p.created) FROM album__photos p
+                        JOIN album__albums a ON p.album_id = a.id
+                        WHERE a.type = 0 AND p.author_id = ' . $this->user->id,
+                ),
+                'varyByParam' => array('user_id'),
+            ))): ?>
 
-                <ul class="clearfix">
-                    <?php
-                        $dp = $this->user->getFriends(array('condition'=>'blocked = 0 AND deleted = 0', 'limit' => 30, 'order' => 'RAND()', 'with'=>'avatar'));
-                        $dp->pagination = array(
-                            'pageSize' => 30,
-                        );
-                    ?>
-                    <?php foreach ($dp->data as $u): ?>
-                        <?php
-                        $class = 'ava small';
-                        if ($u->gender !== null) $class .= ' ' . (($u->gender) ? 'male' : 'female');
-                        ?>
-                        <li><?=CHtml::link(CHtml::image($u->getAva('small')), $u->url, array('class' => $class))?></li>
-                    <?php endforeach; ?>
+                <?php $photos = $this->user->getRelated('photos', false, array('limit' => 3, 'order' => 'photos.created DESC', 'scopes'=>array('active'), 'with'=>array('album'=>array('condition'=>'album.type = 0')))); ?>
+                <?php if (count($photos)>0):?>
+                    <div class="fast-photos">
 
-                </ul>
+                        <div class="block-title"><span>МОИ</span>свежие<br/>фото</div>
 
-                <!--<div class="add-author-btn"><a href=""><img src="/images/btn_add_author.png" /></a></div>-->
+                        <div class="preview">
+                            <?php $i = 0; foreach($photos as $p): ?>
+                                <?=CHtml::image($p->getPreviewUrl(150, 150), $p->title, array('class' => 'img-' . ++$i))?>
+                            <?php endforeach; ?>
+                        </div>
 
-            </div>
+                        <?=CHtml::link('<i class="icon"></i>Смотреть', array('albums/user', 'id' => $this->user->id), array('class' => 'more'))?>
 
-            <?php $photos = $this->user->getRelated('photos', false, array('limit' => 3, 'order' => 'photos.created DESC', 'scopes'=>array('active'), 'with'=>array('album'=>array('condition'=>'album.type = 0')))); ?>
-            <?php if (count($photos)>0):?>
-                <div class="fast-photos">
-
-                    <div class="block-title"><span>МОИ</span>свежие<br/>фото</div>
-
-                    <div class="preview">
-                        <?php $i = 0; foreach($photos as $p): ?>
-                            <?=CHtml::image($p->getPreviewUrl(150, 150), $p->title, array('class' => 'img-' . ++$i))?>
-                        <?php endforeach; ?>
                     </div>
+                <?php endif ?>
 
-                    <?=CHtml::link('<i class="icon"></i>Смотреть', array('albums/user', 'id' => $this->user->id), array('class' => 'more'))?>
-
-                </div>
-            <?php endif ?>
+            <?php $this->endCache(); endif;  ?>
 
 
             <div class="banner-box">

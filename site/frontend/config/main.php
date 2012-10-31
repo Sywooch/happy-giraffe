@@ -240,18 +240,18 @@ return array(
 		'log'=>array(
 			'class'=>'CLogRouter',
 			'routes'=>array(
-                array(
-                    'class' => 'CProfileLogRoute',
-                ),
+//                array(
+//                    'class' => 'CProfileLogRoute',
+//                ),
 				array(
 					'class'=>'CFileLogRoute',
 					'levels'=>'error, warning',
 				),
-                array(
-                    'class'=>'CEmailLogRoute',
-                    'levels'=>'error, warning',
-                    'emails'=>'nikita@happy-giraffe.ru',
-                ),
+//                array(
+//                    'class'=>'CEmailLogRoute',
+//                    'levels'=>'error, warning',
+//                    'emails'=>'nikita@happy-giraffe.ru',
+//                ),
 //				array(
 //					'class'=>'CEmailLogRoute',
 //					'levels'=>'error, warning',

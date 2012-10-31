@@ -13,7 +13,8 @@
  *
  * The followings are the available model relations:
  * @property User $user
- * @property ClubContest $contest
+ * @property Contest $contest
+ * @property AttachPhoto $photoAttach
  */
 class ContestWork extends HActiveRecord
 {
@@ -64,7 +65,7 @@ class ContestWork extends HActiveRecord
 		return array(
 			'author' => array(self::BELONGS_TO, 'User', 'user_id'),
 			'contest' => array(self::BELONGS_TO, 'Contest', 'contest_id'),
-            'photo' => array(self::HAS_ONE, 'AttachPhoto', 'entity_id', 'condition' => '`photo`.`entity` = :entity', 'params' => array(':entity' => get_class($this)))
+            'photoAttach' => array(self::HAS_ONE, 'AttachPhoto', 'entity_id', 'condition' => '`photoAttach`.`entity` = :entity', 'params' => array(':entity' => get_class($this)))
 		);
 	}
 
@@ -144,9 +145,9 @@ class ContestWork extends HActiveRecord
 
     public function getParedDownTitle()
     {
-        if(!file_exists($this->photo->photo->getPreviewPath(150, 150)))
+        if(!file_exists($this->photoAttach->photo->getPreviewPath(150, 150)))
             return false;
-        $photo_size = getimagesize($this->photo->photo->getPreviewUrl(150, 150));
+        $photo_size = getimagesize($this->photoAttach->photo->getPreviewUrl(150, 150));
         $width = $photo_size[0];
         $text = Str::truncate($this->title, 0.54*$width);
         return $text;
@@ -158,7 +159,7 @@ class ContestWork extends HActiveRecord
             'albums/singlePhoto',
             array(
                 'contest_id' => $this->contest_id,
-                'photo_id' => $this->photo->photo->id,
+                'photo_id' => $this->photoAttach->photo->id,
                 'entity' => 'Contest',
             ),
         );
@@ -182,11 +183,11 @@ class ContestWork extends HActiveRecord
 
     public function getRssContent()
     {
-        return CHtml::image($this->photo->photo->getPreviewUrl(960, 627, Image::HEIGHT, true), $this->title);
+        return CHtml::image($this->photoAttach->photo->getPreviewUrl(960, 627, Image::HEIGHT, true), $this->title);
     }
 
     public function getShareImage()
     {
-        return $this->photo->photo->getPreviewUrl(180, 180);
+        return $this->photoAttach->photo->getPreviewUrl(180, 180);
     }
 }

@@ -27,6 +27,12 @@ $('#sort').change(function() {
 ?>
 
 <?php
+Yii::app()->eauth->renderWidget(array(
+    'mode' => 'assets',
+));
+?>
+
+<?php
 $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
     'selector' => '.img > a',
     'entity' => 'Contest',

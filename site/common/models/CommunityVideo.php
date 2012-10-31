@@ -10,9 +10,13 @@
  * @property string $content_id
  * @property string $player_favicon
  * @property string $player_title
+ * @property integer $photo_id
+ *
+ * @property AlbumPhoto $photo
  */
 class CommunityVideo extends HActiveRecord
 {
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return CommunityVideo the static model class
@@ -61,7 +65,7 @@ class CommunityVideo extends HActiveRecord
 			array('link', 'length', 'max' => 255),
             array('link', 'url'),
 			array('content_id', 'length', 'max' => 11),
-			array('content_id', 'numerical', 'integerOnly' => true), 
+			array('content_id, photo_id', 'numerical', 'integerOnly' => true),
 			array('content_id', 'exist', 'attributeName' => 'id', 'className' => 'CommunityContent'),	
 			
 			//array('text', 'filter', 'filter' => array('Filters', 'add_nofollow')),
@@ -81,6 +85,7 @@ class CommunityVideo extends HActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'content' => array(self::BELONGS_TO, 'CommunityContent', 'content_id'),
+			'photo' => array(self::BELONGS_TO, 'AlbumPhoto', 'photo_id'),
 		);
 	}
 
@@ -121,4 +126,36 @@ class CommunityVideo extends HActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+    public function beforeSave()
+    {
+        $video = new Video($this->link);
+        if (empty($video->preview))
+            return false;
+
+        $photo = AlbumPhoto::createByUrl($video->image, $this->content->author_id, 6);
+        $this->photo_id = $photo->id;
+        $this->embed = $video->code;
+
+        return parent::beforeSave();
+    }
+
+    /**
+     * @return AlbumPhoto
+     */
+    public function getPhoto()
+    {
+        if (empty($this->photo_id))
+            $this->save(false);
+
+        return $this->photo;
+    }
+
+    public function getEmbed()
+    {
+        if (empty($this->embed))
+            $this->save(false);
+
+        return $this->embed;
+    }
 }

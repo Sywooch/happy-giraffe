@@ -34,7 +34,7 @@ class MailRuCommunityUsersParser extends ProxyParserThread
         try {
             $this->query = MailruQuery::model()->find($criteria);
             if ($this->query === null)
-                throw new Exception(101);
+                Yii::app()->end();
 
             $this->query->active = 1;
             $this->query->save();

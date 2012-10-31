@@ -58,7 +58,7 @@ class AlbumsController extends HController
 
     public function actionUser($id)
     {
-        $user = User::model()->findByPk($id);
+        $user = User::model()->with('avatar', 'status')->findByPk($id);
         $this->user = $user;
         if (!$user)
             throw new CHttpException(404, 'Пользователь не найден');
@@ -75,7 +75,7 @@ class AlbumsController extends HController
 
     public function actionView($id)
     {
-        $model = Album::model()->findByPk($id);
+        $model = Album::model()->with('author', 'author.avatar', 'author.status')->findByPk($id);
         $this->user = $model->author;
         if (!$model)
             throw new CHttpException(404, 'Альбом не найден');

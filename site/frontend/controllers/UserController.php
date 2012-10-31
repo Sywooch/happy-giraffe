@@ -3,6 +3,9 @@
 class UserController extends HController
 {
     public $layout = '//layouts/user';
+    /**
+     * @var User
+     */
     public $user;
     public $rubric_id;
     public $content_type_slug;
@@ -44,9 +47,12 @@ class UserController extends HController
         );
 
         $user_id = (in_array($this->action->id, $this->_publicActions)) ? $this->actionParams['user_id'] : Yii::app()->user->id;
-        $this->user = User::model()->getUserById($user_id);
-        if ($this->user === null)
-            throw new CHttpException(404, 'Пользователь не найден');
+
+        if ($this->action->id != 'profile') {
+            $this->user = User::model()->with('avatar', 'status')->findByPk($user_id);
+            if ($this->user === null)
+                throw new CHttpException(404, 'Пользователь не найден');
+        }
         return parent::beforeAction($action);
     }
 
@@ -58,15 +64,27 @@ class UserController extends HController
         Yii::import('site.common.models.interest.*');
         Yii::import('site.frontend.modules.contest.models.*');
 
-        $user = User::model()->active()->with(array(
+        $criteria = new CDbCriteria;
+        $criteria->compare('t.id', $user_id);
+        $criteria->scopes = array('active');
+        $criteria->with = array(
             'status',
             'purpose',
-        ))->findByPk($user_id);
+            'avatar' => array('select' => array('fs_name', 'author_id')),
+            'userAddress' => array('select' => array('country_id', 'region_id', 'city_id')),
+            'partner',
+            'babies',
+            'mood',
+            'score',
+            'communities',
+            'albumsCount',
+        );
+        $user = User::model()->find($criteria);
         if ($user === null)
             throw new CHttpException(404, 'Пользователь не найден');
 
-        foreach($this->actionParams as $p => $v)
-            if ($p == 'Comment_page'){
+        foreach ($this->actionParams as $p => $v)
+            if ($p == 'Comment_page') {
                 Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
             }
         //if (!$user->calculateAccess('profile_access', Yii::app()->user->id))
@@ -74,7 +92,7 @@ class UserController extends HController
 
         $this->pageTitle = $user->fullName . ' на Веселом Жирафе';
 
-        if (! Yii::app()->user->isGuest)
+        if (!Yii::app()->user->isGuest)
             UserNotification::model()->deleteByEntity($user, Yii::app()->user->id);
 
         $this->render('profile', array(
@@ -84,7 +102,7 @@ class UserController extends HController
 
     public function actionActivity($user_id, $type, $page = 1)
     {
-        if (! in_array($type, array('my', 'friends')))
+        if (!in_array($type, array('my', 'friends')))
             throw new CHttpException(404);
 
         $limit = 50;
@@ -184,6 +202,7 @@ class UserController extends HController
     {
         $this->pageTitle = 'Друзья';
         $dataProvider = ($show == 'online') ? $this->user->getFriends('online = 1') : $this->user->getFriends();
+        $dataProvider->criteria->mergeWith(array('with'=>'avatar'));
         $dataProvider->pagination = array(
             'pageSize' => 30,
         );
@@ -240,7 +259,7 @@ class UserController extends HController
         if (Yii::app()->request->isAjaxRequest) {
             $user = Yii::app()->user->model;
             $mood_id = Yii::app()->request->getPost('mood_id');
-            if ($mood_id > 35 && ! $user->hasFeature(4))
+            if ($mood_id > 35 && !$user->hasFeature(4))
                 throw new CHttpException(404);
             $user->mood_id = $mood_id;
 
@@ -249,8 +268,7 @@ class UserController extends HController
                     'mood' => $user->mood,
                     'canUpdate' => true,
                 ));
-            }
-            else {
+            } else {
                 print_r($user->errors);
             }
         }
@@ -261,12 +279,12 @@ class UserController extends HController
         Yii::import('ext.EFeed.*');
         $feed = new EFeed();
 
-        $feed->title= 'Веселый Жираф - сайт для всей семьи';
+        $feed->title = 'Веселый Жираф - сайт для всей семьи';
         $feed->description = 'Социальная сеть для родителей и их детей';
         $feed->setImage('Веселый Жираф - сайт для всей семьи', 'http://www.happy-giraffe.ru/rss/', 'http://www.happy-giraffe.ru/images/logo_2.0.png');
         $feed->addChannelTag('language', 'ru-ru');
         $feed->addChannelTag('pubDate', date(DATE_RSS, time()));
-        $feed->addChannelTag('link', 'http://www.happy-giraffe.ru/rss/' );
+        $feed->addChannelTag('link', 'http://www.happy-giraffe.ru/rss/');
 
         if ($user_id == 1) {
             $criteria = new CDbCriteria(array(

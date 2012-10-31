@@ -193,8 +193,7 @@ class AlbumPhoto extends HActiveRecord
         if (!$temp) {
             $this->file_name = $this->file;
             $this->fs_name = md5($this->file_name . time()) . '.' . $this->file->extensionName;
-        }
-        else {
+        } else {
             $this->fs_name = $this->file_name;
         }
         if ($this->save(false)) {
@@ -202,6 +201,48 @@ class AlbumPhoto extends HActiveRecord
             return true;
         }
         return false;
+    }
+
+    public static function createByUrl($url, $user_id, $album_type)
+    {
+        $ext = pathinfo($url, PATHINFO_EXTENSION);
+        $file_name = pathinfo($url, PATHINFO_FILENAME);
+
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_AUTOREFERER, TRUE);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
+
+        $file = curl_exec($ch);
+        curl_close($ch);
+
+        if (empty($file))
+            return null;
+
+        $model = new AlbumPhoto();
+        $model->author_id = $user_id;
+
+        $dir = Yii::getPathOfAlias('site.common.uploads.photos');
+        $model_dir = $dir . DIRECTORY_SEPARATOR . $model->original_folder . DIRECTORY_SEPARATOR . $model->author_id;
+        if (!file_exists($model_dir))
+            mkdir($model_dir);
+
+        $file_name = md5($file_name . time());
+        while (file_exists($model_dir . DIRECTORY_SEPARATOR . $file_name . '.' . $ext))
+            $file_name = md5($file_name . time());
+        file_put_contents($model_dir . DIRECTORY_SEPARATOR . $file_name . '.' . $ext, $file);
+
+        if (!in_array($ext, array('jpg', 'jpeg', 'png', 'gif', 'JPG', 'JPEG', 'PNG', 'GIF')))
+            return false;
+        $model->album_id = Album::getAlbumByType($user_id, $album_type)->id;
+        $model->fs_name = $file_name. '.' . $ext;
+        $model->file_name = $file_name. '.' . $ext;
+        $model->save(false);
+
+        return $model;
     }
 
     /**
@@ -215,8 +256,7 @@ class AlbumPhoto extends HActiveRecord
             $model_dir = $dir . DIRECTORY_SEPARATOR . $this->original_folder . DIRECTORY_SEPARATOR . $this->author_id;
             if (!file_exists($model_dir))
                 mkdir($model_dir);
-        }
-        else {
+        } else {
             $model_dir = $dir . DIRECTORY_SEPARATOR . $this->tmp_folder;
             $this->file_name = $this->file;
             $this->fs_name = md5($this->file_name . time()) . '.' . $this->file->extensionName;
@@ -296,12 +336,9 @@ class AlbumPhoto extends HActiveRecord
 
             if ($image->width <= $width && $image->height <= $height) {
 
-            }
-            elseif ($master && $master == Image::WIDTH && $image->width < $width)
-                $image->resize($image->width, $height, Image::WIDTH);
-            elseif ($master && $master == Image::HEIGHT && $image->height < $height)
-                $image->resize($width, $image->height, Image::HEIGHT);
-            else
+            } elseif ($master && $master == Image::WIDTH && $image->width < $width)
+                $image->resize($image->width, $height, Image::WIDTH); elseif ($master && $master == Image::HEIGHT && $image->height < $height)
+                $image->resize($width, $image->height, Image::HEIGHT); else
                 $image->resize($width, $height, $master ? $master : Image::AUTO);
 
             if ($crop)

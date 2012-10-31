@@ -10,7 +10,9 @@ class ApcCommand extends CConsoleCommand
      */
     public function actionIndex()
     {
-        echo apc_clear_cache();
-        echo apc_clear_cache('user')."\n";
+        apc_clear_cache();
+        apc_clear_cache('user');
+        apc_clear_cache('opcode');
+        clearstatcache();
     }
 }

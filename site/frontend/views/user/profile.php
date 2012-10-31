@@ -34,14 +34,15 @@
                 <div class="online-status offline"><i class="icon"></i>Был на сайте <span class="date"><?php echo HDate::GetFormattedTime($user->login_date); ?></span></div>
                 <?php endif; ?>
                 <div class="location">
-                    <?php if ($user->getUserAddress()->hasCity()): ?>
-                    <?=$user->getUserAddress()->getFlag(true)?><?= $user->getUserAddress()->cityName ?>
-                    <?php endif; ?>
+                    <?php
+                    if (!empty($user->getUserAddress()->country_id)) echo $user->getUserAddress()->getFlag(true);
+                    if (!empty($user->getUserAddress()->city_id)) echo $user->getUserAddress()->cityName;
+                    ?>
                 </div>
                 <div class="info">
                     <p class="birthday"><?php if ($user->birthday): ?><span>День рождения:</span> <?=Yii::app()->dateFormatter->format("d MMMM", $user->birthday)?> (<?=$user->normalizedAge?>)<?php endif; ?></p>
                 </div>
-            <?php if(Yii::app()->user->checkAccess('manageFavourites')): ?>
+            <?php if(!Yii::app()->user->isGuest && Yii::app()->user->model->group != UserGroup::USER && Yii::app()->user->checkAccess('manageFavourites')): ?>
             <div class="user-buttons clearfix">
                 <?php $this->widget('site.frontend.widgets.favoritesWidget.FavouritesWidget', array('model' => $user)); ?>
             </div>
@@ -168,11 +169,11 @@
                         )); ?>
                     </div>
 
-                    <div class="weather-wrapper">
-                        <?php $this->widget('WeatherWidget', array(
-                            'user' => $user,
-                        )); ?>
-                    </div>
+<!--                    <div class="weather-wrapper">-->
+<!--                        --><?php //$this->widget('WeatherWidget', array(
+//                            'user' => $user,
+//                        )); ?>
+<!--                    </div>-->
 
                     <div class="horoscope-wrapper">
                         <?php $this->widget('HoroscopeWidget', array(

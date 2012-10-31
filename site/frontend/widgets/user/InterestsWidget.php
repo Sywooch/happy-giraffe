@@ -16,7 +16,7 @@ class InterestsWidget extends UserCoreWidget
             'params' => array(':user_id' => $this->user->id),
             'with' => array(
                 'interests' => array(
-                    'with' => 'usersCount',
+//                    'with' => 'usersCount',
                     'join' => 'JOIN interest__users_interests ON interest__users_interests.interest_id = interests.id AND interest__users_interests.user_id = :user_id',
                 ),
             ),

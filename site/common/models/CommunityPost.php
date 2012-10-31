@@ -213,7 +213,7 @@ class CommunityPost extends HActiveRecord
 
                 if ($image !== false) {
                     $photo = AlbumPhoto::createByUrl($image, $author_id, 6);
-                    if ($photo !== null)
+                    if ($photo)
                         $this->photo_id = $photo->id;
                 }
             }

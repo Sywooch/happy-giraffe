@@ -154,7 +154,7 @@ class Comment extends HActiveRecord
                 'params' => array(':entity' => $entity, ':entity_id' => $entity_id),
                 'with' => array(
                     'author' => array(
-                        'select' => 'id, first_name, last_name, online, avatar_id',
+                        'select' => 'id, gender, first_name, last_name, online, avatar_id',
                         'with' => 'avatar',
                     ),
                     'response' => array(
@@ -162,7 +162,7 @@ class Comment extends HActiveRecord
                         'with' => array(
                             'author' => array(
                                 'alias' => 'responseAuthor',
-                                'select' => 'id, first_name, last_name, online, avatar_id',
+                                'select' => 'id, gender, first_name, last_name, online, avatar_id',
                                 'with' => array(
                                     'avatar' => array(
                                         'alias' => 'responseAuthorAvatar'

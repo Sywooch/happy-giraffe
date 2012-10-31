@@ -897,7 +897,7 @@ class User extends HActiveRecord
                     'select' => 'slug',
                 ),
                 'post'=>array('select'=>array('text')),
-                'video'=>array('select'=>array('link', 'text')),
+                'video'=>array('select'=>array('link', 'text', 'content_id', 'photo_id')),
                 'commentsCount',
             ),
         ));

@@ -160,11 +160,11 @@
                         )); ?>
                     </div>
 
-                    <div class="weather-wrapper">
-                        <?php $this->widget('WeatherWidget', array(
-                            'user' => $user,
-                        )); ?>
-                    </div>
+<!--                    <div class="weather-wrapper">-->
+<!--                        --><?php //$this->widget('WeatherWidget', array(
+//                            'user' => $user,
+//                        )); ?>
+<!--                    </div>-->
 
                     <div class="horoscope-wrapper">
                         <?php $this->widget('HoroscopeWidget', array(

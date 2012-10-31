@@ -579,7 +579,7 @@ class CommunityContent extends HActiveRecord
                 return ($image = $this->getContentImage($width)) ? CHtml::image($image, $this->title) : $this->getContentText();
             case 2:
                 if ($this->video->getPhoto() !== null)
-                    return '<img src="' . $this->video->getPhoto()->getPreviewUrl(120, 90) . '" alt="' . $this->title . '" />';
+                    return '<img src="' . $this->video->getPhoto()->getPreviewUrl($width, null, Image::WIDTH) . '" alt="' . $this->title . '" />';
         }
         return '';
     }

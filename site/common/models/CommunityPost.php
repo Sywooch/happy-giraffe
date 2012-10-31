@@ -13,8 +13,10 @@
  * @property string $book_author
  * @property string $book_name
  * @property string $content_id
+ * @property string $photo_id
  *
  * @property CommunityContent $content
+ * @property AlbumPhoto $photo
  */
 class CommunityPost extends HActiveRecord
 {
@@ -71,7 +73,7 @@ class CommunityPost extends HActiveRecord
 			array('content_id', 'required', 'on' => 'edit'),
 			array('internet_link, internet_favicon, internet_title, book_author, book_name', 'length', 'max' => 255),
 			array('content_id', 'length', 'max' => 11),
-			array('content_id', 'numerical', 'integerOnly' => true),
+			array('content_id, photo_id', 'numerical', 'integerOnly' => true),
 			array('content_id', 'exist', 'attributeName' => 'id', 'className' => 'CommunityContent'),
 			array('source_type', 'in', 'range' => array('me', 'internet', 'book')),
 		
@@ -92,6 +94,7 @@ class CommunityPost extends HActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'content' => array(self::BELONGS_TO, 'CommunityContent', 'content_id'),
+            'photo' => array(self::BELONGS_TO, 'AlbumPhoto', 'photo_id'),
 		);
 	}
 
@@ -149,12 +152,6 @@ class CommunityPost extends HActiveRecord
         parent::afterSave();
     }
 
-    protected function beforeSave()
-    {
-        $this->text = str_replace('<hr class="gallery" />', '<!--gallery-->', $this->text);
-
-        return parent::beforeSave();
-    }
 
     protected function afterFind()
     {
@@ -162,5 +159,60 @@ class CommunityPost extends HActiveRecord
             $this->text = str_replace('<!--gallery-->', '<hr class="gallery" />', $this->text);
 
         parent::afterFind();
+    }
+
+    protected function beforeSave()
+    {
+        if ($this->isNewRecord)
+            $this->searchImage(Yii::app()->user->id);
+        else{
+            $this->searchImage($this->content->author_id);
+        }
+
+        $this->text = str_replace('<hr class="gallery" />', '<!--gallery-->', $this->text);
+
+        return parent::beforeSave();
+    }
+
+    /**
+     * @return AlbumPhoto
+     */
+    public function getPhoto()
+    {
+        if (empty($this->photo_id)){
+            $this->update(array('photo_id'));
+        }
+
+        return $this->photo;
+    }
+
+    public function searchImage($author_id)
+    {
+        if (preg_match('/http:\/\/img.happy-giraffe.ru\/thumbs\/[\d]+x[\d]+\/[\d]+\/([^\"]+)/', $this->text, $m)) {
+            $photo = AlbumPhoto::model()->findByAttributes(array('fs_name' => $m[1]));
+            if (isset($photo)){
+                $this->photo_id = $photo->id;
+            }
+        }
+
+        if (preg_match_all('/src="([^"]+)"/', $this->text, $matches)) {
+            if (!empty($matches[0])) {
+                $image = false;
+                for ($i = 0; $i < count($matches[0]); $i++) {
+                    $image_url = $matches[1][$i];
+                    if (strpos($image_url, '/images/widget/smiles/') !== 0) {
+                        $image = $image_url;
+                        break;
+                    }
+                }
+            }
+            if ($image !== false && strpos($image, 'http://') !== 0)
+                $image = 'http://www.happy-giraffe.ru' . $image;
+
+            if ($image !== false){
+                $photo = AlbumPhoto::createByUrl($image, $author_id, 6);
+                $this->photo_id = $photo->id;
+            }
+        }
     }
 }

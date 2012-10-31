@@ -590,37 +590,20 @@ class CommunityContent extends HActiveRecord
             $video = new Video($this->video->link);
             return $video->preview;
         } else {
-            $image = false;
             if (!isset($this->content))
                 return '';
-            if (preg_match('/http:\/\/img.happy-giraffe.ru\/thumbs\/[\d]+x[\d]+\/[\d]+\/([^\"]+)/', $this->content->text, $m)) {
-                if (isset($m[0])){
-                    return $m[0];
-//                    $photo = AlbumPhoto::model()->findByAttributes(array('fs_name' => $m[1]));
-//                    if (isset($photo))
-//                        return $photo->getPreviewUrl($width, null, Image::WIDTH);
-                }
-            }
-            if (preg_match_all('/src="([^"]+)"/', $this->content->text, $matches)) {
-                if (!empty($matches[0])) {
-                    $image = false;
-                    for ($i = 0; $i < count($matches[0]); $i++) {
-                        $image_url = $matches[1][$i];
-                        if (strpos($image_url, '/images/widget/smiles/') !== 0) {
-                            $image = $image_url;
-                            break;
-                        }
-                    }
-                }
-                if ($image !== false && strpos($image, 'http://') !== 0)
-                    $image = 'http://www.happy-giraffe.ru' . $image;
-            }
-            return $image;
+
+            $photo = $this->content->getPhoto();
+            return $photo ? $photo->getPreviewUrl($width, null, Image::WIDTH) : false;
         }
     }
 
     public function getContentText($length = 128)
     {
+//        if (!isset($this->content->text)){
+//            echo $this->id;
+//            Yii::app()->end();
+//        }
         return Str::truncate(strip_tags($this->content->text), $length);
     }
 

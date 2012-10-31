@@ -207,7 +207,20 @@ class AlbumPhoto extends HActiveRecord
     {
         $ext = pathinfo($url, PATHINFO_EXTENSION);
         $file_name = pathinfo($url, PATHINFO_FILENAME);
-        $file = file_get_contents($url);
+
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_AUTOREFERER, TRUE);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
+
+        $file = curl_exec($ch);
+        curl_close($ch);
+
+        if (empty($file))
+            return null;
 
         $model = new AlbumPhoto();
         $model->author_id = $user_id;

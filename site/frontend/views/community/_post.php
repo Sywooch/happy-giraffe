@@ -26,7 +26,7 @@
         <?php endif; ?>
 
         <noindex>
-            <?php if (! $data->isFromBlog && $data->rubric->community_id != Community::COMMUNITY_NEWS): ?>
+            <?php if ($data->isFromBlog || $data->rubric->community_id != Community::COMMUNITY_NEWS): ?>
                 <div class="user">
                     <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => $data->contentAuthor, 'friendButton' => true, 'location' => false)); ?>
                 </div>

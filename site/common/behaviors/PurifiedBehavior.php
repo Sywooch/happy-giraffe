@@ -28,9 +28,7 @@ class PurifiedBehavior extends CActiveRecordBehavior
                 $purifier = new CHtmlPurifier;
                 $purifier->options = CMap::mergeArray($this->_defaultOptions, $this->options);
                 $value = $this->getOwner()->$name;
-                //$value = str_replace('&amp;', '&', $value);
                 $value = $this->linkifyYouTubeURLs($value);
-                //$value = str_replace('&', '&amp;', $value);
                 $value = $purifier->purify($value);
                 $value = $this->wrapNoindexNofollow($value);
                 Yii::app()->cache->set($cacheId, $value);
@@ -130,7 +128,7 @@ class PurifiedBehavior extends CActiveRecordBehavior
           | </a>          # or inside <a> element text contents.
           )               # End recognized pre-linked alts.
         )                 # End negative lookahead assertion.
-        [?=&+%\w-]*        # Consume any URL (query) remainder.
+        [?=&+%\w-;]*        # Consume any URL (query) remainder.
         ~ix',
             array($this, 'fetchHtml'),
             $text);

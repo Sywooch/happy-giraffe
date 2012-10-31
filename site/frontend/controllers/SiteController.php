@@ -155,7 +155,8 @@ class SiteController extends HController
                             $redirectUrl .= '?openSettings=1';
                         }
                     }
-                    Yii::app()->user->setState('social_redirect', $redirectUrl);
+                    if (strpos($_SERVER['HTTP_REFERER'], 'site/login') === false)
+                        Yii::app()->user->setState('social_redirect', $redirectUrl);
                 }
             }
             $authIdentity->redirectUrl = $redirectUrl;

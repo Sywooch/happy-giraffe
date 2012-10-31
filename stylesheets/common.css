@@ -147,7 +147,7 @@ input.w-400, textarea.w-400 {width:376px;}
 input.w-500, textarea.w-500 {width:476px;}
 
 .file-fake {display:inline-block;*zoom:1;*display:inline;position:relative;cursor:pointer;height:32px;overflow:hidden;}
-.file-fake input {opacity:0;position:absolute;z-index:3;right:0;top:0;height:100%;display:block;filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0)}
+.file-fake input {opacity:0;position:absolute;z-index:3;right:0;top:0;height:100%;display:block;cursor:pointer;filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0)}
 .file-fake .btn {position:relative;z-index:2;}
 
 a.info {display:inline-block;*zoom:1;*display:inline;width:13px;height:13px;background:url(../images/common.png) no-repeat -267px -101px;}

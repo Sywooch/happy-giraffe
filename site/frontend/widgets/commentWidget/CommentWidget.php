@@ -133,7 +133,7 @@ class CommentWidget extends CWidget
 
         if(!$this->onlyList)
         {
-            Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/ckeditor/ckeditor.js')
+            Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/ckeditor/ckeditor.js?2')
                 ->registerScriptFile(Yii::app()->baseUrl . '/ckeditor/adapters/jquery.js');
         }
 

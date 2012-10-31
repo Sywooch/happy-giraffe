@@ -2,6 +2,7 @@
 /* @var $this Controller
  * @var $user User
  */
+
     $cs = Yii::app()->clientScript;
     $cs
         ->registerScriptFile(Yii::app()->baseUrl . '/javascripts/jquery.jscrollpane.min.js')
@@ -13,6 +14,13 @@
 
     $score = $user->scores;
 ?>
+
+<?php
+    Yii::app()->eauth->renderWidget(array(
+        'mode' => 'assets',
+    ));
+?>
+
 <div id="user">
 
     <div class="user-cols clearfix">

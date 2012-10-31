@@ -108,7 +108,7 @@
                             echo $text;
                             break;
                         case 'video':
-                            echo '<noindex><div style="text-align: center; margin-bottom: 10px;">' . $data->getEmbed() . '</div></noindex>';
+                            echo '<noindex><div style="text-align: center; margin-bottom: 10px;">' . $data->video->getEmbed() . '</div></noindex>';
                             echo $data->video->purified->text;
                             break;
                         case 'travel':

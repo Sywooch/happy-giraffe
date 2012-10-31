@@ -212,9 +212,9 @@
 .trophie262.trophie262-32  {background-position:0 -8122px;}
 
 
-.user-lvl {width:240px;height:160px;margin-top:10px;}
-.user-lvl-0 {height:142px;background:url(/images/user_lvl_0.png) center no-repeat;}
-.user-lvl-1 {background:url(/images/user_lvl_1.png) center no-repeat;}
+.user-lvl {width:240px;height:178px;margin-top:10px;}
+.user-lvl-0 {background:url(/images/user_lvl_0.png) center no-repeat;}
+.user-lvl-1 {background:url(/images/user/user-lvl/user-lvl178-1.png) center no-repeat;}
 .user-lvl-1 span {display:block;padding:80px 0 0;font-size:22px;color:#fff;text-align:center;}
 
 #user .user-lvl {margin-bottom:20px;}

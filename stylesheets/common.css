@@ -2365,7 +2365,7 @@ div.scrollbarpaper-drag {-moz-border-radius:3px;-webkit-border-radius:3px;border
 .gallery-photos-new ul li .contest-ball .ball {position:absolute;right:0;top:1px;}
 .gallery-photos-new ul li .contest-ball .ball-count {color:#fd5807;font:italic 24px/21px 'Times New Roman', Georgia, Times, serif;float:right;}
 .gallery-photos-new ul li .contest-ball .ball-text {float:right;clear:right;font-size:10px;line-height:10px;color:#737373;}
-/* частично устаревший код */
+
 #gallery .gallery-photos-new {padding-top:20px;}
 #gallery .gallery-album .gallery-photos-new {padding-top:10px;}
 
@@ -2386,7 +2386,7 @@ div.scrollbarpaper-drag {-moz-border-radius:3px;-webkit-border-radius:3px;border
 #gallery .gallery-album .album-actions .count {color:#8353b0;font-size:16px;}
 #gallery .gallery-album .album-actions .count .icon {display:inline-block;width:28px;height:22px;background:url(/images/common.png) no-repeat -663px -262px;vertical-align:middle;position:relative;top:-2px;}
 #gallery .gallery-album .album-actions .slideshow {color:#ffffff;font-size:15px;height:19px;line-height:19px;display:inline-block;*zoom:1;*display:inline;background:#24b828;text-decoration:none;padding:0 8px;-moz-border-radius:10px;-webkit-border-radius:10px;border-radius:10px;margin:0 10px;}
-
+/* устаревший код 
 #gallery .gallery-album .album-photos ul {list-style:none;}
 #gallery .gallery-album .album-photos ul li {float:left;margin:0 10px 20px;width:210px;}
 #gallery .gallery-album .album-photos ul li.more {font-size:13px;padding-top:30px;text-align:center;width:160px;display:none;}
@@ -2395,11 +2395,12 @@ div.scrollbarpaper-drag {-moz-border-radius:3px;-webkit-border-radius:3px;border
 #gallery .gallery-album .album-photos ul li.more a:hover .icon {background-position:-499px -193px;}
 #gallery .gallery-album .album-photos ul li.more a:hover {color:#7abc2e;text-decoration:underline;}
 
+#gallery .fast-album {padding-bottom:20px;}
+
+*/
 #gallery .btn-album-create {display:block;width:698px;height:219px;background:url(/images/btn_album_create.png) no-repeat;}
 #gallery .btn-album-create:hover {background-position:0 100%;}
-/* /частично устаревший код */
-#gallery .fast-album {padding-bottom:20px;}
-/* частично устаревший код */
+
 #gallery .gallery-photos ul li.more {color:#b9b9b9;font-size:13px;padding-top:90px;text-align:center;}
 #gallery .gallery-photos ul li.more .icon {display:block;width:56px;height:56px;background:url(../images/common.png) no-repeat -499px -135px;margin:0 auto;margin-bottom:10px;}
 #gallery .gallery-photos ul li.more .icon:hover {background-position:-499px -193px;}
@@ -2411,13 +2412,13 @@ div.scrollbarpaper-drag {-moz-border-radius:3px;-webkit-border-radius:3px;border
 #gallery .gallery-photos ul li.add a span {margin-top:60px;border-bottom:1px dashed #1b98c5;}
 #gallery .gallery-photos ul li.add a:hover span {border:0;}
 
-
+/* устаревший код 
 #gallery .service-header .title big {color:#bb4825;}
 #gallery .service-header .title .note {background:#fff2e7;border:0;}
 #gallery .service-header .title .note:after {display:none;}
 #gallery .service-header .title .note span {color:#c76548;}
 #gallery .service-header .title .note p {color:#999;}
-
+*/
 #gallery .album-visibility {display:inline-block;*zoom:1;*display:inline;vertical-align:middle;position:relative;z-index:2;}
 #gallery .album-visibility > span {display:block;width:15px;height:17px;background:url(/images/common.png) no-repeat -338px -205px;float:left;}
 #gallery .album-visibility.small > span {display:block;width:12px;height:13px;background:url(/images/common.png) no-repeat -369px -209px;float:left;}

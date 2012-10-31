@@ -70,7 +70,7 @@ class UserController extends HController
         $criteria->with = array(
             'status',
             'purpose',
-            'avatar' => array('select' => 'fs_name', 'author_id'),
+            'avatar' => array('select' => array('fs_name', 'author_id')),
             'userAddress' => array('select' => array('country_id', 'region_id', 'city_id')),
             'partner',
             'babies',

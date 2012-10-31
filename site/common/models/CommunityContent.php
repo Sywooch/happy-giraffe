@@ -578,17 +578,10 @@ class CommunityContent extends HActiveRecord
             case 1:
                 return ($image = $this->getContentImage($width)) ? CHtml::image($image, $this->title) : $this->getContentText();
             case 2:
-//                $value = Yii::app()->cache->get('video-preview-' . CHtml::encode($this->video->link));
-//                if ($value === false) {
-                $video = new Video($this->video->link);
-
-                $value = '<img src="' . $video->preview . '" alt="' . $video->title . '" />';
-//                    Yii::app()->cache->set('video-preview-' . CHtml::encode($this->video->link) . 3600, $value);
-//                }
-                return $value;
-            default:
-                return '';
+                if ($this->video->getPhoto() !== null)
+                    return '<img src="' . $this->video->getPhoto()->getPreviewUrl(120, 90) . '" alt="' . $this->title . '" />';
         }
+        return '';
     }
 
     public function getContentImage($width = 700)

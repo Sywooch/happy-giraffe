@@ -27,7 +27,8 @@ class Album extends HActiveRecord
         2 => 'Диалоги',
         3 => 'Семейные',
         4 => 'Продукты',
-        5 => 'Мои рецепты'
+        5 => 'Мои рецепты',
+        6 => 'Видео превью'
     );
 
     public static $permissions = array(
@@ -267,5 +268,25 @@ class Album extends HActiveRecord
             'title' => 'Фотоальбом ' . CHtml::link($this->title, $this->url),
             'photos' => $photos,
         );
+    }
+
+    /**
+     * @param int $author_id
+     * @param int $type
+     * @return Album
+     */
+    public static function getAlbumByType($author_id, $type)
+    {
+        $album = Album::model()->findByAttributes(array('author_id' => $author_id, 'type' => $type));
+        if(!$album)
+        {
+            $album = new Album;
+            $album->author_id = $author_id;
+            $album->type = $type;
+            $album->title = Album::$systems[$type];
+            $album->save();
+        }
+
+        return $album;
     }
 }

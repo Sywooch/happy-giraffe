@@ -13,27 +13,32 @@ class WeatherWidget extends UserCoreWidget
     public function run()
     {
         if (!$this->user->getUserAddress()->hasCity())
-            return ;
-        $data = Yii::app()->cache->get('WeatherWidget_' . date("Y-m-d") . $this->user->getUserAddress()->getLocationString());
+            return;
+
+        $cache_id = 'WeatherWidget_' . date("Y-m-d") . $this->user->getUserAddress()->getLocationString();
+        $data = Yii::app()->cache->get($cache_id);
         if ($data == false) {
             $gw = new SimpleGoogleWeather(urlencode($this->user->getUserAddress()->getLocationString()));
             if ($gw->xml === null)
-                return ;
-            $gw_today = $gw->getCurrentWeather();
-            if ($gw_today === false)
-                return;
+                $data = '  ';
+            else {
+                $gw_today = $gw->getCurrentWeather();
+                if ($gw_today === false)
+                    return;
 
-            Yii::app()->clientScript->registerScriptFile('/javascripts/user_common.js');
+                Yii::app()->clientScript->registerScriptFile('/javascripts/user_common.js');
 
-            $data = $this->render('WeatherWidget', array(
-                'now_temp' => $gw->getNowTemp(),
-                'now_condition' => $gw->getNowCondition(),
-                'night' => $gw->getNightTemp(),
-                'yesterday' => $gw->GetYesterdayTemp(),
-                'data' => $gw->getForecastData()
-            ), true);
+                $data = $this->render('WeatherWidget', array(
+                    'now_temp' => $gw->getNowTemp(),
+                    'now_condition' => $gw->getNowCondition(),
+                    'night' => $gw->getNightTemp(),
+                    'yesterday' => $gw->GetYesterdayTemp(),
+                    'data' => $gw->getForecastData()
+                ), true);
 
-            Yii::app()->cache->set('WeatherWidget_' . date("Y-m-d") . $this->user->getUserAddress()->getLocationString(), $data, 12000);
+            }
+            //echo 'rrrrrrrrr';
+            Yii::app()->cache->set($cache_id, $data, 3 * 3600);
         }
 
         echo $data;
@@ -57,17 +62,17 @@ class SimpleGoogleWeather
         'Дождь' => 5,
         'Небольшой дождь' => 5,
         'Возможен дождь' => 5,
-        'Дождь со снегом'=>5,
+        'Дождь со снегом' => 5,
         'Дым' => 3,
         'Туман' => 3,
         'Изморозь' => 1,
         'Морось' => 1,
-        'Ветер'=>6,
-        'Буря'=>6,
-        'Возможен шторм'=>6,
-        'Гроза'=>7,
-        'Гололед'=>5,
-        'Град'=>5,
+        'Ветер' => 6,
+        'Буря' => 6,
+        'Возможен шторм' => 6,
+        'Гроза' => 7,
+        'Гололед' => 5,
+        'Град' => 5,
     );
 
     function __construct($city, $lang = "ru", $charset = "utf-8")

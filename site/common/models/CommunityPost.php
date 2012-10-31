@@ -180,6 +180,7 @@ class CommunityPost extends HActiveRecord
     public function getPhoto()
     {
         if (empty($this->photo_id)) {
+            $this->detachBehaviors();
             $this->update(array('photo_id'));
         }
 
@@ -188,7 +189,6 @@ class CommunityPost extends HActiveRecord
 
     public function searchImage($author_id)
     {
-        echo 'search_image';
         if (preg_match('/http:\/\/img.happy-giraffe.ru\/thumbs\/[\d]+x[\d]+\/[\d]+\/([^\"]+)/', $this->text, $m)) {
             $photo = AlbumPhoto::model()->findByAttributes(array('fs_name' => $m[1]));
             if (isset($photo)) {
@@ -213,7 +213,8 @@ class CommunityPost extends HActiveRecord
 
                 if ($image !== false) {
                     $photo = AlbumPhoto::createByUrl($image, $author_id, 6);
-                    $this->photo_id = $photo->id;
+                    if ($photo)
+                        $this->photo_id = $photo->id;
                 }
             }
     }

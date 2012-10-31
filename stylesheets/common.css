@@ -3673,7 +3673,7 @@ div.scrollbarpaper-drag {-moz-border-radius:3px;-webkit-border-radius:3px;border
 .activity-onair .title span {font-weight:normal;color:#8a61b3;}
 .activity-onair .title img {position:absolute;bottom:0;left:-12px;z-index:-1;}
 .activity-onair ul {list-style:none;line-height:normal;}
-.activity-onair ul li {padding:15px 0;border-top:1px dashed #e6d6f9;}
+.activity-onair ul li {padding:15px 0;border-top:1px dashed #e6d6f9;overflow:hidden;}
 .activity-onair ul li:first-child {border-top:0;}
 .activity-onair ul li .date {margin-bottom:5px;color:#a2a2a2;font-size:9px;line-height:1;}
 .activity-onair ul li .user {margin-bottom:5px;}

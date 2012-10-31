@@ -219,8 +219,6 @@
                 'varyByParam' => array('community_id'),
             ))): ?>
 
-        <?php $this->endCache(); endif;  ?>
-
         <div class="recent-topics">
 
             <div class="title">Последние темы</div>
@@ -232,6 +230,8 @@
             </ul>
 
         </div>
+
+        <?php $this->endCache(); endif;  ?>
 
         <?php foreach ($this->community->banners as $b): ?>
             <?php $this->renderPartial('_banner', array('data' => $b)); ?>

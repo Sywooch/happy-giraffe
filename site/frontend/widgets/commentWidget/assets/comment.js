@@ -61,7 +61,7 @@ Comment.prototype.moveForm = function (container) {
 Comment.prototype.newComment = function (event) {
     this.cancel();
     this.moveForm($('#' + this.getId()));
-    $(this.getScrollContainer()).scrollTop($(this.getScrollContainer()).scrollTop() + $('#new_comment_wrapper').position().top);
+    //$(this.getScrollContainer()).scrollTop($(this.getScrollContainer()).scrollTop() + $('#new_comment_wrapper').position().top);
 };
 
 Comment.prototype.newPhotoComment = function (event) {

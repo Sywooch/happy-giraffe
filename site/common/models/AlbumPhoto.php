@@ -207,7 +207,11 @@ class AlbumPhoto extends HActiveRecord
     {
         $ext = pathinfo($url, PATHINFO_EXTENSION);
         $file_name = pathinfo($url, PATHINFO_FILENAME);
+        try{
         $file = file_get_contents($url);
+        }catch (Exception $err){
+            return null;
+        }
 
         $model = new AlbumPhoto();
         $model->author_id = $user_id;

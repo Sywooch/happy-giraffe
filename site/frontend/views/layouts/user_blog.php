@@ -150,7 +150,7 @@
                 'duration' => 600,
                 'dependency' => array(
                     'class' => 'CDbCacheDependency',
-                    'sql' => 'SELECT MAX(created) FROM album__photos p
+                    'sql' => 'SELECT MAX(p.created) FROM album__photos p
                         JOIN album__albums a ON p.album_id = a.id
                         WHERE a.type = 0 AND p.author_id = ' . $this->user->id,
                 ),

@@ -141,7 +141,7 @@
                 'class' => 'CDbCacheDependency',
                 'sql' => 'SELECT MAX(updated) FROM community__contents c
                     JOIN community__rubrics r ON c.rubric_id = r.id
-                    WHERE r.community = ' . $this->community->id,
+                    WHERE r.community_id = ' . $this->community->id,
             ),
             'varyByParam' => array('community_id'),
         ))): ?>
@@ -214,7 +214,7 @@
                 'dependency' => array(
                     'sql' => 'SELECT MAX(updated) FROM community__contents c
                         JOIN community__rubrics r ON c.rubric_id = r.id
-                        WHERE r.community = ' . $this->community->id,
+                        WHERE r.community_id = ' . $this->community->id,
                 ),
                 'varyByParam' => array('community_id'),
             ))): ?>

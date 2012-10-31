@@ -132,6 +132,7 @@ class CommunityVideo extends HActiveRecord
         $video = new Video($this->link);
         if (empty($video->preview))
             return false;
+
         $photo = AlbumPhoto::createByUrl($video->image, $this->content->author_id, 6);
         $this->photo_id = $photo->id;
         $this->embed = $video->code;

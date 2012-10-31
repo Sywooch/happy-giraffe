@@ -21,7 +21,7 @@ class LiveWidget extends CWidget
                 'select' => array('slug')
             ),
             'post' => array(
-                'select' => array('text')
+                'select' => array('text', 'content_id', 'photo_id')
             ),
             'contentAuthor' => array(
                 'select' => array('id', 'first_name', 'last_name', 'avatar_id', 'online', 'blocked', 'deleted')

@@ -166,9 +166,9 @@ return array(
                 ),
                 'odnoklassniki' => array(
                     'class' => 'CustomOdnoklassnikiService',
-                    'client_id' => '90353152',
-                    'client_secret' => '4D9D33E5CD84A7F203BBC8C7',
-                    'client_public' => 'CBAPKDGGABABABABA',
+                    'client_id' => '93721600',
+                    'client_secret' => '4E774EFE678A1ECF3D4625F3',
+                    'client_public' => 'CBAFBHJGABABABABA',
                     'title' => 'Odnokl.',
                 ),
                 'vkontakte' => array(

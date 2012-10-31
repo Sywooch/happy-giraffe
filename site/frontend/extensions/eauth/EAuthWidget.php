@@ -84,11 +84,12 @@ class EAuthWidget extends CWidget {
 		parent::run();
 
 		$this->registerAssets();
-		$this->render('auth', array(
-			'id' => $this->getId(),
-			'services' => $this->services,
-			'action' => $this->action,
-		));
+        if ($this->mode != 'assets')
+            $this->render('auth', array(
+                'id' => $this->getId(),
+                'services' => $this->services,
+                'action' => $this->action,
+            ));
     }
 
 	/**

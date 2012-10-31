@@ -68,7 +68,7 @@
                         <?php endforeach; ?>
                     </ul>
                     <?php if ($answers[$i]->votes > 20): ?>
-                        <div class="more-votes">еще <?=($answer[$i] - 20)?> голосов</div>
+                        <div class="more-votes">еще <?=($answers[$i]->votes - 20)?> голосов</div>
                     <?php endif; ?>
                 </div>
             <?php endforeach; ?>

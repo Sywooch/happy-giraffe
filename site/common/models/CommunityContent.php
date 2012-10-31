@@ -689,4 +689,14 @@ class CommunityContent extends HActiveRecord
         }
         return $this->comments;
     }
+
+    public function getLastCommentators($limit = 3)
+    {
+        return Comment::model()->with('author', 'author.avatar')->findAll(array(
+            'condition' => 'entity = :entity AND entity_id = :entity_id',
+            'params' => array(':entity' => get_class($this), ':entity_id' => $this->id),
+            'order' => 't.created DESC',
+            'limit' => 3,
+        ));
+    }
 }

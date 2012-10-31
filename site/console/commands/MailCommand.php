@@ -128,6 +128,11 @@ class MailCommand extends CConsoleCommand
         Yii::app()->mc->updateContestUsers();
     }
 
+    public function actionMailruUsers()
+    {
+        Yii::app()->mc->updateMailruUsers();
+    }
+
     public function actionUsers()
     {
         Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');

@@ -26,7 +26,7 @@
         <?php endif; ?>
 
         <noindex>
-            <?php if ($data->type_id == 5 || (! $data->by_happy_giraffe && $data->author_id != User::HAPPY_GIRAFFE && $data->rubric->community_id != Community::COMMUNITY_NEWS)): ?>
+            <?php if ($data->isFromBlog || $data->rubric->community_id != Community::COMMUNITY_NEWS): ?>
                 <div class="user">
                     <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => $data->contentAuthor, 'friendButton' => true, 'location' => false)); ?>
                 </div>
@@ -34,18 +34,25 @@
             <?php $this->widget('site.frontend.widgets.favoritesWidget.FavouritesWidget', array('model' => $data)); ?>
 
             <div class="meta">
-
-                <div class="time"><?= Yii::app()->dateFormatter->format("d MMMM yyyy, H:mm", $data->created); ?></div>
-
-                <div class="seen">Просмотров:&nbsp;<span id="page_views"><?php
-                    if ($full)
-                        echo $views = $this->getViews();
-                    else
-                        echo $views = PageView::model()->viewsByPath(str_replace('http://www.happy-giraffe.ru', '', $data->url), true);
-                    ?></span></div>
-                <br/>
-                <?=CHtml::link('Комментариев: ' . $data->getArticleCommentsCount(), $data->getUrl(true))?>
-                <?php if($full) { Rating::model()->saveByEntity($data, 'vw', floor($views / 100)); } ?>
+                <div class="time"><?=Yii::app()->dateFormatter->format("d MMMM yyyy, H:mm", $data->created)?></div>
+                <div class="views"><span href="#" class="icon"></span> <span><?=($full) ? $this->getViews() : PageView::model()->viewsByPath(str_replace('http://www.happy-giraffe.ru', '', $data->url), true)?></span></div>
+                <div class="comments">
+                    <a href="#" class="icon"></a>
+                    <?php if ($data->getArticleCommentsCount() > 0): ?>
+                        <?php $lastComments = $data->lastCommentators; foreach ($lastComments as $lc): ?>
+                            <?php
+                                $class = 'ava small';
+                                if ($lc->author->gender !== null) $class .= ' ' . (($lc->author->gender) ? 'male' : 'female');
+                            ?>
+                            <?=CHtml::link(CHtml::image($lc->author->getAva('small')), $lc->author->url, array('class' => $class))?>
+                        <?php endforeach; ?>
+                        <?php if ($data->getArticleCommentsCount() > count($lastComments)): ?>
+                            <?=CHtml::link('и еще ' . ($data->getArticleCommentsCount() - count($lastComments)), $data->getUrl(true))?>
+                        <?php endif; ?>
+                    <?php else: ?>
+                        <?=CHtml::link('Добавить комментарий', $data->getUrl(true))?>
+                    <?php endif; ?>
+                </div>
             </div>
         </noindex>
         <div class="clear"></div>
@@ -213,11 +220,7 @@
             if (isset($this->community) && ! $data->isFromBlog && $this->community->id == 22 && Yii::app()->authManager->checkAccess('importCookRecipes', Yii::app()->user->id))
                 echo CHtml::link('Перенести в рецепты', array('/cook/recipe/import', 'content_id' => $data->id));
 
-            if ($data->by_happy_giraffe): ?>
-                <div class="source">Источник:&nbsp;
-                    Весёлый Жираф
-                </div>
-            <?php endif; ?>
+            ?>
 
             <div class="clear"></div>
         </div>

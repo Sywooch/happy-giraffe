@@ -209,16 +209,6 @@
 
         <?php $this->endCache(); endif;  ?>
 
-            <?php if($this->beginCache('community-recent', array(
-                'duration' => 600,
-                'dependency' => array(
-                    'sql' => 'SELECT MAX(updated) FROM community__contents c
-                        JOIN community__rubrics r ON c.rubric_id = r.id
-                        WHERE r.community_id = ' . $this->community->id,
-                ),
-                'varyByParam' => array('community_id'),
-            ))): ?>
-
         <div class="recent-topics">
 
             <div class="title">Последние темы</div>
@@ -230,8 +220,6 @@
             </ul>
 
         </div>
-
-        <?php $this->endCache(); endif;  ?>
 
         <?php foreach ($this->community->banners as $b): ?>
             <?php $this->renderPartial('_banner', array('data' => $b)); ?>

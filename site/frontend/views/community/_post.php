@@ -205,7 +205,6 @@
 
             $this->renderPartial('//community/admin_actions',array(
                 'c'=>$data,
-                'communities'=>Community::model()->findAll(),
             ));
 
             $this->renderPartial('//community/parts/move_post_popup',array('c'=>$data));

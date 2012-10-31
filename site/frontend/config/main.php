@@ -221,7 +221,7 @@ return array(
 		),
 		'urlManager'=>require_once(dirname(__FILE__).'/url.php'),
 		'db' => array(
-            'schemaCachingDuration' => 180,
+            'schemaCachingDuration' => 3600,
             'tablePrefix'=> '',
         ),
         'db_seo' => array(
@@ -364,14 +364,14 @@ return array(
                 'settings.js',
                 'wantToChat.js',
             ),
-            '/stylesheets/all.css' => array(
+            /*'/stylesheets/all.css' => array(
                 'baby.css',
                 'common.css',
                 'global.css',
                 'jquery.fancybox-1.3.4.css',
                 'user.css',
                 'auth.css',
-            ),
+            ),*/
         ),
 	),
 

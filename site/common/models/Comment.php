@@ -77,7 +77,9 @@ class Comment extends HActiveRecord
             'response' => array(self::BELONGS_TO, 'Comment', 'response_id'),
             'quote' => array(self::BELONGS_TO, 'Comment', 'quote_id'),
             'remove' => array(self::HAS_ONE, 'Removed', 'entity_id', 'condition' => '`remove`.`entity` = :entity', 'params' => array(':entity' => get_class($this))),
-            'photoAttaches' => array(self::HAS_MANY, 'AttachPhoto', 'entity_id', 'condition' => '`photoAttaches`.`entity` = :entity', 'params' => array(':entity' => get_class($this))),
+
+            'photoAttaches' => array(self::HAS_MANY, 'AttachPhoto', 'entity_id', 'condition' => 'entity = :entity', 'params' => array(':entity' => get_class($this))),
+            //'photoAttaches' => array(self::HAS_MANY, 'AttachPhoto', 'entity_id', 'condition' => '`photoAttaches`.`entity` = :entity', 'params' => array(':entity' => get_class($this))),
             'photoAttach' => array(self::HAS_ONE, 'AttachPhoto', 'entity_id', 'condition' => 'entity = :entity', 'params' => array(':entity' => get_class($this))),
         );
     }
@@ -171,7 +173,7 @@ class Comment extends HActiveRecord
                             ),
                         ),
                     ),
-                    'photoAttaches'
+//                    'photoAttaches'
                 ),
                 'order' => ($type != 'guestBook') ? 't.created ASC' : 't.created DESC',
             ),

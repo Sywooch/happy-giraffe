@@ -109,7 +109,7 @@
 
             <?php $this->endCache(); endif;  ?>
 
-            <?php if($this->beginCache('blog-rubrics', array(
+            <?php if($this->beginCache('blog-readers', array(
                 'duration' => 600,
                 'dependency' => array(
                     'class' => 'CDbCacheDependency',
@@ -146,7 +146,7 @@
 
             <?php $this->endCache(); endif;  ?>
 
-            <?php if($this->beginCache('blog-rubrics', array(
+            <?php if($this->beginCache('blog-photos', array(
                 'duration' => 600,
                 'dependency' => array(
                     'class' => 'CDbCacheDependency',

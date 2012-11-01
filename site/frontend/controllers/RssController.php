@@ -64,7 +64,7 @@ class RssController extends HController
         $feed->addChannelTag('generator', 'MyBlogEngine 1.1');
         //$feed->addChannelTag('wfw:commentRss', $this->createAbsoluteUrl('rss/comments'));
         //$feed->addChannelTag('ya:more', $this->createAbsoluteUrl('rss/index', array('page' => $page + 1)));
-        $feed->addChannelTag('image', array('url' => 'http://www.happy-giraffe.ru/images/logo_2.0.png', 'width' => 199, 'height' => 92));
+        $feed->addChannelTag('image', array('title' => 'Веселый Жираф - сайт для всей семьи', 'link' => 'http://www.happy-giraffe.ru/', 'url' => 'http://www.happy-giraffe.ru/images/logo_rss.png', 'width' => 144, 'height' => 144));
 
         $contents = CommunityContent::model()->active()->full()->findAll(array(
             'condition' => 'rubric.community_id = :community_id',

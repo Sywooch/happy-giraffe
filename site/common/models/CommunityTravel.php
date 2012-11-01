@@ -103,4 +103,9 @@ class CommunityTravel extends HActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+    public function getPhoto()
+    {
+        return null;
+    }
 }

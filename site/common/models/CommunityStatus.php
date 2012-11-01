@@ -90,4 +90,9 @@ class CommunityStatus extends CActiveRecord
             'criteria'=>$criteria,
         ));
     }
+
+    public function getPhoto()
+    {
+        return null;
+    }
 }

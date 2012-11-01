@@ -4,6 +4,7 @@ $result = 0;
 
 $criteria = new CDbCriteria;
 $criteria->condition = '`group` != 0 AND `group` != '.UserGroup::VIRTUAL;
+$criteria->order = 't.id';
 $criteria->with = array(
     'communitiesCount',
     'userAddress',

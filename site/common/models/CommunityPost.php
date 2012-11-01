@@ -175,16 +175,7 @@ class CommunityPost extends HActiveRecord
         return parent::beforeSave();
     }
 
-    /**
-     * @return AlbumPhoto
-     */
-    public function getPhoto()
-    {
-        if (empty($this->photo_id)) {
-            $this->detachBehaviors();
-            $this->update(array('photo_id'));
-        }
-
+    public function getPhoto(){
         return $this->photo;
     }
 

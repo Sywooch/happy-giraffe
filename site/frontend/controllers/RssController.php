@@ -98,15 +98,9 @@ class RssController extends HController
             if ($for == 'yandex') {
                 $item->addTag('yandex:full-text', strip_tags($c->content->text));
 
-                $dom = new domDocument;
-                $dom->loadHTML($c->content->text);
-                $dom->preserveWhiteSpace = false;
-                $images = $dom->getElementsByTagName('img');
-                foreach ($images as $image) {
-                    $src = $image->getAttribute('src');
-                    $size = getimagesize($src);
-                    $item->addTag('enclosure', '', array('url' => $src, 'type' => $size['mime']));
-                }
+                $src = $c->getContentImage(600);
+                $size = getimagesize($src);
+                $item->addTag('enclosure', '', array('url' => $src, 'type' => $size['mime']));
             } else {
                 $item->description = $c->rssContent;
             }

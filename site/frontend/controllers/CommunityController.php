@@ -846,7 +846,7 @@ class CommunityController extends HController
     public function actionContacts()
     {
         $this->community = Community::model()->findByPk(Community::COMMUNITY_NEWS);
-        $this->pageTitle = 'Контакты';
+        $this->pageTitle = 'О нас';
         $this->layout = '//layouts/news';
         $this->render('contacts');
     }

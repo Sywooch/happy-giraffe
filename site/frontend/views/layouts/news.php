@@ -68,7 +68,7 @@
                     'itemTemplate' => '<span>{menu}</span>',
                     'items' => array(
                         array(
-                            'label' => 'Контакты',
+                            'label' => 'О нас',
                             'url' => array('community/contacts'),
                             'active' => $this->action->id == 'contacts',
                         ),

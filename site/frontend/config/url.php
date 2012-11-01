@@ -113,7 +113,7 @@ return array(
         '<_c:(settings|activity|profile|rss|family|morning|community)>' => '<_c>/index',
 
         //others
-        'news/about/contacts' => 'community/contacts',
+        'news/about' => 'community/contacts',
         'news/about/authors' => 'community/authors',
         array('class' => 'site.frontend.extensions.sitemapgenerator.SGUrlRule', 'route' => '/sitemap'),
 

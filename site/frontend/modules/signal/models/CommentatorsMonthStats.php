@@ -275,10 +275,9 @@ class CommentatorsMonthStats extends EMongoDocument
     {
         Yii::import('site.frontend.extensions.GoogleAnalytics');
 
-        $period = date("Y-m");
         $ga = new GoogleAnalytics('alexk984@gmail.com', Yii::app()->params['gaPass']);
         $ga->setProfile('ga:53688414');
-        $ga->setDateRange($period . '-01', $period . '-' . $this->getLastPeriodDay($period));
+        $ga->setDateRange($this->period . '-01', $this->period . '-' . $this->getLastPeriodDay($this->period));
         sleep(1);
 
         try {
@@ -288,6 +287,7 @@ class CommentatorsMonthStats extends EMongoDocument
             ));
 
         } catch (Exception $err) {
+            var_dump($err);
             return null;
         }
 

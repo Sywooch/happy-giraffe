@@ -588,6 +588,7 @@ class CommunityCommand extends CConsoleCommand
     public function actionScanPhoto()
     {
         Yii::import('site.frontend.extensions.phpQuery.phpQuery');
+        Yii::import('site.frontend.extensions.image');
         Yii::import('site.frontend.helpers.*');
 
         $criteria = new CDbCriteria;
@@ -624,6 +625,7 @@ class CommunityCommand extends CConsoleCommand
 
     public function actionScanVideo(){
         Yii::import('site.frontend.extensions.phpQuery.phpQuery');
+        Yii::import('site.frontend.extensions.image');
         Yii::import('site.frontend.helpers.*');
         Yii::import('site.frontend.components.*');
 

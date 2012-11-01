@@ -309,7 +309,7 @@ class EFeed extends CComponent{
 		
 		if($this->type == self::RSS2)
 		{
-            if (Yii::app()->route == 'rss/news')
+            if (Yii::app()->controller->route == 'rss/news')
                 $head .= CHtml::openTag('rss',array(
                     "version"=>"2.0",
                     "xmlns:content"=>"http://purl.org/rss/1.0/modules/content/",

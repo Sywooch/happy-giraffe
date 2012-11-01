@@ -584,4 +584,26 @@ class CommunityCommand extends CConsoleCommand
                 $post->post->save();
         }
     }
+
+    public function actionSnanPhoto()
+    {
+        Yii::import('site.frontend.extensions.phpQuery.phpQuery');
+        Yii::import('site.frontend.helpers.*');
+
+        $criteria = new CDbCriteria;
+        $criteria->limit = 100;
+        $criteria->offset = 0;
+
+        $models = array(0);
+        while (!empty($models)) {
+            $models = CommunityContent::model()->findAll($criteria);
+
+            foreach ($models as $model) {
+                $model->detachBehaviors();
+                $model->update(array('photo_id'));
+            }
+
+            $criteria->offset += 100;
+        }
+    }
 }

@@ -143,7 +143,7 @@
                     JOIN community__rubrics r ON c.rubric_id = r.id
                     WHERE r.community_id = ' . $this->community->id,
             ),
-            'varyByParam' => array('community_id'),
+            'varyByParam' => array('community_id', 'rubric_id'),
         ))): ?>
 
             <div class="club-topics-list-new drop-holder">

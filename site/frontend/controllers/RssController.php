@@ -54,17 +54,33 @@ class RssController extends HController
         Yii::app()->end();
     }
 
-    public function actionNews()
+    public function actionNews($for = null)
     {
-        $feed = new EFeed();
+        if ($for == 'yandex')
+            $headAttributes = array(
+                'xmlns:yandex' => 'http://news.yandex.ru',
+                'xmlns:media' => 'http://search.yahoo.com/mrss/',
+                'version' => '2.0',
+            );
+        else
+            $headAttributes = array(
+                'version' => '2.0',
+                'xmlns:content' => 'http://purl.org/rss/1.0/modules/content/',
+                'xmlns:wfw' => 'http://wellformedweb.org/CommentAPI/',
+            );
+
+        $feed = new EFeed(EFeed::RSS2, $headAttributes);
 
         $feed->title= 'Веселый Жираф - сайт для всей семьи';
         $feed->link = 'http://www.happy-giraffe.ru/';
         $feed->description = 'Социальная сеть для родителей и их детей';
-        $feed->addChannelTag('generator', 'MyBlogEngine 1.1');
-        //$feed->addChannelTag('wfw:commentRss', $this->createAbsoluteUrl('rss/comments'));
-        //$feed->addChannelTag('ya:more', $this->createAbsoluteUrl('rss/index', array('page' => $page + 1)));
-        $feed->addChannelTag('image', array('url' => 'http://www.happy-giraffe.ru/images/logo_2.0.png', 'width' => 199, 'height' => 92));
+        $feed->addChannelTag('image', array(
+            'title' => 'Веселый Жираф - сайт для всей семьи',
+            'link' => 'http://www.happy-giraffe.ru/',
+            'url' => 'http://www.happy-giraffe.ru/images/logo_rss.png',
+            'width' => 144,
+            'height' => 144,
+        ));
 
         $contents = CommunityContent::model()->active()->full()->findAll(array(
             'condition' => 'rubric.community_id = :community_id',
@@ -75,13 +91,25 @@ class RssController extends HController
 
         foreach ($contents as $c) {
             $item = $feed->createNewItem();
-            $item->addTag('guid', $c->getUrl(false, true), array('isPermaLink'=>'true'));
-            $item->addTag('author', $this->createAbsoluteUrl('blog/list', array('user_id' => $c->author->id)));
-            $item->date = $c->created;
-            $item->link = $c->getUrl(false, true);
-            $item->description = $c->rssContent;
             $item->title = $c->title;
-            $item->addTag('comments', $c->getUrl(true, true));
+            $item->link = $c->getUrl(false, true);
+            $item->date = $c->created;
+            $item->addTag('category', $c->rubric->title);
+            if ($for == 'yandex') {
+                $item->addTag('yandex:full-text', strip_tags($c->content->text));
+
+                $dom = new domDocument;
+                $dom->loadHTML($c->content->text);
+                $dom->preserveWhiteSpace = false;
+                $images = $dom->getElementsByTagName('img');
+                foreach ($images as $image) {
+                    $src = $image->getAttribute('src');
+                    $size = getimagesize($src);
+                    $item->addTag('enclosure', '', array('url' => $src, 'type' => $size['mime']));
+                }
+            } else {
+                $item->description = $c->rssContent;
+            }
             $feed->addItem($item);
         }
 

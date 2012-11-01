@@ -8,7 +8,7 @@ class SiteController extends BController
     {
         return array(
             array('allow',
-                'actions'=>array('index', 'logout', 'stat', 'stat2'),
+                'actions'=>array('index', 'logout', 'stat'),
                 'users' => array('@'),
             ),
             array('allow',
@@ -91,10 +91,5 @@ class SiteController extends BController
         Yii::import('site.frontend.modules.services.modules.names.models.*');
 
         $this->render('stat');
-    }
-
-    public function actionStat2()
-    {
-        $this->render('stat2');
     }
 }

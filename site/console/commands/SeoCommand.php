@@ -342,5 +342,35 @@ class SeoCommand extends CConsoleCommand
             return 0;
         return ($a['views'] > $b['views']) ? -1 : 1;
     }
+
+    public function actionGaTest(){
+
+        $user_id = 10023;
+
+        $period = '2012-10';
+        Yii::import('site.frontend.extensions.GoogleAnalytics');
+        $ga = new GoogleAnalytics('alexk984@gmail.com', Yii::app()->params['gaPass']);
+        $ga->setProfile('ga:53688414');
+        $ga->setDateRange($period . '-01', $period . '-29');
+        sleep(1);
+
+        try {
+            $report = $ga->getReport(array(
+                'metrics' => urlencode('ga:uniquePageviews'),
+                'filters' => urlencode('ga:pagePath==' . '/user/' . $user_id . '/'),
+            ));
+        } catch (Exception $err) {
+
+            var_dump($err);
+            return null;
+        }
+
+        if (!empty($report))
+            $value = $report['']['ga:uniquePageviews'];
+        else
+            $value = 0;
+
+        echo $value;
+    }
 }
 

@@ -61,7 +61,7 @@
                     'items' => $items,
                 ));
             ?>
-            <?php if (false): ?>
+
             <hr class="hr">
             <?php
                 $this->widget('zii.widgets.CMenu', array(
@@ -80,7 +80,6 @@
                     ),
                 ));
             ?>
-            <?php endif; ?>
 
         </div>
 

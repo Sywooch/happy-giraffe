@@ -1287,7 +1287,6 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
     position: relative;
     overflow: hidden;
 }
-
 .jcarousel > ul {
     width: 20000em;
     position: absolute;
@@ -1295,16 +1294,13 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
     margin: 0;
     padding: 0;
 }
-
 .jcarousel-vertical > ul {
     width:auto;
     height:20000em;
 }
-
 .jcarousel > ul > li {
     float: left;
 }
-
 .jcarousel-vertical > ul > li {float:none;}
 
 /* header 2.0 */
@@ -1350,6 +1346,7 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 .top-line-menu .user-nav-2 .item-dialogs .count {margin-left:-2px;}
 .top-line-menu .user-nav-2 .item-notifications .count {margin-left:-7px;margin-top:19px}
 .top-line-menu .user-nav-2 .item-career .count {margin-left:4px;}
+
 .top-nav-fixed #header-new,
 body.nav-fixed #header-new {z-index:90;}
 
@@ -1446,7 +1443,8 @@ body.nav-fixed #header-new.top-line-fixed {padding-top:0;}
 #header-new.top-line-fixed .top-line {height:42px;position:fixed;width:1000px;left:50%;margin-left:-500px;top:0;}
 #header-new.top-line-fixed .fast-links {padding:14px 20px 2px 20px;font-size:12px;}
 
-
+/* устаревший код */
+/*
 #header-new .user-nav-2 {float:right;height:42px;}
 #header-new .user-nav-2 ul {list-style:none;}
 #header-new .user-nav-2 ul > li {float:left;margin-left:2px;height:42px;}
@@ -1477,7 +1475,8 @@ body.nav-fixed #header-new.top-line-fixed {padding-top:0;}
 #header-new .user-nav-2 .item-dialogs .count {margin-left:-2px;}
 #header-new .user-nav-2 .item-notifications .count {margin-left:-7px;margin-top:19px}
 #header-new .user-nav-2 .item-career .count {margin-left:4px;}
-
+*/
+/* /устаревший код */
 
 #header-new .search-box {padding:55px 0 0 30px;width:330px;float:left;}
 #header-new .search-box .input {float:left;margin-top:2px;margin-right:-2px;}
@@ -2284,7 +2283,7 @@ div.scrollbarpaper-drag {-moz-border-radius:3px;-webkit-border-radius:3px;border
 /* gallery */
 
 #gallery {padding:20px;}
-/*
+
 #gallery .header {padding-bottom:20px;}
 
 #gallery .header .back-link {color:#51AFC3;margin-left:260px;font-size:16px;padding-top:15px;}
@@ -2296,7 +2295,6 @@ div.scrollbarpaper-drag {-moz-border-radius:3px;-webkit-border-radius:3px;border
 #gallery .header .title big {display:block;color:#3b3b3b;font-weight:bold;font-size:25px;line-height:normal;margin-bottom:10px;}
 #gallery .header .title big span {color:#0281b0;}
 #gallery .header .title big  .edit {display:inline-block;*zoom:1;*display:inline;width:14px;height:18px;background:url(../images/common.png) no-repeat -383px -204px;margin:0 auto;position:relative;text-decoration:none;font-weight:normal;z-index:3;vertical-align:middle;}
-
 #gallery .header .title big input[type=text] {width:200px;padding:2px 5px;border:1px solid #c5e8ef;vertical-align:middle;}
 #gallery .header .title big .btn {vertical-align:middle;margin-left:5px;}
 #gallery .header .title big .btn span {color:#fff;}
@@ -2304,7 +2302,6 @@ div.scrollbarpaper-drag {-moz-border-radius:3px;-webkit-border-radius:3px;border
 #gallery .header .title .note {border-radius:9px;-moz-border-radius:9px;-webkit-border-radius:9px;behavior: url(/stylesheets/PIE.htc);}
 #gallery .header .title .note .add {display:block;width:16px;height:16px;background:url(/images/common.png) no-repeat -303px -206px;text-decoration:none;position:relative;}
 #gallery .header .title .note .add:hover {background-position:-139px -174px;}
-
 #gallery .header .title .note:after {display:block;content:'';width:12px;height:40px;background:url(../images/common.png) no-repeat -327px -136px;position:absolute;top:-6px;left:-12px;}
 #gallery .header .title .note p {color:#424242;float:left;max-width:480px;}
 #gallery .header .title .note .fast-actions {float:right;}
@@ -2335,7 +2332,7 @@ div.scrollbarpaper-drag {-moz-border-radius:3px;-webkit-border-radius:3px;border
 #gallery .gallery-photos ul li table tr.title.editing td .edit {display:none !important;}
 #gallery .gallery-photos ul li table tr.rank td {background:#fffedf;padding:1px 15px;text-align:right;color:#7a7b7b;font-size:10px;}
 #gallery .gallery-photos ul li table tr.rank td span {color:#fb7a03;font:normal 11px tahoma, arial, helvetica, sans-serif;font-weight:bold;}
-*/
+
 
 .gallery-photos-new {padding:10px 0 20px;margin:0 -10px;}
 .gallery-photos-new.cols-2 {width:480px;}

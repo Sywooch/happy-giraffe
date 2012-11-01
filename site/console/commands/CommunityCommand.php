@@ -585,18 +585,56 @@ class CommunityCommand extends CConsoleCommand
         }
     }
 
-    public function actionSnanPhoto()
+    public function actionScanPhoto()
     {
         Yii::import('site.frontend.extensions.phpQuery.phpQuery');
         Yii::import('site.frontend.helpers.*');
 
         $criteria = new CDbCriteria;
+        $criteria->condition = 'photo_id IS NULL';
         $criteria->limit = 100;
         $criteria->offset = 0;
 
         $models = array(0);
         while (!empty($models)) {
-            $models = CommunityContent::model()->findAll($criteria);
+            $models = CommunityPost::model()->findAll($criteria);
+
+            foreach ($models as $model) {
+                $model->detachBehaviors();
+                $model->update(array('photo_id'));
+            }
+
+            $criteria->offset += 100;
+        }
+
+        $criteria->offset = 0;
+
+        $models = array(0);
+        while (!empty($models)) {
+            $models = CommunityVideo::model()->findAll($criteria);
+
+            foreach ($models as $model) {
+                $model->detachBehaviors();
+                $model->update(array('photo_id'));
+            }
+
+            $criteria->offset += 100;
+        }
+    }
+
+    public function actionScanVideo(){
+        Yii::import('site.frontend.extensions.phpQuery.phpQuery');
+        Yii::import('site.frontend.helpers.*');
+        Yii::import('site.frontend.components.*');
+
+        $criteria = new CDbCriteria;
+        $criteria->condition = 'photo_id IS NULL';
+        $criteria->limit = 100;
+        $criteria->offset = 0;
+
+        $models = array(0);
+        while (!empty($models)) {
+            $models = CommunityVideo::model()->findAll($criteria);
 
             foreach ($models as $model) {
                 $model->detachBehaviors();

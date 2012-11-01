@@ -292,6 +292,8 @@ class CommentatorsMonthStats extends EMongoDocument
             return null;
         }
 
+        var_dump($report);
+
         if (isset($report[""]['ga:organicSearches']))
             return $report[""]['ga:organicSearches'];
         return null;

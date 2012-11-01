@@ -287,7 +287,7 @@ class CommentatorsMonthStats extends EMongoDocument
             ));
 
         } catch (Exception $err) {
-            var_dump($err);
+            var_dump($err->getMessage());
             return null;
         }
 

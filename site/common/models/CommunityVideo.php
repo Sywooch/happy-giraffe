@@ -143,6 +143,11 @@ class CommunityVideo extends HActiveRecord
         return $this->photo;
     }
 
+    public function getEmbed()
+    {
+        return $this->embed;
+    }
+
     public function searchPreview($author_id)
     {
         $video = new Video($this->link);

@@ -129,33 +129,37 @@ class CommunityVideo extends HActiveRecord
 
     public function beforeSave()
     {
-        $video = new Video($this->link);
-        if (empty($video->preview))
-            return false;
-
-        $photo = AlbumPhoto::createByUrl($video->image, $this->content->author_id, 6);
-        $this->photo_id = $photo->id;
-        $this->embed = $video->code;
+        if ($this->isNewRecord)
+            $this->searchPreview(Yii::app()->user->id);
+        else {
+            if (isset($this->content->author_id))
+                $this->searchPreview($this->content->author_id);
+        }
 
         return parent::beforeSave();
     }
 
-    /**
-     * @return AlbumPhoto
-     */
-    public function getPhoto()
-    {
-        if (empty($this->photo_id))
-            $this->save(false);
-
+    public function getPhoto(){
         return $this->photo;
     }
 
     public function getEmbed()
     {
-        if (empty($this->embed))
-            $this->save(false);
-
+        if (empty($this->embed)){
+            $this->searchPreview($this->content->author_id);
+            $this->update(array('photo_id', 'embed'));
+        }
         return $this->embed;
+    }
+
+    public function searchPreview($author_id)
+    {
+        $video = new Video($this->link);
+        if (empty($video->image))
+            return false;
+
+        $photo = AlbumPhoto::createByUrl($video->image, $author_id, 6);
+        $this->photo_id = $photo->id;
+        $this->embed = $video->code;
     }
 }

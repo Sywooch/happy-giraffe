@@ -166,7 +166,8 @@ class CommunityPost extends HActiveRecord
         if ($this->isNewRecord)
             $this->searchImage(Yii::app()->user->id);
         else {
-            $this->searchImage($this->content->author_id);
+            if (isset($this->content->author_id))
+                $this->searchImage($this->content->author_id);
         }
 
         $this->text = str_replace('<hr class="gallery" />', '<!--gallery-->', $this->text);
@@ -174,16 +175,7 @@ class CommunityPost extends HActiveRecord
         return parent::beforeSave();
     }
 
-    /**
-     * @return AlbumPhoto
-     */
-    public function getPhoto()
-    {
-        if (empty($this->photo_id)) {
-            $this->detachBehaviors();
-            $this->update(array('photo_id'));
-        }
-
+    public function getPhoto(){
         return $this->photo;
     }
 

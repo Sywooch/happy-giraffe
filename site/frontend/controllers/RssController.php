@@ -54,6 +54,41 @@ class RssController extends HController
         Yii::app()->end();
     }
 
+    public function actionNews()
+    {
+        $feed = new EFeed();
+
+        $feed->title= 'Веселый Жираф - сайт для всей семьи';
+        $feed->link = 'http://www.happy-giraffe.ru/';
+        $feed->description = 'Социальная сеть для родителей и их детей';
+        $feed->addChannelTag('generator', 'MyBlogEngine 1.1');
+        //$feed->addChannelTag('wfw:commentRss', $this->createAbsoluteUrl('rss/comments'));
+        //$feed->addChannelTag('ya:more', $this->createAbsoluteUrl('rss/index', array('page' => $page + 1)));
+        $feed->addChannelTag('image', array('url' => 'http://www.happy-giraffe.ru/images/logo_2.0.png', 'width' => 199, 'height' => 92));
+
+        $contents = CommunityContent::model()->active()->full()->findAll(array(
+            'condition' => 'rubric.community_id = :community_id',
+            'params' => array(':community_id' => Community::COMMUNITY_NEWS),
+            'order' => 'created DESC',
+            'limit' => 20,
+        ));
+
+        foreach ($contents as $c) {
+            $item = $feed->createNewItem();
+            $item->addTag('guid', $c->getUrl(false, true), array('isPermaLink'=>'true'));
+            $item->addTag('author', $this->createAbsoluteUrl('blog/list', array('user_id' => $c->author->id)));
+            $item->date = $c->created;
+            $item->link = $c->getUrl(false, true);
+            $item->description = $c->rssContent;
+            $item->title = $c->title;
+            $item->addTag('comments', $c->getUrl(true, true));
+            $feed->addItem($item);
+        }
+
+        $feed->generateFeed();
+        Yii::app()->end();
+    }
+
     public function actionUser($user_id, $page = 1)
     {
         $user = User::model()->active()->findByPk($user_id);

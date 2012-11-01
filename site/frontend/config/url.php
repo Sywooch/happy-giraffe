@@ -46,6 +46,7 @@ return array(
         'rss/page<page:\d+>' => 'rss/index',
         'rss/social/' => 'rss/social',
         'rss/social/page<page:\d+>' => 'rss/social',
+        'news/rss' => 'rss/news',
 
         // morning controller
         'morning/<id:\d+>' => 'morning/view',

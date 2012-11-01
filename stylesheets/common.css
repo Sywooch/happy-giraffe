@@ -146,6 +146,7 @@ input.w-400, textarea.w-400 {width:376px;}
 .w-500 {width:500px;}
 input.w-500, textarea.w-500 {width:476px;}
 
+hr,
 .hr {height:1px;border: 0;color:#e5e5e5;background:#e5e5e5;display:block;margin: 40px 0 15px;font-size:0;line-height:0;}
 
 .file-fake {display:inline-block;*zoom:1;*display:inline;position:relative;cursor:pointer;height:32px;overflow:hidden;}
@@ -175,15 +176,12 @@ box-shadow:1px 1px 1px rgba(0,0,0,.2);behavior: url(/stylesheets/PIE.htc);}
 
 .banner-box {margin-bottom:20px;text-align:center;}
 
-
-
 .drp-list {display:inline-block;*zoom:1;*display:inline;position:relative;font-size:13px;*z-index:11;}
 .drp-list a.trigger {text-decoration:none;border-bottom:1px dashed #598DD6;color:#598DD6;font-size:16px;position:relative;z-index:1;}
 .drp-list a.trigger:hover {border:0;}
 .drp-list ul {padding:2px;border:1px solid #A9C8F3;position:absolute;top:100%;list-style:none;background:#fff;margin-top:5px;z-index:13; width:120px;}
 .drp-list ul li a {display:block;padding:3px 10px 3px;text-decoration:none;color:#4b4d4d;}
 .drp-list ul li a:hover {background:#6db4d9;color:#fff;}
-
 
 ::-webkit-input-placeholder {color: #ccc !important;font-weight: normal !important;}
 :-moz-placeholder {color: #ccc !important;font-weight: normal !important;}
@@ -2662,7 +2660,6 @@ div.scrollbarpaper-drag {-moz-border-radius:3px;-webkit-border-radius:3px;border
 	line-height: 0;
 	font-size: 0;
 }
-
 .custom-like-fb {
 	height:21px;
 	text-decoration:none;
@@ -2863,7 +2860,6 @@ div.scrollbarpaper-drag {-moz-border-radius:3px;-webkit-border-radius:3px;border
 	border-right-color: #AAA;
 }
 .custom-like-tw_value:after {margin-left:-3px;border-right-color: white;}
-
 .custom-like-odkl {
 	border-style: none;
 	display: inline-block;

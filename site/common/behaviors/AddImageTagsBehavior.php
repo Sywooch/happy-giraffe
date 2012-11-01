@@ -9,7 +9,9 @@ class AddImageTagsBehavior extends CActiveRecordBehavior
     {
         Yii::import('site.frontend.extensions.phpQuery.phpQuery');
 
+        try{
         $doc = phpQuery::newDocumentXHTML($this->owner->text, $charset = 'utf-8');
+        }catch (Exception $err){return false;}
         $i = 0;
         foreach (pq('img') as $image) {
             $alt = pq($image)->attr('alt');

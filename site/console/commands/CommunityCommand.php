@@ -588,51 +588,37 @@ class CommunityCommand extends CConsoleCommand
     public function actionScanPhoto()
     {
         Yii::import('site.frontend.extensions.phpQuery.phpQuery');
-        Yii::import('site.frontend.extensions.image');
         Yii::import('site.frontend.helpers.*');
 
         $criteria = new CDbCriteria;
         $criteria->condition = 'photo_id IS NULL';
-        $criteria->limit = 100;
-        $criteria->offset = 0;
+        $criteria->limit = 300;
+        $criteria->order = 'id';
 
         $models = array(0);
         while (!empty($models)) {
             $models = CommunityPost::model()->findAll($criteria);
 
             foreach ($models as $model) {
+
                 $model->detachBehaviors();
                 $model->update(array('photo_id'));
+                $last_id = $model->id;
             }
-
-            $criteria->offset += 100;
-        }
-
-        $criteria->offset = 0;
-
-        $models = array(0);
-        while (!empty($models)) {
-            $models = CommunityVideo::model()->findAll($criteria);
-
-            foreach ($models as $model) {
-                $model->detachBehaviors();
-                $model->update(array('photo_id'));
-            }
-
-            $criteria->offset += 100;
+            echo $last_id."\n";
+            $criteria->condition = 'id > '.$last_id;
         }
     }
 
     public function actionScanVideo(){
         Yii::import('site.frontend.extensions.phpQuery.phpQuery');
-        Yii::import('site.frontend.extensions.image');
         Yii::import('site.frontend.helpers.*');
         Yii::import('site.frontend.components.*');
 
         $criteria = new CDbCriteria;
         $criteria->condition = 'photo_id IS NULL';
-        $criteria->limit = 100;
-        $criteria->offset = 0;
+        $criteria->limit = 300;
+        $criteria->order = 'id';
 
         $models = array(0);
         while (!empty($models)) {
@@ -641,9 +627,11 @@ class CommunityCommand extends CConsoleCommand
             foreach ($models as $model) {
                 $model->detachBehaviors();
                 $model->update(array('photo_id'));
+                $last_id = $model->id;
             }
 
-            $criteria->offset += 100;
+            echo $last_id."\n";
+            $criteria->condition = 'id > '.$last_id;
         }
     }
 }

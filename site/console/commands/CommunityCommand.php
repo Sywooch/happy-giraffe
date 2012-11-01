@@ -625,6 +625,7 @@ class CommunityCommand extends CConsoleCommand
             $models = CommunityVideo::model()->findAll($criteria);
 
             foreach ($models as $model) {
+                echo $model->id."\n";
                 $model->detachBehaviors();
                 $model->update(array('photo_id', 'embed'));
                 $last_id = $model->id;

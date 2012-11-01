@@ -43,7 +43,7 @@
                     'label' => 'Все новости',
                     'url' => array('community/list', 'community_id' => $this->community->id),
                     'template' => '<span>{menu}</span><div class="count">' . $this->community->count . '</div>',
-                    'active' => $this->rubric_id === null,
+                    'active' => ! (in_array($this->action->id, array('contacts', 'authors'))) && $this->rubric_id === null,
                 );
 
                 foreach ($this->community->rubrics as $rubric) {
@@ -55,12 +55,30 @@
                         'label' => $rubric->title,
                         'url' => $this->getUrl($params),
                         'template' => '<span>{menu}</span><div class="count">' . $rubric->contentsCount . '</div>',
-                        'active' => $rubric->id == $this->rubric_id,
+                        'active' => ! (in_array($this->action->id, array('contacts', 'authors'))) && $rubric->id == $this->rubric_id,
                     );
                 }
 
                 $this->widget('zii.widgets.CMenu', array(
                     'items' => $items,
+                ));
+            ?>
+            <hr class="hr">
+            <?php
+                $this->widget('zii.widgets.CMenu', array(
+                    'itemTemplate' => '<span>{menu}</span>',
+                    'items' => array(
+                        array(
+                            'label' => 'Контакты',
+                            'url' => array('community/contacts'),
+                            'active' => $this->action->id == 'contacts',
+                        ),
+                        array(
+                            'label' => 'Авторы',
+                            'url' => array('community/authors'),
+                            'active' => $this->action->id == 'authors',
+                        ),
+                    ),
                 ));
             ?>
 

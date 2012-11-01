@@ -72,6 +72,7 @@ class SiteController extends SController
      */
     public function actionLogin()
     {
+        Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
         $this->layout = 'none';
         $model = new LoginForm;
 

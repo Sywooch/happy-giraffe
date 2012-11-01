@@ -8,5 +8,5 @@ $criteria->condition .= ' AND uniqueness > 50';
 echo $a2 = CommunityContent::model()->count($criteria).'<br>';
 
 if ($a1 != 0)
-    echo round($a2 / $a1);
+    echo round(100*$a2 / $a1);
 ?>

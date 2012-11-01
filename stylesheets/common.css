@@ -146,6 +146,8 @@ input.w-400, textarea.w-400 {width:376px;}
 .w-500 {width:500px;}
 input.w-500, textarea.w-500 {width:476px;}
 
+.hr {height:1px;border: 0;color:#e5e5e5;background:#e5e5e5;display:block;margin: 40px 0 15px;font-size:0;line-height:0;}
+
 .file-fake {display:inline-block;*zoom:1;*display:inline;position:relative;cursor:pointer;height:32px;overflow:hidden;}
 .file-fake input {opacity:0;position:absolute;z-index:3;right:0;top:0;height:100%;display:block;cursor:pointer;filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0)}
 .file-fake .btn {position:relative;z-index:2;}
@@ -3792,6 +3794,7 @@ div.scrollbarpaper-drag {-moz-border-radius:3px;-webkit-border-radius:3px;border
 #activity .activity-photo .title {padding:9px 19px 15px;}
 #activity .activity-photo .carousel-container {height:220px;width:100%;background:#efe1fc;position:relative;}
 #activity #activity-photo {height:220px;width:400px;margin:0 30px;}
+#activity #activity-photo ul {position:relative;}
 #activity #activity-photo li {padding:8px 15px;width:170px;}
 #activity #activity-photo li .user {margin-bottom:5px;}
 #activity #activity-photo li .img {text-align:center;height:130px;display:table-cell;vertical-align:middle;width:170px;}

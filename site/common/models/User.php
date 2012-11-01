@@ -256,7 +256,7 @@ class User extends HActiveRecord
             'babies' => array(self::HAS_MANY, 'Baby', 'parent_id'),
             'realBabies' => array(self::HAS_MANY, 'Baby', 'parent_id', 'condition' => ' type IS NULL '),
             'social_services' => array(self::HAS_MANY, 'UserSocialService', 'user_id'),
-            'communities' => array(self::MANY_MANY, 'Community', 'user__users_communities(user_id, community_id)'),
+            'communities' => array(self::MANY_MANY, 'Community', 'user__users_communities(user_id, community_id)', 'order'=>'position'),
 
             'clubContests' => array(self::HAS_MANY, 'ClubContest', 'contest_user_id'),
             'clubContestUsers' => array(self::HAS_MANY, 'ClubContestUser', 'user_user_id'),

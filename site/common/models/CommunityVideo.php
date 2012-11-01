@@ -139,6 +139,10 @@ class CommunityVideo extends HActiveRecord
         return parent::beforeSave();
     }
 
+    public function getPhoto(){
+        return $this->photo;
+    }
+
     public function searchPreview($author_id)
     {
         $video = new Video($this->link);

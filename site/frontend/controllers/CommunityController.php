@@ -841,4 +841,19 @@ class CommunityController extends HController
 
         $this->render('weekly_mail');
     }
+
+
+    public function actionContacts()
+    {
+        $this->community = Community::model()->findByPk(Community::COMMUNITY_NEWS);
+        $this->layout = '//layouts/news';
+        $this->render('contacts');
+    }
+
+    public function actionAuthors()
+    {
+        $this->community = Community::model()->findByPk(Community::COMMUNITY_NEWS);
+        $this->layout = '//layouts/news';
+        $this->render('authors');
+    }
 }

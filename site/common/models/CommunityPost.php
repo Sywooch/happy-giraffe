@@ -20,6 +20,13 @@
  */
 class CommunityPost extends HActiveRecord
 {
+    public static $genres = array(
+        'lenta' => 'lenta (короткое новостное сообщение, 50-80 символов)',
+        'message' => 'message (более развёрнутое новостное сообщение)',
+        'article' => 'article (статья)',
+        'interview' => 'interview (интервью)',
+    );
+
     /**
      * Returns the static model of the specified AR class.
      * @return CommunityPost the static model class
@@ -76,6 +83,8 @@ class CommunityPost extends HActiveRecord
             array('content_id, photo_id', 'numerical', 'integerOnly' => true),
             array('content_id', 'exist', 'attributeName' => 'id', 'className' => 'CommunityContent'),
             array('source_type', 'in', 'range' => array('me', 'internet', 'book')),
+            array('genre', 'in', 'range' => array_keys(self::$genres)),
+            array('genre', 'default', 'value' => null),
 
             //array('text', 'filter', 'filter' => array('Filters', 'add_nofollow')),
 

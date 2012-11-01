@@ -616,7 +616,7 @@ class CommunityCommand extends CConsoleCommand
         Yii::import('site.frontend.components.*');
 
         $criteria = new CDbCriteria;
-        $criteria->condition = 'photo_id IS NULL';
+        $criteria->condition = 'photo_id IS NULL OR embed = ""';
         $criteria->limit = 300;
         $criteria->order = 'id';
 
@@ -626,7 +626,7 @@ class CommunityCommand extends CConsoleCommand
 
             foreach ($models as $model) {
                 $model->detachBehaviors();
-                $model->update(array('photo_id'));
+                $model->update(array('photo_id', 'embed'));
                 $last_id = $model->id;
             }
 

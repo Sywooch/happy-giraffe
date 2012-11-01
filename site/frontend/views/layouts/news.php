@@ -34,8 +34,6 @@
 
         <div class="club-topics-list-new">
 
-            <div class="block-title">Рубрики</div>
-
             <?php
                 $items = array();
 

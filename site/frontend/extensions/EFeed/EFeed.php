@@ -309,10 +309,16 @@ class EFeed extends CComponent{
 		
 		if($this->type == self::RSS2)
 		{
-			$head .= CHtml::openTag('rss',array(
-						"version"=>"2.0",
-						"xmlns:ya"=>"http://blogs.yandex.ru/yarss/",
-						"xmlns:wfw"=>"http://wellformedweb.org/CommentAPI/")).PHP_EOL;	
+            if (Yii::app()->route == 'rss/news')
+                $head .= CHtml::openTag('rss',array(
+                    "version"=>"2.0",
+                    "xmlns:content"=>"http://purl.org/rss/1.0/modules/content/",
+                    "xmlns:wfw"=>"http://wellformedweb.org/CommentAPI/")).PHP_EOL;
+            else
+                $head .= CHtml::openTag('rss',array(
+                            "version"=>"2.0",
+                            "xmlns:ya"=>"http://blogs.yandex.ru/yarss/",
+                            "xmlns:wfw"=>"http://wellformedweb.org/CommentAPI/")).PHP_EOL;
 		}    
 		elseif($this->type == self::RSS1)
 		{

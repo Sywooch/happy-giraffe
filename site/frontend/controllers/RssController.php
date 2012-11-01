@@ -101,6 +101,9 @@ class RssController extends HController
                 $src = $c->getContentImage(600);
                 $size = getimagesize($src);
                 $item->addTag('enclosure', '', array('url' => $src, 'type' => $size['mime']));
+
+                if ($c->content->genre)
+                    $item->addTag('yandex:genre', $c->content->genre);
             } else {
                 $item->description = $c->rssContent;
             }

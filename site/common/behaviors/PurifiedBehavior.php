@@ -103,9 +103,16 @@ class PurifiedBehavior extends CActiveRecordBehavior
 
     public function fetchHtml($matches)
     {
-        $json = file_get_contents('http://www.youtube.com/oembed?url=' . $matches[0] . '&format=json');
-        $response = json_decode($json);
-        return $response->html;
+        $url = 'http://www.youtube.com/oembed?url=' . $matches[0] . '&format=json';
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $response = curl_exec($ch);
+        $httpStatus = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+
+        $json = CJSON::decode($response);
+        return ($httpStatus == 200) ? $json['html'] : $matches[0];
     }
 
     public function linkifyYouTubeURLs($text) {

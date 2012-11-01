@@ -53,7 +53,7 @@ class CommunityController extends HController
             'Интересы и увлечения' => array('css' => 'hobbies', 'count' => 4),
             'Отдых' => array('css' => 'rest', 'count' => 4),
         );
-        $communities = Community::model()->public()->findAll();
+        $communities = Community::model()->public()->sorted()->findAll();
 
         $this->render('index', array(
             'communities' => $communities,

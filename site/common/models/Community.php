@@ -149,14 +149,6 @@ class Community extends HActiveRecord
         return $command->queryScalar();
     }
 
-    public function defaultScope()
-    {
-        $alias = $this->getTableAlias(false, false);
-        return array(
-            'order' => ($alias) ? $alias . '.position asc' : 'position asc',
-        );
-    }
-
     public function scopes()
     {
         return array(
@@ -164,6 +156,9 @@ class Community extends HActiveRecord
                 'condition' => 'id != :news_community',
                 'params' => array(':news_community' => self::COMMUNITY_NEWS),
             ),
+            'sorted'=>array(
+                'order' => 'position asc',
+            )
         );
     }
 

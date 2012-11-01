@@ -220,7 +220,7 @@ class AlbumPhoto extends HActiveRecord
         curl_close($ch);
 
         if (empty($file))
-            return null;
+            return false;
 
         $model = new AlbumPhoto();
         $model->author_id = $user_id;

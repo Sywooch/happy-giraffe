@@ -44,7 +44,7 @@
                                 $class = 'ava small';
                                 if ($lc->author->gender !== null) $class .= ' ' . (($lc->author->gender) ? 'male' : 'female');
                             ?>
-                            <?=CHtml::link(CHtml::image($lc->author->getAva('small')), $lc->author->url, array('class' => $class))?>
+                            <?=HHtml::link(CHtml::image($lc->author->getAva('small')), ($lc->author->deleted)?'#':$lc->author->url, array('class' => $class), true)?>
                         <?php endforeach; ?>
                         <?php if ($data->getArticleCommentsCount() > count($lastComments)): ?>
                             <?=CHtml::link('и еще ' . ($data->getArticleCommentsCount() - count($lastComments)), $data->getUrl(true))?>

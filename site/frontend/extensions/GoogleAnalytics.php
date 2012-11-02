@@ -23,6 +23,7 @@
  */
  
 class GoogleAnalytics {
+    public $xml;
 
 	private $_email;
 	private $_passwd;
@@ -140,6 +141,7 @@ class GoogleAnalytics {
 				$mets='';
 			}
 		} else {
+            $this->xml = $xml;
 			throw new Exception('getReport() failed to get a valid XML from Google Analytics API service');
 		}
 		return $results;

@@ -80,10 +80,9 @@
 
             <div class="share_button">
                 <div class="fb-custom-like">
-                    <a href="http://www.facebook.com/sharer/sharer.php?u=<?=urlencode($url) ?>"
-                       onclick="return Social.showFacebookPopup(this);" class="fb-custom-text">
-                        <i class="pluginButtonIcon img sp_like sx_like_fav"></i>Мне нравится</a>
-
+                    <?=HHtml::link('<i class="pluginButtonIcon img sp_like sx_like_fav"></i>Мне нравится',
+                        'http://www.facebook.com/sharer/sharer.php?u='.urlencode($url),
+                        array('class'=>'fb-custom-text', 'onclick'=>'return Social.showFacebookPopup(this);'), true) ?>
                     <div class="fb-custom-share-count">0</div>
                     <script type="text/javascript">
                         $.getJSON("http://graph.facebook.com", { id:document.location.href }, function (json) {

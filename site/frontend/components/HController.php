@@ -50,6 +50,9 @@ class HController extends CController
             Yii::app()->clientScript->registerMetaTag('noindex,nofollow', 'robots');
         }
 
+        if (!Yii::app()->user->isGuest && (Yii::app()->user->model->blocked == 1 || Yii::app()->user->model->deleted == 1))
+            Yii::app()->user->logout();
+
         // авторизация
         if (isset($this->actionParams['token'])) {
             if (($user_id = UserToken::model()->useToken($this->actionParams['token'])) !== false) {

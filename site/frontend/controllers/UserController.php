@@ -49,7 +49,7 @@ class UserController extends HController
         $user_id = (in_array($this->action->id, $this->_publicActions)) ? $this->actionParams['user_id'] : Yii::app()->user->id;
 
         if ($this->action->id != 'profile') {
-            $this->user = User::model()->with('avatar', 'status')->findByPk($user_id);
+            $this->user = User::model()->active()->with('avatar', 'status')->findByPk($user_id);
             if ($this->user === null)
                 throw new CHttpException(404, 'Пользователь не найден');
         }

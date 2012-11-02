@@ -111,7 +111,7 @@ class GoogleAnalytics {
             $params[] = $key.'='.$value;
         }
 		//compose the apiURL string
-        $apiUrl = 'https://www.google.com/analytics/feeds/data?ids='.$this->_profileId.'&start-date='.$this->_startDate.'&end-date='.$this->_endDate.'&'.implode('&', $params).'&project:happygirafferu';
+        $apiUrl = 'https://www.google.com/analytics/feeds/data?ids='.$this->_profileId.'&start-date='.$this->_startDate.'&end-date='.$this->_endDate.'&'.implode('&', $params);
         $results = array();
 		//call the API
 		$xml = $this->_callAPI($apiUrl);
@@ -241,6 +241,8 @@ class GoogleAnalytics {
 
 		//send the data by curl
 		$ch = curl_init();
+        if ($url != 'https://www.google.com/accounts/ClientLogin')
+            $url .= '&key=AIzaSyDqPaKSO0X7H4HVGInbMinKehAv9TmftiY';
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);

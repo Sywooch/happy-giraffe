@@ -732,6 +732,8 @@ class AlbumsController extends HController
                 $work = $attach->model;
                 $photo->w_title = $work->title;
                 $currentIndex = null;
+                $collection = array();
+                $collection['title'] = 'Фотоконкурс ' . CHtml::link($work->contest->title, $work->contest->url);
                 break;
         }
 

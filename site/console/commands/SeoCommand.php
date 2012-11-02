@@ -372,20 +372,5 @@ class SeoCommand extends CConsoleCommand
 
         echo $value;
     }
-
-    public function actionTest(){
-        /**
-         * @var apiPlusService $service
-         */
-        $analytics = Yii::app()->GoogleApis->serviceFactory('Analytics');
-
-        /**
-         * @var apiClient $client
-         */
-        $client = Yii::app()->GoogleApis->client;
-
-        $props = $analytics->management_webproperties->listManagementWebproperties("~all");
-        print "<h1>Web Properties</h1><pre>" . print_r($props, true) . "</pre>";
-    }
 }
 

@@ -21,7 +21,7 @@ class ForumsController extends ELController
         $criteria->with = array('site' => array(
             'select' => array('type')
         ));
-        $criteria->compare('site.type', ELSite::TYPE_FORUM);
+        $criteria->condition = 'site.type = '. ELSite::TYPE_FORUM.' AND link_cost IS NULL';
         $count = ELLink::model()->count($dataProvider->criteria);
 
         $pages = new CPagination($count);

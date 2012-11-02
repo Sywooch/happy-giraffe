@@ -728,19 +728,27 @@ class AlbumsController extends HController
                 Yii::import('application.modules.contest.models.*');
                 $contest_id = Yii::app()->request->getQuery('contest_id');
                 $model = CActiveRecord::model($entity)->findByPk($contest_id);
+                $attach = $photo->getAttachByEntity('ContestWork', $photo_id);
+                $work = $attach->model;
+                $photo->w_title = $work->title;
+                $currentIndex = null;
+                $collection = array();
+                $collection['title'] = 'Фотоконкурс ' . CHtml::link($work->contest->title, $work->contest->url);
                 break;
         }
 
-        $collection = $model->photoCollection;
-        foreach ($collection['photos'] as $i => $p) {
-            if ($photo->id == $p->id) {
-                $currentIndex = $i + 1;
-                $photo = $p;
-                break;
+        if ($entity != 'Contest') {
+            $collection = $model->photoCollection;
+            foreach ($collection['photos'] as $i => $p) {
+                if ($photo->id == $p->id) {
+                    $currentIndex = $i + 1;
+                    $photo = $p;
+                    break;
+                }
             }
+            if (!isset($currentIndex))
+                throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
         }
-        if (!isset($currentIndex))
-            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
         $this->layout = '//layouts/main';
 

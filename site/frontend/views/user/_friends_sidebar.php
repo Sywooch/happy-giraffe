@@ -18,11 +18,13 @@
                     'label' => 'Что нового у друзей',
                     'url' => array('user/activity', 'user_id' => $this->user->id, 'type' => 'friends'),
                     'template' => '<span>{menu}</span>',
+                    'visible' => $this->user->getFriendsCount() > 0,
                 ),
                 array(
                     'label' => 'Сейчас на сайте',
                     'url' => array('user/friends', 'user_id' => $this->user->id, 'show' => 'online'),
                     'template' => '<span>{menu}</span><div class="count">' . $this->user->getFriendsCount(true) . '</div>',
+                    'visible' => $this->user->getFriendsCount() > 0,
                 ),
                 array(
                     'label' => 'Хотят дружить',

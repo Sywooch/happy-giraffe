@@ -201,6 +201,7 @@ class CommentatorsMonthStats extends EMongoDocument
 
     public function profileUniqueViews($user_id)
     {
+        echo 'profile views: ';
         Yii::import('site.frontend.extensions.GoogleAnalytics');
         $ga = new GoogleAnalytics('alexk984@gmail.com', Yii::app()->params['gaPass']);
         $ga->setProfile('ga:53688414');
@@ -213,7 +214,7 @@ class CommentatorsMonthStats extends EMongoDocument
                 'filters' => urlencode('ga:pagePath==' . '/user/' . $user_id . '/'),
             ));
         } catch (Exception $err) {
-
+            echo $err->getMessage();
             return null;
         }
 
@@ -222,11 +223,13 @@ class CommentatorsMonthStats extends EMongoDocument
         else
             $value = 0;
 
+        echo $value."\n";
         return $value;
     }
 
     public function blogVisits($user_id)
     {
+        echo 'blog visits: ';
         Yii::import('site.frontend.extensions.GoogleAnalytics');
         $ga = new GoogleAnalytics('alexk984@gmail.com', Yii::app()->params['gaPass']);
         $ga->setProfile('ga:53688414');
@@ -239,6 +242,7 @@ class CommentatorsMonthStats extends EMongoDocument
                 'filters' => urlencode('ga:pagePath=~' . '/user/' . $user_id . '/blog/*'),
             ));
         } catch (Exception $err) {
+            echo $err->getMessage();
             return null;
         }
 
@@ -247,6 +251,7 @@ class CommentatorsMonthStats extends EMongoDocument
         else
             $value = 0;
 
+        echo $value."\n";
         return $value;
     }
 

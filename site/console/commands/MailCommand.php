@@ -52,6 +52,7 @@ class MailCommand extends CConsoleCommand
         $criteria = new CDbCriteria;
         $criteria->limit = 100;
         $criteria->offset = 0;
+        $criteria->condition = 'deleted = 0 AND blocked = 0';
 
         //fired moderators
         $bad_users = array(10186, 10127, 12678, 10229, 12980, 10264, 10064);

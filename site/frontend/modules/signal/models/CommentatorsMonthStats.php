@@ -214,7 +214,7 @@ class CommentatorsMonthStats extends EMongoDocument
                 'filters' => urlencode('ga:pagePath==' . '/user/' . $user_id . '/'),
             ));
         } catch (Exception $err) {
-            echo $ga->xml;
+            echo $ga->response."\n";
             return null;
         }
 
@@ -242,7 +242,7 @@ class CommentatorsMonthStats extends EMongoDocument
                 'filters' => urlencode('ga:pagePath=~' . '/user/' . $user_id . '/blog/*'),
             ));
         } catch (Exception $err) {
-            echo $ga->xml;
+            echo $ga->response."\n";
             return null;
         }
 

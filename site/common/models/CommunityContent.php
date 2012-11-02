@@ -437,7 +437,7 @@ class CommunityContent extends HActiveRecord
                     'status',
                     'commentsCount',
                     'contentAuthor' => array(
-                        'select' => 'id, gender, first_name, last_name, online, avatar_id',
+                        'select' => 'id, gender, first_name, last_name, online, avatar_id, deleted',
                     ),
                 ),
             ),

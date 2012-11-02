@@ -397,7 +397,8 @@
 #baby .calculate_tb table {width:500px;float:left;}
 #baby .calculate_tb table th {text-align:left;color:#b0b0b0;font:12px/15px arial, sans-serif;padding:2px 5px;}
 #baby .calculate_tb table td {text-align:left;padding:5px;}
-#baby .calculate_tb table .lists_td {background: #FAF5FE;display: *zoom:1;*display:inline;padding: 5px 0 5px 5px;margin: 0 0 0 -5px;}
+#baby .calculate_tb table .lists_td {background: #FAF5FE;display: *zoom:1;*display:inline;padding: 5px 0 5px 5px;margin: 0 0 0 -5px;list-style:none;}
+#baby .calculate_tb table .lists_td > li {display:inline-block;*zoom:1;*display:inline;margin:0 3px;}
 #baby .calculate_tb table div.row {float: left;margin-right: 5px;}
 #baby .calculate_tb table .errorMessage {display: none !important;}
 #baby .calculate_tb div.errorSummary p {display: none !important;}

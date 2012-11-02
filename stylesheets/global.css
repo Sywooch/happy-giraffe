@@ -306,7 +306,7 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 }
 
 .content-more big.title .btn, .photo-block  big.title .btn {
-    display: *zoom:1;*display:inline;
+    display:inline-block;*zoom:1;*display:inline;
     margin: 0px 0px 0 30px;
     position: relative;
     top: -5px
@@ -328,7 +328,7 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 }
 
 .content-more .block  a {
-    display: *zoom:1;*display:inline;
+    display:inline-block;*zoom:1;*display:inline;
 	margin-bottom:5px;
 }
 
@@ -529,7 +529,7 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 .inner .add_photos_changer ul li a {
     font: 13px/25px arial, sans-serif;
     color: #0d8ca3;
-    display: *zoom:1;*display:inline;
+    display:inline-block;*zoom:1;*display:inline;
     padding: 0 5px;
     text-decoration: none;
 }
@@ -537,7 +537,7 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 .inner .add_photos_changer ul li.current a {
     font: 13px/25px arial, sans-serif;
     color: #0d8ca3;
-    display: *zoom:1;*display:inline;
+    display:inline-block;*zoom:1;*display:inline;
     padding: 0 5px;
     text-decoration: none;
     background: #cff3f7;
@@ -553,7 +553,7 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 }
 
 .inner a.or_bt_average {
-    display: *zoom:1;*display:inline;
+    display:inline-block;*zoom:1;*display:inline;
     font: bold 13px/30px tahoma, sans-serif;
     color: #fff;
     border: 1px solid #f99337;
@@ -586,7 +586,7 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 }
 
 .inner ul.downloaded_items .remove {
-    display: *zoom:1;*display:inline;
+    display:inline-block;*zoom:1;*display:inline;
     padding: 0 0 0 25px;
     color: #9c9b9b;
     font-size: 11px;
@@ -1312,7 +1312,7 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 .embroidery_service .list_yarn .cusel {
     height: 18px;
     background-position: left top;
-    display: *zoom:1;*display:inline;
+    display:inline-block;*zoom:1;*display:inline;
     position: relative;
     cursor: pointer;
     font-size: 14px;
@@ -1398,7 +1398,7 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 }
 
 .embroidery_service .list_yarn ul li span.title_h {
-    display: *zoom:1;*display:inline;
+    display:inline-block; *zoom:1;*display:inline;
     padding: 8px;
     background: url(../images/wh_tr_form.png) 0 0 repeat;
 }
@@ -1471,7 +1471,7 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 .embroidery_service .list_thread .cusel {
     height: 18px;
     background-position: left top;
-    display: *zoom:1;*display:inline;
+    display:inline-block;*zoom:1;*display:inline;
     position: relative;
     cursor: pointer;
     font-size: 14px;
@@ -1711,7 +1711,7 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 .tissue_calc ul li .cusel {
     height: 18px;
     background-position: left top;
-    display: *zoom:1;*display:inline;
+    display:inline-block;*zoom:1;*display:inline;
     position: relative;
     cursor: pointer;
     font-size: 14px;
@@ -1946,7 +1946,7 @@ table.fr_recipe_tb td {
 }
 
 .settings-l table.ingr_f_recipe_tb a {
-    display: *zoom:1;*display:inline;
+    display:inline-block;*zoom:1;*display:inline;
 }
 
 .settings-l table.ingr_f_recipe_tb a img {
@@ -2046,7 +2046,7 @@ table.fr_recipe_tb td {
 }
 
 .rec_in {
-    display: *zoom:1;*display:inline;
+    display:inline-block;*zoom:1;*display:inline;
     padding: 0 75px 0 0;
     margin: 0 0 20px 0;
     background: url(../images/recipe_icon.png) 100% center no-repeat;
@@ -2164,7 +2164,7 @@ big.title ins.clr_bl {
 }
 
 .art_lk_recipes ul.quest_fun li.agree_u a {
-    display: *zoom:1;*display:inline;
+    display:inline-block;*zoom:1;*display:inline;
     padding: 0 10px;
     height: 18px;
     border: 1px solid #8dd562;
@@ -2178,7 +2178,7 @@ big.title ins.clr_bl {
 }
 
 .art_lk_recipes ul.quest_fun li.disagree_u a {
-    display: *zoom:1;*display:inline;
+    display:inline-block;*zoom:1;*display:inline;
     padding: 0 10px;
     height: 18px;
     border: 1px solid #e35e5e;
@@ -2213,10 +2213,9 @@ big.title ins.clr_bl {
     color: #fff;
     font-family: Tahoma, Geneva, Kalimati, sans-serif;
     font-weight: normal;
-    display: *zoom:1;*display:inline;
+    display:inline-block;*zoom:1;*display:inline;
     line-height: 50px;
     zoom: 1;
-    *display: inline;
 
 }
 
@@ -2463,7 +2462,7 @@ big.title ins.clr_bl {
 
 .right_block .cost_calculation .CheckBoxLabelClass {
     background: url("../images/no_check.png") no-repeat scroll 0 0 transparent;
-    display: *zoom:1;*display:inline;
+    display:inline-block;*zoom:1;*display:inline;
     line-height: 16px;
     margin: 0;
     padding: 2px 0 0 25px;
@@ -2793,8 +2792,7 @@ ul.letters li a:hover {
 }
 .content_block .names_header.like {
     background: url("../images/heart_like_big.png") no-repeat right top;
-    display: *zoom:1;*display:inline;
-    *display: inline;
+    display:inline-block;*zoom:1;*display:inline;
     padding: 36px 74px 0 0;
 }
 
@@ -2904,8 +2902,7 @@ ul.letters li a:hover {
 }
 
 #content .name_info h1 {
-    display: *zoom:1;*display:inline;
-    *display: inline;
+    display:inline-block;*zoom:1;*display:inline;
     padding: 20px 0 8px 0;
     margin: 0;
     font-size: 40px;
@@ -2913,8 +2910,7 @@ ul.letters li a:hover {
     color: #fb3da8;
 }
 #content .name_info a.like_name{
-    display: *zoom:1;*display:inline;
-    *display: inline;
+    display:inline-block;*zoom:1;*display:inline;
     background: url("../images/name_heart_big.png") no-repeat right top;
     width: 70px;
     height: 48px;
@@ -3424,7 +3420,7 @@ ul.letters li a:hover {
 #repair-bathroom-tile .form .title p {font-size:13px;color:#434343;width:480px;}
 #repair-bathroom-tile .form .title .red {font-size:11px;color:#ff5741;font-style:italic;margin-top:0px; min-height: 10px;}
 #repair-bathroom-tile .form .title .red ul{ width: 400px }
-#repair-bathroom-tile .form .title .red li{ display: *zoom:1;*display:inline; width: 200px }
+#repair-bathroom-tile .form .title .red li{ display:inline-block;*zoom:1;*display:inline; width: 200px }
 
 
 #repair-bathroom-tile .form .form-in {margin-top:20px;width:355px;}
@@ -3437,7 +3433,7 @@ ul.letters li a:hover {
 #repair-bathroom-tile .form .form-in .row .img .val {position:absolute;right:7px;bottom:10px;width:34px;height:19px;text-align:center;line-height:19px;font-size:13px;color:#5e8bc9;font-weight:bold;}
 
 #repair-bathroom-tile .form .form-in .row.error {height: 25px; padding: 0 0 5px 0}
-#repair-bathroom-tile .form .form-in .row.error div{display: *zoom:1;*display:inline; padding: 0 10px 0 0;}
+#repair-bathroom-tile .form .form-in .row.error div{display:inline-block;*zoom:1;*display:inline; padding: 0 10px 0 0;}
 
 #repair-bathroom-tile .form .row.row-btn {text-align:center;background:url(/images/repair_bathroom_tile_dash.gif) no-repeat top;padding-top:21px;}
 #repair-bathroom-tile .form .row-btn button {font:bold 30px arial, helvetica, sans-serif;color: #a46307;width: 220px;height: 58px;border: 1px solid #f1d419;background: url(../images/bg_yellow_av.png) 0 0 repeat-x;cursor:pointer;}

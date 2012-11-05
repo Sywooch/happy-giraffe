@@ -397,7 +397,7 @@
 #baby .calculate_tb table {width:500px;float:left;}
 #baby .calculate_tb table th {text-align:left;color:#b0b0b0;font:12px/15px arial, sans-serif;padding:2px 5px;}
 #baby .calculate_tb table td {text-align:left;padding:5px;}
-#baby .calculate_tb table .lists_td {background: #FAF5FE;display: *zoom:1;*display:inline;padding: 5px 0 5px 5px;margin: 0 0 0 -5px;list-style:none;}
+#baby .calculate_tb table .lists_td {background: #FAF5FE;display:inline-block; *zoom:1;*display:inline;padding: 5px 0 5px 5px;margin: 0 0 0 -5px;list-style:none;}
 #baby .calculate_tb table .lists_td > li {display:inline-block;*zoom:1;*display:inline;margin:0 3px;}
 #baby .calculate_tb table div.row {float: left;margin-right: 5px;}
 #baby .calculate_tb table .errorMessage {display: none !important;}
@@ -479,7 +479,7 @@
 #baby .child_sex_banner ul.lists_td li {display:inline-block;*zoom:1;*display:inline;margin:0 8px;}
 #baby .child_sex_banner ul.lists_td div.row {display:inline;}
 #baby .child_sex_banner input.mth_calculate {float:right;margin:20px 0 0 0;width:120px;height:33px;background: url(../images/bg_yellow_sub.png) 0 0 repeat-x;border:1px solid #f1d419;font:bold 16px arial, sans-serif;color:#c37d19;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;}
-#baby .child_sex_banner .cusel {height: 18px;background-position: left top;display: *zoom:1;*display:inline;position: relative;cursor: pointer;font-size: 14px;z-index: 1;border:  1px solid #e6d4f6;background: #fff;}
+#baby .child_sex_banner .cusel {height: 18px;background-position: left top;display:inline-block; *zoom:1;*display:inline;position: relative;cursor: pointer;font-size: 14px;z-index: 1;border:  1px solid #e6d4f6;background: #fff;}
 #baby .child_sex_banner .cuselFrameRight {position: absolute;z-index: 2;top: 0;right: 0;height: 100%;width: 19px;background-position: right top;background: #41b3cc url(../images/sel_violet.png) no-repeat;}
 #baby .child_sex_banner .cusel .cusel-scroll-wrap {display: block;visibility: hidden;position: absolute;left: 0;top: 100%;border:  1px solid #e6d4f6;background: #fff;min-width: 100%;width: auto;font-size: 12px;}
 #baby .child_sex_banner .cusel span:hover,
@@ -505,7 +505,7 @@
 #baby .child_sex_japan_banner ul.lists_td {background:#faf5fe;background:rgba(255, 255, 255, 0.5);padding: 9px 2px;display:inline-block;*zoom:1;*display:inline;}
 #baby .child_sex_japan_banner ul.lists_td li {display:inline-block;*zoom:1;*display:inline;margin:0 8px;}
 #baby .child_sex_japan_banner input.mth_calculate {float:right;margin:20px 0 0 0;width:120px;height:33px;background: url(../images/bg_yellow_sub.png) 0 0 repeat-x;border:1px solid #f1d419;font:bold 16px arial, sans-serif;color:#c37d19;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;}
-#baby .child_sex_japan_banner .cusel {height: 18px;background-position: left top;display: *zoom:1;*display:inline;position: relative;cursor: pointer;font-size: 14px;z-index: 1;border:  1px solid #e6d4f6;background: #fff;}
+#baby .child_sex_japan_banner .cusel {height: 18px;background-position: left top;display:inline-block; *zoom:1;*display:inline;position: relative;cursor: pointer;font-size: 14px;z-index: 1;border:  1px solid #e6d4f6;background: #fff;}
 #baby .child_sex_japan_banner .cuselFrameRight {position: absolute;z-index: 2;top: 0;right: 0;height: 100%;width: 19px;background-position: right top;background: #41b3cc url(../images/sel_violet.png) no-repeat;}
 #baby .child_sex_japan_banner .cusel .cusel-scroll-wrap {display: block;visibility: hidden;position: absolute;left: 0;top: 100%;border:  1px solid #e6d4f6;background: #fff;min-width: 100%;width: auto;font-size: 12px;}
 #baby .child_sex_japan_banner .cusel span:hover,
@@ -541,7 +541,7 @@
 #baby .child_sex_china_banner input.mth_calculate {float:right;margin:20px 0 0 0;width:120px;height:33px;background: url(../images/bg_yellow_sub.png) 0 0 repeat-x;border:1px solid #f1d419;font:bold 16px arial, sans-serif;color:#c37d19;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;}
 #baby .child_sex_china_banner ul.lists_td {background:#faf5fe;background:rgba(255, 255, 255, 0.5);padding: 9px 2px;display:inline-block;*zoom:1;*display:inline;}
 #baby .child_sex_china_banner ul.lists_td li {display:inline-block;*zoom:1;*display:inline;padding:0 8px;}
-#baby .child_sex_china_banner .cusel {height: 18px;background-position: left top;display: *zoom:1;*display:inline;position: relative;cursor: pointer;font-size: 14px;z-index: 1;border:  1px solid #e6d4f6;background: #fff;}
+#baby .child_sex_china_banner .cusel {height: 18px;background-position: left top;display:inline-block; *zoom:1;*display:inline;position: relative;cursor: pointer;font-size: 14px;z-index: 1;border:  1px solid #e6d4f6;background: #fff;}
 #baby .child_sex_china_banner .cuselFrameRight {position: absolute;z-index: 2;top: 0;right: 0;height: 100%;width: 19px;background-position: right top;background: #41b3cc url(../images/sel_violet.png) no-repeat;}
 #baby .child_sex_china_banner .cusel .cusel-scroll-wrap {display: block;visibility: hidden;position: absolute;left: 0;top: 100%;border:  1px solid #e6d4f6;background: #fff;min-width: 100%;width: auto;font-size: 12px;}
 #baby .child_sex_china_banner .cusel span:hover,
@@ -577,7 +577,7 @@
 #baby .child_sex_ovulyaciya_banner input.mth_calculate {float:right;margin:20px 0 0 0;width:120px;height:33px;background: url(../images/bg_yellow_sub.png) 0 0 repeat-x;border:1px solid #f1d419;font:bold 16px arial, sans-serif;color:#c37d19;border-radius:5px;-moz-border-radius:5px;-webkit-border-radius:5px;}
 #baby .child_sex_ovulyaciya_banner ul.lists_td {background:#faf5fe;background:rgba(255, 255, 255, 0.5);padding: 9px 2px;display:inline-block;*zoom:1;*display:inline;}
 #baby .child_sex_ovulyaciya_banner ul.lists_td li {display:inline-block;*zoom:1;*display:inline;padding:0 8px;}
-#baby .child_sex_ovulyaciya_banner .cusel {height: 18px;background-position: left top;display: *zoom:1;*display:inline;position: relative;cursor: pointer;font-size: 14px;z-index: 1;border:  1px solid #e6d4f6;background: #fff;}
+#baby .child_sex_ovulyaciya_banner .cusel {height: 18px;background-position: left top;display:inline-block; *zoom:1;*display:inline;position: relative;cursor: pointer;font-size: 14px;z-index: 1;border:  1px solid #e6d4f6;background: #fff;}
 #baby .child_sex_ovulyaciya_banner .cuselFrameRight {position: absolute;z-index: 2;top: 0;right: 0;height: 100%;width: 19px;background-position: right top;background: #41b3cc url(../images/sel_violet.png) no-repeat;}
 #baby .child_sex_ovulyaciya_banner .cusel .cusel-scroll-wrap {display: block;visibility: hidden;position: absolute;left: 0;top: 100%;border:  1px solid #e6d4f6;background: #fff;min-width: 100%;width: auto;font-size: 12px;}
 #baby .child_sex_ovulyaciya_banner .cusel span:hover,

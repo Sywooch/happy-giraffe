@@ -118,6 +118,7 @@
                             });
                             return false;
                         }"),
+                        'tresholdMargin' => new CJavaScriptExpression('-250'),
                     ),
                 ),
             ));

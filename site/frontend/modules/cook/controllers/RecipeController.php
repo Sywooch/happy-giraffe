@@ -233,7 +233,6 @@ class RecipeController extends HController
 
         $dataProvider = new CArrayDataProvider($resIterator, array(
             'keyField' => 'id',
-            'pagination' => array('pageSize' => 10000),
         ));
 
         $criteria = new CDbCriteria;

@@ -6,6 +6,7 @@ class OnlineUsersCommand extends CConsoleCommand
 
     public function actionIndex()
     {
+        echo memory_get_usage() . "\n";
         Yii::import('site.frontend.modules.im.models.*');
         Yii::import('site.frontend.modules.im.components.*');
         Yii::import('site.frontend.modules.scores.models.*');
@@ -18,15 +19,14 @@ class OnlineUsersCommand extends CConsoleCommand
         $list = $rpl->cmdOnline();
         Yii::app()->db->createCommand()
             ->update('users', array('online' => '0'));
-
+        echo memory_get_usage() . "\n";
         $users = User::model()->findAll(array('select' => 'id', 'condition' => 'online=1'));
         foreach ($users as $user) {
             Yii::app()->cache->delete('User_' . $user->id);
         }
-        unset($users);
 
         $this->current_day = date("Y-m-d");
-
+        echo memory_get_usage() . "\n";
         foreach ($list as $user) {
             echo "User online: {$user}\n";
             $user = $this->getUserByCache($user);
@@ -37,7 +37,7 @@ class OnlineUsersCommand extends CConsoleCommand
             $user->save(false, array('online','last_active'));
             ScoreVisits::addTodayVisit($user->id);
         }
-
+        echo memory_get_usage() . "\n";
         $pos = 0;
         while (1) {
             $this->checkScoresForNewDay($rpl);

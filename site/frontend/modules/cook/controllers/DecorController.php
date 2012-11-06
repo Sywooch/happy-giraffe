@@ -3,19 +3,11 @@ class DecorController extends HController
 {
     public function actionIndex($id = false)
     {
-        $perPage = 9;
+        $perPage = 29;
         $category = ($id) ? CookDecorationCategory::model()->findByPk($id) : null;
         $this->pageTitle = ($id) ? 'Оформление блюд: ' . $category->title : 'Оформление блюд';
         $dataProvider = CookDecoration::model()->indexDataProvider($id, $perPage);
 
-        if (Yii::app()->request->isAjaxRequest) {
-            $result = array(
-                'html' => $this->renderPartial('index', compact('id', 'category', 'dataProvider'), true)
-            );
-            echo CJSON::encode($result);
-        } else {
-            $this->render('index', compact('id', 'category', 'dataProvider'));
-        }
-
+        $this->render('index', compact('id', 'category', 'dataProvider'));
     }
 }

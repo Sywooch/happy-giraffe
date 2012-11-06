@@ -836,11 +836,11 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 
 #contest .gallery-photos-new.cols-4 {margin-left:-10px;}
 
-.contest-winners {background:url(/images/contest/contest-winners.png);margin:20px 0 10px;}
+.contest-winners {background:url(/images/contest/contest-winners.png);margin:20px 10px 10px;}
 .contest-winners_holder {background:url(/images/contest/contest-winners_holder.png) repeat-x 0 100%;}
 .contest-winners_frame {background:url(/images/contest/contest-winners_frame.png) repeat-x 0 0;padding:40px 25px 60px;}
 .contest-winners_list {list-style:none;}
-.contest-winners_list_item{float:left;margin:0 55px;}
+.contest-winners_list_item{float:left;margin:0 50px;}
 .contest-winners_list_item > .user-info {float:none;}
 .contest-winners_place {
 	display:inline-block;*zoom:1;*display:inline;
@@ -873,7 +873,7 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 
 .contest-winners_prize {color:#3380b6;font-size:13px;}
 .contest-winners .gallery-photos-new {margin:0;}
-.contest-winners .gallery-photos-new ul li {margin:0 40px;}
+.contest-winners .gallery-photos-new ul li {margin:0 35px;}
 
 
 

@@ -139,4 +139,9 @@ class CookDecorationCategory extends HActiveRecord
         //}
         return $collection;
     }
+
+    public function getUrl()
+    {
+        return Yii::app()->createUrl('/cook/decor/index', array('id' => $this->id));
+    }
 }

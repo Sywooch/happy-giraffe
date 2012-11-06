@@ -111,7 +111,9 @@
                     'options' => array(
                         'scrollContainer' => new CJavaScriptExpression("$('.layout-container')"),
                         'onLoadItems' => new CJavaScriptExpression("function(items) {
-                            $('#decorlv .items').append(items).masonry('appended', $(items));
+                            $('#decorlv .items').imagesLoaded(function() {
+                                $('#decorlv .items').append(items).masonry('appended', $(items));
+                            });
                             return false;
                         }"),
                     ),

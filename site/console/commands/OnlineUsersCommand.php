@@ -23,6 +23,7 @@ class OnlineUsersCommand extends CConsoleCommand
         foreach ($users as $user) {
             Yii::app()->cache->delete('User_' . $user->id);
         }
+        unset($users);
 
         $this->current_day = date("Y-m-d");
 

@@ -111,8 +111,11 @@
                     'options' => array(
                         'scrollContainer' => new CJavaScriptExpression("$('.layout-container')"),
                         'onLoadItems' => new CJavaScriptExpression("function(items) {
+                            $(items).hide();
+                            $('#decorlv .items').append(items)
                             $('#decorlv .items').imagesLoaded(function() {
-                                $('#decorlv .items').append(items).masonry('appended', $(items));
+                                 $('#decorlv .items').masonry('appended', $(items));
+                                 $(items).show();
                             });
                             return false;
                         }"),

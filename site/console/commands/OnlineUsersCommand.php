@@ -6,29 +6,28 @@ class OnlineUsersCommand extends CConsoleCommand
 
     public function actionIndex()
     {
-        echo memory_get_usage() . "\n";
+        ini_set('memory_limit','1024M');
         Yii::import('site.frontend.modules.im.models.*');
         Yii::import('site.frontend.modules.im.components.*');
         Yii::import('site.frontend.modules.scores.models.*');
         Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
         Yii::import('site.frontend.extensions.*');
         Yii::import('site.frontend.components.*');
-        Yii::import('site.common.models.mongo.*');
+        Yii::import(z'site.common.models.mongo.*');
 
         $rpl = Yii::app()->comet;
         $list = $rpl->cmdOnline();
         Yii::app()->db->createCommand()
             ->update('users', array('online' => '0'));
-        echo memory_get_usage() . "\n";
+
         $users = User::model()->findAll(array('select' => 'id', 'condition' => 'online=1'));
         foreach ($users as $user) {
             Yii::app()->cache->delete('User_' . $user->id);
         }
 
         $this->current_day = date("Y-m-d");
-        echo memory_get_usage() . "\n";
+
         foreach ($list as $user) {
-            echo memory_get_usage() . "\n";
             echo "User online: {$user}\n";
             $user = $this->getUserByCache($user);
             if (empty($user))
@@ -37,7 +36,6 @@ class OnlineUsersCommand extends CConsoleCommand
             $user->last_active = date("Y-m-d H:i:s");
             $user->save(false, array('online','last_active'));
             ScoreVisits::addTodayVisit($user->id);
-            unset($user);
         }
 
         $pos = 0;

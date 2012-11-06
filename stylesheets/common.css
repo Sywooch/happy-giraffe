@@ -734,10 +734,7 @@ textarea.error {border:1px solid #ff6767 !important;}
     text-decoration:none;
     vertical-align: middle;
     cursor: pointer;
-	
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#55b2f6', endColorstr='#1676bc',GradientType=0 ); /* IE6-8 */
-	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#55b2f6', EndColorStr='#1676bc')";
-	
+
 	background: #1676bc; /* Old browsers */
 	background: -moz-linear-gradient(top,  #55b2f6 0%, #1676bc 100%); /* FF3.6+ */
 	background: -webkit-linear-gradient(top,  #55b2f6 0%,#1676bc 100%); /* Chrome10+,Safari5.1+ */
@@ -745,10 +742,11 @@ textarea.error {border:1px solid #ff6767 !important;}
 	background: -ms-linear-gradient(top,  #55b2f6 0%,#1676bc 100%); /* IE10+ */
 	background: linear-gradient(to bottom,  #55b2f6 0%,#1676bc 100%); /* W3C */
 
-    -moz-border-radius:5px;
-    -webkit-border-radius:5px;
-    border-radius:5px;
+    -moz-border-radius:5px; -webkit-border-radius:5px; border-radius:5px;behavior: url(PIE.htc);
 }
+.ie7 .btn-blue,
+.ie8 .btn-blue {filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#55b2f6', endColorstr='#1676bc',GradientType=0 ); /* IE6-8 */}
+.ie9 .btn-blue {background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzU1YjJmNiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMxNjc2YmMiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);}
 .btn-blue-55 {
 	font:bold 28px/55px Arial, Tahoma, Verdana, sans-serif;
 	padding:0 21px;
@@ -1649,7 +1647,7 @@ body.nav-fixed #header-new.top-line-fixed {padding-top:0;}
 #crumbs {color:#51afc3;font:11px/18px tahoma, arial, sans-serif;position:relative;z-index:5;margin-bottom:15px;}
 #crumbs span {background:#fffedf;padding:0px 5px;display:inline-block;*zoom:1;*display:inline;color:#0a87bb;}
 
-#content {margin:0px 20px 0;position:relative;z-index:3;margin-bottom:40px;}
+#content {margin:0 20px 50px;position:relative;z-index:3;}
 #content .content-box {padding-bottom:20px;}
 
 #content .side-left {width:240px;float:left;margin-left:-100%;}
@@ -2595,6 +2593,7 @@ div.scrollbarpaper-drag {-moz-border-radius:3px;-webkit-border-radius:3px;border
 
 .fast-like-block {margin:5px auto 20px;text-align:center;background:none;width:auto;}
 
+.fast-like-block .contest-winners_place.place-big {margin-right:310px;}
 .fast-like-block .box-1 {text-align:center;display:inline-block;*zoom:1;*display:inline;vertical-align:top;margin-top: 15px;min-width:500px;}
 .fast-like-block .share_button {display:inline-block;*zoom:1;*display:inline;vertical-align:middle;text-align:left;margin:0 2px;}
 /* facebook custom like box */

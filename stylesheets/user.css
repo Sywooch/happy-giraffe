@@ -627,7 +627,7 @@
 #user .user-family ul li big span {font-size:14px;}
 #user .user-family ul li .img {margin-bottom:5px;}
 #user .user-family ul li .img img {display:block;margin:auto;max-width:180px;}
-#user .user-family ul li .comment {margin-bottom:8px;position:relative;color:#3c93bc;font-size:13px;font-family:times new roman, serif;font-style:italic;padding:8px 10px;line-height:14px;position:relative;background:#CDECFF;}
+#user .user-family ul li .comment {margin-bottom:8px;position:relative;color:#3c93bc;font-size:13px;font-family:times new roman, serif;font-style:italic;padding:8px 10px;line-height:14px;position:relative;background:#CDECFF;overflow:hidden;}
 #user .user-family ul li .comment {/*css3*/ -moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;behavior: url(/stylesheets/PIE.htc);}
 #user .user-family ul li .comment .tale {position:absolute;display:block;width:30px;height:23px;right:65px;top:100%;background:url(/images/common.png) no-repeat -504px -251px;}
 #user .user-family ul li.waiting {}

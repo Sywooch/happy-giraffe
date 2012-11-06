@@ -9,7 +9,7 @@
     ));
 
     $js = '
-        var $container = $(\'.gallery-photos-new\');
+        var $container = $(\'#decorlv .items\');
 
         $container.imagesLoaded( function(){
             $container.masonry({
@@ -108,6 +108,13 @@
                     'class' => 'ext.infiniteScroll.IasPager',
                     'rowSelector' => 'li',
                     'listViewId' => 'decorlv',
+                    'options' => array(
+                        'scrollContainer' => new CJavaScriptExpression("$('.layout-container')"),
+                        'onLoadItems' => new CJavaScriptExpression("function(items) {
+                            $('#decorlv .items').append(items).masonry('appended', $(items));
+                            return false;
+                        }"),
+                    ),
                 ),
             ));
             ?>

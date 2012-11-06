@@ -28,6 +28,7 @@ class OnlineUsersCommand extends CConsoleCommand
         $this->current_day = date("Y-m-d");
         echo memory_get_usage() . "\n";
         foreach ($list as $user) {
+            echo memory_get_usage() . "\n";
             echo "User online: {$user}\n";
             $user = $this->getUserByCache($user);
             if (empty($user))
@@ -37,7 +38,7 @@ class OnlineUsersCommand extends CConsoleCommand
             $user->save(false, array('online','last_active'));
             ScoreVisits::addTodayVisit($user->id);
         }
-        echo memory_get_usage() . "\n";
+
         $pos = 0;
         while (1) {
             $this->checkScoresForNewDay($rpl);

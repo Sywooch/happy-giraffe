@@ -23,9 +23,9 @@
     ';
 
     Yii::app()->clientScript
-        //->registerScript('photo_gallery_entity_id', 'var photo_gallery_entity_id = "' . $entity_id . '";')
-        //->registerScript('cook_decor_list', $js)
-        //->registerScriptFile('/javascripts/jquery.masonry.min.js')
+        ->registerScript('photo_gallery_entity_id', 'var photo_gallery_entity_id = "' . $entity_id . '";')
+        ->registerScript('cook_decor_list', $js)
+        ->registerScriptFile('/javascripts/jquery.masonry.min.js')
     ;
 
 ?>

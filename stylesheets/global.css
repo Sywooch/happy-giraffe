@@ -876,7 +876,7 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 .contest-winners .gallery-photos-new ul li {margin:0 35px;}
 
 .contest-list {}
-#contest .contest-list > h1 {font:normal 30px/36px Tahoma, Arial, Verdana, sans-serif;color:#363535;margin-bottom:30px;text-align:center;padding-left:260px;}
+#contest .contest-list > h1 {font:normal 30px/36px Tahoma, Arial, Verdana, sans-serif;color:#363535;margin-bottom:20px;text-align:center;padding-left:260px;}
 .contest-list_item {margin-bottom:50px;}
 .contest-list_banner {float:left;width:280px;min-height:250px;margin-right:25px;text-align:center;border:1px solid #e8e8e8;}
 .contest-list_holder {overflow:hidden;height:1%;}

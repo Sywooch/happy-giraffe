@@ -888,8 +888,8 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 .contest-list_row > .btn-green {float:right;}
 .contest-list_row > .complet {float:left;margin:14px 0 0 90px;padding:0 5px;color:#fff;background:#fe624d;}
 .contest-list_row > .result {float:right;line-height:46px;color:#868685;}
-.contest-list_row > .result > .glass {float:left;width:44px;height:14px;margin:16px 2px 0;background:url(/images/common.png) no-repeat -315px -396px;}
-.contest-list_row > .result > .win {float:left;width:28px;height:28px;margin:2px 2px 0;background:url(/images/common.png) no-repeat -523px -399px;}
+.contest-list_row > .result > .glass {float:left;width:32px;height:14px;margin:16px 8px 0;background:url(/images/common.png) no-repeat -315px -396px;}
+.contest-list_row > .result > .win {float:left;width:28px;height:28px;margin:2px 6px 0;background:url(/images/common.png) no-repeat -523px -399px;}
 
 .contest-takeapart {position:absolute;z-index:5;right:100px;bottom:28px;width:228px;height:59px;background:url(/images/btn_contest_takeapart.png) no-repeat;text-indent:-9999px;}
 

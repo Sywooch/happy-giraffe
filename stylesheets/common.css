@@ -629,7 +629,7 @@ textarea.error {border:1px solid #ff6767 !important;}
 .ie9 .btn-orange:hover {background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2U5YTUzOCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNkZjZiMWEiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);}
 
 .btn-medium {height:32px;font:bold 16px/32px Arial, Tahoma, Verdana, sans-serif;padding:0 14px;}
-.btn-h46 {height:46px;font:bold 25px/46px Arial, Tahoma, Verdana, sans-serif;padding:0 19px;}
+.btn-h46 {height:46px;font:25px/46px Arial, Tahoma, Verdana, sans-serif;padding:0 19px;}
 .btn-h55 {height:55px;font:bold 28px/55px Arial, Tahoma, Verdana, sans-serif;padding:0 21px;}
 .btn-big {height:70px;line-height:70px;padding:0 19px;font-size:16px;font-weight:bold;}
 .btn-large {height:75px;line-height:75px;font-size:34px;font-weight:bold;padding:0 35px;}

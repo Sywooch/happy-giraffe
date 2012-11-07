@@ -3,7 +3,7 @@
 class ParseController extends SController
 {
     public $layout = '//layouts/empty';
-    public $cookie = 'pwd=0c8qXfphlvGBbZpku1o; suid=0IzWxI1JTum_; per_page=100; total=yes; adv-uid=8c5784.ea809d.cc79f6';
+    const STATS_LIMIT = 2;
 
     public function beforeAction($action)
     {
@@ -27,8 +27,6 @@ class ParseController extends SController
 
         if (empty($site_id))
             Yii::app()->end();
-
-        $this->cookie = Config::getAttribute('liveinternet-cookie');
 
         Yii::import('site.frontend.extensions.phpQuery.phpQuery');
         $error = $this->parseStats($site_id, $year, $month_from, $month_to, $mode);
@@ -410,7 +408,7 @@ class ParseController extends SController
 
                     $stats = trim(pq($tr)->find('td:eq(2)')->text());
                     $stats = str_replace(',', '', $stats);
-                    if ($stats < 5)
+                    if ($stats < self::STATS_LIMIT)
                         return false;
 
                     $keyword_model = Keyword::GetKeyword($keyword);

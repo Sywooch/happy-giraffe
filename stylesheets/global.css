@@ -875,7 +875,21 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 .contest-winners .gallery-photos-new {margin:0;}
 .contest-winners .gallery-photos-new ul li {margin:0 35px;}
 
-
+.contest-list {}
+#contest .contest-list > h1 {font:normal 30px/36px Tahoma, Arial, Verdana, sans-serif;color:#363535;margin-bottom:30px;text-align:center;padding-left:260px;}
+.contest-list_item {margin-bottom:50px;}
+.contest-list_banner {float:left;width:280px;min-height:250px;margin-right:25px;text-align:center;border:1px solid #e8e8e8;}
+.contest-list_holder {overflow:hidden;height:1%;}
+.contest-list .content-title {text-align:center;}
+.contest-list_row {padding:15px 0;}
+.contest-list_row > .date {float:left;font:bold 25px/46px Arial, Tahoma, Verdana, sans-serif;color:#37b453;}
+.contest-list_row > .date.red {color:#fe624d;}
+.contest-list_row > .date > .year {font-size:16px;position:relative;top:-2px;}
+.contest-list_row > .btn-green {float:right;}
+.contest-list_row > .complet {float:left;margin:14px 0 0 90px;padding:0 5px;color:#fff;background:#fe624d;}
+.contest-list_row > .result {float:right;line-height:46px;color:#868685;}
+.contest-list_row > .result > .glass {float:left;width:44px;height:14px;margin:16px 2px 0;background:url(/images/common.png) no-repeat -315px -396px;}
+.contest-list_row > .result > .win {float:left;width:28px;height:28px;margin:2px 2px 0;background:url(/images/common.png) no-repeat -523px -399px;}
 
 .contest-takeapart {position:absolute;z-index:5;right:100px;bottom:28px;width:228px;height:59px;background:url(/images/btn_contest_takeapart.png) no-repeat;text-indent:-9999px;}
 
@@ -3220,8 +3234,7 @@ ul.letters li a:hover {
 #decree-time .form .form-in .row .row-title span {font-weight:normal;font-size:13px;}
 #decree-time .form .form-in .row.row-btn {background:#eefee6;text-align:center;border-top:1px solid #f6e8ff;}
 #decree-time .form .select-box {background:#f2e7f9;}
-#decree-time .form .row-btn button {font:bold 30px arial, helvetica, sans-serif;color: #a46307;width: 220px;height: 58px;border: 1px solid #f1d419;background: url(../images/bg_yellow_av.png) 0 0 repeat-x;cursor:pointer;}
-#decree-time .form .row-btn button {/*css3*/ border-radius: 10px;-moz-border-radius: 10px;-webkit-border-radius: 10px;behavior: url(/stylesheets/PIE.htc);}
+#decree-time .form .row-btn button {font:bold 30px arial, helvetica, sans-serif;color: #a46307;width: 220px;height: 58px;border: 1px solid #f1d419;background: url(../images/bg_yellow_av.png) 0 0 repeat-x;cursor:pointer; border-radius: 10px;-moz-border-radius: 10px;-webkit-border-radius: 10px;behavior: url(/stylesheets/PIE.htc);}
 
 #decree-time .form .pregnancy-type label {display:inline-block;*zoom:1;*display:inline;vertical-align:top;padding-right:65px;margin-left:15px;}
 #decree-time .form .pregnancy-type label input {float:left;margin-left:-15px;position:relative;top:-2px;}
@@ -3255,8 +3268,7 @@ ul.letters li a:hover {
 #horoscope .horoscope-one {padding:7px;border:1px solid #e9f0f9;margin-bottom:30px;}
 
 #horoscope .horoscope-one h1 {color:#444646;text-align:center;}
-#horoscope .horoscope-one .block-in {background:#fbfcfe url(/images/bg_horoscope_one.gif) repeat-x;padding:20px 50px;}
-#horoscope .horoscope-one {}
+#horoscope .horoscope-one .block-in {background:#fbfcfe url(/images/bg_horoscope_one.gif) repeat-x;padding:20px 35px;}
 
 #horoscope .horoscope-one .right .date {font-size:30px;text-align:center;padding-top:20px;}
 #horoscope .horoscope-one .right .date big {color:#a4a3a3;font:italic 30px/1 timew new roman, serif;display:block;margin-bottom:10px;}
@@ -3268,14 +3280,16 @@ ul.letters li a:hover {
 #horoscope .horoscope-one .img .date {display:inline-block;*zoom:1;*display:inline;vertical-align:top;text-align:center;padding-top:45px;color:#858585;font-size:16px;width:240px;text-align:center;}
 #horoscope .horoscope-one .img .date span {font:italic 45px/1.2 times new roman, serif;display:block;color:#2d87be;}
 
-#horoscope .horoscope-one .dates {text-align:center;margin:20px 0;}
-#horoscope .horoscope-one .dates ul {font-size:14px;list-style:none;}
+#horoscope .horoscope-one .dates {text-align:center;margin:20px 0;font-size:14px;color:#666;}
+#horoscope .horoscope-one .dates ul {list-style:none;}
 #horoscope .horoscope-one .dates ul li {display:inline;padding:0 12px;}
 #horoscope .horoscope-one .dates ul li a {display:inline-block;*zoom:1;*display:inline;padding:2px 5px;}
 #horoscope .horoscope-one .dates ul li.active a {background:#fff8bb;text-decoration:none;cursor:default;}
 
 #horoscope .horoscope-one .text {padding-top:20px;}
-#horoscope .horoscope-one .text .date {width:85px;height:40px;background:url(../images/common.png) no-repeat -614px -1px;margin:5px auto 15px;color:#ff7902;font-size:18px;font-weight:bold;text-align:center;padding:20px 0;line-height:20px;float:left;margin:0 15px 15px 0;}
+#horoscope .horoscope-one .text .date {width:110px;height:135px;background:url(/images/bg-paper.png) no-repeat;color:#0b99ee;font-size:30px;font-weight:bold;text-align:center;padding:40px 0 0;line-height:36px;float:left;margin:0 25px 15px 0;}
+#horoscope .horoscope-one .text .date > span {font-size:50px;display:block;}
+#horoscope .horoscope-one .text .holder {overflow:hidden;}
 #horoscope .horoscope-one .text p {line-height:19px;margin-bottom:1em;}
 
 #horoscope .horoscope-one .socials {text-align:center;padding:15px 0;}
@@ -3346,6 +3360,11 @@ ul.letters li a:hover {
 .fast-horoscope ul li .img .date {display:inline-block;*zoom:1;*display:inline;vertical-align:top;padding-top:15px;color:#2d2d2d;font-size:10px;}
 .fast-horoscope ul li .img .date span {font:italic 20px/1 times new roman, serif;display:block;color:#2d87be;}
 .fast-horoscope ul li .text {font-size:11px;line-height:17px;color:#626262;}
+
+.horoscope-subscribe-big {margin:0 0 20px;background:#e2edff;padding:20px;}
+.horoscope-subscribe-big .submit {float:right;font-size:30px;font-weight:bold;}
+.horoscope-subscribe-big > label {font-size:20px;color:#2b2b2b;display:block;margin:0 0 10px;}
+.horoscope-subscribe-big > .inptext {height:19px;padding:8px 14px;font-size:17px;background:#fff;width:360px;}
 
 .horoscope-subscribe {margin-top:20px;border:1px solid #f0ecf3;text-align:center;padding-bottom:15px;}
 .horoscope-subscribe  p {margin:5px 20px;color:#8b8c8c;font-size:13px;line-height:19px;text-align:left;}

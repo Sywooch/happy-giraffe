@@ -841,11 +841,12 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 .contest-winners_frame {background:url(/images/contest/contest-winners_frame.png) repeat-x 0 0;padding:40px 25px 60px;}
 .contest-winners_list {list-style:none;text-align:center;}
 .contest-winners_list_item{display:inline-block;*zoom:1;*display:inline;margin:0 26px 15px;}
-.contest-winners_list_item > .user-info {float:none;}
+.contest-winners_list_item > .user-info {float:none;margin-left:20px;width:200px;}
+.contest-winners_list_item > .user-info .details .username{width:auto;}
 .contest-winners_place {
 	display:inline-block;*zoom:1;*display:inline;
 	position:relative;
-	margin:40px 0 10px;
+	margin:25px 0 2px;
 	font:bold 30px/19px Arial, Tahoma, Verdana, sans-serif;
 	padding:0 18px 0 12px;
 	height:25px;
@@ -855,13 +856,13 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 	border-radius: 9px;
 	behavior: url(PIE.htc);
 }
-.contest-winners_place >.cup {float:left;position:relative;top:-32px;left:0;width:40px;height:54px;background:url(/images/winners_sprite.png) no-repeat 2px -80px;}
-.contest-winners_place >.digit {float:left;position:relative;top:-14px;left:1px;margin-right:5px;font:bold 40px/40px Arial, Tahoma, Verdana, sans-serif;}
+.contest-winners_place >.cup {float:left;position:relative;top:-25px;left:0;width:40px;height:54px;background:url(/images/winners_sprite.png) no-repeat 2px -80px;}
+.contest-winners_place >.digit {float:left;position:relative;top:-14px;left:3px;margin-right:8px;font:bold 40px/40px Arial, Tahoma, Verdana, sans-serif;}
 .contest-winners_place >.text {float:left;}
 
 .contest-winners_place.place-1 {background:#e5ebd8;color:#fecb01;}
 .contest-winners_place.place-2 {background:#d3e7fe;color:#4a98d3;}
-.contest-winners_place.place-2 > .cup {background-position:-40px -80px;}
+.contest-winners_place.place-2 > .cup {background-position:-39px -80px;}
 .contest-winners_place.place-3 {background:#ccedd5;color:#6bc545;}
 .contest-winners_place.place-3 > .cup {background-position:-79px -80px;}
 .contest-winners_place.place-4 {background:#e4e2ff;color:#b6a8dd;}
@@ -874,7 +875,7 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 .contest-winners_place.place-big.place-2 > .cup {background-position:-63px -153px;}
 .contest-winners_place.place-big.place-3 > .cup {background-position:-126px -153px;}
 
-.contest-winners_prize {color:#3380b6;font-size:13px;}
+.contest-winners_prize {color:#3380b6;font-size:13px;margin-bottom:15px;}
 .contest-winners .gallery-photos-new {margin:0;}
 
 .contest-list {}

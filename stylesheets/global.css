@@ -776,7 +776,8 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 
 #contest {margin:0 10px;line-height:19px;font-size:13px;}
 
-/* #contest h4 {text-align: left;color: #0281b0;font: bold 14px Arial, Helvetica, sans-serif;padding: 6px 18px;background: #d4f5fc;display:inline-block;*zoom:1;*display:inline;clear: both;margin: 15px 0 15px;} */
+#contest .contest-rules h4 {text-align: left;color: #0281b0;font: bold 14px Arial, Helvetica, sans-serif;padding: 6px 18px;background: #d4f5fc;display:inline-block;*zoom:1;*display:inline;clear: both;margin: 15px 0 15px;}
+#contest.contest-3 .contest-rules h4 {background:#C4F297;}
 
 #contest .contest-rules p {margin:5px 0;line-height:normal;}
 #contest .contest-rules ul {list-style-position:inside;margin-left:20px;padding:10px 0;}

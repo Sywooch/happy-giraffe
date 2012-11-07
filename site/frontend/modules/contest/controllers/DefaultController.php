@@ -39,10 +39,11 @@ class DefaultController extends HController
     public function actionIndex()
     {
         $this->layout = '//layouts/main';
-        $contests = Contest::model()->findAll();
-        $this->render('index', array(
-            'contests' => $contests,
-        ));
+        $this->pageTitle = 'Наши конкурсы';
+
+        $dp = Contest::model()->getActiveList();
+
+        $this->render('index', compact('dp'));
     }
 
     public function actionView($id)

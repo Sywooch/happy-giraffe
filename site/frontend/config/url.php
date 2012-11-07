@@ -27,7 +27,7 @@ return array(
         'js_dynamics/<hash:\w+>.js' => 'site/seoHide',
         'search' => 'site/search',
         'site/<_a:(confirmEmail|resendConfirmEmail|passwordRecovery|passwordRecoveryForm|login|logout|link|test2|users)>' => 'site/<_a>',
-        'contest' => 'site/contest',
+        //'contest' => 'site/contest',
         'services/<category_id:\d+>' => 'site/services',
         'services' =>  'site/services',
 
@@ -130,7 +130,7 @@ return array(
         'contest/work<id:\d+>' => 'contest/default/work',
         'contest/<_a>/<id:\d+>' => 'contest/default/<_a>',
 
-        '<_m:(geo|im|signal|scores|cook)>/' => '<_m>/default/index',
+        '<_m:(geo|im|signal|scores|cook|contest)>/' => '<_m>/default/index',
         '<_m:(geo|im|signal)>/<_a>' => '<_m>/default/<_a>',
         'commentator'=>'signal/commentator/index',
         'commentator/statistic'=>'signal/commentator/statistic',

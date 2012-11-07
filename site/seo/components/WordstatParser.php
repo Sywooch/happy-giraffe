@@ -63,10 +63,8 @@ class WordstatParser extends ProxyParserThread
     {
         if (empty($this->next_page)) {
             $this->getKeyword();
-            if (!isset($this->keyword->keyword)){
-                echo 'epic fail: '.$this->keyword->keyword_id;
-                Yii::app()->end();
-            }
+            while (!isset($this->keyword->keyword))
+                $this->getKeyword();
             $this->next_page = 'http://wordstat.yandex.ru/?cmd=words&page=1&t=' . urlencode($this->keyword->keyword->name) . '&geo=&text_geo=';
         }
     }

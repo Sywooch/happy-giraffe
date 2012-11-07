@@ -105,14 +105,12 @@ class DefaultController extends HController
     public function actionRules($id)
     {
         $contest = Contest::model()->findByPk($id);
-        if ($contest === null) throw new CHttpException(404, 'Такого конкурса не существует.');
-        $this->pageTitle = 'Правила фотоконкурса "' . $contest->title . '"';
+        if ($contest === null)
+            throw new CHttpException(404, 'Такого конкурса не существует.');
 
+        $this->pageTitle = 'Правила фотоконкурса «' . $contest->title . '»';
         $this->contest = $contest;
-
-        $this->render('rules', array(
-            'contest' => $contest,
-        ));
+        $this->render('rules', compact('contest'));
     }
 
     public function actionWork($id)

@@ -42,6 +42,10 @@ $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
 ));
 ?>
 
+<p style="color: #F66161;">Фотоконкурс “Мама и Я” завершился!<br />
+    Голосование окончено. Благодарим всех участников и болельщиков!<br />
+    Имена победителей будут оглашены 12 ноября.</p><br />
+
 <div class="a-right fast-sort">
     Сортировать по:
     <?php echo CHtml::dropDownList('sort', $sort,
@@ -56,8 +60,6 @@ $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
 </div>
 
 <div class="content-title">Участники конкурса (<?=$works->totalItemCount ?>)</div>
-
-
 
 <?php
     $this->widget('zii.widgets.CListView', array(

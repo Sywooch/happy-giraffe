@@ -118,7 +118,7 @@ class CookDecoration extends CActiveRecord
         ));
     }
 
-    public function indexDataProvider($categoryId, $perPage = 9)
+    public function indexDataProvider($categoryId)
     {
         $dataProvider = new CActiveDataProvider('CookDecoration', array(
             'criteria' => array(
@@ -128,7 +128,7 @@ class CookDecoration extends CActiveRecord
                 'with' => array('photo'),
             ),
             'pagination' => array(
-                'pageSize' => $perPage,
+                'pageSize' => 20,
                 'pageVar' => 'page',
                 //'route' => '/cook/decor'
             ),

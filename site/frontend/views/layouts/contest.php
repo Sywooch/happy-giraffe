@@ -15,7 +15,7 @@
     <div class="contest-text">
         <div class="holder">
             <img src="/images/contest/banner-mother-i-2.jpg" alt="<?=$this->contest->title?>" />
-            <?php if (Yii::app()->user->isGuest || Yii::app()->user->model->getContestWork($this->contest->id) === null): ?>
+            <?php if ((Yii::app()->user->isGuest || Yii::app()->user->model->getContestWork($this->contest->id) === null) && false): ?>
                 <div class="button-holder">
                     <a href="<?=$this->createUrl('/contest/default/statement', array('id' => $this->contest->id))?>" onclick="Contest.canParticipate(this, '<?=$this->createUrl('/contest/default/canParticipate', array('id' => $this->contest->id))?>'); return false;" class="btn-blue btn-blue-55">Участвовать!</a>
                 </div>

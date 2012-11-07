@@ -6,6 +6,7 @@ class OnlineUsersCommand extends CConsoleCommand
 
     public function actionIndex()
     {
+        ini_set('memory_limit', -1);
         Yii::import('site.frontend.modules.im.models.*');
         Yii::import('site.frontend.modules.im.components.*');
         Yii::import('site.frontend.modules.scores.models.*');

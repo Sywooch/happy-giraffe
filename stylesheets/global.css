@@ -881,6 +881,7 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 .contest-list_banner {float:left;width:280px;min-height:250px;margin-right:25px;text-align:center;border:1px solid #e8e8e8;}
 .contest-list_holder {overflow:hidden;height:1%;}
 .contest-list .content-title {text-align:center;}
+.contest-list .content-title > a{color:#0281b0;}
 .contest-list_row {padding:15px 0;}
 .contest-list_row > .date {float:left;font:bold 25px/46px Arial, Tahoma, Verdana, sans-serif;color:#37b453;}
 .contest-list_row > .date.red {color:#fe624d;}

@@ -21,7 +21,7 @@ class Contest extends CActiveRecord
     const STATUS_DEVELOPMENT = 0;
     const STATUS_ACTIVE = 1;
     const STATUS_FINISHED = 2;
-    const STATUS_RESULT = 3;
+    const STATUS_RESULTS = 3;
 
     const STATEMENT_GUEST = 10;
     const STATEMENT_STEPS = 11;
@@ -114,6 +114,17 @@ class Contest extends CActiveRecord
         ));
     }
 
+    public function getActiveList()
+    {
+        return new CActiveDataProvider($this, array(
+            'criteria' => array(
+                'condition' => 'status != :status_development',
+                'params' => array(':status_development' => self::STATUS_DEVELOPMENT),
+                'order' => 'id DESC',
+            ),
+        ));
+    }
+
     public function getIsStatement()
     {
         if (Yii::app()->user->isGuest)
@@ -137,30 +148,6 @@ class Contest extends CActiveRecord
             ':contest_id'=>$this->id,
         ))
             ->queryScalar();
-    }
-
-    protected function beforeSave()
-    {
-        $this->from_time = preg_replace('/(\d{2})\.(\d{2})\.(\d{4})/', '$3-$2-$1', $this->from_time);
-        $this->till_time = preg_replace('/(\d{2})\.(\d{2})\.(\d{4})/', '$3-$2-$1', $this->till_time);
-
-        return parent::beforeSave();
-    }
-
-    protected function afterSave()
-    {
-        $this->from_time = preg_replace('/(\d{4})-(\d{2})-(\d{2})/', '$3.$2.$1', $this->from_time);
-        $this->till_time = preg_replace('/(\d{4})-(\d{2})-(\d{2})/', '$3.$2.$1', $this->till_time);
-
-        parent::afterSave();
-    }
-
-    protected function afterFind()
-    {
-        $this->from_time = preg_replace('/(\d{4})-(\d{2})-(\d{2})/', '$3.$2.$1', $this->from_time);
-        $this->till_time = preg_replace('/(\d{4})-(\d{2})-(\d{2})/', '$3.$2.$1', $this->till_time);
-
-        return parent::afterFind();
     }
 
     public function getPhotoCollection($preload_id = null)
@@ -237,5 +224,20 @@ class Contest extends CActiveRecord
     public function getUrl()
     {
         return Yii::app()->createUrl('/contest/default/view', array('id' => $this->id));
+    }
+
+    public function getFrom()
+    {
+        return date('d.m', strtotime($this->from_time));
+    }
+
+    public function getTo()
+    {
+        return date('d.m', strtotime($this->till_time));
+    }
+
+    public function getYear()
+    {
+        return date('Y', strtotime($this->from_time));
     }
 }

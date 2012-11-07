@@ -4766,14 +4766,14 @@ label {
 	position:relative;
 	border:1px solid #eeeded;
 	margin:-52px 0 55px;
-	padding:20px;
+	padding:5px 20px 20px;
 	text-align:center;
 }
 	.contest-participant h3 {
 		color:#252525;
 		font-size:22px;
 		font-weight:normal;
-		margin-bottom:5px;
+		margin:15px 0 5px;
 	}
 	.contest-participant .img {
 		display:block;

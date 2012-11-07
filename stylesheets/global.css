@@ -875,7 +875,7 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 .contest-winners_place.place-big.place-2 > .cup {background-position:-63px -153px;}
 .contest-winners_place.place-big.place-3 > .cup {background-position:-126px -153px;}
 
-.contest-winners_prize {color:#3380b6;font-size:13px;margin-bottom:10px;}
+.contest-winners_prize {color:#3380b6;font-size:13px;margin-bottom:7px;}
 .contest-winners .gallery-photos-new {margin:0;}
 
 .contest-list {}

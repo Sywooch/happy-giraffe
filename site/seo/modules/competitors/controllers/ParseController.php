@@ -412,8 +412,10 @@ class ParseController extends SController
                         return false;
 
                     $keyword_model = Keyword::GetKeyword($keyword);
-                    SiteKeywordVisit::SaveValue($site_id, $keyword_model->id, $month, $year, $stats);
-                    $count++;
+                    if ($keyword_model !== null){
+                        SiteKeywordVisit::SaveValue($site_id, $keyword_model->id, $month, $year, $stats);
+                        $count++;
+                    }
                 }
             }
         }

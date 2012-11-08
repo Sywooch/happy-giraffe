@@ -3270,6 +3270,8 @@ ul.letters li a:hover {
 /* horoscope */
 
 #horoscope {}
+#horoscope .horoscope-otherday {font-size: 15px;color: #131313;padding: 10px 0;}
+#horoscope .horoscope-otherday > a{padding: 0 5px;}
 #horoscope .horoscope-list {padding:20px;border:1px solid #ededed;margin-bottom:20px;}
 #horoscope .horoscope-list p {font-size:13px;line-height:19px;}
 #horoscope .horoscope-list ul {list-style:none;padding-top:10px;}
@@ -3295,13 +3297,13 @@ ul.letters li a:hover {
 #horoscope .horoscope-one .img .date {display:inline-block;*zoom:1;*display:inline;vertical-align:top;text-align:center;padding-top:45px;color:#858585;font-size:16px;width:240px;text-align:center;}
 #horoscope .horoscope-one .img .date span {font:italic 45px/1.2 times new roman, serif;display:block;color:#2d87be;}
 
-#horoscope .horoscope-one .dates {text-align:center;margin:20px 0;font-size:14px;color:#666;}
-#horoscope .horoscope-one .dates ul {list-style:none;}
-#horoscope .horoscope-one .dates ul li {display:inline;padding:0 12px;}
-#horoscope .horoscope-one .dates ul li a {display:inline-block;*zoom:1;*display:inline;padding:2px 5px;}
+#horoscope .horoscope-one .dates{text-align:center;margin:20px 0 10px;font-size:14px;color:#666;}
+#horoscope .horoscope-one .dates ul{list-style:none;}
+#horoscope .horoscope-one .dates ul li{display:inline;padding:0 12px;}
+#horoscope .horoscope-one .dates ul li a{display:inline-block;*zoom:1;*display:inline;padding:2px 5px;}
 #horoscope .horoscope-one .dates ul li.active a {background:#fff8bb;text-decoration:none;cursor:default;}
 
-#horoscope .horoscope-one .text {padding-top:20px;}
+#horoscope .horoscope-one .text {padding:30px 0 10px;}
 #horoscope .horoscope-one .text .date {width:110px;height:135px;background:url(/images/bg-paper.png) no-repeat;color:#0b99ee;font-size:30px;font-weight:bold;text-align:center;padding:40px 0 0;line-height:36px;float:left;margin:0 25px 15px 0;}
 #horoscope .horoscope-one .text .date > span {font-size:50px;display:block;}
 #horoscope .horoscope-one .text .holder {overflow:hidden;}
@@ -3326,7 +3328,8 @@ ul.letters li a:hover {
 #horoscope .horoscope-fast-list ul li a {text-decoration:none;color:#2d2d2d;font-size:10px;}
 #horoscope .horoscope-fast-list ul li a span {color:#2d87be;font:italic 18px times new roman, serif;text-decoration:underline;}
 #horoscope .horoscope-fast-list ul li a:hover span {text-decoration:none;}
-
+#horoscope .horoscope-fast-list ul li .other {background:#fff9b2;margin: 15px 0 0;padding:20px 0 20px 14px;width: 66px;text-align: left; position: relative;font-size: 15px;line-height: 16px;color: #343535;}
+#horoscope .horoscope-fast-list ul li .other:after{content:'';position:absolute;right:-22px;top:0;width:0;height:0;border:1px solid #fff;border-width:45px 0 45px 22px;border-left-color:#fff9b2;display:block;clear:both;}
 
 .horoscope-compatibility {padding:15px;border:1px solid #eeeeee;margin-bottom:30px;}
 .horoscope-compatibility .block-title {color:#0281b0;font:bold 25px arial, helvetica, sans-serif;margin-bottom:20px;}
@@ -3362,6 +3365,10 @@ ul.letters li a:hover {
 .horoscope-compatibility-list > ul > li .img .date span {font:italic 20px/1 times new roman, serif;display:block;color:#2d87be;}
 .horoscope-compatibility-list > ul > li .text {font-size:11px;line-height:17px;color:#626262;}
 
+.horoscope-daylist {margin: 5px auto 20px;}
+.horoscope-daylist > ul  {list-style: none;text-align: center;}
+.horoscope-daylist > ul > li {display: inline-block;*zoom:1;*display:inline;margin: 0 17px 13px;}
+
 
 .fast-horoscope {padding:20px;border:1px solid #f1eaf6;width:200px;float:right;}
 .fast-horoscope .block-title {margin-bottom:10px;}
@@ -3376,7 +3383,7 @@ ul.letters li a:hover {
 .fast-horoscope ul li .img .date span {font:italic 20px/1 times new roman, serif;display:block;color:#2d87be;}
 .fast-horoscope ul li .text {font-size:11px;line-height:17px;color:#626262;}
 
-.horoscope-subscribe-big {margin:0 0 20px;background:#e2edff;padding:20px;}
+.horoscope-subscribe-big {margin:30px 0 20px;background:#e2edff;padding:20px;}
 .horoscope-subscribe-big .submit {float:right;font-size:30px;font-weight:bold;}
 .horoscope-subscribe-big > label {font-size:20px;color:#2b2b2b;display:block;margin:0 0 10px;}
 .horoscope-subscribe-big > .inptext {height:19px;padding:8px 14px;font-size:17px;background:#fff;width:360px;}
@@ -3385,8 +3392,16 @@ ul.letters li a:hover {
 .horoscope-subscribe  p {margin:5px 20px;color:#8b8c8c;font-size:13px;line-height:19px;text-align:left;}
 .horoscope-subscribe .btn-want {display:inline-block;*zoom:1;*display:inline;width:144px;height:53px;background:url(/images/btn_horoscope_subscribe.png) no-repeat;color:#fff;text-align:center;line-height:53px;font-weight:bold;font-size:35px;text-decoration:none;margin:10px auto;}
 
-
-
+.horoscope-month {margin: 5px 0 10px;line-height: 22px;color: #757474;}
+.horoscope-month > table {border: 0;margin: 0 30px 0 160px;float: left;}
+.horoscope-month > table td {border: 1px solid #eff0f1;border-width: 0 1px 1px 0;padding: 1px;}
+.horoscope-month > table td:last-child {border-right: 0;}
+.horoscope-month > table tr:last-child td {border-bottom: 0;}
+.horoscope-month .day {display: block;width: 23px;text-align: center;}
+.horoscope-month .day.good {background: #fed4b0;}
+.horoscope-month .day.bad {background: #c2ecfe;}
+.horoscope-month .legend {float: left;margin: 40px 0 0;}
+.horoscope-month .legend .day {display:inline-block;*zoom:1;*display:inline;width: 12px;height: 12px;vertical-align: middle;}
 
 #repair-wallpapers {}
 #repair-wallpapers .form {border:1px solid #fbefff;background:url(/images/bg_repair_wallpapers.jpg) no-repeat right bottom;min-height:570px;padding:22px;}

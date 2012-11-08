@@ -112,39 +112,22 @@ class DefaultController extends HController
         ));
     }
 
-    public function actionResults($id, $work = false)
+    public function actionResults($id)
     {
-        $winners = array(117, 128, 248, 43, 220);
-        $this->contest = Contest::model()->findByPk($id);
-        if($work && $index = array_search($work, $winners))
-        {
-            $model = ContestWork::model()->findByPk($work);
-        }
-        else
-        {
-            $index = 0;
-            $model = ContestWork::model()->findByPk($winners[0]);
-        }
-        $this->render('results', array('work' => $model, 'winners' => $winners, 'index' => $index));
-    }
+        $contest = Contest::model()->findByPk($id);
+        if ($contest === null)
+            throw new CHttpException(404, 'Такого конкурса не существует.');
+        $this->contest = $contest;
+        $this->pageTitle = 'Результаты фотоконкурса «' . $contest->title . '»';
 
-    public function actionPreview()
-    {
-        $dst = '/upload/contest/preview/' . time() . '_' . $_FILES['ContestWork']['name']['work_image'];
-        FileHandler::run($_FILES['ContestWork']['tmp_name']['work_image'], Yii::getPathOfAlias('webroot') . $dst, array(
-            'accurate_resize' => array(
-                'width' => 177,
-                'height' => 109,
-            ),
-        ));
-        echo Yii::app()->baseUrl . $dst;
+        $this->render('results');
     }
 
     public function actionStatement($id)
     {
         $this->contest = Contest::model()->findByPk($id);
 
-        if(($this->contest->isStatement !== true && Yii::app()->user->id != 10465) || true)
+        if ($this->contest->getCanParticipate() !== true)
             throw new CHttpException(404);
 
         $this->pageTitle = 'Участвовать в фотоконкурсе "' . $this->contest->title . '"';
@@ -195,13 +178,13 @@ class DefaultController extends HController
     public function actionCanParticipate($id)
     {
         $contest = Contest::model()->findByPk($id);
-        $statement = $contest->isStatement;
+        $statement = $contest->getCanParticipate();
 
         $response = array(
             'status' => $statement,
         );
 
-        if ($statement == 1)
+        if ($statement == Contest::STATEMENT_STEPS)
             $response['id'] = Yii::app()->user->id;
 
         echo CJSON::encode($response);

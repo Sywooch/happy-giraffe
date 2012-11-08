@@ -16,7 +16,7 @@ class WordstatCommand extends CConsoleCommand
     /**
      * Удляем из парсинга кеи, для которых частота уже определена и она < LIMIT
      */
-    public function actionRemoveLowRanksFromParsing()
+    /*public function actionRemoveLowRanksFromParsing()
     {
         $criteria = new CDbCriteria;
         $criteria->limit = 1000;
@@ -34,7 +34,7 @@ class WordstatCommand extends CConsoleCommand
         }
 
         echo $i . "\n";
-    }
+    }*/
 
     public function actionAdd()
     {
@@ -179,21 +179,30 @@ skrapbook
         }
     }
 
-    public function actionRemoveParsedKeywords()
+    public function actionAddKeywords()
     {
         $criteria = new CDbCriteria;
         $criteria->limit = 1000;
         $criteria->with = array('yandex');
-        $criteria->condition = 'yandex.parsed = 1 AND yandex.theme = 0';
+        $criteria->order = 'id desc';
 
         $i = 0;
         $models = array(1);
         while (!empty($models)) {
-            $models = ParsingKeyword::model()->findAll($criteria);
-            foreach ($models as $model) {
-                $model->delete();
-                $i++;
-            }
+            $models = Keyword::model()->findAll($criteria);
+            foreach ($models as $model)
+                if (!isset($model->yandex)){
+                    $parsing = new ParsingKeyword();
+                    $parsing->keyword_id = $model->id;
+                    try{
+                    $parsing->save();
+                    }catch (Exception $e){
+
+                    }
+                    $i++;
+                }
+
+            $criteria->offset += 1000;
         }
 
         echo $i . "\n";

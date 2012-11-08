@@ -345,32 +345,23 @@ class SeoCommand extends CConsoleCommand
 
     public function actionGaTest(){
 
-        $user_id = 10023;
-
-        $period = '2012-10';
+        $period = '2012-11';
         Yii::import('site.frontend.extensions.GoogleAnalytics');
         $ga = new GoogleAnalytics('alexk984@gmail.com', Yii::app()->params['gaPass']);
         $ga->setProfile('ga:53688414');
-        $ga->setDateRange($period . '-01', $period . '-29');
-        sleep(1);
+        $ga->setDateRange($period . '-01', $period . '-30');
 
         try {
             $report = $ga->getReport(array(
-                'metrics' => urlencode('ga:uniquePageviews'),
-                'filters' => urlencode('ga:pagePath==' . '/user/' . $user_id . '/'),
+                'metrics' => urlencode('ga:organicSearches'),
+                'filters' => urlencode('ga:pagePath==/user/15468/blog/post32976/'),
             ));
-        } catch (Exception $err) {
 
-            var_dump($err);
-            return null;
+        } catch (Exception $err) {
+            var_dump($err->getMessage());
         }
 
-        if (!empty($report))
-            $value = $report['']['ga:uniquePageviews'];
-        else
-            $value = 0;
-
-        echo $value;
+        var_dump($report);
     }
 }
 

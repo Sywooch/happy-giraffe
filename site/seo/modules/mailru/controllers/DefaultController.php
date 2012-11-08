@@ -43,30 +43,66 @@ class DefaultController extends SController
     }
 
     public function actionTest(){
-        $names = 'се
-ал
-ел
-юл
-вал
+        $names = 'але
+ало
+алю
 анд
-яш
-кис
-нас
-яр
-кон
-нат
-мар
+ане
+бо
+ва
+ве
+во
+га
+ге
+ги
 дми
-ром
-пре
-юр
-юл
+да
+де
+ди
+ел
 евг
-эл
-ша
-хи
-та
+ек
+ес
+жи
+же
+зи
+за
+зе
+кис
+кон
+ке
 ла
+ле
+ли
+ма
+ме
+ми
+нас
+нат
+не
+ни
+ол
+пре
+па
+по
+ро
+ра
+ре
+се
+са
+све
+та
+те
+ти
+хи
+ша
+эл
+юл
+юр
+яр
+яш
+ян
+яя
 ';
         $names = explode("\n", $names);
         $names = array_unique($names);
@@ -76,7 +112,7 @@ class DefaultController extends SController
         foreach ($names as $name) {
             $q = new MailruQuery();
             $text = urlencode(iconv("UTF-8", "Windows-1251", $name));
-            $q->text = 'http://my.mail.ru/community/momi/friends?&sort=&search_text='.$text;
+            $q->text = 'http://my.mail.ru/community/dizzzain/friends?&sort=&search_text='.$text;
             $q->type = MailruQuery::TYPE_SEARCH_USERS;
             $q->save();
         }

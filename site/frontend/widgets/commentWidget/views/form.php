@@ -31,9 +31,7 @@
     <?php echo $form->hiddenField($comment_model, 'entity', array('value' => $this->entity)); ?>
     <?php echo $form->hiddenField($comment_model, 'entity_id', array('value' => $this->entity_id)); ?>
     <?php echo CHtml::hiddenField('edit-id', ''); ?>
-    <?php echo $form->textArea($comment_model, 'text', array(
-        'id' => (Yii::app()->request->isAjaxRequest) ? $this->commentModel . '_text' . '_ajax' : $this->commentModel . '_text',
-    )); ?>
+    <?php echo $form->textArea($comment_model, 'text'); ?>
     <?php
     /*$this->widget('ext.ckeditor.CKEditorWidget', array(
         'model' => $comment_model,
@@ -64,5 +62,5 @@
     </div>
 <?php endif; ?>
 <script type="text/javascript">
-    var cke_instance = <?=(Yii::app()->request->isAjaxRequest) ? $this->commentModel . '_text' . '_ajax' : $this->commentModel . '_text'?>;
+    var cke_instance = '<?php echo $this->commentModel; ?>_text';
 </script>

@@ -244,7 +244,7 @@ class CommentatorsMonthStats extends EMongoDocument
         $ga = new GoogleAnalytics('alexk984@gmail.com', Yii::app()->params['gaPass']);
         $ga->setProfile('ga:53688414');
         $ga->setDateRange($this->period . '-01', $this->period . '-' . $this->getLastPeriodDay($this->period));
-        usleep(500000);
+        sleep(1);
 
         try {
             $report = $ga->getReport(array(
@@ -272,7 +272,7 @@ class CommentatorsMonthStats extends EMongoDocument
         $ga = new GoogleAnalytics('alexk984@gmail.com', Yii::app()->params['gaPass']);
         $ga->setProfile('ga:53688414');
         $ga->setDateRange($this->period . '-01', $this->period . '-' . $this->getLastPeriodDay($this->period));
-        usleep(500000);
+        sleep(1);
 
         try {
             $report = $ga->getReport(array(
@@ -321,7 +321,7 @@ class CommentatorsMonthStats extends EMongoDocument
         $ga = new GoogleAnalytics('alexk984@gmail.com', Yii::app()->params['gaPass']);
         $ga->setProfile('ga:53688414');
         $ga->setDateRange($this->period . '-01', $this->period . '-' . $this->getLastPeriodDay($this->period));
-        usleep(500000);
+        sleep(1);
 
         try {
             $report = $ga->getReport(array(

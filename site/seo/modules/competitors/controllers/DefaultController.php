@@ -13,6 +13,9 @@ class DefaultController extends SController
             case 2:
                 $this->layout = '//layouts/cook';
                 break;
+            case 10:
+                $this->layout = '//layouts/writing';
+                break;
         }
         if (empty($site_id))
             $site_id = SeoUserAttributes::getAttribute('last_competitor_site_id_section_' . $section);

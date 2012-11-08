@@ -3,7 +3,7 @@
 class ParseController extends SController
 {
     public $layout = '//layouts/empty';
-    const STATS_LIMIT = 2;
+    const STATS_LIMIT = 4;
 
     public function beforeAction($action)
     {
@@ -38,6 +38,15 @@ class ParseController extends SController
                 'status' => false,
                 'error' => $error
             ));
+    }
+
+    public function actionParse2()
+    {
+        $site_id = 57;
+
+        Yii::import('site.frontend.extensions.phpQuery.phpQuery');
+        $this->parseStats($site_id, 2011, 1, 12, 0);
+        $this->parseStats($site_id, 2012, 1, 11, 0);
     }
 
     public function parseStats($site_id, $year, $month_from, $month_to, $mode)
@@ -423,9 +432,9 @@ class ParseController extends SController
         return $count;
     }
 
-    public function actionEncode()
+    public function actionExport()
     {
-        $sites = range(30,30);
+        $sites = range(50,60);
         foreach ($sites as $site_id) {
             $criteria = new CDbCriteria;
             $criteria->compare('site_id', $site_id);
@@ -452,13 +461,12 @@ class ParseController extends SController
         }
     }
 
-    public function actionDecode()
+    public function actionImport()
     {
         $criteria = new CDbCriteria;
         $criteria->limit = 100;
         $criteria->offset = 0;
 
-        $i = 0;
         $models = array(0);
         while (!empty($models)) {
             $models = SitesKeywordsVisit2::model()->findAll($criteria);
@@ -470,8 +478,7 @@ class ParseController extends SController
                 $model2->save();
             }
 
-            $i++;
-            $criteria->offset = $i * 100;
+            $criteria->offset += 100;
         }
     }
 

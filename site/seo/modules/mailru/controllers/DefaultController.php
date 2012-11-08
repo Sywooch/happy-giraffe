@@ -43,72 +43,52 @@ class DefaultController extends SController
     }
 
     public function actionTest(){
-        $names = 'але
-ало
-алю
-анд
-ане
-бо
-ва
-ве
-во
-га
-ге
-ги
-дми
-да
-де
-ди
-ел
-евг
-ек
-ес
-жи
-же
-зи
-за
-зе
-кис
-кон
-ке
-ла
-ле
-ли
-ма
-ме
-ми
-нас
-нат
-не
-ни
-ол
-пре
-па
-по
-ро
-ра
-ре
-се
-са
-све
-та
-те
-ти
-хи
-ша
-эл
-юл
-юр
-яр
-яш
-ян
-яя
+        $names = 'алексей
+александр
+анатолий
+анастасия
+аглая
+алла
+алис
+альберт
+андрей
+алия
+алина
+арс
+артем
+ася
+антон
+борис
+вадим
+валя
+вале
+валер
+василий
+вася
+вера
+влад
+владимир
+вик
+виктор
+виталей
+вит
+глеб
+гал
+ген
+гео
+давид
+дани
+даш
+дарья
+динара
+денис
+диа
 ';
         $names = explode("\n", $names);
         $names = array_unique($names);
         echo count($names);
 
-        MailruQuery::model()->deleteAll();
+//        MailruQuery::model()->deleteAll();
         foreach ($names as $name) {
             $q = new MailruQuery();
             $text = urlencode(iconv("UTF-8", "Windows-1251", $name));

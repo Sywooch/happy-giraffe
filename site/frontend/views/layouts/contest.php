@@ -12,7 +12,7 @@
 ?>
 
 <div class="section-banner">
-    <?php if ((Yii::app()->user->isGuest || Yii::app()->user->model->getContestWork($this->contest->id) === null) && false): ?>
+    <?php if ($this->contest->getCanParticipate() === true): ?>
         <div class="button-holder">
             <a href="<?=$this->createUrl('/contest/default/statement', array('id' => $this->contest->id))?>" onclick="Contest.canParticipate(this, '<?=$this->createUrl('/contest/default/canParticipate', array('id' => $this->contest->id))?>'); return false;" class="btn-blue btn-blue-55">Участвовать!</a>
         </div>
@@ -40,6 +40,12 @@
                         'label' => 'Участники',
                         'url' => array('/contest/default/list', 'id' => $this->contest->id),
                         'active' => $this->action->id == 'list',
+                    ),
+                    array(
+                        'label' => 'Победители',
+                        'url' => array('/contest/default/results', 'id' => $this->contest->id),
+                        'active' => $this->action->id == 'results',
+                        'visible' => $this->contest->status == Contest::STATUS_RESULTS,
                     ),
                 ),
             ));

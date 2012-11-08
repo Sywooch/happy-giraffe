@@ -16,7 +16,7 @@
  * @property ContestPrizes[] $contestPrizes
  * @property ContestWorks[] $contestWorks
  */
-class Contest extends CActiveRecord
+class Contest extends HActiveRecord
 {
     const STATUS_DEVELOPMENT = 0;
     const STATUS_ACTIVE = 1;
@@ -25,6 +25,8 @@ class Contest extends CActiveRecord
 
     const STATEMENT_GUEST = 10;
     const STATEMENT_STEPS = 11;
+    const STATEMENT_FINISHED = 12;
+    const STATEMENT_ALREADY = 13;
 
     /**
      * Returns the static model of the specified AR class.
@@ -71,6 +73,7 @@ class Contest extends CActiveRecord
         return array(
             'prizes' => array(self::HAS_MANY, 'ContestPrize', 'contest_id'),
             'works' => array(self::HAS_MANY, 'ContestWork', 'contest_id'),
+            'winners' => array(self::HAS_MANY, 'ContestWinner', array('id' => 'work_id'), 'through' => 'works', 'with' => 'work'),
         );
     }
 
@@ -125,29 +128,17 @@ class Contest extends CActiveRecord
         ));
     }
 
-    public function getIsStatement()
+    public function getCanParticipate()
     {
+        if ($this->status > self::STATUS_ACTIVE)
+            return self::STATEMENT_FINISHED;
         if (Yii::app()->user->isGuest)
             return self::STATEMENT_GUEST;
-        if (Yii::app()->user->model->getScores()->full != 2)
+        if (Yii::app()->user->model->getScores()->full == 0)
             return self::STATEMENT_STEPS;
         if (ContestWork::model()->findByAttributes(array('user_id' => Yii::app()->user->id, 'contest_id' => $this->id)))
-            return false;
-        if (time() > strtotime($this->till_time))
-            return false;
+            return self::STATEMENT_ALREADY;
         return true;
-    }
-
-    public function getWorkCount()
-    {
-        $contestWork = new ContestWork;
-        return Yii::app()->db->createCommand()
-            ->select('COUNT(id)')
-            ->from($contestWork->tableName())
-            ->where('contest_id=:contest_id', array(
-            ':contest_id'=>$this->id,
-        ))
-            ->queryScalar();
     }
 
     public function getPhotoCollection($preload_id = null)

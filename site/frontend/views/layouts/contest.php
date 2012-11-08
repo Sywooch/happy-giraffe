@@ -12,20 +12,15 @@
 ?>
 
 <div class="section-banner">
-    <div class="contest-text">
-        <div class="holder">
-            <img src="/images/contest/banner-mother-i-2.jpg" alt="<?=$this->contest->title?>" />
-            <?php if ((Yii::app()->user->isGuest || Yii::app()->user->model->getContestWork($this->contest->id) === null) && false): ?>
-                <div class="button-holder">
-                    <a href="<?=$this->createUrl('/contest/default/statement', array('id' => $this->contest->id))?>" onclick="Contest.canParticipate(this, '<?=$this->createUrl('/contest/default/canParticipate', array('id' => $this->contest->id))?>'); return false;" class="btn-blue btn-blue-55">Участвовать!</a>
-                </div>
-            <?php endif; ?>
+    <?php if ((Yii::app()->user->isGuest || Yii::app()->user->model->getContestWork($this->contest->id) === null) && false): ?>
+        <div class="button-holder">
+            <a href="<?=$this->createUrl('/contest/default/statement', array('id' => $this->contest->id))?>" onclick="Contest.canParticipate(this, '<?=$this->createUrl('/contest/default/canParticipate', array('id' => $this->contest->id))?>'); return false;" class="btn-blue btn-blue-55">Участвовать!</a>
         </div>
-    </div>
-    <img src="/images/contest/banner-mother-i-1.jpg" />
+    <?php endif; ?>
+    <img src="/images/contest/banner-w1000-<?=$this->contest->id?>.jpg">
 </div>
 
-<div id="contest">
+<div id="contest" class="contest-<?=$this->contest->id?>">
 
     <div class="contest-nav clearfix">
         <?php

@@ -5,7 +5,7 @@
          <a class="btn-icon heart heart2<?=(! Yii::app()->user->isGuest && get_class($this->model) == 'ContestWork' && Yii::app()->user->model->scores->full == 0) ? ' yohoho_steps':''?><?php echo isset($this->model->author) && Yii::app()->user->id == $this->model->author->id ? ' yohoho_me ' : '' ?><?php echo RatingYohoho::model()->findByEntity($this->model) ? ' active' : ''; ?>" href="javascript:;" onclick="pushYohoho(this);"></a>
         <?php if (! Yii::app()->user->isGuest): ?>
             <div class="contest-error-hint" style="display: none;">
-                <h4>Oops!</h4><p>Что бы принять участие в конкурсе, вам нужно пройти <a href="<?=$this->controller->createUrl('/user/profile', array('user_id' => Yii::app()->user->id))?>">первые 6 шагов</a> в свой анкете </p>
+                <h4>Oops!</h4><p>Чтобы проголосовать, вам нужно пройти <a href="<?=$this->controller->createUrl('/user/profile', array('user_id' => Yii::app()->user->id))?>">первые 6 шагов</a> в свой анкете </p>
             </div>
         <?php endif; ?>
      <?php endif ?>

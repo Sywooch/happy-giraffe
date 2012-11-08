@@ -1,6 +1,6 @@
 <?php if ($this->_contest_work === null): ?>
-    <div class="contest-mother-i-advert">
-        <a href="<?=$this->controller->createUrl('/contest/default/view', array('id' => $this->contest_id))?>" class="btn-blue btn-blue-30">Приять участие!</a>
+    <div class="contest-advert-3">
+        <a href="<?=$this->controller->createUrl('/contest/default/view', array('id' => $this->contest_id))?>" class="btn-gold">Приять участие!</a>
     </div>
 <?php else: ?>
     <?php
@@ -14,8 +14,7 @@
             ));
     ?>
     <div class="contest-participant">
-        <h3>Участвую в фотоконкурсе</h3>
-        <img src="/images/contest/widget-mother-i.jpg" alt="" calss="contest-title" />
+        <img src="/images/contest/widget-3.jpg" alt="<?=$this->_contest->title?>" calss="contest-title">
         <div class="img">
             <a href="javascript:void(0)" data-id="<?=$this->
                 _contest_work->

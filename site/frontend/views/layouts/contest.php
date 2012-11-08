@@ -11,16 +11,16 @@
     ;
 ?>
 
-<div class="section-banner">
-    <?php if ($this->contest->getCanParticipate() === true): ?>
-        <div class="button-holder">
-            <a href="<?=$this->createUrl('/contest/default/statement', array('id' => $this->contest->id))?>" onclick="Contest.canParticipate(this, '<?=$this->createUrl('/contest/default/canParticipate', array('id' => $this->contest->id))?>'); return false;" class="btn-blue btn-blue-55">Участвовать!</a>
-        </div>
-    <?php endif; ?>
-    <img src="/images/contest/banner-w1000-<?=$this->contest->id?>.jpg">
-</div>
-
 <div id="contest" class="contest-<?=$this->contest->id?>">
+
+    <div class="section-banner">
+        <?php if (in_array($this->contest->getCanParticipate(), array(Contest::STATEMENT_GUEST, Contest::STATEMENT_STEPS, true))): ?>
+        <div class="button-holder">
+            <a href="<?=$this->createUrl('/contest/default/statement', array('id' => $this->contest->id))?>" onclick="Contest.canParticipate(this, '<?=$this->createUrl('/contest/default/canParticipate', array('id' => $this->contest->id))?>'); return false;" class="contest-button">Участвовать!</a>
+        </div>
+        <?php endif; ?>
+        <img src="/images/contest/banner-w1000-<?=$this->contest->id?>.jpg">
+    </div>
 
     <div class="contest-nav clearfix">
         <?php

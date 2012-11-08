@@ -33,6 +33,10 @@
         'entity_url' => $this->contest->url,
         'query' => array('sort' => 'rate'),
     ));
+
+    Yii::app()->eauth->renderWidget(array(
+        'mode' => 'assets',
+    ));
 ?>
 
 <div class="contest-about clearfix">

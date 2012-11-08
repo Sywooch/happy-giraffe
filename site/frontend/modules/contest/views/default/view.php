@@ -43,16 +43,16 @@ Yii::app()->eauth->renderWidget(array(
             'contest_id' => $this->contest->id,
             'registerGallery' => false,
         )); ?>
-    <?php elseif (false): ?>
+    <?php elseif ($this->contest->status == Contest::STATUS_ACTIVE): ?>
         <div class="sticker">
-            <?php if (Yii::app()->user->isGuest): ?>
+            <?php if ($this->contest->getCanParticipate() === Contest::STATEMENT_GUEST): ?>
                 <big>Условия конкурса:</big>
                 <p>Для того, чтобы принять участие в конкурсе, вы должны <?=CHtml::link('зарегистрироваться', '#register', array('class' => 'fancy', 'data-theme' => 'white-square'))?></p>
-            <?php elseif (Yii::app()->user->model->scores->full != 2): ?>
+            <?php elseif ($this->contest->getCanParticipate() === Contest::STATEMENT_STEPS): ?>
                 <big>Условия конкурса:</big>
                 <p>Для того, чтобы принять участие в конкурсе, вы должны <?=CHtml::link('пройти 6 шагов', array('/user/profile', 'user_id' => Yii::app()->user->id))?> заполнения анкеты</p>
             <?php else: ?>
-                <p>Разместите фотографию, на которой вы с малышом получились наиболее удачно и примите участие в конкурсе! Не забудьте пригласить друзей в группу поддержки!                </p>
+                <p>Разместите фотографию, на которой ваш малыш улыбается и примите участие в конкурсе! Не забудьте пригласить друзей в группу поддержки!</p>
                 <center>
                     <a href="<?=$this->createUrl('/contest/default/statement', array('id' => $this->contest->id))?>" onclick="Contest.canParticipate(this, '<?=$this->createUrl('/contest/default/canParticipate', array('id' => $this->contest->id))?>'); return false;" class="btn-green btn-green-medium">Участвовать<i class="arr-r"></i></a>
                 </center>

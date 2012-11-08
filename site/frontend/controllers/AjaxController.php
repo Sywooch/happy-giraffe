@@ -21,7 +21,7 @@ class AjaxController extends HController
             $authIdentity->redirectUrl = $model->getShare($service);
             $inc = false;
 
-            if (false) {
+            if ($model->contest->status == Contest::STATUS_ACTIVE) {
                 if ($authIdentity->authenticate()) {
                     $vote = new SocialVote;
                     $vote->entity = $entity;

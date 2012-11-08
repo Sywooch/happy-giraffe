@@ -47,7 +47,7 @@ class DefaultController extends SController
 алек
 анатолий
 анастасия
-аглая
+агл
 алла
 алис
 альберт
@@ -70,7 +70,6 @@ class DefaultController extends SController
 владимир
 вик
 виктор
-виталей
 вит
 глеб
 гал

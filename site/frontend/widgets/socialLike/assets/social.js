@@ -92,7 +92,4 @@ $(function () {
     $('body').delegate('.yohoho_steps', 'click', function () {
         $('.contest-error-hint').show().delay(3000).fadeOut(2000);
     });
-    $('body').delegate('.yohoho_closed', 'click', function () {
-        $('.contest-error-hint').show().delay(3000).fadeOut(2000);
-    });
 })

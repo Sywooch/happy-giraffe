@@ -4,7 +4,7 @@
 	<script type="text/javascript">
 		<?php
             $code = "
-                console.log('123');
+                window.opener.console.log('123');
                 var inc = " . CJSON::encode($inc) . ";
                 window.location = '" . addslashes($url) . "';
                 if (inc) {

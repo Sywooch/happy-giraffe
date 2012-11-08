@@ -43,7 +43,10 @@ class MailRuCommunityUsersParser extends ProxyParserThread
             $transaction->rollback();
         }
 
-        $this->page = 1;
+        if (!empty($this->query->max_page))
+            $this->page = $this->query->max_page;
+        else
+            $this->page = 1;
     }
 
     public function parsePage()
@@ -66,8 +69,11 @@ class MailRuCommunityUsersParser extends ProxyParserThread
                 }
                 $document->unloadDocument();
 
-                if ($count > 0)
+                if ($count > 0){
                     $this->page++;
+                    $this->query->max_page = $this->page;
+                    $this->query->update(array('max_page'));
+                }
                 else
                     $this->page = null;
             } else{

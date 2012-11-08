@@ -4,7 +4,7 @@
 	<script type="text/javascript">
 		<?php
             $code = "
-                document.domain = 'www.happy-giraffe.ru';
+                document.domain = document.location.host;
 
                 console.log('123');
                 var inc = " . CJSON::encode($inc) . ";

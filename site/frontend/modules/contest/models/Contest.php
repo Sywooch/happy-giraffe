@@ -134,7 +134,7 @@ class Contest extends HActiveRecord
             return self::STATEMENT_FINISHED;
         if (Yii::app()->user->isGuest)
             return self::STATEMENT_GUEST;
-        if (Yii::app()->user->model->getScores()->full == 0)
+        if (Yii::app()->user->model->getScores()->full == 0 && false)
             return self::STATEMENT_STEPS;
         if (ContestWork::model()->findByAttributes(array('user_id' => Yii::app()->user->id, 'contest_id' => $this->id)))
             return self::STATEMENT_ALREADY;

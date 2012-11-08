@@ -156,7 +156,7 @@
 
                     <?php $this->widget('ContestWidget', array(
                         'user' => $user,
-                        'contest_id' => 2,
+                        'contest_id' => 3,
                     )); ?>
 
                     <?php $this->widget('UserFriendsWidget', array(

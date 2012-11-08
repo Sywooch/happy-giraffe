@@ -62,41 +62,18 @@ Yii::app()->eauth->renderWidget(array(
 
     <div class="content-title">О конкурсе</div>
 
-    <p>Говорят, что самая прекрасная из женщин – это женщина с ребенком на руках. Общаясь на «Веселом Жирафе», мы поняли, что у нас самые прекрасные мамы, которые держат на руках самых красивых малышей. Теперь мы хотим показать их всем!</p>
-    <p>Примите участие в конкурсе «Мама и я» – покажитесь всему миру! Посмотрите на другие счастливые лица малышей и их мам из разных городов. А кроме приятного общения, которое гарантировано для всех участников конкурса, авторы самых интересных по мнению пользователей фотографий получат отличные призы.</p>
-    <p style="color: #F66161;">Фотоконкурс “Мама и Я” завершился!<br />
-        Голосование окончено. Благодарим всех участников и болельщиков!<br />
-        Имена победителей будут оглашены 12 ноября.</p>
+    <?=$contest->text?>
+    <?php if ($contest->id == 2): ?>
+        <p style="color: #F66161;">Фотоконкурс “Мама и Я” завершился!<br />
+            Голосование окончено. Благодарим всех участников и болельщиков!<br />
+            Имена победителей будут оглашены 12 ноября.</p>
+    <?php endif; ?>
 
 </div>
 
 <div class="content-title">Вас ждут замечательные призы!</div>
 
-<div class="contest-prizes-list contest-prizes-list-2 clearfix">
-
-    <ul>
-        <li>
-            <div class="img">
-                <img src="/images/prize_6.jpg" />
-            </div>
-            <div class="place place-1-1"></div>
-            <div class="title">
-                <a href="">Фотоаппарат<br/><b>SONY Cyber-shot DSC-HX10</b></a>
-            </div>
-        </li>
-        <li>
-            <div class="img">
-                <img src="/images/prize_7.jpg" />
-            </div>
-            <div class="place place-2-3"></div>
-            <div class="title">
-                <a href="">Фоторамка<br/><b>SONY DPF-D830LB 8"</b></a>
-            </div>
-        </li>
-
-    </ul>
-
-</div>
+<?php $this->renderPartial('prizes/' . $this->contest->id); ?>
 
 <?php if ($works->itemCount > 0): ?>
     <div class="content-title">

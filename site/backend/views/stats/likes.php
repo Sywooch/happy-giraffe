@@ -7,7 +7,7 @@ echo count($models) . ' участников<br><br>';
 $likes = array('tw' => 0, 'vk' => 0, 'ok' => 0, 'fb' => 0, 'yh' => 0);
 foreach ($models as $model) {
     $entity = ContestWork::model()->findByPk($model->entity_id);
-    if ($entity !== null && $entity->contest_id == 2)
+    if ($entity !== null && $entity->contest_id == 3)
         foreach ($likes as $social_key => $like)
             if (isset($model->ratings[$social_key]))
                 $likes[$social_key] += $model->ratings[$social_key];

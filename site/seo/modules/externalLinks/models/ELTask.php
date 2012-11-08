@@ -28,7 +28,7 @@ class ELTask extends HActiveRecord
 
     const FORUM_WORKER_REG_LIMIT = 3;
     const FORUM_WORKER_LINK_LIMIT = 3;
-    const FORUM_WORKER_COMMENT_LIMIT = 6;
+    const FORUM_WORKER_COMMENT_LIMIT = 4;
 
     const FORUM_ANGRY_WORKER_REG_LIMIT = 17;
     const FORUM_ANGRY_WORKER_LINK_LIMIT = 17;

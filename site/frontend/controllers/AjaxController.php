@@ -19,7 +19,7 @@ class AjaxController extends HController
             $authIdentity = Yii::app()->eauth->getIdentity($service);
             $model = CActiveRecord::model($entity)->findByPk($entity_id);
             $authIdentity->redirectUrl = $model->getShare($service);
-            $inc = true;
+            $inc = false;
 
             if ($model->contest->status == Contest::STATUS_ACTIVE) {
                 if ($authIdentity->authenticate()) {

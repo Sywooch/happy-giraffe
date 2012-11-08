@@ -23,16 +23,16 @@ class ELTask extends HActiveRecord
     const TYPE_POST_LINK = 3;
 
     const FORUM_MANAGER_REG_LIMIT = 7;
-    const FORUM_MANAGER_LINK_LIMIT = 5;
-    const FORUM_MANAGER_COMMENT_LIMIT = 7;
+    const FORUM_MANAGER_LINK_LIMIT = 7;
+    const FORUM_MANAGER_COMMENT_LIMIT = 14;
 
     const FORUM_WORKER_REG_LIMIT = 3;
     const FORUM_WORKER_LINK_LIMIT = 3;
-    const FORUM_WORKER_COMMENT_LIMIT = 4;
+    const FORUM_WORKER_COMMENT_LIMIT = 6;
 
-    const FORUM_ANGRY_WORKER_REG_LIMIT = 10;
-    const FORUM_ANGRY_WORKER_LINK_LIMIT = 10;
-    const FORUM_ANGRY_WORKER_COMMENT_LIMIT = 20;
+    const FORUM_ANGRY_WORKER_REG_LIMIT = 17;
+    const FORUM_ANGRY_WORKER_LINK_LIMIT = 17;
+    const FORUM_ANGRY_WORKER_COMMENT_LIMIT = 34;
 
     /**
      * Returns the static model of the specified AR class.

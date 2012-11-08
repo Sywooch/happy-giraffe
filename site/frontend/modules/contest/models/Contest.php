@@ -130,14 +130,14 @@ class Contest extends HActiveRecord
 
     public function getCanParticipate()
     {
+        if (ContestWork::model()->findByAttributes(array('user_id' => Yii::app()->user->id, 'contest_id' => $this->id)))
+            return self::STATEMENT_ALREADY;
         if ($this->status > self::STATUS_ACTIVE)
             return self::STATEMENT_FINISHED;
         if (Yii::app()->user->isGuest)
             return self::STATEMENT_GUEST;
-        if (Yii::app()->user->model->getScores()->full == 0 && false)
+        if (Yii::app()->user->model->getScores()->full == 0)
             return self::STATEMENT_STEPS;
-        if (ContestWork::model()->findByAttributes(array('user_id' => Yii::app()->user->id, 'contest_id' => $this->id)))
-            return self::STATEMENT_ALREADY;
         return true;
     }
 

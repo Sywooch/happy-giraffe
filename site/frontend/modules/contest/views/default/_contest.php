@@ -10,7 +10,7 @@
             <?php if ($data->status > Contest::STATUS_ACTIVE): ?>
                 <div class="complet">Завершен</div>
             <?php endif; ?>
-            <?php if ($data->status == Contest::STATUS_ACTIVE): ?>
+            <?php if ($data->status == Contest::STATUS_ACTIVE && $data->getCanParticipate() !== Contest::STATEMENT_ALREADY): ?>
                 <a href="<?=$data->url?>" class="btn-green btn-h46">Принять участие!</a>
             <?php elseif ($data->status == Contest::STATUS_FINISHED): ?>
                 <div class="result"><i class="glass"></i>Идет работа жюри</div>

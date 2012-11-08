@@ -118,7 +118,6 @@ class CommentWidget extends CWidget
             ' . $this->objectName . '.setParams(' . CJavaScript::encode(array(
                 'entity' => $this->entity,
                 'entity_id' => (int)$this->entity_id,
-                'isAjaxRequest' => Yii::app()->request->isAjaxRequest,
                 'save_url' => Yii::app()->createUrl('ajax/sendcomment'),
                 'toolbar' => $this->type == 'guestBook' ? 'Simple' : 'Main',
                 'model' => $this->commentModel,

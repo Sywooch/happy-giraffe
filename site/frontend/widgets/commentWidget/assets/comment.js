@@ -7,7 +7,6 @@ function Comment() {
         this.saveCommentUrl = null,
         this.entity = null,
         this.entity_id = null,
-        this.isAjaxRequest = null,
         this.model = 'Comment',
         this.scrollContainer = null,
         this.object_name = null;
@@ -35,7 +34,7 @@ Comment.prototype.getScrollContainer = function() {
 }
 
 Comment.prototype.getInstance = function () {
-    var instance = CKEDITOR.instances[this.model + '_text' + ((this.isAjaxRequest == true) ? '_ajax' : '')];
+    var instance = CKEDITOR.instances[this.model + '_text'];
     if (instance)
         return instance;
     return false;
@@ -46,7 +45,7 @@ Comment.prototype.createInstance = function () {
     if (instance) {
         instance.destroy(true);
     }
-    CKEDITOR.replace(this.model + '_text' + ((this.isAjaxRequest == true) ? '_ajax' : ''));
+    CKEDITOR.replace(this.model + '_text', {toolbar:this.toolbar});
 };
 
 Comment.prototype.moveForm = function (container) {
@@ -61,7 +60,7 @@ Comment.prototype.moveForm = function (container) {
 
 Comment.prototype.newComment = function (event) {
     this.cancel();
-    this.moveForm($('[id=' + this.getId() + ']'));
+    this.moveForm($('#' + this.getId()));
     //$(this.getScrollContainer()).scrollTop($(this.getScrollContainer()).scrollTop() + $('#new_comment_wrapper').position().top);
 };
 

@@ -837,7 +837,7 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 
 #contest .gallery-photos-new.cols-4 {margin-left:-10px;}
 
-.contest-winners {background:url(/images/contest/contest-winners.png);margin:20px 10px 10px;}
+.contest-winners {background:url(/images/contest/contest-winners.png);margin:20px 0 10px;}
 .contest-winners_holder {background:url(/images/contest/contest-winners_holder.png) repeat-x 0 100%;}
 .contest-winners_frame {background:url(/images/contest/contest-winners_frame.png) repeat-x 0 0;padding:40px 25px 60px;}
 .contest-winners_list {list-style:none;text-align:center;}

@@ -4,7 +4,9 @@
 	<script type="text/javascript">
 		<?php
             $code = "
-                window.opener.console.log('123');
+                document.domain = 'www.happy-giraffe.ru';
+
+                console.log('123');
                 var inc = " . CJSON::encode($inc) . ";
                 window.location = '" . addslashes($url) . "';
                 if (inc) {

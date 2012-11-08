@@ -2,7 +2,7 @@
 
 
     <div class="like-block fast-like-block">
-        <?php if (false): ?>
+        <?php if ($this->model->contest->status == Contest::STATUS_ACTIVE): ?>
             <div class="box-2">
                 <?php
                     $this->render('_yh_min', array(
@@ -26,6 +26,14 @@
                     ));
                 ?>
 
+            </div>
+        <?php endif; ?>
+
+        <?php if ($this->model->contest->status == Contest::STATUS_RESULTS && $this->model->winner !== null): ?>
+            <div class="contest-winners_place place-big place-<?=$this->model->winner->place?>">
+                <div class="cup"></div>
+                <div class="digit"><?=$this->model->winner->place?></div>
+                <div class="text">место</div>
             </div>
         <?php endif; ?>
 

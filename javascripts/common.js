@@ -581,10 +581,10 @@ var Contest = {
 
         $.get(url, function(data) {
             switch (data.status) {
-                case 0:
+                case 10:
                     $('[href="#register"]').trigger('click');
                     break;
-                case 1:
+                case 11:
                     $(el).after($('#oopsTmpl').tmpl({id: data.id}));
                     $('.contest-error-hint').delay(3000).fadeOut(2000);
                     break;

@@ -6,7 +6,6 @@
             $code = "
                 document.domain = document.location.host;
 
-                console.log('123');
                 var inc = " . CJSON::encode($inc) . ";
                 window.location = '" . addslashes($url) . "';
                 if (inc) {

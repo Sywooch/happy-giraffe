@@ -7,7 +7,7 @@
             </div>
             <div class="place place-1-1"></div>
             <div class="title">
-                <a href="">Full HD-видеокамера<br><b>Samsung HMX-Q10</b></a>
+                <a href="javascript:;">Full HD-видеокамера<br><b>Samsung HMX-Q10</b></a>
             </div>
         </li>
         <li>
@@ -16,7 +16,7 @@
             </div>
             <div class="place place-2-5"></div>
             <div class="title">
-                <a href="">Настольные игры для всей семьи<br><b>&laquo;Монополия&raquo;, &laquo;Имаджинариум&raquo;, &laquo;Элиас&raquo; и настольный футбол</b></a>
+                <a href="javascript:;">Настольные игры для всей семьи<br><b>&laquo;Монополия&raquo;, &laquo;Имаджинариум&raquo;, &laquo;Элиас&raquo; и настольный футбол</b></a>
             </div>
         </li>
 

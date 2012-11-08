@@ -31,7 +31,9 @@
 
         <?php if ($this->model->contest->status == Contest::STATUS_RESULTS && $this->model->winner !== null): ?>
             <div class="contest-winners_place place-big place-<?=$this->model->winner->place?>">
-                <div class="cup"></div>
+                <?php if ($this->model->winner->place <= 3): ?>
+                    <div class="cup"></div>
+                <?php endif; ?>
                 <div class="digit"><?=$this->model->winner->place?></div>
                 <div class="text">место</div>
             </div>

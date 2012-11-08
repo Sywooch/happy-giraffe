@@ -118,6 +118,44 @@ class CommentatorsMonthStats extends EMongoDocument
         $this->save();
     }
 
+    public function calculateCommentator($id)
+    {
+        $criteria = new EMongoCriteria;
+        $criteria->user_id('==', (int)$id);
+        $model = CommentatorWork::model()->find($criteria);
+        if ($model !== null) {
+            $new_friends = $model->newFriends($this->period);
+            $im_messages = $model->imMessages($this->period);
+            $blog_visits = $this->blogVisits($id);
+            $profile_view = $this->profileUniqueViews($id);
+            $se_visits = $this->getSeVisits($id);
+
+
+            if (isset($this->commentators[(int)$id])) {
+                $this->commentators[(int)$id][self::NEW_FRIENDS] = (int)$new_friends;
+                $this->commentators[(int)$id][self::IM_MESSAGES] = (int)$im_messages;
+                if ($se_visits !== null)
+                    $this->commentators[(int)$id][self::SE_VISITS] = (int)$se_visits;
+
+                if ($blog_visits !== null)
+                    $this->commentators[(int)$id][self::BLOG_VISITS] = (int)$blog_visits;
+                if ($profile_view !== null)
+                    $this->commentators[(int)$id][self::PROFILE_UNIQUE_VIEWS] = (int)$profile_view;
+            } else {
+
+                $result = array(
+                    self::NEW_FRIENDS => (int)$new_friends,
+                    self::BLOG_VISITS => (int)$blog_visits,
+                    self::PROFILE_UNIQUE_VIEWS => (int)$profile_view,
+                    self::IM_MESSAGES => (int)$im_messages,
+                    self::SE_VISITS => (int)$se_visits,
+                );
+                $this->commentators[(int)$id] = $result;
+            }
+            $this->save();
+        }
+    }
+
     /**
      * @param User $commentator
      * @return CommentatorWork

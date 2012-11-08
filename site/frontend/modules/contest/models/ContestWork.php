@@ -65,7 +65,8 @@ class ContestWork extends HActiveRecord
 		return array(
 			'author' => array(self::BELONGS_TO, 'User', 'user_id'),
 			'contest' => array(self::BELONGS_TO, 'Contest', 'contest_id'),
-            'photoAttach' => array(self::HAS_ONE, 'AttachPhoto', 'entity_id', 'condition' => '`photoAttach`.`entity` = :entity', 'params' => array(':entity' => get_class($this)))
+            'photoAttach' => array(self::HAS_ONE, 'AttachPhoto', 'entity_id', 'condition' => '`photoAttach`.`entity` = :entity', 'params' => array(':entity' => get_class($this))),
+            'winner' => array(self::HAS_ONE, 'ContestWinner', 'work_id'),
 		);
 	}
 

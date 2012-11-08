@@ -10,10 +10,12 @@
                 <span class="icon-status status-<?php echo $data->author->online == 1 ? 'online' : 'offline'; ?>"></span>
                 <?=HHtml::link(CHtml::encode($data->author->fullName), $data->author->url, array('class'=>'username'), true)?>
             </div>
-            <div class="ball">
-                <div class="ball-count"><?=$data->rate?></div>
-                <div class="ball-text"><?=HDate::GenerateNoun(array('балл', 'балла', 'баллов'), $data->rate)?></div>
-            </div>
+            <?php if ($this->action == 'results'): ?>
+                <div class="ball">
+                    <div class="ball-count"><?=$data->rate?></div>
+                    <div class="ball-text"><?=HDate::GenerateNoun(array('балл', 'балла', 'баллов'), $data->rate)?></div>
+                </div>
+            <?php endif; ?>
         </div>
     </div>
     <div class="img">

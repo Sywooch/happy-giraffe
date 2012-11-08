@@ -16,7 +16,7 @@
  * @property ContestPrizes[] $contestPrizes
  * @property ContestWorks[] $contestWorks
  */
-class Contest extends CActiveRecord
+class Contest extends HActiveRecord
 {
     const STATUS_DEVELOPMENT = 0;
     const STATUS_ACTIVE = 1;
@@ -73,6 +73,7 @@ class Contest extends CActiveRecord
         return array(
             'prizes' => array(self::HAS_MANY, 'ContestPrize', 'contest_id'),
             'works' => array(self::HAS_MANY, 'ContestWork', 'contest_id'),
+            'winners' => array(self::HAS_MANY, 'ContestWinner', array('id' => 'work_id'), 'through' => 'works', 'with' => 'work'),
         );
     }
 

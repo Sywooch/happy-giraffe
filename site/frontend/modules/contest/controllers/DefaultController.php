@@ -112,20 +112,15 @@ class DefaultController extends HController
         ));
     }
 
-    public function actionResults($id, $work = false)
+    public function actionResults($id)
     {
-        $winners = array(117, 128, 248, 43, 220);
-        $this->contest = Contest::model()->findByPk($id);
-        if($work && $index = array_search($work, $winners))
-        {
-            $model = ContestWork::model()->findByPk($work);
-        }
-        else
-        {
-            $index = 0;
-            $model = ContestWork::model()->findByPk($winners[0]);
-        }
-        $this->render('results', array('work' => $model, 'winners' => $winners, 'index' => $index));
+        $contest = Contest::model()->findByPk($id);
+        if ($contest === null)
+            throw new CHttpException(404, 'Такого конкурса не существует.');
+        $this->contest = $contest;
+        $this->pageTitle = 'Результаты фотоконкурса «' . $contest->title . '»';
+
+        $this->render('results');
     }
 
     public function actionStatement($id)

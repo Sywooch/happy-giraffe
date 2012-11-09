@@ -150,7 +150,7 @@ class Comment extends HActiveRecord
 
     public function get($entity, $entity_id, $type)
     {
-        return new CActiveDataProvider($this, array(
+        return new CActiveDataProvider('Comment', array(
             'criteria' => array(
                 'condition' => 't.entity=:entity AND t.entity_id=:entity_id',
                 'params' => array(':entity' => $entity, ':entity_id' => $entity_id),

@@ -13,7 +13,11 @@
 	<link rel="stylesheet" type="text/css" href="/stylesheets/global.css" />
 	
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-	
+	 	
+	<link rel="stylesheet" type="text/css" href="/stylesheets/jquery.fancybox-1.3.4.css" />
+	<script type="text/javascript" src="/javascripts/jquery.fancybox-1.3.4.js"></script>
+	<script type="text/javascript" src="/javascripts/jquery.placeholder.min.js"></script>
+
 	<script type="text/javascript" src="/javascripts/common.js"></script>
 	
 	<script type="text/javascript" src="/javascripts/chosen.jquery.min.js"></script>
@@ -431,19 +435,85 @@
 												
 						<div class="horoscope-compatibility clearfix">
 							
+							<div class="block-title">Совместимость знаков</div>
+							
 							<div class="sign">
-								<div class="img"><img src="/images/widget/horoscope/big/4.png" /></div>
-								<select class="chzn"><option>Рак</option></select>
+								<div class="img"><img src="/images/widget/horoscope/big/10.png" class="horoscope-zodiac-img" /></div>
+								<div class="chzn-v2-lilac">
+									<select onchange="Horoscope.ZodiacChange(this)" class="chzn">
+										<option value="0">--</option>
+										<option selected="selected" value="1">Овен</option>
+										<option value="2">Телец</option>
+										<option value="3">Близнецы</option>
+										<option value="4">Рак</option>
+										<option value="5">Лев</option>
+										<option value="6">Дева</option>
+										<option value="7">Весы</option>
+										<option value="8">Скорпион</option>
+										<option value="9">Стрелец</option>
+										<option value="10">Козерог</option>
+										<option value="11">Водолей</option>
+										<option value="12">Рыбы</option>
+									</select>
+								</div>
+								<!-- 
+								Изменение изображений знака зодиака
+								js взят с нашего сайта и не изменялся 
+								http://www.happy-giraffe.ru/assets/72c6d72d/script.js 
+								-->
+								<script>
+ /**
+ * Author: alexk984
+ * Date: 25.04.12
+ */
+
+var Horoscope = {
+    zodiac_list:['aries', 'taurus', 'gemini', 'cancer', 'leo', 'virgo', 'libra', 'scorpio', 'sagittarius', 'capricorn', 'aquarius', 'pisces'],
+    calc:function () {
+        document.location.href = '/horoscope/compatibility/'+Horoscope.zodiac_list[$('#HoroscopeCompatibility_zodiac1').val()-1]+'/'+Horoscope.zodiac_list[$('#HoroscopeCompatibility_zodiac2').val()-1]+'/';
+    },
+    ZodiacChange:function (elem) {
+        $(elem).parents('div.sign').find('.img img').attr('src', '/images/widget/horoscope/big/' + $(elem).val() + '.png');
+
+    }
+}</script>
 							</div>
 							<div class="plus"></div>
-							<div class="sign">
-								<div class="img"><img src="/images/widget/horoscope/big/7.png" /></div>
-								<select class="chzn"><option>Весы</option></select>
+							<div class="sign zodiac-empty">
+								<div class="img"><img src="/images/widget/horoscope/big/0.png" class="horoscope-zodiac-img" /></div>
+								<!-- Появление дропа под знаком зодиака -->
+								<script>
+									$(document).ready(function($) {
+										$(".horoscope-zodiac-img").live("click", function() {
+											$(this).parents('div.sign').removeClass("zodiac-empty");
+											$(this).parents('div.sign').find('.chzn-drop').css({
+												"left" : "0",
+												"top" : "-5px"
+											});
+										});
+									});
+									
+								</script>
+								<div class="chzn-v2-lilac">
+									<select onchange="Horoscope.ZodiacChange(this)" class="chzn">
+										<option selected="selected" value="0">--</option>
+										<option value="1">Овен</option>
+										<option value="2">Телец</option>
+										<option value="3">Близнецы</option>
+										<option value="4">Рак</option>
+										<option value="5">Лев</option>
+										<option value="6">Дева</option>
+										<option value="7">Весы</option>
+										<option value="8">Скорпион</option>
+										<option value="9">Стрелец</option>
+										<option value="10">Козерог</option>
+										<option value="11">Водолей</option>
+										<option value="12">Рыбы</option>
+									</select>
+								</div>
 							</div>
 							<div class="equal"></div>
-							<div class="button">
-								<a href="">Узнать!</a>
-							</div>
+							<a href="" class="button btn-green btn-large">Узнать!</a>
 							
 						</div>
 						
@@ -644,9 +714,10 @@
 				<div class="banner-box"><a href=""><img src="/images/horoscope_sidebar_banner.jpg" /></a></div>
 				
 				<div class="horoscope-subscribe">
-					<img src="/images/horoscope_subscribe_banner.jpg" />
+					<img src="/images/widget/horoscope/banner-subscribe.jpg" />
 					<p>Этот день открывает массу возможностей,  пользоваться можно только одной из них, так что придется выбирать, и выбор будет нелегким.</p>
-					<a href="" class="btn-want">Хочу!</a>
+					<input type="text" name="" class="text" placeholder="Введите ваш e-mail" />
+					<a href="" class="btn-amethyst btn-big ">Хочу!</a>
 				</div>
 				
 			</div>

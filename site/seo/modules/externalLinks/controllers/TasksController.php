@@ -29,7 +29,6 @@ class TasksController extends ELController
                 $response = array('status' => false, 'error' => 'Форум уже взят, перезагрузите страницу');
             } else {
                 $task->user_id = Yii::app()->user->id;
-                $task->closeTask();
                 $response = array('status' => $task->save());
             }
             $transaction->commit();

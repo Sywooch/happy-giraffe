@@ -24,15 +24,15 @@ class ELTask extends HActiveRecord
 
     const FORUM_MANAGER_REG_LIMIT = 7;
     const FORUM_MANAGER_LINK_LIMIT = 7;
-    const FORUM_MANAGER_COMMENT_LIMIT = 14;
+    const FORUM_MANAGER_COMMENT_LIMIT = 21;
 
     const FORUM_WORKER_REG_LIMIT = 3;
     const FORUM_WORKER_LINK_LIMIT = 3;
-    const FORUM_WORKER_COMMENT_LIMIT = 4;
+    const FORUM_WORKER_COMMENT_LIMIT = 6;
 
     const FORUM_ANGRY_WORKER_REG_LIMIT = 17;
     const FORUM_ANGRY_WORKER_LINK_LIMIT = 17;
-    const FORUM_ANGRY_WORKER_COMMENT_LIMIT = 34;
+    const FORUM_ANGRY_WORKER_COMMENT_LIMIT = 51;
 
     /**
      * Returns the static model of the specified AR class.
@@ -139,21 +139,9 @@ class ELTask extends HActiveRecord
         );
     }
 
-    /**
-     * Create task for register forum
-     *
-     * @param $site_id int
-     */
-    public static function createRegisterTask($site_id)
-    {
-        $task = new ELTask();
-        $task->type = ELTask::TYPE_REGISTER;
-        $task->site_id = $site_id;
-        $task->start_date = date("Y-m-d");
-        if (!$task->save())
-            var_dump($task->getErrors());
-    }
-
+    /****************************************************************************************************************/
+    /*****************************************  Создание и закрытие заданий *****************************************/
+    /****************************************************************************************************************/
     public static function taskForExecuted($site_id)
     {
         $task = new ELTask();
@@ -161,6 +149,25 @@ class ELTask extends HActiveRecord
         $task->start_date = date("Y-m-d", strtotime('+2 weeks'));
         $task->site_id = $site_id;
         $task->save();
+    }
+
+    /**
+     * Create task for register forum
+     *
+     * @param $site_id int
+     * @param int $user_id
+     * @return void
+     */
+    public static function createRegisterTask($site_id, $user_id = null)
+    {
+        $task = new ELTask();
+        $task->type = ELTask::TYPE_REGISTER;
+        $task->site_id = $site_id;
+        $task->start_date = date("Y-m-d");
+        if (!empty($user_id))
+            $task->user_id = $user_id;
+        if (!$task->save())
+            var_dump($task->getErrors());
     }
 
     /**
@@ -201,20 +208,48 @@ class ELTask extends HActiveRecord
 
     public function closeTask()
     {
-        if ($this->type == self::TYPE_REGISTER) {
-            //create comment task instantly
-            $this->createCommentTask(date("Y-m-d"), $this->user_id);
-        } elseif ($this->type == self::TYPE_COMMENT) {
-            if (!isset($this->site->account->login)){
+        if ($this->type == self::TYPE_REGISTER || $this->type == self::TYPE_COMMENT) {
+            if (!isset($this->site->account->login)) {
                 $this->addError('type', 'Вы не ввели данные регистрации!');
                 return false;
             }
 
+            if ($this->type == self::TYPE_REGISTER) {
+                //создаем еще 1 выполненное задание - комментарий, так как этот шаг - это 2 задания
+                $task = new ELTask();
+                $task->type = ELTask::TYPE_COMMENT;
+                $task->start_date = date("Y-m-d H:i:s");
+                $task->closed = date("Y-m-d H:i:s");
+                $task->site_id = $this->site_id;
+                $task->user_id = Yii::app()->user->id;
+                $task->save();
+            }
+
             $prev_comments_count = $this->getPreviousCommentsCount();
-            if ($prev_comments_count >= 3)
-                $this->createLinkTask(date("Y-m-d", strtotime('+' . rand(1, 2) . ' days')));
+            $days_span = rand(1, 2);
+            if ($this->getLinkExecutedTasksCount() == 0) {
+                $limit = $this->site->comments_count;
+                if ($limit > 10) {
+                    //если нужно поставить больше 10 комментариев, ставим их чаще - 4 раза в день
+                    $criteria = new CDbCriteria;
+                    $criteria->condition = 'closed > :today';
+                    $criteria->params = array(':today'=>date("Y-m-d").' 00:00:00');
+                    $criteria->compare('site_id', $this->site_id);
+                    $criteria->compare('type', self::TYPE_COMMENT);
+                    $count = self::model()->count($criteria);
+
+                    if ($count >= rand(3,5))
+                        $days_span = 1;
+                    else
+                        $days_span = 0;
+                }
+            } else
+                $limit = rand(3, 4);
+
+            if ($prev_comments_count >= $limit)
+                $this->createLinkTask(date("Y-m-d", strtotime('+' . $days_span . ' days')));
             else
-                $this->createCommentTask(date("Y-m-d", strtotime('+' . rand(1, 2) . ' days')));
+                $this->createCommentTask(date("Y-m-d", strtotime('+' . $days_span . ' days')));
 
         } elseif ($this->type == self::TYPE_POST_LINK) {
             $this->createCommentTask(date("Y-m-d", strtotime('+' . rand(30, 40) . ' days')));
@@ -225,6 +260,11 @@ class ELTask extends HActiveRecord
         return $this->save();
     }
 
+    /**
+     * Колчество комментариев после последней проставленной ссылки
+     *
+     * @return int
+     */
     public function getPreviousCommentsCount()
     {
         $criteria = new CDbCriteria;
@@ -241,9 +281,9 @@ class ELTask extends HActiveRecord
         }
 
         $criteria = new CDbCriteria;
+        $criteria->condition = 'created >= :last_link_time';
         $criteria->compare('site_id', $this->site_id);
         $criteria->compare('type', self::TYPE_COMMENT);
-        $criteria->condition = 'created >= :last_link_time';
         $criteria->params = array(':last_link_time' => $latest_link_comment->created);
 
         $criteria->order = 'created desc';
@@ -251,6 +291,26 @@ class ELTask extends HActiveRecord
         return self::model()->count($criteria);
     }
 
+    /**
+     * Получаем количество выполненных заданий со ссылками - чтобы понять нужно ли
+     * достигать лимита комментариев для постинга ссылки
+     *
+     * @return string
+     */
+    public function getLinkExecutedTasksCount()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->compare('site_id', $this->site_id);
+        $criteria->compare('type', self::TYPE_POST_LINK);
+        return self::model()->count($criteria);
+    }
+
+    /**
+     * Возвращаем количество оставленных на форуме комментариев
+     *
+     * @param $site_id
+     * @return string
+     */
     public static function getCommentsCount($site_id)
     {
         $criteria = new CDbCriteria;
@@ -261,23 +321,51 @@ class ELTask extends HActiveRecord
         return ELTask::model()->count($criteria);
     }
 
+
+    /****************************************************************************************************************/
+    /****************************************  Получение очередного задания *****************************************/
+    /****************************************************************************************************************/
+
     /**
+     * Получить следующее задание для выполнения
+     *
      * @return ELTask
      */
     public function getNextTask()
     {
-        if ($this->todayTaskCount() <= 0)
+        if ($this->todayTaskCount() >= $this->getTaskLimit())
             return null;
+        //сначала задания строго закрепленные за сотрудником
+        $task = $this->userSpecifiedTask();
+        if ($task !== null)
+            return $task;
 
-        //first get register tasks
-        $tasks = $this->getRegisterTasks();
-        if (!empty($tasks))
-            return $tasks;
+        //задания по регистрации
+        if ($this->todayRegisterTaskCount() < $this->getRegTaskLimit()) {
+            $tasks = $this->getRegisterTasks();
+            if (!empty($tasks))
+                return $tasks;
+        }
 
-        return $this->getSimpleTask();
+        //задания на ссылки
+        if ($this->todayLinkTaskCount() < $this->getLinkTaskLimit()) {
+            $task = $this->getLinkTask();
+            if ($task !== null)
+                return $task;
+        }
+
+        //задания на комментарии
+        if ($this->todayCommentTaskCount() < $this->getCommentTaskLimit()) {
+            $task = $this->getCommentTask();
+            if ($task !== null)
+                return $task;
+        }
+
+        //все остальное
+        return $this->getAnyTask();
     }
 
-    public function getRegisterTasks()
+    public function userSpecifiedTask()
     {
         //get user specified task
         $criteria = new CDbCriteria;
@@ -287,13 +375,11 @@ class ELTask extends HActiveRecord
             ':user_id' => Yii::app()->user->id
         );
 
-        $task = ELTask::model()->find($criteria);
-        if ($task !== null)
-            return $task;
+        return ELTask::model()->find($criteria);
+    }
 
-        if ($this->todayRegisterTaskCount() >= $this->getRegTaskLimit())
-            return null;
-
+    public function getRegisterTasks()
+    {
         //check free register tasks
         $criteria = new CDbCriteria;
         $criteria->condition = 'closed IS NULL AND start_date <= :start_date AND user_id IS NULL';
@@ -304,53 +390,73 @@ class ELTask extends HActiveRecord
         return $reg_tasks;
     }
 
-    public function getSimpleTask()
+    public function getLinkTask()
     {
-        if ($this->todayPostTaskCount() - $this->todayRegisterTaskCount() >= $this->getTaskLimit())
-            return null;
-
-        //get links first
-        if ($this->todayLinkTaskCount() < $this->getLinkTaskLimit()) {
-            $criteria = new CDbCriteria;
-            $criteria->params = array(':start_date' => date("Y-m-d"));
-            $criteria->condition = 'closed IS NULL AND start_date <= :today AND user_id IS NULL AND type = '.self::TYPE_POST_LINK;
-            $criteria->params = array(':today' => date("Y-m-d"));
-            $model = ELTask::model()->find($criteria);
-            if ($model !== null) {
-                $model->user_id = Yii::app()->user->id;
-                $model->update(array('user_id'));
-                return $model;
-            }
-        }
-
-        //check other tasks
         $criteria = new CDbCriteria;
         $criteria->params = array(':start_date' => date("Y-m-d"));
-        $criteria->condition = 'closed IS NULL AND start_date <= :today AND user_id IS NULL AND type > 1';
+        $criteria->condition = 'closed IS NULL AND start_date <= :today AND user_id IS NULL';
         $criteria->params = array(':today' => date("Y-m-d"));
+        $criteria->compare('type', self::TYPE_POST_LINK);
 
         $model = ELTask::model()->find($criteria);
         if ($model !== null) {
             $model->user_id = Yii::app()->user->id;
             $model->update(array('user_id'));
-
             return $model;
         }
 
+        return null;
+    }
+
+    public function getCommentTask()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->params = array(':start_date' => date("Y-m-d"));
+        $criteria->condition = 'closed IS NULL AND start_date <= :today AND user_id IS NULL';
+        $criteria->params = array(':today' => date("Y-m-d"));
+        $criteria->compare('type', self::TYPE_COMMENT);
+
+        $model = ELTask::model()->find($criteria);
+        if ($model !== null) {
+            $model->user_id = Yii::app()->user->id;
+            $model->update(array('user_id'));
+            return $model;
+        }
+
+        return null;
+    }
+
+    public function getAnyTask()
+    {
         //check free register tasks
         $criteria = new CDbCriteria;
         $criteria->condition = 'closed IS NULL AND start_date <= :start_date AND user_id IS NULL';
         $criteria->params = array(':start_date' => date("Y-m-d"));
-        $criteria->compare('type', self::TYPE_REGISTER);
 
-        $reg_tasks = ELTask::model()->findAll($criteria);
-        return $reg_tasks;
+        $model = ELTask::model()->find($criteria);
+        if ($model !== null) {
+            $model->user_id = Yii::app()->user->id;
+            $model->update(array('user_id'));
+            return $model;
+        }
+
+        return null;
     }
+
+
+    /****************************************************************************************************************/
+    /*****************************************  Количество выполненных сегодня **************************************/
+    /****************************************************************************************************************/
 
     public function todayTaskCount()
     {
-        $count = $this->getTaskLimit() - $this->todayPostTaskCount();
-        return ($count <= 0) ? 0 : $count;
+        $criteria = new CDbCriteria;
+        $criteria->condition = 'closed >= :today AND user_id = :user_id';
+        $criteria->params = array(
+            ':today' => date("Y-m-d") . ' 00:00:00',
+            ':user_id' => Yii::app()->user->id,
+        );
+        return ELTask::model()->count($criteria);
     }
 
     public function todayRegisterTaskCount()
@@ -377,7 +483,7 @@ class ELTask extends HActiveRecord
         return ELTask::model()->count($criteria);
     }
 
-    public function todayPostTaskCount()
+    public function todayCommentTaskCount()
     {
         $criteria = new CDbCriteria;
         $criteria->condition = 'closed >= :today AND type > 1 AND  user_id = :user_id';
@@ -388,13 +494,17 @@ class ELTask extends HActiveRecord
         return ELTask::model()->count($criteria);
     }
 
+
+    /****************************************************************************************************************/
+    /************************************************  Лимиты заданий ***********************************************/
+    /****************************************************************************************************************/
+
     public function getRegTaskLimit()
     {
         if (Yii::app()->user->checkAccess('externalLinks-manager-panel'))
             return self::FORUM_MANAGER_REG_LIMIT;
         elseif (in_array(Yii::app()->user->id, array(141)))
-            return self::FORUM_ANGRY_WORKER_REG_LIMIT;
-        else
+            return self::FORUM_ANGRY_WORKER_REG_LIMIT; else
             return self::FORUM_WORKER_REG_LIMIT;
     }
 
@@ -403,9 +513,17 @@ class ELTask extends HActiveRecord
         if (Yii::app()->user->checkAccess('externalLinks-manager-panel'))
             return self::FORUM_MANAGER_LINK_LIMIT;
         elseif (in_array(Yii::app()->user->id, array(141)))
-            return self::FORUM_ANGRY_WORKER_LINK_LIMIT;
-        else
+            return self::FORUM_ANGRY_WORKER_LINK_LIMIT; else
             return self::FORUM_WORKER_LINK_LIMIT;
+    }
+
+    public function getCommentTaskLimit()
+    {
+        if (Yii::app()->user->checkAccess('externalLinks-manager-panel'))
+            return self::FORUM_MANAGER_COMMENT_LIMIT;
+        elseif (in_array(Yii::app()->user->id, array(141)))
+            return self::FORUM_ANGRY_WORKER_COMMENT_LIMIT; else
+            return self::FORUM_WORKER_COMMENT_LIMIT;
     }
 
     public function getTaskLimit()
@@ -413,8 +531,7 @@ class ELTask extends HActiveRecord
         if (Yii::app()->user->checkAccess('externalLinks-manager-panel'))
             return self::FORUM_MANAGER_REG_LIMIT + self::FORUM_MANAGER_LINK_LIMIT + self::FORUM_MANAGER_COMMENT_LIMIT;
         elseif (in_array(Yii::app()->user->id, array(141)))
-            return self::FORUM_ANGRY_WORKER_REG_LIMIT + self::FORUM_ANGRY_WORKER_LINK_LIMIT + self::FORUM_ANGRY_WORKER_COMMENT_LIMIT;
-        else
+            return self::FORUM_ANGRY_WORKER_REG_LIMIT + self::FORUM_ANGRY_WORKER_LINK_LIMIT + self::FORUM_ANGRY_WORKER_COMMENT_LIMIT; else
             return self::FORUM_WORKER_REG_LIMIT + self::FORUM_WORKER_LINK_LIMIT + self::FORUM_WORKER_COMMENT_LIMIT;
     }
 }

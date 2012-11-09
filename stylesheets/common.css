@@ -172,7 +172,7 @@ box-shadow:1px 1px 1px rgba(0,0,0,.2);behavior: url(/stylesheets/PIE.htc);}
 
 .well {padding:10px 20px;}
 .well ul {list-style:none;}
-.well ul li {list-style:none;margin:12px 0;}
+.well ul li {list-style:none;margin:15px 0;}
 
 .banner-box {margin-bottom:20px;text-align:center;}
 
@@ -2306,7 +2306,14 @@ body.nav-fixed #header-new.top-line-fixed {padding-top:0;}
 .chzn-v2 .chzn-container-single .chzn-single .highlighted {background:#C3E2F6;}
 .chzn-v2 .chzn-container .chzn-results .highlighted {background:#1b9bcb !important;}
 
-
+.chzn-v2-lilac {display:inline-block;*zoom:1;*display:inline;height:25px;}
+.chzn-v2-lilac .chzn-container-single {vertical-align:middle;}
+.chzn-v2-lilac .chzn-container-single .chzn-single {height:23px;border-color:#e6d4f6;}
+.chzn-v2-lilac .chzn-container-single .chzn-drop {border-color:#e6d4f6;border-top: 1px solid #e6d4f6;margin-top: 5px;}
+.chzn-v2-lilac .chzn-container-single .chzn-single span {height:23px;line-height:23px;color:#514f4f;font-size:13px;}
+.chzn-v2-lilac .chzn-container-single .chzn-single div {background:none;height:21px;border-left:0;border-color:#C3E2F6;top: 0;right: 0;}
+.chzn-v2-lilac .chzn-container-single .chzn-single div b {width:11px;height:9px;background:url(/images/common.png) no-repeat -336px -178px;}
+.chzn-v2-lilac .chzn-container .chzn-results .highlighted {background:#a687c7;}
 
 /* ------------- store cart form select -------------- */
 

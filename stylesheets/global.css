@@ -3270,13 +3270,14 @@ ul.letters li a:hover {
 /* horoscope */
 
 #horoscope {}
+#horoscope p {padding-right: 20px;}
 #horoscope .horoscope-otherday {font-size: 13px;font-weight: bold;padding: 10px 0;}
 #horoscope .horoscope-otherday a {padding: 0 5px;font-weight: normal;}
 #horoscope .horoscope-otherday .row {padding:9px 0;}
 
 #horoscope .horoscope-list {padding:5px;margin-bottom:10px;}
 #horoscope .horoscope-list p {font-size:13px;line-height:19px;}
-#horoscope .horoscope-list ul {list-style:none;padding-top:10px;margin-right: -20px;}
+#horoscope .horoscope-list ul {list-style:none;padding-top:25px;margin-right: -20px;}
 #horoscope .horoscope-list ul li {
     display:inline-block;
     *zoom:1;
@@ -3295,9 +3296,10 @@ ul.letters li a:hover {
 #horoscope .horoscope-list ul li .img {margin-bottom:10px;}
 #horoscope .horoscope-list ul li .img img {float: left;}
 #horoscope .horoscope-list ul li .img .date {vertical-align:top;text-align:center;padding-top:20px;color:#2d2d2d;font-size:10px;}
+#horoscope .horoscope-list ul li .img .date > a,
 #horoscope .horoscope-list ul li .img .date span {font:italic 25px/1 times new roman, serif;display:block;color:#2d87be;}
 #horoscope .horoscope-list ul li .text {font-size:11px;line-height:17px;color:#626262;}
-#horoscope .horoscope-list ul li .text .btn-small {display: block;width: 45px;margin: 5px auto 0;font-family: tahoma, sans-serif;}
+#horoscope .horoscope-list ul li .text .btn-small {display: block;width: 45px;margin: 7px auto 5px;font-family: tahoma, sans-serif;}
 
 #horoscope .horoscope-one {padding:7px;border:1px solid #e9f0f9;margin-bottom:30px;}
 
@@ -3349,14 +3351,13 @@ ul.letters li a:hover {
 #horoscope .horoscope-fast-list ul li .other:after{content:'';position:absolute;right:-22px;top:0;width:0;height:0;border:1px solid #fff;border-width:45px 0 45px 22px;border-left-color:#fff9b2;display:block;clear:both;}
 
 #horoscope .chzn-container-single .chzn-single {border-color:#e6d4f6;}
-#horoscope .chzn-container-single .chzn-single div {background:#a687c7;}
 #horoscope .chzn-container-single .chzn-drop {border-color:#e6d4f6;}
-#horoscope .chzn-container .chzn-results .highlighted {background:#a687c7;}
+#horoscope .chzn-container-single .chzn-results .highlighted {background:#a687c7 !important;}
 
 .horoscope-compatibility {padding:15px;border:1px solid #eeeeee;margin-bottom:30px;background: url(/images/widget/horoscope/horoscope-compatibility.jpg) no-repeat 100% 0;}
 .horoscope-compatibility .block-title {color:#0281b0;font:bold 25px arial, helvetica, sans-serif;margin-bottom:15px;}
 .horoscope-compatibility .sign {float:left;text-align:center;margin-bottom: 25px;}
-.horoscope-compatibility .sign .img {width:170px;height:170px;background:url(/images/widget/horoscope/big/bg.png) no-repeat;margin-bottom:12px;}
+.horoscope-compatibility .sign .img {width:110px;height:110px;background:url(/images/widget/horoscope/big/bg.png) no-repeat;margin-bottom:12px;padding: 30px;}
 .horoscope-compatibility .sign .img img {display:block;}
 .horoscope-compatibility .sign select {width:120px;}
 .horoscope-compatibility .plus {width:44px;height:43px;background:url(/images/common.png) no-repeat -1px -294px;float:left;margin:60px 12px 0;}
@@ -3430,7 +3431,7 @@ ul.letters li a:hover {
 .horoscope-month .legend .day {display:inline-block;*zoom:1;*display:inline;width: 12px;height: 12px;vertical-align: middle;}
 
 .horoscope-year {margin: 5px 0 10px;}
-.horoscope-year_item {padding:0 0 19px 90px;}
+.horoscope-year_item {padding:0 0 19px 90px;line-height: 19px;}
 .horoscope-year_item.health {background: url(/images/widget/horoscope/horoscope-year-health.png) no-repeat 20px 5px;} 
 .horoscope-year_item.career {background: url(/images/widget/horoscope/horoscope-year-career.png) no-repeat 20px 5px;} 
 .horoscope-year_item.fin {background: url(/images/widget/horoscope/horoscope-year-fin.png) no-repeat 20px 5px;} 

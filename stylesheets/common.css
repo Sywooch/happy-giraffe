@@ -3211,7 +3211,7 @@ div.scrollbarpaper-drag {-moz-border-radius:3px;-webkit-border-radius:3px;border
 
 #content .recent-topics {margin-bottom:20px;padding:15px 20px 20px;border:1px solid #d8f1ff;}
 #content .recent-topics .title {font-weight:bold;color:#666666;font-size:16px;}
-#content .recent-topics ul {list-style:none;overflow: hidden;}
+#content .recent-topics ul {list-style:none;word-wrap: break-word;}
 #content .recent-topics ul li {margin-top:15px;}
 #content .recent-topics ul li a {}
 #content .recent-topics ul li a:hover {text-decoration:none;}

@@ -723,6 +723,11 @@ class AlbumsController extends HController
                 $model = CActiveRecord::model($entity);
                 if ($category_id !== null)
                     $model = $model->findByPk($category_id);
+                $decor = CookDecoration::model()->findByAttributes(array('photo_id' => $photo_id));
+                $photo->w_title = $decor->title;
+                $photo->w_description = $decor->description;
+                $collection = array();
+                $collection['title'] = 'Фотоальбом к сервису ' . CHtml::link('Офомление блюд', array('cook/decor/index'));
                 break;
             case 'Contest':
                 Yii::import('application.modules.contest.models.*');
@@ -737,7 +742,7 @@ class AlbumsController extends HController
                 break;
         }
 
-        if ($entity != 'Contest') {
+        if ($entity != 'Contest' && $entity != 'CookDecorationCategory') {
             $collection = $model->photoCollection;
             foreach ($collection['photos'] as $i => $p) {
                 if ($photo->id == $p->id) {

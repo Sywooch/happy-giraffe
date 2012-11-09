@@ -31,6 +31,7 @@ class AlbumPhoto extends HActiveRecord
 
     public $w_title = null;
     public $w_description = null;
+    public $w_idx = null;
 
     public $width;
     public $height;

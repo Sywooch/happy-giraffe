@@ -50,7 +50,6 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 .entry {
     display: block;
     background: #fff;
-    word-wrap: break-word;
     width: 100%;
     padding: 0 0 10px;
     margin-bottom: 30px;

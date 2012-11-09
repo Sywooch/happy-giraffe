@@ -21,6 +21,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 }
 body {
     line-height: normal;
+    word-wrap: break-word;
 }
 
 blockquote, q {

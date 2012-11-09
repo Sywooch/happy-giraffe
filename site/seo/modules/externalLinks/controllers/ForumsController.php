@@ -113,11 +113,4 @@ class ForumsController extends ELController
 
         echo CJSON::encode($response);
     }
-
-    public function actionTest(){
-        $models = ELTask::model()->getRegisterTasks();
-        echo count($models).' register tasks<br>';
-        echo ELTask::model()->todayPostTaskCount(). ' - ' . ELTask::model()->todayRegisterTaskCount()
-            . ' - ' .ELTask::model()->getTaskLimit();
-    }
 }

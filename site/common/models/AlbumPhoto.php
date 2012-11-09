@@ -367,8 +367,8 @@ class AlbumPhoto extends HActiveRecord
             if ($crop)
                 $image->crop($width, $height, $crop_side);
 
-            if (get_class(Yii::app()) == 'CConsoleApplication')
-                echo $thumb;
+            if ($force_replace)
+                unlink($thumb);
 
             $image->save($thumb);
         }

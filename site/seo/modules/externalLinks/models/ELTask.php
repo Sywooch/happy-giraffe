@@ -211,7 +211,7 @@ class ELTask extends HActiveRecord
             }
 
             $prev_comments_count = $this->getPreviousCommentsCount();
-            if ($prev_comments_count >= 2)
+            if ($prev_comments_count >= 3)
                 $this->createLinkTask(date("Y-m-d", strtotime('+' . rand(1, 2) . ' days')));
             else
                 $this->createCommentTask(date("Y-m-d", strtotime('+' . rand(1, 2) . ' days')));
@@ -319,8 +319,8 @@ class ELTask extends HActiveRecord
             if ($model !== null) {
                 $model->user_id = Yii::app()->user->id;
                 $model->update(array('user_id'));
+                return $model;
             }
-            return $model;
         }
 
         //check other tasks
@@ -333,8 +333,18 @@ class ELTask extends HActiveRecord
         if ($model !== null) {
             $model->user_id = Yii::app()->user->id;
             $model->update(array('user_id'));
+
+            return $model;
         }
-        return $model;
+
+        //check free register tasks
+        $criteria = new CDbCriteria;
+        $criteria->condition = 'closed IS NULL AND start_date <= :start_date AND user_id IS NULL';
+        $criteria->params = array(':start_date' => date("Y-m-d"));
+        $criteria->compare('type', self::TYPE_REGISTER);
+
+        $reg_tasks = ELTask::model()->findAll($criteria);
+        return $reg_tasks;
     }
 
     public function todayTaskCount()

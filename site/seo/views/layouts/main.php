@@ -130,15 +130,15 @@
                 ),
                 array(
                     'label' => 'Внешние ссылки - сайты',
-                    'url' => array('/externalLinks/site/admin/'),
+                    'url' => array('/externalLinks/admin/site/admin/'),
                 ),
                 array(
                     'label' => 'Внешние ссылки - ссылки',
-                    'url' => array('/externalLinks/link/admin/'),
+                    'url' => array('/externalLinks/admin/link/admin/'),
                 ),
                 array(
                     'label' => 'Внешние ссылки - задания',
-                    'url' => array('/externalLinks/task/admin/'),
+                    'url' => array('/externalLinks/admin/task/admin/'),
                 ),
 
             )));

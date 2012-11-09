@@ -363,5 +363,20 @@ class SeoCommand extends CConsoleCommand
 
         var_dump($report);
     }
+
+    public function actionFixELinks()
+    {
+        Yii::import('site.seo.modules.externalLinks.models.*');
+        Yii::app()->db_seo->createCommand('update externallinks__links set check_link_time = NULL where check_link_time = "0000-00-00 00:00:00"')->execute();
+
+        $sites = ELSite::model()->findAll('status=2');
+        foreach($sites as $site){
+            foreach($site->links as $link)
+            if (empty($link->check_link_time)){
+                $site->bad_rating = 3;
+                $site->save();
+            }
+        }
+    }
 }
 

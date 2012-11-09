@@ -21,7 +21,7 @@ class ForumsController extends ELController
         $criteria->with = array('site' => array(
             'select' => array('type')
         ));
-        $criteria->condition = 'site.type = '. ELSite::TYPE_FORUM.' AND link_cost IS NULL';
+        $criteria->condition = 'site.type = ' . ELSite::TYPE_FORUM . ' AND link_cost IS NULL';
         $count = ELLink::model()->count($dataProvider->criteria);
 
         $pages = new CPagination($count);
@@ -52,8 +52,7 @@ class ForumsController extends ELController
                 if ($model->status == ELSite::STATUS_BLACKLIST)
                     $type = 3;
                 elseif (!empty($model->links))
-                    $type = 2;
-                else
+                    $type = 2; else
                     $type = 1;
 
                 $response = array(
@@ -72,8 +71,7 @@ class ForumsController extends ELController
                 if ($model->status == ELSite::STATUS_BLACKLIST)
                     $type = 3;
                 elseif (!empty($model->tasks))
-                    $type = 2;
-                else
+                    $type = 2; else
                     $type = 1;
 
                 $response = array(
@@ -112,5 +110,47 @@ class ForumsController extends ELController
         }
 
         echo CJSON::encode($response);
+    }
+
+    public function actionBlacklist()
+    {
+        $model = new ELSite('search');
+        $model->unsetAttributes();
+        if (isset($_GET['ELSite']))
+            $model->attributes = $_GET['ELSite'];
+        $model->status = ELSite::STATUS_BLACKLIST;
+
+        $this->render('blacklist', compact('model'));
+    }
+
+    public function actionDowngrade()
+    {
+        $site = $this->loadModel(Yii::app()->request->getPost('site_id'));
+        if ($site->bad_rating < 5) {
+            $site->bad_rating++;
+            if ($site->save()) {
+                $response = array(
+                    'status' => true,
+                    'class' => $site->getCssClass()
+                );
+            } else
+                $response = array('status' => false, 'error' => $site->getErrorsText());
+
+            echo CJSON::encode($response);
+        } else
+            echo CJSON::encode(array('status' => false, 'error' => 'Хуже уже некуда'));
+    }
+
+    /**
+     * @param int $id model id
+     * @return ELSite
+     * @throws CHttpException
+     */
+    public function loadModel($id)
+    {
+        $model = ELSite::model()->findByPk($id);
+        if ($model === null)
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        return $model;
     }
 }

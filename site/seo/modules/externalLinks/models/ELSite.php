@@ -9,6 +9,8 @@
  * @property integer $type
  * @property integer $status
  * @property string $created
+ * @property integer $bad_rating
+ * @property integer $comments_count
  *
  * The followings are the available model relations:
  * @property ELAccount $account
@@ -23,6 +25,9 @@ class ELSite extends HActiveRecord
 
     const TYPE_SITE = 1;
     const TYPE_FORUM = 2;
+
+    public $comment;
+    public $buttons;
 
 	/**
 	 * Returns the static model of the specified AR class.
@@ -59,7 +64,7 @@ class ELSite extends HActiveRecord
 		// will receive user inputs.
 		return array(
 			array('url', 'required'),
-			array('type, status', 'numerical', 'integerOnly'=>true),
+			array('type, status, comments_count, bad_rating', 'numerical', 'integerOnly'=>true),
 			array('url', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -107,13 +112,15 @@ class ELSite extends HActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('url',$this->url);
+		$criteria->compare('url',$this->url,true);
 		$criteria->compare('type',$this->type);
 		$criteria->compare('status',$this->status);
-		$criteria->compare('created',$this->created,true);
+		$criteria->compare('created',$this->created);
+		$criteria->compare('comments_count',$this->comments_count);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+            'pagination' => array('pageSize' => 100),
 		));
 	}
 
@@ -135,5 +142,26 @@ class ELSite extends HActiveRecord
             ':site_id'=> $this->id
         ));
         return $this->save();
+    }
+
+    public function getComment()
+    {
+        foreach($this->links as $link)
+            if (empty($link->check_link_time))
+                return 'ссылка удалена';
+
+        return '';
+    }
+
+    public function getCssClass(){
+        return 'red-'.$this->bad_rating;
+    }
+
+    public function getButtons()
+    {
+        $result = CHtml::hiddenField('site_id', $this->id);
+        $result .= CHtml::link(CHtml::image('/images/btn_minus.png'), 'javascript:;', array('onclick'=>'ExtLinks.downgrade(this)'));
+
+        return $result;
     }
 }

@@ -198,6 +198,8 @@ class ELLink extends HActiveRecord
     public function addToBlacklist()
     {
         $this->check_link_time = null;
+        $this->site->bad_rating = 3;
+        $this->site->save();
         $this->save();
 
         return $this->site->addToBlacklist();

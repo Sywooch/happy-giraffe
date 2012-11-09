@@ -3,6 +3,31 @@
  * Date: 02.04.12
  * Time: 15:57
  */
+
+$(document).ready(function () {
+    $('body').delegate('a.fancy', 'click', function () {
+        var onComplete_function = function () {
+            if ($('.popup .chzn').size() > 0)
+                $('.popup .chzn').each(function () {
+                    var s = $(this);
+                    s.chosen({
+                        allow_single_deselect:s.hasClass('chzn-deselect')
+                    });
+                });
+        };
+
+        $(this).clone().fancybox({
+            overlayColor:'#000',
+            overlayOpacity:'0.6',
+            padding:0,
+            showCloseButton:false,
+            scrolling:false,
+            onComplete:onComplete_function
+        }).trigger('click');
+        return false;
+    });
+});
+
 var SeoModule = {
     GetArticleInfo:function () {
         var url = $('input.article-url').val();

@@ -269,5 +269,18 @@ var ExtLinks = {
                     pnotify_text:response.error
                 });
         }, 'json');
+    },
+    downgrade:function(el){
+        var site_id = $(el).prev().val();
+        $.post('/externalLinks/forums/downgrade/', {site_id:site_id}, function (response) {
+            if (response.status) {
+                $(el).parents('tr').removeAttr('class').addClass(response.class);
+            } else
+                $.pnotify({
+                    pnotify_title:'Ошибка',
+                    pnotify_type:'error',
+                    pnotify_text:response.error
+                });
+        }, 'json');
     }
 }

@@ -19,6 +19,10 @@
                 'label' => 'Отчеты',
                 'url' => array('/externalLinks/forums/reports'),
             ),
+            array(
+                'label' => 'Черный список',
+                'url' => array('/externalLinks/forums/blacklist'),
+            ),
         )));
     ?>
 </div>

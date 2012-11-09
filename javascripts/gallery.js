@@ -177,11 +177,15 @@ jQuery.fn.pGallery = function(options) {
 
         /*$('#photo-window-in', this.window).append('<div id="loading"><div class="in"><img src="/images/test_loader.gif">Загрузка</div></div>');*/
 
-        $.get(base_url + '/albums/wPhoto/', data, function(html) {
-            pGallery.currentPhoto = plugin.data.id;
-            var newUrl = plugin.getEntityUrl() + 'photo' + plugin.data.id + '/';
-            plugin.history.changeBrowserUrl(newUrl);
+        pGallery.currentPhoto = plugin.data.id;
+        var newUrl = plugin.getEntityUrl() + 'photo' + plugin.data.id + '/';
+        plugin.history.changeBrowserUrl(newUrl);
 
+        link.parent().siblings('li.active').removeClass('active');
+        link.parent().addClass('active');
+        if(callback)
+            callback();
+        $.get(base_url + '/albums/wPhoto/', data, function(html) {
             $('#w-photo-content', plugin.window).html(html);
             if (plugin.data.entity == 'Contest') {
                 /*if ($('#photo-window .vk_share_button').length > 0)
@@ -197,10 +201,6 @@ jQuery.fn.pGallery = function(options) {
                 $(".auth-service.facebook a").eauth({"popup":{"width":585,"height":290},"id":"facebook"});
                 $(".auth-service.twitter a").eauth({"popup":{"width":900,"height":550},"id":"twitter"});
             }
-            link.parent().siblings('li.active').removeClass('active');
-            link.parent().addClass('active');
-            if(callback)
-                callback();
             /*$('#photo-window-in', plugin.window).children('#loading').remove();*/
         }, 'html');
         plugin.preloadPhotos();

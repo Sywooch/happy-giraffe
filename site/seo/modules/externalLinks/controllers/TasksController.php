@@ -162,7 +162,14 @@ class TasksController extends ELController
         $models = ELTask::model()->getRegisterTasks();
         echo count($models).' register tasks<br>';
         echo ELTask::model()->todayPostTaskCount(). ' - ' . ELTask::model()->todayRegisterTaskCount()
-            . ' - ' .ELTask::model()->getTaskLimit();
+            . ' - ' .ELTask::model()->getTaskLimit().'<br>';
+
+        $criteria = new CDbCriteria;
+        $criteria->params = array(':start_date' => date("Y-m-d"));
+        $criteria->condition = 'closed IS NULL AND start_date <= :today AND type > 1';
+        $criteria->params = array(':today' => date("Y-m-d"));
+
+        echo  ELTask::model()->count($criteria).' - заданий коммент или ссылка';
     }
 
     /**

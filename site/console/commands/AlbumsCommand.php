@@ -6,7 +6,7 @@
  * Time: 9:27 AM
  * To change this template use File | Settings | File Templates.
  */
-class Albums extends CConsoleCommand
+class AlbumsCommand extends CConsoleCommand
 {
     public function actionFixPhoto($id)
     {

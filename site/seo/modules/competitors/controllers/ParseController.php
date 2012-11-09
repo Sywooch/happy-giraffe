@@ -3,7 +3,7 @@
 class ParseController extends SController
 {
     public $layout = '//layouts/empty';
-    const STATS_LIMIT = 4;
+    const STATS_LIMIT = 3;
 
     public function beforeAction($action)
     {
@@ -42,7 +42,7 @@ class ParseController extends SController
 
     public function actionParse2()
     {
-        $site_id = 57;
+        $site_id = 60;
 
         Yii::import('site.frontend.extensions.phpQuery.phpQuery');
         $this->parseStats($site_id, 2011, 1, 12, 0);
@@ -375,7 +375,7 @@ class ParseController extends SController
     public function loadPage($page_url, $last_url)
     {
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_USERAGENT, 'User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:13.0) Gecko/20100101 Firefox/13.0');
+        curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:16.0) Gecko/20100101 Firefox/16.0');
         curl_setopt($ch, CURLOPT_URL, $page_url);
         curl_setopt($ch, CURLOPT_FAILONERROR, 1);
         if (!empty($last_url))
@@ -383,7 +383,7 @@ class ParseController extends SController
         curl_setopt($ch, CURLOPT_COOKIEFILE, $this->getCookieFile());
         curl_setopt($ch, CURLOPT_COOKIEJAR, $this->getCookieFile());
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 20);
         $result = curl_exec($ch);
         curl_close($ch);
 

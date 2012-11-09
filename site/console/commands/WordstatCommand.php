@@ -184,13 +184,13 @@ skrapbook
         $criteria = new CDbCriteria;
         $criteria->limit = 1000;
         $criteria->with = array('yandex');
-        $criteria->order = 'id desc';
+        $criteria->order = 'id asc';
 
         $i = 0;
         $models = array(1);
         while (!empty($models)) {
             $models = Keyword::model()->findAll($criteria);
-            foreach ($models as $model)
+            foreach ($models as $model){
                 if (!isset($model->yandex)){
                     $parsing = new ParsingKeyword();
                     $parsing->keyword_id = $model->id;
@@ -199,12 +199,14 @@ skrapbook
                     }catch (Exception $e){
 
                     }
-                    $i++;
                 }
+                $last_id = $model->id;
+            }
+            $criteria->condition = 'id > '.$last_id;
 
-            $criteria->offset += 1000;
+            $i++;
+            if ($i % 100 == 0)
+                echo round($i / 10)."\n";
         }
-
-        echo $i . "\n";
     }
 }

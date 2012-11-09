@@ -211,7 +211,7 @@ class ELTask extends HActiveRecord
             }
 
             $prev_comments_count = $this->getPreviousCommentsCount();
-            if ($prev_comments_count >= 2)
+            if ($prev_comments_count >= 3)
                 $this->createLinkTask(date("Y-m-d", strtotime('+' . rand(1, 2) . ' days')));
             else
                 $this->createCommentTask(date("Y-m-d", strtotime('+' . rand(1, 2) . ' days')));

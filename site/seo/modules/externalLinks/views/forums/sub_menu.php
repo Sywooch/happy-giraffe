@@ -23,6 +23,10 @@
                 'label' => 'Черный список',
                 'url' => array('/externalLinks/forums/blacklist'),
             ),
+            array(
+                'label' => 'Серый список',
+                'url' => array('/externalLinks/forums/graylist'),
+            ),
         )));
     ?>
 </div>

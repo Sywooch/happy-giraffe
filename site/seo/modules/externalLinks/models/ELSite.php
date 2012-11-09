@@ -82,6 +82,7 @@ class ELSite extends HActiveRecord
 		return array(
 			'account' => array(self::HAS_ONE, 'ELAccount', 'site_id'),
 			'links' => array(self::HAS_MANY, 'ELLink', 'site_id'),
+            'linksCount' => array(self::STAT, 'ELLink', 'site_id'),
 			'tasks' => array(self::HAS_MANY, 'ELTask', 'site_id'),
 		);
 	}
@@ -135,6 +136,16 @@ class ELSite extends HActiveRecord
         );
     }
 
+    public function getCommentsCount()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->condition = 'closed IS NOT NULL';
+        $criteria->compare('site_id', $this->id);
+        $criteria->compare('type', ELTask::TYPE_COMMENT);
+
+        return ELTask::model()->count($criteria);
+    }
+
     public function addToBlacklist()
     {
         $this->status = ELSite::STATUS_BLACKLIST;
@@ -142,6 +153,15 @@ class ELSite extends HActiveRecord
             ':site_id'=> $this->id
         ));
         return $this->save();
+    }
+
+    public function removeFromBlacklist()
+    {
+        ELTask::model()->deleteAll('site_id = '.$this->id);
+        $this->bad_rating = 0;
+        $this->status = self::STATUS_GOOD;
+        $this->save();
+        ELTask::createRegisterTask($this->id, Yii::app()->user->id);
     }
 
     public function getComment()
@@ -157,11 +177,21 @@ class ELSite extends HActiveRecord
         return 'red-'.$this->bad_rating;
     }
 
-    public function getButtons()
+    public function getBlackListButtons()
     {
         $result = CHtml::hiddenField('site_id', $this->id);
-        $result .= CHtml::link(CHtml::image('/images/btn_minus.png'), 'javascript:;', array('onclick'=>'ExtLinks.downgrade(this)'));
+        $result .= CHtml::link(CHtml::image('/images/bad_mark.png'), 'javascript:;', array('onclick'=>'ExtLinks.downgrade(this)'));
+        $result .= '&nbsp;&nbsp;'.CHtml::link(CHtml::image('/images/good_mark.png'),
+            '#removeFromBlfancybox', array(
+                'class' => 'fancy',
+                'onclick'=>'if ($(this).prev().prev().val() !== undefined) $("#site_id").val($(this).prev().prev().val());'
+            ));
 
         return $result;
+    }
+
+    public function getGreyListButtons()
+    {
+        return '<a href="javascript:;" class="icon-blacklist" onclick="ExtLinks.AddToBL2('.$this->id.')">ЧС</a>';
     }
 }

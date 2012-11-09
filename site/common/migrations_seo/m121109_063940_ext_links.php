@@ -6,11 +6,11 @@ class m121109_063940_ext_links extends CDbMigration
 
 	public function up()
 	{
-//        $this->addColumn($this->_table, 'bad_rating', 'tinyint not null default 0');
-//        $this->addColumn($this->_table, 'comments_count', 'int not null default 3');
+        $this->addColumn($this->_table, 'bad_rating', 'tinyint not null default 0');
+        $this->addColumn($this->_table, 'comments_count', 'int not null default 3');
 
-        $this->_table = 'externallinks__links';
-        $this->alterColumn($this->_table, 'check_link_time', 'datetime null');
+//        $this->_table = 'externallinks__links';
+//        $this->alterColumn($this->_table, 'check_link_time', 'datetime null');
 	}
 
 	public function down()

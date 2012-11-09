@@ -90,53 +90,118 @@ class CookDecorationCategory extends HActiveRecord
 		));
 	}
 
-    public function getPhotoCollection()
+    public function getPhotoCollectionIds()
     {
-        $cacheId = ($this->id) ? 'wPhoto_decor_' . $this->id : 'wPhoto_decor_all';
-        $sql = 'SELECT MAX(created) FROM ' . CookDecoration::model()->tableName();
-        if ($this->id)
-            $sql .= ' WHERE id = ' . $this->id;
+        $command = Yii::app()->db->createCommand();
+        $command
+            ->select('id, photo_id')
+            ->from('cook__decorations')
+            ->order('id DESC')
+        ;
 
-        //$collection = Yii::app()->cache->get($cacheId);
-        //$collection = false;
-        //if ($collection === false) {
-            $criteria = new CDbCriteria(array(
-                'with' => array(
-                    'photo' => array(
-                        'with' => array(
-                            'author' => array(
-                                'select' => 'id, first_name, last_name, online',
-                                'with' => 'avatar',
-                            ),
+        if (! empty($this->id))
+            $command->where('category_id = :category_id' , array(':category_id' => $this->id));
+
+        return $command->queryAll();
+    }
+
+    public function getPhotoCollectionCount()
+    {
+        $command = Yii::app()->db->createCommand();
+        $command
+            ->select('count(*) as c')
+            ->from('cook__decorations')
+            ->order('id DESC')
+        ;
+
+        if (! empty($this->id))
+            $command->where('category_id = :category_id' , array(':category_id' => $this->id));
+
+        return $command->queryScalar();
+    }
+
+
+    public function getNearestIds($photo_id, $num = 10)
+    {
+        $ids = array();
+
+        $items = $this->getPhotoCollectionIds();
+        $count = count($items);
+
+        foreach ($items as $k => $i) {
+            if ($i['photo_id'] == $photo_id) {
+                $currentIndex = $k;
+                $ids[] = $i['id'];
+                break;
+            }
+        }
+
+        $currentNext = $currentIndex;
+        $currentPrev = $currentIndex;
+        for ($i = 0; $i < $num; $i++) {
+            $currentNext = ($currentNext == ($count - 1)) ? 0 : ($currentNext + 1);
+            $currentPrev = ($currentPrev == 0) ? ($count - 1) : ($currentPrev - 1);
+            $ids[$currentNext] = $items[$currentNext]['id'];
+            $ids[$currentPrev] = $items[$currentPrev]['id'];
+        }
+
+        return $ids;
+    }
+
+    public function getIndex($photo_id)
+    {
+        $items = $this->getPhotoCollectionIds();
+
+        foreach ($items as $k => $i) {
+            if ($i['photo_id'] == $photo_id)
+                return $k;
+        }
+    }
+
+    public function getPhotoCollection($photo_id = null)
+    {
+        $criteria = new CDbCriteria(array(
+            'with' => array(
+                'photo' => array(
+                    'with' => array(
+                        'author' => array(
+                            'select' => 'id, gender, first_name, last_name, online, avatar_id, deleted',
+                            'with' => 'avatar',
                         ),
                     ),
                 ),
-            ));
+            ),
+        ));
 
-            if (empty($this->id))
-                $decorations = CookDecoration::model()->cache(3600, new CDbCacheDependency($sql))->findAll($criteria);
-            else
-                $decorations = $this->cache(3600, new CDbCacheDependency($sql))->getRelated('decorations', false, $criteria);
+        if ($photo_id !== null) {
+            $nearest = $this->getNearestIds($photo_id);
+            $criteria->compare('t.id', $nearest);
+        }
 
-            $photos = array();
-            foreach($decorations as $model)
-            {
-                $model->photo->w_title = $model->title;
-                $model->photo->w_description = $model->description;
-                $photos [] = $model->photo;
-            }
+        if (empty($this->id))
+            $decorations = CookDecoration::model()->findAll($criteria);
+        else
+            $decorations = $this->getRelated('decorations', false, $criteria);
 
-            $collection = array(
-                'title' => (empty($this->id)) ?
-                    'Фотоальбом к сервису ' . CHtml::link('Офомление блюд', array('cook/decor/index'))
-                    :
-                    'Фотоальбом ' . CHtml::link($this->title, array('cook/decor/index', 'id' => $this->id)) . ' к сервису ' . CHtml::link('Офомление блюд', array('cook/decor/index'))
-                ,
-                'photos' => $photos,
-            );
+        $photos = array();
+        foreach($decorations as $model)
+        {
+            $model->photo->w_title = $model->title;
+            $model->photo->w_description = $model->description;
+            if ($photo_id !== null)
+                $model->photo->w_idx = array_search($model->id, $nearest);
+            $photos[] = $model->photo;
+        }
 
-            //Yii::app()->cache->set($cacheId, $collection, 0, new CDbCacheDependency($sql));
-        //}
+        $collection = array(
+            'title' => (empty($this->id)) ?
+                'Фотоальбом к сервису ' . CHtml::link('Офомление блюд', array('cook/decor/index'))
+                :
+                'Фотоальбом ' . CHtml::link($this->title, array('cook/decor/index', 'id' => $this->id)) . ' к сервису ' . CHtml::link('Офомление блюд', array('cook/decor/index'))
+            ,
+            'photos' => $photos,
+        );
+
         return $collection;
     }
 

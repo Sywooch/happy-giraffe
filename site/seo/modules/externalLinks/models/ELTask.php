@@ -238,7 +238,7 @@ class ELTask extends HActiveRecord
                     $criteria->compare('type', self::TYPE_COMMENT);
                     $count = self::model()->count($criteria);
 
-                    if ($count >= rand(4,6))
+                    if ($count >= rand(3,5))
                         $days_span = 1;
                     else
                         $days_span = 0;

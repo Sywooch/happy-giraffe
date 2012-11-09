@@ -66,3 +66,7 @@ else
     ),
 )); ?>
 </div>
+<style type="text/css">
+    input[name="ELSite[id]"] {width: 50px;}
+    input[name="ELSite[url]"] {width: 250px;}
+</style>

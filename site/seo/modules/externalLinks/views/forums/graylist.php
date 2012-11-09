@@ -4,7 +4,10 @@
  */
 
 $dataProvider = $model->search();
-$dataProvider->criteria->order = 'bad_rating asc, id asc';
+if (empty($dataProvider->criteria->condition))
+    $dataProvider->criteria->condition = 'comments_count > 3 AND status != 2';
+else
+    $dataProvider->criteria->condition .= ' AND comments_count > 3 AND status != 2';
 ?>
 <div class="ext-links-add">
     <?php $this->renderPartial('sub_menu')?>
@@ -41,43 +44,25 @@ $dataProvider->criteria->order = 'bad_rating asc, id asc';
             'filter' => false
         ),
         array(
-            'name' => 'comment',
-            'header' => 'Комментарий',
-            'value' => '$data->getComment()',
+            'name' => 'comments_count',
+            'header' => 'Лимит сообщений',
+            'type' => 'raw',
+            'value' => 'CHtml::textfield("comments_count", $data->comments_count, array("size"=>3)).\'&nbsp;&nbsp;&nbsp;<a href="javascript:;" class="btn-g" onclick="ExtLinks.updateCommentLimit(\'.$data->id.\', this)">OK</a>\'',
+            'filter' => false
+        ),
+        array(
+            'name' => 'comments_count',
+            'header' => 'Комментариев<br>написано',
+            'value' => '$data->getCommentsCount()',
             'filter' => false
         ),
         array(
             'name' => 'buttons',
             'header' => 'Действия',
-            'value' => '$data->getBlackListButtons()',
+            'value' => '$data->getGreyListButtons()',
             'type' => 'raw',
             'filter' => false
         ),
     ),
 )); ?>
-</div>
-
-<style type="text/css">
-    input[name="ELSite[id]"] {width: 50px;}
-    input[name="ELSite[url]"] {width: 350px;}
-
-    tr.red-1 td {background: #ffdae0;}
-    tr.red-2 td {background: #f4bfc5;}
-    tr.red-3 td {background: #e4a3a9;}
-    tr.red-4 td {background: #d88d92;}
-    tr.red-5 td {background: #d78287;}
-
-    input#commentsCount{margin: 10px 0;}
-    #removeFromBlfancybox{width: 300px;height:200px;padding: 15px;}
-</style>
-
-<div style="display:none;">
-    <div id="removeFromBlfancybox" class="popup">
-        <a href="javascript:void(0);" class="popup-close tooltip" onclick="$.fancybox.close();"></a>
-
-        <input type="hidden" id="site_id">
-        <p>Введите первоначальный лимит комментариев</p>
-        <input type="text" value="3" id="commentsCount"><br>
-        <button class="btn-g" onclick="ExtLinks.removeFromBl(this)">OK</button>
-    </div>
 </div>

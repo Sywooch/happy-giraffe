@@ -138,10 +138,22 @@ var ExtLinks = {
                 });
         }, 'json');
     },
+    AddToBL2:function (site_id) {
+        $.post('/externalLinks/forums/addToBlacklist/', {site_id:site_id}, function (response) {
+            if (response.status) {
+                location.reload();
+            } else
+                $.pnotify({
+                    pnotify_title:'Ошибка',
+                    pnotify_type:'error',
+                    pnotify_text:response.error
+                });
+        }, 'json');
+    },
     CheckLinkType:function (el, type) {
         $('#ELLink_link_type').val(type);
         $('.link-types .icon-links').removeClass('active');
-        $(el).addClass('active')
+        $(el).addClass('active');
     },
     ClearFrom:function () {
         $('div.form').hide();
@@ -215,7 +227,7 @@ var ExtLinks = {
                 });
         }, 'json');
     },
-    EditLogin:function(el){
+    EditLogin:function (el) {
         $(el).hide();
         $(el).prev().show();
         $(el).parents('.reg-form').find('input[type="text"]').prop('disabled', false);
@@ -255,7 +267,7 @@ var ExtLinks = {
                 });
         }, 'json');
     },
-    loadPage:function(){
+    loadPage:function () {
         $.post('/externalLinks/sites/loadUrl/', {
             url:$('#ELLink_url').val()
         }, function (response) {
@@ -270,7 +282,7 @@ var ExtLinks = {
                 });
         }, 'json');
     },
-    downgrade:function(el){
+    downgrade:function (el) {
         var site_id = $(el).prev().val();
         $.post('/externalLinks/forums/downgrade/', {site_id:site_id}, function (response) {
             if (response.status) {
@@ -282,5 +294,40 @@ var ExtLinks = {
                     pnotify_text:response.error
                 });
         }, 'json');
+    },
+    removeFromBl:function (el) {
+        var site_id = $('#site_id').val();
+        var commentsCount = $('#commentsCount').val();
+        $.post('/externalLinks/forums/removeFromBl/',
+            {site_id:site_id, commentsCount:commentsCount},
+            function (response) {
+                if (response.status) {
+                    location.reload();
+                } else
+                    $.pnotify({
+                        pnotify_title:'Ошибка',
+                        pnotify_type:'error',
+                        pnotify_text:response.error
+                    });
+            }, 'json');
+    },
+    updateCommentLimit:function(site_id, el){
+        $.post('/externalLinks/forums/changeLimit/',
+            {site_id:site_id, commentsCount:$(el).prev().val()},
+            function (response) {
+                if (response.status) {
+                    $.pnotify({
+                        pnotify_title: 'Успешно',
+                        pnotify_text: 'Значение обновлено',
+                        type: 'success',
+                        delay:1000
+                    });
+                } else
+                    $.pnotify({
+                        pnotify_title:'Ошибка',
+                        pnotify_type:'error',
+                        pnotify_text:response.error
+                    });
+            }, 'json');
     }
 }

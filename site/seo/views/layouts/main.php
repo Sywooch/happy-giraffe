@@ -8,10 +8,10 @@
     <?php
     echo CHtml::linkTag('shortcut icon', null, '/favicon.bmp');
 
-    $release_id = 30;
+    $release_id = 31;
     Yii::app()->clientScript
         ->registerCssFile('/css/seo.css?'.$release_id)
-        ->registerCssFile('/css/form.css')
+        ->registerCssFile('/css/form.css?'.$release_id)
         ->registerCssFile('/css/my.css?'.$release_id)
 
         ->registerCoreScript('jquery')
@@ -31,8 +31,9 @@
 
         ->registerScriptFile('/js/jquery.tmpl.min.js')
 
-        ->registerScriptFile('/js/jquery.pnotify.min.js')
-        ->registerCssFile('/css/jquery.pnotify.css')
+        ->registerScriptFile('/js/jquery.pnotify.min.js?'.$release_id)
+        ->registerCssFile('/css/jquery.pnotify.css?'.$release_id)
+        ->registerCssFile('http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/themes/smoothness/jquery-ui.css?'.$release_id)
         ->registerCssFile('/css/reset.css')
 
         ->registerScriptFile('/js/jquery.iframe-post-form.js');

@@ -62,7 +62,7 @@ class FileAttachWidget extends CWidget
     {
         if($this->entity == 'Contest')
         {
-            $this->title = 'Фотография для конкурса «Веселая семейка»';
+            $this->title = 'Фотография для конкурса';
             $this->button_title = 'Добавить на конкурс';
         }
         elseif($this->entity == 'User')

@@ -28,13 +28,6 @@ class CheckController extends ELController
             echo CJSON::encode(array('status' => $link->addToBlacklist()));
     }
 
-    public function actionTest(){
-        $models = ELTask::model()->getRegisterTasks();
-        echo count($models).' register tasks<br>';
-        echo ELTask::model()->todayPostTaskCount(). ' - ' . ELTask::model()->todayRegisterTaskCount()
-            . ' - ' .ELTask::model()->getTaskLimit();
-    }
-
     /**
      * @param int $id model id
      * @return ELLink

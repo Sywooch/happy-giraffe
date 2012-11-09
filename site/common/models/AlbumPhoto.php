@@ -367,9 +367,6 @@ class AlbumPhoto extends HActiveRecord
             if ($crop)
                 $image->crop($width, $height, $crop_side);
 
-            if ($force_replace)
-                unlink($thumb);
-
             $image->save($thumb);
         }
 

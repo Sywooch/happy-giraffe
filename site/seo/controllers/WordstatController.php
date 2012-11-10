@@ -112,4 +112,16 @@ class WordstatController extends SController
 
         fclose($fh);
     }
+
+    public function actionLastKeywords(){
+        $keywords = Yii::app()->db_seo->createCommand()
+                    ->select('name')
+                    ->from('keywords')
+                    ->limit(100)
+                    ->order('id desc')
+                    ->queryColumn();
+
+        foreach($keywords as $keyword)
+            echo $keyword."<br>";
+    }
 }

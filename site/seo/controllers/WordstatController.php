@@ -123,5 +123,15 @@ class WordstatController extends SController
 
         foreach($keywords as $keyword)
             echo $keyword."<br>";
+
+        $keywords = Yii::app()->db_seo->createCommand()
+            ->select('name')
+            ->from('keywords')
+            ->limit(100)
+            ->order('id asc')
+            ->queryColumn();
+
+        foreach($keywords as $keyword)
+            echo $keyword."<br>";
     }
 }

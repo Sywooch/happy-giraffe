@@ -17,6 +17,7 @@ class PurifiedBehavior extends CActiveRecordBehavior
         'Attr.AllowedRel' => array('nofollow'),
         'HTML.SafeIframe' => true,
         'URI.SafeIframeRegexp' => '%^http://www.youtube.com/embed/%',
+        'HTML.SafeObject' => true,
     );
 
     public function __get($name)

@@ -282,9 +282,9 @@ class ELTask extends HActiveRecord
 
         $criteria = new CDbCriteria;
         $criteria->condition = 'created >= :last_link_time';
+        $criteria->params = array(':last_link_time' => $latest_link_comment->created);
         $criteria->compare('site_id', $this->site_id);
         $criteria->compare('type', self::TYPE_COMMENT);
-        $criteria->params = array(':last_link_time' => $latest_link_comment->created);
 
         $criteria->order = 'created desc';
 
@@ -393,9 +393,8 @@ class ELTask extends HActiveRecord
     public function getLinkTask()
     {
         $criteria = new CDbCriteria;
-        $criteria->params = array(':start_date' => date("Y-m-d"));
         $criteria->condition = 'closed IS NULL AND start_date <= :today AND user_id IS NULL';
-        $criteria->params = array(':today' => date("Y-m-d"));
+        $criteria->params = array(':start_date' => date("Y-m-d"), ':today' => date("Y-m-d"));
         $criteria->compare('type', self::TYPE_POST_LINK);
 
         $model = ELTask::model()->find($criteria);
@@ -411,9 +410,8 @@ class ELTask extends HActiveRecord
     public function getCommentTask()
     {
         $criteria = new CDbCriteria;
-        $criteria->params = array(':start_date' => date("Y-m-d"));
         $criteria->condition = 'closed IS NULL AND start_date <= :today AND user_id IS NULL';
-        $criteria->params = array(':today' => date("Y-m-d"));
+        $criteria->params = array(':start_date' => date("Y-m-d"), ':today' => date("Y-m-d"));
         $criteria->compare('type', self::TYPE_COMMENT);
 
         $model = ELTask::model()->find($criteria);

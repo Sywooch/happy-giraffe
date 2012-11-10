@@ -79,4 +79,37 @@ class WordstatController extends SController
                 'status' => false,
             ));
     }
+
+    public function actionParsePastuhov()
+    {
+        $fh = fopen('F:\web-dev\Xedant\YANDEX_POPULARITY.txt', 'r');
+        for ($i = 0; $i < 4000000; $i++)
+            fgets($fh);
+        while ($str = fgets($fh)) {
+            preg_match('/([^|]+)\|([\d]+)/', $str, $matches);
+            if (isset($matches[2]) && $matches[2]>5000){
+                $keyword = $matches[1];
+                $keyword = preg_replace('/(\+)[\w]*/', '', $keyword);
+                $keyword = str_replace('$', '', $keyword);
+                $keyword = str_replace('&', '', $keyword);
+                $keyword = str_replace('"', '', $keyword);
+                $keyword = str_replace('\'', '', $keyword);
+                $keyword = trim($keyword);
+
+                $model = Keyword::model()->findByAttributes(array('name'=>$keyword));
+                if ($model === null){
+                    $model = new Keyword();
+                    $model->name = $keyword;
+                    $model->save();
+
+                    $parsing_keyword = new ParsingKeyword();
+                    $parsing_keyword->keyword_id = $model->id;
+                    $parsing_keyword->theme = 100;
+                    $parsing_keyword->save();
+                }
+            }
+        }
+
+        fclose($fh);
+    }
 }

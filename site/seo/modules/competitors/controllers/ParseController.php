@@ -3,7 +3,7 @@
 class ParseController extends SController
 {
     public $layout = '//layouts/empty';
-    const STATS_LIMIT = 3;
+    const STATS_LIMIT = 5;
 
     public function beforeAction($action)
     {
@@ -42,11 +42,13 @@ class ParseController extends SController
 
     public function actionParse2()
     {
-        $site_id = 57;
+        $site_id = 62;
 
         Yii::import('site.frontend.extensions.phpQuery.phpQuery');
 //        $this->parseStats($site_id, 2011, 1, 12, 0);
-        $this->parseStats($site_id, 2012, 6, 9, 0);
+        for($site_id=14;$site_id<40;$site_id++){
+            $this->parseStats($site_id, 2012, 10, 10, 0);
+        }
     }
 
     public function parseStats($site_id, $year, $month_from, $month_to, $mode)
@@ -434,11 +436,10 @@ class ParseController extends SController
 
     public function actionExport()
     {
-        $sites = range(50,60);
+        $sites = range(57,57);
         foreach ($sites as $site_id) {
             $criteria = new CDbCriteria;
             $criteria->compare('site_id', $site_id);
-//            $criteria->compare('year', '2012');
             $criteria->limit = 100;
             $criteria->offset = 0;
             $criteria->with = array('keyword');

@@ -82,7 +82,7 @@ class WordstatController extends SController
 
     public function actionParsePastuhov()
     {
-        $fh = fopen('F:\web-dev\Xedant\YANDEX_POPULARITY.txt', 'r');
+        $fh = fopen(Yii::app()->params['pastuh_yandex_filepath'] , 'r');
         for ($i = 0; $i < 4000000; $i++)
             fgets($fh);
         while ($str = fgets($fh)) {

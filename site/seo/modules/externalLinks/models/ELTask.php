@@ -382,8 +382,8 @@ class ELTask extends HActiveRecord
     {
         //check free register tasks
         $criteria = new CDbCriteria;
-        $criteria->condition = 'closed IS NULL AND start_date <= :start_date AND user_id IS NULL';
-        $criteria->params = array(':start_date' => date("Y-m-d"));
+        $criteria->condition = 'closed IS NULL AND start_date <= :today AND user_id IS NULL';
+        $criteria->params = array(':today' => date("Y-m-d"));
         $criteria->compare('type', self::TYPE_REGISTER);
 
         $reg_tasks = ELTask::model()->findAll($criteria);
@@ -394,7 +394,7 @@ class ELTask extends HActiveRecord
     {
         $criteria = new CDbCriteria;
         $criteria->condition = 'closed IS NULL AND start_date <= :today AND user_id IS NULL';
-        $criteria->params = array(':start_date' => date("Y-m-d"), ':today' => date("Y-m-d"));
+        $criteria->params = array(':today' => date("Y-m-d"));
         $criteria->compare('type', self::TYPE_POST_LINK);
 
         $model = ELTask::model()->find($criteria);
@@ -411,7 +411,7 @@ class ELTask extends HActiveRecord
     {
         $criteria = new CDbCriteria;
         $criteria->condition = 'closed IS NULL AND start_date <= :today AND user_id IS NULL';
-        $criteria->params = array(':start_date' => date("Y-m-d"), ':today' => date("Y-m-d"));
+        $criteria->params = array(':today' => date("Y-m-d"));
         $criteria->compare('type', self::TYPE_COMMENT);
 
         $model = ELTask::model()->find($criteria);
@@ -428,8 +428,8 @@ class ELTask extends HActiveRecord
     {
         //check free register tasks
         $criteria = new CDbCriteria;
-        $criteria->condition = 'closed IS NULL AND start_date <= :start_date AND user_id IS NULL';
-        $criteria->params = array(':start_date' => date("Y-m-d"));
+        $criteria->condition = 'closed IS NULL AND start_date <= :today AND user_id IS NULL';
+        $criteria->params = array(':today' => date("Y-m-d"));
 
         $model = ELTask::model()->find($criteria);
         if ($model !== null) {

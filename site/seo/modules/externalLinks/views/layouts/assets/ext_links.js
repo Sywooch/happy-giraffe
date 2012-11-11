@@ -311,15 +311,15 @@ var ExtLinks = {
                     });
             }, 'json');
     },
-    updateCommentLimit:function(site_id, el){
+    updateCommentLimit:function (site_id, el) {
         $.post('/externalLinks/forums/changeLimit/',
             {site_id:site_id, commentsCount:$(el).prev().val()},
             function (response) {
                 if (response.status) {
                     $.pnotify({
-                        pnotify_title: 'Успешно',
-                        pnotify_text: 'Значение обновлено',
-                        type: 'success',
+                        pnotify_title:'Успешно',
+                        pnotify_text:'Значение обновлено',
+                        type:'success',
                         delay:1000
                     });
                 } else
@@ -329,5 +329,20 @@ var ExtLinks = {
                         pnotify_text:response.error
                     });
             }, 'json');
+    },
+    riseLimit:function (site_id, comments_count) {
+        var new_limit = prompt("Введите новый лимит комментариев", comments_count);
+        if (new_limit != null && new_limit != comments_count) {
+            $.post('/externalLinks/forums/changeLimit/', {site_id:site_id, commentsCount:new_limit}, function (response) {
+                if (response.status) {
+                    location.reload();
+                } else
+                    $.pnotify({
+                        pnotify_title:'Ошибка',
+                        pnotify_type:'error',
+                        pnotify_text:response.error
+                    });
+            }, 'json');
+        }
     }
 }

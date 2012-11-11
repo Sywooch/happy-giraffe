@@ -188,7 +188,7 @@ class WordstatParser extends ProxyParserThread
             $this->addData($keyword, $value);
         }
 
-        //собирает кейворды из блока "Что еще искали люди, искавшие" - парсим только первую страницу
+        //собирает кейворды из блока "Что еще искали люди, искавшие"
         //так как на остальных кейворды повторяются
         if ($this->first_page)
             foreach ($document->find('table.campaign tr td table:eq(1) td a') as $link) {

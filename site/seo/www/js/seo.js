@@ -232,7 +232,7 @@ var WordStat = {
             if (response.status) {
                 $.pnotify({
                     pnotify_title:'Успешно',
-                    pnotify_text:''
+                    pnotify_type: 'success'
                 });
             }
         }, 'json');
@@ -241,6 +241,18 @@ var WordStat = {
         $.post('/wordstat/searchKeyword/', {name:$(el).prev().val()}, function (response) {
             if (response.status) {
                 $('#result').html(response.html);
+            }
+            else
+                console.log('not found');
+        }, 'json');
+    },
+    addKeywords:function(el){
+        $.post('/wordstat/add/', {keywords:$(el).prev().val()}, function (response) {
+            if (response.status) {
+                $.pnotify({
+                    pnotify_title: 'Успешно',
+                    pnotify_type: 'success'
+                });
             }
             else
                 console.log('not found');

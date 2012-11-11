@@ -80,25 +80,30 @@ class WordstatController extends SController
             ));
     }
 
-    public function actionLastKeywords(){
+    public function actionLastKeywords()
+    {
 
         $this->render('lastKeywords');
     }
 
-    public function actionAdd(){
+    public function actionAdd()
+    {
         $keywords = Yii::app()->request->getPost('keywords');
         $keywords = explode("\n", $keywords);
-        foreach($keywords as $keyword){
+        foreach ($keywords as $keyword) {
             $keyword = Keyword::GetKeyword(trim($keyword));
-            $parsing = new ParsingKeyword;
-            $parsing->keyword_id = $keyword->id;
-            $parsing->save();
+            if (ParsingKeyword::model()->findByPk($keyword->id) === null) {
+                $parsing = new ParsingKeyword;
+                $parsing->keyword_id = $keyword->id;
+                $parsing->save();
+            }
         }
 
         echo CJSON::encode(array('status' => true));
     }
 
-    public function actionTest(){
+    public function actionTest()
+    {
         $keywords = '1 пластиковые окна  7 941  38 671 267
 2 окна пвх  3 463  27 563 848
 3 окна  3 234  24 156 288
@@ -1498,8 +1503,8 @@ class WordstatController extends SController
 99 настольный планшет с картой  09  2 579 885
 100 планшет microsoft surface  09  1 534 146';
         preg_match_all('/\d+\s([^\d]+)\s/', $keywords, $matches);
-        for($i=0;$i<count($matches[0]);$i++){
-            echo $matches[1][$i].'<br>';
+        for ($i = 0; $i < count($matches[0]); $i++) {
+            echo $matches[1][$i] . '<br>';
         }
     }
 }

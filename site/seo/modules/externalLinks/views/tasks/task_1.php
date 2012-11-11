@@ -35,25 +35,8 @@ Yii::app()->clientScript->registerScript('init_site_id','ExtLinks.site_id = '.$t
     <div class="row row-btn-done">
 
         <button class="btn-g" onclick="ExtLinks.Executed(<?=$task->id ?>)">Выполнено</button>
-        <div class="problem">
-            <a href="javascript:void(0);" class="pseudo" onclick="$(this).next().toggle()">Возникла проблема</a>
 
-            <div class="problem-in" style="display: none;">
-                <a href="javascript:;" class="btn-g small" onclick="ExtLinks.Problem(<?=$task->id ?>)">Ok</a>
-
-                <?php if (empty($task->site->account)): ?>
-                <a href="javascript:;" class="radio" onclick="ExtLinks.checkProblem(this, 1)">В черный список</a>
-                <a href="javascript:;" class="radio" onclick="ExtLinks.checkProblem(this, 2)">Отложить на 3 дня</a>
-                <?php else: ?>
-                    <a href="javascript:;" class="radio" onclick="ExtLinks.checkProblem(this, 1)">В черный список</a>
-                    <a href="javascript:;" class="radio" onclick="ExtLinks.checkProblem(this, 2)">Отложить на 3 дня</a>
-                <?php endif ?>
-
-            </div>
-            <div class="problem-in" style="display: none;">
-                <a href="javascript:;" class="btn-g small" onclick="ExtLinks.Problem(<?=$task->id ?>)">Ok</a>
-            </div>
-        </div>
+        <?php $this->renderPartial('_problem',compact('task')); ?>
 
     </div>
 

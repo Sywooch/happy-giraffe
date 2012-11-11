@@ -171,6 +171,10 @@ class TasksController extends ELController
         echo  ELTask::model()->count($criteria).' - заданий коммент или ссылка';
     }
 
+    public function actionRiseLimit(){
+
+    }
+
     /**
      * @param int $id model id
      * @return ELTask

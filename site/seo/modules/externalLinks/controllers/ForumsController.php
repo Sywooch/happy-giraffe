@@ -181,6 +181,25 @@ class ForumsController extends ELController
 
         $site->comments_count = $comments_count;
         if ($site->save()) {
+            //проверяем нет ли задания на ссылку и удаляем его, вместо него будет задание откомментировать
+            $criteria = new CDbCriteria;
+            $criteria->condition = 'closed IS NULL';
+            $criteria->compare('type', ELTask::TYPE_POST_LINK);
+            $criteria->compare('site_id', $site->id);
+            $link_tasks = ELTask::model()->findAll($criteria);
+            if (!empty($link_tasks)){
+                foreach($link_tasks as $link_task)
+                    $link_task->delete();
+
+                //создаем задание на комментирование
+                $task = new ELTask();
+                $task->type = ELTask::TYPE_COMMENT;
+                $task->start_date = date("Y-m-d") ;
+                $task->user_id = Yii::app()->user->id;
+                $task->site_id = $site->id;
+                $task->save();
+            }
+
             $response = array('status' => true);
         } else
             $response = array('status' => false, 'error' => $site->getErrorsText());

@@ -123,12 +123,12 @@ class HoroscopeCompatibility extends HActiveRecord
     public function getUrl($zodiac1, $zodiac2 = null)
     {
         if ($zodiac2 !== null){
-            return Yii::app()->createUrl('/services/horoscope/default/compatibility', array(
+            return Yii::app()->createUrl('/services/horoscope/compatibility/index', array(
                 'zodiac1'=>Horoscope::model()->zodiac_list_eng[$zodiac1],
                 'zodiac2'=>Horoscope::model()->zodiac_list_eng[$zodiac2],
             ));
         }
-        return Yii::app()->createUrl('/services/horoscope/default/compatibility', array(
+        return Yii::app()->createUrl('/services/horoscope/compatibility/index', array(
             'zodiac1'=>Horoscope::model()->zodiac_list_eng[$zodiac1],
         ));
     }

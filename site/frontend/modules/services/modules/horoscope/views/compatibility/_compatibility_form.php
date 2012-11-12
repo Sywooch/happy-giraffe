@@ -26,7 +26,7 @@ if ($model->isNewRecord){
         'validateOnSubmit' => true,
         'validateOnChange' => false,
         'validateOnType' => false,
-        'validationUrl' => $this->createUrl('validate'),
+        'validationUrl' => array('/horoscope/compatibility/validate/'),
         'afterValidate' => "js:function(form, data, hasError) {
                                 if (!hasError)
                                     Horoscope.calc();

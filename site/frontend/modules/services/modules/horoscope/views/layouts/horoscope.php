@@ -20,7 +20,10 @@
 
             <ul>
                 <li><a href="<?=$this->createUrl('/services/horoscope/default/index') ?>">Гороскоп на сегодня</a></li>
-                <li><a href="<?=$this->createUrl('/services/horoscope/default/compatibility') ?>">Гороскоп совместимости</a></li>
+                <li><a href="<?=$this->createUrl('/services/horoscope/default/tomorrow') ?>">Гороскоп на завтра</a></li>
+                <li><a href="<?=$this->createUrl('/services/horoscope/default/month') ?>">Гороскоп на месяц</a></li>
+                <li><a href="<?=$this->createUrl('/services/horoscope/default/year') ?>">Гороскоп на год</a></li>
+                <li><a href="<?=$this->createUrl('/services/horoscope/compatibility/index') ?>">Гороскоп совместимости</a></li>
             </ul>
 
         </div>

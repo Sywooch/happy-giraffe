@@ -1,4 +1,8 @@
-<?php $time = strtotime($model->date);?>
+<?php
+/**
+ * @var $model Horoscope
+ */
+?><?php $time = strtotime($model->date);?>
 <div class="horoscope-one">
 
     <div class="block-in">
@@ -19,14 +23,14 @@
         <div class="text clearfix">
             <div class="date">
                 <?php if (!empty($model->date)):?>
-                    <?=date("j", strtotime($model->date)) ?>
-                    <br>
-                    <?=Yii::app()->dateFormatter->format('MMM',strtotime($model->date))?>
+                <?=date("j", strtotime($model->date)) ?>
+                <br>
+                <?=Yii::app()->dateFormatter->format('MMM',strtotime($model->date))?>
                 <?php else: ?>
-                    <?php if (!empty($model->month)):?>
-                        <?=Yii::app()->dateFormatter->format('MMM',strtotime($model->month))?>
+                <?php if (!empty($model->month)):?>
+                    <?=Yii::app()->dateFormatter->format('MMM',strtotime($model->month))?>
                     <?php else: ?>
-                        <?=$model->year  ?>
+                    <?=$model->year  ?>
                     <?php endif ?>
                 <?php endif ?>
             </div>
@@ -57,6 +61,6 @@
 
 <div class="wysiwyg-content">
 
-    <?=HoroscopeText::getText($model); ?>
+    <?=$model->getText(); ?>
 
 </div>

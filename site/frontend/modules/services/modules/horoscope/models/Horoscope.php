@@ -262,7 +262,7 @@ class Horoscope extends HActiveRecord
         if ($this->onWeek())
             return 'week';
         if (!empty($this->date))
-            return 'view';
+            return 'today';
         return '';
     }
 
@@ -274,5 +274,25 @@ class Horoscope extends HActiveRecord
 
     public static function getZodiacSlug($zodiac_id){
         return Horoscope::model()->zodiac_list_eng[$zodiac_id];
+    }
+
+    /*****************************************************************************************************************/
+    /**************************************************** TEXTS ******************************************************/
+    /*****************************************************************************************************************/
+
+    public function getText()
+    {
+        if ($this->onMonth())
+            return ServiceText::getText('horoscope', 'month_'.$this->zodiac);
+        if ($this->onYear())
+            return ServiceText::getText('horoscope', 'year_'.$this->zodiac);
+        if ($this->date == date("Y-m-d"))
+            return ServiceText::getText('horoscope', 'today_'.$this->zodiac);
+        if ($this->date == date("Y-m-d", strtotime('-1 day')))
+            return ServiceText::getText('horoscope', 'yesterday_'.$this->zodiac);
+        if ($this->date == date("Y-m-d", strtotime('+1 day')))
+            return ServiceText::getText('horoscope', 'tomorrow_'.$this->zodiac);
+
+        return '';
     }
 }

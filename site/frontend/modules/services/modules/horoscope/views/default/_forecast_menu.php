@@ -5,14 +5,9 @@
 ?><?php $this->widget('zii.widgets.CMenu', array(
     'items' => array(
         array(
-            'label' => 'На вчера',
-            'url' => $this->createUrl('yesterday', array('zodiac' => Horoscope::getZodiacSlug($model->zodiac))),
-            'active' => Yii::app()->controller->action->id == 'yesterday'
-        ),
-        array(
             'label' => 'На сегодня',
             'url' => $this->createUrl('view', array('zodiac' => Horoscope::getZodiacSlug($model->zodiac))),
-            'active' => Yii::app()->controller->action->id == 'view'
+            'active' => Yii::app()->controller->action->id == 'today'
         ),
         array(
             'label' => 'На завтра',
@@ -29,4 +24,4 @@
             'url' => $this->createUrl('year', array('zodiac' => Horoscope::getZodiacSlug($model->zodiac))),
             'active' => Yii::app()->controller->action->id == 'year'
         ),
-    )));?>
+    )));

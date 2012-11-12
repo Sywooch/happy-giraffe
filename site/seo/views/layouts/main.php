@@ -122,6 +122,10 @@
                     'url' => array('/competitors/parse/index'),
                 ),
                 array(
+                    'label' => 'Парсинг Mail.ru статистики',
+                    'url' => array('/competitors/mailParse/index'),
+                ),
+                array(
                     'label' => 'Урлы индексации',
                     'url' => array('/admin/indexingUrl/admin/'),
                 ),

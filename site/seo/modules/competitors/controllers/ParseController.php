@@ -42,13 +42,13 @@ class ParseController extends SController
 
     public function actionParse2()
     {
-        $site_id = 62;
+        $site_id = 63;
 
         Yii::import('site.frontend.extensions.phpQuery.phpQuery');
-//        $this->parseStats($site_id, 2011, 1, 12, 0);
-        for($site_id=14;$site_id<40;$site_id++){
-            $this->parseStats($site_id, 2012, 10, 10, 0);
-        }
+        $this->parseStats($site_id, 2011, 1, 12, 0);
+//        for($site_id=14;$site_id<40;$site_id++){
+        $this->parseStats($site_id, 2012, 1, 11, 0);
+//        }
     }
 
     public function parseStats($site_id, $year, $month_from, $month_to, $mode)

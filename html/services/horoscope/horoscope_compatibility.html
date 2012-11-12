@@ -498,7 +498,9 @@ var Horoscope = {
 										<option value="12">Рыбы</option>
 									</select>
 								</div>
-								<!-- Появление дропа под знаком зодиака -->
+								<!-- Появление дропа под знаком зодиака 
+								есть проблема при повторном клике на изображенни зодиака для изменения выбора срабатывает только с второй попытки
+								-->
 								<script>
 									$(document).ready(function($) {
 										$(".horoscope-compatibility .img").live("click", function() {

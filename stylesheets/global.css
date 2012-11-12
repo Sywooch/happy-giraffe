@@ -3346,7 +3346,7 @@ ul.letters li a:hover {
 #horoscope .horoscope-fast-list ul li a {text-decoration:none;color:#2d2d2d;font-size:10px;}
 #horoscope .horoscope-fast-list ul li a span {color:#2d87be;font:italic 18px times new roman, serif;text-decoration:underline;}
 #horoscope .horoscope-fast-list ul li a:hover span {text-decoration:none;}
-#horoscope .horoscope-fast-list ul li .other {background:#fff9b2;margin: 15px 0 0;padding:20px 0 20px 14px;width: 66px;text-align: left; position: relative;font-size: 15px;line-height: 16px;color: #343535;}
+#horoscope .horoscope-fast-list ul li .other {background:#fff9b2;margin: 15px 0 0;padding:20px 0 20px 14px;width: 75px;text-align: left; position: relative;font-size: 15px;line-height: 16px;color: #343535;}
 #horoscope .horoscope-fast-list ul li .other:after{content:'';position:absolute;right:-22px;top:0;width:0;height:0;border:1px solid #fff;border-width:45px 0 45px 22px;border-left-color:#fff9b2;display:block;clear:both;}
 
 #horoscope .chzn-container-single .chzn-single {border-color:#e6d4f6;}

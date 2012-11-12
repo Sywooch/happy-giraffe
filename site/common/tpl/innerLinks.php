@@ -3,7 +3,7 @@
     <ul>
         <?php foreach ($link_pages as $link_page)
                 if (isset($link_page->keyword->name)) {
-            ?><li><?= CHtml::link($link_page->keyword->name, $link_page->pageTo->url); ?></li>
+            ?><li><?php echo CHtml::link($link_page->keyword->name, $link_page->pageTo->url); ?></li>
             <?php } ?>
     </ul>
 </div>

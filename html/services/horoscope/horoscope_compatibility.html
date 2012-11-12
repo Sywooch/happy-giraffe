@@ -481,19 +481,6 @@ var Horoscope = {
 							<div class="plus"></div>
 							<div class="sign zodiac-empty">
 								<div class="img"><img src="/images/widget/horoscope/big/0.png" class="horoscope-zodiac-img" /></div>
-								<!-- Появление дропа под знаком зодиака -->
-								<script>
-									$(document).ready(function($) {
-										$(".horoscope-zodiac-img").live("click", function() {
-											$(this).parents('div.sign').removeClass("zodiac-empty");
-											$(this).parents('div.sign').find('.chzn-drop').css({
-												"left" : "0",
-												"top" : "-5px"
-											});
-										});
-									});
-									
-								</script>
 								<div class="chzn-v2-lilac">
 									<select onchange="Horoscope.ZodiacChange(this)" class="chzn">
 										<option selected="selected" value="0">--</option>
@@ -511,6 +498,18 @@ var Horoscope = {
 										<option value="12">Рыбы</option>
 									</select>
 								</div>
+								<!-- Появление дропа под знаком зодиака -->
+								<script>
+									$(document).ready(function($) {
+										$(".horoscope-zodiac-img").live("click", function() {
+											$(this).parents('div.sign').removeClass("zodiac-empty");
+											$(this).parents('div.sign').find('.chzn-drop').css({
+												"left" : "0"
+											});
+										});
+									});
+									
+								</script>
 							</div>
 							<div class="equal"></div>
 							<a href="" class="button btn-green btn-large">Узнать!</a>

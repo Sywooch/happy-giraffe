@@ -72,6 +72,7 @@ class SiteController extends SController
      */
     public function actionLogin()
     {
+        Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
         $this->layout = 'none';
         $model = new LoginForm;
 
@@ -119,54 +120,6 @@ class SiteController extends SController
     public function actionModules()
     {
         $this->render('modules');
-    }
-
-    public function actionTest2()
-    {
-        $proxy = '82.192.85.54:60504';
-
-        $ch = curl_init('http://wordstat.yandex.ru/?cmd=words&page=1&t=%D0%BC%D0%B0%D0%BC%D0%B0+%2B%D0%B8+%D1%81%D1%8B%D0%BD&geo=&text_geo=');
-        curl_setopt($ch, CURLOPT_USERAGENT, 'Opera/9.80 (Windows NT 6.1; WOW64; U; ru) Presto/2.10.289 Version/12.00');
-
-        //curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
-        curl_setopt($ch, CURLOPT_PROXY, $proxy);
-//            if (getenv('SERVER_ADDR') != '5.9.7.81') {
-//                curl_setopt($ch, CURLOPT_PROXYUSERPWD, "alexk984:Nokia12345");
-//                curl_setopt($ch, CURLOPT_PROXYAUTH, 1);
-//            }
-
-        curl_setopt($ch, CURLOPT_HEADER, 1);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 15);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 15);
-        $content = curl_exec($ch);
-
-        if ($content === false) {
-            if (curl_errno($ch)) {
-                echo curl_errno($ch) . '-' . curl_error($ch);
-            }
-        }
-        curl_close($ch);
-
-        //Errors
-        // 7-couldn't connect to host
-        // 7-Failed to receive SOCKS5 connect request ack.
-        // <title>Статистика ключевых слов на Яндексе
-    }
-
-    public function actionTest()
-    {
-        $html = <<<EOD
-EOD;
-        Yii::import('site.frontend.extensions.phpQuery.phpQuery');
-
-        $document = phpQuery::newDocument($html);
-        $links = array();
-        foreach ($document->find('a') as $link) {
-            $links [] = pq($link)->text();
-            echo pq($link)->text() . '<br>';
-        }
     }
 
     public function actionSql($sql = '')

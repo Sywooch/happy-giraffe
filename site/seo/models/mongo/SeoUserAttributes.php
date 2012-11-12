@@ -12,6 +12,7 @@ class SeoUserAttributes extends EMongoDocument
     private $default = array(
         'last_competitor_site_id_section_1' => 1,
         'last_competitor_site_id_section_2' => 11,
+        'last_competitor_site_id_section_3' => 50,
         'wordstat_min' => 500,
         'min_yandex_position' => 10,
         'max_yandex_position' => 100,

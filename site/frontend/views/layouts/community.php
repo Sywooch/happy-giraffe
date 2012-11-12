@@ -144,6 +144,7 @@
                     WHERE r.community_id = ' . $this->community->id,
             ),
             'varyByParam' => array('community_id'),
+            'varyByExpression' => $this->rubric_id,
         ))): ?>
 
             <div class="club-topics-list-new drop-holder">

@@ -310,7 +310,7 @@ class User extends HActiveRecord
     {
         return array(
             'active' => array(
-                'condition' => $this->getTableAlias(false, false) . '.deleted = 0 and ' . $this->getTableAlias(false, false) . '.blocked = 0'
+                'condition' => $this->getTableAlias(false, false) . '.deleted = 0'
             ),
         );
     }

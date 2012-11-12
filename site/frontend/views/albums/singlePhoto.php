@@ -18,7 +18,12 @@
         <div class="clearfix">
 
             <div class="count">
-                <?php if (get_class($model) != 'Contest'): ?><?=$currentIndex?> фото из <?=count($collection['photos'])?> <?php endif; ?><a href="javascript:void(0)" class="btn btn-green-smedium" data-id="<?=$photo->id?>"><span><span><?=(get_class($model) == 'Contest') ? 'Смотреть всех участников' : 'Смотреть весь альбом'?></span></span></a>
+                <?php if (get_class($model) == 'CookDecorationCategory'): ?>
+                    <?=($model->getIndex($photo->id) + 1)?> фото из <?=$model->getPhotoCollectionCount()?>
+                <?php elseif (get_class($model) != 'Contest'): ?>
+                    <?=$currentIndex?> фото из <?=count($collection['photos'])?>
+                <?php endif; ?>
+                <a href="javascript:void(0)" class="btn btn-green-smedium" data-id="<?=$photo->id?>"><span><span><?=(get_class($model) == 'Contest') ? 'Смотреть всех участников' : 'Смотреть весь альбом'?></span></span></a>
             </div>
 
             <div class="album-title">

@@ -150,13 +150,13 @@ class Comment extends HActiveRecord
 
     public function get($entity, $entity_id, $type)
     {
-        return new CActiveDataProvider($this, array(
+        return new CActiveDataProvider('Comment', array(
             'criteria' => array(
                 'condition' => 't.entity=:entity AND t.entity_id=:entity_id',
                 'params' => array(':entity' => $entity, ':entity_id' => $entity_id),
                 'with' => array(
                     'author' => array(
-                        'select' => 'id, gender, first_name, last_name, online, avatar_id',
+                        'select' => 'id, gender, first_name, last_name, online, avatar_id, deleted',
                         'with' => 'avatar',
                     ),
                     'response' => array(
@@ -164,7 +164,7 @@ class Comment extends HActiveRecord
                         'with' => array(
                             'author' => array(
                                 'alias' => 'responseAuthor',
-                                'select' => 'id, gender, first_name, last_name, online, avatar_id',
+                                'select' => 'id, gender, first_name, last_name, online, avatar_id, deleted',
                                 'with' => array(
                                     'avatar' => array(
                                         'alias' => 'responseAuthorAvatar'

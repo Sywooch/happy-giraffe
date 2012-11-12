@@ -17,8 +17,8 @@ class Horoscope extends HActiveRecord
     public $type;
 
     public $zodiac_list = array(
-        1 => 'Овен',
-        2 => 'Телец',
+        '1' => 'Овен',
+        '2' => 'Телец',
         '3' => 'Близнецы',
         '4' => 'Рак',
         '5' => 'Лев',
@@ -48,8 +48,8 @@ class Horoscope extends HActiveRecord
 
     public $zodiac_dates = array(
         '1' => array('start' => array(21, 3), 'end' => array(20, 4),),
-        '2' => array('start' => array(21, 4), 'end' => array(21, 5),),
-        '3' => array('start' => array(22, 5), 'end' => array(21, 6),),
+        '2' => array('start' => array(21, 4), 'end' => array(20, 5),),
+        '3' => array('start' => array(21, 5), 'end' => array(21, 6),),
         '4' => array('start' => array(22, 6), 'end' => array(22, 7),),
         '5' => array('start' => array(23, 7), 'end' => array(23, 8),),
         '6' => array('start' => array(24, 8), 'end' => array(23, 9),),
@@ -57,8 +57,8 @@ class Horoscope extends HActiveRecord
         '8' => array('start' => array(24, 10), 'end' => array(22, 11),),
         '9' => array('start' => array(23, 11), 'end' => array(21, 12),),
         '10' => array('start' => array(22, 12), 'end' => array(20, 1),),
-        '11' => array('start' => array(21, 1), 'end' => array(21, 2),),
-        '12' => array('start' => array(19, 2), 'end' => array(19, 3),),
+        '11' => array('start' => array(21, 1), 'end' => array(20, 2),),
+        '12' => array('start' => array(21, 2), 'end' => array(20, 3),),
     );
 
     /**

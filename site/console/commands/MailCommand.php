@@ -52,10 +52,9 @@ class MailCommand extends CConsoleCommand
         $criteria = new CDbCriteria;
         $criteria->limit = 100;
         $criteria->offset = 0;
+        $criteria->condition = 'deleted = 0 AND blocked = 0';
 
         //fired moderators
-        $bad_users = array(10186, 10127, 12678, 10229, 12980, 10264, 10064);
-
         $i = 0;
         $users = array(0);
         while (!empty($users)) {
@@ -63,7 +62,7 @@ class MailCommand extends CConsoleCommand
             $users = User::model()->findAll($criteria);
             foreach ($users as $user) {
                 $unread = Im::model($user->id)->getUnreadMessagesCount($user->id);
-                if ($unread > 0 && !in_array($user->id, $bad_users)) {
+                if ($unread > 0) {
 
                     $m_criteria = new EMongoCriteria;
                     $m_criteria->type('==', MailDelivery::TYPE_IM);

@@ -9,6 +9,11 @@
                 'itemTemplate' => '{menu}<span class="tale"><img src="/images/default_nav_active.gif"></span>',
                 'items' => array(
                     array(
+                        'label' => 'Новые слова',
+                        'url' => $this->createUrl('/competitors/default/index', array('section'=>10)),
+                        'active'=> Yii::app()->controller->uniqueId == 'competitors/default' && Yii::app()->request->getParam('section') == 10
+                    ),
+                    array(
                         'label' => 'Рукоделие',
                         'url' => $this->createUrl('/writing/editor/index', array('theme'=>5)),
                         'active'=> Yii::app()->controller->action->id == 'index' && Yii::app()->request->getParam('theme') == 5
@@ -21,6 +26,7 @@
                     array(
                         'label' => 'Конкуренты',
                         'url' => array('/competitors/default/index'),
+                        'active'=> Yii::app()->controller->uniqueId == 'competitors/default' && Yii::app()->request->getParam('section') != 10
                     ),
                     array(
                         'label' => 'Раздача заданий',

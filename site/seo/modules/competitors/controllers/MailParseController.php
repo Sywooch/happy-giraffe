@@ -23,13 +23,12 @@ class MailParseController extends SController
         $year = Yii::app()->request->getPost('year');
         $month_from = Yii::app()->request->getPost('month_from');
         $month_to = Yii::app()->request->getPost('month_to');
-        $mode = Yii::app()->request->getPost('mode');
 
         if (empty($site_id))
             Yii::app()->end();
 
         Yii::import('site.frontend.extensions.phpQuery.phpQuery');
-        $error = $this->parseStats($site_id, $year, $month_from, $month_to, $mode);
+        $error = $this->parseStats($site_id, $year, $month_from, $month_to);
 
         if ($error === true)
             echo CJSON::encode(array('status' => true));
@@ -49,54 +48,28 @@ class MailParseController extends SController
         $this->parseStats($site_id, 2012, 1, 11, 0);
     }
 
-    public function parseStats($site_id, $year, $month_from, $month_to, $mode)
+    public function parseStats($site_id, $year, $month_from, $month_to)
     {
         $site = $this->loadModel($site_id);
 
         for ($month = $month_from; $month <= $month_to; $month++) {
-            $url = 'http://top.mail.ru/keywords?id=595048&period=2&date=2012-10-17&sf=1000&pp=200&gender=0&agegroup=0&searcher=all';
+            $url = 'http://top.mail.ru/keywords?id='.$site->url.'&period=2&date=2012-'.$month.'-01&pp=200&gender=0&agegroup=0&searcher=all&sf=';
 
-            $result = $this->loadPage($url, $next_url);
-            if ($mode == 2) {
-                echo $result;
-                Yii::app()->end();
-            }
-
-            $document = phpQuery::newDocument($result);
-            $max_pages = $this->getPagesCount($document);
-            $count = $this->ParseDocument($document, $month, $year, $site_id);
-
-            if ($count == 0)
-                return 'Не найдено данных на стрaнице - ' . $url;
-            sleep(rand(1, 2));
-
-            for ($i = 2; $i <= $max_pages; $i++) {
-                $page_url = $url . $i;
-                $result = $this->loadPage($page_url, $url);
+            $i = 0;
+            $count = 1;
+            while(!empty($count)){
+                $page_url = $url . ($i*200);
+                $result = $this->loadPage($page_url, '');
 
                 $document = phpQuery::newDocument($result);
-                if ($this->ParseDocument($document, $month, $year, $site_id) === false)
-                    break;
+                $count = $this->ParseDocument($document, $month, $year, $site_id);
 
-                sleep(rand(1, 2));
+                sleep(1);
+                $i++;
             }
-
-            $next_url = $url;
         }
 
         return true;
-    }
-
-    public function getPagesCount($document)
-    {
-        $max_pages = 30;
-        foreach ($document->find('table p a.high') as $link) {
-            $name = trim(pq($link)->text());
-            if (is_numeric($name))
-                $max_pages = $name;
-        }
-
-        return $max_pages;
     }
 
     public function loadPage($page_url, $last_url)
@@ -114,8 +87,9 @@ class MailParseController extends SController
         $result = curl_exec($ch);
         curl_close($ch);
 
+//        $result = iconv("Windows-1251","UTF-8",$result);
+
         return $result;
-//        return $this->CP1251toUTF8($html);
     }
 
     public function getCookieFile()
@@ -128,31 +102,23 @@ class MailParseController extends SController
     private function ParseDocument($document, $month, $year, $site_id)
     {
         $count = 0;
-        foreach ($document->find('table table') as $table) {
-            $text = pq($table)->find('td:first')->text();
-            if (strstr($text, 'значения:суммарные') !== FALSE) {
-                $i = 0;
-                foreach (pq($table)->find('tr') as $tr) {
-                    $i++;
-                    if ($i < 2)
-                        continue;
-                    $keyword = trim(pq($tr)->find('td:eq(1)')->text());
-                    if (empty($keyword) || $keyword == 'Не определена' || $keyword == 'Другие'
-                        || $keyword == 'сумма выбранных' || $keyword == 'всего'
-                    )
-                        continue;
+        foreach ($document->find('div.listing_projects table.t1 tr') as $row) {
+            $keyword = trim(pq($row)->find('td:eq(2)')->text());
+            if (empty($keyword) || $keyword == 'другие запросы')
+                continue;
 
-                    $stats = trim(pq($tr)->find('td:eq(2)')->text());
-                    $stats = str_replace(',', '', $stats);
-                    if ($stats < self::STATS_LIMIT)
-                        return false;
+            $keyword = substr($keyword, 3);
+            echo $keyword."\n";
 
-                    $keyword_model = Keyword::GetKeyword($keyword);
-                    if ($keyword_model !== null){
-                        SiteKeywordVisit::SaveValue($site_id, $keyword_model->id, $month, $year, $stats);
-                        $count++;
-                    }
-                }
+            $stats = trim(pq($row)->find('td:eq(0)')->text());
+            $stats = str_replace(',', '', $stats);
+            if ($stats < self::STATS_LIMIT)
+                return false;
+
+            $keyword_model = Keyword::GetKeyword($keyword);
+            if ($keyword_model !== null){
+                SiteKeywordVisit::SaveValue($site_id, $keyword_model->id, $month, $year, $stats);
+                $count++;
             }
         }
 

@@ -2,6 +2,16 @@
 
 class ForumsController extends ELController
 {
+
+    public function beforeAction($action)
+    {
+        if (!Yii::app()->user->checkAccess('externalLinks-manager-panel') &&
+            !Yii::app()->user->checkAccess('externalLinks-worker-panel')
+        )
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        return true;
+    }
+
     public function actionIndex()
     {
         $this->render('index');

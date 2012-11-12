@@ -501,7 +501,7 @@ var Horoscope = {
 								<!-- Появление дропа под знаком зодиака -->
 								<script>
 									$(document).ready(function($) {
-										$(".horoscope-zodiac-img").live("click", function() {
+										$(".horoscope-compatibility .img").live("click", function() {
 											$(this).parents('div.sign').removeClass("zodiac-empty");
 											$(this).parents('div.sign').find('.chzn-drop').css({
 												"left" : "0"
@@ -513,6 +513,9 @@ var Horoscope = {
 							</div>
 							<div class="equal"></div>
 							<a href="" class="button btn-green btn-large">Узнать!</a>
+								<div class="errorMessage" style="display:block;">
+									<p>Укажите знаки зодиака </p>
+								</div>
 							
 						</div>
 						

@@ -3357,12 +3357,15 @@ ul.letters li a:hover {
 .horoscope-compatibility .block-title {color:#0281b0;font:bold 25px arial, helvetica, sans-serif;margin-bottom:15px;}
 .horoscope-compatibility .sign {float:left;text-align:center;margin-bottom: 25px;}
 .horoscope-compatibility .sign.zodiac-empty .chzn-container {display: none;}
-.horoscope-compatibility .sign .img {width:110px;height:110px;background:url(/images/widget/horoscope/big/bg.png) no-repeat;margin-bottom:12px;padding: 30px;}
-.horoscope-compatibility .sign .img img {display:block;cursor: pointer;}
+.horoscope-compatibility .sign .img {width:120px;height:120px;background:url(/images/widget/horoscope/big/bg.png) no-repeat;margin-bottom:12px;padding: 25px;cursor: pointer;}
+.horoscope-compatibility .sign.zodiac-empty .img{opacity:0.9;filter:alpha(opacity=80);}
+.horoscope-compatibility .sign.zodiac-empty .img:hover{opacity:1;filter:alpha(opacity=100);}
+.horoscope-compatibility .sign .img img {display:block;}
 .horoscope-compatibility .sign select {width:120px;}
 .horoscope-compatibility .plus {width:44px;height:43px;background:url(/images/common.png) no-repeat -1px -294px;float:left;margin:60px 12px 0;}
 .horoscope-compatibility .equal {width:38px;height:43px;background:url(/images/common.png) no-repeat -47px -294px;float:left;margin:60px 12px 0;}
-.horoscope-compatibility .button {float:left;margin-top:40px;}
+.horoscope-compatibility .button {float:left;margin-top:40px;position: relative;}
+.horoscope-compatibility .errorMessage {float: right;width: 195px;} 
 /*old code*/
 .horoscope-compatibility .button a {font: bold 40px/62px arial, sans-serif;
     color: #fff;

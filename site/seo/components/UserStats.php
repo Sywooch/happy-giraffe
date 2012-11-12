@@ -131,7 +131,18 @@ class UserStats
 
         $criteria->compare('entity', 'CookRecipe');
         $criteria->compare('removed', 0);
-        return Comment::model()->count($criteria);
+        $result = Comment::model()->count($criteria);
+
+        $criteria = new CDbCriteria;
+        $this->addAuthorCriteria($criteria);
+        $this->addDateCriteria($criteria);
+
+        $criteria->compare('entity', 'AlbumPhoto');
+        $criteria->compare('removed', 0);
+
+        $result += Comment::model()->count($criteria);
+
+        return $result;
     }
 
     /*************** GUESTBOOK ******************/

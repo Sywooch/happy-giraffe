@@ -12,8 +12,8 @@
             <?php $this->widget('CommunitiesWidget'); ?>
 
             <div class="box">
-                <a href="<?=$this->createUrl('/contest/default/view', array('id' => 2)) ?>"><img
-                    src="/images/banners/4.jpg"></a>
+                <a href="<?=$this->createUrl('/contest/default/view', array('id' => 3)) ?>"><img
+                    src="/images/contest/banner-w240-3.jpg"></a>
             </div>
 
         </div>
@@ -56,7 +56,7 @@
 
                     <div class="box homepage-articles homepage-recipes">
 
-                        <div class="title">Кулинарные <span>рецепты</span> <i>- <b>8000</b> рецептов</i></div>
+                        <div class="title">Кулинарные <span>рецепты</span> <i>- <b>9000</b> рецептов</i></div>
 
                         <?php $this->widget('CommunityArticlesWidget', array(
                             'community_id' => 22,

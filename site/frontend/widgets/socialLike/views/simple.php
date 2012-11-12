@@ -2,30 +2,42 @@
 
 
     <div class="like-block fast-like-block">
-        <div class="box-2">
-            <?php
-                $this->render('_yh_min', array(
-                    'options' => $this->providers['yh'],
-                ));
-            ?>
-        </div>
+        <?php if ($this->model->contest->status == Contest::STATUS_ACTIVE): ?>
+            <div class="box-2">
+                <?php
+                    $this->render('_yh_min', array(
+                        'options' => $this->providers['yh'],
+                    ));
+                ?>
+            </div>
 
-        <div class="box-1 auth-services">
+            <div class="box-1 auth-services">
 
-            <?php
-                Yii::app()->eauth->renderWidget(array(
-                    'action' => '/ajax/socialVote',
-                    'params' => array(
-                        'entity' => get_class($this->model),
-                        'entity_id' => $this->model->id,
-                        'model' => $this->model
-                    ),
-                    'mode' => 'vote',
-                    'predefinedServices' => array('facebook' => 'facebook', 'vkontakte' => 'vkontakte', 'odnoklassniki', 'twitter'),
-                ));
-            ?>
+                <?php
+                    Yii::app()->eauth->renderWidget(array(
+                        'action' => '/ajax/socialVote',
+                        'params' => array(
+                            'entity' => get_class($this->model),
+                            'entity_id' => $this->model->id,
+                            'model' => $this->model
+                        ),
+                        'mode' => 'vote',
+                        'predefinedServices' => array('facebook' => 'facebook', 'vkontakte' => 'vkontakte', 'odnoklassniki', 'twitter'),
+                    ));
+                ?>
 
-        </div>
+            </div>
+        <?php endif; ?>
+
+        <?php if ($this->model->contest->status == Contest::STATUS_RESULTS && $this->model->winner !== null): ?>
+            <div class="contest-winners_place place-big place-<?=$this->model->winner->place?>">
+                <?php if ($this->model->winner->place <= 3): ?>
+                    <div class="cup"></div>
+                <?php endif; ?>
+                <div class="digit"><?=$this->model->winner->place?></div>
+                <div class="text">место</div>
+            </div>
+        <?php endif; ?>
 
         <div class="box-3">
             <div class="rating"><span><?php echo Rating::model()->countByEntity($this->model, false) ?></span></div>
@@ -80,10 +92,9 @@
 
             <div class="share_button">
                 <div class="fb-custom-like">
-                    <a href="http://www.facebook.com/sharer/sharer.php?u=<?=urlencode($url) ?>"
-                       onclick="return Social.showFacebookPopup(this);" class="fb-custom-text">
-                        <i class="pluginButtonIcon img sp_like sx_like_fav"></i>Мне нравится</a>
-
+                    <?=HHtml::link('<i class="pluginButtonIcon img sp_like sx_like_fav"></i>Мне нравится',
+                        'http://www.facebook.com/sharer/sharer.php?u='.urlencode($url),
+                        array('class'=>'fb-custom-text', 'onclick'=>'return Social.showFacebookPopup(this);'), true) ?>
                     <div class="fb-custom-share-count">0</div>
                     <script type="text/javascript">
                         $.getJSON("http://graph.facebook.com", { id:document.location.href }, function (json) {

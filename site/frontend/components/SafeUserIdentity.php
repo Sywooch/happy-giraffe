@@ -15,7 +15,7 @@ class SafeUserIdentity extends CUserIdentity
     public function authenticate()
     {
         $user = User::model()->findByPk($this->user_id);
-        if ($user !== null){
+        if ($user !== null AND $user->deleted == 0 AND $user->blocked == 0){
             $this->setNotGuestCookie();
             return true;
         }

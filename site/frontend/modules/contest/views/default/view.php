@@ -25,7 +25,7 @@
     $cs
         ->registerScript('contest-view', $js)
         ->registerScriptFile('/javascripts/jquery.masonry.min.js')
-        ->registerMetaTag('/images/contest/banner-mother-i-3.jpg', null, null, array('property' => 'og:image'))
+        ->registerMetaTag('/images/contest/banner-social-'.$contest->id.'.jpg', null, null, array('property' => 'og:image'))
     ;
 ?>
 
@@ -43,16 +43,16 @@ Yii::app()->eauth->renderWidget(array(
             'contest_id' => $this->contest->id,
             'registerGallery' => false,
         )); ?>
-    <?php else: ?>
+    <?php elseif ($this->contest->status == Contest::STATUS_ACTIVE): ?>
         <div class="sticker">
-            <?php if (Yii::app()->user->isGuest): ?>
+            <?php if ($this->contest->getCanParticipate() === Contest::STATEMENT_GUEST): ?>
                 <big>Условия конкурса:</big>
                 <p>Для того, чтобы принять участие в конкурсе, вы должны <?=CHtml::link('зарегистрироваться', '#register', array('class' => 'fancy', 'data-theme' => 'white-square'))?></p>
-            <?php elseif (Yii::app()->user->model->scores->full != 2): ?>
+            <?php elseif ($this->contest->getCanParticipate() === Contest::STATEMENT_STEPS): ?>
                 <big>Условия конкурса:</big>
                 <p>Для того, чтобы принять участие в конкурсе, вы должны <?=CHtml::link('пройти 6 шагов', array('/user/profile', 'user_id' => Yii::app()->user->id))?> заполнения анкеты</p>
             <?php else: ?>
-                <p>Разместите фотографию, на которой вы с малышом получились наиболее удачно и примите участие в конкурсе! Не забудьте пригласить друзей в группу поддержки!                </p>
+                <p>Разместите фотографию, на которой ваш малыш улыбается и примите участие в конкурсе! Не забудьте пригласить друзей в группу поддержки!</p>
                 <center>
                     <a href="<?=$this->createUrl('/contest/default/statement', array('id' => $this->contest->id))?>" onclick="Contest.canParticipate(this, '<?=$this->createUrl('/contest/default/canParticipate', array('id' => $this->contest->id))?>'); return false;" class="btn-green btn-green-medium">Участвовать<i class="arr-r"></i></a>
                 </center>
@@ -62,38 +62,13 @@ Yii::app()->eauth->renderWidget(array(
 
     <div class="content-title">О конкурсе</div>
 
-    <p>Говорят, что самая прекрасная из женщин – это женщина с ребенком на руках. Общаясь на «Веселом Жирафе», мы поняли, что у нас самые прекрасные мамы, которые держат на руках самых красивых малышей. Теперь мы хотим показать их всем!</p>
-    <p>Примите участие в конкурсе «Мама и я» – покажитесь всему миру! Посмотрите на другие счастливые лица малышей и их мам из разных городов. А кроме приятного общения, которое гарантировано для всех участников конкурса, авторы самых интересных по мнению пользователей фотографий получат отличные призы.</p>
+    <?=$contest->text?>
 
 </div>
 
 <div class="content-title">Вас ждут замечательные призы!</div>
 
-<div class="contest-prizes-list contest-prizes-list-2 clearfix">
-
-    <ul>
-        <li>
-            <div class="img">
-                <img src="/images/prize_6.jpg" />
-            </div>
-            <div class="place place-1-1"></div>
-            <div class="title">
-                <a href="">Фотоаппарат<br/><b>SONY Cyber-shot DSC-HX10</b></a>
-            </div>
-        </li>
-        <li>
-            <div class="img">
-                <img src="/images/prize_7.jpg" />
-            </div>
-            <div class="place place-2-3"></div>
-            <div class="title">
-                <a href="">Фоторамка<br/><b>SONY DPF-D830LB 8"</b></a>
-            </div>
-        </li>
-
-    </ul>
-
-</div>
+<?php $this->renderPartial('prizes/' . $this->contest->id); ?>
 
 <?php if ($works->itemCount > 0): ?>
     <div class="content-title">

@@ -5,7 +5,7 @@
  */
 class MailRuCommunityUsersParser extends ProxyParserThread
 {
-    public $cookie = 'VID=3vjQa30CpM12; p=wFAAAM2c0QAA; mrcu=3D044FE31A915E22652EFA01060A; b=Gz0CAECTvQQAlCM6BACAAAAA; odklmapi=$$14qtcq4M9IEnmSONbJcUdP=gvfq14qm/Dk/GPq+zDgrrn2; __utma=56108983.385009715.1350452484.1350625394.1351664739.3; __utmz=56108983.1350625394.2.2.utmcsr=my.mail.ru|utmccn=(referral)|utmcmd=referral|utmcct=/mail/pryadkoa/; i=; Mpop=1351664777:547c707455794a5e19050219081d00041c0600024966535c465d0002020607160105701658514704041658565c5d1a454c:aiv45@mail.ru:; c=jsSQUAAAUMZnAAAjAgQAcAAAQOk4ARALAL4RYwAA; myc=; __utmb=56108983.1.10.1351664739; __utmc=56108983';
+    public $cookie = 'VID=3vjQa30CpM12; p=wFAAAM2c0QAA; mrcu=3D044FE31A915E22652EFA01060A; b=Iz0KAECTvQQA9nU7EOrtYKi3g6PiDvx1O4CO6ODwmAOm4g6UIzoEAIBxjvCLAQAA; odklmapi=$$14qtcq4M9IEnmSONbJcUdP=gvfq14qm/Dk/GPq+zDgrrn2; i=; Mpop=1352372937:547c707455794a5e19050219081d00041c0600024966535c465d0002020607160105701658514704041658565c5d1a454c:aiv45@mail.ru:; tagcloud_state=show; calendar_state=show; c=vk+bUAAAUMZnAAAjAgQAaAAAQOU4ARALAL4RYwAA; myc=';
     /**
      * @var MailruQuery
      */
@@ -43,13 +43,16 @@ class MailRuCommunityUsersParser extends ProxyParserThread
             $transaction->rollback();
         }
 
-        $this->page = 1;
+        if (!empty($this->query->max_page))
+            $this->page = $this->query->max_page;
+        else
+            $this->page = 1;
     }
 
     public function parsePage()
     {
         $content = $this->query($this->query->text . '&page=' . $this->page);
-        if (strpos($content, 'http://my.mail.ru/community/momi/') === false) {
+        if (strpos($content, 'http://my.mail.ru/community/') === false) {
             $this->changeBadProxy();
             $this->parsePage();
         } else {
@@ -66,8 +69,11 @@ class MailRuCommunityUsersParser extends ProxyParserThread
                 }
                 $document->unloadDocument();
 
-                if ($count > 0)
+                if ($count > 0){
                     $this->page++;
+                    $this->query->max_page = $this->page;
+                    $this->query->update(array('max_page'));
+                }
                 else
                     $this->page = null;
             } else{

@@ -9,6 +9,8 @@
  * @property integer $type
  * @property integer $status
  * @property string $created
+ * @property integer $bad_rating
+ * @property integer $comments_count
  *
  * The followings are the available model relations:
  * @property ELAccount $account
@@ -23,6 +25,9 @@ class ELSite extends HActiveRecord
 
     const TYPE_SITE = 1;
     const TYPE_FORUM = 2;
+
+    public $comment;
+    public $buttons;
 
 	/**
 	 * Returns the static model of the specified AR class.
@@ -59,7 +64,7 @@ class ELSite extends HActiveRecord
 		// will receive user inputs.
 		return array(
 			array('url', 'required'),
-			array('type, status', 'numerical', 'integerOnly'=>true),
+			array('type, status, comments_count, bad_rating', 'numerical', 'integerOnly'=>true),
 			array('url', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -77,6 +82,7 @@ class ELSite extends HActiveRecord
 		return array(
 			'account' => array(self::HAS_ONE, 'ELAccount', 'site_id'),
 			'links' => array(self::HAS_MANY, 'ELLink', 'site_id'),
+            'linksCount' => array(self::STAT, 'ELLink', 'site_id'),
 			'tasks' => array(self::HAS_MANY, 'ELTask', 'site_id'),
 		);
 	}
@@ -107,13 +113,15 @@ class ELSite extends HActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('url',$this->url);
+		$criteria->compare('url',$this->url,true);
 		$criteria->compare('type',$this->type);
 		$criteria->compare('status',$this->status);
-		$criteria->compare('created',$this->created,true);
+		$criteria->compare('created',$this->created);
+		$criteria->compare('comments_count',$this->comments_count);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+            'pagination' => array('pageSize' => 100),
 		));
 	}
 
@@ -128,6 +136,16 @@ class ELSite extends HActiveRecord
         );
     }
 
+    public function getCommentsCount()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->condition = 'closed IS NOT NULL';
+        $criteria->compare('site_id', $this->id);
+        $criteria->compare('type', ELTask::TYPE_COMMENT);
+
+        return ELTask::model()->count($criteria);
+    }
+
     public function addToBlacklist()
     {
         $this->status = ELSite::STATUS_BLACKLIST;
@@ -135,5 +153,45 @@ class ELSite extends HActiveRecord
             ':site_id'=> $this->id
         ));
         return $this->save();
+    }
+
+    public function removeFromBlacklist()
+    {
+        ELTask::model()->deleteAll('site_id = '.$this->id);
+        $this->bad_rating = 0;
+        $this->status = self::STATUS_GOOD;
+        $this->save();
+        ELTask::createRegisterTask($this->id, Yii::app()->user->id);
+    }
+
+    public function getComment()
+    {
+        foreach($this->links as $link)
+            if (empty($link->check_link_time))
+                return 'ссылка удалена';
+
+        return '';
+    }
+
+    public function getCssClass(){
+        return 'red-'.$this->bad_rating;
+    }
+
+    public function getBlackListButtons()
+    {
+        $result = CHtml::hiddenField('site_id', $this->id);
+        $result .= CHtml::link(CHtml::image('/images/bad_mark.png'), 'javascript:;', array('onclick'=>'ExtLinks.downgrade(this)'));
+        $result .= '&nbsp;&nbsp;'.CHtml::link(CHtml::image('/images/good_mark.png'),
+            '#removeFromBlfancybox', array(
+                'class' => 'fancy',
+                'onclick'=>'if ($(this).prev().prev().val() !== undefined) $("#site_id").val($(this).prev().prev().val());'
+            ));
+
+        return $result;
+    }
+
+    public function getGreyListButtons()
+    {
+        return '<a href="javascript:;" class="icon-blacklist" onclick="ExtLinks.AddToBL2('.$this->id.')">ЧС</a>';
     }
 }

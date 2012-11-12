@@ -57,8 +57,6 @@ $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
 
 <div class="content-title">Участники конкурса (<?=$works->totalItemCount ?>)</div>
 
-
-
 <?php
     $this->widget('zii.widgets.CListView', array(
         'ajaxUpdate' => false,

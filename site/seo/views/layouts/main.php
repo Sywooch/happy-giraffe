@@ -8,10 +8,10 @@
     <?php
     echo CHtml::linkTag('shortcut icon', null, '/favicon.bmp');
 
-    $release_id = 30;
+    $release_id = 32;
     Yii::app()->clientScript
         ->registerCssFile('/css/seo.css?'.$release_id)
-        ->registerCssFile('/css/form.css')
+        ->registerCssFile('/css/form.css?'.$release_id)
         ->registerCssFile('/css/my.css?'.$release_id)
 
         ->registerCoreScript('jquery')
@@ -31,8 +31,9 @@
 
         ->registerScriptFile('/js/jquery.tmpl.min.js')
 
-        ->registerScriptFile('/js/jquery.pnotify.min.js')
-        ->registerCssFile('/css/jquery.pnotify.css')
+        ->registerScriptFile('/js/jquery.pnotify.min.js?'.$release_id)
+        ->registerCssFile('/css/jquery.pnotify.css?'.$release_id)
+        ->registerCssFile('http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/themes/smoothness/jquery-ui.css?'.$release_id)
         ->registerCssFile('/css/reset.css')
 
         ->registerScriptFile('/js/jquery.iframe-post-form.js');
@@ -121,6 +122,10 @@
                     'url' => array('/competitors/parse/index'),
                 ),
                 array(
+                    'label' => 'Парсинг Mail.ru статистики',
+                    'url' => array('/competitors/mailParse/index'),
+                ),
+                array(
                     'label' => 'Урлы индексации',
                     'url' => array('/admin/indexingUrl/admin/'),
                 ),
@@ -130,15 +135,15 @@
                 ),
                 array(
                     'label' => 'Внешние ссылки - сайты',
-                    'url' => array('/externalLinks/site/admin/'),
+                    'url' => array('/externalLinks/admin/site/admin/'),
                 ),
                 array(
                     'label' => 'Внешние ссылки - ссылки',
-                    'url' => array('/externalLinks/link/admin/'),
+                    'url' => array('/externalLinks/admin/link/admin/'),
                 ),
                 array(
                     'label' => 'Внешние ссылки - задания',
-                    'url' => array('/externalLinks/task/admin/'),
+                    'url' => array('/externalLinks/admin/task/admin/'),
                 ),
 
             )));

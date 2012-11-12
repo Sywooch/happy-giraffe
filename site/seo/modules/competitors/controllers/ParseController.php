@@ -109,271 +109,6 @@ class ParseController extends SController
         return $max_pages;
     }
 
-    /*public function actionParsePages()
-    {
-        Yii::import('site.frontend.extensions.phpQuery.phpQuery');
-        $site_id = 1;
-        $year = 2012;
-
-        $cookie = 'session=07VU3n1Nd8cs; suid=0HL0At2P9XWy; pwd=1njOHUeRvpWhhIViv; per_page=100; total=yes; adv-uid=bb2c2c';
-        $site = 'baby.ru';
-        ob_start();
-
-        for ($month = 3; $month > 0; $month--) {
-            $url = 'http://www.liveinternet.ru/stat/' . $site . '/pages.html?date=' . $year . '-' . $month . '-' . cal_days_in_month(CAL_GREGORIAN, $month, $year) . ';period=month;total=yes;page=';
-
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, $url); // set url to post to
-            curl_setopt($ch, CURLOPT_FAILONERROR, 1);
-            curl_setopt($ch, CURLOPT_COOKIE, $cookie);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); // return into a variable
-            curl_setopt($ch, CURLOPT_TIMEOUT, 10); // times out after 4s
-            $result = curl_exec($ch); // run the whole process
-            curl_close($ch);
-
-            $document = phpQuery::newDocument($result);
-            $max_pages = 200;
-            foreach ($document->find('table p a.high') as $link) {
-                $name = trim(pq($link)->text());
-                if (is_numeric($name))
-                    $max_pages = $name;
-            }
-            echo $max_pages . '<br>';
-            if ($max_pages > 400)
-                $max_pages = 400;
-            $this->SavePages($document, $month, $year, $site_id);
-            sleep(1);
-
-            for ($i = 2; $i <= $max_pages; $i++) {
-                $page_url = $url . $i;
-                $ch = curl_init();
-                curl_setopt($ch, CURLOPT_URL, $page_url);
-                curl_setopt($ch, CURLOPT_FAILONERROR, 1);
-                curl_setopt($ch, CURLOPT_COOKIE, $cookie);
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); // return into a variable
-                curl_setopt($ch, CURLOPT_TIMEOUT, 10); // times out after 4s
-                $result = curl_exec($ch); // run the whole process
-                curl_close($ch);
-
-                $document = phpQuery::newDocument($result);
-                $this->SavePages($document, $month, $year, $site_id);
-
-                sleep(rand(1, 2));
-            }
-        }
-    }
-
-    private function SavePages($document, $month, $year, $site_id, $first_page = 0)
-    {
-        $res = array();
-        foreach ($document->find('table table') as $table) {
-            $text = pq($table)->find('td:first')->text();
-            //            echo $text.'<br>';
-            if (strstr($text, 'значения:суммарные') !== FALSE) {
-                $i = 0;
-                foreach (pq($table)->find('tr') as $tr) {
-                    $i++;
-                    if ($i < 2)
-                        continue;
-                    $keyword = trim(pq($tr)->find('td:eq(1) label a')->attr('href'));
-                    //echo $keyword.'<br>';
-                    if (empty($keyword))
-                        continue;
-                    $stats = trim(pq($tr)->find('td:eq(2)')->text());
-                    $res[] = array($keyword, $stats);
-                    $page = SitePages::GetPage($keyword);
-                    $model = new SitePageVisit();
-                    $model->setAttribute('m' . $month, str_replace(',', '', $stats));
-                    $model->year = $year;
-                    $model->page_id = $page->id;
-                    $model->first_page = $first_page;
-                    $model->site_id = $site_id;
-                    $model->SaveOrUpdate($month);
-                }
-
-                echo $i . '<br>';
-            }
-        }
-
-        return $res;
-    }
-
-    public function actionParseFirstPages()
-    {
-        Yii::import('site.frontend.extensions.phpQuery.phpQuery');
-        $site_id = 1;
-        $year = 2012;
-
-        $cookie = 'session=07VU3n1Nd8cs; suid=0HL0At2P9XWy; pwd=1J-ABQaL7zYTCNkUN5U; per_page=100; total=yes; adv-uid=9967d7.2d8efb.e7f5';
-        $site = 'baby.ru';
-        ob_start();
-
-        for ($month = 3; $month > 0; $month--) {
-            $url = 'http://www.liveinternet.ru/stat/' . $site . '/first_pages.html?date=' . $year . '-' . $month . '-' . cal_days_in_month(CAL_GREGORIAN, $month, $year) . ';period=month;total=yes;page=';
-
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, $url); // set url to post to
-            curl_setopt($ch, CURLOPT_FAILONERROR, 1);
-            curl_setopt($ch, CURLOPT_COOKIE, $cookie);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); // return into a variable
-            curl_setopt($ch, CURLOPT_TIMEOUT, 10); // times out after 4s
-            $result = curl_exec($ch); // run the whole process
-            curl_close($ch);
-
-            $document = phpQuery::newDocument($result);
-            $max_pages = 200;
-            foreach ($document->find('table p a.high') as $link) {
-                $name = trim(pq($link)->text());
-                if (is_numeric($name))
-                    $max_pages = $name;
-            }
-            echo $max_pages . '<br>';
-            if ($max_pages > 400)
-                $max_pages = 400;
-            $this->SavePages($document, $month, $year, $site_id, 1);
-
-            for ($i = 2; $i <= $max_pages; $i++) {
-                $page_url = $url . $i;
-                $ch = curl_init();
-                curl_setopt($ch, CURLOPT_URL, $page_url);
-                curl_setopt($ch, CURLOPT_FAILONERROR, 1);
-                curl_setopt($ch, CURLOPT_COOKIE, $cookie);
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); // return into a variable
-                curl_setopt($ch, CURLOPT_TIMEOUT, 10); // times out after 4s
-                $result = curl_exec($ch); // run the whole process
-                curl_close($ch);
-
-                $document = phpQuery::newDocument($result);
-                $this->SavePages($document, $month, $year, $site_id, 1);
-
-            }
-        }
-    }
-
-    public function actionParseVisits()
-    {
-        Yii::import('site.frontend.extensions.phpQuery.phpQuery');
-        $site_id = 1;
-        $year = 2012;
-        $month = 3;
-
-        $cookie = 'session=07VU3n1Nd8cs; suid=0HL0At2P9XWy; pwd=1J-ABQaL7zYTCNkUN5U; per_page=100; total=yes; adv-uid=9967d7.2d8efb.e7f5';
-        $site = 'baby.ru';
-        ob_start();
-
-        for ($day = 5; $day <= 31; $day++) {
-            $url = 'http://www.liveinternet.ru/stat/' . $site . '/index.html?date=' . $year . '-' . $month . '-' . $day . ';period=day;page=';
-
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, $url); // set url to post to
-            curl_setopt($ch, CURLOPT_FAILONERROR, 1);
-            curl_setopt($ch, CURLOPT_COOKIE, $cookie);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); // return into a variable
-            curl_setopt($ch, CURLOPT_TIMEOUT, 10); // times out after 4s
-            $result = curl_exec($ch); // run the whole process
-            curl_close($ch);
-
-            $document = phpQuery::newDocument($result);
-            $this->SaveVisits($document, $month, $year, $site_id, $day);
-        }
-    }
-
-    private function SaveVisits($document, $month, $year, $site_id, $day)
-    {
-        $res = array();
-        foreach ($document->find('table table') as $table) {
-            $text = pq($table)->find('tr:eq(1) td:eq(1)')->text();
-            if (strstr($text, 'Просмотры') !== FALSE) {
-                $i = 0;
-                foreach (pq($table)->find('tr') as $tr) {
-                    $i++;
-                    if ($i < 2)
-                        continue;
-                    $keyword = trim(pq($tr)->find('td:eq(1)')->text());
-                    echo $keyword . '<br>';
-                    if (empty($keyword))
-                        continue;
-                    $stats = trim(pq($tr)->find('td:eq(2)')->text());
-                    $res[] = array($keyword, $stats);
-                    $page = SiteStatisticType::GetVisitName($keyword);
-                    $model = new SiteStatistic();
-                    $model->value = str_replace(',', '', $stats);
-                    $model->year = $year;
-                    $model->month = $month;
-                    $model->day = $day;
-                    $model->visit_name_id = $page->id;
-                    $model->site_id = $site_id;
-                    $model->SaveOrUpdate();
-                }
-
-                echo $i . '<br>';
-            }
-        }
-
-        return $res;
-    }
-
-    public function actionParseBrowsers()
-    {
-        Yii::import('site.frontend.extensions.phpQuery.phpQuery');
-        $site_id = 1;
-        $year = 2012;
-
-        $cookie = 'session=07VU3n1Nd8cs; suid=0HL0At2P9XWy; pwd=1J-ABQaL7zYTCNkUN5U; per_page=100; total=yes; adv-uid=9967d7.2d8efb.e7f5';
-        $site = 'baby.ru';
-        ob_start();
-
-        for ($month = 2; $month <= 3; $month++) {
-            $url = 'http://www.liveinternet.ru/stat/' . $site . '/browsers.html?date=' . $year . '-' . $month . '-' . cal_days_in_month(CAL_GREGORIAN, $month, $year) . ';period=month;page=';
-
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, $url); // set url to post to
-            curl_setopt($ch, CURLOPT_FAILONERROR, 1);
-            curl_setopt($ch, CURLOPT_COOKIE, $cookie);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); // return into a variable
-            curl_setopt($ch, CURLOPT_TIMEOUT, 10); // times out after 4s
-            $result = curl_exec($ch); // run the whole process
-            curl_close($ch);
-
-            $document = phpQuery::newDocument($result);
-            $this->SaveBrowsers($document, $month, $year, $site_id);
-        }
-    }
-
-    private function SaveBrowsers($document, $month, $year, $site_id)
-    {
-        $res = array();
-        foreach ($document->find('table table') as $table) {
-            $text = pq($table)->find('td:first')->text();
-            if (strstr($text, 'значения:среднесуточные') !== FALSE) {
-                $i = 0;
-                foreach (pq($table)->find('tr') as $tr) {
-                    $i++;
-                    if ($i < 2)
-                        continue;
-                    $keyword = trim(pq($tr)->find('td:eq(1)')->text());
-                    //echo $keyword.'<br>';
-                    if (empty($keyword))
-                        continue;
-                    $stats = trim(pq($tr)->find('td:eq(2)')->text());
-                    $res[] = array($keyword, $stats);
-                    $page = SiteBrowser::GetModelName($keyword);
-                    $model = new SiteBrowserVisit();
-                    $model->value = str_replace(',', '', $stats);
-                    $model->year = $year;
-                    $model->month = $month;
-                    $model->browser_id = $page->id;
-                    $model->site_id = $site_id;
-                    $model->SaveOrUpdate();
-                }
-
-                echo $i . '<br>';
-            }
-        }
-
-        return $res;
-    }*/
-
     public function loadPage($page_url, $last_url)
     {
         $ch = curl_init();
@@ -495,4 +230,270 @@ class ParseController extends SController
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
         return $model;
     }
+
+
+    /*public function actionParsePages()
+{
+    Yii::import('site.frontend.extensions.phpQuery.phpQuery');
+    $site_id = 1;
+    $year = 2012;
+
+    $cookie = 'session=07VU3n1Nd8cs; suid=0HL0At2P9XWy; pwd=1njOHUeRvpWhhIViv; per_page=100; total=yes; adv-uid=bb2c2c';
+    $site = 'baby.ru';
+    ob_start();
+
+    for ($month = 3; $month > 0; $month--) {
+        $url = 'http://www.liveinternet.ru/stat/' . $site . '/pages.html?date=' . $year . '-' . $month . '-' . cal_days_in_month(CAL_GREGORIAN, $month, $year) . ';period=month;total=yes;page=';
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url); // set url to post to
+        curl_setopt($ch, CURLOPT_FAILONERROR, 1);
+        curl_setopt($ch, CURLOPT_COOKIE, $cookie);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); // return into a variable
+        curl_setopt($ch, CURLOPT_TIMEOUT, 10); // times out after 4s
+        $result = curl_exec($ch); // run the whole process
+        curl_close($ch);
+
+        $document = phpQuery::newDocument($result);
+        $max_pages = 200;
+        foreach ($document->find('table p a.high') as $link) {
+            $name = trim(pq($link)->text());
+            if (is_numeric($name))
+                $max_pages = $name;
+        }
+        echo $max_pages . '<br>';
+        if ($max_pages > 400)
+            $max_pages = 400;
+        $this->SavePages($document, $month, $year, $site_id);
+        sleep(1);
+
+        for ($i = 2; $i <= $max_pages; $i++) {
+            $page_url = $url . $i;
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $page_url);
+            curl_setopt($ch, CURLOPT_FAILONERROR, 1);
+            curl_setopt($ch, CURLOPT_COOKIE, $cookie);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); // return into a variable
+            curl_setopt($ch, CURLOPT_TIMEOUT, 10); // times out after 4s
+            $result = curl_exec($ch); // run the whole process
+            curl_close($ch);
+
+            $document = phpQuery::newDocument($result);
+            $this->SavePages($document, $month, $year, $site_id);
+
+            sleep(rand(1, 2));
+        }
+    }
+}
+
+private function SavePages($document, $month, $year, $site_id, $first_page = 0)
+{
+    $res = array();
+    foreach ($document->find('table table') as $table) {
+        $text = pq($table)->find('td:first')->text();
+        //            echo $text.'<br>';
+        if (strstr($text, 'значения:суммарные') !== FALSE) {
+            $i = 0;
+            foreach (pq($table)->find('tr') as $tr) {
+                $i++;
+                if ($i < 2)
+                    continue;
+                $keyword = trim(pq($tr)->find('td:eq(1) label a')->attr('href'));
+                //echo $keyword.'<br>';
+                if (empty($keyword))
+                    continue;
+                $stats = trim(pq($tr)->find('td:eq(2)')->text());
+                $res[] = array($keyword, $stats);
+                $page = SitePages::GetPage($keyword);
+                $model = new SitePageVisit();
+                $model->setAttribute('m' . $month, str_replace(',', '', $stats));
+                $model->year = $year;
+                $model->page_id = $page->id;
+                $model->first_page = $first_page;
+                $model->site_id = $site_id;
+                $model->SaveOrUpdate($month);
+            }
+
+            echo $i . '<br>';
+        }
+    }
+
+    return $res;
+}
+
+public function actionParseFirstPages()
+{
+    Yii::import('site.frontend.extensions.phpQuery.phpQuery');
+    $site_id = 1;
+    $year = 2012;
+
+    $cookie = 'session=07VU3n1Nd8cs; suid=0HL0At2P9XWy; pwd=1J-ABQaL7zYTCNkUN5U; per_page=100; total=yes; adv-uid=9967d7.2d8efb.e7f5';
+    $site = 'baby.ru';
+    ob_start();
+
+    for ($month = 3; $month > 0; $month--) {
+        $url = 'http://www.liveinternet.ru/stat/' . $site . '/first_pages.html?date=' . $year . '-' . $month . '-' . cal_days_in_month(CAL_GREGORIAN, $month, $year) . ';period=month;total=yes;page=';
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url); // set url to post to
+        curl_setopt($ch, CURLOPT_FAILONERROR, 1);
+        curl_setopt($ch, CURLOPT_COOKIE, $cookie);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); // return into a variable
+        curl_setopt($ch, CURLOPT_TIMEOUT, 10); // times out after 4s
+        $result = curl_exec($ch); // run the whole process
+        curl_close($ch);
+
+        $document = phpQuery::newDocument($result);
+        $max_pages = 200;
+        foreach ($document->find('table p a.high') as $link) {
+            $name = trim(pq($link)->text());
+            if (is_numeric($name))
+                $max_pages = $name;
+        }
+        echo $max_pages . '<br>';
+        if ($max_pages > 400)
+            $max_pages = 400;
+        $this->SavePages($document, $month, $year, $site_id, 1);
+
+        for ($i = 2; $i <= $max_pages; $i++) {
+            $page_url = $url . $i;
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $page_url);
+            curl_setopt($ch, CURLOPT_FAILONERROR, 1);
+            curl_setopt($ch, CURLOPT_COOKIE, $cookie);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); // return into a variable
+            curl_setopt($ch, CURLOPT_TIMEOUT, 10); // times out after 4s
+            $result = curl_exec($ch); // run the whole process
+            curl_close($ch);
+
+            $document = phpQuery::newDocument($result);
+            $this->SavePages($document, $month, $year, $site_id, 1);
+
+        }
+    }
+}
+
+public function actionParseVisits()
+{
+    Yii::import('site.frontend.extensions.phpQuery.phpQuery');
+    $site_id = 1;
+    $year = 2012;
+    $month = 3;
+
+    $cookie = 'session=07VU3n1Nd8cs; suid=0HL0At2P9XWy; pwd=1J-ABQaL7zYTCNkUN5U; per_page=100; total=yes; adv-uid=9967d7.2d8efb.e7f5';
+    $site = 'baby.ru';
+    ob_start();
+
+    for ($day = 5; $day <= 31; $day++) {
+        $url = 'http://www.liveinternet.ru/stat/' . $site . '/index.html?date=' . $year . '-' . $month . '-' . $day . ';period=day;page=';
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url); // set url to post to
+        curl_setopt($ch, CURLOPT_FAILONERROR, 1);
+        curl_setopt($ch, CURLOPT_COOKIE, $cookie);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); // return into a variable
+        curl_setopt($ch, CURLOPT_TIMEOUT, 10); // times out after 4s
+        $result = curl_exec($ch); // run the whole process
+        curl_close($ch);
+
+        $document = phpQuery::newDocument($result);
+        $this->SaveVisits($document, $month, $year, $site_id, $day);
+    }
+}
+
+private function SaveVisits($document, $month, $year, $site_id, $day)
+{
+    $res = array();
+    foreach ($document->find('table table') as $table) {
+        $text = pq($table)->find('tr:eq(1) td:eq(1)')->text();
+        if (strstr($text, 'Просмотры') !== FALSE) {
+            $i = 0;
+            foreach (pq($table)->find('tr') as $tr) {
+                $i++;
+                if ($i < 2)
+                    continue;
+                $keyword = trim(pq($tr)->find('td:eq(1)')->text());
+                echo $keyword . '<br>';
+                if (empty($keyword))
+                    continue;
+                $stats = trim(pq($tr)->find('td:eq(2)')->text());
+                $res[] = array($keyword, $stats);
+                $page = SiteStatisticType::GetVisitName($keyword);
+                $model = new SiteStatistic();
+                $model->value = str_replace(',', '', $stats);
+                $model->year = $year;
+                $model->month = $month;
+                $model->day = $day;
+                $model->visit_name_id = $page->id;
+                $model->site_id = $site_id;
+                $model->SaveOrUpdate();
+            }
+
+            echo $i . '<br>';
+        }
+    }
+
+    return $res;
+}
+
+public function actionParseBrowsers()
+{
+    Yii::import('site.frontend.extensions.phpQuery.phpQuery');
+    $site_id = 1;
+    $year = 2012;
+
+    $cookie = 'session=07VU3n1Nd8cs; suid=0HL0At2P9XWy; pwd=1J-ABQaL7zYTCNkUN5U; per_page=100; total=yes; adv-uid=9967d7.2d8efb.e7f5';
+    $site = 'baby.ru';
+    ob_start();
+
+    for ($month = 2; $month <= 3; $month++) {
+        $url = 'http://www.liveinternet.ru/stat/' . $site . '/browsers.html?date=' . $year . '-' . $month . '-' . cal_days_in_month(CAL_GREGORIAN, $month, $year) . ';period=month;page=';
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url); // set url to post to
+        curl_setopt($ch, CURLOPT_FAILONERROR, 1);
+        curl_setopt($ch, CURLOPT_COOKIE, $cookie);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); // return into a variable
+        curl_setopt($ch, CURLOPT_TIMEOUT, 10); // times out after 4s
+        $result = curl_exec($ch); // run the whole process
+        curl_close($ch);
+
+        $document = phpQuery::newDocument($result);
+        $this->SaveBrowsers($document, $month, $year, $site_id);
+    }
+}
+
+private function SaveBrowsers($document, $month, $year, $site_id)
+{
+    $res = array();
+    foreach ($document->find('table table') as $table) {
+        $text = pq($table)->find('td:first')->text();
+        if (strstr($text, 'значения:среднесуточные') !== FALSE) {
+            $i = 0;
+            foreach (pq($table)->find('tr') as $tr) {
+                $i++;
+                if ($i < 2)
+                    continue;
+                $keyword = trim(pq($tr)->find('td:eq(1)')->text());
+                //echo $keyword.'<br>';
+                if (empty($keyword))
+                    continue;
+                $stats = trim(pq($tr)->find('td:eq(2)')->text());
+                $res[] = array($keyword, $stats);
+                $page = SiteBrowser::GetModelName($keyword);
+                $model = new SiteBrowserVisit();
+                $model->value = str_replace(',', '', $stats);
+                $model->year = $year;
+                $model->month = $month;
+                $model->browser_id = $page->id;
+                $model->site_id = $site_id;
+                $model->SaveOrUpdate();
+            }
+
+            echo $i . '<br>';
+        }
+    }
+
+    return $res;
+}*/
 }

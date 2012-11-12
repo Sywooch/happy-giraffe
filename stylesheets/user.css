@@ -766,7 +766,7 @@
 .user-horoscope-2_date > span {font-size: 20px;line-height: 22px;display: block;}
 .user-horoscope-2_title {display: block;padding: 20px 0 0;font: italic 35px/36px 'Times New Roman', Georgia, Times, serif;text-align: center;color: #363839;}
 .user-horoscope-2_title > em {display: block;font: normal 11px/12px Arial, Tahoma, Verdana, sans-serif;text-align: center;color: #2d2d2d;}
-.user-horoscope-2_likes {background: #fffde4;padding: 10px 10px 12px;}
+.user-horoscope-2_likes {background: #fffde4;padding: 10px 10px 12px;margin-top: 10px;}
 .user-horoscope-2_likes-title {padding: 0 3px 10px;font-style: italic;color: #494949;}
 .user-horoscope-2_tomorrow{margin:-5px 0 0;padding:10px 10px 8px;text-align:center;font-size:16px;line-height:36px;background:url(/images/widget/horoscope/user-horoscope-2-bottom.png) no-repeat;}
 .user-horoscope-2_tomorrow .icon-zodiac {display: inline-block;*zoom:1;*display:inline;margin: 0 9px;vertical-align: middle;}

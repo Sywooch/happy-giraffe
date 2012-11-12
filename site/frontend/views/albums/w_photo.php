@@ -118,7 +118,8 @@
                 data : {
                     entity : '<?=get_class($model)?>',
                     entity_id : '<?=($model->id !== null) ? $model->id : 'null'?>',
-                    sort : '<?=Yii::app()->request->getQuery('sort', 'created')?>'
+                    sort : '<?=Yii::app()->request->getQuery('sort', 'created')?>',
+                    photo_id: '<?=$photo->id?>'
                 },
                 dataType : 'script'
             });

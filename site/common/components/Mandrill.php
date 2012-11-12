@@ -43,7 +43,11 @@ class Mandrill extends CApplicationComponent
         $data = CMap::mergeArray($commonData, $this->$action($user, $params));
         $res = $rest->post($apiAction, $data);
         $res = CJSON::decode($res);
-        return $res[0]['status'] != 'error';
+
+        if (isset($res[0]['status']))
+            return $res[0]['status'] != 'error';
+        else
+            return 'error';
     }
 
     public function newMessages($user, $params)

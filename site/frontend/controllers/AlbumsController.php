@@ -723,24 +723,38 @@ class AlbumsController extends HController
                 $model = CActiveRecord::model($entity);
                 if ($category_id !== null)
                     $model = $model->findByPk($category_id);
+                $decor = CookDecoration::model()->findByAttributes(array('photo_id' => $photo_id));
+                $photo->w_title = $decor->title;
+                $photo->w_description = $decor->description;
+                $collection = array();
+                $collection['title'] = 'Фотоальбом к сервису ' . CHtml::link('Офомление блюд', array('cook/decor/index'));
                 break;
             case 'Contest':
                 Yii::import('application.modules.contest.models.*');
                 $contest_id = Yii::app()->request->getQuery('contest_id');
                 $model = CActiveRecord::model($entity)->findByPk($contest_id);
+                $attach = $photo->getAttachByEntity('ContestWork', $photo_id);
+                $work = $attach->model;
+                $photo->w_title = $work->title;
+                $currentIndex = null;
+                $collection = array();
+                $collection['title'] = 'Фотоконкурс ' . CHtml::link($work->contest->title, $work->contest->url);
+                $this->pageTitle = $work->title . ' - ' . $model->title;
                 break;
         }
 
-        $collection = $model->photoCollection;
-        foreach ($collection['photos'] as $i => $p) {
-            if ($photo->id == $p->id) {
-                $currentIndex = $i + 1;
-                $photo = $p;
-                break;
+        if ($entity != 'Contest' && $entity != 'CookDecorationCategory') {
+            $collection = $model->photoCollection;
+            foreach ($collection['photos'] as $i => $p) {
+                if ($photo->id == $p->id) {
+                    $currentIndex = $i + 1;
+                    $photo = $p;
+                    break;
+                }
             }
+            if (!isset($currentIndex))
+                throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
         }
-        if (!isset($currentIndex))
-            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
         $this->layout = '//layouts/main';
 

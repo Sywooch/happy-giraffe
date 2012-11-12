@@ -167,6 +167,15 @@ $cs
                 </div>
             </div>
 
+            <div class="row clearfix">
+                <div class="row-title">Жанр:</div>
+                <div class="row-elements">
+                    <div class="select-box">
+                        <?php echo $form->dropDownList($slave_model, 'genre', CommunityPost::$genres, array('prompt' => 'Выберите жанр', 'class' => 'chzn w-200')); ?>
+                    </div>
+                </div>
+            </div>
+
             <div class="row row-buttons">
                 <button class="btn btn-gray-medium"<?php if ($model->isNewRecord) echo ' onclick="document.location.href =\''. $redirectUrl .'\';"'; ?>><span><span>Отменить</span></span></button>
                 <!--<button class="btn btn-yellow-medium"><span><span>Предпросмотр</span></span></button>-->

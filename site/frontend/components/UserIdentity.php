@@ -19,7 +19,7 @@ class UserIdentity extends CUserIdentity {
 			$user = User::model()->find(array('condition' => 'email=:email', 'params' => array(':email' => $this->user['email'])));
 		}
 
-		if ($user === null) {
+		if ($user === null || $user->deleted || $user->blocked) {
 			$user = new User;
 			$user->attributes = $this->user;
 			if (!$user->save()) {

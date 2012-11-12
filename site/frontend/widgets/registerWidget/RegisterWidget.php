@@ -16,7 +16,7 @@ class RegisterWidget extends CWidget
                 'title2' => 'Осталось ввести ваши имя, фамилию, пол и пароль',
             ),
             'step3' => array(
-                'title1' => 'Вы готовим для вас личную страницу',
+                'title1' => 'Мы готовим для вас личную страницу',
             ),
             'inputBirthday'=>false
         ),
@@ -31,7 +31,7 @@ class RegisterWidget extends CWidget
                 'title2' => 'Осталось ввести ваши имя, фамилию, пол, дату рождения и пароль',
             ),
             'step3' => array(
-                'title1' => 'Вы готовим для вас гороскоп',
+                'title1' => 'Мы готовим для вас гороскоп',
             ),
             'inputBirthday'=>true
         ),

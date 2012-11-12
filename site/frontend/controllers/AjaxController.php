@@ -21,18 +21,20 @@ class AjaxController extends HController
             $authIdentity->redirectUrl = $model->getShare($service);
             $inc = false;
 
-            if ($authIdentity->authenticate()) {
-                $vote = new SocialVote;
-                $vote->entity = $entity;
-                $vote->entity_id = $entity_id;
-                $vote->service_key = $service;
-                $vote->service_id = $authIdentity->getAttribute('id');
-                try {
-                    $vote->save();
-                    Rating::model()->saveByEntity($model, Rating::getShort($service), 1, true);
-                    $inc = true;
-                } catch (MongoCursorException $e) {}
+            if ($model->contest->status == Contest::STATUS_ACTIVE) {
+                if ($authIdentity->authenticate()) {
+                    $vote = new SocialVote;
+                    $vote->entity = $entity;
+                    $vote->entity_id = $entity_id;
+                    $vote->service_key = $service;
+                    $vote->service_id = $authIdentity->getAttribute('id');
+                    try {
+                        $vote->save();
+                        Rating::model()->saveByEntity($model, Rating::getShort($service), 1, true);
+                        $inc = true;
+                    } catch (MongoCursorException $e) {}
 
+                }
             }
 
             $authIdentity->redirect(null, 'share_redirect', $inc);

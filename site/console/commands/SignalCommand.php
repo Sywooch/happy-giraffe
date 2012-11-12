@@ -180,4 +180,13 @@ class SignalCommand extends CConsoleCommand
             echo $err->getMessage();
         }
     }
+
+    public function actionCommentator($id){
+        $month = CommentatorsMonthStats::model()->find(new EMongoCriteria(array(
+            'conditions' => array(
+                'period' => array('==' => date("Y-m"))
+            ),
+        )));
+        $month->calculateCommentator($id);
+    }
 }

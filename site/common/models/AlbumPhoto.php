@@ -31,6 +31,7 @@ class AlbumPhoto extends HActiveRecord
 
     public $w_title = null;
     public $w_description = null;
+    public $w_idx = null;
 
     public $width;
     public $height;
@@ -328,7 +329,7 @@ class AlbumPhoto extends HActiveRecord
      *
      * @return string
      */
-    public function getPreviewPath($width = 100, $height = 100, $master = false, $crop = false, $crop_side = self::CROP_SIDE_CENTER)
+    public function getPreviewPath($width = 100, $height = 100, $master = false, $crop = false, $crop_side = self::CROP_SIDE_CENTER, $force_replace = false)
     {
         // Uload root
         $dir = Yii::getPathOfAlias('site.common.uploads.photos');
@@ -340,7 +341,7 @@ class AlbumPhoto extends HActiveRecord
         $model_dir = $thumb_path . DIRECTORY_SEPARATOR . $this->author_id;
         // Image file system path
         $thumb = $model_dir . DIRECTORY_SEPARATOR . $this->fs_name;
-        if (!file_exists($thumb)) {
+        if (!file_exists($thumb) || $force_replace) {
             if (!file_exists($thumb_path)) {
                 mkdir($thumb_path);
                 $handle = fopen($thumb_path . DIRECTORY_SEPARATOR . 'index.html', 'x+');

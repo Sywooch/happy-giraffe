@@ -63,6 +63,10 @@ class WordstatParser extends ProxyParserThread
     {
         if (empty($this->next_page)) {
             $this->getKeyword();
+            while (!isset($this->keyword->keyword)){
+                $this->keyword->delete();
+                $this->getKeyword();
+            }
             $this->next_page = 'http://wordstat.yandex.ru/?cmd=words&page=1&t=' . urlencode($this->keyword->keyword->name) . '&geo=&text_geo=';
         }
     }
@@ -184,7 +188,7 @@ class WordstatParser extends ProxyParserThread
             $this->addData($keyword, $value);
         }
 
-        //собирает кейворды из блока "Что еще искали люди, искавшие" - парсим только первую страницу
+        //собирает кейворды из блока "Что еще искали люди, искавшие"
         //так как на остальных кейворды повторяются
         if ($this->first_page)
             foreach ($document->find('table.campaign tr td table:eq(1) td a') as $link) {

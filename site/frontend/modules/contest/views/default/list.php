@@ -42,12 +42,6 @@ $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
 ));
 ?>
 
-<?php if ($contest->id == 2): ?>
-    <p style="color: #F66161;">Фотоконкурс “Мама и Я” завершился!<br />
-        Голосование окончено. Благодарим всех участников и болельщиков!<br />
-        Имена победителей будут оглашены 12 ноября.</p><br />
-<?php endif; ?>
-
 <div class="a-right fast-sort">
     Сортировать по:
     <?php echo CHtml::dropDownList('sort', $sort,

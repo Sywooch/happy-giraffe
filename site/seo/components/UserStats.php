@@ -137,7 +137,7 @@ class UserStats
         $this->addAuthorCriteria($criteria);
         $this->addDateCriteria($criteria);
 
-        $criteria->compare('entity', 'ContestWork');
+        $criteria->compare('entity', 'AlbumPhoto');
         $criteria->compare('removed', 0);
 
         $result += Comment::model()->count($criteria);

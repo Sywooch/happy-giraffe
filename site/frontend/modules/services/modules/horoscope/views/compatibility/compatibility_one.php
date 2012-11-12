@@ -30,10 +30,10 @@
 
                 <?php
                 $horoscope = Horoscope::model()->findByAttributes(array('zodiac'=>$model->zodiac1,'date'=>date("Y-m-d")));
-                $this->renderPartial('_preview',array('model'=>$horoscope));
+                $this->renderPartial('/default/_preview',array('model'=>$horoscope));
                 if ($model->zodiac1 != $model->zodiac2){
                     $horoscope = Horoscope::model()->findByAttributes(array('zodiac'=>$model->zodiac2,'date'=>date("Y-m-d")));
-                    $this->renderPartial('_preview',array('model'=>$horoscope));
+                    $this->renderPartial('/default/_preview',array('model'=>$horoscope));
                 }?>
 
             </ul>

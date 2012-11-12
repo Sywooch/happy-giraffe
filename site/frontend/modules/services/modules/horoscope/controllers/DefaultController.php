@@ -6,28 +6,21 @@ class DefaultController extends HController
     public $title;
     public $social_title;
 
-    public function filters()
-    {
-        return array(
-            'ajaxOnly + Validate',
-        );
-    }
-
     /**
      * @sitemap
      */
     public function actionIndex()
     {
         $models = Horoscope::model()->findAllByAttributes(array('date' => date("Y-m-d")));
-        $this->breadcrumbs = array('Сервисы' => array('/'), 'Гороскоп');
+        $this->title = 'Гороскоп на сегодня по знакам Зодиака';
 
-        $this->render('index', compact('models'));
+        $this->render('index', array('models' => $models, 'type' => 'today'));
     }
 
     /**
      * @sitemap dataSource=sitemapView
      */
-    public function actionView($zodiac, $date = null)
+    public function actionToday($zodiac, $date = null)
     {
         if (empty($date))
             $date = date("Y-m-d");
@@ -38,13 +31,13 @@ class DefaultController extends HController
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
         $this->title = 'Гороскоп на сегодня ' . $model->zodiacText();
-        $this->social_title = 'Гороскоп на сегодня ' . Yii::app()->dateFormatter->format('dd MMMM yyyy', strtotime($model->date)) .' '. $model->zodiacText();
+        $this->social_title = 'Гороскоп на сегодня ' . Yii::app()->dateFormatter->format('dd MMMM yyyy', strtotime($model->date)) . ' ' . $model->zodiacText();
         $this->breadcrumbs = array('Сервисы' => array('/'), 'Гороскоп' => array('index'), $this->title);
         $this->meta_title = 'Гороскоп на сегодня ' . $model->zodiacText() . ' для женщин и мужчин - Веселый Жираф';
         $this->meta_description = 'Бесплатный гороскоп ' . $model->zodiacText() . ' на сегодня для женщин и мужчин. Обновляется ежедневно!';
         $this->meta_keywords = 'Гороскоп на сегодня ' . $model->zodiacText() . ', ежедневный гороскоп ' . $model->zodiacText();
 
-        $this->render('date', compact('model'));
+        $this->render('view', compact('model'));
     }
 
 
@@ -61,124 +54,96 @@ class DefaultController extends HController
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
         $this->title = 'Гороскоп на вчера ' . $model->zodiacText();
-        $this->social_title = 'Гороскоп на ' . Yii::app()->dateFormatter->format('dd MMMM yyyy', strtotime($model->date)) .' '. $model->zodiacText();
+        $this->social_title = 'Гороскоп на ' . Yii::app()->dateFormatter->format('dd MMMM yyyy', strtotime($model->date)) . ' ' . $model->zodiacText();
         $this->breadcrumbs = array('Сервисы' => array('/'), 'Гороскоп' => array('index'), $this->title);
         $this->meta_title = 'Гороскоп на вчера ' . $model->zodiacText() . ' для мужчин и женщин - Веселый Жираф';
         $this->meta_description = 'Бесплатный гороскоп ' . $model->zodiacText() . ' на вчера для женщин и мужчин. Познай судьбу!';
         $this->meta_keywords = 'Гороскоп на вчера ' . $model->zodiacText();
 
-        $this->render('date', compact('model'));
+        $this->render('view', compact('model'));
     }
 
 
     /**
      * @sitemap dataSource=sitemapView
      */
-    public function actionTomorrow($zodiac)
+    public function actionTomorrow($zodiac = '')
     {
         $date = date("Y-m-d", strtotime('+1 day'));
 
-        $zodiac = Horoscope::model()->getZodiacId(trim($zodiac));
-        $model = Horoscope::model()->findByAttributes(array('zodiac' => $zodiac, 'date' => $date));
-        if ($model === null)
-            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        if (empty($zodiac)) {
+            $this->title = 'Гороскоп на завтра по знакам Зодиака';
 
-        $this->title = 'Гороскоп на завтра ' . $model->zodiacText();
-        $this->social_title = 'Гороскоп на ' . Yii::app()->dateFormatter->format('dd MMMM yyyy', strtotime($model->date)) .' '. $model->zodiacText();
-        $this->breadcrumbs = array('Сервисы' => array('/'), 'Гороскоп' => array('index'), $this->title);
-        $this->meta_title = 'Гороскоп на завтра ' . $model->zodiacText() . ' для мужчин и женщин - Веселый Жираф';
-        $this->meta_description = 'Бесплатный гороскоп ' . $model->zodiacText() . ' на завтра для женщин и мужчин. Обновляется ежедневно!';
-        $this->meta_keywords = 'Гороскоп на завтра ' . $model->zodiacText() . ', ежедневный гороскоп ' . $model->zodiacText();
-
-        $this->render('date', compact('model'));
-    }
-
-    /**
-     * @sitemap dataSource=sitemapView
-     */
-    public function actionMonth($zodiac)
-    {
-        $zodiac = Horoscope::model()->getZodiacId($zodiac);
-        $model = Horoscope::model()->findByAttributes(array('zodiac' => $zodiac, 'year' => date('Y'), 'month' => date('n')));
-        if ($model === null)
-            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
-
-        $this->title = 'Гороскоп ' . $model->zodiacText() . ' на месяц';
-        $this->social_title = 'Гороскоп ' . $model->zodiacText() . ' на '.HDate::ruMonth(date('n'));
-        $this->breadcrumbs = array('Сервисы' => array('/'), 'Гороскоп' => array('index'), $this->title);
-        $this->meta_title = 'Гороскоп на каждый месяц ' . $model->zodiacText() . ' - Веселый Жираф';
-        $this->meta_description = 'Бесплатный гороскоп на месяц ' . $model->zodiacText() . ' для женщин и мужчин. Обновляется ежемесячно!';
-        $this->meta_keywords = 'Гороскоп на месяц ' . $model->zodiacText() . ', ежемесячный гороскоп ' . $model->zodiacText();
-
-        $this->render('date', compact('model'));
-    }
-
-    /**
-     * @sitemap dataSource=sitemapView
-     */
-    public function actionYear($zodiac)
-    {
-        $zodiac = Horoscope::model()->getZodiacId($zodiac);
-        $model = Horoscope::model()->findByAttributes(array('zodiac' => $zodiac, 'year' => date('Y'), 'month' => null, 'week' => null));
-        if ($model === null)
-            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
-
-        $this->title = 'Гороскоп ' . $model->zodiacText() . ' на ' . date('Y') . ' год';
-        $this->social_title = $this->title;
-        $this->breadcrumbs = array('Сервисы' => array('/'), 'Гороскоп' => array('index'), $this->title);
-        $this->meta_title = 'Гороскоп ' . $model->zodiacText() . ' на ' . date('Y') . ' год для женщин и мужчин – Веселый Жираф';
-        $this->meta_description = 'Бесплатный гороскоп ' . $model->zodiacText() . ' на ' . date('Y') . ' на завтра для женщин и мужчин. Познай свою судьбу!';
-        $this->meta_keywords = 'Гороскоп на ' . date('Y') . ' год ' . $model->zodiacText() . ', гороскоп ' . $model->zodiacText() . ' на год';
-
-        $this->render('date', compact('model'));
-    }
-
-    /**
-     * @sitemap dataSource=sitemapCompatibility
-     */
-    public function actionCompatibility($zodiac1 = null, $zodiac2 = null)
-    {
-        if ($zodiac1 == null && $zodiac2 != null)
-            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
-
-        if ($zodiac1 !== null)
-            $zodiac1 = Horoscope::model()->getZodiacId($zodiac1);
-        if ($zodiac2 !== null)
-            $zodiac2 = Horoscope::model()->getZodiacId($zodiac2);
-
-        if ($zodiac1 == null && $zodiac2 == null) {
-            $model = new HoroscopeCompatibility();
-            $this->render('compatibility_main', compact('model'));
+            $models = Horoscope::model()->findByAttributes(array('date' => $date));
+            $this->render('index', array('models' => $models, 'type' => 'tomorrow'));
         } else {
-            $str = Horoscope::model()->zodiac_list[$zodiac1] . ' и ' . Horoscope::model()->zodiac_list[$zodiac2];
-            $this->meta_title = 'Гороскоп совместимости ' . $str;
-            $this->meta_description = 'Гороскоп совместимости знаков Зодиака ' . $str . '.  Узнайте вашу совместимость.';
-            $this->meta_keywords = 'Совместимость ' . $str . ', мужчина и женщина ' . $str;
+            $zodiac = Horoscope::model()->getZodiacId(trim($zodiac));
+            $model = Horoscope::model()->findByAttributes(array('zodiac' => $zodiac, 'date' => $date));
+            if ($model === null)
+                throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
-            $model = HoroscopeCompatibility::model()->findByAttributes(array('zodiac1' => $zodiac1, 'zodiac2' => $zodiac2));
-            if ($model === null) {
-                $model = HoroscopeCompatibility::model()->findByAttributes(array('zodiac1' => $zodiac2, 'zodiac2' => $zodiac1));
-                if ($model === null)
-                    throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
-                Yii::app()->clientScript->registerLinkTag('canonical', null, $this->createAbsoluteUrl('/services/horoscope/default/compatibility', array(
-                    'zodiac1' => Horoscope::model()->zodiac_list_eng[$zodiac2],
-                    'zodiac2' => Horoscope::model()->zodiac_list_eng[$zodiac1],
-                )));
-                $i = $model->zodiac1;
-                $model->zodiac1 = $model->zodiac2;
-                $model->zodiac2 = $i;
-            }
+            $this->title = 'Гороскоп на завтра ' . $model->zodiacText();
+            $this->social_title = 'Гороскоп на ' . Yii::app()->dateFormatter->format('dd MMMM yyyy', strtotime($model->date)) . ' ' . $model->zodiacText();
+            $this->breadcrumbs = array('Сервисы' => array('/'), 'Гороскоп' => array('index'), $this->title);
+            $this->meta_title = 'Гороскоп на завтра ' . $model->zodiacText() . ' для мужчин и женщин - Веселый Жираф';
+            $this->meta_description = 'Бесплатный гороскоп ' . $model->zodiacText() . ' на завтра для женщин и мужчин. Обновляется ежедневно!';
+            $this->meta_keywords = 'Гороскоп на завтра ' . $model->zodiacText() . ', ежедневный гороскоп ' . $model->zodiacText();
 
-            $this->render('compatibility_one', compact('model'));
+            $this->render('view', compact('model'));
         }
     }
 
-    public function actionValidate()
+    /**
+     * @sitemap dataSource=sitemapView
+     */
+    public function actionMonth($zodiac = '')
     {
-        if (isset($_POST['ajax'])) {
-            $model = new HoroscopeCompatibility;
-            $model->attributes = $_POST['HoroscopeCompatibility'];
-            echo CActiveForm::validate($model);
+        if (empty($zodiac)) {
+            $this->title = 'Гороскоп на месяц по знакам Зодиака';
+
+            $models = Horoscope::model()->findByAttributes(array('year' => date('Y'), 'month' => date('n')));
+            $this->render('index', array('models' => $models, 'type' => 'month'));
+        } else {
+            $zodiac = Horoscope::model()->getZodiacId($zodiac);
+            $model = Horoscope::model()->findByAttributes(array('zodiac' => $zodiac, 'year' => date('Y'), 'month' => date('n')));
+            if ($model === null)
+                throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
+            $this->title = 'Гороскоп ' . $model->zodiacText() . ' на месяц';
+            $this->social_title = 'Гороскоп ' . $model->zodiacText() . ' на ' . HDate::ruMonth(date('n'));
+            $this->breadcrumbs = array('Сервисы' => array('/'), 'Гороскоп' => array('index'), $this->title);
+            $this->meta_title = 'Гороскоп на каждый месяц ' . $model->zodiacText() . ' - Веселый Жираф';
+            $this->meta_description = 'Бесплатный гороскоп на месяц ' . $model->zodiacText() . ' для женщин и мужчин. Обновляется ежемесячно!';
+            $this->meta_keywords = 'Гороскоп на месяц ' . $model->zodiacText() . ', ежемесячный гороскоп ' . $model->zodiacText();
+
+            $this->render('view', compact('model'));
+        }
+    }
+
+    /**
+     * @sitemap dataSource=sitemapView
+     */
+    public function actionYear($zodiac = '')
+    {
+        if (empty($zodiac)) {
+            $this->title = 'Гороскоп на год по знакам Зодиака';
+
+            $models = Horoscope::model()->findByAttributes(array('year' => date('Y'), 'month' => null, 'week' => null));
+            $this->render('index', array('models' => $models, 'type' => 'year'));
+        } else {
+            $zodiac = Horoscope::model()->getZodiacId($zodiac);
+            $model = Horoscope::model()->findByAttributes(array('zodiac' => $zodiac, 'year' => date('Y'), 'month' => null, 'week' => null));
+            if ($model === null)
+                throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
+            $this->title = 'Гороскоп ' . $model->zodiacText() . ' на ' . date('Y') . ' год';
+            $this->social_title = $this->title;
+            $this->breadcrumbs = array('Сервисы' => array('/'), 'Гороскоп' => array('index'), $this->title);
+            $this->meta_title = 'Гороскоп ' . $model->zodiacText() . ' на ' . date('Y') . ' год для женщин и мужчин – Веселый Жираф';
+            $this->meta_description = 'Бесплатный гороскоп ' . $model->zodiacText() . ' на ' . date('Y') . ' на завтра для женщин и мужчин. Познай свою судьбу!';
+            $this->meta_keywords = 'Гороскоп на ' . date('Y') . ' год ' . $model->zodiacText() . ', гороскоп ' . $model->zodiacText() . ' на год';
+
+            $this->render('view', compact('model'));
         }
     }
 
@@ -194,28 +159,6 @@ class DefaultController extends HController
                     'zodiac' => $z,
                 ),
             );
-        }
-
-        return $data;
-    }
-
-    public function sitemapCompatibility()
-    {
-        Yii::import('application.modules.services.modules.horoscope.models.Horoscope');
-
-        $data = array();
-
-        foreach (Horoscope::model()->zodiac_list_eng as $k1 => $z1) {
-            foreach (Horoscope::model()->zodiac_list_eng as $k2 => $z2) {
-                if ($k2 >= $k1)
-                    $data[] = array(
-                        'params' => array(
-                            'zodiac1' => $z1,
-                            'zodiac2' => $z2,
-                        ),
-                    );
-
-            }
         }
 
         return $data;

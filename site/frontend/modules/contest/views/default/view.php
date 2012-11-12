@@ -63,11 +63,6 @@ Yii::app()->eauth->renderWidget(array(
     <div class="content-title">О конкурсе</div>
 
     <?=$contest->text?>
-    <?php if ($contest->id == 2): ?>
-        <p style="color: #F66161;">Фотоконкурс “Мама и Я” завершился!<br />
-            Голосование окончено. Благодарим всех участников и болельщиков!<br />
-            Имена победителей будут оглашены 12 ноября.</p>
-    <?php endif; ?>
 
 </div>
 

@@ -22,6 +22,21 @@
                 'model' => 'SUPRA MCS-4501',
             ),
         );
+    } elseif ($this->contest->id == 2) {
+        $prizes = array(
+            '1' => array(
+                'title' => 'Фотоаппарат',
+                'model' => 'SONY Cyber-shot DSC-HX10',
+            ),
+            '2' => array(
+                'title' => 'Фоторамка',
+                'model' => 'SONY DPF-D830LB 8"',
+            ),
+            '3' => array(
+                'title' => 'Фоторамка',
+                'model' => 'SONY DPF-D830LB 8"',
+            ),
+        );
     }
 ?>
 

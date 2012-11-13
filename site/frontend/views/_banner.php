@@ -20,7 +20,7 @@ if (@include_once(MAX_PATH . '/www/delivery/alocal.php')) {
         $phpAds_context = array();
     }
     // function view_local($what, $zoneid=0, $campaignid=0, $bannerid=0, $target='', $source='', $withtext='', $context='', $charset='')
-    $phpAds_raw = view_local('', 1, 0, 0, '', '', '0', $phpAds_context, '');
+    $phpAds_raw = view_local('', 1, 0, 0, '_top', '', '0', $phpAds_context, '');
 }
 echo $phpAds_raw['html'];
 ?>

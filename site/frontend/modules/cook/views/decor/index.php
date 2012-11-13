@@ -30,17 +30,6 @@
 
 ?>
 
-<?php
-    $this->widget('zii.widgets.CBreadcrumbs', array(
-        'links' => $this->breadcrumbs,
-        'separator' => ' &gt; ',
-        'htmlOptions' => array(
-            'id' => 'crumbs',
-            'class' => null,
-        ),
-    ));
-?>
-
 <div id="dishes">
 
     <div class="title">

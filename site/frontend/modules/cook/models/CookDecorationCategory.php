@@ -173,9 +173,8 @@ class CookDecorationCategory extends HActiveRecord
             ),
         ));
 
-        if ($photo_id !== null) {
-            $n = Yii::app()->controller->action->id == 'postLoad' ? 500 : 15;
-            $nearest = $this->getNearestIds($photo_id, $n);
+        if ($photo_id !== null && Yii::app()->controller->action->id != 'postLoad') {
+            $nearest = $this->getNearestIds($photo_id);
             $criteria->compare('t.id', $nearest);
         }
 

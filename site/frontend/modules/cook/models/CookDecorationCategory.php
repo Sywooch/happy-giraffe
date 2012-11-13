@@ -188,7 +188,7 @@ class CookDecorationCategory extends HActiveRecord
         {
             $model->photo->w_title = $model->title;
             $model->photo->w_description = $model->description;
-            if ($photo_id !== null)
+            if ($photo_id !== null && Yii::app()->controller->action->id != 'postLoad')
                 $model->photo->w_idx = array_search($model->id, $nearest);
             $photos[] = $model->photo;
         }

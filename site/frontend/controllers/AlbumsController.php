@@ -764,7 +764,7 @@ class AlbumsController extends HController
         $this->render('singlePhoto', compact('model', 'collection', 'photo', 'currentIndex'));
     }
 
-    public function actionPostLoad($entity)
+    public function actionPostLoad($entity, $photo_id)
     {
         Yii::import('site.frontend.modules.cook.models.*');
         Yii::import('site.frontend.modules.contest.models.*');
@@ -773,6 +773,6 @@ class AlbumsController extends HController
         $entity_id = Yii::app()->request->getQuery('entity_id', 'null');
         if ($entity_id != 'null')
             $model = $model->findByPk($entity_id);
-        $this->renderPartial('postLoad', compact('model'));
+        $this->renderPartial('postLoad', compact('model', 'photo_id'));
     }
 }

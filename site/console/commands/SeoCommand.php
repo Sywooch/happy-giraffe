@@ -110,23 +110,34 @@ class SeoCommand extends CConsoleCommand
         Yii::import('site.seo.modules.competitors.models.*');
 
         $criteria = new CDbCriteria;
-        $criteria->limit = 100;
+        $criteria->limit = 1000;
         $criteria->offset = 0;
 
         $i = 0;
+        $count = SitesKeywordsVisit2::model()->count();
         $models = array(0);
         while (!empty($models)) {
             $models = SitesKeywordsVisit2::model()->findAll($criteria);
 
             foreach ($models as $model) {
-                $model2 = new SiteKeywordVisit();
+                $keyword_id = Keyword::GetKeyword($model->keyword)->id;
+                $model2 = SiteKeywordVisit::model()->findByAttributes(array(
+                    'keyword_id'=>$keyword_id,
+                    'site_id'=>$model->site_id,
+                    'year'=>$model->year,
+                ));
+                if ($model2 === null){
+                    $model2 = new SiteKeywordVisit();
+                    $model2->keyword_id = $keyword_id;
+                }
                 $model2->attributes = $model->attributes;
-                $model2->keyword_id = Keyword::GetKeyword($model->keyword)->id;
                 $model2->save();
+                $i++;
             }
 
-            $i++;
-            $criteria->offset = $i * 100;
+            $criteria->offset += 1000;
+
+            echo round(100* $i / $count, 2)."%\n";
         }
     }
 

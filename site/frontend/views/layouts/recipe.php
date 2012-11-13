@@ -85,6 +85,10 @@
                     <?php endforeach; ?>
                 </ul>
 
+                <div class="banner-box">
+                    <?php $this->renderPartial('//_banner'); ?>
+                </div>
+
             </div>
 
         </div>

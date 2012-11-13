@@ -117,6 +117,7 @@
                             $('#decorlv .items').append(items).imagesLoaded(function() {
                                  $('#decorlv .items').masonry('appended', $(items));
                                  $(items).fadeIn();
+                            });
                             return false;
                         }"),
                     ),

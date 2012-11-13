@@ -178,10 +178,10 @@ class CookDecorationCategory extends HActiveRecord
             $criteria->compare('t.id', $nearest);
         }
 
-        if (empty($this->id))
-            $decorations = CookDecoration::model()->findAll($criteria);
-        else
-            $decorations = $this->getRelated('decorations', false, $criteria);
+        if ($this->id !== null)
+            $criteria->compare('category_id', $this->id);
+
+        $decorations = CookDecoration::model()->findAll($criteria);
 
         $photos = array();
         foreach($decorations as $model)

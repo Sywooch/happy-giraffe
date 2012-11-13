@@ -121,7 +121,7 @@ class CookDecorationCategory extends HActiveRecord
     }
 
 
-    public function getNearestIds($photo_id, $num = 15)
+    public function getNearestIds($photo_id, $num = 50)
     {
         $ids = array();
 

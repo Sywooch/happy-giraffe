@@ -4364,19 +4364,19 @@ ul.letters li a:hover {
 #measure .wysiwyg-content{ padding: 0 30px}
 
 #dishes {}
-#dishes .title {padding:15px 40px;background:url(/images/bg_dishes_title.jpg) no-repeat 100% 100%;border:1px solid #dbe4f1;margin-bottom:25px;}
+#dishes .title {padding:15px 40px;background:url(/images/bg_dishes_title.jpg) no-repeat 100% 100%;border:1px solid #f3e8fc;margin-bottom:10px;}
 #dishes .title h2 {font-weight:normal;color:#383838;font-size:50px;line-height:54px;}
 #dishes .title h2 span {font-size:45px;line-height: 46px;display:block;}
 
-#dishes .dishes-cats {margin-bottom:25px;}
+#dishes .dishes-cats {margin-bottom:15px;}
 #dishes .dishes-cats ul {list-style:none;}
 #dishes .dishes-cats ul li {width:100px;padding:0 10px;float:left;height:85px;text-align:center;}
 #dishes .dishes-cats ul li .valign {display:inline-block;*zoom:1;*display:inline;width:1px;height:85px;vertical-align:bottom;}
-#dishes .dishes-cats ul li .cook-cat {vertical-align:bottom;width:70px;display:inline-block;*zoom:1;*display:inline;}
+#dishes .dishes-cats ul li .cook-cat {vertical-align:bottom;width:85px;display:inline-block;*zoom:1;*display:inline;}
 #dishes .dishes-cats ul li .cook-cat span {height:4em;display:block;}
 
 #dishes .dishes-list {}
-#dishes .dishes-list .block-title {overflow:hidden;margin-bottom:40px;}
+#dishes .dishes-list .block-title {overflow:hidden;margin-bottom:25px;}
 #dishes .dishes-list .block-title h1 {margin-top:21px;width:550px;margin-left:35px;line-height:1;}
 #dishes .dishes-list .block-title .add-photo {font-size:11px;font-family:tahoma, arial, helvetica, sans-serif;color: #848383;width:370px;float:right;}
 #dishes .dishes-list .block-title .add-photo .btn-green {margin:7px 0 0 30px;float: right;font-size: 20px;}

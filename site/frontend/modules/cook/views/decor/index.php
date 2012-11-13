@@ -3,7 +3,7 @@
 
     $entity_id = ($id) ? $category->id : null;
     $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
-        'selector' => '.img > a',
+        'selector' => '#decorlv .img > a',
         'entity' => 'CookDecorationCategory',
         'entity_id' => $entity_id,
     ));

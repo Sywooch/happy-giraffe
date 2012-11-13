@@ -44,7 +44,6 @@ class DefaultController extends SController
 
     public function actionTest(){
         $names = 'алек
-алек
 анатолий
 анастасия
 агл

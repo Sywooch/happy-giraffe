@@ -485,6 +485,17 @@
                 </div>
 
                 <div id="content" class="clearfix">
+                    <?php
+                        $this->widget('zii.widgets.CBreadcrumbs', array(
+                            'links' => $this->breadcrumbs,
+                            'separator' => ' &gt; ',
+                            'htmlOptions' => array(
+                                'id' => 'crumbs',
+                                'class' => null,
+                            ),
+                        ));
+                    ?>
+
                     <?php echo $content; ?>
                 </div>
 

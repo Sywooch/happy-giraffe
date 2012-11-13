@@ -45,17 +45,6 @@
         ->registerScript('joinClub', $js);
 ?>
 
-<?php
-    $this->widget('zii.widgets.CBreadcrumbs', array(
-        'links' => $this->breadcrumbs,
-        'separator' => ' &gt; ',
-        'htmlOptions' => array(
-            'id' => 'crumbs',
-            'class' => null,
-        ),
-    ));
-?>
-
 <div class="section-banner">
     <img src="/images/community/<?php echo $this->community->id; ?>.jpg"/>
 </div>

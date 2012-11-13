@@ -11,6 +11,7 @@
 <?//=CHtml::link(CHtml::image('/images/banners/' . $n . '.jpg'), $banners[$n])?>
 
 <?php
+if (false) {
 //<!--/* OpenX Local Mode Tag v2.8.10 */-->
 
 // The MAX_PATH below should point to the base of your OpenX installation
@@ -23,4 +24,5 @@ if (@include_once(MAX_PATH . '/www/delivery/alocal.php')) {
     $phpAds_raw = view_local('', 1, 0, 0, '_top', '', '0', $phpAds_context, '');
 }
 echo $phpAds_raw['html'];
+}
 ?>

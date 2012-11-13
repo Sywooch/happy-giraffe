@@ -131,7 +131,7 @@ class CookDecorationCategory extends HActiveRecord
         foreach ($items as $k => $i) {
             if ($i['photo_id'] == $photo_id) {
                 $currentIndex = $k;
-                $ids[] = $i['id'];
+                $ids[$currentIndex] = $i['id'];
                 break;
             }
         }

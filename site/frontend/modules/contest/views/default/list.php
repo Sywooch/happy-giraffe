@@ -78,3 +78,4 @@ $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
     ));
 ?>
 
+

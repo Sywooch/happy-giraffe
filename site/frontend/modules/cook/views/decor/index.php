@@ -118,8 +118,7 @@
                                  $('#decorlv .items').masonry('appended', $(items));
                                  $(items).fadeIn();
                             });
-                            " . $this->pGallery .
-                            "return false;
+                            return false;
                         }"),
                     ),
                 ),

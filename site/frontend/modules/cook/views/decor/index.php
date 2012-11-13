@@ -3,7 +3,7 @@
 
     $entity_id = ($id) ? $category->id : null;
     $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
-        'selector' => '#decorlv .img > a',
+        'selector' => '.img > a',
         'entity' => 'CookDecorationCategory',
         'entity_id' => $entity_id,
     ));
@@ -117,7 +117,6 @@
                             $('#decorlv .items').append(items).imagesLoaded(function() {
                                  $('#decorlv .items').masonry('appended', $(items));
                                  $(items).fadeIn();
-                            }); " . $this->pGallery . "
                             return false;
                         }"),
                     ),

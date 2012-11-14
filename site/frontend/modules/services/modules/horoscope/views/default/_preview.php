@@ -5,7 +5,10 @@
 if (isset($model)){
 ?><li><div class="img">
         <img src="/images/widget/horoscope/small/<?=$model->zodiac ?>.png">
-        <div class="date"><span><?=$model->zodiacText() ?></span><?=$model->zodiacDates() ?></div>
+        <div class="date"><a href="<?=$this->createUrl($model->getType(), array('zodiac'=>$model->getZodiacSlug())) ?>"><?=$model->zodiacText() ?></a>
+            <?=$model->zodiacDates() ?></div>
     </div>
-    <div class="text"><?= Str::truncate($model->text, 230, '') ?> <a href="<?=$this->createUrl('/services/horoscope/default/today', array('zodiac'=>Horoscope::getZodiacSlug($model->zodiac))) ?>">далее</a></div>
+    <div class="text">
+        <?= Str::truncate($model->getForecastText(), 230, '&hellip;') ?>
+        <a class="btn-green btn-small" href="<?=$this->createUrl($model->getType(), array('zodiac'=>$model->getZodiacSlug())) ?>">узнать</a></div>
 </li><?php }

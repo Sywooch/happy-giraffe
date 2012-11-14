@@ -17,17 +17,6 @@ $this->breadcrumbs = array(
 );
 ?>
 
-<?php
-$this->widget('zii.widgets.CBreadcrumbs', array(
-    'links' => $this->breadcrumbs,
-    'separator' => ' &gt; ',
-    'htmlOptions' => array(
-        'id' => 'crumbs',
-        'class' => null,
-    ),
-));
-?>
-
 <div id="cook-recipe-search">
     <?=CHtml::beginForm(array('/cook/recipe/advancedSearchResult/', 'section' => $this->section), 'get', array('id' => 'searchRecipeForm'))?>
 

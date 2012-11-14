@@ -13,6 +13,11 @@ class ConverterController extends HController
     {
         $this->pageTitle = 'Калькулятор мер и весов';
 
+        $this->breadcrumbs = array(
+            'Кулинария' => array('/cook/default/index'),
+            'Калькулятор мер и весов',
+        );
+
         $this->render('index', array(
             'model' => new ConverterForm()
         ));

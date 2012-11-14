@@ -174,7 +174,7 @@
         </div>
 
         <div class="banner-box">
-            <?=$this->renderPartial('//_banner')?>
+            <?php $this->renderPartial('//_banner'); ?>
         </div>
 
         <div class="fast-services">

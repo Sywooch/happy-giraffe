@@ -10,6 +10,11 @@ class SpicesController extends HController
         $this->pageTitle = 'Приправы и специи';
         $obj = CookSpice::model()->getSpicesByAlphabet();
 
+        $this->breadcrumbs = array(
+            'Кулинария' => array('/cook/default/index'),
+            'Приправы и специи',
+        );
+
         $this->render('index', compact('obj'));
     }
 
@@ -28,9 +33,21 @@ class SpicesController extends HController
             $this->pageTitle = 'Приправы и специи ' . $model->title;
             $recipes = CookRecipe::model()->findByIngredient($model->ingredient_id, 3);
 
+            $this->breadcrumbs = array(
+                'Кулинария' => array('/cook/default/index'),
+                'Приправы и специи' => array('/cook/spices/index'),
+                $model->title,
+            );
+
             $this->render('view', compact('model', 'recipes'));
         } else {
             $this->pageTitle = 'Приправы и специи ' . $model->title;
+
+            $this->breadcrumbs = array(
+                'Кулинария' => array('/cook/default/index'),
+                'Приправы и специи' => array('/cook/spices/index'),
+                HDate::mb_ucfirst($model->title),
+            );
 
             $this->render('category', compact('model'));
         }

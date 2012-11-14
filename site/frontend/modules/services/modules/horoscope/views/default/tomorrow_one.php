@@ -41,7 +41,3 @@
     <?=$model->getText(); ?>
 
 </div>
-
-<div class="horoscope-otherday">
-
-</div>

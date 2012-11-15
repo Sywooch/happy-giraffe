@@ -30,7 +30,7 @@ if (jQuery.browser.msie) {
 }
 
 $(document).ready(function () {
-    $(".entry-content").addtocopy({htmlcopytxt: '<br /><br />Подробнее: <a href="'+window.location.href+'">'+window.location.href+'</a>'});
+    $(".wysiwyg-content").addtocopy({htmlcopytxt: '<br /><br />Подробнее: <a href="'+window.location.href+'">'+window.location.href+'</a>'});
 
     $.ajaxSetup({
         complete: function() {

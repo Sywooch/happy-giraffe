@@ -9,7 +9,7 @@
  * @property string $our
  *
  * The followings are the available model relations:
- * @property KeyStats[] $seoStats
+ * @property SiteKeywordVisit[] $seoStats
  * @property KeywordGroup[] $group
  * @property KeywordBlacklist $blacklist
  * @property YandexPopularity $yandex
@@ -126,7 +126,7 @@ class Keyword extends HActiveRecord
                 ->select('*')
                 ->from('keywords')
                 ->where(' ' . $this->name . ' ')
-                ->limit(0, 50000)
+                ->limit(0, 5000)
                 ->searchRaw();
             $ids = array();
 

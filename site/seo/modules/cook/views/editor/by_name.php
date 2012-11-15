@@ -5,6 +5,8 @@
     </div>
 
     <form id="add-by-name" action="">
+        <input name="section" type="hidden" value="<?=$_GET['section'] ?>"/>
+
         <div class="input">
             <label>Введите название рецепта</label>
             <input name="title" type="text" class="item-title"/><br/>

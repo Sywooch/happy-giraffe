@@ -15,8 +15,8 @@
                     ),
                     array(
                         'label' => 'Рукоделие',
-                        'url' => $this->createUrl('/writing/editor/index', array('theme'=>5)),
-                        'active'=> Yii::app()->controller->action->id == 'index' && Yii::app()->request->getParam('theme') == 5
+                        'url' => $this->createUrl('/writing/editor/index', array('theme'=>3)),
+                        'active'=> Yii::app()->controller->action->id == 'index' && Yii::app()->request->getParam('theme') == 3
                     ),
                     array(
                         'label' => 'Интерьер',

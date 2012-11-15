@@ -3,48 +3,54 @@
  * Author: alexk984
  * Date: 02.04.12
  */
-class CookController extends SController
+class EditorController extends SController
 {
     public $pageTitle = 'Кулинария';
     public $layout = '//layouts/cook';
     public $icon = 2;
+    public $section = 2;
 
     public function beforeAction($action)
     {
         if (!Yii::app()->user->checkAccess('cook-manager-panel'))
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
+        if (isset($_GET['section']) && $_GET['section'] == 3)
+            $this->pageTitle = 'Рукоделие';
+
         return true;
     }
 
-    public function actionIndex($theme = 0)
+    public function actionIndex($section = 2)
     {
         $model = new Keyword();
         $model->attributes = $_GET;
 
         $this->render('themes', array(
             'model' => $model,
-            'theme' => $theme,
+            'theme' => $section,
         ));
     }
 
-    public function actionRecipes()
+    public function actionName($section)
     {
-        $model = new Keyword();
-        $tasks = SeoTask::getTasksByName();
-        $this->render('by_name', compact('tasks', 'model'));
+        $model = new Keyword;
+        $tasks = SeoTask::getTasksByName($section);
+        $this->render('by_name', compact('tasks', 'model', 'section'));
     }
 
     public function actionAddByName()
     {
         $urls = Yii::app()->request->getPost('urls');
         $title = Yii::app()->request->getPost('title');
+        $section = Yii::app()->request->getPost('section');
 
         if (!empty($title)) {
             $task = new SeoTask('cook');
             $task->article_title = $title;
             $task->status = SeoTask::STATUS_NEW;
             $task->owner_id = Yii::app()->user->id;
-            $task->section = SeoTask::SECTION_COOK;
+            $task->section = $section;
             if ($task->save())
                 foreach ($urls as $url)
                     if (!empty($url)) {
@@ -62,15 +68,17 @@ class CookController extends SController
 
     }
 
-    public function actionTasks()
+    public function actionTasks($section)
     {
+        $this->section = $section;
         TempKeyword::filterBusyKeywords();
-        $tempKeywords = TempKeyword::model()->findAll('owner_id=' . Yii::app()->user->id);
+        $tempKeywords = TempKeyword::model()->findAll('owner_id=' . Yii::app()->user->id.' AND section = '.$section);
 
-        $by_name_tasks = SeoTask::getTasksByName();
-        $tasks = SeoTask::getNewTasks();
+        $by_name_tasks = SeoTask::getTasksByName($section);
+        $tasks = SeoTask::getNewTasks($section);
+        $authors = Yii::app()->user->model->getWorkers('cook-author');
 
-        $this->render('tasks', compact('by_name_tasks', 'tasks', 'tempKeywords'));
+        $this->render('tasks', compact('by_name_tasks', 'tasks', 'tempKeywords', 'section', 'authors'));
     }
 
     public function actionAddTask()
@@ -79,6 +87,7 @@ class CookController extends SController
         $task_id = Yii::app()->request->getPost('task_id');
         $urls = Yii::app()->request->getPost('urls');
         $author_id = Yii::app()->request->getPost('author_id');
+        $section = Yii::app()->request->getPost('section');
 
         if (empty($task_id)) {
             $keyword = Keyword::model()->with('group')->findByPk($key_id);
@@ -108,7 +117,7 @@ class CookController extends SController
                 $task->keyword_group_id = $group->id;
                 $task->executor_id = $author_id;
                 $task->owner_id = Yii::app()->user->id;
-                $task->section = SeoTask::SECTION_COOK;
+                $task->section = $section;
                 $task->multivarka = Yii::app()->request->getPost('multivarka');
 
                 if ($task->save()) {
@@ -160,6 +169,8 @@ class CookController extends SController
     public function actionReturnTask()
     {
         $task = $this->loadTask(Yii::app()->request->getPost('id'));
+        $authors = Yii::app()->user->model->getWorkers('cook-author');
+        $this->section = $task->section;
 
         if (isset($task->keywordGroup)) {
             $group = $task->keywordGroup;
@@ -168,7 +179,7 @@ class CookController extends SController
             $group->delete();
             $response = array(
                 'status' => true,
-                'html' => $this->renderPartial('_task1', array('type' => 1, 'keyword' => $keywords[0]), true)
+                'html' => $this->renderPartial('_task1', array('type' => 1, 'keyword' => $keywords[0], 'authors'=>$authors), true)
             );
         } else {
             $task->executor_id = null;
@@ -176,18 +187,18 @@ class CookController extends SController
             $task->save();
             $response = array(
                 'status' => true,
-                'html' => $this->renderPartial('_task1', array('type' => 2, 'by_name_task' => $task), true)
+                'html' => $this->renderPartial('_task1', array('type' => 2, 'by_name_task' => $task, 'authors'=>$authors), true)
             );
         }
 
         echo CJSON::encode($response);
     }
 
-    public function actionReports()
+    public function actionReports($section)
     {
         $criteria = new CDbCriteria;
         $criteria->compare('owner_id', Yii::app()->user->id);
-        $criteria->compare('section', SeoTask::SECTION_COOK);
+        $criteria->compare('section', $section);
         $criteria->compare('status >', SeoTask::STATUS_NEW);
         $criteria->order = 'created desc';
         $tasks = SeoTask::model()->findAll($criteria);
@@ -197,7 +208,7 @@ class CookController extends SController
         ));
     }
 
-    public function actionPopular()
+    /*public function actionPopular()
     {
         $criteria = new CDbCriteria;
         $criteria->condition = 'entity = "CookRecipe" OR entity = "CookContent"';
@@ -207,7 +218,7 @@ class CookController extends SController
         $models = Page::model()->findAll($criteria);
         foreach($models as $model)
             echo $model->url."<br>";
-    }
+    }*/
 
     /**
      * @param int $id model id

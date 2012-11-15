@@ -1,9 +1,16 @@
-<?php $this->beginContent('//layouts/main');?>
+<?php $this->beginContent('//layouts/main'); ?>
 
 <?php
+$section = 2;
+if (isset($_GET['section']))
+    $section = $_GET['section'];
+
 $basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR;
 $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
-Yii::app()->clientScript->registerScriptFile($baseUrl . '/cook.js');
+Yii::app()->clientScript
+    ->registerScriptFile($baseUrl . '/cook.js')
+    ->registerScript('set_section', 'CookModule.section='.$section.';var content_section='.$section.';');
+
 ?>
 <div class="clearfix">
     <div class="default-nav">
@@ -14,32 +21,25 @@ Yii::app()->clientScript->registerScriptFile($baseUrl . '/cook.js');
                 'itemTemplate' => '{menu}<span class="tale"><img src="/images/default_nav_active.gif"></span>',
                 'items' => array(
                     array(
-                        'label' => 'Рукоделие',
-                        'url' => $this->createUrl('/cook/cook/index', array('theme'=>5)),
-                        'active'=> Yii::app()->controller->action->id == 'index' && Yii::app()->request->getParam('theme') == 5
+                        'label' => 'Ключевые слова',
+                        'url' => ($section == 2) ? $this->createUrl('/competitors/default/index', array('section' => $section)) : $this->createUrl('/cook/editor/index', array('section' => $section)),
+                        'active' => Yii::app()->controller->uniqueId == 'competitors/default' || (Yii::app()->controller->uniqueId == 'cook/editor' && Yii::app()->controller->action->id == 'index')
                     ),
                     array(
-                        'label' => 'Интерьер',
-                        'url' => $this->createUrl('/cook/cook/index', array('theme'=>6)),
-                        'active'=> Yii::app()->controller->action->id == 'index' && Yii::app()->request->getParam('theme') == 6
-                    ),
-                    array(
-                        'label' => '1. Конкуренты',
-                        'url' => $this->createUrl('/competitors/default/index', array('section'=>2)),
-                        'active'=>Yii::app()->controller->uniqueId == 'competitors/default'
-                    ),
-                    array(
-                        'label' => '2. Рецепты',
-                        'url' => array('/cook/cook/recipes'),
+                        'label' => 'По названию',
+                        'url' => $this->createUrl('/cook/editor/name', array('section' => $section)),
+                        'active' => Yii::app()->controller->action->id == 'name'
                     ),
                     array(
                         'label' => 'Раздача заданий',
-                        'url' => array('/cook/cook/tasks/'),
-                        'template' => '{menu}<span class="tale"><img src="/images/default_nav_active.gif"></span><div class="count"><a href="' . $this->createUrl('/cook/cook/tasks') . '">' . ( TempKeyword::model()->count('owner_id=' . Yii::app()->user->id) + SeoTask::model()->count('owner_id=' . Yii::app()->user->id.' AND executor_id IS NULL') ). '</a></div>',
+                        'url' => $url = $this->createUrl('/cook/editor/tasks', array('section' => $section)),
+                        'template' => '{menu}<span class="tale"><img src="/images/default_nav_active.gif"></span><div class="count"><a href="'.$url.'">' . SeoTask::taskCount($section) . '</a></div>',
+                        'active' => Yii::app()->controller->action->id == 'tasks'
                     ),
                     array(
                         'label' => 'Отчеты',
-                        'url' => array('/cook/cook/reports/'),
+                        'url' => $this->createUrl('/cook/editor/reports', array('section' => $section)),
+                        'active' => Yii::app()->controller->action->id == 'reports'
                     ),
                 )));
 

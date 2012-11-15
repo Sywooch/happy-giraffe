@@ -191,6 +191,20 @@ var TaskDistribution = {
     hideKeyword:function (id) {
         $('#keyword-' + id).hide();
         $('.default-nav .count a').text(parseInt($('.default-nav .count a').text()) - 1);
+    },
+    toNeedlework:function(el, id){
+        $.post('/writing/editor/toNeedlework/', {
+            keyword_id:id
+        }, function (response) {
+            if (response.status) {
+                $(el).parents('tr').remove();
+            } else {
+                $.pnotify({
+                    pnotify_title:'Ошибка',
+                    pnotify_type:'error',
+                });
+            }
+        }, 'json');
     }
 }
 

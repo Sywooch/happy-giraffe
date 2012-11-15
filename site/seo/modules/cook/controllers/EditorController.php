@@ -208,6 +208,13 @@ class EditorController extends SController
         ));
     }
 
+    public function actionToNeedlework(){
+        $task_id = Yii::app()->request->getPost('task_id');
+        $task = $this->loadTask($task_id);
+        $task->section = 3;
+        echo CJSON::encode(array('status' => $task->save()));
+    }
+
     /*public function actionPopular()
     {
         $criteria = new CDbCriteria;

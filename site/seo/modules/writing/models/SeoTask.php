@@ -119,7 +119,10 @@ class SeoTask extends CActiveRecord
                 'createAttribute' => 'created',
                 'updateAttribute' => null,
             ),
-            'TrackableBehavior'
+            'trackable'=>array(
+                'class' => 'TrackableBehavior',
+                'attributes' => array('status'),
+            )
         );
     }
 
@@ -127,7 +130,7 @@ class SeoTask extends CActiveRecord
     {
         if ($this->isNewRecord) {
             $this->status = self::STATUS_NEW;
-        } elseif ($this->status != $this->getOldAttribute('status')) {
+        } elseif ($this->trackable->isChanged('status')) {
             $statusDate = new StatusDates();
             $statusDate->status = (int)$this->status;
             $statusDate->entity_id = (int)$this->id;
@@ -262,13 +265,11 @@ class SeoTask extends CActiveRecord
             $criteria->compare('owner_id', Yii::app()->user->getModel()->owner_id);
 
         } elseif (Yii::app()->user->checkAccess('cook-author')) {
-            $criteria->compare('section', SeoTask::SECTION_COOK);
             $criteria->compare('status', SeoTask::STATUS_READY);
             $criteria->compare('executor_id', Yii::app()->user->id);
             $criteria->compare('owner_id', Yii::app()->user->getModel()->owner_id);
 
         } elseif (Yii::app()->user->checkAccess('cook-content-manager')) {
-            $criteria->compare('section', SeoTask::SECTION_COOK);
             $criteria->compare('status', SeoTask::STATUS_PUBLICATION);
             $criteria->compare('owner_id', Yii::app()->user->getModel()->owner_id);
         }
@@ -342,6 +343,26 @@ class SeoTask extends CActiveRecord
                         return 'Рецепт размещен';
                     case self::STATUS_CLOSED:
                         return 'Проверен';
+                }
+                break;
+            default:
+                switch ($this->status) {
+                    case self::STATUS_READY:
+                        return 'Новое';
+                    case self::STATUS_TAKEN:
+                        return 'Написание';
+                    case self::STATUS_WRITTEN:
+                        return 'Статья написана';
+                    case self::STATUS_CORRECTING:
+                        return 'На коррекции';
+                    case self::STATUS_CORRECTED:
+                        return 'Откорректировано';
+                    case self::STATUS_PUBLICATION:
+                        return 'На публикации';
+                    case self::STATUS_PUBLISHED:
+                        return 'Опубликована';
+                    case self::STATUS_CLOSED:
+                        return 'Проверено';
                 }
                 break;
         }

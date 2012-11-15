@@ -398,6 +398,48 @@ class Horoscope extends HActiveRecord
         return '#';
     }
 
+    public function getUrl($absolute = false){
+        $method = $absolute ? 'createAbsoluteUrl' : 'createUrl';
+
+        if (!empty($this->date))
+            return Yii::app()->$method('/services/horoscope/default/date', array(
+                'zodiac' => $this->getZodiacSlug(),
+                'date' => $this->date
+            ));
+        if (!empty($this->year) && empty($this->month))
+            return Yii::app()->$method('/services/horoscope/default/year', array(
+                'zodiac' => $this->getZodiacSlug(),
+                'year' => $this->date
+            ));
+        if (!empty($this->year) && !empty($this->month))
+            return Yii::app()->$method('/services/horoscope/default/month', array(
+                'zodiac' => $this->getZodiacSlug(),
+                'month' => $this->year . '-' . sprintf('%02d', $this->month),
+            ));
+
+        return '#';
+    }
+
+    public function getName()
+    {
+        if (!empty($this->date)){
+            if (Yii::app()->controller->action->id == 'today')
+                return 'сегодня';
+            if (Yii::app()->controller->action->id == 'yesterday')
+                return 'вчера';
+            if (Yii::app()->controller->action->id == 'tomorrow')
+                return 'завтра';
+
+            return Yii::app()->dateFormatter->format('d MMMM yyyy', strtotime($this->date)).' года';
+        }
+        if ($this->onMonth())
+            return $this->isCurrentMonth()?'месяц':mb_strtolower(HDate::ruMonth($this->month), 'utf8').' '.$this->year.' года';
+        if ($this->onYear())
+            return $this->isCurrentYear()?'год':$this->year.' год';
+
+        return '';
+    }
+
     /*****************************************************************************************************************/
     /**************************************************** TEXTS ******************************************************/
     /*****************************************************************************************************************/

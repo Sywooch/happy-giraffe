@@ -1,14 +1,13 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<?php
+/**
+ * @var $model Horoscope
+ */
+?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-    <script src="http://vkontakte.ru/js/api/openapi.js" type="text/javascript"></script>
-    <script src="http://stg.odnoklassniki.ru/share/odkl_share.js" type="text/javascript"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
     <script type="text/javascript">
-        function openPopup(el) {
-            window.open($(el).attr('href'), '', 'height=350,width=500');
-            return false;
-        }
+        function openPopup(el) {window.open($(el).attr('href'),'','toolbar=0,status=0,width=626,height=436');return false;}
     </script>
     <style type="text/css">
         .custom-likes-small {text-align: center;}
@@ -25,22 +24,29 @@
         .custom-like-small_value:after {margin-left:-3px;border-right-color: white;}
     </style>
 </head>
-<body onload="ODKL.init();">
-    <?php $url = 'http://www.happy-giraffe.ru/horoscope/aries/'; ?>
+<body>
+    <?php $url = $model->getUrl(true); ?>
     <div class="custom-likes-small">
-        <a class="custom-like-small" href="<?= $url?>" onclick="ODKL.Share(this);return false;">
+        <a class="custom-like-small" href="http://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1&st._surl=<?= $url?>"
+           onclick="return openPopup(this);">
             <span class="custom-like-small_icon odkl"></span>
-            <span class="custom-like-small_value custom-like-small_icon odkl" id="likes-count-ok">0</span>
+            <span class="custom-like-small_value" id="likes-count-ok"><?=Rating::getShareCountByUrl('ok', $url) ?></span>
         </a>
 
-        <a class="custom-like-small" href="http://vkontakte.ru/share.php?url=<?= $url?>"
-           target="_blank" onclick="return openPopup(this)">
+        <a class="custom-like-small" href="http://connect.mail.ru/share?url=<?= $url?>"
+           onclick="return openPopup(this);">
+            <span class="custom-like-small_icon mailru"></span>
+            <span class="custom-like-small_value" id="likes-count-mr"><?=Rating::getShareCountByUrl('mr', $url) ?></span>
+        </a>
+
+        <a class="custom-like-small" href="http://vkontakte.ru/share.php?url=<?= $url ?>"
+           onclick="return openPopup(this)">
             <span class="custom-like-small_icon vk"></span>
             <span class="custom-like-small_value" id="likes-count-vk">0</span>
         </a>
 
         <a class="custom-like-small" href="http://www.facebook.com/sharer/sharer.php?u=<?= urlencode($url)?>"
-           target="_blank" onclick="return openPopup(this);">
+           onclick="return openPopup(this);">
             <span class="custom-like-small_icon fb"></span>
             <span class="custom-like-small_value" id="likes-count-fb">0</span>
         </a>
@@ -57,26 +63,10 @@
         };
         $.getJSON('http://vkontakte.ru/share.php?act=count&index=1&url=<?= urlencode($url)?>&format=json&callback=?');
 
+        ODKL = {};
         ODKL.updateCountOC = function(index, count){
             $('#likes-count-ok').text(count);
         };
-
-        var ok_url = 'http://www.odnoklassniki.ru/dk?st.cmd=extOneClickLike&uid=odklock0&ref=<?= urlencode($url)?>';
-        //$.getJSON(ok_url);
-        $.support.cors = true;
-        $.ajax({
-            url:ok_url,
-            dataType: 'jsonp', // Notice! JSONP <-- P (lowercase)
-            success:function(json){
-                // do stuff with json (in this case an array)
-                alert("Success");
-            },
-            error:function(){
-                alert("Error");
-            },
-        });
     </script>
-
 </body>
-
 </html>

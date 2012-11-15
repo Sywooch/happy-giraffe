@@ -16,8 +16,8 @@ class MailCommand extends CConsoleCommand
         Yii::import('site.common.extensions.mailchimp.*');
 
         //check generated url
-        if (Yii::app()->createUrl('site/index') != './'){
-            echo Yii::app()->createUrl('site/index').' - url failed';
+        if (Yii::app()->createUrl('site/index') != './') {
+            echo Yii::app()->createUrl('site/index') . ' - url failed';
             return false;
         }
 
@@ -74,25 +74,26 @@ class MailCommand extends CConsoleCommand
                         $dialogUsers = Im::model($user->id)->getUsersWithNewMessages();
                         $contents = $this->renderFile(Yii::getPathOfAlias('site.common.tpl.newMessages') . '.php', compact('dialogUsers', 'unread', 'user', 'token'), true);
                         Yii::app()->mandrill->send($user, 'newMessages', array('messages' => $contents, 'token' => $token));
-                        echo $user->id."\n";
+                        echo $user->id . "\n";
 
-                        if ($model ===  null){
+                        if ($model === null) {
                             $model = new MailDelivery();
                             $model->type = MailDelivery::TYPE_IM;
                             $model->user_id = (int)$user->id;
-                        }else{
+                        } else {
                             $model->last_send_time = time();
                         }
                         $model->save();
                     }
                 }
             }
-            echo ($i*100)." users checked\n";
+            echo ($i * 100) . " users checked\n";
             $i++;
         }
     }
 
-    public function actionContest(){
+    public function actionContest()
+    {
         Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
         Yii::import('site.frontend.extensions.*');
         Yii::import('site.frontend.components.*');
@@ -154,7 +155,8 @@ class MailCommand extends CConsoleCommand
         Yii::app()->mc->deleteUsers();
     }
 
-    public function actionTest(){
+    public function actionTest()
+    {
         Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
         Yii::import('site.frontend.extensions.*');
         Yii::import('site.frontend.components.*');
@@ -165,7 +167,8 @@ class MailCommand extends CConsoleCommand
         echo $articles[0]->url;
     }
 
-    public function actionTestMessage(){
+    public function actionTestMessage()
+    {
         Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
         Yii::import('site.frontend.extensions.*');
         Yii::import('site.frontend.components.*');
@@ -182,7 +185,8 @@ class MailCommand extends CConsoleCommand
         Yii::app()->mandrill->send($user, 'newMessages', array('messages' => $contents, 'token' => $token));
     }
 
-    public function actionTestWeekly(){
+    public function actionTestWeekly()
+    {
         Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
         Yii::import('site.frontend.extensions.*');
         Yii::import('site.frontend.components.*');

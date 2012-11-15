@@ -108,7 +108,7 @@ class EditorController extends SController
             if (!empty($section))
                 $temp->section = $section;
 
-            if ($temp->section == SeoTask::SECTION_NEEDLEWORK) {
+            if ($temp->section == SeoTask::SECTION_NEEDLEWORK && Yii::app()->user->id != 83) {
                 $temp->owner_id = 83;
                 echo CJSON::encode(array('status' => $temp->save(), 'inc' => false));
             } else

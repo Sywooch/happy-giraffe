@@ -92,7 +92,7 @@
 
             <div class="share_button">
                 <div class="fb-custom-like">
-                    <?=HHtml::link('<i class="pluginButtonIcon img sp_like sx_like_fav"></i>Мне нравится',
+                    <?=HHtml::link('<i class="icon-fb"></i>Мне нравится',
                         'http://www.facebook.com/sharer/sharer.php?u='.urlencode($url),
                         array('class'=>'fb-custom-text', 'onclick'=>'return Social.showFacebookPopup(this);'), true) ?>
                     <div class="fb-custom-share-count">0</div>

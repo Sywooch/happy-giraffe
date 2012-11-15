@@ -53,7 +53,7 @@
             </div>
         <?php endif ?>
 
-        <?php $this->renderPartial('_likes',array('model'=>$model)); ?>
+        <?php $this->renderPartial('likes_simple',array('model'=>$model)) ?>
 
     </div>
 

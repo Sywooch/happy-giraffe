@@ -28,7 +28,7 @@
             <div class="holder"><?=Str::strToParagraph($model->text) ?></div>
         </div>
 
-        <?php $this->renderPartial('_likes', compact('model')); ?>
+        <?php $this->renderPartial('likes_simple',array('model'=>$model)) ?>
 
     </div>
 

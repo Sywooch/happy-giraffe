@@ -213,9 +213,11 @@ class DefaultController extends HController
         UserAttributes::set(Yii::app()->user->id, 'horoscope', date("Y-m-d"));
     }
 
-    public function actionLikes(){
+    public function actionLikes($type, $zodiac, $date){
         $this->layout = 'empty';
-        $this->render('likes');
+        $model = Horoscope::model()->findByAttributes(array('date'=>$date, 'zodiac'=>$zodiac));
+        if ($model !== null)
+            $this->render('likes_'.$type, array('model'=>$model));
     }
 
     public function sitemapView()

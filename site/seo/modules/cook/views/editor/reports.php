@@ -109,7 +109,9 @@
                     <td class="al"><?=$task->getKeywordsText() ?></td>
                     <td><?=$task->getMultiVarka() ?></td>
                     <td><?=$task->executor->name ?></td>
-                    <td class="seo-status-publish-2"><?=$task->statusText ?></td>
+                    <td class="seo-status-publish-2"><?=$task->statusText ?><?php if ($_GET['section'] == 2):?>
+                        <br><a href="javascript:;" onclick="CookModule.toNeedlework(this, <?=$task->id ?>)">В рукоделие</a>
+                        <?php endif ?></td>
                 </tr>
                     <?php } ?>
 
@@ -136,7 +138,9 @@
                     <td><?=$task->getMultiVarka() ?></td>
                     <td><?=$task->executor->name ?></td>
                     <td><a href="" class="btn-green-small"
-                           onclick="SeoTasks.CloseTask(this, <?=$task->id ?>);return false;">Проверено</a></td>
+                           onclick="SeoTasks.CloseTask(this, <?=$task->id ?>);return false;">Проверено</a><?php if ($_GET['section'] == 2):?>
+                        <br><a href="javascript:;" onclick="CookModule.toNeedlework(this, <?=$task->id ?>)">В рукоделие</a>
+                        <?php endif ?></td>
                 </tr>
                     <?php } ?>
                 </tbody>
@@ -162,7 +166,11 @@
                     <td class="al"><?=$task->getKeywordsText() ?></td>
                     <td><?=$task->getMultiVarka() ?></td>
                     <td><?=$task->executor->name ?></td>
-                    <td><?=StatusDates::getTime($task, SeoTask::STATUS_CLOSED) ?></td>
+                    <td><?=StatusDates::getTime($task, SeoTask::STATUS_CLOSED) ?>
+                        <?php if ($_GET['section'] == 2):?>
+                            <br><a href="javascript:;" onclick="CookModule.toNeedlework(this, <?=$task->id ?>)">В рукоделие</a>
+                        <?php endif ?>
+                    </td>
                 </tr>
                     <?php } ?>
                 </tbody>

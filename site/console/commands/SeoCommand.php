@@ -389,24 +389,5 @@ class SeoCommand extends CConsoleCommand
             }
         }
     }
-
-    public function actionNeedlework()
-    {
-        Yii::import('site.seo.modules.writing.models.*');
-        Yii::import('site.common.behaviors.*');
-
-        $models = SeoTask::model()->findAll('section=2');
-        foreach($models as $model){
-            if (!empty($model->keywordGroup) && !empty($model->keywordGroup->keywords)){
-                foreach($model->keywordGroup->keywords as $keyword){
-                    if (isset($keyword->yandex) && $keyword->yandex->theme == 3){
-                        $model->section = 3;
-                        $model->update(array('section'));
-                        break;
-                    }
-                }
-            }
-        }
-    }
 }
 

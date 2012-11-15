@@ -122,5 +122,19 @@ var CookModule = {
                 pnotify_type:'error',
                 pnotify_text:'Введите url статьи'
             });
+    },
+    toNeedlework:function(el, task_id){
+        $.post('/cook/editor/toNeedlework/', {
+            task_id:task_id
+        }, function (response) {
+            if (response.status) {
+                $(el).parents('tr').remove();
+            } else {
+                $.pnotify({
+                    pnotify_title:'Ошибка',
+                    pnotify_type:'error'
+                });
+            }
+        }, 'json');
     }
 }

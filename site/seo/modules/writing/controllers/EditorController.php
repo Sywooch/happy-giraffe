@@ -108,12 +108,7 @@ class EditorController extends SController
             if (!empty($section))
                 $temp->section = $section;
 
-            if ($temp->section == SeoTask::SECTION_NEEDLEWORK && Yii::app()->user->id != 83) {
-                $temp->owner_id = 83;
-                echo CJSON::encode(array('status' => $temp->save(), 'inc' => false));
-            } else
-                echo CJSON::encode(array('status' => $temp->save(), 'inc' => true));
-
+            echo CJSON::encode(array('status' => $temp->save(), 'inc' => true));
         } else
             echo CJSON::encode(array(
                 'status' => false,
@@ -457,6 +452,14 @@ class EditorController extends SController
                 $group->delete();
             }
         }
+    }
+
+    public function actionToNeedlework(){
+        $keyword_id = Yii::app()->request->getPost('keyword_id');
+        $temp_keyword = TempKeyword::model()->find('keyword_id=' . $keyword_id);
+        $temp_keyword->owner_id = 83;
+        $temp_keyword->section = 3;
+        echo CJSON::encode(array('status' => $temp_keyword->save()));
     }
 
     /**

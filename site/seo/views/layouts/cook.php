@@ -9,7 +9,7 @@ $basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPAR
 $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
 Yii::app()->clientScript
     ->registerScriptFile($baseUrl . '/cook.js')
-    ->registerScript('set_section', 'CookModule.section='.$section.';var content_section='.$section.';');
+    ->registerScript('set_section', 'CookModule.section='.$section.';window.content_section='.$section.';');
 
 ?>
 <div class="clearfix">

@@ -23,6 +23,7 @@ class SeoUser extends HActiveRecord
     public $current_password;
     public $remember;
     public $role;
+    public $task_count = null;
 
     /**
      * Returns the static model of the specified AR class.
@@ -214,8 +215,12 @@ class SeoUser extends HActiveRecord
 
     public function getTasksCount()
     {
-        return SeoTask::model()->count('executor_id=' . $this->id . ' AND status >= ' . SeoTask::STATUS_READY
+        if ($this->task_count === null){
+            $this->task_count = SeoTask::model()->count('executor_id=' . $this->id . ' AND status >= ' . SeoTask::STATUS_READY
             . ' AND status <= ' . SeoTask::STATUS_TAKEN);
+            return $this->task_count;
+        }
+        return $this->task_count;
     }
 
     public static function getSmoUsers()
@@ -238,5 +243,17 @@ class SeoUser extends HActiveRecord
             ->queryColumn();
 
         return SeoUser::model()->findAllByPk($users);
+    }
+
+    public function getWorkers($role = 'cook-author')
+    {
+        $result = array();
+        $users = SeoUser::model()->findAll('owner_id = '.Yii::app()->user->id);
+        foreach ($users as $author)
+            if (Yii::app()->authManager->checkAccess($role, $author->id)){
+                $result [] = $author;
+            }
+
+        return $result;
     }
 }

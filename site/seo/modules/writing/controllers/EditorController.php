@@ -454,6 +454,14 @@ class EditorController extends SController
         }
     }
 
+    public function actionToNeedlework(){
+        $keyword_id = Yii::app()->request->getPost('keyword_id');
+        $temp_keyword = TempKeyword::model()->find('keyword_id=' . $keyword_id);
+        $temp_keyword->owner_id = 83;
+        $temp_keyword->section = 3;
+        echo CJSON::encode(array('status' => $temp_keyword->save()));
+    }
+
     /**
      * @param int $id model id
      * @return SeoTask

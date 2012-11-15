@@ -98,23 +98,26 @@ class EditorController extends SController
     public function actionSelectKeyword()
     {
         $key_id = Yii::app()->request->getPost('id');
+        $section = Yii::app()->request->getPost('section');
         $keyword = Keyword::model()->findByPk($key_id);
+
         if (!TempKeyword::model()->exists('keyword_id=' . $key_id) && $keyword !== null) {
             $temp = new TempKeyword;
-            //remove duplicates
-            $duplicates = Keyword::model()->findAllByAttributes(array('name' => $keyword->name));
-            if (count($duplicates) > 1) {
-                foreach ($duplicates as $duplicate)
-                    if ($duplicate->id != $key_id)
-                        $duplicate->delete();
-            }
             $temp->keyword_id = $key_id;
             $temp->owner_id = Yii::app()->user->id;
-            echo CJSON::encode(array('status' => $temp->save()));
+            if (!empty($section))
+                $temp->section = $section;
+
+            if ($temp->section == SeoTask::SECTION_NEEDLEWORK && Yii::app()->user->id != 83) {
+                $temp->owner_id = 83;
+                echo CJSON::encode(array('status' => $temp->save(), 'inc' => false));
+            } else
+                echo CJSON::encode(array('status' => $temp->save(), 'inc' => true));
+
         } else
             echo CJSON::encode(array(
                 'status' => false,
-                'error'=>'Уже в работе, обновите страницу'
+                'error' => 'Уже в работе, обновите страницу'
             ));
     }
 
@@ -157,7 +160,7 @@ class EditorController extends SController
 
         $group = new KeywordGroup();
         $group->keywords = $keywords;
-        if ($group->withRelated->save(true,array('keywords'))) {
+        if ($group->withRelated->save(true, array('keywords'))) {
             $task = new SeoTask();
             $task->keyword_group_id = $group->id;
             $task->type = $type;
@@ -302,10 +305,10 @@ class EditorController extends SController
                 $class = 'CommunityContent';
             else
                 $class = 'CookRecipe';
-            if (!empty($article->entity)){
+            if (!empty($article->entity)) {
                 $model = $class::model()->findByPk($article_id);
                 $article->entity = $class;
-                $article->url = 'http://www.happy-giraffe.ru'.$model->url;
+                $article->url = 'http://www.happy-giraffe.ru' . $model->url;
                 if (!$article->save())
                     var_dump($article->getErrors());
             }
@@ -330,7 +333,7 @@ class EditorController extends SController
                 $group->keywords = array($keyword_id);
             }
 
-            if (!$group->withRelated->save(true,array('keywords'))) {
+            if (!$group->withRelated->save(true, array('keywords'))) {
                 echo CJSON::encode(array(
                     'status' => false,
                     'error' => 'Ошибка при сохранении группы кейвордов'
@@ -364,7 +367,7 @@ class EditorController extends SController
 
             $group = new KeywordGroup();
             $group->keywords = array($keyword_id);
-            if (!$group->withRelated->save(true,array('keywords'))) {
+            if (!$group->withRelated->save(true, array('keywords'))) {
                 echo CJSON::encode(array(
                     'status' => false,
                     'error' => 'Ошибка при сохранении группы кейвордов'
@@ -403,7 +406,7 @@ class EditorController extends SController
             $group = new KeywordGroup();
             $group->keywords = array($keyword_id);
 
-            if ($group->withRelated->save(true,array('keywords'))) {
+            if ($group->withRelated->save(true, array('keywords'))) {
                 $page = new Page();
                 $page->url = $url;
                 list($entity, $entity_id) = Page::ParseUrl($url);
@@ -450,7 +453,7 @@ class EditorController extends SController
                     $response = array('status' => false);
 
                 echo CJSON::encode($response);
-            }else{
+            } else {
                 $group->delete();
             }
         }

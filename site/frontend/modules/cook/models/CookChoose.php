@@ -135,4 +135,9 @@ class CookChoose extends HActiveRecord
 
         return $this->findAll($criteria);
     }
+
+    public function getUrl()
+    {
+        return Yii::app()->controller->createUrl('/cook/choose/view', array('id' => $this->slug));
+    }
 }

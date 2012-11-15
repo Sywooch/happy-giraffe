@@ -12,22 +12,6 @@ $cs
     ->registerScriptFile('/javascripts/jquery.jscrollpane.min.js')
     ->registerCssFile('/stylesheets/jquery.jscrollpane.css')
 ;
-$this->breadcrumbs = array(
-    'Кулинария' => array('/cook'),
-    'Рецепты' => array('/cook/recipe/index', 'section' => $this->section),
-    'Поиск по ингредиентам'
-);
-?>
-
-<?php
-$this->widget('zii.widgets.CBreadcrumbs', array(
-    'links' => $this->breadcrumbs,
-    'separator' => ' &gt; ',
-    'htmlOptions' => array(
-        'id' => 'crumbs',
-        'class' => null,
-    ),
-));
 ?>
 
 <div id="cook-recipe-search">

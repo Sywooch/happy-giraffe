@@ -37,10 +37,13 @@
             <div class="other">Смотреть другие знаки</div>
         </li>
         <?php for ($i = 1; $i <= 12; $i++) if ($i != $model->zodiac) { ?>
-        <li><a href="<?=$model->getOtherZodiacUrl(Horoscope::model()->getZodiacSlug($i)) ?>">
-            <img src="/images/widget/horoscope/small/<?=$i?>.png"><br>
-            <span><?=Horoscope::getZodiacTitle($i)?></span><br> <?= $model->zodiacDates() ?>
-        </a>
+        <li>
+            <?= HHtml::link('<img src="/images/widget/horoscope/small/'.$i.'.png"><br><span>'.
+            Horoscope::getZodiacTitle($i).'</span><br> '. $model->zodiacDates(),
+            $model->getOtherZodiacUrl(Horoscope::model()->getZodiacSlug($i)),
+            array(),
+            !$model->isNearbyZodiac($i)
+        ) ?>
         </li>
         <?php } ?>
     </ul>

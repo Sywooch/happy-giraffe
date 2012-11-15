@@ -25,10 +25,35 @@
                 <span><?=date("j", strtotime($model->date)) ?></span>
                 <?=HDate::ruMonthShort(date("n", strtotime($model->date)))?>
             </div>
-            <?=Str::strToParagraph($model->text) ?>
+            <div class="holder">
+                <?=Str::strToParagraph($model->text) ?>
+
+                <?php if (Yii::app()->controller->action->id == 'date' ):?>
+                <div class="dates clearfix">
+                    <?php $prev = strtotime('-1 day',strtotime($model->date)); ?>
+                    <?php if ($model->dateHoroscopeExist($prev)):?>
+                        <span class="a-left"><?=$model->getDateLink($prev) ?> ←</span>
+                    <?php endif ?>
+                    <?php $next = strtotime('+1 day',strtotime($model->date)); ?>
+                    <?php if ($model->dateHoroscopeExist($next)):?>
+                        <span class="a-right">→ <?=$model->getDateLink($next) ?></span>
+                    <?php endif ?>
+                </div>
+                <?php endif ?>
+            </div>
         </div>
 
-        <?php $this->renderPartial('_likes', compact('model')); ?>
+        <?php if (Yii::app()->controller->action->id == 'yesterday' ):?>
+            <div class="horoscope-daylist clearfix">
+                <ul>
+                    <?php for ($i=2;$i<12;$i++): ?>
+                        <li><?=$model->getDateLink(strtotime('-'.$i.' days')) ?></li>
+                    <?php endfor; ?>
+                </ul>
+            </div>
+        <?php endif ?>
+
+        <?php $this->renderPartial('_likes',array('model'=>$model)); ?>
 
     </div>
 
@@ -43,5 +68,5 @@
 </div>
 
 <div class="horoscope-otherday">
-
+    <?=$model->getDateLinks() ?>
 </div>

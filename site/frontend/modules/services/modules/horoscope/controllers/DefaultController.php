@@ -6,6 +6,13 @@ class DefaultController extends HController
     public $title;
     public $social_title;
 
+    public function filters()
+    {
+        return array(
+            'ajaxOnly + viewed',
+        );
+    }
+
     /**
      * @sitemap
      */
@@ -45,7 +52,7 @@ class DefaultController extends HController
         if ($model === null)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
-        $text = $model->zodiacText() . ' на ' . Yii::app()->dateFormatter->format('dd MMMM yyyy', strtotime($model->date));
+        $text = $model->zodiacText() . ' на ' . Yii::app()->dateFormatter->format('d MMMM yyyy', strtotime($model->date));
         $this->title = 'Гороскоп ' . $text;
         $this->meta_title = 'Гороскоп ' . $text . ' для женщин и мужчин - Веселый Жираф';
         $this->meta_description = 'Бесплатный гороскоп ' . $text . ' для женщин и мужчин. Обновляется ежедневно!';
@@ -88,7 +95,7 @@ class DefaultController extends HController
             $this->meta_title = $this->title;
 
             $models = Horoscope::model()->findAllByAttributes(array('date' => $date));
-            $this->render('tomorrow_one', array('models' => $models, 'type' => 'tomorrow'));
+            $this->render('tomorrow', array('models' => $models, 'type' => 'tomorrow'));
         } else {
             $zodiac = Horoscope::model()->getZodiacId(trim($zodiac));
             $model = Horoscope::model()->findByAttributes(array('zodiac' => $zodiac, 'date' => $date));
@@ -101,7 +108,7 @@ class DefaultController extends HController
             $this->meta_description = 'Бесплатный гороскоп ' . $model->zodiacText() . ' на завтра для женщин и мужчин. Обновляется ежедневно!';
             $this->meta_keywords = 'Гороскоп на завтра ' . $model->zodiacText() . ', ежедневный гороскоп ' . $model->zodiacText();
 
-            $this->render('tomorrow', compact('model'));
+            $this->render('tomorrow_one', compact('model'));
         }
     }
 
@@ -190,15 +197,25 @@ class DefaultController extends HController
                 if ($model === null)
                     throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
-                $this->title = 'Гороскоп ' . $model->zodiacText() . ' на ' .$year . ' год';
+                $this->title = 'Гороскоп ' . $model->zodiacText() . ' на ' . $year . ' год';
                 $this->social_title = $this->title;
-                $this->meta_title = 'Гороскоп ' . $model->zodiacText() . ' на ' .$year . ' год для женщин и мужчин – Веселый Жираф';
-                $this->meta_description = 'Бесплатный гороскоп ' . $model->zodiacText() . ' на ' .$year . ' год для женщин и мужчин. Познай свою судьбу!';
-                $this->meta_keywords = 'Гороскоп на ' .$year . ' год ' . $model->zodiacText();
+                $this->meta_title = 'Гороскоп ' . $model->zodiacText() . ' на ' . $year . ' год для женщин и мужчин – Веселый Жираф';
+                $this->meta_description = 'Бесплатный гороскоп ' . $model->zodiacText() . ' на ' . $year . ' год для женщин и мужчин. Познай свою судьбу!';
+                $this->meta_keywords = 'Гороскоп на ' . $year . ' год ' . $model->zodiacText();
 
                 $this->render('year_one', compact('model'));
             }
         }
+    }
+
+    public function actionViewed()
+    {
+        UserAttributes::set(Yii::app()->user->id, 'horoscope', date("Y-m-d"));
+    }
+
+    public function actionLikes(){
+        $this->layout = 'empty';
+        $this->render('likes');
     }
 
     public function sitemapView()

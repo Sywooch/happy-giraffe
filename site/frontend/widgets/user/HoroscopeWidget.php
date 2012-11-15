@@ -21,24 +21,35 @@ class HoroscopeWidget extends UserCoreWidget
         if ($user_zodiac === null)
             return;
 
-        $cache_id = 'HoroscopeWidget-' . $user_zodiac . '- ' . date("Y-m-d");
-        $value=Yii::app()->cache->get($cache_id);
-        if($value===false)
-        {
+        if (Yii::app()->user->isGuest)
+            $show_horoscope = false;
+        else{
+            $show_horoscope = UserAttributes::get(Yii::app()->user->id, 'horoscope');
+            if (strpos($show_horoscope, date("Y-m-d")) === false)
+                $show_horoscope = false;
+            else
+                $show_horoscope = true;
+        }
+
+//        $cache_id = 'HoroscopeWidget-' . $user_zodiac . '- ' . date("Y-m-d");
+//        $value=Yii::app()->cache->get($cache_id);
+//        if($value===false)
+//        {
             $criteria = new CDbCriteria;
             $criteria->compare('zodiac', $user_zodiac);
             $criteria->compare('`date`', date("Y-m-d"));
-            $forecast = Horoscope::model()->find($criteria);
-            if ($forecast === null)
+            $horoscope = Horoscope::model()->find($criteria);
+            if ($horoscope === null)
                 return;
 
             $value = $this->render('HoroscopeWidget', array(
                 'user_zodiac' => $user_zodiac,
-                'forecast' => $forecast
+                'horoscope' => $horoscope,
+                'show_horoscope'=>$show_horoscope
             ), true);
 
-            Yii::app()->cache->set($cache_id,$value, 5*3600);
-        }
+            //Yii::app()->cache->set($cache_id,$value, 5*3600);
+//        }
 
         echo $value;
     }

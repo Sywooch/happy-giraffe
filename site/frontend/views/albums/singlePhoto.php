@@ -49,6 +49,21 @@
                 'location' => false
             )); ?>
 
+            <?php if (get_class($model) == 'Contest' && Yii::app()->user->checkAccess('removeContestWork')): ?>
+                <?php
+                    $this->widget('site.frontend.widgets.removeWidget.RemoveWidget', array(
+                        'model' => $photo->getAttachByEntity('ContestWork')->model,
+                        'callback' => 'ContestWorkDelete',
+                        'author' => true,
+                    ));
+
+                     Yii::app()->clientScript->registerScript('register_after_removeContent', 'function ContestWorkDelete() {
+                        window.location.href = "' . $model->url . '"
+                     }',
+                     CClientScript::POS_HEAD);
+                ?>
+            <?php endif; ?>
+
         </div>
 
         <?=CHtml::image($photo->getPreviewUrl(960, 627, Image::HEIGHT, true), '', array('itemprop' => 'contentURL'))?>

@@ -39,7 +39,7 @@ if (!Yii::app()->user->isGuest && ($c->canEdit() || $c->canRemove())): ?>
         }
 
         Yii::app()->clientScript->registerScript('register_after_removeContent', '
-            function CommunityContentRemove() {window.location = "' . $delete_redirect_url . '";}', CClientScript::POS_HEAD);
+            function CommunityContentRemove() {fsdf; window.location = "' . $delete_redirect_url . '";}', CClientScript::POS_HEAD);
         ?>
     <?php endif; ?>
 </div>

@@ -5113,7 +5113,13 @@ label {
     background-position:0 -66px;
 }
 
-
+#ctrlcopy {
+    color:transparent;
+    height:1px;
+    overflow:hidden;
+    position:absolute;
+    width:1px;
+}
 
 
 

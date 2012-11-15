@@ -191,4 +191,24 @@ class ContestWork extends HActiveRecord
     {
         return $this->photoAttach->photo->getPreviewUrl(180, 180);
     }
+
+    public function getAuthor_id()
+    {
+        return $this->user_id;
+    }
+
+    public function beforeDelete()
+    {
+        self::model()->updateByPk($this->id, array('removed' => 1));
+
+        return false;
+    }
+
+    public function defaultScope()
+    {
+        $alias = $this->getTableAlias(false, false);
+        return array(
+            'condition' => ($alias) ? $alias . '.removed = 0' : 'removed = 0',
+        );
+    }
 }

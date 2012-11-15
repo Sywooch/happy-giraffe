@@ -10,5 +10,6 @@ if (isset($model)){
     </div>
     <div class="text">
         <?= Str::truncate($model->getForecastText(), 230, '&hellip;') ?>
-        <a class="btn-green btn-small" href="<?=$this->createUrl($model->getType(), array('zodiac'=>$model->getZodiacSlug())) ?>">узнать</a></div>
+        <?=HHtml::link('узнать', $this->createUrl($model->getType(), array('zodiac'=>$model->getZodiacSlug())), array('class'=>'btn-green btn-small'), true);?>
+    </div>
 </li><?php }

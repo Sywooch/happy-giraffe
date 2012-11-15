@@ -26,7 +26,7 @@ $data = $model->CalculateMonthData();
                 <span class="year"><?=HDate::ruMonthShort($model->month)?></span>
                 <?=$model->year?>
             </div>
-            <?=Str::strToParagraph($model->text) ?>
+            <div class="holder"><?=Str::strToParagraph($model->text) ?></div>
         </div>
 
         <div class="horoscope-month clearfix">
@@ -69,8 +69,8 @@ $data = $model->CalculateMonthData();
 <?php if ($model->isCurrentMonth()) {?>
     А еще гороскоп <?=$model->zodiacText() ?> на:
     <div class="row">
-        <span><?=$model->getPrevMonthLink() ?> ←</span>
-        <span>→ <?=$model->getNextMonthLink() ?></span>
+        <?=$model->getPrevMonthLink() ?>
+        <?=$model->getNextMonthLink() ?>
         <?=$model->getNextMonthLink(2) ?>
         <?=$model->getNextMonthLink(3) ?>
         <?=$model->getNextMonthLink(4) ?>
@@ -79,8 +79,8 @@ $data = $model->CalculateMonthData();
 <?php }else{ ?>
     А еще гороскоп <?=$model->zodiacText() ?> на:
     <div class="row">
-        <span><?=$model->getPrevMonthLink() ?> ←</span>
-        <span>→ <?=$model->getNextMonthLink() ?></span>
+        <?=$model->getPrevMonthLink() ?>
+        <?=$model->getNextMonthLink() ?>
     </div>
 <?php } ?>
 </div>

@@ -28,11 +28,34 @@
 
         </div>
 
-        <?php if (Yii::app()->user->isGuest):?>
+        <?php if (Yii::app()->user->isGuest && Yii::app()->controller->id == 'compatibility' ):?>
             <div class="horoscope-subscribe">
-                <img src="/images/horoscope_subscribe_banner.jpg">
+                <img src="/images/widget/horoscope/banner-subscribe.jpg">
                 <p>Хочешь иметь возможность заглянуть в своё будущее и подкорректировать его при необходимости: избежать аварии, получить хорошую прибыль, укрепить семейные отношения, вырастить прекрасных детей, то есть – реально улучшить свою жизнь?</p>
-                <a href="#register" class="fancy btn-want" data-theme="white-square">Хочу!</a>
+                <?php $form = $this->beginWidget('CActiveForm', array(
+                'id' => 'horoscope-reg-form2',
+                'action' => '#',
+                'enableClientValidation' => false,
+                'enableAjaxValidation' => true,
+                'clientOptions' => array(
+                    'validateOnSubmit' => true,
+                    'validateOnChange' => true,
+                    'validateOnType' => true,
+                    'validationUrl' => Yii::app()->createUrl('/signup/validate', array('step' => 1)),
+                    'afterValidate' => "js:function(form, data, hasError) {
+                            if (!hasError){
+                                Register.showStep2($('#horoscope-reg-form2 #User_email').val());
+                            }
+                            return false;
+                          }",
+                ),
+            ));?>
+                <?php $user = new User ?>
+                <?= $form->textField($user, 'email', array('class'=>'text', 'placeholder' => 'Введите ваш e-mail'))?>
+                <?= $form->error($user, 'email')?>
+
+                <a href="javascript:;" class="btn-amethyst btn-big" onclick="$(this).parent().submit();">Хочу!</a>
+                <?php $this->endWidget(); ?>
             </div>
         <?php endif ?>
 

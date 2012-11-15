@@ -35,7 +35,7 @@
             </div>
         </div>
 
-        <?php $this->renderPartial('_likes', compact('model')); ?>
+        <?php $this->renderPartial('_likes', array('model' => $model)); ?>
 
     </div>
 
@@ -50,16 +50,15 @@
 </div>
 
 <div class="horoscope-otherday">
-    <?php if ($model->isCurrentYear()) {?>
-    А еще гороскоп <?=$model->zodiacText() ?> на:
-    <div class="row">
-        <span>→ <?=$model->getNextYearLink() ?></span>
-    </div>
-    <?php }else{ ?>
-    А еще гороскоп <?=$model->zodiacText() ?> на:
-    <div class="row">
-        <span><?=$model->getPrevYearLink() ?> ←</span>
-        <span>→ <?=$model->getNextYearLink() ?></span>
-    </div>
-    <?php } ?>
+<?php if ($model->yearHoroscopeExist($model->year - 1) || $model->yearHoroscopeExist($model->year + 1)):?>
+        А еще гороскоп <?=$model->zodiacText() ?> на:
+        <div class="row">
+            <?php if ($model->yearHoroscopeExist($model->year - 1)):?>
+                <span><?=$model->getPrevYearLink() ?> ←</span>
+            <?php endif ?>
+            <?php if ($model->yearHoroscopeExist($model->year + 1)):?>
+                <span>→ <?=$model->getNextYearLink() ?></span>
+            <?php endif ?>
+        </div>
+<?php endif ?>
 </div>

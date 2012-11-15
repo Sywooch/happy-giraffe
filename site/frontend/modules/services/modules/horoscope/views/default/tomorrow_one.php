@@ -25,7 +25,7 @@
                 <span><?=date("j", strtotime($model->date)) ?></span>
                 <?=HDate::ruMonthShort(date("n", strtotime($model->date)))?>
             </div>
-            <?=Str::strToParagraph($model->text) ?>
+            <div class="holder"><?=Str::strToParagraph($model->text) ?></div>
         </div>
 
         <?php $this->renderPartial('_likes', compact('model')); ?>
@@ -40,4 +40,8 @@
 
     <?=$model->getText(); ?>
 
+</div>
+
+<div class="horoscope-otherday">
+    <?=$model->getDateLinks() ?>
 </div>

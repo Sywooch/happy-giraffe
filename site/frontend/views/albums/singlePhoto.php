@@ -57,7 +57,7 @@
                         'author' => true,
                     ));
 
-                     Yii::app()->clientScript->registerScript('register_after_removeContent', 'function ContestWorkDelete() {
+                     Yii::app()->clientScript->registerScript('removeContestWork', 'function ContestWorkDelete() {
                         window.location.href = "' . $model->url . '"
                      }',
                      CClientScript::POS_HEAD);

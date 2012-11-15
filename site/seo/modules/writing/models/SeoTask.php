@@ -42,6 +42,7 @@ class SeoTask extends CActiveRecord
 
     const SECTION_MAIN = 1;
     const SECTION_COOK = 2;
+    const SECTION_NEEDLEWORK = 3;
 
     /**
      * Returns the static model of the specified AR class.
@@ -145,7 +146,7 @@ class SeoTask extends CActiveRecord
 
     public function getText()
     {
-        if ($this->section == self::SECTION_COOK)
+        if ($this->section > 1)
             return $this->getRecipeText();
 
         $res = '';
@@ -376,27 +377,33 @@ class SeoTask extends CActiveRecord
         return '';
     }
 
-    public static function getTasksByName()
+    public static function getTasksByName($section = SeoTask::SECTION_COOK)
     {
         $criteria = new CDbCriteria;
         $criteria->condition = 'executor_id IS NULL';
         $criteria->compare('owner_id', Yii::app()->user->id);
         $criteria->compare('status', SeoTask::STATUS_NEW);
         $criteria->compare('keyword_group_id', NULL);
-        $criteria->compare('section', SeoTask::SECTION_COOK);
+        $criteria->compare('section', $section);
 
         return SeoTask::model()->findAll($criteria);
     }
 
-    public static function getNewTasks()
+    public static function getNewTasks($section = SeoTask::SECTION_COOK)
     {
         $criteria = new CDbCriteria;
         $criteria->condition = 'executor_id IS NOT NULL';
         $criteria->compare('owner_id', Yii::app()->user->id);
         $criteria->compare('status', SeoTask::STATUS_NEW);
         $criteria->compare('keyword_group_id', NULL);
-        $criteria->compare('section', SeoTask::SECTION_COOK);
+        $criteria->compare('section', $section);
 
         return SeoTask::model()->findAll($criteria);
+    }
+
+    public static function taskCount($section)
+    {
+        return TempKeyword::model()->count('owner_id=' . Yii::app()->user->id.' AND section='.$section)
+            + SeoTask::model()->count('owner_id=' . Yii::app()->user->id . ' AND executor_id IS NULL AND section='.$section);
     }
 }

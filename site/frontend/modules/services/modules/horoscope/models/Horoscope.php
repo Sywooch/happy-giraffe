@@ -96,8 +96,9 @@ class Horoscope extends HActiveRecord
         return array(
             array('zodiac', 'required'),
             array('zodiac, year, month', 'numerical', 'integerOnly' => true),
+            array('text', 'default', 'value'=>''),
             array('good_days, bad_days', 'length', 'max' => 1024),
-            array('date, health, career, finance, personal', 'safe'),
+            array('date, health, career, finance, personal, type', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('id, zodiac, year, month, date, text', 'safe', 'on' => 'search'),
@@ -138,7 +139,7 @@ class Horoscope extends HActiveRecord
     public function defaultScope()
     {
         return array(
-            'order' => 'date desc',
+            'order' => 'id desc',
         );
     }
 

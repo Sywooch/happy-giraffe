@@ -619,6 +619,32 @@
 #user .user-family.user-family-border-8 .t {background-position:-3840px 0;}
 #user .user-family.user-family-border-8 .c {background-position:-4080px 0;}
 #user .user-family.user-family-border-8 .b {background-position:-3840px -42px;}
+#user .user-family .user-family_staff {margin: -10px -13px 10px;background: #fefcbb;padding: 10px 20px;color: #494848;font-size: 13px;}
+#user .user-family .icon-boy {
+	display: inline-block;*zoom:1;*display:inline;
+	background:url(../images/common.png) no-repeat -556px -221px;
+	width: 22px;
+	height: 22px;
+	vertical-align: middle;
+	margin: 0 1px;
+}
+#user .user-family .icon-girl {
+	display: inline-block;*zoom:1;*display:inline;
+	background:url(../images/common.png) no-repeat -580px -221px;
+	width: 22px;
+	height: 22px;
+	vertical-align: middle;
+	margin: 0 1px;
+}
+#user .user-family .icon-baby {
+	display: inline-block;*zoom:1;*display:inline;
+	background:url(../images/common.png) no-repeat -629px -269px;
+	width: 25px;
+	height: 19px;
+	vertical-align: middle;
+	margin: 0 1px;
+}
+
 #user .user-family ul {list-style:none;}
 #user .user-family ul li {list-style:none;margin-top:20px;}
 #user .user-family ul li:first-child {margin-top:0;}

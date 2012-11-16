@@ -353,6 +353,7 @@ return array(
                 'login.js',
                 'auth.js',
                 'jquery.yiilistview.js',
+                'addtocopy.js',
             ),
             '/javascripts/all_user.js' => array(
                 'comet.js',

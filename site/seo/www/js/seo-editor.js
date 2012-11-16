@@ -26,14 +26,22 @@ var SeoKeywords = {
     },
     Select:function (el, short) {
         var id = this.getId(el);
-        $.post('/writing/editor/selectKeyword/', {id:id}, function (response) {
+
+        var section = '';
+        if (window.content_section !== undefined)
+            section = window.content_section;
+        console.log(section);
+
+        $.post('/writing/editor/selectKeyword/', {id:id,section:section}, function (response) {
             if (response.status) {
                 $(el).parents('tr').addClass('in-buffer');
                 if (short)
                     $(el).parent('td').html('<input type="hidden" value="' + id + '"><a href="" class="icon-remove" onclick="SeoKeywords.CancelSelect(this, ' + short + ');return false;"></a>');
                 else
                     $(el).parent('td').html('в буфере <input type="hidden" value="' + id + '"><a href="" class="icon-remove" onclick="SeoKeywords.CancelSelect(this, ' + short + ');return false;"></a>');
-                $('.default-nav div.count a').text(parseInt($('.default-nav div.count a').text()) + 1);
+
+                if (response.inc)
+                    $('.default-nav div.count a').text(parseInt($('.default-nav div.count a').text()) + 1);
             }else
                 $.pnotify({
                     pnotify_title:'Ошибка',
@@ -183,6 +191,20 @@ var TaskDistribution = {
     hideKeyword:function (id) {
         $('#keyword-' + id).hide();
         $('.default-nav .count a').text(parseInt($('.default-nav .count a').text()) - 1);
+    },
+    toNeedlework:function(el, id){
+        $.post('/writing/editor/toNeedlework/', {
+            keyword_id:id
+        }, function (response) {
+            if (response.status) {
+                $(el).parents('tr').remove();
+            } else {
+                $.pnotify({
+                    pnotify_title:'Ошибка',
+                    pnotify_type:'error',
+                });
+            }
+        }, 'json');
     }
 }
 

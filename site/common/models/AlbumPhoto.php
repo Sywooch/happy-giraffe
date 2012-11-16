@@ -218,7 +218,11 @@ class AlbumPhoto extends HActiveRecord
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
 
         $file = curl_exec($ch);
+        $httpStatus = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
+
+        if ($httpStatus !== 200)
+            return false;
 
         if (empty($file))
             return false;

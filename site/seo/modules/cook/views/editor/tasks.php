@@ -15,11 +15,11 @@ Yii::app()->clientScript->registerCoreScript('jquery.ui'); ?>
                 <th>Кулинар</th>
             </tr>
             <?php foreach ($tempKeywords as $tempKeyword): ?>
-                <?php $this->renderPartial('_task1',array('type'=>1, 'keyword'=>$tempKeyword->keyword)); ?>
+                <?php $this->renderPartial('_task1',array('type'=>1, 'keyword'=>$tempKeyword->keyword, 'authors'=>$authors)); ?>
             <?php endforeach; ?>
 
             <?php foreach ($by_name_tasks as $by_name_task): ?>
-                <?php $this->renderPartial('_task1',array('type'=>2, 'by_name_task'=>$by_name_task)); ?>
+                <?php $this->renderPartial('_task1',array('type'=>2, 'by_name_task'=>$by_name_task, 'authors'=>$authors)); ?>
             <?php endforeach; ?>
 
         </table>

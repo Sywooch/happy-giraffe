@@ -735,6 +735,8 @@ class AlbumsController extends HController
                 $model = CActiveRecord::model($entity)->findByPk($contest_id);
                 $attach = $photo->getAttachByEntity('ContestWork', $photo_id);
                 $work = $attach->model;
+                if ($work === null)
+                    throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
                 $photo->w_title = $work->title;
                 $currentIndex = null;
                 $collection = array();

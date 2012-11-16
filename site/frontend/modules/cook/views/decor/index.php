@@ -116,6 +116,7 @@
                             $(items).hide();
                             $('#decorlv .items').append(items).imagesLoaded(function() {
                                  $('#decorlv .items').masonry('appended', $(items));
+                                 " . $this->pGallery . "
                                  $(items).fadeIn();
                             });
                             return false;

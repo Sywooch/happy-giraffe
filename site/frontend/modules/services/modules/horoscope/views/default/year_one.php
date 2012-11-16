@@ -21,6 +21,9 @@
         </div>
 
         <div class="horoscope-year">
+
+            <?php if (empty($_GET['year'])) $this->beginWidget('SeoContentWidget'); ?>
+
             <div class="horoscope-year_item health">
                 <p><span class="red">Здоровье.</span> <?=$model->health ?></p>
             </div>
@@ -33,6 +36,9 @@
             <div class="horoscope-year_item home">
                 <p><span class="red">Личная жизнь.</span> <?=$model->personal ?></p>
             </div>
+
+            <?php if (empty($_GET['year'])) $this->endWidget(); ?>
+
         </div>
 
         <?php $this->renderPartial('likes_simple',array('model'=>$model)) ?>
@@ -43,11 +49,13 @@
 
 <?php $this->renderPartial('_bottom_list', array('model' => $model)); ?>
 
-<div class="wysiwyg-content">
+<?php if (empty($_GET['year'])):?>
+    <div class="wysiwyg-content">
 
-    <?=$model->getText(); ?>
+        <?=$model->getText(); ?>
 
-</div>
+    </div>
+<?php endif ?>
 
 <div class="horoscope-otherday">
 <?php if ($model->yearHoroscopeExist($model->year - 1) || $model->yearHoroscopeExist($model->year + 1)):?>

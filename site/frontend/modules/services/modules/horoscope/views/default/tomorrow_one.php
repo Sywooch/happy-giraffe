@@ -25,7 +25,9 @@
                 <span><?=date("j", strtotime($model->date)) ?></span>
                 <?=HDate::ruMonthShort(date("n", strtotime($model->date)))?>
             </div>
+            <?php $this->beginWidget('SeoContentWidget'); ?>
             <div class="holder"><?=Str::strToParagraph($model->text) ?></div>
+            <?php $this->endWidget(); ?>
         </div>
 
         <?php $this->renderPartial('likes_simple',array('model'=>$model)) ?>

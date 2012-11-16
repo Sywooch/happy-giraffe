@@ -21,4 +21,4 @@ var Horoscope = {
             "left" : "0"
         });
     }
-}
+};

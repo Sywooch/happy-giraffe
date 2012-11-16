@@ -884,19 +884,8 @@ textarea.error {border:1px solid #ff6767 !important;}
 a.left-str { background: url(../images/str.png) no-repeat; background-position: center right;}
 a.bot-str { background: url(../images/str-bot.png) no-repeat; background-position: center right;}
 
-.meta {margin-top:10px;}
-.meta .views {margin-right:10px;color:#737575;font-family:arial, helvetica, sans-serif;vertical-align: middle;}
-.meta .views .icon {display:inline-block;*zoom:1;*display:inline;width:24px;height:13px;background:url(/images/common.png) no-repeat -199px -275px;vertical-align:middle;position:relative;top:-1px;margin-right:3px;}
-.meta .comments {margin-right:10px;font-weight:normal !important;vertical-align:middle;}
-.meta .comments .icon {display:inline-block;*zoom:1;*display:inline;width:20px;height:17px;background:url(/images/common.png) no-repeat -225px -275px;vertical-align:middle;margin:3px 7px 0 0;padding:0;}
-.entry .meta .comments {margin:3px 8px 0 0;line-height:26px;}
-.entry .meta .comments a {padding-right:0;}
-.meta .comments .ava.small {display:inline-block;*zoom:1;*display:inline;float:none;padding:0 2px;vertical-align:middle;}
-
-
-.CheckBoxClass,.RadioClass{
-    display: none;
-}
+.CheckBoxClass,
+.RadioClass{display: none;}
 
 .RadioLabelClass{
     background: url(../images/radio.png) no-repeat;
@@ -913,9 +902,6 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
     background: url(../images/radio.png) no-repeat;
     background-position: 0 -24px;
 }
-
-
-
 
 .pagination {font-size:23px;padding:15px 0 30px;color:#ababab;font-family:times new roman, serif;font-style:italic;line-height:1;}
 .pagination.pagination-center {text-align:center;}
@@ -3733,6 +3719,7 @@ div.scrollbarpaper-drag {-moz-border-radius:3px;-webkit-border-radius:3px;border
 #homepage .homepage-blogs-2 > ul li .img{padding-top:10px;}
 #homepage .homepage-blogs-2 > ul li .img img{display:block;margin:3px 0 5px;}
 #homepage .homepage-blogs-2 > ul li .user-info{padding-bottom:5px;}
+#homepage .homepage-blogs-2 > ul li .views{padding-right:3px;}
 
 
 

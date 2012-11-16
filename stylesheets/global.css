@@ -3358,8 +3358,8 @@ ul.letters li a:hover {
 
 .fast-horoscope {padding:20px;border:1px solid #f1eaf6;width:200px;float:right;}
 .fast-horoscope .block-title {margin-bottom:10px;}
-.fast-horoscope .block-title .in {color:#2f2f2f;font:italic 23px/23px times new roman, serif;display:inline-block;*zoom:1;*display:inline;width:130px;text-align:center;}
-.fast-horoscope .block-title .date {color:#fa717c;font-size:18px;line-height:25px;display:inline-block;*zoom:1;*display:inline;width:55px;text-align:center;font-weight:bold;}
+.fast-horoscope .block-title .in {color:#2f2f2f;font:italic 23px/23px times new roman, serif;display:inline-block;*zoom:1;*display:inline;width:120px;text-align:center;}
+.fast-horoscope .block-title .date {color:#fa717c;font-size:18px;line-height:25px;display:inline-block;*zoom:1;*display:inline;width:75px;text-align:center;font-weight:bold;}
 .fast-horoscope .block-title .date b {font-size:30px;}
 .fast-horoscope ul {list-style:none;}
 .fast-horoscope ul li {list-style:none;margin-bottom:15px;}

@@ -36,7 +36,7 @@
     <div class="user-horoscope-2_likes">
         <div class="user-horoscope-2_likes-title">Отметь, если понравился!</div>
         <div class="custom-likes-small" style="height: 35px;">
-            <iframe src="/horoscope/likes/small/<?=$horoscope->zodiac ?>/<?=$horoscope->date?>/" frameborder="0">
+            <iframe src="/horoscope/likes/<?=$horoscope->zodiac ?>/<?=$horoscope->date?>/" frameborder="0">
 
             </iframe>
         </div>

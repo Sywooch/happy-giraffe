@@ -45,7 +45,10 @@ class DefaultController extends HController
         $this->render('view', compact('model'));
     }
 
-    public function actionDate($zodiac, $date = null)
+    /**
+     * @sitemap dataSource=sitemapDateView
+     */
+    public function actionDate($zodiac, $date)
     {
         $zodiac = Horoscope::model()->getZodiacId(trim($zodiac));
         $model = Horoscope::model()->findByAttributes(array('zodiac' => $zodiac, 'date' => $date));
@@ -60,7 +63,6 @@ class DefaultController extends HController
 
         $this->render('view', compact('model'));
     }
-
 
     /**
      * @sitemap dataSource=sitemapView
@@ -113,7 +115,7 @@ class DefaultController extends HController
     }
 
     /**
-     * @sitemap dataSource=sitemapView
+     * @sitemap dataSource=sitemapMonthView
      */
     public function actionMonth($zodiac = '', $month = '')
     {
@@ -166,7 +168,7 @@ class DefaultController extends HController
     }
 
     /**
-     * @sitemap dataSource=sitemapView
+     * @sitemap dataSource=sitemapYearView
      */
     public function actionYear($zodiac = '', $year = '')
     {
@@ -213,11 +215,12 @@ class DefaultController extends HController
         UserAttributes::set(Yii::app()->user->id, 'horoscope', date("Y-m-d"));
     }
 
-    public function actionLikes($type, $zodiac, $date){
+    public function actionLikes($zodiac, $date)
+    {
         $this->layout = 'empty';
-        $model = Horoscope::model()->findByAttributes(array('date'=>$date, 'zodiac'=>$zodiac));
+        $model = Horoscope::model()->findByAttributes(array('date' => $date, 'zodiac' => $zodiac));
         if ($model !== null)
-            $this->render('likes_'.$type, array('model'=>$model));
+            $this->render('likes_small', array('model' => $model));
     }
 
     public function sitemapView()
@@ -233,6 +236,90 @@ class DefaultController extends HController
                 ),
             );
         }
+
+        return $data;
+    }
+
+    public function sitemapDateView()
+    {
+        $data = array();
+        $dates = Yii::app()->db->createCommand()
+            ->selectDistinct('date')
+            ->from(Horoscope::model()->tableName())
+            ->queryColumn();
+        foreach ($dates as $date)
+            if ($date !== '0000-00-00' && !empty($date)) {
+                foreach (Horoscope::model()->zodiac_list_eng as $z) {
+                    $data[] = array(
+                        'params' => array(
+                            'zodiac' => $z,
+                            'date' => $date
+                        ),
+                    );
+                }
+            }
+
+        return $data;
+    }
+
+    public function sitemapMonthView()
+    {
+        $data = array('params' => array());
+
+        foreach (Horoscope::model()->zodiac_list_eng as $z) {
+            $data[] = array(
+                'params' => array(
+                    'zodiac' => $z
+                ),
+            );
+        }
+
+        $rows = Yii::app()->db->createCommand()
+            ->selectDistinct(array('month', 'year'))
+            ->from(Horoscope::model()->tableName())
+            ->queryAll();
+        foreach ($rows as $row)
+            if (!empty($row['month']) && !empty($row['year'])) {
+                foreach (Horoscope::model()->zodiac_list_eng as $z) {
+                    $data[] = array(
+                        'params' => array(
+                            'zodiac' => $z,
+                            'month' => $row['year'] . '-' . sprintf('%02d', $row['month'])
+                        ),
+                    );
+                }
+            }
+
+        return $data;
+    }
+
+    public function sitemapYearView()
+    {
+        $data = array('params' => array());
+
+        foreach (Horoscope::model()->zodiac_list_eng as $z) {
+            $data[] = array(
+                'params' => array(
+                    'zodiac' => $z
+                ),
+            );
+        }
+
+        $years = Yii::app()->db->createCommand()
+            ->selectDistinct('year')
+            ->from(Horoscope::model()->tableName())
+            ->where('month IS NULL OR month =""')
+            ->queryColumn();
+        foreach ($years as $year)
+            if (!empty($year))
+            foreach (Horoscope::model()->zodiac_list_eng as $z) {
+                $data[] = array(
+                    'params' => array(
+                        'zodiac' => $z,
+                        'year' => $year
+                    ),
+                );
+            }
 
         return $data;
     }

@@ -54,7 +54,6 @@
                     $this->widget('site.frontend.widgets.removeWidget.RemoveWidget', array(
                         'model' => $photo->getAttachByEntity('ContestWork')->model,
                         'callback' => 'ContestWorkDelete',
-                        'author' => true,
                     ));
 
                      Yii::app()->clientScript->registerScript('removeContestWork', 'function ContestWorkDelete() {

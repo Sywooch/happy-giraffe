@@ -129,4 +129,9 @@ class Removed extends HActiveRecord
 //        $model->updateByPk($this->entity_id, array('removed' => 1));
         parent::afterSave();
     }
+
+    public function getReason()
+    {
+        return ($this->type == 4) ? $this->text : self::$types[$this->type];
+    }
 }

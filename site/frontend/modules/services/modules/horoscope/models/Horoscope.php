@@ -410,7 +410,7 @@ class Horoscope extends HActiveRecord
         if (!empty($this->year) && empty($this->month))
             return Yii::app()->$method('/services/horoscope/default/year', array(
                 'zodiac' => $this->getZodiacSlug(),
-                'year' => $this->date
+                'year' => $this->year
             ));
         if (!empty($this->year) && !empty($this->month))
             return Yii::app()->$method('/services/horoscope/default/month', array(

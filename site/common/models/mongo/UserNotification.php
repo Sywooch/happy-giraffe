@@ -10,6 +10,7 @@ class UserNotification extends EMongoDocument
 {
     const NEW_COMMENT = 0;
     const NEW_REPLY = 1;
+    const CONTEST_WORK_REMOVED = 2;
 
     private $_types = array(
         self::NEW_COMMENT => array(
@@ -17,6 +18,9 @@ class UserNotification extends EMongoDocument
         ),
         self::NEW_REPLY => array(
             'method' => 'newReply',
+        ),
+        self::CONTEST_WORK_REMOVED => array(
+            'method' => 'newRemoved',
         ),
     );
 
@@ -49,7 +53,7 @@ class UserNotification extends EMongoDocument
     public function rules()
     {
         return array(
-            array('recipient_id', 'compare', 'compareAttribute' => 'initiator_id', 'operator' => '!='),
+//            array('recipient_id', 'compare', 'compareAttribute' => 'initiator_id', 'operator' => '!='),
         );
     }
 
@@ -194,6 +198,22 @@ class UserNotification extends EMongoDocument
         $this->entity = array(
             'name' => $entityName,
             'id' => (int) $entity->id,
+        );
+        return true;
+    }
+
+    /**
+     * @param $model ContestWork
+     */
+    public function newRemoved($model)
+    {
+        $this->recipient_id = (int) $model->user_id;
+        $this->initiator_id = (int) Yii::app()->user->id;
+        $this->url = null;
+        $this->text = 'Ваша фотография снята с фотоконкурса ' . CHtml::link($model->contest->title, $model->contest->url) . ' по причине  несоответствия правилам конкурса';
+        $this->entity = array(
+            'name' => get_class($model),
+            'id' => (int) $model->id,
         );
         return true;
     }

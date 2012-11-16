@@ -45,7 +45,7 @@ Yii::app()->clientScript->registerScriptFile($baseUrl . '/social.js');
 
         <div class="share_button">
             <script type="text/javascript"><!--
-                    document.write(VK.Share.button({url:'<?=urlencode($url) ?>'},{type: "round", text: "Мне нравится"}));
+                    document.write(VK.Share.button({url:'<?=$url ?>'},{type: "round", text: "Мне нравится"}));
             --></script>
         </div>
 

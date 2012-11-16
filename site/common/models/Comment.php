@@ -145,6 +145,10 @@ class Comment extends HActiveRecord
                     'AutoFormat.Linkify' => true,
                 ),
             ),
+            'externalImages' => array(
+                'class' => 'site.common.behaviors.ExternalImagesBehavior',
+                'attributes' => array('text'),
+            ),
         );
     }
 

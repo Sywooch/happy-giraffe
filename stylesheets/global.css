@@ -3337,7 +3337,9 @@ ul.letters li a:hover {
 .horoscope-compatibility .equal {width:38px;height:43px;background:url(/images/common.png) no-repeat -47px -294px;float:left;margin:60px 12px 0;}
 .horoscope-compatibility .button {float:left;margin-top:40px;position: relative;}
 .horoscope-compatibility .errorSummary {float: right;width: 195px;}
+/*added by alex*/
 #HoroscopeCompatibility_zodiac1_em_, #HoroscopeCompatibility_zodiac2_em_ {display: none !important;}
+#HoroscopeCompatibility_zodiac1_chzn, #HoroscopeCompatibility_zodiac2_chzn{height: 22px;}
 /*old code*/
 .horoscope-compatibility .button a {font: bold 40px/62px arial, sans-serif;
     color: #fff;

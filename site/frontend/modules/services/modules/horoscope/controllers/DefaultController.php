@@ -228,14 +228,8 @@ class DefaultController extends HController
         Yii::import('application.modules.services.modules.horoscope.models.Horoscope');
 
         $data = array();
-
-        foreach (Horoscope::model()->zodiac_list_eng as $z) {
-            $data[] = array(
-                'params' => array(
-                    'zodiac' => $z,
-                ),
-            );
-        }
+        foreach (Horoscope::model()->zodiac_list_eng as $z)
+            $data[] = array('params' => array('zodiac' => $z));
 
         return $data;
     }
@@ -266,13 +260,8 @@ class DefaultController extends HController
     {
         $data = array('params' => array());
 
-        foreach (Horoscope::model()->zodiac_list_eng as $z) {
-            $data[] = array(
-                'params' => array(
-                    'zodiac' => $z
-                ),
-            );
-        }
+        foreach (Horoscope::model()->zodiac_list_eng as $z)
+            $data[] = array('params' => array('zodiac' => $z));
 
         $rows = Yii::app()->db->createCommand()
             ->selectDistinct(array('month', 'year'))
@@ -297,13 +286,8 @@ class DefaultController extends HController
     {
         $data = array('params' => array());
 
-        foreach (Horoscope::model()->zodiac_list_eng as $z) {
-            $data[] = array(
-                'params' => array(
-                    'zodiac' => $z
-                ),
-            );
-        }
+        foreach (Horoscope::model()->zodiac_list_eng as $z)
+            $data[] = array('params' => array('zodiac' => $z));
 
         $years = Yii::app()->db->createCommand()
             ->selectDistinct('year')

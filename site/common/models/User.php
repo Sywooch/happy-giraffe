@@ -168,7 +168,7 @@ class User extends HActiveRecord
             array('email', 'email', 'message' => 'E-mail не является правильным E-Mail адресом'),
             array('password, current_password, new_password, new_password_repeat', 'length', 'min' => 6, 'max' => 15, 'on' => 'signup, change_password', 'tooShort' => 'минимум 6 символов', 'tooLong' => 'максимум 15 символов'),
             array('online, relationship_status', 'numerical', 'integerOnly' => true),
-            array('email', 'unique', 'on' => 'signup'),
+            array('email', 'unique', 'on' => 'signup', 'message' => 'Этот E-Mail уже используется'),
             array('gender', 'boolean'),
             array('id, phone', 'safe'),
             array('deleted', 'numerical', 'integerOnly' => true),
@@ -186,7 +186,8 @@ class User extends HActiveRecord
             array('password', 'passwordValidator', 'on' => 'login'),
 
             //signup
-            array('first_name, last_name, email, password', 'required', 'on' => 'signup,signup_full', 'message' => 'Поле является обязательным'),
+            array('first_name, last_name, password', 'required', 'on' => 'signup,signup_full', 'message' => 'Поле является обязательным'),
+            array('email', 'required', 'on' => 'signup,signup_full', 'message' => 'Введите ваш E-mail'),
             array('birthday', 'required', 'on' => 'signup_full', 'message' => 'Поле является обязательным'),
             array('gender', 'required', 'on' => 'signup,signup_full', 'message' => 'укажите свой пол'),
             array('email', 'unique', 'on' => 'signup,signup_full'),

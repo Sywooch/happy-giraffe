@@ -30,17 +30,6 @@
 
 ?>
 
-<?php
-    $this->widget('zii.widgets.CBreadcrumbs', array(
-        'links' => $this->breadcrumbs,
-        'separator' => ' &gt; ',
-        'htmlOptions' => array(
-            'id' => 'crumbs',
-            'class' => null,
-        ),
-    ));
-?>
-
 <div id="dishes">
 
     <div class="title">
@@ -85,16 +74,18 @@
 
             <?php if (!Yii::app()->user->isGuest) { ?>
             <div class="add-photo">
-                Нашли интересное оформление или<br/>хотите похвастаться своим творением?<br/>
                 <?php
-                $fileAttach = $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
-                    'model' => new CookDecoration(),
-                    'first_button_class' => 'btn-green',
-                    'first_button_title' => 'Добавьте фото',
-                ));
-                $fileAttach->button();
-                $this->endWidget();
+                    $fileAttach = $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
+                        'model' => new CookDecoration(),
+                        'customButton' => true,
+                        'customButtonHtmlOptions' => array('class' => 'btn-green btn-h55 fancy'),
+                    ));
                 ?>
+                    Добавить фото
+                <?php
+                    $this->endWidget();
+                ?>
+                <div class="dishes_add-photo_hint">Нашли интересное оформление или хотите похвастаться своим творением</div>
             </div>
             <?php } ?>
 
@@ -125,6 +116,7 @@
                             $(items).hide();
                             $('#decorlv .items').append(items).imagesLoaded(function() {
                                  $('#decorlv .items').masonry('appended', $(items));
+                                 " . $this->pGallery . "
                                  $(items).fadeIn();
                             });
                             return false;

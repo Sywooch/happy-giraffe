@@ -1,10 +1,4 @@
 <li>
-    <div class="img">
-        <a href="javascript:void(0)" data-id="<?=$data->photo->id?>">
-            <img src="<?=$data->photo->getPreviewUrl(210, 600, Image::WIDTH, true, AlbumPhoto::CROP_SIDE_TOP);?>"/>
-            <span class="btn">Посмотреть</span>
-        </a>
-    </div>
     <div class="user clearfix">
         <div class="user-info clearfix">
             <?php
@@ -16,6 +10,12 @@
             ));
             ?>
         </div>
+    </div>
+    <div class="img">
+        <a href="javascript:void(0)" data-id="<?=$data->photo->id?>">
+            <img src="<?=$data->photo->getPreviewUrl(210, 600, Image::WIDTH, true, AlbumPhoto::CROP_SIDE_TOP);?>"/>
+            <span class="btn">Посмотреть</span>
+        </a>
     </div>
     <div class="item-title"><?=$data->title?></div>
 </li>

@@ -1,16 +1,5 @@
 <?php $this->beginContent('//layouts/main'); ?>
 
-<?php
-    $this->widget('zii.widgets.CBreadcrumbs', array(
-        'links' => $this->breadcrumbs,
-        'separator' => ' &gt; ',
-        'htmlOptions' => array(
-            'id' => 'crumbs',
-            'class' => null,
-        ),
-    ));
-?>
-
 <div class="clearfix">
     <div class="main">
         <div class="main-in">

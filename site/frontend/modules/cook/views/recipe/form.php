@@ -10,22 +10,6 @@
         ->registerCoreScript('jquery.ui')
         ->registerCssFile($cs->coreScriptUrl . '/jui/css/base/jquery-ui.css');
     ;
-
-    $this->breadcrumbs = array(
-    'Кулинария' => array('/cook'),
-    'Добавить рецепт'
-    );
-?>
-
-<?php
-    $this->widget('zii.widgets.CBreadcrumbs', array(
-        'links' => $this->breadcrumbs,
-        'separator' => ' &gt; ',
-        'htmlOptions' => array(
-            'id' => 'crumbs',
-            'class' => null,
-        ),
-    ));
 ?>
 
 <div class="main">

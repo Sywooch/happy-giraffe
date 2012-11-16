@@ -161,4 +161,9 @@ class CookSpice extends HActiveRecord
 
         return $obj;
     }
+
+    public function getUrl()
+    {
+        return Yii::app()->controller->createUrl('/cook/spices/view', array('id' => $this->slug));
+    }
 }

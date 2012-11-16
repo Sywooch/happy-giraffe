@@ -121,7 +121,7 @@ class CookDecorationCategory extends HActiveRecord
     }
 
 
-    public function getNearestIds($photo_id, $num = 15)
+    public function getNearestIds($photo_id, $num = 50)
     {
         $ids = array();
 
@@ -131,7 +131,7 @@ class CookDecorationCategory extends HActiveRecord
         foreach ($items as $k => $i) {
             if ($i['photo_id'] == $photo_id) {
                 $currentIndex = $k;
-                $ids[] = $i['id'];
+                $ids[$currentIndex] = $i['id'];
                 break;
             }
         }
@@ -173,22 +173,22 @@ class CookDecorationCategory extends HActiveRecord
             ),
         ));
 
-        if ($photo_id !== null) {
+        if ($photo_id !== null && Yii::app()->controller->action->id != 'postLoad') {
             $nearest = $this->getNearestIds($photo_id);
             $criteria->compare('t.id', $nearest);
         }
 
-        if (empty($this->id))
-            $decorations = CookDecoration::model()->findAll($criteria);
-        else
-            $decorations = $this->getRelated('decorations', false, $criteria);
+        if ($this->id !== null)
+            $criteria->compare('category_id', $this->id);
+
+        $decorations = CookDecoration::model()->findAll($criteria);
 
         $photos = array();
         foreach($decorations as $model)
         {
             $model->photo->w_title = $model->title;
             $model->photo->w_description = $model->description;
-            if ($photo_id !== null)
+            if ($photo_id !== null && Yii::app()->controller->action->id != 'postLoad')
                 $model->photo->w_idx = array_search($model->id, $nearest);
             $photos[] = $model->photo;
         }

@@ -24,8 +24,10 @@ class photoViewWidget extends CWidget
         $remove_tmpl->registerTemplates();
         $this->endWidget();
 
+        $script = '$("' . $this->selector . '").pGallery(' . CJavaScript::encode(CMap::mergeArray(array('singlePhoto' => $this->singlePhoto, 'entity' => $this->entity, 'entity_id' => $this->entity_id, 'entity_url' => $this->entity_url), $this->query)) . ');';
+        Yii::app()->controller->pGallery = $script;
         Yii::app()->clientScript->registerScript('pGallery-' . $this->entity . '-' . $this->entity_id,
-            '$("' . $this->selector . '").pGallery(' . CJavaScript::encode(CMap::mergeArray(array('singlePhoto' => $this->singlePhoto, 'entity' => $this->entity, 'entity_id' => $this->entity_id, 'entity_url' => $this->entity_url), $this->query)) . ');'
+            $script
         );
 
         Yii::app()->clientScript->registerScriptFile('/javascripts/history.js');

@@ -5,7 +5,6 @@
  */
 class MailRuCommunityUsersParser extends ProxyParserThread
 {
-    public $cookie = 'VID=3vjQa30CpM12; p=wFAAAM2c0QAA; mrcu=3D044FE31A915E22652EFA01060A; b=Iz0KAECTvQQA9nU7EOrtYKi3g6PiDvx1O4CO6ODwmAOm4g6UIzoEAIBxjvCLAQAA; odklmapi=$$14qtcq4M9IEnmSONbJcUdP=gvfq14qm/Dk/GPq+zDgrrn2; i=; Mpop=1352372937:547c707455794a5e19050219081d00041c0600024966535c465d0002020607160105701658514704041658565c5d1a454c:aiv45@mail.ru:; tagcloud_state=show; calendar_state=show; c=vk+bUAAAUMZnAAAjAgQAaAAAQOU4ARALAL4RYwAA; myc=';
     /**
      * @var MailruQuery
      */
@@ -113,22 +112,12 @@ class MailRuCommunityUsersParser extends ProxyParserThread
             if (!empty($ref))
                 curl_setopt($ch, CURLOPT_REFERER, $url);
 
-//            if ($this->use_proxy) {
-//                curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
-//                curl_setopt($ch, CURLOPT_PROXY, $this->proxy->value);
-//                if (getenv('SERVER_ADDR') != '5.9.7.81') {
-//                    curl_setopt($ch, CURLOPT_PROXYUSERPWD, "alexk984:Nokia12345");
-//                    curl_setopt($ch, CURLOPT_PROXYAUTH, 1);
-//                }
-//            }
-
-            curl_setopt($ch, CURLOPT_COOKIE, $this->cookie);
+            curl_setopt($ch, CURLOPT_COOKIEFILE, $this->getCookieFile());
+            curl_setopt($ch, CURLOPT_COOKIEJAR, $this->getCookieFile());
             curl_setopt($ch, CURLOPT_HEADER, 0);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
             curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
             $content = curl_exec($ch);
-
-//            $content = iconv("Windows-1251","UTF-8",$content);
 
             if ($content === false) {
                 if (curl_errno($ch)) {
@@ -154,6 +143,13 @@ class MailRuCommunityUsersParser extends ProxyParserThread
         }
 
         return '';
+    }
+
+    public function getCookieFile()
+    {
+        $filename = Yii::getPathOfAlias('site.common.cookies') . DIRECTORY_SEPARATOR . 'mailru.txt';
+
+        return $filename;
     }
 }
 

@@ -42,7 +42,7 @@ class ParseController extends SController
 
     public function actionParse2()
     {
-        $site_id = 63;
+        $site_id = 68;
 
         Yii::import('site.frontend.extensions.phpQuery.phpQuery');
         $this->parseStats($site_id, 2011, 1, 12, 0);
@@ -158,7 +158,7 @@ class ParseController extends SController
                         return false;
 
                     $keyword_model = Keyword::GetKeyword($keyword);
-                    if ($keyword_model !== null){
+                    if ($keyword_model !== null) {
                         SiteKeywordVisit::SaveValue($site_id, $keyword_model->id, $month, $year, $stats);
                         $count++;
                     }
@@ -171,10 +171,11 @@ class ParseController extends SController
 
     public function actionExport()
     {
-        $sites = range(57,57);
+        $sites = range(2, 30);
         foreach ($sites as $site_id) {
             $criteria = new CDbCriteria;
             $criteria->compare('site_id', $site_id);
+            $criteria->compare('year', 2012);
             $criteria->limit = 100;
             $criteria->offset = 0;
             $criteria->with = array('keyword');
@@ -187,8 +188,10 @@ class ParseController extends SController
                 foreach ($models as $model) {
                     $model2 = new SitesKeywordsVisit2();
                     $model2->attributes = $model->attributes;
-                    $model2->keyword = $model->keyword->name;
-                    $model2->save();
+                    if (isset($model->keyword->name)) {
+                        $model2->keyword = $model->keyword->name;
+                        $model2->save();
+                    }
                 }
 
                 $i++;

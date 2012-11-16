@@ -582,4 +582,12 @@ class Horoscope extends HActiveRecord
                 'date' => date("Y-m-d", $date),
             )));
     }
+
+    public function getMetaDescription()
+    {
+        if (empty($this->month) && !empty($this->year))
+            return $this->health;
+        else
+            return $this->text;
+    }
 }

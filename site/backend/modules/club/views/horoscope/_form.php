@@ -59,7 +59,7 @@
         <?php echo $form->error($model, 'date'); ?>
     </div>
 
-    <div class="row date month">
+    <div class="row date month"<?php if (empty($model->month) && !empty($model->year)) echo 'style="display: none;"'?>>
         <?php echo $form->labelEx($model, 'text'); ?>
         <?php echo $form->textArea($model, 'text', array('rows' => 10, 'cols' => 110)); ?>
         <?php echo $form->error($model, 'text'); ?>

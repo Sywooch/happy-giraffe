@@ -3,17 +3,10 @@
  * @var $form CActiveForm
  */
 
-$basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR;
-$baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
-Yii::app()->clientScript
-    ->registerScriptFile($baseUrl . '/script.js', CClientScript::POS_HEAD)
-    ->registerScriptFile('/javascripts/addtocopy.js');
-
 if (empty($model->zodiac1) && !Yii::app()->user->isGuest){
     if (!empty(Yii::app()->user->getModel()->birthday))
         $model->zodiac1 = Horoscope::model()->getDateZodiac(Yii::app()->user->getModel()->birthday);
 }
-
 ?><div class="horoscope-compatibility clearfix">
 
     <?php if (isset($showTitle)):?>

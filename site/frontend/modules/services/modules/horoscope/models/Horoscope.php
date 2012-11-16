@@ -287,7 +287,7 @@ class Horoscope extends HActiveRecord
     public static function getZodiacPhoto($zodiac_id)
     {
         if (empty($zodiac_id))
-            return '';
+            return '/images/widget/horoscope/big/0.png';
         return '/images/widget/horoscope/big/' . $zodiac_id . '.png';
     }
 

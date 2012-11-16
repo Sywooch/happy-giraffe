@@ -10,7 +10,7 @@ Yii::app()->clientScript
     ->registerCssFile('http://stg.odnoklassniki.ru/share/odkl_share.css')
     ->registerScriptFile('http://stg.odnoklassniki.ru/share/odkl_share.js')
     ->registerMetaTag($this->title, null, null, array('property' => 'og:title'))
-    ->registerMetaTag('/images/widget/horoscope/big/' . $model->zodiac . '.png', null, null, array('property' => 'og:image'))
+    ->registerMetaTag('/images/widget/horoscope/' . $model->zodiac . '.png', null, null, array('property' => 'og:image'))
     ->registerMetaTag($model->text, null, null, array('property' => 'og:description'))
     ->registerMetaTag('article', null, null, array('property' => 'og:type'))
     ->registerMetaTag('Веселый Жираф', 'og:site_name');
@@ -45,7 +45,7 @@ Yii::app()->clientScript->registerScriptFile($baseUrl . '/social.js');
 
         <div class="share_button">
             <script type="text/javascript"><!--
-                    document.write(VK.Share.button({url:'<?=urlencode($url) ?>'},{type: "round", text: "Мне нравится"}));
+                    document.write(VK.Share.button({url:'<?=$url ?>'},{type: "round", text: "Мне нравится"}));
             --></script>
         </div>
 

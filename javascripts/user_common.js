@@ -1,9 +1,9 @@
 var Popup = {
-    list : ['Messages', 'Friends', 'Notifications', 'Settings'],
-    current : null
+    list:['Messages', 'Friends', 'Notifications', 'Settings'],
+    current:null
 }
 
-Popup.load = function(name) {
+Popup.load = function (name) {
     if (this.current !== null && this.current != name)
         window[this.current]['close']();
 
@@ -16,7 +16,7 @@ Popup.load = function(name) {
     $('#popup-preloader').show();
 }
 
-Popup.unload = function() {
+Popup.unload = function () {
     //$('body').css('overflow', '');
     //$('body').removeClass('nav-fixed');
     $('#body-overlay').hide();
@@ -27,14 +27,14 @@ var Features = {
 
 }
 
-Features.selectFeature = function(key, val, callback) {
-    $.post('/features/select/', {key: key, val: val}, function(data) {
+Features.selectFeature = function (key, val, callback) {
+    $.post('/features/select/', {key:key, val:val}, function (data) {
         if (data)
             callback();
     });
 }
 
-Features.familyBorder = function(newVal) {
+Features.familyBorder = function (newVal) {
     $('.user-family-borders a.active').removeClass('active');
     $('.user-family-borders a').has('.user-family-border-' + newVal).addClass('active');
 
@@ -44,7 +44,7 @@ Features.familyBorder = function(newVal) {
     $('.user-family').data('familyBorder', newVal);
 }
 
-Features.statusStyle = function(newVal) {
+Features.statusStyle = function (newVal) {
     $('.user-status-patterns a.active').removeClass('active');
     $('.user-status-patterns a').has('.pattern-' + newVal).addClass('active');
 
@@ -55,7 +55,7 @@ Features.statusStyle = function(newVal) {
     $('.user-status').data('style', newVal);
 }
 
-Features.blogFontStyle = function(newVal) {
+Features.blogFontStyle = function (newVal) {
     $('.fonts-style a.active').removeClass('active');
     $('.fonts-style a').has('.font-' + newVal).addClass('active');
 
@@ -65,7 +65,7 @@ Features.blogFontStyle = function(newVal) {
     $('.heading-preview').data('fontStyle', newVal);
 }
 
-Features.blogFontColor = function(newVal) {
+Features.blogFontColor = function (newVal) {
     $('.color-style a.active').removeClass('active');
     $('.color-style a').has('.font-color-' + newVal).addClass('active');
 
@@ -75,18 +75,18 @@ Features.blogFontColor = function(newVal) {
     $('.heading-preview').data('fontColor', newVal);
 }
 
-$(function() {
-    $('#user-nav-friends').delegate('i.close', 'click', function(e) {
+$(function () {
+    $('#user-nav-friends').delegate('i.close', 'click', function (e) {
         e.preventDefault();
         var el = $(this).closest('li');
         var id = el.attr('id');
         $.ajax({
-            type: 'post',
-            url: '/notification/delete/',
-            data: {
-                id: id
+            type:'post',
+            url:'/notification/delete/',
+            data:{
+                id:id
             },
-            success: function(response) {
+            success:function (response) {
                 if (response) {
                     el.remove();
 
@@ -95,40 +95,39 @@ $(function() {
         })
     });
 
-    $('body').delegate('div.user-weather #forecast-link', 'click', function(){
-        $('#today-weather').fadeOut(250, function(){
+    $('body').delegate('div.user-weather #forecast-link', 'click', function () {
+        $('#today-weather').fadeOut(250, function () {
             $('#forecast').fadeIn(250);
         });
         return false;
     });
 
-    $('body').delegate('div.user-weather #today-link', 'click', function(){
-        $('#forecast').fadeOut(250, function(){
+    $('body').delegate('div.user-weather #today-link', 'click', function () {
+        $('#forecast').fadeOut(250, function () {
             $('#today-weather').fadeIn(250);
         });
         return false;
     });
 
-    $('#change_ava').delegate('a.renew', 'click', function() {
+    $('#change_ava').delegate('a.renew', 'click', function () {
         $('#change_ava > div.photo > a').trigger('click');
     });
 });
 
-function updateIm(count, data)
-{
+function updateIm(count, data) {
     $('#user-nav-messages span.count').text(count).toggle(count != 0);
     $('#user-nav-messages ul.list').html($('#imNotificationTmpl').tmpl(data));
 }
 
 function sendInvite(el, user_id) {
     $.ajax({
-        dataType: 'json',
-        type: 'post',
-        url: '/friendRequests/send/',
-        data: {
-            to_id: user_id
+        dataType:'json',
+        type:'post',
+        url:'/friendRequests/send/',
+        data:{
+            to_id:user_id
         },
-        success: function (response) {
+        success:function (response) {
             if (response.status) {
                 $(el).replaceWith(response.html);
             }
@@ -139,13 +138,13 @@ function sendInvite(el, user_id) {
 
 function deleteFriend(el, user_id, friendPage) {
     $.ajax({
-        dataType: 'json',
-        type: 'post',
-        url: '/friendRequests/delete/',
-        data: {
-            friend_id: user_id
+        dataType:'json',
+        type:'post',
+        url:'/friendRequests/delete/',
+        data:{
+            friend_id:user_id
         },
-        success: function (response) {
+        success:function (response) {
             if (response.status) {
                 (friendPage) ? $.fn.yiiListView.update('friends') : $(el).replaceWith(response.html);
             }
@@ -153,7 +152,7 @@ function deleteFriend(el, user_id, friendPage) {
     });
 }
 
-function setMessagesHeight(){
+function setMessagesHeight() {
 
     var box = $('#user-dialogs');
 
@@ -165,7 +164,7 @@ function setMessagesHeight(){
 
     var wannaChatH = box.find('.wannachat').size() > 0 ? 150 : 0;
 
-    var generalH = windowH - marginH*2 - headerH;
+    var generalH = windowH - marginH * 2 - headerH;
     if (generalH < 400) generalH = 400;
 
     box.find('.contacts').height(generalH);
@@ -174,4 +173,12 @@ function setMessagesHeight(){
     box.find('.contacts .list').height(generalH - wannaChatH);
     box.find('.dialog .dialog-messages').height(generalH - textareaH - userH);
 
+}
+
+var Horoscope = {
+    show:function () {
+        $('.user-horoscope-prev').hide();
+        $('.user-horoscope-2').show();
+        $.post('/services/horoscope/default/viewed/');
+    }
 }

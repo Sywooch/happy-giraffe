@@ -444,6 +444,15 @@ var Register = {
             $(this).trigger("liszt:updated");
         });
     },
+    showStep2:function(email){
+        $('.regmail2').val(email);
+        $('#reg-main-btn').trigger('click');
+        $('.reg2').show();
+        $('.reg1').hide();
+        $('.reg2 select').each(function () {
+            $(this).trigger("liszt:updated");
+        });
+    },
     timer:function () {
         var obj = document.getElementById('reg_timer');
         obj.innerHTML--;

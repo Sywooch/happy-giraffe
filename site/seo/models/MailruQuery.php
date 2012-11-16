@@ -10,7 +10,7 @@
  * @property integer $type
  * @property integer $max_page
  */
-class MailruQuery extends HActiveRecord
+class MailruQuery extends CActiveRecord
 {
     const TYPE_FORUM = 0;
     const TYPE_THEME = 1;

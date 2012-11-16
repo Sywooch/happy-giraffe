@@ -3,8 +3,9 @@
  * Date: 05.09.12
  */
 var CookModule = {
+    section:2,
     addTaskByName:function () {
-        $.post('/cook/cook/addByName/', $('#add-by-name').serialize(), function (response) {
+        $.post('/cook/editor/addByName/', $('#add-by-name').serialize(), function (response) {
             if (response.status) {
                 $('input.item-title').val('');
                 $('#urls input').each(function (index, Element) {
@@ -29,8 +30,8 @@ var CookModule = {
             }
         }, 'json');
     },
-    addTask:function (el, author_id) {
-        var urls = new Array();
+    addTask:function (el, author_id, section) {
+        var urls = [];
         $(el).parents('tr').find('input.example').each(function (index, val) {
             if ($(this).val() != '')
                 urls.push($(this).val());
@@ -42,17 +43,18 @@ var CookModule = {
         var key_id = $(el).parents('tr').data('key_id');
         var task_id = $(el).parents('tr').data('task_id');
 
-        $.post('/cook/cook/addTask/', {
+        $.post('/cook/editor/addTask/', {
             author_id:author_id,
             urls:urls,
             multivarka:multivarka,
             key_id:key_id,
-            task_id:task_id
+            task_id:task_id,
+            section:section
         }, function (response) {
             if (response.status) {
                 $(el).parents('tr').remove();
                 $('.current-tasks tbody').append(response.html);
-                TaskDistribution.group = new Array();
+                TaskDistribution.group = [];
             } else
                 $.pnotify({
                     pnotify_title:'Ошибка',
@@ -64,7 +66,7 @@ var CookModule = {
         return false;
     },
     returnTask:function (el) {
-        $.post('/cook/cook/returnTask/', {id:$(el).parent('td').data('id')}, function (response) {
+        $.post('/cook/editor/returnTask/', {id:$(el).parent('td').data('id')}, function (response) {
             if (response.status) {
                 $(el).parents('tr').remove();
                 $('.table-cook tbody').append(response.html);
@@ -120,5 +122,19 @@ var CookModule = {
                 pnotify_type:'error',
                 pnotify_text:'Введите url статьи'
             });
+    },
+    toNeedlework:function(el, task_id){
+        $.post('/cook/editor/toNeedlework/', {
+            task_id:task_id
+        }, function (response) {
+            if (response.status) {
+                $(el).parents('tr').remove();
+            } else {
+                $.pnotify({
+                    pnotify_title:'Ошибка',
+                    pnotify_type:'error'
+                });
+            }
+        }, 'json');
     }
 }

@@ -65,4 +65,48 @@ class HActiveRecord extends CActiveRecord
     {
         return $this->getUrl(false, true);
     }
+
+    protected function beforeSave()
+    {
+        Yii::import('site.frontend.extensions.phpQuery.phpQuery');
+
+        if ($this->hasAttribute('text')) {
+            $doc = phpQuery::newDocumentXHTML($this->text, $charset = 'utf-8');
+
+            foreach (pq('img') as $e) {
+                $src = pq($e)->attr('src');
+                if (strpos($src, Yii::app()->params['photos_url']) == 0) {
+                    $photo = AlbumPhoto::createByUrl($src, Yii::app()->user->id, 2);
+                    if ($photo !== false) {
+                        $newSrc = $photo->getPreviewUrl(700, 700, Image::WIDTH);
+                        pq($e)->attr('src', $newSrc);
+                        Yii::log(
+                            'Image was replaced' . "\n" .
+                                '------------------------------' . "\n" .
+                                'Old image: ' . $src . "\n" .
+                                'New image: ' . $newSrc . "\n" .
+                                'Entity: ' . get_class($this->owner) . "\n" .
+                                'Entity id: ' . $this->owner->id ."\n" .
+                                '------------------------------' . "\n"
+                            , 'warning');
+                    } else {
+                        pq($e)->remove();
+                        Yii::log(
+                            'Image was deleted' . "\n" .
+                                '------------------------------' . "\n" .
+                                'Old image: ' . $src . "\n" .
+                                'Entity: ' . get_class($this->owner) . "\n" .
+                                'Entity id: ' . $this->owner->id ."\n" .
+                                '------------------------------' . "\n"
+                            , 'warning');
+                    }
+                }
+            }
+
+            $this->text = $doc->html();
+            $doc->unloadDocument();
+        }
+
+        return parent::beforeSave();
+    }
 }

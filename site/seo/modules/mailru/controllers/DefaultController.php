@@ -185,12 +185,12 @@ class DefaultController extends SController
         $names = explode("\n", $names);
         $names = array_unique($names);
         echo count($names);
-
+        $names = array('');
 //        MailruQuery::model()->deleteAll();
         foreach ($names as $name) {
             $q = new MailruQuery();
             $text = urlencode(iconv("UTF-8", "Windows-1251", $name));
-            $q->text = 'http://my.mail.ru/community/dizzzain/friends?&sort=&search_text='.$text;
+            $q->text = 'http://my.mail.ru/community/bestmama/friends?&sort=&search_text='.$text;
             $q->type = MailruQuery::TYPE_SEARCH_USERS;
             $q->save();
         }

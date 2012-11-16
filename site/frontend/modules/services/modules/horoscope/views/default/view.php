@@ -26,7 +26,9 @@
                 <?=HDate::ruMonthShort(date("n", strtotime($model->date)))?>
             </div>
             <div class="holder">
+                <?php if (Yii::app()->controller->action->id != 'date' ) $this->beginWidget('SeoContentWidget'); ?>
                 <?=Str::strToParagraph($model->text) ?>
+                <?php if (Yii::app()->controller->action->id != 'date' ) $this->endWidget(); ?>
 
                 <?php if (Yii::app()->controller->action->id == 'date' ):?>
                 <div class="dates clearfix">
@@ -61,11 +63,13 @@
 
 <?php $this->renderPartial('_bottom_list',array('model'=>$model)); ?>
 
+<?php if (Yii::app()->controller->action->id != 'date' ):?>
 <div class="wysiwyg-content">
 
     <?=$model->getText(); ?>
 
 </div>
+<?php endif ?>
 
 <div class="horoscope-otherday">
     <?=$model->getDateLinks() ?>

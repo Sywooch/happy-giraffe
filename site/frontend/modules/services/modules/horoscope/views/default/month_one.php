@@ -26,10 +26,16 @@ $data = $model->CalculateMonthData();
                 <span class="year"><?=HDate::ruMonthShort($model->month)?></span>
                 <?=$model->year?>
             </div>
+
+            <?php if (empty($_GET['month'])) $this->beginWidget('SeoContentWidget'); ?>
             <div class="holder"><?=Str::strToParagraph($model->text) ?></div>
+            <?php if (empty($_GET['month'])) $this->endWidget(); ?>
+
         </div>
 
         <div class="horoscope-month clearfix">
+
+            <?php if (empty($_GET['month'])) $this->beginWidget('SeoContentWidget'); ?>
             <table cellpadding="0" cellspacing="0">
                 <tbody>
                 <?php $i = 0;
@@ -41,6 +47,8 @@ $data = $model->CalculateMonthData();
                 <?php } ?>
                 </tbody>
             </table>
+            <?php if (empty($_GET['month'])) $this->endWidget(); ?>
+
             <div class="legend">
                 <div class="row">
                     <span class="day good"></span> - благоприятные дни
@@ -59,11 +67,13 @@ $data = $model->CalculateMonthData();
 
 <?php $this->renderPartial('_bottom_list',array('model'=>$model)); ?>
 
-<div class="wysiwyg-content">
+<?php if (empty($_GET['month'])):?>
+    <div class="wysiwyg-content">
 
-    <?=$model->getText(); ?>
+        <?=$model->getText(); ?>
 
-</div>
+    </div>
+<?php endif ?>
 
 <div class="horoscope-otherday">
 <?php if ($model->isCurrentMonth()) {?>

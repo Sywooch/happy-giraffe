@@ -41,14 +41,14 @@ class HoroscopeCommand extends CConsoleCommand
         echo count($models)."\n";
 
         foreach($models as $model){
-            preg_match('/<b>Благоприятные дни[А-я\s:\d]{0,20}<\/b>[\s:–-–—]+([\d\s,]+)/u', $model->text, $match);
+            preg_match('/<b>Благоприятные дни[А-я\s:\d]{0,20}<\/b>[\s:–-–—]{0,19}([\d\s,]+)/u', $model->text, $match);
             if (!isset($match[1])){
                 echo '1_ '.$model->id."\n";
             }
             else
             $model->good_days = trim($match[1]);
 
-            preg_match('/<b>Неблагоприятные дни[А-я\s:\d]{0,20}<\/b>[\s:–––—]+([\d\s,]+)/u', $model->text, $match);
+            preg_match('/<b>Неблагоприятные дни[А-я\s:\d]{0,20}<\/b>[\s:–––—]{0,19}([\d\s,]+)/u', $model->text, $match);
             if (!isset($match[1])){
                 echo '2_ '.$model->id."\n";
             }

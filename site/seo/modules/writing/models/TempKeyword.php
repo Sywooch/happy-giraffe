@@ -6,6 +6,7 @@
  * The followings are the available columns in table 'temp_keywords':
  * @property integer $keyword_id
  * @property string $owner_id
+ * @property integer $section
  *
  * The followings are the available model relations:
  * @property Keyword $keyword
@@ -45,7 +46,7 @@ class TempKeyword extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('keyword_id, owner_id', 'required'),
-			array('keyword_id', 'numerical', 'integerOnly'=>true),
+			array('keyword_id, section', 'numerical', 'integerOnly'=>true),
 			array('owner_id', 'length', 'max'=>10),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.

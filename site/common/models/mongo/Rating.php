@@ -155,6 +155,34 @@ class Rating extends EMongoDocument
         Rating::model()->saveByEntity($entity, $social_key, $count);
     }
 
+    public static function getShareCountByUrl($social_key, $url, $cache = null)
+    {
+        switch ($social_key) {
+            case 'tw' :
+                $response = CJSON::decode(file_get_contents('http://urls.api.twitter.com/1/urls/count.json?url=' . $url));
+                if (isset($response['count']))
+                    return $response['count'];
+                else
+                    return 0;
+            case 'fb' :
+                $response = CJSON::decode(file_get_contents('https://api.facebook.com/method/fql.query?query=' . urlencode('select total_count from link_stat where url="' . $url . '"') . '&format=json'));
+                return isset($response[0]) && isset($response[0]['total_count']) ? $response[0]['total_count'] : 0;
+            case 'vk' :
+                $response = file_get_contents('http://vk.com/share.php?act=count&index=1&url=' . urlencode($url) . '&format=json&callback=?');
+                preg_match('|\((?:\d+),\s?(\d+)\)|', $response, $matches);
+                return $matches[1];
+            case 'mr' :
+                $response = CJSON::decode(file_get_contents('http://connect.mail.ru/share_count?url_list=' . urlencode($url)));
+                return count($response) > 0 && isset($response[$url]) && isset($response[$url]['shares']) ? $response[$url]['shares'] : 0;
+            case 'ok' :
+                $response = file_get_contents('http://www.odnoklassniki.ru/dk?st.cmd=extOneClickLike&uid=odklock0&ref=' . urlencode(trim($url, '/')));
+                preg_match("/^ODKL.updateCountOC\('[\d\w]+','(\d+)','(\d+)','(\d+)'\);$/i", $response, $matches);
+                return isset($matches[1]) ? $matches[1] : 0;
+        }
+
+        return 0;
+    }
+
     /**
      * @param $entity
      * @param $social_key

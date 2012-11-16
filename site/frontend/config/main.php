@@ -353,6 +353,7 @@ return array(
                 'login.js',
                 'auth.js',
                 'jquery.yiilistview.js',
+                'addtocopy.js',
             ),
             '/javascripts/all_user.js' => array(
                 'comet.js',
@@ -398,6 +399,7 @@ return array(
                             'application.modules.services.modules.menstrualCycle.controllers.DefaultController',
                             'application.modules.services.modules.babyBloodGroup.controllers.DefaultController',
                             'application.modules.services.modules.horoscope.controllers.DefaultController',
+                            'application.modules.services.modules.horoscope.controllers.CompatibilityController',
                         ),
                     ),
                 ),

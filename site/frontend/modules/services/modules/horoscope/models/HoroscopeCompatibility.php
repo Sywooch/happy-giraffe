@@ -37,7 +37,8 @@ class HoroscopeCompatibility extends HActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('zodiac1, zodiac2', 'required', 'message'=>'Укажите знак зодиака'),
+			array('zodiac1', 'required', 'message'=>'Укажите 1-й знак зодиака'),
+            array('zodiac2', 'required', 'message'=>'Укажите 2-й знак зодиака'),
 			array('zodiac1, zodiac2', 'numerical', 'integerOnly'=>true),
 			array('text', 'safe'),
 			// The following rule is used by search().
@@ -123,12 +124,12 @@ class HoroscopeCompatibility extends HActiveRecord
     public function getUrl($zodiac1, $zodiac2 = null)
     {
         if ($zodiac2 !== null){
-            return Yii::app()->createUrl('/services/horoscope/default/compatibility', array(
+            return Yii::app()->createUrl('/services/horoscope/compatibility/index', array(
                 'zodiac1'=>Horoscope::model()->zodiac_list_eng[$zodiac1],
                 'zodiac2'=>Horoscope::model()->zodiac_list_eng[$zodiac2],
             ));
         }
-        return Yii::app()->createUrl('/services/horoscope/default/compatibility', array(
+        return Yii::app()->createUrl('/services/horoscope/compatibility/index', array(
             'zodiac1'=>Horoscope::model()->zodiac_list_eng[$zodiac1],
         ));
     }

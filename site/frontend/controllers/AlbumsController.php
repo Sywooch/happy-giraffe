@@ -735,6 +735,8 @@ class AlbumsController extends HController
                 $model = CActiveRecord::model($entity)->findByPk($contest_id);
                 $attach = $photo->getAttachByEntity('ContestWork', $photo_id);
                 $work = $attach->model;
+                if ($work === null)
+                    throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
                 $photo->w_title = $work->title;
                 $currentIndex = null;
                 $collection = array();
@@ -764,7 +766,7 @@ class AlbumsController extends HController
         $this->render('singlePhoto', compact('model', 'collection', 'photo', 'currentIndex'));
     }
 
-    public function actionPostLoad($entity)
+    public function actionPostLoad($entity, $photo_id)
     {
         Yii::import('site.frontend.modules.cook.models.*');
         Yii::import('site.frontend.modules.contest.models.*');
@@ -773,6 +775,6 @@ class AlbumsController extends HController
         $entity_id = Yii::app()->request->getQuery('entity_id', 'null');
         if ($entity_id != 'null')
             $model = $model->findByPk($entity_id);
-        $this->renderPartial('postLoad', compact('model'));
+        $this->renderPartial('postLoad', compact('model', 'photo_id'));
     }
 }

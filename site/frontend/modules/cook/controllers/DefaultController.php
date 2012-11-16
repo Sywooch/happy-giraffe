@@ -13,6 +13,10 @@ class DefaultController extends HController
         $decorations = CookDecoration::model()->lastDecorations;
         $chooses = CookChoose::model()->getRandomChooses(3);
 
+        $this->breadcrumbs = array(
+            'Кулинария',
+        );
+
         $this->render('index', compact('community', 'recipes', 'recipesCount', 'decorations', 'chooses'));
     }
 

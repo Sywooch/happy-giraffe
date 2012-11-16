@@ -2,6 +2,10 @@
 /* @var $this Controller
  * @var $model Keyword
  */
+Yii::app()->clientScript
+    ->registerScript('set_section', 'window.content_section='.$theme.';');
+
+
 ?><div class="search clearfix">
 
     <div class="input">

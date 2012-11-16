@@ -39,6 +39,7 @@
         ->registerScriptFile('/javascripts/jquery.jcarousel.js')
         ->registerScriptFile('/javascripts/jquery.jcarousel.control.js')
         ->registerScriptFile('/javascripts/jquery.tmpl.min.js')
+        ->registerScriptFile('/javascripts/addtocopy.js')
 
         ->registerScriptFile('http://vk.com/js/api/share.js?11')
     ;
@@ -485,6 +486,17 @@
                 </div>
 
                 <div id="content" class="clearfix">
+                    <?php
+                        $this->widget('zii.widgets.CBreadcrumbs', array(
+                            'links' => $this->breadcrumbs,
+                            'separator' => ' &gt; ',
+                            'htmlOptions' => array(
+                                'id' => 'crumbs',
+                                'class' => null,
+                            ),
+                        ));
+                    ?>
+
                     <?php echo $content; ?>
                 </div>
 

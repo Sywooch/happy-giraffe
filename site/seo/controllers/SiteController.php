@@ -161,4 +161,8 @@ class SiteController extends SController
     {
         SeoUserAttributes::setAttribute('close_advert_' . SeoUserAttributes::ADVERT_ID, 1);
     }
+
+    public function actionTest(){
+        Page::model()->getOrCreate('http://www.happy-giraffe.ru/community/25/forum/post/34648/', 1);
+    }
 }

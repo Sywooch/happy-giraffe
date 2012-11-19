@@ -3433,7 +3433,7 @@ ul.letters li a:hover {
 .horoscope-subscribe-big {margin:30px 0 20px;background:#e2edff;padding:20px;}
 .horoscope-subscribe-big .submit {float:right;font-size:30px;font-weight:bold;}
 .horoscope-subscribe-big > label {font-size:20px;color:#2b2b2b;display:block;margin:0 0 10px;}
-.horoscope-subscribe-big > .inptext {height:19px;padding:8px 14px;font-size:17px;background:#fff;width:360px;}
+.horoscope-subscribe-big > .inptext {height:21px;padding:9px 14px;font-size:17px;background:#fff;width:360px;}
 
 .horoscope-subscribe {margin:20px 0;border:1px solid #f0ecf3;text-align:center;padding-bottom:20px;background-color: #f7f0ff;}
 .horoscope-subscribe  p {margin:5px 20px;color:#8b8c8c;font-size:13px;line-height:19px;text-align:left;}

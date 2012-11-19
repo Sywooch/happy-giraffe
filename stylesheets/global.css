@@ -1119,34 +1119,53 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 .contest-prizes-list {margin-bottom: 40px;}
 .contest-prizes-list-2,
 .contest-prizes-list-3 {margin-bottom:60px;}
+.contest-prizes-list-4 {margin:0 -20px 40px;}
 .contest-prizes-list ul {list-style:none;}
 .contest-prizes-list ul li {text-align:center;float:left;width:18%;padding:1%;}
 .contest-prizes-list-2 ul li {width:31%;}
 .contest-prizes-list-3 ul li {width:auto;padding:1% 4%;}
-.contest-prizes-list-4 ul li {width:auto;padding:1% 2px;}
+.contest-prizes-list-4 ul li {width:auto;padding:1% 7px;}
 .contest-prizes-list ul li .img {height:180px;}
-.contest-prizes-list ul li .img img {display:block;margin:auto;}
-.contest-prizes-list ul li .place {display:block;height:34px;margin:10px auto;}
-.contest-prizes-list ul li .place-1 {background:url(/images/contest_prize_place_1.png) 50% 0 no-repeat;}
-.contest-prizes-list ul li .place-1-1 {background:url(/images/contest_prize_place_1-1.png) 50% 0 no-repeat;}
-.contest-prizes-list ul li .place-2 {background:url(/images/contest_prize_place_2.png) 50% 0 no-repeat;}
-.contest-prizes-list ul li .place-2-3 {background:url(/images/contest_prize_place_2-3.png) 50% 0 no-repeat;}
-.contest-prizes-list ul li .place-2-5 {background:url(/images/contest_prize_place_2-5.png) 50% 0 no-repeat;}
-.contest-prizes-list ul li .place-3 {background:url(/images/contest_prize_place_3.png) 50% 0 no-repeat;}
-.contest-prizes-list ul li .place-4 {background:url(/images/contest_prize_place_4.png) 50% 0 no-repeat;}
-.contest-prizes-list ul li .place-4-5 {background:url(/images/contest_prize_place_4-5.png) 50% 0 no-repeat;}
-.contest-prizes-list ul li .place-5 {background:url(/images/contest_prize_place_5.png) 50% 0 no-repeat;}
-.contest-prizes-list ul li .title {font-size:13px;padding:0 10px;}
-.contest-prizes-list ul li .title a {color:#0575ca;text-decoration:none;}
+.contest-prizes-list ul li .img img {display:block;margin:auto;max-height: 100%;}
 .contest-prizes-list ul li .all {color:#fc5e03;text-decoration: underline;}
 .contest-prizes-list ul li .all:hover {text-decoration: none;}
-/* old */
-.contest-prizes-list ul li.place-1:hover {background:#fffdea;}
-.contest-prizes-list ul li.place-2:hover {background:#effbff;}
-.contest-prizes-list ul li.place-3:hover {background:#e9ffe7;}
-.contest-prizes-list ul li.place-4:hover {background:#faf5ff;}
-.contest-prizes-list ul li.place-5:hover {background:#fef7f1;}
-/* / old */
+.contest-prizes-list ul li .title {font-size:13px;padding:0 10px;}
+.contest-prizes-list ul li .title a {color:#0575ca;text-decoration:none;}
+#contest .place {display:block;height:34px;margin:10px auto;}
+#contest .contest-prizes-list-4 ul li .place {margin:0 auto 5px;}
+#contest .place-1 {background:url(/images/contest_prize_place_1.png) 50% 0 no-repeat;}
+#contest .place-1-1 {background:url(/images/contest_prize_place_1-1.png) 50% 0 no-repeat;}
+#contest .place-2 {background:url(/images/contest_prize_place_2.png) 50% 0 no-repeat;}
+#contest .place-2-3 {background:url(/images/contest_prize_place_2-3.png) 50% 0 no-repeat;}
+#contest .place-2-5 {background:url(/images/contest_prize_place_2-5.png) 50% 0 no-repeat;}
+#contest .place-3 {background:url(/images/contest_prize_place_3.png) 50% 0 no-repeat;}
+#contest .place-4 {background:url(/images/contest_prize_place_4.png) 50% 0 no-repeat;}
+#contest .place-4-5 {background:url(/images/contest_prize_place_4-5.png) 50% 0 no-repeat;}
+#contest .place-5 {background:url(/images/contest_prize_place_5.png) 50% 0 no-repeat;}
+
+.contest-prizes-desc {margin-bottom: 40px;}
+.contest-prizes-desc ul {list-style:none;}
+.contest-prizes-desc ul li {margin-bottom: 45px;}
+.contest-prizes-desc .l-col {float: left;width: 240px;margin-right: 30px;}
+.contest-prizes-desc .img  {text-align: center;}
+.contest-prizes-desc .desc {float: left;width: 550px;border: 2px solid #c5e4ff;-webkit-border-radius: 7px;
+-moz-border-radius: 7px;
+-ms-border-radius: 7px;
+border-radius: 7px;
+ behavior: url(PIE.htc);
+margin: 10px 0 0;
+padding: 14px 40px 20px 75px;
+background: url(/images/icon-heart.png) 20px 15px no-repeat;
+position: relative;
+}
+.contest-prizes-desc .desc:after {
+    content:'';position:absolute;left:-28px;top:35px;width:29px;height:32px;
+    background: url(/images/contest/contest-prizes-desc.png) no-repeat;
+}
+ #contest .contest-prizes-desc .place {margin: 0 auto 5px;}
+ .contest-prizes-desc .title {color: #1b81ce;margin-bottom: 10px;font-size: 15px;}
+ .contest-prizes-desc b {color: #1b81ce;}
+ .contest-prizes-desc p {margin: 0 0 5px;}
 
 .photo-block {
     position: relative;

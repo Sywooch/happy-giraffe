@@ -238,7 +238,7 @@ class PagesSearchPhrase extends HActiveRecord
         );
 
         $criteria->group = 't.id';
-        $criteria->having = 'links_count < 1';
+        $criteria->having = 'links_count < 2';
         $criteria->together = true;
         $criteria->condition = 'skip.phrase_id IS NULL AND google_traffic >= :google_visits_min AND last_yandex_position > 3';
 

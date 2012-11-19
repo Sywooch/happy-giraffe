@@ -8,7 +8,19 @@
 <div class="form">
     <?php $form = $this->beginWidget('CActiveForm', array(
     'id' => 'horoscope-form',
-    'enableAjaxValidation' => false,
+    'enableAjaxValidation' => true,
+    'enableClientValidation' => false,
+    'action' => '#',
+    'clientOptions' => array(
+        'validateOnSubmit' => true,
+        'validateOnChange' => false,
+        'validateOnType' => false,
+        'afterValidate' => "js:function(form, data, hasError) {
+                                if (!hasError)
+                                    return true;
+                                return false;
+                              }",
+    )
 )); ?>
 
     <p class="note">Поля с <span class="required">*</span> обязательны.</p>
@@ -59,7 +71,7 @@
         <?php echo $form->error($model, 'date'); ?>
     </div>
 
-    <div class="row date month">
+    <div class="row date month"<?php if (empty($model->month) && !empty($model->year)) echo 'style="display: none;"'?>>
         <?php echo $form->labelEx($model, 'text'); ?>
         <?php echo $form->textArea($model, 'text', array('rows' => 10, 'cols' => 110)); ?>
         <?php echo $form->error($model, 'text'); ?>

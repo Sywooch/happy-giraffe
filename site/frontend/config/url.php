@@ -225,5 +225,6 @@ return array(
         '<_m:(menstrualCycle|placentaThickness|pregnancyWeight|birthDate)>/<_a:(calculate)>' => 'services/<_m>/default/<_a>',
 
         'services/<_m:(dailyCalories|weightLoss|idealWeight|bodyFat)>/default/<_c>' => 'services/<_m>/default/<_c>',
+        'services/lines/<id:[\d]+>.jpeg' => 'services/lines/default/index',
     ),
 );

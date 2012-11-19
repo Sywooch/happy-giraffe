@@ -28,7 +28,7 @@ class PingableBehavior extends CActiveRecordBehavior
         switch ($entity) {
             case 'CommunityContent':
                 if ($this->owner->type_id == 4 || $this->owner->by_happy_giraffe) {
-                    $pingUserId = 1;
+                    $pingUserId = User::HAPPY_GIRAFFE;
                 } else {
                     $pingUserId = $this->owner->author_id;
                 }
@@ -38,6 +38,9 @@ class PingableBehavior extends CActiveRecordBehavior
                 break;
             case 'CookDecoration':
                 $pingUserId = $this->owner->author->id;
+                break;
+            case 'Horoscope':
+                $pingUserId = User::HAPPY_GIRAFFE;
                 break;
             default:
                 $pingUserId = $this->owner->author_id;

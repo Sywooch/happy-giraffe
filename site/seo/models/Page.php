@@ -274,6 +274,9 @@ class Page extends CActiveRecord
         if ($model === null)
             return 'http://www.happy-giraffe.ru/community/';
 
+        if (get_class($model) !== 'BlogContent' && get_class($model) !== 'CommunityContent')
+            return 'http://www.happy-giraffe.ru/community/';
+
         if ($model->getIsFromBlog()) {
             return 'http://www.happy-giraffe.ru/user/';
         } else

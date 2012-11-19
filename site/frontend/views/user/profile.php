@@ -156,6 +156,11 @@
 
                     <?php $this->widget('ContestWidget', array(
                         'user' => $user,
+                        'contest_id' => 4,
+                    )); ?>
+
+                    <?php $this->widget('ContestWidget', array(
+                        'user' => $user,
                         'contest_id' => 3,
                     )); ?>
 

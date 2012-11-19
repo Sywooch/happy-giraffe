@@ -6,14 +6,14 @@
     <?php
         if ($this->registerGallery)
             $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
-                'selector' => '.img > a',
+                'selector' => '.contest-participant:data(contestId=' . $this->_contest->id . ') .img > a',
                 'entity' => 'Contest',
                 'entity_id' => $this->_contest->id,
                 'entity_url' => $this->_contest->getUrl(),
                 'query' => array('sort' => 'created'),
             ));
     ?>
-    <div class="contest-participant">
+    <div class="contest-participant" data-contest-id="<?=$this->_contest->id?>">
         <img src="/images/contest/widget-<?=$this->_contest->id?>.jpg" alt="<?=$this->_contest->title?>" calss="contest-title">
         <div class="img">
             <a href="javascript:void(0)" data-id="<?=$this->

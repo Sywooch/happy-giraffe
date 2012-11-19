@@ -127,6 +127,7 @@ return array(
         'contest/<id:\d+>/list' => 'contest/default/list',
         'contest/<id:\d+>/results/work<work:\d+>' => 'contest/default/results',
         'contest/<id:\d+>/results' => 'contest/default/results',
+        'contest/<id:\d+>/prizes' => 'contest/default/prizes',
         'contest/work<id:\d+>' => 'contest/default/work',
         'contest/<_a>/<id:\d+>' => 'contest/default/<_a>',
 

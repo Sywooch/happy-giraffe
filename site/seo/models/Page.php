@@ -202,9 +202,12 @@ class Page extends CActiveRecord
             $model = Page::model()->findByAttributes(array('url' => $url));
             if ($model === null) {
                 $keyword_group = new KeywordGroup();
-                if (!empty($keyword_id))
+                if (!empty($keyword_id)){
                     $keyword_group->keywords = array($keyword_id);
-                $keyword_group->withRelated->save(true,array('keywords'));
+                    $keyword_group->withRelated->save(true,array('keywords'));
+                }
+                else
+                    $keyword_group->save();
 
                 $model = new Page();
                 $model->url = $url;

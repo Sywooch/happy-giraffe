@@ -7,7 +7,7 @@ class m121119_080708_lines extends CDbMigration
 	public function up()
 	{
         $this->createTable($this->_table, array(
-            'id'=>'int(11) unsigned NOT NULL AUTO_INCREMENT 1829436',
+            'id'=>'int(11) unsigned NOT NULL AUTO_INCREMENT',
             'type' => 'tinyint NOT NULL',
             'image_id' => 'int NOT NULL',
             'title' => 'varchar(255) NOT NULL',

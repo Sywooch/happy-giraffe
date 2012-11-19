@@ -203,7 +203,7 @@ class Page extends CActiveRecord
             if ($model === null) {
                 $keyword_group = new KeywordGroup();
                 if (!empty($keyword_id)){
-                    $keyword_group->keywords = array($keyword_id);
+                    $keyword_group->keywords = array(Keyword::model()->findByPk($keyword_id));
                     $keyword_group->withRelated->save(true,array('keywords'));
                 }
                 else

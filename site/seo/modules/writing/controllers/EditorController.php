@@ -322,10 +322,10 @@ class EditorController extends SController
                     $keyword_ids [] = $keyword->id;
                 }
                 $keyword_ids[] = $keyword_id;
-                $group->keywords = $keyword_ids;
+                $group->keywords = Keyword::model()->findAllByPk($keyword_ids);
             } else {
                 $group = new KeywordGroup();
-                $group->keywords = array($keyword_id);
+                $group->keywords = Keyword::model()->findAllByPk(array($keyword_id));
             }
 
             if (!$group->withRelated->save(true, array('keywords'))) {
@@ -361,7 +361,7 @@ class EditorController extends SController
             $article_keywords->url = 'http://www.happy-giraffe.ru' . $model->getUrl();
 
             $group = new KeywordGroup();
-            $group->keywords = array($keyword_id);
+            $group->keywords = Keyword::model()->findAllByPk($keyword_id);
             if (!$group->withRelated->save(true, array('keywords'))) {
                 echo CJSON::encode(array(
                     'status' => false,
@@ -399,7 +399,7 @@ class EditorController extends SController
             );
         } else {
             $group = new KeywordGroup();
-            $group->keywords = array($keyword_id);
+            $group->keywords = array($keyword);
 
             if ($group->withRelated->save(true, array('keywords'))) {
                 $page = new Page();

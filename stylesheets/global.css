@@ -1143,7 +1143,7 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 #contest .place-4-5 {background:url(/images/contest_prize_place_4-5.png) 50% 0 no-repeat;}
 #contest .place-5 {background:url(/images/contest_prize_place_5.png) 50% 0 no-repeat;}
 
-.contest-prizes-desc {margin:30px 0 40px;}
+.contest-prizes-desc {margin:40px 0;}
 .contest-prizes-desc ul {list-style:none;}
 .contest-prizes-desc ul li {margin-bottom: 45px;}
 .contest-prizes-desc .l-col {float: left;width: 240px;margin-right: 30px;}
@@ -3709,22 +3709,20 @@ ul.letters li a:hover {
 #test-pregnancy .step-in {position:absolute;z-index:2;top:0;left:0;padding:25px;}
 #test-pregnancy .step .title h1 {font:bold 50px/1 tahoma, arial, helvetica, sans-serif;color:#3e3e3e;margin-bottom:25px;}
 #test-pregnancy .step .title span {color:#a582c7;font-size:48px;display:block;}
-#test-pregnancy .step .text {background:#fff;padding:15px 25px;width:310px;font:italic 18px times new roman, serif;color:#5f5e5e;margin-bottom:45px;}
-#test-pregnancy .step .text {/*css3*/ -webkit-border-radius:20px;-moz-border-radius:20px;border-radius:20px; box-shadow:0 0 5px #e8dbf7;behavior: url(/stylesheets/PIE.htc);}
+#test-pregnancy .step .text {background:#fff;padding:15px 25px;width:310px;font:italic 18px times new roman, serif;color:#5f5e5e;margin-bottom:45px; -webkit-border-radius:20px;-moz-border-radius:20px;border-radius:20px; box-shadow:0 0 5px #e8dbf7;behavior: url(/stylesheets/PIE.htc);}
 #test-pregnancy .step .btn-holder {width:385px;text-align:center;}
 #test-pregnancy .step .btn {width:360px;text-align:center;}
-#test-pregnancy .step .btn button {font:bold 30px arial, helvetica, sans-serif;color: #a46307;padding:0 25px;height: 58px;border: 1px solid #f1d419;background: url(../images/bg_yellow_av.png) 0 0 repeat-x;cursor:pointer;}
-#test-pregnancy .step .btn button {/*css3*/ border-radius: 10px;-moz-border-radius: 10px;-webkit-border-radius: 10px;behavior: url(/stylesheets/PIE.htc);}
+#test-pregnancy .step .btn button {font:bold 30px arial, helvetica, sans-serif;color: #a46307;padding:0 25px;height: 58px;border: 1px solid #f1d419;background: url(../images/bg_yellow_av.png) 0 0 repeat-x;cursor:pointer; border-radius: 10px;-moz-border-radius: 10px;-webkit-border-radius: 10px;behavior: url(/stylesheets/PIE.htc);}
 
-#test-pregnancy .step .question {width:400px;padding:15px 25px 35px;background:#fff;background:rgba(255,255,255,0.7);font-size:25px;}
-#test-pregnancy .step .question {/*css3*/ -webkit-border-radius:20px;-moz-border-radius:20px;border-radius:20px; box-shadow:0 0 5px #e8dbf7;behavior: url(/stylesheets/PIE.htc);}
+#test-pregnancy .step .question {width:400px;padding:15px 25px 35px;background:#fff;background:rgba(255,255,255,0.7);font-size:25px; -webkit-border-radius:20px;-moz-border-radius:20px;border-radius:20px; box-shadow:0 0 5px #e8dbf7;behavior: url(/stylesheets/PIE.htc);}
 #test-pregnancy .step .question .q-title {padding:20px 0 30px;line-height: 30px;}
 #test-pregnancy .step .question .q-options {list-style:none;padding:0 15px;}
-#test-pregnancy .step .question .q-options li {padding:8px 0;}
-#test-pregnancy .step .question .q-options label {font-size:22px;color:#969696;cursor:pointer;}
+#test-pregnancy .step .question .q-options li {padding:10px 0;}
+#test-pregnancy .step .question .q-options label {font-size:22px;color:#969696;cursor:pointer;padding-left: 28px;display: block;}
 #test-pregnancy .step .question .q-options label:hover {color:#5d5c5c;}
 #test-pregnancy .step .question .q-options label:active {color:#8b5fb5;}
-#test-pregnancy .step .question .q-options label span {display:inline-block;*zoom:1;*display:inline;vertical-align:top;margin-top:5px;}
+#test-pregnancy .step .question .q-options label input[type="radio"] {float: left;margin: 7px 7px 0 -28px;}
+#test-pregnancy .step .question .q-options label span {display:inline-block;*zoom:1;*display:inline;vertical-align:top;}
 
 #test-pregnancy .step .result {}
 #test-pregnancy .step .result .r-title {font-size:24px;margin-left:25px;margin-bottom:10px;}
@@ -3887,35 +3885,16 @@ ul.letters li a:hover {
 }
 
 
-#prikorm.test {}
+#prikorm.test .step{height:515px;}
+#prikorm.test .step-in{position:absolute;right:40px;padding:0 20px 45px;top:100px;display:block;width:305px;border-radius:20px;-moz-border-radius:20px;-webkit-border-radius:20px;}
+#prikorm.test #step1 .step-in{background:url(../images/yellow_trans.png) 0 0 repeat;}
+#prikorm.test #step2 .step-in{background:url(../images/pink_trans.png) 0 0 repeat;}
+#prikorm.test #step3 .step-in{background:url(../images/brun_trans.png) 0 0 repeat;}
+#prikorm.test #step4 .step-in{background:url(../images/green_trans2.png) 0 0 repeat;}
+#prikorm.test #step5 .step-in{background:url(../images/blue_trans2.png) 0 0 repeat;}
+#prikorm.test #step6 .step-in{background:url(../images/brun_trans.png) 0 0 repeat;}
+#prikorm.test #step7 .step-in{background:url(../images/blue_trans2.png) 0 0 repeat;top:70px;width:350px;}
 
-#prikorm.test .step {height:515px;}
-
-#prikorm.test .step-in {position: absolute;right: 40px;padding: 0 20px 45px 20px;top: 100px;display: block;width: 305px;border-radius: 20px;-moz-border-radius: 20px;-webkit-border-radius: 20px;}
-
-#prikorm.test #step1 .step-in {
-    background: url(../images/yellow_trans.png) 0 0 repeat;
-}
-#prikorm.test #step2 .step-in {
-    background: url(../images/pink_trans.png) 0 0 repeat;
-}
-#prikorm.test #step3 .step-in {
-    background: url(../images/brun_trans.png) 0 0 repeat;
-}
-#prikorm.test #step4 .step-in {
-    background: url(../images/green_trans2.png) 0 0 repeat;
-}
-#prikorm.test #step5 .step-in {
-    background: url(../images/blue_trans2.png) 0 0 repeat;
-}
-#prikorm.test #step6 .step-in {
-    background: url(../images/brun_trans.png) 0 0 repeat;
-}
-#prikorm.test #step7 .step-in {
-    background: url(../images/blue_trans2.png) 0 0 repeat;
-    top: 70px;
-    width: 350px;
-}
 
 #prikorm.test .step .question .q-title {
     padding: 20px 0 30px;

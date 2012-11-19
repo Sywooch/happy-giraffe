@@ -63,6 +63,7 @@
 class User extends HActiveRecord
 {
     const HAPPY_GIRAFFE = 1;
+
     public $verifyCode;
     public $current_password;
     public $new_password;

@@ -182,7 +182,3 @@ var Horoscope = {
         $.post('/services/horoscope/default/viewed/');
     }
 };
-
-
-
-

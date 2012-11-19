@@ -1159,7 +1159,7 @@ background: url(/images/icon-heart.png) 20px 15px no-repeat;
 position: relative;
 }
 .contest-prizes-desc .desc:after {
-    content:'';position:absolute;left:-28px;top:35px;width:29px;height:32px;
+    content:'';position:absolute;left:-29px;top:35px;width:29px;height:32px;
     background: url(/images/contest/contest-prizes-desc.png) no-repeat;
 }
  #contest .contest-prizes-desc .place {margin: 0 auto 5px;}

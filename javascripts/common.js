@@ -604,7 +604,7 @@ var Contest = {
             }
         }, 'json');
     }
-}
+};
 
 function toggleRubric(el)
 {
@@ -629,6 +629,11 @@ var Horoscope = {
         $(el).parents('div.sign').find('.chzn-drop').css({
             "left" : "0"
         });
+    },
+    show:function () {
+        $('.user-horoscope-prev').hide();
+        $('.user-horoscope-2').show();
+        $.post('/services/horoscope/default/viewed/');
     }
 };
 

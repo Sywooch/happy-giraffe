@@ -11,6 +11,7 @@ class RssController extends HController
     {
         Yii::import('application.modules.cook.models.*');
         Yii::import('application.modules.contest.models.*');
+        Yii::import('application.modules.services.modules.horoscope.models.*');
         Yii::import('ext.EFeed.*');
     }
 
@@ -18,7 +19,7 @@ class RssController extends HController
     {
         $feed = new EFeed();
 
-        $feed->title= 'Веселый Жираф - сайт для всей семьи';
+        $feed->title = 'Веселый Жираф - сайт для всей семьи';
         $feed->link = 'http://www.happy-giraffe.ru/';
         $feed->description = 'Социальная сеть для родителей и их детей';
         $feed->addChannelTag('generator', 'MyBlogEngine 1.1');
@@ -33,6 +34,8 @@ class RssController extends HController
                 (SELECT id, created, 'ContestWork' AS entity FROM contest__works)
                 UNION
                 (SELECT id, created, 'CookDecoration' AS entity FROM cook__decorations)
+                UNION
+                (SELECT id, created, 'Horoscope' AS entity FROM services__horoscope)
                 ORDER BY created DESC
                 LIMIT :limit
                 OFFSET :offset";
@@ -40,13 +43,22 @@ class RssController extends HController
 
         foreach ($contents as $c) {
             $item = $feed->createNewItem();
-            $item->addTag('guid', $c->getUrl(false, true), array('isPermaLink'=>'true'));
-            $item->addTag('author', $this->createAbsoluteUrl('blog/list', array('user_id' => $c->author->id)));
-            $item->date = $c->created;
-            $item->link = $c->getUrl(false, true);
-            $item->description = $c->rssContent;
-            $item->title = $c->title;
-            $item->addTag('comments', $c->getUrl(true, true));
+            if (get_class($c) == 'Horoscope') {
+                $item->addTag('guid', $c->getUrl(true), array('isPermaLink' => 'true'));
+                $item->addTag('author', $this->createAbsoluteUrl('blog/list', array('user_id' => User::HAPPY_GIRAFFE)));
+                $item->date = $c->created;
+                $item->link = $c->getUrl(true);
+                $item->description = $c->rssContent;
+                $item->title = $c->getTitle();
+            } else {
+                $item->addTag('guid', $c->getUrl(false, true), array('isPermaLink' => 'true'));
+                $item->addTag('author', $this->createAbsoluteUrl('blog/list', array('user_id' => $c->author->id)));
+                $item->date = $c->created;
+                $item->link = $c->getUrl(false, true);
+                $item->description = $c->rssContent;
+                $item->title = $c->title;
+                $item->addTag('comments', $c->getUrl(true, true));
+            }
             $feed->addItem($item);
         }
 
@@ -71,7 +83,7 @@ class RssController extends HController
 
         $feed = new EFeed(EFeed::RSS2, $headAttributes);
 
-        $feed->title= 'Веселый Жираф - сайт для всей семьи';
+        $feed->title = 'Веселый Жираф - сайт для всей семьи';
         $feed->link = 'http://www.happy-giraffe.ru/';
         $feed->description = 'Социальная сеть для родителей и их детей';
         $feed->addChannelTag('image', array(
@@ -123,7 +135,7 @@ class RssController extends HController
         Yii::import('ext.EFeed.*');
         $feed = new EFeed();
 
-        $feed->title= 'Блог пользователя ' . $user->fullName;
+        $feed->title = 'Блог пользователя ' . $user->fullName;
         $feed->link = $this->createAbsoluteUrl('blog/list', array('user_id' => $user->id));
         $feed->description = ($user->blog_title === null) ? 'Блог - ' . $user->fullName : $user->blog_title;
         $feed->addChannelTag('generator', 'MyBlogEngine 1.1');
@@ -131,16 +143,14 @@ class RssController extends HController
         $feed->addChannelTag('ya:more', $this->createAbsoluteUrl('rss/user', array('user_id' => $user->id, 'page' => $page + 1)));
         $feed->addChannelTag('image', array('url' => $user->getAva(), 'width' => 72, 'height' => 72));
 
-        if ($user->id == 1) {
-            $criteria = new CDbCriteria(array(
-                'condition' => 'type_id = 4 OR by_happy_giraffe = 1',
-                'params' => array(':author_id' => $user->id),
-                'limit' => $this->limit,
-                'offset' => ($page - 1) * $this->limit,
-                'order' => 'created DESC',
-            ));
-
-            $contents = CommunityContent::model()->full()->findAll($criteria);
+        if ($user->id == User::HAPPY_GIRAFFE) {
+            $sql = "(SELECT id, created, 'CommunityContent' AS entity FROM community__contents WHERE type_id = 4 OR by_happy_giraffe = 1)
+                        UNION
+                        (SELECT id, created, 'Horoscope' AS entity FROM services__horoscope)
+                        ORDER BY created DESC
+                        LIMIT :limit
+                        OFFSET :offset";
+            $contents = $this->getContents($sql, $page);
         } else {
             if (in_array($user->id, array(10264, 10127, 10378, 23, 12678))) {
                 $sql = "(SELECT community__contents.id, created, 'CommunityContent' AS entity FROM community__contents JOIN community__rubrics ON community__contents.rubric_id = community__rubrics.id WHERE author_id = :author_id AND type_id != 4 AND by_happy_giraffe = 0 AND community__rubrics.user_id IS NOT NULL)
@@ -174,15 +184,23 @@ class RssController extends HController
 
         foreach ($contents as $c) {
             $item = $feed->createNewItem();
-            $item->addTag('guid', $c->getUrl(false, true), array('isPermaLink'=>'true'));
-            $item->addTag('author', $this->createAbsoluteUrl('blog/list', array('user_id' => $c->author->id)));
-            $item->date = $c->created;
-            $item->link = $c->getUrl(false, true);
-            $item->description = $c->rssContent;
-            $item->title = $c->title;
-            $item->addTag('comments', $c->getUrl(true, true));
+            if (get_class($c) == 'Horoscope') {
+                $item->addTag('guid', $c->getUrl(true), array('isPermaLink' => 'true'));
+                $item->addTag('author', $this->createAbsoluteUrl('blog/list', array('user_id' => User::HAPPY_GIRAFFE)));
+                $item->date = $c->created;
+                $item->link = $c->getUrl(true);
+                $item->description = $c->rssContent;
+                $item->title = $c->getTitle();
+            } else {
+                $item->addTag('guid', $c->getUrl(false, true), array('isPermaLink' => 'true'));
+                $item->addTag('author', $this->createAbsoluteUrl('blog/list', array('user_id' => $c->author->id)));
+                $item->date = $c->created;
+                $item->link = $c->getUrl(false, true);
+                $item->description = $c->rssContent;
+                $item->title = $c->title;
+                $item->addTag('comments', $c->getUrl(true, true));
+            }
             $feed->addItem($item);
-
         }
         $feed->generateFeed();
         Yii::app()->end();
@@ -207,7 +225,7 @@ class RssController extends HController
             'with' => 'response',
         ));
 
-        if (! $comments)
+        if (!$comments)
             throw new CHttpException(404, 'Такой записи не существует');
 
         $feed = new EFeed();
@@ -221,7 +239,7 @@ class RssController extends HController
             $content = CActiveRecord::model($comment->entity)->findByPk($comment->entity_id);
 
             $item = $feed->createNewItem();
-            $item->addTag('guid', $comment->getUrl(true), array('isPermaLink'=>'true'));
+            $item->addTag('guid', $comment->getUrl(true), array('isPermaLink' => 'true'));
             $item->addTag('ya:post', $content->getUrl(false, true));
             if ($comment->response) {
                 $item->addTag('ya:parent', $comment->response->getUrl(true));
@@ -274,10 +292,11 @@ class RssController extends HController
         return ($a->created > $b->created) ? -1 : 1;
     }
 
-    public function actionSocial($page = 1){
+    public function actionSocial($page = 1)
+    {
         $feed = new EFeed();
         $this->limit = 1;
-        $feed->title= 'Веселый Жираф - сайт для всей семьи';
+        $feed->title = 'Веселый Жираф - сайт для всей семьи';
         $feed->link = 'http://www.happy-giraffe.ru/';
         $feed->description = 'Социальная сеть для родителей и их детей';
         $feed->addChannelTag('generator', 'MyBlogEngine 1.1');
@@ -293,7 +312,7 @@ class RssController extends HController
 
         foreach ($contents as $c) {
             $item = $feed->createNewItem();
-            $item->addTag('guid', $c->getUrl(false, true), array('isPermaLink'=>'true'));
+            $item->addTag('guid', $c->getUrl(false, true), array('isPermaLink' => 'true'));
             $item->addTag('author', $this->createAbsoluteUrl('blog/list', array('user_id' => $c->author->id)));
             $item->date = $c->created;
             $item->link = $c->getUrl(false, true);

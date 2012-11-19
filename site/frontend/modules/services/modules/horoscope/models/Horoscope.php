@@ -172,6 +172,51 @@ class Horoscope extends HActiveRecord
         ));
     }
 
+    public function behaviors()
+    {
+        return array(
+            'CTimestampBehavior' => array(
+                'class' => 'zii.behaviors.CTimestampBehavior',
+                'createAttribute' => 'created',
+                'updateAttribute' => null,
+            ),
+            'pingable' => array(
+                'class' => 'site.common.behaviors.PingableBehavior',
+            ),
+        );
+    }
+
+    public function beforeValidate()
+    {
+        if ($this->type == 1) {
+            $exist = Horoscope::model()->findByAttributes(array(
+                'date'=>$this->date,
+                'zodiac'=>$this->zodiac,
+            ));
+            if ($exist)
+                $this->addError('date', 'Гороскоп на эту дату уже есть');
+        } elseif ($this->type == 2) {
+            $exist = Horoscope::model()->findByAttributes(array(
+                'year'=>$this->year,
+                'month'=>$this->month,
+                'zodiac'=>$this->zodiac,
+            ));
+            if ($exist)
+                $this->addError('month', 'Гороскоп на этот месяц уже есть');
+        } elseif ($this->type == 3) {
+            $exist = Horoscope::model()->findByAttributes(array(
+                'year'=>$this->year,
+                'month'=>null,
+                'zodiac'=>$this->zodiac,
+            ));
+            if ($exist)
+                $this->addError('year', 'Гороскоп на этот год уже есть');
+        }
+
+
+        return parent::beforeValidate();
+    }
+
     public function beforeSave()
     {
         if ($this->type == 1) {
@@ -185,6 +230,11 @@ class Horoscope extends HActiveRecord
         }
 
         return parent::beforeSave();
+    }
+
+    public function getAuthor()
+    {
+        return User::model()->findByPk(User::HAPPY_GIRAFFE);
     }
 
     public function getZodiacId($name)
@@ -441,6 +491,15 @@ class Horoscope extends HActiveRecord
         return '';
     }
 
+    public function getTitle(){
+        if ($this->onYear())
+            return 'Гороскоп ' . $this->zodiacText() . ' на ' . $this->year . ' год';;
+        if ($this->onMonth())
+            return 'Гороскоп ' . $this->zodiacText() . ' на ' . HDate::ruMonth($this->month) . ' ' . $this->year . ' года';
+        return 'Гороскоп ' .  $this->zodiacText() . ' на ' .
+            Yii::app()->dateFormatter->format('d MMMM yyyy', strtotime($this->date));
+    }
+
     /*****************************************************************************************************************/
     /**************************************************** TEXTS ******************************************************/
     /*****************************************************************************************************************/
@@ -588,6 +647,17 @@ class Horoscope extends HActiveRecord
     {
         if (empty($this->month) && !empty($this->year))
             return $this->health;
+        else
+            return $this->text;
+    }
+
+    public function getRssContent()
+    {
+        if (empty($this->month) && !empty($this->year))
+            return '<p><span class="red">Здоровье.</span>'.$this->health
+                .'</p><p><span class="red">Карьера.</span>'.$this->career
+                .'</p><p><span class="red">Финансы.</span>'.$this->finance
+                .'</p><p><span class="red">Личная жизнь.</span>'.$this->personal.'</p>';
         else
             return $this->text;
     }

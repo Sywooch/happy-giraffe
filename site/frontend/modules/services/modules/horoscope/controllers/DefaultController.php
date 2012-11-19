@@ -132,7 +132,7 @@ class DefaultController extends HController
                 if ($model === null)
                     throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
-                $this->title = 'Гороскоп ' . $model->zodiacText() . ' на месяц';
+                $this->title = 'Гороскоп ' . $model->zodiacText() . ' на '. HDate::ruMonth(date('n'));
                 $this->social_title = 'Гороскоп ' . $model->zodiacText() . ' на ' . HDate::ruMonth(date('n'));
                 $this->meta_title = 'Гороскоп на каждый месяц ' . $model->zodiacText() . ' - Веселый Жираф';
                 $this->meta_description = 'Бесплатный гороскоп на месяц ' . $model->zodiacText() . ' для женщин и мужчин. Обновляется ежемесячно!';

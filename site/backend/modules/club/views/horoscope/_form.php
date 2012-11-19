@@ -8,7 +8,19 @@
 <div class="form">
     <?php $form = $this->beginWidget('CActiveForm', array(
     'id' => 'horoscope-form',
-    'enableAjaxValidation' => false,
+    'enableAjaxValidation' => true,
+    'enableClientValidation' => false,
+    'action' => '#',
+    'clientOptions' => array(
+        'validateOnSubmit' => true,
+        'validateOnChange' => false,
+        'validateOnType' => false,
+        'afterValidate' => "js:function(form, data, hasError) {
+                                if (!hasError)
+                                    return true;
+                                return false;
+                              }",
+    )
 )); ?>
 
     <p class="note">Поля с <span class="required">*</span> обязательны.</p>

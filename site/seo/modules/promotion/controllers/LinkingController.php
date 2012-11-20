@@ -220,26 +220,23 @@ class LinkingController extends SController
         }
         TimeLogger::model()->endTimer();
 
-
         //удалим те, с которых стоят ссылки на наш "Следующая", "Предыдущая"
-        foreach ($pages as $key => $page) {
-            $article = $phrase->page->getArticle();
-            $our_article = $page->getArticle();
-            if (!empty($article) && !empty($our_article)) {
-                if (method_exists($article, 'getPrevPost')) {
-
-                    TimeLogger::model()->startTimer('pages found - filter: check previous');
-                    $post = $article->getPrevPost();
-                    TimeLogger::model()->endTimer();
-
-                    if ($post !== null && $post->id == $our_article->id)
+        TimeLogger::model()->startTimer('pages found - filter: check next previous');
+        $article = $phrase->page->getArticle();
+        if (!empty($article)){
+            $post = $article->getPrevPost();
+            if ($post !== null)
+                foreach ($pages as $key => $page)
+                    if ($page->url == $post->getUrl(false, true))
                         unset($pages[$key]);
-                    $post = $article->getNextPost();
-                    if ($post !== null && $post->id == $our_article->id)
+
+            $post = $article->getNextPost();
+            if ($post !== null)
+                foreach ($pages as $key => $page)
+                    if ($page->url == $post->getUrl(false, true))
                         unset($pages[$key]);
-                }
-            }
         }
+        TimeLogger::model()->endTimer();
 
         return $pages;
     }

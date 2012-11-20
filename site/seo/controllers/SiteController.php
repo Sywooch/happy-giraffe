@@ -49,7 +49,7 @@ class SiteController extends SController
             $this->redirect($this->createUrl('competitors/default/index'));
 
         if (Yii::app()->user->checkAccess('promotion'))
-            $this->redirect($this->createUrl('promotion/queries/admin'));
+            $this->redirect($this->createUrl('promotion/linking/autoLinking'));
 
         if (Yii::app()->user->checkAccess('cook-manager'))
             $this->redirect('/competitors/cook/');

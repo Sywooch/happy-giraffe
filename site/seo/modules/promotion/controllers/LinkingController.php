@@ -190,10 +190,15 @@ class LinkingController extends SController
         }
 
         //удалим текущий
-        foreach ($pages as $key => $page) {
+        foreach ($pages as $key => $page)
             if ($page->id == $phrase->page_id)
                 unset($pages[$key]);
-        }
+
+        //удалим c которых по 3 ссылки и более
+        foreach ($pages as $key => $page)
+            if ($page->outputLinksCount >= 3)
+                unset($pages[$key]);
+
         //удалим те с которых уже стоят ссылки на наш
         foreach ($pages as $key => $page) {
             if (!empty($page->id) && InnerLink::model()->exists('page_id = ' . $page->id . ' and page_to_id=' . $phrase->page->id))

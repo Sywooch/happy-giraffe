@@ -41,6 +41,7 @@ class LinkingCommand extends CConsoleCommand
             $keyword_model = Keyword::model()->findByPk($keyword);
             if ($keyword_model === null){
                 PagesSearchPhrase::model()->deleteAll('keyword_id='.$keyword);
+                echo 'deleted'."\n";
             }elseif (YandexSearchKeyword::model()->findByPk($keyword) === null) {
                 $model = new YandexSearchKeyword;
                 $model->keyword_id = $keyword;

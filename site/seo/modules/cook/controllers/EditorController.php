@@ -23,7 +23,7 @@ class EditorController extends SController
 
     public function actionIndex($section = 2)
     {
-        $model = new Keyword();
+        $model = new Keyword;
         $model->attributes = $_GET;
 
         $this->render('themes', array(

@@ -214,14 +214,8 @@ skrapbook
     {
         $keywords = Yii::app()->db_seo->createCommand('select distinct(keyword_id) from sites__keywords_visits ')->queryColumn();
         $count = 0;
-        foreach ($keywords as $keyword_id) {
-            if (ParsingKeyword::model()->findByPk($keyword_id) === null) {
-                $yandex = YandexPopularity::model()->findByPk($keyword_id);
-                if ($yandex === null || empty($yandex->parsed)) {
-                    ParsingKeyword::model()->addKeywordById($keyword_id);
-                    $count++;
-                }
-            }
-        }
+        foreach ($keywords as $keyword_id)
+            if (ParsingKeyword::addKeyword($keyword_id))
+                $count++;
     }
 }

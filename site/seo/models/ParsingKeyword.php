@@ -99,26 +99,22 @@ class ParsingKeyword extends HActiveRecord
 		));
 	}
 
-    public function addKeywordById($id)
+    public static function addKeyword($keyword_id)
     {
-        $parsing = new ParsingKeyword();
-        $parsing->keyword_id = $id;
-        try {
-            $success = $parsing->save();
-            if ($success)
-                return true;
-        } catch (Exception $e) {
+        if (ParsingKeyword::model()->findByPk($keyword_id) === null) {
+            $yandex = YandexPopularity::model()->findByPk($keyword_id);
+            if ($yandex === null || empty($yandex->parsed)) {
+                $parsing = new ParsingKeyword();
+                $parsing->keyword_id = $keyword_id;
+                try {
+                    $success = $parsing->save();
+                    if ($success)
+                        return true;
+                } catch (Exception $e) {
 
+                }
+            }
         }
-
         return false;
-    }
-
-    public function addKeywordByIdNotInYandex($id)
-    {
-        $already = YandexPopularity::model()->findByPk($id);
-        if ($already !== null)
-            return true;
-        return $this->addKeywordById($id);
     }
 }

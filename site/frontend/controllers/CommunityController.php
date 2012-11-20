@@ -841,4 +841,12 @@ class CommunityController extends HController
 
         $this->render('weekly_mail');
     }
+
+    public function actionRecent($community_id)
+    {
+        $community = new Community;
+        $community->id = $community_id;
+
+        $this->renderPartial('_recent', compact('community'));
+    }
 }

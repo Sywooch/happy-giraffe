@@ -14,6 +14,10 @@ class RecipeController extends HController
     {
         return array(
             'accessControl',
+            array(
+                'CHttpCacheFilter + view',
+                'lastModified' => $this->lastModified(),
+            ),
             //'ajaxOnly + ac, searchByIngredientsResult, advancedSearchResult, autoSelect'
         );
     }
@@ -462,5 +466,25 @@ class RecipeController extends HController
         }
 
         echo $feed;
+    }
+
+    protected function lastModified()
+    {
+        $recipe_id = Yii::app()->request->getQuery('id');
+
+        $sql = "SELECT
+                    GREATEST(
+                        COALESCE(MAX(c.created), '0000-00-00 00:00:00'),
+                        COALESCE(MAX(c.updated), '0000-00-00 00:00:00'),
+                        COALESCE(MAX(cm.created), '0000-00-00 00:00:00'),
+                        COALESCE(MAX(cm.updated), '0000-00-00 00:00:00')
+                    )
+                FROM cook__recipes c
+                LEFT OUTER JOIN comments cm
+                ON cm.entity = 'CookRecipe' AND cm.entity_id = :recipe_id";
+
+        $command = Yii::app()->db->createCommand($sql);
+        $command->bindValue(':recipe_id', $recipe_id, PDO::PARAM_INT);
+        return $command->queryScalar();
     }
 }

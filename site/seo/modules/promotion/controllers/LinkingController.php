@@ -100,8 +100,14 @@ class LinkingController extends SController
     {
         $phrase = PagesSearchPhrase::getActualPhrase();
         $page = $phrase->page;
+
+        TimeLogger::model()->startTimer('getSimilarPages');
         $pages = $this->getSimilarPages($phrase);
+        TimeLogger::model()->endTimer();
+
+        TimeLogger::model()->startTimer('getSimilarKeywords');
         $keywords = $phrase->getSimilarKeywords();
+        TimeLogger::model()->endTimer();
 
         return array(
             'status' => true,

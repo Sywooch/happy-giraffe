@@ -207,17 +207,7 @@
 
             </div>
 
-            <div class="recent-topics">
-
-                <div class="title">Последние темы</div>
-
-                <ul>
-                    <?php foreach ($this->community->last as $c): ?>
-                        <li><?=CHtml::link(CHtml::encode($c->title), $c->url)?></li>
-                    <?php endforeach; ?>
-                </ul>
-
-            </div>
+            <!--#include virtual="<?=$this->createUrl('/community/recent', array('community_id' => $this->community->id))?>" -->
 
         <?php $this->endCache(); endif;  ?>
 

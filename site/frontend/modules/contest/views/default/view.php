@@ -27,9 +27,7 @@
         ->registerScriptFile('/javascripts/jquery.masonry.min.js')
         ->registerMetaTag('/images/contest/banner-social-'.$contest->id.'.jpg', null, null, array('property' => 'og:image'))
     ;
-?>
 
-<?php
 Yii::app()->eauth->renderWidget(array(
     'mode' => 'assets',
 ));

@@ -246,7 +246,9 @@ class PagesSearchPhrase extends HActiveRecord
             ':google_visits_min' => SeoUserAttributes::getAttribute('google_visits_min')
         );
 
+        TimeLogger::model()->startTimer('get google phrase');
         $model = PagesSearchPhrase::model()->find($criteria);
+        TimeLogger::model()->endTimer();
 
         return $model;
     }
@@ -285,7 +287,10 @@ class PagesSearchPhrase extends HActiveRecord
         if (SeoUserAttributes::getAttribute('yandex_traffic'))
             $criteria->condition .= ' AND yandex_traffic > 0';
 
+        TimeLogger::model()->startTimer('get yandex phrase');
         $model = PagesSearchPhrase::model()->find($criteria);
+        TimeLogger::model()->endTimer();
+
 
         return $model;
     }

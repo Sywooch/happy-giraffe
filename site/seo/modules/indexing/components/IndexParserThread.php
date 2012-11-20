@@ -84,7 +84,7 @@ class IndexParserThread extends ProxyParserThread
 
     private function loadYandexPage()
     {
-        $content = $this->query('http://yandex.ru/sitesearch?text=' . urlencode('url:' . rtrim($this->url->url, '/') . '*') . '&numdoc=' . $this->perPage() . '&searchid=1883818&lr=38');
+        $content = $this->query('http://yandex.ru/sitesearch?text=' . urlencode('url:' . rtrim($this->url->url, '/') . '*') . '&numdoc=' . $this->perPage() . '&searchid='.SimilarArticlesParser::SITE_ID.'&lr=38');
 
         if (strpos($content, 'Искомая комбинация слов нигде не встречается') !== false){
             $this->customLog($this->url->url.' : '.'Искомая комбинация слов нигде не встречается');

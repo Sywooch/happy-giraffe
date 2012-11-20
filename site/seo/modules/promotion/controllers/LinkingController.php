@@ -37,8 +37,13 @@ class LinkingController extends SController
             $this->render('auto_linking_empty');
         } else {
 
+            TimeLogger::model()->startTimer('getSimilarPages');
             $pages = $this->getSimilarPages($phrase);
+            TimeLogger::model()->endTimer();
+
+            TimeLogger::model()->startTimer('getSimilarKeywords');
             $keywords = $phrase->getSimilarKeywords();
+            TimeLogger::model()->endTimer();
 
             $this->render('auto_linking', compact('phrase', 'pages', 'keywords'));
         }

@@ -77,9 +77,10 @@ class MailChimp extends CApplicationComponent
     {
         $criteria = new CDbCriteria;
         $criteria->limit = 100;
-        $criteria->condition = 'id > 336306';
+        $criteria->condition = 'id > 360123';
 
         $users = array(1);
+        $last_id = 0;
         while (!empty($users)) {
             $users = MailruUser::model()->findAll($criteria);
             $options = array();
@@ -90,12 +91,41 @@ class MailChimp extends CApplicationComponent
                     'LNAME' => '',
                 );
                 echo $user->email.'<br>';
+                $last_id = $user->id;
             }
 
             $this->list = self::CONTEST_LIST;
             $this->api->listBatchSubscribe($this->list, $options, false, true, false);
 
             $criteria->offset += 100;
+
+            if ($criteria->offset > 25000)
+                $users = null;
+        }
+
+        echo $last_id;
+    }
+
+    public function deleteRegisteredFromContestListUsers()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->limit = 100;
+
+        $users = array(1);
+        while (!empty($users)) {
+            $users = User::model()->findAll($criteria);
+            $options = array();
+            foreach ($users as $user)
+                if (!empty($user->email)){
+                $options[] = $user->email;
+                    echo $user->email.'<br>';
+                }
+
+            $this->list = self::CONTEST_LIST;
+            $this->api->listBatchUnsubscribe($this->list, $options, true, false, false);
+
+            $criteria->offset += 100;
+            echo $criteria->offset.'<br>';
         }
     }
 

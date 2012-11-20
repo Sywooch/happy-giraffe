@@ -4,8 +4,8 @@ class DefaultController extends SController
 {
     public function actionIndex()
     {
-//        $parser = new MailRuUserParser;
-//        $parser->start();
+        $parser = new DetiUserSearchParser;
+        $parser->start();
     }
 
     public function actionUsers()
@@ -17,7 +17,8 @@ class DefaultController extends SController
         Yii::import('site.common.models.mongo.*');
         Yii::import('site.seo.models.*');
 
-        Yii::app()->mc->updateMailruUsers();
+//        Yii::app()->mc->updateMailruUsers();
+        Yii::app()->mc->deleteRegisteredFromContestListUsers();
     }
 
     public function actionHostStat()
@@ -42,157 +43,18 @@ class DefaultController extends SController
             echo $mail_host . " - $count<br>";
     }
 
-    public function actionTest(){
-        $names = 'алек
-анатолий
-анастасия
-агл
-алла
-алис
-альберт
-андрей
-алия
-алина
-арс
-артем
-ася
-антон
-борис
-вадим
-валя
-вале
-валер
-василий
-вася
-вера
-влад
-владимир
-вик
-виктор
-вит
-глеб
-гал
-ген
-гео
-давид
-дани
-даш
-дарья
-динара
-денис
-диа
-ева
-евгени
-егор
-елена
-жан
-зина
-зем
-зоя
-захар
-иван
-илья
-игнат
-игор
-инна
-ирина
-инга
-инна
-арина
-клав
-кира
-кирил
-крис
-ксен
-леон
-лариса
-лид
-лера
-лик
-лол
-люд
-лев
-лен
-лил
-лор
-люб
-макс
-макар
-мари
-мир
-мил
-мих
-мус
-май
-марг
-матр
-над
-наи
-ник
-нин
-наз
-ната
-ники
-окс
-олес
-олег
-оль
-оля
-павел
-плат
-поли
-петр
-прох
-регина
-ринат
-роза
-рома
-руст
-раис
-роб
-рокс
-руф
-раш
-рим
-родион
-русл
-свет
-серг
-сере
-соф
-стан
-стас
-слав
-степ
-сера
-спар
-снеж
-тама
-тать
-тим
-терен
-тарас
-тих
-троф
-уль
-фед
-фом
-фил
-эд
-эл
-эр
-';
-        $names = explode("\n", $names);
-        $names = array_unique($names);
-        echo count($names);
-        $names = array('');
-//        MailruQuery::model()->deleteAll();
-        foreach ($names as $name) {
-            $q = new MailruQuery();
-            $text = urlencode(iconv("UTF-8", "Windows-1251", $name));
-            $q->text = 'http://my.mail.ru/community/bestmama/friends?&sort=&search_text='.$text;
-            $q->type = MailruQuery::TYPE_SEARCH_USERS;
-            $q->save();
-        }
+    public function actionTest()
+    {
+        $str = array('а', 'б', 'в', 'г', 'д', 'е', 'ж', 'з', 'и', 'к', 'л', 'м', 'н', 'о', 'п', 'р', 'т', 'с', 'т', 'у', 'ф', 'х', 'ц', 'ч', 'ш', 'щ', 'э', 'ю', 'я');
+        for ($i = 0; $i < count($str); $i++)
+            for ($i2 = 0; $i2 < count($str); $i2++)
+                for ($i3 = 0; $i3 < count($str); $i3++) {
+                    $text = $str[$i] . $str[$i2] . $str[$i3];
+                    $q = new MailruQuery();
+                    $text = urlencode(iconv("UTF-8", "Windows-1251", $text));
+                    $q->text = 'http://deti.mail.ru/our_community/?community_filter=name&community_find=1&community_nick=' . $text;
+                    $q->type = MailruQuery::TYPE_SEARCH_USERS;
+                    $q->save();
+                }
     }
 }

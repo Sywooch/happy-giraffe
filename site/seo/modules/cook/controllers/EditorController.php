@@ -72,7 +72,7 @@ class EditorController extends SController
     {
         $this->section = $section;
         TempKeyword::filterBusyKeywords();
-        $tempKeywords = TempKeyword::model()->findAll('owner_id=' . Yii::app()->user->id.' AND section IN (2,3)');
+        $tempKeywords = TempKeyword::model()->findAll('owner_id=' . Yii::app()->user->id.' AND section = '.$section);
 
         $by_name_tasks = SeoTask::getTasksByName($section);
         $tasks = SeoTask::getNewTasks($section);

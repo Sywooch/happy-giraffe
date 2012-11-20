@@ -7,6 +7,7 @@
 Yii::import('site.frontend.modules.cook.models.*');
 class SimilarArticlesParser
 {
+    const SITE_ID = 1979555;
     /**
      * @param string $keyword
      * @return Page[]
@@ -15,9 +16,9 @@ class SimilarArticlesParser
     {
         //test
         if ($this->startsWith($keyword, 'http://')) {
-            $content = $this->query('http://yandex.ru/sitesearch?text=url%3A' . urlencode($keyword) . '*&searchid=1883818&reqenc=utf-8&l10n=ru&web=0&lr=38&numdoc=50');
+            $content = $this->query('http://yandex.ru/sitesearch?text=url%3A' . urlencode($keyword) . '*&searchid='.self::SITE_ID.'&reqenc=utf-8&l10n=ru&web=0&lr=38&numdoc=50');
         } else
-            $content = $this->query('http://yandex.ru/sitesearch?text=' . urlencode($keyword) . '&searchid=1883818&reqenc=utf-8&l10n=ru&web=0&lr=38&numdoc=50');
+            $content = $this->query('http://yandex.ru/sitesearch?text=' . urlencode($keyword) . '&searchid='.self::SITE_ID.'&reqenc=utf-8&l10n=ru&web=0&lr=38&numdoc=50');
 
         $document = phpQuery::newDocument($content);
         $links = array();

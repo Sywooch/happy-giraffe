@@ -99,7 +99,7 @@ class TempKeyword extends CActiveRecord
 
     public static function filterBusyKeywords()
     {
-        /*$tempKeywords = TempKeyword::model()->findAll('owner_id=' . Yii::app()->user->id);
+        $tempKeywords = TempKeyword::model()->findAll('owner_id=' . Yii::app()->user->id);
         foreach ($tempKeywords as $tempKeyword) {
             if (!empty($tempKeyword->keyword->group)) {
                 $success = false;
@@ -110,6 +110,6 @@ class TempKeyword extends CActiveRecord
                 if (!$success)
                     $tempKeyword->delete();
             }
-        }*/
+        }
     }
 }

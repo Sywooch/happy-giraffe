@@ -55,7 +55,7 @@ Yii::app()->clientScript->registerCoreScript('jquery.ui'); ?>
                     <td>
                         <a href="javascript:;" class="btn-green-small" onclick="TaskDistribution.addToGroup($(this))">Ok</a>
                         <a href="javascript:;" class="icon-remove" onclick="TaskDistribution.removeFromSelected(this)"></a>
-                        <a href="javascript:;" onclick="TaskDistribution.toNeedlework(this, <?=$tempKeyword->keyword->id ?>)">Асе</a>
+                        <a href="javascript:;" onclick="TaskDistribution.changeSection(this, <?=$tempKeyword->keyword->id ?>, 2)">Асе</a>
                     </td>
                 </tr>
                 <?php endforeach; ?>

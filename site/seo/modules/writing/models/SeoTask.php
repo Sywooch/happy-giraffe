@@ -424,7 +424,10 @@ class SeoTask extends CActiveRecord
 
     public static function taskCount($section)
     {
-        return TempKeyword::model()->count('owner_id=' . Yii::app()->user->id.' AND section='.$section)
-            + SeoTask::model()->count('owner_id=' . Yii::app()->user->id . ' AND executor_id IS NULL AND section='.$section);
+//        return TempKeyword::model()->count('owner_id=' . Yii::app()->user->id.' AND section='.$section)
+//            + SeoTask::model()->count('owner_id=' . Yii::app()->user->id . ' AND executor_id IS NULL AND section='.$section);
+
+        return TempKeyword::model()->count('owner_id=' . Yii::app()->user->id)
+            + SeoTask::model()->count('owner_id=' . Yii::app()->user->id . ' AND executor_id IS NULL');
     }
 }

@@ -37,9 +37,7 @@ class LinkingController extends SController
             $this->render('auto_linking_empty');
         } else {
 
-            TimeLogger::model()->startTimer('getSimilarPages');
             $pages = $this->getSimilarPages($phrase);
-            TimeLogger::model()->endTimer();
 
             TimeLogger::model()->startTimer('getSimilarKeywords');
             $keywords = $phrase->getSimilarKeywords();
@@ -106,9 +104,7 @@ class LinkingController extends SController
         $phrase = PagesSearchPhrase::getActualPhrase();
         $page = $phrase->page;
 
-        TimeLogger::model()->startTimer('getSimilarPages');
         $pages = $this->getSimilarPages($phrase);
-        TimeLogger::model()->endTimer();
 
         TimeLogger::model()->startTimer('getSimilarKeywords');
         $keywords = $phrase->getSimilarKeywords();
@@ -143,15 +139,20 @@ class LinkingController extends SController
         $criteria = new CDbCriteria;
         $criteria->compare('keyword_id', $phrase->keyword_id);
         $criteria->limit = 50;
+        TimeLogger::model()->startTimer('find pages from parsed');
         $pages = YandexSearchResult::model()->findAll($criteria);
+        TimeLogger::model()->endTimer();
 
         if (!empty($pages)) {
             $res = array();
             foreach ($pages as $page)
                 $res [] = $page->page;
+            TimeLogger::model()->startTimer('pages found - filter');
             $pages = $this->filterPages($phrase, $res);
+            TimeLogger::model()->endTimer();
 
         } else {
+            TimeLogger::model()->startTimer('pages not found - parsing');
             $parser = new SimilarArticlesParser;
 
             if ($this->startsWith($phrase->page->url, 'http://www.happy-giraffe.ru/horoscope/')) {
@@ -161,6 +162,7 @@ class LinkingController extends SController
                 $pages = $parser->getArticles($phrase->keyword->name);
                 $pages = $this->filterPages($phrase, $pages);
             }
+            TimeLogger::model()->endTimer();
         }
 
         if (empty($pages)) {

@@ -1,11 +1,5 @@
 <?php
 
-$this->breadcrumbs = array(
-    'Кулинария' => array('/cook'),
-    'Рецепты'
-);
-
-
 $this->widget('zii.widgets.CListView', array(
     'ajaxUpdate' => false,
     'dataProvider' => $dp,

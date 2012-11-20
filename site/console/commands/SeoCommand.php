@@ -110,23 +110,34 @@ class SeoCommand extends CConsoleCommand
         Yii::import('site.seo.modules.competitors.models.*');
 
         $criteria = new CDbCriteria;
-        $criteria->limit = 100;
+        $criteria->limit = 1000;
         $criteria->offset = 0;
 
         $i = 0;
+        $count = SitesKeywordsVisit2::model()->count();
         $models = array(0);
         while (!empty($models)) {
             $models = SitesKeywordsVisit2::model()->findAll($criteria);
 
             foreach ($models as $model) {
-                $model2 = new SiteKeywordVisit();
+                $keyword_id = Keyword::GetKeyword($model->keyword)->id;
+                $model2 = SiteKeywordVisit::model()->findByAttributes(array(
+                    'keyword_id'=>$keyword_id,
+                    'site_id'=>$model->site_id,
+                    'year'=>$model->year,
+                ));
+                if ($model2 === null){
+                    $model2 = new SiteKeywordVisit();
+                    $model2->keyword_id = $keyword_id;
+                }
                 $model2->attributes = $model->attributes;
-                $model2->keyword_id = Keyword::GetKeyword($model->keyword)->id;
                 $model2->save();
+                $i++;
             }
 
-            $i++;
-            $criteria->offset = $i * 100;
+            $criteria->offset += 1000;
+
+            echo round(100* $i / $count, 2)."%\n";
         }
     }
 
@@ -341,6 +352,42 @@ class SeoCommand extends CConsoleCommand
         if ($a['views'] == $b['views'])
             return 0;
         return ($a['views'] > $b['views']) ? -1 : 1;
+    }
+
+    public function actionGaTest(){
+
+        $period = '2012-11';
+        Yii::import('site.frontend.extensions.GoogleAnalytics');
+        $ga = new GoogleAnalytics('alexk984@gmail.com', Yii::app()->params['gaPass']);
+        $ga->setProfile('ga:53688414');
+        $ga->setDateRange($period . '-01', $period . '-30');
+
+        try {
+            $report = $ga->getReport(array(
+                'metrics' => urlencode('ga:organicSearches'),
+                'filters' => urlencode('ga:pagePath==/user/15468/blog/post32976/'),
+            ));
+
+        } catch (Exception $err) {
+            var_dump($err->getMessage());
+        }
+
+        var_dump($report);
+    }
+
+    public function actionFixELinks()
+    {
+        Yii::import('site.seo.modules.externalLinks.models.*');
+        Yii::app()->db_seo->createCommand('update externallinks__links set check_link_time = NULL where check_link_time = "0000-00-00 00:00:00"')->execute();
+
+        $sites = ELSite::model()->findAll('status=2');
+        foreach($sites as $site){
+            foreach($site->links as $link)
+            if (empty($link->check_link_time)){
+                $site->bad_rating = 3;
+                $site->save();
+            }
+        }
     }
 }
 

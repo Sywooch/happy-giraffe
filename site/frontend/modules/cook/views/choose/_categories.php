@@ -20,3 +20,7 @@ $active = (Yii::app()->controller->action->id != 'category') ? 'active' : '';
     ?>
 
 </ul>
+
+<div class="banner-box">
+    <?php $this->renderPartial('//_banner'); ?>
+</div>

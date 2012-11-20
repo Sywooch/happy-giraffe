@@ -39,6 +39,7 @@
         ->registerScriptFile('/javascripts/jquery.jcarousel.js')
         ->registerScriptFile('/javascripts/jquery.jcarousel.control.js')
         ->registerScriptFile('/javascripts/jquery.tmpl.min.js')
+        ->registerScriptFile('/javascripts/addtocopy.js')
 
         ->registerScriptFile('http://vk.com/js/api/share.js?11')
     ;
@@ -158,7 +159,7 @@
                 <li><a href="<?php echo $this->createUrl('/community') ?>">Клубы</a></li>
                 <li><?=CHtml::link('Сервисы', array('/site/services'))?></li>
                 <li><?=CHtml::link('Новости', array('/community/list', 'community_id' => 36))?></li>
-                <li><?=CHtml::link('Конкурсы', $this->createUrl('/contest/default/view', array('id' => 2)))?></li>
+                <li><?=CHtml::link('Конкурсы', $this->createUrl('/contest/default/index'))?></li>
             </ul>
 
         </div>
@@ -198,7 +199,7 @@
 
                             <div class="banner-box">
                                 <?php if (! Yii::app()->user->isGuest): ?>
-                                    <a href="<?=$this->createUrl('/contest/default/view', array('id' => 2)) ?>"><img src="/images/meandmum.jpg" /></a>
+                                    <a href="<?=$this->createUrl('/contest/default/view', array('id' => 3)) ?>"><img src="/images/contest/banner-w300-3.jpg" /></a>
                                 <?php else: ?>
                                     <?=CHtml::link(CHtml::image('/images/banner_06.png'), '#register', array('class'=>'fancy', 'data-theme'=>'white-square'))?>
                                 <?php endif; ?>
@@ -485,6 +486,17 @@
                 </div>
 
                 <div id="content" class="clearfix">
+                    <?php
+                        $this->widget('zii.widgets.CBreadcrumbs', array(
+                            'links' => $this->breadcrumbs,
+                            'separator' => ' &gt; ',
+                            'htmlOptions' => array(
+                                'id' => 'crumbs',
+                                'class' => null,
+                            ),
+                        ));
+                    ?>
+
                     <?php echo $content; ?>
                 </div>
 

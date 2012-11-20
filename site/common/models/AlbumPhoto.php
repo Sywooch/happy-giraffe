@@ -31,6 +31,7 @@ class AlbumPhoto extends HActiveRecord
 
     public $w_title = null;
     public $w_description = null;
+    public $w_idx = null;
 
     public $width;
     public $height;
@@ -156,7 +157,7 @@ class AlbumPhoto extends HActiveRecord
             }
             $this->getPreviewUrl(960, 627, Image::HEIGHT, true);
         }
-        if ($this->isNewRecord && Yii::app()->hasComponent('comet') && $this->author->isNewComer() && isset($this->album)) {
+        if (get_class(Yii::app()) != 'CConsoleApplication' && $this->isNewRecord && Yii::app()->hasComponent('comet') && $this->author->isNewComer() && isset($this->album)) {
             if ($this->album->type == 0 || $this->album->type == 1 || $this->album->type == 3) {
                 $signal = new UserSignal();
                 $signal->user_id = (int)$this->author_id;
@@ -206,8 +207,8 @@ class AlbumPhoto extends HActiveRecord
     public static function createByUrl($url, $user_id, $album_type)
     {
         $ext = pathinfo($url, PATHINFO_EXTENSION);
-        $file_name = pathinfo($url, PATHINFO_FILENAME);
 
+        //upload file content
         $ch = curl_init();
 
         curl_setopt($ch, CURLOPT_AUTOREFERER, TRUE);
@@ -217,26 +218,53 @@ class AlbumPhoto extends HActiveRecord
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
 
         $file = curl_exec($ch);
+        $httpStatus = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
 
+        if ($httpStatus !== 200)
+            return false;
+
         if (empty($file))
-            return null;
+            return false;
+
+        //define file extension if it is not set
+        if (empty($ext)){
+            $dir = Yii::getPathOfAlias('site.common.uploads.photos.temp');
+            $file_name = md5($url . time());
+            file_put_contents($dir . DIRECTORY_SEPARATOR . $file_name, $file);
+
+            $finfo = finfo_open(FILEINFO_MIME_TYPE);
+            $mimetype = finfo_file($finfo, $dir . DIRECTORY_SEPARATOR . $file_name);
+            finfo_close($finfo);
+
+            if($mimetype == 'image/jpeg')
+                $ext = 'jpeg';
+            elseif ($mimetype == 'image/gif')
+                $ext = 'gif';
+            elseif ($mimetype == 'image/png')
+                $ext = 'png';
+            elseif ($mimetype == 'image/tiff')
+                $ext = 'tiff';
+        }
 
         $model = new AlbumPhoto();
         $model->author_id = $user_id;
 
+        //prepare directory
         $dir = Yii::getPathOfAlias('site.common.uploads.photos');
         $model_dir = $dir . DIRECTORY_SEPARATOR . $model->original_folder . DIRECTORY_SEPARATOR . $model->author_id;
         if (!file_exists($model_dir))
             mkdir($model_dir);
 
-        $file_name = md5($file_name . time());
+        //save file
+        $file_name = md5(time());
         while (file_exists($model_dir . DIRECTORY_SEPARATOR . $file_name . '.' . $ext))
             $file_name = md5($file_name . time());
         file_put_contents($model_dir . DIRECTORY_SEPARATOR . $file_name . '.' . $ext, $file);
 
         if (!in_array($ext, array('jpg', 'jpeg', 'png', 'gif', 'JPG', 'JPEG', 'PNG', 'GIF')))
             return false;
+
         $model->album_id = Album::getAlbumByType($user_id, $album_type)->id;
         $model->fs_name = $file_name. '.' . $ext;
         $model->file_name = $file_name. '.' . $ext;
@@ -305,7 +333,7 @@ class AlbumPhoto extends HActiveRecord
      *
      * @return string
      */
-    public function getPreviewPath($width = 100, $height = 100, $master = false, $crop = false, $crop_side = self::CROP_SIDE_CENTER)
+    public function getPreviewPath($width = 100, $height = 100, $master = false, $crop = false, $crop_side = self::CROP_SIDE_CENTER, $force_replace = false)
     {
         // Uload root
         $dir = Yii::getPathOfAlias('site.common.uploads.photos');
@@ -317,7 +345,7 @@ class AlbumPhoto extends HActiveRecord
         $model_dir = $thumb_path . DIRECTORY_SEPARATOR . $this->author_id;
         // Image file system path
         $thumb = $model_dir . DIRECTORY_SEPARATOR . $this->fs_name;
-        if (!file_exists($thumb)) {
+        if (!file_exists($thumb) || $force_replace) {
             if (!file_exists($thumb_path)) {
                 mkdir($thumb_path);
                 $handle = fopen($thumb_path . DIRECTORY_SEPARATOR . 'index.html', 'x+');

@@ -447,4 +447,10 @@ class SiteController extends HController
 
         //SocialPosting::sendPost(null);
     }
+
+    public function actionFixPhoto($id)
+    {
+        $photo = AlbumPhoto::model()->findByPk($id);
+        $photo->getPreviewPath(210, null, Image::WIDTH, false, AlbumPhoto::CROP_SIDE_CENTER, true);
+    }
 }

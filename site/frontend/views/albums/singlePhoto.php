@@ -18,7 +18,12 @@
         <div class="clearfix">
 
             <div class="count">
-                <?php if (get_class($model) != 'Contest'): ?><?=$currentIndex?> фото из <?=count($collection['photos'])?> <?php endif; ?><a href="javascript:void(0)" class="btn btn-green-smedium" data-id="<?=$photo->id?>"><span><span><?=(get_class($model) == 'Contest') ? 'Смотреть всех участников' : 'Смотреть весь альбом'?></span></span></a>
+                <?php if (get_class($model) == 'CookDecorationCategory'): ?>
+                    <?=($model->getIndex($photo->id) + 1)?> фото из <?=$model->getPhotoCollectionCount()?>
+                <?php elseif (get_class($model) != 'Contest'): ?>
+                    <?=$currentIndex?> фото из <?=count($collection['photos'])?>
+                <?php endif; ?>
+                <a href="javascript:void(0)" class="btn btn-green-smedium" data-id="<?=$photo->id?>"><span><span><?=(get_class($model) == 'Contest') ? 'Смотреть всех участников' : 'Смотреть весь альбом'?></span></span></a>
             </div>
 
             <div class="album-title">
@@ -43,6 +48,20 @@
                 'sendButton' => false,
                 'location' => false
             )); ?>
+
+            <?php if (get_class($model) == 'Contest' && Yii::app()->user->checkAccess('removeContestWork')): ?>
+                <?php
+                    $this->widget('site.frontend.widgets.removeWidget.RemoveWidget', array(
+                        'model' => $photo->getAttachByEntity('ContestWork')->model,
+                        'callback' => 'ContestWorkDelete',
+                    ));
+
+                     Yii::app()->clientScript->registerScript('removeContestWork', 'function ContestWorkDelete() {
+                        window.location.href = "' . $model->url . '"
+                     }',
+                     CClientScript::POS_HEAD);
+                ?>
+            <?php endif; ?>
 
         </div>
 

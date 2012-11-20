@@ -11,7 +11,6 @@ class HHtml extends CHtml
             Yii::app()->controller->renderDynamic(array('HHtml', 'renderLink'), $text, $url, $htmlOptions, $seoHide)
             :
             HHtml::renderLink($text, $url, $htmlOptions, $seoHide);
-        ;
     }
 
     public static function renderLink($text, $url='#', $htmlOptions=array(), $seoHide = false)

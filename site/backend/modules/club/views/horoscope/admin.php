@@ -14,7 +14,7 @@
         ),
         array(
             'name' => 'year',
-            'filter' => HDate::Range(2012, date('Y'))
+            'filter' => HDate::Range(2012, date('Y')+3)
         ),
         array(
             'name' => 'month',

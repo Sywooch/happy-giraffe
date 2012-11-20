@@ -3,19 +3,27 @@ class DecorController extends HController
 {
     public function actionIndex($id = false)
     {
-        $perPage = 9;
+//        $model = new CookDecorationCategory;
+//        var_dump(method_exists($model, 'getPhotoCollectionCount'));
+//        die;
+
+
         $category = ($id) ? CookDecorationCategory::model()->findByPk($id) : null;
         $this->pageTitle = ($id) ? 'Оформление блюд: ' . $category->title : 'Оформление блюд';
-        $dataProvider = CookDecoration::model()->indexDataProvider($id, $perPage);
+        $dataProvider = CookDecoration::model()->indexDataProvider($id);
 
-        if (Yii::app()->request->isAjaxRequest) {
-            $result = array(
-                'html' => $this->renderPartial('index', compact('id', 'category', 'dataProvider'), true)
+        if ($id !== false)
+            $this->breadcrumbs = array(
+                'Кулинария' => array('/cook/default/index'),
+                'Украшения блюд' => array('/cook/decor/index'),
+                $category->title,
             );
-            echo CJSON::encode($result);
-        } else {
-            $this->render('index', compact('id', 'category', 'dataProvider'));
-        }
+        else
+            $this->breadcrumbs = array(
+                'Кулинария' => array('/cook/default/index'),
+                'Украшения блюд',
+            );
 
+        $this->render('index', compact('id', 'category', 'dataProvider'));
     }
 }

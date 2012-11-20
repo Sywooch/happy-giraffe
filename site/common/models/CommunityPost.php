@@ -20,6 +20,13 @@
  */
 class CommunityPost extends HActiveRecord
 {
+    public static $genres = array(
+        'lenta' => 'lenta (короткое новостное сообщение, 50-80 символов)',
+        'message' => 'message (более развёрнутое новостное сообщение)',
+        'article' => 'article (статья)',
+        'interview' => 'interview (интервью)',
+    );
+
     /**
      * Returns the static model of the specified AR class.
      * @return CommunityPost the static model class
@@ -50,6 +57,10 @@ class CommunityPost extends HActiveRecord
                     'AutoFormat.Linkify' => true,
                 ),
             ),
+            'externalImages' => array(
+                'class' => 'site.common.behaviors.ExternalImagesBehavior',
+                'attributes' => array('text'),
+            ),
         );
     }
 
@@ -76,6 +87,8 @@ class CommunityPost extends HActiveRecord
             array('content_id, photo_id', 'numerical', 'integerOnly' => true),
             array('content_id', 'exist', 'attributeName' => 'id', 'className' => 'CommunityContent'),
             array('source_type', 'in', 'range' => array('me', 'internet', 'book')),
+            array('genre', 'in', 'range' => array_keys(self::$genres)),
+            array('genre', 'default', 'value' => null),
 
             //array('text', 'filter', 'filter' => array('Filters', 'add_nofollow')),
 
@@ -166,7 +179,8 @@ class CommunityPost extends HActiveRecord
         if ($this->isNewRecord)
             $this->searchImage(Yii::app()->user->id);
         else {
-            $this->searchImage($this->content->author_id);
+            if (isset($this->content->author_id))
+                $this->searchImage($this->content->author_id);
         }
 
         $this->text = str_replace('<hr class="gallery" />', '<!--gallery-->', $this->text);
@@ -174,21 +188,12 @@ class CommunityPost extends HActiveRecord
         return parent::beforeSave();
     }
 
-    /**
-     * @return AlbumPhoto
-     */
-    public function getPhoto()
-    {
-        if (empty($this->photo_id)) {
-            $this->update(array('photo_id'));
-        }
-
+    public function getPhoto(){
         return $this->photo;
     }
 
     public function searchImage($author_id)
     {
-        echo 'search_image';
         if (preg_match('/http:\/\/img.happy-giraffe.ru\/thumbs\/[\d]+x[\d]+\/[\d]+\/([^\"]+)/', $this->text, $m)) {
             $photo = AlbumPhoto::model()->findByAttributes(array('fs_name' => $m[1]));
             if (isset($photo)) {
@@ -213,7 +218,8 @@ class CommunityPost extends HActiveRecord
 
                 if ($image !== false) {
                     $photo = AlbumPhoto::createByUrl($image, $author_id, 6);
-                    $this->photo_id = $photo->id;
+                    if ($photo)
+                        $this->photo_id = $photo->id;
                 }
             }
     }

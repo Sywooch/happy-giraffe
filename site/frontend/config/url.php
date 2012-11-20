@@ -4,7 +4,7 @@ return array(
     'urlFormat' => 'path',
     'showScriptName' => false,
     'urlSuffix' => '/',
-    'useStrictParsing' => true,
+    //'useStrictParsing' => true,
     'rules' => array(
        /*************************
         *      CONTROLLERS      *
@@ -26,8 +26,8 @@ return array(
         '/' => 'site/index',
         'js_dynamics/<hash:\w+>.js' => 'site/seoHide',
         'search' => 'site/search',
-        'site/<_a:(confirmEmail|resendConfirmEmail|passwordRecovery|passwordRecoveryForm|login|logout|link|test2|users)>' => 'site/<_a>',
-        'contest' => 'site/contest',
+        'site/<_a:(confirmEmail|resendConfirmEmail|passwordRecovery|passwordRecoveryForm|login|logout|link|test2|users|fixPhoto)>' => 'site/<_a>',
+        //'contest' => 'site/contest',
         'services/<category_id:\d+>' => 'site/services',
         'services' =>  'site/services',
 
@@ -46,6 +46,8 @@ return array(
         'rss/page<page:\d+>' => 'rss/index',
         'rss/social/' => 'rss/social',
         'rss/social/page<page:\d+>' => 'rss/social',
+        'news/rss/<for:\w+>' => 'rss/news',
+        'news/rss' => 'rss/news',
 
         // morning controller
         'morning/<id:\d+>' => 'morning/view',
@@ -112,6 +114,8 @@ return array(
         '<_c:(settings|activity|profile|rss|family|morning|community)>' => '<_c>/index',
 
         //others
+        'news/about' => 'community/contacts',
+        'news/about/authors' => 'community/authors',
         array('class' => 'site.frontend.extensions.sitemapgenerator.SGUrlRule', 'route' => '/sitemap'),
 
         /*************************
@@ -127,7 +131,7 @@ return array(
         'contest/work<id:\d+>' => 'contest/default/work',
         'contest/<_a>/<id:\d+>' => 'contest/default/<_a>',
 
-        '<_m:(geo|im|signal|scores|cook)>/' => '<_m>/default/index',
+        '<_m:(geo|im|signal|scores|cook|contest)>/' => '<_m>/default/index',
         '<_m:(geo|im|signal)>/<_a>' => '<_m>/default/<_a>',
         'commentator'=>'signal/commentator/index',
         'commentator/statistic'=>'signal/commentator/statistic',
@@ -187,13 +191,20 @@ return array(
 
         'childrenDiseases/<id:[\w-+\s]+>' => 'services/childrenDiseases/default/view',
 
-        'horoscope/compatibility/validate' => 'services/horoscope/default/validate',
-        'horoscope/compatibility/<zodiac1:[\w]+>/<zodiac2:[\w]+>' => 'services/horoscope/default/compatibility',
-        'horoscope/compatibility/<zodiac1:[\w]+>' => 'services/horoscope/default/compatibility',
-        'horoscope/compatibility' => 'services/horoscope/default/compatibility',
-        'horoscope/<_a:(year|month|today|tomorrow|yesterday)>/<zodiac:[\w]+>' => 'services/horoscope/default/<_a>',
-        'horoscope/<zodiac:[\w]+>/<date:[\d\d\d\d-\d\d-\d\d]*>' => 'services/horoscope/default/view',
-        'horoscope/<zodiac:[\w]+>' => 'services/horoscope/default/view',
+        //horoscope compatibility
+        'horoscope/compatibility/validate' => 'services/horoscope/compatibility/validate',
+        'horoscope/compatibility/<zodiac1:[\w]+>/<zodiac2:[\w]+>' => 'services/horoscope/compatibility/index',
+        'horoscope/compatibility/<zodiac1:[\w]+>' => 'services/horoscope/compatibility/index',
+        'horoscope/compatibility' => 'services/horoscope/compatibility/index',
+
+        //horoscope
+        'horoscope/likes/<zodiac:[\d]+>/<date:\d\d\d\d-\d\d-\d\d>' => 'services/horoscope/default/likes',
+        'horoscope/month/<zodiac:[\w]+>/<month:\d\d\d\d-\d\d>' => 'services/horoscope/default/month',
+        'horoscope/year/<zodiac:[\w]+>/<year:\d\d\d\d>' => 'services/horoscope/default/year',
+        'horoscope/<zodiac:[\w]+>/<date:\d\d\d\d-\d\d-\d\d>' => 'services/horoscope/default/date',
+        'horoscope/<_a:(year|month|tomorrow|yesterday)>/<zodiac:[\w]+>' => 'services/horoscope/default/<_a>',
+        'horoscope/<_a:(year|month|tomorrow)>' => 'services/horoscope/default/<_a>',
+        'horoscope/<zodiac:[\w]+>' => 'services/horoscope/default/today',
 
         'names/<_a:(saintCalc|likes|like|top10|saint)>' => 'services/names/default/<_a>',
         'names/<name:[\w]+>' => 'services/names/default/name/',
@@ -215,5 +226,6 @@ return array(
         '<_m:(menstrualCycle|placentaThickness|pregnancyWeight|birthDate)>/<_a:(calculate)>' => 'services/<_m>/default/<_a>',
 
         'services/<_m:(dailyCalories|weightLoss|idealWeight|bodyFat)>/default/<_c>' => 'services/<_m>/default/<_c>',
+        'services/lines/<id:[\d]+>.jpeg' => 'services/lines/default/index',
     ),
 );

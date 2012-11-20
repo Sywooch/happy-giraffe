@@ -77,7 +77,9 @@ class Comment extends HActiveRecord
             'response' => array(self::BELONGS_TO, 'Comment', 'response_id'),
             'quote' => array(self::BELONGS_TO, 'Comment', 'quote_id'),
             'remove' => array(self::HAS_ONE, 'Removed', 'entity_id', 'condition' => '`remove`.`entity` = :entity', 'params' => array(':entity' => get_class($this))),
-            'photoAttaches' => array(self::HAS_MANY, 'AttachPhoto', 'entity_id', 'condition' => '`photoAttaches`.`entity` = :entity', 'params' => array(':entity' => get_class($this))),
+
+            'photoAttaches' => array(self::HAS_MANY, 'AttachPhoto', 'entity_id', 'condition' => 'entity = :entity', 'params' => array(':entity' => get_class($this))),
+            //'photoAttaches' => array(self::HAS_MANY, 'AttachPhoto', 'entity_id', 'condition' => '`photoAttaches`.`entity` = :entity', 'params' => array(':entity' => get_class($this))),
             'photoAttach' => array(self::HAS_ONE, 'AttachPhoto', 'entity_id', 'condition' => 'entity = :entity', 'params' => array(':entity' => get_class($this))),
         );
     }
@@ -143,18 +145,22 @@ class Comment extends HActiveRecord
                     'AutoFormat.Linkify' => true,
                 ),
             ),
+            'externalImages' => array(
+                'class' => 'site.common.behaviors.ExternalImagesBehavior',
+                'attributes' => array('text'),
+            ),
         );
     }
 
     public function get($entity, $entity_id, $type)
     {
-        return new CActiveDataProvider($this, array(
+        return new CActiveDataProvider('Comment', array(
             'criteria' => array(
                 'condition' => 't.entity=:entity AND t.entity_id=:entity_id',
                 'params' => array(':entity' => $entity, ':entity_id' => $entity_id),
                 'with' => array(
                     'author' => array(
-                        'select' => 'id, gender, first_name, last_name, online, avatar_id',
+                        'select' => 'id, gender, first_name, last_name, online, avatar_id, deleted',
                         'with' => 'avatar',
                     ),
                     'response' => array(
@@ -162,7 +168,7 @@ class Comment extends HActiveRecord
                         'with' => array(
                             'author' => array(
                                 'alias' => 'responseAuthor',
-                                'select' => 'id, gender, first_name, last_name, online, avatar_id',
+                                'select' => 'id, gender, first_name, last_name, online, avatar_id, deleted',
                                 'with' => array(
                                     'avatar' => array(
                                         'alias' => 'responseAuthorAvatar'
@@ -171,7 +177,7 @@ class Comment extends HActiveRecord
                             ),
                         ),
                     ),
-                    'photoAttaches'
+//                    'photoAttaches'
                 ),
                 'order' => ($type != 'guestBook') ? 't.created ASC' : 't.created DESC',
             ),

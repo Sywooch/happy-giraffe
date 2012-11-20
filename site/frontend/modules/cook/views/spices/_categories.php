@@ -20,3 +20,7 @@ $active = (!isset($_GET['id'])) ? 'active' : '';
     ?>
 
 </ul>
+
+<div class="banner-box">
+    <?php $this->renderPartial('//_banner'); ?>
+</div>

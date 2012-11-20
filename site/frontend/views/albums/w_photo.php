@@ -20,7 +20,23 @@
         $more = null;
     }
 
-    if (get_class($model) != 'Contest') {
+    if (get_class($model) == 'Contest') {
+        $collection = $model->getPhotoCollection($photo->getAttachByEntity('ContestWork')->model->id);
+        $title = $collection['title'];
+        $photos = $preload = $collection['photos'];
+        $count = $collection['count'];
+        $currentIndex = $collection['currentIndex'];
+        foreach ($photos as $p) {
+            if ($p->id == $photo->id)
+                $photo = $p;
+        }
+    } elseif (get_class($model) == 'CookDecorationCategory') {
+        $collection = $model->getPhotoCollection($photo->id);
+        $title = $collection['title'];
+        $photos = $preload = $collection['photos'];
+        $count = $model->getPhotoCollectionCount();
+        $currentIndex = $model->getIndex($photo->id);
+    } else {
         $collection = $model->photoCollection;
 
         $title = $collection['title'];
@@ -45,16 +61,6 @@
             $currentPrev = ($currentPrev == 0) ? ($count - 1) : ($currentPrev - 1);
             $preload[$currentNext] = $photos[$currentNext];
             $preload[$currentPrev] = $photos[$currentPrev];
-        }
-    } else {
-        $collection = $model->getPhotoCollection($photo->getAttachByEntity('ContestWork')->model->id);
-        $title = $collection['title'];
-        $photos = $preload = $collection['photos'];
-        $count = $collection['count'];
-        $currentIndex = $collection['currentIndex'];
-        foreach ($photos as $p) {
-            if ($p->id == $photo->id)
-                $photo = $p;
         }
     }
 ?>
@@ -87,7 +93,7 @@
             <?php ob_start(); ?>
             <?php foreach ($preload as $i => $p): ?>
                 pGallery.photos[<?php echo $p->id ?>] = {
-                    idx : <?=$i + 1?>,
+                    idx : <?=(($p->w_idx !== null) ? $p->w_idx : $i) + 1?>,
                     prev : <?=($i != 0) ? $photos[$i - 1]->id : 'null'?>,
                     next : <?=($i < count($preload) - 1) ? $photos[$i + 1]->id : 'null'?>,
                     src : '<?php echo $p->getPreviewUrl(960, 627, Image::HEIGHT, true); ?>',
@@ -112,7 +118,8 @@
                 data : {
                     entity : '<?=get_class($model)?>',
                     entity_id : '<?=($model->id !== null) ? $model->id : 'null'?>',
-                    sort : '<?=Yii::app()->request->getQuery('sort', 'created')?>'
+                    sort : '<?=Yii::app()->request->getQuery('sort', 'created')?>',
+                    photo_id: '<?=$photo->id?>'
                 },
                 dataType : 'script'
             });

@@ -437,7 +437,7 @@ class CommunityContent extends HActiveRecord
                     'status',
                     'commentsCount',
                     'contentAuthor' => array(
-                        'select' => 'id, gender, first_name, last_name, online, avatar_id',
+                        'select' => 'id, gender, first_name, last_name, online, avatar_id, deleted',
                     ),
                 ),
             ),
@@ -586,24 +586,15 @@ class CommunityContent extends HActiveRecord
 
     public function getContentImage($width = 700)
     {
-        if ($this->type->slug == 'video') {
-            $video = new Video($this->video->link);
-            return $video->preview;
-        } else {
-            if (!isset($this->content))
-                return '';
+        if (!isset($this->content))
+            return '';
 
-            $photo = $this->content->getPhoto();
-            return $photo ? $photo->getPreviewUrl($width, null, Image::WIDTH) : false;
-        }
+        $photo = $this->content->getPhoto();
+        return $photo ? $photo->getPreviewUrl($width, null, Image::WIDTH) : false;
     }
 
     public function getContentText($length = 128)
     {
-//        if (!isset($this->content->text)){
-//            echo $this->id;
-//            Yii::app()->end();
-//        }
         return Str::truncate(strip_tags($this->content->text), $length);
     }
 

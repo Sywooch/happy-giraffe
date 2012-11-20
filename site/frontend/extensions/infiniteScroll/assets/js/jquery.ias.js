@@ -151,10 +151,15 @@
         function paginate(curScrOffset, onCompleteHandler)
         {
             urlNextPage = $(opts.next).attr("href");
-            if (!urlNextPage) return stop_scroll();
+            if (!urlNextPage) {
+                if (opts.noneleft) {
+                    $(opts.container).find(opts.item).last().after(opts.noneleft);
+                }
+                return stop_scroll();
+            }
 
             if (opts.beforePageChange && $.isFunction(opts.beforePageChange)) {
-              if (opts.beforePageChange(curScrOffset, urlNextPage) === false) return;
+                if (opts.beforePageChange(curScrOffset, urlNextPage) === false) return;
             }
 
             paging.pushPages(curScrOffset, urlNextPage);
@@ -310,10 +315,11 @@
     // plugin defaults
     $.ias.defaults = {
         container: '#container',
-        scrollContainer: $('#notificationsList ul.items'),
+        scrollContainer: $(window),
         item: '.item',
         pagination: '#pagination',
         next: '.next',
+        noneleft: false,
         loader: '<img src="images/loader.gif"/>',
         tresholdMargin: 0,
         history : true,

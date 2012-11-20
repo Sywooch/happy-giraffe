@@ -53,7 +53,7 @@ class CommunityController extends HController
             'Интересы и увлечения' => array('css' => 'hobbies', 'count' => 4),
             'Отдых' => array('css' => 'rest', 'count' => 4),
         );
-        $communities = Community::model()->public()->findAll();
+        $communities = Community::model()->public()->sorted()->findAll();
 
         $this->render('index', array(
             'communities' => $communities,
@@ -848,5 +848,21 @@ class CommunityController extends HController
         $community->id = $community_id;
 
         $this->renderPartial('_recent', compact('community'));
+    }
+
+    public function actionContacts()
+    {
+        $this->community = Community::model()->findByPk(Community::COMMUNITY_NEWS);
+        $this->pageTitle = 'О нас';
+        $this->layout = '//layouts/news';
+        $this->render('contacts');
+    }
+
+    public function actionAuthors()
+    {
+        $this->community = Community::model()->findByPk(Community::COMMUNITY_NEWS);
+        $this->pageTitle = 'Авторы';
+        $this->layout = '//layouts/news';
+        $this->render('authors');
     }
 }

@@ -3,7 +3,7 @@
      * Author: choo
      * Date: 20.07.2012
      */
-    $collection = $model->photoCollection;
+    $collection = $model->getPhotoCollection($photo_id);
     $photos = $collection['photos'];
     $count = count($photos);
 ?>

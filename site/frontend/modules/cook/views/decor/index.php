@@ -1,14 +1,32 @@
 <?php
-$categories = CookDecorationCategory::model()->findAll();
+    $categories = CookDecorationCategory::model()->findAll();
 
-$entity_id = ($id) ? $category->id : null;
-$this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
-    'selector' => '.img > a',
-    'entity' => 'CookDecorationCategory',
-    'entity_id' => $entity_id,
-));
+    $entity_id = ($id) ? $category->id : null;
+    $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
+        'selector' => '.img > a',
+        'entity' => 'CookDecorationCategory',
+        'entity_id' => $entity_id,
+    ));
 
-Yii::app()->clientScript->registerScript('photo_gallery_entity_id', 'var photo_gallery_entity_id = "' . $entity_id . '";');
+    $js = '
+        var $container = $(\'#decorlv .items\');
+
+        $container.imagesLoaded( function(){
+            $container.masonry({
+                itemSelector : \'li\',
+                columnWidth: 240,
+                saveOptions: true,
+                singleMode: false,
+                resizeable: true
+            });
+        });
+    ';
+
+    Yii::app()->clientScript
+        ->registerScript('photo_gallery_entity_id', 'var photo_gallery_entity_id = "' . $entity_id . '";')
+        ->registerScript('cook_decor_list', $js)
+        ->registerScriptFile('/javascripts/jquery.masonry.min.js')
+    ;
 
 ?>
 
@@ -56,16 +74,18 @@ Yii::app()->clientScript->registerScript('photo_gallery_entity_id', 'var photo_g
 
             <?php if (!Yii::app()->user->isGuest) { ?>
             <div class="add-photo">
-                Нашли интересное оформление или<br/>хотите похвастаться своим творением?<br/>
                 <?php
-                $fileAttach = $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
-                    'model' => new CookDecoration(),
-                    'first_button_class' => 'btn-green',
-                    'first_button_title' => 'Добавьте фото',
-                ));
-                $fileAttach->button();
-                $this->endWidget();
+                    $fileAttach = $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
+                        'model' => new CookDecoration(),
+                        'customButton' => true,
+                        'customButtonHtmlOptions' => array('class' => 'btn-green btn-h55 fancy'),
+                    ));
                 ?>
+                    Добавить фото
+                <?php
+                    $this->endWidget();
+                ?>
+                <div class="dishes_add-photo_hint">Нашли интересное оформление или хотите похвастаться своим творением</div>
             </div>
             <?php } ?>
 
@@ -82,35 +102,40 @@ Yii::app()->clientScript->registerScript('photo_gallery_entity_id', 'var photo_g
             $this->widget('zii.widgets.CListView', array(
                 'id' => 'decorlv',
                 'dataProvider' => $dataProvider,
-                'ajaxUpdate' => false,
                 'itemView' => '_decoration',
-                'emptyText' => 'В этой рубрике еще нет фотографий',
-                'summaryText' => '',
-                'template' => '{items}',
-                'enablePagination' => false,
-                'itemsTagName' => 'ul'
-
+                'itemsTagName' => 'ul',
+                'template' => "{items}\n{pager}",
+                'pager' => array(
+                    'header' => '',
+                    'class' => 'ext.infiniteScroll.IasPager',
+                    'rowSelector' => 'li',
+                    'listViewId' => 'decorlv',
+                    'options' => array(
+                        'scrollContainer' => new CJavaScriptExpression("$('.layout-container')"),
+                        'onLoadItems' => new CJavaScriptExpression("function(items) {
+                            $(items).hide();
+                            $('#decorlv .items').append(items).imagesLoaded(function() {
+                                 $('#decorlv .items').masonry('appended', $(items));
+                                 " . $this->pGallery . "
+                                 $(items).fadeIn();
+                            });
+                            return false;
+                        }"),
+                    ),
+                ),
             ));
             ?>
 
 
         </div>
 
-        <?php
-        $this->widget('PhotosAjaxMasonry', array(
-                'dataProvider' => $dataProvider,
-
-                'gallerySelector' => '.img > a',
-                'galleryEntity' => 'CookDecorationCategory',
-                'galleryEntity_id' => $entity_id,
-
-                'masonryContainerSelector' => '#decorlv ul.items',
-                'masonryItemSelector' => 'li',
-                'masonryColumnWidth' => 240
-            )
-        );
-        ?>
-
     </div>
 
 </div>
+
+
+
+
+
+
+

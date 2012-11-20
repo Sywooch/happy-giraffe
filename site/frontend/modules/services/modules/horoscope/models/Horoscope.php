@@ -96,7 +96,7 @@ class Horoscope extends HActiveRecord
         return array(
             array('zodiac', 'required'),
             array('zodiac, year, month', 'numerical', 'integerOnly' => true),
-            array('text', 'default', 'value'=>''),
+            array('text', 'default', 'value' => ''),
             array('good_days, bad_days', 'length', 'max' => 1024),
             array('date, health, career, finance, personal, type', 'safe'),
             // The following rule is used by search().
@@ -190,24 +190,24 @@ class Horoscope extends HActiveRecord
     {
         if ($this->type == 1) {
             $exist = Horoscope::model()->findByAttributes(array(
-                'date'=>$this->date,
-                'zodiac'=>$this->zodiac,
+                'date' => $this->date,
+                'zodiac' => $this->zodiac,
             ));
             if ($exist)
                 $this->addError('date', 'Гороскоп на эту дату уже есть');
         } elseif ($this->type == 2) {
             $exist = Horoscope::model()->findByAttributes(array(
-                'year'=>$this->year,
-                'month'=>$this->month,
-                'zodiac'=>$this->zodiac,
+                'year' => $this->year,
+                'month' => $this->month,
+                'zodiac' => $this->zodiac,
             ));
             if ($exist)
                 $this->addError('month', 'Гороскоп на этот месяц уже есть');
         } elseif ($this->type == 3) {
             $exist = Horoscope::model()->findByAttributes(array(
-                'year'=>$this->year,
-                'month'=>null,
-                'zodiac'=>$this->zodiac,
+                'year' => $this->year,
+                'month' => null,
+                'zodiac' => $this->zodiac,
             ));
             if ($exist)
                 $this->addError('year', 'Гороскоп на этот год уже есть');
@@ -326,7 +326,7 @@ class Horoscope extends HActiveRecord
             return 'year';
         if ($this->onMonth())
             return 'month';
-        if (!empty($this->date)){
+        if (!empty($this->date)) {
             if ($this->date == date("Y-m-d"))
                 return 'today';
             if ($this->date == date("Y-m-d", strtotime('+1 day')))
@@ -449,7 +449,8 @@ class Horoscope extends HActiveRecord
         return '#';
     }
 
-    public function getUrl($absolute = false){
+    public function getUrl($absolute = false)
+    {
         $method = $absolute ? 'createAbsoluteUrl' : 'createUrl';
 
         if (!empty($this->date))
@@ -458,10 +459,15 @@ class Horoscope extends HActiveRecord
                 'date' => $this->date
             ));
         if (!empty($this->year) && empty($this->month))
-            return Yii::app()->$method('/services/horoscope/default/year', array(
-                'zodiac' => $this->getZodiacSlug(),
-                'year' => $this->year
-            ));
+            if ($this->year == 2012)
+                return Yii::app()->$method('/services/horoscope/default/year', array(
+                    'zodiac' => $this->getZodiacSlug()
+                ));
+            else
+                return Yii::app()->$method('/services/horoscope/default/year', array(
+                    'zodiac' => $this->getZodiacSlug(),
+                    'year' => $this->year
+                ));
         if (!empty($this->year) && !empty($this->month))
             return Yii::app()->$method('/services/horoscope/default/month', array(
                 'zodiac' => $this->getZodiacSlug(),
@@ -473,7 +479,7 @@ class Horoscope extends HActiveRecord
 
     public function getName()
     {
-        if (!empty($this->date)){
+        if (!empty($this->date)) {
             if (Yii::app()->controller->action->id == 'today')
                 return 'сегодня';
             if (Yii::app()->controller->action->id == 'yesterday')
@@ -481,22 +487,24 @@ class Horoscope extends HActiveRecord
             if (Yii::app()->controller->action->id == 'tomorrow')
                 return 'завтра';
 
-            return Yii::app()->dateFormatter->format('d MMMM yyyy', strtotime($this->date)).' года';
+            return Yii::app()->dateFormatter->format('d MMMM yyyy', strtotime($this->date)) . ' года';
         }
         if ($this->onMonth())
-            return $this->isCurrentMonth()?'месяц':mb_strtolower(HDate::ruMonth($this->month), 'utf8').' '.$this->year.' года';
+            return $this->isCurrentMonth() ? 'месяц' : mb_strtolower(HDate::ruMonth($this->month), 'utf8') . ' ' . $this->year . ' года';
         if ($this->onYear())
-            return $this->isCurrentYear()?'год':$this->year.' год';
+            return $this->year . ' год';
 
         return '';
     }
 
-    public function getTitle(){
+    public function getTitle()
+    {
         if ($this->onYear())
-            return 'Гороскоп ' . $this->zodiacText() . ' на ' . $this->year . ' год';;
+            return 'Гороскоп ' . $this->zodiacText() . ' на ' . $this->year . ' год';
+        ;
         if ($this->onMonth())
             return 'Гороскоп ' . $this->zodiacText() . ' на ' . HDate::ruMonth($this->month) . ' ' . $this->year . ' года';
-        return 'Гороскоп ' .  $this->zodiacText() . ' на ' .
+        return 'Гороскоп ' . $this->zodiacText() . ' на ' .
             Yii::app()->dateFormatter->format('d MMMM yyyy', strtotime($this->date));
     }
 
@@ -654,10 +662,10 @@ class Horoscope extends HActiveRecord
     public function getRssContent()
     {
         if (empty($this->month) && !empty($this->year))
-            return '<p><span class="red">Здоровье.</span>'.$this->health
-                .'</p><p><span class="red">Карьера.</span>'.$this->career
-                .'</p><p><span class="red">Финансы.</span>'.$this->finance
-                .'</p><p><span class="red">Личная жизнь.</span>'.$this->personal.'</p>';
+            return '<p><span class="red">Здоровье.</span>' . $this->health
+                . '</p><p><span class="red">Карьера.</span>' . $this->career
+                . '</p><p><span class="red">Финансы.</span>' . $this->finance
+                . '</p><p><span class="red">Личная жизнь.</span>' . $this->personal . '</p>';
         else
             return $this->text;
     }

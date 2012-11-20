@@ -417,7 +417,7 @@ class SeoTask extends CActiveRecord
         $criteria->compare('owner_id', Yii::app()->user->id);
         $criteria->compare('status', SeoTask::STATUS_NEW);
         $criteria->compare('keyword_group_id', NULL);
-        $criteria->compare('section', $section);
+        //$criteria->compare('section', $section);
 
         return SeoTask::model()->findAll($criteria);
     }

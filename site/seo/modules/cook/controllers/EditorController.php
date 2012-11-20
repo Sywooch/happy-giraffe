@@ -72,7 +72,7 @@ class EditorController extends SController
     {
         $this->section = $section;
         TempKeyword::filterBusyKeywords();
-        $tempKeywords = TempKeyword::model()->findAll('owner_id=' . Yii::app()->user->id.' AND section = '.$section);
+        $tempKeywords = TempKeyword::model()->findAll('owner_id=' . Yii::app()->user->id.' AND section IN (2,3)');
 
         $by_name_tasks = SeoTask::getTasksByName($section);
         $tasks = SeoTask::getNewTasks($section);
@@ -208,10 +208,10 @@ class EditorController extends SController
         ));
     }
 
-    public function actionToNeedlework(){
+    public function actionChangeSection(){
         $task_id = Yii::app()->request->getPost('task_id');
         $task = $this->loadTask($task_id);
-        $task->section = 3;
+        $task->section = Yii::app()->request->getPost('section');;
         echo CJSON::encode(array('status' => $task->save()));
     }
 

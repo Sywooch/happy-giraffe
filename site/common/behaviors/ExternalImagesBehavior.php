@@ -20,7 +20,7 @@ class ExternalImagesBehavior extends CActiveRecordBehavior
 
             foreach (pq('img') as $e) {
                 $src = pq($e)->attr('src');
-                if (strpos($src, $_SERVER['HTTP_HOST']) === FALSE) {
+                if (strpos($src, Yii::app()->params['photos_url']) !== 0 && strpos($src, '/') !== 0) {
                     $photo = AlbumPhoto::createByUrl($src, Yii::app()->user->id, 2);
                     if ($photo !== false) {
                         $newSrc = $photo->getPreviewUrl(700, 700, Image::WIDTH);

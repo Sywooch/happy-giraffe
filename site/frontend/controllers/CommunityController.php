@@ -9,13 +9,18 @@ class CommunityController extends HController
     public $rubric_id;
     public $content_type_slug;
 
+    public function init()
+    {
+
+    }
+
     public function filters()
     {
         return array(
             'accessControl',
             array(
-                'CHttpCacheFilter + index',
-               // 'lastModified' => Yii::app()->db->createCommand("SELECT MAX(`update_time`) FROM {{post}}")->queryScalar(),
+                'CHttpCacheFilter + view',
+                'lastModified' => $this->lastModified(),
             ),
         );
     }
@@ -862,5 +867,33 @@ class CommunityController extends HController
         $this->pageTitle = 'Авторы';
         $this->layout = '//layouts/news';
         $this->render('authors');
+    }
+
+    protected function lastModified()
+    {
+        if (! Yii::app()->user->isGuest)
+            return null;
+
+        $content_id = Yii::app()->request->getQuery('content_id');
+        $community_id = Yii::app()->request->getQuery('community_id');
+
+        $sql = "SELECT
+                    GREATEST(
+                        COALESCE(MAX(c.created), '0000-00-00 00:00:00'),
+                        COALESCE(MAX(c.updated), '0000-00-00 00:00:00'),
+                        COALESCE(MAX(cm.created), '0000-00-00 00:00:00'),
+                        COALESCE(MAX(cm.updated), '0000-00-00 00:00:00')
+                    )
+                FROM community__contents c
+                JOIN community__rubrics r
+                ON c.rubric_id = r.id
+                LEFT OUTER JOIN comments cm
+                ON cm.entity = 'CommunityContent' AND cm.entity_id = :content_id
+                WHERE r.community_id = :community_id";
+
+        $command = Yii::app()->db->createCommand($sql);
+        $command->bindValue(':content_id', $content_id, PDO::PARAM_INT);
+        $command->bindValue(':community_id', $community_id, PDO::PARAM_INT);
+        return $command->queryScalar();
     }
 }

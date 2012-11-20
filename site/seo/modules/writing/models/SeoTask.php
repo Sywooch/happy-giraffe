@@ -417,17 +417,14 @@ class SeoTask extends CActiveRecord
         $criteria->compare('owner_id', Yii::app()->user->id);
         $criteria->compare('status', SeoTask::STATUS_NEW);
         $criteria->compare('keyword_group_id', NULL);
-        //$criteria->compare('section', $section);
+        $criteria->compare('section', $section);
 
         return SeoTask::model()->findAll($criteria);
     }
 
     public static function taskCount($section)
     {
-//        return TempKeyword::model()->count('owner_id=' . Yii::app()->user->id.' AND section='.$section)
-//            + SeoTask::model()->count('owner_id=' . Yii::app()->user->id . ' AND executor_id IS NULL AND section='.$section);
-
-        return TempKeyword::model()->count('owner_id=' . Yii::app()->user->id)
-            + SeoTask::model()->count('owner_id=' . Yii::app()->user->id . ' AND executor_id IS NULL');
+        return TempKeyword::model()->count('owner_id=' . Yii::app()->user->id.' AND section='.$section)
+            + SeoTask::model()->count('owner_id=' . Yii::app()->user->id . ' AND executor_id IS NULL AND section='.$section);
     }
 }

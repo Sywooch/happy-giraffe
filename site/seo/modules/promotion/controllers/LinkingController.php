@@ -147,9 +147,9 @@ class LinkingController extends SController
             $res = array();
             foreach ($pages as $page)
                 $res [] = $page->page;
-//            TimeLogger::model()->startTimer('pages found - filter');
+            TimeLogger::model()->startTimer('pages found - filter');
             $pages = $this->filterPages($phrase, $res);
-//            TimeLogger::model()->endTimer();
+            TimeLogger::model()->endTimer();
 
         } else {
             TimeLogger::model()->startTimer('pages not found - parsing');
@@ -167,11 +167,13 @@ class LinkingController extends SController
 
         if (empty($pages)) {
             //если яндекс не нашел статьи по запросу - выводим статьи из рубрики
+            TimeLogger::model()->startTimer('pages not found - search by rubric');
             $url = $phrase->page->getRubricUrl();
 
             $parser = new SimilarArticlesParser;
             $pages = $parser->getArticles($url);
             $pages = $this->filterPages($phrase, $pages);
+            TimeLogger::model()->endTimer();
         }
 
         if (count($pages) > 10)
@@ -213,15 +215,12 @@ class LinkingController extends SController
                 unset($pages[$key]);
 
         //удалим те с которых уже стоят ссылки на наш
-        TimeLogger::model()->startTimer('pages found - filter: check out links');
         foreach ($pages as $key => $page) {
             if (!empty($page->id) && InnerLink::model()->exists('page_id = ' . $page->id . ' and page_to_id=' . $phrase->page->id))
                 unset($pages[$key]);
         }
-        TimeLogger::model()->endTimer();
 
         //удалим те, с которых стоят ссылки на наш "Следующая", "Предыдущая"
-        TimeLogger::model()->startTimer('pages found - filter: check next previous');
         $article = $phrase->page->getArticle();
         if (!empty($article)){
             $post = $article->getPrevPost();
@@ -236,7 +235,6 @@ class LinkingController extends SController
                     if ($page->url == $post->getUrl(false, true))
                         unset($pages[$key]);
         }
-        TimeLogger::model()->endTimer();
 
         return $pages;
     }

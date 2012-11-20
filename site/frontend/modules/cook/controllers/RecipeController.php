@@ -470,6 +470,9 @@ class RecipeController extends HController
 
     protected function lastModified()
     {
+        if (! Yii::app()->user->isGuest)
+            return null;
+
         $recipe_id = Yii::app()->request->getQuery('id');
 
         $sql = "SELECT

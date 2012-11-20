@@ -256,6 +256,9 @@ class BlogController extends HController
 
     protected function lastModified()
     {
+        if (! Yii::app()->user->isGuest)
+            return null;
+
         $content_id = Yii::app()->request->getQuery('content_id');
         $community_id = Yii::app()->request->getQuery('community_id');
 

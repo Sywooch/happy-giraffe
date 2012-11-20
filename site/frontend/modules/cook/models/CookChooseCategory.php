@@ -117,4 +117,9 @@ class CookChooseCategory extends HActiveRecord
             return CHtml::image($this->photo->getPreviewUrl(70, 70));
         return '';
     }
+
+    public function getUrl()
+    {
+        return Yii::app()->controller->createUrl('/cook/choose/view', array('id' => $this->slug));
+    }
 }

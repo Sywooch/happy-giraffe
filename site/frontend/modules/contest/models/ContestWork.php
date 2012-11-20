@@ -49,6 +49,7 @@ class ContestWork extends HActiveRecord
 			array('contest_id, user_id, title', 'required'),
 			array('id, contest_id, user_id, rate', 'length', 'max'=>10),
             array('file', 'required', 'on' => 'upload', 'message' => 'Необходимо выбрать фотографию'),
+            array('removed', 'boolean'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, contest_id, user_id, title, created', 'safe', 'on'=>'search'),
@@ -65,7 +66,9 @@ class ContestWork extends HActiveRecord
 		return array(
 			'author' => array(self::BELONGS_TO, 'User', 'user_id'),
 			'contest' => array(self::BELONGS_TO, 'Contest', 'contest_id'),
-            'photoAttach' => array(self::HAS_ONE, 'AttachPhoto', 'entity_id', 'condition' => '`photoAttach`.`entity` = :entity', 'params' => array(':entity' => get_class($this)))
+            'photoAttach' => array(self::HAS_ONE, 'AttachPhoto', 'entity_id', 'condition' => '`photoAttach`.`entity` = :entity', 'params' => array(':entity' => get_class($this))),
+            'winner' => array(self::HAS_ONE, 'ContestWinner', 'work_id'),
+            'remove' => array(self::HAS_ONE, 'Removed', 'entity_id', 'condition' => '`remove`.`entity` = :entity', 'params' => array(':entity' => get_class($this))),
 		);
 	}
 
@@ -189,5 +192,29 @@ class ContestWork extends HActiveRecord
     public function getShareImage()
     {
         return $this->photoAttach->photo->getPreviewUrl(180, 180);
+    }
+
+    public function getAuthor_id()
+    {
+        return $this->user_id;
+    }
+
+    public function beforeDelete()
+    {
+        self::model()->updateByPk($this->id, array('removed' => 1));
+
+        if ($this->remove->type != 0)
+            UserNotification::model()->create(UserNotification::CONTEST_WORK_REMOVED, array('model' => $this));
+
+        return false;
+    }
+
+    public function defaultScope()
+    {
+        $alias = $this->getTableAlias(false, false);
+
+        return array(
+            'condition' => ($alias) ? $alias . '.removed = 0' : 'removed = 0',
+        );
     }
 }

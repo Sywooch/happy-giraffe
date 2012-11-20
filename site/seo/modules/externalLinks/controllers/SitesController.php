@@ -16,7 +16,7 @@ class SitesController extends ELController
         $criteria->with = array('site' => array(
             'select' => array('type')
         ));
-        $criteria->compare('site.type', ELSite::TYPE_SITE);
+        $criteria->condition = 'site.type = '. ELSite::TYPE_SITE.' OR link_cost IS NOT NULL';
         $count = ELLink::model()->count($dataProvider->criteria);
 
         $pages = new CPagination($count);

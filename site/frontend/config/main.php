@@ -44,12 +44,6 @@ return array(
 		'ext.CAdvancedArBehavior',
 		'ext.EGMap.*',
         'ext.YiiMongoDbSuite.*',
-		'application.modules.vaccineCalendar.models.*',
-	    'application.modules.hospitalBag.models.*',
-        'application.modules.placentaThickness.models.*',
-	    'application.modules.recipeBook.models.*',
-        'application.modules.names.models.*',
-        'application.modules.test.models.*',
         'application.modules.attribute.models.*',
         'application.modules.im.models.*',
         'application.modules.im.components.*',
@@ -221,7 +215,7 @@ return array(
 		),
 		'urlManager'=>require_once(dirname(__FILE__).'/url.php'),
 		'db' => array(
-            'schemaCachingDuration' => 180,
+            'schemaCachingDuration' => 3600,
             'tablePrefix'=> '',
         ),
         'db_seo' => array(
@@ -353,6 +347,7 @@ return array(
                 'login.js',
                 'auth.js',
                 'jquery.yiilistview.js',
+                'addtocopy.js',
             ),
             '/javascripts/all_user.js' => array(
                 'comet.js',
@@ -398,6 +393,7 @@ return array(
                             'application.modules.services.modules.menstrualCycle.controllers.DefaultController',
                             'application.modules.services.modules.babyBloodGroup.controllers.DefaultController',
                             'application.modules.services.modules.horoscope.controllers.DefaultController',
+                            'application.modules.services.modules.horoscope.controllers.CompatibilityController',
                         ),
                     ),
                 ),

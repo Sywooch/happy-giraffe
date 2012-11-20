@@ -12,9 +12,7 @@ class MostPopularWidget extends SimpleWidget
             'select' => array('community_id', 'user_id'),
         ), 'type' => array(
             'select' => array('slug')
-        ), 'post' => array(
-            'select' => array('text')
-        ),'video','travel');
+        ), 'post','video','travel');
         $criteria->select = array('t.id', 't.title', 't.type_id', 'rubric_id', 'author_id');
         $criteria->compare('t.id', Favourites::getIdListForView(Favourites::BLOCK_INTERESTING, 2));
 

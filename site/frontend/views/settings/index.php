@@ -135,7 +135,7 @@
 
                 <p>Свяжите свой профиль с вашими аккаунтами на других сайтах. <br/>Это позволит входить на сайт, используя любой из привязанных аккаунтов.</p>
 
-                <?php Yii::app()->eauth->renderWidget(array('mode' => 'profile', 'action' => 'site/login', 'predefinedServices' => array('odnoklassniki', 'twitter', 'facebook', 'vkontakte'))); ?>
+                <?php Yii::app()->eauth->renderWidget(array('mode' => 'profile', 'action' => 'site/login', 'predefinedServices' => array('odnoklassniki', 'mailru', 'facebook', 'vkontakte'))); ?>
 
             </div>
 

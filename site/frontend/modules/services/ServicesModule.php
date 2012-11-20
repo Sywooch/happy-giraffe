@@ -35,7 +35,8 @@ class ServicesModule extends CWebModule
             'idealWeight',
             'weightLoss',
             'bodyFat',
-            'birthDate'
+            'birthDate',
+            'lines'
         ));
     }
 

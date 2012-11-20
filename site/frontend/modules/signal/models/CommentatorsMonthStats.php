@@ -118,6 +118,44 @@ class CommentatorsMonthStats extends EMongoDocument
         $this->save();
     }
 
+    public function calculateCommentator($id)
+    {
+        $criteria = new EMongoCriteria;
+        $criteria->user_id('==', (int)$id);
+        $model = CommentatorWork::model()->find($criteria);
+        if ($model !== null) {
+            $new_friends = $model->newFriends($this->period);
+            $im_messages = $model->imMessages($this->period);
+            $blog_visits = $this->blogVisits($id);
+            $profile_view = $this->profileUniqueViews($id);
+            $se_visits = $this->getSeVisits($id);
+
+
+            if (isset($this->commentators[(int)$id])) {
+                $this->commentators[(int)$id][self::NEW_FRIENDS] = (int)$new_friends;
+                $this->commentators[(int)$id][self::IM_MESSAGES] = (int)$im_messages;
+                if ($se_visits !== null)
+                    $this->commentators[(int)$id][self::SE_VISITS] = (int)$se_visits;
+
+                if ($blog_visits !== null)
+                    $this->commentators[(int)$id][self::BLOG_VISITS] = (int)$blog_visits;
+                if ($profile_view !== null)
+                    $this->commentators[(int)$id][self::PROFILE_UNIQUE_VIEWS] = (int)$profile_view;
+            } else {
+
+                $result = array(
+                    self::NEW_FRIENDS => (int)$new_friends,
+                    self::BLOG_VISITS => (int)$blog_visits,
+                    self::PROFILE_UNIQUE_VIEWS => (int)$profile_view,
+                    self::IM_MESSAGES => (int)$im_messages,
+                    self::SE_VISITS => (int)$se_visits,
+                );
+                $this->commentators[(int)$id] = $result;
+            }
+            $this->save();
+        }
+    }
+
     /**
      * @param User $commentator
      * @return CommentatorWork
@@ -201,6 +239,7 @@ class CommentatorsMonthStats extends EMongoDocument
 
     public function profileUniqueViews($user_id)
     {
+        echo 'profile views: ';
         Yii::import('site.frontend.extensions.GoogleAnalytics');
         $ga = new GoogleAnalytics('alexk984@gmail.com', Yii::app()->params['gaPass']);
         $ga->setProfile('ga:53688414');
@@ -213,7 +252,7 @@ class CommentatorsMonthStats extends EMongoDocument
                 'filters' => urlencode('ga:pagePath==' . '/user/' . $user_id . '/'),
             ));
         } catch (Exception $err) {
-
+            echo $ga->response."\n";
             return null;
         }
 
@@ -222,11 +261,13 @@ class CommentatorsMonthStats extends EMongoDocument
         else
             $value = 0;
 
+        echo $value."\n";
         return $value;
     }
 
     public function blogVisits($user_id)
     {
+        echo 'blog visits: ';
         Yii::import('site.frontend.extensions.GoogleAnalytics');
         $ga = new GoogleAnalytics('alexk984@gmail.com', Yii::app()->params['gaPass']);
         $ga->setProfile('ga:53688414');
@@ -239,6 +280,7 @@ class CommentatorsMonthStats extends EMongoDocument
                 'filters' => urlencode('ga:pagePath=~' . '/user/' . $user_id . '/blog/*'),
             ));
         } catch (Exception $err) {
+            echo $ga->response."\n";
             return null;
         }
 
@@ -247,6 +289,7 @@ class CommentatorsMonthStats extends EMongoDocument
         else
             $value = 0;
 
+        echo $value."\n";
         return $value;
     }
 
@@ -275,10 +318,9 @@ class CommentatorsMonthStats extends EMongoDocument
     {
         Yii::import('site.frontend.extensions.GoogleAnalytics');
 
-        $period = date("Y-m");
         $ga = new GoogleAnalytics('alexk984@gmail.com', Yii::app()->params['gaPass']);
         $ga->setProfile('ga:53688414');
-        $ga->setDateRange($period . '-01', $period . '-' . $this->getLastPeriodDay($period));
+        $ga->setDateRange($this->period . '-01', $this->period . '-' . $this->getLastPeriodDay($this->period));
         sleep(1);
 
         try {
@@ -288,6 +330,7 @@ class CommentatorsMonthStats extends EMongoDocument
             ));
 
         } catch (Exception $err) {
+            var_dump($err->getMessage());
             return null;
         }
 

@@ -8,8 +8,9 @@
  * @property integer $active
  * @property string $text
  * @property integer $type
+ * @property integer $max_page
  */
-class MailruQuery extends HActiveRecord
+class MailruQuery extends CActiveRecord
 {
     const TYPE_FORUM = 0;
     const TYPE_THEME = 1;
@@ -48,7 +49,7 @@ class MailruQuery extends HActiveRecord
 		// will receive user inputs.
 		return array(
 			array('text', 'required'),
-			array('active, type', 'numerical', 'integerOnly'=>true),
+			array('active, type, max_page', 'numerical', 'integerOnly'=>true),
 			array('text', 'length', 'max'=>2048),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.

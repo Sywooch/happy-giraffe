@@ -63,6 +63,7 @@
 class User extends HActiveRecord
 {
     const HAPPY_GIRAFFE = 1;
+
     public $verifyCode;
     public $current_password;
     public $new_password;
@@ -168,7 +169,7 @@ class User extends HActiveRecord
             array('email', 'email', 'message' => 'E-mail не является правильным E-Mail адресом'),
             array('password, current_password, new_password, new_password_repeat', 'length', 'min' => 6, 'max' => 15, 'on' => 'signup, change_password', 'tooShort' => 'минимум 6 символов', 'tooLong' => 'максимум 15 символов'),
             array('online, relationship_status', 'numerical', 'integerOnly' => true),
-            array('email', 'unique', 'on' => 'signup'),
+            array('email', 'unique', 'on' => 'signup', 'message' => 'Этот E-Mail уже используется'),
             array('gender', 'boolean'),
             array('id, phone', 'safe'),
             array('deleted', 'numerical', 'integerOnly' => true),
@@ -186,7 +187,8 @@ class User extends HActiveRecord
             array('password', 'passwordValidator', 'on' => 'login'),
 
             //signup
-            array('first_name, last_name, email, password', 'required', 'on' => 'signup,signup_full', 'message' => 'Поле является обязательным'),
+            array('first_name, last_name, password', 'required', 'on' => 'signup,signup_full', 'message' => 'Поле является обязательным'),
+            array('email', 'required', 'on' => 'signup,signup_full', 'message' => 'Введите ваш E-mail'),
             array('birthday', 'required', 'on' => 'signup_full', 'message' => 'Поле является обязательным'),
             array('gender', 'required', 'on' => 'signup,signup_full', 'message' => 'укажите свой пол'),
             array('email', 'unique', 'on' => 'signup,signup_full'),
@@ -256,7 +258,7 @@ class User extends HActiveRecord
             'babies' => array(self::HAS_MANY, 'Baby', 'parent_id'),
             'realBabies' => array(self::HAS_MANY, 'Baby', 'parent_id', 'condition' => ' type IS NULL '),
             'social_services' => array(self::HAS_MANY, 'UserSocialService', 'user_id'),
-            'communities' => array(self::MANY_MANY, 'Community', 'user__users_communities(user_id, community_id)'),
+            'communities' => array(self::MANY_MANY, 'Community', 'user__users_communities(user_id, community_id)', 'order'=>'position'),
 
             'clubContests' => array(self::HAS_MANY, 'ClubContest', 'contest_user_id'),
             'clubContestUsers' => array(self::HAS_MANY, 'ClubContestUser', 'user_user_id'),
@@ -310,7 +312,7 @@ class User extends HActiveRecord
     {
         return array(
             'active' => array(
-                'condition' => $this->getTableAlias(false, false) . '.deleted = 0 and ' . $this->getTableAlias(false, false) . '.blocked = 0'
+                'condition' => $this->getTableAlias(false, false) . '.deleted = 0'
             ),
         );
     }

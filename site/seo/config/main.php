@@ -47,6 +47,7 @@ return array(
         'cook',
         'externalLinks',
         'mailru',
+        'needlework'
     ),
     'components' => array(
         'user' => array(

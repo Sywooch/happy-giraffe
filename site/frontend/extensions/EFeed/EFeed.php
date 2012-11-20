@@ -55,17 +55,23 @@ class EFeed extends CComponent{
 	 * @var string $type
 	 */
 	private $type;
+
+    private $headAttributes;
 	/**
 	* Constructor
 	* 
 	* @param constant the type constant (RSS1/RSS2/ATOM).       
 	*/ 
-	function __construct($type = self::RSS2)
+	function __construct($type = self::RSS2, $headAttributes = array(
+        "version"=>"2.0",
+        "xmlns:ya"=>"http://blogs.yandex.ru/yarss/",
+        "xmlns:wfw"=>"http://wellformedweb.org/CommentAPI/"))
 	{	
 		if( $type != self::RSS1 && $type != self::RSS2 && $type != self::ATOM )
 			throw new CException( Yii::t('EFeed', 'Feed version not supported') );
 			
 		$this->type = $type;
+        $this->headAttributes = $headAttributes;
 		
 		// Initiate Feed holder
 		$this->feedElements = new CMap();
@@ -309,10 +315,7 @@ class EFeed extends CComponent{
 		
 		if($this->type == self::RSS2)
 		{
-			$head .= CHtml::openTag('rss',array(
-						"version"=>"2.0",
-						"xmlns:ya"=>"http://blogs.yandex.ru/yarss/",
-						"xmlns:wfw"=>"http://wellformedweb.org/CommentAPI/")).PHP_EOL;	
+            $head .= CHtml::openTag('rss',$this->headAttributes).PHP_EOL;
 		}    
 		elseif($this->type == self::RSS1)
 		{

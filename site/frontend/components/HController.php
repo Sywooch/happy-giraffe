@@ -15,6 +15,8 @@ class HController extends CController
     public $meta_title = null;
     public $page_meta_model = null;
 
+    public $pGallery = null;
+
     protected $r = 10;
 
     public function filterAjaxOnly($filterChain)
@@ -49,6 +51,9 @@ class HController extends CController
         if ($_SERVER['HTTP_HOST'] == 'dev.happy-giraffe.ru') {
             Yii::app()->clientScript->registerMetaTag('noindex,nofollow', 'robots');
         }
+
+        if (!Yii::app()->user->isGuest && (Yii::app()->user->model->blocked == 1 || Yii::app()->user->model->deleted == 1))
+            Yii::app()->user->logout();
 
         // авторизация
         if (isset($this->actionParams['token'])) {

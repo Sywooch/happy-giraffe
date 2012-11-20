@@ -53,7 +53,7 @@ class SearchResultsParser extends ProxyParserThread
         //if ($this->startsWith($query, 'http://'))
 
         $content = $this->query('http://yandex.ru/sitesearch?text=' . urlencode($query)
-            . '&searchid=1883818&reqenc=utf-8&l10n=ru&web=0&lr=38&numdoc=50');
+            . '&searchid='.SimilarArticlesParser::SITE_ID.'&reqenc=utf-8&l10n=ru&web=0&lr=38&numdoc=50');
 
         $document = phpQuery::newDocument($content);
         $links = array();

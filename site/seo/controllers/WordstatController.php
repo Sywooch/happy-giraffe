@@ -40,7 +40,7 @@ class WordstatController extends SController
             ->searchRaw();
         $count = 0;
         foreach ($allSearch['matches'] as $key => $m)
-            if (ParsingKeyword::model()->addKeywordByIdNotInYandex($key))
+            if (ParsingKeyword::addKeyword($key))
                 $count++;
 
         echo CJSON::encode(array(
@@ -54,13 +54,8 @@ class WordstatController extends SController
         $keywords = Yii::app()->db_seo->createCommand('select distinct(keyword_id) from sites__keywords_visits ')->queryColumn();
         $count = 0;
         foreach ($keywords as $keyword_id) {
-            if (ParsingKeyword::model()->findByPk($keyword_id) === null){
-                $yandex = YandexPopularity::model()->findByPk($keyword_id);
-                if ($yandex === null || empty($yandex->parsed)){
-                    ParsingKeyword::model()->addKeywordById($keyword_id);
-                    $count++;
-                }
-            }
+            if (ParsingKeyword::addKeyword($keyword_id))
+                $count++;
         }
 
         echo CJSON::encode(array(
@@ -74,13 +69,8 @@ class WordstatController extends SController
         $keywords = Yii::app()->db_seo->createCommand('select distinct(keyword_id) from pages_search_phrases')->queryColumn();
         $count = 0;
         foreach ($keywords as $keyword_id) {
-            if (ParsingKeyword::model()->findByPk($keyword_id) === null){
-                $yandex = YandexPopularity::model()->findByPk($keyword_id);
-                if ($yandex === null || empty($yandex->parsed)){
-                    ParsingKeyword::model()->addKeywordById($keyword_id);
-                    $count++;
-                }
-            }
+            if (ParsingKeyword::addKeyword($keyword_id))
+                $count++;
         }
 
         echo CJSON::encode(array(

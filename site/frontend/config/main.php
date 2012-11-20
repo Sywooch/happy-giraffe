@@ -375,13 +375,29 @@ return array(
                 'class' => 'ext.sitemapgenerator.SGController',
                 'config' => array(
                     'sitemap.xml' => array(
+                        'index' => true,
+                    ),
+                    'sitemapCommunity.xml' => array(
                         'aliases' => array(
-                            'application.controllers.SiteController',
                             'application.controllers.CommunityController',
+                        ),
+                    ),
+                    'sitemapBlog.xml' => array(
+                        'aliases' => array(
                             'application.controllers.BlogController',
+
+                        ),
+                    ),
+                    'sitemapCook.xml' => array(
+                        'aliases' => array(
                             'application.modules.cook.controllers.SpicesController',
                             'application.modules.cook.controllers.ChooseController',
                             'application.modules.cook.controllers.RecipeController',
+                        ),
+                    ),
+                    'sitemapAll.xml' => array(
+                        'aliases' => array(
+                            'application.controllers.SiteController',
                             'application.modules.services.modules.recipeBook.controllers.DefaultController',
                             'application.modules.services.modules.names.controllers.DefaultController',
                             'application.modules.services.modules.childrenDiseases.controllers.DefaultController',

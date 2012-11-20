@@ -123,9 +123,10 @@ var CookModule = {
                 pnotify_text:'Введите url статьи'
             });
     },
-    toNeedlework:function(el, task_id){
-        $.post('/cook/editor/toNeedlework/', {
-            task_id:task_id
+    changeSection:function(el, task_id, section){
+        $.post('/cook/editor/changeSection/', {
+            task_id:task_id,
+            section:section
         }, function (response) {
             if (response.status) {
                 $(el).parents('tr').remove();

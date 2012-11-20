@@ -41,6 +41,7 @@
                     <th></th>
                     <th>Кулинар</th>
                     <th>Статус</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -51,6 +52,13 @@
                     <td><?=$task->getMultiVarka() ?></td>
                     <td><?=$task->executor->name ?></td>
                     <td class="seo-status-new-<?=$task->status ?>"><?=$task->statusText ?></td>
+                    <td>
+                        <?php if ($_GET['section'] == 2):?>
+                            <a href="javascript:;" onclick="CookModule.changeSection(this, <?=$task->id ?>, 3)">В рукоделие</a>
+                        <?php elseif($_GET['section'] == 3): ?>
+                            <a href="javascript:;" onclick="CookModule.changeSection(this, <?=$task->id ?>, 2)">В кулинарию</a>
+                        <?php endif ?>
+                    </td>
                 </tr>
                     <?php } ?>
                 </tbody>
@@ -67,6 +75,7 @@
                     <th></th>
                     <th>Кулинар</th>
                     <th>Действие</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -78,6 +87,13 @@
                     <td><?=$task->executor->name ?></td>
                     <td><a href="javascript:;" class="btn-green-small"
                            onclick="CookModule.toPublishing(this, <?=$task->id ?>);">На публикацию</a></td>
+                    <td>
+                        <?php if ($_GET['section'] == 2):?>
+                            <a href="javascript:;" onclick="CookModule.changeSection(this, <?=$task->id ?>, 3)">В рукоделие</a>
+                        <?php elseif($_GET['section'] == 3): ?>
+                            <a href="javascript:;" onclick="CookModule.changeSection(this, <?=$task->id ?>, 2)">В кулинарию</a>
+                        <?php endif ?>
+                    </td>
                 </tr>
                     <?php } ?>
                 </tbody>
@@ -100,6 +116,7 @@
                     <th></th>
                     <th>Кулинар</th>
                     <th>Статус</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -109,9 +126,14 @@
                     <td class="al"><?=$task->getKeywordsText() ?></td>
                     <td><?=$task->getMultiVarka() ?></td>
                     <td><?=$task->executor->name ?></td>
-                    <td class="seo-status-publish-2"><?=$task->statusText ?><?php if ($_GET['section'] == 2):?>
-                        <br><a href="javascript:;" onclick="CookModule.toNeedlework(this, <?=$task->id ?>)">В рукоделие</a>
-                        <?php endif ?></td>
+                    <td class="seo-status-publish-2"><?=$task->statusText ?></td>
+                    <td>
+                        <?php if ($_GET['section'] == 2):?>
+                            <a href="javascript:;" onclick="CookModule.changeSection(this, <?=$task->id ?>, 3)">В рукоделие</a>
+                        <?php elseif($_GET['section'] == 3): ?>
+                            <a href="javascript:;" onclick="CookModule.changeSection(this, <?=$task->id ?>, 2)">В кулинарию</a>
+                        <?php endif ?>
+                    </td>
                 </tr>
                     <?php } ?>
 
@@ -128,6 +150,7 @@
                     <th></th>
                     <th>Кулинар</th>
                     <th>Действие</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -138,9 +161,15 @@
                     <td><?=$task->getMultiVarka() ?></td>
                     <td><?=$task->executor->name ?></td>
                     <td><a href="" class="btn-green-small"
-                           onclick="SeoTasks.CloseTask(this, <?=$task->id ?>);return false;">Проверено</a><?php if ($_GET['section'] == 2):?>
-                        <br><a href="javascript:;" onclick="CookModule.toNeedlework(this, <?=$task->id ?>)">В рукоделие</a>
-                        <?php endif ?></td>
+                           onclick="SeoTasks.CloseTask(this, <?=$task->id ?>);return false;">Проверено</a>
+                    </td>
+                    <td>
+                        <?php if ($_GET['section'] == 2):?>
+                            <a href="javascript:;" onclick="CookModule.changeSection(this, <?=$task->id ?>, 3)">В рукоделие</a>
+                        <?php elseif($_GET['section'] == 3): ?>
+                            <a href="javascript:;" onclick="CookModule.changeSection(this, <?=$task->id ?>, 2)">В кулинарию</a>
+                        <?php endif ?>
+                    </td>
                 </tr>
                     <?php } ?>
                 </tbody>
@@ -157,6 +186,7 @@
                     <th></th>
                     <th>Кулинар</th>
                     <th>Дата завершения</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -166,9 +196,12 @@
                     <td class="al"><?=$task->getKeywordsText() ?></td>
                     <td><?=$task->getMultiVarka() ?></td>
                     <td><?=$task->executor->name ?></td>
-                    <td><?=StatusDates::getTime($task, SeoTask::STATUS_CLOSED) ?>
+                    <td><?=StatusDates::getTime($task, SeoTask::STATUS_CLOSED) ?></td>
+                    <td>
                         <?php if ($_GET['section'] == 2):?>
-                            <br><a href="javascript:;" onclick="CookModule.toNeedlework(this, <?=$task->id ?>)">В рукоделие</a>
+                            <a href="javascript:;" onclick="CookModule.changeSection(this, <?=$task->id ?>, 3)">В рукоделие</a>
+                        <?php elseif($_GET['section'] == 3): ?>
+                            <a href="javascript:;" onclick="CookModule.changeSection(this, <?=$task->id ?>, 2)">В кулинарию</a>
                         <?php endif ?>
                     </td>
                 </tr>

@@ -178,7 +178,7 @@ var TaskDistribution = {
     },
     readyTask:function (el) {
         var id = TaskDistribution.getId(el);
-        $.post('/writing/editor/ready/', {id:id}, function (response) {
+        $.post('/writing/editor/ready/', {id:id,section:window.content_section}, function (response) {
             if (response.status) {
                 $(el).parents('tr').remove();
             }
@@ -192,9 +192,10 @@ var TaskDistribution = {
         $('#keyword-' + id).hide();
         $('.default-nav .count a').text(parseInt($('.default-nav .count a').text()) - 1);
     },
-    toNeedlework:function(el, id){
-        $.post('/writing/editor/toNeedlework/', {
-            keyword_id:id
+    changeSection:function(el, id, section){
+        $.post('/writing/editor/changeSection/', {
+            keyword_id:id,
+            section:section
         }, function (response) {
             if (response.status) {
                 $(el).parents('tr').remove();

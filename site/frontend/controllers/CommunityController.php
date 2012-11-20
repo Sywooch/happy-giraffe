@@ -13,6 +13,10 @@ class CommunityController extends HController
     {
         return array(
             'accessControl',
+            array(
+                'CHttpCacheFilter + index',
+               // 'lastModified' => Yii::app()->db->createCommand("SELECT MAX(`update_time`) FROM {{post}}")->queryScalar(),
+            ),
         );
     }
 
@@ -23,6 +27,7 @@ class CommunityController extends HController
                 'actions' => array('add', 'edit', 'addTravel', 'editTravel', 'delete', 'transfer', 'uploadImage'),
                 'users' => array('?'),
             ),
+
         );
     }
 

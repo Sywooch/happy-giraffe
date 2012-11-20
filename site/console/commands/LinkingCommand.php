@@ -38,7 +38,10 @@ class LinkingCommand extends CConsoleCommand
             ->queryColumn();
 
         foreach ($keywords as $keyword) {
-            if (YandexSearchKeyword::model()->findByPk($keyword) === null) {
+            $keyword_model = Keyword::model()->findByPk($keyword);
+            if ($keyword_model === null){
+                PagesSearchPhrase::model()->deleteAll('keyword_id='.$keyword);
+            }elseif (YandexSearchKeyword::model()->findByPk($keyword) === null) {
                 $model = new YandexSearchKeyword;
                 $model->keyword_id = $keyword;
                 $model->save();

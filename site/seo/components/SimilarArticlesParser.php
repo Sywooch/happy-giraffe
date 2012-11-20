@@ -22,7 +22,9 @@ class SimilarArticlesParser
         $document = phpQuery::newDocument($content);
         $links = array();
         foreach ($document->find('h3.b-serp-item__title a.b-serp-item__title-link') as $link) {
-            $links [] = pq($link)->attr('href');
+            $url = pq($link)->attr('href');
+            if (strpos($url, 'http://www.happy-giraffe.ru/') !== false)
+                $links [] = pq($link)->attr('href');
         }
         $document->unloadDocument();
 

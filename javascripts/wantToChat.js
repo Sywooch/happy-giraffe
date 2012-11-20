@@ -11,4 +11,6 @@ WantToChat.send = function(el) {
             }
         }
     )
-}
+};
+
+

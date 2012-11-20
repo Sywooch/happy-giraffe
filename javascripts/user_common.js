@@ -181,4 +181,4 @@ var Horoscope = {
         $('.user-horoscope-2').show();
         $.post('/services/horoscope/default/viewed/');
     }
-}
+};

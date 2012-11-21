@@ -151,7 +151,7 @@ class ELLink extends HActiveRecord
 
     public function beforeSave()
     {
-        if ($this->isNewRecord && $this->site->type == ELSite::TYPE_FORUM){
+        if ($this->isNewRecord && $this->site->type == ELSite::TYPE_FORUM && empty($this->link_cost)){
             $this->check_link_time = date("Y-m-d", strtotime('+'.self::CHECK_DAYS.' days'));
         }
 

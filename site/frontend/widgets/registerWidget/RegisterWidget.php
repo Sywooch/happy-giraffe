@@ -35,6 +35,20 @@ class RegisterWidget extends CWidget
             ),
             'inputBirthday'=>true
         ),
+        'pregnancy' => array(
+            'step1' => array(
+                'title1' => 'Хочу гороскоп каждый день',
+                'title2' => 'Зарегистрируйтесь, чтобы получать гороскоп!',
+            ),
+            'step2' => array(
+                'title1' => 'Ваш календарь почти готов!',
+                'title2' => 'Осталось ввести ваши имя, фамилию, предполагаемую дату родов и пароль',
+            ),
+            'step3' => array(
+                'title1' => 'Мы готовим для вас календарь',
+            ),
+            'inputBirthday'=>false
+        ),
     );
 
     public function run()

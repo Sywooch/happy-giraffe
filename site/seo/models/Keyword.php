@@ -175,8 +175,8 @@ class Keyword extends HActiveRecord
         $criteria = new CDbCriteria;
 
         if (!empty($this->name)) {
-            if (strpos($this->name, 'http://') !== false)
-                $this->name = str_replace('http://', '', $this->name);
+            if (strpos($this->name, '/') !== false)
+                $this->name = str_replace('/', ' ', $this->name);
 
             $allSearch = Yii::app()->search
                 ->select('*')

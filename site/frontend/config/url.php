@@ -179,7 +179,7 @@ return array(
         //===================== Services =========================//
 
         'childCalendar/<slug:[\w-]+>' => array('calendar/default/index', 'defaultParams' => array('calendar' => 0)),
-        //'pregnancyCalendar/join' => array('calendar/default/join'),
+        'pregnancyCalendar/join' => array('calendar/default/join'),
         'pregnancyCalendar/<slug:[\w-]+>' => array('calendar/default/index', 'defaultParams' => array('calendar' => 1)),
         'childCalendar' => array('calendar/default/index', 'defaultParams' => array('calendar' => 0)),
         'pregnancyCalendar' => array('calendar/default/index', 'defaultParams' => array('calendar' => 1)),

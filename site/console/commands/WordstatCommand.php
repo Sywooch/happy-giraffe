@@ -218,4 +218,19 @@ skrapbook
             if (ParsingKeyword::addKeyword($keyword_id))
                 $count++;
     }
+
+    public function actionAddKeywordsFromFile()
+    {
+        $path = Yii::app()->params['keywords_path'] ;
+        $handle = @fopen($path, "r");
+        $i=0;
+        while (($buffer = fgets($handle)) !== false) {
+            $keyword = substr($buffer, 0, strpos($buffer, ','));
+            Keyword::GetKeyword($keyword, 0);
+            $i++;
+            if ($i % 10000 == 0)
+                echo $i."\n";
+        }
+        fclose($handle);
+    }
 }

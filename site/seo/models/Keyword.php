@@ -206,7 +206,7 @@ class Keyword extends HActiveRecord
      * @return Keyword
      * @throws CHttpException
      */
-    public static function GetKeyword($word)
+    public static function GetKeyword($word, $priority = 1)
     {
         $word = trim($word);
         $model = self::model()->findByAttributes(array('name' => $word));
@@ -217,7 +217,7 @@ class Keyword extends HActiveRecord
         $model->name = $word;
         try{
             $model->save();
-            ParsingKeyword::addKeyword($model->id, 1);
+            ParsingKeyword::addKeyword($model->id, $priority);
         }catch (Exception $e){
             //значит кейворд создан в промежуток времени между запросами - повторим запрос
             $model = self::model()->findByAttributes(array('name' => $word));

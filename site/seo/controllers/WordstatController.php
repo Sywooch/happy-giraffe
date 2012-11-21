@@ -116,13 +116,4 @@ class WordstatController extends SController
 
         echo CJSON::encode(array('status' => true));
     }
-
-    public function actionTest()
-    {
-        $keywords = '';
-        preg_match_all('/\d+\s([^\d]+)\s/', $keywords, $matches);
-        for ($i = 0; $i < count($matches[0]); $i++) {
-            echo $matches[1][$i] . '<br>';
-        }
-    }
 }

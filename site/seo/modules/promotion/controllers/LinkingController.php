@@ -222,18 +222,17 @@ class LinkingController extends SController
 
         //удалим те, с которых стоят ссылки на наш "Следующая", "Предыдущая"
         $article = $phrase->page->getArticle();
-        if (!empty($article)){
-            $post = $article->getPrevPost();
-            if ($post !== null)
-                foreach ($pages as $key => $page)
-                    if ($page->url == $post->getUrl(false, true))
-                        unset($pages[$key]);
-
-            $post = $article->getNextPost();
-            if ($post !== null)
-                foreach ($pages as $key => $page)
-                    if ($page->url == $post->getUrl(false, true))
-                        unset($pages[$key]);
+        if (!empty($article)) {
+            foreach (array('getPrevPost', 'getNextPost') as $method) {
+                $post = $article->$method();
+                if ($post !== null) {
+                    $ulr = 'http://www.happy-giraffe.ru' . $post->getUrl(false);
+                    foreach ($pages as $key => $page) {
+                        if ($page->url == $ulr)
+                            unset($pages[$key]);
+                    }
+                }
+            }
         }
 
         return $pages;

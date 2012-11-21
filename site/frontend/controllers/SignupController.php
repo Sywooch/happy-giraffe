@@ -69,9 +69,11 @@ class SignupController extends HController
 
         if (isset($_POST['User'])) {
             $model->attributes = $_POST['User'];
-            if (isset($_POST['User']['day']) && isset($_POST['User']['month']) && isset($_POST['User']['year'])) {
+            if (isset($_POST['User']['day']) && isset($_POST['User']['month']) && isset($_POST['User']['year']))
                 $model->birthday = $_POST['User']['year'] . '-' . str_pad($_POST['User']['month'], 2, '0', STR_PAD_LEFT) . '-' . str_pad($_POST['User']['day'], 2, '0', STR_PAD_LEFT);
-            }
+            if (isset($_POST['User']['baby_day']) && isset($_POST['User']['baby_month']) && isset($_POST['User']['baby_year']))
+                $model->baby_birthday = $_POST['User']['baby_year'] . '-' . str_pad($_POST['User']['baby_month'], 2, '0', STR_PAD_LEFT) . '-' . str_pad($_POST['User']['baby_day'], 2, '0', STR_PAD_LEFT);
+
             $current_service = $session['service'];
             if ($current_service) {
                 $service = new UserSocialService;
@@ -177,7 +179,7 @@ class SignupController extends HController
     {
         $steps = array(
             array('email'),
-            array('first_name', 'last_name', 'password', 'gender', 'email', 'birthday'),
+            array('first_name', 'last_name', 'password', 'gender', 'email', 'birthday', 'baby_birthday'),
         );
 
         if (isset($_POST['form_type']) && $_POST['form_type'] == 'horoscope') {
@@ -186,13 +188,18 @@ class SignupController extends HController
             $model = new User('signup');
 
         $model->setAttributes($_POST['User']);
-        if (isset($_POST['User']['day']) && isset($_POST['User']['month']) && isset($_POST['User']['year'])
-            && !empty($_POST['User']['day']) && !empty($_POST['User']['month']) && !empty($_POST['User']['year'])
-        ) {
+        if (isset($_POST['User']['day']) && isset($_POST['User']['month']) && isset($_POST['User']['year']))
             $model->birthday = $_POST['User']['year'] . '-' . str_pad($_POST['User']['month'], 2, '0', STR_PAD_LEFT) . '-' . str_pad($_POST['User']['day'], 2, '0', STR_PAD_LEFT);
-        }
 
         $model->validate($steps[$step - 1]);
+
+        if (isset($_POST['User']['baby_day']) && isset($_POST['User']['baby_month']) && isset($_POST['User']['baby_year'])){
+            if (empty($_POST['User']['baby_day']) || empty($_POST['User']['baby_month']) || empty($_POST['User']['baby_year']))
+                $model->addError('baby_birthday', 'Введите предполагаемую дату родов');
+            else
+                $model->baby_birthday = $_POST['User']['baby_year'] . '-' . str_pad($_POST['User']['baby_month'], 2, '0', STR_PAD_LEFT) . '-' . str_pad($_POST['User']['baby_day'], 2, '0', STR_PAD_LEFT);
+        }
+
         $result = array();
         foreach ($model->getErrors() as $attribute => $errors)
             $result[CHtml::activeId($model, $attribute)] = $errors;

@@ -6,9 +6,9 @@ return array(
     'urlSuffix' => '/',
     //'useStrictParsing' => true,
     'rules' => array(
-       /*************************
-        *      CONTROLLERS      *
-        *************************/
+        /*************************
+         *      CONTROLLERS      *
+         *************************/
 
         // global
         '.*/index' => 404,
@@ -29,14 +29,14 @@ return array(
         'site/<_a:(confirmEmail|resendConfirmEmail|passwordRecovery|passwordRecoveryForm|login|logout|link|test2|users|fixPhoto)>' => 'site/<_a>',
         //'contest' => 'site/contest',
         'services/<category_id:\d+>' => 'site/services',
-        'services' =>  'site/services',
+        'services' => 'site/services',
 
         // ajax controller
         'ajax/duelShow/question_id/<question_id:\d+>' => 'ajax/duelShow',
 
         // signup controller
         'signup' => 'signup/index',
-        'signup/finish'=>'signup/finish',
+        'signup/finish' => 'signup/finish',
         'signup/validate/step/<step:\d+>' => 'signup/validate',
 
         // friendRequests controller
@@ -79,8 +79,8 @@ return array(
         'user/<user_id:\d+>/albums/<id:\d+>' => 'albums/view',
         'user/<user_id:\d+>/albums/<album_id:\d+>/photo<id:\d+>' => 'albums/photo',
         'user/<_a:(updateMood|activityAll)>' => 'user/<_a>',
-        'user/createRelated/relation/<relation:\w+>/'=>'user/createRelated',
-        'user/myFriendRequests/<direction:\w+>/'=>'user/myFriendRequests',
+        'user/createRelated/relation/<relation:\w+>/' => 'user/createRelated',
+        'user/myFriendRequests/<direction:\w+>/' => 'user/myFriendRequests',
 
         //blog
         'blog/edit/content_id/<content_id:\d+>' => 'blog/edit',
@@ -133,9 +133,9 @@ return array(
 
         '<_m:(geo|im|signal|scores|cook|contest)>/' => '<_m>/default/index',
         '<_m:(geo|im|signal)>/<_a>' => '<_m>/default/<_a>',
-        'commentator'=>'signal/commentator/index',
-        'commentator/statistic'=>'signal/commentator/statistic',
-        'signal/commentator/<_a>'=>'signal/commentator/<_a>',
+        'commentator' => 'signal/commentator/index',
+        'commentator/statistic' => 'signal/commentator/statistic',
+        'signal/commentator/<_a>' => 'signal/commentator/<_a>',
 
         //cook
         'cook/calorisator/ac' => 'cook/calorisator/ac',
@@ -179,6 +179,7 @@ return array(
         //===================== Services =========================//
 
         'childCalendar/<slug:[\w-]+>' => array('calendar/default/index', 'defaultParams' => array('calendar' => 0)),
+        //'pregnancyCalendar/join' => array('calendar/default/join'),
         'pregnancyCalendar/<slug:[\w-]+>' => array('calendar/default/index', 'defaultParams' => array('calendar' => 1)),
         'childCalendar' => array('calendar/default/index', 'defaultParams' => array('calendar' => 0)),
         'pregnancyCalendar' => array('calendar/default/index', 'defaultParams' => array('calendar' => 1)),
@@ -186,7 +187,7 @@ return array(
         '<_m:(test|tester|vaccineCalendar|childrenDiseases|menstrualCycle|horoscope|babyBloodGroup|placentaThickness|pregnancyWeight|contractionsTime|names|hospitalBag|maternityLeave|dailyCalories|weightLoss|idealWeight|bodyFat|birthDate)>/' => 'services/<_m>/default/index',
         '<_m:(babySex|vaccineCalendar|sewing|hospitalBag)>/<_a>/' => 'services/<_m>/default/<_a>',
 
-        'babySex'=>'services/babySex/default/index',
+        'babySex' => 'services/babySex/default/index',
         'babySex/default/<_a:(bloodUpdate, japanCalc, ovulationCalc)>/' => 'services/babySex/default/<_a>',
 
         'childrenDiseases/<id:[\w-+\s]+>' => 'services/childrenDiseases/default/view',

@@ -1181,7 +1181,7 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 
 #register.popup .register-form .form-in .row-date {width:700px;margin-left:-150px;text-align:center;}
 #register.popup .register-form .form-in .row-date .row-title {width:auto;padding-right:10px;display:inline-block;*zoom:1;*display:inline;float:none;}
-#register.popup .register-form .form-in .row-date .row-elements {width:auto;padding-right:30px;display:inline-block;*zoom:1;*display:inline;float:none;}
+#register.popup .register-form .form-in .row-date .row-elements {width:auto;padding-right:20px;display:inline-block;*zoom:1;*display:inline;float:none;}
 #register.popup .register-form .form-in .row-date .chzn-v2 {vertical-align:middle;display:inline-block;*zoom:1;*display:inline;margin-top:-2px;}
 #register.popup .register-form .form-in .row-date .row-elements input {margin-top:4px;position:relative;top:1px;}
 

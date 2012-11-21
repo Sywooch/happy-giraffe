@@ -22,7 +22,9 @@ class HoroscopeWidget extends UserCoreWidget
             return;
 
         if (Yii::app()->user->isGuest)
-            $show_horoscope = false;
+            $show_horoscope = true;
+        elseif (!$this->isMyProfile)
+            $show_horoscope = true;
         else {
             $show_horoscope = UserAttributes::get(Yii::app()->user->id, 'horoscope');
             if (strpos($show_horoscope, date("Y-m-d")) === false)

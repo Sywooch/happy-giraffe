@@ -17,8 +17,7 @@ class DefaultController extends SController
         Yii::import('site.common.models.mongo.*');
         Yii::import('site.seo.models.*');
 
-//        Yii::app()->mc->updateMailruUsers();
-        Yii::app()->mc->deleteRegisteredFromContestListUsers();
+        Yii::app()->mc->updateMailruUsers();
     }
 
     public function actionHostStat()

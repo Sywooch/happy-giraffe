@@ -1171,7 +1171,8 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 #register.popup .register-form .form-in .row .row-title {float:left;width:70px;padding-right:10px;padding-top:8px;}
 #register.popup .register-form .form-in .row .row-title label {font-size:15px;}
 #register.popup .register-form .form-in .row .row-elements {float:left;width:300px;}
-#register.popup .register-form .form-in .row .row-elements input[type=text], #register.popup .register-form .form-in .row .row-elements input[type=password] {padding:5px 10px;border:1px solid #cdcdcd;background:#fff;width:278px;font-size:15px;color:#3d3d3d;}
+#register.popup .register-form .form-in .row .row-elements input[type=text], 
+#register.popup .register-form .form-in .row .row-elements input[type=password] {padding:5px 10px;border:1px solid #cdcdcd;background:#fff;width:278px;font-size:15px;color:#3d3d3d;}
 #register.popup .register-form .form-in .row .row-elements label {display:inline-block;*zoom:1;*display:inline;margin-right:10px;margin-top:6px;}
 #register.popup .register-form .form-in .row .row-error {float:left;padding-left:10px;width:160px;padding-top:8px;}
 #register.popup .register-form .form-in .row .row-error * {display:none;}
@@ -1180,6 +1181,8 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 #register.popup .register-form .form-in .row input[type=submit] {height:33px;line-height:33px;background:url(/images/btn_green_33.gif) repeat-x;color:#fff;font-size:16px;font-weight:bold;padding:0 15px;cursor:pointer;border:0;margin:0;}
 
 #register.popup .register-form .form-in .row-date {width:700px;margin-left:-150px;text-align:center;}
+#register.popup .register-form .form-in .row-date .row {display: inline-block;*zoom:1;*display:inline;vertical-align: top;margin: 0;}
+#register.popup .register-form .form-in .row-date .row-error {float: none;width: auto;}
 #register.popup .register-form .form-in .row-date .row-title {width:auto;padding-right:10px;display:inline-block;*zoom:1;*display:inline;float:none;}
 #register.popup .register-form .form-in .row-date .row-elements {width:auto;padding-right:20px;display:inline-block;*zoom:1;*display:inline;float:none;}
 #register.popup .register-form .form-in .row-date .chzn-v2 {vertical-align:middle;display:inline-block;*zoom:1;*display:inline;margin-top:-2px;}
@@ -4678,6 +4681,7 @@ label {
 
 
 /* */
+/*.fancybox-container {height: 100%;left: 0; overflow: auto;position: absolute;top: 0;width: 100%;z-index: 600;display: none;}*/
 #fancybox-wrap {z-index: 2999 !important;}
 
 

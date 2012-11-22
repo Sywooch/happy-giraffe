@@ -45,7 +45,7 @@ class RatingCommand extends CConsoleCommand
     public function actionShowUserLikes($user)
     {
         $models = RatingYohoho::model()->findAllByAttributes(array(
-            'user_id' => $user,
+            'user_id' => (int)$user,
         ));
 
         foreach ($models as $model)

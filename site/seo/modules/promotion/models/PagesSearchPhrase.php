@@ -238,9 +238,11 @@ class PagesSearchPhrase extends HActiveRecord
             'links'
         );
 
-        $criteria->condition = 'inner_links_count < 1';
         $criteria->together = true;
-        $criteria->condition = 'skip.phrase_id IS NULL AND google_traffic >= :google_visits_min AND last_yandex_position > 3';
+        $criteria->condition = 'skip.phrase_id IS NULL
+        AND google_traffic >= :google_visits_min
+        AND last_yandex_position > 3
+        AND inner_links_count < 1';
 
         $criteria->params = array(
             ':google_visits_min' => SeoUserAttributes::getAttribute('google_visits_min')
@@ -273,7 +275,7 @@ class PagesSearchPhrase extends HActiveRecord
             $criteria->order = 'last_yandex_position asc';
         else
             $criteria->order = 'yandex.value desc';
-        $criteria->condition = 'skip.phrase_id IS NULL AND last_yandex_position > :min_yandex_position
+        $criteria->condition .= ' AND skip.phrase_id IS NULL AND last_yandex_position > :min_yandex_position
                                 AND last_yandex_position < :max_yandex_position';
 
         $criteria->params = array(

@@ -71,6 +71,7 @@ class SignupController extends HController
             $model->attributes = $_POST['User'];
             if (isset($_POST['User']['day']) && isset($_POST['User']['month']) && isset($_POST['User']['year']))
                 $model->birthday = $_POST['User']['year'] . '-' . str_pad($_POST['User']['month'], 2, '0', STR_PAD_LEFT) . '-' . str_pad($_POST['User']['day'], 2, '0', STR_PAD_LEFT);
+
             if (isset($_POST['User']['baby_day']) && isset($_POST['User']['baby_month']) && isset($_POST['User']['baby_year']))
                 $model->baby_birthday = $_POST['User']['baby_year'] . '-' . str_pad($_POST['User']['baby_month'], 2, '0', STR_PAD_LEFT) . '-' . str_pad($_POST['User']['baby_day'], 2, '0', STR_PAD_LEFT);
 
@@ -87,6 +88,15 @@ class SignupController extends HController
             if ($model->save(true, array('first_name', 'last_name', 'password', 'email', 'gender', 'birthday'))) {
                 if (!empty($model->birthday))
                     UserScores::checkProfileScores($model->id, ScoreAction::ACTION_PROFILE_BIRTHDAY);
+
+                if (!empty($model->baby_birthday)){
+                    $baby = new Baby();
+                    $baby->parent_id = $model->id;
+                    $baby->birthday = $model->baby_birthday;
+                    $baby->type = 1;
+                    $baby->sex = 2;
+                    $baby->save();
+                }
 
                 if (isset($_POST['User']['avatar'])) {
                     $url = $_POST['User']['avatar'];

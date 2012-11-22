@@ -25,7 +25,7 @@
     <div class="row clearfix" style="display: inline-block;">
         <div class="row-elements">
                             <span
-                                    class="chzn-v2"><?=$form->dropDownList($model, 'day', HDate::Range(1, 31), array('class' => 'chzn', 'empty' => 'День', 'style' => 'width:60px;')); ?></span>
+                                    class="chzn-v2"><?=$form->dropDownList($model, 'day', HDate::Range(1, 31), array('class' => 'chzn', 'empty' => 'День', 'style' => 'width:65px;')); ?></span>
                             <span
                                     class="chzn-v2"><?=$form->dropDownList($model, 'month', HDate::ruMonths(), array('class' => 'chzn', 'empty' => 'Месяц', 'style' => 'width:80px;')); ?></span>
                             <span

@@ -1,7 +1,3 @@
-<div id="register" class="popup">
-    <a href="javascript:void(0);" class="popup-close tooltip" onclick="$.fancybox.close();"></a>
-
-
     <div class="reg2">
 
         <?php $form = $this->beginWidget('CActiveForm', array(
@@ -112,7 +108,7 @@
         <?php $this->endWidget(); ?>
     </div>
 
-    <div class="register-finish clearfix" style="display: none;">
+    <div class="register-finish reg3 clearfix" style="display: none;">
 
         <div class="logo-box">
             <?=HHtml::link('', '/', array('class' => 'logo'), true)?>
@@ -128,5 +124,3 @@
                 id="reg_timer">3</span> сек.</span></div>
 
     </div>
-
-</div>

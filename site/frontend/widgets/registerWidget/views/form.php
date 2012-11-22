@@ -32,9 +32,7 @@ if (Yii::app()->controller->registerUserData !== null) {
 
         <?php $this->render('step1',compact('model', 'regdata', 'type')); ?>
 
-        <div class="other-steps">
-
-        </div>
+        <div class="other-steps"></div>
 
     </div>
 </div>

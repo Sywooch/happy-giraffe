@@ -1,8 +1,8 @@
 <div class="reg1">
-    <div class="block-title" style="text-align:center;"><?=$this->template[$type]['step1']['title1'] ?></div>
+    <div class="block-title" style="text-align:center;">Регистрация на Веселом Жирафе</div>
 
     <div class="hl">
-        <span><?=$this->template[$type]['step1']['title2'] ?></span>
+        <span>Стань полноправным участником сайта за 1 минуту!</span>
     </div>
 
     <div class="clearfix">
@@ -31,7 +31,7 @@
                 'validationUrl' => Yii::app()->createUrl('/signup/validate', array('step' => 1)),
                 'afterValidate' => "js:function(form, data, hasError) {
                             if (!hasError){
-                                Register.step1();
+                                Register.showStep2($('#reg-form1 #User_email').val(), 'default');
                             }
                             return false;
                           }",

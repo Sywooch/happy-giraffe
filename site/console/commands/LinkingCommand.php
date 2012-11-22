@@ -191,4 +191,23 @@ class LinkingCommand extends CConsoleCommand
 
         InnerLinksBlock::model()->Sync($this);
     }
+
+    public function actionCalcLinksCount(){
+        $criteria = new CDbCriteria;
+        $criteria->limit = 100;
+        $criteria->offset = 0;
+
+        $models = array(0);
+        while (!empty($models)) {
+            $models = PagesSearchPhrase::model()->findAll($criteria);
+
+            foreach ($models as $model) {
+                $model->calculateLinksCount();
+            }
+
+            $criteria->offset += 100;
+
+            echo $criteria->offset."\n";
+        }
+    }
 }

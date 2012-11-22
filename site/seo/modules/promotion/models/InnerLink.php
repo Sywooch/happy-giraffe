@@ -114,4 +114,11 @@ class InnerLink extends HActiveRecord
         $this->date = date("Y-m-d");
         return parent::beforeSave();
     }
+
+    public function afterSave()
+    {
+        $this->phrase->calculateLinksCount();
+
+        parent::afterSave();
+    }
 }

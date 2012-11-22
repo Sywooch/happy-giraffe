@@ -31,13 +31,14 @@
 
                 <div class="ava-box">
 
-                    <div class="ava"<?php if (!isset($regdata['avatar'])) echo ' style="display:none;"' ?>>
-                        <?php if (isset($regdata['photo'])) echo CHtml::image($regdata['photo'], 'Это Вы') ?>
+                    <div class="ava"<?php if (empty($model->avatar)) echo ' style="display:none;"' ?>>
+                        <?php if (!empty($model->photo)) echo CHtml::image($model->photo, 'Это Вы') ?>
                     </div>
 
                 </div>
                 <?=CHtml::hiddenField('form_type', $type) ?>
-                <?php if (isset($regdata['avatar'])) echo $form->hiddenField($model, 'avatar', array('value' => $regdata['avatar'])); ?>
+                <?php if (!empty($model->avatar))
+                    echo $form->hiddenField($model, 'avatar', array('value' => $model->avatar)); ?>
 
                 <div class="form-in">
 
@@ -93,7 +94,7 @@
                         </div>
                     </div>
 
-                    <?php $this->renderPartial('step2_'.$type,compact('model', 'form', 'regdata')) ?>
+                    <?php $this->renderPartial('step2_'.$type,compact('model', 'form')) ?>
 
                     <div class="row clearfix row-center">
                         <input type="submit" value="Регистрация">
@@ -116,11 +117,11 @@
 
         <div class="green">Ура, вы с нами!</div>
 
-        <div class="ava"<?php if (!isset($regdata['avatar'])) echo ' style="display:none;"' ?>>
-            <?php if (isset($regdata['photo'])) echo CHtml::image($regdata['photo'], 'Это Вы') ?>
+        <div class="ava"<?php if (empty($model->avatar)) echo ' style="display:none;"' ?>>
+            <?php if (!empty($model->photo)) echo CHtml::image($model->photo, 'Это Вы') ?>
         </div>
 
-        <div class="preparing"><?=$this->template[$type]['step3']['title1'] ?><span><span
-                id="reg_timer">3</span> сек.</span></div>
+        <div class="preparing"><?=$this->template[$type]['step3']['title1'] ?><span>
+            <span id="reg_timer">3</span> сек.</span></div>
 
     </div>

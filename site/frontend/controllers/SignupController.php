@@ -250,7 +250,10 @@ class SignupController extends HController
     public function actionShowForm()
     {
         $model = new User;
-        $model->email = Yii::app()->request->getPost('email');
+        $attributes = array('email', 'birthday', 'avatar', 'photo', 'first_name', 'last_name');
+        foreach($attributes as $attribute)
+            $model->$attribute = Yii::app()->request->getPost($attribute);
+
         $type = Yii::app()->request->getPost('type');
 
         Yii::app()->clientScript->scriptMap = array(

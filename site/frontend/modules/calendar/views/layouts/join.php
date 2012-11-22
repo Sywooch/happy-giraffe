@@ -8,9 +8,24 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Персональный календарь беременности на Веселом Жирафе</title>
 
-    <link rel="stylesheet" type="text/css" href="/stylesheets/common.css" />
     <link rel="stylesheet" type="text/css" href="/stylesheets/landing-pages/calendar-pregnancy.css" />
-    <script type="text/javascript" src="/javascripts/jquery.placeholder.min.js"></script>
+
+    <?php
+    $cs = Yii::app()->clientScript;
+    $cs
+        ->registerCssFile('/stylesheets/common.css')
+        ->registerCssFile('/stylesheets/jquery.fancybox-1.3.4.css')
+
+        ->registerCoreScript('jquery')
+        ->registerScriptFile('/javascripts/jquery.fancybox-1.3.4.js')
+        ->registerScriptFile('/javascripts/jquery.placeholder.min.js')
+        ->registerScriptFile('/javascripts/chosen.jquery.min.js')
+        ->registerScript('base_url', 'var base_url = \'' . Yii::app()->baseUrl . '\';', CClientScript::POS_HEAD)
+        ->registerScriptFile('/javascripts/common.js')
+        ->registerScriptFile('/javascripts/addtocopy.js')
+        ->registerScriptFile('/javascripts/base64.js')
+    ;
+    ?>
 
     <!--[if IE 7]>
     <link rel="stylesheet" href='/stylesheets/ie.css' type="text/css" media="screen" />

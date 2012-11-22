@@ -1,31 +1,23 @@
 <?php
 /**
- * @var $type string
  * @var $form CActiveForm
  * @var $model User
  * @var $odnoklassniki bool
  */
 
-$script = <<<EOD
-$(".social-btn a").eauth({"popup":{"width":680,"height":500},"id":"odnoklassniki"});
-EOD;
-Yii::app()->clientScript->registerScript('auth-services-init', $script);
+Yii::app()->clientScript->registerScript('auth-services-init', '$(".social-btn a").eauth({"popup":{"width":680,"height":500},"id":"odnoklassniki"});');
 
 if (Yii::app()->controller->registerUserData !== null) {
     Yii::app()->clientScript->registerScript('reg23', 'Register.showSocialStep2();');
     $regdata = Yii::app()->controller->registerUserData;
     $model = Yii::app()->controller->registerUserModel;
-} elseif ($odnoklassniki) {
-    Yii::app()->clientScript->registerScript('reg_change_reg_form', '
-    $("#register .reg1").html($("#reg-odnoklassniki").html());
-    $("a.auth-service2.odnoklassniki").eauth({"popup":{"width":680,"height":500},"id":"odnoklassniki"});
-    Register.showRegisterWindow();
-');
-} elseif($this->show_form && empty(Yii::app()->request->cookies['not_guest'])){
-    Yii::app()->clientScript->registerScript('show_reg_form', 'Register.show_window_delay = 1000;Register.showRegisterWindow();');
-}
-
-?>
+} elseif($this->show_form){
+    Yii::app()->clientScript->registerScript('show_reg_form', '
+    Register.show_window_delay = 3000;
+    Register.show_window_type = "'.$this->form_type.'";
+    Register.showRegisterWindow();');
+}?>
+<a id="hidden_register_link" href="#" class="fancy" style="display: none;"></a>
 <div style="display:none">
     <div id="register" class="popup">
         <a href="javascript:void(0);" class="popup-close tooltip" onclick="$.fancybox.close();"></a>

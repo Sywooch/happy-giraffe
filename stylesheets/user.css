@@ -864,7 +864,7 @@
 #user .calendar-date .d {margin-top:5px;font-size:20px;font-weight:bold;color:#ff7902;line-height:1;}
 #user .calendar-date .m {color:#ff7902;font-size:18px;font-weight:bold;}
 
-.user-calendar-pregnancy {padding: 10px 9px 20px;text-align: center;border:1px solid #eeeded;}
+.user-calendar-pregnancy {padding: 15px 9px 30px;margin-bottom: 20px;text-align: center;border:1px solid #eeeded;}
 .user-calendar-pregnancy .settings {float: right;width:15px;height:15px;background:url(/images/common.png) no-repeat -313px -190px;}
 .user-calendar-pregnancy .settings:hover {background-position:-330px -190px;}
 .user-calendar-pregnancy_title {font-size: 22px;line-height: 22px;color: #212121;}

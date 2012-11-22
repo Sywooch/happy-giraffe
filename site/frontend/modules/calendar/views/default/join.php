@@ -14,7 +14,7 @@ $model = new User;
         'validationUrl' => Yii::app()->createUrl('/signup/validate', array('step' => 1)),
         'afterValidate' => "js:function(form, data, hasError) {
             if (!hasError){
-                Register.showStep2($('#horoscope-reg-form2 #User_email').val(), 'horoscope');
+                Register.showStep2($('#User_email').val(), 'pregnancy');
             }
             return false;
           }",
@@ -39,3 +39,4 @@ $model = new User;
         </ul>
     </div>
 <?php $this->endWidget(); ?>
+<?php $this->widget('application.widgets.registerWidget.RegisterWidget', array('form_type'=>'pregnancy')); ?>

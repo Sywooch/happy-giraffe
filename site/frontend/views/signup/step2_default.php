@@ -4,7 +4,7 @@
  * Date: 21.11.12
  */
 ?>
-<?php if (isset($regdata['birthday'])) echo $form->hiddenField($model, 'birthday', array('value' => $regdata['birthday'])); ?>
+<?php if (!empty($model->birthday)) echo $form->hiddenField($model, 'birthday'); ?>
 <div class="row clearfix">
     <div class="row-title">
         <label>Пол:</label>

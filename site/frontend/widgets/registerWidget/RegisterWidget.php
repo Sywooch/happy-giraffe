@@ -46,6 +46,7 @@ class RegisterWidget extends CWidget
             (Yii::app()->controller->uniqueId == 'calendar/default' && $_GET['calendar'] == 1) //календрарь беременности
             || (Yii::app()->controller->uniqueId == 'services/babySex/default') //определение пола будущего ребенка
             || (Yii::app()->controller->uniqueId == 'services/pregnancyWeight/default') //вес при беременности
+            || (Yii::app()->controller->uniqueId == 'services/placentaThickness/default') //толщины плаценты
             || (Yii::app()->controller->uniqueId == 'services/maternityLeave/default') //Когда уходить в декрет
             || (Yii::app()->controller->uniqueId == 'services/test/default' && $_GET['slug'] == 'pregnancy') //Онлайн-тест на беременность
             || (Yii::app()->controller->uniqueId == 'services/contractionsTime/default') //Считаем схватки

@@ -3,7 +3,7 @@ Yii::app()->clientScript->registerCoreScript('jquery');
 $model = new User;
 ?>
 <?php $form = $this->beginWidget('CActiveForm', array(
-    'id' => 'reg-form',
+    'id' => 'pregnancy-register-form',
     'action' => '#',
     'enableClientValidation' => false,
     'enableAjaxValidation' => true,
@@ -13,11 +13,11 @@ $model = new User;
         'validateOnType' => true,
         'validationUrl' => Yii::app()->createUrl('/signup/validate', array('step' => 1)),
         'afterValidate' => "js:function(form, data, hasError) {
-                            if (!hasError){
-                                return true;
-                            }
-                            return false;
-                          }",
+            if (!hasError){
+                Register.showStep2($('#horoscope-reg-form2 #User_email').val(), 'horoscope');
+            }
+            return false;
+          }",
     )));?>
     <div class="logo-box">
         <a href="/" class="logo" title="Домашняя страница">Ключевые слова сайта</a>

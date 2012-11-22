@@ -5,7 +5,7 @@ class SignupController extends HController
     public function filters()
     {
         return array(
-            'ajaxOnly + validate, finish',
+            'ajaxOnly + validate, finish, showForm',
         );
     }
 
@@ -89,7 +89,7 @@ class SignupController extends HController
                 if (!empty($model->birthday))
                     UserScores::checkProfileScores($model->id, ScoreAction::ACTION_PROFILE_BIRTHDAY);
 
-                if (!empty($model->baby_birthday)){
+                if (!empty($model->baby_birthday)) {
                     $baby = new Baby();
                     $baby->parent_id = $model->id;
                     $baby->birthday = $model->baby_birthday;
@@ -131,7 +131,7 @@ class SignupController extends HController
                         $w = $d['width'];
                         $h = $d['height'];
                         if ($w > $h)
-                            $picture->cropimage($h, $h, round(($w - $h)/2), 0);
+                            $picture->cropimage($h, $h, round(($w - $h) / 2), 0);
                         if ($w < $h)
                             $picture->cropimage($w, $w, 0, 0);
 
@@ -203,7 +203,7 @@ class SignupController extends HController
 
         $model->validate($steps[$step - 1]);
 
-        if (isset($_POST['User']['baby_day']) && isset($_POST['User']['baby_month']) && isset($_POST['User']['baby_year'])){
+        if (isset($_POST['User']['baby_day']) && isset($_POST['User']['baby_month']) && isset($_POST['User']['baby_year'])) {
             if (empty($_POST['User']['baby_day']) || empty($_POST['User']['baby_month']) || empty($_POST['User']['baby_year']))
                 $model->addError('baby_birthday', 'Введите предполагаемую дату родов');
             else
@@ -214,5 +214,51 @@ class SignupController extends HController
         foreach ($model->getErrors() as $attribute => $errors)
             $result[CHtml::activeId($model, $attribute)] = $errors;
         echo CJSON::encode($result);
+    }
+
+    public $template = array(
+        'default' => array(
+            'step2' => array(
+                'title1' => 'Вы уже почти с нами!',
+                'title2' => 'Осталось ввести ваши имя, фамилию, пол и пароль',
+            ),
+            'step3' => array(
+                'title1' => 'Мы готовим для вас личную страницу',
+            ),
+        ),
+
+        'horoscope' => array(
+            'step2' => array(
+                'title1' => 'Ваш гороскоп почти готов!',
+                'title2' => 'Осталось ввести ваши имя, фамилию, пол, дату рождения и пароль',
+            ),
+            'step3' => array(
+                'title1' => 'Мы готовим для вас гороскоп',
+            ),
+        ),
+        'pregnancy' => array(
+            'step2' => array(
+                'title1' => 'Ваш календарь почти готов!',
+                'title2' => 'Осталось ввести ваши имя, фамилию, предполагаемую дату родов и пароль',
+            ),
+            'step3' => array(
+                'title1' => 'Мы готовим для вас календарь',
+            ),
+        ),
+    );
+
+    public function actionShowForm()
+    {
+        $model = new User;
+        $model->email = Yii::app()->request->getPost('email');
+        $type = Yii::app()->request->getPost('type');
+
+        Yii::app()->clientScript->scriptMap = array(
+            'jquery.js' => false,
+            'jquery.min.js' => false,
+            'jquery.yiiactiveform.js'=>false
+        );
+
+        $this->renderPartial('form', compact('model', 'type'), false, true);
     }
 }

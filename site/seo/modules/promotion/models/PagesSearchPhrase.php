@@ -272,10 +272,10 @@ class PagesSearchPhrase extends HActiveRecord
         $criteria->having = 'links_count < 1';
         $criteria->together = true;
 
-        if (SeoUserAttributes::getAttribute('yandex_sort') == self::SORT_BY_POSITION)
-            $criteria->order = 'last_yandex_position asc';
-        else
-            $criteria->order = 'yandex.value desc';
+//        if (SeoUserAttributes::getAttribute('yandex_sort') == self::SORT_BY_POSITION)
+//            $criteria->order = 'last_yandex_position asc';
+//        else
+//            $criteria->order = 'yandex.value desc';
         $criteria->condition = 'skip.phrase_id IS NULL AND last_yandex_position > :min_yandex_position
                                 AND last_yandex_position < :max_yandex_position';
 

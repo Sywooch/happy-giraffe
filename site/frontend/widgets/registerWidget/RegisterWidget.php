@@ -56,7 +56,7 @@ class RegisterWidget extends CWidget
         if (Yii::app()->user->isGuest) {
             if (Yii::app()->controller->uniqueId == 'services/horoscope/default'){
                 $this->type = 'horoscope';
-            } elseif (Yii::app()->controller->module->id == 'calendar') {
+            } elseif (isset(Yii::app()->controller->module->id) && Yii::app()->controller->module->id == 'calendar') {
                 $this->type = 'pregnancy';
             } elseif (strpos(Yii::app()->getRequest()->urlReferrer, 'http://www.odnoklassniki.ru/') === 0) {
                 $this->odnoklassniki = true;

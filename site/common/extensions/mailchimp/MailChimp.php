@@ -77,7 +77,7 @@ class MailChimp extends CApplicationComponent
     {
         $criteria = new CDbCriteria;
         $criteria->limit = 100;
-        $criteria->condition = 'id > 389048';
+        $criteria->condition = 'id > 418292';
 
         $users = array(1);
         $last_id = 0;

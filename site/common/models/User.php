@@ -176,7 +176,6 @@ class User extends HActiveRecord
             array('email', 'email', 'message' => 'E-mail не является правильным E-Mail адресом'),
             array('password, current_password, new_password, new_password_repeat', 'length', 'min' => 6, 'max' => 15, 'on' => 'signup, change_password', 'tooShort' => 'минимум 6 символов', 'tooLong' => 'максимум 15 символов'),
             array('online, relationship_status', 'numerical', 'integerOnly' => true),
-            array('email', 'unique', 'message' => 'Этот E-Mail уже используется'),
             array('gender', 'boolean'),
             array('id, phone', 'safe'),
             array('deleted', 'numerical', 'integerOnly' => true),
@@ -199,6 +198,7 @@ class User extends HActiveRecord
             array('birthday', 'required', 'on' => 'signup_full', 'message' => 'Поле является обязательным'),
             array('gender', 'required', 'on' => 'signup,signup_full', 'message' => 'укажите свой пол'),
             array('first_name, last_name, gender, birthday, photo', 'safe', 'on' => 'signup,signup_full'),
+            array('email', 'unique', 'on' => 'signup,signup_full' , 'message' => 'Этот E-Mail уже используется'),
 
             //change_password
             array('new_password', 'required', 'on' => 'change_password'),

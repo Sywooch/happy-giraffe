@@ -271,7 +271,7 @@
             <a href="javascript:void(0);" class="popup-close tooltip" onclick="$.fancybox.close()"></a>
 
             <?php $form = $this->beginWidget('CActiveForm', array(
-            'id' => 'horoscope-reg-form',
+            'id' => 'pregnancy-register-form',
             'action' => '#',
             'enableClientValidation' => false,
             'enableAjaxValidation' => true,
@@ -282,7 +282,7 @@
                 'validationUrl' => Yii::app()->createUrl('/signup/validate', array('step' => 1)),
                 'afterValidate' => "js:function(form, data, hasError) {
                             if (!hasError){
-                                Register.showStep2($('#pregnancy-calendar-self #User_email').val());
+                                Register.showStep2($('#pregnancy-register-form #User_email').val(), 'pregnancy');
                             }
                             return false;
                           }",

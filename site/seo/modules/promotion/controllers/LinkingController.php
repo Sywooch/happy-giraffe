@@ -223,7 +223,8 @@ class LinkingController extends SController
         //удалим те, с которых стоят ссылки на наш "Следующая", "Предыдущая"
         $article = $phrase->page->getArticle();
         if (!empty($article)) {
-            foreach (array('getPrevPost', 'getNextPost') as $method) {
+            foreach (array('getPrevPost', 'getNextPost') as $method)
+            if (method_exists ($article, $method)){
                 $post = $article->$method();
                 if ($post !== null) {
                     $ulr = 'http://www.happy-giraffe.ru' . $post->getUrl(false);

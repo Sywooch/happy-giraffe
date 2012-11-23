@@ -342,6 +342,23 @@ class Page extends CActiveRecord
         return array(null, null);
     }
 
+    public function CanBeLinkDonor()
+    {
+        if (strpos($this->url, 'http://www.happy-giraffe.ru/cook/recipe/') === 0)
+            return true;
+        if (strpos($this->url, 'http://www.happy-giraffe.ru/cook/multivarka/') === 0)
+            return true;
+        if (strpos($this->url, 'http://www.happy-giraffe.ru/community/') === 0)
+            return true;
+        if (strpos($this->url, 'http://www.happy-giraffe.ru/recipeBook/recipe') === 0)
+            return true;
+        if (strpos($this->url, 'http://www.happy-giraffe.ru/user/') === 0
+            && strpos($this->url, '/blog/post') !== false)
+            return true;
+
+        return false;
+    }
+
     public function TestUrlParsing()
     {
         $r = Page::ParseUrl('http://www.happy-giraffe.ru/cook/recipe/18484/');

@@ -456,8 +456,8 @@ class Keyword extends HActiveRecord
         Yii::import('site.frontend.modules.cook.models.*');
         Yii::import('site.frontend.extensions.*');
 
-//        $res = Yii::app()->cache->get('similar_articles_5' . $this->name);
-//        if ($res === false) {
+        $res = Yii::app()->cache->get('similar_articles__' . $this->id);
+        if ($res === false) {
         $models = $this->getSimilarArticles($section);
         if (!empty($models)) {
             $res = '<a href="javascript:;" class="icon-links-trigger" onclick="$(this).toggleClass(\'triggered\').next().toggle();"></a><div class="links" style="display:none;">';
@@ -485,8 +485,8 @@ class Keyword extends HActiveRecord
                       </div>';
         }
 
-//            Yii::app()->cache->set('similar_articles_' . $this->name, $res, 24*3600);
-//        }
+            Yii::app()->cache->set('similar_articles__' . $this->id, $res, 24*3600);
+        }
 
         return $res;
     }

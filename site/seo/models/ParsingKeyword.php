@@ -99,6 +99,20 @@ class ParsingKeyword extends HActiveRecord
 		));
 	}
 
+    public static function addNewKeyword($keyword_id, $priority = 0)
+    {
+        $model = new ParsingKeyword();
+        $model->keyword_id = $keyword_id;
+        $model->priority = $priority;
+        try {
+            $success = $model->save();
+            if ($success)
+                return true;
+        } catch (Exception $e) {
+            return false;
+        }
+    }
+
     public static function addKeyword($keyword_id, $priority = 0)
     {
         $model = ParsingKeyword::model()->findByPk($keyword_id);

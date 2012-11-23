@@ -71,6 +71,7 @@ if ($this->type == 'guestBook') {
         'template' => $template,
         'viewData' => array(
             'currentPage' => $dataProvider->pagination->currentPage,
+            'dp' => $dataProvider,
         ),
         'popUp' => $this->popUp,
     ));
@@ -89,6 +90,7 @@ if ($this->type == 'guestBook') {
         'template' => $template,
         'viewData' => array(
             'currentPage' => $dataProvider->pagination->currentPage,
+            'dp' => $dataProvider,
         ),
         'popUp' => $this->popUp,
     ));

@@ -56,6 +56,26 @@ class ExternalImagesBehavior extends CActiveRecordBehavior
                 }
             }
 
+            $externalLinksCount = 0;
+            foreach (pq('a') as $e) {
+                $href = pq($e)->attr('href');
+                if (strpos($href, $_SERVER['HTTP_HOST']) === false && strpos($href, '/') !== 0)
+                    $externalLinksCount++;
+            }
+
+            if ($externalLinksCount > 2) {
+                $entity = in_array(get_class($this->owner), array('CommunityPost', 'CommunityVideo')) ? $this->owner->content : $this->owner;
+
+                $report = new Report;
+                $report->type = 0;
+                $report->text = 'Наличие более 2-х внешних ссылок';
+                $report->breaker_id = $entity->author_id;
+                $report->entity = get_class($entity);
+                $report->entity_id = $entity->id;
+                $report->path = $entity->url;
+                $report->save();
+            }
+
             $this->owner->$attr = $doc->html();
             $doc->unloadDocument();
         }

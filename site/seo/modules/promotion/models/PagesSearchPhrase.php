@@ -10,6 +10,7 @@
  * @property integer $last_yandex_position
  * @property integer $google_traffic
  * @property integer $yandex_traffic
+ * @property integer $inner_links_count
  *
  * The followings are the available model relations:
  * @property Keyword $keyword
@@ -225,7 +226,7 @@ class PagesSearchPhrase extends HActiveRecord
     public static function getGooglePhrase()
     {
         $criteria = new CDbCriteria;
-        $criteria->select = 't.*, `skip`.`phrase_id` as skips, count(links.date) as links_count';
+        $criteria->select = 't.*, `skip`.`phrase_id` as skips';
         $criteria->with = array(
             'keyword' => array('select' => 'name'),
             'keyword.yandex' => array(
@@ -237,10 +238,11 @@ class PagesSearchPhrase extends HActiveRecord
             'links'
         );
 
-        $criteria->group = 't.id';
-        $criteria->having = 'links_count < 1';
         $criteria->together = true;
-        $criteria->condition = 'skip.phrase_id IS NULL AND google_traffic >= :google_visits_min AND last_yandex_position > 3';
+        $criteria->condition = 'skip.phrase_id IS NULL
+        AND google_traffic >= :google_visits_min
+        AND last_yandex_position > 3
+        AND inner_links_count < 1';
 
         $criteria->params = array(
             ':google_visits_min' => SeoUserAttributes::getAttribute('google_visits_min')
@@ -256,7 +258,7 @@ class PagesSearchPhrase extends HActiveRecord
     public static function getYandexPhrase()
     {
         $criteria = new CDbCriteria;
-        $criteria->select = 't.*, `skip`.`phrase_id` as skips, count(links.date) as links_count';
+        $criteria->select = 't.*, `skip`.`phrase_id` as skips';
         $criteria->with = array(
             'keyword' => array('select' => 'name'),
             'keyword.yandex' => array(
@@ -265,18 +267,15 @@ class PagesSearchPhrase extends HActiveRecord
                 'params' => array(':wordstat_min' => SeoUserAttributes::getAttribute('wordstat_min'))
             ),
             'skip',
-            'links'
         );
-
-        $criteria->group = 't.id';
-        $criteria->having = 'links_count < 1';
+        $criteria->condition = 'inner_links_count < 1';
         $criteria->together = true;
 
         if (SeoUserAttributes::getAttribute('yandex_sort') == self::SORT_BY_POSITION)
             $criteria->order = 'last_yandex_position asc';
         else
             $criteria->order = 'yandex.value desc';
-        $criteria->condition = 'skip.phrase_id IS NULL AND last_yandex_position > :min_yandex_position
+        $criteria->condition .= ' AND skip.phrase_id IS NULL AND last_yandex_position > :min_yandex_position
                                 AND last_yandex_position < :max_yandex_position';
 
         $criteria->params = array(
@@ -322,5 +321,11 @@ class PagesSearchPhrase extends HActiveRecord
             return 0;
 
         return round($sum / (count($models)));
+    }
+
+    public function calculateLinksCount()
+    {
+        $this->inner_links_count = InnerLink::model()->count('phrase_id = '.$this->id);
+        $this->update(array('inner_links_count'));
     }
 }

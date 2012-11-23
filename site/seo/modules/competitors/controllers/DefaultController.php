@@ -22,20 +22,23 @@ class DefaultController extends SController
         else
             SeoUserAttributes::setAttribute('last_competitor_site_id_section_' . $section, $site_id);
 
+        $current_site = Site::model()->findByPk($site_id);
+
         $sites = Site::model()->findAllByAttributes(array('section' => $section));
         $nav = array();
-        foreach ($sites as $site) {
-            $nav [] = array(
-                'label' => $site->name,
-                'url' => $this->createUrl('default/index', array('site_id' => $site->id, 'section'=>$section)),
-                'active' => $site_id == $site->id
-            );
+        foreach ($sites as $site)
+            if (!$site->isPartOfGroup()) {
+                $nav [] = array(
+                    'label' => $site->name,
+                    'url' => $this->createUrl('default/index', array('site_id' => $site->id, 'section' => $section)),
+                    'active' => $site_id == $site->id
+                );
 
-            if (count($nav) == 6) {
-                $this->fast_nav [] = $nav;
-                $nav = array();
+                if (count($nav) == 6) {
+                    $this->fast_nav [] = $nav;
+                    $nav = array();
+                }
             }
-        }
 
         if (!empty($nav))
             $this->fast_nav [] = $nav;
@@ -43,7 +46,7 @@ class DefaultController extends SController
         $model = new SiteKeywordVisit;
         $model->attributes = $_GET;
         $model->year = $year;
-        $model->site_id = $site_id;
+        $model->sites_id = $current_site->getGroupSiteIds();
         $model->freq = $freq;
 
         $this->render('competitors', compact('model', 'site_id', 'year', 'freq', 'section'));

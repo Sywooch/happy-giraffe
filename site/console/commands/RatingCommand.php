@@ -24,7 +24,6 @@ class RatingCommand extends CConsoleCommand
         }
     }
 
-
     public function actionShowLikes($work)
     {
         $models = RatingYohoho::model()->findAllByAttributes(array(
@@ -41,6 +40,16 @@ class RatingCommand extends CConsoleCommand
         $unique_likes = array_unique($likes);
         echo count($likes)."\n";
         echo count($unique_likes)."\n";
+    }
+
+    public function actionShowUserLikes($user)
+    {
+        $models = RatingYohoho::model()->findAllByAttributes(array(
+            'user_id' => (int)$user,
+        ));
+
+        foreach ($models as $model)
+            echo $model->entity_id."\n";
     }
 
     public function actionSync($social_key = null)

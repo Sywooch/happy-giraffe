@@ -18,7 +18,7 @@ class DefaultController extends HController
      */
     public function actionIndex()
     {
-        $models = Horoscope::model()->findAllByAttributes(array('date' => date("Y-m-d")));
+        $models = Horoscope::model()->sortByZodiac()->findAllByAttributes(array('date' => date("Y-m-d")));
         $this->title = 'Гороскоп на сегодня по знакам Зодиака';
         $this->meta_title = $this->title;
 
@@ -96,7 +96,7 @@ class DefaultController extends HController
             $this->title = 'Гороскоп на завтра по знакам Зодиака';
             $this->meta_title = $this->title;
 
-            $models = Horoscope::model()->findAllByAttributes(array('date' => $date));
+            $models = Horoscope::model()->sortByZodiac()->findAllByAttributes(array('date' => $date));
             $this->render('tomorrow', array('models' => $models, 'type' => 'tomorrow'));
         } else {
             $zodiac = Horoscope::model()->getZodiacId(trim($zodiac));
@@ -123,7 +123,7 @@ class DefaultController extends HController
             $this->title = 'Гороскоп на месяц по знакам Зодиака';
             $this->meta_title = $this->title;
 
-            $models = Horoscope::model()->findAllByAttributes(array('year' => date('Y'), 'month' => date('n')));
+            $models = Horoscope::model()->sortByZodiac()->findAllByAttributes(array('year' => date('Y'), 'month' => date('n')));
             $this->render('month', array('models' => $models, 'type' => 'month'));
         } else {
             if (empty($month)) {
@@ -179,7 +179,7 @@ class DefaultController extends HController
             $this->title = 'Гороскоп на ' . $year . ' год по знакам Зодиака';
             $this->meta_title = $this->title;
 
-            $models = Horoscope::model()->findAllByAttributes(array('year' => $year, 'month' => null));
+            $models = Horoscope::model()->sortByZodiac()->findAllByAttributes(array('year' => $year, 'month' => null));
             $this->render('year', array('models' => $models, 'year' => $year));
         } else {
             $zodiac = Horoscope::model()->getZodiacId($zodiac);

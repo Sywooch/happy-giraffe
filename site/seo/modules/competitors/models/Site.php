@@ -97,4 +97,30 @@ class Site extends HActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+    /**
+     * @return int[]
+     */
+    public function getGroupSiteIds()
+    {
+        $sites = Yii::app()->db_seo->createCommand()
+                    ->select('site_id')
+                    ->from('sites__group_sites')
+                    ->where('group_id = '.$this->id)
+                    ->queryColumn();
+        if (!empty($sites))
+            return $sites;
+        else
+            return array($this->id);
+    }
+
+    public function isPartOfGroup()
+    {
+        $sites = Yii::app()->db_seo->createCommand()
+            ->select('site_id')
+            ->from('sites__group_sites')
+            ->where('site_id = '.$this->id)
+            ->queryColumn();
+        return !empty($sites);
+    }
 }

@@ -2,10 +2,11 @@
 /* @var $this Controller
  * @var $model SiteKeywordVisit
  * @var $freq int
+ * @var site_id int
  */
 
 $criteria = $model->getCriteriaWithoutFreq();
-$cache_id = 'site_keywords_count_'.$_GET['site_id'];
+$cache_id = 'site_keywords_count_'.$site_id;
 $counts=Yii::app()->cache->get($cache_id);
 if($counts===false)
 {

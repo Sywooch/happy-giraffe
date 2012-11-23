@@ -7,7 +7,7 @@
         <button class="btn btn-green-small">Поиск</button>
     </div>
 
-    <?php $this->renderPartial('_count', compact('model', 'freq')); ?>
+    <?php $this->renderPartial('_count', compact('model', 'freq', 'site_id')); ?>
 
     <div class="result-filter">
         <label>не показывать<br>используемые<br>

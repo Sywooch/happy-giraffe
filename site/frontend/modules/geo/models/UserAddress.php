@@ -166,11 +166,7 @@ class UserAddress extends HActiveRecord
             if (!empty($this->region_id)) {
                 $value .= ', ' . $this->region->name;
                 if (!empty($this->city_id)) {
-                    if (empty($this->city->district_id)) {
-                        $value .= ', ' . $this->city->type . ' ' . $this->city->name;
-                    } else {
-                        $value .= ', ' . $this->city->district->name . ' район, ' . $this->city->type . ' ' . $this->city->name;
-                    }
+                    $value .= ', ' . $this->city->type . ' ' . $this->city->name;
                 }
             }
             Yii::app()->cache->set($cache_id,$value);

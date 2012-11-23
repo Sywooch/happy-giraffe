@@ -109,6 +109,13 @@
             'header' => '',
             'filter' => false
         ),
+        array(
+            'name' => 'sites_id',
+            'type' => 'raw',
+            'value' => '$data->site->name',
+            'header' => 'Сайт',
+            'filter' => false
+        ),
     ),
 )); ?>
 </div>
@@ -170,12 +177,14 @@
             $('table.items thead tr th:eq(0)').remove();
             $('table.items thead tr th:eq(0)').remove();
             $('table.items thead tr th:last').remove();
+            $('table.items thead tr th:last').remove();
 
             var tr = '<tr>\
 						<th rowspan="2" class="col-1">Ключевое слово или фраза</th>\
 						<th rowspan="2"><i class="icon-yandex" onclick="CompetitorsTable.sortByFreq()"></i></th>\
 						<th rowspan="2"><i class="icon-freq"></i></th>\
 						<th colspan="12">Количество визитов &nbsp;&nbsp;&nbsp; Год <select onchange="CompetitorsTable.setYear(this);"><option value="2011"<?php if ($model->year == 2011) echo ' selected' ?>>2011</option><option value="2012"<?php if ($model->year == 2012) echo ' selected' ?>>2012</option></select></th>\
+						<th rowspan="2"></th>\
 						<th rowspan="2"></th>\
 					</tr>';
 

@@ -163,10 +163,14 @@ class UserAddress extends HActiveRecord
         if($value===false)
         {
             $value = $this->getCountryTitle();
-            if (!empty($this->region_id) && $this->region->center_id != $this->city_id) {
+            if (!empty($this->region_id)) {
                 $value .= ', ' . $this->region->name;
                 if (!empty($this->city_id)) {
-                    $value .= ', ' . $this->city->type . ' ' . $this->city->name;
+                    if (empty($this->city->district_id)) {
+                        $value .= ', ' . $this->city->type . ' ' . $this->city->name;
+                    } else {
+                        $value .= ', ' . $this->city->district->name . ' район, ' . $this->city->type . ' ' . $this->city->name;
+                    }
                 }
             }
             Yii::app()->cache->set($cache_id,$value);
@@ -187,7 +191,9 @@ class UserAddress extends HActiveRecord
                     $value = $city_string;
                 }elseif ($this->region->center_id != $this->city_id){
                     $value = str_replace('область', 'обл', $this->region->name) . '<br> ' . $city_string;
-                }
+                }else
+                    $value = $city_string;
+
             } elseif (!empty($this->region_id)) {
                 $value = $this->region->name;
             }

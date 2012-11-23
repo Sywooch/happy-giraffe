@@ -1,18 +1,22 @@
 <?php
 
 /**
- * This is the model class for table "geo_rus_street".
+ * This is the model class for table "sites__group_sites".
  *
- * The followings are the available columns in table 'geo_rus_street':
- * @property string $id
- * @property string $name
- * @property string $settlement_id
+ * The followings are the available columns in table 'sites__group_sites':
+ * @property integer $group_id
+ * @property integer $site_id
+ *
+ * The followings are the available model relations:
+ * @property Site $group
+ * @property Site $site
  */
-class GeoRusStreet extends HActiveRecord
+class GroupSites extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
-	 * @return GeoRusStreet the static model class
+	 * @param string $className active record class name.
+	 * @return GroupSites the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -20,11 +24,19 @@ class GeoRusStreet extends HActiveRecord
 	}
 
 	/**
+	 * @return CDbConnection database connection
+	 */
+	public function getDbConnection()
+	{
+		return Yii::app()->db_seo;
+	}
+
+	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'geo__rus_street';
+		return 'sites__group_sites';
 	}
 
 	/**
@@ -35,12 +47,11 @@ class GeoRusStreet extends HActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name, settlement_id', 'required'),
-			array('name', 'length', 'max'=>255),
-			array('settlement_id', 'length', 'max'=>11),
+			array('group_id, site_id', 'required'),
+			array('group_id, site_id', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, name, settlement_id', 'safe', 'on'=>'search'),
+			array('group_id, site_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -52,7 +63,8 @@ class GeoRusStreet extends HActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'settlement' => array(self::BELONGS_TO, 'GeoRusSettlement', 'settlement_id'),
+			'group' => array(self::BELONGS_TO, 'Site', 'group_id'),
+			'site' => array(self::BELONGS_TO, 'Site', 'site_id'),
 		);
 	}
 
@@ -62,9 +74,8 @@ class GeoRusStreet extends HActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
-			'name' => 'Name',
-			'settlement_id' => 'Settlement',
+			'group_id' => 'Group',
+			'site_id' => 'Site',
 		);
 	}
 
@@ -79,9 +90,8 @@ class GeoRusStreet extends HActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('id',$this->id,true);
-		$criteria->compare('name',$this->name,true);
-		$criteria->compare('settlement_id',$this->settlement_id,true);
+		$criteria->compare('group_id',$this->group_id);
+		$criteria->compare('site_id',$this->site_id);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

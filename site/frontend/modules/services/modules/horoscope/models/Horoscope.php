@@ -115,6 +115,15 @@ class Horoscope extends HActiveRecord
         return array();
     }
 
+    public function scopes()
+    {
+        return array(
+            'sortByZodiac' => array(
+                'order' => 'zodiac asc',
+            ),
+        );
+    }
+
     /**
      * @return array customized attribute labels (name=>label)
      */
@@ -133,13 +142,6 @@ class Horoscope extends HActiveRecord
             'personal' => 'Личная жизнь',
             'good_days' => 'Благоприятные дни',
             'bad_days' => 'Неблагоприятные дни',
-        );
-    }
-
-    public function defaultScope()
-    {
-        return array(
-            'order' => 'id desc',
         );
     }
 
@@ -166,6 +168,7 @@ class Horoscope extends HActiveRecord
         $criteria->compare('personal', $this->personal, true);
         $criteria->compare('good_days', $this->good_days, true);
         $criteria->compare('bad_days', $this->bad_days, true);
+        $criteria->order = 'id desc';
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,

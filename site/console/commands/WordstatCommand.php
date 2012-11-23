@@ -226,11 +226,20 @@ skrapbook
         $i=0;
         while (($buffer = fgets($handle)) !== false) {
             $i++;
-            if ($i < 1970000)
+            if ($i < 2500000)
                 continue;
 
-            $keyword = substr($buffer, 0, strpos($buffer, ','));
-            Keyword::GetKeyword($keyword, 0);
+            $keyword = trim(substr($buffer, 0, strpos($buffer, ',')));
+            $keyword_model = Keyword::model()->findByAttributes(array('name'=>$keyword));
+            if ($keyword_model === null){
+                $keyword_model = new Keyword();
+                $keyword_model->name = $keyword;
+                try {
+                    $keyword_model->save();
+                    ParsingKeyword::addNewKeyword($keyword_model->id, 0);
+                } catch (Exception $e) {
+                }
+            }
             if ($i % 10000 == 0)
                 echo $i."\n";
         }

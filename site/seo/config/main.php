@@ -27,7 +27,6 @@ return array(
         'application.modules.promotion.models.*',
         'application.modules.indexing.models.*',
         'application.modules.commentators.models.*',
-
         'application.modules.externalLinks.models.*',
     ),
 

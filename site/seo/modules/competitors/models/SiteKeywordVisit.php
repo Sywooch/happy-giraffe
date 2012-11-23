@@ -33,6 +33,10 @@ class SiteKeywordVisit extends HActiveRecord
     public $popular;
     public $popularIcon;
     public $freq;
+    /**
+     * @var Site[]
+     */
+    public $sites_id;
 
     private $temp_ids = null;
 
@@ -138,6 +142,11 @@ class SiteKeywordVisit extends HActiveRecord
 
         if (!empty($this->freq)) {
             $condition = Keyword::getFreqCondition($this->freq);
+            if (!in_array('keyword', $criteria->with))
+                $criteria->with [] = 'keyword';
+            if (!in_array('keyword.yandex', $criteria->with))
+                $criteria->with [] = 'keyword.yandex';
+
             if (!empty($criteria->condition)) {
                 $criteria->condition .= ' AND ' . $condition;
             } else
@@ -173,13 +182,13 @@ class SiteKeywordVisit extends HActiveRecord
     public function getCriteriaWithoutFreq()
     {
         $criteria = new CDbCriteria;
+        $criteria->with = array();
 
         if (Yii::app()->user->getState('hide_used') == 1) {
             $criteria->condition = 'group.id IS NULL AND ((tempKeyword.keyword_id IS NOT NULL AND tempKeyword.owner_id = ' . Yii::app()->user->id . ') OR tempKeyword.keyword_id IS NULL)';
+            $criteria->with = array('keyword', 'keyword.group', 'keyword.tempKeyword', 'keyword.blacklist', 'keyword.yandex');
         }
 
-        $criteria->compare('site_id', $this->site_id);
-        $criteria->compare('year', $this->year);
         if (!empty($this->key_name)) {
             if ($this->temp_ids === null)
                 $this->temp_ids = Keyword::findSiteIdsByNameWithSphinx($this->key_name);
@@ -190,10 +199,23 @@ class SiteKeywordVisit extends HActiveRecord
                 $criteria->condition .= ' AND keyword.id IN (' . implode(',', $this->temp_ids) . ')';
         }
 
-        $criteria->condition .= ' AND blacklist.keyword_id IS NULL';
-        $criteria->compare('yandex.value', $this->popular);
-        $criteria->with = array('keyword', 'keyword.group', 'keyword.yandex', 'keyword.tempKeyword', 'keyword.blacklist');
+        //search by site_id
+        if (count($this->sites_id) == 1)
+            $condition = 'site_id = ' . $this->sites_id[0];
+        else
+            $condition = 'site_id IN (' . implode(',', $this->sites_id) . ') ';
+        $criteria->condition .= empty($criteria->condition) ? $condition : ' AND ' . $condition;
+
+        $criteria->compare('year', $this->year);
         $criteria->together = true;
+
+        return $criteria;
+    }
+
+    public function getCriteriaWithoutFreqForCounts()
+    {
+        $criteria = $this->getCriteriaWithoutFreq();
+        $criteria->with = array('keyword', 'keyword.yandex');
 
         return $criteria;
     }

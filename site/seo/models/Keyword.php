@@ -220,7 +220,7 @@ class Keyword extends HActiveRecord
         $model->name = $word;
         try{
             $model->save();
-            ParsingKeyword::addKeyword($model->id, $priority);
+            ParsingKeyword::addNewKeyword($model->id, $priority);
         }catch (Exception $e){
             //значит кейворд создан в промежуток времени между запросами - повторим запрос
             $model = self::model()->findByAttributes(array('name' => $word));
@@ -277,7 +277,9 @@ class Keyword extends HActiveRecord
     public function getClass()
     {
         $class = '';
-        if ($this->used()) $class = 'on-site';
+        if (isset($this->blacklist->keyword_id))
+            return 'hidden';
+        elseif ($this->used()) $class = 'on-site';
         elseif ($this->inBuffer()) $class = 'in-buffer'; elseif ($this->hasOpenedTask()) $class = 'in-work';
 
         return $class;
@@ -456,8 +458,8 @@ class Keyword extends HActiveRecord
         Yii::import('site.frontend.modules.cook.models.*');
         Yii::import('site.frontend.extensions.*');
 
-//        $res = Yii::app()->cache->get('similar_articles_5' . $this->name);
-//        if ($res === false) {
+        $res = Yii::app()->cache->get('similar_articles__' . $this->id);
+        if ($res === false) {
         $models = $this->getSimilarArticles($section);
         if (!empty($models)) {
             $res = '<a href="javascript:;" class="icon-links-trigger" onclick="$(this).toggleClass(\'triggered\').next().toggle();"></a><div class="links" style="display:none;">';
@@ -485,8 +487,8 @@ class Keyword extends HActiveRecord
                       </div>';
         }
 
-//            Yii::app()->cache->set('similar_articles_' . $this->name, $res, 24*3600);
-//        }
+            Yii::app()->cache->set('similar_articles__' . $this->id, $res, 24*3600);
+        }
 
         return $res;
     }

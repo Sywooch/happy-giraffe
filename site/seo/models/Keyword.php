@@ -220,7 +220,7 @@ class Keyword extends HActiveRecord
         $model->name = $word;
         try{
             $model->save();
-            ParsingKeyword::addKeyword($model->id, $priority);
+            ParsingKeyword::addNewKeyword($model->id, $priority);
         }catch (Exception $e){
             //значит кейворд создан в промежуток времени между запросами - повторим запрос
             $model = self::model()->findByAttributes(array('name' => $word));

@@ -113,4 +113,14 @@ class Site extends HActiveRecord
         else
             return array($this->id);
     }
+
+    public function isPartOfGroup()
+    {
+        $sites = Yii::app()->db_seo->createCommand()
+            ->select('site_id')
+            ->from('sites__group_sites')
+            ->where('site_id = '.$this->id)
+            ->queryColumn();
+        return !empty($sites);
+    }
 }

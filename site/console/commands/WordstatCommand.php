@@ -221,12 +221,12 @@ skrapbook
 
     public function actionAddKeywordsFromFile()
     {
-        $path = Yii::app()->params['keywords_path'] ;
+        $path = Yii::app()->params['keywords_path'];
         $handle = @fopen($path, "r");
         $i=0;
         while (($buffer = fgets($handle)) !== false) {
             $i++;
-            if ($i < 2500000)
+            if ($i < 3000000)
                 continue;
 
             $keyword = trim(substr($buffer, 0, strpos($buffer, ',')));

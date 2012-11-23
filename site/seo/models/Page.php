@@ -348,7 +348,8 @@ class Page extends CActiveRecord
             return true;
         if (strpos($this->url, 'http://www.happy-giraffe.ru/cook/multivarka/') === 0)
             return true;
-        if (strpos($this->url, 'http://www.happy-giraffe.ru/community/') === 0)
+        if (strpos($this->url, 'http://www.happy-giraffe.ru/community/') === 0
+            && strpos($this->url, '/forum/') !== false)
             return true;
         if (strpos($this->url, 'http://www.happy-giraffe.ru/recipeBook/recipe') === 0)
             return true;

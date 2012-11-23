@@ -47,6 +47,14 @@ class LinkingController extends SController
         }
     }
 
+    public function actionCheckLinks(){
+        $link = new InnerLink();
+        if(isset($_GET['InnerLink']))
+            $link->attributes=$_GET['InnerLink'];
+
+        $this->render('check_links', compact('link'));
+    }
+
     public function actionSkip()
     {
         $phrase = $this->loadPhrase(Yii::app()->request->getPost('phrase_id'));

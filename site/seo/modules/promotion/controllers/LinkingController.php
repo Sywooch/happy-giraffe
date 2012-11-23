@@ -209,6 +209,11 @@ class LinkingController extends SController
             if ($page->id == $phrase->page_id)
                 unset($pages[$key]);
 
+        //оставим только те с которых можно ставить ссылки
+        foreach ($pages as $key => $page)
+            if (!$page->CanBeLinkDonor())
+                unset($pages[$key]);
+
         //удалим c которых по 3 ссылки и более
         foreach ($pages as $key => $page)
             if ($page->outputLinksCount >= 3)

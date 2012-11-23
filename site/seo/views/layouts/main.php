@@ -148,18 +148,18 @@
 
             )));
     ?>
-</div>
-    <div>
-        <?php echo '<div>';
-        echo 'Отработало за ' . sprintf('%0.5f', Yii::getLogger()->getExecutionTime()) . ' с. ';
-        echo 'Скушано памяти: ' . round(memory_get_peak_usage() / (1024 * 1024), 2) . ' MB';
-        echo '<br>';
-        $sql_stats = YII::app()->db->getStats();
-        echo $sql_stats[0] . ' запросов к БД. ';
-        echo 'время выполнения запросов - ' . sprintf('%0.5f', $sql_stats[1]) . ' c.';
-        echo '</div>';?>
-    </div>
-        <br><br>
 <?php endif; ?>
+</div>
+<div>
+    <?php echo '<div>';
+    echo 'Отработало за ' . sprintf('%0.5f', Yii::getLogger()->getExecutionTime()) . ' с. ';
+    echo 'Скушано памяти: ' . round(memory_get_peak_usage() / (1024 * 1024), 2) . ' MB';
+    echo '<br>';
+    $sql_stats = YII::app()->db->getStats();
+    echo $sql_stats[0] . ' запросов к БД. ';
+    echo 'время выполнения запросов - ' . sprintf('%0.5f', $sql_stats[1]) . ' c.';
+    echo '</div>';?>
+</div>
+<br><br>
 </body>
 </html>

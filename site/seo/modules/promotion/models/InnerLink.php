@@ -103,6 +103,7 @@ class InnerLink extends HActiveRecord
 		$criteria->compare('page_to_id',$this->page_to_id,true);
 		$criteria->compare('keyword_id',$this->keyword_id);
 		$criteria->compare('date',$this->date,true);
+        $criteria->order = 'date desc';
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

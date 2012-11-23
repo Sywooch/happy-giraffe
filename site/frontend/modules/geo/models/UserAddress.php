@@ -158,7 +158,7 @@ class UserAddress extends HActiveRecord
         if (empty($this->country_id))
             return '';
 
-        $cache_id = 'geo_loc2'.$this->country_id.'_'.$this->city_id.'_'.$this->region_id;
+        $cache_id = 'geo_loc2'.$this->country_id.'_'.$this->city_id;
         $value=Yii::app()->cache->get($cache_id);
         if($value===false)
         {
@@ -181,7 +181,7 @@ class UserAddress extends HActiveRecord
 
     public function getLocationWithoutCountry()
     {
-        $cache_id = 'geo_loc'.$this->country_id.'_'.$this->city_id.'_'.$this->region_id;
+        $cache_id = 'geo_loc'.$this->country_id.'_'.$this->city_id;
         $value=Yii::app()->cache->get($cache_id);
         if($value===false)
         {

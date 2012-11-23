@@ -277,7 +277,9 @@ class Keyword extends HActiveRecord
     public function getClass()
     {
         $class = '';
-        if ($this->used()) $class = 'on-site';
+        if (isset($this->blacklist->keyword_id))
+            return 'hidden';
+        elseif ($this->used()) $class = 'on-site';
         elseif ($this->inBuffer()) $class = 'in-buffer'; elseif ($this->hasOpenedTask()) $class = 'in-work';
 
         return $class;

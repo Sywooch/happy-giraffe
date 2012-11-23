@@ -226,7 +226,7 @@ skrapbook
         $i=0;
         while (($buffer = fgets($handle)) !== false) {
             $i++;
-            if ($i < 3000000)
+            if ($i < 2500000)
                 continue;
 
             $keyword = substr($buffer, 0, strpos($buffer, ','));

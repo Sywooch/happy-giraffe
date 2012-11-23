@@ -435,6 +435,46 @@ class Comment extends HActiveRecord
         return $text;
     }
 
+    public function getGroupRemoveDescription($comments, $first, $last)
+    {
+        $byAuthor = false;
+        $byOwner = false;
+        $byModer = false;
+        $reasons = array();
+        foreach ($comments as $c) {
+            switch ($c->remove->type) {
+                case 0:
+                    $byAuthor = true;
+                    break;
+                case 5:
+                    $byOwner = true;
+                    break;
+                default:
+                    $byModer = true;
+                    if ($c->remove->type == 4) {
+                        $reasons[] = $c->remove->text;
+                    } else {
+                        $reasons[] = Removed::$types[$c->remove->type];
+                    }
+            }
+        }
+
+        $words = array();
+        if ($byAuthor)
+            $words[] = 'автором';
+
+        if ($byOwner)
+            $words[] = 'владельцем страницы';
+
+        if ($byModer) {
+            foreach ($reasons as $k => $r)
+                $reasons[$k] = '"' . $r . '"';
+            $words[] = 'модератором по ' . ((count($reasons) > 1) ? 'причинам' : 'причине') . ' ' . HDate::enumeration($reasons);
+        }
+
+        return ((count($comments) > 1) ? 'Комментарии с ' . $first . ' по ' . $last . ' были удалены' : 'Комментарий был удалён') . ' ' . HDate::enumeration($words);
+    }
+
     public function isTextComment()
     {
         return empty($this->photoAttaches);

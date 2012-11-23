@@ -199,6 +199,8 @@ class SiteKeywordVisit extends HActiveRecord
                 $criteria->condition .= ' AND keyword.id IN (' . implode(',', $this->temp_ids) . ')';
         }
 
+        $criteria->group = 'keyword_id';
+
         //search by site_id
         if (count($this->sites_id) == 1)
             $condition = 'site_id = ' . $this->sites_id[0];

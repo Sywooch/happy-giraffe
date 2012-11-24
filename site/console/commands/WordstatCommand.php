@@ -221,17 +221,21 @@ skrapbook
 
     public function actionAddKeywordsFromFile()
     {
+        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
+        Yii::import('site.common.models.mongo.*');
+
         $path = Yii::app()->params['keywords_path'];
         $handle = @fopen($path, "r");
-        $i=0;
+        $i = 0;
+        $start_line = UserAttributes::get(1, 'start_file_line', 3800000);
         while (($buffer = fgets($handle)) !== false) {
             $i++;
-            if ($i < 3000000)
+            if ($i < $start_line)
                 continue;
 
             $keyword = trim(substr($buffer, 0, strpos($buffer, ',')));
-            $keyword_model = Keyword::model()->findByAttributes(array('name'=>$keyword));
-            if ($keyword_model === null){
+            $keyword_model = Keyword::model()->findByAttributes(array('name' => $keyword));
+            if ($keyword_model === null) {
                 $keyword_model = new Keyword();
                 $keyword_model->name = $keyword;
                 try {
@@ -240,8 +244,10 @@ skrapbook
                 } catch (Exception $e) {
                 }
             }
-            if ($i % 10000 == 0)
-                echo $i."\n";
+            if ($i % 10000 == 0) {
+                echo $i . "\n";
+                UserAttributes::set(1, 'start_file_line', $i);
+            }
         }
         fclose($handle);
     }

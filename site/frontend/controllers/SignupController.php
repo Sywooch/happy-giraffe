@@ -35,7 +35,8 @@ class SignupController extends HController
                     'id' => $id,
                 );
 
-                $this->render('social_register', compact('reg_data'));
+                $type = isset($_POST['type']) ? $_POST['type'] : 'default';
+                $this->render('social_register', compact('reg_data', 'type'));
             }
         }
     }
@@ -229,7 +230,7 @@ class SignupController extends HController
     {
         $model = new User;
         $attributes = array('email', 'birthday', 'avatar', 'photo', 'first_name', 'last_name');
-        foreach($attributes as $attribute)
+        foreach ($attributes as $attribute)
             $model->$attribute = Yii::app()->request->getPost($attribute);
 
         $type = Yii::app()->request->getPost('type');
@@ -237,7 +238,7 @@ class SignupController extends HController
         Yii::app()->clientScript->scriptMap = array(
             'jquery.js' => false,
             'jquery.min.js' => false,
-            'jquery.yiiactiveform.js'=>false
+            'jquery.yiiactiveform.js' => false
         );
 
         $this->renderPartial('form', compact('model', 'type'), false, true);

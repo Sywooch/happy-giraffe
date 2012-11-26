@@ -37,8 +37,6 @@ class ContentController extends SController
         if ($task->status != SeoTask::STATUS_PUBLICATION)
             Yii::app()->end();
 
-        Yii::import('site.frontend.modules.cook.models.*');
-
         $url = trim(Yii::app()->request->getPost('url'));
 
         $page = Page::model()->findByAttributes(array('url' => $url));

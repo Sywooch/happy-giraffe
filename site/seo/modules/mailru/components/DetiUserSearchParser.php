@@ -26,6 +26,7 @@ class DetiUserSearchParser extends ProxyParserThread
     public function getPage()
     {
         $criteria = new CDbCriteria;
+        $criteria->condition = 'max_page > 1';
         $criteria->compare('active', 0);
         $criteria->compare('type', MailruQuery::TYPE_SEARCH_USERS);
 

@@ -1129,7 +1129,7 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 .contest-prizes-list ul li .img img {display:block;margin:auto;max-height: 100%;}
 .contest-prizes-list ul li .all {color:#fc5e03;text-decoration: underline;}
 .contest-prizes-list ul li .all:hover {text-decoration: none;}
-.contest-prizes-list ul li .title {font-size:13px;padding:0 10px;}
+.contest-prizes-list ul li .title {font-size:13px;padding:0 10px;color:#0575ca;}
 .contest-prizes-list ul li .title a {color:#0575ca;text-decoration:none;}
 #contest .place {display:block;height:34px;margin:10px auto;}
 #contest .contest-prizes-list-4 ul li .place {margin:0 auto 5px;}

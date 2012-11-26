@@ -191,29 +191,31 @@ class Horoscope extends HActiveRecord
 
     public function beforeValidate()
     {
-        if ($this->type == 1) {
-            $exist = Horoscope::model()->findByAttributes(array(
-                'date' => $this->date,
-                'zodiac' => $this->zodiac,
-            ));
-            if ($exist)
-                $this->addError('date', 'Гороскоп на эту дату уже есть');
-        } elseif ($this->type == 2) {
-            $exist = Horoscope::model()->findByAttributes(array(
-                'year' => $this->year,
-                'month' => $this->month,
-                'zodiac' => $this->zodiac,
-            ));
-            if ($exist)
-                $this->addError('month', 'Гороскоп на этот месяц уже есть');
-        } elseif ($this->type == 3) {
-            $exist = Horoscope::model()->findByAttributes(array(
-                'year' => $this->year,
-                'month' => null,
-                'zodiac' => $this->zodiac,
-            ));
-            if ($exist)
-                $this->addError('year', 'Гороскоп на этот год уже есть');
+        if ($this->isNewRecord) {
+            if ($this->type == 1) {
+                $exist = Horoscope::model()->findByAttributes(array(
+                    'date' => $this->date,
+                    'zodiac' => $this->zodiac,
+                ));
+                if ($exist)
+                    $this->addError('date', 'Гороскоп на эту дату уже есть');
+            } elseif ($this->type == 2) {
+                $exist = Horoscope::model()->findByAttributes(array(
+                    'year' => $this->year,
+                    'month' => $this->month,
+                    'zodiac' => $this->zodiac,
+                ));
+                if ($exist)
+                    $this->addError('month', 'Гороскоп на этот месяц уже есть');
+            } elseif ($this->type == 3) {
+                $exist = Horoscope::model()->findByAttributes(array(
+                    'year' => $this->year,
+                    'month' => null,
+                    'zodiac' => $this->zodiac,
+                ));
+                if ($exist)
+                    $this->addError('year', 'Гороскоп на этот год уже есть');
+            }
         }
 
 

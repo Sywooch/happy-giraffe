@@ -11,7 +11,7 @@
             Yii::app()->user->model->checkAuthItem('removeComment') ||
             $data->isEntityAuthor(Yii::app()->user->id) ||
             Yii::app()->user->id == $data->author_id
-): ?>           fsdf
+): ?>
     <div class="admin-actions">
         <?php if ((Yii::app()->user->model->checkAuthItem('editComment') || Yii::app()->user->id == $data->author_id) && $data->isTextComment()): ?>
         <?php echo CHtml::link('<i class="icon"></i>', '', array('class' => 'edit', 'onclick' => 'return '.$this->objectName.'.edit(this);')); ?>

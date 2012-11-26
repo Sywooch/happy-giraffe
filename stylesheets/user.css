@@ -1043,6 +1043,7 @@
 	text-align: center;
 	color: #262626;
 	font-size: 50px;
+	font-weight: normal;
 	margin-bottom: 15px;
 	position: relative;
 }
@@ -1084,7 +1085,6 @@
 .broadcast-menu_drop {
 	list-style:none;
 	display: none;
-	position: relative;
 	margin: 6px -500px 0;
 }
 .broadcast-menu .active .broadcast-menu_drop {display: block;}
@@ -1118,21 +1118,13 @@
 .best-users_nav > ul {
 	list-style:none;
  	display: inline-block;*zoom:1;*display:inline;
- 	background: #c1dbfe; /* Old browsers */
-	background: -webkit-linear-gradient(top,  #c1dbfe 0%,#8bbafb 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top,  #c1dbfe 0%,#8bbafb 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top,  #c1dbfe 0%,#8bbafb 100%); /* IE10+ */
-	background: linear-gradient(to bottom,  #c1dbfe 0%,#8bbafb 100%); /* W3C */
-	-webkit-border-radius: 11px;
+ 	-webkit-border-radius: 11px;
  	-moz-border-radius: 11px;
  	-ms-border-radius: 11px;
  	border-radius: 11px;
  	behavior: url(PIE.htc);
  	overflow: hidden;
 }
-.ie7 .best-users_nav > ul,
-.ie8 .best-users_nav > ul {filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c1dbfe', endColorstr='#8bbafb',GradientType=0 ); /* IE6-8 */}
-.ie9 .best-users_nav > ul {background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2MxZGJmZSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM4YmJhZmIiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);}
 .best-users_nav_item {
 	float: left;
 	font-size: 11px;
@@ -1140,7 +1132,16 @@
 	border-right: 1px solid #cae0ff;
 	border-left: 1px solid #87a6db;
 	border-bottom: 1px solid #7daefe;
+	background: #c1dbfe; /* Old browsers */
+	background: -webkit-linear-gradient(top,  #c1dbfe 0%,#8bbafb 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #c1dbfe 0%,#8bbafb 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #c1dbfe 0%,#8bbafb 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #c1dbfe 0%,#8bbafb 100%); /* W3C */
+ 	behavior: url(PIE.htc);
 }
+.best-users_nav_item,
+.best-users_nav_item {filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c1dbfe', endColorstr='#8bbafb',GradientType=0 ); /* IE6-8 */}
+.best-users_nav_item {background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2MxZGJmZSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM4YmJhZmIiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);}
 .best-users_nav_item:first-child{border-left: none;}
 .best-users_nav_item:last-child{border-right: none;}
 .best-users_nav_item > a {
@@ -1153,19 +1154,18 @@
 .best-users_nav_item > a > span {border-bottom: 1px dashed #204174;}
 .best-users_nav_item > a:hover > span {border-bottom: none;}
 .best-users_nav_item.active {
+	border-top-color:#3369c0;
 	border-bottom-color: #a9cbfc;
+
 	color: #fff;
 	background: #5488d0; /* Old browsers */
 /* IE9 SVG, needs conditional override of 'filter' to 'none' */
 background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzMzNjljMCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjMlIiBzdG9wLWNvbG9yPSIjNTQ4OGQwIiBzdG9wLW9wYWNpdHk9IjEiLz4KICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI2FhY2VmZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgPC9saW5lYXJHcmFkaWVudD4KICA8cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMSIgaGVpZ2h0PSIxIiBmaWxsPSJ1cmwoI2dyYWQtdWNnZy1nZW5lcmF0ZWQpIiAvPgo8L3N2Zz4=);
-background: -moz-linear-gradient(top,  #3369c0 0%, #5488d0 3%, #aaceff 100%); /* FF3.6+ */
-background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#3369c0), color-stop(3%,#5488d0), color-stop(100%,#aaceff)); /* Chrome,Safari4+ */
-background: -webkit-linear-gradient(top,  #3369c0 0%,#5488d0 3%,#aaceff 100%); /* Chrome10+,Safari5.1+ */
-background: -o-linear-gradient(top,  #3369c0 0%,#5488d0 3%,#aaceff 100%); /* Opera 11.10+ */
-background: -ms-linear-gradient(top,  #3369c0 0%,#5488d0 3%,#aaceff 100%); /* IE10+ */
-background: linear-gradient(to bottom,  #3369c0 0%,#5488d0 3%,#aaceff 100%); /* W3C */
+background: -webkit-linear-gradient(top,#5488d0 0%,#aaceff 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #5488d0 0%,#aaceff 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top, #5488d0 0%,#aaceff 100%); /* IE10+ */
+background: linear-gradient(to bottom, #5488d0 0%,#aaceff 100%); /* W3C */
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3369c0', endColorstr='#aaceff',GradientType=0 ); /* IE6-8 */
-
 
 	-webkit-box-shadow:inset 0 1px 0 rgba(51,105,192,.9);
 	-moz-box-shadow:inset 0 1px 0 rgba(51,105,192,.9);
@@ -1240,7 +1240,7 @@ th.best-users_list-point {text-align: center;}
 .masonry-news-list_title {
 	font:bold 17px/17px Tahoma, Arial, Verdana, sans-serif;
 	letter-spacing: -1px;
-	margin-bottom: 7px;
+	margin-bottom: 3px;
 }
 .masonry-news-list_title > a {text-decoration: none;color: #0281B0;}
 .masonry-news-list_title > a:hover {text-decoration: underline;}
@@ -1275,11 +1275,10 @@ th.best-users_list-point {text-align: center;}
 .masonry-news-list .club-category.rest {background: #40b2dc;}
 .masonry-news-list_meta-info {margin-bottom: 5px;}
 .masonry-news-list_meta-info .user-info {min-width: 130px;}
-.masonry-news-list_meta-info .user-info .ava{margin-top: 3px;}
 .masonry-news-list_meta-info .user-info .details {margin-left: 30px;}
-.masonry-news-list_meta-info .user-info .details .username {width: 100px;}
-.masonry-news-list_meta-info .user-info .details .date {display: block;margin:4px 0 0;color: #8a8b8b;}
-.masonry-news-list_meta-info .meta {float: right;margin: 0;font-size: 11px;line-height: 15px;}
+.masonry-news-list_meta-info .user-info .details .username {width: 100px;line-height: 13px;}
+.masonry-news-list_meta-info .user-info .details .date {display: block;margin:0;color: #8a8b8b;}
+.masonry-news-list_meta-info .meta {float: right;margin: 0;font-size: 11px;line-height: 13px;}
 .masonry-news-list_meta-info .meta .views .icon {
 	background-position: -200px -295px;
 	width: 17px;
@@ -1302,6 +1301,7 @@ th.best-users_list-point {text-align: center;}
 	background: #e1f4ff;
 	font-size: 11px;
 	line-height: 13px;
+	color: #555;
 	-webkit-border-radius:4px;
 	-moz-border-radius:4px;
 	-ms-border-radius:4px;
@@ -1322,12 +1322,12 @@ th.best-users_list-point {text-align: center;}
 	margin-left: -9px;
 	background: url(/images/common.png) no-repeat -682px -140px;
 }
-.masonry-news-list_comment-text {margin: 0 0 8px;}
-.masonry-news-list_comment-text a {text-decoration: none;}
-.masonry-news-list_comment-text a:hover {text-decoration: underline;}
+.masonry-news-list_comment-text {margin: 0 0 4px;}
+.masonry-news-list_comment-text a {text-decoration: none;color: #555;}
+.masonry-news-list_comment-text a:hover {text-decoration: underline;color: #029AD2;}
 
-.masonry-news-list_img-list {list-style: none;margin: 0 -6px 5px 0;}
-.masonry-news-list_img-list > li {float: left;margin: 0 3px 3px 0;}
+.masonry-news-list_img-list {list-style: none;margin: 0 -3px 5px 0;}
+.masonry-news-list_img-list > li {display: inline-block;*zoom:1;*display:inline;margin: 0 0 1px 0;}
 .masonry-news-list_img-list > li a:hover {opacity:0.45;filter:alpha(opacity=45);}
 .masonry-news-list_img-list > li img{margin: 0;}
 .masonry-news-list .comments-all {text-align: center;padding: ;}

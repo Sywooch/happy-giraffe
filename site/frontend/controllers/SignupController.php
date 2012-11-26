@@ -35,7 +35,7 @@ class SignupController extends HController
                     'id' => $id,
                 );
 
-                $type = isset($_POST['type']) ? $_POST['type'] : 'default';
+                $type = isset($_GET['type']) ? $_GET['type'] : 'default';
                 $this->render('social_register', compact('reg_data', 'type'));
             }
         }

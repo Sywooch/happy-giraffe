@@ -36,7 +36,15 @@
         </div>
 
     <?php $this->controller->endWidget(); ?>
-
+<?php elseif ($this->mode == 'small'): ?>
+    <?php
+    foreach ($services as $name => $service)
+        if ($service->id != 'twitter') {
+            echo '<li class="auth-service ' . $service->id . '">';
+            echo CHtml::link('', array('/'.$action, 'service' => $name), array('class' => 'auth-link ' . $service->id));
+            echo '</li>';
+        }
+    ?>
 <?php elseif ($this->mode !== 'profile'): ?>
 
     <div class="services">

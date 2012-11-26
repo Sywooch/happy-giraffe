@@ -5,7 +5,7 @@ class SignupController extends HController
     public function filters()
     {
         return array(
-            'ajaxOnly + validate, finish',
+            'ajaxOnly + validate, finish, showForm',
         );
     }
 
@@ -17,8 +17,10 @@ class SignupController extends HController
             $authIdentity = Yii::app()->eauth->getIdentity($service);
             $authIdentity->redirectUrl = $this->createAbsoluteUrl('signup/index');
 
+            $reg_data = $authIdentity->getItemAttributes();
+
             if ($authIdentity->authenticate()) {
-                Yii::app()->user->setFlash('regdata', $authIdentity->getItemAttributes());
+                Yii::app()->user->setFlash('reg_data', $reg_data);
                 $name = $authIdentity->getServiceName();
                 $id = $authIdentity->getAttribute('id');
                 $check = UserSocialService::model()->findByAttributes(array(
@@ -34,31 +36,7 @@ class SignupController extends HController
                 );
             }
 
-            $authIdentity->redirect();
-        } else {
-            $regdata = Yii::app()->user->getFlash('regdata');
-
-            if (empty($regdata))
-                throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
-
-            $this->pageTitle = 'Веселый Жираф - сайт для всей семьи';
-            Yii::import('site.frontend.widgets.*');
-            Yii::import('site.frontend.widgets.home.*');
-
-            $model = new User;
-            $this->registerUserData = $regdata;
-            if (isset($regdata['first_name']))
-                $model->first_name = $regdata['first_name'];
-            if (isset($regdata['last_name']))
-                $model->last_name = $regdata['last_name'];
-            if (isset($regdata['email']))
-                $model->email = $regdata['email'];
-            if (isset($regdata['email']))
-                $model->email = $regdata['email'];
-
-            $this->registerUserModel = $model;
-
-            $this->render('/site/home', array('user' => Yii::app()->user));
+            $this->render('social_register', compact('reg_data'));
         }
     }
 
@@ -69,9 +47,12 @@ class SignupController extends HController
 
         if (isset($_POST['User'])) {
             $model->attributes = $_POST['User'];
-            if (isset($_POST['User']['day']) && isset($_POST['User']['month']) && isset($_POST['User']['year'])) {
+            if (isset($_POST['User']['day']) && isset($_POST['User']['month']) && isset($_POST['User']['year']))
                 $model->birthday = $_POST['User']['year'] . '-' . str_pad($_POST['User']['month'], 2, '0', STR_PAD_LEFT) . '-' . str_pad($_POST['User']['day'], 2, '0', STR_PAD_LEFT);
-            }
+
+            if (isset($_POST['User']['baby_day']) && isset($_POST['User']['baby_month']) && isset($_POST['User']['baby_year']))
+                $model->baby_birthday = $_POST['User']['baby_year'] . '-' . str_pad($_POST['User']['baby_month'], 2, '0', STR_PAD_LEFT) . '-' . str_pad($_POST['User']['baby_day'], 2, '0', STR_PAD_LEFT);
+
             $current_service = $session['service'];
             if ($current_service) {
                 $service = new UserSocialService;
@@ -85,6 +66,15 @@ class SignupController extends HController
             if ($model->save(true, array('first_name', 'last_name', 'password', 'email', 'gender', 'birthday'))) {
                 if (!empty($model->birthday))
                     UserScores::checkProfileScores($model->id, ScoreAction::ACTION_PROFILE_BIRTHDAY);
+
+                if (!empty($model->baby_birthday)) {
+                    $baby = new Baby();
+                    $baby->parent_id = $model->id;
+                    $baby->birthday = $model->baby_birthday;
+                    $baby->type = 1;
+                    $baby->sex = 2;
+                    $baby->save();
+                }
 
                 if (isset($_POST['User']['avatar'])) {
                     $url = $_POST['User']['avatar'];
@@ -119,7 +109,7 @@ class SignupController extends HController
                         $w = $d['width'];
                         $h = $d['height'];
                         if ($w > $h)
-                            $picture->cropimage($h, $h, round(($w - $h)/2), 0);
+                            $picture->cropimage($h, $h, round(($w - $h) / 2), 0);
                         if ($w < $h)
                             $picture->cropimage($w, $w, 0, 0);
 
@@ -177,7 +167,7 @@ class SignupController extends HController
     {
         $steps = array(
             array('email'),
-            array('first_name', 'last_name', 'password', 'gender', 'email', 'birthday'),
+            array('first_name', 'last_name', 'password', 'gender', 'email', 'birthday', 'baby_birthday'),
         );
 
         if (isset($_POST['form_type']) && $_POST['form_type'] == 'horoscope') {
@@ -186,16 +176,70 @@ class SignupController extends HController
             $model = new User('signup');
 
         $model->setAttributes($_POST['User']);
-        if (isset($_POST['User']['day']) && isset($_POST['User']['month']) && isset($_POST['User']['year'])
-            && !empty($_POST['User']['day']) && !empty($_POST['User']['month']) && !empty($_POST['User']['year'])
-        ) {
+        if (isset($_POST['User']['day']) && isset($_POST['User']['month']) && isset($_POST['User']['year']))
             $model->birthday = $_POST['User']['year'] . '-' . str_pad($_POST['User']['month'], 2, '0', STR_PAD_LEFT) . '-' . str_pad($_POST['User']['day'], 2, '0', STR_PAD_LEFT);
-        }
 
         $model->validate($steps[$step - 1]);
+
+        if (isset($_POST['User']['baby_day']) && isset($_POST['User']['baby_month']) && isset($_POST['User']['baby_year'])) {
+            if (empty($_POST['User']['baby_day']) || empty($_POST['User']['baby_month']) || empty($_POST['User']['baby_year']))
+                $model->addError('baby_birthday', 'Введите предполагаемую дату родов');
+            else
+                $model->baby_birthday = $_POST['User']['baby_year'] . '-' . str_pad($_POST['User']['baby_month'], 2, '0', STR_PAD_LEFT) . '-' . str_pad($_POST['User']['baby_day'], 2, '0', STR_PAD_LEFT);
+        }
+
         $result = array();
         foreach ($model->getErrors() as $attribute => $errors)
             $result[CHtml::activeId($model, $attribute)] = $errors;
         echo CJSON::encode($result);
+    }
+
+    public $template = array(
+        'default' => array(
+            'step2' => array(
+                'title1' => 'Вы уже почти с нами!',
+                'title2' => 'Осталось ввести ваши имя, фамилию, пол и пароль',
+            ),
+            'step3' => array(
+                'title1' => 'Мы готовим для вас личную страницу',
+            ),
+        ),
+
+        'horoscope' => array(
+            'step2' => array(
+                'title1' => 'Ваш гороскоп почти готов!',
+                'title2' => 'Осталось ввести ваши имя, фамилию, пол, дату рождения и пароль',
+            ),
+            'step3' => array(
+                'title1' => 'Мы готовим для вас гороскоп',
+            ),
+        ),
+        'pregnancy' => array(
+            'step2' => array(
+                'title1' => 'Ваш календарь почти готов!',
+                'title2' => 'Осталось ввести ваши имя, фамилию, предполагаемую дату родов и пароль',
+            ),
+            'step3' => array(
+                'title1' => 'Мы готовим для вас календарь',
+            ),
+        ),
+    );
+
+    public function actionShowForm()
+    {
+        $model = new User;
+        $attributes = array('email', 'birthday', 'avatar', 'photo', 'first_name', 'last_name');
+        foreach($attributes as $attribute)
+            $model->$attribute = Yii::app()->request->getPost($attribute);
+
+        $type = Yii::app()->request->getPost('type');
+
+        Yii::app()->clientScript->scriptMap = array(
+            'jquery.js' => false,
+            'jquery.min.js' => false,
+            'jquery.yiiactiveform.js'=>false
+        );
+
+        $this->renderPartial('form', compact('model', 'type'), false, true);
     }
 }

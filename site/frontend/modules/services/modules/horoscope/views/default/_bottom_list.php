@@ -11,7 +11,7 @@
             'validationUrl' => Yii::app()->createUrl('/signup/validate', array('step' => 1)),
             'afterValidate' => "js:function(form, data, hasError) {
                             if (!hasError){
-                                Register.showStep2($('#horoscope-reg-form #User_email').val());
+                                Register.showStep2($('#horoscope-reg-form #User_email').val(), 'horoscope');
                             }
                             return false;
                           }",

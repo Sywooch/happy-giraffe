@@ -11,9 +11,10 @@
 
             <?php $this->widget('CommunitiesWidget'); ?>
 
+            <?php $contest_id = 4; ?>
             <div class="box">
-                <a href="<?=$this->createUrl('/contest/default/view', array('id' => 3)) ?>"><img
-                    src="/images/contest/banner-w240-3.jpg"></a>
+                <a href="<?=$this->createUrl('/contest/default/view', array('id' => $contest_id)) ?>"><img
+                    src="/images/contest/banner-w240-<?=$contest_id?>.jpg"></a>
             </div>
 
         </div>

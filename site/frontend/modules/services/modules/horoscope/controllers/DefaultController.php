@@ -18,7 +18,7 @@ class DefaultController extends HController
      */
     public function actionIndex()
     {
-        $models = Horoscope::model()->findAllByAttributes(array('date' => date("Y-m-d")));
+        $models = Horoscope::model()->sortByZodiac()->findAllByAttributes(array('date' => date("Y-m-d")));
         $this->title = 'Гороскоп на сегодня по знакам Зодиака';
         $this->meta_title = $this->title;
 
@@ -96,7 +96,7 @@ class DefaultController extends HController
             $this->title = 'Гороскоп на завтра по знакам Зодиака';
             $this->meta_title = $this->title;
 
-            $models = Horoscope::model()->findAllByAttributes(array('date' => $date));
+            $models = Horoscope::model()->sortByZodiac()->findAllByAttributes(array('date' => $date));
             $this->render('tomorrow', array('models' => $models, 'type' => 'tomorrow'));
         } else {
             $zodiac = Horoscope::model()->getZodiacId(trim($zodiac));
@@ -123,7 +123,7 @@ class DefaultController extends HController
             $this->title = 'Гороскоп на месяц по знакам Зодиака';
             $this->meta_title = $this->title;
 
-            $models = Horoscope::model()->findAllByAttributes(array('year' => date('Y'), 'month' => date('n')));
+            $models = Horoscope::model()->sortByZodiac()->findAllByAttributes(array('year' => date('Y'), 'month' => date('n')));
             $this->render('month', array('models' => $models, 'type' => 'month'));
         } else {
             if (empty($month)) {
@@ -132,7 +132,7 @@ class DefaultController extends HController
                 if ($model === null)
                     throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
-                $this->title = 'Гороскоп ' . $model->zodiacText() . ' на '. HDate::ruMonth(date('n'));
+                $this->title = 'Гороскоп ' . $model->zodiacText() . ' на ' . HDate::ruMonth(date('n'));
                 $this->social_title = 'Гороскоп ' . $model->zodiacText() . ' на ' . HDate::ruMonth(date('n'));
                 $this->meta_title = 'Гороскоп на каждый месяц ' . $model->zodiacText() . ' - Веселый Жираф';
                 $this->meta_description = 'Бесплатный гороскоп на месяц ' . $model->zodiacText() . ' для женщин и мужчин. Обновляется ежемесячно!';
@@ -170,43 +170,31 @@ class DefaultController extends HController
     /**
      * @sitemap dataSource=sitemapYearView
      */
-    public function actionYear($zodiac = '', $year = '')
+    public function actionYear($year = '', $zodiac = '')
     {
+        if (empty($year))
+            $year = 2012;
+
         if (empty($zodiac)) {
-            $this->title = 'Гороскоп на год по знакам Зодиака';
+            $this->title = 'Гороскоп на ' . $year . ' год по знакам Зодиака';
             $this->meta_title = $this->title;
 
-            $models = Horoscope::model()->findAllByAttributes(array('year' => date('Y'), 'month' => null));
-            $this->render('year', array('models' => $models, 'type' => 'year'));
+            $models = Horoscope::model()->sortByZodiac()->findAllByAttributes(array('year' => $year, 'month' => null));
+            $this->render('year', array('models' => $models, 'year' => $year));
         } else {
             $zodiac = Horoscope::model()->getZodiacId($zodiac);
 
-            if (empty($year)) {
-                $model = Horoscope::model()->findByAttributes(array('zodiac' => $zodiac, 'year' => date('Y'), 'month' => null));
-                if ($model === null)
-                    throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+            $model = Horoscope::model()->findByAttributes(array('zodiac' => $zodiac, 'year' => $year, 'month' => null));
+            if ($model === null)
+                throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
-                $this->title = 'Гороскоп ' . $model->zodiacText() . ' на год';
-                $this->social_title = $this->title;
-                $this->meta_title = 'Гороскоп ' . $model->zodiacText() . ' на год для женщин и мужчин – Веселый Жираф';
-                $this->meta_description = 'Бесплатный гороскоп ' . $model->zodiacText() . ' на год для женщин и мужчин. Познай свою судьбу!';
-                $this->meta_keywords = 'гороскоп ' . $model->zodiacText() . ' на год';
+            $this->title = 'Гороскоп ' . $model->zodiacText() . ' на ' . $year . ' год';
+            $this->social_title = $this->title;
+            $this->meta_title = 'Гороскоп ' . $model->zodiacText() . ' на ' . $year . ' год для женщин и мужчин – Веселый Жираф';
+            $this->meta_description = 'Бесплатный гороскоп ' . $model->zodiacText() . ' на ' . $year . ' год для женщин и мужчин. Познай свою судьбу!';
+            $this->meta_keywords = 'Гороскоп на ' . $year . ' год ' . $model->zodiacText();
 
-                $this->render('year_one', compact('model'));
-
-            } else {
-                $model = Horoscope::model()->findByAttributes(array('zodiac' => $zodiac, 'year' => $year, 'month' => null));
-                if ($model === null)
-                    throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
-
-                $this->title = 'Гороскоп ' . $model->zodiacText() . ' на ' . $year . ' год';
-                $this->social_title = $this->title;
-                $this->meta_title = 'Гороскоп ' . $model->zodiacText() . ' на ' . $year . ' год для женщин и мужчин – Веселый Жираф';
-                $this->meta_description = 'Бесплатный гороскоп ' . $model->zodiacText() . ' на ' . $year . ' год для женщин и мужчин. Познай свою судьбу!';
-                $this->meta_keywords = 'Гороскоп на ' . $year . ' год ' . $model->zodiacText();
-
-                $this->render('year_one', compact('model'));
-            }
+            $this->render('year_one', compact('model'));
         }
     }
 
@@ -296,14 +284,14 @@ class DefaultController extends HController
             ->queryColumn();
         foreach ($years as $year)
             if (!empty($year))
-            foreach (Horoscope::model()->zodiac_list_eng as $z) {
-                $data[] = array(
-                    'params' => array(
-                        'zodiac' => $z,
-                        'year' => $year
-                    ),
-                );
-            }
+                foreach (Horoscope::model()->zodiac_list_eng as $z) {
+                    $data[] = array(
+                        'params' => array(
+                            'zodiac' => $z,
+                            'year' => $year
+                        ),
+                    );
+                }
 
         return $data;
     }

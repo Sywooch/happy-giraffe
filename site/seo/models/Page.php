@@ -202,9 +202,12 @@ class Page extends CActiveRecord
             $model = Page::model()->findByAttributes(array('url' => $url));
             if ($model === null) {
                 $keyword_group = new KeywordGroup();
-                if (!empty($keyword_id))
-                    $keyword_group->keywords = array($keyword_id);
-                $keyword_group->withRelated->save(true,array('keywords'));
+                if (!empty($keyword_id)){
+                    $keyword_group->keywords = array(Keyword::model()->findByPk($keyword_id));
+                    $keyword_group->withRelated->save(true,array('keywords'));
+                }
+                else
+                    $keyword_group->save();
 
                 $model = new Page();
                 $model->url = $url;
@@ -279,8 +282,10 @@ class Page extends CActiveRecord
 
         if ($model->getIsFromBlog()) {
             return 'http://www.happy-giraffe.ru/user/';
-        } else
+        } elseif (isset($model->rubric->community_id))
             return 'http://www.happy-giraffe.ru/community/' . $model->rubric->community_id;
+        else
+            return 'http://www.happy-giraffe.ru/community/';
     }
 
     public function getVisits($se, $period)
@@ -335,6 +340,24 @@ class Page extends CActiveRecord
             return array($entity, $entity_id);
 
         return array(null, null);
+    }
+
+    public function CanBeLinkDonor()
+    {
+        if (strpos($this->url, 'http://www.happy-giraffe.ru/cook/recipe/') === 0)
+            return true;
+        if (strpos($this->url, 'http://www.happy-giraffe.ru/cook/multivarka/') === 0)
+            return true;
+        if (strpos($this->url, 'http://www.happy-giraffe.ru/community/') === 0
+            && strpos($this->url, '/forum/') !== false)
+            return true;
+        if (strpos($this->url, 'http://www.happy-giraffe.ru/recipeBook/recipe') === 0)
+            return true;
+        if (strpos($this->url, 'http://www.happy-giraffe.ru/user/') === 0
+            && strpos($this->url, '/blog/post') !== false)
+            return true;
+
+        return false;
     }
 
     public function TestUrlParsing()

@@ -13,6 +13,7 @@ return array(
 
         'site.frontend.helpers.FileHandler',
         'site.frontend.components.*',
+        'site.frontend.modules.cook.models.*',
         'site.frontend.helpers.CArray',
         'site.frontend.helpers.*',
         'site.frontend.extensions.YiiMongoDbSuite.*',
@@ -27,7 +28,6 @@ return array(
         'application.modules.promotion.models.*',
         'application.modules.indexing.models.*',
         'application.modules.commentators.models.*',
-
         'application.modules.externalLinks.models.*',
     ),
 

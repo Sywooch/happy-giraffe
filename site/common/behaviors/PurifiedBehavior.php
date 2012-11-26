@@ -16,7 +16,7 @@ class PurifiedBehavior extends CActiveRecordBehavior
         'Attr.AllowedFrameTargets' => array('_blank' => true),
         'Attr.AllowedRel' => array('nofollow'),
         'HTML.SafeIframe' => true,
-        'URI.SafeIframeRegexp' => '%^http://www.youtube.com/embed/%',
+        'URI.SafeIframeRegexp' => '%^(http://www.youtube.com/embed/|http://player.vimeo.com/video/)%',
         'HTML.SafeObject' => true,
     );
 
@@ -30,6 +30,7 @@ class PurifiedBehavior extends CActiveRecordBehavior
                 $purifier->options = CMap::mergeArray($this->_defaultOptions, $this->options);
                 $value = $this->getOwner()->$name;
                 $value = $this->linkifyYouTubeURLs($value);
+                $value = $this->linkifyVimeo($value);
                 $value = $purifier->purify($value);
                 $value = $this->wrapNoindexNofollow($value);
                 Yii::app()->cache->set($cacheId, $value);
@@ -104,7 +105,21 @@ class PurifiedBehavior extends CActiveRecordBehavior
 
     public function fetchHtml($matches)
     {
-        $url = 'http://www.youtube.com/oembed?url=' . $matches[0] . '&format=json';
+        $url = 'http://www.youtube.com/oembed?url=' . $matches[0] . '&format=json&maxwidth=700';
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $response = curl_exec($ch);
+        $httpStatus = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+
+        $json = CJSON::decode($response);
+        return ($httpStatus == 200) ? $json['html'] : $matches[0];
+    }
+
+    public function vimeo($matches)
+    {
+        $url = 'http://vimeo.com/api/oembed.xml?url=' . $matches[0] . '&format=json&maxwidth=700';
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -139,6 +154,13 @@ class PurifiedBehavior extends CActiveRecordBehavior
         [?=&+%\w-;]*        # Consume any URL (query) remainder.
         ~ix',
             array($this, 'fetchHtml'),
+            $text);
+        return $text;
+    }
+
+    public function linkifyVimeo($text) {
+        $text = preg_replace_callback('~https?://vimeo\.com/\d+~ix',
+            array($this, 'vimeo'),
             $text);
         return $text;
     }

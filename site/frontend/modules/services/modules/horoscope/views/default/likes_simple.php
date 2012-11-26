@@ -24,7 +24,7 @@ Yii::app()->clientScript->registerScriptFile($baseUrl . '/social.js');
     <div class="box-1">
 
         <div class="share_button" style="width: 250px;">
-            <a target="_blank" class="mrc__plugin_uber_like_button" href="http://connect.mail.ru/share"
+            <a target="_blank" class="mrc__plugin_uber_like_button" href="http://connect.mail.ru/share?url=<?=urlencode($url) ?>"
                data-mrc-config="{'cm' : '1', 'ck' : '1', 'sz' : '20', 'st' : '1', 'tp' : 'combo'}">Нравится</a>
             <script src="http://cdn.connect.mail.ru/js/loader.js" type="text/javascript" charset="UTF-8"></script>
         </div>

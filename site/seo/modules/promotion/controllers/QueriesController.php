@@ -39,7 +39,6 @@ class QueriesController extends SController
 
     public function actionAdmin($period = 1, $sort = 'yandex_visits', $mode = null)
     {
-        Yii::import('site.frontend.modules.cook.models.*');
         $criteria = new CDbCriteria;
 
         if (!empty($mode)){

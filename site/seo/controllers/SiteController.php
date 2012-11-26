@@ -49,7 +49,7 @@ class SiteController extends SController
             $this->redirect($this->createUrl('competitors/default/index'));
 
         if (Yii::app()->user->checkAccess('promotion'))
-            $this->redirect($this->createUrl('promotion/queries/admin'));
+            $this->redirect($this->createUrl('promotion/linking/autoLinking'));
 
         if (Yii::app()->user->checkAccess('cook-manager'))
             $this->redirect('/competitors/cook/');
@@ -160,5 +160,9 @@ class SiteController extends SController
     public function actionCloseAdvert()
     {
         SeoUserAttributes::setAttribute('close_advert_' . SeoUserAttributes::ADVERT_ID, 1);
+    }
+
+    public function actionTest(){
+        Page::model()->getOrCreate('http://www.happy-giraffe.ru/community/25/forum/post/34648/', 1);
     }
 }

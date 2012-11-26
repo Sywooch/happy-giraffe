@@ -214,14 +214,41 @@ skrapbook
     {
         $keywords = Yii::app()->db_seo->createCommand('select distinct(keyword_id) from sites__keywords_visits ')->queryColumn();
         $count = 0;
-        foreach ($keywords as $keyword_id) {
-            if (ParsingKeyword::model()->findByPk($keyword_id) === null) {
-                $yandex = YandexPopularity::model()->findByPk($keyword_id);
-                if ($yandex === null || empty($yandex->parsed)) {
-                    ParsingKeyword::model()->addKeywordById($keyword_id);
-                    $count++;
+        foreach ($keywords as $keyword_id)
+            if (ParsingKeyword::addKeyword($keyword_id))
+                $count++;
+    }
+
+    public function actionAddKeywordsFromFile()
+    {
+        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
+        Yii::import('site.common.models.mongo.*');
+
+        $path = Yii::app()->params['keywords_path'];
+        $handle = @fopen($path, "r");
+        $i = 0;
+        $start_line = UserAttributes::get(1, 'start_file_line', 3800000);
+        while (($buffer = fgets($handle)) !== false) {
+            $i++;
+            if ($i < $start_line)
+                continue;
+
+            $keyword = trim(substr($buffer, 0, strpos($buffer, ',')));
+            $keyword_model = Keyword::model()->findByAttributes(array('name' => $keyword));
+            if ($keyword_model === null) {
+                $keyword_model = new Keyword();
+                $keyword_model->name = $keyword;
+                try {
+                    $keyword_model->save();
+                    ParsingKeyword::addNewKeyword($keyword_model->id, 0);
+                } catch (Exception $e) {
                 }
             }
+            if ($i % 10000 == 0) {
+                echo $i . "\n";
+                UserAttributes::set(1, 'start_file_line', $i);
+            }
         }
+        fclose($handle);
     }
 }

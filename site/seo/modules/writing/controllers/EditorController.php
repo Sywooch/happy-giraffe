@@ -221,8 +221,11 @@ class EditorController extends SController
     public function actionReady()
     {
         $id = Yii::app()->request->getPost('id');
+        $section = Yii::app()->request->getPost('section');
         $task = $this->loadTask($id);
         $task->status = SeoTask::STATUS_READY;
+        if (!empty($section))
+            $task->section = $section;
 
         echo CJSON::encode(array('status' => $task->save()));
     }
@@ -286,8 +289,6 @@ class EditorController extends SController
 
     public function actionBindKeywordToArticle()
     {
-        Yii::import('site.frontend.modules.cook.models.*');
-
         $keyword_id = Yii::app()->request->getPost('keyword_id');
         $article_id = Yii::app()->request->getPost('article_id');
         $section = Yii::app()->request->getPost('section');
@@ -322,10 +323,10 @@ class EditorController extends SController
                     $keyword_ids [] = $keyword->id;
                 }
                 $keyword_ids[] = $keyword_id;
-                $group->keywords = $keyword_ids;
+                $group->keywords = Keyword::model()->findAllByPk($keyword_ids);
             } else {
                 $group = new KeywordGroup();
-                $group->keywords = array($keyword_id);
+                $group->keywords = Keyword::model()->findAllByPk(array($keyword_id));
             }
 
             if (!$group->withRelated->save(true, array('keywords'))) {
@@ -361,7 +362,7 @@ class EditorController extends SController
             $article_keywords->url = 'http://www.happy-giraffe.ru' . $model->getUrl();
 
             $group = new KeywordGroup();
-            $group->keywords = array($keyword_id);
+            $group->keywords = Keyword::model()->findAllByPk($keyword_id);
             if (!$group->withRelated->save(true, array('keywords'))) {
                 echo CJSON::encode(array(
                     'status' => false,
@@ -399,7 +400,7 @@ class EditorController extends SController
             );
         } else {
             $group = new KeywordGroup();
-            $group->keywords = array($keyword_id);
+            $group->keywords = array($keyword);
 
             if ($group->withRelated->save(true, array('keywords'))) {
                 $page = new Page();
@@ -454,11 +455,11 @@ class EditorController extends SController
         }
     }
 
-    public function actionToNeedlework(){
+    public function actionChangeSection(){
         $keyword_id = Yii::app()->request->getPost('keyword_id');
         $temp_keyword = TempKeyword::model()->find('keyword_id=' . $keyword_id);
         $temp_keyword->owner_id = 83;
-        $temp_keyword->section = 3;
+        $temp_keyword->section = Yii::app()->request->getPost('section');;
         echo CJSON::encode(array('status' => $temp_keyword->save()));
     }
 

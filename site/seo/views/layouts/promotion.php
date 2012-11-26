@@ -21,6 +21,10 @@
                         'url' => array('/promotion/linking/autoLinking'),
                     ),
                     array(
+                        'label' => 'Проверка ссылок',
+                        'url' => array('/promotion/linking/сheckLinks'),
+                    ),
+                    array(
                         'label' => 'SAPE',
                         'url' => 'javascript:;',
                     ),

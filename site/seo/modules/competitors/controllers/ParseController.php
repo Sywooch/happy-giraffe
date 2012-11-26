@@ -42,7 +42,7 @@ class ParseController extends SController
 
     public function actionParse2()
     {
-        $site_id = 68;
+        $site_id = 73;
 
         Yii::import('site.frontend.extensions.phpQuery.phpQuery');
         $this->parseStats($site_id, 2011, 1, 12, 0);
@@ -171,11 +171,11 @@ class ParseController extends SController
 
     public function actionExport()
     {
-        $sites = range(65, 70);
+        $sites = range(72, 73);
         foreach ($sites as $site_id) {
             $criteria = new CDbCriteria;
             $criteria->compare('site_id', $site_id);
-            $criteria->compare('year', 2011);
+            //$criteria->compare('year', 2011);
             $criteria->limit = 100;
             $criteria->offset = 0;
             $criteria->with = array('keyword');

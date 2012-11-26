@@ -101,4 +101,9 @@ class GeoCity extends HActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+    public function getFullName()
+    {
+        return $this->name.', '.$this->region->name. ', '.$this->country->name;
+    }
 }

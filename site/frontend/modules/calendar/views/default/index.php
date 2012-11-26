@@ -263,4 +263,3 @@
     </div>
 
 </div>
-<a href="#pregnancy-calendar-self" class="fancy">click</a>

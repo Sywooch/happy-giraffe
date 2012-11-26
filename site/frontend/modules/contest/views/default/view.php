@@ -27,9 +27,7 @@
         ->registerScriptFile('/javascripts/jquery.masonry.min.js')
         ->registerMetaTag('/images/contest/banner-social-'.$contest->id.'.jpg', null, null, array('property' => 'og:image'))
     ;
-?>
 
-<?php
 Yii::app()->eauth->renderWidget(array(
     'mode' => 'assets',
 ));
@@ -52,7 +50,7 @@ Yii::app()->eauth->renderWidget(array(
                 <big>Условия конкурса:</big>
                 <p>Для того, чтобы принять участие в конкурсе, вы должны <?=CHtml::link('пройти 6 шагов', array('/user/profile', 'user_id' => Yii::app()->user->id))?> заполнения анкеты</p>
             <?php else: ?>
-                <p>Разместите фотографию, на которой ваш малыш улыбается и примите участие в конкурсе! Не забудьте пригласить друзей в группу поддержки!</p>
+                <p>Разместите фотографию, на которой ваш малыш купается и примите участие в конкурсе! Не забудьте пригласить друзей в группу поддержки!</p>
                 <center>
                     <a href="<?=$this->createUrl('/contest/default/statement', array('id' => $this->contest->id))?>" onclick="Contest.canParticipate(this, '<?=$this->createUrl('/contest/default/canParticipate', array('id' => $this->contest->id))?>'); return false;" class="btn-green btn-green-medium">Участвовать<i class="arr-r"></i></a>
                 </center>
@@ -63,6 +61,12 @@ Yii::app()->eauth->renderWidget(array(
     <div class="content-title">О конкурсе</div>
 
     <?=$contest->text?>
+
+    <?php if ($contest->id == 3): ?>
+        <p style="color: #F66161;">Фотоконкурс “Поделись улыбкою своей” завершился!<br />
+            Голосование окончено. Благодарим всех участников и болельщиков!<br />
+            Имена победителей будут оглашены 28 ноября.</p><br />
+    <?php endif; ?>
 
 </div>
 

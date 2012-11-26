@@ -166,7 +166,7 @@ class Contest extends HActiveRecord
 
         $currentIndex = null;
         $count = null;
-        if ($preload_id === null) {
+        if ($preload_id === null || Yii::app()->controller->action->id == 'postLoad') {
             $works = ContestWork::model()->findAll($criteria);
         } else {
             $idsCriteria = clone $criteria;

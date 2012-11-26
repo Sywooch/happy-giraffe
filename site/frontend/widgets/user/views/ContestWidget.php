@@ -1,20 +1,20 @@
 <?php if ($this->_contest_work === null): ?>
-    <div class="contest-advert-3">
-        <a href="<?=$this->controller->createUrl('/contest/default/view', array('id' => $this->contest_id))?>" class="btn-gold">Принять участие!</a>
+    <div class="contest-advert-<?=$this->_contest->id?>">
+        <a href="<?=$this->controller->createUrl('/contest/default/view', array('id' => $this->contest_id))?>" class="contest-advert-btn">Принять участие!</a>
     </div>
 <?php else: ?>
     <?php
         if ($this->registerGallery)
             $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
-                'selector' => '.img > a',
+                'selector' => '.contest-participant:data(contestId=' . $this->_contest->id . ') .img > a',
                 'entity' => 'Contest',
                 'entity_id' => $this->_contest->id,
                 'entity_url' => $this->_contest->getUrl(),
                 'query' => array('sort' => 'created'),
             ));
     ?>
-    <div class="contest-participant">
-        <img src="/images/contest/widget-3.jpg" alt="<?=$this->_contest->title?>" calss="contest-title">
+    <div class="contest-participant" data-contest-id="<?=$this->_contest->id?>">
+        <img src="/images/contest/widget-<?=$this->_contest->id?>.jpg" alt="<?=$this->_contest->title?>" calss="contest-title">
         <div class="img">
             <a href="javascript:void(0)" data-id="<?=$this->
                 _contest_work->

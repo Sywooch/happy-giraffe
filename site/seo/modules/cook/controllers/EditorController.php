@@ -23,7 +23,7 @@ class EditorController extends SController
 
     public function actionIndex($section = 2)
     {
-        $model = new Keyword();
+        $model = new Keyword;
         $model->attributes = $_GET;
 
         $this->render('themes', array(
@@ -208,10 +208,10 @@ class EditorController extends SController
         ));
     }
 
-    public function actionToNeedlework(){
+    public function actionChangeSection(){
         $task_id = Yii::app()->request->getPost('task_id');
         $task = $this->loadTask($task_id);
-        $task->section = 3;
+        $task->section = Yii::app()->request->getPost('section');;
         echo CJSON::encode(array('status' => $task->save()));
     }
 

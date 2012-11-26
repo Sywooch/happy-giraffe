@@ -50,4 +50,12 @@ class DefaultController extends HController
 
         return $data;
     }
+
+    public function actionJoin()
+    {
+        $this->layout = 'empty';
+        if (!Yii::app()->user->isGuest)
+            $this->redirect('/');
+        $this->render('join');
+    }
 }

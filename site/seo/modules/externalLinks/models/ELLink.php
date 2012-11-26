@@ -151,7 +151,7 @@ class ELLink extends HActiveRecord
 
     public function beforeSave()
     {
-        if ($this->isNewRecord && $this->site->type == ELSite::TYPE_FORUM){
+        if ($this->isNewRecord && $this->site->type == ELSite::TYPE_FORUM && empty($this->link_cost)){
             $this->check_link_time = date("Y-m-d", strtotime('+'.self::CHECK_DAYS.' days'));
         }
 
@@ -237,6 +237,9 @@ class ELLink extends HActiveRecord
     {
         $parse = parse_url($this->url);
 
-        return '<span class="hl">' . $parse['scheme'] . '://' . $parse['host'] . '</span>' . $parse['path'];
+        if (isset($parse['scheme']) && isset($parse['host']) && isset($parse['path']))
+            return '<span class="hl">' . $parse['scheme'] . '://' . $parse['host'] . '</span>' . $parse['path'];
+        else
+            return $this->url;
     }
 }

@@ -16,7 +16,7 @@ class DefaultController extends HController
     {
         return array(
             array('allow',  // allow all users to perform 'index' and 'view' actions
-                'actions'=>array('index','view','list','rules', 'work', 'results', 'canParticipate'),
+                'actions'=>array('index','view','list','rules','prizes', 'work', 'results', 'canParticipate'),
                 'users'=>array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -121,6 +121,17 @@ class DefaultController extends HController
         $this->pageTitle = 'Результаты фотоконкурса «' . $contest->title . '»';
 
         $this->render('results');
+    }
+
+    public function actionPrizes($id)
+    {
+        $contest = Contest::model()->findByPk($id);
+        if ($contest === null)
+            throw new CHttpException(404, 'Такого конкурса не существует.');
+        $this->contest = $contest;
+        $this->pageTitle = 'Призы фотоконкурса «' . $contest->title . '»';
+
+        $this->render('prizes');
     }
 
     public function actionStatement($id)

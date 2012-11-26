@@ -158,7 +158,7 @@ class UserAddress extends HActiveRecord
         if (empty($this->country_id))
             return '';
 
-        $cache_id = 'geo_loc2_'.$this->country_id.'_'.$this->city_id.'_'.$this->region_id;
+        $cache_id = 'geo_loc2'.$this->country_id.'_'.$this->city_id;
         $value=Yii::app()->cache->get($cache_id);
         if($value===false)
         {
@@ -176,13 +176,12 @@ class UserAddress extends HActiveRecord
             Yii::app()->cache->set($cache_id,$value);
         }
 
-
         return $value;
     }
 
     public function getLocationWithoutCountry()
     {
-        $cache_id = 'geo_loc_'.$this->country_id.'_'.$this->city_id.'_'.$this->region_id;
+        $cache_id = 'geo_loc'.$this->country_id.'_'.$this->city_id;
         $value=Yii::app()->cache->get($cache_id);
         if($value===false)
         {
@@ -190,12 +189,11 @@ class UserAddress extends HActiveRecord
                 $city_string = (empty($this->city->type)) ? $this->city->name : $this->city->type . ' ' . $this->city->name;
                 if (empty($this->region_id)) {
                     $value = $city_string;
-                } elseif (empty($this->city->district_id)) {
+                }elseif ($this->region->center_id != $this->city_id){
                     $value = str_replace('область', 'обл', $this->region->name) . '<br> ' . $city_string;
-                } else {
-                    $value = str_replace('область', 'обл', $this->region->name) . '<br> ' . $this->city->district->name . ' р-н<br>'
-                        . $city_string;
-                }
+                }else
+                    $value = $city_string;
+
             } elseif (!empty($this->region_id)) {
                 $value = $this->region->name;
             }

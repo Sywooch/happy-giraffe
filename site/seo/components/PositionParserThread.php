@@ -163,7 +163,7 @@ class PositionParserThread extends ProxyParserThread
 
     public function savePosition($url, $pos)
     {
-        $page = Page::model()->getOrCreate($url, $this->query->keyword->id);
+        $page = Page::model()->getOrCreate($url);
         if ($page == null)
             return;
         $search_phrase = PagesSearchPhrase::model()->findByAttributes(array(

@@ -114,7 +114,7 @@ class MailruUser extends HActiveRecord
 
     public function calculateEmail()
     {
-        preg_match('/http:\/\/deti.mail.ru\/(.+)\/(.+)/', $this->deti_url, $match);
+        preg_match('/http:\/\/deti.mail.ru\/(.+)\/(.+)\//', $this->deti_url, $match);
         if (count($match) == 3){
 //            echo $this->deti_url." success\n";
             return trim($match[2].'@'.$match[1].'.ru');

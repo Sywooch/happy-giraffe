@@ -199,7 +199,8 @@
 
                             <div class="banner-box">
                                 <?php if (! Yii::app()->user->isGuest): ?>
-                                    <a href="<?=$this->createUrl('/contest/default/view', array('id' => 3)) ?>"><img src="/images/contest/banner-w300-3.jpg" /></a>
+                                    <?php $contest_id = 4; ?>
+                                    <a href="<?=$this->createUrl('/contest/default/view', array('id' => $contest_id)) ?>"><img src="/images/contest/banner-w300-<?=$contest_id?>.jpg" /></a>
                                 <?php else: ?>
                                     <?=CHtml::link(CHtml::image('/images/banner_06.png'), '#register', array('class'=>'fancy', 'data-theme'=>'white-square'))?>
                                 <?php endif; ?>
@@ -518,7 +519,7 @@
                 </div>
 
                 <div class="copy">
-                    <p>Весёлый жираф &nbsp; © 2012 &nbsp; Все права защищены</p>
+                    <p>Весёлый жираф &nbsp; © 2012 &nbsp; Все права защищены <img src="/images/icon-18+.png" alt="" class="icon-18"/></p>
                 </div>
 
             </div>

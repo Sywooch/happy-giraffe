@@ -1,7 +1,6 @@
 <?php
 
 Yii::import('site.frontend.extensions.phpQuery.phpQuery');
-Yii::import('site.frontend.modules.cook.models.*');
 
 class LinkingController extends SController
 {
@@ -38,10 +37,21 @@ class LinkingController extends SController
         } else {
 
             $pages = $this->getSimilarPages($phrase);
+
+            TimeLogger::model()->startTimer('getSimilarKeywords');
             $keywords = $phrase->getSimilarKeywords();
+            TimeLogger::model()->endTimer();
 
             $this->render('auto_linking', compact('phrase', 'pages', 'keywords'));
         }
+    }
+
+    public function actionCheckLinks(){
+        $link = new InnerLink();
+        if(isset($_GET['InnerLink']))
+            $link->attributes=$_GET['InnerLink'];
+
+        $this->render('check_links', compact('link'));
     }
 
     public function actionSkip()
@@ -100,8 +110,12 @@ class LinkingController extends SController
     {
         $phrase = PagesSearchPhrase::getActualPhrase();
         $page = $phrase->page;
+
         $pages = $this->getSimilarPages($phrase);
+
+        TimeLogger::model()->startTimer('getSimilarKeywords');
         $keywords = $phrase->getSimilarKeywords();
+        TimeLogger::model()->endTimer();
 
         return array(
             'status' => true,
@@ -132,15 +146,20 @@ class LinkingController extends SController
         $criteria = new CDbCriteria;
         $criteria->compare('keyword_id', $phrase->keyword_id);
         $criteria->limit = 50;
+        TimeLogger::model()->startTimer('find pages from parsed');
         $pages = YandexSearchResult::model()->findAll($criteria);
+        TimeLogger::model()->endTimer();
 
         if (!empty($pages)) {
             $res = array();
             foreach ($pages as $page)
                 $res [] = $page->page;
+            TimeLogger::model()->startTimer('pages found - filter');
             $pages = $this->filterPages($phrase, $res);
+            TimeLogger::model()->endTimer();
 
         } else {
+            TimeLogger::model()->startTimer('pages not found - parsing');
             $parser = new SimilarArticlesParser;
 
             if ($this->startsWith($phrase->page->url, 'http://www.happy-giraffe.ru/horoscope/')) {
@@ -150,15 +169,18 @@ class LinkingController extends SController
                 $pages = $parser->getArticles($phrase->keyword->name);
                 $pages = $this->filterPages($phrase, $pages);
             }
+            TimeLogger::model()->endTimer();
         }
 
         if (empty($pages)) {
             //если яндекс не нашел статьи по запросу - выводим статьи из рубрики
+            TimeLogger::model()->startTimer('pages not found - search by rubric');
             $url = $phrase->page->getRubricUrl();
 
             $parser = new SimilarArticlesParser;
             $pages = $parser->getArticles($url);
             $pages = $this->filterPages($phrase, $pages);
+            TimeLogger::model()->endTimer();
         }
 
         if (count($pages) > 10)
@@ -190,27 +212,38 @@ class LinkingController extends SController
         }
 
         //удалим текущий
-        foreach ($pages as $key => $page) {
+        foreach ($pages as $key => $page)
             if ($page->id == $phrase->page_id)
                 unset($pages[$key]);
-        }
+
+        //оставим только те с которых можно ставить ссылки
+        foreach ($pages as $key => $page)
+            if (!$page->CanBeLinkDonor())
+                unset($pages[$key]);
+
+        //удалим c которых по 3 ссылки и более
+        foreach ($pages as $key => $page)
+            if ($page->outputLinksCount >= 3)
+                unset($pages[$key]);
+
         //удалим те с которых уже стоят ссылки на наш
         foreach ($pages as $key => $page) {
             if (!empty($page->id) && InnerLink::model()->exists('page_id = ' . $page->id . ' and page_to_id=' . $phrase->page->id))
                 unset($pages[$key]);
         }
-        //удалим те, с которых стоят ссылки на наш в разделе "Ещё статьи на эту тему"
-        foreach ($pages as $key => $page) {
-            $article = $phrase->page->getArticle();
-            $our_article = $page->getArticle();
-            if (!empty($article) && !empty($our_article)) {
-                if (method_exists($article, 'getPrevPost')) {
-                    $post = $article->getPrevPost();
-                    if ($post !== null && $post->id == $our_article->id)
-                        unset($pages[$key]);
-                    $post = $article->getNextPost();
-                    if ($post !== null && $post->id == $our_article->id)
-                        unset($pages[$key]);
+
+        //удалим те, с которых стоят ссылки на наш "Следующая", "Предыдущая"
+        $article = $phrase->page->getArticle();
+        if (!empty($article)) {
+            foreach (array('getPrevPost', 'getNextPost') as $method)
+            if (method_exists ($article, $method)){
+                $post = $article->$method();
+                if ($post !== null) {
+                    $ulr = 'http://www.happy-giraffe.ru' . $post->getUrl(false);
+                    foreach ($pages as $key => $page) {
+                        if ($page->url == $ulr)
+                            unset($pages[$key]);
+                    }
                 }
             }
         }

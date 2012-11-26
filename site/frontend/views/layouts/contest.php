@@ -37,6 +37,12 @@
                         'active' => $this->action->id == 'rules',
                     ),
                     array(
+                        'label' => 'Призы',
+                        'url' => array('/contest/default/prizes', 'id' => $this->contest->id),
+                        'active' => $this->action->id == 'prizes',
+                        'visible' => $this->contest->id >= 4,
+                    ),
+                    array(
                         'label' => 'Участники',
                         'url' => array('/contest/default/list', 'id' => $this->contest->id),
                         'active' => $this->action->id == 'list',

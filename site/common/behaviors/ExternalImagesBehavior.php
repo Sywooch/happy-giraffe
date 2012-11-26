@@ -16,11 +16,19 @@ class ExternalImagesBehavior extends CActiveRecordBehavior
 
         $attributes = array_keys($this->owner->getAttributes($this->attributes));
         foreach ($attributes as $attr) {
-            $doc = phpQuery::newDocumentXHTML($this->owner->$attr, $charset = 'utf-8');
+            try {
+                $doc = phpQuery::newDocumentXHTML($this->owner->$attr, 'utf-8');
+            } catch (Exception $e) {
+                $tidy_config = array(
+                    'show-body-only' => true,
+                );
+                $tidy = tidy_repair_string($this->owner->$attr, $tidy_config, 'utf8');
+                $doc = phpQuery::newDocumentXHTML($tidy, 'utf-8');
+            }
 
             foreach (pq('img') as $e) {
                 $src = pq($e)->attr('src');
-                if (strpos($src, Yii::app()->params['photos_url']) == 0) {
+                if (strpos($src, Yii::app()->params['photos_url']) !== 0 && strpos($src, '/') !== 0) {
                     $photo = AlbumPhoto::createByUrl($src, Yii::app()->user->id, 2);
                     if ($photo !== false) {
                         $newSrc = $photo->getPreviewUrl(700, 700, Image::WIDTH);
@@ -46,6 +54,26 @@ class ExternalImagesBehavior extends CActiveRecordBehavior
                         , 'warning');
                     }
                 }
+            }
+
+            $externalLinksCount = 0;
+            foreach (pq('a') as $e) {
+                $href = pq($e)->attr('href');
+                if (strpos($href, $_SERVER['HTTP_HOST']) === false && strpos($href, '/') !== 0)
+                    $externalLinksCount++;
+            }
+
+            if ($externalLinksCount > 2) {
+                $entity = in_array(get_class($this->owner), array('CommunityPost', 'CommunityVideo')) ? $this->owner->content : $this->owner;
+
+                $report = new Report;
+                $report->type = 0;
+                $report->text = 'Наличие более 2-х внешних ссылок';
+                $report->breaker_id = $entity->author_id;
+                $report->entity = get_class($entity);
+                $report->entity_id = $entity->id;
+                $report->path = $entity->url;
+                $report->save();
             }
 
             $this->owner->$attr = $doc->html();

@@ -17,16 +17,36 @@ class LinkingCommand extends CConsoleCommand
         Yii::app()->db_seo->createCommand()->delete('yandex_search_results');
         Yii::app()->db_seo->createCommand()->delete('yandex_search_keywords');
 
-        $kewords = Yii::app()->db_seo->createCommand()
+        $keywords = Yii::app()->db_seo->createCommand()
             ->selectDistinct('keyword_id')
             ->from('pages_search_phrases')
             ->where('last_yandex_position < 1000 OR google_traffic > 0')
             ->queryColumn();
 
-        foreach ($kewords as $keword) {
+        foreach ($keywords as $keyword) {
             $model = new YandexSearchKeyword;
-            $model->keyword_id = $keword;
+            $model->keyword_id = $keyword;
             $model->save();
+        }
+    }
+
+    public function actionAddPhrases()
+    {
+        $keywords = Yii::app()->db_seo->createCommand()
+            ->selectDistinct('keyword_id')
+            ->from('pages_search_phrases')
+            ->queryColumn();
+
+        foreach ($keywords as $keyword) {
+            $keyword_model = Keyword::model()->findByPk($keyword);
+            if ($keyword_model === null){
+                PagesSearchPhrase::model()->deleteAll('keyword_id='.$keyword);
+                echo 'deleted'."\n";
+            }elseif (YandexSearchKeyword::model()->findByPk($keyword) === null) {
+                $model = new YandexSearchKeyword;
+                $model->keyword_id = $keyword;
+                $model->save();
+            }
         }
     }
 
@@ -170,5 +190,24 @@ class LinkingCommand extends CConsoleCommand
         Yii::import('site.common.models.mongo.*');
 
         InnerLinksBlock::model()->Sync($this);
+    }
+
+    public function actionCalcLinksCount(){
+        $criteria = new CDbCriteria;
+        $criteria->limit = 100;
+        $criteria->offset = 0;
+
+        $models = array(0);
+        while (!empty($models)) {
+            $models = PagesSearchPhrase::model()->findAll($criteria);
+
+            foreach ($models as $model) {
+                $model->calculateLinksCount();
+            }
+
+            $criteria->offset += 100;
+
+            echo $criteria->offset."\n";
+        }
     }
 }

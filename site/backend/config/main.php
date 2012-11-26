@@ -29,6 +29,7 @@ return array(
         'site.frontend.modules.contest.models.*',
         'site.common.models.interest.*',
         'site.frontend.modules.cook.models.*',
+        'site.frontend.modules.geo.models.*',
         'site.frontend.modules.scores.models.*',
         'site.frontend.modules.services.modules.recipeBook.models.*',
         'site.frontend.modules.services.modules.test.models.*',

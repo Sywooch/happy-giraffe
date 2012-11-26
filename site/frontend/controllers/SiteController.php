@@ -201,7 +201,7 @@ class SiteController extends HController
                         'name' => $authIdentity->getServiceName(),
                         'id' => $authIdentity->getAttribute('id'),
                     );
-                    Yii::app()->user->setFlash('regdata', $authIdentity->getItemAttributes());
+                    Yii::app()->user->setFlash('reg_data', $authIdentity->getItemAttributes());
                     $authIdentity->redirect(array('/signup/index'));
                 }
 			}

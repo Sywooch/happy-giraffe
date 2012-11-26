@@ -68,7 +68,7 @@
                         </div>
                     </div>
 
-                    <div class="row clearfix email2-row" style="display: none;">
+                    <div class="row clearfix email2-row"<?php if (!empty($model->email)) echo ' style="display: none;"' ?>>
                         <div class="row-title">
                             <label>E-mail:</label>
                         </div>

@@ -237,6 +237,9 @@ class ELLink extends HActiveRecord
     {
         $parse = parse_url($this->url);
 
-        return '<span class="hl">' . $parse['scheme'] . '://' . $parse['host'] . '</span>' . $parse['path'];
+        if (isset($parse['scheme']) && isset($parse['host']) && isset($parse['path']))
+            return '<span class="hl">' . $parse['scheme'] . '://' . $parse['host'] . '</span>' . $parse['path'];
+        else
+            return $this->url;
     }
 }

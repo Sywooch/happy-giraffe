@@ -1,4 +1,4 @@
-<?php if ($this->_contest_work === null): ?>
+<?php if ($this->_contest_work === null && $this->_contest !== null): ?>
     <div class="contest-advert-<?=$this->_contest->id?>">
         <a href="<?=$this->controller->createUrl('/contest/default/view', array('id' => $this->contest_id))?>" class="contest-advert-btn">Принять участие!</a>
     </div>

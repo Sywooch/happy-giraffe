@@ -78,10 +78,17 @@ class User extends HActiveRecord
     public $commentatorsRate;
     public $interestsCount;
     public $babiesCount;
+
     public $day;
     public $month;
     public $year;
+
+    public $baby_day;
+    public $baby_month;
+    public $baby_year;
+
     public $fCreated;
+    public $baby_birthday;
 
     public $women_rel = array(
         1 => 'Замужем',
@@ -169,11 +176,10 @@ class User extends HActiveRecord
             array('email', 'email', 'message' => 'E-mail не является правильным E-Mail адресом'),
             array('password, current_password, new_password, new_password_repeat', 'length', 'min' => 6, 'max' => 15, 'on' => 'signup, change_password', 'tooShort' => 'минимум 6 символов', 'tooLong' => 'максимум 15 символов'),
             array('online, relationship_status', 'numerical', 'integerOnly' => true),
-            array('email', 'unique', 'on' => 'signup', 'message' => 'Этот E-Mail уже используется'),
             array('gender', 'boolean'),
             array('id, phone', 'safe'),
             array('deleted', 'numerical', 'integerOnly' => true),
-            array('birthday', 'date', 'format' => 'yyyy-MM-dd'),
+            array('birthday, baby_birthday', 'date', 'format' => 'yyyy-MM-dd'),
             array('birthday', 'default', 'value' => NULL),
             array('blocked, login_date, register_date', 'safe'),
             array('mood_id', 'exist', 'className' => 'UserMood', 'attributeName' => 'id'),
@@ -188,11 +194,11 @@ class User extends HActiveRecord
 
             //signup
             array('first_name, last_name, password', 'required', 'on' => 'signup,signup_full', 'message' => 'Поле является обязательным'),
-            array('email', 'required', 'on' => 'signup,signup_full', 'message' => 'Введите ваш E-mail'),
+            array('email', 'required', 'on' => 'signup,signup_full', 'message' => 'Введите ваш E-mail адрес'),
             array('birthday', 'required', 'on' => 'signup_full', 'message' => 'Поле является обязательным'),
             array('gender', 'required', 'on' => 'signup,signup_full', 'message' => 'укажите свой пол'),
-            array('email', 'unique', 'on' => 'signup,signup_full'),
             array('first_name, last_name, gender, birthday, photo', 'safe', 'on' => 'signup,signup_full'),
+            array('email', 'unique', 'on' => 'signup,signup_full', 'message' => 'Этот E-Mail уже используется'),
 
             //change_password
             array('new_password', 'required', 'on' => 'change_password'),
@@ -258,7 +264,7 @@ class User extends HActiveRecord
             'babies' => array(self::HAS_MANY, 'Baby', 'parent_id'),
             'realBabies' => array(self::HAS_MANY, 'Baby', 'parent_id', 'condition' => ' type IS NULL '),
             'social_services' => array(self::HAS_MANY, 'UserSocialService', 'user_id'),
-            'communities' => array(self::MANY_MANY, 'Community', 'user__users_communities(user_id, community_id)', 'order'=>'position'),
+            'communities' => array(self::MANY_MANY, 'Community', 'user__users_communities(user_id, community_id)', 'order' => 'position'),
 
             'clubContests' => array(self::HAS_MANY, 'ClubContest', 'contest_user_id'),
             'clubContestUsers' => array(self::HAS_MANY, 'ClubContestUser', 'user_user_id'),
@@ -304,7 +310,7 @@ class User extends HActiveRecord
 
             'photos' => array(self::HAS_MANY, 'AlbumPhoto', 'author_id'),
             'mail_subs' => array(self::HAS_ONE, 'UserMailSub', 'user_id'),
-            'score'=>array(self::HAS_ONE, 'UserScores', 'user_id'),
+            'score' => array(self::HAS_ONE, 'UserScores', 'user_id'),
         );
     }
 
@@ -729,7 +735,8 @@ class User extends HActiveRecord
         ));
     }
 
-    public function getFriendRequestsModels($direction) {
+    public function getFriendRequestsModels($direction)
+    {
         return FriendRequest::model()->findAll($this->getFriendRequestsCriteria($direction));
     }
 
@@ -864,7 +871,7 @@ class User extends HActiveRecord
 
     public function getScores()
     {
-        if (!isset($this->score->user_id)){
+        if (!isset($this->score->user_id)) {
             $model = new UserScores;
             $model->user_id = $this->id;
             $model->save();
@@ -888,18 +895,18 @@ class User extends HActiveRecord
     public function getBlogWidget()
     {
         $criteria = new CDbCriteria(array(
-            'select'=>array('title', 'created', 'type_id', 'rubric_id', 'author_id'),
+            'select' => array('title', 'created', 'type_id', 'rubric_id', 'author_id'),
             'order' => new CDbExpression('RAND()'),
             'condition' => 'rubric.user_id IS NOT NULL AND t.author_id = :user_id',
             'params' => array(':user_id' => $this->id),
             'limit' => 4,
-            'with'=>array(
+            'with' => array(
                 'rubric',
                 'type' => array(
                     'select' => 'slug',
                 ),
-                'post'=>array('select'=>array('text', 'content_id', 'photo_id')),
-                'video'=>array('select'=>array('link', 'text', 'content_id', 'photo_id')),
+                'post' => array('select' => array('text', 'content_id', 'photo_id')),
+                'video' => array('select' => array('link', 'text', 'content_id', 'photo_id')),
                 'commentsCount',
             ),
         ));
@@ -930,9 +937,9 @@ class User extends HActiveRecord
         if ($this->babyCount() != 0)
             $array[] = $this->babyCount() . ' ' . HDate::GenerateNoun(array('ребёнок', 'ребёнка', 'детей'), $this->babyCount());
         if ($this->hasBaby(Baby::TYPE_PLANNING))
-            $array[] =  'Планируем';
+            $array[] = 'Планируем';
         if ($this->hasBaby(Baby::TYPE_WAIT))
-            $array[] =  'Ждём';
+            $array[] = 'Ждём';
         return implode(' + ', $array);
     }
 
@@ -994,7 +1001,7 @@ class User extends HActiveRecord
             'offset' => $offset,
         ));
 
-        if (! Yii::app()->user->isGuest) {
+        if (!Yii::app()->user->isGuest) {
             $criteria->addCondition('
                 t.id != :me AND t.id NOT IN (
                 SELECT user1_id FROM friends WHERE user2_id = :me
@@ -1061,7 +1068,7 @@ class User extends HActiveRecord
 
     public function UpdateUser($id)
     {
-        Yii::app()->db->createCommand()->update($this->tableName(), array('updated' => date("Y-m-d H:i:s")), 'id='.$id);
+        Yii::app()->db->createCommand()->update($this->tableName(), array('updated' => date("Y-m-d H:i:s")), 'id=' . $id);
     }
 
     public function sendOnlineStatus()
@@ -1112,8 +1119,7 @@ class User extends HActiveRecord
      */
     public function getMailSubs()
     {
-        if ($this->mail_subs === null)
-        {
+        if ($this->mail_subs === null) {
             $mail_sub = new UserMailSub();
             $mail_sub->user_id = $this->id;
             $mail_sub->save();
@@ -1130,10 +1136,10 @@ class User extends HActiveRecord
         $criteria->compare('user_id', $this->id);
         $criteria->compare('contest_id', $contest_id);
         $criteria->with = array(
-            'photoAttach'=>array(
-                'select'=>array('id'),
-                'with'=>array(
-                    'photo'=>array('select'=>array('id', 'author_id', 'fs_name')),
+            'photoAttach' => array(
+                'select' => array('id'),
+                'with' => array(
+                    'photo' => array('select' => array('id', 'author_id', 'fs_name')),
                 )
             ),
         );
@@ -1145,5 +1151,15 @@ class User extends HActiveRecord
     public function hasFeature($feature_id)
     {
         return false;
+    }
+
+    public function getPregnantBaby()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->condition = 'birthday > "'.date("Y-m-d") .'"';
+        $criteria->compare('parent_id', $this->id);
+        $criteria->compare('type', Baby::TYPE_WAIT);
+
+        return Baby::model()->find($criteria);
     }
 }

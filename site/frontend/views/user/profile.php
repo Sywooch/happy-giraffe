@@ -186,6 +186,12 @@
                         )); ?>
                     </div>
 
+                    <div class="pregnancy-wrapper">
+                        <?php $this->widget('PregnantWidget', array(
+                            'user' => $user,
+                        )); ?>
+                    </div>
+
                     <?php $this->widget('UserDuelWidget', array(
                         'user' => $user,
                     )); ?>

@@ -14,7 +14,7 @@
         <title><?=CHtml::encode($this->pageTitle)?></title>
     <?php endif;
 
-    $release_id = 1001;
+    $release_id = 1;
     $cs = Yii::app()->clientScript;
     $cs
         ->registerCssFile('/stylesheets/common.css')

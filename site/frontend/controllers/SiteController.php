@@ -201,8 +201,10 @@ class SiteController extends HController
                         'name' => $authIdentity->getServiceName(),
                         'id' => $authIdentity->getAttribute('id'),
                     );
-                    Yii::app()->user->setFlash('regdata', $authIdentity->getItemAttributes());
-                    $authIdentity->redirect(array('/signup/index'));
+
+                    $reg_data = $authIdentity->getItemAttributes();
+                    $type = 'default';
+                    $this->render('/signup/social_register', compact('reg_data', 'type'));
                 }
 			}
 

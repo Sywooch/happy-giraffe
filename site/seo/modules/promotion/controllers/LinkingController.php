@@ -1,7 +1,6 @@
 <?php
 
 Yii::import('site.frontend.extensions.phpQuery.phpQuery');
-Yii::import('site.frontend.modules.cook.models.*');
 
 class LinkingController extends SController
 {

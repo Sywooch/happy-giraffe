@@ -289,8 +289,6 @@ class EditorController extends SController
 
     public function actionBindKeywordToArticle()
     {
-        Yii::import('site.frontend.modules.cook.models.*');
-
         $keyword_id = Yii::app()->request->getPost('keyword_id');
         $article_id = Yii::app()->request->getPost('article_id');
         $section = Yii::app()->request->getPost('section');

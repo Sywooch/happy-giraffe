@@ -17,10 +17,10 @@ class SignupController extends HController
             $authIdentity = Yii::app()->eauth->getIdentity($service);
             $authIdentity->redirectUrl = $this->createAbsoluteUrl('signup/index');
 
-            $reg_data = $authIdentity->getItemAttributes();
-
             if ($authIdentity->authenticate()) {
+                $reg_data = $authIdentity->getItemAttributes();
                 Yii::app()->user->setFlash('reg_data', $reg_data);
+
                 $name = $authIdentity->getServiceName();
                 $id = $authIdentity->getAttribute('id');
                 $check = UserSocialService::model()->findByAttributes(array(
@@ -34,9 +34,9 @@ class SignupController extends HController
                     'name' => $name,
                     'id' => $id,
                 );
-            }
 
-            $this->render('social_register', compact('reg_data'));
+                $this->render('social_register', compact('reg_data'));
+            }
         }
     }
 

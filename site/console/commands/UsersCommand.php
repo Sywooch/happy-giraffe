@@ -92,4 +92,22 @@ class UsersCommand extends CConsoleCommand
         $user = User::model()->findByPk($user);
         UserAttributes::set($user->id, 'fire_time', time());
     }
+
+    public function actionTest(){
+        $criteria = new CDbCriteria;
+        $criteria->limit = 100;
+        $criteria->offset = 0;
+
+        $models = array(0);
+        while (!empty($models)) {
+            $models = UserSocialService::model()->findAll($criteria);
+
+            foreach ($models as $model) {
+                if (!isset($model->user->id))
+                    echo $model->user_id."\n";
+            }
+
+            $criteria->offset += 100;
+        }
+    }
 }

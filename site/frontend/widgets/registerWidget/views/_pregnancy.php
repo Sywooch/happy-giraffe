@@ -37,7 +37,7 @@
             <div class="social-small-row clearfix">
                 <em>войти с помощью</em>
                 <ul class="social-list-small">
-                    <?php Yii::app()->eauth->renderWidget(array('action' => 'signup/index', 'mode'=>'small')); ?>
+                    <?php Yii::app()->eauth->renderWidget(array('action' => 'signup/index/type/pregnancy', 'mode'=>'small')); ?>
                 </ul>
             </div>
             <input type="submit" value="Продолжить" class="submit btn-green">

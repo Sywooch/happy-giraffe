@@ -89,7 +89,11 @@ $(document).ready(function () {
 
     $('body').on('click', '.user-fast-nav .more', function(event){
         event.stopPropagation();
+    }).on('click', 'a[href="#register"]', function(e){
+        $('#register .other-steps').html('');
+        $('#register .reg1').show();
     });
+
 
     $('.popup-container').css('right', getScrollBarWidth() + 'px');
 });
@@ -438,21 +442,25 @@ var Register = {
     url:null,
     start:false,
     show_window_delay:3000,
+    show_window_type:'',
+    attributes:[],
     step1:function(){
         $('.reg1').hide();
         $('.reg2').show();
         $('.regmail2').val($('.regmail1').val());
-        $('.reg2 select').each(function () {
-            $(this).trigger("liszt:updated");
-        });
+        $('.reg2 select').each(function () {$(this).trigger("liszt:updated");});
     },
-    showStep2:function(email){
-        $('.regmail2').val(email);
-        $('#reg-main-btn').trigger('click');
-        $('.reg2').show();
-        $('.reg1').hide();
-        $('.reg2 select').each(function () {
-            $(this).trigger("liszt:updated");
+    showStep2:function(email, type){
+        Register.attributes['email']= email;
+        Register.attributes['type']= type;
+        $.post('/signup/showForm/', Register.attributes, function(response) {
+            var link = $('#hidden_register_link');
+            link.attr('href', '#register');
+            link.trigger('click');
+
+            $('#register').find('.reg1').hide();
+            $('#register').find('.other-steps').html(response);
+            $('#register').find('select').each(function () {$(this).trigger('liszt:updated');});
         });
     },
     timer:function () {
@@ -481,18 +489,25 @@ var Register = {
             }
         }, 'json');
     },
-    showSocialStep2:function(){
-        $('.register.fancy').trigger('click');
-        $(".reg1").hide();
-        $(".reg2").show();
-        $(".email2-row").show();
-    },
     showRegisterWindow:function(){
         setTimeout(function(){
             if (!Register.start){
-                $('#reg-main-btn').trigger('click');
+                console.log(Register.show_window_type);
+                var link = $('#hidden_register_link');
+
+                if (Register.show_window_type == 'pregnancy')
+                    link.attr('href', '#pregnancy-calendar-self');
+                else if (Register.show_window_type == 'odnoklassniki')
+                    link.attr('href', '#reg-odnoklassniki');
+                else
+                    link.attr('href', '#register');
+
+                link.trigger('click');
             }
         }, Register.show_window_delay);
+    },
+    SetAttribute:function(attribute, value){
+        Register.attributes[attribute] = value;
     }
 }
 
@@ -527,14 +542,14 @@ function getScrollBarWidth() {
 };
 
 function slideNavToggle(el){
-	
+
 	var li = $(el).parent();
 	var ul = li.parent();
-	
+
 	if (ul.find('ul:animated').size() == 0){
 		if (!li.hasClass('toggled')){
 			ul.find('> li.toggled').removeClass('toggled').find('>ul').slideUp();
-			li.addClass('toggled').find('>ul').slideDown();			
+			li.addClass('toggled').find('>ul').slideDown();
 		} else {
 			li.removeClass('toggled').find('>ul').slideUp();
 		}
@@ -542,11 +557,11 @@ function slideNavToggle(el){
 }
 
 function firstStepsToggle(el){
-	
+
 	var box = $('#first-steps .block-in');
-	
+
 	if (box.is(':animated')) return false;
-	
+
 	if ($(el).hasClass('toggled')){
 		box.slideUp(function(){
 			$(el).find('span').html($(el).data('title'));
@@ -562,9 +577,9 @@ function firstStepsToggle(el){
 			$('.user-status').addClass('toggled');
 		});
 	}
-	
-	
-	
+
+
+
 }
 
 var PasswordRecovery = {

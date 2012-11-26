@@ -7,7 +7,7 @@
             </div>
             <div class="place place-1-1"></div>
             <div class="title">
-                <a href="">Фотоаппарат<br/><b>SONY Cyber-shot DSC-HX10</b></a>
+                Фотоаппарат<br/><b>SONY Cyber-shot DSC-HX10</b>
             </div>
         </li>
         <li>
@@ -16,7 +16,7 @@
             </div>
             <div class="place place-2-3"></div>
             <div class="title">
-                <a href="">Фоторамка<br/><b>SONY DPF-D830LB 8"</b></a>
+                Фоторамка<br/><b>SONY DPF-D830LB 8"</b>
             </div>
         </li>
 

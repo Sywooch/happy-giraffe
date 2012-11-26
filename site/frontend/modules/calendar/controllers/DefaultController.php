@@ -53,7 +53,7 @@ class DefaultController extends HController
 
     public function actionJoin()
     {
-        $this->layout = 'empty';
+        $this->layout = 'join';
         if (!Yii::app()->user->isGuest)
             $this->redirect('/');
         $this->render('join');

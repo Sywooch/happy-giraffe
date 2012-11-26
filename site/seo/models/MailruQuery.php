@@ -9,6 +9,7 @@
  * @property string $text
  * @property integer $type
  * @property integer $max_page
+ * @property string $chars
  */
 class MailruQuery extends CActiveRecord
 {

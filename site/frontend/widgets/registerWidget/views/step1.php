@@ -51,8 +51,14 @@
 
     </div>
 
+    <a href="/signup/popupTest/" onclick="return openPopup(this);">click</a>
+
     <div class="is-user">
         Вы уже зарегистрированы? <a href="#login" class="fancy" data-theme="white-square">Войти</a>
     </div>
 
 </div>
+
+<script type="text/javascript">
+    function openPopup(el) {window.open($(el).attr('href'),'','toolbar=0,status=0,width=626,height=436');return false;}
+</script>

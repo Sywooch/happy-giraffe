@@ -106,6 +106,7 @@ body.body-club {background:#f6f6f6;}
 #layout {min-height:100%;background:#fff;}
 #layout .push {height:80px;}
 #layout .layout-in {}
+.body-broadcast #layout{background:#f6f6f6;}
 
 #footer {height:70px;margin-top:-80px;padding-top:10px;font:normal 11px/36px tahoma, arial, helvetica, sens-serif;}
 #footer .copy {padding-left:20px;color:#9e9d9e;}
@@ -156,6 +157,8 @@ hr,
 .file-fake .btn {position:relative;z-index:2;}
 
 a.info {display:inline-block;*zoom:1;*display:inline;width:13px;height:13px;background:url(../images/common.png) no-repeat -267px -101px;}
+.btn-up-page {position: fixed;bottom: 30px;left: 40px;width: 71px;height: 67px;background: url(/images/btn-up.png) no-repeat;}
+.btn-up-page:hover {background-position: 0 -67px;}
 
 #tooltip {display:block;position:absolute;background:#fffac8;color:#929292;padding:2px 10px;border:1px solid #f3eca9;font-size:12px;z-index:3000;-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;behavior: url(/stylesheets/PIE.htc);}
 #tooltip h3 {font-weight:normal;font-size:12px;}
@@ -1408,6 +1411,8 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 .top-line-menu .user-nav-2 .item-settings.active .icon-settings,
 .top-line-menu .user-nav-2 .item-settings a:hover .icon-settings {background-position:-552px -396px;}
 .top-line-menu .user-nav-2 .icon-logout {float:left;width:18px;height:32px;background:url(/images/common.png) no-repeat -571px -364px;}
+.top-line-menu .user-nav-2 .icon-broadcast {float:left;width:31px;height:32px;background:url(/images/common.png) no-repeat -199px -242px;}
+.top-line-menu .user-nav-2 .new .icon-broadcast {float:left;width:31px;height:32px;background:url(/images/common.png) no-repeat -232px -242px;}
 .top-line-menu .user-nav-2 .count {float:left;font-size:9px;font-weight:bold;color:#fff;line-height:11px;margin-top:1px;display:none;}
 .top-line-menu .user-nav-2 .new .count {display:block;}
 .top-line-menu .user-nav-2 .count span {display:inline-block;*zoom:1;*display:inline;white-space:nowrap;color:#ffffff;height:11px;margin-bottom:4px;padding:0 2px;border-radius:2px;-moz-border-radius:2px;-webkit-border-radius:2px;}
@@ -1711,6 +1716,7 @@ body.nav-fixed #header-new.top-line-fixed {padding-top:0;}
 
 #content .content-cols {}
 #content .content-cols .col-1 {width:240px;padding-right:20px;float:left;}
+#content .content-cols .col-12,
 #content .content-cols .col-23 {width:700px;float:left;}
 #content .content-cols .col-2 {width:440px;float:left;}
 #content .content-cols .col-3 {width:240px;padding-left:20px;float:left;}

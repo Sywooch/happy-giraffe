@@ -8,13 +8,24 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Персональный календарь беременности на Веселом Жирафе</title>
 
-
-    <link rel="stylesheet" type="text/css" href="/stylesheets/common.css" />
     <link rel="stylesheet" type="text/css" href="/stylesheets/landing-pages/calendar-pregnancy.css" />
 
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <script type="text/javascript" src="/javascripts/jquery.placeholder.min.js"></script>
+    <?php
+    $cs = Yii::app()->clientScript;
+    $cs
+        ->registerCssFile('/stylesheets/common.css')
+        ->registerCssFile('/stylesheets/jquery.fancybox-1.3.4.css')
 
+        ->registerCoreScript('jquery')
+        ->registerScriptFile('/javascripts/jquery.fancybox-1.3.4.js')
+        ->registerScriptFile('/javascripts/jquery.placeholder.min.js')
+        ->registerScriptFile('/javascripts/chosen.jquery.min.js')
+        ->registerScript('base_url', 'var base_url = \'' . Yii::app()->baseUrl . '\';', CClientScript::POS_HEAD)
+        ->registerScriptFile('/javascripts/common.js')
+        ->registerScriptFile('/javascripts/addtocopy.js')
+        ->registerScriptFile('/javascripts/base64.js')
+    ;
+    ?>
 
     <!--[if IE 7]>
     <link rel="stylesheet" href='/stylesheets/ie.css' type="text/css" media="screen" />
@@ -67,29 +78,7 @@
 
 <div class="calendar-pregnancy-form">
 
-    <form action="">
-        <div class="logo-box">
-            <a href="/" class="logo" title="Домашняя страница">Ключевые слова сайта</a>
-            <span>САЙТ ДЛЯ ВСЕЙ СЕМЬИ</span>
-        </div>
-        <h2>Персональный календарь беременности</h2>
-        <div class="free">БЕСПЛАТНО!</div>
-        <p class="bigtext">Присоединяйтесь к сообществу будущих мам! <br /> Общайтесь, получайте советы по ведению беременности и пользуйтесь различными сервисами</p>
-        <p class="smalltext">Присоединяйтесь к сообществу будущих мам! <br /> Общайтесь, получайте советы по ведению беременности.</p>
-        <div class="row">
-            <input type="text" class="text" placeholder="Введите ваш e-mail адрес" value=""/>
-        </div>
-        <input type="submit" value="Продолжить"  class="btn-green"/>
-        <div class="social-small-row clearfix">
-            <em>или войти с помощью</em>
-            <ul class="social-list-small">
-                <li><a href="#" class="odnoklasniki"></a></li>
-                <li><a href="#" class="mailru"></a></li>
-                <li><a href="#" class="vk"></a></li>
-                <li><a href="#" class="fb"></a></li>
-            </ul>
-        </div>
-    </form>
+    <?=$content ?>
 
 </div>
 

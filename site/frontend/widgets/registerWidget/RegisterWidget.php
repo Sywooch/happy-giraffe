@@ -2,67 +2,57 @@
 class RegisterWidget extends CWidget
 {
     public $show_form = false;
-    public $odnoklassniki = false;
-    public $type = 'default';
-
-    public $template = array(
-        'default' => array(
-            'step1' => array(
-                'title1' => 'Регистрация на Веселом Жирафе',
-                'title2' => 'Стань полноправным участником сайта за 1 минуту!',
-            ),
-            'step2' => array(
-                'title1' => 'Вы уже почти с нами!',
-                'title2' => 'Осталось ввести ваши имя, фамилию, пол и пароль',
-            ),
-            'step3' => array(
-                'title1' => 'Мы готовим для вас личную страницу',
-            ),
-            'inputBirthday'=>false
-        ),
-
-        'horoscope' => array(
-            'step1' => array(
-                'title1' => 'Хочу гороскоп каждый день',
-                'title2' => 'Зарегистрируйтесь, чтобы получать гороскоп!',
-            ),
-            'step2' => array(
-                'title1' => 'Ваш гороскоп почти готов!',
-                'title2' => 'Осталось ввести ваши имя, фамилию, пол, дату рождения и пароль',
-            ),
-            'step3' => array(
-                'title1' => 'Мы готовим для вас гороскоп',
-            ),
-            'inputBirthday'=>true
-        ),
-    );
+    public $form_type = 'default';
 
     public function run()
     {
         if (Yii::app()->user->isGuest) {
-            if (Yii::app()->controller->uniqueId == 'services/horoscope/default'){
-                $this->type = 'horoscope';
-            } elseif (strpos(Yii::app()->getRequest()->urlReferrer, 'http://www.odnoklassniki.ru/') === 0) {
-                $this->odnoklassniki = true;
-            } elseif (!empty(Yii::app()->getRequest()->urlReferrer) && strpos(Yii::app()->getRequest()->urlReferrer, 'http://'.$_SERVER['SERVER_NAME'].'/') !== 0) {
-                Yii::app()->user->setState('show_register_window', 1);
-            } elseif (Yii::app()->user->getState('show_register_window') == 1 && !empty(Yii::app()->request->urlReferrer)) {
-                Yii::app()->user->setState('show_register_window', 0);
-                $this->show_form = true;
+            //for tests
+            //Yii::app()->user->setState('register_window_shown', 0);
+
+            if (Yii::app()->user->getState('register_window_shown', 0) == 0 && empty(Yii::app()->request->cookies['not_guest'])) {
+                if (!empty(Yii::app()->getRequest()->urlReferrer) && $this->inHoroscopeArea()) {
+                    $this->show_form = true;
+                    $this->form_type = 'horoscope';
+                } elseif (!empty(Yii::app()->getRequest()->urlReferrer) && $this->inPregnancyArea()) {
+                    $this->show_form = true;
+                    $this->form_type = 'pregnancy';
+                } elseif (strpos(Yii::app()->getRequest()->urlReferrer, 'http://www.odnoklassniki.ru/') === 0) {
+                    $this->form_type = 'odnoklassniki';
+                    $this->show_form = true;
+                } elseif (!empty(Yii::app()->getRequest()->urlReferrer)) {
+                    $this->show_form = true;
+                }
             }
 
-            if (Yii::app()->user->getState('ban_register_window') == 1){
-                Yii::app()->user->setState('show_register_window', 0);
-                Yii::app()->user->setState('ban_register_window', 0);
-                $this->show_form = false;
-            }
+            if ($this->show_form)
+                Yii::app()->user->setState('register_window_shown', 1);
 
             $model = new User;
             $this->render('form', array(
                 'model' => $model,
-                'odnoklassniki' => $this->odnoklassniki,
-                'type'=>$this->type
             ));
         }
+    }
+
+    public function inHoroscopeArea()
+    {
+        return Yii::app()->controller->uniqueId == 'services/horoscope/default';
+    }
+
+    public function inPregnancyArea()
+    {
+        return
+            (Yii::app()->controller->uniqueId == 'calendar/default' && $_GET['calendar'] == 1) //календрарь беременности
+            || (Yii::app()->controller->uniqueId == 'services/babySex/default') //определение пола будущего ребенка
+            || (Yii::app()->controller->uniqueId == 'services/pregnancyWeight/default') //вес при беременности
+            || (Yii::app()->controller->uniqueId == 'services/placentaThickness/default') //толщины плаценты
+            || (Yii::app()->controller->uniqueId == 'services/maternityLeave/default') //Когда уходить в декрет
+            || (Yii::app()->controller->uniqueId == 'services/test/default' && $_GET['slug'] == 'pregnancy') //Онлайн-тест на беременность
+            || (Yii::app()->controller->uniqueId == 'services/contractionsTime/default') //Считаем схватки
+            || (Yii::app()->controller->uniqueId == 'services/names/default') //Выбор имени ребенка
+            || (Yii::app()->controller->uniqueId == 'community' &&
+            in_array($_GET['community_id'], array(1, 2, 3))) //Выбор имени ребенка
+            ;
     }
 }

@@ -106,6 +106,7 @@ return array(
         'community/add/community_id/<community_id:\d+>/rubric_id/<rubric_id:\d+>' => 'community/add',
         'community/add/community_id/<community_id:\d+>/content_type_slug/<content_type_slug>' => 'community/add',
         'community/add/community_id/<community_id:\d+>' => 'community/add',
+        'community/recent/community_id/<community_id:\d+>' => 'community/recent',
         'community/<_a:(join|add|transfer|edit|editTravel|weeklyMail)>' => 'community/<_a>',
 
         //global
@@ -179,7 +180,7 @@ return array(
         //===================== Services =========================//
 
         'childCalendar/<slug:[\w-]+>' => array('calendar/default/index', 'defaultParams' => array('calendar' => 0)),
-        //'pregnancyCalendar/join' => array('calendar/default/join'),
+        'pregnancyCalendar/join' => array('calendar/default/join'),
         'pregnancyCalendar/<slug:[\w-]+>' => array('calendar/default/index', 'defaultParams' => array('calendar' => 1)),
         'childCalendar' => array('calendar/default/index', 'defaultParams' => array('calendar' => 0)),
         'pregnancyCalendar' => array('calendar/default/index', 'defaultParams' => array('calendar' => 1)),

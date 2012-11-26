@@ -443,7 +443,7 @@ var Register = {
     start:false,
     show_window_delay:3000,
     show_window_type:'',
-    attributes:[],
+    attributes:{},
     step1:function(){
         $('.reg1').hide();
         $('.reg2').show();
@@ -453,6 +453,7 @@ var Register = {
     showStep2:function(email, type){
         Register.attributes['email']= email;
         Register.attributes['type']= type;
+        console.log(Register.attributes);
         $.post('/signup/showForm/', Register.attributes, function(response) {
             var link = $('#hidden_register_link');
             link.attr('href', '#register');

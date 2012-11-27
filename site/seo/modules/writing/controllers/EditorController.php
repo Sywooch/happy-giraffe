@@ -232,18 +232,7 @@ class EditorController extends SController
 
     public function actionReports($status = 1)
     {
-        $criteria = new CDbCriteria;
-        $criteria->compare('owner_id', Yii::app()->user->id);
-        $criteria->compare('section', SeoTask::SECTION_MAIN);
-        $criteria->order = 'created desc';
-
-        if ($status == 1)
-            $criteria->addCondition('(status = 1 OR status = 2)');
-        elseif ($status == 2)
-            $criteria->addCondition('(status = 3 OR status = 4)'); elseif ($status == 3)
-            $criteria->addCondition('(status = 5 OR status = 6)'); elseif ($status == 4)
-            $criteria->addCondition('status = 7'); elseif ($status == 5)
-            $criteria->addCondition('status = 8');
+        $criteria = SeoTask::getReportsCriteria($status);
 
         $dataProvider = new CActiveDataProvider('SeoTask', array(
             'criteria' => $criteria,

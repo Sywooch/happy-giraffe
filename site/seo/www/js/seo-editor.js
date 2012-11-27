@@ -202,7 +202,7 @@ var TaskDistribution = {
             } else {
                 $.pnotify({
                     pnotify_title:'Ошибка',
-                    pnotify_type:'error',
+                    pnotify_type:'error'
                 });
             }
         }, 'json');

@@ -72,7 +72,7 @@ class EditorController extends SController
     {
         $this->section = $section;
         TempKeyword::filterBusyKeywords();
-        $tempKeywords = TempKeyword::model()->findAll('owner_id=' . Yii::app()->user->id.' AND section = '.$section);
+        $tempKeywords = TempKeyword::model()->findAll('owner_id=' . Yii::app()->user->id . ' AND section = ' . $section);
 
         $by_name_tasks = SeoTask::getTasksByName($section);
         $tasks = SeoTask::getNewTasks($section);
@@ -179,7 +179,7 @@ class EditorController extends SController
             $group->delete();
             $response = array(
                 'status' => true,
-                'html' => $this->renderPartial('_task1', array('type' => 1, 'keyword' => $keywords[0], 'authors'=>$authors), true)
+                'html' => $this->renderPartial('_task1', array('type' => 1, 'keyword' => $keywords[0], 'authors' => $authors), true)
             );
         } else {
             $task->executor_id = null;
@@ -187,31 +187,44 @@ class EditorController extends SController
             $task->save();
             $response = array(
                 'status' => true,
-                'html' => $this->renderPartial('_task1', array('type' => 2, 'by_name_task' => $task, 'authors'=>$authors), true)
+                'html' => $this->renderPartial('_task1', array('type' => 2, 'by_name_task' => $task, 'authors' => $authors), true)
             );
         }
 
         echo CJSON::encode($response);
     }
 
-    public function actionReports($section)
+    public function actionReports($section, $status = 1)
     {
-        $criteria = new CDbCriteria;
-        $criteria->compare('owner_id', Yii::app()->user->id);
-        $criteria->compare('section', $section);
-        $criteria->compare('status >', SeoTask::STATUS_NEW);
-        $criteria->order = 'created desc';
-        $tasks = SeoTask::model()->findAll($criteria);
+        $criteria = SeoTask::getReportsCriteria($status, $section);
 
-        $this->render('reports', array(
-            'tasks' => $tasks,
+        $dataProvider = new CActiveDataProvider('SeoTask', array(
+            'criteria' => $criteria,
+            'pagination' => array('pageSize' => 100),
+        ));
+        $count = SeoTask::model()->count($criteria);
+        $pages = new CPagination($count);
+        $pages->pageSize = 100;
+        $pages->currentPage = Yii::app()->request->getParam('page', 1) - 1;
+        $pages->applyLimit($dataProvider->criteria);
+
+        $dataProvider->criteria->with = array('executor', 'article', 'keywordGroup');
+        $models = SeoTask::model()->findAll($dataProvider->criteria);
+
+        $this->render('reports_' . $status, array(
+            'tasks' => $models,
+            'pages' => $pages,
+            'status' => $status,
+            'section' => $section
         ));
     }
 
-    public function actionChangeSection(){
+    public function actionChangeSection()
+    {
         $task_id = Yii::app()->request->getPost('task_id');
         $task = $this->loadTask($task_id);
-        $task->section = Yii::app()->request->getPost('section');;
+        $task->section = Yii::app()->request->getPost('section');
+        ;
         echo CJSON::encode(array('status' => $task->save()));
     }
 

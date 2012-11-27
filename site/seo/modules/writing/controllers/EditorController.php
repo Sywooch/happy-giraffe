@@ -241,7 +241,7 @@ class EditorController extends SController
         $count = SeoTask::model()->count($criteria);
         $pages = new CPagination($count);
         $pages->pageSize = 100;
-        $pages->currentPage = Yii::app()->request->getParam('page', 0);
+        $pages->currentPage = Yii::app()->request->getParam('page', 1) - 1;
         $pages->applyLimit($dataProvider->criteria);
 
         $models = SeoTask::model()->findAll($dataProvider->criteria);

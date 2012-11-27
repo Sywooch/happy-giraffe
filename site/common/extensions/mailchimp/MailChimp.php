@@ -99,7 +99,7 @@ class MailChimp extends CApplicationComponent
 
             $criteria->offset += 100;
 
-            if ($criteria->offset >= 25000)
+            if ($criteria->offset >= 45000)
                 $users = null;
         }
 
@@ -134,7 +134,7 @@ class MailChimp extends CApplicationComponent
         Yii::import('site.frontend.modules.contest.models.*');
         Yii::import('site.frontend.helpers.*');
 
-        $works = ContestWork::model()->findAll('contest_id=2');
+        $works = ContestWork::model()->findAll('contest_id=4');
         $options = array();
         foreach ($works as $work) {
             $options[] = array(

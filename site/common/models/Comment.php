@@ -152,6 +152,14 @@ class Comment extends HActiveRecord
         );
     }
 
+    public function defaultScope()
+    {
+        $alias = $this->getTableAlias(false, false);
+        return array(
+            'condition' => ($alias) ? $alias . '.removed = 0' : 'removed = 0',
+        );
+    }
+
     public function get($entity, $entity_id, $type)
     {
         return new CActiveDataProvider('Comment', array(

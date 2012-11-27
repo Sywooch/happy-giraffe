@@ -4,7 +4,7 @@ class DefaultController extends SController
 {
     public function actionIndex()
     {
-        $parser = new DetiUserSearchParser;
+        $parser = new DetiFriendsParser;
         $parser->start();
     }
 

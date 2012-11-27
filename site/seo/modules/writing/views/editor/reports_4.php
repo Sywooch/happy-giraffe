@@ -2,7 +2,7 @@
     <div class="table-title">Список заданий</div>
 
     <div class="table-nav nav">
-        <?php $this->renderPartial('reports_menu', array('criteria' => $criteria, 'status'=>$status)); ?>
+        <?php $this->renderPartial('reports_menu', array('status'=>$status)); ?>
     </div>
 
     <div class="tabs-container">

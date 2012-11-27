@@ -77,7 +77,7 @@ class MailChimp extends CApplicationComponent
     {
         $criteria = new CDbCriteria;
         $criteria->limit = 100;
-        $criteria->condition = 'id > 524387';
+        $criteria->condition = 'id > 569501';
 
         $users = array(1);
         $last_id = 0;
@@ -141,7 +141,7 @@ class MailChimp extends CApplicationComponent
                 'EMAIL' => $work->author->email,
                 'FNAME' => $work->author->first_name,
                 'LNAME' => $work->author->last_name,
-                'IMGSRC'=> $work->photo->photo->getPreviewUrl(210, null, Image::WIDTH),
+                'IMGSRC'=> $work->photoAttach->photo->getPreviewUrl(210, null, Image::WIDTH),
                 'TITLE' => $work->title,
                 'PLACE' => $work->position,
                 'SCORES' => $work->rate,

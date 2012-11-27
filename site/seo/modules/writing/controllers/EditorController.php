@@ -247,11 +247,10 @@ class EditorController extends SController
         $dataProvider->criteria->with = array('executor', 'article', 'keywordGroup');
         $models = SeoTask::model()->findAll($dataProvider->criteria);
 
-        $this->render('reports_'.$status, array(
+        $this->render('reports_' . $status, array(
             'models' => $models,
             'pages' => $pages,
-            'criteria' => $criteria,
-            'status'=>$status
+            'status' => $status
         ));
     }
 

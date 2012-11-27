@@ -244,7 +244,7 @@ class EditorController extends SController
         $pages->currentPage = Yii::app()->request->getParam('page', 1) - 1;
         $pages->applyLimit($dataProvider->criteria);
 
-        $dataProvider->criteria->with = array('executor', 'article', 'keywordGroup', 'keywordGroup.keywords');
+        $dataProvider->criteria->with = array('executor', 'article', 'keywordGroup');
         $models = SeoTask::model()->findAll($dataProvider->criteria);
 
         $this->render('reports_'.$status, array(

@@ -12,17 +12,13 @@
                         'url' => array('/promotion/queries/admin'),
                     ),
                     array(
-                        'label' => 'Перелинковка',
-                        'active'=> (Yii::app()->controller->id == 'linking' && Yii::app()->controller->action->id != 'autoLinking'),
-                        'url' => 'javascript:;',
-                    ),
-                    array(
                         'label' => 'Автомат',
                         'url' => array('/promotion/linking/autoLinking'),
                     ),
                     array(
                         'label' => 'Проверка ссылок',
-                        'url' => array('/promotion/linking/сheckLinks'),
+                        'url' => array('/promotion/linking/checkLinks'),
+                        //'visible'=>Yii::app()->user->checkAccess('')
                     ),
                     array(
                         'label' => 'SAPE',

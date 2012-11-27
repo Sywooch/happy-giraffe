@@ -427,4 +427,33 @@ class SeoTask extends CActiveRecord
         return TempKeyword::model()->count('owner_id=' . Yii::app()->user->id.' AND section='.$section)
             + SeoTask::model()->count('owner_id=' . Yii::app()->user->id . ' AND executor_id IS NULL AND section='.$section);
     }
+
+    public static function getReportsCriteria($status = 1, $section = SeoTask::SECTION_MAIN)
+    {
+        $criteria = new CDbCriteria;
+        $criteria->compare('owner_id', Yii::app()->user->id);
+        $criteria->compare('section', $section);
+        $criteria->order = 'created desc';
+
+        if ($status == 1)
+            $criteria->addCondition('(status = 1 OR status = 2)');
+        elseif ($status == 2)
+            $criteria->addCondition('(status = 3 OR status = 4)'); elseif ($status == 3)
+            $criteria->addCondition('(status = 5 OR status = 6)'); elseif ($status == 4)
+            $criteria->addCondition('status = 7'); elseif ($status == 5)
+            $criteria->addCondition('status = 8');
+
+        return $criteria;
+    }
+
+    /**
+     * @param int $status
+     * @param int $section
+     * @return int
+     */
+    public static function getTaskCount($status = 1, $section = SeoTask::SECTION_MAIN){
+        $criteria = self::getReportsCriteria($status, $section);
+
+        return self::model()->count($criteria);
+    }
 }

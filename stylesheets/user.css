@@ -1282,7 +1282,7 @@ th.best-users_list-point {text-align: center;}
 	color: #fff;
 	font:bold 9px/13px Tahoma, Arial, Verdana, sans-serif;
 	padding: 0 6px;
-	margin-bottom: 5px;
+	margin-bottom: 8px;
 	background: #5488d0;
 	text-decoration: none;
 	display: inline-block;*zoom:1;*display:inline;
@@ -1296,7 +1296,7 @@ th.best-users_list-point {text-align: center;}
 .masonry-news-list .sub-category {font: bold 9px/14px Tahoma, Arial, Verdana, sans-serif;text-decoration: none;color: #484747;}
 .masonry-news-list .icon-blog {display: inline-block;*zoom:1;*display:inline;width: 20px;height: 20px;margin: 0 0 2px;vertical-align: middle;background: url(/images/common.png) no-repeat -346px -396px;}
 .masonry-news-list .icon-cook {display: inline-block;*zoom:1;*display:inline;width: 12px;height: 23px;margin: 0 3px 2px 0;vertical-align: middle;background: url(/images/common.png) no-repeat -315px -414px;}
-.masonry-news-list_meta-info {margin-bottom: 5px;}
+.masonry-news-list_meta-info {margin-bottom: 7px;}
 .masonry-news-list_meta-info .user-info {min-width: 130px;}
 .masonry-news-list_meta-info .user-info .details {margin-left: 30px;}
 .masonry-news-list_meta-info .user-info .details .username {width: 100px;line-height: 13px;}
@@ -1356,7 +1356,7 @@ th.best-users_list-point {text-align: center;}
 .masonry-news-list_img-list > li {display: inline-block;*zoom:1;*display:inline;margin: 0 0 1px 0;}
 .masonry-news-list_img-list > li a:hover {opacity:0.45;filter:alpha(opacity=45);}
 .masonry-news-list_img-list > li img{margin: 0;}
-.masonry-news-list .comments-all {text-align: center;padding: ;}
+.masonry-news-list .comments-all {text-align: center;font-size: 11px;}
 .masonry-news-list .comments-all .icon-comment {display:inline-block;*zoom:1;*display:inline;width: 16px;height: 13px;background:url(/images/common.png) no-repeat  -218px -295px;;vertical-align:middle;margin:2px 3px 0;padding:0;}
 .masonry-news-list .user-list {list-style: none;text-align: center;margin: 0 0 5px;}
 .masonry-news-list .user-list > li{display: inline-block;*zoom:1;*display:inline;margin: 5px 10px;}

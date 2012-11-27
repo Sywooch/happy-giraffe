@@ -32,6 +32,23 @@ if (jQuery.browser.msie) {
 $(document).ready(function () {
     $(".wysiwyg-content").addtocopy({htmlcopytxt: '<br /><br />Подробнее: <a href="'+window.location.href+'">'+window.location.href+'</a>'});
 
+
+    $('.layout-container').scroll(function () {
+        var contanerScroll = $('.layout-container').scrollTop();
+        if (contanerScroll > 0) {
+            var top = $(window).height() + contanerScroll - 150;
+            $('#btn-up-page').css("top",top).fadeIn(600);
+        } else {
+            $('#btn-up-page').fadeOut(600)
+        }
+    });
+
+    $('#btn-up-page').click(function() {
+        $('.layout-container').stop().animate({scrollTop:0}, "normal");
+        return false
+    })
+
+
     $.ajaxSetup({
         complete: function() {
 

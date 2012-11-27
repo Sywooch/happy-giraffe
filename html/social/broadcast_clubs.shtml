@@ -507,9 +507,9 @@
 				</div>
 
 			</div>
-		<a href="#layout" class="btn-up-page"></a>
-		</div>
 		
+		</div>
+		<a href="#layout" id="btn-up-page"></a>
 		<div class="push"></div>
 		
 	</div>

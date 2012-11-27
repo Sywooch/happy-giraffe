@@ -104,12 +104,12 @@ body.body-club {background:#f6f6f6;}
 	border-top:1px solid #fff;
 }
 
-#layout {min-height:100%;background:#fff;}
+#layout {min-height:100%;background:#fff;position: relative;}
 #layout .push {height:80px;}
 #layout .layout-in {}
 .body-broadcast #layout{background:#f6f6f6;}
 
-#footer {height:70px;margin-top:-80px;padding-top:10px;font:normal 11px/36px tahoma, arial, helvetica, sens-serif;}
+#footer {height:70px;margin-top:-80px;padding-top:10px;font:normal 11px/36px tahoma, arial, helvetica, sens-serif;position: relative;}
 #footer .copy {padding-left:20px;color:#9e9d9e;}
 #footer .copy .icon-18{vertical-align: middle;padding: 0 25px;}
 #footer .a-right {color:#0498b8;padding-right:20px;}
@@ -158,8 +158,8 @@ hr,
 .file-fake .btn {position:relative;z-index:2;}
 
 a.info {display:inline-block;*zoom:1;*display:inline;width:13px;height:13px;background:url(../images/common.png) no-repeat -267px -101px;}
-.btn-up-page {position: fixed;bottom: 30px;left: 40px;width: 71px;height: 67px;background: url(/images/btn-up.png) no-repeat;}
-.btn-up-page:hover {background-position: 0 -67px;}
+#btn-up-page {position:absolute;bottom: 30px;left: -81px;width: 71px;height: 67px;background: url(/images/btn-up.png) no-repeat;display: none;}
+#btn-up-page:hover {background-position: 0 -67px;}
 
 #tooltip {display:block;position:absolute;background:#fffac8;color:#929292;padding:2px 10px;border:1px solid #f3eca9;font-size:12px;z-index:3000;-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;behavior: url(/stylesheets/PIE.htc);}
 #tooltip h3 {font-weight:normal;font-size:12px;}

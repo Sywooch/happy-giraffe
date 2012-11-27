@@ -332,7 +332,7 @@
 									</div>
 								</li>
 								<li class="masonry-news-list_item">
-									<h3 class="masonry-news-list_title">
+									<h3 class="masonry-news-list_title textalign-c">
 										<a href="">Новые пользователи</a>
 									</h3>
 									<div class="textalign-c clearfix">
@@ -451,9 +451,9 @@
 				</div>
 
 			</div>
-		<a href="#layout" class="btn-up-page"></a>
-		</div>
 		
+		</div>
+		<a href="#layout" id="btn-up-page"></a>
 		<div class="push"></div>
 		
 	</div>

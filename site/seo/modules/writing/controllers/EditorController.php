@@ -230,17 +230,27 @@ class EditorController extends SController
         echo CJSON::encode(array('status' => $task->save()));
     }
 
-    public function actionReports()
+    public function actionReports($status = 1)
     {
-        $criteria = new CDbCriteria;
-        $criteria->compare('owner_id', Yii::app()->user->id);
-        $criteria->compare('status >', SeoTask::STATUS_NEW);
-        $criteria->compare('section', SeoTask::SECTION_MAIN);
-        $criteria->order = 'created desc';
-        $tasks = SeoTask::model()->findAll($criteria);
+        $criteria = SeoTask::getReportsCriteria($status);
 
-        $this->render('reports', array(
-            'tasks' => $tasks,
+        $dataProvider = new CActiveDataProvider('SeoTask', array(
+            'criteria' => $criteria,
+            'pagination' => array('pageSize' => 100),
+        ));
+        $count = SeoTask::model()->count($criteria);
+        $pages = new CPagination($count);
+        $pages->pageSize = 100;
+        $pages->currentPage = Yii::app()->request->getParam('page', 1) - 1;
+        $pages->applyLimit($dataProvider->criteria);
+
+        $dataProvider->criteria->with = array('executor', 'article', 'keywordGroup');
+        $models = SeoTask::model()->findAll($dataProvider->criteria);
+
+        $this->render('reports_' . $status, array(
+            'models' => $models,
+            'pages' => $pages,
+            'status' => $status
         ));
     }
 
@@ -455,11 +465,13 @@ class EditorController extends SController
         }
     }
 
-    public function actionChangeSection(){
+    public function actionChangeSection()
+    {
         $keyword_id = Yii::app()->request->getPost('keyword_id');
         $temp_keyword = TempKeyword::model()->find('keyword_id=' . $keyword_id);
         $temp_keyword->owner_id = 83;
-        $temp_keyword->section = Yii::app()->request->getPost('section');;
+        $temp_keyword->section = Yii::app()->request->getPost('section');
+        ;
         echo CJSON::encode(array('status' => $temp_keyword->save()));
     }
 

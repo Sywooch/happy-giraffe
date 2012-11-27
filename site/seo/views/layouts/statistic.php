@@ -43,31 +43,31 @@
 <?php echo $content; ?>
 <script type="text/javascript">
     $(function () {
-        $('.table-box table').each(function(){
-            var $this = $(this);
-            var column = $this.find('tr:nth-child(2)').find('td').length;
-            var row = $this.find('tr').length;
-
-            var arr = new Array();
-            for (cc=1; cc<column; cc++) {
-                arr[cc] = 0;
-            }
-
-            for (rr=1; rr<row; rr++) {
-                var $tr = $this.find('tr').eq(rr);
-
-                for (cc=1; cc<=column; cc++) {
-                    var mark = $tr.find('td').eq(cc).html();
-                    if (parseInt(mark) > 0) {
-                        arr[cc] += parseInt(mark);
-                    }
-                }
-            }
-
-            for (cc=0; cc<column; cc++) {
-                $this.find('tr.total td').eq(cc).html(arr[cc]);
-            }
-        });
+//        $('.table-box table').each(function(){
+//            var $this = $(this);
+//            var column = $this.find('tr:nth-child(2)').find('td').length;
+//            var row = $this.find('tr').length;
+//
+//            var arr = new Array();
+//            for (cc=1; cc<column; cc++) {
+//                arr[cc] = 0;
+//            }
+//
+//            for (rr=1; rr<row; rr++) {
+//                var $tr = $this.find('tr').eq(rr);
+//
+//                for (cc=1; cc<=column; cc++) {
+//                    var mark = $tr.find('td').eq(cc).html();
+//                    if (parseInt(mark) > 0) {
+//                        arr[cc] += parseInt(mark);
+//                    }
+//                }
+//            }
+//
+//            for (cc=0; cc<column; cc++) {
+//                $this.find('tr.total td').eq(cc).html(arr[cc]);
+//            }
+//        });
     });
 </script>
 <?php $this->endContent(); ?>

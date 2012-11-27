@@ -306,6 +306,14 @@ class SeoCommand extends CConsoleCommand
         $parser->start();
     }
 
+    public function actionDetiFriendsParser()
+    {
+        Yii::import('site.seo.modules.mailru.components.*');
+
+        $parser = new DetiFriendsParser();
+        $parser->start();
+    }
+
     public function actionMailruCollect()
     {
         Yii::import('site.seo.modules.mailru.components.*');

@@ -109,6 +109,10 @@
 											</div>
 										</div>
 									</div>
+									<div class="comments-all">
+										<a href="">еще 124</a>
+										<a href="" class="icon-comment"></a>
+									</div>
 								</li>
 								<li class="masonry-news-list_item">
 									<h3 class="masonry-news-list_title">
@@ -137,11 +141,6 @@
 									<div class="masonry-news-list_content">
 										<p>Роды — отправная точка для самых важных изменений и судьбоносных... <a href="" class="all">Читать</a></p>
 									</div>
-									
-									<div class="comments-all">
-										<a href="">еще 124</a>
-										<a href="" class="icon-comment"></a>
-									</div>
 								</li>
 								<li class="masonry-news-list_item">
 									<h3 class="masonry-news-list_title">
@@ -154,11 +153,6 @@
 									<div class="masonry-news-list_meta-info clearfix">
 										
 										<div class="meta">
-											<div class="views"><span class="icon" href="#"></span> <span>265</span></div>
-											<div class="comments">
-												<a class="icon" href="#"></a>
-												<a href="">152</a>
-											</div>
 										</div>
 										
 										<div class="user-info">

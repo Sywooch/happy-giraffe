@@ -431,7 +431,7 @@ class SeoTask extends CActiveRecord
     public static function getReportsCriteria($status = 1, $section = SeoTask::SECTION_MAIN)
     {
         $criteria = new CDbCriteria;
-        $criteria->compare('owner_id', Yii::app()->user->id);
+        $criteria->compare('t.owner_id', Yii::app()->user->id);
         $criteria->compare('section', $section);
         $criteria->order = 'created desc';
 

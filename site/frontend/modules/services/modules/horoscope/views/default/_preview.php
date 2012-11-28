@@ -3,7 +3,7 @@
  * @var $model Horoscope
  */
 if (isset($model)){
-?><li><div class="img">
+?><li><div class="img clearfix">
         <img src="/images/widget/horoscope/small/<?=$model->zodiac ?>.png">
         <div class="date"><a href="<?=$this->createUrl($model->getType(), array('zodiac'=>$model->getZodiacSlug())) ?>"><?=$model->zodiacText() ?></a>
             <?=$model->zodiacDates() ?></div>

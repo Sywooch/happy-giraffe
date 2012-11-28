@@ -65,4 +65,9 @@ class HActiveRecord extends CActiveRecord
     {
         return $this->getUrl(false, true);
     }
+
+    public function getRelatedModel()
+    {
+        return ($this->hasAttribute('entity') && $this->hasAttribute('entity_id')) ? CActiveRecord::model($this->entity)->findByPk($this->entity_id) : null;
+    }
 }

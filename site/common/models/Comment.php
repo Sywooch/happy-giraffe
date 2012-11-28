@@ -193,6 +193,13 @@ class Comment extends HActiveRecord
             return parent::afterSave();
 
         if ($this->isNewRecord) {
+            $relatedModel = $this->getRelatedModel();
+
+            if ($relatedModel->hasAttribute('last_updated')) {
+                $relatedModel->last_updated = new CDbExpression('NOW()');
+                $relatedModel->update(array('last_updated'));
+            }
+
             UserNotification::model()->create(UserNotification::NEW_COMMENT, array('comment' => $this));
             if ($this->response_id !== null)
                 UserNotification::model()->create(UserNotification::NEW_REPLY, array('comment' => $this));

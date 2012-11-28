@@ -6,6 +6,11 @@ class m121127_111212_activity extends CDbMigration
 	{
         $this->execute("ALTER TABLE  `community__contents` ADD  `last_updated` TIMESTAMP NULL AFTER  `created`");
         $this->execute("ALTER TABLE  `contest__contests` ADD  `last_updated` TIMESTAMP NULL");
+        $this->execute("ALTER TABLE  `cook__recipes` ADD  `last_updated` TIMESTAMP NULL AFTER  `created`");
+
+        $this->execute("ALTER TABLE  `community__contents` ADD INDEX (  `last_updated` )");
+        $this->execute("ALTER TABLE  `contest__contests` ADD INDEX (  `last_updated` )");
+        $this->execute("ALTER TABLE  `cook__recipes` ADD INDEX (  `last_updated` )");
 
 	}
 

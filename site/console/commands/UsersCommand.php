@@ -110,4 +110,19 @@ class UsersCommand extends CConsoleCommand
             $criteria->offset += 100;
         }
     }
+
+    /**
+     * Удаление в назначениях прав несуществующих юзеров
+     */
+    public function actionAssign()
+    {
+        $models = AuthAssignment::model()->findAll();
+        foreach($models as $model){
+            $count = User::model()->countByAttributes(array('id'=>$model->userid));
+            if ($count == 0){
+                echo "id = {$model->userid} user not exist \n\r";
+                $model->delete();
+            }
+        }
+    }
 }

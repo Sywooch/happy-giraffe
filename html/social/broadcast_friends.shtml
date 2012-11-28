@@ -210,19 +210,18 @@
 											<p>Изменила статус </p>
 										</div>
 									</div>
-									<div class="clearfix">
-										<div class="entry-content user-status">
-											<a href="">Привет всем! У меня все ok! Единственное, что имеет значение в конце нашего пребывания на земле - это то, как сильно мы любили.</a>
-											
-										
-											<div class="meta nofloat">
+									<div class="clearfix user-info-big">
+										<div class="text-status">
+									        <p>Родители всегда говорили мне, что я могу добиться чего угодно! Родители всегда говорили мне...</p>
+									        <span class="tale"></span>
+									        <div class="meta nofloat">
 												<span class="views"><span class="icon" href="#"></span> <span>265</span></span>
 												<span class="comments">
 													<a class="icon" href="#"></a>
 													<a href="">15233</a>
 												</span>
 											</div>
-										</div>
+									    </div>
 									</div>
 									<div class="textalign-c clearfix">
 										<a href="">Добавить комментарий</a>
@@ -260,6 +259,65 @@
 										<a href="" class="textdec-onhover">Поддержите друга!</a>
 									</div>
 								</li>
+								<li class="masonry-news-list_item">
+									<div class="masonry-news-list_friend-info clearfix">
+										<a class="ava female small"><img alt="" src="http://img.happy-giraffe.ru/avatars/19372/small/21fd8c8f29c5a289df17938cb2f20e5b.jpg"></a>
+										<div class="details">
+											<a class="username" href="">Александр</a>
+											<span class="date">Сегодня 13:25</span>
+											<p>Добавила интересы</p>
+										</div>
+									</div>
+									<div class="clearfix user-info-big">
+										<div class="text-status">
+									        <p>Родители всегда говорили мне, что я могу добиться чего угодно! Родители всегда говорили мне...</p>
+									        <span class="tale"></span>
+									        <div class="meta nofloat">
+												<span class="views"><span class="icon" href="#"></span> <span>265</span></span>
+												<span class="comments">
+													<a class="icon" href="#"></a>
+													<a href="">15233</a>
+												</span>
+											</div>
+									    </div>
+									</div>
+									<div class="textalign-c clearfix">
+										<a href="">Добавить комментарий</a>
+									</div>
+								</li>
+								<li class="masonry-news-list_item">
+									<div class="masonry-news-list_friend-info clearfix">
+										<a class="ava female small"><img alt="" src="http://img.happy-giraffe.ru/avatars/19372/small/21fd8c8f29c5a289df17938cb2f20e5b.jpg"></a>
+										<div class="details">
+											<a class="username" href="">Александр</a>
+											<span class="date">Сегодня 13:25</span>
+											<p>Вступила в клубы</p>
+										</div>
+									</div>
+									<div class="clubs-list">
+										<ul>
+											<li class="club-img rest">
+				                            	<a href="/community/19/forum/">
+				                                    <img src="/images/club_img_33.png">
+				                                    Выходные с ребенком
+				                                </a>
+				                                <a href="" class="club-join">Вступить</a>
+				                            </li>
+				                            <li class="club-img beauty">
+				                            	<a href="/community/19/forum/">
+				                                    <img src="/images/club_img_21.png">
+				                                    Выходные с ребенком
+				                                </a>
+				                                <a href="" class="club-join">Вступить</a>
+				                            </li>
+										</ul>
+									</div>
+									<div class="textalign-c clearfix">
+										<a href="">Добавить комментарий</a>
+									</div>
+								</li>
+								
+								
 								<li class="masonry-news-list_item">
 									<h3 class="masonry-news-list_title">
 										<a href="">Волшебная азбука</a>

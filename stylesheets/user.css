@@ -1385,9 +1385,9 @@
 .masonry-news-list .contest-participant .ball {margin-right: 0;}
 .masonry-news-list .contest-participant .position {margin-left: 0;}
 .masonry-news-list .user-purpose {margin-bottom: 0;}
-.masonry-news-list .user-info-big {margin-bottom: 0;}
-.masonry-news-list .entry-content.user-status {margin-bottom: 0;padding: 8px 12px;font-size: 18px;line-height: 20px;}
-
+.masonry-news-list .user-info-big {margin-bottom: 5px;padding: 0;}
+.masonry-news-list .user-info-big .text-status > p {color: #0a8dbd;font-size: 18px;line-height: 20px;font: italic 18px/20px 'Times New Roman', Georgia, Times, serif;padding: 2px 0 4px;}
+.masonry-news-list .clubs-list > ul {margin: 0;}
 
 
 

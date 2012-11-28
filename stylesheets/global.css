@@ -3310,10 +3310,10 @@ ul.letters li a:hover {
 }
 #horoscope .horoscope-list ul li .img {margin-bottom:10px;}
 #horoscope .horoscope-list ul li .img img {float: left;}
-#horoscope .horoscope-list ul li .img .date {vertical-align:top;text-align:center;padding-top:20px;color:#2d2d2d;font-size:10px;}
+#horoscope .horoscope-list ul li .img .date {vertical-align:top;text-align:center;padding-top:12px;color:#2d2d2d;font-size:10px;}
 #horoscope .horoscope-list ul li .img .date > a,
-#horoscope .horoscope-list ul li .img .date span {font:italic 25px/1 times new roman, serif;display:block;color:#2d87be;}
-#horoscope .horoscope-list ul li .text {font-size:11px;line-height:17px;color:#626262;}
+#horoscope .horoscope-list ul li .img .date span {font:italic 23px/1.6em times new roman, serif;display:block;color:#2d87be;}
+#horoscope .horoscope-list ul li .text {font-size:11px;line-height:16px;color:#626262;}
 #horoscope .horoscope-list ul li .text .btn-small {display: block;width: 45px;margin: 7px auto 5px;font-family: tahoma, sans-serif;}
 
 #horoscope .horoscope-one {padding:7px;border:1px solid #e9f0f9;margin-bottom:30px;}

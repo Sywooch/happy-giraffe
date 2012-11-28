@@ -3,6 +3,7 @@
 class MailParseController extends SController
 {
     public $layout = '//layouts/empty';
+    public $use_proxy = true;
     const STATS_LIMIT = 5;
 
     public function beforeAction($action)
@@ -27,7 +28,6 @@ class MailParseController extends SController
         if (empty($site_id))
             Yii::app()->end();
 
-        Yii::import('site.frontend.extensions.phpQuery.phpQuery');
         $error = $this->parseStats($site_id, $year, $month_from, $month_to);
 
         if ($error === true)
@@ -41,11 +41,12 @@ class MailParseController extends SController
 
     public function actionParse2()
     {
-        $site_id = 63;
+        $sites = array(80, 81, 82, 83, 84, 85, 86);
 
-        Yii::import('site.frontend.extensions.phpQuery.phpQuery');
-        $this->parseStats($site_id, 2011, 1, 12, 0);
-        $this->parseStats($site_id, 2012, 1, 11, 0);
+        foreach ($sites as $site_id) {
+            $this->parseStats($site_id, 2011, 1, 12, 0);
+            $this->parseStats($site_id, 2012, 1, 11, 0);
+        }
     }
 
     public function parseStats($site_id, $year, $month_from, $month_to)
@@ -53,12 +54,12 @@ class MailParseController extends SController
         $site = $this->loadModel($site_id);
 
         for ($month = $month_from; $month <= $month_to; $month++) {
-            $url = 'http://top.mail.ru/keywords?id='.$site->url.'&period=2&date=2012-'.$month.'-01&pp=200&gender=0&agegroup=0&searcher=all&sf=';
+            $url = 'http://top.mail.ru/keywords?id=' . $site->url . '&period=2&date=2012-' . $month . '-01&pp=200&gender=0&agegroup=0&searcher=all&sf=';
 
             $i = 0;
             $count = 1;
-            while(!empty($count)){
-                $page_url = $url . ($i*200);
+            while (!empty($count)) {
+                $page_url = $url . ($i * 200);
                 $result = $this->loadPage($page_url, '');
 
                 $document = phpQuery::newDocument($result);
@@ -83,13 +84,29 @@ class MailParseController extends SController
         curl_setopt($ch, CURLOPT_COOKIEFILE, $this->getCookieFile());
         curl_setopt($ch, CURLOPT_COOKIEJAR, $this->getCookieFile());
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+        if ($this->use_proxy) {
+            curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
+            curl_setopt($ch, CURLOPT_PROXY, '46.165.200.102:999');
+            if (getenv('SERVER_ADDR') != '5.9.7.81') {
+                curl_setopt($ch, CURLOPT_PROXYUSERPWD, "alexk984:Nokia12345");
+                curl_setopt($ch, CURLOPT_PROXYAUTH, 1);
+            }
+        }
+
         curl_setopt($ch, CURLOPT_TIMEOUT, 20);
-        $result = curl_exec($ch);
+        $content = curl_exec($ch);
         curl_close($ch);
 
-//        $result = iconv("Windows-1251","UTF-8",$result);
-
-        return $result;
+        if ($content === false)
+                return $this->loadPage($page_url, $last_url);
+        else {
+            if (!strpos($content, iconv("UTF-8", "Windows-1251",'рейтинг mail.ru'))) {
+                echo 'не нашел фразу рейтинг mail.ru <br>';
+                return $this->loadPage($page_url, $last_url);
+            }
+            return $content;
+        }
     }
 
     public function getCookieFile()
@@ -108,7 +125,6 @@ class MailParseController extends SController
                 continue;
 
             $keyword = substr($keyword, 3);
-            echo $keyword."\n";
 
             $stats = trim(pq($row)->find('td:eq(0)')->text());
             $stats = str_replace(',', '', $stats);
@@ -116,12 +132,13 @@ class MailParseController extends SController
                 return false;
 
             $keyword_model = Keyword::GetKeyword($keyword);
-            if ($keyword_model !== null){
+            if ($keyword_model !== null) {
                 SiteKeywordVisit::SaveValue($site_id, $keyword_model->id, $month, $year, $stats);
                 $count++;
             }
         }
 
+        echo $count.' найдено';
         return $count;
     }
 

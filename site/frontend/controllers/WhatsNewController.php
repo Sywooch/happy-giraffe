@@ -8,9 +8,16 @@
  */
 class WhatsNewController extends HController
 {
+    public function init()
+    {
+        Yii::import('application.models.whatsNew.*');
+
+        parent::init();
+    }
+
     public function actionIndex()
     {
-
+        echo EventManager::getPostsQuery(EventManager::FROM_CLUBS);
     }
 
     public function actionClubs()

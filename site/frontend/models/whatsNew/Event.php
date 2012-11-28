@@ -8,6 +8,10 @@
  */
 class Event extends CModel
 {
+    public $id;
+    public $last_updated;
+    public $type;
+
     const EVENT_POST = 0;
     const EVENT_CONTEST = 1;
     const EVENT_COOK_DECOR = 2;
@@ -22,13 +26,15 @@ class Event extends CModel
         self::EVENT_USER => 'Users',
     );
 
-    public function rules() {
+    public function rules()
+    {
         return array(
             array('type', 'in', 'range' => array_keys(self::$types)),
         );
     }
 
-    public $id;
-    public $last_updated;
-    public $type;
+    public function attributeNames()
+    {
+        return array('id', 'last_updated', 'type');
+    }
 }

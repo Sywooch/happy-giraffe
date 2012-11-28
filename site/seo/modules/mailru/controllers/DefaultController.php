@@ -44,9 +44,9 @@ class DefaultController extends SController
 
     public function actionCollect()
     {
-        for($i=4;$i<13;$i++){
+        for ($i = 4; $i < 13; $i++) {
             //echo $val.'<br>';
-            $url = 'http://deti.mail.ru/our_community/?community_filter=status&community_status=3&community_age_child=m_'.$i.'&community_find=%CD%E0%E9%F2%E8#';
+            $url = 'http://deti.mail.ru/our_community/?community_filter=status&community_status=3&community_age_child=m_' . $i . '&community_find=%CD%E0%E9%F2%E8#';
 
             $q = new MailruQuery();
             $q->text = $url;
@@ -56,12 +56,13 @@ class DefaultController extends SController
         }
     }
 
-    public function actionGetPhrases(){
+    public function actionGetPhrases()
+    {
         $models = MailruQuery::model()->findAll('type = 3 AND max_page > 10');
 
-        foreach($models as $model){
+        foreach ($models as $model) {
             if (!empty($model->chars))
-                echo $model->chars."<br>";
+                echo $model->chars . "<br>";
         }
     }
 
@@ -450,12 +451,12 @@ class DefaultController extends SController
 яна
 яро';
         $arr = explode("\n", $str);
-        for ($i = 0; $i < count($arr); $i++){
-                    $q = new MailruQuery();
-                    $text = urlencode(iconv("UTF-8", "Windows-1251", $arr[$i]));
-                    $q->text = 'http://my.mail.ru/community/man/friends?&sort=&search_text=' . $text;
-                    $q->type = MailruQuery::TYPE_SEARCH_USERS;
-                    $q->save();
-                }
+        for ($i = 0; $i < count($arr); $i++) {
+            $q = new MailruQuery();
+            $text = urlencode(iconv("UTF-8", "Windows-1251", $arr[$i]));
+            $q->text = 'http://my.mail.ru/community/anan/friends?&sort=&search_text=' . $text;
+            $q->type = MailruQuery::TYPE_SEARCH_USERS;
+            $q->save();
+        }
     }
 }

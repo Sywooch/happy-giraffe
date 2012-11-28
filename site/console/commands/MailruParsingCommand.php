@@ -45,7 +45,7 @@ class MailruParsingCommand extends CConsoleCommand
         $site = $this->loadModel($site_id);
 
         for ($month = $month_from; $month <= $month_to; $month++) {
-            $url = 'http://top.mail.ru/keywords?id=' . $site->url . '&period=2&date=2012-' . $month . '-01&pp=200&gender=0&agegroup=0&searcher=all&sf=';
+            $url = 'http://top.mail.ru/keywords?id=' . $site->url . '&period=2&date='.$year.'-' . $month . '-01&pp=200&gender=0&agegroup=0&searcher=all&sf=';
 
             $i = 0;
             $count = 1;

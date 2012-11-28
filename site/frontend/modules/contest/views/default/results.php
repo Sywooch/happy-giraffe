@@ -37,6 +37,29 @@
                 'model' => 'SONY DPF-D830LB 8"',
             ),
         );
+    } elseif ($this->contest->id == 3) {
+        $prizes = array(
+            '1' => array(
+                'title' => 'Full HD-видеокамера',
+                'model' => 'Samsung HMX-Q10',
+            ),
+            '2' => array(
+                'title' => 'Настольная игра',
+                'model' => 'Монополия',
+            ),
+            '3' => array(
+                'title' => 'Настольная игра',
+                'model' => 'Имаджинариум',
+            ),
+            '4' => array(
+                'title' => 'Настольная игра',
+                'model' => 'Элиас',
+            ),
+            '5' => array(
+                'title' => 'Настольная игра',
+                'model' => 'Футбол',
+            ),
+        );
     }
 ?>
 

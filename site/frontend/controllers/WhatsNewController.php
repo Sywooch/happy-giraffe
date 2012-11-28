@@ -17,7 +17,9 @@ class WhatsNewController extends HController
 
     public function actionIndex()
     {
-        echo EventManager::getPostsQuery(EventManager::FROM_CLUBS);
+        $events = EventManager::getLive();
+
+
     }
 
     public function actionClubs()

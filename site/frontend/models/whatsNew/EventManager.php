@@ -8,43 +8,25 @@
  */
 class EventManager
 {
-    const FROM_ALL = 0;
-    const FROM_CLUBS = 1;
-    const FROM_BLOGS = 2;
-
-    public function getLive()
+    public static function getLive()
     {
+        $sql = '
+            (SELECT id, last_updated, 0 AS type FROM community__contents WHERE last_updated IS NOT NULL)
+            UNION
+            (SELECT id, last_updated, 1 AS type FROM contest__contests WHERE last_updated IS NOT NULL)
+            UNION
+            (SELECT id, created AS last_updated, 2 AS type FROM cook__decorations ORDER BY id DESC LIMIT 1)
+            UNION
+            (SELECT id, last_updated, 3 AS type FROM cook__recipes WHERE last_updated IS NOT NULL)
+            UNION
+            (SELECT id, register_date AS last_updated, 4 AS type FROM users ORDER BY id DESC LIMIT 1)
+            ORDER BY last_updated DESC
+        ';
 
-    }
-
-    public function getClubs($all)
-    {
-
-    }
-
-    public function getBlogs($all)
-    {
-
-    }
-
-    public static function getPostsQuery($from = self::FROM_ALL, $all = true)
-    {
-        $command = Yii::app()->db->createCommand();
-
-        $command
-            ->select(array('id', 'last_updated', new CDbExpression(Event::EVENT_POST . ' AS `type`')))
-            ->from('community__contents c')
-            ->join('community__rubrics r', 'c.rubric_id = r.id')
-        ;
-
-        $conditions = 'last_updated IS NOT NULL AND r.community_id != :news_community';
-        if ($from === self::FROM_CLUBS)
-            $conditions .= ' AND r.community_id IS NOT NULL';
-        elseif ($from === self::FROM_BLOGS)
-            $conditions .= ' AND r.user_id IS NOT NULL';
-
-        $command->where($conditions, array(':news_community' => Community::COMMUNITY_NEWS));
-
-        return $command->text;
+        return new CSqlDataProvider($sql, array(
+            'pagination' => array(
+                'pageSize' => 10,
+            ),
+        ));
     }
 }

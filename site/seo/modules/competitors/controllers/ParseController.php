@@ -28,7 +28,6 @@ class ParseController extends SController
         if (empty($site_id))
             Yii::app()->end();
 
-        Yii::import('site.frontend.extensions.phpQuery.phpQuery');
         $error = $this->parseStats($site_id, $year, $month_from, $month_to, $mode);
 
         if ($error === true)
@@ -44,7 +43,6 @@ class ParseController extends SController
     {
         $site_id = 73;
 
-        Yii::import('site.frontend.extensions.phpQuery.phpQuery');
         $this->parseStats($site_id, 2011, 1, 12, 0);
 //        for($site_id=14;$site_id<40;$site_id++){
         $this->parseStats($site_id, 2012, 1, 11, 0);

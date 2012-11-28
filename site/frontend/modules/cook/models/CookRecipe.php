@@ -612,7 +612,7 @@ class CookRecipe extends CActiveRecord
     public function getByType($type)
     {
         $criteria = new CDbCriteria(array(
-            'with' => array('photo', 'attachPhotos'),
+            'with' => array('photo', 'attachPhotos', 'commentsCount'),
             'order' => 't.created DESC',
         ));
         if ($type !== null)

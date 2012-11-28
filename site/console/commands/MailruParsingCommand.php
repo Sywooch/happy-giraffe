@@ -93,7 +93,7 @@ class MailruParsingCommand extends CConsoleCommand
             return $this->loadPage($page_url, $last_url);
         else {
             if (!strpos($content, iconv("UTF-8", "Windows-1251", 'рейтинг mail.ru'))) {
-                echo 'не нашел фразу рейтинг mail.ru <br>';
+                echo "page is not mail.ru \n";
                 return $this->loadPage($page_url, $last_url);
             }
             return $content;

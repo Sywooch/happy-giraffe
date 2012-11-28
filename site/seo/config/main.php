@@ -48,7 +48,8 @@ return array(
         'cook',
         'externalLinks',
         'mailru',
-        'needlework'
+        'needlework',
+        'traffic'
     ),
     'components' => array(
         'user' => array(

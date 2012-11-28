@@ -11,7 +11,9 @@ Yii::import('site.seo.components.*');
 Yii::import('site.seo.modules.competitors.models.*');
 Yii::import('site.seo.modules.writing.models.*');
 Yii::import('site.seo.modules.promotion.models.*');
+Yii::import('site.seo.modules.traffic.models.*');
 Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
+Yii::import('site.frontend.helpers.*');
 
 class SeoCommand extends CConsoleCommand
 {
@@ -122,11 +124,11 @@ class SeoCommand extends CConsoleCommand
             foreach ($models as $model) {
                 $keyword_id = Keyword::GetKeyword($model->keyword)->id;
                 $model2 = SiteKeywordVisit::model()->findByAttributes(array(
-                    'keyword_id'=>$keyword_id,
-                    'site_id'=>$model->site_id,
-                    'year'=>$model->year,
+                    'keyword_id' => $keyword_id,
+                    'site_id' => $model->site_id,
+                    'year' => $model->year,
                 ));
-                if ($model2 === null){
+                if ($model2 === null) {
                     $model2 = new SiteKeywordVisit();
                     $model2->keyword_id = $keyword_id;
                 }
@@ -137,7 +139,7 @@ class SeoCommand extends CConsoleCommand
 
             $criteria->offset += 1000;
 
-            echo round(100* $i / $count, 2)."%\n";
+            echo round(100 * $i / $count, 2) . "%\n";
         }
     }
 
@@ -178,28 +180,6 @@ class SeoCommand extends CConsoleCommand
             }
             $i++;
         }
-    }
-
-    public function actionProxyCheck()
-    {
-        $start_time = microtime(true);
-        $criteria = new CDbCriteria();
-        $criteria->compare('active', 0);
-        $criteria->order = 'rank desc';
-        $model = Proxy::model()->find($criteria);
-
-        echo 1000 * (microtime(true) - $start_time) . "\n";
-        $start_time = microtime(true);
-
-        $model->rank = 4;
-        $model->save();
-
-        echo 1000 * (microtime(true) - $start_time) . "\n";
-        $start_time = microtime(true);
-
-        $model->delete();
-
-        echo 1000 * (microtime(true) - $start_time) . "\n";
     }
 
     public function actionDeletePageDuplicates()
@@ -360,7 +340,7 @@ class SeoCommand extends CConsoleCommand
         usort($result, array($this, 'cmp'));
         $result = array_slice($result, 0, 100);
         foreach ($result as $model)
-            echo 'http://www.happy-giraffe.ru'.$model['path'] . "\n";
+            echo 'http://www.happy-giraffe.ru' . $model['path'] . "\n";
     }
 
     function cmp($a, $b)
@@ -370,39 +350,42 @@ class SeoCommand extends CConsoleCommand
         return ($a['views'] > $b['views']) ? -1 : 1;
     }
 
-    public function actionGaTest(){
+    public function actionParseTraffic()
+    {
+        Yii::import('site.frontend.components.*');
+        $date = Yii::app()->db_seo->createCommand()
+            ->select('max(date)')
+            ->from(TrafficStatisctic::model()->tableName())
+            ->queryScalar();
+        if (empty($date))
+            $date = date("Y-m-d", strtotime('-6 month'));
 
-        $period = '2012-11';
+        $sections = TrafficSection::model()->findAll();
+
         Yii::import('site.frontend.extensions.GoogleAnalytics');
         $ga = new GoogleAnalytics('alexk984@gmail.com', Yii::app()->params['gaPass']);
         $ga->setProfile('ga:53688414');
-        $ga->setDateRange($period . '-01', $period . '-30');
 
-        try {
-            $report = $ga->getReport(array(
-                'metrics' => urlencode('ga:organicSearches'),
-                'filters' => urlencode('ga:pagePath==/user/15468/blog/post32976/'),
-            ));
+        while (strtotime($date) < time()) {
+            echo $date . "\n";
 
-        } catch (Exception $err) {
-            var_dump($err->getMessage());
-        }
+            foreach ($sections as $section) {
+                $value = GApi::getUrlOrganicSearches($ga, $date, $date, '/' . $section->url);
 
-        var_dump($report);
-    }
+                if ($value == -1)
+                    Yii::app()->end();
 
-    public function actionFixELinks()
-    {
-        Yii::import('site.seo.modules.externalLinks.models.*');
-        Yii::app()->db_seo->createCommand('update externallinks__links set check_link_time = NULL where check_link_time = "0000-00-00 00:00:00"')->execute();
-
-        $sites = ELSite::model()->findAll('status=2');
-        foreach($sites as $site){
-            foreach($site->links as $link)
-            if (empty($link->check_link_time)){
-                $site->bad_rating = 3;
-                $site->save();
+                echo $section->url . ' - ' . $value . "\n";
+                if ($value > 0) {
+                    $stat = new TrafficStatisctic();
+                    $stat->section_id = $section->id;
+                    $stat->date = $date;
+                    $stat->value = $value;
+                    $stat->save();
+                }
             }
+
+            $date = date("Y-m-d", strtotime('+1 day', strtotime($date)));
         }
     }
 }

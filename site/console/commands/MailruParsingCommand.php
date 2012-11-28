@@ -3,6 +3,13 @@
  * Author: alexk984
  * Date: 28.11.12
  */
+
+Yii::import('site.seo.models.*');
+Yii::import('site.seo.components.*');
+Yii::import('site.seo.modules.competitors.models.*');
+Yii::import('site.seo.modules.writing.models.*');
+Yii::import('site.seo.modules.promotion.models.*');
+
 class MailruParsingCommand extends CConsoleCommand
 {
     const STATS_LIMIT = 5;

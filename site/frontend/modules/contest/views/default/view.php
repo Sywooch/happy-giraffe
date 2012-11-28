@@ -61,13 +61,6 @@ Yii::app()->eauth->renderWidget(array(
     <div class="content-title">О конкурсе</div>
 
     <?=$contest->text?>
-
-    <?php if ($contest->id == 3): ?>
-        <p style="color: #F66161;">Фотоконкурс “Поделись улыбкою своей” завершился!<br />
-            Голосование окончено. Благодарим всех участников и болельщиков!<br />
-            Имена победителей будут оглашены 28 ноября.</p><br />
-    <?php endif; ?>
-
 </div>
 
 <div class="content-title">Вас ждут замечательные призы!</div>

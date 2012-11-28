@@ -286,6 +286,9 @@ class CookRecipe extends CActiveRecord
             $this->lowCal = $this->getNutritionalsPer100g(1) <= self::COOK_RECIPE_LOWCAL;
         }
 
+        if ($this->isNewRecord)
+            $this->last_updated = new CDbExpression('NOW()');
+
         return parent::beforeSave();
     }
 

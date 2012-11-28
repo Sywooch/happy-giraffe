@@ -3,7 +3,7 @@
  * Author: alexk984
  * Date: 28.11.12
  */
-class MailruParsingCommand
+class MailruParsingCommand extends CConsoleCommand
 {
     const STATS_LIMIT = 5;
     public $proxy = '';

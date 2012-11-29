@@ -60,6 +60,7 @@
   })
 						</script>
 							<ul>
+							
 								<li class="masonry-news-list_item">
 									<div class="masonry-news-list_friend-info clearfix">
 										<a class="ava female small"><img alt="" src="http://img.happy-giraffe.ru/avatars/19372/small/21fd8c8f29c5a289df17938cb2f20e5b.jpg"></a>
@@ -91,6 +92,7 @@
 										<a href="" class="textdec-onhover">Вступить <br />в беседу!</a>
 									</div>
 								</li>
+								
 								<li class="masonry-news-list_item blog">
 									<div class="masonry-news-list_friend-info clearfix">
 										<a class="ava female small"><img alt="" src="http://img.happy-giraffe.ru/avatars/19372/small/21fd8c8f29c5a289df17938cb2f20e5b.jpg"></a>
@@ -121,6 +123,7 @@
 										<a href="" class="textdec-onhover">Вступить <br />в беседу!</a>
 									</div>
 								</li>
+								
 								<li class="masonry-news-list_item">
 									<div class="masonry-news-list_friend-info clearfix">
 										<a class="ava female small"><img alt="" src="http://img.happy-giraffe.ru/avatars/19372/small/21fd8c8f29c5a289df17938cb2f20e5b.jpg"></a>
@@ -153,6 +156,7 @@
 										<a href="" class="textdec-onhover">Добавить <br />комментарий</a>
 									</div>
 								</li>
+								
 								<li class="masonry-news-list_item blog">
 									<div class="masonry-news-list_friend-info clearfix">
 										<a class="ava female small"><img alt="" src="http://img.happy-giraffe.ru/avatars/19372/small/21fd8c8f29c5a289df17938cb2f20e5b.jpg"></a>
@@ -185,6 +189,7 @@
 										<a href="" class="textdec-onhover">Добавить <br />комментарий</a>
 									</div>
 								</li>
+								
 								<li class="masonry-news-list_item">
 									<div class="masonry-news-list_friend-info clearfix">
 										<a class="ava female small"><img alt="" src="http://img.happy-giraffe.ru/avatars/19372/small/21fd8c8f29c5a289df17938cb2f20e5b.jpg"></a>
@@ -201,6 +206,7 @@
 										</div>
 									</div>
 								</li>
+								
 								<li class="masonry-news-list_item">
 									<div class="masonry-news-list_friend-info clearfix">
 										<a class="ava female small"><img alt="" src="http://img.happy-giraffe.ru/avatars/19372/small/21fd8c8f29c5a289df17938cb2f20e5b.jpg"></a>
@@ -227,6 +233,7 @@
 										<a href="">Добавить комментарий</a>
 									</div>
 								</li>
+								
 								<li class="masonry-news-list_item">
 									<div class="masonry-news-list_friend-info clearfix">
 										<a class="ava female small"><img alt="" src="http://img.happy-giraffe.ru/avatars/19372/small/21fd8c8f29c5a289df17938cb2f20e5b.jpg"></a>
@@ -259,32 +266,7 @@
 										<a href="" class="textdec-onhover">Поддержите друга!</a>
 									</div>
 								</li>
-								<li class="masonry-news-list_item">
-									<div class="masonry-news-list_friend-info clearfix">
-										<a class="ava female small"><img alt="" src="http://img.happy-giraffe.ru/avatars/19372/small/21fd8c8f29c5a289df17938cb2f20e5b.jpg"></a>
-										<div class="details">
-											<a class="username" href="">Александр</a>
-											<span class="date">Сегодня 13:25</span>
-											<p>Добавила интересы</p>
-										</div>
-									</div>
-									<div class="clearfix user-info-big">
-										<div class="text-status">
-									        <p>Родители всегда говорили мне, что я могу добиться чего угодно! Родители всегда говорили мне...</p>
-									        <span class="tale"></span>
-									        <div class="meta nofloat">
-												<span class="views"><span class="icon" href="#"></span> <span>265</span></span>
-												<span class="comments">
-													<a class="icon" href="#"></a>
-													<a href="">15233</a>
-												</span>
-											</div>
-									    </div>
-									</div>
-									<div class="textalign-c clearfix">
-										<a href="">Добавить комментарий</a>
-									</div>
-								</li>
+								
 								<li class="masonry-news-list_item">
 									<div class="masonry-news-list_friend-info clearfix">
 										<a class="ava female small"><img alt="" src="http://img.happy-giraffe.ru/avatars/19372/small/21fd8c8f29c5a289df17938cb2f20e5b.jpg"></a>
@@ -306,7 +288,7 @@
 				                            <li class="club-img beauty">
 				                            	<a href="/community/19/forum/">
 				                                    <img src="/images/club_img_21.png">
-				                                    Выходные с ребенком
+				                                    Путешествия семьей
 				                                </a>
 				                                <a href="" class="club-join">Вступить</a>
 				                            </li>
@@ -317,83 +299,80 @@
 									</div>
 								</li>
 								
+								<li class="masonry-news-list_item">
+									<div class="masonry-news-list_friend-info clearfix">
+										<a class="ava female small"><img alt="" src="http://img.happy-giraffe.ru/avatars/19372/small/21fd8c8f29c5a289df17938cb2f20e5b.jpg"></a>
+										<div class="details">
+											<a class="username" href="">Александр</a>
+											<span class="date">Сегодня 13:25</span>
+											<p>Вступила в клубы</p>
+										</div>
+									</div>
+									<div class="clubs-list">
+										<ul>
+											<li class="club-img rest">
+				                            	<a href="/community/19/forum/">
+				                                    <img src="/images/club_img_33.png">
+				                                    Выходные с ребенком
+				                                </a>
+				                                <a href="" class="club-join">Вступить</a>
+				                            </li>
+				                            <li class="club-img beauty">
+				                            	<a href="/community/19/forum/">
+				                                    <img src="/images/club_img_21.png">
+				                                    Путешествия семьей
+				                                </a>
+				                                <a href="" class="club-join">Вступить</a>
+				                            </li>
+				                              <li class="club-img beauty">
+				                            	<a href="/community/19/forum/">
+				                                    <img src="/images/club_img_26.png">
+				                                    Путешествия семьей
+				                                </a>
+				                                <a href="" class="club-join">Вступить</a>
+				                            </li>
+										</ul>
+									</div>
+									<div class="textalign-c clearfix">
+										<a href="">Добавить комментарий</a>
+									</div>
+								</li>
 								
 								<li class="masonry-news-list_item">
-									<h3 class="masonry-news-list_title">
-										<a href="">Волшебная азбука</a>
-										<a href="" class="icon-video"></a>
-									</h3>
-									<div class="clearfix">
-										<a href="" class="club-category beauty">Раннее развитие и обучение</a>
-									</div>
-									<div class="masonry-news-list_meta-info clearfix">
-										
-										<div class="meta">
-											<div class="views"><span class="icon" href="#"></span> <span>265</span></div>
-											<div class="comments">
-												<a class="icon" href="#"></a>
-												<a href="">15233</a>
-											</div>
-										</div>
-										
-										<div class="user-info">
-											<a class="ava female small"></a>
-											<div class="details">
-												<a class="username" href="">Александр</a>
-												<span class="date">Сегодня 13:25</span>
-											</div>
-										</div>
-									</div>
-									<div class="masonry-news-list_content">
-										<a href=""><img src="/images/example/gallery_album_img_10.jpg" alt="" /></a>
-										<p>Роды — отправная точка для самых важных изменений и судьбоносных... <a href="" class="all">Читать</a></p>
-									</div>
-									<div class="masonry-news-list_comment">
-										<div class="masonry-news-list_comment-text">
-											<a href="">проблема в том, что на 2006-ой год игры еще толком не было...</a>
-										</div>
-										<div class="masonry-news-list_meta-info clearfix">
-											<div class="user-info">
-												<a class="ava female small"><img alt="" src="http://img.happy-giraffe.ru/avatars/19372/small/21fd8c8f29c5a289df17938cb2f20e5b.jpg"></a>
-												<div class="details">
-													<a class="username" href="">Александр</a>
-													<span class="date">Сегодня 13:25</span>
-												</div>
-											</div>
+									<div class="masonry-news-list_friend-info clearfix">
+										<a class="ava female small"><img alt="" src="http://img.happy-giraffe.ru/avatars/19372/small/21fd8c8f29c5a289df17938cb2f20e5b.jpg"></a>
+										<div class="details">
+											<a class="username" href="">Александр</a>
+											<span class="date">Сегодня 13:25</span>
+											<p>Вступила в клубы</p>
 										</div>
 									</div>
 									
-									<div class="comments-all">
-										<a href="">еще 124</a>
-										<a href="" class="icon-comment"></a>
+									<div class="user-interests">
+										<ul class="interests-list">
+	                                        <li><span class="interest">Фототуризм</span></li>
+	                                        <li><span class="interest">Кино</span></li>
+	                                        <li><span class="interest">Водный туризм</span></li>
+	                                        <li><span class="interest">Рок</span></li>
+	                                        <li><span class="interest">Водный туризм</span></li>
+	                                    </ul>
 									</div>
+									
 								</li>
+								
 								<li class="masonry-news-list_item">
+									<div class="masonry-news-list_friend-info clearfix">
+										<a class="ava female small"><img alt="" src="http://img.happy-giraffe.ru/avatars/19372/small/21fd8c8f29c5a289df17938cb2f20e5b.jpg"></a>
+										<div class="details">
+											<a class="username" href="">Александр</a>
+											<span class="date">Сегодня 13:25</span>
+											<p>Добавила фото в альбом </p>
+										</div>
+									</div>
 									<h3 class="masonry-news-list_title">
 										<a href="">Волшебная азбука</a>
 										<a href="" class="icon-photo"></a>
 									</h3>
-									<div class="clearfix">
-										<a href="" class="club-category">Раннее развитие и обучение</a>
-									</div>
-									<div class="masonry-news-list_meta-info clearfix">
-										
-										<div class="meta">
-											<div class="views"><span class="icon" href="#"></span> <span>265</span></div>
-											<div class="comments">
-												<a class="icon" href="#"></a>
-												<a href="">152</a>
-											</div>
-										</div>
-										
-										<div class="user-info">
-											<a class="ava female small"></a>
-											<div class="details">
-												<a class="username" href="">Александр Богоявленский</a>
-												<span class="date">Сегодня 13:25</span>
-											</div>
-										</div>
-									</div>
 									<div class="masonry-news-list_content">
 										<ul class="masonry-news-list_img-list clearfix">
 											<li><a href=""><img src="/images/example/w64-h61-1.jpg" alt="" /></a></li>
@@ -407,189 +386,128 @@
 											<li><a href=""><img src="/images/example/w64-h61-2.jpg" alt="" /></a></li>
 										</ul>
 									</div>
-									
-									<div class="masonry-news-list_comment">
-										<div class="masonry-news-list_comment-text">
-											<a href="">проблема в том, что на 2006-ой год игры еще толком не было...</a>
-										</div>
-										<div class="masonry-news-list_meta-info clearfix">
-											<div class="user-info">
-												<a class="ava female small"><img alt="" src="http://img.happy-giraffe.ru/avatars/19372/small/21fd8c8f29c5a289df17938cb2f20e5b.jpg"></a>
-												<div class="details">
-													<a class="username" href="">Александр</a>
-													<span class="date">Сегодня 13:25</span>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="comments-all">
-										<a href="">еще 124</a>
-										<a href="" class="icon-comment"></a>
+									<div class="textalign-c clearfix">
+										<a href="">Смотреть весь альбом</a>
 									</div>
 								</li>
-								<li class="masonry-news-list_item blog">
+								
+								<li class="masonry-news-list_item">
+									<div class="masonry-news-list_friend-info clearfix">
+										<a class="ava female small"><img alt="" src="http://img.happy-giraffe.ru/avatars/19372/small/21fd8c8f29c5a289df17938cb2f20e5b.jpg"></a>
+										<div class="details">
+											<a class="username" href="">Александр</a>
+											<span class="date">Сегодня 13:25</span>
+											<p>Добавила фото в альбом </p>
+										</div>
+									</div>
 									<h3 class="masonry-news-list_title">
 										<a href="">Волшебная азбука</a>
 										<a href="" class="icon-photo"></a>
 									</h3>
-									<div class="clearfix">
-										<a href="" class="sub-category"><span class="icon-blog"></span>Личный блог</a>
-									</div>
-									<div class="masonry-news-list_meta-info clearfix">
-										
-										<div class="meta">
-											<div class="views"><span class="icon" href="#"></span> <span>265</span></div>
-											<div class="comments">
-												<a class="icon" href="#"></a>
-												<a href="">15233</a>
-											</div>
-										</div>
-										
-										<div class="user-info">
-											<a class="ava female small"></a>
-											<div class="details">
-												<a class="username" href="">Александр</a>
-												<span class="date">Сегодня 13:25</span>
-											</div>
-										</div>
-									</div>
 									<div class="masonry-news-list_content">
-										<a href=""><img src="/images/example/gallery_album_img_10.jpg" alt="" /></a>
-										<p>Роды — отправная точка для самых важных изменений и судьбоносных... <a href="" class="all">Читать</a></p>
+										<ul class="masonry-news-list_img-list clearfix">
+											<li><a href=""><img src="/images/example/w64-h61-1.jpg" alt="" /></a></li>
+											<li><a href=""><img src="/images/example/w64-h61-2.jpg" alt="" /></a></li>
+											<li><a href=""><img src="/images/example/w64-h61-2.jpg" alt="" /></a></li>
+											<li><a href=""><img src="/images/example/w64-h61-1.jpg" alt="" /></a></li>
+											<li><a href=""><img src="/images/example/w64-h61-2.jpg" alt="" /></a></li>
+										</ul>
+									</div>
+									<div class="textalign-c clearfix">
+										<a href="">Смотреть весь альбом</a>
+									</div>
+								</li>
+								
+								<li class="masonry-news-list_item">
+									<div class="masonry-news-list_friend-info clearfix">
+										<a class="ava female small"><img alt="" src="http://img.happy-giraffe.ru/avatars/19372/small/21fd8c8f29c5a289df17938cb2f20e5b.jpg"></a>
+										<div class="details">
+											<a class="username" href="">Александр</a>
+											<span class="date">Сегодня 13:25</span>
+											<p>Добавила фото в альбом </p>
+										</div>
+									</div>
+									<h3 class="masonry-news-list_title">
+										<a href="">Волшебная азбука</a>
+										<a href="" class="icon-photo"></a>
+									</h3>
+									<div class="masonry-news-list_content">
+										<ul class="masonry-news-list_img-list clearfix">
+											<li><a href=""><img src="/images/example/w64-h61-1.jpg" alt="" /></a></li>
+											<li><a href=""><img src="/images/example/w64-h61-2.jpg" alt="" /></a></li>
+										</ul>
+									</div>
+									<div class="textalign-c clearfix">
+										<a href="">Смотреть весь альбом</a>
+									</div>
+								</li>
+								
+								<li class="masonry-news-list_item">
+									<div class="masonry-news-list_friend-info clearfix">
+										<a class="ava female small"><img alt="" src="http://img.happy-giraffe.ru/avatars/19372/small/21fd8c8f29c5a289df17938cb2f20e5b.jpg"></a>
+										<div class="details">
+											<a class="username" href="">Александр</a>
+											<span class="date">Сегодня 13:25</span>
+											<p>Добавила фото в альбом </p>
+										</div>
+									</div>
+									<h3 class="masonry-news-list_title">
+										<a href="">Волшебная азбука</a>
+										<a href="" class="icon-photo"></a>
+									</h3>
+									<div class="masonry-news-list_content">
+										<div class="title-img">
+											<a href="">
+												<img alt="" src="/images/example/gallery_album_img_10.jpg">
+												<span class="btn-view">Посмотреть</span>
+											</a>
+											
+										</div>
+									</div>
+									<div class="textalign-c clearfix">
+										<a href="">Смотреть весь альбом</a>
+									</div>
+								</li>
+								
+								<li class="masonry-news-list_item">
+									<div class="masonry-news-list_friend-info clearfix">
+										<a class="ava female small"><img alt="" src="http://img.happy-giraffe.ru/avatars/19372/small/21fd8c8f29c5a289df17938cb2f20e5b.jpg"></a>
+										<div class="details">
+											<a class="username" href="">Александр</a>
+											<span class="date">Сегодня 13:25</span>
+											<p>Добавила комментарий  в клубе </p>
+										</div>
 									</div>
 									<div class="masonry-news-list_comment">
 										<div class="masonry-news-list_comment-text">
-											<a href="">проблема в том, что на 2006-ой год игры еще толком не было...</a>
-										</div>
-										<div class="masonry-news-list_meta-info clearfix">
-											<div class="user-info">
-												<a class="ava female small"><img alt="" src="http://img.happy-giraffe.ru/avatars/19372/small/21fd8c8f29c5a289df17938cb2f20e5b.jpg"></a>
-												<div class="details">
-													<a class="username" href="">Александр</a>
-													<span class="date">Сегодня 13:25</span>
-												</div>
-											</div>
+											Проблема в том, что на 2006-ой год игры еще толком не было, Роды — отправная точка для самых важных изменений и судьбоносных. Осень. Я ее люблю, но когда начинается непонятная погода, хочется лезть на стенку. Сегодня на улице вот +8, вроде тепло, но вот туман.
 										</div>
 									</div>
-									
-									<div class="comments-all">
-										<a href="">еще 124</a>
-										<a href="" class="icon-comment"></a>
-									</div>
-								</li>
-								<li class="masonry-news-list_item">
-									<h3 class="masonry-news-list_title textalign-c">
-										<a href="">Новые пользователи</a>
-									</h3>
-									<div class="textalign-c clearfix">
-										<span class="date">Сегодня 13:25</span>
-									</div>
-									<ul class="user-list">
-										<li><a class="ava female" href=""><img alt="" src="http://img.happy-giraffe.ru/avatars/15814/ava/aeabe1581b7fcaa39a1c012adcf47b97.jpg"></a></li>
-										<li><a class="ava female" href=""></a></li>
-										<li><a class="ava female" href=""></a></li>
-										<li><a class="ava female" href=""><img alt="" src="http://img.happy-giraffe.ru/avatars/15814/ava/aeabe1581b7fcaa39a1c012adcf47b97.jpg"></a></li>
-										<li><a class="ava female" href=""><img alt="" src="http://img.happy-giraffe.ru/avatars/15814/ava/aeabe1581b7fcaa39a1c012adcf47b97.jpg"></a></li>
-										<li><a class="ava female" href=""></a></li>
-									</ul>
-									<div class="textalign-c clearfix">
-										<a href="" class="icon-friends"></a>
-										<a href="">Смотреть всех новеньких</a>
-									</div>
-								</li>
-								<li class="masonry-news-list_item">
+									<div class="clearfix">к записи</div>
 									<h3 class="masonry-news-list_title">
-										<a href="">Новые фото Оформление блюд</a>
-										<a href="" class="icon-photo"></a>
-									</h3>
-									<div class="clearfix">
-										<span class="date">Сегодня 13:25</span>
-									</div>
-									<div class="clearfix">
-										<a href=""><img src="/images/broadcast/title-dishes.jpg" alt="" class="title-img"/></a>
-									</div>
-									<div class="masonry-news-list_content">
-										<ul class="masonry-news-list_img-list clearfix">
-											<li><a href=""><img src="/images/example/w64-h61-1.jpg" alt="" /></a></li>
-											<li><a href=""><img src="/images/example/w64-h61-2.jpg" alt="" /></a></li>
-											<li><a href=""><img src="/images/example/w64-h61-2.jpg" alt="" /></a></li>
-											<li><a href=""><img src="/images/example/w64-h61-1.jpg" alt="" /></a></li>
-											<li><a href=""><img src="/images/example/w64-h61-2.jpg" alt="" /></a></li>
-											<li><a href=""><img src="/images/example/w64-h61-1.jpg" alt="" /></a></li>
-											<li><a href=""><img src="/images/example/w64-h61-2.jpg" alt="" /></a></li>
-											<li><a href=""><img src="/images/example/w64-h61-1.jpg" alt="" /></a></li>
-											<li><a href=""><img src="/images/example/w64-h61-2.jpg" alt="" /></a></li>
-										</ul>
-									</div>
-									
-									<div class="textalign-c clearfix">
-										<a href="">Смотреть все</a>
-									</div>
-								</li>
-								<li class="masonry-news-list_item">
-									<h3 class="masonry-news-list_title">
-										<a href="">Новые участники фотоконкурса</a>
-										<a href="" class="icon-photo"></a>
-									</h3>
-									<div class="clearfix">
-										<span class="date">Сегодня 13:25</span>
-									</div>
-									<div class="clearfix">
-										<img src="/images/broadcast/title-contest-4.jpg" alt="" class="title-img"/>
-									</div>
-									<div class="masonry-news-list_content">
-										<ul class="masonry-news-list_img-list clearfix">
-											<li><a href=""><img src="/images/example/w64-h61-1.jpg" alt="" /></a></li>
-											<li><a href=""><img src="/images/example/w64-h61-2.jpg" alt="" /></a></li>
-											<li><a href=""><img src="/images/example/w64-h61-2.jpg" alt="" /></a></li>
-											<li><a href=""><img src="/images/example/w64-h61-1.jpg" alt="" /></a></li>
-											<li><a href=""><img src="/images/example/w64-h61-2.jpg" alt="" /></a></li>
-											<li><a href=""><img src="/images/example/w64-h61-1.jpg" alt="" /></a></li>
-											<li><a href=""><img src="/images/example/w64-h61-2.jpg" alt="" /></a></li>
-											<li><a href=""><img src="/images/example/w64-h61-1.jpg" alt="" /></a></li>
-											<li><a href=""><img src="/images/example/w64-h61-2.jpg" alt="" /></a></li>
-										</ul>
-									</div>
-									
-									<div class="textalign-c clearfix">
-										<a href="">Все участники (1802)</a>
-									</div>
-								</li>
-								<li class="masonry-news-list_item cook">
-									<h3 class="masonry-news-list_title">
-										<a href="">Торт «Трио»</a>
+										<a href="">Волшебная азбука 123 123</a>
 									</h3>
 									<div class="clearfix">
 										<a href="" class="sub-category"><span class="icon-cook"></span>Кулинарный рецепт</a>
 									</div>
-									<div class="clearfix">
-										<div class="title-img">
-											<a href=""><img src="/images/example/gallery_album_img_10.jpg" alt="" /></a>
-											<span class="btn-view">Посмотреть</span>
-										</div>
-									</div>
 									<div class="masonry-news-list_meta-info clearfix">
 										
 										<div class="meta">
-											<div class="views"><span class="icon" href="#"></span> <span>265</span></div>
+											<div class="views"><span class="icon" href="#"></span> <span>11265</span></div>
 											<div class="comments">
 												<a class="icon" href="#"></a>
-												<a href="">15233</a>
+												<a href="">155</a>
 											</div>
 										</div>
 										
-										<div class="user-info">
-											<a class="ava female small"></a>
-											<div class="details">
-												<a class="username" href="">Александр</a>
-												<span class="date">Сегодня 13:25</span>
-											</div>
-										</div>
-									</div>
-									<div class="masonry-news-list_content">
-										<p>Желатин замочим в 3/4 стакана кипяченной прохладной воды.Смешиваем... <a href="" class="all">Читать</a></p>
+										<a href="" class="textdec-onhover">Вступить <br />в беседу!</a>
 									</div>
 								</li>
+								
+								
+								
+								
+								
 							</ul>
 						</div>
 				

@@ -434,13 +434,12 @@
 
 
 
-#user .user-interests {}
-#user .user-interests ul {list-style:none;}
-#user .user-interests ul li {display:inline-block;*zoom:1;*display:inline;}
-#user .user-interests > ul > li {margin-bottom:10px;}
-#user .user-interests .interests-list {display:inline-block;*zoom:1;*display:inline;width:180px;vertical-align:middle}
-
-#user .user-interests .interest-add {display:inline-block;*zoom:1;*display:inline;width:16px;height:16px;background:url(/images/common.png) no-repeat -139px -174px;}
+.user-interests {}
+.user-interests ul {list-style:none;}
+.user-interests ul li {display:inline-block;*zoom:1;*display:inline;}
+.user-interests > ul > li {margin-bottom:10px;}
+.user-interests .interests-list {display:inline-block;*zoom:1;*display:inline;width:180px;vertical-align:middle}
+.user-interests .interest-add {display:inline-block;*zoom:1;*display:inline;width:16px;height:16px;background:url(/images/common.png) no-repeat -139px -174px;}
 
 
 #interestsEdit {width:360px;}
@@ -1038,9 +1037,8 @@
 
 #broadcast {margin: -20px;padding: 20px;}
 #broadcast.broadcast-all{padding-left: 30px;padding-right: 30px;}
-.broadcast-title-box {
-	margin-bottom: 40px;
-}
+.broadcast-title-box {margin-bottom: 40px;}
+.broadcast-widget .broadcast-title-box {margin-bottom: 5px;}
 #broadcast .broadcast-title-box h1 {
 	text-align: center;
 	color: #262626;
@@ -1049,13 +1047,29 @@
 	margin-bottom: 15px;
 	position: relative;
 }
-.broadcast-title-box .icon-boradcast{
+.broadcast-title-box h1 .icon-boradcast{
 	background: url(/images/common.png) no-repeat -367px -339px;
 	width: 60px;
 	height: 60px;
 	margin: 0 -33px -6px 0;
 	display: inline-block;*zoom:1;*display:inline;
 }
+#layout .broadcast-title-box h3 {
+	text-align: center;
+	color: #0f0f0f;
+	font-size: 28px;
+	font-weight: normal;
+	margin-bottom: 15px;
+	position: relative;
+}
+.broadcast-title-box h3 .icon-boradcast{
+	background: url(/images/onair_title.png) no-repeat;
+	width: 51px;
+	height: 51px;
+	margin: 0 -22px -4px 0;
+	display: inline-block;*zoom:1;*display:inline;
+}
+.broadcast-title-box .amethyst {color: #8a61b3;}
 .broadcast-menu {
 	 list-style:none;
 	 text-align: center;
@@ -1225,6 +1239,7 @@
 .masonry-news-list {
 	margin: 0 -10px 40px;
 	line-height: 16px;
+	position: relative;
 }
 .masonry-news-list > ul {list-style: none;}
 .masonry-news-list_item {
@@ -1338,7 +1353,7 @@
 .masonry-news-list_comment-text a {text-decoration: none;color: #555;}
 .masonry-news-list_comment-text a:hover {text-decoration: underline;color: #029AD2;}
 
-.masonry-news-list_img-list {list-style: none;margin: 0 -3px 5px 0;}
+.masonry-news-list_img-list {list-style: none;margin: 5px -3px 5px 0;}
 .masonry-news-list_img-list > li {display: inline-block;*zoom:1;*display:inline;margin: 0 0 1px 0;}
 .masonry-news-list_img-list > li a:hover {opacity:0.45;filter:alpha(opacity=45);}
 .masonry-news-list_img-list > li img{margin: 0;}
@@ -1371,6 +1386,7 @@
 	cursor: pointer;
 }
 .masonry-news-list .title-img:hover .btn-view {display: block;}
+.masonry-news-list .title-img:hover img {opacity:0.5;filter:alpha(opacity=50);}
 .masonry-news-list_friend-info {
 	margin: -8px -8px 5px;
 	padding: 8px;
@@ -1387,9 +1403,54 @@
 .masonry-news-list .user-purpose {margin-bottom: 0;}
 .masonry-news-list .user-info-big {margin-bottom: 5px;padding: 0;}
 .masonry-news-list .user-info-big .text-status > p {color: #0a8dbd;font-size: 18px;line-height: 20px;font: italic 18px/20px 'Times New Roman', Georgia, Times, serif;padding: 2px 0 4px;}
-.masonry-news-list .clubs-list > ul {margin: 0;}
+.masonry-news-list .clubs-list > ul {margin: 0;padding: 5px 7px 0;}
+.masonry-news-list .clubs-list > ul > li {margin: 0;height: auto;padding: 0 8px 8px;}
+.masonry-news-list .interests-list  {width: auto;max-width: 100%;}
+.masonry-news-list .interests-list li {margin-bottom: 0;}
+.masonry-news-list.jcarousel  {padding-top: 25px;}
+.masonry-news-list.jcarousel .prev {
+	position: absolute;
+	background: url(../images/common.png) no-repeat -273px -341px;
+	width: 12px;
+	height: 16px;
+	top: 0;
+	right: 40px;
+	text-indent: -9999px;
 
+}
+.masonry-news-list.jcarousel .next {
+	position: absolute;
+	background: url(../images/common.png) no-repeat -287px -341px;
+	width: 12px;
+	height: 16px;
+	top: 0;
+	right: 20px;
+	text-indent: -9999px;
 
+}
 
+.broadcast-widget-menu {
+	 list-style:none;
+	 text-align: center;
+}
+.broadcast-widget-menu > li {
+	display: inline-block;*zoom:1;*display:inline;
+	margin: 0 10px;
+	vertical-align: top;
+	position: relative;
+}
+.broadcast-widget-menu > li > a {
+	display: block;
+	line-height: 26px;
+	padding: 0 7px;
+	color: #1497f6;
+	font-size: 12px;
+}
+.broadcast-widget-menu .icon-friends {display: inline-block;*zoom:1;*display:inline;background: url("/images/common.png") no-repeat scroll -429px -334px;
+    height: 32px;
+    width: 27px;margin: 0 2px;vertical-align: middle;}
+.broadcast-widget-menu .icon-boradcast-small {display: inline-block;*zoom:1;*display:inline;background: url("/images/common.png") no-repeat scroll -232px -243px;
+    height: 32px;
+    width: 31px;margin: 0 2px;vertical-align: middle;}
 
 

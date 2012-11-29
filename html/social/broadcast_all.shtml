@@ -418,8 +418,11 @@
 									</div>
 									<div class="clearfix">
 										<div class="title-img">
-											<a href=""><img src="/images/example/gallery_album_img_10.jpg" alt="" /></a>
-											<span class="btn-view">Посмотреть</span>
+											<a href="">
+												<img src="/images/example/gallery_album_img_10.jpg" alt="" />
+												<span class="btn-view">Посмотреть</span>
+											</a>
+											
 										</div>
 									</div>
 									<div class="masonry-news-list_meta-info clearfix">

@@ -35,7 +35,7 @@ $(document).ready(function () {
 
     $('.layout-container').scroll(function () {
         var contanerScroll = $('.layout-container').scrollTop();
-        if (contanerScroll > 0) {
+        if (contanerScroll > $('#header-new').height()) {
             // 190 - height button and height to bottom window
             var top = $(window).height() + contanerScroll - 190;
             $('#btn-up-page').css("top",top).fadeIn(600);

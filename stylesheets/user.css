@@ -1416,8 +1416,8 @@
 	top: 0;
 	right: 40px;
 	text-indent: -9999px;
-
 }
+.masonry-news-list.jcarousel .prev.jcarousel-control-inactive {background-position: -424px -227px;}
 .masonry-news-list.jcarousel .next {
 	position: absolute;
 	background: url(../images/common.png) no-repeat -287px -341px;
@@ -1426,8 +1426,8 @@
 	top: 0;
 	right: 20px;
 	text-indent: -9999px;
-
 }
+.masonry-news-list.jcarousel .next.jcarousel-control-inactive {background-position: -438px -227px;}
 
 .broadcast-widget-menu {
 	 list-style:none;

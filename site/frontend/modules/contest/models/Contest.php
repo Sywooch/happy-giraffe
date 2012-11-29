@@ -73,6 +73,7 @@ class Contest extends HActiveRecord
         return array(
             'prizes' => array(self::HAS_MANY, 'ContestPrize', 'contest_id'),
             'works' => array(self::HAS_MANY, 'ContestWork', 'contest_id'),
+            'worksCount' => array(self::STAT, 'ContestWork', 'contest_id'),
             'winners' => array(self::HAS_MANY, 'ContestWinner', array('id' => 'work_id'), 'through' => 'works', 'with' => 'work'),
         );
     }

@@ -11,6 +11,7 @@ class WhatsNewController extends HController
     public function init()
     {
         Yii::import('application.models.whatsNew.*');
+        Yii::import('application.modules.contest.models.*');
 
         parent::init();
     }

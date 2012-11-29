@@ -29,7 +29,7 @@ class EventManager
 
         $events = array();
         foreach ($rows as $r) {
-            $event = new Event;
+            $event = Event::factory($r['type']);
             $event->attributes = $r;
             $events[] = $event;
         }

@@ -214,6 +214,9 @@ class Community extends HActiveRecord
             'order' => 'created DESC',
             'condition' => 'community.id = :community_id',
             'params' => array(':community_id' => $this->id),
+            'with' => array('author' => array(
+                'select'=>array('id', 'first_name', 'last_name', 'avatar_id', 'online', 'blocked', 'deleted')
+            ))
         ));
     }
 

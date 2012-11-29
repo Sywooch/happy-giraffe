@@ -540,7 +540,13 @@ class CookRecipe extends CActiveRecord
         $criteria = new CDbCriteria(array(
             'limit' => $limit,
             'order' => 't.created DESC',
-            'with' => 'photo',
+            'with' => array(
+                'photo',
+                'tags',
+                'author' => array(
+                    'select'=>array('id', 'first_name', 'last_name', 'avatar_id', 'online', 'blocked', 'deleted')
+                )
+            )
         ));
 
         return $this->findAll($criteria);

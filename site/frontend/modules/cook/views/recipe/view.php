@@ -47,7 +47,7 @@
         <div class="meta">
             <div class="time"><?=Yii::app()->dateFormatter->format("d MMMM yyyy, H:mm", $recipe->created)?></div>
             <div class="seen">Просмотров:&nbsp;<span><?=$this->getViews()?></span></div><br>
-            <a href="<?=$recipe->getUrl(true)?>">Комментариев: <?= $recipe->commentsCount; ?></a>
+            <a href="#comment_list">Комментариев: <?= $recipe->commentsCount; ?></a>
         </div>
 
     </div>
@@ -302,7 +302,7 @@
             <?php foreach ($recipe->more as $m): ?>
                 <li>
                     <div class="user clearfix">
-                        <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => $m->author, 'size' => 'small', 'location' => false, 'sendButton' => false)); ?>
+                        <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => $m->author, 'size' => 'small', 'location' => false, 'sendButton' => false, 'hideLinks'=>true)); ?>
                     </div>
                     <div class="item-title"><?=CHtml::link($m->title, $m->url)?></div>
                     <div class="date"><?=Yii::app()->dateFormatter->format("d MMMM yyyy, H:mm", $m->created)?></div>

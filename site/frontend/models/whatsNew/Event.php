@@ -19,16 +19,17 @@ class Event extends CModel
     const EVENT_USER = 4;
 
     public static $types = array(
-        self::EVENT_POST => 'Posts',
-        self::EVENT_CONTEST => 'Contests',
-        self::EVENT_COOK_DECOR => 'CookDecors',
-        self::EVENT_RECIPE => 'Recipes',
-        self::EVENT_USER => 'Users',
+        self::EVENT_POST => 'post',
+        self::EVENT_CONTEST => 'contest',
+        self::EVENT_COOK_DECOR => 'decor',
+        self::EVENT_RECIPE => 'recipe',
+        self::EVENT_USER => 'user',
     );
 
     public function rules()
     {
         return array(
+            array('last_updated', 'date', 'format' => 'yyyy-MM-dd hh:mm:ss'),
             array('type', 'in', 'range' => array_keys(self::$types)),
         );
     }
@@ -36,5 +37,44 @@ class Event extends CModel
     public function attributeNames()
     {
         return array('id', 'last_updated', 'type');
+    }
+
+    public function getView()
+    {
+        return 'types/' . self::$types[$this->type];
+    }
+
+    public function getData()
+    {
+        $method = 'get' . self::$types[$this->type] . 'Data';
+        return $this->$method();
+    }
+
+    public function getPostData()
+    {
+
+    }
+
+    public function getContestData()
+    {
+
+    }
+
+    public function getDecorData()
+    {
+        $last_updated = $this->last_updated;
+        $decorations = CookDecoration::model()->lastDecorations;
+
+        return compact('last_updated', 'decorations');
+    }
+
+    public function getRecipeData()
+    {
+
+    }
+
+    public function getUserData()
+    {
+
     }
 }

@@ -17,9 +17,9 @@ class WhatsNewController extends HController
 
     public function actionIndex()
     {
-        $events = EventManager::getLive();
+        $dp = EventManager::getLive(100);
 
-
+        $this->render('index', compact('dp'));
     }
 
     public function actionClubs()

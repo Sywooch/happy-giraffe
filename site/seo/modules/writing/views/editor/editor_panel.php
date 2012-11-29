@@ -21,7 +21,7 @@ Yii::app()->clientScript->registerCoreScript('jquery.ui'); ?>
                 <a href="" class="btn-admins" onclick="$(this).next().toggle();return false;"></a>
                 <ul style="display: none;">
                     <?php
-                    $users = SeoUser::model()->findAll();
+                    $users = SeoUser::model()->active()->findAll();
                     foreach ($users as $author): ?>
                         <?php if (Yii::app()->authManager->checkAccess('author', $author->id)):?>
                             <li>

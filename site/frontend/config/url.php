@@ -22,6 +22,9 @@ return array(
         'cook/decor/<category_id:\d+>/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'CookDecorationCategory')),
         'contest/<contest_id:\d+>/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'Contest')),
 
+        // live
+        'whatsNew/page<page:\d+>' => 'whatsNew/index',
+
         // site controller
         '/' => 'site/index',
         'js_dynamics/<hash:\w+>.js' => 'site/seoHide',

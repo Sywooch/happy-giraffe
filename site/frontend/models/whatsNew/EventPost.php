@@ -8,6 +8,15 @@
  */
 class EventPost extends Event
 {
+    public $post;
+    public $comment;
+
+    public function __constructor()
+    {
+
+        parent::__constructor();
+    }
+
     public function getPost()
     {
         $criteria = new CDbCriteria(array(

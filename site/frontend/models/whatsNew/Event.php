@@ -6,11 +6,13 @@
  * Time: 12:15 PM
  * To change this template use File | Settings | File Templates.
  */
-class Event extends CModel
+abstract class Event extends CModel
 {
     public $id;
     public $last_updated;
     public $type;
+
+    protected $clusterable = false;
 
     const EVENT_POST = 0;
     const EVENT_CONTEST = 1;
@@ -19,19 +21,26 @@ class Event extends CModel
     const EVENT_USER = 4;
 
     public static $types = array(
-        self::EVENT_POST => 'post',
-        self::EVENT_CONTEST => 'contest',
-        self::EVENT_COOK_DECOR => 'decor',
-        self::EVENT_RECIPE => 'recipe',
-        self::EVENT_USER => 'user',
+        self::EVENT_POST => 'Post',
+        self::EVENT_CONTEST => 'Contest',
+        self::EVENT_COOK_DECOR => 'Decor',
+        self::EVENT_RECIPE => 'Recipe',
+        self::EVENT_USER => 'User',
     );
 
     public function rules()
     {
         return array(
+            array('id', 'numerical', 'integerOnly' => true),
             array('last_updated', 'date', 'format' => 'yyyy-MM-dd hh:mm:ss'),
             array('type', 'in', 'range' => array_keys(self::$types)),
         );
+    }
+
+    public static function factory($type)
+    {
+        $class = 'Event' . self::$types[$type];
+        return new $class;
     }
 
     public function attributeNames()
@@ -41,40 +50,18 @@ class Event extends CModel
 
     public function getView()
     {
-        return 'types/' . self::$types[$this->type];
+        return 'types/' . lcfirst(self::$types[$this->type]);
     }
 
-    public function getData()
+    public function getSeed()
     {
-        $method = 'get' . self::$types[$this->type] . 'Data';
-        return $this->$method();
+        return ($this->clusterable)
+            ? self::$types[$this->type]
+            : self::$types[$this->type] . '_' . $this->id;
     }
 
-    public function getPostData()
+    public function getBlockId()
     {
-
-    }
-
-    public function getContestData()
-    {
-
-    }
-
-    public function getDecorData()
-    {
-        $last_updated = $this->last_updated;
-        $decorations = CookDecoration::model()->lastDecorations;
-
-        return compact('last_updated', 'decorations');
-    }
-
-    public function getRecipeData()
-    {
-
-    }
-
-    public function getUserData()
-    {
-
+        return md5($this->seed);
     }
 }

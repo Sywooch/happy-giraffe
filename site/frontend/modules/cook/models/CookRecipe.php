@@ -153,7 +153,7 @@ class CookRecipe extends CActiveRecord
                 'AttachPhoto',
                 'entity_id',
                 'on' => 'entity = :entity',
-                'params' => array(':entity' => get_class($this)),
+                'params' => array(':entity' => 'CookRecipe'),
                 'with' => array(
                     'photo' => array(
                         'alias' => 'attachPhoto',

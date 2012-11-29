@@ -2,6 +2,10 @@
     Yii::app()->clientScript
         ->registerCssFile('/stylesheets/user.css')
     ;
+
+    Yii::app()->eauth->renderWidget(array(
+        'mode' => 'assets',
+    ));
 ?>
 
 <div id="broadcast" class="broadcast-all">

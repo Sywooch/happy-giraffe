@@ -8,7 +8,7 @@
  */
 class EventManager
 {
-    public static function getLive()
+    public static function getLive($limit)
     {
         $sql = '
             (SELECT id, last_updated, 0 AS type FROM community__contents WHERE last_updated IS NOT NULL)
@@ -21,12 +21,23 @@ class EventManager
             UNION
             (SELECT id, register_date AS last_updated, 4 AS type FROM users ORDER BY id DESC LIMIT 1)
             ORDER BY last_updated DESC
+            LIMIT :limit
         ';
+        $command = Yii::app()->db->createCommand($sql);
+        $command->bindValue(':limit', $limit);
+        $rows = $command->queryAll();
 
-        return new CSqlDataProvider($sql, array(
+        $events = array();
+        foreach ($rows as $r) {
+            $event = new Event;
+            $event->attributes = $r;
+            $events[] = $event;
+        }
+
+        return new CArrayDataProvider($events, array(
             'pagination' => array(
-                'pageSize' => 10,
-            ),
+                'pageSize' => 20,
+            )
         ));
     }
 }

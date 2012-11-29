@@ -462,7 +462,7 @@ class CookRecipe extends CActiveRecord
     public function getPreview($imageWidth = 167)
     {
         if ($this->mainPhoto !== null) {
-            $preview = CHtml::link(CHtml::image($this->mainPhoto->getPreviewUrl($imageWidth, null, Image::WIDTH)), $this->url);
+            $preview = HHtml::link(CHtml::image($this->mainPhoto->getPreviewUrl($imageWidth, null, Image::WIDTH)), $this->url, array(), true);
         } else {
             $preview = CHtml::tag('p', array(), Str::truncate($this->text));
         }

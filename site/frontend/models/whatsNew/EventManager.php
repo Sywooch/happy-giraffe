@@ -11,7 +11,7 @@ class EventManager
     public static function getLive($limit)
     {
         $sql = '
-            (SELECT id, last_updated, 0 AS type FROM community__contents WHERE last_updated IS NOT NULL)
+            (SELECT id, last_updated, 0 AS type FROM community__contents WHERE last_updated IS NOT NULL AND removed = 0 AND rubric_id IS NOT NULL)
             UNION
             (SELECT id, last_updated, 1 AS type FROM contest__contests WHERE last_updated IS NOT NULL)
             UNION
@@ -19,7 +19,7 @@ class EventManager
             UNION
             (SELECT id, last_updated, 3 AS type FROM cook__recipes WHERE last_updated IS NOT NULL)
             UNION
-            (SELECT id, register_date AS last_updated, 4 AS type FROM users ORDER BY id DESC LIMIT 1)
+            (SELECT id, register_date AS last_updated, 4 AS type FROM users WHERE deleted = 0 ORDER BY id DESC LIMIT 1)
             ORDER BY last_updated DESC
             LIMIT :limit
         ';

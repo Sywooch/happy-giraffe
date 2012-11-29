@@ -57,8 +57,10 @@
                 <?php endforeach; ?>
             </ul>
         <?php else: ?>
-            <a href=""><img src="/images/example/gallery_album_img_10.jpg" alt="" /></a>
-            <p>Роды — отправная точка для самых важных изменений и судьбоносных... <a href="" class="all">Читать</a></p>
+            <?php if ($data->post->getContentImage() !== false): ?>
+                <?=CHtml::link(CHtml::image($data->post->getContentImage(), $data->post->title), $data->post->url)?>
+            <?php endif; ?>
+            <p><?=$data->post->getContentText(90)?> <a href="<?=$data->post->url?>" class="all">Читать</a></p>
         <?php endif; ?>
     </div>
     <?php if (($comment = $data->comment) !== null): ?>

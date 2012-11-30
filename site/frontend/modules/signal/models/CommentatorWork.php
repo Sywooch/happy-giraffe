@@ -391,7 +391,7 @@ class CommentatorWork extends EMongoDocument
                     'condition' => 'messages.created >= :min AND messages.created <= :max',
                     'params' => array(
                         ':min' => $month . '-01 00:00:00',
-                        ':max' => $month . '-31 23:59:59'
+                        ':max' => $month . '-30 23:59:59'
                     )
                 ),
                 'together' => true

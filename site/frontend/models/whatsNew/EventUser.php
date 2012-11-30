@@ -8,7 +8,14 @@
  */
 class EventUser extends Event
 {
+    public $users;
+
     protected $clusterable = true;
+
+    public function setSpecificValues()
+    {
+        $this->users = $this->getUsers();
+    }
 
     public function getUsers()
     {

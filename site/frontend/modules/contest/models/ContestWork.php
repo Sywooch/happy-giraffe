@@ -130,6 +130,15 @@ class ContestWork extends HActiveRecord
     public function afterSave()
     {
         if ($this->isNewRecord){
+            $relatedModel = $this->contest;
+
+            if ($relatedModel->hasAttribute('last_updated')) {
+                $relatedModel->last_updated = new CDbExpression('NOW()');
+                $relatedModel->update(array('last_updated'));
+            }
+
+            $relatedModel->sendEvent();
+
             UserScores::addScores($this->user_id, ScoreAction::ACTION_CONTEST_PARTICIPATION, 1, $this);
         }
 

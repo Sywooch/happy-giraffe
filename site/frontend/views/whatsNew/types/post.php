@@ -60,7 +60,7 @@
             <?php if ($data->post->getContentImage() !== false): ?>
                 <?=CHtml::link(CHtml::image($data->post->getContentImage(), $data->post->title), $data->post->url)?>
             <?php endif; ?>
-            <p><?=$data->post->getContentText(512)?> <a href="<?=$data->post->url?>" class="all">Читать</a></p>
+            <p><?=$data->post->getContentText(128)?> <a href="<?=$data->post->url?>" class="all">Читать</a></p>
         <?php endif; ?>
     </div>
     <?php if (($comment = $data->comment) !== null): ?>

@@ -309,9 +309,8 @@ class CommunityContent extends HActiveRecord
     public function beforeSave()
     {
         $this->title = strip_tags($this->title);
-        if ($this->isNewRecord) {
+        if ($this->isNewRecord)
             $this->last_updated = new CDbExpression('NOW()');
-        }
         return parent::beforeSave();
     }
 
@@ -679,5 +678,18 @@ class CommunityContent extends HActiveRecord
             'order' => 't.created DESC',
             'limit' => 3,
         ));
+    }
+
+    public function getEvent()
+    {
+        $row = array(
+            'id' => $this->id,
+            'last_updated' => $this->last_updated,
+            'type' => Event::EVENT_POST,
+        );
+
+        $event = Event::factory(Event::EVENT_POST);
+        $event->attributes = $row;
+        return $event;
     }
 }

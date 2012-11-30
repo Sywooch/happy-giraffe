@@ -19,6 +19,7 @@ return array(
         'site.common.helpers.*',
         'site.frontend.extensions.ESaveRelatedBehavior',
         'site.frontend.extensions.image.Image',
+        'site.frontend.extensions.phpQuery.phpQuery',
     ),
     'components' => array(
         'comet'=>array(

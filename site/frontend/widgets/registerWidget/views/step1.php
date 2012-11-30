@@ -51,8 +51,6 @@
 
     </div>
 
-    <a href="/signup/popupTest/" onclick="return openPopup(this);">click</a>
-
     <div class="is-user">
         Вы уже зарегистрированы? <a href="#login" class="fancy" data-theme="white-square">Войти</a>
     </div>

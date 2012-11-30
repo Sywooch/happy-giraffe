@@ -53,7 +53,7 @@
 
             <ul class="masonry-news-list_img-list clearfix">
                 <?php foreach ($data->post->gallery->items as $d): ?>
-                    <li><a href="javascript:void(0)" data-id="<?=$d->photo->id?>"><?=CHtml::image($d->photo->getPreviewUrl(64, 61, Image::HEIGHT, true, AlbumPhoto::CROP_SIDE_TOP), $d->description)?></a></li>
+                    <li><a href="javascript:void(0)" data-id="<?=$d->photo->id?>"><?=CHtml::image($d->photo->getPreviewUrl(64, 61, Image::AUTO, true, AlbumPhoto::CROP_SIDE_TOP), $d->description)?></a></li>
                 <?php endforeach; ?>
             </ul>
         <?php else: ?>

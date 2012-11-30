@@ -696,7 +696,7 @@ class CommunityContent extends HActiveRecord
 
     public function sendEvent()
     {
-        if ($this->rubric->community_id != Community::NEWS) {
+        if ($this->rubric->community_id != Community::COMMUNITY_NEWS) {
             $event = $this->event;
             $params = array(
                 'blockId' => $event->blockId,

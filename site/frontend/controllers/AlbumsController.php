@@ -76,12 +76,10 @@ class AlbumsController extends HController
     public function actionView($id)
     {
         $model = Album::model()->with('author', 'author.avatar', 'author.status')->findByPk($id);
-        if ($model->author === null || $model->author->deleted)
-            throw new CHttpException(404, 'Страницы не существует');
 
-        $this->user = $model->author;
-        if (!$model)
+        if (!$model || $model->author->deleted)
             throw new CHttpException(404, 'Альбом не найден');
+        $this->user = $model->author;
 
         $dataProvider = new CActiveDataProvider('AlbumPhoto', array(
             'criteria' => array(

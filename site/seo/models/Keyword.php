@@ -143,6 +143,7 @@ class Keyword extends HActiveRecord
         }
 
         return new CActiveDataProvider('Keyword', array(
+            'totalItemCount'=>YandexPopularity::model()->count('theme = ' . $theme),
             'criteria' => $criteria,
             'pagination' => array('pageSize' => 100),
         ));

@@ -73,7 +73,7 @@ abstract class Event extends CModel
 
     public function getCode()
     {
-        return Yii::app()->controller->renderPartial($this->view, array('data' => $this));
+        return Yii::app()->controller->renderPartial($this->view, array('data' => $this), true);
     }
 
     abstract public function setSpecificValues();

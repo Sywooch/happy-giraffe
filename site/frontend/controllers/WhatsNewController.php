@@ -8,6 +8,22 @@
  */
 class WhatsNewController extends HController
 {
+    public function filters()
+    {
+        return array(
+            'accessControl',
+        );
+    }
+
+    public function accessRules()
+    {
+        return array(
+            array('deny',
+                'users' => array('?'),
+            ),
+        );
+    }
+
     public $show;
 
     public function init()

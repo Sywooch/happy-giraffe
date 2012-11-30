@@ -77,7 +77,7 @@ class AlbumsController extends HController
     {
         $model = Album::model()->with('author', 'author.avatar', 'author.status')->findByPk($id);
         $this->user = $model->author;
-        if (!$model)
+        if (!$model || $this->user->deleted)
             throw new CHttpException(404, 'Альбом не найден');
 
         $dataProvider = new CActiveDataProvider('AlbumPhoto', array(

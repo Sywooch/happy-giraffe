@@ -51,6 +51,7 @@ return array(
         'application.modules.scores.models.*',
         'application.modules.calendar.models.*',
         'application.modules.cook.models.*',
+        'application.modules.services.modules.recipeBook.models.*',
         'application.models.whatsNew.*',
     ),
 

@@ -394,6 +394,8 @@ class User extends HActiveRecord
         /*Yii::app()->mc->saveUser($this);*/
 
         if ($this->isNewRecord) {
+            $this->sendEvent();
+
             //силнал о новом юзере
             $signal = new UserSignal();
             $signal->user_id = (int)$this->id;
@@ -1161,5 +1163,30 @@ class User extends HActiveRecord
         $criteria->compare('type', Baby::TYPE_WAIT);
 
         return Baby::model()->find($criteria);
+    }
+
+    public function getEvent()
+    {
+        $row = array(
+            'id' => $this->id,
+            'last_updated' => time(),
+            'type' => Event::EVENT_USER,
+        );
+
+        $event = Event::factory(Event::EVENT_USER);
+        $event->attributes = $row;
+        return $event;
+    }
+
+    public function sendEvent()
+    {
+        $event = $this->event;
+        $params = array(
+            'blockId' => $event->blockId,
+            'code' => $event->code,
+        );
+
+        $comet = new CometModel;
+        $comet->send('whatsNewIndex', $params, CometModel::WHATS_NEW_INDEX);
     }
 }

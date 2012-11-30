@@ -3,6 +3,7 @@
         ->registerCssFile('/stylesheets/user.css')
         ->registerScriptFile('/javascripts/jquery.masonry.min.js')
         ->registerScriptFile('/javascripts/live.js')
+        ->registerScript('Realplexor-reg-whatsNew', 'comet.connect(\'http://' . Yii::app()->comet->host . '\', \'' . Yii::app()->comet->namespace . '\', \'whatsNewIndex\');')
     ;
 
     Yii::app()->eauth->renderWidget(array(

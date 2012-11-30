@@ -193,11 +193,15 @@ class Comment extends HActiveRecord
             return parent::afterSave();
 
         if ($this->isNewRecord) {
-            $relatedModel = $this->getRelatedModel();
+            if (in_array($this->entity, array('CommunityContent', 'BlogContent'))) {
+                $relatedModel = $this->getRelatedModel();
 
-            if ($relatedModel->hasAttribute('last_updated')) {
-                $relatedModel->last_updated = new CDbExpression('NOW()');
-                $relatedModel->update(array('last_updated'));
+                if ($relatedModel->hasAttribute('last_updated')) {
+                    $relatedModel->last_updated = new CDbExpression('NOW()');
+                    $relatedModel->update(array('last_updated'));
+                }
+
+                $relatedModel->sendEvent();
             }
 
             UserNotification::model()->create(UserNotification::NEW_COMMENT, array('comment' => $this));

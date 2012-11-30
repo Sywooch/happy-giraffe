@@ -137,6 +137,8 @@ class ContestWork extends HActiveRecord
                 $relatedModel->update(array('last_updated'));
             }
 
+            $relatedModel->sendEvent();
+
             UserScores::addScores($this->user_id, ScoreAction::ACTION_CONTEST_PARTICIPATION, 1, $this);
         }
 

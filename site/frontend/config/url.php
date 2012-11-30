@@ -22,6 +22,14 @@ return array(
         'cook/decor/<category_id:\d+>/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'CookDecorationCategory')),
         'contest/<contest_id:\d+>/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'Contest')),
 
+        // live
+        'whatsNew/clubs' => array('whatsNew/clubs', 'defaultParams' => array('show' => 'all')),
+        'whatsNew/clubs/my' => array('whatsNew/clubs', 'defaultParams' => array('show' => 'my')),
+        'whatsNew/blogs' => array('whatsNew/blogs', 'defaultParams' => array('show' => 'all')),
+        'whatsNew/blogs/my' => array('whatsNew/blogs', 'defaultParams' => array('show' => 'my')),
+        'whatsNew/page<page:\d+>' => 'whatsNew/index',
+        'whatsNew' => 'whatsNew/index',
+
         // site controller
         '/' => 'site/index',
         'js_dynamics/<hash:\w+>.js' => 'site/seoHide',
@@ -110,8 +118,8 @@ return array(
         'community/<_a:(join|add|transfer|edit|editTravel|weeklyMail)>' => 'community/<_a>',
 
         //global
-        '<_c:(settings|activity|ajax|notification|profile|friendRequests|communityRubric|family|morning|userPopup|features)>/<_a>' => '<_c>/<_a>',
-        '<_c:(settings|activity|profile|rss|family|morning|community)>' => '<_c>/index',
+        '<_c:(whatsNew|settings|activity|ajax|notification|profile|friendRequests|communityRubric|family|morning|userPopup|features)>/<_a>' => '<_c>/<_a>',
+        '<_c:(whatsNew|settings|activity|profile|rss|family|morning|community)>' => '<_c>/index',
 
         //others
         'news/about' => 'community/contacts',

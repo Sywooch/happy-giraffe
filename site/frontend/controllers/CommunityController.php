@@ -367,9 +367,12 @@ class CommunityController extends HController
                     }
                 }
 
-                $comet = new CometModel;
-                $comet->type = CometModel::CONTENTS_LIVE;
-                $comet->send('guest', array('newId' => $model->id));
+//                $comet = new CometModel;
+//                $comet->type = CometModel::CONTENTS_LIVE;
+//                $comet->send('guest', array('newId' => $model->id));
+
+                $model->sendEvent();
+//                sleep(5);
 
                 $this->redirect($model->url);
             }

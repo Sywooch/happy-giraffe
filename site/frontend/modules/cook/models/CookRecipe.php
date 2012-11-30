@@ -618,13 +618,17 @@ class CookRecipe extends CActiveRecord
     public function getByType($type)
     {
         $criteria = new CDbCriteria(array(
-            'with' => array('photo', 'attachPhotos', 'commentsCount'),
+            'with' => array('photo', 'attachPhotos', 'commentsCount', 'tags', 'author'),
             'order' => 't.created DESC',
         ));
         if ($type !== null)
             $criteria->compare('type', $type);
 
+        $count_criteria = clone $criteria;
+        $count_criteria->with = array();
+
         $dp = new CActiveDataProvider(get_class($this), array(
+            'totalItemCount'=>CookRecipe::model()->count($count_criteria),
             'criteria' => $criteria,
             'pagination' => array(
                 'pageSize' => 10,

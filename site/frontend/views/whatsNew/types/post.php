@@ -60,13 +60,13 @@
             <?php if ($data->post->getContentImage() !== false): ?>
                 <?=CHtml::link(CHtml::image($data->post->getContentImage(), $data->post->title), $data->post->url)?>
             <?php endif; ?>
-            <p><?=$data->post->getContentText(90)?> <a href="<?=$data->post->url?>" class="all">Читать</a></p>
+            <p><?=$data->post->getContentText(512)?> <a href="<?=$data->post->url?>" class="all">Читать</a></p>
         <?php endif; ?>
     </div>
     <?php if (($comment = $data->comment) !== null): ?>
         <div class="masonry-news-list_comment">
             <div class="masonry-news-list_comment-text">
-                <?=Str::truncate(strip_tags($comment->text), 600)?>
+                <?=Str::truncate(strip_tags($comment->text), 512)?>
             </div>
             <div class="masonry-news-list_meta-info clearfix">
                 <div class="user-info">

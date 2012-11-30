@@ -871,13 +871,13 @@ class CommunityController extends HController
         $this->render('contacts');
     }
 
-    public function actionAuthors()
-    {
-        $this->community = Community::model()->findByPk(Community::COMMUNITY_NEWS);
-        $this->pageTitle = 'Авторы';
-        $this->layout = '//layouts/news';
-        $this->render('authors');
-    }
+//    public function actionAuthors()
+//    {
+//        $this->community = Community::model()->findByPk(Community::COMMUNITY_NEWS);
+//        $this->pageTitle = 'Авторы';
+//        $this->layout = '//layouts/news';
+//        $this->render('authors');
+//    }
 
     protected function lastModified()
     {

@@ -1,7 +1,5 @@
 <?php
 
-Yii::import('site.frontend.extensions.phpQuery.phpQuery');
-
 class LinkingController extends SController
 {
     public $pageTitle = 'продвижение';
@@ -289,7 +287,6 @@ class LinkingController extends SController
 
     public function actionSearchPages()
     {
-        Yii::import('site.frontend.extensions.phpQuery.phpQuery');
         $keyword = Yii::app()->request->getPost('keyword');
         $phrase = $this->loadPhrase(Yii::app()->request->getPost('phrase_id'));
 

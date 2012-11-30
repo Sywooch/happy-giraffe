@@ -54,7 +54,7 @@ class CommentatorWork extends EMongoDocument
     public function beforeSave()
     {
         $day = $this->getCurrentDay();
-        if (isset($day)){
+        if (isset($day)) {
             $day->checkStatus($this);
         }
 
@@ -66,17 +66,17 @@ class CommentatorWork extends EMongoDocument
 
     public function getCommentsLimit()
     {
-        return ($this->chief == 1)?self::CHIEF_COMMENTS_COUNT:self::COMMENTS_COUNT;
+        return ($this->chief == 1) ? self::CHIEF_COMMENTS_COUNT : self::COMMENTS_COUNT;
     }
 
     public function getBlogPostsLimit()
     {
-        return ($this->chief == 1)?self::CHIEF_BLOG_POSTS_COUNT:self::BLOG_POSTS_COUNT;
+        return ($this->chief == 1) ? self::CHIEF_BLOG_POSTS_COUNT : self::BLOG_POSTS_COUNT;
     }
 
     public function getClubPostsLimit()
     {
-        return ($this->chief == 1)?self::CHIEF_CLUB_POSTS_COUNT:self::CLUB_POSTS_COUNT;
+        return ($this->chief == 1) ? self::CHIEF_CLUB_POSTS_COUNT : self::CLUB_POSTS_COUNT;
     }
 
     /**
@@ -438,7 +438,7 @@ class CommentatorWork extends EMongoDocument
     public function nextComment()
     {
         $model = CActiveRecord::model($this->comment_entity)->findByPk($this->comment_entity_id);
-        if ($model === null){
+        if ($model === null) {
             $this->getNextPostForComment();
             $this->save();
             $model = CActiveRecord::model($this->comment_entity)->findByPk($this->comment_entity_id);
@@ -483,7 +483,7 @@ class CommentatorWork extends EMongoDocument
         $auth_item = Yii::app()->db->createCommand()
             ->select('itemname')
             ->from('auth__assignments')
-            ->where('itemname = "commentator" AND userid = '.$this->user_id)
+            ->where('itemname = "commentator" AND userid = ' . $this->user_id)
             ->queryScalar();
         return empty($auth_item);
 
@@ -530,8 +530,8 @@ class CommentatorWork extends EMongoDocument
         $criteria = new EMongoCriteria();
         $criteria->sort('created', EMongoCriteria::SORT_ASC);
         $models = CommentatorWork::model()->findAll($criteria);
-        foreach($models as $k=>$model)
-            if ($model->isNotWorkingAlready()){
+        foreach ($models as $k => $model)
+            if ($model->isNotWorkingAlready()) {
                 unset($models[$k]);
 //                echo $model->user_id.'<br>';
 //                $model->clubs = array();
@@ -550,20 +550,21 @@ class CommentatorWork extends EMongoDocument
     public static function getExecutedStatus($working_commentators, $summary, $days_count)
     {
         $summary_comment_limit = 0;
-        foreach($working_commentators as $commentator)
+        foreach ($working_commentators as $commentator)
             $summary_comment_limit += $commentator->getCommentsLimit();
 
         $summary_club_limit = 0;
-        foreach($working_commentators as $commentator)
+        foreach ($working_commentators as $commentator)
             $summary_club_limit += $commentator->getClubPostsLimit();
 
         $summary_blog_limit = 0;
-        foreach($working_commentators as $commentator)
+        foreach ($working_commentators as $commentator)
             $summary_blog_limit += $commentator->getBlogPostsLimit();
 
-        if ($summary[0]/count($working_commentators) >= $summary_blog_limit * $days_count
-            && $summary[1]/count($working_commentators) >= $summary_club_limit * $days_count
-            && $summary[2]/count($working_commentators) >= $summary_comment_limit * $days_count)
+        if ($summary[0] / count($working_commentators) >= $summary_blog_limit * $days_count
+            && $summary[1] / count($working_commentators) >= $summary_club_limit * $days_count
+            && $summary[2] / count($working_commentators) >= $summary_comment_limit * $days_count
+        )
             return true;
 
         return false;

@@ -42,12 +42,6 @@ $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
 ));
 ?>
 
-<?php if ($contest->id == 3): ?>
-    <p style="color: #F66161;">Фотоконкурс “Поделись улыбкою своей” завершился!<br />
-        Голосование окончено. Благодарим всех участников и болельщиков!<br />
-        Имена победителей будут оглашены 28 ноября.</p><br />
-<?php endif; ?>
-
 <div class="a-right fast-sort">
     Сортировать по:
     <?php echo CHtml::dropDownList('sort', $sort,

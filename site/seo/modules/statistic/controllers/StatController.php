@@ -70,7 +70,10 @@ class StatController extends SController
             $days = round((strtotime($last_date) - strtotime($date)) / 86400) + 1;
 
         $period = $this->getPeriod($last_date, $days);
-        $this->render('groups_stats', compact('last_date', 'date', 'period'));
+
+        $sections = TrafficSection::model()->findAll();
+
+        $this->render('groups_stats', compact('last_date', 'date', 'period', 'sections'));
     }
 
     public function getPeriod($date, $days)
@@ -137,23 +140,5 @@ class StatController extends SController
             ->queryColumn();
 
         return array_unique(array_merge($a1, $a2, $a3, $a4, $a5));
-    }
-
-    public function actionTest(){
-        $criteria = new CDbCriteria;
-        $criteria->with = array(
-            'author' => array(
-                'condition' => 'author.group = ' . UserGroup::USER
-            )
-        );
-
-        $criteria->condition = 't.created >= "2012-08-27 00:00:00" AND t.created <= "2012-09-17 00:00:00" AND uniqueness > 50 AND uniqueness IS NOT NULL';
-        $good = CommunityContent::model()->count($criteria);
-        echo $good.'<br>';
-        $criteria->condition = 't.created >= "2012-08-27 00:00:00" AND t.created <= "2012-09-17 00:00:00" AND uniqueness <= 50 AND uniqueness IS NOT NULL';
-        $bad = CommunityContent::model()->count($criteria);
-        echo $bad.'<br>';
-        if (($good + $bad) != 0)
-            echo round($good/($good+ $bad)*100);
     }
 }

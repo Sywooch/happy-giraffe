@@ -29,6 +29,8 @@ return array(
         'application.modules.indexing.models.*',
         'application.modules.commentators.models.*',
         'application.modules.externalLinks.models.*',
+        'application.modules.traffic.models.*',
+        'site.frontend.extensions.phpQuery.phpQuery',
     ),
 
     /* Техническое обслуживание */
@@ -47,7 +49,8 @@ return array(
         'cook',
         'externalLinks',
         'mailru',
-        'needlework'
+        'needlework',
+        'traffic'
     ),
     'components' => array(
         'user' => array(

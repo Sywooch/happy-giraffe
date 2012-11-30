@@ -262,8 +262,10 @@ class GoogleAnalytics {
 
         curl_close($ch);
 
-		//print_r($info);
-		//print $response;
+//		print_r($info);
+		if (strpos($response, 'userRateLimitExceeded'))
+            echo "userRateLimitExceeded\n";
+
 		if($info['http_code'] == 200) {
 			return $response;
 		} elseif ($info['http_code'] == 400) {
@@ -273,7 +275,6 @@ class GoogleAnalytics {
 		} else {
 			return FALSE;
 		}
-
 	}
 }
 ?>

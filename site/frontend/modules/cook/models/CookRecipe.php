@@ -153,7 +153,7 @@ class CookRecipe extends CActiveRecord
                 'AttachPhoto',
                 'entity_id',
                 'on' => 'entity = :entity',
-                'params' => array(':entity' => get_class($this)),
+                'params' => array(':entity' => 'CookRecipe'),
                 'with' => array(
                     'photo' => array(
                         'alias' => 'attachPhoto',
@@ -286,12 +286,18 @@ class CookRecipe extends CActiveRecord
             $this->lowCal = $this->getNutritionalsPer100g(1) <= self::COOK_RECIPE_LOWCAL;
         }
 
+        if ($this->isNewRecord)
+            $this->last_updated = new CDbExpression('NOW()');
+
         return parent::beforeSave();
     }
 
     protected function afterSave()
     {
         if ($this->isNewRecord) {
+            if ($this->isNewRecord)
+                $this->sendEvent();
+
             UserAction::model()->add($this->author_id, UserAction::USER_ACTION_RECIPE_ADDED, array('model' => $this));
 
             //send signals to commentator panel
@@ -655,5 +661,30 @@ class CookRecipe extends CActiveRecord
     public function getContentImage()
     {
         return ($this->mainPhoto !== null) ? $this->mainPhoto->getPreviewUrl(303, null, Image::WIDTH) : false;
+    }
+
+    public function getEvent()
+    {
+        $row = array(
+            'id' => $this->id,
+            'last_updated' => time(),
+            'type' => Event::EVENT_RECIPE,
+        );
+
+        $event = Event::factory(Event::EVENT_RECIPE);
+        $event->attributes = $row;
+        return $event;
+    }
+
+    public function sendEvent()
+    {
+        $event = $this->event;
+        $params = array(
+            'blockId' => $event->blockId,
+            'code' => $event->code,
+        );
+
+        $comet = new CometModel;
+        $comet->send('whatsNewIndex', $params, CometModel::WHATS_NEW_INDEX);
     }
 }

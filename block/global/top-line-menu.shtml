@@ -1,0 +1,42 @@
+	<div class="top-line-menu">
+		<div class="top-line-menu-holder">
+			<div class="user-nav-2">
+				
+				<ul>
+					<li class="item-ava">
+						<a href="" class="ava small female"></a>
+					</li>
+					<li class="item-broadcast new">
+						<a href="" ><i class="icon-broadcast"></i></a>
+					</li>
+					<li class="item-dialogs">
+						<a href=""><i class="icon-dialogs"></i></a>
+					</li>
+					<li class="item-friends">
+						<a href=""><i class="icon-friends"></i></a>
+					</li>
+					<li class="item-notifications">
+						<a href=""><i class="icon-notifications"></i></a>
+					</li>
+					<li class="item-career">
+						<a href=""><i class="icon-career"></i></a>
+					</li>
+					<li class="item-settings">
+						<a href=""><i class="icon-settings"></i></a>
+					</li>
+					<li class="item-logout">
+						<a href=""><i class="icon-logout"></i></a>
+					</li>
+					
+				</ul>
+				
+			</div>
+			
+			<ul class="fast-links clearfix">
+				<li><a href="">Главная</a></li>
+				<li><a href="">Клубы</a></li>
+				<li><a href="">Сервисы</a></li>
+				<li><a href="">Конкурсы</a></li>
+			</ul>
+		</div>
+	</div>

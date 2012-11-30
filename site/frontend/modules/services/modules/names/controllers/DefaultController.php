@@ -18,6 +18,10 @@ class DefaultController extends HController
 
     public function actionIndex($letter = null, $gender = null)
     {
+        if (!in_array($letter, array('А','Б','В','Г','Д','Е','Ж','З','И','К','Л','М','Н','О',
+            'П','Р','С','Т','У','Ф','Х','Ц','Ч','Э','Ю','Я')))
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
         if (empty($letter))
             $letter = null;
         if ($letter == null)

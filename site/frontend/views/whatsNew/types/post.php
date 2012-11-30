@@ -1,4 +1,4 @@
-<li class="masonry-news-list_item" data-block-id="<?=$data->blockId?>">
+<li class="masonry-news-list_item<?php if ($data->post->isFromBlog): ?> blog<?php endif; ?>" data-block-id="<?=$data->blockId?>">
     <h3 class="masonry-news-list_title">
         <?=CHtml::link($data->post->title, $data->post->url)?>
         <?php if ($data->post->type->slug == 'video'): ?>

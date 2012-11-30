@@ -8,24 +8,30 @@
  */
 class EventManager
 {
-    public static function getLive($limit)
+    const WHATS_NEW_ALL = 0;
+    const WHATS_NEW_CLUBS = 1;
+    const WHATS_NEW_CLUBS_MY = 2;
+    const WHATS_NEW_BLOGS = 3;
+    const WHATS_NEW_BLOGS_MY = 4;
+
+    public static function getIndex($limit)
     {
-        $sql = '
-            (SELECT id, last_updated, 0 AS type FROM community__contents WHERE last_updated IS NOT NULL AND removed = 0 AND rubric_id IS NOT NULL)
-            UNION
-            (SELECT id, last_updated, 1 AS type FROM contest__contests WHERE last_updated IS NOT NULL)
-            UNION
-            (SELECT id, created AS last_updated, 2 AS type FROM cook__decorations ORDER BY id DESC LIMIT 1)
-            UNION
-            (SELECT id, last_updated, 3 AS type FROM cook__recipes WHERE last_updated IS NOT NULL)
-            UNION
-            (SELECT id, register_date AS last_updated, 4 AS type FROM users WHERE deleted = 0 ORDER BY id DESC LIMIT 1)
-            ORDER BY last_updated DESC
-            LIMIT :limit
-        ';
-        $command = Yii::app()->db->createCommand($sql);
-        $command->bindValue(':limit', $limit);
-        $rows = $command->queryAll();
+        return self::getDataProvider(self::WHATS_NEW_ALL, $limit);
+    }
+
+    public static function getClubs($limit, $show)
+    {
+        return self::getDataProvider(($show == 'my') ? self::WHATS_NEW_CLUBS_MY : self::WHATS_NEW_CLUBS, $limit);
+    }
+
+    public static function getBlogs($limit, $show)
+    {
+        return self::getDataProvider(($show == 'my') ? self::WHATS_NEW_BLOGS_MY : self::WHATS_NEW_BLOGS, $limit);
+    }
+
+    public static function getDataProvider($type, $limit)
+    {
+        $rows = self::getRowsByType($type, $limit);
 
         $events = array();
         foreach ($rows as $r) {
@@ -39,5 +45,71 @@ class EventManager
                 'pageSize' => 20,
             )
         ));
+    }
+
+    public static function getRowsByType($type, $limit)
+    {
+        switch ($type) {
+            case self::WHATS_NEW_ALL:
+                $sql = '
+                    (SELECT id, last_updated, 0 AS type FROM community__contents WHERE last_updated IS NOT NULL AND removed = 0 AND rubric_id IS NOT NULL)
+                    UNION
+                    (SELECT id, last_updated, 1 AS type FROM contest__contests WHERE last_updated IS NOT NULL)
+                    UNION
+                    (SELECT id, created AS last_updated, 2 AS type FROM cook__decorations ORDER BY id DESC LIMIT 1)
+                    UNION
+                    (SELECT id, last_updated, 3 AS type FROM cook__recipes WHERE last_updated IS NOT NULL)
+                    UNION
+                    (SELECT id, register_date AS last_updated, 4 AS type FROM users WHERE deleted = 0 ORDER BY id DESC LIMIT 1)
+                    ORDER BY last_updated DESC
+                    LIMIT :limit
+                ';
+                break;
+            case self::WHATS_NEW_CLUBS:
+                $sql = '
+                    SELECT c.id, last_updated, 0 AS type
+                    FROM community__contents c
+                    JOIN community__rubrics r ON c.rubric_id = r.id
+                    WHERE last_updated IS NOT NULL AND r.community_id IS NOT NULL AND removed = 0 AND rubric_id IS NOT NULL
+                    LIMIT :limit
+                ';
+                break;
+            case self::WHATS_NEW_CLUBS_MY:
+                $sql = '
+                    SELECT c.id, last_updated, 0 AS type
+                    FROM community__contents c
+                    JOIN community__rubrics r ON c.rubric_id = r.id
+                    JOIN user__users_communities uc ON r.community_id = uc.community_id AND uc.user_id = :user_id
+                    WHERE last_updated IS NOT NULL AND r.community_id IS NOT NULL AND removed = 0 AND rubric_id IS NOT NULL
+                    LIMIT :limit;
+                ';
+                break;
+            case self::WHATS_NEW_BLOGS:
+                $sql = '
+                    SELECT c.id, last_updated, 0 AS type
+                    FROM community__contents c
+                    JOIN community__rubrics r ON c.rubric_id = r.id
+                    WHERE last_updated IS NOT NULL AND r.user_id IS NOT NULL AND removed = 0 AND rubric_id IS NOT NULL
+                    LIMIT :limit;
+                ';
+                break;
+            case self::WHATS_NEW_BLOGS_MY:
+                $sql = '
+                    SELECT c.id, last_updated, 0 AS type
+                    FROM community__contents c
+                    JOIN community__rubrics r ON c.rubric_id = r.id
+                    JOIN friends f ON (f.user1_id = r.user_id AND f.user2_id = :user_id) OR (f.user2_id = r.user_id AND f.user1_id = :user_id)
+                    WHERE last_updated IS NOT NULL AND r.user_id IS NOT NULL AND removed = 0 AND rubric_id IS NOT NULL
+                    LIMIT :limit;
+                ';
+                break;
+        }
+
+        $command = Yii::app()->db->createCommand($sql);
+        $command->bindValue(':limit', $limit);
+        if (in_array($type, array(self::WHATS_NEW_CLUBS_MY, self::WHATS_NEW_BLOGS_MY)))
+            $command->bindValue(':user_id', Yii::app()->user->id);
+
+        return $command->queryAll();
     }
 }

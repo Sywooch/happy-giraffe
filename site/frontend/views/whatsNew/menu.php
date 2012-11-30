@@ -1,29 +1,51 @@
 <div class="broadcast-title-box">
     <h1><i class="icon-boradcast"></i> Что нового</h1>
-    <ul class="broadcast-menu">
-        <li class="active">
-            <a href="">Прямой эфир</a>
-        </li>
-        <li>
-            <a href="">В клубах</a>
-            <ul class="broadcast-menu_drop">
-                <li class="active"><a href="">В моих</a></li>
-                <li><a href="">Во всех</a></li>
-            </ul>
-        </li>
-        <li>
-            <a href="">В блогах</a>
-            <ul class="broadcast-menu_drop">
-                <li><a href="">В моих</a></li>
-                <li><a href="">Во всех</a></li>
-            </ul>
-        </li>
-        <li>
-            <a href="">У друзей</a>
-            <ul class="broadcast-menu_drop">
-                <li><a href="">В моих</a></li>
-                <li><a href="">Во всех</a></li>
-            </ul>
-        </li>
-    </ul>
+
+    <?php
+        $this->widget('zii.widgets.CMenu', array(
+            'items' => array(
+                array(
+                    'label' => 'Прямой эфир',
+                    'url' => array('/whatsNew/index'),
+                ),
+                array(
+                    'label' => 'В клубах',
+                    'url' => array('whatsNew/clubs'),
+                    'submenuOptions' => array(
+                        'class' => 'broadcast-menu_drop',
+                    ),
+                    'items' => array(
+                        array(
+                            'label' => 'В моих',
+                            'url' => array('whatsNew/clubs', 'show' => 'my'),
+                        ),
+                        array(
+                            'label' => 'Во всех',
+                            'url' => array('whatsNew/clubs', 'show' => 'all'),
+                        ),
+                    )
+                ),
+                array(
+                    'label' => 'В блогах',
+                    'url' => array('whatsNew/blogs'),
+                    'submenuOptions' => array(
+                        'class' => 'broadcast-menu_drop',
+                    ),
+                    'items' => array(
+                        array(
+                            'label' => 'Подписка',
+                            'url' => array('whatsNew/blogs', 'show' => 'my'),
+                        ),
+                        array(
+                            'label' => 'Все',
+                            'url' => array('whatsNew/blogs', 'show' => 'all'),
+                        ),
+                    )
+                ),
+            ),
+            'htmlOptions' => array(
+                'class' => 'broadcast-menu',
+            ),
+        ));
+    ?>
 </div>

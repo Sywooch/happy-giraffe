@@ -8,6 +8,8 @@
  */
 class WhatsNewController extends HController
 {
+    public $show;
+
     public function init()
     {
         Yii::import('application.models.whatsNew.*');
@@ -18,23 +20,26 @@ class WhatsNewController extends HController
 
     public function actionIndex()
     {
-        $dp = EventManager::getLive(100);
+        $dp = EventManager::getIndex(100);
 
         $this->render('index', compact('dp'));
     }
 
-    public function actionClubs()
+    public function actionClubs($show)
     {
+        $this->show = $show;
 
+        $dp = EventManager::getClubs(100, $show);
+
+        $this->render('clubs', compact('dp'));
     }
 
-    public function actionBlogs()
+    public function actionBlogs($show)
     {
+        $this->show = $show;
 
-    }
+        $dp = EventManager::getBlogs(100, $show);
 
-    public function actionFriends()
-    {
-
+        $this->render('blogs', compact('dp'));
     }
 }

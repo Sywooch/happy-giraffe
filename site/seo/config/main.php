@@ -29,6 +29,7 @@ return array(
         'application.modules.indexing.models.*',
         'application.modules.commentators.models.*',
         'application.modules.externalLinks.models.*',
+        'application.modules.traffic.models.*',
         'site.frontend.extensions.phpQuery.phpQuery',
     ),
 

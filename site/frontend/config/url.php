@@ -23,7 +23,12 @@ return array(
         'contest/<contest_id:\d+>/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'Contest')),
 
         // live
+        'whatsNew/clubs' => array('whatsNew/clubs', 'defaultParams' => array('show' => 'all')),
+        'whatsNew/clubs/my' => array('whatsNew/clubs', 'defaultParams' => array('show' => 'my')),
+        'whatsNew/blogs' => array('whatsNew/blogs', 'defaultParams' => array('show' => 'all')),
+        'whatsNew/blogs/my' => array('whatsNew/blogs', 'defaultParams' => array('show' => 'my')),
         'whatsNew/page<page:\d+>' => 'whatsNew/index',
+        'whatsNew' => 'whatsNew/index',
 
         // site controller
         '/' => 'site/index',

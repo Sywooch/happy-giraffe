@@ -50,7 +50,7 @@ abstract class Event extends CModel
 
     public function getView()
     {
-        return 'types/' . lcfirst(self::$types[$this->type]);
+        return '//whatsNew/types/' . lcfirst(self::$types[$this->type]);
     }
 
     public function getSeed()
@@ -69,6 +69,11 @@ abstract class Event extends CModel
     {
         parent::setAttributes($values, $safeOnly);
         $this->setSpecificValues();
+    }
+
+    public function getCode()
+    {
+        return Yii::app()->controller->renderPartial($this->view, array('data' => $this));
     }
 
     abstract public function setSpecificValues();

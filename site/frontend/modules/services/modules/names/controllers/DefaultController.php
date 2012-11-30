@@ -18,13 +18,14 @@ class DefaultController extends HController
 
     public function actionIndex($letter = null, $gender = null)
     {
+        if ($letter == 'null')
+            $letter = null;
+
         if (!empty($letter) && !in_array($letter, array('А','Б','В','Г','Д','Е','Ж','З','И','К','Л','М','Н','О',
             'П','Р','С','Т','У','Ф','Х','Ц','Ч','Э','Ю','Я')))
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
         if (empty($letter))
-            $letter = null;
-        if ($letter == null)
             $this->pageTitle = 'Выбор имени';
         else
             $this->pageTitle = 'Имена для ребенка на букву '.$letter;
@@ -35,7 +36,7 @@ class DefaultController extends HController
         $criteria = new CDbCriteria;
         $criteria->order = 'name';
         $show_all = false;
-        if ($letter !== null && strlen($letter) < 3) {
+        if (!empty($letter) && strlen($letter) < 3) {
             $criteria->compare('name', $letter . '%', true, 'AND', false);
             $show_all = true;
         }

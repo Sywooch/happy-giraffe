@@ -153,8 +153,12 @@ class SiteKeywordVisit extends HActiveRecord
                 $criteria->condition = $condition;
         }
 
+        $full_criteria = clone $criteria;
+        $full_criteria->with = array('keyword', 'keyword.group','keyword.group.page','keyword.group.taskCount', 'keyword.tempKeyword', 'keyword.blacklist', 'keyword.yandex', 'site');
+
         return new CActiveDataProvider($this, array(
-            'criteria' => $criteria,
+            'criteria' => $full_criteria,
+            'totalItemCount' => self::model()->count($criteria),
             'pagination' => array('pageSize' => 100),
             'sort' => array(
                 'attributes' => array(

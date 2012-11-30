@@ -8,14 +8,24 @@
  */
 class EventRecipe extends Event
 {
+    public $recipe;
+
+    public function setSpecificValues()
+    {
+        $this->recipe = $this->getRecipe();
+    }
+
     public function getRecipe()
     {
         $criteria = new CDbCriteria(array(
             'with' => array(
                 'photo',
                 'attachPhotos',
-                'author',
+                'author' => array(
+                    'with' => 'avatar',
+                ),
                 'commentsCount',
+                'tags',
             ),
         ));
 

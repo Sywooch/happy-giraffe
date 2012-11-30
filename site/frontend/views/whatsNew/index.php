@@ -3,7 +3,8 @@
         ->registerCssFile('/stylesheets/user.css')
         ->registerScriptFile('/javascripts/jquery.masonry.min.js')
         ->registerScriptFile('/javascripts/live.js')
-        ->registerScript('Realplexor-reg', 'comet.connect(\'http://' . Yii::app()->comet->host . '\', \'' . Yii::app()->comet->namespace . '\', \'' . UserCache::GetCurrentUserCache() . '\');')
+        ->registerPackage('comet')
+        ->registerScript('Realplexor-reg', 'comet.connect(\'http://' . Yii::app()->comet->host . '\', \'' . Yii::app()->comet->namespace . '\', \'whatsNewIndex\');')
     ;
 
     Yii::app()->eauth->renderWidget(array(
@@ -50,5 +51,3 @@
     </div>
 
 </div>
-
-<?php print_r(Yii::app()->db->getStats()); ?>

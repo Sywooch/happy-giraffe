@@ -8,10 +8,22 @@
  */
 class EventDecor extends Event
 {
+    public $decorations;
+
     protected $clusterable = true;
+
+    public function setSpecificValues()
+    {
+        $this->decorations = $this->getDecorations();
+    }
 
     public function getDecorations()
     {
-        return CookDecoration::model()->lastDecorations;
+        $criteria = new CDbCriteria(array(
+            'with' => 'photo',
+            'limit' => 9,
+        ));
+
+        return CookDecoration::model()->findAll($criteria);
     }
 }

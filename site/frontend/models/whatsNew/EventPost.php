@@ -11,10 +11,10 @@ class EventPost extends Event
     public $post;
     public $comment;
 
-    public function __constructor()
+    public function setSpecificValues()
     {
-
-        parent::__constructor();
+        $this->post = $this->getPost();
+        $this->comment = $this->getComment();
     }
 
     public function getPost()
@@ -24,7 +24,7 @@ class EventPost extends Event
             'with' => array(
                 'gallery' => array(
                     'with' => array(
-                        'items'
+                        'items',
                     ),
                 ),
             ),

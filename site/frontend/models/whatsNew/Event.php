@@ -64,4 +64,12 @@ abstract class Event extends CModel
     {
         return md5($this->seed);
     }
+
+    public function setAttributes($values, $safeOnly = true)
+    {
+        parent::setAttributes($values, $safeOnly);
+        $this->setSpecificValues();
+    }
+
+    abstract public function setSpecificValues();
 }

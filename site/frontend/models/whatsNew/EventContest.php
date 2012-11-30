@@ -8,6 +8,15 @@
  */
 class EventContest extends Event
 {
+    public $contest;
+    public $works;
+
+    public function setSpecificValues()
+    {
+        $this->contest = $this->getContest();
+        $this->works = $this->getWorks();
+    }
+
     public function getContest()
     {
         $criteria = new CDbCriteria(array(

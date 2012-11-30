@@ -52,7 +52,7 @@ class EventManager
         switch ($type) {
             case self::WHATS_NEW_ALL:
                 $sql = '
-                    (SELECT id, last_updated, 0 AS type FROM community__contents c JOIN community__rubrics r ON c.rubric_id = r.id WHERE last_updated IS NOT NULL AND removed = 0 AND rubric_id IS NOT NULL AND r.community_id != 36)
+                    (SELECT c.id, last_updated, 0 AS type FROM community__contents c JOIN community__rubrics r ON c.rubric_id = r.id WHERE last_updated IS NOT NULL AND removed = 0 AND rubric_id IS NOT NULL AND r.community_id != 36)
                     UNION
                     (SELECT id, last_updated, 1 AS type FROM contest__contests WHERE last_updated IS NOT NULL)
                     UNION

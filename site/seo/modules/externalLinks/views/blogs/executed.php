@@ -13,7 +13,7 @@
 
     <div class="check-url">
         <input id="site_url" type="text" placeholder="Введите URL форума"/>
-        <button class="btn-g" onclick="ExtLinks.AddForumExecuted(<?=ELSite::TYPE_FORUM ?>)">Добавить</button>
+        <button class="btn-g" onclick="ExtLinks.AddForumExecuted(<?=ELSite::TYPE_BLOG ?>)">Добавить</button>
     </div>
 
     <div class="url-actions" id="site_status_1" style="display: none;">

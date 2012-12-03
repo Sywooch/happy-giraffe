@@ -70,9 +70,9 @@ var ExtLinks = {
                 });
         }, 'json');
     },
-    AddForum:function () {
+    AddForum:function (type) {
         var url = $('#site_url').val();
-        $.post('/externalLinks/forums/add/', {url:url, create_task:1}, function (response) {
+        $.post('/externalLinks/forums/add/', {url:url, create_task:1,type:type}, function (response) {
             if (response.status) {
                 $('.flash-message.added').html('Форум &nbsp;<a target="_blank" href="' + url +
                     '">' + url + '</a> добавлен в задачи').show().delay(3000).fadeOut(3000);
@@ -85,9 +85,9 @@ var ExtLinks = {
                 });
         }, 'json');
     },
-    AddForumExecuted:function () {
+    AddForumExecuted:function (type) {
         var url = $('#site_url').val();
-        $.post('/externalLinks/forums/add/', {url:url}, function (response) {
+        $.post('/externalLinks/forums/add/', {url:url,type:type}, function (response) {
             if (response.status) {
                 $('.url-actions').hide();
                 switch (response.type) {
@@ -193,8 +193,8 @@ var ExtLinks = {
         var flash = $('.flash-message.added');
         flash.html('Ваша ссылка добавлена &nbsp;<a href="/externalLinks/sites/reports/">Перейти</a>').show().delay(3000).fadeOut(3000);
     },
-    TakeForum:function (el, id) {
-        $.post('/externalLinks/tasks/takeForum/', {id:id}, function (response) {
+    Take:function (el, id) {
+        $.post('/externalLinks/tasks/take/', {id:id}, function (response) {
             console.log(response);
             if (response.status) {
                 window.location.reload();

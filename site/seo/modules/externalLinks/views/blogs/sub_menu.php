@@ -5,23 +5,19 @@
         'items' => array(
             array(
                 'label' => 'Добавить',
-                'url' => array('/externalLinks/forums/index')
+                'url' => array('/externalLinks/blogs/index')
             ),
             array(
                 'label' => 'Выполнено',
-                'url' => array('/externalLinks/forums/executed'),
+                'url' => array('/externalLinks/blogs/executed'),
             ),
             array(
                 'label' => 'Отчеты',
-                'url' => array('/externalLinks/forums/reports'),
+                'url' => array('/externalLinks/blogs/reports'),
             ),
             array(
                 'label' => 'Черный список',
-                'url' => array('/externalLinks/forums/blacklist'),
-            ),
-            array(
-                'label' => 'Серый список',
-                'url' => array('/externalLinks/forums/graylist'),
+                'url' => array('/externalLinks/blogs/blacklist'),
             ),
         )));
     ?>

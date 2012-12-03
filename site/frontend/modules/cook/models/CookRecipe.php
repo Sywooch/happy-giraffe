@@ -526,7 +526,7 @@ class CookRecipe extends CActiveRecord
         }
 
         foreach ($photos as $i => $p) {
-            $p->w_title = $this->title . ' - фото ' . ($i + 1);
+            $p->w_title = 'Фото рецепта &laquo;'.$this->title . '&raquo; - ' . ($i + 1);
         }
 
         return array(
@@ -665,5 +665,21 @@ class CookRecipe extends CActiveRecord
     public function getContentImage()
     {
         return ($this->mainPhoto !== null) ? $this->mainPhoto->getPreviewUrl(303, null, Image::WIDTH) : false;
+    }
+
+    public function getArticleCommentsCount()
+    {
+        return $this->commentsCount;
+    }
+
+    public function getLastCommentators($limit = 3)
+    {
+        return Comment::model()->with('author', 'author.avatar')->findAll(array(
+            'condition' => 'entity = :entity AND entity_id = :entity_id',
+            'params' => array(':entity' => 'CookRecipe', ':entity_id' => $this->id),
+            'order' => 't.created DESC',
+            'limit' => $limit,
+            'group' => 't.author_id',
+        ));
     }
 }

@@ -32,25 +32,7 @@
 
 <div class="entry hrecipe clearfix">
 
-    <h1 class="fn"><?=$recipe->title?></h1>
-
-    <div class="entry-header clearfix">
-
-        <?php
-            $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
-                'user' => $recipe->author,
-                'friendButton' => true,
-                'location' => false,
-            ));
-        ?>
-
-        <div class="meta">
-            <div class="time"><?=Yii::app()->dateFormatter->format("d MMMM yyyy, H:mm", $recipe->created)?></div>
-            <div class="seen">Просмотров:&nbsp;<span><?=$this->getViews()?></span></div><br>
-            <a href="#comment_list">Комментариев: <?= $recipe->commentsCount; ?></a>
-        </div>
-
-    </div>
+    <?php $this->renderPartial('//community/_post_header', array('model' => $recipe, 'full' => true, 'show_user' => true)); ?>
 
     <div class="entry-content">
 
@@ -85,11 +67,11 @@
                         <a href="" class="add-to-cookbook"><i class="icon"></i>Добавить в кулинарную книгу</a>
                     </div>-->
 
-                    <div class="action share">
-                        <script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
-                        Поделиться
-                        <div class="yashare-auto-init" data-yashareL10n="ru" data-yashareType="none" data-yashareQuickServices="vkontakte,facebook,twitter,odnoklassniki,moimir,gplus"></div>
-                    </div>
+<!--                    <div class="action share">-->
+<!--                        <script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>-->
+<!--                        Поделиться-->
+<!--                        <div class="yashare-auto-init" data-yashareL10n="ru" data-yashareType="none" data-yashareQuickServices="vkontakte,facebook,twitter,odnoklassniki,moimir,gplus"></div>-->
+<!--                    </div>-->
 
 
                 </div>
@@ -233,6 +215,7 @@
                         <li><a href="javascript:void(0)" data-id="<?=$t->photo->id?>"><?=CHtml::image($t->photo->getPreviewUrl(78, 52, Image::WIDTH, true, AlbumPhoto::CROP_SIDE_TOP), $t->photo->title)?></a></li>
                     <?php endforeach; ?>
                     <?php if ($recipe->mainPhoto !== null): ?>
+                    <li><a href="javascript:void(0)" data-id="<?=$recipe->mainPhoto->id?>"><?=CHtml::image($recipe->mainPhoto->getPreviewUrl(78, 52, Image::WIDTH, true, AlbumPhoto::CROP_SIDE_TOP), $recipe->mainPhoto->title)?></a></li>
                         <li>
                             <?php
                                 $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(

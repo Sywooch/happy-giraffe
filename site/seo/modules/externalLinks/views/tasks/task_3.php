@@ -7,8 +7,8 @@
     <ul>
         <li>
             <div class="task-title">Поставьте ссылку на <?=$task->site->getTitle() ?>е
-                <a target="_blank" href="http://<?=$task->site->url?>">
-                    <span class="hl">http://<?=$task->site->url?></span>
+                <a target="_blank" href="<?=$task->site->getUrl()?>">
+                    <span class="hl"><?=$task->site->getUrl()?></span>
                 </a>
             </div>
         </li>

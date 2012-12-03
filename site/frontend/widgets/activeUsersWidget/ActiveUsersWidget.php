@@ -49,11 +49,11 @@ class ActiveUsersWidget extends CWidget
                     SELECT COUNT(*)
                     FROM community__contents c
                     JOIN community__rubrics r ON c.rubric_id = r.id
-                    WHERE author_id = users.id AND :column IS NOT NULL AND YEAR(created) = YEAR(CURDATE()) AND MONTH(created) = MONTH(CURDATE())
+                    WHERE author_id = users.id AND :column IS NOT NULL AND YEAR(created) = YEAR(CURDATE()) AND MONTH(created) = MONTH(CURDATE()) AND author_id != :happy_giraffe
                 ) AS cCount, (
                     SELECT COUNT(*)
                     FROM comments
-                    WHERE entity = :entity AND author_id = users.id AND YEAR(created) = YEAR(CURDATE()) AND MONTH(created) = MONTH(CURDATE())
+                    WHERE entity = :entity AND author_id = users.id AND YEAR(created) = YEAR(CURDATE()) AND MONTH(created) = MONTH(CURDATE()) AND author_id != :happy_giraffe
                 ) AS cmCount
                 FROM users
             ) AS counts
@@ -62,6 +62,7 @@ class ActiveUsersWidget extends CWidget
         ";
 
         $command = Yii::app()->db->createCommand($sql);
+        $command->bindValue(':happy_giraffe', User::HAPPY_GIRAFFE);
         if ($this->type == self::TYPE_CLUBS) {
             $command->bindValue(':column', 'r.community_id');
             $command->bindValue(':entity', 'CommunityContent');
@@ -81,11 +82,11 @@ class ActiveUsersWidget extends CWidget
                     SELECT COUNT(*)
                     FROM community__contents c
                     JOIN community__rubrics r ON c.rubric_id = r.id
-                    WHERE author_id = users.id AND :column IS NOT NULL AND YEAR(created) = YEAR(CURDATE()) AND WEEK(created, 5) = WEEK(CURDATE(), 5)
+                    WHERE author_id = users.id AND :column IS NOT NULL AND YEAR(created) = YEAR(CURDATE()) AND WEEK(created, 5) = WEEK(CURDATE(), 5) AND author_id != :happy_giraffe
                 ) AS cCount, (
                     SELECT COUNT(*)
                     FROM comments
-                    WHERE entity = :entity AND author_id = users.id AND YEAR(created) = YEAR(CURDATE()) AND WEEK(created, 5) = WEEK(CURDATE(), 5)
+                    WHERE entity = :entity AND author_id = users.id AND YEAR(created) = YEAR(CURDATE()) AND WEEK(created, 5) = WEEK(CURDATE(), 5) AND author_id != :happy_giraffe
                 ) AS cmCount
                 FROM users
             ) AS counts
@@ -94,6 +95,7 @@ class ActiveUsersWidget extends CWidget
         ";
 
         $command = Yii::app()->db->createCommand($sql);
+        $command->bindValue(':happy_giraffe', User::HAPPY_GIRAFFE);
         if ($this->type == self::TYPE_CLUBS) {
             $command->bindValue(':column', 'r.community_id');
             $command->bindValue(':entity', 'CommunityContent');
@@ -113,11 +115,11 @@ class ActiveUsersWidget extends CWidget
                     SELECT COUNT(*)
                     FROM community__contents c
                     JOIN community__rubrics r ON c.rubric_id = r.id
-                    WHERE author_id = users.id AND :column IS NOT NULL AND YEAR(created) = YEAR(CURDATE()) AND MONTH(created) = MONTH(CURDATE()) AND DAY(created) = DAY(CURDATE())
+                    WHERE author_id = users.id AND :column IS NOT NULL AND YEAR(created) = YEAR(CURDATE()) AND MONTH(created) = MONTH(CURDATE()) AND DAY(created) = DAY(CURDATE()) AND author_id != :happy_giraffe
                 ) AS cCount, (
                     SELECT COUNT(*)
                     FROM comments
-                    WHERE entity = :entity AND author_id = users.id AND YEAR(created) = YEAR(CURDATE()) AND MONTH(created) = MONTH(CURDATE()) AND DAY(created) = DAY(CURDATE())
+                    WHERE entity = :entity AND author_id = users.id AND YEAR(created) = YEAR(CURDATE()) AND MONTH(created) = MONTH(CURDATE()) AND DAY(created) = DAY(CURDATE()) AND author_id != :happy_giraffe
                 ) AS cmCount
                 FROM users
             ) AS counts
@@ -126,6 +128,7 @@ class ActiveUsersWidget extends CWidget
         ";
 
         $command = Yii::app()->db->createCommand($sql);
+        $command->bindValue(':happy_giraffe', User::HAPPY_GIRAFFE);
         if ($this->type == self::TYPE_CLUBS) {
             $command->bindValue(':column', 'r.community_id');
             $command->bindValue(':entity', 'CommunityContent');

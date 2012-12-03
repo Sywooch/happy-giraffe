@@ -372,7 +372,7 @@ class CommunityController extends HController
 //                $comet->send('guest', array('newId' => $model->id));
 
                 $model->sendEvent();
-                sleep(5);
+//                sleep(5);
 
                 $this->redirect($model->url);
             }

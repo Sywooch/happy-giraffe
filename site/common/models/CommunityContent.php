@@ -310,7 +310,7 @@ class CommunityContent extends HActiveRecord
     {
         $this->title = strip_tags($this->title);
         if ($this->isNewRecord)
-            $this->last_updated = new CDbExpression('NOW()');
+            $this->last_updated = time();
         return parent::beforeSave();
     }
 
@@ -696,18 +696,20 @@ class CommunityContent extends HActiveRecord
 
     public function sendEvent()
     {
-        $event = $this->event;
-        $params = array(
-            'blockId' => $event->blockId,
-            'code' => $event->code,
-        );
+        if ($this->rubric->community_id != Community::COMMUNITY_NEWS) {
+            $event = $this->event;
+            $params = array(
+                'blockId' => $event->blockId,
+                'code' => $event->code,
+            );
 
-        $comet = new CometModel;
-        $comet->send('whatsNewIndex', $params, CometModel::WHATS_NEW_INDEX);
-        if ($this->isFromBlog) {
-            $comet->send('whatsNewBlogs', $params, CometModel::WHATS_NEW_INDEX);
-        } else {
-            $comet->send('whatsNewClubs', $params, CometModel::WHATS_NEW_INDEX);
+            $comet = new CometModel;
+            $comet->send('whatsNewIndex', $params, CometModel::WHATS_NEW_INDEX);
+            if ($this->isFromBlog) {
+                $comet->send('whatsNewBlogs', $params, CometModel::WHATS_NEW_INDEX);
+            } else {
+                $comet->send('whatsNewClubs', $params, CometModel::WHATS_NEW_INDEX);
+            }
         }
     }
 }

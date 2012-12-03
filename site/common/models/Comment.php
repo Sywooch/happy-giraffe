@@ -203,12 +203,8 @@ class Comment extends HActiveRecord
         if ($this->isNewRecord) {
             if (in_array($this->entity, array('CommunityContent', 'BlogContent'))) {
                 $relatedModel = $this->getRelatedModel();
-
-                if ($relatedModel->hasAttribute('last_updated')) {
-                    $relatedModel->last_updated = new CDbExpression('NOW()');
-                    $relatedModel->update(array('last_updated'));
-                }
-
+                $relatedModel->last_updated = new CDbExpression('NOW()');
+                $relatedModel->update(array('last_updated'));
                 $relatedModel->sendEvent();
             }
 

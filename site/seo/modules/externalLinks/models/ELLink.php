@@ -184,9 +184,9 @@ class ELLink extends HActiveRecord
         $days = (time() - strtotime($this->created)) / (3600 * 24);
 
         if ($days >= 90)
-            $this->check_link_time = date("Y-m-d H:i:s", strtotime('+3 month'));
+            $this->check_link_time = date("Y-m-d H:i:s", strtotime('+36 month'));
         elseif ($days >= 29)
-            $this->check_link_time = date("Y-m-d H:i:s", strtotime('+1 month'));
+            $this->check_link_time = date("Y-m-d H:i:s", strtotime('+2 month'));
         elseif ($days >= 14)
             $this->check_link_time = date("Y-m-d H:i:s", strtotime('+15 days'));
         else

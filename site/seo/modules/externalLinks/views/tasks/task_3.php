@@ -6,7 +6,7 @@
 
     <ul>
         <li>
-            <div class="task-title">Поставьте ссылку на форуме
+            <div class="task-title">Поставьте ссылку на <?=$task->site->getTitle() ?>е
                 <a target="_blank" href="http://<?=$task->site->url?>">
                     <span class="hl">http://<?=$task->site->url?></span>
                 </a>

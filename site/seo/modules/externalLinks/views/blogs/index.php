@@ -12,15 +12,15 @@
     </div>
 
     <div class="check-url">
-        <input id="site_url" type="text" placeholder="Введите URL форума"/>
+        <input id="site_url" type="text" placeholder="Введите URL блога"/>
         <button class="btn-g" onclick="ExtLinks.CheckForum()">Проверить</button>
     </div>
 
     <div class="url-actions" id="site_status_1" style="display: none;">
 
-        <span class="new-site">Новый сайт</span>
+        <span class="new-site">Новый блог</span>
 
-        <button class="btn-g" onclick="ExtLinks.AddForum(<?=ELSite::TYPE_FORUM ?>)">Добавить</button>
+        <button class="btn-g" onclick="ExtLinks.AddForum(<?=ELSite::TYPE_BLOG ?>)">Добавить</button>
 
         <a href="javascript:;" class="pseudo" onclick="ExtLinks.CancelSite()">Отмена</a>
 
@@ -44,7 +44,7 @@
 
         <button class="btn-g orange" onclick="ExtLinks.CancelSite()">Отмена</button>
 
-        <a href="javascript:;" onclick="ExtLinks.AddForum(<?=ELSite::TYPE_FORUM ?>)" class="pseudo">Добавить</a>
+        <a href="javascript:;" onclick="ExtLinks.AddForum(<?=ELSite::TYPE_BLOG ?>)" class="pseudo">Добавить</a>
 
     </div>
 

@@ -20,7 +20,7 @@ class TasksController extends ELController
             $this->render('task', compact('task'));
     }
 
-    public function actionTakeForum()
+    public function actionTake()
     {
         $transaction = ELTask::model()->getDbConnection()->beginTransaction();
         try {

@@ -22,17 +22,9 @@ class ELTask extends HActiveRecord
     const TYPE_COMMENT = 2;
     const TYPE_POST_LINK = 3;
 
-    const FORUM_MANAGER_REG_LIMIT = 7;
-    const FORUM_MANAGER_LINK_LIMIT = 7;
-    const FORUM_MANAGER_COMMENT_LIMIT = 21;
-
-    const FORUM_WORKER_REG_LIMIT = 3;
-    const FORUM_WORKER_LINK_LIMIT = 3;
-    const FORUM_WORKER_COMMENT_LIMIT = 6;
-
-    const FORUM_ANGRY_WORKER_REG_LIMIT = 17;
-    const FORUM_ANGRY_WORKER_LINK_LIMIT = 17;
-    const FORUM_ANGRY_WORKER_COMMENT_LIMIT = 51;
+    public $worker_limits = array(ELSite::TYPE_FORUM => array(3, 3, 6), ELSite::TYPE_BLOG => array(4, 4, 4));
+    public $manager_limits = array(ELSite::TYPE_FORUM => array(7, 7, 21), ELSite::TYPE_BLOG => array(7, 7, 7));
+    public $angry_worker_limits = array(ELSite::TYPE_FORUM => array(17, 17, 51), ELSite::TYPE_BLOG => array(20, 20, 20));
 
     /**
      * Returns the static model of the specified AR class.
@@ -208,51 +200,70 @@ class ELTask extends HActiveRecord
 
     public function closeTask()
     {
-        if ($this->type == self::TYPE_REGISTER || $this->type == self::TYPE_COMMENT) {
-            if (!isset($this->site->account->login)) {
-                $this->addError('type', 'Вы не ввели данные регистрации!');
-                return false;
-            }
-
-            if ($this->type == self::TYPE_REGISTER) {
-                //создаем еще 1 выполненное задание - комментарий, так как этот шаг - это 2 задания
-                $task = new ELTask();
-                $task->type = ELTask::TYPE_COMMENT;
-                $task->start_date = date("Y-m-d H:i:s");
-                $task->closed = date("Y-m-d H:i:s");
-                $task->site_id = $this->site_id;
-                $task->user_id = Yii::app()->user->id;
-                $task->save();
-            }
-
-            $prev_comments_count = $this->getPreviousCommentsCount();
-            $days_span = rand(1, 2);
-            if ($this->getLinkExecutedTasksCount() == 0) {
-                $limit = $this->site->comments_count;
-                if ($limit > 10) {
-                    //если нужно поставить больше 10 комментариев, ставим их чаще - 4 раза в день
-                    $criteria = new CDbCriteria;
-                    $criteria->condition = 'closed > :today';
-                    $criteria->params = array(':today'=>date("Y-m-d").' 00:00:00');
-                    $criteria->compare('site_id', $this->site_id);
-                    $criteria->compare('type', self::TYPE_COMMENT);
-                    $count = self::model()->count($criteria);
-
-                    if ($count >= rand(3,5))
-                        $days_span = 1;
-                    else
-                        $days_span = 0;
+        if ($this->site->type == ELSite::TYPE_FORUM) {
+            if ($this->type == self::TYPE_REGISTER || $this->type == self::TYPE_COMMENT) {
+                if (!isset($this->site->account->login)) {
+                    $this->addError('type', 'Вы не ввели данные регистрации!');
+                    return false;
                 }
-            } else
-                $limit = rand(3, 4);
 
-            if ($prev_comments_count >= $limit)
-                $this->createLinkTask(date("Y-m-d", strtotime('+' . $days_span . ' days')));
-            else
-                $this->createCommentTask(date("Y-m-d", strtotime('+' . $days_span . ' days')));
+                if ($this->type == self::TYPE_REGISTER) {
+                    //создаем еще 1 выполненное задание - комментарий, так как этот шаг - это 2 задания
+                    $task = new ELTask();
+                    $task->type = ELTask::TYPE_COMMENT;
+                    $task->start_date = date("Y-m-d H:i:s");
+                    $task->closed = date("Y-m-d H:i:s");
+                    $task->site_id = $this->site_id;
+                    $task->user_id = Yii::app()->user->id;
+                    $task->save();
+                }
 
-        } elseif ($this->type == self::TYPE_POST_LINK) {
-            $this->createCommentTask(date("Y-m-d", strtotime('+' . rand(30, 40) . ' days')));
+                $prev_comments_count = $this->getPreviousCommentsCount();
+                $days_span = rand(1, 2);
+                if ($this->getLinkExecutedTasksCount() == 0) {
+                    $limit = $this->site->comments_count;
+                    if ($limit > 10) {
+                        //если нужно поставить больше 10 комментариев, ставим их чаще - 4 раза в день
+                        $criteria = new CDbCriteria;
+                        $criteria->condition = 'closed > :today';
+                        $criteria->params = array(':today' => date("Y-m-d") . ' 00:00:00');
+                        $criteria->compare('site_id', $this->site_id);
+                        $criteria->compare('type', self::TYPE_COMMENT);
+                        $count = self::model()->count($criteria);
+
+                        if ($count >= rand(3, 5))
+                            $days_span = 1;
+                        else
+                            $days_span = 0;
+                    }
+                } else
+                    $limit = rand(3, 4);
+
+                if ($prev_comments_count >= $limit)
+                    $this->createLinkTask(date("Y-m-d", strtotime('+' . $days_span . ' days')));
+                else
+                    $this->createCommentTask(date("Y-m-d", strtotime('+' . $days_span . ' days')));
+
+            } elseif ($this->type == self::TYPE_POST_LINK) {
+                $this->createCommentTask(date("Y-m-d", strtotime('+' . rand(30, 40) . ' days')));
+            }
+        }elseif ($this->site->type == ELSite::TYPE_BLOG) {
+            if ($this->type == self::TYPE_REGISTER) {
+
+                if ($this->type == self::TYPE_REGISTER) {
+                    //создаем еще 1 выполненное задание - комментарий, так как этот шаг - это 2 задания
+                    $task = new ELTask();
+                    $task->type = ELTask::TYPE_COMMENT;
+                    $task->start_date = date("Y-m-d H:i:s");
+                    $task->closed = date("Y-m-d H:i:s");
+                    $task->site_id = $this->site_id;
+                    $task->user_id = Yii::app()->user->id;
+                    $task->save();
+                }
+
+                $this->createLinkTask(date("Y-m-d", strtotime('+1 day')));
+
+            }
         }
 
         $this->closed = date("Y-m-d H:i:s");
@@ -497,39 +508,36 @@ class ELTask extends HActiveRecord
     /************************************************  Лимиты заданий ***********************************************/
     /****************************************************************************************************************/
 
-    public function getRegTaskLimit()
+    public function getRegTaskLimit($type = ELSite::TYPE_FORUM)
     {
-        if (Yii::app()->user->checkAccess('externalLinks-manager-panel'))
-            return self::FORUM_MANAGER_REG_LIMIT;
-        elseif (in_array(Yii::app()->user->id, array(141)))
-            return self::FORUM_ANGRY_WORKER_REG_LIMIT; else
-            return self::FORUM_WORKER_REG_LIMIT;
+        return $this->getSomeTaskLimit($type, 0);
     }
 
-    public function getLinkTaskLimit()
+    public function getCommentTaskLimit($type = ELSite::TYPE_FORUM)
     {
-        if (Yii::app()->user->checkAccess('externalLinks-manager-panel'))
-            return self::FORUM_MANAGER_LINK_LIMIT;
-        elseif (in_array(Yii::app()->user->id, array(141)))
-            return self::FORUM_ANGRY_WORKER_LINK_LIMIT; else
-            return self::FORUM_WORKER_LINK_LIMIT;
+        return $this->getSomeTaskLimit($type, 1);
     }
 
-    public function getCommentTaskLimit()
+    public function getLinkTaskLimit($type = ELSite::TYPE_FORUM)
     {
-        if (Yii::app()->user->checkAccess('externalLinks-manager-panel'))
-            return self::FORUM_MANAGER_COMMENT_LIMIT;
-        elseif (in_array(Yii::app()->user->id, array(141)))
-            return self::FORUM_ANGRY_WORKER_COMMENT_LIMIT; else
-            return self::FORUM_WORKER_COMMENT_LIMIT;
+        return $this->getSomeTaskLimit($type, 2);
     }
 
-    public function getTaskLimit()
+    private function getSomeTaskLimit($type, $index)
     {
         if (Yii::app()->user->checkAccess('externalLinks-manager-panel'))
-            return self::FORUM_MANAGER_REG_LIMIT + self::FORUM_MANAGER_LINK_LIMIT + self::FORUM_MANAGER_COMMENT_LIMIT;
+            return $this->manager_limits[$type][$index];
         elseif (in_array(Yii::app()->user->id, array(141)))
-            return self::FORUM_ANGRY_WORKER_REG_LIMIT + self::FORUM_ANGRY_WORKER_LINK_LIMIT + self::FORUM_ANGRY_WORKER_COMMENT_LIMIT; else
-            return self::FORUM_WORKER_REG_LIMIT + self::FORUM_WORKER_LINK_LIMIT + self::FORUM_WORKER_COMMENT_LIMIT;
+            return $this->angry_worker_limits[$type][$index]; else
+            return $this->worker_limits[$type][$index];
+    }
+
+    public function getTaskLimit($type = ELSite::TYPE_FORUM)
+    {
+        if (Yii::app()->user->checkAccess('externalLinks-manager-panel'))
+            return array_sum($this->manager_limits[$type]);
+        elseif (in_array(Yii::app()->user->id, array(141)))
+            return array_sum($this->angry_worker_limits[$type]); else
+            return array_sum($this->worker_limits[$type]);
     }
 }

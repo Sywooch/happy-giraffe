@@ -8,7 +8,7 @@ Yii::app()->clientScript->registerScript('init_site_id','ExtLinks.site_id = '.$t
 
     <ul>
         <li>
-            <div class="task-title">Зарегистрируйтесь и поставьте комментарий на форуме
+            <div class="task-title">Зарегистрируйтесь и поставьте комментарий на <?=$task->site->getTitle() ?>е
                 <a target="_blank" href="http://<?=$task->site->url?>">
                     <span class="hl">http://<?=$task->site->url?></span>
                 </a>

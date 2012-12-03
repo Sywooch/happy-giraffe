@@ -20,7 +20,16 @@ Yii::app()->clientScript->registerScriptFile($baseUrl . '/ext_links.js?5')->regi
                     array(
                         'label' => 'Форумы',
                         'url' => array('/externalLinks/forums/index/'),
-                        'active'=>in_array(Yii::app()->controller->id, array('tasks','forums'))
+                        'active'=>in_array(Yii::app()->controller->id, array('forums'))
+                    ),
+                    array(
+                        'label' => 'Блоги',
+                        'url' => array('/externalLinks/blogs/index/'),
+                        'active'=>in_array(Yii::app()->controller->id, array('blogs'))
+                    ),
+                    array(
+                        'label' => 'Задания',
+                        'url' => array('/externalLinks/tasks/index/'),
                     ),
                     array(
                         'label' => 'Проверка ссылок',

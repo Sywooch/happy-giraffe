@@ -207,4 +207,11 @@ class ELSite extends HActiveRecord
 
         return 'неизвестно';
     }
+
+    public function getUrl(){
+        if (strpos('http', $this->url) === 0)
+            return 'http://'.$this->url;
+
+        return $this->url;
+    }
 }

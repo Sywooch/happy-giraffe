@@ -123,9 +123,10 @@ class Favourites extends EMongoDocument
         $criteria = new EMongoCriteria;
         $criteria->block('==', self::WEEKLY_MAIL);
         $criteria->created('>', strtotime('-5 days'));
-        $models = self::model()->findAll($criteria);
+        $criteria->setSort(array('created'=> EMongoCriteria::SORT_DESC));
+        $mongo_models = self::model()->findAll($criteria);
         $ids = array();
-        foreach($models as $model)
+        foreach($mongo_models as $model)
             $ids [] = $model->entity_id;
 
         if (empty($ids))
@@ -134,8 +135,14 @@ class Favourites extends EMongoDocument
         $criteria = new CDbCriteria;
         $criteria->compare('t.id', $ids);
         $models = CommunityContent::model()->full()->findAll($criteria);
+        $result = array();
+        for($i=0;$i<count($ids);$i++){
+            foreach($models as $model)
+                if ($model->id == $ids[$i])
+                    $result [] = $model;
+        }
 
-        return $models;
+        return $result;
     }
 
     public static function updateCreatedTime()

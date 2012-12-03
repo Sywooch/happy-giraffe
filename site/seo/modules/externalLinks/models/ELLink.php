@@ -151,8 +151,11 @@ class ELLink extends HActiveRecord
 
     public function beforeSave()
     {
-        if ($this->isNewRecord && $this->site->type == ELSite::TYPE_FORUM && empty($this->link_cost)){
-            $this->check_link_time = date("Y-m-d", strtotime('+'.self::CHECK_DAYS.' days'));
+        if ($this->isNewRecord
+            && ($this->site->type == ELSite::TYPE_FORUM || $this->site->type == ELSite::TYPE_BLOG)
+            && empty($this->link_cost)
+        ) {
+            $this->check_link_time = date("Y-m-d", strtotime('+' . self::CHECK_DAYS . ' days'));
         }
 
         return parent::beforeSave();
@@ -162,7 +165,7 @@ class ELLink extends HActiveRecord
     {
         $alias = $this->getTableAlias(false, false);
         return array(
-            'order' => ($alias)?$alias.'.id desc':'id desc',
+            'order' => ($alias) ? $alias . '.id desc' : 'id desc',
         );
     }
 
@@ -176,7 +179,7 @@ class ELLink extends HActiveRecord
 
     public static function checkCount()
     {
-        return ELLink::model()->count('check_link_time < "'.date("Y-m-d H:i:s") .'" AND check_link_time IS NOT NULL AND check_link_time != "0000-00-00 00:00:00"');
+        return ELLink::model()->count('check_link_time < "' . date("Y-m-d H:i:s") . '" AND check_link_time IS NOT NULL AND check_link_time != "0000-00-00 00:00:00"');
     }
 
     public function nextCheckTime()
@@ -186,10 +189,8 @@ class ELLink extends HActiveRecord
         if ($days >= 90)
             $this->check_link_time = date("Y-m-d H:i:s", strtotime('+36 month'));
         elseif ($days >= 29)
-            $this->check_link_time = date("Y-m-d H:i:s", strtotime('+2 month'));
-        elseif ($days >= 14)
-            $this->check_link_time = date("Y-m-d H:i:s", strtotime('+15 days'));
-        else
+            $this->check_link_time = date("Y-m-d H:i:s", strtotime('+2 month')); elseif ($days >= 14)
+            $this->check_link_time = date("Y-m-d H:i:s", strtotime('+15 days')); else
             $this->check_link_time = date("Y-m-d H:i:s", strtotime('+7 days'));
 
         return $this->save();
@@ -228,7 +229,7 @@ class ELLink extends HActiveRecord
     public function getLinkPrice()
     {
         if (!empty($this->link_cost) && !empty($this->system_id))
-            return $this->link_cost.' ('.round($this->link_cost*(1+$this->system->fee/100)).')';
+            return $this->link_cost . ' (' . round($this->link_cost * (1 + $this->system->fee / 100)) . ')';
         else
             return '';
     }

@@ -46,7 +46,7 @@ class RecipeController extends HController
 
     public function actionIndex($type = null, $section = null)
     {
-        $this->pageTitle = 'Рецепты';
+        $this->pageTitle = 'Кулинарные рецепты от Веселого Жирафа';
         $this->layout = '//layouts/recipe';
         $this->currentType = $type;
 
@@ -56,12 +56,12 @@ class RecipeController extends HController
         if ($type === null)
             $this->breadcrumbs = array(
                 'Кулинария' => array('/cook'),
-                $this->section == 0 ? 'Рецепты' : 'Рецепты для мультиварок',
+                $this->section == 0 ? 'Кулинарные рецепты' : 'Рецепты для мультиварок',
             );
         else
             $this->breadcrumbs = array(
                 'Кулинария' => array('/cook'),
-                ($this->section == 0 ? 'Рецепты' : 'Рецепты для мультиварок') => array('/cook/recipe/index', 'section' => $this->section),
+                ($this->section == 0 ? 'Кулинарные рецепты' : 'Рецепты для мультиварок') => array('/cook/recipe/index', 'section' => $this->section),
                 CookRecipe::model()->types[$type],
             );
 
@@ -226,14 +226,14 @@ class RecipeController extends HController
         $this->counts = CActiveRecord::model($this->modelName)->counts;
         $this->currentType = $recipe->type;
         $this->layout = '//layouts/recipe';
-        $this->pageTitle = $recipe->title;
+        $this->pageTitle = $recipe->title.' - Кулинарные рецепты от Веселого Жирафа';
 
         if (! Yii::app()->user->isGuest)
             UserNotification::model()->deleteByEntity($recipe, Yii::app()->user->id);
 
         $this->breadcrumbs = array(
             'Кулинария' => array('/cook'),
-            ($this->section == 0 ? 'Рецепты' : 'Рецепты для мультиварок') => array('/cook/recipe/index', 'section' => $this->section),
+            ($this->section == 0 ? 'Кулинарные рецепты' : 'Рецепты для мультиварок') => array('/cook/recipe/index', 'section' => $this->section),
             $recipe->typeString => array('/cook/recipe/index', 'type' => $recipe->type, 'section' => $this->section),
             $recipe->title,
         );
@@ -282,7 +282,7 @@ class RecipeController extends HController
 
         $this->breadcrumbs = array(
             'Кулинария' => array('/cook'),
-            ($this->section == 0 ? 'Рецепты' : 'Рецепты для мультиварок') => array('/cook/recipe/index', 'section' => $this->section),
+            ($this->section == 0 ? 'Кулинарные рецепты' : 'Рецепты для мультиварок') => array('/cook/recipe/index', 'section' => $this->section),
             'Поиск по ингредиентам'
         );
 
@@ -305,7 +305,7 @@ class RecipeController extends HController
 
         $this->breadcrumbs = array(
             'Кулинария' => array('/cook'),
-            ($this->section == 0 ? 'Рецепты' : 'Рецепты для мультиварок') => array('/cook/recipe/index', 'section' => $this->section),
+            ($this->section == 0 ? 'Кулинарные рецепты' : 'Рецепты для мультиварок') => array('/cook/recipe/index', 'section' => $this->section),
             'Расширенный поиск'
         );
 

@@ -1,25 +1,9 @@
 <div class="entry hrecipe clearfix">
 
-    <?=CHtml::link($data->title, $data->url, array('class' => 'entry-title'))?>
-
-    <div class="entry-header clearfix">
-
-        <?php
-            $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
-                'user' => $data->author,
-                'friendButton' => true,
-                'location' => false,
-                'hideLinks'=>true
-            ));
-        ?>
-
-        <div class="meta">
-            <div class="time"><?=Yii::app()->dateFormatter->format("d MMMM yyyy, H:mm", $data->created)?></div>
-            <div class="seen">Просмотров:&nbsp;<span><?=PageView::model()->viewsByPath($data->url)?></span></div><br>
-            <?=HHtml::link('Комментариев: '. $data->commentsCount,$data->getUrl(true), array(), true ) ?>
-        </div>
-
-    </div>
+    <?php $this->renderPartial('//community/_post_header', array(
+        'model' => $data,
+        'full' => false,
+        'show_user' => true)); ?>
 
     <div class="entry-content">
 
@@ -54,11 +38,11 @@
                         <a href="" class="add-to-cookbook"><i class="icon"></i>Добавить в кулинарную книгу</a>
                     </div>-->
 
-                    <div class="action share">
-                        <script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
-                        Поделиться
-                        <div class="yashare-auto-init" data-yashareL10n="ru" data-yashareType="none" data-yashareQuickServices="vkontakte,facebook,twitter,odnoklassniki,moimir,gplus"></div>
-                    </div>
+<!--                    <div class="action share">-->
+<!--                        <script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>-->
+<!--                        Поделиться-->
+<!--                        <div class="yashare-auto-init" data-yashareL10n="ru" data-yashareType="none" data-yashareQuickServices="vkontakte,facebook,twitter,odnoklassniki,moimir,gplus"></div>-->
+<!--                    </div>-->
 
 
                 </div>

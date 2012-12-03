@@ -45,6 +45,6 @@
         </div>
     </div>
     <div class="masonry-news-list_content">
-        <p><?=Str::truncate(strip_tags($data->recipe->text), 90)?> <a href="<?=$data->recipe->url?>" class="all">Читать</a></p>
+        <p><?=Str::truncate(strip_tags($data->recipe->text), 128)?> <a href="<?=$data->recipe->url?>" class="all">Читать</a></p>
     </div>
 </li>

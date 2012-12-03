@@ -17,7 +17,7 @@
             </div>
             <div class="place place-2-3"></div>
             <div class="title">
-                Радионяня<br/><b>Я расту WT- 448</b>
+                Радионяня<br/><b>«Я расту» WT- 448</b>
             </div>
             <a href="<?=$this->createUrl('/contest/default/prizes', array('id' => $this->contest->id, '#' => 'prize-2'))?>" class="all">Подробнее</a>
         </li>

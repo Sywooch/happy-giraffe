@@ -30,6 +30,7 @@ class WhatsNewController extends HController
     {
         Yii::import('application.models.whatsNew.*');
         Yii::import('application.modules.contest.models.*');
+        Yii::import('application.widgets.activeUsersWidget.ActiveUsersWidget');
 
         parent::init();
     }

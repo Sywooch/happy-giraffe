@@ -7,20 +7,36 @@ class DefaultController extends SController
     public $layout = '//layouts/traffic';
     public $pageTitle = 'ТРАФИК';
 
-    public function actionIndex($date = null, $last_date = null)
+    public function actionIndex($date = null, $last_date = null, $parent_id = null)
     {
         if ($last_date == null)
             $last_date = date("Y-m-d");
         if ($date == null) {
-            $date = date("Y-m-d");
-            $days = 1;
+            $date = date("Y-m-d", strtotime('-6 days'));
+            $days = 7;
         } else
             $days = round((strtotime($last_date) - strtotime($date)) / 86400) + 1;
 
         $period = $this->getPeriod($last_date, $days);
 
-        $this->render('index', compact('last_date', 'date', 'period'));
+        $sections = empty($parent_id)
+            ? TrafficSection::model()->findAll('parent_id IS NULL') :
+            TrafficSection::model()->findAll('parent_id = :parent_id', array(':parent_id' => $parent_id));
+
+        $all_section = empty($parent_id) ? TrafficSection::model()->findByPk(1) : TrafficSection::model()->findByPk($parent_id);
+
+        $this->render('index', compact('last_date', 'date', 'period', 'parent_id', 'sections', 'all_section'));
     }
+
+    /*public function actionTest()
+    {
+        for ($i = 1; $i < 36; $i++) {
+            $model = new TrafficSection();
+            $model->url = 'community/'.$i;
+            $model->title = Community::model()->findByPk($i)->title;
+            $model->save();
+        }
+    }*/
 
     public function getPeriod($date, $days)
     {

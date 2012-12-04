@@ -33,7 +33,7 @@ class SController extends CController
         $menu = array();
         if (Yii::app()->user->checkAccess('superuser'))
             $menu = array(
-                'Ключевые слова' => $this->createUrl('/competitors/default/index'),
+                'Ключевые слова' => $this->createUrl('/writing/editor/tasks'),
                 'Готовое' => $this->createUrl('/writing/existArticles/index'),
                 'Продвижение' => $this->createUrl('/promotion/queries/admin'),
                 'Статистика' => $this->createUrl('/statistic/stat/groups'),
@@ -43,7 +43,8 @@ class SController extends CController
 
         if (Yii::app()->user->checkAccess('editor'))
             $menu = array(
-                'Ключевые слова' => $this->createUrl('/competitors/default/index'),
+                'Написание контента' => $this->createUrl('/writing/editor/tasks', array('rewrite' => 0)),
+                'Рерайт' => $this->createUrl('/writing/editor/tasks', array('rewrite' => 1)),
                 'Продвижение' => $this->createUrl('/promotion/queries/admin'),
                 'Статистика' => $this->createUrl('/statistic/stat/groups'),
                 'Трафик' => $this->createUrl('/traffic/default/index'),
@@ -51,7 +52,7 @@ class SController extends CController
 
         if (Yii::app()->user->checkAccess('admin'))
             $menu = array(
-                'Ключевые слова' => $this->createUrl('/competitors/default/index'),
+                'Ключевые слова' => $this->createUrl('/writing/editor/tasks'),
                 'Продвижение' => $this->createUrl('/promotion/queries/admin'),
                 'Статистика' => $this->createUrl('/statistic/stat/groups'),
                 'Индексация' => $this->createUrl('/indexing/default/index'),
@@ -61,7 +62,7 @@ class SController extends CController
         if (Yii::app()->user->checkAccess('commentator-manager-panel'))
             $menu ['Комментаторы'] = $this->createUrl('/commentators/default/index');
         if (Yii::app()->user->checkAccess('cook-manager-panel'))
-            $menu ['Кулинария'] = $this->createUrl('/competitors/default/index', array('section'=>2));
+            $menu ['Кулинария'] = $this->createUrl('/competitors/default/index', array('section' => 2));
         if (Yii::app()->user->checkAccess('externalLinks-manager-panel') || Yii::app()->user->checkAccess('externalLinks-manager'))
             $menu ['Внешние ссылки'] = $this->createUrl('/externalLinks/sites/index');
         if (Yii::app()->user->checkAccess('promotion'))

@@ -24,7 +24,7 @@
     <div class="masonry-news-list_content">
         <ul class="masonry-news-list_img-list clearfix">
             <?php foreach ($data->works as $w): ?>
-                <li><a href="javascript:void(0)" data-id="<?=$w->photoAttach->photo->id?>"><?=CHtml::image($w->photoAttach->photo->getPreviewUrl(64, 61, false, true, AlbumPhoto::CROP_SIDE_TOP), $w->title)?></a></li>
+                <li><a href="javascript:void(0)" data-id="<?=$w->photoAttach->photo->id?>"><?=CHtml::image($w->photoAttach->photo->getPreviewUrl(64, 61, Image::INVERT, true, AlbumPhoto::CROP_SIDE_TOP), $w->title)?></a></li>
             <?php endforeach; ?>
         </ul>
     </div>

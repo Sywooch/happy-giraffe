@@ -20,6 +20,7 @@ class Image {
 	const AUTO = 2;
 	const HEIGHT = 3;
 	const WIDTH = 4;
+    const INVERT = 10;
 	// Flip Directions
 	const HORIZONTAL = 5;
 	const VERTICAL = 6;

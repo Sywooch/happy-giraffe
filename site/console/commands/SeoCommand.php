@@ -353,12 +353,7 @@ class SeoCommand extends CConsoleCommand
     public function actionParseTraffic()
     {
         Yii::import('site.frontend.components.*');
-        $date = Yii::app()->db_seo->createCommand()
-            ->select('max(date)')
-            ->from(TrafficStatisctic::model()->tableName())
-            ->queryScalar();
-        if (empty($date))
-            $date = date("Y-m-d", strtotime('-6 month'));
+        $date = date("Y-m-d", strtotime('-3 month'));
 
         $sections = TrafficSection::model()->findAll();
 
@@ -370,18 +365,24 @@ class SeoCommand extends CConsoleCommand
             echo $date . "\n";
 
             foreach ($sections as $section) {
-                $value = GApi::getUrlOrganicSearches($ga, $date, $date, '/' . $section->url);
+                $traffic = TrafficStatisctic::model()->findByAttributes(array('date' => $date, 'section_id' => $section->id));
+                if ($traffic === null) {
+                    if (!empty($section->url))
+                        $value = GApi::getUrlOrganicSearches($ga, $date, $date, '/' . $section->url. '/');
+                    else
+                        $value = GApi::getUrlOrganicSearches($ga, $date, $date, '/');
 
-                if ($value == -1)
-                    Yii::app()->end();
+                    if ($value == -1)
+                        Yii::app()->end();
 
-                echo $section->url . ' - ' . $value . "\n";
-                if ($value > 0) {
-                    $stat = new TrafficStatisctic();
-                    $stat->section_id = $section->id;
-                    $stat->date = $date;
-                    $stat->value = $value;
-                    $stat->save();
+                    echo $section->url . ' - ' . $value . "\n";
+                    if ($value >= 0) {
+                        $stat = new TrafficStatisctic();
+                        $stat->section_id = $section->id;
+                        $stat->date = $date;
+                        $stat->value = $value;
+                        $stat->save();
+                    }
                 }
             }
 

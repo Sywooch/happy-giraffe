@@ -242,7 +242,7 @@ class SeoTask extends CActiveRecord
     public static function getTasks()
     {
         $criteria = new CDbCriteria;
-        if (Yii::app()->user->checkAccess('author')) {
+        if (Yii::app()->user->checkAccess('author') || Yii::app()->user->checkAccess('rewrite-author')) {
             $criteria->compare('type', SeoTask::TYPE_EDITOR);
             $criteria->compare('executor_id', Yii::app()->user->id);
             $criteria->compare('status', SeoTask::STATUS_READY);

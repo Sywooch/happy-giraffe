@@ -29,25 +29,25 @@ class EventManager
         return self::getDataProvider(($show == 'my') ? self::WHATS_NEW_BLOGS_MY : self::WHATS_NEW_BLOGS, $limit);
     }
 
+//    public static function getDataProvider($type, $limit)
+//    {
+//        $rows = self::getRowsByType($type, $limit);
+//
+//        $events = array();
+//        foreach ($rows as $r) {
+//            $event = Event::factory($r['type']);
+//            $event->attributes = $r;
+//            $events[] = $event;
+//        }
+//
+//        return new CArrayDataProvider($events, array(
+//            'pagination' => array(
+//                'pageSize' => 20,
+//            )
+//        ));
+//    }
+
     public static function getDataProvider($type, $limit)
-    {
-        $rows = self::getRowsByType($type, $limit);
-
-        $events = array();
-        foreach ($rows as $r) {
-            $event = Event::factory($r['type']);
-            $event->attributes = $r;
-            $events[] = $event;
-        }
-
-        return new CArrayDataProvider($events, array(
-            'pagination' => array(
-                'pageSize' => 20,
-            )
-        ));
-    }
-
-    public static function getRowsByType($type, $limit)
     {
         switch ($type) {
             case self::WHATS_NEW_ALL:
@@ -61,9 +61,8 @@ class EventManager
                     (SELECT id, last_updated, 3 AS type FROM cook__recipes WHERE last_updated IS NOT NULL)
                     UNION
                     (SELECT id, register_date AS last_updated, 4 AS type FROM users WHERE deleted = 0 ORDER BY id DESC LIMIT 1)
-                    ORDER BY last_updated DESC
-                    LIMIT :limit
                 ';
+                $params = array();
                 break;
             case self::WHATS_NEW_CLUBS:
                 $sql = '
@@ -71,8 +70,8 @@ class EventManager
                     FROM community__contents c
                     JOIN community__rubrics r ON c.rubric_id = r.id
                     WHERE last_updated IS NOT NULL AND r.community_id IS NOT NULL AND removed = 0 AND rubric_id IS NOT NULL AND r.community_id != 36
-                    LIMIT :limit
                 ';
+                $params = array();
                 break;
             case self::WHATS_NEW_CLUBS_MY:
                 $sql = '
@@ -81,8 +80,8 @@ class EventManager
                     JOIN community__rubrics r ON c.rubric_id = r.id
                     JOIN user__users_communities uc ON r.community_id = uc.community_id AND uc.user_id = :user_id
                     WHERE last_updated IS NOT NULL AND r.community_id IS NOT NULL AND removed = 0 AND rubric_id IS NOT NULL AND r.community_id != 36
-                    LIMIT :limit;
                 ';
+                $params = array(':user_id' => Yii::app()->user->id);
                 break;
             case self::WHATS_NEW_BLOGS:
                 $sql = '
@@ -90,8 +89,8 @@ class EventManager
                     FROM community__contents c
                     JOIN community__rubrics r ON c.rubric_id = r.id
                     WHERE last_updated IS NOT NULL AND r.user_id IS NOT NULL AND removed = 0 AND rubric_id IS NOT NULL
-                    LIMIT :limit;
                 ';
+                $params = array();
                 break;
             case self::WHATS_NEW_BLOGS_MY:
                 $sql = '
@@ -100,16 +99,20 @@ class EventManager
                     JOIN community__rubrics r ON c.rubric_id = r.id
                     JOIN friends f ON (f.user1_id = r.user_id AND f.user2_id = :user_id) OR (f.user2_id = r.user_id AND f.user1_id = :user_id)
                     WHERE last_updated IS NOT NULL AND r.user_id IS NOT NULL AND removed = 0 AND rubric_id IS NOT NULL
-                    LIMIT :limit;
                 ';
+                $params = array(':user_id' => Yii::app()->user->id);
                 break;
         }
 
-        $command = Yii::app()->db->createCommand($sql);
-        $command->bindValue(':limit', $limit);
-        if (in_array($type, array(self::WHATS_NEW_CLUBS_MY, self::WHATS_NEW_BLOGS_MY)))
-            $command->bindValue(':user_id', Yii::app()->user->id);
-
-        return $command->queryAll();
+        return new EventDataProvider($sql, array(
+            'params' => $params,
+            'pagination' => array(
+                'pageSize' => 10,
+            ),
+            'sort' => array(
+                'defaultOrder' => 'last_updated DESC',
+            ),
+            'totalItemCount' => 100,
+        ));
     }
 }

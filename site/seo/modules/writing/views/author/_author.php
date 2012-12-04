@@ -5,11 +5,17 @@
         <table>
             <tbody><tr>
                 <th>Ключевое слово или фраза</th>
+                <?php if (Yii::app()->user->checkAccess('rewrite-author')):?>
+                    <th>Примеры</th>
+                <?php endif ?>
                 <th class="ac">Действие</th>
             </tr>
                 <?php foreach ($tasks as $task){ ?>
                 <tr>
                     <td><?=$task->getText() ?></td>
+                    <?php if (Yii::app()->user->checkAccess('rewrite-author')):?>
+                        <td><?=$task->getUrlsText() ?></td>
+                    <?php endif ?>
                     <td class="ac"><a href="" class="btn-green-small" onclick="SeoTasks.TakeTask(<?=$task->id ?>);return false;">Взять в работку</a></td>
                 </tr>
                     <?php } ?>
@@ -25,10 +31,16 @@
         <table>
             <tbody><tr>
                 <th>Ключевое слово или фраза</th>
+                <?php if (Yii::app()->user->checkAccess('rewrite-author')):?>
+                    <th>Примеры</th>
+                <?php endif ?>
                 <th>Подсказки</th>
             </tr>
             <tr>
                 <td><?=$executing->getText() ?></td>
+                <?php if (Yii::app()->user->checkAccess('rewrite-author')):?>
+                    <td><?=$executing->getUrlsText() ?></td>
+                <?php endif ?>
                 <td><?=$executing->getHints() ?></td>
             </tr>
             </tbody></table>

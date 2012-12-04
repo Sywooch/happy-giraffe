@@ -7,6 +7,7 @@ class EditorController extends SController
 {
     public $pageTitle = 'Копирайт';
     public $layout = '//layouts/writing';
+    public $rewrite = 0;
 
     public function beforeAction($action)
     {
@@ -14,6 +15,16 @@ class EditorController extends SController
             && !Yii::app()->user->checkAccess('superuser') && !Yii::app()->user->checkAccess('cook-manager-panel')
         )
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
+        if (isset($_GET['rewrite'])) {
+            $this->rewrite = $_GET['rewrite'];
+            Yii::app()->user->setState('rewrite', $this->rewrite);
+        }
+
+        $this->rewrite = Yii::app()->user->getState('rewrite', 0);
+        if ($this->rewrite == 1)
+            $this->pageTitle = 'Рерайт';
+
         return true;
     }
 
@@ -66,32 +77,26 @@ class EditorController extends SController
             Yii::app()->user->setState('hide_used', 0);
     }
 
-    public function actionTasks()
+    public function actionTasks($rewrite = 0)
     {
         TempKeyword::filterBusyKeywords();
         $tempKeywords = TempKeyword::model()->findAll('owner_id=' . Yii::app()->user->id);
 
         $criteria = new CDbCriteria;
         $criteria->condition = 'owner_id=' . Yii::app()->user->id . ' AND status = 0';
+        $criteria->condition .= ($this->rewrite == 0) ? ' AND rewrite = 0' : ' AND rewrite = 1';
         $criteria->order = 'created desc';
         $tasks = SeoTask::model()->findAll($criteria);
 
-        $this->render('editor_panel', array(
+        if ($this->rewrite)
+            $authors = Yii::app()->user->model->getWorkers('rewrite-author');
+        else
+            $authors = Yii::app()->user->model->getWorkers('author');
+
+        $this->render(($this->rewrite == 0) ? 'editor_panel' : 'rewrite_editor_panel', array(
             'tasks' => $tasks,
             'tempKeywords' => $tempKeywords,
-        ));
-    }
-
-    public function actionRewriteTasks()
-    {
-        $tasks = SeoTask::model()->findAll('owner_id=' . Yii::app()->user->id . ' AND status < 5 AND rewrite = 1');
-        $tempKeywords = TempKeyword::model()->findAll('owner_id');
-        $success_tasks = SeoTask::TodayExecutedTasks();
-
-        $this->render('rewrite_editor_panel', array(
-            'tasks' => $tasks,
-            'tempKeywords' => $tempKeywords,
-            'success_tasks' => $success_tasks
+            'authors' => $authors
         ));
     }
 
@@ -232,7 +237,7 @@ class EditorController extends SController
 
     public function actionReports($status = 1)
     {
-        $criteria = SeoTask::getReportsCriteria($status);
+        $criteria = SeoTask::getReportsCriteria($status, SeoTask::SECTION_MAIN, $this->rewrite);
 
         $dataProvider = new CActiveDataProvider('SeoTask', array(
             'criteria' => $criteria,
@@ -250,7 +255,8 @@ class EditorController extends SController
         $this->render('reports_' . $status, array(
             'models' => $models,
             'pages' => $pages,
-            'status' => $status
+            'status' => $status,
+            'rewrite' => $this->rewrite
         ));
     }
 
@@ -471,8 +477,39 @@ class EditorController extends SController
         $temp_keyword = TempKeyword::model()->find('keyword_id=' . $keyword_id);
         $temp_keyword->owner_id = 83;
         $temp_keyword->section = Yii::app()->request->getPost('section');
-        ;
+
         echo CJSON::encode(array('status' => $temp_keyword->save()));
+    }
+
+    public function actionRewriteUrl()
+    {
+        $url = Yii::app()->request->getPost('url');
+        $task = $this->loadTask(Yii::app()->request->getPost('task_id'));
+        $url_id = Yii::app()->request->getPost('id');
+
+        //delete url if empty
+        if (empty($url)) {
+            $task_url = TaskUrl::model()->findByPk($url_id);
+            if ($task_url !== null)
+                $task_url->delete();
+            echo CJSON::encode(array('deleted' => true));
+            Yii::app()->end();
+        }
+
+        //create or update task url
+        if (empty($url_id)) {
+            $task_url = new TaskUrl;
+            $task_url->task_id = $task->id;
+        } else
+            $task_url = TaskUrl::model()->findByPk($url_id);
+        $task_url->url = $url;
+        if ($task_url->save()) {
+            echo CJSON::encode(array(
+                'status' => true,
+                'id' => $task_url->id
+            ));
+        } else
+            echo CJSON::encode(array('status' => false));
     }
 
     /**

@@ -157,9 +157,6 @@ class SeoTask extends CActiveRecord
             foreach ($this->keywordGroup->keywords as $key)
                 $res .= $key->name . '<br>';
 
-        if ($this->rewrite)
-            foreach ($this->urls as $url)
-                $res .= $url->url . '<br>';
         return trim($res, '<br>');
     }
 
@@ -299,7 +296,7 @@ class SeoTask extends CActiveRecord
         if (empty($this->executor_id))
             return $this->getIcon();
         else
-            return $this->getIcon() . '<br><span class="admin-name">' . $this->executor->name . '</span>';
+            return $this->getIcon() . '<span class="admin-name">' . $this->executor->name . '</span>';
     }
 
     public function getStatusText()
@@ -387,8 +384,8 @@ class SeoTask extends CActiveRecord
     {
         $res = '';
         foreach ($this->urls as $url)
-            $res .= $url->url . '<br>';
-        return trim($res, '<br>');
+            $res .= CHtml::link($url->url,$url->url, array('target'=>'_blank')) . '<br>';
+        return $res;
     }
 
     public function getMultiVarka()
@@ -428,11 +425,12 @@ class SeoTask extends CActiveRecord
             + SeoTask::model()->count('owner_id=' . Yii::app()->user->id . ' AND executor_id IS NULL AND section='.$section);
     }
 
-    public static function getReportsCriteria($status = 1, $section = SeoTask::SECTION_MAIN)
+    public static function getReportsCriteria($status = 1, $section = SeoTask::SECTION_MAIN, $rewrite = 0)
     {
         $criteria = new CDbCriteria;
         $criteria->compare('t.owner_id', Yii::app()->user->id);
         $criteria->compare('section', $section);
+        $criteria->compare('rewrite', $rewrite);
         $criteria->order = 'created desc';
 
         if ($status == 1)
@@ -451,8 +449,8 @@ class SeoTask extends CActiveRecord
      * @param int $section
      * @return int
      */
-    public static function getTaskCount($status = 1, $section = SeoTask::SECTION_MAIN){
-        $criteria = self::getReportsCriteria($status, $section);
+    public static function getTaskCount($status = 1, $section = SeoTask::SECTION_MAIN, $rewrite = 0){
+        $criteria = self::getReportsCriteria($status, $section, $rewrite);
 
         return self::model()->count($criteria);
     }

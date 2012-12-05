@@ -52,7 +52,7 @@ class EventManager
         switch ($type) {
             case self::WHATS_NEW_ALL:
                 $sql = '
-                    (SELECT c.id, last_updated, 0 AS type FROM community__contents c JOIN community__rubrics r ON c.rubric_id = r.id WHERE last_updated IS NOT NULL AND removed = 0 AND rubric_id IS NOT NULL AND r.community_id != 36)
+                    (SELECT c.id, last_updated, 0 AS type FROM community__contents c JOIN community__rubrics r ON c.rubric_id = r.id WHERE last_updated IS NOT NULL AND removed = 0 AND rubric_id IS NOT NULL AND (r.community_id != 36 OR r.community_id IS NULL))
                     UNION
                     (SELECT id, last_updated, 1 AS type FROM contest__contests WHERE last_updated IS NOT NULL)
                     UNION
@@ -69,7 +69,7 @@ class EventManager
                     SELECT c.id, last_updated, 0 AS type
                     FROM community__contents c
                     JOIN community__rubrics r ON c.rubric_id = r.id
-                    WHERE last_updated IS NOT NULL AND r.community_id IS NOT NULL AND removed = 0 AND rubric_id IS NOT NULL AND r.community_id != 36
+                    WHERE last_updated IS NOT NULL AND r.community_id IS NOT NULL AND removed = 0 AND rubric_id IS NOT NULL AND (r.community_id != 36 OR r.community_id IS NULL)
                 ';
                 $params = array();
                 break;
@@ -79,7 +79,7 @@ class EventManager
                     FROM community__contents c
                     JOIN community__rubrics r ON c.rubric_id = r.id
                     JOIN user__users_communities uc ON r.community_id = uc.community_id AND uc.user_id = :user_id
-                    WHERE last_updated IS NOT NULL AND r.community_id IS NOT NULL AND removed = 0 AND rubric_id IS NOT NULL AND r.community_id != 36
+                    WHERE last_updated IS NOT NULL AND r.community_id IS NOT NULL AND removed = 0 AND rubric_id IS NOT NULL AND (r.community_id != 36 OR r.community_id IS NULL)
                 ';
                 $params = array(':user_id' => Yii::app()->user->id);
                 break;

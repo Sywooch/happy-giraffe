@@ -36,7 +36,7 @@ return array(
 
         // signup controller
         'signup' => 'signup/index',
-        'signup/finish' => 'signup/finish',
+        'signup/<_a:(showForm|finish)>' => 'signup/<_a>',
         'signup/validate/step/<step:\d+>' => 'signup/validate',
 
         // friendRequests controller

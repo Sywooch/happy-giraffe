@@ -52,9 +52,11 @@
         </div>
 
         <div class="col-3 clearfix">
-            <?php $this->widget('ActiveUsersWidget', array(
-                'type' => ActiveUsersWidget::TYPE_CLUBS,
-            )); ?>
+            <?php if ($this->beginCache('bestUsers-clubs', array('duration' => 300))): ?>
+                <?php $this->widget('ActiveUsersWidget', array(
+                    'type' => ActiveUsersWidget::TYPE_CLUBS,
+                )); ?>
+            <?php $this->endCache(); endif; ?>
         </div>
 
     </div>

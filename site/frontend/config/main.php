@@ -93,6 +93,7 @@ return array(
         'services',
         'cook',
         'calendar',
+        'whatsNew',
 	),
 
 	// application components

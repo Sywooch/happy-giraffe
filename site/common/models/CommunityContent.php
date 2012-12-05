@@ -310,7 +310,7 @@ class CommunityContent extends HActiveRecord
     {
         $this->title = strip_tags($this->title);
         if ($this->isNewRecord)
-            $this->last_updated = time();
+            $this->last_updated = new CDbExpression('NOW()');
         return parent::beforeSave();
     }
 

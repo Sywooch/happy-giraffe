@@ -11,6 +11,9 @@
                 <thead>
                 <tr>
                     <th class="al">Ключевые слова и фразы</th>
+                    <?php if ($rewrite):?>
+                        <th>Примеры</th>
+                    <?php endif ?>
                     <th>Исполнитель</th>
                     <th>Статус</th>
                 </tr>
@@ -19,6 +22,9 @@
                 <?php foreach ($models as $task) { ?>
                 <tr data-id=<?=$task->id ?>>
                     <td class="al"><?=$task->getText() ?></td>
+                    <?php if ($rewrite):?>
+                        <td><?= $task->getUrlsText(); ?></td>
+                    <?php endif ?>
                     <td><?=$task->getExecutor() ?></td>
                     <td class="seo-status-new-<?=$task->status ?>"><?=$task->statusText ?></td>
                 </tr>

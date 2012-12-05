@@ -365,8 +365,12 @@ class AlbumPhoto extends HActiveRecord
             if ($image->width <= $width && $image->height <= $height) {
 
             } elseif ($master && $master == Image::WIDTH && $image->width < $width)
-                $image->resize($image->width, $height, Image::WIDTH); elseif ($master && $master == Image::HEIGHT && $image->height < $height)
-                $image->resize($width, $image->height, Image::HEIGHT); else
+                $image->resize($image->width, $height, Image::WIDTH);
+            elseif ($master && $master == Image::HEIGHT && $image->height < $height)
+                $image->resize($width, $image->height, Image::HEIGHT);
+            elseif ($master && $master == Image::INVERT) {
+                $image->resize($width, $height, ($image->width > $image->height) ? Image::HEIGHT : Image::WIDTH);
+            } else
                 $image->resize($width, $height, $master ? $master : Image::AUTO);
 
             if ($crop)

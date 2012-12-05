@@ -30,7 +30,7 @@
                 'pager' => array(
                     'header' => '',
                     'class' => 'ext.infiniteScroll.IasPager',
-                    'rowSelector' => 'li',
+                    'rowSelector' => '.masonry-news-list_item',
                     'listViewId' => 'liveList',
                     'options' => array(
                         'scrollContainer' => new CJavaScriptExpression("$('.layout-container')"),

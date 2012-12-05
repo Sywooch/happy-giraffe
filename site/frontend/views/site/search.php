@@ -1,4 +1,6 @@
-<div class="main">
+<?php
+Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
+?><div class="main">
     <div class="main-in">
         <div class="content-search clearfix">
             <span>Я ищу</span>

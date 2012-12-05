@@ -366,9 +366,9 @@ class SeoCommand extends CConsoleCommand
 
             foreach ($sections as $section) {
                 $traffic = TrafficStatisctic::model()->findByAttributes(array('date' => $date, 'section_id' => $section->id));
-                if ($traffic === null) {
+                if ($traffic === null || strtotime($date) > strtotime('-2 days')) {
                     if (!empty($section->url))
-                        $value = GApi::getUrlOrganicSearches($ga, $date, $date, '/' . $section->url. '/');
+                        $value = GApi::getUrlOrganicSearches($ga, $date, $date, '/' . $section->url . '/');
                     else
                         $value = GApi::getUrlOrganicSearches($ga, $date, $date, '/');
 

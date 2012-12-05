@@ -377,11 +377,13 @@ class SeoCommand extends CConsoleCommand
 
                     echo $section->url . ' - ' . $value . "\n";
                     if ($value >= 0) {
-                        $stat = new TrafficStatisctic();
-                        $stat->section_id = $section->id;
-                        $stat->date = $date;
-                        $stat->value = $value;
-                        $stat->save();
+                        if ($traffic === null) {
+                            $traffic = new TrafficStatisctic();
+                            $traffic->section_id = $section->id;
+                            $traffic->date = $date;
+                        }
+                        $traffic->value = $value;
+                        $traffic->save();
                     }
                 }
             }

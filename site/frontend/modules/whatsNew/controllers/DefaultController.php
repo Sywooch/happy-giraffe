@@ -6,7 +6,7 @@
  * Time: 3:01 PM
  * To change this template use File | Settings | File Templates.
  */
-class WhatsNewController extends HController
+class DefaultController extends HController
 {
     public function filters()
     {

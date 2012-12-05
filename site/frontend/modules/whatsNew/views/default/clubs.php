@@ -3,8 +3,10 @@
         ->registerCssFile('/stylesheets/user.css')
         ->registerScriptFile('/javascripts/jquery.masonry.min.js')
         ->registerScriptFile('/javascripts/live.js')
-        ->registerScript('Realplexor-reg-whatsNew', 'comet.connect(\'http://' . Yii::app()->comet->host . '\', \'' . Yii::app()->comet->namespace . '\', \'whatsNewClubs\');')
     ;
+
+    if ($show == 'all')
+        Yii::app()->clientScript->registerScript('Realplexor-reg-whatsNew', 'comet.connect(\'http://' . Yii::app()->comet->host . '\', \'' . Yii::app()->comet->namespace . '\', \'whatsNewClubs\');');
 
     Yii::app()->eauth->renderWidget(array(
         'mode' => 'assets',

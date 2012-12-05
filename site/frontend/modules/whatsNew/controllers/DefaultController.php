@@ -24,8 +24,6 @@ class DefaultController extends HController
         );
     }
 
-    public $show;
-
     public function actionIndex()
     {
         $dp = EventManager::getIndex(100);
@@ -35,19 +33,15 @@ class DefaultController extends HController
 
     public function actionClubs($show)
     {
-        $this->show = $show;
-
         $dp = EventManager::getClubs(100, $show);
 
-        $this->render('clubs', compact('dp'));
+        $this->render('clubs', compact('dp', 'show'));
     }
 
     public function actionBlogs($show)
     {
-        $this->show = $show;
-
         $dp = EventManager::getBlogs(100, $show);
 
-        $this->render('blogs', compact('dp'));
+        $this->render('blogs', compact('dp', 'show'));
     }
 }

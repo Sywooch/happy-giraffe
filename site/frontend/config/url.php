@@ -4,7 +4,7 @@ return array(
     'urlFormat' => 'path',
     'showScriptName' => false,
     'urlSuffix' => '/',
-    //'useStrictParsing' => true,
+    'useStrictParsing' => true,
     'rules' => array(
         /*************************
          *      CONTROLLERS      *
@@ -21,6 +21,14 @@ return array(
         'cook/decor/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'CookDecorationCategory')),
         'cook/decor/<category_id:\d+>/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'CookDecorationCategory')),
         'contest/<contest_id:\d+>/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'Contest')),
+
+        // live
+        'whatsNew/clubs' => array('whatsNew/clubs', 'defaultParams' => array('show' => 'all')),
+        'whatsNew/clubs/my' => array('whatsNew/clubs', 'defaultParams' => array('show' => 'my')),
+        'whatsNew/blogs' => array('whatsNew/blogs', 'defaultParams' => array('show' => 'all')),
+        'whatsNew/blogs/my' => array('whatsNew/blogs', 'defaultParams' => array('show' => 'my')),
+        'whatsNew/page<page:\d+>' => 'whatsNew/index',
+        'whatsNew' => 'whatsNew/index',
 
         // site controller
         '/' => 'site/index',
@@ -90,6 +98,7 @@ return array(
 
         // community/*
         'community/36.*' => 404,
+        'community/list/rubric_id/<rubric_id:\d+>' => 404,
         'news/rubric<rubric_id:\d+>' => array('community/list', 'defaultParams' => array('community_id' => 36)),
         'news' => array('community/list', 'defaultParams' => array('community_id' => 36)),
         'news/<content_type_slug:[a-z]+><content_id:\d+>' => array('community/view', 'defaultParams' => array('community_id' => 36)),
@@ -110,8 +119,8 @@ return array(
         'community/<_a:(join|add|transfer|edit|editTravel|weeklyMail)>' => 'community/<_a>',
 
         //global
-        '<_c:(settings|activity|ajax|notification|profile|friendRequests|communityRubric|family|morning|userPopup|features)>/<_a>' => '<_c>/<_a>',
-        '<_c:(settings|activity|profile|rss|family|morning|community)>' => '<_c>/index',
+        '<_c:(whatsNew|settings|activity|ajax|notification|profile|friendRequests|communityRubric|family|morning|userPopup|features)>/<_a>' => '<_c>/<_a>',
+        '<_c:(whatsNew|settings|activity|profile|rss|family|morning|community)>' => '<_c>/index',
 
         //others
         'news/about' => 'community/contacts',

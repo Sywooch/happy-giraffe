@@ -20,7 +20,7 @@
 
         <span class="new-site">Новый сайт</span>
 
-        <button class="btn-g" onclick="ExtLinks.AddForum()">Добавить</button>
+        <button class="btn-g" onclick="ExtLinks.AddForum(<?=ELSite::TYPE_FORUM ?>)">Добавить</button>
 
         <a href="javascript:;" class="pseudo" onclick="ExtLinks.CancelSite()">Отмена</a>
 
@@ -44,7 +44,7 @@
 
         <button class="btn-g orange" onclick="ExtLinks.CancelSite()">Отмена</button>
 
-        <a href="javascript:;" onclick="ExtLinks.AddForum()" class="pseudo">Добавить</a>
+        <a href="javascript:;" onclick="ExtLinks.AddForum(<?=ELSite::TYPE_FORUM ?>)" class="pseudo">Добавить</a>
 
     </div>
 

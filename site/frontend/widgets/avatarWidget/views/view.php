@@ -15,7 +15,7 @@ else {
 <?php if (! $this->small): ?>
     <div class="user-info clearfix<?php if ($this->size == 'ava') echo ' medium' ?>">
 <?php endif; ?>
-    <?=HHtml::link($this->user->getAva($this->size)?CHtml::image($this->user->getAva($this->size)):'', $link_to_profile, array('class'=>$class), true)?>
+    <?=HHtml::link($this->user->getAva($this->size)?CHtml::image($this->user->getAva($this->size)):'', $link_to_profile, array('class'=>$class), $this->hideLinks)?>
 <?php if (!$this->small): ?>
     <?php if ($this->user->id != User::HAPPY_GIRAFFE): ?>
         <div class="details">

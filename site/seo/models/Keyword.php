@@ -119,7 +119,7 @@ class Keyword extends HActiveRecord
         $criteria = new CDbCriteria;
         $criteria->with = array('yandex', 'blacklist');
         $criteria->order = 'yandex.value desc';
-        $criteria->condition = 'yandex.theme = '.$theme.' AND blacklist.keyword_id IS NULL';
+        $criteria->condition = 'yandex.theme = ' . $theme . ' AND blacklist.keyword_id IS NULL';
 
         if (!empty($this->name)) {
             $allSearch = Yii::app()->search
@@ -143,6 +143,7 @@ class Keyword extends HActiveRecord
         }
 
         return new CActiveDataProvider('Keyword', array(
+            'totalItemCount'=>YandexPopularity::model()->count('theme = ' . $theme),
             'criteria' => $criteria,
             'pagination' => array('pageSize' => 100),
         ));
@@ -218,10 +219,10 @@ class Keyword extends HActiveRecord
 
         $model = new Keyword();
         $model->name = $word;
-        try{
+        try {
             $model->save();
             ParsingKeyword::addNewKeyword($model->id, $priority);
-        }catch (Exception $e){
+        } catch (Exception $e) {
             //значит кейворд создан в промежуток времени между запросами - повторим запрос
             $model = self::model()->findByAttributes(array('name' => $word));
         }
@@ -279,8 +280,7 @@ class Keyword extends HActiveRecord
         $class = '';
         if (isset($this->blacklist->keyword_id))
             return 'hidden';
-        elseif ($this->used()) $class = 'on-site';
-        elseif ($this->inBuffer()) $class = 'in-buffer'; elseif ($this->hasOpenedTask()) $class = 'in-work';
+        elseif ($this->used()) $class = 'on-site'; elseif ($this->inBuffer()) $class = 'in-buffer'; elseif ($this->hasOpenedTask()) $class = 'in-work';
 
         return $class;
     }
@@ -460,34 +460,34 @@ class Keyword extends HActiveRecord
 
         $res = Yii::app()->cache->get('similar_articles__' . $this->id);
         if ($res === false) {
-        $models = $this->getSimilarArticles($section);
-        if (!empty($models)) {
-            $res = '<a href="javascript:;" class="icon-links-trigger" onclick="$(this).toggleClass(\'triggered\').next().toggle();"></a><div class="links" style="display:none;">';
-            foreach ($models as $model) {
-                $res .= CHtml::link($model->title, 'http://www.happy-giraffe.ru' . $model->url, array('target' => '_blank')) . '  ';
+            $models = $this->getSimilarArticles($section);
+            if (!empty($models)) {
+                $res = '<a href="javascript:;" class="icon-links-trigger" onclick="$(this).toggleClass(\'triggered\').next().toggle();"></a><div class="links" style="display:none;">';
+                foreach ($models as $model) {
+                    $res .= CHtml::link($model->title, 'http://www.happy-giraffe.ru' . $model->url, array('target' => '_blank')) . '  ';
+                    $res .= CHtml::link('', 'javascript:;', array(
+                        'onclick' => 'SeoModule.bindKeywordToArticle(' . $this->id . ', ' . $model->id . ', ' . $section . ', this);',
+                        'class' => 'icon-link'
+                    )) . '<br>';
+                }
                 $res .= CHtml::link('', 'javascript:;', array(
-                    'onclick' => 'SeoModule.bindKeywordToArticle(' . $this->id . ', ' . $model->id . ', ' . $section . ', this);',
+                    'onclick' => '$(this).next().toggle()',
                     'class' => 'icon-link'
-                )) . '<br>';
-            }
-            $res .= CHtml::link('', 'javascript:;', array(
-                'onclick' => '$(this).next().toggle()',
-                'class' => 'icon-link'
-            )) . '<div style="display:none;">
+                )) . '<div style="display:none;">
                           <input type="text" size="40">
                           <a href="javascript:;" class="btn-green-small" onclick="SeoModule.bindKeyword(this, ' . $this->id . ');">Ok</a>
                       </div></div>';
-        } else {
-            $res = CHtml::link('', 'javascript:;', array(
-                'onclick' => '$(this).next().toggle()',
-                'class' => 'icon-link'
-            )) . '<div style="display:none;">
+            } else {
+                $res = CHtml::link('', 'javascript:;', array(
+                    'onclick' => '$(this).next().toggle()',
+                    'class' => 'icon-link'
+                )) . '<div style="display:none;">
                           <input type="text" size="40">
                           <a href="javascript:;" class="btn-green-small" onclick="SeoModule.bindKeyword(this, ' . $this->id . ');">Ok</a>
                       </div>';
-        }
+            }
 
-            Yii::app()->cache->set('similar_articles__' . $this->id, $res, 24*3600);
+            Yii::app()->cache->set('similar_articles__' . $this->id, $res, 24 * 3600);
         }
 
         return $res;
@@ -502,14 +502,14 @@ class Keyword extends HActiveRecord
         if ($section == SeoTask::SECTION_COOK)
             $sphinx_index = 'recipe';
 
-        try{
-        $allSearch = Yii::app()->search
-            ->select('*')
-            ->from($sphinx_index)
-            ->where(' ' . CHtml::encode($this->name) . ' ')
-            ->limit(0, $limit)
-            ->searchRaw();
-        }catch (Exception $e){
+        try {
+            $allSearch = Yii::app()->search
+                ->select('*')
+                ->from($sphinx_index)
+                ->where(' ' . CHtml::encode($this->name) . ' ')
+                ->limit(0, $limit)
+                ->searchRaw();
+        } catch (Exception $e) {
             return null;
         }
         if (empty($allSearch['matches']))
@@ -530,15 +530,17 @@ class Keyword extends HActiveRecord
         $criteria->limit = $limit;
 
         $class = 'CommunityContent';
-        if ($section == SeoTask::SECTION_COOK)
+        if ($section == SeoTask::SECTION_COOK) {
             $class = 'CookRecipe';
+            $criteria->with = array('tags');
+        }
 
         $models = $class::model()->resetScope()->findAll($criteria);
 
         //check if article is busy
         foreach ($models as $key => $model) {
             $url = 'http://www.happy-giraffe.ru' . $model->url;
-            $page = Page::model()->findByAttributes(array('url' => $url));
+            $page = Page::model()->with(array('keywordGroup'))->findByAttributes(array('url' => $url));
             if ($page !== null && !empty($page->keywordGroup->keywords))
                 unset($models[$key]);
         }

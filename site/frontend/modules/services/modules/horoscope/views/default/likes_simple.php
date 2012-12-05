@@ -19,7 +19,7 @@ $basePath = Yii::getPathOfAlias('site.frontend.widgets.socialLike.assets');
 $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
 Yii::app()->clientScript->registerScriptFile($baseUrl . '/social.js');
 ?>
-<div class="dates">Вам понравился гороскоп на <?=$model->getName() ?>?</div>
+<div class="dates">Вам понравился гороскоп <?=$model->getName() ?>?</div>
 <div class="like-block fast-like-block">
     <div class="box-1">
 

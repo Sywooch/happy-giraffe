@@ -1,6 +1,7 @@
 <?php
 /* @var $this Controller
  * @var $form CActiveForm
+ * @var $service Service
  */
 $year = date('Y');
 $model = new ChinaCalendarForm();
@@ -68,7 +69,7 @@ $form = $this->beginWidget('CActiveForm', array(
     </div>
     <!-- .child_bd -->
     <?php echo $form->hiddenField($model, 'review_year', array('id' => 'china_review_year')) ?>
-    <input type="submit" class="calc_bt" value="Рассчитать"/>
+    <input type="submit" class="btn-corncolor btn-big" value="Рассчитать"/>
 
 </div><!-- .child_sex_china_banner -->
 <div class="clear"></div>
@@ -104,6 +105,69 @@ $form = $this->beginWidget('CActiveForm', array(
             рождения мальчика, но почему бы и не попробовать?</p>
     </div>
 </div>
+
+
+<noindex>
+    <?php $this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
+    'title' => $service->title,
+    'notice' => '',
+    'model' => $service,
+    'type' => 'simple',
+    'options' => array(
+        'title' => $service->title,
+        'image'=>'/',
+        'description' => $service->description,
+    ),
+)); ?>
+</noindex>
+
+<div class="assistance clearfix">
+
+    <div class="assistance-users">
+        <div class="assistance_text">Последние, кто воспользовались сервисом:</div>
+        <ul class="assistance-users_list clearfix">
+            <li class="assistance-users_list-item"><a class="ava small" href=""></a></li>
+            <li class="assistance-users_list-item"><a class="ava small" href=""></a></li>
+            <li class="assistance-users_list-item"><a class="ava small" href=""></a></li>
+            <li class="assistance-users_list-item"><a class="ava small" href=""></a></li>
+            <li class="assistance-users_list-item"><a class="ava small" href=""></a></li>
+            <li class="assistance-users_list-item"><a class="ava small" href=""></a></li>
+            <li class="assistance-users_list-item"><a class="ava small" href=""></a></li>
+            <li class="assistance-users_list-item"><a class="ava small" href=""></a></li>
+            <li class="assistance-users_list-item"><a class="ava small" href=""></a></li>
+            <li class="assistance-users_list-item"><a class="ava small" href=""></a></li>
+            <li class="assistance-users_list-item"><a class="ava small" href=""></a></li>
+            <li class="assistance-users_list-item"><a class="ava small" href=""></a></li>
+            <li class="assistance-users_list-item"><a class="ava small" href=""></a></li>
+            <li class="assistance-users_list-item"><a class="ava small" href=""></a></li>
+            <li class="assistance-users_list-item"><a class="ava small" href=""></a></li>
+            <li class="assistance-users_list-item"><a class="ava small" href=""></a></li>
+            <li class="assistance-users_list-item"><a class="ava small" href=""></a></li>
+            <li class="assistance-users_list-item"><a class="ava small" href=""></a></li>
+            <li class="assistance-users_list-item"><a class="ava small" href=""></a></li>
+            <li class="assistance-users_list-item"><a class="ava small" href=""></a></li>
+        </ul>
+        <span class="assistance-users_other">и еще 5320</span>
+    </div>
+
+    <div class="assistance-count">
+        <div class="assistance_text">Сервис помог определить пол уже</div>
+        <div class="assistance-count_all clearfix">
+            <span class="assistance-count_item">0</span>
+            <span class="assistance-count_item">0</span>
+            <span class="assistance-count_item">0</span>
+            <span class="assistance-count_item">0</span>
+            <span class="assistance-count_item active">1</span>
+            <span class="assistance-count_item active">5</span>
+            <span class="assistance-count_item active">4</span>
+            <span class="assistance-count_item active">0</span>
+        </div>
+        <div class="assistance_text">будущим родителям</div>
+    </div>
+
+</div>
+
+<?php $this->widget('application.widgets.commentWidget.CommentWidget', array('model' => $service)); ?>
 
 <div class="wysiwyg-content">
     <h1>Китайский метод определения пола ребенка</h1>

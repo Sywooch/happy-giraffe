@@ -52,7 +52,7 @@
         </div>
 
         <div class="col-3 clearfix">
-            <?php if ($this->beginCache('bestUsers-blogs', array('duration' => 300))): ?>
+            <?php if ($this->beginCache('bestUsers-blogs', array('duration' => 600))): ?>
                 <?php $this->widget('ActiveUsersWidget', array(
                     'type' => ActiveUsersWidget::TYPE_BLOGS,
                 )); ?>

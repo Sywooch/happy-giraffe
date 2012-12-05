@@ -51,7 +51,7 @@ return array(
         'application.modules.scores.models.*',
         'application.modules.calendar.models.*',
         'application.modules.cook.models.*',
-        'application.models.whatsNew.*',
+        'application.modules.whatsNew.models.*',
     ),
 
 	'sourceLanguage' => 'en',
@@ -93,6 +93,7 @@ return array(
         'services',
         'cook',
         'calendar',
+        'whatsNew',
 	),
 
 	// application components

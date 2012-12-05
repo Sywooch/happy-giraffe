@@ -310,7 +310,7 @@ class CommunityContent extends HActiveRecord
     {
         $this->title = strip_tags($this->title);
         if ($this->isNewRecord)
-            $this->last_updated = time();
+            $this->last_updated = new CDbExpression('NOW()');
         return parent::beforeSave();
     }
 
@@ -704,11 +704,24 @@ class CommunityContent extends HActiveRecord
             );
 
             $comet = new CometModel;
-            $comet->send('whatsNewIndex', $params, CometModel::WHATS_NEW_INDEX);
+            $comet->send('whatsNewIndex', $params, CometModel::WHATS_NEW_UPDATE);
             if ($this->isFromBlog) {
-                $comet->send('whatsNewBlogs', $params, CometModel::WHATS_NEW_INDEX);
+                $comet->send('whatsNewBlogs', $params, CometModel::WHATS_NEW_UPDATE);
+
+                $friends = $this->author->getFriendsModels();
+
+                foreach ($friends as $f)
+                    $comet->send($f->id, $params, CometModel::WHATS_NEW_UPDATE);
             } else {
-                $comet->send('whatsNewClubs', $params, CometModel::WHATS_NEW_INDEX);
+                $comet->send('whatsNewClubs', $params, CometModel::WHATS_NEW_UPDATE);
+
+                $sql = 'SELECT user_id FROM user__users_communities WHERE community_id = :community_id';
+                $command = Yii::app()->db->createCommand($sql);
+                $command->bindValue(':community_id', $this->rubric->community_id);
+                $ids = $command->queryColumn();
+
+                foreach ($ids as $id)
+                    $comet->send($id, $params, CometModel::WHATS_NEW_UPDATE);
             }
         }
     }

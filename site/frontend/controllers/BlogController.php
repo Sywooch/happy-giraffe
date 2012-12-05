@@ -87,6 +87,7 @@ class BlogController extends HController
                 $model->save(false);
                 $slave_model->content_id = $model->id;
                 $slave_model->save(false);
+                $model->sendEvent();
                 $this->redirect($model->url);
             }
         }

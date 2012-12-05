@@ -1,6 +1,7 @@
 <?php
 /** @var $task ELTask
  */
+Yii::app()->clientScript->registerScript('init_site_id','ExtLinks.site_id = '.$task->site_id);
 ?>
 <div class="tasks-list">
 

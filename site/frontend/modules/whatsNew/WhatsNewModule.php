@@ -11,6 +11,8 @@ class WhatsNewModule extends CWebModule
 		$this->setImport(array(
 			'whatsNew.models.*',
 			'whatsNew.components.*',
+            'application.modules.contest.models.*',
+            'application.widgets.activeUsersWidget.ActiveUsersWidget'
 		));
 	}
 

@@ -26,15 +26,6 @@ class DefaultController extends HController
 
     public $show;
 
-    public function init()
-    {
-        Yii::import('application.models.whatsNew.*');
-        Yii::import('application.modules.contest.models.*');
-        Yii::import('application.widgets.activeUsersWidget.ActiveUsersWidget');
-
-        parent::init();
-    }
-
     public function actionIndex()
     {
         $dp = EventManager::getIndex(100);

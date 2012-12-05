@@ -26,10 +26,16 @@
 
         <div class="meta">
             <div class="views"><span class="icon" href="#"></span> <span><?=PageView::model()->viewsByPath($data->recipe->url)?></span></div>
-            <div class="comments">
-                <a class="icon" href="<?=$data->recipe->getUrl(true)?>"></a>
-                <a href="<?=$data->recipe->getUrl(true)?>"><?=$data->recipe->commentsCount?></a>
-            </div>
+            <?php if ($data->recipe->commentsCount == 0): ?>
+                <div class="comments empty">
+                    <a class="icon" href="<?=$data->recipe->getUrl(true)?>"></a>
+                </div>
+            <?php else: ?>
+                <div class="comments">
+                    <a class="icon" href="<?=$data->recipe->getUrl(true)?>"></a>
+                    <a href="<?=$data->recipe->getUrl(true)?>"><?=$data->recipe->commentsCount?></a>
+                </div>
+            <?php endif; ?>
         </div>
 
         <div class="user-info">

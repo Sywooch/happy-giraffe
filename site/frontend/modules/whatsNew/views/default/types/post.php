@@ -11,7 +11,7 @@
     </h3>
     <?php if (! $data->post->isFromBlog): ?>
         <div class="clearfix">
-            <a href="<?=$data->post->rubric->community->url?>" class="club-category <?=$data->post->rubric->community->css_class?>"><?=$data->post->rubric->community->title?></a>
+            <a href="<?=$data->post->rubric->community->url?>" class="club-category <?=$data->post->rubric->community->css_class?>"><?=$data->post->rubric->community->shortTitle?></a>
         </div>
     <?php else: ?>
         <div class="clearfix">
@@ -22,10 +22,16 @@
 
         <div class="meta">
             <div class="views"><span class="icon" href="#"></span> <span><?=PageView::model()->viewsByPath($data->post->url)?></span></div>
-            <div class="comments">
-                <a class="icon" href="<?=$data->post->getUrl(true)?>"></a>
-                <a href="<?=$data->post->getUrl(true)?>"><?=$data->post->commentsCount?></a>
-            </div>
+            <?php if ($data->post->commentsCount == 0): ?>
+                <div class="comments empty">
+                    <a class="icon" href="<?=$data->post->getUrl(true)?>"></a>
+                </div>
+            <?php else: ?>
+                <div class="comments">
+                    <a class="icon" href="<?=$data->post->getUrl(true)?>"></a>
+                    <a href="<?=$data->post->getUrl(true)?>"><?=$data->post->commentsCount?></a>
+                </div>
+            <?php endif; ?>
         </div>
 
         <div class="user-info">

@@ -36,7 +36,7 @@ class ServiceUser extends HActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('user_id, service_id, use_time', 'required'),
+            array('user_id, service_id', 'required'),
             array('user_id, service_id', 'length', 'max' => 11),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.

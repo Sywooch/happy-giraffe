@@ -166,4 +166,17 @@ class CommunityVideo extends HActiveRecord
         $this->photo_id = $photo->id;
         $this->embed = $video->code;
     }
+
+    public function getResizedEmbed($width)
+    {
+        $doc = phpQuery::newDocument($this->embed, $charset = 'utf-8');
+        $iframe = $doc->find('iframe');
+        $ratio = pq($iframe)->attr('width') / pq($iframe)->attr('height');
+        $height = pq($iframe)->attr('width') * $ratio;
+
+        $iframe->attr('width', $width);
+        $iframe->attr('height', $height);
+
+        return $doc->html();
+    }
 }

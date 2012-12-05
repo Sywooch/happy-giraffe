@@ -6,39 +6,39 @@
             'items' => array(
                 array(
                     'label' => 'Прямой эфир',
-                    'url' => array('/whatsNew/index'),
+                    'url' => array('/whatsNew/default/index'),
                 ),
                 array(
                     'label' => 'В клубах',
-                    'url' => array('whatsNew/clubs'),
+                    'url' => array('whatsNew/default/clubs'),
                     'submenuOptions' => array(
                         'class' => 'broadcast-menu_drop',
                     ),
                     'items' => array(
                         array(
                             'label' => 'В моих',
-                            'url' => array('whatsNew/clubs', 'show' => 'my'),
+                            'url' => array('whatsNew/default/clubs', 'show' => 'my'),
                         ),
                         array(
                             'label' => 'Во всех',
-                            'url' => array('whatsNew/clubs', 'show' => 'all'),
+                            'url' => array('whatsNew/default/clubs', 'show' => 'all'),
                         ),
                     )
                 ),
                 array(
                     'label' => 'В блогах',
-                    'url' => array('whatsNew/blogs'),
+                    'url' => array('whatsNew/default/blogs'),
                     'submenuOptions' => array(
                         'class' => 'broadcast-menu_drop',
                     ),
                     'items' => array(
                         array(
                             'label' => 'Подписка',
-                            'url' => array('whatsNew/blogs', 'show' => 'my'),
+                            'url' => array('whatsNew/default/blogs', 'show' => 'my'),
                         ),
                         array(
                             'label' => 'Все',
-                            'url' => array('whatsNew/blogs', 'show' => 'all'),
+                            'url' => array('whatsNew/default/blogs', 'show' => 'all'),
                         ),
                     )
                 ),

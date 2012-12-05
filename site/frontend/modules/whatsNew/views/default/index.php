@@ -1,7 +1,8 @@
 <?php
     Yii::app()->clientScript
         ->registerCssFile('/stylesheets/user.css')
-        ->registerScriptFile('/javascripts/jquery.masonry.min.js')
+        ->registerCssFile('/stylesheets/isotope.css')
+        ->registerScriptFile('/javascripts/jquery.isotope.min.js')
         ->registerScriptFile('/javascripts/live.js')
         ->registerScript('Realplexor-reg-whatsNew', 'comet.connect(\'http://' . Yii::app()->comet->host . '\', \'' . Yii::app()->comet->namespace . '\', \'whatsNewIndex\');')
     ;
@@ -35,11 +36,7 @@
                     'options' => array(
                         'scrollContainer' => new CJavaScriptExpression("$('.layout-container')"),
                         'onLoadItems' => new CJavaScriptExpression("function(items) {
-                            $(items).hide();
-                            $('#liveList .items').append(items).imagesLoaded(function() {
-                                 $('#liveList .items').masonry('appended', $(items));
-                                 $(items).fadeIn();
-                            });
+                            $('#liveList .items').isotope('insert', $(items));
                             return false;
                         }"),
                     ),

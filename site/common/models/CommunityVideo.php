@@ -169,6 +169,8 @@ class CommunityVideo extends HActiveRecord
 
     public function getResizedEmbed($width)
     {
+        Yii::import('site.frontend.extensions.phpQuery.phpQuery');
+
         $doc = phpQuery::newDocument($this->embed, $charset = 'utf-8');
         $iframe = $doc->find('iframe');
         $ratio = pq($iframe)->attr('width') / pq($iframe)->attr('height');

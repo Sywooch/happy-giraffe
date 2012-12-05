@@ -1187,6 +1187,6 @@ class User extends HActiveRecord
         );
 
         $comet = new CometModel;
-        $comet->send('whatsNewIndex', $params, CometModel::WHATS_NEW_INDEX);
+        $comet->send('whatsNewIndex', $params, CometModel::WHATS_NEW_UPDATE);
     }
 }

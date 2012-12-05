@@ -4,7 +4,7 @@ return array(
     'urlFormat' => 'path',
     'showScriptName' => false,
     'urlSuffix' => '/',
-    //'useStrictParsing' => true,
+    'useStrictParsing' => true,
     'rules' => array(
         /*************************
          *      CONTROLLERS      *
@@ -21,14 +21,6 @@ return array(
         'cook/decor/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'CookDecorationCategory')),
         'cook/decor/<category_id:\d+>/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'CookDecorationCategory')),
         'contest/<contest_id:\d+>/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'Contest')),
-
-        // live
-        'whatsNew/clubs' => array('whatsNew/clubs', 'defaultParams' => array('show' => 'all')),
-        'whatsNew/clubs/my' => array('whatsNew/clubs', 'defaultParams' => array('show' => 'my')),
-        'whatsNew/blogs' => array('whatsNew/blogs', 'defaultParams' => array('show' => 'all')),
-        'whatsNew/blogs/my' => array('whatsNew/blogs', 'defaultParams' => array('show' => 'my')),
-        'whatsNew/page<page:\d+>' => 'whatsNew/index',
-        'whatsNew' => 'whatsNew/index',
 
         // site controller
         '/' => 'site/index',
@@ -119,8 +111,8 @@ return array(
         'community/<_a:(join|add|transfer|edit|editTravel|weeklyMail)>' => 'community/<_a>',
 
         //global
-        '<_c:(whatsNew|settings|activity|ajax|notification|profile|friendRequests|communityRubric|family|morning|userPopup|features)>/<_a>' => '<_c>/<_a>',
-        '<_c:(whatsNew|settings|activity|profile|rss|family|morning|community)>' => '<_c>/index',
+        '<_c:(settings|activity|ajax|notification|profile|friendRequests|communityRubric|family|morning|userPopup|features)>/<_a>' => '<_c>/<_a>',
+        '<_c:(settings|activity|profile|rss|family|morning|community)>' => '<_c>/index',
 
         //others
         'news/about' => 'community/contacts',
@@ -130,6 +122,14 @@ return array(
         /*************************
          *        MODULES        *
          *************************/
+
+        // live
+        'whatsNew/clubs' => array('whatsNew/default/clubs', 'defaultParams' => array('show' => 'all')),
+        'whatsNew/clubs/my' => array('whatsNew/default/clubs', 'defaultParams' => array('show' => 'my')),
+        'whatsNew/blogs' => array('whatsNew/default/blogs', 'defaultParams' => array('show' => 'all')),
+        'whatsNew/blogs/my' => array('whatsNew/default/blogs', 'defaultParams' => array('show' => 'my')),
+        'whatsNew/page<page:\d+>' => 'whatsNew/default/index',
+        'whatsNew' => 'whatsNew/default/index',
 
         'contest/<id:\d+>' => 'contest/default/view',
         'contest/<id:\d+>/rules' => 'contest/default/rules',

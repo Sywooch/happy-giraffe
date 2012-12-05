@@ -3,8 +3,10 @@
         ->registerCssFile('/stylesheets/user.css')
         ->registerScriptFile('/javascripts/jquery.masonry.min.js')
         ->registerScriptFile('/javascripts/live.js')
-        ->registerScript('Realplexor-reg-whatsNew', 'comet.connect(\'http://' . Yii::app()->comet->host . '\', \'' . Yii::app()->comet->namespace . '\', \'whatsNewClubs\');')
     ;
+
+    if ($show == 'all')
+        Yii::app()->clientScript->registerScript('Realplexor-reg-whatsNew', 'comet.connect(\'http://' . Yii::app()->comet->host . '\', \'' . Yii::app()->comet->namespace . '\', \'whatsNewBlogs\');');
 
     Yii::app()->eauth->renderWidget(array(
         'mode' => 'assets',
@@ -36,13 +38,13 @@
                         'options' => array(
                             'scrollContainer' => new CJavaScriptExpression("$('.layout-container')"),
                             'onLoadItems' => new CJavaScriptExpression("function(items) {
-                                $(items).hide();
-                                $('#liveList .items').append(items).imagesLoaded(function() {
-                                     $('#liveList .items').masonry('appended', $(items));
-                                     $(items).fadeIn();
-                                });
-                                return false;
-                            }"),
+                                    $(items).hide();
+                                    $('#liveList .items').append(items).imagesLoaded(function() {
+                                         $('#liveList .items').masonry('appended', $(items));
+                                         $(items).fadeIn();
+                                    });
+                                    return false;
+                                }"),
                         ),
                     ),
                 ));
@@ -50,9 +52,11 @@
         </div>
 
         <div class="col-3 clearfix">
-            <?php $this->widget('ActiveUsersWidget', array(
-                'type' => ActiveUsersWidget::TYPE_CLUBS,
-            )); ?>
+            <?php if ($this->beginCache('bestUsers-blogs', array('duration' => 600))): ?>
+                <?php $this->widget('ActiveUsersWidget', array(
+                    'type' => ActiveUsersWidget::TYPE_BLOGS,
+                )); ?>
+            <?php $this->endCache(); endif; ?>
         </div>
 
     </div>

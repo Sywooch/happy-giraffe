@@ -6,7 +6,7 @@
  * Time: 3:01 PM
  * To change this template use File | Settings | File Templates.
  */
-class WhatsNewController extends HController
+class DefaultController extends HController
 {
     public function filters()
     {
@@ -24,17 +24,6 @@ class WhatsNewController extends HController
         );
     }
 
-    public $show;
-
-    public function init()
-    {
-        Yii::import('application.models.whatsNew.*');
-        Yii::import('application.modules.contest.models.*');
-        Yii::import('application.widgets.activeUsersWidget.ActiveUsersWidget');
-
-        parent::init();
-    }
-
     public function actionIndex()
     {
         $dp = EventManager::getIndex(100);
@@ -44,19 +33,15 @@ class WhatsNewController extends HController
 
     public function actionClubs($show)
     {
-        $this->show = $show;
-
         $dp = EventManager::getClubs(100, $show);
 
-        $this->render('clubs', compact('dp'));
+        $this->render('clubs', compact('dp', 'show'));
     }
 
     public function actionBlogs($show)
     {
-        $this->show = $show;
-
         $dp = EventManager::getBlogs(100, $show);
 
-        $this->render('blogs', compact('dp'));
+        $this->render('blogs', compact('dp', 'show'));
     }
 }

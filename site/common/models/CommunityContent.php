@@ -704,11 +704,11 @@ class CommunityContent extends HActiveRecord
             );
 
             $comet = new CometModel;
-            $comet->send('whatsNewIndex', $params, CometModel::WHATS_NEW_INDEX);
+            $comet->send('whatsNewIndex', $params, CometModel::WHATS_NEW_UPDATE);
             if ($this->isFromBlog) {
-                $comet->send('whatsNewBlogs', $params, CometModel::WHATS_NEW_BLOGS);
+                $comet->send('whatsNewBlogs', $params, CometModel::WHATS_NEW_UPDATE);
             } else {
-                $comet->send('whatsNewClubs', $params, CometModel::WHATS_NEW_CLUBS);
+                $comet->send('whatsNewClubs', $params, CometModel::WHATS_NEW_UPDATE);
             }
         }
     }

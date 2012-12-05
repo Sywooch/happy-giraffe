@@ -413,7 +413,7 @@ class AjaxController extends HController
             $favicon_url = 'http://www.google.com/s2/favicons?domain=' . $host;
             $favicon = strtr($host, array('.' => '_')) . '.png';
             $favicon_path = Yii::getPathOfAlias('webroot') . '/upload/favicons/' . $favicon;
-            file_put_contents($favicon_path, file_get_contents($favicon_url));
+//            file_put_contents($favicon_path, file_get_contents($favicon_url));
 
             echo CJSON::encode(array(
                 'status' => true,

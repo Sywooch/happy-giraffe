@@ -38,6 +38,21 @@ class Horoscope extends HActiveRecord
         '12' => 'Рыбы',
     );
 
+    public $zodiac_list2 = array(
+        '1' => 'Овна',
+        '2' => 'Тельца',
+        '3' => 'Близнецов',
+        '4' => 'Рака',
+        '5' => 'Льва',
+        '6' => 'Девы',
+        '7' => 'Весов',
+        '8' => 'Скорпиона',
+        '9' => 'Стрельца',
+        '10' => 'Козерога',
+        '11' => 'Водолея',
+        '12' => 'Рыб',
+    );
+
     public $zodiac_list_eng = array(
         '1' => 'aries',
         '2' => 'taurus',
@@ -484,20 +499,21 @@ class Horoscope extends HActiveRecord
 
     public function getName()
     {
+        $text = $this->zodiac_list2[$this->zodiac].' на ';
         if (!empty($this->date)) {
             if (Yii::app()->controller->action->id == 'today')
-                return 'сегодня';
+                return $text.'сегодня';
             if (Yii::app()->controller->action->id == 'yesterday')
-                return 'вчера';
+                return $text.'вчера';
             if (Yii::app()->controller->action->id == 'tomorrow')
-                return 'завтра';
+                return $text.'завтра';
 
-            return Yii::app()->dateFormatter->format('d MMMM yyyy', strtotime($this->date)) . ' года';
+            return $text.Yii::app()->dateFormatter->format('d MMMM yyyy', strtotime($this->date)) . ' года';
         }
         if ($this->onMonth())
-            return $this->isCurrentMonth() ? 'месяц' : mb_strtolower(HDate::ruMonth($this->month), 'utf8') . ' ' . $this->year . ' года';
+            return $this->isCurrentMonth() ? $text.'месяц' : $text.mb_strtolower(HDate::ruMonth($this->month), 'utf8') . ' ' . $this->year . ' года';
         if ($this->onYear())
-            return $this->year . ' год';
+            return $text. $this->year . ' год';
 
         return '';
     }

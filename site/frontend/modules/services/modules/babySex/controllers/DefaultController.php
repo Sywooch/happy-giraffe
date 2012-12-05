@@ -50,6 +50,7 @@ class DefaultController extends HController
     {
         $service = Service::model()->findByPk(20);
         if (Yii::app()->request->isAjaxRequest) {
+            $service->userUsedService();
             $model = new ChinaCalendarForm;
             $model->attributes = $_POST['ChinaCalendarForm'];
             $this->performAjaxValidation($model, 'china-calendar-form');

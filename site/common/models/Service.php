@@ -131,6 +131,52 @@ class Service extends HActiveRecord
 
     public function incCount()
     {
-        Yii::app()->db->createCommand('update ' . $this->tableName() . ' set using_count = using_count+1')->execute();
+        Yii::app()->db->createCommand('update ' . $this->tableName() . ' set using_count = using_count+1 where id=' . $this->id)->execute();
+    }
+
+    /**
+     * @param int $limit
+     * @return User[]
+     */
+    public function getLastUsers($limit = 20)
+    {
+        $criteria = new CDbCriteria;
+        $criteria->compare('service_id', $this->id);
+        $criteria->order = 'use_time desc';
+        $criteria->limit = $limit;
+        $users = ServiceUser::model()->findAll($criteria);
+        if (empty($users))
+            return array();
+
+        $ids = array();
+        foreach ($users as $user)
+            $ids[] = $user->user_id;
+
+        $users = User::model()->findAllByPk($ids);
+
+        $sorted_users = array();
+
+        $i = 0;
+        while ($i < count($ids)) {
+            foreach ($users as $user)
+                if ($user->id == $ids[$i]) {
+                    $sorted_users[] = $user;
+                    break;
+                }
+
+            $i++;
+        }
+
+        return $sorted_users;
+    }
+
+    /**
+     * @return int
+     */
+    public function usersCount()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->compare('service_id', $this->id);
+        return ServiceUser::model()->cache(10)->count($criteria);
     }
 }

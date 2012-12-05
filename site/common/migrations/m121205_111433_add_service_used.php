@@ -18,6 +18,7 @@ class m121205_111433_add_service_used extends CDbMigration
 
         $this->addForeignKey('fk_'.$this->_table.'_user', $this->_table, 'user_id', 'users', 'id','CASCADE',"CASCADE");
         $this->addForeignKey('fk_'.$this->_table.'_service', $this->_table, 'service_id', 'services', 'id','CASCADE',"CASCADE");
+        $this->createIndex($this->_table.'_use_time', $this->_table, 'use_time');
 
         $this->_table = 'services';
         $this->addColumn($this->_table, 'using_count', 'int not null default 0');

@@ -106,64 +106,13 @@ $form = $this->beginWidget('CActiveForm', array(
     </div>
 </div>
 
-
-<noindex>
-    <?php $this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
-    'title' => $service->title,
-    'notice' => '',
-    'model' => $service,
-    'type' => 'simple',
-    'options' => array(
-        'title' => $service->title,
-        'image'=>'/',
-        'description' => $service->description,
-    ),
-)); ?>
-</noindex>
+<?php $this->renderPartial('_service_likes', compact('service')); ?>
 
 <div class="assistance clearfix">
 
-    <div class="assistance-users">
-        <div class="assistance_text">Последние, кто воспользовались сервисом:</div>
-        <ul class="assistance-users_list clearfix">
-            <li class="assistance-users_list-item"><a class="ava small" href=""></a></li>
-            <li class="assistance-users_list-item"><a class="ava small" href=""></a></li>
-            <li class="assistance-users_list-item"><a class="ava small" href=""></a></li>
-            <li class="assistance-users_list-item"><a class="ava small" href=""></a></li>
-            <li class="assistance-users_list-item"><a class="ava small" href=""></a></li>
-            <li class="assistance-users_list-item"><a class="ava small" href=""></a></li>
-            <li class="assistance-users_list-item"><a class="ava small" href=""></a></li>
-            <li class="assistance-users_list-item"><a class="ava small" href=""></a></li>
-            <li class="assistance-users_list-item"><a class="ava small" href=""></a></li>
-            <li class="assistance-users_list-item"><a class="ava small" href=""></a></li>
-            <li class="assistance-users_list-item"><a class="ava small" href=""></a></li>
-            <li class="assistance-users_list-item"><a class="ava small" href=""></a></li>
-            <li class="assistance-users_list-item"><a class="ava small" href=""></a></li>
-            <li class="assistance-users_list-item"><a class="ava small" href=""></a></li>
-            <li class="assistance-users_list-item"><a class="ava small" href=""></a></li>
-            <li class="assistance-users_list-item"><a class="ava small" href=""></a></li>
-            <li class="assistance-users_list-item"><a class="ava small" href=""></a></li>
-            <li class="assistance-users_list-item"><a class="ava small" href=""></a></li>
-            <li class="assistance-users_list-item"><a class="ava small" href=""></a></li>
-            <li class="assistance-users_list-item"><a class="ava small" href=""></a></li>
-        </ul>
-        <span class="assistance-users_other">и еще 5320</span>
-    </div>
+    <?php $this->renderPartial('_assistance_users', compact('service')); ?>
 
-    <div class="assistance-count">
-        <div class="assistance_text">Сервис помог определить пол уже</div>
-        <div class="assistance-count_all clearfix">
-            <span class="assistance-count_item">0</span>
-            <span class="assistance-count_item">0</span>
-            <span class="assistance-count_item">0</span>
-            <span class="assistance-count_item">0</span>
-            <span class="assistance-count_item active">1</span>
-            <span class="assistance-count_item active">5</span>
-            <span class="assistance-count_item active">4</span>
-            <span class="assistance-count_item active">0</span>
-        </div>
-        <div class="assistance_text">будущим родителям</div>
-    </div>
+    <?php $this->renderPartial('_assistance_count', array('count' => $service->using_count)); ?>
 
 </div>
 
@@ -171,6 +120,7 @@ $form = $this->beginWidget('CActiveForm', array(
 
 <div class="wysiwyg-content">
     <h1>Китайский метод определения пола ребенка</h1>
+
     <p>По мнению китайских мудрецов, узнать пол будущего малыша можно по возрасту женщины на момент зачатия. Исходя из
         того, что в Китае семья может иметь только одного малыша и малыш, соответственно, должен быть желаемого пола,
         эффективность данного метода должна быть достаточно высокой. Именно поэтому все большее число пар планирует

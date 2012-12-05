@@ -50,7 +50,7 @@ abstract class Event extends CModel
 
     public function getView()
     {
-        return '//whatsNew/types/' . lcfirst(self::$types[$this->type]);
+        return 'types/' . lcfirst(self::$types[$this->type]);
     }
 
     public function getSeed()

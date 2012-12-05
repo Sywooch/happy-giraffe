@@ -234,6 +234,14 @@
 
 .hidden{display: none;}
 
+a.tick-link {
+    background: url("../images/tick.png");
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    margin: 0 5px;
+}
+
 
 [class^="icon-"],
 [class*=" icon-"] {

@@ -10,8 +10,8 @@ return array(
 
         'login' => 'site/login',
         'logout' => 'site/logout',
-        'keywords' => 'writing/editor/index',
-        'tasks' => 'writing/editor/tasks',
+        'writing/keywords' => 'writing/editor/index',
+        'writing/tasks' => 'writing/editor/tasks',
         'competitors' => array('competitors/default/index', 'defaultParams' => array('section' => 1)),
         'competitors/cook' => array('competitors/default/index', 'defaultParams' => array('section' => 2)),
 

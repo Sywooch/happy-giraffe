@@ -9,7 +9,7 @@
     </div>
     <div class="tabs-container">
         <div class="tab-box tab-box-1" style="display:block">
-            1<table class="best-users_list" cellspacing="0" cellpadding="0">
+            <table class="best-users_list" cellspacing="0" cellpadding="0">
                 <tr>
                     <th class="best-users_list-rank"></th>
                     <th class="best-users_list-ava"></th>
@@ -36,7 +36,7 @@
         </div>
 
         <div class="tab-box tab-box-2">
-            2<table class="best-users_list" cellspacing="0" cellpadding="0">
+            <table class="best-users_list" cellspacing="0" cellpadding="0">
                 <tr>
                     <th class="best-users_list-rank"></th>
                     <th class="best-users_list-ava"></th>

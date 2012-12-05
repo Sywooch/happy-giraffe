@@ -171,10 +171,10 @@ class CommunityVideo extends HActiveRecord
     {
         Yii::import('site.frontend.extensions.phpQuery.phpQuery');
 
-        $doc = phpQuery::newDocument($this->embed, $charset = 'utf-8');
+        $doc = phpQuery::newDocumentHTML($this->embed, $charset = 'utf-8');
         $iframe = $doc->find('iframe');
-        $ratio = pq($iframe)->attr('width') / pq($iframe)->attr('height');
-        $height = pq($iframe)->attr('width') * $ratio;
+        $ratio = pq($iframe)->attr('width') / $width;
+        $height = round(pq($iframe)->attr('height') / $ratio);
 
         $iframe->attr('width', $width);
         $iframe->attr('height', $height);

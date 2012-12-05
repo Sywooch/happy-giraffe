@@ -52,9 +52,9 @@
         </div>
 
         <div class="col-3 clearfix">
-            <?php //$this->widget('ActiveUsersWidget', array(
-                //'type' => ActiveUsersWidget::TYPE_CLUBS,
-            //)); ?>
+            <?php $this->widget('ActiveUsersWidget', array(
+                'type' => ActiveUsersWidget::TYPE_CLUBS,
+            )); ?>
         </div>
 
     </div>

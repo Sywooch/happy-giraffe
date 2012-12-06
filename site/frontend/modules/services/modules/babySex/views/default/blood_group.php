@@ -89,7 +89,7 @@ Yii::app()->clientScript->registerScriptFile($baseUrl . '/blood_group.js', CClie
 
 </div>
 
-<?php $this->widget('application.widgets.commentWidget.CommentWidget', array('model' => $service)); ?>
+<?php if (Yii::app()->user->checkAccess('services')) $this->widget('application.widgets.commentWidget.CommentWidget', array('model' => $service)); ?>
 
 
 

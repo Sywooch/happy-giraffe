@@ -80,6 +80,24 @@ $form = $this->beginWidget('CActiveForm', array(
 <div id="japan-result">
 
 </div>
+
+<?php $this->renderPartial('_service_likes', array(
+    'service' => $service,
+    'image' => '/images/sex_child_japan_bann.jpg',
+    'description' => 'Все жители Японии, а в особенности семейные пары, очень трепетно относятся к детям. Иметь продолжателей своего рода – основная обязанность каждой семьи.'
+)); ?>
+
+<div class="assistance clearfix">
+
+    <?php $this->renderPartial('_assistance_users', compact('service')); ?>
+
+    <?php $this->renderPartial('_assistance_count', array('count' => $service->using_count)); ?>
+
+</div>
+
+<?php $this->widget('application.widgets.commentWidget.CommentWidget', array('model' => $service)); ?>
+
+
 <div class="wysiwyg-content">
     <h1>Японский метод планирования пола ребенка</h1>
     <p>Все жители Японии, а в особенности семейные пары, очень трепетно относятся к детям. Иметь продолжателей своего

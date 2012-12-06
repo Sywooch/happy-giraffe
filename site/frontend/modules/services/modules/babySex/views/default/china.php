@@ -106,7 +106,11 @@ $form = $this->beginWidget('CActiveForm', array(
     </div>
 </div>
 
-<?php $this->renderPartial('_service_likes', compact('service')); ?>
+<?php $this->renderPartial('_service_likes', array(
+    'service' => $service,
+    'image' => '/images/services/baby/sex-child/china_bann.jpg',
+    'description' => 'По мнению китайских мудрецов, узнать пол будущего малыша можно по возрасту женщины на момент зачатия.'
+)); ?>
 
 <div class="assistance clearfix">
 

@@ -24,7 +24,8 @@ class DefaultController extends HController
      */
     public function actionBloodRefresh()
     {
-        $this->render('blood_refresh');
+        $service = Service::model()->findByPk(22);
+        $this->render('blood_refresh', compact('service'));
     }
 
     /**
@@ -32,7 +33,8 @@ class DefaultController extends HController
      */
     public function actionJapan()
     {
-        $this->render('japan');
+        $service = Service::model()->findByPk(21);
+        $this->render('japan', compact('service'));
     }
 
     /**
@@ -40,7 +42,12 @@ class DefaultController extends HController
      */
     public function actionBlood()
     {
-        $this->render('blood_group');
+        $service = Service::model()->findByPk(23);
+        if (Yii::app()->request->isAjaxRequest){
+            $service->userUsedService();
+            Yii::app()->end();
+        }
+        $this->render('blood_group', compact('service'));
     }
 
     /**
@@ -49,7 +56,7 @@ class DefaultController extends HController
     public function actionChina()
     {
         $service = Service::model()->findByPk(20);
-        if (Yii::app()->request->isAjaxRequest) {
+        if (Yii::app()->request->isAjaxRequest && isset($_POST['ajax']) && $_POST['ajax'] == 'china-calendar-form') {
             $service->userUsedService();
             $model = new ChinaCalendarForm;
             $model->attributes = $_POST['ChinaCalendarForm'];
@@ -63,7 +70,8 @@ class DefaultController extends HController
      */
     public function actionOvulation()
     {
-        $this->render('ovulation');
+        $service = Service::model()->findByPk(24);
+        $this->render('ovulation', compact('service'));
     }
 
     public function actionBloodUpdate()
@@ -82,6 +90,8 @@ class DefaultController extends HController
                 'model' => $model,
                 'gender' => $gender
             ));
+            $service = Service::model()->findByPk(22);
+            $service->userUsedService();
         }
     }
 
@@ -101,6 +111,8 @@ class DefaultController extends HController
                 'model' => $model,
                 'gender' => $gender
             ));
+            $service = Service::model()->findByPk(21);
+            $service->userUsedService();
         }
     }
 
@@ -121,8 +133,13 @@ class DefaultController extends HController
                 'year' => $modelForm->review_year,
                 'month' => $modelForm->review_month,
             ));
+
+            $service = Service::model()->findByPk(24);
+            $service->userUsedService();
         }
     }
+
+
 
     public function roundOpacity($op)
     {

@@ -6,8 +6,8 @@
     'type' => 'simple',
     'options' => array(
         'title' => $service->title,
-        'image' => '/',
-        'description' => $service->description,
+        'image' => $image,
+        'description' => $description,
     ),
 )); ?>
 </noindex>

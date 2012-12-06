@@ -56,7 +56,7 @@ $form = $this->beginWidget('CActiveForm', array(
         <ul class="lists_td">
             <li>
                 <div class="row">
-                    <?php echo $form->dropDownList($model, 'baby_d', HDate::Days(), array('class' => 'chzn', 'empty' => 'день')); ?>
+                    <?php echo $form->dropDownList($model, 'baby_d', HDate::Days(), array('class' => 'chzn num_cal', 'empty' => 'день')); ?>
                     <?php echo $form->error($model, 'baby_d'); ?>
                 </div>
             </li>

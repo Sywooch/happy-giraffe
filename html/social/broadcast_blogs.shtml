@@ -24,18 +24,18 @@
 						<li>
 							<a href="">Прямой эфир</a>
 						</li>
-						<li class="active">
-							<a href="">В клубах</a>
-							<ul class="broadcast-menu_drop">
-								<li class="active"><a href="">В моих</a></li>
-								<li><a href="">Во всех</a></li>
-							</ul>
-						</li>
 						<li>
-							<a href="">В блогах</a>
+							<a href="">В клубах</a>
 							<ul class="broadcast-menu_drop">
 								<li><a href="">В моих</a></li>
 								<li><a href="">Во всех</a></li>
+							</ul>
+						</li>
+						<li class="active">
+							<a href="">В блогах</a>
+							<ul class="broadcast-menu_drop">
+								<li class="active"><a href="">Подписка</a></li>
+								<li><a href="">Все</a></li>
 							</ul>
 						</li>
 						<li>
@@ -65,14 +65,11 @@
   })
 						</script>
 							<ul>
-								<li class="masonry-news-list_item">
+								<li class="masonry-news-list_item blog">
 									<h3 class="masonry-news-list_title">
 										<a href="">Волшебная азбука</a>
 										<a href="" class="icon-video"></a>
 									</h3>
-									<div class="clearfix">
-										<a href="" class="club-category beauty">Раннее развитие и обучение</a>
-									</div>
 									<div class="masonry-news-list_meta-info clearfix">
 										
 										<div class="meta">
@@ -92,12 +89,12 @@
 										</div>
 									</div>
 									<div class="masonry-news-list_content">
-										<img src="/images/example/gallery_album_img_10.jpg" alt="" />
+										<a href=""><img src="/images/example/gallery_album_img_10.jpg" alt="" /></a>
 										<p>Роды — отправная точка для самых важных изменений и судьбоносных... <a href="" class="all">Читать</a></p>
 									</div>
 									<div class="masonry-news-list_comment">
 										<div class="masonry-news-list_comment-text">
-											проблема в том, что на 2006-ой год игры еще толком не было
+											Проблема в том, что на 2006-ой год игры еще толком не было, Роды — отправная точка для самых важных изменений и судьбоносных. Осень. Я ее люблю, но когда начинается непонятная погода, хочется лезть на стенку. Сегодня на улице вот +8, вроде тепло, но вот туман.
 										</div>
 										<div class="masonry-news-list_meta-info clearfix">
 											<div class="user-info">
@@ -109,18 +106,11 @@
 											</div>
 										</div>
 									</div>
-									<div class="comments-all">
-										<a href="">еще 124</a>
-										<a href="" class="icon-comment"></a>
-									</div>
 								</li>
-								<li class="masonry-news-list_item">
+								<li class="masonry-news-list_item blog">
 									<h3 class="masonry-news-list_title">
 										<a href="">Волшебная азбука. Раннее развитие и обучение.</a>
 									</h3>
-									<div class="clearfix">
-										<a href="" class="club-category manwoman">Раннее развитие и обучение.</a>
-									</div>
 									<div class="masonry-news-list_meta-info clearfix">
 										
 										<div class="meta">
@@ -141,18 +131,25 @@
 									<div class="masonry-news-list_content">
 										<p>Роды — отправная точка для самых важных изменений и судьбоносных... <a href="" class="all">Читать</a></p>
 									</div>
+									
+									<div class="comments-all">
+										<a href="">еще 124</a>
+										<a href="" class="icon-comment"></a>
+									</div>
 								</li>
-								<li class="masonry-news-list_item">
+								<li class="masonry-news-list_item blog">
 									<h3 class="masonry-news-list_title">
 										<a href="">Волшебная азбука</a>
 										<a href="" class="icon-photo"></a>
 									</h3>
-									<div class="clearfix">
-										<a href="" class="club-category">Раннее развитие и обучение</a>
-									</div>
 									<div class="masonry-news-list_meta-info clearfix">
 										
 										<div class="meta">
+											<div class="views"><span class="icon" href="#"></span> <span>265</span></div>
+											<div class="comments">
+												<a class="icon" href="#"></a>
+												<a href="">152</a>
+											</div>
 										</div>
 										
 										<div class="user-info">
@@ -164,17 +161,14 @@
 										</div>
 									</div>
 									<div class="masonry-news-list_content">
-										<img src="/images/example/gallery_album_img_10.jpg" alt="" />
+										<a href=""><img src="/images/example/gallery_album_img_10.jpg" alt="" /></a>
 									</div>
 								</li>
-								<li class="masonry-news-list_item">
+								<li class="masonry-news-list_item blog">
 									<h3 class="masonry-news-list_title">
 										<a href="">Волшебная азбука</a>
 										<a href="" class="icon-video"></a>
 									</h3>
-									<div class="clearfix">
-										<a href="" class="club-category beauty">Раннее развитие и обучение</a>
-									</div>
 									<div class="masonry-news-list_meta-info clearfix">
 										
 										<div class="meta">
@@ -194,7 +188,7 @@
 										</div>
 									</div>
 									<div class="masonry-news-list_content">
-										<img src="/images/example/gallery_album_img_10.jpg" alt="" />
+										<a href=""><img src="/images/example/gallery_album_img_10.jpg" alt="" /></a>
 										<p>Роды — отправная точка для самых важных изменений и судьбоносных... <a href="" class="all">Читать</a></p>
 									</div>
 									<div class="masonry-news-list_comment">
@@ -217,14 +211,11 @@
 										<a href="" class="icon-comment"></a>
 									</div>
 								</li>
-								<li class="masonry-news-list_item">
+								<li class="masonry-news-list_item blog">
 									<h3 class="masonry-news-list_title">
-										<a href="">Волшебная азбука</a>
+										<a href="">Волшебная азбука 123</a>
 										<a href="" class="icon-photo"></a>
 									</h3>
-									<div class="clearfix">
-										<a href="" class="club-category">Раннее развитие и обучение</a>
-									</div>
 									<div class="masonry-news-list_meta-info clearfix">
 										
 										<div class="meta">
@@ -282,7 +273,7 @@
 					
 					<div class="col-3 clearfix">
 						<div class="best-users tabs">
-							<div class="best-users_title">Лучшие клабберы</div>
+							<div class="best-users_title">Лучшие блоггеры</div>
 							<div class="best-users_nav">
 								<ul>
 									<li class="best-users_nav_item active"><a  onclick="setTab(this, 1);" href="javascript:void(0);"><span>Сегодня</span></a></li>

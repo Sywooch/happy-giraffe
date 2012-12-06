@@ -3,11 +3,11 @@
 			<div class="user-nav-2">
 				
 				<ul>
-					<li class="item-broadcast new">
-						<a href="" ><i class="icon-broadcast"></i></a>
-					</li>
 					<li class="item-ava">
 						<a href="" class="ava small female"></a>
+					</li>
+					<li class="item-broadcast new">
+						<a href="" ><i class="icon-broadcast"></i></a>
 					</li>
 					<li class="item-dialogs">
 						<a href=""><i class="icon-dialogs"></i></a>

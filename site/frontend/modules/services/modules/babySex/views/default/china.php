@@ -1,6 +1,7 @@
 <?php
 /* @var $this Controller
  * @var $form CActiveForm
+ * @var $service Service
  */
 $year = date('Y');
 $model = new ChinaCalendarForm();
@@ -68,7 +69,7 @@ $form = $this->beginWidget('CActiveForm', array(
     </div>
     <!-- .child_bd -->
     <?php echo $form->hiddenField($model, 'review_year', array('id' => 'china_review_year')) ?>
-    <input type="submit" class="calc_bt" value="Рассчитать"/>
+    <input type="submit" class="btn-corncolor btn-big" value="Рассчитать"/>
 
 </div><!-- .child_sex_china_banner -->
 <div class="clear"></div>
@@ -105,8 +106,25 @@ $form = $this->beginWidget('CActiveForm', array(
     </div>
 </div>
 
+<?php $this->renderPartial('_service_likes', array(
+    'service' => $service,
+    'image' => '/images/services/baby/sex-child/china_bann.jpg',
+    'description' => 'По мнению китайских мудрецов, узнать пол будущего малыша можно по возрасту женщины на момент зачатия.'
+)); ?>
+
+<div class="assistance clearfix">
+
+    <?php $this->renderPartial('_assistance_users', compact('service')); ?>
+
+    <?php $this->renderPartial('_assistance_count', array('count' => $service->using_count)); ?>
+
+</div>
+
+<?php if (Yii::app()->user->checkAccess('services')) $this->widget('application.widgets.commentWidget.CommentWidget', array('model' => $service)); ?>
+
 <div class="wysiwyg-content">
     <h1>Китайский метод определения пола ребенка</h1>
+
     <p>По мнению китайских мудрецов, узнать пол будущего малыша можно по возрасту женщины на момент зачатия. Исходя из
         того, что в Китае семья может иметь только одного малыша и малыш, соответственно, должен быть желаемого пола,
         эффективность данного метода должна быть достаточно высокой. Именно поэтому все большее число пар планирует

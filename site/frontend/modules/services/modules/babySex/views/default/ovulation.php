@@ -155,6 +155,22 @@ echo $form->hiddenField($model, 'review_year', array('id' => 'review_year'));?>
     <!-- .mother_calendar -->
 </div>
 
+<?php $this->renderPartial('_service_likes', array(
+    'service' => $service,
+    'image' => '/images/sex_child_ovulyaciya_bann.jpg',
+    'description' => 'Определение пола ребенка по дате овуляции - единственный более-менее достоверный способ. За основу метода взяты различия в размерах и поведении...'
+)); ?>
+
+<div class="assistance clearfix">
+
+    <?php $this->renderPartial('_assistance_users', compact('service')); ?>
+
+    <?php $this->renderPartial('_assistance_count', array('count' => $service->using_count)); ?>
+
+</div>
+
+<?php if (Yii::app()->user->checkAccess('services')) $this->widget('application.widgets.commentWidget.CommentWidget', array('model' => $service)); ?>
+
 <div class="wysiwyg-content">
     <h1>Планирование пола ребенка по овуляции</h1>
     <p>Определение пола ребенка по дате овуляции - единственный более-менее достоверный способ. За основу метода взяты

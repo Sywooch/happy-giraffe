@@ -36,7 +36,10 @@
                     'options' => array(
                         'scrollContainer' => new CJavaScriptExpression("$('.layout-container')"),
                         'onLoadItems' => new CJavaScriptExpression("function(items) {
-                            $('#liveList .items').isotope('insert', $(items));
+                            var newItems = $(items);
+                            newItems.imagesLoaded(function() {
+                                $('#liveList .items').isotope('appended', newItems);
+                            }
                             return false;
                         }"),
                     ),

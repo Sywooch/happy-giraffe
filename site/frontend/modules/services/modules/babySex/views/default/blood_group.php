@@ -75,6 +75,24 @@ Yii::app()->clientScript->registerScriptFile($baseUrl . '/blood_group.js', CClie
     </div>
 </div>
 
+<?php $this->renderPartial('_service_likes', array(
+    'service' => $service,
+    'image' => '/images/sex_child_blood.jpg',
+    'description' => 'Согласно этому методу, если у отца группа крови 1-я или 3-я, а у мамы – 1-я, то высока вероятность рождения девочки...'
+)); ?>
+
+<div class="assistance clearfix">
+
+    <?php $this->renderPartial('_assistance_users', compact('service')); ?>
+
+    <?php $this->renderPartial('_assistance_count', array('count' => $service->using_count)); ?>
+
+</div>
+
+<?php $this->widget('application.widgets.commentWidget.CommentWidget', array('model' => $service)); ?>
+
+
+
 <div class="wysiwyg-content">
     <h1>Пол ребенка по группе крови родителей</h1>
     <p>Уже стало хорошей традицией планирование пола малыша. Будущие мамы честно высчитывают даты, считают месяцы и едят

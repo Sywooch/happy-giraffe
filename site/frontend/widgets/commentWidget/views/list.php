@@ -32,7 +32,7 @@ if ($type == 'guestBook') {
         if ($this->readOnly)
                 $link = '';
         else
-            $link = '<a href="#new_comment_wrapper" onclick="'.$this->objectName.'.newComment(event);" class="btn btn-orange a-right"><span><span>' . $this->button . '</span></span></a>';
+            $link = '<a href="#add_comment" onclick="'.$this->objectName.'.newComment(event);" class="btn btn-orange a-right"><span><span>' . $this->button . '</span></span></a>';
     }
 
     $template = '

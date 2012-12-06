@@ -1,4 +1,8 @@
-<div class="entry hrecipe clearfix">
+<?php
+/* @var $this Controller
+ * @var $data CookRecipe
+ */
+?><div class="entry hrecipe clearfix">
 
     <?=CHtml::link($data->title, $data->url, array('class' => 'entry-title'))?>
 
@@ -61,6 +65,8 @@
 
 
                 </div>
+
+                <?php $this->renderPartial('_recipe_tags_edit',array('recipe'=>$data)); ?>
 
             </div>
 

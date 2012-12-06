@@ -25,8 +25,7 @@ $(function() {
 
     $container.imagesLoaded(function() {
         $container.isotope({
-            itemSelector : '.masonry-news-list_item',
-            transformsEnabled : false
+            itemSelector : '.masonry-news-list_item'
         });
     });
 

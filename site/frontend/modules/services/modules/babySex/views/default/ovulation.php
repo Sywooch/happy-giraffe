@@ -52,13 +52,13 @@ echo $form->hiddenField($model, 'review_year', array('id' => 'review_year'));?>
             </li>
             <li>
                 <div class="row">
-                    <?php echo $form->dropDownList($model, 'month', HDate::ruMonths(), array('class' => 'chzn', 'empty' => 'месяц')); ?>
+                    <?php echo $form->dropDownList($model, 'month', HDate::ruMonths(), array('class' => 'chzn mn_cal', 'empty' => 'месяц')); ?>
                     <?php echo $form->error($model, 'month'); ?>
                 </div>
             </li>
             <li>
                 <div class="row">
-                    <?php echo $form->dropDownList($model, 'year', HDate::Range(date('Y') - 1, date('Y')), array('class' => 'chzn', 'empty' => 'год')); ?>
+                    <?php echo $form->dropDownList($model, 'year', HDate::Range(date('Y') - 1, date('Y')), array('class' => 'chzn yr_cal', 'empty' => 'год')); ?>
                     <?php echo $form->error($model, 'year'); ?>
                 </div>
             </li>
@@ -76,13 +76,13 @@ echo $form->hiddenField($model, 'review_year', array('id' => 'review_year'));?>
             </li>
             <li>
                 <div class="row">
-                    <?php echo $form->dropDownList($model, 'con_month', HDate::ruMonths(), array('class' => 'chzn', 'empty' => 'месяц')); ?>
+                    <?php echo $form->dropDownList($model, 'con_month', HDate::ruMonths(), array('class' => 'chzn mn_cal', 'empty' => 'месяц')); ?>
                     <?php echo $form->error($model, 'con_month'); ?>
                 </div>
             </li>
             <li>
                 <div class="row">
-                    <?php echo $form->dropDownList($model, 'con_year', HDate::Range(date('Y') - 1, date('Y')), array('class' => 'chzn', 'empty' => 'год')); ?>
+                    <?php echo $form->dropDownList($model, 'con_year', HDate::Range(date('Y') - 1, date('Y')), array('class' => 'chzn yr_cal', 'empty' => 'год')); ?>
                     <?php echo $form->error($model, 'con_year'); ?>
                 </div>
             </li>

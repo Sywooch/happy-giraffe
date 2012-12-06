@@ -38,13 +38,13 @@ $form = $this->beginWidget('CActiveForm', array(
             </li>
             <li>
                 <div class="row">
-                    <?php echo $form->dropDownList($model, 'father_m', HDate::ruMonths(), array('class' => 'chzn', 'empty' => '-')); ?>
+                    <?php echo $form->dropDownList($model, 'father_m', HDate::ruMonths(), array('class' => 'chzn mn_cal', 'empty' => '-')); ?>
                     <?php echo $form->error($model, 'father_m'); ?>
                 </div>
             </li>
             <li>
                 <div class="row">
-                    <?php echo $form->dropDownList($model, 'father_y', HDate::Range($year - 65, $year - 15), array('class' => 'chzn', 'empty' => '-')); ?>
+                    <?php echo $form->dropDownList($model, 'father_y', HDate::Range($year - 65, $year - 15), array('class' => 'chzn yr_cal', 'empty' => '-')); ?>
                     <?php echo $form->error($model, 'father_y'); ?>
                 </div>
             </li>
@@ -66,13 +66,13 @@ $form = $this->beginWidget('CActiveForm', array(
             </li>
             <li>
                 <div class="row">
-                    <?php echo $form->dropDownList($model, 'mother_m', HDate::ruMonths(), array('class' => 'chzn', 'empty' => '-')); ?>
+                    <?php echo $form->dropDownList($model, 'mother_m', HDate::ruMonths(), array('class' => 'chzn mn_cal', 'empty' => '-')); ?>
                     <?php echo $form->error($model, 'mother_m'); ?>
                 </div>
             </li>
             <li>
                 <div class="row">
-                    <?php echo $form->dropDownList($model, 'mother_y', HDate::Range($year - 65, $year - 15), array('class' => 'chzn', 'empty' => '-')); ?>
+                    <?php echo $form->dropDownList($model, 'mother_y', HDate::Range($year - 65, $year - 15), array('class' => 'chzn yr_cal', 'empty' => '-')); ?>
                     <?php echo $form->error($model, 'mother_y'); ?>
                 </div>
             </li>
@@ -94,13 +94,13 @@ $form = $this->beginWidget('CActiveForm', array(
             </li>
             <li>
                 <div class="row">
-                    <?php echo $form->dropDownList($model, 'baby_m', HDate::ruMonths(), array('class' => 'chzn', 'empty' => '-')); ?>
+                    <?php echo $form->dropDownList($model, 'baby_m', HDate::ruMonths(), array('class' => 'chzn mn_cal', 'empty' => '-')); ?>
                     <?php echo $form->error($model, 'baby_m'); ?>
                 </div>
             </li>
             <li>
                 <div class="row">
-                    <?php echo $form->dropDownList($model, 'baby_y', HDate::Range(1950, $year), array('class' => 'chzn', 'empty' => '-')); ?>
+                    <?php echo $form->dropDownList($model, 'baby_y', HDate::Range(1950, $year), array('class' => 'chzn yr_cal', 'empty' => '-')); ?>
                     <?php echo $form->error($model, 'baby_y'); ?>
                 </div>
             </li>

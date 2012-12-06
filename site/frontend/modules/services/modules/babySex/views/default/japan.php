@@ -97,6 +97,7 @@ $form = $this->beginWidget('CActiveForm', array(
 
 <?php if (Yii::app()->user->checkAccess('services')) $this->widget('application.widgets.commentWidget.CommentWidget', array('model' => $service)); ?>
 
+<br><br>
 <div class="wysiwyg-content">
     <h1>Японский метод планирования пола ребенка</h1>
     <p>Все жители Японии, а в особенности семейные пары, очень трепетно относятся к детям. Иметь продолжателей своего

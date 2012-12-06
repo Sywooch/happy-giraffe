@@ -92,7 +92,7 @@ Yii::app()->clientScript->registerScriptFile($baseUrl . '/blood_group.js', CClie
 <?php if (Yii::app()->user->checkAccess('services')) $this->widget('application.widgets.commentWidget.CommentWidget', array('model' => $service)); ?>
 
 
-
+<br><br>
 <div class="wysiwyg-content">
     <h1>Пол ребенка по группе крови родителей</h1>
     <p>Уже стало хорошей традицией планирование пола малыша. Будущие мамы честно высчитывают даты, считают месяцы и едят

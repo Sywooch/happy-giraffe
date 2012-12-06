@@ -45,16 +45,15 @@ class ForumsController extends ELController
 
     public function actionAdd()
     {
-        $url = Yii::app()->request->getPost('url');
-        $parse = parse_url($url);
-        $host = $parse['host'];
+        $url = trim(Yii::app()->request->getPost('url'));
+        $type = Yii::app()->request->getPost('type');
         $create_task = Yii::app()->request->getPost('create_task');
 
-        $model = ELSite::model()->findByAttributes(array('url' => $host));
+        $model = ELSite::model()->findByAttributes(array('url' => $url));
         if ($model === null) {
             $model = new ELSite;
-            $model->url = $host;
-            $model->type = ELSite::TYPE_FORUM;
+            $model->url = $url;
+            $model->type = $type;
             if ($model->save()) {
                 if ($create_task)
                     ELTask::createRegisterTask($model->id);
@@ -74,8 +73,8 @@ class ForumsController extends ELController
             } else
                 $response = array('status' => false);
         } else {
-            $model->url = $host;
-            $model->type = ELSite::TYPE_FORUM;
+            $model->url = $url;
+            $model->type = $type;
             if ($model->save()) {
 
                 if ($model->status == ELSite::STATUS_BLACKLIST)

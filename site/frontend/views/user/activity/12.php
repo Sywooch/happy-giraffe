@@ -1,8 +1,10 @@
 <?php
     Yii::import('application.modules.cook.models.*');
     $comment = Comment::model()->findByPk($action->data['id']);
-    $model = CActiveRecord::model($comment->entity)->findByPk($comment->entity_id);
-    $modelName = get_class($model);
+    if ($comment !== null) {
+        $model = CActiveRecord::model($comment->entity)->findByPk($comment->entity_id);
+        $modelName = get_class($model);
+    }
 ?>
 
 <?php if ($comment !== null && in_array($modelName, array('BlogContent', 'CommunityContent', 'CookRecipe', 'AlbumPhoto'))): ?>

@@ -25,6 +25,7 @@ class ELSite extends HActiveRecord
 
     const TYPE_SITE = 1;
     const TYPE_FORUM = 2;
+    const TYPE_BLOG = 3;
 
     public $comment;
     public $buttons;
@@ -193,5 +194,24 @@ class ELSite extends HActiveRecord
     public function getGreyListButtons()
     {
         return '<a href="javascript:;" class="icon-blacklist" onclick="ExtLinks.AddToBL2('.$this->id.')">ЧС</a>';
+    }
+
+    public function getTitle()
+    {
+        if ($this->type == self::TYPE_FORUM)
+            return 'форум';
+        if ($this->type == self::TYPE_BLOG)
+            return 'блог';
+        if ($this->type == self::TYPE_SITE)
+            return 'сайт';
+
+        return 'неизвестно';
+    }
+
+    public function getUrl(){
+        if (strpos('http', $this->url) === 0)
+            return 'http://'.$this->url;
+
+        return $this->url;
     }
 }

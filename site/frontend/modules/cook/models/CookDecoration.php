@@ -183,4 +183,36 @@ class CookDecoration extends CActiveRecord
     {
         return $this->photo->author;
     }
+
+    protected function afterSave()
+    {
+        if ($this->isNewRecord)
+            $this->sendEvent();
+        parent::afterSave();
+    }
+
+    public function getEvent()
+    {
+        $row = array(
+            'id' => $this->id,
+            'last_updated' => time(),
+            'type' => Event::EVENT_COOK_DECOR,
+        );
+
+        $event = Event::factory(Event::EVENT_COOK_DECOR);
+        $event->attributes = $row;
+        return $event;
+    }
+
+    public function sendEvent()
+    {
+        $event = $this->event;
+        $params = array(
+            'blockId' => $event->blockId,
+            'code' => $event->code,
+        );
+
+        $comet = new CometModel;
+        $comet->send('whatsNewIndex', $params, CometModel::WHATS_NEW_UPDATE);
+    }
 }

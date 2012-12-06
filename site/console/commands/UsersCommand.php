@@ -92,4 +92,37 @@ class UsersCommand extends CConsoleCommand
         $user = User::model()->findByPk($user);
         UserAttributes::set($user->id, 'fire_time', time());
     }
+
+    public function actionTest(){
+        $criteria = new CDbCriteria;
+        $criteria->limit = 100;
+        $criteria->offset = 0;
+
+        $models = array(0);
+        while (!empty($models)) {
+            $models = UserSocialService::model()->findAll($criteria);
+
+            foreach ($models as $model) {
+                if (!isset($model->user->id))
+                    echo $model->user_id."\n";
+            }
+
+            $criteria->offset += 100;
+        }
+    }
+
+    /**
+     * Удаление в назначениях прав несуществующих юзеров
+     */
+    public function actionAssign()
+    {
+        $models = AuthAssignment::model()->findAll();
+        foreach($models as $model){
+            $count = User::model()->countByAttributes(array('id'=>$model->userid));
+            if ($count == 0){
+                echo "id = {$model->userid} user not exist \n\r";
+                $model->delete();
+            }
+        }
+    }
 }

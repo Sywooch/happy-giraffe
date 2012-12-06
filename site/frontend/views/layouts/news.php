@@ -61,11 +61,11 @@
                             'url' => array('community/contacts'),
                             'active' => $this->action->id == 'contacts',
                         ),
-                        array(
-                            'label' => 'Авторы',
-                            'url' => array('community/authors'),
-                            'active' => $this->action->id == 'authors',
-                        ),
+//                        array(
+//                            'label' => 'Авторы',
+//                            'url' => array('community/authors'),
+//                            'active' => $this->action->id == 'authors',
+//                        ),
                     ),
                 ));
             ?>

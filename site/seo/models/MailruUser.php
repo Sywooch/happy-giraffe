@@ -12,6 +12,7 @@
  * @property string $birthday
  * @property string $location
  * @property string $last_visit
+ * @property int $parse_friends
  *
  * The followings are the available model relations:
  * @property MailruBaby[] $babies
@@ -116,11 +117,17 @@ class MailruUser extends HActiveRecord
     {
         preg_match('/http:\/\/deti.mail.ru\/(.+)\/(.+)\//', $this->deti_url, $match);
         if (count($match) == 3){
-//            echo $this->deti_url." success\n";
             return trim($match[2].'@'.$match[1].'.ru');
         }
-        else{
-//            echo $this->deti_url." failed\n";
+
+        return null;
+    }
+
+    public function calculateEmail2()
+    {
+        preg_match('/\/(.+)\/(.+)\//', $this->deti_url, $match);
+        if (count($match) == 3){
+            return trim($match[2].'@'.$match[1].'.ru');
         }
 
         return null;

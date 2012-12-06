@@ -8,10 +8,6 @@
                 'url' => array('/externalLinks/forums/index')
             ),
             array(
-                'label' => 'Задания',
-                'url' => array('/externalLinks/tasks/index/'),
-            ),
-            array(
                 'label' => 'Выполнено',
                 'url' => array('/externalLinks/forums/executed'),
             ),

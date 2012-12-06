@@ -169,8 +169,7 @@ echo $form->hiddenField($model, 'review_year', array('id' => 'review_year'));?>
 
 </div>
 
-<?php $this->widget('application.widgets.commentWidget.CommentWidget', array('model' => $service)); ?>
-
+<?php if (Yii::app()->user->checkAccess('services')) $this->widget('application.widgets.commentWidget.CommentWidget', array('model' => $service)); ?>
 
 <div class="wysiwyg-content">
     <h1>Планирование пола ребенка по овуляции</h1>

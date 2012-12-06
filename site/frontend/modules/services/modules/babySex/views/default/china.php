@@ -120,7 +120,7 @@ $form = $this->beginWidget('CActiveForm', array(
 
 </div>
 
-<?php $this->widget('application.widgets.commentWidget.CommentWidget', array('model' => $service)); ?>
+<?php if (Yii::app()->user->checkAccess('services')) $this->widget('application.widgets.commentWidget.CommentWidget', array('model' => $service)); ?>
 
 <div class="wysiwyg-content">
     <h1>Китайский метод определения пола ребенка</h1>

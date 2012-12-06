@@ -29,7 +29,6 @@
     if (empty($this->meta_description))
         $this->meta_description = trim(Str::truncate(strip_tags($recipe->text), 300));
 ?>
-
 <div class="entry hrecipe clearfix">
 
     <h1 class="fn"><?=$recipe->title?></h1>
@@ -93,6 +92,8 @@
 
 
                 </div>
+
+                <?php $this->renderPartial('_recipe_tags_edit',array('recipe'=>$recipe)); ?>
 
             </div>
 

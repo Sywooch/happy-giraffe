@@ -21,10 +21,13 @@ $(function() {
 //
 //    comet.addEvent(10000, 'receiveEvent');
 
-    $('#liveList .items').isotope({
-        // options
-        itemSelector : '.masonry-news-list_item',
-        layoutMode : 'masonry'
+    var $container = $('#liveList .items');
+
+    $container.imagesLoaded(function() {
+        $container.isotope({
+            itemSelector : '.masonry-news-list_item',
+            transformsEnabled : false
+        });
     });
 
     Comet.prototype.receiveEvent = function(result, id) {

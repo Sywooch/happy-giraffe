@@ -36,7 +36,7 @@ $(document).ready(function () {
     $('.layout-container').scroll(function () {
         var contanerScroll = $('.layout-container').scrollTop();
         if (contanerScroll > $('#header-new').height()) {
-            $('#btn-up-page').css("top",top).fadeIn(600);
+            $('#btn-up-page').fadeIn(600);
         } else {
             $('#btn-up-page').fadeOut(600)
         }

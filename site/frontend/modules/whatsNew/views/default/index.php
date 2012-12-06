@@ -39,7 +39,7 @@
                             var newItems = $(items);
                             newItems.imagesLoaded(function() {
                                 $('#liveList .items').isotope('appended', newItems);
-                            }
+                            });
                             return false;
                         }"),
                     ),

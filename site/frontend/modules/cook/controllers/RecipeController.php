@@ -68,6 +68,24 @@ class RecipeController extends HController
         $this->render('index', compact('dp'));
     }
 
+    public function actionTag($tag = null, $type = null)
+    {
+        if (!Yii::app()->user->checkAccess('recipe_tags'))
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
+        if (empty($tag))
+            $this->render('tag_list');
+        else {
+            $this->pageTitle = CookRecipeTag::model()->findByPk($tag)->title;
+            $this->layout = '//layouts/recipe';
+
+            $dp = CActiveRecord::model($this->modelName)->getByTag($tag, $type);
+            $this->counts = CActiveRecord::model($this->modelName)->count($dp->criteria);
+
+            $this->render('tag', compact('dp', 'tag'));
+        }
+    }
+
     public function actionForm($id = null)
     {
         $this->pageTitle = 'Добавить рецепт';

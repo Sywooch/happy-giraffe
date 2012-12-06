@@ -163,6 +163,8 @@ return array(
         'cook/recipe/add' => array('cook/recipe/form', 'defaultParams' => array('section' => 0)),
         'cook/recipe/<id:\d+>' => array('cook/recipe/view', 'defaultParams' => array('section' => 0)),
         'cook/recipe/type/<type:\d+>' => array('cook/recipe/index', 'defaultParams' => array('section' => 0)),
+        'cook/recipe/tag' => array('cook/recipe/tag', 'defaultParams' => array('section' => 0)),
+        'cook/recipe/tag/<tag:\d+>' => array('cook/recipe/tag', 'defaultParams' => array('section' => 0)),
         'cook/recipe' => array('cook/recipe/index', 'defaultParams' => array('section' => 0)),
         'cook/recipe/advancedSearch' => array('cook/recipe/advancedSearch', 'defaultParams' => array('section' => 0)),
         'cook/recipe/advancedSearchResult' => array('cook/recipe/advancedSearchResult', 'defaultParams' => array('section' => 0)),

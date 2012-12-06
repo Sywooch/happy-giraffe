@@ -24,7 +24,7 @@ $(function() {
     $('#liveList .items').isotope({
         // options
         itemSelector : '.masonry-news-list_item',
-        layoutMode : 'masonry'
+        transformsEnabled : false
     });
 
     Comet.prototype.receiveEvent = function(result, id) {

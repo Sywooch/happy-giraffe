@@ -48,6 +48,18 @@
 												<select id="ch_num_cal" class="num_cal chzn">
 													<option value="1000" selected="selected">День</option>
 													<option value="1">2</option>
+													<option value="1">2</option>
+													<option value="1">2</option>
+													<option value="1">2</option>
+													<option value="1">2</option>
+													<option value="1">2</option>
+													<option value="1">2</option>
+													<option value="1">2</option>
+													<option value="1">2</option>
+													<option value="1">2</option>
+													<option value="1">2</option>
+													<option value="1">2</option>
+													<option value="1">2</option>
 													<option value="2">30</option>
 												</select>
 											</li>

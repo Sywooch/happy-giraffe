@@ -44,7 +44,7 @@
             $items[] = array(
                 'label' => 'Все сервисы',
                 'url' => array('site/services'),
-                'template' => '<span>{menu}</span><div class="count">' . Service::model()->count() . '</div>',
+                'template' => '<span>{menu}</span><div class="count">' . Service::model()->count('`show`=1') . '</div>',
                 'active' => $category_id === null,
             );
 

@@ -9,10 +9,14 @@ class AuthorController extends SController
 
     public function beforeAction($action)
     {
-        if (!Yii::app()->user->checkAccess('author'))
+        if (!Yii::app()->user->checkAccess('author') && !Yii::app()->user->checkAccess('rewrite-author'))
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
-        $this->pageTitle = 'автор';
+        if (Yii::app()->user->checkAccess('author'))
+            $this->pageTitle = 'автор';
+        else
+            $this->pageTitle = 'рератер';
+
         return true;
     }
 
@@ -26,9 +30,6 @@ class AuthorController extends SController
 
     public function actionReports()
     {
-        if (!Yii::app()->user->checkAccess('author'))
-            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
-
         $this->pageTitle = 'автор';
         $tasks = SeoTask::TodayExecutedTasks();
         $this->render('_author_reports', compact('tasks'));

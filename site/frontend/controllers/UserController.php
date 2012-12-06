@@ -105,6 +105,8 @@ class UserController extends HController
         if (!in_array($type, array('my', 'friends')))
             throw new CHttpException(404);
 
+        Yii::import('application.modules.services.modules.recipeBook.models.*');
+
         $limit = 50;
         $offset = ($page - 1) * $limit;
 

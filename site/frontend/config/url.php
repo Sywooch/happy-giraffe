@@ -4,7 +4,7 @@ return array(
     'urlFormat' => 'path',
     'showScriptName' => false,
     'urlSuffix' => '/',
-    //'useStrictParsing' => true,
+    'useStrictParsing' => true,
     'rules' => array(
         /*************************
          *      CONTROLLERS      *
@@ -36,7 +36,7 @@ return array(
 
         // signup controller
         'signup' => 'signup/index',
-        'signup/finish' => 'signup/finish',
+        'signup/<_a:(showForm|finish)>' => 'signup/<_a>',
         'signup/validate/step/<step:\d+>' => 'signup/validate',
 
         // friendRequests controller
@@ -90,6 +90,7 @@ return array(
 
         // community/*
         'community/36.*' => 404,
+        'community/list/rubric_id/<rubric_id:\d+>' => 404,
         'news/rubric<rubric_id:\d+>' => array('community/list', 'defaultParams' => array('community_id' => 36)),
         'news' => array('community/list', 'defaultParams' => array('community_id' => 36)),
         'news/<content_type_slug:[a-z]+><content_id:\d+>' => array('community/view', 'defaultParams' => array('community_id' => 36)),
@@ -121,6 +122,14 @@ return array(
         /*************************
          *        MODULES        *
          *************************/
+
+        // live
+        'whatsNew/clubs' => array('whatsNew/default/clubs', 'defaultParams' => array('show' => 'all')),
+        'whatsNew/clubs/my' => array('whatsNew/default/clubs', 'defaultParams' => array('show' => 'my')),
+        'whatsNew/blogs' => array('whatsNew/default/blogs', 'defaultParams' => array('show' => 'all')),
+        'whatsNew/blogs/my' => array('whatsNew/default/blogs', 'defaultParams' => array('show' => 'my')),
+        'whatsNew/page<page:\d+>' => 'whatsNew/default/index',
+        'whatsNew' => 'whatsNew/default/index',
 
         'contest/<id:\d+>' => 'contest/default/view',
         'contest/<id:\d+>/rules' => 'contest/default/rules',

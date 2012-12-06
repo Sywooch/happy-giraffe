@@ -37,7 +37,7 @@ class SettingsController extends HController
 
     public function actionIndex()
     {
-        $this->renderPartial('index', null, false, true);
+        $this->renderPartial('index', null);
     }
 
     public function actionRemoveService()

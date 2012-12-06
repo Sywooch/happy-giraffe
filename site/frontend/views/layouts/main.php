@@ -14,7 +14,7 @@
         <title><?=CHtml::encode($this->pageTitle)?></title>
     <?php endif;
 
-    $release_id = 1;
+    $release_id = 133;
     $cs = Yii::app()->clientScript;
     $cs
         ->registerCssFile('/stylesheets/common.css')
@@ -71,7 +71,7 @@
         $user = Yii::app()->user->model;
     ?>
 </head>
-<body class="body-club" onload="if (typeof(ODKL) !== 'undefined') ODKL.init();">
+<body class="body-club<?php if ($this->module !== null && $this->module->id == 'whatsNew'): ?> body-broadcast<?php endif; ?>" onload="if (typeof(ODKL) !== 'undefined') ODKL.init();">
 
     <div class="top-line-menu">
         <div class="top-line-menu-holder">
@@ -199,7 +199,7 @@
 
                             <div class="banner-box">
                                 <?php if (! Yii::app()->user->isGuest): ?>
-                                    <?php $contest_id = 4; ?>
+                                    <?php $contest_id = 5; ?>
                                     <a href="<?=$this->createUrl('/contest/default/view', array('id' => $contest_id)) ?>"><img src="/images/contest/banner-w300-<?=$contest_id?>.jpg" /></a>
                                 <?php else: ?>
                                     <?=CHtml::link(CHtml::image('/images/banner_06.png'), '#register', array('class'=>'fancy', 'data-theme'=>'white-square'))?>
@@ -501,6 +501,9 @@
                     <?php echo $content; ?>
                 </div>
 
+                <?php if (Yii::app()->controller->id == 'whatsNew'): ?>
+                    <a href="#layout" id="btn-up-page" style="top: 1065px; display: inline; "></a>
+                <?php endif; ?>
                 <div class="push"></div>
 
             </div>

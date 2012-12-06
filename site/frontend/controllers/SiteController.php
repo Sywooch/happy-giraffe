@@ -167,9 +167,12 @@ class SiteController extends HController
 					'service' => $name,
 					'service_id' => $id,
 				));
-				if ($check)
+				if ($check !== null)
 				{
 					$user = User::model()->active()->findByPk($check->user_id);
+                    if ($user === null)
+                        throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
 					$identity = new UserIdentity($user->getAttributes());
 					$identity->authenticate();
 					if ($identity->errorCode == UserIdentity::ERROR_NONE)

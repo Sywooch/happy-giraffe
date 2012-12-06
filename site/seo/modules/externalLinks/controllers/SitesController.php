@@ -143,7 +143,6 @@ class SitesController extends ELController
 
     public function actionLoadUrl()
     {
-        Yii::import('site.frontend.extensions.phpQuery.phpQuery');
         $url = Yii::app()->request->getPost('url');
         $html = file_get_contents($url);
         $document = phpQuery::newDocument($html);

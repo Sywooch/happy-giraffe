@@ -157,6 +157,15 @@ class SeoUser extends HActiveRecord
         );
     }
 
+    public function scopes()
+    {
+        return array(
+            'active' => array(
+                'condition' => $this->getTableAlias(false, false) . '.active = 1'
+            ),
+        );
+    }
+
     public function search()
     {
         $criteria = new CDbCriteria;
@@ -248,7 +257,7 @@ class SeoUser extends HActiveRecord
     public function getWorkers($role = 'cook-author')
     {
         $result = array();
-        $users = SeoUser::model()->findAll('owner_id = '.Yii::app()->user->id);
+        $users = SeoUser::model()->active()->findAll('owner_id = '.Yii::app()->user->id);
         foreach ($users as $author)
             if (Yii::app()->authManager->checkAccess($role, $author->id)){
                 $result [] = $author;

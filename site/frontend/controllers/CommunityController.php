@@ -367,9 +367,12 @@ class CommunityController extends HController
                     }
                 }
 
-                $comet = new CometModel;
-                $comet->type = CometModel::CONTENTS_LIVE;
-                $comet->send('guest', array('newId' => $model->id));
+//                $comet = new CometModel;
+//                $comet->type = CometModel::CONTENTS_LIVE;
+//                $comet->send('guest', array('newId' => $model->id));
+
+                $model->sendEvent();
+//                sleep(5);
 
                 $this->redirect($model->url);
             }
@@ -868,13 +871,13 @@ class CommunityController extends HController
         $this->render('contacts');
     }
 
-    public function actionAuthors()
-    {
-        $this->community = Community::model()->findByPk(Community::COMMUNITY_NEWS);
-        $this->pageTitle = 'Авторы';
-        $this->layout = '//layouts/news';
-        $this->render('authors');
-    }
+//    public function actionAuthors()
+//    {
+//        $this->community = Community::model()->findByPk(Community::COMMUNITY_NEWS);
+//        $this->pageTitle = 'Авторы';
+//        $this->layout = '//layouts/news';
+//        $this->render('authors');
+//    }
 
     protected function lastModified()
     {

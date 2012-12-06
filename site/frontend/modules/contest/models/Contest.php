@@ -73,6 +73,7 @@ class Contest extends HActiveRecord
         return array(
             'prizes' => array(self::HAS_MANY, 'ContestPrize', 'contest_id'),
             'works' => array(self::HAS_MANY, 'ContestWork', 'contest_id'),
+            'worksCount' => array(self::STAT, 'ContestWork', 'contest_id'),
             'winners' => array(self::HAS_MANY, 'ContestWinner', array('id' => 'work_id'), 'through' => 'works', 'with' => 'work'),
         );
     }
@@ -230,5 +231,30 @@ class Contest extends HActiveRecord
     public function getYear()
     {
         return date('Y', strtotime($this->from_time));
+    }
+
+    public function getEvent()
+    {
+        $row = array(
+            'id' => $this->id,
+            'last_updated' => time(),
+            'type' => Event::EVENT_CONTEST,
+        );
+
+        $event = Event::factory(Event::EVENT_CONTEST);
+        $event->attributes = $row;
+        return $event;
+    }
+
+    public function sendEvent()
+    {
+        $event = $this->event;
+        $params = array(
+            'blockId' => $event->blockId,
+            'code' => $event->code,
+        );
+
+        $comet = new CometModel;
+        $comet->send('whatsNewIndex', $params, CometModel::WHATS_NEW_UPDATE);
     }
 }

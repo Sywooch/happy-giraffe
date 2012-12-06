@@ -502,7 +502,7 @@
                 </div>
 
                 <?php if ($this->module !== null && $this->module->id == 'whatsNew'): ?>
-                    <a href="#layout" id="btn-up-page" style="top: 1065px; display: inline; "></a>
+                    <a href="#layout" id="btn-up-page"></a>
                 <?php endif; ?>
                 <div class="push"></div>
 

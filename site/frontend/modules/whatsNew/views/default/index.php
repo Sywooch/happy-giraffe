@@ -35,9 +35,11 @@
                     'listViewId' => 'liveList',
                     'options' => array(
                         'scrollContainer' => new CJavaScriptExpression("$('.layout-container')"),
-                        'onLoadItems' => new CJavaScriptExpression("function(items) {
+                        'onRenderComplete' => new CJavaScriptExpression("function(items) {
                             var newItems = $(items);
-                            newItems.imagesLoaded(function() {
+
+                            newItems.hide().imagesLoaded(function() {
+                                newItems.show();
                                 $('#liveList .items').isotope('appended', newItems);
                             });
                             return false;

@@ -171,6 +171,7 @@ echo $form->hiddenField($model, 'review_year', array('id' => 'review_year'));?>
 
 <?php if (Yii::app()->user->checkAccess('services')) $this->widget('application.widgets.commentWidget.CommentWidget', array('model' => $service)); ?>
 
+<br><br>
 <div class="wysiwyg-content">
     <h1>Планирование пола ребенка по овуляции</h1>
     <p>Определение пола ребенка по дате овуляции - единственный более-менее достоверный способ. За основу метода взяты

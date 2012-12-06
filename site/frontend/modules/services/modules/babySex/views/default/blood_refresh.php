@@ -137,7 +137,7 @@ $form = $this->beginWidget('CActiveForm', array(
 
 <?php if (Yii::app()->user->checkAccess('services')) $this->widget('application.widgets.commentWidget.CommentWidget', array('model' => $service)); ?>
 
-
+<br><br>
 <div class="wysiwyg-content">
     <h1>Пол ребенка по дате рождения родителей</h1>
     <p>В основе данного метода лежит цикличность обновления крови женщины и мужчины в зависимости от их возраста. Эти

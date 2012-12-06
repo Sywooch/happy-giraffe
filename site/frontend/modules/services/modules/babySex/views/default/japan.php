@@ -81,21 +81,11 @@ $form = $this->beginWidget('CActiveForm', array(
 
 </div>
 
-<?php $this->renderPartial('_service_likes', array(
+<?php $this->widget('application.widgets.serviceSocial.serviceSocialWidget', array(
     'service' => $service,
     'image' => '/images/sex_child_japan_bann.jpg',
     'description' => 'Все жители Японии, а в особенности семейные пары, очень трепетно относятся к детям. Иметь продолжателей своего рода – основная обязанность каждой семьи.'
 )); ?>
-
-<div class="assistance clearfix">
-
-    <?php $this->renderPartial('_assistance_users', compact('service')); ?>
-
-    <?php $this->renderPartial('_assistance_count', array('count' => $service->using_count)); ?>
-
-</div>
-
-<?php if (Yii::app()->user->checkAccess('services')) $this->widget('application.widgets.commentWidget.CommentWidget', array('model' => $service)); ?>
 
 <br><br>
 <div class="wysiwyg-content">

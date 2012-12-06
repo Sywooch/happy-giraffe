@@ -43,10 +43,6 @@ class DefaultController extends HController
     public function actionBlood()
     {
         $service = Service::model()->findByPk(23);
-        if (Yii::app()->request->isAjaxRequest){
-            $service->userUsedService();
-            Yii::app()->end();
-        }
         $this->render('blood_group', compact('service'));
     }
 

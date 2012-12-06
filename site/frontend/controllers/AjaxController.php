@@ -775,4 +775,9 @@ class AjaxController extends HController
 
         $this->renderPartial('link', compact('model'), false, true);
     }
+
+    public function actionServiceUsed(){
+        $service = Service::model()->findByPk(Yii::app()->request->getPost('id'));
+        $service->userUsedService();
+    }
 }

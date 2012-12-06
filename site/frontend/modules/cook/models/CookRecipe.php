@@ -20,6 +20,7 @@
  * @property CookRecipeIngredients[] $cookRecipeIngredients
  * @property User $author
  * @property AlbumPhoto $photo
+ * @property CookRecipeTag $tags
  * @property CookCuisines $cuisine
  * @property AttachPhoto[] $attachPhotos
  */

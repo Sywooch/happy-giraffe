@@ -228,7 +228,7 @@ class RecipeController extends HController
         $this->layout = '//layouts/recipe';
         $this->pageTitle = $recipe->title;
 
-        if (! Yii::app()->user->isGuest)
+        if (!Yii::app()->user->isGuest)
             UserNotification::model()->deleteByEntity($recipe, Yii::app()->user->id);
 
         $this->breadcrumbs = array(
@@ -468,9 +468,41 @@ class RecipeController extends HController
         echo $feed;
     }
 
+    public function actionAddTag()
+    {
+        if (!Yii::app()->user->checkAccess('recipe_tags'))
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
+        $recipe_id = Yii::app()->request->getPost('recipe_id');
+        $tag_id = Yii::app()->request->getPost('tag_id');
+
+        UserAttributes::set(Yii::app()->user->id, 'last_recipe_tag_id', $tag_id);
+
+        $result = Yii::app()->db->createCommand()
+            ->insert('cook__recipe_recipes_tags',
+            array('recipe_id' => $recipe_id, 'tag_id' => $tag_id));
+
+        echo CJSON::encode(array('status' => $result));
+    }
+
+    public function actionRemoveTag()
+    {
+        if (!Yii::app()->user->checkAccess('recipe_tags'))
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
+        $recipe_id = Yii::app()->request->getPost('recipe_id');
+        $tag_id = Yii::app()->request->getPost('tag_id');
+
+        $result = Yii::app()->db->createCommand()
+            ->delete('cook__recipe_recipes_tags', 'recipe_id = :recipe_id AND tag_id=:tag_id',
+            array(':recipe_id' => $recipe_id, ':tag_id' => $tag_id));
+
+        echo CJSON::encode(array('status' => $result));
+    }
+
     protected function lastModified()
     {
-        if (! Yii::app()->user->isGuest)
+        if (!Yii::app()->user->isGuest)
             return null;
 
         $recipe_id = Yii::app()->request->getQuery('id');

@@ -37,13 +37,13 @@ $form = $this->beginWidget('CActiveForm', array(
         <ul class="lists_td">
             <li>
                 <div class="row">
-                    <?php echo $form->dropDownList($model, 'mother_m', HDate::ruMonths(), array('class' => 'chzn', 'empty' => 'месяц')); ?>
+                    <?php echo $form->dropDownList($model, 'mother_m', HDate::ruMonths(), array('class' => 'chzn mn_cal', 'empty' => 'месяц')); ?>
                     <?php echo $form->error($model, 'mother_m'); ?>
                 </div>
             </li>
             <li>
                 <div class="row">
-                    <?php echo $form->dropDownList($model, 'mother_y', HDate::Range($year - 46, $year - 18), array('id' => 'ChinaCalendarForm_mother_y', 'class' => 'chzn', 'empty' => 'год')); ?>
+                    <?php echo $form->dropDownList($model, 'mother_y', HDate::Range($year - 46, $year - 18), array('id' => 'ChinaCalendarForm_mother_y', 'class' => 'chzn yr_cal', 'empty' => 'год')); ?>
                     <?php echo $form->error($model, 'mother_y'); ?>
                 </div>
             </li>
@@ -55,13 +55,13 @@ $form = $this->beginWidget('CActiveForm', array(
         <ul class="lists_td">
             <li>
                 <div class="row">
-                    <?php echo $form->dropDownList($model, 'baby_m', HDate::ruMonths(), array('class' => 'chzn', 'empty' => 'месяц')); ?>
+                    <?php echo $form->dropDownList($model, 'baby_m', HDate::ruMonths(), array('class' => 'chzn mn_cal', 'empty' => 'месяц')); ?>
                     <?php echo $form->error($model, 'baby_m'); ?>
                 </div>
             </li>
             <li>
                 <div class="row">
-                    <?php echo $form->dropDownList($model, 'baby_y', HDate::Range($year - 5, $year), array('class' => 'chzn', 'empty' => 'год')); ?>
+                    <?php echo $form->dropDownList($model, 'baby_y', HDate::Range($year - 5, $year), array('class' => 'chzn yr_cal', 'empty' => 'год')); ?>
                     <?php echo $form->error($model, 'baby_y'); ?>
                 </div>
             </li>

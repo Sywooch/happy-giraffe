@@ -32,7 +32,7 @@ $form = $this->beginWidget('CActiveForm', array(
         <ul class="lists_td">
             <li>
                 <div class="row">
-                    <?php echo $form->dropDownList($model, 'father_m', HDate::ruMonths(), array('class' => 'chzn', 'empty' => 'месяц')); ?>
+                    <?php echo $form->dropDownList($model, 'father_m', HDate::ruMonths(), array('class' => 'chzn mn_cal', 'empty' => 'месяц')); ?>
                     <?php echo $form->error($model, 'father_m'); ?>
                 </div>
             </li>
@@ -44,7 +44,7 @@ $form = $this->beginWidget('CActiveForm', array(
         <ul class="lists_td">
             <li>
                 <div class="row">
-                    <?php echo $form->dropDownList($model, 'mother_m', HDate::ruMonths(), array('class' => 'chzn', 'empty' => 'месяц')); ?>
+                    <?php echo $form->dropDownList($model, 'mother_m', HDate::ruMonths(), array('class' => 'chzn mn_cal', 'empty' => 'месяц')); ?>
                     <?php echo $form->error($model, 'mother_m'); ?>
                 </div>
             </li>
@@ -62,7 +62,7 @@ $form = $this->beginWidget('CActiveForm', array(
             </li>
             <li>
                 <div class="row">
-                    <?php echo $form->dropDownList($model, 'baby_m', HDate::ruMonths(), array('class' => 'chzn', 'empty' => 'месяц')); ?>
+                    <?php echo $form->dropDownList($model, 'baby_m', HDate::ruMonths(), array('class' => 'chzn mn_cal', 'empty' => 'месяц')); ?>
                     <?php echo $form->error($model, 'baby_m'); ?>
                 </div>
             </li>

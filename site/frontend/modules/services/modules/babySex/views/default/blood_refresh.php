@@ -119,6 +119,25 @@ $form = $this->beginWidget('CActiveForm', array(
 <div id="blood-update-result">
 
 </div>
+
+
+<?php $this->renderPartial('_service_likes', array(
+    'service' => $service,
+    'image' => '/images/services/baby/sex-child/parrents_bann.jpg',
+    'description' => 'В основе данного метода лежит цикличность обновления крови женщины и мужчины в зависимости от их возраста...'
+)); ?>
+
+<div class="assistance clearfix">
+
+    <?php $this->renderPartial('_assistance_users', compact('service')); ?>
+
+    <?php $this->renderPartial('_assistance_count', array('count' => $service->using_count)); ?>
+
+</div>
+
+<?php if (Yii::app()->user->checkAccess('services')) $this->widget('application.widgets.commentWidget.CommentWidget', array('model' => $service)); ?>
+
+
 <div class="wysiwyg-content">
     <h1>Пол ребенка по дате рождения родителей</h1>
     <p>В основе данного метода лежит цикличность обновления крови женщины и мужчины в зависимости от их возраста. Эти

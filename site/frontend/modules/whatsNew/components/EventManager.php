@@ -107,7 +107,7 @@ class EventManager
         return new EventDataProvider($sql, array(
             'params' => $params,
             'pagination' => array(
-                'pageSize' => 10,
+                'pageSize' => 20,
             ),
             'sort' => array(
                 'defaultOrder' => 'last_updated DESC',

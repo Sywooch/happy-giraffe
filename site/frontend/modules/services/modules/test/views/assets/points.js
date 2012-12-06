@@ -1,4 +1,5 @@
 var Test = {
+    service_id:null,
     step:0,
     path:'',
     Init:function () {
@@ -43,6 +44,8 @@ var Test = {
                 finished = true;
             }
         });
+
+        service_used(9);
     },
     Restart:function () {
         $(".step input:radio:checked").removeAttr("checked");

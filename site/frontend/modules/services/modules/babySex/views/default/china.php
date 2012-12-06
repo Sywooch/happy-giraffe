@@ -106,21 +106,11 @@ $form = $this->beginWidget('CActiveForm', array(
     </div>
 </div>
 
-<?php $this->renderPartial('_service_likes', array(
+<?php $this->widget('application.widgets.serviceSocial.serviceSocialWidget', array(
     'service' => $service,
     'image' => '/images/services/baby/sex-child/china_bann.jpg',
     'description' => 'По мнению китайских мудрецов, узнать пол будущего малыша можно по возрасту женщины на момент зачатия.'
 )); ?>
-
-<div class="assistance clearfix">
-
-    <?php $this->renderPartial('_assistance_users', compact('service')); ?>
-
-    <?php $this->renderPartial('_assistance_count', array('count' => $service->using_count)); ?>
-
-</div>
-
-<?php if (Yii::app()->user->checkAccess('services')) $this->widget('application.widgets.commentWidget.CommentWidget', array('model' => $service)); ?>
 
 <br><br>
 <div class="wysiwyg-content">

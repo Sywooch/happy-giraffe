@@ -75,22 +75,11 @@ Yii::app()->clientScript->registerScriptFile($baseUrl . '/blood_group.js', CClie
     </div>
 </div>
 
-<?php $this->renderPartial('_service_likes', array(
+<?php $this->widget('application.widgets.serviceSocial.serviceSocialWidget', array(
     'service' => $service,
     'image' => '/images/sex_child_blood.jpg',
     'description' => 'Согласно этому методу, если у отца группа крови 1-я или 3-я, а у мамы – 1-я, то высока вероятность рождения девочки...'
 )); ?>
-
-<div class="assistance clearfix">
-
-    <?php $this->renderPartial('_assistance_users', compact('service')); ?>
-
-    <?php $this->renderPartial('_assistance_count', array('count' => $service->using_count)); ?>
-
-</div>
-
-<?php if (Yii::app()->user->checkAccess('services')) $this->widget('application.widgets.commentWidget.CommentWidget', array('model' => $service)); ?>
-
 
 <br><br>
 <div class="wysiwyg-content">

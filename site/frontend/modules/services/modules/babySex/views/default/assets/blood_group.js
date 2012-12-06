@@ -17,7 +17,7 @@ $(function () {
             else
                 $('.wh_daughter').fadeOut(100, ShowGender);
 
-            $.post('/babySex/blood/');
+            service_used(23);
         } else{
             if (father_group == null)
                 $('#man_bl_em_').show();

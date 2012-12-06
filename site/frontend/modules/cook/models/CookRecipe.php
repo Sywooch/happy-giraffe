@@ -635,6 +635,28 @@ class CookRecipe extends CActiveRecord
         return $dp;
     }
 
+    public function getByTag($tag_id, $type)
+    {
+        $criteria = new CDbCriteria(array(
+            'with' => array('photo', 'attachPhotos', 'tags'),
+            'order' => 't.created DESC',
+        ));
+        $criteria->condition = 'tags.id='.$tag_id.' AND tags.id IS NOT NULL';
+        $criteria->together = true;
+
+        if ($type !== null)
+            $criteria->compare('type', $type);
+
+        $dp = new CActiveDataProvider(get_class($this), array(
+            'criteria' => $criteria,
+            'pagination' => array(
+                'pageSize' => 10,
+            ),
+        ));
+
+        return $dp;
+    }
+
     public function getTypeString()
     {
         return $this->types[$this->type];

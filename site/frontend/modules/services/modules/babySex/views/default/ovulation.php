@@ -34,7 +34,7 @@ echo $form->hiddenField($model, 'review_year', array('id' => 'review_year'));?>
         <ul class="lists_td">
             <li>
                 <div class="row">
-                    <?php echo $form->dropDownList($model, 'cycle', HDate::Range(21, 35), array('class' => 'chzn', 'empty' => '-')); ?>
+                    <?php echo $form->dropDownList($model, 'cycle', HDate::Range(21, 35), array('class' => 'chzn num_cal', 'empty' => '')); ?>
                     <?php echo $form->error($model, 'cycle'); ?>
                 </div>
             </li>
@@ -46,7 +46,7 @@ echo $form->hiddenField($model, 'review_year', array('id' => 'review_year'));?>
         <ul class="lists_td">
             <li>
                 <div class="row">
-                    <?php echo $form->dropDownList($model, 'day', HDate::Days(), array('class' => 'chzn', 'empty' => 'день')); ?>
+                    <?php echo $form->dropDownList($model, 'day', HDate::Days(), array('class' => 'chzn num_cal', 'empty' => 'день')); ?>
                     <?php echo $form->error($model, 'day'); ?>
                 </div>
             </li>
@@ -70,7 +70,7 @@ echo $form->hiddenField($model, 'review_year', array('id' => 'review_year'));?>
         <ul class="lists_td">
             <li>
                 <div class="row">
-                    <?php echo $form->dropDownList($model, 'con_day', HDate::Days(), array('class' => 'chzn', 'empty' => 'день')); ?>
+                    <?php echo $form->dropDownList($model, 'con_day', HDate::Days(), array('class' => 'chzn num_cal', 'empty' => 'день')); ?>
                     <?php echo $form->error($model, 'con_day'); ?>
                 </div>
             </li>

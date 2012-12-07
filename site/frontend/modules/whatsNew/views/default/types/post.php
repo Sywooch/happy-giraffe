@@ -58,9 +58,9 @@
             ?>
 
             <ul class="masonry-news-list_img-list clearfix">
-                <?php foreach ($data->post->gallery->items as $d): ?>
+                <?php for ($i = 0; isset($data->post->gallery->items[$i]) && $i < 9; $i++): ?>
                     <li><a href="javascript:void(0)" data-id="<?=$d->photo->id?>"><?=CHtml::image($d->photo->getPreviewUrl(64, 61, Image::INVERT, true, AlbumPhoto::CROP_SIDE_TOP), $d->description)?></a></li>
-                <?php endforeach; ?>
+                <?php endfor; ?>
             </ul>
         <?php elseif ($data->post->type_id == 2): ?>
             <?=$data->post->video->getResizedEmbed(198)?>

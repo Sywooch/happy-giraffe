@@ -304,6 +304,7 @@ class User extends HActiveRecord
             'userDialog' => array(self::HAS_ONE, 'DialogUser', 'user_id'),
             'blogPosts' => array(self::HAS_MANY, 'CommunityContent', 'author_id', 'with' => 'rubric', 'condition' => 'rubric.user_id IS NOT null', 'select' => 'id'),
             'userAddress' => array(self::HAS_ONE, 'UserAddress', 'user_id'),
+            'priority' => array(self::HAS_ONE, 'UserPriority', 'user_id'),
 
             'answers' => array(self::HAS_MANY, 'DuelAnswer', 'user_id'),
             'activeQuestion' => array(self::HAS_ONE, 'DuelQuestion', array('question_id' => 'id'), 'through' => 'answers', 'condition' => 'ends > NOW()'),
@@ -411,6 +412,11 @@ class User extends HActiveRecord
             $rubric->save();
 
             Comment::model()->addGiraffeFirstComment($this->id);
+
+            //create some tables
+            Yii::app()->db->createCommand()->insert(UserPriority::model()->tableName(), array('user_id' => $this->id));
+            Yii::app()->db->createCommand()->insert(UserScores::model()->tableName(), array('user_id' => $this->id));
+            Yii::app()->db->createCommand()->insert(UserAddress::model()->tableName(), array('user_id' => $this->id));
         } else {
             self::clearCache($this->id);
 

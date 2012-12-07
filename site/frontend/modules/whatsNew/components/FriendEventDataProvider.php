@@ -12,31 +12,16 @@ class FriendEventDataProvider extends EMongoDocumentDataProvider
     {
         $data = parent::fetchData();
 
-        $entityIds = array();
-        foreach ($data as $k => $v) {
-            $entityIds['User'][] = $v->user_id;
-            switch ($v->type) {
-                case FriendEvent::TYPE_STATUS_UPDATED:
-                    $entityIds['CommunityContent'][] = $v->content_id;
-                    break;
-            }
-        }
+        $usersIds = array();
+        foreach ($data as $k => $v)
+            $usersIds[] = $v->user_id;
 
-        $entities = array();
-        foreach ($entityIds as $entity => $ids) {
-            $method = 'get' . $entity. 'Criteria';
-            $criteria = FriendEvent::$method();
-            $criteria->addInCondition('t.id', $ids);
-            $entities[$entity] = CActiveRecord::model($entity)->findAll($criteria);
-        }
+        $criteria = FriendEvent::getUserCriteria();
+        $criteria->addInCondition('t.id', $usersIds);
+        $users = User::model()->findAll($criteria);
 
         foreach ($data as $k => $v) {
-            $v->user = $entities['User'][$v->user_id];
-            switch ($v->type) {
-                case FriendEvent::TYPE_STATUS_UPDATED:
-                    $v->content = $entities['CommunityContent'][$v->content_id];
-                    break;
-            }
+            $v->user = $users[$v->user_id];
         }
 
         return $data;

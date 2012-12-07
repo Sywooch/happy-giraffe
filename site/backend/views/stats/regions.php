@@ -2,7 +2,7 @@
 $criteria = new CDbCriteria;
 $criteria->limit = 100;
 $criteria->offset = 0;
-$criteria->with = array('userAddress');
+$criteria->with = array('address');
 
 $models = array(0);
 $result = array();
@@ -10,11 +10,11 @@ while (!empty($models)) {
     $models = User::model()->findAll($criteria);
 
     foreach ($models as $model) {
-        if (isset($model->userAddress->region_id)) {
-            if (isset($result[$model->userAddress->region_id]))
-                $result[$model->userAddress->region_id]++;
+        if (isset($model->address->region_id)) {
+            if (isset($result[$model->address->region_id]))
+                $result[$model->address->region_id]++;
             else
-                $result[$model->userAddress->region_id] = 1;
+                $result[$model->address->region_id] = 1;
         }
     }
 

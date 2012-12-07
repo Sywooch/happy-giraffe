@@ -139,7 +139,7 @@ class UsersCommand extends CConsoleCommand
                 Yii::app()->db->createCommand()->insert(UserPriority::model()->tableName(), array('user_id' => $user->id));
             if (empty($user->score))
                 Yii::app()->db->createCommand()->insert(UserScores::model()->tableName(), array('user_id' => $user->id));
-            if (empty($user->userAddress))
+            if (empty($user->address))
                 Yii::app()->db->createCommand()->insert(UserAddress::model()->tableName(), array('user_id' => $user->id));
 
             $criteria->offset++;

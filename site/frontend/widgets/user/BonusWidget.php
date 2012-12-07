@@ -12,7 +12,7 @@ class BonusWidget extends UserCoreWidget
 
     public function run()
     {
-        $scores = $this->user->getScores();
+        $scores = $this->user->score;
         if ($this->user->id != Yii::app()->user->id || $scores->full == 2)
             return;
 

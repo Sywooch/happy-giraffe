@@ -4506,7 +4506,7 @@ ul.letters li a:hover {
 
 #cook-recipe .hrecipe .recipe-description .actions .yashare-auto-init {display:inline-block;*zoom:1;*display:inline;vertical-align:middle;}
 
-#cook-recipe .hrecipe .nutrition {width:200px;padding:20px 19px;border:1px solid #d4e5fd;margin:70px 0 0 0;}
+#cook-recipe .hrecipe .nutrition {width:200px;padding:20px 19px;border:1px solid #d4e5fd;margin:0;}
 #cook-recipe .hrecipe .nutrition .block-title {color:#363535;font-size:14px;margin-bottom:10px;}
 #cook-recipe .hrecipe .nutrition .block-title span {color:#9e9d9d;}
 #cook-recipe .hrecipe .nutrition .portion {margin-bottom:10px;color:#038ae0;font-size:11px;font-family:tahoma, arial, helvetica, sans-serif;}

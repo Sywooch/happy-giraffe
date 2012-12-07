@@ -469,7 +469,6 @@ var Register = {
     showStep2:function(email, type){
         Register.attributes['email']= email;
         Register.attributes['type']= type;
-        console.log(Register.attributes);
         $.post('/signup/showForm/', Register.attributes, function(response) {
             var link = $('#hidden_register_link');
             link.attr('href', '#register');
@@ -668,4 +667,9 @@ var Horoscope = {
         $.post('/horoscope/viewed/');
     }
 };
+
+function service_used(id)
+{
+    $.post('/ajax/serviceUsed/', {id:id});
+}
 

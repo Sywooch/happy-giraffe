@@ -75,7 +75,7 @@
 											Проблема в том, что на 2006-ой год игры еще толком не было, Роды — отправная точка для самых важных изменений и судьбоносных. Осень. Я ее люблю, но когда начинается непонятная погода, хочется лезть на стенку. Сегодня на улице вот +8, вроде тепло, но вот туман.
 										</div>
 									</div>
-									<div class="clearfix">к записи</div>
+									<div class="masonry-news-list_meta-info clearfix">к записи</div>
 									<h3 class="masonry-news-list_title">
 										<a href="">Волшебная азбука 123 123</a>
 									</h3>
@@ -229,7 +229,7 @@
 											</div>
 									    </div>
 									</div>
-									<div class="textalign-c clearfix">
+									<div class="comments-all clearfix">
 										<a href="">Добавить комментарий</a>
 									</div>
 								</li>
@@ -262,7 +262,7 @@
 											</div>
 										</div>
 									</div>
-									<div class="textalign-c">
+									<div class="comments-all">
 										<a href="" class="textdec-onhover">Поддержите друга!</a>
 									</div>
 								</li>
@@ -294,7 +294,7 @@
 				                            </li>
 										</ul>
 									</div>
-									<div class="textalign-c clearfix">
+									<div class="comments-all clearfix">
 										<a href="">Добавить комментарий</a>
 									</div>
 								</li>
@@ -333,7 +333,7 @@
 				                            </li>
 										</ul>
 									</div>
-									<div class="textalign-c clearfix">
+									<div class="comments-all clearfix">
 										<a href="">Добавить комментарий</a>
 									</div>
 								</li>
@@ -386,7 +386,7 @@
 											<li><a href=""><img src="/images/example/w64-h61-2.jpg" alt="" /></a></li>
 										</ul>
 									</div>
-									<div class="textalign-c clearfix">
+									<div class="comments-all clearfix">
 										<a href="">Смотреть весь альбом</a>
 									</div>
 								</li>
@@ -413,7 +413,7 @@
 											<li><a href=""><img src="/images/example/w64-h61-2.jpg" alt="" /></a></li>
 										</ul>
 									</div>
-									<div class="textalign-c clearfix">
+									<div class="comments-all clearfix">
 										<a href="">Смотреть весь альбом</a>
 									</div>
 								</li>
@@ -437,7 +437,7 @@
 											<li><a href=""><img src="/images/example/w64-h61-2.jpg" alt="" /></a></li>
 										</ul>
 									</div>
-									<div class="textalign-c clearfix">
+									<div class="comments-all clearfix">
 										<a href="">Смотреть весь альбом</a>
 									</div>
 								</li>
@@ -464,7 +464,7 @@
 											
 										</div>
 									</div>
-									<div class="textalign-c clearfix">
+									<div class="comments-all clearfix">
 										<a href="">Смотреть весь альбом</a>
 									</div>
 								</li>
@@ -556,7 +556,7 @@
 											<img alt="" src="/images/services/service-icon-12.jpg">
 										</a>
 									</div>
-									<div class="textalign-c clearfix">
+									<div class="comments-all clearfix">
 										<a href="">Попробовать сервис!</a>
 									</div>
 								</li>
@@ -578,7 +578,7 @@
 											<img alt="" src="/images/services/service-icon-13.jpg">
 										</a>
 									</div>
-									<div class="textalign-c clearfix">
+									<div class="comments-all clearfix">
 										<a href="">Попробовать сервис!</a>
 									</div>
 								</li>
@@ -601,17 +601,12 @@
 											<ul>
 												<li>
 													<big>Дмитрий <small>- мой муж</small></big>
-													<div class="comment">Самый замечательный муж и лучший в мире папа.<span class="tale"></span>
-													</div>
 													<div class="img">
 														<img src="http://img.happy-giraffe.ru/thumbs/180x180/15292/1916d87aa7c17e09756746f0854e52e2.jpg">
 													</div>
 												</li>
 												<li>
 												<big>Мирослава <small>- моя дочь, 1 год 2 месяца</small></big>
-													<div class="comment">Вагон оптимизма, 3 мешка наглости и столько же кокетства и как всё это умещается в таком маленьком ребенке?<span class="tale"></span>
-													</div>
-
 												<div class="img">
 													<img src="http://img.happy-giraffe.ru/thumbs/180x180/15292/a1838cb82b9b6022801e25cc4ac10ec3.jpg">
 												</div>
@@ -632,6 +627,27 @@
 									</div>
 								</li>
 								
+								<li class="masonry-news-list_item">
+									<div class="masonry-news-list_friend-info clearfix">
+										<a class="ava female small" href=""><img alt="" src="http://img.happy-giraffe.ru/avatars/19372/small/21fd8c8f29c5a289df17938cb2f20e5b.jpg"></a>
+										<div class="details">
+											<a class="username" href="">Александр</a>
+											<span class="date">Сегодня 13:25</span>
+											<p>Воспользовалась сервисом </p>
+										</div>
+									</div>
+									<h3 class="masonry-news-list_title textalign-c">
+										<a href="">Приправы и специи</a>
+									</h3>
+									<div class="masonry-news-list_content">
+										<a href="">
+											<img alt="" src="/images/services/service-icon-19.jpg">
+										</a>
+									</div>
+									<div class="comments-all clearfix">
+										<a href="">Попробовать сервис!</a>
+									</div>
+								</li>
 								
 								
 							</ul>

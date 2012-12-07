@@ -44,7 +44,7 @@
                     'listViewId' => 'liveList',
                     'options' => array(
                         'scrollContainer' => new CJavaScriptExpression("$('.layout-container')"),
-                        'tresholdMargin' => 250,
+                        'tresholdMargin' => -250,
                         'onRenderComplete' => new CJavaScriptExpression("function(items) {
                             var newItems = $(items);
 

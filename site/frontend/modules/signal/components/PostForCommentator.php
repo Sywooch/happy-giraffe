@@ -37,13 +37,12 @@ class PostForCommentator
 
     /**
      * @param CDbCriteria $criteria
+     * @param bool $one_post
      * @return CActiveRecord[]
      */
     public function getPosts($criteria, $one_post = false)
     {
         $result = array();
-        if ($one_post)
-            $criteria->order = 'rand()';
 
         foreach ($this->entities as $entity => $limits) {
             $posts = CActiveRecord::model($entity)->findAll($criteria);
@@ -53,9 +52,9 @@ class PostForCommentator
                 if (!empty($this->commentator->ignoreUsers) && in_array($post->author_id, $this->commentator->ignoreUsers))
                     continue;
 
+                //check already comment
                 if ($this->alreadyCommented($post))
                     continue;
-                //check already comment
 
                 list($count_limit, $post_time) = CommentsLimit::getLimit($entity, $post->id, $limits, $this->times);
 

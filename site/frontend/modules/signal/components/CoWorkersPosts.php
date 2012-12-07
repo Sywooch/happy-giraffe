@@ -6,7 +6,7 @@
 class CoWorkersPosts extends PostForCommentator
 {
     protected $entities = array(
-        'CommunityContent' => array(20),
+        'CommunityContent' => array(10),
         'CookRecipe' => array(2, 3),
     );
     protected $nextGroup = 'ZeroCommentsPosts';

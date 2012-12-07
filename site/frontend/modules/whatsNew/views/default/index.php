@@ -1,10 +1,19 @@
 <?php
+    $js = '
+        var $container = $("#liveList .items");
+
+        $container.imagesLoaded(function() {
+            $container.isotope({
+                itemSelector : ".masonry-news-list_item"
+            });
+        });
+    ';
+
     Yii::app()->clientScript
         ->registerCssFile('/stylesheets/user.css')
         ->registerCssFile('/stylesheets/isotope.css')
         ->registerScriptFile('/javascripts/jquery.isotope.min.js')
-        ->registerScriptFile('/javascripts/live.js')
-        ->registerScript('Realplexor-reg-whatsNew', 'comet.connect(\'http://' . Yii::app()->comet->host . '\', \'' . Yii::app()->comet->namespace . '\', \'whatsNewIndex\');')
+        ->registerScript('whatsNew-isotope', $js)
     ;
 
     Yii::app()->eauth->renderWidget(array(
@@ -14,7 +23,7 @@
 
 <div id="broadcast" class="broadcast-all">
 
-    <?php $this->renderPartial('menu'); ?>
+    <?php $this->renderPartial('/menu'); ?>
 
     <div class="content-cols clearfix">
 
@@ -42,7 +51,6 @@
                                 newItems.show();
                                 $('#liveList .items').isotope('appended', newItems);
                             });
-                            return false;
                         }"),
                     ),
                 ),

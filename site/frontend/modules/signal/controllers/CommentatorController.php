@@ -89,4 +89,11 @@ class CommentatorController extends HController
 
         echo CJSON::encode($response);
     }
+
+    public function actionTest(){
+        $this->commentator->skipComment();
+
+        $this->layout = null;
+        $this->render('empty');
+    }
 }

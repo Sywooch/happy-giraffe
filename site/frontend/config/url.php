@@ -217,7 +217,7 @@ return array(
         'horoscope/year/<year:\d\d\d\d>' => 'services/horoscope/default/year',
         'horoscope/<zodiac:[\w]+>/<date:\d\d\d\d-\d\d-\d\d>' => 'services/horoscope/default/date',
         'horoscope/<_a:(year|month|tomorrow|yesterday)>/<zodiac:[\w]+>' => 'services/horoscope/default/<_a>',
-        'horoscope/<_a:(year|month|tomorrow)>' => 'services/horoscope/default/<_a>',
+        'horoscope/<_a:(year|month|tomorrow|viewed)>' => 'services/horoscope/default/<_a>',
         'horoscope/<zodiac:[\w]+>' => 'services/horoscope/default/today',
 
         'names/<_a:(saintCalc|likes|like|top10|saint)>' => 'services/names/default/<_a>',

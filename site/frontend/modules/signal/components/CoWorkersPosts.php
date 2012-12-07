@@ -37,6 +37,7 @@ class CoWorkersPosts extends PostForCommentator
         $criteria->condition = 't.created >= "' . date("Y-m-d H:i:s", strtotime('-48 hour')) . '" AND `full` IS NULL AND t.author_id != '.$this->commentator->user_id;
         $criteria->with = array(
             'author' => array(
+                'select'=>array('id'),
                 'condition' => ($simple_users) ? 'author.group = 0' : 'author.group > 0',
                 'together' => true,
             ),

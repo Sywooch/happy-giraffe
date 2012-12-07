@@ -61,7 +61,7 @@ $form = $this->beginWidget('CActiveForm', array(
             </li>
             <li>
                 <div class="row">
-                    <?php echo $form->dropDownList($model, 'baby_y', HDate::Range($year - 5, $year), array('class' => 'chzn yr_cal', 'empty' => 'год')); ?>
+                    <?php echo $form->dropDownList($model, 'baby_y', HDate::Range($year - 1, $year), array('class' => 'chzn yr_cal', 'empty' => 'год')); ?>
                     <?php echo $form->error($model, 'baby_y'); ?>
                 </div>
             </li>

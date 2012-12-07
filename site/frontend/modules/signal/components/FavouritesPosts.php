@@ -43,10 +43,8 @@ class FavouritesPosts extends PostForCommentator
             return null;
 
         $criteria = new CDbCriteria;
-        $criteria->select = 't.*, `comments`.`id` as comment_id';
-        $criteria->condition = 't.created >= "' . date("Y-m-d H:i:s", strtotime('-48 hour')) . '" AND `full` IS NULL AND comments.id IS NULL';
+        $criteria->condition = 't.created >= "' . date("Y-m-d H:i:s", strtotime('-48 hour')) . '" AND `full` IS NULL';
         $criteria->compare('t.id', $ids);
-        $criteria->join = 'LEFT OUTER JOIN `comments` `comments` ON (`comments`.`entity_id`=`t`.`id` AND `comments`.`author_id` = '.$this->commentator->user_id.') ';
 
         return $criteria;
     }

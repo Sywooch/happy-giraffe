@@ -19,7 +19,7 @@ class TrafficPosts extends PostForCommentator
         if ($criteria === null)
             return $this->nextGroup();
 
-        $posts = $this->getPosts($criteria);
+        $posts = $this->getPosts($criteria, true);
         $this->logState(count($posts));
 
         if (count($posts) == 0) {

@@ -39,9 +39,11 @@ class PostForCommentator
      * @param CDbCriteria $criteria
      * @return CActiveRecord[]
      */
-    public function getPosts($criteria)
+    public function getPosts($criteria, $one_post = false)
     {
         $result = array();
+        if ($one_post)
+            $criteria->order = 'rand()';
 
         foreach ($this->entities as $entity => $limits) {
             $posts = CActiveRecord::model($entity)->findAll($criteria);
@@ -62,8 +64,11 @@ class PostForCommentator
                     $post_created_spent_minutes = round((time() - strtotime($post->created)) / 60);
 
                     if ($post->commentsCount < $count_limit) {
-                        if ($post_time < $post_created_spent_minutes && !$this->IsSkipped($entity, $post->id))
+                        if ($post_time < $post_created_spent_minutes && !$this->IsSkipped($entity, $post->id)){
+                            if ($one_post)
+                                return array($post);
                             $result [] = $post;
+                        }
 
                     } else {
                         $post->full = 1;

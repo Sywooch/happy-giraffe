@@ -15,7 +15,7 @@ class UserPosts extends PostForCommentator
     {
         Yii::import('site.frontend.modules.cook.models.*');
         $criteria = $this->getCriteria();
-        $posts = $this->getPosts($criteria);
+        $posts = $this->getPosts($criteria, true);
 
         $this->logState(count($posts));
 

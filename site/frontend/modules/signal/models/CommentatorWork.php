@@ -202,11 +202,13 @@ class CommentatorWork extends EMongoDocument
 
     /**
      * получить следующий пост (в блоге, в клубах, рецепт) для комментарирования
-     *
      */
     public function getNextPostForComment()
     {
+        TimeLogger::model()->startTimer('next comment');
         $list = PostForCommentator::getNextPost($this);
+        TimeLogger::model()->endTimer();
+
         if ($list === false) {
             return false;
         }

@@ -4,31 +4,6 @@
 <!--[if gt IE 7]><!--> <html xmlns="http://www.w3.org/1999/xhtml" class="top-nav-fixed"> <!--<![endif]-->
 <head>
 	<!--#include virtual="/block/global/head.shtml" -->
-	<script>
-		$(function(){
-			
-			ffpactive = 0;
-			ffpcount = $('#find-friend-wrapper').find('ul').size();
-			
-		})
-		
-		var ffpcount;
-		var ffpactive;
-		
-		
-		function nextFriendsPage(){
-			
-			if (!$('#find-friend-wrapper').find('ul').is(':animated')){
-			
-				ffpcount == ffpactive+1 ? ffpactive = 0 : ffpactive++;
-				
-				$('#find-friend-wrapper').find('ul').eq(ffpactive).fadeIn();
-				$('#find-friend-wrapper').find('ul').not(':eq('+ffpactive+')').hide();
-				
-			}
-			
-		}
-	</script>
 	
 </head>
 <body class="body-club body-gray">
@@ -163,6 +138,17 @@
 												<span class="yellow">3 мес.</span>
 											</li>
 										</ul>
+									</div>
+									
+									<div class="interests">
+										<ul class="interests-list">
+											<li><span class="interest">Бильярд</span></li>
+											<li><span class="interest">Футбол</span></li>
+											<li><span class="interest">Хоккей</span></li>
+											<li><span class="interest">Художественная гимнастика</span></li>
+											<li><a class="interest">Бокс</a></li>
+											<li><span class="interest">Бильярд</span></li>
+										</ul>									
 									</div>
 								
 								</li>
@@ -355,8 +341,6 @@
 										<a class="add-friend" href=""><span class="tip">Пригласить в друзья</span></a>
 										<a class="new-message" href=""><span class="tip">Написать сообщение</span></a>
 										<a href="">Анкета</a>
-										<a href="">Блог</a><sup class="count">9</sup>
-										<a href="">Фото</a><sup class="count">99</sup>
 									</div>
 									<div class="find-friend-famyli">
 										<div class="textalign-c clearfix">
@@ -369,7 +353,20 @@
 											</li>
 										</ul>
 									</div>
-								
+									
+									<div class="interests">
+										<ul class="interests-list">
+											<li><span class="interest">Художественная гимнастика</span></li>
+											<li><span class="interest">Хоккей</span></li>
+											<li><span class="interest">Бильярд</span></li>
+											<li><span class="interest">Футбол</span></li>
+											<li><a class="interest">Бокс</a></li>
+											<li><span class="interest">Бильярд</span></li>
+	                                        <li><span class="interest">Фототуризм</span></li>
+	                                        <li><span class="interest">Горный туризм</span></li>
+	                                        <li><span class="interest">Водный туризм</span></li>
+										</ul>									
+									</div>
 								</li>
 								
 								<li class="masonry-news-list_item">
@@ -542,6 +539,31 @@
 			
 			
 			<!-- Старая версия  -->
+	<script>
+		$(function(){
+			
+			ffpactive = 0;
+			ffpcount = $('#find-friend-wrapper').find('ul').size();
+			
+		})
+		
+		var ffpcount;
+		var ffpactive;
+		
+		
+		function nextFriendsPage(){
+			
+			if (!$('#find-friend-wrapper').find('ul').is(':animated')){
+			
+				ffpcount == ffpactive+1 ? ffpactive = 0 : ffpactive++;
+				
+				$('#find-friend-wrapper').find('ul').eq(ffpactive).fadeIn();
+				$('#find-friend-wrapper').find('ul').not(':eq('+ffpactive+')').hide();
+				
+			}
+			
+		}
+	</script>
 			<div id="find-friend" class="activity-find-friend">
 				
 				<div class="title">Найти <span>друзей</span> <a href="javascript:void(0);" onclick="nextFriendsPage();"><span>Найти<br/>еще</span></a></div>

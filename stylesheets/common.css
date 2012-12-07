@@ -266,7 +266,7 @@ box-shadow:1px 1px 1px rgba(0,0,0,.2);behavior: url(/stylesheets/PIE.htc);}
 .user-fast-buttons .add-friend {width:22px;height:18px;background:url(/images/common.png) no-repeat -257px -297px }
 .user-fast-buttons .remove-friend {width:26px;height:26px;background:url(/images/common.png) no-repeat -283px -271px;}
 .user-fast-buttons .pending-friend {width:26px;height:26px;background:url(/images/common.png) no-repeat -310px -271px;}
-.user-fast-buttons .new-message {width:22px;height:17px;background:url(/images/common.png) no-repeat -235px -298px;margin-top:1px;}
+.user-fast-buttons .new-message {width:22px;height:17px;background:url(/images/common.png) no-repeat -235px -298px;margin:1px 5px 0 -1px;}
 .user-fast-buttons .accept {background:#56b74f;height:16px;line-height:16px;padding:0 8px;margin-left:-6px;color:#fff;}
 .user-fast-buttons .cancel {background:#629ed1;}
 .user-fast-buttons .accept {/*css3*/ -moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px;}
@@ -3361,9 +3361,10 @@ border-radius: 7px;
 
 /* interests */
 
-.interests-list {display:inline-block;*zoom:1;*display:inline;vertical-align:middle;max-width:150px;}
+.interests-list {display:inline-block;*zoom:1;*display:inline;vertical-align:middle;max-width:150px;list-style: none;}
 .interests-list ul {display:none;}
 .interests-list ul.active {display:block;}
+.interests-list > li {display: inline-block;*zoom:1;*display:inline;}
 
 
 .interest-cat {color:#414142;font-family:tahoma, arial, helvetica, sans-serif;font-size:11px;display:inline-block;*zoom:1;*display:inline;vertical-align:middle;}
@@ -3371,14 +3372,45 @@ border-radius: 7px;
 .interest-cat .img {display:inline-block;*zoom:1;*display:inline;text-align:center;vertical-align:middle;margin-right:10px;}
 .interest-cat .text {display:inline-block;*zoom:1;*display:inline;width:150px;vertical-align:middle;}
 
-.interest {display:inline-block;*zoom:1;*display:inline;height:22px;line-height:20px;padding:0px 8px 0 16px;font-size:13px;color:#575757;background:#d3eafc url(/images/interest.gif) no-repeat left;margin:5px 5px 5px 0; -moz-border-radius:0 4px 4px 0;-webkit-border-radius:0 4px 4px 0;border-radius:0 4px 4px 0;behavior: url(/stylesheets/PIE.htc);}
-.interest span {color:#fb8246;font-size:11px;font-weight:bold;margin-left:6px;}
+/*.interest{display:inline-block;*zoom:1;*display:inline;height:22px;line-height:20px;padding:0 8px 0 16px;font-size:13px;color:#575757;background:#d3eafc url(/images/interest.gif) no-repeat left;margin:5px 5px 5px 0;-moz-border-radius:0 4px 4px 0;-webkit-border-radius:0 4px 4px 0;border-radius:0 4px 4px 0;behavior:url(/stylesheets/PIE.htc);}
+.interest span{color:#fb8246;font-size:11px;font-weight:700;margin-left:6px;}
+*/
+.interest {
+    position: relative;
+    display:inline-block;
+    *zoom:1;
+    *display:inline;
+    height:16px;
+    padding:0 5px 0 11px;
+    font:10px/14px Tahoma, Arial, Verdana, sans-serif;
+    color:#0697d3;
+    background:#e8f5ff;
+    margin:2px 0px 2px 0;
+    white-space:nowrap;
+    text-decoration:none;
+    -moz-border-radius:0 4px 4px 0;
+    -webkit-border-radius:0 4px 4px 0;
+    border-radius:0 4px 4px 0;
+    behavior:url(/stylesheets/PIE.htc);
+}
+.interest:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 0;
+    width: 0;
+    border: 8px solid #fff;
+    border-left: none;
+    border-right:7px solid #e8f5ff;
+}
+.interest span {
+    color:#fb8246;
+    font-size:11px;
+    font-weight:700;
+    margin-left:6px;
+}
 
-/* interests */
-
-.interest {display:inline-block;*zoom:1;*display:inline;height:14px;line-height:14px;padding:0px 5px 0 9px;font-size:9px;color:#575757;background:#ecddfc url(/images/interest.gif) no-repeat left;margin:4px 4px 4px 0;white-space:nowrap;text-decoration:none;-moz-border-radius:0 4px 4px 0;-webkit-border-radius:0 4px 4px 0;border-radius:0 4px 4px 0;behavior: url(/stylesheets/PIE.htc);}
-
-.interest span {color:#fb8246;font-size:11px;font-weight:bold;margin-left:6px;}
 
 /*.interest {-moz-border-radius:12px;-webkit-border-radius:12px;border-radius:12px;behavior: url(/stylesheets/PIE.htc);}
 .interest.kids {border-color:#bfddff;color:#689dc9;}

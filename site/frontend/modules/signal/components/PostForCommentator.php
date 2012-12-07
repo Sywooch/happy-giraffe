@@ -44,9 +44,7 @@ class PostForCommentator
         $result = array();
 
         foreach ($this->entities as $entity => $limits) {
-            TimeLogger::model()->startTimer('find all posts - ' . $entity);
             $posts = CActiveRecord::model($entity)->findAll($criteria);
-            TimeLogger::model()->endTimer();
 
             foreach ($posts as $post) {
                 //check ignore users

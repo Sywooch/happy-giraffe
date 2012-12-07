@@ -110,6 +110,34 @@ class SignalCommand extends CConsoleCommand
         $month->save();
     }
 
+    public function actionPriority(){
+        //calc user priority
+        $criteria = new CDbCriteria;
+        $criteria->offset = 0;
+        $criteria->limit = 100;
+        $criteria->condition = 'register_date > :register_date';
+        $criteria->params = array(':register_date' => date("Y-m-d H:i:s", strtotime('-3 month')));
+        $criteria->compare('`group`', UserGroup::USER);
+        $criteria->with = array('communityContentsCount', 'priority');
+
+        $users = 1;
+        while (!empty($users)) {
+            $users = User::model()->findAll($criteria);
+
+            foreach ($users as $user) {
+                //если больше 5-ти постов, максимальный приоритет
+                if ($user->communityContentsCount >= 5) {
+                    $user->priority->priority = 20;
+                    $user->priority->update(array('priority'));
+                }
+
+                //если комментировали вчера, уменьшаем приоритет
+            }
+
+            $criteria->offset += 100;
+        }
+    }
+
     public function actionCommentatorsEndMonth()
     {
         $month = CommentatorsMonthStats::model()->find(new EMongoCriteria(array(
@@ -181,7 +209,8 @@ class SignalCommand extends CConsoleCommand
         }
     }
 
-    public function actionCommentator($id){
+    public function actionCommentator($id)
+    {
         $month = CommentatorsMonthStats::model()->find(new EMongoCriteria(array(
             'conditions' => array(
                 'period' => array('==' => date("Y-m"))

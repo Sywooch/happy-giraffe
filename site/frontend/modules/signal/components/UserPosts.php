@@ -40,8 +40,10 @@ class UserPosts extends PostForCommentator
                 'select'=>array('id'),
                 'condition' => ($simple_users) ? 'author.group = 0' : 'author.group > 0',
                 'together' => true,
+                'with'=>array('priority')
             ),
         );
+        $criteria->order = 'priority.priority desc';
 
         return $criteria;
     }

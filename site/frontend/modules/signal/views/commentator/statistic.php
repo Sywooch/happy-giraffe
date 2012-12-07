@@ -68,7 +68,7 @@ $current_month = CommentatorsMonthStats::getWorkingMonth($period);
 
             <table class="table-task">
                 <tr>
-                    <td class="col-1">4.  Количество личных сообщений</td>
+                    <td class="col-1">4.  Баллов от личных сообщений</td>
 
                     <td class="col-2"><?=$this->commentator->imMessages($period) ?></td>
                     <td class="col-3"><?=$this->commentator->getPlace($period, CommentatorsMonthStats::IM_MESSAGES) ?></td>

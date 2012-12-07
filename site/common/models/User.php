@@ -19,7 +19,6 @@
  * @property string $login_date
  * @property string $last_ip
  * @property string $relationship_status
- * @property UserAddress $userAddress
  * @property integer $recovery_disable
  * @property integer $remember_code
  * @property int $age
@@ -57,6 +56,7 @@
  * @property AlbumPhoto $avatar
  * @property UserStatus status
  * @property UserMailSub $mail_subs
+ * @property address $address
  *
  * @method User active()
  */
@@ -303,7 +303,7 @@ class User extends HActiveRecord
             'userDialogs' => array(self::HAS_MANY, 'DialogUser', 'user_id'),
             'userDialog' => array(self::HAS_ONE, 'DialogUser', 'user_id'),
             'blogPosts' => array(self::HAS_MANY, 'CommunityContent', 'author_id', 'with' => 'rubric', 'condition' => 'rubric.user_id IS NOT null', 'select' => 'id'),
-            'userAddress' => array(self::HAS_ONE, 'UserAddress', 'user_id'),
+            'address' => array(self::HAS_ONE, 'UserAddress', 'user_id'),
             'priority' => array(self::HAS_ONE, 'UserPriority', 'user_id'),
 
             'answers' => array(self::HAS_MANY, 'DuelAnswer', 'user_id'),
@@ -416,7 +416,7 @@ class User extends HActiveRecord
             //create some tables
             Yii::app()->db->createCommand()->insert(UserPriority::model()->tableName(), array('user_id' => $this->id));
             Yii::app()->db->createCommand()->insert(UserScores::model()->tableName(), array('user_id' => $this->id));
-            Yii::app()->db->createCommand()->insert(UserAddress::model()->tableName(), array('user_id' => $this->id));
+            Yii::app()->db->createCommand()->insert(address::model()->tableName(), array('user_id' => $this->id));
         } else {
             self::clearCache($this->id);
 
@@ -877,29 +877,6 @@ class User extends HActiveRecord
             ->queryScalar() != 0;
     }
 
-    public function getScores()
-    {
-        if (!isset($this->score->user_id)) {
-            $model = new UserScores;
-            $model->user_id = $this->id;
-            $model->save();
-            $this->score = $model;
-        }
-
-        return $this->score;
-    }
-
-    public function getUserAddress()
-    {
-        if ($this->userAddress === null) {
-            $address = new UserAddress();
-            $address->user_id = $this->id;
-            $address->save();
-            $this->userAddress = $address;
-        }
-        return $this->userAddress;
-    }
-
     public function getBlogWidget()
     {
         $criteria = new CDbCriteria(array(
@@ -985,19 +962,19 @@ class User extends HActiveRecord
             'select' => 't.*, count(interest__users_interests.user_id) AS interestsCount, count(' . Baby::model()->getTableAlias() . '.id) AS babiesCount',
             'group' => 't.id',
             'having' => 'interestsCount > 0 AND (babiesCount > 0 OR t.relationship_status IS NOT NULL)',
-            'condition' => 't.birthday IS NOT NULL AND t.avatar_id IS NOT NULL AND userAddress.country_id IS NOT NULL',
+            'condition' => 't.birthday IS NOT NULL AND t.avatar_id IS NOT NULL AND address.country_id IS NOT NULL',
             'join' => 'LEFT JOIN interest__users_interests ON interest__users_interests.user_id = t.id',
             'with' => array(
                 'interests' => array(
                     'together' => false,
                 ),
-                'userAddress' => array(
+                'address' => array(
                     'together' => true,
                 ),
-                'userAddress.country',
-                'userAddress.region',
-                'userAddress.city',
-                'userAddress.city.district',
+                'address.country',
+                'address.region',
+                'address.city',
+                'address.city.district',
                 'babies' => array(
                     'together' => true,
                     //'condition' => 'sex != 0 OR type IS NOT NULL',

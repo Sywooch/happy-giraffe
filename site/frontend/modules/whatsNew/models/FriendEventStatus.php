@@ -9,8 +9,19 @@
 class FriendEventStatus extends FriendEvent
 {
     public $type = FriendEvent::TYPE_STATUS_UPDATED;
-
     public $content_id;
+
+    private $_content;
+
+    public function getContent()
+    {
+        return $this->_content;
+    }
+
+    public function setContent($content)
+    {
+        $this->_content = $content;
+    }
 
     public function createBlock()
     {
@@ -18,5 +29,10 @@ class FriendEventStatus extends FriendEvent
         $this->user_id = (int) $this->params['model']->author_id;
 
         parent::createBlock();
+    }
+
+    public function getLabel()
+    {
+        return HDate::simpleVerb('Изменил', $this->user->gender) . ' статус';
     }
 }

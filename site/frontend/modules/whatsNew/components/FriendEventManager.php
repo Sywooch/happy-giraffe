@@ -19,4 +19,26 @@ class FriendEventManager
         else
             $stack->update($model);
     }
+
+    public static function getDataProvider()
+    {
+        $user = Yii::app()->user->model;
+        $friends = User::model()->findAll($user->getFriendsCriteria(array('select' => 't.id', 'index' => 'id')));
+        $friendsIds = array_keys($friends);
+
+        $criteria = new EMongoCriteria(array(
+//            'conditions' => array(
+//                'user_id' => array('in' => $friendsIds),
+//            ),
+        ));
+
+        return new FriendEventDataProvider('FriendEvent', array(
+            'criteria' => $criteria,
+        ));
+    }
+
+    public function getBlockId()
+    {
+        return md5($this->seed);
+    }
 }

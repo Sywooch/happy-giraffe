@@ -6,7 +6,7 @@
  * Time: 11:29 AM
  * To change this template use File | Settings | File Templates.
  */
-abstract class FriendEvent extends EMongoDocument
+class FriendEvent extends EMongoDocument
 {
     // simple
     const TYPE_STATUS_UPDATED = 0;
@@ -43,6 +43,7 @@ abstract class FriendEvent extends EMongoDocument
     public $type;
 
     private $_params;
+    private $_user;
 
     public function getCollectionName()
     {
@@ -51,10 +52,23 @@ abstract class FriendEvent extends EMongoDocument
 
     public static function model($type)
     {
-        $className = 'FriendEvent' . self::$types[$type];
-
-        return parent::model($className);
+        return parent::model(self::getClassName($type));
     }
+
+    public static function getClassName($type)
+    {
+        return 'FriendEvent' . self::$types[$type];
+    }
+
+    protected function instantiate($attributes)
+    {
+        $class=self::getClassName($attributes['type']);
+        $model=new $class(null);
+        $model->initEmbeddedDocuments();
+        $model->setAttributes($attributes, false);
+        return $model;
+    }
+
 
     public function getParams()
     {
@@ -66,6 +80,16 @@ abstract class FriendEvent extends EMongoDocument
         $this->_params = $params;
     }
 
+    public function getUser()
+    {
+        return $this->_user;
+    }
+
+    public function setUser($user)
+    {
+        $this->_user = $user;
+    }
+
     public function getStack()
     {
         return null;
@@ -75,5 +99,24 @@ abstract class FriendEvent extends EMongoDocument
     {
         $this->created = $this->updated = time();
         $this->save();
+    }
+
+    public function getView()
+    {
+        return 'application.modules.whatsNew.views.friends.types.' . lcfirst(self::$types[$this->type]);
+    }
+
+    public static function getUserCriteria()
+    {
+        return new CDbCriteria(array(
+            'index' => 'id',
+        ));
+    }
+
+    public static function getCommunityContentCriteria()
+    {
+        return new CDbCriteria(array(
+            'index' => 'id',
+        ));
     }
 }

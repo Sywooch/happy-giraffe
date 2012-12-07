@@ -42,6 +42,10 @@
                         ),
                     )
                 ),
+                array(
+                    'label' => 'У друзей',
+                    'url' => array('/whatsNew/friends/index'),
+                ),
             ),
             'htmlOptions' => array(
                 'class' => 'broadcast-menu',

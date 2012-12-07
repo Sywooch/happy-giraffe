@@ -164,9 +164,9 @@
                     )); ?>
 
                     <div id="loc-flipbox">
-                        <?php $this->widget('LocationWidget', array(
-                            'user' => $user,
-                        )); ?>
+                        <?php //$this->widget('LocationWidget', array(
+                        //    'user' => $user,
+                      //  )); ?>
                     </div>
 
 <!--                    <div class="weather-wrapper">-->

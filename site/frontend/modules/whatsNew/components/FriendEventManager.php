@@ -32,6 +32,8 @@ class FriendEventManager
 //            ),
         ));
 
+        $criteria->sort('updated', EMongoCriteria::SORT_DESC);
+
         return new FriendEventDataProvider('FriendEvent', array(
             'criteria' => $criteria,
         ));

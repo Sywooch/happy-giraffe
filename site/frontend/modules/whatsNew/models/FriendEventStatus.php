@@ -13,6 +13,11 @@ class FriendEventStatus extends FriendEvent
 
     private $_content;
 
+    public function init()
+    {
+        $this->_content = $this->_getContent();
+    }
+
     public function getContent()
     {
         return $this->_content;
@@ -22,6 +27,12 @@ class FriendEventStatus extends FriendEvent
     {
         $this->_content = $content;
     }
+
+    private function _getContent()
+    {
+        return CommunityContent::model()->resetScope()->full()->findByPk($this->content_id);
+    }
+
 
     public function createBlock()
     {

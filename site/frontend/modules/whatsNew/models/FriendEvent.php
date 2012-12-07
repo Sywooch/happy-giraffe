@@ -117,6 +117,7 @@ class FriendEvent extends EMongoDocument
     {
         return new CDbCriteria(array(
             'index' => 'id',
+
         ));
     }
 }

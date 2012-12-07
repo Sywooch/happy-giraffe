@@ -21,10 +21,10 @@ else {
         <div class="details">
             <span class="icon-status status-<?php echo $this->user->online == 1 ? 'online' : 'offline'; ?>"></span>
             <?=HHtml::link(CHtml::encode($this->user->fullName), $link_to_profile, array('class'=>'username'), $this->hideLinks)?>
-            <?php if ($this->location && $this->user->getUserAddress()->country !== null): ?>
+            <?php if ($this->location && $this->user->address->country !== null): ?>
                 <div class="location">
-                    <div class="flag flag-<?php echo $this->user->getUserAddress()->country->iso_code; ?>"></div>
-                    <?php echo CHtml::encode($this->user->getUserAddress()->cityName); ?>
+                    <div class="flag flag-<?php echo $this->user->address->country->iso_code; ?>"></div>
+                    <?php echo CHtml::encode($this->user->address->cityName); ?>
                 </div>
             <?php endif; ?>
             <div class="user-fast-buttons">

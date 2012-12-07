@@ -132,7 +132,7 @@
                         <a href="javascript:void(0)" onclick="Notifications.toggle()"><i class="icon icon-notifications"></i><span class="count"<?php if ($notificationsCount == 0): ?> style="display: none;"<?php endif; ?>><?=$notificationsCount?></span></a>
                     </li>
                     <li>
-                        <a href="<?=$this->createUrl('/scores/default/index') ?>"><i class="icon icon-points"></i><span class="count"><?= $user->getScores()->scores ?></span></a>
+                        <a href="<?=$this->createUrl('/scores/default/index') ?>"><i class="icon icon-points"></i><span class="count"><?= $user->score->scores ?></span></a>
                     </li>
                     <li class="item-ava">
                         <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => Yii::app()->user->model, 'size' => 'small', 'small' => true, 'sendButton' => false)); ?>

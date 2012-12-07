@@ -2,7 +2,7 @@
 <?php
 /*$js = '
 HMap.map_id = "'.$map_id.'";
-HMap.address = "'.$this->user->getUserAddress()->getLocationString().'";
+HMap.address = "'.$this->user->address->getLocationString().'";
 HMap.initGoogleMap();';
 
 Yii::app()->clientScript->registerScript('register_google_map-'.$map_id,$js);*/

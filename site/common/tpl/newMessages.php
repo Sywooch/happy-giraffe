@@ -24,8 +24,8 @@
                         </td>
                         <td valign="top">
                             <span style="color:#38a5f4;font:12px/16px arial, helvetica, sans-serif;"><?php echo $dialogUser->user->getFullName() ?></span><br/>
-                            <?php if (!empty($dialogUser->user->getUserAddress()->country_id)):?>
-                                <span style="color:#858484;font:9px/18px tahoma, helvetica, sans-serif;"><img src="http://www.happy-giraffe.ru/images/mail/flags/<?php echo  $dialogUser->user->getUserAddress()->country->iso_code; ?>0018.gif" style="margin-right:5px;"><?php echo CHtml::encode($dialogUser->user->getUserAddress()->getCityName()); ?></span><br/>
+                            <?php if (!empty($dialogUser->user->address->country_id)):?>
+                                <span style="color:#858484;font:9px/18px tahoma, helvetica, sans-serif;"><img src="http://www.happy-giraffe.ru/images/mail/flags/<?php echo  $dialogUser->user->address->country->iso_code; ?>0018.gif" style="margin-right:5px;"><?php echo CHtml::encode($dialogUser->user->address->getCityName()); ?></span><br/>
                             <?php endif ?>
                             <?php if (false):?>
                                 <span style="color:#2aa908;font:11px/18px tahoma, helvetica, sans-serif;"></span><br/>

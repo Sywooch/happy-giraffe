@@ -25,7 +25,7 @@ class Dialog extends HActiveRecord
      * @param string $className active record class name.
      * @return Dialog the static model class
      */
-    public static function model($className=__CLASS__)
+    public static function model($className = __CLASS__)
     {
         return parent::model($className);
     }
@@ -46,10 +46,10 @@ class Dialog extends HActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('title', 'length', 'max'=>100),
+            array('title', 'length', 'max' => 100),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, title', 'safe', 'on'=>'search'),
+            array('id, title', 'safe', 'on' => 'search'),
         );
     }
 
@@ -89,13 +89,13 @@ class Dialog extends HActiveRecord
         // Warning: Please modify the following code to remove attributes that
         // should not be searched.
 
-        $criteria=new CDbCriteria;
+        $criteria = new CDbCriteria;
 
-        $criteria->compare('id',$this->id,true);
-        $criteria->compare('title',$this->title,true);
+        $criteria->compare('id', $this->id, true);
+        $criteria->compare('title', $this->title, true);
 
         return new CActiveDataProvider($this, array(
-            'criteria'=>$criteria,
+            'criteria' => $criteria,
         ));
     }
 
@@ -138,8 +138,8 @@ class Dialog extends HActiveRecord
             . ' AND read_status=0 AND user_id != ' . $user_id . ' AND id <= ' . $last_message_id);
 
         //if user read all messages - update mail delivery
-        $unread = Im::model($user_id)->getUnreadMessagesCount();
-        if ($unread == 0){
+        $unread = Im::model($user_id)->getUnreadMessagesCount($user_id);
+        if ($unread == 0) {
             $m_criteria = new EMongoCriteria;
             $m_criteria->type('==', MailDelivery::TYPE_IM);
             $m_criteria->user_id('==', (int)$user_id);
@@ -210,8 +210,7 @@ class Dialog extends HActiveRecord
                 if (!empty($dialog->lastDeleted)) {
                     if ($dialog->lastDeleted->message_id < $dialog->lastMessage->id)
                         $notEmptyDialogs [] = $dialog;
-                }
-                else
+                } else
                     $notEmptyDialogs [] = $dialog;
             }
         }
@@ -304,8 +303,8 @@ class Dialog extends HActiveRecord
             );
 
             //remove deleted messages
-            $deleted_messages = DeletedMessage::model()->with('message')->findAllByAttributes(array('user_id'=>Yii::app()->user->id));
-            foreach($deleted_messages as $deleted_message){
+            $deleted_messages = DeletedMessage::model()->with('message')->findAllByAttributes(array('user_id' => Yii::app()->user->id));
+            foreach ($deleted_messages as $deleted_message) {
                 if ($deleted_message->message->dialog_id == $this->id)
                     $deleted_message->delete();
             }
@@ -342,5 +341,22 @@ class Dialog extends HActiveRecord
             'dialog_id' => $this->id,
         );
         $comet->send($interlocutor_id);
+    }
+
+    public function withSimpleUser()
+    {
+        $user_ids = Yii::app()->db->createCommand()
+            ->select('user_id')
+            ->from('im__dialog_users')
+            ->where('dialog_id=:dialog_id', array(':dialog_id' => $this->id))
+            ->queryColumn();
+
+        foreach ($user_ids as $user_id){
+            $model = User::model()->resetScope()->findByPk($user_id);
+            if ($model !== null && $model->group == UserGroup::USER)
+                return true;
+        }
+
+        return false;
     }
 }

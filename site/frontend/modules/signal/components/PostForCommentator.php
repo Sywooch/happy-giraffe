@@ -44,13 +44,19 @@ class PostForCommentator
         $result = array();
 
         foreach ($this->entities as $entity => $limits) {
+            TimeLogger::model()->startTimer('find all posts - '.$entity);
             $posts = CActiveRecord::model($entity)->findAll($criteria);
+            TimeLogger::model()->endTimer();
+
             foreach ($posts as $post) {
                 if (!empty($this->commentator->ignoreUsers) && in_array($post->author_id, $this->commentator->ignoreUsers))
                     continue;
 
+                TimeLogger::model()->startTimer('get post limits');
                 list($count_limit, $post_time) = CommentsLimit::getLimit($entity, $post->id, $limits, $this->times);
+                TimeLogger::model()->endTimer();
 
+                TimeLogger::model()->startTimer('other checks');
                 if (isset($post_time[$post->commentsCount])) {
                     $post_time = $post_time[$post->commentsCount];
                     $post_created_spent_minutes = round((time() - strtotime($post->created)) / 60);
@@ -67,6 +73,7 @@ class PostForCommentator
                     $post->full = 1;
                     $post->update(array('full'));
                 }
+                TimeLogger::model()->endTimer();
             }
         }
         shuffle($result);

@@ -202,11 +202,11 @@ class CommentatorWork extends EMongoDocument
 
     /**
      * получить следующий пост (в блоге, в клубах, рецепт) для комментарирования
-     *
      */
     public function getNextPostForComment()
     {
         $list = PostForCommentator::getNextPost($this);
+
         if ($list === false) {
             return false;
         }

@@ -387,7 +387,7 @@ class CommentatorWork extends EMongoDocument
         $dialogs = Dialog::model()->findAll(array(
             'with' => array(
                 'dialogUsers' => array(
-                    'condition' => 'dialogUsers.user_id = ' . $this->user_id
+                    'condition' => 'dialogUsers.user_id = ' . $this->user_id,
                 ),
                 'messages' => array(
                     'condition' => 'messages.created >= :min AND messages.created <= :max',
@@ -400,11 +400,26 @@ class CommentatorWork extends EMongoDocument
             )
         ));
 
-        $res = 0;
-        foreach ($dialogs as $dialog)
-            $res += count($dialog->messages);
+        $rating = 0;
+        $dialogs_count = 1;
+        foreach ($dialogs as $dialog) {
+            //если переписка ведется с простым пользователем
+            if ($dialog->withSimpleUser()) {
+                $user_answered = false;
+                foreach ($dialog->messages as $message)
+                    if ($message->user_id == $this->user_id)
+                        $rating += 0.2;
+                    else {
+                        $rating += 1;
+                        $user_answered = true;
+                    }
 
-        return $res;
+                if ($user_answered)
+                    $dialogs_count = $dialogs_count * 1.01;
+            }
+        }
+
+        return round($rating*$dialogs_count);
     }
 
     public function blogVisits($period)

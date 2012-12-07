@@ -416,7 +416,7 @@ class User extends HActiveRecord
             //create some tables
             Yii::app()->db->createCommand()->insert(UserPriority::model()->tableName(), array('user_id' => $this->id));
             Yii::app()->db->createCommand()->insert(UserScores::model()->tableName(), array('user_id' => $this->id));
-            Yii::app()->db->createCommand()->insert(address::model()->tableName(), array('user_id' => $this->id));
+            Yii::app()->db->createCommand()->insert(UserAddress::model()->tableName(), array('user_id' => $this->id));
         } else {
             self::clearCache($this->id);
 

@@ -16,6 +16,8 @@ $(function () {
                 $('.wh_son').fadeOut(100, ShowGender);
             else
                 $('.wh_daughter').fadeOut(100, ShowGender);
+
+            service_used(23);
         } else{
             if (father_group == null)
                 $('#man_bl_em_').show();

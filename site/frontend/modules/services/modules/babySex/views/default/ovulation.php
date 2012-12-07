@@ -34,7 +34,7 @@ echo $form->hiddenField($model, 'review_year', array('id' => 'review_year'));?>
         <ul class="lists_td">
             <li>
                 <div class="row">
-                    <?php echo $form->dropDownList($model, 'cycle', HDate::Range(21, 35), array('class' => 'chzn', 'empty' => '-')); ?>
+                    <?php echo $form->dropDownList($model, 'cycle', HDate::Range(21, 35), array('class' => 'chzn num_cal', 'empty' => '')); ?>
                     <?php echo $form->error($model, 'cycle'); ?>
                 </div>
             </li>
@@ -46,19 +46,19 @@ echo $form->hiddenField($model, 'review_year', array('id' => 'review_year'));?>
         <ul class="lists_td">
             <li>
                 <div class="row">
-                    <?php echo $form->dropDownList($model, 'day', HDate::Days(), array('class' => 'chzn', 'empty' => 'день')); ?>
+                    <?php echo $form->dropDownList($model, 'day', HDate::Days(), array('class' => 'chzn num_cal', 'empty' => 'день')); ?>
                     <?php echo $form->error($model, 'day'); ?>
                 </div>
             </li>
             <li>
                 <div class="row">
-                    <?php echo $form->dropDownList($model, 'month', HDate::ruMonths(), array('class' => 'chzn', 'empty' => 'месяц')); ?>
+                    <?php echo $form->dropDownList($model, 'month', HDate::ruMonths(), array('class' => 'chzn mn_cal', 'empty' => 'месяц')); ?>
                     <?php echo $form->error($model, 'month'); ?>
                 </div>
             </li>
             <li>
                 <div class="row">
-                    <?php echo $form->dropDownList($model, 'year', HDate::Range(date('Y') - 1, date('Y')), array('class' => 'chzn', 'empty' => 'год')); ?>
+                    <?php echo $form->dropDownList($model, 'year', HDate::Range(date('Y') - 1, date('Y')), array('class' => 'chzn yr_cal', 'empty' => 'год')); ?>
                     <?php echo $form->error($model, 'year'); ?>
                 </div>
             </li>
@@ -70,19 +70,19 @@ echo $form->hiddenField($model, 'review_year', array('id' => 'review_year'));?>
         <ul class="lists_td">
             <li>
                 <div class="row">
-                    <?php echo $form->dropDownList($model, 'con_day', HDate::Days(), array('class' => 'chzn', 'empty' => 'день')); ?>
+                    <?php echo $form->dropDownList($model, 'con_day', HDate::Days(), array('class' => 'chzn num_cal', 'empty' => 'день')); ?>
                     <?php echo $form->error($model, 'con_day'); ?>
                 </div>
             </li>
             <li>
                 <div class="row">
-                    <?php echo $form->dropDownList($model, 'con_month', HDate::ruMonths(), array('class' => 'chzn', 'empty' => 'месяц')); ?>
+                    <?php echo $form->dropDownList($model, 'con_month', HDate::ruMonths(), array('class' => 'chzn mn_cal', 'empty' => 'месяц')); ?>
                     <?php echo $form->error($model, 'con_month'); ?>
                 </div>
             </li>
             <li>
                 <div class="row">
-                    <?php echo $form->dropDownList($model, 'con_year', HDate::Range(date('Y') - 1, date('Y')), array('class' => 'chzn', 'empty' => 'год')); ?>
+                    <?php echo $form->dropDownList($model, 'con_year', HDate::Range(date('Y') - 1, date('Y')), array('class' => 'chzn yr_cal', 'empty' => 'год')); ?>
                     <?php echo $form->error($model, 'con_year'); ?>
                 </div>
             </li>
@@ -155,6 +155,13 @@ echo $form->hiddenField($model, 'review_year', array('id' => 'review_year'));?>
     <!-- .mother_calendar -->
 </div>
 
+<?php $this->widget('application.widgets.serviceSocial.serviceSocialWidget', array(
+    'service' => $service,
+    'image' => '/images/sex_child_ovulyaciya_bann.jpg',
+    'description' => 'Определение пола ребенка по дате овуляции - единственный более-менее достоверный способ. За основу метода взяты различия в размерах и поведении...'
+)); ?>
+
+<br><br>
 <div class="wysiwyg-content">
     <h1>Планирование пола ребенка по овуляции</h1>
     <p>Определение пола ребенка по дате овуляции - единственный более-менее достоверный способ. За основу метода взяты

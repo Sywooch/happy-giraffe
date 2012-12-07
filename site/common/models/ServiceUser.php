@@ -1,23 +1,21 @@
 <?php
 
 /**
- * This is the model class for table "service_categories".
+ * This is the model class for table "services__users".
  *
- * The followings are the available columns in table 'service_categories':
- * @property string $id
- * @property string $title
- *
- * The followings are the available model relations:
- * @property Services[] $services
+ * The followings are the available columns in table 'services__users':
+ * @property string $user_id
+ * @property string $service_id
+ * @property string $use_time
  */
-class ServiceCategory extends CActiveRecord
+class ServiceUser extends HActiveRecord
 {
     /**
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.
-     * @return ServiceCategory the static model class
+     * @return ServiceUser the static model class
      */
-    public static function model($className=__CLASS__)
+    public static function model($className = __CLASS__)
     {
         return parent::model($className);
     }
@@ -27,7 +25,7 @@ class ServiceCategory extends CActiveRecord
      */
     public function tableName()
     {
-        return 'services__categories';
+        return 'services__users';
     }
 
     /**
@@ -38,11 +36,11 @@ class ServiceCategory extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('title', 'required'),
-            array('title', 'length', 'max'=>255),
+            array('user_id, service_id', 'required'),
+            array('user_id, service_id', 'length', 'max' => 11),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, title', 'safe', 'on'=>'search'),
+            array('user_id, service_id, use_time', 'safe', 'on' => 'search'),
         );
     }
 
@@ -53,10 +51,7 @@ class ServiceCategory extends CActiveRecord
     {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
-        return array(
-            'services' => array(self::HAS_MANY, 'Service', 'category_id', 'scopes'=>array('visible')),
-            'servicesCount' => array(self::STAT, 'Service', 'category_id', 'condition'=>'`show`=1'),
-        );
+        return array();
     }
 
     /**
@@ -65,8 +60,9 @@ class ServiceCategory extends CActiveRecord
     public function attributeLabels()
     {
         return array(
-            'id' => 'ID',
-            'title' => 'Title',
+            'user_id' => 'User',
+            'service_id' => 'Service',
+            'use_time' => 'Use Time',
         );
     }
 
@@ -79,13 +75,36 @@ class ServiceCategory extends CActiveRecord
         // Warning: Please modify the following code to remove attributes that
         // should not be searched.
 
-        $criteria=new CDbCriteria;
+        $criteria = new CDbCriteria;
 
-        $criteria->compare('id',$this->id,true);
-        $criteria->compare('title',$this->title,true);
+        $criteria->compare('user_id', $this->user_id, true);
+        $criteria->compare('service_id', $this->service_id, true);
+        $criteria->compare('use_time', $this->use_time, true);
 
         return new CActiveDataProvider($this, array(
-            'criteria'=>$criteria,
+            'criteria' => $criteria,
         ));
+    }
+
+    public function beforeSave()
+    {
+        $this->use_time = date("Y-m-d H:i:s");
+
+        return parent::beforeSave();
+    }
+
+    public static function addCurrentUser($service_id)
+    {
+        $model = self::model()->findByAttributes(array(
+            'service_id' => $service_id,
+            'user_id' => Yii::app()->user->id,
+        ));
+        if ($model === null) {
+            $model = new ServiceUser;
+            $model->service_id = $service_id;
+            $model->user_id = Yii::app()->user->id;
+        }
+
+        $model->save();
     }
 }

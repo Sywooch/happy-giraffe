@@ -74,26 +74,6 @@ class DefaultController extends HController
         return $model;
     }
 
-    public function actionTestt()
-    {
-        //$models = TestQuestionAnswer::model()->findAll();
-        $models = TestQuestion::model()->findAll('test_id=4');
-        foreach ($models as $model) {
-            /*$first = mb_substr($model->text,0,1, 'UTF-8');
-            $first = mb_strtoupper($first, 'UTF-8');
-            $text = $first.mb_substr($model->text,1,mb_strlen($model->text), 'UTF-8');
-            echo $text.'<br>';
-            $model->text = $text;
-            $model->save();*/
-
-            /*$text = trim($model->title);
-            $text = trim($text, '?');
-            $text .= '?';
-            $model->title = $text;
-            $model->save();*/
-        }
-    }
-
     public function getModelsUrls()
     {
         Yii::import('application.modules.services.modules.test.models.*');

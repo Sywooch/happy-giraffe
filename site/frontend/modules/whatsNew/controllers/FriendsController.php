@@ -26,6 +26,7 @@ class FriendsController extends HController
 
     public function actionIndex()
     {
-
+        $status = CommunityContent::model()->resetScope()->findByAttributes(array('type_id' => 5));
+        FriendEventManager::add(FriendEvent::TYPE_STATUS_UPDATED, array('model' => $status));
     }
 }

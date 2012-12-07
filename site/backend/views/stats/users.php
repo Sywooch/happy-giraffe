@@ -6,7 +6,7 @@ $criteria = new CDbCriteria;
 $criteria->condition = 'avatar_id IS NOT NULL AND birthday IS NOT NULL
     AND email_confirmed = 1 AND `group` = 0 AND relationship_status IS NOT NULL';
 $criteria->with = array(
-    'userAddress',
+    'address',
     'communityContentsCount',
     'photosCount',
     'interests'
@@ -19,7 +19,7 @@ while (!empty($models)) {
     $models = User::model()->findAll($criteria);
 
     foreach ($models as $model) {
-        if (!empty($model->userAddress->country_id)
+        if (!empty($model->address->country_id)
             && $model->communityContentsCount > 0
             && $model->photosCount > 1
             && count($model->interests) > 0

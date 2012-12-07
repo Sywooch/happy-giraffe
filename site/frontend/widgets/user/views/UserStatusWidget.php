@@ -43,7 +43,7 @@
     $statusStyle = UserAttributes::get($user->id, 'statusStyle', 0);
 ?>
 
-<div class="user-status<?php if ($statusStyle != 0): ?> pattern<?php endif; ?> pattern-<?=$statusStyle?><?php if ($user->getScores()->full != 2 && $user->id == Yii::app()->user->id) echo ' toggled' ?>" data-style="<?=$statusStyle?>">
+<div class="user-status<?php if ($statusStyle != 0): ?> pattern<?php endif; ?> pattern-<?=$statusStyle?><?php if ($user->score->full != 2 && $user->id == Yii::app()->user->id) echo ' toggled' ?>" data-style="<?=$statusStyle?>">
     <div class="status-container">
         <?php if ($isMyProfile): ?>
             <?php if ($user->status === null): ?>

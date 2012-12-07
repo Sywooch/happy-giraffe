@@ -6,13 +6,13 @@
  */
 Yii::app()->clientScript
     ->registerScriptFile('/javascripts/location.js');
-if (!empty($user->getUserAddress()->country_id))
+if (!empty($user->address->country_id))
     Yii::app()->clientScript
         ->registerScriptFile('/javascripts/jquery.flip.js')
         ->registerCoreScript('jquery.ui');
 
 
-if ($this->isMyProfile && empty($user->getUserAddress()->country_id)):?>
+if ($this->isMyProfile && empty($user->address->country_id)):?>
 <div class="user-map user-add">
     <a href="#" onclick="UserLocation.OpenEdit();return false;"><big>Я живу<br>здесь</big><img
         src="/images/user_map_cap.png"></a>
@@ -29,8 +29,8 @@ else:
         <div class="box-title">Я здесь</div>
         <div class="sep"><img src="/images/map_marker.png"></div>
         <div class="location">
-            <?php echo $this->user->userAddress->getFlag() ?> <?= $user->userAddress->getCountryTitle() ?>
-            <p><?= $user->userAddress->getLocationWithoutCountry() ?></p>
+            <?php echo $this->user->address->getFlag() ?> <?= $user->address->getCountryTitle() ?>
+            <p><?= $user->address->getLocationWithoutCountry() ?></p>
         </div>
     </div>
 

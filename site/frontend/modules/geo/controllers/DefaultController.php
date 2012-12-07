@@ -145,7 +145,7 @@ class DefaultController extends HController
         $region_id = Yii::app()->request->getPost('region_id');
 
         $user = Yii::app()->user->getModel();
-        $address = $user->getUserAddress();
+        $address = $user->address;
         $address->country_id = empty($country_id) ? null : $country_id;
         $address->region_id = empty($region_id) ? null : $region_id;
         $address->city_id = empty($city_id) ? null : $city_id;
@@ -156,14 +156,14 @@ class DefaultController extends HController
                 'status' => true,
                 'weather' => $this->widget('WeatherWidget', array('user' => $user), true),
                 'main' => $this->widget('LocationWidget', array('user' => $user), true),
-                'location' => $user->getUserAddress()->getFlag(true) . $user->getUserAddress()->cityName,
+                'location' => $user->address->getFlag(true) . $user->address->cityName,
                 'mapsLocation' => $address->getLocationString()
             );
             UserAction::model()->add($user->id, UserAction::USER_ACTION_ADDRESS_UPDATED, array('model' => $address));
         } else {
             $response = array(
                 'status' => false,
-                'full' => ($user->getScores()->full == 0)?false:true
+                'full' => ($user->score->full == 0)?false:true
             );
         }
 

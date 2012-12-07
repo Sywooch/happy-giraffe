@@ -125,4 +125,27 @@ class UsersCommand extends CConsoleCommand
             }
         }
     }
+
+    public function actionGenerateModels(){
+        Yii::import('site.frontend.modules.scores.models.*');
+        Yii::import('site.frontend.modules.geo.models.*');
+        $criteria = new CDbCriteria;
+        $criteria->offset = 0;
+
+        $user = 1;
+        while(!empty($user)){
+            $user = User::model()->find($criteria);
+            if (empty($user->priority))
+                Yii::app()->db->createCommand()->insert(UserPriority::model()->tableName(), array('user_id' => $user->id));
+            if (empty($user->score))
+                Yii::app()->db->createCommand()->insert(UserScores::model()->tableName(), array('user_id' => $user->id));
+            if (empty($user->address))
+                Yii::app()->db->createCommand()->insert(UserAddress::model()->tableName(), array('user_id' => $user->id));
+
+            $criteria->offset++;
+
+            if ($criteria->offset % 100 == 0)
+                echo $user->id."\n";
+        }
+    }
 }

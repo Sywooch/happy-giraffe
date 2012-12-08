@@ -60,6 +60,29 @@
                 'model' => '&laquo;Футбол&raquo;',
             ),
         );
+    } elseif ($this->contest->id == 4) {
+        $prizes = array(
+            '1' => array(
+                'title' => 'Детский надувной бассейн',
+                'model' => 'Intex «Easy Set»',
+            ),
+            '2' => array(
+                'title' => 'Детский надувной бассейн',
+                'model' => 'Intex «Easy Setk»',
+            ),
+            '3' => array(
+                'title' => 'Детский надувной бассейн',
+                'model' => 'Intex «Жираф»',
+            ),
+            '4' => array(
+                'title' => 'Термометр для воды и воздуха',
+                'model' => 'Avent Philips SCH 550',
+            ),
+            '5' => array(
+                'title' => 'Термометр для воды и воздуха',
+                'model' => 'Avent Philips SCH 550',
+            ),
+        );
     }
 ?>
 

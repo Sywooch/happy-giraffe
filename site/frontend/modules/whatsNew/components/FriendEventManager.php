@@ -17,7 +17,7 @@ class FriendEventManager
         if ($stack === null)
             $model->createBlock();
         else
-            $stack->update($model);
+            $stack->updateBlock($model);
     }
 
     public static function getDataProvider()

@@ -300,6 +300,7 @@ class CookRecipe extends CActiveRecord
                 $this->sendEvent();
 
             UserAction::model()->add($this->author_id, UserAction::USER_ACTION_RECIPE_ADDED, array('model' => $this));
+            FriendEventManager::add(FriendEvent::TYPE_RECIPE_ADDED, array('model' => $this));
 
             //send signals to commentator panel
             if (Yii::app()->user->checkAccess('commentator_panel')) {

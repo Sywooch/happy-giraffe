@@ -15,7 +15,7 @@
         </div>
     <?php else: ?>
         <div class="clearfix">
-            <a href="" class="sub-category"><span class="icon-blog"></span>Личный блог</a>
+            <span class="sub-category"><span class="icon-blog"></span>Личный блог</span>
         </div>
     <?php endif; ?>
     <div class="masonry-news-list_meta-info clearfix">

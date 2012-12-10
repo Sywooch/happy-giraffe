@@ -118,7 +118,7 @@ class MailChimp extends CApplicationComponent
             foreach ($users as $user)
                 if (!empty($user->email)){
                 $options[] = $user->email;
-                    echo $user->email.'<br>';
+                    echo $user->email."\n";
                 }
 
             $this->list = self::CONTEST_LIST;

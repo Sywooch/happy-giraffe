@@ -1,8 +1,7 @@
-<?php
-/**
- * Created by JetBrains PhpStorm.
- * User: solivager
- * Date: 12/7/12
- * Time: 2:59 PM
- * To change this template use File | Settings | File Templates.
- */
+<div class="user-interests">
+    <ul class="interests-list">
+        <?php foreach ($data->interests as $i): ?>
+            <li><span class="interest <?=$i->category->css_class?>"><?=$i->title?></span></li>
+        <?php endforeach; ?>
+    </ul>
+</div>

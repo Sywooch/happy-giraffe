@@ -123,8 +123,10 @@ class Interest extends HActiveRecord
                     'interest_id' => $interest_id,
                     'user_id' => $user_id,
                 ));
-                if (! array_key_exists($interest_id, $old_interests))
+                if (! array_key_exists($interest_id, $old_interests)) {
                     UserAction::model()->add($user_id, UserAction::USER_ACTION_INTERESTS_ADDED, array('id' => $interest_id));
+                    FriendEventManager::add(FriendEvent::TYPE_INTERESTS_ADDED, array('id' => $interest_id, 'user_id' => $user_id));
+                }
             }
 
             UserScores::checkProfileScores($user_id, ScoreAction::ACTION_PROFILE_INTERESTS);

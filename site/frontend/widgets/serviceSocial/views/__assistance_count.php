@@ -3,10 +3,9 @@
  * @var $exp int
  * @var $count int
  */
-$val = floor($count / pow(10, $exp)) % 10;
+$val = floor($count / pow(10, $exp));
 
-
-if ($val > 0)
-    echo '<span class="assistance-count_item active">' . $val . '</span>';
+if (floor($count / pow(10, $exp)) != 0)
+    echo '<span class="assistance-count_item active">' . ($val % 10) . '</span>';
 else
-    echo '<span class="assistance-count_item">' . $val . '</span>';
+    echo '<span class="assistance-count_item">' . ($val % 10) . '</span>';

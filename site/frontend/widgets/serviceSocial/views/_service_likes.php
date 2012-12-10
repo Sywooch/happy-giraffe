@@ -3,7 +3,7 @@
     'title' => $service->title,
     'notice' => '',
     'model' => $service,
-    'type' => 'simple',
+    'type' => 'simple_socials',
     'options' => array(
         'title' => $service->title,
         'image' => $image,

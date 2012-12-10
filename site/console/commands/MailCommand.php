@@ -152,7 +152,7 @@ class MailCommand extends CConsoleCommand
         Yii::import('site.frontend.helpers.*');
         Yii::import('site.common.models.mongo.*');
 
-        Yii::app()->mc->deleteUsers();
+        Yii::app()->mc->deleteRegisteredFromContestListUsers();
     }
 
     public function actionTest()

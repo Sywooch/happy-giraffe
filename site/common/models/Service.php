@@ -141,9 +141,11 @@ class Service extends HActiveRecord
     public function getLastUsers($limit = 20)
     {
         $criteria = new CDbCriteria;
+        $criteria->condition = 'avatar_id IS NOT NULL AND deleted=0';
         $criteria->compare('service_id', $this->id);
         $criteria->order = 'use_time desc';
         $criteria->limit = $limit;
+        $criteria->join = 'LEFT JOIN users ON users.id=t.user_id';
         $users = ServiceUser::model()->findAll($criteria);
         if (empty($users))
             return array();
@@ -152,7 +154,9 @@ class Service extends HActiveRecord
         foreach ($users as $user)
             $ids[] = $user->user_id;
 
-        $users = User::model()->findAllByPk($ids);
+        $criteria = new CDbCriteria;
+        $criteria->compare('id', $ids);
+        $users = User::model()->findAll($criteria);
 
         $sorted_users = array();
 

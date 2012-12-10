@@ -77,7 +77,7 @@
 
         </ul>
 
-        <?php if ($album = $user->getSystemAlbum(3)): ?>
+        <?php if ($album = $user->getSystemAlbum(3) && ! empty($album->photos)): ?>
             <?=CHtml::link('Смотреть семейный<br/>альбом', $album->url, array('class' => 'watch-album'))?>
         <?php endif; ?>
         <?php if ($this->isMyProfile && $user->hasFeature(1)): ?>

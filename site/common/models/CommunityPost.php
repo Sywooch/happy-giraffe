@@ -201,6 +201,8 @@ class CommunityPost extends HActiveRecord
 
     public function searchImage($author_id)
     {
+        $this->photo_id = null;
+
         if (preg_match('/http:\/\/img.happy-giraffe.ru\/thumbs\/[\d]+x[\d]+\/[\d]+\/([^\"]+)/', $this->text, $m)) {
             $photo = AlbumPhoto::model()->findByAttributes(array('fs_name' => $m[1]));
             if (isset($photo)) {

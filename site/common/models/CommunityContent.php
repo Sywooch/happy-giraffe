@@ -373,6 +373,12 @@ class CommunityContent extends HActiveRecord
                         'update_part' => CometModel::UPDATE_CLUB,
                     ), CometModel::TYPE_COMMENTATOR_UPDATE);
             }
+
+            if ($this->type_id == 5)
+                FriendEventManager::add(FriendEvent::TYPE_STATUS_UPDATED, array('model' => $this));
+
+            if (in_array($this->type_id, array(1, 2)))
+                FriendEventManager::add(FriendEvent::TYPE_POST_ADDED, array('model' => $this));
         }
 
         parent::afterSave();

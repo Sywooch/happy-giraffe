@@ -80,8 +80,10 @@ class UserPurpose extends HActiveRecord
     {
         parent::afterSave();
 
-        if ($this->isNewRecord)
+        if ($this->isNewRecord) {
             UserAction::model()->add($this->user_id, UserAction::USER_ACTION_PURPOSE_CHANGED, array('model' => $this));
+            FriendEventManager::add(FriendEvent::TYPE_PURPOSE_UPDATED, array('model' => $this));
+        }
 
         User::model()->UpdateUser($this->user_id);
     }

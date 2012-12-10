@@ -45,4 +45,9 @@ class FriendEventRecipe extends FriendEvent
 
         parent::createBlock();
     }
+
+    public function getExist()
+    {
+        return $this->recipe !== null;
+    }
 }

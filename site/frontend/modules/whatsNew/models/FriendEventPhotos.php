@@ -88,4 +88,9 @@ class FriendEventPhotos extends FriendEvent
 
         return FriendEvent::model($this->type)->find($criteria);
     }
+
+    public function getExist()
+    {
+        return $this->album !== null && ! empty($this->photos);
+    }
 }

@@ -45,4 +45,9 @@ class FriendEventPost extends FriendEvent
 
         parent::createBlock();
     }
+
+    public function getExist()
+    {
+        return $this->content !== null;
+    }
 }

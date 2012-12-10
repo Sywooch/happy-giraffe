@@ -69,4 +69,9 @@ class FriendEventComment extends FriendEvent
 
         parent::createBlock();
     }
+
+    public function getExist()
+    {
+        return $this->comment !== null && $this->relatedModel !== null;
+    }
 }

@@ -13,6 +13,11 @@ class FriendEventStatus extends FriendEvent
 
     private $_content;
 
+    public function init()
+    {
+        $this->_content = $this->_getContent();
+    }
+
     public function getContent()
     {
         return $this->_content;
@@ -23,6 +28,16 @@ class FriendEventStatus extends FriendEvent
         $this->_content = $content;
     }
 
+    private function _getContent()
+    {
+        return CommunityContent::model()->resetScope()->full()->findByPk($this->content_id);
+    }
+
+    public function getLabel()
+    {
+        return HDate::simpleVerb('Изменил', $this->user->gender) . ' статус';
+    }
+
     public function createBlock()
     {
         $this->content_id = (int) $this->params['model']->id;
@@ -31,8 +46,8 @@ class FriendEventStatus extends FriendEvent
         parent::createBlock();
     }
 
-    public function getLabel()
+    public function getExist()
     {
-        return HDate::simpleVerb('Изменил', $this->user->gender) . ' статус';
+        return $this->content !== null;
     }
 }

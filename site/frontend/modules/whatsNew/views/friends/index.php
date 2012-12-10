@@ -1,7 +1,24 @@
 <?php
+    $js = '
+        var $container = $("#liveList .items");
+
+        $container.imagesLoaded(function() {
+            $container.isotope({
+                itemSelector : ".masonry-news-list_item"
+            });
+        });
+    ';
+
     Yii::app()->clientScript
         ->registerCssFile('/stylesheets/user.css')
+        ->registerCssFile('/stylesheets/isotope.css')
+        ->registerScriptFile('/javascripts/jquery.isotope.min.js')
+        ->registerScript('whatsNew-isotope', $js)
     ;
+
+    Yii::app()->eauth->renderWidget(array(
+        'mode' => 'assets',
+    ));
 ?>
 
 <div id="broadcast" class="broadcast-all">
@@ -19,6 +36,23 @@
                 'itemsTagName' => 'ul',
                 'htmlOptions' => array(
                     'class' => 'masonry-news-list',
+                ),
+                'pager' => array(
+                    'header' => '',
+                    'class' => 'ext.infiniteScroll.IasPager',
+                    'rowSelector' => '.masonry-news-list_item',
+                    'listViewId' => 'liveList',
+                    'options' => array(
+                        'scrollContainer' => new CJavaScriptExpression("$('.layout-container')"),
+                        'onRenderComplete' => new CJavaScriptExpression("function(items) {
+                            var newItems = $(items);
+
+                            newItems.hide().imagesLoaded(function() {
+                                newItems.show();
+                                $('#liveList .items').isotope('appended', newItems);
+                            });
+                        }"),
+                    ),
                 ),
             ));
         ?>

@@ -219,6 +219,7 @@ class Comment extends HActiveRecord
                 'id' => $this->entity_id, 'name' => $this->entity));
 
             UserAction::model()->add($this->author_id, UserAction::USER_ACTION_COMMENT_ADDED, array('model' => $this));
+            FriendEventManager::add(FriendEvent::TYPE_COMMENT_ADDED, array('model' => $this, 'relatedModel' => $this->relatedModel));
 
             //send signals to commentator panel
             if (Yii::app()->user->checkAccess('commentator_panel')) {

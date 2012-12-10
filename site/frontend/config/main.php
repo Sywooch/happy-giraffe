@@ -52,6 +52,7 @@ return array(
         'application.modules.calendar.models.*',
         'application.modules.cook.models.*',
         'application.modules.whatsNew.models.*',
+        'application.modules.whatsNew.components.*',
     ),
 
 	'sourceLanguage' => 'en',

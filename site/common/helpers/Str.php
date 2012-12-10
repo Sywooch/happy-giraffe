@@ -89,6 +89,11 @@ class Str
     {
         return '<p>'.str_replace("\n", '</p><p>', $str).'</p>';
     }
-}
 
-?>
+    public static function getDescription($text, $len = 300)
+    {
+        $text = strip_tags(html_entity_decode($text, ENT_QUOTES, 'UTF-8'));
+        $text = preg_replace(array('/\s{2,}/', '/[\t\n]/'), ' ', $text);
+        return trim(Str::truncate($text, $len));
+    }
+}

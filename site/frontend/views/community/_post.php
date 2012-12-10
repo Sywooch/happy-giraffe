@@ -12,7 +12,7 @@
             if (!empty($data->meta_description))
                 $this->meta_description = $data->meta_description;
             else
-                $this->meta_description = trim(Str::truncate(trim(strip_tags($data->getContent()->text)), 300));
+                $this->meta_description = Str::getDescription($data->getContent()->text);
         }
     }
 ?>

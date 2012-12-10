@@ -130,6 +130,7 @@ return array(
         'whatsNew/blogs/my' => array('whatsNew/default/blogs', 'defaultParams' => array('show' => 'my')),
         'whatsNew/page<page:\d+>' => 'whatsNew/default/index',
         'whatsNew' => 'whatsNew/default/index',
+        'whatsNew/friends' => 'whatsNew/friends/index',
 
         'contest/<id:\d+>' => 'contest/default/view',
         'contest/<id:\d+>/rules' => 'contest/default/rules',

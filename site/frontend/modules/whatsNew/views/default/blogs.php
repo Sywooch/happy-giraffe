@@ -1,12 +1,20 @@
 <?php
+    $js = '
+            var $container = $("#liveList .items");
+
+            $container.imagesLoaded(function() {
+                $container.isotope({
+                    itemSelector : ".masonry-news-list_item"
+                });
+            });
+        ';
+
     Yii::app()->clientScript
         ->registerCssFile('/stylesheets/user.css')
-        ->registerScriptFile('/javascripts/jquery.masonry.min.js')
-        ->registerScriptFile('/javascripts/live.js')
+        ->registerCssFile('/stylesheets/isotope.css')
+        ->registerScriptFile('/javascripts/jquery.isotope.min.js')
+        ->registerScript('whatsNew-isotope', $js)
     ;
-
-    if ($show == 'all')
-        Yii::app()->clientScript->registerScript('Realplexor-reg-whatsNew', 'comet.connect(\'http://' . Yii::app()->comet->host . '\', \'' . Yii::app()->comet->namespace . '\', \'whatsNewBlogs\');');
 
     Yii::app()->eauth->renderWidget(array(
         'mode' => 'assets',

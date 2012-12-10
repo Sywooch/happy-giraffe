@@ -26,7 +26,7 @@ if (Yii::app()->user->checkAccess('recipe_tags')){
         <span><?=$tag->title ?></span><a class="remove" onclick="CookRecipeTags.removeCookTag(<?=$recipe->id ?>, <?=$tag->id ?>, this)" href="javascript:;"><i class="icon"></i></a><br>
         <?php endforeach; ?>
     </p>
-    <?= CHtml::dropDownList('recipe_tag', UserAttributes::get(Yii::app()->user->id, 'last_recipe_tag_id'), CHtml::listData(CookRecipeTag::model()->findAll(), 'id', 'title'), array('style'=>'width:200px')); ?>
+    <?= CHtml::dropDownList('recipe_tag', UserAttributes::get(Yii::app()->user->id, 'last_recipe_tag_id'), CHtml::listData(CookRecipeTag::model()->alphabet()->findAll(), 'id', 'title'), array('style'=>'width:200px')); ?>
     <a onclick="CookRecipeTags.setCookTag(<?=$recipe->id ?>, this)" href="javascript:;">добавить</a>
 </div>
 <?php endif ?>

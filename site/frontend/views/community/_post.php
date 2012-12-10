@@ -194,7 +194,11 @@
                         'entity' => get_class($data->gallery),
                         'entity_id' => (int)$data->gallery->primaryKey,
                     ));
-                    ?>
+                    if (isset($_GET['utm_source']) && $_GET['utm_source'] == 'email'){
+                        Yii::app()->clientScript->registerScript('open_pGallery','$("i.icon-play").trigger("click");', CClientScript::POS_READY);
+                    }
+
+                ?>
                 <?php endif; ?>
             </div>
         <?php endif; ?>

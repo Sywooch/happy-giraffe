@@ -106,26 +106,26 @@ class MailChimp extends CApplicationComponent
         echo $last_id;
     }
 
-    public function deleteRegisteredFromContestListUsers()
+    public function deleteRegisteredFromContestList()
     {
         $criteria = new CDbCriteria;
         $criteria->limit = 100;
+        $criteria->condition = 'id > 48903';
+        $criteria->offset = 0;
 
         $users = array(1);
         while (!empty($users)) {
             $users = User::model()->findAll($criteria);
             $options = array();
             foreach ($users as $user)
-                if (!empty($user->email)){
+                if (!empty($user->email))
                 $options[] = $user->email;
-                    echo $user->email."\n";
-                }
 
             $this->list = self::CONTEST_LIST;
             $this->api->listBatchUnsubscribe($this->list, $options, true, false, false);
 
             $criteria->offset += 100;
-            echo $criteria->offset.'<br>';
+            echo $criteria->offset."\n";
         }
     }
 

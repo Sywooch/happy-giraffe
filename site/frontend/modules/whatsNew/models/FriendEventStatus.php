@@ -33,6 +33,10 @@ class FriendEventStatus extends FriendEvent
         return CommunityContent::model()->resetScope()->full()->findByPk($this->content_id);
     }
 
+    public function getLabel()
+    {
+        return HDate::simpleVerb('Изменил', $this->user->gender) . ' статус';
+    }
 
     public function createBlock()
     {
@@ -40,10 +44,5 @@ class FriendEventStatus extends FriendEvent
         $this->user_id = (int) $this->params['model']->author_id;
 
         parent::createBlock();
-    }
-
-    public function getLabel()
-    {
-        return HDate::simpleVerb('Изменил', $this->user->gender) . ' статус';
     }
 }

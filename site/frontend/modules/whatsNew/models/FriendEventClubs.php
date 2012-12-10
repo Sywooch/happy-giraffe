@@ -63,9 +63,9 @@ class FriendEventClubs extends FriendEvent
                 'user_id' => array(
                     'equals' => (int) $this->params['user_id'],
                 ),
-//                'updated' => array(
-//                    'greater' => time() - 60 * 30,
-//                ),
+                'updated' => array(
+                    'greater' => time() - 60 * 30,
+                ),
             ),
         ));
 

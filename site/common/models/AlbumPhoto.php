@@ -154,6 +154,7 @@ class AlbumPhoto extends HActiveRecord
         if ($this->isNewRecord) {
             if ($this->album !== null && ($this->album->type == 0 || $this->album->type == 1)) {
                 UserAction::model()->add($this->author_id, UserAction::USER_ACTION_PHOTOS_ADDED, array('model' => $this), array('album_id' => $this->album_id));
+                FriendEventManager::add(FriendEvent::TYPE_PHOTOS_ADDED, array('album_id' => $this->album->id, 'user_id' => $this->author_id));
             }
             $this->getPreviewUrl(960, 627, Image::HEIGHT, true);
         }

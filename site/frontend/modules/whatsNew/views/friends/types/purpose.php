@@ -1,8 +1,6 @@
-<?php
-/**
- * Created by JetBrains PhpStorm.
- * User: solivager
- * Date: 12/7/12
- * Time: 3:00 PM
- * To change this template use File | Settings | File Templates.
- */
+<div class="user-purpose">
+    <i class="icon"></i>
+    <div class="purpose-container">
+        <span>Цель №1</span><p><?=$data->purpose->text?></p>
+    </div>
+</div>

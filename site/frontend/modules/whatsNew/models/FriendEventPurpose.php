@@ -33,16 +33,16 @@ class FriendEventPurpose extends FriendEvent
         return UserPurpose::model()->findByPk($this->purpose_id);
     }
 
+    public function getLabel()
+    {
+        return HDate::simpleVerb('Изменил', $this->user->gender) . ' цель';
+    }
+
     public function createBlock()
     {
         $this->purpose_id = (int) $this->params['model']->id;
         $this->user_id = (int) $this->params['model']->user_id;
 
         parent::createBlock();
-    }
-
-    public function getLabel()
-    {
-        return HDate::simpleVerb('Изменил', $this->user->gender) . ' цель';
     }
 }

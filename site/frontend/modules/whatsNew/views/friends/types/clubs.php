@@ -1,8 +1,13 @@
-<?php
-/**
- * Created by JetBrains PhpStorm.
- * User: solivager
- * Date: 12/7/12
- * Time: 2:58 PM
- * To change this template use File | Settings | File Templates.
- */
+<div class="clubs-list">
+    <ul>
+        <?php foreach ($data->clubs as $c): ?>
+            <li class="club-img <?=$c->css_class?>">
+                <a href="<?=$c->url?>">
+                    <img src="/images/club_img_<?=$c->id?>.png">
+                    <?=$c->title?>
+                </a>
+                <a href="<?=$c->url?>" class="club-join">Вступить</a>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+</div>

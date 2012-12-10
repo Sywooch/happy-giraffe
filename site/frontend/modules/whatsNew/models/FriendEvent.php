@@ -120,4 +120,9 @@ class FriendEvent extends EMongoDocument
 
         ));
     }
+
+    public function getExist()
+    {
+        return true;
+    }
 }

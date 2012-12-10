@@ -71,4 +71,9 @@ class FriendEventClubs extends FriendEvent
 
         return FriendEvent::model($this->type)->find($criteria);
     }
+
+    public function getExist()
+    {
+        return ! empty($this->clubs);
+    }
 }

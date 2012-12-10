@@ -45,4 +45,9 @@ class FriendEventPurpose extends FriendEvent
 
         parent::createBlock();
     }
+
+    public function getExist()
+    {
+        return $this->purpose !== null;
+    }
 }

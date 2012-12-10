@@ -857,8 +857,10 @@ class User extends HActiveRecord
     {
         $result = Yii::app()->db->createCommand()
             ->insert('user__users_communities', array('user_id' => $this->id, 'community_id' => $community_id)) != 0;
-        if ($result)
+        if ($result) {
             UserAction::model()->add($this->id, UserAction::USER_ACTION_CLUBS_JOINED, array('community_id' => $community_id));
+            FriendEventManager::add(FriendEvent::TYPE_CLUBS_JOINED, array('id' => $community_id, 'user_id' => Yii::app()->user->id));
+        }
         return $result;
     }
 

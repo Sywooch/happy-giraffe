@@ -22,6 +22,8 @@ class FriendEventDataProvider extends EMongoDocumentDataProvider
 
         foreach ($data as $k => $v) {
             $v->user = $users[$v->user_id];
+            if (! $v->exist)
+                unset($data[$k]);
         }
 
         return $data;

@@ -1,4 +1,14 @@
-html, body {height:100%;margin: 0;padding: 0;position:relative;font-family:arial;font-size:12px;line-height:18px;}
+html,body {
+  height:100%;
+  margin:0;
+  padding:0;
+  position:relative;
+  font-family:arial;
+  font-size:12px;
+  line-height:18px;
+  word-wrap:break-word;
+}
+
 
 * {margin:0;padding:0;}
 
@@ -24,7 +34,7 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #2371dd;}
 .visible {display:block !important;}
 
 .header {margin-bottom: 30px;}
-.header .logo {float: left;margin:0 20px 20px 40px;font-size:25px;color:#494949;position: relative;vertical-align: middle;}
+.header .logo {float: left;margin:10px 20px 20px 40px;font-size:25px;color:#494949;position: relative;vertical-align: middle;}
 .header .logo span {font-size:35px;color:#6d439d;font-weight:bold;}
 .header .logo span span {font-size:30px;color:#a481c8;}
 .header .logo .img {display:block;width:39px;height:73px;background:url(/images/seo_sprite.png) no-repeat -1px -120px;position:absolute;left:15px;top:0;z-index:-1;}
@@ -126,10 +136,6 @@ button.btn-g.small {padding:2px 9px;}
 button.btn-green {height:43px;}
 .btn-green {/*css3*/ -moz-border-radius:7px;-webkit-border-radius:7px;border-radius:7px;behavior: url(/stylesheets/PIE.htc);}
 
-/*.btn-green-small {display:inline-block;*zoom:1;*display:inline;text-decoration:none;height:18px;line-height:16px;border:1px solid #34ac51;background:url(/images/seo_sprite.png) repeat-x 0 -238px;color:#fff;font-weight:bold;padding:0 10px;font-size:11px;vertical-align:middle;cursor:pointer;white-space:nowrap;color:#fff !important;}
-button.btn-green-small {height:20px;}
-.btn-green-small { -moz-border-radius:7px;-webkit-border-radius:7px;border-radius:7px;behavior: url(/stylesheets/PIE.htc);}*/
-
 .btn-green-small {
     display: inline-block;
     *display: inline;
@@ -190,12 +196,12 @@ button.btn-gray-small {height:20px;}
 .user-info .ava {float:left;position:relative;width:72px;height:72px;background:url(/images/seo_sprite.png) no-repeat -99px -120px;display:block;}
 .user-info .ava.small {width:24px;height:24px;background-position:-173px -120px;}
 .user-info .details {margin-left:90px;width:auto;}
-.user-info .details .username {text-decoration:none;}
+.user-info .details .username {text-decoration:none;line-height: 15px;}
 .user-info .details .username:hover {text-decoration:underline;}
 
 .user-info .details .btn-logout {text-align:right;padding-top:20px;}
 
- .user-info-center {width:350px;margin:0 auto 30px;}
+.user-info-center {width:350px;margin:0 auto 30px;}
 
 .user-info .nav {position:absolute;width:220px;padding:5px;border:1px solid #c4e0f4;background:#fff;left:-6px;top:20px;}
 .user-info .nav .block-title {width:70px;float:left;text-align:center;color:#606060;font-size:16px;margin-top:10px;}
@@ -263,9 +269,10 @@ button.btn-gray-small {height:20px;}
 #seo .icon-m {color:#f5811a;font-weight:bold;font-size:15px;}
 
 #seo .icon-friend {display: inline-block;*zoom:1;*display:inline;width: 18px;height: 18px;vertical-align: middle;background: url(/images/icon-friend.png) no-repeat;margin-right: 3px;}
+#seo .icon-friend-medium {display: inline-block;*zoom:1;*display:inline;width: 41px;height: 40px;background: url(/images/icon-friend-medium.png) no-repeat;margin-right: 3px;}
 #seo .icon-popular {display: inline-block;*zoom:1;*display:inline;width: 18px;height: 18px;vertical-align: middle;background: url(/images/icon-heart-2.png) no-repeat 50% 50%;margin-right: 3px;}
-#seo .icon-close {display:inline-block;*zoom:1;*display:inline;width:11px;height:11px;background: url("../images/common.png") no-repeat -315px -136px;position:relative;text-decoration:none;z-index:3;vertical-align:middle;}
-#seo .icon-close:hover {background-position:-315px -149px;}
+#seo .icon-close {display:inline-block;*zoom:1;*display:inline;width:11px;height:11px;background: url("/images/seo_sprite.png") no-repeat -1px -81px;position:relative;text-decoration:none;z-index:3;vertical-align:middle;}
+#seo .icon-close:hover {background-position:-1px -94px;}
 
 #seo .sup-h {color:#7340a2;font-weight:bold;font-size:11px;position:relative;top:-4px;margin-left:5px;}
 #seo .sup {color:#59595a;font-size:8px;position:relative;top:-4px;margin-left:5px;}
@@ -285,7 +292,7 @@ button.btn-gray-small {height:20px;}
 
 .default-nav {position:relative;z-index:2}
 .default-nav ul {overflow:hidden;list-style:none;}
-.default-nav ul li {display:inline-block;*zoom:1;*display:inline;padding:0 10px 15px;height:24px;line-height:24px;width:70px;text-align:center;position:relative;}
+.default-nav ul li {display:inline-block;*zoom:1;*display:inline;padding:0 12px 15px;height:24px;line-height:24px;width:70px;text-align:center;position:relative;margin: 0 3px;}
 .default-nav ul li a {height:16px;line-height:16px;display:inline-block;*zoom:1;*display:inline;margin:4px 0;}
 .default-nav.ajax-nav ul li a {border-bottom:1px dashed #427ac7;text-decoration:none;}
 .default-nav ul li a:hover {border:0;text-decoration:none;}
@@ -435,8 +442,9 @@ button.btn-gray-small {height:20px;}
 #seo .tasks-manager .buttons .admins ul {list-style:none;text-align:right;border:1px solid #f5e9ab;background:#fffbe2;padding:11px 1px 6px;position:absolute;right:0;top:40px;}
 #seo .tasks-manager .buttons .admins ul li a {display:block;padding:2px 10px;color:#959494;text-decoration:underline;white-space:nowrap;}
 #seo .tasks-manager .buttons .admins ul li a:hover {background:#fcf2c0;color:#767575;}
-#seo .tasks-manager .buttons .btn-admins {display:inline-block;*zoom:1;*display:inline;width:106px;height:45px;background:url(/images/seo_sprite.png) no-repeat -164px -1px;position:relative;z-index:2;}
-#seo .tasks-manager .buttons .btn-moderators {display:inline-block;*zoom:1;*display:inline;width:106px;height:45px;background:url(/images/seo_sprite.png) no-repeat -164px -48px;position:relative;z-index:2;margin-left:25px;}
+#seo .tasks-manager .buttons .btn-admins {display:inline-block;*zoom:1;*display:inline;width:97px;height:45px;background:url(/images/seo_sprite.png) no-repeat -164px -1px;position:relative;z-index:2;}
+#seo .tasks-manager .buttons .btn-moderators {display:inline-block;*zoom:1;*display:inline;width:86px;height:45px;background:url(/images/seo_sprite.png) no-repeat -164px -48px;position:relative;z-index:2;margin-left:25px;}
+#seo .tasks-manager .buttons .btn-commentators {display:inline-block;*zoom:1;*display:inline;width:86px;height:45px;background:url(/images/seo_sprite.png) no-repeat -184px -147px;position:relative;z-index:2;margin-left:25px;}
 
 #seo .drag {display:inline-block;*zoom:1;*display:inline;width:6px;height:27px;background:url(/images/seo_sprite.png) no-repeat -94px -1px;border:5px solid #e6f1ff;cursor:move;margin-right:6px;vertical-align:middle;}
 
@@ -748,3 +756,299 @@ button.btn-gray-small {height:20px;}
 .popup-keywords .col-1 {width: 198px;font-size: 12px;}
 .popup-keywords th.col-1 {font-size: 13px;color: #0b509b;}
 .popup-keywords tr:hover td {background:#f2f8fe;}
+
+h1.title-page {text-align: center;color: #242424;font-weight: normal;font-size: 25px;margin: 5px 0 35px;}
+
+.newuser-list {margin: 0 0 20px 30px;}
+.newuser-list > ul {list-style: none;}
+.newuser-list_item {display: inline-block;*zoom:1;*display:inline;vertical-align: top;
+  position: relative;
+  width: 195px;
+  margin: 0 10px 20px;
+  padding:20px 10px 10px;
+  border: 1px solid #ededed;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  border-radius: 5px;
+  behavior: url(/stylesheets/PIE.htc);
+}
+.newuser-list_item .online-status {
+    background: #4DC45C;
+    color: #fff;
+    font-size: 9px;
+    line-height: 12px;
+    padding: 0 3px;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+}
+.user-info .details .location {font-size: 11px;color: #555454;}
+.user-info .details .location .flag {
+    display: inline-block;
+    margin-right: 5px;
+    position: relative;
+    top: 1px;
+}
+.user-fast-buttons a {
+    display: inline-block;
+    margin-right: 3px;
+    position: relative;
+    text-decoration: none;
+    vertical-align: middle;
+}
+.user-fast-buttons .add-friend {
+    background: url("/images/common.png") no-repeat -257px -297px;
+    height: 18px;
+    width: 22px;
+}
+.tip {display: none !important;}
+
+
+
+.flag {
+    width: 16px;
+    height: 16px;
+    background:url(/images/flags_16.png) no-repeat;
+    margin-bottom: -2px;
+}
+
+.flag.flag-ad{ background-position: 0 0; } 
+.flag.flag-ae{ background-position: 0 -20px; } 
+.flag.flag-af{ background-position: 0 -40px; } 
+.flag.flag-ag{ background-position: 0 -60px; } 
+.flag.flag-ai{ background-position: 0 -80px; } 
+.flag.flag-al{ background-position: 0 -100px; } 
+.flag.flag-am{ background-position: 0 -120px; } 
+.flag.flag-ao{ background-position: 0 -140px; } 
+.flag.flag-aq{ background-position: 0 -160px; } 
+.flag.flag-ar{ background-position: 0 -180px; } 
+.flag.flag-as{ background-position: 0 -200px; } 
+.flag.flag-at{ background-position: 0 -220px; } 
+.flag.flag-au{ background-position: 0 -240px; } 
+.flag.flag-aw{ background-position: 0 -260px; } 
+.flag.flag-ax{ background-position: 0 -280px; } 
+.flag.flag-az{ background-position: 0 -300px; } 
+.flag.flag-ba{ background-position: 0 -320px; } 
+.flag.flag-bb{ background-position: 0 -340px; } 
+.flag.flag-bd{ background-position: 0 -360px; } 
+.flag.flag-be{ background-position: 0 -380px; } 
+.flag.flag-bf{ background-position: 0 -400px; } 
+.flag.flag-bg{ background-position: 0 -420px; } 
+.flag.flag-bh{ background-position: 0 -440px; } 
+.flag.flag-bi{ background-position: 0 -460px; } 
+.flag.flag-bj{ background-position: 0 -480px; } 
+.flag.flag-bl{ background-position: 0 -500px; } 
+.flag.flag-bm{ background-position: 0 -520px; } 
+.flag.flag-bn{ background-position: 0 -540px; } 
+.flag.flag-bo{ background-position: 0 -560px; } 
+.flag.flag-bq{ background-position: 0 -580px; } 
+.flag.flag-br{ background-position: 0 -600px; } 
+.flag.flag-bs{ background-position: 0 -620px; } 
+.flag.flag-bt{ background-position: 0 -640px; } 
+.flag.flag-bw{ background-position: 0 -660px; } 
+.flag.flag-by{ background-position: 0 -680px; } 
+.flag.flag-bz{ background-position: 0 -700px; } 
+.flag.flag-ca{ background-position: 0 -720px; } 
+.flag.flag-cc{ background-position: 0 -740px; } 
+.flag.flag-cd{ background-position: 0 -760px; } 
+.flag.flag-cf{ background-position: 0 -780px; } 
+.flag.flag-cg{ background-position: 0 -800px; } 
+.flag.flag-ch{ background-position: 0 -820px; } 
+.flag.flag-ci{ background-position: 0 -840px; } 
+.flag.flag-ck{ background-position: 0 -860px; } 
+.flag.flag-cl{ background-position: 0 -880px; } 
+.flag.flag-cm{ background-position: 0 -900px; } 
+.flag.flag-cn{ background-position: 0 -920px; } 
+.flag.flag-co{ background-position: 0 -940px; } 
+.flag.flag-cr{ background-position: 0 -960px; } 
+.flag.flag-cu{ background-position: 0 -980px; } 
+.flag.flag-cv{ background-position: 0 -1000px; } 
+.flag.flag-cw{ background-position: 0 -1020px; } 
+.flag.flag-cx{ background-position: 0 -1040px; } 
+.flag.flag-cy{ background-position: 0 -1060px; } 
+.flag.flag-cz{ background-position: 0 -1080px; } 
+.flag.flag-de{ background-position: 0 -1100px; } 
+.flag.flag-dj{ background-position: 0 -1120px; } 
+.flag.flag-dk{ background-position: 0 -1140px; } 
+.flag.flag-dm{ background-position: 0 -1160px; } 
+.flag.flag-do{ background-position: 0 -1180px; } 
+.flag.flag-dz{ background-position: 0 -1200px; } 
+.flag.flag-ec{ background-position: 0 -1220px; } 
+.flag.flag-ee{ background-position: 0 -1240px; } 
+.flag.flag-eg{ background-position: 0 -1260px; } 
+.flag.flag-er{ background-position: 0 -1280px; } 
+.flag.flag-es{ background-position: 0 -1300px; } 
+.flag.flag-et{ background-position: 0 -1320px; } 
+.flag.flag-fi{ background-position: 0 -1340px; } 
+.flag.flag-fj{ background-position: 0 -1360px; } 
+.flag.flag-fk{ background-position: 0 -1380px; } 
+.flag.flag-fm{ background-position: 0 -1400px; } 
+.flag.flag-fo{ background-position: 0 -1420px; } 
+.flag.flag-fr{ background-position: 0 -1440px; } 
+.flag.flag-ga{ background-position: 0 -1460px; } 
+.flag.flag-gb{ background-position: 0 -1480px; } 
+.flag.flag-gd{ background-position: 0 -1500px; } 
+.flag.flag-ge{ background-position: 0 -1520px; } 
+.flag.flag-gf{ background-position: 0 -1540px; } 
+.flag.flag-gg{ background-position: 0 -1560px; } 
+.flag.flag-gh{ background-position: 0 -1580px; } 
+.flag.flag-gl{ background-position: 0 -1600px; } 
+.flag.flag-gm{ background-position: 0 -1620px; } 
+.flag.flag-gn{ background-position: 0 -1640px; } 
+.flag.flag-gp{ background-position: 0 -1660px; } 
+.flag.flag-gq{ background-position: 0 -1680px; } 
+.flag.flag-gr{ background-position: 0 -1700px; } 
+.flag.flag-gt{ background-position: 0 -1720px; } 
+.flag.flag-gu{ background-position: 0 -1740px; } 
+.flag.flag-gw{ background-position: 0 -1760px; } 
+.flag.flag-gy{ background-position: 0 -1780px; } 
+.flag.flag-hk{ background-position: 0 -1800px; } 
+.flag.flag-hn{ background-position: 0 -1820px; } 
+.flag.flag-hr{ background-position: 0 -1840px; } 
+.flag.flag-ht{ background-position: 0 -1860px; } 
+.flag.flag-hu{ background-position: 0 -1880px; } 
+.flag.flag-id{ background-position: 0 -1900px; } 
+.flag.flag-ie{ background-position: 0 -1920px; } 
+.flag.flag-il{ background-position: 0 -1940px; } 
+.flag.flag-im{ background-position: 0 -1960px; } 
+.flag.flag-in{ background-position: 0 -1980px; } 
+.flag.flag-iq{ background-position: -20px 0; } 
+.flag.flag-ir{ background-position: -20px -20px; } 
+.flag.flag-is{ background-position: -20px -40px; } 
+.flag.flag-it{ background-position: -20px -60px; } 
+.flag.flag-je{ background-position: -20px -80px; } 
+.flag.flag-jm{ background-position: -20px -100px; } 
+.flag.flag-jo{ background-position: -20px -120px; } 
+.flag.flag-jp{ background-position: -20px -140px; } 
+.flag.flag-ke{ background-position: -20px -160px; } 
+.flag.flag-kg{ background-position: -20px -180px; } 
+.flag.flag-kh{ background-position: -20px -200px; } 
+.flag.flag-ki{ background-position: -20px -220px; } 
+.flag.flag-km{ background-position: -20px -240px; } 
+.flag.flag-kn{ background-position: -20px -260px; } 
+.flag.flag-kp{ background-position: -20px -280px; } 
+.flag.flag-kr{ background-position: -20px -300px; } 
+.flag.flag-kw{ background-position: -20px -320px; } 
+.flag.flag-ky{ background-position: -20px -340px; } 
+.flag.flag-kz{ background-position: -20px -360px; } 
+.flag.flag-la{ background-position: -20px -380px; } 
+.flag.flag-lb{ background-position: -20px -400px; } 
+.flag.flag-lc{ background-position: -20px -420px; } 
+.flag.flag-li{ background-position: -20px -440px; } 
+.flag.flag-lk{ background-position: -20px -460px; } 
+.flag.flag-lr{ background-position: -20px -480px; } 
+.flag.flag-ls{ background-position: -20px -500px; } 
+.flag.flag-lt{ background-position: -20px -520px; } 
+.flag.flag-lu{ background-position: -20px -540px; } 
+.flag.flag-lv{ background-position: -20px -560px; } 
+.flag.flag-ly{ background-position: -20px -580px; } 
+.flag.flag-ma{ background-position: -20px -600px; } 
+.flag.flag-mc{ background-position: -20px -620px; } 
+.flag.flag-md{ background-position: -20px -640px; } 
+.flag.flag-me{ background-position: -20px -660px; } 
+.flag.flag-mf{ background-position: -20px -680px; } 
+.flag.flag-mg{ background-position: -20px -700px; } 
+.flag.flag-mh{ background-position: -20px -720px; } 
+.flag.flag-mk{ background-position: -20px -740px; } 
+.flag.flag-ml{ background-position: -20px -760px; } 
+.flag.flag-mm{ background-position: -20px -780px; } 
+.flag.flag-mn{ background-position: -20px -800px; } 
+.flag.flag-mo{ background-position: -20px -820px; } 
+.flag.flag-mp{ background-position: -20px -840px; } 
+.flag.flag-mq{ background-position: -20px -860px; } 
+.flag.flag-mr{ background-position: -20px -880px; } 
+.flag.flag-ms{ background-position: -20px -900px; } 
+.flag.flag-mt{ background-position: -20px -920px; } 
+.flag.flag-mu{ background-position: -20px -940px; } 
+.flag.flag-mv{ background-position: -20px -960px; } 
+.flag.flag-mw{ background-position: -20px -980px; } 
+.flag.flag-mx{ background-position: -20px -1000px; } 
+.flag.flag-my{ background-position: -20px -1020px; } 
+.flag.flag-mz{ background-position: -20px -1040px; } 
+.flag.flag-na{ background-position: -20px -1060px; } 
+.flag.flag-nc{ background-position: -20px -1080px; } 
+.flag.flag-ne{ background-position: -20px -1100px; } 
+.flag.flag-nf{ background-position: -20px -1120px; } 
+.flag.flag-ng{ background-position: -20px -1140px; } 
+.flag.flag-ni{ background-position: -20px -1160px; } 
+.flag.flag-nl{ background-position: -20px -1180px; } 
+.flag.flag-no{ background-position: -20px -1200px; } 
+.flag.flag-np{ background-position: -20px -1220px; } 
+.flag.flag-nr{ background-position: -20px -1240px; } 
+.flag.flag-nu{ background-position: -20px -1260px; } 
+.flag.flag-nz{ background-position: -20px -1280px; } 
+.flag.flag-om{ background-position: -20px -1300px; } 
+.flag.flag-pa{ background-position: -20px -1320px; } 
+.flag.flag-pe{ background-position: -20px -1340px; } 
+.flag.flag-pf{ background-position: -20px -1360px; } 
+.flag.flag-pg{ background-position: -20px -1380px; } 
+.flag.flag-ph{ background-position: -20px -1400px; } 
+.flag.flag-pk{ background-position: -20px -1420px; } 
+.flag.flag-pl{ background-position: -20px -1440px; } 
+.flag.flag-pm{ background-position: -20px -1460px; } 
+.flag.flag-pr{ background-position: -20px -1480px; } 
+.flag.flag-ps{ background-position: -20px -1500px; } 
+.flag.flag-pt{ background-position: -20px -1520px; } 
+.flag.flag-pw{ background-position: -20px -1540px; } 
+.flag.flag-py{ background-position: -20px -1560px; } 
+.flag.flag-qa{ background-position: -20px -1580px; } 
+.flag.flag-re{ background-position: -20px -1600px; } 
+.flag.flag-ro{ background-position: -20px -1620px; } 
+.flag.flag-rs{ background-position: -20px -1640px; } 
+.flag.flag-ru{ background-position: -20px -1660px; } 
+.flag.flag-rw{ background-position: -20px -1680px; } 
+.flag.flag-sa{ background-position: -20px -1700px; } 
+.flag.flag-sb{ background-position: -20px -1720px; } 
+.flag.flag-sc{ background-position: -20px -1740px; } 
+.flag.flag-sd{ background-position: -20px -1760px; } 
+.flag.flag-se{ background-position: -20px -1780px; } 
+.flag.flag-sg{ background-position: -20px -1800px; } 
+.flag.flag-si{ background-position: -20px -1820px; } 
+.flag.flag-sk{ background-position: -20px -1840px; } 
+.flag.flag-sl{ background-position: -20px -1860px; } 
+.flag.flag-sm{ background-position: -20px -1880px; } 
+.flag.flag-sn{ background-position: -20px -1900px; } 
+.flag.flag-so{ background-position: -20px -1920px; } 
+.flag.flag-sr{ background-position: -20px -1940px; } 
+.flag.flag-ss{ background-position: -20px -1960px; } 
+.flag.flag-st{ background-position: -20px -1980px; } 
+.flag.flag-sv{ background-position: -40px 0; } 
+.flag.flag-sx{ background-position: -40px -20px; } 
+.flag.flag-sy{ background-position: -40px -40px; } 
+.flag.flag-sz{ background-position: -40px -60px; } 
+.flag.flag-tc{ background-position: -40px -80px; } 
+.flag.flag-td{ background-position: -40px -100px; } 
+.flag.flag-tg{ background-position: -40px -120px; } 
+.flag.flag-th{ background-position: -40px -140px; } 
+.flag.flag-tj{ background-position: -40px -160px; } 
+.flag.flag-tl{ background-position: -40px -180px; } 
+.flag.flag-tm{ background-position: -40px -200px; } 
+.flag.flag-tn{ background-position: -40px -220px; } 
+.flag.flag-to{ background-position: -40px -240px; } 
+.flag.flag-tr{ background-position: -40px -260px; } 
+.flag.flag-tt{ background-position: -40px -280px; } 
+.flag.flag-tv{ background-position: -40px -300px; } 
+.flag.flag-tw{ background-position: -40px -320px; } 
+.flag.flag-tz{ background-position: -40px -340px; } 
+.flag.flag-ua{ background-position: -40px -360px; } 
+.flag.flag-ug{ background-position: -40px -380px; } 
+.flag.flag-us{ background-position: -40px -400px; } 
+.flag.flag-uy{ background-position: -40px -420px; } 
+.flag.flag-uz{ background-position: -40px -440px; } 
+.flag.flag-vc{ background-position: -40px -460px; } 
+.flag.flag-ve{ background-position: -40px -480px; } 
+.flag.flag-vg{ background-position: -40px -500px; } 
+.flag.flag-vi{ background-position: -40px -520px; } 
+.flag.flag-vn{ background-position: -40px -540px; } 
+.flag.flag-vu{ background-position: -40px -560px; } 
+.flag.flag-wf{ background-position: -40px -580px; } 
+.flag.flag-ws{ background-position: -40px -600px; } 
+.flag.flag-ye{ background-position: -40px -620px; } 
+.flag.flag-yt{ background-position: -40px -640px; } 
+.flag.flag-za{ background-position: -40px -660px; } 
+.flag.flag-zm{ background-position: -40px -680px; } 
+.flag.flag-zw{ background-position: -40px -700px; } 
+
+.link-list {margin: 0 20px 20px;padding-left: 20px;list-style: none;}
+.link-list > li {margin: 15px 0;line-height: 18px;}

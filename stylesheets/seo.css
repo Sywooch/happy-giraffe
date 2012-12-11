@@ -285,8 +285,9 @@ button.btn-gray-small {height:20px;}
 #seo .icon-m {color:#f5811a;font-weight:bold;font-size:15px;}
 
 #seo .icon-friend {display: inline-block;*zoom:1;*display:inline;width: 18px;height: 18px;vertical-align: middle;background: url(/images/icon-friend.png) no-repeat;margin-right: 3px;}
-#seo .icon-friend-medium {display: inline-block;*zoom:1;*display:inline;width: 41px;height: 40px;background: url(/images/icon-friend-medium.png) no-repeat;margin-right: 3px;}
-#seo .icon-popular {display: inline-block;*zoom:1;*display:inline;width: 18px;height: 18px;vertical-align: middle;background: url(/images/icon-heart-2.png) no-repeat 50% 50%;margin-right: 3px;}
+#seo .icon-friend-medium {display: inline-block;*zoom:1;*display:inline;width: 41px;height: 40px;background: url(/images/icon-friend-medium.png) no-repeat;margin-right: 5px;}
+#seo .icon-popular {display: inline-block;*zoom:1;*display:inline;width: 21px;height: 20px;vertical-align: middle;background:url(/images/seo_sprite.png) no-repeat -130px -282px;margin-right: 3px;}
+#seo .icon-popular-medium {display: inline-block;*zoom:1;*display:inline;width: 47px;height: 40px;background:url(/images/seo_sprite.png) no-repeat -83px -282px;margin-right: 5px;}
 #seo .icon-close {display:inline-block;*zoom:1;*display:inline;width:11px;height:11px;background: url("/images/seo_sprite.png") no-repeat -1px -81px;position:relative;text-decoration:none;z-index:3;vertical-align:middle;}
 #seo .icon-close:hover {background-position:-1px -94px;}
 

@@ -21,6 +21,7 @@
  * @property SeoUser $owner
  * @property KeywordGroup $keywordGroup
  * @property SeoUser $executor
+ * @property Page $article
  * @property TaskUrl[] $urls
  */
 class SeoTask extends CActiveRecord
@@ -39,6 +40,7 @@ class SeoTask extends CActiveRecord
 
     const TYPE_MODER = 1;
     const TYPE_EDITOR = 2;
+    const TYPE_COMMENTATOR = 3;
 
     const SECTION_MAIN = 1;
     const SECTION_COOK = 2;
@@ -287,8 +289,10 @@ class SeoTask extends CActiveRecord
     {
         if ($this->type == self::TYPE_MODER)
             return '<i class="icon-moderator"></i>';
-        else
+        elseif ($this->type == self::TYPE_EDITOR)
             return '<i class="icon-admin"></i>';
+        elseif ($this->type == self::TYPE_COMMENTATOR)
+            return '<i class="icon-commentator"></i>';
     }
 
     public function getExecutor()
@@ -453,5 +457,49 @@ class SeoTask extends CActiveRecord
         $criteria = self::getReportsCriteria($status, $section, $rewrite);
 
         return self::model()->count($criteria);
+    }
+
+
+    /******************************************************************************************************************/
+    /********************************************** Commentator tasks *************************************************/
+    /******************************************************************************************************************/
+
+    /**
+     * @param $block
+     * @return SeoTask
+     */
+    public static function getCommentatorActiveTasks($block)
+    {
+        $criteria = new CDbCriteria;
+        $criteria->condition = 'created >= :today';
+        $criteria->params = array(':today'=>date("Y-m-d").' 00:00:00');
+
+        $criteria->compare('executor_id', Yii::app()->user->id);
+        $criteria->compare('multivarka', $block);
+        return SeoTask::model()->findAll($criteria);
+    }
+
+    public static function commentatorHasActiveTasks($block)
+    {
+        $criteria = new CDbCriteria;
+        $criteria->condition = 'created >= :today';
+        $criteria->params = array(':today'=>date("Y-m-d").' 00:00:00');
+
+        $criteria->compare('executor_id', Yii::app()->user->id);
+        $criteria->compare('status', self::STATUS_TAKEN);
+        $criteria->compare('multivarka', $block);
+        return SeoTask::model()->findAll($criteria);
+    }
+
+    /**
+     * @return SeoTask[]
+     */
+    public static function getCommentatorTasks()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->compare('status', SeoTask::STATUS_READY);
+        $criteria->compare('type', SeoTask::TYPE_COMMENTATOR);
+        $criteria->limit = 10;
+        return SeoTask::model()->findAll($criteria);
     }
 }

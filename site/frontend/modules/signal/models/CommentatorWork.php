@@ -334,6 +334,32 @@ class CommentatorWork extends EMongoDocument
         return $count;
     }
 
+    public function getCurrentClubId()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->compare('author_id', $this->user_id);
+        $criteria->compare('community_id', $this->clubs);
+        $criteria->order = 'created desc';
+        $criteria->with = array(
+            'rubric' => array(
+                'condition' => 'user_id IS NULL'
+            )
+        );
+
+        $prev_club_post = CommunityContent::model()->find($criteria);
+        if ($prev_club_post === null)
+            return null;
+
+        foreach ($this->clubs as $key => $club_id)
+            if ($club_id == $prev_club_post->rubric->community_id) {
+                if (isset($this->clubs[$key+1]))
+                    return $this->clubs[$key+1];
+                return $this->clubs[0];
+            }
+
+        return null;
+    }
+
     public function comments()
     {
         $criteria = new CDbCriteria;
@@ -419,7 +445,7 @@ class CommentatorWork extends EMongoDocument
             }
         }
 
-        return round($rating*$dialogs_count);
+        return round($rating * $dialogs_count);
     }
 
     public function blogVisits($period)
@@ -513,7 +539,7 @@ class CommentatorWork extends EMongoDocument
 
     public function getPosts($period)
     {
-        $last_day = $this->getLastPeriodDay($period);
+        //$last_day = $this->getLastPeriodDay($period);
         $criteria = new CDbCriteria;
         //$criteria->condition = 'created >= "' . $period . '-01 00:00:00" AND created <= "' . $period . '-' . $last_day . ' 23:59:59"';
         $criteria->compare('author_id', $this->user_id);
@@ -542,6 +568,9 @@ class CommentatorWork extends EMongoDocument
         return $models;
     }
 
+    /**
+     * @return CommentatorWork[]
+     */
     public static function getWorkingCommentators()
     {
         $criteria = new EMongoCriteria();
@@ -550,9 +579,6 @@ class CommentatorWork extends EMongoDocument
         foreach ($models as $k => $model)
             if ($model->isNotWorkingAlready()) {
                 unset($models[$k]);
-//                echo $model->user_id.'<br>';
-//                $model->clubs = array();
-//                $model->save();
             }
 
         return $models;

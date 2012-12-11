@@ -69,6 +69,8 @@ class SController extends CController
             $menu ['Перелинковка'] = $this->createUrl('/promotion/linking/autoLinking');
         if (Yii::app()->user->checkAccess('needlework-manager-panel'))
             $menu ['Рукоделие'] = '/needlework/tasks/';
+        if (Yii::app()->user->checkAccess('needlework-manager-panel'))
+            $menu ['Интерьеры'] = '/design/tasks/';
 
         return $menu;
     }

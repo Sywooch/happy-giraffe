@@ -306,6 +306,8 @@ button.btn-gray-small {height:20px;}
 #seo .default-nav ul {overflow:visible;}
 #seo .default-nav ul li {width:auto;position:relative;}
 #seo .default-nav ul li.active:after {display:none;}
+#seo .default-nav ul li .tale {display: none;}
+#seo .default-nav ul li.active .tale {display:block;}
 #seo .default-nav ul li.active .tale img {display:block;position:absolute;width:100%;height:11px;bottom:0px;left:0;}
 #seo .default-nav ul li .count {position:absolute;width:60px;height:60px;border:3px solid #fff;left:50%;margin-left:-33px;top:30px;}
 #seo .default-nav ul li .count {/*css3*/ border-radius:33px;behavior: url(/stylesheets/PIE.htc);}

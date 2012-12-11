@@ -110,7 +110,8 @@ class SignalCommand extends CConsoleCommand
         $month->save();
     }
 
-    public function actionPriority(){
+    public function actionPriority()
+    {
         //calc user priority
         $criteria = new CDbCriteria;
         $criteria->offset = 0;
@@ -217,5 +218,27 @@ class SignalCommand extends CConsoleCommand
             ),
         )));
         $month->calculateCommentator($id);
+    }
+
+    public function actionAddCommentatorsToSeo()
+    {
+        Yii::import('site.seo.models.*');
+        $commentators = CommentatorWork::getWorkingCommentators();
+        foreach ($commentators as $commentator) {
+            $user = User::getUserById($commentator->user_id);
+
+            try{
+                $seo_user = new SeoUser;
+                $seo_user->email = $user->email;
+                $seo_user->name = $user->getFullName();
+                $seo_user->id = $user->id;
+                $seo_user->password = '33';
+                $seo_user->owner_id = '33';
+                $seo_user->related_user_id = $user->id;
+                $seo_user->save();
+            }catch (Exception $e){
+
+            }
+        }
     }
 }

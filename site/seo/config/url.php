@@ -27,14 +27,19 @@ return array(
 
         'externalLinks/sites/reports/<page:[\d]+>' => 'externalLinks/sites/reports',
 
+        'cook' => array('cook/editor/index', 'defaultParams' => array('section' => 2)),
+        'cook/tasks' => array('cook/editor/tasks', 'defaultParams' => array('section' => 2)),
+        'cook/reports' => array('cook/editor/reports', 'defaultParams' => array('section' => 2)),
+        'cook/name' => array('cook/editor/name', 'defaultParams' => array('section' => 2)),
+
         'needlework' => array('cook/editor/index', 'defaultParams' => array('section' => 3)),
         'needlework/tasks' => array('cook/editor/tasks', 'defaultParams' => array('section' => 3)),
         'needlework/reports' => array('cook/editor/reports', 'defaultParams' => array('section' => 3)),
         'needlework/name' => array('cook/editor/name', 'defaultParams' => array('section' => 3)),
 
-        'cook' => array('cook/editor/index', 'defaultParams' => array('section' => 2)),
-        'cook/tasks' => array('cook/editor/tasks', 'defaultParams' => array('section' => 2)),
-        'cook/reports' => array('cook/editor/reports', 'defaultParams' => array('section' => 2)),
-        'cook/name' => array('cook/editor/name', 'defaultParams' => array('section' => 2)),
+        'design' => array('cook/editor/index', 'defaultParams' => array('section' => 4)),
+        'design/tasks' => array('cook/editor/tasks', 'defaultParams' => array('section' => 4)),
+        'design/reports' => array('cook/editor/reports', 'defaultParams' => array('section' => 4)),
+        'design/name' => array('cook/editor/name', 'defaultParams' => array('section' => 4)),
     ),
 );

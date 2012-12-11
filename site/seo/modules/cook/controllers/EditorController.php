@@ -17,6 +17,8 @@ class EditorController extends SController
 
         if (isset($_GET['section']) && $_GET['section'] == 3)
             $this->pageTitle = 'Рукоделие';
+        if (isset($_GET['section']) && $_GET['section'] == 4)
+            $this->pageTitle = 'Интерьеры';
 
         return true;
     }

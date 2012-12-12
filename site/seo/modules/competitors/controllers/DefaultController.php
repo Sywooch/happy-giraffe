@@ -24,7 +24,7 @@ class DefaultController extends SController
 
         $current_site = Site::model()->findByPk($site_id);
         if ($current_site === null)
-            $current_site = Site::model()->findByPk(1);
+            $current_site = Site::model()->findByPk(81);
 
         $sites = Site::model()->findAllByAttributes(array('section' => $section));
         $nav = array();

@@ -16,6 +16,14 @@ class DefaultController extends HController
         );
     }
 
+    public function init()
+    {
+        $service = Service::model()->findByPk(1);
+        $service->userUsedService();
+
+        parent::init();
+    }
+
     public function actionIndex($letter = null, $gender = null)
     {
         if ($letter == 'null')

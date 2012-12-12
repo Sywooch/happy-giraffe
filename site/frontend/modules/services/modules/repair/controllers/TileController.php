@@ -22,6 +22,9 @@ class TileController extends HController
     public function actionCalculate()
     {
         if (isset($_POST['TileForm'])) {
+            $service = Service::model()->findByPk(15);
+            $service->userUsedService();
+
             $model = new TileForm();
             $model->attributes = $_POST['TileForm'];
             $validationResult = CActiveForm::validate($model);

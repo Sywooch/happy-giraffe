@@ -23,6 +23,8 @@ class DefaultController extends SController
             SeoUserAttributes::setAttribute('last_competitor_site_id_section_' . $section, $site_id);
 
         $current_site = Site::model()->findByPk($site_id);
+        if ($current_site === null)
+            $current_site = Site::model()->findByPk(1);
 
         $sites = Site::model()->findAllByAttributes(array('section' => $section));
         $nav = array();

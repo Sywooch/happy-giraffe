@@ -29,6 +29,13 @@ class UserController extends SController
             $password = substr(md5(microtime()), 0, 8);
             $model->password = md5($password);
 
+            if (isset($_POST['SeoUser']['id']) && !empty($_POST['SeoUser']['id'])) {
+                $user = User::getUserById($_POST['SeoUser']['id']);
+                $model->email = $user->email;
+                $model->name = $user->getFullName();
+                $model->related_user_id = $user->id;
+            }
+
             if ($model->save()) {
                 if (!empty($model->role)) {
                     Yii::app()->db_seo->createCommand()->delete('auth__assignments', 'userid=:userid', array(':userid' => $model->id));

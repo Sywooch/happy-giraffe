@@ -28,7 +28,7 @@ class EditorController extends SController
         $model = new Keyword;
         $model->attributes = $_GET;
 
-        $this->render('themes', array(
+        $this->render('index', array(
             'model' => $model,
             'theme' => $section,
         ));

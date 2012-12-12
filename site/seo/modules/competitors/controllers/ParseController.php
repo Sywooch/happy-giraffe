@@ -3,7 +3,7 @@
 class ParseController extends SController
 {
     public $layout = '//layouts/empty';
-    const STATS_LIMIT = 5;
+    const STATS_LIMIT = 3;
 
     public function beforeAction($action)
     {
@@ -41,11 +41,11 @@ class ParseController extends SController
 
     public function actionParse2()
     {
-        $site_id = 88;
+        $site_id = 1;
 
-        $this->parseStats($site_id, 2011, 1, 12, 0);
+        $this->parseStats($site_id, 2012, 11, 12, 0);
 //        for($site_id=14;$site_id<40;$site_id++){
-        $this->parseStats($site_id, 2012, 1, 12, 0);
+//        $this->parseStats($site_id, 2012, 1, 12, 0);
 //        }
     }
 

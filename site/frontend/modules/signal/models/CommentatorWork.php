@@ -343,8 +343,7 @@ class CommentatorWork extends EMongoDocument
 
         $count = 0;
         foreach ($this->clubPosts() as $post)
-            if (in_array($post->rubric->community_id, $this->clubs))
-                $count++;
+            $count++;
 
         if (in_array(22, $this->clubs))
             $count = $count + count($this->recipes());

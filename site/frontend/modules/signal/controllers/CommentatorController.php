@@ -76,7 +76,11 @@ class CommentatorController extends HController
             )';
         $criteria->params = array(':me' => Yii::app()->user->id);
 
-        $dataProvider = new CActiveDataProvider('User', array('criteria' => $criteria, 'pagination' => array('pageSize' => 12),));
+        $dataProvider = new CActiveDataProvider('User', array(
+            'criteria' => $criteria,
+            'pagination' => array('pageSize' => 12),
+            'totalItemCount'=>10000
+        ));
 
         $this->render('new_users', compact('dataProvider'));
     }

@@ -12,7 +12,7 @@ class CommentatorWork extends EMongoDocument
     const CHIEF_COMMENTS_COUNT = 60;
 
     public $user_id;
-    public $clubs = array();
+    public $clubs = array(1);
     /**
      * @var CommentatorDay[]
      */
@@ -89,6 +89,24 @@ class CommentatorWork extends EMongoDocument
                 return $day;
 
         return null;
+    }
+
+    /**
+     * @return CommentatorDay
+     */
+    public function getPreviousDay()
+    {
+        $max_day = 0;
+        foreach ($this->days as $day)
+            if (strtotime($day->date) > $max_day && $day->date != date("Y-m-d"))
+                $max_day = strtotime($day->date);
+
+        if ($max_day == 0)
+            return null;
+
+        foreach ($this->days as $day)
+            if (strtotime($day->date) == $max_day)
+                return $day;
     }
 
     /**
@@ -336,28 +354,19 @@ class CommentatorWork extends EMongoDocument
 
     public function getCurrentClubId()
     {
-        $criteria = new CDbCriteria;
-        $criteria->compare('author_id', $this->user_id);
-        $criteria->compare('community_id', $this->clubs);
-        $criteria->order = 'created desc';
-        $criteria->with = array(
-            'rubric' => array(
-                'condition' => 'user_id IS NULL'
-            )
-        );
+        $day = $this->getCurrentDay();
+        if (empty($day->today_club)) {
+            $prev_day = $this->getPreviousDay();
+            if ($prev_day == null)
+                $day->today_club = $this->clubs[0];
 
-        $prev_club_post = CommunityContent::model()->find($criteria);
-        if ($prev_club_post === null)
-            return null;
+            $day->today_club = (!empty($prev_day->today_club) && isset($this->clubs[$prev_day->today_club + 1]))
+                ? $this->clubs[$prev_day->today_club + 1] : $this->clubs[0];
 
-        foreach ($this->clubs as $key => $club_id)
-            if ($club_id == $prev_club_post->rubric->community_id) {
-                if (isset($this->clubs[$key+1]))
-                    return $this->clubs[$key+1];
-                return $this->clubs[0];
-            }
+            $this->save();
+        }
 
-        return null;
+        return $day->today_club;
     }
 
     public function comments()

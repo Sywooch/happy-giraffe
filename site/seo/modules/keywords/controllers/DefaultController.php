@@ -28,16 +28,19 @@ class DefaultController extends SController
 
             $dataProvider = $model->search();
             $criteria = $dataProvider->criteria;
+
             $count = Keyword::model()->count($dataProvider->criteria);
+
             $pages = new CPagination($count);
             $pages->pageSize = 100;
             $pages->currentPage = Yii::app()->request->getPost('page');
             $pages->applyLimit($dataProvider->criteria);
 
             $counts = Keyword::model()->getFreqCount($criteria);
+
             $criteria2 = clone $criteria;
-            $criteria2->with = array('yandex');
             $models = Keyword::model()->findAll($criteria2);
+
             $response = array(
                 'status' => true,
                 'count' => $this->renderPartial('_find_result_count', compact('models', 'counts'), true),

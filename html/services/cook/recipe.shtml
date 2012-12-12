@@ -548,8 +548,8 @@
 										</span>
 									</a>
 								</li>
-								<li>
-									<a href="" class="cook-cat">
+								<li class="active">
+									<a href="" class="cook-cat active">
 										<span class="cook-cat-holder">
 											<i class="icon-cook-cat icon-recipe-1"></i>
 										</span>
@@ -557,10 +557,11 @@
 											<span>Первые блюда</span>
 											<span class="count">582</span>
 										</span>
-									</a>							
+									</a>
+									<img src="/images/recipe-categories-arrow.png" alt="" class="tale" />
 								</li>
-								<li class="active">
-									<a href="" class="cook-cat active">
+								<li>
+									<a href="" class="cook-cat">
 										<span class="cook-cat-holder">
 											<i class="icon-cook-cat icon-recipe-2"></i>
 										</span>
@@ -568,7 +569,7 @@
 											<span>Вторые блюда</span>
 											<span class="count">582</span>
 										</span>
-									</a>									
+									</a>
 								</li>
 								<li>
 									<a href="" class="cook-cat">
@@ -579,7 +580,7 @@
 											<span>Салаты</span>
 											<span class="count">12 555 582</span>
 										</span>
-									</a>									
+									</a>
 								</li>
 								<li>
 									<a href="" class="cook-cat">

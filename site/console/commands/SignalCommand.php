@@ -171,6 +171,7 @@ class SignalCommand extends CConsoleCommand
         foreach ($commentators as $commentator) {
             $day = $commentator->getCurrentDay();
             $day->club_posts = $commentator->clubPostsCount();
+            $commentator->save();
         }
     }
 

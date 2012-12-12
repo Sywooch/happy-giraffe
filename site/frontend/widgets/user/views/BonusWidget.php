@@ -7,6 +7,8 @@ $userScore = $this->user->score;
 $steps_count = 6 - $userScore->getStepsCount();
 if ($steps_count < 0)
     $steps_count = 0;
+
+Yii::app()->clientScript->registerScriptFile('/javascripts/location.js');
 ?><div id="first-steps">
 
     <div class="block-title">

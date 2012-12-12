@@ -78,10 +78,6 @@
                 Зарегистрирован <?=Yii::app()->dateFormatter->format("dd MMMM yyyy", $user->register_date)?>
             </div>
 
-            <?php if ($user->id == Yii::app()->user->id && !empty($user->score->level_id)): ?>
-                <div class="user-lvl user-lvl-<?=$user->score->level_id?>"></div>
-            <?php endif; ?>
-
             <?php $this->widget('FamilyWidget', array(
                 'user' => $user,
             )); ?>
@@ -164,9 +160,9 @@
                     )); ?>
 
                     <div id="loc-flipbox">
-                        <?php //$this->widget('LocationWidget', array(
-                        //    'user' => $user,
-                      //  )); ?>
+                        <?php $this->widget('LocationWidget', array(
+                            'user' => $user,
+                        )); ?>
                     </div>
 
 <!--                    <div class="weather-wrapper">-->

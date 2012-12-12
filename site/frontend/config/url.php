@@ -145,8 +145,7 @@ return array(
         '<_m:(geo|im|signal|scores|cook|contest)>/' => '<_m>/default/index',
         '<_m:(geo|im|signal)>/<_a>' => '<_m>/default/<_a>',
         'commentator' => 'signal/commentator/index',
-        'commentator/statistic' => 'signal/commentator/statistic',
-        'signal/commentator/<_a>' => 'signal/commentator/<_a>',
+        'commentator/<_a>' => 'signal/commentator/<_a>',
 
         //cook
         'cook/calorisator/ac' => 'cook/calorisator/ac',

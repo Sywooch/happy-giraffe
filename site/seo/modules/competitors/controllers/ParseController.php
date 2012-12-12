@@ -169,7 +169,7 @@ class ParseController extends SController
 
     public function actionExport()
     {
-        $sites = array(87);
+        $sites = range(88, 94);
         foreach ($sites as $site_id) {
             $criteria = new CDbCriteria;
             $criteria->compare('site_id', $site_id);

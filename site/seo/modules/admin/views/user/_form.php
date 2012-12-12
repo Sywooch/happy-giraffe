@@ -10,7 +10,13 @@ $form=$this->beginWidget('CActiveForm', array(
 
 	<?php echo $form->errorSummary($model); ?>
 
-	<div class="row">
+     <div class="row">
+         <?php echo $form->labelEx($model,'id'); ?>
+         <?php echo $form->textField($model,'id'); ?>
+         <?php echo $form->error($model,'id'); ?>
+     </div>
+
+     <div class="row">
 		<?php echo $form->labelEx($model,'email'); ?>
 		<?php echo $form->textField($model,'email',array('size'=>60,'maxlength'=>256)); ?>
 		<?php echo $form->error($model,'email'); ?>

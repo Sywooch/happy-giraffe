@@ -169,16 +169,14 @@ class ParseController extends SController
 
     public function actionExport()
     {
-        $sites = range(88, 94);
+        $sites = range(1, 2);
         foreach ($sites as $site_id) {
             $criteria = new CDbCriteria;
             $criteria->compare('site_id', $site_id);
-            //$criteria->compare('year', 2011);
-            $criteria->limit = 100;
+            $criteria->compare('year', 2012);
+            $criteria->limit = 1000;
             $criteria->offset = 0;
-            $criteria->with = array('keyword');
 
-            $i = 0;
             $models = array(0);
             while (!empty($models)) {
                 $models = SiteKeywordVisit::model()->findAll($criteria);
@@ -192,8 +190,7 @@ class ParseController extends SController
                     }
                 }
 
-                $i++;
-                $criteria->offset = $i * 100;
+                $criteria->offset += 1000;
             }
         }
     }

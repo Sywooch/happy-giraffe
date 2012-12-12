@@ -9,6 +9,7 @@ class CommentatorDay extends EMongoEmbeddedDocument
     public $date;
     public $created;
     public $skip_count;
+    public $today_club = null;
 
     //stat for closed day
     public $blog_posts = 0;

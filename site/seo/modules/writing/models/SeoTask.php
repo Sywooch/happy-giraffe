@@ -119,7 +119,7 @@ class SeoTask extends CActiveRecord
             'CTimestampBehavior' => array(
                 'class' => 'zii.behaviors.CTimestampBehavior',
                 'createAttribute' => 'created',
-                'updateAttribute' => null,
+                'updateAttribute' => 'updated',
             ),
             'trackable'=>array(
                 'class' => 'TrackableBehavior',
@@ -471,24 +471,25 @@ class SeoTask extends CActiveRecord
     public static function getCommentatorActiveTasks($block)
     {
         $criteria = new CDbCriteria;
-        $criteria->condition = 'created >= :today';
+        $criteria->condition = 'updated >= :today OR status = '.self::STATUS_TAKEN;
         $criteria->params = array(':today'=>date("Y-m-d").' 00:00:00');
 
         $criteria->compare('executor_id', Yii::app()->user->id);
         $criteria->compare('multivarka', $block);
+
         return SeoTask::model()->findAll($criteria);
     }
 
     public static function commentatorHasActiveTasks($block)
     {
         $criteria = new CDbCriteria;
-        $criteria->condition = 'created >= :today';
+        $criteria->condition = 'updated >= :today OR status = '.self::STATUS_TAKEN;
         $criteria->params = array(':today'=>date("Y-m-d").' 00:00:00');
 
         $criteria->compare('executor_id', Yii::app()->user->id);
-        $criteria->compare('status', self::STATUS_TAKEN);
         $criteria->compare('multivarka', $block);
-        return SeoTask::model()->findAll($criteria);
+
+        return SeoTask::model()->find($criteria) !== null;
     }
 
     /**

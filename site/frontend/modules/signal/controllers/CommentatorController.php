@@ -79,7 +79,7 @@ class CommentatorController extends HController
         $dataProvider = new CActiveDataProvider('User', array(
             'criteria' => $criteria,
             'pagination' => array('pageSize' => 12),
-            'totalItemCount'=>10000
+            'totalItemCount' => 10000
         ));
 
         $this->render('new_users', compact('dataProvider'));
@@ -137,21 +137,29 @@ class CommentatorController extends HController
      */
     public function actionTake()
     {
-        $task = $this->loadModel(Yii::app()->request->getPost('id'));
-        $block = Yii::app()->request->getPost('block');
+        $transaction = Yii::app()->db_seo->beginTransaction();
+        try {
+            $task = $this->loadModel(Yii::app()->request->getPost('id'));
+            $block = Yii::app()->request->getPost('block');
 
-        if ($task->status != SeoTask::STATUS_READY) {
-            echo CJSON::encode(array(
-                'status' => false,
-                'error' => 'Кейворд уже взят другим пользователем'
-            ));
-            Yii::app()->end();
+            if ($task->status != SeoTask::STATUS_READY) {
+                echo CJSON::encode(array(
+                    'status' => false,
+                    'error' => 'Кейворд уже взят другим пользователем'
+                ));
+                Yii::app()->end();
+            }
+
+            $task->executor_id = Yii::app()->user->id;
+            $task->multivarka = $block;
+            $task->status = SeoTask::STATUS_TAKEN;
+            echo CJSON::encode(array('status' => $task->save()));
+
+            $transaction->commit();
+        } catch (Exception $e) {
+            $transaction->rollback();
+            echo CJSON::encode(array('status' => false, 'error' => 'Ошибка транзакции'));
         }
-
-        $task->executor_id = Yii::app()->user->id;
-        $task->multivarka = $block;
-        $task->status = SeoTask::STATUS_TAKEN;
-        echo CJSON::encode(array('status' => $task->save()));
     }
 
     /**

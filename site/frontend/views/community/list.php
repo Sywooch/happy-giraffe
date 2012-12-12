@@ -26,3 +26,4 @@
         $this->endWidget();
     }
 
+    $this->widget('WhatsNewWidget');

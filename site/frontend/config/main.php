@@ -53,6 +53,7 @@ return array(
         'application.modules.cook.models.*',
         'application.modules.whatsNew.models.*',
         'application.modules.whatsNew.components.*',
+        'application.modules.whatsNew.widgets.whatsNewWidget.WhatsNewWidget',
     ),
 
 	'sourceLanguage' => 'en',

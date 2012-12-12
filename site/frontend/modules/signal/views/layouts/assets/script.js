@@ -27,11 +27,7 @@ var CommentatorPanel = {
             if (response.status)
                 $('#block-comments').html(response.html);
             else
-                $.pnotify({
-                    pnotify_title:'Ошибка',
-                    pnotify_type:'error',
-                    pnotify_text:'Можно пропустить не более 10 комментариев в день'
-                });
+                alert('Можно пропустить не более 10 комментариев в день');
 
         }, 'json');
     },
@@ -44,16 +40,12 @@ var CommentatorPanel = {
             $(el).text('Показать');
     },
     TakeTask:function (id) {
-        $.post('/commentator/take/', {id:id,block:CommentatorPanel.block}, function (response) {
+        $.post('/commentator/take/', {id:id, block:CommentatorPanel.block}, function (response) {
             if (response.status) {
                 document.location.reload();
             }
             else
-                $.pnotify({
-                    pnotify_title:'Ошибка',
-                    pnotify_type:'error',
-                    pnotify_text:response.error
-                });
+                alert(response.error);
         }, 'json');
     },
     Written:function (id, el) {
@@ -62,11 +54,7 @@ var CommentatorPanel = {
                 document.location.reload();
             }
             else
-                $.pnotify({
-                    pnotify_title:'Ошибка',
-                    pnotify_type:'error',
-                    pnotify_text:response.error
-                });
+                alert(response.error);
         }, 'json');
     },
     CancelTask:function (id, el) {
@@ -75,11 +63,7 @@ var CommentatorPanel = {
                 document.location.reload();
             }
             else
-                $.pnotify({
-                    pnotify_title:'Ошибка',
-                    pnotify_type:'error',
-                    pnotify_text:response.error
-                });
+                alert(response.error);
         }, 'json');
     }
 }

@@ -30,7 +30,9 @@ class FriendEventService extends FriendEvent
 
     public function _getService()
     {
-        return Service::model()->findByPk($this->service_id);
+        return Service::model()->findByPk($this->service_id, array(
+            'with' => 'photo',
+        ));
     }
 
     public function getLabel()
@@ -40,10 +42,35 @@ class FriendEventService extends FriendEvent
 
     public function createBlock()
     {
-        $this->content_id = (int) $this->params['id'];
+        $this->service_id = (int) $this->params['service_id'];
         $this->user_id = (int) $this->params['user_id'];
 
         parent::createBlock();
+    }
+
+    public function updateBlock()
+    {
+        $this->updated = time();
+        $this->save();
+    }
+
+    public function getStack()
+    {
+        $criteria = new EMongoCriteria(array(
+            'conditions' => array(
+                'user_id' => array(
+                    'equals' => (int) $this->params['user_id'],
+                ),
+                'service_id' => array(
+                    'equals' => (int) $this->params['service_id'],
+                ),
+                'type' => array(
+                    'equals' => $this->type,
+                ),
+            ),
+        ));
+
+        return FriendEvent::model($this->type)->find($criteria);
     }
 
     public function getExist()

@@ -51,6 +51,7 @@ return array(
         'application.modules.scores.models.*',
         'application.modules.calendar.models.*',
         'application.modules.cook.models.*',
+        'application.modules.contest.models.*',
         'application.modules.whatsNew.models.*',
         'application.modules.whatsNew.components.*',
         'application.modules.whatsNew.widgets.whatsNewWidget.WhatsNewWidget',

@@ -12,7 +12,7 @@ class CommentatorWork extends EMongoDocument
     const CHIEF_COMMENTS_COUNT = 60;
 
     public $user_id;
-    public $clubs = array();
+    public $clubs = array(1);
     /**
      * @var CommentatorDay[]
      */
@@ -89,6 +89,24 @@ class CommentatorWork extends EMongoDocument
                 return $day;
 
         return null;
+    }
+
+    /**
+     * @return CommentatorDay
+     */
+    public function getPreviousDay()
+    {
+        $max_day = 0;
+        foreach ($this->days as $day)
+            if (strtotime($day->date) > $max_day && $day->date != date("Y-m-d"))
+                $max_day = strtotime($day->date);
+
+        if ($max_day == 0)
+            return null;
+
+        foreach ($this->days as $day)
+            if (strtotime($day->date) == $max_day)
+                return $day;
     }
 
     /**
@@ -334,6 +352,23 @@ class CommentatorWork extends EMongoDocument
         return $count;
     }
 
+    public function getCurrentClubId()
+    {
+        $day = $this->getCurrentDay();
+        if (empty($day->today_club)) {
+            $prev_day = $this->getPreviousDay();
+            if ($prev_day == null)
+                $day->today_club = $this->clubs[0];
+
+            $day->today_club = (!empty($prev_day->today_club) && isset($this->clubs[$prev_day->today_club + 1]))
+                ? $this->clubs[$prev_day->today_club + 1] : $this->clubs[0];
+
+            $this->save();
+        }
+
+        return $day->today_club;
+    }
+
     public function comments()
     {
         $criteria = new CDbCriteria;
@@ -419,7 +454,7 @@ class CommentatorWork extends EMongoDocument
             }
         }
 
-        return round($rating*$dialogs_count);
+        return round($rating * $dialogs_count);
     }
 
     public function blogVisits($period)
@@ -513,7 +548,7 @@ class CommentatorWork extends EMongoDocument
 
     public function getPosts($period)
     {
-        $last_day = $this->getLastPeriodDay($period);
+        //$last_day = $this->getLastPeriodDay($period);
         $criteria = new CDbCriteria;
         //$criteria->condition = 'created >= "' . $period . '-01 00:00:00" AND created <= "' . $period . '-' . $last_day . ' 23:59:59"';
         $criteria->compare('author_id', $this->user_id);
@@ -542,6 +577,9 @@ class CommentatorWork extends EMongoDocument
         return $models;
     }
 
+    /**
+     * @return CommentatorWork[]
+     */
     public static function getWorkingCommentators()
     {
         $criteria = new EMongoCriteria();
@@ -550,9 +588,6 @@ class CommentatorWork extends EMongoDocument
         foreach ($models as $k => $model)
             if ($model->isNotWorkingAlready()) {
                 unset($models[$k]);
-//                echo $model->user_id.'<br>';
-//                $model->clubs = array();
-//                $model->save();
             }
 
         return $models;

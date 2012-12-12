@@ -189,21 +189,25 @@ class Page extends CActiveRecord
 
     /**
      * Ищет статью по урлу, если не находит, то создает. Добавляет кейврд в группу
+     *
      * @param string $url
-     * @param int $keyword_id
+     * @param array $keywords
+     * @param bool $add_keywords
      * @return Page
      */
-    public function getOrCreate($url, $keyword_id = null)
+    public function getOrCreate($url, $keywords = array(), $add_keywords = false)
     {
         $url = trim($url);
+        if (!is_array($keywords))
+            $keywords = array($keywords);
 
         $transaction = Yii::app()->db_seo->beginTransaction();
         try {
             $model = Page::model()->findByAttributes(array('url' => $url));
             if ($model === null) {
                 $keyword_group = new KeywordGroup();
-                if (!empty($keyword_id)){
-                    $keyword_group->keywords = array(Keyword::model()->findByPk($keyword_id));
+                if (!empty($keywords)){
+                    $keyword_group->keywords = Keyword::model()->findAllByPk($keywords);
                     $keyword_group->withRelated->save(true,array('keywords'));
                 }
                 else
@@ -223,7 +227,11 @@ class Page extends CActiveRecord
                         ));
                         if ($exist !== null) {
                             $model = $exist;
-                            //$exist->keywordGroup->addKeyword($keyword_id);
+                            if ($add_keywords && !empty($keywords)){
+                                #TODO надо добавлять кейворды а не заменять на новые
+                                $model->keywordGroup->keywords = Keyword::model()->findAllByPk($keywords);
+                                $model->keywordGroup->withRelated->save(true,array('keywords'));
+                            }
                         } else {
                             $model->entity = $entity;
                             $model->entity_id = $entity_id;
@@ -238,7 +246,11 @@ class Page extends CActiveRecord
                     $model->save();
                 }
             } else {
-                //$model->keywordGroup->addKeyword($keyword_id);
+                if ($add_keywords && !empty($keywords)){
+                    #TODO надо добавлять кейворды а не заменять на новые
+                    $model->keywordGroup->keywords = Keyword::model()->findAllByPk($keywords);
+                    $model->keywordGroup->withRelated->save(true,array('keywords'));
+                }
             }
 
             $transaction->commit();

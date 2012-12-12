@@ -163,50 +163,13 @@ class SignalCommand extends CConsoleCommand
         $month->calculate(false);
     }
 
-    public function actionFixArticles()
+    public function actionFix()
     {
-        $date = '2012-10-04';
-
         $commentators = CommentatorWork::model()->findAll();
 
         foreach ($commentators as $commentator) {
-            $day = $commentator->getDay($date);
-
-            if ($day !== null) {
-
-                $criteria = new CDbCriteria;
-                $criteria->condition = 'created >= "' . $date . ' 00:00:00" AND created <= "' . $date . ' 23:59:59"';
-                $criteria->compare('author_id', $commentator->user_id);
-                $criteria->order = 'created desc';
-                $criteria->with = array(
-                    'rubric' => array(
-                        'condition' => 'user_id IS NULL'
-                    )
-                );
-
-                $count = CommunityContent::model()->count($criteria);
-                $day->club_posts = $count;
-                $commentator->save();
-            }
-        }
-    }
-
-    public function actionTest()
-    {
-        Yii::import('site.frontend.extensions.GoogleAnalytics');
-        $ga = new GoogleAnalytics('alexk984@gmail.com', Yii::app()->params['gaPass']);
-        $ga->setProfile('ga:53688414');
-        $ga->setDateRange('2012-09-01', '2012-09-30');
-
-        try {
-            $report = $ga->getReport(array(
-                'metrics' => urlencode('ga:visitors'),
-                'filters' => urlencode('ga:pagePath==' . '/user/' . 15385 . '/blog/*'),
-            ));
-
-            var_dump($report);
-        } catch (Exception $err) {
-            echo $err->getMessage();
+            $day = $commentator->getCurrentDay();
+            $day->club_posts = $commentator->clubPostsCount();
         }
     }
 

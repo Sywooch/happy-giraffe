@@ -22,7 +22,7 @@ else:
 ?><div class="user-map">
     <div class="header">
         <?php if ($this->isMyProfile): ?>
-        <a href="#" class="edit tooltip" onclick="UserLocation.OpenEdit();return false;" title=">Изменить"></a>
+        <a href="#" class="edit tooltip" onclick="UserLocation.OpenEdit();return false;" title="Изменить"></a>
         <?php endif ?>
         <div class="box-title">Я здесь</div>
         <div class="sep"><img src="/images/map_marker.png"></div>

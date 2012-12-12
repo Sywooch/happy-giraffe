@@ -165,6 +165,7 @@ class SignalCommand extends CConsoleCommand
 
     public function actionFix()
     {
+        Yii::import('site.frontend.modules.cook.models.*');
         $commentators = CommentatorWork::model()->findAll();
 
         foreach ($commentators as $commentator) {
@@ -175,7 +176,6 @@ class SignalCommand extends CConsoleCommand
 
     public function actionCommentator($id)
     {
-        Yii::import('site.frontend.modules.cook.models.*');
         $month = CommentatorsMonthStats::model()->find(new EMongoCriteria(array(
             'conditions' => array(
                 'period' => array('==' => date("Y-m"))

@@ -356,6 +356,11 @@ class CommentatorWork extends EMongoDocument
         $day = $this->getCurrentDay();
         if (empty($day->today_club)) {
 
+            #TODO если нет назначенных клубов, назначается 1-й
+            if (empty($this->clubs))
+                $this->clubs = array(1);
+
+
             $this->clubs = array_values($this->clubs);
 
             $prev_day = $this->getPreviousDay();

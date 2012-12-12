@@ -5,11 +5,9 @@
  * @param $user User
  */
 Yii::app()->clientScript
-    ->registerScriptFile('/javascripts/location.js');
-if (!empty($user->address->country_id))
-    Yii::app()->clientScript
-        ->registerScriptFile('/javascripts/jquery.flip.js')
-        ->registerCoreScript('jquery.ui');
+    ->registerScriptFile('/javascripts/location.js')
+    ->registerScriptFile('/javascripts/jquery.flip.js')
+    ->registerCoreScript('jquery.ui');
 
 
 if ($this->isMyProfile && empty($user->address->country_id)):?>

@@ -158,7 +158,7 @@ class CommentatorController extends HController
             $transaction->commit();
         } catch (Exception $e) {
             $transaction->rollback();
-            echo CJSON::encode(array('status' => false, 'error' => 'Ошибка транзакции'));
+            echo CJSON::encode(array('status' => false, 'error' => $e->getMessage()));
         }
     }
 

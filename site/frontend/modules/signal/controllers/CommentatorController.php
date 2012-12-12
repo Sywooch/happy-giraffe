@@ -184,7 +184,7 @@ class CommentatorController extends HController
         $task = $this->loadModel(Yii::app()->request->getPost('id'));
         $url = Yii::app()->request->getPost('url');
 
-        if ($task->executor_id != Yii::app()->user->id)
+        if ($task->executor_id != Yii::app()->user->id || empty($url))
             Yii::app()->end();
 
         $keywords = array();

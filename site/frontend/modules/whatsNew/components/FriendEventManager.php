@@ -26,9 +26,9 @@ class FriendEventManager
         $friendsIds = array_keys($friends);
 
         $criteria = new EMongoCriteria(array(
-            'conditions' => array(
-                'user_id' => array('in' => $friendsIds),
-            ),
+//            'conditions' => array(
+//                'user_id' => array('in' => $friendsIds),
+//            ),
         ));
 
         $criteria->sort('updated', EMongoCriteria::SORT_DESC);

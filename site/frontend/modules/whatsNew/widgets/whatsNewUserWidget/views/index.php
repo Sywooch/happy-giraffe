@@ -23,7 +23,7 @@
             $this->widget('zii.widgets.CListView', array(
                 'id' => 'whatsNewUserWidgetList',
                 'dataProvider' => $dp,
-                'itemView' => '_brick',
+                'itemView' => 'application.modules.whatsNew.views.friends._brick',
                 'template' => "{items}\n{pager}",
                 'itemsTagName' => 'ul',
                 'htmlOptions' => array(

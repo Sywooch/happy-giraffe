@@ -27,20 +27,18 @@ class WhatsNewWidget extends CWidget
 
             // Setup controls for the navigation carousel
             $('#masonry-news-list-jcarousel .prev')
-                .jcarouselControl({
-                    target: '-=1'
+            .jcarouselControl({
+                target: '-=1'
             });
 
             $('#masonry-news-list-jcarousel .next')
-                .on('click', function() {
-                    if($('.masonry-news-list_item:eq(4)').hasClass('jcarousel-item-visible'))
-                        window.location.href = '" . Yii::app()->createUrl('/whatsNew/default/index') . "';
-                })
-                .jcarouselControl({
-                    target: '+=1'
-                });
-
-
+            .on('click', function() {
+                if($('.masonry-news-list_item:eq(4)').hasClass('jcarousel-item-visible'))
+                    window.location.href = '" . Yii::app()->createUrl('/whatsNew/default/index') . "';
+            })
+            .jcarouselControl({
+                target: '+=1'
+            });
         ";
 
         Yii::app()->clientScript

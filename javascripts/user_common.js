@@ -174,11 +174,3 @@ function setMessagesHeight() {
     box.find('.dialog .dialog-messages').height(generalH - textareaH - userH);
 
 }
-
-var Horoscope = {
-    show:function () {
-        $('.user-horoscope-prev').hide();
-        $('.user-horoscope-2').show();
-        $.post('/services/horoscope/default/viewed/');
-    }
-};

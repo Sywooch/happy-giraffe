@@ -32,6 +32,22 @@ if (jQuery.browser.msie) {
 $(document).ready(function () {
     $(".wysiwyg-content").addtocopy({htmlcopytxt: '<br /><br />Подробнее: <a href="'+window.location.href+'">'+window.location.href+'</a>'});
 
+
+    $('.layout-container').scroll(function () {
+        var contanerScroll = $('.layout-container').scrollTop();
+        if (contanerScroll > $('#header-new').height()) {
+            $('#btn-up-page').fadeIn(600);
+        } else {
+            $('#btn-up-page').fadeOut(600)
+        }
+    });
+
+    $('#btn-up-page').click(function() {
+        $('.layout-container').stop().animate({scrollTop:0}, "normal");
+        return false
+    })
+
+
     $.ajaxSetup({
         complete: function() {
 
@@ -453,7 +469,6 @@ var Register = {
     showStep2:function(email, type){
         Register.attributes['email']= email;
         Register.attributes['type']= type;
-        console.log(Register.attributes);
         $.post('/signup/showForm/', Register.attributes, function(response) {
             var link = $('#hidden_register_link');
             link.attr('href', '#register');
@@ -649,7 +664,12 @@ var Horoscope = {
     show:function () {
         $('.user-horoscope-prev').hide();
         $('.user-horoscope-2').show();
-        $.post('/services/horoscope/default/viewed/');
+        $.post('/horoscope/viewed/');
     }
 };
+
+function service_used(id)
+{
+    $.post('/ajax/serviceUsed/', {id:id});
+}
 

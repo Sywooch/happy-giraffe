@@ -197,11 +197,21 @@
 }
 
 .white-square-theme .fancybox-bg {display:none;}
-
 .white-square-theme #fancybox-outer {padding:10px;background:#fcf9ff;}
 .white-square-theme #fancybox-outer {/*css3*/ -moz-box-shadow:0 20px 50px #333;-webkit-box-shadow:0 20px 50px #333;box-shadow:0 20px 50px #333;}
-
 .white-square-theme .popup-close {top:10px;right:10px;}
+
+.white-simple-theme .fancybox-bg {display:none;}
+.white-simple-theme #fancybox-outer {padding:0px;background:#fff;}
+.white-simple-theme #fancybox-close {background: url("../images/common.png") no-repeat -315px -136px;
+    height: 11px;
+    position: absolute;
+    right: -15px;
+    text-indent: -9999px;
+    top: -5px;
+    width: 11px;}
+.white-simple-theme #fancybox-close:hover {background-position:-315px -149px;}
+
 
 #fancybox-bg-n {
 	top: -20px;

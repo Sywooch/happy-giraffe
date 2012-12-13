@@ -7,25 +7,52 @@
 	
 	<link rel="stylesheet" type="text/css" href="/stylesheets/seo.css" />
 	
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	
+	<link rel="stylesheet" type="text/css" href="/stylesheets/jquery.fancybox-1.3.4.css" />
+	<script type="text/javascript" src="/javascripts/jquery.fancybox-1.3.4.js"></script>
+	<script type="text/javascript" src="/javascripts/jquery.placeholder.min.js"></script>
+
+	<script>
+
+	$(document).ready(function() {
+    $("a.fancy").fancybox({
+        padding:0,
+        scrolling:false,
+    	overlayShow: false
+
+    });
+
+});
+
+	</script>
+
 </head>
 <body>
 
 	<div id="seo" class="wrapper">
 		
-		<div class="clearfix">
+		<div class="header clearfix">
 			
+			<div class="logo clearfix">
+          		<i class="statistic-img"></i> КОМЬЮНИТИ
+			</div>
 			<div class="default-nav">
 				<ul>
-					<li><span class="date">25 апр 2012</span><button class="btn-green-27">Я сегодня работаю</button></li>
-					<li class="active"><a href="">Задания</a><span class="tale"><img src="/images/default_nav_active.gif" /></span></li>
-          <li><a href="">Премия</a></li>
+					<li><span class="date">25 апр 2012</span><button class="btn-green-small">Я сегодня работаю</button></li>
+					<li><a href="">Премия</a></li>
 				</ul>
 			</div>
 			
-			<div class="title">
-          <i class="statistic-img"></i> КОМЬЮНИТИ
+			<div class="default-nav">
+				<ul>
+					<li class="active"><a href="">Задания</a><span class="tale"><img src="/images/default_nav_active.gif" /></span></li>
+					<li><a href="">Премия</a></li>
+					<li><a href=""><i class="icon-friend"></i> Новички на сайте</a></li>
+					<li><a href=""><i class="icon-popular"></i> Как стать популярным</a></li>
+				</ul>
 			</div>
-      
+
 		</div>
 		
 		<div class="seo-table">
@@ -40,6 +67,15 @@
 								<a href="">Мой блог</a>
 								<span class="done"><i class="icon"></i>Сделано</span>
 								<span class="date">25 апр 2012, 13:25</span>
+							</li>
+							<li>
+								<a href="#popup-keywords" class="btn-g orange small fancy" data-theme="white-simple">Подсказка</a>
+							</li>
+							<li>
+								<strong>как научиться шить и вязать</strong> 
+								<a href="" class="icon-close"></a>
+								<input type="text" name="" class="placing" placeholder="Введите URL статьи" />
+								<a href="" class="btn-green-small">ok</a>
 							</li>
 						</ul>
 					</div>
@@ -56,6 +92,10 @@
 							</li>
 							<li>
 								<a href="">Беременность и роды</a>
+							</li>
+							
+							<li>
+								<a href="#popup-keywords" class="btn-g orange small fancy" data-theme="white-simple">Подсказка</a>
 							</li>
 							
 						</ul>
@@ -76,10 +116,90 @@
 					</div>
 				</li>
 				
+				<li>
+					<div class="task">
+						<span class="item-title">4. Хочу премию</span>
+						<ul>
+							<li>
+								<a href="" class="btn-g orange small disabled">Подсказка</a>
+							</li>
+						</ul>
+					</div>
+				</li>
+				
 			</ul>
 		
 		</div>
 	</div>
-			
+<div  style="display:none">
+
+	<div id="popup-keywords" class="popup popup-keywords">
+    
+    	<a href="javascript:void(0);" onclick="$.fancybox.close();" class="popup-close tooltip" title="Закрыть"></a>
+    	<table>
+			<tr>
+				<th class="col-1">Ключевые слова и фразы</th>
+				<th >Показов <br />в месяц </th>
+				<th ></th>
+			</tr>
+			<tr>
+				<td class="col-1">кесарева сечения</td>
+				<td >10025 </td>
+				<td ><a href="" class="btn-green-small">Взять</a></td>
+			</tr>
+			<tr>
+				<td class="col-1">Ключевые слова и фразы</td>
+				<td >25 </td>
+				<td ><a href="" class="btn-green-small">Взять</a></td>
+			</tr>
+			<tr>
+				<td class="col-1">после кесарева сечения</td>
+				<td >1025 </td>
+				<td ><a href="" class="btn-green-small">Взять</a></td>
+			</tr>
+			<tr>
+				<td class="col-1">Ключевые слова и фразы</td>
+				<td >1025 </td>
+				<td ><a href="" class="btn-green-small">Взять</a></td>
+			</tr>
+			<tr>
+				<td class="col-1">Ключевые слова и фразы</td>
+				<td >999 </td>
+				<td ><a href="" class="btn-green-small">Взять</a></td>
+			</tr>
+			<tr>
+				<td class="col-1">после кесарева сечения</td>
+				<td >1025 </td>
+				<td ><a href="" class="btn-green-small">Взять</a></td>
+			</tr>
+			<tr>
+				<td class="col-1">кесарева сечения</td>
+				<td >1025 </td>
+				<td ><a href="" class="btn-green-small">Взять</a></td>
+			</tr>
+			<tr>
+				<td class="col-1">Ключевые слова и фразы</td>
+				<td >1025 </td>
+				<td ><a href="" class="btn-green-small">Взять</a></td>
+			</tr>
+			<tr>
+				<td class="col-1">Ключевые слова и фразы</td>
+				<td >1025 </td>
+				<td ><a href="" class="btn-green-small">Взять</a></td>
+			</tr>
+			<tr>
+				<td class="col-1">Ключевые слова и фразы</td>
+				<td >1025 </td>
+				<td ><a href="" class="btn-green-small">Взять</a></td>
+			</tr>
+			<tr>
+				<td class="col-1">Ключевые слова и фразы</td>
+				<td >1025 </td>
+				<td ><a href="" class="btn-green-small">Взять</a></td>
+			</tr>
+    	</table>
+    	
+    </div>
+</div>	
 </body>
 </html>

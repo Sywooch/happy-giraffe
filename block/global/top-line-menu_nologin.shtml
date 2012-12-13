@@ -1,0 +1,21 @@
+	<div class="top-line-menu">
+		<div class="top-line-menu-holder">
+
+			<ul class="fast-links clearfix a-right">
+				<li><a href="#login" class="fancy" data-theme="white-square">Вход</a></li>
+				<li><a href="#register" class="fancy" data-theme="white-square">Регистрация</a></li>
+			</ul>
+			<ul class="fast-links clearfix">
+				<li><a href="">Главная</a></li>
+				<li><a href="">Клубы</a></li>
+				<li><a href="">Сервисы</a></li>
+				<li><a href="">Конкурсы</a></li>
+			</ul>
+			<div class="search-box">
+				<div class="search-box_input">
+					<input type="text" class="text" />
+					<button class="icon-search"></button>
+				</div>
+			</div>
+		</div>
+	</div>

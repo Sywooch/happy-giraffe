@@ -37,11 +37,14 @@ img {max-width:100%;}
 
 a {cursor:pointer;color:#029AD2;}
 a:hover {text-decoration:none;}
+.textdec-onhover {text-decoration: none !important;}
+.textdec-onhover:hover {text-decoration: underline !important;}
 
 .arr {font-family: Cambria, Segoe Script, minion pro, myriad pro, helvetica, arial, sans-serif;font-style:normal;}
 
 .a-right {float:right !important;}
 .a-left {float:left !important;}
+.textalign-c{text-align: center !important;}
 
 .nofloat {float:none !important;}
 
@@ -84,7 +87,6 @@ html, body {
 	min-width:1000px;
 }
 
-
 html.top-nav-fixed {overflow-y:hidden;}
 .top-nav-fixed body {overflow-y:hidden;overflow-x:hidden;} 
 
@@ -103,11 +105,13 @@ body.body-club {background:#f6f6f6;}
 	border-top:1px solid #fff;
 }
 
-#layout {min-height:100%;background:#fff;}
+#layout {min-height:100%;background:#fff;position: relative;}
 #layout .push {height:80px;}
 #layout .layout-in {}
+.body-gray #layout,
+.body-broadcast #layout{background:#f6f6f6;}
 
-#footer {height:70px;margin-top:-80px;padding-top:10px;font:normal 11px/36px tahoma, arial, helvetica, sens-serif;}
+#footer {height:70px;margin-top:-80px;padding-top:10px;font:normal 11px/36px tahoma, arial, helvetica, sens-serif;position: relative;}
 #footer .copy {padding-left:20px;color:#9e9d9e;}
 #footer .copy .icon-18{vertical-align: middle;padding: 0 25px;}
 #footer .a-right {color:#0498b8;padding-right:20px;}
@@ -156,6 +160,8 @@ hr,
 .file-fake .btn {position:relative;z-index:2;}
 
 a.info {display:inline-block;*zoom:1;*display:inline;width:13px;height:13px;background:url(../images/common.png) no-repeat -267px -101px;}
+#btn-up-page {position:fixed;z-index: 5;bottom: 65px;right:30px;width: 91px;height: 86px;background: url(/images/btn-up.png) no-repeat;display: none;}
+#btn-up-page:hover {background-position: 0 -86px;}
 
 #tooltip {display:block;position:absolute;background:#fffac8;color:#929292;padding:2px 10px;border:1px solid #f3eca9;font-size:12px;z-index:3000;-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;behavior: url(/stylesheets/PIE.htc);}
 #tooltip h3 {font-weight:normal;font-size:12px;}
@@ -227,8 +233,7 @@ box-shadow:1px 1px 1px rgba(0,0,0,.2);behavior: url(/stylesheets/PIE.htc);}
 .user-info .details .visit {color:#b9b8b8;font:normal 9px tahoma, arial, helvetica, sans-serif;}
 .user-info .details .visit span {background:#fdfaaf;padding:0px 2px;margin-left:-2px;}
 
-.user-info-big .text-status {clear:both;background:#cce7fe;position:relative;padding:10px 15px;font-size:11px;color:#5e5e5e;line-height:14px;width:200px;}
-.user-info-big .text-status {/*css3*/ -moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px;}
+.user-info-big .text-status {clear:both;background:#cce7fe;position:relative;padding:10px 15px;font-size:11px;color:#5e5e5e;line-height:14px;-moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px;}
 .user-info-big .text-status .tale {display:block;width:26px;height:11px;background:url("/images/bg_pattern_user_status.png") no-repeat -133px 0;position:absolute;top:-11px;left:8px;}
 .user-info-big .text-status.pattern{color:#000;opacity:.6;filter: alpha(opacity = 60);}
 .user-info-big .text-status.pattern-10 .tale {background-position:-133px -50px;}
@@ -240,6 +245,11 @@ box-shadow:1px 1px 1px rgba(0,0,0,.2);behavior: url(/stylesheets/PIE.htc);}
 .user-info-big .text-status.pattern-16 .tale {background-position:-133px -350px;}
 .user-info-big .text-status.pattern-17 .tale {background-position:-133px -400px;}
 .user-info-big .text-status.pattern-18 .tale {background-position:-133px -450px;}
+
+.user-info.user-info-small {min-width: 130px;line-height: 13px;font-size: 11px;}
+.user-info.user-info-small .details {margin-left: 30px;}
+.user-info.user-info-small .details .username {width: 100px;line-height: 13px;}
+.user-info.user-info-small .details .date {display: block;margin:0;color: #8a8b8b;font-size: 9px;line-height: 16px;}
 
 .user-fast-nav {font-size:11px;font-family:tahoma, arial, helvetica, sans-serif;color:#a4cce8;clear:left;margin-bottom:12px;margin-left:15px;line-height;12px;}
 .user-fast-nav .more {text-decoration:none;border-bottom:1px dashed #029AD2;}
@@ -255,17 +265,19 @@ box-shadow:1px 1px 1px rgba(0,0,0,.2);behavior: url(/stylesheets/PIE.htc);}
 
 
 .user-fast-buttons {padding-top:2px;margin-bottom:5px;}
-.user-fast-buttons a {display:inline-block;*zoom:1;*display:inline;position:relative;margin-right:4px;text-decoration:none;vertical-align:middle;}
+.user-fast-buttons a {display:inline-block;*zoom:1;*display:inline;position:relative;margin-right:3px;text-decoration:none;vertical-align:middle;}
+.user-fast-buttons a:hover {text-decoration: underline;}
 .user-fast-buttons span.friend {float:left;color:#22af16;margin-right:5px;font-size:13px;margin-top:2px;}
-.user-fast-buttons .add-friend {width:22px;height:18px;background:url(/images/common.png) no-repeat -256px -298px;}
+.user-fast-buttons .add-friend {width:22px;height:18px;background:url(/images/common.png) no-repeat -257px -297px }
 .user-fast-buttons .remove-friend {width:26px;height:26px;background:url(/images/common.png) no-repeat -283px -271px;}
 .user-fast-buttons .pending-friend {width:26px;height:26px;background:url(/images/common.png) no-repeat -310px -271px;}
-.user-fast-buttons .new-message {width:22px;height:17px;background:url(/images/common.png) no-repeat -234px -298px;margin-top:1px;}
+.user-fast-buttons .new-message {width:22px;height:17px;background:url(/images/common.png) no-repeat -235px -298px;margin:1px 5px 0 -1px;}
 .user-fast-buttons .accept {background:#56b74f;height:16px;line-height:16px;padding:0 8px;margin-left:-6px;color:#fff;}
 .user-fast-buttons .cancel {background:#629ed1;}
 .user-fast-buttons .accept {/*css3*/ -moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px;}
 .user-fast-buttons .remove {width:12px;height:14px;background:url(/images/common.png) no-repeat -314px -135px;position:relative;margin-right:4px;vertical-align:middle;}
 .user-fast-buttons .remove:hover {background-position:-314px -148px;}
+.user-fast-buttons .count {display: inline-block;*zoom:1;*display:inline;margin: 0 3px 0 -3px;font-size:8px;color: #5f5f5f;}
 
 .icon-status {display:inline-block;*zoom:1;*display:inline;width:11px;height:11px;background:url(../images/common.png) no-repeat;position:relative;top:2px;margin-right:2px;}
 .icon-status.status-online {background-position:-44px -180px;}
@@ -372,7 +384,7 @@ textarea.error {border:1px solid #ff6767 !important;}
     -moz-border-radius:5px;
     -webkit-border-radius:5px;
     border-radius:5px;
-	behavior: url(PIE.htc);
+	behavior: url(/stylesheets/PIE.htc);
 }
 .ie7 .btn-green,
 .ie8 .btn-green {filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#71e16c', endColorstr='#21a34a',GradientType=0 ); /* IE6-8 */}
@@ -815,7 +827,7 @@ textarea.error {border:1px solid #ff6767 !important;}
 	background: -ms-linear-gradient(top,  #55b2f6 0%,#1676bc 100%); /* IE10+ */
 	background: linear-gradient(to bottom,  #55b2f6 0%,#1676bc 100%); /* W3C */
 
-    -moz-border-radius:5px; -webkit-border-radius:5px; border-radius:5px;behavior: url(PIE.htc);
+    -moz-border-radius:5px; -webkit-border-radius:5px; border-radius:5px;behavior: url(/stylesheets/PIE.htc);
 }
 .ie7 .btn-blue,
 .ie8 .btn-blue {filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#55b2f6', endColorstr='#1676bc',GradientType=0 ); /* IE6-8 */}
@@ -854,7 +866,7 @@ textarea.error {border:1px solid #ff6767 !important;}
 	background: -ms-linear-gradient(top,  #22c0e3 0%,#029fd2 100%); /* IE10+ */
 	background: linear-gradient(to bottom,  #22c0e3 0%,#029fd2 100%); /* W3C */
 
-    -moz-border-radius:5px;-webkit-border-radius:5px; border-radius:5px;behavior: url(PIE.htc);
+    -moz-border-radius:5px;-webkit-border-radius:5px; border-radius:5px;behavior: url(/stylesheets/PIE.htc);
 }
 .btn-blue-light-small {
 	font:11px/17px  Tahoma, Arial,Verdana, sans-serif;
@@ -863,7 +875,7 @@ textarea.error {border:1px solid #ff6767 !important;}
 	-moz-border-radius: 7px;
 	-ms-border-radius: 7px;
 	border-radius: 7px;
-	behavior: url(PIE.htc);
+	behavior: url(/stylesheets/PIE.htc);
 }
 
 .more-btn {display:block;background:#f8fbff;color:#5884bf;font-size:14px;text-decoration:none;border:1px solid #cedaea;height:25px;line-height:25px;text-align:center;max-width:600px;margin:20px auto; -moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;behavior: url(/stylesheets/PIE.htc);}
@@ -896,9 +908,23 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 .meta .views .icon {display:inline-block;*zoom:1;*display:inline;width:24px;height:13px;background:url(/images/common.png) no-repeat -199px -275px;vertical-align:middle;position:relative;top:-1px;margin-right:3px;}
 .meta .comments {font-weight:normal !important;vertical-align:middle;}
 .meta .comments .icon {display:inline-block;*zoom:1;*display:inline;width:20px;height:17px;background:url(/images/common.png) no-repeat -225px -275px;vertical-align:middle;margin:2px 3px 0 0;padding:0;}
-.entry .meta .comments {margin:3px 0 0;line-height:26px;}
 .entry .meta .comments a {padding-right:0;}
 .meta .comments .ava.small {display:inline-block;*zoom:1;*display:inline;float:none;padding:0 2px;vertical-align:middle;}
+
+.meta.meta-small {float: right;margin: 0;font-size: 11px;line-height: 14px;text-align: left;}
+.meta.meta-small .views .icon {
+    background-position: -200px -295px;
+    width: 17px;
+    height: 10px;
+    margin-right: 1px;
+}
+.meta.meta-small .comments .icon {
+    background-position: -218px -295px;
+    width: 16px;
+    height: 13px;
+    margin:0 1px 0 0;
+}
+.meta.meta-small .comments.empty .icon {background-position: -218px -309px;}
 
 .CheckBoxClass,
 .RadioClass{display: none;}
@@ -1048,7 +1074,7 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 .gallery-box {text-align:center;margin-bottom:30px;}
 .gallery-box a {color:#fff;text-decoration:none;}
 .gallery-box .img {position:relative;display:inline-block;*zoom:1;*display:inline;}
-.gallery-box .img .title {position:absolute;top:0;left:0;background:#000;width:90%;background:rgba(0,0,0,.44);padding:2% 5%;font-weight:bold;font-size:34px;line-height:1;text-align:center;}
+.gallery-box .img .title {position:absolute;top:10px;left:0;background:#000;width:90%;background:rgba(0,0,0,.44);padding:2% 5%;font-weight:bold;font-size:34px;line-height:1;text-align:center;}
 .gallery-box .img .count {position:absolute;bottom:0;left:0;background:#000;width:90%;background:rgba(0,0,0,.44);padding:3% 5%;font-size:34px;line-height:1;text-align:center;font-size:32px;}
 .gallery-box .img .count span {font-size:40px;}
 
@@ -1360,7 +1386,7 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 }
 .jcarousel > ul {
     width: 20000em;
-    position: absolute;
+    position: relative;
     list-style: none;
     margin: 0;
     padding: 0;
@@ -1408,6 +1434,8 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 .top-line-menu .user-nav-2 .item-settings.active .icon-settings,
 .top-line-menu .user-nav-2 .item-settings a:hover .icon-settings {background-position:-552px -396px;}
 .top-line-menu .user-nav-2 .icon-logout {float:left;width:18px;height:32px;background:url(/images/common.png) no-repeat -571px -364px;}
+.top-line-menu .user-nav-2 .icon-broadcast {float:left;width:31px;height:32px;background:url(/images/common.png) no-repeat -199px -242px;}
+.top-line-menu .user-nav-2 .new .icon-broadcast {float:left;width:31px;height:32px;background:url(/images/common.png) no-repeat -232px -242px;}
 .top-line-menu .user-nav-2 .count {float:left;font-size:9px;font-weight:bold;color:#fff;line-height:11px;margin-top:1px;display:none;}
 .top-line-menu .user-nav-2 .new .count {display:block;}
 .top-line-menu .user-nav-2 .count span {display:inline-block;*zoom:1;*display:inline;white-space:nowrap;color:#ffffff;height:11px;margin-bottom:4px;padding:0 2px;border-radius:2px;-moz-border-radius:2px;-webkit-border-radius:2px;}
@@ -1419,8 +1447,8 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 
 .top-line-menu .search-box {margin:0 auto;padding-top: 10px;width: 230px;}
 .top-line-menu .search-box .search-box_input {background: #fff;}
-.top-line-menu .search-box .search-box_input .text {background: none;line-height: 20px;height: 18px;padding: 2px 10px 0; width:180px;border: none;}
-.top-line-menu .search-box .search-box_input .icon-search{float: right;background: url(/images/common.png) no-repeat -666px -327px;width: 25px;height: 20px;border: none;margin: 0;cursor: pointer;}
+.top-line-menu .search-box .search-box_input .text {background: none;line-height: 20px;height: 18px;padding: 2px 10px 0; width:185px;border: none;}
+.top-line-menu .search-box .search-box_input .icon-search{float: right;background: url(/images/common.png) no-repeat -666px -327px;width: 21px;height: 20px;border: none;margin: 0;cursor: pointer;}
 
 .top-nav-fixed #header-new,
 body.nav-fixed #header-new {z-index:90;}
@@ -1711,6 +1739,7 @@ body.nav-fixed #header-new.top-line-fixed {padding-top:0;}
 
 #content .content-cols {}
 #content .content-cols .col-1 {width:240px;padding-right:20px;float:left;}
+#content .content-cols .col-12,
 #content .content-cols .col-23 {width:700px;float:left;}
 #content .content-cols .col-2 {width:440px;float:left;}
 #content .content-cols .col-3 {width:240px;padding-left:20px;float:left;}
@@ -2219,7 +2248,7 @@ body.nav-fixed #header-new.top-line-fixed {padding-top:0;}
 #user-career .how .block-title {color:#454445;font-size:30px;text-align:center;line-height:1;margin-bottom:15px;}
 #user-career .how .content {height:480px;background:url(/images/user_career_how.png) no-repeat top;position:relative;}
 #user-career .how .be-active {position:absolute;right:0;bottom:0;color:#603386;font-size:25px;line-height:1;}
-#user-career .how .be-active .icon {display:inline-block;*zoom:1;*display:inline;width:63px;height:65px;background:url(/images/user_career_be_active.png) no-repeat;}
+#user-career .how .be-active .icon {display:inline-block;*zoom:1;*display:inline;width:63px;height:65px;background:url(/images/be_active.png) no-repeat;}
 
 #user-career .stripes {position:relative;}
 #user-career .stripes:before {display:block;content:'';height:10px;width:100%;position:absolute;top:0;left:0;background:url(/images/user_career_t.gif) repeat-x;}
@@ -2576,10 +2605,10 @@ div.scrollbarpaper-drag {-moz-border-radius:3px;-webkit-border-radius:3px;border
 #albumSettings .album-style .overlay {position:absolute;width:100%;height:100%;left:0;top:0;background:#fff;}
 .pattern-list {list-style:none;width:330px;}
 .pattern-list li {float:left;margin:0 1px 1px 0;}
-.pattern-list a {display:block;border:2px solid transparent;padding:3px;behavior: url(PIE.htc);position:relative;text-decoration:none;}
+.pattern-list a {display:block;border:2px solid transparent;padding:3px;behavior: url(/stylesheets/PIE.htc);position:relative;text-decoration:none;}
 .pattern-list a.active,
 .pattern-list a:hover{border:2px solid #9c7fb7;-webkit-border-radius: 5px;-moz-border-radius: 5px;-ms-border-radius: 5px;border-radius: 5px;}
-.pattern-list a .pattern {display:block;height:28px;-webkit-border-radius: 3px;-moz-border-radius: 3px;-ms-border-radius: 3px;border-radius: 3px; behavior: url(PIE.htc);-webkit-box-shadow: inset 2px 1px 2px rgba(0,0,0,0.3);-moz-box-shadow: inset 2px 1px 2px rgba(0,0,0,0.3);box-shadow: inset 2px 1px 2px rgba(0,0,0,0.3);color:#5a5a5a;text-align:center;padding:5px 5px;line-height:13px;font-size:11px;width:45px;}
+.pattern-list a .pattern {display:block;height:28px;-webkit-border-radius: 3px;-moz-border-radius: 3px;-ms-border-radius: 3px;border-radius: 3px; behavior: url(/stylesheets/PIE.htc);-webkit-box-shadow: inset 2px 1px 2px rgba(0,0,0,0.3);-moz-box-shadow: inset 2px 1px 2px rgba(0,0,0,0.3);box-shadow: inset 2px 1px 2px rgba(0,0,0,0.3);color:#5a5a5a;text-align:center;padding:5px 5px;line-height:13px;font-size:11px;width:45px;}
 .pattern-list a.active .pattern,
 .pattern-list a:hover .pattern {-webkit-box-shadow: none;-moz-box-shadow: none;box-shadow: none;}
 
@@ -3310,6 +3339,11 @@ div.scrollbarpaper-drag {-moz-border-radius:3px;-webkit-border-radius:3px;border
 .club-img {height:115px;line-height:normal;text-align:center;width:76px;}
 .club-img img {border:2px solid transparent;display:block;margin-bottom:3px;}
 .club-img a {text-decoration:none;color:#0b87b4;font-size:10px;font-family:tahoma, arial, helvetica, sans-serif;line-height:1;}
+.club-img .club-join {display: inline-block;*zoom:1;*display:inline;color: #fff;margin: 4px 0 0;padding: 2px 8px;background: #22b220;-webkit-border-radius: 7px;
+-moz-border-radius: 7px;
+-ms-border-radius: 7px;
+border-radius: 7px;
+ behavior: url(/stylesheets/PIE.htc);}
 
 .club-img.small {width:30px;height:32px;display:inline-block;*zoom:1;*display:inline;vertical-align:middle;position:relative;top:-2px;}
 .club-img.small img {border-width:1px;width:28px;height:30px;}
@@ -3346,9 +3380,10 @@ div.scrollbarpaper-drag {-moz-border-radius:3px;-webkit-border-radius:3px;border
 
 /* interests */
 
-.interests-list {display:inline-block;*zoom:1;*display:inline;vertical-align:middle;max-width:150px;}
+.interests-list {display:inline-block;*zoom:1;*display:inline;vertical-align:middle;max-width:150px;list-style: none;}
 .interests-list ul {display:none;}
 .interests-list ul.active {display:block;}
+.interests-list > li {display: inline-block;*zoom:1;*display:inline;}
 
 
 .interest-cat {color:#414142;font-family:tahoma, arial, helvetica, sans-serif;font-size:11px;display:inline-block;*zoom:1;*display:inline;vertical-align:middle;}
@@ -3356,17 +3391,45 @@ div.scrollbarpaper-drag {-moz-border-radius:3px;-webkit-border-radius:3px;border
 .interest-cat .img {display:inline-block;*zoom:1;*display:inline;text-align:center;vertical-align:middle;margin-right:10px;}
 .interest-cat .text {display:inline-block;*zoom:1;*display:inline;width:150px;vertical-align:middle;}
 
-.interest {display:inline-block;*zoom:1;*display:inline;height:22px;line-height:20px;padding:0px 8px 0 16px;font-size:13px;color:#575757;background:#d3eafc url(/images/interest.gif) no-repeat left;margin:5px 5px 5px 0;}
-.interest {/*css3*/ -moz-border-radius:0 4px 4px 0;-webkit-border-radius:0 4px 4px 0;border-radius:0 4px 4px 0;behavior: url(/stylesheets/PIE.htc);}
-.interest span {color:#fb8246;font-size:11px;font-weight:bold;margin-left:6px;}
+/*.interest{display:inline-block;*zoom:1;*display:inline;height:22px;line-height:20px;padding:0 8px 0 16px;font-size:13px;color:#575757;background:#d3eafc url(/images/interest.gif) no-repeat left;margin:5px 5px 5px 0;-moz-border-radius:0 4px 4px 0;-webkit-border-radius:0 4px 4px 0;border-radius:0 4px 4px 0;behavior:url(/stylesheets/PIE.htc);}
+.interest span{color:#fb8246;font-size:11px;font-weight:700;margin-left:6px;}
+*/
+.interest {
+    position: relative;
+    display:inline-block;
+    *zoom:1;
+    *display:inline;
+    height:16px;
+    padding:0 5px 0 11px;
+    font:10px/14px Tahoma, Arial, Verdana, sans-serif;
+    color:#0697d3;
+    background:#e8f5ff;
+    margin:2px 0px 2px 0;
+    white-space:nowrap;
+    text-decoration:none;
+    -moz-border-radius:0 4px 4px 0;
+    -webkit-border-radius:0 4px 4px 0;
+    border-radius:0 4px 4px 0;
+    behavior:url(/stylesheets/PIE.htc);
+}
+.interest:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 0;
+    width: 0;
+    border: 8px solid #fff;
+    border-left: none;
+    border-right:7px solid #e8f5ff;
+}
+.interest span {
+    color:#fb8246;
+    font-size:11px;
+    font-weight:700;
+    margin-left:6px;
+}
 
-/* interests */
-
-.interest {display:inline-block;*zoom:1;*display:inline;height:14px;line-height:14px;padding:0px 5px 0 9px;font-size:9px;color:#575757;background:#ecddfc url(/images/interest.gif) no-repeat left;margin:4px 4px 4px 0;white-space:nowrap;text-decoration:none;}
-
-.interest {-moz-border-radius:0 4px 4px 0;-webkit-border-radius:0 4px 4px 0;border-radius:0 4px 4px 0;behavior: url(/stylesheets/PIE.htc);}
-
-.interest span {color:#fb8246;font-size:11px;font-weight:bold;margin-left:6px;}
 
 /*.interest {-moz-border-radius:12px;-webkit-border-radius:12px;border-radius:12px;behavior: url(/stylesheets/PIE.htc);}
 .interest.kids {border-color:#bfddff;color:#689dc9;}
@@ -3381,9 +3444,6 @@ div.scrollbarpaper-drag {-moz-border-radius:3px;-webkit-border-radius:3px;border
 .interest.hobbies.selected {background:#ffdda7;color:#c17029;}
 .interest.rest {border-color:#c5effe;color:#66c8eb;}
 .interest.rest.selected {background:#c5effe;color:#039cd3;}*/
-
-
-
 
 /* popular topics */
 
@@ -3858,6 +3918,117 @@ div.scrollbarpaper-drag {-moz-border-radius:3px;-webkit-border-radius:3px;border
 #activity .activity-video .preview .v-title:hover span {text-decoration:none;}
 #activity .activity-video .preview .play {display:block;width:103px;height:103px;background:url(/images/activity_play.png) no-repeat;position:absolute;top:50%;left:50%;margin-left:-51px;margin-top:-51px;}
 
+.find-friend-page {}
+.find-friend-title {margin-bottom: 40px;}
+.find-friend-title .search-box {float: right;padding: 15px 10px 0 0;}
+.find-friend-title .search-box .search-box_input {position: relative;}
+.find-friend-title .search-box .search-box_input .text {background: #fff;line-height: 20px;height: 18px;padding: 2px 30px 0 7px; width:160px;border: 1px solid #e5e5e5;}
+.find-friend-title .search-box .search-box_input .text:focus {border-color: #d2bbe6;}
+.find-friend-title .search-box .search-box_input .icon-search{position: absolute;top: 0;right: 0;background: url(/images/common.png) no-repeat -666px -327px;width: 21px;height: 20px;border: none;margin: 0;cursor: pointer;}
+.find-friend-title h1 {color: #454545 !important;text-align: center;font-size: 35px;padding-left: 210px;margin-bottom: 25px !important;}
+.find-friend-title .icon-find-friend {display: inline-block;*zoom:1;*display:inline;    background: url("/images/common.png") no-repeat scroll -322px -341px transparent;
+    height: 46px;margin: 0 0 -8px;width: 43px;}
+.find-friend-menu {
+    text-align:center;
+    list-style:none;
+}
+.find-friend-menu > li {
+    display:inline-block;*zoom:1;*display:inline;
+    border-right:1px solid #ffc200;
+    color: #2e2e2d;
+    margin: 0 -3px 0 0;
+}
+.find-friend-menu > li:first-child > a{
+    border-left: none;
+    -webkit-border-top-left-radius: 17px;
+    -moz-border-top-left-radius: 17px;
+    -ms-border-top-left-radius: 17px;
+    border-top-left-radius: 17px;
+    -webkit-border-bottom-left-radius: 17px;
+    -moz-border-bottom-left-radius: 17px;
+    -ms-border-bottom-left-radius: 17px;
+    border-bottom-left-radius: 17px;
+}
+.find-friend-menu > li:last-child {border-right: none;}
+.find-friend-menu > li:last-child > a{
+    -webkit-border-top-right-radius: 17px;
+    -moz-border-top-right-radius: 17px;
+    -ms-border-top-right-radius: 17px;
+    border-top-right-radius: 17px;
+    -webkit-border-bottom-right-radius: 17px;
+    -moz-border-bottom-right-radius: 17px;
+    -ms-border-bottom-right-radius: 17px;
+    border-bottom-right-radius: 17px;
+}
+.find-friend-menu > li > a {
+    display: block;
+    padding: 2px 16px 1px;
+    font-size: 14px;
+    line-height: 34px;
+    height: 33px;
+    text-decoration: none;
+    color: #2e2e2d;
+    border-bottom: 1px solid #ffc903;
+    background: #fff300;
+    background: -moz-linear-gradient(top, #fff300 0%, #ffdd00 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fff300), color-stop(100%,#ffdd00));
+    background: -webkit-linear-gradient(top, #fff300 0%,#ffdd00 100%);
+    background: -o-linear-gradient(top, #fff300 0%,#ffdd00 100%);
+    background: -ms-linear-gradient(top, #fff300 0%,#ffdd00 100%);
+    background: linear-gradient(to bottom, #fff300 0%,#ffdd00 100%);
+}
+.ie7 .find-friend-menu > li > a,
+.ie8 .find-friend-menu > li > a {filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fff300', endColorstr='#ffdd00',GradientType=0 );}
+.ie9 .find-friend-menu > li > a {background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZjMwMCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmZmRkMDAiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);}
+.find-friend-menu > li > a:hover {
+    text-decoration: underline;
+    background: #ffdd00;
+    background: -moz-linear-gradient(top, #ffdd00 0%, #fff300 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffdd00), color-stop(100%,#fff300));
+    background: -webkit-linear-gradient(top, #ffdd00 0%,#fff300 100%);
+    background: -o-linear-gradient(top, #ffdd00 0%,#fff300 100%);
+    background: -ms-linear-gradient(top, #ffdd00 0%,#fff300 100%);
+    background: linear-gradient(to bottom, #ffdd00 0%,#fff300 100%);
+}
+.ie7 .find-friend-menu > li > a:hover,
+.ie8 .find-friend-menu > li > a:hover {filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffdd00', endColorstr='#fff300',GradientType=0 );}
+.ie9 .find-friend-menu > li > a:hover {background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZGQwMCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmZmYzMDAiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);}
+.find-friend-menu > li.active a {
+    background: #ffa300;
+    border-bottom:none;
+    border-top: 1px solid #eb8100;
+    padding: 1px 16px 2px;
+    background: -moz-linear-gradient(top, #ffa300 0%, #ffd600 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffa300), color-stop(100%,#ffd600));
+    background: -webkit-linear-gradient(top, #ffa300 0%,#ffd600 100%);
+    background: -o-linear-gradient(top, #ffa300 0%,#ffd600 100%);
+    background: -ms-linear-gradient(top, #ffa300 0%,#ffd600 100%);
+    background: linear-gradient(to bottom, #ffa300 0%,#ffd600 100%);
+}
+.ie7 .find-friend-menu > li.active a,
+.ie8 .find-friend-menu > li.active a {filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffa300', endColorstr='#ffd600',GradientType=0 );}
+.ie9 .find-friend-menu > li.active a {background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmYTMwMCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmZmQ2MDAiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);}
+.find-friend-menu > li.active a:hover {text-decoration: none;}
+.find-friend-menu > li.green a {
+    background: #ffa300;
+    border-bottom:none;
+    border-top: 1px solid #199235;
+    color: #fff;
+    padding: 1px 16px 2px;
+    background: #2baa4e;
+    background: -moz-linear-gradient(top, #2baa4e 0%, #68da68 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#2baa4e), color-stop(100%,#68da68));
+    background: -webkit-linear-gradient(top, #2baa4e 0%,#68da68 100%);
+    background: -o-linear-gradient(top, #2baa4e 0%,#68da68 100%);
+    background: -ms-linear-gradient(top, #2baa4e 0%,#68da68 100%);
+    background: linear-gradient(to bottom, #2baa4e 0%,#68da68 100%);
+}
+.ie7 .find-friend-menu > li.green a,
+.ie8 .find-friend-menu > li.green a {filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2baa4e', endColorstr='#68da68',GradientType=0 );}
+.ie9 .find-friend-menu > li.green a {background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzJiYWE0ZSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiM2OGRhNjgiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);}
+.find-friend-menu > li.green a:hover {text-decoration: none;}
+
+
 .activity-find-friend {padding:15px 0 !important;}
 .activity-find-friend .title {padding:0px 19px;}
 .activity-find-friend .title a {float:right;font-size:12px;font-weight:normal;margin-top:10px;}
@@ -3869,7 +4040,8 @@ div.scrollbarpaper-drag {-moz-border-radius:3px;-webkit-border-radius:3px;border
 .activity-find-friend ul li .info {font-family: arial, helvetica, sans-serif;font-size:13px;line-height:13px;}
 .activity-find-friend ul li .info p {margin:10px 0;}
 .activity-find-friend ul li .info p span {display:inline-block;*zoom:1;*display:inline;vertical-align:middle;max-width:150px;margin-right:5px;}
-.activity-find-friend ul li .info .interest-cat, .activity-find-friend ul li .info .interests-list {margin-bottom:10px;}
+.activity-find-friend ul li .info .interest-cat,
+.activity-find-friend ul li .info .interests-list {margin-bottom:10px;}
 .activity-find-friend ul li .icon-kid-boy {display:inline-block;*zoom:1;*display:inline;width:22px;height:21px;background:url(/images/common.png) no-repeat -557px -221px;vertical-align:middle;position:relative;top:-1px;}
 .activity-find-friend ul li .icon-kid-girl {display:inline-block;*zoom:1;*display:inline;width:22px;height:21px;background:url(/images/common.png) no-repeat -580px -221px;vertical-align:middle;position:relative;top:-1px;}
 .activity-find-friend ul li .icon-kid-wait {display:inline-block;*zoom:1;*display:inline;width:25px;height:22px;background:url(/images/common.png) no-repeat -629px -267px;vertical-align:middle;position:relative;top:-1px;}
@@ -4235,240 +4407,248 @@ label {
 
 
 .flag {
-    width: 18px;
-    height: 12px;
-    background:url(/images/flags_18.png) no-repeat
+    width: 16px;
+    height: 16px;
+    background:url(/images/flags_16.png) no-repeat;
+    margin-bottom: -2px;
 }
 
-.flag.flag-ad{ background-position: 0 0; width: 18px; height: 12px; }
-.flag.flag-ae{ background-position: 0 -13px; width: 18px; height: 12px; }
-.flag.flag-af{ background-position: 0 -26px; width: 18px; height: 12px; }
-.flag.flag-ag{ background-position: 0 -39px; width: 18px; height: 12px; }
-.flag.flag-ai{ background-position: 0 -52px; width: 18px; height: 12px; }
-.flag.flag-al{ background-position: 0 -65px; width: 18px; height: 12px; }
-.flag.flag-an{ background-position: 0 -78px; width: 18px; height: 12px; }
-.flag.flag-ao{ background-position: 0 -91px; width: 18px; height: 12px; }
-.flag.flag-aq{ background-position: 0 -104px; width: 18px; height: 12px; }
-.flag.flag-ar{ background-position: 0 -117px; width: 18px; height: 12px; }
-.flag.flag-as{ background-position: 0 -130px; width: 18px; height: 12px; }
-.flag.flag-at{ background-position: 0 -143px; width: 18px; height: 12px; }
-.flag.flag-au{ background-position: 0 -156px; width: 18px; height: 12px; }
-.flag.flag-aw{ background-position: 0 -169px; width: 18px; height: 12px; }
-.flag.flag-az{ background-position: 0 -182px; width: 18px; height: 12px; }
-.flag.flag-ba{ background-position: 0 -195px; width: 18px; height: 12px; }
-.flag.flag-bb{ background-position: 0 -208px; width: 18px; height: 12px; }
-.flag.flag-bd{ background-position: 0 -221px; width: 18px; height: 12px; }
-.flag.flag-be{ background-position: 0 -234px; width: 18px; height: 12px; }
-.flag.flag-bf{ background-position: 0 -247px; width: 18px; height: 12px; }
-.flag.flag-bg{ background-position: 0 -260px; width: 18px; height: 12px; }
-.flag.flag-bh{ background-position: 0 -273px; width: 18px; height: 12px; }
-.flag.flag-bi{ background-position: 0 -286px; width: 18px; height: 12px; }
-.flag.flag-bj{ background-position: 0 -299px; width: 18px; height: 12px; }
-.flag.flag-bm{ background-position: 0 -312px; width: 18px; height: 12px; }
-.flag.flag-bn{ background-position: 0 -325px; width: 18px; height: 12px; }
-.flag.flag-bo{ background-position: 0 -338px; width: 18px; height: 12px; }
-.flag.flag-br{ background-position: 0 -351px; width: 18px; height: 12px; }
-.flag.flag-bs{ background-position: 0 -364px; width: 18px; height: 12px; }
-.flag.flag-bt{ background-position: 0 -377px; width: 18px; height: 12px; }
-.flag.flag-bv{ background-position: 0 -390px; width: 18px; height: 12px; }
-.flag.flag-bw{ background-position: 0 -403px; width: 18px; height: 12px; }
-.flag.flag-by{ background-position: 0 -416px; width: 18px; height: 12px; }
-.flag.flag-bz{ background-position: 0 -429px; width: 18px; height: 12px; }
-.flag.flag-ca{ background-position: 0 -442px; width: 18px; height: 12px; }
-.flag.flag-cd{ background-position: 0 -455px; width: 18px; height: 12px; }
-.flag.flag-cf{ background-position: 0 -468px; width: 18px; height: 12px; }
-.flag.flag-cg{ background-position: 0 -481px; width: 18px; height: 12px; }
-.flag.flag-ch{ background-position: 0 -494px; width: 18px; height: 12px; }
-.flag.flag-ci{ background-position: 0 -507px; width: 18px; height: 12px; }
-.flag.flag-ck{ background-position: 0 -520px; width: 18px; height: 12px; }
-.flag.flag-cl{ background-position: 0 -533px; width: 18px; height: 12px; }
-.flag.flag-cm{ background-position: 0 -546px; width: 18px; height: 12px; }
-.flag.flag-cn{ background-position: 0 -559px; width: 18px; height: 12px; }
-.flag.flag-co{ background-position: 0 -572px; width: 18px; height: 12px; }
-.flag.flag-cr{ background-position: 0 -585px; width: 18px; height: 12px; }
-.flag.flag-cu{ background-position: 0 -598px; width: 18px; height: 12px; }
-.flag.flag-cv{ background-position: 0 -611px; width: 18px; height: 12px; }
-.flag.flag-cy{ background-position: 0 -624px; width: 18px; height: 12px; }
-.flag.flag-cz{ background-position: 0 -637px; width: 18px; height: 12px; }
-.flag.flag-de{ background-position: 0 -650px; width: 18px; height: 12px; }
-.flag.flag-dj{ background-position: 0 -663px; width: 18px; height: 12px; }
-.flag.flag-dk{ background-position: 0 -676px; width: 18px; height: 12px; }
-.flag.flag-dm{ background-position: 0 -689px; width: 18px; height: 12px; }
-.flag.flag-do{ background-position: 0 -702px; width: 18px; height: 12px; }
-.flag.flag-dz{ background-position: 0 -715px; width: 18px; height: 12px; }
-.flag.flag-ec{ background-position: 0 -728px; width: 18px; height: 12px; }
-.flag.flag-ee{ background-position: 0 -741px; width: 18px; height: 12px; }
-.flag.flag-eg{ background-position: 0 -754px; width: 18px; height: 12px; }
-.flag.flag-er{ background-position: 0 -767px; width: 18px; height: 12px; }
-.flag.flag-es{ background-position: 0 -780px; width: 18px; height: 12px; }
-.flag.flag-et{ background-position: 0 -793px; width: 18px; height: 12px; }
-.flag.flag-eu{ background-position: 0 -806px; width: 18px; height: 12px; }
-.flag.flag-fi{ background-position: 0 -819px; width: 18px; height: 12px; }
-.flag.flag-fj{ background-position: 0 -832px; width: 18px; height: 12px; }
-.flag.flag-fk{ background-position: 0 -845px; width: 18px; height: 12px; }
-.flag.flag-fm{ background-position: 0 -858px; width: 18px; height: 12px; }
-.flag.flag-fo{ background-position: 0 -871px; width: 18px; height: 12px; }
-.flag.flag-fr{ background-position: 0 -884px; width: 18px; height: 12px; }
-.flag.flag-ga{ background-position: 0 -897px; width: 18px; height: 12px; }
-.flag.flag-gb{ background-position: 0 -910px; width: 18px; height: 12px; }
-.flag.flag-gd{ background-position: 0 -923px; width: 18px; height: 12px; }
-.flag.flag-ge{ background-position: 0 -936px; width: 18px; height: 12px; }
-.flag.flag-gh{ background-position: 0 -949px; width: 18px; height: 12px; }
-.flag.flag-gi{ background-position: 0 -962px; width: 18px; height: 12px; }
-.flag.flag-gl{ background-position: 0 -975px; width: 18px; height: 12px; }
-.flag.flag-gm{ background-position: 0 -988px; width: 18px; height: 12px; }
-.flag.flag-gn{ background-position: 0 -1001px; width: 18px; height: 12px; }
-.flag.flag-gp{ background-position: 0 -1014px; width: 18px; height: 12px; }
-.flag.flag-gq{ background-position: 0 -1027px; width: 18px; height: 12px; }
-.flag.flag-gr{ background-position: 0 -1040px; width: 18px; height: 12px; }
-.flag.flag-gt{ background-position: 0 -1053px; width: 18px; height: 12px; }
-.flag.flag-gu{ background-position: 0 -1066px; width: 18px; height: 12px; }
-.flag.flag-gw{ background-position: 0 -1079px; width: 18px; height: 12px; }
-.flag.flag-gy{ background-position: 0 -1092px; width: 18px; height: 12px; }
-.flag.flag-hk{ background-position: 0 -1105px; width: 18px; height: 12px; }
-.flag.flag-hm{ background-position: 0 -1118px; width: 18px; height: 12px; }
-.flag.flag-hn{ background-position: 0 -1131px; width: 18px; height: 12px; }
-.flag.flag-hr{ background-position: 0 -1144px; width: 18px; height: 12px; }
-.flag.flag-ht{ background-position: 0 -1157px; width: 18px; height: 12px; }
-.flag.flag-hu{ background-position: 0 -1170px; width: 18px; height: 12px; }
-.flag.flag-id{ background-position: 0 -1183px; width: 18px; height: 12px; }
-.flag.flag-ie{ background-position: 0 -1196px; width: 18px; height: 12px; }
-.flag.flag-il{ background-position: 0 -1209px; width: 18px; height: 12px; }
-.flag.flag-in{ background-position: 0 -1222px; width: 18px; height: 12px; }
-.flag.flag-io{ background-position: 0 -1235px; width: 18px; height: 12px; }
-.flag.flag-iq{ background-position: 0 -1248px; width: 18px; height: 12px; }
-.flag.flag-ir{ background-position: 0 -1261px; width: 18px; height: 12px; }
-.flag.flag-is{ background-position: 0 -1274px; width: 18px; height: 12px; }
-.flag.flag-it{ background-position: 0 -1287px; width: 18px; height: 12px; }
-.flag.flag-jm{ background-position: 0 -1300px; width: 18px; height: 12px; }
-.flag.flag-jo{ background-position: 0 -1313px; width: 18px; height: 12px; }
-.flag.flag-jp{ background-position: 0 -1326px; width: 18px; height: 12px; }
-.flag.flag-ke{ background-position: 0 -1339px; width: 18px; height: 12px; }
-.flag.flag-kg{ background-position: 0 -1352px; width: 18px; height: 12px; }
-.flag.flag-kh{ background-position: 0 -1365px; width: 18px; height: 12px; }
-.flag.flag-ki{ background-position: 0 -1378px; width: 18px; height: 12px; }
-.flag.flag-km{ background-position: 0 -1391px; width: 18px; height: 12px; }
-.flag.flag-kn{ background-position: 0 -1404px; width: 18px; height: 12px; }
-.flag.flag-kp{ background-position: 0 -1417px; width: 18px; height: 12px; }
-.flag.flag-kr{ background-position: 0 -1430px; width: 18px; height: 12px; }
-.flag.flag-kw{ background-position: 0 -1443px; width: 18px; height: 12px; }
-.flag.flag-ky{ background-position: 0 -1456px; width: 18px; height: 12px; }
-.flag.flag-kz{ background-position: 0 -1469px; width: 18px; height: 12px; }
-.flag.flag-la{ background-position: 0 -1482px; width: 18px; height: 12px; }
-.flag.flag-lb{ background-position: 0 -1495px; width: 18px; height: 12px; }
-.flag.flag-lc{ background-position: 0 -1508px; width: 18px; height: 12px; }
-.flag.flag-li{ background-position: 0 -1521px; width: 18px; height: 12px; }
-.flag.flag-lk{ background-position: 0 -1534px; width: 18px; height: 12px; }
-.flag.flag-lr{ background-position: 0 -1547px; width: 18px; height: 12px; }
-.flag.flag-ls{ background-position: 0 -1560px; width: 18px; height: 12px; }
-.flag.flag-lt{ background-position: 0 -1573px; width: 18px; height: 12px; }
-.flag.flag-lu{ background-position: 0 -1586px; width: 18px; height: 12px; }
-.flag.flag-lv{ background-position: 0 -1599px; width: 18px; height: 12px; }
-.flag.flag-ly{ background-position: 0 -1612px; width: 18px; height: 12px; }
-.flag.flag-ma{ background-position: 0 -1625px; width: 18px; height: 12px; }
-.flag.flag-mc{ background-position: 0 -1638px; width: 18px; height: 12px; }
-.flag.flag-md{ background-position: 0 -1651px; width: 18px; height: 12px; }
-.flag.flag-mg{ background-position: 0 -1664px; width: 18px; height: 12px; }
-.flag.flag-mh{ background-position: 0 -1677px; width: 18px; height: 12px; }
-.flag.flag-mk{ background-position: 0 -1690px; width: 18px; height: 12px; }
-.flag.flag-ml{ background-position: 0 -1703px; width: 18px; height: 12px; }
-.flag.flag-mm{ background-position: 0 -1716px; width: 18px; height: 12px; }
-.flag.flag-mn{ background-position: 0 -1729px; width: 18px; height: 12px; }
-.flag.flag-mo{ background-position: 0 -1742px; width: 18px; height: 12px; }
-.flag.flag-mp{ background-position: 0 -1755px; width: 18px; height: 12px; }
-.flag.flag-mq{ background-position: 0 -1768px; width: 18px; height: 12px; }
-.flag.flag-mr{ background-position: 0 -1781px; width: 18px; height: 12px; }
-.flag.flag-ms{ background-position: 0 -1794px; width: 18px; height: 12px; }
-.flag.flag-mt{ background-position: 0 -1807px; width: 18px; height: 12px; }
-.flag.flag-mu{ background-position: 0 -1820px; width: 18px; height: 12px; }
-.flag.flag-mv{ background-position: 0 -1833px; width: 18px; height: 12px; }
-.flag.flag-mw{ background-position: 0 -1846px; width: 18px; height: 12px; }
-.flag.flag-mx{ background-position: 0 -1859px; width: 18px; height: 12px; }
-.flag.flag-my{ background-position: 0 -1872px; width: 18px; height: 12px; }
-.flag.flag-mz{ background-position: 0 -1885px; width: 18px; height: 12px; }
-.flag.flag-na{ background-position: 0 -1898px; width: 18px; height: 12px; }
-.flag.flag-nc{ background-position: 0 -1911px; width: 18px; height: 12px; }
-.flag.flag-ne{ background-position: 0 -1924px; width: 18px; height: 12px; }
-.flag.flag-nf{ background-position: 0 -1937px; width: 18px; height: 12px; }
-.flag.flag-ng{ background-position: 0 -1950px; width: 18px; height: 12px; }
-.flag.flag-ni{ background-position: 0 -1963px; width: 18px; height: 12px; }
-.flag.flag-nl{ background-position: 0 -1976px; width: 18px; height: 12px; }
-.flag.flag-no{ background-position: 0 -1989px; width: 18px; height: 12px; }
-.flag.flag-np{ background-position: -19px 0; width: 18px; height: 12px; }
-.flag.flag-nr{ background-position: -19px -13px; width: 18px; height: 12px; }
-.flag.flag-nz{ background-position: -19px -26px; width: 18px; height: 12px; }
-.flag.flag-om{ background-position: -19px -39px; width: 18px; height: 12px; }
-.flag.flag-pa{ background-position: -19px -52px; width: 18px; height: 12px; }
-.flag.flag-pe{ background-position: -19px -65px; width: 18px; height: 12px; }
-.flag.flag-pf{ background-position: -19px -78px; width: 18px; height: 12px; }
-.flag.flag-pg{ background-position: -19px -91px; width: 18px; height: 12px; }
-.flag.flag-ph{ background-position: -19px -104px; width: 18px; height: 12px; }
-.flag.flag-pk{ background-position: -19px -117px; width: 18px; height: 12px; }
-.flag.flag-pl{ background-position: -19px -130px; width: 18px; height: 12px; }
-.flag.flag-pm{ background-position: -19px -143px; width: 18px; height: 12px; }
-.flag.flag-pr{ background-position: -19px -156px; width: 18px; height: 12px; }
-.flag.flag-ps{ background-position: -19px -169px; width: 18px; height: 12px; }
-.flag.flag-pt{ background-position: -19px -182px; width: 18px; height: 12px; }
-.flag.flag-pw{ background-position: -19px -195px; width: 18px; height: 12px; }
-.flag.flag-py{ background-position: -19px -208px; width: 18px; height: 12px; }
-.flag.flag-qa{ background-position: -19px -221px; width: 18px; height: 12px; }
-.flag.flag-re{ background-position: -19px -234px; width: 18px; height: 12px; }
-.flag.flag-ro{ background-position: -19px -247px; width: 18px; height: 12px; }
-.flag.flag-ru{ background-position: -19px -260px; width: 18px; height: 12px; }
-.flag.flag-rw{ background-position: -19px -273px; width: 18px; height: 12px; }
-.flag.flag-sa{ background-position: -19px -286px; width: 18px; height: 12px; }
-.flag.flag-sb{ background-position: -19px -299px; width: 18px; height: 12px; }
-.flag.flag-sc{ background-position: -19px -312px; width: 18px; height: 12px; }
-.flag.flag-sd{ background-position: -19px -325px; width: 18px; height: 12px; }
-.flag.flag-se{ background-position: -19px -338px; width: 18px; height: 12px; }
-.flag.flag-sg{ background-position: -19px -351px; width: 18px; height: 12px; }
-.flag.flag-si{ background-position: -19px -364px; width: 18px; height: 12px; }
-.flag.flag-sk{ background-position: -19px -377px; width: 18px; height: 12px; }
-.flag.flag-sl{ background-position: -19px -390px; width: 18px; height: 12px; }
-.flag.flag-sm{ background-position: -19px -403px; width: 18px; height: 12px; }
-.flag.flag-sn{ background-position: -19px -416px; width: 18px; height: 12px; }
-.flag.flag-so{ background-position: -19px -429px; width: 18px; height: 12px; }
-.flag.flag-sr{ background-position: -19px -442px; width: 18px; height: 12px; }
-.flag.flag-st{ background-position: -19px -455px; width: 18px; height: 12px; }
-.flag.flag-su{ background-position: -19px -468px; width: 18px; height: 12px; }
-.flag.flag-sv{ background-position: -19px -481px; width: 18px; height: 12px; }
-.flag.flag-sy{ background-position: -19px -494px; width: 18px; height: 12px; }
-.flag.flag-sz{ background-position: -19px -507px; width: 18px; height: 12px; }
-.flag.flag-tc{ background-position: -19px -520px; width: 18px; height: 12px; }
-.flag.flag-td{ background-position: -19px -533px; width: 18px; height: 12px; }
-.flag.flag-tf{ background-position: -19px -546px; width: 18px; height: 12px; }
-.flag.flag-tg{ background-position: -19px -559px; width: 18px; height: 12px; }
-.flag.flag-th{ background-position: -19px -572px; width: 18px; height: 12px; }
-.flag.flag-tj{ background-position: -19px -585px; width: 18px; height: 12px; }
-.flag.flag-tm{ background-position: -19px -598px; width: 18px; height: 12px; }
-.flag.flag-tn{ background-position: -19px -611px; width: 18px; height: 12px; }
-.flag.flag-to{ background-position: -19px -624px; width: 18px; height: 12px; }
-.flag.flag-tp{ background-position: -19px -637px; width: 18px; height: 12px; }
-.flag.flag-tr{ background-position: -19px -650px; width: 18px; height: 12px; }
-.flag.flag-tt{ background-position: -19px -663px; width: 18px; height: 12px; }
-.flag.flag-tv{ background-position: -19px -676px; width: 18px; height: 12px; }
-.flag.flag-tw{ background-position: -19px -689px; width: 18px; height: 12px; }
-.flag.flag-tz{ background-position: -19px -702px; width: 18px; height: 12px; }
-.flag.flag-ua{ background-position: -19px -715px; width: 18px; height: 12px; }
-.flag.flag-ug{ background-position: -19px -728px; width: 18px; height: 12px; }
-.flag.flag-um{ background-position: -19px -741px; width: 18px; height: 12px; }
-.flag.flag-us{ background-position: -19px -754px; width: 18px; height: 12px; }
-.flag.flag-uy{ background-position: -19px -767px; width: 18px; height: 12px; }
-.flag.flag-uz{ background-position: -19px -780px; width: 18px; height: 12px; }
-.flag.flag-va{ background-position: -19px -793px; width: 18px; height: 12px; }
-.flag.flag-vc{ background-position: -19px -806px; width: 18px; height: 12px; }
-.flag.flag-ve{ background-position: -19px -819px; width: 18px; height: 12px; }
-.flag.flag-vg{ background-position: -19px -832px; width: 18px; height: 12px; }
-.flag.flag-vi{ background-position: -19px -845px; width: 18px; height: 12px; }
-.flag.flag-vn{ background-position: -19px -858px; width: 18px; height: 12px; }
-.flag.flag-vu{ background-position: -19px -871px; width: 18px; height: 12px; }
-.flag.flag-ws{ background-position: -19px -884px; width: 18px; height: 12px; }
-.flag.flag-ye{ background-position: -19px -897px; width: 18px; height: 12px; }
-.flag.flag-yu{ background-position: -19px -910px; width: 18px; height: 12px; }
-.flag.flag-za{ background-position: -19px -923px; width: 18px; height: 12px; }
-.flag.flag-zm{ background-position: -19px -936px; width: 18px; height: 12px; }
-.flag.flag-zr{ background-position: -19px -949px; width: 18px; height: 12px; }
-.flag.flag-zw{ background-position: -19px -962px; width: 18px; height: 12px; }
+.flag.flag-ad{ background-position: 0 0; } 
+.flag.flag-ae{ background-position: 0 -20px; } 
+.flag.flag-af{ background-position: 0 -40px; } 
+.flag.flag-ag{ background-position: 0 -60px; } 
+.flag.flag-ai{ background-position: 0 -80px; } 
+.flag.flag-al{ background-position: 0 -100px; } 
+.flag.flag-am{ background-position: 0 -120px; } 
+.flag.flag-ao{ background-position: 0 -140px; } 
+.flag.flag-aq{ background-position: 0 -160px; } 
+.flag.flag-ar{ background-position: 0 -180px; } 
+.flag.flag-as{ background-position: 0 -200px; } 
+.flag.flag-at{ background-position: 0 -220px; } 
+.flag.flag-au{ background-position: 0 -240px; } 
+.flag.flag-aw{ background-position: 0 -260px; } 
+.flag.flag-ax{ background-position: 0 -280px; } 
+.flag.flag-az{ background-position: 0 -300px; } 
+.flag.flag-ba{ background-position: 0 -320px; } 
+.flag.flag-bb{ background-position: 0 -340px; } 
+.flag.flag-bd{ background-position: 0 -360px; } 
+.flag.flag-be{ background-position: 0 -380px; } 
+.flag.flag-bf{ background-position: 0 -400px; } 
+.flag.flag-bg{ background-position: 0 -420px; } 
+.flag.flag-bh{ background-position: 0 -440px; } 
+.flag.flag-bi{ background-position: 0 -460px; } 
+.flag.flag-bj{ background-position: 0 -480px; } 
+.flag.flag-bl{ background-position: 0 -500px; } 
+.flag.flag-bm{ background-position: 0 -520px; } 
+.flag.flag-bn{ background-position: 0 -540px; } 
+.flag.flag-bo{ background-position: 0 -560px; } 
+.flag.flag-bq{ background-position: 0 -580px; } 
+.flag.flag-br{ background-position: 0 -600px; } 
+.flag.flag-bs{ background-position: 0 -620px; } 
+.flag.flag-bt{ background-position: 0 -640px; } 
+.flag.flag-bw{ background-position: 0 -660px; } 
+.flag.flag-by{ background-position: 0 -680px; } 
+.flag.flag-bz{ background-position: 0 -700px; } 
+.flag.flag-ca{ background-position: 0 -720px; } 
+.flag.flag-cc{ background-position: 0 -740px; } 
+.flag.flag-cd{ background-position: 0 -760px; } 
+.flag.flag-cf{ background-position: 0 -780px; } 
+.flag.flag-cg{ background-position: 0 -800px; } 
+.flag.flag-ch{ background-position: 0 -820px; } 
+.flag.flag-ci{ background-position: 0 -840px; } 
+.flag.flag-ck{ background-position: 0 -860px; } 
+.flag.flag-cl{ background-position: 0 -880px; } 
+.flag.flag-cm{ background-position: 0 -900px; } 
+.flag.flag-cn{ background-position: 0 -920px; } 
+.flag.flag-co{ background-position: 0 -940px; } 
+.flag.flag-cr{ background-position: 0 -960px; } 
+.flag.flag-cu{ background-position: 0 -980px; } 
+.flag.flag-cv{ background-position: 0 -1000px; } 
+.flag.flag-cw{ background-position: 0 -1020px; } 
+.flag.flag-cx{ background-position: 0 -1040px; } 
+.flag.flag-cy{ background-position: 0 -1060px; } 
+.flag.flag-cz{ background-position: 0 -1080px; } 
+.flag.flag-de{ background-position: 0 -1100px; } 
+.flag.flag-dj{ background-position: 0 -1120px; } 
+.flag.flag-dk{ background-position: 0 -1140px; } 
+.flag.flag-dm{ background-position: 0 -1160px; } 
+.flag.flag-do{ background-position: 0 -1180px; } 
+.flag.flag-dz{ background-position: 0 -1200px; } 
+.flag.flag-ec{ background-position: 0 -1220px; } 
+.flag.flag-ee{ background-position: 0 -1240px; } 
+.flag.flag-eg{ background-position: 0 -1260px; } 
+.flag.flag-er{ background-position: 0 -1280px; } 
+.flag.flag-es{ background-position: 0 -1300px; } 
+.flag.flag-et{ background-position: 0 -1320px; } 
+.flag.flag-fi{ background-position: 0 -1340px; } 
+.flag.flag-fj{ background-position: 0 -1360px; } 
+.flag.flag-fk{ background-position: 0 -1380px; } 
+.flag.flag-fm{ background-position: 0 -1400px; } 
+.flag.flag-fo{ background-position: 0 -1420px; } 
+.flag.flag-fr{ background-position: 0 -1440px; } 
+.flag.flag-ga{ background-position: 0 -1460px; } 
+.flag.flag-gb{ background-position: 0 -1480px; } 
+.flag.flag-gd{ background-position: 0 -1500px; } 
+.flag.flag-ge{ background-position: 0 -1520px; } 
+.flag.flag-gf{ background-position: 0 -1540px; } 
+.flag.flag-gg{ background-position: 0 -1560px; } 
+.flag.flag-gh{ background-position: 0 -1580px; } 
+.flag.flag-gl{ background-position: 0 -1600px; } 
+.flag.flag-gm{ background-position: 0 -1620px; } 
+.flag.flag-gn{ background-position: 0 -1640px; } 
+.flag.flag-gp{ background-position: 0 -1660px; } 
+.flag.flag-gq{ background-position: 0 -1680px; } 
+.flag.flag-gr{ background-position: 0 -1700px; } 
+.flag.flag-gt{ background-position: 0 -1720px; } 
+.flag.flag-gu{ background-position: 0 -1740px; } 
+.flag.flag-gw{ background-position: 0 -1760px; } 
+.flag.flag-gy{ background-position: 0 -1780px; } 
+.flag.flag-hk{ background-position: 0 -1800px; } 
+.flag.flag-hn{ background-position: 0 -1820px; } 
+.flag.flag-hr{ background-position: 0 -1840px; } 
+.flag.flag-ht{ background-position: 0 -1860px; } 
+.flag.flag-hu{ background-position: 0 -1880px; } 
+.flag.flag-id{ background-position: 0 -1900px; } 
+.flag.flag-ie{ background-position: 0 -1920px; } 
+.flag.flag-il{ background-position: 0 -1940px; } 
+.flag.flag-im{ background-position: 0 -1960px; } 
+.flag.flag-in{ background-position: 0 -1980px; } 
+.flag.flag-iq{ background-position: -20px 0; } 
+.flag.flag-ir{ background-position: -20px -20px; } 
+.flag.flag-is{ background-position: -20px -40px; } 
+.flag.flag-it{ background-position: -20px -60px; } 
+.flag.flag-je{ background-position: -20px -80px; } 
+.flag.flag-jm{ background-position: -20px -100px; } 
+.flag.flag-jo{ background-position: -20px -120px; } 
+.flag.flag-jp{ background-position: -20px -140px; } 
+.flag.flag-ke{ background-position: -20px -160px; } 
+.flag.flag-kg{ background-position: -20px -180px; } 
+.flag.flag-kh{ background-position: -20px -200px; } 
+.flag.flag-ki{ background-position: -20px -220px; } 
+.flag.flag-km{ background-position: -20px -240px; } 
+.flag.flag-kn{ background-position: -20px -260px; } 
+.flag.flag-kp{ background-position: -20px -280px; } 
+.flag.flag-kr{ background-position: -20px -300px; } 
+.flag.flag-kw{ background-position: -20px -320px; } 
+.flag.flag-ky{ background-position: -20px -340px; } 
+.flag.flag-kz{ background-position: -20px -360px; } 
+.flag.flag-la{ background-position: -20px -380px; } 
+.flag.flag-lb{ background-position: -20px -400px; } 
+.flag.flag-lc{ background-position: -20px -420px; } 
+.flag.flag-li{ background-position: -20px -440px; } 
+.flag.flag-lk{ background-position: -20px -460px; } 
+.flag.flag-lr{ background-position: -20px -480px; } 
+.flag.flag-ls{ background-position: -20px -500px; } 
+.flag.flag-lt{ background-position: -20px -520px; } 
+.flag.flag-lu{ background-position: -20px -540px; } 
+.flag.flag-lv{ background-position: -20px -560px; } 
+.flag.flag-ly{ background-position: -20px -580px; } 
+.flag.flag-ma{ background-position: -20px -600px; } 
+.flag.flag-mc{ background-position: -20px -620px; } 
+.flag.flag-md{ background-position: -20px -640px; } 
+.flag.flag-me{ background-position: -20px -660px; } 
+.flag.flag-mf{ background-position: -20px -680px; } 
+.flag.flag-mg{ background-position: -20px -700px; } 
+.flag.flag-mh{ background-position: -20px -720px; } 
+.flag.flag-mk{ background-position: -20px -740px; } 
+.flag.flag-ml{ background-position: -20px -760px; } 
+.flag.flag-mm{ background-position: -20px -780px; } 
+.flag.flag-mn{ background-position: -20px -800px; } 
+.flag.flag-mo{ background-position: -20px -820px; } 
+.flag.flag-mp{ background-position: -20px -840px; } 
+.flag.flag-mq{ background-position: -20px -860px; } 
+.flag.flag-mr{ background-position: -20px -880px; } 
+.flag.flag-ms{ background-position: -20px -900px; } 
+.flag.flag-mt{ background-position: -20px -920px; } 
+.flag.flag-mu{ background-position: -20px -940px; } 
+.flag.flag-mv{ background-position: -20px -960px; } 
+.flag.flag-mw{ background-position: -20px -980px; } 
+.flag.flag-mx{ background-position: -20px -1000px; } 
+.flag.flag-my{ background-position: -20px -1020px; } 
+.flag.flag-mz{ background-position: -20px -1040px; } 
+.flag.flag-na{ background-position: -20px -1060px; } 
+.flag.flag-nc{ background-position: -20px -1080px; } 
+.flag.flag-ne{ background-position: -20px -1100px; } 
+.flag.flag-nf{ background-position: -20px -1120px; } 
+.flag.flag-ng{ background-position: -20px -1140px; } 
+.flag.flag-ni{ background-position: -20px -1160px; } 
+.flag.flag-nl{ background-position: -20px -1180px; } 
+.flag.flag-no{ background-position: -20px -1200px; } 
+.flag.flag-np{ background-position: -20px -1220px; } 
+.flag.flag-nr{ background-position: -20px -1240px; } 
+.flag.flag-nu{ background-position: -20px -1260px; } 
+.flag.flag-nz{ background-position: -20px -1280px; } 
+.flag.flag-om{ background-position: -20px -1300px; } 
+.flag.flag-pa{ background-position: -20px -1320px; } 
+.flag.flag-pe{ background-position: -20px -1340px; } 
+.flag.flag-pf{ background-position: -20px -1360px; } 
+.flag.flag-pg{ background-position: -20px -1380px; } 
+.flag.flag-ph{ background-position: -20px -1400px; } 
+.flag.flag-pk{ background-position: -20px -1420px; } 
+.flag.flag-pl{ background-position: -20px -1440px; } 
+.flag.flag-pm{ background-position: -20px -1460px; } 
+.flag.flag-pr{ background-position: -20px -1480px; } 
+.flag.flag-ps{ background-position: -20px -1500px; } 
+.flag.flag-pt{ background-position: -20px -1520px; } 
+.flag.flag-pw{ background-position: -20px -1540px; } 
+.flag.flag-py{ background-position: -20px -1560px; } 
+.flag.flag-qa{ background-position: -20px -1580px; } 
+.flag.flag-re{ background-position: -20px -1600px; } 
+.flag.flag-ro{ background-position: -20px -1620px; } 
+.flag.flag-rs{ background-position: -20px -1640px; } 
+.flag.flag-ru{ background-position: -20px -1660px; } 
+.flag.flag-rw{ background-position: -20px -1680px; } 
+.flag.flag-sa{ background-position: -20px -1700px; } 
+.flag.flag-sb{ background-position: -20px -1720px; } 
+.flag.flag-sc{ background-position: -20px -1740px; } 
+.flag.flag-sd{ background-position: -20px -1760px; } 
+.flag.flag-se{ background-position: -20px -1780px; } 
+.flag.flag-sg{ background-position: -20px -1800px; } 
+.flag.flag-si{ background-position: -20px -1820px; } 
+.flag.flag-sk{ background-position: -20px -1840px; } 
+.flag.flag-sl{ background-position: -20px -1860px; } 
+.flag.flag-sm{ background-position: -20px -1880px; } 
+.flag.flag-sn{ background-position: -20px -1900px; } 
+.flag.flag-so{ background-position: -20px -1920px; } 
+.flag.flag-sr{ background-position: -20px -1940px; } 
+.flag.flag-ss{ background-position: -20px -1960px; } 
+.flag.flag-st{ background-position: -20px -1980px; } 
+.flag.flag-sv{ background-position: -40px 0; } 
+.flag.flag-sx{ background-position: -40px -20px; } 
+.flag.flag-sy{ background-position: -40px -40px; } 
+.flag.flag-sz{ background-position: -40px -60px; } 
+.flag.flag-tc{ background-position: -40px -80px; } 
+.flag.flag-td{ background-position: -40px -100px; } 
+.flag.flag-tg{ background-position: -40px -120px; } 
+.flag.flag-th{ background-position: -40px -140px; } 
+.flag.flag-tj{ background-position: -40px -160px; } 
+.flag.flag-tl{ background-position: -40px -180px; } 
+.flag.flag-tm{ background-position: -40px -200px; } 
+.flag.flag-tn{ background-position: -40px -220px; } 
+.flag.flag-to{ background-position: -40px -240px; } 
+.flag.flag-tr{ background-position: -40px -260px; } 
+.flag.flag-tt{ background-position: -40px -280px; } 
+.flag.flag-tv{ background-position: -40px -300px; } 
+.flag.flag-tw{ background-position: -40px -320px; } 
+.flag.flag-tz{ background-position: -40px -340px; } 
+.flag.flag-ua{ background-position: -40px -360px; } 
+.flag.flag-ug{ background-position: -40px -380px; } 
+.flag.flag-us{ background-position: -40px -400px; } 
+.flag.flag-uy{ background-position: -40px -420px; } 
+.flag.flag-uz{ background-position: -40px -440px; } 
+.flag.flag-vc{ background-position: -40px -460px; } 
+.flag.flag-ve{ background-position: -40px -480px; } 
+.flag.flag-vg{ background-position: -40px -500px; } 
+.flag.flag-vi{ background-position: -40px -520px; } 
+.flag.flag-vn{ background-position: -40px -540px; } 
+.flag.flag-vu{ background-position: -40px -560px; } 
+.flag.flag-wf{ background-position: -40px -580px; } 
+.flag.flag-ws{ background-position: -40px -600px; } 
+.flag.flag-ye{ background-position: -40px -620px; } 
+.flag.flag-yt{ background-position: -40px -640px; } 
+.flag.flag-za{ background-position: -40px -660px; } 
+.flag.flag-zm{ background-position: -40px -680px; } 
+.flag.flag-zw{ background-position: -40px -700px; } 
 
 .flag-big {width: 32px;
     height: 32px;
@@ -4930,6 +5110,55 @@ label {
 .ie7 .contest-advert-4 .contest-advert-btn:hover,
 .ie8 .contest-advert-4 .contest-advert-btn:hover {filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FCB207', endColorstr='#E87502',GradientType=0 ); /* IE6-8 */}
 .ie9 .contest-advert-4 .contest-advert-btn:hover {background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZlZmE3MyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmZWUwMTkiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);}
+
+.contest-advert-5 {
+    position:relative;
+    background:url(/images/contest/contest-advert-5.jpg) no-repeat;
+    border:1px solid #eeeded;
+    height:266px;
+    margin:-52px 0 55px;
+}
+.contest-advert-5 .contest-advert-btn {
+    position:absolute;
+    right:16px;
+    top:14px;
+    font-size:18px;
+    padding:0 11px;
+    line-height:33px;
+    color:#fff;
+    text-align:center;
+    text-decoration:none;
+    cursor:pointer;
+    width:auto;
+    overflow:visible;
+    background: #fb6596; /* Old browsers */
+    background: -moz-linear-gradient(top,  #fd89b9 0%, #fb6596 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fb6596), color-stop(100%,#fb6596)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #fd89b9 0%,#fb6596 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #fd89b9 0%,#fb6596 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #fd89b9 0%,#fb6596 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  #fd89b9 0%,#fb6596 100%); /* W3C */
+    -moz-border-radius:5px;
+    -webkit-border-radius:5px;
+    border-radius:5px;
+}
+
+.ie7 .contest-advert-5 .contest-advert-btn,
+.ie8 .contest-advert-5 .contest-advert-btn {filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fd89b9', endColorstr='#fb6596',GradientType=0 ); /* IE6-8 */}
+.ie9 .contest-advert-5 .contest-advert-btn {background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZkODliOSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmYjY1OTYiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);}
+.contest-advert-5 .contest-advert-btn:hover {
+    background: #F75B8C; /* Old browsers */
+    background: -moz-linear-gradient(top,  #F7769F 0%, #F75B8C 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#F7769F), color-stop(100%,#F75B8C)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #F7769F 0%,#F75B8C 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #F7769F 0%,#F75B8C 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #F7769F 0%,#F75B8C 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  #F7769F 0%,#F75B8C 100%); /* W3C */
+}
+
+.ie7 .contest-advert-5 .contest-advert-btn:hover,
+.ie8 .contest-advert-5 .contest-advert-btn:hover {filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#F7769F', endColorstr='#F75B8C',GradientType=0 ); /* IE6-8 */}
+.ie9 .contest-advert-5 .contest-advert-btn:hover {background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2Y3NzY5ZiIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmOTNiNzgiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);}
 .contest-participant {
 	position:relative;
 	border:1px solid #eeeded;
@@ -5011,7 +5240,7 @@ label {
 	-moz-box-shadow: 0 6px 10px rgba(0,0,0,.1);
 	-ms-box-shadow: 0 6px 10px rgba(0,0,0,.1);
 	box-shadow: 0 6px 10px rgba(0,0,0,.1);
-	 behavior: url(PIE.htc);
+	 behavior: url(/stylesheets/PIE.htc);
 }
 .contest-error-hint:after{
 	content:"";

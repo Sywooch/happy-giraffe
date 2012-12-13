@@ -10,10 +10,10 @@ class OurUsersWidget extends SimpleWidget
         $criteria = new CDbCriteria;
         $criteria->limit = 15;
         $criteria->order = ' RAND() ';
-//        $criteria->select = array('id');
+        $criteria->select = array('id', 'first_name', 'last_name', 'avatar_id');
         $criteria->with = 'avatar';
         $criteria->compare('t.id', Favourites::getIdList(Favourites::BLOCK_SIMPLE));
-        $users = User::model()->findAll($criteria);
+        $users = User::model()->active()->findAll($criteria);
 
         $this->render('OurUsersWidget', compact('users'));
     }

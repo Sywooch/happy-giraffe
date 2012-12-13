@@ -10,9 +10,9 @@ class WhatsNewWidget extends CWidget
 {
     public function run()
     {
-        $dp = EventManager::getIndex(6);
-        $this->registerScripts();
-        $this->render('index', compact('dp'));
+//        $dp = EventManager::getIndex(6);
+//        $this->registerScripts();
+//        $this->render('index', compact('dp'));
     }
 
     public function registerScripts()
@@ -32,7 +32,7 @@ class WhatsNewWidget extends CWidget
                     $(this).removeClass('inactive');
                 })
                 .jcarouselControl({
-                    target: '-=3'
+                    target: '-=1'
             });
 
             $('#masonry-news-list-jcarousel .next')
@@ -43,7 +43,7 @@ class WhatsNewWidget extends CWidget
                     $(this).removeClass('inactive');
                 })
                 .jcarouselControl({
-                    target: '+=3'
+                    target: '+=1'
             });
 
 

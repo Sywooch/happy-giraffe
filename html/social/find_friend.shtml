@@ -4,31 +4,6 @@
 <!--[if gt IE 7]><!--> <html xmlns="http://www.w3.org/1999/xhtml" class="top-nav-fixed"> <!--<![endif]-->
 <head>
 	<!--#include virtual="/block/global/head.shtml" -->
-	<script>
-		$(function(){
-			
-			ffpactive = 0;
-			ffpcount = $('#find-friend-wrapper').find('ul').size();
-			
-		})
-		
-		var ffpcount;
-		var ffpactive;
-		
-		
-		function nextFriendsPage(){
-			
-			if (!$('#find-friend-wrapper').find('ul').is(':animated')){
-			
-				ffpcount == ffpactive+1 ? ffpactive = 0 : ffpactive++;
-				
-				$('#find-friend-wrapper').find('ul').eq(ffpactive).fadeIn();
-				$('#find-friend-wrapper').find('ul').not(':eq('+ffpactive+')').hide();
-				
-			}
-			
-		}
-	</script>
 	
 </head>
 <body class="body-club body-gray">
@@ -163,6 +138,17 @@
 												<span class="yellow">3 мес.</span>
 											</li>
 										</ul>
+									</div>
+									
+									<div class="interests">
+										<ul class="interests-list">
+											<li><span class="interest">Бильярд</span></li>
+											<li><span class="interest">Футбол</span></li>
+											<li><span class="interest">Хоккей</span></li>
+											<li><span class="interest">Художественная гимнастика</span></li>
+											<li><a class="interest">Бокс</a></li>
+											<li><span class="interest">Бильярд</span></li>
+										</ul>									
 									</div>
 								
 								</li>
@@ -355,8 +341,6 @@
 										<a class="add-friend" href=""><span class="tip">Пригласить в друзья</span></a>
 										<a class="new-message" href=""><span class="tip">Написать сообщение</span></a>
 										<a href="">Анкета</a>
-										<a href="">Блог</a><sup class="count">9</sup>
-										<a href="">Фото</a><sup class="count">99</sup>
 									</div>
 									<div class="find-friend-famyli">
 										<div class="textalign-c clearfix">
@@ -369,7 +353,20 @@
 											</li>
 										</ul>
 									</div>
-								
+									
+									<div class="interests">
+										<ul class="interests-list">
+											<li><span class="interest">Художественная гимнастика</span></li>
+											<li><span class="interest">Хоккей</span></li>
+											<li><span class="interest">Бильярд</span></li>
+											<li><span class="interest">Футбол</span></li>
+											<li><a class="interest">Бокс</a></li>
+											<li><span class="interest">Бильярд</span></li>
+	                                        <li><span class="interest">Фототуризм</span></li>
+	                                        <li><span class="interest">Горный туризм</span></li>
+	                                        <li><span class="interest">Водный туризм</span></li>
+										</ul>									
+									</div>
 								</li>
 								
 								<li class="masonry-news-list_item">
@@ -401,24 +398,47 @@
 												<span class="yellow">Жена</span> <br />
 												<span>Елизаветушка</span>
 											</li>
+											
 											<li>
-												<div class="img boy-big"></div>
+												<div class="img boy-17"></div>
+												<span class="yellow">Сын</span> <br />
+												<span>Евгений</span> <br />
+												<span class="yellow">17 лет</span>
+											<li>
+												<div class="img girl-17"></div>
+												<span class="yellow">Дочь</span> <br />
+												<span>Евгения</span> <br />
+												<span class="yellow">17 лет</span>
+											</li>
+											<li>
+												<div class="img boy-14"></div>
+												<span class="yellow">Сын</span> <br />
+												<span>Евгений</span> <br />
+												<span class="yellow">14 лет</span>
+											<li>
+												<div class="img girl-14"></div>
+												<span class="yellow">Дочь</span> <br />
+												<span>Евгения</span> <br />
+												<span class="yellow">14 лет</span>
+											</li>
+											<li>
+												<div class="img boy-8"></div>
 												<span class="yellow">Сын</span> <br />
 												<span>Евгений</span> <br />
 												<span class="yellow">9 лет</span>
 											<li>
-												<div class="img girl-big"></div>
+												<div class="img girl-8"></div>
 												<span class="yellow">Дочь</span> <br />
 												<span>Евгения</span> <br />
 												<span class="yellow">7 лет</span>
 											</li>
 											<li>
-												<div class="img boy-middle"></div>
+												<div class="img boy-5"></div>
 												<span class="yellow">Сын</span> <br />
 												<span>Саша</span> <br />
 												<span class="yellow">5 лет</span>
 											<li>
-												<div class="img girl-middle"></div>
+												<div class="img girl-5"></div>
 												<span class="yellow">Дочь</span> <br />
 												<span>Евгения</span> <br />
 												<span class="yellow">4 года</span>
@@ -470,12 +490,12 @@
 												<span>Елизавета</span>
 											</li>
 											<li>
-												<div class="img boy-middle"></div>
+												<div class="img boy-5"></div>
 												<span class="yellow">Сын</span> <br />
 												<span>Саша</span> <br />
 												<span class="yellow">5 лет</span>
 											<li>
-												<div class="img girl-middle"></div>
+												<div class="img girl-5"></div>
 												<span class="yellow">Дочь</span> <br />
 												<span>Евгения</span> <br />
 												<span class="yellow">4 года</span>
@@ -535,6 +555,43 @@
 									</div>
 								
 								</li>
+								<li class="masonry-news-list_item">
+									<div class="user-info-big clearfix">
+										<div class="user-info clearfix">
+											<a class="ava female"><img alt="" src="http://img.happy-giraffe.ru/avatars/15814/ava/b7454669882e548326361dd8936fa223.JPG"></a>
+											<div class="details">
+												<a class="username" href="">Викториал Богоявленский Житомирский</a>
+												<div class="date">35 лет (22 января)</div>
+								                <div class="location"><div title="Белорусия" class="flag flag-by"></div>Келиногорск Брестская обл.</div>
+											</div>
+										</div>
+									</div>
+									<div class="user-fast-buttons">
+										<a class="add-friend" href=""><span class="tip">Пригласить в друзья</span></a>
+										<a class="new-message" href=""><span class="tip">Написать сообщение</span></a>
+										<a href="">Анкета</a>
+										<a href="">Блог</a><sup class="count">999</sup>
+										<a href="">Фото</a><sup class="count">99</sup>
+									</div>
+									<div class="find-friend-famyli">
+										<div class="textalign-c clearfix">
+											<img alt="" src="/images/user-family.png">
+										</div>
+										<ul class="find-friend-famyli-list">
+											<li>
+												<div class="img"></div>
+												<span class="yellow">Жена</span> <br />
+												<span>Катя</span>
+											</li>
+											<li>
+												<div class="img baby-plan"></div>
+												<span class="yellow">Планируем</span> <br />
+												<span>ребенка</span>
+											</li>
+										</ul>
+									</div>
+								
+								</li>
 							</ul>
 						</div>
 				
@@ -542,6 +599,31 @@
 			
 			
 			<!-- Старая версия  -->
+	<script>
+		$(function(){
+			
+			ffpactive = 0;
+			ffpcount = $('#find-friend-wrapper').find('ul').size();
+			
+		})
+		
+		var ffpcount;
+		var ffpactive;
+		
+		
+		function nextFriendsPage(){
+			
+			if (!$('#find-friend-wrapper').find('ul').is(':animated')){
+			
+				ffpcount == ffpactive+1 ? ffpactive = 0 : ffpactive++;
+				
+				$('#find-friend-wrapper').find('ul').eq(ffpactive).fadeIn();
+				$('#find-friend-wrapper').find('ul').not(':eq('+ffpactive+')').hide();
+				
+			}
+			
+		}
+	</script>
 			<div id="find-friend" class="activity-find-friend">
 				
 				<div class="title">Найти <span>друзей</span> <a href="javascript:void(0);" onclick="nextFriendsPage();"><span>Найти<br/>еще</span></a></div>

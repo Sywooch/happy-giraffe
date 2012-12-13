@@ -1225,7 +1225,7 @@
 	width: 198px;
 	border: 1px solid #dfdfdf;
 	background: #fff;
-	margin: 0 10px 20px;
+	margin: 0 10px 40px;
 	padding: 10px;
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
@@ -1239,7 +1239,6 @@
 }
 .masonry-news-list_item.blog {background-color:#ddf3ff;border-color: #c8e9fb;}
 .masonry-news-list_item.cook {background-color:#fdfade;border-color: #f4edad;}
-.find-friend-page .masonry-news-list_item {margin-bottom: 40px;}
 .masonry-news-list_title{font:bold 17px/17px Tahoma,Arial,Verdana,sans-serif;letter-spacing:-1px;margin-bottom:5px;}
 .masonry-news-list_title > a {text-decoration: none;color: #0281B0;}
 .masonry-news-list_title > a:hover {text-decoration: underline;}
@@ -1280,7 +1279,7 @@
 .masonry-news-list_meta-info .user-info .details {margin-left: 30px;}
 .masonry-news-list_meta-info .user-info .details .username {width: 100px;line-height: 13px;}
 .masonry-news-list .date {color: #8a8b8b;font-size: 9px;}
-.masonry-news-list .user-info .details .date {display: block;margin:0;color: #8a8b8b;font-size: 9px;}
+.masonry-news-list .user-info .details .date {display: block;margin:0;color: #8a8b8b;font-size: 9px;line-height: 16px;}
 .masonry-news-list .meta {float: right;margin: 0;font-size: 11px;line-height: 13px;}
 .masonry-news-list .meta .views .icon {
 	background-position: -200px -295px;
@@ -1379,31 +1378,38 @@
 .masonry-news-list .user-info-big .details,
 .masonry-news-list .user-info-big .ava {margin-bottom: 4px;}
 .masonry-news-list .user-info-big .text-status > p {color: #0a8dbd;font-size: 18px;line-height: 20px;font: italic 18px/20px 'Times New Roman', Georgia, Times, serif;padding: 2px 0 4px;}
-.masonry-news-list .user-info-big .details .username {width: 120px;}
+.masonry-news-list .user-info-big .details .username {width: 110px;}
 .masonry-news-list .clubs-list > ul {margin: 0;padding: 5px 7px 0;}
-.masonry-news-list .clubs-list > ul > li {margin: 0;height: auto;padding: 0 8px 8px;}
+.masonry-news-list .clubs-list > ul > li {float: none;display: inline-block;*zoom:1;*display:inline;vertical-align: top;margin: 0;height: auto;padding: 0 7px 8px;}
 .masonry-news-list .interests-list  {width: auto;max-width: 100%;}
 .masonry-news-list .interests-list li {margin-bottom: 0;}
 .masonry-news-list .user-family {margin:5px 9px;}
 .masonry-news-list .online-status {position: absolute;right: 5px;top: 5px;padding: 0 3px;line-height: 12px;font-size: 9px;color: #fff;background: #4dc45c;}
-.masonry-news-list .user-info .location {font-size: 11px;line-height: 14px;color: #555;}
+.masonry-news-list .user-info .location {font-size: 11px;line-height: 15px;color: #555;margin-top: 0;}
+.masonry-news-list .user-fast-buttons {font-size: 11px;padding-left: 8px;}
 .masonry-news-list .find-friend-famyli {margin: 0 -7px -7px;padding: 5px 0px;background: #ffffe4;color: #5a5a5a;font-size: 9px;line-height: 10px;}
 .masonry-news-list .find-friend-famyli-list {list-style: none;text-align: center;margin: 8px 0 0;}
 .masonry-news-list .find-friend-famyli-list > li {display: inline-block;*zoom:1;*display:inline;width: 66px;margin: 0 1px 5px;vertical-align: top;}
 .masonry-news-list .find-friend-famyli .img {margin: 0 0 4px;}
 .masonry-news-list .find-friend-famyli .img > img{margin: 0 auto;}
+.masonry-news-list .find-friend-famyli .img.baby-plan{background: url(/images/user-family-icons.png) no-repeat 0 0;width: 66px;height: 50px;}
 .masonry-news-list .find-friend-famyli .img.baby{background: url(/images/user-family-icons.png) no-repeat -66px 0;width: 66px;height: 50px;}
 .masonry-news-list .find-friend-famyli .img.boy-wait{background: url(/images/user-family-icons.png) no-repeat 0 -50px;width: 66px;height: 50px;}
 .masonry-news-list .find-friend-famyli .img.girl-wait{background: url(/images/user-family-icons.png) no-repeat -66px -50px;width: 66px;height: 50px;}
 .masonry-news-list .find-friend-famyli .img.boy-small{background: url(/images/user-family-icons.png) no-repeat 0 -100px;width: 66px;height: 50px;}
 .masonry-news-list .find-friend-famyli .img.girl-small{background: url(/images/user-family-icons.png) no-repeat -66px -100px;width: 66px;height: 50px;}
-.masonry-news-list .find-friend-famyli .img.boy-middle{background: url(/images/user-family-icons.png) no-repeat 0 -150px;width: 66px;height: 50px;}
-.masonry-news-list .find-friend-famyli .img.girl-middle{background: url(/images/user-family-icons.png) no-repeat -66px -150px;width: 66px;height: 50px;}
-.masonry-news-list .find-friend-famyli .img.boy-big{background: url(/images/user-family-icons.png) no-repeat 0 -200px;width: 66px;height: 50px;}
-.masonry-news-list .find-friend-famyli .img.girl-big{background: url(/images/user-family-icons.png) no-repeat -66px -200px;width: 66px;height: 50px;}
+.masonry-news-list .find-friend-famyli .img.boy-5{background: url(/images/user-family-icons.png) no-repeat 0 -150px;width: 66px;height: 50px;}
+.masonry-news-list .find-friend-famyli .img.girl-5{background: url(/images/user-family-icons.png) no-repeat -66px -150px;width: 66px;height: 50px;}
+.masonry-news-list .find-friend-famyli .img.boy-8{background: url(/images/user-family-icons.png) no-repeat 0 -200px;width: 66px;height: 50px;}
+.masonry-news-list .find-friend-famyli .img.girl-8{background: url(/images/user-family-icons.png) no-repeat -66px -200px;width: 66px;height: 50px;}
+.masonry-news-list .find-friend-famyli .img.boy-14{background: url(/images/user-family-icons.png) no-repeat 0 -250px;width: 66px;height: 55px;}
+.masonry-news-list .find-friend-famyli .img.girl-14{background: url(/images/user-family-icons.png) no-repeat -66px -250px;width: 66px;height: 55px;}
+.masonry-news-list .find-friend-famyli .img.boy-17{background: url(/images/user-family-icons.png) no-repeat 0 -305px;width: 66px;height: 60px;}
+.masonry-news-list .find-friend-famyli .img.girl-17{background: url(/images/user-family-icons.png) no-repeat -66px -305px;width: 66px;height: 60px;}
 .masonry-news-list .find-friend-famyli .yellow {background: #fef617;padding: 0 2px;}
 .masonry-news-list .find-friend-famyli .blue-text {color: #26b4fe;}
 .masonry-news-list .find-friend-famyli .pink-text {color: #e885cc;}
+.masonry-news-list .interests {padding-top: 15px;}
 
 .masonry-news-list.jcarousel{padding-top:25px;}
 .masonry-news-list.jcarousel .prev{position:absolute;background:url(../images/common.png) no-repeat -273px -341px;width:12px;height:16px;top:0;right:40px;text-indent:-9999px;}

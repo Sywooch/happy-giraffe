@@ -21,20 +21,16 @@ $(function() {
 //
 //    comet.addEvent(10000, 'receiveEvent');
 
-    var $container = $('#liveList .items');
+    var $container = $("#liveList .items");
 
     $container.imagesLoaded(function() {
         $container.isotope({
-            itemSelector : '.masonry-news-list_item'
+            itemSelector : ".masonry-news-list_item"
         });
     });
 
     Comet.prototype.receiveEvent = function(result, id) {
-        var old = $('.masonry-news-list_item:data(blockId=' + result.blockId + ')');
-        var toRemove = (old.length > 0) ? old : $('.masonry-news-list_item:last');
-        toRemove.remove();
-
-        $('#liveList .items').prepend($(result.code)).isotope('reloadItems').isotope({sortBy: 'original-order'});
+        $('#newCount').text(parseInt($('#newCount').text()) + 1);
     }
 
     comet.addEvent(10000, 'receiveEvent');

@@ -10,9 +10,9 @@ class WhatsNewWidget extends CWidget
 {
     public function run()
     {
-        $dp = EventManager::getIndex(6);
-        $this->registerScripts();
-        $this->render('index', compact('dp'));
+//        $dp = EventManager::getIndex(6);
+//        $this->registerScripts();
+//        $this->render('index', compact('dp'));
     }
 
     public function registerScripts()
@@ -38,7 +38,6 @@ class WhatsNewWidget extends CWidget
             $('#masonry-news-list-jcarousel .next')
                 .on('inactive.jcarouselcontrol', function() {
                     $(this).addClass('inactive');
-                    alert('123');
                 })
                 .on('active.jcarouselcontrol', function() {
                     $(this).removeClass('inactive');

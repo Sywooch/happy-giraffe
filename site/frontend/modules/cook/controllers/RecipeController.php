@@ -271,33 +271,14 @@ class RecipeController extends HController
         $this->currentType = $type;
         $text = urldecode($text);
 
-        $pages = new CPagination();
-        $pages->pageSize = 100000;
-
-        $criteria = new stdClass();
-        $criteria->from = 'recipe';
-        $criteria->select = '*';
-        $criteria->paginator = $pages;
-        $criteria->query = $text;
-
-        $resIterator = CookRecipe::model()->getSearchResult($criteria);
-
-        $allSearch = Yii::app()->search->select('*')->from('recipe')->where($criteria->query)->limit(0, 100000)->searchRaw();
-        $this->counts = CookRecipe::model()->getSearchResultCounts($allSearch);
-        $allCount = $this->counts[0];
-
-        $dataProvider = new CArrayDataProvider($resIterator, array(
-            'keyField' => 'id',
-        ));
-
-        $criteria = new CDbCriteria;
-
         $this->breadcrumbs = array(
             'Кулинария' => array('/cook'),
             'Поиск',
         );
 
-        $this->render('search', compact('dataProvider', 'criteria', 'text', 'allCount', 'type'));
+        list($dataProvider, $this->counts) = CookRecipe::model()->searchByName($text, $type);
+
+        $this->render('search', compact('dataProvider', 'text', 'type'));
     }
 
     public function actionSearchByIngredients()
@@ -348,26 +329,6 @@ class RecipeController extends HController
 
         $recipes = CActiveRecord::model($this->modelName)->findAdvanced($cuisine_id, $type, $preparation_duration, $cooking_duration, $lowFat, $lowCal, $forDiabetics);
         $this->renderPartial('advancedSearchResult', compact('recipes'), false, true);
-    }
-
-    public function actionAcOld($term)
-    {
-        $ingredients = CookIngredient::model()->findByName($term, array(
-            'select' => 'id, title',
-            'with' => array('units', 'unit'),
-        ));
-
-        $_ingredients = array();
-        foreach ($ingredients as $i) {
-            $unit = array('id' => $i->unit->id, 'title' => $i->unit->title);
-            $units = array();
-            foreach ($i->availableUnits as $u) {
-                $units[] = array('id' => $u->id, 'title' => $u->title);
-            }
-            $ingredient = array('label' => $i->title, 'value' => $i->title, 'id' => $i->id, 'units' => $units, 'unit' => $unit);
-            $_ingredients[] = $ingredient;
-        }
-        echo CJSON::encode($_ingredients);
     }
 
     public function actionAc($term)
@@ -524,6 +485,12 @@ class RecipeController extends HController
         echo CJSON::encode(array('status' => $result));
     }
 
+    public function actionBook(){
+        $recipe = $this->loadModel(Yii::app()->request->getPost('recipe_id'));
+
+        echo CJSON::encode(array('status' => true, 'result'=>$recipe->book()));
+    }
+
     protected function lastModified()
     {
         if (!Yii::app()->user->isGuest)
@@ -545,5 +512,17 @@ class RecipeController extends HController
         $command = Yii::app()->db->createCommand($sql);
         $command->bindValue(':recipe_id', $recipe_id, PDO::PARAM_INT);
         return $command->queryScalar();
+    }
+
+    /**
+     * @param int $id model id
+     * @return CookRecipe
+     * @throws CHttpException
+     */
+    public function loadModel($id){
+        $model = CookRecipe::model()->findByPk($id);
+        if ($model === null)
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        return $model;
     }
 }

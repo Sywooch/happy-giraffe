@@ -23,10 +23,10 @@
         <div class="side-left">
 
             <div class="recipe-search clearfix">
-                <form>
-                    <input type="text" class="text" placeholder="Поиск из <?=$count = CookRecipe::model()->active()->count() ?> <?=HDate::GenerateNoun(array('рецепта', 'рецептов', 'рецептов'), $count) ?>">
+                <?=CHtml::beginForm('/cook/recipe/search', 'get')?>
+                    <input type="text" name="text" value="<?php if (isset($_GET['text'])) echo urldecode($_GET['text']) ?>" class="text" placeholder="Поиск из <?=$count = CookRecipe::model()->active()->count() ?> <?=HDate::GenerateNoun(array('рецепта', 'рецептов', 'рецептов'), $count) ?>">
                     <input type="submit" value="" class="submit">
-                </form>
+                <?=CHtml::endForm()?>
             </div>
 
             <div class="recipe-menu">

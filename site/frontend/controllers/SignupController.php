@@ -64,7 +64,17 @@ class SignupController extends HController
                 $model->social_services = array($service);
             }
             $model->register_date = date('Y-m-d H:i:s');
-            if ($model->save(true, array('first_name', 'last_name', 'password', 'email', 'gender', 'birthday'))) {
+
+            $transaction = Yii::app()->db->beginTransaction();
+            try {
+                $result = $model->save(true, array('first_name', 'last_name', 'password', 'email', 'gender', 'birthday'));
+                $transaction->commit();
+            } catch (Exception $e) {
+                $transaction->rollback();
+                $result = false;
+            }
+
+            if ($result) {
                 if (!empty($model->birthday))
                     UserScores::checkProfileScores($model->id, ScoreAction::ACTION_PROFILE_BIRTHDAY);
 

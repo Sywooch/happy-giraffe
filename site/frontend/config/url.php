@@ -22,14 +22,6 @@ return array(
         'cook/decor/<category_id:\d+>/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'CookDecorationCategory')),
         'contest/<contest_id:\d+>/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'Contest')),
 
-        // live
-        'whatsNew/clubs' => array('whatsNew/clubs', 'defaultParams' => array('show' => 'all')),
-        'whatsNew/clubs/my' => array('whatsNew/clubs', 'defaultParams' => array('show' => 'my')),
-        'whatsNew/blogs' => array('whatsNew/blogs', 'defaultParams' => array('show' => 'all')),
-        'whatsNew/blogs/my' => array('whatsNew/blogs', 'defaultParams' => array('show' => 'my')),
-        'whatsNew/page<page:\d+>' => 'whatsNew/index',
-        'whatsNew' => 'whatsNew/index',
-
         // site controller
         '/' => 'site/index',
         'js_dynamics/<hash:\w+>.js' => 'site/seoHide',
@@ -44,7 +36,7 @@ return array(
 
         // signup controller
         'signup' => 'signup/index',
-        'signup/finish' => 'signup/finish',
+        'signup/<_a:(showForm|finish)>' => 'signup/<_a>',
         'signup/validate/step/<step:\d+>' => 'signup/validate',
 
         // friendRequests controller
@@ -119,8 +111,8 @@ return array(
         'community/<_a:(join|add|transfer|edit|editTravel|weeklyMail)>' => 'community/<_a>',
 
         //global
-        '<_c:(whatsNew|settings|activity|ajax|notification|profile|friendRequests|communityRubric|family|morning|userPopup|features)>/<_a>' => '<_c>/<_a>',
-        '<_c:(whatsNew|settings|activity|profile|rss|family|morning|community)>' => '<_c>/index',
+        '<_c:(settings|activity|ajax|notification|profile|friendRequests|communityRubric|family|morning|userPopup|features)>/<_a>' => '<_c>/<_a>',
+        '<_c:(settings|activity|profile|rss|family|morning|community)>' => '<_c>/index',
 
         //others
         'news/about' => 'community/contacts',
@@ -130,6 +122,15 @@ return array(
         /*************************
          *        MODULES        *
          *************************/
+
+        // live
+        'whatsNew/clubs' => array('whatsNew/default/clubs', 'defaultParams' => array('show' => 'all')),
+        'whatsNew/clubs/my' => array('whatsNew/default/clubs', 'defaultParams' => array('show' => 'my')),
+        'whatsNew/blogs' => array('whatsNew/default/blogs', 'defaultParams' => array('show' => 'all')),
+        'whatsNew/blogs/my' => array('whatsNew/default/blogs', 'defaultParams' => array('show' => 'my')),
+        'whatsNew/page<page:\d+>' => 'whatsNew/default/index',
+        'whatsNew' => 'whatsNew/default/index',
+        'whatsNew/friends' => 'whatsNew/friends/index',
 
         'contest/<id:\d+>' => 'contest/default/view',
         'contest/<id:\d+>/rules' => 'contest/default/rules',
@@ -144,8 +145,7 @@ return array(
         '<_m:(geo|im|signal|scores|cook|contest)>/' => '<_m>/default/index',
         '<_m:(geo|im|signal)>/<_a>' => '<_m>/default/<_a>',
         'commentator' => 'signal/commentator/index',
-        'commentator/statistic' => 'signal/commentator/statistic',
-        'signal/commentator/<_a>' => 'signal/commentator/<_a>',
+        'commentator/<_a>' => 'signal/commentator/<_a>',
 
         //cook
         'cook/calorisator/ac' => 'cook/calorisator/ac',
@@ -163,6 +163,8 @@ return array(
         'cook/recipe/add' => array('cook/recipe/form', 'defaultParams' => array('section' => 0)),
         'cook/recipe/<id:\d+>' => array('cook/recipe/view', 'defaultParams' => array('section' => 0)),
         'cook/recipe/type/<type:\d+>' => array('cook/recipe/index', 'defaultParams' => array('section' => 0)),
+        'cook/recipe/tag' => array('cook/recipe/tag', 'defaultParams' => array('section' => 0)),
+        'cook/recipe/tag/<tag:\d+>' => array('cook/recipe/tag', 'defaultParams' => array('section' => 0)),
         'cook/recipe' => array('cook/recipe/index', 'defaultParams' => array('section' => 0)),
         'cook/recipe/advancedSearch' => array('cook/recipe/advancedSearch', 'defaultParams' => array('section' => 0)),
         'cook/recipe/advancedSearchResult' => array('cook/recipe/advancedSearchResult', 'defaultParams' => array('section' => 0)),
@@ -179,7 +181,7 @@ return array(
         'cook/multivarka/searchByIngredientsResult' => array('cook/recipe/searchByIngredientsResult', 'defaultParams' => array('section' => 1)),
 
         'cook/recipe/feed.xml' => 'cook/recipe/feed',
-        'cook/recipe/<_a:(ac|import|search|test|autoSelect)>' => 'cook/recipe/<_a>',
+        'cook/recipe/<_a:(ac|import|search|test|autoSelect|addTag|removeTag)>' => 'cook/recipe/<_a>',
 
         'cook/spices/category/<id:[\w_]+>' => 'cook/spices/category',
         'cook/spices/<id:[\w_]+>' => 'cook/spices/view',
@@ -215,7 +217,7 @@ return array(
         'horoscope/year/<year:\d\d\d\d>' => 'services/horoscope/default/year',
         'horoscope/<zodiac:[\w]+>/<date:\d\d\d\d-\d\d-\d\d>' => 'services/horoscope/default/date',
         'horoscope/<_a:(year|month|tomorrow|yesterday)>/<zodiac:[\w]+>' => 'services/horoscope/default/<_a>',
-        'horoscope/<_a:(year|month|tomorrow)>' => 'services/horoscope/default/<_a>',
+        'horoscope/<_a:(year|month|tomorrow|viewed)>' => 'services/horoscope/default/<_a>',
         'horoscope/<zodiac:[\w]+>' => 'services/horoscope/default/today',
 
         'names/<_a:(saintCalc|likes|like|top10|saint)>' => 'services/names/default/<_a>',

@@ -35,9 +35,7 @@ class CometModel extends CComponent
 
     const CONTENTS_LIVE = 300;
 
-    const WHATS_NEW_INDEX = 10000;
-    const WHATS_NEW_CLUBS = 10001;
-    const WHATS_NEW_BLOGS = 10002;
+    const WHATS_NEW_UPDATE = 10000;
 
     public $attributes = array();
     public $type;

@@ -3,10 +3,12 @@
  * @var $form CActiveForm
  */
 
-$userScore = $this->user->getScores();
+$userScore = $this->user->score;
 $steps_count = 6 - $userScore->getStepsCount();
 if ($steps_count < 0)
     $steps_count = 0;
+
+Yii::app()->clientScript->registerScriptFile('/javascripts/location.js');
 ?><div id="first-steps">
 
     <div class="block-title">
@@ -138,9 +140,9 @@ if ($steps_count < 0)
 
             <div class="right">
                 <?php $regions = array('' => '');
-                if ($this->user->getUserAddress()->country_id !== null) {
+                if ($this->user->address->country_id !== null) {
                     $regions = array('' => ' ') + CHtml::listData(GeoRegion::model()->findAll(array(
-                        'order' => 'position, name', 'select' => 'id,name', 'condition' => 'country_id = ' . $this->user->getUserAddress()->country_id)), 'id', 'name');
+                        'order' => 'position, name', 'select' => 'id,name', 'condition' => 'country_id = ' . $this->user->address->country_id)), 'id', 'name');
                 } ?>
 
                 <div class="title">Укажите ваше место жительства!</div>
@@ -149,7 +151,7 @@ if ($steps_count < 0)
                     <div class="row">
                         Место жительства:<br>
 						<span class="chzn-v2">
-							<?php echo CHtml::dropDownList('country_id', $this->user->getUserAddress()->country_id,
+							<?php echo CHtml::dropDownList('country_id', $this->user->address->country_id,
                             array('' => ' ') + CHtml::listData(GeoCountry::model()->findAll(array('order' => 'pos')), 'id', 'name'),
                             array(
                                 'class' => 'chzn w-1',
@@ -159,7 +161,7 @@ if ($steps_count < 0)
 						</span>
                         &nbsp;&nbsp;
 						<span class="chzn-v2">
-							<?php echo CHtml::dropDownList('region_id', $this->user->getUserAddress()->region_id, $regions,
+							<?php echo CHtml::dropDownList('region_id', $this->user->address->region_id, $regions,
                             array(
                                 'class' => 'chzn w-2',
                                 'data-placeholder' => 'Регион',
@@ -167,13 +169,13 @@ if ($steps_count < 0)
                             )); ?>
 						</span>
                     </div>
-                    <div class="row settlement"<?php if ($this->user->getUserAddress()->region !== null && $this->user->getUserAddress()->region->isCity()) echo ' style="display:none;"' ?>>
+                    <div class="row settlement"<?php if ($this->user->address->region !== null && $this->user->address->region->isCity()) echo ' style="display:none;"' ?>>
                         Населенный пункт:<br>
                         <?php
                         $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
                             'id' => 'city_name',
                             'name' => 'city_name',
-                            'value' => ($this->user->userAddress->city === null) ? '' : $this->user->userAddress->city->name,
+                            'value' => ($this->user->address->city === null) ? '' : $this->user->address->city->name,
                             'source' => "js: function(request, response){
                             $.ajax({
                                 url: '" . Yii::app()->createUrl('/geo/default/cities') . "',
@@ -202,7 +204,7 @@ if ($steps_count < 0)
                             ),
                         ));
                         ?>
-                        <?php echo CHtml::hiddenField('city_id', $this->user->userAddress->city_id); ?>
+                        <?php echo CHtml::hiddenField('city_id', $this->user->address->city_id); ?>
                         <br>
                         <small>Введите свой город, поселок, село или деревню</small>
                     </div>

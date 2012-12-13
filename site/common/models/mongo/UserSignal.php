@@ -160,12 +160,19 @@ class UserSignal extends EMongoDocument
     public function getUrl()
     {
         if ($this->signal_type == self::TYPE_NEW_USER_REGISTER) {
-            return $this->getUser()->getUrl();
+            $user = $this->getUser();
+
+            if ($user === null || $user->deleted == 1)
+            {
+                $this->delete();
+                return 'error';
+            }
+            return $user->getUrl();
         } else {
             $class_name = $this->item_name;
             if (method_exists($class_name::model(), 'getUrl')) {
                 $user = $class_name::model()->findByPk($this->item_id);
-                if ($user === null){
+                if ($user === null || (isset($user->deleted) && $user->deleted == 1)){
                     $this->delete();
                     return 'error';
                 }

@@ -41,7 +41,7 @@ class UserScoresCommand extends CConsoleCommand
 
         while (!empty($users)) {
             $criteria->offset = 100 * $i;
-            $users = User::model()->with('userAddress', 'interests')->findAll($criteria);
+            $users = User::model()->with('address', 'interests')->findAll($criteria);
 
             foreach ($users as $user) {
                 if (empty($user->interests)) {
@@ -51,7 +51,7 @@ class UserScoresCommand extends CConsoleCommand
                     ScoreInput::model()->deleteAll($e_criteria);
                 }
 
-                if (!empty($user->getUserAddress()->country_id))
+                if (!empty($user->address->country_id))
                     UserScores::checkProfileScores($user->id, ScoreAction::ACTION_PROFILE_LOCATION);
 
                 if ($user->email_confirmed == 1)
@@ -105,7 +105,7 @@ class UserScoresCommand extends CConsoleCommand
             $users = User::model()->with()->findAll($criteria);
 
             foreach($users as $user){
-                $user->getScores()->checkFull();
+                $user->score->checkFull();
             }
 
             $i++;
@@ -132,7 +132,7 @@ class UserScoresCommand extends CConsoleCommand
             $exec = false;
             foreach ($models as $model) {
                 $user = User::getUserById($model->user_id);
-                if ($user === null || $user->getScores()->full == 0) {
+                if ($user === null || $user->score->full == 0) {
                     $model->delete();
                     $exec = true;
                 }

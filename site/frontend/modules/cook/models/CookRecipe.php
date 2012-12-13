@@ -20,6 +20,7 @@
  * @property CookRecipeIngredients[] $cookRecipeIngredients
  * @property User $author
  * @property AlbumPhoto $photo
+ * @property CookRecipeTag $tags
  * @property CookCuisines $cuisine
  * @property AttachPhoto[] $attachPhotos
  */
@@ -299,6 +300,7 @@ class CookRecipe extends CActiveRecord
                 $this->sendEvent();
 
             UserAction::model()->add($this->author_id, UserAction::USER_ACTION_RECIPE_ADDED, array('model' => $this));
+            FriendEventManager::add(FriendEvent::TYPE_RECIPE_ADDED, array('model' => $this));
 
             //send signals to commentator panel
             if (Yii::app()->user->checkAccess('commentator_panel')) {
@@ -644,6 +646,28 @@ class CookRecipe extends CActiveRecord
         return $dp;
     }
 
+    public function getByTag($tag_id, $type)
+    {
+        $criteria = new CDbCriteria(array(
+            'with' => array('photo', 'attachPhotos', 'tags'),
+            'order' => 't.created DESC',
+        ));
+        $criteria->condition = 'tags.id='.$tag_id.' AND tags.id IS NOT NULL';
+        $criteria->together = true;
+
+        if ($type !== null)
+            $criteria->compare('type', $type);
+
+        $dp = new CActiveDataProvider(get_class($this), array(
+            'criteria' => $criteria,
+            'pagination' => array(
+                'pageSize' => 10,
+            ),
+        ));
+
+        return $dp;
+    }
+
     public function getTypeString()
     {
         return $this->types[$this->type];
@@ -695,7 +719,7 @@ class CookRecipe extends CActiveRecord
         );
 
         $comet = new CometModel;
-        $comet->send('whatsNewIndex', $params, CometModel::WHATS_NEW_INDEX);
+        $comet->send('whatsNewIndex', $params, CometModel::WHATS_NEW_UPDATE);
     }
 
     public function getArticleCommentsCount()

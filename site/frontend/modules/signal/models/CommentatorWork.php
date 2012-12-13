@@ -12,7 +12,7 @@ class CommentatorWork extends EMongoDocument
     const CHIEF_COMMENTS_COUNT = 60;
 
     public $user_id;
-    public $clubs = array();
+    public $clubs = array(1);
     /**
      * @var CommentatorDay[]
      */
@@ -89,6 +89,24 @@ class CommentatorWork extends EMongoDocument
                 return $day;
 
         return null;
+    }
+
+    /**
+     * @return CommentatorDay
+     */
+    public function getPreviousDay()
+    {
+        $max_day = 0;
+        foreach ($this->days as $day)
+            if (strtotime($day->date) > $max_day && $day->date != date("Y-m-d"))
+                $max_day = strtotime($day->date);
+
+        if ($max_day == 0)
+            return null;
+
+        foreach ($this->days as $day)
+            if (strtotime($day->date) == $max_day)
+                return $day;
     }
 
     /**
@@ -202,11 +220,13 @@ class CommentatorWork extends EMongoDocument
 
     /**
      * получить следующий пост (в блоге, в клубах, рецепт) для комментарирования
-     *
      */
     public function getNextPostForComment()
     {
+        TimeLogger::model()->startTimer('next comment');
         $list = PostForCommentator::getNextPost($this);
+        TimeLogger::model()->endTimer();
+
         if ($list === false) {
             return false;
         }
@@ -323,13 +343,37 @@ class CommentatorWork extends EMongoDocument
 
         $count = 0;
         foreach ($this->clubPosts() as $post)
-            if (in_array($post->rubric->community_id, $this->clubs))
-                $count++;
+            $count++;
 
         if (in_array(22, $this->clubs))
             $count = $count + count($this->recipes());
 
         return $count;
+    }
+
+    public function getCurrentClubId()
+    {
+        $day = $this->getCurrentDay();
+        if (empty($day->today_club)) {
+
+            #TODO если нет назначенных клубов, назначается 1-й
+            if (empty($this->clubs))
+                $this->clubs = array(1);
+
+
+            $this->clubs = array_values($this->clubs);
+
+            $prev_day = $this->getPreviousDay();
+            if ($prev_day == null)
+                $day->today_club = $this->clubs[0];
+
+            $day->today_club = (!empty($prev_day->today_club) && isset($this->clubs[$prev_day->today_club + 1]))
+                ? $this->clubs[$prev_day->today_club + 1] : $this->clubs[0];
+
+            $this->save();
+        }
+
+        return $day->today_club;
     }
 
     public function comments()
@@ -385,7 +429,7 @@ class CommentatorWork extends EMongoDocument
         $dialogs = Dialog::model()->findAll(array(
             'with' => array(
                 'dialogUsers' => array(
-                    'condition' => 'dialogUsers.user_id = ' . $this->user_id
+                    'condition' => 'dialogUsers.user_id = ' . $this->user_id,
                 ),
                 'messages' => array(
                     'condition' => 'messages.created >= :min AND messages.created <= :max',
@@ -398,11 +442,26 @@ class CommentatorWork extends EMongoDocument
             )
         ));
 
-        $res = 0;
-        foreach ($dialogs as $dialog)
-            $res += count($dialog->messages);
+        $rating = 0;
+        $dialogs_count = 1;
+        foreach ($dialogs as $dialog) {
+            //если переписка ведется с простым пользователем
+            if ($dialog->withSimpleUser()) {
+                $user_answered = false;
+                foreach ($dialog->messages as $message)
+                    if ($message->user_id == $this->user_id)
+                        $rating += 0.2;
+                    else {
+                        $rating += 1;
+                        $user_answered = true;
+                    }
 
-        return $res;
+                if ($user_answered)
+                    $dialogs_count = $dialogs_count * 1.01;
+            }
+        }
+
+        return round($rating * $dialogs_count);
     }
 
     public function blogVisits($period)
@@ -496,7 +555,7 @@ class CommentatorWork extends EMongoDocument
 
     public function getPosts($period)
     {
-        $last_day = $this->getLastPeriodDay($period);
+        //$last_day = $this->getLastPeriodDay($period);
         $criteria = new CDbCriteria;
         //$criteria->condition = 'created >= "' . $period . '-01 00:00:00" AND created <= "' . $period . '-' . $last_day . ' 23:59:59"';
         $criteria->compare('author_id', $this->user_id);
@@ -525,6 +584,9 @@ class CommentatorWork extends EMongoDocument
         return $models;
     }
 
+    /**
+     * @return CommentatorWork[]
+     */
     public static function getWorkingCommentators()
     {
         $criteria = new EMongoCriteria();
@@ -533,9 +595,6 @@ class CommentatorWork extends EMongoDocument
         foreach ($models as $k => $model)
             if ($model->isNotWorkingAlready()) {
                 unset($models[$k]);
-//                echo $model->user_id.'<br>';
-//                $model->clubs = array();
-//                $model->save();
             }
 
         return $models;

@@ -97,10 +97,13 @@ class Im
         return (substr($haystack, 0, $length) === $needle);
     }
 
-    public function getUnreadMessagesCount($user_id)
+    public function getUnreadMessagesCount($user_id = null)
     {
         if ($this->unread_counts !== null)
             return $this->unread_counts;
+
+        if (empty($user_id))
+            $user_id = $this->_user_id;
 
         return Yii::app()->db->createCommand()
             ->select('COUNT( * )')

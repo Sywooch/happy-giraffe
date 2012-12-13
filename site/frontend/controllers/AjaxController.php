@@ -126,7 +126,7 @@ class AjaxController extends HController
 
         if ($modelName == 'ContestWork'
             && $social_key == 'yh'
-            && Yii::app()->user->getModel()->getScores()->full == 0
+            && Yii::app()->user->getModel()->score->full == 0
         ) {
             echo 'обломитесь :)';
             Yii::app()->end();
@@ -569,7 +569,7 @@ class AjaxController extends HController
             echo CJSON::encode(array(
                 'status' => true,
                 'html' => $content,
-                'full' => (Yii::app()->user->model->getScores()->full == 1) ? true : false
+                'full' => (Yii::app()->user->model->score->full == 1) ? true : false
             ));
         } else
             echo CJSON::encode(array('status' => false));
@@ -742,7 +742,7 @@ class AjaxController extends HController
                 'status' => true,
                 'text' => '<span>День рождения:</span>' . Yii::app()->dateFormatter->format("d MMMM", $user->birthday) . ' (' . $user->normalizedAge . ')',
                 'horoscope' => $horoscope,
-                'full' => ($user->getScores()->full == 0) ? false : true
+                'full' => ($user->score->full == 0) ? false : true
             ));
         } else
             echo CJSON::encode(array('status' => false));
@@ -774,5 +774,10 @@ class AjaxController extends HController
         );
 
         $this->renderPartial('link', compact('model'), false, true);
+    }
+
+    public function actionServiceUsed(){
+        $service = Service::model()->findByPk(Yii::app()->request->getPost('id'));
+        $service->userUsedService();
     }
 }

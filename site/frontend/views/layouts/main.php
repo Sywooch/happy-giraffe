@@ -71,7 +71,7 @@
         $user = Yii::app()->user->model;
     ?>
 </head>
-<body class="body-club" onload="if (typeof(ODKL) !== 'undefined') ODKL.init();">
+<body class="body-club<?php if ($this->module !== null && $this->module->id == 'whatsNew'): ?> body-broadcast<?php endif; ?>" onload="if (typeof(ODKL) !== 'undefined') ODKL.init();">
 
     <div class="top-line-menu">
         <div class="top-line-menu-holder">
@@ -132,7 +132,7 @@
                         <a href="javascript:void(0)" onclick="Notifications.toggle()"><i class="icon icon-notifications"></i><span class="count"<?php if ($notificationsCount == 0): ?> style="display: none;"<?php endif; ?>><?=$notificationsCount?></span></a>
                     </li>
                     <li>
-                        <a href="<?=$this->createUrl('/scores/default/index') ?>"><i class="icon icon-points"></i><span class="count"><?= $user->getScores()->scores ?></span></a>
+                        <a href="<?=$this->createUrl('/scores/default/index') ?>"><i class="icon icon-points"></i><span class="count"><?= $user->score->scores ?></span></a>
                     </li>
                     <li class="item-ava">
                         <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => Yii::app()->user->model, 'size' => 'small', 'small' => true, 'sendButton' => false)); ?>
@@ -501,8 +501,8 @@
                     <?php echo $content; ?>
                 </div>
 
-                <?php if (Yii::app()->controller->id == 'whatsNew'): ?>
-                    <a href="#layout" id="btn-up-page" style="top: 1065px; display: inline; "></a>
+                <?php if ($this->module !== null && $this->module->id == 'whatsNew'): ?>
+                    <a href="#layout" id="btn-up-page"></a>
                 <?php endif; ?>
                 <div class="push"></div>
 

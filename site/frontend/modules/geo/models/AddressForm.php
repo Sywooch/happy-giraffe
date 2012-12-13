@@ -27,13 +27,13 @@ class AddressForm extends CFormModel
      */
     public function saveAddress($user)
     {
-        $user->userAddress->country_id = (!empty($this->country_id)) ? $this->country_id : null;
-        $user->userAddress->region_id = (!empty($this->region_id)) ? $this->region_id : null;
+        $user->address->country_id = (!empty($this->country_id)) ? $this->country_id : null;
+        $user->address->region_id = (!empty($this->region_id)) ? $this->region_id : null;
         if (empty($this->city_id) && !empty($this->city_name) && !empty($this->region_id)) {
             // check city
             $city = GeoCity::model()->findByAttributes(array('name' => trim($this->city_name)));
             if ($city)
-                $user->userAddress->city_id = $city->id;
+                $user->address->city_id = $city->id;
             else {
                 //add new city
                 $city = new GeoCity();
@@ -43,14 +43,14 @@ class AddressForm extends CFormModel
 
                 if (!$city->save())
                     throw new CHttpException(404, 'Ошибка при добавлении населенного пункта.');
-                $user->userAddress->city_id = $city->id;
+                $user->address->city_id = $city->id;
             }
         } else {
             if (!empty($this->city_id))
-                $user->userAddress->city_id = $this->city_id;
+                $user->address->city_id = $this->city_id;
             else
-                $user->userAddress->city_id = null;
+                $user->address->city_id = null;
         }
-        $user->userAddress->save();
+        $user->address->save();
     }
 }

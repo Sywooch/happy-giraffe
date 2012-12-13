@@ -158,7 +158,7 @@ Comment.prototype.edit = function (button) {
         editor.setData($(button).parents('.item').find('.content-in').html());
     $('#add_comment .button_panel .btn-green-medium span span', '#' + this.getId()).text('Редактировать');
 
-    $(this.getScrollContainer()).animate({scrollTop:$('#add_comment', '#' + this.getId()).offset().top - 100}, 'fast');
+    //$(this.getScrollContainer()).animate({scrollTop:$('#add_comment', '#' + this.getId()).offset().top - 100}, 'fast');
     return false;
 };
 

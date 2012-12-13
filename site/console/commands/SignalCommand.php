@@ -110,6 +110,35 @@ class SignalCommand extends CConsoleCommand
         $month->save();
     }
 
+    public function actionPriority()
+    {
+        //calc user priority
+        $criteria = new CDbCriteria;
+        $criteria->offset = 0;
+        $criteria->limit = 100;
+        $criteria->condition = 'register_date > :register_date';
+        $criteria->params = array(':register_date' => date("Y-m-d H:i:s", strtotime('-3 month')));
+        $criteria->compare('`group`', UserGroup::USER);
+        $criteria->with = array('communityContentsCount', 'priority');
+
+        $users = 1;
+        while (!empty($users)) {
+            $users = User::model()->findAll($criteria);
+
+            foreach ($users as $user) {
+                //если больше 5-ти постов, максимальный приоритет
+                if ($user->communityContentsCount >= 5) {
+                    $user->priority->priority = 20;
+                    $user->priority->update(array('priority'));
+                }
+
+                //если комментировали вчера, уменьшаем приоритет
+            }
+
+            $criteria->offset += 100;
+        }
+    }
+
     public function actionCommentatorsEndMonth()
     {
         $month = CommentatorsMonthStats::model()->find(new EMongoCriteria(array(
@@ -134,59 +163,47 @@ class SignalCommand extends CConsoleCommand
         $month->calculate(false);
     }
 
-    public function actionFixArticles()
+    public function actionFix()
     {
-        $date = '2012-10-04';
-
+        Yii::import('site.frontend.modules.cook.models.*');
         $commentators = CommentatorWork::model()->findAll();
 
         foreach ($commentators as $commentator) {
-            $day = $commentator->getDay($date);
-
-            if ($day !== null) {
-
-                $criteria = new CDbCriteria;
-                $criteria->condition = 'created >= "' . $date . ' 00:00:00" AND created <= "' . $date . ' 23:59:59"';
-                $criteria->compare('author_id', $commentator->user_id);
-                $criteria->order = 'created desc';
-                $criteria->with = array(
-                    'rubric' => array(
-                        'condition' => 'user_id IS NULL'
-                    )
-                );
-
-                $count = CommunityContent::model()->count($criteria);
-                $day->club_posts = $count;
-                $commentator->save();
-            }
+            $day = $commentator->getCurrentDay();
+            $day->club_posts = $commentator->clubPostsCount();
+            $commentator->save();
         }
     }
 
-    public function actionTest()
+    public function actionCommentator($id)
     {
-        Yii::import('site.frontend.extensions.GoogleAnalytics');
-        $ga = new GoogleAnalytics('alexk984@gmail.com', Yii::app()->params['gaPass']);
-        $ga->setProfile('ga:53688414');
-        $ga->setDateRange('2012-09-01', '2012-09-30');
-
-        try {
-            $report = $ga->getReport(array(
-                'metrics' => urlencode('ga:visitors'),
-                'filters' => urlencode('ga:pagePath==' . '/user/' . 15385 . '/blog/*'),
-            ));
-
-            var_dump($report);
-        } catch (Exception $err) {
-            echo $err->getMessage();
-        }
-    }
-
-    public function actionCommentator($id){
         $month = CommentatorsMonthStats::model()->find(new EMongoCriteria(array(
             'conditions' => array(
                 'period' => array('==' => date("Y-m"))
             ),
         )));
         $month->calculateCommentator($id);
+    }
+
+    public function actionAddCommentatorsToSeo()
+    {
+        Yii::import('site.seo.models.*');
+        $commentators = CommentatorWork::getWorkingCommentators();
+        foreach ($commentators as $commentator) {
+            $user = User::getUserById($commentator->user_id);
+
+            try{
+                $seo_user = new SeoUser;
+                $seo_user->email = $user->email;
+                $seo_user->name = $user->getFullName();
+                $seo_user->id = $user->id;
+                $seo_user->password = '33';
+                $seo_user->owner_id = '33';
+                $seo_user->related_user_id = $user->id;
+                $seo_user->save();
+            }catch (Exception $e){
+
+            }
+        }
     }
 }

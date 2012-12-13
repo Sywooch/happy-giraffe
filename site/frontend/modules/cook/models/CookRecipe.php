@@ -40,6 +40,7 @@ class CookRecipe extends CActiveRecord
     );
 
     public $types = array(
+        0 => 'Все рецепты',
         1 => 'Первые блюда',
         2 => 'Вторые блюда',
         3 => 'Салаты',
@@ -238,6 +239,15 @@ class CookRecipe extends CActiveRecord
         );
     }
 
+    public function scopes()
+    {
+        return array(
+            'active' => array(
+                'condition' => 't.removed = 0',
+            ),
+        );
+    }
+
     protected function beforeValidate()
     {
         if (!empty($this->preparation_duration_h) || !empty($this->preparation_duration_m)) {
@@ -256,14 +266,13 @@ class CookRecipe extends CActiveRecord
 
     protected function afterFind()
     {
-        if (! empty($this->tags))
-        {
+        if (!empty($this->tags)) {
             foreach ($this->tags as $service)
                 $this->tagsIds[] = $service->id;
         }
 
         if ($this->preparation_duration !== null) {
-            $this->preparation_duration_h =  sprintf("%02d", floor($this->preparation_duration / 60));
+            $this->preparation_duration_h = sprintf("%02d", floor($this->preparation_duration / 60));
             $this->preparation_duration_m = sprintf("%02d", $this->preparation_duration % 60);
         }
 
@@ -312,9 +321,9 @@ class CookRecipe extends CActiveRecord
                 ), CometModel::TYPE_COMMENTATOR_UPDATE);
             }
         } else {
-            $text = 'User: '  . Yii::app()->user->id . "\n" .
-                    'Route: '  . Yii::app()->controller->route . "\n" .
-                    'ID: '  . $this->id . "\n";
+            $text = 'User: ' . Yii::app()->user->id . "\n" .
+                'Route: ' . Yii::app()->controller->route . "\n" .
+                'ID: ' . $this->id . "\n";
             Yii::log($text, 'warning');
         }
 
@@ -534,7 +543,7 @@ class CookRecipe extends CActiveRecord
         }
 
         foreach ($photos as $i => $p) {
-            $p->w_title = 'Фото рецепта &laquo;'.$this->title . '&raquo; - ' . ($i + 1);
+            $p->w_title = 'Фото рецепта &laquo;' . $this->title . '&raquo; - ' . ($i + 1);
         }
 
         return array(
@@ -552,7 +561,7 @@ class CookRecipe extends CActiveRecord
                 'photo',
                 'tags',
                 'author' => array(
-                    'select'=>array('id', 'first_name', 'last_name', 'avatar_id', 'online', 'blocked', 'deleted')
+                    'select' => array('id', 'first_name', 'last_name', 'avatar_id', 'online', 'blocked', 'deleted')
                 )
             )
         ));
@@ -629,14 +638,14 @@ class CookRecipe extends CActiveRecord
             'with' => array('photo', 'attachPhotos', 'commentsCount', 'tags', 'author'),
             'order' => 't.created DESC',
         ));
-        if ($type !== null)
+        if (!empty($type))
             $criteria->compare('type', $type);
 
         $count_criteria = clone $criteria;
         $count_criteria->with = array();
 
         $dp = new CActiveDataProvider(get_class($this), array(
-            'totalItemCount'=>CookRecipe::model()->count($count_criteria),
+            'totalItemCount' => CookRecipe::model()->count($count_criteria),
             'criteria' => $criteria,
             'pagination' => array(
                 'pageSize' => 10,
@@ -652,7 +661,7 @@ class CookRecipe extends CActiveRecord
             'with' => array('photo', 'attachPhotos', 'tags'),
             'order' => 't.created DESC',
         ));
-        $criteria->condition = 'tags.id='.$tag_id.' AND tags.id IS NOT NULL';
+        $criteria->condition = 'tags.id=' . $tag_id . ' AND tags.id IS NOT NULL';
         $criteria->together = true;
 
         if ($type !== null)
@@ -668,9 +677,9 @@ class CookRecipe extends CActiveRecord
         return $dp;
     }
 
-    public function getTypeString()
+    public function getTypeString($type = null)
     {
-        return $this->types[$this->type];
+        return ($type === null) ? $this->types[$this->type] : $this->types[$type];
     }
 
     public function getCookingDurationString()
@@ -686,7 +695,7 @@ class CookRecipe extends CActiveRecord
 
     public function getRssContent()
     {
-        return ($this->mainPhoto !== null)  ?
+        return ($this->mainPhoto !== null) ?
             CHtml::image($this->mainPhoto->getPreviewUrl(441, null, Image::WIDTH), $this->mainPhoto->title) . $this->text
             :
             $this->text;

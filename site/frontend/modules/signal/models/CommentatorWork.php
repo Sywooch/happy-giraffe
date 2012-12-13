@@ -354,8 +354,8 @@ class CommentatorWork extends EMongoDocument
         Yii::import('site.seo.modules.writing.models.*');
         //check post by keyword
         $criteria = new CDbCriteria;
-        $criteria->condition = 'updated >= :today OR status = '.SeoTask::STATUS_CLOSED;
-        $criteria->params = array(':today'=>date("Y-m-d").' 00:00:00');
+        $criteria->condition = 'updated >= :today OR status = ' . SeoTask::STATUS_CLOSED;
+        $criteria->params = array(':today' => date("Y-m-d") . ' 00:00:00');
         $criteria->compare('executor_id', Yii::app()->user->id);
         $criteria->compare('multivarka', 1);
         $task = SeoTask::model()->find($criteria);
@@ -370,24 +370,46 @@ class CommentatorWork extends EMongoDocument
     {
         $day = $this->getCurrentDay();
         if (empty($day->today_club)) {
-
-            #TODO если нет назначенных клубов, назначается 1-й
-            if (empty($this->clubs))
-                $this->clubs = array(1);
-
-            $this->clubs = array_values($this->clubs);
-
-            $prev_day = $this->getPreviousDay();
-            if ($prev_day == null)
-                $day->today_club = $this->clubs[0];
-
-            $day->today_club = (!empty($prev_day->today_club) && isset($this->clubs[$prev_day->today_club + 1]))
-                ? $this->clubs[$prev_day->today_club + 1] : $this->clubs[0];
-
+            $this->calcCurrentClub();
             $this->save();
         }
 
         return $day->today_club;
+    }
+
+    public function calcCurrentClub($mode = 0)
+    {
+        $day = $this->getCurrentDay();
+        if ($mode)
+            print_r($this->clubs);
+
+        #TODO если нет назначенных клубов, назначается 1-й
+        if (empty($this->clubs))
+            $this->clubs = array(1);
+
+        $this->clubs = array_values($this->clubs);
+
+        $prev_day = $this->getPreviousDay();
+        if ($prev_day == null) {
+            if ($mode)
+                echo "prev day = null \n";
+            $day->today_club = $this->clubs[0];
+        } else {
+            if (!empty($prev_day->today_club)) {
+                for ($i = 0; $i < count($this->clubs); $i++) {
+                    if ($this->clubs[$i] == $prev_day->today_club) {
+                        if (isset($this->clubs[$i + 1]))
+                            $day->today_club = $this->clubs[$i + 1];
+                        else
+                            $day->today_club = $this->clubs[0];
+                    }
+                }
+            } else
+                $day->today_club = $this->clubs[0];
+
+            if ($mode)
+                echo "today club = $day->today_club \n";
+        }
     }
 
     public function comments()

@@ -52,6 +52,9 @@ class DefaultController extends HController
         $model = new ThreadCalculationForm();
         if (Yii::app()->request->isAjaxRequest) {
             if (isset($_POST['ThreadCalculationForm'])) {
+                $service = Service::model()->findByPk(12);
+                $service->userUsedService();
+
                 $model->attributes = $_POST['ThreadCalculationForm'];
                 $this->performAjaxValidation($model, 'threads-calculator-form');
             }
@@ -94,6 +97,9 @@ class DefaultController extends HController
                 ));
             }
             if (isset($_POST['YarnCalcForm'])) {
+                $service = Service::model()->findByPk(13);
+                $service->userUsedService();
+
                 $model = new YarnCalcForm();
                 $model->attributes = $_POST['YarnCalcForm'];
                 $this->performAjaxValidation($model, 'yarn-calculator-form');

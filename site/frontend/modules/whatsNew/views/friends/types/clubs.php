@@ -1,3 +1,9 @@
+<?
+    $communityIds = array();
+    foreach (Yii::app()->user->model->communities as $c)
+        $communityIds[] = $c->id;
+?>
+
 <div class="clubs-list">
     <ul>
         <?php foreach ($data->clubs as $c): ?>
@@ -6,7 +12,9 @@
                     <img src="/images/club_img_<?=$c->id?>.png">
                     <?=$c->title?>
                 </a>
-                <a href="<?=$c->url?>" class="club-join">Вступить</a>
+                <?php if (! in_array($c->id, $communityIds)): ?>
+                    <a href="<?=$c->url?>" class="club-join">Вступить</a>
+                <?php endif; ?>
             </li>
         <?php endforeach; ?>
     </ul>

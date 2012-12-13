@@ -1,6 +1,6 @@
 <?php
     $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
-        'selector' => '.masonry-news-list_item:data(id=' . $data->_id . ') .title-img a',
+        'selector' => '.masonry-news-list_item:data(id=' . $data->_id . ') .masonry-news-list_img-list a',
         'entity' => 'Album',
         'entity_id' => $data->album->id,
         'entity_url' => $data->album->url,

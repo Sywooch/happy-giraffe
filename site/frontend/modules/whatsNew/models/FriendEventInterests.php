@@ -65,6 +65,9 @@ class FriendEventInterests extends FriendEvent
                 'user_id' => array(
                     'equals' => (int) $this->params['user_id'],
                 ),
+                'type' => array(
+                    'equals' => $this->type,
+                ),
                 'updated' => array(
                     'greater' => time() - 60 * 60 * 24,
                 ),

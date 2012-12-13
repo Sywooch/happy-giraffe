@@ -20,6 +20,9 @@ class SuspendedCeilingController extends HController
     public function actionCalculate()
     {
         if (isset($_POST['SuspendedCeilingForm'])) {
+            $service = Service::model()->findByPk(16);
+            $service->userUsedService();
+
             $model = new SuspendedCeilingForm();
             $model->attributes = $_POST['SuspendedCeilingForm'];
             $validationResult = CActiveForm::validate($model);

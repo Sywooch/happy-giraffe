@@ -1,14 +1,14 @@
-<?php
-    $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
-        'selector' => '.masonry-news-list_item:data(blockId=' . $data->blockId . ') .masonry-news-list_img-list a',
-        'entity' => 'Contest',
-        'entity_id' => $data->contest->id,
-        'entity_url' => $data->contest->url,
-        'query' => array('sort' => 'created'),
-    ));
-?>
-
 <li class="masonry-news-list_item" data-block-id="<?=$data->blockId?>">
+    <?php
+        $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
+            'selector' => '.masonry-news-list_item:data(blockId=' . $data->blockId . ') .masonry-news-list_img-list a',
+            'entity' => 'Contest',
+            'entity_id' => $data->contest->id,
+            'entity_url' => $data->contest->url,
+            'query' => array('sort' => 'created'),
+        ));
+    ?>
+
     <h3 class="masonry-news-list_title">
         <a href="<?=$data->contest->url?>">Новые участники фотоконкурса</a>
         <a href="<?=$data->contest->url?>" class="icon-photo"></a>

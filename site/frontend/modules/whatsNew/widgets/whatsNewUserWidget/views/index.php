@@ -41,7 +41,7 @@
 
                             newItems.hide().imagesLoaded(function() {
                                 newItems.show();
-                                $('#liveList .items').isotope('appended', newItems);
+                                $('#whatsNewUserWidgetList .items').isotope('appended', newItems);
                             });
                         }"),
                     ),

@@ -169,8 +169,8 @@ class SignalCommand extends CConsoleCommand
         $commentators = CommentatorWork::model()->findAll();
 
         foreach ($commentators as $commentator) {
-            $day = $commentator->getCurrentDay();
-            $day->club_posts = $commentator->clubPostsCount();
+            echo $commentator->user_id."\n";
+            $commentator->calcCurrentClub(1);
             $commentator->save();
         }
     }

@@ -159,8 +159,6 @@ class CommentatorWork extends EMongoDocument
         $day->date = date("Y-m-d");
         $day->skip_count = 0;
         $day->created = time();
-        $day->blog_posts = count($this->blogPosts());
-        $day->club_posts = $this->clubPostsCount();
 
         if (empty($this->days))
             $this->days = array($day);
@@ -168,6 +166,11 @@ class CommentatorWork extends EMongoDocument
             $this->days[] = $day;
 
         $this->getNextPostForComment();
+
+        $this->save();
+        $day->blog_posts = count($this->blogPosts());
+        $day->club_posts = $this->clubPostsCount();
+        $this->save();
 
         //add working day
         $month = CommentatorsMonthStats::getOrCreateWorkingMonth();

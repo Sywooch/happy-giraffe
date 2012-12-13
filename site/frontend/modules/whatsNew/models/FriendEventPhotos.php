@@ -54,7 +54,7 @@ class FriendEventPhotos extends FriendEvent
             'order' => 'created DESC',
         ));
 
-        return AlbumPhoto::model()->findAll($criteria);
+        return AlbumPhoto::model()->active()->findAll($criteria);
     }
 
     public function getLabel()
@@ -80,6 +80,12 @@ class FriendEventPhotos extends FriendEvent
     {
         $criteria = new EMongoCriteria(array(
             'conditions' => array(
+                'user_id' => array(
+                    'equals' => (int) $this->params['user_id'],
+                ),
+                'type' => array(
+                    'equals' => $this->type,
+                ),
                 'album_id' => array(
                     'equals' => (int) $this->params['album_id'],
                 ),

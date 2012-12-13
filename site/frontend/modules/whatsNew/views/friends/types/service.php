@@ -1,8 +1,9 @@
-<?php
-/**
- * Created by JetBrains PhpStorm.
- * User: solivager
- * Date: 12/7/12
- * Time: 3:00 PM
- * To change this template use File | Settings | File Templates.
- */
+<h3 class="masonry-news-list_title textalign-c">
+    <?=CHtml::link($data->service->title, $data->service->url)?>
+</h3>
+<div class="masonry-news-list_content">
+    <?=CHtml::link(CHtml::image($data->service->photo->getPreviewUrl(104, null, Image::WIDTH)), $data->service->url)?>
+</div>
+<div class="comments-all clearfix">
+    <?=CHtml::link('Попробовать сервис!', $data->service->url)?>
+</div>

@@ -6,9 +6,10 @@ $club = $this->commentator->getCurrentClubId();
 $community = Community::model()->findByPk($club);
 
 $post = null;
-foreach($club_posts as $club_post)
+foreach($club_posts as $club_post){
     if ($club_post->rubric->community_id == $club)
         $post = $club_post;
+}
 
 $progress = ($this->commentator->clubPostsCount() == 0) ? 0 : round(100 * $this->commentator->clubPostsCount() / $this->commentator->getClubPostsLimit());
 $tasks = SeoTask::getCommentatorActiveTasks(1);

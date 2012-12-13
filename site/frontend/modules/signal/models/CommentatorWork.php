@@ -159,8 +159,6 @@ class CommentatorWork extends EMongoDocument
         $day->date = date("Y-m-d");
         $day->skip_count = 0;
         $day->created = time();
-        $day->blog_posts = count($this->blogPosts());
-        $day->club_posts = $this->clubPostsCount();
 
         if (empty($this->days))
             $this->days = array($day);
@@ -168,6 +166,11 @@ class CommentatorWork extends EMongoDocument
             $this->days[] = $day;
 
         $this->getNextPostForComment();
+
+        $this->save();
+        $day->blog_posts = count($this->blogPosts());
+        $day->club_posts = $this->clubPostsCount();
+        $this->save();
 
         //add working day
         $month = CommentatorsMonthStats::getOrCreateWorkingMonth();
@@ -338,15 +341,30 @@ class CommentatorWork extends EMongoDocument
 
     public function clubPostsCount()
     {
-        if (empty($this->clubs))
+        $club_id = $this->getCurrentClubId();
+        if (empty($club_id))
             return count($this->clubPosts() + $this->recipes());
 
+        //check post in current community
         $count = 0;
-        foreach ($this->clubPosts() as $post)
-            $count++;
+        if ($club_id == 22)
+            $count = count($this->recipes()) > 0 ? 1 : 0;
 
-        if (in_array(22, $this->clubs))
-            $count = $count + count($this->recipes());
+        foreach ($this->clubPosts() as $post)
+            if ($post->rubric->community_id == $club_id)
+                $count = 1;
+
+        Yii::import('site.seo.modules.writing.models.*');
+        //check post by keyword
+        $criteria = new CDbCriteria;
+        $criteria->condition = 'updated >= :today AND status = ' . SeoTask::STATUS_CLOSED;
+        $criteria->params = array(':today' => date("Y-m-d") . ' 00:00:00');
+        $criteria->compare('executor_id', Yii::app()->user->id);
+        $criteria->compare('multivarka', 1);
+        $task = SeoTask::model()->find($criteria);
+
+        if ($task !== null)
+            $count++;
 
         return $count;
     }
@@ -355,20 +373,46 @@ class CommentatorWork extends EMongoDocument
     {
         $day = $this->getCurrentDay();
         if (empty($day->today_club)) {
-
-            $this->clubs = array_values($this->clubs);
-
-            $prev_day = $this->getPreviousDay();
-            if ($prev_day == null)
-                $day->today_club = $this->clubs[0];
-
-            $day->today_club = (!empty($prev_day->today_club) && isset($this->clubs[$prev_day->today_club + 1]))
-                ? $this->clubs[$prev_day->today_club + 1] : $this->clubs[0];
-
+            $this->calcCurrentClub();
             $this->save();
         }
 
         return $day->today_club;
+    }
+
+    public function calcCurrentClub($mode = 0)
+    {
+        $day = $this->getCurrentDay();
+        if ($mode)
+            print_r($this->clubs);
+
+        #TODO если нет назначенных клубов, назначается 1-й
+        if (empty($this->clubs))
+            $this->clubs = array(1);
+
+        $this->clubs = array_values($this->clubs);
+
+        $prev_day = $this->getPreviousDay();
+        if ($prev_day == null) {
+            if ($mode)
+                echo "prev day = null \n";
+            $day->today_club = $this->clubs[0];
+        } else {
+            if (!empty($prev_day->today_club)) {
+                for ($i = 0; $i < count($this->clubs); $i++) {
+                    if ($this->clubs[$i] == $prev_day->today_club) {
+                        if (isset($this->clubs[$i + 1]))
+                            $day->today_club = $this->clubs[$i + 1];
+                        else
+                            $day->today_club = $this->clubs[0];
+                    }
+                }
+            } else
+                $day->today_club = $this->clubs[0];
+
+            if ($mode)
+                echo "today club = $day->today_club \n";
+        }
     }
 
     public function comments()
@@ -405,7 +449,6 @@ class CommentatorWork extends EMongoDocument
 
         return array_reverse($result);
     }
-
 
     public function newFriends($month)
     {

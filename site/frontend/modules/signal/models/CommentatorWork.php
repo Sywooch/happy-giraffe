@@ -338,15 +338,30 @@ class CommentatorWork extends EMongoDocument
 
     public function clubPostsCount()
     {
-        if (empty($this->clubs))
+        $club_id = $this->getCurrentClubId();
+        if (empty($club_id))
             return count($this->clubPosts() + $this->recipes());
 
+        //check post in current community
         $count = 0;
-        foreach ($this->clubPosts() as $post)
-            $count++;
+        if ($club_id == 22)
+            $count = count($this->recipes()) > 0 ? 1 : 0;
 
-        if (in_array(22, $this->clubs))
-            $count = $count + count($this->recipes());
+        foreach ($this->clubPosts() as $post)
+            if ($post->rubric->community_id == $club_id)
+                $count = 1;
+
+        Yii::import('site.seo.modules.writing.models.*');
+        //check post by keyword
+        $criteria = new CDbCriteria;
+        $criteria->condition = 'updated >= :today OR status = '.SeoTask::STATUS_CLOSED;
+        $criteria->params = array(':today'=>date("Y-m-d").' 00:00:00');
+        $criteria->compare('executor_id', Yii::app()->user->id);
+        $criteria->compare('multivarka', 1);
+        $task = SeoTask::model()->find($criteria);
+
+        if ($task !== null)
+            $count++;
 
         return $count;
     }
@@ -359,7 +374,6 @@ class CommentatorWork extends EMongoDocument
             #TODO если нет назначенных клубов, назначается 1-й
             if (empty($this->clubs))
                 $this->clubs = array(1);
-
 
             $this->clubs = array_values($this->clubs);
 
@@ -410,7 +424,6 @@ class CommentatorWork extends EMongoDocument
 
         return array_reverse($result);
     }
-
 
     public function newFriends($month)
     {

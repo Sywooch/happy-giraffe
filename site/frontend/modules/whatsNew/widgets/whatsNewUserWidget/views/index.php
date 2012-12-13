@@ -33,7 +33,7 @@
                     'header' => '',
                     'class' => 'ext.infiniteScroll.IasPager',
                     'rowSelector' => '.masonry-news-list_item',
-                    'listViewId' => 'liveList',
+                    'listViewId' => 'whatsNewUserWidgetList',
                     'options' => array(
                         'scrollContainer' => new CJavaScriptExpression("$('.layout-container')"),
                         'onRenderComplete' => new CJavaScriptExpression("function(items) {

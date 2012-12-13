@@ -24,7 +24,8 @@ class DefaultController extends HController
      */
     public function actionBloodRefresh()
     {
-        $this->render('blood_refresh');
+        $service = Service::model()->findByPk(22);
+        $this->render('blood_refresh', compact('service'));
     }
 
     /**
@@ -32,7 +33,8 @@ class DefaultController extends HController
      */
     public function actionJapan()
     {
-        $this->render('japan');
+        $service = Service::model()->findByPk(21);
+        $this->render('japan', compact('service'));
     }
 
     /**
@@ -40,7 +42,8 @@ class DefaultController extends HController
      */
     public function actionBlood()
     {
-        $this->render('blood_group');
+        $service = Service::model()->findByPk(23);
+        $this->render('blood_group', compact('service'));
     }
 
     /**
@@ -48,12 +51,14 @@ class DefaultController extends HController
      */
     public function actionChina()
     {
-        if (Yii::app()->request->isAjaxRequest){
+        $service = Service::model()->findByPk(20);
+        if (Yii::app()->request->isAjaxRequest && isset($_POST['ajax']) && $_POST['ajax'] == 'china-calendar-form') {
+            $service->userUsedService();
             $model = new ChinaCalendarForm;
             $model->attributes = $_POST['ChinaCalendarForm'];
             $this->performAjaxValidation($model, 'china-calendar-form');
-        }else
-            $this->render('china');
+        } else
+            $this->render('china', compact('service'));
     }
 
     /**
@@ -61,7 +66,8 @@ class DefaultController extends HController
      */
     public function actionOvulation()
     {
-        $this->render('ovulation');
+        $service = Service::model()->findByPk(24);
+        $this->render('ovulation', compact('service'));
     }
 
     public function actionBloodUpdate()
@@ -80,49 +86,11 @@ class DefaultController extends HController
                 'model' => $model,
                 'gender' => $gender
             ));
+            $service = Service::model()->findByPk(22);
+            $service->userUsedService();
         }
     }
 
-    /**
-     * DEV_METHOD
-     */
-    /*public function actionParse()
-    {
-        $str = '2 1 2 1 1 1 1 1 1 1 1 1
-        1 2 1 2 2 1 1 2 1 1 2 2
-        2 1 2 1 1 1 1 1 1 2 1 1
-        1 2 2 2 2 2 2 2 2 2 2 2
-        2 1 1 2 1 2 2 1 2 2 2 2
-        1 1 1 2 1 1 2 2 2 1 1 2
-        1 2 2 1 1 2 1 2 1 1 2 1
-        2 1 2 1 2 1 2 1 2 1 1 1
-        1 1 1 1 1 2 1 2 2 1 2 2
-        2 2 1 1 2 1 2 2 1 2 1 1
-        1 1 1 2 2 1 2 1 2 2 1 2
-        2 1 2 2 1 2 2 1 2 1 2 2
-        1 1 2 1 2 1 1 1 1 1 1 1
-        1 1 1 1 2 2 1 2 1 2 2 2
-        1 2 2 1 2 1 1 2 1 1 2 1
-        2 1 1 2 2 1 2 1 2 1 1 2
-        1 1 2 2 1 2 1 1 2 1 2 2
-        1 2 1 2 1 2 1 2 1 1 2 1
-        1 2 1 1 1 2 1 1 2 2 2 2
-        2 2 1 2 2 2 1 2 2 1 1 1
-        1 1 2 2 1 2 2 1 2 2 1 2
-        2 2 1 2 2 2 1 2 1 1 2 1
-        1 1 1 2 1 2 1 2 1 2 2 1
-        2 2 1 2 1 1 2 2 1 2 1 2
-        1 2 2 1 1 1 1 1 2 1 2 1
-        2 1 2 2 1 1 1 2 2 2 1 1
-        1 2 2 2 1 2 1 1 2 1 2 1
-        2 1 2 1 2 2 1 2 1 2 1 2';
-        $data = explode("\n", $str);
-        foreach ($data as $row) {
-            $row_data = str_replace(" ", ",", trim($row));
-            echo 'new Array(' . $row_data . '),' . '<br>';
-        }
-    }
-*/
     public function actionJapanCalc()
     {
         if (isset($_POST['JapanCalendarForm'])) {
@@ -139,6 +107,8 @@ class DefaultController extends HController
                 'model' => $model,
                 'gender' => $gender
             ));
+            $service = Service::model()->findByPk(21);
+            $service->userUsedService();
         }
     }
 
@@ -155,21 +125,26 @@ class DefaultController extends HController
             $this->renderPartial('ovulation_result', array(
                 'data' => $data,
                 'model' => $modelForm,
-                'gender'=>$gender,
+                'gender' => $gender,
                 'year' => $modelForm->review_year,
                 'month' => $modelForm->review_month,
             ));
+
+            $service = Service::model()->findByPk(24);
+            $service->userUsedService();
         }
     }
 
+
+
     public function roundOpacity($op)
     {
-        return round($op/20)*20;
+        return round($op / 20) * 20;
     }
 
     public function performAjaxValidation($model, $formName)
     {
-        if (isset($_POST['ajax']) && $_POST['ajax'] == $formName){
+        if (isset($_POST['ajax']) && $_POST['ajax'] == $formName) {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }

@@ -115,6 +115,14 @@ foreach ($test->testQuestions as $question):?>
 </div>
 <?php endforeach; ?>
 </div>
+
+<?php $this->widget('application.widgets.serviceSocial.serviceSocialWidget', array(
+    'service' => Service::model()->findByPk(9),
+    'image' => '/images/test/3/bg_test_pregnancy.jpg',
+    'description' => 'Онлайн-тест на беременность – прекрасная возможность подтвердить или опровергнуть свои мысли по поводу возможной беременности, особенно если под рукой нет экспресс-теста, а приём гинеколога состоится не раньше чем завтра.',
+    'counter_title'=>array('Тест на беременность прошли уже', array('пользователь','пользователя','пользователей'))
+)); ?>
+
 <br><br>
 <div class="wysiwyg-content">
     <h1><?php echo $test->title ?></h1>

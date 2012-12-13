@@ -12,7 +12,7 @@
             if (!empty($data->meta_description))
                 $this->meta_description = $data->meta_description;
             else
-                $this->meta_description = trim(Str::truncate(trim(strip_tags($data->getContent()->text)), 300));
+                $this->meta_description = Str::getDescription($data->getContent()->text);
         }
     }
 ?>
@@ -156,7 +156,11 @@
                         'entity' => get_class($data->gallery),
                         'entity_id' => (int)$data->gallery->primaryKey,
                     ));
-                    ?>
+                    if (isset($_GET['utm_source']) && $_GET['utm_source'] == 'email'){
+                        Yii::app()->clientScript->registerScript('open_pGallery','$("i.icon-play").trigger("click");', CClientScript::POS_READY);
+                    }
+
+                ?>
                 <?php endif; ?>
             </div>
         <?php endif; ?>

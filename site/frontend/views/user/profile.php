@@ -12,7 +12,7 @@
         ->registerScriptFile('http://stg.odnoklassniki.ru/share/odkl_share.js')
     ;
 
-    $score = $user->scores;
+    $score = $user->score;
 ?>
 
 <?php
@@ -35,8 +35,8 @@
                 <?php endif; ?>
                 <div class="location">
                     <?php
-                    if (!empty($user->getUserAddress()->country_id)) echo $user->getUserAddress()->getFlag(true);
-                    if (!empty($user->getUserAddress()->city_id)) echo $user->getUserAddress()->cityName;
+                    if (!empty($user->address->country_id)) echo $user->address->getFlag(true);
+                    if (!empty($user->address->city_id)) echo $user->address->cityName;
                     ?>
                 </div>
                 <div class="info">
@@ -78,10 +78,6 @@
                 Зарегистрирован <?=Yii::app()->dateFormatter->format("dd MMMM yyyy", $user->register_date)?>
             </div>
 
-            <?php if ($user->id == Yii::app()->user->id && !empty($user->getScores()->level_id)): ?>
-                <div class="user-lvl user-lvl-<?=$user->getScores()->level_id?>"></div>
-            <?php endif; ?>
-
             <?php $this->widget('FamilyWidget', array(
                 'user' => $user,
             )); ?>
@@ -95,7 +91,7 @@
         </div>
 
         <div class="col-23 clearfix">
-            <?php if ($user->id != Yii::app()->user->id || $user->getScores()->full == 2): ?>
+            <?php if ($user->id != Yii::app()->user->id || $user->score->full == 2): ?>
 
             <div class="user-top-block clearfix">
 

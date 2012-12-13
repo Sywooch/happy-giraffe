@@ -27,7 +27,7 @@ class ServiceCategory extends CActiveRecord
      */
     public function tableName()
     {
-        return 'service_categories';
+        return 'services__categories';
     }
 
     /**
@@ -54,8 +54,8 @@ class ServiceCategory extends CActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'services' => array(self::HAS_MANY, 'Service', 'category_id'),
-            'servicesCount' => array(self::STAT, 'Service', 'category_id'),
+            'services' => array(self::HAS_MANY, 'Service', 'category_id', 'scopes'=>array('visible')),
+            'servicesCount' => array(self::STAT, 'Service', 'category_id', 'condition'=>'`show`=1'),
         );
     }
 

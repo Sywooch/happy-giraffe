@@ -230,4 +230,9 @@ class Community extends HActiveRecord
             'params' => array(':community_id' => $this->id),
         ));
     }
+
+    public function getShortTitle()
+    {
+        return (empty($this->short_title)) ? $this->title : $this->short_title;
+    }
 }

@@ -8,6 +8,6 @@ class LocationWidget extends UserCoreWidget
     public function init()
     {
         parent::init();
-        $this->visible = !empty($this->user->userAddress->country_id) || $this->user->id == Yii::app()->user->id;
+        $this->visible = !empty($this->user->address->country_id) || $this->user->id == Yii::app()->user->id;
     }
 }

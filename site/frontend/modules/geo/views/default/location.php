@@ -3,9 +3,9 @@
  * @var $user User
  */
 $regions = array('' => '');
-if ($user->getUserAddress()->country_id !== null) {
+if ($user->address->country_id !== null) {
     $regions = array('' => ' ') + CHtml::listData(GeoRegion::model()->findAll(array(
-        'order' => 'position, name', 'select' => 'id,name', 'condition' => 'country_id = ' . $user->getUserAddress()->country_id)), 'id', 'name');
+        'order' => 'position, name', 'select' => 'id,name', 'condition' => 'country_id = ' . $user->address->country_id)), 'id', 'name');
 }
 ?>
 <div class="user-map">
@@ -18,7 +18,7 @@ if ($user->getUserAddress()->country_id !== null) {
         <div class="row">
             <label>Место жительства</label>
         <span class="with-search">
-        <?php echo CHtml::dropDownList('country_id', $user->getUserAddress()->country_id,
+        <?php echo CHtml::dropDownList('country_id', $user->address->country_id,
             array('' => ' ') + CHtml::listData(GeoCountry::model()->findAll(array('order' => 'pos')), 'id', 'name'),
             array(
                 'class' => 'chzn w-100',
@@ -27,7 +27,7 @@ if ($user->getUserAddress()->country_id !== null) {
             )) ?>
             </span>&nbsp;&nbsp;
         <span class="with-search">
-                <?php echo CHtml::dropDownList('region_id', $user->getUserAddress()->region_id, $regions,
+                <?php echo CHtml::dropDownList('region_id', $user->address->region_id, $regions,
             array(
                 'class' => 'chzn w-200',
                 'data-placeholder' => 'Регион',
@@ -36,15 +36,15 @@ if ($user->getUserAddress()->country_id !== null) {
         </span>
         </div>
         <div class="row settlement"<?php
-            if ($user->getUserAddress()->region !== null
-                && $user->getUserAddress()->region->isCity()
+            if ($user->address->region !== null
+                && $user->address->region->isCity()
             ) echo ' style="display:none;"' ?>>
             <label>Населенный пункт</label>
             <?php
             $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
                 'id' => 'city_name',
                 'name' => 'city_name',
-                'value' => ($user->userAddress->city === null) ? '' : $user->userAddress->city->name,
+                'value' => ($user->address->city === null) ? '' : $user->address->city->name,
                 'source' => "js: function(request, response){
                             $.ajax({
                                 url: '" . $this->createUrl('/geo/default/cities') . "',
@@ -72,7 +72,7 @@ if ($user->getUserAddress()->country_id !== null) {
                 ),
             ));
             ?>
-            <?php echo CHtml::hiddenField('city_id', $user->userAddress->city_id); ?>
+            <?php echo CHtml::hiddenField('city_id', $user->address->city_id); ?>
             <small>Введите свой город, поселок, село или деревню</small>
         </div>
         <div class="row">

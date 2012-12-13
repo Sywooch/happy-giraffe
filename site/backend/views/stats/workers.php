@@ -7,7 +7,7 @@ $criteria->condition = '`group` != 0 AND `group` != ' . UserGroup::VIRTUAL;
 $criteria->order = 't.id';
 $criteria->with = array(
     'communitiesCount',
-    'userAddress',
+    'address',
     'photosCount',
     'interests',
     'status',
@@ -25,7 +25,7 @@ foreach ($models as $model) {
         echo $user_title . ' - установить дату рождения<br>';
     if (empty($model->email_confirmed))
         echo $user_title . ' - подтвердить email<br>';
-    if (empty($model->userAddress->country_id))
+    if (empty($model->address->country_id))
         echo $user_title . ' - заполнить место жительства<br>';
     if (empty($model->relationship_status))
         echo $user_title . ' - заполнить информацию о семье<br>';

@@ -32,7 +32,7 @@ $form = $this->beginWidget('CActiveForm', array(
         <ul class="lists_td">
             <li>
                 <div class="row">
-                    <?php echo $form->dropDownList($model, 'father_m', HDate::ruMonths(), array('class' => 'chzn', 'empty' => 'месяц')); ?>
+                    <?php echo $form->dropDownList($model, 'father_m', HDate::ruMonths(), array('class' => 'chzn mn_cal', 'empty' => 'месяц')); ?>
                     <?php echo $form->error($model, 'father_m'); ?>
                 </div>
             </li>
@@ -44,7 +44,7 @@ $form = $this->beginWidget('CActiveForm', array(
         <ul class="lists_td">
             <li>
                 <div class="row">
-                    <?php echo $form->dropDownList($model, 'mother_m', HDate::ruMonths(), array('class' => 'chzn', 'empty' => 'месяц')); ?>
+                    <?php echo $form->dropDownList($model, 'mother_m', HDate::ruMonths(), array('class' => 'chzn mn_cal', 'empty' => 'месяц')); ?>
                     <?php echo $form->error($model, 'mother_m'); ?>
                 </div>
             </li>
@@ -56,13 +56,13 @@ $form = $this->beginWidget('CActiveForm', array(
         <ul class="lists_td">
             <li>
                 <div class="row">
-                    <?php echo $form->dropDownList($model, 'baby_d', HDate::Days(), array('class' => 'chzn', 'empty' => 'день')); ?>
+                    <?php echo $form->dropDownList($model, 'baby_d', HDate::Days(), array('class' => 'chzn num_cal', 'empty' => 'день')); ?>
                     <?php echo $form->error($model, 'baby_d'); ?>
                 </div>
             </li>
             <li>
                 <div class="row">
-                    <?php echo $form->dropDownList($model, 'baby_m', HDate::ruMonths(), array('class' => 'chzn', 'empty' => 'месяц')); ?>
+                    <?php echo $form->dropDownList($model, 'baby_m', HDate::ruMonths(), array('class' => 'chzn mn_cal', 'empty' => 'месяц')); ?>
                     <?php echo $form->error($model, 'baby_m'); ?>
                 </div>
             </li>
@@ -80,8 +80,16 @@ $form = $this->beginWidget('CActiveForm', array(
 <div id="japan-result">
 
 </div>
+
+<?php $this->widget('application.widgets.serviceSocial.serviceSocialWidget', array(
+    'service' => $service,
+    'image' => '/images/sex_child_japan_bann.jpg',
+    'description' => 'Все жители Японии, а в особенности семейные пары, очень трепетно относятся к детям. Иметь продолжателей своего рода – основная обязанность каждой семьи.'
+)); ?>
+
+<br><br>
 <div class="wysiwyg-content">
-    <h1>Японский метод планирование пола ребенка</h1>
+    <h1>Японский метод планирования пола ребенка</h1>
     <p>Все жители Японии, а в особенности семейные пары, очень трепетно относятся к детям. Иметь продолжателей своего
         рода – основная обязанность каждой семьи. Желательно, чтобы в семье был мальчик, – для отцов семейства это очень
         важно. Если в семье рождаются одни девочки, мужчина может прибегнуть к связи «на стороне» или к усыновлению

@@ -6,7 +6,7 @@
 class CoWorkersPosts extends PostForCommentator
 {
     protected $entities = array(
-        'CommunityContent' => array(20),
+        'CommunityContent' => array(10),
         'CookRecipe' => array(2, 3),
     );
     protected $nextGroup = 'ZeroCommentsPosts';
@@ -16,7 +16,7 @@ class CoWorkersPosts extends PostForCommentator
         Yii::import('site.frontend.modules.cook.models.*');
 
         $criteria = $this->getCriteria(false);
-        $posts = $this->getPosts($criteria);
+        $posts = $this->getPosts($criteria, true);
 
         $this->logState(count($posts));
 
@@ -34,15 +34,15 @@ class CoWorkersPosts extends PostForCommentator
     public function getCriteria($simple_users = true)
     {
         $criteria = new CDbCriteria;
-        $criteria->select = 't.*, `comments`.`id` as comment_id';
-        $criteria->condition = 't.created >= "' . date("Y-m-d H:i:s", strtotime('-48 hour')) . '" AND `full` IS NULL AND comments.id IS NULL AND t.author_id != '.$this->commentator->user_id;
+        $criteria->condition = 't.created >= "' . date("Y-m-d H:i:s", strtotime('-48 hour')) . '" AND `full` IS NULL AND t.author_id != '.$this->commentator->user_id;
         $criteria->with = array(
             'author' => array(
+                'select'=>array('id'),
                 'condition' => ($simple_users) ? 'author.group = 0' : 'author.group > 0',
                 'together' => true,
             ),
         );
-        $criteria->join = 'LEFT OUTER JOIN `comments` `comments` ON (`comments`.`entity_id`=`t`.`id` AND `comments`.`author_id` = '.$this->commentator->user_id.') ';
+        $criteria->order = 'rand()';
 
         return $criteria;
     }

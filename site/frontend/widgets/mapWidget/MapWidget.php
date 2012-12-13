@@ -22,8 +22,8 @@ class MapWidget extends CWidget
         $map_id = md5(microtime());
         $this->registerScripts();
         if ($this->user) {
-            $this->country_id = $this->user->userAddress->country_id;
-            $this->locationString = $this->user->userAddress->locationString;
+            $this->country_id = $this->user->address->country_id;
+            $this->locationString = $this->user->address->locationString;
         }
 
         if (empty($this->country_id))

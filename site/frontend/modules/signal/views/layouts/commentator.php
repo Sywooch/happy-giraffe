@@ -13,6 +13,9 @@
     ->registerScriptFile('/javascripts/jquery.pnotify.min.js')
     ->registerCssFile('/stylesheets/jquery.pnotify.css')
     ->registerScriptFile('/javascripts/dklab_realplexor.js')
+    ->registerScriptFile('/javascripts/jquery.fancybox-1.3.4.js')
+    ->registerCssFile('/stylesheets/jquery.fancybox-1.3.4.css')
+    ->registerScriptFile('/javascripts/user_common.js')
     ->registerScript('Realplexor-reg', '
     comet.connect("http://' . Yii::app()->comet->host . '", "' . Yii::app()->comet->namespace . '",
                   "' . UserCache::GetCurrentUserCache() . '");
@@ -31,23 +34,26 @@
             <ul>
                 <?php if ($this->commentator->IsWorksToday(Yii::app()->user->id)):?>
                     <li><span class="date"><?=Yii::app()->dateFormatter->format('d MMM yyyy',time())?></span></li>
-                    <li<?php if (Yii::app()->controller->action->id == 'index') echo ' class="active"'; ?>><a href="<?=$this->createUrl('/signal/commentator/index') ?>">Задания</a>
-                        <?php if (Yii::app()->controller->action->id == 'index'):?>
-                            <span class="tale"><img src="/images/default_nav_active.gif"></span>
-                        <?php endif ?>
+                    <li<?php if (Yii::app()->controller->action->id == 'index') echo ' class="active"'; ?>>
+                        <a href="<?=$this->createUrl('/signal/commentator/index') ?>">Задания</a>
+                        <span class="tale"><img src="/images/default_nav_active.gif"></span>
                     </li>
                 <?php else: ?>
-                    <li><span class="date"><?=Yii::app()->dateFormatter->format('d MMM yyyy',time())?></span><button class="btn-green-27" onclick="CommentatorPanel.iAmWorking();">Я сегодня работаю</button></li>
+                    <li><span class="date"><?=Yii::app()->dateFormatter->format('d MMM yyyy',time())?></span>
+                        <button class="btn-green-27" onclick="CommentatorPanel.iAmWorking();">Я сегодня работаю</button>
+                    </li>
                 <?php endif ?>
-                <li<?php if (Yii::app()->controller->action->id == 'statistic') echo ' class="active"'; ?>><a href="<?=$this->createUrl('/signal/commentator/statistic') ?>">Премия</a>
-                    <?php if (Yii::app()->controller->action->id == 'statistic'):?>
-                        <span class="tale"><img src="/images/default_nav_active.gif"></span>
-                    <?php endif ?>
+                <li<?php if (Yii::app()->controller->action->id == 'statistic') echo ' class="active"'; ?>>
+                    <a href="<?=$this->createUrl('/signal/commentator/statistic') ?>">Премия</a>
+                    <span class="tale"><img src="/images/default_nav_active.gif"></span>
                 </li>
-                <li<?php if (Yii::app()->controller->action->id == 'help') echo ' class="active"'; ?>><a href="<?=$this->createUrl('/signal/commentator/help') ?>">Вопросы</a>
-                    <?php if (Yii::app()->controller->action->id == 'help'):?>
-                        <span class="tale"><img src="/images/default_nav_active.gif"></span>
-                        <?php endif ?>
+                <li<?php if (Yii::app()->controller->action->id == 'users') echo ' class="active"'; ?>>
+                    <a href="<?=$this->createUrl('/signal/commentator/users') ?>"><i class="icon-friend"></i> Новички на сайте</a>
+                    <span class="tale"><img src="/images/default_nav_active.gif"></span>
+                </li>
+                <li<?php if (Yii::app()->controller->action->id == 'popular') echo ' class="active"'; ?>>
+                    <a href="<?=$this->createUrl('/signal/commentator/popular') ?>"><i class="icon-popular"></i> Как стать популярным</a>
+                    <span class="tale"><img src="/images/default_nav_active.gif"></span>
                 </li>
             </ul>
         </div>
@@ -61,5 +67,10 @@
     <?php echo $content ?>
 
 </div>
+<script type="text/javascript">
+    $(function() {
+        $("a.fancy").fancybox();
+    });
+</script>
 </body>
 </html>

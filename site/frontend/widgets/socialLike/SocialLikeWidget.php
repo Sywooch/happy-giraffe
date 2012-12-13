@@ -44,7 +44,7 @@ class SocialLikeWidget extends CWidget
         if(isset($this->options['image']) && !strstr($this->options['image'], 'http'))
             $this->options['image'] = Yii::app()->createAbsoluteUrl('/') . $this->options['image'];
         if(isset($this->options['description']))
-            $this->options['description'] = Str::truncate(trim(strip_tags(html_entity_decode($this->options['description'], ENT_QUOTES, 'UTF-8'))), 300, '...');
+            $this->options['description'] = Str::getDescription($this->options['description']);
         if(!isset($this->options['url']))
             $this->options['url'] = Yii::app()->createAbsoluteUrl(Yii::app()->request->pathInfo);
 

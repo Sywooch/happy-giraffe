@@ -17,6 +17,8 @@ class EditorController extends SController
 
         if (isset($_GET['section']) && $_GET['section'] == 3)
             $this->pageTitle = 'Рукоделие';
+        if (isset($_GET['section']) && $_GET['section'] == 4)
+            $this->pageTitle = 'Интерьеры';
 
         return true;
     }
@@ -26,7 +28,7 @@ class EditorController extends SController
         $model = new Keyword;
         $model->attributes = $_GET;
 
-        $this->render('themes', array(
+        $this->render('index', array(
             'model' => $model,
             'theme' => $section,
         ));

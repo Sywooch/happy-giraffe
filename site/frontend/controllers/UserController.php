@@ -71,7 +71,7 @@ class UserController extends HController
             'status',
             'purpose',
             'avatar' => array('select' => array('fs_name', 'author_id')),
-            'userAddress' => array('select' => array('country_id', 'region_id', 'city_id')),
+            'address' => array('select' => array('country_id', 'region_id', 'city_id')),
             'partner',
             'babies',
             'mood',

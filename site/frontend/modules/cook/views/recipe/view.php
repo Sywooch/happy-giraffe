@@ -29,7 +29,6 @@
     if (empty($this->meta_description))
         $this->meta_description = trim(Str::truncate(strip_tags($recipe->text), 300));
 ?>
-
 <div class="entry hrecipe clearfix">
 
     <?php $this->renderPartial('//community/_post_header', array('model' => $recipe, 'full' => true, 'show_user' => true)); ?>
@@ -75,6 +74,8 @@
 
 
                 </div>
+
+                <?php $this->renderPartial('_recipe_tags_edit',array('recipe'=>$recipe)); ?>
 
             </div>
 

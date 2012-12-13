@@ -1,4 +1,8 @@
-<div class="entry hrecipe clearfix">
+<?php
+/* @var $this Controller
+ * @var $data CookRecipe
+ */
+?><div class="entry hrecipe clearfix">
 
     <?php $this->renderPartial('//community/_post_header', array(
         'model' => $data,
@@ -46,6 +50,8 @@
 
 
                 </div>
+
+                <?php $this->renderPartial('_recipe_tags_edit',array('recipe'=>$data)); ?>
 
             </div>
 

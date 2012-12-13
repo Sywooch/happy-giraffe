@@ -19,5 +19,4 @@ class DefaultController extends HController
 
         $this->render('index', compact('community', 'recipes', 'recipesCount', 'decorations', 'chooses'));
     }
-
 }

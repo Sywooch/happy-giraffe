@@ -37,16 +37,23 @@ class PostForCommentator
 
     /**
      * @param CDbCriteria $criteria
+     * @param bool $one_post
      * @return CActiveRecord[]
      */
-    public function getPosts($criteria)
+    public function getPosts($criteria, $one_post = false)
     {
         $result = array();
 
         foreach ($this->entities as $entity => $limits) {
             $posts = CActiveRecord::model($entity)->findAll($criteria);
+
             foreach ($posts as $post) {
+                //check ignore users
                 if (!empty($this->commentator->ignoreUsers) && in_array($post->author_id, $this->commentator->ignoreUsers))
+                    continue;
+
+                //check already comment
+                if ($this->alreadyCommented($post))
                     continue;
 
                 list($count_limit, $post_time) = CommentsLimit::getLimit($entity, $post->id, $limits, $this->times);
@@ -56,8 +63,11 @@ class PostForCommentator
                     $post_created_spent_minutes = round((time() - strtotime($post->created)) / 60);
 
                     if ($post->commentsCount < $count_limit) {
-                        if ($post_time < $post_created_spent_minutes && !$this->IsSkipped($entity, $post->id))
+                        if ($post_time < $post_created_spent_minutes && !$this->IsSkipped($entity, $post->id)){
+                            if ($one_post)
+                                return array($post);
                             $result [] = $post;
+                        }
 
                     } else {
                         $post->full = 1;
@@ -71,6 +81,20 @@ class PostForCommentator
         }
         shuffle($result);
         return $result;
+    }
+
+    public function alreadyCommented($post)
+    {
+        $criteria = new CDbCriteria;
+        $criteria->compare('author_id', $this->commentator->user_id);
+        $criteria->compare('entity_id', $post->id);
+        if (get_class($post) == 'CommunityContent')
+            $criteria->compare('entity', array('CommunityContent', 'BlogContent'));
+        else
+            $criteria->compare('entity', get_class($post));
+        $model = Comment::model()->find($criteria);
+
+        return $model !== null;
     }
 
     public function IsSkipped($entity, $entity_id)

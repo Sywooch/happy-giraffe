@@ -2,7 +2,7 @@
 <?php
 /*$js = '
 HMap.map_id = "'.$map_id.'";
-HMap.address = "'.$this->user->getUserAddress()->getLocationString().'";
+HMap.address = "'.$this->user->address->getLocationString().'";
 HMap.initYandexMap();';
 
 Yii::app()->clientScript->registerScript('register_yandex_map-'.$map_id,$js);*/

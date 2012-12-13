@@ -159,7 +159,7 @@
 												02 : 00
 											</div>
 											<div class="recipe-description-item">
-												<div class="icon-yield tooltip" title="Количество персон"></div>
+												<div class="icon-yield tooltip" title="Количество порций"></div>
 												на 6 персон
 											</div>
 										</div>
@@ -299,7 +299,7 @@
 												02 : 00
 											</div>
 											<div class="recipe-description-item">
-												<div class="icon-yield tooltip" title="Количество персон"></div>
+												<div class="icon-yield tooltip" title="Количество порций"></div>
 												на 6 персон
 											</div>
 										</div>

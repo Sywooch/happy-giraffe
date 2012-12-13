@@ -180,15 +180,15 @@
 												Украинская кухня
 											</a>
 											<div class="recipe-description-item">
-												<div class="icon-time-1"></div>
+												<div class="icon-time-1 tooltip" title="Время подготовки"></div>
 												02 : 00
 											</div>
 											<div class="recipe-description-item">
-												<div class="icon-time-2"></div>
+												<div class="icon-time-2 tooltip" title="Время приготовления"></div>
 												02 : 00
 											</div>
 											<div class="recipe-description-item">
-												<div class="icon-yield"></div>
+												<div class="icon-yield tooltip" title="Количество порций"></div>
 												на 6 персон
 											</div>
 										</div>

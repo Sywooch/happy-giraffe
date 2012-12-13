@@ -50,7 +50,8 @@ return array(
         'externalLinks',
         'mailru',
         'needlework',
-        'traffic'
+        'traffic',
+        'keywords'
     ),
     'components' => array(
         'user' => array(

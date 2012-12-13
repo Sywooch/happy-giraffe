@@ -23,7 +23,7 @@
 
 <div id="broadcast">
 
-    <?php $this->renderPartial('menu'); ?>
+    <?php $this->renderPartial('/menu'); ?>
 
     <div class="content-cols clearfix">
 
@@ -45,13 +45,14 @@
                         'listViewId' => 'liveList',
                         'options' => array(
                             'scrollContainer' => new CJavaScriptExpression("$('.layout-container')"),
-                            'onLoadItems' => new CJavaScriptExpression("function(items) {
-                                $(items).hide();
-                                $('#liveList .items').append(items).imagesLoaded(function() {
-                                     $('#liveList .items').masonry('appended', $(items));
-                                     $(items).fadeIn();
+                            'tresholdMargin' => -250,
+                            'onRenderComplete' => new CJavaScriptExpression("function(items) {
+                                var newItems = $(items);
+
+                                newItems.hide().imagesLoaded(function() {
+                                    newItems.show();
+                                    $('#liveList .items').isotope('appended', newItems);
                                 });
-                                return false;
                             }"),
                         ),
                     ),

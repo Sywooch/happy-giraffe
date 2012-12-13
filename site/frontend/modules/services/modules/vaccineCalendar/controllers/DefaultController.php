@@ -35,6 +35,9 @@ class DefaultController extends HController
 
     public function actionVaccineTable()
     {
+        $service = Service::model()->findByPk(3);
+        $service->userUsedService();
+
         $model=new DateForm();
         if (isset($_POST['DateForm'])) {
             $model->attributes = $_POST['DateForm'];

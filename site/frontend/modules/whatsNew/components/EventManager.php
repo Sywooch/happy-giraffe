@@ -29,24 +29,6 @@ class EventManager
         return self::getDataProvider(($show == 'my') ? self::WHATS_NEW_BLOGS_MY : self::WHATS_NEW_BLOGS, $limit);
     }
 
-//    public static function getDataProvider($type, $limit)
-//    {
-//        $rows = self::getRowsByType($type, $limit);
-//
-//        $events = array();
-//        foreach ($rows as $r) {
-//            $event = Event::factory($r['type']);
-//            $event->attributes = $r;
-//            $events[] = $event;
-//        }
-//
-//        return new CArrayDataProvider($events, array(
-//            'pagination' => array(
-//                'pageSize' => 20,
-//            )
-//        ));
-//    }
-
     public static function getDataProvider($type, $limit)
     {
         switch ($type) {
@@ -107,12 +89,12 @@ class EventManager
         return new EventDataProvider($sql, array(
             'params' => $params,
             'pagination' => array(
-                'pageSize' => 20,
+                'pageSize' => min(20, $limit),
             ),
             'sort' => array(
                 'defaultOrder' => 'last_updated DESC',
             ),
-            'totalItemCount' => 100,
+            'totalItemCount' => $limit,
         ));
     }
 }

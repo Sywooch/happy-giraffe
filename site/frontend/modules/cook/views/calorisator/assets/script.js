@@ -131,6 +131,8 @@ var Calorisator = {
             r100 = (isNaN(r100)) ? 0 : r100;
             $('#ingredients tr.results100 td.nutritional[data-n="' + $(td).attr('data-n') + '"]').text(r100.toFixed(2));
         });
+
+        service_used(19);
     }
 }
 

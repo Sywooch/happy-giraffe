@@ -5,11 +5,9 @@
  * @param $user User
  */
 Yii::app()->clientScript
-    ->registerScriptFile('/javascripts/location.js');
-if (!empty($user->address->country_id))
-    Yii::app()->clientScript
-        ->registerScriptFile('/javascripts/jquery.flip.js')
-        ->registerCoreScript('jquery.ui');
+    ->registerScriptFile('/javascripts/location.js')
+    ->registerScriptFile('/javascripts/jquery.flip.js')
+    ->registerCoreScript('jquery.ui');
 
 
 if ($this->isMyProfile && empty($user->address->country_id)):?>
@@ -24,7 +22,7 @@ else:
 ?><div class="user-map">
     <div class="header">
         <?php if ($this->isMyProfile): ?>
-        <a href="#" class="edit tooltip" onclick="UserLocation.OpenEdit();return false;" title=">Изменить"></a>
+        <a href="#" class="edit tooltip" onclick="UserLocation.OpenEdit();return false;" title="Изменить"></a>
         <?php endif ?>
         <div class="box-title">Я здесь</div>
         <div class="sep"><img src="/images/map_marker.png"></div>

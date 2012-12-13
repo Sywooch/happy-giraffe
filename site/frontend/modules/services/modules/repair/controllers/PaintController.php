@@ -23,6 +23,9 @@ class PaintController extends HController
     public function actionCalculate()
     {
         if (isset($_POST['PaintForm'])) {
+            $service = Service::model()->findByPk(14);
+            $service->userUsedService();
+
             $model = new PaintForm();
             $model->attributes = $_POST['PaintForm'];
             $this->performAjaxValidation($model);

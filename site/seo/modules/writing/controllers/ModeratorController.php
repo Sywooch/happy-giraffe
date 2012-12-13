@@ -9,7 +9,7 @@ class ModeratorController extends SController
 
     public function beforeAction($action)
     {
-        if (!Yii::app()->user->checkAccess('moderator'))
+        if (!Yii::app()->user->checkAccess('moderator-panel'))
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
         $this->pageTitle = 'модератор';

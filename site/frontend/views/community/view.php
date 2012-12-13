@@ -14,3 +14,5 @@ $this->widget('application.widgets.seo.SeoLinksWidget');
 $remove_tmpl = $this->beginWidget('site.frontend.widgets.removeWidget.RemoveWidget');
 $remove_tmpl->registerTemplates();
 $this->endWidget();
+
+$this->widget('WhatsNewWidget');

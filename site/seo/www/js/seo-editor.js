@@ -201,7 +201,11 @@ var SeoTasks = {
         $.post('/writing/task/executed/', {id:id, url:$(el).prev().val()}, function (response) {
             if (response.status) {
                 document.location.reload();
-            }
+            }else
+                $.pnotify({
+                    pnotify_title:response.error,
+                    pnotify_type:'error'
+                });
         }, 'json');
     },
     CloseTask:function (el, id) {

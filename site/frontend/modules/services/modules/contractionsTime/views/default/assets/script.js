@@ -336,6 +336,8 @@ function StopCounting(){
         previous_val = list[key];
     }
 
+    service_used(7);
+
     if (average_length < 30 && average_interval > 300)
         return ShowPhase(1);
     if (average_length < 30 && average_interval <= 300)

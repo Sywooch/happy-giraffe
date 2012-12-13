@@ -202,6 +202,7 @@ class CommentatorController extends HController
             $task->article_id = $page->id;
             $task->article_title = $page->getArticleTitle();
             echo CJSON::encode(array('status' => $task->save()));
+            CommentatorWork::getCurrentUser()->refreshCurrentDayPosts();
         }
     }
 

@@ -35,7 +35,23 @@ class FriendEventPost extends FriendEvent
 
     public function getLabel()
     {
-        return HDate::simpleVerb('Добавил', $this->user->gender) . ' запись';
+
+
+        return HDate::simpleVerb('Добавил', $this->user->gender) . ' ' . $this->typeString;
+    }
+
+    public function getTypeString()
+    {
+        switch ($this->content->type_id) {
+            case 1:
+                return 'запись';
+                break;
+            case 2:
+                return 'видео';
+                break;
+            default:
+                return 'пост';
+        }
     }
 
     public function createBlock()

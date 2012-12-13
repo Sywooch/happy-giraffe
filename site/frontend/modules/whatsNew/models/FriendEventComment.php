@@ -17,7 +17,8 @@ class FriendEventComment extends FriendEvent
     public function init()
     {
         $this->comment = $this->_getComment();
-        $this->relatedModel = $this->comment->getRelatedModel();
+        if ($this->comment !== null)
+            $this->relatedModel = $this->comment->getRelatedModel();
     }
 
     public function getComment()
@@ -56,6 +57,25 @@ class FriendEventComment extends FriendEvent
                 break;
             default:
                 return HDate::simpleVerb('Добавил', $this->user->gender) . ' комментарий';
+        }
+    }
+
+    public function getToString()
+    {
+        switch (get_class($this->relatedModel)) {
+            case 'BlogContent':
+            case 'CommunityContent':
+                switch ($this->relatedModel->type_id) {
+                    case 1:
+                        return 'к записи';
+                    case 2:
+                        return 'к видео';
+                    default:
+                        return 'к посту';
+                }
+                break;
+            default:
+                return false;
         }
     }
 

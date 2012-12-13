@@ -20,9 +20,8 @@ class FriendEventManager
             $stack->updateBlock($model);
     }
 
-    public static function getDataProvider()
+    public static function getDataProvider($user)
     {
-        $user = Yii::app()->user->model;
         $friends = User::model()->findAll($user->getFriendsCriteria(array('select' => 't.id', 'index' => 'id')));
         $friendsIds = array_keys($friends);
 

@@ -1215,7 +1215,7 @@
 .best-users_list .icon-comment {display:inline-block;*zoom:1;*display:inline;width: 10px;height: 10px;background:url(/images/common.png) no-repeat  -200px -309px;;vertical-align:middle;margin:0;padding:0;}
 
 .masonry-news-list {
-	margin: 0 -10px 40px;
+	margin: 0 -10px 20px;
 	line-height: 16px;
 	position: relative;
 }
@@ -1295,7 +1295,7 @@
 }
 .masonry-news-list_meta-info .meta .comments.empty .icon {background-position: -218px -309px;}
 .masonry-news-list_content {margin: 0 0 5px;}
-.masonry-news-list_content img {display: block;margin: 3px 0 6px;}
+.masonry-news-list_content img {display: block;margin: 3px auto 6px;}
 .masonry-news-list_comment {
 	position: relative;
 	padding: 5px 10px;

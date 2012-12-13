@@ -10,9 +10,9 @@ class WhatsNewWidget extends CWidget
 {
     public function run()
     {
-        $dp = EventManager::getIndex(6);
-        $this->registerScripts();
-        $this->render('index', compact('dp'));
+//        $dp = EventManager::getIndex(10);
+//        $this->registerScripts();
+//        $this->render('index', compact('dp'));
     }
 
     public function registerScripts()
@@ -20,15 +20,33 @@ class WhatsNewWidget extends CWidget
         $js = "
             $('#masonry-news-list-jcarousel').jcarousel({
                 list: '#masonry-news-list-jcarousel-ul',
-                items: '.masonry-news-list_item',
-                initCallback: mycarousel_initCallback,
+                items: '.masonry-news-list_item'
+            });
+
+            // Setup controls for the navigation carousel
+            $('#masonry-news-list-jcarousel .prev')
+                .on('inactive.jcarouselcontrol', function() {
+                    $(this).addClass('inactive');
+                })
+                .on('active.jcarouselcontrol', function() {
+                    $(this).removeClass('inactive');
+                })
+                .jcarouselControl({
+                    target: '-=3'
+            });
+
+            $('#masonry-news-list-jcarousel .next')
+                .on('inactive.jcarouselcontrol', function() {
+                    $(this).addClass('inactive');
+                })
+                .on('active.jcarouselcontrol', function() {
+                    $(this).removeClass('inactive');
+                })
+                .jcarouselControl({
+                    target: '+=3'
             });
 
 
-
-            function mycarousel_initCallback(carousel, state) {
-                alert('123');
-            };
         ";
 
         Yii::app()->clientScript

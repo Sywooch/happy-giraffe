@@ -5,19 +5,6 @@
 <head>
 	<!--#include virtual="/block/global/head.shtml" -->
 	
-	<script>
-		$(function(){
-			$('.tooltip').tooltip({
-				delay: 100,
-				track: false,
-				showURL: false,
-				showBody: false,
-				top: -20,
-				left: 10
-			});
-		})
-	</script>
-	
 </head>
 <body class="body-club">
 
@@ -32,48 +19,33 @@
 			<div id="crumbs"><a href="">Главная</a> > <a href="">Сервисы</a> > <span>Кулинарные рецепты  </span></div>
 			
 			<div id="cook-recipe">
-				
-<!-- 				<div class="clearfix">
-					
-					<div class="add-recipe">
-						
-						Поделиться вкусненьким!<br/>
-						<a href="" class="btn btn-green"><span><span>Добавить рецепт</span></span></a>
-						
-					</div>
-					
-					
-					
-				</div>
-				 -->
+
 				<div class="clearfix">
 					
 					<div class="main">
 						
 						<div class="main-in">
 							
-							<div class="entry hrecipe clearfix">
+							<div class="entry hrecipe recipe-article clearfix">
 								
 								<h1 class="fn">Курица в пиве с рисом</h1>
 								
 								<div class="entry-header clearfix">
 								
-									<div class="user-info clearfix">
-										<div class="ava female"></div>
+									<div class="user-info user-info-small clearfix">
+										<div class="ava female small"></div>
 										<div class="details">
-											<span class="icon-status status-online"></span>
 											<a href="" class="username">Дарья</a>
-											<div class="user-fast-buttons clearfix">
-												<a href="" class="add-friend"><span class="tip">Пригласить в друзья</span></a>
-												<a href="" class="new-message"><span class="tip">Написать сообщение</span></a>
-											</div>
+											<div class="date">Сегодня, 13:25</div>
 										</div>
 									</div>
 									
-									<div class="meta">										
-										<div class="time">3 сен 2012, 08:25</div>
-										<div class="seen">Просмотров:&nbsp;<span>265</span></div><br>						
-										<a href="">Комментариев: 2</a>										
+									<div class="meta meta-small">
+										<div class="views"><span href="#" class="icon"></span> <span>265</span></div>
+										<div class="comments">
+											<a href="#" class="icon"></a>
+											<a href="">15233</a>
+										</div>
 									</div>
 									
 								</div>
@@ -81,100 +53,85 @@
 								<div class="entry-content">
 								
 									<div class="recipe-right">
-										
-										<div class="recipe-description">
-											
-											<ul>
-												<li>Кухня <span class="nationality"><div class="flag flag-ua"></div> <span class="cuisine-type">Украинская</span></span>
-												</li>
-												<li>Время подготовки <span class="time-1"><i class="icon"></i><span class="">02 : 00</span></span></li>
-												<li>Время приготовления <span class="time-2"><i class="icon"></i><span class="">01 : 45</span></span></li>
-												<li>Кол-во порций <span class="yield-count"><i class="icon"></i><span class="yield">6 персон</span></span></li>
-											</ul>
-											
-											<div class="actions">
-												
-												<div class="action">
-													<a href="" class="print"><i class="icon"></i>Распечатать</a>
-												</div>
-												
-												<div class="action">
-													<a href="" class="add-to-cookbook"><i class="icon"></i>Добавить в кулинарную книгу</a>
-												</div>
-												
-												<div class="action share">
-													<script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
-													Поделиться
-													<div class="yashare-auto-init" data-yashareL10n="ru" data-yashareType="none" data-yashareQuickServices="vkontakte,facebook,twitter,odnoklassniki,moimir,gplus"></div>
-												</div>
-											
-												
-											</div>
-											
+										<div class="cook-book-info">
+											<a href="" >
+												<span>Рецепт в моей <br />кулинарной книге</span>
+												<i class="icon-exist"></i>
+											</a>
 										</div>
-										
-										<div class="nutrition">
-											
-											<div class="block-title">Калорийность блюда</div>
-											
-											<div class="portion">
-												<a href="" class="active">На 100 г.</a>
-												|
-												<a href="">На порцию</a>
-												|
-												<a href="" class="disabled">На порцию</a>
-												
-											</div>
-											
-											<ul>
-												<li class="n-calories">
-													<div class="icon">
-														<i>К</i>
-														Калории
-													</div>
-													<span class="calories">240</span> <span class="gray">ккал.</span>
-												</li>
-												<li class="n-protein">
-													<div class="icon">
-														<i>Б</i>
-														Белки
-													</div>
-													<span class="protein">18</span> <span class="gray">г.</span>
-												</li>
-												<li class="n-fat">
-													<div class="icon">
-														<i>Ж</i>
-														Жиры
-													</div>
-													<span class="fat">10</span> <span class="gray">г.</span>
-												</li>
-												<li class="n-carbohydrates">
-													<div class="icon">
-														<i>У</i>
-														Углеводы
-													</div>
-													<span class="carbohydrates">70</span> <span class="gray">г.</span>
-												</li>
-												
-											</ul>
-											
+										<div class="cook-book-info">
+											<a href="" >
+												<span>Добавить в мою <br />кулинарную книгу</span>
+												<i class="icon-add"></i>
+											</a>
 										</div>
-										
-										<div class="nutrition diabetes">
-											
-											<div class="block-title">Подходит для диабетики</div>
-											
-											<ul>
-												<li class="n-bread">
-													<div class="icon">
-														<i>ХЕ</i>
-														Хлебных единиц
-													</div>
-													<span class="calories">18,8</span> <span class="gray">х.е.</span>
+										<div class="recipe-user-adds">
+											<p>Этот рецепт также добавили:</p>
+											<ul class="clearfix">
+												<li>
+													<a href="" class="ava small female"><img alt="" src="http://img.happy-giraffe.ru/avatars/52756/small/10eb85806fb3ae57ab97b9d15fa3f21f.JPG"></a>
+												</li>
+												<li>
+													<a href="" class="ava small female"><img alt="" src="http://img.happy-giraffe.ru/avatars/20976/small/d1d850f5318107ff8b3c0272b13b53bc.JPG"></a>
+												</li>
+												<li>
+													<a href="" class="ava small female"><img alt="" src="http://img.happy-giraffe.ru/avatars/52756/small/10eb85806fb3ae57ab97b9d15fa3f21f.JPG"></a>
+												</li>
+												<li>
+													<a href="" class="ava small female"><img alt="" src="http://img.happy-giraffe.ru/avatars/20976/small/d1d850f5318107ff8b3c0272b13b53bc.JPG"></a>
+												</li>
+												<li>
+													<a href="" class="ava small female"><img alt="" src="http://img.happy-giraffe.ru/avatars/52756/small/10eb85806fb3ae57ab97b9d15fa3f21f.JPG"></a>
+												</li>
+												<li>
+													<a href="" class="ava small female"></a>
+												</li>
+												<li>
+													<a href="" class="ava small female"><img alt="" src="http://img.happy-giraffe.ru/avatars/52756/small/10eb85806fb3ae57ab97b9d15fa3f21f.JPG"></a>
+												</li>
+												<li>
+													<a href="" class="ava small female"></a>
+												</li>
+												<li>
+													<a href="" class="ava small female"><img alt="" src="http://img.happy-giraffe.ru/avatars/52756/small/10eb85806fb3ae57ab97b9d15fa3f21f.JPG"></a>
+												</li>
+												<li>
+													<a href="" class="ava small female"><img alt="" src="http://img.happy-giraffe.ru/avatars/20976/small/d1d850f5318107ff8b3c0272b13b53bc.JPG"></a>
+												</li>
+												<li>
+													<a href="" class="ava small female"><img alt="" src="http://img.happy-giraffe.ru/avatars/52756/small/10eb85806fb3ae57ab97b9d15fa3f21f.JPG"></a>
+												</li>
+												<li>
+													<a href="" class="ava small female"></a>
+												</li>
+												<li>
+													<a href="" class="ava small female"><img alt="" src="http://img.happy-giraffe.ru/avatars/52756/small/10eb85806fb3ae57ab97b9d15fa3f21f.JPG"></a>
+												</li>
+												<li>
+													<a href="" class="ava small female"><img alt="" src="http://img.happy-giraffe.ru/avatars/20976/small/d1d850f5318107ff8b3c0272b13b53bc.JPG"></a>
+												</li>
+												<li>
+													<a href="" class="ava small female"><img alt="" src="http://img.happy-giraffe.ru/avatars/20976/small/d1d850f5318107ff8b3c0272b13b53bc.JPG"></a>
+												</li>
+												<li>
+													<a href="" class="ava small female"></a>
+												</li>
+												<li>
+													<a href="" class="ava small female"><img alt="" src="http://img.happy-giraffe.ru/avatars/52756/small/10eb85806fb3ae57ab97b9d15fa3f21f.JPG"></a>
+												</li>
+												<li>
+													<a href="" class="ava small female"></a>
+												</li>
+												<li>
+													<a href="" class="ava small female"><img alt="" src="http://img.happy-giraffe.ru/avatars/52756/small/10eb85806fb3ae57ab97b9d15fa3f21f.JPG"></a>
+												</li>
+												<li>
+													<a href="" class="ava small female"><img alt="" src="http://img.happy-giraffe.ru/avatars/20976/small/d1d850f5318107ff8b3c0272b13b53bc.JPG"></a>
+												</li>
+												<li>
+													<a href="" class="link-text">и еще 148</a>
 												</li>
 											</ul>
-											
-											
 										</div>
 										
 									</div>
@@ -187,85 +144,133 @@
 										</a>
 										
 										<div class="big">
-											<img class="photo" src="/images/cook_recipe_img_01.jpg" />
+											<img class="photo" src="/images/cook_recipe_img_01.jpg" width="460" />
 										</div>
 										
 										<div class="thumbs clearfix">
 											
-											<ul>
-												<li><a href=""><img src="/images/cook_recipe_img_02.jpg" /></li>
-												<li><a href=""><img src="/images/cook_recipe_img_03.jpg" /></li>
-												<li><a href="" class="add"><i class="icon"></i></a></li>
+											<ul class="clearfix">
+												<li>
+													<a href=""><img src="/images/cook_recipe_img_02.jpg" width="82" height="60" /></a>
+												</li>
+												<li><a href=""><img src="/images/cook_recipe_img_03.jpg" width="82"  height="60" /></a></li>
+												<li>
+													<a href=""><img src="/images/cook_recipe_img_02.jpg" width="82" height="60" /></a>
+												</li>
+												<li><a href=""><img src="/images/cook_recipe_img_03.jpg" width="82"  height="60" /></a></li>
+												<li>
+												<a href="" class="add">
+													<span>Уже готовили</span>
+													<i class="icon"></i>
+													<span class="blue" >Поделитесь <br /> фото!</span>
+												</a>
+												</li>
 											</ul>
-											
+											<a href="">Смотреть еще 25 фото</a>
 										</div>
 										
 									</div>
 									
 									<div style="clear:left;"></div>
 									
-									<h2>Ингредиенты</h2>
-									
-									<ul class="ingredients">
-										<li class="ingredient">
-											<span class="amount">1</span>
-											<span class="name">курица</span>
-											<a href="" class="calculator-trigger tooltip" title="Открыть калькулятор мер"></a>
-										</li>
-										<li class="ingredient">
-											<span class="value">0.5</span>
-											<span class="type">л</span>
-											<span class="name">пива</span>
-											
-											<a href="" class="calculator-trigger tooltip" title="Открыть калькулятор мер"></a>
-											
-											<div class="measure-calculator">
-												<input type="text" placeholder="0" value="0" />
-							
-												<div class="drp-list">
-													<a href="" class="trigger">штук</a>
-													<ul>
-														<li><a href="">штук</a></li>
-														<li><a href="">грамм</a></li>
-														<li><a href="">литров</a></li>
-													</ul>
-												</div>
-												
-												<a href="" class="equal"></a>
-												
-												<span class="value">203,456</span>
-												
-												<div class="drp-list">
-													<a href="" class="trigger">грамм</a>
-													<ul style="display:none;">
-														<li><a href="">штук</a></li>
-														<li><a href="">грамм</a></li>
-														<li><a href="">литров</a></li>
-													</ul>
-												</div>
+									<div class="recipe-description clearfix">
+										<div class="recipe-description-holder">
+											<a href="" class="country">
+												<span class="flag-big flag-big-at"></span>
+												Украинская кухня
+											</a>
+											<div class="recipe-description-item">
+												<div class="icon-time-1"></div>
+												02 : 00
 											</div>
-											
-										</li>
-										<li class="ingredient">
-											<span class="name">соль</span>
-											<a href="" class="calculator-trigger tooltip" title="Открыть калькулятор мер"></a>
-										</li>
-										<li class="ingredient">
-											<span class="name">перец</span>
-											<a href="" class="calculator-trigger tooltip" title="Открыть калькулятор мер"></a>
-										</li>
-										<li class="ingredient">
-											<span class="name">специи</span>
-											<span class="amount">по вкусу</span>
-											<a href="" class="calculator-trigger tooltip" title="Открыть калькулятор мер"></a>
-										</li>
-									</ul>
+											<div class="recipe-description-item">
+												<div class="icon-time-2"></div>
+												02 : 00
+											</div>
+											<div class="recipe-description-item">
+												<div class="icon-yield"></div>
+												на 6 персон
+											</div>
+										</div>
+									</div>
 									
+									<div class="clearfix">
+										<div class="recipe-right">
+											
+											<div class="nutrition">
+												
+												<div class="block-title">Калорийность блюда</div>
+												
+												<div class="portion">
+													<a href="" class="active">На 100 г.</a>
+													|
+													<a href="" class="disabled">На порцию</a>
+													
+												</div>
+											
+												<ul>
+													<li class="n-calories">
+														<div class="icon">
+															<i>К</i>
+															Калории
+														</div>
+														<span class="calories">589,2</span> <span class="gray">ккал.</span>
+													</li>
+													<li class="n-protein">
+														<div class="icon">
+															<i>Б</i>
+															Белки
+														</div>
+														<span class="protein">18</span> <span class="gray">г.</span>
+													</li>
+													<li class="n-fat">
+														<div class="icon">
+															<i>Ж</i>
+															Жиры
+														</div>
+														<span class="fat">10</span> <span class="gray">г.</span>
+													</li>
+													<li class="n-carbohydrates">
+														<div class="icon">
+															<i>У</i>
+															Углеводы
+														</div>
+														<span class="carbohydrates">70</span> <span class="gray">г.</span>
+													</li>
+													
+												</ul>
+												
+											</div>
+										</div>
+										<h2>Ингредиенты</h2>
+										
+										<ul class="ingredients">
+											<li class="ingredient">
+												<span class="name">курица</span>
+												- <span class="amount">1300 г.</span>
+											</li>
+											<li class="ingredient">
+												<span class="name">пива</span>
+												- <span class="amount">0,5 л</span>			
+											</li>
+											<li class="ingredient">
+												<span class="name">соль</span>
+												- <span class="amount">2 ч. л.</span>
+											</li>
+											<li class="ingredient">
+												<span class="name">перец</span>
+												- <span class="amount">1 ч. л.</span>
+											</li>
+											<li class="ingredient">
+												<span class="name">специи по вкусу</span>
+											</li>
+										</ul>
+									</div>
 									<h2>Приготовление</h2>
 									
 									<div class="instructions wysiwyg-content">
 									
-										<p>Мои родители и я пошел в поход на Верхний полуостров штата Мичиган летом после моего старшего года средней школы. Это один из тех поездок, которые всегда будут оставаться со мной. Я был одним из тех больших основные переходные периоды в жизни (хотя, как всегда, я не узнал его в то время) и поездка с родителями в красивой части страны было только, что мне нужно, чтобы чувствовать себя в безопасности , безопасный и готовы отправиться в следующую главу моей жизни.</p>
+										<p><em>Мои родители и я пошел в поход на Верхний полуостров штата Мичиган летом после моего старшего года средней школы. Это один из тех поездок, которые всегда будут оставаться со мной. Я был одним из тех больших основные переходные периоды в жизни (хотя, как всегда, я не узнал его в то время) и поездка с родителями в красивой части страны было только, что мне нужно, чтобы чувствовать себя в безопасности , безопасный и готовы отправиться в следующую главу моей жизни.</em></p>
 										
 										<ol>
 											<li>Курицу нарезать на кусочки, выложить в форму для запекания,

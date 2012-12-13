@@ -246,6 +246,11 @@ box-shadow:1px 1px 1px rgba(0,0,0,.2);behavior: url(/stylesheets/PIE.htc);}
 .user-info-big .text-status.pattern-17 .tale {background-position:-133px -400px;}
 .user-info-big .text-status.pattern-18 .tale {background-position:-133px -450px;}
 
+.user-info.user-info-small {min-width: 130px;line-height: 13px;font-size: 11px;}
+.user-info.user-info-small .details {margin-left: 30px;}
+.user-info.user-info-small .details .username {width: 100px;line-height: 13px;}
+.user-info.user-info-small .details .date {display: block;margin:0;color: #8a8b8b;font-size: 9px;line-height: 16px;}
+
 .user-fast-nav {font-size:11px;font-family:tahoma, arial, helvetica, sans-serif;color:#a4cce8;clear:left;margin-bottom:12px;margin-left:15px;line-height;12px;}
 .user-fast-nav .more {text-decoration:none;border-bottom:1px dashed #029AD2;}
 
@@ -903,9 +908,23 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 .meta .views .icon {display:inline-block;*zoom:1;*display:inline;width:24px;height:13px;background:url(/images/common.png) no-repeat -199px -275px;vertical-align:middle;position:relative;top:-1px;margin-right:3px;}
 .meta .comments {font-weight:normal !important;vertical-align:middle;}
 .meta .comments .icon {display:inline-block;*zoom:1;*display:inline;width:20px;height:17px;background:url(/images/common.png) no-repeat -225px -275px;vertical-align:middle;margin:2px 3px 0 0;padding:0;}
-.entry .meta .comments {margin:3px 0 0;line-height:26px;}
 .entry .meta .comments a {padding-right:0;}
 .meta .comments .ava.small {display:inline-block;*zoom:1;*display:inline;float:none;padding:0 2px;vertical-align:middle;}
+
+.meta.meta-small {float: right;margin: 0;font-size: 11px;line-height: 14px;text-align: left;}
+.meta.meta-small .views .icon {
+    background-position: -200px -295px;
+    width: 17px;
+    height: 10px;
+    margin-right: 1px;
+}
+.meta.meta-small .comments .icon {
+    background-position: -218px -295px;
+    width: 16px;
+    height: 13px;
+    margin:0 1px 0 0;
+}
+.meta.meta-small .comments.empty .icon {background-position: -218px -309px;}
 
 .CheckBoxClass,
 .RadioClass{display: none;}

@@ -40,7 +40,7 @@
     <?php if (($comment = $data->comment) !== null): ?>
         <div class="masonry-news-list_comment">
             <div class="masonry-news-list_comment-text">
-                <?=Str::truncate(strip_tags($comment->text), 512)?>
+                <a href="<?=$comment->url?>"><?=Str::truncate($comment->text, 512)?></a>
             </div>
             <div class="masonry-news-list_meta-info clearfix">
                 <div class="user-info">

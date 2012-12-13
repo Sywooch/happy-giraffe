@@ -23,7 +23,7 @@
 
 <div id="broadcast">
 
-    <?php $this->renderPartial('menu'); ?>
+    <?php $this->renderPartial('/menu'); ?>
 
     <div class="content-cols clearfix">
 

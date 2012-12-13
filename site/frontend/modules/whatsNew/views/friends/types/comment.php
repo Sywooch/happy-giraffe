@@ -5,7 +5,9 @@
 </div>
 
 <?php if (in_array(get_class($data->relatedModel), array('CommunityContent', 'BlogContent'))): ?>
-    <div class="masonry-news-list_meta-info clearfix">к записи</div>
+    <?php if (($to = $data->getToString()) !== false): ?>
+        <div class="masonry-news-list_meta-info clearfix"><?=$to?></div>
+    <?php endif; ?>
     <h3 class="masonry-news-list_title">
         <?=CHtml::link($data->relatedModel->title, $data->relatedModel->url)?>
     </h3>

@@ -59,6 +59,25 @@ class FriendEventComment extends FriendEvent
         }
     }
 
+    public function getToString()
+    {
+        switch (get_class($this->relatedModel)) {
+            case 'BlogContent':
+            case 'CommunityContent':
+                switch ($this->relatedModel->type_id) {
+                    case 1:
+                        return 'к записи';
+                    case 2:
+                        return 'к видео';
+                    default:
+                        return 'к посту';
+                }
+                break;
+            default:
+                return false;
+        }
+    }
+
     public function createBlock()
     {
         if (! in_array(get_class($this->params['relatedModel']), array('CommunityContent', 'BlogContent', 'CookRecipe', 'Service')))

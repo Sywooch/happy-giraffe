@@ -62,6 +62,7 @@ var Converter = {
         $('.drp-list ul').hide();
         $('#ac').val($('#ac').attr('data-title'));
         $("#converter-form").submit();
+        service_used(17);
         return false;
     },
 

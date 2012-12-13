@@ -25,6 +25,9 @@ class DefaultController extends HController
     public function actionCalculate()
     {
         if (isset($_POST['PlacentaThicknessForm'])) {
+            $service = Service::model()->findByPk(6);
+            $service->userUsedService();
+
             $model = new PlacentaThicknessForm;
             $model->attributes = $_POST['PlacentaThicknessForm'];
             $this->performAjaxValidation($model);

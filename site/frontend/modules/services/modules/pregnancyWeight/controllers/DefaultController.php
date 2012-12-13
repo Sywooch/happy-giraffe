@@ -24,6 +24,9 @@ class DefaultController extends HController
     public function actionCalculate()
     {
         if (isset($_POST['PregnantParamsForm'])) {
+            $service = Service::model()->findByPk(5);
+            $service->userUsedService();
+
             $model = new PregnantParamsForm();
             $model->attributes = $_POST['PregnantParamsForm'];
             $this->performAjaxValidation($model);

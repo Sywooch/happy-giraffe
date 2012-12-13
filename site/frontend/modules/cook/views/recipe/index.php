@@ -14,3 +14,5 @@ $this->widget('zii.widgets.CListView', array(
             </div>
         ',
 ));
+
+$this->widget('WhatsNewWidget');

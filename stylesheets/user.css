@@ -1422,6 +1422,18 @@
 .broadcast-widget-menu > li > a{display:block;line-height:26px;padding:0 7px;color:#1497f6;font-size:12px;}
 .broadcast-widget-menu .icon-friends{display:inline-block;*zoom:1;*display:inline;background:url(/images/common.png) no-repeat scroll -429px -334px;height:32px;width:27px;margin:0 2px;vertical-align:middle;}
 .broadcast-widget-menu .icon-boradcast-small{display:inline-block;*zoom:1;*display:inline;background:url(/images/common.png) no-repeat scroll -232px -243px;height:32px;width:31px;margin:0 2px;vertical-align:middle;}
+.broadcast-title-box .title {font-size: 22px;color: #252525;margin: 45px 0 25px;padding-bottom: 5px;border-bottom: 1px solid #e8f5f6;}
+.broadcast-title-box .title .icon-boradcast-small {
+	background: url("/images/common.png") no-repeat -232px -243px;
+    display: inline-block;
+    height: 32px;
+    margin: 0 -12px -3px 0;
+    width: 31px;
+}
 
+
+
+.broadcast-widget-menu-r {list-style: none;float: right;margin-top: 15px;}
+.broadcast-widget-menu-r > li {display: inline-block;*zoom:1;*display:inline;margin-left: 28px;}
 
 

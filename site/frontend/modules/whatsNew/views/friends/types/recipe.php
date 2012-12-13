@@ -21,7 +21,7 @@
 </div>
 
 <div class="masonry-news-list_meta-info clearfix">
-    <?php $this->renderPartial('/_meta', array('model' => $data->recipe)); ?>
+    <?php $this->renderPartial('application.modules.whatsNew.views._meta', array('model' => $data->recipe)); ?>
 
     <a href="<?=$data->recipe->getUrl(true)?>" class="textdec-onhover">Добавить <br />комментарий</a>
 </div>

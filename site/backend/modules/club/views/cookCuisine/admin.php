@@ -8,6 +8,10 @@
 		'id',
 		'title',
 		'country.name',
+        array(
+            'value'=>'isset($data->country)?$data->country->getFlag():""',
+            'type'=>'raw'
+        ),
 		array(
 			'class'=>'CButtonColumn',
 			'template' => '{update}{delete}'

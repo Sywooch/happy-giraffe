@@ -47,7 +47,7 @@
                     <li class="waiting clearfix">
                         <i class="icon"></i>
                         <div class="in">
-                            <big>Ждём<?php if ($user->hasBaby()): ?> ещё<?php endif; ?></big>
+                            <big>Ждём<?php if ($data->user->hasBaby()): ?> ещё<?php endif; ?></big>
                             <?php if ($baby->sex == 0): ?>
                             <div class="gender">Девочку <i class="icon-female"></i></div>
                             <?php endif; ?>

@@ -20,16 +20,15 @@ class FriendEventManager
             $stack->updateBlock($model);
     }
 
-    public static function getDataProvider()
+    public static function getDataProvider($user)
     {
-        $user = Yii::app()->user->model;
         $friends = User::model()->findAll($user->getFriendsCriteria(array('select' => 't.id', 'index' => 'id')));
         $friendsIds = array_keys($friends);
 
         $criteria = new EMongoCriteria(array(
-            'conditions' => array(
-                'user_id' => array('in' => $friendsIds),
-            ),
+//            'conditions' => array(
+//                'user_id' => array('in' => $friendsIds),
+//            ),
         ));
 
         $criteria->sort('updated', EMongoCriteria::SORT_DESC);

@@ -119,6 +119,16 @@
                         'url' => array('/club/cookDecoration/'),
                         'visible' => Yii::app()->user->checkAccess('cook_decorations'),
                     ),
+                    array(
+                        'label' => 'Кухни',
+                        'url' => array('/club/cookCuisine/'),
+                        'visible' => Yii::app()->user->checkAccess('cook_choose'),
+                    ),
+                    array(
+                        'label' => 'Сборки',
+                        'url' => array('/club/cookRecipeTag/'),
+                        'visible' => Yii::app()->user->checkAccess('cook_choose'),
+                    ),
                 )
             ),
             array(

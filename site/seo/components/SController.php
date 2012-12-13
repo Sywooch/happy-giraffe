@@ -71,6 +71,8 @@ class SController extends CController
             $menu ['Рукоделие'] = '/needlework/tasks/';
         if (Yii::app()->user->checkAccess('needlework-manager-panel'))
             $menu ['Интерьеры'] = '/design/tasks/';
+        if (Yii::app()->user->checkAccess('moderator-panel'))
+            $menu ['Модератор'] = '/writing/moderator/';
 
         return $menu;
     }

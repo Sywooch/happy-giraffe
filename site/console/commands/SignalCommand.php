@@ -171,6 +171,7 @@ class SignalCommand extends CConsoleCommand
         foreach ($commentators as $commentator) {
             echo $commentator->user_id."\n";
             $commentator->calcCurrentClub(1);
+            $commentator->save();
         }
     }
 

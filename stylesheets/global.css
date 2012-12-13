@@ -5032,4 +5032,6 @@ ul.letters li a:hover {
     font-style: italic;
     overflow:hidden;
     height: 1%;
+    color: #2c2c2c;
 }
+.giraffe-story-text .allocation {color: #1a1a1a;font-size: 13px;}

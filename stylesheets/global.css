@@ -4257,10 +4257,10 @@ ul.letters li a:hover {
 
 
 .cook-more {}
-.cook-more .block-title {font-size:20px;color:#0281b0;font-weight:bold;padding-bottom:20px;}
+.cook-more .block-title {font-size:16px;color:#494a4a;padding-bottom:20px;}
 .cook-more .block-title .btn {position:relative;top:-5px;}
 .cook-more ul {list-style:none;}
-.cook-more ul li {float:left;width:30%;padding-right:3%;}
+.cook-more ul li {float:left;width:150px;padding-left:20px;}
 .cook-more ul li .item-title {font-weight:bold;margin-bottom:5px;}
 .cook-more ul li .user {margin-bottom:5px;}
 .cook-more ul li .user-info {}
@@ -4559,7 +4559,7 @@ ul.letters li a:hover {
 .recipe-categories li.active .count {font-size:25px;color: #2e3030;line-height: normal;vertical-align:middle;width:auto;margin-right:0;left:0;}
 
 /* */
-.recipe-article {color:#020202;margin:1px 1px 30px;border: 1px solid #fff;outline: 1px solid #e7e7e7;padding:5px 20px 25px; background: #ebf2fb;width: auto;}
+.recipe-article {color:#020202;margin:1px 1px 30px;border: 1px solid #fff;outline: 1px solid #e7e7e7;padding:5px 20px 20px; background: #ebf2fb;width: auto;}
 
 .recipe-article h2 {font-size:25px;font-weight: normal;color:#2e2e2e;margin-bottom:15px;padding-top: 5px;}
 .recipe-article.entry .entry-header {background: none;}
@@ -4682,6 +4682,57 @@ ul.letters li a:hover {
 .recipe-article .nutrition ul li.n-fat .icon i {background-color:#abb71d;color:#fff;}
 .recipe-article .nutrition ul li.n-carbohydrates .icon i {background-color:#fcbe03;color:#fff;}
 .recipe-article .nutrition ul li .gray {font-size:11px;color:#9e9d9d;}
+
+.recipe-article .cook-instructions {
+    margin:0;
+    padding:0;
+    color:#000;
+    counter-reset: item;
+}
+.recipe-article .cook-instructions > li { display: block;margin:0 80px 18px; }
+.recipe-article .cook-instructions > li:before {
+    content: counters(item, "") " ";
+    counter-increment: item;
+    float: left;
+    vertical-align: top;
+    margin:8px 10px 0 -80px;
+    width: 70px;
+    text-align: center;
+    font-size: 35px;
+    font-weight: bold;
+    color: #6f6f6f;
+}
+
+.cook-article-tags {float: left;margin: 35px 5px;}
+.cook-article-tags-title {float: left;width: 50px;text-align: center;font:italic 14px/27px Georgia, 'Times New Roman', Times, serif;color: #6c6e6f;background: #fafca4;}
+
+.cook-diabets {
+    float: right;
+    margin: 10px 10px 0;
+    text-align: center;
+    width: 90px;
+}
+.cook-diabets-chart {
+    margin: 0 auto;
+    padding: 17px 0 8px;
+    height: 45px;
+    width: 65px;
+    background: url(/images/services/cook/cook-diabets-chart.png) no-repeat;
+    color: #ff7854;
+    font-size: 12px;
+}
+.cook-diabets-chart.val0 {background-position: 0 0;}
+.cook-diabets-chart.val33 {background-position: -65px 0;}
+.cook-diabets-chart.val66 {background-position: -130px 0;}
+.cook-diabets-chart.val100 {background-position: -195px 0;}
+.cook-diabets-desc {
+    font-size: 11px;
+    line-height: 12px;
+    color: #717172;
+}
+
+#cook-recipe .cook-article-tags-list {float: left;width:410px;list-style: none;background: #fff;padding: 4px 10px ;}
+#cook-recipe .cook-article-tags-list > li {float: left;margin: 0 10px;}
 
 #cook-recipe-search {}
 
@@ -4952,3 +5003,33 @@ ul.letters li a:hover {
 #baby-sex .link-5 {width:148px;height:166px;background:url(/images/baby_sex_link_05.png) no-repeat;left:50%;bottom:0;margin-left:-75px;}
 #baby-sex .link-5 .icon {width:74px;height:44px;background-position:0px -186px;margin-top:60px;}
 #baby-sex .link-5:hover .icon {background-position:-74px -186px;}
+
+.giraffe-story {
+    margin: 20px 0 0;
+    padding: 0 0 80px;
+    background: url(/images/giraffe-story.png) no-repeat -1398px 100%;
+}
+.giraffe-story-frame {
+    padding: 30px 0 0;
+    background: url(/images/giraffe-story.png) no-repeat -699px 0;
+}
+.giraffe-story-holder {
+    padding: 0 50px 0 45px;
+    background: url(/images/giraffe-story.png) repeat-y 0 0;
+}
+.giraffe-story-title {
+    margin: 0 0 18px 70px;
+    padding: 0 3px;
+    font-size: 30px;
+    line-height: 30px;
+    color: #2e2e2e;
+    display: inline-block;*zoom:1;*display:inline;
+    background: #fef67b;
+}
+.giraffe-story-img {float: left;margin:30px 45px 0 0;}
+.giraffe-story-text {
+    line-height: 19px;
+    font-style: italic;
+    overflow:hidden;
+    height: 1%;
+}

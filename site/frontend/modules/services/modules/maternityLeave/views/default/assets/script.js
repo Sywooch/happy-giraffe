@@ -15,7 +15,7 @@ var MaternityLeave = {
             $('div#decree-time div.recommendation div').fadeIn(200);
         })
 
-        service_user(10);
+        service_used(10);
     }
 
 }

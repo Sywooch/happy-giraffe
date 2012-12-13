@@ -10,9 +10,11 @@ class WhatsNewWidget extends CWidget
 {
     public function run()
     {
-//        $dp = EventManager::getIndex(6);
-//        $this->registerScripts();
-//        $this->render('index', compact('dp'));
+        if (! Yii::app()->user->isGuest) {
+            $dp = EventManager::getIndex(6);
+            $this->registerScripts();
+            $this->render('index', compact('dp'));
+        }
     }
 
     public function registerScripts()
@@ -25,26 +27,18 @@ class WhatsNewWidget extends CWidget
 
             // Setup controls for the navigation carousel
             $('#masonry-news-list-jcarousel .prev')
-                .on('inactive.jcarouselcontrol', function() {
-                    $(this).addClass('inactive');
-                })
-                .on('active.jcarouselcontrol', function() {
-                    $(this).removeClass('inactive');
-                })
                 .jcarouselControl({
                     target: '-=1'
             });
 
             $('#masonry-news-list-jcarousel .next')
-                .on('inactive.jcarouselcontrol', function() {
-                    $(this).addClass('inactive');
-                })
-                .on('active.jcarouselcontrol', function() {
-                    $(this).removeClass('inactive');
+                .on('click', function() {
+                    if($('.masonry-news-list_item:eq(4)').hasClass('jcarousel-item-visible'))
+                        window.location.href = '" . Yii::app()->createUrl('/whatsNew/default/index') . "';
                 })
                 .jcarouselControl({
                     target: '+=1'
-            });
+                });
 
 
         ";

@@ -50,7 +50,7 @@ class RecipeController extends HController
         return parent::beforeAction($action);
     }
 
-    public function actionIndex($type = null, $section = null)
+    public function actionIndex($type = 0, $section = null)
     {
         $this->pageTitle = 'Кулинарные рецепты от Веселого Жирафа';
         $this->layout = '//layouts/recipe';
@@ -59,7 +59,7 @@ class RecipeController extends HController
         $dp = CActiveRecord::model($this->modelName)->getByType($type);
         $this->counts = CActiveRecord::model($this->modelName)->counts;
 
-        if ($type === null)
+        if (empty($type))
             $this->breadcrumbs = array(
                 'Кулинария' => array('/cook'),
                 $this->section == 0 ? 'Кулинарные рецепты' : 'Рецепты для мультиварок',
@@ -71,7 +71,7 @@ class RecipeController extends HController
                 CookRecipe::model()->types[$type],
             );
 
-        $this->render('index', compact('dp'));
+        $this->render('index', compact('dp', 'type'));
     }
 
     public function actionTag($tag = null, $type = null)

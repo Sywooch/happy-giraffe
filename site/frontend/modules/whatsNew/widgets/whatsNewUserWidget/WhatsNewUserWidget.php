@@ -13,7 +13,7 @@ class WhatsNewUserWidget extends CWidget
     public function run()
     {
         $dp = FriendEventManager::getDataProvider($this->user);
-        if ($dp->itemCount > 0) {
+        if ($dp->itemCount > 0 && false) {
             $this->registerScripts();
             $this->render('index', compact('dp'));
         }

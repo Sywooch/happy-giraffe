@@ -208,7 +208,7 @@ class SeoTask extends CActiveRecord
             $criteria->condition = 'executor_id = :executor_id AND status > ' . SeoTask::STATUS_TAKEN;
             $criteria->params = array('executor_id' => Yii::app()->user->id);
 
-        } elseif (Yii::app()->user->checkAccess('moderator')) {
+        } elseif (Yii::app()->user->checkAccess('moderator-panel')) {
             $criteria->compare('status >', SeoTask::STATUS_TAKEN);
             $criteria->compare('type', SeoTask::TYPE_MODER);
             $criteria->compare('executor_id', Yii::app()->user->id);
@@ -249,7 +249,7 @@ class SeoTask extends CActiveRecord
             $criteria->compare('executor_id', Yii::app()->user->id);
             $criteria->compare('status', SeoTask::STATUS_READY);
 
-        } elseif (Yii::app()->user->checkAccess('moderator')) {
+        } elseif (Yii::app()->user->checkAccess('moderator-panel')) {
             $criteria->compare('type', SeoTask::TYPE_MODER);
             $criteria->compare('status', SeoTask::STATUS_READY);
 

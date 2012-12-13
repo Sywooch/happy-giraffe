@@ -153,8 +153,14 @@ class Baby extends HActiveRecord
     {
         parent::afterSave();
 
-        if ($this->isNewRecord)
+        if ($this->isNewRecord) {
             UserAction::model()->add($this->parent_id, UserAction::USER_ACTION_FAMILY_UPDATED, array('model' => $this));
+            FriendEventManager::add(FriendEvent::TYPE_FAMILY_ADDED, array(
+                'entity' => __CLASS__,
+                'entity_id' => $this->id,
+                'user_id' => $this->parent_id,
+            ));
+        }
 
         User::model()->UpdateUser($this->parent_id);
     }

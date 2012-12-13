@@ -6,6 +6,14 @@ class DefaultController extends HController
     public $pageTitle = 'Справочник детских болезней';
     public $category_id = 0;
 
+    public function init()
+    {
+        $service = Service::model()->findByPk(2);
+        $service->userUsedService();
+
+        parent::init();
+    }
+
     public function actionIndex()
     {
         $categories = RecipeBookDiseaseCategory::model()->findAll();

@@ -1,13 +1,13 @@
-<?php
-    $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
-        'selector' => '.masonry-news-list_item:data(blockId=' . $data->blockId . ') .masonry-news-list_img-list a',
-        'entity' => 'CookDecorationCategory',
-        'entity_id' => null,
-        'entity_url' => $this->createUrl('/cook/decor/index'),
-    ));
-?>
-
 <li class="masonry-news-list_item" data-block-id="<?=$data->blockId?>">
+    <?php
+        $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
+            'selector' => '.masonry-news-list_item:data(blockId=' . $data->blockId . ') .masonry-news-list_img-list a',
+            'entity' => 'CookDecorationCategory',
+            'entity_id' => null,
+            'entity_url' => $this->createUrl('/cook/decor/index'),
+        ));
+    ?>
+
     <h3 class="masonry-news-list_title">
         <a href="<?=$this->createUrl('/cook/decor/index')?>">Новые фото Оформление блюд</a>
         <a href="<?=$this->createUrl('/cook/decor/index')?>" class="icon-photo"></a>

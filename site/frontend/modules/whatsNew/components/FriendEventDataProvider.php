@@ -18,6 +18,9 @@ class FriendEventDataProvider extends EMongoDocumentDataProvider
 
         $criteria = FriendEvent::getUserCriteria();
         $criteria->addInCondition('t.id', $usersIds);
+        $criteria->with = array(
+            'avatar',
+        );
         $users = User::model()->findAll($criteria);
 
         foreach ($data as $k => $v) {

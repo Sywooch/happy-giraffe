@@ -41,6 +41,12 @@ class RecipeController extends HController
             $this->modelName = CookRecipe::model()->sectionsMap[CookRecipe::COOK_DEFAULT_SECTION];
             $this->section = null;
         }
+
+        if ($this->section == 1) {
+            $service = Service::model()->findByPk(11);
+            $service->userUsedService();
+        }
+
         return parent::beforeAction($action);
     }
 

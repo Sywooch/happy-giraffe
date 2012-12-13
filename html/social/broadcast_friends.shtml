@@ -561,6 +561,29 @@
 									</div>
 								</li>
 								
+								
+								<li class="masonry-news-list_item">
+									<div class="masonry-news-list_friend-info clearfix">
+										<a class="ava female small" href=""><img alt="" src="http://img.happy-giraffe.ru/avatars/19372/small/21fd8c8f29c5a289df17938cb2f20e5b.jpg"></a>
+										<div class="details">
+											<a class="username" href="">Александр</a>
+											<span class="date">Сегодня 13:25</span>
+											<p>Воспользовалась сервисом </p>
+										</div>
+									</div>
+									<h3 class="masonry-news-list_title textalign-c">
+										<a href="">Калькулятор мер</a>
+									</h3>
+									<div class="masonry-news-list_content">
+										<a href="">
+											<img alt="" src="/images/service_img_12.png">
+										</a>
+									</div>
+									<div class="comments-all clearfix">
+										<a href="">Попробовать сервис!</a>
+									</div>
+								</li>
+								
 								<li class="masonry-news-list_item">
 									<div class="masonry-news-list_friend-info clearfix">
 										<a class="ava female small" href=""><img alt="" src="http://img.happy-giraffe.ru/avatars/19372/small/21fd8c8f29c5a289df17938cb2f20e5b.jpg"></a>

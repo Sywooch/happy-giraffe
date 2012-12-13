@@ -10,9 +10,9 @@ class WhatsNewWidget extends CWidget
 {
     public function run()
     {
-//        $dp = EventManager::getIndex(10);
-//        $this->registerScripts();
-//        $this->render('index', compact('dp'));
+        $dp = EventManager::getIndex(6);
+        $this->registerScripts();
+        $this->render('index', compact('dp'));
     }
 
     public function registerScripts()

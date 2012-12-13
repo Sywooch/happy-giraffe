@@ -354,7 +354,7 @@ class CommentatorWork extends EMongoDocument
         Yii::import('site.seo.modules.writing.models.*');
         //check post by keyword
         $criteria = new CDbCriteria;
-        $criteria->condition = 'updated >= :today OR status = ' . SeoTask::STATUS_CLOSED;
+        $criteria->condition = 'updated >= :today AND status = ' . SeoTask::STATUS_CLOSED;
         $criteria->params = array(':today' => date("Y-m-d") . ' 00:00:00');
         $criteria->compare('executor_id', Yii::app()->user->id);
         $criteria->compare('multivarka', 1);

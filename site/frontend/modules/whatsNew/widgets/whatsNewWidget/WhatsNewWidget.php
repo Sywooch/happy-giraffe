@@ -10,7 +10,7 @@ class WhatsNewWidget extends CWidget
 {
     public function run()
     {
-        if (! Yii::app()->user->isGuest && in_array(Yii::app()->user->group, array(UserGroup::COMMENTATOR, UserGroup::MODERATOR))) {
+        if (! Yii::app()->user->isGuest && in_array(Yii::app()->user->group, array(UserGroup::COMMENTATOR, UserGroup::MODERATOR, UserGroup::EDITOR))) {
             $dp = EventManager::getIndex(6);
             $this->registerScripts();
             $this->render('index', compact('dp'));

@@ -192,7 +192,7 @@
             </div>
 
             <?php
-                if (! Yii::app()->user->isGuest && $user->id == Yii::app()->user->id && in_array(Yii::app()->user->group, array(UserGroup::COMMENTATOR, UserGroup::MODERATOR))) {
+                if (! Yii::app()->user->isGuest && $user->id == Yii::app()->user->id && in_array(Yii::app()->user->group, array(UserGroup::COMMENTATOR, UserGroup::MODERATOR, UserGroup::EDITOR))) {
                     $this->widget('WhatsNewUserWidget', array(
                         'user' => $user,
                     ));

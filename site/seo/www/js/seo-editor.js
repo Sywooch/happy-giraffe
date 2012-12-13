@@ -3,27 +3,6 @@
  * Date: 21.05.12
  */
 var SeoKeywords = {
-    page:0,
-    term:'',
-    searchKeywords:function () {
-        $('div.loading').show();
-        $.post('/writing/editor/searchKeywords/', {term:this.term, page:this.page}, function (response) {
-            $('div.loading').hide();
-            if (response.status) {
-                $('.search .result').html(response.count);
-                $('div.table-box tbody').html(response.table);
-                $('div.pagination').html(response.pagination);
-                $('html,body').animate({scrollTop:$('html').offset().top}, 'fast');
-            }
-            else {
-                $.pnotify({
-                    pnotify_title:'Ошибка',
-                    pnotify_type:'error',
-                    pnotify_text:'Не удалось получить кейворды, обратитесь к разработчику'
-                });
-            }
-        }, 'json');
-    },
     Select:function (el, short) {
         var id = this.getId(el);
 

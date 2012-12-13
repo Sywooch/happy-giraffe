@@ -1,76 +1,127 @@
-<div class="search clearfix">
+<?php
+/* @var $this Controller
+ * @var $model Keyword
+ */
+?><div class="search clearfix">
 
     <div class="input">
         <label>Введите слово или фразу</label>
-        <input name="keyword" id="keyword" type="text">
-        <button class="btn btn-green-small" onclick="SeoKeywords.term = $(this).prev().val();SeoKeywords.searchKeywords();return false;">
-            <span><span>Поиск</span></span></button>
-    </div>
-
-    <div class="result">
-
+        <a href="javascript:;" class="remove tooltip" onclick="KeywordsTable.clearSearch()" title="Очистить  поиск"></a>
+        <input type="text" id="keyword" value="<?=$model->name ?>">
+        <button class="btn btn-green-small">Поиск</button>
     </div>
 
     <div class="result-filter">
-        <label for="hide-used">не показывать<br>используемые<br>
+        <label>не показывать<br>используемые<br>
             <input type="checkbox"
                    id="hide-used" <?php if (Yii::app()->user->getState('hide_used') == 1) echo 'checked="checked"' ?>
-                   onchange="SeoKeywords.hideUsed(this);">
-        </label>
+                   onchange="SeoKeywords.hideUsed(this, function(){document.location.reload()});"></label>
     </div>
 
 </div>
 
-<div class="seo-table table-result">
-    <div class="table-box">
-        <table>
-            <thead>
-            <tr>
-                <th rowspan="2" class="col-1" style="width:350px;">Ключевое слово или фраза</th>
-                <th rowspan="2"><i class="icon-freq"></i></th>
-                <th colspan="2">Частота показов</th>
-<!--                <th colspan="2"><i class="icon-comments"></i></th>-->
-                <th colspan="2">Конкуренты</th>
-                <th rowspan="2">Действие</th>
-            </tr>
-            <tr>
-                <th><i class="icon-yandex"></i></th>
-<!--                <th><i class="icon-google"></i></th>-->
-                <th><i class="icon-yandex-2"></i></th>
-<!--                <th><i class="icon-rambler"></i></th>-->
-<!--                <th><i class="icon-yandex"></i></th>-->
-<!--                <th><i class="icon-google"></i></th>-->
-                <th><i class="icon-babyru"></i></th>
-                <th><i class="icon-babyru-2"></i></th>
-            </tr>
-            </thead>
-            <tbody>
-
-            </tbody>
-        </table>
-    </div>
+<div class="seo-table table-result mini">
+    <?php $this->widget('zii.widgets.grid.CGridView', array(
+    'id' => 'keywords-grid',
+    'dataProvider' => $model->searchByTheme($theme),
+//    'afterAjaxUpdate'=>'CompetitorsTable.updateTable()',
+    'filter' => null,
+    'cssFile' => false,
+    'rowCssClassExpression' => '$data->getClass()',
+    'ajaxUpdate'=>false,
+    'template' => '<div class="table-box">{items}</div><div class="pagination pagination-center clearfix">{pager}</div>',
+//        'summaryText' => 'показано: {start} - {end} из {count}',
+    'pager' => array(
+        'class' => 'MyLinkPager',
+        'header' => '',
+    ),
+    'columns' => array(
+        array(
+            'name' => 'name',
+            'header' => 'Ключевое слово или фраза',
+            'type'=>'raw',
+            'value' => '$data->getKeywordAndSimilarArticles()',
+            'headerHtmlOptions' => array('class' => 'col-1'),
+            'htmlOptions' => array('class' => 'col-1')
+        ),
+        array(
+            'name' => 'popularIcon',
+            'type' => 'raw',
+            'value' => 'isset($data->yandex)?$data->yandex->getFreqIcon():""',
+            'header' => '<i class="icon-freq"></i>'
+        ),
+        array(
+            'name' => 'popular',
+            'value' => 'isset($data->yandex)?$data->yandex->value:""',
+            'header' => '<i class="icon-yandex"></i>'
+        ),
+        array(
+            'name' => 'buttons',
+            'value' => '$data->getButtons()',
+            'type' => 'raw',
+            'header' => '',
+            'filter' => false
+        ),
+    ),
+)); ?>
 </div>
-<div class="pagination pagination-center clearfix">
 
-</div>
+<?php $form = $this->beginWidget('CActiveForm', array(
+    'id' => 'seo-form',
+    'enableAjaxValidation' => false,
+    'method' => 'GET',
+    'action' => array('/keywords/default/index')
+));?>
+<?= CHtml::hiddenField('name', $model->name) ?>
+<?= CHtml::hiddenField('theme', $theme) ?>
+<?php $this->endWidget(); ?>
+
 <script type="text/javascript">
-    $(function() {
-        $('#keyword').keypress(function(e){
-            if(e.which == 13){
-                SeoKeywords.term = $(this).val();
-                SeoKeywords.searchKeywords();
-            }
-        });
+    $('.search .input button').click(function () {
+        $('#name').val($('#keyword').val());
+        submitForm();
+    });
 
-        $('body').delegate('.yiiPager li.page a', 'click', function(e){
-            var myRe = /.\/(\d+)\//ig;
+    $('#keyword').keypress(function (e) {
+        if (e.which == 13) {
+            $('#name').val($('#keyword').val());
+            submitForm();
+        }
+    });
 
-            var page = myRe.exec($(this).attr('href'));
-            page = page[1];
-            SeoKeywords.page = page - 1;
-            SeoKeywords.searchKeywords();
+    function submitForm() {
+        $('#seo-form').attr('action', window.location.href);
+        $('#seo-form').submit();
+    }
 
-            return false;
-        });
+    var KeywordsTable = {
+        SetFreq:function (freq) {
+            $('#freq').val(freq);
+            submitForm();
+        },
+        updateTable:function(){
+            $('table.items thead tr th:eq(0)').remove();
+            $('table.items thead tr th:eq(0)').remove();
+            $('table.items thead tr th:eq(0)').remove();
+            $('table.items thead tr th:last').remove();
+
+            var tr = '<tr>\
+                    <th class="col-1" style="width:550px;">Ключевое слово или фраза</th>\
+                    <th><i class="icon-freq"></i></th>\
+                    <th>Частота показов</th>\
+                    <th>Действие</th>\
+                </tr>';
+
+
+            $('table.items thead').prepend(tr);
+        },
+        clearSearch:function(){
+            $('#name').val('');
+            submitForm();
+        }
+    };
+
+    $(function () {
+        KeywordsTable.updateTable();
     });
 </script>

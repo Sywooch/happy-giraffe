@@ -52,9 +52,7 @@ if (empty($model->zodiac1) && !Yii::app()->user->isGuest){
         <?=$form->error($model, 'zodiac2') ?>
     </div>
     <div class="equal"></div>
-    <div class="button">
-        <a href="javascript:;" onclick="$(this).parents('form').submit();">Узнать!</a>
-    </div>
+    <a href="javascript:;" class="button btn-green btn-large" onclick="$(this).parents('form').submit();">Узнать!</a>
 
     <?=$form->errorSummary($model); ?>
     <?php $this->endWidget(); ?>

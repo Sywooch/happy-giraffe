@@ -33,39 +33,10 @@ class EditorController extends SController
         $model = new Keyword();
         $model->attributes = $_GET;
 
-        $this->render('themes', array(
+        $this->render('index', array(
             'model' => $model,
             'theme' => $theme,
         ));
-    }
-
-    public function actionSearchKeywords()
-    {
-        $term = $_POST['term'];
-        if (!empty($term)) {
-            $model = new Keyword;
-            $model->name = $term;
-
-            $dataProvider = $model->search();
-            $criteria = $dataProvider->criteria;
-            $count = Keyword::model()->count($dataProvider->criteria);
-            $pages = new CPagination($count);
-            $pages->pageSize = 100;
-            $pages->currentPage = Yii::app()->request->getPost('page');
-            $pages->applyLimit($dataProvider->criteria);
-
-            $counts = Keyword::model()->getFreqCount($criteria);
-            $criteria2 = clone $criteria;
-            $criteria2->with = array('yandex', 'seoStats', 'group', 'tempKeyword');
-            $models = Keyword::model()->findAll($criteria2);
-            $response = array(
-                'status' => true,
-                'count' => $this->renderPartial('_find_result_count', compact('models', 'counts'), true),
-                'table' => $this->renderPartial('_find_result_table', compact('models'), true),
-                'pagination' => $this->renderPartial('_find_result_pagination', compact('pages'), true)
-            );
-            echo CJSON::encode($response);
-        }
     }
 
     public function actionHideUsed()

@@ -84,18 +84,19 @@ class Keyword extends HActiveRecord
     public function search()
     {
         $criteria = new CDbCriteria;
-        $criteria->condition = 'blacklist.keyword_id IS NULL';
+        //$criteria->condition = 'blacklist.keyword_id IS NULL';
 
         if (!empty($this->name)) {
             $allSearch = Yii::app()->search
                 ->select('*')
                 ->from('keywords')
                 ->where(' ' . $this->name . ' ')
-                ->limit(0, 50000)
+                ->limit(0, 500)
                 ->searchRaw();
             $ids = array();
 
-            $blacklist = Yii::app()->db_seo->createCommand('select keyword_id from ' . KeywordBlacklist::model()->tableName())->queryColumn();
+//            $blacklist = Yii::app()->db_seo->createCommand('select keyword_id from ' . KeywordBlacklist::model()->tableName())->queryColumn();
+            $blacklist = array();
             foreach ($allSearch['matches'] as $key => $m) {
                 if (!in_array($key, $blacklist))
                     $ids [] = $key;
@@ -106,7 +107,7 @@ class Keyword extends HActiveRecord
             else
                 $criteria->compare('t.id', 0);
         }
-        $criteria->with = array('yandex', 'blacklist');
+        $criteria->with = array('yandex');
         $criteria->order = 'yandex.value desc';
 
         return new CActiveDataProvider('Keyword', array(

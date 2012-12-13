@@ -43,6 +43,7 @@ class CookCuisine extends CActiveRecord
 			array('title', 'required'),
 			array('title', 'length', 'max'=>255),
             array('country_id', 'numerical', 'integerOnly' => true),
+            array('country_id', 'default', 'value' => null),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, title', 'safe', 'on'=>'search'),

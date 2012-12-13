@@ -75,6 +75,6 @@ class FriendEventService extends FriendEvent
 
     public function getExist()
     {
-        return $this->service !== null;
+        return $this->service !== null && $this->service->photo !== null;
     }
 }

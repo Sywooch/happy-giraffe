@@ -13,7 +13,7 @@ class WhatsNewUserWidget extends CWidget
     public function run()
     {
         $dp = FriendEventManager::getDataProvider($this->user);
-        if ($dp->itemCount > 0 && false) {
+        if ($dp->itemCount > 0) {
             $this->registerScripts();
             $this->render('index', compact('dp'));
         }
@@ -32,6 +32,9 @@ class WhatsNewUserWidget extends CWidget
         ';
 
         Yii::app()->clientScript
+            ->registerCssFile('/stylesheets/user.css')
+            ->registerCssFile('/stylesheets/isotope.css')
+            ->registerScriptFile('/javascripts/jquery.isotope.min.js')
             ->registerScript('whatsNew-widget', $js)
         ;
     }

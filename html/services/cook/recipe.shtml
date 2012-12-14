@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!--[if lt IE 7]> <html xmlns="http://www.w3.org/1999/xhtml" class="top-nav-fixed"> <![endif]-->
 <!--[if IE 7]>    <html xmlns="http://www.w3.org/1999/xhtml" class="ie7 top-nav-fixed"> <![endif]-->
 <!--[if gt IE 7]><!--> <html xmlns="http://www.w3.org/1999/xhtml" class="top-nav-fixed"> <!--<![endif]-->
@@ -129,7 +129,7 @@
 													<a href="" class="ava small female"><img alt="" src="http://img.happy-giraffe.ru/avatars/20976/small/d1d850f5318107ff8b3c0272b13b53bc.JPG"></a>
 												</li>
 												<li>
-													<a href="" class="link-text">и еще 148</a>
+													<span class="text">и еще 148</span>
 												</li>
 											</ul>
 										</div>
@@ -266,25 +266,13 @@
 											</li>
 										</ul>
 									</div>
-<<<<<<< HEAD
-=======
 									
->>>>>>> 7664ee176a153a9b3d4e28e7b72059d1edb225cc
 									<h2>Приготовление</h2>
 									
 									<div class="instructions wysiwyg-content">
 									
 										<p><em>Мои родители и я пошел в поход на Верхний полуостров штата Мичиган летом после моего старшего года средней школы. Это один из тех поездок, которые всегда будут оставаться со мной. Я был одним из тех больших основные переходные периоды в жизни (хотя, как всегда, я не узнал его в то время) и поездка с родителями в красивой части страны было только, что мне нужно, чтобы чувствовать себя в безопасности , безопасный и готовы отправиться в следующую главу моей жизни.</em></p>
 										
-<<<<<<< HEAD
-										<ol>
-											<li>Курицу нарезать на кусочки, выложить в форму для запекания,
-												посолить, поперчить, добавить специи по вкусу.</li>
-											<li>Курицу залить пивом, поставить в духовку.</li>
-											<li>Жарить при температуре 180 градусов в течение 40-45 минут.</li>
-										</ol>
-										
-=======
 										<ol class="cook-instructions">
 											<li class="clearfix">Курицу нарезать на кусочки, выложить в форму для запекания,
 												посолить, поперчить, добавить специи по вкусу.</li>
@@ -295,7 +283,14 @@
 										
 										<div class="clearfix">
 											<div class="cook-diabets">
-												<div class="cook-diabets-chart val66">
+												<!-- 
+												Диаграмма для диабетиков имеет 4 состояния на сколько не подходит 
+												val0 (по умолчанию даже без класса) 
+												val33
+												val66
+												val100
+												-->
+												<div class="cook-diabets-chart val33">
 													<span class="text">20.5</span>
 												</div>
 												<div class="cook-diabets-desc">Подходит для диабетиков</div>
@@ -306,11 +301,14 @@
 												<ul class="cook-article-tags-list">
 													<li><a href="">Рыбные блюда</a></li>
 													<li><a href="">Рыбные блюда</a></li>
+													<li><a href="">Рыбные </a></li>
+													<li><a href="">Рыбные 234234 блюда</a></li>
+													<li><a href="">Рыбные блюда</a></li>
+													<li><a href="">Рыбные блюда</a></li>
 													<li><a href="">Рыбные блюда</a></li>
 												</ul>
 											</div>
 										</div>
->>>>>>> 7664ee176a153a9b3d4e28e7b72059d1edb225cc
 									</div>
 								
 								</div>
@@ -321,61 +319,30 @@
 								<div class="block-title">
 									Еще вкусненькое
 								</div>
-								<ul>
+								<ul class="clearfix">
 									<li>
-<<<<<<< HEAD
-=======
 										<div class="content">
-											<a href=""><img src="/images/cook_more_img_01.jpg"></a>
+											<a href=""><img src="/images/cook_more_img_01.jpg" height="105" width="120"></a>
 										</div>
 										<div class="item-title"><a href="">Ригатони макароны с соусом из помидор говядины</a></div>
->>>>>>> 7664ee176a153a9b3d4e28e7b72059d1edb225cc
 										<div class="user clearfix">
 											<div class="user-info clearfix">
 												<a class="ava female small"></a>
 												<div class="details">
-<<<<<<< HEAD
-													<span class="icon-status status-online"></span>
-=======
->>>>>>> 7664ee176a153a9b3d4e28e7b72059d1edb225cc
 													<a href="" class="username">Дарья</a>
 												</div>
 											</div>
 										</div>
-<<<<<<< HEAD
-										<div class="item-title"><a href="">Ригатони макароны с соусом из помидор говядины</a></div>
-										<div class="date">3 сен 2012, 08:25</div>
-										<div class="content">
-											<img src="/images/cook_more_img_01.jpg">
-										</div>
-									</li>
-									<li>
-=======
 									</li>
 									<li>
 										<div class="content">
-											<a href=""><img src="/images/cook_recipe_img_01.jpg"></a>
+											<a href=""><img src="/images/cook_recipe_img_01.jpg" height="105" width="120"></a>
 										</div>
-										<div class="item-title"><a href="">Ригатони макароны с соусом из помидор говядины</a></div>
->>>>>>> 7664ee176a153a9b3d4e28e7b72059d1edb225cc
+										<div class="item-title"><a href="">Торт песочный с орехами,черникой и клубникой</a></div>
 										<div class="user clearfix">
 											<div class="user-info clearfix">
 												<a class="ava female small"></a>
 												<div class="details">
-<<<<<<< HEAD
-													<span class="icon-status status-online"></span>
-													<a href="" class="username">Денис Ижецкий</a>
-												</div>
-											</div>
-										</div>
-										<div class="item-title"><a href="">Ригатони макароны с соусом из помидор говядины</a></div>
-										<div class="date">3 сен 2012, 08:25</div>
-										<div class="content">
-											<img src="/images/cook_more_img_01.jpg">
-										</div>
-									</li>
-									<li>
-=======
 													<a href="" class="username">Дарья</a>
 												</div>
 											</div>
@@ -384,28 +351,13 @@
 									
 									<li>
 										<div class="content">
-											<a href=""><img src="/images/cook_more_img_01.jpg"></a>
+											<a href=""><img src="/images/cook_more_img_01.jpg" height="105" width="120"></a>
 										</div>
 										<div class="item-title"><a href="">Ригатони макароны с соусом из помидор говядины</a></div>
->>>>>>> 7664ee176a153a9b3d4e28e7b72059d1edb225cc
 										<div class="user clearfix">
 											<div class="user-info clearfix">
 												<a class="ava female small"></a>
 												<div class="details">
-<<<<<<< HEAD
-													<span class="icon-status status-online"></span>
-													<a href="" class="username">Денис</a>
-												</div>
-											</div>
-										</div>
-										<div class="item-title"><a href="">Ригатони макароны с соусом из помидор говядины</a></div>
-										<div class="date">3 сен 2012, 08:25</div>
-										<div class="content">
-											<img src="/images/cook_more_img_01.jpg">
-										</div>
-									</li>
-									
-=======
 													<a href="" class="username">Дарья</a>
 												</div>
 											</div>
@@ -413,7 +365,7 @@
 									</li>
 									<li>
 										<div class="content">
-											<a href=""><img src="/images/cook_recipe_img_01.jpg"></a>
+											<a href=""><img src="/images/cook_recipe_img_01.jpg" height="105" width="120"></a>
 										</div>
 										<div class="item-title"><a href="">Умный рулет</a></div>
 										<div class="user clearfix">
@@ -427,16 +379,32 @@
 									</li>
 									
 									
->>>>>>> 7664ee176a153a9b3d4e28e7b72059d1edb225cc
 								</ul>
 							</div>
 							
 							<div class="default-comments">
 							
 								<div class="comments-meta clearfix">
-									<a href="" class="btn btn-orange a-right"><span><span>Добавить комментарий</span></span></a>
 									<div class="title">Комментарии</div>
-									<div class="count">55</div>
+									<div class="count">(55)</div>
+								</div>
+								
+								<div class="comment-add clearfix">
+									<div class="comment-add_user">
+										<a href="">Авторизируйтесь</a>
+										<div class="social-small-row clearfix">
+											<em>или войти с помощью</em> <br />
+											<ul class="social-list-small">
+												<li><a href="#" class="odnoklasniki"></a></li>
+												<li><a href="#" class="mailru"></a></li>
+												<li><a href="#" class="vk"></a></li>
+												<li><a href="#" class="fb"></a></li>
+											</ul>
+										</div>
+									</div>
+									<div class="comment-add_form-holder">
+										<input type="text" name="" class="input-text" placeholder="Введите ваш комментарий"/>
+									</div>
 								</div>
 								
 								<ul>
@@ -590,6 +558,96 @@
 								
 							</div>
 							
+	<script type="text/javascript">
+	//<![CDATA[
+
+		$(function(){
+
+			/* skin hgru-comment */
+			CKEDITOR.replace( 'editor',
+				{
+					skin : 'hgrucomment',
+					toolbar : [	
+						['Bold','Italic','Underline','-','Image', 'Smiles']
+					],
+					toolbarCanCollapse: false,
+					disableObjectResizing: false,
+					height: 80
+				});
+
+			/* js дважды для двух редакторов на стр. */
+			/* skin hgru-comment */
+			CKEDITOR.replace( 'editor2',
+				{
+					skin : 'hgrucomment',
+					toolbar : [	
+						['Bold','Italic','Underline','-','Image', 'Smiles']
+					],
+					toolbarCanCollapse: false,
+					disableObjectResizing: false,
+					height: 80
+				});
+			});
+
+	//]]>
+	</script>
+						
+								
+					<div class="comment-add clearfix">
+						<div class="comment-add_user">
+							<a href="">Авторизируйтесь</a>
+							<div class="social-small-row clearfix">
+								<em>или войти с помощью</em> <br />
+								<ul class="social-list-small">
+									<li><a href="#" class="odnoklasniki"></a></li>
+									<li><a href="#" class="mailru"></a></li>
+									<li><a href="#" class="vk"></a></li>
+									<li><a href="#" class="fb"></a></li>
+								</ul>
+							</div>
+						</div>
+						<div class="comment-add_form-holder">
+							<input type="text" name="" class="input-text" placeholder="Введите ваш комментарий"/>
+						</div>
+					</div>
+					
+					<div class="comment-add active clearfix">
+						<div class="comment-add_user">
+							<a href="">Авторизируйтесь</a>
+							<div class="social-small-row clearfix">
+								<em>или войти с помощью</em> <br />
+								<ul class="social-list-small">
+									<li><a href="#" class="odnoklasniki"></a></li>
+									<li><a href="#" class="mailru"></a></li>
+									<li><a href="#" class="vk"></a></li>
+									<li><a href="#" class="fb"></a></li>
+								</ul>
+							</div>
+						</div>
+						<div class="comment-add_form-holder">
+							<textarea cols="80" id="editor" name="editor" rows="10"></textarea>
+							<div class="a-right">
+						        <button class="btn-gray medium cancel">Отмена</button>
+						        <button class="btn-green medium">Добавить</button>
+						    </div>
+						</div>
+					</div>
+					
+					<div class="comment-add active clearfix">
+						<div class="comment-add_user">
+							<div class="comment-add_user-ava">
+   								 <a href="" class="ava female"><img alt="" src="http://img.happy-giraffe.ru/avatars/13623/ava/7acd577045e2014b4d26ecd33f6ce6d2.jpeg"></a>
+					              <span class="comment-add_username">Татьяна Пахоменко </span>
+                   			</div>
+						</div>
+						<div class="comment-add_form-holder">
+							<textarea cols="40" id="editor2" name="editor2" rows="5"></textarea>
+							<div class="a-right">
+						        <button class="btn-gray medium cancel">Отмена</button>
+						        <button class="btn-green medium">Добавить</button>
+						    </div>
+						</div>
+					</div>
 							
 						</div>
 						
@@ -781,76 +839,7 @@
 		
 	</div>
 
-<<<<<<< HEAD
-	<div id="footer" class="wrapper clearfix">
-		
-		<div class="a-right">
-			<a href="">Политика конфедециальности</a> &nbsp; | &nbsp; <a href="">Пользовательское соглашение</a>
-		</div>
-		
-		<div class="copy">
-			<p>Весёлый жираф &nbsp; © 2012 &nbsp; Все права защищены</p>
-		</div>
-		
-	</div>
-	
-<div style="display:none">
-	<div id="login" class="popup">
-		
-		<a href="javascript:void(0);" onclick="$.fancybox.close();" class="popup-close"><span class="tip">Закрыть</span></a>
-		
-		<div class="popup-title">Вход на сайт</div>
-		
-		<form>
-			<div class="form">
-				
-				<div class="a-right login-btn">
-					
-					<div class="remember">
-						<label><input type="checkbox" /><br/>Запомнить меня</label>
-					</div>
-					
-					<button class="btn btn-green-arrow-big"><span><span>Войти</span></span></button>
-					
-				</div>
-				
-				<div class="row">
-					<div class="row-title">Ваш e-mail:</div>
-					<div class="row-elements"><input type="text" /></div>
-				</div>
-				
-				<div class="row">
-					<div class="row-title">Ваш пароль:</div>
-					<div class="row-elements"><input type="password" /></div>
-					<div class="row-bottom"><a href="">Забыли пароль?</a></div>
-				</div>
-				
-				<div class="row row-social">
-					Быстрый вход:
-					&nbsp;
-					<a href=""><img src="/images/icon_social_odnoklassniki.png" /></a>
-					<a href=""><img src="/images/icon_social_vkontakte.png" /></a>
-					<a href=""><img src="/images/icon_social_mailru.png" /></a>
-				</div>
-				
-				<div class="reg-link">
-					
-					<div class="a-right">
-						<a class="btn btn-orange" href=""><span><span>Зарегистрироваться</span></span></a>
-					</div>
-					
-					<div class="row"><span>Еще нет учетной записи?</span></div>
-					
-				</div>
-				
-			</div>
-		</form>
-		
-	</div>
-	
-=======
 	<!--#include virtual="/block/global/footer.shtml" -->
->>>>>>> 7664ee176a153a9b3d4e28e7b72059d1edb225cc
 </div>
 </body>
 </html>

@@ -1,6 +1,6 @@
 <?php
     $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
-        'selector' => '.masonry-news-list_item:data(id=' . $data->_id . ') .title-img a',
+        'selector' => '.masonry-news-list_item:data(id=' . $data->blockId . ') .title-img a',
         'entity' => 'CookRecipe',
         'entity_id' => $data->recipe->id,
         'entity_url' => $data->recipe->url,

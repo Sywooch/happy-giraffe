@@ -359,10 +359,7 @@ class CommentatorWork extends EMongoDocument
         $criteria->condition = 'updated >= :today AND status = ' . SeoTask::STATUS_CLOSED.' AND multivarka>=1 ';
         $criteria->params = array(':today' => date("Y-m-d") . ' 00:00:00');
         $criteria->compare('executor_id', Yii::app()->user->id);
-        $task = SeoTask::model()->find($criteria);
-
-        if ($task !== null)
-            $count++;
+        $count += SeoTask::model()->count($criteria);
 
         return $count;
     }

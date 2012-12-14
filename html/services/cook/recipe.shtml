@@ -301,6 +301,10 @@
 												<ul class="cook-article-tags-list">
 													<li><a href="">Рыбные блюда</a></li>
 													<li><a href="">Рыбные блюда</a></li>
+													<li><a href="">Рыбные </a></li>
+													<li><a href="">Рыбные 234234 блюда</a></li>
+													<li><a href="">Рыбные блюда</a></li>
+													<li><a href="">Рыбные блюда</a></li>
 													<li><a href="">Рыбные блюда</a></li>
 												</ul>
 											</div>
@@ -315,10 +319,10 @@
 								<div class="block-title">
 									Еще вкусненькое
 								</div>
-								<ul>
+								<ul class="clearfix">
 									<li>
 										<div class="content">
-											<a href=""><img src="/images/cook_more_img_01.jpg"></a>
+											<a href=""><img src="/images/cook_more_img_01.jpg" height="105" width="120"></a>
 										</div>
 										<div class="item-title"><a href="">Ригатони макароны с соусом из помидор говядины</a></div>
 										<div class="user clearfix">
@@ -332,9 +336,9 @@
 									</li>
 									<li>
 										<div class="content">
-											<a href=""><img src="/images/cook_recipe_img_01.jpg"></a>
+											<a href=""><img src="/images/cook_recipe_img_01.jpg" height="105" width="120"></a>
 										</div>
-										<div class="item-title"><a href="">Ригатони макароны с соусом из помидор говядины</a></div>
+										<div class="item-title"><a href="">Торт песочный с орехами,черникой и клубникой</a></div>
 										<div class="user clearfix">
 											<div class="user-info clearfix">
 												<a class="ava female small"></a>
@@ -347,7 +351,7 @@
 									
 									<li>
 										<div class="content">
-											<a href=""><img src="/images/cook_more_img_01.jpg"></a>
+											<a href=""><img src="/images/cook_more_img_01.jpg" height="105" width="120"></a>
 										</div>
 										<div class="item-title"><a href="">Ригатони макароны с соусом из помидор говядины</a></div>
 										<div class="user clearfix">
@@ -361,7 +365,7 @@
 									</li>
 									<li>
 										<div class="content">
-											<a href=""><img src="/images/cook_recipe_img_01.jpg"></a>
+											<a href=""><img src="/images/cook_recipe_img_01.jpg" height="105" width="120"></a>
 										</div>
 										<div class="item-title"><a href="">Умный рулет</a></div>
 										<div class="user clearfix">
@@ -382,7 +386,7 @@
 							
 								<div class="comments-meta clearfix">
 									<div class="title">Комментарии</div>
-									<div class="count">55</div>
+									<div class="count">(55)</div>
 								</div>
 								
 								<div class="comment-add clearfix">

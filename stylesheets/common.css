@@ -3065,8 +3065,8 @@ div.scrollbarpaper-drag {-moz-border-radius:3px;-webkit-border-radius:3px;border
 
 .default-comments .comments-meta {padding-bottom:3px;border-bottom:1px solid #cdecff;}
 .default-comments .comments-meta .btn {margin-top:5px;}
-.default-comments .comments-meta .title {float:left;height:36px;line-height:36px;background:#cdecff;padding:0 15px;color:#252525;font-size:22px;}
-.default-comments .comments-meta .count {font:bold 36px/1 tahoma, arial, sans-serif;color:#cdecff;float:left;margin-top:-2px;}
+.default-comments .comments-meta .title {float:left;line-height:36px;padding:0 4px;color:#252525;font-size:22px;}
+.default-comments .comments-meta .count {font:bold 22px/36px tahoma, arial, sans-serif;color:#6ea0d4;float:left;}
 .default-comments .comments-meta .avg-rating {margin-left:275px;line-height:25px;padding-top:8px;font-size:12px;color:#4EAFC2;}
 .default-comments .comments-meta .avg-rating  .rating {height:25px;display:inline-block;*zoom:1;*display:inline;vertical-align:top;margin-left:5px;overflow:hidden;}
 .default-comments .comments-meta .avg-rating  .rating .s1 {width:27px;height:25px;background:url(../images/common.png) no-repeat -100px -125px;display:block;float:left;}

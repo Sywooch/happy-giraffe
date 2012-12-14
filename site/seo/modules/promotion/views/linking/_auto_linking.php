@@ -101,3 +101,7 @@ $phrase->refresh();
     </div>
 
 </div>
+
+<?php if (isset($time)):?>
+    <div>Время работы: <?=$time ?> c.</div>
+<?php endif ?>

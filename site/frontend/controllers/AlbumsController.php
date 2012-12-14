@@ -725,6 +725,9 @@ class AlbumsController extends HController
                 if ($category_id !== null)
                     $model = $model->findByPk($category_id);
                 $decor = CookDecoration::model()->findByAttributes(array('photo_id' => $photo_id));
+                if ($decor === null)
+                    throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
                 $photo->w_title = $decor->title;
                 $photo->w_description = $decor->description;
                 $collection = array();

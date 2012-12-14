@@ -87,6 +87,7 @@ class RecipeController extends HController
 
             $dp = CActiveRecord::model($this->modelName)->getByTag($tag, $type);
             $this->counts = CActiveRecord::model($this->modelName)->count($dp->criteria);
+            $tag = CookRecipeTag::model()->findByPk($tag);
 
             $this->render('tag', compact('dp', 'tag'));
         }

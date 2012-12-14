@@ -309,7 +309,7 @@ class AjaxController extends HController
 
     public function actionUserViaCommunity()
     {
-        $user = User::model()->with('communities')->findByPk(Yii::app()->user->id);
+        $user = User::model()->findByPk(Yii::app()->user->id);
         $communities = $user->communities;
         $_communities = array();
         foreach ($communities as $c) {

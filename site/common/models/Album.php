@@ -19,16 +19,23 @@
  */
 class Album extends HActiveRecord
 {
+    const TYPE_PRIVATE = 1;
+    const TYPE_DIALOGS = 2;
+    const TYPE_FAMILY = 3;
+    const TYPE_PRODUCTS = 4;
+    const TYPE_RECIPES = 5;
+    const TYPE_PREVIEW = 6;
+
     private $_check_access = null;
     public $files = array();
 
     public static $systems = array(
-        1 => 'Личные фотографии',
-        2 => 'Диалоги',
-        3 => 'Семейные',
-        4 => 'Продукты',
-        5 => 'Мои рецепты',
-        6 => 'Видео превью'
+        self::TYPE_PRIVATE => 'Личные фотографии',
+        self::TYPE_DIALOGS => 'Диалоги',
+        self::TYPE_FAMILY => 'Семейные',
+        self::TYPE_PRODUCTS => 'Продукты',
+        self::TYPE_RECIPES => 'Мои рецепты',
+        self::TYPE_PREVIEW => 'Видео превью'
     );
 
     public static $permissions = array(

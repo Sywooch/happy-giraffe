@@ -858,6 +858,16 @@ class User extends HActiveRecord
         return Yii::app()->$method($route, $params);
     }
 
+    public function getBlogUrl()
+    {
+        return Yii::app()->createUrl('/blog/list', array('user_id' => $this->id));
+    }
+
+    public function getPhotosUrl()
+    {
+        return Yii::app()->createUrl('/albums/user', array('id' => $this->id));
+    }
+
     public function addCommunity($community_id)
     {
         $result = Yii::app()->db->createCommand()

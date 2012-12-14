@@ -74,23 +74,61 @@ class RecipeController extends HController
         $this->render('index', compact('dp', 'type'));
     }
 
-    public function actionTag($tag = null, $type = null)
+    public function actionTag($tag, $type = null)
     {
-        if (!Yii::app()->user->checkAccess('recipe_tags'))
+        $model = $this->loadTag($tag);
+        $this->pageTitle = $model->title;
+        $this->layout = '//layouts/recipe';
+        $this->currentType = $type;
+
+        $dp = CActiveRecord::model($this->modelName)->getByTag($tag, $type);
+        $this->counts = CActiveRecord::model($this->modelName)->getCountsByTag($tag);
+
+        if (empty($type))
+            $this->breadcrumbs = array(
+                'Кулинария' => array('/cook'),
+                'Кулинарные рецепты' => array('/cook/recipe'),
+                $model->title
+            );
+        else
+            $this->breadcrumbs = array(
+                'Кулинария' => array('/cook'),
+                'Кулинарные рецепты' => array('/cook/recipe'),
+                $model->title => $this->createUrl('/cook/recipe/tag', array('tag' => $tag)),
+                CookRecipe::model()->types[$type],
+            );
+
+        $this->render('tag', compact('dp', 'model'));
+    }
+
+    public function actionCookBook($type = null)
+    {
+        if (Yii::app()->user->isGuest)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
-        if (empty($tag))
-            $this->render('tag_list');
-        else {
-            $this->pageTitle = CookRecipeTag::model()->findByPk($tag)->title;
-            $this->layout = '//layouts/recipe';
+        $this->pageTitle = 'Моя кулинарная книга';
+        $this->layout = '//layouts/recipe';
+        $this->currentType = $type;
 
-            $dp = CActiveRecord::model($this->modelName)->getByTag($tag, $type);
-            $this->counts = CActiveRecord::model($this->modelName)->count($dp->criteria);
-            $tag = CookRecipeTag::model()->findByPk($tag);
+        $dp = CActiveRecord::model($this->modelName)->getByCookBook($type);
+        $this->counts = CActiveRecord::model($this->modelName)->getCountsByCookBook($type);
 
-            $this->render('tag', compact('dp', 'tag'));
-        }
+        if (empty($type))
+            $this->breadcrumbs = array(
+                'Кулинария' => array('/cook'),
+                ($this->section == 0 ? 'Кулинарные рецепты' : 'Рецепты для мультиварок') => array('/cook/recipe/index', 'section' => $this->section),
+                'Моя кулинарная книга'
+            );
+        else
+            $this->breadcrumbs = array(
+                'Кулинария' => array('/cook'),
+                ($this->section == 0 ? 'Кулинарные рецепты' : 'Рецепты для мультиварок') => array('/cook/recipe/index', 'section' => $this->section),
+                'Моя кулинарная книга' => array('/cook/recipe/cookBook', 'section' => $this->section),
+                CookRecipe::model()->types[$type],
+            );
+
+
+        $this->render('cookbook', compact('dp'));
     }
 
     public function actionForm($id = null)
@@ -251,7 +289,7 @@ class RecipeController extends HController
         $this->counts = CActiveRecord::model($this->modelName)->counts;
         $this->currentType = $recipe->type;
         $this->layout = '//layouts/recipe';
-        $this->pageTitle = $recipe->title.' - Кулинарные рецепты от Веселого Жирафа';
+        $this->pageTitle = $recipe->title . ' - Кулинарные рецепты от Веселого Жирафа';
 
         if (!Yii::app()->user->isGuest)
             UserNotification::model()->deleteByEntity($recipe, Yii::app()->user->id);
@@ -486,10 +524,34 @@ class RecipeController extends HController
         echo CJSON::encode(array('status' => $result));
     }
 
-    public function actionBook(){
+    public function actionBook()
+    {
         $recipe = $this->loadModel(Yii::app()->request->getPost('recipe_id'));
 
-        echo CJSON::encode(array('status' => true, 'result'=>$recipe->book()));
+        echo CJSON::encode(array('status' => true, 'result' => $recipe->book()));
+    }
+
+    public function getTypeUrl($id)
+    {
+        if (empty($id))
+            $params = array();
+        else
+            $params = array('type' => $id);
+
+        if ($this->action->id == 'search') {
+            $params['text'] = $_GET['text'];
+            return $this->createUrl('/cook/recipe/search', $params);
+        } elseif ($this->action->id == 'index') {
+            $params['section'] = $this->section;
+            return $this->createUrl('/cook/recipe/index', $params);
+        } elseif ($this->action->id == 'tag') {
+            $params['tag'] = $_GET['tag'];
+            return $this->createUrl('/cook/recipe/tag', $params);
+        } elseif ($this->action->id == 'cookBook') {
+            return $this->createUrl('/cook/recipe/cookBook', $params);
+        }
+
+        return '#';
     }
 
     protected function lastModified()
@@ -520,8 +582,22 @@ class RecipeController extends HController
      * @return CookRecipe
      * @throws CHttpException
      */
-    public function loadModel($id){
+    public function loadModel($id)
+    {
         $model = CookRecipe::model()->findByPk($id);
+        if ($model === null)
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        return $model;
+    }
+
+    /**
+     * @param int $id model id
+     * @return CookRecipeTag
+     * @throws CHttpException
+     */
+    public function loadTag($id)
+    {
+        $model = CookRecipeTag::model()->findByPk($id);
         if ($model === null)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
         return $model;

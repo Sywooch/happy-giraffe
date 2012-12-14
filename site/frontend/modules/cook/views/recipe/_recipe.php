@@ -8,19 +8,13 @@
 
     <div class="entry-header clearfix">
 
-        <div class="user-info user-info-small clearfix">
-            <div class="ava female small"></div>
-            <div class="details">
-                <a href="" class="username"><?=$data->author->getFullName() ?></a>
-                <div class="date"><?=Yii::app()->dateFormatter->format("d MMMM yyyy, H:mm", $data->created)?></div>
-            </div>
-        </div>
+        <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => $data->author,'size'=>'small', 'time'=>$data->created, 'location'=>false, 'sendButton'=>false, 'online_status'=>false)); ?>
 
         <div class="meta meta-small">
-            <div class="views"><span href="#" class="icon"></span> <span>265</span></div>
+            <div class="views"><span class="icon"></span> <span><?=PageView::model()->viewsByPath(str_replace('http://www.happy-giraffe.ru', '', $data->url), true)?></span></div>
             <div class="comments">
-                <a href="#" class="icon"></a>
-                <a href="">15233</a>
+                <?=HHtml::link('', $data->getUrl(true), array('class'=>'icon'), true) ?>
+                <?=HHtml::link($data->commentsCount, $data->getUrl(true), array(), true) ?>
             </div>
         </div>
 
@@ -42,27 +36,22 @@
         <div class="recipe-description clearfix">
             <div class="recipe-description-holder">
             <?php if ($data->cuisine): ?>
-                    <a href="" class="country">
-                        <?php if (!empty($data->cuisine->country_id)):?>
-                            <span class="flag-big flag-big-<?=$data->cuisine->country->iso_code ?>"></span>
-                        <?php endif ?>
-                        <?=$data->cuisine->title?>
-                    </a>
+                <span class="country"><?php if (!empty($data->cuisine->country_id)):?><span class="flag-big flag-big-<?=$data->cuisine->country->iso_code ?>"></span><?php endif ?><?=$data->cuisine->title?></span>
             <?php endif; ?>
             <?php if ($data->preparation_duration): ?>
             <div class="recipe-description-item">
-                <div class="icon-time-1 tooltip"></div>
+                <div class="icon-time-1 tooltip" title="Время подготовки"></div>
                 <?=$data->preparation_duration_h?> : <?=$data->preparation_duration_m?>
             </div>
             <?php endif; ?>
             <?php if ($data->cooking_duration): ?>
-            <div class="recipe-description-item">
+            <div class="recipe-description-item" title="Время приготовления">
                 <div class="icon-time-2 tooltip"></div>
                 <?=$data->cooking_duration_h?> : <?=$data->cooking_duration_m?>
             </div>
             <?php endif; ?>
             <?php if ($data->servings): ?>
-            <div class="recipe-description-item">
+            <div class="recipe-description-item" title="Количество порций">
                 <div class="icon-yield tooltip"></div>
                 на <?=$data->servings?> <?=HDate::GenerateNoun(array('персона', 'персоны', 'персон'), $data->servings)?>
             </div>

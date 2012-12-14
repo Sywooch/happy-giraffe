@@ -541,17 +541,15 @@ class RecipeController extends HController
         if ($this->action->id == 'search') {
             $params['text'] = $_GET['text'];
             return $this->createUrl('/cook/recipe/search', $params);
-        } elseif ($this->action->id == 'index') {
-            $params['section'] = $this->section;
-            return $this->createUrl('/cook/recipe/index', $params);
         } elseif ($this->action->id == 'tag') {
             $params['tag'] = $_GET['tag'];
             return $this->createUrl('/cook/recipe/tag', $params);
         } elseif ($this->action->id == 'cookBook') {
             return $this->createUrl('/cook/recipe/cookBook', $params);
+        } else {
+            $params['section'] = $this->section;
+            return $this->createUrl('/cook/recipe/index', $params);
         }
-
-        return '#';
     }
 
     protected function lastModified()

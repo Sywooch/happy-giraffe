@@ -1,14 +1,14 @@
 <?php
 /* @var $this Controller
- * @var $data CookRecipe
+ * @var $recipe CookRecipe
  */
-$users = $data->getBookedUsers();
-$count = $data->getBookedCount();
+$users = $recipe->getBookedUsers();
+$count = $recipe->getBookedCount();
 ?>
 <div class="recipe-right">
     <div class="cook-book-info">
-        <a href="javascript:;" onclick="Cook.bookRecipe(this)" data-id="<?=$data->id ?>">
-            <?php if ($data->isBooked()):?>
+        <a href="javascript:;" onclick="Cook.bookRecipe(this)" data-id="<?=$recipe->id ?>">
+            <?php if ($recipe->isBooked()):?>
                 <span>Рецепт в моей <br>кулинарной книге</span>
                 <i class="icon-exist"></i>
             <?php else: ?>
@@ -17,9 +17,8 @@ $count = $data->getBookedCount();
             <?php endif ?>
         </a>
     </div>
-    <div class="recipe-user-adds">
-        <?php if ($count == 0): ?>
-        <?php else: ?>
+    <?php if (count($users) > 0): ?>
+        <div class="recipe-user-adds">
             <p>Этот рецепт также добавили:</p>
             <ul class="clearfix">
                 <?php foreach ($users as $user): ?>
@@ -35,7 +34,7 @@ $count = $data->getBookedCount();
                     <li><span class="link-text">и еще <?=$$count - 20 ?></span></li>
                 <?php endif ?>
             </ul>
-        <?php endif ?>
-    </div>
+        </div>
+    <?php endif ?>
 
 </div>

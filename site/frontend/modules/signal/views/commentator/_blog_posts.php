@@ -8,7 +8,7 @@ $tasks = SeoTask::getCommentatorActiveTasks(0);
 //filter task posts
 foreach ($blog_posts as $key => $blog_post)
     foreach ($tasks as $task)
-        if ($task->article->entity_id == $blog_post->id)
+        if (isset($task->article) && $task->article->entity_id == $blog_post->id)
             unset($blog_posts[$key]);
 
 ?><span class="item-title">1. Написать <?=$this->commentator->getBlogPostsLimit() <= 1 ? '':$this->commentator->getBlogPostsLimit() ?> <?=HDate::GenerateNoun(array('запись','записи','записей'), $this->commentator->getBlogPostsLimit()) ?> в блог</span><span class="progress"><span style="width:<?=$progress ?>%"></span></span>

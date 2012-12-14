@@ -4635,7 +4635,7 @@ ul.letters li a:hover {
     border-radius: 15px;
     behavior: url(/stylesheets/PIE.htc);
 }
-.recipe-article .recipe-description .country {font-size: 13px;margin-right: 25px;float: left;}
+.recipe-article .recipe-description .country {font-size: 13px;margin-right: 25px;float: left;color: #029AD2;text-decoration: underline;}
 .recipe-article .recipe-description .country .flag-big {display: inline-block;*zoom:1;*display:inline;vertical-align: middle;margin:-4px 5px 0 0;}
 .recipe-article .recipe-description .recipe-description-item {
     float: left;
@@ -5032,4 +5032,6 @@ ul.letters li a:hover {
     font-style: italic;
     overflow:hidden;
     height: 1%;
+    color: #2c2c2c;
 }
+.giraffe-story-text .allocation {color: #1a1a1a;font-size: 13px;}

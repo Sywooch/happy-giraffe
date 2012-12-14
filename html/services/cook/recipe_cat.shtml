@@ -149,10 +149,10 @@
 									
 									<div class="recipe-description clearfix">
 										<div class="recipe-description-holder">
-											<a href="" class="country">
+											<span class="country">
 												<span class="flag-big flag-big-ua"></span>
 												Украинская кухня
-											</a>
+											</span>
 											<div class="recipe-description-item">
 												<div class="icon-time-1 tooltip" title="Время подготовки"></div>
 												02 : 00

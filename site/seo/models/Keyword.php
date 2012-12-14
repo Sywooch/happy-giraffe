@@ -84,7 +84,8 @@ class Keyword extends HActiveRecord
     public function search()
     {
         $criteria = new CDbCriteria;
-        $criteria->condition = 'blacklist.keyword_id IS NULL';
+        $criteria->condition = 't.id NOT IN (SELECT keyword_id from `keywords__blacklist` WHERE user_id = :me)';
+        $criteria->params = array(':me'=>Yii::app()->user->id);
 
         if (!empty($this->name)) {
             $allSearch = Yii::app()->search
@@ -205,8 +206,8 @@ class Keyword extends HActiveRecord
     /**
      * @static
      * @param string $word
+     * @param int $priority
      * @return Keyword
-     * @throws CHttpException
      */
     public static function GetKeyword($word, $priority = 1)
     {

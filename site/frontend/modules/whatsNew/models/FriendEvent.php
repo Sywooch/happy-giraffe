@@ -125,4 +125,9 @@ class FriendEvent extends EMongoDocument
     {
         return true;
     }
+
+    public function getBlockId()
+    {
+        return $this->_id;
+    }
 }

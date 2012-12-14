@@ -1,7 +1,7 @@
 <?php if ($post->gallery !== null): ?>
     <?php
         $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
-            'selector' => '.masonry-news-list_item:data(blockId=' . $data->blockId . ') .masonry-news-list_img-list a',
+            'selector' => '.masonry-news-list_item:data(blockId=' . $blockId . ') .masonry-news-list_img-list a',
             'entity' => 'CommunityContentGallery',
             'entity_id' => $post->gallery->id,
             'entity_url' => $post->url,

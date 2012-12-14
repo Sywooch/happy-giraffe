@@ -45,10 +45,10 @@ class FriendEvent extends EMongoDocument
     private $_params;
     private $_user;
 
-//    public function init()
-//    {
-//        $this->ensureIndexes = false;
-//    }
+    public function init()
+    {
+        $this->ensureIndexes = false;
+    }
 
     public function indexes()
     {

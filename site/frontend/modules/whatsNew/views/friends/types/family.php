@@ -5,7 +5,7 @@
 
     <div class="user-family">
         <ul>
-            <?php if ($data->partner !== null): ?>
+            <?php if ($data->partner !== null && ! empty($data->partner->name)): ?>
                 <li>
                     <big><?= $data->partner->name ?> <small>- <?php echo $data->user->getPartnerTitleOf(null, 3) ?></small></big>
                     <?php if (!empty($data->partner->notice)):?>
@@ -47,7 +47,7 @@
                     <li class="waiting clearfix">
                         <i class="icon"></i>
                         <div class="in">
-                            <big>Ждём<?php if ($user->hasBaby()): ?> ещё<?php endif; ?></big>
+                            <big>Ждём<?php if ($data->user->hasBaby()): ?> ещё<?php endif; ?></big>
                             <?php if ($baby->sex == 0): ?>
                             <div class="gender">Девочку <i class="icon-female"></i></div>
                             <?php endif; ?>

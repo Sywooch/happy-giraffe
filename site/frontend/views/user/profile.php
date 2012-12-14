@@ -191,13 +191,22 @@
 
             </div>
 
-            <?php $this->widget('application.widgets.commentWidget.CommentWidget', array(
-                'model' => $user,
-                'type' => 'guestBook',
-                'title' => 'Гостевая',
-                'button' => 'Добавить запись',
-                'actions' => false,
-            )); ?>
+            <?php
+                if (! Yii::app()->user->isGuest && $user->id == Yii::app()->user->id && in_array(Yii::app()->user->group, array(UserGroup::COMMENTATOR, UserGroup::MODERATOR, UserGroup::EDITOR))) {
+                    $this->widget('WhatsNewUserWidget', array(
+                        'user' => $user,
+                    ));
+                }
+                else {
+                    $this->widget('application.widgets.commentWidget.CommentWidget', array(
+                        'model' => $user,
+                        'type' => 'guestBook',
+                        'title' => 'Гостевая',
+                        'button' => 'Добавить запись',
+                        'actions' => false,
+                    ));
+                }
+            ?>
 
         </div>
 

@@ -1,5 +1,5 @@
 <div class="best-users tabs">
-    <div class="best-users_title">Лучшие клабберы</div>
+    <div class="best-users_title">Лучшие <?=($this->type == $this::TYPE_CLUBS) ? 'клабберы' : 'блоггеры'?></div>
     <div class="best-users_nav">
         <ul>
             <li class="best-users_nav_item active"><a  onclick="setTab(this, 1);" href="javascript:void(0);"><span>Сегодня</span></a></li>
@@ -22,10 +22,10 @@
                         <td class="best-users_list-rank"><i class="rank rank<?=($k+1)?>"></i></td>
                         <td class="best-users_list-ava">
                             <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
-                            'user' => $users[$r['id']],
-                            'small' => true,
-                            'size' => 'small',
-                        )); ?>
+                                'user' => $users[$r['id']],
+                                'small' => true,
+                                'size' => 'small',
+                            )); ?>
                         </td>
                         <td class="best-users_list-post"><?=$r['cCount']?></td>
                         <td class="best-users_list-comment"><?=$r['cmCount']?></td>
@@ -49,10 +49,10 @@
                         <td class="best-users_list-rank"><i class="rank rank<?=($k+1)?>"></i></td>
                         <td class="best-users_list-ava">
                             <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
-                            'user' => $users[$r['id']],
-                            'small' => true,
-                            'size' => 'small',
-                        )); ?>
+                                'user' => $users[$r['id']],
+                                'small' => true,
+                                'size' => 'small',
+                            )); ?>
                         </td>
                         <td class="best-users_list-post"><?=$r['cCount']?></td>
                         <td class="best-users_list-comment"><?=$r['cmCount']?></td>

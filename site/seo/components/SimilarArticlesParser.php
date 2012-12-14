@@ -33,7 +33,7 @@ class SimilarArticlesParser
         foreach ($links as $link)
             if (strpos($link, '?Comment_page=') === false) {
                 $p = Page::model()->getOrCreate($link);
-                if ($p !== null)
+                if ($p)
                     $pages[] = $p;
             }
 

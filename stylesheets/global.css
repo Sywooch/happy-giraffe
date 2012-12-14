@@ -4583,8 +4583,7 @@ ul.letters li a:hover {
 .recipe-article .recipe-user-adds {margin-bottom: 20px;}
 .recipe-article .recipe-user-adds > ul {list-style: none;}
 .recipe-article .recipe-user-adds li {float: left;margin: 0 5px 6px 0;}
-.recipe-article .recipe-user-adds li a {color: #598db2;text-decoration: none;font-size: 18px;line-height: 24px;}
-.recipe-article .recipe-user-adds li a.link-text {padding: 0 7px;}
+.recipe-article .recipe-user-adds li > .text {padding: 0 7px;color: #598db2;text-decoration: none;font-size: 18px;line-height: 24px;}
 
 #cook-recipe .cook-title-cat {margin-bottom:30px;}
 #cook-recipe .cook-title-cat .cook-title-cat-h1 {color: #454545;font-size: 33px;margin-bottom: 2px;font-weight: normal;}
@@ -4594,11 +4593,11 @@ ul.letters li a:hover {
 .recipe-article .ingredients {list-style:none;margin-bottom:20px;}
 .recipe-article .ingredients > li {margin:8px 0;font-size: 13px;}
 .recipe-article .ingredients .name {color: #038ae0;}
-.recipe-article .ingredients .amount {color: #656565;font-size: 11px;}
+.recipe-article .ingredients .amount {color: #656565;font-size: 11px;font-style: italic;}
 
 .recipe-article p {margin-bottom:1em;line-height:19px;}
 
-.recipe-article .recipe-photo {width:460px;margin-bottom:25px;float:left;overflow:hidden;}
+.recipe-article .recipe-photo {width:460px;margin-bottom:20px;float:left;overflow:hidden;}
 
 .recipe-article .recipe-photo .add-photo {display:block;width:436px;height:178px;border:2px dashed #d2d3d3;text-align:center;text-decoration:none;padding:80px 0 60px;font-size:16px; -moz-border-radius:15px;-webkit-border-radius:15px;border-radius:15px;}
 .recipe-article .recipe-photo .add-photo .icon {display:block;width:103px;height:102px;background:url(/images/bg_recipe_add_photo.png) no-repeat;margin:0 auto 10px;}
@@ -4609,6 +4608,7 @@ ul.letters li a:hover {
 .recipe-article .recipe-photo .big img {max-width:100%;display:block;}
 
 .recipe-article .recipe-photo .thumbs {}
+.recipe-article .recipe-photo .thumbs > a {font-size: 11px;line-height: 20px;}
 .recipe-article .recipe-photo .thumbs ul {list-style:none;margin-right: -10px;}
 .recipe-article .recipe-photo .thumbs ul li {float:left;margin:10px 12px 0 0;}
 .recipe-article .recipe-photo .thumbs ul li img {display:block;}
@@ -4619,7 +4619,7 @@ ul.letters li a:hover {
 .recipe-article .recipe-photo .thumbs ul li .add:hover .icon {background-position:-139px -174px;}
 
 .recipe-article .recipe-description {
-    margin: 10px 0 25px;
+    margin: 10px 0 30px;
     color: #4e4e4e;
     font-size: 18px;
     line-height: 28px;
@@ -4689,7 +4689,7 @@ ul.letters li a:hover {
     color:#000;
     counter-reset: item;
 }
-.recipe-article .cook-instructions > li { display: block;margin:0 80px 18px; }
+.recipe-article .cook-instructions > li { display: block;margin:0 80px 25px; }
 .recipe-article .cook-instructions > li:before {
     content: counters(item, "") " ";
     counter-increment: item;

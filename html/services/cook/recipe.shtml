@@ -129,7 +129,7 @@
 													<a href="" class="ava small female"><img alt="" src="http://img.happy-giraffe.ru/avatars/20976/small/d1d850f5318107ff8b3c0272b13b53bc.JPG"></a>
 												</li>
 												<li>
-													<a href="" class="link-text">и еще 148</a>
+													<span class="text">и еще 148</span>
 												</li>
 											</ul>
 										</div>
@@ -188,7 +188,7 @@
 												02 : 00
 											</div>
 											<div class="recipe-description-item">
-												<div class="icon-yield tooltip" title="Количество персон"></div>
+												<div class="icon-yield tooltip" title="Количество порций"></div>
 												на 6 персон
 											</div>
 										</div>
@@ -299,9 +299,9 @@
 											<div class="cook-article-tags">
 												<div class="cook-article-tags-title">Теги</div>
 												<ul class="cook-article-tags-list">
-													<li><a href="">Рыбные блюда</a></li>
-													<li><a href="">Рыбные блюда</a></li>
-													<li><a href="">Рыбные блюда</a></li>
+													<li><a href="" class="textdec-onhover">Рыбные блюда</a></li>
+													<li><a href="" class="textdec-onhover">Рыбные блюда</a></li>
+													<li><a href="" class="textdec-onhover">Рыбные блюда</a></li>
 												</ul>
 											</div>
 										</div>

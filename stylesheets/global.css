@@ -4703,13 +4703,14 @@ ul.letters li a:hover {
 .recipe-article .nutrition ul li.n-carbohydrates .icon i {background-color:#fcbe03;color:#fff;}
 .recipe-article .nutrition ul li .gray {font-size:11px;color:#9e9d9d;}
 
+#cook-recipe .recipe-article .instructions em {color: #494A4A;}
 .recipe-article .cook-instructions {
     margin:0;
     padding:0;
     color:#000;
     counter-reset: item;
 }
-.recipe-article .cook-instructions > li { display: block;margin:0 80px 25px;color: #494A4A; }
+.recipe-article .cook-instructions > li { display: block;margin:0 80px 25px; }
 .recipe-article .cook-instructions > li:before {
     content: counters(item, "") " ";
     counter-increment: item;

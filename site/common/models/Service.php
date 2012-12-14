@@ -186,4 +186,9 @@ class Service extends HActiveRecord
         $criteria->compare('service_id', $this->id);
         return ServiceUser::model()->cache(10)->count($criteria);
     }
+
+    public function getUrl($comments = false)
+    {
+        return $comments ? $this->url . '#comment_list' : $this->url;
+    }
 }

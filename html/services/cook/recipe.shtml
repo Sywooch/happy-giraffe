@@ -299,9 +299,9 @@
 											<div class="cook-article-tags">
 												<div class="cook-article-tags-title">Теги</div>
 												<ul class="cook-article-tags-list">
-													<li><a href="" class="textdec-onhover">Рыбные блюда</a></li>
-													<li><a href="" class="textdec-onhover">Рыбные блюда</a></li>
-													<li><a href="" class="textdec-onhover">Рыбные блюда</a></li>
+													<li><a href="">Рыбные блюда</a></li>
+													<li><a href="">Рыбные блюда</a></li>
+													<li><a href="">Рыбные блюда</a></li>
 												</ul>
 											</div>
 										</div>
@@ -563,22 +563,21 @@
 			CKEDITOR.replace( 'editor',
 				{
 					skin : 'hgrucomment',
-					toolbar : [				
-						['Source'],
-						['Bold','Italic','Underline','-','Image', 'Smiles','-','Link','Unlink']
+					toolbar : [	
+						['Bold','Italic','Underline','-','Image', 'Smiles']
 					],
 					toolbarCanCollapse: false,
 					disableObjectResizing: false,
 					height: 80
 				});
 
+			/* js дважды для двух редакторов на стр. */
 			/* skin hgru-comment */
 			CKEDITOR.replace( 'editor2',
 				{
 					skin : 'hgrucomment',
-					toolbar : [				
-						['Source'],
-						['Bold','Italic','Underline','-','Image', 'Smiles','-','Link','Unlink']
+					toolbar : [	
+						['Bold','Italic','Underline','-','Image', 'Smiles']
 					],
 					toolbarCanCollapse: false,
 					disableObjectResizing: false,
@@ -608,7 +607,7 @@
 						</div>
 					</div>
 					
-					<div class="comment-add clearfix">
+					<div class="comment-add active clearfix">
 						<div class="comment-add_user">
 							<a href="">Авторизируйтесь</a>
 							<div class="social-small-row clearfix">
@@ -630,13 +629,11 @@
 						</div>
 					</div>
 					
-					<div class="comment-add clearfix">
+					<div class="comment-add active clearfix">
 						<div class="comment-add_user">
 							<div class="comment-add_user-ava">
-   								 <a href="" class="ava female"><img alt="" src="http://img.happy-giraffe.ru/avatars/13623/ava/7acd577045e2014b4d26ecd33f6ce6d2.jpeg"></a> 
-					             <div class="details">
-					               	<a href="" class="username">Татьяна Пахоменко </a>
-                   				</div>
+   								 <a href="" class="ava female"><img alt="" src="http://img.happy-giraffe.ru/avatars/13623/ava/7acd577045e2014b4d26ecd33f6ce6d2.jpeg"></a>
+					              <span class="comment-add_username">Татьяна Пахоменко </span>
                    			</div>
 						</div>
 						<div class="comment-add_form-holder">

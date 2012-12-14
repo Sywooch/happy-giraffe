@@ -28,7 +28,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 .cke_skin_hgrucomment .cke_focus{outline:auto 5px -webkit-focus-ring-color;}
 .cke_skin_hgrucomment textarea.cke_source{font-family:'Courier New',Monospace;font-size:small;background-color:#fff;white-space:pre;}
 .cke_skin_hgrucomment .cke_browser_iequirks textarea.cke_source{_white-space:normal;}
-.cke_skin_hgrucomment .cke_resizer{width:18px;height:18px;display:block;float:right;background:url(icons.png) -296px -1px no-repeat;cursor:se-resize;}
+.cke_skin_hgrucomment .cke_resizer{width:10px;height:10px;display:block;float:right;background:url(icons.png) -300px -5px no-repeat;cursor:se-resize;}
 .cke_skin_hgrucomment .cke_browser_air .cke_resizer,.cke_skin_hgrucomment .cke_browser_air .cke_rtl .cke_resizer{cursor:move;}
 .cke_skin_hgrucomment .cke_resizer_rtl{cursor:sw-resize;background-position:0 -828px;float:left;}
 .cke_skin_hgrucomment .cke_resizer_horizontal,.cke_skin_hgrucomment .cke_rtl .cke_resizer_horizontal{cursor:e-resize;}

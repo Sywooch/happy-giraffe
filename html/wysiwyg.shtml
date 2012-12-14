@@ -25,20 +25,7 @@
 				});
 			});
 			*/
-			/* skin hgru-comment */
-			CKEDITOR.replace( 'editor',
-				{
-					skin : 'hgrucomment',
-					toolbar : [				
-						['Source'],
-						['Bold','Italic','Underline','-','Image', 'Smiles','-','Link','Unlink']
-					],
-					toolbarCanCollapse: false,
-					disableObjectResizing: false,
-					height: 80
-				});
-			});
-			
+		
 
 	//]]>
 	</script>
@@ -58,7 +45,42 @@
 			<div class="content-cols clearfix">
 					
 				<div class="col-23">
-			
+										
+	<script type="text/javascript">
+	//<![CDATA[
+
+		$(function(){
+
+			/* skin hgru-comment */
+			CKEDITOR.replace( 'editor',
+				{
+					skin : 'hgrucomment',
+					toolbar : [	
+						['Bold','Italic','Underline','-','Image', 'Smiles']
+					],
+					toolbarCanCollapse: false,
+					disableObjectResizing: false,
+					height: 80
+				});
+
+			/* js дважды для двух редакторов на стр. */
+			/* skin hgru-comment */
+			CKEDITOR.replace( 'editor2',
+				{
+					skin : 'hgrucomment',
+					toolbar : [	
+						['Bold','Italic','Underline','-','Image', 'Smiles']
+					],
+					toolbarCanCollapse: false,
+					disableObjectResizing: false,
+					height: 80
+				});
+			});
+
+	//]]>
+	</script>
+						
+								
 					<div class="comment-add clearfix">
 						<div class="comment-add_user">
 							<a href="">Авторизируйтесь</a>
@@ -77,7 +99,7 @@
 						</div>
 					</div>
 					
-					<div class="comment-add clearfix">
+					<div class="comment-add active clearfix">
 						<div class="comment-add_user">
 							<a href="">Авторизируйтесь</a>
 							<div class="social-small-row clearfix">
@@ -91,7 +113,7 @@
 							</div>
 						</div>
 						<div class="comment-add_form-holder">
-							<!-- <textarea cols="80" id="editor" name="editor" rows="10"></textarea> -->
+							<textarea cols="80" id="editor" name="editor" rows="10"></textarea>
 							<div class="a-right">
 						        <button class="btn-gray medium cancel">Отмена</button>
 						        <button class="btn-green medium">Добавить</button>
@@ -99,23 +121,22 @@
 						</div>
 					</div>
 					
-					<div class="comment-add clearfix">
+					<div class="comment-add active clearfix">
 						<div class="comment-add_user">
 							<div class="comment-add_user-ava">
-   								 <a href="" class="ava female"><img alt="" src="http://img.happy-giraffe.ru/avatars/13623/ava/7acd577045e2014b4d26ecd33f6ce6d2.jpeg"></a> 
-					             <div class="details">
-					               	<a href="" class="username">Татьяна Пахоменко </a>
-                   				</div>
+   								 <a href="" class="ava female"><img alt="" src="http://img.happy-giraffe.ru/avatars/13623/ava/7acd577045e2014b4d26ecd33f6ce6d2.jpeg"></a>
+					              <span class="comment-add_username">Татьяна Пахоменко </span>
                    			</div>
 						</div>
 						<div class="comment-add_form-holder">
-							<textarea cols="40" id="editor" name="editor" rows="5"></textarea>
+							<textarea cols="40" id="editor2" name="editor2" rows="5"></textarea>
 							<div class="a-right">
 						        <button class="btn-gray medium cancel">Отмена</button>
 						        <button class="btn-green medium">Добавить</button>
 						    </div>
 						</div>
 					</div>
+							
 				</div>
 			</div>
 			

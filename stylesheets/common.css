@@ -5397,8 +5397,10 @@ label {
     width: 120px;
     margin-right: 5px;
 }
-.comment-add_user-ava {margin:30px 0 10px 25px;text-align: left;}
-.comment-add_user-ava .ava {margin:0;float: none;}
+.comment-add.active .comment-add_user {margin-top: 30px;}
+.comment-add_user-ava {margin:5px 0 10px 25px;text-align: left;}
+.comment-add_user-ava .ava {margin:0 0 5px;float: none;}
+.comment-add_user-ava .comment-add_username {margin:0 0 5px;float: none;line-height: 14px;color: #38a5f4;}
 .comment-add_user .social-small-row > em {font-size: 10px;line-height: 18px;}
 .comment-add_user .social-list-small {margin:4px 0 0 5px;padding: 0;} 
 .comment-add_user .social-list-small > li {

@@ -1227,6 +1227,7 @@
 	background: #fff;
 	margin: 0 10px 40px;
 	padding: 10px;
+	position: relative;
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	-ms-border-radius: 5px;

@@ -40,7 +40,7 @@ class FriendEventInterests extends FriendEvent
 
     public function getLabel()
     {
-        return HDate::simpleVerb('Вступил', $this->user->gender) . ' в клубы';
+        return HDate::simpleVerb('Добавил', $this->user->gender) . ' интересы';
     }
 
     public function createBlock()

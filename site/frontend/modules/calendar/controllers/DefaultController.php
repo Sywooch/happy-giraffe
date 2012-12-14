@@ -9,7 +9,7 @@ class DefaultController extends HController
 	public function actionIndex($calendar, $slug = null)
 	{
         $criteria = new CDbCriteria;
-        $criteria->with = array('contents', 'contents.commentsCount', 'communities', 'services');
+        $criteria->with = array('contents', 'contents.commentsCount', 'services');
         if ($slug === null) {
             $criteria->order = 't.id';
             $criteria->compare('calendar', $calendar);

@@ -58,7 +58,8 @@ class CookRecipeTag extends HActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'recipes' => array(self::MANY_MANY, 'CookRecipe', 'cook__recipes(tag_id, recipe_id)'),
+            'recipes' => array(self::MANY_MANY, 'CookRecipe', 'cook__recipe_recipes_tags(tag_id, recipe_id)'),
+            'recipesCount' => array(self::STAT, 'CookRecipe', 'cook__recipe_recipes_tags(tag_id, recipe_id)'),
         );
     }
 

@@ -77,7 +77,7 @@ class UserController extends HController
             'babies',
             'mood',
             'score',
-            'communities',
+//            'communities',
             'albumsCount',
         );
         $user = User::model()->find($criteria);

@@ -6,7 +6,7 @@
                 <a href="javascript:;" class="username" onclick="$('.user-info .nav').toggle();"><?=Yii::app()->user->getModel()->name ?><i class="arr"></i></a>
             </div>
             <div class="nav" style="display: none;">
-                <?php if (count($this->getUserModules()) > 1):?>
+                <?php //if (count($this->getUserModules()) > 1):?>
                     <div class="clearfix">
                         <div class="block-title">Куда<br>идем?</div>
                         <ul>
@@ -15,7 +15,7 @@
                             <?php endforeach; ?>
                         </ul>
                     </div>
-                <?php endif ?>
+                <?php //endif ?>
 
                 <div class="btn-logout"><a href="/logout/" class="logout"><i class="icon"></i>Выход</a></div>
             </div>

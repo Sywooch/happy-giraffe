@@ -11,7 +11,7 @@
     </div>
 <?php endif; ?>
 <div class="masonry-news-list_content">
-    <?php $this->renderPartial('application.modules.whatsNew.views._post_content', array('post' => $data->content)); ?>
+    <?php $this->renderPartial('application.modules.whatsNew.views._post_content', array('post' => $data->content, 'blockId' => $data->blockId)); ?>
 </div>
 
 <div class="masonry-news-list_meta-info clearfix">

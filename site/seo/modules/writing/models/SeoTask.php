@@ -483,11 +483,9 @@ class SeoTask extends CActiveRecord
     public static function commentatorHasActiveTasks($block)
     {
         $criteria = new CDbCriteria;
-        $criteria->condition = 'updated >= :today OR status = '.self::STATUS_TAKEN;
-        $criteria->params = array(':today'=>date("Y-m-d").' 00:00:00');
-
         $criteria->compare('executor_id', Yii::app()->user->id);
         $criteria->compare('multivarka', $block);
+        $criteria->compare('status', self::STATUS_TAKEN);
 
         return SeoTask::model()->find($criteria) !== null;
     }

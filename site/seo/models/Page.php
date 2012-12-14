@@ -218,6 +218,12 @@ class Page extends CActiveRecord
 
                 list($entity, $entity_id) = Page::ParseUrl($url);
 
+                if (empty($entity_id)){
+                    $transaction->commit();
+                    return false;
+                }
+
+
                 if ($entity != null && $entity_id != null) {
                     $article = CActiveRecord::model($entity)->findByPk($entity_id);
                     if ($article !== null) {

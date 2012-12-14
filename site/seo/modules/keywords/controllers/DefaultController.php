@@ -36,14 +36,12 @@ class DefaultController extends SController
             $pages->currentPage = Yii::app()->request->getPost('page');
             $pages->applyLimit($dataProvider->criteria);
 
-            $counts = Keyword::model()->getFreqCount($criteria);
-
             $criteria2 = clone $criteria;
             $models = Keyword::model()->findAll($criteria2);
 
             $response = array(
                 'status' => true,
-                'count' => $this->renderPartial('_find_result_count', compact('models', 'counts'), true),
+                'count' => '',
                 'table' => $this->renderPartial('_find_result_table', compact('models'), true),
                 'pagination' => $this->renderPartial('_find_result_pagination', compact('pages'), true)
             );

@@ -26,9 +26,13 @@
 						
 						<div class="main-in">
 							
-							<div class="entry hrecipe recipe-article clearfix">
+							<div class="entry recipe-article clearfix">
 								
-								<h1 class="fn">Курица в пиве с рисом</h1>
+								<h1 class="fn">
+									Курица в пиве с рисом 
+									<a href="" class="icon-edit"></a>
+									<a href="" class="icon-remove"></a>
+								</h1>
 								
 								<div class="entry-header clearfix">
 								

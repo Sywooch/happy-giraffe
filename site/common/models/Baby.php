@@ -39,6 +39,7 @@ class Baby extends HActiveRecord
             'parent' => array(self::BELONGS_TO, 'User', 'id'),
             'photos' => array(self::HAS_MANY, 'AttachPhoto', 'entity_id', 'with' => 'photo', 'on' => '`photo`.`removed` = 0 AND entity = :modelName', 'params' => array(':modelName' => get_class($this))),
             'photosCount' => array(self::STAT, 'AttachPhoto', 'entity_id', 'condition' => 'entity =: modelName', 'params' => array(':modelName' => get_class($this))),
+            'photo' => array(self::HAS_ONE, 'AttachPhoto', 'entity_id', 'with' => 'photo', 'on' => '`photo`.`removed` = 0 AND entity = :modelName', 'params' => array(':modelName' => get_class($this)), 'order' => CDbExpression('RAND()')),
         );
     }
 
@@ -163,5 +164,17 @@ class Baby extends HActiveRecord
         }
 
         User::model()->UpdateUser($this->parent_id);
+    }
+
+    public function pregnancyPeriod()
+    {
+        if ($this->type != self::TYPE_WAIT)
+            return false;
+
+        $now = new DateTime();
+        $conception = new DateTime($this->birthday);
+        $conception->modify('-9 month');
+        $interval = $now->diff($conception);
+        return ceil($interval->days / 7);
     }
 }

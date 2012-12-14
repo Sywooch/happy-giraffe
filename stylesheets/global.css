@@ -4562,6 +4562,11 @@ ul.letters li a:hover {
 /* */
 .recipe-article {color:#020202;margin:1px 1px 30px;border: 1px solid #fff;outline: 1px solid #e7e7e7;padding:5px 20px 20px; background: #ebf2fb;width: auto;}
 
+.recipe-article .fn .icon-edit {display:inline-block;*zoom:1;*display:inline;width:14px;height:18px;background:url(../images/common.png) no-repeat -383px -204px;margin:0 auto;position:relative;text-decoration:none;}
+.recipe-article .fn .icon-edit:hover {background-position:-341px -136px;}
+.recipe-article .fn .icon-remove {display:inline-block;*zoom:1;*display:inline;width:12px;height:14px;background:url(/images/common.png) no-repeat -314px -135px;vertical-align:middle;position:relative;top:-1px;}
+.recipe-article .fn .icon-remove:hover {background-position:-314px -148px;}
+
 .recipe-article h2 {font-size:25px;font-weight: normal;color:#2e2e2e;margin-bottom:15px;padding-top: 5px;}
 .recipe-article.entry .entry-header {background: none;}
 

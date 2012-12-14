@@ -32,7 +32,7 @@ $count = $data->getBookedCount();
                     </li>
                 <?php endforeach; ?>
                 <?php if ($count > 20): ?>
-                    <li><a href="" class="link-text">и еще <?=$$count - 20 ?></a></li>
+                    <li><span class="link-text">и еще <?=$$count - 20 ?></span></li>
                 <?php endif ?>
             </ul>
         <?php endif ?>

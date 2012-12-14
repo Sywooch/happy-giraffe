@@ -180,15 +180,15 @@
 												Украинская кухня
 											</a>
 											<div class="recipe-description-item">
-												<div class="icon-time-1"></div>
+												<div class="icon-time-1 tooltip" title="Время подготовки"></div>
 												02 : 00
 											</div>
 											<div class="recipe-description-item">
-												<div class="icon-time-2"></div>
+												<div class="icon-time-2 tooltip" title="Время приготовления"></div>
 												02 : 00
 											</div>
 											<div class="recipe-description-item">
-												<div class="icon-yield"></div>
+												<div class="icon-yield tooltip" title="Количество порций"></div>
 												на 6 персон
 											</div>
 										</div>
@@ -266,12 +266,17 @@
 											</li>
 										</ul>
 									</div>
+<<<<<<< HEAD
+=======
+									
+>>>>>>> 7664ee176a153a9b3d4e28e7b72059d1edb225cc
 									<h2>Приготовление</h2>
 									
 									<div class="instructions wysiwyg-content">
 									
 										<p><em>Мои родители и я пошел в поход на Верхний полуостров штата Мичиган летом после моего старшего года средней школы. Это один из тех поездок, которые всегда будут оставаться со мной. Я был одним из тех больших основные переходные периоды в жизни (хотя, как всегда, я не узнал его в то время) и поездка с родителями в красивой части страны было только, что мне нужно, чтобы чувствовать себя в безопасности , безопасный и готовы отправиться в следующую главу моей жизни.</em></p>
 										
+<<<<<<< HEAD
 										<ol>
 											<li>Курицу нарезать на кусочки, выложить в форму для запекания,
 												посолить, поперчить, добавить специи по вкусу.</li>
@@ -279,6 +284,33 @@
 											<li>Жарить при температуре 180 градусов в течение 40-45 минут.</li>
 										</ol>
 										
+=======
+										<ol class="cook-instructions">
+											<li class="clearfix">Курицу нарезать на кусочки, выложить в форму для запекания,
+												посолить, поперчить, добавить специи по вкусу.</li>
+											<li class="clearfix">Курицу залить пивом, поставить в духовку.</li>
+											<li class="clearfix">Мои родители и я пошел в поход на Верхний полуостров штата Мичиган летом после моего старшего года средней школы. Это один из тех поездок, которые всегда будут оставаться со мной. Я был одним из тех больших основные переходные периоды в жизни (хотя, как всегда, я не узнал его в то время) и поездка с родителями в красивой части страны было только, что мне нужно, чтобы чувствовать себя в безопасности , безопасный и готовы отправиться в следующую главу моей жизни.</li>
+											<li class="clearfix">Жарить при температуре 180 градусов в течение 40-45 минут.</li>
+										</ol>
+										
+										<div class="clearfix">
+											<div class="cook-diabets">
+												<div class="cook-diabets-chart val66">
+													<span class="text">20.5</span>
+												</div>
+												<div class="cook-diabets-desc">Подходит для диабетиков</div>
+											</div>
+											
+											<div class="cook-article-tags">
+												<div class="cook-article-tags-title">Теги</div>
+												<ul class="cook-article-tags-list">
+													<li><a href="">Рыбные блюда</a></li>
+													<li><a href="">Рыбные блюда</a></li>
+													<li><a href="">Рыбные блюда</a></li>
+												</ul>
+											</div>
+										</div>
+>>>>>>> 7664ee176a153a9b3d4e28e7b72059d1edb225cc
 									</div>
 								
 								</div>
@@ -291,15 +323,26 @@
 								</div>
 								<ul>
 									<li>
+<<<<<<< HEAD
+=======
+										<div class="content">
+											<a href=""><img src="/images/cook_more_img_01.jpg"></a>
+										</div>
+										<div class="item-title"><a href="">Ригатони макароны с соусом из помидор говядины</a></div>
+>>>>>>> 7664ee176a153a9b3d4e28e7b72059d1edb225cc
 										<div class="user clearfix">
 											<div class="user-info clearfix">
 												<a class="ava female small"></a>
 												<div class="details">
+<<<<<<< HEAD
 													<span class="icon-status status-online"></span>
+=======
+>>>>>>> 7664ee176a153a9b3d4e28e7b72059d1edb225cc
 													<a href="" class="username">Дарья</a>
 												</div>
 											</div>
 										</div>
+<<<<<<< HEAD
 										<div class="item-title"><a href="">Ригатони макароны с соусом из помидор говядины</a></div>
 										<div class="date">3 сен 2012, 08:25</div>
 										<div class="content">
@@ -307,10 +350,19 @@
 										</div>
 									</li>
 									<li>
+=======
+									</li>
+									<li>
+										<div class="content">
+											<a href=""><img src="/images/cook_recipe_img_01.jpg"></a>
+										</div>
+										<div class="item-title"><a href="">Ригатони макароны с соусом из помидор говядины</a></div>
+>>>>>>> 7664ee176a153a9b3d4e28e7b72059d1edb225cc
 										<div class="user clearfix">
 											<div class="user-info clearfix">
 												<a class="ava female small"></a>
 												<div class="details">
+<<<<<<< HEAD
 													<span class="icon-status status-online"></span>
 													<a href="" class="username">Денис Ижецкий</a>
 												</div>
@@ -323,10 +375,24 @@
 										</div>
 									</li>
 									<li>
+=======
+													<a href="" class="username">Дарья</a>
+												</div>
+											</div>
+										</div>
+									</li>
+									
+									<li>
+										<div class="content">
+											<a href=""><img src="/images/cook_more_img_01.jpg"></a>
+										</div>
+										<div class="item-title"><a href="">Ригатони макароны с соусом из помидор говядины</a></div>
+>>>>>>> 7664ee176a153a9b3d4e28e7b72059d1edb225cc
 										<div class="user clearfix">
 											<div class="user-info clearfix">
 												<a class="ava female small"></a>
 												<div class="details">
+<<<<<<< HEAD
 													<span class="icon-status status-online"></span>
 													<a href="" class="username">Денис</a>
 												</div>
@@ -339,6 +405,29 @@
 										</div>
 									</li>
 									
+=======
+													<a href="" class="username">Дарья</a>
+												</div>
+											</div>
+										</div>
+									</li>
+									<li>
+										<div class="content">
+											<a href=""><img src="/images/cook_recipe_img_01.jpg"></a>
+										</div>
+										<div class="item-title"><a href="">Умный рулет</a></div>
+										<div class="user clearfix">
+											<div class="user-info clearfix">
+												<a class="ava female small"></a>
+												<div class="details">
+													<a href="" class="username">Дарья</a>
+												</div>
+											</div>
+										</div>
+									</li>
+									
+									
+>>>>>>> 7664ee176a153a9b3d4e28e7b72059d1edb225cc
 								</ul>
 							</div>
 							
@@ -692,6 +781,7 @@
 		
 	</div>
 
+<<<<<<< HEAD
 	<div id="footer" class="wrapper clearfix">
 		
 		<div class="a-right">
@@ -758,6 +848,9 @@
 		
 	</div>
 	
+=======
+	<!--#include virtual="/block/global/footer.shtml" -->
+>>>>>>> 7664ee176a153a9b3d4e28e7b72059d1edb225cc
 </div>
 </body>
 </html>

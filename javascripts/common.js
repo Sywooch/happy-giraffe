@@ -673,3 +673,17 @@ function service_used(id)
     $.post('/ajax/serviceUsed/', {id:id});
 }
 
+var Cook = {
+    bookRecipe:function (el) {
+        var recipe_id = $(el).data('id');
+        $.post('/cook/recipe/book/', {recipe_id:recipe_id}, function (response) {
+            if (response.status) {
+                if (response.result==1)
+                    $(el).html('<span>Рецепт в моей <br>кулинарной книге</span><i class="icon-exist"></i>');
+                else
+                    $(el).html('<span>Добавить в мою <br>кулинарную книгу</span><i class="icon-add"></i>');
+            }
+        }, 'json');
+    }
+}
+

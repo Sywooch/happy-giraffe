@@ -8,7 +8,12 @@
  */
 class FriendsController extends HController
 {
-    public function actionFind()
+    const BY_ONLINE = 0;
+    const BY_REGION = 1;
+    const BY_INTERESTS = 2;
+    const BY_STATUS = 3;
+
+    public function actionFind($type)
     {
         $this->render('find');
     }

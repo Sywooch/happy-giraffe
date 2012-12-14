@@ -45,6 +45,27 @@ class FriendEvent extends EMongoDocument
     private $_params;
     private $_user;
 
+    public function init()
+    {
+        $this->ensureIndexes = false;
+    }
+
+    public function indexes()
+    {
+        return array(
+            'updated' => array(
+                'key' => array(
+                    'updated' => EMongoCriteria::SORT_DESC,
+                ),
+            ),
+            'userId' => array(
+                'key' => array(
+                    'user_id' => EMongoCriteria::SORT_DESC,
+                ),
+            ),
+        );
+    }
+
     public function getCollectionName()
     {
         return 'friend_actions';

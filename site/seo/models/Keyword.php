@@ -14,6 +14,8 @@
  * @property KeywordBlacklist $blacklist
  * @property YandexPopularity $yandex
  * @property TempKeyword $tempKeyword
+ * @property KeywordRelation[] $relateTo
+ * @property KeywordRelation[] $relateFrom
  */
 class Keyword extends HActiveRecord
 {
@@ -63,6 +65,8 @@ class Keyword extends HActiveRecord
             'yandex' => array(self::HAS_ONE, 'YandexPopularity', 'keyword_id'),
             'tempKeyword' => array(self::HAS_ONE, 'TempKeyword', 'keyword_id'),
             'blacklist' => array(self::HAS_ONE, 'KeywordBlacklist', 'keyword_id'),
+            'relateTo' => array(self::HAS_MANY, 'KeywordRelation', 'keyword_to_id'),
+            'relateFrom' => array(self::HAS_MANY, 'KeywordRelation', 'keyword_from_id'),
         );
     }
 

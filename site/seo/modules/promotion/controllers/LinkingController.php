@@ -54,7 +54,7 @@ class LinkingController extends SController
 
     public function actionSkip()
     {
-        $time = microtime();
+        $time = time();
         $phrase = $this->loadPhrase(Yii::app()->request->getPost('phrase_id'));
         $skip = new ILSkip;
         $skip->phrase_id = $phrase->id;
@@ -72,7 +72,7 @@ class LinkingController extends SController
 
     public function actionAdd()
     {
-        $time = microtime();
+        $time = time();
         $phrase = $this->loadPhrase(Yii::app()->request->getPost('phrase_id'));
         $page_from = $this->loadPage(Yii::app()->request->getPost('page_id'));
         $keyword_id = Yii::app()->request->getPost('keyword_id');
@@ -117,7 +117,7 @@ class LinkingController extends SController
         $keywords = $phrase->getSimilarKeywords();
         TimeLogger::model()->endTimer();
 
-        $time = microtime() - $time;
+        $time = time() - $time;
         return array(
             'status' => true,
             'html' => $this->renderPartial('_auto_linking', compact('phrase', 'pages', 'keywords', 'page', 'time'), true),

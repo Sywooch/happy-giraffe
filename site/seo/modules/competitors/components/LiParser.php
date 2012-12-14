@@ -9,7 +9,7 @@ class LiParser
      * @var Site
      */
     public $site;
-    const STATS_LIMIT = 3;
+    const STATS_LIMIT = 5;
 
     public function start($site_id, $year, $month_from, $month_to)
     {

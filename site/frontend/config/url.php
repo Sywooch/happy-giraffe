@@ -13,7 +13,10 @@ return array(
         // global
         '.*/index' => 404,
 
-        'findFriends' => 'friends/find',
+        'findFriends' => array('friends/find', 'defaultParams' => array('type' => 0)),
+        'findFriends/byRegion' => array('friends/find', 'defaultParams' => array('type' => 1)),
+        'findFriends/byInterests' => array('friends/find', 'defaultParams' => array('type' => 2)),
+        'findFriends/byStatus' => array('friends/find', 'defaultParams' => array('type' => 3)),
 
         // photo view
         'community/<community_id:\d+>/forum/post/<content_id:\d+>/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'CommunityContentGallery')),

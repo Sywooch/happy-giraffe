@@ -343,6 +343,7 @@ class ELTask extends HActiveRecord
     {
         if ($this->todayTaskCount() >= $this->getTaskLimit())
             return null;
+
         //сначала задания строго закрепленные за сотрудником
         $task = $this->userSpecifiedTask();
         if ($task !== null)
@@ -505,17 +506,17 @@ class ELTask extends HActiveRecord
     /************************************************  Лимиты заданий ***********************************************/
     /****************************************************************************************************************/
 
-    public function getRegTaskLimit($type = ELSite::TYPE_FORUM)
+    public function getRegTaskLimit($type = ELSite::TYPE_BLOG)
     {
         return $this->getSomeTaskLimit($type, 0);
     }
 
-    public function getCommentTaskLimit($type = ELSite::TYPE_FORUM)
+    public function getCommentTaskLimit($type = ELSite::TYPE_BLOG)
     {
         return $this->getSomeTaskLimit($type, 1);
     }
 
-    public function getLinkTaskLimit($type = ELSite::TYPE_FORUM)
+    public function getLinkTaskLimit($type = ELSite::TYPE_BLOG)
     {
         return $this->getSomeTaskLimit($type, 2);
     }
@@ -529,7 +530,7 @@ class ELTask extends HActiveRecord
             return $this->worker_limits[$type][$index];
     }
 
-    public function getTaskLimit($type = ELSite::TYPE_FORUM)
+    public function getTaskLimit($type = ELSite::TYPE_BLOG)
     {
         if (Yii::app()->user->checkAccess('externalLinks-manager-panel'))
             return array_sum($this->manager_limits[$type]);

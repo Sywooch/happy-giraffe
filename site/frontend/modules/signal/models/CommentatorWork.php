@@ -170,7 +170,6 @@ class CommentatorWork extends EMongoDocument
         $this->save();
         $day->blog_posts = count($this->blogPosts());
         $day->club_posts = $this->clubPostsCount();
-        $this->save();
 
         //add working day
         $month = CommentatorsMonthStats::getOrCreateWorkingMonth();
@@ -357,10 +356,9 @@ class CommentatorWork extends EMongoDocument
         Yii::import('site.seo.modules.writing.models.*');
         //check post by keyword
         $criteria = new CDbCriteria;
-        $criteria->condition = 'updated >= :today AND status = ' . SeoTask::STATUS_CLOSED;
+        $criteria->condition = 'updated >= :today AND status = ' . SeoTask::STATUS_CLOSED.' AND multivarka>=1 ';
         $criteria->params = array(':today' => date("Y-m-d") . ' 00:00:00');
         $criteria->compare('executor_id', Yii::app()->user->id);
-        $criteria->compare('multivarka', 1);
         $task = SeoTask::model()->find($criteria);
 
         if ($task !== null)

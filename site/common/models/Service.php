@@ -65,6 +65,7 @@ class Service extends HActiveRecord
         return array(
             'category' => array(self::BELONGS_TO, 'ServiceCategory', 'category_id'),
             'photo' => array(self::BELONGS_TO, 'AlbumPhoto', 'photo_id'),
+            'commentsCount' => array(self::STAT, 'Comment', 'entity_id', 'condition' => 'entity=:modelName', 'params' => array(':modelName' => get_class($this))),
         );
     }
 

@@ -247,19 +247,16 @@ class ELTask extends HActiveRecord
             } elseif ($this->type == self::TYPE_POST_LINK) {
                 $this->createCommentTask(date("Y-m-d", strtotime('+' . rand(30, 40) . ' days')));
             }
-        }elseif ($this->site->type == ELSite::TYPE_BLOG) {
+        } elseif ($this->site->type == ELSite::TYPE_BLOG) {
             if ($this->type == self::TYPE_REGISTER) {
-
-                if ($this->type == self::TYPE_REGISTER) {
-                    //создаем еще 1 выполненное задание - комментарий, так как этот шаг - это 2 задания
-                    $task = new ELTask();
-                    $task->type = ELTask::TYPE_COMMENT;
-                    $task->start_date = date("Y-m-d H:i:s");
-                    $task->closed = date("Y-m-d H:i:s");
-                    $task->site_id = $this->site_id;
-                    $task->user_id = Yii::app()->user->id;
-                    $task->save();
-                }
+                //создаем еще 1 выполненное задание - комментарий, так как этот шаг - это 2 задания
+                $task = new ELTask();
+                $task->type = ELTask::TYPE_COMMENT;
+                $task->start_date = date("Y-m-d H:i:s");
+                $task->closed = date("Y-m-d H:i:s");
+                $task->site_id = $this->site_id;
+                $task->user_id = Yii::app()->user->id;
+                $task->save();
 
                 $this->createLinkTask(date("Y-m-d", strtotime('+1 day')));
 

@@ -195,7 +195,7 @@ class WordstatParser extends ProxyParserThread
                 $keyword = trim(pq($link)->text());
                 $value = (int)pq($link)->parent()->next()->next()->text();
 
-                $this->AddRelatedKeyword($keyword, $value);
+                $this->addData($keyword, $value, true);
             }
 
         //ищем ссылку на следующую страницу

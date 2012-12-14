@@ -391,5 +391,11 @@ class SeoCommand extends CConsoleCommand
             $date = date("Y-m-d", strtotime('+1 day', strtotime($date)));
         }
     }
+
+    public function actionLi($site){
+        Yii::import('site.seo.modules.competitors.components.*');
+        $parser = new LiParser;
+        $parser->start($site, 2012, 12, 12);
+    }
 }
 

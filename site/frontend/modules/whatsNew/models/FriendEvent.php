@@ -60,7 +60,7 @@ class FriendEvent extends EMongoDocument
             ),
             'userId' => array(
                 'key' => array(
-                    'user_id' => EMongoCriteria::SORT_DESC,
+                    'user_id' => EMongoCriteria::SORT_ASC,
                 ),
             ),
         );

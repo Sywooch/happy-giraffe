@@ -71,6 +71,7 @@ class LinkingController extends SController
 
     public function actionAdd()
     {
+        $time = microtime();
         $phrase = $this->loadPhrase(Yii::app()->request->getPost('phrase_id'));
         $page_from = $this->loadPage(Yii::app()->request->getPost('page_id'));
         $keyword_id = Yii::app()->request->getPost('keyword_id');
@@ -93,8 +94,9 @@ class LinkingController extends SController
             ));
         } else {
 
+            $time = microtime() - $time;
             if (Yii::app()->request->getPost('next_link') == 1) {
-                $response = $this->nextLink();
+                $response = $this->nextLink($time);
             } else
                 $response = array(
                     'status' => true,
@@ -104,7 +106,7 @@ class LinkingController extends SController
         }
     }
 
-    public function nextLink()
+    public function nextLink($time)
     {
         $phrase = PagesSearchPhrase::getActualPhrase();
         $page = $phrase->page;
@@ -117,7 +119,7 @@ class LinkingController extends SController
 
         return array(
             'status' => true,
-            'html' => $this->renderPartial('_auto_linking', compact('phrase', 'pages', 'keywords', 'page'), true),
+            'html' => $this->renderPartial('_auto_linking', compact('phrase', 'pages', 'keywords', 'page', 'time'), true),
             'page_id' => $page->id,
             'phrase_id' => $phrase->id,
         );

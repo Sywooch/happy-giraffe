@@ -103,5 +103,5 @@ $phrase->refresh();
 </div>
 
 <?php if (isset($time)):?>
-    <div>Время работы: <?=round($time / 1000, 2) ?> c.</div>
+    <div>Время работы: <?=round($time / 1000000, 4) ?> c.</div>
 <?php endif ?>

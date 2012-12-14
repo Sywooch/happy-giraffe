@@ -54,6 +54,7 @@ class LinkingController extends SController
 
     public function actionSkip()
     {
+        $time = microtime();
         $phrase = $this->loadPhrase(Yii::app()->request->getPost('phrase_id'));
         $skip = new ILSkip;
         $skip->phrase_id = $phrase->id;
@@ -65,7 +66,7 @@ class LinkingController extends SController
             Yii::app()->end();
         }
 
-        $response = $this->nextLink();
+        $response = $this->nextLink($time);
         echo CJSON::encode($response);
     }
 
@@ -94,7 +95,6 @@ class LinkingController extends SController
             ));
         } else {
 
-            $time = microtime() - $time;
             if (Yii::app()->request->getPost('next_link') == 1) {
                 $response = $this->nextLink($time);
             } else
@@ -117,6 +117,7 @@ class LinkingController extends SController
         $keywords = $phrase->getSimilarKeywords();
         TimeLogger::model()->endTimer();
 
+        $time = microtime() - $time;
         return array(
             'status' => true,
             'html' => $this->renderPartial('_auto_linking', compact('phrase', 'pages', 'keywords', 'page', 'time'), true),

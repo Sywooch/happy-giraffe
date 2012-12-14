@@ -29,252 +29,107 @@
     if (empty($this->meta_description))
         $this->meta_description = trim(Str::truncate(strip_tags($recipe->text), 300));
 ?>
-<div class="entry hrecipe clearfix">
 
-    <?php $this->renderPartial('//community/_post_header', array('model' => $recipe, 'full' => true, 'show_user' => true)); ?>
+<div class="entry hrecipe recipe-article clearfix">
 
-    <div class="entry-content">
+<h1 class="fn">Курица в пиве с рисом</h1>
 
-        <div class="recipe-right">
+<?php $this->renderPartial('_recipe_parts/_header',array('recipe'=>$recipe)); ?>
 
-            <div class="recipe-description">
+<div class="entry-content">
 
-                <?php if ($recipe->cuisine || $recipe->preparation_duration || $recipe->cooking_duration || $recipe->servings): ?>
-                    <ul>
-                        <?php if ($recipe->cuisine): ?>
-                            <li>Кухня <span class="nationality"><!--<div class="flag flag-ua"></div> --><span class="cuisine-type"><?=$recipe->cuisine->title?></span></span></li>
-                        <?php endif; ?>
-                        <?php if ($recipe->preparation_duration): ?>
-                            <li>Время подготовки <span class="time-1"><i class="icon"></i><span class=""><?=$recipe->preparation_duration_h?> : <?=$recipe->preparation_duration_m?></span></span></li>
-                        <?php endif; ?>
-                        <?php if ($recipe->cooking_duration): ?>
-                            <li>Время приготовления <span class="time-2"><i class="icon"></i><span class=""><?=$recipe->cooking_duration_h?> : <?=$recipe->cooking_duration_m?></span></span></li>
-                        <?php endif; ?>
-                        <?php if ($recipe->servings): ?>
-                            <li>Кол-во порций <span class="yield-count"><i class="icon"></i><span class="yield"><?=$recipe->servings?> <?=HDate::GenerateNoun(array('персона', 'персоны', 'персон'), $recipe->servings)?></span></span></li>
-                        <?php endif; ?>
-                    </ul>
-                <?php endif; ?>
+    <?php $this->renderPartial('_recipe_parts/_cook_book', array('recipe' => $recipe)); ?>
 
-                <div class="actions">
+<div class="recipe-photo">
 
-                    <!--<div class="action">
-                        <a href="" class="print"><i class="icon"></i>Распечатать</a>
-                    </div>
+    <?php if ($recipe->mainPhoto === null): ?>
+    <?php
+    $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
+        'entity' => get_parent_class($recipe),
+        'entity_id' => $recipe->id,
+        'many' => true,
+        'customButton' => true,
+        'customButtonHtmlOptions' => array('class' => 'fancy add-photo'),
+    ));
+    ?>
+    <a href="" class="add-photo">
+        <i class="icon"></i>
+        <span>Вы уже готовили это блюдо?<br>Добавьте фото!</span>
+    </a>
+    <?php $this->endWidget();?>
+    <?php else: ?>
+    <div class="big">
+        <a href="javascript:void(0)" data-id="<?=$recipe->mainPhoto->id?>">
+            <?=CHtml::image($recipe->mainPhoto->getPreviewUrl(460, null, Image::WIDTH), $recipe->mainPhoto->title, array('class' => 'photo'))?>
+        </a>
+    </div>
+    <?php endif; ?>
 
-                    <div class="action">
-                        <a href="" class="add-to-cookbook"><i class="icon"></i>Добавить в кулинарную книгу</a>
-                    </div>-->
+    <div class="thumbs clearfix">
 
-<!--                    <div class="action share">-->
-<!--                        <script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>-->
-<!--                        Поделиться-->
-<!--                        <div class="yashare-auto-init" data-yashareL10n="ru" data-yashareType="none" data-yashareQuickServices="vkontakte,facebook,twitter,odnoklassniki,moimir,gplus"></div>-->
-<!--                    </div>-->
-
-
-                </div>
-
-                <?php $this->renderPartial('_recipe_tags_edit',array('recipe'=>$recipe)); ?>
-
-            </div>
-
-            <?php if ($recipe->ingredients): ?>
-                <div class="nutrition">
-
-                    <div class="block-title">Калорийность блюда</div>
-
-                    <div class="portion">
-                        <a onclick="toggleNutrition(this, 'g100');" href="javascript:void(0)" class="active">На 100 г.</a>
-                        |
-                        <?php if ($recipe->servings !== null): ?>
-                            <a onclick="toggleNutrition(this, 'total');" href="javascript:void(0)">На порцию</a>
-                        <?php else: ?>
-                            <a class="disabled" href="javascript:void(0)">На порцию</a>
-                        <?php endif; ?>
-                    </div>
-
-                    <ul class="g100">
-                        <li class="n-calories">
-                            <div class="icon">
-                                <i>К</i>
-                                Калории
-                            </div>
-                            <span class="calories"><?=$recipe->getNutritionalsPer100g(1)?></span> <span class="gray">ккал.</span>
-                        </li>
-                        <li class="n-protein">
-                            <div class="icon">
-                                <i>Б</i>
-                                Белки
-                            </div>
-                            <span class="protein"><?=$recipe->getNutritionalsPer100g(3)?></span> <span class="gray">г.</span>
-                        </li>
-                        <li class="n-fat">
-                            <div class="icon">
-                                <i>Ж</i>
-                                Жиры
-                            </div>
-                            <span class="fat"><?=$recipe->getNutritionalsPer100g(2)?></span> <span class="gray">г.</span>
-                        </li>
-                        <li class="n-carbohydrates">
-                            <div class="icon">
-                                <i>У</i>
-                                Углеводы
-                            </div>
-                            <span class="carbohydrates"><?=$recipe->getNutritionalsPer100g(4)?></span> <span class="gray">г.</span>
-                        </li>
-
-                    </ul>
-
-                    <?php if ($recipe->servings !== null): ?>
-                        <ul class="total" style="display:none;">
-                            <li class="n-calories">
-                                <div class="icon">
-                                    <i>К</i>
-                                    Калории
-                                </div>
-                                <span class="calories"><?=$recipe->getNutritionalsPerServing(1)?></span> <span class="gray">ккал.</span>
-                            </li>
-                            <li class="n-protein">
-                                <div class="icon">
-                                    <i>Б</i>
-                                    Белки
-                                </div>
-                                <span class="protein"><?=$recipe->getNutritionalsPerServing(3)?></span> <span class="gray">г.</span>
-                            </li>
-                            <li class="n-fat">
-                                <div class="icon">
-                                    <i>Ж</i>
-                                    Жиры
-                                </div>
-                                <span class="fat"><?=$recipe->getNutritionalsPerServing(2)?></span> <span class="gray">г.</span>
-                            </li>
-                            <li class="n-carbohydrates">
-                                <div class="icon">
-                                    <i>У</i>
-                                    Углеводы
-                                </div>
-                                <span class="carbohydrates"><?=$recipe->getNutritionalsPerServing(4)?></span> <span class="gray">г.</span>
-                            </li>
-
-                        </ul>
-                    <?php endif; ?>
-
-                </div>
-            <?php endif; ?>
-
-            <?php if ($recipe->forDiabetics): ?>
-                <div class="nutrition diabetes">
-
-                    <div class="block-title">Подходит для диабетиков</div>
-
-                    <ul>
-                        <li class="n-bread">
-                            <div class="icon">
-                                <i>ХЕ</i>
-                                Хлебных единиц
-                            </div>
-                            <span class="calories"><?=$recipe->bakeryItems?></span> <span class="gray">х.е.</span>
-                        </li>
-                    </ul>
-
-
-                </div>
-            <?php endif; ?>
-
-        </div>
-
-        <div class="recipe-photo">
-
-            <?php if ($recipe->mainPhoto === null): ?>
+        <ul class="clearfix">
+            <?php foreach ($recipe->thumbs as $t): ?>
+                <li><a href="javascript:;" data-id="<?=$t->photo->id?>"><?=CHtml::image($t->photo->getPreviewUrl(82, 60, Image::WIDTH, true, AlbumPhoto::CROP_SIDE_TOP), $t->photo->title)?></a></li>
+            <?php endforeach; ?>
+            <?php if ($recipe->mainPhoto !== null): ?>
+            <li>
+                <a href="javascript:;" class="add" data-id="<?=$recipe->mainPhoto->id?>"><?=CHtml::image($recipe->mainPhoto->getPreviewUrl(78, 52, Image::WIDTH, true, AlbumPhoto::CROP_SIDE_TOP), $recipe->mainPhoto->title)?></a>
+            </li>
+            <li>
                 <?php
-                    $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
-                        'entity' => get_parent_class($recipe),
-                        'entity_id' => $recipe->id,
-                        'many' => true,
-                        'customButton' => true,
-                        'customButtonHtmlOptions' => array('class' => 'fancy add-photo'),
-                    ));
+                $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
+                    'entity' => get_parent_class($recipe),
+                    'entity_id' => $recipe->id,
+                    'many' => true,
+                    'customButton' => true,
+                    'customButtonHtmlOptions' => array('class' => 'fancy add'),
+                ));
                 ?>
-                        <i class="icon"></i>
-                        <span>Вы уже готовили это блюдо?<br/>Добавьте фото!</span>
-                <?php
-                    $this->endWidget();
-                ?>
-            <?php else: ?>
-                <div class="big">
-                    <a href="javascript:void(0)" data-id="<?=$recipe->mainPhoto->id?>">
-                        <?=CHtml::image($recipe->mainPhoto->getPreviewUrl(441, null, Image::WIDTH), $recipe->mainPhoto->title, array('class' => 'photo'))?>
-                    </a>
-                </div>
+                <span>Уже готовили</span>
+                <i class="icon"></i>
+                <span class="blue">Поделитесь <br> фото!</span>
+                <?php $this->endWidget() ?>
+            </li>
             <?php endif; ?>
+        </ul>
+        <a href="">Смотреть еще 25 фото</a>
+    </div>
 
-            <div class="thumbs clearfix">
+</div>
 
-                <ul>
-                    <?php foreach ($recipe->thumbs as $t): ?>
-                        <li><a href="javascript:void(0)" data-id="<?=$t->photo->id?>"><?=CHtml::image($t->photo->getPreviewUrl(78, 52, Image::WIDTH, true, AlbumPhoto::CROP_SIDE_TOP), $t->photo->title)?></a></li>
-                    <?php endforeach; ?>
-                    <?php if ($recipe->mainPhoto !== null): ?>
-                    <li><a href="javascript:void(0)" data-id="<?=$recipe->mainPhoto->id?>"><?=CHtml::image($recipe->mainPhoto->getPreviewUrl(78, 52, Image::WIDTH, true, AlbumPhoto::CROP_SIDE_TOP), $recipe->mainPhoto->title)?></a></li>
-                        <li>
-                            <?php
-                                $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
-                                    'entity' => get_parent_class($recipe),
-                                    'entity_id' => $recipe->id,
-                                    'many' => true,
-                                    'customButton' => true,
-                                    'customButtonHtmlOptions' => array('class' => 'fancy add'),
-                                ));
-                            ?>
-                                <i class="icon"></i>
-                            <?php
-                                $this->endWidget();
-                            ?>
-                        </li>
-                    <?php endif; ?>
-                </ul>
+<div style="clear:left;"></div>
 
-            </div>
+    <?php $this->renderPartial('_recipe_parts/_recipe_description', array('recipe' => $recipe)); ?>
 
-        </div>
+<div class="clearfix">
+    <div class="recipe-right">
 
-        <div style="clear:left;"></div>
-
-        <?php if ($recipe->ingredients): ?>
-            <h2>Ингредиенты</h2>
-
-            <ul class="ingredients">
-                <?php foreach ($recipe->ingredients as $i): ?>
-                    <li class="ingredient">
-                        <span class="name"><?=$i->ingredient->title?></span>
-                        <?php if ($i->unit->type != 'undefined'): ?>
-                            <span class="value"><?=$i->display_value?></span>
-                        <?php endif; ?>
-                        <span class="type"><?=$i->noun?></span>
-                        <!--<a href="" class="calculator-trigger tooltip" title="Открыть калькулятор мер"></a>-->
-                    </li>
-                <?php endforeach; ?>
-            </ul>
-        <?php endif; ?>
-
-        <h2>Приготовление</h2>
-
-        <div class="instructions wysiwyg-content">
-
-            <?=$recipe->purified->text?>
-
-        </div>
+        <?php $this->renderPartial('_recipe_parts/_calories', array('recipe' => $recipe)); ?>
 
     </div>
 
-    <div class="entry-footer">
-        <div class="admin-actions">
-            <?php if (Yii::app()->authManager->checkAccess('editCookRecipe', Yii::app()->user->id) || Yii::app()->user->id == $recipe->author_id){
-                echo CHtml::link('<i class="icon"></i>', $this->createUrl('/cook/recipe/form/', array('id' => $recipe->id, 'section' => $recipe->section)), array('class' => 'edit'));
-            } ?>
-        </div>
+    <?php $this->renderPartial('_recipe_parts/_ingredients', array('recipe' => $recipe)); ?>
+</div>
+
+<h2>Приготовление</h2>
+
+<div class="instructions wysiwyg-content">
+
+    <?=$recipe->purified->text?>
+
+    <div class="clearfix">
+
+        <?php $this->renderPartial('_recipe_parts/_diabetics', array('recipe' => $recipe)); ?>
+
+        <?php $this->renderPartial('_recipe_parts/_tags', array('recipe' => $recipe)); ?>
+
+        <?php $this->renderPartial('_recipe_parts/_recipe_tags_edit',array('recipe'=>$recipe)); ?>
+
     </div>
+</div>
+
+</div>
+
 </div>
 
 <?php if ($recipe->more): ?>

@@ -1,6 +1,6 @@
 <?php
     $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
-        'selector' => '.masonry-news-list_item:data(id=' . $data->_id . ') .title-img a',
+        'selector' => '.masonry-news-list_item:data(id=' . $data->blockId . ') .title-img a',
         'entity' => 'CookRecipe',
         'entity_id' => $data->recipe->id,
         'entity_url' => $data->recipe->url,
@@ -21,7 +21,7 @@
 </div>
 
 <div class="masonry-news-list_meta-info clearfix">
-    <?php $this->renderPartial('/_meta', array('model' => $data->recipe)); ?>
+    <?php $this->renderPartial('application.modules.whatsNew.views._meta', array('model' => $data->recipe)); ?>
 
     <a href="<?=$data->recipe->getUrl(true)?>" class="textdec-onhover">Добавить <br />комментарий</a>
 </div>

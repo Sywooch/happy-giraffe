@@ -61,6 +61,7 @@ class UserController extends HController
         $this->layout = '//layouts/main';
 
         Yii::import('application.widgets.user.*');
+        Yii::import('application.modules.whatsNew.widgets.whatsNewUserWidget.WhatsNewUserWidget');
         Yii::import('site.common.models.interest.*');
         Yii::import('site.frontend.modules.contest.models.*');
 
@@ -76,7 +77,7 @@ class UserController extends HController
             'babies',
             'mood',
             'score',
-            'communities',
+//            'communities',
             'albumsCount',
         );
         $user = User::model()->find($criteria);

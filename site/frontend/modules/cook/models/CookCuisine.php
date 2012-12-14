@@ -6,9 +6,11 @@
  * The followings are the available columns in table 'cook__cuisines':
  * @property string $id
  * @property string $title
+ * @property int $country_id
  *
  * The followings are the available model relations:
- * @property CookRecipes[] $cookRecipes
+ * @property CookRecipe[] $recipes
+ * @property GeoCountry $country
  */
 class CookCuisine extends CActiveRecord
 {
@@ -40,6 +42,8 @@ class CookCuisine extends CActiveRecord
 		return array(
 			array('title', 'required'),
 			array('title', 'length', 'max'=>255),
+            array('country_id', 'numerical', 'integerOnly' => true),
+            array('country_id', 'default', 'value' => null),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, title', 'safe', 'on'=>'search'),
@@ -55,6 +59,7 @@ class CookCuisine extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'recipes' => array(self::HAS_MANY, 'CookRecipe', 'cuisine_id'),
+			'country' => array(self::BELONGS_TO, 'GeoCountry', 'country_id'),
 		);
 	}
 
@@ -80,11 +85,13 @@ class CookCuisine extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('id',$this->id,true);
+		$criteria->compare('id',$this->id);
 		$criteria->compare('title',$this->title,true);
+		$criteria->compare('country_id',$this->country_id);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+            'pagination' => array('pageSize' => 100),
 		));
 	}
 }

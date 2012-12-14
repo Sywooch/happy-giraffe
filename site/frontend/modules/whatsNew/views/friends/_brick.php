@@ -11,5 +11,5 @@
             <p><?=$data->label?></p>
         </div>
     </div>
-    <?php $this->renderPartial($data->view, compact('data')); ?>
+    <?php Yii::app()->controller->renderPartial($data->view, compact('data')); ?>
 </li>

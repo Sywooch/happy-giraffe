@@ -1,4 +1,4 @@
-<h1>Тэг: <?= CookRecipeTag::model()->findByPk($tag)->title; ?></h1>
+<h1>Тэг: <?= $tag->title; ?> - <?=$tag->recipesCount ?></h1>
 <?php
 
 $this->widget('zii.widgets.CListView', array(

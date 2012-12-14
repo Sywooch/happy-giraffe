@@ -192,16 +192,17 @@ class CommentatorController extends HController
             $keywords [] = $keyword->id;
 
         $page = Page::model()->getOrCreate($url, $keywords, true);
-        if ($page === null) {
-            echo CJSON::encode(array(
-                'status' => false,
-                'error' => 'Статья не найдена'
-            ));
-        } else {
+        if ($page) {
             $task->status = SeoTask::STATUS_CLOSED;
             $task->article_id = $page->id;
             $task->article_title = $page->getArticleTitle();
             echo CJSON::encode(array('status' => $task->save()));
+            CommentatorWork::getCurrentUser()->refreshCurrentDayPosts();
+        } else {
+            echo CJSON::encode(array(
+                'status' => false,
+                'error' => 'Статья не найдена'
+            ));
         }
     }
 

@@ -133,6 +133,7 @@ return array(
         'whatsNew/page<page:\d+>' => 'whatsNew/default/index',
         'whatsNew' => 'whatsNew/default/index',
         'whatsNew/friends' => 'whatsNew/friends/index',
+        'whatsNew/friends/page<page:\d+>' => 'whatsNew/friends/index',
 
         'contest/<id:\d+>' => 'contest/default/view',
         'contest/<id:\d+>/rules' => 'contest/default/rules',

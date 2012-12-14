@@ -24,7 +24,7 @@
 
 <div class="masonry-news-list_meta-info clearfix">
 
-    <?php $this->renderPartial('/_meta', array('model' => $data->comment->relatedModel)); ?>
+    <?php $this->renderPartial('application.modules.whatsNew.views._meta', array('model' => $data->comment->relatedModel)); ?>
 
     <a href="<?=$data->relatedModel->getUrl(true)?>" class="textdec-onhover">Вступить <br />в беседу!</a>
 </div>

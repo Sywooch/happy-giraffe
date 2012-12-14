@@ -17,7 +17,8 @@ class FriendEventComment extends FriendEvent
     public function init()
     {
         $this->comment = $this->_getComment();
-        $this->relatedModel = $this->comment->getRelatedModel();
+        if ($this->comment !== null)
+            $this->relatedModel = $this->comment->getRelatedModel();
     }
 
     public function getComment()

@@ -16,7 +16,8 @@ class LiParser
         $this->site = $this->loadModel($site_id);
         $this->Login();
 
-        $this->parseStats($year, $month_from, $month_to);
+        $found = $this->parseStats($year, $month_from, $month_to);
+        echo $found."\n";
     }
 
 
@@ -36,6 +37,8 @@ class LiParser
 
     public function parseStats($year, $month_from, $month_to)
     {
+        $found = 0;
+
         $this->loadPage('http://www.liveinternet.ru/stat/' . $this->site->url . '/queries.html', 'http://www.liveinternet.ru/stat/' . $this->site->url . '/index.html');
         $next_url = 'http://www.liveinternet.ru/stat/' . $this->site->url . '/queries.html?total=yes&period=month';
         $this->loadPage($next_url, 'http://www.liveinternet.ru/stat/' . $this->site->url . '/queries.html');
@@ -61,16 +64,18 @@ class LiParser
                 $result = $this->loadPage($page_url, $url);
 
                 $document = phpQuery::newDocument($result);
-                if ($this->ParseDocument($document, $month, $year) === false)
+                $count = $this->ParseDocument($document, $month, $year);
+                if ($count === false)
                     break;
 
+                $found += $count;
                 sleep(rand(1, 2));
             }
 
             $next_url = $url;
         }
 
-        return true;
+        return $found;
     }
 
     public function getPagesCount($document)

@@ -5,7 +5,7 @@
 
     <div class="user-family">
         <ul>
-            <?php if ($data->partner !== null): ?>
+            <?php if ($data->partner !== null && ! empty($data->partner->name)): ?>
                 <li>
                     <big><?= $data->partner->name ?> <small>- <?php echo $data->user->getPartnerTitleOf(null, 3) ?></small></big>
                     <?php if (!empty($data->partner->notice)):?>

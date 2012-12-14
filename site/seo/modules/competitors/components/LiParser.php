@@ -18,6 +18,8 @@ class LiParser
 
         $found = $this->parseStats($year, $month_from, $month_to);
         echo $found."\n";
+
+        mail('alexk984@gmail.com', 'report parsing site '.$this->site->url, $found.' keywords parsed');
     }
 
 

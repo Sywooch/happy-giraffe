@@ -65,6 +65,7 @@ class Service extends HActiveRecord
         return array(
             'category' => array(self::BELONGS_TO, 'ServiceCategory', 'category_id'),
             'photo' => array(self::BELONGS_TO, 'AlbumPhoto', 'photo_id'),
+            'commentsCount' => array(self::STAT, 'Comment', 'entity_id', 'condition' => 'entity=:modelName', 'params' => array(':modelName' => get_class($this))),
         );
     }
 
@@ -184,5 +185,10 @@ class Service extends HActiveRecord
         $criteria = new CDbCriteria;
         $criteria->compare('service_id', $this->id);
         return ServiceUser::model()->cache(10)->count($criteria);
+    }
+
+    public function getUrl($comments = false)
+    {
+        return $comments ? $this->url . '#comment_list' : $this->url;
     }
 }

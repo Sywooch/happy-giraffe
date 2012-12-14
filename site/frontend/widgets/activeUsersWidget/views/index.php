@@ -1,5 +1,5 @@
 <div class="best-users tabs">
-    <div class="best-users_title">Лучшие клабберы</div>
+    <div class="best-users_title">Лучшие <?=($this->type == $this::TYPE_CLUBS) ? 'клабберы' : 'блоггеры'?></div>
     <div class="best-users_nav">
         <ul>
             <li class="best-users_nav_item active"><a  onclick="setTab(this, 1);" href="javascript:void(0);"><span>Сегодня</span></a></li>

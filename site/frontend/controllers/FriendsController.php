@@ -8,13 +8,10 @@
  */
 class FriendsController extends HController
 {
-    const BY_ONLINE = 0;
-    const BY_REGION = 1;
-    const BY_INTERESTS = 2;
-    const BY_STATUS = 3;
-
     public function actionFind($type)
     {
-        $this->render('find');
+        $dp = FindFriendsManager::getDataProvider($type);
+
+        $this->render('find', compact('dp'));
     }
 }

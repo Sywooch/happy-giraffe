@@ -188,7 +188,7 @@
 												02 : 00
 											</div>
 											<div class="recipe-description-item">
-												<div class="icon-yield tooltip" title="Количество порций"></div>
+												<div class="icon-yield tooltip" title="Количество персон"></div>
 												на 6 персон
 											</div>
 										</div>
@@ -283,7 +283,14 @@
 										
 										<div class="clearfix">
 											<div class="cook-diabets">
-												<div class="cook-diabets-chart val66">
+												<!-- 
+												Диаграмма для диабетиков имеет 4 состояния на сколько не подходит 
+												val0 (по умолчанию даже без класса) 
+												val33
+												val66
+												val100
+												-->
+												<div class="cook-diabets-chart val33">
 													<span class="text">20.5</span>
 												</div>
 												<div class="cook-diabets-desc">Подходит для диабетиков</div>
@@ -374,9 +381,26 @@
 							<div class="default-comments">
 							
 								<div class="comments-meta clearfix">
-									<a href="" class="btn btn-orange a-right"><span><span>Добавить комментарий</span></span></a>
 									<div class="title">Комментарии</div>
 									<div class="count">55</div>
+								</div>
+								
+								<div class="comment-add clearfix">
+									<div class="comment-add_user">
+										<a href="">Авторизируйтесь</a>
+										<div class="social-small-row clearfix">
+											<em>или войти с помощью</em> <br />
+											<ul class="social-list-small">
+												<li><a href="#" class="odnoklasniki"></a></li>
+												<li><a href="#" class="mailru"></a></li>
+												<li><a href="#" class="vk"></a></li>
+												<li><a href="#" class="fb"></a></li>
+											</ul>
+										</div>
+									</div>
+									<div class="comment-add_form-holder">
+										<input type="text" name="" class="input-text" placeholder="Введите ваш комментарий"/>
+									</div>
 								</div>
 								
 								<ul>
@@ -530,6 +554,99 @@
 								
 							</div>
 							
+	<script type="text/javascript">
+	//<![CDATA[
+
+		$(function(){
+
+			/* skin hgru-comment */
+			CKEDITOR.replace( 'editor',
+				{
+					skin : 'hgrucomment',
+					toolbar : [				
+						['Source'],
+						['Bold','Italic','Underline','-','Image', 'Smiles','-','Link','Unlink']
+					],
+					toolbarCanCollapse: false,
+					disableObjectResizing: false,
+					height: 80
+				});
+
+			/* skin hgru-comment */
+			CKEDITOR.replace( 'editor2',
+				{
+					skin : 'hgrucomment',
+					toolbar : [				
+						['Source'],
+						['Bold','Italic','Underline','-','Image', 'Smiles','-','Link','Unlink']
+					],
+					toolbarCanCollapse: false,
+					disableObjectResizing: false,
+					height: 80
+				});
+			});
+
+	//]]>
+	</script>
+						
+								
+					<div class="comment-add clearfix">
+						<div class="comment-add_user">
+							<a href="">Авторизируйтесь</a>
+							<div class="social-small-row clearfix">
+								<em>или войти с помощью</em> <br />
+								<ul class="social-list-small">
+									<li><a href="#" class="odnoklasniki"></a></li>
+									<li><a href="#" class="mailru"></a></li>
+									<li><a href="#" class="vk"></a></li>
+									<li><a href="#" class="fb"></a></li>
+								</ul>
+							</div>
+						</div>
+						<div class="comment-add_form-holder">
+							<input type="text" name="" class="input-text" placeholder="Введите ваш комментарий"/>
+						</div>
+					</div>
+					
+					<div class="comment-add clearfix">
+						<div class="comment-add_user">
+							<a href="">Авторизируйтесь</a>
+							<div class="social-small-row clearfix">
+								<em>или войти с помощью</em> <br />
+								<ul class="social-list-small">
+									<li><a href="#" class="odnoklasniki"></a></li>
+									<li><a href="#" class="mailru"></a></li>
+									<li><a href="#" class="vk"></a></li>
+									<li><a href="#" class="fb"></a></li>
+								</ul>
+							</div>
+						</div>
+						<div class="comment-add_form-holder">
+							<textarea cols="80" id="editor" name="editor" rows="10"></textarea>
+							<div class="a-right">
+						        <button class="btn-gray medium cancel">Отмена</button>
+						        <button class="btn-green medium">Добавить</button>
+						    </div>
+						</div>
+					</div>
+					
+					<div class="comment-add clearfix">
+						<div class="comment-add_user">
+							<div class="comment-add_user-ava">
+   								 <a href="" class="ava female"><img alt="" src="http://img.happy-giraffe.ru/avatars/13623/ava/7acd577045e2014b4d26ecd33f6ce6d2.jpeg"></a> 
+					             <div class="details">
+					               	<a href="" class="username">Татьяна Пахоменко </a>
+                   				</div>
+                   			</div>
+						</div>
+						<div class="comment-add_form-holder">
+							<textarea cols="40" id="editor2" name="editor2" rows="5"></textarea>
+							<div class="a-right">
+						        <button class="btn-gray medium cancel">Отмена</button>
+						        <button class="btn-green medium">Добавить</button>
+						    </div>
+						</div>
+					</div>
 							
 						</div>
 						

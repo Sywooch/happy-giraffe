@@ -14,12 +14,12 @@ class LiParser
     public function start($site_id, $year, $month_from, $month_to)
     {
         $this->site = $this->loadModel($site_id);
-        $this->Login();
+        if (!empty($this->site->password))
+            $this->Login();
 
         $found = $this->parseStats($year, $month_from, $month_to);
-        echo $found."\n";
-
-        mail('alexk984@gmail.com', 'report parsing site '.$this->site->url, $found.' keywords parsed');
+        echo $site_id.' - '.$found."\n";
+        //mail('alexk984@gmail.com', 'report parsing site '.$this->site->url, $found.' keywords parsed');
     }
 
 

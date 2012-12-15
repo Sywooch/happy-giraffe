@@ -20,9 +20,11 @@ class LiParser
         else{
             if (empty($this->last_url)){
                 $this->site = $this->loadModel(1);
+                echo "login to baby blog\n";
                 $this->Login();
             }
             $this->site = $this->loadModel($site_id);
+            echo "load no password site\n";
             $this->loadPage('http://www.liveinternet.ru/stat/', 'url='.urlencode('http://'.$this->site->url).'&password=');
         }
 

@@ -79,6 +79,7 @@ class LiParser
                 $count = $this->ParseDocument($document, $month, $year);
                 if ($count === false)
                     break;
+                echo $count."\n";
 
                 $found += $count;
             }

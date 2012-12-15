@@ -18,13 +18,13 @@ class LiParser
         if (!empty($this->site->password))
             $this->Login();
         else{
-            if (empty($this->last_url)){
-                $this->site = $this->loadModel(1);
-                echo "login to baby blog\n";
-                $this->Login();
-            }
-            $this->site = $this->loadModel($site_id);
-            echo "load no password site\n";
+//            if (empty($this->last_url)){
+//                $this->site = $this->loadModel(1);
+//                echo "login to baby blog\n";
+//                $this->Login();
+//            }
+//            $this->site = $this->loadModel($site_id);
+//            echo "load no password site\n";
             $this->loadPage('http://www.liveinternet.ru/stat/', 'url='.urlencode('http://'.$this->site->url).'&password=');
         }
 
@@ -135,7 +135,7 @@ class LiParser
 
     public function loadPage($page_url, $post = '')
     {
-        sleep(2);
+        sleep(1);
         $this->last_url = $page_url;
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:17.0) Gecko/20100101 Firefox/17.0');

@@ -392,18 +392,30 @@ class SeoCommand extends CConsoleCommand
         }
     }
 
-    public function actionLi($site){
+    public function actionLi($site)
+    {
         Yii::import('site.seo.modules.competitors.components.*');
-        if (empty($site)){
+        if (empty($site)) {
             $parser = new LiParser;
 
             $sites = Site::model()->findAll('id > 69');
-            foreach($sites as $site){
+            foreach ($sites as $site) {
                 $parser->start($site->id, 2012, 11, 12);
             }
-        }else{
+        } else {
             $parser = new LiParser;
             $parser->start($site, 2012, 11, 12);
+        }
+    }
+
+    public function actionLi2()
+    {
+        Yii::import('site.seo.modules.competitors.components.*');
+
+        $parser = new LiParser;
+        $sites = Site::model()->findAll('password IS NULL OR password = ""');
+        foreach ($sites as $site) {
+            $parser->start($site->id, 2012, 11, 12);
         }
     }
 }

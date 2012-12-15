@@ -32,7 +32,7 @@ class LiParser
         $rnd = $document->find('input[name=rnd]');
         $rnd = pq($rnd)->attr('value');
 
-        $post = 'rnd='.$rnd.'&url='.urlencode($this->site->url).'&password='.$this->site->password.'&keep_password=on&ok=+OK+';
+        $post = 'rnd='.$rnd.'&url='.urlencode('http://'.$this->site->url).'&password='.$this->site->password.'&keep_password=on&ok=+OK+';
         echo $post."\n";
         $this->loadPage('http://www.liveinternet.ru/stat/', 'http://www.liveinternet.ru/stat/', $post);
     }

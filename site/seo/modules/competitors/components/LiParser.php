@@ -5,11 +5,12 @@
  */
 class LiParser
 {
+    const STATS_LIMIT = 5;
     /**
      * @var Site
      */
     public $site;
-    const STATS_LIMIT = 5;
+    public $last_url = '';
 
     public function start($site_id, $year, $month_from, $month_to)
     {
@@ -17,7 +18,7 @@ class LiParser
         if (!empty($this->site->password))
             $this->Login();
         else
-            $this->loadPage('http://www.liveinternet.ru/stat/'.$this->site->url.'/');
+            $this->loadPage('http://www.liveinternet.ru/stat/', 'url='.urlencode('http://'.$this->site->url).'&password=');
 
         $found = $this->parseStats($year, $month_from, $month_to);
         echo $site_id.' - '.$found."\n";
@@ -35,7 +36,7 @@ class LiParser
         $rnd = pq($rnd)->attr('value');
 
         $post = 'rnd='.$rnd.'&url='.urlencode('http://'.$this->site->url).'&password='.$this->site->password.'&keep_password=on&ok=+OK+';
-        $this->loadPage('http://www.liveinternet.ru/stat/', 'http://www.liveinternet.ru/stat/', $post);
+        $this->loadPage('http://www.liveinternet.ru/stat/', $post);
     }
 
 
@@ -43,9 +44,8 @@ class LiParser
     {
         $found = 0;
 
-        $this->loadPage('http://www.liveinternet.ru/stat/' . $this->site->url . '/queries.html', 'http://www.liveinternet.ru/stat/' . $this->site->url . '/index.html');
-        $next_url = 'http://www.liveinternet.ru/stat/' . $this->site->url . '/queries.html?total=yes&period=month';
-        $this->loadPage($next_url, 'http://www.liveinternet.ru/stat/' . $this->site->url . '/queries.html');
+        $this->loadPage('http://www.liveinternet.ru/stat/' . $this->site->url . '/queries.html');
+        $this->loadPage('http://www.liveinternet.ru/stat/' . $this->site->url . '/queries.html?total=yes&period=month');
 
         for ($month = $month_from; $month <= $month_to; $month++) {
             $url = 'http://www.liveinternet.ru/stat/' . $this->site->url
@@ -53,7 +53,7 @@ class LiParser
                 . str_pad(cal_days_in_month(CAL_GREGORIAN, $month, $year), 2, '0', STR_PAD_LEFT)
                 . '&period=month&total=yes&per_page=100&page=';
 
-            $result = $this->loadPage($url, $next_url);
+            $result = $this->loadPage($url);
 
             $document = phpQuery::newDocument($result);
             $max_pages = $this->getPagesCount($document);
@@ -66,7 +66,7 @@ class LiParser
 
             for ($i = 2; $i <= $max_pages; $i++) {
                 $page_url = $url . $i;
-                $result = $this->loadPage($page_url, $url);
+                $result = $this->loadPage($page_url);
 
                 $document = phpQuery::newDocument($result);
                 $count = $this->ParseDocument($document, $month, $year);
@@ -129,8 +129,9 @@ class LiParser
         return $count;
     }
 
-    public function loadPage($page_url, $last_url = '', $post = '')
+    public function loadPage($page_url, $post = '')
     {
+        $this->last_url = $page_url;
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:17.0) Gecko/20100101 Firefox/17.0');
         curl_setopt($ch, CURLOPT_URL, $page_url);
@@ -142,11 +143,11 @@ class LiParser
         if (!empty($post)){
             curl_setopt($ch, CURLOPT_POST, 1);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+            curl_setopt($ch, CURLOPT_HEADER, array('Content-Type: application/x-www-form-urlencoded', 'Content-Length: '.strlen($post)));
         }
 
         curl_setopt($ch, CURLOPT_COOKIEFILE, $this->getCookieFile());
         curl_setopt($ch, CURLOPT_COOKIEJAR, $this->getCookieFile());
-        curl_setopt($ch, CURLOPT_HEADER, array('Content-Type: application/x-www-form-urlencoded', 'Content-Length: '.strlen($post)));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
         curl_setopt($ch, CURLOPT_TIMEOUT, 20);

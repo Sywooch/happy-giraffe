@@ -58,7 +58,6 @@ class LiParser
             $count = $this->ParseDocument($document, $month, $year);
 
             if ($count == 0){
-                echo $result;
                 return "Data not found on page - \n" . $url."\n";
             }
             sleep(rand(1, 2));

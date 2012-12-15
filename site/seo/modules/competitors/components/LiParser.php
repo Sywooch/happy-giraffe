@@ -25,7 +25,7 @@ class LiParser
             }
             $this->site = $this->loadModel($site_id);
             echo "load no password site\n";
-            $this->loadPage('http://www.liveinternet.ru/stat/', 'url='.urlencode('http://'.$this->site->url).'&password=');
+            echo $this->loadPage('http://www.liveinternet.ru/stat/', 'url='.urlencode('http://'.$this->site->url).'&password=');
             $this->last_url = 'http://www.liveinternet.ru/stat/'.$this->site->url.'/index.html';
         }
 
@@ -53,8 +53,7 @@ class LiParser
     {
         $found = 0;
 
-        echo $this->loadPage('http://www.liveinternet.ru/stat/' . $this->site->url . '/queries.html');
-        Yii::app()->end();
+        $this->loadPage('http://www.liveinternet.ru/stat/' . $this->site->url . '/queries.html');
         $this->loadPage('http://www.liveinternet.ru/stat/' . $this->site->url . '/queries.html?total=yes&period=month');
 
         for ($month = $month_from; $month <= $month_to; $month++) {

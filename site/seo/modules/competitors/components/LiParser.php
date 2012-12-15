@@ -25,7 +25,7 @@ class LiParser
             }
             $this->site = $this->loadModel($site_id);
             echo "load no password site\n";
-            echo $this->loadPage('http://www.liveinternet.ru/stat/', 'url='.urlencode('http://'.$this->site->url).'&password=');
+            $this->loadPage('http://www.liveinternet.ru/stat/', 'url='.urlencode('http://'.$this->site->url).'&password=');
             $this->last_url = 'http://www.liveinternet.ru/stat/'.$this->site->url.'/index.html';
         }
 

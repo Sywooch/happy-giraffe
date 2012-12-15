@@ -14,7 +14,7 @@ class LiParser
     public function start($site_id, $year, $month_from, $month_to)
     {
         $this->site = $this->loadModel($site_id);
-        if (!empty($this->site->password))
+        //if (!empty($this->site->password))
             $this->Login();
 
         $found = $this->parseStats($year, $month_from, $month_to);
@@ -33,6 +33,7 @@ class LiParser
         $rnd = pq($rnd)->attr('value');
 
         $post = 'rnd='.$rnd.'&url='.urlencode($this->site->url).'&password='.$this->site->password.'&keep_password=on&ok=+OK+';
+        echo $post."\n";
         $this->loadPage('http://www.liveinternet.ru/stat/', 'http://www.liveinternet.ru/stat/', $post);
     }
 
@@ -58,7 +59,7 @@ class LiParser
             $count = $this->ParseDocument($document, $month, $year);
 
             if ($count == 0)
-                return 'Не найдено данных на стрaнице - ' . $url;
+                return "Data not found on page - \n" . $url."\n";
             sleep(rand(1, 2));
 
             for ($i = 2; $i <= $max_pages; $i++) {

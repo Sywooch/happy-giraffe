@@ -70,7 +70,6 @@ class LiParser
             if ($count == 0){
                 return "Data not found on page - \n" . $url."\n";
             }
-            sleep(rand(1, 2));
 
             for ($i = 2; $i <= $max_pages; $i++) {
                 $page_url = $url . $i;
@@ -82,10 +81,7 @@ class LiParser
                     break;
 
                 $found += $count;
-                sleep(rand(1, 2));
             }
-
-            $next_url = $url;
         }
 
         return $found;
@@ -139,14 +135,15 @@ class LiParser
 
     public function loadPage($page_url, $post = '')
     {
+        sleep(2);
         $this->last_url = $page_url;
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:17.0) Gecko/20100101 Firefox/17.0');
         curl_setopt($ch, CURLOPT_URL, $page_url);
         curl_setopt($ch, CURLOPT_FAILONERROR, 1);
 
-        if (!empty($last_url))
-            curl_setopt($ch, CURLOPT_REFERER, $last_url);
+        if (!empty($this->last_url))
+            curl_setopt($ch, CURLOPT_REFERER, $this->last_url);
 
         if (!empty($post)){
             curl_setopt($ch, CURLOPT_POST, 1);

@@ -14,8 +14,10 @@ class LiParser
     public function start($site_id, $year, $month_from, $month_to)
     {
         $this->site = $this->loadModel($site_id);
-        //if (!empty($this->site->password))
+        if (!empty($this->site->password))
             $this->Login();
+        else
+            $this->loadPage('http://www.liveinternet.ru/stat/'.$this->site->url.'/');
 
         $found = $this->parseStats($year, $month_from, $month_to);
         echo $site_id.' - '.$found."\n";

@@ -73,7 +73,7 @@ class LiParser
 
                 $document = phpQuery::newDocument($result);
                 $count = $this->ParseDocument($document, $month, $year);
-                if ($count === false)
+                if ($count == 0)
                     break;
                 if ($i % 10 == 0)
                     echo "Page $i\n";

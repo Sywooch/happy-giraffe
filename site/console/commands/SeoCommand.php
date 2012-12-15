@@ -413,7 +413,7 @@ class SeoCommand extends CConsoleCommand
         Yii::import('site.seo.modules.competitors.components.*');
 
         $parser = new LiParser;
-        $sites = Site::model()->findAll('password IS NULL OR password = ""');
+        $sites = Site::model()->findAll('password IS NULL OR password = "" AND id > 3');
         foreach ($sites as $site) {
             $parser->start($site->id, 2012, 11, 12);
         }

@@ -33,7 +33,6 @@ class LiParser
         $rnd = pq($rnd)->attr('value');
 
         $post = 'rnd='.$rnd.'&url='.urlencode('http://'.$this->site->url).'&password='.$this->site->password.'&keep_password=on&ok=+OK+';
-        echo $post."\n";
         $this->loadPage('http://www.liveinternet.ru/stat/', 'http://www.liveinternet.ru/stat/', $post);
     }
 
@@ -58,8 +57,10 @@ class LiParser
             $max_pages = $this->getPagesCount($document);
             $count = $this->ParseDocument($document, $month, $year);
 
-            if ($count == 0)
+            if ($count == 0){
+                echo $result;
                 return "Data not found on page - \n" . $url."\n";
+            }
             sleep(rand(1, 2));
 
             for ($i = 2; $i <= $max_pages; $i++) {

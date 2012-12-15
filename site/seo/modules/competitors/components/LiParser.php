@@ -134,10 +134,9 @@ class LiParser
         return $count;
     }
 
-    public function loadPage($page_url, $post = '')
+    public function loadPage($page_url, $post = '', $attempt = 1)
     {
         sleep(1);
-        $this->last_url = $page_url;
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:17.0) Gecko/20100101 Firefox/17.0');
         curl_setopt($ch, CURLOPT_URL, $page_url);
@@ -159,12 +158,19 @@ class LiParser
         curl_setopt($ch, CURLOPT_COOKIEJAR, $this->getCookieFile());
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 20);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 60);
         $result = curl_exec($ch);
         curl_close($ch);
 
+        if ($result === false){
+            if ($attempt == 3)
+                return false;
+
+            return $this->loadPage($page_url, $post, $attempt+1);
+        }
+
+        $this->last_url = $page_url;
         return $result;
-//        return $this->CP1251toUTF8($html);
     }
 
     public function getCookieFile()

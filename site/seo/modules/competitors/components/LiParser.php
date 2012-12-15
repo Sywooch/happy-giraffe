@@ -85,6 +85,7 @@ class LiParser
                 $found += $count;
             }
 
+            echo "Last page -  $i\n";
             echo "Year $year, Month $month - $found \n";
         }
 

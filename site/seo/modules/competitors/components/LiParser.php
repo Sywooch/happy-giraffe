@@ -25,7 +25,9 @@ class LiParser
             }
             $this->site = $this->loadModel($site_id);
             echo "load no password site\n";
-            $this->loadPage('http://www.liveinternet.ru/stat/', 'url='.urlencode('http://'.$this->site->url).'&password=');
+            $html = $this->loadPage('http://www.liveinternet.ru/stat/', 'url='.urlencode('http://'.$this->site->url).'&password=');
+            echo $html;
+            Yii::app()->end();
         }
 
         $found = $this->parseStats($year, $month_from, $month_to);

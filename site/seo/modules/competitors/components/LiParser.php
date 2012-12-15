@@ -79,10 +79,13 @@ class LiParser
                 $count = $this->ParseDocument($document, $month, $year);
                 if ($count === false)
                     break;
-                echo $count."\n";
+                if ($i % 10 == 0)
+                    echo "Page $i\n";
 
                 $found += $count;
             }
+
+            echo "Year $year, Month $month - $found \n";
         }
 
         return $found;

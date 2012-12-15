@@ -396,8 +396,6 @@ class SeoCommand extends CConsoleCommand
         Yii::import('site.seo.modules.competitors.components.*');
         if (empty($site)){
             $parser = new LiParser;
-            $parser->start(69, 2011, 1, 12);
-            $parser->start(69, 2012, 1, 12);
 
             $sites = Site::model()->findAll('id > 69');
             foreach($sites as $site){

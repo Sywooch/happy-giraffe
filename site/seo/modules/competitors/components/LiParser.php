@@ -26,7 +26,7 @@ class LiParser
             $this->site = $this->loadModel($site_id);
             echo "load no password site\n";
             $this->loadPage('http://www.liveinternet.ru/stat/', 'url='.urlencode('http://'.$this->site->url).'&password=');
-            $this->last_url = 'http://www.liveinternet.ru/stat/'.urlencode('http://'.$this->site->url).'/index.html';
+            $this->last_url = 'http://www.liveinternet.ru/stat/'.$this->site->url.'/index.html';
         }
 
         $found = $this->parseStats($year, $month_from, $month_to);

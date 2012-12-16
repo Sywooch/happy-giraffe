@@ -152,7 +152,7 @@ class LiParser
         }
 
         curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
-        curl_setopt($ch, CURLOPT_PROXY, '95.211.189.195:37888');
+        curl_setopt($ch, CURLOPT_PROXY, '82.192.85.50:48307');
 
         curl_setopt($ch, CURLOPT_COOKIEFILE, $this->getCookieFile());
         curl_setopt($ch, CURLOPT_COOKIEJAR, $this->getCookieFile());

@@ -96,7 +96,7 @@ class KeywordRelation extends HActiveRecord
 
     public static function saveRelation($keyword_from_id, $keyword_to_id)
     {
-        $exist = Yii::app()->db->createCommand()
+        $exist = Yii::app()->db_seo->createCommand()
             ->select('keyword_from_id')
             ->from(self::model()->tableName())
             ->where('keyword_from_id=:keyword_from_id AND keyword_to_id=:keyword_to_id',
@@ -108,7 +108,7 @@ class KeywordRelation extends HActiveRecord
 
         if (empty($exist)) {
             try {
-                Yii::app()->db->createCommand()
+                Yii::app()->db_seo->createCommand()
                     ->insert(self::model()->tableName(),
                     array(
                         ':keyword_from_id' => $keyword_from_id,

@@ -62,13 +62,14 @@ class LiParser
             $result = $this->loadPage($url);
 
             $document = phpQuery::newDocument($result);
+            $max_pages = $this->getPagesCount($document);
             $count = $this->ParseDocument($document, $month, $year);
 
             if ($count == 0){
                 return "Data not found on page - \n" . $url."\n";
             }
 
-            for ($i = 2; $i <= 500; $i++) {
+            for ($i = 2; $i <= $max_pages; $i++) {
                 $page_url = $url . $i;
                 $result = $this->loadPage($page_url);
 
@@ -87,6 +88,18 @@ class LiParser
         }
 
         return $found;
+    }
+
+    public function getPagesCount($document)
+    {
+        $max_pages = 30;
+        foreach ($document->find('table p a.high') as $link) {
+            $name = trim(pq($link)->text());
+            if (is_numeric($name))
+                $max_pages = $name;
+        }
+
+        return $max_pages;
     }
 
     private function ParseDocument($document, $month, $year)

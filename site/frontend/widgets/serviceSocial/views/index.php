@@ -1,4 +1,8 @@
-<?php $this->render('_service_likes', array(
+<?php
+if (isset($_GET['Comment_page']))
+    Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
+
+$this->render('_service_likes', array(
     'service' => $service,
     'image' => $image,
     'description' => $description

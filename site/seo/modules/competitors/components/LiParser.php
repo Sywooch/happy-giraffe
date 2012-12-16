@@ -11,6 +11,7 @@ class LiParser
      */
     public $site;
     public $last_url = '';
+    public $proxy = null;
 
     public function start($site_id, $year, $month_from, $month_to)
     {
@@ -61,14 +62,13 @@ class LiParser
             $result = $this->loadPage($url);
 
             $document = phpQuery::newDocument($result);
-            $max_pages = $this->getPagesCount($document);
             $count = $this->ParseDocument($document, $month, $year);
 
             if ($count == 0){
                 return "Data not found on page - \n" . $url."\n";
             }
 
-            for ($i = 2; $i <= $max_pages; $i++) {
+            for ($i = 2; $i <= 500; $i++) {
                 $page_url = $url . $i;
                 $result = $this->loadPage($page_url);
 
@@ -87,18 +87,6 @@ class LiParser
         }
 
         return $found;
-    }
-
-    public function getPagesCount($document)
-    {
-        $max_pages = 30;
-        foreach ($document->find('table p a.high') as $link) {
-            $name = trim(pq($link)->text());
-            if (is_numeric($name))
-                $max_pages = $name;
-        }
-
-        return $max_pages;
     }
 
     private function ParseDocument($document, $month, $year)
@@ -153,7 +141,7 @@ class LiParser
         }
 
         curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
-        curl_setopt($ch, CURLOPT_PROXY, '82.192.85.50:48307');
+        curl_setopt($ch, CURLOPT_PROXY, $this->getProxy());
 
         curl_setopt($ch, CURLOPT_COOKIEFILE, $this->getCookieFile());
         curl_setopt($ch, CURLOPT_COOKIEJAR, $this->getCookieFile());
@@ -165,6 +153,7 @@ class LiParser
 
         if ($result === false){
             echo 'curl fail, attempt '.$attempt."\n";
+            $this->changeRuProxy();
             if ($attempt == 3)
                 return false;
 
@@ -180,6 +169,23 @@ class LiParser
         $filename = Yii::getPathOfAlias('site.common.cookies') . DIRECTORY_SEPARATOR . 'liveinternet_2.txt';
 
         return $filename;
+    }
+
+    public function getProxy()
+    {
+        if (empty($this->proxy)){
+            $this->changeRuProxy();
+            echo "new proxy: ".$this->proxy."\n";
+        }
+
+        return $this->proxy;
+    }
+
+    public function changeRuProxy()
+    {
+        $proxy_list = file_get_contents('http://awmproxy.com/allproxy.php?country=1');
+        preg_match('/([\d:\.]+);RU/', $proxy_list, $match);
+        $this->proxy = $match[1];
     }
 
     /**

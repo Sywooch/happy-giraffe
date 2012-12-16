@@ -15,10 +15,11 @@ class LiParser
     public function start($site_id, $year, $month_from, $month_to)
     {
         $this->site = $this->loadModel($site_id);
+        echo 'Start parsing site '.$this->site->id.' '.$this->site->name."\n";
+
         if (!empty($this->site->password))
             $this->Login();
         else{
-            echo "load no password site\n";
             $this->loadPage('http://www.liveinternet.ru/stat/');
             $this->loadPage('http://www.liveinternet.ru/stat/', 'url='.urlencode('http://'.$this->site->url).'&password=');
             $this->last_url = 'http://www.liveinternet.ru/stat/'.$this->site->url.'/index.html';
@@ -163,6 +164,7 @@ class LiParser
         curl_close($ch);
 
         if ($result === false){
+            echo 'curl fail, attempt '.$attempt."\n";
             if ($attempt == 3)
                 return false;
 

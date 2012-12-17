@@ -19,6 +19,33 @@ class FindFriendsManager
             'criteria' => array(
                 'condition' => 't.id != :hg',
                 'params' => array(':hg' => User::HAPPY_GIRAFFE),
+                'with' => array(
+                    'avatar',
+                    'partner' => array(
+                        'with' => array(
+                            'photo' => array(
+                                'alias' => 'partnerAttach',
+                                'with' => array(
+                                    'photo' => array(
+                                        'alias' => 'partnerPhoto',
+                                    ),
+                                ),
+                            ),
+                        ),
+                    ),
+                    'babies' => array(
+                        'with' => array(
+                            'photo' => array(
+                                'alias' => 'babyAttach',
+                                'with' => array(
+                                    'photo' => array(
+                                        'alias' => 'babyPhoto',
+                                    ),
+                                ),
+                            ),
+                        ),
+                    ),
+                ),
             ),
         ));
     }

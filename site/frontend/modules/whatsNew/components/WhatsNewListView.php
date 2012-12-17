@@ -1,4 +1,7 @@
 <?php
+
+Yii::import('zii.widgets.CListView');
+
 /**
  * Created by JetBrains PhpStorm.
  * User: solivager

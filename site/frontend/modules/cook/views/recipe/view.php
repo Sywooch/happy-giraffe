@@ -90,7 +90,7 @@
                 </li>
             <?php endif; ?>
         </ul>
-        <?php if (count($recipe->attachPhotos) > 4):?>
+        <?php if (count($recipe->attachPhotos) > 3):?>
             <a href="javascript:;" data-id="<?=$recipe->thumbs[0]->id?>">Смотреть еще <?=count($recipe->attachPhotos) - 4 ?> фото</a>
         <?php endif ?>
     </div>

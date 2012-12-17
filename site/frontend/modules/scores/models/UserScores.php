@@ -106,21 +106,6 @@ class UserScores extends HActiveRecord
         return parent::beforeSave();
     }
 
-    public static function getModel($user_id)
-    {
-        $model = UserScores::model()->findByPk($user_id);
-        if ($model === null) {
-            if (User::model()->findByPk($user_id) === null)
-                return null;
-
-            $model = new UserScores;
-            $model->scores = 0;
-            $model->user_id = $user_id;
-        }
-
-        return $model;
-    }
-
     /**
      * @static
      * @param int $user_id

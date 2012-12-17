@@ -433,7 +433,7 @@ class CookRecipe extends CActiveRecord
     {
         $thumbs = $this->attachPhotos;
         if (!empty($thumbs))
-            $thumbs = array_slice($thumbs, 0, 4);
+            $thumbs = array_slice($thumbs, 0, 3);
 
         return $thumbs;
     }

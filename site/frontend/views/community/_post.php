@@ -266,3 +266,5 @@
     <?php //if (Yii::app()->user->isGuest) echo SeoHelper::getLinkBock(); ?>
 </div>
 <?php endif; ?>
+
+Новый год – по-настоящему семейное торжество – обя

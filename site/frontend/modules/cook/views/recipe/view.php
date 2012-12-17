@@ -91,7 +91,7 @@
             <?php endif; ?>
         </ul>
         <?php if (count($recipe->attachPhotos) > 3):?>
-            <a href="javascript:;" data-id="<?=$recipe->attachPhotos[3]->id?>">Смотреть еще <?=count($recipe->attachPhotos) - 3 ?> фото</a>
+            <a href="javascript:;" data-id="<?=$recipe->attachPhotos[3]->photo->id?>">Смотреть еще <?=count($recipe->attachPhotos) - 3 ?> фото</a>
         <?php endif ?>
     </div>
 

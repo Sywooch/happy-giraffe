@@ -24,7 +24,7 @@
 
             <div class="recipe-search clearfix">
                 <?=CHtml::beginForm('/cook/recipe/search', 'get')?>
-                    <input type="text" name="text" value="<?php if (isset($_GET['text'])) echo urldecode($_GET['text']) ?>" class="text" placeholder="Поиск из <?=$count = CookRecipe::model()->active()->count() ?> <?=HDate::GenerateNoun(array('рецепта', 'рецептов', 'рецептов'), $count) ?>">
+                    <input type="text" name="text" value="<?php if (isset($_GET['text'])) echo urldecode($_GET['text']) ?>" class="text" placeholder="Поиск из <?=$count = $this->counts[0] ?> <?=HDate::GenerateNoun(array('рецепта', 'рецептов', 'рецептов'), $count) ?>">
                     <input type="submit" value="" class="submit">
                 <?=CHtml::endForm()?>
             </div>
@@ -83,6 +83,9 @@
         </div>
 
     </div>
+
+    <?php $sql_stats = YII::app()->db->getStats();
+    echo $sql_stats[0] . ' запросов к БД, время выполнения запросов - ' . sprintf('%0.5f', $sql_stats[1]) . ' c.'; ?>
 
 </div>
 

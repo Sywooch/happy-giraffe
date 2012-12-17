@@ -39,7 +39,7 @@ class Baby extends HActiveRecord
             'parent' => array(self::BELONGS_TO, 'User', 'id'),
             'photos' => array(self::HAS_MANY, 'AttachPhoto', 'entity_id', 'with' => 'photo', 'on' => '`photo`.`removed` = 0 AND entity = :modelName', 'params' => array(':modelName' => get_class($this))),
             'photosCount' => array(self::STAT, 'AttachPhoto', 'entity_id', 'condition' => 'entity =: modelName', 'params' => array(':modelName' => get_class($this))),
-            'photo' => array(self::HAS_ONE, 'AttachPhoto', 'entity_id', 'with' => 'photo', 'on' => '`photo`.`removed` = 0 AND entity = :modelName', 'params' => array(':modelName' => get_class($this)), 'order' => CDbExpression('RAND()')),
+            'photo' => array(self::HAS_ONE, 'AttachPhoto', 'entity_id', 'with' => 'photo', 'on' => '`photo`.`removed` = 0 AND entity = :modelName', 'params' => array(':modelName' => get_class($this)), 'order' => new CDbExpression('RAND()')),
         );
     }
 
@@ -88,7 +88,7 @@ class Baby extends HActiveRecord
         $interval = $date1->diff($date2);
 
         $years_text = ($bold?$interval->y.' ':$interval->y.' ').HDate::GenerateNoun(array('год', 'года', 'лет'), $interval->y);
-        $month_text = ($bold?$interval->m.' ':$interval->m.' ').HDate::GenerateNoun(array('месяц', 'месяца', 'месяцев'), $interval->m);
+        $month_text = ($bold?$interval->m.' ':$interval->m.' ').'мес.';
         if ($interval->y == 0)
             return $month_text;
         if ($interval->y <= 3)
@@ -166,7 +166,7 @@ class Baby extends HActiveRecord
         User::model()->UpdateUser($this->parent_id);
     }
 
-    public function pregnancyPeriod()
+    public function getPregnancyWeeks()
     {
         if ($this->type != self::TYPE_WAIT)
             return false;
@@ -176,5 +176,13 @@ class Baby extends HActiveRecord
         $conception->modify('-9 month');
         $interval = $now->diff($conception);
         return ceil($interval->days / 7);
+    }
+
+    public function getFullYears()
+    {
+        $now = new DateTime();
+        $bd = new DateTime($this->birthday);
+        $interval = $now->diff($bd);
+        return $interval->years;
     }
 }

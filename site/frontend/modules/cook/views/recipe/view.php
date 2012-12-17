@@ -50,10 +50,8 @@
         'customButtonHtmlOptions' => array('class' => 'fancy add-photo'),
     ));
     ?>
-    <a href="" class="add-photo">
         <i class="icon"></i>
         <span>Вы уже готовили это блюдо?<br>Добавьте фото!</span>
-    </a>
     <?php $this->endWidget();?>
     <?php else: ?>
     <div class="big">

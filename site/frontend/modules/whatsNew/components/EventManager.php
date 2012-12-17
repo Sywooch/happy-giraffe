@@ -42,7 +42,7 @@ class EventManager
                     UNION
                     (SELECT id, last_updated, 3 AS type FROM cook__recipes WHERE last_updated IS NOT NULL)
                     UNION
-                    (SELECT id, register_date AS last_updated, 4 AS type FROM users WHERE deleted = 0 ORDER BY id DESC LIMIT 1)
+                    (SELECT id, last_updated, 4 AS type FROM users WHERE last_updated IS NOT NULL AND deleted = 0 ORDER BY id DESC LIMIT 1)
                 ';
                 $params = array();
                 break;

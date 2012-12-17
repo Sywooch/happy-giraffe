@@ -400,8 +400,6 @@ class User extends HActiveRecord
         /*Yii::app()->mc->saveUser($this);*/
 
         if ($this->isNewRecord) {
-            $this->sendEvent();
-
             //силнал о новом юзере
             $signal = new UserSignal();
             $signal->user_id = (int)$this->id;

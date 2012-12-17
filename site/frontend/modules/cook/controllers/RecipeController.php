@@ -312,6 +312,7 @@ class RecipeController extends HController
 
         $this->breadcrumbs = array(
             'Кулинария' => array('/cook'),
+            ($this->section == 0 ? 'Кулинарные рецепты' : 'Рецепты для мультиварок') => array('/cook/recipe/index', 'section' => $this->section),
             'Поиск',
         );
 

@@ -1,5 +1,6 @@
-<?php $this->renderPartial('_search_form',array()); ?>
 <?php
+$this->renderPartial('_search_form',array());
+
 $this->widget('zii.widgets.CListView', array(
     'ajaxUpdate' => false,
     'dataProvider' => $dataProvider,

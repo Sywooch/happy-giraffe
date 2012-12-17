@@ -1,5 +1,5 @@
 <h1 class="fn">
-    <a href="<?=$recipe->url ?>"><?=$recipe->title ?></a>
+    <a href="<?=$recipe->url ?>"><?=CHtml::encode(trim($recipe->title)) ?></a>
     <?php
     if ($full) {
         if (Yii::app()->authManager->checkAccess('editCookRecipe', Yii::app()->user->id) || Yii::app()->user->id == $recipe->author_id)

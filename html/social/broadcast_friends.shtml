@@ -218,7 +218,7 @@
 									</div>
 									<div class="clearfix user-info-big">
 										<div class="text-status">
-									        <p>Родители всегда говорили мне, что я могу добиться чего угодно! Родители всегда говорили мне...</p>
+									        <p><a href="" class="textdec-onhover">Родители всегда говорили мне, что я могу добиться чего угодно! Родители всегда говорили мне...</a></p>
 									        <span class="tale"></span>
 									        <div class="meta nofloat">
 												<span class="views"><span class="icon" href="#"></span> <span>265</span></span>

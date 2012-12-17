@@ -436,9 +436,9 @@
 
 .user-interests {}
 .user-interests ul {list-style:none;}
-.user-interests ul li {display:inline-block;*zoom:1;*display:inline;}
-.user-interests > ul > li {margin-bottom:10px;}
+.user-interests ul li {display:inline-block;*zoom:1;*display:inline;margin-bottom:10px;}
 .user-interests .interests-list {display:inline-block;*zoom:1;*display:inline;width:180px;vertical-align:middle}
+.user-interests .interests-list > li {margin: 0;}
 .user-interests .interest-add {display:inline-block;*zoom:1;*display:inline;width:16px;height:16px;background:url(/images/common.png) no-repeat -139px -174px;}
 
 

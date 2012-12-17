@@ -24,7 +24,7 @@ class EventUser extends Event
                 'avatar',
             ),
             'limit' => 6,
-            'order' => 't.id DESC',
+            'order' => 'last_updated DESC',
         ));
 
         return User::model()->findAll($criteria);

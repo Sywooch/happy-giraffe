@@ -4439,7 +4439,7 @@ ul.letters li a:hover {
 #cook-recipe .add-recipe .btn span {font:bold 20px/46px arial, helvetica, sans-serif;text-transform:none;}
 #cook-recipe .add-recipe .btn > span > span {width:184px;}
 
-#cook-recipe .search {float:left;margin-left:30px;width:650px;background:#f7f1fe;padding:15px 25px 25px;margin-bottom:40px;}
+#cook-recipe .search {float:left;margin-left:30px;width:600px;background:#f7f1fe;padding:15px 25px 25px;margin-bottom:40px;}
 #cook-recipe .search .links {float:right;padding-right:90px;margin-top:23px;}
 #cook-recipe .search .title {margin-bottom:5px;}
 #cook-recipe .search .title .icon {display:inline-block;*zoom:1;*display:inline;width:23px;height:41px;background:url(/images/cook_sprite.png) no-repeat -71px -1417px;vertical-align:bottom;position:relative;margin-left:11px;margin-right:5px;}

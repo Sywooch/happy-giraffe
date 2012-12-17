@@ -7,7 +7,7 @@ $count = $recipe->getBookedCount();
 ?>
 <div class="recipe-right">
     <div class="cook-book-info">
-        <a href="javascript:;" onclick="Cook.bookRecipe(this)" data-id="<?=$recipe->id ?>">
+        <a <?= (Yii::app()->user->isGuest) ? 'href="#login" class="fancy"' : 'href="javascript:;" onclick="Cook.bookRecipe(this)"' ?> data-id="<?=$recipe->id ?>">
             <?php if ($recipe->isBooked()):?>
                 <span>Рецепт в моей <br>кулинарной книге</span>
                 <i class="icon-exist"></i>

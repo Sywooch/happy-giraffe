@@ -2,13 +2,13 @@
 /**
  * @var CookRecipe $recipe
  */
-
-if (!empty($recipe->tags)) {
+$tags = $recipe->getNotEmptyTags();
+if (!empty($tags)) {
     ?>
 <div class="cook-article-tags">
     <div class="cook-article-tags-title">Теги</div>
     <ul class="cook-article-tags-list">
-        <?php foreach ($recipe->tags as $tag): ?>
+        <?php foreach ($tags as $tag): ?>
             <li><a href="<?=$tag->getUrl() ?>"><?=$tag->title ?></a></li>
         <?php endforeach; ?>
     </ul>

@@ -662,6 +662,16 @@ class CookRecipe extends CActiveRecord
         return CMap::mergeArray(array_reverse($prev), $next);
     }
 
+    public function getNotEmptyTags()
+    {
+        $result = array();
+        foreach ($this->tags as $tag)
+            if (!empty($tag->text))
+                $result [] = $tag;
+
+        return $result;
+    }
+
 
     /******************************************************************************************************************/
     /*************************************************  Search  *******************************************************/

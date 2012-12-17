@@ -1,7 +1,5 @@
 <?php $this->beginContent('//layouts/main'); ?>
 
-<!--<div id="crumbs"><a href="">Главная</a> > <a href="">Сервисы</a> > <span>Приправы и специи</span></div>-->
-
 <div id="cook-recipe">
 
     <?php if ($this->section == 1): ?>
@@ -9,38 +7,6 @@
             <h1>Рецепты для <span>МУЛЬТИВАРОК</span></h1>
         </div>
     <?php endif; ?>
-
-    <div class="clearfix">
-
-        <div class="add-recipe">
-
-            Поделиться вкусненьким!<br/>
-            <a href="<?=(Yii::app()->user->isGuest) ? '#login' : $this->createUrl('/cook/recipe/form', array('section' => $this->section))?>" class="btn btn-green<?php if (Yii::app()->user->isGuest): ?> fancy<?php endif; ?>" data-theme="white-square"><span><span>Добавить рецепт</span></span></a>
-
-        </div>
-
-        <div class="search clearfix">
-
-            <div class="title">
-
-                <div class="links">
-                    <?=HHtml::link('По ингредиентам', array('/cook/recipe/searchByIngredients', 'section' => $this->section), array(), true)?>
-                    <?=HHtml::link('Расширеный поиск', array('/cook/recipe/advancedSearch', 'section' => $this->section), array(), true)?>
-                </div>
-
-                <i class="icon"></i>
-                <span>Поиск рецептов</span>
-
-            </div>
-
-            <?=CHtml::beginForm('/cook/recipe/search', 'get')?>
-                <input value="<?php if (isset($_GET['text'])) echo urldecode($_GET['text']) ?>" name="text" type="text" placeholder="Введите ключевое слово в названии рецепта" />
-                <button class="btn btn-purple-medium"><span><span>Найти</span></span></button>
-            <?=CHtml::endForm()?>
-
-        </div>
-
-    </div>
 
     <div class="clearfix">
 
@@ -56,31 +22,54 @@
 
         <div class="side-left">
 
+            <div class="recipe-search clearfix">
+                <?=CHtml::beginForm('/cook/recipe/search', 'get')?>
+                    <input type="text" name="text" value="<?php if (isset($_GET['text'])) echo urldecode($_GET['text']) ?>" class="text" placeholder="Поиск из <?=$count = CookRecipe::model()->active()->count() ?> <?=HDate::GenerateNoun(array('рецепта', 'рецептов', 'рецептов'), $count) ?>">
+                    <input type="submit" value="" class="submit">
+                <?=CHtml::endForm()?>
+            </div>
+
+            <div class="recipe-menu">
+                <ul>
+                    <li>
+                        <a href="<?=(Yii::app()->user->isGuest) ? '#login' : $this->createUrl('/cook/recipe/form', array('section' => $this->section))?>"
+                           data-theme="white-square"<?php if (Yii::app()->user->isGuest) echo 'class="fancy"'?>>
+                                <span class="icon-holder">
+                                    <i class="icon-cook-add"></i>
+                                </span><span class="link-holder">
+                                    <span class="link">Добавить рецепт</span>
+                                </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?=(Yii::app()->user->isGuest) ? '#login' : $this->createUrl('/cook/recipe/cookBook')?>"
+                           data-theme="white-square"<?php if (Yii::app()->user->isGuest) echo 'class="fancy"'?>>
+                                <span class="icon-holder">
+                                    <i class="icon-cook-book"></i>
+                                </span><span class="link-holder">
+                                    <span class="link">Моя кулинарная книга</span>
+                                    <span class="pink"><?=$count = CookRecipe::userBookCount() ?> <?=HDate::GenerateNoun(array('рецепт', 'рецепта', 'рецептов'), $count) ?></span>
+                                </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
             <div class="recipe-categories">
                 <ul>
-                    <li<?php if ($this->currentType == null): ?> class="active"<?php endif; ?>>
-                        <a href="<?=isset($_GET['text'])?
-                            $this->createUrl('/cook/recipe/search', array('text'=>$_GET['text']))
-                            :
-                            $this->createUrl('/cook/recipe/index', array('section' => $this->section))?>" class="cook-cat<?php if ($this->currentType == null): ?> active<?php endif; ?>">
-                            <i class="icon-cook-cat icon-recipe-0"></i>
-                            <span>Все рецепты</span>
-
-                        </a>
-                        <span class="count"><?=$this->counts[0]?></span>
-                    </li>
                     <?php foreach (CActiveRecord::model($this->modelName)->types as $id => $label): ?>
                         <li<?php if ($this->currentType == $id): ?> class="active"<?php endif; ?>>
-                            <a href="<?=isset($_GET['text'])?
-                                $this->createUrl('/cook/recipe/search', array('type' => $id, 'text'=>$_GET['text']))
-                                :
-                                $this->createUrl('/cook/recipe/index', array('type' => $id, 'section' => $this->section))
-                                ?>" class="cook-cat<?php if ($this->currentType == $id): ?> active<?php endif; ?>">
-                                <i class="icon-cook-cat icon-recipe-<?=$id?>"></i>
-                                <?php if ($this->currentType != $id): ?><span class="count"><?=isset($this->counts[$id])?$this->counts[$id]:0?></span><?php endif; ?>
-                                <span><?=$label?></span>
+                            <a href="<?=$this->getTypeUrl($id)?>" class="cook-cat<?php if ($this->currentType == $id): ?> active<?php endif; ?>">
+                                <span class="cook-cat-holder">
+                                    <i class="icon-cook-cat icon-recipe-<?=$id ?>"></i>
+                                </span>
+
+                                <span class="cook-cat-frame">
+                                    <span><?=$label?></span>
+                                <span class="count"><?=isset($this->counts[$id])?$this->counts[$id]:0?></span>
+                            </span>
                             </a>
-                            <?php if ($this->currentType == $id): ?><span class="count"><?=isset($this->counts[$id])?$this->counts[$id]:0?></span><?php endif; ?>
+                            <img src="/images/recipe-categories-arrow.png" alt="" class="tale">
                         </li>
                     <?php endforeach; ?>
                 </ul>

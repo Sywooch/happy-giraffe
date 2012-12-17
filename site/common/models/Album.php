@@ -30,12 +30,13 @@ class Album extends HActiveRecord
     public $files = array();
 
     public static $systems = array(
-        self::TYPE_PRIVATE => 'Личные фотографии',
-        self::TYPE_DIALOGS => 'Диалоги',
-        self::TYPE_FAMILY => 'Семейные',
-        self::TYPE_PRODUCTS => 'Продукты',
-        self::TYPE_RECIPES => 'Мои рецепты',
-        self::TYPE_PREVIEW => 'Видео превью'
+        1 => 'Личные фотографии',
+        2 => 'Диалоги',
+        3 => 'Семейные',
+        4 => 'Продукты',
+        5 => 'Украшения блюд',
+        6 => 'Видео превью',
+        7 => 'Мои рецепты',
     );
 
     public static $permissions = array(

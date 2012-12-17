@@ -14,6 +14,8 @@ class AvatarWidget extends CWidget
     public $nav = false;
     public $status = false;
     public $hideLinks = false;
+    public $time = null;
+    public $online_status = true;
 
 	public function run()
 	{

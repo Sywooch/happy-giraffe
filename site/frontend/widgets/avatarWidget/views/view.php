@@ -13,14 +13,19 @@ else {
 }
 ?>
 <?php if (! $this->small): ?>
-    <div class="user-info clearfix<?php if ($this->size == 'ava') echo ' medium' ?>">
+    <div class="user-info clearfix<?php if ($this->size == 'ava') echo ' medium' ?><?php if ($this->size == 'small') echo ' user-info-small' ?>">
 <?php endif; ?>
     <?=HHtml::link($this->user->getAva($this->size)?CHtml::image($this->user->getAva($this->size)):'', $link_to_profile, array('class'=>$class), $this->hideLinks)?>
 <?php if (!$this->small): ?>
     <?php if ($this->user->id != User::HAPPY_GIRAFFE): ?>
         <div class="details">
-            <span class="icon-status status-<?php echo $this->user->online == 1 ? 'online' : 'offline'; ?>"></span>
+            <?php if ($this->online_status):?>
+                <span class="icon-status status-<?php echo $this->user->online == 1 ? 'online' : 'offline'; ?>"></span>
+            <?php endif ?>
             <?=HHtml::link(CHtml::encode($this->user->fullName), $link_to_profile, array('class'=>'username'), $this->hideLinks)?>
+            <?php if ($this->time):?>
+            <div class="date"><?=Yii::app()->dateFormatter->format("d MMMM yyyy, H:mm", $this->time)?></div>
+            <?php endif ?>
             <?php if ($this->location && $this->user->address->country !== null): ?>
                 <div class="location">
                     <div class="flag flag-<?php echo $this->user->address->country->iso_code; ?>"></div>

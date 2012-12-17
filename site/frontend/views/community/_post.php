@@ -18,45 +18,7 @@
 ?>
 <div class="entry<?php if ($full): ?> entry-full<?php endif; ?>">
 
-    <div class="entry-header">
-        <?php if ($full): ?>
-            <h1><?= $data->title ?></h1>
-        <?php else: ?>
-            <?= CHtml::link($data->title, $data->url, array('class' => 'entry-title')); ?>
-        <?php endif; ?>
-
-        <noindex>
-            <?php if ($data->isFromBlog || $data->rubric->community_id != Community::COMMUNITY_NEWS): ?>
-                <div class="user">
-                    <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => $data->contentAuthor, 'friendButton' => true, 'location' => false)); ?>
-                </div>
-            <?php endif; ?>
-            <?php $this->widget('site.frontend.widgets.favoritesWidget.FavouritesWidget', array('model' => $data)); ?>
-
-            <div class="meta">
-                <div class="time"><?=Yii::app()->dateFormatter->format("d MMMM yyyy, H:mm", $data->created)?></div>
-                <div class="views"><span href="#" class="icon"></span> <span><?=($full) ? $this->getViews() : PageView::model()->viewsByPath(str_replace('http://www.happy-giraffe.ru', '', $data->url), true)?></span></div>
-                <div class="comments">
-                    <a href="#" class="icon"></a>
-                    <?php if ($data->getArticleCommentsCount() > 0): ?>
-                        <?php $lastComments = $data->lastCommentators; foreach ($lastComments as $lc): ?>
-                            <?php
-                                $class = 'ava small';
-                                if ($lc->author->gender !== null) $class .= ' ' . (($lc->author->gender) ? 'male' : 'female');
-                            ?>
-                            <?=HHtml::link(CHtml::image($lc->author->getAva('small')), ($lc->author->deleted)?'#':$lc->author->url, array('class' => $class), true)?>
-                        <?php endforeach; ?>
-                        <?php if ($data->getArticleCommentsCount() > count($lastComments)): ?>
-                            <?=CHtml::link('и еще ' . ($data->getArticleCommentsCount() - count($lastComments)), $data->getUrl(true))?>
-                        <?php endif; ?>
-                    <?php else: ?>
-                        <?=CHtml::link('Добавить комментарий', $data->getUrl(true))?>
-                    <?php endif; ?>
-                </div>
-            </div>
-        </noindex>
-        <div class="clear"></div>
-    </div>
+    <?php $this->renderPartial('//community/_post_header', array('model' => $data, 'full' => $full, 'show_user' => ($data->isFromBlog || $data->rubric->community_id != Community::COMMUNITY_NEWS))); ?>
 
     <?php if (! $full): ?>
         <?php if ($data->type_id == 5): ?>

@@ -166,6 +166,10 @@ class SiteController extends SController
     }
 
     public function actionTest(){
-        Page::model()->getOrCreate('http://www.happy-giraffe.ru/community/25/forum/post/34648/', 1);
+        Yii::import('site.seo.modules.competitors.components.*');
+
+        $parser = new LiParser;
+        $parser->start(3, 2012, 11, 12);
+
     }
 }

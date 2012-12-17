@@ -22,9 +22,11 @@ class EventUser extends Event
         $criteria = new CDbCriteria(array(
             'with' => array(
                 'avatar',
+                'score',
             ),
             'limit' => 6,
             'order' => 'last_updated DESC',
+            'condition' => 'full != 0',
         ));
 
         return User::model()->findAll($criteria);

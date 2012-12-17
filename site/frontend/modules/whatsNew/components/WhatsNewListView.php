@@ -15,7 +15,7 @@ class WhatsNewListView extends CListView
     {
         echo CHtml::openTag($this->itemsTagName,array('class'=>$this->itemsCssClass))."\n";
         if ($this->dataProvider->pagination->currentPage == 0)
-            $this->renderPartial('/_update_message');
+            $this->controller->renderPartial('/_update_message');
         $data=$this->dataProvider->getData();
         if(($n=count($data))>0)
         {

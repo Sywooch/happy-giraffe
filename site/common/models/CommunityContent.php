@@ -715,7 +715,7 @@ class CommunityContent extends HActiveRecord
                 $friends = $this->author->getFriendsModels();
 
                 foreach ($friends as $f)
-                    $comet->send($f->id, $params, CometModel::WHATS_NEW_UPDATE);
+                    $comet->send('whatsNewBlogsUser' . $f->id, $params, CometModel::WHATS_NEW_UPDATE);
             } else {
                 $comet->send('whatsNewClubs', $params, CometModel::WHATS_NEW_UPDATE);
 
@@ -725,7 +725,7 @@ class CommunityContent extends HActiveRecord
                 $ids = $command->queryColumn();
 
                 foreach ($ids as $id)
-                    $comet->send($id, $params, CometModel::WHATS_NEW_UPDATE);
+                    $comet->send('whatsNewClubsUser' . $id, $params, CometModel::WHATS_NEW_UPDATE);
             }
         }
     }

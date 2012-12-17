@@ -1,31 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<!--[if lt IE 7]> <html xmlns="http://www.w3.org/1999/xhtml"> <![endif]-->
-<!--[if IE 7]>    <html xmlns="http://www.w3.org/1999/xhtml" class="ie7"> <![endif]-->
-<!--[if gt IE 7]><!--> <html xmlns="http://www.w3.org/1999/xhtml"> <!--<![endif]-->
+<!--[if lt IE 7]> <html xmlns="http://www.w3.org/1999/xhtml" class="top-nav-fixed"> <![endif]-->
+<!--[if IE 7]>    <html xmlns="http://www.w3.org/1999/xhtml" class="ie7 top-nav-fixed"> <![endif]-->
+<!--[if gt IE 7]><!--> <html xmlns="http://www.w3.org/1999/xhtml" class="top-nav-fixed"> <!--<![endif]-->
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>Untitled Document</title>
-	
-	
-	<link rel="stylesheet" type="text/css" href="/stylesheets/common.css" />
-	<link rel="stylesheet" type="text/css" href="/stylesheets/ie.css" />
-	<link rel="stylesheet" type="text/css" href="/stylesheets/user.css" />
-	
-	
-	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-	<script type="text/javascript" src="/javascripts/checkbox.js"></script>
-	
-	<link rel="stylesheet" type="text/css" href="/stylesheets/jquery.fancybox-1.3.4.css" />
-	<script type="text/javascript" src="/javascripts/jquery.fancybox-1.3.4.js"></script>
-	
-	<script type="text/javascript" src="/javascripts/jquery.placeholder.min.js"></script>
-	
-  <script type="text/javascript" src="/javascripts/jquery.tooltip.pack.js"></script>
-    <script type="text/javascript" src="/javascripts/addtocopy.js"></script>
-	
-	<script type="text/javascript" src="/javascripts/chosen.jquery.min.js"></script>
-	
-	<script type="text/javascript" src="/javascripts/common.js"></script>	
+	<!--#include virtual="/block/global/head.shtml" -->
 	
 	<script type="text/javascript">
 		function addMenuToggle(el){
@@ -34,411 +12,15 @@
 		}
 	</script>
 	
-	<!--[if IE 7]>
-		<link rel="stylesheet" href='/stylesheets/ie.css' type="text/css" media="screen" />
-	<![endif]-->
-	
 </head>
 <body class="body-club">
-	
-	<div id="layout" class="wrapper">
-		
-		<div id="header-new" class="clearfix">
-			
-			<div class="top-line clearfix">
-				
-				<div class="user-nav">
-					
-					<ul>
-						<li><a href=""><i class="icon icon-home"></i></a></li>
-						<li>
-							<a href="">Прелоадер ;)</a>
-							<div class="drp">
-								<div class="drp-title"><img src="/images/loader_01.gif" /></div>
-							</div>
-						</li>
-						<li>
-							<a href=""><i class="icon icon-messages"></i><span class="count">5</span></a>
-							<div class="drp">
-								<div class="drp-title">Диалоги</div>
-								<ul class="list">
-									<li>
-										<a href="">
-											<span class="name">Александр  Богоявленский</span>
-											<span class="text">Привет! У меня  нормально. Напиши как приедешь...</span>
-											<span class="date">Сегодня 10:45</span>
-										</a>
-									</li>
-									<li>
-										<a href="">
-											<span class="name">Александр  Богоявленский</span>
-											<span class="text">Привет! У меня  нормально. Напиши как приедешь...</span>
-											<span class="date">Сегодня 10:45</span>
-										</a>
-									</li>
-									<li>
-										<a href="">
-											<span class="name">Александр  Богоявленский</span>
-											<span class="text">Привет! У меня  нормально. Напиши как приедешь...</span>
-											<span class="date">Сегодня 10:45</span>
-										</a>
-									</li>							
-								</ul>
-								<div class="actions">
-									<ul>
-										<li><a href="">Все диалоги <span>(156)</span></a></li>
-										<li><a href="">Новых</a> <a href="" class="count">5</a></li>
-										<li><a href="">Кто онлайн</a> <span>8</span></li>
-									</ul>
-								</div>
-							</div>
-						</li>
-						<li>
-							<a href=""><i class="icon icon-friends"></i><span class="count">777</span></a>
-							<div class="drp drp-closable">
-								<div class="drp-title">Друзья</div>
-								<ul class="list">
-									<li>
-										<a href=""><span class="red">ОГО!</span>&nbsp;&nbsp;<span class="name">Александр Богоявленский</span> предлагает подружиться<i class="close"></i></a>
-									</li>
-									<li>
-										<a href=""><span class="yellow">УРА!</span>&nbsp;&nbsp;<span class="name">Ирина Гусева</span> ответила согласием на Вашу дружбу<i class="close"></i></a>
-									</li>
-									<li>
-										<a href=""><span class="green">ЖАЛЬ!</span>&nbsp;&nbsp;<span class="name">Иван захаров</span> ответил отказом на Вашу дружбу<i class="close"></i></a>
-									</li>									
-								</ul>
-								<div class="actions">
-									<ul>
-										<li><a href="">Все друзья <span>(18)</span></a></li>
-										<li><a href="">Кто онлайн</a> <span>8</span></li>
-										<li><a href="">Предложения дружбы</a> <a href="" class="count count-gray">0</a></li>
-										<li><a href="">Мои предложения</a></li>
-									</ul>
-								</div>
-							</div>
-						</li>
-						<li>
-							<a href=""><i class="icon icon-notifications"></i><span class="count">44</span></a>
-							<div class="drp drp-icons">
-								<div class="drp-title">Уведомления</div>
-								<ul class="list">
-									<li>
-										<a href="">2 новых комментария  к Вашей записи <span class="black">Я боюсь рожать</span>  в клубе <span class="black">Роды</span><i class="icon icon-settings"></i></a>
-									</li>
-								</ul>
-								<div class="actions">
-									<ul>
-										<li><a href="">Все уведомления (43)</a></li>
-									</ul>
-								</div>
-							</div>
-						</li>
-						<li class="user">
-                                <div class="link">
-									<a class="ava male small" href="/user/profile/user_id/10020/">
-										<img src="" alt="">
-									</a>
-									<a href="/user/profile/user_id/10020/">
-                                        <span class="username">Ижецкий Денис Владимирович<i class="arr"></i></span>
-                                    </a>
-                                </div>
-                                <div class="drp">
-                                    <div class="actions">
-                                        <ul>
-                                            <li><a href="/user/profile/user_id/10020/">Мой профайл<i class="icon icon-profile"></i></a></li>
-                                            <li><a href="/profile/index/">Мои настройки<i class="icon icon-settings"></i></a></li>
-                                            <li><a href="/site/logout/">Выйти<i class="icon icon-logout"></i></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </li>
-					</ul>
-					
-				</div>
-				
-				<ul class="fast-links clearfix">
-					<li><a href="">Главная</a></li>
-					<li><a href="">Клубы</a></li>
-					<li><a href="">Сервисы</a></li>
-					<li><a href="">Конкурсы</a></li>
-				</ul>
-				
-			</div>
-			
-			<div class="header-in">
-				<div class="clearfix">
-					
-					<div class="search-box clearfix">
-						<div class="input">
-							<input type="text" />
-						</div>
-						<button class="btn btn-green-medium disabled"><span><span>Поиск</span></span></button>					
-					</div>
-					
-					<div class="logo-box">
-						<a href="/" class="logo" title="hg.ru – Домашняя страница">Ключевые слова сайта</a>
-						<span>САЙТ ДЛЯ ВСЕЙ СЕМЬИ</span>
-					</div>
-					
-					<div class="banner-box">
-						<a href=""><img src="/images/banner_01.png" /></a>
-					</div>
-					
-				</div>
-				
-				<div class="nav">
-					<ul class="clearfix">
-						<li class="morning">
-							<a href=""><i class="text"></i></a>
-						</li>
-						<li class="kids navdrp">
-							<a href="javascript:void(0);" onclick="navDrpOpen(this);"><i class="text"></i></a>
-							<div class="drp">
-								<div class="in">
-									
-									<ul class="cols cols-5">
-										<li class="col">
-											
-											<div class="col-in bg-img-11">
-												<div class="title">Беременность и роды</div>
-												<ul>
-													<li><a href="">Планирование</a></li>
-													<li><a href="">Беременность</a></li>
-													<li><a href="">Подготовка и роды</a></li>
-												</ul>												
-											</div>
-											
-										</li>
-										<li class="col">
-											
-											<div class="col-in bg-img-12">
-												<div class="title">Дети до года</div>
-												<ul>
-													<li><a href="">Здоровье</a></li>
-													<li><a href="">Питание малыша</a></li>
-													<li><a href="">Развитие ребенка</a></li>
-													<li><a href="">Режим и уход</a></li>
-												</ul>
-											</div>
-											
-										</li>
-										<li class="col">
-											
-											<div class="col-in bg-img-13">
-												<div class="title">Дети старше года</div>
-												<ul>
-													<li><a href="">Здоровье и питание</a></li>
-													<li><a href="">Ясли и няни</a></li>
-													<li><a href="">Раннее развитие и обучение</a></li>
-													<li><a href="">Психология и воспитание</a></li>
-												</ul>
-											</div>
-											
-										</li>
-										<li class="col">
-											
-											<div class="col-in bg-img-14">
-												<div class="title">Дошкольники</div>
-												<ul>
-													<li><a href="">Детский сад</a></li>
-													<li><a href="">Игры и развлечения</a></li>
-													<li><a href="">Готовимся к школе</a></li>
-												</ul>
-											</div>
-											
-										</li>
-										<li class="col">
-											
-											<div class="col-in bg-img-15">
-												<div class="title">Школьники</div>
-												<ul>
-													<li><a href="">Здоровье и питание</a></li>
-													<li><a href="">Учимся в школе</a></li>
-													<li><a href="">Спорт и досуг</a></li>
-													<li><a href="">Подростковая психология</a></li>
-												</ul>
-											</div>
-											
-										</li>
-										
-									</ul>
-									
-								</div>
-							</div>
-						</li>
-						<li class="manwoman navdrp">
-							<a href="javascript:void(0);" onclick="navDrpOpen(this);"><i class="text"></i></a>
-							<div class="drp">
-								<div class="in">
-									
-									<ul class="cols cols-2">
-										<li class="col wedding">
-											<a href="" class="big-link bg-img-21">
-												<span class="title">Свадьба! Го-рь-ко!</span>
-												<span class="text">При организации свадьбы важно правильно составить бюджет и рассчитать стоимость аренды места проведения свадьбы</span>
-												<span class="img"><img src="" /></span>
-											</a>
-										</li>
-										<li class="col relationships">
-											<div class="col-in bg-img-22">
-												<div class="title">Отношения</div>
-												<ul>
-													<li><a href="">Отношения мужчины и женщины</a></li>
-													<li><a href="">Непонимание в семье</a></li>
-													<li><a href="">Ревность и измена</a></li>
-													<li><a href="">Развод</a></li>
-													<li><a href="">Психология мужчин</a></li>
-													<li><a href="">Психология женщин</a></li>
-												</ul>
-											</div>
-										</li>
-									</ul>
-									
-								</div>
-							</div>
-						</li>							
-						<li class="beauty navdrp">
-							<a href="javascript:void(0);" onclick="navDrpOpen(this);"><i class="text"></i></a>
-							<div class="drp">
-								<div class="in">
-									
-									<ul class="cols cols-3">
-										<li class="col">
-											<a href="" class="big-link bg-img-31">
-												<span class="title">Красота</span>
-												<span class="text">При организации свадьбы важно правильно составить бюджет и рассчитать</span>
-											</a>
-										</li>
-										<li class="col">
-											<a href="" class="big-link bg-img-32">
-												<span class="title">Мода и шопинг</span>
-												<span class="text">Отношения мужчины Непонимание в семье Ревность и измена Развод измена Развод</span>
-											</a>
-										</li>
-										<li class="col">
-											<a href="" class="big-link bg-img-33">
-												<span class="title">Здоровье родителей</span>
-												<span class="text">При организации свадьбы важно правильно составить бюджет и рассчитать   </span>
-											</a>
-										</li>
-									</ul>
-									
-								</div>
-							</div>
-						</li>
-						<li class="home navdrp">
-							<a href="javascript:void(0);" onclick="navDrpOpen(this);"><i class="text"></i></a>
-							<div class="drp">
-								<div class="in">
-									
-									<ul class="cols cols-5">
-										<li class="col">
-											<a href="" class="big-link bg-img-41">
-												<span class="title">Кулинарные рецепты</span>
-												<span class="text">При организации свадьбы важно правильно составить бюджет и рассчитать</span>
-											</a>
-										</li>
-										<li class="col">
-											<a href="" class="big-link bg-img-42">
-												<span class="title">Детские рецепты</span>
-												<span class="text">Отношения мужчины Непонимание в семье Ревность и измена Развод измена Развод</span>
 
-											</a>
-										</li>
-										<li class="col">
-											<a href="" class="big-link bg-img-43">
-												<span class="title">Интерьер и дизайн</span>
-												<span class="text">При организации свадьбы важно правильно составить бюджет и рассчитать   </span>
-											</a>
-										</li>
-										<li class="col">
-											<a href="" class="big-link bg-img-44">
-												<span class="title">Домашние хлопоты</span>
-												<span class="text">При организации свадьбы важно правильно составить бюджет и рассчитать</span>
-											</a>
-										</li>
-										<li class="col">
-											<a href="" class="big-link bg-img-45">
-												<span class="title">Загородная жизнь</span>
-												<span class="text">Отношения мужчины Непонимание в семье Ревность и измена Развод Развод</span> 
-											</a>
-										</li>										
-									</ul>
-									
-								</div>
-							</div>
-						</li>
-						<li class="hobbies navdrp">
-							<a href="javascript:void(0);" onclick="navDrpOpen(this);"><i class="text"></i></a>
-							<div class="drp">
-								<div class="in">
-									
-									<ul class="cols cols-4">
-										<li class="col">
-											<a href="" class="big-link bg-img-51">
-												<span class="title">Своими руками</span>
-												<span class="text">При организации свадьбы важно правильно составить бюджет и рассчитать</span>
-											</a>
-										</li>
-										<li class="col">
-											<a href="" class="big-link bg-img-52">
-												<span class="title">Мастерим детям</span>
-												<span class="text">Отношения мужчины Непонимание в семье Ревность и измена Развод измена Развод</span>
-											</a>
-										</li>
-										<li class="col">
-											<a href="" class="big-link bg-img-53">
-												<span class="title">За рулем</span>
-												<span class="text">При организации свадьбы важно правильно составить бюджет и рассчитать   </span>
-											</a>
-										</li>
-										<li class="col">
-											<a href="" class="big-link bg-img-54">
-												<span class="title">Цветоводство</span>
-												<span class="text">При организации свадьбы важно правильно составить бюджет и рассчитать</span>
-											</a>
-										</li>
-									</ul>
-									
-									
-								</div>
-							</div>
-						</li>
-						<li class="rest navdrp">
-							<a href="javascript:void(0);" onclick="navDrpOpen(this);"><i class="text"></i></a>
-							<div class="drp">
-								<div class="in">
-									
-									<ul class="cols cols-3">
-										<li class="col">
-											<a href="" class="big-link bg-img-61">
-												<span class="title">Выходные с ребенком</span>
-												<span class="text">При организации свадьбы важно правильно составить бюджет и рассчитать. При организации свадьбы важно правильно составить бюджет.</span>												
-											</a>
-										</li>
-										<li class="col">
-											<a href="" class="big-link bg-img-62">
-												<span class="title">Путешествия семьей</span>
-												<span class="text">При организации свадьбы важно правильно составить бюджет и рассчитать. При организации свадьбы важно правильно составить бюджет.</span>
-											</a>
-										</li>
-										<li class="col">
-											<a href="" class="big-link bg-img-63">
-												<span class="title">Праздники</span>
-												<span class="text">При организации свадьбы важно правильно составить бюджет и рассчитать. При организации свадьбы важно правильно составить бюджет.</span>
-											</a>
-										</li>
-									</ul>
-									
-								</div>
-							</div>
-						</li>
-					</ul>
-				</div>
-			</div>
-			
-		</div>
+	<!--#include virtual="/block/global/top-line-menu.shtml" -->
+	
+<div class="layout-container">
+	<div id="layout" class="wrapper">
+
+		<!--#include virtual="/block/global/header-new.shtml" -->
 		
 		<div id="content" class="clearfix">
 			
@@ -1047,6 +629,250 @@
 						
 						</div>
 						
+						<div class="broadcast-widget">
+							<div class="broadcast-title-box">
+								<ul class="broadcast-widget-menu-r">
+									<li>
+										<a href=""><span class="icon-boradcast-small" ></span>В прямом эфире</a>
+									</li>
+									<li>
+										<a href="">В клубах</a>
+									</li>
+									<li>
+										<a href="">В блогах</a>
+									</li>
+								</ul>
+								
+								<div class="title">
+									<span class="icon-boradcast-small" ></span> Что нового у моих друзей
+								</div>
+							</div>
+
+							<div  class="masonry-news-list clearfix ">
+							<script>
+  $(function(){
+
+        $(".masonry-news-list").masonry({
+          itemSelector : '.masonry-news-list_item',
+          columnWidth: 240,
+          isAnimated: false,
+          animationOptions: { queue: false, duration: 500 }
+        });
+
+  })
+						</script>
+								<ul>
+									
+								<li class="masonry-news-list_item">
+									<div class="masonry-news-list_friend-info clearfix">
+										<a class="ava female small" href=""><img alt="" src="http://img.happy-giraffe.ru/avatars/19372/small/21fd8c8f29c5a289df17938cb2f20e5b.jpg"></a>
+										<div class="details">
+											<a class="username" href="">Александр</a>
+											<span class="date">Сегодня 13:25</span>
+											<p>Добавила комментарий  в клубе </p>
+										</div>
+									</div>
+									<div class="masonry-news-list_comment">
+										<div class="masonry-news-list_comment-text">
+											Проблема в том, что на 2006-ой год игры еще толком не было, Роды — отправная точка для самых важных изменений и судьбоносных. Осень. Я ее люблю, но когда начинается непонятная погода, хочется лезть на стенку. Сегодня на улице вот +8, вроде тепло, но вот туман.
+										</div>
+									</div>
+									<div class="masonry-news-list_meta-info clearfix">к записи</div>
+									<h3 class="masonry-news-list_title">
+										<a href="">Волшебная азбука 123 123</a>
+									</h3>
+									<div class="masonry-news-list_meta-info clearfix">
+										
+										<div class="meta">
+											<div class="views"><span class="icon" href="#"></span> <span>11265</span></div>
+											<div class="comments">
+												<a class="icon" href="#"></a>
+												<a href="">155</a>
+											</div>
+										</div>
+										
+										<a href="" class="textdec-onhover">Вступить <br />в беседу!</a>
+									</div>
+								</li>
+								
+								<li class="masonry-news-list_item blog">
+									<div class="masonry-news-list_friend-info clearfix">
+										<a class="ava female small" href=""><img alt="" src="http://img.happy-giraffe.ru/avatars/19372/small/21fd8c8f29c5a289df17938cb2f20e5b.jpg"></a>
+										<div class="details">
+											<a class="username" href="">Александр</a>
+											<span class="date">Сегодня 13:25</span>
+											<p>Добавила комментарий  в блоге </p>
+										</div>
+									</div>
+									<div class="masonry-news-list_comment">
+										<div class="masonry-news-list_comment-text">
+											<a href="">Проблема в том, что на 2006-ой год игры еще толком не было... </a>
+										</div>
+									</div>
+									<h3 class="masonry-news-list_title">
+										<a href="">Волшебная азбука 123 123</a>
+									</h3>
+									<div class="masonry-news-list_meta-info clearfix">
+										
+										<div class="meta">
+											<div class="views"><span class="icon" href="#"></span> <span>5</span></div>
+											<div class="comments">
+												<a class="icon" href="#"></a>
+												<a href="">5</a>
+											</div>
+										</div>
+										
+										<a href="" class="textdec-onhover">Вступить <br />в беседу!</a>
+									</div>
+								</li>
+								
+								<li class="masonry-news-list_item">
+									<div class="masonry-news-list_friend-info clearfix">
+										<a class="ava female small" href=""><img alt="" src="http://img.happy-giraffe.ru/avatars/19372/small/21fd8c8f29c5a289df17938cb2f20e5b.jpg"></a>
+										<div class="details">
+											<a class="username" href="">Александр</a>
+											<span class="date">Сегодня 13:25</span>
+											<p>Добавила запись</p>
+										</div>
+									</div>
+									<h3 class="masonry-news-list_title">
+										<a href="">Волшебная азбука. Раннее развитие и обучение.</a>
+									</h3>
+									<div class="clearfix">
+										<a href="" class="club-category manwoman">Раннее развитие и обучение.</a>
+									</div>
+									<div class="masonry-news-list_content">
+										<a href=""><img src="/images/example/gallery_album_img_10.jpg" alt="" /></a>
+										<p>Роды — отправная точка для самых важных изменений и судьбоносных... <a href="" class="all">Читать</a></p>
+									</div>
+									
+									<div class="masonry-news-list_meta-info clearfix">
+										<div class="meta">
+											<div class="views"><span class="icon" href="#"></span> <span>265</span></div>
+											<div class="comments">
+												<a class="icon" href="#"></a>
+												<a href="">152</a>
+											</div>
+										</div>
+										
+										<a href="" class="textdec-onhover">Добавить <br />комментарий</a>
+									</div>
+								</li>
+								
+								<li class="masonry-news-list_item blog">
+									<div class="masonry-news-list_friend-info clearfix">
+										<a class="ava female small" href=""><img alt="" src="http://img.happy-giraffe.ru/avatars/19372/small/21fd8c8f29c5a289df17938cb2f20e5b.jpg"></a>
+										<div class="details">
+											<a class="username" href="">Александр</a>
+											<span class="date">Сегодня 13:25</span>
+											<p>Добавила запись </p>
+										</div>
+									</div>
+									<h3 class="masonry-news-list_title">
+										<a href="">Волшебная азбука. Раннее развитие и обучение.</a>
+									</h3>
+									<div class="clearfix">
+										<a class="sub-category" href=""><span class="icon-blog"></span>Личный блог</a>
+									</div>
+									<div class="masonry-news-list_content">
+										<a href=""><img src="/images/example/gallery_album_img_10.jpg" alt="" /></a>
+										<p>Роды — отправная точка для самых важных изменений и судьбоносных... <a href="" class="all">Читать</a></p>
+									</div>
+									
+									<div class="masonry-news-list_meta-info clearfix">
+										<div class="meta">
+											<div class="views"><span class="icon" href="#"></span> <span>265</span></div>
+											<div class="comments">
+												<a class="icon" href="#"></a>
+												<a href="">152</a>
+											</div>
+										</div>
+										
+										<a href="" class="textdec-onhover">Добавить <br />комментарий</a>
+									</div>
+								</li>
+								
+								<li class="masonry-news-list_item">
+									<div class="masonry-news-list_friend-info clearfix">
+										<a class="ava female small" href=""><img alt="" src="http://img.happy-giraffe.ru/avatars/19372/small/21fd8c8f29c5a289df17938cb2f20e5b.jpg"></a>
+										<div class="details">
+											<a class="username" href="">Александр</a>
+											<span class="date">Сегодня 13:25</span>
+											<p>Изменила цель </p>
+										</div>
+									</div>
+									<div class="user-purpose">
+									    <i class="icon"></i>
+									    <div class="purpose-container">
+										<span>Цель №1</span><p>На море с дочкой летом</p>
+										</div>
+									</div>
+								</li>
+								
+								<li class="masonry-news-list_item">
+									<div class="masonry-news-list_friend-info clearfix">
+										<a class="ava female small" href=""><img alt="" src="http://img.happy-giraffe.ru/avatars/19372/small/21fd8c8f29c5a289df17938cb2f20e5b.jpg"></a>
+										<div class="details">
+											<a class="username" href="">Александр</a>
+											<span class="date">Сегодня 13:25</span>
+											<p>Изменила статус </p>
+										</div>
+									</div>
+									<div class="clearfix user-info-big">
+										<div class="text-status">
+									        <p>Родители всегда говорили мне, что я могу добиться чего угодно! Родители всегда говорили мне...</p>
+									        <span class="tale"></span>
+									        <div class="meta nofloat">
+												<span class="views"><span class="icon" href="#"></span> <span>265</span></span>
+												<span class="comments">
+													<a class="icon" href="#"></a>
+													<a href="">15233</a>
+												</span>
+											</div>
+									    </div>
+									</div>
+									<div class="comments-all clearfix">
+										<a href="">Добавить комментарий</a>
+									</div>
+								</li>
+								
+								<li class="masonry-news-list_item">
+									<div class="masonry-news-list_friend-info clearfix">
+										<a class="ava female small" href=""><img alt="" src="http://img.happy-giraffe.ru/avatars/19372/small/21fd8c8f29c5a289df17938cb2f20e5b.jpg"></a>
+										<div class="details">
+											<a class="username" href="">Алекса</a>
+											<span class="date">Сегодня 13:25</span>
+											<p>Участвует в фотоконкурсе </p>
+										</div>
+									</div>
+									<div class="contest-participant">
+										<img class="title-img" alt="" src="/images/broadcast/title-contest-4.jpg">
+										<div class="img">
+											<a href="">
+												<img src="/images/example/gallery_album_img_01.jpg">
+												<span class="btn">Посмотреть</span>
+											</a>
+										<div class="item-title">Разнообразие десертов сицилийского стиля</div>
+										</div>
+										<div class="clearfix">
+											<div class="position">
+												<strong>18</strong> место
+											</div>
+											<div class="ball">
+												<div class="ball-count">186</div>
+												<div class="ball-text">баллов</div>
+											</div>
+										</div>
+									</div>
+									<div class="comments-all">
+										<a href="" class="textdec-onhover">Поддержите друга!</a>
+									</div>
+								</li>
+								
+								</ul>
+							</div>
+						</div>
+						
 						<div class="default-comments">
 							
 							<div class="comments-meta clearfix">
@@ -1164,9 +990,8 @@
 		<div class="push"></div>
 		
 	</div>
-	<div id="footer" class="wrapper">
-		f
-	</div>
+	<!--#include virtual="/block/global/footer.shtml" -->
+</div>
 <div style="display:none">
 	
 	<div id="login" class="popup">

@@ -444,6 +444,17 @@
 												<span class="yellow">4 года</span>
 											</li>
 											<li>
+												<div class="img boy-3"></div>
+												<span class="yellow">Сын</span> <br />
+												<span>Саша</span> <br />
+												<span class="yellow">3 лет</span>
+											<li>
+												<div class="img girl-3"></div>
+												<span class="yellow">Дочь</span> <br />
+												<span>Евгения</span> <br />
+												<span class="yellow">2 года</span>
+											</li>
+											<li>
 												<div class="img boy-small"></div>
 												<span class="yellow">Сын</span> <br />
 												<span>Кирилл</span> <br />

@@ -15,7 +15,7 @@
 
         <div class="meta">
             <div class="time"><?=Yii::app()->dateFormatter->format("d MMMM yyyy, H:mm", $model->created)?></div>
-            <div class="views"><span class="icon"></span> <span><?=($full) ? $this->getViews() : PageView::model()->viewsByPath(str_replace('http://www.happy-giraffe.ru', '', $model->url), true)?></span></div>
+            <div class="views"><span class="icon"></span> <span><?=($full) ? $this->getViews() : PageView::model()->viewsByPath($model->url)?></span></div>
             <div class="comments">
                 <a href="#" class="icon"></a>
                 <?php if ($model->getArticleCommentsCount() > 0): ?>

@@ -4,7 +4,7 @@
  */
 ?><div class="entry recipe-article clearfix">
 
-    <?php $this->renderPartial('_recipe_parts/_header',array('recipe'=>$data)); ?>
+    <?php $this->renderPartial('_recipe_parts/_header',array('recipe'=>$data, 'full'=>false)); ?>
 
     <div class="entry-content">
 

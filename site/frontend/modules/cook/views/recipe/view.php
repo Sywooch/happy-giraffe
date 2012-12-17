@@ -32,7 +32,7 @@
 
 <div class="entry hrecipe recipe-article clearfix">
 
-<?php $this->renderPartial('_recipe_parts/_header',array('recipe'=>$recipe)); ?>
+<?php $this->renderPartial('_recipe_parts/_header',array('recipe'=>$recipe, 'full'=>true)); ?>
 
 <div class="entry-content">
 

@@ -305,8 +305,8 @@ class CookRecipe extends CActiveRecord
     protected function afterSave()
     {
         if ($this->isNewRecord) {
-            if ($this->isNewRecord)
-                $this->sendEvent();
+            $this->sendEvent();
+            $this->book();
 
             UserAction::model()->add($this->author_id, UserAction::USER_ACTION_RECIPE_ADDED, array('model' => $this));
             FriendEventManager::add(FriendEvent::TYPE_RECIPE_ADDED, array('model' => $this));
@@ -320,14 +320,15 @@ class CookRecipe extends CActiveRecord
                     'update_part' => CometModel::UPDATE_CLUB,
                 ), CometModel::TYPE_COMMENTATOR_UPDATE);
             }
-        } else {
-            $text = 'User: ' . Yii::app()->user->id . "\n" .
-                'Route: ' . Yii::app()->controller->route . "\n" .
-                'ID: ' . $this->id . "\n";
-            Yii::log($text, 'warning');
         }
 
         parent::afterSave();
+    }
+
+    public function beforeDelete()
+    {
+        Yii::app()->db->createCommand()->update($this->tableName(), array('removed' => 1), 'id=:id', array(':id' => $this->id));
+        return false;
     }
 
     public function getNutritionals()
@@ -536,6 +537,7 @@ class CookRecipe extends CActiveRecord
             'order' => 't.created DESC',
         ));
         $criteria->condition = 'tags.id=' . $tag_id . ' AND tags.id IS NOT NULL';
+        $criteria->scopes = array('active');
         $criteria->together = true;
 
         if ($type !== null)
@@ -557,6 +559,7 @@ class CookRecipe extends CActiveRecord
             'with' => array('photo', 'attachPhotos', 'commentsCount', 'tags', 'author', 'cuisine'),
             'order' => 't.created DESC',
         ));
+        $criteria->scopes = array('active');
         if (!empty($type))
             $criteria->compare('type', $type);
 
@@ -578,10 +581,10 @@ class CookRecipe extends CActiveRecord
     {
         $criteria = new CDbCriteria(array(
             'with' => array('photo', 'attachPhotos', 'commentsCount', 'tags', 'author'),
-            'join'=>'LEFT JOIN cook__cook_book as book ON book.recipe_id = t.id',
+            'join' => 'LEFT JOIN cook__cook_book as book ON book.recipe_id = t.id',
             'order' => 'book.created DESC',
-            'condition'=>'book.user_id = :me',
-            'params'=>array(':me' => Yii::app()->user->id)
+            'condition' => 'book.user_id = :me',
+            'params' => array(':me' => Yii::app()->user->id)
         ));
         if (!empty($type))
             $criteria->compare('type', $type);
@@ -622,7 +625,8 @@ class CookRecipe extends CActiveRecord
                 'author' => array(
                     'select' => array('id', 'first_name', 'last_name', 'avatar_id', 'online', 'blocked', 'deleted')
                 )
-            )
+            ),
+            'scopes' => array('active')
         ));
 
         return $this->findAll($criteria);
@@ -636,6 +640,7 @@ class CookRecipe extends CActiveRecord
                 'params' => array(':current_id' => $this->id, ':type' => $this->type),
                 'limit' => 2,
                 'order' => 't.id DESC',
+                'scopes' => array('active')
             )
         );
 
@@ -645,6 +650,7 @@ class CookRecipe extends CActiveRecord
                 'params' => array(':current_id' => $this->id, ':type' => $this->type),
                 'limit' => 2,
                 'order' => 't.id',
+                'scopes' => array('active')
             )
         );
 
@@ -660,6 +666,7 @@ class CookRecipe extends CActiveRecord
     {
         $criteria = new CDbCriteria;
         $criteria->with = array('photo', 'attachPhotos');
+        $criteria->scopes = array('active');
 
         if ($cuisine_id !== null)
             $criteria->compare('cuisine_id', $cuisine_id);
@@ -712,6 +719,7 @@ class CookRecipe extends CActiveRecord
         $criteria->with = array('photo', 'attachPhotos');
         $criteria->condition = '(' . $subquery . ') = :count';
         $criteria->params = array(':count' => count($ingredients));
+        $criteria->scopes = array('active');
         if ($type !== null)
             $criteria->compare('type', $type);
 
@@ -743,6 +751,7 @@ class CookRecipe extends CActiveRecord
         $criteria->condition = 't.id IN (' . $subquery . ')';
         $criteria->params = array(':ingredient_id' => $ingredient_id);
         $criteria->limit = $limit;
+        $criteria->scopes = array('active');
 
         return $this->findAll($criteria);
     }
@@ -768,9 +777,10 @@ class CookRecipe extends CActiveRecord
 
         $idArray = $this->getSearchResultIdArray($criteria);
         $criteria = new CDbCriteria;
-        if (empty($idArray)){
+        $criteria->scopes = array('active');
+        if (empty($idArray)) {
             $criteria->compare('id', 0);
-        }else{
+        } else {
             $criteria->compare('id', $idArray);
             $criteria->compare('type', $type);
         }
@@ -795,10 +805,10 @@ class CookRecipe extends CActiveRecord
             ->from('cook__recipe_recipes_tags')
             ->group('type')
             ->join('cook__recipes', 'cook__recipes.id = cook__recipe_recipes_tags.recipe_id')
-            ->where('tag_id = :tag_id AND removed=0', array(':tag_id'=>$tag))
+            ->where('tag_id = :tag_id AND removed=0', array(':tag_id' => $tag))
             ->queryAll();
 
-        foreach ($counts as $c){
+        foreach ($counts as $c) {
             $_counts[$c['type']] = $c['count(*)'];
             $_counts[0] += $c['count(*)'];
         }
@@ -821,7 +831,7 @@ class CookRecipe extends CActiveRecord
             ->where('cook__cook_book.user_id = :me AND removed=0', array(':me' => Yii::app()->user->id))
             ->queryAll();
 
-        foreach ($counts as $c){
+        foreach ($counts as $c) {
             $_counts[$c['type']] = $c['count(*)'];
             $_counts[0] += $c['count(*)'];
         }

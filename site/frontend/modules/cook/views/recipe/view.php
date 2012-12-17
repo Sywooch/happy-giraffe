@@ -32,8 +32,6 @@
 
 <div class="entry hrecipe recipe-article clearfix">
 
-<h1 class="fn">Курица в пиве с рисом</h1>
-
 <?php $this->renderPartial('_recipe_parts/_header',array('recipe'=>$recipe)); ?>
 
 <div class="entry-content">
@@ -68,31 +66,33 @@
     <div class="thumbs clearfix">
 
         <ul class="clearfix">
-            <?php foreach ($recipe->thumbs as $t): ?>
-                <li><a href="javascript:;" data-id="<?=$t->photo->id?>"><?=CHtml::image($t->photo->getPreviewUrl(82, 60, Image::WIDTH, true, AlbumPhoto::CROP_SIDE_TOP), $t->photo->title)?></a></li>
-            <?php endforeach; ?>
-            <?php if ($recipe->mainPhoto !== null): ?>
-            <li>
-                <a href="javascript:;" class="add" data-id="<?=$recipe->mainPhoto->id?>"><?=CHtml::image($recipe->mainPhoto->getPreviewUrl(78, 52, Image::WIDTH, true, AlbumPhoto::CROP_SIDE_TOP), $recipe->mainPhoto->title)?></a>
-            </li>
-            <li>
-                <?php
-                $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
-                    'entity' => get_parent_class($recipe),
-                    'entity_id' => $recipe->id,
-                    'many' => true,
-                    'customButton' => true,
-                    'customButtonHtmlOptions' => array('class' => 'fancy add'),
-                ));
-                ?>
-                <span>Уже готовили</span>
-                <i class="icon"></i>
-                <span class="blue">Поделитесь <br> фото!</span>
-                <?php $this->endWidget() ?>
-            </li>
+            <?php if ($recipe->mainPhoto !== null):?>
+                <li>
+                    <a href="javascript:;" class="add" data-id="<?=$recipe->mainPhoto->id?>"><?=CHtml::image($recipe->mainPhoto->getPreviewUrl(78, 52, Image::WIDTH, true, AlbumPhoto::CROP_SIDE_TOP), $recipe->mainPhoto->title)?></a>
+                </li>
+                <?php foreach ($recipe->thumbs as $t): ?>
+                    <li><a href="javascript:;" data-id="<?=$t->photo->id?>"><?=CHtml::image($t->photo->getPreviewUrl(82, 60, Image::WIDTH, true, AlbumPhoto::CROP_SIDE_TOP), $t->photo->title)?></a></li>
+                <?php endforeach; ?>
+                <li>
+                    <?php
+                    $this->beginWidget('application.widgets.fileAttach.FileAttachWidget', array(
+                        'entity' => get_parent_class($recipe),
+                        'entity_id' => $recipe->id,
+                        'many' => true,
+                        'customButton' => true,
+                        'customButtonHtmlOptions' => array('class' => 'fancy add'),
+                    ));
+                    ?>
+                    <span>Уже готовили</span>
+                    <i class="icon"></i>
+                    <span class="blue">Поделитесь <br> фото!</span>
+                    <?php $this->endWidget() ?>
+                </li>
             <?php endif; ?>
         </ul>
-        <a href="">Смотреть еще 25 фото</a>
+        <?php if (count($recipe->attachPhotos) > 4):?>
+            <a href="javascript:;" data-id="<?=$recipe->thumbs[0]->id?>">Смотреть еще <?=count($recipe->attachPhotos) - 4 ?> фото</a>
+        <?php endif ?>
     </div>
 
 </div>
@@ -123,36 +123,17 @@
 
         <?php $this->renderPartial('_recipe_parts/_tags', array('recipe' => $recipe)); ?>
 
-        <?php $this->renderPartial('_recipe_parts/_recipe_tags_edit',array('recipe'=>$recipe)); ?>
-
     </div>
-</div>
+
+    <?php $this->renderPartial('_recipe_parts/_recipe_tags_edit',array('recipe'=>$recipe)); ?>
 
 </div>
 
 </div>
 
-<?php if ($recipe->more): ?>
-    <div class="cook-more clearfix">
-        <div class="block-title">
-            Еще вкусненькое
-        </div>
-        <ul>
-            <?php foreach ($recipe->more as $m): ?>
-                <li>
-                    <div class="user clearfix">
-                        <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => $m->author, 'size' => 'small', 'location' => false, 'sendButton' => false, 'hideLinks'=>true)); ?>
-                    </div>
-                    <div class="item-title"><?=CHtml::link($m->title, $m->url)?></div>
-                    <div class="date"><?=Yii::app()->dateFormatter->format("d MMMM yyyy, H:mm", $m->created)?></div>
-                    <div class="content">
-                        <?=$m->getPreview(243)?>
-                    </div>
-                </li>
-            <?php endforeach; ?>
-        </ul>
-    </div>
-<?php endif; ?>
+</div>
+
+<?php $this->renderPartial('_recipe_parts/_more',array('recipe'=>$recipe)); ?>
 
 <?php
     $this->widget('application.widgets.commentWidget.CommentWidget', array(

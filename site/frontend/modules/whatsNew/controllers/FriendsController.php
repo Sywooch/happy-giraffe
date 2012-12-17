@@ -30,7 +30,7 @@ class FriendsController extends HController
 //        FriendEventManager::add(FriendEvent::TYPE_STATUS_UPDATED, array('model' => $status));
         $dp = FriendEventManager::getDataProvider(Yii::app()->user->model);
 
-        $this->pageTitle = 'Что нового - У друзей';
+        $this->pageTitle = 'Что нового у моих друзей - Веселый Жираф';
 
         $this->render('index', compact('dp'));
     }

@@ -28,7 +28,7 @@ class DefaultController extends HController
     {
         $dp = EventManager::getIndex(100);
 
-        $this->pageTitle = 'Что нового - Прямой эфир';
+        $this->pageTitle = 'Что нового на сайте - Веселый Жираф';
 
         $this->render('index', compact('dp'));
     }
@@ -37,7 +37,7 @@ class DefaultController extends HController
     {
         $dp = EventManager::getClubs(100, $show);
 
-        $this->pageTitle = 'Что нового - В клубах';
+        $this->pageTitle = 'Что нового в клубах - Веселый Жираф';
 
         $this->render('clubs', compact('dp', 'show'));
     }
@@ -46,7 +46,7 @@ class DefaultController extends HController
     {
         $dp = EventManager::getBlogs(100, $show);
 
-        $this->pageTitle = 'Что нового - В блогах';
+        $this->pageTitle = 'Что нового в блогах - Веселый Жираф';
 
         $this->render('blogs', compact('dp', 'show'));
     }

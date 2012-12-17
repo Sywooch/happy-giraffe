@@ -328,6 +328,11 @@ class CookRecipe extends CActiveRecord
     public function beforeDelete()
     {
         Yii::app()->db->createCommand()->update($this->tableName(), array('removed' => 1), 'id=:id', array(':id' => $this->id));
+
+        //удаляем из кулинарной книги автора, но у других рецепт остается
+        if ($this->isBooked())
+            $this->book();
+
         return false;
     }
 

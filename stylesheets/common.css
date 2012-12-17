@@ -3906,7 +3906,7 @@ border-radius: 7px;
 .find-friend-title .search-box .search-box_input .text {background: #fff;line-height: 20px;height: 18px;padding: 2px 30px 0 7px; width:160px;border: 1px solid #e5e5e5;}
 .find-friend-title .search-box .search-box_input .text:focus {border-color: #d2bbe6;}
 .find-friend-title .search-box .search-box_input .icon-search{position: absolute;top: 0;right: 0;background: url(/images/common.png) no-repeat -666px -327px;width: 21px;height: 20px;border: none;margin: 0;cursor: pointer;}
-.find-friend-title h1 {color: #454545 !important;text-align: center;font-size: 35px;padding-left: 210px;margin-bottom: 25px !important;}
+.find-friend-title h1 {color: #454545 !important;text-align: center;font-size: 35px !important;font-weight: normal;padding-left: 210px;margin-bottom: 25px !important;}
 .find-friend-title .icon-find-friend {display: inline-block;*zoom:1;*display:inline;    background: url("/images/common.png") no-repeat scroll -322px -341px transparent;
     height: 46px;margin: 0 0 -8px;width: 43px;}
 .find-friend-menu {

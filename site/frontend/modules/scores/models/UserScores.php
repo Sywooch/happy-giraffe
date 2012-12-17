@@ -106,21 +106,6 @@ class UserScores extends HActiveRecord
         return parent::beforeSave();
     }
 
-    public static function getModel($user_id)
-    {
-        $model = UserScores::model()->findByPk($user_id);
-        if ($model === null) {
-            if (User::model()->findByPk($user_id) === null)
-                return null;
-
-            $model = new UserScores;
-            $model->scores = 0;
-            $model->user_id = $user_id;
-        }
-
-        return $model;
-    }
-
     /**
      * @static
      * @param int $user_id
@@ -215,7 +200,7 @@ class UserScores extends HActiveRecord
      */
     public static function checkProfileScores($user_id, $action_id)
     {
-        $model = self::getModel($user_id);
+        $model = self::model()->findByPk($user_id);
         if ($model->full == 0) {
             $score = ScoreInput::model()->findByAttributes(array(
                 'action_id' => (int)$action_id,

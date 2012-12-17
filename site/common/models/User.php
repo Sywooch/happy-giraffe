@@ -147,6 +147,11 @@ class User extends HActiveRecord
         return $this->age . ' ' . $this->ageSuffix;
     }
 
+    public function getBirthdayString()
+    {
+        return Yii::app()->dateFormatter->format("d MMMM", $this->birthday);
+    }
+
     /**
      * Returns the static model of the specified AR class.
      * @return User the static model class

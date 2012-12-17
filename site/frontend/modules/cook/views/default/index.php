@@ -66,7 +66,8 @@
                                 'user' => $recipe->author,
                                 'size' => 'small',
                                 'location' => false,
-                                'sendButton' => false
+                                'sendButton' => false,
+                                'hideLinks'=>true
                             ));
                             ?>
                         </div>
@@ -89,7 +90,7 @@
                 <ul>
                     <li>
                         <div class="img">
-                            <a href="<?=$this->createUrl('/cook/converter')?>"><img src="/images/cook_teaser_img_01.png"/></a>
+                            <?=HHtml::link('<img src="/images/cook_teaser_img_01.png"/>', $this->createUrl('/cook/converter'), array(), true) ?>
                         </div>
                         <div class="text">
                             <div class="item-title"><a href="<?=$this->createUrl('/cook/converter')?>">Калькулятор мер</a></div>
@@ -98,7 +99,7 @@
                     </li>
                     <li>
                         <div class="img">
-                            <a href="<?=$this->createUrl('/cook/calorisator')?>"><img src="/images/cook_teaser_img_02.png"/></a>
+                            <?=HHtml::link('<img src="/images/cook_teaser_img_02.png"/>', $this->createUrl('/cook/calorisator'), array(), true) ?>
                         </div>
                         <div class="text">
                             <div class="item-title"><a href="<?=$this->createUrl('/cook/calorisator')?>">Счетчик калорий</a></div>
@@ -156,14 +157,15 @@
                             'user' => $post->author,
                             'size' => 'small',
                             'location' => false,
-                            'sendButton' => false
+                            'sendButton' => false,
+                            'hideLinks'=>true
                         ));
                         ?>
                     </div>
                     <div class="item-title"><?=CHtml::link($post->title, $post->url)?></div>
                     <div class="meta">
                         <span class="views">Просмотров:&nbsp;&nbsp;<?=PageView::model()->viewsByPath($post->url, true)?></span><br/>
-                        <span class="comments"><?=CHtml::link('Комментариев:&nbsp;&nbsp;' . $post->commentsCount, $post->getUrl(true, false))?></span>
+                        <span class="comments"><?=HHtml::link('Комментариев:&nbsp;&nbsp;' . $post->commentsCount, $post->getUrl(true, false), array(),true)?></span>
                     </div>
                 </li>
                 <?php endforeach; ?>

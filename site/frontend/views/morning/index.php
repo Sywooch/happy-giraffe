@@ -31,11 +31,8 @@ if (!$empty_param)
 
         <div class="meta">
 
-            <div
-                class="time"><?php echo Yii::app()->dateFormatter->format("d MMMM yyyy, H:mm", $article->created); ?></div>
-            <div class="seen">Просмотров:&nbsp;<span
-                id="page_views"><?= PageView::model()->viewsByPath(str_replace('http://www.happy-giraffe.ru', '', $article->url), true); ?></span>
-            </div>
+            <div class="time"><?php echo Yii::app()->dateFormatter->format("d MMMM yyyy, H:mm", $article->created); ?></div>
+            <div class="seen">Просмотров:&nbsp;<span id="page_views"><?= PageView::model()->viewsByPath($article->url); ?></span></div>
             <br>
             <a href="<?=$article->url ?>#comment_list">Комментариев: <?php echo $article->commentsCount; ?></a>
 

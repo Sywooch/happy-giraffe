@@ -21,7 +21,7 @@
     <div class="content-cols clearfix">
 
         <?php
-            $this->widget('zii.widgets.CListView', array(
+            $this->widget('WhatsNewListView', array(
                 'id' => 'liveList',
                 'dataProvider' => $dp,
                 'itemView' => '_brick',

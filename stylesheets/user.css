@@ -436,9 +436,9 @@
 
 .user-interests {}
 .user-interests ul {list-style:none;}
-.user-interests ul li {display:inline-block;*zoom:1;*display:inline;}
-.user-interests > ul > li {margin-bottom:10px;}
+.user-interests ul li {display:inline-block;*zoom:1;*display:inline;margin-bottom:10px;}
 .user-interests .interests-list {display:inline-block;*zoom:1;*display:inline;width:180px;vertical-align:middle}
+.user-interests .interests-list > li {margin: 0;}
 .user-interests .interest-add {display:inline-block;*zoom:1;*display:inline;width:16px;height:16px;background:url(/images/common.png) no-repeat -139px -174px;}
 
 
@@ -1227,6 +1227,7 @@
 	background: #fff;
 	margin: 0 10px 40px;
 	padding: 10px;
+	position: relative;
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	-ms-border-radius: 5px;
@@ -1239,6 +1240,33 @@
 }
 .masonry-news-list_item.blog {background-color:#ddf3ff;border-color: #c8e9fb;}
 .masonry-news-list_item.cook {background-color:#fdfade;border-color: #f4edad;}
+.masonry-news-list_item.update-message {background-color:#ececec;border: none;text-align: center;min-height: 140px;}
+.masonry-news-list_item.update-message.new {background-color:#b7e9a2;}
+.masonry-news-list_item.update-message .count {color: #fff;font-size: 50px; line-height: normal; font-weight: bold;}
+
+.masonry-news-list_item.update-message .desc {font-family: Tahoma, Arial, Verdana, sans-serif;color: #969595;}
+.masonry-news-list_item.update-message .red {color: #f18b2f;}
+.masonry-news-list_item.update-message .btn-update {
+	display: inline-block;*zoom:1;*display:inline;
+	margin: 5px 0 10px;
+	background: #32bd34;
+    border-radius: 15px ;
+    color: #fff;
+    cursor: pointer;
+    font-size: 16px;
+    height: 30px;
+    line-height: 30px;
+    width: 110px;
+    text-decoration: none;
+}
+.masonry-news-list_item.update-message .icon-broadcast {
+	margin: 35px auto 15px;
+	background: url("/images/common.png") no-repeat  -232px -242px ;
+    height: 32px;
+    width: 31px;
+}
+
+
 .masonry-news-list_title{font:bold 17px/17px Tahoma,Arial,Verdana,sans-serif;letter-spacing:-1px;margin-bottom:5px;}
 .masonry-news-list_title > a {text-decoration: none;color: #0281B0;}
 .masonry-news-list_title > a:hover {text-decoration: underline;}
@@ -1398,6 +1426,8 @@
 .masonry-news-list .find-friend-famyli .img.girl-wait{background: url(/images/user-family-icons.png) no-repeat -66px -50px;width: 66px;height: 50px;}
 .masonry-news-list .find-friend-famyli .img.boy-small{background: url(/images/user-family-icons.png) no-repeat 0 -100px;width: 66px;height: 50px;}
 .masonry-news-list .find-friend-famyli .img.girl-small{background: url(/images/user-family-icons.png) no-repeat -66px -100px;width: 66px;height: 50px;}
+.masonry-news-list .find-friend-famyli .img.boy-3{background: url(/images/user-family-icons.png) no-repeat 0 -365px;width: 66px;height: 50px;}
+.masonry-news-list .find-friend-famyli .img.girl-3{background: url(/images/user-family-icons.png) no-repeat -66px -365px;width: 66px;height: 50px;}
 .masonry-news-list .find-friend-famyli .img.boy-5{background: url(/images/user-family-icons.png) no-repeat 0 -150px;width: 66px;height: 50px;}
 .masonry-news-list .find-friend-famyli .img.girl-5{background: url(/images/user-family-icons.png) no-repeat -66px -150px;width: 66px;height: 50px;}
 .masonry-news-list .find-friend-famyli .img.boy-8{background: url(/images/user-family-icons.png) no-repeat 0 -200px;width: 66px;height: 50px;}

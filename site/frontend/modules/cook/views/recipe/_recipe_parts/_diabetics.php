@@ -6,8 +6,8 @@
     val66
     val100
     -->
-    <div class="cook-diabets-chart val33">
+    <div class="cook-diabets-chart <?=$recipe->getBakeryItemsCssClass() ?>">
         <span class="text"><?=$recipe->bakeryItems?></span>
     </div>
-    <div class="cook-diabets-desc">Подходит для диабетиков</div>
+    <div class="cook-diabets-desc"><?=$recipe->getBakeryItemsText() ?></div>
 </div>

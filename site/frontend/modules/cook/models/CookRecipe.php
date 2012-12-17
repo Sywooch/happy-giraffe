@@ -360,7 +360,27 @@ class CookRecipe extends CActiveRecord
 
     public function getBakeryItems()
     {
-        return round($this->getNutritionalsPerServing(4) / 11, 2);
+        return round($this->getNutritionalsPerServing(4) / 11, 1);
+    }
+
+    public function getBakeryItemsCssClass()
+    {
+        $xe = $this->getBakeryItems();
+        if ($xe < 11)
+            return 'val33';
+        if ($xe < 22)
+            return 'val66';
+        return 'val100';
+    }
+
+    public function getBakeryItemsText()
+    {
+        $xe = $this->getBakeryItems();
+        if ($xe < 11)
+            return 'Подходит для диабетиков';
+        if ($xe < 22)
+            return 'Подходит для диабетиков';
+        return 'Не подходит для диабетиков';
     }
 
     public function getUrlParams()
@@ -412,9 +432,8 @@ class CookRecipe extends CActiveRecord
     public function getThumbs()
     {
         $thumbs = $this->attachPhotos;
-        if ($this->photo === null) {
-            array_shift($thumbs);
-        }
+        if (!empty($thumbs))
+            $thumbs = array_slice($thumbs, 0, 4);
 
         return $thumbs;
     }
@@ -611,15 +630,6 @@ class CookRecipe extends CActiveRecord
 
     public function getMore()
     {
-        $next = $this->findAll(
-            array(
-                'condition' => 't.id > :current_id AND type = :type',
-                'params' => array(':current_id' => $this->id, ':type' => $this->type),
-                'limit' => 1,
-                'order' => 't.id',
-            )
-        );
-
         $prev = $this->findAll(
             array(
                 'condition' => 't.id < :current_id AND type = :type',
@@ -629,7 +639,16 @@ class CookRecipe extends CActiveRecord
             )
         );
 
-        return CMap::mergeArray($next, $prev);
+        $next = $this->findAll(
+            array(
+                'condition' => 't.id > :current_id AND type = :type',
+                'params' => array(':current_id' => $this->id, ':type' => $this->type),
+                'limit' => 2,
+                'order' => 't.id',
+            )
+        );
+
+        return CMap::mergeArray(array_reverse($prev), $next);
     }
 
 

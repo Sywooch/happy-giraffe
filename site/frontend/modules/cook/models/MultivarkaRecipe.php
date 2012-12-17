@@ -8,6 +8,7 @@ class MultivarkaRecipe extends CookRecipe
     public $section = 1;
 
     public $types = array(
+        0 => 'Все рецепты',
         1 => 'Первые блюда',
         2 => 'Вторые блюда',
         3 => 'Салаты',
@@ -32,8 +33,6 @@ class MultivarkaRecipe extends CookRecipe
     public function getCounts()
     {
         $_counts = array();
-
-        $_counts[0] = $this->count();
         foreach ($this->types as $k => $v)
             $_counts[$k] = 0;
 
@@ -41,10 +40,13 @@ class MultivarkaRecipe extends CookRecipe
             ->select('type, count(*)')
             ->from($this->tableName())
             ->group('type')
-            ->where('section = 1')
+            ->where('section = 1 AND removed = 0')
             ->queryAll();
-        foreach ($counts as $c)
+
+        foreach ($counts as $c){
             $_counts[$c['type']] = $c['count(*)'];
+            $_counts[0] += $c['count(*)'];
+        }
 
         return $_counts;
     }

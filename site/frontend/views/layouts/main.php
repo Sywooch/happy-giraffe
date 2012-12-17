@@ -518,7 +518,13 @@
             <div id="footer" class="wrapper clearfix">
 
                 <div class="a-right">
-                    <!--Отработало за <?=sprintf('%0.5f',Yii::getLogger()->getExecutionTime())?> c -->
+<!--                    Отработало за --><?//=sprintf('%0.5f',Yii::getLogger()->getExecutionTime())?><!-- c-->
+                    <?php $sql_stats = YII::app()->db->getStats();
+                    echo $sql_stats[0] . ' запросов к БД, время выполнения запросов - ' . sprintf('%0.5f', $sql_stats[1]) . ' c.'; ?>
+                    <style type="text/css">
+                        .top-nav-fixed .layout-container{position: relative !important;}
+                        html,body{overflow-y: auto !important;}
+                    </style>
                     <!--<a>Политика конфиденциальности</a> &nbsp; | &nbsp; <a>Пользовательское соглашение</a> &nbsp; | &nbsp; -->
                 </div>
 

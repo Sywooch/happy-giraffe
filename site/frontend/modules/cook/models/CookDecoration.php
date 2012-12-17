@@ -140,7 +140,8 @@ class CookDecoration extends CActiveRecord
     {
         $criteria = new CDbCriteria;
         $criteria->limit = $limit;
-        $criteria->order = 'created DESC';
+        $criteria->order = 't.created DESC';
+        $criteria->with = array('photo');
 
         return $this->findAll($criteria);
     }

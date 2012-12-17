@@ -35,7 +35,7 @@ class DefaultController extends HController
             $user_id = Yii::app()->user->id;
         $this->user = User::getUserById($user_id);
 
-        $userScores = UserScores::getModel($user_id);
+        $userScores = UserScores::model()->findByPk($user_id);
         $dataProvider = $userScores->getUserHistory();
 
         $this->render('index', array(

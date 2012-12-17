@@ -11,14 +11,14 @@
         </div>
         <?php endif; ?>
         <?php if ($recipe->cooking_duration): ?>
-        <div class="recipe-description-item" title="Время приготовления">
-            <div class="icon-time-2 tooltip"></div>
+        <div class="recipe-description-item">
+            <div class="icon-time-2 tooltip" title="Время приготовления"></div>
             <?=$recipe->cooking_duration_h?> : <?=$recipe->cooking_duration_m?>
         </div>
         <?php endif; ?>
         <?php if ($recipe->servings): ?>
-        <div class="recipe-description-item" title="Количество порций">
-            <div class="icon-yield tooltip"></div>
+        <div class="recipe-description-item">
+            <div class="icon-yield tooltip" title="Количество порций"></div>
             на <?=$recipe->servings?> <?=HDate::GenerateNoun(array('персона', 'персоны', 'персон'), $recipe->servings)?>
         </div>
         <?php endif; ?>

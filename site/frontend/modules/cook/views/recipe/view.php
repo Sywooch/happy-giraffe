@@ -68,10 +68,10 @@
         <ul class="clearfix">
             <?php if ($recipe->mainPhoto !== null):?>
                 <li>
-                    <a href="javascript:;" class="add" data-id="<?=$recipe->mainPhoto->id?>"><?=CHtml::image($recipe->mainPhoto->getPreviewUrl(78, 52, Image::WIDTH, true), $recipe->mainPhoto->title)?></a>
+                    <a href="javascript:;" class="add" data-id="<?=$recipe->mainPhoto->id?>"><?=CHtml::image($recipe->mainPhoto->getPreviewUrl(78, 52, Image::WIDTH, true, AlbumPhoto::CROP_SIDE_TOP), $recipe->mainPhoto->title)?></a>
                 </li>
                 <?php foreach ($recipe->thumbs as $t): ?>
-                    <li><a href="javascript:;" data-id="<?=$t->photo->id?>"><?=CHtml::image($t->photo->getPreviewUrl(82, 60, Image::WIDTH, true), $t->photo->title)?></a></li>
+                    <li><a href="javascript:;" data-id="<?=$t->photo->id?>"><?=CHtml::image($t->photo->getPreviewUrl(82, 60, Image::WIDTH, true, AlbumPhoto::CROP_SIDE_CENTER), $t->photo->title)?></a></li>
                 <?php endforeach; ?>
                 <li>
                     <?php

@@ -22,7 +22,7 @@
 
         <div class="col-12">
             <?php
-                $this->widget('zii.widgets.CListView', array(
+                $this->widget('WhatsNewListView', array(
                     'id' => 'liveList',
                     'dataProvider' => $dp,
                     'itemView' => '_brick',

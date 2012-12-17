@@ -31,6 +31,10 @@
                     'htmlOptions' => array(
                         'class' => 'masonry-news-list',
                     ),
+                    'viewData' => array(
+                        'page' => $dp->pagination->currentPage,
+                        'listView' => true,
+                    ),
                     'pager' => array(
                         'header' => '',
                         'class' => 'ext.infiniteScroll.IasPager',

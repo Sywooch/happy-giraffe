@@ -50,6 +50,29 @@ class Mandrill extends CApplicationComponent
             return 'error';
     }
 
+    public function sendAlex($subject, $text)
+    {
+        $rest = new RESTClient;
+        $rest->initialize(array('server' => 'https://mandrillapp.com/api/1.0/'));
+        $data = array(
+            'key' => $this->apiKey,
+            'message' => array(
+                'from_email' => 'noreply@happy-giraffe.ru',
+                'from_name' => 'Весёлый Жираф',
+                'subject' => $subject,
+                'to' => array(
+                    array(
+                        'email' => 'alexk984@gmail.com',
+                        'name' => 'Alex',
+                    ),
+                ),
+                'html'=>$text
+            ),
+        );
+        $res = $rest->post('messages/send.json', $data);
+        var_dump($res);
+    }
+
     public function newMessages($user, $params)
     {
         return array(

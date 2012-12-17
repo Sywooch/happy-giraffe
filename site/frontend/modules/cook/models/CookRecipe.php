@@ -405,10 +405,10 @@ class CookRecipe extends CActiveRecord
         return Yii::app()->$method($route, $params);
     }
 
-    public function getPreview($imageWidth = 167)
+    public function getPreview($imageWidth = 167, $height = null)
     {
         if ($this->mainPhoto !== null) {
-            $preview = HHtml::link(CHtml::image($this->mainPhoto->getPreviewUrl($imageWidth, null, Image::WIDTH)), $this->url, array(), true);
+            $preview = HHtml::link(CHtml::image($this->mainPhoto->getPreviewUrl($imageWidth, $height, Image::WIDTH, true)), $this->url, array(), true);
         } else {
             $preview = CHtml::tag('p', array(), Str::truncate($this->text));
         }

@@ -680,7 +680,7 @@ class CommunityContent extends HActiveRecord
             'condition' => 'entity = :entity AND entity_id = :entity_id',
             'params' => array(':entity' => get_class($this), ':entity_id' => $this->id),
             'order' => 't.created DESC',
-            'limit' => 3,
+            'limit' => $limit,
             'group' => 't.author_id',
         ));
     }

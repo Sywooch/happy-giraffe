@@ -20,7 +20,7 @@ if (Yii::app()->user->checkAccess('recipe_tags')){
 ?>
 <?php if (Yii::app()->user->checkAccess('recipe_tags')):?>
 <div>
-    <p><b>Тэги</b></p>
+    <p><b>Редактирование тэгов (необходимы права)</b></p>
     <p>
         <?php foreach ($recipe->tags as $tag): ?>
         <span><?=$tag->title ?></span><a class="remove" onclick="CookRecipeTags.removeCookTag(<?=$recipe->id ?>, <?=$tag->id ?>, this)" href="javascript:;"><i class="icon"></i></a><br>

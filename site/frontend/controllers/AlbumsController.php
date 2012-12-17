@@ -762,6 +762,8 @@ class AlbumsController extends HController
             }
             if (!isset($currentIndex))
                 throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
+            $this->pageTitle = $photo->w_title;
         }
 
         $this->layout = '//layouts/main';

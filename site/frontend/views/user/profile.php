@@ -40,7 +40,7 @@
                     ?>
                 </div>
                 <div class="info">
-                    <p class="birthday"><?php if ($user->birthday): ?><span>День рождения:</span> <?=Yii::app()->dateFormatter->format("d MMMM", $user->birthday)?> (<?=$user->normalizedAge?>)<?php endif; ?></p>
+                    <p class="birthday"><?php if ($user->birthday): ?><span>День рождения:</span> <?=$user->birthdayString?> (<?=$user->normalizedAge?>)<?php endif; ?></p>
                 </div>
             <?php if(!Yii::app()->user->isGuest && Yii::app()->user->model->group != UserGroup::USER && Yii::app()->user->checkAccess('manageFavourites')): ?>
             <div class="user-buttons clearfix">

@@ -105,4 +105,9 @@ class CookRecipeTag extends HActiveRecord
             )
         );
     }
+
+    public function getUrl()
+    {
+        return Yii::app()->createUrl('/cook/recipe/tag', array('tag'=>$this->id));
+    }
 }

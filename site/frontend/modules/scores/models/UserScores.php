@@ -221,6 +221,9 @@ class UserScores extends HActiveRecord
             UserAction::model()->add($this->user_id, UserAction::USER_ACTION_LEVELUP, array('level_id' => 1));
             $this->save();
             self::addScores($this->user_id, ScoreAction::ACTION_PROFILE_FULL);
+            $this->user->last_updated = new CDbExpression('NOW()');
+            $this->user->update(array('last_updated'));
+            $this->user->sendEvent();
         }
     }
 

@@ -21,7 +21,7 @@
     <div class="content-cols clearfix">
 
         <?php
-            $this->widget('zii.widgets.CListView', array(
+            $this->widget('WhatsNewListView', array(
                 'id' => 'liveList',
                 'dataProvider' => $dp,
                 'itemView' => '_brick',
@@ -29,6 +29,10 @@
                 'itemsTagName' => 'ul',
                 'htmlOptions' => array(
                     'class' => 'masonry-news-list',
+                ),
+                'viewData' => array(
+                    'page' => $dp->pagination->currentPage,
+                    'listView' => true,
                 ),
                 'pager' => array(
                     'header' => '',

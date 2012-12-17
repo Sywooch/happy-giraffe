@@ -155,18 +155,6 @@ class MailCommand extends CConsoleCommand
         Yii::app()->mc->deleteRegisteredFromContestList();
     }
 
-    public function actionTest()
-    {
-        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
-        Yii::import('site.frontend.extensions.*');
-        Yii::import('site.frontend.components.*');
-        Yii::import('site.common.models.mongo.*');
-
-        $articles = Favourites::model()->getWeekPosts();
-
-        echo $articles[0]->url;
-    }
-
     public function actionTestMessage()
     {
         Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
@@ -180,6 +168,7 @@ class MailCommand extends CConsoleCommand
 
         $user = User::getUserById(10);
         $token = UserToken::model()->generate($user->id, 86400);
+        $unread = Im::model(10)->getUnreadMessagesCount();
         $dialogUsers = Im::model($user->id)->getUsersWithNewMessages();
         $contents = $this->renderFile(Yii::getPathOfAlias('site.common.tpl.newMessages') . '.php', compact('dialogUsers', 'unread', 'user', 'token'), true);
         Yii::app()->mandrill->send($user, 'newMessages', array('messages' => $contents, 'token' => $token));

@@ -47,11 +47,16 @@
 									$(function(){
 										$('#masonry-news-list-jcarousel').jcarousel({
 											list: '#masonry-news-list-jcarousel-ul',
+											itemLoadCallback: {
+  onBeforeAnimation: callback1
+},
 											items: '.masonry-news-list_item'
 										});
-
+function callback1 (argument) {
+	alert("ert");
+}
 										// Setup controls for the navigation carousel
-								        $('#masonry-news-list-jcarousel .prev')
+						/*		        $('#masonry-news-list-jcarousel .prev')
 								            .on('inactive.jcarouselcontrol', function() {
 								                $(this).addClass('inactive');
 								            })
@@ -71,14 +76,14 @@
 								            })
 								            .jcarouselControl({
 								                target: '+=3'
-								            });
+								            });*/
 									})
 								</script>
 
 								<div id="masonry-news-list-jcarousel" class="masonry-news-list clearfix jcarousel">
 								
 									<a class="prev" href="#" ><</a>
-									<a class="next" href="#">></a>
+									<a class="next jcarousel-next jcarousel-next-horizontal" href="#">></a>
 									<!--<a href="javascript:void(0);" onclick="$('#masonry-news-list-jcarousel').jcarousel('scroll', '-=1')" class="prev">предыдущая</a>
 									 <a href="javascript:void(0);" onclick="$('#masonry-news-list-jcarousel').jcarousel('scroll', '+=1')" class="next">следующая</a> -->
 									<ul id="masonry-news-list-jcarousel-ul">

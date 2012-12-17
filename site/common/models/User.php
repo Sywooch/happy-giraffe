@@ -115,6 +115,19 @@ class User extends HActiveRecord
         4 => array('моего друга', 'моём друге', 'Мой друг', 'мой друг', 'вашем друге'),
     );
 
+    public $partnerTitle = array(
+        0 => array(
+            1 => 'Муж',
+            3 => 'Жених',
+            4 => 'Друг',
+        ),
+        1 => array(
+            1 => 'Жена',
+            3 => 'Невеста',
+            4 => 'Подруга',
+        ),
+    );
+
     public $accessLabels = array(
         'all' => 'гости',
         'registered' => 'зарегистрированные пользователи',
@@ -810,6 +823,11 @@ class User extends HActiveRecord
             return $this->women_of;
         else
             return $this->men_of;
+    }
+
+    public function getPartnerTitleNew()
+    {
+        return $this->partnerTitle[$this->gender][$this->relationship_status];
     }
 
     public static function relationshipStatusHasPartner($status_id)

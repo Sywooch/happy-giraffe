@@ -391,8 +391,7 @@ class ELTask extends HActiveRecord
     {
         //check free register tasks
         $criteria = new CDbCriteria;
-        $criteria->condition = 'closed IS NULL AND start_date <= :today AND user_id IS NULL';
-        $criteria->params = array(':today' => date("Y-m-d"));
+        $criteria->condition = 'closed IS NULL AND user_id IS NULL';
         $criteria->compare('type', self::TYPE_REGISTER);
 
         $reg_tasks = ELTask::model()->findAll($criteria);

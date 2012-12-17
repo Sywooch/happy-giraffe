@@ -4445,7 +4445,7 @@ ul.letters li a:hover {
 #cook-recipe .search .title .icon {display:inline-block;*zoom:1;*display:inline;width:23px;height:41px;background:url(/images/cook_sprite.png) no-repeat -71px -1417px;vertical-align:bottom;position:relative;margin-left:11px;margin-right:5px;}
 #cook-recipe .search .title span {color:#575757;font-size:16px;font-weight:bold;}
 #cook-recipe .search .title a {margin-left:15px;}
-#cook-recipe .search input[type=text] {border:1px solid #e4d0f6;background:#fff;height:18px;font-size:13px;font-family:tahoma, arial, helvetica, sans-serif;padding:4px 13px;float:left;margin:0;width:550px;}
+#cook-recipe .search input[type=text] {border:1px solid #e4d0f6;background:#fff;height:18px;font-size:13px;font-family:tahoma, arial, helvetica, sans-serif;padding:4px 13px;float:left;margin:0;width:500px;}
 #cook-recipe .search .btn {float:left;position:relative;top:-2px;margin-left:-1px;}
 
 .recipe-search {position: relative;margin-top: 15px;}

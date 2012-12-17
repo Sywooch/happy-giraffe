@@ -21,13 +21,12 @@
         }
     ";
 
-    if (Yii::app()->request->getParam('Comment_page', null) !== null) {
+    if (Yii::app()->request->getParam('Comment_page', null) !== null)
         Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
-    }
 
     $cs->registerScript('cookRecipeView', $js, CClientScript::POS_HEAD);
     if (empty($this->meta_description))
-        $this->meta_description = trim(Str::truncate(strip_tags($recipe->text), 300));
+        $this->meta_description = Str::getDescription($recipe->text, 300);
 ?>
 
 <div class="entry hrecipe recipe-article clearfix">

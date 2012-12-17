@@ -139,7 +139,7 @@ class RecipeController extends HController
             $recipe = new $this->modelName;
             $ingredients = array();
         } else {
-            $recipe = CActiveRecord::model($this->modelName)->with(array(
+            $recipe = CActiveRecord::model($this->modelName)->active()->with(array(
                 'photo',
                 'cuisine',
                 'ingredients' => array(
@@ -271,7 +271,7 @@ class RecipeController extends HController
      */
     public function actionView($id, $section, $lastPage = null, $ajax = null)
     {
-        $recipe = CActiveRecord::model($this->modelName)->with(array(
+        $recipe = CActiveRecord::model($this->modelName)->active()->with(array(
             'photo',
             'attachPhotos',
             'cuisine',

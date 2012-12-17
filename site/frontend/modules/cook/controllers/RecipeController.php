@@ -14,10 +14,10 @@ class RecipeController extends HController
     {
         return array(
             'accessControl',
-            array(
-                'CHttpCacheFilter + view',
-                'lastModified' => $this->lastModified(),
-            ),
+//            array(
+//                'CHttpCacheFilter + view',
+//                'lastModified' => $this->lastModified(),
+//            ),
             //'ajaxOnly + ac, searchByIngredientsResult, advancedSearchResult, autoSelect'
         );
     }
@@ -58,6 +58,7 @@ class RecipeController extends HController
 
         $dp = CActiveRecord::model($this->modelName)->getByType($type);
         $this->counts = CActiveRecord::model($this->modelName)->counts;
+        $dp->totalItemCount = $this->counts[$type];
 
         if (empty($type))
             $this->breadcrumbs = array(
@@ -74,7 +75,7 @@ class RecipeController extends HController
         $this->render('index', compact('dp', 'type'));
     }
 
-    public function actionTag($tag, $type = null)
+    public function actionTag($tag, $type = 0)
     {
         $model = $this->loadTag($tag);
         $this->pageTitle = $model->title;
@@ -83,6 +84,7 @@ class RecipeController extends HController
 
         $dp = CActiveRecord::model($this->modelName)->getByTag($tag, $type);
         $this->counts = CActiveRecord::model($this->modelName)->getCountsByTag($tag);
+        $dp->totalItemCount = $this->counts[$type];
 
         if (empty($type))
             $this->breadcrumbs = array(
@@ -101,7 +103,7 @@ class RecipeController extends HController
         $this->render('tag', compact('dp', 'model'));
     }
 
-    public function actionCookBook($type = null)
+    public function actionCookBook($type = 0)
     {
         if (Yii::app()->user->isGuest)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
@@ -112,6 +114,7 @@ class RecipeController extends HController
 
         $dp = CActiveRecord::model($this->modelName)->getByCookBook($type);
         $this->counts = CActiveRecord::model($this->modelName)->getCountsByCookBook($type);
+        $dp->totalItemCount = $this->counts[$type];
 
         if (empty($type))
             $this->breadcrumbs = array(
@@ -282,6 +285,8 @@ class RecipeController extends HController
                     'unit',
                 )
             ),
+            'author',
+            'commentsCount'
         ))->findByPk($id);
         if ($recipe === null)
             throw new CHttpException(404, 'Такого рецепта не существует');

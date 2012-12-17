@@ -310,6 +310,7 @@ class User extends HActiveRecord
             'blogPosts' => array(self::HAS_MANY, 'CommunityContent', 'author_id', 'with' => 'rubric', 'condition' => 'rubric.user_id IS NOT null', 'select' => 'id'),
             'address' => array(self::HAS_ONE, 'UserAddress', 'user_id'),
             'priority' => array(self::HAS_ONE, 'UserPriority', 'user_id'),
+            'recipes' => array(self::STAT, 'CookRecipe', 'cook__cook_book(user_id, recipe_id)'),
 
             'answers' => array(self::HAS_MANY, 'DuelAnswer', 'user_id'),
             'activeQuestion' => array(self::HAS_ONE, 'DuelQuestion', array('question_id' => 'id'), 'through' => 'answers', 'condition' => 'ends > NOW()'),

@@ -7,7 +7,7 @@
         <?php foreach ($recipe->more as $m): ?>
         <li>
             <div class="content">
-                <?=$m->getPreview(243)?>
+                <?=$m->getPreview(120, 105)?>
             </div>
             <div class="item-title"><?=CHtml::link($m->title, $m->url)?></div>
             <div class="user clearfix">

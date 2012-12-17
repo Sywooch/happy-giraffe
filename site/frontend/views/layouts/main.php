@@ -500,9 +500,7 @@
                     <?php echo $content; ?>
                 </div>
 
-                <?php if ($this->module !== null && $this->module->id == 'whatsNew'): ?>
-                    <a href="#layout" id="btn-up-page"></a>
-                <?php endif; ?>
+                <a href="#layout" id="btn-up-page"></a>
                 <div class="push"></div>
 
             </div>

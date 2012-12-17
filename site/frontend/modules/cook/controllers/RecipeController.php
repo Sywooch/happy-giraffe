@@ -316,7 +316,6 @@ class RecipeController extends HController
         );
 
         list($dataProvider, $this->counts) = CookRecipe::model()->searchByName($text, $type);
-
         $this->render('search', compact('dataProvider', 'text', 'type'));
     }
 

@@ -52,6 +52,3 @@ Yii::app()->clientScript->registerScriptFile($baseUrl . '/social.js');
     </div>
 
 </div>
-<style type="text/css">
-    body{min-width:0 !important;}
-</style>

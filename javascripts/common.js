@@ -682,6 +682,8 @@ var Cook = {
                     $(el).html('<span>Рецепт в моей <br>кулинарной книге</span><i class="icon-exist"></i>');
                 else
                     $(el).html('<span>Добавить в мою <br>кулинарную книгу</span><i class="icon-add"></i>');
+
+                $('#cookbook-recipe-count').html(response.count);
             }
         }, 'json');
     }

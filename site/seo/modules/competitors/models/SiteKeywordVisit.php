@@ -186,7 +186,7 @@ class SiteKeywordVisit extends HActiveRecord
     public function getCriteriaWithoutFreq()
     {
         $criteria = new CDbCriteria;
-        $criteria->with = array();
+        $criteria->with = array('keyword');
 
         if (Yii::app()->user->getState('hide_used') == 1) {
             $criteria->condition = 'group.id IS NULL AND ((tempKeyword.keyword_id IS NOT NULL AND tempKeyword.owner_id = ' . Yii::app()->user->id . ') OR tempKeyword.keyword_id IS NULL)';

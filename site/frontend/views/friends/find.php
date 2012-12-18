@@ -21,8 +21,10 @@
     <div class="find-friend-title clearfix">
         <div class="search-box">
             <div class="search-box_input">
-                <input type="text" class="text" placeholder="Введите имя">
-                <button class="icon-search"></button>
+                <?=CHtml::beginForm('', 'get')?>
+                    <?=CHtml::textField('query', '', array('class' => 'text', 'placeholder' => 'Введите имя'))?>
+                    <button class="icon-search"></button>
+                <?=CHtml::endForm()?>
             </div>
         </div>
         <h1><i class="icon-find-friend"></i> Найти друзей</h1>
@@ -39,7 +41,7 @@
                     array(
                         'label' => 'Из моего региона',
                         'url' => array('friends/find', 'type' => FindFriendsManager::BY_REGION),
-                        'visible' => Yii::app()->user->model->address->region !== null,
+                        'visible' => Yii::app()->user->model->address->region !== null && Yii::app()->user->model->address->region->usersCount >= 50,
                     ),
                     array(
                         'label' => 'С похожими интересами',

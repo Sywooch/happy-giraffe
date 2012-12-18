@@ -3,6 +3,7 @@
 <!--[if IE 7]>    <html xmlns="http://www.w3.org/1999/xhtml" class="ie7 top-nav-fixed"> <![endif]-->
 <!--[if gt IE 7]><!--> <html xmlns="http://www.w3.org/1999/xhtml" class="top-nav-fixed" xmlns:fb="http://ogp.me/ns/fb#"> <!--<![endif]-->
 <head>
+    <?=CHtml::linkTag()?>
     <?php if ($this->rssFeed !== null): ?>
         <?=CHtml::linkTag('alternate', 'application/rss+xml', $this->rssFeed)?>
     <?php endif; ?>
@@ -17,9 +18,9 @@
     $release_id = 133;
     $cs = Yii::app()->clientScript;
     $cs
+        ->registerCssFile('/stylesheets/user.css')
         ->registerCssFile('/stylesheets/common.css')
         ->registerCssFile('/stylesheets/global.css')
-        ->registerCssFile('/stylesheets/user.css')
         ->registerCssFile('/stylesheets/ie.css', 'screen')
         ->registerCssFile('/stylesheets/jquery.fancybox-1.3.4.css')
 

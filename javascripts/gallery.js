@@ -127,6 +127,8 @@ jQuery.fn.pGallery = function(options) {
             var title = pGallery.photos[id].title;
             if (title != null)
                 document.title = pGallery.photos[id].title;
+
+            window.location = $('#gallery-top-link').attr('href');
         }, 'html');
     };
 
@@ -202,6 +204,7 @@ jQuery.fn.pGallery = function(options) {
                 $(".auth-service.twitter a").eauth({"popup":{"width":900,"height":550},"id":"twitter"});
             }
             /*$('#photo-window-in', plugin.window).children('#loading').remove();*/
+            window.location = $('#gallery-top-link').attr('href');
         }, 'html');
         plugin.preloadPhotos();
         return false;

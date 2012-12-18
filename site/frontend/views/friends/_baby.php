@@ -23,8 +23,8 @@
         <div class="img <?=$class?>"></div>
         <span>Ждем</span> <br>
         <span class="yellow"><?=$label?></span> <br>
-        <?php if ($baby->birthday): ?>
-            <span class="pink-text"><?=$baby->prenancyPeriod?> неделя</span>
+        <?php if ($baby->birthday !== null): ?>
+            <span class="pink-text"><?=$baby->pregnancyWeeks?> неделя</span>
         <?php endif; ?>
     <?php else: ?>
         <?php if ($baby->randomPhoto !== null): ?>
@@ -51,7 +51,7 @@
         <?php if ($baby->sex != 0): ?>
             <span class="yellow"><?=($baby->sex == 1) ? 'Сын' : 'Дочь'?></span> <br />
         <?php endif; ?>
-        <?php if ($baby->name): ?>
+        <?php if ( !empty($baby->name)): ?>
             <span><?=$baby->name?></span> <br />
         <?php endif; ?>
         <?php if ($baby->birthday !== null): ?>

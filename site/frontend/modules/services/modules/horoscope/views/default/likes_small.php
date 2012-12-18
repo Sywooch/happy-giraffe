@@ -23,7 +23,7 @@
         .custom-like-small_value:before,
         .custom-like-small_value:after{content:"";position:absolute;margin:-4px 0 0 -4px;line-height:0;width:0;height:0;left:0;top:50%;border:4px transparent solid;border-left:0;border-right-color:#d5d5d5;}
         .custom-like-small_value:after {margin-left:-3px;border-right-color: white;}
-        body{min-width:0 !important;}
+        html, body{min-width:0 !important;}
     </style>
 </head>
 <body>

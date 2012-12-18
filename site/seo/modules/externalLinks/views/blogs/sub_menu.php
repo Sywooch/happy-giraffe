@@ -19,6 +19,10 @@
                 'label' => 'Черный список',
                 'url' => array('/externalLinks/blogs/blacklist'),
             ),
+            array(
+                'label' => 'Белый список',
+                'url' => array('/externalLinks/blogs/list'),
+            ),
         )));
     ?>
 </div>

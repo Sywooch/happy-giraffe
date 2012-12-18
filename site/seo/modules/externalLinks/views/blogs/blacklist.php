@@ -69,6 +69,7 @@ $dataProvider->criteria->order = 'bad_rating asc, id asc';
 
     input#commentsCount{margin: 10px 0;}
     #removeFromBlfancybox{width: 300px;height:200px;padding: 15px;}
+    .table-box.table-grey tr td:first-child+td {max-width: 350px;white-space: pre-wrap;}
 </style>
 
 <div style="display:none;">

@@ -982,4 +982,18 @@ class CookRecipe extends CActiveRecord
             ))
             ->queryScalar();
     }
+
+
+    public static function checkRecipeBookAfterLogin($user_id)
+    {
+        $recipe_id = Yii::app()->user->getState('recipe_id');
+        if (!empty($recipe_id)){
+            $recipe = self::model()->findByPk($recipe_id);
+            if ($recipe !== null){
+                $recipe->book($user_id);
+            }
+
+            Yii::app()->user->setState('recipe_id', null);
+        }
+    }
 }

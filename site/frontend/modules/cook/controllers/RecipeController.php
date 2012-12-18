@@ -105,8 +105,10 @@ class RecipeController extends HController
 
     public function actionCookBook($type = 0)
     {
-        if (Yii::app()->user->isGuest)
-            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        if (Yii::app()->user->isGuest){
+            $this->redirect('/cook/recipe/');
+            Yii::app()->end();
+        }
 
         $this->pageTitle = 'Моя кулинарная книга';
         $this->layout = '//layouts/recipe';
@@ -533,7 +535,17 @@ class RecipeController extends HController
     {
         $recipe = $this->loadModel(Yii::app()->request->getPost('recipe_id'));
 
-        echo CJSON::encode(array('status' => true, 'result' => $recipe->book()));
+        if (Yii::app()->user->isGuest) {
+            Yii::app()->user->setState('recipe_id', $recipe->id);
+            Yii::app()->user->setState('redirectUrl', '/cook/recipe/cookBook/');
+            echo CJSON::encode(array('status' => false));
+        } else {
+            $result = $recipe->book();
+            $count = CookRecipe::userBookCount();
+            $count = $count . ' ' . HDate::GenerateNoun(array('рецепт', 'рецепта', 'рецептов'), $count);
+
+            echo CJSON::encode(array('status' => true, 'result' => $result, 'count' => $count));
+        }
     }
 
     public function getTypeUrl($id)

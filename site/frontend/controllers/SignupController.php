@@ -251,6 +251,10 @@ class SignupController extends HController
             'jquery.yiiactiveform.js' => false
         );
 
+        //проверка на кулинарную книгу
+        if (Yii::app()->user->getState('redirectUrl') == '/cook/recipe/cookBook/')
+            $this->template['default']['step3']['title1'] = 'Мы готовим для вас кулинарную книгу';
+
         $this->renderPartial('form', compact('model', 'type'), false, true);
     }
 }

@@ -89,11 +89,14 @@
                 <ul>
                     <li class="item-ava tooltip" title="Моя анкета">
                         <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
-                        'user' => Yii::app()->user->model,
-                        'size' => 'small',
-                        'small' => true,
-                        'sendButton' => false,
-                    )); ?>
+                            'user' => Yii::app()->user->model,
+                            'size' => 'small',
+                            'small' => true,
+                            'sendButton' => false,
+                        )); ?>
+                    </li>
+                    <li class="item-broadcast new">
+                        <a href="<?=$this->createUrl('/whatsNew/default/index')?>"><i class="icon-broadcast"></i></a>
                     </li>
                     <li class="item-dialogs tooltip<?php if ($imCount > 0): ?> new<?php endif; ?>" title="Мои диалоги">
                         <a href="javascript:void(0)" onclick="Messages.toggle()">
@@ -186,11 +189,6 @@
                                         </div>
                                         <button class="btn btn-green-medium"><span><span>Поиск</span></span></button>
                                     </form>
-
-                                    <div class="fast-actions">
-                                        <a href="<?=$this->createUrl('/activity')?>" class="newest<?php if (! Yii::app()->user->isGuest && Yii::app()->user->model->activityUpdated):?> active<?php endif; ?>"><i class="icon"></i>Самое<br/>свежее</a>
-                                        <a href="<?=$this->createUrl('/activity/friends')?>" class="find-friend"><i class="icon"></i>Найти<br/>друзей</a>
-                                    </div>
                                 </div>
                             <?php endif; ?>
 
@@ -503,9 +501,7 @@
                     <?php echo $content; ?>
                 </div>
 
-                <?php if ($this->module !== null && $this->module->id == 'whatsNew'): ?>
-                    <a href="#layout" id="btn-up-page"></a>
-                <?php endif; ?>
+                <a href="#layout" id="btn-up-page"></a>
                 <div class="push"></div>
 
             </div>

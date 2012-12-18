@@ -17,37 +17,34 @@
         </div>
     </div>
 
-    <div  class="masonry-news-list clearfix ">
+    <?php
+        $this->widget('zii.widgets.CListView', array(
+            'id' => 'whatsNewUserWidgetList',
+            'dataProvider' => $dp,
+            'itemView' => 'application.modules.whatsNew.views.friends._brick',
+            'template' => "{items}\n{pager}",
+            'itemsTagName' => 'ul',
+            'htmlOptions' => array(
+                'class' => 'masonry-news-list',
+            ),
+            'pager' => array(
+                'header' => '',
+                'class' => 'ext.infiniteScroll.IasPager',
+                'rowSelector' => '.masonry-news-list_item',
+                'listViewId' => 'whatsNewUserWidgetList',
+                'options' => array(
+                    'scrollContainer' => new CJavaScriptExpression("$('.layout-container')"),
+                    'onRenderComplete' => new CJavaScriptExpression("function(items) {
+                        var newItems = $(items);
 
-        <?php
-            $this->widget('zii.widgets.CListView', array(
-                'id' => 'whatsNewUserWidgetList',
-                'dataProvider' => $dp,
-                'itemView' => 'application.modules.whatsNew.views.friends._brick',
-                'template' => "{items}\n{pager}",
-                'itemsTagName' => 'ul',
-                'htmlOptions' => array(
-                    'class' => 'masonry-news-list',
+                        newItems.hide().imagesLoaded(function() {
+                            newItems.show();
+                            $('#whatsNewUserWidgetList .items').isotope('appended', newItems);
+                        });
+                    }"),
                 ),
-                'pager' => array(
-                    'header' => '',
-                    'class' => 'ext.infiniteScroll.IasPager',
-                    'rowSelector' => '.masonry-news-list_item',
-                    'listViewId' => 'whatsNewUserWidgetList',
-                    'options' => array(
-                        'scrollContainer' => new CJavaScriptExpression("$('.layout-container')"),
-                        'onRenderComplete' => new CJavaScriptExpression("function(items) {
-                            var newItems = $(items);
+            ),
+        ));
+    ?>
 
-                            newItems.hide().imagesLoaded(function() {
-                                newItems.show();
-                                $('#whatsNewUserWidgetList .items').isotope('appended', newItems);
-                            });
-                        }"),
-                    ),
-                ),
-            ));
-        ?>
-
-    </div>
 </div>

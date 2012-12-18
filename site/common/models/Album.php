@@ -19,6 +19,13 @@
  */
 class Album extends HActiveRecord
 {
+    const TYPE_PRIVATE = 1;
+    const TYPE_DIALOGS = 2;
+    const TYPE_FAMILY = 3;
+    const TYPE_PRODUCTS = 4;
+    const TYPE_RECIPES = 5;
+    const TYPE_PREVIEW = 6;
+
     private $_check_access = null;
     public $files = array();
 
@@ -29,7 +36,7 @@ class Album extends HActiveRecord
         4 => 'Продукты',
         5 => 'Украшения блюд',
         6 => 'Видео превью',
-        7 => 'Мои рецепты'
+        7 => 'Мои рецепты',
     );
 
     public static $permissions = array(

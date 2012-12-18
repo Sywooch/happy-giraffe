@@ -14,7 +14,7 @@ class UserIdentity extends CUserIdentity {
 	public function authenticate() {
 		if (isset($this->user['vk_id']) && $this->user['vk_id']) {
 			$user = User::model()->find('vk_id=:vk_id', array(':vk_id' => $this->user['vk_id']));
-		} 
+		}
 		else {
 			$user = User::model()->find(array('condition' => 'email=:email', 'params' => array(':email' => $this->user['email'])));
 		}
@@ -29,16 +29,16 @@ class UserIdentity extends CUserIdentity {
 				$this->_id = $user->id;
 				$this->saveParams($user);
 			}
-
-            $this->setNotGuestCookie();
-			return $this->errorCode = self::ERROR_NONE;
-		} 
+		}
 		else {
 			$this->_id = $user->id;
 			$this->saveParams($user);
 		}
 
         $this->setNotGuestCookie();
+        //проверяем нужно ли добавить рецепт в кулинарную книгу
+        Yii::import('site.frontend.modules.cook.models.*');
+        CookRecipe::checkRecipeBookAfterLogin($user->id);
         return $this->errorCode = self::ERROR_NONE;
 	}
 

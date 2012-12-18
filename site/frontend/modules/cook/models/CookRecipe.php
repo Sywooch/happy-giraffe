@@ -538,14 +538,14 @@ class CookRecipe extends CActiveRecord
     public function getByTag($tag_id, $type)
     {
         $criteria = new CDbCriteria(array(
-            'with' => array('photo', 'attachPhotos', 'tags'),
+            'with' => array('photo', 'attachPhotos', 'commentsCount', 'tags', 'author', 'cuisine'),
             'order' => 't.created DESC',
         ));
         $criteria->condition = 'tags.id=' . $tag_id . ' AND tags.id IS NOT NULL';
         $criteria->scopes = array('active');
         $criteria->together = true;
 
-        if ($type !== null)
+        if (!empty($type))
             $criteria->compare('type', $type);
 
         $dp = new CActiveDataProvider(get_class($this), array(
@@ -572,7 +572,6 @@ class CookRecipe extends CActiveRecord
         $count_criteria->with = array();
 
         $dp = new CActiveDataProvider(get_class($this), array(
-            'totalItemCount' => CookRecipe::model()->count($count_criteria),
             'criteria' => $criteria,
             'pagination' => array(
                 'pageSize' => 10,
@@ -585,7 +584,7 @@ class CookRecipe extends CActiveRecord
     public function getByCookBook($type)
     {
         $criteria = new CDbCriteria(array(
-            'with' => array('photo', 'attachPhotos', 'commentsCount', 'tags', 'author'),
+            'with' => array('photo', 'attachPhotos', 'commentsCount', 'tags', 'author', 'cuisine'),
             'join' => 'LEFT JOIN cook__cook_book as book ON book.recipe_id = t.id',
             'order' => 'book.created DESC',
             'condition' => 'book.user_id = :me',
@@ -598,7 +597,6 @@ class CookRecipe extends CActiveRecord
         $count_criteria->with = array();
 
         $dp = new CActiveDataProvider('CookRecipe', array(
-            'totalItemCount' => CookRecipe::model()->count($count_criteria),
             'criteria' => $criteria,
             'pagination' => array(
                 'pageSize' => 10,
@@ -645,7 +643,8 @@ class CookRecipe extends CActiveRecord
                 'params' => array(':current_id' => $this->id, ':type' => $this->type),
                 'limit' => 2,
                 'order' => 't.id DESC',
-                'scopes' => array('active')
+                'scopes' => array('active'),
+                'with'=>array('author')
             )
         );
 
@@ -655,7 +654,8 @@ class CookRecipe extends CActiveRecord
                 'params' => array(':current_id' => $this->id, ':type' => $this->type),
                 'limit' => 2,
                 'order' => 't.id',
-                'scopes' => array('active')
+                'scopes' => array('active'),
+                'with'=>array('author')
             )
         );
 
@@ -981,5 +981,18 @@ class CookRecipe extends CActiveRecord
                 ':user_id' => $user_id
             ))
             ->queryScalar();
+    }
+
+
+    public static function checkRecipeBookAfterLogin($user_id)
+    {
+        $recipe_id = Yii::app()->user->getState('recipe_id');
+        if (!empty($recipe_id)){
+            $recipe = self::model()->findByPk($recipe_id);
+            if ($recipe !== null && !$recipe->isBooked($user_id))
+                $recipe->book($user_id);
+
+            Yii::app()->user->setState('recipe_id', null);
+        }
     }
 }

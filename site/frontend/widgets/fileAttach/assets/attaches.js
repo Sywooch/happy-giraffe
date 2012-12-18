@@ -168,6 +168,7 @@ Attach.prototype.CommunityContentInsert = function(val) {
     $.post(
         '/albums/communityContentSave/',
         {
+            title:$('input[name="title"]').val(),
             description:$('#attach_content textarea').val(),
             val:val
         },

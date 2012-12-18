@@ -16,9 +16,7 @@ if (Yii::app()->user->checkAccess('recipe_tags')){
 .remove .icon {display: inline-block;width: 12px;height: 14px;background: url(/images/common.png) no-repeat -314px -135px;vertical-align: middle;position: relative;top: -1px;}
 .remove:hover .icon {background-position:-314px -148px;}';
     $cs->registerCss('recipe_tags_edit_css', $style);
-}
 ?>
-<?php if (Yii::app()->user->checkAccess('recipe_tags')):?>
 <div>
     <p><b>Редактирование тэгов (необходимы права)</b></p>
     <p>
@@ -29,4 +27,4 @@ if (Yii::app()->user->checkAccess('recipe_tags')){
     <?= CHtml::dropDownList('recipe_tag', UserAttributes::get(Yii::app()->user->id, 'last_recipe_tag_id'), CHtml::listData(CookRecipeTag::model()->alphabet()->findAll(), 'id', 'title'), array('style'=>'width:200px')); ?>
     <a onclick="CookRecipeTags.setCookTag(<?=$recipe->id ?>, this)" href="javascript:;">добавить</a>
 </div>
-<?php endif ?>
+<?php } ?>

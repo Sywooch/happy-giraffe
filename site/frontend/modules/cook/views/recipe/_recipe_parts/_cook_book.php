@@ -7,7 +7,7 @@ $count = $recipe->getBookedCount();
 ?>
 <div class="recipe-right">
     <div class="cook-book-info">
-        <a <?= (Yii::app()->user->isGuest) ? 'href="#login" class="fancy"' : 'href="javascript:;" onclick="Cook.bookRecipe(this)"' ?> data-id="<?=$recipe->id ?>">
+        <a <?= (Yii::app()->user->isGuest) ? 'href="#login" class="fancy"' : 'href="javascript:;"' ?>  onclick="Cook.bookRecipe(this)" data-id="<?=$recipe->id ?>">
             <?php if ($recipe->isBooked()):?>
                 <span>Рецепт в моей <br>кулинарной книге</span>
                 <i class="icon-exist"></i>
@@ -31,7 +31,7 @@ $count = $recipe->getBookedCount();
                     </li>
                 <?php endforeach; ?>
                 <?php if ($count > 20): ?>
-                    <li><span class="link-text">и еще <?=$$count - 20 ?></span></li>
+                    <li><span class="link-text">и еще <?=$count - 20 ?></span></li>
                 <?php endif ?>
             </ul>
         </div>

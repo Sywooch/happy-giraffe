@@ -24,9 +24,9 @@ class FriendsController extends HController
         );
     }
 
-    public function actionFind($type)
+    public function actionFind($type, $query = null)
     {
-        $dp = FindFriendsManager::getDataProvider($type);
+        $dp = FindFriendsManager::getDataProvider($type, $query);
 
         $this->render('find', compact('dp', 'type'));
     }

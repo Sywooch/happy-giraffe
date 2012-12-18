@@ -13,9 +13,9 @@ class FindFriendsManager
     const BY_INTERESTS = 2;
     const BY_STATUS = 3;
 
-    public static function getDataProvider($type)
+    public static function getDataProvider($type, $query)
     {
-        $criteria = self::getDefaultCriteria();
+        $criteria = self::getDefaultCriteria($query);
         $criteria->mergeWith(self::getCriteriaByType($type));
 
         return new CActiveDataProvider('User', array(
@@ -37,10 +37,17 @@ class FindFriendsManager
                 break;
             case self::BY_REGION:
                 $data = array(
+                    'select' => 't.*, address.city_id = :city_id AS sameCity, address.city_id = :center_id as sameCenter',
+                    'condition' => 'address.region_id = :region_id',
                     'with' => array(
                         'address',
                     ),
-                    'order' => 'address.region_id = ' . Yii::app()->user->model->address->region_id . ', address.city_id = ' . Yii::app()->user->model->address->city_id,
+                    'order' => 'sameCity DESC, sameCenter DESC',
+                    'params' => array(
+                        ':region_id' => Yii::app()->user->model->address->region_id,
+                        ':center_id' => Yii::app()->user->model->address->region->center_id,
+                        ':city_id' => Yii::app()->user->model->address->city_id,
+                    ),
                 );
                 break;
             case self::BY_INTERESTS:
@@ -65,7 +72,7 @@ class FindFriendsManager
         return new CDbCriteria($data);
     }
 
-    public static function getDefaultCriteria()
+    public static function getDefaultCriteria($query)
     {
         $criteria = new CDbCriteria(array(
             'condition' => 't.id != :hg AND t.id != :user_id AND t.id NOT IN (
@@ -81,6 +88,11 @@ class FindFriendsManager
                 'avatar',
             ),
         ));
+
+        if ($query !== null) {
+            $criteria->addCondition('first_name LIKE :query OR last_name LIKE :query');
+            $criteria->params[':query'] = $query;
+        }
 
         return $criteria;
     }

@@ -119,7 +119,7 @@ class CommentWidget extends CWidget
                 'entity' => $this->entity,
                 'entity_id' => (int)$this->entity_id,
                 'save_url' => Yii::app()->createUrl('ajax/sendcomment'),
-                'toolbar' => $this->type == 'guestBook' ? 'Simple' : 'Main',
+                'toolbar' => $this->type == 'guestBook' ? 'Simple' : 'Chat',
                 'model' => $this->commentModel,
                 'object_name' => $this->objectName
             )) . ');';

@@ -314,7 +314,7 @@ class User extends HActiveRecord
             'communityContentsCount' => array(self::STAT, 'CommunityContent', 'author_id'),
             'cookRecipesCount' => array(self::STAT, 'CookRecipe', 'author_id'),
             'recipeBookRecipesCount' => array(self::STAT, 'RecipeBookRecipe', 'author_id'),
-            'photosCount' => array(self::STAT, 'AlbumPhoto', 'author_id'),
+            //'photosCount' => array(self::STAT, 'AlbumPhoto', 'author_id', 'join' => 'JOIN album__albums a ON t.album_id = a.id', 'condition' => 'a.type IN(0, 1, 3)'),
             'albumsCount' => array(self::STAT, 'Album', 'author_id', 'condition' => 'removed = 0'),
 
             'communitiesCount' => array(self::STAT, 'Community', 'user__users_communities(user_id, community_id)'),
@@ -332,6 +332,15 @@ class User extends HActiveRecord
             'mail_subs' => array(self::HAS_ONE, 'UserMailSub', 'user_id'),
             'score' => array(self::HAS_ONE, 'UserScores', 'user_id'),
         );
+    }
+
+    public function getPhotosCount()
+    {
+        return AlbumPhoto::model()->count(array(
+            'join' => 'JOIN album__albums a ON t.album_id = a.id',
+            'condition' => 'a.type IN(0, 1, 3) AND t.author_id = :user_id',
+            'params' => array(':user_id' => $this->id),
+        ));
     }
 
     public function scopes()

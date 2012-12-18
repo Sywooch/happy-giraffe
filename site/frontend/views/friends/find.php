@@ -31,22 +31,24 @@
                 'items' => array(
                     array(
                         'label' => 'Сейчас на сайте',
-                        'url' => array('friends/find', array('type' => FindFriendsManager::BY_ONLINE)),
+                        'url' => array('friends/find', 'type' => FindFriendsManager::BY_ONLINE),
                         'itemOptions' => array(
                             'class' => 'green',
                         ),
                     ),
                     array(
                         'label' => 'Из моего региона',
-                        'url' => array('friends/find', array('type' => FindFriendsManager::BY_REGION)),
+                        'url' => array('friends/find', 'type' => FindFriendsManager::BY_REGION),
+                        'visible' => Yii::app()->user->model->address->region !== null,
                     ),
                     array(
                         'label' => 'С похожими интересами',
-                        'url' => array('friends/find', array('type' => FindFriendsManager::BY_INTERESTS)),
+                        'url' => array('friends/find', 'type' => FindFriendsManager::BY_INTERESTS),
+                        'visible' => ! empty(Yii::app()->user->model->interests),
                     ),
                     array(
                         'label' => 'С похожим статусом',
-                        'url' => array('friends/find', array('type' => FindFriendsManager::BY_STATUS)),
+                        'url' => array('friends/find', 'type' => FindFriendsManager::BY_STATUS),
                         'visible' => false,
                     ),
                 ),
@@ -66,6 +68,9 @@
             'itemsTagName' => 'ul',
             'htmlOptions' => array(
                 'class' => 'masonry-news-list',
+            ),
+            'viewData' => array(
+                'type' => $type,
             ),
             'pager' => array(
                 'header' => '',

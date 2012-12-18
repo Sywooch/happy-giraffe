@@ -38,8 +38,8 @@
                 <img alt="Моя семья" src="/images/user-family.png">
             </div>
             <ul class="find-friend-famyli-list">
-                <?php if ($data->hasPartner() && $data->partner !== null): ?>
-                    <?php $this->renderPartial('_partner', array('partner' => $data->partner)); ?>
+                <?php if ($data->hasPartner()): ?>
+                    <?php $this->renderPartial('_partner', array('user' => $data)); ?>
                 <?php endif; ?>
                 <?php foreach ($data->babies as $b): ?>
                     <?php $this->renderPartial('_baby', array('baby' => $b)); ?>
@@ -47,5 +47,13 @@
             </ul>
         </div>
     <?php endif; ?>
-
+    <?php if ($type == FindFriendsManager::BY_INTERESTS): ?>
+        <div class="interests">
+            <ul class="interests-list">
+                <?php foreach ($data->interests as $i): ?>
+                    <li><span class="interest"><?=$i->title?></span></li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+    <?php endif; ?>
 </li>

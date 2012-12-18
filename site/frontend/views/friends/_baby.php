@@ -29,7 +29,7 @@
     <?php else: ?>
         <?php if ($baby->randomPhoto !== null): ?>
             <div class="img"><?=CHtml::image($baby->randomPhoto->photo->getPreviewUrl(66, 66), $baby->name)?></div>
-        <?php elseif ($baby->sex != 0 && $baby->birthday): ?>
+        <?php elseif ($baby->sex != 0 && $baby->birthday !== null): ?>
             <?php
                 if ($baby->fullYears < 1)
                     $subClass = 'small';

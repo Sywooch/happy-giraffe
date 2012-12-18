@@ -39,7 +39,7 @@ class Baby extends HActiveRecord
             'parent' => array(self::BELONGS_TO, 'User', 'id'),
             'photos' => array(self::HAS_MANY, 'AttachPhoto', 'entity_id', 'with' => 'photo', 'on' => '`photo`.`removed` = 0 AND entity = :modelName', 'params' => array(':modelName' => get_class($this))),
             'photosCount' => array(self::STAT, 'AttachPhoto', 'entity_id', 'condition' => 'entity =: modelName', 'params' => array(':modelName' => get_class($this))),
-            'photo' => array(self::HAS_ONE, 'AttachPhoto', 'entity_id', 'with' => 'photo', 'on' => '`photo`.`removed` = 0 AND entity = :modelName', 'params' => array(':modelName' => get_class($this)), 'order' => new CDbExpression('RAND()')),
+            'randomPhoto' => array(self::HAS_ONE, 'AttachPhoto', 'entity_id', 'with' => 'photo', 'on' => '`photo`.`removed` = 0 AND entity = :modelName', 'params' => array(':modelName' => get_class($this)), 'order' => new CDbExpression('RAND()')),
         );
     }
 
@@ -183,6 +183,6 @@ class Baby extends HActiveRecord
         $now = new DateTime();
         $bd = new DateTime($this->birthday);
         $interval = $now->diff($bd);
-        return $interval->years;
+        return $interval->y;
     }
 }

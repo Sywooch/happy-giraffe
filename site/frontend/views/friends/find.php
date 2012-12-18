@@ -47,6 +47,7 @@
                     array(
                         'label' => 'С похожим статусом',
                         'url' => array('friends/find', array('type' => FindFriendsManager::BY_STATUS)),
+                        'visible' => false,
                     ),
                 ),
                 'htmlOptions' => array(

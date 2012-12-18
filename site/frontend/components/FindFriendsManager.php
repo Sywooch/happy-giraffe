@@ -15,37 +15,57 @@ class FindFriendsManager
 
     public static function getDataProvider($type)
     {
+        $criteria = self::getDefaultCriteria();
+        $criteria->mergeWith(self::getCriteriaByType($type));
+
         return new CActiveDataProvider('User', array(
-            'criteria' => array(
-                'condition' => 't.id != :hg',
-                'params' => array(':hg' => User::HAPPY_GIRAFFE),
-                'with' => array(
-                    'avatar',
-                    'partner' => array(
-                        'with' => array(
-                            'photo' => array(
-                                'alias' => 'partnerAttach',
-                                'with' => array(
-                                    'photo' => array(
-                                        'alias' => 'partnerPhoto',
-                                    ),
-                                ),
-                            ),
-                        ),
-                    ),
-                    'babies' => array(
-                        'with' => array(
-                            'photo' => array(
-                                'alias' => 'babyAttach',
-                                'with' => array(
-                                    'photo' => array(
-                                        'alias' => 'babyPhoto',
-                                    ),
-                                ),
-                            ),
-                        ),
-                    ),
-                ),
+            'criteria' => $criteria,
+        ));
+    }
+
+    public static function getCriteriaByType($type)
+    {
+        switch ($type) {
+            case self::BY_ONLINE:
+                $data = array(
+                    'condition' => 'online = 1',
+                );
+                break;
+            default:
+                $data = array();
+        }
+
+        return new CDbCriteria($data);
+    }
+
+    public static function getDefaultCriteria()
+    {
+        return new CDbCriteria(array(
+            'condition' => 't.id != :hg',
+            'params' => array(':hg' => User::HAPPY_GIRAFFE),
+            'with' => array(
+                'avatar',
+//                'partner' => array(
+//                    'with' => array(
+//                        'photo' => array(
+//                            'alias' => 'partnerAttach',
+//                            'with' => array(
+//                                'photo' => array(
+//                                    'alias' => 'partnerPhoto',
+//                                ),
+//                            ),
+//                        ),
+//                    ),
+//                ),
+//                'babies' => array(
+//                    'with' => array(
+//                        'randomPhoto' => array(
+//                            'with' => array(
+//                                'photo',
+//                            ),
+//                        ),
+//                    ),
+//                ),
             ),
         ));
     }

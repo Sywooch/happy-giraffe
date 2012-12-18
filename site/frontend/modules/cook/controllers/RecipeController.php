@@ -75,8 +75,16 @@ class RecipeController extends HController
         $this->render('index', compact('dp', 'type'));
     }
 
-    public function actionTag($tag, $type = 0)
+    public function actionTag($tag = null, $type = 0)
     {
+        if (empty($tag)){
+            if (Yii::app()->user->checkAccess('recipe_tags'))
+                $this->render('tag_list');
+            else
+                throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+            Yii::app()->end();
+        }
+
         $model = $this->loadTag($tag);
         $this->pageTitle = $model->title;
         $this->layout = '//layouts/recipe';

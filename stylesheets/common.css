@@ -94,16 +94,6 @@ html.top-nav-fixed {overflow-y:hidden;}
 .top-nav-fixed body {overflow-y:hidden;overflow-x:hidden;}
 
 body.body-club {background:#f6f6f6;}
-html > body .page {
-    height: auto;
-    min-height: 100%;
-    position: relative;
-    margin: 0 auto;
-    display: block;
-    padding: 0px;
-    width: 1000px;
-    background: #FFFFFF;
-}
 
 .top-nav-fixed .layout-container {
     position:absolute;

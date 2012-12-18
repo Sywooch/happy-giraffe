@@ -39,6 +39,7 @@ a {cursor:pointer;color:#029AD2;}
 a:hover {text-decoration:none;}
 .textdec-onhover {text-decoration: none !important;}
 .textdec-onhover:hover {text-decoration: underline !important;}
+a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 
 .arr {font-family: Cambria, Segoe Script, minion pro, myriad pro, helvetica, arial, sans-serif;font-style:normal;}
 

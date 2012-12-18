@@ -47,4 +47,6 @@ $dataProvider->criteria->order = 'id desc';
 <style type="text/css">
     input[name="ELSite[id]"] {width: 50px;}
     input[name="ELSite[url]"] {width: 350px;}
+
+    .table-box.table-grey tr td:first-child+td {max-width: 500px;white-space: pre-wrap;}
 </style>

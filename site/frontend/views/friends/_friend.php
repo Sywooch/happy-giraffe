@@ -38,7 +38,7 @@
                 <img alt="Моя семья" src="/images/user-family.png">
             </div>
             <ul class="find-friend-famyli-list">
-                <?php if ($data->hasPartner()): ?>
+                <?php if ($data->hasPartner() && ! empty($data->partner->name)): ?>
                     <?php $this->renderPartial('_partner', array('user' => $data)); ?>
                 <?php endif; ?>
                 <?php foreach ($data->babies as $b): ?>

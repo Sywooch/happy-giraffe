@@ -2,14 +2,14 @@ var selected_keydown = null;
 var comment_scroll_container = ".layout-container";
 function Comment() {
     this.selected_text = null,
-        this.save_url = null,
-        this.toolbar = null,
-        this.saveCommentUrl = null,
-        this.entity = null,
-        this.entity_id = null,
-        this.model = 'Comment',
-        this.scrollContainer = null,
-        this.object_name = null;
+    this.save_url = null,
+    this.toolbar = null,
+    this.saveCommentUrl = null,
+    this.entity = null,
+    this.entity_id = null,
+    this.model = 'Comment',
+    this.scrollContainer = null,
+    this.object_name = null
 }
 
 Comment.prototype.setParams = function (params) {
@@ -201,41 +201,13 @@ Comment.prototype.cancel = function () {
     return false;
 };
 
-/*Comment.prototype.getText = function () {
-    var txt = '';
-    if (txt = window.getSelection) {
-        txt = window.getSelection().toString();
-    } else {
-        txt = document.selection.createRange().text;
-    }
-    if (txt != '') {
-        var pattern = /\r\n|\r|\n/g;
-        txt = txt.replace(pattern, "<br/>");
-    }
-    this.selected_text = txt != '' ? txt : null;
-};*/
-
 function addMenuToggle(el) {
     $(el).parents('.add-menu').find('ul').toggle();
     $(el).parents('.add-menu').find('.btn i').toggleClass('arr-t');
 }
 
-/*
-$(function () {
-    $('.default-comments').delegate('.content-in', 'mousedown', function () {
-        selected_keydown = $(this);
-    });
-    $('.default-comments').delegate('.content-in', 'mouseup', function () {
-        if (selected_keydown && $(this).parents('li:eq(0)').attr('id') == selected_keydown.parents('li:eq(0)').attr('id'))
-            Comment.getText();
-        selected_keydown = null;
-    });
-    $(document).mouseup(function (e) {
-        e = e ? e : windows.event;
-        if ($(e.target).parents('.default-comments').size() == 0) {
-            Comment.selected_text = null;
-            selected_keydown = null;
-        }
-    });
-});
-*/
+function showComment(el){
+    $(el).hide().next().show().parents('.comment-add').addClass('active');
+    CKEDITOR.instances['Comment[text]'].focus();
+}
+

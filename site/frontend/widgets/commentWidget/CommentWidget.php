@@ -94,7 +94,7 @@ class CommentWidget extends CWidget
 		}
 		else
 		{
-			$this->render('form', array(
+			$this->render('new_form', array(
 				'comment_model' => $comment_model,
 				'dataProvider' => $dataProvider,
                 'type'=>$this->type,

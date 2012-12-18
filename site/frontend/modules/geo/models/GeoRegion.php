@@ -63,6 +63,7 @@ class GeoRegion extends HActiveRecord
             'cities' => array(self::HAS_MANY, 'GeoCity', 'region_id'),
             'country' => array(self::BELONGS_TO, 'GeoCountry', 'country_id'),
             'center' => array(self::BELONGS_TO, 'GeoCity', 'center_id'),
+            'usersCount' => array(self::STAT, 'UserAddress', 'region_id'),
         );
     }
 

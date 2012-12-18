@@ -15,7 +15,7 @@ if ($hide_text)
         <span class="cook-title-cat-h1-text"><?= $model->title; ?></span>
     </h1>
     <?php if (!$hide_text):?>
-        <p><?=$model->description ?></p>
+        <p><?=strip_tags($model->description) ?></p>
     <?php endif ?>
 </div>
 <?php $this->widget('zii.widgets.CListView', array(

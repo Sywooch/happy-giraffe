@@ -110,4 +110,9 @@ class CookRecipeTag extends HActiveRecord
     {
         return Yii::app()->createUrl('/cook/recipe/tag', array('tag'=>$this->id));
     }
+
+    public function beforeSave()
+    {
+        return false;
+    }
 }

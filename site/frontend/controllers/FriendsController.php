@@ -8,10 +8,26 @@
  */
 class FriendsController extends HController
 {
-    public function actionFind($type)
+    public function filters()
     {
-        $dp = FindFriendsManager::getDataProvider($type);
+        return array(
+            'accessControl',
+        );
+    }
 
-        $this->render('find', compact('dp'));
+    public function accessRules()
+    {
+        return array(
+            array('deny',
+                'users' => array('?'),
+            ),
+        );
+    }
+
+    public function actionFind($type, $query = null)
+    {
+        $dp = FindFriendsManager::getDataProvider($type, $query);
+
+        $this->render('find', compact('dp', 'type'));
     }
 }

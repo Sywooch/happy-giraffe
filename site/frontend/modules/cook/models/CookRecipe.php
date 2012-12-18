@@ -989,9 +989,8 @@ class CookRecipe extends CActiveRecord
         $recipe_id = Yii::app()->user->getState('recipe_id');
         if (!empty($recipe_id)){
             $recipe = self::model()->findByPk($recipe_id);
-            if ($recipe !== null){
+            if ($recipe !== null && !$recipe->isBooked($user_id))
                 $recipe->book($user_id);
-            }
 
             Yii::app()->user->setState('recipe_id', null);
         }

@@ -32,6 +32,10 @@ class HController extends CController
         parent::init();
 
         $this->combineStatic();
+        Yii::app()->clientScript
+            ->registerCssFile('/stylesheets/common.css')
+            ->registerCssFile('/stylesheets/global.css')
+        ;
     }
 
     protected function beforeAction($action)

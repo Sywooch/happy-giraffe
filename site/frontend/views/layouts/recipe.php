@@ -48,7 +48,7 @@
                                     <i class="icon-cook-book"></i>
                                 </span><span class="link-holder">
                                     <span class="link">Моя кулинарная книга</span>
-                                    <span class="pink"><?=$count = CookRecipe::userBookCount() ?> <?=HDate::GenerateNoun(array('рецепт', 'рецепта', 'рецептов'), $count) ?></span>
+                                    <span id="cookbook-recipe-count" class="pink"><?=$count = CookRecipe::userBookCount() ?> <?=HDate::GenerateNoun(array('рецепт', 'рецепта', 'рецептов'), $count) ?></span>
                                 </span>
                         </a>
                     </li>

@@ -32,7 +32,7 @@
                     </div>
                     <div class="row clearfix">
                         <div class="row-title">&nbsp;</div>
-                        <div class="row-elements"><input type="submit" value="Войти"> <?= HHtml::link('Забыли пароль?', $this->controller->createUrl('site/passwordRecoveryForm'), array('class'=>'fancy', 'data-theme'=>'white-square'), true) ?></div>
+                        <div class="row-elements"><input type="submit" value="Войти"> <?= HHtml::link('Забыли пароль?', $this->controller->createUrl('/site/passwordRecoveryForm'), array('class'=>'fancy', 'data-theme'=>'white-square'), true) ?></div>
                     </div>
                 <?php $this->endWidget(); ?>
 

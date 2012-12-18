@@ -1,5 +1,5 @@
 <li>
-    <?php if ($baby->type = Baby::TYPE_PLANNING): ?>
+    <?php if ($baby->type == Baby::TYPE_PLANNING): ?>
         <div class="img baby-plan"></div>
         <span class="yellow">Планируем</span> <br>
         <span>ребенка</span>
@@ -23,25 +23,27 @@
         <div class="img <?=$class?>"></div>
         <span>Ждем</span> <br>
         <span class="yellow"><?=$label?></span> <br>
-        <span class="pink-text"><?=$baby->prenancyPeriod?> неделя</span>
+        <?php if ($baby->birthday): ?>
+            <span class="pink-text"><?=$baby->prenancyPeriod?> неделя</span>
+        <?php endif; ?>
     <?php else: ?>
-        <?php if ($baby->photo !== null): ?>
-            <div class="img"><?=CHtml::image($baby->photo->photo->getPreviewUrl(66, 66), $baby->name)?></div>
-        <?php else: ?>
+        <?php if ($baby->randomPhoto !== null): ?>
+            <div class="img"><?=CHtml::image($baby->randomPhoto->photo->getPreviewUrl(66, 66), $baby->name)?></div>
+        <?php elseif ($baby->sex != 0 && $baby->birthday): ?>
             <?php
-                if ($baby->fullYears < 1) {
+                if ($baby->fullYears < 1)
                     $subClass = 'small';
-                } elseif ($baby->fullYears < 3) {
+                elseif ($baby->fullYears < 3)
                     $subClass = '3';
-                } elseif ($baby->fullYears < 6) {
+                elseif ($baby->fullYears < 6)
                     $subClass = '5';
-                } elseif ($baby->fullYears < 12) {
+                elseif ($baby->fullYears < 12)
                     $subClass = '8';
-                } elseif ($baby->fullYears < 15) {
+                elseif ($baby->fullYears < 15)
                     $subClass = '14';
-                } elseif ($baby->fullYears < 18) {
+                else
                     $subClass = '17';
-                }
+
                 $class = (($baby->sex == 1) ? 'boy' : 'girl') . '-' . $subClass;
             ?>
             <div class="img <?=$class?>"></div>
@@ -52,6 +54,8 @@
         <?php if ($baby->name): ?>
             <span><?=$baby->name?></span> <br />
         <?php endif; ?>
-        <span class="yellow"><?=$baby->textAge?></span>
+        <?php if ($baby->birthday !== null): ?>
+            <span class="yellow"><?=$baby->textAge?></span>
+        <?php endif; ?>
     <?php endif; ?>
 </li>

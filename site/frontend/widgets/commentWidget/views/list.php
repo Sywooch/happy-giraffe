@@ -27,13 +27,14 @@ if ($type == 'guestBook') {
             ';
 } else {
 
+    $form = $this->render('add_comment', array('comment_model'=>$comment_model), true);
+
     $template = '
             <div class="default-comments" id="comment_list">
                 <div class="comments-meta clearfix">
                     <div class="title">' . $this->title . '</div>
                     <div class="count">' . $dataProvider->totalItemCount . '</div>
-                </div>
-                {items}
+                </div>'.$form.'{items}
             </div>
             <div class="pagination pagination-center clearfix">
                 {pager}

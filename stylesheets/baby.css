@@ -187,7 +187,7 @@
 #baby .vaccination-table .table-actions .icon-print {width:32px;height:29px;background:url(../images/common.png) no-repeat -527px -101px;display:inline-block;*zoom:1;*display:inline;}
 #baby .vaccination-table .table-actions .icon-pdf {width:26px;height:32px;background:url(../images/common.png) no-repeat -499px -101px;display:inline-block;*zoom:1;*display:inline;}
 
-#baby .vaccination-tabs {margin-top:-74px;position:relative;z-index:4;}
+#baby .vaccination-tabs {margin-top:-82px;position:relative;z-index:4;}
 #baby .vaccination-tabs .nav {text-align:center;margin-bottom:25px;}
 #baby .vaccination-tabs .nav li {height:64px;padding-right:18px;background:url(../images/bg_vaccination_tab.png) no-repeat right bottom;display:inline-block;*zoom:1;*display:inline;vertical-align:top;overflow:hidden;}
 #baby .vaccination-tabs .nav li a {display:block;height:50px;padding-left:18px;background:url(../images/bg_vaccination_tab.png) no-repeat;overflow:hidden;padding-top:14px;text-decoration:none;}

@@ -3020,7 +3020,6 @@ div.scrollbarpaper-drag {-moz-border-radius:3px;-webkit-border-radius:3px;border
 .fast-like-block .box-3 .icon-info .tip big {font-size:14px;font-weight:bold;color:#848484;}
 
 /* */
-
 .default-comments {padding-bottom:20px;margin-top:20px;border-bottom:1px dashed #95c8ff;width:700px;margin:40px auto 0;}
 .default-comments .add, .default-comments .all {padding-top:10px;text-align:right;}
 .default-comments ul {padding-top:10px;list-style:none;}
@@ -3098,7 +3097,7 @@ div.scrollbarpaper-drag {-moz-border-radius:3px;-webkit-border-radius:3px;border
 
 .default-comments .no-comments {background:#f8f8f8;margin-top:3px;padding:50px 0;text-align:center;color:#c7c6c6;font-size:16px;}
 .default-comments .no-comments img {margin-top:-30px;}
-
+#add_comment {margin-bottom: 20px;}
 
 /* */
 
@@ -5274,25 +5273,26 @@ label {
 .social-list-small li {
     margin:0 8px 0 0;
     display:inline-block;*display:inline;*zoom:1;
-}
-.social-list-small.h32 li{margin:0 9px;}
-.social-list-small li a {
-    display:block;
     width:20px;
     height:20px;
     background:url(/images/icon-social.png) no-repeat;
 }
-.social-list-small.h32 li a {width: 32px;height: 32px;}
-.social-list-small li .odnoklasniki{background-position:0 0;}
-.social-list-small li .mailru{background-position:0 -20px;}
-.social-list-small li .vk{background-position:0 -40px;}
-.social-list-small li .fb{background-position:0 -60px;}
+.social-list-small.h32 li{margin:0 9px;width: 32px;height: 32px;}
+.social-list-small li.odnoklasniki{background-position:0 0;}
+.social-list-small li.mailru{background-position:0 -20px;}
+.social-list-small li.vkontakte{background-position:0 -40px;}
+.social-list-small li.facebook{background-position:0 -60px;}
 
-.social-list-small.h32 li .odnoklasniki{background-position:0 -80px;}
-.social-list-small.h32 li .mailru{background-position:0 -112px;}
-.social-list-small.h32 li .vk{background-position:0 -144px;}
-.social-list-small.h32 li .fb{background-position:0 -176px;}
-
+.social-list-small.h32 li.odnoklasniki{background-position:0 -80px;}
+.social-list-small.h32 li.mailru{background-position:0 -112px;}
+.social-list-small.h32 li.vkontakte{background-position:0 -144px;}
+.social-list-small.h32 li.facebook{background-position:0 -176px;}
+.social-list-small li > a {
+    display:block;
+    width:20px;
+    height:20px;
+}
+.social-list-small.h32 li > a {width: 32px;height: 32px;}
 /* blog statistic */
 .blog-statistic {
     background:#fff1e8;

@@ -87,10 +87,10 @@
 							<div class="social-small-row clearfix">
 								<em>или войти с помощью</em> <br />
 								<ul class="social-list-small">
-									<li><a href="#" class="odnoklasniki"></a></li>
-									<li><a href="#" class="mailru"></a></li>
-									<li><a href="#" class="vk"></a></li>
-									<li><a href="#" class="fb"></a></li>
+									<li class="odnoklasniki"><a href="#"></a></li>
+									<li class="mailru"><a href="#"></a></li>
+									<li class="vkontakte"><a href="#"></a></li>
+									<li class="facebook"><a href="#"></a></li>
 								</ul>
 							</div>
 						</div>

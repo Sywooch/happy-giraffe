@@ -31,6 +31,7 @@
     <div class="comment-add_user">
         <div class="comment-add_user-ava">
             <?= HHtml::link($user->getAva() ? CHtml::image($user->getAva()) : '', $link_to_profile, array('class' => $class)) ?>
+            <span style="display: none;" class="comment-add_username"><?=$user->first_name ?><br><?=$user->last_name ?></span>
         </div>
     </div>
     <div class="comment-add_form-holder">

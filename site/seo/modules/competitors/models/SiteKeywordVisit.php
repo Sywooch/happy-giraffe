@@ -186,7 +186,7 @@ class SiteKeywordVisit extends HActiveRecord
     public function getCriteriaWithoutFreq()
     {
         $criteria = new CDbCriteria;
-        $criteria->with = array();
+        $criteria->with = array('keyword');
 
         if (Yii::app()->user->getState('hide_used') == 1) {
             $criteria->condition = 'group.id IS NULL AND ((tempKeyword.keyword_id IS NOT NULL AND tempKeyword.owner_id = ' . Yii::app()->user->id . ') OR tempKeyword.keyword_id IS NULL)';
@@ -198,17 +198,16 @@ class SiteKeywordVisit extends HActiveRecord
                 $this->temp_ids = Keyword::findSiteIdsByNameWithSphinx($this->key_name);
 
             if (empty($this->temp_ids))
-                $criteria->condition .= ' AND keyword.id = 0';
+                $criteria->addCondition('keyword.id = 0');
             else
-                $criteria->condition .= ' AND keyword.id IN (' . implode(',', $this->temp_ids) . ')';
+                $criteria->addCondition('keyword.id IN (' . implode(',', $this->temp_ids) . ')');
         }
 
         //search by site_id
         if (count($this->sites_id) == 1)
-            $condition = 'site_id = ' . $this->sites_id[0];
+            $criteria->addCondition('site_id = ' . $this->sites_id[0]);
         else
-            $condition = 'site_id IN (' . implode(',', $this->sites_id) . ') ';
-        $criteria->condition .= empty($criteria->condition) ? $condition : ' AND ' . $condition;
+            $criteria->addCondition('site_id IN (' . implode(',', $this->sites_id) . ') ');
 
         $criteria->compare('year', $this->year);
         $criteria->together = true;

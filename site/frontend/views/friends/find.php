@@ -21,8 +21,10 @@
     <div class="find-friend-title clearfix">
         <div class="search-box">
             <div class="search-box_input">
-                <input type="text" class="text" placeholder="Введите имя">
-                <button class="icon-search"></button>
+                <?=CHtml::beginForm('', 'get')?>
+                    <?=CHtml::textField('query', '', array('class' => 'text', 'placeholder' => 'Введите имя'))?>
+                    <button class="icon-search"></button>
+                <?=CHtml::endForm()?>
             </div>
         </div>
         <h1><i class="icon-find-friend"></i> Найти друзей</h1>
@@ -31,22 +33,25 @@
                 'items' => array(
                     array(
                         'label' => 'Сейчас на сайте',
-                        'url' => array('friends/find', array('type' => FindFriendsManager::BY_ONLINE)),
+                        'url' => array('friends/find', 'type' => FindFriendsManager::BY_ONLINE),
                         'itemOptions' => array(
                             'class' => 'green',
                         ),
                     ),
                     array(
                         'label' => 'Из моего региона',
-                        'url' => array('friends/find', array('type' => FindFriendsManager::BY_REGION)),
+                        'url' => array('friends/find', 'type' => FindFriendsManager::BY_REGION),
+                        'visible' => Yii::app()->user->model->address->region !== null && Yii::app()->user->model->address->region->usersCount >= 50,
                     ),
                     array(
                         'label' => 'С похожими интересами',
-                        'url' => array('friends/find', array('type' => FindFriendsManager::BY_INTERESTS)),
+                        'url' => array('friends/find', 'type' => FindFriendsManager::BY_INTERESTS),
+                        'visible' => ! empty(Yii::app()->user->model->interests),
                     ),
                     array(
                         'label' => 'С похожим статусом',
-                        'url' => array('friends/find', array('type' => FindFriendsManager::BY_STATUS)),
+                        'url' => array('friends/find', 'type' => FindFriendsManager::BY_STATUS),
+                        'visible' => false,
                     ),
                 ),
                 'htmlOptions' => array(
@@ -65,6 +70,9 @@
             'itemsTagName' => 'ul',
             'htmlOptions' => array(
                 'class' => 'masonry-news-list',
+            ),
+            'viewData' => array(
+                'type' => $type,
             ),
             'pager' => array(
                 'header' => '',

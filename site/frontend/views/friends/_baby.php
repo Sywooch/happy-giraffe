@@ -6,7 +6,7 @@
     <?php elseif ($baby->type == Baby::TYPE_WAIT): ?>
         <?php
             switch ($baby->sex) {
-                case 0:
+                case 2:
                     $class = 'baby';
                     $label = 'ребенка';
                     break;
@@ -14,7 +14,7 @@
                     $class = 'boy-wait';
                     $label = 'мальчика';
                     break;
-                case 2:
+                case 0:
                     $class = 'girl-wait';
                     $label = 'девочку';
                     break;
@@ -29,7 +29,7 @@
     <?php else: ?>
         <?php if ($baby->randomPhoto !== null): ?>
             <div class="img"><?=CHtml::image($baby->randomPhoto->photo->getPreviewUrl(66, 66), $baby->name)?></div>
-        <?php elseif ($baby->sex != 0 && $baby->birthday): ?>
+        <?php elseif ($baby->sex != 2 && $baby->birthday !== null): ?>
             <?php
                 if ($baby->fullYears < 1)
                     $subClass = 'small';
@@ -48,7 +48,7 @@
             ?>
             <div class="img <?=$class?>"></div>
         <?php endif; ?>
-        <?php if ($baby->sex != 0): ?>
+        <?php if ($baby->sex != 2): ?>
             <span class="yellow"><?=($baby->sex == 1) ? 'Сын' : 'Дочь'?></span> <br />
         <?php endif; ?>
         <?php if ( !empty($baby->name)): ?>

@@ -32,13 +32,13 @@
         <a href="<?=$data->blogUrl?>">Блог</a><sup class="count"><?=$data->blogPostsCount?></sup>
         <a href="<?=$data->photosUrl?>">Фото</a><sup class="count"><?=$data->photosCount?></sup>
     </div>
-    <?php if ($data->hasPartner() || ! empty($data->babies)): ?>
+    <?php if (($data->hasPartner() && ! empty($data->partner->name)) || ! empty($data->babies)): ?>
         <div class="find-friend-famyli">
             <div class="textalign-c clearfix">
                 <img alt="Моя семья" src="/images/user-family.png">
             </div>
             <ul class="find-friend-famyli-list">
-                <?php if ($data->hasPartner()): ?>
+                <?php if ($data->hasPartner() && ! empty($data->partner->name)): ?>
                     <?php $this->renderPartial('_partner', array('user' => $data)); ?>
                 <?php endif; ?>
                 <?php foreach ($data->babies as $b): ?>

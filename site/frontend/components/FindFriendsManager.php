@@ -75,7 +75,7 @@ class FindFriendsManager
     public static function getDefaultCriteria($query)
     {
         $criteria = new CDbCriteria(array(
-            'condition' => 't.id != :hg AND t.id != :user_id AND t.id NOT IN (
+            'condition' => 't.deleted = 0 AND t.blocked = 0 AND t.id != :hg AND t.id != :user_id AND t.id NOT IN (
                 SELECT user1_id FROM friends WHERE user2_id = :user_id
                 UNION
                 SELECT user2_id FROM friends WHERE user1_id = :user_id

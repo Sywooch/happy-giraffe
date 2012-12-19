@@ -8,7 +8,7 @@
 <?php if (Yii::app()->user->isGuest): ?>
 
    <div class="comment-add_user">
-        <a href="javascript:;" onclick="showLoginWindow()">Авторизируйтесь</a>
+        <a href="javascript:;" onclick="showLoginWindow();$('#register-redirectUrl').val(location.href);">Авторизируйтесь</a>
         <div class="social-small-row clearfix">
             <em>или войти с помощью</em> <br>
             <ul class="social-list-small">
@@ -46,8 +46,10 @@
             )
         )); ?>
 
-        <div class="quote">
+        <div class="response">
             <input type="hidden" id="Comment_response_id" name="Comment[response_id]" value="" />
+        </div>
+        <div class="quote">
             <input type="hidden" id="Comment_quote_id" name="Comment[quote_id]" value="" />
             <input type="hidden" id="Comment_selectable_quote" name="Comment[selectable_quote]" value="" />
         </div>

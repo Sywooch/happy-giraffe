@@ -3,6 +3,7 @@
 <!--[if IE 7]>    <html xmlns="http://www.w3.org/1999/xhtml" class="ie7 top-nav-fixed"> <![endif]-->
 <!--[if gt IE 7]><!--> <html xmlns="http://www.w3.org/1999/xhtml" class="top-nav-fixed" xmlns:fb="http://ogp.me/ns/fb#"> <!--<![endif]-->
 <head>
+    <?=CHtml::linkTag()?>
     <?php if ($this->rssFeed !== null): ?>
         <?=CHtml::linkTag('alternate', 'application/rss+xml', $this->rssFeed)?>
     <?php endif; ?>
@@ -17,8 +18,8 @@
     $release_id = 133;
     $cs = Yii::app()->clientScript;
     $cs
-        ->registerCssFile('/stylesheets/common.css')
         ->registerCssFile('/stylesheets/user.css')
+        ->registerCssFile('/stylesheets/common.css')
         ->registerCssFile('/stylesheets/global.css')
         ->registerCssFile('/stylesheets/ie.css', 'screen')
         ->registerCssFile('/stylesheets/jquery.fancybox-1.3.4.css')
@@ -88,11 +89,14 @@
                 <ul>
                     <li class="item-ava tooltip" title="Моя анкета">
                         <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
-                        'user' => Yii::app()->user->model,
-                        'size' => 'small',
-                        'small' => true,
-                        'sendButton' => false,
-                    )); ?>
+                            'user' => Yii::app()->user->model,
+                            'size' => 'small',
+                            'small' => true,
+                            'sendButton' => false,
+                        )); ?>
+                    </li>
+                    <li class="item-broadcast new">
+                        <a href="<?=$this->createUrl('/whatsNew/default/index')?>"><i class="icon-broadcast"></i></a>
                     </li>
                     <li class="item-dialogs tooltip<?php if ($imCount > 0): ?> new<?php endif; ?>" title="Мои диалоги">
                         <a href="javascript:void(0)" onclick="Messages.toggle()">
@@ -185,11 +189,6 @@
                                         </div>
                                         <button class="btn btn-green-medium"><span><span>Поиск</span></span></button>
                                     </form>
-
-                                    <div class="fast-actions">
-                                        <a href="<?=$this->createUrl('/activity')?>" class="newest<?php if (! Yii::app()->user->isGuest && Yii::app()->user->model->activityUpdated):?> active<?php endif; ?>"><i class="icon"></i>Самое<br/>свежее</a>
-                                        <a href="<?=$this->createUrl('/activity/friends')?>" class="find-friend"><i class="icon"></i>Найти<br/>друзей</a>
-                                    </div>
                                 </div>
                             <?php endif; ?>
 
@@ -502,9 +501,7 @@
                     <?php echo $content; ?>
                 </div>
 
-                <?php if ($this->module !== null && $this->module->id == 'whatsNew'): ?>
-                    <a href="#layout" id="btn-up-page"></a>
-                <?php endif; ?>
+                <a href="#layout" id="btn-up-page"></a>
                 <div class="push"></div>
 
             </div>

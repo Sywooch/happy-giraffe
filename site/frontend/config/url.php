@@ -167,6 +167,7 @@ return array(
 
         'cook/recipe/tag/<tag:\d+>/type/<type:\d+>' => array('cook/recipe/tag', 'defaultParams' => array('section' => 0)),
         'cook/recipe/tag/<tag:\d+>' => array('cook/recipe/tag', 'defaultParams' => array('section' => 0)),
+        'cook/recipe/tag/' => array('cook/recipe/tag', 'defaultParams' => array('section' => 0)),
         'cook/recipe/cookBook/type/<type:\d+>' => array('cook/recipe/cookBook'),
         'cook/recipe/cookBook/' => array('cook/recipe/cookBook'),
 

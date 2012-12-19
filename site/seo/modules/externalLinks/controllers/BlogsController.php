@@ -66,6 +66,18 @@ class BlogsController extends ELController
         echo CJSON::encode($response);
     }
 
+    public function actionList()
+    {
+        $model = new ELSite('search');
+        $model->unsetAttributes();
+        if (isset($_GET['ELSite']))
+            $model->attributes = $_GET['ELSite'];
+        $model->type = ELSite::TYPE_BLOG;
+        $model->status = ELSite::STATUS_GOOD;
+
+        $this->render('list', compact('model'));
+    }
+
     public function actionBlacklist()
     {
         $model = new ELSite('search');

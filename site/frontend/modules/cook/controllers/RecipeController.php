@@ -14,10 +14,10 @@ class RecipeController extends HController
     {
         return array(
             'accessControl',
-            array(
-                'CHttpCacheFilter + view',
-                'lastModified' => $this->lastModified(),
-            ),
+//            array(
+//                'CHttpCacheFilter + view',
+//                'lastModified' => $this->lastModified(),
+//            ),
             //'ajaxOnly + ac, searchByIngredientsResult, advancedSearchResult, autoSelect'
         );
     }
@@ -53,11 +53,15 @@ class RecipeController extends HController
     public function actionIndex($type = 0, $section = null)
     {
         $this->pageTitle = 'Кулинарные рецепты от Веселого Жирафа';
+        if (!empty($type))
+            $this->pageTitle = CActiveRecord::model($this->modelName)->types[$type].' - '.$this->pageTitle;
+
         $this->layout = '//layouts/recipe';
         $this->currentType = $type;
 
         $dp = CActiveRecord::model($this->modelName)->getByType($type);
         $this->counts = CActiveRecord::model($this->modelName)->counts;
+        $dp->totalItemCount = $this->counts[$type];
 
         if (empty($type))
             $this->breadcrumbs = array(
@@ -74,15 +78,24 @@ class RecipeController extends HController
         $this->render('index', compact('dp', 'type'));
     }
 
-    public function actionTag($tag, $type = null)
+    public function actionTag($tag = null, $type = 0)
     {
+        if (empty($tag)){
+            if (Yii::app()->user->checkAccess('recipe_tags'))
+                $this->render('tag_list');
+            else
+                throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+            Yii::app()->end();
+        }
+
         $model = $this->loadTag($tag);
-        $this->pageTitle = $model->title;
+        $this->pageTitle = $model->title. ' - Кулинарные рецепты от Веселого Жирафа';
         $this->layout = '//layouts/recipe';
         $this->currentType = $type;
 
         $dp = CActiveRecord::model($this->modelName)->getByTag($tag, $type);
         $this->counts = CActiveRecord::model($this->modelName)->getCountsByTag($tag);
+        $dp->totalItemCount = $this->counts[$type];
 
         if (empty($type))
             $this->breadcrumbs = array(
@@ -101,10 +114,12 @@ class RecipeController extends HController
         $this->render('tag', compact('dp', 'model'));
     }
 
-    public function actionCookBook($type = null)
+    public function actionCookBook($type = 0)
     {
-        if (Yii::app()->user->isGuest)
-            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        if (Yii::app()->user->isGuest){
+            $this->redirect('/cook/recipe/');
+            Yii::app()->end();
+        }
 
         $this->pageTitle = 'Моя кулинарная книга';
         $this->layout = '//layouts/recipe';
@@ -112,6 +127,7 @@ class RecipeController extends HController
 
         $dp = CActiveRecord::model($this->modelName)->getByCookBook($type);
         $this->counts = CActiveRecord::model($this->modelName)->getCountsByCookBook($type);
+        $dp->totalItemCount = $this->counts[$type];
 
         if (empty($type))
             $this->breadcrumbs = array(
@@ -282,6 +298,8 @@ class RecipeController extends HController
                     'unit',
                 )
             ),
+            'author',
+            'commentsCount'
         ))->findByPk($id);
         if ($recipe === null)
             throw new CHttpException(404, 'Такого рецепта не существует');
@@ -307,6 +325,7 @@ class RecipeController extends HController
     public function actionSearch($type = null, $text = false)
     {
         $this->layout = '//layouts/recipe';
+        $this->pageTitle = 'Поиск рецептов';
         $this->currentType = $type;
         $text = urldecode($text);
 
@@ -528,7 +547,17 @@ class RecipeController extends HController
     {
         $recipe = $this->loadModel(Yii::app()->request->getPost('recipe_id'));
 
-        echo CJSON::encode(array('status' => true, 'result' => $recipe->book()));
+        if (Yii::app()->user->isGuest) {
+            Yii::app()->user->setState('recipe_id', $recipe->id);
+            Yii::app()->user->setState('redirectUrl', '/cook/recipe/cookBook/');
+            echo CJSON::encode(array('status' => false));
+        } else {
+            $result = $recipe->book();
+            $count = CookRecipe::userBookCount();
+            $count = $count . ' ' . HDate::GenerateNoun(array('рецепт', 'рецепта', 'рецептов'), $count);
+
+            echo CJSON::encode(array('status' => true, 'result' => $result, 'count' => $count));
+        }
     }
 
     public function getTypeUrl($id)

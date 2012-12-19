@@ -28,6 +28,8 @@ class DefaultController extends HController
     {
         $dp = EventManager::getIndex(100);
 
+        $this->pageTitle = 'Что нового на сайте - Веселый Жираф';
+
         $this->render('index', compact('dp'));
     }
 
@@ -35,12 +37,16 @@ class DefaultController extends HController
     {
         $dp = EventManager::getClubs(100, $show);
 
+        $this->pageTitle = 'Что нового в клубах - Веселый Жираф';
+
         $this->render('clubs', compact('dp', 'show'));
     }
 
     public function actionBlogs($show)
     {
         $dp = EventManager::getBlogs(100, $show);
+
+        $this->pageTitle = 'Что нового в блогах - Веселый Жираф';
 
         $this->render('blogs', compact('dp', 'show'));
     }

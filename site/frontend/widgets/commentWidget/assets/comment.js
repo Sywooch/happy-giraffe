@@ -2,14 +2,15 @@ var selected_keydown = null;
 var comment_scroll_container = ".layout-container";
 function Comment() {
     this.selected_text = null,
-        this.save_url = null,
-        this.toolbar = null,
-        this.saveCommentUrl = null,
-        this.entity = null,
-        this.entity_id = null,
-        this.model = 'Comment',
-        this.scrollContainer = null,
-        this.object_name = null;
+    this.save_url = null,
+    this.toolbar = 'Chat',//'toolbar' => 'Chat','skin'=>'hgrucomment'
+    this.skin = 'hgrucomment',
+    this.saveCommentUrl = null,
+    this.entity = null,
+    this.entity_id = null,
+    this.model = 'Comment',
+    this.scrollContainer = null,
+    this.object_name = null
 }
 
 Comment.prototype.setParams = function (params) {
@@ -26,7 +27,7 @@ Comment.prototype.getId = function() {
 };
 
 Comment.prototype.getWrapperInstance = function() {
-    return $('#' + this.getId()).siblings('#new_comment_wrapper');
+    return $('#' + this.getId()).siblings('#add_comment');
 };
 
 Comment.prototype.getScrollContainer = function() {
@@ -45,23 +46,30 @@ Comment.prototype.createInstance = function () {
     if (instance) {
         instance.destroy(true);
     }
-    CKEDITOR.replace(this.model + '_text', {toolbar:this.toolbar});
+    CKEDITOR.replace(this.model + '_text', {toolbar:this.toolbar, skin:this.skin, height:'100px'});
 };
 
 Comment.prototype.moveForm = function (container) {
     var instance = this.getInstance();
     if (instance)
         instance.destroy(true);
-    var form = $('#add_comment', this.getWrapperInstance()).clone(true);
-    $('#add_comment', this.getWrapperInstance()).remove();
+    var form = $('#add_comment').clone(true);
+    $('#add_comment').remove();
     form.appendTo(container).show();
+    setTimeout(function(){showCommentForm($('#dummy-comment'))}, 200);
+
     this.createInstance();
 };
 
-Comment.prototype.newComment = function (event) {
-    this.cancel();
-    this.moveForm($('#' + this.getId()));
-    //$(this.getScrollContainer()).scrollTop($(this.getScrollContainer()).scrollTop() + $('#new_comment_wrapper').position().top);
+Comment.prototype.newComment = function (el) {
+    if ($(el).next().attr('id') == 'add_comment'){
+        this.createInstance();
+        setTimeout(function(){showCommentForm($(el));CKEDITOR.instances['Comment_text'].focus();}, 200);
+    }
+    else{
+        this.cancel();
+        this.moveForm($('#' + this.getId()));
+    }
 };
 
 Comment.prototype.newPhotoComment = function (event) {
@@ -201,41 +209,13 @@ Comment.prototype.cancel = function () {
     return false;
 };
 
-/*Comment.prototype.getText = function () {
-    var txt = '';
-    if (txt = window.getSelection) {
-        txt = window.getSelection().toString();
-    } else {
-        txt = document.selection.createRange().text;
-    }
-    if (txt != '') {
-        var pattern = /\r\n|\r|\n/g;
-        txt = txt.replace(pattern, "<br/>");
-    }
-    this.selected_text = txt != '' ? txt : null;
-};*/
-
 function addMenuToggle(el) {
     $(el).parents('.add-menu').find('ul').toggle();
     $(el).parents('.add-menu').find('.btn i').toggleClass('arr-t');
 }
 
-/*
-$(function () {
-    $('.default-comments').delegate('.content-in', 'mousedown', function () {
-        selected_keydown = $(this);
-    });
-    $('.default-comments').delegate('.content-in', 'mouseup', function () {
-        if (selected_keydown && $(this).parents('li:eq(0)').attr('id') == selected_keydown.parents('li:eq(0)').attr('id'))
-            Comment.getText();
-        selected_keydown = null;
-    });
-    $(document).mouseup(function (e) {
-        e = e ? e : windows.event;
-        if ($(e.target).parents('.default-comments').size() == 0) {
-            Comment.selected_text = null;
-            selected_keydown = null;
-        }
-    });
-});
-*/
+function showCommentForm(el){
+    el.hide().next().show().parents('.comment-add').addClass('active');
+
+}
+

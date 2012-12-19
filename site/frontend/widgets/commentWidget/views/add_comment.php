@@ -8,7 +8,7 @@
 <?php if (Yii::app()->user->isGuest): ?>
 
    <div class="comment-add_user">
-        <a href="javascript:;" onclick="showLoginWindow();$('#register-redirectUrl').val(location.href);">Авторизируйтесь</a>
+        <a href="javascript:;" onclick="showLoginWindow();setRedirectUrl();">Авторизируйтесь</a>
         <div class="social-small-row clearfix">
             <em>или войти с помощью</em> <br>
             <ul class="social-list-small">
@@ -18,7 +18,7 @@
     </div>
     <div class="comment-add_form-holder">
 
-        <input type="text" name="" class="input-text" placeholder="Введите ваш комментарий" onclick="showLoginWindow();$('#register-redirectUrl').val(location.href);">
+        <input type="text" name="" class="input-text" placeholder="Введите ваш комментарий" onclick="showLoginWindow();setRedirectUrl();">
 
     </div>
 

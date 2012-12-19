@@ -15,7 +15,7 @@ class HCommentListView extends CListView
 
     public function init()
     {
-        $this->emptyText = '<div class="no-comments"><p>Пока  нет комментариев. Ваш - может быть первым. <img src="/images/no_comments.gif"></p></div>';
+        $this->emptyText = '';
         if($this->ajaxState === true)
             $this->registerStatePagination();
         parent::init();

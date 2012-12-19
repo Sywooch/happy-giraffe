@@ -1238,6 +1238,13 @@
 	box-shadow: 0 0 1px rgba(170,170,170,0.3);
 	behavior: url(/stylesheets/PIE.htc);
 }
+.masonry-news-list_item:hover {
+	-webkit-box-shadow: 0 0 7px rgba(170,170,170,0.5);
+	-moz-box-shadow: 0 0 7px rgba(170,170,170,0.5);
+	-ms-box-shadow: 0 0 7px rgba(170,170,170,0.5);
+	box-shadow: 0 0 7px rgba(170,170,170,0.5);
+	behavior: url(/stylesheets/PIE.htc);
+}
 .masonry-news-list_item.blog {background-color:#ddf3ff;border-color: #c8e9fb;}
 .masonry-news-list_item.cook {background-color:#fdfade;border-color: #f4edad;}
 .masonry-news-list_item.update-message {background-color:#ececec;border: none;text-align: center;min-height: 140px;}
@@ -1416,9 +1423,9 @@
 .masonry-news-list .user-info .location {font-size: 11px;line-height: 15px;color: #555;margin-top: 0;}
 .masonry-news-list .user-fast-buttons {font-size: 11px;padding-left: 8px;}
 .masonry-news-list .find-friend-famyli {margin: 0 -7px -7px;padding: 5px 0px;background: #ffffe4;color: #5a5a5a;font-size: 9px;line-height: 10px;}
-.masonry-news-list .find-friend-famyli-list {list-style: none;text-align: center;margin: 8px 0 0;}
-.masonry-news-list .find-friend-famyli-list > li {display: inline-block;*zoom:1;*display:inline;width: 66px;margin: 0 1px 5px;vertical-align: top;}
-.masonry-news-list .find-friend-famyli .img {margin: 0 0 4px;}
+.masonry-news-list .find-friend-famyli-list {list-style: none;text-align: left;margin: 8px 0 0;min-height:60px;}
+.masonry-news-list .find-friend-famyli-list > li {display: inline-block;*zoom:1;*display:inline;width: 66px;margin: 0 1px 5px;vertical-align: top;text-align: center;}
+.masonry-news-list .find-friend-famyli .img {margin: 0 auto 4px;max-width: 53px;max-height: 53px;min-height: 15px;}
 .masonry-news-list .find-friend-famyli .img > img{margin: 0 auto;}
 .masonry-news-list .find-friend-famyli .img.baby-plan{background: url(/images/user-family-icons.png) no-repeat 0 0;width: 66px;height: 50px;}
 .masonry-news-list .find-friend-famyli .img.baby{background: url(/images/user-family-icons.png) no-repeat -66px 0;width: 66px;height: 50px;}
@@ -1434,8 +1441,8 @@
 .masonry-news-list .find-friend-famyli .img.girl-8{background: url(/images/user-family-icons.png) no-repeat -66px -250px;width: 66px;height: 50px;}
 .masonry-news-list .find-friend-famyli .img.boy-14{background: url(/images/user-family-icons.png) no-repeat 0 -300px;width: 66px;height: 50px;}
 .masonry-news-list .find-friend-famyli .img.girl-14{background: url(/images/user-family-icons.png) no-repeat -66px -300px;width: 66px;height: 50px;}
-.masonry-news-list .find-friend-famyli .img.boy-17{background: url(/images/user-family-icons.png) no-repeat 0 -350px;width: 66px;height: 50px;}
-.masonry-news-list .find-friend-famyli .img.girl-17{background: url(/images/user-family-icons.png) no-repeat -66px -350px;width: 66px;height: 50px;}
+.masonry-news-list .find-friend-famyli .img.boy-19{background: url(/images/user-family-icons.png) no-repeat 0 -350px;width: 66px;height: 50px;}
+.masonry-news-list .find-friend-famyli .img.girl-19{background: url(/images/user-family-icons.png) no-repeat -66px -350px;width: 66px;height: 50px;}
 .masonry-news-list .find-friend-famyli .yellow {background: #fef617;padding: 0 2px;}
 .masonry-news-list .find-friend-famyli .blue-text {color: #26b4fe;}
 .masonry-news-list .find-friend-famyli .pink-text {color: #e885cc;}

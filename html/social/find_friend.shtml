@@ -81,7 +81,8 @@
 												<span>Светлана</span>
 											</li>
 											<li>
-												<div class="img"><img src="/images/example/w52-h34-1.jpg" alt="" /></div>
+												<div class="img">
+												<img alt="Настюня" src="http://img.happy-giraffe.ru/thumbs/66x66/83/2d77cb16aa563469aeb8af25ad69e436.JPG"></div>
 												<span class="yellow">Дочь</span> <br />
 												<span>Евгения</span> <br />
 												<span class="yellow">3 мес.</span>
@@ -121,18 +122,18 @@
 										</div>
 										<ul class="find-friend-famyli-list">
 											<li>
-												<div class="img"><img src="/images/example/w41-h49-1.jpg" alt="" /></div>
+												<div class="img"><img src="http://img.happy-giraffe.ru/thumbs/66x66/15551/3f740600a7c4a2af164527f616b2600f.JPG" alt="" /></div>
 												<span class="yellow">Жена</span> <br />
 												<span>Елизаветушка</span>
 											</li>
 											<li>
-												<div class="img"><img src="/images/example/w52-h34-1.jpg" alt="" /></div>
+												<div class="img"><img src="http://img.happy-giraffe.ru/thumbs/66x66/15551/3f740600a7c4a2af164527f616b2600f.JPG" alt="" /></div>
 												<span class="yellow">Дочь</span> <br />
 												<span>Евгения</span> <br />
 												<span class="yellow">3 мес.</span>
 											</li>
 											<li>
-												<div class="img"><img src="/images/example/w41-h49-1.jpg" alt="" /></div>
+												<div class="img"><img src="http://img.happy-giraffe.ru/thumbs/66x66/15551/3f740600a7c4a2af164527f616b2600f.JPG" alt="" /></div>
 												<span class="yellow">Дочь</span> <br />
 												<span>Евгения</span> <br />
 												<span class="yellow">3 мес.</span>
@@ -183,7 +184,7 @@
 												<span>Елизаветушка</span>
 											</li>
 											<li>
-												<div class="img"><img src="/images/example/w52-h34-1.jpg" alt="" /></div>
+												<div class="img"><img src="http://img.happy-giraffe.ru/thumbs/66x66/15551/3f740600a7c4a2af164527f616b2600f.JPG" alt="" /></div>
 												<span class="yellow">Дочь</span> <br />
 												<span>Евгения</span> <br />
 												<span class="yellow">3 мес.</span>
@@ -348,6 +349,7 @@
 										</div>
 										<ul class="find-friend-famyli-list">
 											<li>
+												<div class="img"></div>
 												<span>Есть</span> <br />
 												<span class="yellow">подруга</span> 
 											</li>
@@ -400,32 +402,32 @@
 											</li>
 											
 											<li>
-												<div class="img boy-17"></div>
+												<div class="img boy-19"></div>
 												<span class="yellow">Сын</span> <br />
 												<span>Евгений</span> <br />
-												<span class="yellow">17 лет</span>
+												<span class="yellow">20 лет</span>
 											<li>
-												<div class="img girl-17"></div>
+												<div class="img girl-19"></div>
 												<span class="yellow">Дочь</span> <br />
 												<span>Евгения</span> <br />
-												<span class="yellow">17 лет</span>
+												<span class="yellow">19 лет</span>
 											</li>
 											<li>
 												<div class="img boy-14"></div>
 												<span class="yellow">Сын</span> <br />
 												<span>Евгений</span> <br />
-												<span class="yellow">14 лет</span>
+												<span class="yellow">18 лет</span>
 											<li>
 												<div class="img girl-14"></div>
 												<span class="yellow">Дочь</span> <br />
 												<span>Евгения</span> <br />
-												<span class="yellow">14 лет</span>
+												<span class="yellow">13 лет</span>
 											</li>
 											<li>
 												<div class="img boy-8"></div>
 												<span class="yellow">Сын</span> <br />
 												<span>Евгений</span> <br />
-												<span class="yellow">9 лет</span>
+												<span class="yellow">12 лет</span>
 											<li>
 												<div class="img girl-8"></div>
 												<span class="yellow">Дочь</span> <br />
@@ -458,7 +460,7 @@
 												<div class="img boy-small"></div>
 												<span class="yellow">Сын</span> <br />
 												<span>Кирилл</span> <br />
-												<span class="yellow">1 год 12 мес.</span>
+												<span class="yellow"> 12 мес.</span>
 											</li>
 											<li>
 												<div class="img girl-small"></div>

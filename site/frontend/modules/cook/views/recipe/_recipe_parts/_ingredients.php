@@ -6,8 +6,7 @@
     <li class="ingredient">
         <span class="name"><?=$i->ingredient->title?></span>
         - <span class="amount">
-        <?php if ($i->unit->type != 'undefined'): ?><?=$i->display_value?><?php endif; ?>&nbsp;
-        <?=$i->noun?></span>
+        <?php if ($i->unit->type != 'undefined'): ?><?=$i->display_value?>&nbsp;<?php endif; ?><?=$i->noun?></span>
     </li>
     <?php endforeach; ?>
 </ul>

@@ -18,7 +18,7 @@
     </div>
     <div class="comment-add_form-holder">
 
-        <input type="text" name="" class="input-text" placeholder="Введите ваш комментарий" onclick="showLoginWindow()">
+        <input type="text" name="" class="input-text" placeholder="Введите ваш комментарий" onclick="showLoginWindow();$('#register-redirectUrl').val(location.href);">
 
     </div>
 

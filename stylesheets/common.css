@@ -56,6 +56,7 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 :focus {
     outline: 0;
 }
+
 .ui-autocomplete {
     z-index: 11100 !important;
     max-height: 200px;
@@ -2295,7 +2296,7 @@ body.nav-fixed #header-new.top-line-fixed {padding-top:0;}
 
 .chzn-container .chzn-results {margin:2px;max-height: 180px;position: relative;overflow-x: hidden;overflow-y: auto;color:#777;list-style: none !important;}
 .chzn-container-multi .chzn-results {margin: -1px 0 0;padding: 0;}
-.chzn-container .chzn-results li {display: none;line-height: 15px;padding:3px 6px 3px 6px !important;margin: 0 !important;list-style: none;}
+.chzn-container .chzn-results li {display: none;line-height: 15px;padding:3px 4px !important;margin: 0 !important;list-style: none;}
 .chzn-container .chzn-results .active-result {cursor: pointer;display: list-item !important;}
 .chzn-container .chzn-results .highlighted {background-color: #1b9bcb;color: #fff;}
 .chzn-container .chzn-results li em {background: #feffde;font-style: normal;}
@@ -3024,7 +3025,7 @@ div.scrollbarpaper-drag {-moz-border-radius:3px;-webkit-border-radius:3px;border
 .default-comments .add, .default-comments .all {padding-top:10px;text-align:right;}
 .default-comments ul {padding-top:10px;list-style:none;}
 .default-comments > ul > li {padding:2px 0px;border-top:1px dashed #95c8ff;}
-/*.default-comments > ul > li:first-child {border-top:0;}*/
+.default-comments > ul > li:first-child {border-top:0;}
 .default-comments li .comment-in {padding:10px;}
 .default-comments li .header {padding-bottom:8px;}
 .default-comments li .header .user-info {float:none;}

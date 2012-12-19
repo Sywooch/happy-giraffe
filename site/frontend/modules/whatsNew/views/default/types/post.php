@@ -30,7 +30,7 @@
             )); ?>
             <div class="details">
                 <a class="username" href="<?=$data->post->contentAuthor->url?>"><?=$data->post->contentAuthor->first_name?></a>
-                <span class="date"><?=HDate::GetFormattedTime($data->last_updated)?></span>
+                <span class="date"><?=HDate::GetFormattedTime($data->post->created)?></span>
             </div>
         </div>
     </div>

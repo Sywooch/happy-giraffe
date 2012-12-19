@@ -53,6 +53,9 @@ class RecipeController extends HController
     public function actionIndex($type = 0, $section = null)
     {
         $this->pageTitle = 'Кулинарные рецепты от Веселого Жирафа';
+        if (!empty($type))
+            $this->pageTitle = CActiveRecord::model($this->modelName)->types[$type].' - '.$this->pageTitle;
+
         $this->layout = '//layouts/recipe';
         $this->currentType = $type;
 
@@ -86,7 +89,7 @@ class RecipeController extends HController
         }
 
         $model = $this->loadTag($tag);
-        $this->pageTitle = $model->title;
+        $this->pageTitle = $model->title. ' - Кулинарные рецепты от Веселого Жирафа';
         $this->layout = '//layouts/recipe';
         $this->currentType = $type;
 
@@ -322,6 +325,7 @@ class RecipeController extends HController
     public function actionSearch($type = null, $text = false)
     {
         $this->layout = '//layouts/recipe';
+        $this->pageTitle = 'Поиск рецептов';
         $this->currentType = $type;
         $text = urldecode($text);
 

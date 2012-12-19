@@ -31,7 +31,6 @@
             <?php if ($baby->randomPhoto !== null): ?>
                 <?=CHtml::image($baby->randomPhoto->photo->getPreviewUrl(53, 53), $baby->name)?>
             <?php elseif ($baby->sex != 2 && $baby->birthday !== null): ?>
-        </div>
             <?php
                 if ($baby->type == Baby::TYPE_PLANNING)
                     $class = 'baby-plan';
@@ -54,8 +53,9 @@
                     $class = (($baby->sex == 1) ? 'boy' : 'girl') . '-' . $subClass;
                 }
             ?>
-            <div class="img <?=$class?>"></div>
+        <?=$class?>">
         <?php endif; ?>
+        </div>
         <?php if ($baby->sex != 2): ?>
             <span class="yellow"><?=($baby->sex == 1) ? 'Сын' : 'Дочь'?></span> <br />
         <?php endif; ?>

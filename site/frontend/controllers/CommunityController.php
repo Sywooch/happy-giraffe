@@ -343,9 +343,22 @@ class CommunityController extends HController
 
             if ($valid)
             {
-                $model->save(false);
-                $slave_model->content_id = $model->id;
-                $slave_model->save(false);
+                $transaction = Yii::app()->db->beginTransaction();
+                try {
+                    $success = $model->save(false);
+                    if ($success){
+                        $slave_model->content_id = $model->id;
+                        $success = $slave_model->save(false);
+                        if (!$success)
+                            $transaction->rollback();
+                        else
+                            $transaction->commit();
+                    }
+                    else
+                        $transaction->rollback();
+                } catch (Exception $e) {
+                    $transaction->rollback();
+                }
 
                 if(Yii::app()->request->getPost('CommunityContentGallery'))
                 {

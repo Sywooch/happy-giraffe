@@ -27,10 +27,9 @@
             <span class="pink-text"><?=$baby->pregnancyWeeks?> неделя</span>
         <?php endif; ?>
     <?php else: ?>
-        <div class="img">
-            <?php if ($baby->randomPhoto !== null): ?>
-                <?=CHtml::image($baby->randomPhoto->photo->getPreviewUrl(53, 53), $baby->name)?>
-            <?php elseif ($baby->sex != 2 && $baby->birthday !== null): ?>
+        <?php if ($baby->randomPhoto !== null): ?>
+            <div class="img"><?=CHtml::image($baby->randomPhoto->photo->getPreviewUrl(53, 53), $baby->name)?></div>
+        <?php elseif ($baby->sex != 2 && $baby->birthday !== null): ?>
             <?php
                 if ($baby->type == Baby::TYPE_PLANNING)
                     $class = 'baby-plan';
@@ -53,9 +52,11 @@
                     $class = (($baby->sex == 1) ? 'boy' : 'girl') . '-' . $subClass;
                 }
             ?>
-        <?=$class?>">
+            <div class="img <?=$class?>"></div>
+        <?php else: ?>
+            <div class="img"></div>
         <?php endif; ?>
-        </div>
+
         <?php if ($baby->sex != 2): ?>
             <span class="yellow"><?=($baby->sex == 1) ? 'Сын' : 'Дочь'?></span> <br />
         <?php endif; ?>

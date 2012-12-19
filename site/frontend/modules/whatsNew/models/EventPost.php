@@ -8,6 +8,9 @@
  */
 class EventPost extends Event
 {
+    /**
+     * @var CommunityContent
+     */
     public $post;
     public $comment;
 
@@ -35,9 +38,15 @@ class EventPost extends Event
 
     public function getComment()
     {
+        $params = array(':entity_id' => $this->id);
+        if ($this->post->getIsFromBlog())
+            $params[':entity']='BlogContent';
+        else
+            $params[':entity']='CommunityContent';
+
         $criteria = new CDbCriteria(array(
             'condition' => 'entity = :entity AND entity_id = :entity_id',
-            'params' => array(':entity_id' => $this->id, ':entity' => 'CommunityContent'),
+            'params' => $params,
             'order' => 'created DESC',
         ));
 

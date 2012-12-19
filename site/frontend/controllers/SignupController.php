@@ -14,6 +14,8 @@ class SignupController extends HController
         $session = Yii::app()->session;
         $service = Yii::app()->request->getQuery('service');
         if (!empty($service)) {
+            if (isset($_GET['redirectUrl']))
+                Yii::app()->user->setState('redirectUrl', $_GET['redirectUrl']);
             $authIdentity = Yii::app()->eauth->getIdentity($service);
             $authIdentity->redirectUrl = $this->createAbsoluteUrl('signup/index');
 
@@ -164,6 +166,7 @@ class SignupController extends HController
                 } else
                     $url = Yii::app()->createAbsoluteUrl('user/profile', array('user_id' => $model->id));
 
+
                 echo CJSON::encode(array(
                     'status' => true,
                     'profile' => $url
@@ -238,6 +241,9 @@ class SignupController extends HController
 
     public function actionShowForm()
     {
+        if (isset($_POST['redirectUrl']))
+            Yii::app()->user->setState('redirectUrl', $_POST['redirectUrl']);
+
         $model = new User;
         $attributes = array('email', 'birthday', 'avatar', 'photo', 'first_name', 'last_name');
         foreach ($attributes as $attribute)

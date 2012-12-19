@@ -199,8 +199,9 @@
 #baby .vaccination-tabs .nav li.active a span {border:0;color:#2281b1;}
 
 #baby .vaccination-birthday {color:#32a0d4;font-size:14px;font-family:tahoma;margin-bottom:25px;text-align:center;}
-#baby .vaccination-birthday big {font-size:18px;color:#8a8989;margin-right:10px;}
+#baby .vaccination-birthday big {display: inline-block;*zoom:1;*display:inline;font-size:18px;color:#8a8989;margin-right:10px;}
 #baby .vaccination-birthday .btn {margin-left:10px;}
+#baby .vaccination-birthday .row {display: inline-block;*zoom:1;*display:inline;margin-right:5px;}
 
 #baby .pregnancy-weight-form {width:320px;text-align:center;position:absolute;top:120px;left:0;}
 #baby .pregnancy-weight-form .row {height: 120px;line-height:30px;color:#532276;font-size:16px;}
@@ -711,3 +712,38 @@
 #baby .handbook_names_alfa ul li a.man_names_lk {color:#2ca3fe;}
 #baby .handbook_names_alfa ul li a.woman_names_lk {color:#d73a92;}
 #baby .handbook_names_alfa ul li span {display:block;font:13px/13px arial, sans-serif;color:#a9a9a9;padding:3px 0 0 0;}
+
+/* services /test/pupok/ */
+#test-navel {border:1px solid #f0e8f7;margin-bottom: 20px;}
+#test-navel .step {width:698px;height:642px;position:relative;}
+#test-navel .step.q,
+#test-navel .step.r {display: none}
+#test-navel .step > img {position:relative;z-index:1;}
+#test-navel .step-in {position:absolute;z-index:2;top:0;left:0;padding:25px;width:648px;height:592px;}
+#test-navel .step .title h1 {font:bold 35px/1 tahoma, arial, helvetica, sans-serif;color:#3e3e3e;}
+#test-navel .step .title span {color:#9971c0;font-size:30px;display:block;}
+#test-navel .step .title small {font-weight:normal;font-size:16px;color:#858686;}
+#test-navel .step .title big {font-size:40px;}
+
+#test-navel .step .text {background:#fff;width:370px;font-size:15px;color:#474747;position:absolute;bottom:30px;left:40px;}
+
+#test-navel .step .btn {position:absolute;bottom:25px;right:25px;}
+#test-navel .step .btn button {font:bold 30px arial, helvetica, sans-serif;color: #a46307;padding:0 25px;height: 58px;border: 1px solid #f1d419;background: url(../images/bg_yellow_av.png) 0 0 repeat-x;cursor:pointer;}
+#test-navel .step .btn button {/*css3*/ border-radius: 10px;-moz-border-radius: 10px;-webkit-border-radius: 10px;behavior: url(/stylesheets/PIE.htc);}
+
+#test-navel .step .question {font-size:25px;padding-left:20px;}
+#test-navel .step .question .q-title {line-height:76px;padding-top:5px;margin-bottom:20px;}
+#test-navel .step .question .q-number {font-size:80px;color:#ebe1f5;font-weight:bold;margin-top:35px; line-height: 94px}
+#test-navel .step .question .q-options {list-style:none;padding:0 15px;}
+#test-navel .step .question .q-options li {padding:8px 0;}
+#test-navel .step .question .q-options label {font-size:22px;color:#969696;cursor:pointer;}
+#test-navel .step .question .q-options label:hover {color:#5d5c5c;}
+#test-navel .step .question .q-options label:active {color:#8b5fb5;}
+#test-navel .step .question .q-options label span {/*display:inline-block;*zoom:1;*display:inline;vertical-align:top;margin-top:5px;*/}
+
+#test-navel .step .result {width:300px;margin-left:330px;}
+#test-navel .step .result .r-title {font-size:80px;color:#ebe1f5;font-weight:bold;margin-top:35px;text-align:center;margin-bottom:100px;line-height: 100px;}
+#test-navel .step .result .r-text {font-size:16px;color:#5f5e5e;margin-bottom:45px;line-height:25px;}
+#test-navel .step .result .r-text p {margin:1em 0;color:#319e03;}
+#test-navel .step .result .r-text p img {display:block;margin:auto;}
+#test-navel .step .result .r-text p.red {color:#cd1616;}

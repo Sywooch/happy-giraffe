@@ -27,6 +27,8 @@
             <p><?=Str::truncate(strip_tags($data->text), 400)?> <?=HHtml::link('Весь рецепт<i class="icon"></i>', $data->url, array('class' => 'read-more'), true)?></p>
         </div>
 
+        <?php $this->renderPartial('_recipe_parts/_recipe_tags_edit',array('recipe'=>$data)); ?>
+
     </div>
 
 </div>

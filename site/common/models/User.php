@@ -115,6 +115,19 @@ class User extends HActiveRecord
         4 => array('моего друга', 'моём друге', 'Мой друг', 'мой друг', 'вашем друге'),
     );
 
+    public $partnerTitle = array(
+        0 => array(
+            1 => 'Муж',
+            3 => 'Жених',
+            4 => 'Друг',
+        ),
+        1 => array(
+            1 => 'Жена',
+            3 => 'Невеста',
+            4 => 'Подруга',
+        ),
+    );
+
     public $accessLabels = array(
         'all' => 'гости',
         'registered' => 'зарегистрированные пользователи',
@@ -301,7 +314,7 @@ class User extends HActiveRecord
             'communityContentsCount' => array(self::STAT, 'CommunityContent', 'author_id'),
             'cookRecipesCount' => array(self::STAT, 'CookRecipe', 'author_id'),
             'recipeBookRecipesCount' => array(self::STAT, 'RecipeBookRecipe', 'author_id'),
-            'photosCount' => array(self::STAT, 'AlbumPhoto', 'author_id'),
+            //'photosCount' => array(self::STAT, 'AlbumPhoto', 'author_id', 'join' => 'JOIN album__albums a ON t.album_id = a.id', 'condition' => 'a.type IN(0, 1, 3)'),
             'albumsCount' => array(self::STAT, 'Album', 'author_id', 'condition' => 'removed = 0'),
 
             'communitiesCount' => array(self::STAT, 'Community', 'user__users_communities(user_id, community_id)'),
@@ -310,6 +323,7 @@ class User extends HActiveRecord
             'blogPosts' => array(self::HAS_MANY, 'CommunityContent', 'author_id', 'with' => 'rubric', 'condition' => 'rubric.user_id IS NOT null', 'select' => 'id'),
             'address' => array(self::HAS_ONE, 'UserAddress', 'user_id'),
             'priority' => array(self::HAS_ONE, 'UserPriority', 'user_id'),
+            'recipes' => array(self::STAT, 'CookRecipe', 'cook__cook_book(user_id, recipe_id)'),
 
             'answers' => array(self::HAS_MANY, 'DuelAnswer', 'user_id'),
             'activeQuestion' => array(self::HAS_ONE, 'DuelQuestion', array('question_id' => 'id'), 'through' => 'answers', 'condition' => 'ends > NOW()'),
@@ -318,6 +332,15 @@ class User extends HActiveRecord
             'mail_subs' => array(self::HAS_ONE, 'UserMailSub', 'user_id'),
             'score' => array(self::HAS_ONE, 'UserScores', 'user_id'),
         );
+    }
+
+    public function getPhotosCount()
+    {
+        return AlbumPhoto::model()->count(array(
+            'join' => 'JOIN album__albums a ON t.album_id = a.id',
+            'condition' => 'a.type IN(0, 1, 3) AND t.author_id = :user_id',
+            'params' => array(':user_id' => $this->id),
+        ));
     }
 
     public function scopes()
@@ -400,8 +423,6 @@ class User extends HActiveRecord
         /*Yii::app()->mc->saveUser($this);*/
 
         if ($this->isNewRecord) {
-            $this->sendEvent();
-
             //силнал о новом юзере
             $signal = new UserSignal();
             $signal->user_id = (int)$this->id;
@@ -812,6 +833,11 @@ class User extends HActiveRecord
             return $this->men_of;
     }
 
+    public function getPartnerTitleNew()
+    {
+        return $this->partnerTitle[$this->gender][$this->relationship_status];
+    }
+
     public static function relationshipStatusHasPartner($status_id)
     {
         if (in_array($status_id, array(1, 3, 4)))
@@ -856,6 +882,16 @@ class User extends HActiveRecord
         list($route, $params) = $this->urlParams;
         $method = $absolute ? 'createAbsoluteUrl' : 'createUrl';
         return Yii::app()->$method($route, $params);
+    }
+
+    public function getBlogUrl()
+    {
+        return Yii::app()->createUrl('/blog/list', array('user_id' => $this->id));
+    }
+
+    public function getPhotosUrl()
+    {
+        return Yii::app()->createUrl('/albums/user', array('id' => $this->id));
     }
 
     public function addCommunity($community_id)

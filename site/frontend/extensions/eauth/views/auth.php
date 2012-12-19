@@ -41,7 +41,7 @@
     foreach ($services as $name => $service)
         if ($service->id != 'twitter') {
             echo '<li class="auth-service ' . $service->id . '">';
-            echo CHtml::link('', array('/'.$action, 'service' => $name), array('class' => 'auth-link ' . $service->id));
+            echo CHtml::link('', Yii::app()->createUrl('/'.$action, array('service' => $name)), array('class' => 'auth-link ' . $service->id));
             echo '</li>';
         }
     ?>

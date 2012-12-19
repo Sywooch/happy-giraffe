@@ -15,7 +15,7 @@ if ($hide_text)
         <span class="cook-title-cat-h1-text"><?= $model->title; ?></span>
     </h1>
     <?php if (!$hide_text):?>
-        <p><?=$model->description ?></p>
+        <p><?=strip_tags($model->description) ?></p>
     <?php endif ?>
 </div>
 <?php $this->widget('zii.widgets.CListView', array(
@@ -35,8 +35,8 @@ if ($hide_text)
 <?php if (!$hide_text):?>
     <div class="giraffe-story">
         <div class="giraffe-story-frame">
-            <div class="giraffe-story-title"><?=$model->text_title ?></div>
             <div class="giraffe-story-holder clearfix">
+            <div class="giraffe-story-title"><span><?=$model->text_title ?></span></div>
                 <div class="giraffe-story-img">
                     <img src="/images/giraffe-story-logo.png" alt="">
                 </div>

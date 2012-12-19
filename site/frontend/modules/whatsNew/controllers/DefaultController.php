@@ -8,6 +8,8 @@
  */
 class DefaultController extends HController
 {
+    public $broadcast = true;
+
     public function filters()
     {
         return array(

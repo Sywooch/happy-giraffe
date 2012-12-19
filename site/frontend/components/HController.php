@@ -16,6 +16,7 @@ class HController extends CController
     public $page_meta_model = null;
 
     public $pGallery = null;
+    public $broadcast = false;
 
     protected $r = 133;
 

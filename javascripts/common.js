@@ -687,3 +687,7 @@ var Cook = {
     }
 }
 
+function showLoginWindow(){
+    $('a[href="#login"]').trigger('click');
+}
+

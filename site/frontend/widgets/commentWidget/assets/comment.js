@@ -219,3 +219,7 @@ function showCommentForm(el){
     el.parents('.comment-add').find('span.comment-add_username').show();
 }
 
+function setRedirectUrl(){
+    Register.redirectUrl = location.href;
+    Register.gotoComment = 1;
+}

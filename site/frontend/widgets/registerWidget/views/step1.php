@@ -38,7 +38,6 @@
                           }",
             )));?>
             <?=$form->textField($model, 'email', array('class' => 'regmail1', 'placeholder' => 'Введите ваш e-mail')); ?>
-            <?=CHtml::hiddenField('redirectUrl', '', array('id'=>'register-redirectUrl')); ?>
             <?=$form->error($model, 'email'); ?>
             <input type="submit" value="OK"/>
             <?php $this->endWidget(); ?>

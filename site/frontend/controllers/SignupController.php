@@ -241,8 +241,11 @@ class SignupController extends HController
 
     public function actionShowForm()
     {
-        if (isset($_POST['redirectUrl']))
+        if (isset($_POST['redirectUrl']) && !empty($_POST['redirectUrl']))
             Yii::app()->user->setState('redirectUrl', $_POST['redirectUrl']);
+
+        if (isset($_POST['redirectUrl']) && !empty($_POST['gotoComment']))
+            Yii::app()->user->setState('gotoComment', '1');
 
         $model = new User;
         $attributes = array('email', 'birthday', 'avatar', 'photo', 'first_name', 'last_name');

@@ -216,6 +216,6 @@ function addMenuToggle(el) {
 
 function showCommentForm(el){
     el.hide().next().show().parents('.comment-add').addClass('active');
-
+    el.parents('.comment-add').find('span.comment-add_username').show();
 }
 

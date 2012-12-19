@@ -31,6 +31,7 @@
                 'validationUrl' => Yii::app()->createUrl('/signup/validate', array('step' => 1)),
                 'afterValidate' => "js:function(form, data, hasError) {
                             if (!hasError){
+                                Register.redirectUrl = $('#register-redirectUrl').val();
                                 Register.showStep2($('#reg-form1 #User_email').val(), 'default');
                             }
                             return false;

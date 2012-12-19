@@ -1,19 +1,5 @@
-body {
-    position: relative;
-    background: #EEDFFD;
-    font: 12px Arial, Tahoma, sans-serif;
-    font-weight: normal;
-    color: #1f1f1f;
-    text-decoration: none;
-}
-
-html > body .page {
-    height: auto;
-    min-height: 100%;
-    position: relative;
-}
-
-.settings .RadioLabelClass, .dialog .CheckBoxLabelClass {
+.settings .RadioLabelClass, 
+.dialog .CheckBoxLabelClass {
     background: url(../images/radio.png) no-repeat;
     background-position: 0 -51px;
     padding-left: 28px;
@@ -24,28 +10,19 @@ html > body .page {
     float: left;
 }
 
-.settings .RadioSelected, .dialog .LabelSelected {
+.settings .RadioSelected, 
+.dialog .LabelSelected {
     background: url(../images/radio.png) no-repeat;
     background-position: 0 -78px;
 }
 
-ul.topmenu, .kon_menu, .leftlist {
+ul.topmenu, 
+.kon_menu, 
+.leftlist {
     display: list-item;
     list-style-image: none;
     list-style:none;
 }
-
-body > .page {
-    margin: 0 auto;
-    height: auto;
-    min-height: 100%;
-    display: block;
-    padding: 0px;
-    width: 1000px;
-    background: #FFFFFF;
-}
-
-a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 
 .entry{display:block;background:#fff;width:100%;padding:0 0 10px;margin-bottom:30px;}
 .entry.entry-full{padding-bottom:0;border:0;}
@@ -3470,7 +3447,7 @@ ul.letters li a:hover {
 
 
 #repair-ceiling {}
-#repair-ceiling .form {border:1px solid #fbefff;background:url(/images/bg_repair_ceiling.jpg) no-repeat right bottom;height:599px;padding:22px;}
+#repair-ceiling .form {border:1px solid #fbefff;background:url(/images/bg_repair_ceiling.jpg) no-repeat right bottom;height:599px;padding:22px;margin-bottom: 20px;}
 #repair-ceiling .form .title {}
 #repair-ceiling .form .title h1 {font:bold 40px/1 tahoma, arial, helvetica, sans-serif;color:#3e3e3e;margin-bottom:0px;}
 #repair-ceiling .form .title span {color:#a37fc6;font:bold 40px/1 tahoma, arial, helvetica, sans-serif;text-transform:uppercase;display:block;margin-bottom:10px;}
@@ -4439,13 +4416,15 @@ ul.letters li a:hover {
 #cook-recipe .add-recipe .btn span {font:bold 20px/46px arial, helvetica, sans-serif;text-transform:none;}
 #cook-recipe .add-recipe .btn > span > span {width:184px;}
 
-#cook-recipe .search {float:left;margin-left:30px;width:600px;background:#f7f1fe;padding:15px 25px 25px;margin-bottom:40px;}
+
+#cook-recipe .search {background:#f7f1fe;padding:15px 25px 25px;margin-bottom:40px;}
+
 #cook-recipe .search .links {float:right;padding-right:90px;margin-top:23px;}
 #cook-recipe .search .title {margin-bottom:5px;}
 #cook-recipe .search .title .icon {display:inline-block;*zoom:1;*display:inline;width:23px;height:41px;background:url(/images/cook_sprite.png) no-repeat -71px -1417px;vertical-align:bottom;position:relative;margin-left:11px;margin-right:5px;}
 #cook-recipe .search .title span {color:#575757;font-size:16px;font-weight:bold;}
 #cook-recipe .search .title a {margin-left:15px;}
-#cook-recipe .search input[type=text] {border:1px solid #e4d0f6;background:#fff;height:18px;font-size:13px;font-family:tahoma, arial, helvetica, sans-serif;padding:4px 13px;float:left;margin:0;width:500px;}
+#cook-recipe .search input[type=text] {border:1px solid #e4d0f6;background:#fff;height:18px;font-size:13px;font-family:tahoma, arial, helvetica, sans-serif;padding:4px 13px;float:left;margin:0;width:550px;}
 #cook-recipe .search .btn {float:left;position:relative;top:-2px;margin-left:-1px;}
 
 .recipe-search {position: relative;margin-top: 15px;}
@@ -4579,6 +4558,7 @@ ul.letters li a:hover {
     height: 95px;
     background: url(/images/services/cook/cook-book-info.png) no-repeat -100px 0;
 }
+.recipe-article .cook-book-info .icon-exist:hover{background-position: -100px -100px;}
 .recipe-article .cook-book-info .icon-add {
     display: block;
     margin: 10px auto;
@@ -4586,6 +4566,7 @@ ul.letters li a:hover {
     height: 95px;
     background: url(/images/services/cook/cook-book-info.png) no-repeat 0 0;
 }
+.recipe-article .cook-book-info .icon-add:hover{background-position: 0 -100px;}
 .recipe-article .recipe-user-adds {margin-bottom: 20px;}
 .recipe-article .recipe-user-adds > ul {list-style: none;}
 .recipe-article .recipe-user-adds li {float: left;margin: 0 5px 6px 0;}
@@ -5046,14 +5027,15 @@ ul.letters li a:hover {
     background: url(/images/giraffe-story.png) repeat-y 0 0;
 }
 .giraffe-story-title {
-    margin: 0 0 18px 70px;
-    padding: 0 3px;
+    margin: 0 -15px 18px;
+    padding: 0;
     font-size: 30px;
     line-height: 30px;
     color: #2e2e2e;
     display: inline-block;*zoom:1;*display:inline;
-    background: #fef67b;
+    text-align: center;
 }
+.giraffe-story-title > span {background: #fef67b;padding: 0 3px;}
 .giraffe-story-img {float: left;margin:30px 45px 0 0;}
 .giraffe-story-text {
     line-height: 19px;

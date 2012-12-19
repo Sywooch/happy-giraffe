@@ -25,6 +25,28 @@
 					<div class="main">
 						
 						<div class="main-in">
+							<div class="clearfix">
+
+							    <div class="search clearfix">
+
+							        <div class="title">
+
+							            <div class="links">
+							                <a href="">По ингредиентам</a>
+							                <a href="">Расширеный поиск</a>
+							            </div>
+							            <i class="icon"></i>
+							            <span>Поиск рецептов</span>
+							        </div>
+
+							        <form method="get" action="">
+							        	<input type="text" placeholder="Введите ключевое слово в названии рецепта" name="text" value="">
+							       		<button class="btn btn-purple-medium"><span><span>Найти</span></span></button>
+							        </form>
+							    </div>
+
+							</div>
+						
 							<div class="cook-title-cat">
 								<h1 class="cook-title-cat-h1">
 									<span class="cook-cat active">

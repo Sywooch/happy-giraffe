@@ -1,4 +1,4 @@
-﻿﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!--[if lt IE 7]> <html xmlns="http://www.w3.org/1999/xhtml" class="top-nav-fixed"> <![endif]-->
 <!--[if IE 7]>    <html xmlns="http://www.w3.org/1999/xhtml" class="ie7 top-nav-fixed"> <![endif]-->
 <!--[if gt IE 7]><!--> <html xmlns="http://www.w3.org/1999/xhtml" class="top-nav-fixed"> <!--<![endif]-->
@@ -399,10 +399,10 @@
 										<div class="social-small-row clearfix">
 											<em>или войти с помощью</em> <br />
 											<ul class="social-list-small">
-												<li><a href="#" class="odnoklasniki"></a></li>
-												<li><a href="#" class="mailru"></a></li>
-												<li><a href="#" class="vk"></a></li>
-												<li><a href="#" class="fb"></a></li>
+												<li class="odnoklasniki"><a href="#"></a></li>
+												<li class="mailru"><a href="#"></a></li>
+												<li class="vkontakte"><a href="#"></a></li>
+												<li class="facebook"><a href="#"></a></li>
 											</ul>
 										</div>
 									</div>
@@ -603,10 +603,10 @@
 							<div class="social-small-row clearfix">
 								<em>или войти с помощью</em> <br />
 								<ul class="social-list-small">
-									<li><a href="#" class="odnoklasniki"></a></li>
-									<li><a href="#" class="mailru"></a></li>
-									<li><a href="#" class="vk"></a></li>
-									<li><a href="#" class="fb"></a></li>
+									<li class="odnoklasniki"><a href="#"></a></li>
+									<li class="mailru"><a href="#"></a></li>
+									<li class="vkontakte"><a href="#"></a></li>
+									<li class="facebook"><a href="#"></a></li>
 								</ul>
 							</div>
 						</div>
@@ -621,10 +621,10 @@
 							<div class="social-small-row clearfix">
 								<em>или войти с помощью</em> <br />
 								<ul class="social-list-small">
-									<li><a href="#" class="odnoklasniki"></a></li>
-									<li><a href="#" class="mailru"></a></li>
-									<li><a href="#" class="vk"></a></li>
-									<li><a href="#" class="fb"></a></li>
+									<li class="odnoklasniki"><a href="#"></a></li>
+									<li class="mailru"><a href="#"></a></li>
+									<li class="vkontakte"><a href="#"></a></li>
+									<li class="facebook"><a href="#"></a></li>
 								</ul>
 							</div>
 						</div>

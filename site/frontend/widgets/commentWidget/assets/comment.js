@@ -46,22 +46,26 @@ Comment.prototype.createInstance = function () {
     if (instance) {
         instance.destroy(true);
     }
-    CKEDITOR.replace(this.model + '_text', {toolbar:this.toolbar, skin:this.skin});
+    CKEDITOR.replace(this.model + '_text', {toolbar:this.toolbar, skin:this.skin, height:'100px'});
 };
 
 Comment.prototype.moveForm = function (container) {
     var instance = this.getInstance();
     if (instance)
         instance.destroy(true);
-    var form = $('#add_comment', this.getWrapperInstance()).clone(true);
-    $('#add_comment', this.getWrapperInstance()).remove();
+    var form = $('#add_comment').clone(true);
+    $('#add_comment').remove();
     form.appendTo(container).show();
+    setTimeout(function(){showCommentForm($('#dummy-comment'))}, 200);
+
     this.createInstance();
 };
 
 Comment.prototype.newComment = function (el) {
-    if ($(el).next().attr('id') == 'add_comment')
-        showCommentForm(el);
+    if ($(el).next().attr('id') == 'add_comment'){
+        this.createInstance();
+        setTimeout(function(){showCommentForm($(el));CKEDITOR.instances['Comment_text'].focus();}, 200);
+    }
     else{
         this.cancel();
         this.moveForm($('#' + this.getId()));
@@ -211,7 +215,7 @@ function addMenuToggle(el) {
 }
 
 function showCommentForm(el){
-    $(el).hide().next().show().parents('.comment-add').addClass('active');
-    CKEDITOR.instances['Comment_text'].focus();
+    el.hide().next().show().parents('.comment-add').addClass('active');
+
 }
 

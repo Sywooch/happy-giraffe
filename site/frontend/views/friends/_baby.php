@@ -28,23 +28,29 @@
         <?php endif; ?>
     <?php else: ?>
         <?php if ($baby->randomPhoto !== null): ?>
-            <div class="img"><?=CHtml::image($baby->randomPhoto->photo->getPreviewUrl(66, 66), $baby->name)?></div>
+            <div class="img"><?=CHtml::image($baby->randomPhoto->photo->getPreviewUrl(53, 53), $baby->name)?></div>
         <?php elseif ($baby->sex != 2 && $baby->birthday !== null): ?>
             <?php
-                if ($baby->fullYears < 1)
-                    $subClass = 'small';
-                elseif ($baby->fullYears < 3)
-                    $subClass = '3';
-                elseif ($baby->fullYears < 6)
-                    $subClass = '5';
-                elseif ($baby->fullYears < 12)
-                    $subClass = '8';
-                elseif ($baby->fullYears < 15)
-                    $subClass = '14';
-                else
-                    $subClass = '17';
+                if ($baby->type == Baby::TYPE_PLANNING)
+                    $class = 'baby-plan';
+                else{
+                    if ($baby->type == Baby::TYPE_WAIT)
+                        $subClass = 'wait';
+                    elseif ($baby->fullYears < 1)
+                        $subClass = 'small';
+                    elseif ($baby->fullYears < 3)
+                        $subClass = '3';
+                    elseif ($baby->fullYears < 6)
+                        $subClass = '5';
+                    elseif ($baby->fullYears < 12)
+                        $subClass = '8';
+                    elseif ($baby->fullYears < 18)
+                        $subClass = '14';
+                    else
+                        $subClass = '19';
 
-                $class = (($baby->sex == 1) ? 'boy' : 'girl') . '-' . $subClass;
+                    $class = (($baby->sex == 1) ? 'boy' : 'girl') . '-' . $subClass;
+                }
             ?>
             <div class="img <?=$class?>"></div>
         <?php endif; ?>

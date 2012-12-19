@@ -35,7 +35,7 @@
     </div>
     <div class="comment-add_form-holder">
 
-        <input type="text" name="" class="input-text" placeholder="Введите ваш комментарий" onclick="<?= $this->objectName?>.newComment(this);">
+        <input id="dummy-comment" type="text" class="input-text" placeholder="Введите ваш комментарий" onclick="<?= $this->objectName?>.newComment(this);">
 
         <?php $form = $this->beginWidget('CActiveForm', array(
             'id' => 'add_comment',
@@ -45,9 +45,11 @@
             )
         )); ?>
 
-        <input type="hidden" id="Comment_response_id" name="Comment[response_id]" value="" />
-        <input type="hidden" id="Comment_quote_id" name="Comment[quote_id]" value="" />
-        <input type="hidden" id="Comment_selectable_quote" name="Comment[selectable_quote]" value="" />
+        <div class="quote">
+            <input type="hidden" id="Comment_response_id" name="Comment[response_id]" value="" />
+            <input type="hidden" id="Comment_quote_id" name="Comment[quote_id]" value="" />
+            <input type="hidden" id="Comment_selectable_quote" name="Comment[selectable_quote]" value="" />
+        </div>
         <?= $form->hiddenField($comment_model, 'entity', array('value' => $this->entity)); ?>
         <?= $form->hiddenField($comment_model, 'entity_id', array('value' => $this->entity_id)); ?>
         <?= CHtml::hiddenField('edit-id', ''); ?>

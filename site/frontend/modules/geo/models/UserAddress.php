@@ -176,7 +176,7 @@ class UserAddress extends HActiveRecord
             if (empty($this->region_id)) {
                 return $this->city->name;
             } elseif ($this->region->center_id != $this->city_id) {
-                return $this->city->name . ', ' . str_replace('область', 'обл.', $this->region->name);
+                return $this->city->name . ' ' . str_replace('область', 'обл.', $this->region->name);
             } else
                 return $this->city->name;
 

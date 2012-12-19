@@ -8,6 +8,8 @@
  */
 class FriendsController extends HController
 {
+    public $broadcast = true;
+
     public function filters()
     {
         return array(

@@ -408,7 +408,7 @@ class Comment extends HActiveRecord
         $criteria->compare('entity', $this->entity);
         $criteria->compare('entity_id', $this->entity_id);
 
-        $count = Comment::model()->count($criteria);
+        $count = Comment::model()->count($criteria) + 1;
 
         return ceil($count/25);
     }

@@ -25,5 +25,3 @@
         $remove_tmpl->registerTemplates();
         $this->endWidget();
     }
-
-    $this->widget('WhatsNewWidget');

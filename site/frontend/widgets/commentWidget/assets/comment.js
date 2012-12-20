@@ -123,6 +123,7 @@ Comment.prototype.goTo = function (index, currentPage) {
         var url = false;
         if (pager.size() > 0)
             url = pager.children('a').attr('href');
+
         var h = new AjaxHistory(this.getId());
         var $this = this;
         h.load(this.getId(), url,

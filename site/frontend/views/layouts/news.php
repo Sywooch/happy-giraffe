@@ -75,6 +75,4 @@
     </div>
 </div>
 
-<div class="push"></div>
-
 <?php $this->endContent(); ?>

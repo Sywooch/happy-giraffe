@@ -250,8 +250,6 @@
     </div>
 </div>
 
-<div class="push"></div>
-
 <div style="display: none;">
     <div id="joinClub" class="popup-confirm popup">
         <a href="javascript:void(0);" onclick="$.fancybox.close();" class="popup-close tooltip" title="Закрыть"></a>

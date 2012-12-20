@@ -30,6 +30,7 @@ class EventPost extends Event
                         'items',
                     ),
                 ),
+                'commentsCount'
             ),
         ));
 
@@ -48,6 +49,7 @@ class EventPost extends Event
             'condition' => 'entity = :entity AND entity_id = :entity_id',
             'params' => $params,
             'order' => 'created DESC',
+            'with'=>array('author'=>array('select'=>array('id', 'first_name', 'last_name', 'avatar_id', 'deleted')))
         ));
 
         return Comment::model()->find($criteria);

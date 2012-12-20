@@ -22,4 +22,3 @@ $this->widget('zii.widgets.CListView', array(
         ',
 ));
 
-$this->widget('WhatsNewWidget');

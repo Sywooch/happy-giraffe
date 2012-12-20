@@ -1,4 +1,9 @@
 <li class="masonry-news-list_item<?php if ($data->post->isFromBlog): ?> blog<?php endif; ?>" data-block-id="<?=$data->blockId?>">
+
+    <?php if (($comment = $data->comment) !== null)
+        $this->renderPartial('application.modules.whatsNew.views._comment', array('comment' => $comment)); ?>
+
+
     <h3 class="masonry-news-list_title">
         <?=CHtml::link($data->post->title, $data->post->url)?>
         <?php if ($data->post->type->slug == 'video'): ?>
@@ -37,31 +42,4 @@
     <div class="masonry-news-list_content">
         <?php $this->renderPartial('application.modules.whatsNew.views._post_content', array('post' => $data->post, 'blockId' => $data->blockId)); ?>
     </div>
-    <?php if (($comment = $data->comment) !== null): ?>
-        <div class="masonry-news-list_comment">
-            <div class="masonry-news-list_comment-text">
-                <a href="<?=$comment->url?>"><?=Str::truncate($comment->text, 512)?></a>
-            </div>
-            <div class="masonry-news-list_meta-info clearfix">
-                <div class="user-info">
-                    <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
-                        'user' => $comment->author,
-                        'small' => true,
-                        'size' => 'small',
-                    )); ?>
-                    <div class="details">
-                        <a class="username" href="<?=$comment->author->url?>"><?=$comment->author->first_name?></a>
-                        <span class="date"><?=HDate::GetFormattedTime($comment->created)?></span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <?php if ($data->post->getUnknownClassCommentsCount() > 1): ?>
-            <div class="comments-all">
-                <a href="<?=$data->post->getUrl(true)?>">еще <?=($data->post->getUnknownClassCommentsCount() - 1)?></a>
-                <a href="<?=$data->post->getUrl(true)?>" class="icon-comment"></a>
-            </div>
-        <?php endif; ?>
-    <?php endif; ?>
 </li>

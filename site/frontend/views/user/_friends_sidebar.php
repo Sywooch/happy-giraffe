@@ -16,9 +16,9 @@
                 ),
                 array(
                     'label' => 'Что нового у друзей',
-                    'url' => array('user/activity', 'user_id' => $this->user->id, 'type' => 'friends'),
+                    'url' => array('/whatsNew/friends/index'),
                     'template' => '<span>{menu}</span>',
-                    'visible' => $this->user->getFriendsCount() > 0,
+                    'visible' => $this->user->getFriendsCount() > 0 && $this->user->id == Yii::app()->user->id,
                 ),
                 array(
                     'label' => 'Сейчас на сайте',

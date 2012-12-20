@@ -144,5 +144,4 @@
 
 <?php
     $this->widget('application.widgets.seo.SeoLinksWidget');
-    $this->widget('WhatsNewWidget');
 ?>

@@ -86,7 +86,7 @@ class EventManager
                 $params = array(':user_id' => Yii::app()->user->id);
                 break;
             case self::WHATS_NEW_FRIENDS:
-                return FriendEventManager::getDataProvider(Yii::app()->user->model);
+                return FriendEventManager::getDataProvider(Yii::app()->user->model, $limit);
         }
 
         return new EventDataProvider($sql, array(

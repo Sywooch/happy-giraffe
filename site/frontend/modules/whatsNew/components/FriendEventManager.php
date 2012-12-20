@@ -20,7 +20,7 @@ class FriendEventManager
             $stack->updateBlock($model);
     }
 
-    public static function getDataProvider($user)
+    public static function getDataProvider($user, $limit = 20)
     {
         $friends = User::model()->findAll($user->getFriendsCriteria(array('select' => 't.id', 'index' => 'id')));
         $friendsIds = array_keys($friends);
@@ -35,6 +35,7 @@ class FriendEventManager
 
         return new FriendEventDataProvider('FriendEvent', array(
             'criteria' => $criteria,
+            'pagination' => array('pageSize' => $limit),
         ));
     }
 

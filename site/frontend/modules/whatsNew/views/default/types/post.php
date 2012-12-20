@@ -57,7 +57,7 @@
             </div>
         </div>
 
-        <?php if ($data->post->commentsCount > 1): ?>
+        <?php if ($data->post->getUnknownClassCommentsCount() > 1): ?>
             <div class="comments-all">
                 <a href="<?=$data->post->getUrl(true)?>">еще <?=($data->post->getUnknownClassCommentsCount() - 1)?></a>
                 <a href="<?=$data->post->getUrl(true)?>" class="icon-comment"></a>

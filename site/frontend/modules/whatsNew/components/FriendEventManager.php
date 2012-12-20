@@ -29,13 +29,13 @@ class FriendEventManager
             'conditions' => array(
                 'user_id' => array('in' => $friendsIds),
             ),
-            'limit'=>$limit
         ));
 
         $criteria->sort('updated', EMongoCriteria::SORT_DESC);
 
         return new FriendEventDataProvider('FriendEvent', array(
             'criteria' => $criteria,
+            'pagination' => array('pageSize' => $limit),
         ));
     }
 

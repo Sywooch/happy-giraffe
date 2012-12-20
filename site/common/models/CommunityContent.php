@@ -656,7 +656,7 @@ class CommunityContent extends HActiveRecord
         return $output;
     }
 
-    public function getArticleCommentsCount()
+    public function getUnknownClassCommentsCount()
     {
         if ($this->getIsFromBlog()) {
             $model = BlogContent::model()->findByPk($this->id);

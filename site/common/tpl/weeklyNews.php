@@ -67,7 +67,7 @@ $i = 0;
                     <span style="color:#31a4f6;font:12px arial, helvetica, sans-serif;">
                         <a href="http://www.happy-giraffe.ru<?php echo ltrim($model->getUrl(), '.') ?>?utm_source=email#comment_list" target="_blank" style="color:#31a4f6;font:12px arial, helvetica, sans-serif;"><img
                             src="http://www.happy-giraffe.ru/images/mail/icon_comments.gif"
-                            style="margin-right:5px;vertical-align:top;"><?php echo $model->getArticleCommentsCount() ?></a></span>
+                            style="margin-right:5px;vertical-align:top;"><?php echo $model->getUnknownClassCommentsCount() ?></a></span>
                     </td>
                     <td>
                         <?php $used = array(); ?>

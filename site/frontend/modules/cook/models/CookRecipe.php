@@ -526,7 +526,7 @@ class CookRecipe extends CActiveRecord
         $comet->send('whatsNewIndex', $params, CometModel::WHATS_NEW_UPDATE);
     }
 
-    public function getArticleCommentsCount()
+    public function getUnknownClassCommentsCount()
     {
         return $this->commentsCount;
     }

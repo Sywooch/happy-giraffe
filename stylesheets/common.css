@@ -3157,7 +3157,7 @@ div.scrollbarpaper-drag {-moz-border-radius:3px;-webkit-border-radius:3px;border
 #content .club-fast-nav .club-join-btn {display:block;height:36px;padding:0 24px;background:#59b4dd;color:#fff;line-height:36px;font-size:16px;font-weight:bold;text-decoration:none;position:relative;top:-3px;float:right;}
 #content .club-fast-nav .club-join-btn {/*css3*/ -moz-border-radius:15px;-webkit-border-radius:15px;border-radius:15px;behavior: url(/stylesheets/PIE.htc);}
 
-#content .club-fast-add {margin:2px 0 30px;text-align:center;}
+#content .club-fast-add {margin:2px 0 15px;text-align:center;}
 #content .club-fast-add .btn-green {width:220px;}
 #content .club-fast-add ul {padding:10px 20px;background:#fffedf;margin-top:10px;list-style:none;overflow:hidden;}
 #content .club-fast-add ul li {float:left;width:50%;margin:5px 0;}
@@ -3191,9 +3191,33 @@ div.scrollbarpaper-drag {-moz-border-radius:3px;-webkit-border-radius:3px;border
 #content .club-topics-all-link .count {font-size:20px;color:#6d6d6d;font-family:tahoma, arial, helvetica, sans-serif;position:relative;top:-3px;}
 
 
-.club-topics-list-new {margin-bottom:40px;}
+.club-topics-list-new {margin-bottom:40px;position: relative;
+background: url(/images/club-topics-list-new.png) repeat-y 202px 0;
+}
+.club-topics-list-new:after {
+    content: " ";
+    position: absolute;
+    width: 28px;
+    height: 58px;
+    background: url(/images/club-topics-list-new.png) no-repeat -720px 0;
+    top: 50%;
+    right: -7px;
+    margin: -29px 0 0;
+}
 .club-topics-list-new .block-title {font-size:22px;color:#262626;margin:0 6px 15px;}
-.club-topics-list-new ul {list-style:none;}
+.club-topics-list-new > ul {list-style:none;
+background: url(/images/club-topics-list-new.png) no-repeat -293px 100%;
+padding: 15px 15px 15px 0;
+}
+.club-topics-list-new > ul:after {
+    content: " ";
+    position: absolute;
+    width: 28px;
+    height: 25px;
+    background: url(/images/club-topics-list-new.png) no-repeat -240px 0;
+    top: 0;
+    right: 10px;
+}
 .club-topics-list-new.drop-holder ul {margin-left:15px;}
 .club-topics-list-new li {margin:8px 0;position:relative;padding:2px 0 2px 6px;}
 .club-topics-list-new li a {}
@@ -3211,7 +3235,7 @@ div.scrollbarpaper-drag {-moz-border-radius:3px;-webkit-border-radius:3px;border
 .club-topics-list-new .drop-activate-link {position:absolute;left:-16px;top:6px;width:13px;height:11px;background:url(/images/club-topics-list-drop-link.png) no-repeat #bd96e3;}
 .club-topics-list-new .toggled .drop-activate-link {background-position:0 -11px;}
 
-.club-topics-list-new .club-topics-list-new-drop{font-size:11px;line-height:12px;margin:5px 0 5px 15px;display:none;}
+.club-topics-list-new .club-topics-list-new-drop{font-size:11px;line-height:12px;margin:5px 0 5px 15px;display:none;list-style: none;}
 .club-topics-list-new .toggled .club-topics-list-new-drop {display:block;}
 .club-topics-list-new .club-topics-list-new-drop li {margin:2px 0;}
 .club-topics-list-new .club-topics-list-new-drop li.active > .count{font-size:15px;}

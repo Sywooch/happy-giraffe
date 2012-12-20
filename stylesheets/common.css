@@ -3191,10 +3191,11 @@ div.scrollbarpaper-drag {-moz-border-radius:3px;-webkit-border-radius:3px;border
 #content .club-topics-all-link .count {font-size:20px;color:#6d6d6d;font-family:tahoma, arial, helvetica, sans-serif;position:relative;top:-3px;}
 
 
-.club-topics-list-new {margin-bottom:40px;position: relative;
-background: url(/images/club-topics-list-new.png) repeat-y 202px 0;
-}
-.club-topics-list-new:after {
+.club-topics-list-new {margin-bottom:40px;position: relative;}
+.club-topics-list-new .block-title {font-size:22px;color:#262626;margin:0 6px 15px;}
+.club-topics-list-new > ul {list-style:none;padding: 15px 15px 15px 0;}
+.club-topics-list-new__bracket {background: url(/images/club-topics-list-new.png) repeat-y 202px 0;}
+.club-topics-list-new__bracket:after {
     content: " ";
     position: absolute;
     width: 28px;
@@ -3204,12 +3205,8 @@ background: url(/images/club-topics-list-new.png) repeat-y 202px 0;
     right: -7px;
     margin: -29px 0 0;
 }
-.club-topics-list-new .block-title {font-size:22px;color:#262626;margin:0 6px 15px;}
-.club-topics-list-new > ul {list-style:none;
-background: url(/images/club-topics-list-new.png) no-repeat -278px 100%;
-padding: 15px 15px 15px 0;
-}
-.club-topics-list-new > ul:after {
+.club-topics-list-new__bracket > ul {background: url(/images/club-topics-list-new.png) no-repeat -293px 100%;}
+.club-topics-list-new__bracket > ul:after {
     content: " ";
     position: absolute;
     width: 28px;

@@ -102,7 +102,7 @@
 #user .user-photo {}
 #user .user-photo img {display:block;}
 
-#user .details {color:#b6b9ba;font-size:9px;font-family:tahoma, arial, helvetica, sans-serif;padding:5px 10px;text-indent:0;text-align:center;}
+.user-cols .col-1 .details {color:#b6b9ba;font-size:9px;font-family:tahoma, arial, helvetica, sans-serif;padding:5px 10px;text-indent:0;text-align:center;}
 
 #user .user-trophies {background:#f3e9fc;padding:5px 14px 17px;margin:0 0 10px;}
 #user .user-trophies .box-title .a-right{margin-top:9px;font-size:11px;}
@@ -1463,7 +1463,7 @@
 	margin: 0 -22px -4px 0;
 	display: inline-block;*zoom:1;*display:inline;
 }
-.broadcast-widget-menu{float: right;list-style:none;text-align:center;margin: 22px 40px 0 0;}
+.broadcast-widget-menu{float: right;list-style:none;text-align:center;margin: 22px 30px 0 0;}
 .broadcast-widget-menu > li{display:inline-block;*zoom:1;*display:inline;margin:0 10px;vertical-align:top;position:relative;}
 .broadcast-widget-menu > li > a{display:block;line-height:26px;padding:0 7px;color:#1497f6;font-size:12px;}
 .broadcast-widget-menu .is-active a {text-decoration: none;}

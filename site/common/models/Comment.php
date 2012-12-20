@@ -391,8 +391,26 @@ class Comment extends HActiveRecord
         list($route, $params) = $entity->urlParams;
         $params['#'] = 'comment_' . $this->id;
 
+        //add page param
+        $page = $this->calcPageNumber();
+        if ($page > 1)
+            $params['Comment_page'] = $page;
+
         $method = $absolute ? 'createAbsoluteUrl' : 'createUrl';
         return Yii::app()->$method($route, $params);
+    }
+
+    public function calcPageNumber()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->condition = 'id < :id';
+        $criteria->params = array(':id'=>$this->id);
+        $criteria->compare('entity', $this->entity);
+        $criteria->compare('entity_id', $this->entity_id);
+
+        $count = Comment::model()->count($criteria);
+
+        return ceil($count/25);
     }
 
     public function getLink($absolute = false)

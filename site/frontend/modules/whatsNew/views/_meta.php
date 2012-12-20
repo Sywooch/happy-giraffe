@@ -1,6 +1,6 @@
 <div class="meta">
     <div class="views"><span class="icon" href="#"></span> <span><?=PageView::model()->viewsByPath($model->url)?></span></div>
-    <?php if ($model->commentsCount == 0): ?>
+    <?php if ($model->getUnknownClassCommentsCount() == 0): ?>
         <div class="comments empty">
             <a class="icon" href="<?=$model->getUrl(true)?>"></a>
         </div>

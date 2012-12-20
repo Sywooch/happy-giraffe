@@ -7,7 +7,7 @@
     <?php else: ?>
         <div class="comments">
             <a class="icon" href="<?=$model->getUrl(true)?>"></a>
-            <a href="<?=$model->getUrl(true)?>"><?=$model->commentsCount?></a>
+            <a href="<?=$model->getUrl(true)?>"><?=$model->getUnknownClassCommentsCount()?></a>
         </div>
     <?php endif; ?>
 </div>

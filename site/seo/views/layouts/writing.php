@@ -84,7 +84,7 @@
                 )));
 
 
-        if (Yii::app()->user->checkAccess('moderator'))
+        if (Yii::app()->user->checkAccess('moderator-panel'))
             $this->widget('zii.widgets.CMenu', array(
                 'itemTemplate' => '{menu}<span class="tale"><img src="/images/default_nav_active.gif"></span>',
                 'items' => array(

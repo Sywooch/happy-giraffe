@@ -41,7 +41,7 @@ Comment.prototype.getInstance = function () {
     return false;
 };
 
-Comment.prototype.createInstance = function () {
+Comment.prototype.createInstance = function (focus) {
     var instance = this.getInstance();
     if (instance) {
         instance.destroy(true);
@@ -52,38 +52,43 @@ Comment.prototype.createInstance = function () {
         toolbar:this.toolbar,
         skin:this.skin,
         height:'120px',
-        on :
+        on : focus ?
         {
             instanceReady : function( ev )
             {
+                console.log('focus');
                 ev.editor.focus();
             }
-        }
+        } : {}
     });
 };
 
-Comment.prototype.moveForm = function (container) {
+Comment.prototype.moveForm = function (container, focus, hide) {
     var instance = this.getInstance();
     if (instance)
         instance.destroy(true);
-    var form = $('#add_comment').clone(true);
-    $('#add_comment').remove();
+    var form = $('#add_comment', '#' + this.getId()).clone(true);
+    $('#add_comment', '#' + this.getId()).remove();
     form.appendTo(container).show();
-    setTimeout(function(){showCommentForm($('#dummy-comment'))}, 200);
 
-    this.createInstance();
+    var $this = this;
+
+    if (!hide)
+        setTimeout(function(){$this.showForm()}, 200);
+
+    this.createInstance(focus);
 };
 
 Comment.prototype.newComment = function (el) {
     if ($(el).next().attr('id') == 'add_comment_form'){
-        this.createInstance();
+        this.createInstance(true);
 
         var $this = this;
-        setTimeout(function(){showCommentForm($(el))}, 200);
+        setTimeout(function(){$this.showForm()}, 200);
     }
     else{
         this.cancel();
-        this.moveForm($('#' + this.getId()));
+        this.moveForm($('#' + this.getId()), true);
     }
 };
 
@@ -101,7 +106,8 @@ Comment.prototype.clearVariables = function () {
 Comment.prototype.response = function (link) {
     this.clearVariables();
     this.selected_text = null;
-    this.moveForm($(link).parents('.item').find('.comment-action'));
+    this.showForm();
+    this.moveForm($(link).parents('.item').find('.comment-action'), true);
     var id = $(link).parents('.item:eq(0)').attr('id').split('_')[1];
     $('#add_comment', '#' + this.getId()).find('.response input').val(id);
 };
@@ -112,7 +118,8 @@ Comment.prototype.clearResponse = function () {
 
 Comment.prototype.quote = function (link) {
     this.clearVariables();
-    this.moveForm($(link).parents('.item').find('.comment-action'));
+    this.showForm();
+    this.moveForm($(link).parents('.item').find('.comment-action'), true);
     var id = $(link).parents('.item:eq(0)').attr('id').split('_')[1];
     var text = '';
     if (!this.selected_text) {
@@ -164,7 +171,8 @@ Comment.prototype.edit = function (button) {
     this.clearVariables();
     this.selected_text = null;
 
-    this.moveForm($(button).parents('.item').find('.comment-action'));
+    this.showForm();
+    this.moveForm($(button).parents('.item').find('.comment-action'), false);
 
     var id = $(button).parents('.item').attr('id').replace(/comment_/g, '');
     $('#edit-id', '#' + this.getId()).val(id);
@@ -200,14 +208,16 @@ Comment.prototype.send = function (form) {
                 var url = false;
                 if (pager.size() > 0 && $('#add_comment .button_panel .btn-green-medium span span', $this.getWrapperInstance()).text() != 'Редактировать')
                     url = pager.children('a').attr('href');
-                if (url !== false)
+                if (url !== false){
                     $.fn.yiiListView.update($this.getId(), {url:url, data:{lastPage:true}});
+                    $this.goEndOfList();
+                }
                 else if ($('#add_comment .button_panel .btn-green-medium span span', $this.getWrapperInstance()).text() == 'Редактировать')
                     $.fn.yiiListView.update(this.getId());
-                else
+                else{
                     $.fn.yiiListView.update($this.getId(), {data:{lastPage:true}});
-
-                $($this.getScrollContainer()).animate({scrollTop:$('#' + $this.getId()).find('ul.items li').get(-1).offsetTop}, "normal");
+                    $this.goEndOfList();
+                }
 
                 var editor = $this.getInstance();
                 editor.setData('');
@@ -226,24 +236,40 @@ Comment.prototype.cancel = function () {
     $('#edit-id', '#' + this.getId()).val('');
 
     //если верхний комментарий, то уменьшаем форму, инче переносим ее вверх
-    var elem = $('#'+this.getId()).find('#add_comment');
+    var elem = $('#add_comment', '#' + this.getId());
     if (elem.parent().attr('id') == 'add_comment_wrapper'){
-        elem.removeClass('active').find('.comment-add_form-holder input').show();
-        elem.find('.comment-add_form-holder form').hide();
-        elem.find('span.comment-add_username').hide();
-    }else
-        this.moveForm($('#add_comment_wrapper'));
+        this.hideForm();
+    }else{
+        this.hideForm();
+        this.moveForm($('#add_comment_wrapper', '#' + this.getId()), false, true);
+    }
     return false;
 };
+
+Comment.prototype.showForm = function () {
+    var el = $('#' + this.getId() + ' #dummy-comment');
+    el.hide().next().show().parents('.comment-add').addClass('active');
+    el.parents('.comment-add').find('span.comment-add_username').show();
+}
+
+Comment.prototype.hideForm = function () {
+    var el = $('#' + this.getId() + ' #dummy-comment');
+    el.show().next().hide().parents('.comment-add').removeClass('active');
+    el.parents('.comment-add').find('span.comment-add_username').hide();
+}
+
+Comment.prototype.goEndOfList = function () {
+    console.log($('#' + this.getId()).find('ul.items li').get(-1).offsetTop);
+    $(this.getScrollContainer()).animate({scrollTop:$('#' + this.getId()).find('ul.items li').get(-1).offsetTop}, "normal");
+}
+
+
+
+
 
 function addMenuToggle(el) {
     $(el).parents('.add-menu').find('ul').toggle();
     $(el).parents('.add-menu').find('.btn i').toggleClass('arr-t');
-}
-
-function showCommentForm(el){
-    el.hide().next().show().parents('.comment-add').addClass('active');
-    el.parents('.comment-add').find('span.comment-add_username').show();
 }
 
 function setRedirectUrl(){

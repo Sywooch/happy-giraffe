@@ -42,7 +42,7 @@ class FindFriendsManager
                     'with' => array(
                         'address',
                     ),
-                    'order' => 'online desc, sameCity DESC, sameCenter DESC',
+                    'order' => 'online desc, sameCity DESC, sameCenter DESC, t.id desc',
                     'params' => array(
                         ':region_id' => Yii::app()->user->model->address->region_id,
                         ':center_id' => Yii::app()->user->model->address->region->center_id,

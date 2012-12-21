@@ -172,7 +172,6 @@ class UserAction extends EMongoDocument
         $user = User::model()->findByPk($user_id);
         $friends = User::model()->findAll($user->getFriendsCriteria(array('select' => 't.id', 'index' => 'id')));
         $friendsIds = array_keys($friends);
-        var_dump($friendsIds);
 
         $criteria = new EMongoCriteria(array(
             'conditions' => array(

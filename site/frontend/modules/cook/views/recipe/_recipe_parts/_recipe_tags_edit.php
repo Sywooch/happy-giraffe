@@ -5,6 +5,9 @@
  */
 
 if (Yii::app()->user->checkAccess('recipe_tags')){
+
+    $recipe->refresh();
+
     $basePath = Yii::getPathOfAlias('cook') . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'recipe' . DIRECTORY_SEPARATOR . 'assets';
     $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
 

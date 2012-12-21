@@ -13,18 +13,19 @@ class EventManager
     const WHATS_NEW_CLUBS_MY = 2;
     const WHATS_NEW_BLOGS = 3;
     const WHATS_NEW_BLOGS_MY = 4;
+    const WHATS_NEW_FRIENDS = 5;
 
     public static function getIndex($limit)
     {
         return self::getDataProvider(self::WHATS_NEW_ALL, $limit);
     }
 
-    public static function getClubs($limit, $show)
+    public static function getClubs($limit, $show= '')
     {
         return self::getDataProvider(($show == 'my') ? self::WHATS_NEW_CLUBS_MY : self::WHATS_NEW_CLUBS, $limit);
     }
 
-    public static function getBlogs($limit, $show)
+    public static function getBlogs($limit, $show = '')
     {
         return self::getDataProvider(($show == 'my') ? self::WHATS_NEW_BLOGS_MY : self::WHATS_NEW_BLOGS, $limit);
     }
@@ -84,6 +85,8 @@ class EventManager
                 ';
                 $params = array(':user_id' => Yii::app()->user->id);
                 break;
+            case self::WHATS_NEW_FRIENDS:
+                return FriendEventManager::getDataProvider(Yii::app()->user->model, $limit);
         }
 
         return new EventDataProvider($sql, array(

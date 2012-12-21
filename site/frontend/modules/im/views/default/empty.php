@@ -6,7 +6,7 @@
 
     <div class="find-friends">
 
-        <?=CHtml::link('Найти друзей', array('/activity/friends'))?>
+        <?=CHtml::link('Найти друзей', array('/friends/find'))?>
         <?php if (! Yii::app()->user->isGuest && ! WantToChat::hasCooldown(Yii::app()->user->id)): ?> <a href="javascript:void(0)" class="wannachat" onclick="WantToChat.send(this);">Хочу общаться!</a><?php endif; ?>
 
     </div>

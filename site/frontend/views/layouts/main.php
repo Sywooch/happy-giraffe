@@ -15,7 +15,6 @@
         <title><?=CHtml::encode($this->pageTitle)?></title>
     <?php endif;
 
-    $release_id = 133;
     $cs = Yii::app()->clientScript;
     $cs
         ->registerCssFile('/stylesheets/user.css')
@@ -55,7 +54,6 @@
             ->registerPackage('comet')
             ->registerScript('Realplexor-reg', 'comet.connect(\'http://' . Yii::app()->comet->host . '\', \'' . Yii::app()->comet->namespace . '\', \'' . UserCache::GetCurrentUserCache() . '\');')
             ->registerPackage('user')
-            //->registerScript('im-urls', 'im.GetLastUrl="'.Yii::app()->createUrl('/im/default/getLast').';"')
         ;
 
         $interlocutor_id = Yii::app()->request->getQuery('im_interlocutor_id', 'null');
@@ -73,8 +71,7 @@
         $user = Yii::app()->user->model;
     ?>
 </head>
-<body class="body-club<?php if ($this->module !== null && $this->module->id == 'whatsNew'): ?> body-broadcast<?php endif; ?>" onload="if (typeof(ODKL) !== 'undefined') ODKL.init();">
-
+<body class="body-club<?php if ($this->broadcast): ?> body-broadcast<?php endif; ?>" onload="if (typeof(ODKL) !== 'undefined') ODKL.init();">
     <div class="top-line-menu">
         <div class="top-line-menu-holder">
 
@@ -500,6 +497,8 @@
 
                     <?php echo $content; ?>
                 </div>
+
+                <noindex><?php $this->widget('WhatsNewWidget') ?></noindex>
 
                 <a href="#layout" id="btn-up-page"></a>
                 <div class="push"></div>

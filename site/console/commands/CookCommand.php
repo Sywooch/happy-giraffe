@@ -4,22 +4,31 @@
  * Date: 13.12.12
  */
 Yii::import('site.frontend.modules.cook.models.*');
+Yii::import('site.frontend.modules.cook.components.*');
 Yii::import('site.frontend.modules.geo.models.*');
 
 class CookCommand extends CConsoleCommand
 {
     public function actionIndex()
     {
-        $countries = GeoCountry::model()->findAll();
-        $cuisines = CookCuisine::model()->findAll();
+        $criteria = new CDbCriteria;
+        $criteria->limit = 100;
+        $criteria->offset = 0;
+        $criteria->order = 'id desc';
 
-        foreach($countries as $country)
-            foreach($cuisines as $cuisine){
-                if (substr($country->name, 0, 6) == substr($cuisine->title, 0, 6)){
-                    $cuisine->country_id = $country->id;
-                    $cuisine->save();
-                    echo '1';
+        $models = array(0);
+        while (!empty($models)) {
+            $models = CookRecipe::model()->findAll($criteria);
+            foreach ($models as $recipe)
+                if ($recipe->section == 1 && !empty($recipe->tags)) {
+                    $recipe->tags = array();
+                    Yii::app()->db->createCommand()->delete('cook__recipe_recipes_tags',
+                        'recipe_id = :recipe_id',
+                        array(':recipe_id' => $recipe->id));
                 }
-            }
+
+            $criteria->offset += 100;
+        }
+
     }
 }

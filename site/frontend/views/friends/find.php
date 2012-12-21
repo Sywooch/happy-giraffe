@@ -21,8 +21,8 @@
     <div class="find-friend-title clearfix">
         <div class="search-box">
             <div class="search-box_input">
-                <?=CHtml::beginForm('', 'get')?>
-                    <?=CHtml::textField('query', '', array('class' => 'text', 'placeholder' => 'Введите имя'))?>
+                <?=CHtml::beginForm('/findFriends/', 'get')?>
+                    <?=CHtml::textField('query', Yii::app()->request->getParam('query'), array('class' => 'text', 'placeholder' => 'Введите имя'))?>
                     <button class="icon-search"></button>
                 <?=CHtml::endForm()?>
             </div>

@@ -28,6 +28,7 @@ class FriendsController extends HController
 
     public function actionFind($type, $query = null)
     {
+        $this->pageTitle = 'Поиск друзей на Веселом Жирафе';
         $dp = FindFriendsManager::getDataProvider($type, $query);
 
         $this->render('find', compact('dp', 'type'));

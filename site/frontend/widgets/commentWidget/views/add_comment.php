@@ -3,6 +3,7 @@
  * @var $form CActiveForm
  */
 ?>
+<div id="add_comment_wrapper">
 <div id="add_comment" class="comment-add clearfix">
 
 <?php if (Yii::app()->user->isGuest): ?>
@@ -39,7 +40,7 @@
         <input id="dummy-comment" type="text" class="input-text" placeholder="Введите ваш комментарий" onclick="<?= $this->objectName?>.newComment(this);">
 
         <?php $form = $this->beginWidget('CActiveForm', array(
-            'id' => 'add_comment',
+            'id' => 'add_comment_form',
             'htmlOptions' => array(
                 'onsubmit' => "".$this->objectName.".send(this, event); return false;",
                 'style'=>'display:none;'
@@ -79,4 +80,5 @@
 
 <?php endif; ?>
 
+</div>
 </div>

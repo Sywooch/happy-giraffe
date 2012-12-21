@@ -1,4 +1,4 @@
-<h1 class="fn"><?php if ($full):?><?=CHtml::encode(trim($recipe->title)) ?><?php else: ?><a href="<?=$recipe->url ?>"><?=CHtml::encode(trim($recipe->title)) ?></a><?php endif;
+<h1 class="fn"><?php if ($full):?><?=CHtml::encode(trim($recipe->title)) ?><?php else: ?><a class="entry-title" href="<?=$recipe->url ?>"><?=CHtml::encode(trim($recipe->title)) ?></a><?php endif;
     if ($full && !Yii::app()->user->isGuest) {
         if (Yii::app()->authManager->checkAccess('editCookRecipe', Yii::app()->user->id) || Yii::app()->user->id == $recipe->author_id)
             echo CHtml::link('', $this->createUrl('/cook/recipe/form/', array('id' => $recipe->id, 'section' => $recipe->section)), array('class' => 'icon-edit'));

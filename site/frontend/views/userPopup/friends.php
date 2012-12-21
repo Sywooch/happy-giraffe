@@ -116,6 +116,7 @@
                     <ul>
                         <?php $i = 0; foreach ($news as $n): ?>
                             <?php if ($n->text !== null): ?>
+                            <?php $initiator = User::model()->findByPk($n->user_id) ?>
                                 <li style="display: none;">
                                     <div class="date"><?php echo HDate::GetFormattedTime($n->updated); ?></div>
                                     <div class="in">

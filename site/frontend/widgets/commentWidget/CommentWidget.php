@@ -114,7 +114,7 @@ class CommentWidget extends CWidget
         {
             $this->id = $this->entity . $this->entity_id;
             $this->objectName = 'comment_' . $this->id;
-            if ($this->photoContainer)
+            if ($this->photoContainer && Yii::app()->request->isAjaxRequest)
                 $scroll_container = '#photo-window';
             else
                 $scroll_container = '.layout-container';

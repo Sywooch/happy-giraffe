@@ -199,6 +199,8 @@ a.info {display:inline-block;*zoom:1;*display:inline;width:13px;height:13px;back
 :-moz-placeholder {color: #ccc !important;font-weight: normal !important;}
 .placeholder { color: #ccc !important;font-weight: normal !important;}
 
+.icon-friends-small {display:inline-block;*zoom:1;*display:inline;width:27px;height:27px;background:url(/images/common.png) no-repeat -428px -334px;vertical-align:middle;margin-right:5px;}
+
 .ava {width:72px;height:72px;background:url(../images/avatar.png) no-repeat -240px -480px;display:block;float:left;}
 .ava, .ava img {/*css3*/ -moz-border-radius:36px;-webkit-border-radius:36px;border-radius:36px;behavior: url(/stylesheets/PIE.htc);width:72px;height:72px;position:relative;*behavior:url('');}
 .ava.female {background-position:-240px -240px;}
@@ -2005,6 +2007,7 @@ body.nav-fixed #header-new.top-line-fixed {padding-top:0;}
 
 #user-friends .recent .recent-friend {background:#f7eeff;height:205px;padding:20px;width:429px;float:left;position:relative;}
 #user-friends .recent .recent-friend .block-title {color:#3b3b3b;font-size:22px;margin-bottom:50px;}
+#user-friends .recent .recent-friend .block-title > a {font-size:17px;padding: 0 5px;}
 #user-friends .recent .recent-friend #moveFriendArea {float:left;width:200px;}
 #user-friends .recent .recent-friend .become-friends {float:left;width:150px;text-align:center;color:#a7a7a8;font-size:11px;}
 #user-friends .recent .recent-friend .become-friends .icon {display:block;width:44px;height:46px;background:url(/images/common.png) no-repeat -320px -341px;margin:0 auto 5px;}

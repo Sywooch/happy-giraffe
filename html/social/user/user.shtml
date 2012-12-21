@@ -386,7 +386,7 @@
 										<li><a href="" class="ava"></a></li>
 									</ul>
 									
-									<div class="more-friends"><a href="">Найти еще друзей</a> <a href="" class="wannachat">Хочу общаться!</a></div>
+									<div class="more-friends"><a href=""><i class="icon-friends-small"></i>Найти еще друзей</a> <a href="" class="wannachat">Хочу общаться!</a></div>
 									
 								</div>
 								<br/><br/> <!-- этих <br/> быть не должно, просто изза дублирования блока-->

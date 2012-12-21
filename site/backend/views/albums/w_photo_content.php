@@ -18,5 +18,6 @@
         'model' => $photo,
         'popUp' => true,
         //'commentModel' => 'PhotoViewComment',
+        'photoContainer'=>true
     )); ?>
 </div>

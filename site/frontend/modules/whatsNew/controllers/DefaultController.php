@@ -14,13 +14,17 @@ class DefaultController extends HController
     {
         return array(
             'accessControl',
-            'ajaxOnly + ajax, ajaxItems'
+            'ajaxOnly + ajax,moreItems'
         );
     }
 
     public function accessRules()
     {
         return array(
+            array('allow',
+                'actions'=>array('moreItems'),
+                'users'=>array('*'),
+            ),
             array('deny',
                 'users' => array('?'),
             ),
@@ -61,16 +65,12 @@ class DefaultController extends HController
         $this->widget('WhatsNewWidget', array('type' => $type));
     }
 
-    public function actionAjaxItems()
+    public function actionMoreItems()
     {
         $offset = Yii::app()->request->getPost('offset');
         $dp = EventManager::getDataProvider(EventManager::WHATS_NEW_ALL, 4);
         $dp->pagination->currentPage = round($offset / 4) + 1;
 
-        $items = '';
-        foreach ($dp->data as $block)
-            $items .= '<li>'.$block->code.'</li>';
-
-        echo $items;
+        $this->renderPartial('ajax_items', array('dp' => $dp));
     }
 }

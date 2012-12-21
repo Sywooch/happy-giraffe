@@ -498,11 +498,7 @@
                     <?php echo $content; ?>
                 </div>
 
-                <noindex>
-                    <div id="broadcast" class="broadcast-all">
-                        <?php $this->widget('WhatsNewWidget') ?>
-                    </div>
-                </noindex>
+                <noindex><?php $this->widget('WhatsNewWidget') ?></noindex>
 
                 <a href="#layout" id="btn-up-page"></a>
                 <div class="push"></div>

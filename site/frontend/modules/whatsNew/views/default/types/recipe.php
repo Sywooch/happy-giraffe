@@ -17,8 +17,7 @@
     <?php if ($data->recipe->mainPhoto !== null): ?>
     <div class="clearfix">
         <div class="title-img">
-            <?=CHtml::link(CHtml::image($data->recipe->mainPhoto->getPreviewUrl(198, null, Image::WIDTH), $data->recipe->title), 'javascript:void(0)', array('data-id' => $data->recipe->mainPhoto->id))?>
-            <span class="btn-view">Посмотреть</span>
+            <?=CHtml::link(CHtml::image($data->recipe->mainPhoto->getPreviewUrl(198, null, Image::WIDTH), $data->recipe->title).'<span class="btn-view">Посмотреть</span>', 'javascript:void(0)', array('data-id' => $data->recipe->mainPhoto->id))?>
         </div>
     </div>
     <?php endif; ?>

@@ -95,6 +95,7 @@ Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/javascripts
         )); ?>
         <?php $this->widget('site.frontend.widgets.commentWidget.CommentWidget', array(
             'model' => $photo,
+            'photoContainer'=>(Yii::app()->request->isAjaxRequest?true:false)
         )); ?>
     </div>
 </div>

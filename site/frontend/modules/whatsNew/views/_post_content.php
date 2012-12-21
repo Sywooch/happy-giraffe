@@ -21,7 +21,7 @@
     <?=$post->video->getResizedEmbed(198)?>
 <?php else: ?>
     <?php if ($post->getContentImage() !== false): ?>
-        <?=CHtml::link(CHtml::image($post->getContentImage(), $post->title), $post->url)?>
+        <?=CHtml::link(CHtml::image($post->getContentImage(198), $post->title), $post->url)?>
     <?php endif; ?>
     <p><?=$post->getContentText(128)?> <a href="<?=$post->url?>" class="all">Читать</a></p>
 <?php endif; ?>

@@ -8,16 +8,23 @@
  */
 class DefaultController extends HController
 {
+    public $broadcast = true;
+
     public function filters()
     {
         return array(
             'accessControl',
+            'ajaxOnly + ajax,moreItems'
         );
     }
 
     public function accessRules()
     {
         return array(
+            array('allow',
+                'actions'=>array('moreItems'),
+                'users'=>array('*'),
+            ),
             array('deny',
                 'users' => array('?'),
             ),
@@ -49,5 +56,21 @@ class DefaultController extends HController
         $this->pageTitle = 'Что нового в блогах - Веселый Жираф';
 
         $this->render('blogs', compact('dp', 'show'));
+    }
+
+    public function actionAjax()
+    {
+        $type = Yii::app()->request->getPost('type');
+
+        $this->widget('WhatsNewWidget', array('type' => $type));
+    }
+
+    public function actionMoreItems()
+    {
+        $offset = Yii::app()->request->getPost('offset');
+        $dp = EventManager::getDataProvider(EventManager::WHATS_NEW_ALL, 4);
+        $dp->pagination->currentPage = round($offset / 4) + 1;
+
+        $this->renderPartial('ajax_items', array('dp' => $dp));
     }
 }

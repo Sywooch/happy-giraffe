@@ -5,7 +5,8 @@
     <?php foreach ($recipe->ingredients as $i): ?>
     <li class="ingredient">
         <span class="name"><?=$i->ingredient->title?></span>
-        - <span class="amount"><?=$i->display_value?> <?=$i->noun?></span>
+        - <span class="amount">
+        <?php if ($i->unit->type != 'undefined'): ?><?=$i->display_value?>&nbsp;<?php endif; ?><?=$i->noun?></span>
     </li>
     <?php endforeach; ?>
 </ul>

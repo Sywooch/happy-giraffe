@@ -139,7 +139,7 @@
                     </ul>
 
                     <div class="all-link">
-                        <?=CHtml::link('<i class="icon"></i>Все новости моих друзей', array('user/activity', 'user_id' => Yii::app()->user->id, 'type' => 'friends'))?>
+                        <?=CHtml::link('<i class="icon"></i>Все новости моих друзей', array('/whatsNew/friends/'))?>
                     </div>
 
                 <?php endif; ?>

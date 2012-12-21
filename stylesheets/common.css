@@ -3946,7 +3946,7 @@ div.scrollbarpaper-drag {-moz-border-radius:3px;-webkit-border-radius:3px;border
 #activity .activity-video .preview .play {display:block;width:103px;height:103px;background:url(/images/activity_play.png) no-repeat;position:absolute;top:50%;left:50%;margin-left:-51px;margin-top:-51px;}
 
 .find-friend-page {}
-.find-friend-title {margin-bottom: 40px;}
+.find-friend-title {margin:30px 0 40px;}
 .find-friend-title .search-box {float: right;padding: 15px 10px 0 0;}
 .find-friend-title .search-box .search-box_input {position: relative;}
 .find-friend-title .search-box .search-box_input .text {background: #fff;line-height: 20px;height: 18px;padding: 2px 30px 0 7px; width:160px;border: 1px solid #e5e5e5;}

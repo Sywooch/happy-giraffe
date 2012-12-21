@@ -1,5 +1,4 @@
 var selected_keydown = null;
-var comment_scroll_container = ".layout-container";
 function Comment() {
     this.selected_text = null,
     this.save_url = null,
@@ -18,8 +17,6 @@ Comment.prototype.setParams = function (params) {
         if (typeof(this[n]) != undefined)
             this[n] = params[n];
     }
-    if(comment_scroll_container !== null)
-        this.scrollContainer = comment_scroll_container;
 };
 
 Comment.prototype.getId = function() {
@@ -56,7 +53,6 @@ Comment.prototype.createInstance = function (focus) {
         {
             instanceReady : function( ev )
             {
-                console.log('focus');
                 ev.editor.focus();
             }
         } : {}
@@ -259,7 +255,7 @@ Comment.prototype.hideForm = function () {
 }
 
 Comment.prototype.goEndOfList = function () {
-    console.log($('#' + this.getId()).find('ul.items li').get(-1).offsetTop);
+    console.log(this.getScrollContainer(), $('#' + this.getId()).find('ul.items li').get(-1).offsetTop);
     $(this.getScrollContainer()).animate({scrollTop:$('#' + this.getId()).find('ul.items li').get(-1).offsetTop}, "normal");
 }
 

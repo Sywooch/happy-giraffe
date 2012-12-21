@@ -18,5 +18,6 @@
         'model' => $photo,
         'popUp' => true,
         //'commentModel' => 'PhotoViewComment',
+        'photoContainer'=>(Yii::app()->request->isAjaxRequest?true:false)
     )); ?>
 </div>

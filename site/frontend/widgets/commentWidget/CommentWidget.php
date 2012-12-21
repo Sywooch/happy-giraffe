@@ -33,6 +33,7 @@ class CommentWidget extends CWidget
     public $registerScripts = false;
     public $popUp = false;
     public $commentModel  = 'Comment';
+    public $photoContainer = false;
 
     /**
      * @var bool
@@ -113,6 +114,11 @@ class CommentWidget extends CWidget
         {
             $this->id = $this->entity . $this->entity_id;
             $this->objectName = 'comment_' . $this->id;
+            if ($this->photoContainer)
+                $scroll_container = '#photo-window';
+            else
+                $scroll_container = '.layout-container';
+
             $script = '
             var ' . $this->objectName . ' = new Comment;
             ' . $this->objectName . '.setParams(' . CJavaScript::encode(array(
@@ -121,14 +127,11 @@ class CommentWidget extends CWidget
                 'save_url' => Yii::app()->createUrl('ajax/sendcomment'),
                 'toolbar' => $this->type == 'guestBook' ? 'Simple' : 'Chat',
                 'model' => $this->commentModel,
-                'object_name' => $this->objectName
+                'object_name' => $this->objectName,
+                'scrollContainer'=>$scroll_container
             )) . ');';
             echo '<script type="text/javascript">' . $script . '</script>';
             Yii::app()->clientScript->registerScriptFile('/javascripts/history.js');
-        }
-        else
-        {
-            echo '<script type="text/javascript">comment_scroll_container = "#photo-window";</script>';
         }
 
         if(!$this->onlyList)

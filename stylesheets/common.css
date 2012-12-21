@@ -239,7 +239,7 @@ a.info {display:inline-block;*zoom:1;*display:inline;width:13px;height:13px;back
 .user-info .details .visit {color:#b9b8b8;font:normal 9px tahoma, arial, helvetica, sans-serif;}
 .user-info .details .visit span {background:#fdfaaf;padding:0px 2px;margin-left:-2px;}
 
-.user-info-big .text-status {clear:both;background:#cce7fe;position:relative;padding:10px 15px;font-size:11px;color:#5e5e5e;line-height:14px;-moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px;}
+.user-info-big .text-status {clear:both;background:#cce7fe;position:relative;padding:10px 15px;font-size:11px;color:#5e5e5e;line-height:14px;-moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px;margin-bottom: 3px;}
 .user-info-big .text-status .tale {display:block;width:26px;height:11px;background:url("/images/bg_pattern_user_status.png") no-repeat -133px 0;position:absolute;top:-11px;left:8px;}
 .user-info-big .text-status.pattern{color:#000;opacity:.6;filter: alpha(opacity = 60);}
 .user-info-big .text-status.pattern-10 .tale {background-position:-133px -50px;}

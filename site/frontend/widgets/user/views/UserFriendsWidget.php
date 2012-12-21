@@ -5,7 +5,7 @@
 <div class="user-friends clearfix">
 
     <?php if (empty($friends)): ?>
-        <div class="box-title">Друзья <?=CHtml::link('Найти друзей', '/activity/friends')?></div>
+        <div class="box-title">Друзья <?=CHtml::link('Найти друзей', '/friends/find')?></div>
 
         <?php if (! Yii::app()->user->isGuest && ! WantToChat::hasCooldown(Yii::app()->user->id)): ?>
             <a href="javascript:;" onclick="WantToChat.send(this); return false;"><img src="/images/cap_wannachat.png" /></a>
@@ -25,7 +25,7 @@
         </ul>
 
         <?php if (Yii::app()->user->id == $this->user->id):?>
-            <div class="more-friends"><?=CHtml::link('Найти ещё друзей', array('/activity/friends'))?><?php if (! Yii::app()->user->isGuest && ! WantToChat::hasCooldown(Yii::app()->user->id)): ?> <a href="" class="wannachat" onclick="WantToChat.send(this); return false;">Хочу общаться!</a><?php endif; ?></div>
+            <div class="more-friends"><i class="icon-friends-small"></i><?=CHtml::link('Найти ещё друзей', array('/friends/find'))?><?php if (! Yii::app()->user->isGuest && ! WantToChat::hasCooldown(Yii::app()->user->id)): ?> <a href="" class="wannachat" onclick="WantToChat.send(this); return false;">Хочу общаться!</a><?php endif; ?></div>
         <?php endif ?>
     <?php endif; ?>
 

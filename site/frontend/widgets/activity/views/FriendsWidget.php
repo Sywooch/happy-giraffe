@@ -1,6 +1,6 @@
 <div class="box activity-find-friend">
 
-    <div class="title"><?=CHtml::link('Найти ещё', '/activity/friends')?>Найти <span>друзей</span></div>
+    <div class="title"><?=CHtml::link('Найти ещё', '/friends/find')?>Найти <span>друзей</span></div>
 
     <ul class="clearfix">
         <?php foreach ($friends as $f): ?>

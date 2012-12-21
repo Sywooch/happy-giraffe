@@ -7,6 +7,7 @@
  * @property integer $id
  * @property string $name
  * @property string $url
+ * @property string $password
  * @property int $section
  *
  * The followings are the available model relations:
@@ -46,7 +47,7 @@ class Site extends HActiveRecord
 		// will receive user inputs.
 		return array(
 			array('name', 'required'),
-			array('name, url', 'length', 'max'=>255),
+			array('name, url, password', 'length', 'max'=>255),
             array('section', 'numerical', 'integerOnly' => true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -84,9 +85,6 @@ class Site extends HActiveRecord
 	 */
 	public function search()
 	{
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
-
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);

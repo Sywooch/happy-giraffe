@@ -77,7 +77,7 @@ class ScoreInput extends EMongoDocument
             $this->status = self::STATUS_CLOSED;
 
         if ($this->status == self::STATUS_CLOSED) {
-            $model = UserScores::getModel($this->user_id);
+            $model = UserScores::model()->findByPk($this->user_id);
             if ($model !== null) {
                 $model->scores += $this->scores_earned;
                 $model->save();

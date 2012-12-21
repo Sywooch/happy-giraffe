@@ -8,41 +8,46 @@
  */
 class WhatsNewWidget extends CWidget
 {
+    /**
+     * module Id, controller Id, action Id []
+     * @var array
+     */
+    public $routes = array(
+        array('blog', array('list', 'view')),
+        array('community', array('list', 'view')),
+        array('cook/recipe', array('index', 'tag', 'view', 'cookBook')),
+    );
+    public $type = EventManager::WHATS_NEW_ALL;
+
     public function run()
     {
-        if (! Yii::app()->user->isGuest && in_array(Yii::app()->user->group, array(UserGroup::COMMENTATOR, UserGroup::MODERATOR, UserGroup::EDITOR))) {
-            $dp = EventManager::getIndex(6);
+        if ($this->showThere()){
+            $limit = Yii::app()->user->isGuest ? 20 : 13;
+            $dp = EventManager::getDataProvider($this->type, $limit);
+            //for friends
+            $dp->pagination->pageSize = $limit;
+
             $this->registerScripts();
             $this->render('index', compact('dp'));
         }
     }
 
+    public function showThere()
+    {
+        if (Yii::app()->request->isAjaxRequest)
+            return true;
+
+        foreach ($this->routes as $route)
+            if (Yii::app()->controller->uniqueId == $route[0] && in_array(Yii::app()->controller->action->id, $route[1]))
+                return true;
+
+        return false;
+    }
+
     public function registerScripts()
     {
-        $js = "
-            $('#masonry-news-list-jcarousel').jcarousel({
-                list: '#masonry-news-list-jcarousel-ul',
-                items: '.masonry-news-list_item'
-            });
-
-            // Setup controls for the navigation carousel
-            $('#masonry-news-list-jcarousel .prev')
-            .jcarouselControl({
-                target: '-=1'
-            });
-
-            $('#masonry-news-list-jcarousel .next')
-            .on('click', function() {
-                if($('.masonry-news-list_item:eq(4)').hasClass('jcarousel-item-visible'))
-                    window.location.href = '" . Yii::app()->createUrl('/whatsNew/default/index') . "';
-            })
-            .jcarouselControl({
-                target: '+=1'
-            });
-        ";
-
-        Yii::app()->clientScript
-            ->registerScript('whatsNew-widget', $js)
-        ;
+        $basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR;
+        $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
+        Yii::app()->clientScript->registerScriptFile($baseUrl . '/whatsNew.js', CClientScript::POS_HEAD);
     }
 }

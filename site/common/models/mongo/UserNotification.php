@@ -120,11 +120,15 @@ class UserNotification extends EMongoDocument
     {
         $entity = CActiveRecord::model($comment->entity)->findByPk($comment->entity_id);
         $entityName = get_class($entity);
-        if (! (in_array($entityName, array('CommunityContent', 'BlogContent', 'User', 'CookRecipe')) || $entityName == 'AlbumPhoto' && ($entity->album !== null || $entity->getAttachByEntity('ContestWork') !== null)))
+        if (! (in_array($entityName, array('CommunityContent', 'BlogContent', 'User', 'CookRecipe')) ||
+            $entityName == 'AlbumPhoto' && ($entity->album !== null || $entity->getAttachByEntity('ContestWork') !== null)))
             return false;
 
         $this->recipient_id = (int) (($entityName != 'User') ? $entity->author_id : $entity->id);
         $this->initiator_id = (int) $comment->author_id;
+        if ($this->recipient_id == $this->initiator_id)
+            return false;
+
         $this->url = $comment->url;
 
         $line1 = CHtml::link($comment->author->fullName, $comment->author->url) . ' ' . HDate::simpleVerb('добавил', $comment->author->gender) . ' ' . (($entityName == 'User') ? 'запись' : 'комментарий') . CHtml::tag('br');
@@ -171,6 +175,9 @@ class UserNotification extends EMongoDocument
 
         $this->recipient_id = (int) $comment->response->author_id;
         $this->initiator_id = (int) $comment->author_id;
+        if ($this->recipient_id == $this->initiator_id)
+            return false;
+
         $this->url = $comment->url;
 
         $line1 = CHtml::link($comment->author->fullName, $comment->author->url) . ' ' . HDate::simpleVerb('ответил', $comment->author->gender) . ' на ваш комментарий' . CHtml::tag('br');

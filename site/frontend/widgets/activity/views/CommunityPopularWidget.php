@@ -15,7 +15,7 @@
                 <div class="content"><?=$c->getShort(178)?></div>
                 <div class="meta">
                     <span class="rating"><?=$c->rate?></span>
-                    <span class="views">Просмотров: <?=PageView::model()->viewsByPath(str_replace('http://www.happy-giraffe.ru', '', $c->url), true)?></span>
+                    <span class="views">Просмотров: <?=PageView::model()->viewsByPath($c->url)?></span>
                     <span class="comments"><a href="<?=$c->getUrl(true)?>">Комментариев: <?=$c->commentsCount?></a></span>
                 </div>
             </li>

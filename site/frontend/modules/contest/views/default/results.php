@@ -83,6 +83,21 @@
                 'model' => 'Avent Philips SCH 550',
             ),
         );
+    } elseif ($this->contest->id == 5) {
+        $prizes = array(
+            '1' => array(
+                'title' => 'Увлажнитель воздуха',
+                'model' => 'TIGEX',
+            ),
+            '2' => array(
+                'title' => 'Радионяня',
+                'model' => '«Я расту» WT-448',
+            ),
+            '3' => array(
+                'title' => 'Радионяня',
+                'model' => '«Я расту» WT-448',
+            ),
+        );
     }
 ?>
 

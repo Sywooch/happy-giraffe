@@ -136,7 +136,7 @@
             'varyByExpression' => $this->rubric_id,
         ))): ?>
 
-            <div class="club-topics-list-new drop-holder">
+            <div class="club-topics-list-new club-topics-list-new__bracket drop-holder">
 
                 <?php
                     $items = array();
@@ -249,8 +249,6 @@
         <?php endif; ?>
     </div>
 </div>
-
-<div class="push"></div>
 
 <div style="display: none;">
     <div id="joinClub" class="popup-confirm popup">

@@ -462,11 +462,13 @@ class AlbumsController extends HController
     public function actionCommunityContentSave()
     {
         header('Content-type: application/json');
+        $title = trim(Yii::app()->request->getPost('title'));
         $description = trim(Yii::app()->request->getPost('description'));
 
         $val = Yii::app()->request->getPost('val');
         if (!is_numeric($val)) {
             $model = new AlbumPhoto;
+            $model->title = $title;
             $model->file_name = $val;
             $model->author_id = Yii::app()->user->id;
             $model->create(true);
@@ -760,6 +762,8 @@ class AlbumsController extends HController
             }
             if (!isset($currentIndex))
                 throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
+            $this->pageTitle = $photo->w_title;
         }
 
         $this->layout = '//layouts/main';

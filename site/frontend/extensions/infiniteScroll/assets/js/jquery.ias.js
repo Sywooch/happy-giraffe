@@ -594,8 +594,12 @@
          */
         this.pushState = function(stateObj, title, url)
         {
+            console.log('push state');
             if (isHtml5) {
                 history.pushState({ ias : stateObj }, title, url);
+                //alexk984
+                _gaq.push(['_trackPageview', path]);
+                yaCounter11221648.hit(path);
             }
             else {
                 hash = (stateObj.page > 0 ? "#/page/" + stateObj.page : "");

@@ -8,6 +8,8 @@
  */
 class FriendsController extends HController
 {
+    public $broadcast = true;
+
     public function filters()
     {
         return array(
@@ -29,6 +31,8 @@ class FriendsController extends HController
 //        $status = CommunityContent::model()->resetScope()->findByAttributes(array('type_id' => 5));
 //        FriendEventManager::add(FriendEvent::TYPE_STATUS_UPDATED, array('model' => $status));
         $dp = FriendEventManager::getDataProvider(Yii::app()->user->model);
+
+        $this->pageTitle = 'Что нового у моих друзей - Веселый Жираф';
 
         $this->render('index', compact('dp'));
     }

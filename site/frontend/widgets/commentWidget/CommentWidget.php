@@ -33,6 +33,7 @@ class CommentWidget extends CWidget
     public $registerScripts = false;
     public $popUp = false;
     public $commentModel  = 'Comment';
+    public $photoContainer = false;
 
     /**
      * @var bool
@@ -94,7 +95,7 @@ class CommentWidget extends CWidget
 		}
 		else
 		{
-			$this->render('form', array(
+			$this->render('new_form', array(
 				'comment_model' => $comment_model,
 				'dataProvider' => $dataProvider,
                 'type'=>$this->type,
@@ -113,22 +114,24 @@ class CommentWidget extends CWidget
         {
             $this->id = $this->entity . $this->entity_id;
             $this->objectName = 'comment_' . $this->id;
+            if ($this->photoContainer && Yii::app()->request->isAjaxRequest)
+                $scroll_container = '#photo-window';
+            else
+                $scroll_container = '.layout-container';
+
             $script = '
             var ' . $this->objectName . ' = new Comment;
             ' . $this->objectName . '.setParams(' . CJavaScript::encode(array(
                 'entity' => $this->entity,
                 'entity_id' => (int)$this->entity_id,
                 'save_url' => Yii::app()->createUrl('ajax/sendcomment'),
-                'toolbar' => $this->type == 'guestBook' ? 'Simple' : 'Main',
+                'toolbar' => $this->type == 'guestBook' ? 'Simple' : 'Chat',
                 'model' => $this->commentModel,
-                'object_name' => $this->objectName
+                'object_name' => $this->objectName,
+                'scrollContainer'=>$scroll_container
             )) . ');';
             echo '<script type="text/javascript">' . $script . '</script>';
             Yii::app()->clientScript->registerScriptFile('/javascripts/history.js');
-        }
-        else
-        {
-            echo '<script type="text/javascript">comment_scroll_container = "#photo-window";</script>';
         }
 
         if(!$this->onlyList)

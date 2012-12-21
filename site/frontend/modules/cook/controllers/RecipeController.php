@@ -14,10 +14,10 @@ class RecipeController extends HController
     {
         return array(
             'accessControl',
-            array(
-                'CHttpCacheFilter + view',
-                'lastModified' => $this->lastModified(),
-            ),
+//            array(
+//                'CHttpCacheFilter + view',
+//                'lastModified' => $this->lastModified(),
+//            ),
             //'ajaxOnly + ac, searchByIngredientsResult, advancedSearchResult, autoSelect'
         );
     }
@@ -50,47 +50,101 @@ class RecipeController extends HController
         return parent::beforeAction($action);
     }
 
-    public function actionIndex($type = null, $section = null)
+    public function actionIndex($type = 0, $section = null)
     {
-        $this->pageTitle = 'Рецепты';
+        $this->pageTitle = 'Кулинарные рецепты от Веселого Жирафа';
+        if (!empty($type))
+            $this->pageTitle = CActiveRecord::model($this->modelName)->types[$type].' - '.$this->pageTitle;
+
         $this->layout = '//layouts/recipe';
         $this->currentType = $type;
 
         $dp = CActiveRecord::model($this->modelName)->getByType($type);
         $this->counts = CActiveRecord::model($this->modelName)->counts;
+        $dp->totalItemCount = $this->counts[$type];
 
-        if ($type === null)
+        if (empty($type))
             $this->breadcrumbs = array(
                 'Кулинария' => array('/cook'),
-                $this->section == 0 ? 'Рецепты' : 'Рецепты для мультиварок',
+                $this->section == 0 ? 'Кулинарные рецепты' : 'Рецепты для мультиварок',
             );
         else
             $this->breadcrumbs = array(
                 'Кулинария' => array('/cook'),
-                ($this->section == 0 ? 'Рецепты' : 'Рецепты для мультиварок') => array('/cook/recipe/index', 'section' => $this->section),
+                ($this->section == 0 ? 'Кулинарные рецепты' : 'Рецепты для мультиварок') => array('/cook/recipe/index', 'section' => $this->section),
                 CookRecipe::model()->types[$type],
             );
 
-        $this->render('index', compact('dp'));
+        $this->render('index', compact('dp', 'type'));
     }
 
-    public function actionTag($tag = null, $type = null)
+    public function actionTag($tag = null, $type = 0)
     {
-        if (!Yii::app()->user->checkAccess('recipe_tags'))
-            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
-
-        if (empty($tag))
-            $this->render('tag_list');
-        else {
-            $this->pageTitle = CookRecipeTag::model()->findByPk($tag)->title;
-            $this->layout = '//layouts/recipe';
-
-            $dp = CActiveRecord::model($this->modelName)->getByTag($tag, $type);
-            $this->counts = CActiveRecord::model($this->modelName)->count($dp->criteria);
-            $tag = CookRecipeTag::model()->findByPk($tag);
-
-            $this->render('tag', compact('dp', 'tag'));
+        if (empty($tag)){
+            if (Yii::app()->user->checkAccess('recipe_tags'))
+                $this->render('tag_list');
+            else
+                throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+            Yii::app()->end();
         }
+
+        $model = $this->loadTag($tag);
+        $this->pageTitle = $model->title. ' - Кулинарные рецепты от Веселого Жирафа';
+        $this->layout = '//layouts/recipe';
+        $this->currentType = $type;
+
+        $dp = CActiveRecord::model($this->modelName)->getByTag($tag, $type);
+        $this->counts = CActiveRecord::model($this->modelName)->getCountsByTag($tag);
+        $dp->totalItemCount = $this->counts[$type];
+
+        if (empty($type))
+            $this->breadcrumbs = array(
+                'Кулинария' => array('/cook'),
+                'Кулинарные рецепты' => array('/cook/recipe'),
+                $model->title
+            );
+        else
+            $this->breadcrumbs = array(
+                'Кулинария' => array('/cook'),
+                'Кулинарные рецепты' => array('/cook/recipe'),
+                $model->title => $this->createUrl('/cook/recipe/tag', array('tag' => $tag)),
+                CookRecipe::model()->types[$type],
+            );
+
+        $this->render('tag', compact('dp', 'model'));
+    }
+
+    public function actionCookBook($type = 0)
+    {
+        if (Yii::app()->user->isGuest){
+            $this->redirect('/cook/recipe/');
+            Yii::app()->end();
+        }
+
+        $this->pageTitle = 'Моя кулинарная книга';
+        $this->layout = '//layouts/recipe';
+        $this->currentType = $type;
+
+        $dp = CActiveRecord::model($this->modelName)->getByCookBook($type);
+        $this->counts = CActiveRecord::model($this->modelName)->getCountsByCookBook($type);
+        $dp->totalItemCount = $this->counts[$type];
+
+        if (empty($type))
+            $this->breadcrumbs = array(
+                'Кулинария' => array('/cook'),
+                ($this->section == 0 ? 'Кулинарные рецепты' : 'Рецепты для мультиварок') => array('/cook/recipe/index', 'section' => $this->section),
+                'Моя кулинарная книга'
+            );
+        else
+            $this->breadcrumbs = array(
+                'Кулинария' => array('/cook'),
+                ($this->section == 0 ? 'Кулинарные рецепты' : 'Рецепты для мультиварок') => array('/cook/recipe/index', 'section' => $this->section),
+                'Моя кулинарная книга' => array('/cook/recipe/cookBook', 'section' => $this->section),
+                CookRecipe::model()->types[$type],
+            );
+
+
+        $this->render('cookbook', compact('dp'));
     }
 
     public function actionForm($id = null)
@@ -101,7 +155,7 @@ class RecipeController extends HController
             $recipe = new $this->modelName;
             $ingredients = array();
         } else {
-            $recipe = CActiveRecord::model($this->modelName)->with(array(
+            $recipe = CActiveRecord::model($this->modelName)->active()->with(array(
                 'photo',
                 'cuisine',
                 'ingredients' => array(
@@ -233,7 +287,7 @@ class RecipeController extends HController
      */
     public function actionView($id, $section, $lastPage = null, $ajax = null)
     {
-        $recipe = CActiveRecord::model($this->modelName)->with(array(
+        $recipe = CActiveRecord::model($this->modelName)->active()->with(array(
             'photo',
             'attachPhotos',
             'cuisine',
@@ -244,6 +298,8 @@ class RecipeController extends HController
                     'unit',
                 )
             ),
+            'author',
+            'commentsCount'
         ))->findByPk($id);
         if ($recipe === null)
             throw new CHttpException(404, 'Такого рецепта не существует');
@@ -251,14 +307,14 @@ class RecipeController extends HController
         $this->counts = CActiveRecord::model($this->modelName)->counts;
         $this->currentType = $recipe->type;
         $this->layout = '//layouts/recipe';
-        $this->pageTitle = $recipe->title;
+        $this->pageTitle = $recipe->title . ' - Кулинарные рецепты от Веселого Жирафа';
 
         if (!Yii::app()->user->isGuest)
             UserNotification::model()->deleteByEntity($recipe, Yii::app()->user->id);
 
         $this->breadcrumbs = array(
             'Кулинария' => array('/cook'),
-            ($this->section == 0 ? 'Рецепты' : 'Рецепты для мультиварок') => array('/cook/recipe/index', 'section' => $this->section),
+            ($this->section == 0 ? 'Кулинарные рецепты' : 'Рецепты для мультиварок') => array('/cook/recipe/index', 'section' => $this->section),
             $recipe->typeString => array('/cook/recipe/index', 'type' => $recipe->type, 'section' => $this->section),
             $recipe->title,
         );
@@ -269,36 +325,18 @@ class RecipeController extends HController
     public function actionSearch($type = null, $text = false)
     {
         $this->layout = '//layouts/recipe';
+        $this->pageTitle = 'Поиск рецептов';
         $this->currentType = $type;
         $text = urldecode($text);
 
-        $pages = new CPagination();
-        $pages->pageSize = 100000;
-
-        $criteria = new stdClass();
-        $criteria->from = 'recipe';
-        $criteria->select = '*';
-        $criteria->paginator = $pages;
-        $criteria->query = $text;
-
-        $resIterator = CookRecipe::model()->getSearchResult($criteria);
-
-        $allSearch = Yii::app()->search->select('*')->from('recipe')->where($criteria->query)->limit(0, 100000)->searchRaw();
-        $this->counts = CookRecipe::model()->getSearchResultCounts($allSearch);
-        $allCount = $this->counts[0];
-
-        $dataProvider = new CArrayDataProvider($resIterator, array(
-            'keyField' => 'id',
-        ));
-
-        $criteria = new CDbCriteria;
-
         $this->breadcrumbs = array(
             'Кулинария' => array('/cook'),
+            ($this->section == 0 ? 'Кулинарные рецепты' : 'Рецепты для мультиварок') => array('/cook/recipe/index', 'section' => $this->section),
             'Поиск',
         );
 
-        $this->render('search', compact('dataProvider', 'criteria', 'text', 'allCount', 'type'));
+        list($dataProvider, $this->counts) = CookRecipe::model()->searchByName($text, $type);
+        $this->render('search', compact('dataProvider', 'text', 'type'));
     }
 
     public function actionSearchByIngredients()
@@ -307,7 +345,7 @@ class RecipeController extends HController
 
         $this->breadcrumbs = array(
             'Кулинария' => array('/cook'),
-            ($this->section == 0 ? 'Рецепты' : 'Рецепты для мультиварок') => array('/cook/recipe/index', 'section' => $this->section),
+            ($this->section == 0 ? 'Кулинарные рецепты' : 'Рецепты для мультиварок') => array('/cook/recipe/index', 'section' => $this->section),
             'Поиск по ингредиентам'
         );
 
@@ -330,7 +368,7 @@ class RecipeController extends HController
 
         $this->breadcrumbs = array(
             'Кулинария' => array('/cook'),
-            ($this->section == 0 ? 'Рецепты' : 'Рецепты для мультиварок') => array('/cook/recipe/index', 'section' => $this->section),
+            ($this->section == 0 ? 'Кулинарные рецепты' : 'Рецепты для мультиварок') => array('/cook/recipe/index', 'section' => $this->section),
             'Расширенный поиск'
         );
 
@@ -349,26 +387,6 @@ class RecipeController extends HController
 
         $recipes = CActiveRecord::model($this->modelName)->findAdvanced($cuisine_id, $type, $preparation_duration, $cooking_duration, $lowFat, $lowCal, $forDiabetics);
         $this->renderPartial('advancedSearchResult', compact('recipes'), false, true);
-    }
-
-    public function actionAcOld($term)
-    {
-        $ingredients = CookIngredient::model()->findByName($term, array(
-            'select' => 'id, title',
-            'with' => array('units', 'unit'),
-        ));
-
-        $_ingredients = array();
-        foreach ($ingredients as $i) {
-            $unit = array('id' => $i->unit->id, 'title' => $i->unit->title);
-            $units = array();
-            foreach ($i->availableUnits as $u) {
-                $units[] = array('id' => $u->id, 'title' => $u->title);
-            }
-            $ingredient = array('label' => $i->title, 'value' => $i->title, 'id' => $i->id, 'units' => $units, 'unit' => $unit);
-            $_ingredients[] = $ingredient;
-        }
-        echo CJSON::encode($_ingredients);
     }
 
     public function actionAc($term)
@@ -525,6 +543,44 @@ class RecipeController extends HController
         echo CJSON::encode(array('status' => $result));
     }
 
+    public function actionBook()
+    {
+        $recipe = $this->loadModel(Yii::app()->request->getPost('recipe_id'));
+
+        if (Yii::app()->user->isGuest) {
+            Yii::app()->user->setState('recipe_id', $recipe->id);
+            Yii::app()->user->setState('redirectUrl', '/cook/recipe/cookBook/');
+            echo CJSON::encode(array('status' => false));
+        } else {
+            $result = $recipe->book();
+            $count = CookRecipe::userBookCount();
+            $count = $count . ' ' . HDate::GenerateNoun(array('рецепт', 'рецепта', 'рецептов'), $count);
+
+            echo CJSON::encode(array('status' => true, 'result' => $result, 'count' => $count));
+        }
+    }
+
+    public function getTypeUrl($id)
+    {
+        if (empty($id))
+            $params = array();
+        else
+            $params = array('type' => $id);
+
+        if ($this->action->id == 'search') {
+            $params['text'] = $_GET['text'];
+            return $this->createUrl('/cook/recipe/search', $params);
+        } elseif ($this->action->id == 'tag') {
+            $params['tag'] = $_GET['tag'];
+            return $this->createUrl('/cook/recipe/tag', $params);
+        } elseif ($this->action->id == 'cookBook') {
+            return $this->createUrl('/cook/recipe/cookBook', $params);
+        } else {
+            $params['section'] = $this->section;
+            return $this->createUrl('/cook/recipe/index', $params);
+        }
+    }
+
     protected function lastModified()
     {
         if (!Yii::app()->user->isGuest)
@@ -546,5 +602,31 @@ class RecipeController extends HController
         $command = Yii::app()->db->createCommand($sql);
         $command->bindValue(':recipe_id', $recipe_id, PDO::PARAM_INT);
         return $command->queryScalar();
+    }
+
+    /**
+     * @param int $id model id
+     * @return CookRecipe
+     * @throws CHttpException
+     */
+    public function loadModel($id)
+    {
+        $model = CookRecipe::model()->findByPk($id);
+        if ($model === null)
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        return $model;
+    }
+
+    /**
+     * @param int $id model id
+     * @return CookRecipeTag
+     * @throws CHttpException
+     */
+    public function loadTag($id)
+    {
+        $model = CookRecipeTag::model()->findByPk($id);
+        if ($model === null)
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        return $model;
     }
 }

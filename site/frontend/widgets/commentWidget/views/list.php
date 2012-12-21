@@ -26,23 +26,15 @@ if ($type == 'guestBook') {
             </div>
             ';
 } else {
-    if (Yii::app()->user->isGuest)
-        $link = '<a href="#login" class="btn btn-orange a-right fancy" data-theme="white-square"><span><span>' . $this->button . '</span></span></a>';
-    else{
-        if ($this->readOnly)
-                $link = '';
-        else
-            $link = '<a href="#add_comment" onclick="'.$this->objectName.'.newComment(event);" class="btn btn-orange a-right"><span><span>' . $this->button . '</span></span></a>';
-    }
+
+    $form = $this->render('add_comment', array('comment_model'=>$comment_model), true);
 
     $template = '
             <div class="default-comments" id="comment_list">
                 <div class="comments-meta clearfix">
-                    ' . $link . '
                     <div class="title">' . $this->title . '</div>
                     <div class="count">' . $dataProvider->totalItemCount . '</div>
-                </div>
-                {items}
+                </div>'.$form.'{items}
             </div>
             <div class="pagination pagination-center clearfix">
                 {pager}

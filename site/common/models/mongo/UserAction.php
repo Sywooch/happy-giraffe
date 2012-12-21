@@ -188,6 +188,7 @@ class UserAction extends EMongoDocument
             ),
         ));
 
+
         return $criteria;
     }
 

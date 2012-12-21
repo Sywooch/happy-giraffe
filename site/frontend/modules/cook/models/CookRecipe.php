@@ -17,11 +17,11 @@
  * @property string $full
  *
  * The followings are the available model relations:
- * @property CookRecipeIngredients[] $cookRecipeIngredients
+ * @property CookRecipeIngredient[] $cookRecipeIngredients
  * @property User $author
  * @property AlbumPhoto $photo
  * @property CookRecipeTag $tags
- * @property CookCuisines $cuisine
+ * @property CookCuisine $cuisine
  * @property AttachPhoto[] $attachPhotos
  */
 class CookRecipe extends CActiveRecord
@@ -40,6 +40,7 @@ class CookRecipe extends CActiveRecord
     );
 
     public $types = array(
+        0 => 'Все рецепты',
         1 => 'Первые блюда',
         2 => 'Вторые блюда',
         3 => 'Салаты',
@@ -238,6 +239,15 @@ class CookRecipe extends CActiveRecord
         );
     }
 
+    public function scopes()
+    {
+        return array(
+            'active' => array(
+                'condition' => 't.removed = 0',
+            ),
+        );
+    }
+
     protected function beforeValidate()
     {
         if (!empty($this->preparation_duration_h) || !empty($this->preparation_duration_m)) {
@@ -256,14 +266,13 @@ class CookRecipe extends CActiveRecord
 
     protected function afterFind()
     {
-        if (! empty($this->tags))
-        {
+        if (!empty($this->tags)) {
             foreach ($this->tags as $service)
                 $this->tagsIds[] = $service->id;
         }
 
         if ($this->preparation_duration !== null) {
-            $this->preparation_duration_h =  sprintf("%02d", floor($this->preparation_duration / 60));
+            $this->preparation_duration_h = sprintf("%02d", floor($this->preparation_duration / 60));
             $this->preparation_duration_m = sprintf("%02d", $this->preparation_duration % 60);
         }
 
@@ -296,8 +305,8 @@ class CookRecipe extends CActiveRecord
     protected function afterSave()
     {
         if ($this->isNewRecord) {
-            if ($this->isNewRecord)
-                $this->sendEvent();
+            $this->sendEvent();
+            $this->book();
 
             UserAction::model()->add($this->author_id, UserAction::USER_ACTION_RECIPE_ADDED, array('model' => $this));
             FriendEventManager::add(FriendEvent::TYPE_RECIPE_ADDED, array('model' => $this));
@@ -311,14 +320,20 @@ class CookRecipe extends CActiveRecord
                     'update_part' => CometModel::UPDATE_CLUB,
                 ), CometModel::TYPE_COMMENTATOR_UPDATE);
             }
-        } else {
-            $text = 'User: '  . Yii::app()->user->id . "\n" .
-                    'Route: '  . Yii::app()->controller->route . "\n" .
-                    'ID: '  . $this->id . "\n";
-            Yii::log($text, 'warning');
         }
 
         parent::afterSave();
+    }
+
+    public function beforeDelete()
+    {
+        Yii::app()->db->createCommand()->update($this->tableName(), array('removed' => 1), 'id=:id', array(':id' => $this->id));
+
+        //удаляем из кулинарной книги автора, но у других рецепт остается
+        if ($this->isBooked())
+            $this->book();
+
+        return false;
     }
 
     public function getNutritionals()
@@ -351,13 +366,322 @@ class CookRecipe extends CActiveRecord
 
     public function getBakeryItems()
     {
-        return round($this->getNutritionalsPerServing(4) / 11, 2);
+        return round($this->getNutritionalsPerServing(4) / 11, 1);
     }
+
+    public function getBakeryItemsCssClass()
+    {
+        $xe = $this->getBakeryItems();
+        if ($xe < 11)
+            return 'val33';
+        if ($xe < 22)
+            return 'val66';
+        return 'val100';
+    }
+
+    public function getBakeryItemsText()
+    {
+        $xe = $this->getBakeryItems();
+        if ($xe < 11)
+            return 'Подходит для диабетиков';
+        if ($xe < 22)
+            return 'Подходит для диабетиков';
+        return 'Не подходит для диабетиков';
+    }
+
+    public function getUrlParams()
+    {
+        return array(
+            '/cook/recipe/view',
+            array(
+                'id' => $this->id,
+                'section' => $this->section,
+            ),
+        );
+    }
+
+    public function getUrl($comments = false, $absolute = false)
+    {
+        list($route, $params) = $this->urlParams;
+
+        if ($comments)
+            $params['#'] = 'comment_list';
+
+        $method = $absolute ? 'createAbsoluteUrl' : 'createUrl';
+        return Yii::app()->$method($route, $params);
+    }
+
+    public function getPreview($imageWidth = 167, $height = null)
+    {
+        if ($this->mainPhoto !== null) {
+            $preview = HHtml::link(CHtml::image($this->mainPhoto->getPreviewUrl($imageWidth, $height, Image::WIDTH, true, AlbumPhoto::CROP_SIDE_TOP)), $this->url, array(), true);
+        } else {
+            $preview = CHtml::tag('p', array(), Str::truncate($this->text));
+        }
+
+        return $preview;
+    }
+
+
+    public function getMainPhoto()
+    {
+        if ($this->photo !== null)
+            return $this->photo;
+
+        if (!empty($this->attachPhotos)) {
+            return $this->attachPhotos[0]->photo;
+        }
+
+        return null;
+    }
+
+    public function getThumbs()
+    {
+        $thumbs = $this->attachPhotos;
+        if (!empty($thumbs))
+            $thumbs = array_slice($thumbs, 0, 3);
+
+        return $thumbs;
+    }
+
+    public function getPhotoCollection()
+    {
+        $photos = array();
+        if ($this->photo !== null) {
+            $photos[] = $this->photo;
+        }
+        foreach ($this->attachPhotos as $p) {
+            $photos[] = $p->photo;
+        }
+
+        foreach ($photos as $i => $p) {
+            $p->w_title = 'Фото рецепта «' . $this->title . '» - ' . ($i + 1);
+        }
+
+        return array(
+            'title' => 'Фотоальбом к рецепту ' . CHtml::link($this->title, $this->url),
+            'photos' => $photos,
+        );
+    }
+
+    public function getDurationLabels()
+    {
+        $labels = array();
+        foreach ($this->durations as $d)
+            $labels[] = $d['label'];
+        return $labels;
+    }
+
+    public function getTypeString($type = null)
+    {
+        return ($type === null) ? $this->types[$this->type] : $this->types[$type];
+    }
+
+    public function getCookingDurationString()
+    {
+        if ($this->cooking_duration < 60) {
+            return $this->cooking_duration_m . ' мин';
+        } elseif ($this->cooking_duration % 60 == 0) {
+            return $this->cooking_duration_h . ' ч';
+        } else {
+            return $this->cooking_duration_h . ' ч' . $this->cooking_duration_m . ' мин';
+        }
+    }
+
+    public function getRssContent()
+    {
+        return ($this->mainPhoto !== null) ?
+            CHtml::image($this->mainPhoto->getPreviewUrl(441, null, Image::WIDTH), $this->mainPhoto->title) . $this->text
+            :
+            $this->text;
+    }
+
+    public function getContentImage()
+    {
+        return ($this->mainPhoto !== null) ? $this->mainPhoto->getPreviewUrl(303, null, Image::WIDTH) : false;
+    }
+
+    public function getEvent()
+    {
+        $row = array(
+            'id' => $this->id,
+            'last_updated' => time(),
+            'type' => Event::EVENT_RECIPE,
+        );
+
+        $event = Event::factory(Event::EVENT_RECIPE);
+        $event->attributes = $row;
+        return $event;
+    }
+
+    public function sendEvent()
+    {
+        $event = $this->event;
+        $params = array(
+            'blockId' => $event->blockId,
+            'code' => $event->code,
+        );
+
+        $comet = new CometModel;
+        $comet->send('whatsNewIndex', $params, CometModel::WHATS_NEW_UPDATE);
+    }
+
+    public function getUnknownClassCommentsCount()
+    {
+        return $this->commentsCount;
+    }
+
+    /******************************************************************************************************************/
+    /************************************************* Selections *****************************************************/
+    /******************************************************************************************************************/
+
+    public function getByTag($tag_id, $type)
+    {
+        $criteria = new CDbCriteria(array(
+            'with' => array('photo', 'attachPhotos', 'commentsCount', 'tags', 'author', 'cuisine'),
+            'order' => 't.created DESC',
+        ));
+        $criteria->condition = 'tags.id=' . $tag_id . ' AND tags.id IS NOT NULL';
+        $criteria->scopes = array('active');
+        $criteria->together = true;
+
+        if (!empty($type))
+            $criteria->compare('type', $type);
+
+        $dp = new CActiveDataProvider(get_class($this), array(
+            'criteria' => $criteria,
+            'pagination' => array(
+                'pageSize' => 10,
+            ),
+        ));
+
+        return $dp;
+    }
+
+    public function getByType($type)
+    {
+        $criteria = new CDbCriteria(array(
+            'with' => array('photo', 'attachPhotos', 'commentsCount', 'tags', 'author', 'cuisine'),
+            'order' => 't.created DESC',
+        ));
+        $criteria->scopes = array('active');
+        if (!empty($type))
+            $criteria->compare('type', $type);
+
+        $count_criteria = clone $criteria;
+        $count_criteria->with = array();
+
+        $dp = new CActiveDataProvider(get_class($this), array(
+            'criteria' => $criteria,
+            'pagination' => array(
+                'pageSize' => 10,
+            ),
+        ));
+
+        return $dp;
+    }
+
+    public function getByCookBook($type)
+    {
+        $criteria = new CDbCriteria(array(
+            'with' => array('photo', 'attachPhotos', 'commentsCount', 'tags', 'author', 'cuisine'),
+            'join' => 'LEFT JOIN cook__cook_book as book ON book.recipe_id = t.id',
+            'order' => 'book.created DESC',
+            'condition' => 'book.user_id = :me',
+            'params' => array(':me' => Yii::app()->user->id)
+        ));
+        if (!empty($type))
+            $criteria->compare('type', $type);
+
+        $count_criteria = clone $criteria;
+        $count_criteria->with = array();
+
+        $dp = new CActiveDataProvider('CookRecipe', array(
+            'criteria' => $criteria,
+            'pagination' => array(
+                'pageSize' => 10,
+            ),
+        ));
+
+        return $dp;
+    }
+
+    public function getLastCommentators($limit = 3)
+    {
+        return Comment::model()->with('author', 'author.avatar')->findAll(array(
+            'condition' => 'entity = :entity AND entity_id = :entity_id',
+            'params' => array(':entity' => 'CookRecipe', ':entity_id' => $this->id),
+            'order' => 't.created DESC',
+            'limit' => $limit,
+            'group' => 't.author_id',
+        ));
+    }
+
+    public function getLastRecipes($limit = 9)
+    {
+        $criteria = new CDbCriteria(array(
+            'limit' => $limit,
+            'order' => 't.created DESC',
+            'with' => array(
+                'photo',
+                'tags',
+                'author' => array(
+                    'select' => array('id', 'first_name', 'last_name', 'avatar_id', 'online', 'blocked', 'deleted')
+                )
+            ),
+            'scopes' => array('active')
+        ));
+
+        return $this->findAll($criteria);
+    }
+
+    public function getMore()
+    {
+        $prev = $this->findAll(
+            array(
+                'condition' => 't.id < :current_id AND type = :type',
+                'params' => array(':current_id' => $this->id, ':type' => $this->type),
+                'limit' => 2,
+                'order' => 't.id DESC',
+                'scopes' => array('active'),
+                'with'=>array('author')
+            )
+        );
+
+        $next = $this->findAll(
+            array(
+                'condition' => 't.id > :current_id AND type = :type',
+                'params' => array(':current_id' => $this->id, ':type' => $this->type),
+                'limit' => 2,
+                'order' => 't.id',
+                'scopes' => array('active'),
+                'with'=>array('author')
+            )
+        );
+
+        return CMap::mergeArray(array_reverse($prev), $next);
+    }
+
+    public function getNotEmptyTags()
+    {
+        $result = array();
+        foreach ($this->tags as $tag)
+            if (!empty($tag->text))
+                $result [] = $tag;
+
+        return $result;
+    }
+
+
+    /******************************************************************************************************************/
+    /*************************************************  Search  *******************************************************/
+    /******************************************************************************************************************/
 
     public function findAdvanced($cuisine_id, $type, $preparation_duration, $cooking_duration, $lowFat, $lowCal, $forDiabetics)
     {
         $criteria = new CDbCriteria;
         $criteria->with = array('photo', 'attachPhotos');
+        $criteria->scopes = array('active');
 
         if ($cuisine_id !== null)
             $criteria->compare('cuisine_id', $cuisine_id);
@@ -410,6 +734,7 @@ class CookRecipe extends CActiveRecord
         $criteria->with = array('photo', 'attachPhotos');
         $criteria->condition = '(' . $subquery . ') = :count';
         $criteria->params = array(':count' => count($ingredients));
+        $criteria->scopes = array('active');
         if ($type !== null)
             $criteria->compare('type', $type);
 
@@ -441,274 +766,233 @@ class CookRecipe extends CActiveRecord
         $criteria->condition = 't.id IN (' . $subquery . ')';
         $criteria->params = array(':ingredient_id' => $ingredient_id);
         $criteria->limit = $limit;
+        $criteria->scopes = array('active');
 
         return $this->findAll($criteria);
     }
 
-    public function getUrlParams()
+    public function searchByName($text, $type = null)
     {
-        return array(
-            '/cook/recipe/view',
-            array(
-                'id' => $this->id,
-                'section' => $this->section,
-            ),
-        );
-    }
+        if (empty($text))
+            return array(new CActiveDataProvider($this, array(
+                'criteria' => new CDbCriteria,
+                'pagination' => array(
+                    'pageSize' => 36,
+                ),
+            )), $this->getCounts());
 
-    public function getUrl($comments = false, $absolute = false)
-    {
-        list($route, $params) = $this->urlParams;
+        $pages = new CPagination();
+        $pages->pageSize = 100000;
 
-        if ($comments)
-            $params['#'] = 'comment_list';
+        $criteria = new stdClass();
+        $criteria->from = 'recipe';
+        $criteria->select = '*';
+        $criteria->paginator = $pages;
+        $criteria->query = $text;
 
-        $method = $absolute ? 'createAbsoluteUrl' : 'createUrl';
-        return Yii::app()->$method($route, $params);
-    }
-
-    public function getPreview($imageWidth = 167)
-    {
-        if ($this->mainPhoto !== null) {
-            $preview = CHtml::link(CHtml::image($this->mainPhoto->getPreviewUrl($imageWidth, null, Image::WIDTH)), $this->url);
+        $idArray = $this->getSearchResultIdArray($criteria);
+        $criteria = new CDbCriteria;
+        $criteria->scopes = array('active');
+        if (empty($idArray)) {
+            $criteria->compare('id', 0);
         } else {
-            $preview = CHtml::tag('p', array(), Str::truncate($this->text));
+            $criteria->compare('id', $idArray);
+            $criteria->compare('type', $type);
         }
 
-        return $preview;
+        return array(new CActiveDataProvider($this, array(
+            'criteria' => $criteria,
+            'pagination' => array(
+                'pageSize' => 36,
+            ),
+        )), $this->getCountsByIds($idArray));
     }
 
-    public function getMore()
-    {
-        $next = $this->findAll(
-            array(
-                'condition' => 't.id > :current_id AND type = :type',
-                'params' => array(':current_id' => $this->id, ':type' => $this->type),
-                'limit' => 1,
-                'order' => 't.id',
-            )
-        );
-
-        $prev = $this->findAll(
-            array(
-                'condition' => 't.id < :current_id AND type = :type',
-                'params' => array(':current_id' => $this->id, ':type' => $this->type),
-                'limit' => 2,
-                'order' => 't.id DESC',
-            )
-        );
-
-        return CMap::mergeArray($next, $prev);
-    }
-
-    public function getMainPhoto()
-    {
-        if ($this->photo !== null)
-            return $this->photo;
-
-        if (!empty($this->attachPhotos)) {
-            return $this->attachPhotos[0]->photo;
-        }
-
-        return null;
-    }
-
-    public function getThumbs()
-    {
-        $thumbs = $this->attachPhotos;
-        if ($this->photo === null) {
-            array_shift($thumbs);
-        }
-
-        return $thumbs;
-    }
-
-    public function getPhotoCollection()
-    {
-        $photos = array();
-        if ($this->photo !== null) {
-            $photos[] = $this->photo;
-        }
-        foreach ($this->attachPhotos as $p) {
-            $photos[] = $p->photo;
-        }
-
-        foreach ($photos as $i => $p) {
-            $p->w_title = $this->title . ' - фото ' . ($i + 1);
-        }
-
-        return array(
-            'title' => 'Фотоальбом к рецепту ' . CHtml::link($this->title, $this->url),
-            'photos' => $photos,
-        );
-    }
-
-    public function getLastRecipes($limit = 9)
-    {
-        $criteria = new CDbCriteria(array(
-            'limit' => $limit,
-            'order' => 't.created DESC',
-            'with' => 'photo',
-        ));
-
-        return $this->findAll($criteria);
-    }
-
-    public function getDurationLabels()
-    {
-        $labels = array();
-        foreach ($this->durations as $d)
-            $labels[] = $d['label'];
-        return $labels;
-    }
-
-    public function getCounts()
+    public function getCountsByTag($tag)
     {
         $_counts = array();
 
-        $_counts[0] = $this->count();
+        foreach ($this->types as $k => $v)
+            $_counts[$k] = 0;
+
+        $counts = Yii::app()->db->createCommand()
+            ->select('type, count(*)')
+            ->from('cook__recipe_recipes_tags')
+            ->group('type')
+            ->join('cook__recipes', 'cook__recipes.id = cook__recipe_recipes_tags.recipe_id')
+            ->where('tag_id = :tag_id AND removed=0', array(':tag_id' => $tag))
+            ->queryAll();
+
+        foreach ($counts as $c) {
+            $_counts[$c['type']] = $c['count(*)'];
+            $_counts[0] += $c['count(*)'];
+        }
+
+        return $_counts;
+    }
+
+    public function getCountsByCookBook()
+    {
+        $_counts = array();
+
         foreach ($this->types as $k => $v)
             $_counts[$k] = 0;
 
         $counts = Yii::app()->db->createCommand()
             ->select('type, count(*)')
             ->from($this->tableName())
+            ->join('cook__cook_book', 'cook__recipes.id = cook__cook_book.recipe_id')
             ->group('type')
+            ->where('cook__cook_book.user_id = :me AND removed=0', array(':me' => Yii::app()->user->id))
             ->queryAll();
-        foreach ($counts as $c)
+
+        foreach ($counts as $c) {
             $_counts[$c['type']] = $c['count(*)'];
+            $_counts[0] += $c['count(*)'];
+        }
 
         return $_counts;
     }
 
-    public function getSearchResultCounts($allSearch)
+    public function getCountsByIds($idArray)
     {
-        $_counts = array(0 => count($allSearch['matches']));
-
-        $ids = array();
-        foreach ($allSearch['matches'] as $key => $m) {
-            $ids[] = $key;
-        }
-
-        if (empty($ids))
-            $ids = array(0);
+        $_counts = array();
+        foreach ($this->types as $k => $v)
+            $_counts[$k] = 0;
+        if (empty($idArray))
+            return $_counts;
 
         $counts = Yii::app()->db->createCommand()
             ->select('type, count(*)')
             ->from($this->tableName())
+            ->where('id IN (' . implode(',', $idArray) . ')')
             ->group('type')
-            ->where('id IN (' . implode(',', $ids) . ')')
             ->queryAll();
-
         foreach ($counts as $c)
             $_counts[$c['type']] = $c['count(*)'];
 
+        $_counts[0] = count($idArray);
         return $_counts;
     }
 
-    public function getSearchResult($criteria)
+    public function getSearchResultIdArray($criteria)
     {
-        $allSearch = Yii::app()->search->select('*')->from('recipe')->where($criteria->query)->limit(0, 100000)->searchRaw();
+        $allSearch = Yii::app()->search->select('*')->from('recipe')->where($criteria->query)->limit(0, 10000)->searchRaw();
 
         $res = array();
         foreach ($allSearch['matches'] as $key => $m)
-            $res[] = array('id' => $key);
+            $res[] = $key;
 
         return $res;
     }
 
-    public function getByType($type)
+
+    /******************************************************************************************************************/
+    /*************************************************  CookBook  *****************************************************/
+    /******************************************************************************************************************/
+
+    public static function userBookCount()
     {
-        $criteria = new CDbCriteria(array(
-            'with' => array('photo', 'attachPhotos'),
-            'order' => 't.created DESC',
-        ));
-        if ($type !== null)
-            $criteria->compare('type', $type);
-
-        $dp = new CActiveDataProvider(get_class($this), array(
-            'criteria' => $criteria,
-            'pagination' => array(
-                'pageSize' => 10,
-            ),
-        ));
-
-        return $dp;
+        return Yii::app()->db->createCommand()
+            ->select('count(*)')
+            ->from('cook__cook_book')
+            ->where('user_id=:user_id', array(':user_id' => Yii::app()->user->id))
+            ->queryScalar();
     }
 
-    public function getByTag($tag_id, $type)
+    /**
+     * Returns count of users, who added recipe to there cookbook
+     *
+     * @return mixed
+     */
+    public function getBookedCount()
     {
-        $criteria = new CDbCriteria(array(
-            'with' => array('photo', 'attachPhotos', 'tags'),
-            'order' => 't.created DESC',
-        ));
-        $criteria->condition = 'tags.id='.$tag_id.' AND tags.id IS NOT NULL';
-        $criteria->together = true;
-
-        if ($type !== null)
-            $criteria->compare('type', $type);
-
-        $dp = new CActiveDataProvider(get_class($this), array(
-            'criteria' => $criteria,
-            'pagination' => array(
-                'pageSize' => 10,
-            ),
-        ));
-
-        return $dp;
+        return Yii::app()->db->createCommand()
+            ->select('count(*)')
+            ->from('cook__cook_book')
+            ->where('recipe_id=:recipe_id', array(':recipe_id' => $this->id))
+            ->queryScalar();
     }
 
-    public function getTypeString()
+    /**
+     * Get users, who added recipe to there cookbook
+     *
+     * @return User[]
+     */
+    public function getBookedUsers()
     {
-        return $this->types[$this->type];
+        $criteria = new CDbCriteria;
+        $criteria->select = array('id', 'avatar_id', 'blocked');
+        $criteria->scopes = array('active');
+        $criteria->join = 'LEFT JOIN cook__cook_book as book ON book.user_id = t.id';
+        $criteria->condition = 'recipe_id=:recipe_id AND id != :me';
+        $criteria->params = array(':recipe_id' => $this->id, ':me' => Yii::app()->user->id);
+        $criteria->limit = 20;
+
+        return User::model()->findAll($criteria);
     }
 
-    public function getCookingDurationString()
+    /**
+     * Add recipe to user cookbook
+     *
+     * @param int $user_id
+     * @return int
+     */
+    public function book($user_id = null)
     {
-        if ($this->cooking_duration < 60) {
-            return $this->cooking_duration_m . ' мин';
-        } elseif ($this->cooking_duration % 60 == 0) {
-            return $this->cooking_duration_h . ' ч';
+        if (empty($user_id))
+            $user_id = Yii::app()->user->id;
+
+        if ($this->isBooked()) {
+            Yii::app()->db->createCommand()->delete('cook__cook_book',
+                'recipe_id=:recipe_id AND user_id=:user_id',
+                array(
+                    ':recipe_id' => $this->id,
+                    ':user_id' => $user_id
+                ));
+            return 0;
         } else {
-            return $this->cooking_duration_h . ' ч' . $this->cooking_duration_m . ' мин';
+            Yii::app()->db->createCommand()->insert('cook__cook_book',
+                array(
+                    'recipe_id' => $this->id,
+                    'user_id' => $user_id
+                ));
+            return 1;
         }
     }
 
-    public function getRssContent()
+    /**
+     * Recipe added to cookbook by user
+     *
+     * @param int $user_id
+     * @return int
+     */
+    public function isBooked($user_id = null)
     {
-        return ($this->mainPhoto !== null)  ?
-            CHtml::image($this->mainPhoto->getPreviewUrl(441, null, Image::WIDTH), $this->mainPhoto->title) . $this->text
-            :
-            $this->text;
+        if (empty($user_id))
+            $user_id = Yii::app()->user->id;
+
+        return Yii::app()->db->createCommand()
+            ->select('recipe_id')
+            ->from('cook__cook_book')
+            ->where('recipe_id=:recipe_id AND user_id=:user_id',
+            array(
+                ':recipe_id' => $this->id,
+                ':user_id' => $user_id
+            ))
+            ->queryScalar();
     }
 
-    public function getContentImage()
+
+    public static function checkRecipeBookAfterLogin($user_id)
     {
-        return ($this->mainPhoto !== null) ? $this->mainPhoto->getPreviewUrl(303, null, Image::WIDTH) : false;
-    }
+        $recipe_id = Yii::app()->user->getState('recipe_id');
+        if (!empty($recipe_id)){
+            $recipe = self::model()->findByPk($recipe_id);
+            if ($recipe !== null && !$recipe->isBooked($user_id))
+                $recipe->book($user_id);
 
-    public function getEvent()
-    {
-        $row = array(
-            'id' => $this->id,
-            'last_updated' => time(),
-            'type' => Event::EVENT_RECIPE,
-        );
-
-        $event = Event::factory(Event::EVENT_RECIPE);
-        $event->attributes = $row;
-        return $event;
-    }
-
-    public function sendEvent()
-    {
-        $event = $this->event;
-        $params = array(
-            'blockId' => $event->blockId,
-            'code' => $event->code,
-        );
-
-        $comet = new CometModel;
-        $comet->send('whatsNewIndex', $params, CometModel::WHATS_NEW_UPDATE);
+            Yii::app()->user->setState('recipe_id', null);
+        }
     }
 }

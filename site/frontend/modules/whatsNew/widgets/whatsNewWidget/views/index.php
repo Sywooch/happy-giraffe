@@ -1,33 +1,39 @@
-<div class="broadcast-widget">
-    <div class="broadcast-title-box">
-        <h3><i class="icon-boradcast"></i> Прямой <span class="amethyst">эфир</span></h3>
-        <ul class="broadcast-widget-menu">
-            <li>
-                <a href="<?=Yii::app()->createUrl('/whatsNew/default/index')?>"><span class="icon-boradcast-small" ></span>Весь прямой эфир</a>
-            </li>
-            <li>
-                <a href="<?=Yii::app()->createUrl('/whatsNew/default/clubs')?>">Что нового в клубах</a>
-            </li>
-            <li>
-                <a href="<?=Yii::app()->createUrl('/whatsNew/default/blogs')?>">Что нового в блогах</a>
-            </li>
-            <li>
-                <a href="<?=Yii::app()->createUrl('/whatsNew/friends/index')?>"><span class="icon-friends" ></span>Что нового у друзей</a>
-            </li>
-        </ul>
-    </div>
-    <div class="carousel-container">
-        <div id="masonry-news-list-jcarousel" class="masonry-news-list clearfix jcarousel">
+<?php
+if (Yii::app()->user->isGuest)
+    Yii::app()->clientScript->registerScript('whatsNew_guest','WhatsNew.guest = true;', CClientScript::POS_HEAD);
 
-            <a class="prev" href="#" ><</a>
-            <a class="next" href="#">></a>
-            <!--<a href="javascript:void(0);" onclick="$('#masonry-news-list-jcarousel').jcarousel('scroll', '-=1')" class="prev">предыдущая</a>
-                                                 <a href="javascript:void(0);" onclick="$('#masonry-news-list-jcarousel').jcarousel('scroll', '+=1')" class="next">следующая</a> -->
-            <ul id="masonry-news-list-jcarousel-ul">
-                <?php foreach ($dp->data as $block): ?>
-                    <?=$block->code?>
-                <?php endforeach; ?>
-            </ul>
+?>
+<div id="broadcast" class="broadcast-all">
+    <div class="broadcast-widget">
+        <div class="broadcast-title-box clearfix">
+            <?php if (!Yii::app()->user->isGuest):?>
+                <ul class="broadcast-widget-menu">
+                    <li<?php if ($this->type == EventManager::WHATS_NEW_ALL) echo ' class="is-active"' ?>>
+                        <a onclick="WhatsNew.ajax(<?=EventManager::WHATS_NEW_ALL ?>, this)" href="javascript:;"><span class="icon-boradcast-small" ></span> <span class="text">В прямом эфире</span></a>
+                    </li>
+                    <li<?php if ($this->type == EventManager::WHATS_NEW_CLUBS) echo ' class="is-active"' ?>>
+                        <a onclick="WhatsNew.ajax(<?=EventManager::WHATS_NEW_CLUBS ?>, this)" href="javascript:;"><span class="text">В клубах</span></a>
+                    </li>
+                    <li<?php if ($this->type == EventManager::WHATS_NEW_BLOGS) echo ' class="is-active"' ?>>
+                        <a onclick="WhatsNew.ajax(<?=EventManager::WHATS_NEW_BLOGS ?>, this)" href="javascript:;"><span class="text">В блогах</span></a>
+                    </li>
+                    <li<?php if ($this->type == EventManager::WHATS_NEW_FRIENDS) echo ' class="is-active"' ?>>
+                        <a onclick="WhatsNew.ajax(<?=EventManager::WHATS_NEW_FRIENDS ?>, this)" href="javascript:;"><span class="icon-friends" ></span><span class="text">У друзей</span></a>
+                    </li>
+                </ul>
+            <?php endif ?>
+            <h3><i class="icon-boradcast"></i> Что нового</h3>
+        </div>
+        <div id="masonry-news-list-jcarousel" class="masonry-news-list jcarousel-holder clearfix jcarousel">
+
+            <a class="prev jcarousel-control" href="#">предыдущая</a>
+            <a class="next jcarousel-control" href="#">следующая</a>
+            <div class="jcarousel">
+                <ul id="masonry-news-list-jcarousel-ul">
+                    <?php foreach ($dp->data as $block)
+                            echo $block->code; ?>
+                </ul>
+            </div>
         </div>
     </div>
 </div>

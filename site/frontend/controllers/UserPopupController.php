@@ -40,8 +40,8 @@ class UserPopupController extends HController
         $lastFriend = User::model()->find($lastFriendCriteria);
 
         $newsCriteria = UserAction::model()->getFriendsCriteria(Yii::app()->user->id);
-        $newsCriteria->limit = 10;
-        $newsCriteria->sort('updated', EMongoCriteria::SORT_DESC);
+        $newsCriteria->limit(10);
+        $newsCriteria->setSort(array('updated', EMongoCriteria::SORT_DESC));
         $news = UserAction::model()->findAll($newsCriteria);
 
         $this->renderPartial('friends', compact('requests', 'friendsCount', 'lastFriend', 'hasInvitations', 'findFriends', 'news', 'ajax'), false, true);

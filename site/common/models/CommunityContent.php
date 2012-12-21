@@ -601,7 +601,7 @@ class CommunityContent extends HActiveRecord
 
     public function getContentText($length = 128)
     {
-        return Str::truncate(strip_tags($this->content->text), $length);
+        return Str::getDescription($this->content->text, $length);
     }
 
     public function canEdit()
@@ -656,7 +656,7 @@ class CommunityContent extends HActiveRecord
         return $output;
     }
 
-    public function getArticleCommentsCount()
+    public function getUnknownClassCommentsCount()
     {
         if ($this->getIsFromBlog()) {
             $model = BlogContent::model()->findByPk($this->id);
@@ -680,7 +680,7 @@ class CommunityContent extends HActiveRecord
             'condition' => 'entity = :entity AND entity_id = :entity_id',
             'params' => array(':entity' => get_class($this), ':entity_id' => $this->id),
             'order' => 't.created DESC',
-            'limit' => 3,
+            'limit' => $limit,
             'group' => 't.author_id',
         ));
     }
@@ -715,7 +715,7 @@ class CommunityContent extends HActiveRecord
                 $friends = $this->author->getFriendsModels();
 
                 foreach ($friends as $f)
-                    $comet->send($f->id, $params, CometModel::WHATS_NEW_UPDATE);
+                    $comet->send('whatsNewBlogsUser' . $f->id, $params, CometModel::WHATS_NEW_UPDATE);
             } else {
                 $comet->send('whatsNewClubs', $params, CometModel::WHATS_NEW_UPDATE);
 
@@ -725,7 +725,7 @@ class CommunityContent extends HActiveRecord
                 $ids = $command->queryColumn();
 
                 foreach ($ids as $id)
-                    $comet->send($id, $params, CometModel::WHATS_NEW_UPDATE);
+                    $comet->send('whatsNewClubsUser' . $id, $params, CometModel::WHATS_NEW_UPDATE);
             }
         }
     }

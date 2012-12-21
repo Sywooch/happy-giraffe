@@ -46,7 +46,20 @@ Comment.prototype.createInstance = function () {
     if (instance) {
         instance.destroy(true);
     }
-    CKEDITOR.replace(this.model + '_text', {toolbar:this.toolbar, skin:this.skin, height:'100px'});
+
+    var $this = this;
+    CKEDITOR.replace(this.model + '_text', {
+        toolbar:this.toolbar,
+        skin:this.skin,
+        height:'120px',
+        on :
+        {
+            instanceReady : function( ev )
+            {
+                ev.editor.focus();
+            }
+        }
+    });
 };
 
 Comment.prototype.moveForm = function (container) {
@@ -62,9 +75,11 @@ Comment.prototype.moveForm = function (container) {
 };
 
 Comment.prototype.newComment = function (el) {
-    if ($(el).next().attr('id') == 'add_comment'){
+    if ($(el).next().attr('id') == 'add_comment_form'){
         this.createInstance();
-        setTimeout(function(){showCommentForm($(el));CKEDITOR.instances['Comment_text'].focus();}, 200);
+
+        var $this = this;
+        setTimeout(function(){showCommentForm($(el))}, 200);
     }
     else{
         this.cancel();
@@ -117,7 +132,7 @@ Comment.prototype.clearQuote = function () {
 };
 
 Comment.prototype.goTo = function (index, currentPage) {
-    var page = Math.ceil(index / 10);
+    var page = Math.ceil(index / 25);
     if (page != currentPage) {
         var pager = $('#' + this.getId() + ' .yiiPager .page:eq(' + (page - 1) + ')');
         var url = false;
@@ -138,7 +153,7 @@ Comment.prototype.goTo = function (index, currentPage) {
 
 Comment.prototype.changeScrollPosition = function (index) {
     var elem = $('#cp_' + index.toString());
-    $(this.getScrollContainer()).scrollTop(elem.offset().top);
+    $(this.getScrollContainer()).animate({scrollTop:elem.get(0).offsetTop}, "normal");
 };
 
 Comment.prototype.remove = function (el) {
@@ -191,6 +206,9 @@ Comment.prototype.send = function (form) {
                     $.fn.yiiListView.update(this.getId());
                 else
                     $.fn.yiiListView.update($this.getId(), {data:{lastPage:true}});
+
+                $($this.getScrollContainer()).animate({scrollTop:$('#' + $this.getId()).find('ul.items li').get(-1).offsetTop}, "normal");
+
                 var editor = $this.getInstance();
                 editor.setData('');
                 editor.destroy();
@@ -206,7 +224,15 @@ Comment.prototype.cancel = function () {
     this.selected_text = null;
     $('#add_comment .button_panel .btn-green-medium span span', '#' + this.getId()).text('Добавить');
     $('#edit-id', '#' + this.getId()).val('');
-    $('#add_comment', '#' + this.getId()).hide().appendTo(this.getWrapperInstance());
+
+    //если верхний комментарий, то уменьшаем форму, инче переносим ее вверх
+    var elem = $('#'+this.getId()).find('#add_comment');
+    if (elem.parent().attr('id') == 'add_comment_wrapper'){
+        elem.removeClass('active').find('.comment-add_form-holder input').show();
+        elem.find('.comment-add_form-holder form').hide();
+        elem.find('span.comment-add_username').hide();
+    }else
+        this.moveForm($('#add_comment_wrapper'));
     return false;
 };
 

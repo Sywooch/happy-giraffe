@@ -1,6 +1,6 @@
 <h1 class="fn">
     <?php if ($full):?>
-        <h1><?=CHtml::encode(trim($recipe->title)) ?></h1>
+        <?=CHtml::encode(trim($recipe->title)) ?>
     <?php else: ?>
         <a href="<?=$recipe->url ?>"><?=CHtml::encode(trim($recipe->title)) ?></a>
     <?php endif ?>

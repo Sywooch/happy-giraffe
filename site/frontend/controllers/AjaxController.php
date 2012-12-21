@@ -293,7 +293,7 @@ class AjaxController extends HController
                 !Yii::app()->authManager->checkAccess('editComment', Yii::app()->user->id)
             )
                 throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
-            $comment->attributes = $_POST[$model];
+            $comment->text = $_POST[$model]['text'];
         }
         if ($comment->save()) {
             $response = array(

@@ -64,7 +64,7 @@
 
                 <div class="button">
 
-                    <?=CHtml::link('Найти<br/>друзей', array('activity/friends'), array('class' => 'btn-green'))?>
+                    <?=CHtml::link('Найти<br/>друзей', array('/friends/find'), array('class' => 'btn-green'))?>
 
                 </div>
 
@@ -76,7 +76,7 @@
 
             <div class="recent-friend">
 
-                <div class="block-title">Мои друзья</div>
+                <div class="block-title">Мои друзья <a href="<?=$this->createUrl('user/friends', array('user_id' => Yii::app()->user->id))?>">Все друзья (<span><?=$friendsCount?></span>)</a></div>
 
                 <div class="clearfix">
                     <div id="moveFriendArea">
@@ -98,7 +98,7 @@
                 </div>
 
                 <div class="all-link">
-                    <a href="<?=$this->createUrl('user/friends', array('user_id' => Yii::app()->user->id))?>"><i class="icon"></i>Все мои друзья (<span id="friendsCount"><?=$friendsCount?></span>)</a>
+                    <a href="<?=$this->createUrl('/friends/find')?>"><i class="icon"></i>Найти еще друзей</a>
                 </div>
 
             </div>
@@ -116,6 +116,7 @@
                     <ul>
                         <?php $i = 0; foreach ($news as $n): ?>
                             <?php if ($n->text !== null): ?>
+                            <?php $initiator = User::model()->findByPk($n->user_id) ?>
                                 <li style="display: none;">
                                     <div class="date"><?php echo HDate::GetFormattedTime($n->updated); ?></div>
                                     <div class="in">
@@ -138,7 +139,7 @@
                     </ul>
 
                     <div class="all-link">
-                        <?=CHtml::link('<i class="icon"></i>Все новости моих друзей', array('user/activity', 'user_id' => Yii::app()->user->id, 'type' => 'friends'))?>
+                        <?=CHtml::link('<i class="icon"></i>Все новости моих друзей', array('/whatsNew/friends/'))?>
                     </div>
 
                 <?php endif; ?>

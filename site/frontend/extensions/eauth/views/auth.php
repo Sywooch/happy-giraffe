@@ -41,7 +41,10 @@
     foreach ($services as $name => $service)
         if ($service->id != 'twitter') {
             echo '<li class="auth-service ' . $service->id . '">';
-            echo CHtml::link('', array('/'.$action, 'service' => $name), array('class' => 'auth-link ' . $service->id));
+            $params = array('service' => $name);
+            if (isset($this->params['redirectUrl']))
+                $params['redirectUrl'] = $this->params['redirectUrl'];
+            echo CHtml::link('', Yii::app()->createUrl('/'.$action, $params), array('class' => 'auth-link ' . $service->id));
             echo '</li>';
         }
     ?>

@@ -2,7 +2,7 @@
     <h3 class="title"><?=$title?></h3>
     <div class="find">
         <div class="button">
-            <a class="btn-green" href="<?=$this->createUrl('/activity/friends')?>">Найти<br>друзей</a>
+            <a class="btn-green" href="<?=$this->createUrl('/friends/find')?>">Найти<br>друзей</a>
         </div>
         <p>Вы можете найти друзей по интересам, по месту жительства, по похожему семейному положению, отправить им приглашение дружбы или просто написать им.<br><br>Желаем вам найти много друзей! Удачи!</p>
 

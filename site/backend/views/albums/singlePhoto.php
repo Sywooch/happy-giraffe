@@ -69,4 +69,5 @@
 
 <?php $this->widget('site.frontend.widgets.commentWidget.CommentWidget', array(
     'model' => $photo,
+    'photoContainer'=>true
 )); ?>

@@ -1,15 +1,15 @@
 var selected_keydown = null;
-var comment_scroll_container = ".layout-container";
 function Comment() {
     this.selected_text = null,
-        this.save_url = null,
-        this.toolbar = null,
-        this.saveCommentUrl = null,
-        this.entity = null,
-        this.entity_id = null,
-        this.model = 'Comment',
-        this.scrollContainer = null,
-        this.object_name = null;
+    this.save_url = null,
+    this.toolbar = 'Chat',//'toolbar' => 'Chat','skin'=>'hgrucomment'
+    this.skin = 'hgrucomment',
+    this.saveCommentUrl = null,
+    this.entity = null,
+    this.entity_id = null,
+    this.model = 'Comment',
+    this.scrollContainer = null,
+    this.object_name = null
 }
 
 Comment.prototype.setParams = function (params) {
@@ -17,8 +17,6 @@ Comment.prototype.setParams = function (params) {
         if (typeof(this[n]) != undefined)
             this[n] = params[n];
     }
-    if(comment_scroll_container !== null)
-        this.scrollContainer = comment_scroll_container;
 };
 
 Comment.prototype.getId = function() {
@@ -26,7 +24,7 @@ Comment.prototype.getId = function() {
 };
 
 Comment.prototype.getWrapperInstance = function() {
-    return $('#' + this.getId()).siblings('#new_comment_wrapper');
+    return $('#' + this.getId()).siblings('#add_comment');
 };
 
 Comment.prototype.getScrollContainer = function() {
@@ -40,28 +38,54 @@ Comment.prototype.getInstance = function () {
     return false;
 };
 
-Comment.prototype.createInstance = function () {
+Comment.prototype.createInstance = function (focus) {
     var instance = this.getInstance();
     if (instance) {
         instance.destroy(true);
     }
-    CKEDITOR.replace(this.model + '_text', {toolbar:this.toolbar});
+
+    var $this = this;
+    CKEDITOR.replace(this.model + '_text', {
+        toolbar:this.toolbar,
+        skin:this.skin,
+        height:'120px',
+        on : focus ?
+        {
+            instanceReady : function( ev )
+            {
+                ev.editor.focus();
+            }
+        } : {}
+    });
 };
 
-Comment.prototype.moveForm = function (container) {
+Comment.prototype.moveForm = function (container, focus, hide) {
     var instance = this.getInstance();
     if (instance)
         instance.destroy(true);
-    var form = $('#add_comment', this.getWrapperInstance()).clone(true);
-    $('#add_comment', this.getWrapperInstance()).remove();
+    var form = $('#add_comment', '#' + this.getId()).clone(true);
+    $('#add_comment', '#' + this.getId()).remove();
     form.appendTo(container).show();
-    this.createInstance();
+
+    var $this = this;
+
+    if (!hide)
+        setTimeout(function(){$this.showForm()}, 200);
+
+    this.createInstance(focus);
 };
 
-Comment.prototype.newComment = function (event) {
-    this.cancel();
-    this.moveForm($('#' + this.getId()));
-    //$(this.getScrollContainer()).scrollTop($(this.getScrollContainer()).scrollTop() + $('#new_comment_wrapper').position().top);
+Comment.prototype.newComment = function (el) {
+    if ($(el).next().attr('id') == 'add_comment_form'){
+        this.createInstance(true);
+
+        var $this = this;
+        setTimeout(function(){$this.showForm()}, 200);
+    }
+    else{
+        this.cancel();
+        this.moveForm($('#' + this.getId()), true);
+    }
 };
 
 Comment.prototype.newPhotoComment = function (event) {
@@ -78,7 +102,8 @@ Comment.prototype.clearVariables = function () {
 Comment.prototype.response = function (link) {
     this.clearVariables();
     this.selected_text = null;
-    this.moveForm($(link).parents('.item').find('.comment-action'));
+    this.showForm();
+    this.moveForm($(link).parents('.item').find('.comment-action'), true);
     var id = $(link).parents('.item:eq(0)').attr('id').split('_')[1];
     $('#add_comment', '#' + this.getId()).find('.response input').val(id);
 };
@@ -89,7 +114,8 @@ Comment.prototype.clearResponse = function () {
 
 Comment.prototype.quote = function (link) {
     this.clearVariables();
-    this.moveForm($(link).parents('.item').find('.comment-action'));
+    this.showForm();
+    this.moveForm($(link).parents('.item').find('.comment-action'), true);
     var id = $(link).parents('.item:eq(0)').attr('id').split('_')[1];
     var text = '';
     if (!this.selected_text) {
@@ -109,12 +135,13 @@ Comment.prototype.clearQuote = function () {
 };
 
 Comment.prototype.goTo = function (index, currentPage) {
-    var page = Math.ceil(index / 10);
+    var page = Math.ceil(index / 25);
     if (page != currentPage) {
         var pager = $('#' + this.getId() + ' .yiiPager .page:eq(' + (page - 1) + ')');
         var url = false;
         if (pager.size() > 0)
             url = pager.children('a').attr('href');
+
         var h = new AjaxHistory(this.getId());
         var $this = this;
         h.load(this.getId(), url,
@@ -129,7 +156,7 @@ Comment.prototype.goTo = function (index, currentPage) {
 
 Comment.prototype.changeScrollPosition = function (index) {
     var elem = $('#cp_' + index.toString());
-    $(this.getScrollContainer()).scrollTop(elem.offset().top);
+    $(this.getScrollContainer()).animate({scrollTop:elem.get(0).offsetTop}, "normal");
 };
 
 Comment.prototype.remove = function (el) {
@@ -140,7 +167,8 @@ Comment.prototype.edit = function (button) {
     this.clearVariables();
     this.selected_text = null;
 
-    this.moveForm($(button).parents('.item').find('.comment-action'));
+    this.showForm();
+    this.moveForm($(button).parents('.item').find('.comment-action'), false);
 
     var id = $(button).parents('.item').attr('id').replace(/comment_/g, '');
     $('#edit-id', '#' + this.getId()).val(id);
@@ -176,12 +204,17 @@ Comment.prototype.send = function (form) {
                 var url = false;
                 if (pager.size() > 0 && $('#add_comment .button_panel .btn-green-medium span span', $this.getWrapperInstance()).text() != 'Редактировать')
                     url = pager.children('a').attr('href');
-                if (url !== false)
+                if (url !== false){
                     $.fn.yiiListView.update($this.getId(), {url:url, data:{lastPage:true}});
+                    $this.goEndOfList();
+                }
                 else if ($('#add_comment .button_panel .btn-green-medium span span', $this.getWrapperInstance()).text() == 'Редактировать')
                     $.fn.yiiListView.update(this.getId());
-                else
+                else{
                     $.fn.yiiListView.update($this.getId(), {data:{lastPage:true}});
+                    $this.goEndOfList();
+                }
+
                 var editor = $this.getInstance();
                 editor.setData('');
                 editor.destroy();
@@ -197,45 +230,45 @@ Comment.prototype.cancel = function () {
     this.selected_text = null;
     $('#add_comment .button_panel .btn-green-medium span span', '#' + this.getId()).text('Добавить');
     $('#edit-id', '#' + this.getId()).val('');
-    $('#add_comment', '#' + this.getId()).hide().appendTo(this.getWrapperInstance());
+
+    //если верхний комментарий, то уменьшаем форму, инче переносим ее вверх
+    var elem = $('#add_comment', '#' + this.getId());
+    if (elem.parent().attr('id') == 'add_comment_wrapper'){
+        this.hideForm();
+    }else{
+        this.hideForm();
+        this.moveForm($('#add_comment_wrapper', '#' + this.getId()), false, true);
+    }
     return false;
 };
 
-/*Comment.prototype.getText = function () {
-    var txt = '';
-    if (txt = window.getSelection) {
-        txt = window.getSelection().toString();
-    } else {
-        txt = document.selection.createRange().text;
-    }
-    if (txt != '') {
-        var pattern = /\r\n|\r|\n/g;
-        txt = txt.replace(pattern, "<br/>");
-    }
-    this.selected_text = txt != '' ? txt : null;
-};*/
+Comment.prototype.showForm = function () {
+    var el = $('#' + this.getId() + ' #dummy-comment');
+    el.hide().next().show().parents('.comment-add').addClass('active');
+    el.parents('.comment-add').find('span.comment-add_username').show();
+}
+
+Comment.prototype.hideForm = function () {
+    var el = $('#' + this.getId() + ' #dummy-comment');
+    el.show().next().hide().parents('.comment-add').removeClass('active');
+    el.parents('.comment-add').find('span.comment-add_username').hide();
+}
+
+Comment.prototype.goEndOfList = function () {
+    console.log(this.getScrollContainer(), $('#' + this.getId()).find('ul.items li').get(-1).offsetTop);
+    $(this.getScrollContainer()).animate({scrollTop:$('#' + this.getId()).find('ul.items li').get(-1).offsetTop}, "normal");
+}
+
+
+
+
 
 function addMenuToggle(el) {
     $(el).parents('.add-menu').find('ul').toggle();
     $(el).parents('.add-menu').find('.btn i').toggleClass('arr-t');
 }
 
-/*
-$(function () {
-    $('.default-comments').delegate('.content-in', 'mousedown', function () {
-        selected_keydown = $(this);
-    });
-    $('.default-comments').delegate('.content-in', 'mouseup', function () {
-        if (selected_keydown && $(this).parents('li:eq(0)').attr('id') == selected_keydown.parents('li:eq(0)').attr('id'))
-            Comment.getText();
-        selected_keydown = null;
-    });
-    $(document).mouseup(function (e) {
-        e = e ? e : windows.event;
-        if ($(e.target).parents('.default-comments').size() == 0) {
-            Comment.selected_text = null;
-            selected_keydown = null;
-        }
-    });
-});
-*/
+function setRedirectUrl(){
+    Register.redirectUrl = location.href;
+    Register.gotoComment = 1;
+}

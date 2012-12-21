@@ -20,9 +20,11 @@ class PageView extends EMongoDocument
 
     public function viewsByPath($path)
     {
-        if (($model = $this->findByPath($path)) !== null) {
+        if (strpos($path, 'http://www.happy-giraffe.ru') === 0)
+            $path = str_replace('http://www.happy-giraffe.ru', '', $path);
+
+        if (($model = $this->findByPath($path)) !== null)
             return $model->views;
-        }
         return 0;
     }
 
@@ -52,7 +54,7 @@ class PageView extends EMongoDocument
 
     public function inc()
     {
-        if (!in_array($_SERVER['HTTP_USER_AGENT'], $this->getBots())) {
+        if (isset($_SERVER['HTTP_USER_AGENT']) && !in_array($_SERVER['HTTP_USER_AGENT'], $this->getBots())) {
             $viewed_pages = Yii::app()->session->get('viewed_pages');
             if (strpos($viewed_pages, $this->_id.',') === false) {
                 $this->views++;

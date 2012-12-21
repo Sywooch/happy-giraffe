@@ -30,17 +30,17 @@
               }",
     ))); ?>
 
-    <big style="float:left;">День рождения:</big>
+    <big>День рождения:</big>
 
-    <div class="row" style="float:left;">
+    <div class="row">
         <?php echo $form->dropDownList($date, 'day', HDate::Days(), array('class' => 'chzn', 'empty' => 'День')); ?>
         <?php echo $form->error($date, 'day'); ?>
     </div>
-    <div class="row" style="float:left;">
+    <div class="row">
         <?php echo $form->dropDownList($date, 'month', HDate::ruMonths(), array('class' => 'chzn', 'empty' => 'Месяц')); ?>
         <?php echo $form->error($date, 'month'); ?>
     </div>
-    <div class="row" style="float:left;">
+    <div class="row">
         <?php echo $form->dropDownList($date, 'year', HDate::Range(1990, 2020), array('class' => 'chzn', 'empty' => 'Год')); ?>
         <?php echo $form->error($date, 'year'); ?>
     </div>

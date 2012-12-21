@@ -151,4 +151,26 @@ class FriendEvent extends EMongoDocument
     {
         return $this->_id;
     }
+
+    public function getCode()
+    {
+        return Yii::app()->controller->renderPartial('application.modules.whatsNew.views.friends._brick', array(
+            'data' => $this,
+        ), true);
+    }
+
+    protected function afterSave()
+    {
+        $comet = new CometModel;
+        $comet->type = CometModel::WHATS_NEW_UPDATE;
+
+        $user = User::model()->findByPk($this->user_id);
+        $friends = User::model()->findAll($user->getFriendsCriteria(array('select' => 't.id', 'index' => 'id')));
+        $friendsIds = array_keys($friends);
+
+        foreach ($friendsIds as $id)
+            $comet->send('whatsNewFriendsUser' . $id);
+
+        parent::afterSave();
+    }
 }

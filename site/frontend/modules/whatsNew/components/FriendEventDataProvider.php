@@ -29,6 +29,8 @@ class FriendEventDataProvider extends EMongoDocumentDataProvider
                 unset($data[$k]);
         }
 
+        $data = array_values($data);
+
         return $data;
     }
 }

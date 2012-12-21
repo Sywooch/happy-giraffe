@@ -12,10 +12,10 @@ class BlogController extends HController
     {
         return array(
             'accessControl',
-            array(
-                'CHttpCacheFilter + view',
-                'lastModified' => $this->lastModified(),
-            ),
+//            array(
+//                'CHttpCacheFilter + view',
+//                'lastModified' => $this->lastModified(),
+//            ),
         );
     }
 
@@ -84,11 +84,26 @@ class BlogController extends HController
 
             if ($valid)
             {
-                $model->save(false);
-                $slave_model->content_id = $model->id;
-                $slave_model->save(false);
-                $model->sendEvent();
-                $this->redirect($model->url);
+                $transaction = Yii::app()->db->beginTransaction();
+                try {
+                    $success = $model->save(false);
+                    if ($success){
+                        $slave_model->content_id = $model->id;
+                        $success = $slave_model->save(false);
+                        if (!$success)
+                            $transaction->rollback();
+                        else{
+                            $transaction->commit();
+
+                            $model->sendEvent();
+                            $this->redirect($model->url);
+                        }
+                    }
+                    else
+                        $transaction->rollback();
+                } catch (Exception $e) {
+                    $transaction->rollback();
+                }
             }
         }
 

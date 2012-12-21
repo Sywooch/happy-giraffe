@@ -8,10 +8,9 @@
 		'id',
 		'title',
 		'text_title',
-		'text',
 		array(
 			'class'=>'CButtonColumn',
-			'template' => '{update}{delete}'
+			'template' => '{update}'
 		),
 	),
 )); ?>

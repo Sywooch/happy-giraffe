@@ -40,7 +40,7 @@
                     ?>
                 </div>
                 <div class="info">
-                    <p class="birthday"><?php if ($user->birthday): ?><span>День рождения:</span> <?=Yii::app()->dateFormatter->format("d MMMM", $user->birthday)?> (<?=$user->normalizedAge?>)<?php endif; ?></p>
+                    <p class="birthday"><?php if ($user->birthday): ?><span>День рождения:</span> <?=$user->birthdayString?> (<?=$user->normalizedAge?>)<?php endif; ?></p>
                 </div>
             <?php if(!Yii::app()->user->isGuest && Yii::app()->user->model->group != UserGroup::USER && Yii::app()->user->checkAccess('manageFavourites')): ?>
             <div class="user-buttons clearfix">
@@ -192,7 +192,7 @@
             </div>
 
             <?php
-                if (! Yii::app()->user->isGuest && $user->id == Yii::app()->user->id && in_array(Yii::app()->user->group, array(UserGroup::COMMENTATOR, UserGroup::MODERATOR, UserGroup::EDITOR))) {
+                if (! Yii::app()->user->isGuest && $user->id == Yii::app()->user->id) {
                     $this->widget('WhatsNewUserWidget', array(
                         'user' => $user,
                     ));

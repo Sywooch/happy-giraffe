@@ -113,7 +113,7 @@
                             <?=$form->label($recipe, 'type', array('class' => 'row-title'))?>
 
                             <div class="dish-types">
-                                <?=$form->radioButtonList($recipe, 'type', array_slice($recipe->types, 1), array('template' => '<div class="radio-box">{input} {label}</div>', 'separator' => ''))?>
+                                <?=$form->radioButtonList($recipe, 'type', $recipe->getTypesWithoutAll(), array('template' => '<div class="radio-box">{input} {label}</div>', 'separator' => ''))?>
                             </div>
 
                         </div>

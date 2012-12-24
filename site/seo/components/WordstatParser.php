@@ -63,7 +63,7 @@ class WordstatParser extends ProxyParserThread
     {
         if (empty($this->next_page)) {
             $this->getKeyword();
-            while (!isset($this->keyword->keyword)){
+            while (!isset($this->keyword->keyword)) {
                 $this->keyword->delete();
                 $this->getKeyword();
             }
@@ -74,32 +74,20 @@ class WordstatParser extends ProxyParserThread
     public function loadKeywords()
     {
 //        $this->startTimer('load keywords');
+        $criteria = new CDbCriteria;
+        $criteria->compare('active', 0);
+        $criteria->order = 'priority desc';
+        $criteria->limit = 10;
+        $criteria->offset = rand(0, 10000);
+        $this->keywords = ParsingKeyword::model()->findAll($criteria);
 
-        $transaction = Yii::app()->db_seo->beginTransaction();
+        //update active
+        $keys = array();
+        foreach ($this->keywords as $key)
+            $keys [] = $key->keyword_id;
 
-        try {
-            $criteria = new CDbCriteria;
-            $criteria->compare('active', 0);
-            $criteria->order = 'priority desc';
-            $criteria->limit = 10;
-            $this->keywords = ParsingKeyword::model()->findAll($criteria);
-
-            //update active
-            $keys = array();
-            foreach ($this->keywords as $key)
-                $keys [] = $key->keyword_id;
-
-            Yii::app()->db_seo->createCommand()->update('parsing_keywords', array('active' => 1),
-                'keyword_id IN (' . implode(',', $keys) . ')');
-
-            $transaction->commit();
-
-        } catch (Exception $e) {
-            var_dump($e->getMessage());
-            $transaction->rollback();
-            $this->closeThread('get keyword transaction failed');
-        }
-
+        Yii::app()->db_seo->createCommand()->update('parsing_keywords', array('active' => 1),
+            'keyword_id IN (' . implode(',', $keys) . ')');
 //        $this->endTimer();
 //        $this->log(count($this->keywords) . ' keywords loaded');
     }
@@ -229,7 +217,7 @@ class WordstatParser extends ProxyParserThread
             if ($related)
                 KeywordRelation::saveRelation($this->keyword->keyword_id, $model->id);
 
-            if ($model !== null){
+            if ($model !== null) {
                 if ($value >= self::PARSE_LIMIT)
                     $this->AddKeywordToParsing($model->id, $this->keyword->theme);
                 $this->AddStat($model, $value);
@@ -254,23 +242,20 @@ class WordstatParser extends ProxyParserThread
         if ($yandex !== null && $yandex->parsed == 1 && (!empty($yandex->theme) && !empty($theme) || empty($theme)))
             return;
 
-        $transaction = Yii::app()->db_seo->beginTransaction();
-        try {
-            $exist = ParsingKeyword::model()->findByPk($keyword_id);
-            if ($exist === null) {
-                $parsing_model = new ParsingKeyword();
-                $parsing_model->keyword_id = $keyword_id;
-                $parsing_model->priority = $this->keyword->priority;
-                $parsing_model->theme = $theme;
+        $exist = ParsingKeyword::model()->findByPk($keyword_id);
+        if ($exist === null) {
+            $parsing_model = new ParsingKeyword();
+            $parsing_model->keyword_id = $keyword_id;
+            $parsing_model->priority = $this->keyword->priority;
+            $parsing_model->theme = $theme;
+            try {
                 $parsing_model->save();
-            } else {
-                $exist->priority = $this->keyword->priority;
-                $exist->theme = $theme;
-                $exist->save();
+            } catch (Exception $err) {
             }
-            $transaction->commit();
-        } catch (Exception $e) {
-            $transaction->rollback();
+        } else {
+            $exist->priority = $this->keyword->priority;
+            $exist->theme = $theme;
+            $exist->save();
         }
 
 //        $this->endTimer();

@@ -211,6 +211,7 @@ class SignalCommand extends CConsoleCommand
         $commentators = CommentatorWork::getWorkingCommentators();
         foreach ($commentators as $commentator) {
             $commentator->skipUrls = array();
+            $commentator->save();
         }
     }
 }

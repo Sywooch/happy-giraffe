@@ -3,28 +3,28 @@
 			<div class="user-nav-2">
 				
 				<ul>
-					<li class="item-ava">
+					<li class="item-ava tooltipsy-title" title="Моя анкета">
 						<a href="" class="ava small female"></a>
 					</li>
-					<li class="item-broadcast new">
+					<li class="item-broadcast new tooltipsy-title" title="Что нового">
 						<a href="" ><i class="icon-broadcast"></i></a>
 					</li>
-					<li class="item-dialogs">
+					<li class="item-dialogs tooltipsy-title" title="Мои диалоги">
 						<a href=""><i class="icon-dialogs"></i></a>
 					</li>
-					<li class="item-friends">
+					<li class="item-friends tooltipsy-title" title="Мои друзья">
 						<a href=""><i class="icon-friends"></i></a>
 					</li>
-					<li class="item-notifications">
+					<li class="item-notifications tooltipsy-title" title="Уведомления">
 						<a href=""><i class="icon-notifications"></i></a>
 					</li>
-					<li class="item-career">
+					<li class="item-career tooltipsy-title" title="Мои успехи">
 						<a href=""><i class="icon-career"></i></a>
 					</li>
-					<li class="item-settings">
+					<li class="item-settings tooltipsy-title" title="Настройки">
 						<a href=""><i class="icon-settings"></i></a>
 					</li>
-					<li class="item-logout">
+					<li class="item-logout tooltipsy-title" title="Выход">
 						<a href=""><i class="icon-logout"></i></a>
 					</li>
 					

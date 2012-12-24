@@ -104,7 +104,10 @@
 										</div>
 									</div>
 									<div class="masonry-news-list_content">
-										<a href=""><img src="/images/example/gallery_album_img_10.jpg" alt="" /></a>
+										<a href="">
+											<img alt="" src="/images/example/gallery_album_img_10.jpg">
+											<span class="btn-view">Посмотреть</span>
+										</a>
 										<p>Роды — отправная точка для самых важных изменений и судьбоносных... <a href="" class="all">Читать</a></p>
 									</div>
 									<div class="masonry-news-list_comment">
@@ -182,7 +185,10 @@
 										</div>
 									</div>
 									<div class="masonry-news-list_content">
-										<a href=""><img src="/images/example/gallery_album_img_10.jpg" alt="" /></a>
+										<a href="">
+											<img alt="" src="/images/example/gallery_album_img_10.jpg">
+											<span class="btn-view">Посмотреть</span>
+										</a>
 									</div>
 								</li>
 								<li class="masonry-news-list_item">
@@ -212,7 +218,13 @@
 										</div>
 									</div>
 									<div class="masonry-news-list_content">
-										<a href=""><img src="/images/example/gallery_album_img_10.jpg" alt="" /></a>
+										<div class="title-img">
+											<a href="">
+												<img alt="" src="http://img.happy-giraffe.ru/thumbs/198x/57695/02d38dff5d7752c98c209ffda04067c2.JPG">
+												<span class="btn-view">Посмотреть</span>
+											</a>
+											
+										</div>
 										<p>Роды — отправная точка для самых важных изменений и судьбоносных... <a href="" class="all">Читать</a></p>
 									</div>
 									<div class="masonry-news-list_comment">
@@ -321,7 +333,13 @@
 										</div>
 									</div>
 									<div class="masonry-news-list_content">
-										<a href=""><img src="/images/example/gallery_album_img_10.jpg" alt="" /></a>
+										<div class="title-img">
+											<a href="">
+												<img alt="" src="http://img.happy-giraffe.ru/thumbs/198x/15836/e4aabee8a19e4745d30790f51d0b24b1.jpg">
+												<span class="btn-view">Посмотреть</span>
+											</a>
+											
+										</div>
 										<p>Роды — отправная точка для самых важных изменений и судьбоносных... <a href="" class="all">Читать</a></p>
 									</div>
 									<div class="masonry-news-list_comment">
@@ -476,7 +494,6 @@
 
 	<!--#include virtual="/block/global/footer.shtml" -->
 </div>
-	
 
 </body>
 </html>

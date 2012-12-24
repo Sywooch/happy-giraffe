@@ -8,14 +8,25 @@
  */
 class WhatsNewUserWidget extends CWidget
 {
+    /**
+     * @var User
+     */
     public $user;
 
     public function run()
     {
-        $dp = FriendEventManager::getDataProvider($this->user);
-        if ($dp->itemCount > 0) {
-            $this->registerScripts();
-            $this->render('index', compact('dp'));
+        if ($this->user->id == Yii::app()->user->id) {
+            $dp = FriendEventManager::getDataProvider($this->user);
+            if ($dp->itemCount > 0) {
+                $this->registerScripts();
+                $this->render('own_feed', compact('dp'));
+            }
+        }else{
+            $dp = FriendEventManager::getUserEventDataProvider($this->user->id);
+            if ($dp->itemCount > 0) {
+                $this->registerScripts();
+                $this->render('other_feed', compact('dp'));
+            }
         }
     }
 
@@ -35,7 +46,6 @@ class WhatsNewUserWidget extends CWidget
             ->registerCssFile('/stylesheets/user.css')
             ->registerCssFile('/stylesheets/isotope.css')
             ->registerScriptFile('/javascripts/jquery.isotope.min.js')
-            ->registerScript('whatsNew-widget', $js)
-        ;
+            ->registerScript('whatsNew-widget', $js);
     }
 }

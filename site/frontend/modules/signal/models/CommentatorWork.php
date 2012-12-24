@@ -5,7 +5,7 @@ class CommentatorWork extends EMongoDocument
     const BLOG_POSTS_COUNT = 1;
     const CLUB_POSTS_COUNT = 2;
     const COMMENTS_COUNT = 100;
-    const MAX_SKIPS = 200;
+    const MAX_SKIPS = 30;
 
     const CHIEF_BLOG_POSTS_COUNT = 1;
     const CHIEF_CLUB_POSTS_COUNT = 1;

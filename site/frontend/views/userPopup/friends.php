@@ -116,6 +116,7 @@
                     <ul>
                         <?php $i = 0; foreach ($news as $n): ?>
                             <?php if ($n->text !== null): ?>
+                            <?php $initiator = User::model()->findByPk($n->user_id) ?>
                                 <li style="display: none;">
                                     <div class="date"><?php echo HDate::GetFormattedTime($n->updated); ?></div>
                                     <div class="in">
@@ -138,7 +139,7 @@
                     </ul>
 
                     <div class="all-link">
-                        <?=CHtml::link('<i class="icon"></i>Все новости моих друзей', array('user/activity', 'user_id' => Yii::app()->user->id, 'type' => 'friends'))?>
+                        <?=CHtml::link('<i class="icon"></i>Все новости моих друзей', array('/whatsNew/friends/'))?>
                     </div>
 
                 <?php endif; ?>

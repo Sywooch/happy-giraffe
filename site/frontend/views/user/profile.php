@@ -191,22 +191,9 @@
 
             </div>
 
-            <?php
-                if (! Yii::app()->user->isGuest && $user->id == Yii::app()->user->id) {
-                    $this->widget('WhatsNewUserWidget', array(
+            <?php $this->widget('WhatsNewUserWidget', array(
                         'user' => $user,
-                    ));
-                }
-                else {
-                    $this->widget('application.widgets.commentWidget.CommentWidget', array(
-                        'model' => $user,
-                        'type' => 'guestBook',
-                        'title' => 'Гостевая',
-                        'button' => 'Добавить запись',
-                        'actions' => false,
-                    ));
-                }
-            ?>
+                    ));?>
 
         </div>
 

@@ -15,7 +15,7 @@ class WhatsNewUserWidget extends CWidget
 
     public function run()
     {
-        if ($this->user->id == Yii::app()->user->id) {
+        if (!Yii::app()->user->isGuest && $this->user->id == Yii::app()->user->id) {
             $dp = FriendEventManager::getDataProvider($this->user);
             if ($dp->itemCount > 0) {
                 $this->registerScripts();

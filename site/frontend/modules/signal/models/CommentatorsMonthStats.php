@@ -17,7 +17,7 @@ class CommentatorsMonthStats extends EMongoDocument
     /**
      * @var GoogleAnalytics
      */
-    public $ga;
+    private $ga;
 
     public static function model($className = __CLASS__)
     {

@@ -14,6 +14,11 @@ class CommentatorsMonthStats extends EMongoDocument
     public $working_days_count = 22;
     public $page_visits = array();
 
+    /**
+     * @var GoogleAnalytics
+     */
+    private $ga;
+
     public static function model($className = __CLASS__)
     {
         return parent::model($className);
@@ -66,6 +71,9 @@ class CommentatorsMonthStats extends EMongoDocument
 
     public function calculate($all = true)
     {
+        Yii::import('site.frontend.extensions.GoogleAnalytics');
+        $this->loginGa();
+
         $commentators = User::model()->findAll('`group`=' . UserGroup::COMMENTATOR);
         //$this->commentators = array();
 
@@ -120,6 +128,9 @@ class CommentatorsMonthStats extends EMongoDocument
 
     public function calculateCommentator($id)
     {
+        Yii::import('site.frontend.extensions.GoogleAnalytics');
+        $this->loginGa();
+
         $criteria = new EMongoCriteria;
         $criteria->user_id('==', (int)$id);
         $model = CommentatorWork::model()->find($criteria);
@@ -240,20 +251,18 @@ class CommentatorsMonthStats extends EMongoDocument
     public function profileUniqueViews($user_id)
     {
         echo 'profile views: ';
-        Yii::import('site.frontend.extensions.GoogleAnalytics');
-        $ga = new GoogleAnalytics('alexk984@gmail.com', Yii::app()->params['gaPass']);
-        $ga->setProfile('ga:53688414');
-        $ga->setDateRange($this->period . '-01', $this->period . '-' . $this->getLastPeriodDay($this->period));
+        $this->ga->setDateRange($this->period . '-01', $this->period . '-' . $this->getLastPeriodDay($this->period));
         sleep(1);
 
         try {
-            $report = $ga->getReport(array(
+            $report = $this->ga->getReport(array(
                 'metrics' => urlencode('ga:uniquePageviews'),
                 'filters' => urlencode('ga:pagePath==' . '/user/' . $user_id . '/'),
             ));
         } catch (Exception $err) {
-            echo $ga->response."\n";
-            return null;
+            sleep(60);
+            $this->loginGa();
+            return $this->profileUniqueViews($user_id);
         }
 
         if (!empty($report))
@@ -261,27 +270,25 @@ class CommentatorsMonthStats extends EMongoDocument
         else
             $value = 0;
 
-        echo $value."\n";
+        echo $value . "\n";
         return $value;
     }
 
     public function blogVisits($user_id)
     {
         echo 'blog visits: ';
-        Yii::import('site.frontend.extensions.GoogleAnalytics');
-        $ga = new GoogleAnalytics('alexk984@gmail.com', Yii::app()->params['gaPass']);
-        $ga->setProfile('ga:53688414');
-        $ga->setDateRange($this->period . '-01', $this->period . '-' . $this->getLastPeriodDay($this->period));
+        $this->ga->setDateRange($this->period . '-01', $this->period . '-' . $this->getLastPeriodDay($this->period));
         sleep(1);
 
         try {
-            $report = $ga->getReport(array(
+            $report = $this->ga->getReport(array(
                 'metrics' => urlencode('ga:visitors'),
                 'filters' => urlencode('ga:pagePath=~' . '/user/' . $user_id . '/blog/*'),
             ));
         } catch (Exception $err) {
-            echo $ga->response."\n";
-            return null;
+            sleep(60);
+            $this->loginGa();
+            return $this->blogVisits($user_id);
         }
 
         if (!empty($report))
@@ -289,7 +296,7 @@ class CommentatorsMonthStats extends EMongoDocument
         else
             $value = 0;
 
-        echo $value."\n";
+        echo $value . "\n";
         return $value;
     }
 
@@ -300,14 +307,16 @@ class CommentatorsMonthStats extends EMongoDocument
         $all_count = 0;
         foreach ($models as $model) {
             $url = trim($model->url, '.');
-            $visits = $this->getVisits($url);
-            echo $url . ' - ' . $visits . "\n";
-            $all_count += $visits;
+            if (!empty($url)) {
+                $visits = $this->getVisits($url);
+                echo $url . ' - ' . $visits . "\n";
+                $all_count += $visits;
 
-            if ($visits !== null)
-                $this->addPageVisit($url, $visits);
-            else
-                $all_count += $this->getPageVisitsCount($url);
+                if ($visits !== null)
+                    $this->addPageVisit($url, $visits);
+                else
+                    $all_count += $this->getPageVisitsCount($url);
+            }
         }
 
         echo $all_count . "\n";
@@ -316,22 +325,19 @@ class CommentatorsMonthStats extends EMongoDocument
 
     public function getVisits($url)
     {
-        Yii::import('site.frontend.extensions.GoogleAnalytics');
-
-        $ga = new GoogleAnalytics('alexk984@gmail.com', Yii::app()->params['gaPass']);
-        $ga->setProfile('ga:53688414');
-        $ga->setDateRange($this->period . '-01', $this->period . '-' . $this->getLastPeriodDay($this->period));
+        $this->ga->setDateRange($this->period . '-01', $this->period . '-' . $this->getLastPeriodDay($this->period));
         sleep(1);
 
         try {
-            $report = $ga->getReport(array(
+            $report = $this->ga->getReport(array(
                 'metrics' => urlencode('ga:organicSearches'),
                 'filters' => urlencode('ga:pagePath==' . $url),
             ));
 
         } catch (Exception $err) {
-            var_dump($err->getMessage());
-            return null;
+            sleep(60);
+            $this->loginGa();
+            return $this->getVisits($url);
         }
 
         if (isset($report[""]['ga:organicSearches']))
@@ -354,5 +360,11 @@ class CommentatorsMonthStats extends EMongoDocument
     public function getLastPeriodDay($period)
     {
         return str_pad(cal_days_in_month(CAL_GREGORIAN, date('n', strtotime($period)), date('Y', strtotime($period))), 2, "0", STR_PAD_LEFT);
+    }
+
+    public function loginGa()
+    {
+        $this->ga = new GoogleAnalytics('alexk984@gmail.com', Yii::app()->params['gaPass']);
+        $this->ga->setProfile('ga:53688414');
     }
 }

@@ -21,7 +21,7 @@ class WhatsNewWidget extends CWidget
 
     public function run()
     {
-        if ($this->showThere()){
+        if ($this->showThere() && !Yii::app()->user->isGuest){
             $limit = Yii::app()->user->isGuest ? 20 : 13;
             $dp = EventManager::getDataProvider($this->type, $limit);
             //for friends

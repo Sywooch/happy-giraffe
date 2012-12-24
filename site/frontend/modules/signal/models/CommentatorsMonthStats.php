@@ -72,6 +72,7 @@ class CommentatorsMonthStats extends EMongoDocument
     public function calculate($all = true)
     {
         Yii::import('site.frontend.extensions.GoogleAnalytics');
+        $this->loginGa();
 
         $commentators = User::model()->findAll('`group`=' . UserGroup::COMMENTATOR);
         //$this->commentators = array();
@@ -127,6 +128,9 @@ class CommentatorsMonthStats extends EMongoDocument
 
     public function calculateCommentator($id)
     {
+        Yii::import('site.frontend.extensions.GoogleAnalytics');
+        $this->loginGa();
+
         $criteria = new EMongoCriteria;
         $criteria->user_id('==', (int)$id);
         $model = CommentatorWork::model()->find($criteria);

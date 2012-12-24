@@ -8,6 +8,7 @@
  * @property string $user_id
  * @property string $name
  * @property integer $color
+ * @property integer $type
  *
  * The followings are the available model relations:
  * @property SeoUser $user
@@ -15,6 +16,9 @@
  */
 class KeywordFolder extends HActiveRecord
 {
+    const TYPE_REGULAR = 0;
+    const TYPE_FAVOURITES = 1;
+
     const COLOR_RED = 1;
     const COLOR_BLUE = 2;
 
@@ -53,7 +57,7 @@ class KeywordFolder extends HActiveRecord
 		// will receive user inputs.
 		return array(
 			array('user_id, name', 'required'),
-			array('color', 'numerical', 'integerOnly'=>true),
+			array('color, type', 'numerical', 'integerOnly'=>true),
 			array('user_id', 'length', 'max'=>11),
 			array('name', 'length', 'max'=>100),
 			// The following rule is used by search().
@@ -88,24 +92,20 @@ class KeywordFolder extends HActiveRecord
 		);
 	}
 
-	/**
-	 * Retrieves a list of models based on the current search/filter conditions.
-	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
-	 */
-	public function search()
-	{
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
+    public static function getFavourites()
+    {
+        $model = self::model()->findByAttributes(array(
+            'user_id'=>Yii::app()->user->id,
+            'type'=>self::TYPE_FAVOURITES
+        ));
 
-		$criteria=new CDbCriteria;
+        if ($model !== null)
+            return $model;
+        $model = new self;
+        $model->type = self::TYPE_FAVOURITES;
+        $model->user_id = Yii::app()->user->id;
+        $model->save();
 
-		$criteria->compare('id',$this->id,true);
-		$criteria->compare('user_id',$this->user_id,true);
-		$criteria->compare('name',$this->name,true);
-		$criteria->compare('color',$this->color);
-
-		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-		));
-	}
+        return $model;
+    }
 }

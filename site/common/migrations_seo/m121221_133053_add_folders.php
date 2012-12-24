@@ -11,6 +11,7 @@ class m121221_133053_add_folders extends CDbMigration
             'user_id' => 'int(11) unsigned NOT NULL',
             'name' => 'varchar(100) NOT NULL',
             'color' => 'tinyint NOT NULL default 0',
+            'type' => 'tinyint NOT NULL default 0',
             'PRIMARY KEY (`id`)'
         ), 'ENGINE=Innodb DEFAULT CHARSET=utf8');
 

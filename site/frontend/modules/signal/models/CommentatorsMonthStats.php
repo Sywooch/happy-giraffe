@@ -270,7 +270,7 @@ class CommentatorsMonthStats extends EMongoDocument
         else
             $value = 0;
 
-        echo $value."\n";
+        echo $value . "\n";
         return $value;
     }
 
@@ -296,7 +296,7 @@ class CommentatorsMonthStats extends EMongoDocument
         else
             $value = 0;
 
-        echo $value."\n";
+        echo $value . "\n";
         return $value;
     }
 
@@ -307,14 +307,16 @@ class CommentatorsMonthStats extends EMongoDocument
         $all_count = 0;
         foreach ($models as $model) {
             $url = trim($model->url, '.');
-            $visits = $this->getVisits($url);
-            echo $url . ' - ' . $visits . "\n";
-            $all_count += $visits;
+            if (!empty($url)) {
+                $visits = $this->getVisits($url);
+                echo $url . ' - ' . $visits . "\n";
+                $all_count += $visits;
 
-            if ($visits !== null)
-                $this->addPageVisit($url, $visits);
-            else
-                $all_count += $this->getPageVisitsCount($url);
+                if ($visits !== null)
+                    $this->addPageVisit($url, $visits);
+                else
+                    $all_count += $this->getPageVisitsCount($url);
+            }
         }
 
         echo $all_count . "\n";

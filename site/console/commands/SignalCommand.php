@@ -206,4 +206,11 @@ class SignalCommand extends CConsoleCommand
             }
         }
     }
+
+    public function actionUpdateSkips(){
+        $commentators = CommentatorWork::getWorkingCommentators();
+        foreach ($commentators as $commentator) {
+            $commentator->skipUrls = array();
+        }
+    }
 }

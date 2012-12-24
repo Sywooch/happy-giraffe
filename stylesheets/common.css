@@ -239,7 +239,7 @@ a.info {display:inline-block;*zoom:1;*display:inline;width:13px;height:13px;back
 .user-info .details .visit {color:#b9b8b8;font:normal 9px tahoma, arial, helvetica, sans-serif;}
 .user-info .details .visit span {background:#fdfaaf;padding:0px 2px;margin-left:-2px;}
 
-.user-info-big .text-status {clear:both;background:#cce7fe;position:relative;padding:10px 15px;font-size:11px;color:#5e5e5e;line-height:14px;-moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px;}
+.user-info-big .text-status {clear:both;background:#cce7fe;position:relative;padding:10px 15px;font-size:11px;color:#5e5e5e;line-height:14px;-moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px;margin-bottom: 3px;}
 .user-info-big .text-status .tale {display:block;width:26px;height:11px;background:url("/images/bg_pattern_user_status.png") no-repeat -133px 0;position:absolute;top:-11px;left:8px;}
 .user-info-big .text-status.pattern{color:#000;opacity:.6;filter: alpha(opacity = 60);}
 .user-info-big .text-status.pattern-10 .tale {background-position:-133px -50px;}
@@ -3153,15 +3153,12 @@ div.scrollbarpaper-drag {-moz-border-radius:3px;-webkit-border-radius:3px;border
 
 
 /* */
-
-#content .club-fast-nav {padding-bottom:50px;}
-#content .club-fast-nav {padding-top:5px;font-size:13px;margin-left:150px;}
+#content .club-fast-nav {padding-top:5px 0 50px;font-size:13px;margin-left:150px;}
 #content .club-fast-nav ul {overflow:hidden;list-style:none;display:inline-block;*zoom:1;*display:inline;}
-#content .club-fast-nav .club-join-btn {display:block;height:36px;padding:0 24px;background:#59b4dd;color:#fff;line-height:36px;font-size:16px;font-weight:bold;text-decoration:none;position:relative;top:-3px;float:right;}
-#content .club-fast-nav .club-join-btn {/*css3*/ -moz-border-radius:15px;-webkit-border-radius:15px;border-radius:15px;behavior: url(/stylesheets/PIE.htc);}
+#content .club-fast-nav .club-join-btn {display:block;height:36px;padding:0 24px;background:#59b4dd;color:#fff;line-height:36px;font-size:16px;font-weight:bold;text-decoration:none;position:relative;top:-3px;float:right;-moz-border-radius:15px;-webkit-border-radius:15px;border-radius:15px;behavior: url(/stylesheets/PIE.htc);}
 
 #content .club-fast-add {margin:2px 0 15px;text-align:center;}
-#content .club-fast-add .btn-green {width:220px;}
+#content .club-fast-add .btn-green {width:190px;margin-right: 30px;}
 #content .club-fast-add ul {padding:10px 20px;background:#fffedf;margin-top:10px;list-style:none;overflow:hidden;}
 #content .club-fast-add ul li {float:left;width:50%;margin:5px 0;}
 #content .club-fast-add ul li a {color:#0281b0;font-weight:bold;font-size:14px;}
@@ -3170,7 +3167,7 @@ div.scrollbarpaper-drag {-moz-border-radius:3px;-webkit-border-radius:3px;border
 #content .fast-add .btn {width:240px;}
 #content .fast-add .btn > span {width:222px;}
 #content .fast-add .btn > span > span {width:204px;text-align:center;text-transform:none;font-weight:bold;font-family:arial, helvetica, sans-serif;}
-
+/*
 #content .club-topics-list {background:#f3e7fe;margin-bottom:20px;padding:10px 15px;}
 #content .club-topics-list ul {list-style:none;}
 #content .club-topics-list ul li {margin:6px 0;overflow:hidden;}
@@ -3189,14 +3186,14 @@ div.scrollbarpaper-drag {-moz-border-radius:3px;-webkit-border-radius:3px;border
 #content .club-topics-list .add .icon {display:block;width:15px;height:15px;background:url(../images/common.png) no-repeat -341px -156px;margin:9px auto 0;}
 
 #content .club-topics-list .count {color:#6d6d6d;text-decoration:none;font-size:10px;font-family:tahoma, arial, helvetica, sans-serif;font-weight:normal;position:relative;top:-3px;}
-
+*/
 #content .club-topics-all-link {background:#cdecff;padding:12px 20px;margin-bottom:2px;font-size:13px;}
 #content .club-topics-all-link .count {font-size:20px;color:#6d6d6d;font-family:tahoma, arial, helvetica, sans-serif;position:relative;top:-3px;}
 
 
 .club-topics-list-new {margin-bottom:40px;position: relative;}
 .club-topics-list-new .block-title {font-size:22px;color:#262626;margin:0 6px 15px;}
-.club-topics-list-new > ul {list-style:none;padding: 15px 15px 15px 0;}
+.club-topics-list-new > ul {list-style:none;padding: 15px 20px 15px 0;}
 .club-topics-list-new__bracket {background: url(/images/club-topics-list-new.png) repeat-y 202px 0;}
 .club-topics-list-new__bracket:after {
     content: " ";

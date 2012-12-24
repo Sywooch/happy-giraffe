@@ -110,8 +110,9 @@ $(document).ready(function () {
         $('#register .reg1').show();
     });
 
-
-    $('.popup-container').css('right', getScrollBarWidth() + 'px');
+    if ($("#layout").height() > $(".layout-container").height() ) {
+        $('.popup-container').css('right', getScrollBarWidth() + 'px');
+    }
 });
 
 function addAttributesToCart(form, update) {

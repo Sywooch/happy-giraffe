@@ -39,6 +39,22 @@ class FriendEventManager
         ));
     }
 
+    public static function getUserEventDataProvider($user_id, $limit = 20)
+    {
+        $criteria = new EMongoCriteria(array(
+            'conditions' => array(
+                'user_id' => array('==' => (int)$user_id),
+            ),
+        ));
+
+        $criteria->sort('updated', EMongoCriteria::SORT_DESC);
+
+        return new FriendEventDataProvider('FriendEvent', array(
+            'criteria' => $criteria,
+            'pagination' => array('pageSize' => $limit),
+        ));
+    }
+
     public function getBlockId()
     {
         return md5($this->seed);

@@ -75,7 +75,7 @@
 								<div class="user-status">
 									<form>
 										<textarea></textarea><br/>
-										<button class="btn btn-green-small"><span><span>Ок</span></span></button>
+										<button class="btn-green small">Ок</button>
 									</form>
 								</div>
 								<!-- всего 9 паттернов и один стиль по умолчанию. Классы pattern-10 - pattern-18 -->

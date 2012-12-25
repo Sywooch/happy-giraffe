@@ -914,6 +914,7 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 .meta .views .icon {display:inline-block;*zoom:1;*display:inline;width:24px;height:13px;background:url(/images/common.png) no-repeat -199px -275px;vertical-align:middle;position:relative;top:-1px;margin-right:3px;}
 .meta .comments {font-weight:normal !important;vertical-align:middle;}
 .meta .comments .icon {display:inline-block;*zoom:1;*display:inline;width:20px;height:17px;background:url(/images/common.png) no-repeat -225px -275px;vertical-align:middle;margin:2px 3px 0 0;padding:0;}
+.meta .comments .icon.icon-plus {background-position: -178px -309px;}
 .entry .meta .comments a {padding-right:0;}
 .meta .comments .ava.small {display:inline-block;*zoom:1;*display:inline;float:none;padding:0 2px;vertical-align:middle;}
 
@@ -1973,7 +1974,8 @@ body.nav-fixed #header-new.top-line-fixed {padding-top:0;}
 #user-dialogs .friends ul li.empty .img {/*css3*/ -moz-border-radius:36px;-webkit-border-radius:36px;border-radius:36px;behavior: url(/stylesheets/PIE.htc);}
 
 #user-dialogs .letter-happy-giraffe {background:url(/images/letter_giraffe.png) no-repeat;padding:45px 60px 90px 45px;margin:20px -32px 20px -25px;font-size:13px; min-height:290px;}
-.ava-happy-giraffe .username {color:#bb9dd9;}
+#user-dialogs .ava-happy-giraffe .username {color:#bb9dd9;}
+#user-dialogs .ava-happy-giraffe .username:hover {text-decoration: none !important;}
 #user-dialogs .letter-happy-giraffe .letter-title {color:#2275ce;font:bold 14px/30px Tahoma, Arial, Verdana, sans-serif;margin:15px 0 10px;vertical-align:middle;}
 #user-dialogs .letter-happy-giraffe .letter-title .smile {margin:0 10px -4px;}
 #user-dialogs .letter-happy-giraffe p {margin-bottom:12px;text-align:justify;}
@@ -3158,7 +3160,7 @@ div.scrollbarpaper-drag {-moz-border-radius:3px;-webkit-border-radius:3px;border
 #content .club-fast-nav .club-join-btn {display:block;height:36px;padding:0 24px;background:#59b4dd;color:#fff;line-height:36px;font-size:16px;font-weight:bold;text-decoration:none;position:relative;top:-3px;float:right;-moz-border-radius:15px;-webkit-border-radius:15px;border-radius:15px;behavior: url(/stylesheets/PIE.htc);}
 
 #content .club-fast-add {margin:2px 0 15px;text-align:center;}
-#content .club-fast-add .btn-green {width:190px;margin-right: 30px;}
+#content .club-fast-add .btn-green {width:200px;margin-right: 20px;}
 #content .club-fast-add ul {padding:10px 20px;background:#fffedf;margin-top:10px;list-style:none;overflow:hidden;}
 #content .club-fast-add ul li {float:left;width:50%;margin:5px 0;}
 #content .club-fast-add ul li a {color:#0281b0;font-weight:bold;font-size:14px;}
@@ -3193,7 +3195,7 @@ div.scrollbarpaper-drag {-moz-border-radius:3px;-webkit-border-radius:3px;border
 
 .club-topics-list-new {margin-bottom:40px;position: relative;}
 .club-topics-list-new .block-title {font-size:22px;color:#262626;margin:0 6px 15px;}
-.club-topics-list-new > ul {list-style:none;padding: 15px 20px 15px 0;}
+.club-topics-list-new > ul {list-style:none;padding: 15px 35px 15px 0;}
 .club-topics-list-new__bracket {background: url(/images/club-topics-list-new.png) repeat-y 202px 0;}
 .club-topics-list-new__bracket:after {
     content: " ";

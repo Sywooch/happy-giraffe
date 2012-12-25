@@ -14,14 +14,14 @@
 #user .user-name h1 {line-height:1;margin:0 0 7px 0;color:#0281B0;}
 
 
-#user .user-name .online-status {color:#a6a6a6;font-size:13px;margin-bottom:0px;}
+#user .user-name .online-status {color:#a6a6a6;font-size:13px;margin-bottom:5px;}
 #user .user-name .online-status  .icon {display:inline-block;*zoom:1;*display:inline;width:11px;height:11px;background:url(../images/common.png) no-repeat;margin-right:5px;}
 #user .user-name .online-status.online .icon {background-position:-44px -180px;}
 #user .user-name .online-status.offline .icon {background-position:-55px -180px;}
 #user .user-name .online-status .date {font-size:9px;color:#b6b9ba;background:#fffeea;padding:0 5px;}
 
-#user .user-name .location {font-size:13px;line-height:32px;}
-#user .user-name .location .flag-big {display:inline-block;*zoom:1;*display:inline;margin-right:5px;position:relative;vertical-align:top;}
+#user .user-name .location {font-size:12px;line-height:16px;color: #5B5A5A;}
+#user .user-name .location .flag-big {float: left;margin-right:5px;position:relative;}
 #user .user-name .info p {margin:5px 0;}
 #user .user-name .info span {color:#a1a1a1;font-size:11px;margin-right:5px;}
 #user .user-name .info .interest-cat, .activity-find-friend ul li .info .interests-list {margin-bottom:10px;}
@@ -54,6 +54,7 @@
 .ava.big .renew {/*css3*/ -moz-border-radius:15px;-webkit-border-radius:15px;border-radius:15px;behavior: url(/stylesheets/PIE.htc);}
 .ava.big:hover .renew {display:block;}
 .ava.big .btn-orange {text-align:center;padding-top:90px;font-size:25px;text-decoration:none;display:block;height:150px;background:url(/images/ava_big_cap.png) no-repeat;filter:"progid:DXImageTransform.Microsoft.gradient(enabled=false)";}
+.ava.big.female  .btn-orange {background-position: 0 -240px;}
 .ava.big .btn-orange > span {background:none;padding:0;line-height:normal;height:auto;font-size:25px;font-weight:normal;color:#51AFC3;}
 .ava.big .btn-orange > span > span {background:none;padding:0;line-height:normal;height:auto;border-bottom:1px dashed #51AFC3;}
 
@@ -377,13 +378,17 @@
 .user-status.toggled.pattern-18:after {background-position:-50px -450px;}
 
 .user-status .date {color:#b6b9ba;font-size:9px;font-family:tahoma, arial, helvetica, sans-serif;padding-bottom:8px;}
-.user-status p {color:#0281b0;font:italic 20px 'times new roman', 'times', arial, helvetica, sans-serif;}
+.user-status p {color:#0281b0;font:italic 20px 'times new roman', 'times', arial, helvetica, sans-serif;margin-bottom: 5px;}
 .user-status.pattern p {color:#282828;}
-.user-status .meta {font-size: 11px;}
+.user-status .meta {float: right;padding:5px 7px;margin: 0;background: #ccc;background: rgba(255,255,255,.6);-webkit-border-radius: 5px;
+-moz-border-radius: 5px;
+-ms-border-radius: 5px;
+border-radius: 5px;
+ behavior: url(/stylesheets/PIE.htc);}
 .user-status form {text-align:right;}
 .user-status textarea {vertical-align:bottom;overflow:auto;width:300px;max-width:300px;margin-right:5px;height:90px;padding:2px 5px;border:1px solid #c5e8ef;margin-bottom:5px;}
-.user-status .date a.pseudo {font-size:11px;position:relative;top:-2px;}
-.user-status .tooltip-new {position:relative;float:right;right:0;top:0;margin-left:10px;}
+.user-status .pseudo {font-size:11px;position:relative;top:-2px;float: left;clear: left;}
+.user-status .tooltip-new {position:relative;float:left;right:0;top:0;margin-bottom: 5px;}
 
 .entry-content.user-status {font:italic 36px/43px times new roman, times, serif;color:#0281b0;padding:15px 30px;}
 .entry-content.user-status a {text-decoration:none;}
@@ -1389,7 +1394,7 @@
 	cursor: pointer;
 }
 .masonry-news-list .title-img:hover .btn-view {display: block;}
-.masonry-news-list .title-img:hover img {opacity:0.5;filter:alpha(opacity=50);}
+.masonry-news-list .title-img:hover img {opacity:0.7;filter:alpha(opacity=70);}
 .masonry-news-list_friend-info{margin:-8px -8px 5px;padding:8px 4px 8px 8px;background:#fefad1;}
 .masonry-news-list_friend-info .ava {margin-right: 6px;}
 .masonry-news-list_friend-info .details {overflow: hidden;font: 11px/12px Tahoma, Arial, Verdana, sans-serif;}

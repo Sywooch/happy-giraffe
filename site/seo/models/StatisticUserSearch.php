@@ -1,31 +1,24 @@
 <?php
 
 /**
- * This is the model class for table "keywords__folders".
+ * This is the model class for table "statistic__user_search".
  *
- * The followings are the available columns in table 'keywords__folders':
+ * The followings are the available columns in table 'statistic__user_search':
  * @property string $id
  * @property string $user_id
- * @property string $name
- * @property integer $color
- * @property integer $type
+ * @property integer $keyword_id
+ * @property string $created
  *
  * The followings are the available model relations:
  * @property SeoUser $user
- * @property Keyword[] $keywords
+ * @property Keyword $keyword
  */
-class KeywordFolder extends HActiveRecord
+class StatisticUserSearch extends HActiveRecord
 {
-    const TYPE_REGULAR = 0;
-    const TYPE_FAVOURITES = 1;
-
-    const COLOR_RED = 1;
-    const COLOR_BLUE = 2;
-
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return KeywordFolder the static model class
+	 * @return StatisticUserSearch the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -45,7 +38,7 @@ class KeywordFolder extends HActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'keywords__folders';
+		return 'statistic__user_search';
 	}
 
 	/**
@@ -56,13 +49,12 @@ class KeywordFolder extends HActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('user_id, name', 'required'),
-			array('color, type', 'numerical', 'integerOnly'=>true),
+			array('user_id, keyword_id, created', 'required'),
+			array('keyword_id', 'numerical', 'integerOnly'=>true),
 			array('user_id', 'length', 'max'=>11),
-			array('name', 'length', 'max'=>100),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, user_id, name, color', 'safe', 'on'=>'search'),
+			array('id, user_id, keyword_id, created', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -75,7 +67,7 @@ class KeywordFolder extends HActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'user' => array(self::BELONGS_TO, 'SeoUser', 'user_id'),
-			'keywords' => array(self::MANY_MANY, 'Keyword', 'keywords__folders_keywords(folder_id, keyword_id)'),
+			'keyword' => array(self::BELONGS_TO, 'Keyword', 'keyword_id'),
 		);
 	}
 
@@ -87,25 +79,29 @@ class KeywordFolder extends HActiveRecord
 		return array(
 			'id' => 'ID',
 			'user_id' => 'User',
-			'name' => 'Name',
-			'color' => 'Color',
+			'keyword_id' => 'Keyword',
+			'created' => 'Created',
 		);
 	}
 
-    public static function getFavourites()
-    {
-        $model = self::model()->findByAttributes(array(
-            'user_id'=>Yii::app()->user->id,
-            'type'=>self::TYPE_FAVOURITES
-        ));
+	/**
+	 * Retrieves a list of models based on the current search/filter conditions.
+	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
+	 */
+	public function search()
+	{
+		// Warning: Please modify the following code to remove attributes that
+		// should not be searched.
 
-        if ($model !== null)
-            return $model;
-        $model = new self;
-        $model->type = self::TYPE_FAVOURITES;
-        $model->user_id = Yii::app()->user->id;
-        $model->save();
+		$criteria=new CDbCriteria;
 
-        return $model;
-    }
+		$criteria->compare('id',$this->id,true);
+		$criteria->compare('user_id',$this->user_id,true);
+		$criteria->compare('keyword_id',$this->keyword_id);
+		$criteria->compare('created',$this->created,true);
+
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+		));
+	}
 }

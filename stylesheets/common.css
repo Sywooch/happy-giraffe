@@ -1974,7 +1974,8 @@ body.nav-fixed #header-new.top-line-fixed {padding-top:0;}
 #user-dialogs .friends ul li.empty .img {/*css3*/ -moz-border-radius:36px;-webkit-border-radius:36px;border-radius:36px;behavior: url(/stylesheets/PIE.htc);}
 
 #user-dialogs .letter-happy-giraffe {background:url(/images/letter_giraffe.png) no-repeat;padding:45px 60px 90px 45px;margin:20px -32px 20px -25px;font-size:13px; min-height:290px;}
-.ava-happy-giraffe .username {color:#bb9dd9;}
+#user-dialogs .ava-happy-giraffe .username {color:#bb9dd9;}
+#user-dialogs .ava-happy-giraffe .username:hover {text-decoration: none !important;}
 #user-dialogs .letter-happy-giraffe .letter-title {color:#2275ce;font:bold 14px/30px Tahoma, Arial, Verdana, sans-serif;margin:15px 0 10px;vertical-align:middle;}
 #user-dialogs .letter-happy-giraffe .letter-title .smile {margin:0 10px -4px;}
 #user-dialogs .letter-happy-giraffe p {margin-bottom:12px;text-align:justify;}

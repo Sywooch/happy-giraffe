@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<!--[if lt IE 8]>      <html class="top-nav-fixed ie7"> <![endif]-->
+<!--[if IE 8]>         <html class="top-nav-fixed ie8"> <![endif]-->
+<!--[if IE 9]>         <html class="top-nav-fixed ie9"> <![endif]-->
+<!--[if gt IE 9]><!--> <html class="top-nav-fixed"> <!--<![endif]-->
+<head>
+	<!--#include virtual="/block/global/head.shtml" -->
+
+</head>
+<body class="body-club">
+
+	<!--#include virtual="/block/global/top-line-menu.shtml" -->
+	
+<div class="layout-container">
+	<div class="layout-wrapper">
+
+		<!--#include virtual="/block/global/header-new.shtml" -->
+			
+		<div class="layout-content clearfix">
+			<h1>h1</h1>
+			<h2>h2</h2>
+			<h3>h3</h3>
+			<h4>h4</h4>
+			<div class="clearfix margin-b10">
+				<label for="">Input: text</label>
+				<input type="text" value="text" >
+			</div>
+			<div class="clearfix margin-b10">
+				<label for="">Input: password</label>
+				<input type="password" value="password" >
+			</div>
+			<div class="clearfix margin-b10">
+			<label for="">Input: search</label>
+				<input type="search" value="search" >
+			</div>
+			<div class="clearfix margin-b10">
+				<label for="">Input: checkbox</label>
+				<input type="checkbox" >
+			</div>
+			<div class="clearfix margin-b10">
+				<label for="">Input: radio</label>
+				<input type="radio" >
+			</div>
+			<div class="clearfix margin-b10">
+				<label for="">Input: submit</label>
+				<input type="submit" value="submit" >
+			</div>
+			<div class="clearfix margin-b10">
+				<label for="">Button</label>
+				<button>button</button>
+			</div>
+			
+		</div>  	
+		
+		<div class="push"></div>
+		
+	</div>
+		
+	<!--#include virtual="/block/global/footer.shtml" -->
+</div>
+</body>
+</html>

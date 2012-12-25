@@ -23,12 +23,6 @@ function removeA(arr){
     return arr;
 }
 
-/* проверка версии ie 8-9 */
-if (jQuery.browser.msie) {
-	if(parseInt(jQuery.browser.version) == 9){$("html").addClass(" ie9")}
-	else if(parseInt(jQuery.browser.version) == 8){$("html").addClass(" ie8")}
-}
-
 $(document).ready(function () {
     $(".wysiwyg-content").addtocopy({htmlcopytxt: '<br /><br />Подробнее: <a href="'+window.location.href+'">'+window.location.href+'</a>'});
     

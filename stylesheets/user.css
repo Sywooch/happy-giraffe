@@ -54,6 +54,7 @@
 .ava.big .renew {/*css3*/ -moz-border-radius:15px;-webkit-border-radius:15px;border-radius:15px;behavior: url(/stylesheets/PIE.htc);}
 .ava.big:hover .renew {display:block;}
 .ava.big .btn-orange {text-align:center;padding-top:90px;font-size:25px;text-decoration:none;display:block;height:150px;background:url(/images/ava_big_cap.png) no-repeat;filter:"progid:DXImageTransform.Microsoft.gradient(enabled=false)";}
+.ava.big.female  .btn-orange {background-position: 0 -240px;}
 .ava.big .btn-orange > span {background:none;padding:0;line-height:normal;height:auto;font-size:25px;font-weight:normal;color:#51AFC3;}
 .ava.big .btn-orange > span > span {background:none;padding:0;line-height:normal;height:auto;border-bottom:1px dashed #51AFC3;}
 

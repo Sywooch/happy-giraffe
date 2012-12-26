@@ -11,6 +11,7 @@
  *
  * The followings are the available model relations:
  * @property User $user
+ * @property CommunityStatus $post
  */
 class UserStatus extends HActiveRecord
 {
@@ -50,6 +51,7 @@ class UserStatus extends HActiveRecord
 	{
 		return array(
 			'user' => array(self::BELONGS_TO, 'User', 'user_id'),
+			'post' => array(self::HAS_ONE, 'CommunityStatus', 'status_id'),
 		);
 	}
 
@@ -105,5 +107,9 @@ class UserStatus extends HActiveRecord
         }
 
         User::model()->UpdateUser($this->user_id);
+    }
+
+    public function getUrl(){
+        return $this->post->content->getUrl(true);
     }
 }

@@ -16,7 +16,7 @@
                     <div class="date"><?=$data->normalizedAge?> (<?=$data->birthdayString?>)</div>
                 <?php endif; ?>
                 <?php if ($data->address->country_id): ?>
-                    <div class="location"><?=$data->address->flag?><?=$data->address->locationWithoutCountry?></div>
+                    <div class="location"><?=$data->address->flag?><?=$data->address->getUserFriendlyLocation()?></div>
                 <?php endif; ?>
             </div>
         </div>

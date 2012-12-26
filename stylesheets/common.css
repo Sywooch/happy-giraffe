@@ -40,6 +40,7 @@ a:hover {text-decoration:none;}
 .textdec-onhover {text-decoration: none !important;}
 .textdec-onhover:hover {text-decoration: underline !important;}
 a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
+.color-purple {color: #785e91;}
 
 .arr {font-family: Cambria, Segoe Script, minion pro, myriad pro, helvetica, arial, sans-serif;font-style:normal;}
 
@@ -1570,8 +1571,8 @@ body.nav-fixed #header-new.top-line-fixed {padding-top:0;}
 
 #header-new.guest .logo-box {width:250px;margin-right:3px;}
 
-#header-new .logo-box {width:280px;float:left;text-align:center;color:#8d5bbc;text-transform:uppercase;font-size:10px;letter-spacing:3px;line-height:25px;padding-top:25px;padding-bottom:15px;}
-#header-new .logo-box a.logo {display:block;width:198px;height:93px;background:url(../images/common.png) no-repeat 0 -200px;text-indent:-9999px;margin:0 auto;}
+.logo-box {width:280px;float:left;text-align:center;color:#8d5bbc;text-transform:uppercase;font-size:10px;letter-spacing:3px;line-height:25px;padding-top:25px;padding-bottom:15px;}
+.logo-box .logo {display:block;width:198px;height:93px;background:url(../images/common.png) no-repeat 0 -200px;text-indent:-9999px;margin:0 auto;}
 
 #header-new .banner-box {width:360px;float:left;padding-top:35px;text-align:center;margin-bottom:0;}
 #header-new.guest .banner-box {width:728px;}
@@ -3690,7 +3691,8 @@ div.scrollbarpaper-drag {-moz-border-radius:3px;-webkit-border-radius:3px;border
 .wysiwyg-content p img.content-img {margin-right:20px;float:left;}
 .wysiwyg-content ul {list-style:disc inside;padding-left:5px;padding-bottom:12px;}
 .wysiwyg-content ol {list-style:decimal inside;padding-left:5px;padding-bottom:12px;}
-.wysiwyg-content ol li, .wysiwyg-content ul li {margin-bottom:9px;}
+.wysiwyg-content ol li,
+.wysiwyg-content ul li {margin-bottom:9px;}
 .wysiwyg-content a {text-decoration:none;}
 .wysiwyg-content a:hover {text-decoration:underline;}
 .wysiwyg-content img.content-img-left {margin-right:20px;float:left;max-width:300px;}
@@ -5453,3 +5455,25 @@ label {
     font-size: 14px;
     line-height: 23px;
 }
+
+.moder-rule {width: 680px;margin: 0 auto;font-size: 13px;}
+
+.moder-rule_p {margin-bottom: 20px;}
+.moder-rule_ol {
+    margin:0 0 20px;
+    padding:0;
+    height:1%;
+    overflow:hidden;
+    counter-reset: item;
+}
+.moder-rule_li { display: block; margin:0 0 15px 33px; }
+.moder-rule_li:before {
+    content: counters(item, '.') '.';
+    counter-increment: item;
+    font:bold 15px Arial, Tahoma, Verdana, sans-serif;
+    color: #575757;
+    margin:0 0 0 -33px;
+    float: left;
+}
+.moder-rule .logo-box{float: none;margin: 0 auto 40px;}
+#content .moder-rule_h1 {font-size: 30px;color: #434343;margin-bottom: 40px;}

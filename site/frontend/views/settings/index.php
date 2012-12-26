@@ -10,7 +10,6 @@
         ->registerScript('settings_popup', $js)
     ;
 ?>
-
 <div id="user-settings" class="clearfix">
 
     <div class="header">
@@ -69,6 +68,7 @@
                                 $this->widget('DateWidget', array(
                                     'model' => $this->user,
                                     'attribute' => 'birthday',
+                                    'first_year'=>18
                                 ));
                             ?>
                             <button onclick="Settings.saveBirthday(this)" class="btn-green small">Ok</button>

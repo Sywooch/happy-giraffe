@@ -78,7 +78,7 @@
 
                 <div class="col col-1">Социальная сеть</div>
                 <div class="col col-2">Имя</div>
-                <div class="col col-3">Удалить профиль </div>
+                <div class="col col-3">Удалить профиль</div>
 
             </div>
 

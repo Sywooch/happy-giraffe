@@ -156,7 +156,7 @@ class DefaultController extends HController
                 'status' => true,
                 'weather' => $this->widget('WeatherWidget', array('user' => $user), true),
                 'main' => $this->widget('LocationWidget', array('user' => $user), true),
-                'location' => $user->address->getFlag(true) . $user->address->getUserFriendlyLocation(),
+                'location' => $user->address->getFlag(true, 'span') . '<span class="location-tx">'.$user->address->getUserFriendlyLocation().'</span>',
                 'mapsLocation' => $address->fullTextLocation()
             );
             UserAction::model()->add($user->id, UserAction::USER_ACTION_ADDRESS_UPDATED, array('model' => $address));

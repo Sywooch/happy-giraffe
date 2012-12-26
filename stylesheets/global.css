@@ -4971,20 +4971,19 @@ ul.letters li a:hover {
     background: url(/images/giraffe-story.png) no-repeat -699px 0;
 }
 .giraffe-story-holder {
-    padding: 0 50px 0 45px;
+    padding: 0 40px 0 30px;
     background: url(/images/giraffe-story.png) repeat-y 0 0;
 }
 .giraffe-story-title {
-    margin: 0 -15px 18px;
+    margin: 0 -10px 18px;
     padding: 0;
     font-size: 30px;
     line-height: 30px;
     color: #2e2e2e;
-    display: inline-block;*zoom:1;*display:inline;
     text-align: center;
 }
 .giraffe-story-title > span {background: #fef67b;padding: 0 3px;}
-.giraffe-story-img {float: left;margin:30px 45px 0 0;}
+.giraffe-story-img {float: left;margin:30px 30px 0 0;}
 .giraffe-story-text {
     line-height: 19px;
     font-style: italic;

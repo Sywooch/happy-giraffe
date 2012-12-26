@@ -22,6 +22,8 @@
 
 #user .user-name .location {font-size:12px;line-height:16px;color: #5B5A5A;}
 #user .user-name .location .flag-big {float: left;margin-right:5px;position:relative;}
+#user .user-name .location .location-tx {display: table-cell;vertical-align: middle;height: 32px;}
+/*#user .user-name .location .location-tx:after {content:' ';display: inline-block;*zoom:1;*display:inline;vertical-align: middle;height: 100%;}*/
 #user .user-name .info p {margin:5px 0;}
 #user .user-name .info span {color:#a1a1a1;font-size:11px;margin-right:5px;}
 #user .user-name .info .interest-cat, .activity-find-friend ul li .info .interests-list {margin-bottom:10px;}

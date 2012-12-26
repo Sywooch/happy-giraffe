@@ -19,7 +19,6 @@ jQuery.fn.pGallery = function(options) {
 
     plugin.openWindow = function(id) {
         if(! this.init) {
-
             this.init = true;
             this.originalTitle = document.title;
             this.bg = $('<div id="photo-window-bg" style="display:none"></div>');

@@ -68,10 +68,6 @@ return array(
 
         // user/*
         'user/<user_id:\d+>' => 'user/profile',
-        'user/<user_id:\d+>/friendsActivity/page<page:\d+>' => array('user/activity', 'defaultParams' => array('type' => 'friends')),
-        'user/<user_id:\d+>/friendsActivity' => array('user/activity', 'defaultParams' => array('type' => 'friends')),
-        'user/<user_id:\d+>/activity/page<page:\d+>' => array('user/activity', 'defaultParams' => array('type' => 'my')),
-        'user/<user_id:\d+>/activity' => array('user/activity', 'defaultParams' => array('type' => 'my')),
         'user/<user_id:\d+>/clubs' => 'user/clubs',
         'user/<user_id:\d+>/friends' => 'user/friends',
         'user/<user_id:\d+>/blog/rubric<rubric_id:\d+>' => 'blog/list',

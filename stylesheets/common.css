@@ -1806,15 +1806,22 @@ body.nav-fixed #header-new .top-line {position:fixed;left:50%;margin-left:-500px
 
 #content,
 .layout-content {margin:0 20px 50px;position:relative;z-index:3;}
+#content .content-box,
 .layout-content .content-box {padding-bottom:20px;}
 
+#content .side-left,
 .layout-content .side-left {width:240px;float:left;margin-left:-100%;}
+#content .side-right,
 .layout-content .side-right {width:240px;float:left;margin-left:-240px;}
 
+#content .main,
 .layout-content .main {float:left;width:100%;}
+#content .main-in,
 .layout-content .main .main-in {margin-left:260px;}
+#content  .main-right,
 .layout-content .main .main-right {margin-right:260px;}
-.layout-content .main.main-right .main-main-in {margin:0 260px 0 0;}
+#content .main-right .main-main-in,
+.layout-content .main-right .main-main-in {margin:0 260px 0 0;}
 
 .layout-content .content-cols {}
 .layout-content .content-cols .col-1 {width:240px;padding-right:20px;float:left;}

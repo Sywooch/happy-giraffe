@@ -1,7 +1,7 @@
 <div class="date"><?php if ($canUpdate): ?><a href="" class="a-right pseudo updateStatus">Новый статус</a><?php endif; ?><?php echo Yii::app()->dateFormatter->format("dd MMMM yyyy, HH:mm", $status->created); ?></div>
 <p><?php echo $status->purified->text; ?></p>
-<?php $model = $status->post->getContent() ?>
-<?php if (isset($model)):?>
+<?php if (isset($status->post)):?>
+    <?php $model = $status->post->getContent() ?>
     <div class="clearfix">
         <div class="meta">
             <div class="comments">

@@ -314,58 +314,6 @@ class SiteController extends HController
          $this->render('contest');
     }
 
-    public function actionTest()
-    {
-        $data = array(
-            'u' => 'mirasmurkov',
-            'k' => 'e4mownmg6njsrhrg',
-            'o' => 'csearch',
-            'e' => 'UTF-8',
-            't' => 'хуй пизда джигурда хуй пизда джигурда хуй пизда джигурдахуй пизда джигурда хуй пизда джигурда хуй пизда джигурда',
-            'c' => '1',
-        );
-
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, 'http://www.copyscape.com/api/');
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-        $res = curl_exec($ch);
-        curl_close($ch);
-
-        $xml = new SimpleXMLElement($res);
-        var_dump(isset($xml->result[0]->percentmatched));
-
-        die;
-
-        $url = 'http://www.copyscape.com/api/?' . http_build_query(array(
-            'u' => 'mirasmurkov',
-            'k' => 'e4mownmg6njsrhrg',
-            'o' => 'csearch',
-            'q' => 'http://www.happy-giraffe.ru/community/20/forum/post/23151/',
-            'c' => '1',
-        ));
-
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $res = curl_exec($ch);
-        curl_close($ch);
-
-        $xml = new SimpleXMLElement($res);
-        var_dump($xml->result[0]);
-        die;
-        echo $xml->result[0]->fsdfs;
-    }
-
-    public function actionUsers()
-    {
-        $users = User::model()->findAll(array('condition' => 'register_date between "2012-07-01 00:00:00" AND "2012-07-16 00:00:00"'));
-        foreach ($users as $u) {
-            echo '<p>' . CHtml::link($this->createAbsoluteUrl('user/profile', array('user_id' => $u->id)), $this->createAbsoluteUrl('user/profile', array('user_id' => $u->id))) . '</p>';
-        }
-    }
-
     public function actionConfirmEmail($user_id, $code)
     {
         $user = User::model()->findByPk($user_id);
@@ -436,26 +384,14 @@ class SiteController extends HController
         }
     }
 
-    public function actionTest2(){
-        /*$unread = Im::model(Yii::app()->user->id)->getUnreadMessagesCount();
-        $dialogUsers = Im::model(Yii::app()->user->id)->getUsersWithNewMessages();
-        $token = UserToken::model()->generate(Yii::app()->user->id, 86400);
-
-        $this->renderFile(Yii::getPathOfAlias('site.common.tpl.newMessages').'.php', array(
-            'user'=>Yii::app()->user->model,
-            'unread'=>$unread,
-            'dialogUsers'=>$dialogUsers,
-            'token'=>$token,
-        ));*/
-//        $articles = Favourites::model()->getWeekPosts();
-//        $this->renderFile(Yii::getPathOfAlias('site.common.tpl.weeklyNews').'.php', array('models'=>$articles));
-
-        //SocialPosting::sendPost(null);
-    }
-
     public function actionFixPhoto($id)
     {
         $photo = AlbumPhoto::model()->findByPk($id);
         $photo->getPreviewPath(210, null, Image::WIDTH, false, AlbumPhoto::CROP_SIDE_CENTER, true);
+    }
+
+    public function actionModerationRules(){
+        $this->layout = 'common';
+        $this->render('moder_rules');
     }
 }

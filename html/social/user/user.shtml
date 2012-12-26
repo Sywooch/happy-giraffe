@@ -13,16 +13,16 @@
 	</script>
 	
 </head>
-<body class="body-club">
+<body>
 
 	<!--#include virtual="/block/global/top-line-menu.shtml" -->
 	
 <div class="layout-container">
-	<div id="layout" class="wrapper">
+	<div class="layout-wrapper">
 
 		<!--#include virtual="/block/global/header-new.shtml" -->
 		
-		<div id="content" class="clearfix">
+		<div class="layout-content clearfix">
 			
 			<div id="user">
 				
@@ -978,24 +978,20 @@
 							
 						</div>
 						
-						
-						
 					</div>
 					
 				</div>
-				
-				
-				
+	
 			</div>
 			
 		</div>  	
 		
-		<div class="push"></div>
-		
+		<div class="footer-push"></div>
 	</div>
 	<!--#include virtual="/block/global/footer.shtml" -->
 </div>
-<div style="display:none">
+
+<div style="display:none" class="popup-container">
 	
 	<div id="login" class="popup">
 		

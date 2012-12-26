@@ -1,30 +1,33 @@
 	<div class="top-line-menu">
 		<div class="top-line-menu-holder">
-			<div class="user-nav-2">
+			<div class="top-line-menu_nav">
 				
-				<ul>
-					<li class="item-ava tooltipsy-title" title="Моя анкета">
+				<ul class="top-line-menu_nav_ul">
+					<li class="i-ava top-line-menu_nav_li js-tooltipsy" title="Моя анкета">
 						<a href="" class="ava small female"></a>
 					</li>
-					<li class="item-broadcast new tooltipsy-title" title="Что нового">
+					<li class="i-broadcast new top-line-menu_nav_li js-tooltipsy" title="Что нового">
 						<a href="" ><i class="icon-broadcast"></i></a>
 					</li>
-					<li class="item-dialogs tooltipsy-title" title="Мои диалоги">
+					<li class="i-dialogs top-line-menu_nav_li js-tooltipsy" title="Мои диалоги">
 						<a href=""><i class="icon-dialogs"></i></a>
 					</li>
-					<li class="item-friends tooltipsy-title" title="Мои друзья">
-						<a href=""><i class="icon-friends"></i></a>
+					<li class="i-friends top-line-menu_nav_li new js-tooltipsy" title="Мои друзья">
+						<a href="">
+							<i class="icon-friends"></i>
+							<span class="count count-red"><span class="">2</span></span>
+						</a>
 					</li>
-					<li class="item-notifications tooltipsy-title" title="Уведомления">
+					<li class="i-notifications top-line-menu_nav_li js-tooltipsy" title="Уведомления">
 						<a href=""><i class="icon-notifications"></i></a>
 					</li>
-					<li class="item-career tooltipsy-title" title="Мои успехи">
+					<li class="i-career top-line-menu_nav_li js-tooltipsy" title="Мои успехи">
 						<a href=""><i class="icon-career"></i></a>
 					</li>
-					<li class="item-settings tooltipsy-title" title="Настройки">
+					<li class="i-settings top-line-menu_nav_li js-tooltipsy" title="Настройки">
 						<a href=""><i class="icon-settings"></i></a>
 					</li>
-					<li class="item-logout tooltipsy-title" title="Выход">
+					<li class="i-logout top-line-menu_nav_li js-tooltipsy" title="Выход">
 						<a href=""><i class="icon-logout"></i></a>
 					</li>
 					

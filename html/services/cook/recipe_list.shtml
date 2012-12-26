@@ -527,6 +527,40 @@
 										</span>
 									</a>									
 								</li>
+								<li>
+									<a href="" class="cook-cat">
+										<span class="cook-cat-holder">
+											<i class="icon-cook-cat icon-recipe-12"></i>
+										</span>
+										<span class="cook-cat-frame">
+											<span>Блюда из молочных продуктов</span>
+											<span class="count">6 662</span>
+										</span>
+									</a>									
+								</li>
+								<li class="active">
+									<a href="" class="cook-cat active">
+										<span class="cook-cat-holder">
+											<i class="icon-cook-cat icon-recipe-13"></i>
+										</span>
+										<span class="cook-cat-frame">
+											<span>Рецепты для малышей</span>
+											<span class="count">6 662</span>
+										</span>
+									</a>
+									<img src="/images/recipe-categories-arrow.png" alt="" class="tale" />									
+								</li>
+								<li>
+									<a href="" class="cook-cat">
+										<span class="cook-cat-holder">
+											<i class="icon-cook-cat icon-recipe-14"></i>
+										</span>
+										<span class="cook-cat-frame">
+											<span>Рецепты-дуэты</span>
+											<span class="count">6 662</span>
+										</span>
+									</a>								
+								</li>
 							</ul>
 							
 						</div>

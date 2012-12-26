@@ -23,6 +23,9 @@
   <script type="text/javascript" src="/javascripts/jquery.tooltip.pack.js"></script>
 	
 	<script type="text/javascript" src="/javascripts/chosen.jquery.min.js"></script>
+
+	<script type="text/javascript" src="/javascripts/jquery.masonry.min.js"></script>
+	<script type="text/javascript" src="/javascripts/addtocopy.js"></script>
 	
 	<script type="text/javascript" src="/javascripts/common.js"></script>	
 	
@@ -459,7 +462,12 @@
 								<p>Женат &nbsp; <i class="icon-kid-boy"></i> <i class="icon-kid-girl"></i> <i class="icon-kid-wait"></i></p>
 							</div>
 						</div>					
-						
+						<div id="change_ava" class="ava big female filled">
+							<div class="photo User">
+   							 <a href="" class="btn fancy btn-orange"><span><span>Загрузить фото</span></span></a> 
+   							 <div class="upload-container"></div>
+   							</div>
+                        </div>
 						<div class="ava big male">
 							<a href="#photoPick" class="fancy renew">Обновить<br/>фото</a>
 						</div>
@@ -832,6 +840,211 @@
 								
 							</div>					
 						
+						</div>
+						
+						<div class="broadcast-widget">
+							<div class="broadcast-title-box">
+								
+								<div class="title">
+									<span class="icon-boradcast-small" ></span> Что нового у меня
+								</div>
+							</div>
+
+							<div  class="masonry-news-list clearfix ">
+							<script>
+  $(function(){
+
+        $(".masonry-news-list").masonry({
+          itemSelector : '.masonry-news-list_item',
+          columnWidth: 240,
+          isAnimated: false,
+          animationOptions: { queue: false, duration: 500 }
+        });
+
+  })
+						</script>
+								<ul>
+									
+								<li class="masonry-news-list_item">
+									<div class="masonry-news-list_friend-info clearfix">
+										<span class="date">Сегодня 13:25</span>
+										<p>Добавил комментарий  в клубе </p>
+									</div>
+									<div class="masonry-news-list_comment">
+										<div class="masonry-news-list_comment-text">
+											Проблема в том, что на 2006-ой год игры еще толком не было, Роды — отправная точка для самых важных изменений и судьбоносных. Осень. Я ее люблю, но когда начинается непонятная погода, хочется лезть на стенку. Сегодня на улице вот +8, вроде тепло, но вот туман.
+										</div>
+									</div>
+									<div class="masonry-news-list_meta-info clearfix">к записи</div>
+									<h3 class="masonry-news-list_title">
+										<a href="">Волшебная азбука 123 123</a>
+									</h3>
+									<div class="masonry-news-list_meta-info clearfix">
+										
+										<div class="meta">
+											<div class="views"><span class="icon" href="#"></span> <span>11265</span></div>
+											<div class="comments">
+												<a class="icon" href="#"></a>
+												<a href="">155</a>
+											</div>
+										</div>
+										
+										<a href="" class="textdec-onhover">Вступить <br />в беседу!</a>
+									</div>
+								</li>
+								
+								<li class="masonry-news-list_item blog">
+									<div class="masonry-news-list_friend-info clearfix">
+										<span class="date">Сегодня 13:25</span>
+										<p>Добавил комментарий  в клубе </p>
+									</div>
+									<div class="masonry-news-list_comment">
+										<div class="masonry-news-list_comment-text">
+											<a href="">Проблема в том, что на 2006-ой год игры еще толком не было... </a>
+										</div>
+									</div>
+									<h3 class="masonry-news-list_title">
+										<a href="">Волшебная азбука 123 123</a>
+									</h3>
+									<div class="masonry-news-list_meta-info clearfix">
+										
+										<div class="meta">
+											<div class="views"><span class="icon" href="#"></span> <span>5</span></div>
+											<div class="comments">
+												<a class="icon" href="#"></a>
+												<a href="">5</a>
+											</div>
+										</div>
+										
+										<a href="" class="textdec-onhover">Вступить <br />в беседу!</a>
+									</div>
+								</li>
+								
+								<li class="masonry-news-list_item">
+									<div class="masonry-news-list_friend-info clearfix">
+										<span class="date">Сегодня 13:25</span>
+										<p>Добавил комментарий  в клубе </p>
+									</div>
+									<h3 class="masonry-news-list_title">
+										<a href="">Волшебная азбука. Раннее развитие и обучение.</a>
+									</h3>
+									<div class="clearfix">
+										<a href="" class="club-category manwoman">Раннее развитие и обучение.</a>
+									</div>
+									<div class="masonry-news-list_content">
+										<a href=""><img src="/images/example/gallery_album_img_10.jpg" alt="" /></a>
+										<p>Роды — отправная точка для самых важных изменений и судьбоносных... <a href="" class="all">Читать</a></p>
+									</div>
+									
+									<div class="masonry-news-list_meta-info clearfix">
+										<div class="meta">
+											<div class="views"><span class="icon" href="#"></span> <span>265</span></div>
+											<div class="comments">
+												<a class="icon" href="#"></a>
+												<a href="">152</a>
+											</div>
+										</div>
+										
+										<a href="" class="textdec-onhover">Добавить <br />комментарий</a>
+									</div>
+								</li>
+								
+								<li class="masonry-news-list_item blog">
+									<div class="masonry-news-list_friend-info clearfix">
+										<span class="date">Сегодня 13:25</span>
+										<p>Добавил комментарий  в клубе </p>
+									</div>
+									<h3 class="masonry-news-list_title">
+										<a href="">Волшебная азбука. Раннее развитие и обучение.</a>
+									</h3>
+									<div class="clearfix">
+										<a class="sub-category" href=""><span class="icon-blog"></span>Личный блог</a>
+									</div>
+									<div class="masonry-news-list_content">
+										<a href=""><img src="/images/example/gallery_album_img_10.jpg" alt="" /></a>
+										<p>Роды — отправная точка для самых важных изменений и судьбоносных... <a href="" class="all">Читать</a></p>
+									</div>
+									
+									<div class="masonry-news-list_meta-info clearfix">
+										<div class="meta">
+											<div class="views"><span class="icon" href="#"></span> <span>265</span></div>
+											<div class="comments">
+												<a class="icon" href="#"></a>
+												<a href="">152</a>
+											</div>
+										</div>
+										
+										<a href="" class="textdec-onhover">Добавить <br />комментарий</a>
+									</div>
+								</li>
+								
+								<li class="masonry-news-list_item">
+									<div class="masonry-news-list_friend-info clearfix">
+										<span class="date">Сегодня 13:25</span>
+										<p>Добавил комментарий  в клубе </p>
+									</div>
+									<div class="user-purpose">
+									    <i class="icon"></i>
+									    <div class="purpose-container">
+										<span>Цель №1</span><p>На море с дочкой летом</p>
+										</div>
+									</div>
+								</li>
+								
+								<li class="masonry-news-list_item">
+									<div class="masonry-news-list_friend-info clearfix">
+										<span class="date">Сегодня 13:25</span>
+										<p>Добавил комментарий  в клубе </p>
+									</div>
+									<div class="clearfix user-info-big">
+										<div class="text-status">
+									        <p>Родители всегда говорили мне, что я могу добиться чего угодно! Родители всегда говорили мне...</p>
+									        <span class="tale"></span>
+									        <div class="meta nofloat">
+												<span class="views"><span class="icon" href="#"></span> <span>265</span></span>
+												<span class="comments">
+													<a class="icon" href="#"></a>
+													<a href="">15233</a>
+												</span>
+											</div>
+									    </div>
+									</div>
+									<div class="comments-all clearfix">
+										<a href="">Добавить комментарий</a>
+									</div>
+								</li>
+								
+								<li class="masonry-news-list_item">
+									<div class="masonry-news-list_friend-info clearfix">
+										<span class="date">Сегодня 13:25</span>
+										<p>Добавил комментарий  в клубе </p>
+									</div>
+									<div class="contest-participant">
+										<img class="title-img" alt="" src="/images/broadcast/title-contest-4.jpg">
+										<div class="img">
+											<a href="">
+												<img src="/images/example/gallery_album_img_01.jpg">
+												<span class="btn">Посмотреть</span>
+											</a>
+										<div class="item-title">Разнообразие десертов сицилийского стиля</div>
+										</div>
+										<div class="clearfix">
+											<div class="position">
+												<strong>18</strong> место
+											</div>
+											<div class="ball">
+												<div class="ball-count">186</div>
+												<div class="ball-text">баллов</div>
+											</div>
+										</div>
+									</div>
+									<div class="comments-all">
+										<a href="" class="textdec-onhover">Поддержите друга!</a>
+									</div>
+								</li>
+								
+								</ul>
+							</div>
 						</div>
 						
 						<div class="default-comments">

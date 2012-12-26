@@ -3,8 +3,21 @@ Copyright (c) 2003-2011, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.html or http://ckeditor.com/license
 */
 
-.cke_skin_hgrucomment *,.cke_skin_hgrucomment a:hover,.cke_skin_hgrucomment a:link,.cke_skin_hgrucomment a:visited,.cke_skin_hgrucomment a:active{margin:0;padding:0;border:0;background:transparent;text-decoration:none;font:normal normal normal 100% Sans-Serif;width:auto;height:auto;border-collapse:collapse;text-align:left;vertical-align:baseline;white-space:nowrap;cursor:auto;color:#000;float:none;font-size:11px;font-family:'Microsoft Sans Serif',Tahoma,Arial,Verdana,Sans-Serif;}
-.cke_skin_hgrucomment .cke_rtl *,.cke_skin_hgrucomment .cke_rtl a:hover,.cke_skin_hgrucomment .cke_rtl a:link,.cke_skin_hgrucomment .cke_rtl a:visited,.cke_skin_hgrucomment .cke_rtl a:active,.cke_rtl .cke_skin_hgrucomment *,.cke_rtl .cke_skin_hgrucomment a:hover,.cke_rtl .cke_skin_hgrucomment a:link,.cke_rtl .cke_skin_hgrucomment a:visited,.cke_rtl .cke_skin_hgrucomment a:active{text-align:right;}
+.cke_skin_hgrucomment *,
+.cke_skin_hgrucomment a:hover,
+.cke_skin_hgrucomment a:link,
+.cke_skin_hgrucomment a:visited,
+.cke_skin_hgrucomment a:active{margin:0;padding:0;border:0;background:transparent;text-decoration:none;font:normal normal normal 100% Sans-Serif;width:auto;height:auto;border-collapse:collapse;text-align:left;vertical-align:baseline;white-space:nowrap;cursor:auto;color:#000;float:none;font-size:11px;font-family:'Microsoft Sans Serif',Tahoma,Arial,Verdana,Sans-Serif;}
+.cke_skin_hgrucomment .cke_rtl *,
+.cke_skin_hgrucomment .cke_rtl a:hover,
+.cke_skin_hgrucomment .cke_rtl a:link,
+.cke_skin_hgrucomment .cke_rtl a:visited,
+.cke_skin_hgrucomment .cke_rtl a:active,
+.cke_rtl .cke_skin_hgrucomment *,
+.cke_rtl .cke_skin_hgrucomment a:hover,
+.cke_rtl .cke_skin_hgrucomment a:link,
+.cke_rtl .cke_skin_hgrucomment a:visited,
+.cke_rtl .cke_skin_hgrucomment a:active{text-align:right;}
 .cke_skin_hgrucomment iframe{vertical-align:inherit;border:1px solid #d6e5f8;border-bottom: 0;margin:0 0 0 -1px;}
 .cke_skin_hgrucomment textarea{white-space:pre;margin:0;}
 .cke_skin_hgrucomment .cke_browser_gecko textarea{cursor:text;}
@@ -25,7 +38,6 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 .cke_skin_hgrucomment .cke_rtl .cke_top{border-left:solid 1px #696969;border-right:solid 1px #fafaf5;}
 /*.cke_skin_hgrucomment .cke_bottom {display:none !important;}*/
 .cke_skin_hgrucomment .cke_contents{background-color:white;border:1px solid #d6e5f8;border-width: 0 1px 0 1px;}
-.cke_skin_hgrucomment .cke_focus{outline:auto 5px -webkit-focus-ring-color;}
 .cke_skin_hgrucomment textarea.cke_source{font-family:'Courier New',Monospace;font-size:small;background-color:#fff;white-space:pre;}
 .cke_skin_hgrucomment .cke_browser_iequirks textarea.cke_source{_white-space:normal;}
 .cke_skin_hgrucomment .cke_resizer{width:10px;height:10px;display:block;float:right;background:url(icons.png) -300px -5px no-repeat;cursor:se-resize;}

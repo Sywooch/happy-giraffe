@@ -33,6 +33,10 @@
 						<div class="user-name nofloat">
 							<h1>Ден Ижецкий</h1>
 							<div class="online-status offline"><i class="icon"></i>Был на сайте <span class="date">Сегодня 16:39</span></div>
+							<div class="location">
+                   				<div title="Россия" class="flag-big flag-big-ru"></div>
+                   				<span>Переславль-Залесский, Астраханская область</span>
+                   			</div>
 						</div>					
 						
 						<div class="ava big male">
@@ -386,10 +390,13 @@
 										<li><a href="" class="ava"></a></li>
 									</ul>
 									
-									<div class="more-friends"><a href="">Найти еще друзей</a> <a href="" class="wannachat">Хочу общаться!</a></div>
+									<div class="more-friends">
+										<a href=""><i class="icon-friends-small"></i>Найти еще друзей</a>
+										 <a href="" class="wannachat">Хочу общаться!</a>
+									</div>
 									
 								</div>
-								<br/><br/> <!-- этих <br/> быть не должно, просто изза дублирования блока-->
+								<br/><br/> <!-- этих <br/> быть не должно, просто из-за дублирования блока-->
 								<div class="user-friends clearfix">
 									
 									<div class="box-title">Друзья <a href="">Найти друзей</a></div>
@@ -633,7 +640,7 @@
 							<div class="broadcast-title-box">
 								<ul class="broadcast-widget-menu-r">
 									<li>
-										<a href=""><span class="icon-boradcast-small" ></span>В прямом эфире</a>
+										<a href="">В прямом эфире</a>
 									</li>
 									<li>
 										<a href="">В клубах</a>

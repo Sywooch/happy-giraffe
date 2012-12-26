@@ -72,7 +72,7 @@ Settings.saveBirthday = function(el) {
         m: $('#User_birthday_m').val(),
         y: $('#User_birthday_y').val()
     }, function(response) {
-        if (response) {
+        if (response.status) {
             $(el).parents('.row-elements').find('.input').hide();
             $(el).parents('.row-elements').find('.value').show();
             $(el).parents('.row-elements').find('.value span').text(response.birthday_str);

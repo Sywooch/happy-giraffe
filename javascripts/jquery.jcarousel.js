@@ -477,6 +477,17 @@
 
                 return this._items;
             },
+            myUpdate:function(){
+//                console.log(this);
+//                var option = this.option('list');
+//                this._list = this.element().find(option);
+//
+//                option = this.option('items');
+//                this._items = (this.list().find(option)).not('.jcarousel-clone');
+//                console.log(this);
+
+                this._update();
+            },
             target: function() {
                 return this._target;
             },

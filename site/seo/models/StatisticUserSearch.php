@@ -49,7 +49,7 @@ class StatisticUserSearch extends HActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('user_id, keyword_id, created', 'required'),
+			array('user_id, keyword_id', 'required'),
 			array('keyword_id', 'numerical', 'integerOnly'=>true),
 			array('user_id', 'length', 'max'=>11),
 			// The following rule is used by search().
@@ -71,37 +71,22 @@ class StatisticUserSearch extends HActiveRecord
 		);
 	}
 
-	/**
-	 * @return array customized attribute labels (name=>label)
-	 */
-	public function attributeLabels()
-	{
-		return array(
-			'id' => 'ID',
-			'user_id' => 'User',
-			'keyword_id' => 'Keyword',
-			'created' => 'Created',
-		);
-	}
+    public function behaviors()
+    {
+        return array(
+            'CTimestampBehavior' => array(
+                'class' => 'zii.behaviors.CTimestampBehavior',
+                'createAttribute' => 'created',
+                'updateAttribute' => null,
+            ),
+        );
+    }
 
-	/**
-	 * Retrieves a list of models based on the current search/filter conditions.
-	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
-	 */
-	public function search()
-	{
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
-
-		$criteria=new CDbCriteria;
-
-		$criteria->compare('id',$this->id,true);
-		$criteria->compare('user_id',$this->user_id,true);
-		$criteria->compare('keyword_id',$this->keyword_id);
-		$criteria->compare('created',$this->created,true);
-
-		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-		));
-	}
+    public static function addKeyword($keyword_id)
+    {
+        $model = new StatisticUserSearch;
+        $model->keyword_id = $keyword_id;
+        $model->user_id = Yii::app()->user->id;
+        $model->save();
+    }
 }

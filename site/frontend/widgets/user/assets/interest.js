@@ -23,10 +23,12 @@ Interest.save = function () {
         if (response.status) {
             if (response.full)
                 window.location.reload();
-            $.fancybox.close();
-            $('div.interests-wrapper').html(response.html);
-            if (typeof(Bonus) !== undefined)
-                Bonus.closeStep(5);
+            else{
+                $.fancybox.close();
+                $('div.interests-wrapper').html(response.html);
+                if (typeof Bonus != 'undefined')
+                    Bonus.closeStep(5);
+            }
         }
     }, 'json');
 }

@@ -556,6 +556,17 @@ class AjaxController extends HController
     public function actionInterestsForm()
     {
         Yii::import('site.common.models.interest.*');
+
+        Yii::app()->clientScript->scriptMap = array(
+            'jquery.js' => false,
+            'jquery.min.js' => false,
+            'jquery-ui.js' => false,
+            'jquery-ui.min.js' => false,
+            'jquery-ui.css' => false,
+            'global.css'=>false,
+            'jquery.tmpl.min.js'=>false
+            //'jquery.yiiactiveform.js'=>false
+        );
         $categories = InterestCategory::model()->with('interests')->findAll();
         $user_interests = Yii::app()->user->model->interests;
         $this->renderPartial('interests', compact('categories', 'user_interests'), false, true);

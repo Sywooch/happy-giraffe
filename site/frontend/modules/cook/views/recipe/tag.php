@@ -24,7 +24,7 @@ if (!$hide_text)
     $story = '<div class="giraffe-story">
             <div class="giraffe-story-frame">
                 <div class="giraffe-story-holder clearfix">
-                <div class="giraffe-story-title"><span><?='.$model->text_title.'</span></div>
+                <div class="giraffe-story-title"><span>'.$model->text_title.'</span></div>
                     <div class="giraffe-story-img">
                         <img src="/images/giraffe-story-logo.png" alt="">
                     </div>

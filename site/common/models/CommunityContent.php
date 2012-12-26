@@ -685,6 +685,11 @@ class CommunityContent extends HActiveRecord
         ));
     }
 
+    public function getStatus()
+    {
+        return CommunityStatus::model()->findByAttributes(array('content_id'=>$this->id));
+    }
+
     public function getEvent()
     {
         $row = array(
@@ -700,7 +705,7 @@ class CommunityContent extends HActiveRecord
 
     public function sendEvent()
     {
-        if ($this->rubric->community_id != Community::COMMUNITY_NEWS) {
+        if (isset($this->rubric) && $this->rubric->community_id != Community::COMMUNITY_NEWS) {
             $event = $this->event;
             $params = array(
                 'blockId' => $event->blockId,

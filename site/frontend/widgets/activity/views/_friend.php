@@ -33,7 +33,7 @@
 
         <?php if ($f->address->country_id): ?>
         <p class="location"><?=$f->address->getFlag(true, 'span')?>
-            <span><?=$f->address->locationString?></span></p>
+            <span><?=$f->address->fullTextLocation()?></span></p>
         <?php endif; ?>
 
         <p>
@@ -86,12 +86,12 @@
                 <?php endif; ?>
             </p>
 
-            <p><span>Я живу здесь:</span> <?=$f->address->locationString?></p>
+            <p><span>Я живу здесь:</span> <?=$f->address->fullTextLocation()?></p>
 
             <p>
                 <?php $this->widget('application.widgets.mapWidget.MapWidget', array('user' => $f, 'width' => 200, 'height' => 65)); ?>
                 <?php if (false): ?><img
-                src="http://maps.googleapis.com/maps/api/staticmap?center=<?=$f->address->locationString?>&zoom=7&size=200x65&maptype=hybrid&sensor=false&lang=ru"/><?php endif; ?>
+                src="http://maps.googleapis.com/maps/api/staticmap?center=<?=$f->address->fullTextLocation()?>&zoom=7&size=200x65&maptype=hybrid&sensor=false&lang=ru"/><?php endif; ?>
             </p>
 
             <div class="interests">

@@ -72,48 +72,6 @@ class UserAddress extends HActiveRecord
         );
     }
 
-    /**
-     * @return array customized attribute labels (name=>label)
-     */
-    public function attributeLabels()
-    {
-        return array(
-            'user_id' => 'User',
-            'country_id' => 'Country',
-            'region_id' => 'Region',
-            'city_id' => 'City',
-            'street_id' => 'Street',
-            'house' => 'House',
-            'room' => 'Room',
-            'manual' => 'Manual',
-        );
-    }
-
-    /**
-     * Retrieves a list of models based on the current search/filter conditions.
-     * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
-     */
-    public function search()
-    {
-        // Warning: Please modify the following code to remove attributes that
-        // should not be searched.
-
-        $criteria = new CDbCriteria;
-
-        $criteria->compare('user_id', $this->user_id, true);
-        $criteria->compare('country_id', $this->country_id, true);
-        $criteria->compare('region_id', $this->region_id, true);
-        $criteria->compare('city_id', $this->city_id, true);
-        $criteria->compare('street_id', $this->street_id, true);
-        $criteria->compare('house', $this->house, true);
-        $criteria->compare('room', $this->room, true);
-        $criteria->compare('manual', $this->manual, true);
-
-        return new CActiveDataProvider($this, array(
-            'criteria' => $criteria,
-        ));
-    }
-
     public function beforeSave()
     {
         if (!empty($this->country_id))
@@ -131,7 +89,7 @@ class UserAddress extends HActiveRecord
                 $cache_id = 'geo_flag_big_' . $this->country_id . '_' . $element;
                 $value = Yii::app()->cache->get($cache_id);
                 if ($value === false) {
-                    $value = '<' . $element . ' class="flag-big flag-big-' . strtolower($this->country->iso_code)
+                    $value = '<' . $element . ' class="tooltip flag-big flag-big-' . strtolower($this->country->iso_code)
                         . '" title="' . $this->country->name . '"></' . $element . '>';
                     Yii::app()->cache->set($cache_id, $value);
                 }
@@ -150,7 +108,27 @@ class UserAddress extends HActiveRecord
             return '';
     }
 
-    public function getLocationString()
+    //****************************************************************************************************/
+    /********************************************** Locations ********************************************/
+    /*****************************************************************************************************/
+    public function getUserFriendlyLocation()
+    {
+        if (!empty($this->city_id)) {
+            if (!empty($this->region_id) && $this->region->center_id != $this->city_id) {
+                return $this->city->name . '<br>' . str_replace('область', 'обл', $this->region->name);
+            } else
+                return $this->city->name;
+
+        } elseif (!empty($this->region_id))
+            return str_replace('область', 'обл', $this->region->name);
+
+        return '';
+    }
+
+    /**
+     * For maps, geo search
+     */
+    public function fullTextLocation()
     {
         if (empty($this->country_id))
             return '';
@@ -170,22 +148,10 @@ class UserAddress extends HActiveRecord
         return $value;
     }
 
-    public function getLocationWithoutCountry()
-    {
-        if (!empty($this->city_id)) {
-            if (empty($this->region_id)) {
-                return $this->city->name;
-            } elseif ($this->region->center_id != $this->city_id) {
-                return $this->city->name . ' ' . str_replace('область', 'обл', $this->region->name);
-            } else
-                return $this->city->name;
 
-        } elseif (!empty($this->region_id))
-            return str_replace('область', 'обл', $this->region->name);
-
-        return '';
-    }
-
+    //****************************************************************************************************/
+    /********************************************** Subject titles ***************************************/
+    /*****************************************************************************************************/
     public function hasCity()
     {
         return !empty($this->city_id) || ($this->region !== null && $this->region->isCity());

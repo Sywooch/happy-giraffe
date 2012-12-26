@@ -35,8 +35,10 @@
                 <?php endif; ?>
                 <div class="location">
                     <?php
-                    if (!empty($user->address->country_id)) echo $user->address->getFlag(true);
-                    if (!empty($user->address->city_id)) echo $user->address->cityName;
+                    if (!empty($user->address->country_id))
+                        echo $user->address->getFlag(true, 'span');
+                    if (!empty($user->address->city_id) || !empty($user->address->region_id))
+                        echo '<span class="location-tx">'.$user->address->getUserFriendlyLocation().'</span>';
                     ?>
                 </div>
                 <div class="info">
@@ -106,10 +108,6 @@
                         <?php else: ?>
                         <?= CHtml::link('<i class="icon"></i>Написать<br>сообщение', 'javascript:void(0)', array('class' => 'new-message', 'onclick' => 'Messages.open(' . $user->id . ')')); ?>
                         <?php endif ?>
-                    </div>
-
-                    <div class="user-activity-link" style="display: block;">
-                        <a href="<?=$this->createUrl('/user/activity', array('user_id'=>$user->id, 'type' => 'my')) ?>">Что нового</a>
                     </div>
                 <?php endif ?>
 
@@ -213,9 +211,6 @@
             ?>
         </div>
     </div>
-    <script type="text/javascript">
-        var attach_comment_obj = comment_<?php echo get_class($user) . $user->primaryKey; ?>;
-    </script>
 <?php endif; ?>
 
 <?php

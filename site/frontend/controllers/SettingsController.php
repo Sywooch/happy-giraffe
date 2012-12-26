@@ -37,6 +37,11 @@ class SettingsController extends HController
 
     public function actionIndex()
     {
+        Yii::app()->clientScript->scriptMap = array(
+            'jquery.js' => false,
+            'jquery.min.js' => false,
+        );
+
         $this->renderPartial('index', null, false, true);
     }
 

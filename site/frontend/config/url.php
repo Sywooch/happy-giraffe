@@ -31,7 +31,8 @@ return array(
         '/' => 'site/index',
         'js_dynamics/<hash:\w+>.js' => 'site/seoHide',
         'search' => 'site/search',
-        'site/<_a:(confirmEmail|resendConfirmEmail|passwordRecovery|passwordRecoveryForm|login|logout|link|test2|users|fixPhoto)>' => 'site/<_a>',
+        'moderation'=>'site/moderationRules',
+        'site/<_a:(confirmEmail|resendConfirmEmail|passwordRecovery|passwordRecoveryForm|login|logout|link|fixPhoto)>' => 'site/<_a>',
         //'contest' => 'site/contest',
         'services/<category_id:\d+>' => 'site/services',
         'services' => 'site/services',
@@ -67,10 +68,6 @@ return array(
 
         // user/*
         'user/<user_id:\d+>' => 'user/profile',
-        'user/<user_id:\d+>/friendsActivity/page<page:\d+>' => array('user/activity', 'defaultParams' => array('type' => 'friends')),
-        'user/<user_id:\d+>/friendsActivity' => array('user/activity', 'defaultParams' => array('type' => 'friends')),
-        'user/<user_id:\d+>/activity/page<page:\d+>' => array('user/activity', 'defaultParams' => array('type' => 'my')),
-        'user/<user_id:\d+>/activity' => array('user/activity', 'defaultParams' => array('type' => 'my')),
         'user/<user_id:\d+>/clubs' => 'user/clubs',
         'user/<user_id:\d+>/friends' => 'user/friends',
         'user/<user_id:\d+>/blog/rubric<rubric_id:\d+>' => 'blog/list',

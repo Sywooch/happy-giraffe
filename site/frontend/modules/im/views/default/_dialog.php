@@ -4,13 +4,21 @@
 
 <div class="dialog-header clearfix" data-userid="<?=$contact->id?>">
 
-    <?php
-        $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
+    <?php if ($contact->id == User::HAPPY_GIRAFFE):?>
+    <div class="user-info ava-happy-giraffe medium">
+
+        <span class="ava"><img src="/images/ava_happy_giraffe.png" alt=""></span>
+
+        <div class="details"><span class="username">Веселый Жираф</span></div>
+
+    </div>
+    <?php else: ?>
+        <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
             'user' => $contact,
             'nav' => true,
             'sendButton' => false,
-        ));
-    ?>
+        ));?>
+    <?php endif ?>
 
 </div>
 
@@ -18,10 +26,10 @@
     <?php if ($contact->id == User::HAPPY_GIRAFFE): ?>
 
         <div class="letter-happy-giraffe">
-            <a href="" class="ava small male"></a>
+            <span class="ava small male"><img src="/images/ava_happy_giraffe_small.png" alt=""></span>
             <div class="in ava-happy-giraffe">
                 <div class="meta">
-                    <a class="username" href="">Веселый Жираф</a>
+                    <span class="username">Веселый Жираф</span>
                     <span class="date"> <?=Yii::app()->dateFormatter->format("d MMMM yyyy, H:mm", Yii::app()->user->model->register_date)?></span>
                 </div>
             </div>
@@ -37,12 +45,13 @@
 
         <?php if ($contact->userDialog === null || empty($messages)): ?>
 
-            <div class="empty">
+        <ul>
+            <li class="empty">
 
                 <p>В этом диалоге нет сообщений.<br/>Ваше может быть первым!</p>
 
-            </div>
-
+            </li>
+        </ul>
         <?php else: ?>
 
             <ul>

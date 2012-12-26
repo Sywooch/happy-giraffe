@@ -20,7 +20,7 @@
 
             </div>
         </li>
-    <?php elseif($this->type != 'guestBook'): ?>
+    <?php else: ?>
 
         <?php if ($index == 0 || $dp->data[$index - 1]->removed == 0): ?>
 

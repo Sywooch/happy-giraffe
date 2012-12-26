@@ -4,16 +4,16 @@
  * This is the model class for table "community__statuses".
  *
  * The followings are the available columns in table 'community__statuses':
- * @property string $id
- * @property string $status_id
- * @property string $content_id
+ * @property int $id
+ * @property int $status_id
+ * @property int $content_id
  * @property string $text
  *
  * The followings are the available model relations:
- * @property CommunityContents $content
- * @property UserStatuses $status
+ * @property CommunityContent $content
+ * @property UserStatus $status
  */
-class CommunityStatus extends CActiveRecord
+class CommunityStatus extends HActiveRecord
 {
     /**
      * Returns the static model of the specified AR class.
@@ -38,9 +38,9 @@ class CommunityStatus extends CActiveRecord
      */
     public function rules()
     {
-        // NOTE: you should only define rules for those attributes that
-        // will receive user inputs.
         return array(
+            array('content_id', 'length', 'max' => 11),
+            array('content_id', 'numerical', 'integerOnly' => true),
         );
     }
 
@@ -49,50 +49,19 @@ class CommunityStatus extends CActiveRecord
      */
     public function relations()
     {
-        // NOTE: you may need to adjust the relation name and the related
-        // class name for the relations automatically generated below.
         return array(
             'content' => array(self::BELONGS_TO, 'CommunityContent', 'content_id'),
             'status' => array(self::BELONGS_TO, 'UserStatus', 'status_id'),
         );
     }
 
-    /**
-     * @return array customized attribute labels (name=>label)
-     */
-    public function attributeLabels()
-    {
-        return array(
-            'id' => 'ID',
-            'status_id' => 'Status',
-            'content_id' => 'Content',
-            'text' => 'Text',
-        );
-    }
-
-    /**
-     * Retrieves a list of models based on the current search/filter conditions.
-     * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
-     */
-    public function search()
-    {
-        // Warning: Please modify the following code to remove attributes that
-        // should not be searched.
-
-        $criteria=new CDbCriteria;
-
-        $criteria->compare('id',$this->id,true);
-        $criteria->compare('status_id',$this->status_id,true);
-        $criteria->compare('content_id',$this->content_id,true);
-        $criteria->compare('text',$this->text,true);
-
-        return new CActiveDataProvider($this, array(
-            'criteria'=>$criteria,
-        ));
-    }
-
     public function getPhoto()
     {
         return null;
+    }
+
+    public function getContent()
+    {
+        return BlogContent::model()->findByPk($this->content_id);
     }
 }

@@ -41,9 +41,10 @@
         ->registerScriptFile('/javascripts/jquery.jcarousel.control.js')
         ->registerScriptFile('/javascripts/jquery.tmpl.min.js')
         ->registerScriptFile('/javascripts/addtocopy.js')
-
+        ->registerScriptFile('/javascripts/tooltipsy.min.js')
         ->registerScriptFile('http://vk.com/js/api/share.js?11')
     ;
+
 
     $cs->registerMetaTag(trim($this->meta_description), 'description');
     if (!empty($this->meta_keywords))
@@ -84,7 +85,7 @@
             <div class="user-nav-2">
 
                 <ul>
-                    <li class="item-ava tooltip" title="Моя анкета">
+                    <li class="item-ava tooltipsy-title" title="Моя анкета">
                         <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
                             'user' => Yii::app()->user->model,
                             'size' => 'small',
@@ -92,66 +93,40 @@
                             'sendButton' => false,
                         )); ?>
                     </li>
-                    <li class="item-broadcast new">
+                    <li class="item-broadcast tooltipsy-title new" title="Что нового">
                         <a href="<?=$this->createUrl('/whatsNew/default/index')?>"><i class="icon-broadcast"></i></a>
                     </li>
-                    <li class="item-dialogs tooltip<?php if ($imCount > 0): ?> new<?php endif; ?>" title="Мои диалоги">
+                    <li class="item-dialogs tooltipsy-title<?php if ($imCount > 0): ?> new<?php endif; ?>" title="Мои диалоги">
                         <a href="javascript:void(0)" onclick="Messages.toggle()">
                             <i class="icon-dialogs"></i>
                             <div class="count"><span class="count-red"><?=$imCount?></span></div>
                         </a>
                     </li>
-                    <li class="item-friends tooltip<?php if ($friendsCount > 0): ?> new<?php endif; ?>" title="Мои друзья">
+                    <li class="item-friends tooltipsy-title<?php if ($friendsCount > 0): ?> new<?php endif; ?>" title="Мои друзья">
                         <a href="javascript:void(0)" onclick="Friends.toggle()">
                             <i class="icon-friends"></i>
                             <div class="count"><span class="count-red"><?=$friendsCount?></span></div>
                         </a>
                     </li>
-                    <li class="item-notifications tooltip<?php if ($notificationsCount > 0): ?> new<?php endif; ?>" title="Уведомления">
+                    <li class="item-notifications tooltipsy-title<?php if ($notificationsCount > 0): ?> new<?php endif; ?>" title="Уведомления">
                         <a href="javascript:void(0)" onclick="Notifications.toggle()">
                             <i class="icon-notifications"></i>
                             <div class="count"><span class="count-red">+ <span><?=$notificationsCount?></span></span></div>
                         </a>
                     </li>
-                    <li class="item-settings tooltip" title="Настройки">
+                    <li class="item-settings tooltipsy-title" title="Настройки">
                         <a href="javascript:void(0)" onclick="Settings.toggle()"><i class="icon-settings"></i></a>
                     </li>
-                    <li class="item-logout tooltip" title="Выход">
+                    <li class="item-logout tooltipsy-title" title="Выход">
                         <a href="<?php echo $this->createUrl('/site/logout') ?>"><i class="icon-logout"></i></a>
                     </li>
 
                 </ul>
-                <?php if (false): ?>
-                <ul>
-                    <li><a href="<?php echo $this->createUrl('/user/profile', array('user_id'=>Yii::app()->user->id)) ?>"><i class="icon icon-home"></i></a></li>
-                    <li id="user-nav-messages">
-                        <a href="javascript:void(0)" onclick="Messages.toggle()"><i class="icon icon-messages"></i><span class="count"<?php if ($imCount == 0): ?> style="display: none;"<?php endif; ?>><?=$imCount?></span></a>
-                    </li>
-                    <li id="user-nav-friends">
-                        <a href="javascript:void(0)" onclick="Friends.toggle()"><i class="icon icon-friends"></i><span class="count"<?php if ($friendsCount == 0): ?> style="display: none;"<?php endif; ?>><?=$friendsCount?></span></a>
-                    </li>
-                    <li id="user-nav-notifications">
-                        <a href="javascript:void(0)" onclick="Notifications.toggle()"><i class="icon icon-notifications"></i><span class="count"<?php if ($notificationsCount == 0): ?> style="display: none;"<?php endif; ?>><?=$notificationsCount?></span></a>
-                    </li>
-                    <li>
-                        <a href="<?=$this->createUrl('/scores/default/index') ?>"><i class="icon icon-points"></i><span class="count"><?= $user->score->scores ?></span></a>
-                    </li>
-                    <li class="item-ava">
-                        <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => Yii::app()->user->model, 'size' => 'small', 'small' => true, 'sendButton' => false)); ?>
-                    </li>
-                    <li id="user-nav-settings">
-                        <a href="javascript:void(0)" onclick="Settings.toggle()"><i class="icon icon-settings"></i></a>
-                    </li>
-                    <li>
-                        <a href="<?php echo $this->createUrl('/site/logout') ?>"><i class="icon icon-logout"></i></a>
-                    </li>
-                </ul>
-                <?php endif; ?>
 
             </div>
             <?php else: ?>
             <ul class="fast-links clearfix a-right">
-                <li><?= CHtml::link('Вход', '#login', array('class' => 'fancy', 'rel' => 'nofollow', 'data-theme'=>'white-square')); ?></li>
+                <li><?=CHtml::link('Вход', '#login', array('class' => 'fancy', 'rel' => 'nofollow', 'data-theme'=>'white-square')); ?></li>
                 <li><?=CHtml::link('Регистрация', '#register', array('id'=>'reg-main-btn', 'class' => 'fancy', 'data-theme'=>'white-square'))?></li>
             </ul>
             <?php endif; ?>

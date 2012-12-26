@@ -6,7 +6,6 @@
             <li><?=CHtml::link('Семья', array('/family'))?></li>
         <?php endif ?>
         <li><?=CHtml::link('Фото', array('albums/user', 'id' => $user->id))?></li>
-        <li><?=CHtml::link('Что нового', array('user/activity', 'user_id' => $user->id, 'type' => 'my'))?></li>
         <li>
             <span class="drp-list">
                 <a href="javascript:void(0)" class="more" onclick="$(this).next().toggle(); return false;">Еще</a>

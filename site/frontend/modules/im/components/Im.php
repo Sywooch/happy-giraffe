@@ -404,7 +404,8 @@ class Im
     public static function getContactsCount($user_id, $type, $condition = '', $params = array())
     {
         $criteria = self::getContactsCriteria($user_id, $type, $condition, $params);
-
+        if (!empty($criteria->having))
+            return count(User::model()->findAll($criteria));
         return User::model()->count($criteria);
     }
 

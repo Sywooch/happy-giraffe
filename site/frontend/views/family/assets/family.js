@@ -145,6 +145,8 @@ var Family = {
                     $('#future-baby-2').hide();
                     $('#future-baby-2 .baby-id').val('');
                     $('#future-baby-2 a.gender').removeClass('active');
+
+                    Family.updateWidget();
                 }
             }, 'json');
         } else {
@@ -164,6 +166,8 @@ var Family = {
                     success:function (response) {
                         if (response == '1') {
                             Family.showTypeTitle(el, type);
+
+                            Family.updateWidget();
                         }
                     },
                     context:el
@@ -306,6 +310,7 @@ var Family = {
                         $(el).parent().next().show();
 
                         $(el).parents('div.name').next().show();
+
                         Family.updateWidget();
                     }
                 },
@@ -335,6 +340,7 @@ var Family = {
                     $('.datepicker').hide();
                     $('.dateshower').show();
                     $('.dateshower span.age').text(date ? response.birthday : response.age);
+
                     Family.updateWidget();
                 }
             },
@@ -363,6 +369,7 @@ var Family = {
                     bl.find('div.comment div.input textarea').val('');
                     bl.find('div.comment div.text').hide();
                     bl.find('div.comment div.input').show();
+
                     Family.updateWidget();
                 }
             },
@@ -385,6 +392,7 @@ var Family = {
                     $(el).parent().hide();
                     $(el).parent().next().find('span.text').text(notice).show();
                     $(el).parent().next().show();
+
                     Family.updateWidget();
                 }
             },
@@ -407,6 +415,8 @@ var Family = {
                         $(el).addClass('active');
                         $(el).parent('div').children('div').show();
                         $(el).parents('div.family-member').find('input.baby-id').val(response.id);
+
+                        Family.updateWidget();
                     }
                 },
                 context:el
@@ -427,6 +437,8 @@ var Family = {
                         $(el).parent().children('a').removeClass('active');
                         $(el).addClass('active');
                         $(el).parent('div').children('div').show();
+
+                        Family.updateWidget();
                     }
                 },
                 context:el
@@ -486,7 +498,7 @@ var Family = {
     },
     updateWidget:function () {
         $.post('/family/updateWidget/', function (response) {
-            $('.user-cols .col-1').html(response);
+            $('.user-family').replaceWith(response);
         });
     },
     addPhotoClick:function (el) {

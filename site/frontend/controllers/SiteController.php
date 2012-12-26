@@ -392,6 +392,8 @@ class SiteController extends HController
 
     public function actionModerationRules(){
         $this->layout = 'common';
+        $this->pageTitle = 'Правила модерации на Веселом Жирафе';
+
         $this->render('moder_rules');
     }
 }

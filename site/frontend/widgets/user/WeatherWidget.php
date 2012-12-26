@@ -15,10 +15,10 @@ class WeatherWidget extends UserCoreWidget
         if (!$this->user->address->hasCity())
             return;
 
-        $cache_id = 'WeatherWidget_' . date("Y-m-d") . $this->user->address->getLocationString();
+        $cache_id = 'WeatherWidget_' . date("Y-m-d") . $this->user->address->fullTextLocation();
         $data = Yii::app()->cache->get($cache_id);
         if ($data == false) {
-            $gw = new SimpleGoogleWeather(urlencode($this->user->address->getLocationString()));
+            $gw = new SimpleGoogleWeather(urlencode($this->user->address->fullTextLocation()));
             if ($gw->xml === null)
                 $data = '  ';
             else {

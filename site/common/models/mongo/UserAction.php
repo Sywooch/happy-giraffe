@@ -116,8 +116,8 @@ class UserAction extends EMongoDocument
                     'flag' => $model->flag,
                     'country_name' => $model->country->name,
                     'country_id' => $model->country_id,
-                    'locationWithoutCountry' => $model->locationWithoutCountry,
-                    'locationString' => $model->locationString,
+                    'locationWithoutCountry' => $model->getUserFriendlyLocation(),
+                    'locationString' => $model->fullTextLocation(),
                 );
                 break;
             case self::USER_ACTION_FAMILY_UPDATED:

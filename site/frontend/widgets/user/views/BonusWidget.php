@@ -156,7 +156,8 @@ Yii::app()->clientScript->registerScriptFile('/javascripts/location.js');
                             array(
                                 'class' => 'chzn w-1',
                                 'data-placeholder' => 'Страна',
-                                'onchange' => 'UserLocation.SelectCounty($(this));'
+                                'onchange' => 'UserLocation.SelectCounty($(this));',
+                                'id'=>'first_steps_country_id'
                             )) ?>
 						</span>
                         &nbsp;&nbsp;
@@ -165,7 +166,8 @@ Yii::app()->clientScript->registerScriptFile('/javascripts/location.js');
                             array(
                                 'class' => 'chzn w-2',
                                 'data-placeholder' => 'Регион',
-                                'onchange' => 'UserLocation.RegionChanged($(this));'
+                                'onchange' => 'UserLocation.RegionChanged($(this));',
+                                'id'=>'first_steps_region_id'
                             )); ?>
 						</span>
                     </div>
@@ -173,7 +175,7 @@ Yii::app()->clientScript->registerScriptFile('/javascripts/location.js');
                         Населенный пункт:<br>
                         <?php
                         $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
-                            'id' => 'city_name',
+                            'id' => 'first_steps_city_name',
                             'name' => 'city_name',
                             'value' => ($this->user->address->city === null) ? '' : $this->user->address->city->name,
                             'source' => "js: function(request, response){
@@ -182,8 +184,8 @@ Yii::app()->clientScript->registerScriptFile('/javascripts/location.js');
                                 dataType: 'json',
                                 data: {
                                     term: request.term,
-                                    country_id: $('#country_id').val(),
-                                    region_id: $('#region_id').val()
+                                    country_id: $('#first_steps_country_id').val(),
+                                    region_id: $('#first_steps_region_id').val()
                                 },
                                 success: function (data)
                                 {
@@ -194,7 +196,7 @@ Yii::app()->clientScript->registerScriptFile('/javascripts/location.js');
                             'options' => array(
                                 'select' => "js:function (event, ui)
                                 {
-                                    $('#city_id').val(ui.item.id);
+                                    $('#first_steps_city_id').val(ui.item.id);
                                 }
                             ",
                                 'htmlOptions' => array(
@@ -204,14 +206,14 @@ Yii::app()->clientScript->registerScriptFile('/javascripts/location.js');
                             ),
                         ));
                         ?>
-                        <?php echo CHtml::hiddenField('city_id', $this->user->address->city_id); ?>
+                        <?php echo CHtml::hiddenField('first_steps_city_id', $this->user->address->city_id); ?>
                         <br>
                         <small>Введите свой город, поселок, село или деревню</small>
                     </div>
 
                 </div>
 
-                <span class="hl">Наш подарок: виджет с погодой на каждый день!</span>
+<!--                <span class="hl">Наш подарок: виджет с погодой на каждый день!</span>-->
 
             </div>
 

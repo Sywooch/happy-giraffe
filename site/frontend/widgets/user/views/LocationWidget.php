@@ -28,7 +28,7 @@ else:
         <div class="sep"><img src="/images/map_marker.png"></div>
         <div class="location">
             <?php echo $this->user->address->getFlag() ?> <?= $user->address->getCountryTitle() ?>
-            <p><?= $user->address->getLocationWithoutCountry() ?></p>
+            <p><?= $user->address->getUserFriendlyLocation() ?></p>
         </div>
     </div>
 

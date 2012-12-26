@@ -5,7 +5,7 @@
 <div class="user-friends clearfix">
 
     <?php if (empty($friends)): ?>
-        <div class="box-title">Друзья <?=CHtml::link('Найти друзей', '/friends/find')?></div>
+        <div class="box-title">Друзья <?=CHtml::link('Найти друзей', array('/friends/find'))?></div>
 
         <?php if (! Yii::app()->user->isGuest && ! WantToChat::hasCooldown(Yii::app()->user->id)): ?>
             <a href="javascript:;" onclick="WantToChat.send(this); return false;"><img src="/images/cap_wannachat.png" /></a>

@@ -19,11 +19,17 @@ class ContestWidget extends UserCoreWidget
         parent::init();
 
         $this->_contest = Contest::model()->cache(3600)->findByPk($this->contest_id);
+        if ($this->_contest === null)
+            return false;
+
         if ($this->_contest->status != Contest::STATUS_ACTIVE)
             $this->visible = false;
         else {
             $this->_contest_work = $this->user->getContestWork($this->contest_id);
-            $this->visible = ($this->isMyProfile || $this->_contest_work !== null) && $this->_contest !== null;
+            if (Yii::app()->user->isGuest){
+                $this->visible = $this->_contest_work !== null;
+            }else
+                $this->visible = $this->isMyProfile && Yii::app()->user->getModel()->score->full || $this->_contest_work !== null;
         }
     }
 }

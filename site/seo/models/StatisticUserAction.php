@@ -14,12 +14,17 @@
  * @property SeoUser $user
  * @property Keyword $keyword
  */
-class StatisticUserActions extends HActiveRecord
+class StatisticUserAction extends HActiveRecord
 {
+    const ACTION_ADD_TO_FOLDER = 1;
+    const ACTION_ADD_TO_FAVOURITES = 2;
+    const ACTION_REMOVE = 3;
+    const ACTION_STRIKE_OUT = 4;
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return StatisticUserActions the static model class
+	 * @return StatisticUserAction the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -50,7 +55,7 @@ class StatisticUserActions extends HActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('user_id, keyword_id, action_id, created', 'required'),
+			array('user_id, keyword_id, action_id', 'required'),
 			array('keyword_id, action_id', 'numerical', 'integerOnly'=>true),
 			array('user_id', 'length', 'max'=>11),
 			// The following rule is used by search().
@@ -72,39 +77,22 @@ class StatisticUserActions extends HActiveRecord
 		);
 	}
 
-	/**
-	 * @return array customized attribute labels (name=>label)
-	 */
-	public function attributeLabels()
-	{
-		return array(
-			'id' => 'ID',
-			'user_id' => 'User',
-			'keyword_id' => 'Keyword',
-			'action_id' => 'Action',
-			'created' => 'Created',
-		);
-	}
+    public function behaviors()
+    {
+        return array(
+            'CTimestampBehavior' => array(
+                'class' => 'zii.behaviors.CTimestampBehavior',
+                'createAttribute' => 'created',
+                'updateAttribute' => null,
+            ),
+        );
+    }
 
-	/**
-	 * Retrieves a list of models based on the current search/filter conditions.
-	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
-	 */
-	public function search()
-	{
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
-
-		$criteria=new CDbCriteria;
-
-		$criteria->compare('id',$this->id,true);
-		$criteria->compare('user_id',$this->user_id,true);
-		$criteria->compare('keyword_id',$this->keyword_id);
-		$criteria->compare('action_id',$this->action_id);
-		$criteria->compare('created',$this->created,true);
-
-		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-		));
-	}
+    public static function add($keyword_id, $action_id){
+        $model = new StatisticUserAction;
+        $model->user_id = Yii::app()->user->id;
+        $model->keyword_id = $keyword_id;
+        $model->action_id = $action_id;
+        $model->save();
+    }
 }

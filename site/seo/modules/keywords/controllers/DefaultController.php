@@ -23,13 +23,15 @@ class DefaultController extends SController
     {
         $term = $_POST['term'];
         if (!empty($term)) {
-            $model = new Keyword;
-            $model->name = $term;
+            $model = Keyword::GetKeyword($term, 2);
+            StatisticUserSearch::addKeyword($model->id);
 
             $dataProvider = $model->search();
             $criteria = $dataProvider->criteria;
 
             $count = Keyword::model()->count($dataProvider->criteria);
+            if ($count <= 1)
+                ParsingKeyword::addNewKeyword($model->id, 10);
 
             $pages = new CPagination($count);
             $pages->pageSize = 100;

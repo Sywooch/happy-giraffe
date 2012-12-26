@@ -395,7 +395,7 @@ class Im
         $criteria->limit = 20;
 
         $users = User::model()->findAll($criteria);
-        if (count($users) < 20 && $type == Im::IM_CONTACTS_ALL)
+        if (!empty($users) && count($users) < 20 && $type == Im::IM_CONTACTS_ALL)
             $users[] = User::getUserById(User::HAPPY_GIRAFFE);
 
         return $users;

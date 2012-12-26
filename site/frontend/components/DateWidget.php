@@ -3,6 +3,8 @@ class DateWidget extends CWidget
 {
 	public $model;
 	public $attribute;
+    public $first_year = 0;
+    public $last_year = 100;
 	
 	private $_d = array();
 	private $_m = array();
@@ -17,8 +19,8 @@ class DateWidget extends CWidget
 			$this->_d[sprintf("%02d", $i)] = $i;
 		}
 		
-		$current_year = date('Y');
-		for ($i = $current_year; $i >= $current_year - 100; $i--)
+		$current_year = date('Y') - $this->first_year;
+		for ($i = $current_year; $i >= $current_year - ($this->last_year - $this->first_year); $i--)
 		{
 			$this->_y[$i] = $i;
 		}

@@ -23,7 +23,7 @@ if ($user->address->country_id !== null) {
             array(
                 'class' => 'chzn w-100',
                 'data-placeholder' => 'Страна',
-                'onchange' => 'UserLocation.SelectCounty($(this));'
+                'onchange' => 'UserLocation.SelectCounty($(this));',
             )) ?>
             </span>&nbsp;&nbsp;
         <span class="with-search">

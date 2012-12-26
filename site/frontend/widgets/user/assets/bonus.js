@@ -24,9 +24,9 @@ var Bonus = {
         $.ajax({
             url:'/geo/saveLocation/',
             data:{
-                country_id:$('#country_id').val(),
-                city_id:$('#city_id').val(),
-                region_id:$('#region_id').val()
+                country_id:$('#first_steps_country_id').val(),
+                city_id:$('#first_steps_city_id').val(),
+                region_id:$('#first_steps_region_id').val()
             },
             type:'POST',
             dataType:'JSON',

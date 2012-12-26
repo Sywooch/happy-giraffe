@@ -9,7 +9,7 @@ class MapWidget extends CWidget
     public $height = 199;
 
     public $country_id;
-    public $locationString;
+    public $location;
 
     public function init()
     {
@@ -23,7 +23,7 @@ class MapWidget extends CWidget
         $this->registerScripts();
         if ($this->user) {
             $this->country_id = $this->user->address->country_id;
-            $this->locationString = $this->user->address->locationString;
+            $this->location = $this->user->address->fullTextLocation();
         }
 
         if (empty($this->country_id))

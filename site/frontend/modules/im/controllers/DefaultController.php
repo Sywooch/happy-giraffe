@@ -49,9 +49,9 @@ class DefaultController extends HController
         echo CJSON::encode($response);
     }
 
-    public function actionContacts($type = Im::IM_CONTACTS_ALL)
+    public function actionContacts($type = Im::IM_CONTACTS_ALL, $page=1)
     {
-        $contacts = Im::getContacts(Yii::app()->user->id, $type);
+        $contacts = Im::getContacts(Yii::app()->user->id, $type, '', array(), $page);
         echo $this->renderPartial('contacts', compact('contacts'));
     }
 

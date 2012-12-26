@@ -94,6 +94,11 @@ class AjaxController extends HController
         $m = Yii::app()->request->getPost('m');
         $y = Yii::app()->request->getPost('y');
 
+        if (empty($d) || empty($m) || empty($y)){
+            echo CJSON::encode(array('status' => false));
+            Yii::app()->end();
+        }
+
         $model = $modelName::model()->findByPk($modelPk);
         $model->setAttribute($attribute, HDate::getStringDate($d, $m, $y));
         if ($model->update($attribute)) {

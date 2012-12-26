@@ -16,7 +16,7 @@
             <?=CHtml::link(CHtml::image($data->recipe->mainPhoto->getPreviewUrl(198, null, Image::WIDTH), $data->recipe->title).'<span class="btn-view">Посмотреть</span>', 'javascript:void(0)', array('data-id' => $data->recipe->mainPhoto->id))?>
         </div>
     <?php endif; ?>
-    <p><?=Str::truncate($data->recipe->text, 256)?> <a href="<?=$data->recipe->url?>" class="all">Весь рецепт</a></p>
+    <p><?=Str::getDescription($data->recipe->text)?> <a href="<?=$data->recipe->url?>" class="all">Весь рецепт</a></p>
 </div>
 
 <div class="masonry-news-list_meta-info clearfix">

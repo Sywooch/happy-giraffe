@@ -796,8 +796,4 @@ class AjaxController extends HController
         $service = Service::model()->findByPk(Yii::app()->request->getPost('id'));
         $service->userUsedService();
     }
-
-    public function actionCount(){
-        echo $referrer = Yii::app()->request->getPost('referrer');;
-    }
 }

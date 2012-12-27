@@ -179,7 +179,7 @@ Messages.setList = function (type, interlocutor_id) {
         var scroll_container = $('#user-dialogs .contacts div.list');
 
         scroll_container.scroll(function () {
-            if (((scroll_container.scrollTop()) + 500) >= $('#user-dialogs-contacts').height()) {
+            if (((scroll_container.scrollTop()) + 1500) >= $('#user-dialogs-contacts').height()) {
                 Messages.loadMoreContacts();
             }
         });

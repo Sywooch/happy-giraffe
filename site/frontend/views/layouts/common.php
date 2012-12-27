@@ -225,6 +225,9 @@
             var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
         })();
 
+        $(function() {
+            $.post('/ajax/count/', {referrer:document.referrer});
+        });
     </script>
 </noindex>
 <div id="body-overlay" style="display: none;"></div>

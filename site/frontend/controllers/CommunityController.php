@@ -184,6 +184,8 @@ class CommunityController extends HController
         if (! Yii::app()->user->isGuest)
             UserNotification::model()->deleteByEntity($content, Yii::app()->user->id);
 
+        $this->registerCounter();
+
         $this->render('view', array(
             'data' => $content,
         ));

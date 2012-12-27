@@ -3,14 +3,14 @@
     //$this->user->babies = Baby::model()->with(array('photos'))->findAll('parent_id = '.$this->user->id);
 ?>
 
-<?php if (($user->babyCount() > 0) || ($user->hasPartner() && !empty($user->partner->name)) || $this->showEmpty):?>
+<?php if (($user->babyCount(true) > 0) || ($user->hasPartner() && !empty($user->partner->name)) || $this->showEmpty):?>
 <div class="user-family user-family-border-<?=$border?>" data-family-border="<?=$border?>">
     <div class="t"></div>
     <div class="c">
         <ul>
             <?php if ($user->hasPartner() && !empty($user->partner->name)): ?>
             <li>
-                <big><?= $user->partner->name ?> <small>- <?php echo $user->getPartnerTitleOf(null, 3) ?></small></big>
+                <big><?= $user->partner->name ?> <small>- <?= $user->getPartnerTitleOf(null, 3) ?></small></big>
                 <?php if (!empty($user->partner->notice)):?>
                     <div class="comment">
                         <?= $user->partner->notice ?>
@@ -19,7 +19,7 @@
                 <?php endif ?>
                 <?php if (count($user->partner->photos) != 0):?>
                 <div class="img">
-                    <img src="<?php echo $user->partner->getRandomPhotoUrl() ?>">
+                    <img src="<?= $user->partner->getRandomPhotoUrl() ?>">
                 </div>
                 <?php endif ?>
             </li>
@@ -27,7 +27,12 @@
             <?php foreach ($user->babies as $baby): ?>
                 <?php if (empty($baby->type)):?>
                     <li>
-                        <big><?php echo $baby->name ?> <small>- <?=($baby->sex) ? 'мой сын' : 'моя дочь'?><?php if (!empty($baby->birthday)) echo ', '.$baby->getTextAge(false) ?></small></big>
+                        <big><?= $baby->name ?>
+                            <?php if ($baby->sex != Baby::SEX_UNDEFINED || !empty($baby->birthday)):?>
+                                <small>- <?=mb_strtolower($baby->getGenderString(), 'utf-8')?>
+                                    <?php if (!empty($baby->birthday)) echo ', '.$baby->getTextAge(false) ?></small>
+                            <?php endif ?>
+                        </big>
                         <?php if (!empty($baby->notice)):?>
                         <div class="comment">
                             <?= $baby->notice ?>
@@ -37,7 +42,7 @@
 
                         <?php if (count($baby->photos) != 0):?>
                             <div class="img">
-                                <img src="<?php echo $baby->getRandomPhotoUrl() ?>">
+                                <img src="<?= $baby->getRandomPhotoUrl() ?>">
                             </div>
                         <?php endif ?>
                     </li>
@@ -101,7 +106,7 @@
         </div>
     <?php endif; ?>
 <?php else: ?>
-<?php if ($this->user->relationship_status == 0 && $this->isMyProfile && $user->babyCount() == 0): ?>
+<?php if ($this->user->relationship_status == 0 && $this->isMyProfile && $user->babyCount(true) == 0): ?>
     <div class="user-family user-family-cap">
         <div class="t"></div>
         <div class="c">

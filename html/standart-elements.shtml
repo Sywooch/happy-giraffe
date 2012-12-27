@@ -7,7 +7,7 @@
 	<!--#include virtual="/block/global/head.shtml" -->
 
 </head>
-<body class="body-club">
+<body>
 
 	<!--#include virtual="/block/global/top-line-menu.shtml" -->
 	
@@ -16,7 +16,7 @@
 
 		<!--#include virtual="/block/global/header-new.shtml" -->
 			
-		<div class="layout-content clearfix">
+		<div id="content" class="layout-content clearfix">
 			<h1>h1</h1>
 			<h2>h2</h2>
 			<h3>h3</h3>

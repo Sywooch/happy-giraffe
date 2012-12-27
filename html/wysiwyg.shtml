@@ -39,7 +39,7 @@
 
 		<!--#include virtual="/block/global/header-new.shtml" -->
 			
-		<div class="layout-content clearfix">
+		<div id="content" class="layout-content clearfix">
 
 			<div class="content-cols clearfix">
 					

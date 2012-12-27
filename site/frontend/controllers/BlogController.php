@@ -219,6 +219,7 @@ class BlogController extends HController
         }
 
         $this->pageTitle = $content->title;
+        $this->registerCounter();
 
         $this->user = $content->author;
         $this->rubric_id = ($content->type_id == 5) ? null : $content->rubric->id;

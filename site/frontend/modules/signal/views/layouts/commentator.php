@@ -16,6 +16,7 @@
     ->registerScriptFile('/javascripts/jquery.fancybox-1.3.4.js')
     ->registerCssFile('/stylesheets/jquery.fancybox-1.3.4.css')
     ->registerScriptFile('/javascripts/user_common.js')
+    ->registerScriptFile('/javascripts/tooltipsy.min.js')
     ->registerScript('Realplexor-reg', '
     comet.connect("http://' . Yii::app()->comet->host . '", "' . Yii::app()->comet->namespace . '",
                   "' . UserCache::GetCurrentUserCache() . '");

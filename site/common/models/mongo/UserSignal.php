@@ -84,7 +84,7 @@ class UserSignal extends EMongoDocument
             self::TYPE_NEW_USER_POST => 'Прокомментировать',
             self::TYPE_NEW_USER_VIDEO => 'Прокомментировать',
             self::TYPE_NEW_USER_PHOTO => 'Прокомментировать',
-            self::TYPE_NEW_USER_REGISTER => 'Написать в гостевую',
+            self::TYPE_NEW_USER_REGISTER => 'Написать личное сообщение',
             self::TYPE_NEW_BLOG_POST => 'Прокомментировать',
         );
     }
@@ -359,6 +359,17 @@ class UserSignal extends EMongoDocument
     }
 
     /**
+     * @param Message $message
+     */
+    public static function checkMessage($message)
+    {
+        if (Yii::app()->user->checkAccess('user_signals')) {
+            Yii::import('site.frontend.modules.signal.models.*');
+            self::CheckTask('User', $message->dialog->GetInterlocutor()->id, Yii::app()->user->id);
+        }
+    }
+
+    /**
      *
      */
     public function getSumPriority()
@@ -400,8 +411,7 @@ class UserSignal extends EMongoDocument
         } elseif ($this->signal_type == self::TYPE_NEW_USER_PHOTO) {
             $text .= CHtml::link('Фото в анкете', $this->getUrl(), array('target' => '_blank'));
         } elseif ($this->signal_type == self::TYPE_NEW_USER_REGISTER) {
-            $text = 'Написал в гостевую ' . CHtml::link('Анкета пользователя',
-                Yii::app()->createUrl('user/profile', array('user_id' => $this->user_id)), array('target' => '_blank'));
+            $text = 'Написал личное сообщение ';
         }
 
         $user = $this->getUser();

@@ -226,8 +226,8 @@ class FamilyController extends HController
     public function actionRemoveAllBabies()
     {
         $criteria = new CDbCriteria;
+        $criteria->condition = 'type IS NULL';
         $criteria->compare('parent_id', Yii::app()->user->id);
-        $criteria->compare('type', null);
         $count = Baby::model()->deleteAll($criteria);
         if ($count > 0) {
             $response = array('status' => true);
@@ -242,7 +242,6 @@ class FamilyController extends HController
         Yii::import('application.widgets.user.UserCoreWidget');
         $this->widget('application.widgets.user.FamilyWidget', array(
             'user' => $this->user,
-            'showEmpty'=>true
         ));
     }
 

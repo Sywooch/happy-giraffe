@@ -192,10 +192,8 @@ var TaskDistribution = {
 var SeoTasks = {
     TakeTask:function (id) {
         $.post('/writing/task/take/', {id:id}, function (response) {
-            if (response.status) {
-                document.location.reload();
-            }
-        }, 'json');
+            document.location.reload();
+        });
     },
     Written:function (id, el) {
         $.post('/writing/task/executed/', {id:id, url:$(el).prev().val()}, function (response) {

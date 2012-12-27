@@ -17,6 +17,7 @@
     ->registerScriptFile('/javascripts/jquery.placeholder.min.js')
     ->registerCssFile('/stylesheets/common.css')
     ->registerScriptFile('/javascripts/dklab_realplexor.js')
+    ->registerScriptFile('/javascripts/tooltipsy.min.js')
     ->registerScript('Realplexor-reg', '
     comet.connect("http://' . Yii::app()->comet->host . '", "' . Yii::app()->comet->namespace . '",
                   "' . UserCache::GetCurrentUserCache() . '");

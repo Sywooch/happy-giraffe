@@ -18,7 +18,26 @@ if ($hide_text)
         <p><?=strip_tags($model->description) ?></p>
     <?php endif ?>
 </div>
-<?php $this->widget('zii.widgets.CListView', array(
+<?php
+
+if (!$hide_text)
+    $story = '<div class="giraffe-story">
+            <div class="giraffe-story-frame">
+                <div class="giraffe-story-holder clearfix">
+                <div class="giraffe-story-title"><span>'.$model->text_title.'</span></div>
+                    <div class="giraffe-story-img">
+                        <img src="/images/giraffe-story-logo.png" alt="">
+                    </div>
+                    <div class="giraffe-story-text">
+                        '.$model->text.'
+                    </div>
+                </div>
+            </div>
+        </div>';
+else
+    $story = '';
+
+$this->widget('zii.widgets.CListView', array(
     'ajaxUpdate' => false,
     'dataProvider' => $dp,
     'itemView' => '_recipe',
@@ -26,24 +45,9 @@ if ($hide_text)
     'pager' => array(
         'class' => 'AlbumLinkPager',
     ),
-    'template' => '{items}
+    'template' => '{items}'.$story.'
             <div class="pagination pagination-center clearfix">
                 {pager}
             </div>
         ',
-)) ?>
-<?php if (!$hide_text):?>
-    <div class="giraffe-story">
-        <div class="giraffe-story-frame">
-            <div class="giraffe-story-holder clearfix">
-            <div class="giraffe-story-title"><span><?=$model->text_title ?></span></div>
-                <div class="giraffe-story-img">
-                    <img src="/images/giraffe-story-logo.png" alt="">
-                </div>
-                <div class="giraffe-story-text">
-                    <?=$model->text ?>
-                </div>
-            </div>
-        </div>
-    </div>
-<?php endif ?>
+));

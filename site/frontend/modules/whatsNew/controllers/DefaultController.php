@@ -22,8 +22,8 @@ class DefaultController extends HController
     {
         return array(
             array('allow',
-                'actions'=>array('moreItems'),
-                'users'=>array('*'),
+                'actions' => array('moreItems'),
+                'users' => array('*'),
             ),
             array('deny',
                 'users' => array('?'),
@@ -69,8 +69,11 @@ class DefaultController extends HController
     {
         $offset = Yii::app()->request->getPost('offset');
         $dp = EventManager::getDataProvider(EventManager::WHATS_NEW_ALL, 4);
+        $dp->pagination->pageSize = 4;
         $dp->pagination->currentPage = round($offset / 4) + 1;
+        $dp->totalItemCount = 10000;
 
-        $this->renderPartial('ajax_items', array('dp' => $dp));
+        foreach ($dp->data as $block)
+            echo $block->code;
     }
 }

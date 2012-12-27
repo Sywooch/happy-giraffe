@@ -34,7 +34,7 @@
 							
 							<div class="entry recipe-article clearfix">
 								
-								<h1 class="fn"><a href="">Курица в пиве с рисом</a></h1>
+								<h1 class="fn"><a href="" class="entry-title">Курица в пиве с рисом</a></h1>
 								
 								<div class="entry-header clearfix">
 								
@@ -178,7 +178,7 @@
 							
 							<div class="entry recipe-article clearfix">
 								
-								<h1 class="fn"><a href="">Курица в пиве с рисом</a></h1>
+								<h1 class="fn"><a href="" class="entry-title">Курица в пиве с рисом</a></h1>
 								
 								<div class="entry-header clearfix">
 								
@@ -315,24 +315,6 @@
 								</div>
 								
 							</div>
-							
-							<div class="pagination pagination-center clearfix">
-								<div class="pager">
-									<ul>
-										<li class="previous"><a href="">...</a></li>
-										<li><a href="">1</a></li>
-										<li><a href="">2</a></li>
-										<li class="selected"><a href="">321</a><img src="/images/pagination_tale.png" /></li>
-										<li><a href="">4</a></li>
-										<li class="selected"><a href="">5</a><img src="/images/pagination_tale.png" /></li>
-										<li><a href="">6</a></li>
-										<li><a href="">7</a></li>
-										<li class="next"><a href="">...</a></li>
-									</ul>
-								</div>
-							</div>
-							
-						
 						
 							<div class="giraffe-story">
 								<div class="giraffe-story-frame">
@@ -356,6 +338,24 @@
 									</div>
 								</div>
 							</div>
+							
+							
+							<div class="pagination pagination-center clearfix">
+								<div class="pager">
+									<ul>
+										<li class="previous"><a href="">...</a></li>
+										<li><a href="">1</a></li>
+										<li><a href="">2</a></li>
+										<li class="selected"><a href="">321</a><img src="/images/pagination_tale.png" /></li>
+										<li><a href="">4</a></li>
+										<li class="selected"><a href="">5</a><img src="/images/pagination_tale.png" /></li>
+										<li><a href="">6</a></li>
+										<li><a href="">7</a></li>
+										<li class="next"><a href="">...</a></li>
+									</ul>
+								</div>
+							</div>
+							
 						</div>
 					</div>
 					<div class="side-left">
@@ -526,6 +526,40 @@
 											<span class="count">6 662</span>
 										</span>
 									</a>									
+								</li>
+								<li>
+									<a href="" class="cook-cat">
+										<span class="cook-cat-holder">
+											<i class="icon-cook-cat icon-recipe-12"></i>
+										</span>
+										<span class="cook-cat-frame">
+											<span>Блюда из молочных продуктов</span>
+											<span class="count">6 662</span>
+										</span>
+									</a>									
+								</li>
+								<li class="active">
+									<a href="" class="cook-cat active">
+										<span class="cook-cat-holder">
+											<i class="icon-cook-cat icon-recipe-13"></i>
+										</span>
+										<span class="cook-cat-frame">
+											<span>Рецепты для малышей</span>
+											<span class="count">6 662</span>
+										</span>
+									</a>
+									<img src="/images/recipe-categories-arrow.png" alt="" class="tale" />									
+								</li>
+								<li>
+									<a href="" class="cook-cat">
+										<span class="cook-cat-holder">
+											<i class="icon-cook-cat icon-recipe-14"></i>
+										</span>
+										<span class="cook-cat-frame">
+											<span>Рецепты-дуэты</span>
+											<span class="count">6 662</span>
+										</span>
+									</a>								
 								</li>
 							</ul>
 							

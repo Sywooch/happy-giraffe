@@ -116,7 +116,7 @@ body.body-club {background:#f6f6f6;}
 .body-gray #layout,
 .body-broadcast #layout{background:#f6f6f6;}
 
-#footer {height:70px;margin-top:-80px;padding-top:10px;font:normal 11px/36px tahoma, arial, helvetica, sens-serif;position: relative;}
+#footer {height:70px;margin-top:-80px;padding-top:10px;font:normal 11px/36px tahoma, arial, helvetica, sens-serif;position: relative;background: #fff;}
 #footer .copy {padding-left:20px;color:#9e9d9e;}
 #footer .copy .icon-18{vertical-align: middle;padding: 0 25px;}
 #footer .a-right {color:#0498b8;padding-right:20px;}
@@ -5456,8 +5456,9 @@ label {
     line-height: 23px;
 }
 
-.moder-rule {width: 680px;margin: 0 auto;font-size: 13px;}
-
+.moder-rule {width: 680px;margin: 0 auto 40px;font-size: 13px;}
+.moder-rule .logo-box{float: none;margin: 0 auto 40px;}
+#content .moder-rule_h1 {font-size: 30px;color: #434343;margin-bottom: 40px;}
 .moder-rule_p {margin-bottom: 20px;}
 .moder-rule_ol {
     margin:0 0 20px;
@@ -5475,5 +5476,4 @@ label {
     margin:0 0 0 -33px;
     float: left;
 }
-.moder-rule .logo-box{float: none;margin: 0 auto 40px;}
-#content .moder-rule_h1 {font-size: 30px;color: #434343;margin-bottom: 40px;}
+

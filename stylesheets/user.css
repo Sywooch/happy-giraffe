@@ -1019,7 +1019,7 @@ border-radius: 5px;
 #firstStepsLocation .right .select-box small {font-size:11px;color:#a3a3a3;}
 #firstStepsLocation .right .hl {background:#fffbc9;padding:2px 6px;color:#5a5a5a;font-size:14px;}
 
-#broadcast {margin: -20px -20px 0;padding: 20px;}
+#broadcast {margin: -20px -20px 0;padding: 20px 20px 0 20px;}
 #broadcast.broadcast-all{padding-left: 30px;padding-right: 30px;background: #f6f6f6;}
 .broadcast-title-box {margin-bottom: 40px;}
 #broadcast .broadcast-title-box h1 {
@@ -1450,8 +1450,10 @@ border-radius: 5px;
 .masonry-news-list.jcarousel-holder .masonry-news-list_item {margin-right: 5px;margin-left: 5px;}
 .masonry-news-list.jcarousel-holder .prev{position:absolute;background:url(../images/arrows.png) no-repeat 0px -86px;width:34px;height:84px;top:20%;left:0;text-indent:-9999px;}
 .masonry-news-list.jcarousel-holder .prev.jcarousel-control-inactive{background-position:0 0;}
+.masonry-news-list.jcarousel-holder .prev.disabled{background-position:0 0;}
 .masonry-news-list.jcarousel-holder .next{position:absolute;background:url(../images/arrows.png) no-repeat -36px -86px;width:34px;height:84px;top:20%;right:0;text-indent:-9999px;}
 .masonry-news-list.jcarousel-holder .next.jcarousel-control-inactive{background-position:-36px 0;}
+.masonry-news-list.jcarousel-holder .next.disabled{background-position:-36px 0;}
 
 .broadcast-widget .broadcast-title-box {margin-bottom: 5px;}
 #layout .broadcast-title-box h3 {

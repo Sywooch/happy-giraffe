@@ -62,7 +62,7 @@ class DefaultController extends HController
     {
         $type = Yii::app()->request->getPost('type');
 
-        $this->widget('WhatsNewWidget', array('type' => $type));
+        $this->widget('WhatsNewWidget', array('type' => $type, 'checkVisible' => false));
     }
 
     public function actionMoreItems()

@@ -154,9 +154,17 @@ class FriendEvent extends EMongoDocument
 
     public function getCode()
     {
-        return Yii::app()->controller->renderPartial('application.modules.whatsNew.views.friends._brick', array(
-            'data' => $this,
-        ), true);
+        $cache_id = 'friend_event_code_'.$this->_id;
+        $value=Yii::app()->cache->get($cache_id);
+        if($value===false)
+        {
+            $value=Yii::app()->controller->renderPartial('application.modules.whatsNew.views.friends._brick', array(
+                'data' => $this,
+            ), true);
+            Yii::app()->cache->set($cache_id,$value, 60);
+        }
+
+        return $value;
     }
 
     protected function afterSave()

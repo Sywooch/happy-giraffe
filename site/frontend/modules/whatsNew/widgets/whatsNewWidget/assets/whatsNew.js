@@ -6,6 +6,7 @@
 WhatsNew = {
     guest:false,
     offset:13,
+    page:1,
     type:0,
     Carousel:null,
     ajax:function (type, el) {
@@ -37,7 +38,13 @@ WhatsNew = {
             });
 
             $('#masonry-news-list-jcarousel .next').on('click', function () {
-                //WhatsNew.loadItems();
+                WhatsNew.page++;
+                if (WhatsNew.page * 4 > WhatsNew.offset - 8)
+                    WhatsNew.loadItems();
+            });
+            $('#masonry-news-list-jcarousel .prev').on('click', function () {
+                if (WhatsNew.page > 1)
+                    WhatsNew.page--;
             });
         }
 
@@ -45,9 +52,8 @@ WhatsNew = {
         $('#masonry-news-list-jcarousel .prev').jcarouselControl({target:'-=4'});
         $('#masonry-news-list-jcarousel .next').jcarouselControl({target:'+=4'});
     },
-    redirect:function(){
-        switch(WhatsNew.type)
-        {
+    redirect:function () {
+        switch (WhatsNew.type) {
             case 1:
                 window.location.href = '/whatsNew/clubs/';
                 break;
@@ -61,14 +67,14 @@ WhatsNew = {
                 window.location.href = '/whatsNew/';
         }
     },
-    loadItems:function(){
-        $.post('/whatsNew/moreItems/', {offset:WhatsNew.offset}, function(response) {
-            $('#masonry-news-list-jcarousel-ul').append(response);
-            $('#masonry-news-list-jcarousel-ul li').removeClass('jcarousel-item-last');
-            $('#masonry-news-list-jcarousel-ul li:last').addClass('jcarousel-item-last')
-            WhatsNew.offset += 4;
-            //WhatsNew.Carousel.jcarousel('myUpdate');
-        });
+    loadItems:function () {
+        setTimeout(function () {
+            $.post('/whatsNew/moreItems/', {offset:WhatsNew.offset}, function (response) {
+                $('#masonry-news-list-jcarousel-ul').append(response);
+                WhatsNew.offset += 4;
+                WhatsNew.Carousel.jcarousel('reload');
+            });
+        }, 500)
     }
 }
 

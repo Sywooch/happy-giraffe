@@ -21,11 +21,10 @@ class WhatsNewWidget extends CWidget
 
     public function run()
     {
-        if ($this->showThere() && !Yii::app()->user->isGuest){
-            $limit = Yii::app()->user->isGuest ? 20 : 13;
-            $dp = EventManager::getDataProvider($this->type, $limit);
+        if ($this->showThere()){
+            $dp = EventManager::getDataProvider($this->type, 13);
             //for friends
-            $dp->pagination->pageSize = $limit;
+            $dp->pagination->pageSize = 13;
 
             $this->registerScripts();
             $this->render('index', compact('dp'));

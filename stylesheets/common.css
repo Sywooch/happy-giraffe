@@ -259,14 +259,10 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 #layout .push,
 .layout-wrapper .footer-push {height:80px;}
 
-#footer,
-.layout-footer {height:70px;width:1000px;margin:-80px auto 0;padding-top:10px;font:normal 11px/36px tahoma, arial, helvetica, sens-serif;position: relative;background:#fff;}
-#footer .copy,
-.layout-footer .copy {padding-left:20px;color:#9e9d9e;}
-#footer .copy .icon-18,
-.layout-footer .copy .icon-18{vertical-align: middle;padding: 0 25px;}
-#footer .a-right,
-.layout-footer .a-right {color:#0498b8;padding-right:20px;}
+#footer {height:70px;margin-top:-80px;padding-top:10px;font:normal 11px/36px tahoma, arial, helvetica, sens-serif;position: relative;background: #fff;}
+#footer .copy {padding-left:20px;color:#9e9d9e;}
+#footer .copy .icon-18{vertical-align: middle;padding: 0 25px;}
+#footer .a-right {color:#0498b8;padding-right:20px;}
 
 #body-overlay {position:fixed;height:100%;width:100%;top:0;left:0;z-index:98;background:url(/images/bg_black_alpha_40.png);}
 .popup-container {position:absolute;top:0;bottom:0;left:0;right:0;z-index:100;overflow: hidden;display:none;}
@@ -1543,8 +1539,8 @@ body.nav-fixed #header-new {z-index:90;}
 
 #header-new.guest .logo-box {width:250px;margin-right:3px;}
 
-#header-new .logo-box {width:280px;float:left;text-align:center;color:#8d5bbc;text-transform:uppercase;font-size:10px;letter-spacing:3px;line-height:25px;padding-top:25px;padding-bottom:15px;}
-#header-new .logo-box a.logo {display:block;width:198px;height:93px;background:url(../images/common.png) no-repeat 0 -200px;text-indent:-9999px;margin:0 auto;}
+.logo-box {width:280px;float:left;text-align:center;color:#8d5bbc;text-transform:uppercase;font-size:10px;letter-spacing:3px;line-height:25px;padding-top:25px;padding-bottom:15px;}
+.logo-box .logo {display:block;width:198px;height:93px;background:url(../images/common.png) no-repeat 0 -200px;text-indent:-9999px;margin:0 auto;}
 
 #header-new .banner-box {width:360px;float:left;padding-top:35px;text-align:center;margin-bottom:0;}
 #header-new.guest .banner-box {width:728px;}
@@ -1941,7 +1937,8 @@ body.nav-fixed #header-new {z-index:90;}
 #user-dialogs .friends ul li.empty .img {/*css3*/ -moz-border-radius:36px;-webkit-border-radius:36px;border-radius:36px;behavior: url(/stylesheets/PIE.htc);}
 
 #user-dialogs .letter-happy-giraffe {background:url(/images/letter_giraffe.png) no-repeat;padding:45px 60px 90px 45px;margin:20px -32px 20px -25px;font-size:13px; min-height:290px;}
-.ava-happy-giraffe .username {color:#bb9dd9;}
+#user-dialogs .ava-happy-giraffe .username {color:#bb9dd9;}
+#user-dialogs .ava-happy-giraffe .username:hover {text-decoration: none !important;}
 #user-dialogs .letter-happy-giraffe .letter-title {color:#2275ce;font:bold 14px/30px Tahoma, Arial, Verdana, sans-serif;margin:15px 0 10px;vertical-align:middle;}
 #user-dialogs .letter-happy-giraffe .letter-title .smile {margin:0 10px -4px;}
 #user-dialogs .letter-happy-giraffe p {margin-bottom:12px;text-align:justify;}
@@ -3612,7 +3609,8 @@ div.scrollbarpaper-drag {-moz-border-radius:3px;-webkit-border-radius:3px;border
 .wysiwyg-content p img.content-img {margin-right:20px;float:left;}
 .wysiwyg-content ul {list-style:disc inside;padding-left:5px;padding-bottom:12px;}
 .wysiwyg-content ol {list-style:decimal inside;padding-left:5px;padding-bottom:12px;}
-.wysiwyg-content ol li, .wysiwyg-content ul li {margin-bottom:9px;}
+.wysiwyg-content ol li,
+.wysiwyg-content ul li {margin-bottom:9px;}
 .wysiwyg-content a {text-decoration:none;}
 .wysiwyg-content a:hover {text-decoration:underline;}
 .wysiwyg-content img.content-img-left {margin-right:20px;float:left;max-width:300px;}
@@ -5376,10 +5374,26 @@ label {
     font-size: 14px;
     line-height: 23px;
 }
-
-
-
-
+.moder-rule {width: 680px;margin: 0 auto 40px;font-size: 13px;}
+.moder-rule .logo-box{float: none;margin: 0 auto 40px;}
+#content .moder-rule_h1 {font-size: 30px;color: #434343;margin-bottom: 40px;}
+.moder-rule_p {margin-bottom: 20px;}
+.moder-rule_ol {
+    margin:0 0 20px;
+    padding:0;
+    height:1%;
+    overflow:hidden;
+    counter-reset: item;
+}
+.moder-rule_li { display: block; margin:0 0 15px 33px; }
+.moder-rule_li:before {
+    content: counters(item, '.') '.';
+    counter-increment: item;
+    font:bold 15px Arial, Tahoma, Verdana, sans-serif;
+    color: #575757;
+    margin:0 0 0 -33px;
+    float: left;
+}
 
 
 

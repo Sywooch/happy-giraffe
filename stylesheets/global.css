@@ -4123,7 +4123,7 @@ ul.letters li a:hover {
 
 .cook-cat .icon-recipe-5 {width:26px;height:33px;background-position:0 -382px;}
 .cook-cat:hover .icon-recipe-5 {background-position:-50px -382px;}
-.cook-cat.active .icon-recipe-5 {background-position:-125px -176px;width: 51px;height: 41px;}
+.cook-cat.active .icon-recipe-5 {background-position:-125px -176px;width: 51px;height: 51px;}
 .cook-cat.active:hover .icon-recipe-5 {background-position:-125px -176px;}
 
 .cook-cat .icon-recipe-6 {width:31px;height:27px;background-position:0 -777px;}
@@ -4157,14 +4157,19 @@ ul.letters li a:hover {
 .cook-cat.active:hover .icon-recipe-11 {background-position:-125px -478px;}
 
 .cook-cat .icon-recipe-12 {width:22px;height:36px;background-position:0 -965px;}
-.cook-cat.active .icon-recipe-12, .cook-cat:hover .icon-recipe-12 {background-position:-50px -965px;}
+.cook-cat:hover .icon-recipe-12 {background-position:-50px -965px;}
+.cook-cat.active .icon-recipe-12 {background-position:-125px -574px;width:30px;height: 50px;}
+.cook-cat.active:hover .icon-recipe-12 {background-position:-125px -574px;}
 
 .cook-cat .icon-recipe-13 {width:43px;height:31px;background-position:0 -1118px;}
-.cook-cat.active .icon-recipe-13, .cook-cat:hover .icon-recipe-13 {background-position:0px -1118px;}
+.cook-cat:hover .icon-recipe-13 {background-position:-50px -1118px;}
+.cook-cat.active .icon-recipe-13 {background-position:-125px -625px;width:65px;height: 47px;}
+.cook-cat.active:hover .icon-recipe-13 {background-position:-125px -625px;}
 
 .cook-cat .icon-recipe-14 {width:30px;height:27px;background-position:0 -1149px;}
-.cook-cat.active .icon-recipe-14, .cook-cat:hover .icon-recipe-14 {background-position:0px -1149px;}
-
+.cook-cat:hover .icon-recipe-14 {background-position:-50px -1149px;}
+.cook-cat.active .icon-recipe-14 {background-position:-125px -675px;width:56px;height: 50px;}
+.cook-cat.active:hover .icon-recipe-14 {background-position:-125px -675px;}
 
 .cook-cat .icon-product-0 {width:28px;height:36px;background-position:0 -804px;}
 .cook-cat.active .icon-product-0, .cook-cat:hover .icon-product-0 {background-position:-50px -804px;}
@@ -4480,8 +4485,8 @@ ul.letters li a:hover {
 
 .recipe-categories {margin-bottom:80px;}
 .recipe-categories ul {list-style:none;padding:10px 0;margin:0 0 30px;}
-.recipe-categories ul li {padding:19px 0;margin-right:-1px;position: relative;}
-.recipe-categories ul li a {display: block;}
+.recipe-categories ul li {margin-right:-1px;position: relative;}
+.recipe-categories ul li a {display: block;padding:19px 0;}
 .recipe-categories ul li.active {
     background: #ffffd5;
     border:1px solid #e7dcf0;
@@ -4501,7 +4506,7 @@ ul.letters li a:hover {
     height: 102%;
     display: block;
 }
-.recipe-categories .cook-cat-frame {display:inline-block;*zoom:1;*display:inline;vertical-align:middle;}
+.recipe-categories .cook-cat-frame {display:inline-block;*zoom:1;*display:inline;vertical-align:middle;width: 113px;}
 .recipe-categories .cook-cat-holder {display: inline-block;*zoom:1;*display:inline;vertical-align: middle;width: 55px;text-align: center;margin:0 5px 0 10px;}
 .recipe-categories li.active .cook-cat-holder {width: auto;min-width:60px;margin-right: 15px;}
 .recipe-categories li .count {display:inline-block;*zoom:1;*display:inline;color:#616061;position:relative;font-size:10px;line-height: 17px;text-decoration:none;text-align:left;white-space:nowrap;position:relative;}
@@ -4657,27 +4662,6 @@ ul.letters li a:hover {
 .recipe-article .nutrition ul li.n-fat .icon i {background-color:#abb71d;color:#fff;}
 .recipe-article .nutrition ul li.n-carbohydrates .icon i {background-color:#fcbe03;color:#fff;}
 .recipe-article .nutrition ul li .gray {font-size:11px;color:#9e9d9d;}
-
-#cook-recipe .recipe-article .instructions em {color: #494A4A;}
-.recipe-article .cook-instructions {
-    margin:0;
-    padding:0;
-    color:#000;
-    counter-reset: item;
-}
-.recipe-article .cook-instructions > li { display: block;margin:0 80px 25px; }
-.recipe-article .cook-instructions > li:before {
-    content: counters(item, "") " ";
-    counter-increment: item;
-    float: left;
-    vertical-align: top;
-    margin:8px 10px 0 -80px;
-    width: 70px;
-    text-align: center;
-    font-size: 35px;
-    font-weight: bold;
-    color: #6f6f6f;
-}
 
 .cook-article-tags {float: left;margin: 35px 5px;}
 .cook-article-tags-title {float: left;width: 50px;text-align: center;font:italic 14px/29px Georgia, 'Times New Roman', Times, serif;color: #6c6e6f;background: #fafca4;}
@@ -4992,20 +4976,19 @@ ul.letters li a:hover {
     background: url(/images/giraffe-story.png) no-repeat -699px 0;
 }
 .giraffe-story-holder {
-    padding: 0 50px 0 45px;
+    padding: 0 40px 0 30px;
     background: url(/images/giraffe-story.png) repeat-y 0 0;
 }
 .giraffe-story-title {
-    margin: 0 -15px 18px;
+    margin: 0 -10px 18px;
     padding: 0;
     font-size: 30px;
     line-height: 30px;
     color: #2e2e2e;
-    display: inline-block;*zoom:1;*display:inline;
     text-align: center;
 }
 .giraffe-story-title > span {background: #fef67b;padding: 0 3px;}
-.giraffe-story-img {float: left;margin:30px 45px 0 0;}
+.giraffe-story-img {float: left;margin:30px 30px 0 0;}
 .giraffe-story-text {
     line-height: 19px;
     font-style: italic;
@@ -5014,3 +4997,24 @@ ul.letters li a:hover {
     color: #2c2c2c;
 }
 .giraffe-story-text .allocation {color: #1a1a1a;font-size: 13px;}
+
+#cook-recipe .recipe-article .instructions em {color: #494A4A;}
+.recipe-article .cook-instructions {
+    margin:0;
+    padding:0;
+    color:#000;
+    counter-reset: item;
+}
+.recipe-article .cook-instructions > li { display: block;margin:0 80px 25px; }
+.recipe-article .cook-instructions > li:before {
+    content: counters(item, "") " ";
+    counter-increment: item;
+    float: left;
+    vertical-align: top;
+    margin:8px 10px 0 -80px;
+    width: 70px;
+    text-align: center;
+    font-size: 35px;
+    font-weight: bold;
+    color: #6f6f6f;
+}

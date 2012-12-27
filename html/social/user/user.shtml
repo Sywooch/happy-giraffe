@@ -33,6 +33,10 @@
 						<div class="user-name nofloat">
 							<h1>Ден Ижецкий</h1>
 							<div class="online-status offline"><i class="icon"></i>Был на сайте <span class="date">Сегодня 16:39</span></div>
+							<div class="location">
+                   				<div title="Россия" class="flag-big flag-big-ru"></div>
+                   				<span>Переславль-Залесский, Астраханская область</span>
+                   			</div>
 						</div>					
 						
 						<div class="ava big male">

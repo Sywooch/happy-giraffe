@@ -456,6 +456,8 @@ var Register = {
     show_window_delay:3000,
     show_window_type:'',
     attributes:{},
+    redirectUrl:'',
+    gotoComment:'',
     step1:function(){
         $('.reg1').hide();
         $('.reg2').show();
@@ -465,6 +467,10 @@ var Register = {
     showStep2:function(email, type){
         Register.attributes['email']= email;
         Register.attributes['type']= type;
+        if (Register.redirectUrl != '')
+            Register.attributes['redirectUrl']= Register.redirectUrl;
+        if (Register.gotoComment != '')
+            Register.attributes['gotoComment']= Register.gotoComment;
         $.post('/signup/showForm/', Register.attributes, function(response) {
             var link = $('#hidden_register_link');
             link.attr('href', '#register');

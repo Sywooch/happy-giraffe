@@ -5,7 +5,7 @@
  */
 var UserLocation = {
     SelectCounty:function (elem) {
-        this.clearCity();
+        UserLocation.clearCity();
         $.ajax({
             url:'/geo/regions/',
             data:{id:elem.val()},
@@ -13,11 +13,14 @@ var UserLocation = {
             success:function (response) {
                 $('#region_id').html(response);
                 $("#region_id").trigger("liszt:updated");
+
+                $('#first_steps_region_id').html(response);
+                $("#first_steps_region_id").trigger("liszt:updated");
             }
         });
     },
     RegionChanged:function (elem) {
-        this.clearCity();
+        UserLocation.clearCity();
         $.ajax({
             url:'/geo/regionIsCity/',
             data:{id:elem.val()},
@@ -36,6 +39,9 @@ var UserLocation = {
     clearCity:function () {
         $("#city_name").val('');
         $("#city_id").val('');
+
+        $("#first_steps_city_name").val('');
+        $("#first_steps_city_id").val('');
     },
     saveLocation:function () {
         $.ajax({

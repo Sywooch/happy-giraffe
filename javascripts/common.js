@@ -26,7 +26,7 @@ function removeA(arr){
 $(document).ready(function () {
     $(".wysiwyg-content").addtocopy({htmlcopytxt: '<br /><br />Подробнее: <a href="'+window.location.href+'">'+window.location.href+'</a>'});
     
-    $('.tooltipsy-title').tooltipsy({offset: [0, 1]});
+    $('.js-tooltipsy').tooltipsy({offset: [0, 1]});
 
     $('.layout-container').scroll(function () {
         var contanerScroll = $('.layout-container').scrollTop();

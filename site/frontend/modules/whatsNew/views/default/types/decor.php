@@ -5,6 +5,7 @@
             'entity' => 'CookDecorationCategory',
             'entity_id' => null,
             'entity_url' => $this->createUrl('/cook/decor/index'),
+            'print_script' => true
         ));
     ?>
 
@@ -30,3 +31,4 @@
         <a href="<?=$this->createUrl('/cook/decor/index')?>">Смотреть все</a>
     </div>
 </li>
+<script type="text/javascript">$(function() {});</script>

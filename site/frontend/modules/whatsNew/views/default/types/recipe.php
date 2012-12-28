@@ -5,6 +5,7 @@
         'entity' => 'CookRecipe',
         'entity_id' => $data->recipe->id,
         'entity_url' => $data->recipe->url,
+        'print_script' => true
     ));
     ?>
 

@@ -245,6 +245,7 @@ textarea.error {border:1px solid #ff6767 !important;}
 .nopadding {padding:0 !important;}
 .margin-0,
 .nomargin {margin:0 !important;}
+.bg-none {background: none;}
 
 .opacity-10 {opacity:0.1;filter: alpha(opacity = 10);}
 .opacity-20 {opacity:0.2;filter: alpha(opacity = 20);}
@@ -315,6 +316,7 @@ textarea.error {border:1px solid #ff6767 !important;}
 .well ul li {list-style:none;margin:15px 0;}
 
 .section-banner {margin:0 auto 20px;position: relative;z-index: 3;}
+.section-banner > img {display: block;margin: 0;}
 .banner-box {margin-bottom:20px;text-align:center;}
 
 .drp-list {display:inline-block;*zoom:1;*display:inline;position:relative;font-size:13px;*z-index:11;}
@@ -2854,7 +2856,7 @@ div.scrollbarpaper-drag {-moz-border-radius:3px;-webkit-border-radius:3px;border
 }
 /* */
 
-.custom-likes-small {text-align: center;}
+.custom-likes-small {text-align: center;overflow: hidden;}
 .custom-like-small {display: inline-block;*zoom:1;*display:inline;margin: 0 1px 0 2px;text-decoration: none; }
 .custom-like-small_icon {width: 24px;height: 24px;float: left;background: url(../images/custom-like-small.png) no-repeat;}
 .custom-like-small_icon.odnoklassniki {background-position: 0 0;}

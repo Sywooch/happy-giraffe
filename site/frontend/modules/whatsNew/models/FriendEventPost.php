@@ -56,8 +56,8 @@ class FriendEventPost extends FriendEvent
 
     public function createBlock()
     {
-        $this->content_id = (int) $this->params['model']->id;
-        $this->user_id = (int) $this->params['model']->author_id;
+        $this->content_id = (int)$this->params['model']->id;
+        $this->user_id = (int)$this->params['model']->author_id;
 
         parent::createBlock();
     }
@@ -65,5 +65,10 @@ class FriendEventPost extends FriendEvent
     public function getExist()
     {
         return $this->content !== null;
+    }
+
+    public function canBeCached()
+    {
+        return ($this->getContent()->gallery !== null) ? false : true;
     }
 }

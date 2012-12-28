@@ -31,4 +31,9 @@ class EventRecipe extends Event
 
         return CookRecipe::model()->findByPk($this->id, $criteria);
     }
+
+    public function canBeCached()
+    {
+        return false;
+    }
 }

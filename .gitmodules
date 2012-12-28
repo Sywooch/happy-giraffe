@@ -1,12 +1,6 @@
-[submodule "site/frontend/extensions/yiinfinite-scroll"]
-	path = site/frontend/extensions/yiinfinite-scroll
-	url = https://github.com/davialexandre/yiinfinite-scroll
 [submodule "site/common/extensions/wr"]
 	path = site/common/extensions/wr
 	url = https://github.com/yiiext/with-related-behavior.git
-[submodule "site/frontend/extensions/yii-eauth"]
-	path = site/frontend/extensions/yii-eauth
-	url = https://github.com/Nodge/yii-eauth.git
 [submodule "site/frontend/www-submodule"]
 	path = site/frontend/www-submodule
 	url = git@github.com:beknown/happy-giraffe-www-frontend.git

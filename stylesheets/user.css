@@ -48,18 +48,13 @@
 #user .blog-title .settings {display:inline-block;*zoom:1;*display:inline;width:15px;height:15px;background:url(/images/common.png) no-repeat -313px -190px;position:relative;top:-1px;}
 #user .blog-title .settings:hover {background-position:-330px -190px;}
 
-
-
 .ava.big {position:relative;}
-.ava.big .renew {background:#fff;background:rgba(255, 255, 255, 0.85);display:block;position:absolute;top:50%;left:50%;color:#9c9c9c;text-decoration:none;text-align:center;font-size:20px;width:130px;margin-left:-65px;margin-top:-1em;line-height:1;padding:5px 0;display:none;}
-.ava.big .renew {/*css3*/ -moz-border-radius:15px;-webkit-border-radius:15px;border-radius:15px;behavior: url(/stylesheets/PIE.htc);}
+.ava.big .renew {background:#fff;background:rgba(255, 255, 255, 0.85);display:block;position:absolute;top:50%;left:50%;color:#9c9c9c;text-decoration:none;text-align:center;font-size:20px;width:130px;margin-left:-65px;margin-top:-1em;line-height:1;padding:5px 0;display:none; -moz-border-radius:15px;-webkit-border-radius:15px;border-radius:15px;behavior: url(/stylesheets/PIE.htc);}
 .ava.big:hover .renew {display:block;}
 .ava.big .btn-orange {text-align:center;padding-top:90px;font-size:25px;text-decoration:none;display:block;height:150px;background:url(/images/ava_big_cap.png) no-repeat;filter:"progid:DXImageTransform.Microsoft.gradient(enabled=false)";}
 .ava.big.female  .btn-orange {background-position: 0 -240px;}
 .ava.big .btn-orange > span {background:none;padding:0;line-height:normal;height:auto;font-size:25px;font-weight:normal;color:#51AFC3;}
 .ava.big .btn-orange > span > span {background:none;padding:0;line-height:normal;height:auto;border-bottom:1px dashed #51AFC3;}
-
-
 
 #user .side-filter {font-size:13px;padding-bottom:20px;padding-top:60px;}
 #user .side-filter ul {list-style:none;padding:0 10px;}

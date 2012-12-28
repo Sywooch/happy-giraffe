@@ -701,3 +701,8 @@ function showLoginWindow(){
     $('a[href="#login"]').trigger('click');
 }
 
+function SeCounter(){
+    var domain = location.protocol + '//' + location.host;
+    if (document.referrer.indexOf(domain) != 0 && document.referrer != '')
+        $.post("/counter/", {referrer:document.referrer});
+}

@@ -22,6 +22,7 @@ class WhatsNewWidget extends CWidget
 
     public function run()
     {
+        Yii::beginProfile('WhatsNewWidget', 'widget');
         if (!$this->checkVisible || $this->showThere()){
             $dp = EventManager::getDataProvider($this->type, 13);
             //for friends
@@ -30,6 +31,7 @@ class WhatsNewWidget extends CWidget
             $this->registerScripts();
             $this->render('index', compact('dp'));
         }
+        Yii::endProfile('WhatsNewWidget', 'widget');
     }
 
     public function showThere()

@@ -68,7 +68,6 @@ abstract class Event extends CModel
     public function setAttributes($values, $safeOnly = true)
     {
         parent::setAttributes($values, $safeOnly);
-        $this->setSpecificValues();
     }
 
     public function getCode()
@@ -77,6 +76,7 @@ abstract class Event extends CModel
         $value=Yii::app()->cache->get($cache_id);
         if($value===false)
         {
+            $this->setSpecificValues();
             $value=Yii::app()->controller->renderPartial($this->view, array('data' => $this), true);
             Yii::app()->cache->set($cache_id,$value, 60);
         }

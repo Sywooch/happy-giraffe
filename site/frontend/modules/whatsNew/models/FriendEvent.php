@@ -154,20 +154,18 @@ class FriendEvent extends EMongoDocument
 
     public function getCode()
     {
-        //не получается кэшировать из-за галереи, которая подключает скрипты
-//        $cache_id = 'friend_event_code_'.$this->_id;
-//        $value=Yii::app()->cache->get($cache_id);
-//        if($value===false)
-//        {
-//            $value=Yii::app()->controller->renderPartial('application.modules.whatsNew.views.friends._brick', array(
-//                'data' => $this,
-//            ), true);
-//            Yii::app()->cache->set($cache_id,$value, 300);
-//        }
+        $cache_id = 'friend_event_code_'.$this->_id;
+        $value=Yii::app()->cache->get($cache_id);
 
-        $value = Yii::app()->controller->renderPartial('application.modules.whatsNew.views.friends._brick', array(
-            'data' => $this,
-        ), true);
+        if($value===false)
+        {
+            $value=Yii::app()->controller->renderPartial('application.modules.whatsNew.views.friends._brick', array(
+                'data' => $this,
+            ), true);
+
+            if ($this->canBeCached())
+                Yii::app()->cache->set($cache_id,$value, 300);
+        }
 
         return $value;
     }
@@ -186,4 +184,7 @@ class FriendEvent extends EMongoDocument
 
         parent::afterSave();
     }
+
+    //можно ли закэшировать блок (нельзя например если есть галерея)
+    abstract public function canBeCached();
 }

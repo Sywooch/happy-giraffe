@@ -99,4 +99,9 @@ class FriendEventPhotos extends FriendEvent
     {
         return $this->album !== null && ! empty($this->photos);
     }
+
+    public function canBeCached()
+    {
+        return false;
+    }
 }

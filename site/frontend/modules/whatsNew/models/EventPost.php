@@ -54,4 +54,9 @@ class EventPost extends Event
 
         return Comment::model()->find($criteria);
     }
+
+    public function canBeCached()
+    {
+        return ($this->post->gallery !== null)?false:true;
+    }
 }

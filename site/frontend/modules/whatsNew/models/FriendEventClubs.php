@@ -79,4 +79,9 @@ class FriendEventClubs extends FriendEvent
     {
         return ! empty($this->clubs);
     }
+
+    public function canBeCached()
+    {
+        return true;
+    }
 }

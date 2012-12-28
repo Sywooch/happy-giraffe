@@ -50,4 +50,9 @@ class FriendEventRecipe extends FriendEvent
     {
         return $this->recipe !== null;
     }
+
+    public function canBeCached()
+    {
+        return false;
+    }
 }

@@ -52,4 +52,9 @@ class FriendEventContest extends FriendEvent
     {
         return $this->work !== null;
     }
+
+    public function canBeCached()
+    {
+        return false;
+    }
 }

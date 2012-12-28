@@ -26,4 +26,9 @@ class EventDecor extends Event
 
         return CookDecoration::model()->findAll($criteria);
     }
+
+    public function canBeCached()
+    {
+        return false;
+    }
 }

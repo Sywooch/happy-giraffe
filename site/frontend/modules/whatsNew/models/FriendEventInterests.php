@@ -81,4 +81,9 @@ class FriendEventInterests extends FriendEvent
     {
         return ! empty($this->interests);
     }
+
+    public function canBeCached()
+    {
+        return true;
+    }
 }

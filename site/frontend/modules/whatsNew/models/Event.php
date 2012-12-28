@@ -72,21 +72,23 @@ abstract class Event extends CModel
 
     public function getCode()
     {
-        //не получается кэшировать из-за галереи, которая подключает скрипты
-//        $cache_id = 'event_code_'.$this->id.'__'.$this->last_updated;
-//        $value=Yii::app()->cache->get($cache_id);
-//        if($value===false)
-//        {
-//            $this->setSpecificValues();
-//            $value=Yii::app()->controller->renderPartial($this->view, array('data' => $this), true);
-//            Yii::app()->cache->set($cache_id,$value, 300);
-//        }
+        $cache_id = 'event_code_' . $this->id . '__' . $this->last_updated;
+        $value = Yii::app()->cache->get($cache_id);
 
-        $this->setSpecificValues();
-        $value = Yii::app()->controller->renderPartial($this->view, array('data' => $this), true);
+        if ($value === false) {
+            $this->setSpecificValues();
+            $value = Yii::app()->controller->renderPartial($this->view, array('data' => $this), true);
+
+            if ($this->canBeCached())
+                Yii::app()->cache->set($cache_id, $value, 300);
+        }
 
         return $value;
     }
 
     abstract public function setSpecificValues();
+
+    //можно ли закэшировать блок (нельзя например если есть галерея)
+    abstract public function canBeCached();
+
 }

@@ -83,8 +83,8 @@ class FriendEvent extends EMongoDocument
 
     protected function instantiate($attributes)
     {
-        $class=self::getClassName($attributes['type']);
-        $model=new $class(null);
+        $class = self::getClassName($attributes['type']);
+        $model = new $class(null);
         $model->initEmbeddedDocuments();
         $model->setAttributes($attributes, false);
         return $model;
@@ -154,9 +154,19 @@ class FriendEvent extends EMongoDocument
 
     public function getCode()
     {
-        return Yii::app()->controller->renderPartial('application.modules.whatsNew.views.friends._brick', array(
-            'data' => $this,
-        ), true);
+        $cache_id = 'friend_event_code_' . $this->_id;
+        $value = Yii::app()->cache->get($cache_id);
+
+        if ($value === false) {
+            $value = Yii::app()->controller->renderPartial('application.modules.whatsNew.views.friends._brick', array(
+                'data' => $this,
+            ), true);
+
+            if ($this->canBeCached())
+                Yii::app()->cache->set($cache_id, $value, 300);
+        }
+
+        return $value;
     }
 
     protected function afterSave()

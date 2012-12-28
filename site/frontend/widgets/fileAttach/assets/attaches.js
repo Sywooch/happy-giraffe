@@ -143,7 +143,11 @@ Attach.prototype.insertToPartner = function (fsn) {
     $.post(base_url + '/albums/partnerPhoto/', {val:fsn, many:this.many,entity:this.entity,entity_id:this.entity_id}, function (data) {
         if (data.status) {
             var list = $('ul:data(entity=' + $this.entity + '):data(entityId=' + $this.entity_id + ')');
-            var box = $('#photoTmpl').tmpl({img: data.src, title: (($this.entity == 'UserPartner') ? Family.partnerOf[Family.relationshipStatus][2] : 'Мой ребёнок') + ' - фото ' + list.find('li').length});
+            var box = $('#photoTmpl').tmpl({
+                img: data.src,
+                title: (($this.entity == 'UserPartner') ? Family.partnerOf[Family.relationshipStatus][2] : 'Мой ребёнок') + ' - фото ' + list.find('li').length,
+                id:$this.entity_id
+            });
             list.append(box).masonry('appended', box);
 
             $.fancybox.close();

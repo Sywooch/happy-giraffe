@@ -49,7 +49,9 @@
             ?>
         </div>
 
-        <?php $this->widget('application.widgets.user.FamilyWidget', array('user' => $user, 'showEmpty'=>true)); ?>
+        <div id="family-widget-container">
+            <?php $this->widget('application.widgets.user.FamilyWidget', array('user' => $user)); ?>
+        </div>
 
     </div>
 
@@ -168,6 +170,18 @@
                         <div class="member-title"><?=$i?>-<?=HDate::govnokod($i)?> ребенок:</div>
 
                         <div class="data clearfix">
+                            <div class="d-text">Имя ребенка:</div>
+                            <div class="name">
+                                <div class="text"<?php if (empty($baby->name)) echo ' style="display:none;"' ?>><?=$baby->name ?></div>
+                                <div class="input"<?php if (!empty($baby->name)) echo ' style="display:none;"' ?>>
+                                    <input type="text">
+                                    <button class="btn btn-green-small" onclick="Family.saveBabyName(this);"><span><span>Ok</span></span></button>
+                                </div>
+                                <a href="javascript:void(0);" onclick="Family.editBabyName(this)" class="edit tooltip"<?php if (empty($baby->name)) echo ' style="display:none;"' ?> title="Редактировать имя"></a>
+                            </div>
+                        </div>
+
+                        <div class="data clearfix">
                             Пол и дата рождения ребенка:
                             <a href="javascript:void(0);" onclick="Family.saveBabyGender(this, 1)" class="gender male<?php if ($baby->sex == 1) echo ' active'?>"><span class="tip">Мальчик</span></a>
                             <a href="javascript:void(0);" onclick="Family.saveBabyGender(this, 0)" class="gender female<?php if ($baby->sex == 0) echo ' active'?>"><span class="tip">Девочка</span></a>
@@ -177,23 +191,23 @@
                                 <div class="datepicker"<?php if ($baby->birthday !== null): ?> style="display:none;"<?php endif; ?>>
                                     <span class="chzn-v2">
                                         <?php echo CHtml::dropDownList('baby_d_'.$i, $baby->getBDatePart('j'), array(''=>' ')+HDate::Days(), array(
-                                            'class'=>'chzn w-1 date',
-                                            'data-placeholder'=>' '
-                                        )) ?>
+                                        'class'=>'chzn w-1 date',
+                                        'data-placeholder'=>' '
+                                    )) ?>
                                     </span>
                                     &nbsp;
                                     <span class="chzn-v2">
                                         <?php echo CHtml::dropDownList('baby_m_'.$i, $baby->getBDatePart('n'), array(''=>' ')+HDate::ruMonths(), array(
-                                            'class'=>'chzn w-2 month',
-                                            'data-placeholder'=>' '
-                                        )) ?>
+                                        'class'=>'chzn w-2 month',
+                                        'data-placeholder'=>' '
+                                    )) ?>
                                     </span>
                                     &nbsp;
                                     <span class="chzn-v2">
                                         <?php echo CHtml::dropDownList('baby_y_'.$i, $baby->getBDatePart('Y'), array(''=>' ')+HDate::Range(date('Y'), date('Y') - 50), array(
-                                            'class'=>'chzn w-3 year',
-                                            'data-placeholder'=>' '
-                                        )) ?>
+                                        'class'=>'chzn w-3 year',
+                                        'data-placeholder'=>' '
+                                    )) ?>
                                     </span>
                                     &nbsp;
                                     <button class="btn btn-green-small" onclick="Family.saveBabyDate(this)"><span><span>Ok</span></span></button>
@@ -206,18 +220,6 @@
                             </div>
 
 
-                        </div>
-
-                        <div class="data clearfix">
-                            <div class="d-text">Имя ребенка:</div>
-                            <div class="name">
-                                <div class="text"<?php if (empty($baby->name)) echo ' style="display:none;"' ?>><?=$baby->name ?></div>
-                                <div class="input"<?php if (!empty($baby->name)) echo ' style="display:none;"' ?>>
-                                    <input type="text">
-                                    <button class="btn btn-green-small" onclick="Family.saveBabyName(this);"><span><span>Ok</span></span></button>
-                                </div>
-                                <a href="javascript:void(0);" onclick="Family.editBabyName(this)" class="edit tooltip"<?php if (empty($baby->name)) echo ' style="display:none;"' ?> title="Редактировать имя"></a>
-                            </div>
                         </div>
 
                         <div class="data clearfix">
@@ -306,7 +308,7 @@
                                         </span>
                                 &nbsp;
                                         <span class="chzn-v2">
-                                            <?php echo CHtml::dropDownList('baby_y_'.$i, ($future_baby !== null) ? $future_baby->getBDatePart('Y') : '', array(''=>' ')+HDate::Range(date('Y') + 5, date('Y') - 50), array(
+                                            <?php echo CHtml::dropDownList('baby_y_'.$i, ($future_baby !== null) ? $future_baby->getBDatePart('Y') : '', array(''=>' ')+HDate::Range(date('Y'), date('Y') + 5), array(
                                             'class'=>'chzn w-3 year',
                                             'data-placeholder'=>' '
                                         )) ?>
@@ -340,7 +342,7 @@
             </div>
             <?php endforeach; ?>
 
-            <?php for ($i = $user->babyCount(); $i < 10; $i++): ?>
+            <?php for ($i = $user->babyCount()+1; $i < 10; $i++): ?>
                 <?php $this->renderPartial('_empty_child', array('i'=>$i)); ?>
             <?php endfor; ?>
 
@@ -361,16 +363,15 @@
 <script id="photoTmpl" type="text/x-jquery-tmpl">
     <li>
         <div class="img">
-            <a href="">
-                <img src="${img}">
+            <a href="javascript:void(0)" data-id="${id}">
+                <img src="${img}" alt="">
                 <span class="btn">Посмотреть</span>
             </a>
             <div class="actions">
-                <a href="" class="edit tooltip" title="Редактировать"></a>
-                <a href="" class="remove tooltip" title="Удалить"></a>
+                <a class="edit fancy tooltip" href="/albums/updatePhoto/?id=${id}"></a>
+                <a class="remove" onclick="return RemoveWidget.removeConfirm(this, true, 'AlbumPhoto', ${id}, 'Album.removePhoto', ['эту&lt;br&gt;фотографию','Фотография успешно удалена']);" href="#"><i class="icon"></i></a>
             </div>
         </div>
-        <div class="item-title">${title}</div>
     </li>
 </script>
 

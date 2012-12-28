@@ -22,8 +22,8 @@ class DefaultController extends HController
     {
         return array(
             array('allow',
-                'actions'=>array('moreItems'),
-                'users'=>array('*'),
+                'actions' => array('moreItems'),
+                'users' => array('*'),
             ),
             array('deny',
                 'users' => array('?'),
@@ -33,7 +33,7 @@ class DefaultController extends HController
 
     public function actionIndex()
     {
-        $dp = EventManager::getIndex(100);
+        $dp = EventManager::getIndex(30);
 
         $this->pageTitle = 'Что нового на сайте - Веселый Жираф';
 
@@ -42,7 +42,7 @@ class DefaultController extends HController
 
     public function actionClubs($show)
     {
-        $dp = EventManager::getClubs(100, $show);
+        $dp = EventManager::getClubs(30, $show);
 
         $this->pageTitle = 'Что нового в клубах - Веселый Жираф';
 
@@ -51,7 +51,7 @@ class DefaultController extends HController
 
     public function actionBlogs($show)
     {
-        $dp = EventManager::getBlogs(100, $show);
+        $dp = EventManager::getBlogs(30, $show);
 
         $this->pageTitle = 'Что нового в блогах - Веселый Жираф';
 
@@ -62,15 +62,23 @@ class DefaultController extends HController
     {
         $type = Yii::app()->request->getPost('type');
 
-        $this->widget('WhatsNewWidget', array('type' => $type));
+        $t1 = microtime(true);
+        $this->widget('WhatsNewWidget', array('type' => $type, 'checkVisible' => false));
+        $t2 = microtime(true);
+        echo '<!--Отработало за '.($t2 - $t1).'  -->';
     }
 
     public function actionMoreItems()
     {
+        $t1 = microtime(true);
         $offset = Yii::app()->request->getPost('offset');
-        $dp = EventManager::getDataProvider(EventManager::WHATS_NEW_ALL, 4);
-        $dp->pagination->currentPage = round($offset / 4) + 1;
+        $page = round($offset / 4) + 1;
+        $dp = EventManager::getDataProvider(EventManager::WHATS_NEW_ALL, 4, $page);
 
-        $this->renderPartial('ajax_items', array('dp' => $dp));
+        foreach ($dp->data as $block)
+            echo $block->code;
+
+        $t2 = microtime(true);
+        echo '<!--Отработало за '.($t2 - $t1).'  -->';
     }
 }

@@ -388,14 +388,14 @@ class Im
         return $criteria;
     }
 
-    public static function getContacts($user_id, $type, $condition = '', $params = array(), $page = 1)
+    public static function getContacts($user_id, $type, $condition = '', $params = array(), $page = 1, $limit=100)
     {
         $criteria = self::getContactsCriteria($user_id, $type, $condition, $params);
-        $criteria->offset = 20*($page - 1);
-        $criteria->limit = 20;
+        $criteria->offset = $limit*($page - 1);
+        $criteria->limit = $limit;
 
         $users = User::model()->findAll($criteria);
-        if (!empty($users) && count($users) < 20 && $type == Im::IM_CONTACTS_ALL)
+        if (!empty($users) && count($users) < $limit && $type == Im::IM_CONTACTS_ALL)
             $users[] = User::getUserById(User::HAPPY_GIRAFFE);
 
         return $users;

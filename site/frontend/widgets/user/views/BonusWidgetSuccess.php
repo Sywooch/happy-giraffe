@@ -6,7 +6,7 @@
 
         <p>Теперь вы являетесь полноправным пользователем нашего сайта</p>
 
-        <div class="bonus">
+        <div class="bonus" style="display: none;">
             Ваш бонус
             <img src="/images/first_steps_bonus_large.png" />
             <div class="change">

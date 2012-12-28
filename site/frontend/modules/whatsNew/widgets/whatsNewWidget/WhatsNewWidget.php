@@ -18,14 +18,14 @@ class WhatsNewWidget extends CWidget
         array('cook/recipe', array('index', 'tag', 'view', 'cookBook')),
     );
     public $type = EventManager::WHATS_NEW_ALL;
+    public $checkVisible = true;
 
     public function run()
     {
-        if ($this->showThere() && !Yii::app()->user->isGuest){
-            $limit = Yii::app()->user->isGuest ? 20 : 13;
-            $dp = EventManager::getDataProvider($this->type, $limit);
+        if (!$this->checkVisible || $this->showThere()){
+            $dp = EventManager::getDataProvider($this->type, 13);
             //for friends
-            $dp->pagination->pageSize = $limit;
+            $dp->pagination->pageSize = 13;
 
             $this->registerScripts();
             $this->render('index', compact('dp'));
@@ -35,7 +35,7 @@ class WhatsNewWidget extends CWidget
     public function showThere()
     {
         if (Yii::app()->request->isAjaxRequest)
-            return true;
+            return false;
 
         foreach ($this->routes as $route)
             if (Yii::app()->controller->uniqueId == $route[0] && in_array(Yii::app()->controller->action->id, $route[1]))

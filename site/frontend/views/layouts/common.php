@@ -1,7 +1,8 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<!--[if lt IE 7]> <html xmlns="http://www.w3.org/1999/xhtml" class="top-nav-fixed"> <![endif]-->
-<!--[if IE 7]>    <html xmlns="http://www.w3.org/1999/xhtml" class="ie7 top-nav-fixed"> <![endif]-->
-<!--[if gt IE 7]><!--> <html xmlns="http://www.w3.org/1999/xhtml" class="top-nav-fixed" xmlns:fb="http://ogp.me/ns/fb#"> <!--<![endif]-->
+<!DOCTYPE html>
+<!--[if lt IE 8]>      <html class="top-nav-fixed ie7"> <![endif]-->
+<!--[if IE 8]>         <html class="top-nav-fixed ie8"> <![endif]-->
+<!--[if IE 9]>         <html class="top-nav-fixed ie9"> <![endif]-->
+<!--[if gt IE 9]><!--> <html class="top-nav-fixed"> <!--<![endif]-->
 <head>
     <?=CHtml::linkTag()?>
     <?php if ($this->rssFeed !== null): ?>
@@ -15,11 +16,12 @@
     <title><?=CHtml::encode($this->pageTitle)?></title>
     <?php endif;
 
+    $r=2;
     $cs = Yii::app()->clientScript;
     $cs
         ->registerCssFile('/stylesheets/user.css')
-        ->registerCssFile('/stylesheets/common.css')
-        ->registerCssFile('/stylesheets/global.css')
+        ->registerCssFile('/stylesheets/common.css?'.$r)
+        ->registerCssFile('/stylesheets/global.css?'.$r)
         ->registerCssFile('/stylesheets/ie.css', 'screen')
         ->registerCssFile('/stylesheets/jquery.fancybox-1.3.4.css')
 
@@ -74,7 +76,7 @@
 </head>
 <body class="body-club<?php if ($this->broadcast): ?> body-broadcast<?php endif; ?>" onload="if (typeof(ODKL) !== 'undefined') ODKL.init();">
 <div class="top-line-menu">
-    <div class="top-line-menu-holder">
+    <div class="top-line-menu_holder clearfix">
 
         <?php if (! Yii::app()->user->isGuest): ?>
         <?php
@@ -82,10 +84,10 @@
         $friendsCount = FriendRequest::model()->getUserCount(Yii::app()->user->id);
         $imCount = Im::model()->getUnreadMessagesCount(Yii::app()->user->id);
         ?>
-        <div class="user-nav-2">
+        <div class="top-line-menu_nav">
 
-            <ul>
-                <li class="item-ava tooltipsy-title" title="Моя анкета">
+            <ul class="top-line-menu_nav_ul">
+                <li class="i-ava top-line-menu_nav_li js-tooltipsy" title="Моя анкета">
                     <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
                     'user' => Yii::app()->user->model,
                     'size' => 'small',
@@ -93,31 +95,33 @@
                     'sendButton' => false,
                 )); ?>
                 </li>
-                <li class="item-broadcast tooltipsy-title new" title="Что нового">
+                <li class="i-broadcast new top-line-menu_nav_li js-tooltipsy" title="Что нового">
                     <a href="<?=$this->createUrl('/whatsNew/default/index')?>"><i class="icon-broadcast"></i></a>
                 </li>
-                <li class="item-dialogs tooltipsy-title<?php if ($imCount > 0): ?> new<?php endif; ?>" title="Мои диалоги">
+                <li class="i-dialogs top-line-menu_nav_li js-i-dialogs top-line-menu_nav_litooltipsy<?php if ($imCount > 0): ?> new<?php endif; ?>" title="Мои диалоги">
                     <a href="javascript:void(0)" onclick="Messages.toggle()">
                         <i class="icon-dialogs"></i>
-                        <div class="count"><span class="count-red"><?=$imCount?></span></div>
+						<span class="count">
+							<span class="count-red"><?=$imCount?></span><br>
+						</span>
                     </a>
                 </li>
-                <li class="item-friends tooltipsy-title<?php if ($friendsCount > 0): ?> new<?php endif; ?>" title="Мои друзья">
+                <li class="i-friends top-line-menu_nav_li js-tooltipsy<?php if ($friendsCount > 0): ?> new<?php endif; ?>" title="Мои друзья">
                     <a href="javascript:void(0)" onclick="Friends.toggle()">
                         <i class="icon-friends"></i>
-                        <div class="count"><span class="count-red"><?=$friendsCount?></span></div>
+                        <span class="count"><span class="count-red"><?=$friendsCount?></span></span>
                     </a>
                 </li>
-                <li class="item-notifications tooltipsy-title<?php if ($notificationsCount > 0): ?> new<?php endif; ?>" title="Уведомления">
+                <li class="i-notifications top-line-menu_nav_li js-tooltipsy<?php if ($notificationsCount > 0): ?> new<?php endif; ?>" title="Уведомления">
                     <a href="javascript:void(0)" onclick="Notifications.toggle()">
                         <i class="icon-notifications"></i>
-                        <div class="count"><span class="count-red">+ <span><?=$notificationsCount?></span></span></div>
+                        <span class="count"><span class="count-red">+ <span><?=$notificationsCount?></span></span></span>
                     </a>
                 </li>
-                <li class="item-settings tooltipsy-title" title="Настройки">
+                <li class="i-settings top-line-menu_nav_li js-tooltipsy" title="Настройки">
                     <a href="javascript:void(0)" onclick="Settings.toggle()"><i class="icon-settings"></i></a>
                 </li>
-                <li class="item-logout tooltipsy-title" title="Выход">
+                <li class="i-logout top-line-menu_nav_li js-tooltipsy" title="Выход">
                     <a href="<?php echo $this->createUrl('/site/logout') ?>"><i class="icon-logout"></i></a>
                 </li>
 
@@ -125,19 +129,30 @@
 
         </div>
         <?php else: ?>
-        <ul class="fast-links clearfix a-right">
-            <li><?=CHtml::link('Вход', '#login', array('class' => 'fancy', 'rel' => 'nofollow', 'data-theme'=>'white-square')); ?></li>
-            <li><?=CHtml::link('Регистрация', '#register', array('id'=>'reg-main-btn', 'class' => 'fancy', 'data-theme'=>'white-square'))?></li>
+        <ul class="top-line-menu_links float-r">
+            <li class="top-line-menu_links_li"><?=CHtml::link('Вход', '#login', array('class' => 'fancy top-line-menu_links_a', 'rel' => 'nofollow', 'data-theme'=>'white-square')); ?></li>
+            <li class="top-line-menu_links_li"><?=CHtml::link('Регистрация', '#register', array('id'=>'reg-main-btn', 'class' => 'fancy top-line-menu_links_a', 'data-theme'=>'white-square'))?></li>
         </ul>
         <?php endif; ?>
 
-        <ul class="fast-links clearfix">
-            <li><a href="/">Главная</a></li>
-            <li><a href="<?php echo $this->createUrl('/community') ?>">Клубы</a></li>
-            <li><?=CHtml::link('Сервисы', array('/site/services'))?></li>
-            <li><?=CHtml::link('Новости', array('/community/list', 'community_id' => 36))?></li>
-            <li><?=CHtml::link('Конкурсы', $this->createUrl('/contest/default/index'))?></li>
+        <ul class="top-line-menu_links">
+            <li class="top-line-menu_links_li"><a class="top-line-menu_links_a" href="/">Главная</a></li>
+            <li class="top-line-menu_links_li"><?=CHtml::link('Клубы', array('/community'), array('class'=>'top-line-menu_links_a'))?></li>
+            <li class="top-line-menu_links_li"><?=CHtml::link('Сервисы', array('/site/services'), array('class'=>'top-line-menu_links_a'))?></li>
+            <li class="top-line-menu_links_li"><?=CHtml::link('Новости', array('/community/list', 'community_id' => 36), array('class'=>'top-line-menu_links_a'))?></li>
+            <li class="top-line-menu_links_li"><?=CHtml::link('Конкурсы', $this->createUrl('/contest/default/index'), array('class'=>'top-line-menu_links_a'))?></li>
         </ul>
+
+        <?php if (Yii::app()->user->isGuest): ?>
+        <div class="search-box">
+            <div class="search-box_input">
+            <form action="<?= $this->createUrl('/search'); ?>">
+                <input type="text" name="text" class="text" />
+                <button class="icon-search"></button>
+            </form>
+            </div>
+        </div>
+        <?php endif; ?>
 
     </div>
 </div>
@@ -146,7 +161,7 @@
 <a id="btn-seo" href="/ajax/editMeta/?route=<?=urlencode(Yii::app()->controller->route) ?>&params=<?=urlencode(serialize(Yii::app()->controller->actionParams)) ?>" class="fancy" data-theme="white-square"></a>
     <?php endif ?>
 <div class="layout-container">
-<div id="layout" class="wrapper">
+<div id="layout" class="layout-wrapper">
     <?=$content ?>
 </div>
 
@@ -156,7 +171,7 @@
 </div>
     <?php endif ?>
 
-<div id="footer" class="wrapper clearfix">
+<div id="footer" class="layout-footer clearfix">
 
     <div class="a-right">
         <!--Отработало за <?=sprintf('%0.5f',Yii::getLogger()->getExecutionTime())?> c -->
@@ -224,7 +239,6 @@
             ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
             var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
         })();
-
     </script>
 </noindex>
 <div id="body-overlay" style="display: none;"></div>

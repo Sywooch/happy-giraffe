@@ -18,7 +18,7 @@ class HController extends CController
     public $pGallery = null;
     public $broadcast = false;
 
-    protected $r = 136;
+    protected $r = 141;
 
     public function filterAjaxOnly($filterChain)
     {
@@ -171,5 +171,13 @@ class HController extends CController
                 }
             }
         }
+    }
+
+    /**
+     * Считает заходы из ПС для модуля комментаторов
+     */
+    public function registerCounter()
+    {
+        Yii::app()->clientScript->registerScript('se_counter', 'SeCounter();');
     }
 }

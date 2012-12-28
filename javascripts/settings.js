@@ -10,7 +10,7 @@ Settings.open = function(tab) {
     $.get('/settings/', function(data) {
         $('#popup-preloader').hide();
         $('.popup-container').append(data);
-        $('.user-nav-2 .item-settings').addClass('active');
+        $('.top-line-menu_nav_ul .i-settings').addClass('active');
         Settings.openTab(tab);
         $('.chzn').each(function () {
             var $this = $(this);
@@ -25,7 +25,7 @@ Settings.close = function() {
     Popup.unload();
     $('#user-settings').remove();
     $('body').removeClass('nav-fixed');
-    $('.user-nav-2 .item-settings').removeClass('active');
+    $('.top-line-menu_nav_ul .i-settings').removeClass('active');
 }
 
 Settings.toggle = function() {

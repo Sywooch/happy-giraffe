@@ -13,7 +13,7 @@ Scores.open = function (tab) {
         $('#popup-preloader').hide();
         $('.popup-container').append(data);
 
-        $('.user-nav-2 .item-career').addClass('active');
+        $('.top-line-menu_nav_ul .i-career').addClass('active');
         Scores.openTab(tab);
     });
 
@@ -24,7 +24,7 @@ Scores.close = function () {
     Popup.unload();
     $('#user-career').remove();
     $('body').removeClass('nav-fixed');
-    $('.user-nav-2 .item-career').removeClass('active');
+    $('.top-line-menu_nav_ul .i-career').removeClass('active');
 }
 
 Scores.toggle = function () {

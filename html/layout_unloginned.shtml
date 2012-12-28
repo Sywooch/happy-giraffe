@@ -1,89 +1,22 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<!--[if lt IE 7]> <html xmlns="http://www.w3.org/1999/xhtml" class="top-nav-fixed"> <![endif]-->
-<!--[if IE 7]>    <html xmlns="http://www.w3.org/1999/xhtml" class="ie7 top-nav-fixed"> <![endif]-->
-<!--[if gt IE 7]><!--> <html xmlns="http://www.w3.org/1999/xhtml" class="top-nav-fixed"> <!--<![endif]-->
+﻿<!DOCTYPE html>
+<!--[if lt IE 8]>      <html class="top-nav-fixed ie7"> <![endif]-->
+<!--[if IE 8]>         <html class="top-nav-fixed ie8"> <![endif]-->
+<!--[if IE 9]>         <html class="top-nav-fixed ie9"> <![endif]-->
+<!--[if gt IE 9]><!--> <html class="top-nav-fixed"> <!--<![endif]-->
 <head>
-	
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>Untitled Document</title>
-	
-	
-	<link rel="stylesheet" type="text/css" href="/stylesheets/global.css" />
-	<link rel="stylesheet" type="text/css" href="/stylesheets/common.css" />
-	<link rel="stylesheet" type="text/css" href="/stylesheets/ie.css" />
-	
-	
-	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-	
-	<link rel="stylesheet" type="text/css" href="/stylesheets/jquery.fancybox-1.3.4.css" />
-	<script type="text/javascript" src="/javascripts/jquery.fancybox-1.3.4.js"></script>
-	
-	<script type="text/javascript" src="/javascripts/jquery.tooltip.pack.js"></script>
-	<script type="text/javascript" src="/javascripts/jquery.placeholder.min.js"></script>
-	
-  	<script type="text/javascript" src="/javascripts/chosen.jquery.min.js"></script>
-  
-	<script type="text/javascript" src="/javascripts/jquery.flip.js"></script>
-	<script type="text/javascript" src="/javascripts/addtocopy.js"></script>
-  
-	<script type="text/javascript" src="/javascripts/common.js"></script>
-	
+	<!--#include virtual="/block/global/head.shtml" -->
+
 </head>
-<body class="body-club">
-	<div class="top-line-menu">
-		<div class="top-line-menu-holder">
+<body>
 
-			<ul class="fast-links clearfix a-right">
-				<li><a href="#login" class="fancy" data-theme="white-square">Вход</a></li>
-				<li><a href="#register" class="fancy" data-theme="white-square">Регистрация</a></li>
-			</ul>
-			<ul class="fast-links clearfix">
-				<li><a href="">Главная</a></li>
-				<li><a href="">Клубы</a></li>
-				<li><a href="">Сервисы</a></li>
-				<li><a href="">Конкурсы</a></li>
-			</ul>
-			<div class="search-box">
-				<div class="search-box_input">
-					<input type="text" class="text" />
-					<button class="icon-search"></button>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="layout-container">
-	<div id="layout" class="wrapper">
-		<div id="header-new" class="clearfix">
-			<div class="header-nologin clearfix">
-				<div class="header-nologin_column-left">
+	<!--#include virtual="/block/global/top-line-menu_nologin.shtml" -->
+	
+<div class="layout-container">
+	<div class="layout-wrapper">
 
-					<div class="logo-box">
-						<a href="/" class="logo" title="happy-giraffe.ru – Домашняя страница">Ключевые слова сайта</a>
-						<span>САЙТ ДЛЯ ВСЕЙ СЕМЬИ</span>
-					</div>
-					<p>Весёлый Жираф - это интернет-сообщество, <br /> в котором тысячи мам и пап ежедневно общаются и делятся советами. </p>
-					<div class="clearfix">
-						<a href="" class="btn-green btn-h55">Присоединяйтесь к нам!</a>
-					</div>
-					<div class="social-small-row clearfix">
-						<em>или войти с помощью</em> <br />
-						<ul class="social-list-small h32">
-							<li class="odnoklasniki"><a href="#"></a></li>
-							<li class="mailru"><a href="#"></a></li>
-							<li class="vkontakte"><a href="#"></a></li>
-							<li class="facebook"><a href="#"></a></li>
-						</ul>
-					</div>
-					<div class="clearfix">
-						Вы уже зарегистрированы? <a href="">Войти</a>
-					</div>
-							
-				</div>
-			</div>
+		<!--#include virtual="/block/global/header-new.shtml" -->
 			
-		</div>
-		
-		<div id="content" class="clearfix">
+		<div id="content" class="layout-content clearfix">
 			
 			<div id="homepage">
 				

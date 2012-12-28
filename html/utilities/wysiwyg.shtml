@@ -1,10 +1,10 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<!--[if lt IE 7]> <html xmlns="http://www.w3.org/1999/xhtml" class="top-nav-fixed"> <![endif]-->
-<!--[if IE 7]>    <html xmlns="http://www.w3.org/1999/xhtml" class="ie7 top-nav-fixed"> <![endif]-->
-<!--[if gt IE 7]><!--> <html xmlns="http://www.w3.org/1999/xhtml" class="top-nav-fixed"> <!--<![endif]-->
+﻿<!DOCTYPE html>
+<!--[if lt IE 8]>      <html class="top-nav-fixed ie7"> <![endif]-->
+<!--[if IE 8]>         <html class="top-nav-fixed ie8"> <![endif]-->
+<!--[if IE 9]>         <html class="top-nav-fixed ie9"> <![endif]-->
+<!--[if gt IE 9]><!--> <html class="top-nav-fixed"> <!--<![endif]-->
 <head>
 	<!--#include virtual="/block/global/head.shtml" -->
-	
 	<script type="text/javascript">
 	//<![CDATA[
 
@@ -29,19 +29,18 @@
 
 	//]]>
 	</script>
-	
-	
 </head>
-<body class="body-club">
+<body>
 
 	<!--#include virtual="/block/global/top-line-menu.shtml" -->
 	
 <div class="layout-container">
-	<div id="layout" class="wrapper">
+	<div class="layout-wrapper">
 
 		<!--#include virtual="/block/global/header-new.shtml" -->
-		
-		<div id="content" class="clearfix">
+			
+		<div id="content" class="layout-content clearfix">
+
 			<div class="content-cols clearfix">
 					
 				<div class="col-23">

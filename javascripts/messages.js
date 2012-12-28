@@ -17,7 +17,7 @@ Messages.open = function (interlocutor_id, type) {
         $.get('/im/', function (data) {
             $('#popup-preloader').hide();
             $('.popup-container').append(data.html);
-            $('.user-nav-2 .item-dialogs').addClass('active');
+            $('.top-line-menu_nav_ul .i-dialogs').addClass('active');
 
             comet.addEvent(3, 'updateStatus');
             comet.addEvent(21, 'updateReadStatuses');
@@ -70,7 +70,7 @@ Messages.initialize = function (interlocutor_id, type) {
 Messages.close = function () {
     $('#user-dialogs').remove();
     Popup.unload();
-    $('.user-nav-2 .item-dialogs').removeClass('active');
+    $('.top-line-menu_nav_ul .i-dialogs').removeClass('active');
     if (Messages.editor)
         Messages.editor.destroy(true);
     comet.delEvent(3, 'updateStatus');
@@ -311,7 +311,7 @@ Messages.updateCounter = function (selector, value, diff) {
 Messages.updateMenuCounter = function (value, diff) {
     diff = (typeof diff === "undefined") ? true : diff;
 
-    var li = $('.user-nav-2 .item-dialogs');
+    var li = $('.top-line-menu_nav_ul .i-dialogs');
     var counter = li.find('.count span.count-red');
     var newVal = (diff) ? parseInt(counter.text()) + value : value;
 

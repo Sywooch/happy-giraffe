@@ -161,7 +161,7 @@ class FriendEvent extends EMongoDocument
             $value=Yii::app()->controller->renderPartial('application.modules.whatsNew.views.friends._brick', array(
                 'data' => $this,
             ), true);
-            Yii::app()->cache->set($cache_id,$value, 60);
+            Yii::app()->cache->set($cache_id,$value, 300);
         }
 
         return $value;

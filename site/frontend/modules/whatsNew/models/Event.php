@@ -72,13 +72,13 @@ abstract class Event extends CModel
 
     public function getCode()
     {
-        $cache_id = 'event_code_'.$this->id;
+        $cache_id = 'event_code_'.$this->id.'__'.$this->last_updated;
         $value=Yii::app()->cache->get($cache_id);
         if($value===false)
         {
             $this->setSpecificValues();
             $value=Yii::app()->controller->renderPartial($this->view, array('data' => $this), true);
-            Yii::app()->cache->set($cache_id,$value, 60);
+            Yii::app()->cache->set($cache_id,$value, 300);
         }
 
         return $value;

@@ -706,7 +706,6 @@ ul.topmenu,
 }
 
 #contest {margin:0 10px;line-height:19px;font-size:13px;}
-
 #contest .contest-rules h4 {text-align: left;color: #0281b0;font: bold 14px Arial, Helvetica, sans-serif;padding: 6px 18px;background: #d4f5fc;display:inline-block;*zoom:1;*display:inline;clear: both;margin: 15px 0 15px;}
 #contest.contest-3 .contest-rules h4 {background:#C4F297;}
 
@@ -715,9 +714,7 @@ ul.topmenu,
 #contest .contest-rules ul li {margin:10px 0;}
 
 #contest .contest-about p {margin-bottom:10px;}
-
 #contest .content-title .btn-blue-light-small {margin:0 30px;}
-
 #contest .sticker {background: url(../images/stiker.png) no-repeat;width: 260px;height: 255px;padding: 20px 30px 20px 30px;text-align: left;float:right;margin-left:50px;clear:right;}
 #contest .sticker big {color: #03a12a;background: none;display: block;float: none;width: 200px;margin: 20px 20px 0px 30px;font: italic 16px Arial, Helvetica, sans-serif;}
 #contest .sticker p {margin:15px 35px 20px 30px;}
@@ -725,17 +722,14 @@ ul.topmenu,
 #contest .sticker ul li {list-style-image: url(../images/list.png);text-indent: 0;padding: 3px 0;}
 #contest .sticker .btn-green,
 #contest .sticker .btn {margin-right:30px;}
-
 #contest .contest-participant {float:right;width:298px;clear:right;margin:-10px 0 20px 40px;}
 
 #contest .winners-list {width:880px;margin:0 auto;padding-bottom:20px;}
 #contest .winners-list .winner-box {margin:0 30px;background:#f9fafa;padding:10px 25px;float:left;width:183px;}
 #contest .winners-list .winner-box .place {color:#d5d5d5;font:normal 20px tahoma, arial, helvetica, sans-serif;text-align:center;line-height:33px;}
-
 #contest .winners-list .winner-box .place .num {display:inline-block;*zoom:1;*display:inline;width:36px;height:33px;background:url(/images/winners_sprite.png) no-repeat -124px 0;color:#fff;font-weight:bold;text-align:center;line-height:33px;vertical-align:middle;}
 
 #contest .winners-list .winner-box .place span {display:inline-block;*zoom:1;*display:inline;vertical-align:middle;}
-
 #contest .winners-list .winner-box .place .cup {display:inline-block;*zoom:1;*display:inline;width:36px;height:56px;vertical-align:middle;background:url(/images/winners_sprite.png) no-repeat 36px 56px;}
 
 #contest .winners-list .winner-box.winner-place-1 .place .cup {background-position:-2px -22px;}

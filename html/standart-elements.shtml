@@ -49,10 +49,60 @@
 				<label for="">Button</label>
 				<button>button</button>
 			</div>
-			
+			<hr>
+			<h1>Кнопки</h1>
+			<div class="clearfix margin-b10">
+				<a href="" class="btn-green">.btn-green</a>
+				<a href="" class="btn-green twolines">
+					<span class="big">.btn-green</span>
+					<span class="small">.twolines</span>
+				</a>
+				<a href="" class="btn-green small">.btn-green.small</a>
+				<a href="" class="btn-green btn-small">.btn-green.btn-small</a>
+				<a href="" class="btn-green btn-medium">.btn-green.btn-medium</a>
+				<a href="" class="btn-green btn-h46">.btn-green.btn-h46</a>
+				<a href="" class="btn-green btn-h55">.btn-green.btn-h55</a>
+				<a href="" class="btn-green btn-big">.btn-green.btn-big</a>
+				<a href="" class="btn-green btn-large">.btn-green.btn-large</a>
+			</div>
+			<div class="clearfix margin-b10">
+				<a href="" class="btn-blue">.btn-blue</a>
+				<a href="" class="btn-blue small">.btn-blue.small</a>
+				<a href="" class="btn-blue btn-small">.btn-blue.btn-small</a>
+				<a href="" class="btn-blue btn-medium">.btn-blue.btn-medium</a>
+				<a href="" class="btn-blue btn-h46">.btn-blue.btn-h46</a>
+				<a href="" class="btn-blue btn-h55">.btn-blue.btn-h55</a>
+				<a href="" class="btn-blue btn-big">.btn-blue.btn-big</a>
+				<a href="" class="btn-blue btn-large">.btn-blue.btn-large</a>
+				<a href="" class="btn-blue btn-blue-30">.btn-blue.btn-blue-30</a>
+			</div>
+			<div class="clearfix margin-b10">
+				<a href="" class="btn-blue-light">.btn-blue-light</a>
+				<a href="" class="btn-blue-light btn-small">.btn-blue-light.btn-small</a>
+				<a href="" class="btn-blue-light btn-medium">.btn-blue-light.btn-medium</a>
+				<a href="" class="btn-blue-light btn-h46">.btn-blue-light.btn-h46</a>
+				<a href="" class="btn-blue-light btn-h55">.btn-blue-light.btn-h55</a>
+				<a href="" class="btn-blue-light btn-big">.btn-blue-light.btn-big</a>
+				<a href="" class="btn-blue-light btn-large">.btn-blue-light.btn-large</a>
+			</div>
+			<div class="clearfix margin-b10">
+				<a href="" class="btn-orange">.btn-orange</a>
+				<a href="" class="btn-orange btn-small">.btn-orange.btn-small</a>
+				<a href="" class="btn-orange btn-medium">.btn-orange.btn-medium</a>
+				<a href="" class="btn-orange btn-h46">.btn-orange.btn-h46</a>
+				<a href="" class="btn-orange btn-h55">.btn-orange.btn-h55</a>
+				<a href="" class="btn-orange btn-big">.btn-orange.btn-big</a>
+				<a href="" class="btn-orange btn-large">.btn-orange.btn-large</a>
+			</div>
+.btn-gray-light, <br>
+.btn-gray, <br>
+.btn-amethyst, <br>
+.btn-gold, <br>
+.btn-corncolor, <br>
+.btn-yellow, <br>
 		</div>  	
 		
-		<div class="push"></div>
+		<div class="footer-push"></div>
 		
 	</div>
 		

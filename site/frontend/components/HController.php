@@ -18,7 +18,7 @@ class HController extends CController
     public $pGallery = null;
     public $broadcast = false;
 
-    protected $r = 137;
+    protected $r = 140;
 
     public function filterAjaxOnly($filterChain)
     {
@@ -178,6 +178,6 @@ class HController extends CController
      */
     public function registerCounter()
     {
-        Yii::app()->clientScript->registerScript('se_counter', '$.post("/counter/", {referrer:document.referrer});');
+        Yii::app()->clientScript->registerScript('se_counter', 'SeCounter();');
     }
 }

@@ -33,7 +33,7 @@ class DefaultController extends HController
 
     public function actionIndex()
     {
-        $dp = EventManager::getIndex(100);
+        $dp = EventManager::getIndex(10);
 
         $this->pageTitle = 'Что нового на сайте - Веселый Жираф';
 
@@ -42,7 +42,7 @@ class DefaultController extends HController
 
     public function actionClubs($show)
     {
-        $dp = EventManager::getClubs(100, $show);
+        $dp = EventManager::getClubs(30, $show);
 
         $this->pageTitle = 'Что нового в клубах - Веселый Жираф';
 
@@ -51,7 +51,7 @@ class DefaultController extends HController
 
     public function actionBlogs($show)
     {
-        $dp = EventManager::getBlogs(100, $show);
+        $dp = EventManager::getBlogs(30, $show);
 
         $this->pageTitle = 'Что нового в блогах - Веселый Жираф';
 
@@ -62,16 +62,14 @@ class DefaultController extends HController
     {
         $type = Yii::app()->request->getPost('type');
 
-        $this->widget('WhatsNewWidget', array('type' => $type));
+        $this->widget('WhatsNewWidget', array('type' => $type, 'checkVisible' => false));
     }
 
     public function actionMoreItems()
     {
         $offset = Yii::app()->request->getPost('offset');
-        $dp = EventManager::getDataProvider(EventManager::WHATS_NEW_ALL, 4);
-        $dp->pagination->pageSize = 4;
-        $dp->pagination->currentPage = round($offset / 4) + 1;
-        $dp->totalItemCount = 10000;
+        $page = round($offset / 4) + 1;
+        $dp = EventManager::getDataProvider(EventManager::WHATS_NEW_ALL, 4, $page);
 
         foreach ($dp->data as $block)
             echo $block->code;

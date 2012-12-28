@@ -12,6 +12,8 @@ class photoViewWidget extends CWidget
     public $singlePhoto = false;
     public $query = array();
 
+    public $print_script = false;
+
     public function init()
     {
         $this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
@@ -26,9 +28,11 @@ class photoViewWidget extends CWidget
 
         $script = '$("' . $this->selector . '").pGallery(' . CJavaScript::encode(CMap::mergeArray(array('singlePhoto' => $this->singlePhoto, 'entity' => $this->entity, 'entity_id' => $this->entity_id, 'entity_url' => $this->entity_url), $this->query)) . ');';
         Yii::app()->controller->pGallery = $script;
-        Yii::app()->clientScript->registerScript('pGallery-' . $this->entity . '-' . $this->entity_id,
-            $script
-        );
+
+        if ($this->print_script)
+            echo '<script type="text/javascript">$(function() {' . $script . '});</script>';
+        else
+            Yii::app()->clientScript->registerScript('pGallery-' . $this->entity . '-' . $this->entity_id, $script);
 
         Yii::app()->clientScript->registerScriptFile('/javascripts/history.js');
         Yii::app()->clientScript->registerScriptFile('/javascripts/gallery.js?r=' . time());

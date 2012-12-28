@@ -69,42 +69,6 @@ class Service extends HActiveRecord
         );
     }
 
-    /**
-     * @return array customized attribute labels (name=>label)
-     */
-    public function attributeLabels()
-    {
-        return array(
-            'id' => 'ID',
-            'title' => 'Название',
-            'description' => 'Описание',
-            'url' => 'Ссылка',
-            'photo_id' => 'Фото',
-            'category_id' => 'Категория'
-        );
-    }
-
-    /**
-     * Retrieves a list of models based on the current search/filter conditions.
-     * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
-     */
-    public function search()
-    {
-        // Warning: Please modify the following code to remove attributes that
-        // should not be searched.
-
-        $criteria = new CDbCriteria;
-
-        $criteria->compare('id', $this->id, true);
-        $criteria->compare('title', $this->title, true);
-        $criteria->compare('description', $this->description, true);
-        $criteria->compare('url', $this->url, true);
-
-        return new CActiveDataProvider($this, array(
-            'criteria' => $criteria,
-        ));
-    }
-
     public function scopes()
     {
         return array(
@@ -190,5 +154,10 @@ class Service extends HActiveRecord
     public function getUrl($comments = false)
     {
         return $comments ? $this->url . '#comment_list' : $this->url;
+    }
+
+    public function getUnknownClassCommentsCount()
+    {
+        return $this->commentsCount;
     }
 }

@@ -43,7 +43,7 @@ Notifications.del = function(el, id) {
 
 Notifications.updateCounter = function(diff) {
     var li = $('.top-line-menu_nav_ul .i-notifications');
-    var counter = li.find('.count span.count-red span');
+    var counter = li.find('.count span.count-red');
     var newVal = parseInt(counter.text()) + diff;
 
     counter.text(newVal);

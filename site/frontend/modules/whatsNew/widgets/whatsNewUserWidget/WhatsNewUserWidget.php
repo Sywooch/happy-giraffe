@@ -15,6 +15,9 @@ class WhatsNewUserWidget extends CWidget
 
     public function run()
     {
+        if (Yii::app()->request->isAjaxRequest)
+            return false;
+
         if (!Yii::app()->user->isGuest && $this->user->id == Yii::app()->user->id) {
             $dp = FriendEventManager::getDataProvider($this->user);
             if ($dp->itemCount > 0) {

@@ -255,10 +255,11 @@ Comment.prototype.hideForm = function () {
 }
 
 Comment.prototype.goEndOfList = function () {
-    console.log(this.getScrollContainer(), $('#' + this.getId()).find('ul.items li').get(-1).offsetTop);
     $(this.getScrollContainer()).animate({scrollTop:$('#' + this.getId()).find('ul.items li').get(-1).offsetTop}, "normal");
 }
-
+Comment.prototype.goTop = function () {
+    $(this.getScrollContainer()).animate({scrollTop:$('#' + this.getId()).find('ul.items li').get(1).offsetTop - 200}, "fast");
+}
 
 
 

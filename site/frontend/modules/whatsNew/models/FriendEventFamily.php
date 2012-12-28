@@ -103,4 +103,9 @@ class FriendEventFamily extends FriendEvent
     {
         return ! empty($this->babies) || $this->partner !== null;
     }
+
+    public function canBeCached()
+    {
+        return true;
+    }
 }

@@ -310,7 +310,7 @@
 
     </div>
 
-    <div id="content" class="clearfix">
+    <div id="content" class="layout-content clearfix">
         <?php
             $this->widget('zii.widgets.CBreadcrumbs', array(
                 'links' => $this->breadcrumbs,

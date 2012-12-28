@@ -23,6 +23,10 @@ class Baby extends HActiveRecord
     const TYPE_WAIT = 1;
     const TYPE_PLANNING = 2;
 
+    const SEX_GIRL = 0;
+    const SEX_BOY = 1;
+    const SEX_UNDEFINED = 2;
+
     public static function model($className = __CLASS__)
     {
         return parent::model($className);
@@ -115,7 +119,10 @@ class Baby extends HActiveRecord
     public function getGenderString(){
         if ($this->sex == 1)
             return 'Мой сын';
-        return 'Моя дочь';
+        if ($this->sex == 0)
+            return 'Моя дочь';
+
+        return '';
     }
 
     public function getBirthdayDates()

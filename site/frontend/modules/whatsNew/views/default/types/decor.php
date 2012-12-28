@@ -30,3 +30,4 @@
         <a href="<?=$this->createUrl('/cook/decor/index')?>">Смотреть все</a>
     </div>
 </li>
+<script type="text/javascript">$(function() {});</script>

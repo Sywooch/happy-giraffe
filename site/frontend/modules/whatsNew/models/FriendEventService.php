@@ -77,4 +77,9 @@ class FriendEventService extends FriendEvent
     {
         return $this->service !== null && $this->service->photo !== null;
     }
+
+    public function canBeCached()
+    {
+        return true;
+    }
 }

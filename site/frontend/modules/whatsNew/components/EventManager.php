@@ -30,18 +30,21 @@ class EventManager
         return self::getDataProvider(($show == 'my') ? self::WHATS_NEW_BLOGS_MY : self::WHATS_NEW_BLOGS, $limit);
     }
 
-    public static function getDataProvider($type, $limit)
+    public static function getDataProvider($type, $limit, $page = 1)
     {
+        if (isset($_GET['page']))
+            $page = $_GET['page'];
+
         switch ($type) {
             case self::WHATS_NEW_ALL:
                 $sql = '
-                    (SELECT c.id, last_updated, 0 AS type FROM community__contents c JOIN community__rubrics r ON c.rubric_id = r.id WHERE removed = 0 AND rubric_id IS NOT NULL AND (r.community_id != 36 OR r.community_id IS NULL))
+                    (SELECT c.id, last_updated, 0 AS type FROM community__contents c JOIN community__rubrics r ON c.rubric_id = r.id WHERE removed = 0 AND rubric_id IS NOT NULL AND (r.community_id != 36 OR r.community_id IS NULL) order by last_updated DESC limit '.($page*$limit).')
                     UNION
-                    (SELECT id, last_updated, 1 AS type FROM contest__contests WHERE last_updated IS NOT NULL)
+                    (SELECT id, last_updated, 1 AS type FROM contest__contests WHERE last_updated IS NOT NULL order by last_updated DESC limit '.($page*$limit).')
                     UNION
                     (SELECT id, created AS last_updated, 2 AS type FROM cook__decorations ORDER BY id DESC LIMIT 1)
                     UNION
-                    (SELECT id, last_updated, 3 AS type FROM cook__recipes)
+                    (SELECT id, last_updated, 3 AS type FROM cook__recipes order by last_updated DESC limit '.($page*$limit).')
                     UNION
                     (SELECT id, last_updated, 4 AS type FROM users u JOIN score__user_scores s ON s.user_id = u.id WHERE deleted = 0 AND s.full != 0 ORDER BY id DESC LIMIT 1)
                 ';
@@ -92,12 +95,13 @@ class EventManager
         return new EventDataProvider($sql, array(
             'params' => $params,
             'pagination' => array(
-                'pageSize' => min(20, $limit),
+                'pageSize' => $limit,
+                'currentPage'=>($page - 1),
             ),
             'sort' => array(
                 'defaultOrder' => 'last_updated DESC',
             ),
-            'totalItemCount' => $limit,
+            'totalItemCount' => $page*$limit+1,
         ));
     }
 }

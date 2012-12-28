@@ -83,8 +83,8 @@ class FriendEvent extends EMongoDocument
 
     protected function instantiate($attributes)
     {
-        $class=self::getClassName($attributes['type']);
-        $model=new $class(null);
+        $class = self::getClassName($attributes['type']);
+        $model = new $class(null);
         $model->initEmbeddedDocuments();
         $model->setAttributes($attributes, false);
         return $model;
@@ -154,15 +154,20 @@ class FriendEvent extends EMongoDocument
 
     public function getCode()
     {
-        $cache_id = 'friend_event_code_'.$this->_id;
-        $value=Yii::app()->cache->get($cache_id);
-        if($value===false)
-        {
-            $value=Yii::app()->controller->renderPartial('application.modules.whatsNew.views.friends._brick', array(
-                'data' => $this,
-            ), true);
-            Yii::app()->cache->set($cache_id,$value, 300);
-        }
+        //не получается кэшировать из-за галереи, которая подключает скрипты
+//        $cache_id = 'friend_event_code_'.$this->_id;
+//        $value=Yii::app()->cache->get($cache_id);
+//        if($value===false)
+//        {
+//            $value=Yii::app()->controller->renderPartial('application.modules.whatsNew.views.friends._brick', array(
+//                'data' => $this,
+//            ), true);
+//            Yii::app()->cache->set($cache_id,$value, 300);
+//        }
+
+        $value = Yii::app()->controller->renderPartial('application.modules.whatsNew.views.friends._brick', array(
+            'data' => $this,
+        ), true);
 
         return $value;
     }

@@ -5,7 +5,6 @@
             'entity' => 'CookDecorationCategory',
             'entity_id' => null,
             'entity_url' => $this->createUrl('/cook/decor/index'),
-            'print_script' => true
         ));
     ?>
 

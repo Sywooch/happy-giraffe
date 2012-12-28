@@ -50,4 +50,9 @@ class FriendEventPurpose extends FriendEvent
     {
         return $this->purpose !== null;
     }
+
+    public function canBeCached()
+    {
+        return true;
+    }
 }

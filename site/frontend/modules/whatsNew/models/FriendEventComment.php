@@ -94,4 +94,9 @@ class FriendEventComment extends FriendEvent
     {
         return $this->comment !== null && $this->relatedModel !== null;
     }
+
+    public function canBeCached()
+    {
+        return true;
+    }
 }

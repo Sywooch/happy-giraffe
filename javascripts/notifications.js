@@ -7,7 +7,7 @@ Notifications.open = function() {
     $.get('/userPopup/notifications/', function(data) {
         $('#popup-preloader').hide();
         $('.popup-container').append(data);
-        $('.user-nav-2 .item-notifications').addClass('active');
+        $('.top-line-menu_nav_ul .i-notifications').addClass('active');
         Notifications.setHeight();
         $(window).on('resize', function() {
             Notifications.setHeight();
@@ -19,7 +19,7 @@ Notifications.open = function() {
 Notifications.close = function() {
     $('#user-notifications').remove();
     Popup.unload();
-    $('.user-nav-2 .item-notifications').removeClass('active');
+    $('.top-line-menu_nav_ul .i-notifications').removeClass('active');
     $(window).off('resize');
 }
 
@@ -42,8 +42,8 @@ Notifications.del = function(el, id) {
 }
 
 Notifications.updateCounter = function(diff) {
-    var li = $('.user-nav-2 .item-notifications');
-    var counter = li.find('.count span.count-red span');
+    var li = $('.top-line-menu_nav_ul .i-notifications');
+    var counter = li.find('.count span.count-red');
     var newVal = parseInt(counter.text()) + diff;
 
     counter.text(newVal);

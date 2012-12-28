@@ -33,7 +33,7 @@ class DefaultController extends HController
 
     public function actionIndex()
     {
-        $dp = EventManager::getIndex(10);
+        $dp = EventManager::getIndex(30);
 
         $this->pageTitle = 'Что нового на сайте - Веселый Жираф';
 

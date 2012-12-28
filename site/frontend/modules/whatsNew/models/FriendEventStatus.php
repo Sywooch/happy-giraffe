@@ -50,4 +50,9 @@ class FriendEventStatus extends FriendEvent
     {
         return $this->content !== null;
     }
+
+    public function canBeCached()
+    {
+        return true;
+    }
 }

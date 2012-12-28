@@ -32,8 +32,8 @@ class EventManager
 
     public static function getDataProvider($type, $limit, $page = 1)
     {
-        if (isset($_GET['WhatsNewPage']))
-            $page = $_GET['WhatsNewPage'];
+        if (isset($_GET['page']))
+            $page = $_GET['page'];
 
         switch ($type) {
             case self::WHATS_NEW_ALL:
@@ -97,7 +97,6 @@ class EventManager
             'pagination' => array(
                 'pageSize' => $limit,
                 'currentPage'=>($page - 1),
-                'pageVar'=>'WhatsNewPage'
             ),
             'sort' => array(
                 'defaultOrder' => 'last_updated DESC',

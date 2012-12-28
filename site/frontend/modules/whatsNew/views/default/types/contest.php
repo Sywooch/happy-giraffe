@@ -5,7 +5,7 @@
             'entity' => 'Contest',
             'entity_id' => $data->contest->id,
             'entity_url' => $data->contest->url,
-            'query' => array('sort' => 'created'),
+            'query' => array('sort' => 'created')
         ));
     ?>
 

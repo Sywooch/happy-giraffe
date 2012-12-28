@@ -31,4 +31,9 @@ class EventUser extends Event
 
         return User::model()->findAll($criteria);
     }
+
+    public function canBeCached()
+    {
+        return true;
+    }
 }

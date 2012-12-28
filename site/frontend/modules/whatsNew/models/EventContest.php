@@ -42,4 +42,9 @@ class EventContest extends Event
 
         return ContestWork::model()->findAll($criteria);
     }
+
+    public function canBeCached()
+    {
+        return false;
+    }
 }

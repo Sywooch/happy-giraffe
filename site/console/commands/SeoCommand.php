@@ -407,7 +407,7 @@ class SeoCommand extends CConsoleCommand
             foreach ($sites as $site) {
                 $parser->start($site->id, 2012, 12, 12);
 
-                SeoUserAttributes::setAttribute('last_li_parsed_'.date("Y-m") , $site->id);
+                SeoUserAttributes::setAttribute('last_li_parsed_'.date("Y-m") , $site->id, 1);
             }
         } else {
             $parser = new LiParser;

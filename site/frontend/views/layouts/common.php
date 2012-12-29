@@ -14,14 +14,14 @@
     <title><?=CHtml::encode(trim($this->meta_title))?></title>
     <?php else: ?>
     <title><?=CHtml::encode($this->pageTitle)?></title>
+    <!--[if IE 7]>
+    <link rel="stylesheet" href='/stylesheets/ie.css' type="text/css" media="screen" />
+    <![endif]-->
     <?php endif;
 
-    $r=2;
     $cs = Yii::app()->clientScript;
     $cs
         ->registerCssFile('/stylesheets/user.css')
-        ->registerCssFile('/stylesheets/common.css?'.$r)
-        ->registerCssFile('/stylesheets/global.css?'.$r)
         ->registerCssFile('/stylesheets/ie.css', 'screen')
         ->registerCssFile('/stylesheets/jquery.fancybox-1.3.4.css')
 

@@ -34,8 +34,8 @@ class HController extends CController
 
         $this->combineStatic();
         Yii::app()->clientScript
-            ->registerCssFile('/stylesheets/common.css')
-            ->registerCssFile('/stylesheets/global.css')
+            ->registerCssFile('/stylesheets/common.css?'.$this->r)
+            ->registerCssFile('/stylesheets/global.css?'.$this->r)
         ;
     }
 

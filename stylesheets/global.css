@@ -4540,10 +4540,11 @@ ul.letters li a:hover {
 .recipe-article .recipe-user-adds li {float: left;margin: 0 5px 6px 0;}
 .recipe-article .recipe-user-adds li > .text {padding: 0 7px;color: #598db2;text-decoration: none;font-size: 18px;line-height: 24px;}
 
-#cook-recipe .cook-title-cat {margin-bottom:30px;}
-#cook-recipe .cook-title-cat .cook-title-cat-h1 {color: #454545;font-size: 33px;line-height: 36px;margin:15px 0 15px;font-weight: normal;}
-#cook-recipe .cook-title-cat .cook-title-cat-h1-text {}
-#cook-recipe .cook-title-cat .cook-cat.active{display: inline-block;*zoom:1;*display:inline;vertical-align: bottom;margin-right: 10px;}
+.cook-title-cat {margin-bottom:30px;}
+.cook-title-cat .cook-title-cat-h1 {color: #454545;font-size: 33px;line-height: 36px;margin:15px 0 15px;font-weight: normal;}
+.cook-title-cat .cook-title-cat-h1-text {}
+.cook-title-cat > p {line-height: 19px;font-size: 13px;}
+.cook-title-cat .cook-cat.active{display: inline-block;*zoom:1;*display:inline;vertical-align: middle;margin-right: 10px;}
 
 .recipe-article .ingredients {list-style:none;margin-bottom:20px;}
 .recipe-article .ingredients > li {margin:8px 0;font-size: 13px;}

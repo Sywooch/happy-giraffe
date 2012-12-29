@@ -395,27 +395,23 @@ class SeoCommand extends CConsoleCommand
     public function actionLi($site)
     {
         Yii::import('site.seo.modules.competitors.components.*');
+        $last_parsed = SeoUserAttributes::getAttribute('last_li_parsed_'.date("Y-m") , 1);
         if (empty($site)) {
             $parser = new LiParser;
 
-            $sites = Site::model()->findAll('id > 69');
+            if (!empty($last_parsed))
+                $sites = Site::model()->findAll('id > '.$last_parsed);
+            else
+                $sites = Site::model()->findAll();
+
             foreach ($sites as $site) {
-                $parser->start($site->id, 2012, 11, 12);
+                $parser->start($site->id, 2012, 12, 12);
+
+                SeoUserAttributes::setAttribute('last_li_parsed_'.date("Y-m") , $site->id);
             }
         } else {
             $parser = new LiParser;
-            $parser->start($site, 2012, 11, 12);
-        }
-    }
-
-    public function actionLi2()
-    {
-        Yii::import('site.seo.modules.competitors.components.*');
-
-        $parser = new LiParser;
-        $sites = Site::model()->findAll('password IS NULL AND id > 29');
-        foreach ($sites as $site) {
-            $parser->start($site->id, 2012, 11, 12);
+            $parser->start($site, 2012, 12, 12);
         }
     }
 }

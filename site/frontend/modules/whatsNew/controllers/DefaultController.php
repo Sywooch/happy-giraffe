@@ -33,6 +33,9 @@ class DefaultController extends HController
 
     public function actionIndex()
     {
+        if (Yii::app()->request->isAjaxRequest)
+            $this->layout = 'empty';
+
         $dp = EventManager::getIndex(30);
 
         $this->pageTitle = 'Что нового на сайте - Веселый Жираф';
@@ -42,6 +45,9 @@ class DefaultController extends HController
 
     public function actionClubs($show)
     {
+        if (Yii::app()->request->isAjaxRequest)
+            $this->layout = 'empty';
+
         $dp = EventManager::getClubs(30, $show);
 
         $this->pageTitle = 'Что нового в клубах - Веселый Жираф';
@@ -51,6 +57,9 @@ class DefaultController extends HController
 
     public function actionBlogs($show)
     {
+        if (Yii::app()->request->isAjaxRequest)
+            $this->layout = 'empty';
+
         $dp = EventManager::getBlogs(30, $show);
 
         $this->pageTitle = 'Что нового в блогах - Веселый Жираф';

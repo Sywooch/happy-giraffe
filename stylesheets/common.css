@@ -1420,13 +1420,16 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 .top-line-menu .search-box .search-box_input .text {background: none;line-height: 20px;height: 18px;padding: 2px 10px 0; width:185px;border: none;}
 .top-line-menu .search-box .search-box_input .icon-search{float: right;background: url(/images/common.png) no-repeat -666px -327px;width: 21px;height: 20px;border: none;margin: 0;cursor: pointer;}
 /* /top line menu */
+
 /* headers all */
 .layout-header {padding:42px 0 20px;position:relative;}
 .layout-header .logo-box {float: left;margin:20px 125px 15px 85px;}
-.layout-header-section {display:table-cell;}
+.layout-header-section {float: left;}
+.layout-header-section_a {float: left;color: #2378c1;text-decoration: none;}
+.layout-header-section_a > img {display: inline-block;*zoom:1;*display:inline;vertical-align: middle;}
+.layout-header-section_a > span {display: inline-block;*zoom:1;*display:inline;font-size: 30px;vertical-align: middle;text-decoration: underline;}
 
 .top-nav-fixed #header-new{z-index:90;padding-top: 0;}
-
 #header-new {margin-bottom:20px;position:relative;}
 #header-new .header-in {background:url(/images/bg_header.gif) repeat-y bottom;}
 #header-new.guest .header-in {background-image:url(/images/bg_header_guest.gif);}
@@ -1623,7 +1626,7 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 
 #content .content-cols {}
 #content .content-cols .col-1 {width:240px;padding-right:20px;float:left;}
-#contentt .content-cols .col-12,
+#content .content-cols .col-12,
 #content .content-cols .col-23 {width:700px;float:left;}
 #content .content-cols .col-2 {width:440px;float:left;}
 #content .content-cols .col-3 {width:240px;padding-left:20px;float:left;}

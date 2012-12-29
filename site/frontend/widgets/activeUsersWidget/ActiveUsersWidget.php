@@ -44,7 +44,7 @@ class ActiveUsersWidget extends CWidget
 
     protected function getByMonth()
     {
-        $from_time = date("Y-m-d H:i:s", strtotime('-1 month'));
+        $from_time = date("Y-m").'-01 00:00:00';
         $result = $this->getTopUsers($from_time);
 
         return $result;
@@ -52,7 +52,7 @@ class ActiveUsersWidget extends CWidget
 
     protected function getByWeek()
     {
-        $from_time = date("Y-m-d H:i:s", strtotime('-1 week'));
+        $from_time = date("Y-m-d", strtotime('Monday this week')).' 00:00:00';
         $result = $this->getTopUsers($from_time);
 
         return $result;
@@ -60,7 +60,7 @@ class ActiveUsersWidget extends CWidget
 
     protected function getByDay()
     {
-        $from_time = date("Y-m-d") . '00:00:00';
+        $from_time = date("Y-m-d") . ' 00:00:00';
         $result = $this->getTopUsers($from_time);
 
         return $result;
@@ -119,17 +119,18 @@ class ActiveUsersWidget extends CWidget
      */
     public function getTopPostUsers($from_time)
     {
+        $col = ($this->type == self::TYPE_CLUBS) ? 'r.community_id':'r.user_id';
+
         return Yii::app()->db->createCommand()
             ->select('author_id, count(c.id) as cCount')
             ->from('community__contents as c')
-            ->join('community__rubrics as r', 'c.rubric_id = r.id')
+            ->join('community__rubrics as r', 'c.rubric_id = r.id AND '.$col.' IS NOT NULL')
             ->group('author_id')
             ->order('cCount desc')
-            ->where(':column IS NOT NULL AND created > :from_time AND author_id != :happy_giraffe',
+            ->where('created > :from_time AND author_id != :happy_giraffe AND removed = 0',
             array(
                 ':happy_giraffe' => User::HAPPY_GIRAFFE,
-                ':column' => ($this->type == self::TYPE_CLUBS) ? 'r.community_id' : 'r.user_id',
-                'from_time' => $from_time
+                ':from_time' => $from_time
             ))
             ->limit(self::LIMIT)
             ->queryAll();
@@ -148,7 +149,7 @@ class ActiveUsersWidget extends CWidget
             ->from('comments')
             ->group('author_id')
             ->order('cmCount desc')
-            ->where('entity = :entity AND created > :from_time AND author_id != :happy_giraffe',
+            ->where('entity = :entity AND created > :from_time AND author_id != :happy_giraffe AND removed = 0',
             array(
                 ':happy_giraffe' => User::HAPPY_GIRAFFE,
                 ':entity' => ($this->type == self::TYPE_CLUBS) ? 'CommunityContent' : 'BlogContent',
@@ -160,15 +161,16 @@ class ActiveUsersWidget extends CWidget
 
     public function getUserPostsCount($from_time, $user_id)
     {
+        $col = ($this->type == self::TYPE_CLUBS) ? 'r.community_id':'r.user_id';
+
         return Yii::app()->db->createCommand()
             ->select('count(c.id)')
             ->from('community__contents as c')
-            ->join('community__rubrics as r', 'c.rubric_id = r.id')
-            ->where(':column IS NOT NULL AND created > :from_time AND author_id = :user_id',
+            ->join('community__rubrics as r', 'c.rubric_id = r.id AND '.$col.' IS NOT NULL')
+            ->where('created > :from_time AND author_id = :user_id AND removed = 0',
             array(
                 ':user_id'=>$user_id,
-                ':column' => ($this->type == self::TYPE_CLUBS) ? 'r.community_id' : 'r.user_id',
-                'from_time' => $from_time
+                ':from_time' => $from_time
             ))
             ->queryScalar();
     }
@@ -178,7 +180,7 @@ class ActiveUsersWidget extends CWidget
         return Yii::app()->db->createCommand()
             ->select('count(id)')
             ->from('comments')
-            ->where('entity = :entity AND created > :from_time AND author_id = :user_id',
+            ->where('entity = :entity AND created > :from_time AND author_id = :user_id AND removed = 0',
             array(
                 ':user_id'=>$user_id,
                 ':entity' => ($this->type == self::TYPE_CLUBS) ? 'CommunityContent' : 'BlogContent',

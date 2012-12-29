@@ -660,18 +660,9 @@ class CommunityContent extends HActiveRecord
     {
         if ($this->getIsFromBlog()) {
             $model = BlogContent::model()->findByPk($this->id);
-            return $model->commentsCount;
+            return ($model)?$model->commentsCount:0;
         }
         return $this->commentsCount;
-    }
-
-    public function getArticleComments()
-    {
-        if ($this->getIsFromBlog()) {
-            $model = BlogContent::model()->findByPk($this->id);
-            return $model->comments;
-        }
-        return $this->comments;
     }
 
     public function getLastCommentators($limit = 3)

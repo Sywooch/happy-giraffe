@@ -30,7 +30,7 @@ class FriendEventPost extends FriendEvent
 
     private function _getContent()
     {
-        return CommunityContent::model()->resetScope()->full()->findByPk($this->content_id);
+        return CommunityContent::model()->full()->findByPk($this->content_id);
     }
 
     public function getLabel()

@@ -1,5 +1,6 @@
 <?
     $communityIds = array();
+    if (!Yii::app()->user->isGuest)
     foreach (Yii::app()->user->model->communities as $c)
         $communityIds[] = $c->id;
 ?>

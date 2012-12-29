@@ -71,7 +71,7 @@ $i = 0;
                     </td>
                     <td>
                         <?php $used = array(); ?>
-                        <?php $j = 0; foreach ($model->getArticleComments() as $comment): ?>
+                        <?php $j = 0; foreach ($model->getUnknownClassCommentsCount() as $comment): ?>
                         <?php if (!empty($comment->author->avatar_id) && !in_array($comment->author->avatar_id, $used)):?>
                             <?php $j++;$used[] = $comment->author->avatar_id ?>
                             <img src="<?php echo $comment->author->getAva('small') ?>"

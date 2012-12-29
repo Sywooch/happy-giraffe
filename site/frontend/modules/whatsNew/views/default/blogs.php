@@ -57,13 +57,15 @@
             ?>
         </div>
 
-        <div class="col-3 clearfix">
-            <?php if ($this->beginCache('bestUsers-blogs', array('duration' => 600))): ?>
-                <?php $this->widget('ActiveUsersWidget', array(
-                    'type' => ActiveUsersWidget::TYPE_BLOGS,
-                )); ?>
-            <?php $this->endCache(); endif; ?>
-        </div>
+        <?php if (!Yii::app()->request->isAjaxRequest):?>
+            <div class="col-3 clearfix">
+                <?php if ($this->beginCache('bestUsers-blogs', array('duration' => 600))): ?>
+                    <?php $this->widget('ActiveUsersWidget', array(
+                        'type' => ActiveUsersWidget::TYPE_BLOGS,
+                    )); ?>
+                <?php $this->endCache(); endif; ?>
+            </div>
+        <?php endif ?>
 
     </div>
 

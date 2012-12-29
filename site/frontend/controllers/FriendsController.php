@@ -28,6 +28,9 @@ class FriendsController extends HController
 
     public function actionFind($type, $query = null)
     {
+        if (Yii::app()->request->isAjaxRequest)
+            $this->layout = 'empty';
+
         $this->pageTitle = 'Поиск друзей на Веселом Жирафе';
         $dp = FindFriendsManager::getDataProvider($type, $query);
 

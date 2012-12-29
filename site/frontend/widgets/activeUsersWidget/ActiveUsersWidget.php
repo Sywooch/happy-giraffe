@@ -4,7 +4,8 @@
  * User: solivager
  * Date: 12/3/12
  * Time: 5:29 PM
- * To change this template use File | Settings | File Templates.
+ *
+ * Для выбора первых 10 пользователей по рейтингу достаточно вытащить топ 10 пользователей из каждой категории
  */
 class ActiveUsersWidget extends CWidget
 {
@@ -37,7 +38,7 @@ class ActiveUsersWidget extends CWidget
             'index' => 'id',
         ));
         $criteria->addInCondition('t.id', $usersIds);
-        $users = User::model()->with('avatar')->findAll($criteria);
+        $users = User::model()->findAll($criteria);
 
         $this->render('index', compact('month', 'week', 'day', 'users'));
     }
@@ -159,6 +160,13 @@ class ActiveUsersWidget extends CWidget
             ->queryAll();
     }
 
+    /**
+     * Returns user posts count for current period
+     *
+     * @param string $from_time
+     * @param int $user_id
+     * @return int
+     */
     public function getUserPostsCount($from_time, $user_id)
     {
         $col = ($this->type == self::TYPE_CLUBS) ? 'r.community_id':'r.user_id';
@@ -175,6 +183,13 @@ class ActiveUsersWidget extends CWidget
             ->queryScalar();
     }
 
+    /**
+     * Returns user comments count for current period
+     *
+     * @param string $from_time
+     * @param int $user_id
+     * @return int
+     */
     public function getUserCommentsCount($from_time, $user_id)
     {
         return Yii::app()->db->createCommand()

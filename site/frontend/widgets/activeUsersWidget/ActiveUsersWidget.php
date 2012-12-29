@@ -8,6 +8,8 @@
  */
 class ActiveUsersWidget extends CWidget
 {
+    const LIMIT = 10;
+
     const TYPE_CLUBS = 0;
     const TYPE_BLOGS = 1;
 
@@ -20,12 +22,12 @@ class ActiveUsersWidget extends CWidget
         $day = $this->getByDay();
 
         $usersIds = array();
-        foreach ($month as $m)
-            $usersIds[] = $m['id'];
-        foreach ($week as $w)
-            $usersIds[] = $w['id'];
-        foreach ($day as $d)
-            $usersIds[] = $d['id'];
+        foreach ($month as $user_id => $m)
+            $usersIds[] = $user_id;
+        foreach ($week as $user_id => $w)
+            $usersIds[] = $user_id;
+        foreach ($day as $user_id => $d)
+            $usersIds[] = $user_id;
         $usersIds = array_unique($usersIds);
 
         $criteria = new CDbCriteria(array(
@@ -35,107 +37,153 @@ class ActiveUsersWidget extends CWidget
             'index' => 'id',
         ));
         $criteria->addInCondition('t.id', $usersIds);
-        $users = User::model()->findAll($criteria);
+        $users = User::model()->with('avatar')->findAll($criteria);
 
         $this->render('index', compact('month', 'week', 'day', 'users'));
     }
 
     protected function getByMonth()
     {
-        $sql = "
-            SELECT id, cCount, cmCount, (cCount * 10 + cmCount) AS rating FROM
-            (
-                SELECT users.id, (
-                    SELECT COUNT(*)
-                    FROM community__contents c
-                    JOIN community__rubrics r ON c.rubric_id = r.id
-                    WHERE author_id = users.id AND :column IS NOT NULL AND YEAR(created) = YEAR(CURDATE()) AND MONTH(created) = MONTH(CURDATE()) AND author_id != :happy_giraffe
-                ) AS cCount, (
-                    SELECT COUNT(*)
-                    FROM comments
-                    WHERE entity = :entity AND author_id = users.id AND YEAR(created) = YEAR(CURDATE()) AND MONTH(created) = MONTH(CURDATE()) AND author_id != :happy_giraffe
-                ) AS cmCount
-                FROM users
-            ) AS counts
-            ORDER BY rating DESC
-            LIMIT 10;
-        ";
+        $from_time = date("Y-m-d H:i:s", strtotime('-1 month'));
+        $result = $this->getTopUsers($from_time);
 
-        $command = Yii::app()->db->createCommand($sql);
-        $command->bindValue(':happy_giraffe', User::HAPPY_GIRAFFE);
-        if ($this->type == self::TYPE_CLUBS) {
-            $command->bindValue(':column', 'r.community_id');
-            $command->bindValue(':entity', 'CommunityContent');
-        } else {
-            $command->bindValue(':column', 'r.user_id');
-            $command->bindValue(':entity', 'BlogContent');
-        }
-        return $command->queryAll();
+        return $result;
     }
 
     protected function getByWeek()
     {
-        $sql = "
-            SELECT id, cCount, cmCount, (cCount * 10 + cmCount) AS rating FROM
-            (
-                SELECT users.id, (
-                    SELECT COUNT(*)
-                    FROM community__contents c
-                    JOIN community__rubrics r ON c.rubric_id = r.id
-                    WHERE author_id = users.id AND :column IS NOT NULL AND YEAR(created) = YEAR(CURDATE()) AND WEEK(created, 5) = WEEK(CURDATE(), 5) AND author_id != :happy_giraffe
-                ) AS cCount, (
-                    SELECT COUNT(*)
-                    FROM comments
-                    WHERE entity = :entity AND author_id = users.id AND YEAR(created) = YEAR(CURDATE()) AND WEEK(created, 5) = WEEK(CURDATE(), 5) AND author_id != :happy_giraffe
-                ) AS cmCount
-                FROM users
-            ) AS counts
-            ORDER BY rating DESC
-            LIMIT 10;
-        ";
+        $from_time = date("Y-m-d H:i:s", strtotime('-1 week'));
+        $result = $this->getTopUsers($from_time);
 
-        $command = Yii::app()->db->createCommand($sql);
-        $command->bindValue(':happy_giraffe', User::HAPPY_GIRAFFE);
-        if ($this->type == self::TYPE_CLUBS) {
-            $command->bindValue(':column', 'r.community_id');
-            $command->bindValue(':entity', 'CommunityContent');
-        } else {
-            $command->bindValue(':column', 'r.user_id');
-            $command->bindValue(':entity', 'BlogContent');
-        }
-        return $command->queryAll();
+        return $result;
     }
 
     protected function getByDay()
     {
-        $sql = "
-            SELECT id, cCount, cmCount, (cCount * 10 + cmCount) AS rating FROM
-            (
-                SELECT users.id, (
-                    SELECT COUNT(*)
-                    FROM community__contents c
-                    JOIN community__rubrics r ON c.rubric_id = r.id
-                    WHERE author_id = users.id AND :column IS NOT NULL AND YEAR(created) = YEAR(CURDATE()) AND MONTH(created) = MONTH(CURDATE()) AND DAY(created) = DAY(CURDATE()) AND author_id != :happy_giraffe
-                ) AS cCount, (
-                    SELECT COUNT(*)
-                    FROM comments
-                    WHERE entity = :entity AND author_id = users.id AND YEAR(created) = YEAR(CURDATE()) AND MONTH(created) = MONTH(CURDATE()) AND DAY(created) = DAY(CURDATE()) AND author_id != :happy_giraffe
-                ) AS cmCount
-                FROM users
-            ) AS counts
-            ORDER BY rating DESC
-            LIMIT 10;
-        ";
+        $from_time = date("Y-m-d") . '00:00:00';
+        $result = $this->getTopUsers($from_time);
 
-        $command = Yii::app()->db->createCommand($sql);
-        $command->bindValue(':happy_giraffe', User::HAPPY_GIRAFFE);
-        if ($this->type == self::TYPE_CLUBS) {
-            $command->bindValue(':column', 'r.community_id');
-            $command->bindValue(':entity', 'CommunityContent');
-        } else {
-            $command->bindValue(':column', 'r.user_id');
-            $command->bindValue(':entity', 'BlogContent');
+        return $result;
+    }
+
+    public function getTopUsers($from_time)
+    {
+        $result = array();
+
+        //calculate top 10
+        $post_users = $this->getTopPostUsers($from_time);
+        foreach ($post_users as $post_user)
+            $result[$post_user['author_id']] = array(
+                'cCount' => $post_user['cCount'],
+                'rating' => $post_user['cCount'] * 10
+            );
+
+        $comment_users = $this->getTopCommentUsers($from_time);
+        foreach ($comment_users as $comment_user)
+            if (isset($result[$comment_user['author_id']])) {
+                $result[$comment_user['author_id']]['rating'] += $comment_user['cmCount'];
+                $result[$comment_user['author_id']]['cmCount'] = $comment_user['cmCount'];
+            } else
+                $result[$comment_user['author_id']] = array(
+                    'cmCount' => $comment_user['cmCount'],
+                    'rating' => $comment_user['cmCount']
+                );
+
+        //fill empty data
+        foreach($result as $author_id => $user_data){
+            if (!isset($user_data['cCount'])){
+                $result[$author_id]['cCount'] = $this->getUserPostsCount($from_time, $author_id);
+                $result[$author_id]['rating'] += $result[$author_id]['cCount']*10;
+            }
+            if (!isset($user_data['cmCount'])){
+                $result[$author_id]['cmCount'] = $this->getUserCommentsCount($from_time, $author_id);
+                $result[$author_id]['rating'] += $result[$author_id]['cmCount'];
+            }
         }
-        return $command->queryAll();
+
+
+        uasort($result, function ($a, $b) {
+            return $b['rating'] - $a['rating'];
+        });
+
+        $result = array_slice($result, 0, 10, true);
+
+        return $result;
+    }
+
+    /**
+     * Top post authors with post count
+     *
+     * @param $from_time
+     * @return array
+     */
+    public function getTopPostUsers($from_time)
+    {
+        return Yii::app()->db->createCommand()
+            ->select('author_id, count(c.id) as cCount')
+            ->from('community__contents as c')
+            ->join('community__rubrics as r', 'c.rubric_id = r.id')
+            ->group('author_id')
+            ->order('cCount desc')
+            ->where(':column IS NOT NULL AND created > :from_time AND author_id != :happy_giraffe',
+            array(
+                ':happy_giraffe' => User::HAPPY_GIRAFFE,
+                ':column' => ($this->type == self::TYPE_CLUBS) ? 'r.community_id' : 'r.user_id',
+                'from_time' => $from_time
+            ))
+            ->limit(self::LIMIT)
+            ->queryAll();
+    }
+
+    /**
+     * Top commentators with comments count
+     *
+     * @param $from_time
+     * @return array
+     */
+    public function getTopCommentUsers($from_time)
+    {
+        return Yii::app()->db->createCommand()
+            ->select('author_id, count(id) as cmCount')
+            ->from('comments')
+            ->group('author_id')
+            ->order('cmCount desc')
+            ->where('entity = :entity AND created > :from_time AND author_id != :happy_giraffe',
+            array(
+                ':happy_giraffe' => User::HAPPY_GIRAFFE,
+                ':entity' => ($this->type == self::TYPE_CLUBS) ? 'CommunityContent' : 'BlogContent',
+                ':from_time' => $from_time
+            ))
+            ->limit(self::LIMIT)
+            ->queryAll();
+    }
+
+    public function getUserPostsCount($from_time, $user_id)
+    {
+        return Yii::app()->db->createCommand()
+            ->select('count(c.id)')
+            ->from('community__contents as c')
+            ->join('community__rubrics as r', 'c.rubric_id = r.id')
+            ->where(':column IS NOT NULL AND created > :from_time AND author_id = :user_id',
+            array(
+                ':user_id'=>$user_id,
+                ':column' => ($this->type == self::TYPE_CLUBS) ? 'r.community_id' : 'r.user_id',
+                'from_time' => $from_time
+            ))
+            ->queryScalar();
+    }
+
+    public function getUserCommentsCount($from_time, $user_id)
+    {
+        return Yii::app()->db->createCommand()
+            ->select('count(id)')
+            ->from('comments')
+            ->where('entity = :entity AND created > :from_time AND author_id = :user_id',
+            array(
+                ':user_id'=>$user_id,
+                ':entity' => ($this->type == self::TYPE_CLUBS) ? 'CommunityContent' : 'BlogContent',
+                ':from_time' => $from_time
+            ))
+            ->queryScalar();
     }
 }

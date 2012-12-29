@@ -9,84 +9,15 @@
     </div>
     <div class="tabs-container">
         <div class="tab-box tab-box-1" style="display:block">
-            <table class="best-users_list" cellspacing="0" cellpadding="0">
-                <tr>
-                    <th class="best-users_list-rank"></th>
-                    <th class="best-users_list-ava"></th>
-                    <th class="best-users_list-post">Тем</th>
-                    <th class="best-users_list-comment"><i class="icon-comment"></i></th>
-                    <th class="best-users_list-point">Баллов</th>
-                </tr>
-                <?php foreach ($day as $k => $r): ?>
-                    <tr>
-                        <td class="best-users_list-rank"><i class="rank rank<?=($k+1)?>"></i></td>
-                        <td class="best-users_list-ava">
-                            <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
-                                'user' => $users[$r['id']],
-                                'small' => true,
-                                'size' => 'small',
-                            )); ?>
-                        </td>
-                        <td class="best-users_list-post"><?=$r['cCount']?></td>
-                        <td class="best-users_list-comment"><?=$r['cmCount']?></td>
-                        <td class="best-users_list-point"><?=$r['rating']?></td>
-                    </tr>
-                <?php endforeach; ?>
-            </table>
+            <?php $this->render('list', array('list' => $day, 'users' => $users)); ?>
         </div>
 
         <div class="tab-box tab-box-2">
-            <table class="best-users_list" cellspacing="0" cellpadding="0">
-                <tr>
-                    <th class="best-users_list-rank"></th>
-                    <th class="best-users_list-ava"></th>
-                    <th class="best-users_list-post">Тем</th>
-                    <th class="best-users_list-comment"><i class="icon-comment"></i></th>
-                    <th class="best-users_list-point">Баллов</th>
-                </tr>
-                <?php foreach ($week as $k => $r): ?>
-                    <tr>
-                        <td class="best-users_list-rank"><i class="rank rank<?=($k+1)?>"></i></td>
-                        <td class="best-users_list-ava">
-                            <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
-                                'user' => $users[$r['id']],
-                                'small' => true,
-                                'size' => 'small',
-                            )); ?>
-                        </td>
-                        <td class="best-users_list-post"><?=$r['cCount']?></td>
-                        <td class="best-users_list-comment"><?=$r['cmCount']?></td>
-                        <td class="best-users_list-point"><?=$r['rating']?></td>
-                    </tr>
-                <?php endforeach; ?>
-            </table>
+            <?php $this->render('list', array('list' => $week, 'users' => $users)); ?>
         </div>
 
         <div class="tab-box tab-box-3">
-            <table class="best-users_list" cellspacing="0" cellpadding="0">
-                <tr>
-                    <th class="best-users_list-rank"></th>
-                    <th class="best-users_list-ava"></th>
-                    <th class="best-users_list-post">Тем</th>
-                    <th class="best-users_list-comment"><i class="icon-comment"></i></th>
-                    <th class="best-users_list-point">Баллов</th>
-                </tr>
-                <?php foreach ($month as $k => $r): ?>
-                    <tr>
-                        <td class="best-users_list-rank"><i class="rank rank<?=($k+1)?>"></i></td>
-                        <td class="best-users_list-ava">
-                            <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
-                            'user' => $users[$r['id']],
-                            'small' => true,
-                            'size' => 'small',
-                        )); ?>
-                        </td>
-                        <td class="best-users_list-post"><?=$r['cCount']?></td>
-                        <td class="best-users_list-comment"><?=$r['cmCount']?></td>
-                        <td class="best-users_list-point"><?=$r['rating']?></td>
-                    </tr>
-                <?php endforeach; ?>
-            </table>
+            <?php $this->render('list', array('list' => $month, 'users' => $users)); ?>
         </div>
     </div>
 </div>

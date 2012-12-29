@@ -59,11 +59,11 @@
 
         <?php if (!Yii::app()->request->isAjaxRequest):?>
             <div class="col-3 clearfix">
-                <?php //if ($this->beginCache('bestUsers-clubs', array('duration' => 600))): ?>
+                <?php if ($this->beginCache('bestUsers-clubs', array('duration' => 600))): ?>
                     <?php $this->widget('ActiveUsersWidget', array(
                         'type' => ActiveUsersWidget::TYPE_CLUBS,
                     )); ?>
-                <?php //$this->endCache(); endif; ?>
+                <?php $this->endCache(); endif; ?>
             </div>
         <?php endif ?>
 

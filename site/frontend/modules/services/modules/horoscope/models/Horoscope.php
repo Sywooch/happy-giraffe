@@ -271,6 +271,11 @@ class Horoscope extends HActiveRecord
         return $this->zodiac_list[$this->zodiac];
     }
 
+    public function zodiacText2()
+    {
+        return $this->zodiac_list2[$this->zodiac];
+    }
+
     public function zodiacDates()
     {
         return $this->zodiac_dates[$this->zodiac]['start'][0] . '.'
@@ -549,6 +554,7 @@ class Horoscope extends HActiveRecord
 
         return '';
     }
+
 
     /*****************************************************************************************************************/
     /**************************************************** LINKING ****************************************************/

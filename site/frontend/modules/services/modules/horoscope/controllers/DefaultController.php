@@ -183,7 +183,7 @@ class DefaultController extends HController
             $year = 2012;
 
         if (empty($zodiac)) {
-            $this->title = 'гороскоп на ' . $year . ' год';
+            $this->title = 'Гороскоп на ' . $year . ' год';
             $this->social_title = $this->title;
             $this->meta_title = 'Гороскоп на ' . $year . ' год. Гороскоп на 2013 год для всех знаков Зодиака';
             $this->meta_description = 'Гороскоп на ' . $year . ' для всех знаков Зодиака: здоровье, карьера, финансы и личная жизнь';

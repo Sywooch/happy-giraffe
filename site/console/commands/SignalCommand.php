@@ -96,21 +96,6 @@ class SignalCommand extends CConsoleCommand
             ->queryColumn();
     }
 
-    public function actionCommentatorsStats()
-    {
-        $month = CommentatorsMonthStats::model()->find(new EMongoCriteria(array(
-            'conditions' => array(
-                'period' => array('==' => date("Y-m"))
-            ),
-        )));
-        if ($month === null) {
-            $month = new CommentatorsMonthStats;
-            $month->period = date("Y-m");
-        }
-        $month->calculate();
-        $month->save();
-    }
-
     public function actionPriority()
     {
         //calc user priority
@@ -195,11 +180,26 @@ class SignalCommand extends CConsoleCommand
         }
     }
 
-    public function actionUpdateSkips(){
-        $commentators = CommentatorWork::getWorkingCommentators();
-        foreach ($commentators as $commentator) {
-            $commentator->skipUrls = array();
-            $commentator->save();
+    public $ga = null;
+
+    public function actionSyncPageSeVisits(){
+        $month = date("Y-m");
+        $this->loginGa();
+
+        $visits = SearchEngineVisits::model()->findAllByAttributes(array('month'=>$month));
+        foreach($visits as $visit){
+            $visit->count = GApi::getUrlOrganicSearches($this->ga, date("Y-m").'-01', date("Y-m-d"), str_replace('http://www.happy-giraffe.ru', '', $visit->page->url), false);
+            echo $visit->page->url." - ".$visit->count;
+            if (!empty($visit->count))
+                $visit->save();
+
+            sleep(2);
         }
+    }
+
+    public function loginGa()
+    {
+        $this->ga = new GoogleAnalytics('alexk984@gmail.com', Yii::app()->params['gaPass']);
+        $this->ga->setProfile('ga:53688414');
     }
 }

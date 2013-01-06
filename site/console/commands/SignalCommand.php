@@ -165,7 +165,7 @@ class SignalCommand extends CConsoleCommand
         foreach ($commentators as $commentator) {
             $user = User::getUserById($commentator->user_id);
 
-            try{
+            try {
                 $seo_user = new SeoUser;
                 $seo_user->email = $user->email;
                 $seo_user->name = $user->getFullName();
@@ -174,7 +174,7 @@ class SignalCommand extends CConsoleCommand
                 $seo_user->owner_id = '33';
                 $seo_user->related_user_id = $user->id;
                 $seo_user->save();
-            }catch (Exception $e){
+            } catch (Exception $e) {
 
             }
         }
@@ -182,20 +182,30 @@ class SignalCommand extends CConsoleCommand
 
     public $ga = null;
 
-    public function actionSyncPageSeVisits(){
+    public function actionSyncPageSeVisits()
+    {
+        $ids = array();
+        $commentators = CommentatorWork::getWorkingCommentators();
+        foreach ($commentators as $commentator)
+            $ids [] = $commentator->user_id;
+
         Yii::import('site.frontend.extensions.GoogleAnalytics');
         Yii::import('site.frontend.helpers.*');
         $month = date("Y-m");
         $this->loginGa();
 
-        $visits = SearchEngineVisits::model()->findAllByAttributes(array('month'=>$month));
-        foreach($visits as $visit){
-            $visit->count = GApi::getUrlOrganicSearches($this->ga, date("Y-m").'-01', date("Y-m-d"), str_replace('http://www.happy-giraffe.ru', '', $visit->page->url), false);
-            echo $visit->page->url." - ".$visit->count. "\n";
-            if (!empty($visit->count))
-                $visit->save();
+        $visits = SearchEngineVisits::model()->findAllByAttributes(array('month' => $month));
+        foreach ($visits as $visit) {
+            $article = $visit->page->getArticle();
 
-            sleep(2);
+            if ($article !== null && in_array($article->author_id, $ids)) {
+                $visit->count = GApi::getUrlOrganicSearches($this->ga, date("Y-m") . '-01', date("Y-m-d"), str_replace('http://www.happy-giraffe.ru', '', $visit->page->url), false);
+                echo $visit->page->url . " - " . $visit->count . "\n";
+                if (!empty($visit->count))
+                    $visit->save();
+
+                sleep(2);
+            }
         }
     }
 

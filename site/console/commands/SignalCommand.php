@@ -183,6 +183,7 @@ class SignalCommand extends CConsoleCommand
     public $ga = null;
 
     public function actionSyncPageSeVisits(){
+        Yii::import('site.frontend.extensions.GoogleAnalytics');
         $month = date("Y-m");
         $this->loginGa();
 

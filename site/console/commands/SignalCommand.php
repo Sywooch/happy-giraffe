@@ -191,7 +191,7 @@ class SignalCommand extends CConsoleCommand
 
         Yii::import('site.frontend.extensions.GoogleAnalytics');
         Yii::import('site.frontend.helpers.*');
-        Yii::import('site.frontend.modules.cook.*');
+        Yii::import('site.frontend.modules.cook.models.*');
 
         $month = date("Y-m");
         $this->loginGa();

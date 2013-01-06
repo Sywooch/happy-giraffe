@@ -10,12 +10,15 @@ class SignalCommand extends CConsoleCommand
 
     public function beforeAction($action)
     {
+        Yii::import('site.common.models.mongo.*');
+        Yii::import('site.seo.models.*');
         Yii::import('site.frontend.modules.signal.models.*');
         Yii::import('site.frontend.modules.signal.components.*');
         Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
-        Yii::import('site.common.models.mongo.*');
         Yii::import('site.frontend.modules.im.models.*');
-        Yii::import('site.seo.models.*');
+        Yii::import('site.frontend.extensions.GoogleAnalytics');
+        Yii::import('site.frontend.helpers.*');
+        Yii::import('site.frontend.modules.cook.models.*');
 
         return true;
     }
@@ -189,10 +192,6 @@ class SignalCommand extends CConsoleCommand
         foreach ($commentators as $commentator)
             $ids [] = $commentator->user_id;
 
-        Yii::import('site.frontend.extensions.GoogleAnalytics');
-        Yii::import('site.frontend.helpers.*');
-        Yii::import('site.frontend.modules.cook.models.*');
-
         $month = date("Y-m");
         $this->loginGa();
 
@@ -207,6 +206,8 @@ class SignalCommand extends CConsoleCommand
                     $visit->save();
 
                 sleep(2);
+            }elseif ($article === null){
+                echo "article IS NULL {$visit->page->url} \n";
             }
         }
     }

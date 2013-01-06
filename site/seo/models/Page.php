@@ -24,6 +24,7 @@
  * @property InnerLink[] $inputLinks
  * @property int $outputLinksCount
  * @property int $inputLinksCount
+ * @property SearchEngineVisits[] $visits
  */
 class Page extends CActiveRecord
 {
@@ -82,6 +83,7 @@ class Page extends CActiveRecord
             'phrases' => array(self::HAS_MANY, 'PagesSearchPhrase', 'page_id'),
             'outputLinks' => array(self::HAS_MANY, 'InnerLink', 'page_id', 'order' => 'date desc'),
             'inputLinks' => array(self::HAS_MANY, 'InnerLink', 'page_to_id', 'order' => 'date desc'),
+            'visits' => array(self::HAS_MANY, 'SearchEngineVisits', 'page_id'),
 
             'outputLinksCount' => array(self::STAT, 'InnerLink', 'page_id'),
             'inputLinksCount' => array(self::STAT, 'InnerLink', 'page_to_id'),

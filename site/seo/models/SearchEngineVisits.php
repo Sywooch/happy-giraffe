@@ -122,9 +122,16 @@ class SearchEngineVisits extends HActiveRecord
 
     public static function getVisits($url, $month)
     {
-        $page = Page::model()->findByAttributes(array('url'=>'http://www.happy-giraffe.ru'.$url));
-        if (Page::model()->countByAttributes(array('url'=>'http://www.happy-giraffe.ru'.$url)) > 1)
+        $pages = Page::model()->findAllByAttributes(array('url'=>'http://www.happy-giraffe.ru'.$url));
+        if (count($pages) > 1){
             echo "dubli: $url \n";
+
+            for($i=1;$i<count($pages);$i++){
+                $pages[$i]->delete();
+            }
+        }
+
+        $page = Page::model()->findByAttributes(array('url'=>'http://www.happy-giraffe.ru'.$url));
 
         if ($page !== null){
             $criteria = new CDbCriteria;

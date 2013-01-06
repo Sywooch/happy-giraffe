@@ -323,7 +323,19 @@ class CommentatorsMonthStats extends EMongoDocument
         return $all_count;
     }
 
+    public function Test()
+    {
+        $model = CommunityContent::model()->findByPk(893);
+        $url = trim($model->url, '.');
+        echo $this->getVisits($url);
+    }
+
     public function getVisits($url)
+    {
+        return SearchEngineVisits::getVisits($url, $this->period);
+    }
+
+    /*public function getVisits($url)
     {
         $this->ga->setDateRange($this->period . '-01', $this->period . '-' . $this->getLastPeriodDay($this->period));
         sleep(1);
@@ -343,7 +355,7 @@ class CommentatorsMonthStats extends EMongoDocument
         if (isset($report[""]['ga:organicSearches']))
             return $report[""]['ga:organicSearches'];
         return null;
-    }
+    }*/
 
     public function addPageVisit($url, $value)
     {

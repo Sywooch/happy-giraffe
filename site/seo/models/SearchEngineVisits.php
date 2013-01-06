@@ -119,4 +119,20 @@ class SearchEngineVisits extends HActiveRecord
             $transaction->rollback();
         }
     }
+
+    public static function getVisits($url, $month)
+    {
+        $page = Page::model()->findByAttributes(array('url'=>'http://www.happy-giraffe.ru'.$url));
+
+        if ($page !== null){
+            $criteria = new CDbCriteria;
+            $criteria->compare('page_id', $page->id);
+            $criteria->compare('month', $month);
+            $model = SearchEngineVisits::model()->find($criteria);
+            if ($model !== null)
+                return $model->count;
+        }
+
+        return 0;
+    }
 }

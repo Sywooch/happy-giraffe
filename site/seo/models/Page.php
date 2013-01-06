@@ -127,16 +127,16 @@ class Page extends CActiveRecord
         ));
     }
 
-    public function beforeSave()
-    {
-        $this->number = self::getDbConnection()->createCommand('select MAX(number) from ' . $this->tableName())->queryScalar() + 1;
-        return parent::beforeSave();
-    }
+//    public function beforeSave()
+//    {
+//        $this->number = self::getDbConnection()->createCommand('select MAX(number) from ' . $this->tableName())->queryScalar() + 1;
+//        return parent::beforeSave();
+//    }
 
     public function beforeDelete()
     {
-        $this->keywordGroup->delete();
-        Yii::app()->db_seo->createCommand('update pages set number = number - 1 WHERE id >' . $this->id)->execute();
+        if ($this->keywordGroup !== null)
+            $this->keywordGroup->delete();
         return parent::beforeDelete();
     }
 

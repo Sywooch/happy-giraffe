@@ -309,7 +309,7 @@ class CommentatorsMonthStats extends EMongoDocument
             $url = trim($model->url, '.');
             if (!empty($url)) {
                 $visits = $this->getVisits($url);
-                echo $url . ' - ' . $visits . "\n";
+                //echo $url . ' - ' . $visits . "\n";
                 $all_count += $visits;
 
                 if ($visits !== null)
@@ -321,13 +321,6 @@ class CommentatorsMonthStats extends EMongoDocument
 
         echo $all_count . "\n";
         return $all_count;
-    }
-
-    public function Test()
-    {
-        $model = CommunityContent::model()->findByPk(893);
-        $url = trim($model->url, '.');
-        echo $this->getVisits($url);
     }
 
     public function getVisits($url)

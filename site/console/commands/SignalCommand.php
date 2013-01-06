@@ -201,7 +201,7 @@ class SignalCommand extends CConsoleCommand
             $article = $visit->page->getArticle();
 
             if ($article !== null && in_array($article->author_id, $ids)) {
-                $visit->count = GApi::getUrlOrganicSearches($this->ga, date("Y-m") . '-01', date("Y-m-d"), str_replace('http://www.happy-giraffe.ru', '', $visit->page->url), false);
+                $visit->count = GApi::getUrlOrganicSearches($this->ga, $month . '-01', $month.'-'.$this->getLastPeriodDay($month), str_replace('http://www.happy-giraffe.ru', '', $visit->page->url), false);
                 echo $visit->page->url . " - " . $visit->count . "\n";
                 if (!empty($visit->count))
                     $visit->save();
@@ -209,6 +209,11 @@ class SignalCommand extends CConsoleCommand
                 sleep(2);
             }
         }
+    }
+
+    public function getLastPeriodDay($period)
+    {
+        return str_pad(cal_days_in_month(CAL_GREGORIAN, date('n', strtotime($period)), date('Y', strtotime($period))), 2, "0", STR_PAD_LEFT);
     }
 
     public function loginGa()

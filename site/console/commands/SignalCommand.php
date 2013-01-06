@@ -15,6 +15,7 @@ class SignalCommand extends CConsoleCommand
         Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
         Yii::import('site.common.models.mongo.*');
         Yii::import('site.frontend.modules.im.models.*');
+        Yii::import('site.seo.models.*');
 
         return true;
     }
@@ -160,19 +161,7 @@ class SignalCommand extends CConsoleCommand
             $month = new CommentatorsMonthStats;
             $month->period = date("Y-m");
         }
-        $month->calculate(false);
-    }
-
-    public function actionFix()
-    {
-        Yii::import('site.frontend.modules.cook.models.*');
-        $commentators = CommentatorWork::model()->findAll();
-
-        foreach ($commentators as $commentator) {
-            echo $commentator->user_id."\n";
-            $commentator->calcCurrentClub(1);
-            $commentator->save();
-        }
+        $month->calculate();
     }
 
     public function actionCommentator($id)
@@ -187,7 +176,6 @@ class SignalCommand extends CConsoleCommand
 
     public function actionAddCommentatorsToSeo()
     {
-        Yii::import('site.seo.models.*');
         $commentators = CommentatorWork::getWorkingCommentators();
         foreach ($commentators as $commentator) {
             $user = User::getUserById($commentator->user_id);

@@ -191,7 +191,7 @@ class SignalCommand extends CConsoleCommand
         $visits = SearchEngineVisits::model()->findAllByAttributes(array('month'=>$month));
         foreach($visits as $visit){
             $visit->count = GApi::getUrlOrganicSearches($this->ga, date("Y-m").'-01', date("Y-m-d"), str_replace('http://www.happy-giraffe.ru', '', $visit->page->url), false);
-            echo $visit->page->url." - ".$visit->count;
+            echo $visit->page->url." - ".$visit->count. "\n";
             if (!empty($visit->count))
                 $visit->save();
 

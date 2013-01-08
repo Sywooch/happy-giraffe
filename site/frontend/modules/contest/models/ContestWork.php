@@ -196,7 +196,7 @@ class ContestWork extends HActiveRecord
 
     public function getRssContent()
     {
-        return CHtml::image($this->photoAttach->photo->getPreviewUrl(960, 627, Image::HEIGHT, true), $this->title);
+        return CHtml::image($this->photoAttach->photo->getPreviewUrl(960, 627, Image::HEIGHT), $this->title);
     }
 
     public function getShareImage()

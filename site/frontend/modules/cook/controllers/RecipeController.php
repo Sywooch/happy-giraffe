@@ -456,9 +456,8 @@ class RecipeController extends HController
             $xml = new SimpleXMLElement('<?xml version="1.0" encoding="utf-8"?><entities/>');
 
             foreach ($recipes as $r) {
-                if (empty($r->ingredients)){
+                if (empty($r->ingredients))
                     continue;
-                }
 
                 $recipe = $xml->addChild('recipe');
                 $recipe->addChild('name', $r->title);

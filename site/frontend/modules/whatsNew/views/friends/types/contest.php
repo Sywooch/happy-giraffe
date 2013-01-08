@@ -5,6 +5,7 @@
         'entity_id' => $data->work->contest->id,
         'entity_url' => $data->work->contest->url,
         'query' => array('sort' => 'created'),
+        'place'=>'gallery'
     ));
 ?>
 

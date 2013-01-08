@@ -329,8 +329,10 @@ class AlbumPhoto extends HActiveRecord
      *
      * @param int $width
      * @param int $height
-     * @param bool/string $master
+     * @param bool $master
      * @param bool $crop
+     * @param string $crop_side
+     * @param bool $force_replace
      *
      * @return string
      */
@@ -354,31 +356,84 @@ class AlbumPhoto extends HActiveRecord
             }
             if (!file_exists($model_dir))
                 mkdir($model_dir);
-            Yii::import('site.frontend.extensions.image.Image');
+
             if (!file_exists($this->originalPath))
                 return false;
-            try {
-                $image = new Image($this->originalPath);
-            } catch (CException $e) {
-                return $thumb;
-            }
 
-            if ($image->width <= $width && $image->height <= $height) {
-
-            } elseif ($master && $master == Image::WIDTH && $image->width < $width)
-                $image->resize($image->width, $height, Image::WIDTH);
-            elseif ($master && $master == Image::HEIGHT && $image->height < $height)
-                $image->resize($width, $image->height, Image::HEIGHT);
-            elseif ($master && $master == Image::INVERT) {
-                $image->resize($width, $height, ($image->width > $image->height) ? Image::HEIGHT : Image::WIDTH);
-            } else
-                $image->resize($width, $height, $master ? $master : Image::AUTO);
-
-            if ($crop)
-                $image->crop($width, $height, $crop_side);
-
-            $image->save($thumb);
+            if (exif_imagetype($this->originalPath) == IMAGETYPE_GIF)
+                return $this->imagickResize($thumb, $width, $height, $master, $crop, $crop_side);
+            else
+                return $this->gdResize($thumb, $width, $height, $master, $crop, $crop_side);
         }
+
+        return $thumb;
+    }
+
+    private function gdResize($thumb, $width, $height, $master, $crop, $crop_side)
+    {
+        Yii::import('site.frontend.extensions.EPhpThumb.*');
+
+        try {
+            $image = new EPhpThumb();
+            $image->init(); //this is needed
+            $image = $image->create($this->originalPath);
+
+        } catch (CException $e) {
+            return $thumb;
+        }
+
+        if (empty($height))
+            $height = 1000;
+        if (empty($width))
+            $width = 1000;
+
+        if ($crop)
+            $image = $image->adaptiveResize($width, $height);
+        elseif ($image->width <= $width && $image->height <= $height) {
+
+        } elseif ($master == Image::WIDTH){
+            if ($image->width > $width)
+                $image = $image->resize($width, $height);
+        } elseif ($master == Image::HEIGHT){
+            if ($image->height > $height)
+                $image = $image->resize($width, $height);
+        } else
+            $image = $image->resize($width, $height);
+
+        $image = $image->save($thumb);
+
+        $this->width = $image->width;
+        $this->height = $image->height;
+
+        return $thumb;
+    }
+
+    private function imagickResize($thumb, $width, $height, $master, $crop, $crop_side)
+    {
+        Yii::import('site.frontend.extensions.image.Image');
+        if (!file_exists($this->originalPath))
+            return false;
+        try {
+            $image = new Image($this->originalPath);
+        } catch (CException $e) {
+            return $thumb;
+        }
+
+        if ($image->width <= $width && $image->height <= $height) {
+
+        } elseif ($master && $master == Image::WIDTH && $image->width < $width)
+            $image->resize($image->width, $height, Image::WIDTH);
+        elseif ($master && $master == Image::HEIGHT && $image->height < $height)
+            $image->resize($width, $image->height, Image::HEIGHT);
+        elseif ($master && $master == Image::INVERT) {
+            $image->resize($width, $height, ($image->width > $image->height) ? Image::HEIGHT : Image::WIDTH);
+        } else
+            $image->resize($width, $height, $master ? $master : Image::AUTO);
+
+        if ($crop)
+            $image->crop($width, $height, $crop_side);
+
+        $image->save($thumb);
 
         if ($size = @getimagesize($thumb)) {
             $this->width = $size[0];
@@ -393,6 +448,10 @@ class AlbumPhoto extends HActiveRecord
      *
      * @param int $width
      * @param int $height
+     * @param bool $master
+     * @param bool $crop
+     * @param string $crop_side
+     *
      * @return string
      */
     public function getPreviewUrl($width = 100, $height = 100, $master = false, $crop = false, $crop_side = self::CROP_SIDE_CENTER)

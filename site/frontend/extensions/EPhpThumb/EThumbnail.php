@@ -69,6 +69,12 @@ class EThumbnail extends CComponent
             return $this;
     }
 
+    public function cropFromTop($width,$height)
+    {
+        $this->_thumbnail=$this->_thumbnail->adaptiveResizeQuadrant($width,$height, 'T');
+            return $this;
+    }
+
     /**
      * Rotates this image by 90 degrees in the specified direction.
      * @param string $direction the direction to rotate the image in.

@@ -16,7 +16,7 @@
 		
 		<div id="content">
 			
-			<div id="contest" class="contest-6">
+			<div id="contest" class="contest contest-6">
 				<div class="section-banner">
 					<div class="button-holder">
 						<a href=""class="contest-button">Участвовать!</a>
@@ -33,7 +33,7 @@
 					</ul>
 				</div>
 				
-				<div class="content-title">Вас ждет замечательный приз!</div>
+				<div class="content-title">Вас ждут замечательные призы!</div>
 				
 				<div class="contest-prizes-desc clearfix">
 					
@@ -43,7 +43,35 @@
 								<div class="img">
 									<a href=""><img src="/images/prize_16.jpg" /></a>
 								</div>
-								<div class="place place-1-2-3"></div>
+								<div class="place place-1-1"></div>
+							</div>
+							<div class="desc">
+								<div class="title">
+									Увлажнитель воздуха <b>TIGEX</b>
+								</div>
+								<p>Увлажнитель воздуха TIGEX от проверенного французского производителя - прибор, без которого<b> зимой не может обойтись ни один ребёнок</b>. Увлажнитель можно запрограммировать на тот режим, который позволит сохранить благоприятный микроклимат в комнате малыша и предупредит развитие многих болезней. </p>
+							</div>
+						</li>
+						<li class="clearfix">
+							<div class="l-col">
+								<div class="img">
+									<a href=""><img src="/images/prize_16.jpg" /></a>
+								</div>
+								<div class="place place-2"></div>
+							</div>
+							<div class="desc">
+								<div class="title">
+									Увлажнитель воздуха <b>TIGEX</b>
+								</div>
+								<p>Увлажнитель воздуха TIGEX от проверенного французского производителя - прибор, без которого<b> зимой не может обойтись ни один ребёнок</b>. Увлажнитель можно запрограммировать на тот режим, который позволит сохранить благоприятный микроклимат в комнате малыша и предупредит развитие многих болезней. </p>
+							</div>
+						</li>
+						<li class="clearfix">
+							<div class="l-col">
+								<div class="img">
+									<a href=""><img src="/images/prize_16.jpg" /></a>
+								</div>
+								<div class="place place-3"></div>
 							</div>
 							<div class="desc">
 								<div class="title">

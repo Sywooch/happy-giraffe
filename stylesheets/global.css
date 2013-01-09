@@ -3242,7 +3242,7 @@ ul.letters li a:hover {
 #horoscope .horoscope-one {padding:7px;border:1px solid #e9f0f9;margin-bottom:30px;}
 
 #horoscope .horoscope-one h1 {color:#444646;text-align:center;}
-#horoscope .horoscope-one .block-in {background:#fbfcfe url(/images/bg_horoscope_one.gif) repeat-x;padding:20px 35px;}
+#horoscope .horoscope-one .block-in {background:#fbfcfe url(/images/bg_horoscope_one.gif) repeat-x;padding:20px 0;}
 
 #horoscope .horoscope-one .right .date {font-size:30px;text-align:center;padding-top:20px;}
 #horoscope .horoscope-one .right .date big {color:#a4a3a3;font:italic 30px/1 timew new roman, serif;display:block;margin-bottom:10px;}
@@ -3254,17 +3254,17 @@ ul.letters li a:hover {
 #horoscope .horoscope-one .img .date {display:inline-block;*zoom:1;*display:inline;vertical-align:top;text-align:center;padding-top:45px;color:#858585;font-size:16px;width:240px;text-align:center;}
 #horoscope .horoscope-one .img .date span {font:italic 45px/1.2 times new roman, serif;display:block;color:#2d87be;}
 
-#horoscope .horoscope-one .dates{text-align:center;margin:20px 0 10px;margin-left: -40px;width: 680px;font-size:14px;color:#666;}
+#horoscope .horoscope-one .dates{text-align:center;margin:20px 0 10px;font-size:14px;color:#666;}
 #horoscope .horoscope-one .dates ul{list-style:none;}
 #horoscope .horoscope-one .dates ul li{display:inline;padding:0 12px;}
 #horoscope .horoscope-one .dates ul li a{display:inline-block;*zoom:1;*display:inline;padding:2px 5px;}
 #horoscope .horoscope-one .dates ul li.active a {background:#fff8bb;text-decoration:none;cursor:default;}
 
 #horoscope .horoscope-one .text {padding:30px 0 10px;}
-#horoscope .horoscope-one .text .date {width:110px;height:110px;background:url(/images/bg-paper.png) no-repeat;color:#0b99ee;font-size:30px;font-weight:bold;text-align:center;padding:36px 0 0;line-height:40px;float:left;margin:0 25px 15px 0;}
+#horoscope .horoscope-one .text .date {width:110px;height:110px;background:url(/images/bg-paper.png) no-repeat;color:#0b99ee;font-size:30px;font-weight:bold;text-align:center;padding:36px 0 0;line-height:40px;float:left;margin:0 25px 15px 35px;}
 #horoscope .horoscope-one .text .date > span {font-size:50px;display:block;}
 #horoscope .horoscope-one .text .date > .year {font-size:40px;display:block;}
-#horoscope .horoscope-one .text .holder {overflow:hidden;}
+#horoscope .horoscope-one .text .holder {overflow:hidden;margin-right: 35px;}
 #horoscope .horoscope-one .text p {line-height:19px;margin-bottom:1em;}
 
 #horoscope .horoscope-one .socials {text-align:center;padding:15px 0;}

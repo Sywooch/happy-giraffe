@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--[if lt IE 7]> <html xmlns="http://www.w3.org/1999/xhtml" class="top-nav-fixed"> <![endif]-->
+<!--[if IE 7]>    <html xmlns="http://www.w3.org/1999/xhtml" class="ie7 top-nav-fixed"> <![endif]-->
+<!--[if gt IE 7]><!--> <html xmlns="http://www.w3.org/1999/xhtml" class="top-nav-fixed"> <!--<![endif]-->
+<head>
+	<!--#include virtual="/block/global/head.shtml" -->
+</head>
+<body class="body-club">
+
+	<!--#include virtual="/block/global/top-line-menu.shtml" -->
+	
+<div class="layout-container">
+	<div id="layout" class="wrapper">
+
+		<!--#include virtual="/block/global/header-new.shtml" -->
+		
+		<div id="content">
+			
+			<div id="contest" class="contest-6">
+				<div class="section-banner">
+					<div class="button-holder">
+						<a href=""class="contest-button">Участвовать!</a>
+					</div>
+					<img src="/images/contest/banner-w1000-6.jpg" />
+				</div>
+				
+				<div class="contest-nav clearfix">
+					<ul>
+						<li class="active"><a href="">О конкурсе</a></li>
+						<li><a href="">Правила</a></li>
+						<li><a href="">Призы</a></li>
+						<li><a href="">Участники</a></li>
+					</ul>
+				</div>
+				
+				<div class="content-title">Вас ждет замечательный приз!</div>
+				
+				<div class="contest-prizes-desc clearfix">
+					
+					<ul>
+						<li class="clearfix">
+							<div class="l-col">
+								<div class="img">
+									<a href=""><img src="/images/prize_16.jpg" /></a>
+								</div>
+								<div class="place place-1-2-3"></div>
+							</div>
+							<div class="desc">
+								<div class="title">
+									Увлажнитель воздуха <b>TIGEX</b>
+								</div>
+								<p>Увлажнитель воздуха TIGEX от проверенного французского производителя - прибор, без которого<b> зимой не может обойтись ни один ребёнок</b>. Увлажнитель можно запрограммировать на тот режим, который позволит сохранить благоприятный микроклимат в комнате малыша и предупредит развитие многих болезней. </p>
+							</div>
+						</li>
+						
+					</ul>
+					<div class="be-active">
+						Будьте активны! <i class="icon"></i>
+					</div>
+				</div>
+
+            </div>
+				
+		</div>
+		
+		<div class="push"></div>
+	
+	</div>
+
+	<!--#include virtual="/block/global/footer.shtml" -->
+
+</div>
+</body>
+</html>

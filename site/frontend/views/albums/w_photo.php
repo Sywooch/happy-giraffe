@@ -97,7 +97,7 @@
                     idx : <?=(($p->w_idx !== null) ? $p->w_idx : $i) + 1?>,
                     prev : <?=($i != 0) ? $photos[$i - 1]->id : 'null'?>,
                     next : <?=($i < count($preload) - 1) ? $photos[$i + 1]->id : 'null'?>,
-                    src : '<?php echo $p->getPreviewUrl(960, 627, Image::HEIGHT, true); ?>',
+                    src : '<?php echo $p->getPreviewUrl(960, 627, Image::HEIGHT); ?>',
                     title : <?=($p->w_title === null) ? 'null' : '\'' . CJavaScript::quote($p->w_title) . '\''?>,
                     description : <?=($p->w_description === null) ? 'null' : '\'' . CJavaScript::quote($p->w_description) . '\''?>,
                     avatar : '<?php
@@ -132,7 +132,7 @@
         <div id="photo" class="photo-container">
 
             <div class="img">
-                <table><tr><td><?=CHtml::image($photo->getPreviewUrl(960, 627, Image::HEIGHT, true), '')?></td></tr></table>
+                <table><tr><td><?=CHtml::image($photo->getPreviewUrl(960, 627, Image::HEIGHT), '')?></td></tr></table>
             </div>
 
             <a href="javascript:void(0)" class="prev"><i class="icon"></i>предыдушая</a>

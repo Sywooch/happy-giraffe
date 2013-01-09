@@ -48,7 +48,7 @@
         <?php if (Yii::app()->controller->action->id == 'yesterday' ):?>
             <div class="horoscope-daylist clearfix">
                 <ul>
-                    <?php for ($i=2;$i<12;$i++): ?>
+                    <?php for ($i=2;$i<10;$i++): ?>
                         <li><?=$model->getDateLink(strtotime('-'.$i.' days')) ?></li>
                     <?php endfor; ?>
                 </ul>

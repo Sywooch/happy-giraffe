@@ -36,7 +36,7 @@ class DefaultController extends HController
         if ($model === null)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
-        $this->title = 'Гороскоп на сегодня ' . $model->zodiacText();
+        $this->title = 'Гороскоп '.$model->zodiacText2().' на сегодня ';
         $this->social_title = 'Гороскоп на сегодня ' . Yii::app()->dateFormatter->format('dd MMMM yyyy', strtotime($model->date)) . ' ' . $model->zodiacText();
         $this->meta_title = 'Гороскоп на сегодня ' . $model->zodiacText() . ' для женщин и мужчин - Веселый Жираф';
         $this->meta_description = 'Бесплатный гороскоп ' . $model->zodiacText() . ' на сегодня для женщин и мужчин. Обновляется ежедневно!';
@@ -55,7 +55,7 @@ class DefaultController extends HController
         if ($model === null)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
-        $text = $model->zodiacText() . ' на ' . Yii::app()->dateFormatter->format('d MMMM yyyy', strtotime($model->date));
+        $text = $model->zodiacText2() . ' на ' . Yii::app()->dateFormatter->format('d MMMM yyyy', strtotime($model->date));
         $this->title = 'Гороскоп ' . $text;
         $this->meta_title = 'Гороскоп ' . $text . ' для женщин и мужчин - Веселый Жираф';
         $this->meta_description = 'Бесплатный гороскоп ' . $text . ' для женщин и мужчин. Обновляется ежедневно!';
@@ -76,7 +76,7 @@ class DefaultController extends HController
         if ($model === null)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
-        $this->title = 'Гороскоп на вчера ' . $model->zodiacText();
+        $this->title = 'Гороскоп '.$model->zodiacText2().' на вчера ';
         $this->social_title = 'Гороскоп на ' . Yii::app()->dateFormatter->format('dd MMMM yyyy', strtotime($model->date)) . ' ' . $model->zodiacText();
         $this->meta_title = 'Гороскоп на вчера ' . $model->zodiacText() . ' для мужчин и женщин - Веселый Жираф';
         $this->meta_description = 'Бесплатный гороскоп ' . $model->zodiacText() . ' на вчера для женщин и мужчин. Познай судьбу!';
@@ -107,7 +107,7 @@ class DefaultController extends HController
             if ($model === null)
                 throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
-            $this->title = 'Гороскоп на завтра ' . $model->zodiacText();
+            $this->title = 'Гороскоп '.$model->zodiacText2().' на завтра ';
             $this->social_title = 'Гороскоп на ' . Yii::app()->dateFormatter->format('dd MMMM yyyy', strtotime($model->date)) . ' ' . $model->zodiacText();
             $this->meta_title = 'Гороскоп на завтра ' . $model->zodiacText() . ' для мужчин и женщин - Веселый Жираф';
             $this->meta_description = 'Бесплатный гороскоп ' . $model->zodiacText() . ' на завтра для женщин и мужчин. Обновляется ежедневно!';
@@ -138,8 +138,8 @@ class DefaultController extends HController
                 if ($model === null)
                     throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
-                $this->title = 'Гороскоп ' . $model->zodiacText() . ' на ' . HDate::ruMonth(date('n'));
-                $this->social_title = 'Гороскоп ' . $model->zodiacText() . ' на ' . HDate::ruMonth(date('n'));
+                $this->title = 'Гороскоп ' . $model->zodiacText2() . ' на месяц';
+                $this->social_title = 'Гороскоп ' . $model->zodiacText2() . ' на месяц';
                 $this->meta_title = 'Гороскоп на каждый месяц ' . $model->zodiacText() . ' - Веселый Жираф';
                 $this->meta_description = 'Бесплатный гороскоп на месяц ' . $model->zodiacText() . ' для женщин и мужчин. Обновляется ежемесячно!';
                 $this->meta_keywords = 'Гороскоп на месяц ' . $model->zodiacText() . ', ежемесячный гороскоп ' . $model->zodiacText();
@@ -162,9 +162,9 @@ class DefaultController extends HController
                 if ($model === null)
                     throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
-                $this->title = 'Гороскоп  на ' . HDate::ruMonth(date('n')) . ' ' . $year . ' года - '.$model->zodiacText();
+                $this->title = 'Гороскоп '.$model->zodiacText2().' на ' . HDate::ruMonth($month) . ' ' . $year . ' года';
                 $this->social_title = $this->title;
-                $this->meta_title = $model->zodiacText(). '. Гороскоп для ' . $model->zodiacText2() . ' на ' . HDate::ruMonth($month) . ' ' . $year . ' года';
+                $this->meta_title = $model->zodiacText(). '. Гороскоп ' . $model->zodiacText2() . ' на ' . HDate::ruMonth($month) . ' ' . $year . ' года';
                 $this->meta_description = 'Гороскоп для ' . $model->zodiacText2().' на '.HDate::ruMonth($month) . ' ' . $year . ' года';
                 $this->meta_keywords = 'Гороскоп ' . $model->zodiacText() . ', ' . HDate::ruMonth($month) . ' ' . $year;
                 $model->calculateMonthDays();
@@ -198,7 +198,7 @@ class DefaultController extends HController
             if ($model === null)
                 throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
-            $this->title = 'Гороскоп ' . $model->zodiacText() . ' на ' . $year . ' год';
+            $this->title = 'Гороскоп ' . $model->zodiacText2() . ' на ' . $year . ' год';
             $this->social_title = $this->title;
             $this->meta_title = 'Гороскоп ' . $model->zodiacText() . ' на ' . $year . ' год для женщин и мужчин – Веселый Жираф';
             $this->meta_description = 'Бесплатный гороскоп ' . $model->zodiacText() . ' на ' . $year . ' год для женщин и мужчин. Познай свою судьбу!';

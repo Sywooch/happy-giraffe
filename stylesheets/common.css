@@ -255,6 +255,7 @@ textarea.error {border:1px solid #ff6767 !important;}
 .margin-b5 {margin-bottom: 5px !important;}
 .margin-b10 {margin-bottom: 10px !important;}
 .margin-l10 {margin-left: 10px !important;}
+.margin-l20 {margin-left: 20px !important;}
 
 .nopadding,
 .padding-0 {padding:0 !important;}
@@ -5352,8 +5353,10 @@ label {
 /* section */
 .section{margin:0 -3000px 40px;padding:12px 0 0;position: relative;}
 .section__sand{background:url(/images/section/section__sand-t.jpg) repeat-x;}
-.section__sand .section_hold  {	background:#f6d59f url(/images/section/section__sand-b.jpg) repeat-x 0 100%;}
-.section_hold{padding:0 3000px 15px;margin-top:-1px;}
+.section__sand .section_hold  {background:#f6d59f url(/images/section/section__sand-b.jpg) repeat-x 0 100%;}
+.section__gray{background:url(/images/section/section__gray-t.gif) repeat-x;}
+.section__gray .section_hold  {background:#e6e4e4 url(/images/section/section__gray-b.gif) repeat-x 0 100%;}
+.section_hold{padding:15px 3000px;margin-top:-1px;}
 .section_overlay {
 	position: absolute;
 	width: 1000px;
@@ -5363,8 +5366,9 @@ label {
 	margin: 0;
 	padding: 0 3000px;
 	z-index: 20;
-	background: rgba(237, 237, 237, .6);
+	background: rgba(255, 255, 255, 0.6);
 }
+.section .ava-small-list {margin: 30px 20px 20px 45px;}
 .section-cnt {
 	background: #fff;
 	padding: 20px;
@@ -5390,7 +5394,7 @@ label {
 	border-radius: 5px;
 	 behavior: url(/stylesheets/PIE.htc);
 }
-.section__sand .box-two-transp {top: -22px;margin-bottom: 0;}
+.section__sand .box-two-transp {top: -37px;margin-bottom: 0;}
 .box-two-transp_hold {
 	background: rgba(255,255,255,.32);
 	padding: 10px;
@@ -5451,7 +5455,7 @@ label {
 /* section-join */
 .section-join {
 	position: relative;
-	margin: 80px auto 0;
+	margin: 120px auto 0;
 	padding: 30px 25px 30px 15px;
 	width: 540px;
 	border: 5px solid #ebeaea;
@@ -5474,6 +5478,14 @@ label {
 	padding: 0 29px;
 }
 /* /section-join */
+
+/* ava-small-list */
+.ava-small-list {margin:0 10px;}
+.ava-small-list_li {
+	float: left;
+	margin: 0 10px 8px 0;
+}
+/* /ava-small-list */
 
 /* section cook 
 ------------------------- */

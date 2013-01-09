@@ -370,7 +370,7 @@
 					</div>
 				</div>
 			</div>
-		<div class="layout-content clearfix">
+		<div class="layout-content margin-b0 clearfix">
 			<div class="services-list">
 				<div class="services-list_t">Полезные сервисы. <span class="color-green"> Для кулинара!</span></div>
 				<ul>
@@ -630,9 +630,9 @@
 				</ul>
 			</div>
 		</div>  	
-		<div class="section">
+		<div class="section section__gray">
 			<div class="section_hold">
-				<div class="masonry-news-list  margin-0">
+				<div class="masonry-news-list  margin-l20">
 					<ul>
 						<li class="masonry-news-list_item margin-b0">
 							<div class="online-status">На сайте</div>
@@ -754,9 +754,62 @@
 						</li>
 					</ul>
 				</div>
-				<div class="ava-small-list">
+				<div class="ava-small-list clearfix">
 					<ul>
-						<li class="ava-small-list"><a href="" class="ava small"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/15496/small/avatar.jpeg"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/15496/small/avatar.jpeg"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/20909/small/e13fab92d1a406a9ffca8881a6afa24b.jpg"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/15496/small/avatar.jpeg"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/15496/small/avatar.jpeg"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/15292/small/avatar.jpeg"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/15496/small/avatar.jpeg"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/15496/small/avatar.jpeg"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/15496/small/avatar.jpeg"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/20909/small/e13fab92d1a406a9ffca8881a6afa24b.jpg"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/15496/small/avatar.jpeg"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/15496/small/avatar.jpeg"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/15292/small/avatar.jpeg"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/15496/small/avatar.jpeg"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/15496/small/avatar.jpeg"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/20909/small/e13fab92d1a406a9ffca8881a6afa24b.jpg"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/15496/small/avatar.jpeg"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/15496/small/avatar.jpeg"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/15292/small/avatar.jpeg"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/15496/small/avatar.jpeg"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/15496/small/avatar.jpeg"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/15496/small/avatar.jpeg"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/15292/small/avatar.jpeg"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/15496/small/avatar.jpeg"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/15496/small/avatar.jpeg"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/15496/small/avatar.jpeg"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/15292/small/avatar.jpeg"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/15496/small/avatar.jpeg"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/15496/small/avatar.jpeg"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/20909/small/e13fab92d1a406a9ffca8881a6afa24b.jpg"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/15496/small/avatar.jpeg"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/15496/small/avatar.jpeg"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/15292/small/avatar.jpeg"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/15496/small/avatar.jpeg"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/15496/small/avatar.jpeg"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/15496/small/avatar.jpeg"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/15496/small/avatar.jpeg"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/15292/small/avatar.jpeg"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/15496/small/avatar.jpeg"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/15496/small/avatar.jpeg"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/15496/small/avatar.jpeg"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/20909/small/e13fab92d1a406a9ffca8881a6afa24b.jpg"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/15496/small/avatar.jpeg"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/15496/small/avatar.jpeg"></a></li>
 					</ul>
 				</div>
 			</div>
@@ -770,407 +823,6 @@
 				</div>
 			</div>
 		</div>
-		
-		<div id="content" class="clearfix">
-			
-			<div id="crumbs"><a href="">Главная</a> > <a href="">Сервисы</a> > <span>Приправы и специи</span></div>
-			
-			<div id="cook" class="clearfix">
-				
-				<div class="title">
-					<h2>Кулинария <span>Готовьте с Веселым Жирафом!</span></h2>
-				</div>
-				
-				<div class="main">
-					<div class="main-right">
-				
-						<div class="search clearfix">
-							
-							<div class="title">
-								
-								<div class="links">
-									<a href="">По ингредиентам</a>
-									<a href="">Расширеный поиск</a>									
-								</div>
-								
-								<i class="icon"></i>
-								<span>Поиск рецептов</span>
-								
-							</div>
-							
-							<form>
-								<input type="text" placeholder="Введите ключевое слово в названии рецепта" />
-								<button class="btn btn-purple-medium"><span><span>Найти</span></span></button>
-							</form>
-							
-						</div>
-						
-						<div class="recipe-list">
-							
-							<div class="block-title">
-								
-								<div class="title-in">
-									<span class="yellow">Тысячи рецептов</span><br/>
-									<span>от наших пользователей</span>
-								</div>
-								
-								<div class="all-link">
-									<span>Смотреть</span><br/>
-									<a href="">все рецепты (5268)</a>
-								</div>
-								
-								<div class="add-btn">
-									<a href="" class="btn btn-green-medium"><span><span>Добавить рецепт</span></span></a>
-								</div>
-								
-								
-							</div>
-							
-							<ul class="list">
-								
-								<li>
-									<div class="user clearfix">
-										<div class="user-info clearfix">
-											<a class="ava female small"></a>
-											<div class="details">
-												<span class="icon-status status-online"></span>
-												<a href="" class="username">Дарья</a>
-											</div>
-										</div>
-									</div>
-									<div class="item-title">
-										<a href="">Торт песочный с орехами, черникой и клубникой</a>
-									</div>
-									<div class="content">
-										<a href=""><img src="/images/cook_recipe_search_img_01.jpg"></a>
-									</div>
-								</li>
-								
-								<li>
-									<div class="user clearfix">
-										<div class="user-info clearfix">
-											<a class="ava female small"></a>
-											<div class="details">
-												<span class="icon-status status-online"></span>
-												<a href="" class="username">Александр Богоявленский</a>
-											</div>
-										</div>
-									</div>
-									<div class="item-title">
-										<a href="">Торт песочный с орехами</a>
-									</div>
-									<div class="content">
-										<a href=""><img src="/images/cook_recipe_search_img_02.jpg"></a>
-									</div>
-								</li>
-								
-								<li>
-									<div class="user clearfix">
-										<div class="user-info clearfix">
-											<a class="ava female small"></a>
-											<div class="details">
-												<span class="icon-status status-online"></span>
-												<a href="" class="username">Дарья</a>
-											</div>
-										</div>
-									</div>
-									<div class="item-title">
-										<a href="">Торт песочный с орехами, черникой и клубникой</a>
-									</div>
-									<div class="content">
-										<a href=""><img src="/images/cook_recipe_search_img_01.jpg"></a>
-									</div>
-								</li>
-								
-								<li>
-									<div class="user clearfix">
-										<div class="user-info clearfix">
-											<a class="ava female small"></a>
-											<div class="details">
-												<span class="icon-status status-online"></span>
-												<a href="" class="username">Александр Богоявленский</a>
-											</div>
-										</div>
-									</div>
-									<div class="item-title">
-										<a href="">Торт песочный с орехами</a>
-									</div>
-									<div class="content">
-										<a href=""><img src="/images/cook_recipe_search_img_02.jpg"></a>
-									</div>
-								</li>
-								
-								<li>
-									<div class="user clearfix">
-										<div class="user-info clearfix">
-											<a class="ava female small"></a>
-											<div class="details">
-												<span class="icon-status status-online"></span>
-												<a href="" class="username">Дарья</a>
-											</div>
-										</div>
-									</div>
-									<div class="item-title">
-										<a href="">Торт песочный с орехами, черникой и клубникой</a>
-									</div>
-									<div class="content">
-										<a href=""><img src="/images/cook_recipe_search_img_01.jpg"></a>
-									</div>
-								</li>
-								
-								<li>
-									<div class="user clearfix">
-										<div class="user-info clearfix">
-											<a class="ava female small"></a>
-											<div class="details">
-												<span class="icon-status status-online"></span>
-												<a href="" class="username">Александр Богоявленский</a>
-											</div>
-										</div>
-									</div>
-									<div class="item-title">
-										<a href="">Торт песочный с орехами</a>
-									</div>
-									<div class="content">
-										<a href=""><img src="/images/cook_recipe_search_img_02.jpg"></a>
-									</div>
-								</li>
-								
-								<li>
-									<div class="user clearfix">
-										<div class="user-info clearfix">
-											<a class="ava female small"></a>
-											<div class="details">
-												<span class="icon-status status-online"></span>
-												<a href="" class="username">Дарья</a>
-											</div>
-										</div>
-									</div>
-									<div class="item-title">
-										<a href="">Торт песочный с орехами, черникой и клубникой</a>
-									</div>
-									<div class="content">
-										<a href=""><img src="/images/cook_recipe_search_img_01.jpg"></a>
-									</div>
-								</li>
-								
-								<li>
-									<div class="user clearfix">
-										<div class="user-info clearfix">
-											<a class="ava female small"></a>
-											<div class="details">
-												<span class="icon-status status-online"></span>
-												<a href="" class="username">Александр Богоявленский</a>
-											</div>
-										</div>
-									</div>
-									<div class="item-title">
-										<a href="">Торт песочный с орехами</a>
-									</div>
-									<div class="content">
-										<a href=""><img src="/images/cook_recipe_search_img_02.jpg"></a>
-									</div>
-								</li>
-								
-								
-								<li>
-									<div class="user clearfix">
-										<div class="user-info clearfix">
-											<a class="ava female small"></a>
-											<div class="details">
-												<span class="icon-status status-online"></span>
-												<a href="" class="username">Александр Богоявленский</a>
-											</div>
-										</div>
-									</div>
-									<div class="item-title">
-										<a href="">Торт песочный с орехами</a>
-									</div>
-									<div class="content">
-										<p>Из муки, крахмала, молока, яиц, сахара, печeм тонкие блинчики, вы можете испечь блины по своему любимому рецепту. В блинчики заварачиваем банан.</p>
-									</div>
-								</li>
-								
-								
-								
-							</ul>
-							
-						</div>
-						
-						<div class="cook-teasers clearfix">
-							
-							<div class="block-title">Полезные сервисы для кулинара</div>
-							
-							<ul>
-								<li>
-									<div class="img">
-										<a href=""><img src="/images/cook_teaser_img_01.png" /></a>
-									</div>
-									<div class="text">
-										<div class="item-title"><a href="">Калькулятор мер</a></div>
-										<p>Сервис для перевода веса и объема продуктов в понятные для вас меры.</p>
-									</div>
-								</li>
-								<li>
-									<div class="img">
-										<a href=""><img src="/images/cook_teaser_img_02.png" /></a>
-									</div>
-									<div class="text">
-										<div class="item-title"><a href="">Счетчик калорий</a></div>
-										<p>Узнавайте сколько калорий, а также белков, жиров и углеводов в любых продуктах.</p>
-									</div>
-								</li>
-								
-							</ul>
-							
-						</div>
-						
-            <div class="recipe-banner recipe-banner-1">
-              
-              <div class="block-title">
-                <span>1500 рецептов<br/>для мультиварки</span>
-                <a href="">Готовим в мультиварке <i class="arr">&rarr;</i></a>
-              </div>
-              
-            </div>
-            
-						
-						<div class="dish-list">
-							
-							<div class="block-title clearfix">
-								<a href="" class="btn btn-green-medium"><span><span>Смотреть коллекцию<i class="arr-r"></i></span></span></a>
-								Как оформить свое блюдо!
-							</div>
-							
-							<ul class="list">
-								<li><a href=""><img src="/images/dishes_img_01.jpg" /></a></li>
-								<li><a href=""><img src="/images/dishes_img_02.jpg" /></a></li>
-								<li><a href=""><img src="/images/dishes_img_02.jpg" /></a></li>
-								<li><a href=""><img src="/images/dishes_img_02.jpg" /></a></li>
-								<li><a href=""><img src="/images/dishes_img_01.jpg" /></a></li>
-								<li><a href=""><img src="/images/dishes_img_02.jpg" /></a></li>
-								<li><a href=""><img src="/images/dishes_img_01.jpg" /></a></li>
-								<li><a href=""><img src="/images/dishes_img_02.jpg" /></a></li>
-								<li><a href=""><img src="/images/dishes_img_01.jpg" /></a></li>
-							</ul>
-							
-						</div>
-						
-						
-					</div>
-				</div>
-				
-				<div class="side-right">
-					
-					<div class="fast-articles">
-						
-						<div class="block-title">
-							Общайся в клубе <span>на кулинарные темы</span>
-						</div>
-						
-						<ul>
-							<li>
-								<div class="user clearfix">
-									<div class="user-info clearfix">
-										<a class="ava female small"></a>
-										<div class="details">
-											<span class="icon-status status-online"></span>
-											<a href="" class="username">Дарья</a>
-										</div>
-									</div>
-								</div>
-								<div class="item-title"><a href="">Проблемы с неврологией и психиатрией в раннем возрасте</a></div>
-								<div class="meta">
-									<span class="views">Просмотров:&nbsp;&nbsp;465</span><br/>
-									<span class="comments"><a href="">Комментариев:&nbsp;&nbsp;18</a></span>
-								</div>
-							</li>
-							<li>
-								<div class="user clearfix">
-									<div class="user-info clearfix">
-										<a class="ava female small"></a>
-										<div class="details">
-											<span class="icon-status status-online"></span>
-											<a href="" class="username">Дарья</a>
-										</div>
-									</div>
-								</div>
-								<div class="item-title"><a href="">Проблемы с неврологией и психиатрией</a></div>
-								<div class="meta">
-									<span class="views">Просмотров:&nbsp;&nbsp;465</span><br/>
-									<span class="comments"><a href="">Комментариев:&nbsp;&nbsp;18</a></span>
-								</div>
-							</li>
-							<li>
-								<div class="user clearfix">
-									<div class="user-info clearfix">
-										<a class="ava female small"></a>
-										<div class="details">
-											<span class="icon-status status-online"></span>
-											<a href="" class="username">Дарья</a>
-										</div>
-									</div>
-								</div>
-								<div class="item-title"><a href="">Проблемы с неврологией и психиатрией в раннем возрасте</a></div>
-								<div class="meta">
-									<span class="views">Просмотров:&nbsp;&nbsp;465</span><br/>
-									<span class="comments"><a href="">Комментариев:&nbsp;&nbsp;18</a></span>
-								</div>
-							</li>
-							
-						</ul>
-						
-						<div class="all-link"><a href="">Все записи клуба (8 258)</a></div>
-						
-					</div>
-					
-					<div class="banner-box">
-						<a href=""><img src="/images/banner_05.png" /></a>
-					</div>
-					
-					<div class="fast-services">
-						
-						<div class="block-title">Как выбирать <span>продукты в магазине или на рынке?</div>
-						
-						<ul>
-							<li>
-								<a href="">
-									<img src="/images/fast_services_img_01.jpg" />
-									<span>Как выбрать мясо?</span>
-								</a>
-							</li>
-							<li>
-								<a href="">
-									<img src="/images/fast_services_img_02.jpg" />
-									<span>Как выбрать мясо?</span>
-								</a>
-							</li>
-							<li>
-								<a href="">
-									<img src="/images/fast_services_img_03.jpg" />
-									<span>Как выбрать мясо?</span>
-								</a>
-							</li>
-							
-						</ul>
-						
-						<div class="all-link">
-							<a href="" class="btn btn-green-small"><span><span>Весь прилавок</span></span></a>
-						</div>
-						
-					</div>
-					
-				</div>
-				
-				
-			</div>
-			
-			
-		</div>  	
-		
-		<div class="push"></div>
-		
-	
 
 		<div class="footer-push"></div>
 		

@@ -156,7 +156,7 @@ class AlbumPhoto extends HActiveRecord
                 UserAction::model()->add($this->author_id, UserAction::USER_ACTION_PHOTOS_ADDED, array('model' => $this), array('album_id' => $this->album_id));
                 FriendEventManager::add(FriendEvent::TYPE_PHOTOS_ADDED, array('album_id' => $this->album->id, 'user_id' => $this->author_id));
             }
-            $this->getPreviewUrl(960, 627, Image::HEIGHT, true);
+            $this->getPreviewUrl(960, 627, Image::HEIGHT);
         }
         if (get_class(Yii::app()) != 'CConsoleApplication' && $this->isNewRecord && Yii::app()->hasComponent('comet') && $this->author->isNewComer() && isset($this->album)) {
             if ($this->album->type == 0 || $this->album->type == 1 || $this->album->type == 3) {
@@ -229,7 +229,7 @@ class AlbumPhoto extends HActiveRecord
             return false;
 
         //define file extension if it is not set
-        if (empty($ext)){
+        if (empty($ext)) {
             $dir = Yii::getPathOfAlias('site.common.uploads.photos.temp');
             $file_name = md5($url . time());
             file_put_contents($dir . DIRECTORY_SEPARATOR . $file_name, $file);
@@ -238,13 +238,11 @@ class AlbumPhoto extends HActiveRecord
             $mimetype = finfo_file($finfo, $dir . DIRECTORY_SEPARATOR . $file_name);
             finfo_close($finfo);
 
-            if($mimetype == 'image/jpeg')
+            if ($mimetype == 'image/jpeg')
                 $ext = 'jpeg';
             elseif ($mimetype == 'image/gif')
-                $ext = 'gif';
-            elseif ($mimetype == 'image/png')
-                $ext = 'png';
-            elseif ($mimetype == 'image/tiff')
+                $ext = 'gif'; elseif ($mimetype == 'image/png')
+                $ext = 'png'; elseif ($mimetype == 'image/tiff')
                 $ext = 'tiff';
         }
 
@@ -267,8 +265,8 @@ class AlbumPhoto extends HActiveRecord
             return false;
 
         $model->album_id = Album::getAlbumByType($user_id, $album_type)->id;
-        $model->fs_name = $file_name. '.' . $ext;
-        $model->file_name = $file_name. '.' . $ext;
+        $model->fs_name = $file_name . '.' . $ext;
+        $model->file_name = $file_name . '.' . $ext;
         $model->save(false);
 
         return $model;
@@ -329,8 +327,10 @@ class AlbumPhoto extends HActiveRecord
      *
      * @param int $width
      * @param int $height
-     * @param bool/string $master
+     * @param bool $master
      * @param bool $crop
+     * @param string $crop_side
+     * @param bool $force_replace
      *
      * @return string
      */
@@ -354,31 +354,82 @@ class AlbumPhoto extends HActiveRecord
             }
             if (!file_exists($model_dir))
                 mkdir($model_dir);
-            Yii::import('site.frontend.extensions.image.Image');
+
             if (!file_exists($this->originalPath))
                 return false;
-            try {
-                $image = new Image($this->originalPath);
-            } catch (CException $e) {
-                return $thumb;
-            }
 
-            if ($image->width <= $width && $image->height <= $height) {
-
-            } elseif ($master && $master == Image::WIDTH && $image->width < $width)
-                $image->resize($image->width, $height, Image::WIDTH);
-            elseif ($master && $master == Image::HEIGHT && $image->height < $height)
-                $image->resize($width, $image->height, Image::HEIGHT);
-            elseif ($master && $master == Image::INVERT) {
-                $image->resize($width, $height, ($image->width > $image->height) ? Image::HEIGHT : Image::WIDTH);
-            } else
-                $image->resize($width, $height, $master ? $master : Image::AUTO);
-
-            if ($crop)
-                $image->crop($width, $height, $crop_side);
-
-            $image->save($thumb);
+            if (exif_imagetype($this->originalPath) == IMAGETYPE_GIF)
+                return $this->imagickResize($thumb, $width, $height, $master, $crop, $crop_side);
+            else
+                return $this->gdResize($thumb, $width, $height, $master, $crop);
         }
+
+        return $thumb;
+    }
+
+    private function gdResize($thumb, $width, $height, $master, $crop)
+    {
+        Yii::import('site.frontend.extensions.EPhpThumb.*');
+
+        try {
+            $image = new EPhpThumb();
+            $image->init(); //this is needed
+            $image = $image->create($this->originalPath);
+
+        } catch (CException $e) {
+            return $thumb;
+        }
+
+
+        if ($image->width <= $width && $image->height <= $height
+            || $master == Image::WIDTH && $image->height <= $height
+            || $master == Image::HEIGHT && $image->height <= $height
+        ) {
+
+        } else {
+
+            if ($crop){
+                $image = $image->cropFromTop($width, $height, 'T');
+            } elseif (empty($height))
+                $image = $image->resize($width, 1500);
+            elseif (empty($width))
+                $image = $image->resize(1500, $height);
+            else
+                $image = $image->resize($width, $height);
+        }
+
+        $image = $image->save($thumb);
+
+        $this->width = $image->width;
+        $this->height = $image->height;
+
+        return $thumb;
+    }
+
+    private function imagickResize($thumb, $width, $height, $master, $crop, $crop_side)
+    {
+        Yii::import('site.frontend.extensions.image.Image');
+        if (!file_exists($this->originalPath))
+            return false;
+        try {
+            $image = new Image($this->originalPath);
+        } catch (CException $e) {
+            return $thumb;
+        }
+
+        if ($image->width <= $width && $image->height <= $height) {
+
+        } elseif ($master && $master == Image::WIDTH && $image->width < $width)
+            $image->resize($image->width, $height, Image::WIDTH); elseif ($master && $master == Image::HEIGHT && $image->height < $height)
+            $image->resize($width, $image->height, Image::HEIGHT); elseif ($master && $master == Image::INVERT) {
+            $image->resize($width, $height, ($image->width > $image->height) ? Image::HEIGHT : Image::WIDTH);
+        } else
+            $image->resize($width, $height, $master ? $master : Image::AUTO);
+
+        if ($crop)
+            $image->crop($width, $height, $crop_side);
+
+        $image->save($thumb);
 
         if ($size = @getimagesize($thumb)) {
             $this->width = $size[0];
@@ -393,6 +444,10 @@ class AlbumPhoto extends HActiveRecord
      *
      * @param int $width
      * @param int $height
+     * @param bool $master
+     * @param bool $crop
+     * @param string $crop_side
+     *
      * @return string
      */
     public function getPreviewUrl($width = 100, $height = 100, $master = false, $crop = false, $crop_side = self::CROP_SIDE_CENTER)

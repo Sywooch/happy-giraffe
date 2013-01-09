@@ -2,26 +2,26 @@
 /* @var $this Controller
  * @var $model Horoscope
  */
-?><?php $this->widget('zii.widgets.CMenu', array(
+$this->widget('zii.widgets.CMenu', array(
     'items' => array(
         array(
-            'label' => 'На сегодня',
+            'label' => $model->zodiacText() . ' на сегодня',
             'url' => $this->createUrl('today', array('zodiac' => Horoscope::model()->getZodiacSlug($model->zodiac))),
             'active' => Yii::app()->controller->action->id == 'today'
         ),
         array(
-            'label' => 'На завтра',
+            'label' => $model->zodiacText() . ' на завтра',
             'url' => $this->createUrl('tomorrow', array('zodiac' => Horoscope::model()->getZodiacSlug($model->zodiac))),
             'active' => Yii::app()->controller->action->id == 'tomorrow'
         ),
         array(
-            'label' => 'На месяц',
+            'label' => $model->zodiacText() . ' на месяц',
             'url' => $this->createUrl('month', array('zodiac' => Horoscope::model()->getZodiacSlug($model->zodiac))),
             'active' => Yii::app()->controller->action->id == 'month' && empty($_GET['month'])
         ),
         array(
-            'label' => 'На 2012',
-            'url' => $this->createUrl('year', array('zodiac' => Horoscope::model()->getZodiacSlug($model->zodiac))),
-            'active' => Yii::app()->controller->action->id == 'year' && empty($_GET['year'])
+            'label' => $model->zodiacText() . ' на 2013',
+            'url' => $this->createUrl('year', array('zodiac' => Horoscope::model()->getZodiacSlug($model->zodiac), 'year' => 2013)),
+            'active' => Yii::app()->controller->action->id == 'year' && $_GET['year'] == 2013
         ),
     )));

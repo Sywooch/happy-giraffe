@@ -77,7 +77,7 @@ $data = $model->CalculateMonthData();
 
 <div class="horoscope-otherday">
 <?php if ($model->isCurrentMonth()) {?>
-    А еще гороскоп <?=$model->zodiacText() ?> на:
+    А еще гороскоп:
     <div class="row">
         <?=$model->getPrevMonthLink() ?>
         <?=$model->getNextMonthLink() ?>
@@ -87,7 +87,7 @@ $data = $model->CalculateMonthData();
         <?=$model->getNextMonthLink(5) ?>
     </div>
 <?php }else{ ?>
-    А еще гороскоп <?=$model->zodiacText() ?> на:
+    А еще гороскоп:
     <div class="row">
         <?=$model->getPrevMonthLink() ?>
         <?=$model->getNextMonthLink() ?>

@@ -153,8 +153,10 @@ class LiParser
             curl_setopt($ch, CURLOPT_HEADER, array('Content-Type: application/x-www-form-urlencoded', 'Content-Length: '.strlen($post)));
         }
 
-        curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
-        curl_setopt($ch, CURLOPT_PROXY, $this->getProxy());
+        if (empty($this->site->password)){
+            curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
+            curl_setopt($ch, CURLOPT_PROXY, $this->getProxy());
+        }
 
         curl_setopt($ch, CURLOPT_COOKIEFILE, $this->getCookieFile());
         curl_setopt($ch, CURLOPT_COOKIEJAR, $this->getCookieFile());

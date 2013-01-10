@@ -15,7 +15,7 @@ Yii::import('site.seo.modules.traffic.models.*');
 Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
 Yii::import('site.frontend.helpers.*');
 
-class SeoCommand extends CConsoleCommand
+class SeoParsingCommand extends CConsoleCommand
 {
     public function actionWordstat($mode = 0)
     {
@@ -49,23 +49,21 @@ class SeoCommand extends CConsoleCommand
     public function actionLiKeywords(){
         Yii::import('site.seo.modules.competitors.components.*');
 
-        Yii::import('site.seo.modules.competitors.components.*');
         $last_parsed = SeoUserAttributes::getAttribute('last_li_parsed_'.date("Y-m-d") , 1);
-        if (empty($site)) {
-            $parser = new LiKeywordsParser;
+        $parser = new LiKeywordsParser;
 
+        if (empty($site)) {
             if (!empty($last_parsed))
                 $sites = Site::model()->findAll('id > '.$last_parsed);
             else
                 $sites = Site::model()->findAll();
 
             foreach ($sites as $site) {
-                $parser->start($site->id, 2012, 01, 01);
+                $parser->start($site->id);
                 SeoUserAttributes::setAttribute('last_li_parsed_'.date("Y-m-d"), $site->id, 1);
             }
         } else {
-            $parser = new LiParser;
-            $parser->start($site->id, 2012, 01, 01);
+            $parser->start($site->id);
         }
     }
 }

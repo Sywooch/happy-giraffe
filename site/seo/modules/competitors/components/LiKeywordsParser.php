@@ -13,7 +13,7 @@ class LiKeywordsParser
     public $last_url = '';
     public $proxy = null;
 
-    public function start($site_id, $year, $month_from, $month_to)
+    public function start($site_id)
     {
         $this->site = $this->loadModel($site_id);
         echo 'Start parsing site '.$this->site->id.' '.$this->site->name."\n";
@@ -26,7 +26,7 @@ class LiKeywordsParser
             $this->last_url = 'http://www.liveinternet.ru/stat/'.$this->site->url.'/index.html';
         }
 
-        $found = $this->parseStats($year, $month_from, $month_to);
+        $found = $this->parseStats();
         echo $site_id.' - '.$found."\n";
         //mail('alexk984@gmail.com', 'report parsing site '.$this->site->url, $found.' keywords parsed');
     }
@@ -46,24 +46,22 @@ class LiKeywordsParser
     }
 
 
-    public function parseStats($year, $month_from, $month_to)
+    public function parseStats()
     {
         $found = 0;
 
         $this->loadPage('http://www.liveinternet.ru/stat/' . $this->site->url . '/queries.html');
-        $this->loadPage('http://www.liveinternet.ru/stat/' . $this->site->url . '/queries.html?total=yes&period=month');
 
-        for ($month = $month_from; $month <= $month_to; $month++) {
+        for ($day = 1; $day < 6; $day++) {
+            $date = date("Y-m-d", strtotime('-'.$day.' days'));
             $url = 'http://www.liveinternet.ru/stat/' . $this->site->url
-                . '/queries.html?date=' . $year . '-' . str_pad($month, 2, "0", STR_PAD_LEFT) . '-'
-                . str_pad(cal_days_in_month(CAL_GREGORIAN, $month, $year), 2, '0', STR_PAD_LEFT)
-                . '&period=month&total=yes&per_page=100&page=';
+                . '/queries.html?date=' . $date. '&per_page=100&page=';
 
             $result = $this->loadPage($url);
 
             $document = phpQuery::newDocument($result);
             $max_pages = $this->getPagesCount($document);
-            $count = $this->ParseDocument($document, $month, $year);
+            $count = $this->ParseDocument($document);
 
             if ($count == 0){
                 return "Data not found on page - \n" . $url."\n";
@@ -74,7 +72,7 @@ class LiKeywordsParser
                 $result = $this->loadPage($page_url);
 
                 $document = phpQuery::newDocument($result);
-                $count = $this->ParseDocument($document, $month, $year);
+                $count = $this->ParseDocument($document);
                 if ($count == 0)
                     break;
                 if ($i % 10 == 0)
@@ -84,7 +82,7 @@ class LiKeywordsParser
             }
 
             echo "Last page -  $i\n";
-            echo "Year $year, Month $month - $found \n";
+            echo "$date - $found \n";
         }
 
         return $found;
@@ -102,27 +100,25 @@ class LiKeywordsParser
         return $max_pages;
     }
 
-    private function ParseDocument($document, $month, $year)
+    private function ParseDocument($document)
     {
         $count = 0;
         foreach ($document->find('table table') as $table) {
-            $text = pq($table)->find('td:first')->text();
-            if (strstr($text, 'значения:суммарные') !== FALSE) {
+            $text = pq($table)->find('tr:first td:last')->text();
+            if (strstr($text, 'в среднемза 7 дней') !== FALSE) {
                 $i = 0;
                 foreach (pq($table)->find('tr') as $tr) {
                     $i++;
                     if ($i < 2)
                         continue;
                     $keyword = trim(pq($tr)->find('td:eq(1)')->text());
-                    if (empty($keyword) || $keyword == 'Не определена' || $keyword == 'Другие'
-                        || $keyword == 'сумма выбранных' || $keyword == 'всего'
-                    )
+                    if (empty($keyword) || $keyword == 'Не определена' || $keyword == 'Другие' || $keyword == 'сумма выбранных' || $keyword == 'всего')
                         continue;
 
-                    $stats = trim(pq($tr)->find('td:eq(2)')->text());
-                    $stats = str_replace(',', '', $stats);
-                    if ($stats < self::STATS_LIMIT)
-                        return false;
+//                    $stats = trim(pq($tr)->find('td:eq(2)')->text());
+//                    $stats = str_replace(',', '', $stats);
+//                    if ($stats < self::STATS_LIMIT)
+//                        return false;
 
                     Keyword::GetKeyword($keyword);
                     $count++;
@@ -150,8 +146,10 @@ class LiKeywordsParser
             curl_setopt($ch, CURLOPT_HEADER, array('Content-Type: application/x-www-form-urlencoded', 'Content-Length: '.strlen($post)));
         }
 
-        curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
-        curl_setopt($ch, CURLOPT_PROXY, $this->getProxy());
+        if (empty($this->site->password)){
+            curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
+            curl_setopt($ch, CURLOPT_PROXY, $this->getProxy());
+        }
 
         curl_setopt($ch, CURLOPT_COOKIEFILE, $this->getCookieFile());
         curl_setopt($ch, CURLOPT_COOKIEJAR, $this->getCookieFile());

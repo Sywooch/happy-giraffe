@@ -53,4 +53,11 @@ class DefaultController extends SController
 
         $this->render('competitors', compact('model', 'site_id', 'year', 'freq', 'section'));
     }
+
+    public function actionTest(){
+        Yii::import('site.seo.modules.competitors.components.*');
+
+        $parser = new LiKeywordsParser;
+        $parser->start(2);
+    }
 }

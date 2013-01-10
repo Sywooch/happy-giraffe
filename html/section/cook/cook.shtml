@@ -39,8 +39,8 @@
 								<div class="section-menu-top">
 									<div class="section-menu_t">Тысячи рецептов <div class="section-menu_t-small">от наших пользователей</div></div>
 									<div class="section-menu_search clearfix">
-										<input type="submit" value="" class="section-menu_search-submit">
 										<input type="text" class="section-menu_search-itx" placeholder="Поиск из 12 687 рецептов">
+										<input type="submit" value="" class="section-menu_search-submit">
 									</div>
 								</div>
 							</div>
@@ -185,20 +185,18 @@
 						</div>
 						<div class="col-23-big">
 							<div class="section-cnt">
+		<script>
+		$(function() {
+			$('.js-isotop').isotope({
+			  itemSelector : '.masonry-news-list_item',
+			   masonry: {
+			        columnWidth: 240
+			    }
+			});
+		});
+		</script>
 								<div class="masonry-news-list clearfix">
-						<script>
-  $(function(){
-
-        $(".masonry-news-list").masonry({
-          itemSelector : '.masonry-news-list_item',
-          columnWidth: 240,
-          isAnimated: false,
-          animationOptions: { queue: false, duration: 500 }
-        });
-
-  })
-						</script>
-							<ul>
+							<ul class="js-isotop">
 								<li class="masonry-news-list_item">
 									<h3 class="masonry-news-list_title">
 										<a href="">Волшебная азбука</a>
@@ -363,7 +361,7 @@
 							</ul>
 								</div>
 								<div class="clearfix textalign-c">
-									<a href="" class="btn-green btn-medium btn-green_medium__corner-r">Все рецепты</a>
+									<a href="" class="btn-green_medium__corner-r">Все рецепты</a>
 								</div>
 							</div>
 						</div>
@@ -420,7 +418,12 @@
 			</div>
 			<div class="b-multivarka">
 				<div class="b-multivarka_hold clearfix">
-					<div class="b-multivarka_logo"></div>
+					<div class="b-multivarka_logo">
+						<div class="b-multivarka_logo-tx">
+							<span class="b-multivarka_logo-count">3 000</span>
+							рецептов для мультиварок
+						</div>
+					</div>
 					<div class="b-multivarka_ul">
 						<ul>
 							<li class="b-multivarka_li">
@@ -632,7 +635,7 @@
 		</div>  	
 		<div class="section section__gray">
 			<div class="section_hold">
-				<div class="masonry-news-list  margin-l20">
+				<div class="masonry-news-list  margin-l20 margin-t10 clearfix">
 					<ul>
 						<li class="masonry-news-list_item margin-b0">
 							<div class="online-status">На сайте</div>

@@ -59,7 +59,7 @@
 
 <div class="horoscope-otherday">
 <?php if ($model->yearHoroscopeExist($model->year - 1) || $model->yearHoroscopeExist($model->year + 1)):?>
-        А еще гороскоп <?=$model->zodiacText() ?> на:
+        А еще гороскоп:
         <div class="row">
             <?php if ($model->yearHoroscopeExist($model->year - 1)):?>
                 <span><?=$model->getPrevYearLink() ?> ←</span>

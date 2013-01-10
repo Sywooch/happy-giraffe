@@ -14,14 +14,14 @@
     <title><?=CHtml::encode(trim($this->meta_title))?></title>
     <?php else: ?>
     <title><?=CHtml::encode($this->pageTitle)?></title>
+    <!--[if IE 7]>
+    <link rel="stylesheet" href='/stylesheets/ie.css' type="text/css" media="screen" />
+    <![endif]-->
     <?php endif;
 
-    $r=2;
     $cs = Yii::app()->clientScript;
     $cs
         ->registerCssFile('/stylesheets/user.css')
-        ->registerCssFile('/stylesheets/common.css?'.$r)
-        ->registerCssFile('/stylesheets/global.css?'.$r)
         ->registerCssFile('/stylesheets/ie.css', 'screen')
         ->registerCssFile('/stylesheets/jquery.fancybox-1.3.4.css')
 
@@ -98,7 +98,7 @@
                 <li class="i-broadcast new top-line-menu_nav_li js-tooltipsy" title="Что нового">
                     <a href="<?=$this->createUrl('/whatsNew/default/index')?>"><i class="icon-broadcast"></i></a>
                 </li>
-                <li class="i-dialogs top-line-menu_nav_li js-i-dialogs top-line-menu_nav_litooltipsy<?php if ($imCount > 0): ?> new<?php endif; ?>" title="Мои диалоги">
+                <li class="i-dialogs top-line-menu_nav_li js-tooltipsy<?php if ($imCount > 0): ?> new<?php endif; ?>" title="Мои диалоги">
                     <a href="javascript:void(0)" onclick="Messages.toggle()">
                         <i class="icon-dialogs"></i>
 						<span class="count">
@@ -240,6 +240,19 @@
             var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
         })();
     </script>
+
+    <?php if (!Yii::app()->user->isGuest && Yii::app()->user->id == 10):?>
+        <script type="text/javascript">
+            var _bdWidgetConfig = {
+                apiKey: 'Zd9hKYjozTf4YJs8FJcqrqnHczE1A6Qf9tjk43aKvi56ZI5rCK6' // use your key!
+            };
+            (function() {
+                var bds = document.createElement('script'); bds.type = 'text/javascript'; bds.async = true;
+                bds.src = "https://my.bugdigger.com/widget.js";
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(bds, s);
+            })();
+        </script>
+    <?php endif ?>
 </noindex>
 <div id="body-overlay" style="display: none;"></div>
 

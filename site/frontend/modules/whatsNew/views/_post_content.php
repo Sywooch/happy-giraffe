@@ -5,6 +5,7 @@
             'entity' => 'CommunityContentGallery',
             'entity_id' => $post->gallery->id,
             'entity_url' => $post->url,
+            'place'=>'gallery'
         ));
     ?>
     

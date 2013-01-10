@@ -10,11 +10,15 @@ class SignalCommand extends CConsoleCommand
 
     public function beforeAction($action)
     {
+        Yii::import('site.common.models.mongo.*');
+        Yii::import('site.seo.models.*');
         Yii::import('site.frontend.modules.signal.models.*');
         Yii::import('site.frontend.modules.signal.components.*');
         Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
-        Yii::import('site.common.models.mongo.*');
         Yii::import('site.frontend.modules.im.models.*');
+        Yii::import('site.frontend.extensions.GoogleAnalytics');
+        Yii::import('site.frontend.helpers.*');
+        Yii::import('site.frontend.modules.cook.models.*');
 
         return true;
     }
@@ -95,21 +99,6 @@ class SignalCommand extends CConsoleCommand
             ->queryColumn();
     }
 
-    public function actionCommentatorsStats()
-    {
-        $month = CommentatorsMonthStats::model()->find(new EMongoCriteria(array(
-            'conditions' => array(
-                'period' => array('==' => date("Y-m"))
-            ),
-        )));
-        if ($month === null) {
-            $month = new CommentatorsMonthStats;
-            $month->period = date("Y-m");
-        }
-        $month->calculate();
-        $month->save();
-    }
-
     public function actionPriority()
     {
         //calc user priority
@@ -160,19 +149,7 @@ class SignalCommand extends CConsoleCommand
             $month = new CommentatorsMonthStats;
             $month->period = date("Y-m");
         }
-        $month->calculate(false);
-    }
-
-    public function actionFix()
-    {
-        Yii::import('site.frontend.modules.cook.models.*');
-        $commentators = CommentatorWork::model()->findAll();
-
-        foreach ($commentators as $commentator) {
-            echo $commentator->user_id."\n";
-            $commentator->calcCurrentClub(1);
-            $commentator->save();
-        }
+        $month->calculate();
     }
 
     public function actionCommentator($id)
@@ -187,12 +164,11 @@ class SignalCommand extends CConsoleCommand
 
     public function actionAddCommentatorsToSeo()
     {
-        Yii::import('site.seo.models.*');
         $commentators = CommentatorWork::getWorkingCommentators();
         foreach ($commentators as $commentator) {
             $user = User::getUserById($commentator->user_id);
 
-            try{
+            try {
                 $seo_user = new SeoUser;
                 $seo_user->email = $user->email;
                 $seo_user->name = $user->getFullName();
@@ -201,17 +177,49 @@ class SignalCommand extends CConsoleCommand
                 $seo_user->owner_id = '33';
                 $seo_user->related_user_id = $user->id;
                 $seo_user->save();
-            }catch (Exception $e){
+            } catch (Exception $e) {
 
             }
         }
     }
 
-    public function actionUpdateSkips(){
+    public $ga = null;
+
+    public function actionSyncPageSeVisits()
+    {
+        $ids = array();
         $commentators = CommentatorWork::getWorkingCommentators();
-        foreach ($commentators as $commentator) {
-            $commentator->skipUrls = array();
-            $commentator->save();
+        foreach ($commentators as $commentator)
+            $ids [] = $commentator->user_id;
+
+        $month = date("Y-m");
+        $this->loginGa();
+
+        $visits = SearchEngineVisits::model()->findAllByAttributes(array('month' => $month));
+        foreach ($visits as $visit) {
+            $article = $visit->page->getArticle();
+
+            if ($article !== null && in_array($article->author_id, $ids)) {
+                $visit->count = GApi::getUrlOrganicSearches($this->ga, $month . '-01', $month.'-'.$this->getLastPeriodDay($month), str_replace('http://www.happy-giraffe.ru', '', $visit->page->url), false);
+                echo $visit->page->url . " - " . $visit->count . "\n";
+                if (!empty($visit->count))
+                    $visit->save();
+
+                sleep(2);
+            }elseif ($article === null){
+                echo "article IS NULL {$visit->page->url} \n";
+            }
         }
+    }
+
+    public function getLastPeriodDay($period)
+    {
+        return str_pad(cal_days_in_month(CAL_GREGORIAN, date('n', strtotime($period)), date('Y', strtotime($period))), 2, "0", STR_PAD_LEFT);
+    }
+
+    public function loginGa()
+    {
+        $this->ga = new GoogleAnalytics('alexk984@gmail.com', Yii::app()->params['gaPass']);
+        $this->ga->setProfile('ga:53688414');
     }
 }

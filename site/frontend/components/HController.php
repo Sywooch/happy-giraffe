@@ -18,7 +18,7 @@ class HController extends CController
     public $pGallery = null;
     public $broadcast = false;
 
-    protected $r = 141;
+    protected $r = 142;
 
     public function filterAjaxOnly($filterChain)
     {
@@ -34,8 +34,8 @@ class HController extends CController
 
         $this->combineStatic();
         Yii::app()->clientScript
-            ->registerCssFile('/stylesheets/common.css')
-            ->registerCssFile('/stylesheets/global.css')
+            ->registerCssFile('/stylesheets/common.css?'.$this->r)
+            ->registerCssFile('/stylesheets/global.css?'.$this->r)
         ;
     }
 

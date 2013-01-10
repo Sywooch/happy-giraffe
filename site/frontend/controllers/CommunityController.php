@@ -9,11 +9,6 @@ class CommunityController extends HController
     public $rubric_id;
     public $content_type_slug;
 
-    public function init()
-    {
-
-    }
-
     public function filters()
     {
         return array(

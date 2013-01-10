@@ -309,7 +309,7 @@ class CommentatorsMonthStats extends EMongoDocument
             $url = trim($model->url, '.');
             if (!empty($url)) {
                 $visits = $this->getVisits($url);
-                echo $url . ' - ' . $visits . "\n";
+                //echo $url . ' - ' . $visits . "\n";
                 $all_count += $visits;
 
                 if ($visits !== null)
@@ -324,6 +324,11 @@ class CommentatorsMonthStats extends EMongoDocument
     }
 
     public function getVisits($url)
+    {
+        return SearchEngineVisits::getVisits($url, $this->period);
+    }
+
+    /*public function getVisits($url)
     {
         $this->ga->setDateRange($this->period . '-01', $this->period . '-' . $this->getLastPeriodDay($this->period));
         sleep(1);
@@ -343,7 +348,7 @@ class CommentatorsMonthStats extends EMongoDocument
         if (isset($report[""]['ga:organicSearches']))
             return $report[""]['ga:organicSearches'];
         return null;
-    }
+    }*/
 
     public function addPageVisit($url, $value)
     {

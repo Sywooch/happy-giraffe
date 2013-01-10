@@ -177,7 +177,7 @@ class CookDecoration extends CActiveRecord
 
     public function getRssContent()
     {
-        return CHtml::image($this->photo->getPreviewUrl(960, 627, Image::HEIGHT, true), $this->title);
+        return CHtml::image($this->photo->getPreviewUrl(960, 627, Image::HEIGHT), $this->title);
     }
 
     public function getAuthor()

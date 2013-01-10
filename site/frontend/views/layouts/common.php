@@ -240,6 +240,19 @@
             var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
         })();
     </script>
+
+    <?php if (!Yii::app()->user->isGuest && Yii::app()->user->id == 10):?>
+        <script type="text/javascript">
+            var _bdWidgetConfig = {
+                apiKey: 'Zd9hKYjozTf4YJs8FJcqrqnHczE1A6Qf9tjk43aKvi56ZI5rCK6' // use your key!
+            };
+            (function() {
+                var bds = document.createElement('script'); bds.type = 'text/javascript'; bds.async = true;
+                bds.src = "https://my.bugdigger.com/widget.js";
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(bds, s);
+            })();
+        </script>
+    <?php endif ?>
 </noindex>
 <div id="body-overlay" style="display: none;"></div>
 

@@ -73,7 +73,7 @@
                             <label>E-mail:</label>
                         </div>
                         <div class="row-elements">
-                            <?=$form->textField($model, 'email', array('class' => 'regmail2', 'placeholder' => 'Введите ваш e-mail')); ?>
+                            <?=$form->textField($model, 'email', array('class' => 'regmail2')); ?>
                         </div>
                         <div class="row-error">
                             <i class="error-ok"></i>

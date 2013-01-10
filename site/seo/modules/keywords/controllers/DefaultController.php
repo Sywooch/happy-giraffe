@@ -50,4 +50,17 @@ class DefaultController extends SController
             echo CJSON::encode($response);
         }
     }
+
+    public function actionTest(){
+
+        Yii::import('site.seo.extensions.ExportDataExcel');
+        SeoExport::txt(array(
+            array('23525', '22222', '33333'),
+            array('23525', '22222', '33333'),
+            array('23525', '22222', '33333'),
+            array('23525', '22222', '33333'),
+            array('23525', '22222', '33333'),
+            array('23525', '22222', '33333'),
+        ));
+    }
 }

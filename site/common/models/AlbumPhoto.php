@@ -359,9 +359,9 @@ class AlbumPhoto extends HActiveRecord
                 return false;
 
             #TODO imagick Применяется для анимированных gif, но поскольку он сейчас долго работает пришлось отключить
-            if (exif_imagetype($this->originalPath) == IMAGETYPE_GIF)
-                return $this->imagickResize($thumb, $width, $height, $master, $crop, $crop_side);
-            else
+//            if (exif_imagetype($this->originalPath) == IMAGETYPE_GIF)
+//                return $this->imagickResize($thumb, $width, $height, $master, $crop, $crop_side);
+//            else
             return $this->gdResize($thumb, $width, $height, $master, $crop);
         }
 

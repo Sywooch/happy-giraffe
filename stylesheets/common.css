@@ -248,10 +248,12 @@ textarea.error {border:1px solid #ff6767 !important;}
 
 .nomargin,
 .margin-0 {margin:0 !important;}
-.margin-t20 {margin-top: 20px !important;}
+.margin-20 {margin:20px !important;}
 .margin-t10 {margin-top: 10px !important;}
+.margin-t20 {margin-top: 20px !important;}
 .margin-t-15 {margin-top: -15px !important;}
 .margin-r15 {margin-right: 15px !important;}
+.margin-r20 {margin-right: 20px !important;}
 .margin-b0 {margin-bottom: 0 !important;}
 .margin-b5 {margin-bottom: 5px !important;}
 .margin-b10 {margin-bottom: 10px !important;}
@@ -5335,7 +5337,7 @@ label {
 .section__sand .box-two-transp {top: -37px;margin-bottom: -17px;}
 .section__sand .box-two-transp_hold {padding-top: 15px;padding-bottom: 6px;}
 .section__gray{background:url(/images/section/section__gray-t.gif) repeat-x;}
-.section__gray .section_hold  {background:#e6e4e4 url(/images/section/section__gray-b.gif) repeat-x 0 100%;}
+.section__gray .section_hold  {background:#f5f4f4 url(/images/section/section__gray-b.gif) repeat-x 0 100%;}
 .section_hold{padding:15px 3000px;margin-top:-1px;}
 .section_overlay {
 	position: absolute;
@@ -5346,9 +5348,9 @@ label {
 	margin: 0;
 	padding: 0 3000px;
 	z-index: 20;
-	background: #fff;
-	-pie-background: rgba(255,255,255,.6);
-	background: rgba(255,255,255,.6);
+	background: #f5f4f4;
+	-pie-background: rgba(245,244,244,.7);
+	background: rgba(245,244,244,.7);
 	behavior: url(/stylesheets/PIE.htc);
 }
 .section .ava-small-list {margin: 30px 20px 20px 45px;}
@@ -5361,6 +5363,9 @@ label {
 	border-radius: 5px;
 }
 .section-cnt .masonry-news-list {margin-bottom: 0;}
+.section_t-hold {
+	margin: 10px 40px 20px;
+}
 /* /section */
 
 /* top block in section */
@@ -5437,8 +5442,8 @@ label {
 /* section-join */
 .section-join {
 	position: relative;
-	margin: 120px auto 0;
-	padding: 30px 25px 30px 15px;
+	margin: 115px auto 0;
+	padding: 40px 25px 40px 15px;
 	width: 540px;
 	border: 5px solid #ebeaea;
 	background: #fff;
@@ -5467,6 +5472,7 @@ label {
 	float: left;
 	margin: 0 10px 8px 0;
 }
+.ava-small-list_count {font-size: 18px;line-height: 24px;color: #0281B0;}
 /* /ava-small-list */
 
 /* section cook 

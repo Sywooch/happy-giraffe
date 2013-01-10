@@ -14,7 +14,36 @@
 <div class="layout-container">
 	<div class="layout-wrapper">
 
-		<!--#include virtual="/block/global/header-new.shtml" -->
+		<div id="header-new" class="clearfix">
+			<div class="header-nologin clearfix">
+				<div class="header-nologin_column-left">
+
+					<div class="logo-box">
+						<a href="/" class="logo" title="happy-giraffe.ru – Домашняя страница">Ключевые слова сайта</a>
+						<span>САЙТ ДЛЯ ВСЕЙ СЕМЬИ</span>
+					</div>
+					<p>Весёлый Жираф - это интернет-сообщество, <br /> в котором тысячи мам и пап ежедневно общаются и делятся советами. </p>
+					<div class="clearfix">
+						<a href="" class="btn-green btn-h55">Присоединяйтесь к нам!</a>
+					</div>
+					<div class="social-small-row clearfix">
+						<em>или войти с помощью</em> <br />
+						<ul class="social-list-small h32">
+							<li class="odnoklasniki"><a href="#"></a></li>
+							<li class="mailru"><a href="#"></a></li>
+							<li class="vkontakte"><a href="#"></a></li>
+							<li class="facebook"><a href="#"></a></li>
+						</ul>
+					</div>
+					<div class="clearfix">
+						Вы уже зарегистрированы? <a href="">Войти</a>
+					</div>
+							
+				</div>
+			</div>
+			
+		</div>
+		
 			
 		<div id="content" class="layout-content clearfix">
 			

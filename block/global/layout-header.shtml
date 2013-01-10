@@ -8,8 +8,8 @@
 			</div>
 			<div class="layout-header-section">
 				<a href="" class="layout-header-section_a">
-					<img src="/images/section/cook/banner-header-section.jpg" alt="">
-					<span>Кулинария</span>
+					<img class="layout-header-section_img" src="/images/section/cook/banner-header-section.jpg" alt="">
+					<span class="layout-header-section_text">Кулинария</span>
 				</a>
 			</div>
 			

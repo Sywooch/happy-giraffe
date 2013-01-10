@@ -1,35 +1,57 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!--[if lt IE 7]> <html xmlns="http://www.w3.org/1999/xhtml"> <![endif]-->
 <!--[if IE 7]>    <html xmlns="http://www.w3.org/1999/xhtml" class="ie7"> <![endif]-->
 <!--[if gt IE 7]><!--> <html xmlns="http://www.w3.org/1999/xhtml"> <!--<![endif]-->
 <head>
+	
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>Untitled Document</title>
 	
 	
-	<link rel="stylesheet" type="text/css" href="/stylesheets/global.css" />
 	<link rel="stylesheet" type="text/css" href="/stylesheets/common.css" />
-	<link rel="stylesheet" type="text/css" href="/stylesheets/user.css" />
-	
+	<link rel="stylesheet" type="text/css" href="/stylesheets/ie.css" />
+	<link rel="stylesheet" type="text/css" href="/stylesheets/global.css" />
 	
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-	<script type="text/javascript" src="/javascripts/checkbox.js"></script>
+	
+	<script type="text/javascript" src="/javascripts/chosen.jquery.min.js"></script>
+	
+	<script type="text/javascript" src="/javascripts/jquery.dimensions.js"></script>
+	<script type="text/javascript" src="/javascripts/jquery.tooltip.pack.js"></script>
+	
+	<script type="text/javascript" src="/javascripts/jquery.placeholder.min.js"></script>
 	
 	<link rel="stylesheet" type="text/css" href="/stylesheets/jquery.fancybox-1.3.4.css" />
 	<script type="text/javascript" src="/javascripts/jquery.fancybox-1.3.4.pack.js"></script>
 	
-	<script type="text/javascript" src="/javascripts/jquery.placeholder.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="/stylesheets/jquery.jscrollpane.css" />
+	<script type="text/javascript" src="/javascripts/jquery.jscrollpane.min.js"></script>
+	<script type="text/javascript" src="/javascripts/jquery.mousewheel.js"></script>
 	
-	<script type="text/javascript" src="/javascripts/common.js"></script>	
+	<script type="text/javascript" src="/javascripts/common.js"></script>
 	
-	<!--[if IE 7]>
-		<link rel="stylesheet" href='/stylesheets/ie.css' type="text/css" media="screen" />
-	<![endif]-->
+	<script>
+		$(function(){
+			
+			$('.tooltip').tooltip({
+				delay: 100,
+				track: false,
+				showURL: false,
+				showBody: false,
+				top: -20,
+				left: 10
+			});
+			
+			$('.scroll').jScrollPane({showArrows: true, autoReinitialise: true});
+			
+		})
+	</script>
 	
 </head>
 <body class="body-club">
+	
 	<div id="layout" class="wrapper">
-		
+	
 		<div id="header-new" class="clearfix">
 			
 			<div class="top-line clearfix">
@@ -122,20 +144,24 @@
 							</div>
 						</li>
 						<li class="user">
-							<a href="">
-								<span class="ava small male"></span>
-								<span class="username">Ден<i class="arr"></i></span>
-							</a>
-							<div class="drp">
-								<div class="actions">
-									<ul>
-										<li><a href="">Мой профайл<i class="icon icon-profile"></i></a></li>
-										<li><a href="">Мои настройки<i class="icon icon-settings"></i></a></li>
-										<li><a href="">Выйти<i class="icon icon-logout"></i></a></li>
-									</ul>
-								</div>
-							</div>
-						</li>
+                                <div class="link">
+									<a class="ava male small" href="/user/profile/user_id/10020/">
+										<img src="" alt="">
+									</a>
+									<a href="/user/profile/user_id/10020/">
+                                        <span class="username">Ижецкий Денис Владимирович<i class="arr"></i></span>
+                                    </a>
+                                </div>
+                                <div class="drp">
+                                    <div class="actions">
+                                        <ul>
+                                            <li><a href="/user/profile/user_id/10020/">Мой профайл<i class="icon icon-profile"></i></a></li>
+                                            <li><a href="/profile/index/">Мои настройки<i class="icon icon-settings"></i></a></li>
+                                            <li><a href="/site/logout/">Выйти<i class="icon icon-logout"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
 					</ul>
 					
 				</div>
@@ -175,28 +201,27 @@
 						<li class="morning">
 							<a href=""><i class="text"></i></a>
 						</li>
-						<li class="kids">
-							<a href=""><i class="text"></i></a>
+						<li class="kids navdrp">
+							<a href="javascript:void(0);" onclick="navDrpOpen(this);"><i class="text"></i></a>
 							<div class="drp">
 								<div class="in">
 									
 									<ul class="cols cols-5">
 										<li class="col">
 											
-											<div class="col-in">
+											<div class="col-in bg-img-11">
 												<div class="title">Беременность и роды</div>
 												<ul>
 													<li><a href="">Планирование</a></li>
 													<li><a href="">Беременность</a></li>
 													<li><a href="">Подготовка и роды</a></li>
-												</ul>
-												<span class="img"><img src="/images/nav_kids_img_01.jpg" /></span>
+												</ul>												
 											</div>
 											
 										</li>
 										<li class="col">
 											
-											<div class="col-in">
+											<div class="col-in bg-img-12">
 												<div class="title">Дети до года</div>
 												<ul>
 													<li><a href="">Здоровье</a></li>
@@ -204,13 +229,12 @@
 													<li><a href="">Развитие ребенка</a></li>
 													<li><a href="">Режим и уход</a></li>
 												</ul>
-												<span class="img"><img src="/images/nav_kids_img_02.jpg" /></span>
 											</div>
 											
 										</li>
 										<li class="col">
 											
-											<div class="col-in">
+											<div class="col-in bg-img-13">
 												<div class="title">Дети старше года</div>
 												<ul>
 													<li><a href="">Здоровье и питание</a></li>
@@ -218,26 +242,24 @@
 													<li><a href="">Раннее развитие и обучение</a></li>
 													<li><a href="">Психология и воспитание</a></li>
 												</ul>
-												<span class="img"><img src="/images/nav_kids_img_03.jpg" /></span>
 											</div>
 											
 										</li>
 										<li class="col">
 											
-											<div class="col-in">
+											<div class="col-in bg-img-14">
 												<div class="title">Дошкольники</div>
 												<ul>
 													<li><a href="">Детский сад</a></li>
 													<li><a href="">Игры и развлечения</a></li>
 													<li><a href="">Готовимся к школе</a></li>
 												</ul>
-												<span class="img"><img src="/images/nav_kids_img_04.jpg" /></span>
 											</div>
 											
 										</li>
 										<li class="col">
 											
-											<div class="col-in">
+											<div class="col-in bg-img-15">
 												<div class="title">Школьники</div>
 												<ul>
 													<li><a href="">Здоровье и питание</a></li>
@@ -245,7 +267,6 @@
 													<li><a href="">Спорт и досуг</a></li>
 													<li><a href="">Подростковая психология</a></li>
 												</ul>
-												<span class="img"><img src="/images/nav_kids_img_05.jpg" /></span>
 											</div>
 											
 										</li>
@@ -255,21 +276,21 @@
 								</div>
 							</div>
 						</li>
-						<li class="manwoman">
-							<a href=""><i class="text"></i></a>
+						<li class="manwoman navdrp">
+							<a href="javascript:void(0);" onclick="navDrpOpen(this);"><i class="text"></i></a>
 							<div class="drp">
 								<div class="in">
 									
 									<ul class="cols cols-2">
 										<li class="col wedding">
-											<a href="" class="big-link">
+											<a href="" class="big-link bg-img-21">
 												<span class="title">Свадьба! Го-рь-ко!</span>
 												<span class="text">При организации свадьбы важно правильно составить бюджет и рассчитать стоимость аренды места проведения свадьбы</span>
-												<span class="img"><img src="/images/nav_manwoman_img_01.jpg" /></span>
+												<span class="img"><img src="" /></span>
 											</a>
 										</li>
 										<li class="col relationships">
-											<div class="col-in">
+											<div class="col-in bg-img-22">
 												<div class="title">Отношения</div>
 												<ul>
 													<li><a href="">Отношения мужчины и женщины</a></li>
@@ -279,7 +300,6 @@
 													<li><a href="">Психология мужчин</a></li>
 													<li><a href="">Психология женщин</a></li>
 												</ul>
-												<span class="img"><img src="/images/nav_manwoman_img_02.jpg" /></span>
 											</div>
 										</li>
 									</ul>
@@ -287,31 +307,28 @@
 								</div>
 							</div>
 						</li>							
-						<li class="beauty">
-							<a href=""><i class="text"></i></a>
+						<li class="beauty navdrp">
+							<a href="javascript:void(0);" onclick="navDrpOpen(this);"><i class="text"></i></a>
 							<div class="drp">
 								<div class="in">
 									
 									<ul class="cols cols-3">
 										<li class="col">
-											<a href="" class="big-link">
+											<a href="" class="big-link bg-img-31">
 												<span class="title">Красота</span>
 												<span class="text">При организации свадьбы важно правильно составить бюджет и рассчитать</span>
-												<span class="img"><img src="/images/nav_beauty_img_01.jpg" /></span>
 											</a>
 										</li>
 										<li class="col">
-											<a href="" class="big-link">
+											<a href="" class="big-link bg-img-32">
 												<span class="title">Мода и шопинг</span>
 												<span class="text">Отношения мужчины Непонимание в семье Ревность и измена Развод измена Развод</span>
-												<span class="img"><img src="/images/nav_beauty_img_02.jpg" /></span>
 											</a>
 										</li>
 										<li class="col">
-											<a href="" class="big-link">
+											<a href="" class="big-link bg-img-33">
 												<span class="title">Здоровье родителей</span>
 												<span class="text">При организации свадьбы важно правильно составить бюджет и рассчитать   </span>
-												<span class="img"><img src="/images/nav_beauty_img_03.jpg" /></span>
 											</a>
 										</li>
 									</ul>
@@ -319,45 +336,41 @@
 								</div>
 							</div>
 						</li>
-						<li class="home">
-							<a href=""><i class="text"></i></a>
+						<li class="home navdrp">
+							<a href="javascript:void(0);" onclick="navDrpOpen(this);"><i class="text"></i></a>
 							<div class="drp">
 								<div class="in">
 									
 									<ul class="cols cols-5">
 										<li class="col">
-											<a href="" class="big-link">
+											<a href="" class="big-link bg-img-41">
 												<span class="title">Кулинарные рецепты</span>
 												<span class="text">При организации свадьбы важно правильно составить бюджет и рассчитать</span>
-												<span class="img"><img src="/images/nav_home_img_01.jpg" /></span>
 											</a>
 										</li>
 										<li class="col">
-											<a href="" class="big-link">
+											<a href="" class="big-link bg-img-42">
 												<span class="title">Детские рецепты</span>
 												<span class="text">Отношения мужчины Непонимание в семье Ревность и измена Развод измена Развод</span>
-												<span class="img"><img src="/images/nav_home_img_02.jpg" /></span>
+
 											</a>
 										</li>
 										<li class="col">
-											<a href="" class="big-link">
+											<a href="" class="big-link bg-img-43">
 												<span class="title">Интерьер и дизайн</span>
 												<span class="text">При организации свадьбы важно правильно составить бюджет и рассчитать   </span>
-												<span class="img"><img src="/images/nav_home_img_03.jpg" /></span>
 											</a>
 										</li>
 										<li class="col">
-											<a href="" class="big-link">
+											<a href="" class="big-link bg-img-44">
 												<span class="title">Домашние хлопоты</span>
 												<span class="text">При организации свадьбы важно правильно составить бюджет и рассчитать</span>
-												<span class="img"><img src="/images/nav_home_img_04.jpg" /></span>
 											</a>
 										</li>
 										<li class="col">
-											<a href="" class="big-link">
+											<a href="" class="big-link bg-img-45">
 												<span class="title">Загородная жизнь</span>
 												<span class="text">Отношения мужчины Непонимание в семье Ревность и измена Развод Развод</span> 
-												<span class="img"><img src="/images/nav_home_img_05.jpg" /></span>
 											</a>
 										</li>										
 									</ul>
@@ -365,38 +378,34 @@
 								</div>
 							</div>
 						</li>
-						<li class="hobbies">
-							<a href=""><i class="text"></i></a>
+						<li class="hobbies navdrp">
+							<a href="javascript:void(0);" onclick="navDrpOpen(this);"><i class="text"></i></a>
 							<div class="drp">
 								<div class="in">
 									
 									<ul class="cols cols-4">
 										<li class="col">
-											<a href="" class="big-link">
+											<a href="" class="big-link bg-img-51">
 												<span class="title">Своими руками</span>
 												<span class="text">При организации свадьбы важно правильно составить бюджет и рассчитать</span>
-												<span class="img"><img src="/images/nav_hobbies_img_01.jpg" /></span>
 											</a>
 										</li>
 										<li class="col">
-											<a href="" class="big-link">
+											<a href="" class="big-link bg-img-52">
 												<span class="title">Мастерим детям</span>
 												<span class="text">Отношения мужчины Непонимание в семье Ревность и измена Развод измена Развод</span>
-												<span class="img"><img src="/images/nav_hobbies_img_02.jpg" /></span>
 											</a>
 										</li>
 										<li class="col">
-											<a href="" class="big-link">
+											<a href="" class="big-link bg-img-53">
 												<span class="title">За рулем</span>
 												<span class="text">При организации свадьбы важно правильно составить бюджет и рассчитать   </span>
-												<span class="img"><img src="/images/nav_hobbies_img_03.jpg" /></span>
 											</a>
 										</li>
 										<li class="col">
-											<a href="" class="big-link">
+											<a href="" class="big-link bg-img-54">
 												<span class="title">Цветоводство</span>
 												<span class="text">При организации свадьбы важно правильно составить бюджет и рассчитать</span>
-												<span class="img"><img src="/images/nav_hobbies_img_04.jpg" /></span>
 											</a>
 										</li>
 									</ul>
@@ -405,31 +414,28 @@
 								</div>
 							</div>
 						</li>
-						<li class="rest">
-							<a href=""><i class="text"></i></a>
+						<li class="rest navdrp">
+							<a href="javascript:void(0);" onclick="navDrpOpen(this);"><i class="text"></i></a>
 							<div class="drp">
 								<div class="in">
 									
 									<ul class="cols cols-3">
 										<li class="col">
-											<a href="" class="big-link">
+											<a href="" class="big-link bg-img-61">
 												<span class="title">Выходные с ребенком</span>
-												<span class="text">При организации свадьбы важно правильно составить бюджет и рассчитать. При организации свадьбы важно правильно составить бюджет.</span>
-												<span class="img"><img src="/images/nav_rest_img_01.jpg" /></span>
+												<span class="text">При организации свадьбы важно правильно составить бюджет и рассчитать. При организации свадьбы важно правильно составить бюджет.</span>												
 											</a>
 										</li>
 										<li class="col">
-											<a href="" class="big-link">
+											<a href="" class="big-link bg-img-62">
 												<span class="title">Путешествия семьей</span>
 												<span class="text">При организации свадьбы важно правильно составить бюджет и рассчитать. При организации свадьбы важно правильно составить бюджет.</span>
-												<span class="img"><img src="/images/nav_rest_img_02.jpg" /></span>
 											</a>
 										</li>
 										<li class="col">
-											<a href="" class="big-link">
+											<a href="" class="big-link bg-img-63">
 												<span class="title">Праздники</span>
 												<span class="text">При организации свадьбы важно правильно составить бюджет и рассчитать. При организации свадьбы важно правильно составить бюджет.</span>
-												<span class="img"><img src="/images/nav_rest_img_03.jpg" /></span>
 											</a>
 										</li>
 									</ul>
@@ -445,166 +451,193 @@
 		
 		<div id="content" class="clearfix">
 			
-			<div class="main">
+			<div id="crumbs"><a href="">Главная</a> > <a href="">Сервисы</a> > <span>Приправы и специи</span></div>
+			
+			<div id="cook-recipe-search">
 				
-				<div class="main-in">
+				<div class="title clear">
+					<i class="icon"></i>
+					<span>Поиск рецепта</span>
+					<div class="nav">
+						<ul>
+							<li><a href="">По ингредиентам</a></li>
+							<li class="active"><a href="">Расширеный поиск</a></li>
+						</ul>
+					</div>
+				</div>
+				
+				<div class="clearfix">
 					
-					<div class="content-title-new content-title-left">Полезные сервисы для всей семьи</div>
+					<div class="advanced">
+						
+						<div class="block-title">Параметры рецепта</div>
+						
+						<div class="row">
+							<label>Кухня</label>
+							<span class="chzn-v2">
+								<select class="chzn">
+									<option>Кухня</option>
+								</select>
+							</span>
+						</div>
+						
+						<div class="row">
+							<label>Тип блюда</label>
+							<span class="chzn-v2">
+								<select class="chzn">
+									<option>Тип блюда</option>
+								</select>
+							</span>
+						</div>
+						
+						<div class="row">
+							<label>Способ приготовления</label>
+							<span class="chzn-v2">
+								<select class="chzn">
+									<option>Способ приготовления</option>
+								</select>
+							</span>
+						</div>
+						
+						<div class="block-title">Время</div>
+						
+						<div class="row">
+							<label><i class="icon-time-1"></i>Подготовка</label>
+							<span class="chzn-v2">
+								<select class="chzn">
+									<option>Подготовка</option>
+								</select>
+							</span>
+						</div>
+						
+						<div class="row">
+							<label><i class="icon-time-2"></i>Приготовление</label>
+							<span class="chzn-v2">
+								<select class="chzn">
+									<option>Приготовление</option>
+								</select>
+							</span>
+						</div>
+						
+						<div class="block-title">Диетические предпочтения</div>
+						
+						<div class="radiogroup">
+							
+							<span class="checkbox">
+								<input type="checkbox" />
+								<label>Для диабетиков</label>
+							</span>
+							
+							<span class="checkbox">
+								<input type="checkbox" />
+								<label>Низкокалорийные</label>
+							</span>
+							
+							<span class="checkbox">
+								<input type="checkbox" />
+								<label>Низкоуглеводные</label>
+							</span>
+							
+							<span class="checkbox">
+								<input type="checkbox" />
+								<label>Низкожирные</label>
+							</span>
+							
+						</div>
+						
+					</div>
 					
-					<div class="services-list">
+					<div class="result">
 						
-						<div class="block-title">Сервисы для пап и мам</div>
 						
-						<ul>
-							<li>
-								<div class="img"><a href=""><img src="/images/services/service_img_1.png"></a></div>
-								<div class="text">
-									<div class="item-title"><a href="">Выбор имени для ребенка</a></div>
-									<p>Сервис поможет выбрать имя для вашего малыша</p>
-								</div>
-							</li>
-							<li>
-								<div class="img"><a href=""><img src="/images/services/service_img_2.png"></a></div>
-								<div class="text">
-									<div class="item-title"><a href="">Справочник детских болезней</a></div>
-									<p>Сервис для перевода веса и объема продуктов в понятные для вас меры.</p>
-								</div>
-							</li>
-							<li>
-								<div class="img"><a href=""><img src="/images/services/service_img_3.png"></a></div>
-								<div class="text">
-									<div class="item-title"><a href="">Календарь прививок ребенка</a></div>
-									<p>Узнавайте сколько калорий, а также белков, жиров и углеводов в любых </p>
-								</div>
-							</li>
-							<li>
-								<div class="img"><a href=""><img src="/images/services/service_img_4.png"></a></div>
-								<div class="text">
-									<div class="item-title"><a href="">Тест. В норме ли пупок у вашего малыша?</a></div>
-									<p>Узнайте в норме ли пупочная ранка вашего малыша на всех стадиях её заживления.</p>
-								</div>
-							</li>
+						<div class="result-title clearfix">
 							
-						</ul>
-						
-						<div class="block-title">Сервисы для беременных</div>
-						
-						<ul>
-							<li>
-								<div class="img"><a href=""><img src="/images/services/service_img_5.png"></a></div>
-								<div class="text">
-									<div class="item-title"><a href="">Вес при беременности</a></div>
-									<p>Сервис поможет выбрать имя для вашего малыша</p>
-								</div>
-							</li>
-							<li>
-								<div class="img"><a href=""><img src="/images/services/service_img_6.png"></a></div>
-								<div class="text">
-									<div class="item-title"><a href="">Толщина плаценты</a></div>
-									<p>Сервис для перевода веса и объема продуктов в понятные для вас меры.</p>
-								</div>
-							</li>
-							<li>
-								<div class="img"><a href=""><img src="/images/services/service_img_7.png"></a></div>
-								<div class="text">
-									<div class="item-title"><a href="">Считаем схватки</a></div>
-									<p>Узнавайте сколько калорий, а также белков, жиров и углеводов в любых </p>
-								</div>
-							</li>
-							<li>
-								<div class="img"><a href=""><img src="/images/services/service_img_8.png"></a></div>
-								<div class="text">
-									<div class="item-title"><a href="">Определение пола ребенка</a></div>
-									<p>Узнайте в норме ли пупочная ранка вашего малыша на всех стадиях её заживления.</p>
-								</div>
-							</li>
-							<li>
-								<div class="img"><a href=""><img src="/images/services/service_img_9.png"></a></div>
-								<div class="text">
-									<div class="item-title"><a href="">Тест на беременность</a></div>
-									<p>Узнавайте сколько калорий, а также белков, жиров и углеводов в любых </p>
-								</div>
-							</li>
-							<li>
-								<div class="img"><a href=""><img src="/images/services/service_img_10.png"></a></div>
-								<div class="text">
-									<div class="item-title"><a href="">Когда уходить в декрет?</a></div>
-									<p>Узнайте в норме ли пупочная ранка вашего малыша на всех стадиях её заживления.</p>
-								</div>
-							</li>
+							<div class="count">
+								Найдено рецептов
+								<span>286</span>
+							</div>
 							
-						</ul>
+						</div>
 						
-						<div class="block-title">Сервисы для кулинаров</div>
+						<div class="recipe-list">
+							
+							<ul class="scroll">
+								<li>
+									<div class="item-title"><a href="">Торт песочный с орехами, черникой и клубникой</a></div>
+									<div class="content">
+										<a href=""><img src="/images/cook_recipe_search_img_01.jpg" /></a>
+									</div>
+								</li>
+								<li>
+									<div class="item-title"><a href="">Торт песочный</a></div>
+									<div class="content">
+										<a href=""><img src="/images/cook_recipe_search_img_02.jpg" /></a>
+									</div>
+								</li>
+								<li>
+									<div class="item-title"><a href="">Торт песочный с орехами, черникой и клубникой с орехами, черникой и клубникой</a></div>
+									<div class="content">
+										<a href=""><img src="/images/cook_recipe_search_img_01.jpg" /></a>
+									</div>
+								</li>
+								<li>
+									<div class="item-title"><a href="">Торт песочный</a></div>
+									<div class="content">
+										<p>Из муки, крахмала, молока, яиц, сахара, печeм тонкие блинчики, вы можете испечь блины по своему любимому рецепту.</p>
+									</div>
+								</li>
+								<li>
+									<div class="item-title"><a href="">Торт песочный с орехами, черникой и клубникой</a></div>
+									<div class="content">
+										<a href=""><img src="/images/cook_recipe_search_img_01.jpg" /></a>
+									</div>
+								</li>
+								<li>
+									<div class="item-title"><a href="">Торт песочный</a></div>
+									<div class="content">
+										<a href=""><img src="/images/cook_recipe_search_img_02.jpg" /></a>
+									</div>
+								</li>
+								<li>
+									<div class="item-title"><a href="">Торт песочный с орехами, черникой и клубникой с орехами, черникой и клубникой</a></div>
+									<div class="content">
+										<a href=""><img src="/images/cook_recipe_search_img_01.jpg" /></a>
+									</div>
+								</li>
+								<li>
+									<div class="item-title"><a href="">Торт песочный</a></div>
+									<div class="content">
+										<p>Из муки, крахмала, молока, яиц, сахара, печeм тонкие блинчики, вы можете испечь блины по своему любимому рецепту.</p>
+									</div>
+								</li>
+								<li>
+									<div class="item-title"><a href="">Торт песочный с орехами, черникой и клубникой</a></div>
+									<div class="content">
+										<a href=""><img src="/images/cook_recipe_search_img_01.jpg" /></a>
+									</div>
+								</li>
+								<li>
+									<div class="item-title"><a href="">Торт песочный</a></div>
+									<div class="content">
+										<a href=""><img src="/images/cook_recipe_search_img_02.jpg" /></a>
+									</div>
+								</li>
+								<li>
+									<div class="item-title"><a href="">Торт песочный с орехами, черникой и клубникой с орехами, черникой и клубникой</a></div>
+									<div class="content">
+										<a href=""><img src="/images/cook_recipe_search_img_01.jpg" /></a>
+									</div>
+								</li>
+								<li>
+									<div class="item-title"><a href="">Торт песочный</a></div>
+									<div class="content">
+										<p>Из муки, крахмала, молока, яиц, сахара, печeм тонкие блинчики, вы можете испечь блины по своему любимому рецепту.</p>
+									</div>
+								</li>
+							</ul>
+							
+						</div>
 						
-						<ul>
-							<li>
-								<div class="img"><a href=""><img src="/images/services/service_img_11.png"></a></div>
-								<div class="text">
-									<div class="item-title"><a href="">Рецепты для мультиварок</a></div>
-									<p>Сервис поможет выбрать имя для вашего малыша</p>
-								</div>
-							</li>
-							<li>
-								<div class="img"><a href=""><img src="/images/services/service_img_12.png"></a></div>
-								<div class="text">
-									<div class="item-title"><a href="">Калькулятор мер</a></div>
-									<p>Сервис для перевода веса и объема продуктов в понятные для вас меры.</p>
-								</div>
-							</li>
-							<li>
-								<div class="img"><a href=""><img src="/images/services/service_img_13.png"></a></div>
-								<div class="text">
-									<div class="item-title"><a href="">Счетчик калорий</a></div>
-									<p>Узнавайте сколько калорий, а также белков, жиров и углеводов в любых </p>
-								</div>
-							</li>
-						</ul>
-						
-						<div class="block-title">Сервисы для рукодельниц</div>
-						
-						<ul>
-							<li>
-								<div class="img"><a href=""><img src="/images/services/service_img_14.png"></a></div>
-								<div class="text">
-									<div class="item-title"><a href="">Расчет ниток для вышивания</a></div>
-									<p>Сервис поможет выбрать имя для вашего малыша</p>
-								</div>
-							</li>
-							<li>
-								<div class="img"><a href=""><img src="/images/services/service_img_15.png"></a></div>
-								<div class="text">
-									<div class="item-title"><a href="">Сколько пряжи для вязания нужно</a></div>
-									<p>Сервис для перевода веса и объема продуктов в понятные для вас меры.</p>
-								</div>
-							</li>
-						</ul>
-						
-						<div class="block-title">Сервисы для рукодельниц</div>
-						
-						<ul>
-							<li>
-								<div class="img"><a href=""><img src="/images/services/service_img_16.png"></a></div>
-								<div class="text">
-									<div class="item-title"><a href="">Расчет краски</a></div>
-									<p>Сервис поможет выбрать имя для вашего малыша</p>
-								</div>
-							</li>
-							<li>
-								<div class="img"><a href=""><img src="/images/services/service_img_17.png"></a></div>
-								<div class="text">
-									<div class="item-title"><a href="">Плитка в ванной</a></div>
-									<p>Сервис для перевода веса и объема продуктов в понятные для вас меры.</p>
-								</div>
-							</li>
-							<li>
-								<div class="img"><a href=""><img src="/images/services/service_img_18.png"></a></div>
-								<div class="text">
-									<div class="item-title"><a href="">Расчет подвесного потолка</a></div>
-									<p>Узнавайте сколько калорий, а также белков, жиров и углеводов в любых </p>
-								</div>
-							</li>
-						</ul>
 						
 					</div>
 					
@@ -612,30 +645,13 @@
 				
 			</div>
 			
-			<div class="side-left">
-				
-				<br/><br/><br/><br/>
-				
-				<div class="club-topics-list-new">
-					
-					<ul>
-						<li class="active"><span><a href="">Все сервисы</a></span><div class="count">15</div></li>
-						<li><span><a href="">Для мам и пап</a></span><div class="count">15</div></li>							
-						<li><span><a href="">Для беременных</a></span><div class="count">15</div></li>
-						<li><span><a href="">Для кулинаров</a></span><div class="count">15</div></li>
-					</ul>
-					
-
-				</div>
-				
-			</div>
-				
 			
 		</div>  	
 		
 		<div class="push"></div>
 		
 	</div>
+
 	<div id="footer" class="wrapper clearfix">
 		
 		<div class="a-right">
@@ -701,6 +717,7 @@
 		</form>
 		
 	</div>
+	
 </div>
 </body>
 </html>

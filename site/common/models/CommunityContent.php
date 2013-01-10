@@ -665,6 +665,15 @@ class CommunityContent extends HActiveRecord
         return $this->commentsCount;
     }
 
+    public function getUnknownClassComments()
+    {
+        if ($this->getIsFromBlog()) {
+            $model = BlogContent::model()->findByPk($this->id);
+            return $model->comments;
+        }
+        return $this->comments;
+    }
+
     public function getLastCommentators($limit = 3)
     {
         return Comment::model()->with('author', 'author.avatar')->findAll(array(

@@ -325,14 +325,11 @@ class HDate
         if (date("Y:m:d", $ts) == date("Y:m:d"))
             $result .= 'Сегодня';
         elseif (date("Y", $ts) == date("Y"))
-            $result .= date("j", $ts) . ' '
-                . self::ruMonthShort(date("m", $ts));
+            $result .= date("j", $ts) . ' ' . self::ruMonthShort(date("m", $ts));
         else
-            $result .= date("Y", $ts) . $delimiter .
-                date("j", $ts) . ' '
-                . self::ruMonthShort(date("m", $ts));
+            $result .=  date("j", $ts) . ' ' . self::ruMonthShort(date("m", $ts)). ' ' . date("Y", $ts);
         $result .= $delimiter;
-        $result .= date("H:i", $ts);
+        $result .= date("G:i", $ts);
 
         return $result;
     }

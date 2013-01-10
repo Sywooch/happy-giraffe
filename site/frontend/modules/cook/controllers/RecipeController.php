@@ -447,7 +447,7 @@ class RecipeController extends HController
         header("Content-type: text/xml; charset=utf-8");
         $feed = Yii::app()->cache->get('recipesFeed');
         if ($feed === false) {
-            $recipes = CookRecipe::model()->with('cuisine', 'author', 'ingredients.ingredient', 'ingredients.unit')->findAll(array(
+            $recipes = CookRecipe::model()->with('cuisine', 'author', 'ingredients', 'ingredients.ingredient', 'ingredients.unit')->findAll(array(
                 'order' => 'created DESC',
                 'condition' => 't.id != 16589',
                 'limit' => 3000,
@@ -457,7 +457,7 @@ class RecipeController extends HController
 
             foreach ($recipes as $r) {
                 if (empty($r->ingredients))
-                    break;
+                    continue;
 
                 $recipe = $xml->addChild('recipe');
                 $recipe->addChild('name', $r->title);

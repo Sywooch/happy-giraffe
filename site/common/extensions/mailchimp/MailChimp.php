@@ -40,6 +40,7 @@ class MailChimp extends CApplicationComponent
 
     public function updateUsers()
     {
+        echo 'dfhsgdj';
         //пользователи которые зарегистрировались после 1 мая + наши сотрудники
         $criteria = new CDbCriteria;
         $criteria->with = array(
@@ -77,7 +78,7 @@ class MailChimp extends CApplicationComponent
     {
         $criteria = new CDbCriteria;
         $criteria->limit = 100;
-        $criteria->condition = 'id > 270790';
+        $criteria->condition = 'id > 534972';
 
         $users = array(1);
         $last_id = 0;

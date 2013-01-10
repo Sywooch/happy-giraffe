@@ -98,7 +98,7 @@
                 <li class="i-broadcast new top-line-menu_nav_li js-tooltipsy" title="Что нового">
                     <a href="<?=$this->createUrl('/whatsNew/default/index')?>"><i class="icon-broadcast"></i></a>
                 </li>
-                <li class="i-dialogs top-line-menu_nav_li js-i-dialogs top-line-menu_nav_litooltipsy<?php if ($imCount > 0): ?> new<?php endif; ?>" title="Мои диалоги">
+                <li class="i-dialogs top-line-menu_nav_li js-tooltipsy<?php if ($imCount > 0): ?> new<?php endif; ?>" title="Мои диалоги">
                     <a href="javascript:void(0)" onclick="Messages.toggle()">
                         <i class="icon-dialogs"></i>
 						<span class="count">
@@ -240,6 +240,19 @@
             var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
         })();
     </script>
+
+    <?php if (!Yii::app()->user->isGuest && Yii::app()->user->id == 10):?>
+        <script type="text/javascript">
+            var _bdWidgetConfig = {
+                apiKey: 'Zd9hKYjozTf4YJs8FJcqrqnHczE1A6Qf9tjk43aKvi56ZI5rCK6' // use your key!
+            };
+            (function() {
+                var bds = document.createElement('script'); bds.type = 'text/javascript'; bds.async = true;
+                bds.src = "https://my.bugdigger.com/widget.js";
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(bds, s);
+            })();
+        </script>
+    <?php endif ?>
 </noindex>
 <div id="body-overlay" style="display: none;"></div>
 

@@ -39,18 +39,18 @@ class Horoscope extends HActiveRecord
     );
 
     public $zodiac_list2 = array(
-        '1' => 'Овна',
-        '2' => 'Тельца',
-        '3' => 'Близнецов',
-        '4' => 'Рака',
-        '5' => 'Льва',
-        '6' => 'Девы',
-        '7' => 'Весов',
-        '8' => 'Скорпиона',
-        '9' => 'Стрельца',
-        '10' => 'Козерога',
-        '11' => 'Водолея',
-        '12' => 'Рыб',
+        '1' => 'овна',
+        '2' => 'тельца',
+        '3' => 'близнецов',
+        '4' => 'рака',
+        '5' => 'льва',
+        '6' => 'девы',
+        '7' => 'весов',
+        '8' => 'скорпиона',
+        '9' => 'стрельца',
+        '10' => 'козерога',
+        '11' => 'водолея',
+        '12' => 'рыб',
     );
 
     public $zodiac_list_eng = array(
@@ -271,6 +271,11 @@ class Horoscope extends HActiveRecord
         return $this->zodiac_list[$this->zodiac];
     }
 
+    public function zodiacText2()
+    {
+        return $this->zodiac_list2[$this->zodiac];
+    }
+
     public function zodiacDates()
     {
         return $this->zodiac_dates[$this->zodiac]['start'][0] . '.'
@@ -375,6 +380,11 @@ class Horoscope extends HActiveRecord
         return Horoscope::model()->zodiac_list[$zodiac_id];
     }
 
+    public static function getZodiacTitle2($zodiac_id)
+    {
+        return Horoscope::model()->zodiac_list2[$zodiac_id];
+    }
+
     public function calculateMonthDays()
     {
         $days = explode(',', $this->good_days);
@@ -469,6 +479,34 @@ class Horoscope extends HActiveRecord
         return '#';
     }
 
+    public function getOtherZodiacTitle($zodiac)
+    {
+        if ($this->onMonth()) {
+            return $this->isCurrentMonth() ?
+                'гороскоп ' . Horoscope::getZodiacTitle2($zodiac) . ' на месяц'
+                :
+                'гороскоп ' . Horoscope::getZodiacTitle2($zodiac) . ' на ' . Yii::app()->dateFormatter->format('MMMM yyyy', strtotime($this->date)) . ' года';
+        }
+        if ($this->onYear()) {
+            return $this->isCurrentYear() ?
+                'гороскоп ' . Horoscope::getZodiacTitle2($zodiac) . ' на год'
+                :
+                'гороскоп ' . Horoscope::getZodiacTitle2($zodiac) . ' на ' . $this->year . ' год';
+        }
+
+        if (Yii::app()->controller->action->id == 'tomorrow')
+            return 'гороскоп ' . Horoscope::getZodiacTitle2($zodiac) . ' на завтра';
+        if (Yii::app()->controller->action->id == 'today')
+            return 'гороскоп ' . Horoscope::getZodiacTitle2($zodiac) . ' на сегодня';
+        if (Yii::app()->controller->action->id == 'yesterday')
+            return 'гороскоп ' . Horoscope::getZodiacTitle2($zodiac) . ' на вчера';
+
+        if (Yii::app()->controller->action->id == 'date')
+            return 'гороскоп ' . Horoscope::getZodiacTitle2($zodiac) . ' на ' . Yii::app()->dateFormatter->format('d MMMM yyyy', strtotime($this->date)) . ' года';
+
+        return '';
+    }
+
     public function getUrl($absolute = false)
     {
         $method = $absolute ? 'createAbsoluteUrl' : 'createUrl';
@@ -499,21 +537,21 @@ class Horoscope extends HActiveRecord
 
     public function getName()
     {
-        $text = $this->zodiac_list2[$this->zodiac].' на ';
+        $text = $this->zodiac_list2[$this->zodiac] . ' на ';
         if (!empty($this->date)) {
             if (Yii::app()->controller->action->id == 'today')
-                return $text.'сегодня';
+                return $text . 'сегодня';
             if (Yii::app()->controller->action->id == 'yesterday')
-                return $text.'вчера';
+                return $text . 'вчера';
             if (Yii::app()->controller->action->id == 'tomorrow')
-                return $text.'завтра';
+                return $text . 'завтра';
 
-            return $text.Yii::app()->dateFormatter->format('d MMMM yyyy', strtotime($this->date)) . ' года';
+            return $text . Yii::app()->dateFormatter->format('d MMMM yyyy', strtotime($this->date)) . ' года';
         }
         if ($this->onMonth())
-            return $this->isCurrentMonth() ? $text.'месяц' : $text.mb_strtolower(HDate::ruMonth($this->month), 'utf8') . ' ' . $this->year . ' года';
+            return $this->isCurrentMonth() ? $text . 'месяц' : $text . mb_strtolower(HDate::ruMonth($this->month), 'utf8') . ' ' . $this->year . ' года';
         if ($this->onYear())
-            return $text. $this->year . ' год';
+            return $text . $this->year . ' год';
 
         return '';
     }
@@ -549,6 +587,7 @@ class Horoscope extends HActiveRecord
 
         return '';
     }
+
 
     /*****************************************************************************************************************/
     /**************************************************** LINKING ****************************************************/
@@ -598,7 +637,7 @@ class Horoscope extends HActiveRecord
             return '';
         $text = mb_strtolower(HDate::ruMonth($month), 'utf8') . ' ' . $year;
 
-        return '<span>' . CHtml::link($text, Yii::app()->controller->createUrl('month', array(
+        return '<span>' . CHtml::link($this->zodiacText() . ' на ' . $text, Yii::app()->controller->createUrl('month', array(
             'zodiac' => $this->getZodiacSlug(),
             'month' => $year . '-' . sprintf('%02d', $month),
         ))) . ' ←</span>';
@@ -616,7 +655,7 @@ class Horoscope extends HActiveRecord
             return '';
         $text = mb_strtolower(HDate::ruMonth($month), 'utf8') . ' ' . $year;
 
-        $link = CHtml::link($text, Yii::app()->controller->createUrl('month', array(
+        $link = CHtml::link($this->zodiacText() . ' на ' . $text, Yii::app()->controller->createUrl('month', array(
             'zodiac' => $this->getZodiacSlug(),
             'month' => $year . '-' . sprintf('%02d', $month),
         )));
@@ -629,7 +668,7 @@ class Horoscope extends HActiveRecord
     public function getPrevYearLink()
     {
         $year = $this->year - 1;
-        return CHtml::link($year . ' год', Yii::app()->controller->createUrl('year', array(
+        return CHtml::link($this->zodiacText() . ' на ' . $year . ' год', Yii::app()->controller->createUrl('year', array(
             'zodiac' => $this->getZodiacSlug(),
             'year' => $year,
         )));
@@ -638,7 +677,7 @@ class Horoscope extends HActiveRecord
     public function getNextYearLink()
     {
         $year = $this->year + 1;
-        return CHtml::link($year . ' год', Yii::app()->controller->createUrl('year', array(
+        return CHtml::link($this->zodiacText() . ' на ' . $year . ' год', Yii::app()->controller->createUrl('year', array(
             'zodiac' => $this->getZodiacSlug(),
             'year' => $year,
         )));
@@ -646,11 +685,11 @@ class Horoscope extends HActiveRecord
 
     public function getDateLinks()
     {
-        $result = 'А еще гороскоп ' . $this->zodiacText() . ' на: ';
+        $result = 'А еще гороскоп';
 
         if (Yii::app()->controller->action->id == 'today') {
             //если на сегодня, показываем на вчера
-            $result .= CHtml::link('вчера', Yii::app()->controller->createUrl('yesterday', array('zodiac' => $this->getZodiacSlug())));
+            $result .= CHtml::link($this->zodiacText() . ' на вчера', Yii::app()->controller->createUrl('yesterday', array('zodiac' => $this->getZodiacSlug())));
         } elseif (Yii::app()->controller->action->id == 'tomorrow') {
             //если на завтра, то выводим ссылки на 2 следующих дня
             if ($this->dateHoroscopeExist(strtotime('+2 days')))
@@ -665,7 +704,7 @@ class Horoscope extends HActiveRecord
 
     public function getDateLink($date)
     {
-        return CHtml::link(Yii::app()->dateFormatter->format('d MMMM', $date),
+        return CHtml::link($this->zodiacText() . ' на ' . Yii::app()->dateFormatter->format('d MMMM', $date),
             Yii::app()->controller->createUrl('date', array(
                 'zodiac' => $this->getZodiacSlug(),
                 'date' => date("Y-m-d", $date),

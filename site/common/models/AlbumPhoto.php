@@ -358,10 +358,11 @@ class AlbumPhoto extends HActiveRecord
             if (!file_exists($this->originalPath))
                 return false;
 
-            if (exif_imagetype($this->originalPath) == IMAGETYPE_GIF)
-                return $this->imagickResize($thumb, $width, $height, $master, $crop, $crop_side);
-            else
-                return $this->gdResize($thumb, $width, $height, $master, $crop);
+            #TODO imagick Применяется для анимированных gif, но поскольку он сейчас долго работает пришлось отключить
+//            if (exif_imagetype($this->originalPath) == IMAGETYPE_GIF)
+//                return $this->imagickResize($thumb, $width, $height, $master, $crop, $crop_side);
+//            else
+            return $this->gdResize($thumb, $width, $height, $master, $crop);
         }
 
         return $thumb;
@@ -380,12 +381,12 @@ class AlbumPhoto extends HActiveRecord
             return $thumb;
         }
 
-
         if ($image->width <= $width && $image->height <= $height
             || $master == Image::WIDTH && $image->height <= $height
             || $master == Image::HEIGHT && $image->height <= $height
         ) {
-
+            //just copy file
+            copy($this->originalPath, $thumb);
         } else {
 
             if ($crop){
@@ -396,9 +397,9 @@ class AlbumPhoto extends HActiveRecord
                 $image = $image->resize(1500, $height);
             else
                 $image = $image->resize($width, $height);
-        }
 
-        $image = $image->save($thumb);
+            $image = $image->save($thumb);
+        }
 
         $this->width = $image->width;
         $this->height = $image->height;

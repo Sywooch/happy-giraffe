@@ -2,19 +2,20 @@
 
 class MailCommand extends CConsoleCommand
 {
-    public function actionIndex()
-    {
-
-    }
-
-    public function actionWeeklyNews()
+    public function beforeAction($action)
     {
         Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
         Yii::import('site.frontend.extensions.*');
         Yii::import('site.frontend.components.*');
+        Yii::import('site.frontend.helpers.*');
+        Yii::import('site.frontend.modules.im.models.*');
+        Yii::import('site.frontend.modules.geo.models.*');
+        Yii::import('site.frontend.modules.im.components.*');
         Yii::import('site.common.models.mongo.*');
-        Yii::import('site.common.extensions.mailchimp.*');
+    }
 
+    public function actionWeeklyNews()
+    {
         //check generated url
         if (Yii::app()->createUrl('site/index') != './') {
             echo Yii::app()->createUrl('site/index') . ' - url failed';
@@ -40,15 +41,6 @@ class MailCommand extends CConsoleCommand
 
     public function actionNewMessages()
     {
-        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
-        Yii::import('site.frontend.extensions.*');
-        Yii::import('site.frontend.components.*');
-        Yii::import('site.frontend.helpers.*');
-        Yii::import('site.frontend.modules.im.models.*');
-        Yii::import('site.frontend.modules.geo.models.*');
-        Yii::import('site.frontend.modules.im.components.*');
-        Yii::import('site.common.models.mongo.*');
-
         $criteria = new CDbCriteria;
         $criteria->limit = 100;
         $criteria->offset = 0;
@@ -94,12 +86,6 @@ class MailCommand extends CConsoleCommand
 
     public function actionContest()
     {
-        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
-        Yii::import('site.frontend.extensions.*');
-        Yii::import('site.frontend.components.*');
-        Yii::import('site.common.models.mongo.*');
-        Yii::import('site.common.extensions.mailchimp.*');
-
         $subject = 'Фотоконкурс «Мама и Я» на «Веселом Жирафе»!';
         $opts = array(
             'list_id' => MailChimp::CONTEST_LIST,
@@ -135,37 +121,16 @@ class MailCommand extends CConsoleCommand
 
     public function actionUsers()
     {
-        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
-        Yii::import('site.frontend.extensions.*');
-        Yii::import('site.frontend.components.*');
-        Yii::import('site.frontend.helpers.*');
-        Yii::import('site.common.models.mongo.*');
-
         Yii::app()->mc->updateUsers();
     }
 
     public function actionDeleteUsers()
     {
-        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
-        Yii::import('site.frontend.extensions.*');
-        Yii::import('site.frontend.components.*');
-        Yii::import('site.frontend.helpers.*');
-        Yii::import('site.common.models.mongo.*');
-
         Yii::app()->mc->deleteRegisteredFromContestList();
     }
 
     public function actionTestMessage()
     {
-        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
-        Yii::import('site.frontend.extensions.*');
-        Yii::import('site.frontend.components.*');
-        Yii::import('site.frontend.helpers.*');
-        Yii::import('site.frontend.modules.im.models.*');
-        Yii::import('site.frontend.modules.geo.models.*');
-        Yii::import('site.frontend.modules.im.components.*');
-        Yii::import('site.common.models.mongo.*');
-
         $user = User::getUserById(10);
         $token = UserToken::model()->generate($user->id, 86400);
         $unread = Im::model(10)->getUnreadMessagesCount();
@@ -176,12 +141,6 @@ class MailCommand extends CConsoleCommand
 
     public function actionTestWeekly()
     {
-        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
-        Yii::import('site.frontend.extensions.*');
-        Yii::import('site.frontend.components.*');
-        Yii::import('site.common.models.mongo.*');
-        Yii::import('site.common.extensions.mailchimp.*');
-
         $articles = Favourites::model()->getWeekPosts();
         $contents = $this->renderFile(Yii::getPathOfAlias('site.common.tpl.weeklyNews') . '.php', array('models' => $articles), true);
         $subject = 'Веселый Жираф - самое интересное за неделю - ТЕСТ';
@@ -207,4 +166,3 @@ class MailCommand extends CConsoleCommand
         return false;
     }
 }
-

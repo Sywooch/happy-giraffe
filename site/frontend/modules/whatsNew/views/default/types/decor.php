@@ -5,6 +5,7 @@
             'entity' => 'CookDecorationCategory',
             'entity_id' => null,
             'entity_url' => $this->createUrl('/cook/decor/index'),
+            'place'=>'gallery'
         ));
     ?>
 

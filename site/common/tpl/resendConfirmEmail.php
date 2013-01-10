@@ -14,17 +14,17 @@
                         <div style="font:13px arial, helvetica, sans-serif;color:#232323;line-height:16px;">
 
                             <div style="margin-bottom:20px;">
-                                <span style="font-size:15px;">Добрый день, *|USERNAME|*!</span><br/>
+                                <span style="font-size:15px;">Добрый день, <?=$user->getFullName() ?>!</span><br/>
                                 <br/>
                                 Вы успешно зарегистрировались на сайте «Весёлый Жираф».<br/>
-                                Ваш e-mail: <span style=" color: #3587ec;"><a href="mailto:*|EMAIL|*" target="_blank" style="color: #3587ec;">*|EMAIL|*</a></span><br/>
+                                Ваш e-mail: <span style=" color: #3587ec;"><a href="mailto:<?=$user->email ?>" target="_blank" style="color: #3587ec;"><?=$user->email ?></a></span><br/>
                             </div>
 
-                            <div style="margin-bottom:25px;line-height:22px;"><span style="font-size:22px;color: #3587ec;"><a href="http://www.happy-giraffe.ru/site/confirmEmail/?user_id=*|USERID|*&code=*|CODE|*" target="_blank" style="font-size:22px;color: #3587ec;">Нажмите сюда, чтобы подтвердить свой e-mail</a></span></div>
+                            <div style="margin-bottom:25px;line-height:22px;"><span style="font-size:22px;color: #3587ec;"><a href="http://www.happy-giraffe.ru/site/confirmEmail/?user_id=<?=$user->id ?>&code=<?=$code ?>" target="_blank" style="font-size:22px;color: #3587ec;">Нажмите сюда, чтобы подтвердить свой e-mail</a></span></div>
 
                             <div style="margin-bottom:40px;">
                                 Если ссылка не работает, скопируйте и вставьте URL в адресную строку своего браузера:<br/>
-                                <span style="color: #3587ec;"><a href="http://www.happy-giraffe.ru/site/confirmEmail/?user_id=*|USERID|*&code=*|CODE|*" target="_blank" style="color: #3587ec;">http://www.happy-giraffe.ru/site/confirmEmail/?user_id=*|USERID|*&code=*|CODE|*</a></span>
+                                <span style="color: #3587ec;"><a href="http://www.happy-giraffe.ru/site/confirmEmail/?user_id=<?=$user->id ?>&code=<?=$code ?>" target="_blank" style="color: #3587ec;">http://www.happy-giraffe.ru/site/confirmEmail/?user_id=<?=$user->id ?>&code=<?=$code ?></a></span>
                             </div>
 
                             <div style="margin-bottom:40px;">

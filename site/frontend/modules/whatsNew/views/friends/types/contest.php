@@ -5,6 +5,7 @@
         'entity_id' => $data->work->contest->id,
         'entity_url' => $data->work->contest->url,
         'query' => array('sort' => 'created'),
+        'place'=>'gallery'
     ));
 ?>
 
@@ -28,5 +29,5 @@
     </div>
 </div>
 <div class="comments-all">
-    <a href="" class="textdec-onhover">Поддержите друга!</a>
+    <a href="<?=$data->work->url?>" class="textdec-onhover">Поддержите друга!</a>
 </div>

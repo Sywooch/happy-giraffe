@@ -7,7 +7,7 @@ class MailChimp extends CApplicationComponent
 {
     const WEEKLY_NEWS_LIST_ID = 'd8ced52317';
     const WEEKLY_NEWS_TEST_LIST_ID = 'ee63e4d551';
-    const CONTEST_LIST = 'cf58a61969';
+    const CONTEST_LIST = 'dc4cb268fc';
     const CONTEST_PARC_LIST = '5fcdbab25f';
 
     public $apiKey;
@@ -40,6 +40,7 @@ class MailChimp extends CApplicationComponent
 
     public function updateUsers()
     {
+        echo 'dfhsgdj';
         //пользователи которые зарегистрировались после 1 мая + наши сотрудники
         $criteria = new CDbCriteria;
         $criteria->with = array(
@@ -77,7 +78,7 @@ class MailChimp extends CApplicationComponent
     {
         $criteria = new CDbCriteria;
         $criteria->limit = 100;
-        $criteria->condition = 'id > 613497';
+        $criteria->condition = 'id > 534972';
 
         $users = array(1);
         $last_id = 0;
@@ -85,13 +86,15 @@ class MailChimp extends CApplicationComponent
             $users = MailruUser::model()->findAll($criteria);
             $options = array();
             foreach ($users as $user) {
-                $options[] = array(
-                    'EMAIL' => $user->email,
-                    'FNAME' => $user->name,
-                    'LNAME' => '',
-                );
-                echo $user->email.'<br>';
-                $last_id = $user->id;
+                if (User::model()->findByAttributes(array('email'=>$user->email)) === null){
+                    $options[] = array(
+                        'EMAIL' => $user->email,
+                        'FNAME' => $user->name,
+                        'LNAME' => '',
+                    );
+                    echo $user->email.'<br>';
+                    $last_id = $user->id;
+                }
             }
 
             $this->list = self::CONTEST_LIST;
@@ -99,7 +102,7 @@ class MailChimp extends CApplicationComponent
 
             $criteria->offset += 100;
 
-            if ($criteria->offset >= 45000)
+            if ($criteria->offset >= 50000)
                 $users = null;
         }
 

@@ -5,7 +5,7 @@
  */
 class LiParser
 {
-    const STATS_LIMIT = 5;
+    const STATS_LIMIT = 2;
     /**
      * @var Site
      */

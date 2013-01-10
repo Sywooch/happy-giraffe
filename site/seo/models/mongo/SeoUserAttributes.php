@@ -58,14 +58,17 @@ class SeoUserAttributes extends EMongoDocument
         return null;
     }
 
-    public static function setAttribute($title, $value)
+    public static function setAttribute($title, $value, $user_id= null)
     {
+        if ($user_id === null)
+            $user_id = Yii::app()->user->id;
+
         $model = self::model()->findByAttributes(array(
-            'user_id' => (int)Yii::app()->user->id
+            'user_id' => (int)$user_id
         ));
         if ($model === null) {
             $model = new SeoUserAttributes;
-            $model->user_id = (int)Yii::app()->user->id;
+            $model->user_id = (int)$user_id;
             $model->attributes = array();
         }
 

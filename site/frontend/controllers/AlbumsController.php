@@ -296,19 +296,6 @@ class AlbumsController extends HController
             echo CJSON::encode(array('status' => false));
     }
 
-    public function actionHumorPhoto()
-    {
-        $val = Yii::app()->request->getPost('val');
-        $model = new AlbumPhoto;
-        $model->file_name = $val;
-        $model->author_id = Yii::app()->user->id;
-        $model->create(true);
-
-        $humor = new Humor;
-        $humor->photo_id = $model->id;
-        echo $humor->save();
-    }
-
     public function actionRecipePhoto()
     {
         $val = Yii::app()->request->getPost('val');
@@ -334,41 +321,6 @@ class AlbumsController extends HController
                 $attach->photo_id = $model->primaryKey;
                 $attach->save();
             }
-            $response = array(
-                'status' => true,
-                'src' => $model->getPreviewUrl(325, 252),
-                'id' => $model->primaryKey,
-                'title' => $model->title,
-            );
-        }
-        echo CJSON::encode($response);
-        Yii::app()->end();
-    }
-
-    public function actionPartnerPhoto()
-    {
-        $val = Yii::app()->request->getPost('val');
-        if (is_numeric($val)) {
-            AlbumPhoto::model()->findByPk($val);
-        } else {
-            $model = new AlbumPhoto;
-            $model->file_name = $val;
-            $model->author_id = Yii::app()->user->id;
-            $model->create(true);
-        }
-
-
-        if ($model === null) {
-            $response = array(
-                'status' => false,
-            );
-        } else {
-            $attach = new AttachPhoto;
-            $attach->entity = Yii::app()->request->getPost('entity');
-            $attach->entity_id = Yii::app()->request->getPost('entity_id');
-            $attach->photo_id = $model->primaryKey;
-            $attach->save();
-
             $response = array(
                 'status' => true,
                 'src' => $model->getPreviewUrl(325, 252),
@@ -604,17 +556,19 @@ class AlbumsController extends HController
         $src = $photo->originalPath;
 
         $params = CJSON::decode($_POST['coords']);
-        $picture = new Imagick($src);
-        $picture->resizeimage($_POST['width'], $_POST['height'], imagick::COLOR_OPACITY, 1);
-        $picture->cropimage($params['w'], $params['h'], $params['x'], $params['y']);
 
-        $a1 = clone $picture;
-        $a1->resizeimage(24, 24, imagick::COLOR_OPACITY, 1);
-        $a1->writeImage($photo->getAvatarPath('small'));
+        Yii::import('site.frontend.extensions.EPhpThumb.*');
+        $image = new EPhpThumb();
+        $image->init(); //this is needed
+        $image = $image->create($src)
+            ->resize($_POST['width'], $_POST['height'])
+            ->crop($params['x'], $params['y'], $params['w'], $params['h']);
 
-        $a2 = clone $picture;
-        $a2->resizeimage(72, 72, imagick::COLOR_OPACITY, 1);
-        $a2->writeImage($photo->getAvatarPath('ava'));
+        $thumb = clone $image;
+        $thumb->adaptiveResize(72,72)->save($photo->getAvatarPath('ava'));
+
+        $thumb = clone $image;
+        $thumb->adaptiveResize(24, 24)->save($photo->getAvatarPath('small'));
 
         $attach = new AttachPhoto;
         $attach->entity = 'User';

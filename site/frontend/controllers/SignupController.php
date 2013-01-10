@@ -77,6 +77,8 @@ class SignupController extends HController
             }
 
             if ($result) {
+                UserRegister::create($model->id);
+
                 if (!empty($model->birthday))
                     UserScores::checkProfileScores($model->id, ScoreAction::ACTION_PROFILE_BIRTHDAY);
 
@@ -253,6 +255,7 @@ class SignupController extends HController
             $model->$attribute = Yii::app()->request->getPost($attribute);
 
         $type = Yii::app()->request->getPost('type');
+        Yii::app()->user->setState('register_type', $type);
 
         Yii::app()->clientScript->scriptMap = array(
             'jquery.js' => false,

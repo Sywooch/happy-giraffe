@@ -4,6 +4,7 @@
         'entity' => 'Album',
         'entity_id' => $data->album->id,
         'entity_url' => $data->album->url,
+        'place'=>'gallery'
     ));
 ?>
 

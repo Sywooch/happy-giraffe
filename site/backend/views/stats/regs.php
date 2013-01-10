@@ -4,16 +4,21 @@
     $date = date("Y-m-d", strtotime('-' . $i . ' days'));
     $condition = 'register_date >= "' . $date . ' 00:00:00" AND register_date <= "' . $date . ' 23:59:59";';
 
-    $regs_count = Yii::app()->db->createCommand()->select('count(id)')->from('users')->where($condition)->queryScalar();
+    $users = User::model()->findAll($condition);
 
     $ips = Yii::app()->db->createCommand()->select('last_ip')->from('users')->where($condition)->queryColumn();
     if (count($ips) > 0)
         $percent = round(100 * count(array_unique($ips)) / count($ips));
     else
         $percent = 100;
+
+    $types = UserRegister::getCountByType($users)
+
     ?>
     <div>
-        <span><?=$date ?>&nbsp;&nbsp;&nbsp;&nbsp;</span><span><?=$regs_count ?> : <?=$percent ?>%</span>
+        <span><?=$date ?>&nbsp;&nbsp;&nbsp;&nbsp;</span><span><?=count($users) ?>
+      | обычная: <?=$types['default'] ?> | гороскоп: <?=$types['horoscope'] ?> | беременность: <?=$types['pregnancy'] ?>  | <?=$percent ?>%
+    </span>
     </div><?php } ?>
 </div>
 <div>

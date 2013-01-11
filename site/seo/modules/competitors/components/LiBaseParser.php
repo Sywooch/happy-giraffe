@@ -38,6 +38,11 @@ class LiBaseParser
         if ($this->use_proxy) {
             curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
             curl_setopt($ch, CURLOPT_PROXY, $this->getProxy());
+
+            if (getenv('SERVER_ADDR') != '5.9.7.81') {
+                curl_setopt($ch, CURLOPT_PROXYUSERPWD, "alexk984:Nokia12345");
+                curl_setopt($ch, CURLOPT_PROXYAUTH, 1);
+            }
         }
 
         curl_setopt($ch, CURLOPT_COOKIEFILE, $this->getCookieFile());

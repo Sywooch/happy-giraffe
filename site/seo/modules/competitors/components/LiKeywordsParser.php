@@ -13,9 +13,6 @@ class LiKeywordsParser extends LiBaseParser
 
     public function start($site_id)
     {
-        $this->use_proxy = false;
-        $this->debug_mode = true;
-
         $this->site = $this->loadModel($site_id);
         $this->log('Start parsing site '.$this->site->id.' '.$this->site->name);
 

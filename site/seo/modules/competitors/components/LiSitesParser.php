@@ -46,11 +46,13 @@ class LiSitesParser extends LiBaseParser
                         $public = $this->checkPhrasesPublicity($stat_url);
 
                     $this->addSite($site_url, $stat_url, $visits, $public);
+
+                    $count++;
                 }
             }
         }
 
-        return $count;
+        $this->log($count);
     }
 
     public function addSite($site_url, $stat_url, $visits, $public)

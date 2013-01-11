@@ -272,4 +272,9 @@ function addMenuToggle(el) {
 function setRedirectUrl(){
     Register.redirectUrl = location.href;
     Register.gotoComment = 1;
+    $('#login-form input[name=redirect_type]').val('comment');
+}
+function gotoComment(){
+    $('.layout-container').animate({scrollTop:$('#comment_list').get(0).offsetTop + 100}, "fast");
+    $('#dummy-comment').trigger('click');
 }

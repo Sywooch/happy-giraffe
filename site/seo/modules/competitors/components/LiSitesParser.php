@@ -10,7 +10,6 @@ class LiSitesParser extends LiBaseParser
 
     public function start($start_page = 1)
     {
-        $this->use_proxy = false;
         $this->start_page = $start_page;
         $this->page = $start_page;
 

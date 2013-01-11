@@ -72,10 +72,8 @@ class LiBaseParser
 
     public function getProxy()
     {
-        if (empty($this->proxy)) {
+        if (empty($this->proxy))
             $this->changeRuProxy();
-            $this->log("new proxy: " . $this->proxy);
-        }
 
         return $this->proxy;
     }

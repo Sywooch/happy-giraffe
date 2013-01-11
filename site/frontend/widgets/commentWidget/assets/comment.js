@@ -269,12 +269,8 @@ function addMenuToggle(el) {
     $(el).parents('.add-menu').find('.btn i').toggleClass('arr-t');
 }
 
-function setRedirectUrl(){
+function setRedirectUrl(elem){
     Register.redirectUrl = location.href;
     Register.gotoComment = 1;
-    $('#login-form input[name=redirect_type]').val('comment');
-}
-function gotoComment(){
-    $('.layout-container').animate({scrollTop:$('#comment_list').get(0).offsetTop + 100}, "fast");
-    $('#dummy-comment').trigger('click');
+    $('#login-form input[name=redirect_to]').val(elem);
 }

@@ -4504,6 +4504,7 @@ ul.letters li a:hover {
 
 .recipe-categories {margin-bottom:80px;}
 .recipe-categories__section{
+    background: #fff;
     background:rgba(255,255,255,.65);
     padding:0 20px;
     margin-bottom: 20px;
@@ -4511,7 +4512,7 @@ ul.letters li a:hover {
     border-bottom-right-radius: 5px;
 }
 
-.recipe-categories ul {list-style:none;padding:10px 0;margin:0 0 30px;}
+.recipe-categories ul {list-style:none;padding:10px 0 20px;margin:0 0 20px;}
 .recipe-categories ul li {margin-right:-1px;position: relative;}
 .recipe-categories ul li a {display: block;padding:7px 0;}
 .recipe-categories ul li.active {

@@ -39,8 +39,8 @@
 								<div class="section-menu-top">
 									<div class="section-menu_t">Тысячи рецептов <div class="section-menu_t-small">от наших пользователей</div></div>
 									<div class="section-menu_search clearfix">
-										<input type="submit" value="" class="section-menu_search-submit">
 										<input type="text" class="section-menu_search-itx" placeholder="Поиск из 12 687 рецептов">
+										<input type="submit" value="" class="section-menu_search-submit">
 									</div>
 								</div>
 							</div>
@@ -185,20 +185,18 @@
 						</div>
 						<div class="col-23-big">
 							<div class="section-cnt">
+		<script>
+		$(function() {
+			$('.js-isotop').isotope({
+			  itemSelector : '.masonry-news-list_item',
+			   masonry: {
+			        columnWidth: 240
+			    }
+			});
+		});
+		</script>
 								<div class="masonry-news-list clearfix">
-						<script>
-  $(function(){
-
-        $(".masonry-news-list").masonry({
-          itemSelector : '.masonry-news-list_item',
-          columnWidth: 240,
-          isAnimated: false,
-          animationOptions: { queue: false, duration: 500 }
-        });
-
-  })
-						</script>
-							<ul>
+							<ul class="js-isotop">
 								<li class="masonry-news-list_item">
 									<h3 class="masonry-news-list_title">
 										<a href="">Волшебная азбука</a>
@@ -363,7 +361,7 @@
 							</ul>
 								</div>
 								<div class="clearfix textalign-c">
-									<a href="" class="btn-green btn-medium btn-green_medium__corner-r">Все рецепты</a>
+									<a href="" class="btn-green_medium__corner-r">Все рецепты</a>
 								</div>
 							</div>
 						</div>
@@ -420,7 +418,12 @@
 			</div>
 			<div class="b-multivarka">
 				<div class="b-multivarka_hold clearfix">
-					<div class="b-multivarka_logo"></div>
+					<div class="b-multivarka_logo">
+						<div class="b-multivarka_logo-tx">
+							<span class="b-multivarka_logo-count">3 000</span>
+							рецептов для мультиварок
+						</div>
+					</div>
 					<div class="b-multivarka_ul">
 						<ul>
 							<li class="b-multivarka_li">
@@ -632,7 +635,7 @@
 		</div>  	
 		<div class="section section__gray">
 			<div class="section_hold">
-				<div class="masonry-news-list  margin-l20">
+				<div class="masonry-news-list  margin-l20 margin-t10 clearfix">
 					<ul>
 						<li class="masonry-news-list_item margin-b0">
 							<div class="online-status">На сайте</div>
@@ -657,7 +660,7 @@
 								<div class="float-l margin-r15 margin-l10 clearfix">
 									<img alt="" src="/images/section/cook/cook-book.png">
 								</div>
-								<div class="">
+								<div class="margin-b5">
 									<div class="margin-b5">Моя кулинарная <br>книга</div>
 									<a href="" class="color-carrot">1 288 рецептов</a>
 								</div>
@@ -686,7 +689,7 @@
 								<div class="float-l margin-r15 margin-l10 clearfix">
 									<img alt="" src="/images/section/cook/cook-book.png">
 								</div>
-								<div class="">
+								<div class="margin-b5">
 									<div class="margin-b5">Моя кулинарная <br>книга</div>
 									<a href="" class="color-carrot">1 288 рецептов</a>
 								</div>
@@ -716,7 +719,7 @@
 								<div class="float-l margin-r15 margin-l10 clearfix">
 									<img alt="" src="/images/section/cook/cook-book.png">
 								</div>
-								<div class="">
+								<div class="margin-b5">
 									<div class="margin-b5">Моя кулинарная <br>книга</div>
 									<a href="" class="color-carrot">1 288 рецептов</a>
 								</div>
@@ -746,7 +749,7 @@
 								<div class="float-l margin-r15 margin-l10 clearfix">
 									<img alt="" src="/images/section/cook/cook-book.png">
 								</div>
-								<div class="">
+								<div class="margin-b5">
 									<div class="margin-b5">Моя кулинарная <br>книга</div>
 									<a href="" class="color-carrot">1 288 рецептов</a>
 								</div>
@@ -771,6 +774,20 @@
 						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/20909/small/e13fab92d1a406a9ffca8881a6afa24b.jpg"></a></li>
 						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/15496/small/avatar.jpeg"></a></li>
 						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/15496/small/avatar.jpeg"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/15496/small/avatar.jpeg"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/15496/small/avatar.jpeg"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/20909/small/e13fab92d1a406a9ffca8881a6afa24b.jpg"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/15496/small/avatar.jpeg"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/15496/small/avatar.jpeg"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/15496/small/avatar.jpeg"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/20909/small/e13fab92d1a406a9ffca8881a6afa24b.jpg"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/15496/small/avatar.jpeg"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/15496/small/avatar.jpeg"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/15496/small/avatar.jpeg"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/15496/small/avatar.jpeg"></a></li>
 						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/15292/small/avatar.jpeg"></a></li>
 						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/15496/small/avatar.jpeg"></a></li>
 						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG"></a></li>
@@ -799,6 +816,20 @@
 						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/15496/small/avatar.jpeg"></a></li>
 						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG"></a></li>
 						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/15496/small/avatar.jpeg"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/15496/small/avatar.jpeg"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/15496/small/avatar.jpeg"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/15292/small/avatar.jpeg"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/15496/small/avatar.jpeg"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/15496/small/avatar.jpeg"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/20909/small/e13fab92d1a406a9ffca8881a6afa24b.jpg"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/15496/small/avatar.jpeg"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/15496/small/avatar.jpeg"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/15292/small/avatar.jpeg"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/15496/small/avatar.jpeg"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG"></a></li>
+						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/15496/small/avatar.jpeg"></a></li>
 						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/15496/small/avatar.jpeg"></a></li>
 						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/15496/small/avatar.jpeg"></a></li>
 						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG"></a></li>
@@ -806,10 +837,7 @@
 						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/15496/small/avatar.jpeg"></a></li>
 						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/15496/small/avatar.jpeg"></a></li>
 						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG"></a></li>
-						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/15496/small/avatar.jpeg"></a></li>
-						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/20909/small/e13fab92d1a406a9ffca8881a6afa24b.jpg"></a></li>
-						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/15496/small/avatar.jpeg"></a></li>
-						<li class="ava-small-list_li"><a href="" class="ava small"><img alt="" src="http://img.happy-giraffe.ru/avatars/15496/small/avatar.jpeg"></a></li>
+						<li class="ava-small-list_li"><span class="ava-small-list_count">еще 4 577</span></li>
 					</ul>
 				</div>
 			</div>
@@ -820,6 +848,254 @@
 						<div class="section-join_tx">Мы здесь готовим вместе!</div>
 					</div>
 					<div class="section-join_btn btn-green btn-h55">Присоединяйтесь!</div>
+				</div>
+			</div>
+		</div>
+		<div class="section section__gray">
+			<div class="section_hold">
+				<div class="section_t-hold">
+					<a href="" class="float-r"><i class="icon-friends-small"></i>Найти еще</a>
+					<h2>Наши кулинары</h2>
+				</div>
+				<div class="masonry-news-list  margin-l20 margin-t10 clearfix">
+					<ul class="js-isotop">
+						<li class="masonry-news-list_item">
+							<div class="online-status">На сайте</div>
+							<div class="user-info-big clearfix">
+								<div class="user-info clearfix">
+									<a class="ava female"><img alt="" src="http://img.happy-giraffe.ru/avatars/10450/ava/5fec5b9b0212f2f55da541aeae22b9ec.JPG"></a>
+									<div class="details">
+										<a class="username" href="">Викториал Богоявленский</a>
+										<div class="date">35 лет (22 января)</div>
+						                <div class="location"><div title="Украина" class="flag flag-ua"></div>Луцк</div>
+									</div>
+								</div>
+							</div>
+							<div class="user-fast-buttons">
+								<a class="add-friend" href=""><span class="tip">Пригласить в друзья</span></a>
+								<a class="new-message" href=""><span class="tip">Написать сообщение</span></a>
+								<a href="">Анкета</a>
+								<a href="">Блог</a><sup class="count">9999</sup>
+								<a href="">Фото</a><sup class="count">9999</sup>
+							</div>
+							<div class="clearfix margin-t10">
+								<div class="float-l margin-r15 margin-l10 clearfix">
+									<img alt="" src="/images/section/cook/cook-book.png">
+								</div>
+								<div class="margin-b5">
+									<div class="margin-b5">Моя кулинарная <br>книга</div>
+									<a href="" class="color-carrot">1 288 рецептов</a>
+								</div>
+							</div>
+						</li>
+						
+						<li class="masonry-news-list_item">
+							<div class="user-info-big clearfix">
+								<div class="user-info clearfix">
+									<a class="ava female"><img alt="" src="http://img.happy-giraffe.ru/avatars/56/ava/e270c4d21ee53c19d09a1ff3ff6ee473.jpg"></a>
+									<div class="details">
+										<a class="username" href="">Саша</a>
+										<div class="date">35 лет (22 января)</div>
+						                <div class="location"><div title="Россия" class="flag flag-ru"></div>Гаврилов-Ям Ярославская обл.</div>
+									</div>
+								</div>
+							</div>
+							<div class="user-fast-buttons">
+								<a class="add-friend" href=""><span class="tip">Пригласить в друзья</span></a>
+								<a class="new-message" href=""><span class="tip">Написать сообщение</span></a>
+								<a href="">Анкета</a>
+								<a href="">Блог</a><sup class="count">9999</sup>
+								<a href="">Фото</a><sup class="count">999</sup>
+							</div>
+							<div class="clearfix margin-t10">
+								<div class="float-l margin-r15 margin-l10 clearfix">
+									<img alt="" src="/images/section/cook/cook-book.png">
+								</div>
+								<div class=margin-b5"">
+									<div class="margin-b5">Моя кулинарная <br>книга</div>
+									<a href="" class="color-carrot">1 288 рецептов</a>
+								</div>
+							</div>
+						</li>
+						
+						<li class="masonry-news-list_item">
+							<div class="online-status">На сайте</div>
+							<div class="user-info-big clearfix">
+								<div class="user-info clearfix">
+									<a class="ava female"><img alt="" src="http://img.happy-giraffe.ru/avatars/10450/ava/5fec5b9b0212f2f55da541aeae22b9ec.JPG"></a>
+									<div class="details">
+										<a class="username" href="">Викториал Богоявленский</a>
+										<div class="date">35 лет (22 января)</div>
+						                <div class="location"><div title="Россия" class="flag flag-ru"></div>Гаврилов-Ям Ярославская обл.</div>
+									</div>
+								</div>
+							</div>
+							<div class="user-fast-buttons">
+								<a class="add-friend" href=""><span class="tip">Пригласить в друзья</span></a>
+								<a class="new-message" href=""><span class="tip">Написать сообщение</span></a>
+								<a href="">Анкета</a>
+								<a href="">Блог</a><sup class="count">9</sup>
+								<a href="">Фото</a><sup class="count">99</sup>
+							</div>
+							<div class="clearfix margin-t10">
+								<div class="float-l margin-r15 margin-l10 clearfix">
+									<img alt="" src="/images/section/cook/cook-book.png">
+								</div>
+								<div class="margin-b5">
+									<div class="margin-b5">Моя кулинарная <br>книга</div>
+									<a href="" class="color-carrot">1 288 рецептов</a>
+								</div>
+							</div>
+						</li>
+						<li class="masonry-news-list_item">
+							<div class="online-status">На сайте</div>
+							<div class="user-info-big clearfix">
+								<div class="user-info clearfix">
+									<a class="ava female"><img alt="" src="http://img.happy-giraffe.ru/avatars/10450/ava/5fec5b9b0212f2f55da541aeae22b9ec.JPG"></a>
+									<div class="details">
+										<a class="username" href="">Викториал Богоявленский</a>
+										<div class="date">35 лет (22 января)</div>
+						                <div class="location"><div title="Россия" class="flag flag-ru"></div>Гаврилов-Ям Ярославская обл.</div>
+									</div>
+								</div>
+							</div>
+							<div class="user-fast-buttons">
+								<a class="add-friend" href=""><span class="tip">Пригласить в друзья</span></a>
+								<a class="new-message" href=""><span class="tip">Написать сообщение</span></a>
+								<a href="">Анкета</a>
+								<a href="">Блог</a><sup class="count">9</sup>
+								<a href="">Фото</a><sup class="count">99</sup>
+							</div>
+							<div class="clearfix margin-t10">
+								<div class="float-l margin-r15 margin-l10 clearfix">
+									<img alt="" src="/images/section/cook/cook-book.png">
+								</div>
+								<div class="margin-b5">
+									<div class="margin-b5">Моя кулинарная <br>книга</div>
+									<a href="" class="color-carrot">1 288 рецептов</a>
+								</div>
+							</div>
+						</li>
+
+						<li class="masonry-news-list_item">
+							<div class="online-status">На сайте</div>
+							<div class="user-info-big clearfix">
+								<div class="user-info clearfix">
+									<a class="ava female"><img alt="" src="http://img.happy-giraffe.ru/avatars/10450/ava/5fec5b9b0212f2f55da541aeae22b9ec.JPG"></a>
+									<div class="details">
+										<a class="username" href="">Викториал Богоявленский</a>
+										<div class="date">35 лет (22 января)</div>
+						                <div class="location"><div title="Россия" class="flag flag-ru"></div>Гаврилов-Ям Ярославская обл.</div>
+									</div>
+								</div>
+							</div>
+							<div class="user-fast-buttons">
+								<a class="add-friend" href=""><span class="tip">Пригласить в друзья</span></a>
+								<a class="new-message" href=""><span class="tip">Написать сообщение</span></a>
+								<a href="">Анкета</a>
+								<a href="">Блог</a>
+								<a href="">Фото</a>
+							</div>
+							<div class="clearfix margin-t10">
+								<div class="float-l margin-r15 margin-l10 clearfix">
+									<img alt="" src="/images/section/cook/cook-book.png">
+								</div>
+								<div class="margin-b5">
+									<div class="margin-b5">Моя кулинарная <br>книга</div>
+									<a href="" class="color-carrot">1 288 рецептов</a>
+								</div>
+							</div>
+						</li>
+						
+						<li class="masonry-news-list_item">
+							<div class="user-info-big clearfix">
+								<div class="user-info clearfix">
+									<a class="ava female"><img alt="" src="http://img.happy-giraffe.ru/avatars/56/ava/e270c4d21ee53c19d09a1ff3ff6ee473.jpg"></a>
+									<div class="details">
+										<a class="username" href="">Саша</a>
+										<div class="date">35 лет (22 января)</div>
+						                <div class="location"><div title="Россия" class="flag flag-ru"></div>Гаврилов-Ям Ярославская обл.</div>
+									</div>
+								</div>
+							</div>
+							<div class="user-fast-buttons">
+								<a class="add-friend" href=""><span class="tip">Пригласить в друзья</span></a>
+								<a class="new-message" href=""><span class="tip">Написать сообщение</span></a>
+								<a href="">Анкета</a>
+								<a href="">Блог</a><sup class="count">9999</sup>
+								<a href="">Фото</a><sup class="count">999</sup>
+							</div>
+							<div class="clearfix margin-t10">
+								<div class="float-l margin-r15 margin-l10 clearfix">
+									<img alt="" src="/images/section/cook/cook-book.png">
+								</div>
+								<div class="margin-b5">
+									<div class="margin-b5">Моя кулинарная <br>книга</div>
+									<a href="" class="color-carrot">1 288 рецептов</a>
+								</div>
+							</div>
+						</li>
+						
+						<li class="masonry-news-list_item">
+							<div class="online-status">На сайте</div>
+							<div class="user-info-big clearfix">
+								<div class="user-info clearfix">
+									<a class="ava female"><img alt="" src="http://img.happy-giraffe.ru/avatars/10450/ava/5fec5b9b0212f2f55da541aeae22b9ec.JPG"></a>
+									<div class="details">
+										<a class="username" href="">Викториал Богоявленский</a>
+										<div class="date">35 лет (22 января)</div>
+						                <div class="location"><div title="Россия" class="flag flag-ru"></div>Гаврилов-Ям Ярославская обл.</div>
+									</div>
+								</div>
+							</div>
+							<div class="user-fast-buttons">
+								<a class="add-friend" href=""><span class="tip">Пригласить в друзья</span></a>
+								<a class="new-message" href=""><span class="tip">Написать сообщение</span></a>
+								<a href="">Анкета</a>
+								<a href="">Блог</a><sup class="count">9</sup>
+								<a href="">Фото</a><sup class="count">99</sup>
+							</div>
+							<div class="clearfix margin-t10">
+								<div class="float-l margin-r15 margin-l10 clearfix">
+									<img alt="" src="/images/section/cook/cook-book.png">
+								</div>
+								<div class="margin-b5">
+									<div class="margin-b5">Моя кулинарная <br>книга</div>
+									<a href="" class="color-carrot">1 288 рецептов</a>
+								</div>
+							</div>
+						</li>
+
+						<li class="masonry-news-list_item">
+							<div class="online-status">На сайте</div>
+							<div class="user-info-big clearfix">
+								<div class="user-info clearfix">
+									<a class="ava female"><img alt="" src="http://img.happy-giraffe.ru/avatars/10450/ava/5fec5b9b0212f2f55da541aeae22b9ec.JPG"></a>
+									<div class="details">
+										<a class="username" href="">Викториал Богоявленский</a>
+										<div class="date">35 лет (22 января)</div>
+						                <div class="location"><div title="Россия" class="flag flag-ru"></div>Гаврилов-Ям Ярославская обл.</div>
+									</div>
+								</div>
+							</div>
+							<div class="user-fast-buttons">
+								<a class="add-friend" href=""><span class="tip">Пригласить в друзья</span></a>
+								<a class="new-message" href=""><span class="tip">Написать сообщение</span></a>
+								<a href="">Анкета</a>
+								<a href="">Блог</a>
+								<a href="">Фото</a>
+							</div>
+							<div class="clearfix margin-t10">
+								<div class="float-l margin-r15 margin-l10 clearfix">
+									<img alt="" src="/images/section/cook/cook-book.png">
+								</div>
+								<div class="margin-b5">
+									<div class="margin-b5">Моя кулинарная <br>книга</div>
+									<a href="" class="color-carrot">1 288 рецептов</a>
+								</div>
+							</div>
+						</li>
+					</ul>
 				</div>
 			</div>
 		</div>

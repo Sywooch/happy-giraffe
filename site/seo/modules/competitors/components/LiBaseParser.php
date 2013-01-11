@@ -84,6 +84,7 @@ class LiBaseParser
     {
         preg_match('/([\d:\.]+);RU/', $this->getRuProxyList(), $match);
         $this->proxy = $match[1];
+        $this->log('proxy: '.$this->proxy);
     }
 
     public function getRuProxyList()

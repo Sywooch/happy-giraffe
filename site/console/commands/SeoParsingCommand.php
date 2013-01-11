@@ -42,11 +42,11 @@ class SeoParsingCommand extends CConsoleCommand
             }
         } else {
             $parser = new LiParser;
-            $parser->start($site->id, 2012, 01, 01);
+            $parser->start($site, 2012, 01, 01);
         }
     }
 
-    public function actionLiKeywords(){
+    public function actionLiKeywords($site){
         Yii::import('site.seo.modules.competitors.components.*');
 
         $last_parsed = SeoUserAttributes::getAttribute('last_li_parsed_'.date("Y-m-d") , 1);
@@ -63,7 +63,7 @@ class SeoParsingCommand extends CConsoleCommand
                 SeoUserAttributes::setAttribute('last_li_parsed_'.date("Y-m-d"), $site->id, 1);
             }
         } else {
-            $parser->start($site->id);
+            $parser->start($site);
         }
     }
 }

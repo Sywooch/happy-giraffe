@@ -57,7 +57,7 @@ class DefaultController extends SController
     public function actionTest(){
         Yii::import('site.seo.modules.competitors.components.*');
 
-        $parser = new LiSitesParser(false, true);
-        $parser->start();
+        $parser = new LiKeywordsParser;
+        $parser->start(3);
     }
 }

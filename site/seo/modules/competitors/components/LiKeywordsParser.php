@@ -3,34 +3,34 @@
  * Author: alexk984
  * Date: 14.12.12
  */
-class LiKeywordsParser
+class LiKeywordsParser extends LiBaseParser
 {
     const STATS_LIMIT = 0;
     /**
      * @var Site
      */
     public $site;
-    public $last_url = '';
-    public $proxy = null;
 
     public function start($site_id)
     {
+        $this->use_proxy = false;
+        $this->debug_mode = true;
+
         $this->site = $this->loadModel($site_id);
-        echo 'Start parsing site '.$this->site->id.' '.$this->site->name."\n";
+        $this->log('Start parsing site '.$this->site->id.' '.$this->site->name);
 
         if (!empty($this->site->password))
             $this->Login();
         else{
             $this->loadPage('http://www.liveinternet.ru/stat/');
-            $this->loadPage('http://www.liveinternet.ru/stat/', 'url='.urlencode('http://'.$this->site->url).'&password=');
+            $this->loadPage('http://www.liveinternet.ru/stat/', 'LiveInternet', 'url='.urlencode('http://'.$this->site->url).'&password=');
             $this->last_url = 'http://www.liveinternet.ru/stat/'.$this->site->url.'/index.html';
         }
 
         $found = $this->parseStats();
-        echo $site_id.' - '.$found."\n";
+        $this->log($site_id.' - '.$found);
         //mail('alexk984@gmail.com', 'report parsing site '.$this->site->url, $found.' keywords parsed');
     }
-
 
     public function Login()
     {
@@ -42,17 +42,16 @@ class LiKeywordsParser
         $rnd = pq($rnd)->attr('value');
 
         $post = 'rnd='.$rnd.'&url='.urlencode('http://'.$this->site->url).'&password='.$this->site->password.'&keep_password=on&ok=+OK+';
-        $this->loadPage('http://www.liveinternet.ru/stat/', $post);
+        $this->loadPage('http://www.liveinternet.ru/stat/', 'LiveInternet', $post);
     }
 
 
     public function parseStats()
     {
         $found = 0;
-
         $this->loadPage('http://www.liveinternet.ru/stat/' . $this->site->url . '/queries.html');
 
-        $url = 'http://www.liveinternet.ru/stat/' . $this->site->url . '/queries.html?period=month;page=';
+        $url = 'http://www.liveinternet.ru/stat/' . $this->site->url . '/queries.html?period=month;total=yes;&per_page=100;page=';
         $result = $this->loadPage($url);
 
         $document = phpQuery::newDocument($result);
@@ -72,13 +71,13 @@ class LiKeywordsParser
             if ($count == 0)
                 break;
             if ($i % 10 == 0)
-                echo "Page $i\n";
+                $this->log("Page $i");
 
             $found += $count;
         }
 
-        echo "Last page -  $i\n";
-        echo "Found: $found \n";
+        $this->log("Last page -  $i");
+        $this->log("Found: $found");
 
         return $found;
     }
@@ -122,73 +121,6 @@ class LiKeywordsParser
         }
 
         return $count;
-    }
-
-    public function loadPage($page_url, $post = '', $attempt = 1)
-    {
-        sleep(1);
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:17.0) Gecko/20100101 Firefox/17.0');
-        curl_setopt($ch, CURLOPT_URL, $page_url);
-        curl_setopt($ch, CURLOPT_FAILONERROR, 1);
-
-        if (!empty($this->last_url))
-            curl_setopt($ch, CURLOPT_REFERER, $this->last_url);
-
-        if (!empty($post)){
-            curl_setopt($ch, CURLOPT_POST, 1);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
-            curl_setopt($ch, CURLOPT_HEADER, array('Content-Type: application/x-www-form-urlencoded', 'Content-Length: '.strlen($post)));
-        }
-
-        if (empty($this->site->password)){
-            curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
-            curl_setopt($ch, CURLOPT_PROXY, $this->getProxy());
-        }
-
-        curl_setopt($ch, CURLOPT_COOKIEFILE, $this->getCookieFile());
-        curl_setopt($ch, CURLOPT_COOKIEJAR, $this->getCookieFile());
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 60);
-        $result = curl_exec($ch);
-        curl_close($ch);
-
-        if ($result === false){
-            echo 'curl fail, attempt '.$attempt."\n";
-            $this->changeRuProxy();
-            if ($attempt == 3)
-                return false;
-
-            return $this->loadPage($page_url, $post, $attempt+1);
-        }
-
-        $this->last_url = $page_url;
-        return $result;
-    }
-
-    public function getCookieFile()
-    {
-        $filename = Yii::getPathOfAlias('site.common.cookies') . DIRECTORY_SEPARATOR . 'liveinternet_2.txt';
-
-        return $filename;
-    }
-
-    public function getProxy()
-    {
-        if (empty($this->proxy)){
-            $this->changeRuProxy();
-            echo "new proxy: ".$this->proxy."\n";
-        }
-
-        return $this->proxy;
-    }
-
-    public function changeRuProxy()
-    {
-        $proxy_list = file_get_contents('http://awmproxy.com/allproxy.php?country=1');
-        preg_match('/([\d:\.]+);RU/', $proxy_list, $match);
-        $this->proxy = $match[1];
     }
 
     /**

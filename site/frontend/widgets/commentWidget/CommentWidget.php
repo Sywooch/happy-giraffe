@@ -146,10 +146,5 @@ class CommentWidget extends CWidget
         ));
         $fileAttach->registerScripts();
         $this->endWidget();
-
-        if (Yii::app()->user->getState('redirect_type') == 'comment'){
-            Yii::app()->clientScript->registerScript('redirect_to_comment','gotoComment();');
-            Yii::app()->user->setState('redirect_type', null);
-        }
     }
 }

@@ -54,10 +54,10 @@ class LiBaseParser
         curl_close($ch);
 
         if ($result === false || strpos($result, $require_text) === false) {
-            $this->log("curl fail, attempt");
+            $this->log("curl fail");
             $this->changeRuProxy();
 
-            return $this->loadPage($page_url, $post);
+            return $this->loadPage($page_url, $require_text, $post);
         }
 
         $this->last_url = $page_url;
@@ -80,9 +80,8 @@ class LiBaseParser
 
     public function changeRuProxy()
     {
-        preg_match('/([\d:\.]+);RU/', $this->getRuProxyList(), $match);
-        $this->proxy = $match[1];
-        $this->log('proxy: '.$this->proxy);
+        preg_match_all('/([\d:\.]+);RU/', $this->getRuProxyList(), $matches);
+        $this->proxy = $matches[1][rand(0, count($matches[0]) - 1)];
     }
 
     public function getRuProxyList()

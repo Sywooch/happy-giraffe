@@ -13,7 +13,7 @@
         <div class="social-small-row clearfix">
             <em>или войти с помощью</em> <br>
             <ul class="social-list-small">
-                <?php Yii::app()->eauth->renderWidget(array('action' => 'signup/index', 'mode'=>'small')); ?>
+                <?php Yii::app()->eauth->renderWidget(array('action' => 'site/login', 'mode' => 'small', 'params'=>array('redirect_type' => 'comment'))); ?>
             </ul>
         </div>
     </div>

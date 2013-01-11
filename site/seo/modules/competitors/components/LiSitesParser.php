@@ -56,7 +56,7 @@ class LiSitesParser extends LiBaseParser
 
     public function addSite($site_url, $stat_url, $visits, $public)
     {
-        $this->log("$site_url - $stat_url - $visits - <b>$public</b> <br>");
+        $this->log("$site_url - $stat_url - $visits - $public");
 
         if (LiSite::model()->exists('url="' . $stat_url . '"') == false) {
             $site = new LiSite();

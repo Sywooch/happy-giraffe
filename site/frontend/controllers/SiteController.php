@@ -136,7 +136,11 @@ class SiteController extends HController
 	{
 		$service = Yii::app()->request->getQuery('service');
         $settings = Yii::app()->request->getQuery('settings');
+
 		if (isset($service)) {
+            if (isset($_GET['redirect_type']))
+                Yii::app()->user->setState('redirect_type', $_GET['redirect_type']);
+
             if (! in_array($service, array_keys(Yii::app()->eauth->services)))
                 throw new CHttpException(404, 'Страница не найдена');
 
@@ -221,8 +225,13 @@ class SiteController extends HController
 		if (isset($_POST['User']))
 		{
             $userModel->attributes = $_POST['User'];
-			if($userModel->validate())
+			if($userModel->validate()){
+                //check redirect
+                if (isset($_POST['redirect_type']))
+                    Yii::app()->user->setState('redirect_type', $_POST['redirect_type']);
+
                 $this->redirect(Yii::app()->request->urlReferrer);
+            }
 		}
 	}
 

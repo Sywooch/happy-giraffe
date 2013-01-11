@@ -80,8 +80,11 @@ class LiBaseParser
 
     public function changeRuProxy()
     {
-        preg_match_all('/([\d:\.]+);RU/', $this->getRuProxyList(), $matches);
-        $this->proxy = $matches[1][rand(0, count($matches[0]) - 1)];
+        if ($this->use_proxy) {
+            preg_match_all('/([\d:\.]+);RU/', $this->getRuProxyList(), $matches);
+            $this->proxy = $matches[1][rand(0, count($matches[0]) - 1)];
+        } else
+            Yii::app()->end();
     }
 
     public function getRuProxyList()
@@ -112,6 +115,6 @@ class LiBaseParser
     public function log($str)
     {
         if ($this->debug_mode)
-            echo $str."\n";
+            echo $str . "\n";
     }
 }

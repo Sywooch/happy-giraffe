@@ -52,38 +52,33 @@ class LiKeywordsParser
 
         $this->loadPage('http://www.liveinternet.ru/stat/' . $this->site->url . '/queries.html');
 
-        for ($day = 1; $day < 6; $day++) {
-            $date = date("Y-m-d", strtotime('-'.$day.' days'));
-            $url = 'http://www.liveinternet.ru/stat/' . $this->site->url
-                . '/queries.html?date=' . $date. '&per_page=100&page=';
+        $url = 'http://www.liveinternet.ru/stat/' . $this->site->url . '/queries.html?period=month;page=';
+        $result = $this->loadPage($url);
 
-            $result = $this->loadPage($url);
+        $document = phpQuery::newDocument($result);
+        $max_pages = $this->getPagesCount($document);
+        $count = $this->ParseDocument($document);
+
+        if ($count == 0){
+            return "Data not found on page - \n" . $url."\n";
+        }
+
+        for ($i = 2; $i <= $max_pages; $i++) {
+            $page_url = $url . $i;
+            $result = $this->loadPage($page_url);
 
             $document = phpQuery::newDocument($result);
-            $max_pages = $this->getPagesCount($document);
             $count = $this->ParseDocument($document);
+            if ($count == 0)
+                break;
+            if ($i % 10 == 0)
+                echo "Page $i\n";
 
-            if ($count == 0){
-                return "Data not found on page - \n" . $url."\n";
-            }
-
-            for ($i = 2; $i <= $max_pages; $i++) {
-                $page_url = $url . $i;
-                $result = $this->loadPage($page_url);
-
-                $document = phpQuery::newDocument($result);
-                $count = $this->ParseDocument($document);
-                if ($count == 0)
-                    break;
-                if ($i % 10 == 0)
-                    echo "Page $i\n";
-
-                $found += $count;
-            }
-
-            echo "Last page -  $i\n";
-            echo "$date - $found \n";
+            $found += $count;
         }
+
+        echo "Last page -  $i\n";
+        echo "Found: $found \n";
 
         return $found;
     }
@@ -104,8 +99,8 @@ class LiKeywordsParser
     {
         $count = 0;
         foreach ($document->find('table table') as $table) {
-            $text = pq($table)->find('tr:first td:last')->text();
-            if (strstr($text, 'в среднемза 7 дней') !== FALSE) {
+            $text = pq($table)->find('td:first')->text();
+            if (strstr($text, 'значения:суммарные') !== FALSE) {
                 $i = 0;
                 foreach (pq($table)->find('tr') as $tr) {
                     $i++;

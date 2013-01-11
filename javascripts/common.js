@@ -700,3 +700,4 @@ function SeCounter(){
     if (document.referrer.indexOf(domain) != 0 && document.referrer != '')
         $.post("/counter/", {referrer:document.referrer});
 }
+

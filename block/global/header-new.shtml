@@ -1,4 +1,4 @@
-		<div id="header-new" class="clearfix layout-header">
+		<div id="header-new" class="clearfix">
 			<div class="header-in">
 				<div class="clearfix">
 					
@@ -21,7 +21,7 @@
 					</div>
 					
 					<div class="banner-box">
-						<a href=""><img src="/images/banner_01.png" /></a>
+						<a href=""><img src="/images/contest/banner-w300-6.jpg" /></a>
 					</div>
 					
 				</div>

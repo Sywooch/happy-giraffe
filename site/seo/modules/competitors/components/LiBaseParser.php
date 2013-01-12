@@ -83,6 +83,7 @@ class LiBaseParser
         if ($this->use_proxy) {
             preg_match_all('/([\d:\.]+);RU/', $this->getRuProxyList(), $matches);
             $this->proxy = $matches[1][rand(0, count($matches[0]) - 1)];
+            $this->log('proxy: '.$this->proxy);
         }
     }
 

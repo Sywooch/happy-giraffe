@@ -49,7 +49,7 @@ class LiBaseParser
         curl_setopt($ch, CURLOPT_COOKIEJAR, $this->getCookieFile());
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 60);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 20);
         $result = curl_exec($ch);
         curl_close($ch);
 
@@ -72,7 +72,7 @@ class LiBaseParser
 
     public function getProxy()
     {
-        if (empty($this->use_proxy))
+        if (empty($this->proxy))
             $this->changeRuProxy();
 
         return $this->proxy;
@@ -83,8 +83,7 @@ class LiBaseParser
         if ($this->use_proxy) {
             preg_match_all('/([\d:\.]+);RU/', $this->getRuProxyList(), $matches);
             $this->proxy = $matches[1][rand(0, count($matches[0]) - 1)];
-        } else
-            Yii::app()->end();
+        }
     }
 
     public function getRuProxyList()

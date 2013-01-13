@@ -317,7 +317,7 @@ class SeoCommand extends CConsoleCommand
     public function actionParseTraffic()
     {
         Yii::import('site.frontend.components.*');
-        $date = date("Y-m-d", strtotime('-3 month'));
+        $date = date("Y-m-d", strtotime('-1 month'));
 
         $sections = TrafficSection::model()->findAll();
 

@@ -145,17 +145,6 @@ class SearchEngineVisits extends HActiveRecord
         return 0;
     }
 
-    public static function createPage($url, $month, $visits)
-    {
-        $page = Page::model()->getOrCreate('http://www.happy-giraffe.ru' . $url);
-
-        $model = new SearchEngineVisits();
-        $model->month = $month;
-        $model->count = $visits;
-        $model->page_id = $page->id;
-        $model->save();
-    }
-
     public static function updateStats($url, $month, $visits)
     {
         $page = Page::model()->getOrCreate('http://www.happy-giraffe.ru' . $url);

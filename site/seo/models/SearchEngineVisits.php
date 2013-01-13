@@ -151,7 +151,6 @@ class SearchEngineVisits extends HActiveRecord
 
         $model = SearchEngineVisits::model()->findByAttributes(array('page_id' => $page->id, 'month' => $month));
         if (!$model) {
-            echo "sdghfd\n";
             $model = new SearchEngineVisits();
             $model->month = $month;
             $model->page_id = $page->id;

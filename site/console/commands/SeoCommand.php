@@ -316,44 +316,7 @@ class SeoCommand extends CConsoleCommand
 
     public function actionParseTraffic()
     {
-        Yii::import('site.frontend.components.*');
-        $date = date("Y-m-d", strtotime('-1 month'));
-
-        $sections = TrafficSection::model()->findAll();
-
-        Yii::import('site.frontend.extensions.GoogleAnalytics');
-        $ga = new GoogleAnalytics('alexk984@gmail.com', Yii::app()->params['gaPass']);
-        $ga->setProfile('ga:53688414');
-
-        while (strtotime($date) < time()) {
-            echo $date . "\n";
-
-            foreach ($sections as $section) {
-                $traffic = TrafficStatisctic::model()->findByAttributes(array('date' => $date, 'section_id' => $section->id));
-                if ($traffic === null || strtotime($date) > strtotime('-2 days')) {
-                    if (!empty($section->url))
-                        $value = GApi::getUrlOrganicSearches($ga, $date, $date, '/' . $section->url . '/');
-                    else
-                        $value = GApi::getUrlOrganicSearches($ga, $date, $date, '/');
-
-                    if ($value == -1)
-                        Yii::app()->end();
-
-                    echo $section->url . ' - ' . $value . "\n";
-                    if ($value >= 0) {
-                        if ($traffic === null) {
-                            $traffic = new TrafficStatisctic();
-                            $traffic->section_id = $section->id;
-                            $traffic->date = $date;
-                        }
-                        $traffic->value = $value;
-                        $traffic->save();
-                    }
-                }
-            }
-
-            $date = date("Y-m-d", strtotime('+1 day', strtotime($date)));
-        }
+        TrafficStatisctic::model()->parse();
     }
 
     public function actionLi($site)

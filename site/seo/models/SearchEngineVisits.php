@@ -149,7 +149,7 @@ class SearchEngineVisits extends HActiveRecord
     {
         $page = Page::model()->getOrCreate('http://www.happy-giraffe.ru' . $url);
 
-        $model = SearchEngineVisits::model()->findByAttributes(array('page_id' => $page->id, 'month' => date("Y-m")));
+        $model = SearchEngineVisits::model()->findByAttributes(array('page_id' => $page->id, 'month' => $month));
         if ($model === null) {
             $model = new SearchEngineVisits();
             $model->month = $month;

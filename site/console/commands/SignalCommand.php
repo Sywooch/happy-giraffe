@@ -218,9 +218,9 @@ class SignalCommand extends CConsoleCommand
         $commentators = CommentatorWork::getWorkingCommentators();
 
         //test on some user
-//        foreach ($commentators as $key => $commentator)
-//            if ($commentator->user_id != 15385)
-//                unset($commentators[$key]);
+        foreach ($commentators as $key => $commentator)
+            if ($commentator->user_id == 15385)
+                unset($commentators[$key]);
 
         $this->loginGa();
 

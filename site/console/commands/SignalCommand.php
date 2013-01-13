@@ -231,7 +231,7 @@ class SignalCommand extends CConsoleCommand
                         echo "$url ga:$ga_visits, my:$my_visits \n";
 
                     if ($ga_visits > 0 && $my_visits != $ga_visits) {
-                        SearchEngineVisits::createPage($url, $month, $ga_visits);
+                        SearchEngineVisits::updateStats($url, $month, $ga_visits);
                     }
                 }
             }

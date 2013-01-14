@@ -75,12 +75,11 @@ class SeoParsingCommand extends CConsoleCommand
         $parser->start($page);
     }
 
-    public function actionParseSitesTest(){
+    public function actionLi2Parse(){
         Yii::import('site.seo.modules.competitors.components.*');
 
-        $parser = new LiSitesParser(true, $debug_mode = true);
-        $parser->changeRuProxy();
-        //$parser->start();
+        $parser = new Li2KeywordsParser(false, $debug_mode = true);
+        $parser->start();
     }
 }
 

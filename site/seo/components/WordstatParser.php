@@ -107,7 +107,7 @@ class WordstatParser extends ProxyParserThread
         $url = 'http://wordstat.yandex.ru/';
         $success = false;
 
-//        $this->log('starting get cookie');
+        $this->log('starting get cookie');
 
         while (!$success) {
             $data = $this->query($url);
@@ -137,7 +137,7 @@ class WordstatParser extends ProxyParserThread
             sleep(1);
         }
 
-//        $this->log('cookie received successfully');
+        $this->log('cookie received successfully');
     }
 
     private function parseQuery()
@@ -151,7 +151,7 @@ class WordstatParser extends ProxyParserThread
 
     public function parseData($html)
     {
-//        $this->log('parse page');
+        $this->log('parse page');
 
         $document = phpQuery::newDocument($html);
         $html = str_replace('&nbsp;', ' ', $html);
@@ -166,7 +166,7 @@ class WordstatParser extends ProxyParserThread
         if ($k == 0)
             return false;
 
-//        $this->log('valid page loaded');
+        $this->log('valid page loaded');
 
         //find keywords in block "Что искали со словом"
         foreach ($document->find('table.campaign tr td table:first td a') as $link) {
@@ -235,7 +235,7 @@ class WordstatParser extends ProxyParserThread
         if ($keyword_id == $this->keyword->keyword_id)
             return;
 
-//        $this->startTimer('add_keyword_to_parsing');
+        $this->startTimer('add_keyword_to_parsing');
 
         $yandex = YandexPopularity::model()->findByPk($keyword_id);
         //если уже спарсили полностью и была задана тематика
@@ -258,7 +258,7 @@ class WordstatParser extends ProxyParserThread
             $exist->save();
         }
 
-//        $this->endTimer();
+        $this->endTimer();
     }
 
     /**
@@ -266,7 +266,7 @@ class WordstatParser extends ProxyParserThread
      */
     public function RemoveCurrentKeywordFromParsing()
     {
-//        $this->startTimer('remove_from_parsing');
+        $this->startTimer('remove_from_parsing');
         //добавляем в спарсенные
         $yandex = YandexPopularity::model()->findByPk($this->keyword->keyword_id);
         if ($yandex !== null) {
@@ -277,7 +277,7 @@ class WordstatParser extends ProxyParserThread
 
         //удаляем кейворд из парсинга
         ParsingKeyword::model()->deleteByPk($this->keyword->keyword_id);
-//        $this->endTimer();
+        $this->endTimer();
     }
 
     /**

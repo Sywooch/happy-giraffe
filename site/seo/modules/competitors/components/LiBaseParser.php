@@ -111,7 +111,7 @@ class LiBaseParser
         $value = Yii::app()->cache->get($cache_id);
         if ($value === false) {
             $value = file_get_contents('http://awmproxy.com/allproxy.php?country=1');
-            Yii::app()->cache->set($cache_id, $value, 100);
+            Yii::app()->cache->set($cache_id, $value, 500);
         }
 
         return $value;

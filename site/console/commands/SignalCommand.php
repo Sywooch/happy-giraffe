@@ -219,7 +219,7 @@ class SignalCommand extends CConsoleCommand
 
         //test on some user
         foreach ($commentators as $key => $commentator)
-            if (in_array($commentator->user_id,  array(15385, 15363, 15426)))
+            if (in_array($commentator->user_id,  array(15426, 15363, 15328, 15292, 15322, 15385, 15468, 15496, 15493, 15545, 15551)))
                 unset($commentators[$key]);
 
         $this->loginGa();

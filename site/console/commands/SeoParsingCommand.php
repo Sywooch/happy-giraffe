@@ -36,13 +36,13 @@ class SeoParsingCommand extends CConsoleCommand
                 $sites = Site::model()->findAll();
 
             foreach ($sites as $site) {
-                $parser->start($site->id, 2012, 01, 01);
+                $parser->start($site->id, 2012, 1, 1);
 
                 SeoUserAttributes::setAttribute('last_li_parsed_'.date("Y-m") , $site->id, 1);
             }
         } else {
             $parser = new LiParser;
-            $parser->start($site, 2012, 01, 01);
+            $parser->start($site, 2012, 1, 1);
         }
     }
 
@@ -79,6 +79,14 @@ class SeoParsingCommand extends CConsoleCommand
         Yii::import('site.seo.modules.competitors.components.*');
 
         $parser = new Li2KeywordsParser(true, $debug);
+        $parser->start();
+    }
+
+    public function actionPassword($debug = false){
+        $debug = true;
+        Yii::import('site.seo.modules.competitors.components.*');
+
+        $parser = new LiPassword(true, $debug);
         $parser->start();
     }
 }

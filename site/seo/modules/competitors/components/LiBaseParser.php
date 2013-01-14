@@ -70,6 +70,12 @@ class LiBaseParser
         return $filename;
     }
 
+    protected function removeCookieFile()
+    {
+        if (file_exists($this->getCookieFile()))
+            unlink($this->getCookieFile());
+    }
+
     public function getProxy()
     {
         if (empty($this->proxy))
@@ -83,6 +89,18 @@ class LiBaseParser
         if ($this->use_proxy) {
             preg_match_all('/([\d:\.]+);RU/', $this->getRuProxyList(), $matches);
             $this->proxy = $matches[1][rand(0, count($matches[0]) - 1)];
+            $this->log('proxy: '.$this->proxy);
+        }
+    }
+
+    public function changeProxy()
+    {
+        if ($this->use_proxy) {
+            $criteria = new CDbCriteria;
+            $criteria->order = 'RAND()';
+            $proxy = Proxy::model()->find($criteria);
+
+            $this->proxy = $proxy->value;
             $this->log('proxy: '.$this->proxy);
         }
     }

@@ -12,6 +12,8 @@ class MailCommand extends CConsoleCommand
         Yii::import('site.frontend.modules.geo.models.*');
         Yii::import('site.frontend.modules.im.components.*');
         Yii::import('site.common.models.mongo.*');
+
+        return true;
     }
 
     public function actionWeeklyNews()

@@ -83,7 +83,6 @@ class SeoParsingCommand extends CConsoleCommand
     }
 
     public function actionPassword($debug = false){
-        $debug = true;
         Yii::import('site.seo.modules.competitors.components.*');
 
         $parser = new LiPassword(true, $debug);

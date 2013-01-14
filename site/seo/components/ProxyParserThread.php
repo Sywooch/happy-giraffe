@@ -73,8 +73,12 @@ class ProxyParserThread
             if ($this->use_proxy) {
                 curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
                 curl_setopt($ch, CURLOPT_PROXY, $this->proxy->value);
-                if (!in_array(getenv('SERVER_ADDR'), array('5.9.7.81', '88.198.24.104'))) {
-                    curl_setopt($ch, CURLOPT_PROXYUSERPWD, "alexk984:Nokia12345");
+                if (!in_array(getenv('SERVER_ADDR'), array('5.9.7.81'))) {
+
+                    if (getenv('SERVER_ADDR') == '88.198.24.104') {
+                        curl_setopt($ch, CURLOPT_PROXYUSERPWD, "alexhg:Nokia1111");
+                    } else
+                        curl_setopt($ch, CURLOPT_PROXYUSERPWD, "alexk984:Nokia12345");
                     curl_setopt($ch, CURLOPT_PROXYAUTH, 1);
                 }
             }
@@ -208,8 +212,8 @@ class ProxyParserThread
     public function endTimer()
     {
         $fh = fopen($dir = Yii::getPathOfAlias('application.runtime') . DIRECTORY_SEPARATOR . 'my_log.txt', 'a');
-        $long_time = 1000*(microtime(true) - $this->_start_time);
-        fwrite($fh, $this->_time_stamp_title.': '. $long_time . "\n");
+        $long_time = 1000 * (microtime(true) - $this->_start_time);
+        fwrite($fh, $this->_time_stamp_title . ': ' . $long_time . "\n");
     }
 
     protected function log($state)

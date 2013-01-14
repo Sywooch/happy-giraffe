@@ -10,9 +10,11 @@ class LiBaseParser
     public $last_url;
     public $use_proxy;
     public $debug_mode = false;
+    public $rus_proxy = true;
 
     public function __construct($use_proxy = true, $debug_mode = false)
     {
+        time_nanosleep(rand(0, 5), rand(0, 1000000000));
         $this->use_proxy = $use_proxy;
         $this->debug_mode = $debug_mode;
         $this->thread_id = substr(md5(microtime()), 0, 10);
@@ -78,8 +80,12 @@ class LiBaseParser
 
     public function getProxy()
     {
-        if (empty($this->proxy))
-            $this->changeRuProxy();
+        if (empty($this->proxy)){
+            if ($this->rus_proxy)
+                $this->changeRuProxy();
+            else
+                $this->changeProxy();
+        }
 
         return $this->proxy;
     }

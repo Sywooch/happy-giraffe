@@ -13,7 +13,7 @@ class LiPassword extends LiBaseParser
 
     public function start()
     {
-        while ($this->site !== null) {
+        while (true) {
             $this->getSite();
             $this->log('Start cracking site ' . $this->site->id . ' ' . $this->site->url);
             $this->crackPassword();
@@ -43,8 +43,6 @@ class LiPassword extends LiBaseParser
 
     public function crackPassword()
     {
-        $this->loadPage('http://www.liveinternet.ru/stat/');
-
         foreach ($this->passwords as $password){
             $result = $this->checkPassword($password);
             if ($result){

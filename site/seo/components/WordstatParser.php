@@ -158,15 +158,10 @@ class WordstatParser extends ProxyParserThread
         $html = str_replace('&mdash;', '—', $html);
 
         //find and add our keyword
-        $k = 0;
         if (preg_match('/— ([\d]+) показ[ов]*[а]* в месяц/', $html, $matches)) {
+            $this->log('valid page loaded');
             YandexPopularity::model()->addValue($this->keyword->keyword_id, $matches[1], $this->keyword->theme);
-            $k = 1;
-        }
-        if ($k == 0)
-            return false;
-
-        $this->log('valid page loaded');
+        } else return false;
 
         //find keywords in block "Что искали со словом"
         foreach ($document->find('table.campaign tr td table:first td a') as $link) {

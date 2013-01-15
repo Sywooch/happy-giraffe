@@ -52,4 +52,40 @@ class LiSite extends HActiveRecord
 
 		);
 	}
+
+    public function attributeLabels()
+    {
+        return array(
+            'id' => 'ID',
+            'url' => 'Url',
+            'site_url' => 'Site Url',
+            'password' => 'Password',
+            'public' => 'Public',
+            'active' => 'Active',
+        );
+    }
+
+    /**
+     * Retrieves a list of models based on the current search/filter conditions.
+     * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
+     */
+    public function search()
+    {
+        // Warning: Please modify the following code to remove attributes that
+        // should not be searched.
+
+        $criteria=new CDbCriteria;
+
+        $criteria->compare('id',$this->id,true);
+        $criteria->compare('url',$this->url,true);
+        $criteria->compare('site_url',$this->site_url,true);
+        $criteria->compare('password',$this->password,true);
+        $criteria->compare('public',$this->public);
+        $criteria->compare('active',$this->active);
+
+        return new CActiveDataProvider($this, array(
+            'criteria'=>$criteria,
+            'pagination' => array('pageSize' => 100),
+        ));
+    }
 }

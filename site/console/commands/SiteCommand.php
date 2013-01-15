@@ -238,51 +238,37 @@ class SiteCommand extends CConsoleCommand
     public function actionTest()
     {
         Yii::import('site.frontend.modules.geo.models.*');
-        $html = file_get_contents('http://ru.wikipedia.org/wiki/%D0%93%D0%BE%D1%80%D0%BE%D0%B4%D0%B0_%D0%A3%D0%BA%D1%80%D0%B0%D0%B8%D0%BD%D1%8B');
 
-        $document = phpQuery::newDocument($html);
-        $k = 0;
-        foreach ($document->find('#mw-content-text > ul > li') as $row) {
-            $city_name = trim(pq($row)->find('a:first')->text());
-            if ($city_name == 'Ямполь')
-                continue;
-            $region_name = trim(pq($row)->find('a:eq(1)')->text());
+        $city = new GeoCity;
+        $city->country_id = 221;
+        $city->region_id = 27;
+        $city->name = 'Киев';
+        $city->type = 'г';
+        $city->save();
+        echo $city->id . "\n";
 
-            if ($region_name == 'Автономная Республика Крым')
-                $region_name = 'Республика Крым';
-            if ($region_name == 'Ровненская область')
-                $region_name = 'Республика Крым';
-            //echo $city_name . ' - ' . $region_name . '<br>';
+        $city = new GeoCity;
+        $city->country_id = 221;
+        $city->region_id = 15;
+        $city->name = 'Севастополь';
+        $city->type = 'г';
+        $city->save();
+        echo $city->id . "\n";
 
-            $region = GeoRegion::model()->findByAttributes(array('country_id' => 221, 'name' => $region_name));
-            if ($region === null)
-                echo $region_name . ' not found<br>';
-            else {
-                $criteria = new CDbCriteria;
-                $criteria->compare('country_id',221);
-                $criteria->compare('region_id',$region->id);
-                $criteria->compare('name',$city_name);
-                $city = GeoCity::model()->find($criteria);
+        $city = new GeoCity;
+        $city->country_id = 174;
+        $city->region_id = 229;
+        $city->name = 'Москва';
+        $city->type = 'г';
+        $city->save();
+        echo $city->id . "\n";
 
-                if ($city === null){
-                    $city = new GeoCity;
-                    $city->country_id = 221;
-                    $city->region_id = $region->id;
-                    $city->name = $city_name;
-                    $city->type = 'г';
-                    $city->save();
-
-                    echo $city->id . "\n";
-                }else{
-                    $city->type = 'г';
-                    $city->save();
-                }
-            }
-
-            $k++;
-
-            if ($k >= 414)
-                break;
-        }
+        $city = new GeoCity;
+        $city->country_id = 174;
+        $city->region_id = 271;
+        $city->name = 'Санкт-Петербург';
+        $city->type = 'г';
+        $city->save();
+        echo $city->id . "\n";
     }
 }

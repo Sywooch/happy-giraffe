@@ -26,7 +26,6 @@ class LiBaseParser
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:17.0) Gecko/20100101 Firefox/17.0');
         curl_setopt($ch, CURLOPT_URL, $page_url);
-        curl_setopt($ch, CURLOPT_FAILONERROR, 1);
 
         if (!empty($this->last_url))
             curl_setopt($ch, CURLOPT_REFERER, $this->last_url);
@@ -42,6 +41,7 @@ class LiBaseParser
             curl_setopt($ch, CURLOPT_PROXY, $this->getProxy());
 
             if (!in_array(getenv('SERVER_ADDR'), array('5.9.7.81', '88.198.24.104'))) {
+                $this->log('proxy auth bu login');
                 curl_setopt($ch, CURLOPT_PROXYUSERPWD, "alexhg:Nokia1111");
                 curl_setopt($ch, CURLOPT_PROXYAUTH, 1);
             }

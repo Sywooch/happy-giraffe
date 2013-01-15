@@ -234,41 +234,4 @@ class SiteCommand extends CConsoleCommand
             }
         }
     }
-
-    public function actionTest()
-    {
-        Yii::import('site.frontend.modules.geo.models.*');
-
-        $city = new GeoCity;
-        $city->country_id = 221;
-        $city->region_id = 27;
-        $city->name = 'Киев';
-        $city->type = 'г';
-        $city->save();
-        echo $city->id . "\n";
-
-        $city = new GeoCity;
-        $city->country_id = 221;
-        $city->region_id = 15;
-        $city->name = 'Севастополь';
-        $city->type = 'г';
-        $city->save();
-        echo $city->id . "\n";
-
-        $city = new GeoCity;
-        $city->country_id = 174;
-        $city->region_id = 229;
-        $city->name = 'Москва';
-        $city->type = 'г';
-        $city->save();
-        echo $city->id . "\n";
-
-        $city = new GeoCity;
-        $city->country_id = 174;
-        $city->region_id = 271;
-        $city->name = 'Санкт-Петербург';
-        $city->type = 'г';
-        $city->save();
-        echo $city->id . "\n";
-    }
 }

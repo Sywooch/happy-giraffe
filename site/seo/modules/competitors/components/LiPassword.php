@@ -79,8 +79,9 @@ class LiPassword extends LiBaseParser
         if (strpos($html, 'Ошибка: зафиксирована попытка подбора пароля')) {
             $this->log('cracking detected');
             $this->removeCookieFile();
-            $this->changeProxy();
-            return $this->checkPassword($password);
+            return false;
+//            $this->changeProxy();
+//            return $this->checkPassword($password);
         }
 
         $this->log('unknown error');

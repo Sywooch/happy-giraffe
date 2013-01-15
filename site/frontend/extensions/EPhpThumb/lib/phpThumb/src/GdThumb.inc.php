@@ -105,16 +105,16 @@ class GdThumb extends ThumbBase
 		switch ($this->format)
 		{
 			case 'GIF':
-				@$this->oldImage = imagecreatefromgif($this->fileName);
+				$this->oldImage = imagecreatefromgif($this->fileName);
 				break;
 			case 'JPG':
-				@$this->oldImage = imagecreatefromjpeg($this->fileName);
+				$this->oldImage = imagecreatefromjpeg($this->fileName);
 				break;
 			case 'PNG':
-				@$this->oldImage = imagecreatefrompng($this->fileName);
+				$this->oldImage = imagecreatefrompng($this->fileName);
 				break;
 			case 'STRING':
-				@$this->oldImage = imagecreatefromstring($this->fileName);
+				$this->oldImage = imagecreatefromstring($this->fileName);
 				break;
 		}
 	

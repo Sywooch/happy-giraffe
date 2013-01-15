@@ -53,6 +53,9 @@ class LiPassword extends LiBaseParser
                 $this->log('PASSWORD SUCCESS: '.$password);
                 break;
             }
+
+            if ($result === -2)
+                break;
         }
     }
 
@@ -79,7 +82,7 @@ class LiPassword extends LiBaseParser
         if (strpos($html, 'Ошибка: зафиксирована попытка подбора пароля')) {
             $this->log('cracking detected');
             $this->removeCookieFile();
-            return false;
+            return -2;
 //            $this->changeProxy();
 //            return $this->checkPassword($password);
         }

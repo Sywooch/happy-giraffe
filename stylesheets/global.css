@@ -808,6 +808,7 @@ ul.topmenu,
 .contest-list > h1 {font:normal 30px/36px Tahoma, Arial, Verdana, sans-serif;color:#363535;margin:42px;text-align:center;padding-left:305px;}
 .contest-list_item {margin-bottom:50px;}
 .contest-list_banner {float:left;width:280px;min-height:250px;margin-right:25px;text-align:center;border:1px solid #e8e8e8;}
+.contest-list_banner img {display: block;}
 .contest-list_holder {overflow:hidden;height:1%;}
 .contest-list .content-title {text-align:center;}
 .contest-list .content-title > a{color:#0281b0;}

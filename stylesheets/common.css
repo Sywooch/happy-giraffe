@@ -471,12 +471,6 @@ textarea.error {border:1px solid #ff6767 !important;}
 
 
 /*  buttons */
-.btn-small {font-size: 11px;line-height: 17px;padding: 0 10px;-webkit-border-radius:7px;-moz-border-radius:7px;-ms-border-radius:7px;border-radius:7px;}
-.btn-medium {height:32px;font:bold 16px/32px Arial, Tahoma, Verdana, sans-serif;padding:0 14px;}
-.btn-h46 {height:46px;font:25px/46px Arial, Tahoma, Verdana, sans-serif;padding:0 19px;}
-.btn-h55 {height:55px;font:bold 28px/55px Arial, Tahoma, Verdana, sans-serif;padding:0 21px;}
-.btn-big {height:70px;line-height:70px;padding:0 19px;font-size:16px;font-weight:bold;}
-.btn-large {height:75px;line-height:75px;padding:0 35px;font-size:34px;font-weight:bold;}
 .but,
 .btn-blue,
 .btn-blue-light,
@@ -506,6 +500,12 @@ textarea.error {border:1px solid #ff6767 !important;}
     border-radius: 5px;
     behavior: url(/stylesheets/PIE.htc);
 }
+.btn-small {font-size: 11px;line-height: 17px;padding: 0 10px;-webkit-border-radius:7px;-moz-border-radius:7px;-ms-border-radius:7px;border-radius:7px;}
+.btn-medium {height:32px;font:bold 16px/32px Arial, Tahoma, Verdana, sans-serif;padding:0 14px;}
+.btn-h46 {height:46px;font:25px/46px Arial, Tahoma, Verdana, sans-serif;padding:0 19px;}
+.btn-h55 {height:55px;font:bold 28px/55px Arial, Tahoma, Verdana, sans-serif;padding:0 21px;}
+.btn-big {height:70px;line-height:70px;padding:0 19px;font-size:16px;font-weight:bold;}
+.btn-large {height:75px;line-height:75px;padding:0 35px;font-size:34px;font-weight:bold;}
 .btn-green {
     color: #fff;
     background: #21a34a; /* Old browsers */

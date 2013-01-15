@@ -57,7 +57,7 @@ class LiBaseParser
 
         if ($result === false || strpos($result, $require_text) === false) {
             if (strpos($result, $require_text) === false)
-                $this->log("text not found");
+                $this->log("text << $require_text >> not found");
             else
                 $this->log("curl fail ".curl_errno($ch));
             $this->proxy = null;

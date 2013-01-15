@@ -115,7 +115,7 @@ class TrafficStatisctic extends HActiveRecord
                     $traffic->date = $date;
                 }
                 $traffic->value = $value;
-                if ($date != date("Y-m-d"))
+                if ($date != date("Y-m-d") && $date != date("Y-m-d", strtotime('-1 day')))
                     $traffic->full = 1;
                 $traffic->save();
             }

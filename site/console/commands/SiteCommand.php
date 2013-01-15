@@ -234,4 +234,166 @@ class SiteCommand extends CConsoleCommand
             }
         }
     }
+
+    public function actionBelCities(){
+        $cities = 'Барановичи
+Барань
+Белоозёрск
+Берёза
+Березино
+Берёзовка
+Бобруйск
+Борисов
+Браслав
+Брест
+Буда-Кошелёво
+Быхов
+Василевичи
+Верхнедвинск
+Ветка
+Вилейка
+Витебск
+Волковыск
+Воложин
+Высокое
+Ганцевичи
+Глубокое
+Гомель
+Горки
+Городок
+Гродно
+Давид-Городок
+Дзержинск
+Дисна
+Добруш
+Докшицы
+Дрогичин
+Дубровно
+Дятлово
+Ельск
+Жабинка
+Житковичи
+Жлобин
+Жодино
+Заславль
+Иваново
+Ивацевичи
+Ивье
+Калинковичи
+Каменец
+Кировск
+Клецк
+Климовичи
+Кличев
+Кобрин
+Копыль
+Коссово
+Костюковичи
+Кричев
+Крупки
+Лепель
+Лида
+Логойск
+Лунинец
+Любань
+Ляховичи
+Малорита
+Марьина Горка
+Микашевичи
+Минск
+Миоры
+Могилёв
+Мозырь
+Молодечно
+Мосты
+Мстиславль
+Мядель
+Наровля
+Несвиж
+Новогрудок
+Новолукомль
+Новополоцк
+Орша
+Осиповичи
+Ошмяны
+Петриков
+Пинск
+Полоцк
+Поставы
+Пружаны
+Речица
+Рогачёв
+Светлогорск
+Свислочь
+Сенно
+Скидель
+Славгород
+Слоним
+Слуцк
+Смолевичи
+Сморгонь
+Солигорск
+Старые Дороги
+Столбцы
+Столин
+Толочин
+Туров
+Узда
+Фаниполь
+Хойники
+Чаусы
+Чашники
+Червень
+Чериков
+Чечерск
+Шклов
+Щучин';
+        $cities = explode("\n", $cities);
+
+        Yii::import('site.frontend.modules.geo.models.*');
+        foreach ($cities as $city) {
+            $city = trim($city);
+            $model = GeoCity::model()->find('country_id=20 AND name="' . $city . '"');
+            if ($model !== null) {
+                $model->type = 'г';
+                $model->update(array('type'));
+            }
+        }
+
+        $model = new GeoCity;
+        $model->country_id = 20;
+        $model->region_id = 38;
+        $model->name = 'Брест';
+        $model->type = 'г';
+        $model->save();
+
+        $model = new GeoCity;
+        $model->country_id = 20;
+        $model->region_id = 39;
+        $model->name = 'Витебск';
+        $model->type = 'г';
+        $model->save();
+
+        $region = new GeoRegion;
+        $region->country_id = 20;
+        $region->name = 'Минск';
+        $region->type = 'г';
+        $region->position = 2;
+        $region->save();
+
+        $model = new GeoCity;
+        $model->country_id = 20;
+        $model->region_id = $region->id;
+        $model->name = 'Минск';
+        $model->type = 'г';
+        $model->save();
+        $region->center_id = $model->id;
+
+        $model = new GeoCity;
+        $model->country_id = 20;
+        $model->region_id = 43;
+        $model->name = 'Могилёв';
+        $model->type = 'г';
+        $model->save();
+    }
 }

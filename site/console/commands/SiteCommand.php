@@ -235,33 +235,55 @@ class SiteCommand extends CConsoleCommand
         }
     }
 
-    public function actionTest(){
+    public function actionTest()
+    {
+        Yii::import('site.frontend.modules.geo.models.*');
         $html = file_get_contents('http://ru.wikipedia.org/wiki/%D0%93%D0%BE%D1%80%D0%BE%D0%B4%D0%B0_%D0%A3%D0%BA%D1%80%D0%B0%D0%B8%D0%BD%D1%8B');
 
         $document = phpQuery::newDocument($html);
-
-        $cities = array();
         $k = 0;
-        foreach ($document->find('#mw-content-text > ul > li') as $row){
-            $city_name = pq($row)->find('a:first')->text();
-            $region_name = pq($row)->find('a:eq(1)')->text();
-            echo $city_name.' - '.$region_name.'<br>';
+        foreach ($document->find('#mw-content-text > ul > li') as $row) {
+            $city_name = trim(pq($row)->find('a:first')->text());
+            if ($city_name == 'Ямполь')
+                continue;
+            $region_name = trim(pq($row)->find('a:eq(1)')->text());
+
+            if ($region_name == 'Автономная Республика Крым')
+                $region_name = 'Республика Крым';
+            if ($region_name == 'Ровненская область')
+                $region_name = 'Республика Крым';
+            //echo $city_name . ' - ' . $region_name . '<br>';
+
+            $region = GeoRegion::model()->findByAttributes(array('country_id' => 221, 'name' => $region_name));
+            if ($region === null)
+                echo $region_name . ' not found<br>';
+            else {
+                $criteria = new CDbCriteria;
+                $criteria->compare('country_id',221);
+                $criteria->compare('region_id',$region->id);
+                $criteria->compare('name',$city_name);
+                $city = GeoCity::model()->find($criteria);
+
+                if ($city === null){
+                    $criteria = new CDbCriteria;
+                    $criteria->compare('country_id',221);
+                    $criteria->compare('region_id',$region->id);
+                    $criteria->compare('name',$city_name, true);
+                    $city = GeoCity::model()->find($criteria);
+                    if ($city !== null){
+                        echo $city_name.' - '.$city->name.'<br>';
+                        $city->name = $city_name;
+                        $city->save();
+                    }
+
+                    //echo $city_name . ' not found<br>';
+                }
+            }
+
             $k++;
 
-            if ($k >= 459)
+            if ($k >= 414)
                 break;
         }
-
-//        Yii::import('site.frontend.modules.geo.models.*');
-//        foreach ($cities as $city) {
-//            $city = trim($city);
-//            $model = GeoCity::model()->find('country_id=109 AND name="' . $city . '"');
-//            if ($model !== null) {
-//                $model->type = 'г';
-//                $model->update(array('type'));
-//            }else{
-//                echo $city."<br>";
-//            }
-//        }
     }
 }

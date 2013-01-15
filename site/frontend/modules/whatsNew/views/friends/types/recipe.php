@@ -14,7 +14,7 @@
 <div class="masonry-news-list_content">
     <?php if ($data->recipe->mainPhoto !== null): ?>
         <div class="title-img">
-            <?=CHtml::link(HHtml::lazyImage($data->recipe->mainPhoto->getPreviewUrl(198, null, Image::WIDTH), $data->recipe->title).'<span class="btn-view">Посмотреть</span>', 'javascript:void(0)', array('data-id' => $data->recipe->mainPhoto->id))?>
+            <?=CHtml::link(CHtml::image($data->recipe->mainPhoto->getPreviewUrl(198, null, Image::WIDTH), $data->recipe->title).'<span class="btn-view">Посмотреть</span>', 'javascript:void(0)', array('data-id' => $data->recipe->mainPhoto->id))?>
         </div>
     <?php endif; ?>
     <p><?=Str::getDescription($data->recipe->text)?> <a href="<?=$data->recipe->url?>" class="all">Весь рецепт</a></p>

@@ -18,7 +18,9 @@ class Li2KeywordsParser extends LiBaseParser
             $this->log('Start parsing site ' . $this->site->id . ' ' . $this->site->url);
 
             $this->loadPage('http://www.liveinternet.ru/stat/');
-            $this->loadPage('http://www.liveinternet.ru/stat/', 'LiveInternet', 'url=' . urlencode('http://' . $this->site->url) . '&password=');
+            $this->loadPage('http://www.liveinternet.ru/stat/', 'LiveInternet',
+                'url=' . urlencode('http://' . $this->site->url)
+                    . '&password=' . (empty($this->site->password) ? '' : $this->site->password));
             $this->last_url = 'http://www.liveinternet.ru/stat/' . $this->site->url . '/index.html';
 
             $found = $this->parseStats();
@@ -35,7 +37,7 @@ class Li2KeywordsParser extends LiBaseParser
         $transaction = Yii::app()->db_seo->beginTransaction();
         try {
             $criteria = new CDbCriteria;
-            $criteria->condition = 'public=1 AND active=0';
+            $criteria->condition = '(public=1 OR password IS NOT NULL) AND active=0';
             $this->site = LiSite::model()->find($criteria);
             $this->site->active = 1;
             $this->site->save();
@@ -43,6 +45,7 @@ class Li2KeywordsParser extends LiBaseParser
             $transaction->commit();
         } catch (Exception $e) {
             $transaction->rollback();
+            sleep(10);
             $this->getSite();
         }
     }
@@ -91,7 +94,7 @@ class Li2KeywordsParser extends LiBaseParser
                 $max_pages = $name;
         }
 
-        $this->log($max_pages.' - pages count');
+        $this->log($max_pages . ' - pages count');
 
         return $max_pages;
     }
@@ -110,11 +113,6 @@ class Li2KeywordsParser extends LiBaseParser
                     $keyword = trim(pq($tr)->find('td:eq(1)')->text());
                     if (empty($keyword) || $keyword == 'Не определена' || $keyword == 'Другие' || $keyword == 'сумма выбранных' || $keyword == 'всего')
                         continue;
-
-//                    $stats = trim(pq($tr)->find('td:eq(2)')->text());
-//                    $stats = str_replace(',', '', $stats);
-//                    if ($stats < self::STATS_LIMIT)
-//                        return false;
 
                     Keyword::GetKeyword($keyword);
                     $count++;

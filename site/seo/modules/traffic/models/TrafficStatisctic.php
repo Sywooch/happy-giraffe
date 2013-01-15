@@ -54,7 +54,6 @@ class TrafficStatisctic extends HActiveRecord
             array('section_id, date, value', 'required'),
             array('value', 'numerical', 'integerOnly' => true),
             array('section_id', 'length', 'max' => 10),
-            array('section_id+date', 'uniqueMultiColumnValidator'),
         );
     }
 
@@ -115,7 +114,7 @@ class TrafficStatisctic extends HActiveRecord
                     $traffic->date = $date;
                 }
                 $traffic->value = $value;
-                if ($date != date("Y-m-d"))
+                if ($date != date("Y-m-d") && $date != date("Y-m-d", strtotime('-1 day')))
                     $traffic->full = 1;
                 $traffic->save();
             }

@@ -164,12 +164,4 @@ class SiteController extends SController
     {
         SeoUserAttributes::setAttribute('close_advert_' . SeoUserAttributes::ADVERT_ID, 1);
     }
-
-    public function actionTest(){
-        Yii::import('site.seo.modules.competitors.components.*');
-
-        $parser = new LiParser;
-        $parser->start(3, 2012, 11, 12);
-
-    }
 }

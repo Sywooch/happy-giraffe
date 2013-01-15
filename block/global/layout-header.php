@@ -21,7 +21,6 @@
 				}
 			?>
 			</div>
-<!--#printenv -->
 		</div>
 
 	</div>

@@ -51,14 +51,12 @@ class LiBaseParser
         curl_setopt($ch, CURLOPT_COOKIEJAR, $this->getCookieFile());
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 20);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
         $result = curl_exec($ch);
         curl_close($ch);
 
         if ($result === false || strpos($result, $require_text) === false) {
             if (strpos($result, $require_text) === false){
-                echo $result;
-                Yii::app()->end();
                 $this->log("text << $require_text >> not found");
             }
             else

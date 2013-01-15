@@ -50,22 +50,20 @@
 				</div>
 				
 				<div class="content-cols clearfix">
-					
-					<div class="col-12">
+				
+				
 						<div class="masonry-news-list">
-						<script>
-  $(function(){
-
-        $(".masonry-news-list").masonry({
-          itemSelector : '.masonry-news-list_item',
-          columnWidth: 240,
-          isAnimated: false,
-          animationOptions: { queue: false, duration: 500 }
-        });
-
-  })
-						</script>
-							<ul>
+		<script>
+		$(window).load(function() {
+			$('.js-isotop').isotope({
+				itemSelector : '.masonry-news-list_item',
+				 masonry: {
+					columnWidth: 240
+				}
+			});
+		});
+		</script>
+							<ul class="js-isotop">
 								<li class="masonry-news-list_item">
 									<h3 class="masonry-news-list_title">
 										<a href="">Волшебная азбука</a>
@@ -99,6 +97,334 @@
 									<div class="masonry-news-list_comment">
 										<div class="masonry-news-list_comment-text">
 											проблема в том, что на 2006-ой год игры еще толком не было
+										</div>
+										<div class="masonry-news-list_meta-info clearfix">
+											<div class="user-info">
+												<a class="ava female small"><img alt="" src="http://img.happy-giraffe.ru/avatars/19372/small/21fd8c8f29c5a289df17938cb2f20e5b.jpg"></a>
+												<div class="details">
+													<a class="username" href="">Александр</a>
+													<span class="date">Сегодня 13:25</span>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="comments-all">
+										<a href="">еще 124</a>
+										<a href="" class="icon-comment"></a>
+									</div>
+								</li>
+								<li class="masonry-news-list_item">
+									<h3 class="masonry-news-list_title">
+										<a href="">Волшебная азбука. Раннее развитие и обучение.</a>
+									</h3>
+									<div class="clearfix">
+										<a href="" class="club-category manwoman">Раннее развитие и обучение.</a>
+									</div>
+									<div class="masonry-news-list_meta-info clearfix">
+										
+										<div class="meta">
+											<div class="views"><span class="icon" href="#"></span> <span>11265</span></div>
+											<div class="comments empty">
+												<a class="icon" href="#"></a>
+											</div>
+										</div>
+										
+										<div class="user-info">
+											<a class="ava female small"></a>
+											<div class="details">
+												<a class="username" href="">Александр Богоявленский</a>
+												<span class="date">Сегодня 13:25</span>
+											</div>
+										</div>
+									</div>
+									<div class="masonry-news-list_content">
+										<p>Роды — отправная точка для самых важных изменений и судьбоносных... <a href="" class="all">Читать</a></p>
+									</div>
+								</li>
+								<li class="masonry-news-list_item">
+									<h3 class="masonry-news-list_title">
+										<a href="">Волшебная азбука</a>
+										<a href="" class="icon-photo"></a>
+									</h3>
+									<div class="clearfix">
+										<a href="" class="club-category">Раннее развитие и обучение</a>
+									</div>
+									<div class="masonry-news-list_meta-info clearfix">
+										
+										<div class="meta">
+										</div>
+										
+										<div class="user-info">
+											<a class="ava female small"></a>
+											<div class="details">
+												<a class="username" href="">Александр Богоявленский</a>
+												<span class="date">Сегодня 13:25</span>
+											</div>
+										</div>
+									</div>
+									<div class="masonry-news-list_content">
+										<img src="/images/example/gallery_album_img_10.jpg" alt="" />
+									</div>
+								</li>
+								<li class="masonry-news-list_item  masonry-news-list_item__decor-no">
+									<div class="best-users tabs">
+										<div class="best-users_title">Лучшие клабберы</div>
+										<div class="best-users_nav">
+											<ul>
+												<li class="best-users_nav_item active"><a  onclick="setTab(this, 1);" href="javascript:void(0);"><span>Сегодня</span></a></li>
+												<li class="best-users_nav_item"><a  onclick="setTab(this, 2);" href="javascript:void(0);"><span>Неделя</span></a></li>
+												<li class="best-users_nav_item"><a onclick="setTab(this, 1);" href="javascript:void(0);"><span>Месяц</span></a></li>
+											</ul>
+										</div>
+										<div class="tabs-container">
+											<div class="tab-box tab-box-1" style="display:block">
+												<table class="best-users_list" cellspacing="0" cellpadding="0">
+													<tr>
+														<th class="best-users_list-rank"></th>
+														<th class="best-users_list-ava"></th>
+														<th class="best-users_list-post">Тем</th>
+														<th class="best-users_list-comment"><i class="icon-comment"></i></th>
+														<th class="best-users_list-point">Баллов</th>
+													</tr>
+													<tr>
+														<td class="best-users_list-rank"><i class="rank rank1"></i></td>
+														<td class="best-users_list-ava">
+															<a class="ava female small" href=""><img alt="" src="http://img.happy-giraffe.ru/avatars/19372/small/21fd8c8f29c5a289df17938cb2f20e5b.jpg"></a>
+														</td>
+														<td class="best-users_list-post">128</td>
+														<td class="best-users_list-comment">3333</td>
+														<td class="best-users_list-point">3 565</td>
+													</tr>
+													<tr>
+														<td class="best-users_list-rank"><i class="rank rank2"></i></td>
+														<td class="best-users_list-ava">
+															<a class="ava female small" href=""><img alt="" src="http://img.happy-giraffe.ru/avatars/19372/small/21fd8c8f29c5a289df17938cb2f20e5b.jpg"></a>
+														</td>
+														<td class="best-users_list-post">128</td>
+														<td class="best-users_list-comment">33</td>
+														<td class="best-users_list-point">65</td>
+													</tr>
+													<tr>
+														<td class="best-users_list-rank"><i class="rank rank3"></i></td>
+														<td class="best-users_list-ava">
+															<a class="ava female small" href=""><img alt="" src="http://img.happy-giraffe.ru/avatars/19372/small/21fd8c8f29c5a289df17938cb2f20e5b.jpg"></a>
+														</td>
+														<td class="best-users_list-post">12833</td>
+														<td class="best-users_list-comment">3333</td>
+														<td class="best-users_list-point">3 565</td>
+													</tr>
+													<tr>
+														<td class="best-users_list-rank"><i class="rank rank4"></i></td>
+														<td class="best-users_list-ava">
+															<a class="ava female small" href=""><img alt="" src="http://img.happy-giraffe.ru/avatars/19372/small/21fd8c8f29c5a289df17938cb2f20e5b.jpg"></a>
+														</td>
+														<td class="best-users_list-post">128</td>
+														<td class="best-users_list-comment">3333</td>
+														<td class="best-users_list-point">3 565</td>
+													</tr>
+													<tr>
+														<td class="best-users_list-rank"><i class="rank rank5"></i></td>
+														<td class="best-users_list-ava">
+															<a class="ava female small" href=""><img alt="" src="http://img.happy-giraffe.ru/avatars/19372/small/21fd8c8f29c5a289df17938cb2f20e5b.jpg"></a>
+														</td>
+														<td class="best-users_list-post">1238</td>
+														<td class="best-users_list-comment">33</td>
+														<td class="best-users_list-point">355</td>
+													</tr>
+													<tr>
+														<td class="best-users_list-rank"><i class="rank rank6"></i></td>
+														<td class="best-users_list-ava">
+															<a class="ava female small" href=""></a>
+														</td>
+														<td class="best-users_list-post">128</td>
+														<td class="best-users_list-comment">3333</td>
+														<td class="best-users_list-point">3 565</td>
+													</tr>
+													<tr>
+														<td class="best-users_list-rank"><i class="rank rank7"></i></td>
+														<td class="best-users_list-ava">
+															<a class="ava female small" href=""><img alt="" src="http://img.happy-giraffe.ru/avatars/19372/small/21fd8c8f29c5a289df17938cb2f20e5b.jpg"></a>
+														</td>
+														<td class="best-users_list-post">128</td>
+														<td class="best-users_list-comment">3333</td>
+														<td class="best-users_list-point">3 565</td>
+													</tr>
+													<tr>
+														<td class="best-users_list-rank"><i class="rank rank8"></i></td>
+														<td class="best-users_list-ava">
+															<a class="ava female small" href=""><img alt="" src="http://img.happy-giraffe.ru/avatars/19372/small/21fd8c8f29c5a289df17938cb2f20e5b.jpg"></a>
+														</td>
+														<td class="best-users_list-post">128</td>
+														<td class="best-users_list-comment">3333</td>
+														<td class="best-users_list-point">3 565</td>
+													</tr>
+													<tr>
+														<td class="best-users_list-rank"><i class="rank rank9"></i></td>
+														<td class="best-users_list-ava">
+															<a class="ava female small" href=""></a>
+														</td>
+														<td class="best-users_list-post">128</td>
+														<td class="best-users_list-comment">3333</td>
+														<td class="best-users_list-point">3 565</td>
+													</tr>
+													<tr>
+														<td class="best-users_list-rank"><i class="rank rank10"></i></td>
+														<td class="best-users_list-ava">
+															<a class="ava female small" href=""></a>
+														</td>
+														<td class="best-users_list-post">128</td>
+														<td class="best-users_list-comment">3333</td>
+														<td class="best-users_list-point">3 565</td>
+													</tr>
+												</table>
+											</div>
+											<div class="tab-box tab-box-2">
+												<table class="best-users_list" cellspacing="0" cellpadding="0">
+													<tr>
+														<th class="best-users_list-rank"></th>
+														<th class="best-users_list-ava"></th>
+														<th class="best-users_list-post">Тем</th>
+														<th class="best-users_list-comment"><i class="icon-comment"></i></th>
+														<th class="best-users_list-point">Баллов</th>
+													</tr>
+													<tr>
+														<td class="best-users_list-rank"><i class="rank rank1"></i></td>
+														<td class="best-users_list-ava">
+															<a class="ava female small" href=""><img alt="" src="http://img.happy-giraffe.ru/avatars/19372/small/21fd8c8f29c5a289df17938cb2f20e5b.jpg"></a>
+														</td>
+														<td class="best-users_list-post">128</td>
+														<td class="best-users_list-comment">3</td>
+														<td class="best-users_list-point">3</td>
+													</tr>
+													<tr>
+														<td class="best-users_list-rank"><i class="rank rank2"></i></td>
+														<td class="best-users_list-ava">
+															<a class="ava female small" href=""><img alt="" src="http://img.happy-giraffe.ru/avatars/19372/small/21fd8c8f29c5a289df17938cb2f20e5b.jpg"></a>
+														</td>
+														<td class="best-users_list-post">1</td>
+														<td class="best-users_list-comment">33</td>
+														<td class="best-users_list-point">6555</td>
+													</tr>
+													<tr>
+														<td class="best-users_list-rank"><i class="rank rank3"></i></td>
+														<td class="best-users_list-ava">
+															<a class="ava female small" href=""><img alt="" src="http://img.happy-giraffe.ru/avatars/19372/small/21fd8c8f29c5a289df17938cb2f20e5b.jpg"></a>
+														</td>
+														<td class="best-users_list-post">12833</td>
+														<td class="best-users_list-comment">3333</td>
+														<td class="best-users_list-point">3 565</td>
+													</tr>
+													<tr>
+														<td class="best-users_list-rank"><i class="rank rank4"></i></td>
+														<td class="best-users_list-ava">
+															<a class="ava female small" href=""><img alt="" src="http://img.happy-giraffe.ru/avatars/19372/small/21fd8c8f29c5a289df17938cb2f20e5b.jpg"></a>
+														</td>
+														<td class="best-users_list-post">128</td>
+														<td class="best-users_list-comment">3333</td>
+														<td class="best-users_list-point">3 565</td>
+													</tr>
+													<tr>
+														<td class="best-users_list-rank"><i class="rank rank5"></i></td>
+														<td class="best-users_list-ava">
+															<a class="ava female small" href=""><img alt="" src="http://img.happy-giraffe.ru/avatars/19372/small/21fd8c8f29c5a289df17938cb2f20e5b.jpg"></a>
+														</td>
+														<td class="best-users_list-post">1238</td>
+														<td class="best-users_list-comment">33</td>
+														<td class="best-users_list-point">355</td>
+													</tr>
+													<tr>
+														<td class="best-users_list-rank"><i class="rank rank6"></i></td>
+														<td class="best-users_list-ava">
+															<a class="ava female small" href=""></a>
+														</td>
+														<td class="best-users_list-post">128</td>
+														<td class="best-users_list-comment">3333</td>
+														<td class="best-users_list-point">3 565</td>
+													</tr>
+													<tr>
+														<td class="best-users_list-rank"><i class="rank rank7"></i></td>
+														<td class="best-users_list-ava">
+															<a class="ava female small" href=""><img alt="" src="http://img.happy-giraffe.ru/avatars/19372/small/21fd8c8f29c5a289df17938cb2f20e5b.jpg"></a>
+														</td>
+														<td class="best-users_list-post">128</td>
+														<td class="best-users_list-comment">3333</td>
+														<td class="best-users_list-point">3 565</td>
+													</tr>
+													<tr>
+														<td class="best-users_list-rank"><i class="rank rank8"></i></td>
+														<td class="best-users_list-ava">
+															<a class="ava female small" href=""><img alt="" src="http://img.happy-giraffe.ru/avatars/19372/small/21fd8c8f29c5a289df17938cb2f20e5b.jpg"></a>
+														</td>
+														<td class="best-users_list-post">128</td>
+														<td class="best-users_list-comment">3333</td>
+														<td class="best-users_list-point">3 565</td>
+													</tr>
+													<tr>
+														<td class="best-users_list-rank"><i class="rank rank9"></i></td>
+														<td class="best-users_list-ava">
+															<a class="ava female small" href=""></a>
+														</td>
+														<td class="best-users_list-post">128</td>
+														<td class="best-users_list-comment">3333</td>
+														<td class="best-users_list-point">3 565</td>
+													</tr>
+													<tr>
+														<td class="best-users_list-rank"><i class="rank rank10"></i></td>
+														<td class="best-users_list-ava">
+															<a class="ava female small" href=""></a>
+														</td>
+														<td class="best-users_list-post">128</td>
+														<td class="best-users_list-comment">3333</td>
+														<td class="best-users_list-point">3 565</td>
+													</tr>
+												</table>
+											</div>
+										</div>
+									</div>
+								</li>
+								<li class="masonry-news-list_item">
+									<h3 class="masonry-news-list_title">
+										<a href="">Волшебная азбука</a>
+										<a href="" class="icon-photo"></a>
+									</h3>
+									<div class="clearfix">
+										<a href="" class="club-category">Раннее развитие и обучение</a>
+									</div>
+									<div class="masonry-news-list_meta-info clearfix">
+										
+										<div class="meta">
+											<div class="views"><span class="icon" href="#"></span> <span>265</span></div>
+											<div class="comments">
+												<a class="icon" href="#"></a>
+												<a href="">152</a>
+											</div>
+										</div>
+										
+										<div class="user-info">
+											<a class="ava female small"></a>
+											<div class="details">
+												<a class="username" href="">Александр Богоявленский</a>
+												<span class="date">Сегодня 13:25</span>
+											</div>
+										</div>
+									</div>
+									<div class="masonry-news-list_content">
+										<ul class="masonry-news-list_img-list clearfix">
+											<li><a href=""><img src="/images/example/w64-h61-1.jpg" alt="" /></a></li>
+											<li><a href=""><img src="/images/example/w64-h61-2.jpg" alt="" /></a></li>
+											<li><a href=""><img src="/images/example/w64-h61-2.jpg" alt="" /></a></li>
+											<li><a href=""><img src="/images/example/w64-h61-1.jpg" alt="" /></a></li>
+											<li><a href=""><img src="/images/example/w64-h61-2.jpg" alt="" /></a></li>
+											<li><a href=""><img src="/images/example/w64-h61-1.jpg" alt="" /></a></li>
+											<li><a href=""><img src="/images/example/w64-h61-2.jpg" alt="" /></a></li>
+											<li><a href=""><img src="/images/example/w64-h61-1.jpg" alt="" /></a></li>
+											<li><a href=""><img src="/images/example/w64-h61-2.jpg" alt="" /></a></li>
+										</ul>
+									</div>
+									
+									<div class="masonry-news-list_comment">
+										<div class="masonry-news-list_comment-text">
+											<a href="">проблема в том, что на 2006-ой год игры еще толком не было...</a>
 										</div>
 										<div class="masonry-news-list_meta-info clearfix">
 											<div class="user-info">
@@ -277,227 +603,144 @@
 										<a href="" class="icon-comment"></a>
 									</div>
 								</li>
+								<li class="masonry-news-list_item">
+									<h3 class="masonry-news-list_title">
+										<a href="">Волшебная азбука</a>
+										<a href="" class="icon-photo"></a>
+									</h3>
+									<div class="clearfix">
+										<a href="" class="club-category">Раннее развитие и обучение</a>
+									</div>
+									<div class="masonry-news-list_meta-info clearfix">
+										
+										<div class="meta">
+										</div>
+										
+										<div class="user-info">
+											<a class="ava female small"></a>
+											<div class="details">
+												<a class="username" href="">Александр Богоявленский</a>
+												<span class="date">Сегодня 13:25</span>
+											</div>
+										</div>
+									</div>
+									<div class="masonry-news-list_content">
+										<img src="/images/example/gallery_album_img_10.jpg" alt="" />
+									</div>
+								</li>
+								<li class="masonry-news-list_item">
+									<h3 class="masonry-news-list_title">
+										<a href="">Волшебная азбука</a>
+										<a href="" class="icon-video"></a>
+									</h3>
+									<div class="clearfix">
+										<a href="" class="club-category beauty">Раннее развитие и обучение</a>
+									</div>
+									<div class="masonry-news-list_meta-info clearfix">
+										
+										<div class="meta">
+											<div class="views"><span class="icon" href="#"></span> <span>265</span></div>
+											<div class="comments">
+												<a class="icon" href="#"></a>
+												<a href="">15233</a>
+											</div>
+										</div>
+										
+										<div class="user-info">
+											<a class="ava female small"></a>
+											<div class="details">
+												<a class="username" href="">Александр</a>
+												<span class="date">Сегодня 13:25</span>
+											</div>
+										</div>
+									</div>
+									<div class="masonry-news-list_content">
+										<img src="/images/example/gallery_album_img_10.jpg" alt="" />
+										<p>Роды — отправная точка для самых важных изменений и судьбоносных... <a href="" class="all">Читать</a></p>
+									</div>
+									<div class="masonry-news-list_comment">
+										<div class="masonry-news-list_comment-text">
+											<a href="">проблема в том, что на 2006-ой год игры еще толком не было...</a>
+										</div>
+										<div class="masonry-news-list_meta-info clearfix">
+											<div class="user-info">
+												<a class="ava female small"><img alt="" src="http://img.happy-giraffe.ru/avatars/19372/small/21fd8c8f29c5a289df17938cb2f20e5b.jpg"></a>
+												<div class="details">
+													<a class="username" href="">Александр</a>
+													<span class="date">Сегодня 13:25</span>
+												</div>
+											</div>
+										</div>
+									</div>
+									
+									<div class="comments-all">
+										<a href="">еще 124</a>
+										<a href="" class="icon-comment"></a>
+									</div>
+								</li>
+								<li class="masonry-news-list_item">
+									<h3 class="masonry-news-list_title">
+										<a href="">Волшебная азбука</a>
+										<a href="" class="icon-photo"></a>
+									</h3>
+									<div class="clearfix">
+										<a href="" class="club-category">Раннее развитие и обучение</a>
+									</div>
+									<div class="masonry-news-list_meta-info clearfix">
+										
+										<div class="meta">
+											<div class="views"><span class="icon" href="#"></span> <span>265</span></div>
+											<div class="comments">
+												<a class="icon" href="#"></a>
+												<a href="">152</a>
+											</div>
+										</div>
+										
+										<div class="user-info">
+											<a class="ava female small"></a>
+											<div class="details">
+												<a class="username" href="">Александр Богоявленский</a>
+												<span class="date">Сегодня 13:25</span>
+											</div>
+										</div>
+									</div>
+									<div class="masonry-news-list_content">
+										<ul class="masonry-news-list_img-list clearfix">
+											<li><a href=""><img src="/images/example/w64-h61-1.jpg" alt="" /></a></li>
+											<li><a href=""><img src="/images/example/w64-h61-2.jpg" alt="" /></a></li>
+											<li><a href=""><img src="/images/example/w64-h61-2.jpg" alt="" /></a></li>
+											<li><a href=""><img src="/images/example/w64-h61-1.jpg" alt="" /></a></li>
+											<li><a href=""><img src="/images/example/w64-h61-2.jpg" alt="" /></a></li>
+											<li><a href=""><img src="/images/example/w64-h61-1.jpg" alt="" /></a></li>
+											<li><a href=""><img src="/images/example/w64-h61-2.jpg" alt="" /></a></li>
+											<li><a href=""><img src="/images/example/w64-h61-1.jpg" alt="" /></a></li>
+											<li><a href=""><img src="/images/example/w64-h61-2.jpg" alt="" /></a></li>
+										</ul>
+									</div>
+									
+									<div class="masonry-news-list_comment">
+										<div class="masonry-news-list_comment-text">
+											<a href="">проблема в том, что на 2006-ой год игры еще толком не было...</a>
+										</div>
+										<div class="masonry-news-list_meta-info clearfix">
+											<div class="user-info">
+												<a class="ava female small"><img alt="" src="http://img.happy-giraffe.ru/avatars/19372/small/21fd8c8f29c5a289df17938cb2f20e5b.jpg"></a>
+												<div class="details">
+													<a class="username" href="">Александр</a>
+													<span class="date">Сегодня 13:25</span>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="comments-all">
+										<a href="">еще 124</a>
+										<a href="" class="icon-comment"></a>
+									</div>
+								</li>
 							</ul>
 						</div>
-					</div>
 					
-					<div class="col-3 clearfix">
-						<div class="best-users tabs">
-							<div class="best-users_title">Лучшие клабберы</div>
-							<div class="best-users_nav">
-								<ul>
-									<li class="best-users_nav_item active"><a  onclick="setTab(this, 1);" href="javascript:void(0);"><span>Сегодня</span></a></li>
-									<li class="best-users_nav_item"><a  onclick="setTab(this, 2);" href="javascript:void(0);"><span>Неделя</span></a></li>
-									<li class="best-users_nav_item"><a onclick="setTab(this, 1);" href="javascript:void(0);"><span>Месяц</span></a></li>
-								</ul>
-							</div>
-							<div class="tabs-container">
-								<div class="tab-box tab-box-1" style="display:block">
-									<table class="best-users_list" cellspacing="0" cellpadding="0">
-										<tr>
-											<th class="best-users_list-rank"></th>
-											<th class="best-users_list-ava"></th>
-											<th class="best-users_list-post">Тем</th>
-											<th class="best-users_list-comment"><i class="icon-comment"></i></th>
-											<th class="best-users_list-point">Баллов</th>
-										</tr>
-										<tr>
-											<td class="best-users_list-rank"><i class="rank rank1"></i></td>
-											<td class="best-users_list-ava">
-												<a class="ava female small" href=""><img alt="" src="http://img.happy-giraffe.ru/avatars/19372/small/21fd8c8f29c5a289df17938cb2f20e5b.jpg"></a>
-											</td>
-											<td class="best-users_list-post">128</td>
-											<td class="best-users_list-comment">3333</td>
-											<td class="best-users_list-point">3 565</td>
-										</tr>
-										<tr>
-											<td class="best-users_list-rank"><i class="rank rank2"></i></td>
-											<td class="best-users_list-ava">
-												<a class="ava female small" href=""><img alt="" src="http://img.happy-giraffe.ru/avatars/19372/small/21fd8c8f29c5a289df17938cb2f20e5b.jpg"></a>
-											</td>
-											<td class="best-users_list-post">128</td>
-											<td class="best-users_list-comment">33</td>
-											<td class="best-users_list-point">65</td>
-										</tr>
-										<tr>
-											<td class="best-users_list-rank"><i class="rank rank3"></i></td>
-											<td class="best-users_list-ava">
-												<a class="ava female small" href=""><img alt="" src="http://img.happy-giraffe.ru/avatars/19372/small/21fd8c8f29c5a289df17938cb2f20e5b.jpg"></a>
-											</td>
-											<td class="best-users_list-post">12833</td>
-											<td class="best-users_list-comment">3333</td>
-											<td class="best-users_list-point">3 565</td>
-										</tr>
-										<tr>
-											<td class="best-users_list-rank"><i class="rank rank4"></i></td>
-											<td class="best-users_list-ava">
-												<a class="ava female small" href=""><img alt="" src="http://img.happy-giraffe.ru/avatars/19372/small/21fd8c8f29c5a289df17938cb2f20e5b.jpg"></a>
-											</td>
-											<td class="best-users_list-post">128</td>
-											<td class="best-users_list-comment">3333</td>
-											<td class="best-users_list-point">3 565</td>
-										</tr>
-										<tr>
-											<td class="best-users_list-rank"><i class="rank rank5"></i></td>
-											<td class="best-users_list-ava">
-												<a class="ava female small" href=""><img alt="" src="http://img.happy-giraffe.ru/avatars/19372/small/21fd8c8f29c5a289df17938cb2f20e5b.jpg"></a>
-											</td>
-											<td class="best-users_list-post">1238</td>
-											<td class="best-users_list-comment">33</td>
-											<td class="best-users_list-point">355</td>
-										</tr>
-										<tr>
-											<td class="best-users_list-rank"><i class="rank rank6"></i></td>
-											<td class="best-users_list-ava">
-												<a class="ava female small" href=""></a>
-											</td>
-											<td class="best-users_list-post">128</td>
-											<td class="best-users_list-comment">3333</td>
-											<td class="best-users_list-point">3 565</td>
-										</tr>
-										<tr>
-											<td class="best-users_list-rank"><i class="rank rank7"></i></td>
-											<td class="best-users_list-ava">
-												<a class="ava female small" href=""><img alt="" src="http://img.happy-giraffe.ru/avatars/19372/small/21fd8c8f29c5a289df17938cb2f20e5b.jpg"></a>
-											</td>
-											<td class="best-users_list-post">128</td>
-											<td class="best-users_list-comment">3333</td>
-											<td class="best-users_list-point">3 565</td>
-										</tr>
-										<tr>
-											<td class="best-users_list-rank"><i class="rank rank8"></i></td>
-											<td class="best-users_list-ava">
-												<a class="ava female small" href=""><img alt="" src="http://img.happy-giraffe.ru/avatars/19372/small/21fd8c8f29c5a289df17938cb2f20e5b.jpg"></a>
-											</td>
-											<td class="best-users_list-post">128</td>
-											<td class="best-users_list-comment">3333</td>
-											<td class="best-users_list-point">3 565</td>
-										</tr>
-										<tr>
-											<td class="best-users_list-rank"><i class="rank rank9"></i></td>
-											<td class="best-users_list-ava">
-												<a class="ava female small" href=""></a>
-											</td>
-											<td class="best-users_list-post">128</td>
-											<td class="best-users_list-comment">3333</td>
-											<td class="best-users_list-point">3 565</td>
-										</tr>
-										<tr>
-											<td class="best-users_list-rank"><i class="rank rank10"></i></td>
-											<td class="best-users_list-ava">
-												<a class="ava female small" href=""></a>
-											</td>
-											<td class="best-users_list-post">128</td>
-											<td class="best-users_list-comment">3333</td>
-											<td class="best-users_list-point">3 565</td>
-										</tr>
-									</table>
-								</div>
-								<div class="tab-box tab-box-2">
-									<table class="best-users_list" cellspacing="0" cellpadding="0">
-										<tr>
-											<th class="best-users_list-rank"></th>
-											<th class="best-users_list-ava"></th>
-											<th class="best-users_list-post">Тем</th>
-											<th class="best-users_list-comment"><i class="icon-comment"></i></th>
-											<th class="best-users_list-point">Баллов</th>
-										</tr>
-										<tr>
-											<td class="best-users_list-rank"><i class="rank rank1"></i></td>
-											<td class="best-users_list-ava">
-												<a class="ava female small" href=""><img alt="" src="http://img.happy-giraffe.ru/avatars/19372/small/21fd8c8f29c5a289df17938cb2f20e5b.jpg"></a>
-											</td>
-											<td class="best-users_list-post">128</td>
-											<td class="best-users_list-comment">3</td>
-											<td class="best-users_list-point">3</td>
-										</tr>
-										<tr>
-											<td class="best-users_list-rank"><i class="rank rank2"></i></td>
-											<td class="best-users_list-ava">
-												<a class="ava female small" href=""><img alt="" src="http://img.happy-giraffe.ru/avatars/19372/small/21fd8c8f29c5a289df17938cb2f20e5b.jpg"></a>
-											</td>
-											<td class="best-users_list-post">1</td>
-											<td class="best-users_list-comment">33</td>
-											<td class="best-users_list-point">6555</td>
-										</tr>
-										<tr>
-											<td class="best-users_list-rank"><i class="rank rank3"></i></td>
-											<td class="best-users_list-ava">
-												<a class="ava female small" href=""><img alt="" src="http://img.happy-giraffe.ru/avatars/19372/small/21fd8c8f29c5a289df17938cb2f20e5b.jpg"></a>
-											</td>
-											<td class="best-users_list-post">12833</td>
-											<td class="best-users_list-comment">3333</td>
-											<td class="best-users_list-point">3 565</td>
-										</tr>
-										<tr>
-											<td class="best-users_list-rank"><i class="rank rank4"></i></td>
-											<td class="best-users_list-ava">
-												<a class="ava female small" href=""><img alt="" src="http://img.happy-giraffe.ru/avatars/19372/small/21fd8c8f29c5a289df17938cb2f20e5b.jpg"></a>
-											</td>
-											<td class="best-users_list-post">128</td>
-											<td class="best-users_list-comment">3333</td>
-											<td class="best-users_list-point">3 565</td>
-										</tr>
-										<tr>
-											<td class="best-users_list-rank"><i class="rank rank5"></i></td>
-											<td class="best-users_list-ava">
-												<a class="ava female small" href=""><img alt="" src="http://img.happy-giraffe.ru/avatars/19372/small/21fd8c8f29c5a289df17938cb2f20e5b.jpg"></a>
-											</td>
-											<td class="best-users_list-post">1238</td>
-											<td class="best-users_list-comment">33</td>
-											<td class="best-users_list-point">355</td>
-										</tr>
-										<tr>
-											<td class="best-users_list-rank"><i class="rank rank6"></i></td>
-											<td class="best-users_list-ava">
-												<a class="ava female small" href=""></a>
-											</td>
-											<td class="best-users_list-post">128</td>
-											<td class="best-users_list-comment">3333</td>
-											<td class="best-users_list-point">3 565</td>
-										</tr>
-										<tr>
-											<td class="best-users_list-rank"><i class="rank rank7"></i></td>
-											<td class="best-users_list-ava">
-												<a class="ava female small" href=""><img alt="" src="http://img.happy-giraffe.ru/avatars/19372/small/21fd8c8f29c5a289df17938cb2f20e5b.jpg"></a>
-											</td>
-											<td class="best-users_list-post">128</td>
-											<td class="best-users_list-comment">3333</td>
-											<td class="best-users_list-point">3 565</td>
-										</tr>
-										<tr>
-											<td class="best-users_list-rank"><i class="rank rank8"></i></td>
-											<td class="best-users_list-ava">
-												<a class="ava female small" href=""><img alt="" src="http://img.happy-giraffe.ru/avatars/19372/small/21fd8c8f29c5a289df17938cb2f20e5b.jpg"></a>
-											</td>
-											<td class="best-users_list-post">128</td>
-											<td class="best-users_list-comment">3333</td>
-											<td class="best-users_list-point">3 565</td>
-										</tr>
-										<tr>
-											<td class="best-users_list-rank"><i class="rank rank9"></i></td>
-											<td class="best-users_list-ava">
-												<a class="ava female small" href=""></a>
-											</td>
-											<td class="best-users_list-post">128</td>
-											<td class="best-users_list-comment">3333</td>
-											<td class="best-users_list-point">3 565</td>
-										</tr>
-										<tr>
-											<td class="best-users_list-rank"><i class="rank rank10"></i></td>
-											<td class="best-users_list-ava">
-												<a class="ava female small" href=""></a>
-											</td>
-											<td class="best-users_list-post">128</td>
-											<td class="best-users_list-comment">3333</td>
-											<td class="best-users_list-point">3 565</td>
-										</tr>
-									</table>
-								</div>
-							</div>
-						</div>
-
-					</div>
+					
 					
 				</div>
 

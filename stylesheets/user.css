@@ -1232,6 +1232,13 @@ border-radius: 5px;
 	padding:0;
 	border:0;
 	width:220px;
+	background: none;
+	-webkit-box-shadow:none;
+	-moz-box-shadow:none;
+	-ms-box-shadow:none;
+	box-shadow:none;
+}
+.masonry-news-list_item__decor-no:hover {
 	-webkit-box-shadow:none;
 	-moz-box-shadow:none;
 	-ms-box-shadow:none;

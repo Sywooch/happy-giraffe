@@ -62,8 +62,10 @@
                             'itemSelector' => '.masonry-news-list_item',
                         ),
                         'callback' => new CJavaScriptExpression("function(newElements) {
-                            $('#liveList .items').isotope('appended', $(newElements));
-                    }"),
+                            $(newElements).imagesLoaded(function() {
+                                $('#liveList .items').isotope('appended', $(newElements));
+                            });
+                        }"),
                     ),
                 ));
             ?>

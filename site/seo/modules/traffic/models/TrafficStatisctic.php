@@ -54,7 +54,6 @@ class TrafficStatisctic extends HActiveRecord
             array('section_id, date, value', 'required'),
             array('value', 'numerical', 'integerOnly' => true),
             array('section_id', 'length', 'max' => 10),
-            array('section_id+date', 'uniqueMultiColumnValidator'),
         );
     }
 

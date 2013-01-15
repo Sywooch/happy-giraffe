@@ -57,7 +57,8 @@ class LiBaseParser
 
         if ($result === false || strpos($result, $require_text) === false) {
             $this->log("curl fail");
-            $this->changeRuProxy();
+            $this->proxy = null;
+            $this->getProxy();
 
             return $this->loadPage($page_url, $require_text, $post);
         }

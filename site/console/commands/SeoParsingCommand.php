@@ -82,6 +82,15 @@ class SeoParsingCommand extends CConsoleCommand
         $parser->start();
     }
 
+    public function actionLi2Private($debug = false){
+        Yii::import('site.seo.modules.competitors.components.*');
+
+        $parser = new Li2KeywordsParser(true, $debug);
+        $parser->rus_proxy = false;
+        $parser->parse_private = true;
+        $parser->start();
+    }
+
     public function actionPassword($debug = false){
         Yii::import('site.seo.modules.competitors.components.*');
 

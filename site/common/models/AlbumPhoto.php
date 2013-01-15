@@ -373,9 +373,11 @@ class AlbumPhoto extends HActiveRecord
         Yii::import('site.frontend.extensions.EPhpThumb.*');
 
         try {
-            $image = new EPhpThumb();
-            $image->init(); //this is needed
-            $image = $image->create($this->originalPath);
+//            $image = new EPhpThumb();
+//            $image->init(); //this is needed
+//            $image = $image->create($this->originalPath);
+
+            $image = Yii::app()->phpThumb->create($this->originalPath);
 
         } catch (CException $e) {
             return $thumb;

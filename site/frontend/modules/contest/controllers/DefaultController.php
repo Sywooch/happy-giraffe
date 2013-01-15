@@ -138,8 +138,8 @@ class DefaultController extends HController
     {
         $this->contest = Contest::model()->findByPk($id);
 
-//        if ($this->contest->getCanParticipate() !== true)
-//            throw new CHttpException(404);
+        if ($this->contest->getCanParticipate() !== true)
+            throw new CHttpException(404);
 
         $this->pageTitle = 'Участвовать в фотоконкурсе "' . $this->contest->title . '"';
 

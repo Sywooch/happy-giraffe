@@ -235,7 +235,7 @@ class SiteCommand extends CConsoleCommand
         }
     }
 
-    public function actionKazCities(){
+    public function actionTest(){
         $html = '<html><body><table class="wikitable sortable jquery-tablesorter" style="background: #F7F7F7" border="0">
 <tbody>
 <tr style="height:60px">
@@ -1622,7 +1622,7 @@ class SiteCommand extends CConsoleCommand
 
         $cities = array();
         foreach ($document->find('tr') as $row){
-            $cities [] = pq($row)->find('td:eq(2)')->text()."\n";
+            $cities [] = pq($row)->find('td:eq(1)')->text()."\n";
         }
 
         Yii::import('site.frontend.modules.geo.models.*');
@@ -1633,7 +1633,7 @@ class SiteCommand extends CConsoleCommand
                 $model->type = 'г';
                 $model->update(array('type'));
             }else{
-                echo $city."\n";
+                echo $city."<br>";
             }
         }
     }

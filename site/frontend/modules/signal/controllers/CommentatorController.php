@@ -24,7 +24,7 @@ class CommentatorController extends HController
 
     protected function beforeAction($action)
     {
-        if (!Yii::app()->user->checkAccess('commentator_panel'))
+        if (!Yii::app()->user->checkAccess('commentator_panel') && !Yii::app()->user->checkAccess('administrator'))
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
         Yii::import('site.frontend.modules.cook.models.*');

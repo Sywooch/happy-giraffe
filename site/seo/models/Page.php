@@ -148,7 +148,7 @@ class Page extends CActiveRecord
         if (empty($this->entity) || empty($this->entity_id))
             return null;
 
-        $model = CActiveRecord::model($this->entity)->findByPk($this->entity_id);
+        $model = CActiveRecord::model($this->entity)->resetScope()->findByPk($this->entity_id);
         if ($model === null)
             return null;
         return $model;

@@ -3353,7 +3353,7 @@ ul.letters li a:hover {
 
 .horoscope-daylist {margin: 5px auto 20px;}
 .horoscope-daylist > ul  {list-style: none;text-align: center;}
-.horoscope-daylist > ul > li {display: inline-block;*zoom:1;*display:inline;margin: 0 0 13px;width: 125px;}
+.horoscope-daylist > ul > li {display: inline-block;*zoom:1;*display:inline;margin: 0 0 13px;width: 145px;}
 
 
 .fast-horoscope {padding:20px;border:1px solid #f1eaf6;width:200px;float:right;}

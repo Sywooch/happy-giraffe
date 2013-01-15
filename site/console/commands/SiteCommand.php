@@ -265,18 +265,17 @@ class SiteCommand extends CConsoleCommand
                 $city = GeoCity::model()->find($criteria);
 
                 if ($city === null){
-                    $criteria = new CDbCriteria;
-                    $criteria->compare('country_id',221);
-                    $criteria->compare('region_id',$region->id);
-                    $criteria->compare('name',$city_name, true);
-                    $city = GeoCity::model()->find($criteria);
-                    if ($city !== null){
-                        echo $city_name.' - '.$city->name.'<br>';
-                        $city->name = $city_name;
-                        $city->save();
-                    }
+                    $city = new GeoCity;
+                    $city->country_id = 221;
+                    $city->region_id = $region->id;
+                    $city->name = $city_name;
+                    $city->type = 'г';
+                    $city->save();
 
-                    //echo $city_name . ' not found<br>';
+                    echo $city->id . "\n";
+                }else{
+                    $city->type = 'г';
+                    $city->save();
                 }
             }
 

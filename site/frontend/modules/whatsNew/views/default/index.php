@@ -34,23 +34,35 @@
                     'page' => $dp->pagination->currentPage,
                     'listView' => true,
                 ),
+//                'pager' => array(
+//                    'header' => '',
+//                    'class' => 'ext.infiniteScroll.IasPager',
+//                    'rowSelector' => '.masonry-news-list_item',
+//                    'listViewId' => 'liveList',
+//                    'options' => array(
+//                        'scrollContainer' => new CJavaScriptExpression("$('.layout-container')"),
+//                        'tresholdMargin' => -250,
+//                        'onRenderComplete' => new CJavaScriptExpression("function(items) {
+//                            var newItems = $(items);
+//
+//                            newItems.hide().imagesLoaded(function() {
+//                                newItems.show();
+//                                $('#liveList .items').isotope('appended', newItems);
+//                            });
+//                        }"),
+//                    ),
+//                ),
                 'pager' => array(
-                    'header' => '',
-                    'class' => 'ext.infiniteScroll.IasPager',
-                    'rowSelector' => '.masonry-news-list_item',
-                    'listViewId' => 'liveList',
+                    'class' => 'application.components.InfinitePager.InfinitePager',
+                    'selector' => '#liveList .items',
                     'options' => array(
-                        'scrollContainer' => new CJavaScriptExpression("$('.layout-container')"),
-                        'tresholdMargin' => -250,
-                        'onRenderComplete' => new CJavaScriptExpression("function(items) {
-                            var newItems = $(items);
-
-                            newItems.hide().imagesLoaded(function() {
-                                newItems.show();
-                                $('#liveList .items').isotope('appended', newItems);
-                            });
-                        }"),
+                        'behavior' => 'local',
+                        'binder' => new CJavaScriptExpression("$('.layout-container')"),
+                        'itemSelector' => '.masonry-news-list_item',
                     ),
+                    'callback' => new CJavaScriptExpression("function(newElements) {
+                            $('#liveList .items').isotope('appended', $(newElements));
+                    }"),
                 ),
             ));
         ?>

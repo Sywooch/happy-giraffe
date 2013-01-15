@@ -37,6 +37,8 @@ class LiPassword extends LiBaseParser
             $transaction->commit();
         } catch (Exception $e) {
             $transaction->rollback();
+            $this->log('transaction fail');
+            sleep(10);
             $this->getSite();
         }
     }

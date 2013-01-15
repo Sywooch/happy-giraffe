@@ -1228,6 +1228,15 @@ border-radius: 5px;
 	box-shadow: 0 0 7px rgba(170,170,170,0.5);
 	behavior: url(/stylesheets/PIE.htc);
 }
+.masonry-news-list_item__decor-no {
+	padding:0;
+	border:0;
+	width:220px;
+	-webkit-box-shadow:none;
+	-moz-box-shadow:none;
+	-ms-box-shadow:none;
+	box-shadow:none;
+}
 .masonry-news-list_item.blog {background-color:#ddf3ff;border-color: #c8e9fb;}
 .masonry-news-list_item.cook {background-color:#fdfade;border-color: #f4edad;}
 .masonry-news-list_item.update-message {background-color:#ececec;border: none;text-align: center;min-height: 140px;}

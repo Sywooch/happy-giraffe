@@ -4317,7 +4317,7 @@ ul.letters li a:hover {
 #dishes .dishes-list .block-title .add-photo {font-size:11px;font-family:tahoma, arial, helvetica, sans-serif;color: #848383;width:370px;float:right;}
 #dishes .dishes-list .block-title .add-photo .btn-green {margin:7px 0 0 30px;float: right;font-size: 20px;}
 #dishes .dishes-list .block-title .add-photo .btn span {font-weight:bold;text-transform:none;font-family:arial, helvetica, sans-serif;font-size:20px;}
-#dishes .dishes-list .add-photo .dishes_add-photo_hint {float: right;width: 130px;padding: 8px 0 8px 12px;background: #fffed4;position: relative;}
+#dishes .dishes-list .add-photo .dishes_add-photo_hint {float: right;width: 130px;padding: 8px 0 8px 12px;background: #fffed4;position: relative;line-height: 13px;}
 #dishes .dishes-list .add-photo .dishes_add-photo_hint:after {display:block;content:'';width: 0;height: 0;position: absolute;top: 0;right: -17px;border: 1px solid #fff;border-width: 32px 0 32px 17px;border-left-color: #fffed4;background: #999;}
 
 #dishes .dishes-list ul {list-style:none;}
@@ -4506,7 +4506,7 @@ ul.letters li a:hover {
 .recipe-categories__section{
     background: #fff;
     background:rgba(255,255,255,.65);
-    padding:0 20px;
+    padding:0 10px;
     margin-bottom: 20px;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;

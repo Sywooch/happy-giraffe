@@ -10,6 +10,7 @@ class Li2KeywordsParser extends LiBaseParser
      * @var LiSite
      */
     public $site = 1;
+    public $parse_private = false;
 
     public function start()
     {
@@ -37,7 +38,10 @@ class Li2KeywordsParser extends LiBaseParser
         $transaction = Yii::app()->db_seo->beginTransaction();
         try {
             $criteria = new CDbCriteria;
-            $criteria->condition = '(public=1 OR password IS NOT NULL) AND active=0';
+            if ($this->parse_private)
+                $criteria->condition = 'password IS NOT NULL AND active=0';
+            else
+                $criteria->condition = 'public=1 AND active=0';
             $this->site = LiSite::model()->find($criteria);
             $this->site->active = 1;
             $this->site->save();

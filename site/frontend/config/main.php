@@ -308,6 +308,10 @@ return array(
             'class' => 'site.common.components.Mandrill',
             'apiKey' => '1f816ac2-65b7-4a28-90c9-7e8fb1669d43',
         ),
+        'phpThumb'=>array(
+            'class'=>'ext.EPhpThumb.EPhpThumb',
+            'options'=>array('disable_debug' => true),
+        ),
 	),
 
 	// application-level parameters that can be accessed

@@ -7,14 +7,16 @@
  * @property string $id
  * @property string $city_from_id
  * @property string $city_to_id
+ * @property integer $wordstat
+ * @property integer $checked
  *
  * The followings are the available model relations:
- * @property RouteLink[] $routesLinks
- * @property RouteLink[] $routesLinks1
- * @property GeoCity $city2
- * @property GeoCity $city1
+ * @property RouteLink[] $outLinks
+ * @property RouteLink[] $inLinks
+ * @property GeoCity $cityFrom
+ * @property GeoCity $cityTo
  */
-class Route extends HActiveRecord
+class Route extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
@@ -43,10 +45,11 @@ class Route extends HActiveRecord
 		// will receive user inputs.
 		return array(
 			array('city_from_id, city_to_id', 'required'),
+			array('wordstat, checked', 'numerical', 'integerOnly'=>true),
 			array('city_from_id, city_to_id', 'length', 'max'=>11),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, city_from_id, city_to_id', 'safe', 'on'=>'search'),
+			array('id, city_from_id, city_to_id, wordstat, checked', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -58,10 +61,10 @@ class Route extends HActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'routesLinks' => array(self::HAS_MANY, 'RouteLink', 'route2_id'),
-			'routesLinks1' => array(self::HAS_MANY, 'RouteLink', 'route1_id'),
-			'city2' => array(self::BELONGS_TO, 'GeoCity', 'city_to_id'),
-			'city1' => array(self::BELONGS_TO, 'GeoCity', 'city_from_id'),
+			'inLinks' => array(self::HAS_MANY, 'RouteLink', 'route_to_id'),
+			'outLinks' => array(self::HAS_MANY, 'RouteLink', 'route_from_id'),
+			'cityFrom' => array(self::BELONGS_TO, 'GeoCity', 'city_from_id'),
+			'cityTo' => array(self::BELONGS_TO, 'GeoCity', 'city_to_id'),
 		);
 	}
 
@@ -72,8 +75,10 @@ class Route extends HActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'city_from_id' => 'City1',
-			'city_to_id' => 'City2',
+			'city_from_id' => 'City From',
+			'city_to_id' => 'City To',
+			'wordstat' => 'Wordstat',
+			'checked' => 'Checked',
 		);
 	}
 
@@ -91,6 +96,8 @@ class Route extends HActiveRecord
 		$criteria->compare('id',$this->id,true);
 		$criteria->compare('city_from_id',$this->city_from_id,true);
 		$criteria->compare('city_to_id',$this->city_to_id,true);
+		$criteria->compare('wordstat',$this->wordstat);
+		$criteria->compare('checked',$this->checked);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

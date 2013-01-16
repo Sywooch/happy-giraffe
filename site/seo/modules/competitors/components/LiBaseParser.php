@@ -40,7 +40,7 @@ class LiBaseParser
             curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
             curl_setopt($ch, CURLOPT_PROXY, $this->getProxy());
 
-            if (!in_array(getenv('SERVER_ADDR'), array('5.9.7.81', '88.198.24.104'))) {
+            if (Yii::app()->params['use_proxy_auth']) {
                 $this->log('proxy auth by login');
                 curl_setopt($ch, CURLOPT_PROXYUSERPWD, "alexhg:Nokia1111");
                 curl_setopt($ch, CURLOPT_PROXYAUTH, 1);

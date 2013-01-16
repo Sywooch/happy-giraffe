@@ -124,7 +124,7 @@ class LiBaseParser
             $file = file_get_contents('http://awmproxy.com/allproxy.php?country=1');
 
             //select only rus proxy
-            preg_match_all('/([\d:\.]+);RU/', $file, $matches);
+            preg_match_all('/([\d:\.]+);UA/', $file, $matches);
             $value = array();
             for($i=0;$i<count($matches[0]);$i++){
                 $value[] = $matches[1][$i];

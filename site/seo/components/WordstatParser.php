@@ -234,7 +234,7 @@ class WordstatParser extends ProxyParserThread
 
         $yandex = YandexPopularity::model()->findByPk($keyword_id);
         //если уже спарсили полностью и была задана тематика
-        if ($yandex !== null && $yandex->parsed == 1 && (!empty($yandex->theme) && !empty($theme) || empty($theme)))
+        if ($yandex !== null && $yandex->parsed == 1)// && (!empty($yandex->theme) && !empty($theme) || empty($theme)))
             return;
 
         $exist = ParsingKeyword::model()->findByPk($keyword_id);

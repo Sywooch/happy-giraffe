@@ -183,23 +183,10 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 /* /ava avatar */
 
 /* icons */
-.icon-friends-small {
-    display:inline-block;*zoom:1;*display:inline;
-    width:27px;
-    height:27px;
-    background:url(/images/common.png) no-repeat -428px -334px;
-    vertical-align:middle;
-    margin-right:5px;
-}
-.ico-comment {
-    display:inline-block;*zoom:1;*display:inline;
-    width:16px;
-    height:13px;
-    background:url(/images/common.png) no-repeat -218px -295px;
-    vertical-align:middle;
-    margin-right:5px;
-}
-
+.icon-friends-small{display:inline-block;*zoom:1;*display:inline;width:27px;height:27px;background:url(/images/common.png) no-repeat -428px -334px;vertical-align:middle;margin-right:5px;}
+.ico-comment{display:inline-block;*zoom:1;*display:inline;width:16px;height:13px;background:url(/images/common.png) no-repeat -218px -295px;vertical-align:middle;margin-right:5px;}
+.ico-pregnant-test {width:59px;height:17px;background:url(../images/section/pregnancy/ico-pregnancy-test.png) no-repeat;display: inline-block;*zoom:1;*display:inline;}
+.ico-childbirth {width:42px;height:35px;background:url(../images/section/pregnancy/ico-childbirth.png) no-repeat;display: inline-block;*zoom:1;*display:inline;}
 /* /icons */
 
 .logo-box {margin: 0 auto;text-align:center;color:#8d5bbc;text-transform:uppercase;font-size:10px;letter-spacing:3px;line-height:25px;padding: 25px 0 15px;}
@@ -274,6 +261,8 @@ textarea.error {border:1px solid #ff6767 !important;}
 .padding-0 {padding:0 !important;}
 
 .w-50 {width:50px;}
+.w-85 {width:85px !important;}
+.w-90 {width:90px !important;}
 .w-100 {width:100px;}
 .w-200 {width:200px;}
 .w-240 {width:240px;}
@@ -5366,15 +5355,14 @@ label {
 .section-cnt {
     background: #fff;
     padding: 20px;
+    margin-bottom: 20px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     -ms-border-radius: 5px;
     border-radius: 5px;
 }
 .section-cnt .masonry-news-list {margin-bottom: 0;}
-.section_t-hold {
-    margin: 0 40px 20px;
-}
+.section_t-hold {margin: 0 40px 20px;}
 /* /section */
 
 /* top block in section */
@@ -5513,8 +5501,15 @@ label {
 
 /* section baby 
 ------------------------- */
+/* banner pricorm */
 .section-banner-pricorm {position: relative;margin: 0 -8px 10px;background: url(/images/section/baby/section-banner-pricorm.jpg) no-repeat;height: 283px;}
 .section-banner-pricorm .btn-big {position: absolute;top: 151px;left: 490px;font-size: 30px;font-weight: normal;padding: 0 30px;}
+/* /banner pricorm */
+
+/* banner pregnancy-test */
+.section-banner-pregnancy-test {position: relative;margin: 0 -8px 10px;background: url(/images/section/pregnancy/section-banner-pregnancy-test.jpg) no-repeat;height: 298px;}
+.section-banner-pregnancy-test .btn-big {position: absolute;top: 186px;left: 380px;font-size: 30px;font-weight: normal;padding: 0 30px;color: #c15f18;}
+/* /banner pregnancy-test */
 
 .child-choice-age {float: right;}
 .child-choice-age_desc {margin:15px 0 10px;text-align: center;color: #abaaaa;}
@@ -5523,43 +5518,52 @@ label {
 
 .child-calendar-steps {float: left;}
 .child-calendar-steps__age01 .child-calendar-steps_li {margin:0 10px;}
+.child-calendar-steps__age01 ..child-calendar-steps_flag {left: -10px;}
 .child-calendar-steps_t {color: #6a8bb7;font-size: 15px;margin-bottom: 5px;}
-.child-calendar-steps_ul {padding: 20px 0 0;}
-.child-calendar-steps_li {position: relative;float: left;margin-right: 5px;min-width: 5px;min-height: 5px;}
+.child-calendar-steps_ul {padding: 20px 0 0 3px;}
+.child-calendar-steps_li {position: relative;float: left;margin-right: 3px;min-width: 5px;min-height: 5px;}
 .child-calendar-steps_li__birth .child-calendar-steps_a {height: 25px;background: #cde0fa;}
 .child-calendar-steps_birth-text {position: absolute;top: -16px;left: 26px;color: #e37cc9;font: 11px/13px Tahoma, Arial, Verdana, sans-serif;}
 .child-calendar-steps_a {
     display: block;
     width: 16px;
     height: 16px;
-    background: #a5c4ef;
+    background-color: #a5c4ef;
+    color: #fffeff;
+    font-size: 10px;
+    line-height: 16px;
+    text-decoration: none;
+    text-align: center;
     -webkit-border-radius: 8px;
     -moz-border-radius: 8px;
     border-radius: 8px;
 }
-.child-calendar-steps_a:hover {background: #ffabc9;}
-.child-calendar-steps_a__blue-light {background: #a5c4ef;}
-.child-calendar-steps_a__blue {background: #7faae4;}
-.child-calendar-steps_a__blue-dark {background: #5d8fd2;}
+.child-calendar-steps_a:hover {background-color: #ffabc9;}
+.child-calendar-steps_a__blue-light {background-color: #a5c4ef;}
+.child-calendar-steps_a__blue {background-color: #7faae4;}
+.child-calendar-steps_a__blue-dark {background-color: #5d8fd2;}
+.child-calendar-steps_a__pregnancy {height: 28px;margin-top: -8px;background: url(/images/section/pregnancy/child-calendar-steps_a__pregnancy.png) no-repeat;}
+.child-calendar-steps_a__pregnancy:hover {background-color: transparent;}
 .child-calendar-steps_flag {
     position: absolute;
     color: #949393;
     font-family: tahoma,arial,sans-serif;
     font-size: 11px;
-    left: -10px;
+    left: -1px;
     top: -15px;
     line-height: 1;
     white-space: nowrap;
     width: 150px;
 }
 .child-calendar-steps_flag-ico   {
-    background: url("../images/section/baby/child-calendar-steps_flag.png") no-repeat;
+    background: url("../images/section/child-calendar-steps_flag.png") no-repeat;
     float: left;
     height: 15px;
     margin-right: 3px;
     width: 15px;
 }
-
+.child-calendar-steps .ico-pregnant-test {position:absolute;top:-20px;left:50%;z-index:5;margin-left:-30px;}
+.child-calendar-steps .ico-childbirth {position:absolute;top:-38px;left:50%;z-index:5;margin-left:-30px;}
 .child-calendar-steps_ico-birth {
     position: absolute;
     display: block;

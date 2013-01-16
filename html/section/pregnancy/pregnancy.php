@@ -12,11 +12,11 @@
 	
 <div class="layout-container">
 	<div class="layout-wrapper">
-		<!-- Вставка секции в шапке страницы -->
+		<!-- Вставка секции в шапке страницы, размер изображения 195*115px -->
 		<?php $headerSection = '
 		<a class="layout-header-section_a" href="">
-			<img alt="" src="/images/section/baby/layout-header-section_img.jpg" class="layout-header-section_img">
-			<span class="layout-header-section_text">Дети от 0 до 1 года</span>
+			<img alt="" src="/images/section/pregnancy/layout-header-section_img.jpg" class="layout-header-section_img">
+			<span class="layout-header-section_text">Беременность и роды</span>
 		</a>
 		'?>
 		<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/layout-header.php'; ?>
@@ -25,37 +25,18 @@
 				<div class="section_hold">
 					<div class="box-two-transp">
 						<div class="box-two-transp_hold clearfix">
-							<div class="child-choice-age">
-								<div class="child-choice-age_desc">или выберите другой возраст</div>
-								<ul class="child-choice-age_ul">
-									<li class="child-choice-age_li">
-										<a href="">1-3</a>
-									</li>
-									<li class="child-choice-age_li">
-										<a href="">3-6</a>
-									</li>
-									<li class="child-choice-age_li">
-										<a href="">6-12</a>
-									</li>
-									<li class="child-choice-age_li">
-										<a href="">12-15</a>
-									</li>
-									<li class="child-choice-age_li">
-										<a href="">15-18</a>
-									</li>
-								</ul>
-							</div>
-							<div class="child-calendar-steps child-calendar-steps__age01">
+							<div class="child-calendar-steps">
 								<div class="child-calendar-steps_t">Календарь развития вашего ребенка</div>
 								<ul class="child-calendar-steps_ul clearfix">
-									<li class="child-calendar-steps_li child-calendar-steps_li__birth">
-										<a href="" class="child-calendar-steps_a js-tooltipsy" title="Новорожденный">
-											<i class="child-calendar-steps_ico-birth"></i>
+									<li class="child-calendar-steps_li">
+										<a href="" class="child-calendar-steps_a w-90 js-tooltipsy" title="Планирование">
+											<i class="ico-pregnant-test"></i>
+											Планирование
 										</a>
-										<div class="child-calendar-steps_birth-text">Рождение</div>
 									</li>
 									<li class="child-calendar-steps_li">
 										<a href="" class="child-calendar-steps_a child-calendar-steps_a__blue-light js-tooltipsy" title="1-я неделя"></a>
+										<div class="child-calendar-steps_flag"><span class="child-calendar-steps_flag-ico"></span> 1 триместр</div> 
 									</li>
 									<li class="child-calendar-steps_li">
 										<a href="" class="child-calendar-steps_a child-calendar-steps_a__blue-light js-tooltipsy" title="2-я неделя"></a>
@@ -67,42 +48,118 @@
 										<a href="" class="child-calendar-steps_a child-calendar-steps_a__blue-light js-tooltipsy" title="4-я неделя"></a>
 									</li>
 									<li class="child-calendar-steps_li">
-										<a href="" class="child-calendar-steps_a child-calendar-steps_a__blue js-tooltipsy" title="1 месяц"></a>
-										<div class="child-calendar-steps_flag"><span class="child-calendar-steps_flag-ico"></span> 1 месяц</div>        
+										<a href="" class="child-calendar-steps_a child-calendar-steps_a__pregnancy js-tooltipsy" title="5-я неделя"></a>
 									</li>
 									<li class="child-calendar-steps_li">
-										<a href="" class="child-calendar-steps_a child-calendar-steps_a__blue js-tooltipsy" title="2 месяцa"></a>   
+										<a href="" class="child-calendar-steps_a child-calendar-steps_a__blue-light js-tooltipsy" title="6-я неделя"></a>
 									</li>
 									<li class="child-calendar-steps_li">
-										<a href="" class="child-calendar-steps_a child-calendar-steps_a__blue js-tooltipsy" title="3 месяцa"></a>   
+										<a href="" class="child-calendar-steps_a child-calendar-steps_a__blue-light js-tooltipsy" title="7-я неделя"></a>
 									</li>
 									<li class="child-calendar-steps_li">
-										<a href="" class="child-calendar-steps_a child-calendar-steps_a__blue js-tooltipsy" title="4 месяцa"></a>   
+										<a href="" class="child-calendar-steps_a child-calendar-steps_a__blue-light js-tooltipsy" title="8-я неделя"></a>
 									</li>
 									<li class="child-calendar-steps_li">
-										<a href="" class="child-calendar-steps_a child-calendar-steps_a__blue js-tooltipsy" title="5 месяцев"></a>   
+										<a href="" class="child-calendar-steps_a child-calendar-steps_a__blue-light js-tooltipsy" title="9-я неделя"></a>
 									</li>
 									<li class="child-calendar-steps_li">
-										<a href="" class="child-calendar-steps_a child-calendar-steps_a__blue-dark js-tooltipsy" title="6 месяцев"></a>
-										<div class="child-calendar-steps_flag"><span class="child-calendar-steps_flag-ico"></span>6 месяцев</div>       
+										<a href="" class="child-calendar-steps_a child-calendar-steps_a__blue-light js-tooltipsy" title="10-я неделя"></a>
 									</li>
 									<li class="child-calendar-steps_li">
-										<a href="" class="child-calendar-steps_a child-calendar-steps_a__blue-dark js-tooltipsy" title="7 месяцев"></a>       
+										<a href="" class="child-calendar-steps_a child-calendar-steps_a__blue-light js-tooltipsy" title="11-я неделя"></a>
 									</li>
 									<li class="child-calendar-steps_li">
-										<a href="" class="child-calendar-steps_a child-calendar-steps_a__blue-dark js-tooltipsy" title="8 месяцев"></a>       
+										<a href="" class="child-calendar-steps_a child-calendar-steps_a__blue-light js-tooltipsy" title="12-я неделя"></a>
 									</li>
 									<li class="child-calendar-steps_li">
-										<a href="" class="child-calendar-steps_a child-calendar-steps_a__blue-dark js-tooltipsy" title="9 месяцев"></a>       
+										<a href="" class="child-calendar-steps_a child-calendar-steps_a__blue js-tooltipsy" title="13-я неделя"></a>
+										<div class="child-calendar-steps_flag"><span class="child-calendar-steps_flag-ico"></span> 2 триместр</div>        
 									</li>
 									<li class="child-calendar-steps_li">
-										<a href="" class="child-calendar-steps_a child-calendar-steps_a__blue-dark js-tooltipsy" title="10 месяцев"></a>       
+										<a href="" class="child-calendar-steps_a child-calendar-steps_a__blue js-tooltipsy" title="14-я неделя"></a>       
 									</li>
 									<li class="child-calendar-steps_li">
-										<a href="" class="child-calendar-steps_a child-calendar-steps_a__blue-dark js-tooltipsy" title="11 месяцев"></a>       
+										<a href="" class="child-calendar-steps_a child-calendar-steps_a__blue js-tooltipsy" title="15-я неделя"></a>       
 									</li>
-									<li class="child-calendar-steps_li"> 
-										<div class="child-calendar-steps_flag"><span class="child-calendar-steps_flag-ico"></span>1 год</div>       
+									<li class="child-calendar-steps_li">
+										<a href="" class="child-calendar-steps_a child-calendar-steps_a__blue js-tooltipsy" title="16-я неделя"></a>       
+									</li>
+									<li class="child-calendar-steps_li">
+										<a href="" class="child-calendar-steps_a child-calendar-steps_a__blue js-tooltipsy" title="17-я неделя"></a>       
+									</li>
+									<li class="child-calendar-steps_li">
+										<a href="" class="child-calendar-steps_a child-calendar-steps_a__blue js-tooltipsy" title="18-я неделя"></a>       
+									</li>
+									<li class="child-calendar-steps_li">
+										<a href="" class="child-calendar-steps_a child-calendar-steps_a__blue js-tooltipsy" title="19-я неделя"></a>       
+									</li>
+									<li class="child-calendar-steps_li">
+										<a href="" class="child-calendar-steps_a child-calendar-steps_a__blue js-tooltipsy" title="20-я неделя"></a>       
+									</li>
+									<li class="child-calendar-steps_li">
+										<a href="" class="child-calendar-steps_a child-calendar-steps_a__blue js-tooltipsy" title="21-я неделя"></a>       
+									</li>
+									<li class="child-calendar-steps_li">
+										<a href="" class="child-calendar-steps_a child-calendar-steps_a__blue js-tooltipsy" title="22-я неделя"></a>       
+									</li>
+									<li class="child-calendar-steps_li">
+										<a href="" class="child-calendar-steps_a child-calendar-steps_a__blue js-tooltipsy" title="23-я неделя"></a>       
+									</li>
+									<li class="child-calendar-steps_li">
+										<a href="" class="child-calendar-steps_a child-calendar-steps_a__blue js-tooltipsy" title="24-я неделя"></a>       
+									</li>
+									<li class="child-calendar-steps_li">
+										<a href="" class="child-calendar-steps_a child-calendar-steps_a__blue js-tooltipsy" title="25-я неделя"></a>       
+									</li>
+									<li class="child-calendar-steps_li">
+										<a href="" class="child-calendar-steps_a child-calendar-steps_a__blue js-tooltipsy" title="26-я неделя"></a>       
+									</li>
+									<li class="child-calendar-steps_li">
+										<a href="" class="child-calendar-steps_a child-calendar-steps_a__blue js-tooltipsy" title="27-я неделя"></a>       
+									</li>
+									<li class="child-calendar-steps_li">
+										<a href="" class="child-calendar-steps_a child-calendar-steps_a__blue-dark js-tooltipsy" title="28-я неделя"></a>
+										<div class="child-calendar-steps_flag"><span class="child-calendar-steps_flag-ico"></span>3 триместр</div>       
+									</li>
+									<li class="child-calendar-steps_li">
+										<a href="" class="child-calendar-steps_a child-calendar-steps_a__blue-dark js-tooltipsy" title="29-я неделя"></a>       
+									</li>
+									<li class="child-calendar-steps_li">
+										<a href="" class="child-calendar-steps_a child-calendar-steps_a__blue-dark js-tooltipsy" title="30-я неделя"></a>       
+									</li>
+									<li class="child-calendar-steps_li">
+										<a href="" class="child-calendar-steps_a child-calendar-steps_a__blue-dark js-tooltipsy" title="31-я неделя"></a>       
+									</li>
+									<li class="child-calendar-steps_li">
+										<a href="" class="child-calendar-steps_a child-calendar-steps_a__blue-dark js-tooltipsy" title="32-я неделя"></a>       
+									</li>
+									<li class="child-calendar-steps_li">
+										<a href="" class="child-calendar-steps_a child-calendar-steps_a__blue-dark js-tooltipsy" title="33-я неделя"></a>       
+									</li>
+									<li class="child-calendar-steps_li">
+										<a href="" class="child-calendar-steps_a child-calendar-steps_a__blue-dark js-tooltipsy" title="34-я неделя"></a>       
+									</li>
+									<li class="child-calendar-steps_li">
+										<a href="" class="child-calendar-steps_a child-calendar-steps_a__blue-dark js-tooltipsy" title="35-я неделя"></a>       
+									</li>
+									<li class="child-calendar-steps_li">
+										<a href="" class="child-calendar-steps_a child-calendar-steps_a__blue-dark js-tooltipsy" title="36-я неделя"></a>       
+									</li>
+									<li class="child-calendar-steps_li">
+										<a href="" class="child-calendar-steps_a child-calendar-steps_a__blue-dark js-tooltipsy" title="37-я неделя"></a>       
+									</li>
+									<li class="child-calendar-steps_li">
+										<a href="" class="child-calendar-steps_a child-calendar-steps_a__blue-dark js-tooltipsy" title="38-я неделя"></a>       
+									</li>
+									<li class="child-calendar-steps_li">
+										<a href="" class="child-calendar-steps_a child-calendar-steps_a__blue-dark js-tooltipsy" title="39-я неделя"></a>       
+									</li>
+									<li class="child-calendar-steps_li">
+										<a href="" class="child-calendar-steps_a child-calendar-steps_a__blue-dark js-tooltipsy" title="40-я неделя"></a>       
+									</li>
+									<li class="child-calendar-steps_li">
+										<a href="" class="child-calendar-steps_a w-90 child-calendar-steps_a__blue-dark js-tooltipsy" title="Роды">Роды</a>
+										<i class="ico-childbirth"></i>
 									</li>
 								</ul>
 							</div>
@@ -112,16 +169,16 @@
 						<div class="col-1">
 							<div class="section-menu">
 								<div class="section-menu-top">
-									<div class="section-menu_t">Клубы для общения<div class="section-menu_t-blue">Дети от 0 до 1 года</div></div>
+									<div class="section-menu_t">Клубы для общения<div class="section-menu_t-blue">будущих мам</div></div>
 								</div>
 							</div>
 							
 							<div class="section-clubs">
 								<ul>
 									<li class="section-clubs_li clearfix">
-										<a href="" class="section-clubs_img kids"><img src="/images/club_img_4.png" alt=""></a>
+										<a href="" class="section-clubs_img kids"><img src="/images/club_img_1.png" alt=""></a>
 										<div class="section-clubs_hold">
-											<a href="" class="section-clubs_t">Здоровье</a>
+											<a href="" class="section-clubs_t">Планирование</a>
 											<div class="section-clubs_comment">
 												<i class="ico-comment"></i> 25 036
 											</div>
@@ -129,9 +186,9 @@
 										</div>
 									</li>
 									<li class="section-clubs_li clearfix">
-										<a href="" class="section-clubs_img kids"><img src="/images/club_img_5.png" alt=""></a>
+										<a href="" class="section-clubs_img kids"><img src="/images/club_img_2.png" alt=""></a>
 										<div class="section-clubs_hold">
-											<a href="" class="section-clubs_t">Питание малыша</a>
+											<a href="" class="section-clubs_t">Беременность</a>
 											<div class="section-clubs_comment">
 												<i class="ico-comment"></i> 25 036
 											</div>
@@ -139,19 +196,9 @@
 										</div>
 									</li>
 									<li class="section-clubs_li clearfix">
-										<a href="" class="section-clubs_img kids"><img src="/images/club_img_6.png" alt=""></a>
+										<a href="" class="section-clubs_img kids"><img src="/images/club_img_3.png" alt=""></a>
 										<div class="section-clubs_hold">
-											<a href="" class="section-clubs_t">Развитие ребенка</a>
-											<div class="section-clubs_comment">
-												<i class="ico-comment"></i> 25 036
-											</div>
-											<a href="" class="section-clubs_join">Вступить</a>
-										</div>
-									</li>
-									<li class="section-clubs_li clearfix">
-										<a href="" class="section-clubs_img kids"><img src="/images/club_img_7.png" alt=""></a>
-										<div class="section-clubs_hold">
-											<a href="" class="section-clubs_t">Режим и уход</a>
+											<a href="" class="section-clubs_t">Подготовка и роды</a>
 											<div class="section-clubs_comment">
 												<i class="ico-comment"></i> 25 036
 											</div>
@@ -318,47 +365,54 @@
 			</div>
 		<div class="layout-content clearfix">
 			<div class="services-list">
-				<div class="services-list_t">Полезные сервисы. <span class="color-blue"> Дети от 0 до 1 года</span></div>
+				<div class="services-list_t">Полезные сервисы. <span class="color-blue"> Для будущих мам!</span></div>
 				<ul>
 					<li>
-						<div class="img"><a href=""><img src="/images/services/service_img_2.png"></a></div>
+						<div class="img"><a href=""><img src="/images/services/service_img_1.png"></a></div>
 						<div class="text">
-							<div class="item-title"><a href="">Справочник детских болезней</a></div>
+							<div class="item-title"><a href="">Выбор имени для ребенка</a></div>
 							<p>Стали обладательницей мультиварки? Выбирайте подходящий рецепт здесь.</p>
 						</div>
 					</li>
 					<li>
-						<div class="img"><a href=""><img src="/images/services/service_img_4.png"></a></div>
+						<div class="img"><a href=""><img src="/images/services/service_img_5.png"></a></div>
 						<div class="text">
-							<div class="item-title"><a href="">В норме ли пупок у вашего малыша? Тест</a></div>
+							<div class="item-title"><a href="">Вес при беременности</a></div>
 							<p>Сервис для перевода веса и объема продуктов в понятные для вас меры.</p>
 						</div>
 					</li>
 					<li>
-						<div class="img"><a href=""><img src="/images/services/service_img_22.png"></a></div>
+						<div class="img"><a href=""><img src="/images/services/service_img_6.png"></a></div>
 						<div class="text">
-							<div class="item-title"><a href="">Определение группы крови ребенка</a></div>
+							<div class="item-title"><a href="">Толщина плаценты</a></div>
 							<p>Узнавайте сколько калорий, а также белков, жиров и углеводов в любых </p>
 						</div>
 					</li>
 					<li>
-						<div class="img"><a href=""><img src="/images/services/service_img_3.png"></a></div>
+						<div class="img"><a href=""><img src="/images/services/service_img_7.png"></a></div>
 						<div class="text">
-							<div class="item-title"><a href="">Календарь прививок ребенка</a></div>
+							<div class="item-title"><a href="">Считаем схватки</a></div>
 							<p>Стали обладательницей мультиварки? Выбирайте подходящий рецепт здесь.</p>
 						</div>
 					</li>
 					<li>
-						<div class="img"><a href=""><img src="/images/services/service_img_23.png"></a></div>
+						<div class="img"><a href=""><img src="/images/services/service_img_8.png"></a></div>
 						<div class="text">
-							<div class="item-title"><a href="">Готов ли ребенок к первому прикорму? Тест</a></div>
+							<div class="item-title"><a href="">Определение пола ребенка</a></div>
+							<p>Сервис для перевода веса и объема продуктов в понятные для вас меры.</p>
+						</div>
+					</li>
+					<li>
+						<div class="img"><a href=""><img src="/images/services/service_img_10.png"></a></div>
+						<div class="text">
+							<div class="item-title"><a href="">Когда уходить в декрет?</a></div>
 							<p>Сервис для перевода веса и объема продуктов в понятные для вас меры.</p>
 						</div>
 					</li>
 				</ul>
 			</div>
-			<div class="section-banner-pricorm">
-				<a href="" class="btn-orange btn-big">ПРОЙТИ ТЕСТ</a>
+			<div class="section-banner-pregnancy-test">
+				<a href="" class="btn-yellow btn-big">ПРОЙТИ ТЕСТ</a>
 			</div>
 		</div>      
 		<div class="section section__gray">
@@ -630,7 +684,8 @@
 			<div class="section_overlay">
 				<div class="section-join">
 					<div class="section-join_desc">
-						<div class="section-join_t">Нашему малышу <br>от 0 до 1 года</div>
+						<div class="section-join_t">Мы ждем ребенка. </div>
+						<div class="section-join_tx">Нас тут много!</div>
 					</div>
 					<div class="section-join_btn btn-green btn-h55">Присоединяйтесь!</div>
 				</div>

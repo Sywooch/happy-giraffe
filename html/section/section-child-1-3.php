@@ -15,8 +15,8 @@
 		<!-- Вставка секции в шапке страницы -->
 		<?php $headerSection = '
 		<a class="layout-header-section_a" href="">
-			<img alt="" src="/images/section/baby/layout-header-section_img.jpg" class="layout-header-section_img">
-			<span class="layout-header-section_text">Дети от 0 до 1 года</span>
+			<img alt="" src="/images/section/child/layout-header-section_img-child-1-3.jpg" class="layout-header-section_img">
+			<span class="layout-header-section_text">Дети от 1 года до 3 лет</span>
 		</a>
 		'?>
 		<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/layout-header.php'; ?>
@@ -112,7 +112,7 @@
 						<div class="col-1">
 							<div class="section-menu">
 								<div class="section-menu-top">
-									<div class="section-menu_t">Клубы для общения<div class="section-menu_t-blue">Дети от 0 до 1 года</div></div>
+									<div class="section-menu_t">Клубы для общения<div class="section-menu_t-blue">Дети <br>от 1 года до 3 лет</div></div>
 								</div>
 							</div>
 							
@@ -318,7 +318,7 @@
 			</div>
 		<div class="layout-content clearfix">
 			<div class="services-list">
-				<div class="services-list_t">Полезные сервисы. <span class="color-blue"> Дети от 0 до 1 года</span></div>
+				<div class="services-list_t">Полезные сервисы. <span class="color-blue"> Дети от 1 года до 3 лет</span></div>
 				<ul>
 					<li>
 						<div class="img"><a href=""><img src="/images/services/service_img_2.png"></a></div>

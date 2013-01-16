@@ -15,7 +15,7 @@
 		<!-- Вставка секции в шапке страницы -->
 		<?php $headerSection = '
 		<a class="layout-header-section_a" href="">
-			<img alt="" src="/images/section/cook/banner-header-section.jpg" class="layout-header-section_img">
+			<img alt="" src="/images/section/cook/layout-header-section_img.jpg" class="layout-header-section_img">
 			<span class="layout-header-section_text">Кулинария</span>
 		</a>
 		'?>

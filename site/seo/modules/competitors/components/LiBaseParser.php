@@ -98,8 +98,8 @@ class LiBaseParser
     public function changeRuProxy()
     {
         if ($this->use_proxy) {
-            preg_match_all('/([\d:\.]+);RU/', $this->getRuProxyList(), $matches);
-            $this->proxy = $matches[1][rand(0, count($matches[0]) - 1)];
+            $list = $this->getRuProxyList();
+            $this->proxy = $list[rand(0, count($list) - 1)];
             $this->log('proxy: '.$this->proxy);
         }
     }
@@ -121,8 +121,16 @@ class LiBaseParser
         $cache_id = 'ru_proxy_list';
         $value = Yii::app()->cache->get($cache_id);
         if ($value === false) {
-            $value = file_get_contents('http://awmproxy.com/allproxy.php?country=1');
-            Yii::app()->cache->set($cache_id, $value, 500);
+            $file = file_get_contents('http://awmproxy.com/allproxy.php?country=1');
+
+            //select only rus proxy
+            preg_match_all('/([\d:\.]+);RU/', $file, $matches);
+            $value = array();
+            for($i=0;$i<count($matches[0]);$i++){
+                $value[] = $matches[1][$i];
+            }
+
+            Yii::app()->cache->set($cache_id, $value, 300);
         }
 
         return $value;

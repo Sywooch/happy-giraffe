@@ -78,7 +78,7 @@ class SeoParsingCommand extends CConsoleCommand
     }
 
     public function actionLi2Parse($debug = false){
-        $parser = new Li2KeywordsParser(false, $debug);
+        $parser = new Li2KeywordsParser(true, $debug);
         $parser->start();
     }
 

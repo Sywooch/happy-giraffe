@@ -106,14 +106,22 @@ class LiBaseParser
 
     public function changeProxy()
     {
-        if ($this->use_proxy) {
-            $criteria = new CDbCriteria;
-            $criteria->order = 'RAND()';
-            $proxy = Proxy::model()->find($criteria);
+        $cache_id = 'proxy_list';
+        $value = Yii::app()->cache->get($cache_id);
+        if ($value === false) {
+            $file = file_get_contents('http://awmproxy.com/allproxy.php?country=1');
 
-            $this->proxy = $proxy->value;
-            $this->log('proxy: '.$this->proxy);
+            //select only rus proxy
+            preg_match_all('/([\d:\.]+);/', $file, $matches);
+            $value = array();
+            for($i=0;$i<count($matches[0]);$i++){
+                $value[] = $matches[1][$i];
+            }
+
+            Yii::app()->cache->set($cache_id, $value, 300);
         }
+
+        return $value;
     }
 
     public function getRuProxyList()

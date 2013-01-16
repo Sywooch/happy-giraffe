@@ -41,7 +41,8 @@ class LiBaseParser
             curl_setopt($ch, CURLOPT_PROXY, $this->getProxy());
 
             if (!in_array(getenv('SERVER_ADDR'), array('5.9.7.81', '88.198.24.104'))) {
-                echo getenv('SERVER_ADDR');Yii::app()->end();
+                echo getenv('SERVER_ADDR')."\n";echo $_SERVER['SERVER_ADDR'];
+                Yii::app()->end();
                 $this->log('proxy auth by login');
                 curl_setopt($ch, CURLOPT_PROXYUSERPWD, "alexhg:Nokia1111");
                 curl_setopt($ch, CURLOPT_PROXYAUTH, 1);

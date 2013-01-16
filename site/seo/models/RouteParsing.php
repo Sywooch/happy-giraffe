@@ -107,7 +107,7 @@ class RouteParsing extends HActiveRecord
         return GeoCity::model()->findByPk($this->city_from_id);
     }
 
-    public function getToFrom()
+    public function getCityTo()
     {
         return GeoCity::model()->findByPk($this->city_to_id);
     }

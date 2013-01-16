@@ -17,6 +17,13 @@ Yii::import('site.frontend.helpers.*');
 
 class SeoParsingCommand extends CConsoleCommand
 {
+    public function beforeAction($action)
+    {
+        Yii::import('site.seo.modules.competitors.components.*');
+
+        return true;
+    }
+
     public function actionWordstat($mode = 0)
     {
         $parser = new WordstatParser();
@@ -25,7 +32,6 @@ class SeoParsingCommand extends CConsoleCommand
 
     public function actionLi($site)
     {
-        Yii::import('site.seo.modules.competitors.components.*');
         $last_parsed = SeoUserAttributes::getAttribute('last_li_parsed_'.date("Y-m") , 1);
         if (empty($site)) {
             $parser = new LiParser;
@@ -47,8 +53,6 @@ class SeoParsingCommand extends CConsoleCommand
     }
 
     public function actionLiKeywords($site){
-        Yii::import('site.seo.modules.competitors.components.*');
-
         $last_parsed = SeoUserAttributes::getAttribute('last_li_parsed_'.date("Y-m-d") , 1);
         $parser = new LiKeywordsParser;
 
@@ -69,22 +73,16 @@ class SeoParsingCommand extends CConsoleCommand
     }
 
     public function actionParseSites($page){
-        Yii::import('site.seo.modules.competitors.components.*');
-
         $parser = new LiSitesParser;
         $parser->start($page);
     }
 
     public function actionLi2Parse($debug = false){
-        Yii::import('site.seo.modules.competitors.components.*');
-
-        $parser = new Li2KeywordsParser(true, $debug);
+        $parser = new Li2KeywordsParser(false, $debug);
         $parser->start();
     }
 
     public function actionLi2Private($debug = false){
-        Yii::import('site.seo.modules.competitors.components.*');
-
         $parser = new Li2KeywordsParser(true, $debug);
         $parser->rus_proxy = false;
         $parser->parse_private = true;
@@ -92,8 +90,6 @@ class SeoParsingCommand extends CConsoleCommand
     }
 
     public function actionPassword($debug = false){
-        Yii::import('site.seo.modules.competitors.components.*');
-
         $parser = new LiPassword(true, $debug);
         $parser->rus_proxy = false;
         $parser->start();

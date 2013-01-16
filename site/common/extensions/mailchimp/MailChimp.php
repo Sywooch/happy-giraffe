@@ -40,7 +40,6 @@ class MailChimp extends CApplicationComponent
 
     public function updateUsers()
     {
-        echo 'dfhsgdj';
         //пользователи которые зарегистрировались после 1 мая + наши сотрудники
         $criteria = new CDbCriteria;
         $criteria->with = array(
@@ -160,27 +159,10 @@ class MailChimp extends CApplicationComponent
         $this->api->listBatchSubscribe($this->list, $options, false, true, false);
     }
 
-    public function deleteUsers()
+    public function deleteUsers($emails)
     {
-        //пользователи которые зарегистрировались после 1 мая + наши сотрудники
-        $criteria = new CDbCriteria;
-        $criteria->condition = '(t.group < 5 AND t.group > 0) OR (t.group = 0 AND t.register_date >= "2012-05-01 00:00:00")';
-        $criteria->scopes = array('active');
-        $criteria->limit = 100;
-        $users = array(1);
-
-        $i = 0;
-        while (!empty($users)) {
-            $criteria->offset = $i * 100;
-            $users = User::model()->findAll($criteria);
-            $options = array();
-            foreach ($users as $user)
-                $options[] = $user->email;
-
-            $res = $this->api->listBatchUnSubscribe($this->list, $options, true, false, false);
-            echo $res;
-            $i++;
-        }
+        $res = $this->api->listBatchUnSubscribe(self::CONTEST_LIST, $emails, true, false, false);
+        echo $res['success_count']."\n";
     }
 
     public function getLists()

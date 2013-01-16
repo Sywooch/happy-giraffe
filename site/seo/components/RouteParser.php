@@ -8,7 +8,7 @@ class RouteParser extends ProxyParserThread
     const PARSE_LIMIT = 100;
 
     /**
-     * @var Route
+     * @var RouteParsing
      */
     public $route = null;
     public $next_page = '';
@@ -71,7 +71,7 @@ class RouteParser extends ProxyParserThread
 
         $transaction = Yii::app()->db->beginTransaction();
         try {
-            $this->route = Route::model()->find('active=0');
+            $this->route = RouteParsing::model()->find('active=0');
             $this->route->active = 1;
             $this->route->save();
 

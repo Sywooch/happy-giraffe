@@ -101,4 +101,14 @@ class RouteParsing extends HActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+    public function getCityFrom()
+    {
+        return GeoCity::model()->findByPk($this->city_from_id);
+    }
+
+    public function getToFrom()
+    {
+        return GeoCity::model()->findByPk($this->city_to_id);
+    }
 }

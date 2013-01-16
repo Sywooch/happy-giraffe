@@ -172,7 +172,7 @@ class SiteController extends SController
         $criteria->limit = 100;
 
         $models = Keyword::model()->findAll($criteria);
-        foreach($models as $model)
-            echo $model->name.'<br>';
+
+        $this->render('last_keywords', compact('models'));
     }
 }

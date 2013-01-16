@@ -40,8 +40,8 @@ class LiBaseParser
             curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
             curl_setopt($ch, CURLOPT_PROXY, $this->getProxy());
 
-            if (!in_array(getenv('SERVER_ADDR'), array('5.9.7.81', '88.198.24.104'))) {
-                $this->log('proxy auth bu login');
+            if (Yii::app()->params['use_proxy_auth']) {
+                $this->log('proxy auth by login');
                 curl_setopt($ch, CURLOPT_PROXYUSERPWD, "alexhg:Nokia1111");
                 curl_setopt($ch, CURLOPT_PROXYAUTH, 1);
             }
@@ -61,8 +61,7 @@ class LiBaseParser
             }
             else
                 $this->log("curl fail ".curl_errno($ch));
-            $this->proxy = null;
-            $this->getProxy();
+            $this->changeProxy();
 
             return $this->loadPage($page_url, $require_text, $post);
         }
@@ -85,35 +84,42 @@ class LiBaseParser
 
     public function getProxy()
     {
-        if (empty($this->proxy)){
-            if ($this->rus_proxy)
-                $this->changeRuProxy();
-            else
-                $this->changeProxy();
-        }
+        if (empty($this->proxy))
+            $this->changeProxy();
 
         return $this->proxy;
-    }
-
-    public function changeRuProxy()
-    {
-        if ($this->use_proxy) {
-            preg_match_all('/([\d:\.]+);RU/', $this->getRuProxyList(), $matches);
-            $this->proxy = $matches[1][rand(0, count($matches[0]) - 1)];
-            $this->log('proxy: '.$this->proxy);
-        }
     }
 
     public function changeProxy()
     {
         if ($this->use_proxy) {
-            $criteria = new CDbCriteria;
-            $criteria->order = 'RAND()';
-            $proxy = Proxy::model()->find($criteria);
-
-            $this->proxy = $proxy->value;
+            if ($this->rus_proxy)
+                $list = $this->getRuProxyList();
+            else
+                $list = $this->getProxyList();
+            $this->proxy = $list[rand(0, count($list) - 1)];
             $this->log('proxy: '.$this->proxy);
         }
+    }
+
+    public function getProxyList()
+    {
+        $cache_id = 'proxy_list';
+        $value = Yii::app()->cache->get($cache_id);
+        if ($value === false) {
+            $file = file_get_contents('http://awmproxy.com/allproxy.php?country=1');
+
+            //select only rus proxy
+            preg_match_all('/([\d:\.]+);/', $file, $matches);
+            $value = array();
+            for($i=0;$i<count($matches[0]);$i++){
+                $value[] = $matches[1][$i];
+            }
+
+            Yii::app()->cache->set($cache_id, $value, 300);
+        }
+
+        return $value;
     }
 
     public function getRuProxyList()
@@ -121,8 +127,16 @@ class LiBaseParser
         $cache_id = 'ru_proxy_list';
         $value = Yii::app()->cache->get($cache_id);
         if ($value === false) {
-            $value = file_get_contents('http://awmproxy.com/allproxy.php?country=1');
-            Yii::app()->cache->set($cache_id, $value, 500);
+            $file = file_get_contents('http://awmproxy.com/allproxy.php?country=1');
+
+            //select only rus proxy
+            preg_match_all('/([\d:\.]+);UA/', $file, $matches);
+            $value = array();
+            for($i=0;$i<count($matches[0]);$i++){
+                $value[] = $matches[1][$i];
+            }
+
+            Yii::app()->cache->set($cache_id, $value, 300);
         }
 
         return $value;

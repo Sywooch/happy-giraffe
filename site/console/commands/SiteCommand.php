@@ -131,7 +131,7 @@ class SiteCommand extends CConsoleCommand
 
         $cities = GeoCity::model()->findAll('type="г"');
         echo count($cities);
-        for ($i = 0; $i < count($cities); $i++)
+        for ($i = 0; $i < count($cities); $i++){
             for ($j = 0; $j < count($cities); $j++)
                 if ($cities[$i]->id != $cities[$j]->id) {
                     $model = new RouteParsing();
@@ -139,6 +139,10 @@ class SiteCommand extends CConsoleCommand
                     $model->city_to_id = $cities[$j]->id;
                     $model->save();
                 }
+
+            if ($i % 10 == 0)
+            echo $i."\n";
+        }
     }
 
     public function actionParseRoutes(){

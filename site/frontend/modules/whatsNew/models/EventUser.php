@@ -34,6 +34,6 @@ class EventUser extends Event
 
     public function canBeCached()
     {
-        return true;
+        return false;
     }
 }

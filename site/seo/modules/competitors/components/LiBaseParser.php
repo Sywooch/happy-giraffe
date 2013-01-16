@@ -61,8 +61,7 @@ class LiBaseParser
             }
             else
                 $this->log("curl fail ".curl_errno($ch));
-            $this->proxy = null;
-            $this->getProxy();
+            $this->changeProxy();
 
             return $this->loadPage($page_url, $require_text, $post);
         }
@@ -85,26 +84,25 @@ class LiBaseParser
 
     public function getProxy()
     {
-        if (empty($this->proxy)){
-            if ($this->rus_proxy)
-                $this->changeRuProxy();
-            else
-                $this->changeProxy();
-        }
+        if (empty($this->proxy))
+            $this->changeProxy();
 
         return $this->proxy;
     }
 
-    public function changeRuProxy()
+    public function changeProxy()
     {
         if ($this->use_proxy) {
-            $list = $this->getRuProxyList();
+            if ($this->rus_proxy)
+                $list = $this->getRuProxyList();
+            else
+                $list = $this->getProxyList();
             $this->proxy = $list[rand(0, count($list) - 1)];
             $this->log('proxy: '.$this->proxy);
         }
     }
 
-    public function changeProxy()
+    public function getProxyList()
     {
         $cache_id = 'proxy_list';
         $value = Yii::app()->cache->get($cache_id);

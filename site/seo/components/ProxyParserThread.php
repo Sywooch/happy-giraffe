@@ -71,6 +71,8 @@ class ProxyParserThread
                 curl_setopt($ch, CURLOPT_REFERER, $url);
 
             if ($this->use_proxy) {
+                $this->log('select proxy');
+
                 curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
                 curl_setopt($ch, CURLOPT_PROXY, $this->proxy->value);
                 if (Yii::app()->params['use_proxy_auth']) {

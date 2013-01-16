@@ -5,7 +5,7 @@
  */
 class WordstatParser extends ProxyParserThread
 {
-    const PARSE_LIMIT = 200;
+    const PARSE_LIMIT = 100;
 
     /**
      * @var ParsingKeyword[]
@@ -160,7 +160,8 @@ class WordstatParser extends ProxyParserThread
         //find and add our keyword
         if (preg_match('/— ([\d]+) показ[ов]*[а]* в месяц/', $html, $matches)) {
             $this->log('valid page loaded');
-            YandexPopularity::model()->addValue($this->keyword->keyword_id, $matches[1], $this->keyword->theme);
+            if ($this->first_page)
+                YandexPopularity::model()->addValue($this->keyword->keyword_id, $matches[1], $this->keyword->theme);
         } else return false;
 
         //find keywords in block "Что искали со словом"
@@ -204,8 +205,10 @@ class WordstatParser extends ProxyParserThread
     public function addData($keyword, $value, $related = false)
     {
         if (!empty($keyword) && !empty($value)) {
-            if (strpos($keyword, '+') !== false)
-                $keyword = preg_replace('/(\+)[\w]*/', '', $keyword);
+            if (strpos($keyword, '+') !== false){
+                $keyword = str_replace(' +', ' ', $keyword);
+                $keyword = ltrim($keyword,'+');
+            }
 
             $model = Keyword::GetKeyword($keyword);
 

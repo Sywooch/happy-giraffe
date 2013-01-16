@@ -8,7 +8,7 @@
  * @property string $city_from_id
  * @property string $city_to_id
  * @property integer $wordstat
- * @property integer $checked
+ * @property integer $active
  *
  * The followings are the available model relations:
  * @property RouteLink[] $outLinks
@@ -45,11 +45,11 @@ class Route extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('city_from_id, city_to_id', 'required'),
-			array('wordstat, checked', 'numerical', 'integerOnly'=>true),
+			array('wordstat, active', 'numerical', 'integerOnly'=>true),
 			array('city_from_id, city_to_id', 'length', 'max'=>11),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, city_from_id, city_to_id, wordstat, checked', 'safe', 'on'=>'search'),
+			array('id, city_from_id, city_to_id, wordstat, active', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -78,7 +78,7 @@ class Route extends CActiveRecord
 			'city_from_id' => 'City From',
 			'city_to_id' => 'City To',
 			'wordstat' => 'Wordstat',
-			'checked' => 'Checked',
+			'active' => 'active',
 		);
 	}
 
@@ -97,7 +97,7 @@ class Route extends CActiveRecord
 		$criteria->compare('city_from_id',$this->city_from_id,true);
 		$criteria->compare('city_to_id',$this->city_to_id,true);
 		$criteria->compare('wordstat',$this->wordstat);
-		$criteria->compare('checked',$this->checked);
+		$criteria->compare('active',$this->active);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

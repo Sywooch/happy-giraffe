@@ -890,7 +890,7 @@
             </div>
             <div class="row-elements">
               <span class="chzn-v2">
-                <select class="chzn" style="width:50px">
+                <select class="chzn" style="width:60px">
                   <option>28</option>
                   <option>января</option>
                   <option>1973</option>

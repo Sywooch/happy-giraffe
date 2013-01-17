@@ -55,7 +55,7 @@
                     switch ($data->type->slug)
                     {
                         case 'status':
-                            echo $data->status->status->text;
+                            echo $data->status->status->purified->text;
                             break;
                         case 'post':
                             $text = $data->post->purified->text;

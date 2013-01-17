@@ -29,7 +29,7 @@
         <div class="row-elements">
             <span class="chzn-v2"><?=$form->dropDownList($model, 'baby_day', HDate::Range(1, 31), array('class' => 'chzn', 'empty' => 'День', 'style' => 'width:65px;')); ?></span>
             <span class="chzn-v2"><?=$form->dropDownList($model, 'baby_month', HDate::ruMonths(), array('class' => 'chzn', 'empty' => 'Месяц', 'style' => 'width:80px;')); ?></span>
-            <span class="chzn-v2"><?=$form->dropDownList($model, 'baby_year', HDate::Range(date('Y'), date('Y')+1), array('class' => 'chzn', 'empty' => 'Год', 'style' => 'width:60px;')); ?></span>
+            <span class="chzn-v2"><?=$form->dropDownList($model, 'baby_year', HDate::Range(date('Y') - 18, 1900), array('class' => 'chzn', 'empty' => 'Год', 'style' => 'width:60px;')); ?></span>
             <?=$form->textField($model, 'baby_birthday', array('style' => 'display:none;')); ?>
         </div>
         <br>

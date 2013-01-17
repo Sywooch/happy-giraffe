@@ -479,8 +479,9 @@
 										<p>Желатин замочим в 3/4 стакана кипяченной прохладной воды.Смешиваем... <a href="" class="all">Читать</a></p>
 									</div>
 								</li>
+								<div id="infscr-loading"><img alt="Loading..." src="/images/ico/ajax-loader.gif" /><div>Загрузка</div></div>
 							</ul>
-							<div id="infscr-loading" class="infscr-loading"></div>
+							
 						</div>
 				
 

@@ -2,7 +2,7 @@
     <div class="block-title" style="text-align:center;">Регистрация на Веселом Жирафе</div>
 
     <div class="hl">
-        <span>Стань полноправным участником сайта за 1 минуту!</span>
+        <span>Стань полноправным участником сайта за 30 секунд!</span>
     </div>
 
     <div class="clearfix">

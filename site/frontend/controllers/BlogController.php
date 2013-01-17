@@ -218,7 +218,10 @@ class BlogController extends HController
             Yii::app()->end();
         }
 
-        $this->pageTitle = $content->title;
+        if ($content->type_id == CommunityContentType::TYPE_STATUS)
+            $this->pageTitle = strip_tags($content->status->text);
+        else
+            $this->pageTitle = $content->title;
         $this->registerCounter();
 
         $this->user = $content->author;

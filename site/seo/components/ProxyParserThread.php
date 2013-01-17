@@ -71,14 +71,12 @@ class ProxyParserThread
                 curl_setopt($ch, CURLOPT_REFERER, $url);
 
             if ($this->use_proxy) {
+                $this->log('select proxy');
+
                 curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
                 curl_setopt($ch, CURLOPT_PROXY, $this->proxy->value);
-                if (!in_array(getenv('SERVER_ADDR'), array('5.9.7.81'))) {
-
-                    if (getenv('SERVER_ADDR') == '88.198.24.104') {
-                        curl_setopt($ch, CURLOPT_PROXYUSERPWD, "alexhg:Nokia1111");
-                    } else
-                        curl_setopt($ch, CURLOPT_PROXYUSERPWD, "alexk984:Nokia12345");
+                if (Yii::app()->params['use_proxy_auth']) {
+                    curl_setopt($ch, CURLOPT_PROXYUSERPWD, "alexhg:Nokia1111");
                     curl_setopt($ch, CURLOPT_PROXYAUTH, 1);
                 }
             }

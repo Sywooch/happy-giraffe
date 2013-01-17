@@ -358,17 +358,15 @@ textarea.error {border:1px solid #ff6767 !important;}
     width: 90px;
     z-index: 100;
     background: #fff;
-    padding: 10px 25px 10px 20px;
+    padding: 10px 20px;
     color: #b6b6b6;
     font-size: 14px;
     line-height: 24px;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
-    -webkit-box-shadow: 0 0 4px rgba(0,0,0,0.5);
-    box-shadow: 0 0 4px rgba(0,0,0,0.5);
 }
-#infscr-loading > img {float: left;margin-right: 8px;}
+#infscr-loading > img {float: left;margin-right: 10px;}
 
 .tip {display:none !important;}
 

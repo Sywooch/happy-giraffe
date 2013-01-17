@@ -8,7 +8,7 @@ class MailChimp extends CApplicationComponent
     const WEEKLY_NEWS_LIST_ID = 'd8ced52317';
     const WEEKLY_NEWS_TEST_LIST_ID = 'ee63e4d551';
     const CONTEST_LIST = 'dc4cb268fc';
-    const CONTEST_PARC_LIST = '5fcdbab25f';
+    const CONTEST_PARC_LIST = '3718a3f717';
 
     public $apiKey;
     public $list;
@@ -136,7 +136,9 @@ class MailChimp extends CApplicationComponent
         Yii::import('site.frontend.modules.contest.models.*');
         Yii::import('site.frontend.helpers.*');
 
-        $works = ContestWork::model()->findAll('contest_id=4');
+        $last_contest = Yii::app()->db->createCommand()->select('max(id)')->from(Contest::model()->tableName())->queryScalar();
+        $works = ContestWork::model()->findAll('contest_id='.$last_contest);
+
         $options = array();
         foreach ($works as $work) {
             $options[] = array(

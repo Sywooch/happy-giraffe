@@ -15,8 +15,8 @@
 		<!-- Вставка секции в шапке страницы -->
 		<?php $headerSection = '
 		<a class="layout-header-section_a" href="">
-			<img alt="" src="/images/section/child/layout-header-section_img-child-1-3.jpg" class="layout-header-section_img">
-			<span class="layout-header-section_text">Дети от 1 года до 3 лет</span>
+			<img alt="" src="/images/section/child/layout-header-section_img-child-6-18.jpg" class="layout-header-section_img">
+			<span class="layout-header-section_text">Школьники</span>
 		</a>
 		'?>
 		<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/layout-header.php'; ?>
@@ -31,35 +31,19 @@
 									<li class="child-choice-age_li">
 										<a href="">0-1</a>
 									</li>
-									<li class="child-choice-age_li child-choice-age_li__round">
-										<a href="" class=""></a>
+									<li class="child-choice-age_li">
+										<a href="">1-3</a>
 									</li>
 									<li class="child-choice-age_li">
 										<a href="">3-6</a>
 									</li>
-									<li class="child-choice-age_li">
-										<a href="">6-12</a>
-									</li>
-									<li class="child-choice-age_li">
-										<a href="">12-15</a>
-									</li>
-									<li class="child-choice-age_li">
-										<a href="">15-18</a>
-									</li>
 								</ul>
 							</div>
-							<div class="child-calendar-steps child-calendar-steps__age13">
+							<div class="child-calendar-steps child-calendar-steps__age6-18">
 								<div class="child-calendar-steps_t">Календарь развития вашего ребенка</div>
 								<ul class="child-calendar-steps_ul clearfix">
-									<li class="child-calendar-steps_li">
-										<a href="" class="child-calendar-steps_a js-tooltipsy" title="1 год - 1 год 3 мес"></a>
-										<div class="child-calendar-steps_flag"><span class="child-calendar-steps_flag-ico"></span> 1 год</div> 
-									</li>
-									<li class="child-calendar-steps_li">
-										<a href="" class="child-calendar-steps_a child-calendar-steps_a__blue-light js-tooltipsy" title="1 год 3 мес - 1,5 года"></a>
-									</li>
 									<li class="child-calendar-steps_li child-calendar-steps_li__with-child">
-										<a href="" class="child-calendar-steps_a child-calendar-steps_a__blue-light js-tooltipsy" title="1,5 года - 1 год 9 мес">
+										<a href="" class="child-calendar-steps_a child-calendar-steps_a__blue-light js-tooltipsy" title="от 6 до 12 лет">
 											<span class="child-calendar-steps_child">
 											<!-- список возможных классов для иконок детей
 											.ico-child__boy-small до 1 года
@@ -75,28 +59,32 @@
 											.ico-child__boy-19
 											.ico-child__girl-19
 											-->
-												<i class="ico-child ico-child__boy-3"></i>
-												<span class="visible">Ростислав, <span class="child-calendar-steps_yellow">1 год 7 мес.</span></span>
+												<i class="ico-child ico-child__boy-8"></i>
+												<i class="ico-child ico-child__girl-8"></i>
+												<span class="visible">
+												Ян, <span class="child-calendar-steps_yellow">7 лет</span>;
+												Антуанетта, <span class="child-calendar-steps_yellow">11 лет</span>
+												</span>
 											</span>
 										</a>
+										<div class="child-calendar-steps_flag"><span class="child-calendar-steps_flag-ico"></span> 6 лет</div> 
 									</li>
 									<li class="child-calendar-steps_li">
-										<a href="" class="child-calendar-steps_a child-calendar-steps_a__blue-light js-tooltipsy" title="1 год 9 мес - 2 года"></a>
-									</li>
-									<li class="child-calendar-steps_li">
-										<a href="" class="child-calendar-steps_a child-calendar-steps_a__blue js-tooltipsy" title="2 года - 2,5 года"></a>
-										<div class="child-calendar-steps_flag"><span class="child-calendar-steps_flag-ico"></span> 2 года</div>        
+										<a href="" class="child-calendar-steps_a child-calendar-steps_a__blue js-tooltipsy" title="от 12 до 15 лет">
+										</a>
+										<div class="child-calendar-steps_flag"><span class="child-calendar-steps_flag-ico"></span> 12 лет</div> 
 									</li>
 									<li class="child-calendar-steps_li child-calendar-steps_li__with-child">
-										<a href="" class="child-calendar-steps_a child-calendar-steps_a__blue js-tooltipsy" title="2,5 года - 3 года">
+										<a href="" class="child-calendar-steps_a child-calendar-steps_a__blue-dark js-tooltipsy" title="от 15 до 18 лет">
 											<span class="child-calendar-steps_child">
-												<i class="ico-child ico-child__girl-3"></i>
-												<span class="visible">Апполинария, <span class="child-calendar-steps_yellow">2 года 7 мес.</span></span>
+												<i class="ico-child ico-child__girl-14"></i>
+												<span class="visible">Апполинария, <span class="child-calendar-steps_yellow">14 лет</span></span>
 											</span>
-										</a>   
+										</a> 
+										<div class="child-calendar-steps_flag"><span class="child-calendar-steps_flag-ico"></span> 15 лет</div>
 									</li>
 									<li class="child-calendar-steps_li">
-										<div class="child-calendar-steps_flag"><span class="child-calendar-steps_flag-ico"></span> 3 года</div>   
+										<i class="ico-age18"></i>
 									</li>
 								</ul>
 							</div>
@@ -106,14 +94,14 @@
 						<div class="col-1">
 							<div class="section-menu">
 								<div class="section-menu-top">
-									<div class="section-menu_t">Клубы для общения<div class="section-menu_t-blue">Дети <br>от 1 года до 3 лет</div></div>
+									<div class="section-menu_t">Клубы для общения<div class="section-menu_t-blue">Школьники</div></div>
 								</div>
 							</div>
 							
 							<div class="section-clubs">
 								<ul>
 									<li class="section-clubs_li clearfix">
-										<a href="" class="section-clubs_img kids"><img src="/images/club_img_8.png" alt=""></a>
+										<a href="" class="section-clubs_img kids"><img src="/images/club_img_15.png" alt=""></a>
 										<div class="section-clubs_hold">
 											<a href="" class="section-clubs_t">Здоровье и питание</a>
 											<div class="section-clubs_comment">
@@ -123,9 +111,9 @@
 										</div>
 									</li>
 									<li class="section-clubs_li clearfix">
-										<a href="" class="section-clubs_img kids"><img src="/images/club_img_9.png" alt=""></a>
+										<a href="" class="section-clubs_img kids"><img src="/images/club_img_16.png" alt=""></a>
 										<div class="section-clubs_hold">
-											<a href="" class="section-clubs_t">Ясли и няни </a>
+											<a href="" class="section-clubs_t">Школа </a>
 											<div class="section-clubs_comment">
 												<i class="ico-comment"></i> 25 036
 											</div>
@@ -133,9 +121,9 @@
 										</div>
 									</li>
 									<li class="section-clubs_li clearfix">
-										<a href="" class="section-clubs_img kids"><img src="/images/club_img_10.png" alt=""></a>
+										<a href="" class="section-clubs_img kids"><img src="/images/club_img_17.png" alt=""></a>
 										<div class="section-clubs_hold">
-											<a href="" class="section-clubs_t">Раннее развитие и обучение</a>
+											<a href="" class="section-clubs_t">Спорт и досуг</a>
 											<div class="section-clubs_comment">
 												<i class="ico-comment"></i> 25 036
 											</div>
@@ -143,9 +131,9 @@
 										</div>
 									</li>
 									<li class="section-clubs_li clearfix">
-										<a href="" class="section-clubs_img kids"><img src="/images/club_img_11.png" alt=""></a>
+										<a href="" class="section-clubs_img kids"><img src="/images/club_img_18.png" alt=""></a>
 										<div class="section-clubs_hold">
-											<a href="" class="section-clubs_t">Психология и воспитание</a>
+											<a href="" class="section-clubs_t">Подростковая психология и воспитание</a>
 											<div class="section-clubs_comment">
 												<i class="ico-comment"></i> 25 036
 											</div>
@@ -312,7 +300,7 @@
 			</div>
 		<div class="layout-content clearfix">
 			<div class="services-list">
-				<div class="services-list_t">Полезные сервисы. <span class="color-blue"> Дети от 1 года до 3 лет</span></div>
+				<div class="services-list_t">Полезные сервисы. <span class="color-blue"> Школьники</span></div>
 				<ul>
 					<li>
 						<div class="img"><a href=""><img src="/images/services/service_img_3.png"></a></div>
@@ -610,7 +598,7 @@
 			<div class="section_overlay">
 				<div class="section-join">
 					<div class="section-join_desc">
-						<div class="section-join_t">Нашему малышу <br>от 1 года до 3 лет</div>
+						<div class="section-join_t">У нас дети <br>школьники</div>
 					</div>
 					<div class="section-join_btn btn-green btn-h55">Присоединяйтесь!</div>
 				</div>
@@ -1036,7 +1024,7 @@
 		<div class="footer-push"></div>
 		
 	</div>
-	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/footer.php'; ?>
+	 <?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/footer.php'; ?>
 </div>
 </body>
 </html>

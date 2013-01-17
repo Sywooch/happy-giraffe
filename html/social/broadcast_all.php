@@ -480,6 +480,7 @@
 									</div>
 								</li>
 							</ul>
+							<div id="infscr-loading" class="infscr-loading"></div>
 						</div>
 				
 

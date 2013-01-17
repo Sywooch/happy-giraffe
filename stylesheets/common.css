@@ -187,6 +187,24 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 .ico-comment{display:inline-block;*zoom:1;*display:inline;width:16px;height:13px;background:url(/images/common.png) no-repeat -218px -295px;vertical-align:middle;margin-right:5px;}
 .ico-pregnant-test {width:59px;height:17px;background:url(../images/section/pregnancy/ico-pregnancy-test.png) no-repeat;display: inline-block;*zoom:1;*display:inline;}
 .ico-childbirth {width:42px;height:35px;background:url(../images/section/pregnancy/ico-childbirth.png) no-repeat;display: inline-block;*zoom:1;*display:inline;}
+.ico-age18 {display: inline-block;*zoom:1;*display:inline;width: 33px;height: 34px;background: url(/images/ico/ico-age18.png) no-repeat;vertical-align: middle;}
+.ico-child {width: 52px;height: 50px;display: inline-block;*zoom:1;*display:inline;vertical-align: middle;background: url(/images/user-family-icons.png) no-repeat 0 0;}
+.ico-child__baby-plan{background-position: 0 0;}
+.ico-child__baby{background-position: -66px 0;}
+.ico-child__boy-wait{background-position: 0 -50px;}
+.ico-child__girl-wait{background-position: -66px -50px;}
+.ico-child__boy-small{background-position: 0 -100px;}
+.ico-child__girl-small{background-position: -66px -100px;}
+.ico-child__boy-3{background-position: 0 -150px;;}
+.ico-child__girl-3{background-position: -66px -150px;}
+.ico-child__boy-5{background-position: 0 -200px;}
+.ico-child__girl-5{background-position: -66px -200px;}
+.ico-child__boy-8{background-position: 0 -250px;}
+.ico-child__girl-8{background-position: -66px -250px;}
+.ico-child__boy-14{background-position: 0 -300px;}
+.ico-child__girl-14{background-position: -66px -300px;}
+.ico-child__boy-19{background-position: 0 -350px;}
+.ico-child__girl-19{background-position: -66px -350px;}
 /* /icons */
 
 .logo-box {margin: 0 auto;text-align:center;color:#8d5bbc;text-transform:uppercase;font-size:10px;letter-spacing:3px;line-height:25px;padding: 25px 0 15px;}
@@ -242,6 +260,8 @@ textarea.error {border:1px solid #ff6767 !important;}
 
 .hidden {display:none !important;}
 .visible {display:block !important;}
+
+.z-index0 {z-index: 0;}
 
 .nomargin,
 .margin-0 {margin:0 !important;}
@@ -5324,18 +5344,20 @@ label {
 /* @layout project
 -------------------------------------------------------------------- */
 /* section */
-.section{margin:0 -3000px 40px;padding:12px 0 0;position: relative;}
-.section__sand{background:url(/images/section/section__sand-t.jpg) repeat-x;}
-.section__sand .section_hold  {background:#f6d59f url(/images/section/section__sand-b.jpg) repeat-x 0 100%;}
+.section {margin:0 -3000px 40px;padding:12px 0 0;position: relative;}
+.section__sand {background:url(/images/section/section__sand-t.jpg) repeat-x;}
+.section__sand .section_hold {background:#f6d59f url(/images/section/section__sand-b.jpg) repeat-x 0 100%;}
 .section__sand .box-two-transp {padding-top: 12px;}
 .section__sand .box-two-transp_hold {padding-top: 15px;padding-bottom: 6px;}
 .section__sand .section-menu-top {border-color: #f4c67c;}
-.section__gray{background:url(/images/section/section__gray-t.gif) repeat-x;}
-.section__gray .section_hold  {background:#f5f4f4 url(/images/section/section__gray-b.gif) repeat-x 0 100%;}
-.section__blue{background:url(/images/section/section__blue-t.gif) repeat-x;}
-.section__blue .section_hold  {background:#95b9ea url(/images/section/section__blue-b.gif) repeat-x 0 100%;}
+.section__gray {background:url(/images/section/section__gray-t.gif) repeat-x;}
+.section__gray .section_hold {background:#f5f4f4 url(/images/section/section__gray-b.gif) repeat-x 0 100%;}
+.section__blue {background:url(/images/section/section__blue-t.gif) repeat-x;}
+.section__blue .section_hold {background:#95b9ea url(/images/section/section__blue-b.gif) repeat-x 0 100%;}
 .section__blue .section-menu-top {border-color: #95b9ea;}
 .section__blue .box-two-transp_hold {background: #f2f8ff;}
+.section__blue-light {background:url(/images/section/section__blue-light-t.gif) repeat-x;}
+.section__blue-light .section_hold {background:#eef3fb url(/images/section/section__blue-light-b.gif) repeat-x 0 100%;}
 .section_hold{padding:25px 3000px 15px;}
 .section_overlay {
     position: absolute;
@@ -5405,7 +5427,7 @@ label {
     border-top-left-radius: 5px;
 }
 .section-menu-top {
-    padding: 20px;
+    padding: 20px 15px 20px 20px;
     border-bottom: 2px dashed transparent;
 }
 .section-menu_t {
@@ -5416,6 +5438,7 @@ label {
 }
 .section-menu_t-small {font-size: 17px;line-height: 24px;color: #696767;}
 .section-menu_t-blue {color: #4486d5;}
+.section-menu_tx-medium {font-size: 32px;}
 .section-menu_search {margin: 0 -10px;position: relative;}
 .section-menu_search-itx {
     display: block;
@@ -5492,40 +5515,63 @@ label {
 
 /* ava-small-list */
 .ava-small-list {margin:0 10px;}
-.ava-small-list_li {
-    float: left;
-    margin: 0 10px 8px 0;
-}
+.ava-small-list_li {float: left;margin: 0 10px 8px 0;}
 .ava-small-list_count {font-size: 18px;line-height: 24px;color: #0281B0;}
 /* /ava-small-list */
 
 /* section baby 
 ------------------------- */
 /* banner pricorm */
-.section-banner-pricorm {position: relative;margin: 0 -8px 10px;background: url(/images/section/baby/section-banner-pricorm.jpg) no-repeat;height: 283px;}
+.section-banner-pricorm {position: relative;margin: 0 -8px 10px;background: url(/images/section/section-banner-pricorm.jpg) no-repeat;height: 283px;}
 .section-banner-pricorm .btn-big {position: absolute;top: 151px;left: 490px;font-size: 30px;font-weight: normal;padding: 0 30px;}
 /* /banner pricorm */
 
 /* banner pregnancy-test */
-.section-banner-pregnancy-test {position: relative;margin: 0 -8px 10px;background: url(/images/section/pregnancy/section-banner-pregnancy-test.jpg) no-repeat;height: 298px;}
+.section-banner-pregnancy-test {position: relative;margin: 0 -8px 10px;background: url(/images/section/section-banner-pregnancy-test.jpg) no-repeat;height: 298px;}
 .section-banner-pregnancy-test .btn-big {position: absolute;top: 186px;left: 380px;font-size: 30px;font-weight: normal;padding: 0 30px;color: #c15f18;}
 /* /banner pregnancy-test */
 
+/* banner disease */
+.section-banner-disease {position: relative;margin: 0 -8px 10px;background: url(/images/section/section-banner-disease.jpg) no-repeat;height: 298px;}
+.section-banner-disease .btn-big {position: absolute;top: 195px;left: 520px;font-size: 30px;font-weight: normal;padding: 0 55px;}
+/* /banner disease */
+
+/* child-choice-age */
 .child-choice-age {float: right;}
-.child-choice-age_desc {margin:15px 0 10px;text-align: center;color: #abaaaa;}
+.child-choice-age_desc {margin:12px 0 10px;text-align: center;color: #abaaaa;}
 .child-choice-age_ul {display: table;table-layout: fixed;width: 300px;}
 .child-choice-age_li {display: table-cell;margin:0 15px 5px;text-align: center;font-size: 15px;}
+.child-choice-age_li__round {width: 14px;}
+.child-choice-age_li__round  > a {
+    display:block;
+    width:8px;
+    height:10px;
+    margin: 0 auto;
+    background-color: #ffabc9;
+    -webkit-border-radius:4px;
+    -moz-border-radius:4px;
+    border-radius:4px;
+}
+/* /child-choice-age */
 
-.child-calendar-steps {float: left;}
+/* calendars child child-calendar-steps */
+.child-calendar-steps {float: left;margin-left: 10px;}
 .child-calendar-steps__age01 .child-calendar-steps_li {margin:0 10px;}
-.child-calendar-steps__age01 ..child-calendar-steps_flag {left: -10px;}
+.child-calendar-steps__age01 .child-calendar-steps_flag {left: -10px;}
+.child-calendar-steps__age13 .child-calendar-steps_a {width: 91px;}
+.child-calendar-steps__age6-18 .child-calendar-steps_a {width: 191px;}
+.child-calendar-steps__age36 .child-calendar-steps_ul {background: url(/images/section/child/child-calendar-steps__age36.png) no-repeat 3px 20px;}
+.child-calendar-steps__age36 .child-calendar-steps_a {width: 195px;background-color: transparent;}
+.child-calendar-steps__age36 .child-calendar-steps_a:hover {background-color: transparent;}
 .child-calendar-steps_t {color: #6a8bb7;font-size: 15px;margin-bottom: 5px;}
-.child-calendar-steps_ul {padding: 20px 0 0 3px;}
+.child-calendar-steps_ul {padding: 20px 0 5px;}
 .child-calendar-steps_li {position: relative;float: left;margin-right: 3px;min-width: 5px;min-height: 5px;}
 .child-calendar-steps_li__birth .child-calendar-steps_a {height: 25px;background: #cde0fa;}
 .child-calendar-steps_birth-text {position: absolute;top: -16px;left: 26px;color: #e37cc9;font: 11px/13px Tahoma, Arial, Verdana, sans-serif;}
 .child-calendar-steps_a {
     display: block;
+    position: relative;
+    z-index: 1;
     width: 16px;
     height: 16px;
     background-color: #a5c4ef;
@@ -5574,6 +5620,22 @@ label {
     background: url("../images/common.png") no-repeat -191px -127px;
     z-index: 1;
 }
+.child-calendar-steps_li__with-child {z-index: 0;margin-bottom: 15px;}
+.child-calendar-steps_child {
+    position: absolute;
+    z-index: 0;
+    top: -22px;
+    left: 50%;
+    margin-left:-100px;
+    width: 200px;
+    color: #949393;
+    font-size: 11px;
+    font-family: Tahoma, Arial, Verdana, sans-serif;
+    text-align: center;
+}
+.child-calendar-steps_yellow {background: #fffb9b;padding: 0 2px;}
+.child-calendar-steps .ico-age18 {position: absolute;top: -15px;left: 0;}
+/* /child-calendar-steps */
 
 /* /section baby  */
 

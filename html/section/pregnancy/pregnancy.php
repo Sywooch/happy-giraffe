@@ -506,24 +506,24 @@
 												<span>Елизавета</span>
 											</li>
 											<li>
-												<div class="img boy-5"></div>
+												<div class="img ico-child ico-child__boy-5"></div>
 												<span class="yellow">Сын</span> <br>
 												<span>Саша</span> <br>
 												<span class="yellow">5 лет</span>
 											</li><li>
-												<div class="img girl-5"></div>
+												<div class="img ico-child ico-child__girl-5"></div>
 												<span class="yellow">Дочь</span> <br>
 												<span>Евгения</span> <br>
 												<span class="yellow">4 года</span>
 											</li>
 											<li>
-												<div class="img boy-wait"></div>
+												<div class="img ico-child ico-child__boy-wait"></div>
 												<span>Ждем</span> <br>
 												<span class="yellow">мальчика</span> <br>
 												<span class="blue-text">26 неделя</span>
 											</li>
 											<li>
-												<div class="img girl-wait"></div>
+												<div class="img ico-child ico-child__girl-wait"></div>
 												<span>Ждем</span> <br>
 												<span class="yellow">Девочку</span> <br>
 												<span class="pink-text">26 неделя</span>
@@ -786,24 +786,24 @@
 												<span>Елизавета</span>
 											</li>
 											<li>
-												<div class="img boy-5"></div>
+												<div class="img ico-child ico-child__boy-5"></div>
 												<span class="yellow">Сын</span> <br>
 												<span>Саша</span> <br>
 												<span class="yellow">5 лет</span>
 											</li><li>
-												<div class="img girl-5"></div>
+												<div class="img ico-child ico-child__girl-5"></div>
 												<span class="yellow">Дочь</span> <br>
 												<span>Евгения</span> <br>
 												<span class="yellow">4 года</span>
 											</li>
 											<li>
-												<div class="img boy-wait"></div>
+												<div class="img ico-child ico-child__boy-wait"></div>
 												<span>Ждем</span> <br>
 												<span class="yellow">мальчика</span> <br>
 												<span class="blue-text">26 неделя</span>
 											</li>
 											<li>
-												<div class="img girl-wait"></div>
+												<div class="img ico-child ico-child__girl-wait"></div>
 												<span>Ждем</span> <br>
 												<span class="yellow">Девочку</span> <br>
 												<span class="pink-text">26 неделя</span>
@@ -932,24 +932,24 @@
 												<span>Елизавета</span>
 											</li>
 											<li>
-												<div class="img boy-5"></div>
+												<div class="img ico-child ico-child__boy-5"></div>
 												<span class="yellow">Сын</span> <br>
 												<span>Саша</span> <br>
 												<span class="yellow">5 лет</span>
 											</li><li>
-												<div class="img girl-5"></div>
+												<div class="img ico-child ico-child__girl-5"></div>
 												<span class="yellow">Дочь</span> <br>
 												<span>Евгения</span> <br>
 												<span class="yellow">4 года</span>
 											</li>
 											<li>
-												<div class="img boy-wait"></div>
+												<div class="img ico-child ico-child__boy-wait"></div>
 												<span>Ждем</span> <br>
 												<span class="yellow">мальчика</span> <br>
 												<span class="blue-text">26 неделя</span>
 											</li>
 											<li>
-												<div class="img girl-wait"></div>
+												<div class="img ico-child ico-child__girl-wait"></div>
 												<span>Ждем</span> <br>
 												<span class="yellow">Девочку</span> <br>
 												<span class="pink-text">26 неделя</span>
@@ -1078,24 +1078,24 @@
 												<span>Елизавета</span>
 											</li>
 											<li>
-												<div class="img boy-5"></div>
+												<div class="img ico-child ico-child__boy-5"></div>
 												<span class="yellow">Сын</span> <br>
 												<span>Саша</span> <br>
 												<span class="yellow">5 лет</span>
 											</li><li>
-												<div class="img girl-5"></div>
+												<div class="img ico-child ico-child__girl-5"></div>
 												<span class="yellow">Дочь</span> <br>
 												<span>Евгения</span> <br>
 												<span class="yellow">4 года</span>
 											</li>
 											<li>
-												<div class="img boy-wait"></div>
+												<div class="img ico-child ico-child__boy-wait"></div>
 												<span>Ждем</span> <br>
 												<span class="yellow">мальчика</span> <br>
 												<span class="blue-text">26 неделя</span>
 											</li>
 											<li>
-												<div class="img girl-wait"></div>
+												<div class="img ico-child ico-child__girl-wait"></div>
 												<span>Ждем</span> <br>
 												<span class="yellow">Девочку</span> <br>
 												<span class="pink-text">26 неделя</span>

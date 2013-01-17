@@ -11,7 +11,7 @@
 				if(isset($headerSection)) {
 					echo $headerSection;
 				} else {
-					/* размеры изображения 195*115пк */
+					/* стандартные размеры изображения, в ширину может быть меньше 195*115пк */
 					echo ('
 						<a class="layout-header-section_a" href="">
 					      <img alt="" src="/images/" class="layout-header-section_img">

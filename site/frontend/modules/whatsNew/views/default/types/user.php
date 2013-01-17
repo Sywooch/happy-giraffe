@@ -3,7 +3,7 @@
         <?php if (Yii::app()->user->isGuest):?>
             <a href="#login" class="fancy" data-theme="white-square">Новые пользователи</a>
         <?php else: ?>
-            <a href="<?=$this->createUrl('/whatsNew/friends/index')?>">Новые пользователи</a>
+            <a href="<?=$this->createUrl('/friends/find')?>">Новые пользователи</a>
         <?php endif ?>
     </h3>
     <div class="textalign-c clearfix">

@@ -33,7 +33,7 @@
                 <?php else: ?>
                 <div class="online-status offline"><i class="icon"></i>Был на сайте <span class="date"><?php echo HDate::GetFormattedTime($user->login_date); ?></span></div>
                 <?php endif; ?>
-                <div class="location">
+                <div class="location clearfix">
                     <?php
                     if (!empty($user->address->country_id))
                         echo $user->address->getFlag(true, 'span');

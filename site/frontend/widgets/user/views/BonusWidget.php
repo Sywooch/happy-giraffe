@@ -161,7 +161,7 @@ Yii::app()->clientScript->registerScriptFile('/javascripts/location.js');
                             )) ?>
 						</span>
                         &nbsp;&nbsp;
-						<span class="chzn-v2">
+						<span class="chzn-v2" id="first_steps_region">
 							<?php echo CHtml::dropDownList('region_id', $this->user->address->region_id, $regions,
                             array(
                                 'class' => 'chzn w-2',

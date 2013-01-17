@@ -352,10 +352,10 @@ textarea.error {border:1px solid #ff6767 !important;}
 
 #infscr-loading {
     position: absolute;
-    bottom: 50px;
+    bottom: -40px;
     left: 50%;
     margin-left: -65px;
-    width: 110px;
+    width: 90px;
     z-index: 100;
     overflow: hidden;
     background: #fff;

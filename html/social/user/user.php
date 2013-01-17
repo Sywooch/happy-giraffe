@@ -31,7 +31,7 @@
 						<div class="user-name nofloat">
 							<h1>Ден Ижецкий</h1>
 							<div class="online-status offline"><i class="icon"></i>Был на сайте <span class="date">Сегодня 16:39</span></div>
-							<div class="location">
+							<div class="location clearfix">
                    				<div title="Россия" class="flag-big flag-big-ru"></div>
                    				<span>Переславль-Залесский, Астраханская область</span>
                    			</div>
@@ -206,8 +206,7 @@
 										<p><span>6 шагов</span> и вы сможете пользоваться всеми функциями сайта</p>
 										<div class="bonus">
 											<div class="bonus-left">
-												<img src="/images/first_steps_bonus_plus.png" /> от нас бонусна 
-												<span>дополнительные опции сайта</span>
+												<img src="/images/first_steps_bonus_plus.png" /> от нас бонус на
 											</div>
 											<img src="/images/first_steps_bonus_big.png" />
 										</div>
@@ -1546,13 +1545,13 @@
 				<div class="select-box">
 					Дата рождения:
 					<span class="chzn-v2 error">
-						<select class="chzn w-1"><option>28</option><option>28</option><option>28</option><option>28</option><option>28</option><option>28</option><option>28</option><option>28</option><option>28</option><option>28</option><option>28</option></select>
+						<select class="chzn w-1"><option>День</option><option>28</option><option>28</option><option>28</option><option>28</option><option>28</option><option>28</option><option>28</option><option>28</option><option>28</option><option>28</option></select>
 					</span>
 					<span class="chzn-v2">
-						<select class="chzn w-2"><option>января</option><option>января</option><option>января</option><option>января</option><option>января</option><option>января</option><option>января</option><option>января</option><option>января</option></select>
+						<select class="chzn w-2"><option>Месяц</option><option>января</option><option>января</option><option>января</option><option>января</option><option>января</option><option>января</option><option>января</option><option>января</option></select>
 					</span>
 					<span class="chzn-v2">
-						<select class="chzn w-3"><option>1973</option><option>1973</option><option>1973</option><option>1973</option><option>1973</option><option>1973</option><option>1973</option><option>1973</option><option>1973</option><option>1973</option><option>1973</option><option>1973</option><option>1973</option></select>
+						<select class="chzn w-3"><option>Год</option><option>1973</option><option>1973</option><option>1973</option><option>1973</option><option>1973</option><option>1973</option><option>1973</option><option>1973</option><option>1973</option><option>1973</option><option>1973</option><option>1973</option></select>
 					</span>
 					
 				</div>

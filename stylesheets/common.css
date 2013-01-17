@@ -5598,3 +5598,13 @@ label {
 /* /start page */
 /* /not used
 ---------------------------------------------------------------------*/
+
+#infscr-loading {
+    position: fixed;
+    bottom: 100px;
+    left: 50%;
+    width: 72px;
+    height: 72px;
+    z-index: 100;
+    overflow: hidden;
+}

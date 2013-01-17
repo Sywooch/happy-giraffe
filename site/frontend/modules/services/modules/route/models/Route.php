@@ -67,40 +67,4 @@ class Route extends CActiveRecord
 			'cityTo' => array(self::BELONGS_TO, 'GeoCity', 'city_to_id'),
 		);
 	}
-
-	/**
-	 * @return array customized attribute labels (name=>label)
-	 */
-	public function attributeLabels()
-	{
-		return array(
-			'id' => 'ID',
-			'city_from_id' => 'City From',
-			'city_to_id' => 'City To',
-			'wordstat' => 'Wordstat',
-			'active' => 'active',
-		);
-	}
-
-	/**
-	 * Retrieves a list of models based on the current search/filter conditions.
-	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
-	 */
-	public function search()
-	{
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
-
-		$criteria=new CDbCriteria;
-
-		$criteria->compare('id',$this->id,true);
-		$criteria->compare('city_from_id',$this->city_from_id,true);
-		$criteria->compare('city_to_id',$this->city_to_id,true);
-		$criteria->compare('wordstat',$this->wordstat);
-		$criteria->compare('active',$this->active);
-
-		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-		));
-	}
 }

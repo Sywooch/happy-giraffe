@@ -43,6 +43,8 @@ class Li2KeywordsParser extends LiBaseParser
             else
                 $criteria->condition = 'public=1 AND active=0';
             $this->site = LiSite::model()->find($criteria);
+            if ($this->site === null)
+                Yii::app()->end();
             $this->site->active = 1;
             $this->site->save();
 

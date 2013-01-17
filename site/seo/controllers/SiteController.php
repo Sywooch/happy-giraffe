@@ -6,7 +6,7 @@ class SiteController extends SController
     {
         return array(
             array('allow',
-                'actions' => array('index', 'logout', 'modules', 'removeUser', 'test', 'sql'),
+                'actions' => array('index', 'logout', 'modules', 'removeUser', 'test', 'sql', 'lastKeywords'),
                 'users' => array('@'),
             ),
             array('allow',
@@ -163,5 +163,16 @@ class SiteController extends SController
     public function actionCloseAdvert()
     {
         SeoUserAttributes::setAttribute('close_advert_' . SeoUserAttributes::ADVERT_ID, 1);
+    }
+
+    public function actionLastKeywords()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->order = 'id desc';
+        $criteria->limit = 100;
+
+        $models = Keyword::model()->findAll($criteria);
+
+        $this->render('last_keywords', compact('models'));
     }
 }

@@ -1,24 +1,21 @@
 <?php
 
 /**
- * This is the model class for table "{{community_content_type}}".
+ * This is the model class for table "route_parsing".
  *
- * The followings are the available columns in table '{{community_content_type}}':
+ * The followings are the available columns in table 'route_parsing':
  * @property string $id
- * @property string $title
- * @property string $slug
+ * @property string $city_from_id
+ * @property string $city_to_id
+ * @property integer $wordstat
+ * @property integer $active
  */
-class CommunityContentType extends HActiveRecord
+class RouteParsing extends HActiveRecord
 {
-    const TYPE_POST = 1;
-    const TYPE_VIDEO = 2;
-    const TYPE_TRAVEL = 3;
-    const TYPE_PHOTO = 4;
-    const TYPE_STATUS = 5;
-
 	/**
 	 * Returns the static model of the specified AR class.
-	 * @return CommunityContentType the static model class
+	 * @param string $className active record class name.
+	 * @return RouteParsing the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -26,11 +23,19 @@ class CommunityContentType extends HActiveRecord
 	}
 
 	/**
+	 * @return CDbConnection database connection
+	 */
+	public function getDbConnection()
+	{
+		return Yii::app()->db_seo;
+	}
+
+	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'community__content_types';
+		return 'route_parsing';
 	}
 
 	/**
@@ -41,11 +46,12 @@ class CommunityContentType extends HActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('title', 'required'),
-			array('title', 'length', 'max'=>255),
+			array('city_from_id, city_to_id', 'required'),
+			array('wordstat, active', 'numerical', 'integerOnly'=>true),
+			array('city_from_id, city_to_id', 'length', 'max'=>11),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, title', 'safe', 'on'=>'search'),
+			array('id, city_from_id, city_to_id, wordstat, active', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -57,7 +63,6 @@ class CommunityContentType extends HActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'rubrics' => array(self::HAS_MANY, 'CommunityRubric', 'community_id'),
 		);
 	}
 
@@ -68,7 +73,10 @@ class CommunityContentType extends HActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'title' => 'Name',
+			'city_from_id' => 'City From',
+			'city_to_id' => 'City To',
+			'wordstat' => 'Wordstat',
+			'active' => 'Active',
 		);
 	}
 
@@ -84,10 +92,23 @@ class CommunityContentType extends HActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id,true);
-		$criteria->compare('title',$this->name,true);
+		$criteria->compare('city_from_id',$this->city_from_id,true);
+		$criteria->compare('city_to_id',$this->city_to_id,true);
+		$criteria->compare('wordstat',$this->wordstat);
+		$criteria->compare('active',$this->active);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
 	}
+
+    public function getCityFrom()
+    {
+        return GeoCity::model()->findByPk($this->city_from_id);
+    }
+
+    public function getCityTo()
+    {
+        return GeoCity::model()->findByPk($this->city_to_id);
+    }
 }

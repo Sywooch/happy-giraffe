@@ -167,4 +167,26 @@ class MailCommand extends CConsoleCommand
             return Yii::app()->mc->api->campaignSendNow($campaignId);
         return false;
     }
+
+    public function actionUnsubList()
+    {
+        $file_name = 'F:/members_Photo_Post_6_6_bounces_Jan_16_2013.csv';
+        $users = file_get_contents($file_name);
+        $lines = explode("\n", $users);
+        echo count($lines)."\n";
+
+        $emails = array();
+        foreach($lines as $line){
+            $email = substr($line, 0, strpos($line, ','));
+            $emails [] = $email;
+
+            if (count($emails) >= 500){
+                Yii::app()->mc->deleteUsers($emails);
+
+                $emails = array();
+            }
+        }
+
+        Yii::app()->mc->deleteUsers($emails);
+    }
 }

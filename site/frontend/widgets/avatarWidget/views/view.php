@@ -68,7 +68,7 @@ else {
         </div>
         <?php if ($this->status && $this->user->status !== null): ?>
             <div class="text-status">
-                <p><?=$this->user->status->text?></p>
+                <p><?=$this->user->status->purified->text?></p>
                 <span class="tale"></span>
             </div>
         <?php endif; ?>

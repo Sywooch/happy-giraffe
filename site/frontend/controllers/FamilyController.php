@@ -14,7 +14,7 @@ class FamilyController extends HController
     {
         return array(
             'accessControl',
-            'addBaby,removeBaby,removePhoto,removeFutureBaby + onlyAjax'
+            'addBaby,removeBaby,removePhoto,removeFutureBaby,setNotice + onlyAjax'
         );
     }
 
@@ -61,7 +61,7 @@ class FamilyController extends HController
         $sex = Yii::app()->request->getPost('sex');
         $type = Yii::app()->request->getPost('type');
 
-        $count = Baby::model()->count('parent_id='.Yii::app()->user->id);
+        $count = Baby::model()->count('parent_id=' . Yii::app()->user->id);
         if ($count > 5)
             Yii::app()->end();
 
@@ -101,8 +101,7 @@ class FamilyController extends HController
                     $response = array(
                         'status' => true,
                     );
-                }
-                else {
+                } else {
                     $response = array(
                         'status' => false,
                     );
@@ -142,8 +141,7 @@ class FamilyController extends HController
                 'url' => $photo->getPreviewUrl(180, 180),
                 'id' => $attach->id
             );
-        }
-        else {
+        } else {
             $response = array(
                 'status' => false,
             );
@@ -184,8 +182,7 @@ class FamilyController extends HController
                     'url' => $photo->getPreviewUrl(180, 180),
                     'id' => $attach->id
                 );
-            }
-            else {
+            } else {
                 $response = array(
                     'status' => false,
                 );
@@ -237,7 +234,8 @@ class FamilyController extends HController
         echo CJSON::encode($response);
     }
 
-    public function actionUpdateWidget(){
+    public function actionUpdateWidget()
+    {
         $this->loadUser();
         Yii::import('application.widgets.user.UserCoreWidget');
         $this->widget('application.widgets.user.FamilyWidget', array(
@@ -245,7 +243,34 @@ class FamilyController extends HController
         ));
     }
 
-    public function loadUser(){
+/*    public function actionSetNotice()
+    {
+        $type = Yii::app()->request->getPost('type');
+        $notice = Yii::app()->request->getPost('notice');
+
+        $response = array('status' => false);
+        if ($type == 'baby') {
+
+            $id = Yii::app()->request->getPost('id');
+            $baby = Baby::model()->findByPk($id);
+
+            if ($baby->parent_id == Yii::app()->user->id) {
+                $baby->notice = $notice;
+                if ($baby->save())
+                    $response = array('status' => true);
+            }
+        }else{
+            $this->user = User::model()->with(array('partner'))->findByPk(Yii::app()->user->id);
+            $this->user->parnter->notice = $notice;
+            if ($this->user->parnter->save())
+                $response = array('status' => true);
+        }
+
+        echo CJSON::encode($response);
+    }*/
+
+    public function loadUser()
+    {
         $this->user = User::model()->with(array('partner', 'babies'))->findByPk(Yii::app()->user->id);
         if ($this->user === null)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');

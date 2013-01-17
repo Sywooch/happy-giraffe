@@ -23,7 +23,7 @@
     <?php if (! $full): ?>
         <?php if ($data->type_id == 5): ?>
             <div class="entry-content user-status">
-                <?=CHtml::link($data->status->status->text, $data->url)?>
+                <?=CHtml::link(strip_tags($data->status->status->text), $data->url)?>
             </div>
         <?php else: ?>
             <div class="entry-content wysiwyg-content">
@@ -46,7 +46,7 @@
     <?php else: ?>
         <?php if ($data->type_id == 5): ?>
             <div class="entry-content user-status">
-                <?=$data->status->status->text?>
+                <?=$data->status->status->purified->text?>
             </div>
         <?php else: ?>
             <div class="entry-content">

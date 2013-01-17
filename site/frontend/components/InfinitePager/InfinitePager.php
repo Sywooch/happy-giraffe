@@ -14,8 +14,9 @@ class InfinitePager extends CBasePager
 
     private $_defaultOptions = array(
         'loading' => array(
-            'msgText' => '',
-            'img' => '/images/big_preloader.gif',
+            'msgText' => 'Загрузка',
+            'img' => '/images/ico/ajax-loader.gif',
+            'selector' => '.masonry-news-list',
         ),
     );
 

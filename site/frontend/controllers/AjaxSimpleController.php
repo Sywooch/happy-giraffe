@@ -14,8 +14,6 @@ class AjaxSimpleController extends CController
     }
 
     public function actionCounter(){
-
-        return false;
         Yii::import('site.seo.models.*');
         $referrer = Yii::app()->request->getPost('referrer');
         $page_url = Yii::app()->request->urlReferrer;

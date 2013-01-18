@@ -388,7 +388,7 @@
 									</ul>
 									
 									<div class="more-friends">
-										<a href=""><i class="icon-friends-small"></i>Найти еще друзей</a>
+										<a href=""><i class="ico-friends-small"></i>Найти еще друзей</a>
 										 <a href="" class="wannachat">Хочу общаться!</a>
 									</div>
 									

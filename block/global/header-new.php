@@ -16,7 +16,7 @@
 					</div>
 					
 					<div class="logo-box">
-						<a href="/" class="logo" title="hg.ru – Домашняя страница">Ключевые слова сайта</a>
+						<a href="/" class="logo" title="happy-giraffe.ru – Домашняя страница">Ключевые слова сайта</a>
 						<span>САЙТ ДЛЯ ВСЕЙ СЕМЬИ</span>
 					</div>
 					

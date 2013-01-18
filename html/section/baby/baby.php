@@ -639,7 +639,7 @@
 		<div class="section section__gray">
 			<div class="section_hold">
 				<div class="section_t-hold">
-					<a href="" class="float-r"><i class="icon-friends-small"></i>Найти еще</a>
+					<a href="" class="float-r"><i class="ico-friends-small"></i>Найти еще</a>
 					<h2>Наши мамы и папы</h2>
 				</div>
 				<div class="masonry-news-list  margin-l20 margin-b0 clearfix">

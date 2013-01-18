@@ -1,8 +1,8 @@
 ﻿<!DOCTYPE html>
-<!--[if lt IE 8]>      <html class="top-nav-fixed ie7"> <![endif]-->
-<!--[if IE 8]>         <html class="top-nav-fixed ie8"> <![endif]-->
-<!--[if IE 9]>         <html class="top-nav-fixed ie9"> <![endif]-->
-<!--[if gt IE 9]><!--> <html class="top-nav-fixed"> <!--<![endif]-->
+<!--[if lt IE 8]>      <html class=" ie7"> <![endif]-->
+<!--[if IE 8]>         <html class=" ie8"> <![endif]-->
+<!--[if IE 9]>         <html class=" ie9"> <![endif]-->
+<!--[if gt IE 9]><!--> <html class=""> <!--<![endif]-->
 <head>
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/head.php'; ?>
 
@@ -13,7 +13,7 @@
 	
 <div class="layout-container">
 	<div class="layout-wrapper">
-		<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/header-new.php'; ?>
+		<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/layout-header.php'; ?>
 			
 		<div id="content" class="layout-content clearfix">
 			<h1>h1</h1>
@@ -93,12 +93,110 @@
 				<a href="" class="btn-orange btn-big">.btn-orange.btn-big</a>
 				<a href="" class="btn-orange btn-large">.btn-orange.btn-large</a>
 			</div>
-.btn-gray-light, <br>
-.btn-gray, <br>
-.btn-amethyst, <br>
-.btn-gold, <br>
-.btn-corncolor, <br>
-.btn-yellow, <br>
+			<div class="clearfix margin-b10">
+				<a href="" class="btn-gray-light">.btn-gray-light</a>
+				<a href="" class="btn-gray-light btn-small">.btn-gray-light.btn-small</a>
+				<a href="" class="btn-gray-light btn-medium">.btn-gray-light.btn-medium</a>
+				<a href="" class="btn-gray-light btn-h46">.btn-gray-light.btn-h46</a>
+				<a href="" class="btn-gray-light btn-h55">.btn-gray-light.btn-h55</a>
+				<a href="" class="btn-gray-light btn-big">.btn-gray-light.btn-big</a>
+				<a href="" class="btn-gray-light btn-large">.btn-gray-light.btn-large</a>
+			</div>
+			<div class="clearfix margin-b10">
+				<a href="" class="btn-gray">.btn-gray</a>
+				<a href="" class="btn-gray btn-small">.btn-gray.btn-small</a>
+				<a href="" class="btn-gray btn-medium">.btn-gray.btn-medium</a>
+				<a href="" class="btn-gray btn-h46">.btn-gray.btn-h46</a>
+				<a href="" class="btn-gray btn-h55">.btn-gray.btn-h55</a>
+				<a href="" class="btn-gray btn-big">.btn-gray.btn-big</a>
+				<a href="" class="btn-gray btn-large">.btn-gray.btn-large</a>
+			</div>
+			<div class="clearfix margin-b10">
+				<a href="" class="btn-amethyst">.btn-amethyst</a>
+				<a href="" class="btn-amethyst btn-small">.btn-amethyst.btn-small</a>
+				<a href="" class="btn-amethyst btn-medium">.btn-amethyst.btn-medium</a>
+				<a href="" class="btn-amethyst btn-h46">.btn-amethyst.btn-h46</a>
+				<a href="" class="btn-amethyst btn-h55">.btn-amethyst.btn-h55</a>
+				<a href="" class="btn-amethyst btn-big">.btn-amethyst.btn-big</a>
+				<a href="" class="btn-amethyst btn-large">.btn-amethyst.btn-large</a>
+			</div>
+			<div class="clearfix margin-b10">
+				<a href="" class="btn-gold">.btn-gold</a>
+				<a href="" class="btn-gold btn-small">.btn-gold.btn-small</a>
+				<a href="" class="btn-gold btn-medium">.btn-gold.btn-medium</a>
+				<a href="" class="btn-gold btn-h46">.btn-gold.btn-h46</a>
+				<a href="" class="btn-gold btn-h55">.btn-gold.btn-h55</a>
+				<a href="" class="btn-gold btn-big">.btn-gold.btn-big</a>
+				<a href="" class="btn-gold btn-large">.btn-gold.btn-large</a>
+			</div>
+			<div class="clearfix margin-b10">
+				<a href="" class="btn-corncolor">.btn-corncolor</a>
+				<a href="" class="btn-corncolor btn-small">.btn-corncolor.btn-small</a>
+				<a href="" class="btn-corncolor btn-medium">.btn-corncolor.btn-medium</a>
+				<a href="" class="btn-corncolor btn-h46">.btn-corncolor.btn-h46</a>
+				<a href="" class="btn-corncolor btn-h55">.btn-corncolor.btn-h55</a>
+				<a href="" class="btn-corncolor btn-big">.btn-corncolor.btn-big</a>
+				<a href="" class="btn-corncolor btn-large">.btn-corncolor.btn-large</a>
+			</div>
+			<div class="clearfix margin-b10">
+				<a href="" class="btn-yellow">.btn-yellow</a>
+				<a href="" class="btn-yellow btn-small">.btn-yellow.btn-small</a>
+				<a href="" class="btn-yellow btn-medium">.btn-yellow.btn-medium</a>
+				<a href="" class="btn-yellow btn-h46">.btn-yellow.btn-h46</a>
+				<a href="" class="btn-yellow btn-h55">.btn-yellow.btn-h55</a>
+				<a href="" class="btn-yellow btn-big">.btn-yellow.btn-big</a>
+				<a href="" class="btn-yellow btn-large">.btn-yellow.btn-large</a>
+			</div>
+			<hr>
+			<h1>Аватары</h1>
+			<div class="clearfix margin-b10">
+				<a href="" class="ava"></a> - .ava
+			</div>
+			<div class="clearfix margin-b10">
+				<a href="" class="ava female"></a> - .ava.female
+			</div>
+			<div class="clearfix margin-b10">
+				<a href="" class="ava male"></a> - .ava.male
+			</div>
+			<div class="clearfix margin-b10">
+				<a href="" class="ava"><img src="/images/example/ava.jpg" alt=""></a> - .ava
+		<pre>
+			&lt;a href="" class="ava"&gt;
+				&lt;img src="/images/example/ava.jpg" alt=""&gt;
+			&lt;/a&gt;
+		</pre>
+			</div>
+			<div class="clearfix margin-b10">
+				<a href="" class="ava big"></a> - .ava.big
+			</div>
+			<div class="clearfix margin-b10">
+				<a href="" class="ava big female"></a> - .ava.big.female
+			</div>
+			<div class="clearfix margin-b10">
+				<a href="" class="ava big male"></a> - .ava.big.male
+			</div>
+			<div class="clearfix margin-b10">
+				<a href="" class="ava small"></a> - .ava.small
+			</div>
+			<div class="clearfix margin-b10">
+				<a href="" class="ava small female"></a> - .ava.small.female
+			</div>
+			<div class="clearfix margin-b10">
+				<a href="" class="ava small male"></a> - .ava.small.male
+			</div>
+			
+			<div class="clearfix margin-b10">
+				<div class="logo-box">
+					<a title="happy-giraffe.ru &ndash; Домашняя страница" class="logo" href="/">Ключевые слова сайта</a>
+					<span>САЙТ ДЛЯ ВСЕЙ СЕМЬИ</span>
+				</div>
+			</div>
+			
+			
+			
+			
+			
+
 		</div>  	
 		
 		<div class="footer-push"></div>

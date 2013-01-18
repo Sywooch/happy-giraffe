@@ -274,7 +274,7 @@ Yii::app()->clientScript->registerScriptFile('/javascripts/location.js');
                 <div class="select-box">
                     Дата рождения:
 					<span class="chzn-v2">
-                        <?=$form->dropDownList($model, 'day', HDate::Range(1,31), array('class'=>'chzn w-1', 'empty'=>'День')) ?>
+                        <?=$form->dropDownList($model, 'day', HDate::Range(1,31), array('class'=>'chzn w-1', 'empty'=>'День', 'style' => 'width:60px;')) ?>
                         <?=$form->error($model, 'day') ?>
 					</span>
 					<span class="chzn-v2">

@@ -1,17 +1,16 @@
 <?php
 /* @var $this DefaultController */
 
-$this->breadcrumbs=array(
-	$this->module->id,
-);
+$routes = Route::model()->findAll();
 ?>
-<h1><?php echo $this->uniqueId . '/' . $this->action->id; ?></h1>
 
-<p>
-This is the view content for action "<?php echo $this->action->id; ?>".
-The action belongs to the controller "<?php echo get_class($this); ?>"
-in the "<?php echo $this->module->id; ?>" module.
-</p>
-<p>
-You may customize this page by editing <tt><?php echo __FILE__; ?></tt>
-</p>
+<?php foreach ($routes as $route): ?>
+    <h2><?=$route->cityFrom->name . ' ' . $route->cityTo->name ?></h2>
+    <div>
+        <ul>
+            <?php foreach ($route->outLinks as $link): ?>
+                <li><?=$link->routeTo->wordstat ?>: <?=$link->keyword ?> <?=RouteKeyword::model()->find('text="'.$link->keyword.'"')->wordstat ?></li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+<?php endforeach; ?>

@@ -6,11 +6,11 @@
  * The followings are the available columns in table 'routes__links':
  * @property string $route_from_id
  * @property string $route_to_id
- * @property string $anchor
+ * @property string $keyword
  *
  * The followings are the available model relations:
- * @property Route $route2
- * @property Route $route1
+ * @property Route $routeFrom
+ * @property Route $routeTo
  */
 class RouteLink extends HActiveRecord
 {
@@ -40,12 +40,12 @@ class RouteLink extends HActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('route_from_id, route_to_id, anchor', 'required'),
+            array('route_from_id, route_to_id, keyword', 'required'),
             array('route_from_id, route_to_id', 'length', 'max' => 11),
-            array('anchor', 'length', 'max' => 255),
+            array('keyword', 'length', 'max' => 255),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('route_from_id, route_to_id, anchor', 'safe', 'on' => 'search'),
+            array('route_from_id, route_to_id, keyword', 'safe', 'on' => 'search'),
         );
     }
 
@@ -57,8 +57,8 @@ class RouteLink extends HActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'route2' => array(self::BELONGS_TO, 'Route', 'route_to_id'),
-            'route1' => array(self::BELONGS_TO, 'Route', 'route_from_id'),
+            'routeTo' => array(self::BELONGS_TO, 'Route', 'route_to_id'),
+            'routeFrom' => array(self::BELONGS_TO, 'Route', 'route_from_id'),
         );
     }
 
@@ -70,7 +70,7 @@ class RouteLink extends HActiveRecord
         return array(
             'route_from_id' => 'Route1',
             'route_to_id' => 'Route2',
-            'anchor' => 'Anchor',
+            'keyword' => 'keyword',
         );
     }
 
@@ -87,10 +87,21 @@ class RouteLink extends HActiveRecord
 
         $criteria->compare('route_from_id', $this->route_from_id, true);
         $criteria->compare('route_to_id', $this->route_to_id, true);
-        $criteria->compare('anchor', $this->anchor, true);
+        $criteria->compare('keyword', $this->keyword, true);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
         ));
+    }
+
+    public function test($id)
+    {
+        $route = Route::model()->findByPk($id);
+
+        $key = new RouteKeyword;
+        $key->route_id = $route->id;
+        $key->text = 'расстояние ' . $route->cityFrom->name . ' ' . $route->cityTo->name;
+        $key->wordstat = rand(10, 300);
+        $key->save();
     }
 }

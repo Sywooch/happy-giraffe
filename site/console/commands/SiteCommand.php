@@ -154,4 +154,20 @@ class SiteCommand extends CConsoleCommand
         $parser = new RouteParser;
         $parser->start(false);
     }
+
+    public function actionTest(){
+        Yii::import('site.frontend.modules.geo.models.*');
+        Yii::import('site.frontend.modules.services.modules.route.models.*');
+        Yii::import('site.frontend.modules.services.modules.route.components.*');
+
+        CRouteLinking::model()->add(16586);
+    }
+
+    public function actionKeywordsTest(){
+        Yii::import('site.frontend.modules.geo.models.*');
+        Yii::import('site.frontend.modules.services.modules.route.models.*');
+        Yii::import('site.frontend.modules.services.modules.route.components.*');
+
+        RouteLink::model()->test(16586);
+    }
 }

@@ -62,7 +62,8 @@ class Route extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'inLinks' => array(self::HAS_MANY, 'RouteLink', 'route_to_id'),
-			'outLinks' => array(self::HAS_MANY, 'RouteLink', 'route_from_id'),
+			'outLinks' => array(self::HAS_MANY, 'RouteLink', 'route_from_id', 'order'=>'created asc'),
+			'outLinksCount' => array(self::STAT, 'RouteLink', 'route_from_id'),
 			'cityFrom' => array(self::BELONGS_TO, 'GeoCity', 'city_from_id'),
 			'cityTo' => array(self::BELONGS_TO, 'GeoCity', 'city_to_id'),
 		);

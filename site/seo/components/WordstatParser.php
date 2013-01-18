@@ -110,21 +110,13 @@ class WordstatParser extends ProxyParserThread
         $this->log('starting get cookie');
 
         while (!$success) {
-            $data = $this->query($url);
+            $this->query($url);
             $success = true;
-            if (preg_match('/<img src="\/\/mc.yandex.ru\/watch\/([\d]+)"/', $data, $res)) {
-                $mc_url = 'http://mc.yandex.ru/watch/' . $res[1];
-                $html = $this->query($mc_url, $url);
-                if (strpos($html, 'Set-Cookie:') === false) {
-                    $success = false;
-//                    $this->log('mc.yandex.ru set cookie failed');
-                }
-            } else
-                $success = false;
+
             $html = $this->query('http://kiks.yandex.ru/su/', $url);
             if (strpos($html, 'Set-Cookie:') === false) {
                 $success = false;
-//                $this->log('kiks.yandex.ru set cookie failed');
+                $this->log('kiks.yandex.ru set cookie failed');
             }
 
             if (Config::getAttribute('stop_threads') == 1)

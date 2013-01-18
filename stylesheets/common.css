@@ -188,7 +188,7 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 .ico-pregnant-test {width:59px;height:17px;background:url(../images/section/pregnancy/ico-pregnancy-test.png) no-repeat;display: inline-block;*zoom:1;*display:inline;}
 .ico-childbirth {width:42px;height:35px;background:url(../images/section/pregnancy/ico-childbirth.png) no-repeat;display: inline-block;*zoom:1;*display:inline;}
 .ico-age18 {display: inline-block;*zoom:1;*display:inline;width: 33px;height: 34px;background: url(/images/ico/ico-age18.png) no-repeat;vertical-align: middle;}
-.ico-child {width: 52px;height: 50px;display: inline-block;*zoom:1;*display:inline;vertical-align: middle;background: url(/images/user-family-icons.png) no-repeat 0 0;}
+.ico-child {width: 52px;height: 50px;display: inline-block;*zoom:1;*display:inline;vertical-align: middle;background: url(/images/user-family-icons.png) no-repeat -66px 0;}
 .ico-child__baby-plan{background-position: 0 0;}
 .ico-child__baby{background-position: -66px 0;}
 .ico-child__boy-wait{background-position: 0 -50px;}
@@ -214,14 +214,14 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 .error input[type=text],
 .error input[type=password],
 .error textarea,
+input[type=text].error,
+input[type=password].error,
+textarea.error,
 .error .chzn-single {border:1px solid #ff6767 !important;}
 .error .chzn-single div,
 .error .chzn-drop {border-color:#ff6767 !important;}
-input[type=text].error,
-input[type=password].error ,
-textarea.error {border:1px solid #ff6767 !important;}
-.errorMessage, .errorSummary {color:#fe5757 !important;font-size:11px !important;line-height:normal !important;padding:5px 0;overflow:hidden;}
-.errorSummary ul,
+.errorMessage,
+.errorSummary {color:#fe5757 !important;font-size:11px !important;line-height:normal !important;padding:5px 0;overflow:hidden;}
 .errorSummary ol {list-style:none;}
 /* /errors */
 

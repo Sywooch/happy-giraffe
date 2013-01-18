@@ -4,6 +4,11 @@ class DefaultController extends HController
 {
 	public function actionIndex()
 	{
-		$this->render('index');
+        CRouteLinking::model()->add(16586);
 	}
+
+    public function actionTest()
+    {
+        $this->render('index');
+    }
 }

@@ -143,6 +143,9 @@ class CommunityContent extends HActiveRecord
             'pingable' => array(
                 'class' => 'site.common.behaviors.PingableBehavior',
             ),
+            'duplicate'=>array(
+                'class' => 'site.common.behaviors.DuplicateBehavior',
+            )
         );
     }
 
@@ -311,28 +314,8 @@ class CommunityContent extends HActiveRecord
         $this->title = strip_tags($this->title);
         if ($this->isNewRecord) {
             $this->last_updated = new CDbExpression('NOW()');
-            if ($this->isDuplicatePost()) {
-                $this->addError('title', 'Вы только что создали статью с таким названием');
-                return false;
-            }
         }
         return parent::beforeSave();
-    }
-
-    public function isDuplicatePost()
-    {
-        $criteria = new CDbCriteria;
-        $criteria->condition = 'created > :last_time';
-        $criteria->params = array(
-            ':last_time' => date("Y-m-d H:i:s", strtotime('-15 minutes'))
-        );
-        $criteria->compare('author_id', Yii::app()->user->id);
-        $criteria->order = 'id desc';
-        $prev_post = CommunityContent::model()->find($criteria);
-        if ($prev_post !== null && $prev_post->title == $this->title)
-            return true;
-
-        return false;
     }
 
     public function afterSave()

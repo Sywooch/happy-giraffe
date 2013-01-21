@@ -236,6 +236,10 @@ class CookRecipe extends CActiveRecord
             'CAdvancedArBehavior' => array(
                 'class' => 'site.frontend.extensions.CAdvancedArBehavior',
             ),
+            'duplicate'=>array(
+                'class' => 'site.common.behaviors.DuplicateBehavior',
+                'error_text' => 'Вы только что создали рецепт с таким названием'
+            )
         );
     }
 

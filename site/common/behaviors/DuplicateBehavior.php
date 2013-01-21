@@ -10,6 +10,12 @@ class DuplicateBehavior extends CActiveRecordBehavior
 
     public function afterValidate($event)
     {
+        parent::afterValidate($event);
+
+        if (!$this->owner->isNewRecord)
+            return true;
+
+
         $previous_model = $this->getLastModel();
 
         if ($previous_model === null)
@@ -19,7 +25,7 @@ class DuplicateBehavior extends CActiveRecordBehavior
         $value2 = strip_tags($previous_model->getAttribute($this->attribute));
 
         if (trim($value1) != trim($value2))
-            return parent::beforeSave($event);
+            return true;
         else{
             $this->owner->addError($this->attribute, $this->error_text);
             return false;

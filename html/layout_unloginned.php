@@ -16,10 +16,11 @@
 		<div id="header-new" class="clearfix">
 			<div class="header-nologin clearfix">
 				<div class="header-nologin_column-left">
-
-					<div class="logo-box">
-						<a href="/" class="logo" title="happy-giraffe.ru – Домашняя страница">Ключевые слова сайта</a>
-						<span>САЙТ ДЛЯ ВСЕЙ СЕМЬИ</span>
+					<div class="clearfix">
+						<div class="logo-box">
+							<a href="/" class="logo" title="happy-giraffe.ru – Домашняя страница">Ключевые слова сайта</a>
+							<span>САЙТ ДЛЯ ВСЕЙ СЕМЬИ</span>
+						</div>
 					</div>
 					<p>Весёлый Жираф - это интернет-сообщество, <br /> в котором тысячи мам и пап ежедневно общаются и делятся советами. </p>
 					<div class="clearfix">
@@ -777,8 +778,8 @@
 	            </div>
 	            <div class="row-elements">
 	              <span class="chzn-v2">
-	                <select class="chzn" style="width:50px">
-	                  <option>28</option>
+	                <select class="chzn" style="width:60px">
+	                  <option>День</option>
 	                  <option>января</option>
 	                  <option>1973</option>
 	                </select>
@@ -889,7 +890,7 @@
             </div>
             <div class="row-elements">
               <span class="chzn-v2">
-                <select class="chzn" style="width:50px">
+                <select class="chzn" style="width:60px">
                   <option>28</option>
                   <option>января</option>
                   <option>1973</option>

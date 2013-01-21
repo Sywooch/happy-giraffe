@@ -376,11 +376,13 @@
 .user-status .date {color:#b6b9ba;font-size:9px;font-family:tahoma, arial, helvetica, sans-serif;padding-bottom:8px;}
 .user-status p {color:#0281b0;font:italic 20px 'times new roman', 'times', arial, helvetica, sans-serif;margin-bottom: 5px;}
 .user-status.pattern p {color:#282828;}
-.user-status .meta {float: right;padding:5px 7px;margin: 0;background: #ccc;background: rgba(255,255,255,.6);-webkit-border-radius: 5px;
--moz-border-radius: 5px;
--ms-border-radius: 5px;
-border-radius: 5px;
- behavior: url(/stylesheets/PIE.htc);}
+.user-status .meta {float: right;padding:5px 7px;margin: 0;background: #ccc;background: rgba(255,255,255,.6);
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-ms-border-radius: 5px;
+	border-radius: 5px;
+	 behavior: url(/stylesheets/PIE.htc);
+}
 .user-status form {text-align:right;}
 .user-status textarea {vertical-align:bottom;overflow:auto;width:300px;max-width:300px;margin-right:5px;height:90px;padding:2px 5px;border:1px solid #c5e8ef;margin-bottom:5px;}
 .user-status .pseudo {font-size:11px;position:relative;top:-2px;float: left;clear: left;}
@@ -966,8 +968,8 @@ border-radius: 5px;
 #first-steps .block-in .info p span {display:block;font-size:25px;font-weight:bold;color:#6ecc6c;}
 #first-steps .block-in .info .bonus {}
 #first-steps .block-in .info .bonus img {vertical-align:middle;}
-#first-steps .block-in .info .bonus .bonus-left {display:inline-block;*zoom:1;*display:inline;width:135px;vertical-align:middle;text-align:left;font-size:16px;color:#5f5f5f;line-height:1;}
-#first-steps .block-in .info .bonus .bonus-left img {position:relative;top:-2px;}
+#first-steps .block-in .info .bonus .bonus-left {display:inline-block;*zoom:1;*display:inline;width: 140px;vertical-align:middle;font-size:16px;color:#5f5f5f;line-height:1;}
+#first-steps .block-in .info .bonus .bonus-left img {position:relative;top:-1px;}
 #first-steps .block-in .info .bonus .bonus-left span {font-size:13px;display:block;margin-top:5px;}
 
 #first-steps .finished {text-align:center;padding:30px 20px 30px 0;}
@@ -984,7 +986,7 @@ border-radius: 5px;
 #firstStepsBirthday .right {margin-left:260px;padding:30px 0;}
 #firstStepsBirthday .right .title {margin-bottom:30px;font-size:25px;}
 #firstStepsBirthday .right .select-box {background:#f6eefe;display:block;margin-bottom:30px;text-align:center;color:#6b6b6b;font-size:15px;margin-right:20px;}
-#firstStepsBirthday .right .select-box .w-1 {width:55px;}
+#firstStepsBirthday .right .select-box .w-1 {width:65px;}
 #firstStepsBirthday .right .select-box .w-2 {width:100px;}
 #firstStepsBirthday .right .select-box .w-3 {width:65px;}
 #firstStepsBirthday .right .hl {background:#fffbc9;padding:2px 6px;color:#5a5a5a;font-size:14px;}
@@ -1196,7 +1198,7 @@ border-radius: 5px;
 .best-users_list th.best-users_list-point {text-align: center;}
 .best-users_list-post {padding: 0 4px;}
 .best-users_list .icon-comment {display:inline-block;*zoom:1;*display:inline;width: 10px;height: 10px;background:url(/images/common.png) no-repeat  -200px -309px;;vertical-align:middle;margin:0;padding:0;}
-
+/* masonry-news-list */
 .masonry-news-list {
 	margin: 0 -10px 20px;
 	line-height: 16px;
@@ -1466,6 +1468,7 @@ border-radius: 5px;
 .masonry-news-list.jcarousel-holder .next{position:absolute;background:url(../images/arrows.png) no-repeat -36px -86px;width:34px;height:84px;top:20%;right:0;text-indent:-9999px;}
 .masonry-news-list.jcarousel-holder .next.jcarousel-control-inactive{background-position:-36px 0;}
 .masonry-news-list.jcarousel-holder .next.disabled{background-position:-36px 0;}
+/* /masonry-news-list */
 
 .broadcast-widget .broadcast-title-box {margin-bottom: 5px;}
 #layout .broadcast-title-box h3 {

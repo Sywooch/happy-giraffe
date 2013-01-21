@@ -100,6 +100,7 @@ class Favourites extends EMongoDocument
     {
         $criteria = new EMongoCriteria;
         $criteria->block('==', (int)$index);
+        $criteria->created('<', strtotime(date("Y-m-d", strtotime('-1 day')).' 23:59:59' ));
         $criteria->sort('created', EMongoCriteria::SORT_DESC);
         if ($limit !== null)
             $criteria->limit($limit);

@@ -149,6 +149,10 @@ class Comment extends HActiveRecord
                 'class' => 'site.common.behaviors.ExternalImagesBehavior',
                 'attributes' => array('text'),
             ),
+            'duplicate'=>array(
+                'class' => 'site.common.behaviors.DuplicateBehavior',
+                'error_text' => 'Вы только что создали рецепт с таким названием'
+            )
         );
     }
 

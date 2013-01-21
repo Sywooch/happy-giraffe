@@ -18,7 +18,7 @@ class DuplicateBehavior extends CActiveRecordBehavior
         $value1 = strip_tags($this->owner->getAttribute($this->attribute));
         $value2 = strip_tags($previous_model->getAttribute($this->attribute));
 
-        if ($value1 != $value2)
+        if (trim($value1) != trim($value2))
             return parent::beforeSave($event);
         else{
             $this->owner->addError($this->attribute, $this->error_text);

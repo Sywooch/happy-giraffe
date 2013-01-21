@@ -109,9 +109,6 @@ class RouteParser extends ProxyParserThread
 //                $this->log('kiks.yandex.ru set cookie failed');
             }
 
-            if (Config::getAttribute('stop_threads') == 1)
-                $this->closeThread('manual exit');
-
             if (!$success) {
                 $this->changeBadProxy();
                 $this->removeCookieFile();

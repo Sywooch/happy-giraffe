@@ -210,4 +210,11 @@ class LinkingCommand extends CConsoleCommand
             echo $criteria->offset."\n";
         }
     }
+
+    public function actionCheckBadLinks(){
+        $links = InnerLink::model()->findAll('page_id=page_to_id');
+        echo count($links)."\n";
+        foreach($links as $link)
+            $link->delete();
+    }
 }

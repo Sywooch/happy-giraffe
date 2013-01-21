@@ -15,8 +15,8 @@ HYandexMap.prototype.create = function (map_id, address) {
     this.s.iconStyle = new YMaps.IconStyle();
 
     //стиль метки
-    this.s.iconStyle.href = "/images/map_marker.png";
-    this.s.iconStyle.size = new YMaps.Point(31, 35);
+    this.s.iconStyle.href = "/images/map_marker-2.png";
+    //this.s.iconStyle.size = new YMaps.Point(31, 35);
     this.s.iconStyle.offset = new YMaps.Point(-10, -35);
 
     this.map = new YMaps.Map(document.getElementById(map_id));
@@ -61,6 +61,14 @@ HGoogleMap.prototype.create = function (map_id, address) {
         console.log(address);
         if (status == google.maps.GeocoderStatus.OK) {
             $this.map.setCenter(results[0].geometry.location);
+
+            var image = '/images/map_marker-2.png';
+            var marker = new google.maps.Marker({
+                position: results[0].geometry.location,
+                map: $this.map,
+                icon: image
+            });
+
         } else {
             console.log("Geocode was not successful for the following reason: " + status);
         }

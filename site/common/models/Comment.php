@@ -151,6 +151,7 @@ class Comment extends HActiveRecord
             ),
             'duplicate'=>array(
                 'class' => 'site.common.behaviors.DuplicateBehavior',
+                'attribute'=>'text',
                 'error_text' => 'Вы только что создали рецепт с таким названием'
             )
         );

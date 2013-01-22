@@ -100,6 +100,7 @@ input[type="search"]::-webkit-search-cancel-button {
 h1 {
     color: #0281B0;
     font-size: 25px;
+    line-height: 25px;
     margin-bottom: 15px;
 }
 h2 { font-size: 25px;line-height: normal;font-weight: normal;margin-bottom: 15px;}
@@ -122,7 +123,7 @@ body {
 html.top-nav-fixed {overflow-y:hidden;height:100%;}
 .top-nav-fixed body {overflow-y:hidden;overflow-x:hidden;height:100%;}
 .body-gray,
-.body-club{background:#f6f6f6;}
+.body-club {background:#f6f6f6;}
 
 .body-gray #layout,
 .body-broadcast #layout,
@@ -919,10 +920,10 @@ textarea.error,
 .more-btn:hover {background:#eaf1fb;border-color:#c4d5eb;}
 
 /*
-.g-button.photo-name {float: left; height: 42px; padding: 0 7px 0 15px; position: relative; display: block; text-decoration: none;}
-.g-button.photo-name .left { background-position: left -1033px; width: 15px;}
-.g-button.photo-name .right { background-position: right -1069px; width: 7px; }
-.g-button.photo-name .fill {background-repeat: repeat-x;
+.g-button {float: left; height: 42px; padding: 0 7px 0 15px; position: relative; display: block; text-decoration: none;}
+.g-button .left { background-position: left -1033px; width: 15px;}
+.g-button .right { background-position: right -1069px; width: 7px; }
+.g-button .fill {background-repeat: repeat-x;
     background-position: 0 -996px;
     min-height: 22px; padding: 4px 0px 5px;
     display:block; color: #027089;
@@ -1166,15 +1167,15 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 #passwordRecovery.popup .block-title img {margin-right:10px;}
 
 
-#passwordRecovery.popup .password-retrieve {width:590px;margin:50px auto 0;text-align:right;}
-#passwordRecovery.popup .password-retrieve .block-in {padding:30px;background:#f4eff8;font-size:17px;color:#6b6b6b;line-height:20px;text-align:left;margin-bottom:10px;}
-#passwordRecovery.popup .password-retrieve .block-in p {margin-bottom:15px;}
-#passwordRecovery.popup .password-retrieve .block-in .input {margin-bottom:15px;}
-#passwordRecovery.popup .password-retrieve .block-in .input label {font-size:15px;font-family:arial, helvetica, sans-serif;margin-right:25px;}
-#passwordRecovery.popup .password-retrieve .block-in .input input {padding:5px 10px;border:1px solid #cdcdcd;background:#fff;width:268px;margin-bottom:8px;font-size:15px;color:#3d3d3d;}
-#passwordRecovery.popup .password-retrieve .block-in .sent {}
-#passwordRecovery.popup .password-retrieve .block-in .sent span {background:#fffbc9;font-size:14px;padding:1px 3px;}
-#passwordRecovery.popup .password-retrieve  input[type=submit] {height:33px;line-height:33px;background:url(/images/btn_green_33.gif) repeat-x;color:#fff;font-size:16px;font-weight:bold;padding:0 15px;cursor:pointer;border:0;margin:0;vertical-align:middle;}
+.password-retrieve {width:590px;margin:50px auto 0;text-align:right;}
+.password-retrieve .block-in {padding:30px;background:#f4eff8;font-size:17px;color:#6b6b6b;line-height:20px;text-align:left;margin-bottom:10px;}
+.password-retrieve .block-in p {margin-bottom:15px;}
+.password-retrieve .block-in .input {margin-bottom:15px;}
+.password-retrieve .block-in .input label {font-size:15px;font-family:arial, helvetica, sans-serif;margin-right:25px;}
+.password-retrieve .block-in .input input {padding:5px 10px;border:1px solid #cdcdcd;background:#fff;width:268px;margin-bottom:8px;font-size:15px;color:#3d3d3d;}
+.password-retrieve .block-in .sent {}
+.password-retrieve .block-in .sent span {background:#fffbc9;font-size:14px;padding:1px 3px;}
+.password-retrieve  input[type=submit] {height:33px;line-height:33px;background:url(/images/btn_green_33.gif) repeat-x;color:#fff;font-size:16px;font-weight:bold;padding:0 15px;cursor:pointer;border:0;margin:0;vertical-align:middle;}
 
 
 #register.popup {width:700px;padding:20px 50px;}
@@ -3339,8 +3340,7 @@ div.scrollbarpaper-drag {-moz-border-radius:3px;-webkit-border-radius:3px;border
 
 /* popular topics */
 
-.popular-topics {padding:4px;background:url(../images/pattern_02.gif) center;position:relative;}
-.popular-topics {/*css3*/ border-radius:14px;-moz-border-radius:14px;-webkit-border-radius:14px;behavior: url(/stylesheets/PIE.htc);}
+.popular-topics {padding:4px;background:url(../images/pattern_02.gif) center;position:relative; border-radius:14px;-moz-border-radius:14px;-webkit-border-radius:14px;behavior: url(/stylesheets/PIE.htc);}
 .popular-topics .block-in {background:#fdf8fe; border-radius:12px;-moz-border-radius:12px;-webkit-border-radius:12px;behavior: url(/stylesheets/PIE.htc);}
 .popular-topics .top-count {width:118px;height:33px;background:url(../images/baby_ntk_age.png) no-repeat;position:absolute;top:0;right:0;z-index:3;text-align:center;line-height:28px;color:#fff;font-size:20px;}
 .popular-topics .title {font:bold 30px/1 calibri, trebuchet ms, arial, sens-serif;color:#727272;padding:30px 15px 10px;}
@@ -4049,7 +4049,7 @@ body.gallery {overflow:hidden;}
 
 .top-nav-fixed #photo-window  {position:absolute;width:100%;z-index:99;top:0;left:0;bottom:0;overflow-y:auto;overflow-x:hidden;min-width:1000px;margin-top:42px;}
 .top-nav-fixed #photo-window-in {background:#fff;width:1000px;margin:0 auto 20px;position:relative;}
-#photo-window  {max-height:100%;position:absolute;width:100%;z-index:99;top:0;left:0;overflow:auto;min-width:1000px;color:#dcdcdc;}
+#photo-window  {max-height:100%;position:fixed;width:100%;z-index:99;top:0;left:0;overflow:auto;min-width:1000px;color:#dcdcdc;}
 #photo-window-in {background:#fff;width:1000px;margin:40px auto 20px;position:relative;}
 
 #photo-window-bg {position:fixed;height:100%;width:100%;top:0;left:0;z-index:98;background:url(/images/bg_black_alpha_40.png);}
@@ -5742,7 +5742,7 @@ label {
 /* start page */
 
 #start {padding-bottom:20px;background:url(/images/bg_start.png);}
-#start .wrapper {height:705px;width:1000px;margin:0 auto;background:url(/images/start.png) no-repeat;}
+#start .wrapper {height:705px;width:1000px;margin:0 auto;background:url(/images/start.jpg) no-repeat;}
 
 #start-form {width:290px;padding:25px;float:right;margin:95px 25px 0 0;background:url(/images/bg_start_form.gif); -moz-border-radius:12px;-webkit-border-radius:12px;border-radius:12px;behavior: url(/stylesheets/PIE.htc);}
 #start-form .form-title {color:#060606;font-weight:bold;font-size:25px;text-align:center;margin-bottom:20px;}

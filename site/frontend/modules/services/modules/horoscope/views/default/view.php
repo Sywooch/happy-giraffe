@@ -29,6 +29,7 @@
                 <?php if (Yii::app()->controller->action->id != 'date' ) $this->beginWidget('SeoContentWidget'); ?>
                 <?=Str::strToParagraph($model->text) ?>
                 <?php if (Yii::app()->controller->action->id != 'date' ) $this->endWidget(); ?>
+                <p><?=$model->getAdditionalText() ?></p>
 
                 <?php if (Yii::app()->controller->action->id == 'date' ):?>
                 <div class="dates clearfix">

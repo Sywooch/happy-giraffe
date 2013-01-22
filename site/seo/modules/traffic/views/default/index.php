@@ -25,12 +25,15 @@ if ($all_visits != 0):
             <tbody>
             <?php foreach($sections as $section):?>
                 <tr>
+                    <td>
                     <?php if (empty($section->sections)):?>
-                        <td><?=$section->title ?></td>
+                        <?=$section->title ?>
                     <?php else: ?>
                         <?php $parent_id = $section->id ?>
-                        <td><?=CHtml::link($section->title, $this->createUrl('index', compact('last_date', 'date', 'parent_id'))) ?></td>
+                        <?=CHtml::link($section->title, $this->createUrl('index', compact('last_date', 'date', 'parent_id'))) ?>
                     <?php endif ?>
+                        <?=CHtml::link('link', $this->createUrl('section', array('id'=>$section->id))) ?>
+                    </td>
                     <td><?=$value = $section->getVisitsCount($date, $last_date) ?></td>
                     <td><?=round(($value / $all_visits)*100, 1) ?> %</td>
                 </tr>

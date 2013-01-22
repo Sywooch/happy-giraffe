@@ -2858,14 +2858,14 @@ ul.letters li a:hover {
     font-size: 15px;
 }
 .name_block a.heart {
-    background: url("../images/name_heart.png") no-repeat right top;
+    background: url("../images/name_heart.png") no-repeat;
     width: 37px;
     height: 25px;
     padding: 0;
 }
 
 .name_block a.heart.empty_heart {
-    background: url("../images/name_heart_empty.png") no-repeat right top;
+    background: url("../images/name_heart_empty.png") no-repeat 50% 0;
 }
 
 .top_boys .name_block a, .top_girls .name_block a {

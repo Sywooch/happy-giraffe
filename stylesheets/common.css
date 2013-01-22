@@ -1111,6 +1111,7 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 .gallery-box {text-align:center;margin-bottom:30px;}
 .gallery-box a {color:#fff;text-decoration:none;}
 .gallery-box .img {position:relative;display:inline-block;*zoom:1;*display:inline;}
+.gallery-box .img > img {display: block;}
 .gallery-box .img .title {position:absolute;top:10px;left:0;background:#000;width:90%;background:rgba(0,0,0,.44);padding:2% 5%;font-weight:bold;font-size:34px;line-height:1;text-align:center;}
 .gallery-box .img .count {position:absolute;bottom:0;left:0;background:#000;width:90%;background:rgba(0,0,0,.44);padding:3% 5%;font-size:34px;line-height:1;text-align:center;font-size:32px;}
 .gallery-box .img .count span {font-size:40px;}
@@ -2583,7 +2584,7 @@ div.scrollbarpaper-drag {-moz-border-radius:3px;-webkit-border-radius:3px;border
 
 .like-block .hg-like {float:left;}
 
-.hg-like {width:153px;height:25px;background:url(/images/common.png) no-repeat -416px 0;padding:67px 0 0 37px;}
+.hg-like {width:153px;height:25px;background:url(/images/bg_hg-like.png) no-repeat;padding:67px 0 0 37px;}
 .hg-like .btn > span > span {font:bold italic 18px/25px arial, sans-serif;min-width:45px;}
 .hg-like .btn {vertical-align:middle;}
 

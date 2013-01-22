@@ -39,18 +39,18 @@ class Horoscope extends HActiveRecord
     );
 
     public $zodiac_list2 = array(
-        '1' => 'овна',
-        '2' => 'тельца',
-        '3' => 'близнецов',
-        '4' => 'рака',
-        '5' => 'льва',
-        '6' => 'девы',
-        '7' => 'весов',
-        '8' => 'скорпиона',
-        '9' => 'стрельца',
-        '10' => 'козерога',
-        '11' => 'водолея',
-        '12' => 'рыб',
+        '1' => 'Овна',
+        '2' => 'Тельца',
+        '3' => 'Близнецов',
+        '4' => 'Рака',
+        '5' => 'Льва',
+        '6' => 'Девы',
+        '7' => 'Весов',
+        '8' => 'Скорпиона',
+        '9' => 'Стрельца',
+        '10' => 'Козерога',
+        '11' => 'Водолея',
+        '12' => 'Рыб',
     );
 
     public $zodiac_list_eng = array(
@@ -584,6 +584,31 @@ class Horoscope extends HActiveRecord
             return ServiceText::getText('horoscope', 'yesterday_' . $this->zodiac);
         if ($this->date == date("Y-m-d", strtotime('+1 day')))
             return ServiceText::getText('horoscope', 'tomorrow_' . $this->zodiac);
+
+        return '';
+    }
+
+    /**
+     * Что бы ни пророчил вам гороскоп Овна на 22 января 2013 года - помните, удача в ваших руках!
+     *
+     * @return string
+     */
+    public function getAdditionalText()
+    {
+        $text = 'Что бы ни пророчил вам гороскоп ';
+        if (isset($_GET['date']) && strtotime('2013-02-01') <= strtotime($this->date)) {
+            $text .= $this->zodiac_list2[$this->zodiac];
+            $text .= ' на ' . Yii::app()->dateFormatter->format('d MMMM yyyy', strtotime($this->date)) . ' года - помните, удача в ваших руках!';
+
+            return $text;
+        }
+        if (isset($_GET['month']) && ($this->month > 1 && $this->year == 2013 || $this->year > 2013)) {
+            $text .= $this->zodiac_list2[$this->zodiac];
+            $text .= ' на ' . mb_strtolower(HDate::ruMonth($this->month), 'utf-8') . ' ' . $this->year . ' года - помните, удача в ваших руках!';
+
+            return $text;
+        }
+
 
         return '';
     }

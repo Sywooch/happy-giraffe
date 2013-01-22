@@ -120,7 +120,8 @@ body {
     word-wrap: break-word;
     background: #fff;
 }
-html.top-nav-fixed {overflow-y:hidden;height:100%;}
+html {height: 100%;}
+html.top-nav-fixed {overflow-y:hidden;}
 .top-nav-fixed body {overflow-y:hidden;overflow-x:hidden;height:100%;}
 .body-gray,
 .body-club {background:#f6f6f6;}

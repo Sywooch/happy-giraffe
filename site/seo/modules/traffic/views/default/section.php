@@ -22,9 +22,9 @@ $all = TrafficSection::model()->findByPk(1);
             <?php for($i=0;$i<10;$i++):?>
             <?php $date = date("Y-m-d", strtotime('- '.$i.' days'))  ?>
             <tr>
-                <td><?=$section->title ?></td>
+                <td><?=Yii::app()->dateFormatter->format('d MMM',strtotime($date))?></td>
                 <td><?=$value = $section->getVisitsCount($date, $date) ?></td>
-                <td><?=round(($value / ($all->getVisitsCount($date, $date)*100 + 0.01)), 1) ?> %</td>
+                <td><?=round(100*($value / ($all->getVisitsCount($date, $date) + 0.01)), 1) ?> %</td>
             </tr>
             <?php endfor; ?>
             </tbody>

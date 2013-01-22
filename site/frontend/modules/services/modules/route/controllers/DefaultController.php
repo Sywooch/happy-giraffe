@@ -11,4 +11,8 @@ class DefaultController extends HController
     {
         $this->render('index');
     }
+
+    public function actionMap(){
+        $this->render('map');
+    }
 }

@@ -74,5 +74,6 @@ HGoogleMap.prototype.create = function (map_id, address) {
         }
     });
 };
+
 HGoogleMap.prototype.delete = function () {
 };

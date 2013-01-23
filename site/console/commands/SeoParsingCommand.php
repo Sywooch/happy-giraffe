@@ -32,23 +32,45 @@ class SeoParsingCommand extends CConsoleCommand
 
     public function actionLi($site)
     {
-        $last_parsed = SeoUserAttributes::getAttribute('last_li_parsed_'.date("Y-m") , 1);
+        $last_parsed = SeoUserAttributes::getAttribute('last_li_parsed_'.date("Y-m") , 0);
         if (empty($site)) {
             $parser = new LiParser;
 
             if (!empty($last_parsed))
-                $sites = Site::model()->findAll('id > '.$last_parsed);
+                $sites = Site::model()->findAll('id > '.$last_parsed.' AND type = 1');
             else
-                $sites = Site::model()->findAll();
+                $sites = Site::model()->findAll('type = 1');
 
             foreach ($sites as $site) {
-                $parser->start($site->id, 2012, 1, 1);
+                $parser->start($site->id, 2013, 1, 1);
 
                 SeoUserAttributes::setAttribute('last_li_parsed_'.date("Y-m") , $site->id, 1);
             }
         } else {
             $parser = new LiParser;
-            $parser->start($site, 2012, 1, 1);
+            $parser->start($site, 2013, 1, 1);
+        }
+    }
+
+    public function actionMailru($site)
+    {
+        $last_parsed = SeoUserAttributes::getAttribute('last_mailru_parsed_'.date("Y-m") , 0);
+        if (empty($site)) {
+            $parser = new MailruParser(false, true);
+
+            if (!empty($last_parsed))
+                $sites = Site::model()->findAll('id > '.$last_parsed.' AND type=2');
+            else
+                $sites = Site::model()->findAll('type=2');
+
+            foreach ($sites as $site) {
+                $parser->start($site->id, 2013, 1, 1);
+
+                SeoUserAttributes::setAttribute('last_mailru_parsed_'.date("Y-m") , $site->id, 1);
+            }
+        } else {
+            $parser = new MailruParser(false, true);
+            $parser->start($site, 2013, 1, 1);
         }
     }
 

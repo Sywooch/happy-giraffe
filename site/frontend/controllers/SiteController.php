@@ -345,7 +345,7 @@ class SiteController extends HController
         if ($user === null || $user->email_confirmed)
             throw new CHttpException(404);
 
-        echo Yii::app()->mandrill->send($user, 'resendConfirmEmail', array(
+        echo Yii::app()->email->send($user, 'resendConfirmEmail', array(
             'code' => $user->confirmationCode,
         ));
     }
@@ -380,7 +380,7 @@ class SiteController extends HController
         $password = $user->createPassword(12);
         $user->password = $user->hashPassword($password);
 
-        if (! ($user->save() &&  Yii::app()->mandrill->send($user, 'passwordRecovery', array('password' => $password)))) {
+        if (! ($user->save() &&  Yii::app()->email->send($user, 'passwordRecovery', array('password' => $password)))) {
             echo CJSON::encode(array(
                 'status' => 'error',
                 'message' => '<span>Произошла неизвестная ошибка. Попробуйте ещё раз.</span>',

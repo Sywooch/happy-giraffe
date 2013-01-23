@@ -14,7 +14,7 @@
                         <div style="font:13px arial, helvetica, sans-serif;color:#232323;line-height:16px;">
 
                             <div style="margin-bottom:20px;">
-                                <span style="font-size:15px;">Добрый день, *|USERNAME|*!</span><br/>
+                                <span style="font-size:15px;">Добрый день, <?=$user->getFullName() ?>!</span><br/>
                                 <br/>
                                 Наша система получила уведомление о том, что вы забыли свой пароль на сайте «Весёлый Жираф».
                             </div>
@@ -25,7 +25,7 @@
                                         <span style="color:#5b5b5b;font-size:20px;">Ваш e-mail:</span>
                                     </td>
                                     <td style="padding:5px 15px 0px 5px;">
-                                        <span style="color:#3587ec;font-size:20px;"><a href="mailto:*|EMAIL|*" target="_blank" style="color:#3587ec;font-size:20px;">*|EMAIL|*</a></a></span>
+                                        <span style="color:#3587ec;font-size:20px;"><a href="mailto:<?=$user->email ?>" target="_blank" style="color:#3587ec;font-size:20px;"><?=$user->email ?></a></a></span>
                                     </td>
                                 </tr>
                                 <tr>
@@ -33,7 +33,7 @@
                                         <span style="color:#5b5b5b;font-size:20px;">Ваш пароль:</span>
                                     </td>
                                     <td style="padding:0px 15px 5px 5px;">
-                                        <span style="color:#5b5b5b;font-size:20px;">*|PASSWORD|*</span>
+                                        <span style="color:#5b5b5b;font-size:20px;"><?=$password ?></span>
                                     </td>
                                 </tr>
 

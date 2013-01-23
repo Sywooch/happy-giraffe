@@ -182,16 +182,8 @@ class DefaultController extends HController
         echo CJSON::encode(array('status' => $region->isCity()));
     }
 
-    /**
-     * @param int $id model id
-     * @return GeoRusSettlement
-     * @throws CHttpException
-     */
-    public function loadSettlment($id)
-    {
-        $model = GeoRusSettlement::model()->findByPk($id);
-        if ($model === null)
-            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
-        return $model;
+    public function actionTest(){
+        $parser = new GoogleCoordinatesParser;
+        $parser->start();
     }
 }

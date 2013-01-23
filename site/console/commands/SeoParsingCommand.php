@@ -120,5 +120,10 @@ class SeoParsingCommand extends CConsoleCommand
         $parser = new MailruSitesParser();
         $parser->start();
     }
+
+    public function actionMailruKeywords(){
+        $parser = new MailruKeywordsParser(false, true);
+        $parser->start();
+    }
 }
 

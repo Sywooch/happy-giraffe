@@ -173,6 +173,7 @@ class SiteCommand extends CConsoleCommand
 
     public function actionCoordinates(){
         Yii::import('site.frontend.modules.geo.models.*');
+        Yii::import('site.frontend.modules.geo.components.*');
 
         $parser = new GoogleCoordinatesParser;
         $parser->start();

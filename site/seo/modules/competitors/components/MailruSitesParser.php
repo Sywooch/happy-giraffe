@@ -31,7 +31,7 @@ class MailruSitesParser extends LiBaseParser
         $count = 0;
         foreach ($document->find('form#select > table.Rating > tr') as $row) {
             $stat_url = pq($row)->find('td.l_col a:first')->attr('href');
-            $stat_url = substr($stat_url, 10);
+            $stat_url = substr($stat_url, 9);
             $stat_url = trim($stat_url, '&');
 
             if (!empty($stat_url)) {

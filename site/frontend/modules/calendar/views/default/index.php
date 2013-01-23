@@ -171,7 +171,7 @@
                         <ul>
                             <?php foreach ($period->services as $s): ?>
                                 <li>
-                                    <div class="img"><?=CHtml::link(CHtml::image('/images/service_img_' . $s->id . '.png'), $s->url)?></div>
+                                    <div class="img"><?=CHtml::link(CHtml::image('/images/services/service_img_' . $s->id . '.png'), $s->url)?></div>
                                     <div class="text">
                                         <div class="item-title"><?=CHtml::link($s->title, $s->url)?></div>
                                         <p><?=$s->description?></p>

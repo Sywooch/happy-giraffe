@@ -25,11 +25,16 @@ $tasks = SeoTask::getCommentatorActiveTasks(1);
     </li>
     <?php foreach ($tasks as $task): ?>
         <?php if ($task !== null && $task->status == SeoTask::STATUS_CLOSED): ?>
+        <?php $article = $task->article->getArticle() ?>
         <li>
-            <b>По подсказке:</b>
-            <a href="<?=$task->article->url ?>" target="_blank"><?= $task->article->getArticleTitle() ?></a>
-            <span class="done"><i class="icon"></i>Сделано</span>
-            <span class="date"><?=Yii::app()->dateFormatter->format('dd MMM yyyy, HH:mm', strtotime($task->article->getArticle()->created)) ?></span>
+            <?php if ($article !== null):?>
+                <b>По подсказке:</b>
+                <a href="<?=$task->article->url ?>" target="_blank"><?= $article->title ?></a>
+                <span class="done"><i class="icon"></i>Сделано</span>
+                <span class="date"><?=Yii::app()->dateFormatter->format('dd MMM yyyy, HH:mm', strtotime($article->created)) ?></span>
+            <?php else: ?>
+                Ошибка, статья не найдена <?php var_dump($task->article->attributes) ?>
+            <?php endif ?>
         </li>
         <?php else: ?>
             <?php $this->renderPartial('_hint', array('task' => $task, 'block'=>1)) ?>

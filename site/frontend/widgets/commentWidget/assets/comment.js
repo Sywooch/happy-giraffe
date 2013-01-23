@@ -219,6 +219,8 @@ Comment.prototype.send = function (form) {
                 editor.setData('');
                 editor.destroy();
                 $this.cancel();
+            }else{
+                location.reload();
             }
         }
     });
@@ -269,7 +271,8 @@ function addMenuToggle(el) {
     $(el).parents('.add-menu').find('.btn i').toggleClass('arr-t');
 }
 
-function setRedirectUrl(){
+function setRedirectUrl(elem){
     Register.redirectUrl = location.href;
     Register.gotoComment = 1;
+    $('#login-form input[name=redirect_to]').val(elem);
 }

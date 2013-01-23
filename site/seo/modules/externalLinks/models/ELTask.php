@@ -23,8 +23,8 @@ class ELTask extends HActiveRecord
     const TYPE_POST_LINK = 3;
 
     public $worker_limits = array(ELSite::TYPE_FORUM => array(3, 3, 6), ELSite::TYPE_BLOG => array(4, 4, 4));
-    public $manager_limits = array(ELSite::TYPE_FORUM => array(7, 7, 21), ELSite::TYPE_BLOG => array(7, 7, 7));
-    public $angry_worker_limits = array(ELSite::TYPE_FORUM => array(17, 17, 51), ELSite::TYPE_BLOG => array(20, 20, 20));
+    public $manager_limits = array(ELSite::TYPE_FORUM => array(7, 7, 21), ELSite::TYPE_BLOG => array(15, 15, 15));
+    public $angry_worker_limits = array(ELSite::TYPE_FORUM => array(17, 17, 51), ELSite::TYPE_BLOG => array(24, 24, 24));
 
     /**
      * Returns the static model of the specified AR class.

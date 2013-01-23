@@ -11,10 +11,10 @@ class RegisterWidget extends CWidget
             //Yii::app()->user->setState('register_window_shown', 0);
 
             if (Yii::app()->user->getState('register_window_shown', 0) == 0 && empty(Yii::app()->request->cookies['not_guest'])) {
-                if (!empty(Yii::app()->getRequest()->urlReferrer) && $this->inHoroscopeArea()) {
+                if ($this->inHoroscopeArea()) {
                     $this->show_form = true;
                     $this->form_type = 'horoscope';
-                } elseif (!empty(Yii::app()->getRequest()->urlReferrer) && $this->inPregnancyArea()) {
+                } elseif ($this->inPregnancyArea()) {
                     $this->show_form = true;
                     $this->form_type = 'pregnancy';
                 } elseif (strpos(Yii::app()->getRequest()->urlReferrer, 'http://www.odnoklassniki.ru/') === 0) {
@@ -42,6 +42,7 @@ class RegisterWidget extends CWidget
 
     public function inPregnancyArea()
     {
+        echo Yii::app()->controller->uniqueId;
         return
             (Yii::app()->controller->uniqueId == 'calendar/default' && $_GET['calendar'] == 1) //календрарь беременности
             || (Yii::app()->controller->uniqueId == 'services/babySex/default') //определение пола будущего ребенка

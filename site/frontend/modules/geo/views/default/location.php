@@ -26,7 +26,7 @@ if ($user->address->country_id !== null) {
                 'onchange' => 'UserLocation.SelectCounty($(this));',
             )) ?>
             </span>&nbsp;&nbsp;
-        <span class="with-search">
+        <span id="location-region" class="with-search"<?php if (count($regions) == 1) echo ' style="display:none;"' ?>>
                 <?php echo CHtml::dropDownList('region_id', $user->address->region_id, $regions,
             array(
                 'class' => 'chzn w-200',
@@ -36,8 +36,7 @@ if ($user->address->country_id !== null) {
         </span>
         </div>
         <div class="row settlement"<?php
-            if ($user->address->region !== null
-                && $user->address->region->isCity()
+            if ($user->address->region !== null && $user->address->region->isCity() || count($regions) == 1
             ) echo ' style="display:none;"' ?>>
             <label>Населенный пункт</label>
             <?php

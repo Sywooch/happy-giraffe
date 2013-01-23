@@ -161,7 +161,7 @@ Yii::app()->clientScript->registerScriptFile('/javascripts/location.js');
                             )) ?>
 						</span>
                         &nbsp;&nbsp;
-						<span class="chzn-v2">
+						<span class="chzn-v2" id="first_steps_region">
 							<?php echo CHtml::dropDownList('region_id', $this->user->address->region_id, $regions,
                             array(
                                 'class' => 'chzn w-2',
@@ -274,7 +274,7 @@ Yii::app()->clientScript->registerScriptFile('/javascripts/location.js');
                 <div class="select-box">
                     Дата рождения:
 					<span class="chzn-v2">
-                        <?=$form->dropDownList($model, 'day', HDate::Range(1,31), array('class'=>'chzn w-1', 'empty'=>'День')) ?>
+                        <?=$form->dropDownList($model, 'day', HDate::Range(1,31), array('class'=>'chzn w-1', 'empty'=>'День', 'style' => 'width:60px;')) ?>
                         <?=$form->error($model, 'day') ?>
 					</span>
 					<span class="chzn-v2">

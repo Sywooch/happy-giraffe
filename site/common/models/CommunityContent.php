@@ -143,6 +143,9 @@ class CommunityContent extends HActiveRecord
             'pingable' => array(
                 'class' => 'site.common.behaviors.PingableBehavior',
             ),
+            'duplicate'=>array(
+                'class' => 'site.common.behaviors.DuplicateBehavior',
+            )
         );
     }
 
@@ -309,8 +312,9 @@ class CommunityContent extends HActiveRecord
     public function beforeSave()
     {
         $this->title = strip_tags($this->title);
-        if ($this->isNewRecord)
+        if ($this->isNewRecord) {
             $this->last_updated = new CDbExpression('NOW()');
+        }
         return parent::beforeSave();
     }
 
@@ -660,7 +664,7 @@ class CommunityContent extends HActiveRecord
     {
         if ($this->getIsFromBlog()) {
             $model = BlogContent::model()->findByPk($this->id);
-            return ($model)?$model->commentsCount:0;
+            return ($model) ? $model->commentsCount : 0;
         }
         return $this->commentsCount;
     }
@@ -687,7 +691,7 @@ class CommunityContent extends HActiveRecord
 
     public function getStatus()
     {
-        return CommunityStatus::model()->findByAttributes(array('content_id'=>$this->id));
+        return CommunityStatus::model()->findByAttributes(array('content_id' => $this->id));
     }
 
     public function getEvent()

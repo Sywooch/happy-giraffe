@@ -42,6 +42,8 @@ class Li2KeywordsParser extends LiBaseParser
                 $criteria->condition = 'password IS NOT NULL AND active=0';
             else
                 $criteria->condition = 'public=1 AND active=0';
+
+            $criteria->compare('type', LiSite::TYPE_LI);
             $this->site = LiSite::model()->find($criteria);
             if ($this->site === null)
                 Yii::app()->end();

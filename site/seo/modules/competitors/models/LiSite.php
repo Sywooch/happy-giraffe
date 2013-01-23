@@ -11,9 +11,13 @@
  * @property string $password
  * @property integer $public
  * @property integer $active
+ * @property integer $type
  */
 class LiSite extends HActiveRecord
 {
+    const TYPE_LI = 1;
+    const TYPE_MAIL = 2;
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.

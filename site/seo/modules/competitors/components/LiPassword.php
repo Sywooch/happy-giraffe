@@ -27,6 +27,7 @@ class LiPassword extends LiBaseParser
         try {
             $criteria = new CDbCriteria;
             $criteria->condition = 'public=0 AND active=0 AND PASSWORD IS NULL';
+            $criteria->compare('type', LiSite::TYPE_LI);
             $this->site = LiSite::model()->find($criteria);
             $this->site->active = 1;
             $this->site->save();

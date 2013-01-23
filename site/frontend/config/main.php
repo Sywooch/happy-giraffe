@@ -308,6 +308,9 @@ return array(
             'class' => 'site.common.components.Mandrill',
             'apiKey' => '1f816ac2-65b7-4a28-90c9-7e8fb1669d43',
         ),
+        'email'=>array(
+            'class' => 'site.common.components.HEmailSender',
+        ),
 	),
 
 	// application-level parameters that can be accessed

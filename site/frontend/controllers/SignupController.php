@@ -149,7 +149,7 @@ class SignupController extends HController
                     }
                 }
 
-                Yii::app()->mandrill->send($model, 'confirmEmail', array(
+                Yii::app()->email->send($model, 'confirmEmail', array(
                     'password' => $_POST['User']['password'],
                     'code' => $model->confirmationCode,
                 ));

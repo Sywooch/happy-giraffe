@@ -41,6 +41,7 @@ class ProxyParserThread
         $criteria = new CDbCriteria;
         $criteria->compare('active', 0);
         $criteria->order = 'rank desc';
+        $criteria->offset = rand(0, 10);
 
         $this->startTimer('find proxy');
 
@@ -70,10 +71,12 @@ class ProxyParserThread
                 curl_setopt($ch, CURLOPT_REFERER, $url);
 
             if ($this->use_proxy) {
+                $this->log('select proxy');
+
                 curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
                 curl_setopt($ch, CURLOPT_PROXY, $this->proxy->value);
-                if (getenv('SERVER_ADDR') != '5.9.7.81') {
-                    curl_setopt($ch, CURLOPT_PROXYUSERPWD, "alexk984:Nokia12345");
+                if (Yii::app()->params['use_proxy_auth']) {
+                    curl_setopt($ch, CURLOPT_PROXYUSERPWD, "alexhg:Nokia1111");
                     curl_setopt($ch, CURLOPT_PROXYAUTH, 1);
                 }
             }
@@ -207,8 +210,8 @@ class ProxyParserThread
     public function endTimer()
     {
         $fh = fopen($dir = Yii::getPathOfAlias('application.runtime') . DIRECTORY_SEPARATOR . 'my_log.txt', 'a');
-        $long_time = 1000*(microtime(true) - $this->_start_time);
-        fwrite($fh, $this->_time_stamp_title.': '. $long_time . "\n");
+        $long_time = 1000 * (microtime(true) - $this->_start_time);
+        fwrite($fh, $this->_time_stamp_title . ': ' . $long_time . "\n");
     }
 
     protected function log($state)

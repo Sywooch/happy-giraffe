@@ -35,7 +35,7 @@ $model = new User;
 <div class="social-small-row clearfix">
     <em>или войти с помощью</em>
     <ul class="social-list-small">
-        <?php Yii::app()->eauth->renderWidget(array('action' => 'signup/index/type/pregnancy', 'mode'=>'small')); ?>
+        <?php Yii::app()->eauth->renderWidget(array('action' => 'signup/index', 'mode'=>'small', 'params'=>array('type'=>'pregnancy'))); ?>
     </ul>
 </div>
 <?php $this->endWidget(); ?>

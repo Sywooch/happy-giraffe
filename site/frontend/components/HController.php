@@ -18,7 +18,7 @@ class HController extends CController
     public $pGallery = null;
     public $broadcast = false;
 
-    protected $r = 142;
+    protected $r = 149;
 
     public function filterAjaxOnly($filterChain)
     {
@@ -103,6 +103,12 @@ class HController extends CController
 
         // мета-теги
         $this->setMetaTags();
+
+
+        if (Yii::app()->user->getState('redirect_to') != null){
+            Yii::app()->clientScript->registerScript('redirect_to','HGoTo("'.Yii::app()->user->getState('redirect_to').'");');
+            Yii::app()->user->setState('redirect_to', null);
+        }
 
         return parent::beforeAction($action);
     }

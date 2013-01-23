@@ -1,22 +1,21 @@
 <?php
 
 /**
- * This is the model class for table "traffic__statisctics".
+ * This is the model class for table "route_parsing".
  *
- * The followings are the available columns in table 'traffic__statisctics':
- * @property string $section_id
- * @property string $date
- * @property integer $value
- *
- * The followings are the available model relations:
- * @property TrafficSection $section
+ * The followings are the available columns in table 'route_parsing':
+ * @property string $id
+ * @property string $city_from_id
+ * @property string $city_to_id
+ * @property integer $wordstat
+ * @property integer $active
  */
-class TrafficStatisctic extends HActiveRecord
+class RouteParsing extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return TrafficStatisctic the static model class
+	 * @return RouteParsing the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -36,7 +35,7 @@ class TrafficStatisctic extends HActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'traffic__statisctics';
+		return 'route_parsing';
 	}
 
 	/**
@@ -47,13 +46,12 @@ class TrafficStatisctic extends HActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('section_id, date, value', 'required'),
-			array('value', 'numerical', 'integerOnly'=>true),
-			array('section_id', 'length', 'max'=>10),
-            array('section_id+date', 'uniqueMultiColumnValidator'),
+			array('city_from_id, city_to_id', 'required'),
+			array('wordstat, active', 'numerical', 'integerOnly'=>true),
+			array('city_from_id, city_to_id', 'length', 'max'=>11),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('section_id, date, value', 'safe', 'on'=>'search'),
+			array('id, city_from_id, city_to_id, wordstat, active', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -65,7 +63,6 @@ class TrafficStatisctic extends HActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'section' => array(self::BELONGS_TO, 'TrafficSection', 'section_id'),
 		);
 	}
 
@@ -75,9 +72,11 @@ class TrafficStatisctic extends HActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'section_id' => 'Section',
-			'date' => 'Date',
-			'value' => 'Value',
+			'id' => 'ID',
+			'city_from_id' => 'City From',
+			'city_to_id' => 'City To',
+			'wordstat' => 'Wordstat',
+			'active' => 'Active',
 		);
 	}
 
@@ -92,12 +91,24 @@ class TrafficStatisctic extends HActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('section_id',$this->section_id,true);
-		$criteria->compare('date',$this->date,true);
-		$criteria->compare('value',$this->value);
+		$criteria->compare('id',$this->id,true);
+		$criteria->compare('city_from_id',$this->city_from_id,true);
+		$criteria->compare('city_to_id',$this->city_to_id,true);
+		$criteria->compare('wordstat',$this->wordstat);
+		$criteria->compare('active',$this->active);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
 	}
+
+    public function getCityFrom()
+    {
+        return GeoCity::model()->findByPk($this->city_from_id);
+    }
+
+    public function getCityTo()
+    {
+        return GeoCity::model()->findByPk($this->city_to_id);
+    }
 }

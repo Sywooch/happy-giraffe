@@ -38,6 +38,16 @@ class DefaultController extends SController
         }
     }*/
 
+    public function actionSection($id){
+        $section = $this->loadModel($id);
+
+        $last_date = date("Y-m-d");
+        $date = date("Y-m-d", strtotime('-6 days'));
+        $period = $this->getPeriod($last_date, 7);
+
+        $this->render('section', compact('section', 'last_date', 'date', 'period'));
+    }
+
     public function getPeriod($date, $days)
     {
         if ($date != date("Y-m-d")) {
@@ -53,5 +63,17 @@ class DefaultController extends SController
             return 'month';
 
         return 'manual';
+    }
+
+    /**
+     * @param int $id model id
+     * @return TrafficSection
+     * @throws CHttpException
+     */
+    public function loadModel($id){
+        $model = TrafficSection::model()->findByPk($id);
+        if ($model === null)
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        return $model;
     }
 }

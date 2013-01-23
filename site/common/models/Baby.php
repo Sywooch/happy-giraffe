@@ -56,7 +56,7 @@ class Baby extends HActiveRecord
             array('parent_id, age_group', 'numerical', 'integerOnly'=>true),
             array('sex', 'numerical', 'integerOnly' => true, 'min' => 0, 'max' => 2),
             array('name', 'length', 'max'=>255),
-            array('notice', 'length', 'max'=>1024),
+            array('notice', 'length', 'max'=>100),
             array('birthday', 'safe'),
         );
     }

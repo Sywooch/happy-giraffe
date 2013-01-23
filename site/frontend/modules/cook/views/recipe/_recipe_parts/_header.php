@@ -20,7 +20,7 @@
 
     <div class="meta meta-small">
         <div class="views"><span class="icon"></span>
-            <span><?=PageView::model()->viewsByPath($recipe->url)?></span>
+            <span><?=($full) ? $this->getViews() : PageView::model()->viewsByPath($recipe->url)?></span>
         </div>
         <div class="comments">
             <?=HHtml::link('', $recipe->getUrl(true), array('class' => 'icon'), true) ?>

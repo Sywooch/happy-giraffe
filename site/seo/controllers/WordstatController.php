@@ -116,4 +116,9 @@ class WordstatController extends SController
 
         echo CJSON::encode(array('status' => true));
     }
+
+    public function actionTest(){
+        $parser = new WordstatParser();
+        $parser->start(1);
+    }
 }

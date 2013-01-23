@@ -109,9 +109,8 @@ class YandexPopularity extends HActiveRecord
             $yaPop->value = $value;
             try {
                 $yaPop->theme = $theme;
-                if (!$yaPop->save())
-                    echo 'not saved2';
-            }catch (Exception $e){
+                $yaPop->save();
+            } catch (Exception $e) {
 
             }
         } else {
@@ -120,9 +119,8 @@ class YandexPopularity extends HActiveRecord
             $yaPop->theme = $theme;
             $yaPop->value = $value;
             try {
-                if (!$yaPop->save())
-                    echo 'not saved2';
-            }catch (Exception $e){
+                $yaPop->save();
+            } catch (Exception $e) {
 
             }
         }

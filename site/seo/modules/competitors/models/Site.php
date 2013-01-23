@@ -9,12 +9,16 @@
  * @property string $url
  * @property string $password
  * @property int $section
+ * @property int $type
  *
  * The followings are the available model relations:
  * @property SiteKeywordVisit[] $seoKeyStats
  */
 class Site extends HActiveRecord
 {
+    const TYPE_LI = 1;
+    const TYPE_MAIL = 2;
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -48,7 +52,7 @@ class Site extends HActiveRecord
 		return array(
 			array('name', 'required'),
 			array('name, url, password', 'length', 'max'=>255),
-            array('section', 'numerical', 'integerOnly' => true),
+            array('section, type', 'numerical', 'integerOnly' => true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, name, url', 'safe', 'on'=>'search'),
@@ -76,6 +80,7 @@ class Site extends HActiveRecord
 			'id' => 'ID',
 			'name' => 'Name',
 			'url' => 'Url',
+            'type'=>'Type'
 		);
 	}
 
@@ -90,9 +95,11 @@ class Site extends HActiveRecord
 		$criteria->compare('id',$this->id);
 		$criteria->compare('name',$this->name,true);
 		$criteria->compare('url',$this->url);
+		$criteria->compare('type',$this->type);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+            'pagination' => array('pageSize' => 100),
 		));
 	}
 

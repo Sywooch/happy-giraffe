@@ -20,7 +20,7 @@ class GoogleCoordinatesParser
     {
         Yii::import('site.seo.models.*');
 
-        time_nanosleep(rand(0, 5), rand(0, 1000000000));
+        time_nanosleep(rand(0, 60), rand(0, 1000000000));
 
         $this->changeProxy();
 

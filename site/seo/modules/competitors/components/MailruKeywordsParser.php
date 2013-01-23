@@ -13,6 +13,8 @@ class MailruKeywordsParser extends LiBaseParser
 
     public function start()
     {
+        $this->rus_proxy = false;
+
         while ($this->site !== null) {
             $this->getSite();
             $this->log('Start parsing site ' . $this->site->id . ' ' . $this->site->url);

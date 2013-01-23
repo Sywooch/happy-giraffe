@@ -134,8 +134,7 @@ class MailCommand extends CConsoleCommand
 
     public function actionTest()
     {
-        $m = new HEmailSender;
-        $m->send(10, 'newMessages', array(
+        Yii::app()->email->send(10, 'passwordRecovery', array(
             'code' => 12436,
             'password' => 325437
         ), $this);

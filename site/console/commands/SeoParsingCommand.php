@@ -32,7 +32,7 @@ class SeoParsingCommand extends CConsoleCommand
 
     public function actionLi($site)
     {
-        $last_parsed = SeoUserAttributes::getAttribute('last_li_parsed_'.date("Y-m") , 0);
+        $last_parsed = SeoUserAttributes::getAttribute('last_li_parsed_'.date("Y-m") , 1);
         if (empty($site)) {
             $parser = new LiParser;
 
@@ -54,7 +54,7 @@ class SeoParsingCommand extends CConsoleCommand
 
     public function actionMailru($site)
     {
-        $last_parsed = SeoUserAttributes::getAttribute('last_mailru_parsed_'.date("Y-m") , 0);
+        $last_parsed = SeoUserAttributes::getAttribute('last_mailru_parsed_'.date("Y-m") , 1);
         if (empty($site)) {
             $parser = new MailruParser(false, true);
 
@@ -64,8 +64,7 @@ class SeoParsingCommand extends CConsoleCommand
                 $sites = Site::model()->findAll('type=2');
 
             foreach ($sites as $site) {
-                $parser->start($site->id, 2012, 10, 12);
-
+                $parser->start($site->id, 2013, 1, 1);
                 SeoUserAttributes::setAttribute('last_mailru_parsed_'.date("Y-m") , $site->id, 1);
             }
         } else {
@@ -114,6 +113,11 @@ class SeoParsingCommand extends CConsoleCommand
     public function actionPassword($debug = false){
         $parser = new LiPassword(true, $debug);
         $parser->rus_proxy = false;
+        $parser->start();
+    }
+
+    public function actionMailruSites(){
+        $parser = new MailruSitesParser();
         $parser->start();
     }
 }

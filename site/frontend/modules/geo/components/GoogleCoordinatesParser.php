@@ -15,6 +15,12 @@ class GoogleCoordinatesParser
      */
     private $city;
     private $proxy;
+    private $debug_mode = false;
+
+    public function __construct($debug_mode = false)
+    {
+        $this->debug_mode = $debug_mode;
+    }
 
     public function start()
     {
@@ -38,6 +44,8 @@ class GoogleCoordinatesParser
 
         $this->coordinates = SeoCityCoordinates::model()->find($criteria);
         $this->city = GeoCity::model()->findByPk($this->coordinates->city_id);
+
+        $this->log('city_id: ' . $this->city->id);
     }
 
     public function parseCity($attempt = 0)
@@ -53,6 +61,7 @@ class GoogleCoordinatesParser
         if (isset($result['status']) && $result['status'] == 'OK') {
             $this->saveCoordinates($result['results'][0]['geometry']);
         } else {
+            $this->log('status: ' . $result['status']);
             $this->changeProxy();
             if ($attempt > 50) {
                 var_dump($text);
@@ -131,5 +140,11 @@ class GoogleCoordinatesParser
         }
 
         return $value;
+    }
+
+    public function log($str)
+    {
+        if ($this->debug_mode)
+            echo $str . "\n";
     }
 }

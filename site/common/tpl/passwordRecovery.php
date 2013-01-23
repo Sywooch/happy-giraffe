@@ -39,11 +39,6 @@
 
                             </table>
 
-                            <div style="margin-bottom:40px;">
-                                Вы всегда можете поменять свой пароль в разделе "Мои настройки"<br/>по адресу:
-                                <span style="color: #3587ec;"><a href="http://www.happy-giraffe.ru/profile" target="_blank" style="color: #3587ec;">http://www.happy-giraffe.ru/profile</a></span>
-                            </div>
-
                             <div style="margin-bottom:20px;">
                                 С наилучшими пожеланиями,<br/>
                                 <span style="color: #3587ec;"><a href="http://www.happy-giraffe.ru" target="_blank" style="color: #3587ec;">Веселый Жираф</a></span>

@@ -127,7 +127,7 @@ class GoogleCoordinatesParser
                 $value[] = $matches[1][$i];
             }
 
-            Yii::app()->cache->set($cache_id, $value, 300);
+            Yii::app()->cache->set($cache_id, $value, 30000);
         }
 
         return $value;

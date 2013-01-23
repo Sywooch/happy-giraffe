@@ -131,7 +131,7 @@ class SiteCommand extends CConsoleCommand
 
         $cities = GeoCity::model()->findAll('type="г"');
         echo count($cities);
-        for ($i = 0; $i < count($cities); $i++){
+        for ($i = 0; $i < count($cities); $i++) {
             for ($j = 0; $j < count($cities); $j++)
                 if ($cities[$i]->id != $cities[$j]->id) {
                     $model = new RouteParsing();
@@ -141,11 +141,12 @@ class SiteCommand extends CConsoleCommand
                 }
 
             if ($i % 10 == 0)
-            echo $i."\n";
+                echo $i . "\n";
         }
     }
 
-    public function actionParseRoutes(){
+    public function actionParseRoutes()
+    {
         Yii::import('site.frontend.modules.geo.models.*');
         Yii::import('site.frontend.modules.services.modules.route.models.*');
         Yii::import('site.seo.components.*');
@@ -155,7 +156,8 @@ class SiteCommand extends CConsoleCommand
         $parser->start(false);
     }
 
-    public function actionTest(){
+    public function actionTest()
+    {
         Yii::import('site.frontend.modules.geo.models.*');
         Yii::import('site.frontend.modules.services.modules.route.models.*');
         Yii::import('site.frontend.modules.services.modules.route.components.*');
@@ -163,7 +165,8 @@ class SiteCommand extends CConsoleCommand
         CRouteLinking::model()->add(16586);
     }
 
-    public function actionKeywordsTest(){
+    public function actionKeywordsTest()
+    {
         Yii::import('site.frontend.modules.geo.models.*');
         Yii::import('site.frontend.modules.services.modules.route.models.*');
         Yii::import('site.frontend.modules.services.modules.route.components.*');
@@ -171,11 +174,34 @@ class SiteCommand extends CConsoleCommand
         RouteLink::model()->test(16586);
     }
 
-    public function actionCoordinates(){
+    public function actionCoordinates($offset = 0)
+    {
         Yii::import('site.frontend.modules.geo.models.*');
         Yii::import('site.frontend.modules.geo.components.*');
 
         $parser = new GoogleCoordinatesParser;
-        $parser->start();
+        $parser->start($offset);
+    }
+
+    public function actionCopyCities(){
+        Yii::import('site.frontend.modules.geo.models.*');
+        Yii::import('site.seo.models.*');
+
+        $criteria = new CDbCriteria;
+        $criteria->limit = 100;
+        $criteria->offset = 0;
+
+        $models = array(0);
+        while (!empty($models)) {
+            $models = GeoCity::model()->findAll($criteria);
+
+            foreach ($models as $model) {
+                $m = new SeoCityCoordinates;
+                $m->city_id = $model->id;
+                $m->save();
+            }
+
+            $criteria->offset += 100;
+        }
     }
 }

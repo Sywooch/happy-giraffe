@@ -9,10 +9,10 @@ class m130123_084126_add_city_coordinates extends CDbMigration
   `city_id` int(10) unsigned NOT NULL,
   `location_lat` float(11,8) NOT NULL,
   `location_lng` float(11,8) NOT NULL,
-  `northeast_lat` float(11,8) NOT NULL,
-  `northeast_lng` float(11,8) NOT NULL,
-  `southwest_lat` float(11,8) NOT NULL,
-  `southwest_lng` float(11,8) NOT NULL,
+  `northeast_lat` float(11,8) NULL,
+  `northeast_lng` float(11,8) NULL,
+  `southwest_lat` float(11,8) NULL,
+  `southwest_lng` float(11,8) NULL,
   PRIMARY KEY (`city_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -32,8 +32,7 @@ ALTER TABLE `geo__city_coordinates`
 
 	public function down()
 	{
-		echo "m130123_084126_add_city_coordinates does not support migration down.\n";
-		return false;
+		$this->dropTable('geo__city_coordinates');
 	}
 
 	/*

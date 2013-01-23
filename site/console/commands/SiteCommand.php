@@ -170,4 +170,11 @@ class SiteCommand extends CConsoleCommand
 
         RouteLink::model()->test(16586);
     }
+
+    public function actionCoordinates(){
+        Yii::import('site.frontend.modules.geo.models.*');
+
+        $parser = new GoogleCoordinatesParser;
+        $parser->start();
+    }
 }

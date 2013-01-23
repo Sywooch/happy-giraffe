@@ -174,13 +174,13 @@ class SiteCommand extends CConsoleCommand
         RouteLink::model()->test(16586);
     }
 
-    public function actionCoordinates($offset = 0)
+    public function actionCoordinates()
     {
         Yii::import('site.frontend.modules.geo.models.*');
         Yii::import('site.frontend.modules.geo.components.*');
 
         $parser = new GoogleCoordinatesParser;
-        $parser->start($offset);
+        $parser->start();
     }
 
     public function actionCopyCities(){

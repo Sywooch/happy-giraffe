@@ -7,13 +7,19 @@
 class GoogleCoordinatesParser
 {
     /**
+     * @var SeoCityCoordinates
+     */
+    public $coordinates;
+    /**
      * @var GeoCity
      */
-    public $city;
+    private $city;
     private $proxy;
 
     public function start()
     {
+        Yii::import('site.seo.models.*');
+
         time_nanosleep(rand(0, 5), rand(0, 1000000000));
 
         $this->changeProxy();
@@ -28,9 +34,10 @@ class GoogleCoordinatesParser
     {
         $criteria = new CDbCriteria;
         $criteria->condition = 'location_lat IS NULL';
-        $criteria->offset = rand(0, 10000);
+        $criteria->offset = rand(0, 1000);
 
-        $this->city = SeoCityCoordinates::model()->find($criteria);
+        $this->coordinates = SeoCityCoordinates::model()->find($criteria);
+        $this->city = GeoCity::model()->findByPk($this->coordinates->city_id);
     }
 
     public function parseCity($attempt = 0)
@@ -85,18 +92,16 @@ class GoogleCoordinatesParser
 
     public function saveCoordinates($result)
     {
-        $coordinates = new SeoCityCoordinates;
-        $coordinates->city_id = $this->city->id;
-        $coordinates->location_lat = round($result['location']['lat'], 8);
-        $coordinates->location_lng = round($result['location']['lng'], 8);
+        $this->coordinates->location_lat = round($result['location']['lat'], 8);
+        $this->coordinates->location_lng = round($result['location']['lng'], 8);
         if (isset($result['bounds']['northeast'])) {
-            $coordinates->northeast_lat = round($result['bounds']['northeast']['lat'], 8);
-            $coordinates->northeast_lng = round($result['bounds']['northeast']['lng'], 8);
-            $coordinates->southwest_lat = round($result['bounds']['southwest']['lat'], 8);
-            $coordinates->southwest_lng = round($result['bounds']['southwest']['lng'], 8);
+            $this->coordinates->northeast_lat = round($result['bounds']['northeast']['lat'], 8);
+            $this->coordinates->northeast_lng = round($result['bounds']['northeast']['lng'], 8);
+            $this->coordinates->southwest_lat = round($result['bounds']['southwest']['lat'], 8);
+            $this->coordinates->southwest_lng = round($result['bounds']['southwest']['lng'], 8);
         }
         try {
-            $coordinates->save();
+            $this->coordinates->save();
         } catch (Exception $err) {
 
         }

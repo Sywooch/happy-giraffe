@@ -11,7 +11,7 @@ class MailruSitesParser extends LiBaseParser
     {
         $this->rus_proxy = false;
 
-        for ($this->page = 145; $this->page < 1000; $this->page++)
+        for ($this->page = 210; $this->page < 1000; $this->page++)
             $this->parsePage();
     }
 

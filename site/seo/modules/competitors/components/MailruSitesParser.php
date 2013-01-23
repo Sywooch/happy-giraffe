@@ -10,7 +10,7 @@ class MailruSitesParser extends LiBaseParser
 
     public function start()
     {
-        $this->rus_proxy = false;
+        //$this->rus_proxy = false;
         $this->start_page = 1;
         $this->page = 1;
 

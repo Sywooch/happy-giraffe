@@ -17,7 +17,6 @@ class GoogleCoordinatesParser
         for ($i = 0; $i < 10000; $i++) {
             $this->getCity();
             $this->parseCity();
-            sleep(1);
         }
     }
 

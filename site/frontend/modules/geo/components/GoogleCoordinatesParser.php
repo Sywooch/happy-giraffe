@@ -10,10 +10,14 @@ class GoogleCoordinatesParser
      * @var GeoCity
      */
     public $city;
+    private $proxy;
 
     public function start()
     {
-        //while (true) {
+        time_nanosleep(rand(0, 5), rand(0, 1000000000));
+
+        $this->changeProxy();
+
         for ($i = 0; $i < 10000; $i++) {
             $this->getCity();
             $this->parseCity();
@@ -23,23 +27,33 @@ class GoogleCoordinatesParser
     public function getCity()
     {
         $criteria = new CDbCriteria;
-        $criteria->condition = 'id NOT IN (Select city_id from geo__city_coordinates)';
+        $criteria->condition = 'location_lat IS NULL';
+        $criteria->offset = rand(0, 10000);
 
-        $this->city = GeoCity::model()->find($criteria);
+        $this->city = SeoCityCoordinates::model()->find($criteria);
     }
 
-    public function parseCity()
+    public function parseCity($attempt = 0)
     {
         $city_string = $this->city->getFullName();
+        //echo $city_string.'<br>';
+
         $url = 'http://maps.google.com/maps/api/geocode/json?address=' . urlencode($city_string) . '&sensor=false';
 
-        $text = file_get_contents($url);
+        $text = $this->loadPage($url);
         $result = json_decode($text, true);
 
         if (isset($result['status']) && $result['status'] == 'OK') {
             $this->saveCoordinates($result['results'][0]['geometry']);
         } else {
-            $this->parseCity();
+            $this->changeProxy();
+            if ($attempt > 50) {
+                var_dump($text);
+                Yii::app()->end();
+            }
+
+            $attempt++;
+            $this->parseCity($attempt);
         }
     }
 
@@ -50,7 +64,7 @@ class GoogleCoordinatesParser
         curl_setopt($ch, CURLOPT_URL, $url);
 
         curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
-        curl_setopt($ch, CURLOPT_PROXY, '46.165.200.102:999');
+        curl_setopt($ch, CURLOPT_PROXY, $this->proxy);
 
         curl_setopt($ch, CURLOPT_PROXYUSERPWD, "alexhg:Nokia1111");
         curl_setopt($ch, CURLOPT_PROXYAUTH, 1);
@@ -61,22 +75,56 @@ class GoogleCoordinatesParser
         $result = curl_exec($ch);
         curl_close($ch);
 
-        if ($result === false)
+        if ($result === false) {
+            $this->changeProxy();
             return $this->loadPage($url);
+        }
 
         return $result;
     }
 
     public function saveCoordinates($result)
     {
-        $coordinates = new CityCoordinates;
+        $coordinates = new SeoCityCoordinates;
         $coordinates->city_id = $this->city->id;
         $coordinates->location_lat = round($result['location']['lat'], 8);
         $coordinates->location_lng = round($result['location']['lng'], 8);
-        $coordinates->northeast_lat = round($result['bounds']['northeast']['lat'], 8);
-        $coordinates->northeast_lng = round($result['bounds']['northeast']['lng'], 8);
-        $coordinates->southwest_lat = round($result['bounds']['southwest']['lat'], 8);
-        $coordinates->southwest_lng = round($result['bounds']['southwest']['lng'], 8);
-        $coordinates->save();
+        if (isset($result['bounds']['northeast'])) {
+            $coordinates->northeast_lat = round($result['bounds']['northeast']['lat'], 8);
+            $coordinates->northeast_lng = round($result['bounds']['northeast']['lng'], 8);
+            $coordinates->southwest_lat = round($result['bounds']['southwest']['lat'], 8);
+            $coordinates->southwest_lng = round($result['bounds']['southwest']['lng'], 8);
+        }
+        try {
+            $coordinates->save();
+        } catch (Exception $err) {
+
+        }
+    }
+
+    public function changeProxy()
+    {
+        $list = $this->getProxyList();
+        $this->proxy = $list[rand(0, count($list) - 1)];
+    }
+
+    public function getProxyList()
+    {
+        $cache_id = 'proxy_list';
+        $value = Yii::app()->cache->get($cache_id);
+        if ($value === false) {
+            $file = file_get_contents('http://awmproxy.com/allproxy.php?country=1');
+
+            //select only rus proxy
+            preg_match_all('/([\d:\.]+);/', $file, $matches);
+            $value = array();
+            for ($i = 0; $i < count($matches[0]); $i++) {
+                $value[] = $matches[1][$i];
+            }
+
+            Yii::app()->cache->set($cache_id, $value, 300);
+        }
+
+        return $value;
     }
 }

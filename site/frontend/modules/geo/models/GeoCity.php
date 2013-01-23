@@ -105,8 +105,16 @@ class GeoCity extends HActiveRecord
     public function getFullName()
     {
         $text = $this->name;
-        if (!empty($this->district_id))
+        if (!empty($this->district_id)) {
+            //если есть такой же город в этом регионе
+//            $criteria = new CDbCriteria;
+//            $criteria->compare('region_id', $this->region_id);
+//            $count = GeoCity::model()->count($criteria);
+//
+//            if ($count > 1)
+
             $text .= ', ' . $this->district->name . ' район';
+        }
         if (!empty($this->region_id) && $this->region->name !== $this->name)
             $text .= ', ' . $this->region->name;
 

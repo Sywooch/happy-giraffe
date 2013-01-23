@@ -43,7 +43,7 @@ class CityCoordinates extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('city_id, location_lat, location_lng, northeast_lat, northeast_lng, southwest_lat, southwest_lng', 'required'),
+			array('city_id, location_lat, location_lng', 'required'),
 			array('location_lat, location_lng, northeast_lat, northeast_lng, southwest_lat, southwest_lng', 'numerical'),
 			array('city_id', 'length', 'max'=>10),
 			// The following rule is used by search().

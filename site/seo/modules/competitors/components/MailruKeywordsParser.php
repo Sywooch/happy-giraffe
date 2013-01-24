@@ -9,10 +9,12 @@ class MailruKeywordsParser extends LiBaseParser
     /**
      * @var LiSite
      */
-    public $site = 1;
+    private $site = 1;
+    private $period;
 
-    public function start()
+    public function start($period = 2)
     {
+        $this->period = $period;
         $this->rus_proxy = false;
 
         while ($this->site !== null) {
@@ -28,7 +30,7 @@ class MailruKeywordsParser extends LiBaseParser
         //mail('alexk984@gmail.com', 'report parsing site '.$this->site->url, $found.' keywords parsed');
     }
 
-    public function getSite()
+    private function getSite()
     {
         $transaction = Yii::app()->db_seo->beginTransaction();
         try {
@@ -51,11 +53,11 @@ class MailruKeywordsParser extends LiBaseParser
         }
     }
 
-    public function parseStats()
+    private function parseStats()
     {
         $found = 0;
 
-        $url = 'http://top.mail.ru/keywords?id=' . $this->site->url . '&period=2&date=' . date("Y-m-d")  . '&pp=200&gender=0&agegroup=0&searcher=all&sf=';
+        $url = 'http://top.mail.ru/keywords?id=' . $this->site->url . '&period='.$this->period.'&date=' . date("Y-m-d")  . '&pp=200&gender=0&agegroup=0&searcher=all&sf=';
         for ($i = 0; $i <= 6; $i++) {
             $page_url = $url . ($i * 200);
             $result = $this->loadPage($page_url, '@Mail.ru');
@@ -94,7 +96,7 @@ class MailruKeywordsParser extends LiBaseParser
      * @return Site
      * @throws CHttpException
      */
-    public function loadModel($id)
+    protected function loadModel($id)
     {
         $model = Site::model()->findByPk($id);
         if ($model === null)

@@ -147,7 +147,7 @@ class LiBaseParser
      * @return Site
      * @throws CHttpException
      */
-    public function loadModel($id)
+    protected function loadModel($id)
     {
         $model = Site::model()->findByPk($id);
         if ($model === null)

@@ -31,11 +31,10 @@ $end = 'Россия, Москва';
             if (status == google.maps.DirectionsStatus.OK) {
                 directionsDisplay.setDirections(response);
 
-                console.log(response);
-
-
                 var rlegs = [];
                 for (i = 0; i < response.routes[0].legs.length; i++) {
+                    console.log(response.routes[0].legs[i].steps);
+
                     rlegs[i] = {
                         distance:response.routes[0].legs[i].distance.value,
                         duration:response.routes[0].legs[i].duration.value,
@@ -48,7 +47,7 @@ $end = 'Россия, Москва';
                     }
                 }
 
-                showStepsInc(response);
+                //showStepsInc(response);
 
             }
         });

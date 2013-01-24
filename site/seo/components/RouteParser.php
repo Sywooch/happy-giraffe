@@ -69,7 +69,7 @@ class RouteParser extends ProxyParserThread
     {
         $this->first_page = true;
 
-        $transaction = Yii::app()->db->beginTransaction();
+        $transaction = Yii::app()->db_seo->beginTransaction();
         try {
             $this->route = RouteParsing::model()->find('active=0');
             $this->route->active = 1;

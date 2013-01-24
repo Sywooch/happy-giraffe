@@ -11,10 +11,10 @@ class RegisterWidget extends CWidget
             //Yii::app()->user->setState('register_window_shown', 0);
 
             if (Yii::app()->user->getState('register_window_shown', 0) == 0 && empty(Yii::app()->request->cookies['not_guest'])) {
-                if ($this->inHoroscopeArea()) {
+                if (!empty(Yii::app()->getRequest()->urlReferrer) && $this->inHoroscopeArea()) {
                     $this->show_form = true;
                     $this->form_type = 'horoscope';
-                } elseif ($this->inPregnancyArea()) {
+                } elseif (!empty(Yii::app()->getRequest()->urlReferrer) && $this->inPregnancyArea()) {
                     $this->show_form = true;
                     $this->form_type = 'pregnancy';
                 } elseif (strpos(Yii::app()->getRequest()->urlReferrer, 'http://www.odnoklassniki.ru/') === 0) {

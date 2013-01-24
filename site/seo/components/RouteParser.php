@@ -150,7 +150,10 @@ class RouteParser extends ProxyParserThread
                 $this->route->wordstat = $matches[1];
                 $this->route->save();
             }
-        } else return false;
+        } else {
+            $document->unloadDocument();
+            return false;
+        }
 
 
         //find keywords in block "Что искали со словом"
@@ -199,9 +202,9 @@ class RouteParser extends ProxyParserThread
     public function addData($keyword, $value, $related = false)
     {
         if (!empty($keyword) && !empty($value)) {
-            if (strpos($keyword, '+') !== false){
+            if (strpos($keyword, '+') !== false) {
                 $keyword = str_replace(' +', ' ', $keyword);
-                $keyword = ltrim($keyword,'+');
+                $keyword = ltrim($keyword, '+');
             }
 
             $model = Keyword::GetKeyword($keyword);

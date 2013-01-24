@@ -64,6 +64,8 @@ class MailruKeywordsParser extends LiBaseParser
 
             $document = phpQuery::newDocument($result);
             $count = $this->ParseDocument($document);
+            $document->unloadDocument();
+
             $found += $count;
             if ($count == 0)
                 break;

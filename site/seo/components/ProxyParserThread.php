@@ -94,8 +94,6 @@ class ProxyParserThread
             }
             $content = curl_exec($ch);
 
-            echo $content;
-
             if ($content === false) {
                 if (curl_errno($ch)) {
                     $this->log('Error while curl: ' . curl_error($ch));

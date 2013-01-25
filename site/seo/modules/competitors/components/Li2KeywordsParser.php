@@ -11,6 +11,7 @@ class Li2KeywordsParser extends LiBaseParser
      */
     public $site = 1;
     public $parse_private = false;
+    public $period = 'month';
 
     public function start()
     {

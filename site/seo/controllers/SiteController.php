@@ -175,4 +175,14 @@ class SiteController extends SController
 
         $this->render('last_keywords', compact('models'));
     }
+
+    public function actionTest(){
+        Yii::import('site.frontend.modules.geo.models.*');
+        Yii::import('site.frontend.modules.services.modules.route.models.*');
+        Yii::import('site.seo.components.*');
+        Yii::import('site.seo.models.*');
+
+//        $parser = new RouteParser();
+//        $parser->start(1);
+    }
 }

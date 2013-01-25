@@ -102,7 +102,7 @@
 							</div>
 							<div class="place place-1-1"></div>
 							<div class="title">
-								Комод для детских вещей<br/><b>Chloe &amp; Ryan (Германия)</b>
+								Комод для детских вещей<br/><b>Chloe &amp; Ryan</b>
 							</div>
 							<a href="" class="all">Подробнее</a>
 						</li>
@@ -112,7 +112,7 @@
 							</div>
 							<div class="place place-2"></div>
 							<div class="title">
-								Коврик-телёнок  для детей<br/><b>Felice (Италия)</b>
+								Коврик-телёнок  для детей<br/><b>Felice</b>
 							</div>
 							<a href="" class="all">Подробнее</a>
 						</li>

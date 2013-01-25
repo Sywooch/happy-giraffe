@@ -107,6 +107,7 @@ class SeoParsingCommand extends CConsoleCommand
         $parser = new Li2KeywordsParser(true, $debug);
         $parser->rus_proxy = false;
         $parser->parse_private = true;
+        $parser->period = Li2KeywordsParser::PERIOD_DAY;
         $parser->start();
     }
 

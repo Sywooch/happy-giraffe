@@ -6,12 +6,15 @@
 class Li2KeywordsParser extends LiBaseParser
 {
     const STATS_LIMIT = 0;
+    const PERIOD_MONTH = 1;
+    const PERIOD_DAY = 2;
+
     /**
      * @var LiSite
      */
     public $site = 1;
     public $parse_private = false;
-    public $period = 'month';
+    public $period = self::PERIOD_MONTH;
 
     public function start()
     {
@@ -46,8 +49,10 @@ class Li2KeywordsParser extends LiBaseParser
 
             $criteria->compare('type', LiSite::TYPE_LI);
             $this->site = LiSite::model()->find($criteria);
+
             if ($this->site === null)
                 Yii::app()->end();
+
             $this->site->active = 1;
             $this->site->save();
 
@@ -64,7 +69,10 @@ class Li2KeywordsParser extends LiBaseParser
         $found = 0;
         $this->loadPage('http://www.liveinternet.ru/stat/' . $this->site->url . '/queries.html');
 
-        $url = 'http://www.liveinternet.ru/stat/' . $this->site->url . '/queries.html?period=month;total=yes;&per_page=100;page=';
+        if ($this->period == self::PERIOD_MONTH)
+            $url = 'http://www.liveinternet.ru/stat/' . $this->site->url . '/queries.html?period=month;total=yes;&per_page=100;page=';
+        else
+            $url = 'http://www.liveinternet.ru/stat/' . $this->site->url . '/queries.html?per_page=100;page=';
         $result = $this->loadPage($url);
 
         $document = phpQuery::newDocument($result);
@@ -80,6 +88,8 @@ class Li2KeywordsParser extends LiBaseParser
 
             $document = phpQuery::newDocument($result);
             $count = $this->ParseDocument($document);
+            $document->unloadDocument();
+
             if ($count == 0)
                 break;
             if ($i % 10 == 0)

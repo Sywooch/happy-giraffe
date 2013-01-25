@@ -112,7 +112,7 @@
 							</div>
 							<div class="place place-2"></div>
 							<div class="title">
-								Коврик-телёнок  для детей<br/><b>Felice</b>
+								Развивающий коврик для малышей <br/><b>Felice</b>
 							</div>
 							<a href="" class="all">Подробнее</a>
 						</li>
@@ -122,7 +122,7 @@
 							</div>
 							<div class="place place-3"></div>
 							<div class="title">
-								Подогреватель для детского питания<br/><b>Tigex (Франция)</b>
+								Подогреватель для детского питания<br/><b>Tigex</b>
 							</div>
 							<a href="" class="all">Подробнее</a>
 						</li>

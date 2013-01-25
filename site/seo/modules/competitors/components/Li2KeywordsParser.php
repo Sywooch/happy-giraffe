@@ -72,7 +72,7 @@ class Li2KeywordsParser extends LiBaseParser
         if ($this->period == self::PERIOD_MONTH)
             $url = 'http://www.liveinternet.ru/stat/' . $this->site->url . '/queries.html?period=month;total=yes;&per_page=100;page=';
         else
-            $url = 'http://www.liveinternet.ru/stat/' . $this->site->url . '/queries.html?per_page=100;page=';
+            $url = 'http://www.liveinternet.ru/stat/' . $this->site->url . '/queries.html?date=' . date("Y-m-d", strtotime('-1 day')) . '&per_page=100&page=';
         $result = $this->loadPage($url);
 
         $document = phpQuery::newDocument($result);
@@ -122,19 +122,36 @@ class Li2KeywordsParser extends LiBaseParser
     {
         $count = 0;
         foreach ($document->find('table table') as $table) {
-            $text = pq($table)->find('td:first')->text();
-            if (strstr($text, 'значения:суммарные') !== FALSE) {
-                $i = 0;
-                foreach (pq($table)->find('tr') as $tr) {
-                    $i++;
-                    if ($i < 2)
-                        continue;
-                    $keyword = trim(pq($tr)->find('td:eq(1)')->text());
-                    if (empty($keyword) || $keyword == 'Не определена' || $keyword == 'Другие' || $keyword == 'сумма выбранных' || $keyword == 'всего')
-                        continue;
 
-                    Keyword::GetKeyword($keyword);
-                    $count++;
+            if ($this->period == self::PERIOD_MONTH) {
+                $text = pq($table)->find('td:first')->text();
+
+                if (strstr($text, 'значения:суммарные') !== FALSE) {
+                    $i = 0;
+                    foreach (pq($table)->find('tr') as $tr) {
+                        $i++;
+                        if ($i < 2)
+                            continue;
+                        $keyword = trim(pq($tr)->find('td:eq(1)')->text());
+                        if (empty($keyword) || $keyword == 'Не определена' || $keyword == 'Другие' || $keyword == 'сумма выбранных' || $keyword == 'всего')
+                            continue;
+
+                        Keyword::GetKeyword($keyword);
+                        $count++;
+                    }
+                }
+            } else {
+                $text = pq($table)->find('tr:first td:last')->text();
+
+                if (strstr($text, 'в среднемза 7 дней') !== FALSE) {
+                    foreach (pq($table)->find('tr') as $tr) {
+                        $keyword = trim(pq($tr)->find('td:eq(1)')->text());
+                        if (empty($keyword) || $keyword == 'Не определена' || $keyword == 'Другие' || $keyword == 'сумма выбранных' || $keyword == 'всего')
+                            continue;
+
+                        Keyword::GetKeyword($keyword);
+                        $count++;
+                    }
                 }
             }
         }

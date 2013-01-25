@@ -25,6 +25,7 @@ class ProxyParserThread
     protected $timeout = 30;
     protected $removeCookieOnChangeProxy = true;
     public $use_proxy = true;
+
     private $_start_time = null;
     private $_time_stamp_title = '';
 
@@ -58,7 +59,7 @@ class ProxyParserThread
 
     protected function query($url, $ref = null, $post = false, $attempt = 0)
     {
-        sleep(rand($this->delay_min, $this->delay_max));
+        //sleep(rand($this->delay_min, $this->delay_max));
         $this->log('start curl');
         if ($ch = curl_init($url)) {
             curl_setopt($ch, CURLOPT_USERAGENT, 'Opera/9.80 (Windows NT 6.1; WOW64; U; ru) Presto/2.10.289 Version/12.00');

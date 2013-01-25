@@ -19,9 +19,6 @@ class RouteParser extends ProxyParserThread
 
     public function start($mode)
     {
-        $this->delay_min = 1;
-        $this->delay_max = 3;
-        $this->timeout = 45;
         $this->debug = $mode;
         $this->removeCookieOnChangeProxy = false;
 

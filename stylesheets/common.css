@@ -883,10 +883,10 @@ textarea.error,
 .btn.btn-green-small > span > span {padding-left:10px;height:20px;line-height:20px;background-position:0 -1000px;}
 .green .btn.btn-gray-small.active > span {padding-right:10px;height:20px;background-position:100% -1020px;color:#fff;font-size:11px;font-family:arial, sans-serif;font-weight:bold;}
 .green .btn.btn-gray-small.active > span > span {padding-left:10px;height:20px;line-height:20px;background-position:0 -1000px;}
-
+/*
 .btn.btn-blue-arrow-small > span {padding-right:20px;height:23px;background-position:100% -1123px;color:#fff;font-size:11px;font-family:tahoma,arial, sans-serif;font-weight:bold;}
 .btn.btn-blue-arrow-small > span > span {padding-left:10px;height:23px;line-height:23px;background-position:0 -1100px;}
-
+*/
 .btn.btn-orange-small > span {padding-right:5px;height:23px;background-position:100% -2023px;color:#fff;font-size:11px;font-family:tahoma,arial, sans-serif;font-weight:bold;}
 .btn.btn-orange-small > span > span {padding-left:5px;height:23px;line-height:23px;background-position:0 -2000px;padding:0 5px 0 10px;}
 .btn.btn-orange-small.btn-arrow-right img {margin-left:5px;position:relative;top:2px;}

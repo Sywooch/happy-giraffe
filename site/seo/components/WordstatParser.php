@@ -23,9 +23,6 @@ class WordstatParser extends ProxyParserThread
     {
         Config::setAttribute('stop_threads', 0);
 
-        $this->delay_min = 1;
-        $this->delay_max = 3;
-        $this->timeout = 45;
         $this->debug = $mode;
         $this->removeCookieOnChangeProxy = false;
 

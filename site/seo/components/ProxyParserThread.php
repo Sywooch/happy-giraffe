@@ -25,6 +25,7 @@ class ProxyParserThread
     protected $timeout = 30;
     protected $removeCookieOnChangeProxy = true;
     public $use_proxy = true;
+
     private $_start_time = null;
     private $_time_stamp_title = '';
 
@@ -58,7 +59,7 @@ class ProxyParserThread
 
     protected function query($url, $ref = null, $post = false, $attempt = 0)
     {
-        sleep(rand($this->delay_min, $this->delay_max));
+        //sleep(rand($this->delay_min, $this->delay_max));
         $this->log('start curl');
         if ($ch = curl_init($url)) {
             curl_setopt($ch, CURLOPT_USERAGENT, 'Opera/9.80 (Windows NT 6.1; WOW64; U; ru) Presto/2.10.289 Version/12.00');
@@ -203,15 +204,15 @@ class ProxyParserThread
 
     public function startTimer($title)
     {
-        $this->_start_time = microtime(true);
-        $this->_time_stamp_title = $title;
+//        $this->_start_time = microtime(true);
+//        $this->_time_stamp_title = $title;
     }
 
     public function endTimer()
     {
-        $fh = fopen($dir = Yii::getPathOfAlias('application.runtime') . DIRECTORY_SEPARATOR . 'my_log.txt', 'a');
-        $long_time = 1000 * (microtime(true) - $this->_start_time);
-        fwrite($fh, $this->_time_stamp_title . ': ' . $long_time . "\n");
+//        $fh = fopen($dir = Yii::getPathOfAlias('application.runtime') . DIRECTORY_SEPARATOR . 'my_log.txt', 'a');
+//        $long_time = 1000 * (microtime(true) - $this->_start_time);
+//        fwrite($fh, $this->_time_stamp_title . ': ' . $long_time . "\n");
     }
 
     protected function log($state)

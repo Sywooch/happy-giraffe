@@ -1,30 +1,10 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<!--[if lt IE 7]> <html xmlns="http://www.w3.org/1999/xhtml" class="top-nav-fixed"> <![endif]-->
-<!--[if IE 7]>    <html xmlns="http://www.w3.org/1999/xhtml" class="ie7 top-nav-fixed"> <![endif]-->
-<!--[if gt IE 7]><!--> <html xmlns="http://www.w3.org/1999/xhtml" class="top-nav-fixed" > <!--<![endif]-->
+﻿<!DOCTYPE html>
+<!--[if lt IE 8]>      <html class="ie7"> <![endif]-->
+<!--[if IE 8]>         <html class="ie8"> <![endif]-->
+<!--[if IE 9]>         <html class="ie9"> <![endif]-->
+<!--[if gt IE 9]><!--> <html class=""> <!--<![endif]-->
 <head>
-	
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>Untitled Document</title>
-	
-	<link rel="stylesheet" type="text/css" href="/stylesheets/common.css" />
-	
-	<!--<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>-->
-	
-	<script type="text/javascript" src="/html/jquery-1.8.0.min.js"></script>
-	
-	<script type="text/javascript" src="/javascripts/jquery.tooltip.pack.js"></script>
-	
-	<script type="text/javascript" src="/javascripts/jquery.placeholder.min.js"></script>
-	
-	<script type="text/javascript" src="/javascripts/jquery.jcarousel.js"></script>
-	<script type="text/javascript" src="/javascripts/jquery.jcarousel.control.js"></script>
-	
-	<link rel="stylesheet" type="text/css" href="/stylesheets/jquery.fancybox-1.3.4.css" />
-	<script type="text/javascript" src="/javascripts/jquery.fancybox-1.3.4.js"></script>
-	
-	<script type="text/javascript" src="/javascripts/common.js"></script>
-	<!--[if IE 7]><link rel="stylesheet" href='/stylesheets/ie.css' type="text/css" media="screen" /><![endif]-->
+	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/head.php'; ?>
 	<script>
 	
 		$(function(){
@@ -64,360 +44,185 @@
 		}
 		
 	</script>
-	<script type="text/javascript" src="/javascripts/tooltipsy.min.js"></script>
-	<script type="text/javascript">
-	$(document).ready(function () {
-		$('.tooltipsy-title').tooltipsy({
-			offset: [0, 1]
-		});
-	});
-	</script>
-	
-</head>
-<body class="body-club">
-	<div class="top-line-menu">
-		<div class="top-line-menu-holder">
-			<div class="user-nav-2">
-				
-				<ul>
-					<li class="item-ava tooltipsy-title" title="Моя анкета">
-						<a href="" class="ava small female"></a>
-					</li>
-					<li class="item-dialogs tooltipsy-title" title="Мои диалоги">
-						<a href=""><i class="icon-dialogs"></i></a>
-					</li>
-					<li class="item-friends tooltipsy-title" title="Мои друзья">
-						<a href=""><i class="icon-friends"></i></a>
-					</li>
-					<li class="item-notifications tooltipsy-title" title="Уведомления">
-						<a href=""><i class="icon-notifications"></i></a>
-					</li>
-					<li class="item-career tooltipsy-title" title="Мои успехи">
-						<a href=""><i class="icon-career"></i></a>
-					</li>
-					<li class="item-settings tooltipsy-title" title="Настройки">
-						<a href=""><i class="icon-settings"></i></a>
-					</li>
-					<li class="item-logout tooltipsy-title" title="Выход">
-						<a href=""><i class="icon-logout"></i></a>
-					</li>
-					
-				</ul>
-				
-			</div>
-			
-			<ul class="fast-links clearfix">
-				<li><a href="">Главная</a></li>
-				<li><a href="">Клубы</a></li>
-				<li><a href="">Сервисы</a></li>
-				<li><a href="">Конкурсы</a></li>
-			</ul>
-		</div>
-	</div>
-	<div class="layout-container">
-		<div id="layout" class="wrapper">
-		
-			<div id="header-new" class="clearfix top-line-fixed">
-				
-				<div class="header-in">
-					<div class="clearfix">
-						
-						<div class="search-box clearfix">
-							<div class="input">
-								<input type="text" />
-							</div>
-							<button class="btn btn-green-medium"><span><span>Поиск</span></span></button>					
-							
-							<div class="fast-actions">
-								<a href="" class="newest active"><i class="icon"></i>Самое<br/>свежее</a>
-								<a href="" class="find-friend"><i class="icon"></i>Найти<br/>друзей</a>
-							</div>
-							
-						</div>
-						
-						<div class="logo-box">
-							<a href="/" class="logo" title="hg.ru – Домашняя страница">Ключевые слова сайта</a>
-							<span>САЙТ ДЛЯ ВСЕЙ СЕМЬИ</span>
-						</div>
-						
-						<div class="banner-box">
-							<a href=""><img src="/images/banner_01.png" /></a>
-						</div>
-						
-					</div>
-					
-					<div class="nav">
-						<ul class="clearfix width-2">
-							<li class="kids navdrp">
-								<a href="javascript:void(0);" onclick="navDrpOpen(this);"><i class="text"></i></a>
-								<div class="drp">
-									<div class="in">
-										
-										<ul class="cols cols-5">
-											<li class="col">
-												
-												<div class="col-in bg-img-11">
-													<div class="title">Беременность и роды</div>
-													<ul>
-														<li><a href="">Планирование</a></li>
-														<li><a href="">Беременность</a></li>
-														<li><a href="">Подготовка и роды</a></li>
-													</ul>												
-												</div>
-												
-											</li>
-											<li class="col">
-												
-												<div class="col-in bg-img-12">
-													<div class="title">Дети до года</div>
-													<ul>
-														<li><a href="">Здоровье</a></li>
-														<li><a href="">Питание малыша</a></li>
-														<li><a href="">Развитие ребенка</a></li>
-														<li><a href="">Режим и уход</a></li>
-													</ul>
-												</div>
-												
-											</li>
-											<li class="col">
-												
-												<div class="col-in bg-img-13">
-													<div class="title">Дети старше года</div>
-													<ul>
-														<li><a href="">Здоровье и питание</a></li>
-														<li><a href="">Ясли и няни</a></li>
-														<li><a href="">Раннее развитие и обучение</a></li>
-														<li><a href="">Психология и воспитание</a></li>
-													</ul>
-												</div>
-												
-											</li>
-											<li class="col">
-												
-												<div class="col-in bg-img-14">
-													<div class="title">Дошкольники</div>
-													<ul>
-														<li><a href="">Детский сад</a></li>
-														<li><a href="">Игры и развлечения</a></li>
-														<li><a href="">Готовимся к школе</a></li>
-													</ul>
-												</div>
-												
-											</li>
-											<li class="col">
-												
-												<div class="col-in bg-img-15">
-													<div class="title">Школьники</div>
-													<ul>
-														<li><a href="">Здоровье и питание</a></li>
-														<li><a href="">Учимся в школе</a></li>
-														<li><a href="">Спорт и досуг</a></li>
-														<li><a href="">Подростковая психология</a></li>
-													</ul>
-												</div>
-												
-											</li>
-											
-										</ul>
-										
-									</div>
-								</div>
-							</li>
-							<li class="manwoman navdrp">
-								<a href="javascript:void(0);" onclick="navDrpOpen(this);"><i class="text"></i></a>
-								<div class="drp">
-									<div class="in">
-										
-										<ul class="cols cols-2">
-											<li class="col wedding">
-												<a href="" class="big-link bg-img-21">
-													<span class="title">Свадьба! Го-рь-ко!</span>
-													<span class="text">При организации свадьбы важно правильно составить бюджет и рассчитать стоимость аренды места проведения свадьбы</span>
-													<span class="img"><img src="" /></span>
-												</a>
-											</li>
-											<li class="col relationships">
-												<div class="col-in bg-img-22">
-													<div class="title">Отношения</div>
-													<ul>
-														<li><a href="">Отношения мужчины и женщины</a></li>
-														<li><a href="">Непонимание в семье</a></li>
-														<li><a href="">Ревность и измена</a></li>
-														<li><a href="">Развод</a></li>
-														<li><a href="">Психология мужчин</a></li>
-														<li><a href="">Психология женщин</a></li>
-													</ul>
-												</div>
-											</li>
-										</ul>
-										
-									</div>
-								</div>
-							</li>							
-							<li class="beauty navdrp">
-								<a href="javascript:void(0);" onclick="navDrpOpen(this);"><i class="text"></i></a>
-								<div class="drp">
-									<div class="in">
-										
-										<ul class="cols cols-3">
-											<li class="col">
-												<a href="" class="big-link bg-img-31">
-													<span class="title">Красота</span>
-													<span class="text">При организации свадьбы важно правильно составить бюджет и рассчитать</span>
-												</a>
-											</li>
-											<li class="col">
-												<a href="" class="big-link bg-img-32">
-													<span class="title">Мода и шопинг</span>
-													<span class="text">Отношения мужчины Непонимание в семье Ревность и измена Развод измена Развод</span>
-												</a>
-											</li>
-											<li class="col">
-												<a href="" class="big-link bg-img-33">
-													<span class="title">Здоровье родителей</span>
-													<span class="text">При организации свадьбы важно правильно составить бюджет и рассчитать   </span>
-												</a>
-											</li>
-										</ul>
-										
-									</div>
-								</div>
-							</li>
-							<li class="home navdrp">
-								<a href="javascript:void(0);" onclick="navDrpOpen(this);"><i class="text"></i></a>
-								<div class="drp">
-									<div class="in">
-										
-										<ul class="cols cols-5">
-											<li class="col">
-												<a href="" class="big-link bg-img-41">
-													<span class="title">Кулинарные рецепты</span>
-													<span class="text">При организации свадьбы важно правильно составить бюджет и рассчитать</span>
-												</a>
-											</li>
-											<li class="col">
-												<a href="" class="big-link bg-img-42">
-													<span class="title">Детские рецепты</span>
-													<span class="text">Отношения мужчины Непонимание в семье Ревность и измена Развод измена Развод</span>
 
-												</a>
-											</li>
-											<li class="col">
-												<a href="" class="big-link bg-img-43">
-													<span class="title">Интерьер и дизайн</span>
-													<span class="text">При организации свадьбы важно правильно составить бюджет и рассчитать   </span>
-												</a>
-											</li>
-											<li class="col">
-												<a href="" class="big-link bg-img-44">
-													<span class="title">Домашние хлопоты</span>
-													<span class="text">При организации свадьбы важно правильно составить бюджет и рассчитать</span>
-												</a>
-											</li>
-											<li class="col">
-												<a href="" class="big-link bg-img-45">
-													<span class="title">Загородная жизнь</span>
-													<span class="text">Отношения мужчины Непонимание в семье Ревность и измена Развод Развод</span> 
-												</a>
-											</li>										
-										</ul>
-										
-									</div>
-								</div>
-							</li>
-							<li class="hobbies navdrp">
-								<a href="javascript:void(0);" onclick="navDrpOpen(this);"><i class="text"></i></a>
-								<div class="drp">
-									<div class="in">
-										
-										<ul class="cols cols-4">
-											<li class="col">
-												<a href="" class="big-link bg-img-51">
-													<span class="title">Своими руками</span>
-													<span class="text">При организации свадьбы важно правильно составить бюджет и рассчитать</span>
-												</a>
-											</li>
-											<li class="col">
-												<a href="" class="big-link bg-img-52">
-													<span class="title">Мастерим детям</span>
-													<span class="text">Отношения мужчины Непонимание в семье Ревность и измена Развод измена Развод</span>
-												</a>
-											</li>
-											<li class="col">
-												<a href="" class="big-link bg-img-53">
-													<span class="title">За рулем</span>
-													<span class="text">При организации свадьбы важно правильно составить бюджет и рассчитать   </span>
-												</a>
-											</li>
-											<li class="col">
-												<a href="" class="big-link bg-img-54">
-													<span class="title">Цветоводство</span>
-													<span class="text">При организации свадьбы важно правильно составить бюджет и рассчитать</span>
-												</a>
-											</li>
-										</ul>
-										
-										
-									</div>
-								</div>
-							</li>
-							<li class="rest navdrp">
-								<a href="javascript:void(0);" onclick="navDrpOpen(this);"><i class="text"></i></a>
-								<div class="drp">
-									<div class="in">
-										
-										<ul class="cols cols-3">
-											<li class="col">
-												<a href="" class="big-link bg-img-61">
-													<span class="title">Выходные с ребенком</span>
-													<span class="text">При организации свадьбы важно правильно составить бюджет и рассчитать. При организации свадьбы важно правильно составить бюджет.</span>												
-												</a>
-											</li>
-											<li class="col">
-												<a href="" class="big-link bg-img-62">
-													<span class="title">Путешествия семьей</span>
-													<span class="text">При организации свадьбы важно правильно составить бюджет и рассчитать. При организации свадьбы важно правильно составить бюджет.</span>
-												</a>
-											</li>
-											<li class="col">
-												<a href="" class="big-link bg-img-63">
-													<span class="title">Праздники</span>
-													<span class="text">При организации свадьбы важно правильно составить бюджет и рассчитать. При организации свадьбы важно правильно составить бюджет.</span>
-												</a>
-											</li>
-										</ul>
-										
-									</div>
-								</div>
-							</li>
-						</ul>
-					</div>
-				
-				</div>
-				
-			</div>
+</head>
+<body class="body-club" style="overflow:hidden;">
+
+	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/top-line-menu.php'; ?>
+	
+	<div class="layout-container">
+		<div class="layout-wrapper">
+		<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/layout-header.php'; ?>
 			
 			<div id="content" class="clearfix">
 				
+				<div class="default-comments">
+					
+					<div class="comments-meta clearfix">
+						<a href="" class="btn btn-orange a-right"><span><span>Добавить комментарий</span></span></a>
+						<div class="title">Комментарии</div>
+						<div class="count">55</div>
+					</div>
+					
+					<ul>
+						<li class="author-comment">
+							<div class="comment-in clearfix">
+								<div class="header clearfix">
+									<div class="user-info clearfix">
+										<div class="ava female"></div>
+										<div class="details">
+											<span class="icon-status status-online"></span>
+											<a href="" class="username">Дарья</a>
+											<div class="user-fast-buttons clearfix">
+												<a href="" class="add-friend"><span class="tip">Пригласить в друзья</span></a>
+												<a href="" class="new-message"><span class="tip">Написать сообщение</span></a>
+											</div>
+											
+										</div>
+									</div>
+								</div>
+								<div class="content">
+									<div class="meta">
+										<span class="num">1</span>
+										<span class="date">Сегодня, 20:45</span>
+									</div>
+									<div class="content-in">
+										<div class="wysiwyg-content">
+											<h2>Как выбрать детскую коляску</h2>
+							
+											<p>Как правило, кроватку новорожденному приобретают незадолго до его появления на свет. При этом многие молодые <b>родители</b> обращают внимание главным <u>образом</u> на ее <strike>внешний</strike> вид. Но, прельстившись яркими красками, многие платят баснословные суммы, даже не поинтересовавшись, из чего сделано это покорившее вас чудо.</p>
+											
+											<p><img src="/images/example/12.jpg" width="300" class="content-img"><i>Атопический дерматит у детей до года локализуется в основном на щечках и ягодицах, реже на теле и конечностях, на коже головы возможно появление корочек. Когда малышу исполнится год, то места высыпаний меняются – теперь поражаются локтевые сгибы (внутри и снаружи), подколенные впадины, шея. После трех лет высыпания начинают поражать также и кисти рук.</i></p>
+											
+											<h3>Как выбрать детскую коляску</h3>
+											
+											<ul>
+												<li>Приходишь в детский магазин - глаза разбегаются: столько всего, что порой забываешь, зачем пришел. <a href="">Немало и разновидностей детских кроваток</a>: тут и люльки для младенцев</li>
+												<li>И кроватки-"домики" - с навесом в виде крыши, и кровати в стиле "евростандарт" - выкрашенные в белый цвет, и даже претендующие на готический стиль, </li>
+												<li>Есть и продукция попроще. Не покупайте ничего под влиянием первых эмоций. </li>
+											</ul>
+											
+											<h3>Как выбрать детскую коляску</h3>
+											
+											<ol>
+												<li>Приходишь в детский магазин - глаза разбегаются: столько всего, что порой забываешь, зачем пришел. <a href="">Немало и разновидностей детских кроваток</a>: тут и люльки для младенцев</li>
+												<li>И кроватки-"домики" - с навесом в виде крыши, и кровати в стиле "евростандарт" - выкрашенные в белый цвет, и даже претендующие на готический стиль, </li>
+												<li>Есть и продукция попроще. Не покупайте ничего под влиянием первых эмоций. </li>
+											</ol>
+										</div>
+									</div>
+									<div class="actions">
+										<a href="" class="claim">Нарушение!</a>
+										<div class="admin-actions">
+											<a href="" class="edit"><i class="icon"></i></a>
+											<a href="#deleteComment" class="remove fancy"><i class="icon"></i></a>
+										</div>
+										<a href="">Ответить</a>
+										&nbsp;
+										<a href="" class="quote-link">С цитатой</a>
+									</div>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="comment-in clearfix">
+								<div class="header clearfix">
+									<div class="user-info clearfix">
+										<div class="ava female"></div>
+										<div class="details">
+											<span class="icon-status status-online"></span>
+											<a href="" class="username">Дарья</a>
+											<div class="user-fast-buttons clearfix">
+												<a href="" class="add-friend"><span class="tip">Пригласить в друзья</span></a>
+												<a href="" class="new-message"><span class="tip">Написать сообщение</span></a>
+											</div>
+											
+										</div>
+									</div>
+								</div>
+								<div class="content">
+									<div class="meta">
+										<span class="num">2</span>
+										<span class="date">Сегодня, 20:45</span>
+									</div>
+									<div class="content-in">
+										<p>Коляска просто супер!!! Очень удобная и функциональная. Ни разу не пожалели, что купили именно эту коляску. Это маленький вездеход :)</p>
+									</div>
+									<div class="actions">
+										<a href="" class="claim">Нарушение!</a>
+										<div class="admin-actions">
+											<a href="" class="edit"><i class="icon"></i></a>
+											<a href="#deleteComment" class="remove fancy"><i class="icon"></i></a>
+										</div>
+										<a href="">Ответить</a>
+										&nbsp;
+										<a href="" class="quote-link">С цитатой</a>
+									</div>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="comment-in clearfix">
+								<div class="header clearfix">
+									<div class="user-info clearfix">
+										<div class="ava female"></div>
+										<div class="details">
+											<span class="icon-status status-online"></span>
+											<a href="" class="username">Дарья</a>
+											<div class="user-fast-buttons clearfix">
+												<span class="friend">друг</span>
+												<a href="" class="new-message"><span class="tip">Написать сообщение</span></a>
+											</div>
+											
+										</div>
+									</div>
+								</div>
+								<div class="content">
+									<div class="meta">
+										<span class="num">3</span>
+										<span class="date">Сегодня, 20:45</span>
+										<div class="answer">
+											Ответ для
+											<div class="user-info clearfix">
+												<a onclick="return false;" class="ava female small" href="#">
+													<img src="http://www.happy-giraffe.ru/upload/avatars/small/120316-10264-ya.jpg" alt="">
+												</a>
+											</div>
+											на <span class="num"><a href="#">2</a></span>
+										</div>
+									</div>
+									<div class="content-in">
+										<div class="quote">
+											<p>Коляска просто супер!!! Очень удобная и функциональная. Ни разу не пожалели, что купили именно эту коляску. Это маленький вездеход :)</p>
+										</div>
+										<p>Коляска просто супер!!! Очень удобная и функциональная. Ни разу не пожалели, что купили именно эту коляску. Это маленький вездеход :) <a href="#photo-content">Якорь на контент</a></p>
+									</div>
+									<div class="actions">
+										<a href="" class="claim">Нарушение!</a>
+										<div class="admin-actions">
+											<a href="" class="edit"><i class="icon"></i></a>
+											<a href="#deleteComment" class="remove fancy"><i class="icon"></i></a>
+										</div>
+										<a href="">Ответить</a>
+										&nbsp;
+										<a href="" class="quote-link">С цитатой</a>
+									</div>
+								</div>
+							</div>
+						</li>
+						
+					</ul>
+					
+				</div>
 			</div>  	
 			
-			<div class="push"></div>
-			
+		
+		<div class="footer-push"></div>
+		
 		</div>
-
-		<div id="footer" class="wrapper clearfix">
-			
-			<div class="a-right">
-				<a href="">Политика конфедециальности</a> &nbsp; | &nbsp; <a href="">Пользовательское соглашение</a>
-			</div>
-			
-			<div class="copy">
-				<p>Весёлый жираф &nbsp; © 2012 &nbsp; Все права защищены</p>
-			</div>
-			
-		</div>
+		<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/footer.php'; ?>
 	</div>
-	
+
 	<div style="display:none">
 		
 		<div id="login" class="popup">

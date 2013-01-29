@@ -52,7 +52,11 @@ class RouteParser extends ProxyParserThread
     public function getNextPage()
     {
         if (empty($this->next_page)) {
+
+            $this->startTimer('get route');
             $this->getRoute();
+            $this->endTimer();
+
             $this->next_page = 'http://wordstat.yandex.ru/?cmd=words&page=1&t=' . urlencode($this->getKeyword()) . '&geo=&text_geo=';
         }
     }
@@ -151,7 +155,6 @@ class RouteParser extends ProxyParserThread
             $document->unloadDocument();
             return false;
         }
-
 
         //find keywords in block "Что искали со словом"
         foreach ($document->find('table.campaign tr td table:first td a') as $link) {

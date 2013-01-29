@@ -69,7 +69,6 @@ class RouteParser extends ProxyParserThread
     public function getRoute()
     {
         $this->first_page = true;
-
         $transaction = Yii::app()->db_seo->beginTransaction();
         try {
             $this->route = RouteParsing::model()->find('active=0');
@@ -151,6 +150,7 @@ class RouteParser extends ProxyParserThread
                 $this->route->save();
             }
         } else {
+            $this->log('bad page loaded');
             $document->unloadDocument();
             return false;
         }
@@ -179,6 +179,8 @@ class RouteParser extends ProxyParserThread
         if (empty($this->next_page)) {
             $this->route->active = 2;
             $this->route->save();
+            $this->log('route free');
+
 
             if ($this->keyword !== null) {
                 $this->keyword->yandex->parsed = 1;

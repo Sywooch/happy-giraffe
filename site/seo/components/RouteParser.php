@@ -109,10 +109,10 @@ class RouteParser extends ProxyParserThread
             }
 
             if (!$success) {
+                $this->log('cookie not received');
                 $this->changeBadProxy();
                 $this->removeCookieFile();
             }
-            sleep(1);
         }
 
         $this->log('cookie received successfully');
@@ -120,6 +120,7 @@ class RouteParser extends ProxyParserThread
 
     private function parseQuery()
     {
+        sleep(3);
         $html = $this->query($this->next_page, 'http://wordstat.yandex.ru/');
         if (!isset($html) || $html === null)
             return false;

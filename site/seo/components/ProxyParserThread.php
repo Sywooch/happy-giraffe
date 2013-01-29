@@ -201,15 +201,15 @@ class ProxyParserThread
 
     public function startTimer($title)
     {
-//        $this->_start_time = microtime(true);
-//        $this->_time_stamp_title = $title;
+        $this->_start_time = microtime(true);
+        $this->_time_stamp_title = $title;
     }
 
     public function endTimer()
     {
-//        $fh = fopen($dir = Yii::getPathOfAlias('application.runtime') . DIRECTORY_SEPARATOR . 'my_log.txt', 'a');
-//        $long_time = 1000 * (microtime(true) - $this->_start_time);
-//        fwrite($fh, $this->_time_stamp_title . ': ' . $long_time . "\n");
+        $fh = fopen($dir = Yii::getPathOfAlias('application.runtime') . DIRECTORY_SEPARATOR . 'my_log.txt', 'a');
+        $long_time = 1000 * (microtime(true) - $this->_start_time);
+        fwrite($fh, $this->_time_stamp_title . ': ' . $long_time . "\n");
     }
 
     protected function log($state)

@@ -19,8 +19,8 @@ class ProxyParserThread
     protected $success_loads = 0;
     protected $country = 'ru';
 
-    protected $delay_min = 10;
-    protected $delay_max = 10;
+    protected $delay_min = 2;
+    protected $delay_max = 3;
     public $debug = false;
     protected $timeout = 30;
     protected $removeCookieOnChangeProxy = true;
@@ -59,7 +59,7 @@ class ProxyParserThread
 
     protected function query($url, $ref = null, $post = false, $attempt = 0)
     {
-        //sleep(rand($this->delay_min, $this->delay_max));
+        sleep(rand($this->delay_min, $this->delay_max));
         $this->log('start curl');
         if ($ch = curl_init($url)) {
             curl_setopt($ch, CURLOPT_USERAGENT, 'Opera/9.80 (Windows NT 6.1; WOW64; U; ru) Presto/2.10.289 Version/12.00');

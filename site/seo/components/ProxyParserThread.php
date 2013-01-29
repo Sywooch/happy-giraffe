@@ -20,7 +20,7 @@ class ProxyParserThread
     protected $country = 'ru';
 
     protected $delay_min = 2;
-    protected $delay_max = 3;
+    protected $delay_max = 10;
     public $debug = false;
     protected $timeout = 30;
     protected $removeCookieOnChangeProxy = true;

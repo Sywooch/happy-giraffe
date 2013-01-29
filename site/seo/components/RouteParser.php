@@ -82,6 +82,7 @@ class RouteParser extends ProxyParserThread
             sleep(10);
             $this->getRoute();
         }
+        $this->log('new route loaded - '.$this->route->id);
     }
 
     private function getCookie()

@@ -44,7 +44,7 @@ class ProxyParserThread
         $criteria->order = 'rank desc';
         $criteria->offset = rand(0, 10);
 
-        $this->startTimer('find proxy');
+        //$this->startTimer('find proxy');
 
         $this->proxy = Proxy::model()->find($criteria);
         if ($this->proxy === null)
@@ -53,7 +53,7 @@ class ProxyParserThread
         $this->proxy->active = 1;
         $this->proxy->save();
 
-        $this->endTimer();
+        //$this->endTimer();
         $this->log('proxy: ' . $this->proxy->value);
     }
 
@@ -219,6 +219,9 @@ class ProxyParserThread
     {
         if ($this->debug) {
             echo $state . "\n";
+        } else {
+            $fh = fopen($dir = Yii::getPathOfAlias('application.runtime') . DIRECTORY_SEPARATOR . 'my_log.txt', 'a');
+            fwrite($fh, '#'.$this->thread_id . ': ' . $state . "\n");
         }
     }
 }

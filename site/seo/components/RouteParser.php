@@ -100,14 +100,12 @@ class RouteParser extends ProxyParserThread
                 $html = $this->query($mc_url, $url);
                 if (strpos($html, 'Set-Cookie:') === false) {
                     $success = false;
-//                    $this->log('mc.yandex.ru set cookie failed');
                 }
             } else
                 $success = false;
             $html = $this->query('http://kiks.yandex.ru/su/', $url);
             if (strpos($html, 'Set-Cookie:') === false) {
                 $success = false;
-//                $this->log('kiks.yandex.ru set cookie failed');
             }
 
             if (!$success) {
@@ -176,11 +174,6 @@ class RouteParser extends ProxyParserThread
 
         //ищем ссылку на следующую страницу
         $this->next_page = '';
-        foreach ($document->find('div.pages a') as $link) {
-            $title = pq($link)->text();
-            if (strpos($title, 'следующая') !== false)
-                $this->next_page = 'http://wordstat.yandex.ru/' . pq($link)->attr('href');
-        }
 
         if (empty($this->next_page)) {
             $this->route->active = 2;

@@ -311,6 +311,9 @@ return array(
         'email'=>array(
             'class' => 'site.common.components.HEmailSender',
         ),
+        'geoCode'=>array(
+            'class' => 'site.frontend.modules.geo.components.GoogleMapsGeoCode',
+        ),
 	),
 
 	// application-level parameters that can be accessed

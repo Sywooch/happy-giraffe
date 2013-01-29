@@ -20,7 +20,7 @@ class ProxyParserThread
     protected $country = 'ru';
 
     protected $delay_min = 2;
-    protected $delay_max = 10;
+    protected $delay_max = 5;
     public $debug = false;
     protected $timeout = 30;
     protected $removeCookieOnChangeProxy = true;
@@ -201,15 +201,15 @@ class ProxyParserThread
 
     public function startTimer($title)
     {
-        $this->_start_time = microtime(true);
-        $this->_time_stamp_title = $title;
+//        $this->_start_time = microtime(true);
+//        $this->_time_stamp_title = $title;
     }
 
     public function endTimer()
     {
-        $fh = fopen($dir = Yii::getPathOfAlias('application.runtime') . DIRECTORY_SEPARATOR . 'my_log.txt', 'a');
-        $long_time = 1000 * (microtime(true) - $this->_start_time);
-        fwrite($fh, $this->_time_stamp_title . ': ' . $long_time . "\n");
+//        $fh = fopen($dir = Yii::getPathOfAlias('application.runtime') . DIRECTORY_SEPARATOR . 'my_log.txt', 'a');
+//        $long_time = 1000 * (microtime(true) - $this->_start_time);
+//        fwrite($fh, $this->_time_stamp_title . ': ' . $long_time . "\n");
     }
 
     protected function log($state)
@@ -217,8 +217,8 @@ class ProxyParserThread
         if ($this->debug) {
             echo $state . "\n";
         } else {
-            $fh = fopen($dir = Yii::getPathOfAlias('application.runtime') . DIRECTORY_SEPARATOR . $this->thread_id.'.txt', 'a');
-            fwrite($fh, $state . "\n");
+//            $fh = fopen($dir = Yii::getPathOfAlias('application.runtime') . DIRECTORY_SEPARATOR . $this->thread_id.'.txt', 'a');
+//            fwrite($fh, $state . "\n");
         }
     }
 }

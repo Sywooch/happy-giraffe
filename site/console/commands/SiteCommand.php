@@ -152,7 +152,7 @@ class SiteCommand extends CConsoleCommand
         Yii::import('site.seo.components.*');
         Yii::import('site.seo.models.*');
 
-        $parser = new RouteParser();
+        $parser = new RouteSeasonParser();
         $parser->start($debug);
     }
 
@@ -181,43 +181,6 @@ class SiteCommand extends CConsoleCommand
 
         $parser = new GoogleCoordinatesParser(true);
         $parser->start();
-    }
-
-    public function actionRemoveRoutes()
-    {
-        Yii::import('site.frontend.modules.geo.models.*');
-        Yii::import('site.frontend.modules.services.modules.route.models.*');
-        Yii::import('site.seo.components.*');
-        Yii::import('site.seo.models.*');
-
-        $criteria = new CDbCriteria;
-        $criteria->limit = 1000;
-        $criteria->order = 'id asc';
-        $max_id = 0;
-
-        $models = array(0);
-        $i = 0;
-
-        while (!empty($models)) {
-            $criteria->condition = 'id > ' . $max_id;
-            $models = RouteParsing::model()->findAll($criteria);
-
-            foreach ($models as $model) {
-                $clone = RouteParsing::model()->findByAttributes(array(
-                    'city_from_id'=> $model->city_to_id,
-                    'city_to_id'=> $model->city_from_id,
-                ));
-                if ($clone)
-                    $clone->delete();
-
-                $max_id = $model->id;
-            }
-
-            $i++;
-
-            if ($i % 10 == 0)
-                echo $i . "\n";
-        }
     }
 
     public function actionCopyCities()

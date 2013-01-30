@@ -98,6 +98,29 @@
                 'model' => '«Я расту» WT-448',
             ),
         );
+    } elseif ($this->contest->id == 5) {
+        $prizes = array(
+            '1' => array(
+                'title' => 'Детские электронные весы',
+                'model' => 'LAICA PS3003 (Италия)',
+            ),
+            '2' => array(
+                'title' => 'Мини-блендер',
+                'model' => 'Philips AVENT SCF 860/22',
+            ),
+            '3' => array(
+                'title' => 'Мини-комбайн',
+                'model' => 'Maman ЕС01М',
+            ),
+            '4' => array(
+                'title' => 'Салфетка-игрушка',
+                'model' => 'Nuk',
+            ),
+            '5' => array(
+                'title' => 'Салфетка-игрушка',
+                'model' => 'Nuk',
+            ),
+        );
     }
 ?>
 

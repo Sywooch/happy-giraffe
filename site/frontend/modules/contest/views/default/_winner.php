@@ -9,7 +9,7 @@
 
     <div class="contest-winners_place place-<?=$data->place?>">
         <?php if ($isConsolationPrize): ?>
-            <div class="text">Поощрительный приз</div>
+            Поощрительный приз
         <?php else: ?>
             <?php if ($data->place <= 3): ?>
                 <div class="cup"></div>

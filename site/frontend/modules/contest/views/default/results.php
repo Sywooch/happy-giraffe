@@ -98,7 +98,7 @@
                 'model' => '«Я расту» WT-448',
             ),
         );
-    } elseif ($this->contest->id == 5) {
+    } elseif ($this->contest->id == 6) {
         $prizes = array(
             '1' => array(
                 'title' => 'Детские электронные весы',

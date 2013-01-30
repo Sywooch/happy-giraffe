@@ -43,6 +43,9 @@ class MailDelivery extends EMongoDocument
             }else{
                 if (time() - $this->last_send_time > 1200000)
                     return true;
+
+                if (time() - $this->last_send_time > 1500000)
+                    return false;
             }
 
             return false;

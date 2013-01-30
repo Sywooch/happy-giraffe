@@ -52,7 +52,11 @@ class RouteParser extends ProxyParserThread
     public function getNextPage()
     {
         if (empty($this->next_page)) {
+
+            $this->startTimer('get route');
             $this->getRoute();
+            $this->endTimer();
+
             $this->next_page = 'http://wordstat.yandex.ru/?cmd=words&page=1&t=' . urlencode($this->getKeyword()) . '&geo=&text_geo=';
         }
     }
@@ -65,7 +69,6 @@ class RouteParser extends ProxyParserThread
     public function getRoute()
     {
         $this->first_page = true;
-
         $transaction = Yii::app()->db_seo->beginTransaction();
         try {
             $this->route = RouteParsing::model()->find('active=0');
@@ -79,6 +82,7 @@ class RouteParser extends ProxyParserThread
             sleep(10);
             $this->getRoute();
         }
+        $this->log('new route loaded - '.$this->route->id);
     }
 
     private function getCookie()
@@ -96,21 +100,19 @@ class RouteParser extends ProxyParserThread
                 $html = $this->query($mc_url, $url);
                 if (strpos($html, 'Set-Cookie:') === false) {
                     $success = false;
-//                    $this->log('mc.yandex.ru set cookie failed');
                 }
             } else
                 $success = false;
             $html = $this->query('http://kiks.yandex.ru/su/', $url);
             if (strpos($html, 'Set-Cookie:') === false) {
                 $success = false;
-//                $this->log('kiks.yandex.ru set cookie failed');
             }
 
             if (!$success) {
+                $this->log('cookie not received');
                 $this->changeBadProxy();
                 $this->removeCookieFile();
             }
-            sleep(1);
         }
 
         $this->log('cookie received successfully');
@@ -118,6 +120,7 @@ class RouteParser extends ProxyParserThread
 
     private function parseQuery()
     {
+        sleep(3);
         $html = $this->query($this->next_page, 'http://wordstat.yandex.ru/');
         if (!isset($html) || $html === null)
             return false;
@@ -148,10 +151,10 @@ class RouteParser extends ProxyParserThread
                 $this->route->save();
             }
         } else {
+            $this->log('bad page loaded');
             $document->unloadDocument();
             return false;
         }
-
 
         //find keywords in block "Что искали со словом"
         foreach ($document->find('table.campaign tr td table:first td a') as $link) {
@@ -173,15 +176,12 @@ class RouteParser extends ProxyParserThread
 
         //ищем ссылку на следующую страницу
         $this->next_page = '';
-        foreach ($document->find('div.pages a') as $link) {
-            $title = pq($link)->text();
-            if (strpos($title, 'следующая') !== false)
-                $this->next_page = 'http://wordstat.yandex.ru/' . pq($link)->attr('href');
-        }
 
         if (empty($this->next_page)) {
             $this->route->active = 2;
             $this->route->save();
+            $this->log('route free');
+
 
             if ($this->keyword !== null) {
                 $this->keyword->yandex->parsed = 1;

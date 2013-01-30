@@ -32,23 +32,28 @@ $end = 'Россия, Москва';
                 directionsDisplay.setDirections(response);
 
                 var rlegs = [];
-                for (i = 0; i < response.routes[0].legs.length; i++) {
-                    console.log(response.routes[0].legs[i].steps);
-
+                var steps = response.routes[0].legs[0].steps;
+                for (var i = 0; i < steps.length; i++) {
                     rlegs[i] = {
-                        distance:response.routes[0].legs[i].distance.value,
-                        duration:response.routes[0].legs[i].duration.value,
-                        t1_lat:response.routes[0].legs[i].start_location.lat(),
-                        t1_lng:response.routes[0].legs[i].start_location.lng(),
-                        t2_lat:response.routes[0].legs[i].end_location.lat(),
-                        t2_lng:response.routes[0].legs[i].end_location.lng(),
-                        t1_addr:response.routes[0].legs[i].start_address,
-                        t2_addr:response.routes[0].legs[i].end_address
+                        distance:steps[i].distance.value,
+                        duration:steps[i].duration.value,
+                        t1_lat:steps[i].end_location.Ya,
+                        t1_lng:steps[i].end_location.Za,
+                        t2_lat:steps[i].end_location.Ya,
+                        t2_lng:steps[i].end_location.Za
                     }
+
                 }
 
-                //showStepsInc(response);
-
+                console.log(rlegs);
+                $.ajax({
+                    url:'/routes/getRoutes/',
+                    data:{data:rlegs},
+                    type:'POST',
+                    success:function (response) {
+                        $('#result').html(response);
+                    }
+                });
             }
         });
     });
@@ -70,20 +75,20 @@ $end = 'Россия, Москва';
     }
 
     function attachInstructionText(marker, text) {
-        google.maps.event.addListener(marker, 'click', function() {
+        google.maps.event.addListener(marker, 'click', function () {
             stepDisplay.setContent(text);
             stepDisplay.open(map, marker);
         });
     }
 
-    function WorkFlowPoints(result){
-        var rlegs=[];
-        for(r=0;r<result.routes.length;r++){
-            for(i=0;i<result.routes[r].legs.length;i++){
-                var route_arr=result.routes[r].legs[i];
-                var stps=[];
-                for (var j=0;j<route_arr.steps.length;j++) {
-                    stps[j]={
+    function WorkFlowPoints(result) {
+        var rlegs = [];
+        for (r = 0; r < result.routes.length; r++) {
+            for (i = 0; i < result.routes[r].legs.length; i++) {
+                var route_arr = result.routes[r].legs[i];
+                var stps = [];
+                for (var j = 0; j < route_arr.steps.length; j++) {
+                    stps[j] = {
                         lat:result.routes[r].legs[i].steps[j].end_point.lat(),
                         lng:result.routes[r].legs[i].steps[j].end_point.lng(),
                         distance:result.routes[r].legs[i].steps[j].distance.value,
@@ -91,7 +96,7 @@ $end = 'Россия, Москва';
                     }
                 }
 
-                rlegs[i]={
+                rlegs[i] = {
                     t1_lat:result.routes[r].legs[i].start_location.lat(),
                     t1_lng:result.routes[r].legs[i].start_location.lng(),
                     t2_lat:result.routes[r].legs[i].end_location.lat(),
@@ -100,9 +105,11 @@ $end = 'Россия, Москва';
                 }
             }
         }
-        $.post('/ajax/getPoints',{rlegs:rlegs,route_id:$('#route_id').val(),route_inc_id:$('#route_inc_id').val()},function(data){
+        $.post('/ajax/getPoints', {rlegs:rlegs, route_id:$('#route_id').val(), route_inc_id:$('#route_inc_id').val()}, function (data) {
             $('#route_points_id').html(data);
         });
     }
 
 </script>
+
+    <div id="result"></div>

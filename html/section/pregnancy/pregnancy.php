@@ -29,7 +29,7 @@
 								<div class="child-calendar-steps_t">Календарь развития вашего ребенка</div>
 								<ul class="child-calendar-steps_ul clearfix">
 									<li class="child-calendar-steps_li">
-										<a href="" class="child-calendar-steps_a w-90 js-tooltipsy" title="Планирование">
+										<a href="" class="child-calendar-steps_a w-85 js-tooltipsy" title="Планирование">
 											<i class="ico-pregnant-test"></i>
 											Планирование
 										</a>
@@ -158,7 +158,7 @@
 										<a href="" class="child-calendar-steps_a child-calendar-steps_a__blue-dark js-tooltipsy" title="40-я неделя"></a>       
 									</li>
 									<li class="child-calendar-steps_li">
-										<a href="" class="child-calendar-steps_a w-90 child-calendar-steps_a__blue-dark js-tooltipsy" title="Роды">Роды</a>
+										<a href="" class="child-calendar-steps_a w-85 child-calendar-steps_a__blue-dark js-tooltipsy" title="Роды">Роды</a>
 										<i class="ico-childbirth"></i>
 									</li>
 								</ul>

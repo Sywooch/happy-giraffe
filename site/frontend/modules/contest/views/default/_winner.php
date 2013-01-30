@@ -8,11 +8,15 @@
     ?>
 
     <div class="contest-winners_place place-<?=$data->place?>">
-        <?php if ($data->place <= 3): ?>
-            <div class="cup"></div>
+        <?php if ($isConsolationPrize): ?>
+            <div class="text">Поощрительный приз</div>
+        <?php else: ?>
+            <?php if ($data->place <= 3): ?>
+                <div class="cup"></div>
+            <?php endif; ?>
+            <div class="digit"><?=$data->place?></div>
+            <div class="text">место</div>
         <?php endif; ?>
-        <div class="digit"><?=$data->place?></div>
-        <div class="text">место</div>
     </div>
     <div class="contest-winners_prize">
         <span><?=$prize['title']?></span> <br />

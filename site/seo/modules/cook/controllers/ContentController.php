@@ -28,6 +28,7 @@ class ContentController extends SController
         $criteria = new CDbCriteria;
         $criteria->condition = 'owner_id = :owner_id AND status > ' . SeoTask::STATUS_PUBLICATION;
         $criteria->params = array('owner_id' => Yii::app()->user->getModel()->owner_id);
+        $criteria->order = 'created desc';
 
         $dataProvider = new CActiveDataProvider('SeoTask', array(
             'criteria' => $criteria,

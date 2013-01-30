@@ -5,8 +5,6 @@
  */
 class RouteParser extends ProxyParserThread
 {
-    const PARSE_LIMIT = 100;
-
     /**
      * @var RouteParsing
      */

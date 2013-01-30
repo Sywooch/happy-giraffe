@@ -19,14 +19,17 @@ class WordstatParser extends ProxyParserThread
     public $first_page = true;
     private $fails = 0;
 
-    public function start($mode)
+    public function init($mode)
     {
-        Config::setAttribute('stop_threads', 0);
-
         $this->debug = $mode;
         $this->removeCookieOnChangeProxy = false;
 
         $this->getCookie();
+    }
+
+    public function start($mode)
+    {
+        $this->init($mode);
 
         while (true) {
             $this->getNextPage();
@@ -47,9 +50,6 @@ class WordstatParser extends ProxyParserThread
                     $this->success_loads++;
                     $this->fails = 0;
                 }
-
-                if (Config::getAttribute('stop_threads') == 1)
-                    $this->closeThread('manual exit');
 
                 sleep(1);
             }
@@ -202,9 +202,9 @@ class WordstatParser extends ProxyParserThread
     public function addData($keyword, $value, $related = false)
     {
         if (!empty($keyword) && !empty($value)) {
-            if (strpos($keyword, '+') !== false){
+            if (strpos($keyword, '+') !== false) {
                 $keyword = str_replace(' +', ' ', $keyword);
-                $keyword = ltrim($keyword,'+');
+                $keyword = ltrim($keyword, '+');
             }
 
             $model = Keyword::GetKeyword($keyword);
@@ -234,7 +234,7 @@ class WordstatParser extends ProxyParserThread
 
         $yandex = YandexPopularity::model()->findByPk($keyword_id);
         //если уже спарсили полностью и была задана тематика
-        if ($yandex !== null && $yandex->parsed == 1)// && (!empty($yandex->theme) && !empty($theme) || empty($theme)))
+        if ($yandex !== null && $yandex->parsed == 1) // && (!empty($yandex->theme) && !empty($theme) || empty($theme)))
             return;
 
         $exist = ParsingKeyword::model()->findByPk($keyword_id);
@@ -282,6 +282,20 @@ class WordstatParser extends ProxyParserThread
     public function AddStat($model, $value)
     {
         YandexPopularity::model()->addValue($model->id, $value, $this->keyword->theme);
+    }
+
+    public function getSimpleValue($keyword)
+    {
+        $url = 'http://wordstat.yandex.ru/?cmd=words&t=' . urlencode($keyword) . '&geo=&text_geo=';
+        $html = $this->query($url, 'http://wordstat.yandex.ru/');
+
+        $html = str_replace('&nbsp;', ' ', $html);
+        $html = str_replace('&mdash;', '—', $html);
+
+        //find and add our keyword
+        if (preg_match('/— ([\d]+) показ[ов]*[а]* в месяц/', $html, $matches)) {
+            return $matches[1];
+        } else return -1;
     }
 
     public function closeThread($reason = 'unknown reason')

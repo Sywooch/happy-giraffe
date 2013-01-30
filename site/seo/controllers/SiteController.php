@@ -182,7 +182,7 @@ class SiteController extends SController
         Yii::import('site.seo.components.*');
         Yii::import('site.seo.models.*');
 
-//        $parser = new RouteParser();
-//        $parser->start(1);
+        $parser = new RouteChecker();
+        $this->render('test', compact('parser'));
     }
 }

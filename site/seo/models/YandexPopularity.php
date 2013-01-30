@@ -9,6 +9,8 @@
  * @property integer $value
  * @property integer $parsed
  * @property integer $theme
+ * @property integer $season_parsed
+ * @property integer $season_value
  *
  * The followings are the available model relations:
  * @property Keyword $keyword

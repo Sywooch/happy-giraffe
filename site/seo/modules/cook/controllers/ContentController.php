@@ -25,8 +25,22 @@ class ContentController extends SController
 
     public function actionReports()
     {
-        $tasks = SeoTask::TodayExecutedTasks();
-        $this->render('_cm_reports', compact('tasks'));
+        $criteria = new CDbCriteria;
+        $criteria->condition = 'owner_id = :owner_id AND status > ' . SeoTask::STATUS_PUBLICATION;
+        $criteria->params = array('owner_id' => Yii::app()->user->getModel()->owner_id);
+
+        $dataProvider = new CActiveDataProvider('SeoTask', array(
+            'criteria' => $criteria,
+            'pagination' => array('pageSize' => 100),
+        ));
+        $count = SeoTask::model()->count($criteria);
+        $pages = new CPagination($count);
+        $pages->pageSize = 100;
+        $pages->currentPage = Yii::app()->request->getParam('page', 1) - 1;
+        $pages->applyLimit($dataProvider->criteria);
+
+        $tasks = SeoTask::model()->findAll($dataProvider->criteria);
+        $this->render('_cm_reports', compact('tasks', 'pages'));
     }
 
     public function actionPublish()

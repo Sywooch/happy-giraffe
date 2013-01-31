@@ -2013,180 +2013,6 @@ table.fr_recipe_tb td {
 
 */
 
-/*===== Recipe article =====*/
-.add .btn-green_bl {
-    font: bold 30px/28px arial, sans-serif;
-    color: #fff;
-    text-decoration: none;
-    display: block;
-    height: 62px;
-    padding: 5px 0 0 0;
-    text-align: center;
-    background: url(../images/bg_gr_large_button.png) 0 0 repeat-x;
-    border: 1px solid #3eaf51;
-    border-radius: 15px;
-    -moz-border-radius: 15px;
-    -webkit-border-radius: 15px;
-}
-
-.text .r_us {
-    display: block;
-    color: #5dca41;
-    font-size: 12px;
-}
-
-.text .r_unus {
-    display: block;
-    color: #ff2033;
-    font-size: 12px;
-}
-
-.rec_in {
-    display:inline-block;*zoom:1;*display:inline;
-    padding: 0 75px 0 0;
-    margin: 0 0 20px 0;
-    background: url(../images/recipe_icon.png) 100% center no-repeat;
-}
-
-.rec_in div {
-    display: block;
-    padding: 10px;
-    background: #e2fedf;
-    min-height: 50px;
-}
-
-.rec_in div span {
-    font: 20px/20px arial, sans-serif;
-    color: #515151;
-    display: block;
-}
-
-.rec_in div ul li {
-    margin: 5px 0 0 0;
-    list-style:none;
-}
-
-.your_opinion {
-    display: block;
-    padding: 10px 0 0 0px;
-    font: 18px/32px arial, sans-serif;
-    text-align:center;
-}
-
-.your_opinion > div {display:inline-block;*zoom:1;*display:inline;margin:0 15px;}
-
-.your_opinion .green {
-    color: #2ba74b;
-}
-
-.your_opinion .red {
-    color: #ef3939;
-}
-
-big.title ins.clr_bl {
-    color: #000;
-    font-weight: normal;
-}
-
-.more_ing {
-    display: block;
-    padding: 10px;
-    background: #e2fedf;
-    margin: 0 0 10px 0;
-}
-
-
-
-.more_ing span {
-    font: 15px/15px arial, sans-serif;
-    color: #515151;
-    display: block;
-}
-
-.more_ing ul {list-style:none;}
-
-.more_ing ul li {
-    margin: 5px 0 0 0;
-}
-
-.more .more_ing ul li a {
-    padding: 0;
-    height: auto;
-    min-height: 1em;
-}
-
-.add_comment_newest {
-    display: block;
-    padding: 30px 0;
-}
-
-.add_comment_newest textarea {
-    width: 96%;
-    padding: 20px 2%;
-    border: 1px solid #c9eaf1;
-    height: 130px;
-    font: 14px/18px tahoma, sans-serif;
-    color: #c2c4c4;
-}
-
-.add_comment_newest .button_panel {
-    display: block;
-    padding: 15px 0 0 0;
-}
-
-
-.useful {color:#58B7CC;font-size:14px;padding:0 0 10px 0;text-align:center;}
-
-.art_lk_recipes {
-    display: block;
-    padding: 15px 0 5px 0;
-    border-bottom: 1px solid #caf3f8;
-    text-align: center;
-}
-
-.art_lk_recipes ul.quest_fun {
-    display: block;
-}
-
-.art_lk_recipes ul.quest_fun li {
-    display: inline;
-    margin: 0 5px 0 0;
-}
-
-.art_lk_recipes ul.quest_fun li span {
-    margin: 0 5px 0 0;
-    font: 14px arial, sans-serif;
-    color: #58b7cc;
-}
-
-.art_lk_recipes ul.quest_fun li.agree_u a {
-    display:inline-block;*zoom:1;*display:inline;
-    padding: 0 10px;
-    height: 18px;
-    border: 1px solid #8dd562;
-    font: bold 11px/18px arial, sans-serif;
-    color: #209b07;
-    background: url(../images/bg_gr_small_agree.png) 0 0 repeat-x;
-    text-decoration: none;
-    border-radius: 10px;
-    -moz-border-radius: 10px;
-    -webkit-border-radius: 10px;
-}
-
-.art_lk_recipes ul.quest_fun li.disagree_u a {
-    display:inline-block;*zoom:1;*display:inline;
-    padding: 0 10px;
-    height: 18px;
-    border: 1px solid #e35e5e;
-    font: bold 11px/18px arial, sans-serif;
-    color: #ca0202;
-    background: url(../images/bg_rd_small_disagree.png) 0 0 repeat-x;
-    text-decoration: none;
-    border-radius: 10px;
-    -moz-border-radius: 10px;
-    -webkit-border-radius: 10px;
-}
-
 /*===== Cost calculation =====*/
 .right_block {
     background: url("../images/content_bg.png") repeat left top;
@@ -3303,20 +3129,7 @@ ul.letters li a:hover {
 /*added by alex*/
 #HoroscopeCompatibility_zodiac1_em_, #HoroscopeCompatibility_zodiac2_em_ {display: none !important;}
 #HoroscopeCompatibility_zodiac1_chzn, #HoroscopeCompatibility_zodiac2_chzn{height: 22px;}
-/*old code*/
-.horoscope-compatibility .button a {font: bold 40px/62px arial, sans-serif;
-    color: #fff;
-    text-decoration: none;
-    display: block;
-    height: 62px;
-    padding: 5px 0 0 0;
-    text-align: center;
-    background: url(../images/bg_gr_large_button.png) 0 0 repeat-x;
-    border: 1px solid #3eaf51;
-    border-radius: 15px;
-    -moz-border-radius: 15px;
-    -webkit-border-radius: 15px;padding:0 20px;}
-/* /old code*/
+
 
 .horoscope-compatibility-list {padding-top:12px;}
 .horoscope-compatibility-list > ul {list-style:none;}
@@ -3350,8 +3163,8 @@ ul.letters li a:hover {
 
 .horoscope-subscribe-big {margin:30px 0 20px;background:#e2edff;padding:20px;}
 .horoscope-subscribe-big .submit {float:right;font-size:30px;font-weight:bold;}
-.horoscope-subscribe-big > label {font-size:20px;color:#2b2b2b;display:block;margin:0 0 10px;}
-.horoscope-subscribe-big > .inptext {height:21px;padding:9px 14px;font-size:17px;background:#fff;width:360px;}
+.horoscope-subscribe-big > label {font-size:20px;color:#2b2b2b;display:block;margin:0 0 7px;}
+.horoscope-subscribe-big > .inptext {height:21px;padding:9px 14px;font-size:17px;background:#fff;width:470px;}
 
 .horoscope-subscribe {margin:20px 0;border:1px solid #f0ecf3;text-align:center;padding-bottom:20px;background-color: #f7f0ff;}
 .horoscope-subscribe  p {margin:5px 20px;color:#8b8c8c;font-size:13px;line-height:19px;text-align:left;}

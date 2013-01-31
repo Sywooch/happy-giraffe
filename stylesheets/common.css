@@ -156,6 +156,7 @@ hr,
 a.info {display:inline-block;*zoom:1;*display:inline;width:13px;height:13px;background:url(../images/common.png) no-repeat -267px -101px;}
 .a-pseudo,
 a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
+a.pseudo:hover,
 .a-pseudo:hover {text-decoration:none;border-bottom-color:transparent;}
 /* /links */
 
@@ -2561,9 +2562,6 @@ div.scrollbarpaper-drag {-moz-border-radius:3px;-webkit-border-radius:3px;border
 
 .like-block .rating {text-align: right;font: 16px/1 tahoma, sans-serif;position:absolute;right:30px;top:106px;}
 .like-block .rating span {font: bold 36px/1 tahoma, sans-serif;position: relative;color: #FF6600;top:2px;}
-
-.like-block .fast-rating {text-align: right;font: 11px/normal tahoma, sans-serif;float:right;}
-.like-block .fast-rating span {font: bold 24px/1 tahoma, sans-serif;position: relative;color: #FF6600;top:2px;display:block;}
 
 .like-block .tip {position:absolute;width:25px;height:25px;right:7px;top:97px;}
 .like-block .tip .container {position:relative;}

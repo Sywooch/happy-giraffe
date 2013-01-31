@@ -24,7 +24,7 @@ class DefaultController extends HController
         $data = $_POST['data'];
         foreach($data as $route){
             //echo $route['t1_lat'].', '.$route['t1_lng']."\n";
-            //Yii::app()->geoCode->getCityByCoordinates($route['t1_lat'],$route['t1_lng']);
+            echo Yii::app()->geoCode->getObjectNameByCoordinates($route['t1_lat'],$route['t1_lng']).'<br>';
         }
     }
 }

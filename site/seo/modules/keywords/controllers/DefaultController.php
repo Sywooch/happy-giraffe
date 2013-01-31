@@ -14,10 +14,10 @@ class DefaultController extends SController
         return true;
     }
 
-	public function actionIndex()
-	{
-		$this->render('index');
-	}
+    public function actionIndex()
+    {
+        $this->render('index');
+    }
 
     public function actionSearchKeywords()
     {
@@ -51,7 +51,20 @@ class DefaultController extends SController
         }
     }
 
-    public function actionTest(){
+    public function actionFavourites()
+    {
+        echo CJSON::encode(array(
+            'status' => true,
+            'keywords' => array(
+                'id' => 1,
+                'text' => 'привет',
+                'wordstat' => 245,
+                'folder' => '',
+            )));
+    }
+
+    public function actionTest()
+    {
 
         Yii::import('site.seo.extensions.ExportDataExcel');
         SeoExport::txt(array(

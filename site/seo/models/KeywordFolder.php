@@ -93,6 +93,17 @@ class KeywordFolder extends HActiveRecord
         );
     }
 
+    /**
+     * @return KeywordFolder[]
+     */
+    public static function getMyFolders()
+    {
+        return self::model()->findAll('user_id=:me AND type=:regular', array(
+            ':me' => Yii::app()->user->id,
+            ':regular' => self::TYPE_REGULAR
+        ));
+    }
+
     //****************************************************************************************************/
     /******************************************* FAVOURITES **********************************************/
     /*****************************************************************************************************/
@@ -189,7 +200,7 @@ class KeywordFolder extends HActiveRecord
             $keyword_ids = array($keyword_ids);
         foreach ($keyword_ids as $keyword_id) {
             try {
-                Yii::app()->db->createCommand()->insert('keywords__folders_keywords',
+                Yii::app()->db_seo->createCommand()->insert('keywords__folders_keywords',
                     array('folder_id' => $this->id, 'keyword_id' => $keyword_id));
             } catch (Exception $err) {
 
@@ -205,7 +216,7 @@ class KeywordFolder extends HActiveRecord
         if (!is_array($keyword_ids))
             $keyword_ids = array($keyword_ids);
         foreach ($keyword_ids as $keyword_id) {
-            Yii::app()->db->createCommand()->delete('keywords__folders_keywords',
+            Yii::app()->db_seo->createCommand()->delete('keywords__folders_keywords',
                 'folder_id = :folder_id AND keyword_id = :keyword_id',
                 array(':folder_id' => $this->id, ':keyword_id' => $keyword_id));
         }
@@ -216,7 +227,7 @@ class KeywordFolder extends HActiveRecord
      */
     public function toggleKeyword($keyword_id)
     {
-        $exist = Yii::app()->db->createCommand()->select('keyword_id')
+        $exist = Yii::app()->db_seo->createCommand()->select('keyword_id')
             ->from('keywords__folders_keywords')
             ->where('folder_id = :folder_id AND keyword_id = :keyword_id',
             array(':folder_id' => $this->id, ':keyword_id' => $keyword_id))
@@ -226,5 +237,17 @@ class KeywordFolder extends HActiveRecord
             $this->removeFromFolder($keyword_id);
         else
             $this->addToFolder($keyword_id);
+    }
+
+    /**
+     * @return int
+     */
+    public function keywordsCount()
+    {
+        return Yii::app()->db_seo->createCommand()
+            ->select('count(*)')
+            ->from('keywords__folders_keywords')
+            ->where('folder_id=' . $this->id)
+            ->queryScalar();
     }
 }

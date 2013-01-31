@@ -80,7 +80,7 @@ class MailruParsingCommand extends CConsoleCommand
 
         curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
         curl_setopt($ch, CURLOPT_PROXY, $this->proxy);
-        if (getenv('SERVER_ADDR') != '5.9.7.81') {
+        if (Yii::app()->params['use_proxy_auth']) {
             curl_setopt($ch, CURLOPT_PROXYUSERPWD, "alexk984:Nokia12345");
             curl_setopt($ch, CURLOPT_PROXYAUTH, 1);
         }

@@ -52,9 +52,7 @@ class TrafficSection extends HActiveRecord
             array('url, title', 'required'),
             array('url', 'length', 'max' => 100),
             array('title', 'length', 'max' => 256),
-            // The following rule is used by search().
-            // Please remove those attributes that should not be searched.
-            array('id, url, title', 'safe', 'on' => 'search'),
+            array('id, url, title, parent_id', 'safe'),
         );
     }
 

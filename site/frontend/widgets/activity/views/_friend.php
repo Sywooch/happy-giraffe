@@ -24,7 +24,7 @@
         <?php if ($full && $f->status): ?>
             <div class="text-status<?php if ($statusStyle != 0): ?> pattern<?php endif; ?> pattern-<?=$statusStyle?>">
                 <span class="tale"></span>
-                <?=$f->status->text?>
+                <?=$f->status->purified->text?>
             </div>
         <?php endif; ?>
     </div>

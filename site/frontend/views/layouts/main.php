@@ -23,7 +23,7 @@
 
                 <div class="banner-box">
                     <?php if (! Yii::app()->user->isGuest): ?>
-                        <?php $contest_id = 6; ?>
+                        <?php $contest_id = 7; ?>
                         <a href="<?=$this->createUrl('/contest/default/view', array('id' => $contest_id)) ?>"><img src="/images/contest/banner-w300-<?=$contest_id?>.jpg" /></a>
                     <?php else: ?>
                         <?=CHtml::link(CHtml::image('/images/banner_06.png'), '#register', array('class'=>'fancy', 'data-theme'=>'white-square'))?>

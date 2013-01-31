@@ -23,6 +23,7 @@ class CookModule extends CWebModule
                 && ($controller->id != 'converter' || $action->id != 'index')
                 && ($controller->id != 'choose') && ($controller->id != 'decor')
                 && ($controller->id != 'spices') && ($controller->id != 'default')
+                && ($controller->id != 'recipe')
             )
                 Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
 			return true;

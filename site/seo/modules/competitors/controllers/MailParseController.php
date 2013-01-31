@@ -88,7 +88,7 @@ class MailParseController extends SController
         if ($this->use_proxy) {
             curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
             curl_setopt($ch, CURLOPT_PROXY, '46.165.200.102:999');
-            if (getenv('SERVER_ADDR') != '5.9.7.81') {
+            if (!in_array(getenv('SERVER_ADDR'), array('5.9.7.81', '88.198.24.104'))) {
                 curl_setopt($ch, CURLOPT_PROXYUSERPWD, "alexk984:Nokia12345");
                 curl_setopt($ch, CURLOPT_PROXYAUTH, 1);
             }

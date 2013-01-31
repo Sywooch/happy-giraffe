@@ -10,6 +10,12 @@
  */
 class CommunityContentType extends HActiveRecord
 {
+    const TYPE_POST = 1;
+    const TYPE_VIDEO = 2;
+    const TYPE_TRAVEL = 3;
+    const TYPE_PHOTO = 4;
+    const TYPE_STATUS = 5;
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return CommunityContentType the static model class

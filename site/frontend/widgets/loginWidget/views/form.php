@@ -17,9 +17,9 @@
                     'clientOptions' => array(
                         'validateOnSubmit' => true,
                         'validateOnChange' => false,
-                    ),
-                )
-            ); ?>
+                    )));
+                ?>
+                    <input type="hidden" name="redirect_to" value="">
                     <div class="row clearfix">
                         <div class="row-title"><label>E-mail:</label></div>
                         <div class="row-elements"><?= $form->textField($model, 'email'); ?></div>

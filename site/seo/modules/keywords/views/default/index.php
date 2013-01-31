@@ -12,6 +12,16 @@
     </div>
 
 </div>
+    <div class="folders">
+        <a class="found" href="">Найдено <span></span></a>&nbsp;
+        <a class="more" href="">Что еще искали <span></span></a>&nbsp;
+        <a class="more" href="">Избранное <span></span></a>&nbsp;
+
+        <a class="more" href="">Папка <span></span></a>&nbsp;
+
+        <a class="more" href="">Вычеркнутые <span></span></a>&nbsp;
+        <a class="more" href="">Корзина <span></span></a>&nbsp;
+    </div>
 
 <div class="seo-table table-result">
     <div class="table-box">

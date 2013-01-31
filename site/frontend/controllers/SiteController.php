@@ -136,7 +136,11 @@ class SiteController extends HController
 	{
 		$service = Yii::app()->request->getQuery('service');
         $settings = Yii::app()->request->getQuery('settings');
+
 		if (isset($service)) {
+            if (isset($_GET['redirect_to']))
+                Yii::app()->user->setState('redirect_to', $_GET['redirect_to']);
+
             if (! in_array($service, array_keys(Yii::app()->eauth->services)))
                 throw new CHttpException(404, 'Страница не найдена');
 
@@ -221,8 +225,13 @@ class SiteController extends HController
 		if (isset($_POST['User']))
 		{
             $userModel->attributes = $_POST['User'];
-			if($userModel->validate())
+			if($userModel->validate()){
+                //check redirect
+                if (isset($_POST['redirect_to']))
+                    Yii::app()->user->setState('redirect_to', $_POST['redirect_to']);
+
                 $this->redirect(Yii::app()->request->urlReferrer);
+            }
 		}
 	}
 
@@ -336,7 +345,7 @@ class SiteController extends HController
         if ($user === null || $user->email_confirmed)
             throw new CHttpException(404);
 
-        echo Yii::app()->mandrill->send($user, 'resendConfirmEmail', array(
+        echo Yii::app()->email->send($user, 'resendConfirmEmail', array(
             'code' => $user->confirmationCode,
         ));
     }
@@ -371,7 +380,7 @@ class SiteController extends HController
         $password = $user->createPassword(12);
         $user->password = $user->hashPassword($password);
 
-        if (! ($user->save() &&  Yii::app()->mandrill->send($user, 'passwordRecovery', array('password' => $password)))) {
+        if (! ($user->save() &&  Yii::app()->email->send($user, 'passwordRecovery', array('password' => $password)))) {
             echo CJSON::encode(array(
                 'status' => 'error',
                 'message' => '<span>Произошла неизвестная ошибка. Попробуйте ещё раз.</span>',

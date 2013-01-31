@@ -175,7 +175,7 @@
                         <div class="row-elements">
                             <?=$form->passwordField($this->user, 'new_password', array('class' => 'input-big'))?><br/>
                             <?=$form->error($this->user, 'new_password')?>
-                            <div class="small">Придумайте сложный пароль, который нельзя подобрать,<br />от 6 до 16 символов - цифры и английские буквы.</div>
+                            <div class="small">Придумайте сложный пароль, который нельзя подобрать,<br />от 6 до 16 символов.</div>
                         </div>
 
                     </div>

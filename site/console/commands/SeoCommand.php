@@ -107,42 +107,6 @@ class SeoCommand extends CConsoleCommand
         }
     }
 
-    public function actionImportVisits()
-    {
-        Yii::import('site.seo.modules.competitors.models.*');
-
-        $criteria = new CDbCriteria;
-        $criteria->limit = 1000;
-        $criteria->offset = 0;
-
-        $i = 0;
-        $count = SitesKeywordsVisit2::model()->count();
-        $models = array(0);
-        while (!empty($models)) {
-            $models = SitesKeywordsVisit2::model()->findAll($criteria);
-
-            foreach ($models as $model) {
-                $keyword_id = Keyword::GetKeyword($model->keyword)->id;
-                $model2 = SiteKeywordVisit::model()->findByAttributes(array(
-                    'keyword_id' => $keyword_id,
-                    'site_id' => $model->site_id,
-                    'year' => $model->year,
-                ));
-                if ($model2 === null) {
-                    $model2 = new SiteKeywordVisit();
-                    $model2->keyword_id = $keyword_id;
-                }
-                $model2->attributes = $model->attributes;
-                $model2->save();
-                $i++;
-            }
-
-            $criteria->offset += 1000;
-
-            echo round(100 * $i / $count, 2) . "%\n";
-        }
-    }
-
     public function actionProxy()
     {
         ProxyRefresher::execute();
@@ -352,44 +316,7 @@ class SeoCommand extends CConsoleCommand
 
     public function actionParseTraffic()
     {
-        Yii::import('site.frontend.components.*');
-        $date = date("Y-m-d", strtotime('-3 month'));
-
-        $sections = TrafficSection::model()->findAll();
-
-        Yii::import('site.frontend.extensions.GoogleAnalytics');
-        $ga = new GoogleAnalytics('alexk984@gmail.com', Yii::app()->params['gaPass']);
-        $ga->setProfile('ga:53688414');
-
-        while (strtotime($date) < time()) {
-            echo $date . "\n";
-
-            foreach ($sections as $section) {
-                $traffic = TrafficStatisctic::model()->findByAttributes(array('date' => $date, 'section_id' => $section->id));
-                if ($traffic === null || strtotime($date) > strtotime('-2 days')) {
-                    if (!empty($section->url))
-                        $value = GApi::getUrlOrganicSearches($ga, $date, $date, '/' . $section->url . '/');
-                    else
-                        $value = GApi::getUrlOrganicSearches($ga, $date, $date, '/');
-
-                    if ($value == -1)
-                        Yii::app()->end();
-
-                    echo $section->url . ' - ' . $value . "\n";
-                    if ($value >= 0) {
-                        if ($traffic === null) {
-                            $traffic = new TrafficStatisctic();
-                            $traffic->section_id = $section->id;
-                            $traffic->date = $date;
-                        }
-                        $traffic->value = $value;
-                        $traffic->save();
-                    }
-                }
-            }
-
-            $date = date("Y-m-d", strtotime('+1 day', strtotime($date)));
-        }
+        TrafficStatisctic::model()->parse();
     }
 
     public function actionLi($site)

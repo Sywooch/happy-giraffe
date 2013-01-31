@@ -42,6 +42,7 @@ class RegisterWidget extends CWidget
 
     public function inPregnancyArea()
     {
+        echo Yii::app()->controller->uniqueId;
         return
             (Yii::app()->controller->uniqueId == 'calendar/default' && $_GET['calendar'] == 1) //календрарь беременности
             || (Yii::app()->controller->uniqueId == 'services/babySex/default') //определение пола будущего ребенка

@@ -25,7 +25,7 @@ class MailRuContestParser extends ProxyParserThread
         $criteria = new CDbCriteria;
         $criteria->compare('active', 0);
 
-        $transaction = Yii::app()->db->beginTransaction();
+        $transaction = Yii::app()->db_seo->beginTransaction();
         try {
             $this->query = MailruQuery::model()->find($criteria);
             if ($this->query === null)
@@ -58,7 +58,7 @@ class MailRuContestParser extends ProxyParserThread
 
     public function addUsers($mail, $name)
     {
-        $transaction = Yii::app()->db->beginTransaction();
+        $transaction = Yii::app()->db_seo->beginTransaction();
         try {
             if (MailruUsers::model()->findByAttributes(array('email' => $mail)) == null) {
                 $user = new MailruUsers();

@@ -5,7 +5,7 @@
  */
 class WordstatParser extends ProxyParserThread
 {
-    const PARSE_LIMIT = 200;
+    const PARSE_LIMIT = 100;
 
     /**
      * @var ParsingKeyword[]
@@ -19,17 +19,17 @@ class WordstatParser extends ProxyParserThread
     public $first_page = true;
     private $fails = 0;
 
-    public function start($mode)
+    public function init($mode)
     {
-        Config::setAttribute('stop_threads', 0);
-
-        $this->delay_min = 1;
-        $this->delay_max = 3;
-        $this->timeout = 45;
         $this->debug = $mode;
         $this->removeCookieOnChangeProxy = false;
 
         $this->getCookie();
+    }
+
+    public function start($mode)
+    {
+        $this->init($mode);
 
         while (true) {
             $this->getNextPage();
@@ -51,9 +51,6 @@ class WordstatParser extends ProxyParserThread
                     $this->fails = 0;
                 }
 
-                if (Config::getAttribute('stop_threads') == 1)
-                    $this->closeThread('manual exit');
-
                 sleep(1);
             }
         }
@@ -73,12 +70,12 @@ class WordstatParser extends ProxyParserThread
 
     public function loadKeywords()
     {
-//        $this->startTimer('load keywords');
+        $this->startTimer('load keywords');
         $criteria = new CDbCriteria;
         $criteria->compare('active', 0);
         $criteria->order = 'priority desc';
         $criteria->limit = 10;
-        $criteria->offset = rand(0, 10000);
+        $criteria->offset = rand(0, 1000);
         $this->keywords = ParsingKeyword::model()->findAll($criteria);
 
         //update active
@@ -88,8 +85,8 @@ class WordstatParser extends ProxyParserThread
 
         Yii::app()->db_seo->createCommand()->update('parsing_keywords', array('active' => 1),
             'keyword_id IN (' . implode(',', $keys) . ')');
-//        $this->endTimer();
-//        $this->log(count($this->keywords) . ' keywords loaded');
+        $this->endTimer();
+        $this->log(count($this->keywords) . ' keywords loaded');
     }
 
     public function getKeyword()
@@ -107,7 +104,7 @@ class WordstatParser extends ProxyParserThread
         $url = 'http://wordstat.yandex.ru/';
         $success = false;
 
-//        $this->log('starting get cookie');
+        $this->log('starting get cookie');
 
         while (!$success) {
             $data = $this->query($url);
@@ -137,7 +134,7 @@ class WordstatParser extends ProxyParserThread
             sleep(1);
         }
 
-//        $this->log('cookie received successfully');
+        $this->log('cookie received successfully');
     }
 
     private function parseQuery()
@@ -151,22 +148,18 @@ class WordstatParser extends ProxyParserThread
 
     public function parseData($html)
     {
-//        $this->log('parse page');
+        $this->log('parse page');
 
         $document = phpQuery::newDocument($html);
         $html = str_replace('&nbsp;', ' ', $html);
         $html = str_replace('&mdash;', '—', $html);
 
         //find and add our keyword
-        $k = 0;
         if (preg_match('/— ([\d]+) показ[ов]*[а]* в месяц/', $html, $matches)) {
-            YandexPopularity::model()->addValue($this->keyword->keyword_id, $matches[1], $this->keyword->theme);
-            $k = 1;
-        }
-        if ($k == 0)
-            return false;
-
-//        $this->log('valid page loaded');
+            $this->log('valid page loaded');
+            if ($this->first_page)
+                YandexPopularity::model()->addValue($this->keyword->keyword_id, $matches[1], $this->keyword->theme);
+        } else return false;
 
         //find keywords in block "Что искали со словом"
         foreach ($document->find('table.campaign tr td table:first td a') as $link) {
@@ -209,8 +202,10 @@ class WordstatParser extends ProxyParserThread
     public function addData($keyword, $value, $related = false)
     {
         if (!empty($keyword) && !empty($value)) {
-            if (strpos($keyword, '+') !== false)
-                $keyword = preg_replace('/(\+)[\w]*/', '', $keyword);
+            if (strpos($keyword, '+') !== false) {
+                $keyword = str_replace(' +', ' ', $keyword);
+                $keyword = ltrim($keyword, '+');
+            }
 
             $model = Keyword::GetKeyword($keyword);
 
@@ -235,11 +230,11 @@ class WordstatParser extends ProxyParserThread
         if ($keyword_id == $this->keyword->keyword_id)
             return;
 
-//        $this->startTimer('add_keyword_to_parsing');
+        $this->startTimer('add_keyword_to_parsing');
 
         $yandex = YandexPopularity::model()->findByPk($keyword_id);
         //если уже спарсили полностью и была задана тематика
-        if ($yandex !== null && $yandex->parsed == 1 && (!empty($yandex->theme) && !empty($theme) || empty($theme)))
+        if ($yandex !== null && $yandex->parsed == 1) // && (!empty($yandex->theme) && !empty($theme) || empty($theme)))
             return;
 
         $exist = ParsingKeyword::model()->findByPk($keyword_id);
@@ -258,7 +253,7 @@ class WordstatParser extends ProxyParserThread
             $exist->save();
         }
 
-//        $this->endTimer();
+        $this->endTimer();
     }
 
     /**
@@ -266,7 +261,7 @@ class WordstatParser extends ProxyParserThread
      */
     public function RemoveCurrentKeywordFromParsing()
     {
-//        $this->startTimer('remove_from_parsing');
+        $this->startTimer('remove_from_parsing');
         //добавляем в спарсенные
         $yandex = YandexPopularity::model()->findByPk($this->keyword->keyword_id);
         if ($yandex !== null) {
@@ -277,7 +272,7 @@ class WordstatParser extends ProxyParserThread
 
         //удаляем кейворд из парсинга
         ParsingKeyword::model()->deleteByPk($this->keyword->keyword_id);
-//        $this->endTimer();
+        $this->endTimer();
     }
 
     /**
@@ -287,6 +282,20 @@ class WordstatParser extends ProxyParserThread
     public function AddStat($model, $value)
     {
         YandexPopularity::model()->addValue($model->id, $value, $this->keyword->theme);
+    }
+
+    public function getSimpleValue($keyword)
+    {
+        $url = 'http://wordstat.yandex.ru/?cmd=words&t=' . urlencode($keyword) . '&geo=&text_geo=';
+        $html = $this->query($url, 'http://wordstat.yandex.ru/');
+
+        $html = str_replace('&nbsp;', ' ', $html);
+        $html = str_replace('&mdash;', '—', $html);
+
+        //find and add our keyword
+        if (preg_match('/— ([\d]+) показ[ов]*[а]* в месяц/', $html, $matches)) {
+            return $matches[1];
+        } else return -1;
     }
 
     public function closeThread($reason = 'unknown reason')

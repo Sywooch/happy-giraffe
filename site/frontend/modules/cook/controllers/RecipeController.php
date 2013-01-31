@@ -78,6 +78,9 @@ class RecipeController extends HController
         $this->render('index', compact('dp', 'type'));
     }
 
+    /**
+     * @sitemap dataSource=sitemapTag
+     */
     public function actionTag($tag = null, $type = 0)
     {
         if (empty($tag)){
@@ -436,6 +439,26 @@ class RecipeController extends HController
                 ),
                 'changefreq' => 'daily',
                 'lastmod' => ($model['updated'] === null) ? $model['created'] : $model['updated'],
+            );
+        }
+
+        return $data;
+    }
+
+    public function sitemapTag()
+    {
+        $models = Yii::app()->db->createCommand()
+            ->select('id')
+            ->from(CookRecipeTag::model()->tableName())
+            ->queryAll();
+
+        $data = array();
+        foreach ($models as $model) {
+            $data[] = array(
+                'params' => array(
+                    'tag' => $model['id'],
+                ),
+                'changefreq' => 'daily',
             );
         }
 

@@ -89,6 +89,7 @@ class EAuthWidget extends CWidget {
                 'id' => $this->getId(),
                 'services' => $this->services,
                 'action' => $this->action,
+                'params'=>$this->params
             ));
     }
 

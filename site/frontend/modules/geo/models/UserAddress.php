@@ -125,6 +125,16 @@ class UserAddress extends HActiveRecord
         return '';
     }
 
+    public function getCityOrRegion()
+    {
+        if (!empty($this->city_id)) {
+            return $this->city->name;
+        } elseif (!empty($this->region_id))
+            return str_replace('область', 'обл', $this->region->name);
+
+        return '';
+    }
+
     /**
      * For maps, geo search
      */

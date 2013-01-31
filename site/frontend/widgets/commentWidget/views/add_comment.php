@@ -9,17 +9,17 @@
 <?php if (Yii::app()->user->isGuest): ?>
 
    <div class="comment-add_user">
-        <a href="javascript:;" onclick="showLoginWindow();setRedirectUrl();">Авторизируйтесь</a>
+        <a href="javascript:;" onclick="showLoginWindow();setRedirectUrl('dummy-comment');">Авторизируйтесь</a>
         <div class="social-small-row clearfix">
             <em>или войти с помощью</em> <br>
             <ul class="social-list-small">
-                <?php Yii::app()->eauth->renderWidget(array('action' => 'signup/index', 'mode'=>'small')); ?>
+                <?php Yii::app()->eauth->renderWidget(array('action' => 'site/login', 'mode' => 'small', 'params'=>array('redirect_to' => 'dummy-comment'))); ?>
             </ul>
         </div>
     </div>
     <div class="comment-add_form-holder">
 
-        <input type="text" name="" class="input-text" placeholder="Введите ваш комментарий" onclick="showLoginWindow();setRedirectUrl();">
+        <input type="text" name="" class="input-text" placeholder="Введите ваш комментарий" onclick="showLoginWindow();setRedirectUrl('dummy-comment');">
 
     </div>
 

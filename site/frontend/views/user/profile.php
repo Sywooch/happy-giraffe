@@ -33,7 +33,7 @@
                 <?php else: ?>
                 <div class="online-status offline"><i class="icon"></i>Был на сайте <span class="date"><?php echo HDate::GetFormattedTime($user->login_date); ?></span></div>
                 <?php endif; ?>
-                <div class="location">
+                <div class="location clearfix">
                     <?php
                     if (!empty($user->address->country_id))
                         echo $user->address->getFlag(true, 'span');
@@ -150,7 +150,7 @@
 
                     <?php $this->widget('ContestWidget', array(
                         'user' => $user,
-                        'contest_id' => 6,
+                        'contest_id' => 7,
                     )); ?>
 
                     <?php $this->widget('UserFriendsWidget', array(

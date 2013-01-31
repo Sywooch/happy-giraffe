@@ -328,28 +328,6 @@ class CommentatorsMonthStats extends EMongoDocument
         return SearchEngineVisits::getVisits($url, $this->period);
     }
 
-    /*public function getVisits($url)
-    {
-        $this->ga->setDateRange($this->period . '-01', $this->period . '-' . $this->getLastPeriodDay($this->period));
-        sleep(1);
-
-        try {
-            $report = $this->ga->getReport(array(
-                'metrics' => urlencode('ga:organicSearches'),
-                'filters' => urlencode('ga:pagePath==' . $url),
-            ));
-
-        } catch (Exception $err) {
-            sleep(60);
-            $this->loginGa();
-            return $this->getVisits($url);
-        }
-
-        if (isset($report[""]['ga:organicSearches']))
-            return $report[""]['ga:organicSearches'];
-        return null;
-    }*/
-
     public function addPageVisit($url, $value)
     {
         $this->page_visits[$url] = (int)$value;

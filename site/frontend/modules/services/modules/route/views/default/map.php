@@ -1,11 +1,10 @@
 <?php
 Yii::app()->clientScript
-    ->registerScriptFile('http://maps.googleapis.com/maps/api/js?key=' . Yii::app()->params['google_map_key'] . '&sensor=true')
+    ->registerScriptFile('http://maps.googleapis.com/maps/api/js?libraries=places&key=' . Yii::app()->params['google_map_key'] . '&sensor=true')
     ->registerCoreScript('jquery.ui');
 
 $start = 'Россия, Волгоград';
 $end = 'Россия, Москва';
-Yii::app()->clientScript->registerScriptFile('http://maps.google.com/maps/api/js?libraries=places&sensor=true');
 ?>
 <style type="text/css">
     .pac-container:after {content: none !important;}

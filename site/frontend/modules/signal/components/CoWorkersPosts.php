@@ -16,7 +16,7 @@ class CoWorkersPosts extends PostForCommentator
         Yii::import('site.frontend.modules.cook.models.*');
 
         $criteria = $this->getCriteria(false);
-        $posts = $this->getPosts($criteria, true);
+        $posts = $this->getPosts($criteria, false);
 
         $this->logState(count($posts));
 
@@ -43,6 +43,7 @@ class CoWorkersPosts extends PostForCommentator
             ),
         );
         $criteria->order = 'rand()';
+        $criteria->limit = 10;
 
         return $criteria;
     }

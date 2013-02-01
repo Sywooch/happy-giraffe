@@ -7,6 +7,9 @@ $start = 'Россия, Волгоград';
 $end = 'Россия, Москва';
 Yii::app()->clientScript->registerScriptFile('http://maps.google.com/maps/api/js?libraries=places&sensor=true');
 ?>
+<style type="text/css">
+    .pac-container:after {content: none !important;}
+</style>
 <div>
     <input id="searchTextField" type="text" size="50">
 </div>
@@ -28,6 +31,8 @@ Yii::app()->clientScript->registerScriptFile('http://maps.google.com/maps/api/js
         directionsDisplay.setMap(map);
 
         PlacesService = new google.maps.places.PlacesService(map);
+
+        initializeAutoComplete();
 
         var start = '<?=$start ?>';
         var end = '<?=$end ?>';
@@ -67,25 +72,24 @@ Yii::app()->clientScript->registerScriptFile('http://maps.google.com/maps/api/js
             }
         });
 
-        $('#searchTextField').autocomplete({
-            minLength:3,
-            source:function (request, response) {
-                console.log(request.term);
+//        $('#searchTextField').autocomplete({
+//            minLength:3,
+//            source:function (request, response) {
+//                console.log(request.term);
+//
+//                var defaultBounds = new google.maps.LatLngBounds(
+//                        new google.maps.LatLng(81.85812210, -169.04651970),
+//                        new google.maps.LatLng(41.1853530, 19.64053270)
+//                );
+//                var moscow = new google.maps.LatLng(55.7496460, 37.623680);
+//                PlacesService.textSearch({query:request.term}, FoundPlaceCallback);
+//            },
+//            select:function (event, ui) {
+//                $(this).next('input').val(ui.item.id);
+//            }
+//        });
 
-                var defaultBounds = new google.maps.LatLngBounds(
-                        new google.maps.LatLng(51.734601, 33.178711),
-                        new google.maps.LatLng(62.536086, 137.504883)
-                );
 
-                PlacesService.search({
-                    name:request.term,
-                    bounds:defaultBounds
-                }, FoundPlaceCallback);
-            },
-            select:function (event, ui) {
-                $(this).next('input').val(ui.item.id);
-            }
-        });
     });
 
     function FoundPlaceCallback(place, status) {
@@ -95,6 +99,27 @@ Yii::app()->clientScript->registerScriptFile('http://maps.google.com/maps/api/js
 
         console.log(place);
         console.log(status);
+    }
+
+    function initializeAutoComplete() {
+
+        var input = document.getElementById('searchTextField');
+        var autocomplete = new google.maps.places.Autocomplete(input, {types:['(cities)']});
+
+        autocomplete.bindTo('bounds', map);
+        var infowindow = new google.maps.InfoWindow();
+
+        google.maps.event.addListener(autocomplete, 'place_changed', function() {
+
+            var place = autocomplete.getPlace();
+            if (!place.geometry) {
+                // Inform the user that the place was not found and return.
+                console.log('not found');
+                return;
+            }
+
+            console.log(place);
+        });
     }
 
 

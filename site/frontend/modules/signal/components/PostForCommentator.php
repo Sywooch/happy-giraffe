@@ -31,6 +31,10 @@ class PostForCommentator
         $model = new UserPosts();
         $model->commentator = $this->commentator;
         $post = $model->getPost();
+
+        if (!empty($model->error))
+            $this->logState($model->error);
+
         $this->error = $model->error;
         return $post;
     }

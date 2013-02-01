@@ -225,45 +225,6 @@ class Comment extends HActiveRecord
 
             UserAction::model()->add($this->author_id, UserAction::USER_ACTION_COMMENT_ADDED, array('model' => $this));
             FriendEventManager::add(FriendEvent::TYPE_COMMENT_ADDED, array('model' => $this, 'relatedModel' => $this->relatedModel));
-        }
-        parent::afterSave();
-    }
-
-    public function beforeSave()
-    {
-        /* Вырезка цитаты */
-        $find = '/<div class="quote">(.*)<\/div>/ims';
-        preg_match($find, $this->text, $matches);
-        if (isset($this->quote_id)) {
-            if (count($matches) > 0) {
-                $this->text = preg_replace($find, '', $this->text);
-                if ($this->selectable_quote == 1) {
-                    $this->quote_text = $matches[1];
-                }
-            } else {
-                $this->quote_text = '';
-                $this->quote_id = null;
-            }
-        }
-
-        if (isset($this->response_id) && $this->response_id == '')
-            $this->response_id = null;
-
-
-        if ($this->isNewRecord) {
-            $criteria = new CDbCriteria(array(
-                'select' => 'position',
-                'order' => 'created DESC',
-                'limit' => 1,
-                'condition' => 'entity = :entity and entity_id = :entity_id',
-                'params' => array(':entity' => $this->entity, ':entity_id' => $this->entity_id)
-            ));
-            $model = $this->find($criteria);
-            if (!$model)
-                $position = 1;
-            else
-                $position = $model->position + 1;
-            $this->position = $position;
 
             //send signals to commentator panel
             if (Yii::app()->user->checkAccess('commentator_panel')) {
@@ -309,6 +270,45 @@ class Comment extends HActiveRecord
                     ), CometModel::TYPE_COMMENTATOR_UPDATE);
                 }
             }
+        }
+        parent::afterSave();
+    }
+
+    public function beforeSave()
+    {
+        /* Вырезка цитаты */
+        $find = '/<div class="quote">(.*)<\/div>/ims';
+        preg_match($find, $this->text, $matches);
+        if (isset($this->quote_id)) {
+            if (count($matches) > 0) {
+                $this->text = preg_replace($find, '', $this->text);
+                if ($this->selectable_quote == 1) {
+                    $this->quote_text = $matches[1];
+                }
+            } else {
+                $this->quote_text = '';
+                $this->quote_id = null;
+            }
+        }
+
+        if (isset($this->response_id) && $this->response_id == '')
+            $this->response_id = null;
+
+
+        if ($this->isNewRecord) {
+            $criteria = new CDbCriteria(array(
+                'select' => 'position',
+                'order' => 'created DESC',
+                'limit' => 1,
+                'condition' => 'entity = :entity and entity_id = :entity_id',
+                'params' => array(':entity' => $this->entity, ':entity_id' => $this->entity_id)
+            ));
+            $model = $this->find($criteria);
+            if (!$model)
+                $position = 1;
+            else
+                $position = $model->position + 1;
+            $this->position = $position;
         }
         return parent::beforeSave();
     }

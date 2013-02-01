@@ -35,10 +35,10 @@ class PostForCommentator
         if (!empty($model->error))
             $this->log($model->error);
 
-        if (isset($post->id))
-            $this->log(get_class($post).' '.$post->id);
+        if (is_array($post))
+            $this->log($post[0].' '.$post[1]);
         else
-            $this->log('post->id not isset');
+            $this->log('post is not array');
 
         $this->error = $model->error;
         return $post;
@@ -139,6 +139,6 @@ class PostForCommentator
     public function log($state)
     {
         $fh = fopen($dir = Yii::getPathOfAlias('application.runtime') . DIRECTORY_SEPARATOR . 'commentators_log.txt', 'a');
-        fwrite($fh, get_class($this) . ', user_id: ' . $this->commentator->user_id . ", message: " . $state . "\n");
+        fwrite($fh, 'user_id: ' . $this->commentator->user_id . ", message: " . $state . "\n");
     }
 }

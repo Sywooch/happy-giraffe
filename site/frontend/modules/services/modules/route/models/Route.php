@@ -7,7 +7,7 @@
  * @property string $id
  * @property string $city_from_id
  * @property string $city_to_id
- * @property integer $wordstat
+ * @property integer $wordstat_value
  * @property integer $active
  *
  * The followings are the available model relations:
@@ -45,11 +45,11 @@ class Route extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('city_from_id, city_to_id', 'required'),
-			array('wordstat, active', 'numerical', 'integerOnly'=>true),
+			array('wordstat_value', 'numerical', 'integerOnly'=>true),
 			array('city_from_id, city_to_id', 'length', 'max'=>11),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, city_from_id, city_to_id, wordstat, active', 'safe', 'on'=>'search'),
+			array('id, city_from_id, city_to_id, wordstat_value', 'safe', 'on'=>'search'),
 		);
 	}
 

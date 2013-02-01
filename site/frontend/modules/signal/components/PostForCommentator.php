@@ -31,6 +31,15 @@ class PostForCommentator
         $model = new UserPosts();
         $model->commentator = $this->commentator;
         $post = $model->getPost();
+
+        if (!empty($model->error))
+            $this->log($model->error);
+
+        if (is_array($post))
+            $this->log($post[0].' '.$post[1]);
+        else
+            $this->log('post is not array');
+
         $this->error = $model->error;
         return $post;
     }
@@ -125,5 +134,11 @@ class PostForCommentator
 
         $fh = fopen($dir = Yii::getPathOfAlias('application.runtime') . DIRECTORY_SEPARATOR . 'commentators_log.txt', 'a');
         fwrite($fh, get_class($this) . ', user_id: ' . $this->commentator->user_id . " posts_count: " . $posts_count . "\n");
+    }
+
+    public function log($state)
+    {
+        $fh = fopen($dir = Yii::getPathOfAlias('application.runtime') . DIRECTORY_SEPARATOR . 'commentators_log.txt', 'a');
+        fwrite($fh, 'user_id: ' . $this->commentator->user_id . ", message: " . $state . "\n");
     }
 }

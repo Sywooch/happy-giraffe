@@ -56,10 +56,12 @@ class DefaultController extends SController
         echo CJSON::encode(array(
             'status' => true,
             'keywords' => array(
-                'id' => 1,
-                'text' => 'привет',
-                'wordstat' => 245,
-                'folder' => '',
+                array('id' => 1, 'name' => 'привет', 'wordstat' => 245, 'folder' => ''),
+                array('id' => 2, 'name' => 'привет2', 'wordstat' => 34, 'folder' => ''),
+                array('id' => 3, 'name' => 'привет2', 'wordstat' => 45, 'folder' => ''),
+                array('id' => 4, 'name' => 'привет2', 'wordstat' => 33, 'folder' => ''),
+                array('id' => 5, 'name' => 'привет2', 'wordstat' => 23, 'folder' => ''),
+                array('id' => 6, 'name' => 'привет2', 'wordstat' => 22, 'folder' => ''),
             )));
     }
 

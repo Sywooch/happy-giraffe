@@ -38,9 +38,10 @@ $folders
                 </thead>
                 <tbody data-bind="foreach: keywords">
                     <tr>
-                        <td data-bind="text: text"></td>
+                        <td data-bind="text: name"></td>
                         <td data-bind="text: wordstat"></td>
                         <td data-bind="text: folder"></td>
+                        <td><a href="" data-bind="click: $root.removeFavourites">delete</a></td>
                     </tr>
                 </tbody>
             </table>

@@ -33,8 +33,6 @@ $strikeOutFolder = KeywordFolder::getStrikeOutFolder();
     </li>
 </ul>
 
-
-
 <script type="text/javascript">
     var folders = [
     <?php foreach ($folders as $folder): ?>
@@ -42,24 +40,31 @@ $strikeOutFolder = KeywordFolder::getStrikeOutFolder();
         <?php endforeach; ?>
     ];
 
-    var SidebarModel = function (folders) {
-        this.folders = ko.observableArray(folders);
+    function KeyOkViewModel(folders) {
+        var self = this;
 
-        this.favouritesCount = <?=$favouriteFolder->keywordsCount() ?>;
-        this.strikedCount = <?=$strikeOutFolder->keywordsCount() ?>;
-        this.removedCount = <?=KeywordsBlacklist::keywordsCount() ?>;
+        self.folders = ko.observableArray(folders);
+        self.favouritesCount = ko.observable(<?=$favouriteFolder->keywordsCount() ?>);
+        self.strikedCount = ko.observable(<?=$strikeOutFolder->keywordsCount() ?>);
+        self.removedCount = ko.observable(<?=KeywordsBlacklist::keywordsCount() ?>);
 
-        this.keywords = [];
+        self.keywords = ko.observableArray([]);
 
-        this.showFavourites = function () {
-            $.post('/keywords/default/favourites/', {page:1}, function (response) {
+        self.showFavourites = function () {
+            $.post('/keywords/default/favourites/', function (response) {
                 if (response.status) {
-                    SidebarModel.keywords = ko.observableArray(response.keywords);
-                    //console.log(SidebarModel.keywords);
+                    self.keywords(response.keywords);
                 }
             }, 'json');
         };
+        self.removeFavourites = function(keyword){
+            console.log(keyword.id);
+            self.keywords.remove(keyword);
+            self.favouritesCount(self.favouritesCount() - 1);
+        }
     }
 
-    ko.applyBindings(new SidebarModel(folders));
+    $(function () {
+        ko.applyBindings(new KeyOkViewModel(folders));
+    });
 </script>

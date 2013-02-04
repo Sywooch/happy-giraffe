@@ -85,6 +85,15 @@ return array(
             'charset' => 'utf8',
             'schemaCachingDuration' => 60,
         ),
+        'db_keywords' => array(
+            'class' => 'CDbConnection',
+            'connectionString' => 'mysql:host=localhost;dbname=keywords',
+            'emulatePrepare' => true,
+            'username' => 'root',
+            'password' => '',
+            'charset' => 'utf8',
+            'schemaCachingDuration' => 60,
+        ),
         'authManager' => array(
             'class' => 'CDbAuthManager',
             'connectionID' => 'db_seo',

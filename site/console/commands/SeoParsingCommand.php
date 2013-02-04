@@ -463,7 +463,7 @@ EOD;
 
     public function actionMailruDayKeywords($debug = false){
         $parser = new MailruKeywordsParser(true, $debug);
-        $parser->start(1);
+        $parser->start('0');
     }
 }
 

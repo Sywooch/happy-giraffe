@@ -10,6 +10,25 @@ class GoogleMapsGeoCode extends CComponent
         Yii::import('site.frontend.modules.geo.models.*');
     }
 
+    public function getObjectNameByCoordinates($lat, $lng)
+    {
+        $url = 'http://maps.googleapis.com/maps/api/geocode/json?latlng=' . $lat . ',' . $lng . '&sensor=true&language=ru';
+
+        $text = file_get_contents($url);
+        $result = json_decode($text, true);
+        if (isset($result['status']) && $result['status'] == 'OK') {
+            $address = self::getAddressComponentsByType($result['results']);
+
+            if ($address === null){
+                return $result['results'][0]['formatted_address'];
+            }
+
+            return $this->getAddressComponent($address, 'locality');
+        } else {
+            return null;
+        }
+    }
+
     public function getCityByCoordinates($lat, $lng)
     {
         $url = 'http://maps.googleapis.com/maps/api/geocode/json?latlng=' . $lat . ',' . $lng . '&sensor=true&language=ru';
@@ -20,7 +39,6 @@ class GoogleMapsGeoCode extends CComponent
         if (isset($result['status']) && $result['status'] == 'OK') {
 
             $address = self::getAddressComponentsByType($result['results']);
-            var_dump($address);
             if ($address === null)
                 return null;
 
@@ -179,8 +197,6 @@ class GoogleMapsGeoCode extends CComponent
             if (in_array($type, $address['types']) && isset($address['address_components']))
                 return $address['address_components'];
         }
-
-        var_dump($addresses);
 
         return null;
     }

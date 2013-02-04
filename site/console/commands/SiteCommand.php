@@ -183,6 +183,30 @@ class SiteCommand extends CConsoleCommand
         $parser->start();
     }
 
+    public function actionCopyRoutes(){
+        Yii::import('site.frontend.modules.services.modules.route.models.*');
+        Yii::import('site.seo.models.*');
+
+        $criteria = new CDbCriteria;
+        $criteria->limit = 1000;
+        $criteria->offset = 0;
+        $criteria->condition = 'wordstat > 0';
+
+        $models = array(0);
+        while (!empty($models)) {
+            $models = RouteParsing::model()->findAll($criteria);
+            foreach ($models as $model) {
+                $route = new Route();
+                $route->city_from_id = $model->city_from_id;
+                $route->city_to_id = $model->city_to_id;
+                $route->wordstat_value = $model->wordstat;
+                $route->save();
+            }
+
+            $criteria->offset += 1000;
+        }
+    }
+
     public function actionCopyCities()
     {
         Yii::import('site.frontend.modules.geo.models.*');

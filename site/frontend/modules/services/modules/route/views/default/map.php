@@ -1,12 +1,22 @@
 <?php
-Yii::app()->clientScript->registerScriptFile('http://maps.googleapis.com/maps/api/js?key=' . Yii::app()->params['google_map_key'] . '&sensor=true');
+Yii::app()->clientScript
+    ->registerScriptFile('http://maps.googleapis.com/maps/api/js?libraries=places&key=' . Yii::app()->params['google_map_key'] . '&sensor=true')
+    ->registerCoreScript('jquery.ui');
 
 $start = 'Россия, Волгоград';
 $end = 'Россия, Москва';
 ?>
+<style type="text/css">
+    .pac-container:after {content: none !important;}
+</style>
+<div>
+    <input id="searchTextField" type="text" size="50">
+</div>
 <div id="map_canvas" style="width:600px; height:600px"></div>
 <script type="text/javascript">
     var map;
+    var infowindow;
+    var PlacesService;
 
     $(function () {
         var directionsService = new google.maps.DirectionsService();
@@ -15,9 +25,13 @@ $end = 'Россия, Москва';
         var mapOptions = {
             zoom:7,
             mapTypeId:google.maps.MapTypeId.ROADMAP
-        }
+        };
         map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
         directionsDisplay.setMap(map);
+
+        PlacesService = new google.maps.places.PlacesService(map);
+
+        initializeAutoComplete();
 
         var start = '<?=$start ?>';
         var end = '<?=$end ?>';
@@ -45,71 +59,69 @@ $end = 'Россия, Москва';
 
                 }
 
-                console.log(rlegs);
-                $.ajax({
-                    url:'/routes/getRoutes/',
-                    data:{data:rlegs},
-                    type:'POST',
-                    success:function (response) {
-                        $('#result').html(response);
-                    }
-                });
+//                console.log(rlegs);
+//                $.ajax({
+//                    url:'/routes/getRoutes/',
+//                    data:{data:rlegs},
+//                    type:'POST',
+//                    success:function (response) {
+//                        $('#result').html(response);
+//                    }
+//                });
             }
         });
+
+//        $('#searchTextField').autocomplete({
+//            minLength:3,
+//            source:function (request, response) {
+//                console.log(request.term);
+//
+//                var defaultBounds = new google.maps.LatLngBounds(
+//                        new google.maps.LatLng(81.85812210, -169.04651970),
+//                        new google.maps.LatLng(41.1853530, 19.64053270)
+//                );
+//                var moscow = new google.maps.LatLng(55.7496460, 37.623680);
+//                PlacesService.textSearch({query:request.term}, FoundPlaceCallback);
+//            },
+//            select:function (event, ui) {
+//                $(this).next('input').val(ui.item.id);
+//            }
+//        });
+
+
     });
 
-    function showStepsInc(directionResult) {
-        var icon_pt = new google.maps.MarkerImage('/images/map_marker2.png', new google.maps.Size(8, 7), new google.maps.Point(0, 0), new google.maps.Point(3, 3));
-        for (var l = 0; l < directionResult.routes[0].legs.length; l++) {
-            var myRoute = directionResult.routes[0].legs[l];
-            for (var i = 0; i < myRoute.steps.length; i++) {
-                var marker = new google.maps.Marker({
-                    position:myRoute.steps[i].start_point,
-                    icon:icon_pt,
-                    map:map
-                });
-                attachInstructionText(marker, myRoute.steps[i].instructions);
-                console.log(marker);
-            }
+    function FoundPlaceCallback(place, status) {
+        if (status == google.maps.places.PlacesServiceStatus.OK) {
+
         }
+
+        console.log(place);
+        console.log(status);
     }
 
-    function attachInstructionText(marker, text) {
-        google.maps.event.addListener(marker, 'click', function () {
-            stepDisplay.setContent(text);
-            stepDisplay.open(map, marker);
+    function initializeAutoComplete() {
+
+        var input = document.getElementById('searchTextField');
+        var autocomplete = new google.maps.places.Autocomplete(input, {types:['(cities)']});
+
+        autocomplete.bindTo('bounds', map);
+        var infowindow = new google.maps.InfoWindow();
+
+        google.maps.event.addListener(autocomplete, 'place_changed', function() {
+
+            var place = autocomplete.getPlace();
+            if (!place.geometry) {
+                // Inform the user that the place was not found and return.
+                console.log('not found');
+                return;
+            }
+
+            console.log(place);
         });
     }
 
-    function WorkFlowPoints(result) {
-        var rlegs = [];
-        for (r = 0; r < result.routes.length; r++) {
-            for (i = 0; i < result.routes[r].legs.length; i++) {
-                var route_arr = result.routes[r].legs[i];
-                var stps = [];
-                for (var j = 0; j < route_arr.steps.length; j++) {
-                    stps[j] = {
-                        lat:result.routes[r].legs[i].steps[j].end_point.lat(),
-                        lng:result.routes[r].legs[i].steps[j].end_point.lng(),
-                        distance:result.routes[r].legs[i].steps[j].distance.value,
-                        duration:result.routes[r].legs[i].steps[j].duration.value,
-                    }
-                }
-
-                rlegs[i] = {
-                    t1_lat:result.routes[r].legs[i].start_location.lat(),
-                    t1_lng:result.routes[r].legs[i].start_location.lng(),
-                    t2_lat:result.routes[r].legs[i].end_location.lat(),
-                    t2_lng:result.routes[r].legs[i].end_location.lng(),
-                    stps:stps
-                }
-            }
-        }
-        $.post('/ajax/getPoints', {rlegs:rlegs, route_id:$('#route_id').val(), route_inc_id:$('#route_inc_id').val()}, function (data) {
-            $('#route_points_id').html(data);
-        });
-    }
 
 </script>
 
-    <div id="result"></div>
+<div id="result"></div>

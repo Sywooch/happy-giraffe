@@ -49,7 +49,7 @@ $model = new Page();
 <div class="seo-table">
     <div class="meta">
         <span>Статей: <span class="count articles-count"><?=Page::model()->count(); ?></span></span>
-        <span>Ключевых слов: <span class="count keywords-count"><?=Yii::app()->db_seo->createCommand('select count(keyword_id) from happy_giraffe_seo.keyword_group_keywords')->queryScalar(); ?></span></span>
+        <span>Ключевых слов: <span class="count keywords-count"><?=Yii::app()->db_keywords->createCommand('select count(keyword_id) from happy_giraffe_seo.keyword_group_keywords')->queryScalar(); ?></span></span>
     </div>
     <div class="table-box">
         <table>

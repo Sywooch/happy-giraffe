@@ -35,12 +35,12 @@ class Keyword extends HActiveRecord
      */
     public function tableName()
     {
-        return 'keywords';
+        return 'keywords.keywords';
     }
 
     public function getDbConnection()
     {
-        return Yii::app()->db_seo;
+        return Yii::app()->db_keywords;
     }
 
     /**

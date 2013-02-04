@@ -67,7 +67,6 @@ class Keyword extends HActiveRecord
             'blacklist' => array(self::HAS_ONE, 'KeywordBlacklist', 'keyword_id'),
             'relateTo' => array(self::HAS_MANY, 'KeywordRelation', 'keyword_to_id'),
             'relateFrom' => array(self::HAS_MANY, 'KeywordRelation', 'keyword_from_id'),
-            'blacklist' => array(self::HAS_ONE, 'KeywordsBlacklist', 'keyword_id'),
         );
     }
 

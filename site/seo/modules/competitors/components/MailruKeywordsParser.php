@@ -57,20 +57,23 @@ class MailruKeywordsParser extends LiBaseParser
     {
         $found = 0;
 
-        $url = 'http://top.mail.ru/keywords?id=' . $this->site->url . '&period='.$this->period.'&date=' . date("Y-m-d")  . '&pp=200&gender=0&agegroup=0&searcher=all&sf=';
-        for ($i = 0; $i <= 6; $i++) {
-            $page_url = $url . ($i * 200);
-            $result = $this->loadPage($page_url, '@Mail.ru');
+        for ($i = 0; $i < 150; $i++) {
+            $day = date("Y-m-d", strtotime('- ' . $i . ' days'));
+            $url = 'http://top.mail.ru/keywords?id=' . $this->site->url . '&period=' . $this->period . '&date=' . $day . '&pp=200&gender=0&agegroup=0&searcher=all&sf=';
+            for ($i = 0; $i <= 6; $i++) {
+                $page_url = $url . ($i * 200);
+                $result = $this->loadPage($page_url, '@Mail.ru');
 
-            $document = phpQuery::newDocument($result);
-            $count = $this->ParseDocument($document);
-            $document->unloadDocument();
+                $document = phpQuery::newDocument($result);
+                $count = $this->ParseDocument($document);
+                $document->unloadDocument();
 
-            $found += $count;
-            if ($count == 0)
-                break;
+                $found += $count;
+                if ($count == 0)
+                    break;
 
-            sleep(3);
+                sleep(2);
+            }
         }
 
         return $found;

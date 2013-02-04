@@ -11,7 +11,7 @@
  * The followings are the available model relations:
  * @property SiteKeywordVisit[] $seoStats
  * @property KeywordGroup[] $group
- * @property KeywordBlacklist $blacklist
+ * @property KeywordsBlacklist $blacklist
  * @property YandexPopularity $yandex
  * @property TempKeyword $tempKeyword
  * @property KeywordRelation[] $relateTo
@@ -88,31 +88,29 @@ class Keyword extends HActiveRecord
     public function search()
     {
         $criteria = new CDbCriteria;
-        //$criteria->condition = 'blacklist.keyword_id IS NULL';
+        $criteria->condition = 't.id NOT IN (SELECT keyword_id from `keywords__blacklist` WHERE user_id = :me)';
+        $criteria->params = array(':me'=>Yii::app()->user->id);
 
         if (!empty($this->name)) {
             $allSearch = Yii::app()->search
                 ->select('*')
                 ->from('keywords')
                 ->where(' ' . $this->name . ' ')
-                ->limit(0, 500)
+                ->limit(0, 10000)
                 ->searchRaw();
             $ids = array();
 
-//            $blacklist = Yii::app()->db_seo->createCommand('select keyword_id from ' . KeywordBlacklist::model()->tableName())->queryColumn();
-            $blacklist = array();
-            foreach ($allSearch['matches'] as $key => $m) {
-                if (!in_array($key, $blacklist))
-                    $ids [] = $key;
-            }
+            foreach ($allSearch['matches'] as $key => $m)
+                $ids [] = $key;
 
             if (!empty($ids))
                 $criteria->compare('t.id', $ids);
             else
                 $criteria->compare('t.id', 0);
         }
-        $criteria->with = array('yandex');
+        $criteria->with = array('yandex', 'blacklist');
         $criteria->order = 'yandex.value desc';
+        $criteria->together = true;
 
         return new CActiveDataProvider('Keyword', array(
             'criteria' => $criteria,
@@ -148,7 +146,7 @@ class Keyword extends HActiveRecord
         }
 
         return new CActiveDataProvider('Keyword', array(
-            'totalItemCount'=>YandexPopularity::model()->count('theme = ' . $theme),
+            'totalItemCount' => YandexPopularity::model()->count('theme = ' . $theme),
             'criteria' => $criteria,
             'pagination' => array('pageSize' => 100),
         ));
@@ -212,8 +210,8 @@ class Keyword extends HActiveRecord
     /**
      * @static
      * @param string $word
+     * @param int $priority
      * @return Keyword
-     * @throws CHttpException
      */
     public static function GetKeyword($word, $priority = 1)
     {

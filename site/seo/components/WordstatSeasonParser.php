@@ -57,7 +57,7 @@ class WordstatSeasonParser extends ProxyParserThread
     {
         $this->startTimer('load keywords');
 
-        $transaction = Yii::app()->db_seo->beginTransaction();
+        $transaction = Yii::app()->db_keywords->beginTransaction();
         try {
             $criteria = new CDbCriteria;
             $criteria->compare('season_parsed', 0);
@@ -68,7 +68,7 @@ class WordstatSeasonParser extends ProxyParserThread
             foreach ($this->keywords as $key)
                 $keys [] = $key->keyword_id;
 
-            Yii::app()->db_seo->createCommand()->update('yandex_popularity', array('season_parsed' => 1),
+            Yii::app()->db_keywords->createCommand()->update('yandex_popularity', array('season_parsed' => 1),
                 'keyword_id IN (' . implode(',', $keys) . ')');
             $transaction->commit();
         } catch (Exception $e) {

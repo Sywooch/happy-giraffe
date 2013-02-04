@@ -41,6 +41,21 @@ class MailCommand extends CConsoleCommand
         }
     }
 
+    public function actionWeeklyNews2()
+    {
+        //check generated url
+        if (Yii::app()->createUrl('site/index') != './') {
+            echo Yii::app()->createUrl('site/index') . ' - url failed';
+            return false;
+        }
+
+        $articles = Favourites::model()->getWeekPosts();
+        if (count($articles) < 6)
+            Yii::app()->end();
+        $contents = $this->renderFile(Yii::getPathOfAlias('site.common.tpl.weeklyNews') . '.php', array('models' => $articles), true);
+        Yii::app()->mc->sendWeeklyNews('Веселый Жираф - самое интересное за неделю', $contents, MailChimp::CONTEST_LIST, false);
+    }
+
     public function actionNewMessages()
     {
         $criteria = new CDbCriteria;

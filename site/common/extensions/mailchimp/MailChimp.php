@@ -85,13 +85,13 @@ class MailChimp extends CApplicationComponent
             $users = MailruUser::model()->findAll($criteria);
             $options = array();
             foreach ($users as $user) {
-                if (User::model()->findByAttributes(array('email'=>$user->email)) === null){
+                if (User::model()->findByAttributes(array('email' => $user->email)) === null) {
                     $options[] = array(
                         'EMAIL' => $user->email,
                         'FNAME' => $user->name,
                         'LNAME' => '',
                     );
-                    echo $user->email.'<br>';
+                    echo $user->email . '<br>';
                     $last_id = $user->id;
                 }
             }
@@ -121,13 +121,13 @@ class MailChimp extends CApplicationComponent
             $options = array();
             foreach ($users as $user)
                 if (!empty($user->email))
-                $options[] = $user->email;
+                    $options[] = $user->email;
 
             $this->list = self::CONTEST_LIST;
             $this->api->listBatchUnsubscribe($this->list, $options, true, false, false);
 
             $criteria->offset += 100;
-            echo $criteria->offset."\n";
+            echo $criteria->offset . "\n";
         }
     }
 
@@ -137,7 +137,7 @@ class MailChimp extends CApplicationComponent
         Yii::import('site.frontend.helpers.*');
 
         $last_contest = Yii::app()->db->createCommand()->select('max(id)')->from(Contest::model()->tableName())->queryScalar();
-        $works = ContestWork::model()->findAll('contest_id='.$last_contest);
+        $works = ContestWork::model()->findAll('contest_id=' . $last_contest);
 
         $options = array();
         foreach ($works as $work) {
@@ -145,7 +145,7 @@ class MailChimp extends CApplicationComponent
                 'EMAIL' => $work->author->email,
                 'FNAME' => $work->author->first_name,
                 'LNAME' => $work->author->last_name,
-                'IMGSRC'=> $work->photoAttach->photo->getPreviewUrl(210, null, Image::WIDTH),
+                'IMGSRC' => $work->photoAttach->photo->getPreviewUrl(210, null, Image::WIDTH),
                 'TITLE' => $work->title,
                 'PLACE' => $work->position,
                 'SCORES' => $work->rate,
@@ -155,7 +155,7 @@ class MailChimp extends CApplicationComponent
             //echo $work->author->email.'\n';
         }
 
-        echo count($options)."\n";
+        echo count($options) . "\n";
 
         $this->list = self::CONTEST_PARC_LIST;
         $this->api->listBatchSubscribe($this->list, $options, false, true, false);
@@ -164,7 +164,7 @@ class MailChimp extends CApplicationComponent
     public function deleteUsers($emails)
     {
         $res = $this->api->listBatchUnSubscribe(self::CONTEST_LIST, $emails, true, false, false);
-        echo $res['success_count']."\n";
+        echo $res['success_count'] . "\n";
     }
 
     public function getLists()
@@ -238,10 +238,13 @@ class MailChimp extends CApplicationComponent
         return false;
     }
 
-    public function sendWeeklyNews($subject, $body)
+    public function sendWeeklyNews($subject, $body, $list = null, $start = true)
     {
+        if (empty($list))
+            $list = $this->list;
+
         $opts = array(
-            'list_id' => $this->list,
+            'list_id' => $list,
             'from_email' => 'support@happy-giraffe.ru',
             'from_name' => 'Веселый Жираф',
             'template_id' => 24517,
@@ -257,7 +260,7 @@ class MailChimp extends CApplicationComponent
         );
 
         $campaignId = $this->api->campaignCreate('regular', $opts, $content);
-        if ($campaignId)
+        if ($campaignId && $start)
             return $this->api->campaignSendNow($campaignId);
         return false;
     }

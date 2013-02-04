@@ -1,16 +1,35 @@
-<?php
-/* @var $this DefaultController */
+<h3 class="map-route-other_title">С этим маршрутом искали</h3>
+<ul class="map-route-other_ul clearfix">
+    <li class="map-route-other_li">
+        <a href="">Маршрут  Киев - Москва</a>
+    </li>
+    <li class="map-route-other_li">
+        <a href="">Маршрут  Киев - Москва</a>
+    </li>
+    <li class="map-route-other_li">
+        <a href="">Маршрут  Киев - Москва</a>
+    </li>
+    <li class="map-route-other_li">
+        <a href="">Маршрут  Киев - Санкт-Петербург</a>
+    </li>
+    <li class="map-route-other_li">
+        <a href="">Маршрут  Киев - Москва</a>
+    </li>
+    <li class="map-route-other_li">
+        <a href="">Маршрут  Киев - Санкт-Петербург</a>
+    </li>
+    <li class="map-route-other_li">
+        <a href="">Маршрут  Киев - Москва</a>
+    </li>
 
-$routes = Route::model()->findAll();
-?>
+    <li class="map-route-other_li">
+        <a href="">Маршрут  Киев - Москва</a>
+    </li>
+    <li class="map-route-other_li">
+        <a href="">Маршрут  Киев - Санкт-Петербург</a>
+    </li>
+    <li class="map-route-other_li">
+        <a href="">Маршрут  Киев - Москва</a>
+    </li>
 
-<?php foreach ($routes as $route): ?>
-    <h2><?=$route->cityFrom->name . ' ' . $route->cityTo->name ?></h2>
-    <div>
-        <ul>
-            <?php foreach ($route->outLinks as $link): ?>
-                <li><?=$link->routeTo->wordstat ?>: <?=$link->keyword ?> <?=RouteKeyword::model()->find('text="'.$link->keyword.'"')->wordstat ?></li>
-            <?php endforeach; ?>
-        </ul>
-    </div>
-<?php endforeach; ?>
+</ul>

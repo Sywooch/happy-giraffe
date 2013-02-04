@@ -251,7 +251,8 @@ return array(
         'services/<_m:(dailyCalories|weightLoss|idealWeight|bodyFat)>/default/<_c>' => 'services/<_m>/default/<_c>',
         'services/lines/<id:[\d]+>.jpeg' => 'services/lines/default/index',
 
+        'routes/<id:[\d]+>'=>'services/route/default/index',
         'routes/<_a>'=>'services/route/default/<_a>',
-        'routes/'=>'services/route/default/index'
+        'routes/'=>'services/route/default/index',
     ),
 );

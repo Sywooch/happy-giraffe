@@ -69,6 +69,20 @@ class Service extends HActiveRecord
         );
     }
 
+    public function search()
+    {
+        $criteria=new CDbCriteria;
+
+        $criteria->compare('id',$this->id,true);
+        $criteria->compare('title',$this->title,true);
+        $criteria->compare('url',$this->url,true);
+
+        return new CActiveDataProvider($this, array(
+            'criteria'=>$criteria,
+            'pagination' => array('pageSize' => 100),
+        ));
+    }
+
     public function scopes()
     {
         return array(

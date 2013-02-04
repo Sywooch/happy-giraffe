@@ -29,12 +29,12 @@ class YandexPopularity extends HActiveRecord
 
     public function tableName()
     {
-        return 'yandex_popularity';
+        return 'keywords.yandex_popularity';
     }
 
     public function getDbConnection()
     {
-        return Yii::app()->db_seo;
+        return Yii::app()->db_keywords;
     }
 
     /**

@@ -26,11 +26,11 @@ class KeywordBlacklist extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'keyword_blacklist';
+		return 'keywords.keywords__blacklist';
 	}
 
     public function getDbConnection(){
-        return Yii::app()->db_seo;
+        return Yii::app()->db_keywords;
     }
 
 	/**

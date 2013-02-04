@@ -1503,7 +1503,7 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 .layout-header-section_a:hover > .layout-header-section_text {text-decoration: none;}
 
 .top-nav-fixed #header-new{z-index:90;padding-top: 0;}
-#header-new {margin-bottom:20px;position:relative;}
+#header-new {margin-bottom:20px;position:relative;padding-top: 42px;}
 #header-new .header-in {background:url(/images/bg_header.gif) repeat-y bottom;}
 #header-new.guest .header-in {background-image:url(/images/bg_header_guest.gif);}
 #header-new .logo-box {float: left;width: 280px;}

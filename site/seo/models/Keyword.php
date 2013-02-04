@@ -14,8 +14,6 @@
  * @property KeywordsBlacklist $blacklist
  * @property YandexPopularity $yandex
  * @property TempKeyword $tempKeyword
- * @property KeywordRelation[] $relateTo
- * @property KeywordRelation[] $relateFrom
  */
 class Keyword extends HActiveRecord
 {
@@ -64,9 +62,7 @@ class Keyword extends HActiveRecord
             'group' => array(self::MANY_MANY, 'KeywordGroup', 'keyword_group_keywords(keyword_id, group_id)'),
             'yandex' => array(self::HAS_ONE, 'YandexPopularity', 'keyword_id'),
             'tempKeyword' => array(self::HAS_ONE, 'TempKeyword', 'keyword_id'),
-            'blacklist' => array(self::HAS_ONE, 'KeywordBlacklist', 'keyword_id'),
-            'relateTo' => array(self::HAS_MANY, 'KeywordRelation', 'keyword_to_id'),
-            'relateFrom' => array(self::HAS_MANY, 'KeywordRelation', 'keyword_from_id'),
+            'blacklist' => array(self::HAS_ONE, 'KeywordsBlacklist', 'keyword_id'),
         );
     }
 
@@ -88,7 +84,7 @@ class Keyword extends HActiveRecord
     public function search()
     {
         $criteria = new CDbCriteria;
-        $criteria->condition = 't.id NOT IN (SELECT keyword_id from `keywords__blacklist` WHERE user_id = :me)';
+        $criteria->condition = 't.id NOT IN (SELECT keyword_id from happy_giraffe_seo.keywords__blacklist WHERE user_id = :me)';
         $criteria->params = array(':me'=>Yii::app()->user->id);
 
         if (!empty($this->name)) {
@@ -108,7 +104,7 @@ class Keyword extends HActiveRecord
             else
                 $criteria->compare('t.id', 0);
         }
-        $criteria->with = array('yandex', 'blacklist');
+        $criteria->with = array('yandex');
         $criteria->order = 'yandex.value desc';
         $criteria->together = true;
 
@@ -120,9 +116,10 @@ class Keyword extends HActiveRecord
     public function searchByTheme($theme)
     {
         $criteria = new CDbCriteria;
-        $criteria->with = array('yandex', 'blacklist');
+        $criteria->with = array('yandex');
         $criteria->order = 'yandex.value desc';
-        $criteria->condition = 'yandex.theme = ' . $theme . ' AND blacklist.keyword_id IS NULL';
+        $criteria->condition = 'yandex.theme = ' . $theme . ' AND t.id NOT IN (SELECT keyword_id from happy_giraffe_seo.keywords__blacklist WHERE user_id = :me)';
+        $criteria->params = array(':me'=>Yii::app()->user->id);
 
         if (!empty($this->name)) {
             $allSearch = Yii::app()->search
@@ -133,7 +130,7 @@ class Keyword extends HActiveRecord
                 ->searchRaw();
             $ids = array();
 
-            $blacklist = Yii::app()->db_keywords->createCommand('select keyword_id from ' . KeywordBlacklist::model()->tableName())->queryColumn();
+            $blacklist = Yii::app()->db_keywords->createCommand('select keyword_id from ' . KeywordsBlacklist::model()->tableName())->queryColumn();
             foreach ($allSearch['matches'] as $key => $m) {
                 if (!in_array($key, $blacklist))
                     $ids [] = $key;
@@ -190,7 +187,7 @@ class Keyword extends HActiveRecord
                 ->searchRaw();
             $ids = array();
 
-            $blacklist = Yii::app()->db_keywords->createCommand('select keyword_id from ' . KeywordBlacklist::model()->tableName())->queryColumn();
+            $blacklist = Yii::app()->db_keywords->createCommand('select keyword_id from ' . KeywordsBlacklist::model()->tableName())->queryColumn();
             foreach ($allSearch['matches'] as $key => $m) {
                 if (!in_array($key, $blacklist))
                     $ids [] = $key;

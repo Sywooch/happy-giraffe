@@ -33,7 +33,8 @@ return array(
         'site.frontend.modules.scores.models.*',
         'site.frontend.modules.services.modules.recipeBook.models.*',
         'site.frontend.modules.services.modules.test.models.*',
-        'site.frontend.modules.services.modules.lines.models.*'
+        'site.frontend.modules.services.modules.lines.models.*',
+        'site.frontend.modules.services.modules.route.models.*',
     ),
     'modules'=>array(
         'seo',

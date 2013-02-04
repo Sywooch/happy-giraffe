@@ -95,8 +95,9 @@ class EditorController extends SController
     public function actionHideKey()
     {
         $key_id = Yii::app()->request->getPost('id');
-        $key = new KeywordBlacklist();
+        $key = new KeywordsBlacklist();
         $key->keyword_id = $key_id;
+        $key->user_id = Yii::app()->user->id;
         echo CJSON::encode(array('status' => $key->save()));
     }
 

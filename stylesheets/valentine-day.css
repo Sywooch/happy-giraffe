@@ -1,0 +1,214 @@
+.valentine-h1 {
+	margin: 40px 0 30px;
+	font: 50px/60px Tahoma, Arial, Verdana, sans-serif;
+	text-align: center;
+	color: #2b2a2a;
+
+}
+
+.valentine-spent {
+	margin: 0 0 45px;
+	background: url(/images/valentine-day/valentine-spent.gif) no-repeat;
+	padding: 35px 0 0;
+}
+.valentine-spent_t {
+	margin: 0 0 28px;
+	font: 34px/40px Tahoma, Arial, Verdana, sans-serif;
+	color: #2b2a2a;
+	text-align: center;
+}
+.valentine-spent_img {
+	margin: 0 0 15px;
+	display: block;
+}
+.valentine-spent_a {font-size: 25px;}
+.valentine-spent_a .ico-camera-big {margin: 0 9px;}
+
+.valentine-sms {margin-bottom: 30px;}
+.valentine-sms_h {
+	height: 170px;
+	margin-bottom: 15px;
+	display: block;
+	background: url(/images/valentine-day/valentine-sms_h.jpg) no-repeat 0 50%;
+
+}
+.valentine-sms-b {
+	margin: 0 15px 25px;
+	padding: 15px;
+	background: #feffe6;
+	position: relative;
+	color: #858585;
+	font-size: 12px;
+}
+.valentine-sms-b:after {
+	position: absolute;
+	z-index: -1;
+	content: "";
+	bottom: 6px;
+	left: 15%;
+	width: 70%;
+	height: 10px;
+	background: rgba(0, 0, 0, 0.7);
+	-webkit-box-shadow: 0 0 15px rgba(0,0,0, 0.7);
+	-moz-box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
+	box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
+
+}
+.valentine-sms-b_t {
+	margin: 0 0 7px;
+	font-weight: bold;
+	color: #b6074f;
+}
+.valentine-sms_more {
+	display: inline-block;*zoom:1;*display:inline;
+	padding: 5px 25px 0 0;
+	margin-right: 10px;
+	background: url(/images/valentine-day/valentine-sms_more.png) no-repeat 100% 0;
+}
+
+.valentines-best {margin-bottom: 50px;}
+.valentines-best_h {
+	padding: 45px 0 25px;
+	text-align: center;
+	font-size: 35px;
+	background: url(/images/valentine-day/valentines-best_h.png) no-repeat 50% 0;
+}
+.valentines-best_ul {
+	position: relative;
+	margin: 0 -10px;
+}
+.valentines-best_li {
+	display: inline-block;*zoom:1;*display:inline;
+	margin: 0 6px 20px;
+}
+.valentines-best_a {
+	display: block;
+	position: relative;
+	border: 1px solid transparent;
+}
+.valentines-best_a:hover {border-color: #ff1676;}
+.valentines-best_a > img {display: block;}
+.valentines-best_btn {
+	background: #ff2881;
+	background: rgba(255, 40, 129, 0.9);
+	border-radius: 15px;
+	color: #FFFFFF;
+	display: none;
+	font-size: 16px;
+	height: 30px;
+	left: 50%;
+	line-height: 30px;
+	margin-left: -65px;
+	margin-top: -15px;
+	position: absolute;
+	text-align: center;
+	top: 50%;
+	width: 130px;
+}
+.valentines-best_a:hover .valentines-best_btn {display: block;}
+
+
+.valentine-cook {
+	margin: 125px 0 40px;
+	padding: 25px 15px 15px;
+	background: #fff;
+	border: 3px solid #fee4ed;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+}
+.valentine-cook_t {
+	margin-bottom: 20px;
+	font-size: 25px;
+	line-height: 29px;
+	font-weight: normal;
+	font-family: Tahoma, Arial, Verdana, sans-serif;
+}
+.valentine-cook_li {margin-bottom: 30px;}
+.valentine-cook_img {
+	float: left;
+	min-width: 95px;
+	margin-right: 13px;
+}
+.valentine-cook_desc {
+	font-weight: bold;
+	color: #3088c8;
+	font-size: 13px;
+	line-height: 16px;
+}
+
+.valentine-recognition {
+	padding: 60px 0 0;
+	margin-bottom: 20px;
+	background: url(/images/valentine-day/valentine-recognition.png) no-repeat;
+}
+.valentine-recognition_t {
+	text-align: center;
+	font-size: 40px;
+	line-height: 46px;
+	font-family: Tahoma, Arial, Verdana, sans-serif;
+	margin-bottom: 30px;
+}
+.valentine-recognition_t-big {
+	font-size: 59px;
+	font-weight: bold;
+	display: block;
+}
+.valentine-gallery {
+	position: relative;
+	overflow: hidden;
+	padding:0 0 90px;
+	background: url(/images/valentine-day/valentine-gallery.png) no-repeat 50% 100%;
+}
+.valentine-gallery_hold {
+	position: relative;
+	overflow: hidden;
+	margin: 0 45px;
+}
+.valentine-gallery_ul {
+	position: relative;
+	width: 9999px;
+}
+.valentine-gallery_li {
+	float: left;
+	margin-right: 15px;
+}
+.valentine-gallery_a {
+	display: block;
+}
+.valentine-gallery_img {
+	margin: 1px;
+	padding: 3px;
+	border: 1px solid #fc9abc;
+	display: block;
+}
+.valentine-gallery_li.active .valentine-gallery_img,
+.valentine-gallery_a:hover .valentine-gallery_img {
+	margin: 0;
+	padding: 2px;
+	border-width: 3px;
+}
+.valentine-gallery_img > img {display: block;}
+.valentine-gallery_desc {
+	font-size: 13px;
+	font-weight: bold;
+	padding: 9px 5px;
+}
+.valentine-gallery_li.active .valentine-gallery_desc,
+.valentine-gallery_a:hover .valentine-gallery_desc {color: #ce215d;text-decoration: underline;}
+.valentine-gallery_arrow {
+	float: left;
+	width: 34px;
+	height: 84px;
+	background: url(/images/valentine-day/valentine-gallery_arrow.png) no-repeat;
+	position: relative;
+	margin: 4px 0 0;
+}
+.valentine-gallery_arrow__prev {background-position: 0 0;}
+.valentine-gallery_arrow__prev.disabled {background-position: 0 -86px;}
+.valentine-gallery_arrow__next {
+	float: right;
+	background-position: -36px 0;
+}
+.valentine-gallery_arrow__next.disabled {background-position: -36px -86px;}
+

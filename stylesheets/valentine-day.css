@@ -1,9 +1,19 @@
 .valentine-h1 {
-	margin: 40px 0 30px;
-	font: 50px/60px Tahoma, Arial, Verdana, sans-serif;
+	margin: 20px 0 10px;
+	font: 45px/60px Tahoma, Arial, Verdana, sans-serif;
 	text-align: center;
 	color: #2b2a2a;
 
+}
+.valentine-desc {
+	background: #fff;
+	padding: 10px 20px 13px;
+	margin: 0 0 30px;
+	color: #333;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	position: relative;
 }
 
 .valentine-spent {
@@ -30,18 +40,26 @@
 	margin-bottom: 15px;
 	display: block;
 	background: url(/images/valentine-day/valentine-sms_h.jpg) no-repeat 0 50%;
-
 }
+.valentine-sms_t {
+	height: 54px;
+	margin-bottom: 15px;
+	display: block;
+	background: url(/images/valentine-day/valentine-sms_t.png) no-repeat 0 0;
+}
+.valentine-sms_hold {padding: 0 30px 25px;}
 .valentine-sms-b {
-	margin: 0 15px 25px;
-	padding: 15px;
+	display: inline-block;*zoom:1;*display:inline;
+	width: 180px;
+	margin: 0 10px 25px;
+	padding: 15px 15px 19px;
 	background: #feffe6;
 	position: relative;
 	color: #858585;
 	font-size: 12px;
-	display: block;
 	text-decoration: none;
 }
+.valentine-sms-b__withe {background: #fff;}
 .valentine-sms-b:hover {color: #555;}
 .valentine-sms-b:after {
 	position: absolute;
@@ -55,7 +73,6 @@
 	-webkit-box-shadow: 0 0 15px rgba(0,0,0, 0.7);
 	-moz-box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
 	box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
-
 }
 .valentine-sms-b_t {
 	margin: 0 0 7px;
@@ -77,6 +94,13 @@
 	font-size: 35px;
 	background: url(/images/valentine-day/valentines-best_h.png) no-repeat 50% 0;
 }
+.valentines-best_t {
+	padding: 10px 0 15px;
+	font-size: 35px;
+	margin-bottom: 0;
+	background: url(/images/valentine-day/valentines-best_t.png) no-repeat 55% 0;
+}
+.valentines-best_p {margin-bottom: 25px;}
 .valentines-best_ul {
 	position: relative;
 	margin: 0 -10px;
@@ -149,7 +173,7 @@
 }
 
 .valentine-recognition {
-	padding: 60px 0 0;
+	padding: 30px 0 0;
 	margin-bottom: -10px;
 	background: url(/images/valentine-day/valentine-recognition.png) no-repeat;
 }
@@ -158,13 +182,14 @@
 	font-size: 40px;
 	line-height: 46px;
 	font-family: Tahoma, Arial, Verdana, sans-serif;
-	margin-bottom: 30px;
+	margin-bottom: 8px;
 }
 .valentine-recognition_t-big {
 	font-size: 59px;
 	font-weight: bold;
 	display: block;
 }
+.valentine-recognition_p {margin: 0 20px 20px;}
 .valentine-gallery {
 	position: relative;
 	overflow: hidden;

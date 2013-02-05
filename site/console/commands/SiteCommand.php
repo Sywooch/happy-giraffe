@@ -229,4 +229,13 @@ class SiteCommand extends CConsoleCommand
             $criteria->offset += 100;
         }
     }
+
+    public function actionRosneft(){
+        Yii::import('site.frontend.modules.geo.models.*');
+        Yii::import('site.frontend.modules.services.modules.route.models.*');
+        Yii::import('site.frontend.modules.services.modules.route.components.*');
+
+        $parser = new RosneftParser;
+        $parser->start();
+    }
 }

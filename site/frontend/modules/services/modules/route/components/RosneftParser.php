@@ -40,6 +40,7 @@ class RosneftParser
     {
         $criteria = new CDbCriteria;
         $criteria->compare('active', 0);
+        $criteria->order = 'rand()';
 
         $transaction = Yii::app()->db->beginTransaction();
         try {
@@ -91,23 +92,27 @@ class RosneftParser
             $i++;
         }
 
-        Yii::app()->end();
+        $document->unloadDocument();
     }
 
 
     public function saveStep($name, $region_name, $distance, $time)
     {
-        echo $name.'-'.$region_name.'-'.$distance.'<br>';
+        //echo $name.'-'.$region_name.'-'.$distance.'<br>';
 
         if (!empty($name) && !empty($region_name) && !empty($distance)) {
             $p = new RosnPoints();
             $p->route_id = $this->route->id;
             $p->name = $name;
 
+            if ($region_name == 'Чеченская Республика (Ичкерия)')
+                $region_name = 'Чеченская Республика';
             $region = GeoRegion::model()->findByAttributes(array('name' => trim($region_name)));
             if ($region === null) {
-                echo $region_name . ' not found';
-                Yii::app()->end();
+                $this->saveRegionToFile($region_name);
+                $this->route->active = 4;
+                $this->route->save();
+                return ;
             }
             $p->region_id = $region->id;
             $city = GeoCity::model()->findByAttributes(array('region_id' => $region->id, 'name' => trim($name)));
@@ -115,10 +120,10 @@ class RosneftParser
                 $p->city_id = $city->id;
             $p->distance = $distance;
             $p->time = $time;
-            if (!$p->save()){
-                var_dump($p->getErrors());
-                Yii::app()->end();
-            }
+            $p->save();
+
+            $this->route->active = 2;
+            $this->route->save();
         }
     }
 
@@ -131,12 +136,10 @@ class RosneftParser
             curl_setopt($ch, CURLOPT_POST, 1);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $this->getPostData());
 
-//            curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
-//            curl_setopt($ch, CURLOPT_PROXY, $this->proxy->value);
-//            if (Yii::app()->params['use_proxy_auth']) {
-//                curl_setopt($ch, CURLOPT_PROXYUSERPWD, "alexhg:Nokia1111");
-//                curl_setopt($ch, CURLOPT_PROXYAUTH, 1);
-//            }
+            curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
+            curl_setopt($ch, CURLOPT_PROXY, $this->proxy->value);
+            curl_setopt($ch, CURLOPT_PROXYUSERPWD, "alexhg:Nokia1111");
+            curl_setopt($ch, CURLOPT_PROXYAUTH, 1);
 
             curl_setopt($ch, CURLOPT_HEADER, 1);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -176,5 +179,11 @@ class RosneftParser
         $end = $this->route->cityTo->name . ', ' . $this->route->cityTo->region->name . ', ' . $this->route->cityTo->country->name;
 
         return 'start=' . urlencode($start) . '&end=' . urlencode($end) . '&city%5B%5D=&city%5B%5D=&city%5B%5D=&speed%5B6%5D=30&speed%5B5%5D=80&speed%5B3%5D=60&speed%5B1%5D=40&speed%5B10%5D=20&speed%5B4%5D=70&speed%5B2%5D=50&speed%5B0%5D=40&delay%5B1%5D=5&delay%5B3%5D=15&delay%5B5%5D=60&delay%5B11%5D=60&delay%5B2%5D=10&delay%5B4%5D=15&delay%5B6%5D=60&delay%5B12%5D=60&bestTime=1&onmap=on&x=109&y=' . rand(35, 42);
+    }
+
+    public function saveRegionToFile($name)
+    {
+        $fh = fopen($dir = Yii::getPathOfAlias('application.runtime') . DIRECTORY_SEPARATOR . 'regions.txt', 'a');
+        fwrite($fh, $name . "\n");
     }
 }

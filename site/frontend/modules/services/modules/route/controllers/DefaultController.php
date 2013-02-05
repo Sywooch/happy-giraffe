@@ -26,6 +26,11 @@ class DefaultController extends HController
         }
     }
 
+    public function actionTest(){
+        $parser = new RosneftParser;
+        $parser->start();
+    }
+
     /**
      * @param int $id model id
      * @return Route

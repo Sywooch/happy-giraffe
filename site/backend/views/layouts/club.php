@@ -28,7 +28,7 @@
                 'items'=>array(
                     array(
                         'label' => 'Смс',
-                        'url' => array('/club/fuelCost/'),
+                        'url' => array('/club/valentineSms/'),
                         'active' => (Yii::app()->controller->uniqueId == 'club/valentineSms'),
                     ),
                 ),

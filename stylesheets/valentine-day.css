@@ -39,7 +39,10 @@
 	position: relative;
 	color: #858585;
 	font-size: 12px;
+	display: block;
+	text-decoration: none;
 }
+.valentine-sms-b:hover {color: #555;}
 .valentine-sms-b:after {
 	position: absolute;
 	z-index: -1;
@@ -58,6 +61,7 @@
 	margin: 0 0 7px;
 	font-weight: bold;
 	color: #b6074f;
+	display: block;
 }
 .valentine-sms_more {
 	display: inline-block;*zoom:1;*display:inline;
@@ -79,7 +83,7 @@
 }
 .valentines-best_li {
 	display: inline-block;*zoom:1;*display:inline;
-	margin: 0 6px 20px;
+	margin: 0 6px 25px;
 }
 .valentines-best_a {
 	display: block;
@@ -88,6 +92,7 @@
 }
 .valentines-best_a:hover {border-color: #ff1676;}
 .valentines-best_a > img {display: block;}
+.valentines-best_a:hover > img {opacity:0.7;filter:alpha(opacity=70);}
 .valentines-best_btn {
 	background: #ff2881;
 	background: rgba(255, 40, 129, 0.9);
@@ -124,7 +129,7 @@
 	font-weight: normal;
 	font-family: Tahoma, Arial, Verdana, sans-serif;
 }
-.valentine-cook_li {margin-bottom: 30px;}
+.valentine-cook_li {margin-bottom: 25px;}
 .valentine-cook_img {
 	float: left;
 	min-width: 95px;
@@ -136,10 +141,16 @@
 	font-size: 13px;
 	line-height: 16px;
 }
+.valentine-cook_more {
+	display: inline-block;
+    margin-right: 10px;
+    padding: 2px 30px 0 0;
+    background: url(/images/valentine-day/valentine-heart.png) no-repeat 100% 0;
+}
 
 .valentine-recognition {
 	padding: 60px 0 0;
-	margin-bottom: 20px;
+	margin-bottom: -10px;
 	background: url(/images/valentine-day/valentine-recognition.png) no-repeat;
 }
 .valentine-recognition_t {
@@ -157,7 +168,7 @@
 .valentine-gallery {
 	position: relative;
 	overflow: hidden;
-	padding:0 0 90px;
+	padding:0 0 120px;
 	background: url(/images/valentine-day/valentine-gallery.png) no-repeat 50% 100%;
 }
 .valentine-gallery_hold {

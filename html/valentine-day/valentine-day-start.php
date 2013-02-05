@@ -39,14 +39,14 @@
 				<div class="col-3">
 					<div class="valentine-sms">
 						<a href="" class="valentine-sms_h"></a>
-						<div class="valentine-sms-b">
-							<div class="valentine-sms-b_t">«Мой любимый муж»</div>
-							<div class="valentine-sms-b_p">В День святого Валентина <br>Мой любимый муж, желаю, <br>Чтоб любовь – на все причина, <br>Счастьем сердце вдохновляла! </div>
-						</div>
-						<div class="valentine-sms-b">
-							<div class="valentine-sms-b_t">«Мой любимый муж»</div>
-							<div class="valentine-sms-b_p">В День святого Валентина <br>Мой любимый муж, желаю, <br>Чтоб любовь – на все причина, <br>Счастьем сердце вдохновляла! </div>
-						</div>
+						<a href="" class="valentine-sms-b">
+							<span class="valentine-sms-b_t">«Мой любимый муж»</span>
+							<span class="valentine-sms-b_p">В День святого Валентина <br>Мой любимый муж, желаю, <br>Чтоб любовь – на все причина, <br>Счастьем сердце вдохновляла! </span>
+						</a>
+						<a href="" class="valentine-sms-b">
+							<span class="valentine-sms-b_t">«Мой любимый муж»</span>
+							<span class="valentine-sms-b_p">В День святого Валентина <br>Мой любимый муж, желаю, <br>Чтоб любовь – на все причина, <br>Счастьем сердце вдохновляла! </span>
+						</a>
 						<div class="textalign-r">
 							<a href="" class="valentine-sms_more">Читать все SMS-ки</a>
 						</div>
@@ -139,6 +139,9 @@
 								</a>
 							</li>
 						</ul>
+						<div class="textalign-r">
+							<a href="" class="valentine-cook_more">Все рецепты</a>
+						</div>
 					</div>
 				</div>
 			</div>

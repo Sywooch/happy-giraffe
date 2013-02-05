@@ -20,7 +20,7 @@ class LiParser extends LiBaseParser
             $this->Login();
         else{
             $this->loadPage('http://www.liveinternet.ru/stat/');
-            $this->loadPage('http://www.liveinternet.ru/stat/', 'url='.urlencode('http://'.$this->site->url).'&password=');
+            $this->loadPage('http://www.liveinternet.ru/stat/', 'LiveInternet', 'url='.urlencode('http://'.$this->site->url).'&password=');
             $this->last_url = 'http://www.liveinternet.ru/stat/'.$this->site->url.'/index.html';
         }
 
@@ -40,7 +40,7 @@ class LiParser extends LiBaseParser
         $rnd = pq($rnd)->attr('value');
 
         $post = 'rnd='.$rnd.'&url='.urlencode('http://'.$this->site->url).'&password='.$this->site->password.'&keep_password=on&ok=+OK+';
-        $this->loadPage('http://www.liveinternet.ru/stat/', $post);
+        $this->loadPage('http://www.liveinternet.ru/stat/', 'LiveInternet', $post);
     }
 
 

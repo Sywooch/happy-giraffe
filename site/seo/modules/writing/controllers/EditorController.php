@@ -109,7 +109,7 @@ class EditorController extends SController
         $urls = Yii::app()->request->getPost('urls');
 
         $author_id = Yii::app()->request->getPost('author_id');
-        $keywords = Keyword::model()->with('group')->findAllByPk($key_ids);
+        $keywords = Keyword::model()->findAllByPk($key_ids);
 
         foreach ($keywords as $keyword)
             if (!empty($keyword->group)) {

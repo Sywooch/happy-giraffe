@@ -19,7 +19,17 @@
                         'label' => 'Цены на топливо',
                         'url' => array('/club/fuelCost/'),
                         'active' => (Yii::app()->controller->uniqueId == 'club/fuelCost'),
-                        'visible' => Yii::app()->user->checkAccess('routes')
+                    ),
+                ),
+            ),
+            array('label' => 'Валентинов день',
+                'url' => array('/club/valentineSms/'),
+                'visible' => Yii::app()->user->checkAccess('valentines_day'),
+                'items'=>array(
+                    array(
+                        'label' => 'Смс',
+                        'url' => array('/club/fuelCost/'),
+                        'active' => (Yii::app()->controller->uniqueId == 'club/valentineSms'),
                     ),
                 ),
             ),

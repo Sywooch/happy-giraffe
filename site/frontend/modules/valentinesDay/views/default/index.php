@@ -1,8 +1,3 @@
-<?php
-    $cs = Yii::app()->clientScript;
-    $cs->registerCssFile('/stylesheets/valentine-day.css')
-?>
-
 <h1 class="valentine-h1">День святого Валентина!</h1>
 <div class="valentine-desc">День Святого Валентина - это праздник, который влюбленные отмечают по всему миру 14 февраля. И конечно же, Валентинов день - это семейный праздник!
     Порадуйте свою вторую половинку нежным смс с днем Валентина, красивым видео о любви или романтической валентинкой. <br>
@@ -22,19 +17,18 @@
             </div>
         </div>
     </div>
+    <?php $models = ValentineSms::LastSms();$url = $this->createUrl('sms');  ?>
     <div class="col-3">
         <div class="valentine-sms">
-            <a href="" class="valentine-sms_h"></a>
-            <a href="" class="valentine-sms-b">
-                <span class="valentine-sms-b_t">«Мой любимый муж»</span>
-                <span class="valentine-sms-b_p">В День святого Валентина <br>Мой любимый муж, желаю, <br>Чтоб любовь – на все причина, <br>Счастьем сердце вдохновляла! </span>
+            <a href="<?=$url ?>" class="valentine-sms_h"></a>
+            <?php foreach ($models as $model): ?>
+            <a href="<?=$url ?>" class="valentine-sms-b">
+                <span class="valentine-sms-b_t">«<?=$model->title ?>»</span>
+                <span class="valentine-sms-b_p"><?=$model->getFormattedText() ?></span>
             </a>
-            <a href="" class="valentine-sms-b">
-                <span class="valentine-sms-b_t">«Мой любимый муж»</span>
-                <span class="valentine-sms-b_p">В День святого Валентина <br>Мой любимый муж, желаю, <br>Чтоб любовь – на все причина, <br>Счастьем сердце вдохновляла! </span>
-            </a>
+            <?php endforeach; ?>
             <div class="textalign-r">
-                <a href="" class="valentine-sms_more">Читать все SMS-ки</a>
+                <a href="<?=$url ?>" class="valentine-sms_more">Читать все SMS-ки</a>
             </div>
         </div>
     </div>

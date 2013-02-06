@@ -2,6 +2,12 @@
 
 class DefaultController extends HController
 {
+    protected function beforeAction($action)
+    {
+        Yii::app()->clientScript->registerCssFile('/stylesheets/valentine-day.css');
+        return true;
+    }
+
 	public function actionIndex()
 	{
 		$this->render('index');
@@ -16,5 +22,15 @@ class DefaultController extends HController
         $videos = $vimeo->call('vimeo.videos.getAll', array('user_id' => 'user16279797', 'full_response' => true));
 
         var_dump($videos);
+    }
+
+    public function actionSms(){
+        $criteria = new CDbCriteria;
+        $pages = new CPagination(ValentineSms::model()->count());
+        $pages->pageSize = 15;
+        $pages->applyLimit($criteria);
+        $models = ValentineSms::model()->findAll($criteria);
+
+        $this->render('sms', compact('models', 'pages'));
     }
 }

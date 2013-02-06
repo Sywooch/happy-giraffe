@@ -22,10 +22,10 @@
         <div class="valentine-sms">
             <a href="<?=$url ?>" class="valentine-sms_h"></a>
             <?php foreach ($models as $model): ?>
-                <a href="<?=$url ?>" class="valentine-sms-b">
-                    <span class="valentine-sms-b_t">«<?=$model->title ?>»</span>
-                    <span class="valentine-sms-b_p"><?=$model->text ?></span>
-                </a>
+            <a href="<?=$url ?>" class="valentine-sms-b">
+                <span class="valentine-sms-b_t">«<?=$model->title ?>»</span>
+                <span class="valentine-sms-b_p"><?=$model->getFormattedText() ?></span>
+            </a>
             <?php endforeach; ?>
             <div class="textalign-r">
                 <a href="<?=$url ?>" class="valentine-sms_more">Читать все SMS-ки</a>
@@ -38,50 +38,38 @@
     <div class="col-12">
         <div class="valentines-best">
             <h2 class="valentines-best_h">Лучшие валентинки</h2>
-            <script>
-                /* Пример: */
-                $(function(){
-
-                    $('.valentines-best_ul').isotope({
-                        // options
-                        itemSelector : '.valentines-best_li'
-                    });
-
-                })
-
-            </script>
-            <ul class="valentines-best_ul clearfix isotope" style="position: relative; overflow: hidden; height: 527px;">
-                <li class="valentines-best_li isotope-item" style="position: absolute; left: 0px; top: 0px; -webkit-transform: translate3d(0px, 0px, 0px);">
+            <ul class="valentines-best_ul clearfix">
+                <li class="valentines-best_li">
                     <a href="" class="valentines-best_a">
                         <img src="/images/example/w220-h309-1.jpg" alt="">
                         <span class="valentines-best_btn">Отправить</span>
                     </a>
                 </li>
-                <li class="valentines-best_li isotope-item" style="position: absolute; left: 0px; top: 0px; -webkit-transform: translate3d(234px, 0px, 0px);">
+                <li class="valentines-best_li">
                     <a href="" class="valentines-best_a">
                         <img src="/images/example/w220-h309-1.jpg" alt="">
                         <span class="valentines-best_btn">Отправить</span>
                     </a>
                 </li>
-                <li class="valentines-best_li isotope-item" style="position: absolute; left: 0px; top: 0px; -webkit-transform: translate3d(468px, 0px, 0px);">
+                <li class="valentines-best_li">
                     <a href="" class="valentines-best_a">
                         <img src="/images/example/w220-h164-1.jpg" alt="">
                         <span class="valentines-best_btn">Отправить</span>
                     </a>
                 </li>
-                <li class="valentines-best_li isotope-item" style="position: absolute; left: 0px; top: 0px; -webkit-transform: translate3d(468px, 191px, 0px);">
+                <li class="valentines-best_li">
                     <a href="" class="valentines-best_a">
                         <img src="/images/example/w220-h309-1.jpg" alt="">
                         <span class="valentines-best_btn">Отправить</span>
                     </a>
                 </li>
-                <li class="valentines-best_li isotope-item" style="position: absolute; left: 0px; top: 0px; -webkit-transform: translate3d(0px, 336px, 0px);">
+                <li class="valentines-best_li">
                     <a href="" class="valentines-best_a">
                         <img src="/images/example/w220-h164-1.jpg" alt="">
                         <span class="valentines-best_btn">Отправить</span>
                     </a>
                 </li>
-                <li class="valentines-best_li isotope-item" style="position: absolute; left: 0px; top: 0px; -webkit-transform: translate3d(234px, 336px, 0px);">
+                <li class="valentines-best_li">
                     <a href="" class="valentines-best_a">
                         <img src="/images/example/w220-h164-1.jpg" alt="">
                         <span class="valentines-best_btn">Отправить</span>

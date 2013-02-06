@@ -1,12 +1,12 @@
 ﻿<!DOCTYPE html>
-<!--[if lt IE 8]>      <html class="ie7"> <![endif]-->
-<!--[if IE 8]>         <html class="ie8"> <![endif]-->
-<!--[if IE 9]>         <html class="ie9"> <![endif]-->
-<!--[if gt IE 9]><!--> <html class=""> <!--<![endif]-->
+<!--[if lt IE 8]>      <html class="top-nav-fixed ie7"> <![endif]-->
+<!--[if IE 8]>         <html class="top-nav-fixed ie8"> <![endif]-->
+<!--[if IE 9]>         <html class="top-nav-fixed ie9"> <![endif]-->
+<!--[if gt IE 9]><!--> <html class="top-nav-fixed"> <!--<![endif]-->
 <head>
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/head.php'; ?>
 </head>
-<body class="body-club">
+<body class="body__valentine ">
 
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/top-line-menu.php'; ?>
 	
@@ -19,7 +19,7 @@
 			<span class="layout-header-section_text">Кулинария</span>
 		</a>
 		'?>
-		<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/layout-header.php'; ?>
+		<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/header-new.php'; ?>
 		
 		<div id="content" class="clearfix">
 			
@@ -43,7 +43,7 @@
 								<p>Одним из основных свидетельств правильного течения беременности является набор веса согласно принятым нормам. Оптимальный набор веса при беременности — это 10–14 кг. Набираемый вес при беременности.</p>
 							</div>
 							
-							<div class="entry recipe-article recipe-article__valentine pattern-19 clearfix">
+							<div class="entry recipe-article clearfix">
 								
 								<h1 class="fn"><a href="">Курица в пиве с рисом</a></h1>
 								
@@ -187,7 +187,7 @@
 								
 							</div>
 							
-							<div class="entry recipe-article recipe-article__valentine pattern-19 clearfix">
+							<div class="entry recipe-article clearfix">
 								
 								<h1 class="fn"><a href="">Курица в пиве с рисом</a></h1>
 								

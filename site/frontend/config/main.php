@@ -97,6 +97,8 @@ return array(
         'cook',
         'calendar',
         'whatsNew',
+        'valentinesDay',
+        'route'
 	),
 
 	// application components

@@ -219,6 +219,13 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 .ico-child__girl-14{background-position: -66px -300px;}
 .ico-child__boy-19{background-position: 0 -350px;}
 .ico-child__girl-19{background-position: -66px -350px;}
+.ico-camera-big {
+    display: inline-block;*zoom:1;*display:inline;
+    width: 39px;
+    height: 29px;
+    background: url(/images/ico/ico-camera-big.png) no-repeat;
+    vertical-align: middle;
+}
 /* /icons */
 
 .logo-box {margin: 0 auto;text-align:center;color:#8d5bbc;text-transform:uppercase;font-size:10px;letter-spacing:3px;line-height:25px;padding: 25px 0 15px;}
@@ -1101,7 +1108,8 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 .form .row-gallery .row-title .gallery-title {color:#2e2e2e;}
 
 .form .row-gallery .add-gallery {display:inline-block;*zoom:1;*display:inline;width:16px;height:16px;background:url(../images/common.png) no-repeat -139px -174px;text-decoration:none;position:relative;top:3px;}
-.form .row-gallery .gallery_input_container, .form .row-gallery .gallery_title_container {display:none;}
+.form .row-gallery .gallery_input_container,
+.form .row-gallery .gallery_title_container {display:none;}
 
 .form .row-gallery .remove {display:inline-block;*zoom:1;*display:inline;width:10px;height:12px;background:url(../images/common.png) no-repeat -315px -136px;position:relative;top:2px;}
 .form .row-gallery .remove:hover {background-position:-315px -149px;}
@@ -1528,15 +1536,15 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 #header-new.guest .banner-box {width:728px;}
 
 
-#header-new .nav {padding:5px 0 0 18px;height:37px;position:relative;z-index:5;line-height:normal;}
-#header-new .nav ul {list-style:none;}
-#header-new .nav > ul > li {float:left;margin:0 1px;height:37px;}
+#header-new .nav {padding:5px 0 0;height:37px;position:relative;z-index:5;line-height:normal;}
+#header-new .nav ul {list-style:none;text-align: center;}
+#header-new .nav > ul > li {display: inline-block;*zoom:1;*display:inline;margin:0 -1px;height:37px;}
 
 
 #header-new .nav > ul > li > a {display:block;height:37px;padding:0 11px 0 14px;}
 #header-new .nav > ul > li > a {/*css3*/ -moz-border-radius:10px 10px 0 0;-webkit-border-radius:10px 10px 0 0;border-radius:10px 10px 0 0;behavior: url(/stylesheets/PIE.htc);}
 
-#header-new .nav .width-2 {width:850px;padding:0 75px 0 57px;}
+/*#header-new .nav .width-2 {width:850px;padding:0 75px 0 57px;}*/
 
 #header-new .nav ul li i.text {display:block;height:37px;background:url(/images/common.png) no-repeat;}
 #header-new .nav ul li.morning i.text {height:74px;position:relative;top:-34px;width:109px;background-position:-105px -512px;}
@@ -1567,6 +1575,10 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 #header-new .nav ul li.rest i.text {width:62px;background-position:-625px -472px;}
 #header-new .nav ul li.rest > a {background:#40b2dc;}
 #header-new .nav ul li.rest:hover > a, #header-new .nav ul li.rest.active > a {background:#7dd7f8;}
+
+#header-new .nav ul li.valentine i.text {}
+#header-new .nav ul li.valentine > a {background:url(/images/bg_nav_valentine.png) no-repeat;padding:0;height:60px;position:relative;top:-23px;width:109px;}
+#header-new .nav ul li.valentine:hover > a, #header-new .nav ul li.valentine.active > a {background-position: 0 -60px;}
 
 #header-new .nav .drp {position:absolute;top:45px;left:0;display:none;width:100%;padding:4px 0;background-image:url(/images/bg_nav_drp.png);}
 #header-new .nav .drp .in {background:#fff;height:245px;}
@@ -5976,6 +5988,73 @@ label {
     counter-increment: item;
 }
 /* /Page moderation rules moder-rule */
+
+/* menu */
+.menu {margin: 10px 0 20px;}
+.menu_li {
+    margin:2px 0;
+    position: relative;
+}
+.menu_i {
+    display: block;
+    position: relative;
+    padding: 4px 0;
+    border: 1px solid transparent;
+    color: #038ae0;
+    font-size: 11px;
+    line-height: 16px;
+    text-decoration: none;
+}
+.menu_li.active .menu_i {
+    border-color: #e2d8eb;
+    background: #ffffd5;
+    margin-right: 12px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+.menu_hold {
+    display: inline-block;*zoom:1;*display:inline;
+    width: 55px;
+    padding: 5px;
+    vertical-align: middle;
+    text-align: center;
+}
+.menu_frame {
+    display: inline-block;*zoom:1;*display:inline;
+    width: 133px;
+    vertical-align: middle;
+    text-decoration: underline;
+}
+.menu_i:hover .menu_frame {text-decoration: none;}
+.menu_t {display: block;}
+.menu_t__color-red {color: #ee1872;text-decoration: underline;}
+.menu_tale {
+    display: none;
+    position: absolute;
+    right: 0px;
+    top: 0;
+    width: 15px;
+    height: 100%;
+}
+.menu_li.active .menu_tale {display: block;}
+
+.menu_ico {
+    display: inline-block;*zoom:1;*display:inline;
+    vertical-align: middle;
+    background: url(/images/ico/menu_ico.png) no-repeat;
+}
+.menu_ico__cook {width: 27px;height: 26px;background-position: 0 0;}
+.menu_ico__tel {width: 23px;height: 34px;background-position: 0 -50px;}
+.menu_li.active .menu_ico__tel {background-position: -50px -50px;}
+.menu_ico__valentines {width: 30px;height: 28px;background-position: 0 -100px;}
+.menu_li.active .menu_ico__valentines {background-position: -50px -100px;}
+.menu_ico__photo {width: 28px;height: 22px;background-position: 0 -150px;}
+.menu_li.active .menu_ico__photo {background-position: -50px -150px;}
+.menu_ico__video {width: 39px;height: 29px;background-position: 0 -200px;}
+.menu_li.active .menu_ico__video {background-position: -50px -200px;}
+.menu_ico__valentine-day {width: 49px;height: 29px;background-position: -50px -250px;}
+/* /menu */
 
 /* /layout project
 -------------------------------------------------------------------- */

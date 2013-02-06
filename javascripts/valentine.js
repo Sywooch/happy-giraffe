@@ -1,5 +1,5 @@
 var ValentineVideos = {
-    initialIndex: 6,
+    initialIndex: 4,
     carousel : null,
 
     choose : function(index) {
@@ -22,6 +22,17 @@ $(function() {
 
     ValentineVideos.carousel.jcarousel('scroll', ValentineVideos.initialIndex - 2, false);
     ValentineVideos.choose(ValentineVideos.initialIndex);
+
+    var $container = $(".valentines-best_ul");
+
+    $container.imagesLoaded(function() {
+        $container.isotope({
+            itemSelector : ".valentines-best_li",
+            masonry: {
+                columnWidth: 234
+            }
+        });
+    });
 });
 
 

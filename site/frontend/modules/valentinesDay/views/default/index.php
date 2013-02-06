@@ -1,6 +1,7 @@
 <?php
 /**
  * @var $recipe_tag CookRecipeTag
+ * @var $post CommunityContent
  */
 
 ?><h1 class="valentine-h1">День святого Валентина!</h1>
@@ -12,12 +13,20 @@
     <div class="col-12">
         <div class="valentine-spent">
             <h2 class="valentine-spent_t">Как провести <br>День святого Валентина</h2>
-            <a href="" class="valentine-spent_img">
-                <img src="/images/valentine-day/valentine-spent_img.png" alt="">
+            <a href="javascript:;" class="valentine-spent_img" data-id="<?=$post->gallery->items[0]->photo->id?>">
+                <img src="/images/valentine-day/valentine-spent_img-2.png" alt="">
+                <?php
+                $photo = $post->gallery->items[0];
+                $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
+                    'selector' => 'a.valentine-spent_img,a.valentine-spent_a',
+                    'entity' => get_class($post->gallery),
+                    'entity_id' => (int)$post->gallery->primaryKey,
+                ));
+                ?>
             </a>
             <div class="textalign-c">
-                <a href="" class="valentine-spent_a">
-                    <i class="ico-camera-big"></i>смотреть 25 фото
+                <a href="javascript:;" class="valentine-spent_a" data-id="<?=$post->gallery->items[0]->photo->id?>">
+                    <i class="ico-camera-big"></i>смотреть <?=count($post->gallery->items) ?> фото
                 </a>
             </div>
         </div>

@@ -1,6 +1,6 @@
 <div class="content-cols margin-t20 clearfix">
     <div class="col-1">
-        <?php $this->renderPartial('menu',array()); ?>
+        <?php $this->renderPartial('menu'); ?>
     </div>
     <div class="col-12">
         <div class="valentine-sms">

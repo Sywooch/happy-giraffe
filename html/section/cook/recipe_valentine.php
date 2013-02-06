@@ -528,7 +528,9 @@
 					
 				</div>
 				
-				
+			
+			</div>	
+			</div>	
 		<div id="broadcast" class="broadcast-all">
 						<div class="broadcast-widget">
 							<div class="broadcast-title-box clearfix">
@@ -1054,10 +1056,7 @@
 									</div>
 								</div>
 							</div>
-		</div>
-				
-			</div>
-			
+		
 			
 		</div>  	
 		

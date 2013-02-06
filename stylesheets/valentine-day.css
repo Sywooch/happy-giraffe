@@ -102,6 +102,7 @@
 	background: url(/images/valentine-day/valentines-best_t.png) no-repeat 55% 0;
 }
 .valentines-best_p {margin-bottom: 25px;}
+.valentines-best_hold {position: relative;}
 .valentines-best_ul {
 	position: relative;
 	margin: 0 -10px;

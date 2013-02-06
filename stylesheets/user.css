@@ -1017,7 +1017,19 @@
 #firstStepsLocation .right .hl {background:#fffbc9;padding:2px 6px;color:#5a5a5a;font-size:14px;}
 
 #broadcast {margin: -20px -20px 0;padding: 20px 20px 0 20px;}
-#broadcast.broadcast-all{padding-left: 30px;padding-right: 30px;background: #f6f6f6;}
+#broadcast.broadcast-all{padding-left: 30px;padding-right: 30px;background: #f6f6f6;position: relative;}
+.body__valentine #broadcast.broadcast-all {background: none;}
+.body__valentine #broadcast.broadcast-all:after {
+    background: url(/images/bg_pattern_19.jpg);
+    content: "";
+    opacity:0.3;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;   
+}
 .broadcast-title-box {margin-bottom: 40px;}
 #broadcast .broadcast-title-box h1 {
 	text-align: center;

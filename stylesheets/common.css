@@ -134,7 +134,7 @@ html.top-nav-fixed {overflow-y:hidden;}
 .body__valentine:after {
     background: url(/images/bg_pattern_19.jpg);
     content: "";
-    opacity:0.5;
+    opacity:0.3;
     top: 0;
     left: 0;
     bottom: 0;
@@ -314,6 +314,7 @@ textarea.error,
 .margin-b0 {margin-bottom: 0 !important;}
 .margin-b5 {margin-bottom: 5px !important;}
 .margin-b10 {margin-bottom: 10px !important;}
+.margin-b20 {margin-bottom: 20px !important;}
 .margin-b30 {margin-bottom: 30px !important;}
 .margin-l10 {margin-left: 10px !important;}
 .margin-l20 {margin-left: 20px !important;}
@@ -328,6 +329,7 @@ textarea.error,
 .w-200 {width:200px;}
 .w-240 {width:240px;}
 .w-300 {width:300px;}
+.w-350 {width:350px;}
 .w-400 {width:400px;}
 .w-500 {width:500px;}
 .w-700 {width:700px;}
@@ -351,7 +353,7 @@ textarea.error,
 
 ::-webkit-input-placeholder,
 :-moz-placeholder,
-.placeholder { color: #ccc !important;font-weight: normal !important;}
+.placeholder { color: #ddd !important;font-weight: normal !important;}
 .disabled {cursor:default;}
 /* /cosmetic layout */
 
@@ -4202,6 +4204,8 @@ body.gallery {overflow:hidden;}
 #photo-window .photo-comment {font-size:13px;color:#afaeae;font-family:arial, helvetica, sans-serif;padding:10px 150px 10px;text-align:center;line-height:14px;}
 #photo-window .photo-comment textarea {width:75%;padding:2px 5px;border:1px solid #c5e8ef;vertical-align:top;background:#fff;margin-left:-6px;height:60px;}
 
+#photo-window .photo-window_btn-share {padding: 0 55px;margin-bottom: 30px; font-weight: normal;font-size: 27px;}
+
 #photo-window #photo-content .sharelink-friends {background:#feefbb;padding:15px 35px;margin:0 0 10px;}
 #photo-window #photo-content .sharelink-friends .title-row {font-size:13px;color:#414041;margin-bottom:3px;}
 #photo-window #photo-content .sharelink-friends .title-row .text {display:inline-block;*zoom:1;*display:inline;width:300px;padding:0 5px;border:1px solid #f7e39d;margin:0 5px;background:#fff;}
@@ -6077,6 +6081,45 @@ label {
 .menu_li.active .menu_ico__video {background-position: -50px -200px;}
 .menu_ico__valentine-day {width: 32px;height: 44px;background-position: -50px -250px;}
 /* /menu */
+
+/* popup-share */
+.popup-share {
+    width: 430px;
+    padding: 0;
+}
+.popup-share_h {
+    margin: -10px -10px 0;
+    padding: 20px 25px;
+    background: #dbccea;
+    color: #572a83;
+    font-size: 24px;
+}
+.popup-share .popup-share_h > .popup-close {background-position:-392px -100px;top: 10px;right: 3px;width: 13px;height: 13px;}
+.popup-share .popup-share_h > .popup-close:hover {background-position:-392px -100px;}
+.popup-share_hold {
+    padding: 20px 15px 0;
+    font-size: 15px;
+}
+.popup-share_img-preview {
+    float: left;
+    margin-right: 20px;
+    width: 95px;
+    text-align: center;
+}
+.popup-share_itx {
+    width: 382px;
+    max-width: 382px;
+    margin-bottom: 10px;
+}
+.popup-share_itx-link {width: 268px;}
+.popup-share_f {
+    text-align: right;
+    margin: 0 -10px -10px;
+    padding: 15px 25px 20px;
+    background: #f1ebf6;
+}
+.popup-share_f > .btn-green {color: #fff;font-weight: normal;}
+/* /popup-share */
 
 /* /layout project
 -------------------------------------------------------------------- */

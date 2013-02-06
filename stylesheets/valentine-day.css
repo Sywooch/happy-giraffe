@@ -231,6 +231,7 @@
 	font-size: 13px;
 	font-weight: bold;
 	padding: 9px 5px;
+	display: block;
 }
 .valentine-gallery_li.active .valentine-gallery_desc,
 .valentine-gallery_a:hover .valentine-gallery_desc {color: #ce215d;text-decoration: underline;}

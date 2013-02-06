@@ -1,122 +1,119 @@
-<?php if (false): ?>
+<?php
+/**
+ * @var $recipe_tag CookRecipeTag
+ * @var $post CommunityContent
+ */
 
-    <h1 class="valentine-h1">День святого Валентина!</h1>
-    <div class="valentine-desc">День Святого Валентина - это праздник, который влюбленные отмечают по всему миру 14 февраля. И конечно же, Валентинов день - это семейный праздник!
-        Порадуйте свою вторую половинку нежным смс с днем Валентина, красивым видео о любви или романтической валентинкой. <br>
-        Пусть ваши отношения будут романтичными всегда!
-    </div>
-    <div class="content-cols clearfix">
-        <div class="col-12">
-            <div class="valentine-spent">
-                <h2 class="valentine-spent_t">Как провести <br>День святого Валентина</h2>
-                <a href="" class="valentine-spent_img">
-                    <img src="/images/valentine-day/valentine-spent_img.png" alt="">
+?><h1 class="valentine-h1">День святого Валентина!</h1>
+<div class="valentine-desc">День Святого Валентина - это праздник, который влюбленные отмечают по всему миру 14 февраля. И конечно же, Валентинов день - это семейный праздник!
+    Порадуйте свою вторую половинку нежным смс с днем Валентина, красивым видео о любви или романтической валентинкой. <br>
+    Пусть ваши отношения будут романтичными всегда!
+</div>
+<div class="content-cols clearfix">
+    <div class="col-12">
+        <div class="valentine-spent">
+            <h2 class="valentine-spent_t">Как провести <br>День святого Валентина</h2>
+            <a href="javascript:;" class="valentine-spent_img" data-id="<?=$post->gallery->items[0]->photo->id?>">
+                <img src="/images/valentine-day/valentine-spent_img-2.png" alt="">
+                <?php
+                $photo = $post->gallery->items[0];
+                $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
+                    'selector' => 'a.valentine-spent_img,a.valentine-spent_a',
+                    'entity' => get_class($post->gallery),
+                    'entity_id' => (int)$post->gallery->primaryKey,
+                ));
+                ?>
+            </a>
+            <div class="textalign-c">
+                <a href="javascript:;" class="valentine-spent_a" data-id="<?=$post->gallery->items[0]->photo->id?>">
+                    <i class="ico-camera-big"></i>смотреть <?=count($post->gallery->items) ?> фото
                 </a>
-                <div class="textalign-c">
-                    <a href="" class="valentine-spent_a">
-                        <i class="ico-camera-big"></i>смотреть 25 фото
+            </div>
+        </div>
+    </div>
+    <?php $models = ValentineSms::LastSms();$url = $this->createUrl('sms');  ?>
+    <div class="col-3">
+        <div class="valentine-sms">
+            <a href="<?=$url ?>" class="valentine-sms_h"></a>
+            <?php foreach ($models as $model): ?>
+            <a href="<?=$url ?>" class="valentine-sms-b">
+                <span class="valentine-sms-b_t">«<?=$model->title ?>»</span>
+                <span class="valentine-sms-b_p"><?=$model->getFormattedText() ?></span>
+            </a>
+            <?php endforeach; ?>
+            <div class="textalign-r">
+                <a href="<?=$url ?>" class="valentine-sms_more">Читать все SMS-ки</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content-cols clearfix">
+    <div class="col-12">
+        <div class="valentines-best">
+            <h2 class="valentines-best_h">Лучшие валентинки</h2>
+            <ul class="valentines-best_ul clearfix">
+                <li class="valentines-best_li">
+                    <a href="" class="valentines-best_a">
+                        <img src="/images/example/w220-h309-1.jpg" alt="">
+                        <span class="valentines-best_btn">Отправить</span>
                     </a>
-                </div>
-            </div>
+                </li>
+                <li class="valentines-best_li">
+                    <a href="" class="valentines-best_a">
+                        <img src="/images/example/w220-h309-1.jpg" alt="">
+                        <span class="valentines-best_btn">Отправить</span>
+                    </a>
+                </li>
+                <li class="valentines-best_li">
+                    <a href="" class="valentines-best_a">
+                        <img src="/images/example/w220-h164-1.jpg" alt="">
+                        <span class="valentines-best_btn">Отправить</span>
+                    </a>
+                </li>
+                <li class="valentines-best_li">
+                    <a href="" class="valentines-best_a">
+                        <img src="/images/example/w220-h309-1.jpg" alt="">
+                        <span class="valentines-best_btn">Отправить</span>
+                    </a>
+                </li>
+                <li class="valentines-best_li">
+                    <a href="" class="valentines-best_a">
+                        <img src="/images/example/w220-h164-1.jpg" alt="">
+                        <span class="valentines-best_btn">Отправить</span>
+                    </a>
+                </li>
+                <li class="valentines-best_li">
+                    <a href="" class="valentines-best_a">
+                        <img src="/images/example/w220-h164-1.jpg" alt="">
+                        <span class="valentines-best_btn">Отправить</span>
+                    </a>
+                </li>
+            </ul>
         </div>
-        <?php $models = ValentineSms::LastSms();$url = $this->createUrl('sms');  ?>
-        <div class="col-3">
-            <div class="valentine-sms">
-                <a href="<?=$url ?>" class="valentine-sms_h"></a>
-                <?php foreach ($models as $model): ?>
-                <a href="<?=$url ?>" class="valentine-sms-b">
-                    <span class="valentine-sms-b_t">«<?=$model->title ?>»</span>
-                    <span class="valentine-sms-b_p"><?=$model->getFormattedText() ?></span>
-                </a>
+    </div>
+    <div class="col-3">
+        <?php $recipes = $recipe_tag->getLastRecipes(); ?>
+        <div class="valentine-cook">
+            <h3 class="valentine-cook_t">Романтические блюда <br>ко дню святого Валентина</h3>
+            <ul class="valentine-cook_ul">
+                <?php foreach ($recipes as $recipe): ?>
+                <li class="valentine-cook_li clearfix">
+                    <a href="<?=$recipe->getUrl() ?>" class="valentine-cook_a">
+                            <span class="valentine-cook_img">
+                                <img src="<?=$recipe->getMainPhoto()->getPreviewUrl(95, 100) ?>" alt="">
+                            </span>
+                        <span class="valentine-cook_desc"><?=$recipe->title ?></span>
+                    </a>
+                </li>
                 <?php endforeach; ?>
-                <div class="textalign-r">
-                    <a href="<?=$url ?>" class="valentine-sms_more">Читать все SMS-ки</a>
-                </div>
+            </ul>
+            <div class="textalign-r">
+                <a href="<?=$recipe_tag->getUrl() ?>" class="valentine-cook_more">Все рецепты</a>
             </div>
         </div>
     </div>
-
-    <div class="content-cols clearfix">
-        <div class="col-12">
-            <div class="valentines-best">
-                <h2 class="valentines-best_h">Лучшие валентинки</h2>
-                <ul class="valentines-best_ul clearfix">
-                    <li class="valentines-best_li">
-                        <a href="" class="valentines-best_a">
-                            <img src="/images/example/w220-h309-1.jpg" alt="">
-                            <span class="valentines-best_btn">Отправить</span>
-                        </a>
-                    </li>
-                    <li class="valentines-best_li">
-                        <a href="" class="valentines-best_a">
-                            <img src="/images/example/w220-h309-1.jpg" alt="">
-                            <span class="valentines-best_btn">Отправить</span>
-                        </a>
-                    </li>
-                    <li class="valentines-best_li">
-                        <a href="" class="valentines-best_a">
-                            <img src="/images/example/w220-h164-1.jpg" alt="">
-                            <span class="valentines-best_btn">Отправить</span>
-                        </a>
-                    </li>
-                    <li class="valentines-best_li">
-                        <a href="" class="valentines-best_a">
-                            <img src="/images/example/w220-h309-1.jpg" alt="">
-                            <span class="valentines-best_btn">Отправить</span>
-                        </a>
-                    </li>
-                    <li class="valentines-best_li">
-                        <a href="" class="valentines-best_a">
-                            <img src="/images/example/w220-h164-1.jpg" alt="">
-                            <span class="valentines-best_btn">Отправить</span>
-                        </a>
-                    </li>
-                    <li class="valentines-best_li">
-                        <a href="" class="valentines-best_a">
-                            <img src="/images/example/w220-h164-1.jpg" alt="">
-                            <span class="valentines-best_btn">Отправить</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="col-3">
-            <div class="valentine-cook">
-                <h3 class="valentine-cook_t">Романтические блюда <br>к дню святого Валентина</h3>
-                <ul class="valentine-cook_ul">
-                    <li class="valentine-cook_li clearfix">
-                        <a href="" class="valentine-cook_a">
-                                        <span class="valentine-cook_img">
-                                            <img src="/images/example/w95-h71-1.jpg" alt="">
-                                        </span>
-                            <span class="valentine-cook_desc">Салатик «Вкусная валентинка»</span>
-                        </a>
-                    </li>
-                    <li class="valentine-cook_li clearfix">
-                        <a href="" class="valentine-cook_a">
-                                        <span class="valentine-cook_img">
-                                            <img src="/images/example/w95-h71-1.jpg" alt="">
-                                        </span>
-                            <span class="valentine-cook_desc">Салатик «Вкусная валентинка»</span>
-                        </a>
-                    </li>
-                    <li class="valentine-cook_li clearfix">
-                        <a href="" class="valentine-cook_a">
-                                        <span class="valentine-cook_img">
-                                            <img src="/images/example/w95-h71-1.jpg" alt="">
-                                        </span>
-                            <span class="valentine-cook_desc">Салатик «Вкусная валентинка»</span>
-                        </a>
-                    </li>
-                </ul>
-                <div class="textalign-r">
-                    <a href="" class="valentine-cook_more">Все рецепты</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-<?php endif; ?>
+</div>
 
 <div class="valentine-recognition">
     <h2 class="valentine-recognition_t">

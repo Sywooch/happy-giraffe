@@ -106,24 +106,8 @@
                     'url' => array('/admin/searchPhrasePosition/'),
                 ),
                 array(
-                    'label' => 'Парсинг и прокси',
-                    'url' => array('/parsing/index/'),
-                ),
-                array(
                     'label' => 'Парсинг Запросов и позиций',
                     'url' => array('/promotion/queries/index/'),
-                ),
-                array(
-                    'label' => 'Парсинг Вордстата',
-                    'url' => array('/wordstat/index'),
-                ),
-                array(
-                    'label' => 'Парсинг LI',
-                    'url' => array('/competitors/parse/index'),
-                ),
-                array(
-                    'label' => 'Парсинг Mail.ru статистики',
-                    'url' => array('/competitors/mailParse/index'),
                 ),
                 array(
                     'label' => 'Урлы индексации',

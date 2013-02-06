@@ -426,7 +426,9 @@ class CookRecipe extends CActiveRecord
         return $preview;
     }
 
-
+    /**
+     * @return AlbumPhoto
+     */
     public function getMainPhoto()
     {
         if ($this->photo !== null)

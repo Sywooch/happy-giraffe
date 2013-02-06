@@ -14,6 +14,8 @@ class Community extends HActiveRecord
 {
     const USERS_COMMUNITY = 999999;
     const COMMUNITY_NEWS = 36;
+    const COMMUNITY_VALENTINE = 37;
+
 	private $_typeCounts = null;
 
 	public function getCount($type_id = null)
@@ -27,7 +29,7 @@ class Community extends HActiveRecord
 				->where('r.community_id = :community_id AND c.removed = 0', array(':community_id' => $this->id))
 				->group('c.type_id')
 				->queryAll();
-				
+
 			$this->_typeCounts['total'] = 0;
 			foreach ($raw as $r)
 			{
@@ -153,8 +155,8 @@ class Community extends HActiveRecord
     {
         return array(
             'public' => array(
-                'condition' => 'id != :news_community',
-                'params' => array(':news_community' => self::COMMUNITY_NEWS),
+                'condition' => 'id != :news_community AND id != :valentine',
+                'params' => array(':news_community' => self::COMMUNITY_NEWS, ':valentine' => self::COMMUNITY_VALENTINE),
             ),
             'sorted'=>array(
                 'order' => 'position asc',
@@ -193,7 +195,7 @@ class Community extends HActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
-	
+
 	public function behaviors(){
 		return array('ESaveRelatedBehavior' => array(
 			'class' => 'ESaveRelatedBehavior')

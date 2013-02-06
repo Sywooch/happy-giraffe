@@ -4,7 +4,7 @@ class DefaultController extends SController
 {
     public $layout = '//layouts/writing';
 
-    public function actionIndex($section = 1, $site_id = null, $year = 2012, $freq = null)
+    public function actionIndex($section = 1, $site_id = null, $year = 2013, $freq = null)
     {
         switch ($section) {
             case 1:

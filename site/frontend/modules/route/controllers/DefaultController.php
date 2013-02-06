@@ -8,7 +8,8 @@ class DefaultController extends HController
 
         } else {
             $route = $this->loadModel($id);
-            $this->render('page', compact('route'));
+            $texts = $route->getTexts();
+            $this->render('page', compact('route', 'texts'));
         }
     }
 
@@ -24,6 +25,11 @@ class DefaultController extends HController
             //echo $route['t1_lat'].', '.$route['t1_lng']."\n";
             echo Yii::app()->geoCode->getObjectNameByCoordinates($route['t1_lat'], $route['t1_lng']) . '<br>';
         }
+    }
+
+    public function actionTest(){
+        $parser = new RosneftParser;
+        $parser->start();
     }
 
     /**

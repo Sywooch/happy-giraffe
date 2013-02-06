@@ -78,37 +78,37 @@
 							<li class="valentines-best_li">
 								<a href="" class="valentines-best_a">
 									<img src="/images/example/w220-h309-1.jpg" alt="">
-									<span class="valentines-best_btn">Отправить</span>
+									<span class="valentines-best_btn">Посмотреть</span>
 								</a>
 							</li>
 							<li class="valentines-best_li">
 								<a href="" class="valentines-best_a">
 									<img src="/images/example/w220-h309-1.jpg" alt="">
-									<span class="valentines-best_btn">Отправить</span>
+									<span class="valentines-best_btn">Посмотреть</span>
 								</a>
 							</li>
 							<li class="valentines-best_li">
 								<a href="" class="valentines-best_a">
 									<img src="/images/example/w220-h164-1.jpg" alt="">
-									<span class="valentines-best_btn">Отправить</span>
+									<span class="valentines-best_btn">Посмотреть</span>
 								</a>
 							</li>
 							<li class="valentines-best_li">
 								<a href="" class="valentines-best_a">
 									<img src="/images/example/w220-h309-1.jpg" alt="">
-									<span class="valentines-best_btn">Отправить</span>
+									<span class="valentines-best_btn">Посмотреть</span>
 								</a>
 							</li>
 							<li class="valentines-best_li">
 								<a href="" class="valentines-best_a">
 									<img src="/images/example/w220-h164-1.jpg" alt="">
-									<span class="valentines-best_btn">Отправить</span>
+									<span class="valentines-best_btn">Посмотреть</span>
 								</a>
 							</li>
 							<li class="valentines-best_li">
 								<a href="" class="valentines-best_a">
 									<img src="/images/example/w220-h164-1.jpg" alt="">
-									<span class="valentines-best_btn">Отправить</span>
+									<span class="valentines-best_btn">Посмотреть</span>
 								</a>
 							</li>
 						</ul>

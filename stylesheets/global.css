@@ -4583,8 +4583,7 @@ ul.letters li a:hover {
 .recipe-categories li.active .count {font-size:25px;color: #2e3030;line-height: normal;vertical-align:middle;width:auto;margin-right:0;left:0;}
 
 /* */
-.recipe-article {color:#020202;margin:1px 1px 30px;border: 1px solid #fff;outline: 1px solid #e7e7e7;padding:5px 20px 20px; background: #ebf2fb;width: auto;}
-
+.recipe-article {color:#020202;margin:1px 1px 30px;border: 1px solid #fff;outline: 1px solid #e7e7e7;padding:5px 17px 20px; background: #ebf2fb;width: auto;}
 .recipe-article .fn .icon-edit {display:inline-block;*zoom:1;*display:inline;width:14px;height:18px;background:url(../images/common.png) no-repeat -383px -204px;margin:0 auto;position:relative;text-decoration:none;}
 .recipe-article .fn .icon-edit:hover {background-position:-341px -136px;}
 .recipe-article .fn .icon-remove {display:inline-block;*zoom:1;*display:inline;width:12px;height:14px;background:url(/images/common.png) no-repeat -314px -135px;vertical-align:middle;position:relative;top:-1px;}
@@ -4617,8 +4616,8 @@ ul.letters li a:hover {
 .recipe-article .recipe-user-adds li > .text {padding: 0 7px;color: #598db2;text-decoration: none;font-size: 18px;line-height: 24px;}
 
 .cook-title-cat {margin-bottom:30px;}
-.cook-title-cat .cook-title-cat-h1 {color: #454545;font-size: 33px;line-height: 36px;margin:15px 0 15px;font-weight: normal;}
-.cook-title-cat .cook-title-cat-h1-text {}
+.cook-title-cat .cook-title-cat-h1 {color: #454545;font-size: 33px;line-height: 33px;margin:15px 0 15px;font-weight: normal;}
+.cook-title-cat .cook-title-cat-h1-text {display: inline-block;*zoom:1;*display:inline;vertical-align: middle;}
 .cook-title-cat > p {line-height: 19px;font-size: 13px;}
 .cook-title-cat .cook-cat.active{display: inline-block;*zoom:1;*display:inline;vertical-align: middle;margin-right: 10px;}
 

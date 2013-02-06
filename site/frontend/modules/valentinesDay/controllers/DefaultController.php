@@ -29,7 +29,7 @@ class DefaultController extends HController
     public function actionSms(){
         $criteria = new CDbCriteria;
         $pages = new CPagination(ValentineSms::model()->count());
-        $pages->pageSize = 4;
+        $pages->pageSize = 15;
         $pages->applyLimit($criteria);
         $models = ValentineSms::model()->findAll($criteria);
 

@@ -243,10 +243,10 @@
 	margin: 4px 0 0;
 }
 .valentine-gallery_arrow__prev {background-position: 0 0;}
-.valentine-gallery_arrow__prev.disabled {background-position: 0 -86px;}
+.valentine-gallery_arrow__prev.jcarousel-control-inactive {background-position: 0 -86px;}
 .valentine-gallery_arrow__next {
 	float: right;
 	background-position: -36px 0;
 }
-.valentine-gallery_arrow__next.disabled {background-position: -36px -86px;}
+.valentine-gallery_arrow__next.jcarousel-control-inactive {background-position: -36px -86px;}
 

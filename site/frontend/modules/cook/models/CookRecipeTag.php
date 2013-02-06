@@ -15,6 +15,8 @@
  */
 class CookRecipeTag extends HActiveRecord
 {
+    const TAG_VALENTINE = 97;
+
     /**
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.
@@ -46,7 +48,7 @@ class CookRecipeTag extends HActiveRecord
             array('description, text_title, text', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, title, description, text_title, text', 'safe', 'on'=>'search'),
+            array('id, title, description, text_title, text', 'safe', 'on' => 'search'),
         );
     }
 
@@ -83,16 +85,16 @@ class CookRecipeTag extends HActiveRecord
      */
     public function search()
     {
-        $criteria=new CDbCriteria;
+        $criteria = new CDbCriteria;
 
-        $criteria->compare('id',$this->id,true);
-        $criteria->compare('title',$this->title,true);
-        $criteria->compare('description',$this->description,true);
-        $criteria->compare('text_title',$this->text_title,true);
-        $criteria->compare('text',$this->text,true);
+        $criteria->compare('id', $this->id, true);
+        $criteria->compare('title', $this->title, true);
+        $criteria->compare('description', $this->description, true);
+        $criteria->compare('text_title', $this->text_title, true);
+        $criteria->compare('text', $this->text, true);
 
         return new CActiveDataProvider($this, array(
-            'criteria'=>$criteria,
+            'criteria' => $criteria,
             'pagination' => array('pageSize' => 150),
         ));
     }
@@ -108,11 +110,32 @@ class CookRecipeTag extends HActiveRecord
 
     public function getUrl()
     {
-        return Yii::app()->createUrl('/cook/recipe/tag', array('tag'=>$this->id));
+        return Yii::app()->createUrl('/cook/recipe/tag', array('tag' => $this->id));
     }
 
     public function beforeDelete()
     {
         return false;
+    }
+
+    /**
+     * @param int $limit
+     * @return CookRecipe[]
+     */
+    public function getLastRecipes($limit = 3)
+    {
+        $recipe_ids = Yii::app()->db->createCommand()
+            ->select('recipe_id')
+            ->from('cook__recipe_recipes_tags')
+            ->where('tag_id='.$this->id)
+            ->order('recipe_id desc')
+            ->limit($limit)
+            ->queryColumn();
+
+        $criteria = new CDbCriteria;
+        $criteria->compare('id', $recipe_ids);
+        $criteria->order = 'id desc';
+
+        return CookRecipe::model()->findAll($criteria);
     }
 }

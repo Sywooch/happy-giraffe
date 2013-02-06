@@ -18,6 +18,8 @@ class HController extends CController
     public $pGallery = null;
     public $broadcast = false;
 
+    public $body_class = '';
+
     protected $r = 149;
 
     public function filterAjaxOnly($filterChain)

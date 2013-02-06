@@ -8,7 +8,7 @@
             <img class="menu_tale" alt="" src="/images/menu_tale.png">
         </li>
         <li class="menu_li">
-            <a class="menu_i" href="<?=$this->createUrl('/valentinesDay/default/index') ?>">
+            <a class="menu_i" href="<?=$this->createUrl('/cook/recipe/tag', array('tag'=>CookRecipeTag::TAG_VALENTINE)) ?>">
                 <span class="menu_hold"><i class="menu_ico menu_ico__cook"></i></span>
                 <span class="menu_frame"><span class="menu_t">Что приготовить</span></span>
             </a>

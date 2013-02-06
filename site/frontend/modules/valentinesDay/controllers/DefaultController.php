@@ -45,8 +45,11 @@ class DefaultController extends HController
         $path = Yii::getPathOfAlias('site.common.data') . DIRECTORY_SEPARATOR . 'valentines.txt';
         $urls = file($path);
 
-        foreach ($urls as $url)
-            AlbumPhoto::createByUrl($url, User::HAPPY_GIRAFFE, Album::TYPE_VALENTINE);
+        foreach ($urls as $i => $url) {
+            $photo = AlbumPhoto::createByUrl($url, User::HAPPY_GIRAFFE, Album::TYPE_VALENTINE);
+            echo $i. '. ' . $url . '<br />';
+            echo (($photo instanceof AlbumPhoto) ? 'ок' : 'гавно') . '<br />';
+        }
     }
 
     public function actionSms(){

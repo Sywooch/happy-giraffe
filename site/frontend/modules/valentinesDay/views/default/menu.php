@@ -28,8 +28,8 @@
             </a>
             <img class="menu_tale" alt="" src="/images/menu_tale.png">
         </li>
-        <li class="menu_li">
-            <a class="menu_i" href="<?=$this->createUrl('/valentinesDay/default/index') ?>">
+        <li class="menu_li<? if (Yii::app()->controller->action->id == 'howToSpend') echo ' active' ?>">
+            <a class="menu_i" href="<?=$this->createUrl('/valentinesDay/default/howToSpend') ?>">
                 <span class="menu_hold"><i class="menu_ico menu_ico__photo"></i></span>
                 <span class="menu_frame"><span class="menu_t">Фото. Как провести день святого Валентина</span></span>
             </a>

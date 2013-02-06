@@ -179,6 +179,7 @@ jQuery.fn.pGallery = function(options) {
         /*$('#photo-window-in', this.window).append('<div id="loading"><div class="in"><img src="/images/test_loader.gif">Загрузка</div></div>');*/
 
         pGallery.currentPhoto = plugin.data.id;
+        $('#photo_share').attr('href', '/albums/share/id/' + pGallery.currentPhoto + '/');
         var newUrl = plugin.getEntityUrl() + 'photo' + plugin.data.id + '/';
         plugin.history.changeBrowserUrl(newUrl);
 

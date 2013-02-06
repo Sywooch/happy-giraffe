@@ -126,7 +126,7 @@ class SiteCommand extends CConsoleCommand
     public function actionFormRoutes()
     {
         Yii::import('site.frontend.modules.geo.models.*');
-        Yii::import('site.frontend.modules.services.modules.route.models.*');
+        Yii::import('site.frontend.modules.route.models.*');
         Yii::import('site.seo.models.*');
 
         $cities = GeoCity::model()->findAll('type="г"');
@@ -148,7 +148,7 @@ class SiteCommand extends CConsoleCommand
     public function actionParseRoutes($debug = false)
     {
         Yii::import('site.frontend.modules.geo.models.*');
-        Yii::import('site.frontend.modules.services.modules.route.models.*');
+        Yii::import('site.frontend.modules.route.models.*');
         Yii::import('site.seo.components.*');
         Yii::import('site.seo.models.*');
 
@@ -159,8 +159,8 @@ class SiteCommand extends CConsoleCommand
     public function actionTest()
     {
         Yii::import('site.frontend.modules.geo.models.*');
-        Yii::import('site.frontend.modules.services.modules.route.models.*');
-        Yii::import('site.frontend.modules.services.modules.route.components.*');
+        Yii::import('site.frontend.modules.route.models.*');
+        Yii::import('site.frontend.modules.route.components.*');
 
         CRouteLinking::model()->add(16586);
     }
@@ -168,8 +168,8 @@ class SiteCommand extends CConsoleCommand
     public function actionKeywordsTest()
     {
         Yii::import('site.frontend.modules.geo.models.*');
-        Yii::import('site.frontend.modules.services.modules.route.models.*');
-        Yii::import('site.frontend.modules.services.modules.route.components.*');
+        Yii::import('site.frontend.modules.route.models.*');
+        Yii::import('site.frontend.modules.route.components.*');
 
         RouteLink::model()->test(16586);
     }
@@ -184,7 +184,7 @@ class SiteCommand extends CConsoleCommand
     }
 
     public function actionCopyRoutes(){
-        Yii::import('site.frontend.modules.services.modules.route.models.*');
+        Yii::import('site.frontend.modules.route.models.*');
         Yii::import('site.seo.models.*');
 
         $criteria = new CDbCriteria;
@@ -232,8 +232,8 @@ class SiteCommand extends CConsoleCommand
 
     public function actionRosneft(){
         Yii::import('site.frontend.modules.geo.models.*');
-        Yii::import('site.frontend.modules.services.modules.route.models.*');
-        Yii::import('site.frontend.modules.services.modules.route.components.*');
+        Yii::import('site.frontend.modules.route.models.*');
+        Yii::import('site.frontend.modules.route.components.*');
 
         $parser = new RosneftParser;
         $parser->start();

@@ -67,12 +67,13 @@ class RosneftParser
         $i = 0;
         $distance = 0;
         $time = 0;
+        $sum_distance = 0;
         foreach ($document->find('.timing_content .timing_city') as $city) {
 
             $region_city = trim(pq($city)->find('.region_city')->text());
             if (!empty($region_city)) {
                 $region = $region_city;
-                $region = str_replace(' (регион)', '', $region);
+                $region = $this->normalizeRegion($region);
             }
 
             $name = trim(pq($city)->find('.timing_city_item')->text());
@@ -83,6 +84,8 @@ class RosneftParser
             $distance = trim(pq($city)->find('.timing_city_distance2:first')->text());
             $distance = str_replace('км.', '', $distance);
 
+            $sum_distance += $distance;
+
             $time = trim(pq($city)->find('.timing_city_distance2:last')->text());
             if (!empty($time)) {
                 $times = explode(':', $time);
@@ -91,6 +94,9 @@ class RosneftParser
 
             $i++;
         }
+
+        $this->route->distance = $sum_distance;
+        $this->route->update(array('distance'));
 
         $document->unloadDocument();
     }
@@ -185,5 +191,23 @@ class RosneftParser
     {
         $fh = fopen($dir = Yii::getPathOfAlias('application.runtime') . DIRECTORY_SEPARATOR . 'regions.txt', 'a');
         fwrite($fh, $name . "\n");
+    }
+
+    public function normalizeRegion($region)
+    {
+        $region = str_replace(' (регион)', '', $region);
+
+        if ($region == 'Чеченская Республика (Ичкерия)') return 'Чеченская Республика';
+        if ($region == 'Еврейская авт. область') return 'Еврейская автономная область';
+        if ($region == 'Волгоград') return 'Волгоградская область';
+        if ($region == 'Усть-Ордынский Бурятский авт.') return 'Иркутская область';
+        if ($region == 'Респ. Северная Осетия (Алания)') return 'Республика Северная Осетия-Алания';
+        if ($region == 'Республика Кабардино-Балкария') return 'Кабардино-Балкарская Республика';
+        if ($region == 'Западно Казахстанская область') return 'Западно-Казахстанская область';
+        if ($region == 'Кызыл-Ординская область') return 'Кзыл-Ординская область';
+        if ($region == 'Карачаево-Черкесская Республик') return 'Карачаево-Черкесская Республика';
+        if ($region == 'Ханты-Манс. авт. окр.') return 'Ханты-Мансийский Автономный округ';
+
+        return $region;
     }
 }

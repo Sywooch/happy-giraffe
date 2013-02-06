@@ -47,7 +47,7 @@ class DefaultController extends HController
 
         foreach ($urls as $i => $url) {
             $photo = AlbumPhoto::createByUrl($url, User::HAPPY_GIRAFFE, Album::TYPE_VALENTINE);
-            echo $i. '. ' . $url . '<br />';
+            echo $i. '. |' . $url . '|<br />';
             echo (($photo instanceof AlbumPhoto) ? 'ок' : 'гавно') . '<br />';
         }
     }

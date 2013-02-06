@@ -2,7 +2,7 @@
 
 class DefaultController extends HController
 {
-    public $body_class = 'body-gray';
+    public $body_class = ' body-gray';
 
     protected function beforeAction($action)
     {

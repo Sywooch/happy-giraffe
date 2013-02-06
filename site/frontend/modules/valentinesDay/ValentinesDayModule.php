@@ -19,7 +19,6 @@ class ValentinesDayModule extends CWebModule
 		if(parent::beforeControllerAction($controller, $action))
 		{
             Yii::app()->clientScript->registerCssFile('/stylesheets/valentine-day.css');
-            Yii::app()->clientScript->registerScriptFile('/javascripts/valentine.js');
 			// this method is called before any module controller action is performed
 			// you may place customized code here
 			return true;

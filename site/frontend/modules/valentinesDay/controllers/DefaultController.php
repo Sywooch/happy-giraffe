@@ -10,8 +10,52 @@ class DefaultController extends HController
         $post = $this->getPhotoPost();
         $videos = ValentineVideo::model()->with('photo')->findAll();
 
-		$this->render('index', compact('post', 'recipe_tag', 'videos'));
+        $criteria = $this->getValentinesCriteria();
+        $criteria->limit = 6;
+        $valentines = AlbumPhoto::model()->findAll($criteria);
+
+		$this->render('index', compact('post', 'recipe_tag', 'videos', 'valentines'));
 	}
+
+    public function actionValentines()
+    {
+        $dp = new CActiveDataProvider('AlbumPhoto', array(
+            'criteria' => $this->getValentinesCriteria(),
+        ));
+
+        $this->render('valentines', compact('dp'));
+    }
+
+    public function actionSms()
+    {
+        $this->meta_title = '100 Смс о любви. Смс ко дню святого Валентина';
+
+        $criteria = new CDbCriteria;
+        $pages = new CPagination(ValentineSms::model()->count());
+        $pages->pageSize = 15;
+        $pages->applyLimit($criteria);
+        $models = ValentineSms::model()->findAll($criteria);
+
+        $this->render('sms', compact('models', 'pages'));
+    }
+
+    public function actionHowToSpend()
+    {
+        $this->meta_title = 'Как провести День святого Валентина';
+
+        $post = $this->getPhotoPost();
+        $this->render('photo_post', compact('post'));
+    }
+
+    /**
+     * @return CommunityContent
+     */
+    public function getPhotoPost()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->compare('rubric.community_id', Community::COMMUNITY_VALENTINE);
+        return CommunityContent::model()->full()->find($criteria);
+    }
 
     public function actionVimeoSync()
     {
@@ -51,32 +95,11 @@ class DefaultController extends HController
         }
     }
 
-    public function actionSms(){
-        $this->meta_title = '100 Смс о любви. Смс ко дню святого Валентина';
-
-        $criteria = new CDbCriteria;
-        $pages = new CPagination(ValentineSms::model()->count());
-        $pages->pageSize = 15;
-        $pages->applyLimit($criteria);
-        $models = ValentineSms::model()->findAll($criteria);
-
-        $this->render('sms', compact('models', 'pages'));
-    }
-
-    public function actionHowToSpend(){
-        $this->meta_title = 'Как провести День святого Валентина';
-
-        $post = $this->getPhotoPost();
-        $this->render('photo_post', compact('post'));
-    }
-
-    /**
-     * @return CommunityContent
-     */
-    public function getPhotoPost()
+    private function getValentinesCriteria()
     {
-        $criteria = new CDbCriteria;
-        $criteria->compare('rubric.community_id', Community::COMMUNITY_VALENTINE);
-        return CommunityContent::model()->full()->find($criteria);
+        return new CDbCriteria(array(
+            'condition' => 'album_id = :type',
+            'params' => array(':type' => Album::getAlbumByType(User::HAPPY_GIRAFFE, Album::TYPE_VALENTINE)->id),
+        ));
     }
 }

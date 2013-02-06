@@ -21,8 +21,8 @@
             </a>
             <img class="menu_tale" alt="" src="/images/menu_tale.png">
         </li>
-        <li class="menu_li">
-            <a class="menu_i" href="<?=$this->createUrl('/valentinesDay/default/index') ?>">
+        <li class="menu_li<? if (Yii::app()->controller->action->id == 'valentines') echo ' active' ?>">
+            <a class="menu_i" href="<?=$this->createUrl('/valentinesDay/default/valentines') ?>">
                 <span class="menu_hold"><i class="menu_ico menu_ico__valentines"></i></span>
                 <span class="menu_frame"><span class="menu_t">Валентинки</span></span>
             </a>
@@ -36,7 +36,7 @@
             <img class="menu_tale" alt="" src="/images/menu_tale.png">
         </li>
         <li class="menu_li">
-            <a class="menu_i" href="<?=$this->createUrl('/valentinesDay/default/index') ?>">
+            <a class="menu_i" href="<?=$this->createUrl('/valentinesDay/default/index', array('#' => 'videos')) ?>">
                 <span class="menu_hold"><i class="menu_ico menu_ico__video"></i></span>
                 <span class="menu_frame"><span class="menu_t">Видео. 10 лучших признаний в любви</span></span>
             </a>

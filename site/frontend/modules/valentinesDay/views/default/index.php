@@ -3,92 +3,112 @@
  * @var $recipe_tag CookRecipeTag
  * @var $post CommunityContent
  */
+    Yii::app()->clientScript
+        ->registerCssFile('/stylesheets/isotope.css')
+        ->registerScriptFile('/javascripts/jquery.isotope.min.js')
+    ;
 
-?><h1 class="valentine-h1">День святого Валентина!</h1>
+    $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
+        'selector' => '.valentines-best_li > a',
+        'entity' => 'Album',
+        'entity_id' => Album::getAlbumByType(User::HAPPY_GIRAFFE, Album::TYPE_VALENTINE)->id,
+    ));
+?>
+
+<script type="text/javascript">
+    var ValentineVideos = {
+        initialIndex: 4,
+        carousel : null,
+
+        choose : function(index) {
+            var el = $($('.valentine-gallery_ul > li').get(index));
+            el.siblings('.active').removeClass('active');
+            el.addClass('active');
+
+            $('.valentine-recognition .margin-b30').html($('#embedTmpl').tmpl({vimeo_id : el.data('vimeoId')}));
+        }
+    }
+
+    $(function() {
+        ValentineVideos.carousel = $('.valentine-gallery_hold').jcarousel({
+            list:'.valentine-gallery_ul',
+            items:'.valentine-gallery_li'
+        });
+
+        $('.valentine-gallery_arrow__next').jcarouselControl({target:'+=1'});
+        $('.valentine-gallery_arrow__prev').jcarouselControl({target:'-=1'});
+
+        ValentineVideos.carousel.jcarousel('scroll', ValentineVideos.initialIndex - 2, false);
+        ValentineVideos.choose(ValentineVideos.initialIndex);
+
+        var $container = $(".valentines-best_ul");
+
+        $container.imagesLoaded(function() {
+            $container.isotope({
+                itemSelector : ".valentines-best_li",
+                masonry: {
+                    columnWidth: 234
+                }
+            });
+        });
+    });
+</script>
+
+<h1 class="valentine-h1">День святого Валентина!</h1>
 <div class="valentine-desc">День Святого Валентина - это праздник, который влюбленные отмечают по всему миру 14 февраля. И конечно же, Валентинов день - это семейный праздник!
     Порадуйте свою вторую половинку нежным смс с днем Валентина, красивым видео о любви или романтической валентинкой. <br>
     Пусть ваши отношения будут романтичными всегда!
 </div>
-<div class="content-cols clearfix">
-    <div class="col-12">
-        <div class="valentine-spent">
-            <h2 class="valentine-spent_t">Как провести <br>День святого Валентина</h2>
-            <a href="javascript:;" class="valentine-spent_img" data-id="<?=$post->gallery->items[0]->photo->id?>">
-                <img src="/images/valentine-day/valentine-spent_img-2.png" alt="">
-                <?php
-                $photo = $post->gallery->items[0];
-                $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
-                    'selector' => 'a.valentine-spent_img,a.valentine-spent_a',
-                    'entity' => get_class($post->gallery),
-                    'entity_id' => (int)$post->gallery->primaryKey,
-                ));
-                ?>
-            </a>
-            <div class="textalign-c">
-                <a href="javascript:;" class="valentine-spent_a" data-id="<?=$post->gallery->items[0]->photo->id?>">
-                    <i class="ico-camera-big"></i>смотреть <?=count($post->gallery->items) ?> фото
+
+<?php if (false): ?>
+    <div class="content-cols clearfix">
+        <div class="col-12">
+            <div class="valentine-spent">
+                <h2 class="valentine-spent_t">Как провести <br>День святого Валентина</h2>
+                <a href="javascript:;" class="valentine-spent_img" data-id="<?=$post->gallery->items[0]->photo->id?>">
+                    <img src="/images/valentine-day/valentine-spent_img-2.png" alt="">
+                    <?php
+                    $photo = $post->gallery->items[0];
+                    $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
+                        'selector' => 'a.valentine-spent_img,a.valentine-spent_a',
+                        'entity' => get_class($post->gallery),
+                        'entity_id' => (int)$post->gallery->primaryKey,
+                    ));
+                    ?>
                 </a>
+                <div class="textalign-c">
+                    <a href="javascript:;" class="valentine-spent_a" data-id="<?=$post->gallery->items[0]->photo->id?>">
+                        <i class="ico-camera-big"></i>смотреть <?=count($post->gallery->items) ?> фото
+                    </a>
+                </div>
+            </div>
+        </div>
+        <?php $models = ValentineSms::LastSms();$url = $this->createUrl('sms');  ?>
+        <div class="col-3">
+            <div class="valentine-sms">
+                <a href="<?=$url ?>" class="valentine-sms_h"></a>
+                <?php foreach ($models as $model): ?>
+                <a href="<?=$url ?>" class="valentine-sms-b">
+                    <span class="valentine-sms-b_t">«<?=$model->title ?>»</span>
+                    <span class="valentine-sms-b_p"><?=$model->getFormattedText() ?></span>
+                </a>
+                <?php endforeach; ?>
+                <div class="textalign-r">
+                    <a href="<?=$url ?>" class="valentine-sms_more">Читать все SMS-ки</a>
+                </div>
             </div>
         </div>
     </div>
-    <?php $models = ValentineSms::LastSms();$url = $this->createUrl('sms');  ?>
-    <div class="col-3">
-        <div class="valentine-sms">
-            <a href="<?=$url ?>" class="valentine-sms_h"></a>
-            <?php foreach ($models as $model): ?>
-            <a href="<?=$url ?>" class="valentine-sms-b">
-                <span class="valentine-sms-b_t">«<?=$model->title ?>»</span>
-                <span class="valentine-sms-b_p"><?=$model->getFormattedText() ?></span>
-            </a>
-            <?php endforeach; ?>
-            <div class="textalign-r">
-                <a href="<?=$url ?>" class="valentine-sms_more">Читать все SMS-ки</a>
-            </div>
-        </div>
-    </div>
-</div>
+<?php endif; ?>
 
 <div class="content-cols clearfix">
     <div class="col-12">
         <div class="valentines-best">
             <h2 class="valentines-best_h">Лучшие валентинки</h2>
             <ul class="valentines-best_ul clearfix">
-                <li class="valentines-best_li">
-                    <a href="" class="valentines-best_a">
-                        <img src="/images/example/w220-h309-1.jpg" alt="">
-                        <span class="valentines-best_btn">Отправить</span>
-                    </a>
-                </li>
-                <li class="valentines-best_li">
-                    <a href="" class="valentines-best_a">
-                        <img src="/images/example/w220-h309-1.jpg" alt="">
-                        <span class="valentines-best_btn">Отправить</span>
-                    </a>
-                </li>
-                <li class="valentines-best_li">
-                    <a href="" class="valentines-best_a">
-                        <img src="/images/example/w220-h164-1.jpg" alt="">
-                        <span class="valentines-best_btn">Отправить</span>
-                    </a>
-                </li>
-                <li class="valentines-best_li">
-                    <a href="" class="valentines-best_a">
-                        <img src="/images/example/w220-h309-1.jpg" alt="">
-                        <span class="valentines-best_btn">Отправить</span>
-                    </a>
-                </li>
-                <li class="valentines-best_li">
-                    <a href="" class="valentines-best_a">
-                        <img src="/images/example/w220-h164-1.jpg" alt="">
-                        <span class="valentines-best_btn">Отправить</span>
-                    </a>
-                </li>
-                <li class="valentines-best_li">
-                    <a href="" class="valentines-best_a">
-                        <img src="/images/example/w220-h164-1.jpg" alt="">
-                        <span class="valentines-best_btn">Отправить</span>
-                    </a>
-                </li>
+                <?php foreach ($valentines as $v) : ?>
+                    <?php $this->renderPartial('_valentine', array('data' => $v)); ?>
+                <?php endforeach; ?>
             </ul>
         </div>
     </div>
@@ -115,7 +135,7 @@
     </div>
 </div>
 
-<div class="valentine-recognition">
+<div class="valentine-recognition" id="videos">
     <h2 class="valentine-recognition_t">
         <span class="valentine-recognition_t-big">Самые</span>романтичные признания
     </h2>

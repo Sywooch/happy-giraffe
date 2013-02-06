@@ -8,7 +8,8 @@ class DefaultController extends HController
 
         } else {
             $route = $this->loadModel($id);
-            $this->render('page', compact('route'));
+            $texts = $route->getTexts();
+            $this->render('page', compact('route', 'texts'));
         }
     }
 

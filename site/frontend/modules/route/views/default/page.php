@@ -4,9 +4,10 @@
  * Date: 01.02.13
  *
  * @var $route Route
+ * @var $texts array
  */
 
-$distance = 1000;
+$distance = $route->distance;
 
 $fuels = FuelCost::model()->findAll();
 $result = array();
@@ -37,19 +38,17 @@ Yii::app()->clientScript
     .pac-container:after {content: none !important;}
 </style>
 <div class="map-route-search">
-    <a href="#" class="map-route-search_new a-pseudo">Новый маршрут</a>
+    <a href="#" class="map-route-search_new a-pseudo" onclick="$('form.map-route-search_form').toggle();">Новый маршрут</a>
 
-    <h1 class="map-route-search_h1">Маршрут <?=$route->cityFrom->name?> - <?=$route->cityTo->name ?></h1>
+    <h1 class="map-route-search_h1"><?=$texts[0] ?></h1>
 
-    <form action="" class="map-route-search_form clearfix">
+    <form action="" class="map-route-search_form clearfix" style="display: none;">
         <input id="city_from" type="" class="map-route-search_itx itx-bluelight" placeholder="Откуда">
         <a href="" class="map-route-search_reverse"></a>
         <input id="city_to" type="" class="map-route-search_itx itx-bluelight" placeholder="Куда">
         <button class="btn-green map-route-search_btn">Проложить <br> маршрут</button>
     </form>
-    <p>Узнайте, как доехать на авто от Киева до Донецка. <br>
-        Схема трассы Донецк-Киев на карте. Выбирайте нужные вам дороги, трассы, шоссе и магистрали на пути от Донецка до
-        Киева.</p>
+    <p><?=$texts[1] ?></p>
 
 </div>
 <div class="margin-b30">
@@ -63,11 +62,11 @@ Yii::app()->clientScript
                     <div class="map-route-calc_img">
                         <img src="/images/services/map-route/map-route-car.png" alt="">
                     </div>
-                    <div class="map-route-calc_t clearfix">Расстояние между Киевом и Донецком</div>
+                    <div class="map-route-calc_t clearfix"><?=$texts[3] ?></div>
                 </div>
                 <div class="map-route-calc_value"><span data-bind="text: distance"></span> <span
                         class="map-route-calc_units">км</span></div>
-                <div class="map-route-calc_desc">Столько километров от Киева до Донецка на автомобиле</div>
+                <div class="map-route-calc_desc"><?=$texts[4] ?></div>
             </div>
 
             <div class="map-route-calc_item">
@@ -75,7 +74,7 @@ Yii::app()->clientScript
                     <div class="map-route-calc_img">
                         <img src="/images/services/map-route/map-route-time.png" alt="">
                     </div>
-                    <div class="map-route-calc_t clearfix">Время в пути <br>от Киева до Донецка</div>
+                    <div class="map-route-calc_t clearfix"><?=$texts[5] ?></div>
                 </div>
                 <div class="map-route-calc_row clearfix">
                     <input type="text" class="map-route-calc_itx map-route-calc_itx__speed itx-bluelight"
@@ -86,7 +85,7 @@ Yii::app()->clientScript
                     <span data-bind="text: DurationHours"></span> <span class="map-route-calc_units">ч</span>
                     <span data-bind="text: DurationMinutes"></span> <span class="map-route-calc_units">м</span>
                 </div>
-                <div class="map-route-calc_desc">Столько времени ехать от Киева до Донецка</div>
+                <div class="map-route-calc_desc"><?=$texts[6] ?></div>
             </div>
 
             <div class="map-route-calc_item">
@@ -121,7 +120,7 @@ Yii::app()->clientScript
         </div>
 
         <div class="map-route-share">
-            <div class="map-route-share_tx">Отправьте маршрут поездки Донецк-Киев своим друзьям</div>
+            <div class="map-route-share_tx"><?=$texts[7] ?></div>
             <div class="custom-likes-small">
                 <a href="" class="custom-like-small">
                     <span class="custom-like-small_icon odkl"></span>
@@ -137,11 +136,11 @@ Yii::app()->clientScript
                 <a href="" class="custom-like-small">
                     <span class="custom-like-small_icon fb"></span>
                 </a>
-                <a href="" class="custom-like-small">
+                <a href="javascript:;" class="custom-like-small" onclick="$('#email-popup').toggle();">
                     <span class="custom-like-small_icon mail"></span>
                 </a>
 
-                <div class="custom-like-small-popup">
+                <div id="email-popup" class="custom-like-small-popup">
                     <div class="custom-like-small-popup_t">Отправить маршрут другу</div>
                     <input type="text" name="" class="custom-like-small-popup_it itx-bluelight"
                            placeholder="Свой email">
@@ -156,52 +155,15 @@ Yii::app()->clientScript
             </div>
             <div class="map-route-share_tx">Ссылка на этот маршрут:</div>
             <div class="link-box">
-                <a href="<?=$this->createUrl('/services/route/default/index', array('id' => $route->id)) ?>"
-                   class="link-box_a"><?=$this->createAbsoluteUrl('/services/route/default/index', array('id' => $route->id)) ?></a>
+                <a href="<?=$this->createUrl('/route/default/index', array('id' => $route->id)) ?>"
+                   class="link-box_a"><?=$this->createAbsoluteUrl('/route/default/index', array('id' => $route->id)) ?></a>
             </div>
         </div>
-
-
-        <div class="map-route-share">
-            <div class="map-route-share_tx">Отправьте маршрут поездки Донецк-Киев своим друзьям</div>
-            <div class="custom-likes-small">
-                <a href="" class="custom-like-small">
-                    <span class="custom-like-small_icon odkl"></span>
-                </a>
-                <a href="" class="custom-like-small">
-                    <span class="custom-like-small_icon mailru"></span>
-                </a>
-
-                <a href="" class="custom-like-small">
-                    <span class="custom-like-small_icon vk"></span>
-                </a>
-
-                <a href="" class="custom-like-small">
-                    <span class="custom-like-small_icon fb"></span>
-                </a>
-                <a href="" class="custom-like-small">
-                    <span class="custom-like-small_icon mail"></span>
-                </a>
-
-                <div class="custom-like-small-popup" style="display:block;">
-                    <div class="custom-like-small-popup_t">Отправить маршрут другу</div>
-                    <input type="text" name="" class="custom-like-small-popup_it itx-bluelight"
-                           placeholder="Email друга">
-                    <textarea name="" cols="20" rows="3" class="custom-like-small-popup_textarea itx-bluelight"
-                              placeholder="Добавить сообщение"></textarea>
-                    <button class="custom-like-small-popup_btn btn-green btn-medium">Отправить</button>
-                </div>
-            </div>
-            <div class="map-route-share_tx">Ссылка на этот маршрут:</div>
-            <div class="link-box">
-                <a href="<?=$this->createUrl('/services/route/default/index', array('id' => $route->id)) ?>"
-                   class="link-box_a"><?=$this->createAbsoluteUrl('/services/route/default/index', array('id' => $route->id)) ?></a>
-            </div>
-        </div>
-
     </div>
+
+
     <div class="col-23">
-        <?php $this->renderPartial('_transit_points', array('route' => $route)); ?>
+        <?php $this->renderPartial('_transit_points', array('route' => $route, 'texts'=>$texts)); ?>
 
         <div class="map-route-other">
 

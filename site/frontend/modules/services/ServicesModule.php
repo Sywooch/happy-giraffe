@@ -37,7 +37,6 @@ class ServicesModule extends CWebModule
             'bodyFat',
             'birthDate',
             'lines',
-            'route'
         ));
     }
 

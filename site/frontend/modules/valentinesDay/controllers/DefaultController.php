@@ -2,6 +2,8 @@
 
 class DefaultController extends HController
 {
+    public $body_class = 'body-gray';
+
     protected function beforeAction($action)
     {
         Yii::app()->clientScript->registerCssFile('/stylesheets/valentine-day.css');

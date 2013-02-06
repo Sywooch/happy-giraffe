@@ -11,11 +11,22 @@ var UserLocation = {
             data:{id:elem.val()},
             type:'POST',
             success:function (response) {
-                $('#region_id').html(response);
-                $("#region_id").trigger("liszt:updated");
+                if (response == ""){
+                    $('div.settlement').hide();
+                    $('#location-region').hide();
+                    $('#first_steps_region').hide();
+                    $('select#region_id').val('');
 
-                $('#first_steps_region_id').html(response);
-                $("#first_steps_region_id").trigger("liszt:updated");
+                }else{
+                    $('#location-region').show();
+                    $('#first_steps_region').show();
+
+                    $('#region_id').html(response);
+                    $('#first_steps_region_id').html(response);
+
+                    $("#region_id").trigger("liszt:updated");
+                    $("#first_steps_region_id").trigger("liszt:updated");
+                }
             }
         });
     },

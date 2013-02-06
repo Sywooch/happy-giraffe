@@ -1,4 +1,9 @@
-<h1 class="valentine-h1">День святого Валентина!</h1>
+<?php
+/**
+ * @var $recipe_tag CookRecipeTag
+ */
+
+?><h1 class="valentine-h1">День святого Валентина!</h1>
 <div class="valentine-desc">День Святого Валентина - это праздник, который влюбленные отмечают по всему миру 14 февраля. И конечно же, Валентинов день - это семейный праздник!
     Порадуйте свою вторую половинку нежным смс с днем Валентина, красивым видео о любви или романтической валентинкой. <br>
     Пусть ваши отношения будут романтичными всегда!
@@ -79,36 +84,23 @@
         </div>
     </div>
     <div class="col-3">
+        <?php $recipes = $recipe_tag->getLastRecipes(); ?>
         <div class="valentine-cook">
-            <h3 class="valentine-cook_t">Романтические блюда <br>к дню святого Валентина</h3>
+            <h3 class="valentine-cook_t">Романтические блюда <br>ко дню святого Валентина</h3>
             <ul class="valentine-cook_ul">
-                <li class="valentine-cook_li clearfix">
-                    <a href="" class="valentine-cook_a">
-									<span class="valentine-cook_img">
-										<img src="/images/example/w95-h71-1.jpg" alt="">
-									</span>
-                        <span class="valentine-cook_desc">Салатик «Вкусная валентинка»</span>
-                    </a>
-                </li>
-                <li class="valentine-cook_li clearfix">
-                    <a href="" class="valentine-cook_a">
-									<span class="valentine-cook_img">
-										<img src="/images/example/w95-h71-1.jpg" alt="">
-									</span>
-                        <span class="valentine-cook_desc">Салатик «Вкусная валентинка»</span>
-                    </a>
-                </li>
-                <li class="valentine-cook_li clearfix">
-                    <a href="" class="valentine-cook_a">
-									<span class="valentine-cook_img">
-										<img src="/images/example/w95-h71-1.jpg" alt="">
-									</span>
-                        <span class="valentine-cook_desc">Салатик «Вкусная валентинка»</span>
-                    </a>
-                </li>
+                <?php foreach ($recipes as $recipe): ?>
+                    <li class="valentine-cook_li clearfix">
+                        <a href="<?=$recipe->getUrl() ?>" class="valentine-cook_a">
+                            <span class="valentine-cook_img">
+                                <img src="<?=$recipe->getMainPhoto()->getPreviewUrl(95, 100) ?>" alt="">
+                            </span>
+                            <span class="valentine-cook_desc"><?=$recipe->title ?></span>
+                        </a>
+                    </li>
+                <?php endforeach; ?>
             </ul>
             <div class="textalign-r">
-                <a href="" class="valentine-cook_more">Все рецепты</a>
+                <a href="<?=$recipe_tag->getUrl() ?>" class="valentine-cook_more">Все рецепты</a>
             </div>
         </div>
     </div>

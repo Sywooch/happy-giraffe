@@ -12,6 +12,9 @@ if ($hide_text)
 
 ?><div class="cook-title-cat">
     <h1 class="cook-title-cat-h1">
+        <?php if ($model->id == CookRecipeTag::TAG_VALENTINE):?>
+            <span class="cook-cat active"><i class="ico-valentine-heart"></i></span>
+        <?php endif ?>
         <span class="cook-title-cat-h1-text"><?= $model->title; ?></span>
     </h1>
     <?php if (!$hide_text):?>

@@ -96,6 +96,9 @@ class RecipeController extends HController
         $this->layout = '//layouts/recipe';
         $this->currentType = $type;
 
+        if (CookRecipeTag::TAG_VALENTINE == $model->id)
+            $this->body_class .= ' body__valentine';
+
         $dp = CActiveRecord::model($this->modelName)->getByTag($tag, $type);
         $this->counts = CActiveRecord::model($this->modelName)->getCountsByTag($tag);
         $dp->totalItemCount = $this->counts[$type];
@@ -104,13 +107,13 @@ class RecipeController extends HController
             $this->breadcrumbs = array(
                 'Кулинария' => array('/cook'),
                 'Кулинарные рецепты' => array('/cook/recipe'),
-                $model->title
+                strip_tags($model->title)
             );
         else
             $this->breadcrumbs = array(
                 'Кулинария' => array('/cook'),
                 'Кулинарные рецепты' => array('/cook/recipe'),
-                $model->title => $this->createUrl('/cook/recipe/tag', array('tag' => $tag)),
+                strip_tags($model->title) => $this->createUrl('/cook/recipe/tag', array('tag' => $tag)),
                 CookRecipe::model()->types[$type],
             );
 

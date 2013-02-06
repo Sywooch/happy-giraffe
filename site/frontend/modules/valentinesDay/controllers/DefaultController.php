@@ -29,11 +29,24 @@ class DefaultController extends HController
             $model->title = $video->title;
 
             $thumbUrl = $video->thumbnails->thumbnail[3]->_content;
-            $photo = AlbumPhoto::createByUrl($thumbUrl, 1);
+            $photo = AlbumPhoto::createByUrl($thumbUrl, 1, false);
 
             $model->photo_id = $photo->id;
             $model->save();
         }
+    }
+
+    public function actionValentinesSync()
+    {
+        $album = Album::model()->findByAttributes(array('author_id' => User::HAPPY_GIRAFFE, 'type' => Album::TYPE_VALENTINE));
+        if ($album !== null)
+            $album->delete();
+
+        $path = Yii::getPathOfAlias('site.common.data') . DIRECTORY_SEPARATOR . 'valentines.txt';
+        $urls = file($path);
+
+        foreach ($urls as $url)
+            AlbumPhoto::createByUrl($url, User::HAPPY_GIRAFFE, Album::TYPE_VALENTINE);
     }
 
     public function actionSms(){

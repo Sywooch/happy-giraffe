@@ -19,8 +19,6 @@
                 $text = $post->post->purified->text;
                 $text = str_replace('<!--gallery-->', '', $text);
 
-                $photo = $post->gallery->items[0];
-
                 $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
                     'selector' => 'a.valentine-spent_img',
                     'entity' => get_class($post->gallery),

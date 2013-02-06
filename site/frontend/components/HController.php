@@ -18,7 +18,7 @@ class HController extends CController
     public $pGallery = null;
     public $broadcast = false;
 
-    public $body_class = '';
+    public $body_class = 'body-club';
 
     protected $r = 149;
 

@@ -265,7 +265,7 @@ class AlbumPhoto extends HActiveRecord
             return false;
 
         if ($album_type !== false)
-            $model->album_id = Album::getAlbumByType($user_id, $album_type)->id;
+            $model->album_id = Album::getAlbumByType($user_id, $album_type)-> $album_id;
         $model->fs_name = $file_name . '.' . $ext;
         $model->file_name = $file_name . '.' . $ext;
         $model->save(false);

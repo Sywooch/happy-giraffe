@@ -46,9 +46,8 @@ class DefaultController extends HController
         $urls = file($path, FILE_IGNORE_NEW_LINES);
 
         foreach ($urls as $i => $url) {
-            $photo = AlbumPhoto::createByUrl($url, User::HAPPY_GIRAFFE, Album::TYPE_VALENTINE);
-            echo $i. '. |' . $url . '|<br />';
-            echo (($photo instanceof AlbumPhoto) ? 'ок' : 'гавно') . '<br />';
+            if (AlbumPhoto::createByUrl($url, User::HAPPY_GIRAFFE, Album::TYPE_VALENTINE) === false)
+                echo $url . '<br />';
         }
     }
 

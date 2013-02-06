@@ -248,5 +248,5 @@
 	float: right;
 	background-position: -36px 0;
 }
-.valentine-gallery_arrow__next.disabled {background-position: -36px -86px;}
+.valentine-gallery_arrow__next.jcarousel-control-inactive {background-position: -36px -86px;}
 

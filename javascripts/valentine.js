@@ -3,7 +3,7 @@ var ValentineVideos = {
 }
 
 $(function() {
-    ValentineVideos.carousel = $('.valentine-gallery').jcarousel({
+    ValentineVideos.carousel = $('.valentine-gallery_hold').jcarousel({
         list:'.valentine-gallery_ul',
         items:'.valentine-gallery_li'
     });

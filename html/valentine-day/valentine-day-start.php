@@ -168,7 +168,7 @@
 									<span class="valentine-gallery_img">
 										<img src="/images/example/w152-h84-1.jpg" alt="">
 									</span>
-									<span class="valentine-gallery_desc">Известная история</span>
+									<span class="valentine-gallery_desc">Известная история история историяистория</span>
 								</a>
 							</li>
 							<li class="valentine-gallery_li">

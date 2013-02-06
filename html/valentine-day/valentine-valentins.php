@@ -113,6 +113,7 @@
 		})
 	
 	</script>
+					<div class="valentines-best_hold">
 						<ul class="valentines-best_ul clearfix">
 							<li class="valentines-best_li">
 								<a href="" class="valentines-best_a">
@@ -171,6 +172,8 @@
 								</a>
 							</li>
 						</ul>
+						<div id="infscr-loading"><img alt="Loading..." src="/images/ico/ajax-loader.gif" /><div>Загрузка</div></div>
+					</div>
 					</div>
 				
 					<div class="pagination pagination-center clearfix">

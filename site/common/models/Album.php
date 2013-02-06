@@ -288,7 +288,7 @@ class Album extends HActiveRecord
      */
     public static function getAlbumByType($author_id, $type)
     {
-        $album = Album::model()->findByAttributes(array('author_id' => $author_id, 'type' => $type));
+        $album = Album::model()->active()->findByAttributes(array('author_id' => $author_id, 'type' => $type));
         if(!$album)
         {
             $album = new Album;

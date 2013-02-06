@@ -33,7 +33,7 @@
 										<i class="menu_ico menu_ico__valentine-day"></i>
 									</span>
 									<span class="menu_frame">
-										<span class="menu_t menu_t__color-red">День святого Валентина</span>
+										<span class="menu_t menu_t__color-red">День святого <br>Валентина</span>
 									</span>
 								</a>
 								<img class="menu_tale" alt="" src="/images/menu_tale.png">
@@ -44,7 +44,7 @@
 										<i class="menu_ico menu_ico__cook"></i>
 									</span>
 									<span class="menu_frame">
-										<span class="menu_t">Что приготовить</span>
+										<span class="menu_t">Что приготовить <br>к дню влюбленныхь</span>
 									</span>
 								</a>
 								<img class="menu_tale" alt="" src="/images/menu_tale.png">
@@ -55,7 +55,7 @@
 										<i class="menu_ico menu_ico__tel"></i>
 									</span>
 									<span class="menu_frame">
-										<span class="menu_t">СМС к дню святого Валентина</span>
+										<span class="menu_t">СМС к дню святого <br>Валентина</span>
 									</span>
 								</a>
 								<img class="menu_tale" alt="" src="/images/menu_tale.png">
@@ -66,7 +66,7 @@
 										<i class="menu_ico menu_ico__valentines"></i>
 									</span>
 									<span class="menu_frame">
-										<span class="menu_t">Валентинки</span>
+										<span class="menu_t">Самые лучшие <br>валентинки</span>
 									</span>
 								</a>
 								<img class="menu_tale" alt="" src="/images/menu_tale.png">
@@ -77,7 +77,7 @@
 										<i class="menu_ico menu_ico__photo"></i>
 									</span>
 									<span class="menu_frame">
-										<span class="menu_t">Фото. Как провести день святого Валентина</span>
+										<span class="menu_t">Как провести день <br>святого Валентина</span>
 									</span>
 								</a>
 								<img class="menu_tale" alt="" src="/images/menu_tale.png">
@@ -88,7 +88,7 @@
 										<i class="menu_ico menu_ico__video"></i>
 									</span>
 									<span class="menu_frame">
-										<span class="menu_t">Видео. 10 лучших признаний в любви</span>
+										<span class="menu_t">Лучшие признания <br>в любви</span>
 									</span>
 								</a>
 								<img class="menu_tale" alt="" src="/images/menu_tale.png">

@@ -60,46 +60,45 @@
     Пусть ваши отношения будут романтичными всегда!
 </div>
 
-<?php if (false): ?>
-    <div class="content-cols clearfix">
-        <div class="col-12">
-            <div class="valentine-spent">
-                <h2 class="valentine-spent_t">Как провести <br>День святого Валентина</h2>
-                <a href="javascript:;" class="valentine-spent_img" data-id="<?=$post->gallery->items[0]->photo->id?>">
-                    <img src="/images/valentine-day/valentine-spent_img-2.png" alt="">
-                    <?php
-                    $photo = $post->gallery->items[0];
-                    $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
-                        'selector' => 'a.valentine-spent_img,a.valentine-spent_a',
-                        'entity' => get_class($post->gallery),
-                        'entity_id' => (int)$post->gallery->primaryKey,
-                    ));
-                    ?>
+
+<div class="content-cols clearfix">
+    <div class="col-12">
+        <div class="valentine-spent">
+            <h2 class="valentine-spent_t">Как провести <br>День святого Валентина</h2>
+            <a href="javascript:;" class="valentine-spent_img" data-id="<?=$post->gallery->items[0]->photo->id?>">
+                <img src="/images/valentine-day/valentine-spent_img-2.png" alt="">
+                <?php
+                $photo = $post->gallery->items[0];
+                $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
+                    'selector' => 'a.valentine-spent_img,a.valentine-spent_a',
+                    'entity' => get_class($post->gallery),
+                    'entity_id' => (int)$post->gallery->primaryKey,
+                ));
+                ?>
+            </a>
+            <div class="textalign-c">
+                <a href="javascript:;" class="valentine-spent_a" data-id="<?=$post->gallery->items[0]->photo->id?>">
+                    <i class="ico-camera-big"></i>смотреть <?=count($post->gallery->items) ?> фото
                 </a>
-                <div class="textalign-c">
-                    <a href="javascript:;" class="valentine-spent_a" data-id="<?=$post->gallery->items[0]->photo->id?>">
-                        <i class="ico-camera-big"></i>смотреть <?=count($post->gallery->items) ?> фото
-                    </a>
-                </div>
-            </div>
-        </div>
-        <?php $models = ValentineSms::LastSms();$url = $this->createUrl('sms');  ?>
-        <div class="col-3">
-            <div class="valentine-sms">
-                <a href="<?=$url ?>" class="valentine-sms_h"></a>
-                <?php foreach ($models as $model): ?>
-                <a href="<?=$url ?>" class="valentine-sms-b">
-                    <span class="valentine-sms-b_t">«<?=$model->title ?>»</span>
-                    <span class="valentine-sms-b_p"><?=$model->getFormattedText() ?></span>
-                </a>
-                <?php endforeach; ?>
-                <div class="textalign-r">
-                    <a href="<?=$url ?>" class="valentine-sms_more">Читать все SMS-ки</a>
-                </div>
             </div>
         </div>
     </div>
-<?php endif; ?>
+    <?php $models = ValentineSms::LastSms();$url = $this->createUrl('sms');  ?>
+    <div class="col-3">
+        <div class="valentine-sms">
+            <a href="<?=$url ?>" class="valentine-sms_h"></a>
+            <?php foreach ($models as $model): ?>
+            <a href="<?=$url ?>" class="valentine-sms-b">
+                <span class="valentine-sms-b_t">«<?=$model->title ?>»</span>
+                <span class="valentine-sms-b_p"><?=$model->getFormattedText() ?></span>
+            </a>
+            <?php endforeach; ?>
+            <div class="textalign-r">
+                <a href="<?=$url ?>" class="valentine-sms_more">Читать все SMS-ки</a>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="content-cols clearfix">
     <div class="col-12">

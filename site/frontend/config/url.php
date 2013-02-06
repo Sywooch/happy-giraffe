@@ -253,6 +253,9 @@ return array(
 
         'routes/<id:[\d]+>'=>'route/default/index',
         'routes/<_a>'=>'route/default/<_a>',
-        'routes/'=>'route/default/index',
+        'routes'=>'route/default/index',
+
+        'valentinesDay'=>'valentinesDay/default/index',
+        'valentinesDay/<_a>'=>'valentinesDay/default/<_a>'
     ),
 );

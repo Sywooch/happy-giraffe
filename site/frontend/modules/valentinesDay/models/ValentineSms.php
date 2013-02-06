@@ -88,4 +88,17 @@ class ValentineSms extends HActiveRecord
             'pagination' => array('pageSize' => 200),
 		));
 	}
+
+    /**
+     * @param int $limit
+     * @return ValentineSms[]
+     */
+    public static function LastSms($limit = 2)
+    {
+        $criteria = new CDbCriteria;
+        $criteria->order = 'id desc';
+        $criteria->limit = $limit;
+
+        return ValentineSms::model()->findAll($criteria);
+    }
 }

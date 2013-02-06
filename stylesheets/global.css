@@ -4584,11 +4584,6 @@ ul.letters li a:hover {
 
 /* */
 .recipe-article {color:#020202;margin:1px 1px 30px;border: 1px solid #fff;outline: 1px solid #e7e7e7;padding:5px 17px 20px; background: #ebf2fb;width: auto;}
-.recipe-article__valentine {
-    border: 3px solid #fff;
-    outline: 1px solid #efc1d5;
-    background: #ffe6ee;
-}
 .recipe-article .fn .icon-edit {display:inline-block;*zoom:1;*display:inline;width:14px;height:18px;background:url(../images/common.png) no-repeat -383px -204px;margin:0 auto;position:relative;text-decoration:none;}
 .recipe-article .fn .icon-edit:hover {background-position:-341px -136px;}
 .recipe-article .fn .icon-remove {display:inline-block;*zoom:1;*display:inline;width:12px;height:14px;background:url(/images/common.png) no-repeat -314px -135px;vertical-align:middle;position:relative;top:-1px;}
@@ -4690,7 +4685,6 @@ ul.letters li a:hover {
     border-radius: 15px;
     behavior: url(/stylesheets/PIE.htc);
 }
-.recipe-article__valentine .recipe-description-holder {background: #fdcde1;}
 .recipe-article .recipe-description .country {font-size: 13px;margin-right: 25px;float: left;color: #029AD2;text-decoration: underline;}
 .recipe-article .recipe-description .country .flag-big {display: inline-block;*zoom:1;*display:inline;vertical-align: middle;margin:-4px 5px 0 0;}
 .recipe-article .recipe-description .recipe-description-item {

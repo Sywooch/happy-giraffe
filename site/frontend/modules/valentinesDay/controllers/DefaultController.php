@@ -2,11 +2,15 @@
 
 class DefaultController extends HController
 {
+    public $body_class = ' body-gray';
+
 	public function actionIndex()
 	{
+        $recipe_tag = CookRecipeTag::model()->findByPk(CookRecipeTag::TAG_VALENTINE);
+        $post = $this->getPhotoPost();
         $videos = ValentineVideo::model()->with('photo')->findAll();
 
-		$this->render('index', compact('videos'));
+		$this->render('index', compact('post', 'recipe_tag', 'videos'));
 	}
 
     public function actionVimeoSync()
@@ -33,6 +37,8 @@ class DefaultController extends HController
     }
 
     public function actionSms(){
+        $this->meta_title = '100 Смс о любви. Смс ко дню святого Валентина';
+
         $criteria = new CDbCriteria;
         $pages = new CPagination(ValentineSms::model()->count());
         $pages->pageSize = 15;
@@ -40,5 +46,22 @@ class DefaultController extends HController
         $models = ValentineSms::model()->findAll($criteria);
 
         $this->render('sms', compact('models', 'pages'));
+    }
+
+    public function actionHowToSpend(){
+        $this->meta_title = 'Как провести День святого Валентина';
+
+        $post = $this->getPhotoPost();
+        $this->render('photo_post', compact('post'));
+    }
+
+    /**
+     * @return CommunityContent
+     */
+    public function getPhotoPost()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->compare('rubric.community_id', Community::COMMUNITY_VALENTINE);
+        return CommunityContent::model()->full()->find($criteria);
     }
 }

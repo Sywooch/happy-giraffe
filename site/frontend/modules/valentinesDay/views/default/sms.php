@@ -1,6 +1,6 @@
 <div class="content-cols margin-t20 clearfix">
     <div class="col-1">
-        <?php $this->renderPartial('menu',array()); ?>
+        <?php $this->renderPartial('menu'); ?>
     </div>
     <div class="col-12">
         <div class="valentine-sms">
@@ -20,7 +20,7 @@
         <?php if ($pages !== null): ?>
         <?php if ($pages->pageCount > 1): ?>
             <div class="pagination pagination-center clearfix">
-                <?php $this->widget('CLinkPager', array('pages' => $pages)); ?>
+                <?php $this->widget('AlbumLinkPager', array('pages' => $pages)); ?>
             </div>
             <?php endif; ?>
         <?php endif; ?>

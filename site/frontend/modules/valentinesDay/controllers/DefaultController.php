@@ -2,15 +2,24 @@
 
 class DefaultController extends HController
 {
+    protected function beforeAction($action)
+    {
+        Yii::app()->clientScript->registerCssFile('/stylesheets/valentine-day.css');
+        return true;
+    }
+
 	public function actionIndex()
 	{
-        Yii::app()->clientScript->registerCssFile('/stylesheets/valentine-day.css');
 		$this->render('index');
 	}
 
     public function actionSms(){
-        $models = ValentineSms::model()->findAll();
+        $criteria = new CDbCriteria;
+        $pages = new CPagination(ValentineSms::model()->count());
+        $pages->pageSize = 15;
+        $pages->applyLimit($criteria);
+        $models = ValentineSms::model()->findAll($criteria);
 
-        $this->render('sms', compact('models'));
+        $this->render('sms', compact('models', 'pages'));
     }
 }

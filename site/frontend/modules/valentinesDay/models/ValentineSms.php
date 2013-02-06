@@ -101,4 +101,9 @@ class ValentineSms extends HActiveRecord
 
         return ValentineSms::model()->findAll($criteria);
     }
+
+    public function getFormattedText()
+    {
+        return str_replace("\n", '<br>', trim($this->text));
+    }
 }

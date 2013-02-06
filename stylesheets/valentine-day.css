@@ -78,7 +78,7 @@
 .valentine-sms-b_t {
 	margin: 0 0 7px;
 	font-weight: bold;
-	color: #b6074f;
+	color: #686868;
 	display: block;
 }
 .valentine-sms_more {
@@ -209,6 +209,7 @@
 .valentine-gallery_li {
 	float: left;
 	margin-right: 15px;
+	width: 162px;
 }
 .valentine-gallery_a {
 	display: block;

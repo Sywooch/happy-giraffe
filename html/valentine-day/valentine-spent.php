@@ -60,7 +60,7 @@
 								</a>
 								<img class="menu_tale" alt="" src="/images/menu_tale.png">
 							</li>
-							<li class="menu_li active">
+							<li class="menu_li">
 								<a class="menu_i" href="">
 									<span class="menu_hold">
 										<i class="menu_ico menu_ico__valentines"></i>
@@ -71,7 +71,7 @@
 								</a>
 								<img class="menu_tale" alt="" src="/images/menu_tale.png">
 							</li>
-							<li class="menu_li">
+							<li class="menu_li active">
 								<a class="menu_i" href="">
 									<span class="menu_hold">
 										<i class="menu_ico menu_ico__photo"></i>
@@ -98,96 +98,17 @@
 					
 				</div>
 				<div class="col-12">
-					<div class="valentines-best">
-						<h2 class="valentines-best_t">Лучшие валентинки</h2>
-						<p class="valentines-best_p">Валентинки - это маленькие открытки, куда вписываются самые горячие признания в любви. Мы собрали для вас лучшие валентинки - вы сможете скачать их, написать свои поздравления и отправить любимым! </p>
-	<script>
-		/* Пример: */
-		$(function(){
-			
-			$('.valentines-best_ul').isotope({
-			  // options
-			  itemSelector : '.valentines-best_li'
-			});
-			
-		})
-	
-	</script>
-						<ul class="valentines-best_ul clearfix">
-							<li class="valentines-best_li">
-								<a href="" class="valentines-best_a">
-									<img src="/images/example/w220-h309-1.jpg" alt="">
-									<span class="valentines-best_btn">Посмотреть</span>
-								</a>
-							</li>
-							<li class="valentines-best_li">
-								<a href="" class="valentines-best_a">
-									<img src="/images/example/w220-h309-1.jpg" alt="">
-									<span class="valentines-best_btn">Посмотреть</span>
-								</a>
-							</li>
-							<li class="valentines-best_li">
-								<a href="" class="valentines-best_a">
-									<img src="/images/example/w220-h165-1.jpg" alt="">
-									<span class="valentines-best_btn">Посмотреть</span>
-								</a>
-							</li>
-							<li class="valentines-best_li">
-								<a href="" class="valentines-best_a">
-									<img src="/images/example/w220-h309-1.jpg" alt="">
-									<span class="valentines-best_btn">Посмотреть</span>
-								</a>
-							</li>
-							
-							<li class="valentines-best_li">
-								<a href="" class="valentines-best_a">
-									<img src="/images/example/w220-h309-1.jpg" alt="">
-									<span class="valentines-best_btn">Посмотреть</span>
-								</a>
-							</li>
-							<li class="valentines-best_li">
-								<a href="" class="valentines-best_a">
-									<img src="/images/example/w220-h164-1.jpg" alt="">
-									<span class="valentines-best_btn">Посмотреть</span>
-								</a>
-							</li>
-							
-							<li class="valentines-best_li">
-								<a href="" class="valentines-best_a">
-									<img src="/images/example/w220-h165-1.jpg" alt="">
-									<span class="valentines-best_btn">Посмотреть</span>
-								</a>
-							</li>
-							<li class="valentines-best_li">
-								<a href="" class="valentines-best_a">
-									<img src="/images/example/w220-h164-1.jpg" alt="">
-									<span class="valentines-best_btn">Посмотреть</span>
-								</a>
-							</li>
-							<li class="valentines-best_li">
-								<a href="" class="valentines-best_a">
-									<img src="/images/example/w220-h165-1.jpg" alt="">
-									<span class="valentines-best_btn">Посмотреть</span>
-								</a>
-							</li>
-						</ul>
+					
+					<div class="valentine-spent">
+						<h2 class="valentine-spent_t">Как провести <br>День святого Валентина</h2>
+						<a href="" class="valentine-spent_img">
+							<img src="/images/valentine-day/valentine-spent_img-2.png" alt="">
+						</a>
+						<div class="valentine-spent_p">SMS – прирожденный лидер. Она смела и уверенна в себе.Однако же, если родители ее подавляют, становится замкнутой, склонной к фанатичной религиозности. Обладает разнообразными талантами и удивительной женской привлекательностью и обаянием. </div>
+						<div class="valentine-spent_p">SMS – прирожденный лидер. Она смела и уверенна в себе.Однако же, если родители ее подавляют, становится замкнутой, склонной к фанатичной религиозности. Обладает разнообразными талантами и удивительной женской привлекательностью и обаянием. </div>
+						<div class="valentine-spent_p">Дальше стандартные лайки и комментарии </div>
 					</div>
-				
-					<div class="pagination pagination-center clearfix">
-						<div class="pager">
-							<ul>
-								<li class="previous"><a href="">...</a></li>
-								<li><a href="">1</a></li>
-								<li><a href="">2</a></li>
-								<li class="selected"><a href="">321</a><img src="/images/pagination_tale.png"></li>
-								<li><a href="">4</a></li>
-								<li class="selected"><a href="">5</a><img src="/images/pagination_tale.png"></li>
-								<li><a href="">6</a></li>
-								<li><a href="">7</a></li>
-								<li class="next"><a href="">...</a></li>
-							</ul>
-						</div>
-					</div>
+					
 				</div>
 			</div>
 			

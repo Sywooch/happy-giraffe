@@ -38,7 +38,7 @@ class ValentineSms extends HActiveRecord
 		return array(
 			array('title', 'required'),
 			array('title', 'length', 'max'=>100),
-			array('text', 'safe'),
+			array('id, text', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, title, text', 'safe', 'on'=>'search'),

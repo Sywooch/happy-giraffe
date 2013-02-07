@@ -85,7 +85,7 @@
             <div class="photo-info photo-container">
                 <a id="gallery-top-link" href="#gallery-top" style="display:none !important;"></a>
                 <?=$title?><?php if (get_class($model) != 'Contest'): ?> - <span class="count"><span><?=($currentIndex + 1)?></span> фото из <?=$count?></span><?php endif; ?>
-                <div id="gallery-top" class="title"><?=$photo->w_title?></div>
+                <div id="gallery-top" class="title" style="display: none;"><?=$photo->w_title?></div>
             </div>
 
         </div>

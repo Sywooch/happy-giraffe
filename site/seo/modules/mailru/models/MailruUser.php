@@ -13,12 +13,17 @@
  * @property string $location
  * @property string $last_visit
  * @property int $parse_friends
+ * @property int $active
  *
  * The followings are the available model relations:
  * @property MailruBaby[] $babies
  */
 class MailruUser extends HActiveRecord
 {
+    const STATUS_DEFAULT = 0;
+    const STATUS_NOT_OPEN = 2;
+
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.

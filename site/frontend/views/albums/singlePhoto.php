@@ -78,19 +78,42 @@
 
 </div>
 
-<?php $this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
-    'title' => 'Вам понравилось фото?',
-    'notice' => (get_class($model) == 'Contest') ? '<big>Это конкурсные баллы</big><p>Нажатие на кнопку социальных сетей +1 балл.<br />Нажатие сердечка от Весёлого Жирафа +2 балла.</p>' : '<big>Рейтинг фото</big><p>Он показывает, насколько нравится ваше фото другим пользователям. Если фото интересное, то пользователи его смотрят, комментируют, увеличивают лайки социальных сетей.</p>',
-    'model' => (get_class($model) == 'Contest') ? $photo->getAttachByEntity('ContestWork')->model : $photo,
-    'type' => 'simple',
-    'options' => array(
-        'title' => CHtml::encode($photo->w_title),
-        'image' => $photo->getPreviewUrl(180, 180),
-        'description' => $photo->w_description,
-    ),
-)); ?>
+<?php
+//костыль для велентина
+if (isset($model->content->rubric->community_id) && $model->content->rubric->community_id == Community::COMMUNITY_VALENTINE){
+    $post = $model->content;
+    $this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
+        'title' => 'Вам понравилось фото?',
+        'notice' => '',
+        'model' => $post,
+        'type' => 'simple',
+        'options' => array(
+            'title' => CHtml::encode($post->title),
+            'image' => $model->items[0]->photo->getOriginalUrl(),
+            'description' => $post->preview,
+        ),
+    ));
 
-<?php $this->widget('site.frontend.widgets.commentWidget.CommentWidget', array(
-    'model' => $photo,
-    'photoContainer'=>true
-)); ?>
+    $this->widget('site.frontend.widgets.commentWidget.CommentWidget', array(
+        'model' => $post,
+        'photoContainer'=>true
+    ));
+}
+else {
+    $this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
+        'title' => 'Вам понравилось фото?',
+        'notice' => (get_class($model) == 'Contest') ? '<big>Это конкурсные баллы</big><p>Нажатие на кнопку социальных сетей +1 балл.<br />Нажатие сердечка от Весёлого Жирафа +2 балла.</p>' : '<big>Рейтинг фото</big><p>Он показывает, насколько нравится ваше фото другим пользователям. Если фото интересное, то пользователи его смотрят, комментируют, увеличивают лайки социальных сетей.</p>',
+        'model' => (get_class($model) == 'Contest') ? $photo->getAttachByEntity('ContestWork')->model : $photo,
+        'type' => 'simple',
+        'options' => array(
+            'title' => CHtml::encode($photo->w_title),
+            'image' => $photo->getPreviewUrl(180, 180),
+            'description' => $photo->w_description,
+        ),
+    ));
+
+    $this->widget('site.frontend.widgets.commentWidget.CommentWidget', array(
+        'model' => $photo,
+        'photoContainer'=>true
+    ));
+}

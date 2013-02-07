@@ -29,8 +29,30 @@
 
     <?php
         Yii::import('site.common.models.forms.PhotoViewComment');
-    ?>
-    <?php $this->widget('site.frontend.widgets.commentWidget.CommentWidget', array(
+    //костыль для велентина
+    if (isset($model->content->rubric->community_id) && $model->content->rubric->community_id == Community::COMMUNITY_VALENTINE){?>
+        <?php
+        $post = $model->content;
+        $this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
+            'title' => 'Вам понравилось фото?',
+            'notice' => '',
+            'model' => $post,
+            'type' => 'simple_ajax',
+            'options' => array(
+                'title' => CHtml::encode($post->title),
+                'image' => $model->items[0]->photo->getOriginalUrl(),
+                'description' => $post->preview,
+            ),
+        ));
+
+        $this->widget('site.frontend.widgets.commentWidget.CommentWidget', array(
+            'model' => $post,
+            'popUp' => true,
+            'photoContainer'=>true,
+            'commentModel' => 'PhotoViewComment',
+        ));
+    } else
+     $this->widget('site.frontend.widgets.commentWidget.CommentWidget', array(
         'model' => $photo,
         'popUp' => true,
         'commentModel' => 'PhotoViewComment',

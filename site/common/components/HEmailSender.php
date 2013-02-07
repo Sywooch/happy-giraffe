@@ -7,6 +7,7 @@ class HEmailSender extends CApplicationComponent
 {
     const LIST_OUR_USERS = 'our_users';
     const LIST_MAILRU_USERS = 'mailru_users';
+    const LIST_TEST_LIST = 'test_list';
 
     public $subjects = array(
         'newMessages' => 'Вам пришли сообщения - Весёлый Жираф',
@@ -33,8 +34,76 @@ class HEmailSender extends CApplicationComponent
         return ElasticEmail::send($user->email, $this->subjects[$action], $html, 'noreply@happy-giraffe.ru', 'Весёлый Жираф');
     }
 
+    public function sendCampaign($body, $list)
+    {
+        ElasticEmail::sendCampaign($body, $list);
+    }
+
+    /**
+     * Add contact to list
+     *
+     * @param $email
+     * @param $first_name
+     * @param $last_name
+     * @param $list
+     */
     public function addContact($email, $first_name, $last_name, $list)
     {
         ElasticEmail::addContact($email, $first_name, $last_name, $list);
+    }
+
+    /**
+     * Update users list
+     */
+    public static function updateUserList()
+    {
+        Yii::import('site.seo.models.mongo.*');
+        $last_id = SeoUserAttributes::getAttribute('import_email_last_user_id' , 1);
+        echo 'last_id: '.$last_id."\n";
+
+        $criteria = new CDbCriteria;
+        $criteria->with = array('mail_subs');
+        $criteria->condition = '(t.group < 5 AND t.group > 0 OR t.group = 6) OR (t.group = 0 AND t.register_date >= "2012-05-01 00:00:00")';
+        $criteria->scopes = array('active');
+        $criteria->limit = 100;
+        $criteria->condition = 'id > '.$last_id;
+        $criteria->offset = 0;
+
+        $models = array(0);
+        while (!empty($models)) {
+            $models = User::model()->findAll($criteria);
+
+            foreach ($models as $model){
+                Yii::app()->email->addContact($model->email, $model->first_name, $model->last_name, HEmailSender::LIST_OUR_USERS);
+                SeoUserAttributes::setAttribute('import_email_last_user_id' , $model->id, 1);
+            }
+
+            $criteria->offset += 100;
+        }
+    }
+
+    public static function updateContestList()
+    {
+        Yii::import('site.seo.models.mongo.*');
+        $last_id = SeoUserAttributes::getAttribute('import_email_contest_last_user_id' , 1);
+        echo 'last_id: '.$last_id."\n";
+
+        $criteria = new CDbCriteria;
+        $criteria->condition = 'status != 2';
+        $criteria->limit = 100;
+        $criteria->condition = 'id > '.$last_id;
+        $criteria->offset = 0;
+
+        $models = array(0);
+        while (!empty($models)) {
+            $models = MailruUser::model()->findAll($criteria);
+
+            foreach ($models as $model){
+                Yii::app()->email->addContact($model->email, $model->first_name, $model->last_name, HEmailSender::LIST_OUR_USERS);
+                SeoUserAttributes::setAttribute('import_email_contest_last_user_id' , $model->id, 1);
+            }
+
+            $criteria->offset += 100;
+        }
     }
 }

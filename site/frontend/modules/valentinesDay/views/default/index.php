@@ -66,11 +66,11 @@
     <div class="col-12">
         <div class="valentine-spent">
             <h2 class="valentine-spent_t">Как провести <br>День святого Валентина</h2>
-            <a href="<?=$this->createUrl('howToSpend', array('open'=>1))?>" class="valentine-spent_img">
+            <a href="<?=$this->createUrl('howToSpend')?>" class="valentine-spent_img">
                 <img src="/images/valentine-day/valentine-spent_img.png" alt="">
             </a>
             <div class="textalign-c">
-                <a class="valentine-spent_a" href="<?=$this->createUrl('howToSpend', array('open' => 1))?>">Узнайте 20 секретов</a>
+                <a class="valentine-spent_a" href="<?=$this->createUrl('howToSpend')?>">Узнайте 20 секретов</a>
             </div>
         </div>
     </div>

@@ -24,7 +24,7 @@
                     'entity' => get_class($post->gallery),
                     'entity_id' => (int)$post->gallery->primaryKey,
                 ));
-                if (isset($_GET['utm_source']) && $_GET['utm_source'] == 'email' || (isset($_GET['open']) && $_GET['open'] == 1)){
+                if (isset($_GET['utm_source']) && $_GET['utm_source'] == 'email' || (Yii::app()->request->urlReferrer == 'http://www.happy-giraffe.ru/ValentinesDay/' )){
                     Yii::app()->clientScript->registerScript('open_pGallery','$("a.valentine-spent_img").trigger("click");', CClientScript::POS_READY);
                 }
                 ?>

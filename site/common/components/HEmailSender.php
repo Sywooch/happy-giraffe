@@ -82,7 +82,7 @@ class HEmailSender extends CApplicationComponent
         }
     }
 
-    public static function updateContestList()
+    public static function updateMailruUsers()
     {
         Yii::import('site.seo.models.mongo.*');
         $last_id = SeoUserAttributes::getAttribute('import_email_contest_last_user_id' , 1);
@@ -91,7 +91,7 @@ class HEmailSender extends CApplicationComponent
         $criteria = new CDbCriteria;
         $criteria->condition = 'status != 2';
         $criteria->limit = 100;
-        $criteria->condition = 'id > '.$last_id;
+        $criteria->condition = 'id > '.$last_id.' AND id < 500000';
         $criteria->offset = 0;
 
         $models = array(0);
@@ -99,7 +99,7 @@ class HEmailSender extends CApplicationComponent
             $models = MailruUser::model()->findAll($criteria);
 
             foreach ($models as $model){
-                Yii::app()->email->addContact($model->email, $model->first_name, $model->last_name, HEmailSender::LIST_OUR_USERS);
+                Yii::app()->email->addContact($model->email, $model->first, '', HEmailSender::LIST_MAILRU_USERS);
                 SeoUserAttributes::setAttribute('import_email_contest_last_user_id' , $model->id, 1);
             }
 

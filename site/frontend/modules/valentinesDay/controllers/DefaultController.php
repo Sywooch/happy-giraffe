@@ -13,16 +13,18 @@ class DefaultController extends HController
         $videos = ValentineVideo::model()->with('photo')->findAll();
 
         $criteria = $this->getValentinesCriteria();
-        $criteria->addInCondition('id', array(
-            302391,
+        $order = array(
             302390,
+            302391,
             302392,
+            302433,
             302400,
             302404,
-            302402,
-            302433,
             302439,
-        ));
+        );
+        $criteria->addInCondition('id', $order);
+        $criteria->order = 'FIELD(' . implode(',', $order) . ')';
+
         $valentines = AlbumPhoto::model()->findAll($criteria);
 
 		$this->render('index', compact('post', 'recipe_tag', 'videos', 'valentines'));

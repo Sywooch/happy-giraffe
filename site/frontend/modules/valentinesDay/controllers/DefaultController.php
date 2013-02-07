@@ -83,9 +83,7 @@ class DefaultController extends HController
 
     public function actionValentinesSync()
     {
-        $album = Album::model()->findByAttributes(array('author_id' => User::HAPPY_GIRAFFE, 'type' => Album::TYPE_VALENTINE));
-        if ($album !== null)
-            $album->delete();
+        Album::model()->deleteAllByAttributes(array('author_id' => User::HAPPY_GIRAFFE, 'type' => Album::TYPE_VALENTINE));
 
         $path = Yii::getPathOfAlias('site.common.data') . DIRECTORY_SEPARATOR . 'valentines.txt';
         $urls = file($path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);

@@ -96,7 +96,7 @@ class ValentineSms extends HActiveRecord
     public static function LastSms($limit = 2)
     {
         $criteria = new CDbCriteria;
-        $criteria->order = 'id desc';
+        $criteria->order = 'id asc';
         $criteria->limit = $limit;
 
         return ValentineSms::model()->findAll($criteria);

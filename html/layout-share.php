@@ -248,7 +248,7 @@
 					
 					<div class="img">
 						<table><tr><td>
-							<img src="/images/example/ex5.jpg" />
+							<a href="" title="" style="display:block;"><img src="/images/example/ex5.jpg" /></a>
 						</td></tr></table>
 					</div>
 					

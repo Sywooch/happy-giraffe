@@ -398,7 +398,10 @@ class CommunityContent extends HActiveRecord
                 );
                 break;
             default:
-                if ($this->isFromBlog) {
+                if ($this->rubric->community_id == Community::COMMUNITY_VALENTINE){
+                    $route = '/valentinesDay/default/howToSpend';
+                    $params = array();
+                }elseif ($this->isFromBlog) {
                     $route = '/blog/view';
                     $params = array(
                         'user_id' => $this->author_id,

@@ -13,19 +13,11 @@
     <div class="col-12">
         <div class="valentine-spent">
             <h2 class="valentine-spent_t">Как провести <br>День святого Валентина</h2>
-            <a href="javascript:;" class="valentine-spent_img" data-id="<?=$post->gallery->items[0]->photo->id?>">
+            <a href="<?=$this->createUrl('howToSpend', array('open'=>1))?>" class="valentine-spent_img">
                 <img src="/images/valentine-day/valentine-spent_img-2.png" alt="">
-                <?php
-                $photo = $post->gallery->items[0];
-                $this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
-                    'selector' => 'a.valentine-spent_img,a.valentine-spent_a',
-                    'entity' => get_class($post->gallery),
-                    'entity_id' => (int)$post->gallery->primaryKey,
-                ));
-                ?>
             </a>
             <div class="textalign-c">
-                <a href="javascript:;" class="valentine-spent_a" data-id="<?=$post->gallery->items[0]->photo->id?>">
+                <a href="<?=$this->createUrl('howToSpend', array('open'=>1))?>" class="valentine-spent_a">
                     <i class="ico-camera-big"></i>смотреть <?=count($post->gallery->items) ?> фото
                 </a>
             </div>

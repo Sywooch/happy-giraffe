@@ -12,6 +12,8 @@ class DefaultController extends HController
 
 	public function actionIndex()
 	{
+        $this->meta_title = 'День святого Валентина';
+
         $recipe_tag = CookRecipeTag::model()->findByPk(CookRecipeTag::TAG_VALENTINE);
         $post = $this->getPhotoPost();
 
@@ -41,7 +43,7 @@ class DefaultController extends HController
         $this->render('sms', compact('models', 'pages'));
     }
 
-    public function actionHowToSpend(){
+    public function actionHowToSpend($open=0){
         $this->meta_title = 'Как провести День святого Валентина';
 
         $post = $this->getPhotoPost();

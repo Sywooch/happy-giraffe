@@ -276,7 +276,7 @@ class Album extends HActiveRecord
         }
 
         return array(
-            'title' => 'Фотоальбом ' . CHtml::link($this->title, $this->url),
+            'title' => ($this->id == self::getAlbumByType(User::HAPPY_GIRAFFE, self::TYPE_VALENTINE)->id) ? 'Альбом ' . CHtml::link('Валентинки', '/valentinesDay/valentines') : 'Фотоальбом ' . CHtml::link($this->title, $this->url),
             'photos' => $photos,
         );
     }

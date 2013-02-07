@@ -61,7 +61,7 @@
         $url = Yii::app()->createAbsoluteUrl('albums/singlePhoto', array('entity' => 'Contest', 'contest_id' => $this->model->contest_id, 'photo_id' => $photo->id));
     } elseif(method_exists($this->model, 'isValentinePost') && $this->model->isValentinePost()){
         //костыль для валентина 2
-        $url = $this->model->getUrl();
+        $url = 'http://' . $_SERVER["SERVER_NAME"] . $this->model->getUrl();
     } else {
         $url = 'http://' . $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
     }

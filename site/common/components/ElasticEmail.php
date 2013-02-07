@@ -66,6 +66,8 @@ class ElasticEmail extends CApplicationComponent
             fclose($fp);
         }
 
+        var_dump($res);
+
         return $res;
     }
 }

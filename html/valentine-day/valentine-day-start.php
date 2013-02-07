@@ -35,7 +35,7 @@
 						</a>
 						<div class="textalign-c">
 							<a href="" class="valentine-spent_a">
-								<i class="ico-camera-big"></i>смотреть 25 фото
+								Узнайте 20 секретов
 							</a>
 						</div>
 					</div>
@@ -52,7 +52,7 @@
 							<span class="valentine-sms-b_p">В День святого Валентина <br>Мой любимый муж, желаю, <br>Чтоб любовь – на все причина, <br>Счастьем сердце вдохновляла! </span>
 						</a>
 						<div class="textalign-r">
-							<a href="" class="valentine-sms_more">Читать все SMS-ки</a>
+							<a href="" class="valentine-sms_more">205 SMS выбирайте</a>
 						</div>
 					</div>
 				</div>
@@ -142,9 +142,25 @@
 									<span class="valentine-cook_desc">Салатик «Вкусная валентинка»</span>
 								</a>
 							</li>
+							<li class="valentine-cook_li clearfix">
+								<a href="" class="valentine-cook_a">
+									<span class="valentine-cook_img">
+										<img src="/images/example/w95-h71-1.jpg" alt="">
+									</span>
+									<span class="valentine-cook_desc">Салатик «Вкусная валентинка»</span>
+								</a>
+							</li>
+							<li class="valentine-cook_li clearfix">
+								<a href="" class="valentine-cook_a">
+									<span class="valentine-cook_img">
+										<img src="/images/example/w95-h71-1.jpg" alt="">
+									</span>
+									<span class="valentine-cook_desc">Салатик «Вкусная валентинка»</span>
+								</a>
+							</li>
 						</ul>
 						<div class="textalign-r">
-							<a href="" class="valentine-cook_more">Все рецепты</a>
+							<a href="" class="valentine-cook_more">424 рецепта с</a>
 						</div>
 					</div>
 				</div>
@@ -152,7 +168,7 @@
 			
 			<div class="valentine-recognition">
 				<h2 class="valentine-recognition_t">
-					<span class="valentine-recognition_t-big">Самые</span>романтичные признания
+					10 красивых <br>признаний в любви
 				</h2>
 				<div class="valentine-recognition_p">Самые красивые, оригинальные, добрые и романтичные видео истории любви и о любви, которые собрали миллионы просмотров и никого не оставили равнодушным.  Драматические признания, необычные предложения руки и сердца, трогательные love  story - вдохновляйтесь и творите чудеса ради любимых!</div>
 				<div class="margin-b30">

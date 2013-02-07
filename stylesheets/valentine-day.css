@@ -17,7 +17,7 @@
 }
 
 .valentine-spent {
-	margin: 0 0 45px;
+	margin: 0 0 60px;
 	background: url(/images/valentine-day/valentine-spent.gif) no-repeat;
 	padding: 35px 0 0;
 }
@@ -35,17 +35,18 @@
 .valentine-spent_a .ico-camera-big {margin: 0 9px;}
 .valentine-spent_p {margin: 0 0 20px;}
 
-.valentine-sms {margin-bottom: 30px;}
+.valentine-sms {margin-bottom: 70px;}
 .valentine-sms_h {
 	height: 170px;
 	margin-bottom: 15px;
 	display: block;
-	background: url(/images/valentine-day/valentine-sms_h.jpg) no-repeat 0 50%;
+	background: url(/images/valentine-day/valentine-sms_h.png) no-repeat 0 50%;
 }
 .valentine-sms_t {
-	height: 54px;
-	margin-bottom: 15px;
+	margin-bottom: 0;
 	display: block;
+	padding: 15px 0 10px 70px;
+	font-size: 35px;
 	background: url(/images/valentine-day/valentine-sms_t.png) no-repeat 0 0;
 }
 .valentine-sms_hold {padding: 0 30px 25px;}
@@ -59,26 +60,24 @@
 	color: #858585;
 	font-size: 12px;
 	text-decoration: none;
+	position: relative;
+	vertical-align: top;
 }
 .valentine-sms-b__withe {background: #fff;}
 .valentine-sms-b:hover {color: #555;}
 .valentine-sms-b:after {
 	position: absolute;
-	z-index: -1;
 	content: "";
-	bottom: 6px;
-	left: 15%;
-	width: 70%;
-	height: 10px;
-	background: rgba(0, 0, 0, 0.7);
-	-webkit-box-shadow: 0 0 15px rgba(0,0,0, 0.7);
-	-moz-box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
-	box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
+	bottom: -15px;
+	left: 0;
+	width: 100%;
+	height: 15px;
+	background: url(/images/valentine-day/valentine-sms-b.png) no-repeat 0 0;
 }
 .valentine-sms-b_t {
 	margin: 0 0 7px;
 	font-weight: bold;
-	color: #686868;
+	color: #454444;
 	display: block;
 }
 .valentine-sms_more {
@@ -88,9 +87,10 @@
 	background: url(/images/valentine-day/valentine-sms_more.png) no-repeat 100% 0;
 }
 
-.valentines-best {margin-bottom: 50px;}
+.valentines-best {margin-bottom: 70px;}
 .valentines-best_h {
-	padding: 45px 0 25px;
+	margin: 5px 0 0;
+	padding: 10px 0 30px;
 	text-align: center;
 	font-size: 35px;
 	background: url(/images/valentine-day/valentines-best_h.png) no-repeat 50% 0;
@@ -140,8 +140,8 @@
 
 
 .valentine-cook {
-	margin: 125px 0 40px;
-	padding: 25px 15px 15px;
+	margin: 0 0 40px;
+	padding: 20px 15px 15px;
 	background: #fff;
 	border: 3px solid #fee4ed;
 	-webkit-border-radius: 10px;
@@ -245,10 +245,12 @@
 	margin: 4px 0 0;
 }
 .valentine-gallery_arrow__prev {background-position: 0 0;}
+.valentine-gallery_arrow__prev.disabled,
 .valentine-gallery_arrow__prev.jcarousel-control-inactive {background-position: 0 -86px;}
 .valentine-gallery_arrow__next {
 	float: right;
 	background-position: -36px 0;
 }
+.valentine-gallery_arrow__next.disabled,
 .valentine-gallery_arrow__next.jcarousel-control-inactive {background-position: -36px -86px;}
 

@@ -61,7 +61,7 @@
         $url = Yii::app()->createAbsoluteUrl('albums/singlePhoto', array('entity' => 'Contest', 'contest_id' => $this->model->contest_id, 'photo_id' => $photo->id));
     } elseif(method_exists($this->model, 'isValentinePost') && $this->model->isValentinePost()){
         //костыль для валентина 2
-        $url = 'http://' . $_SERVER["SERVER_NAME"] . $this->model->getUrl();
+        $url = $this->model->getUrl(false, true);
     } else {
         $url = 'http://' . $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
     }
@@ -101,7 +101,7 @@
                         array('class'=>'fb-custom-text', 'onclick'=>'return Social.showFacebookPopup(this);'), true) ?>
                     <div class="fb-custom-share-count">0</div>
                     <script type="text/javascript">
-                        $.getJSON("http://graph.facebook.com", { id:document.location.href }, function (json) {
+                        $.getJSON("http://graph.facebook.com", { id:<?=$url ?> }, function (json) {
                             $('.fb-custom-share-count').html(json.shares || '0');
                         });
                     </script>

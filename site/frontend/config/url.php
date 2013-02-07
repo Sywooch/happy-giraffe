@@ -26,8 +26,8 @@ return array(
         'cook/decor/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'CookDecorationCategory')),
         'cook/decor/<category_id:\d+>/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'CookDecorationCategory')),
         'contest/<contest_id:\d+>/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'Contest')),
-        'valentinesDay/valentines/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'Album', 'valentines' => 1)),
-        'valentinesDay/howToSpend/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'valentinePost')),
+        'ValentinesDay/valentines/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'Album', 'valentines' => 1)),
+        'ValentinesDay/howToSpend/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'valentinePost')),
 
         // site controller
         '/' => 'site/index',
@@ -260,7 +260,7 @@ return array(
         'routes/<_a>'=>'route/default/<_a>',
         'routes/'=>'route/default/index',
 
-        'valentinesDay' => 'valentinesDay/default/index',
-        'valentinesDay/<_a>' => 'valentinesDay/default/<_a>',
+        'ValentinesDay' => 'valentinesDay/default/index',
+        'ValentinesDay/<_a>' => 'valentinesDay/default/<_a>',
     ),
 );

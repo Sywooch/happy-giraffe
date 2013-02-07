@@ -46,7 +46,6 @@
                         'class' => 'application.components.InfinitePager.InfinitePager',
                         'selector' => '#valentinesList .valentines-best_ul',
                         'options' => array(
-                            'debug' => true,
                             'behavior' => 'local',
                             'binder' => new CJavaScriptExpression("$('.layout-container')"),
                             'itemSelector' => '.valentines-best_li',

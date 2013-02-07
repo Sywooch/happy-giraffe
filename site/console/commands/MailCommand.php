@@ -112,29 +112,7 @@ class MailCommand extends CConsoleCommand
 
     public function actionUsers()
     {
-        Yii::import('site.seo.models.mongo.*');
-        $last_id = SeoUserAttributes::getAttribute('import_email_last_user_id' , 1);
-        echo 'last_id: '.$last_id."\n";
-
-        $criteria = new CDbCriteria;
-        $criteria->with = array('mail_subs');
-        $criteria->condition = '(t.group < 5 AND t.group > 0 OR t.group = 6) OR (t.group = 0 AND t.register_date >= "2012-05-01 00:00:00")';
-        $criteria->scopes = array('active');
-        $criteria->limit = 100;
-        $criteria->condition = 'id > '.$last_id;
-        $criteria->offset = 0;
-
-        $models = array(0);
-        while (!empty($models)) {
-            $models = User::model()->findAll($criteria);
-
-            foreach ($models as $model){
-                Yii::app()->email->addContact($model->email, $model->first_name, $model->last_name, HEmailSender::LIST_OUR_USERS);
-                SeoUserAttributes::setAttribute('import_email_last_user_id' , $model->id, 1);
-            }
-
-            $criteria->offset += 100;
-        }
+        Yii::app()->email->updateUserList();
     }
 
     public function actionDeleteUsers()
@@ -146,35 +124,8 @@ class MailCommand extends CConsoleCommand
     {
         $articles = Favourites::model()->getWeekPosts();
         $contents = $this->renderFile(Yii::getPathOfAlias('site.common.tpl.weeklyNews') . '.php', array('models' => $articles), true);
-        $subject = 'Веселый Жираф - самое интересное за неделю - ТЕСТ';
-        $opts = array(
-            'list_id' => MailChimp::WEEKLY_NEWS_TEST_LIST_ID,
-            'from_email' => 'support@happy-giraffe.ru',
-            'from_name' => 'Веселый Жираф',
-            'template_id' => 24517,
-            'tracking' => array('opens' => true, 'html_clicks' => true, 'text_clicks' => false),
-            'authenticate' => true,
-            'subject' => $subject,
-            'title' => $subject,
-            'generate_text' => true,
-        );
 
-        $content = array(
-            'html_content' => $contents,
-        );
-
-        $campaignId = Yii::app()->mc->api->campaignCreate('regular', $opts, $content);
-        if ($campaignId)
-            return Yii::app()->mc->api->campaignSendNow($campaignId);
-        return false;
-    }
-
-    public function actionTest()
-    {
-        Yii::app()->email->send(10, 'passwordRecovery', array(
-            'code' => 12436,
-            'password' => 325437
-        ), $this);
+        Yii::app()->email->sendCampaign($contents, 'test_list');
     }
 
     public function actionTestNewMessages()
@@ -197,25 +148,30 @@ class MailCommand extends CConsoleCommand
         }
     }
 
-    public function actionUnsubList()
+    public function action()
     {
-        $file_name = 'F:/members_Photo_Post_6_6_bounces_Jan_16_2013.csv';
-        $users = file_get_contents($file_name);
-        $lines = explode("\n", $users);
-        echo count($lines)."\n";
 
-        $emails = array();
-        foreach($lines as $line){
-            $email = substr($line, 0, strpos($line, ','));
-            $emails [] = $email;
-
-            if (count($emails) >= 500){
-                Yii::app()->mc->deleteUsers($emails);
-
-                $emails = array();
-            }
-        }
-
-        Yii::app()->mc->deleteUsers($emails);
     }
+
+    /*    public function actionUnsubList()
+        {
+            $file_name = 'F:/members_Photo_Post_6_6_bounces_Jan_16_2013.csv';
+            $users = file_get_contents($file_name);
+            $lines = explode("\n", $users);
+            echo count($lines)."\n";
+
+            $emails = array();
+            foreach($lines as $line){
+                $email = substr($line, 0, strpos($line, ','));
+                $emails [] = $email;
+
+                if (count($emails) >= 500){
+                    Yii::app()->mc->deleteUsers($emails);
+
+                    $emails = array();
+                }
+            }
+
+            Yii::app()->mc->deleteUsers($emails);
+        }*/
 }

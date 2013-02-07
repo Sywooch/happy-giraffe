@@ -52,7 +52,7 @@ class DefaultController extends HController
         $this->render('sms', compact('models', 'pages'));
     }
 
-    public function actionHowToSpend($open=0){
+    public function actionHowToSpend(){
         $this->meta_title = 'Как провести День святого Валентина';
 
         $post = $this->getPhotoPost();

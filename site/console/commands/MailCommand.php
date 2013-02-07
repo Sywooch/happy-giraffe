@@ -107,7 +107,9 @@ class MailCommand extends CConsoleCommand
 
     public function actionMailruUsers()
     {
-        Yii::app()->mc->updateMailruUsers();
+        Yii::import('site.seo.modules.mailru.models.*');
+
+        Yii::app()->email->updateMailruUsers();
     }
 
     public function actionUsers()
@@ -146,11 +148,6 @@ class MailCommand extends CConsoleCommand
                 Yii::app()->email->send(10, 'newMessages', compact('dialogUsers', 'unread', 'user', 'token'), $this);
             }
         }
-    }
-
-    public function action()
-    {
-
     }
 
     /*    public function actionUnsubList()

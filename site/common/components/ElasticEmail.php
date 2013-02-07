@@ -69,7 +69,7 @@ class ElasticEmail extends CApplicationComponent
         if (strpos($res, 'contact already exists') !== false)
             self::addExistingContact($email, $list);
 
-        var_dump($res);
+//        var_dump($res);
 
         return $res;
     }
@@ -98,7 +98,7 @@ class ElasticEmail extends CApplicationComponent
             fclose($fp);
         }
 
-        var_dump($res);
+//        var_dump($res);
 
         return $res;
     }

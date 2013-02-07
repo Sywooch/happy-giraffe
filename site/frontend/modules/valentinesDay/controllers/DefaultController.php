@@ -13,14 +13,18 @@ class DefaultController extends HController
         $videos = ValentineVideo::model()->with('photo')->findAll();
 
         $criteria = $this->getValentinesCriteria();
-        $criteria->addInCondition('id', array(
-            302391,
+        $order = array(
+            302686,
             302390,
             302392,
+            302433,
             302400,
             302404,
-            302402,
-        ));
+            302439,
+        );
+        $criteria->addInCondition('id', $order);
+        $criteria->order = 'FIELD(id, ' . implode(',', $order) . ')';
+
         $valentines = AlbumPhoto::model()->findAll($criteria);
 
 		$this->render('index', compact('post', 'recipe_tag', 'videos', 'valentines'));
@@ -88,9 +92,10 @@ class DefaultController extends HController
         }
     }
 
-    public function actionValentinesSync()
+    public function actionValentinesSync($delete = false)
     {
-        Album::model()->deleteAllByAttributes(array('author_id' => User::HAPPY_GIRAFFE, 'type' => Album::TYPE_VALENTINE));
+        if ($delete !== false)
+            Album::model()->deleteAllByAttributes(array('author_id' => User::HAPPY_GIRAFFE, 'type' => Album::TYPE_VALENTINE));
 
         $path = Yii::getPathOfAlias('site.common.data') . DIRECTORY_SEPARATOR . 'valentines.txt';
         $urls = file($path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);

@@ -97,7 +97,7 @@
                     <div class="comment">
                         <span class="tale"></span>
                         <div class="input"<?php if (! empty($user->partner->notice)) echo ' style="display:none;"' ?>>
-                            <textarea><?=$user->partner->notice?></textarea>
+                            <textarea maxlength="100"><?=$user->partner->notice?></textarea>
                             <button class="btn btn-green-small" onclick="Family.savePartnerNotice(this)"><span><span>Ok</span></span></button>
                         </div>
                         <div class="text"<?php if (empty($user->partner->notice)) echo ' style="display:none;"' ?>>
@@ -227,7 +227,7 @@
                             <div class="comment">
                                 <span class="tale"></span>
                                 <div class="input"<?php if (! empty($baby->notice)) echo ' style="display:none;"' ?>>
-                                    <textarea><?=$baby->notice?></textarea>
+                                    <textarea maxlength="100"><?=$baby->notice?></textarea>
                                     <button class="btn btn-green-small" onclick="Family.saveBabyNotice(this)"><span><span>Ok</span></span></button>
                                 </div>
                                 <div class="text"<?php if (empty($baby->notice)) echo ' style="display:none;"' ?>>

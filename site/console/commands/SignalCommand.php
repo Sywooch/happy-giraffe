@@ -200,14 +200,46 @@ class SignalCommand extends CConsoleCommand
             $article = $visit->page->getArticle();
 
             if ($article !== null && in_array($article->author_id, $ids)) {
-                $visit->count = GApi::getUrlOrganicSearches($this->ga, $month . '-01', $month.'-'.$this->getLastPeriodDay($month), str_replace('http://www.happy-giraffe.ru', '', $visit->page->url), false);
+                $visit->count = GApi::getUrlOrganicSearches($this->ga, $month . '-01', $month . '-' . $this->getLastPeriodDay($month), str_replace('http://www.happy-giraffe.ru', '', $visit->page->url), false);
                 echo $visit->page->url . " - " . $visit->count . "\n";
                 if (!empty($visit->count))
                     $visit->save();
 
                 sleep(2);
-            }elseif ($article === null){
+            } elseif ($article === null) {
                 echo "article IS NULL {$visit->page->url} \n";
+            }
+        }
+    }
+
+    public function actionLoadGaVisits()
+    {
+        $month = date("Y-m");
+        $commentators = CommentatorWork::getWorkingCommentators();
+
+        //test on some user
+        foreach ($commentators as $key => $commentator)
+            if (in_array($commentator->user_id,  array(15426, 15363, 15328, 15292, 15322, 15385, 15468, 15496, 15493, 15545, 15551)))
+                unset($commentators[$key]);
+
+        $this->loginGa();
+
+        foreach ($commentators as $commentator) {
+            $models = CommunityContent::model()->findAll('author_id = ' . $commentator->user_id);
+
+            foreach ($models as $model) {
+                $url = trim($model->url, '.');
+                if (!empty($url)) {
+                    $ga_visits = GApi::getUrlOrganicSearches($this->ga, $month . '-01', $month . '-' . date("d"), $url, false);
+                    $my_visits = SearchEngineVisits::getVisits($url, $month);
+
+                    if ($ga_visits > 0)
+                        echo "$url ga:$ga_visits, my:$my_visits \n";
+
+                    if ($ga_visits > 0 && $my_visits != $ga_visits) {
+                        SearchEngineVisits::updateStats($url, $month, $ga_visits);
+                    }
+                }
             }
         }
     }
@@ -222,4 +254,5 @@ class SignalCommand extends CConsoleCommand
         $this->ga = new GoogleAnalytics('alexk984@gmail.com', Yii::app()->params['gaPass']);
         $this->ga->setProfile('ga:53688414');
     }
+
 }

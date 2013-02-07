@@ -74,7 +74,7 @@
         $user = Yii::app()->user->model;
     ?>
 </head>
-<body class="body-club<?php if ($this->broadcast): ?> body-broadcast<?php endif; ?>" onload="if (typeof(ODKL) !== 'undefined') ODKL.init();">
+<body class="<?= $this->body_class ?><?php if ($this->broadcast): ?> body-broadcast<?php endif; ?>" onload="if (typeof(ODKL) !== 'undefined') ODKL.init();">
 <div class="top-line-menu">
     <div class="top-line-menu_holder clearfix">
 

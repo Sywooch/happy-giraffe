@@ -34,7 +34,7 @@ class ParsingKeyword extends HActiveRecord
 
     public function getDbConnection()
     {
-        return Yii::app()->db_seo;
+        return Yii::app()->db_keywords;
     }
 
 

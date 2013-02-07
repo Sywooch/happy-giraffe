@@ -29,7 +29,7 @@ else {
             <?php if ($this->location && $this->user->address->country !== null): ?>
                 <div class="location">
                     <div class="flag flag-<?php echo $this->user->address->country->iso_code; ?>"></div>
-                    <?php echo CHtml::encode($this->user->address->cityName); ?>
+                    <?php echo CHtml::encode($this->user->address->getCityOrRegion()); ?>
                 </div>
             <?php endif; ?>
             <div class="user-fast-buttons">
@@ -68,7 +68,7 @@ else {
         </div>
         <?php if ($this->status && $this->user->status !== null): ?>
             <div class="text-status">
-                <p><?=$this->user->status->text?></p>
+                <p><?=$this->user->status->purified->text?></p>
                 <span class="tale"></span>
             </div>
         <?php endif; ?>

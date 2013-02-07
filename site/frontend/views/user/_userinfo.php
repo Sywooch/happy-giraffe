@@ -9,7 +9,7 @@
     <?php $this->renderPartial('_user_menu',compact('user')); ?>
     <?php if ($user->status): ?>
     <div class="text-status">
-        <p><?=$user->status->text?></p>
+        <p><?=$user->status->purified->text?></p>
         <span class="tale"></span>
     </div>
     <?php endif; ?>

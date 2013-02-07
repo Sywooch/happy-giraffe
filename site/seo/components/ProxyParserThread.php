@@ -19,12 +19,13 @@ class ProxyParserThread
     protected $success_loads = 0;
     protected $country = 'ru';
 
-    protected $delay_min = 10;
-    protected $delay_max = 10;
+    protected $delay_min = 2;
+    protected $delay_max = 5;
     public $debug = false;
     protected $timeout = 30;
     protected $removeCookieOnChangeProxy = true;
     public $use_proxy = true;
+
     private $_start_time = null;
     private $_time_stamp_title = '';
 
@@ -41,8 +42,9 @@ class ProxyParserThread
         $criteria = new CDbCriteria;
         $criteria->compare('active', 0);
         $criteria->order = 'rank desc';
+        $criteria->offset = rand(0, 10);
 
-        $this->startTimer('find proxy');
+        //$this->startTimer('find proxy');
 
         $this->proxy = Proxy::model()->find($criteria);
         if ($this->proxy === null)
@@ -51,16 +53,15 @@ class ProxyParserThread
         $this->proxy->active = 1;
         $this->proxy->save();
 
-        $this->endTimer();
-        $this->log('proxy: ' . $this->proxy->value);
+        //$this->endTimer();
+        //$this->log('proxy: ' . $this->proxy->value);
     }
 
     protected function query($url, $ref = null, $post = false, $attempt = 0)
     {
-        sleep(rand($this->delay_min, $this->delay_max));
-        $this->log('start curl');
+        //$this->log('start curl');
         if ($ch = curl_init($url)) {
-            curl_setopt($ch, CURLOPT_USERAGENT, 'Opera/9.80 (Windows NT 6.1; WOW64; U; ru) Presto/2.10.289 Version/12.00');
+            curl_setopt($ch, CURLOPT_USERAGENT, 'User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:18.0) Gecko/20100101 Firefox/18.0');
             if ($post) {
                 curl_setopt($ch, CURLOPT_POST, 1);
                 curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
@@ -72,8 +73,8 @@ class ProxyParserThread
             if ($this->use_proxy) {
                 curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
                 curl_setopt($ch, CURLOPT_PROXY, $this->proxy->value);
-                if (getenv('SERVER_ADDR') != '5.9.7.81') {
-                    curl_setopt($ch, CURLOPT_PROXYUSERPWD, "alexk984:Nokia12345");
+                if (Yii::app()->params['use_proxy_auth']) {
+                    curl_setopt($ch, CURLOPT_PROXYUSERPWD, "alexhg:Nokia1111");
                     curl_setopt($ch, CURLOPT_PROXYAUTH, 1);
                 }
             }
@@ -93,7 +94,7 @@ class ProxyParserThread
 
             if ($content === false) {
                 if (curl_errno($ch)) {
-                    $this->log('Error while curl: ' . curl_error($ch));
+                    //$this->log('Error while curl: ' . curl_error($ch));
                     curl_close($ch);
 
                     $attempt += 1;
@@ -116,7 +117,7 @@ class ProxyParserThread
                     $this->changeBadProxy(0);
                     return $this->query($url, $ref, $post, $attempt);
                 }
-                $this->log('page loaded by curl');
+                //$this->log('page loaded by curl');
                 return $content;
             }
         }
@@ -126,7 +127,7 @@ class ProxyParserThread
 
     protected function changeBadProxy($rank = null)
     {
-        $this->log('Change proxy');
+        //$this->log('Change proxy');
 
         if ($rank !== null)
             $this->proxy->rank = $rank;
@@ -146,7 +147,7 @@ class ProxyParserThread
 
     protected function changeBannedProxy()
     {
-        $this->log('Change proxy');
+        //$this->log('Change proxy');
 
         $this->proxy->delete();
         $this->getProxy();
@@ -207,14 +208,17 @@ class ProxyParserThread
     public function endTimer()
     {
         $fh = fopen($dir = Yii::getPathOfAlias('application.runtime') . DIRECTORY_SEPARATOR . 'my_log.txt', 'a');
-        $long_time = 1000*(microtime(true) - $this->_start_time);
-        fwrite($fh, $this->_time_stamp_title.': '. $long_time . "\n");
+        $long_time = 1000 * (microtime(true) - $this->_start_time);
+        fwrite($fh, $this->_time_stamp_title . ': ' . $long_time . "\n");
     }
 
     protected function log($state)
     {
         if ($this->debug) {
             echo $state . "\n";
+        } else {
+//            $fh = fopen($dir = Yii::getPathOfAlias('application.runtime') . DIRECTORY_SEPARATOR . $this->thread_id.'.txt', 'a');
+//            fwrite($fh, $state . "\n");
         }
     }
 }

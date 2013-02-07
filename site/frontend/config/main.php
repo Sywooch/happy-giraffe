@@ -97,6 +97,8 @@ return array(
         'cook',
         'calendar',
         'whatsNew',
+        'valentinesDay',
+        'route'
 	),
 
 	// application components
@@ -232,6 +234,15 @@ return array(
             'charset' => 'utf8',
             'schemaCachingDuration' => 60,
         ),
+        'db_keywords' => array(
+            'class' => 'CDbConnection',
+            'connectionString' => 'mysql:host=localhost;dbname=keywords',
+            'emulatePrepare' => true,
+            'username' => 'root',
+            'password' => '',
+            'charset' => 'utf8',
+            'schemaCachingDuration' => 60,
+        ),
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors
             'errorAction'=>'site/error',
@@ -308,11 +319,18 @@ return array(
             'class' => 'site.common.components.Mandrill',
             'apiKey' => '1f816ac2-65b7-4a28-90c9-7e8fb1669d43',
         ),
+        'email'=>array(
+            'class' => 'site.common.components.HEmailSender',
+        ),
+        'geoCode'=>array(
+            'class' => 'site.frontend.modules.geo.components.GoogleMapsGeoCode',
+        ),
 	),
 
 	// application-level parameters that can be accessed
 	// using Yii::app()->params['paramName']
 	'params'=>array(
+        'valentinesAlbum' => '41340',
 		// this is used in contact page
 		'adminEmail'=>'webmaster@example.com',
         'gaPass'=>'',

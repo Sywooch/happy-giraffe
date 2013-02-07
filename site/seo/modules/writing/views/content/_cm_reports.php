@@ -11,13 +11,23 @@
             </thead>
             <tbody>
             <?php foreach ($tasks as $task) { ?>
-            <tr>
+            <tr data-id="<?=$task->id ?>">
                 <td><?=$task->getArticleText() ?></td>
                 <td class="ac"><span class="date"><?=StatusDates::getTime($task, SeoTask::STATUS_PUBLICATION) ?></span></td>
                 <td class="ac"><span class="date"><?=StatusDates::getTime($task, SeoTask::STATUS_PUBLISHED) ?></span></td>
             </tr>
             <?php } ?>
-            </tbody></table>
+            </tbody>
+        </table>
     </div>
+
+    <?php if ($pages->pageCount > 1): ?>
+    <div class="pagination pagination-center clearfix">
+        <?php $this->widget('MyLinkPager', array(
+        'header'=>false,
+        'pages' => $pages,
+    )); ?>
+    </div>
+    <?php endif; ?>
 
 </div>

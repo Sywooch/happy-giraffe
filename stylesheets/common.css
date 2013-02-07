@@ -4193,6 +4193,16 @@ body.gallery {overflow:hidden;}
 #photo-window .photo-comment textarea {width:75%;padding:2px 5px;border:1px solid #c5e8ef;vertical-align:top;background:#fff;margin-left:-6px;height:60px;}
 
 #photo-window .photo-window_btn-share {padding: 0 55px;margin-bottom: 30px; font-weight: normal;font-size: 27px;}
+#photo-window .photo-window_btn-download-valentine {position: relative;padding: 0;margin-bottom: 30px;text-indent: -9999px;overflow: hidden;width: 220px;}
+#photo-window .photo-window_btn-download-valentine:after {
+    content: "";
+    position: absolute;
+    top: 7px;
+    left: 0;
+    width: 220px;
+    height: 70px;
+    background-image: url(/images/valentine-day/btn-download-valentine.png);
+}
 
 #photo-window #photo-content .sharelink-friends {background:#feefbb;padding:15px 35px;margin:0 0 10px;}
 #photo-window #photo-content .sharelink-friends .title-row {font-size:13px;color:#414041;margin-bottom:3px;}

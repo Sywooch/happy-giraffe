@@ -69,9 +69,7 @@
                 <img src="/images/valentine-day/valentine-spent_img.png" alt="">
             </a>
             <div class="textalign-c">
-                <a href="<?=$this->createUrl('howToSpend', array('open'=>1))?>" class="valentine-spent_a">
-                    <i class="ico-camera-big"></i>смотреть <?=count($post->gallery->items) ?> фото
-                </a>
+                <a class="valentine-spent_a" href="<?=$this->createUrl('howToSpend', array('open' => 1))?>">Узнайте 20 секретов</a>
             </div>
         </div>
     </div>
@@ -86,7 +84,7 @@
             </a>
             <?php endforeach; ?>
             <div class="textalign-r">
-                <a href="<?=$url ?>" class="valentine-sms_more">Читать все SMS-ки</a>
+                <a href="<?=$url ?>" class="valentine-sms_more">205 sms. Выберите свою</a>
             </div>
         </div>
     </div>
@@ -104,7 +102,7 @@
         </div>
     </div>
     <div class="col-3">
-        <?php $recipes = $recipe_tag->getLastRecipes(); ?>
+        <?php $recipes = $recipe_tag->getLastRecipes(5); ?>
         <div class="valentine-cook">
             <h3 class="valentine-cook_t">Романтические блюда <br>ко дню святого Валентина</h3>
             <ul class="valentine-cook_ul">
@@ -120,7 +118,7 @@
                 <?php endforeach; ?>
             </ul>
             <div class="textalign-r">
-                <a href="<?=$recipe_tag->getUrl() ?>" class="valentine-cook_more">Все рецепты</a>
+                <a href="<?=$recipe_tag->getUrl() ?>" class="valentine-cook_more"><?=$recipe_tag->recipesCount?> <?=HDate::GenerateNoun(array('рецепт', 'рецепта', 'рецептов'), $recipe_tag->recipesCount)?>  с</a>
             </div>
         </div>
     </div>
@@ -128,7 +126,7 @@
 
 <div class="valentine-recognition" id="videos">
     <h2 class="valentine-recognition_t">
-        <span class="valentine-recognition_t-big">Самые</span>романтичные признания
+        10 красивых <br>признаний в любви
     </h2>
     <div class="valentine-recognition_p">Самые красивые, оригинальные, добрые и романтичные видео истории любви и о любви, которые собрали миллионы просмотров и никого не оставили равнодушным.  Драматические признания, необычные предложения руки и сердца, трогательные love  story - вдохновляйтесь и творите чудеса ради любимых!</div>
     <div class="margin-b30">

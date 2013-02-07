@@ -84,7 +84,7 @@
             </a>
             <?php endforeach; ?>
             <div class="textalign-r">
-                <a href="<?=$url ?>" class="valentine-sms_more">Читать все SMS-ки</a>
+                <a href="<?=$url ?>" class="valentine-sms_more">205 sms. Выберите свою</a>
             </div>
         </div>
     </div>

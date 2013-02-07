@@ -40,7 +40,7 @@
             'type' => 'simple',
             'options' => array(
                 'title' => $post->title,
-                'image' => $post->getContentImage(),
+                'image' => '/images/valentine-day/valentine-spent_img.png',
                 'description' => $post->getContent()->text,
             ),
         )); ?>

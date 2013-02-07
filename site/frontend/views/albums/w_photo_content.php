@@ -49,7 +49,7 @@
     }
 
      $this->widget('site.frontend.widgets.commentWidget.CommentWidget', array(
-        'model' => $photo,
+        'model' => $post,
         'popUp' => true,
         'commentModel' => 'PhotoViewComment',
         'photoContainer'=>true

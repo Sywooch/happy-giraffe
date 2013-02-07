@@ -5,6 +5,9 @@
  */
 class HEmailSender extends CApplicationComponent
 {
+    const LIST_OUR_USERS = 'our_users';
+    const LIST_MAILRU_USERS = 'mailru_users';
+
     public $subjects = array(
         'newMessages' => 'Вам пришли сообщения - Весёлый Жираф',
         'passwordRecovery' => 'Напоминание пароля - Весёлый Жираф',
@@ -28,5 +31,10 @@ class HEmailSender extends CApplicationComponent
         $html = $controller->renderFile(Yii::getPathOfAlias('site.common.tpl') . DIRECTORY_SEPARATOR . $action . '.php', $params, true);
 
         return ElasticEmail::send($user->email, $this->subjects[$action], $html, 'noreply@happy-giraffe.ru', 'Весёлый Жираф');
+    }
+
+    public function addContact($email, $first_name, $last_name, $list)
+    {
+        ElasticEmail::addContact($email, $first_name, $last_name, $list);
     }
 }

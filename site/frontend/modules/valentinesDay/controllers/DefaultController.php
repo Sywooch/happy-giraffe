@@ -20,6 +20,8 @@ class DefaultController extends HController
             302400,
             302404,
             302402,
+            302433,
+            302439,
         ));
         $valentines = AlbumPhoto::model()->findAll($criteria);
 

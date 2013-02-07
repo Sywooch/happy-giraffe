@@ -93,7 +93,6 @@ class DefaultController extends HController
         $urls = array_unique($urls);
 
         foreach ($urls as $url) {
-            $url = trim($url);
             if (AlbumPhoto::createByUrl($url, User::HAPPY_GIRAFFE, Album::TYPE_VALENTINE) === false)
                 echo $url . '<br />';
         }

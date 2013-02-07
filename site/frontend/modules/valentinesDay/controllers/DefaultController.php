@@ -23,7 +23,7 @@ class DefaultController extends HController
             302439,
         );
         $criteria->addInCondition('id', $order);
-        $criteria->order = 'FIELD(' . implode(',', $order) . ')';
+        $criteria->order = 'FIELD(id, ' . implode(',', $order) . ')';
 
         $valentines = AlbumPhoto::model()->findAll($criteria);
 

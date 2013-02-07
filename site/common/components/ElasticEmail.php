@@ -5,7 +5,7 @@
  */
 class ElasticEmail extends CApplicationComponent
 {
-    const USERNAME = 'alex@happy-giraffe.ru';
+    const USERNAME = 'mira.smurkov@gmail.com';
     const KEY = 'd0fbfc41-7591-4da4-b587-ab54fe263665';
 
     public static function send($to, $subject, $body_html, $from, $fromName)

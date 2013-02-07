@@ -39,4 +39,33 @@ class ElasticEmail extends CApplicationComponent
         }
         return $res;
     }
+
+    public static function addContact($email, $first_name, $last_name, $list)
+    {
+        $res = "";
+
+        $data = "username=" . urlencode(self::USERNAME);
+        $data .= "&api_key=" . urlencode(self::KEY);
+        $data .= "&email=" . urlencode($email);
+        $data .= "&listname=" . $list;
+        $data .= "&firstname=" . urlencode($first_name);
+        $data .= "&lastname=" . urlencode($last_name);
+
+        $header = "POST /lists/create-contact HTTP/1.0\r\n";
+        $header .= "Content-Type: application/x-www-form-urlencoded\r\n";
+        $header .= "Content-Length: " . strlen($data) . "\r\n\r\n";
+        $fp = fsockopen('ssl://api.elasticemail.com', 443, $errno, $errstr, 30);
+
+        if (!$fp)
+            return "ERROR. Could not open connection";
+        else {
+            fputs($fp, $header . $data);
+            while (!feof($fp)) {
+                $res .= fread($fp, 1024);
+            }
+            fclose($fp);
+        }
+
+        return $res;
+    }
 }

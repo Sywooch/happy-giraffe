@@ -6003,6 +6003,7 @@ label {
 
 /* menu */
 .menu {margin: 10px 0 20px;}
+.menu__valentine {margin-top: 40px;}
 .menu_li {
     margin:4px 0;
     position: relative;
@@ -6057,16 +6058,11 @@ label {
     vertical-align: middle;
     background: url(/images/ico/menu_ico.png) no-repeat;
 }
-.menu_ico__cook {width: 33px;height: 29px;background-position: 0 0;}
-.menu_li.active .menu_ico__cook {background-position: -50px 0;}
-.menu_ico__tel {width: 23px;height: 34px;background-position: 0 -50px;}
-.menu_li.active .menu_ico__tel {background-position: -50px -50px;}
-.menu_ico__valentines {width: 30px;height: 28px;background-position: 0 -100px;}
-.menu_li.active .menu_ico__valentines {background-position: -50px -100px;}
-.menu_ico__photo {width: 33px;height: 25px;background-position: 0 -150px;}
-.menu_li.active .menu_ico__photo {background-position: -50px -150px;}
-.menu_ico__video {width: 39px;height: 29px;background-position: 0 -200px;}
-.menu_li.active .menu_ico__video {background-position: -50px -200px;}
+.menu_ico__cook {width: 33px;height: 29px; background-position: -50px 0;}
+.menu_ico__tel {width: 23px;height: 34px;background-position: -50px -50px;}
+.menu_ico__valentines {width: 30px;height: 28px;background-position: -50px -100px;}
+.menu_ico__photo {width: 33px;height: 25px;background-position: -50px -150px;}
+.menu_ico__video {width: 39px;height: 29px;background-position: -50px -200px;}
 .menu_ico__valentine-day {width: 32px;height: 44px;background-position: -50px -250px;}
 /* /menu */
 

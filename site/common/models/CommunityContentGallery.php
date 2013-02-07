@@ -64,8 +64,13 @@ class CommunityContentGallery extends HActiveRecord
             $photo->w_description = $model->description;
             $photos[] = $photo;
         }
+
+        $title = 'Фотоальбом к статье ' . CHtml::link($this->content->title, $this->content->url);
+        if ($this->content->isValentinePost())
+            $title = 'Фотоальбом ' . CHtml::link($this->content->title, $this->content->url);
+
         return array(
-            'title' => 'Фотоальбом к статье ' . CHtml::link($this->content->title, $this->content->url),
+            'title' => $title,
             'photos' => $photos,
         );
     }

@@ -1,5 +1,5 @@
 <?php
-if(isset($this->model) && isset($this->model->rubric) && isset($this->model->rubric->community_id) && $this->model->rubric->community_id == Community::COMMUNITY_VALENTINE){
+if(isset($this->model) && method_exists($this->model, 'isValentinePost') && $this->model->isValentinePost()){
     //костыль для валентина 2
    $url = $this->model->getUrl();
 } else

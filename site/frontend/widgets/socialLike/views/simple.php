@@ -54,19 +54,20 @@
 <?php else: ?>
 
     <?php
+
     if (get_class($this->model) == 'ContestWork' && Yii::app()->request->isAjaxRequest) {
         $attach = AttachPhoto::model()->findByEntity('ContestWork', $this->model->id);
         $photo = $attach[0]->photo;
         $url = Yii::app()->createAbsoluteUrl('albums/singlePhoto', array('entity' => 'Contest', 'contest_id' => $this->model->contest_id, 'photo_id' => $photo->id));
-    } elseif(isset($this->model) && isset($this->model->rubric) && isset($this->model->rubric->community_id) && $this->model->rubric->community_id == Community::COMMUNITY_VALENTINE){
+    } elseif(method_exists($this->model, 'isValentinePost') && $this->model->isValentinePost()){
         //костыль для валентина 2
-       $url = $this->model->getUrl();
+        $url = $this->model->getUrl();
     } else {
         $url = 'http://' . $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
     }
 
     $js = "
-        $('.vk_share_button').html(VK.Share.button(document.location.href,{type: 'round', text: 'Мне нравится'}));
+        $('.vk_share_button').html(VK.Share.button('".$url."',{type: 'round', text: 'Мне нравится'}));
     ";
 
     Yii::app()->clientScript

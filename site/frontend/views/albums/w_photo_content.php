@@ -32,7 +32,7 @@
     $post = $photo;
         Yii::import('site.common.models.forms.PhotoViewComment');
     //костыль для велентина
-    if (isset($model->content) && isset($model->content->rubric) && $model->content->rubric->community_id == Community::COMMUNITY_VALENTINE){?>
+    if (isset($model->content) && method_exists($model->content, 'isValentinePost') && $model->content->isValentinePost()){?>
         <?php
         $post = $model->content;
         $this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(

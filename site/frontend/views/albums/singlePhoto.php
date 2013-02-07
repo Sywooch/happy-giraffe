@@ -80,7 +80,7 @@
 
 <?php
 //костыль для велентина
-if (isset($this->content) && isset($model->content->rubric) && isset($model->content->rubric->community_id) && $model->content->rubric->community_id == Community::COMMUNITY_VALENTINE){
+if (isset($model->content) && method_exists($model->content, 'isValentinePost') && $model->content->isValentinePost()){
     $post = $model->content;
     $this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
         'title' => 'Вам понравилось фото?',

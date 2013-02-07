@@ -22,6 +22,6 @@ $this->widget('zii.widgets.CMenu', array(
         array(
             'label' => $model->zodiacText() . ' на 2013',
             'url' => $this->createUrl('year', array('zodiac' => Horoscope::model()->getZodiacSlug($model->zodiac), 'year' => 2013)),
-            'active' => Yii::app()->controller->action->id == 'year' && $_GET['year'] == 2013
+            'active' => Yii::app()->controller->action->id == 'year' && (isset($_GET['year']) && $_GET['year'] == 2013)
         ),
     )));

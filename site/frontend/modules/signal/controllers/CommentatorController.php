@@ -24,7 +24,7 @@ class CommentatorController extends HController
 
     protected function beforeAction($action)
     {
-        if (!Yii::app()->user->checkAccess('commentator_panel'))
+        if (!Yii::app()->user->checkAccess('commentator_panel') && !Yii::app()->user->checkAccess('administrator'))
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
         Yii::import('site.frontend.modules.cook.models.*');
@@ -210,6 +210,19 @@ class CommentatorController extends HController
     {
         $tasks = SeoTask::getCommentatorTasks();
         $this->renderPartial('tasks', compact('tasks'));
+    }
+
+    public function actionCancelTaskAdmin($id){
+        if (!Yii::app()->user->checkAccess('administrator'))
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
+        $task = $this->loadModel($id);
+        $task->executor_id = null;
+        $task->multivarka = null;
+        $task->article_id = null;
+        $task->article_title = null;
+        $task->status = SeoTask::STATUS_READY;
+        echo $task->save();
     }
 
     /**

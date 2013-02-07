@@ -1,20 +1,21 @@
 <?php
 
 /**
- * This is the model class for table "keyword_blacklist".
+ * This is the model class for table "route_parsing".
  *
- * The followings are the available columns in table 'keyword_blacklist':
- * @property integer $keyword_id
- *
- * The followings are the available model relations:
- * @property Keyword $keyword
+ * The followings are the available columns in table 'route_parsing':
+ * @property string $id
+ * @property string $city_from_id
+ * @property string $city_to_id
+ * @property integer $wordstat
+ * @property integer $active
  */
-class KeywordBlacklist extends CActiveRecord
+class RouteParsing extends HActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return KeywordBlacklist the static model class
+	 * @return RouteParsing the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -22,16 +23,20 @@ class KeywordBlacklist extends CActiveRecord
 	}
 
 	/**
+	 * @return CDbConnection database connection
+	 */
+	public function getDbConnection()
+	{
+		return Yii::app()->db_seo;
+	}
+
+	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'keyword_blacklist';
+		return 'route_parsing';
 	}
-
-    public function getDbConnection(){
-        return Yii::app()->db_seo;
-    }
 
 	/**
 	 * @return array validation rules for model attributes.
@@ -41,11 +46,12 @@ class KeywordBlacklist extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('keyword_id', 'required'),
-			array('keyword_id', 'numerical', 'integerOnly'=>true),
+			array('city_from_id, city_to_id', 'required'),
+			array('wordstat, active', 'numerical', 'integerOnly'=>true),
+			array('city_from_id, city_to_id', 'length', 'max'=>11),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('keyword_id', 'safe', 'on'=>'search'),
+			array('id, city_from_id, city_to_id, wordstat, active', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -57,7 +63,6 @@ class KeywordBlacklist extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'keyword' => array(self::BELONGS_TO, 'Keyword', 'keyword_id'),
 		);
 	}
 
@@ -67,7 +72,11 @@ class KeywordBlacklist extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'keyword_id' => 'Keyword',
+			'id' => 'ID',
+			'city_from_id' => 'City From',
+			'city_to_id' => 'City To',
+			'wordstat' => 'Wordstat',
+			'active' => 'Active',
 		);
 	}
 
@@ -82,10 +91,24 @@ class KeywordBlacklist extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('keyword_id',$this->keyword_id);
+		$criteria->compare('id',$this->id,true);
+		$criteria->compare('city_from_id',$this->city_from_id,true);
+		$criteria->compare('city_to_id',$this->city_to_id,true);
+		$criteria->compare('wordstat',$this->wordstat);
+		$criteria->compare('active',$this->active);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
 	}
+
+    public function getCityFrom()
+    {
+        return GeoCity::model()->findByPk($this->city_from_id);
+    }
+
+    public function getCityTo()
+    {
+        return GeoCity::model()->findByPk($this->city_to_id);
+    }
 }

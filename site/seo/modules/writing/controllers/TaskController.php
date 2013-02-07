@@ -137,6 +137,15 @@ class TaskController extends SController
             echo CJSON::encode(array('status' => false));
     }
 
+
+    public function actionRollBackTask($id){
+        $task = $this->loadTask($id);
+        $task->article_id = null;
+        $task->article_title = null;
+        $task->status = SeoTask::STATUS_TAKEN;
+        $task->save();
+    }
+
     /**
      * @param int $id model id
      * @return SeoTask

@@ -1,69 +1,70 @@
-('Фаст-фуд – перекусить или все же остаться голодным?'), ('Пластическая хирургия – за или против?'), ('Наращивание волос – оправданно потраченные деньги или оно того не стоит?'), ('Горячие ножницы – положительный результат или какая разница какие?'), ('Легализованная проституция – нужно, или пусть и далее будет подпольной?'), ('Интернет-уроки – реальная польза или все же живое обучение?'), ('Будущая мама за рулем – за и против?'), ('Отношения на расстоянии – не стоит тратить время, или любви не страшны расстояния?'), ('Вакцинация – реальная помощь или так удобно системе?'), ('Пирсинг – красиво или не эстетично?'), ('Брачный контракт – недоверие или разумное решение?'), ('БАДЫ – реальные результаты или пустышки с обратным действием?'), ('Жевательная резинка – свежее дыхание или вред желудку?'), ('Частная школа – достойное образование или зачем тратить деньги?'), ('Роман с женатым мужчиной – «Я без него не могу» или «Не нужно разрушать семью ни за что»?'), ('Интернет - знакомства – шанс встретить свою судьбу или пустые разговоры?'), ('ЭКО – радость материнства или ребенок не от Бога?'), ('Травяные ванны для ребенка: за или против?'), ('Совместные роды – необходимая поддержка, или мужчинам это видеть не нужно?'), ('Ранний брак – за или против?'), ('Школьная форма – за или против?'), ('Половое воспитание в школе: нужно ли, и в каких объемах и формах?'), ('Ребенок и сладкое: когда начинать, как, сколько?'), ('Прививки: за или против?'), ('Стоит ли жить вместе ради ребенка, если супруги больше не любят друг друга? '), ('Возможна ли дружба в современном мире?'), ('ГВ после года. Стоит кормить или нет?'), ('Ранее развитие или дать ребенку развиваться самостоятельно?'), ('Поздняя беременность: за или против?'), ('Совместный сон: за или против?')
-
-SELECT SQL_NO_CACHE id, cCount, cmCount, (cCount * 10 + cmCount) AS rating FROM
-(
-    SELECT users.id, (
-        SELECT COUNT(*)
-        FROM community__contents
-        WHERE author_id = users.id AND MONTH(created) = MONTH(CURDATE())
-    ) AS cCount, (
-        SELECT COUNT(*)
-        FROM comments
-        WHERE entity = 'CommunityContent' AND author_id = users.id AND MONTH(created) = MONTH(CURDATE())
-    ) AS cmCount
-    FROM users
-) AS counts
-ORDER BY rating DESC
-LIMIT 10;
-
-UPDATE album__photos SET title = 'Новый год – по-настоящему семейное торжество – обязательно соберите всю вашу дружную семью вместе в этот  праздничный вечер!' WHERE id = 239922;
-UPDATE album__photos SET title = 'Подготовьте веселые новогодние костюмы для каждого члена семьи!' WHERE id = 239926;
-UPDATE album__photos SET title = 'Какой же Новый год без ёлочки? Нарядите зеленую лесную красавицу вместе. Проявите фантазию и почувствуйте приближение праздника!' WHERE id = 239940;
-UPDATE album__photos SET title = 'Украсьте квартиру, приготовьте праздничные вкусности - создайте новогоднее настроение!' WHERE id = 239945;
-UPDATE album__photos SET title = 'Приготовьте красивые подарки для каждого члена семьи – порадуйте родных и близких!' WHERE id = 239946;
-UPDATE album__photos SET title = 'Устройте веселые новогодние игры! Шарады, прятки, салочки, фанты - пускай никто не грустит в этот новогодний вечер!' WHERE id = 239948;
-UPDATE album__photos SET title = 'Красиво украсьте новогодний стол! Не забудьте про праздничные  салфетки, мишуру, игрушки  и свечи.  Пусть дети помогут вам в этом!' WHERE id = 239952;
-UPDATE album__photos SET title = 'Пригласите в гости доброго Деда Мороза – устройте малышам настоящую сказку!' WHERE id = 239955;
-UPDATE album__photos SET title = 'Разрисуйте друг друга с помощью аквагрима! Дети будут очень рады такой необычной новогодней забаве.' WHERE id = 239959;
-UPDATE album__photos SET title = 'Можно устроить веселую пижамную вечеринку и насладиться новогодним праздником в расслабленной обстановке.' WHERE id = 239964;
-UPDATE album__photos SET title = 'Устройте настоящий новогодний бал! Пусть в этот волшебный вечер дети почувствуют себя героями сказок – отважными принцами и прекрасными принцессами!' WHERE id = 239968;
-UPDATE album__photos SET title = 'Организуйте семейный маскарад! И пусть каждый член семьи выберет для себя роль любимого сказочного героя.' WHERE id = 239970;
-UPDATE album__photos SET title = 'Отправьтесь всей семьей на центральную  площадь и встретьте бой курантов под  самой главной  ёлкой вашего города!' WHERE id = 239972;
-UPDATE album__photos SET title = 'Устройте катание на санях в новогодний вечер!  Дети будут в восторге!' WHERE id = 239975;
-UPDATE album__photos SET title = 'Водите с малышами хоровод вокруг ёлки, пойте праздничные песенки, читайте стишки!' WHERE id = 239977;
-UPDATE album__photos SET title = 'Отправляйтесь встречать Новый год в Лапландию - на родину Санта Клауса. Как знать, может быть,  в Новом году он исполнит все ваши самые заветные желания?' WHERE id = 240022;
-UPDATE album__photos SET title = 'Посетите вотчину Деда Мороза в России - в красивом северном городе Великий Устюг. Незабываемые сказочные впечатления гарантированы для всех - от мала до велика!' WHERE id = 240023;
-UPDATE album__photos SET title = 'Заберитесь на крышу и наслаждайтесь видами новогоднего фейерверка!' WHERE id = 240026;
-UPDATE album__photos SET title = 'Обязательно поздравьте всех своих  родственников с Новым годом!' WHERE id = 240028;
-UPDATE album__photos SET title = 'Нарисуйте красивую новогоднюю газету  и пусть все оставят там свои новогодние пожелания!' WHERE id = 240029;
-UPDATE album__photos SET title = 'Зажигайте новогодние огни, запускайте фейерверки, взрывайте хлопушки! Главное – не забывайте о мерах безопасности.' WHERE id = 240031;
-UPDATE album__photos SET title = 'Посмотрите любимые новогодние фильмы!' WHERE id = 240034;
-UPDATE album__photos SET title = 'Приготовьте вкуснейшие новогодние сладости вместе!' WHERE id = 240035;
-UPDATE album__photos SET title = 'Устройте веселую новогоднюю фотосессию всей семьей! Пусть праздник запомнится надолго!' WHERE id = 240037;
-UPDATE album__photos SET title = 'Проведите семейный концерт! Пусть каждый блеснет своим талантом  в этот праздничный вечер!' WHERE id = 240038;
-
-1. Новый год – по-настоящему семейное торжество – обязательно соберите всю вашу дружную семью вместе в этот  праздничный вечер!
-2. Подготовьте веселые новогодние костюмы для каждого члена семьи!
-3. Какой же Новый год без ёлочки? Нарядите зеленую лесную красавицу вместе. Проявите фантазию и почувствуйте приближение праздника!
-4. Украсьте квартиру, приготовьте праздничные вкусности - создайте новогоднее настроение!
-5. Приготовьте красивые подарки для каждого члена семьи – порадуйте родных и близких!
-6. Устройте веселые новогодние игры! Шарады, прятки, салочки, фанты - пускай никто не грустит в этот новогодний вечер!
-7. Красиво украсьте новогодний стол! Не забудьте про праздничные  салфетки, мишуру, игрушки  и свечи.  Пусть дети помогут вам в этом!
-8. Пригласите в гости доброго Деда Мороза – устройте малышам настоящую сказку!
-9. Разрисуйте друг друга с помощью аквагрима! Дети будут очень рады такой необычной новогодней забаве.
-10. Можно устроить веселую пижамную вечеринку и насладиться новогодним праздником в расслабленной обстановке.
-11. Устройте настоящий новогодний бал! Пусть в этот волшебный вечер дети почувствуют себя героями сказок – отважными принцами и прекрасными принцессами!
-12. Организуйте семейный маскарад! И пусть каждый член семьи выберет для себя роль любимого сказочного героя.
-13. Отправьтесь всей семьей на центральную  площадь и встретьте бой курантов под  самой главной  ёлкой вашего города!
-14. Устройте катание на санях в новогодний вечер!  Дети будут в восторге!
-15. Водите с малышами хоровод вокруг ёлки, пойте праздничные песенки, читайте стишки!
-16. Отправляйтесь встречать Новый год в Лапландию - на родину Санта Клауса. Как знать, может быть,  в Новом году он исполнит все ваши самые заветные желания?
-17.   Посетите вотчину Деда Мороза в России - в красивом северном городе Великий Устюг. Незабываемые сказочные впечатления гарантированы для всех - от мала до велика!
-18.    Заберитесь на крышу и наслаждайтесь видами новогоднего фейерверка!
-19. Обязательно поздравьте всех своих  родственников с Новым годом!
-20. Нарисуйте красивую новогоднюю газету  и пусть все оставят там свои новогодние пожелания!
-21. Зажигайте новогодние огни, запускайте фейерверки, взрывайте хлопушки! Главное – не забывайте о мерах безопасности.
-22. Посмотрите любимые новогодние фильмы!
-23. Приготовьте вкуснейшие новогодние сладости вместе!
-24. Устройте веселую новогоднюю фотосессию всей семьей! Пусть праздник запомнится надолго!
-25.  Проведите семейный концерт! Пусть каждый блеснет своим талантом  в этот праздничный вечер!
+http://data.whicdn.com/images/51307175/549692_388394221228298_166263686_n_large.jpg 
+http://data.whicdn.com/images/51307876/tumblr_mhm3g0duVK1s1mjseo1_500_large.jpg
+http://data.whicdn.com/images/51306139/The-most-beautiful-gift-for-Valentines-day_large.jpg 
+http://data.whicdn.com/images/51306934/tumblr_mhmv7khoRt1qgf0w3o1_400_large.jpg 
+http://media-cache-ec4.pinterest.com/550/e5/f8/83/e5f883568cad4afbc602a6f0b0c6d09f.jpg
+http://media-cache-lt0.pinterest.com/550/29/09/48/290948c3be4f124d265863a0f6cab2ce.jpg 
+http://media-cache-ec3.pinterest.com/550/4a/68/02/4a68022c4df901c1c3cdea92ed6cfb59.jpg
+http://media-cache-lt0.pinterest.com/550/0d/ce/e9/0dcee9e348c50af26c4e3083a9c70609.jpg 
+http://media-cache-ec3.pinterest.com/550/60/42/4c/60424cedeb5965316ce7e343b74a9799.jpg
+http://media-cache-ec1.pinterest.com/550/7c/5d/b1/7c5db1fa40ed5c0b8f8ffd393bb192c1.jpg 
+http://media-cache-ec2.pinterest.com/550/eb/10/bf/eb10bfafd9994a68373f26e2797eac55.jpg
+http://www.playcast.ru/get-media/55c30/uploads/2011/02/14/2321531.jpg
+http://open.az/uploads/posts/2010-01/1264420340_1259856773_i_love_music__by_smilingideea.jpg
+http://desktopwallpapers.org.ua/large/201205/16633.jpg
+http://anamsaeed.site88.net/quotes/pic/I-love-you-so-much1.jpg
+http://dubstep.in/wp-content/uploads/2012/09/R.O-Robot-Love.jpg
+http://data.whicdn.com/images/9788109/Love-Pictures-love-22035342-500-500_large.jpg?1305473318
+http://3.bp.blogspot.com/_2xq99VbiwBk/TTgBKP1McPI/AAAAAAAAAPo/IRz6h9ZIGFw/s1600/coffee+love.jpg
+http://jumorok.com/wp-content/uploads/2012/03/i_love-you.jpg
+http://static.designlike.com/wp-content/uploads/2012/01/3-handmade-valentines-day-decor-Love-Candles.jpg
+http://www.hdwallpapers.in/walls/love_prison-wide.jpg
+http://img.dailyscreens.com/2013/01/love-emo-wallpaper.jpeg
+http://hollynicol.co.uk/wp-content/uploads/2012/09/photography-love.jpeg
+http://www.hdwallpapersarena.com/wp-content/uploads/2013/01/I-Love-You-Desktop-Backgrounds-Wallpaper2.jpg
+http://24.media.tumblr.com/tumblr_lzuyjtKhlP1rqovwzo1_500.jpg
+http://blogs.psychcentral.com/mentoring-recovery/files/2011/03/jump-for-love.jpg
+http://www.dumage.com/img/misc/classbook-for-falling-in-love/classbook-for-falling-in-love02.jpg
+http://24.media.tumblr.com/tumblr_lr362bxy0d1qks1m4o1_500.jpg
+http://www.fotoman.name/wp-content/uploads/2012/09/LoveStory1.jpg
+http://data.whicdn.com/images/51305600/tumblr_mhoqbd91DU1rminpso1_400_large.jpg
+http://data.whicdn.com/images/51305411/14858_364364506994614_1202010867_n_large.jpg
+http://data.whicdn.com/images/51305315/19087_364364493661282_2033682683_n_large.jpg
+http://data.whicdn.com/images/51304864/482600_364364433661288_940359782_n_large.jpg
+http://data.whicdn.com/images/51304221/161_large.jpg
+http://data.whicdn.com/images/51302234/537278_364364143661317_337106919_n_large.jpg
+http://data.whicdn.com/images/51301811/45535_364364076994657_1161934297_n_large.jpg
+http://data.whicdn.com/images/51301559/b4_large.jpg
+http://data.whicdn.com/images/51301531/tumblr_mhokt6Qc2o1s2amn4o1_500_large.jpg
+http://data.whicdn.com/images/51301271/398040_364363726994692_1149297461_n_large.jpg
+http://data.whicdn.com/images/51301233/tumblr_mhabe1pCHR1r3ql82o1_500_large.jpg
+http://data.whicdn.com/images/51301244/554271_364363750328023_143395617_n_large.jpg
+http://media-cache-ec4.pinterest.com/550/03/2e/be/032ebe77920a899f5e761f57bc6ae57b.jpg 
+http://media-cache-ec3.pinterest.com/550/50/37/a6/5037a6992d2242d8cec6c4bd31851956.jpg
+http://media-cache-lt0.pinterest.com/550/89/eb/44/89eb44ea26dfe92074f43a1d7aaf80d4.jpg
+http://media-cache-ec3.pinterest.com/550/66/9c/4d/669c4de1a2fc2d8669cf9e231db652e4.jpg
+http://media-cache-ec5.pinterest.com/550/67/c0/0e/67c00edf58133f8f1d2498aafa67fdf9.jpg
+http://media-cache-ec3.pinterest.com/550/13/33/4c/13334c6ed02dd893215107088e602c6f.jpg
+http://media-cache-ec3.pinterest.com/550/4c/c1/d0/4cc1d03419627dd78794dab993e63936.jpg
+http://media-cache-ec7.pinterest.com/550/80/96/7d/80967dffd2cc93cd56e2ffce5a846608.jpg
+http://media-cache-ec6.pinterest.com/550/10/94/da/1094daf985f7b12cbca2624f33935c94.jpg
+http://media-cache-ec5.pinterest.com/550/c7/cf/66/c7cf66d1b673b188760331dc2fb37edf.jpg
+http://media-cache-ec3.pinterest.com/550/54/e2/42/54e242826cd555338c5c5c70e1311175.jpg
+http://media-cache-ec3.pinterest.com/550/54/e2/42/54e242826cd555338c5c5c70e1311175.jpg
+http://media-cache-ec1.pinterest.com/550/5e/ba/af/5ebaaf89705db65e0ba61f15e311be7f.jpg
+http://media-cache-ec7.pinterest.com/550/65/52/66/655266dc56d4c8847579ce9cd35ca383.jpg
+http://media-cache-ec1.pinterest.com/550/8a/4d/c7/8a4dc7b6e70335f58e2615b8520264c8.jpg
+http://media-cache-ec7.pinterest.com/550/cb/2f/22/cb2f22de162e4095435b39ea448aa299.jpg
+http://media-cache-lt0.pinterest.com/550/01/1b/f8/011bf8f4b04027e3ab04826084447b93.jpg
+http://media-cache-lt0.pinterest.com/550/84/d3/cd/84d3cd05a4d580f719d21590a4012ca3.jpg
+http://media-cache-ec1.pinterest.com/550/29/e2/1a/29e21a491823f24c655138c40286a6b2.jpg
+http://media-cache-ec3.pinterest.com/550/88/ca/84/88ca8484974dd7534ffdcc8815bfee91.jpg
+http://media-cache-ec7.pinterest.com/550/6d/6a/f5/6d6af52c57e88503f6e36d5bbf8d6a84.jpg
+http://media-cache-ec4.pinterest.com/550/a6/9c/57/a69c5751f1222bd705bd7279a781fc42.jpg
+http://media-cache-lt0.pinterest.com/550/d1/0c/ce/d10cce724436de3c466ecd1f6490dff9.jpg
+http://media-cache-ec7.pinterest.com/550/4d/1e/80/4d1e80a70c955d31c0ebcb064eed14a1.jpg
+http://media-cache-ec7.pinterest.com/550/4d/1e/80/4d1e80a70c955d31c0ebcb064eed14a1.jpg
+http://cs406522.userapi.com/v406522368/6529/2Ti1T8iLxCw.jpg
+http://cs406522.userapi.com/v406522368/66de/yx1JfVyPwu4.jpg
+http://cs406522.userapi.com/v406522368/5d19/x2ydgNkGH8o.jpg 
+http://cs319517.userapi.com/v319517368/7c4a/0LHNrsOEw6g.jpg 

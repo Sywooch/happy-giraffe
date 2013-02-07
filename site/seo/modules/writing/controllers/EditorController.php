@@ -95,8 +95,9 @@ class EditorController extends SController
     public function actionHideKey()
     {
         $key_id = Yii::app()->request->getPost('id');
-        $key = new KeywordBlacklist();
+        $key = new KeywordsBlacklist();
         $key->keyword_id = $key_id;
+        $key->user_id = Yii::app()->user->id;
         echo CJSON::encode(array('status' => $key->save()));
     }
 
@@ -108,7 +109,7 @@ class EditorController extends SController
         $urls = Yii::app()->request->getPost('urls');
 
         $author_id = Yii::app()->request->getPost('author_id');
-        $keywords = Keyword::model()->with('group')->findAllByPk($key_ids);
+        $keywords = Keyword::model()->findAllByPk($key_ids);
 
         foreach ($keywords as $keyword)
             if (!empty($keyword->group)) {

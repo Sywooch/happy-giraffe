@@ -6,7 +6,7 @@
 class UserPosts extends PostForCommentator
 {
     protected $entities = array(
-        'CommunityContent' => array(30),
+        'CommunityContent' => array(24),
         'CookRecipe' => array(2, 3),
     );
     protected $nextGroup = 'FavouritesPosts';
@@ -15,7 +15,7 @@ class UserPosts extends PostForCommentator
     {
         Yii::import('site.frontend.modules.cook.models.*');
         $criteria = $this->getCriteria();
-        $posts = $this->getPosts($criteria, true);
+        $posts = $this->getPosts($criteria, false);
 
         $this->logState(count($posts));
 
@@ -44,6 +44,7 @@ class UserPosts extends PostForCommentator
             ),
         );
         $criteria->order = 'priority.priority desc';
+        $criteria->limit = 20;
 
         return $criteria;
     }

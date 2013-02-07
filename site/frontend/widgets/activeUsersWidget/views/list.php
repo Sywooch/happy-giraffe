@@ -9,9 +9,10 @@ $k = 0;
         <th class="best-users_list-comment"><i class="icon-comment"></i></th>
         <th class="best-users_list-point">Баллов</th>
     </tr>
+    <?php $k = 1 ?>
     <?php foreach ($list as $user_id => $value): ?>
     <tr>
-        <td class="best-users_list-rank"><i class="rank rank<?=($k+1)?>"></i></td>
+        <td class="best-users_list-rank"><i class="rank rank<?=$k++?>"></i></td>
         <td class="best-users_list-ava">
             <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
             'user' => $users[$user_id],

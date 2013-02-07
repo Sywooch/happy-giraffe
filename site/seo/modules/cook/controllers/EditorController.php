@@ -92,7 +92,7 @@ class EditorController extends SController
         $section = Yii::app()->request->getPost('section');
 
         if (empty($task_id)) {
-            $keyword = Keyword::model()->with('group')->findByPk($key_id);
+            $keyword = Keyword::model()->findByPk($key_id);
             if (!empty($keyword->group)) {
                 $response = array(
                     'status' => false,

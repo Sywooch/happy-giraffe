@@ -190,7 +190,8 @@ class AlbumsController extends HController
             $model = $model->findByPk($entity_id);
 
         if (!Yii::app()->request->getQuery('go')) {
-            $this->renderPartial('w_photo', compact('model', 'photo'));
+            $view = ($model instanceof Album && $model->type == Album::TYPE_VALENTINE) ? 'w_photo_share' : 'w_photo';
+            $this->renderPartial($view, compact('model', 'photo'));
         } else {
             $this->renderPartial('w_photo_content', compact('model', 'photo'));
         }
@@ -661,7 +662,7 @@ class AlbumsController extends HController
                 $model = CActiveRecord::model($entity)->findByAttributes(array('content_id' => $content_id));
                 break;
             case 'Album':
-                $album_id = Yii::app()->request->getQuery('album_id');
+                $album_id = (Yii::app()->request->getQuery('valentines') == 1) ? Album::getAlbumByType(User::HAPPY_GIRAFFE, Album::TYPE_VALENTINE)->id : Yii::app()->request->getQuery('album_id');
                 $model = CActiveRecord::model($entity)->findByPk($album_id);
                 break;
             case 'CookRecipe':
@@ -735,5 +736,47 @@ class AlbumsController extends HController
         if ($entity_id != 'null')
             $model = $model->findByPk($entity_id);
         $this->renderPartial('postLoad', compact('model', 'photo_id'));
+    }
+
+    public function actionPartnerPhoto()
+    {
+        $val = Yii::app()->request->getPost('val');
+        if (is_numeric($val)) {
+            AlbumPhoto::model()->findByPk($val);
+        } else {
+            $model = new AlbumPhoto;
+            $model->file_name = $val;
+            $model->author_id = Yii::app()->user->id;
+            $model->create(true);
+        }
+
+
+        if ($model === null) {
+            $response = array(
+                'status' => false,
+            );
+        } else {
+            $attach = new AttachPhoto;
+            $attach->entity = Yii::app()->request->getPost('entity');
+            $attach->entity_id = Yii::app()->request->getPost('entity_id');
+            $attach->photo_id = $model->primaryKey;
+            $attach->save();
+
+            $response = array(
+                'status' => true,
+                'src' => $model->getPreviewUrl(325, 252),
+                'id' => $model->primaryKey,
+                'title' => $model->title,
+            );
+        }
+        echo CJSON::encode($response);
+        Yii::app()->end();
+    }
+
+    public function actionShare($id)
+    {
+        $photo = AlbumPhoto::model()->findByPk($id);
+
+        $this->renderPartial('share', compact('photo'));
     }
 }

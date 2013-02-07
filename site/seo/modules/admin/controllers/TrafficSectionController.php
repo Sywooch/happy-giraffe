@@ -18,6 +18,9 @@ class TrafficSectionController extends SController
 		if(isset($_POST['TrafficSection']))
 		{
 			$model->attributes=$_POST['TrafficSection'];
+            if (empty($_POST['TrafficSection']['parent_id']))
+                $model->parent_id = null;
+
 			if($model->save())
 				$this->redirect(array('admin'));
 		}

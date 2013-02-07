@@ -99,7 +99,7 @@ class HEmailSender extends CApplicationComponent
             $models = MailruUser::model()->findAll($criteria);
 
             foreach ($models as $model){
-                Yii::app()->email->addContact($model->email, $model->first, '', HEmailSender::LIST_MAILRU_USERS);
+                Yii::app()->email->addContact($model->email, $model->name, '', HEmailSender::LIST_MAILRU_USERS);
                 SeoUserAttributes::setAttribute('import_email_contest_last_user_id' , $model->id, 1);
             }
 

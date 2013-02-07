@@ -111,7 +111,7 @@
                 <li class="valentine-cook_li clearfix">
                     <a href="<?=$recipe->getUrl() ?>" class="valentine-cook_a">
                             <span class="valentine-cook_img">
-                                <img src="<?=$recipe->getMainPhoto()->getPreviewUrl(95, 100) ?>" alt="">
+                                <img src="<?=$recipe->getMainPhoto()->getPreviewUrl(95, 71, false, true) ?>" alt="">
                             </span>
                         <span class="valentine-cook_desc"><?=$recipe->title ?></span>
                     </a>

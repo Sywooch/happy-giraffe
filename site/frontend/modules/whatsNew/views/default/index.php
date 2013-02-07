@@ -59,6 +59,9 @@
                         'behavior' => 'local',
                         'binder' => new CJavaScriptExpression("$('.layout-container')"),
                         'itemSelector' => '.masonry-news-list_item',
+                        'loading' => array(
+                            'selector' => '.masonry-news-list',
+                        ),
                     ),
                     'callback' => new CJavaScriptExpression("function(newElements) {
                         $(newElements).imagesLoaded(function() {

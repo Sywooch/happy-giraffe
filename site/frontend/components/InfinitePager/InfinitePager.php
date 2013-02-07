@@ -16,7 +16,6 @@ class InfinitePager extends CBasePager
         'loading' => array(
             'msgText' => 'Загрузка',
             'img' => '/images/ico/ajax-loader.gif',
-            'selector' => '.masonry-news-list',
         ),
     );
 

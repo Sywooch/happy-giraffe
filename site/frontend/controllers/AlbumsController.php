@@ -190,7 +190,8 @@ class AlbumsController extends HController
             $model = $model->findByPk($entity_id);
 
         if (!Yii::app()->request->getQuery('go')) {
-            $this->renderPartial('w_photo', compact('model', 'photo'));
+            $view = ($model instanceof Album && $model->type == Album::TYPE_VALENTINE) ? 'w_photo_share' : 'w_photo';
+            $this->renderPartial($view, compact('model', 'photo'));
         } else {
             $this->renderPartial('w_photo_content', compact('model', 'photo'));
         }
@@ -661,7 +662,7 @@ class AlbumsController extends HController
                 $model = CActiveRecord::model($entity)->findByAttributes(array('content_id' => $content_id));
                 break;
             case 'Album':
-                $album_id = Yii::app()->request->getQuery('album_id');
+                $album_id = (Yii::app()->request->getQuery('valentines') == 1) ? Album::getAlbumByType(User::HAPPY_GIRAFFE, Album::TYPE_VALENTINE)->id : Yii::app()->request->getQuery('album_id');
                 $model = CActiveRecord::model($entity)->findByPk($album_id);
                 break;
             case 'CookRecipe':
@@ -770,5 +771,12 @@ class AlbumsController extends HController
         }
         echo CJSON::encode($response);
         Yii::app()->end();
+    }
+
+    public function actionShare($id)
+    {
+        $photo = AlbumPhoto::model()->findByPk($id);
+
+        $this->renderPartial('share', compact('photo'));
     }
 }

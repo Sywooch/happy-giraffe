@@ -25,6 +25,7 @@ class Album extends HActiveRecord
     const TYPE_PRODUCTS = 4;
     const TYPE_RECIPES = 5;
     const TYPE_PREVIEW = 6;
+    const TYPE_VALENTINE = 100;
 
     private $_check_access = null;
     public $files = array();
@@ -37,6 +38,7 @@ class Album extends HActiveRecord
         5 => 'Украшения блюд',
         6 => 'Видео превью',
         7 => 'Мои рецепты',
+        100 => 'Валентинки',
     );
 
     public static $permissions = array(
@@ -286,7 +288,7 @@ class Album extends HActiveRecord
      */
     public static function getAlbumByType($author_id, $type)
     {
-        $album = Album::model()->findByAttributes(array('author_id' => $author_id, 'type' => $type));
+        $album = Album::model()->active()->findByAttributes(array('author_id' => $author_id, 'type' => $type));
         if(!$album)
         {
             $album = new Album;

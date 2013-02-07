@@ -258,7 +258,7 @@
 				</div>
 				
 				<div class="textalign-c margin-20">
-					<a href="" class="photo-window_btn-download-valentine btn-green btn-big">Поделиться</a>
+					<a href="" class="photo-window_btn-download-valentine btn-green btn-big">Скачать</a>
 				</div>
 			</div>
 

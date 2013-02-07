@@ -60,10 +60,8 @@ $dp = ValentineSms::model()->search();
 
         <div class="valentine-sms">
             <div class="valentine-sms_hold">
-                <div class="valentine-sms_t"></div>
-                <p class="valentine-sms_p">В день святого Валентина принято обмениваться смс о любви и маленькими
-                    подарками. Если вы еще не знаете, как поздравить с днем святого Валентина свою вторую половинку -
-                    пришлите ей смс с признанием в любви.</p>
+                <h2 class="valentine-sms_t">205 SMS о любви</h2>
+                <p class="valentine-sms_p">В день святого Валентина принято обмениваться смс о любви и маленькими подарками. Если вы еще не знаете, как поздравить с днем святого Валентина свою вторую половинку - пришлите ей смс с признанием в любви.</p>
             </div>
             <div id="valentine-sms">
             <?php foreach ($models as $model): ?>

@@ -37,7 +37,7 @@
             'title' => 'Вам понравилось фото?',
             'notice' => '',
             'model' => $post,
-            'type' => 'simple',
+            'type' => 'simple_ajax',
             'options' => array(
                 'title' => CHtml::encode($post->title),
                 'image' => $model->items[0]->photo->getOriginalUrl(),
@@ -47,7 +47,9 @@
 
         $this->widget('site.frontend.widgets.commentWidget.CommentWidget', array(
             'model' => $post,
-            'photoContainer'=>true
+            'popUp' => true,
+            'photoContainer'=>true,
+            'commentModel' => 'PhotoViewComment',
         ));
     } else
      $this->widget('site.frontend.widgets.commentWidget.CommentWidget', array(

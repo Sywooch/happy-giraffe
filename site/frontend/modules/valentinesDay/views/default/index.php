@@ -66,7 +66,7 @@
         <div class="valentine-spent">
             <h2 class="valentine-spent_t">Как провести <br>День святого Валентина</h2>
             <a href="<?=$this->createUrl('howToSpend', array('open'=>1))?>" class="valentine-spent_img">
-                <img src="/images/valentine-day/valentine-spent_img-2.png" alt="">
+                <img src="/images/valentine-day/valentine-spent_img.png" alt="">
             </a>
             <div class="textalign-c">
                 <a href="<?=$this->createUrl('howToSpend', array('open'=>1))?>" class="valentine-spent_a">

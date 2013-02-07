@@ -114,12 +114,13 @@ class MailCommand extends CConsoleCommand
     {
         Yii::import('site.seo.models.mongo.*');
         $last_id = SeoUserAttributes::getAttribute('import_email_last_user_id' , 1);
+        echo 'last_id: '.$last_id."\n";
 
         $criteria = new CDbCriteria;
         $criteria->with = array('mail_subs');
         $criteria->condition = '(t.group < 5 AND t.group > 0 OR t.group = 6) OR (t.group = 0 AND t.register_date >= "2012-05-01 00:00:00")';
         $criteria->scopes = array('active');
-        $criteria->limit = 1000;
+        $criteria->limit = 100;
         $criteria->condition = 'id > '.$last_id;
         $criteria->offset = 0;
 
@@ -132,7 +133,7 @@ class MailCommand extends CConsoleCommand
                 SeoUserAttributes::setAttribute('import_email_last_user_id' , $model->id, 1);
             }
 
-            $criteria->offset += 1000;
+            $criteria->offset += 100;
         }
     }
 

@@ -129,7 +129,7 @@ class MailCommand extends CConsoleCommand
             $models = User::model()->findAll($criteria);
 
             foreach ($models as $model){
-                //Yii::app()->email->addContact($model->email, $model->first_name, $model->last_name, HEmailSender::LIST_OUR_USERS);
+                Yii::app()->email->addContact($model->email, $model->first_name, $model->last_name, HEmailSender::LIST_OUR_USERS);
                 SeoUserAttributes::setAttribute('import_email_last_user_id' , $model->id, 1);
             }
 

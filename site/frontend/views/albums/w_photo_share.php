@@ -82,10 +82,12 @@
                 )); ?>
             </div>
 
-            <div class="photo-info photo-container" style="display: none;">
+            <div class="photo-info photo-container">
                 <a id="gallery-top-link" href="#gallery-top" style="display:none !important;"></a>
                 <?=$title?><?php if (get_class($model) != 'Contest'): ?> - <span class="count"><span><?=($currentIndex + 1)?></span> фото из <?=$count?></span><?php endif; ?>
-                <div id="gallery-top" class="title"><?=$photo->w_title?></div>
+                <div style="display: none;">
+                    <div id="gallery-top" class="title"><?=$photo->w_title?></div>
+                </div>
             </div>
 
         </div>
@@ -145,7 +147,7 @@
         </div>
 
         <div class="textalign-c margin-20">
-            <a href="/albums/share/?id=<?=$photo->id?>" class="photo-window_btn-share btn-green btn-big fancy" data-theme="white-square" id="photo_share">Поделиться</a>
+            <a href="/albums/download/?id=<?=$photo->id?>" class="photo-window_btn-download-valentine btn-green btn-big" id="photo_download">Скачать эту валентинку</a>
         </div>
 
         <div class="rewatch-container" style="display: none;">

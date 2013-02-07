@@ -796,7 +796,7 @@ class AlbumsController extends HController
         $file = $photo->getOriginalPath();
         header('Content-Description: File Transfer');
         header('Content-type: application/octet-stream');
-        header ('Content-Disposition: attachment; filename=' . $file);
+        header ('Content-Disposition: attachment; filename=' . $photo->fs_name);
         readfile($file);
     }
 }

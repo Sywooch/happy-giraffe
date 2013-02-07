@@ -14,7 +14,7 @@ class DefaultController extends HController
 
         $criteria = $this->getValentinesCriteria();
         $order = array(
-            302391,
+            302686,
             302390,
             302392,
             302433,

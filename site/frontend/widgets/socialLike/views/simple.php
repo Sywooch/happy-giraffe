@@ -101,7 +101,7 @@
                         array('class'=>'fb-custom-text', 'onclick'=>'return Social.showFacebookPopup(this);'), true) ?>
                     <div class="fb-custom-share-count">0</div>
                     <script type="text/javascript">
-                        $.getJSON("http://graph.facebook.com", { id:<?=$url ?> }, function (json) {
+                        $.getJSON("http://graph.facebook.com", { id:'<?=$url ?>' }, function (json) {
                             $('.fb-custom-share-count').html(json.shares || '0');
                         });
                     </script>

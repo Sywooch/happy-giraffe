@@ -28,6 +28,8 @@
     <?php endif; ?>
 
     <?php
+
+    $post = $photo;
         Yii::import('site.common.models.forms.PhotoViewComment');
     //костыль для велентина
     if (isset($model->content->rubric->community_id) && $model->content->rubric->community_id == Community::COMMUNITY_VALENTINE){?>
@@ -44,14 +46,8 @@
                 'description' => $post->preview,
             ),
         ));
+    }
 
-        $this->widget('site.frontend.widgets.commentWidget.CommentWidget', array(
-            'model' => $post,
-            'popUp' => true,
-            'photoContainer'=>true,
-            'commentModel' => 'PhotoViewComment',
-        ));
-    } else
      $this->widget('site.frontend.widgets.commentWidget.CommentWidget', array(
         'model' => $photo,
         'popUp' => true,

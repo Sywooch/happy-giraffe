@@ -58,6 +58,9 @@
         $attach = AttachPhoto::model()->findByEntity('ContestWork', $this->model->id);
         $photo = $attach[0]->photo;
         $url = Yii::app()->createAbsoluteUrl('albums/singlePhoto', array('entity' => 'Contest', 'contest_id' => $this->model->contest_id, 'photo_id' => $photo->id));
+    } elseif(isset($this->model) && isset($this->model->rubric) && isset($this->model->rubric->community_id) && $this->model->rubric->community_id == Community::COMMUNITY_VALENTINE){
+        //костыль для валентина 2
+       $url = $this->model->getUrl();
     } else {
         $url = 'http://' . $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
     }

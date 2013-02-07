@@ -88,9 +88,11 @@ class DefaultController extends HController
             $album->delete();
 
         $path = Yii::getPathOfAlias('site.common.data') . DIRECTORY_SEPARATOR . 'valentines.txt';
-        $urls = file($path, FILE_IGNORE_NEW_LINES);
+        $urls = file($path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 
-        foreach ($urls as $i => $url) {
+        $urls = array_unique($urls);
+
+        foreach ($urls as $url) {
             if (AlbumPhoto::createByUrl($url, User::HAPPY_GIRAFFE, Album::TYPE_VALENTINE) === false)
                 echo $url . '<br />';
         }

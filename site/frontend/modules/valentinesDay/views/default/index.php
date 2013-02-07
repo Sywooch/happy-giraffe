@@ -12,6 +12,7 @@
         'selector' => '.valentines-best_li > a',
         'entity' => 'Album',
         'entity_id' => Album::getAlbumByType(User::HAPPY_GIRAFFE, Album::TYPE_VALENTINE)->id,
+        'entity_url' => $this->createUrl('valentines'),
     ));
 ?>
 

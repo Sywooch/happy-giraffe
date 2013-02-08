@@ -113,7 +113,7 @@
             </div>
 
             <div class="share_button">
-                <a class="odkl-klass-oc" href="<?=$url?>"
+                <a class="odkl-klass-stat" href="<?=$url?>"
                    onclick="Social.updateLikesCount('ok'); ODKL.Share(this);return false;"><span>0</span></a>
             </div>
 

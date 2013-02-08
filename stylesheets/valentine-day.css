@@ -166,6 +166,8 @@
 	color: #3088c8;
 	font-size: 13px;
 	line-height: 16px;
+	float: left;
+	width: 90px;
 }
 .valentine-cook_more {
 	display: inline-block;

@@ -44,7 +44,6 @@ class UserPosts extends PostForCommentator
             ),
         );
         $criteria->order = 'priority.priority desc';
-        $criteria->limit = 20;
 
         return $criteria;
     }

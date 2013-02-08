@@ -42,8 +42,6 @@ class CoWorkersPosts extends PostForCommentator
                 'together' => true,
             ),
         );
-        $criteria->order = 'rand()';
-        $criteria->limit = 10;
 
         return $criteria;
     }

@@ -7,7 +7,7 @@ class FavouritesPosts extends PostForCommentator
 {
     protected $nextGroup = 'TrafficPosts';
     protected $entities = array(
-        'CommunityContent' => array(30),
+        'CommunityContent' => array(24),
     );
 
     public function getPost()

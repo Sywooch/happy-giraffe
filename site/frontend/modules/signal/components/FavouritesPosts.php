@@ -34,10 +34,9 @@ class FavouritesPosts extends PostForCommentator
     public function getCriteria()
     {
         $ids = array_merge(
-            Favourites::getIdList(Favourites::BLOCK_INTERESTING)
-                + Favourites::getIdList(Favourites::BLOCK_BLOGS)
-                + Favourites::getIdList(Favourites::BLOCK_SOCIAL_NETWORKS)
-                + Favourites::getIdList(Favourites::BLOCK_VIDEO)
+            Favourites::getIdList(Favourites::BLOCK_INTERESTING, 30)
+                + Favourites::getIdList(Favourites::BLOCK_BLOGS, 30)
+                + Favourites::getIdList(Favourites::BLOCK_SOCIAL_NETWORKS, 30)
         );
         if (empty($ids))
             return null;
@@ -45,7 +44,6 @@ class FavouritesPosts extends PostForCommentator
         $criteria = new CDbCriteria;
         $criteria->condition = 't.created >= "' . date("Y-m-d H:i:s", strtotime('-48 hour')) . '" AND `full` IS NULL';
         $criteria->compare('t.id', $ids);
-        $criteria->order = 'rand()';
 
         return $criteria;
     }

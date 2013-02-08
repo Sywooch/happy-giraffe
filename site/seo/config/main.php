@@ -17,7 +17,6 @@ return array(
         'site.frontend.helpers.CArray',
         'site.frontend.helpers.*',
         'site.frontend.extensions.YiiMongoDbSuite.*',
-        'site.frontend.extensions.ESaveRelatedBehavior',
 
         'application.models.*',
         'application.models.mongo.*',

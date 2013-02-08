@@ -1619,6 +1619,8 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 #header-new .nav .cols .col.wedding .big-link {padding:45px 40px 0 280px;height:200px;}
 #header-new .nav .cols .col.wedding .big-link {background-position:0 100%;}
 
+#header-new .nav .cols .col.relationships .title {text-align: left;padding:0 20px;}
+#header-new .nav .cols .col.relationships ul {text-align: left;}
 #header-new .nav .cols .col.relationships .col-in {padding:45px 40px 0 40px;height:200px;position:relative;background-position:100% 100%;}
 
 #header-new .nav .big-link {display:block;height:215px;padding:15px 24px;position:relative;text-decoration:none;background-repeat:no-repeat;background-position:50% 100%;}

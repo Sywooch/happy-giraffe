@@ -16,7 +16,7 @@ return array(
 	'import'=>array(
         'site.common.components.*',
         'site.common.models.*',
-        'application.models.*',
+        'site.common.model.mobile.*',
 	),
 
 	'modules'=>array(

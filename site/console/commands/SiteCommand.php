@@ -238,4 +238,10 @@ class SiteCommand extends CConsoleCommand
         $parser = new RosneftParser;
         $parser->start();
     }
+
+    public function actionHoroscope(){
+        Yii::import('site.frontend.modules.services.modules.horoscope.models.*');
+
+        HoroscopeLink::model()->generateTodayLink();
+    }
 }

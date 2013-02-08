@@ -58,24 +58,24 @@ class HEmailSender extends CApplicationComponent
     public static function updateUserList()
     {
         Yii::import('site.seo.models.mongo.*');
-        $last_id = SeoUserAttributes::getAttribute('import_email_last_user_id' , 1);
-        echo 'last_id: '.$last_id."\n";
+        $last_id = SeoUserAttributes::getAttribute('import_email_last_user_id', 1);
+        echo 'last_id: ' . $last_id . "\n";
 
         $criteria = new CDbCriteria;
         $criteria->with = array('mail_subs');
         $criteria->condition = '(t.group < 5 AND t.group > 0 OR t.group = 6) OR (t.group = 0 AND t.register_date >= "2012-05-01 00:00:00")';
         $criteria->scopes = array('active');
         $criteria->limit = 100;
-        $criteria->condition = 'id > '.$last_id;
+        $criteria->condition = 'id > ' . $last_id;
         $criteria->offset = 0;
 
         $models = array(0);
         while (!empty($models)) {
             $models = User::model()->findAll($criteria);
 
-            foreach ($models as $model){
+            foreach ($models as $model) {
                 Yii::app()->email->addContact($model->email, $model->first_name, $model->last_name, HEmailSender::LIST_OUR_USERS);
-                SeoUserAttributes::setAttribute('import_email_last_user_id' , $model->id, 1);
+                SeoUserAttributes::setAttribute('import_email_last_user_id', $model->id, 1);
             }
 
             $criteria->offset += 100;
@@ -84,26 +84,41 @@ class HEmailSender extends CApplicationComponent
 
     public static function updateMailruUsers()
     {
+        $emails = Yii::app()->db->createCommand()
+                    ->select('email')
+                    ->from('users')
+                    ->queryColumn();
+
         Yii::import('site.seo.models.mongo.*');
-        $last_id = SeoUserAttributes::getAttribute('import_email_contest_last_user_id' , 1);
-        echo 'last_id: '.$last_id."\n";
+        $last_id = 0;
+        echo 'last_id: ' . $last_id . "\n";
 
         $criteria = new CDbCriteria;
-        $criteria->condition = 'status != 2';
-        $criteria->limit = 100;
-        $criteria->condition = 'id > '.$last_id.' AND id < 500000';
+        $criteria->limit = 30000;
+        $criteria->condition = 'id > ' . $last_id . ' AND id < 500000 AND status != 2';
         $criteria->offset = 0;
 
         $models = array(0);
+
+        $i = 0;
         while (!empty($models)) {
             $models = MailruUser::model()->findAll($criteria);
 
-            foreach ($models as $model){
-                Yii::app()->email->addContact($model->email, $model->name, '', HEmailSender::LIST_MAILRU_USERS);
-                SeoUserAttributes::setAttribute('import_email_contest_last_user_id' , $model->id, 1);
-            }
+            $fp = fopen('file_'.$i.'.csv', 'w');
+            fputcsv($fp, array('Email Address', 'First Name', 'Last Name'));
 
-            $criteria->offset += 100;
+            foreach ($models as $model) {
+                if (!in_array($model->email, $emails)) {
+                    fputcsv($fp, array($model->email, $model->name, ' '));
+//                    Yii::app()->email->addContact($model->email, $model->name, '', HEmailSender::LIST_MAILRU_USERS);
+                }
+//                SeoUserAttributes::setAttribute('import_email_contest_last_user_id', $model->id, 1);
+            }
+            fclose($fp);
+
+            $i++;
+            $criteria->offset += 30000;
         }
+
     }
 }

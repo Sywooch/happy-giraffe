@@ -118,7 +118,7 @@
 
         <?php $this->renderPartial('_recipe_parts/_diabetics', array('recipe' => $recipe)); ?>
 
-        <?php $this->renderPartial('_recipe_parts/_tags', array('recipe' => $recipe)); ?>
+        <?php $this->renderPartial('_recipe_parts/_tags', array('recipe' => $recipe, 'full'=>true)); ?>
 
     </div>
 

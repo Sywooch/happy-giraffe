@@ -16,7 +16,7 @@ class CoWorkersPosts extends PostForCommentator
         Yii::import('site.frontend.modules.cook.models.*');
 
         $criteria = $this->getCriteria(false);
-        $posts = $this->getPosts($criteria, false);
+        $posts = $this->getPosts($criteria, true);
 
         $this->logState(count($posts));
 

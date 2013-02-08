@@ -15,7 +15,7 @@ class UserPosts extends PostForCommentator
     {
         Yii::import('site.frontend.modules.cook.models.*');
         $criteria = $this->getCriteria();
-        $posts = $this->getPosts($criteria, false);
+        $posts = $this->getPosts($criteria, true);
 
         $this->logState(count($posts));
 
@@ -44,7 +44,7 @@ class UserPosts extends PostForCommentator
             ),
         );
         $criteria->order = 'priority.priority desc';
-        $criteria->limit = 150;
+        $criteria->limit = 100;
 
         return $criteria;
     }

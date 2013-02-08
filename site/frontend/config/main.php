@@ -39,7 +39,6 @@ return array(
 		'ext.CaptchaAction',
 		'ext.LinkPager',
 		'ext.wr.WithRelatedBehavior',
-		'ext.ESaveRelatedBehavior',
 		'ext.image.Image',
 		'ext.CAdvancedArBehavior',
 		'ext.EGMap.*',

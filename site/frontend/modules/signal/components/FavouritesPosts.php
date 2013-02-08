@@ -18,7 +18,7 @@ class FavouritesPosts extends PostForCommentator
         if ($criteria === null)
             return $this->nextGroup();
 
-        $posts = $this->getPosts($criteria, true);
+        $posts = $this->getPosts($criteria, false);
         $this->logState(count($posts));
 
         if (count($posts) == 0) {

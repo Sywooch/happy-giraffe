@@ -196,9 +196,12 @@ class Community extends HActiveRecord
 		));
 	}
 
-	public function behaviors(){
-		return array('ESaveRelatedBehavior' => array(
-			'class' => 'ESaveRelatedBehavior')
+	public function behaviors()
+    {
+		return array(
+            'ESaveRelatedBehavior' => array(
+			    'class' => 'site.common.behaviors.ESaveRelatedBehavior',
+            ),
 		);
 	}
 

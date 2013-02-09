@@ -88,6 +88,7 @@ class CommunityContent extends HActiveRecord
         // class name for the relations automatically generated below.
         return array(
             'rubric' => array(self::BELONGS_TO, 'CommunityRubric', 'rubric_id'),
+            'community' => array(self::HAS_ONE, 'Community', array('community_id' => 'id'), 'through' => 'rubric'),
             'type' => array(self::BELONGS_TO, 'CommunityContentType', 'type_id'),
             'commentsCount' => array(self::STAT, 'Comment', 'entity_id', 'condition' => 'entity=:modelName', 'params' => array(':modelName' => get_class($this))),
             'comments' => array(self::HAS_MANY, 'Comment', 'entity_id', 'on' => 'entity=:modelName', 'params' => array(':modelName' => get_class($this))),

@@ -17,7 +17,6 @@ return array(
         'site.common.components.*',
         'site.common.models.*',
         'site.common.helpers.*',
-        'site.frontend.extensions.ESaveRelatedBehavior',
         'site.frontend.extensions.image.Image',
         'site.frontend.extensions.phpQuery.phpQuery',
     ),

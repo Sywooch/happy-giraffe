@@ -15,7 +15,11 @@ class CommunityController extends CController
 
     public function actionView($content_id)
     {
+        $content = MobileCommunityContent::model()->findByPk($content_id);
 
+        echo $content->community->id;
+
+        //$this->render('view', compact('content'));
     }
 
     public function actionComments($content_id)

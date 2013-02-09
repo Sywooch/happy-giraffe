@@ -12,10 +12,9 @@ class m130208_082321_add_horoscope_link extends CDbMigration
             'today_link' => 'tinyint',
             'tomorrow_link' => 'tinyint',
             'month_link' => 'tinyint',
-            'the_month_link' => 'tinyint',
+            'some_month_link' => 'tinyint',
             'month_horoscope_id' => 'int',
             'year_link' => 'tinyint',
-            'year' => 'tinyint',
             'PRIMARY KEY (`id`)'
         ), 'ENGINE=Innodb DEFAULT CHARSET=utf8');
 

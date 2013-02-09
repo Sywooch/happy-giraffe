@@ -241,7 +241,10 @@ class SiteCommand extends CConsoleCommand
 
     public function actionHoroscope(){
         Yii::import('site.frontend.modules.services.modules.horoscope.models.*');
+        $model = Horoscope::model()->findByPk(20);
 
-        HoroscopeLink::model()->generateTodayLink();
+        $m = new HoroscopeLink;
+        $a = $m->getYearLinkAnchorsCounts('year_link', 2012);
+        var_dump($a);
     }
 }

@@ -98,6 +98,7 @@ class Community extends HActiveRecord
             'rootRubrics' => array(self::HAS_MANY, 'CommunityRubric', 'community_id', 'condition' => 'parent_id IS NULL'),
 			'users' => array(self::MANY_MANY, 'User', 'user__users_communities(user_id, community_id)'),
             'usersCount' => array(self::STAT, 'User', 'user__users_communities(user_id, community_id)'),
+            'mobileCommunity' => array(self::BELONGS_TO, 'MobileCommunity', 'mobile_community_id'),
 		);
 	}
 

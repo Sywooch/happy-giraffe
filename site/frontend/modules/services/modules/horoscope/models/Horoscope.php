@@ -53,6 +53,21 @@ class Horoscope extends HActiveRecord
         '12' => 'Рыб',
     );
 
+    public $zodiac_list3 = array(
+        '1' => 'Овнов',
+        '2' => 'Тельцов',
+        '3' => 'Близнецов',
+        '4' => 'Раков',
+        '5' => 'Львов',
+        '6' => 'Дев',
+        '7' => 'Весов',
+        '8' => 'Скорпионов',
+        '9' => 'Стрельцов',
+        '10' => 'Козерогов',
+        '11' => 'Водолеев',
+        '12' => 'Рыб',
+    );
+
     public $zodiac_list_eng = array(
         '1' => 'aries',
         '2' => 'taurus',
@@ -127,7 +142,9 @@ class Horoscope extends HActiveRecord
     {
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
-        return array();
+        return array(
+            'links' => array(self::HAS_ONE, 'HoroscopeLink', 'horoscope_id'),
+        );
     }
 
     public function scopes()
@@ -274,6 +291,11 @@ class Horoscope extends HActiveRecord
     public function zodiacText2()
     {
         return $this->zodiac_list2[$this->zodiac];
+    }
+
+    public function zodiacText3()
+    {
+        return $this->zodiac_list3[$this->zodiac];
     }
 
     public function zodiacDates()
@@ -642,6 +664,8 @@ class Horoscope extends HActiveRecord
 
     public function yearHoroscopeExist($year)
     {
+        if ($year < date("Y"))
+            return false;
         $model = Horoscope::model()->findByAttributes(array(
             'zodiac' => $this->zodiac,
             'month' => null,
@@ -662,7 +686,7 @@ class Horoscope extends HActiveRecord
             return '';
         $text = mb_strtolower(HDate::ruMonth($month), 'utf8') . ' ' . $year;
 
-        return '<span>' . CHtml::link($this->zodiacText() . ' на ' . $text, Yii::app()->controller->createUrl('month', array(
+        return '<span>' . CHtml::link('Гороскоп ' . $this->zodiacText2() . ' на ' . $text, Yii::app()->controller->createUrl('month', array(
             'zodiac' => $this->getZodiacSlug(),
             'month' => $year . '-' . sprintf('%02d', $month),
         ))) . ' ←</span>';
@@ -680,7 +704,7 @@ class Horoscope extends HActiveRecord
             return '';
         $text = mb_strtolower(HDate::ruMonth($month), 'utf8') . ' ' . $year;
 
-        $link = CHtml::link($this->zodiacText() . ' на ' . $text, Yii::app()->controller->createUrl('month', array(
+        $link = CHtml::link('Гороскоп ' . $this->zodiacText2() . ' на ' . $text, Yii::app()->controller->createUrl('month', array(
             'zodiac' => $this->getZodiacSlug(),
             'month' => $year . '-' . sprintf('%02d', $month),
         )));
@@ -693,7 +717,7 @@ class Horoscope extends HActiveRecord
     public function getPrevYearLink()
     {
         $year = $this->year - 1;
-        return CHtml::link($this->zodiacText() . ' на ' . $year . ' год', Yii::app()->controller->createUrl('year', array(
+        return CHtml::link('Гороскоп ' . $this->zodiacText2() . ' на ' . $year . ' год', Yii::app()->controller->createUrl('year', array(
             'zodiac' => $this->getZodiacSlug(),
             'year' => $year,
         )));
@@ -702,7 +726,7 @@ class Horoscope extends HActiveRecord
     public function getNextYearLink()
     {
         $year = $this->year + 1;
-        return CHtml::link($this->zodiacText() . ' на ' . $year . ' год', Yii::app()->controller->createUrl('year', array(
+        return CHtml::link('Гороскоп ' . $this->zodiacText2() . ' на ' . $year . ' год', Yii::app()->controller->createUrl('year', array(
             'zodiac' => $this->getZodiacSlug(),
             'year' => $year,
         )));
@@ -710,17 +734,22 @@ class Horoscope extends HActiveRecord
 
     public function getDateLinks()
     {
-        $result = 'А еще гороскоп';
+        $result = 'А еще';
 
         if (Yii::app()->controller->action->id == 'today') {
             //если на сегодня, показываем на вчера
-            $result .= CHtml::link($this->zodiacText() . ' на вчера', Yii::app()->controller->createUrl('yesterday', array('zodiac' => $this->getZodiacSlug())));
+            $result .= CHtml::link('Гороскоп ' . $this->zodiacText2() . ' на вчера', Yii::app()->controller->createUrl('yesterday', array('zodiac' => $this->getZodiacSlug())));
         } elseif (Yii::app()->controller->action->id == 'tomorrow') {
             //если на завтра, то выводим ссылки на 2 следующих дня
             if ($this->dateHoroscopeExist(strtotime('+2 days')))
                 $result .= $this->getDateLink(strtotime('+2 days'));
             if ($this->dateHoroscopeExist(strtotime('+3 days')))
                 $result .= $this->getDateLink(strtotime('+3 days'));
+        } elseif (Yii::app()->controller->action->id == 'date') {
+            if (isset($this->links)) {
+                $result .= '<br>'.$this->links->getLinks();
+            } else
+                $result = '';
         } else
             $result = '';
 
@@ -729,7 +758,7 @@ class Horoscope extends HActiveRecord
 
     public function getDateLink($date)
     {
-        return CHtml::link($this->zodiacText() . ' на ' . Yii::app()->dateFormatter->format('d MMMM', $date),
+        return CHtml::link('Гороскоп ' . $this->zodiacText2() . ' на ' . Yii::app()->dateFormatter->format('d MMMM', $date),
             Yii::app()->controller->createUrl('date', array(
                 'zodiac' => $this->getZodiacSlug(),
                 'date' => date("Y-m-d", $date),

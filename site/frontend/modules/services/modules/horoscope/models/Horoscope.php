@@ -755,7 +755,7 @@ class Horoscope extends HActiveRecord
                 $result .= $this->getDateLink(strtotime('+3 days'));
         } elseif (Yii::app()->controller->action->id == 'date') {
             if (isset($this->links)) {
-                $result .= '<br>'.$this->links->getLinks();
+                $result .= $this->links->getLinks();
             } else
                 $result = '';
         } else

@@ -49,3 +49,12 @@ http://media-cache-lt0.pinterest.com/550/4a/eb/56/4aeb56507d7f952194938f54c808bf
 http://media-cache-ec6.pinterest.com/550/bb/0b/07/bb0b07b4530cb3a58355eecf2fe24f40.jpg
 http://media-cache-lt0.pinterest.com/550/79/d4/08/79d408e23b8435706aaa574a902ff11e.jpg
 http://cdn-nus-4.pinme.ru/pin-upload-static/photos/9368cc39ef2938fb63db36e31ad47f14_b.jpg 
+
+<?php
+
+defined('YII_DEBUG') or define('YII_DEBUG', TRUE);
+require('/opt/yii/framework/yii.php');
+$local = require('../config/main-local.php');
+$base = require('../config/main.php');
+$config = CMap::mergeArray($base, $local);
+Yii::createWebApplication($config)->run();

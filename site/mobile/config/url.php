@@ -11,8 +11,9 @@ return array(
     'urlFormat' => 'path',
     'showScriptName' => false,
     'urlSuffix' => '/',
-    'useStrictParsing' => true,
     'rules' => array(
+        'community/<community_id:\d+>' => 'community/list',
         'community/<community_id:\d+>/forum/<content_type_slug:\w+>/<content_id:\d+>' => 'community/view',
+        'community/<content_id:\d+>/comments' => 'community/comments',
     ),
 );

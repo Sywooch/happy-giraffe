@@ -12,14 +12,13 @@ class m130208_082321_add_horoscope_link extends CDbMigration
             'today_link' => 'tinyint',
             'tomorrow_link' => 'tinyint',
             'month_link' => 'tinyint',
+            'some_month' => 'tinyint',
             'some_month_link' => 'tinyint',
-            'month_horoscope_id' => 'int',
             'year_link' => 'tinyint',
             'PRIMARY KEY (`id`)'
         ), 'ENGINE=Innodb DEFAULT CHARSET=utf8');
 
         $this->addForeignKey('fk_'.$this->_table.'_horoscope', $this->_table, 'horoscope_id', 'services__horoscope', 'id','CASCADE',"CASCADE");
-        $this->addForeignKey('fk_'.$this->_table.'_month_horoscope', $this->_table, 'month_horoscope_id', 'services__horoscope', 'id','CASCADE',"CASCADE");
 	}
 
 	public function down()

@@ -16,7 +16,7 @@ class MailCommand extends CConsoleCommand
         return true;
     }
 
-    public function actionWeeklyNews()
+    /*public function actionWeeklyNews()
     {
         //check generated url
         if (Yii::app()->createUrl('site/index') != './') {
@@ -39,7 +39,7 @@ class MailCommand extends CConsoleCommand
             echo "updated: " . $vals['update_count'] . "\n";
             echo "errors:  " . $vals['error_count'] . "\n";
         }
-    }
+    }*/
 
     public function actionWeeklyNews2()
     {
@@ -53,7 +53,8 @@ class MailCommand extends CConsoleCommand
         if (count($articles) < 6)
             Yii::app()->end();
         $contents = $this->renderFile(Yii::getPathOfAlias('site.common.tpl.weeklyNews') . '.php', array('models' => $articles), true);
-        Yii::app()->mc->sendWeeklyNews('Веселый Жираф - самое интересное за неделю', $contents, MailChimp::CONTEST_LIST, false);
+
+        Yii::app()->email->sendCampaign($contents, 'test_list');
     }
 
     public function actionNewMessages()
@@ -120,14 +121,6 @@ class MailCommand extends CConsoleCommand
     public function actionDeleteUsers()
     {
         Yii::app()->mc->deleteRegisteredFromContestList();
-    }
-
-    public function actionTestWeekly()
-    {
-        $articles = Favourites::model()->getWeekPosts();
-        $contents = $this->renderFile(Yii::getPathOfAlias('site.common.tpl.weeklyNews') . '.php', array('models' => $articles), true);
-
-        Yii::app()->email->sendCampaign($contents, 'test_list');
     }
 
     public function actionTestNewMessages()

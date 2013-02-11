@@ -123,7 +123,7 @@
 									<span class="valentine-cook_img">
 										<img src="/images/example/w95-h71-1.jpg" alt="">
 									</span>
-									<span class="valentine-cook_desc">Салатик «Вкусная валентинка»</span>
+									<span class="valentine-cook_desc">Салатикertertertertt «Вкусная валентинка»</span>
 								</a>
 							</li>
 							<li class="valentine-cook_li clearfix">
@@ -147,7 +147,7 @@
 									<span class="valentine-cook_img">
 										<img src="/images/example/w95-h71-1.jpg" alt="">
 									</span>
-									<span class="valentine-cook_desc">Салатик «Вкусная валентинка»</span>
+									<span class="valentine-cook_desc">Крем-карамель «Вкусная валентинка»</span>
 								</a>
 							</li>
 							<li class="valentine-cook_li clearfix">

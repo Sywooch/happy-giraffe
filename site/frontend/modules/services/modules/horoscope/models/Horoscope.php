@@ -269,6 +269,14 @@ class Horoscope extends HActiveRecord
         return parent::beforeSave();
     }
 
+    public function afterSave()
+    {
+        $links = new HoroscopeLink();
+        $links->generateLinks($this);
+
+        parent::afterSave();
+    }
+
     public function getAuthor()
     {
         return User::model()->findByPk(User::HAPPY_GIRAFFE);

@@ -54,7 +54,7 @@ class MailCommand extends CConsoleCommand
             Yii::app()->end();
         $contents = $this->renderFile(Yii::getPathOfAlias('site.common.tpl.weeklyNews') . '.php', array('models' => $articles), true);
 
-        Yii::app()->email->sendCampaign($contents, 'test_list');
+        Yii::app()->email->sendCampaign($contents, HEmailSender::LIST_OUR_USERS);
     }
 
     public function actionNewMessages()

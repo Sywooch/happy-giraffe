@@ -94,14 +94,14 @@ class HEmailSender extends CApplicationComponent
         echo 'last_id: ' . $last_id . "\n";
 
         $criteria = new CDbCriteria;
-        $criteria->limit = 30000;
-        $criteria->condition = 'id > ' . $last_id . ' AND id < 500000 AND status != 2';
+        //$criteria->limit = 30000;
+        $criteria->condition = 'id > ' . $last_id . ' AND status = 1';
         $criteria->offset = 0;
 
         $models = array(0);
 
         $i = 0;
-        while (!empty($models)) {
+//        while (!empty($models)) {
             $models = MailruUser::model()->findAll($criteria);
 
             $fp = fopen('file_'.$i.'.csv', 'w');
@@ -116,9 +116,9 @@ class HEmailSender extends CApplicationComponent
             }
             fclose($fp);
 
-            $i++;
-            $criteria->offset += 30000;
-        }
+//            $i++;
+//            $criteria->offset += 30000;
+//        }
 
     }
 }

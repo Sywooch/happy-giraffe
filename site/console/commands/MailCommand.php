@@ -118,8 +118,8 @@ class MailCommand extends CConsoleCommand
         }
     }
 
-    public function actionCleanMailruUsers(){
-        ElasticEmail::deleteBadMailruUsers();
+    public function actionMarkGoodEmails(){
+        ElasticEmail::markGoodEmails();
     }
 
     /*    public function actionUnsubList()

@@ -21,6 +21,7 @@
 class MailruUser extends HActiveRecord
 {
     const STATUS_DEFAULT = 0;
+    const STATUS_GOOD = 1;
     const STATUS_NOT_OPEN = 2;
     const STATUS_CLEANED = 3;
     const STATUS_UNSUB = 4;

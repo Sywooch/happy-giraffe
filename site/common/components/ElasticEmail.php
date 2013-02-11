@@ -191,6 +191,21 @@ class ElasticEmail extends CApplicationComponent
         }
     }*/
 
+    public static function markGoodEmails()
+    {
+        Yii::import('site.seo.modules.mailru.models.*');
+        if (($handle = fopen("F:/segment_Contest_List_2_1_Feb_11_2013.csv", "r")) !== FALSE) {
+            while (($data = fgetcsv($handle, null, ",")) !== FALSE) {
+                $user = MailruUser::model()->findByAttributes(array('email'=>$data[0]));
+                if ($user !== null){
+                    $user->status = MailruUser::STATUS_GOOD;
+                    $user->save();
+                }
+            }
+            fclose($handle);
+        }
+    }
+
     public static function deleteContact($email)
     {
         $data = "username=" . urlencode(self::USERNAME);

@@ -39,7 +39,18 @@
                     <?php endif ?>
                     <?php $next = strtotime('+1 day',strtotime($model->date)); ?>
                     <?php if ($model->dateHoroscopeExist($next)):?>
-                        <span class="a-right">→ <?=$model->getDateLink($next) ?></span>
+                    <span class="a-right">→ <?=$model->getDateLink($next) ?></span>
+                    <?php endif ?>
+
+
+                    <?php $prev = strtotime('-2 days',strtotime($model->date)); ?>
+                    <?php if ($model->dateHoroscopeExist($prev)):?>
+                    <span class="a-left"><?=$model->getDateLink($prev) ?> ←</span>
+                    <?php endif ?>
+
+                    <?php $next = strtotime('+2 days',strtotime($model->date)); ?>
+                    <?php if ($model->dateHoroscopeExist($next)):?>
+                    <span class="a-right">→ <?=$model->getDateLink($next) ?></span>
                     <?php endif ?>
                 </div>
                 <?php endif ?>

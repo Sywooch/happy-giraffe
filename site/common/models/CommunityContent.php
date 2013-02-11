@@ -750,4 +750,18 @@ class CommunityContent extends HActiveRecord
     {
         return isset($this->rubric) && isset($this->rubric->community_id) && $this->rubric->community_id == Community::COMMUNITY_VALENTINE;
     }
+
+    public function getMobileContents($community_id)
+    {
+        return new CActiveDataProvider($this->active()->full(), array(
+            'criteria' => array(
+                'order' => 't.created DESC',
+                'condition' => 'mobile_community_id = :community_id',
+                'params' => array(':community_id' => $community_id),
+            ),
+            'pagination' => array(
+                'pageSize' => 3,
+            ),
+        ));
+    }
 }

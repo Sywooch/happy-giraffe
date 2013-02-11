@@ -291,7 +291,7 @@ jQuery.fn.pGallery = function(options) {
     });
 
     return this.each(function() {
-        $(this).bind('click', function() {
+        $(this).unbind('click').bind('click', function() {
             plugin.openWindow($(this).data('id'));
         });
     });

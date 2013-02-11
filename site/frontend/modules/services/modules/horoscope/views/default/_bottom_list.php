@@ -41,9 +41,7 @@
             <?= HHtml::link('<img src="/images/widget/horoscope/small/'.$i.'.png"><br><span>'.
             Horoscope::getZodiacTitle($i).'</span><br> '. $model->zodiacDates(),
             $model->getOtherZodiacUrl(Horoscope::model()->getZodiacSlug($i)),
-            array('title'=>$model->getOtherZodiacTitle($i)),
-            !$model->isNearbyZodiac($i)
-        ) ?>
+            array('title'=>$model->getOtherZodiacTitle($i)), true) ?>
         </li>
         <?php } ?>
     </ul>

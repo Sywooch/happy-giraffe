@@ -303,6 +303,7 @@
                         <?php $this->endWidget();?>
 
                     </li>
+                    <li class="valentine"><a href="<?=Yii::app()->createUrl('/valentinesDay/default/index')?>"><i class="text"></i></a></li>
                 </ul>
             </div>
 

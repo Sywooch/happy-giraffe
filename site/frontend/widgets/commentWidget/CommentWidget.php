@@ -113,7 +113,10 @@ class CommentWidget extends CWidget
         if(!$this->registerScripts)
         {
             $this->id = $this->entity . $this->entity_id;
+            if ($this->popUp)
+                $this->id .= '_popup';
             $this->objectName = 'comment_' . $this->id;
+
             if ($this->photoContainer && Yii::app()->request->isAjaxRequest)
                 $scroll_container = '#photo-window';
             else

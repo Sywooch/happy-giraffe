@@ -54,7 +54,7 @@ class PostForCommentator
         $result = array();
 
         foreach ($this->entities as $entity => $limits) {
-            $posts = CActiveRecord::model($entity)->findAll($criteria);
+            $posts = CActiveRecord::model($entity)->resetScope()->findAll($criteria);
 
             foreach ($posts as $post) {
                 //check ignore users

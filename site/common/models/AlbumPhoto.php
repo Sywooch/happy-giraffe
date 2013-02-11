@@ -103,6 +103,7 @@ class AlbumPhoto extends HActiveRecord
             'album' => array(self::BELONGS_TO, 'Album', 'album_id'),
             'author' => array(self::BELONGS_TO, 'User', 'author_id'),
             'attach' => array(self::HAS_MANY, 'AttachPhoto', 'photo_id'),
+            'galleryItem' => array(self::HAS_ONE, 'CommunityContentGalleryItem', 'photo_id'),
             'remove' => array(self::HAS_ONE, 'Removed', 'entity_id', 'condition' => '`remove`.`entity` = :entity', 'params' => array(':entity' => get_class($this)))
         );
     }

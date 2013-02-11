@@ -16,7 +16,7 @@ class MailCommand extends CConsoleCommand
         return true;
     }
 
-    public function actionWeeklyNews()
+    /*public function actionWeeklyNews()
     {
         //check generated url
         if (Yii::app()->createUrl('site/index') != './') {
@@ -39,7 +39,7 @@ class MailCommand extends CConsoleCommand
             echo "updated: " . $vals['update_count'] . "\n";
             echo "errors:  " . $vals['error_count'] . "\n";
         }
-    }
+    }*/
 
     public function actionWeeklyNews2()
     {
@@ -53,7 +53,8 @@ class MailCommand extends CConsoleCommand
         if (count($articles) < 6)
             Yii::app()->end();
         $contents = $this->renderFile(Yii::getPathOfAlias('site.common.tpl.weeklyNews') . '.php', array('models' => $articles), true);
-        Yii::app()->mc->sendWeeklyNews('Веселый Жираф - самое интересное за неделю', $contents, MailChimp::CONTEST_LIST, false);
+
+        Yii::app()->email->sendCampaign($contents, HEmailSender::LIST_OUR_USERS);
     }
 
     public function actionNewMessages()
@@ -107,52 +108,19 @@ class MailCommand extends CConsoleCommand
 
     public function actionMailruUsers()
     {
-        Yii::app()->mc->updateMailruUsers();
+        Yii::import('site.seo.modules.mailru.models.*');
+
+        Yii::app()->email->updateMailruUsers();
     }
 
     public function actionUsers()
     {
-        Yii::app()->mc->updateUsers();
+        Yii::app()->email->updateUserList();
     }
 
     public function actionDeleteUsers()
     {
         Yii::app()->mc->deleteRegisteredFromContestList();
-    }
-
-    public function actionTestWeekly()
-    {
-        $articles = Favourites::model()->getWeekPosts();
-        $contents = $this->renderFile(Yii::getPathOfAlias('site.common.tpl.weeklyNews') . '.php', array('models' => $articles), true);
-        $subject = 'Веселый Жираф - самое интересное за неделю - ТЕСТ';
-        $opts = array(
-            'list_id' => MailChimp::WEEKLY_NEWS_TEST_LIST_ID,
-            'from_email' => 'support@happy-giraffe.ru',
-            'from_name' => 'Веселый Жираф',
-            'template_id' => 24517,
-            'tracking' => array('opens' => true, 'html_clicks' => true, 'text_clicks' => false),
-            'authenticate' => true,
-            'subject' => $subject,
-            'title' => $subject,
-            'generate_text' => true,
-        );
-
-        $content = array(
-            'html_content' => $contents,
-        );
-
-        $campaignId = Yii::app()->mc->api->campaignCreate('regular', $opts, $content);
-        if ($campaignId)
-            return Yii::app()->mc->api->campaignSendNow($campaignId);
-        return false;
-    }
-
-    public function actionTest()
-    {
-        Yii::app()->email->send(10, 'passwordRecovery', array(
-            'code' => 12436,
-            'password' => 325437
-        ), $this);
     }
 
     public function actionTestNewMessages()
@@ -175,25 +143,25 @@ class MailCommand extends CConsoleCommand
         }
     }
 
-    public function actionUnsubList()
-    {
-        $file_name = 'F:/members_Photo_Post_6_6_bounces_Jan_16_2013.csv';
-        $users = file_get_contents($file_name);
-        $lines = explode("\n", $users);
-        echo count($lines)."\n";
+    /*    public function actionUnsubList()
+        {
+            $file_name = 'F:/members_Photo_Post_6_6_bounces_Jan_16_2013.csv';
+            $users = file_get_contents($file_name);
+            $lines = explode("\n", $users);
+            echo count($lines)."\n";
 
-        $emails = array();
-        foreach($lines as $line){
-            $email = substr($line, 0, strpos($line, ','));
-            $emails [] = $email;
+            $emails = array();
+            foreach($lines as $line){
+                $email = substr($line, 0, strpos($line, ','));
+                $emails [] = $email;
 
-            if (count($emails) >= 500){
-                Yii::app()->mc->deleteUsers($emails);
+                if (count($emails) >= 500){
+                    Yii::app()->mc->deleteUsers($emails);
 
-                $emails = array();
+                    $emails = array();
+                }
             }
-        }
 
-        Yii::app()->mc->deleteUsers($emails);
-    }
+            Yii::app()->mc->deleteUsers($emails);
+        }*/
 }

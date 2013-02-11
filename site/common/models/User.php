@@ -494,7 +494,7 @@ class User extends HActiveRecord
                 ),
             ),
             'ESaveRelatedBehavior' => array(
-                'class' => 'ESaveRelatedBehavior'
+                'class' => 'site.common.behaviors.ESaveRelatedBehavior',
             ),
             'ManyManyLinkBehavior' => array(
                 'class' => 'site.common.behaviors.ManyManyLinkBehavior',

@@ -398,7 +398,7 @@ class CommunityContent extends HActiveRecord
                 );
                 break;
             default:
-                if ($this->rubric->community_id == Community::COMMUNITY_VALENTINE){
+                if ($this->isValentinePost()){
                     $route = '/valentinesDay/default/howToSpend';
                     $params = array();
                 }elseif ($this->isFromBlog) {
@@ -740,5 +740,14 @@ class CommunityContent extends HActiveRecord
                     $comet->send('whatsNewClubsUser' . $id, $params, CometModel::WHATS_NEW_UPDATE);
             }
         }
+    }
+
+    /**
+     * Является ли пост постом на День святого Валентина
+     * @return bool
+     */
+    public function isValentinePost()
+    {
+        return isset($this->rubric) && isset($this->rubric->community_id) && $this->rubric->community_id == Community::COMMUNITY_VALENTINE;
     }
 }

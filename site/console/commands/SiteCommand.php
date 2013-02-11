@@ -183,7 +183,8 @@ class SiteCommand extends CConsoleCommand
         $parser->start();
     }
 
-    public function actionCopyRoutes(){
+    public function actionCopyRoutes()
+    {
         Yii::import('site.frontend.modules.route.models.*');
         Yii::import('site.seo.models.*');
 
@@ -230,12 +231,23 @@ class SiteCommand extends CConsoleCommand
         }
     }
 
-    public function actionRosneft(){
+    public function actionRosneft()
+    {
         Yii::import('site.frontend.modules.geo.models.*');
         Yii::import('site.frontend.modules.route.models.*');
         Yii::import('site.frontend.modules.route.components.*');
 
         $parser = new RosneftParser;
         $parser->start();
+    }
+
+    public function actionHoroscope()
+    {
+        Yii::import('site.frontend.modules.services.modules.horoscope.models.*');
+        $models = Horoscope::model()->findAll('date IS NOT NULL');
+        foreach ($models as $model) {
+            $m = new HoroscopeLink();
+            $m->generateLinks($model);
+        }
     }
 }

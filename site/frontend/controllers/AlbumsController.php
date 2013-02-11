@@ -497,9 +497,9 @@ class AlbumsController extends HController
         if ($entity_id = Yii::app()->request->getPost('entity_id')) {
             $comment = new Comment;
             $comment->entity = Yii::app()->request->getPost('entity');
-            ;
             $comment->entity_id = $entity_id;
             $comment->author_id = Yii::app()->user->id;
+
             if ($comment->save()) {
                 $attach = new AttachPhoto;
                 $attach->entity = 'Comment';
@@ -656,11 +656,21 @@ class AlbumsController extends HController
             throw new CHttpException(404, 'Фото не найдено');
 
         switch ($entity) {
+            case 'valentinePost':
+                $criteria = new CDbCriteria;
+                $criteria->compare('rubric.community_id', Community::COMMUNITY_VALENTINE);
+                $model = CommunityContent::model()->full()->find($criteria);
+
+                $content_id = $model->id;
+                $model = CActiveRecord::model('CommunityContentGallery')->findByAttributes(array('content_id' => $content_id));
+                break;
+
             case 'CommunityContentGallery':
                 //Yii::app()->user->setState('ban_register_window', 1);
                 $content_id = Yii::app()->request->getQuery('content_id');
                 $model = CActiveRecord::model($entity)->findByAttributes(array('content_id' => $content_id));
                 break;
+
             case 'Album':
                 $album_id = (Yii::app()->request->getQuery('valentines') == 1) ? Album::getAlbumByType(User::HAPPY_GIRAFFE, Album::TYPE_VALENTINE)->id : Yii::app()->request->getQuery('album_id');
                 $model = CActiveRecord::model($entity)->findByPk($album_id);
@@ -778,5 +788,15 @@ class AlbumsController extends HController
         $photo = AlbumPhoto::model()->findByPk($id);
 
         $this->renderPartial('share', compact('photo'));
+    }
+
+    public function actionDownload($id)
+    {
+        $photo = AlbumPhoto::model()->findByPk($id);
+        $file = $photo->getOriginalPath();
+        header('Content-Description: File Transfer');
+        header('Content-type: application/octet-stream');
+        header ('Content-Disposition: attachment; filename=' . $photo->fs_name);
+        readfile($file);
     }
 }

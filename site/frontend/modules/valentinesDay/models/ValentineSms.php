@@ -38,7 +38,7 @@ class ValentineSms extends HActiveRecord
 		return array(
 			array('title', 'required'),
 			array('title', 'length', 'max'=>100),
-			array('text', 'safe'),
+			array('id, text', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, title, text', 'safe', 'on'=>'search'),
@@ -96,7 +96,7 @@ class ValentineSms extends HActiveRecord
     public static function LastSms($limit = 2)
     {
         $criteria = new CDbCriteria;
-        $criteria->order = 'id desc';
+        $criteria->order = 'id asc';
         $criteria->limit = $limit;
 
         return ValentineSms::model()->findAll($criteria);

@@ -73,18 +73,11 @@ class HoroscopeLink extends HActiveRecord
      */
     public function getLinks()
     {
-        $links = array(
-            $this->getTodayLink(),
-            $this->getTomorrowLink(),
-            $this->getMonthLink(),
-            $this->getYearLink()
-        );
+        $links = $this->getTodayLink() . '' . $this->getTomorrowLink()
+            . '<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
+            . $this->getMonthLink() . '' . $this->getYearLink();
 
-        foreach ($links as $key => $link)
-            if (empty($link))
-                unset($links[$key]);
-
-        return implode('<br>', $links);
+        return $links;
     }
 
     /**

@@ -513,26 +513,26 @@ class Horoscope extends HActiveRecord
     {
         if ($this->onMonth()) {
             return $this->isCurrentMonth() ?
-                'гороскоп ' . Horoscope::getZodiacTitle2($zodiac) . ' на месяц'
+                'Гороскоп ' . Horoscope::getZodiacTitle2($zodiac) . ' на месяц'
                 :
-                'гороскоп ' . Horoscope::getZodiacTitle2($zodiac) . ' на ' . Yii::app()->dateFormatter->format('MMMM yyyy', strtotime($this->date)) . ' года';
+                'Гороскоп ' . Horoscope::getZodiacTitle2($zodiac) . ' на ' . Yii::app()->dateFormatter->format('MMMM yyyy', strtotime($this->date)) . ' года';
         }
         if ($this->onYear()) {
             return $this->isCurrentYear() ?
-                'гороскоп ' . Horoscope::getZodiacTitle2($zodiac) . ' на год'
+                'Гороскоп ' . Horoscope::getZodiacTitle2($zodiac) . ' на год'
                 :
-                'гороскоп ' . Horoscope::getZodiacTitle2($zodiac) . ' на ' . $this->year . ' год';
+                'Гороскоп ' . Horoscope::getZodiacTitle2($zodiac) . ' на ' . $this->year . ' год';
         }
 
         if (Yii::app()->controller->action->id == 'tomorrow')
-            return 'гороскоп ' . Horoscope::getZodiacTitle2($zodiac) . ' на завтра';
+            return 'Гороскоп ' . Horoscope::getZodiacTitle2($zodiac) . ' на завтра';
         if (Yii::app()->controller->action->id == 'today')
-            return 'гороскоп ' . Horoscope::getZodiacTitle2($zodiac) . ' на сегодня';
+            return 'Гороскоп ' . Horoscope::getZodiacTitle2($zodiac) . ' на сегодня';
         if (Yii::app()->controller->action->id == 'yesterday')
-            return 'гороскоп ' . Horoscope::getZodiacTitle2($zodiac) . ' на вчера';
+            return 'Гороскоп ' . Horoscope::getZodiacTitle2($zodiac) . ' на вчера';
 
         if (Yii::app()->controller->action->id == 'date')
-            return 'гороскоп ' . Horoscope::getZodiacTitle2($zodiac) . ' на ' . Yii::app()->dateFormatter->format('d MMMM yyyy', strtotime($this->date)) . ' года';
+            return 'Гороскоп ' . Horoscope::getZodiacTitle2($zodiac) . ' на ' . Yii::app()->dateFormatter->format('d MMMM yyyy', strtotime($this->date)) . ' года';
 
         return '';
     }

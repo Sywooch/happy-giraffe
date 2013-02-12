@@ -441,6 +441,35 @@
 										<a href="">Все участники (1802)</a>
 									</div>
 								</li>
+								<li class="masonry-news-list_item">
+									<h3 class="masonry-news-list_title">
+										<a href="">Новые участники фотоконкурса</a>
+										<a href="" class="icon-photo"></a>
+									</h3>
+									<div class="clearfix">
+										<span class="date">Сегодня 13:25</span>
+									</div>
+									<div class="clearfix">
+										<img src="/images/broadcast/title-contest-7.jpg" alt="" class="title-img"/>
+									</div>
+									<div class="masonry-news-list_content">
+										<ul class="masonry-news-list_img-list clearfix">
+											<li><a href=""><img src="/images/example/w64-h61-1.jpg" alt="" /></a></li>
+											<li><a href=""><img src="/images/example/w64-h61-2.jpg" alt="" /></a></li>
+											<li><a href=""><img src="/images/example/w64-h61-2.jpg" alt="" /></a></li>
+											<li><a href=""><img src="/images/example/w64-h61-1.jpg" alt="" /></a></li>
+											<li><a href=""><img src="/images/example/w64-h61-2.jpg" alt="" /></a></li>
+											<li><a href=""><img src="/images/example/w64-h61-1.jpg" alt="" /></a></li>
+											<li><a href=""><img src="/images/example/w64-h61-2.jpg" alt="" /></a></li>
+											<li><a href=""><img src="/images/example/w64-h61-1.jpg" alt="" /></a></li>
+											<li><a href=""><img src="/images/example/w64-h61-2.jpg" alt="" /></a></li>
+										</ul>
+									</div>
+									
+									<div class="textalign-c clearfix">
+										<a href="">Все участники (1802)</a>
+									</div>
+								</li>
 								<li class="masonry-news-list_item cook">
 									<h3 class="masonry-news-list_title">
 										<a href="">Торт «Трио»</a>
@@ -479,9 +508,9 @@
 										<p>Желатин замочим в 3/4 стакана кипяченной прохладной воды.Смешиваем... <a href="" class="all">Читать</a></p>
 									</div>
 								</li>
-								<div id="infscr-loading"><img alt="Loading..." src="/images/ico/ajax-loader.gif" /><div>Загрузка</div></div>
 							</ul>
 							
+								<div id="infscr-loading"><img alt="Loading..." src="/images/ico/ajax-loader.gif" /><div>Загрузка</div></div>
 						</div>
 				
 

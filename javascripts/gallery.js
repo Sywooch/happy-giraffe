@@ -179,6 +179,7 @@ jQuery.fn.pGallery = function(options) {
         /*$('#photo-window-in', this.window).append('<div id="loading"><div class="in"><img src="/images/test_loader.gif">Загрузка</div></div>');*/
 
         pGallery.currentPhoto = plugin.data.id;
+        $('#photo_download').attr('href', '/albums/download/id/' + pGallery.currentPhoto + '/');
         var newUrl = plugin.getEntityUrl() + 'photo' + plugin.data.id + '/';
         plugin.history.changeBrowserUrl(newUrl);
 
@@ -290,7 +291,7 @@ jQuery.fn.pGallery = function(options) {
     });
 
     return this.each(function() {
-        $(this).bind('click', function() {
+        $(this).unbind('click').bind('click', function() {
             plugin.openWindow($(this).data('id'));
         });
     });

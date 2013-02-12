@@ -17,8 +17,15 @@ class CommunityController extends MController
 
     public function actionView($community_id, $content_type_slug, $content_id)
     {
-        $post = CommunityContent::model()->findByPk($content_id);
+        $content = CommunityContent::model()->active()->full()->findByPk($content_id);
 
-        $this->render('view', compact('post'));
+        $next = CommunityContent::model()->community()->findAll(array(
+            'order' => 't.id DESC',
+            'condition' => 't.id < :current_id AND rubric.community_id = :community_id',
+            'params' => array(':current_id' => $content_id, ':community_id' => $community_id),
+            'limit' => 3,
+        ));
+
+        $this->render('view', compact('content', 'next'));
     }
 }

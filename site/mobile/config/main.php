@@ -15,6 +15,7 @@ return array(
 	// autoloading model and component classes
 	'import'=>array(
         'site.frontend.extensions.YiiMongoDbSuite.*',
+        'site.frontend.extensions.image.Image',
 
         'site.common.components.*',
         'site.common.helpers.*',
@@ -22,6 +23,7 @@ return array(
         'site.common.models.mongo.*',
         'site.common.models.mobile.*',
         'application.components.*',
+        'application.widgets.*',
 	),
 
 	'modules'=>array(
@@ -38,6 +40,10 @@ return array(
 
 	// application components
 	'components'=>array(
+        'cache' => array(
+            'class' => 'CDummyCache',
+        ),
+
         'mongodb' => array(
             'class'            => 'EMongoDB',
             'connectionString' => 'mongodb://localhost',

@@ -1,10 +1,10 @@
 <?php
 /*
  * @var $data CommunityContent
+ * @var $full boolean
  */
 
 $mobileCommunity = $data->rubric->community->mobileCommunity;
-$full = $this->action == 'view';
 ?>
 
 <div class="entry">
@@ -13,8 +13,10 @@ $full = $this->action == 'view';
     </div>
     <?php $this->renderPartial('/_entry_header', array('data' => $data, 'full' => $full)); ?>
     <div class="entry-content wysiwyg-content clearfix">
-
-        <p>Как правило, кроватку новорожденному приобретают незадолго до его появления на свет. При этом многие молодые <b>родители</b> обращают внимание главным <u>образом</u> на ее <strike>внешний</strike> вид. Но, прельстившись яркими красками, многие платят баснословные суммы, <strong>даже не поинтересовавшись</strong>, из чего сделано это покорившее вас чудо...</p>
+        <?=($full) ? $data->content->purified->text : $data->purified->preview?>
+        <?php if ($data->type_id == CommunityContent::TYPE_VIDEO): ?>
+            <?=$data->video->getEmbed()?>
+        <?php endif; ?>
     </div>
 
 

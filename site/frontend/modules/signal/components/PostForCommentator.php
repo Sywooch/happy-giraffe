@@ -103,7 +103,7 @@ class PostForCommentator
             $criteria->compare('entity', array('CommunityContent', 'BlogContent'));
         else
             $criteria->compare('entity', get_class($post));
-        $model = Comment::model()->find($criteria);
+        $model = Comment::model()->resetScope()->find($criteria);
 
         return $model !== null;
     }

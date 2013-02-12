@@ -93,7 +93,9 @@ class RecipeController extends HController
 
         $model = $this->loadTag($tag);
         if (CookRecipeTag::TAG_VALENTINE == $model->id && strpos(Yii::app()->request->requestUri, 'valentinesDay') === false) {
-            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+            header("HTTP/1.1 301 Moved Permanently");
+            header("Location: " . $model->url);
+            Yii::app()->end();
         }
 
         $this->pageTitle = $model->title . ' - Кулинарные рецепты от Веселого Жирафа';

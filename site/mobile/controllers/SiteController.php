@@ -8,14 +8,24 @@
  */
 class SiteController extends MController
 {
+    public function init()
+    {
+        Yii::import('site.frontend.modules.cook.models.*');
+
+        parent::init();
+    }
+
     public function actionIndex()
     {
         $this->render('index');
     }
 
-    public function actionTest()
+    public function actionComments($entity, $entity_id)
     {
-        $this->render('index');
+        $data = CActiveRecord::model($entity)->findByPk($entity_id);
+        $comments = Comment::model()->get($entity, $entity_id, 'default', 10);
+
+        $this->render('comments', compact('data', 'comments', 'linkText', 'linkUrl'));
     }
 
     public function actionError()

@@ -15,4 +15,11 @@ class MController extends CController
         $this->communities = MobileCommunity::model()->findAll();
         parent::init();
     }
+
+    public function getViews()
+    {
+        $path = '/' . Yii::app()->request->pathInfo . '/';
+
+        return PageView::model()->incViewsByPath($path);
+    }
 }

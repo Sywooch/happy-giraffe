@@ -34,7 +34,7 @@ class UserPosts extends PostForCommentator
     {
         $criteria = new CDbCriteria;
         $criteria->select = 't.*';
-        $criteria->condition = 't.created >= "' . date("Y-m-d H:i:s", strtotime('-48 hour')) . '" AND `full` IS NULL';
+        $criteria->condition = 't.created >= "' . date("Y-m-d H:i:s", strtotime('-72 hour')) . '" AND `full` IS NULL';
         $criteria->with = array(
             'author' => array(
                 'select'=>array('id'),
@@ -44,7 +44,6 @@ class UserPosts extends PostForCommentator
             ),
         );
         $criteria->order = 'priority.priority desc';
-        $criteria->limit = 100;
 
         return $criteria;
     }

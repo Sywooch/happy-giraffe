@@ -39,7 +39,7 @@ class TrafficPosts extends PostForCommentator
             return null;
 
         $criteria = new CDbCriteria;
-        $criteria->condition = '`t`.`full` IS NULL AND t.type_id < 3';
+        $criteria->condition = '`t`.`full` IS NULL AND t.type_id < 3 AND t.removed = 0';
         $criteria->compare('`t`.`id`', $post_ids);
 
         return $criteria;

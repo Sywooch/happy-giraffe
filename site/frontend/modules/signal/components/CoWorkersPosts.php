@@ -34,7 +34,7 @@ class CoWorkersPosts extends PostForCommentator
     public function getCriteria($simple_users = true)
     {
         $criteria = new CDbCriteria;
-        $criteria->condition = 't.created >= "' . date("Y-m-d H:i:s", strtotime('-48 hour')) . '" AND `full` IS NULL AND t.author_id != '.$this->commentator->user_id;
+        $criteria->condition = 't.created >= "' . date("Y-m-d H:i:s", strtotime('-48 hour')) . '" AND `full` IS NULL AND t.author_id != '.$this->commentator->user_id. ' AND t.removed = 0';
         $criteria->with = array(
             'author' => array(
                 'select'=>array('id'),

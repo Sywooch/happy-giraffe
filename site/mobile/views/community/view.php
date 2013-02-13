@@ -1,10 +1,14 @@
-<?php
-/**
- * @var $content CommunityContent
- * @var $community MobileCommunity
- */
-?>
+<?php $this->renderPartial('_post', array('data' => $content, 'full' => true)); ?>
 
-<?=CHtml::link($mobileCommunity->title, $mobileCommunity->url)?>
+<div class="margin-10 textalign-c clearfix">
+    <a href="<?=$next[0]->url?>" class="btn-green btn-medium">Следующая <i class="ico-arrow ico-arrow__right"></i></a>
+</div>
 
-<?=$this->render('_post', compact('content'))?>
+<div class="interesting">
+    <div class="interesting_t">Еще интересно</div>
+    <ul>
+        <?php foreach ($next as $n): ?>
+            <li class="interesting_i"><?=CHtml::link($n->title, $n->url)?></li>
+        <?php endforeach; ?>
+    </ul>
+</div>

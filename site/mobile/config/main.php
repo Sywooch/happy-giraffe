@@ -14,9 +14,17 @@ return array(
 
 	// autoloading model and component classes
 	'import'=>array(
+        'site.frontend.extensions.YiiMongoDbSuite.*',
+        'site.frontend.extensions.image.Image',
+        'site.frontend.modules.geo.models.*',
+
         'site.common.components.*',
+        'site.common.helpers.*',
         'site.common.models.*',
+        'site.common.models.mongo.*',
         'site.common.models.mobile.*',
+        'application.components.*',
+        'application.widgets.*',
 	),
 
 	'modules'=>array(
@@ -33,6 +41,19 @@ return array(
 
 	// application components
 	'components'=>array(
+        'cache' => array(
+            'class' => 'CDummyCache',
+        ),
+
+        'mongodb' => array(
+            'class'            => 'EMongoDB',
+            'connectionString' => 'mongodb://localhost',
+            'dbName'           => 'happy_giraffe_db',
+            'fsyncFlag'        => true,
+            'safeFlag'         => true,
+            'useCursor'        => false
+        ),
+
 		'user'=>array(
 			// enable cookie-based authentication
 			'allowAutoLogin'=>true,

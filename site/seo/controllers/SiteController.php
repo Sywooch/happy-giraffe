@@ -6,7 +6,7 @@ class SiteController extends SController
     {
         return array(
             array('allow',
-                'actions' => array('index', 'logout', 'modules', 'removeUser', 'test', 'sql'),
+                'actions' => array('index', 'logout', 'modules', 'removeUser', 'test', 'sql', 'lastKeywords'),
                 'users' => array('@'),
             ),
             array('allow',
@@ -165,11 +165,24 @@ class SiteController extends SController
         SeoUserAttributes::setAttribute('close_advert_' . SeoUserAttributes::ADVERT_ID, 1);
     }
 
+    public function actionLastKeywords()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->order = 'id desc';
+        $criteria->limit = 100;
+
+        $models = Keyword::model()->findAll($criteria);
+
+        $this->render('last_keywords', compact('models'));
+    }
+
     public function actionTest(){
-        Yii::import('site.seo.modules.competitors.components.*');
+        Yii::import('site.frontend.modules.geo.models.*');
+        Yii::import('site.frontend.modules.services.modules.route.models.*');
+        Yii::import('site.seo.components.*');
+        Yii::import('site.seo.models.*');
 
-        $parser = new LiParser;
-        $parser->start(3, 2012, 11, 12);
-
+        $parser = new RouteChecker();
+        $this->render('test', compact('parser'));
     }
 }

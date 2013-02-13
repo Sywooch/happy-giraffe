@@ -236,6 +236,10 @@ class CookRecipe extends CActiveRecord
             'CAdvancedArBehavior' => array(
                 'class' => 'site.frontend.extensions.CAdvancedArBehavior',
             ),
+            'duplicate'=>array(
+                'class' => 'site.common.behaviors.DuplicateBehavior',
+                'error_text' => 'Вы только что создали рецепт с таким названием'
+            )
         );
     }
 
@@ -422,7 +426,9 @@ class CookRecipe extends CActiveRecord
         return $preview;
     }
 
-
+    /**
+     * @return AlbumPhoto
+     */
     public function getMainPhoto()
     {
         if ($this->photo !== null)
@@ -566,7 +572,7 @@ class CookRecipe extends CActiveRecord
         return $dp;
     }
 
-    public function getByType($type)
+    public function getByType($type, $pageSize = 10)
     {
         $criteria = new CDbCriteria(array(
             'with' => array('photo', 'attachPhotos', 'commentsCount', 'tags', 'author', 'cuisine'),
@@ -582,7 +588,7 @@ class CookRecipe extends CActiveRecord
         $dp = new CActiveDataProvider(get_class($this), array(
             'criteria' => $criteria,
             'pagination' => array(
-                'pageSize' => 10,
+                'pageSize' => $pageSize,
             ),
         ));
 
@@ -652,7 +658,7 @@ class CookRecipe extends CActiveRecord
                 'limit' => 2,
                 'order' => 't.id DESC',
                 'scopes' => array('active'),
-                'with'=>array('author')
+                'with' => array('author')
             )
         );
 
@@ -663,7 +669,7 @@ class CookRecipe extends CActiveRecord
                 'limit' => 2,
                 'order' => 't.id',
                 'scopes' => array('active'),
-                'with'=>array('author')
+                'with' => array('author')
             )
         );
 
@@ -930,11 +936,11 @@ class CookRecipe extends CActiveRecord
     public function getBookedUsers()
     {
         $criteria = new CDbCriteria;
-        $criteria->select = array('id', 'avatar_id', 'blocked');
+        $criteria->select = array('id', 'avatar_id', 'blocked', 'gender');
         $criteria->scopes = array('active');
         $criteria->join = 'LEFT JOIN cook__cook_book as book ON book.user_id = t.id';
         $criteria->condition = 'recipe_id=:recipe_id AND id != :me';
-        $criteria->params = array(':recipe_id' => $this->id, ':me' => Yii::app()->user->id);
+        $criteria->params = array(':recipe_id' => $this->id, ':me' => Yii::app()->user->isGuest ? 0 : Yii::app()->user->id);
         $criteria->limit = 20;
 
         return User::model()->findAll($criteria);
@@ -995,12 +1001,22 @@ class CookRecipe extends CActiveRecord
     public static function checkRecipeBookAfterLogin($user_id)
     {
         $recipe_id = Yii::app()->user->getState('recipe_id');
-        if (!empty($recipe_id)){
+        if (!empty($recipe_id)) {
             $recipe = self::model()->findByPk($recipe_id);
             if ($recipe !== null && !$recipe->isBooked($user_id))
                 $recipe->book($user_id);
 
             Yii::app()->user->setState('recipe_id', null);
         }
+    }
+
+    public function getMobileSectionTitle()
+    {
+        return $this->typeString;
+    }
+
+    public function getMobileSectionUrl()
+    {
+        return Yii::app()->createUrl('/cook/recipe/index', array('type' => $this->type, 'section' => $this->section));
     }
 }

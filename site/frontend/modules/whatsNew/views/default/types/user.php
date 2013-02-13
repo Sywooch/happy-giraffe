@@ -1,6 +1,10 @@
 <li class="masonry-news-list_item" data-block-id="<?=$data->blockId?>">
     <h3 class="masonry-news-list_title textalign-c">
-        <a href="<?=$this->createUrl('/whatsNew/friends/index')?>">Новые пользователи</a>
+        <?php if (Yii::app()->user->isGuest):?>
+            <a href="#login" class="fancy" data-theme="white-square">Новые пользователи</a>
+        <?php else: ?>
+            <a href="<?=$this->createUrl('/friends/find')?>">Новые пользователи</a>
+        <?php endif ?>
     </h3>
     <div class="textalign-c clearfix">
         <span class="date"><?=HDate::GetFormattedTime($data->last_updated)?></span>
@@ -15,8 +19,10 @@
             </li>
         <?php endforeach; ?>
     </ul>
-    <div class="textalign-c clearfix">
-        <a href="<?=$this->createUrl('/friends/find')?>" class="icon-friends"></a>
-        <a href="<?=$this->createUrl('/friends/find')?>">Смотреть всех</a>
-    </div>
+    <?php if (!Yii::app()->user->isGuest):?>
+        <div class="textalign-c clearfix">
+            <a href="<?=$this->createUrl('/friends/find')?>" class="icon-friends"></a>
+            <a href="<?=$this->createUrl('/friends/find')?>">Смотреть всех</a>
+        </div>
+    <?php endif ?>
 </li>

@@ -39,10 +39,14 @@ class DefaultController extends HController
             $criteria->order = 'position asc, name asc';
             $regions = GeoRegion::model()->findAll($criteria);
 
-            foreach ($regions as $region) {
-                $_regions[] = array($region->id, $region->name);
+            if (empty($regions)) {
+
+            } else {
+                foreach ($regions as $region) {
+                    $_regions[] = array($region->id, $region->name);
+                }
+                echo CHtml::listOptions(null, array('' => 'Регион') + CHtml::listData($regions, 'id', 'name'), $null);
             }
-            echo CHtml::listOptions(null, array('' => 'Регион') + CHtml::listData($regions, 'id', 'name'), $null);
         } else
             echo '';
     }
@@ -104,8 +108,7 @@ class DefaultController extends HController
             $criteria->compare('name', $_GET['term'] . '%', true, 'AND', false);
             $criteria->limit = 10;
             $models = GeoRusStreet::model()->findAll($criteria);
-        }
-        else
+        } else
             $models = GeoRusStreet::model()->findAll(array(
                 'condition' => 'name LIKE :term AND settlement_id = :settlement_id',
                 'params' => array(
@@ -156,14 +159,14 @@ class DefaultController extends HController
                 'status' => true,
                 'weather' => $this->widget('WeatherWidget', array('user' => $user), true),
                 'main' => $this->widget('LocationWidget', array('user' => $user), true),
-                'location' => $user->address->getFlag(true, 'span') . '<span class="location-tx">'.$user->address->getUserFriendlyLocation().'</span>',
+                'location' => $user->address->getFlag(true, 'span') . '<span class="location-tx">' . $user->address->getUserFriendlyLocation() . '</span>',
                 'mapsLocation' => $address->fullTextLocation()
             );
             UserAction::model()->add($user->id, UserAction::USER_ACTION_ADDRESS_UPDATED, array('model' => $address));
         } else {
             $response = array(
                 'status' => false,
-                'full' => ($user->score->full == 0)?false:true
+                'full' => ($user->score->full == 0) ? false : true
             );
         }
 
@@ -179,16 +182,9 @@ class DefaultController extends HController
         echo CJSON::encode(array('status' => $region->isCity()));
     }
 
-    /**
-     * @param int $id model id
-     * @return GeoRusSettlement
-     * @throws CHttpException
-     */
-    public function loadSettlment($id)
-    {
-        $model = GeoRusSettlement::model()->findByPk($id);
-        if ($model === null)
-            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
-        return $model;
+    public function actionTest(){
+        $inc = new CityDeclension;
+        $res = $inc->getDeclensions('Чебоксары');
+        var_dump($res);
     }
 }

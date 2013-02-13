@@ -3,7 +3,7 @@
  * Author: alexk984
  * Date: 10.11.12
  */
-$keywords = Yii::app()->db_seo->createCommand()
+$keywords = Yii::app()->db_keywords->createCommand()
     ->select('name')
     ->from('keywords')
     ->limit(100)

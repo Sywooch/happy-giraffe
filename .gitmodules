@@ -4,3 +4,6 @@
 [submodule "site/frontend/www-submodule"]
 	path = site/frontend/www-submodule
 	url = git@github.com:beknown/happy-giraffe-www-frontend.git
+[submodule "site/mobile/www"]
+	path = site/mobile/www
+	url = git@github.com:beknown/happy-giraffe-www-mobile.git

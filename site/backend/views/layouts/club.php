@@ -5,14 +5,38 @@
     $this->widget('zii.widgets.CMenu', array(
         'linkLabelWrapper' => 'span',
         'items' => array(
-            array(
-                'label' => 'Главная',
-                'url' => array('/club/default/index'),
-            ),
             array('label' => 'Имена',
                 'url' => array('/club/names/index'),
                 'active' => (Yii::app()->controller->uniqueId == 'club/names'),
                 'visible' => Yii::app()->user->checkAccess('names')
+            ),
+            array('label' => 'Склонения городов',
+                'url' => array('/club/city/index'),
+                'active' => (Yii::app()->controller->uniqueId == 'club/city'),
+                'visible' => Yii::app()->user->checkAccess('geo')
+            ),
+            array('label' => 'Маршруты',
+                'url' => array('/club/fuelCost/'),
+                'active' => (Yii::app()->controller->uniqueId == 'club/fuelCost'),
+                'visible' => Yii::app()->user->checkAccess('routes'),
+                'items'=>array(
+                    array(
+                        'label' => 'Цены на топливо',
+                        'url' => array('/club/fuelCost/'),
+                        'active' => (Yii::app()->controller->uniqueId == 'club/fuelCost'),
+                    ),
+                ),
+            ),
+            array('label' => 'Валентинов день',
+                'url' => array('/club/valentineSms/'),
+                'visible' => Yii::app()->user->checkAccess('valentines_day'),
+                'items'=>array(
+                    array(
+                        'label' => 'Смс',
+                        'url' => array('/club/valentineSms/'),
+                        'active' => (Yii::app()->controller->uniqueId == 'club/valentineSms'),
+                    ),
+                ),
             ),
             array('label' => 'Баннеры',
                 'url' => array('/club/communityBanners'),
@@ -131,21 +155,21 @@
                     ),
                 )
             ),
-            array(
-                'label' => 'Рассылки',
-                'url' => array('/mail/index/index'),
-                'active' => (Yii::app()->controller->uniqueId == 'mail/templates' || Yii::app()->controller->uniqueId == 'mail/index' ),
-                'items' => array(
-                    array(
-                        'label' => 'Создать рассылку',
-                        'url' => array('/mail/index/create'),
-                    ),
-                    array(
-                        'label' => 'Управление шаблонами',
-                        'url' => array('/mail/templates/index'),
-                    )
-                )
-            ),
+//            array(
+//                'label' => 'Рассылки',
+//                'url' => array('/mail/index/index'),
+//                'active' => (Yii::app()->controller->uniqueId == 'mail/templates' || Yii::app()->controller->uniqueId == 'mail/index' ),
+//                'items' => array(
+//                    array(
+//                        'label' => 'Создать рассылку',
+//                        'url' => array('/mail/index/create'),
+//                    ),
+//                    array(
+//                        'label' => 'Управление шаблонами',
+//                        'url' => array('/mail/templates/index'),
+//                    )
+//                )
+//            ),
             array(
                 'label' => 'Календари',
                 'active' => (in_array(Yii::app()->controller->uniqueId, array('club/calendarBaby', 'club/calendarPregnancy'))),

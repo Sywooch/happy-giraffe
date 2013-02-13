@@ -219,6 +219,8 @@ Comment.prototype.send = function (form) {
                 editor.setData('');
                 editor.destroy();
                 $this.cancel();
+            }else{
+                location.reload();
             }
         }
     });

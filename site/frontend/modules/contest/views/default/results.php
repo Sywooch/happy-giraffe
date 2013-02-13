@@ -98,6 +98,29 @@
                 'model' => '«Я расту» WT-448',
             ),
         );
+    } elseif ($this->contest->id == 6) {
+        $prizes = array(
+            '1' => array(
+                'title' => 'Детские электронные весы',
+                'model' => 'LAICA PS3003 (Италия)',
+            ),
+            '2' => array(
+                'title' => 'Мини-блендер',
+                'model' => 'Philips AVENT SCF 860/22',
+            ),
+            '3' => array(
+                'title' => 'Мини-комбайн',
+                'model' => 'Maman ЕС01М',
+            ),
+            '4' => array(
+                'title' => 'Салфетка-игрушка',
+                'model' => 'Nuk',
+            ),
+            '5' => array(
+                'title' => 'Салфетка-игрушка',
+                'model' => 'Nuk',
+            ),
+        );
     }
 ?>
 
@@ -123,7 +146,7 @@
             <div class="contest-winners_frame clearfix">
                 <ul class="contest-winners_list clearfix">
                     <?php foreach ($this->contest->winners as $w): ?>
-                        <?php $this->renderPartial('_winner', array('data' => $w, 'prize' => $prizes[$w->place])); ?>
+                        <?php $this->renderPartial('_winner', array('data' => $w, 'prize' => $prizes[$w->place], 'isConsolationPrize' => $this->contest->id == 6 && ($w->place == 4 || $w->place == 5))); ?>
                     <?php endforeach; ?>
                 </ul>
             </div>

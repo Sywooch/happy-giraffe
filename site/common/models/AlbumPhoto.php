@@ -103,6 +103,7 @@ class AlbumPhoto extends HActiveRecord
             'album' => array(self::BELONGS_TO, 'Album', 'album_id'),
             'author' => array(self::BELONGS_TO, 'User', 'author_id'),
             'attach' => array(self::HAS_MANY, 'AttachPhoto', 'photo_id'),
+            'galleryItem' => array(self::HAS_ONE, 'CommunityContentGalleryItem', 'photo_id'),
             'remove' => array(self::HAS_ONE, 'Removed', 'entity_id', 'condition' => '`remove`.`entity` = :entity', 'params' => array(':entity' => get_class($this)))
         );
     }
@@ -205,7 +206,7 @@ class AlbumPhoto extends HActiveRecord
         return false;
     }
 
-    public static function createByUrl($url, $user_id, $album_type)
+    public static function createByUrl($url, $user_id, $album_type = false)
     {
         $ext = pathinfo($url, PATHINFO_EXTENSION);
 
@@ -264,7 +265,8 @@ class AlbumPhoto extends HActiveRecord
         if (!in_array($ext, array('jpg', 'jpeg', 'png', 'gif', 'JPG', 'JPEG', 'PNG', 'GIF')))
             return false;
 
-        $model->album_id = Album::getAlbumByType($user_id, $album_type)->id;
+        if ($album_type !== false)
+            $model->album_id = Album::getAlbumByType($user_id, $album_type)->id;
         $model->fs_name = $file_name . '.' . $ext;
         $model->file_name = $file_name . '.' . $ext;
         $model->save(false);

@@ -49,7 +49,8 @@ class CometModel extends CComponent
      * @return void
      * @internal param int $user_id user id who receive this message
      */
-    public function send($receiver, $attributes = null, $type = null){
+    public function send($receiver, $attributes = null, $type = null)
+    {
         if ($attributes !== null)
             $this->attributes = $attributes;
         if ($type !== null)
@@ -57,7 +58,11 @@ class CometModel extends CComponent
 
         $channel_id = is_numeric($receiver) ? UserCache::GetUserCache($receiver) : $receiver;
         $this->attributes['type'] = $this->type;
-        Yii::app()->comet->send($channel_id, $this->attributes);
+        try {
+            Yii::app()->comet->send($channel_id, $this->attributes);
+        } catch (Exception $err) {
+
+        }
     }
 
     public function sendToSeoUsers()
@@ -67,7 +72,7 @@ class CometModel extends CComponent
             ->from('auth__assignments')
             ->where('itemname = "moderator" OR itemname = "editor"')
             ->queryColumn();
-        foreach ($user_ids as $user_id){
+        foreach ($user_ids as $user_id) {
             $this->send($user_id);
         }
     }

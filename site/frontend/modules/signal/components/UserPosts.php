@@ -6,7 +6,7 @@
 class UserPosts extends PostForCommentator
 {
     protected $entities = array(
-        'CommunityContent' => array(30),
+        'CommunityContent' => array(24),
         'CookRecipe' => array(2, 3),
     );
     protected $nextGroup = 'FavouritesPosts';
@@ -34,7 +34,7 @@ class UserPosts extends PostForCommentator
     {
         $criteria = new CDbCriteria;
         $criteria->select = 't.*';
-        $criteria->condition = 't.created >= "' . date("Y-m-d H:i:s", strtotime('-48 hour')) . '" AND `full` IS NULL';
+        $criteria->condition = 't.created >= "' . date("Y-m-d H:i:s", strtotime('-48 hour')) . '" AND `full` IS NULL AND t.removed = 0';
         $criteria->with = array(
             'author' => array(
                 'select'=>array('id'),

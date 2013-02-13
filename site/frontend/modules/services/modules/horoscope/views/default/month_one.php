@@ -28,7 +28,10 @@ $data = $model->CalculateMonthData();
             </div>
 
             <?php if (empty($_GET['month'])) $this->beginWidget('SeoContentWidget'); ?>
-            <div class="holder"><?=Str::strToParagraph($model->text) ?></div>
+            <div class="holder">
+                <?=Str::strToParagraph($model->text) ?>
+                <p><?=$model->getAdditionalText() ?></p>
+            </div>
             <?php if (empty($_GET['month'])) $this->endWidget(); ?>
 
         </div>
@@ -77,7 +80,7 @@ $data = $model->CalculateMonthData();
 
 <div class="horoscope-otherday">
 <?php if ($model->isCurrentMonth()) {?>
-    А еще гороскоп:
+    А еще:
     <div class="row">
         <?=$model->getPrevMonthLink() ?>
         <?=$model->getNextMonthLink() ?>

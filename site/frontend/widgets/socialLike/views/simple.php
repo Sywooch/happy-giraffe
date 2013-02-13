@@ -54,16 +54,20 @@
 <?php else: ?>
 
     <?php
+
     if (get_class($this->model) == 'ContestWork' && Yii::app()->request->isAjaxRequest) {
         $attach = AttachPhoto::model()->findByEntity('ContestWork', $this->model->id);
         $photo = $attach[0]->photo;
         $url = Yii::app()->createAbsoluteUrl('albums/singlePhoto', array('entity' => 'Contest', 'contest_id' => $this->model->contest_id, 'photo_id' => $photo->id));
+    } elseif(method_exists($this->model, 'isValentinePost') && $this->model->isValentinePost()){
+        //костыль для валентина 2
+        $url = $this->model->getUrl(false, true);
     } else {
         $url = 'http://' . $_SERVER["SERVER_NAME"] . $_SERVER["REQUEST_URI"];
     }
 
     $js = "
-        $('.vk_share_button').html(VK.Share.button(document.location.href,{type: 'round', text: 'Мне нравится'}));
+        $('.vk_share_button').html(VK.Share.button('".$url."',{type: 'round', text: 'Мне нравится'}));
     ";
 
     Yii::app()->clientScript
@@ -97,7 +101,7 @@
                         array('class'=>'fb-custom-text', 'onclick'=>'return Social.showFacebookPopup(this);'), true) ?>
                     <div class="fb-custom-share-count">0</div>
                     <script type="text/javascript">
-                        $.getJSON("http://graph.facebook.com", { id:document.location.href }, function (json) {
+                        $.getJSON("http://graph.facebook.com", { id:'<?=$url ?>' }, function (json) {
                             $('.fb-custom-share-count').html(json.shares || '0');
                         });
                     </script>
@@ -110,8 +114,9 @@
 
             <div class="share_button">
                 <a class="odkl-klass-oc" href="<?=$url?>"
-                   onclick="Social.updateLikesCount('ok'); ODKL.Share(this);return false;"><span>0</span></a>
+                   onclick="ODKL.Share(this);Social.updateLikesCount('ok');return false;"><span>0</span></a>
             </div>
+
 
             <div class="share_button">
                 <div class="tw_share_button">

@@ -9,6 +9,8 @@
  * @property integer $value
  * @property integer $parsed
  * @property integer $theme
+ * @property integer $season_parsed
+ * @property integer $season_value
  *
  * The followings are the available model relations:
  * @property Keyword $keyword
@@ -27,12 +29,12 @@ class YandexPopularity extends HActiveRecord
 
     public function tableName()
     {
-        return 'yandex_popularity';
+        return 'keywords.yandex_popularity';
     }
 
     public function getDbConnection()
     {
-        return Yii::app()->db_seo;
+        return Yii::app()->db_keywords;
     }
 
     /**
@@ -109,9 +111,8 @@ class YandexPopularity extends HActiveRecord
             $yaPop->value = $value;
             try {
                 $yaPop->theme = $theme;
-                if (!$yaPop->save())
-                    echo 'not saved2';
-            }catch (Exception $e){
+                $yaPop->save();
+            } catch (Exception $e) {
 
             }
         } else {
@@ -120,9 +121,8 @@ class YandexPopularity extends HActiveRecord
             $yaPop->theme = $theme;
             $yaPop->value = $value;
             try {
-                if (!$yaPop->save())
-                    echo 'not saved2';
-            }catch (Exception $e){
+                $yaPop->save();
+            } catch (Exception $e) {
 
             }
         }

@@ -54,7 +54,7 @@ class RecipeController extends HController
     {
         $this->pageTitle = 'Кулинарные рецепты от Веселого Жирафа';
         if (!empty($type))
-            $this->pageTitle = CActiveRecord::model($this->modelName)->types[$type].' - '.$this->pageTitle;
+            $this->pageTitle = CActiveRecord::model($this->modelName)->types[$type] . ' - ' . $this->pageTitle;
 
         $this->layout = '//layouts/recipe';
         $this->currentType = $type;
@@ -78,9 +78,12 @@ class RecipeController extends HController
         $this->render('index', compact('dp', 'type'));
     }
 
+    /**
+     * @sitemap dataSource=sitemapTag
+     */
     public function actionTag($tag = null, $type = 0)
     {
-        if (empty($tag)){
+        if (empty($tag)) {
             if (Yii::app()->user->checkAccess('recipe_tags'))
                 $this->render('tag_list');
             else
@@ -89,9 +92,18 @@ class RecipeController extends HController
         }
 
         $model = $this->loadTag($tag);
-        $this->pageTitle = $model->title. ' - Кулинарные рецепты от Веселого Жирафа';
+        if (CookRecipeTag::TAG_VALENTINE == $model->id && strpos(Yii::app()->request->requestUri, 'valentinesDay') === false) {
+            header("HTTP/1.1 301 Moved Permanently");
+            header("Location: " . $model->url);
+            Yii::app()->end();
+        }
+
+        $this->pageTitle = $model->title . ' - Кулинарные рецепты от Веселого Жирафа';
         $this->layout = '//layouts/recipe';
         $this->currentType = $type;
+
+        if (CookRecipeTag::TAG_VALENTINE == $model->id)
+            $this->body_class .= ' body__valentine';
 
         $dp = CActiveRecord::model($this->modelName)->getByTag($tag, $type);
         $this->counts = CActiveRecord::model($this->modelName)->getCountsByTag($tag);
@@ -101,13 +113,13 @@ class RecipeController extends HController
             $this->breadcrumbs = array(
                 'Кулинария' => array('/cook'),
                 'Кулинарные рецепты' => array('/cook/recipe'),
-                $model->title
+                strip_tags($model->title)
             );
         else
             $this->breadcrumbs = array(
                 'Кулинария' => array('/cook'),
                 'Кулинарные рецепты' => array('/cook/recipe'),
-                $model->title => $this->createUrl('/cook/recipe/tag', array('tag' => $tag)),
+                strip_tags($model->title) => $this->createUrl('/cook/recipe/tag', array('tag' => $tag)),
                 CookRecipe::model()->types[$type],
             );
 
@@ -116,7 +128,7 @@ class RecipeController extends HController
 
     public function actionCookBook($type = 0)
     {
-        if (Yii::app()->user->isGuest){
+        if (Yii::app()->user->isGuest) {
             $this->redirect('/cook/recipe/');
             Yii::app()->end();
         }
@@ -436,6 +448,26 @@ class RecipeController extends HController
                 ),
                 'changefreq' => 'daily',
                 'lastmod' => ($model['updated'] === null) ? $model['created'] : $model['updated'],
+            );
+        }
+
+        return $data;
+    }
+
+    public function sitemapTag()
+    {
+        $models = Yii::app()->db->createCommand()
+            ->select('id')
+            ->from(CookRecipeTag::model()->tableName())
+            ->queryAll();
+
+        $data = array();
+        foreach ($models as $model) {
+            $data[] = array(
+                'params' => array(
+                    'tag' => $model['id'],
+                ),
+                'changefreq' => 'daily',
             );
         }
 

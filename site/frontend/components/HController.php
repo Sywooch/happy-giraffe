@@ -18,7 +18,9 @@ class HController extends CController
     public $pGallery = null;
     public $broadcast = false;
 
-    protected $r = 143;
+    public $body_class = 'body-club';
+
+    protected $r = 157;
 
     public function filterAjaxOnly($filterChain)
     {
@@ -41,6 +43,11 @@ class HController extends CController
 
     protected function beforeAction($action)
     {
+        if (isset($_GET['nomo']) && $_GET['nomo'] == 1) {
+            setcookie('nomo', 1);
+            $this->redirect(Yii::app()->request->requestUri);
+        }
+
         // отключение повторной подгрузки jquery
         /* if (Yii::app()->request->isAjaxRequest) {
             Yii::app()->clientScript->scriptMap = array(

@@ -44,7 +44,7 @@ class UserPartner extends HActiveRecord
 			array('user_id', 'required'),
 			array('user_id', 'length', 'max'=>11),
 			array('name', 'length', 'max'=>255),
-			array('notice', 'length', 'max'=>1024),
+			array('notice', 'length', 'max'=>100),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('user_id, name, notice', 'safe', 'on'=>'search'),

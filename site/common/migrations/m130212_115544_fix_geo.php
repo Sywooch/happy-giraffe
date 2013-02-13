@@ -16,12 +16,12 @@ class m130212_115544_fix_geo extends CDbMigration
         ), 'id=58239');
 
         $this->execute("
-UPDATE  `happy_giraffe`.`geo__region` SET  `name` =  'Республика Северная Осетия-Алания' WHERE  `geo__region`.`id` =207;
-UPDATE  `happy_giraffe`.`geo__region` SET  `name` =  'Ровенская область' WHERE  `geo__region`.`id` =14;
-UPDATE  `happy_giraffe`.`geo__region` SET  `name` =  'Карачаево-Черкесская Республика' WHERE  `geo__region`.`id` =206;
-UPDATE  `happy_giraffe`.`geo__region` SET  `name` =  'Чеченская Республика' WHERE  `geo__region`.`id` =252;
-UPDATE  `happy_giraffe`.`geo__region` SET  `name` =  'Еврейская автономная область' WHERE  `geo__region`.`id` =192;
-UPDATE  `happy_giraffe`.`geo__region` SET  `name` =  'Костанайская область' WHERE  `geo__region`.`id` =82;
+UPDATE  `geo__region` SET  `name` =  'Республика Северная Осетия-Алания' WHERE  `geo__region`.`id` =207;
+UPDATE  `geo__region` SET  `name` =  'Ровенская область' WHERE  `geo__region`.`id` =14;
+UPDATE  `geo__region` SET  `name` =  'Карачаево-Черкесская Республика' WHERE  `geo__region`.`id` =206;
+UPDATE  `geo__region` SET  `name` =  'Чеченская Республика' WHERE  `geo__region`.`id` =252;
+UPDATE  `geo__region` SET  `name` =  'Еврейская автономная область' WHERE  `geo__region`.`id` =192;
+UPDATE  `geo__region` SET  `name` =  'Костанайская область' WHERE  `geo__region`.`id` =82;
         ");
 
         $this->_table = 'geo__region';

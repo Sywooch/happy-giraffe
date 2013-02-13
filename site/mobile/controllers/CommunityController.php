@@ -48,6 +48,7 @@ class CommunityController extends MController
         $user = User::model()->findByPk($user_id);
 
         $dp = new CActiveDataProvider('CommunityContent', array(
+            'order' => 't.created DESC',
             'criteria' => array(
                 'scopes' => array('active', 'full'),
             ),

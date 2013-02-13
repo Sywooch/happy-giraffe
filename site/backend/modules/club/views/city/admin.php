@@ -22,7 +22,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 ?>
 <script type="text/javascript">
     $(function () {
-        $('a.decl_checked').click(function () {
+        $('body').delegate('a.decl_checked', 'click', function(e){
             var id = $(this).prev().val();
             var self = $(this);
             $.post('/club/city/checked/', {id:id}, function (response) {
@@ -30,6 +30,6 @@ $this->widget('zii.widgets.grid.CGridView', array(
             }, 'json');
 
             return false;
-        })
+        });
     });
 </script>

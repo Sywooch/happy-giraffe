@@ -118,7 +118,7 @@ class GeoCity extends HActiveRecord
         $criteria = new CDbCriteria;
 
         if (empty($this->id))
-            $criteria->condition = 'id IN (Select distinct(city_from_id) from routes__routes UNION Select distinct(city_to_id) from routes__routes ) AND declension_checked=0';
+            $criteria->condition = 'name_from IS NOT NULL AND declension_checked=0';
         else
             $criteria->compare('id', $this->id, true);
         $criteria->compare('region_id', $this->region_id, true);
@@ -139,7 +139,10 @@ class GeoCity extends HActiveRecord
     {
         //склонение
         if ($this->isNewRecord){
-
+            $c = new CityDeclension();
+            list($n1, $n2) = $c->getDeclensions($this->name);
+            $this->name_from = $n1;
+            $this->name_between = $n2;
         }
 
         return parent::beforeSave();

@@ -6,8 +6,58 @@
 class CityDeclension
 {
     private $rules = array(
+        'ово' => array('ово', 'ово'),
+        'ево' => array('ево', 'ево'),
+        'ино' => array('ино', 'ино'),
+        'ыно' => array('ыно', 'ыно'),
+        'нь' => array('ни', 'нью'),
+        'ль' => array('ля', 'лем'),
+        'ов' => array('ова', 'вом'),
+        'ем' => array('ема', 'емом'),
+        'ин' => array('ина', 'ином'),
+        'жа' => array('жи', 'жей'),
+        'ша' => array('ши', 'шей'),
+        'ца' => array('цы', 'цей'),
+        'га' => array('ги', 'гой'),
         'и' => array('и', 'и'),
         'ы' => array('', 'ами'),
+        'ка' => array('ки', 'кой'),
+        'а' => array('ы', 'ой'),
+        'я' => array('и', 'ей'),
+        'ч' => array('ча', 'чем'),
+        'ж' => array('жа', 'жем'),
+        'ш' => array('ша', 'шем'),
+        'щ' => array('ща', 'щем'),
+        'ц' => array('ца', 'цем'),
+        'б' => array('ба', 'бом'),
+        'в' => array('ва', 'вом'),
+        'г' => array('га', 'гом'),
+        'д' => array('да', 'дом'),
+        'з' => array('за', 'зом'),
+        'к' => array('ка', 'ком'),
+        'л' => array('ла', 'лом'),
+        'м' => array('ма', 'мом'),
+        'н' => array('на', 'ном'),
+        'п' => array('па', 'пом'),
+        'р' => array('ра', 'ром'),
+        'с' => array('са', 'сом'),
+        'т' => array('та', 'том'),
+        'ф' => array('фа', 'фом'),
+        'х' => array('ха', 'хом'),
+        'о' => array('о', 'о'),
+        'е' => array('е', 'е'),
+    );
+
+    private $words = array(
+        'Верхняя '=>array('Верхней ', 'Верхней '),
+        'Верхний '=>array('Верхнего ', 'Верхним '),
+        'Верхние '=>array('Верхних ', 'Верхними '),
+        'Нижняя '=>array('Нижней ', 'Нижней '),
+        'Нижний '=>array('Нижнего ', 'Нижним '),
+        'Нижние '=>array('Нижних ', 'Нижними '),
+        'Новая '=>array('Новой ', 'Новой '),
+        'Новый '=>array('Нового ', 'Новым '),
+        'Новые '=>array('Новых ', 'Новыми '),
     );
 
     public static function go()
@@ -29,6 +79,12 @@ class CityDeclension
             if ($this->endsWith($name, $ends)){
                 $n1 = substr($name, 0, strlen($name) - strlen($ends)).$rule[0];
                 $n2 = substr($name, 0, strlen($name) - strlen($ends)).$rule[1];
+
+                foreach ($this->words as $word => $vals)
+                    if (strpos($name, $word) !== false){
+                        $n1 = str_replace($word, $vals[0], $n1);
+                        $n2 = str_replace($word, $vals[1], $n2);
+                    }
 
                 return array($n1, $n2);
             }

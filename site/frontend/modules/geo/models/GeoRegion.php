@@ -9,6 +9,7 @@
  * @property string $type
  * @property string $center_id
  * @property integer $position
+ * @property integer $auto_created
  *
  * The followings are the available model relations:
  * @property GeoCity[] $geoCities

@@ -13,9 +13,16 @@ class DefaultController extends HController
         }
     }
 
-    public function actionMap()
+    public function actionGetRouteId()
     {
-        $this->render('map');
+        $city_from = GeoCity::getCityByCoordinates(Yii::app()->request->getPost('city_from_lat'), Yii::app()->request->getPost('city_from_lng'));
+        $city_to = GeoCity::getCityByCoordinates(Yii::app()->request->getPost('city_to_lat'), Yii::app()->request->getPost('city_to_lng'));
+
+        $route = Route::model()->findByAttributes(array('city_from_id' => $city_from->id, 'city_to_id' => $city_to->id));
+        if ($route === null){
+            echo $route->status;
+        }else
+            echo CJSON::encode(array('status' => true, 'id' => $route->id));
     }
 
     public function actionGetRoutes()
@@ -27,7 +34,8 @@ class DefaultController extends HController
         }
     }
 
-    public function actionTest(){
+    public function actionTest()
+    {
         $parser = new RosneftParser;
         $parser->start();
     }

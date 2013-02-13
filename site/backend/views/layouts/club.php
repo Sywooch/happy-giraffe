@@ -11,7 +11,7 @@
                 'visible' => Yii::app()->user->checkAccess('names')
             ),
             array('label' => 'Склонения городов',
-                'url' => array('/club/city/index'),
+                'url' => array('/club/city/'),
                 'active' => (Yii::app()->controller->uniqueId == 'club/city'),
                 'visible' => Yii::app()->user->checkAccess('geo')
             ),

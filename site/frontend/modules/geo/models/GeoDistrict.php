@@ -8,6 +8,7 @@
  * @property string $name
  * @property string $region_id
  * @property string $capital_id
+ * @property string $auto_created
  *
  * The followings are the available model relations:
  * @property GeoCity[] $geoCities

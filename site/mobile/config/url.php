@@ -31,6 +31,6 @@ return array(
         'horoscope/<zodiac:[\w]+>' => array('horoscope/view', 'defaultParams' => array('type' => 'today')),
 
 
-        //'(.*)' => 'site/index',
+        '(.*)' => 'site/index',
     ),
 );

@@ -75,8 +75,10 @@
                     </ul>
                     <div class="nav-search">
                         <div class="nav-search_hold">
-                            <input type="text" name="" id="" class="nav-search_itx" placeholder="Поиск"/>
-                            <input type="submit" class="nav-search_btn btn-green" value="Поиск"/>
+                            <?=CHtml::beginForm('/site/search', 'get')?>
+                                <input type="text" name="text" class="nav-search_itx" placeholder="Поиск"/>
+                                <input type="submit" class="nav-search_btn btn-green" value="Поиск"/>
+                            <?=CHtml::endForm()?>
                         </div>
                     </div>
                 </div>

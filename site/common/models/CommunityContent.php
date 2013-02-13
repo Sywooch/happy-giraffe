@@ -785,14 +785,4 @@ class CommunityContent extends HActiveRecord
             ),
         ));
     }
-
-    public function getMobileSectionTitle()
-    {
-        return ($this->isFromBlog) ? 'Личный блог' : $this->rubric->community->mobileCommunity->title;
-    }
-
-    public function getMobileSectionUrl()
-    {
-        return ($this->isFromBlog) ? Yii::app()->createUrl('/comunity/user', array('user_id' => $this->author_id)) : $this->rubric->community->mobileCommunity->url;
-    }
 }

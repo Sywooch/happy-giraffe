@@ -88,7 +88,7 @@
 
             <div class="footer">
                 <div class="margin-b5">
-                    <a href="" class="full-version">Полная версия</a>
+                    <a href="http://www.happy-giraffe.ru/?nomo=1" class="full-version">Полная версия</a>
                 </div>
                 <div class="clearfix">
                     Веселый Жираф © 2012-2013 <br>Все права защищены

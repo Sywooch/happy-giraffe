@@ -42,7 +42,7 @@ class FavouritesPosts extends PostForCommentator
             return null;
 
         $criteria = new CDbCriteria;
-        $criteria->condition = 't.created >= "' . date("Y-m-d H:i:s", strtotime('-48 hour')) . '" AND `full` IS NULL';
+        $criteria->condition = 't.created >= "' . date("Y-m-d H:i:s", strtotime('-48 hour')) . '" AND `full` IS NULL  AND t.removed = 0';
         $criteria->compare('t.id', $ids);
 
         return $criteria;

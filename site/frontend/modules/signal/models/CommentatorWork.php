@@ -531,9 +531,9 @@ class CommentatorWork extends EMongoDocument
      */
     public function nextComment()
     {
-        $model = CActiveRecord::model($this->comment_entity)->resetScope()->findByPk($this->comment_entity_id);
+        $model = CActiveRecord::model($this->comment_entity)->resetScope()->full()->findByPk($this->comment_entity_id);
 
-        if ($model->removed){
+        if ($model->removed) {
             $model->full = 1;
             $model->update(array('full'));
             $model = null;
@@ -545,7 +545,8 @@ class CommentatorWork extends EMongoDocument
             $model = CActiveRecord::model($this->comment_entity)->findByPk($this->comment_entity_id);
         }
 
-        return CHtml::link($model->title, $model->url, array('target' => '_blank'));
+        $title = empty($model->title) ? $model->getContentText() : $model->title;
+        return CHtml::link($title, $model->url, array('target' => '_blank'));
     }
 
     /**

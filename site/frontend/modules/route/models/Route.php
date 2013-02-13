@@ -19,6 +19,10 @@
  */
 class Route extends CActiveRecord
 {
+    const STATUS_PARSING = 1;
+    const STATUS_GOOD = 2;
+    const STATUS_FAILED = 3;
+
     /**
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.

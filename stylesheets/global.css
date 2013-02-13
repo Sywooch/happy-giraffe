@@ -3312,8 +3312,8 @@ ul.letters li a:hover {
 #horoscope .horoscope-one .img .date {display:inline-block;*zoom:1;*display:inline;vertical-align:top;text-align:center;padding-top:45px;color:#858585;font-size:16px;width:240px;text-align:center;}
 #horoscope .horoscope-one .img .date span {font:italic 45px/1.2 times new roman, serif;display:block;color:#2d87be;}
 
-#horoscope .horoscope-one .dates{text-align:center;margin:20px 0 10px;font-size:14px;color:#666;}
-#horoscope .horoscope-one .dates ul{list-style:none;}
+#horoscope .horoscope-one .dates{text-align:center;margin:20px 0 10px;line-height: 22px;color:#666;}
+#horoscope .horoscope-one .dates ul{list-style:none;font-size: 14px;}
 #horoscope .horoscope-one .dates ul li{display:inline;padding:0 12px;}
 #horoscope .horoscope-one .dates ul li a{display:inline-block;*zoom:1;*display:inline;padding:2px 5px;}
 #horoscope .horoscope-one .dates ul li.active a {background:#fff8bb;text-decoration:none;cursor:default;}

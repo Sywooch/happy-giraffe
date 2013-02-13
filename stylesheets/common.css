@@ -330,7 +330,7 @@ textarea.error,
 
 ::-webkit-input-placeholder,
 :-moz-placeholder,
-.placeholder { color: #fff !important;font-weight: normal !important;}
+.placeholder { color: #ddd !important;font-weight: normal !important;}
 .disabled {cursor:default;}
 /* /cosmetic layout */
 

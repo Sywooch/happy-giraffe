@@ -32,6 +32,8 @@ class DefaultController extends HController
 
     public function actionValentines()
     {
+        $this->meta_title = 'Лучшие валентинки';
+
         $dp = new CActiveDataProvider('AlbumPhoto', array(
             'criteria' => $this->getValentinesCriteria(),
         ));

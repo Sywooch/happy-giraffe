@@ -6,7 +6,7 @@
         <meta content="text/html; charset=utf-8" http-equiv="content-type">
         <meta content="telephone=no" name="format-detection">
         <meta content="176" name="/Optimized">
-        <title>Весёлый жираф - мобильная версия</title>
+        <title><?=$this->pageTitle?></title>
         <!--
         CSS
         Конечному пользователю нужно отправлять скомпилированный файл css

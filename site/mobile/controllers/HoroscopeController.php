@@ -17,7 +17,7 @@ class HoroscopeController extends MController
     {
         $models = Horoscope::model()->sortByZodiac()->findAllByAttributes(array('date' => date("2013-02-06")));
 
-        $this->title = 'Гороскоп на сегодня по знакам Зодиака';
+        $this->pageTitle = 'Гороскоп на сегодня по знакам Зодиака';
         $this->render('index', compact('models'));
     }
 

@@ -8,6 +8,8 @@
  */
 class CommunityController extends MController
 {
+    public function action
+
     public function actionList($community_id)
     {
         $dp = CommunityContent::model()->getMobileContents($community_id);
@@ -32,6 +34,7 @@ class CommunityController extends MController
     public function actionBlogList()
     {
         $dp = new CActiveDataProvider('BlogContent', array(
+            'order' => 't.created DESC',
             'criteria' => array(
                 'scopes' => array('active', 'full', 'blog'),
             ),

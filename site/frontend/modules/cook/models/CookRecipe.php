@@ -572,7 +572,7 @@ class CookRecipe extends CActiveRecord
         return $dp;
     }
 
-    public function getByType($type)
+    public function getByType($type, $pageSize = 10)
     {
         $criteria = new CDbCriteria(array(
             'with' => array('photo', 'attachPhotos', 'commentsCount', 'tags', 'author', 'cuisine'),
@@ -588,7 +588,7 @@ class CookRecipe extends CActiveRecord
         $dp = new CActiveDataProvider(get_class($this), array(
             'criteria' => $criteria,
             'pagination' => array(
-                'pageSize' => 10,
+                'pageSize' => $pageSize,
             ),
         ));
 
@@ -1008,5 +1008,15 @@ class CookRecipe extends CActiveRecord
 
             Yii::app()->user->setState('recipe_id', null);
         }
+    }
+
+    public function getMobileSectionTitle()
+    {
+        return $this->typeString;
+    }
+
+    public function getMobileSectionUrl()
+    {
+        return Yii::app()->createUrl('/cook/recipe/index', array('type' => $this->type, 'section' => $this->section));
     }
 }

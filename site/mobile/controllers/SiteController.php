@@ -73,13 +73,13 @@ class SiteController extends MController
             $criteria = new CDbCriteria;
             $criteria->with = array('travel', 'video', 'post');
 
-            $dataProvider = new CArrayDataProvider($resIterator->getRawData(), array(
+            $dp = new CArrayDataProvider($resIterator->getRawData(), array(
                 'keyField' => 'id',
             ));
 
-            $viewData = compact('dataProvider', 'criteria', 'index', 'text', 'allCount', 'textCount', 'videoCount', 'travelCount');
+            $viewData = compact('dp', 'criteria', 'index', 'text', 'allCount', 'textCount', 'videoCount', 'travelCount');
         } else
-            $viewData = array('dataProvider'=>null, 'criteria'=>null, 'index'=>$index, 'text'=>'', 'allCount'=>0, 'textCount'=>0, 'videoCount'=>0, 'travelCount'=>0);
+            $viewData = array('dp'=>null, 'criteria'=>null, 'index'=>$index, 'text'=>'', 'allCount'=>0, 'textCount'=>0, 'videoCount'=>0, 'travelCount'=>0);
         $this->render('search', $viewData);
     }
 }

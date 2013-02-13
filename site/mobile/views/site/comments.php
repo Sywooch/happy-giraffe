@@ -8,9 +8,7 @@ $pagination = $comments->pagination;
 ?>
 
 <div class="entry">
-    <div class="margin-b10">
-        <?=CHtml::link($data->mobileSectionTitle, $data->mobileSectionUrl, array('class' => 'text-small'))?>
-    </div>
+    <?php $this->renderPartial('/_section', array('data' => $data)); ?>
     <div class="entry_h clearfix">
         <h1 class="entry_h1"><?=CHtml::link($data->title, $data->url)?></h1>
 

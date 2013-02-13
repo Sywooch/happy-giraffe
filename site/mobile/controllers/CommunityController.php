@@ -49,7 +49,7 @@ class CommunityController extends MController
 
         $dp = new CActiveDataProvider('CommunityContent', array(
             'criteria' => array(
-                'scopes' => array('active', 'full', 'community'),
+                'scopes' => array('active', 'full'),
             ),
             'pagination' => array(
                 'pageSize' => 3,

@@ -15,7 +15,6 @@
         <link rel="stylesheet" href="/css/all-dev.css" type="text/css" />
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
-        <script src="/js/common.js"></script>
 
     </head>
     <body>
@@ -25,11 +24,11 @@
             </div>
 
             <div class="nav">
-                <span class="nav_t" >Разделы</span>
+                <span class="nav_t" onclick="$('.nav_hold').toggleClass('nav_hold__open');">Разделы</span>
                 <div class="nav_hold">
                     <ul class="nav_ul">
                         <li class="nav_li">
-                            <a href="" class="nav_i">
+                            <a href="javascript:void(0)" onclick="$(this).parent().toggleClass('nav_li__active');" class="nav_i">
                                 <i class="nav_ico nav_ico__club"></i>
                                 Клубы
                                 <span class="nav_arrow-down"></span>
@@ -45,7 +44,7 @@
                             </div>
                         </li>
                         <li class="nav_li">
-                            <a href="" class="nav_i">
+                            <a href="<?=Yii::app()->createUrl('/community/blogList')?>" class="nav_i">
                                 <i class="nav_ico nav_ico__blog"></i>
                                 Блоги
                             </a>
@@ -57,7 +56,7 @@
                             </a>
                         </li>
                         <li class="nav_li">
-                            <a href="" class="nav_i">
+                            <a href="javascript:void(0)" onclick="$(this).parent().toggleClass('nav_li__active');" class="nav_i">
                                 <i class="nav_ico nav_ico__cook"></i>
                                 Рецепты
                                 <span class="nav_arrow-down"></span>

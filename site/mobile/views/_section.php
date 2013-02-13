@@ -7,7 +7,7 @@
             if ($data->isFromBlog) {
                 $section = array(
                     'title' => 'Личный блог',
-                    'url' => Yii::app()->createUrl('/community/user', array('user_id' => $this->author_id)),
+                    'url' => Yii::app()->createUrl('/community/user', array('user_id' => $data->author_id)),
                 );
             } elseif ($data->rubric->community->mobileCommunity !== null) {
                 $section = array(
@@ -19,7 +19,7 @@
         case 'CookRecipe':
             $section = array(
                 'title' => $data->typeString,
-                'url' => Yii::app()->createUrl('/community/index', array('type' => $data->type, 'section' => $this->section)),
+                'url' => Yii::app()->createUrl('/community/index', array('type' => $data->type, 'section' => $data->section)),
             );
             break;
     }

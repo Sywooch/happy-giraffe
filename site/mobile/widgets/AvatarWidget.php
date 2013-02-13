@@ -9,6 +9,7 @@
 class AvatarWidget extends CWidget
 {
     public $user;
+    public $size = 'small';
 
     public function run()
     {

@@ -4,12 +4,11 @@
  * @var $full boolean
  */
 
-$mobileCommunity = $data->rubric->community->mobileCommunity;
 ?>
 
 <div class="entry">
     <div class="margin-b10">
-        <?=CHtml::link($mobileCommunity->title, $mobileCommunity->url, array('class' => 'text-small'))?>
+        <?=CHtml::link($data->mobileSectionTitle, $data->mobileSectionUrl, array('class' => 'text-small'))?>
     </div>
     <?php $this->renderPartial('/_entry_header', array('data' => $data, 'full' => $full)); ?>
     <div class="entry-content wysiwyg-content clearfix">

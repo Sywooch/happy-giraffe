@@ -94,7 +94,7 @@
             <?=$recipe->purified->text?>
         </div>
 
-        <?php if ($tags = $recipe->getNotEmptyTags()): ?>
+        <?php if ($recipe->section == 0 && $tags = $recipe->getNotEmptyTags()): ?>
             <div class="tags clearfix">
                 <div class="tags_t">Теги:</div>
                 <ul class="tags-ul">

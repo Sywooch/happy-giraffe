@@ -51,7 +51,7 @@
                             </a>
                         </li>
                         <li class="nav_li">
-                            <a href="" class="nav_i">
+                            <a href="<?=$this->createUrl('/horoscrope/index')?>" class="nav_i">
                                 <i class="nav_ico nav_ico__horoscope"></i>
                                 Гороскопы
                             </a>

@@ -16,18 +16,18 @@ class GoogleCoordinatesParser
     private $city;
     private $proxy;
     private $debug_mode = false;
+    private $use_proxy;
 
-    public function __construct($debug_mode = false)
+    public function __construct($debug_mode = false, $use_proxy = false)
     {
         $this->debug_mode = $debug_mode;
+        $this->use_proxy = $use_proxy;
     }
 
     public function start()
     {
         Yii::import('site.seo.models.*');
-
         time_nanosleep(rand(0, 60), rand(0, 1000000000));
-
         $this->changeProxy();
 
         for ($i = 0; $i < 10000; $i++) {
@@ -39,11 +39,9 @@ class GoogleCoordinatesParser
     public function getCity()
     {
         $criteria = new CDbCriteria;
-        $criteria->condition = 'location_lat IS NULL';
-        $criteria->offset = rand(0, 1000);
-
-        $this->coordinates = SeoCityCoordinates::model()->find($criteria);
-        $this->city = GeoCity::model()->findByPk($this->coordinates->city_id);
+        $criteria->condition = 'type="г" AND id NOT IN (Select city_id from geo__city_coordinates)';
+        $criteria->offset = rand(0, 10);
+        $this->city = GeoCity::model()->find($criteria);
 
         $this->log('city_id: ' . $this->city->id);
     }
@@ -61,15 +59,20 @@ class GoogleCoordinatesParser
         if (isset($result['status']) && $result['status'] == 'OK') {
             $this->saveCoordinates($result['results'][0]['geometry']);
         } else {
-            $this->log('status: ' . $result['status']);
-            $this->changeProxy();
-            if ($attempt > 50) {
-                var_dump($text);
-                Yii::app()->end();
-            }
+            if ($result['status'] == 'ZERO_RESULTS') {
+                $this->log('status: ' . $result['status'] . ' - ' . $this->proxy);
+                echo $this->city->id . "\n";
+            } else {
+                $this->log('status: ' . $result['status'] . ' - ' . $this->proxy);
+                $this->changeProxy();
+                if ($attempt > 50) {
+                    var_dump($text);
+                    Yii::app()->end();
+                }
 
-            $attempt++;
-            $this->parseCity($attempt);
+                $attempt++;
+                $this->parseCity($attempt);
+            }
         }
     }
 
@@ -79,11 +82,13 @@ class GoogleCoordinatesParser
         curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:17.0) Gecko/20100101 Firefox/17.0');
         curl_setopt($ch, CURLOPT_URL, $url);
 
-        curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
-        curl_setopt($ch, CURLOPT_PROXY, $this->proxy);
+        if ($this->use_proxy) {
+            curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
+            curl_setopt($ch, CURLOPT_PROXY, $this->proxy);
 
-        curl_setopt($ch, CURLOPT_PROXYUSERPWD, "alexhg:Nokia1111");
-        curl_setopt($ch, CURLOPT_PROXYAUTH, 1);
+            curl_setopt($ch, CURLOPT_PROXYUSERPWD, "alexhg:Nokia1111");
+            curl_setopt($ch, CURLOPT_PROXYAUTH, 1);
+        }
 
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
@@ -101,8 +106,10 @@ class GoogleCoordinatesParser
 
     public function saveCoordinates($result)
     {
-        $this->coordinates->location_lat = round($result['location']['lat'], 8);
-        $this->coordinates->location_lng = round($result['location']['lng'], 8);
+        $this->coordinates = new CityCoordinates();
+        $this->coordinates->city_id = $this->city->id;
+        $this->coordinates->location_lat = round($result['location']['lat'], 5);
+        $this->coordinates->location_lng = round($result['location']['lng'], 5);
         if (isset($result['bounds']['northeast'])) {
             $this->coordinates->northeast_lat = round($result['bounds']['northeast']['lat'], 8);
             $this->coordinates->northeast_lng = round($result['bounds']['northeast']['lng'], 8);
@@ -118,8 +125,10 @@ class GoogleCoordinatesParser
 
     public function changeProxy()
     {
-        $list = $this->getProxyList();
-        $this->proxy = $list[rand(0, count($list) - 1)];
+        if ($this->use_proxy) {
+            $list = $this->getProxyList();
+            $this->proxy = $list[rand(0, count($list) - 1)];
+        }
     }
 
     public function getProxyList()

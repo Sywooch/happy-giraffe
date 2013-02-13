@@ -12,6 +12,8 @@
  * @property string $name_from
  * @property string $name_between
  * @property string $type
+ * @property string $auto_created
+ * @property string $declension_checked
  *
  * The followings are the available model relations:
  * @property GeoCountry $country
@@ -82,6 +84,7 @@ class GeoCity extends HActiveRecord
             'name' => 'Название',
             'name_from' => 'от ...',
             'name_between' => 'между ...',
+            'declension_checked' => 'Склонения проверены',
         );
     }
 
@@ -96,7 +99,6 @@ class GeoCity extends HActiveRecord
 
         $criteria = new CDbCriteria;
 
-        $criteria->condition = 'name_from IS NOT NULL';
         $criteria->compare('id', $this->id, true);
         $criteria->compare('region_id', $this->region_id, true);
         $criteria->compare('country_id', $this->country_id, true);
@@ -108,18 +110,55 @@ class GeoCity extends HActiveRecord
         ));
     }
 
+    public function declensionSearch()
+    {
+        // Warning: Please modify the following code to remove attributes that
+        // should not be searched.
+
+        $criteria = new CDbCriteria;
+
+        if (empty($this->id))
+            $criteria->condition = 'name_from IS NOT NULL AND declension_checked=0';
+        else
+            $criteria->compare('id', $this->id, true);
+        $criteria->compare('region_id', $this->region_id, true);
+        $criteria->compare('country_id', $this->country_id, true);
+        $criteria->compare('name', $this->name, true);
+
+        return new CActiveDataProvider($this, array(
+            'criteria' => $criteria,
+            'pagination' => array('pageSize' => 100),
+        ));
+    }
+
+    public function declCheckedLink(){
+        return '<input type="hidden" value="'.$this->id.'"><a class="decl_checked" href="javascript:;">проверено</a>';
+    }
+
+    public function beforeSave()
+    {
+        //склонение
+        if ($this->isNewRecord){
+            $c = new CityDeclension();
+            list($n1, $n2) = $c->getDeclensions($this->name);
+            $this->name_from = $n1;
+            $this->name_between = $n2;
+        }
+
+        return parent::beforeSave();
+    }
+
     public function getFullName()
     {
         $text = $this->name;
         if (!empty($this->district_id)) {
             //если есть такой же город в этом регионе
-//            $criteria = new CDbCriteria;
-//            $criteria->compare('region_id', $this->region_id);
-//            $count = GeoCity::model()->count($criteria);
-//
-//            if ($count > 1)
+            $criteria = new CDbCriteria;
+            $criteria->compare('region_id', $this->region_id);
+            $count = GeoCity::model()->count($criteria);
 
-            $text .= ', ' . $this->district->name . ' район';
+            if ($count > 1)
+                $text .= ', ' . $this->district->name . ' район';
         }
         if (!empty($this->region_id) && $this->region->name !== $this->name)
             $text .= ', ' . $this->region->name;
@@ -127,5 +166,37 @@ class GeoCity extends HActiveRecord
         $text .= ', ' . $this->country->name;
 
         return $text;
+    }
+
+    /**
+     * @param $lat float
+     * @param $lng float
+     * @return CityCoordinates
+     */
+    public static function getCityByCoordinates($lat, $lng)
+    {
+        $coordinates = self::getCityByCoordinatesFromExisting($lat, $lng);
+        if ($coordinates === null) {
+            //если не нашли по координатам - узнаем у google maps какой город находиться в этом месте
+            $city = self::getCityFromGoogleMaps($lat, $lng);
+            return $city;
+        }
+
+        return $coordinates->city;
+    }
+
+    public static function getCityByCoordinatesFromExisting($lat, $lng)
+    {
+        $lat = (string)round(trim($lat), 5);
+        $lng = (string)round(trim($lng), 5);
+        $criteria = new CDbCriteria;
+        $criteria->condition = 'location_lat = '. $lat.' AND location_lng = '.$lng;
+        return CityCoordinates::model()->find($criteria);
+    }
+
+    public static function getCityFromGoogleMaps($lat, $lng)
+    {
+        $parser = new GoogleMapsGeoCode;
+        return $parser->getCityByCoordinates($lat, $lng);
     }
 }

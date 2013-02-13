@@ -44,9 +44,9 @@ Yii::app()->clientScript
 
     <form action="" class="map-route-search_form clearfix" style="display: none;">
         <input id="city_from" type="" class="map-route-search_itx itx-bluelight" placeholder="Откуда">
-        <a href="" class="map-route-search_reverse"></a>
+        <a href="javascript:;" class="map-route-search_reverse" onclick="Routes.reversePlaces()"></a>
         <input id="city_to" type="" class="map-route-search_itx itx-bluelight" placeholder="Куда">
-        <button class="btn-green map-route-search_btn">Проложить <br> маршрут</button>
+        <button class="btn-green map-route-search_btn" onclick="Routes.go()">Проложить <br> маршрут</button>
     </form>
     <p><?=$texts[1] ?></p>
 

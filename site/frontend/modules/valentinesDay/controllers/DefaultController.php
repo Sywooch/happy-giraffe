@@ -34,14 +34,11 @@ class DefaultController extends HController
     {
         $this->meta_title = 'Лучшие валентинки';
 
-        if ($open_photo_id !== null)
-            Yii::app()->clientScript->registerScript('autoOpen', "$('a.valentines-best_a:data(id=" . $open_photo_id . ")').trigger('click');");
-
         $dp = new CActiveDataProvider('AlbumPhoto', array(
             'criteria' => $this->getValentinesCriteria(),
         ));
 
-        $this->render('valentines', compact('dp'));
+        $this->render('valentines', compact('dp', 'open_photo_id'));
     }
 
     public function actionSms()

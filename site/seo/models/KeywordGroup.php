@@ -54,7 +54,7 @@ class KeywordGroup extends CActiveRecord
         // class name for the relations automatically generated below.
         return array(
             'page' => array(self::HAS_ONE, 'Page', 'keyword_group_id'),
-            'keywords' => array(self::MANY_MANY, 'Keyword', 'keyword_group_keywords(group_id, keyword_id)'),
+            'keywords' => array(self::MANY_MANY, 'Keyword', 'happy_giraffe_seo.keyword_group_keywords(group_id, keyword_id)'),
             'seoTasks' => array(self::HAS_MANY, 'SeoTask', 'keyword_group_id'),
             'newTasks' => array(self::HAS_MANY, 'SeoTask', 'keyword_group_id', 'condition' => 'status = 0 OR status = 1'),
             'newTaskCount' => array(self::STAT, 'SeoTask', 'keyword_group_id', 'condition' => 'status = 0 OR status = 1'),

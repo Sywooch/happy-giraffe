@@ -31,6 +31,15 @@ class PostForCommentator
         $model = new UserPosts();
         $model->commentator = $this->commentator;
         $post = $model->getPost();
+
+        if (!empty($model->error))
+            $this->log($model->error);
+
+        if (is_array($post))
+            $this->log($post[0].' '.$post[1]);
+        else
+            $this->log('post is not array');
+
         $this->error = $model->error;
         return $post;
     }
@@ -45,7 +54,9 @@ class PostForCommentator
         $result = array();
 
         foreach ($this->entities as $entity => $limits) {
-            $posts = CActiveRecord::model($entity)->findAll($criteria);
+            $posts = CActiveRecord::model($entity)->resetScope()->findAll($criteria);
+
+            $this->logState(count($posts));
 
             foreach ($posts as $post) {
                 //check ignore users
@@ -92,7 +103,7 @@ class PostForCommentator
             $criteria->compare('entity', array('CommunityContent', 'BlogContent'));
         else
             $criteria->compare('entity', get_class($post));
-        $model = Comment::model()->find($criteria);
+        $model = Comment::model()->resetScope()->find($criteria);
 
         return $model !== null;
     }
@@ -125,5 +136,11 @@ class PostForCommentator
 
         $fh = fopen($dir = Yii::getPathOfAlias('application.runtime') . DIRECTORY_SEPARATOR . 'commentators_log.txt', 'a');
         fwrite($fh, get_class($this) . ', user_id: ' . $this->commentator->user_id . " posts_count: " . $posts_count . "\n");
+    }
+
+    public function log($state)
+    {
+        $fh = fopen($dir = Yii::getPathOfAlias('application.runtime') . DIRECTORY_SEPARATOR . 'commentators_log.txt', 'a');
+        fwrite($fh, 'user_id: ' . $this->commentator->user_id . ", message: " . $state . "\n");
     }
 }

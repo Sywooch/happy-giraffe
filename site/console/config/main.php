@@ -17,7 +17,6 @@ return array(
         'site.common.components.*',
         'site.common.models.*',
         'site.common.helpers.*',
-        'site.frontend.extensions.ESaveRelatedBehavior',
         'site.frontend.extensions.image.Image',
         'site.frontend.extensions.phpQuery.phpQuery',
     ),
@@ -60,6 +59,15 @@ return array(
             'enableParamLogging' => true,
             'schemaCachingDuration' => 60,
         ),
+        'db_keywords' => array(
+            'class' => 'CDbConnection',
+            'connectionString' => 'mysql:host=localhost;dbname=keywords',
+            'emulatePrepare' => true,
+            'username' => 'root',
+            'password' => '',
+            'charset' => 'utf8',
+            'schemaCachingDuration' => 60,
+        ),
         'search' => array(
             'class' => 'site.frontend.extensions.DGSphinxSearch.DGSphinxSearch',
             'server' => '127.0.0.1',
@@ -82,8 +90,12 @@ return array(
             'class' => 'site.common.components.Mandrill',
             'apiKey' => '1f816ac2-65b7-4a28-90c9-7e8fb1669d43',
         ),
+        'email'=>array(
+            'class' => 'site.common.components.HEmailSender',
+        ),
     ),
     'params'=>array(
         'photos_url'=>'http://img.happy-giraffe.ru',
+        'use_proxy_auth'=>true,
     ),
 );

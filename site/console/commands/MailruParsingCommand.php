@@ -45,7 +45,7 @@ class MailruParsingCommand extends CConsoleCommand
         $site = $this->loadModel($site_id);
 
         for ($month = $month_from; $month <= $month_to; $month++) {
-            $url = 'http://top.mail.ru/keywords?id=' . $site->url . '&period=2&date='.$year.'-' . $month . '-01&pp=200&gender=0&agegroup=0&searcher=all&sf=';
+            $url = 'http://top.mail.ru/keywords?id=' . $site->url . '&period=2&date=' . $year . '-' . $month . '-01&pp=200&gender=0&agegroup=0&searcher=all&sf=';
 
             $i = 0;
             $count = 1;
@@ -60,7 +60,7 @@ class MailruParsingCommand extends CConsoleCommand
                 $i++;
             }
 
-            echo $site_id.' month '.$month.' finished'."\n";
+            echo $site_id . ' month ' . $month . ' finished' . "\n";
         }
 
         return true;
@@ -80,7 +80,7 @@ class MailruParsingCommand extends CConsoleCommand
 
         curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
         curl_setopt($ch, CURLOPT_PROXY, $this->proxy);
-        if (getenv('SERVER_ADDR') != '5.9.7.81') {
+        if (Yii::app()->params['use_proxy_auth']) {
             curl_setopt($ch, CURLOPT_PROXYUSERPWD, "alexk984:Nokia12345");
             curl_setopt($ch, CURLOPT_PROXYAUTH, 1);
         }
@@ -143,5 +143,19 @@ class MailruParsingCommand extends CConsoleCommand
         if ($model === null)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
         return $model;
+    }
+
+    /*
+     * Помечаем пользователей которые не открывали наши письма
+     */
+    public function actionParseBadUsers()
+    {
+        if (($handle = fopen("F:/segment_Contest_List_2_1_Jan_31_2013.csv", "r")) !== FALSE) {
+            while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+                Yii::app()->db_seo->createCommand()
+                    ->update('mailru__users', array('status' => 2), '`email` = :email', array(':email' => $data[0]));
+            }
+            fclose($handle);
+        }
     }
 }

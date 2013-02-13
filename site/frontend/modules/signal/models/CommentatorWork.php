@@ -173,8 +173,10 @@ class CommentatorWork extends EMongoDocument
 
         //add working day
         $month = CommentatorsMonthStats::getOrCreateWorkingMonth();
-        $month->workingDays [] = date("Y-m-d");
-        $month->save();
+        if (!in_array(date("Y-m-d"), $month->workingDays)) {
+            $month->workingDays [] = date("Y-m-d");
+            $month->save();
+        }
 
         return $this->save();
     }
@@ -356,7 +358,7 @@ class CommentatorWork extends EMongoDocument
         Yii::import('site.seo.modules.writing.models.*');
         //check post by keyword
         $criteria = new CDbCriteria;
-        $criteria->condition = 'updated >= :today AND status = ' . SeoTask::STATUS_CLOSED.' AND multivarka>=1 ';
+        $criteria->condition = 'updated >= :today AND status = ' . SeoTask::STATUS_CLOSED . ' AND multivarka>=1 ';
         $criteria->params = array(':today' => date("Y-m-d") . ' 00:00:00');
         $criteria->compare('executor_id', Yii::app()->user->id);
         $count += SeoTask::model()->count($criteria);
@@ -529,14 +531,22 @@ class CommentatorWork extends EMongoDocument
      */
     public function nextComment()
     {
-        $model = CActiveRecord::model($this->comment_entity)->findByPk($this->comment_entity_id);
+        $model = CActiveRecord::model($this->comment_entity)->resetScope()->full()->findByPk($this->comment_entity_id);
+
+        if ($model->removed) {
+            $model->full = 1;
+            $model->update(array('full'));
+            $model = null;
+        }
+
         if ($model === null) {
             $this->getNextPostForComment();
             $this->save();
             $model = CActiveRecord::model($this->comment_entity)->findByPk($this->comment_entity_id);
         }
 
-        return CHtml::link($model->title, $model->url, array('target' => '_blank'));
+        $title = empty($model->title) ? $model->getContentText() : $model->title;
+        return CHtml::link($title, $model->url, array('target' => '_blank'));
     }
 
     /**

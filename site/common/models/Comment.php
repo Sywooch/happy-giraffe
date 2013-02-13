@@ -149,6 +149,11 @@ class Comment extends HActiveRecord
                 'class' => 'site.common.behaviors.ExternalImagesBehavior',
                 'attributes' => array('text'),
             ),
+            'duplicate'=>array(
+                'class' => 'site.common.behaviors.DuplicateBehavior',
+                'attribute'=>'text',
+                'error_text' => 'Вы только что создали рецепт с таким названием'
+            )
         );
     }
 
@@ -160,7 +165,7 @@ class Comment extends HActiveRecord
         );
     }
 
-    public function get($entity, $entity_id, $type)
+    public function get($entity, $entity_id, $type = 'default', $pageSize = 25)
     {
         return new CActiveDataProvider('Comment', array(
             'criteria' => array(
@@ -190,7 +195,7 @@ class Comment extends HActiveRecord
                 'order' => ($type != 'guestBook') ? 't.created ASC' : 't.created DESC',
             ),
             'pagination' => array(
-                'pageSize' => 25,
+                'pageSize' => $pageSize,
             ),
         ));
     }

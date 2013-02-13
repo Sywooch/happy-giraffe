@@ -28,10 +28,28 @@
     <?php endif; ?>
 
     <?php
+
+    $post = $photo;
         Yii::import('site.common.models.forms.PhotoViewComment');
-    ?>
-    <?php $this->widget('site.frontend.widgets.commentWidget.CommentWidget', array(
-        'model' => $photo,
+    //костыль для велентина
+    if (isset($model->content) && method_exists($model->content, 'isValentinePost') && $model->content->isValentinePost()){?>
+        <?php
+        $post = $model->content;
+        $this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
+            'title' => 'Вам понравилось фото?',
+            'notice' => '',
+            'model' => $post,
+            'type' => 'simple_ajax',
+            'options' => array(
+                'title' => CHtml::encode($post->title),
+                'image' => $model->items[0]->photo->getOriginalUrl(),
+                'description' => $post->preview,
+            ),
+        ));
+    }
+
+     $this->widget('site.frontend.widgets.commentWidget.CommentWidget', array(
+        'model' => $post,
         'popUp' => true,
         'commentModel' => 'PhotoViewComment',
         'photoContainer'=>true

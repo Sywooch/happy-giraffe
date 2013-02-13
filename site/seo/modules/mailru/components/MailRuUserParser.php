@@ -24,7 +24,7 @@ class MailRuUserParser extends ProxyParserThread
         $criteria = new CDbCriteria;
         $criteria->compare('active', 0);
 
-        $transaction = Yii::app()->db->beginTransaction();
+        $transaction = Yii::app()->db_seo->beginTransaction();
         try {
             $this->user = MailruUser::model()->find($criteria);
             if ($this->user === null)

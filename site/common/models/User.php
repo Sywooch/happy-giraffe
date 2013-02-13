@@ -192,7 +192,7 @@ class User extends HActiveRecord
             array('first_name', 'length', 'max' => 50, 'message' => 'Слишком длинное имя'),
             array('last_name', 'length', 'max' => 50, 'message' => 'Слишком длинная фамилия'),
             array('email', 'email', 'message' => 'E-mail не является правильным E-Mail адресом'),
-            array('password, current_password, new_password, new_password_repeat', 'length', 'min' => 6, 'max' => 15, 'on' => 'signup, change_password', 'tooShort' => 'минимум 6 символов', 'tooLong' => 'максимум 15 символов'),
+            array('password, current_password, new_password, new_password_repeat', 'length', 'min' => 6, 'max' => 16, 'on' => 'signup, change_password', 'tooShort' => 'минимум 6 символов', 'tooLong' => 'максимум 16 символов'),
             array('online, relationship_status', 'numerical', 'integerOnly' => true),
             array('gender', 'boolean'),
             array('id, phone', 'safe'),
@@ -494,7 +494,7 @@ class User extends HActiveRecord
                 ),
             ),
             'ESaveRelatedBehavior' => array(
-                'class' => 'ESaveRelatedBehavior'
+                'class' => 'site.common.behaviors.ESaveRelatedBehavior',
             ),
             'ManyManyLinkBehavior' => array(
                 'class' => 'site.common.behaviors.ManyManyLinkBehavior',

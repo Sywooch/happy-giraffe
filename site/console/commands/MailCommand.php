@@ -12,6 +12,8 @@ class MailCommand extends CConsoleCommand
         Yii::import('site.frontend.modules.geo.models.*');
         Yii::import('site.frontend.modules.im.components.*');
         Yii::import('site.common.models.mongo.*');
+
+        return true;
     }
 
     public function actionWeeklyNews()
@@ -26,17 +28,8 @@ class MailCommand extends CConsoleCommand
         if (count($articles) < 6)
             Yii::app()->end();
         $contents = $this->renderFile(Yii::getPathOfAlias('site.common.tpl.weeklyNews') . '.php', array('models' => $articles), true);
-        $vals = Yii::app()->mc->sendWeeklyNews('Веселый Жираф - самое интересное за неделю', $contents);
 
-        if (Yii::app()->mc->api->errorCode) {
-            echo "Batch Subscribe failed!\n";
-            echo "code:" . Yii::app()->mc->api->errorCode . "\n";
-            echo "msg :" . Yii::app()->mc->api->errorMessage . "\n";
-        } else {
-            echo "added:   " . $vals['add_count'] . "\n";
-            echo "updated: " . $vals['update_count'] . "\n";
-            echo "errors:  " . $vals['error_count'] . "\n";
-        }
+        Yii::app()->email->sendCampaign($contents, HEmailSender::LIST_OUR_USERS);
     }
 
     public function actionNewMessages()
@@ -64,8 +57,7 @@ class MailCommand extends CConsoleCommand
                     if ($model === null || $model->needSend()) {
                         $token = UserToken::model()->generate($user->id, 86400);
                         $dialogUsers = Im::model($user->id)->getUsersWithNewMessages();
-                        $contents = $this->renderFile(Yii::getPathOfAlias('site.common.tpl.newMessages') . '.php', compact('dialogUsers', 'unread', 'user', 'token'), true);
-                        Yii::app()->mandrill->send($user, 'newMessages', array('messages' => $contents, 'token' => $token));
+                        Yii::app()->email->send($user, 'newMessages', compact('dialogUsers', 'unread', 'user', 'token'), $this);
                         echo $user->id . "\n";
 
                         if ($model === null) {
@@ -84,31 +76,6 @@ class MailCommand extends CConsoleCommand
         }
     }
 
-    public function actionContest()
-    {
-        $subject = 'Фотоконкурс «Мама и Я» на «Веселом Жирафе»!';
-        $opts = array(
-            'list_id' => MailChimp::CONTEST_LIST,
-            'from_email' => 'support@happy-giraffe.ru',
-            'from_name' => 'Веселый Жираф',
-            'template_id' => 49097,
-            'tracking' => array('opens' => true, 'html_clicks' => true, 'text_clicks' => false),
-            'authenticate' => true,
-            'subject' => $subject,
-            'title' => $subject,
-            'generate_text' => true,
-        );
-
-        $content = array(
-            'html_content' => '',
-        );
-
-        $campaignId = Yii::app()->mc->api->campaignCreate('regular', $opts, $content);
-        if ($campaignId)
-            return Yii::app()->mc->api->campaignSendNow($campaignId);
-        return false;
-    }
-
     public function actionContestParticipants()
     {
         Yii::app()->mc->updateContestUsers();
@@ -116,12 +83,14 @@ class MailCommand extends CConsoleCommand
 
     public function actionMailruUsers()
     {
-        Yii::app()->mc->updateMailruUsers();
+        Yii::import('site.seo.modules.mailru.models.*');
+
+        Yii::app()->email->updateMailruUsers();
     }
 
     public function actionUsers()
     {
-        Yii::app()->mc->updateUsers();
+        Yii::app()->email->updateUserList();
     }
 
     public function actionDeleteUsers()
@@ -129,40 +98,49 @@ class MailCommand extends CConsoleCommand
         Yii::app()->mc->deleteRegisteredFromContestList();
     }
 
-    public function actionTestMessage()
+    public function actionTestNewMessages()
     {
         $user = User::getUserById(10);
-        $token = UserToken::model()->generate($user->id, 86400);
-        $unread = Im::model(10)->getUnreadMessagesCount();
-        $dialogUsers = Im::model($user->id)->getUsersWithNewMessages();
-        $contents = $this->renderFile(Yii::getPathOfAlias('site.common.tpl.newMessages') . '.php', compact('dialogUsers', 'unread', 'user', 'token'), true);
-        Yii::app()->mandrill->send($user, 'newMessages', array('messages' => $contents, 'token' => $token));
+        $unread = Im::model($user->id)->getUnreadMessagesCount($user->id);
+        if ($unread > 0) {
+
+            $m_criteria = new EMongoCriteria;
+            $m_criteria->type('==', MailDelivery::TYPE_IM);
+            $m_criteria->user_id('==', (int)$user->id);
+            $model = MailDelivery::model()->find($m_criteria);
+
+            if ($model === null || $model->needSend()) {
+                $token = UserToken::model()->generate($user->id, 86400);
+                $dialogUsers = Im::model($user->id)->getUsersWithNewMessages();
+
+                Yii::app()->email->send(10, 'newMessages', compact('dialogUsers', 'unread', 'user', 'token'), $this);
+            }
+        }
     }
 
-    public function actionTestWeekly()
-    {
-        $articles = Favourites::model()->getWeekPosts();
-        $contents = $this->renderFile(Yii::getPathOfAlias('site.common.tpl.weeklyNews') . '.php', array('models' => $articles), true);
-        $subject = 'Веселый Жираф - самое интересное за неделю - ТЕСТ';
-        $opts = array(
-            'list_id' => MailChimp::WEEKLY_NEWS_TEST_LIST_ID,
-            'from_email' => 'support@happy-giraffe.ru',
-            'from_name' => 'Веселый Жираф',
-            'template_id' => 24517,
-            'tracking' => array('opens' => true, 'html_clicks' => true, 'text_clicks' => false),
-            'authenticate' => true,
-            'subject' => $subject,
-            'title' => $subject,
-            'generate_text' => true,
-        );
-
-        $content = array(
-            'html_content' => $contents,
-        );
-
-        $campaignId = Yii::app()->mc->api->campaignCreate('regular', $opts, $content);
-        if ($campaignId)
-            return Yii::app()->mc->api->campaignSendNow($campaignId);
-        return false;
+    public function actionMarkGoodEmails(){
+        ElasticEmail::markGoodEmails();
     }
+
+    /*    public function actionUnsubList()
+        {
+            $file_name = 'F:/members_Photo_Post_6_6_bounces_Jan_16_2013.csv';
+            $users = file_get_contents($file_name);
+            $lines = explode("\n", $users);
+            echo count($lines)."\n";
+
+            $emails = array();
+            foreach($lines as $line){
+                $email = substr($line, 0, strpos($line, ','));
+                $emails [] = $email;
+
+                if (count($emails) >= 500){
+                    Yii::app()->mc->deleteUsers($emails);
+
+                    $emails = array();
+                }
+            }
+
+            Yii::app()->mc->deleteUsers($emails);
+        }*/
 }

@@ -96,15 +96,12 @@ class Favourites extends EMongoDocument
         return $ids;
     }
 
-    public static function getIdListForView($index, $limit = null, $random = false, $param = null)
+    public static function getIdListForView($index, $limit = null, $param = null)
     {
         $criteria = new EMongoCriteria;
         $criteria->block('==', (int)$index);
         $criteria->created('<', strtotime(date("Y-m-d", strtotime('-1 day')).' 23:59:59' ));
-        if (!$random)
-            $criteria->sort('created', EMongoCriteria::SORT_DESC);
-        else
-            $criteria->sort('created', EMongoCriteria::SORT_DESC);
+        $criteria->sort('created', EMongoCriteria::SORT_DESC);
         if ($limit !== null)
             $criteria->limit($limit);
         if ($param !== null)
@@ -122,7 +119,7 @@ class Favourites extends EMongoDocument
     {
         $criteria = new EMongoCriteria;
         $criteria->block('==', self::WEEKLY_MAIL);
-        $criteria->created('>', strtotime('-5 days'));
+        $criteria->created('>', strtotime('-6 days'));
         $criteria->setSort(array('created'=> EMongoCriteria::SORT_DESC));
         $mongo_models = self::model()->findAll($criteria);
         $ids = array();

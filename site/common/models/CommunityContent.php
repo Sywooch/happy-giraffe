@@ -35,6 +35,12 @@
  */
 class CommunityContent extends HActiveRecord
 {
+    const TYPE_POST = 1;
+    const TYPE_VIDEO = 2;
+    const TYPE_TRAVEL = 3;
+    const TYPE_PHOTO_POST = 4;
+    const TYPE_STATUS = 5;
+
     const USERS_COMMUNITY = 999999;
 
     /**
@@ -143,6 +149,9 @@ class CommunityContent extends HActiveRecord
             'pingable' => array(
                 'class' => 'site.common.behaviors.PingableBehavior',
             ),
+            'duplicate'=>array(
+                'class' => 'site.common.behaviors.DuplicateBehavior',
+            )
         );
     }
 
@@ -170,38 +179,38 @@ class CommunityContent extends HActiveRecord
         ));
     }
 
-    public function community($community_id)
-    {
-        $this->getDbCriteria()->mergeWith(array(
-            'with' => array(
-                'rubric' => array(
-                    'select' => FALSE,
-                    'with' => array(
-                        'community' => array(
-                            'select' => FALSE,
-                            'condition' => 'community_id=:community_id',
-                            'params' => array(':community_id' => $community_id),
-                        )
-                    ),
-                ),
-                'post',
-                'video',
-                'commentsCount',
-                'travel' => array(
-                    'with' => array(
-                        'waypoints' => array(
-                            'with' => array(
-                                'city',
-                                'country',
-                            ),
-                        ),
-                    )
-                ),
-            ),
-            'order' => 't.id DESC',
-        ));
-        return $this;
-    }
+//    public function community($community_id)
+//    {
+//        $this->getDbCriteria()->mergeWith(array(
+//            'with' => array(
+//                'rubric' => array(
+//                    'select' => FALSE,
+//                    'with' => array(
+//                        'community' => array(
+//                            'select' => FALSE,
+//                            'condition' => 'community_id=:community_id',
+//                            'params' => array(':community_id' => $community_id),
+//                        )
+//                    ),
+//                ),
+//                'post',
+//                'video',
+//                'commentsCount',
+//                'travel' => array(
+//                    'with' => array(
+//                        'waypoints' => array(
+//                            'with' => array(
+//                                'city',
+//                                'country',
+//                            ),
+//                        ),
+//                    )
+//                ),
+//            ),
+//            'order' => 't.id DESC',
+//        ));
+//        return $this;
+//    }
 
     public function type($type_id)
     {
@@ -309,8 +318,9 @@ class CommunityContent extends HActiveRecord
     public function beforeSave()
     {
         $this->title = strip_tags($this->title);
-        if ($this->isNewRecord)
+        if ($this->isNewRecord) {
             $this->last_updated = new CDbExpression('NOW()');
+        }
         return parent::beforeSave();
     }
 
@@ -394,7 +404,10 @@ class CommunityContent extends HActiveRecord
                 );
                 break;
             default:
-                if ($this->isFromBlog) {
+                if ($this->isValentinePost()){
+                    $route = '/valentinesDay/default/howToSpend';
+                    $params = array();
+                }elseif ($this->isFromBlog) {
                     $route = '/blog/view';
                     $params = array(
                         'user_id' => $this->author_id,
@@ -446,6 +459,18 @@ class CommunityContent extends HActiveRecord
                         'select' => 'id, gender, first_name, last_name, online, avatar_id, deleted',
                     ),
                 ),
+            ),
+            'community' => array(
+                'with' => array(
+                    'rubric',
+                ),
+                'condition' => 'rubric.community_id IS NOT NULL',
+            ),
+            'blog' => array(
+                'with' => array(
+                    'rubric',
+                ),
+                'condition' => 'rubric.user_id IS NOT NULL',
             ),
             'active' => array(
                 'condition' => 't.removed = 0',
@@ -660,7 +685,7 @@ class CommunityContent extends HActiveRecord
     {
         if ($this->getIsFromBlog()) {
             $model = BlogContent::model()->findByPk($this->id);
-            return ($model)?$model->commentsCount:0;
+            return ($model) ? $model->commentsCount : 0;
         }
         return $this->commentsCount;
     }
@@ -687,7 +712,7 @@ class CommunityContent extends HActiveRecord
 
     public function getStatus()
     {
-        return CommunityStatus::model()->findByAttributes(array('content_id'=>$this->id));
+        return CommunityStatus::model()->findByAttributes(array('content_id' => $this->id));
     }
 
     public function getEvent()
@@ -733,5 +758,41 @@ class CommunityContent extends HActiveRecord
                     $comet->send('whatsNewClubsUser' . $id, $params, CometModel::WHATS_NEW_UPDATE);
             }
         }
+    }
+
+    /**
+     * Является ли пост постом на День святого Валентина
+     * @return bool
+     */
+    public function isValentinePost()
+    {
+        return isset($this->rubric) && isset($this->rubric->community_id) && $this->rubric->community_id == Community::COMMUNITY_VALENTINE;
+    }
+
+    public function getMobileContents($community_id)
+    {
+        $criteria = new CDbCriteria(array(
+            'order' => 't.created DESC',
+            'condition' => 'mobile_community_id = :community_id',
+            'params' => array(':community_id' => $community_id),
+        ));
+        $criteria->addInCondition('type_id', array(self::TYPE_POST, self::TYPE_VIDEO));
+
+        return new CActiveDataProvider($this->active()->full(), array(
+            'criteria' => $criteria,
+            'pagination' => array(
+                'pageSize' => 3,
+            ),
+        ));
+    }
+
+    public function getMobileSectionTitle()
+    {
+        return ($this->isFromBlog) ? 'Личный блог' : $this->rubric->community->mobileCommunity->title;
+    }
+
+    public function getMobileSectionUrl()
+    {
+        return ($this->isFromBlog) ? Yii::app()->createUrl('/comunity/user', array('user_id' => $this->author_id)) : $this->rubric->community->mobileCommunity->url;
     }
 }

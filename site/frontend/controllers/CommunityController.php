@@ -68,6 +68,9 @@ class CommunityController extends HController
 
     public function actionList($community_id, $rubric_id = null, $content_type_slug = null)
     {
+        if ($community_id == Community::COMMUNITY_VALENTINE)
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
         $this->layout = ($community_id == Community::COMMUNITY_NEWS) ? '//layouts/news' : '//layouts/community';
         $this->community = Community::model()->with('rubrics')->findByPk($community_id);
         if ($this->community === null)
@@ -124,6 +127,9 @@ class CommunityController extends HController
      */
     public function actionView($community_id, $content_type_slug, $content_id, $lastPage = null, $ajax = null)
     {
+        if ($community_id == Community::COMMUNITY_VALENTINE)
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
         /* <ИМПОРТ РЕЦЕПТОВ> */
         if ($community_id == 22) {
             Yii::import('application.modules.cook.models.CookRecipe');

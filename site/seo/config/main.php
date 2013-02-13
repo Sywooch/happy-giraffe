@@ -17,7 +17,6 @@ return array(
         'site.frontend.helpers.CArray',
         'site.frontend.helpers.*',
         'site.frontend.extensions.YiiMongoDbSuite.*',
-        'site.frontend.extensions.ESaveRelatedBehavior',
 
         'application.models.*',
         'application.models.mongo.*',
@@ -79,6 +78,15 @@ return array(
         'db_seo' => array(
             'class' => 'CDbConnection',
             'connectionString' => 'mysql:host=localhost;dbname=happy_giraffe_seo',
+            'emulatePrepare' => true,
+            'username' => 'root',
+            'password' => '',
+            'charset' => 'utf8',
+            'schemaCachingDuration' => 60,
+        ),
+        'db_keywords' => array(
+            'class' => 'CDbConnection',
+            'connectionString' => 'mysql:host=localhost;dbname=keywords',
             'emulatePrepare' => true,
             'username' => 'root',
             'password' => '',

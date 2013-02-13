@@ -9,6 +9,9 @@
         'entity' => 'Album',
         'entity_id' => Album::getAlbumByType(User::HAPPY_GIRAFFE, Album::TYPE_VALENTINE)->id,
     ));
+
+    if ($open_photo_id !== null)
+        Yii::app()->clientScript->registerScript('autoOpen', "$('a.valentines-best_a:data(id=" . $open_photo_id . ")').trigger('click');");
 ?>
 
 <script type="text/javascript">

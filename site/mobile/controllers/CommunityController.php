@@ -56,6 +56,6 @@ class CommunityController extends MController
             ),
         ));
 
-        $this->render('list', compact('user', 'dp'));
+        $this->render('user', compact('user', 'dp'));
     }
 }

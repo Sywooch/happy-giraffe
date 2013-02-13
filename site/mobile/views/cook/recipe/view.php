@@ -5,9 +5,7 @@
 ?>
 
 <div class="entry">
-    <div class="margin-b10">
-        <?=CHtml::link('', '')?>
-    </div>
+    <?php $this->renderPartial('_section', array('data' => $recipe)); ?>
     <?php $this->renderPartial('/_entry_header', array('data' => $recipe, 'full' => true)); ?>
     <div class="entry-content recipe-article clearfix">
         <div class="recipe-photo">

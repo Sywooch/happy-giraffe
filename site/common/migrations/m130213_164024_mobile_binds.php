@@ -1,4 +1,10 @@
-UPDATE `community__communities` SET `mobile_community_id` = '1' WHERE `community__communities`.`id` = 1;
+<?php
+
+class m130213_164024_mobile_binds extends CDbMigration
+{
+	public function up()
+	{
+        $this->execute("UPDATE `community__communities` SET `mobile_community_id` = '1' WHERE `community__communities`.`id` = 1;
 UPDATE `community__communities` SET `mobile_community_id` = '2' WHERE `community__communities`.`id` = 2;
 UPDATE `community__communities` SET `mobile_community_id` = '3' WHERE `community__communities`.`id` = 3;
 UPDATE `community__communities` SET `mobile_community_id` = '2' WHERE `community__communities`.`id` = 4;
@@ -28,3 +34,23 @@ UPDATE `community__communities` SET `mobile_community_id` = '6' WHERE `community
 UPDATE `community__communities` SET `mobile_community_id` = '5' WHERE `community__communities`.`id` = 32;
 UPDATE `community__communities` SET `mobile_community_id` = '9' WHERE `community__communities`.`id` = 34;
 UPDATE `community__communities` SET `mobile_community_id` = '11' WHERE `community__communities`.`id` = 35;
+");
+	}
+
+	public function down()
+	{
+		echo "m130213_164024_mobile_binds does not support migration down.\n";
+		return false;
+	}
+
+	/*
+	// Use safeUp/safeDown to do migration with transaction
+	public function safeUp()
+	{
+	}
+
+	public function safeDown()
+	{
+	}
+	*/
+}

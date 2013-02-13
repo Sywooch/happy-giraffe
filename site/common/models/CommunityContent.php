@@ -773,8 +773,8 @@ class CommunityContent extends HActiveRecord
     {
         $criteria = new CDbCriteria(array(
             'order' => 't.created DESC',
-            'condition' => 'mobile_community_id = :community_id',
-            'params' => array(':community_id' => $community_id),
+            //'condition' => 'mobile_community_id = :community_id',
+            //'params' => array(':community_id' => $community_id),
         ));
         $criteria->addInCondition('type_id', array(self::TYPE_POST, self::TYPE_VIDEO));
 

@@ -8,7 +8,20 @@
  */
 class CommunityController extends MController
 {
-    public function action
+    public function actionIndex()
+    {
+        $dp = new CActiveDataProvider('CommunityContent', array(
+            'criteria' => array(
+                'order' => 't.created DESC',
+                'scopes' => array('active', 'full'),
+            ),
+            'pagination' => array(
+                'pageSize' => 3,
+            ),
+        ));
+
+        $this->render('list', compact('dp'));
+    }
 
     public function actionList($community_id)
     {
@@ -34,8 +47,8 @@ class CommunityController extends MController
     public function actionBlogList()
     {
         $dp = new CActiveDataProvider('BlogContent', array(
-            'order' => 't.created DESC',
             'criteria' => array(
+                'order' => 't.created DESC',
                 'scopes' => array('active', 'full', 'blog'),
             ),
             'pagination' => array(
@@ -51,8 +64,8 @@ class CommunityController extends MController
         $user = User::model()->findByPk($user_id);
 
         $dp = new CActiveDataProvider('CommunityContent', array(
-            'order' => 't.created DESC',
             'criteria' => array(
+                'order' => 't.created DESC',
                 'scopes' => array('active', 'full'),
             ),
             'pagination' => array(

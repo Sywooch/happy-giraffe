@@ -30,6 +30,7 @@ return array(
         'horoscope/<type:(year|month|tomorrow)>/<zodiac:[\w]+>' => 'horoscope/view',
         'horoscope/<zodiac:[\w]+>' => array('horoscope/view', 'defaultParams' => array('type' => 'today')),
 
+        '' => 'community/index',
 
         //'(.*)' => 'site/index',
     ),

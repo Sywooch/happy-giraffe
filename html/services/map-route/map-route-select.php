@@ -134,6 +134,12 @@
 							<a href="" class="link-box_a">http://www.happy-giraffe.ru/user/15128/blog/post28687</a>
 						</div>
 					</div>
+					<div class="watchers">
+						<div class="watchers_t">Маршрут <br>просмотрели</div>
+						<div class="watchers_eye"></div>
+						<div class="watchers_count">3 485</div>
+					</div>
+					
 					
 					
 					<div class="map-route-share">

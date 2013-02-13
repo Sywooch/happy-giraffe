@@ -20,13 +20,16 @@ class CommunityController extends MController
             ),
         ));
 
+        $this->pageTitle = 'Веселый Жираф - сайт для всей семьи';
         $this->render('list', compact('dp'));
     }
 
     public function actionList($community_id)
     {
+        $community = Community::model()->findByPk($community_id);
         $dp = CommunityContent::model()->getMobileContents($community_id);
 
+        $this->pageTitle = 'Клуб «' . $community->title . '» - общение с Веселым Жирафом';
         $this->render('list', compact('dp'));
     }
 
@@ -41,6 +44,7 @@ class CommunityController extends MController
             'limit' => 3,
         ));
 
+        $this->pageTitle = $content->title;
         $this->render('view', compact('content', 'next'));
     }
 
@@ -56,6 +60,7 @@ class CommunityController extends MController
             ),
         ));
 
+        $this->pageTitle = 'Блоги на Веселом Жирафе';
         $this->render('list', compact('dp'));
     }
 
@@ -73,6 +78,7 @@ class CommunityController extends MController
             ),
         ));
 
+        $this->pageTitle = $user->fullName . ' на Веселом Жирафе';
         $this->render('user', compact('user', 'dp'));
     }
 }

@@ -25,6 +25,7 @@ class SiteController extends MController
         $data = CActiveRecord::model($entity)->findByPk($entity_id);
         $comments = Comment::model()->get($entity, $entity_id, 'default', 10);
 
+        $this->pageTitle = $data->title . ' - Комментарии';
         $this->render('comments', compact('data', 'comments', 'linkText', 'linkUrl'));
     }
 
@@ -80,6 +81,8 @@ class SiteController extends MController
             $viewData = compact('dp', 'criteria', 'index', 'text', 'allCount', 'textCount', 'videoCount', 'travelCount');
         } else
             $viewData = array('dp'=>null, 'criteria'=>null, 'index'=>$index, 'text'=>'', 'allCount'=>0, 'textCount'=>0, 'videoCount'=>0, 'travelCount'=>0);
+
+        $this->pageTitle = 'Поиск по сайту Веселый Жираф';
         $this->render('search', $viewData);
     }
 }

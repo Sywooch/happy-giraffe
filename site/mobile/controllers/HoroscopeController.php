@@ -17,12 +17,12 @@ class HoroscopeController extends MController
     {
         $models = Horoscope::model()->sortByZodiac()->findAllByAttributes(array('date' => date("2013-02-06")));
 
+        $this->title = 'Гороскоп на сегодня по знакам Зодиака';
         $this->render('index', compact('models'));
     }
 
     public function actionView($zodiac, $type)
     {
-
         $zodiac = Horoscope::model()->getZodiacId($zodiac);
         switch ($type) {
             case 'today':
@@ -47,6 +47,7 @@ class HoroscopeController extends MController
         if ($model === null)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
+        $this->pageTitle = $title;
         $this->render('view', compact('model', 'title'));
     }
 }

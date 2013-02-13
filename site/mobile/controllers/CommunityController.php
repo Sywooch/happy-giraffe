@@ -19,7 +19,7 @@ class CommunityController extends MController
     {
         $content = CommunityContent::model()->active()->full()->findByPk($content_id);
 
-        $next = CommunityContent::model()->community()->findAll(array(
+        $next = CommunityContent::model()->active()->community()->findAll(array(
             'order' => 't.id DESC',
             'condition' => 't.id < :current_id AND rubric.community_id = :community_id',
             'params' => array(':current_id' => $content_id, ':community_id' => $community_id),
@@ -27,5 +27,35 @@ class CommunityController extends MController
         ));
 
         $this->render('view', compact('content', 'next'));
+    }
+
+    public function actionBlogList()
+    {
+        $dp = new CActiveDataProvider('BlogContent', array(
+            'criteria' => array(
+                'scopes' => array('active', 'full', 'blog'),
+            ),
+            'pagination' => array(
+                'pageSize' => 3,
+            ),
+        ));
+
+        $this->render('list', compact('dp'));
+    }
+
+    public function actionUser($user_id)
+    {
+        $user = User::model()->findByPk($user_id);
+
+        $dp = new CActiveDataProvider('CommunityContent', array(
+            'criteria' => array(
+                'scopes' => array('active', 'full', 'community'),
+            ),
+            'pagination' => array(
+                'pageSize' => 3,
+            ),
+        ));
+
+        $this->render('list', compact('user', 'dp'));
     }
 }

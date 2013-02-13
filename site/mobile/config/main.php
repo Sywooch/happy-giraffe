@@ -16,6 +16,7 @@ return array(
 	'import'=>array(
         'site.frontend.extensions.YiiMongoDbSuite.*',
         'site.frontend.extensions.image.Image',
+        'site.frontend.modules.geo.models.*',
 
         'site.common.components.*',
         'site.common.helpers.*',

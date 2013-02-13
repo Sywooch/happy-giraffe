@@ -55,15 +55,21 @@ class RecipeController extends MController
             'commentsCount'
         ))->findByPk($id);
 
-        $next = CActiveRecord::model($this->modelName)->findAll(array(
+        $next = CActiveRecord::model($this->modelName)->active()->findAll(array(
+                'order' => 't.id DESC',
                 'condition' => 't.id < :current_id AND type = :type AND section = :section',
                 'params' => array(':current_id' => $recipe->id, ':type' => $recipe->type, ':section' => $recipe->section),
-                'limit' => 2,
-                'order' => 't.id DESC',
-                'scopes' => array('active'),
+                'limit' => 3,
             )
         );
 
         $this->render('view', compact('recipe', 'next'));
+    }
+
+    public function actionTag($tag = null, $type = 0)
+    {
+        $dp = CActiveRecord::model($this->modelName)->getByTag($tag, $type);
+
+        $this->render('index', compact('dp', 'model'));
     }
 }

@@ -16,6 +16,8 @@ return array(
         'community/<community_id:\d+>/forum/<content_type_slug:\w+>/<content_id:\d+>' => 'community/view',
         'community/<content_id:\d+>/comments' => 'community/comments',
 
+        'cook/recipe/tag/<tag:\d+>/type/<type:\d+>' => array('cook/recipe/tag', 'defaultParams' => array('section' => 0)),
+        'cook/recipe/tag/<tag:\d+>' => array('cook/recipe/tag', 'defaultParams' => array('section' => 0)),
         'cook/recipe/<id:\d+>' => array('cook/recipe/view', 'defaultParams' => array('section' => 0)),
         'cook/recipe/type/<type:\d+>' => array('cook/recipe/index', 'defaultParams' => array('section' => 0)),
         'cook/recipe' => array('cook/recipe/index', 'defaultParams' => array('section' => 0)),
@@ -23,5 +25,12 @@ return array(
         'cook/multivarka/<id:\d+>' => array('cook/recipe/view', 'defaultParams' => array('section' => 1)),
         'cook/multivarka/type/<type:\d+>' => array('cook/recipe/index', 'defaultParams' => array('section' => 1)),
         'cook/multivarka' => array('cook/recipe/index', 'defaultParams' => array('section' => 1)),
+
+        'horoscope' => 'horoscope/index',
+        'horoscope/<type:(year|month|tomorrow)>/<zodiac:[\w]+>' => 'horoscope/view',
+        'horoscope/<zodiac:[\w]+>' => array('horoscope/view', 'defaultParams' => array('type' => 'today')),
+
+
+        //'(.*)' => 'site/index',
     ),
 );

@@ -4,4 +4,4 @@
  */
 ?>
 
-<a href="" class="ava-small"><?php if ($ava = $user->getAva('small')): ?><?=CHtml::image($ava)?><?php endif; ?></a>
+<a href="<?=Yii::app()->createUrl('/community/user', array('user_id' => $user->id))?>" class="ava-<?=$this->size?>"><?php if ($ava = $user->getAva($this->size)): ?><?=CHtml::image($ava)?><?php endif; ?></a>

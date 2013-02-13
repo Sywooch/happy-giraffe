@@ -36,6 +36,9 @@ class DefaultController extends HController
 
         $dp = new CActiveDataProvider('AlbumPhoto', array(
             'criteria' => $this->getValentinesCriteria(),
+            'pagination' => array(
+                'pageSize' => 100,
+            ),
         ));
 
         $this->render('valentines', compact('dp', 'open_photo_id'));

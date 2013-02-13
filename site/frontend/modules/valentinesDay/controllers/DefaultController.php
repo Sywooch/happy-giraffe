@@ -30,9 +30,12 @@ class DefaultController extends HController
 		$this->render('index', compact('post', 'recipe_tag', 'videos', 'valentines'));
 	}
 
-    public function actionValentines()
+    public function actionValentines($open_photo_id = null)
     {
         $this->meta_title = 'Лучшие валентинки';
+
+        if ($open_photo_id !== null)
+            Yii::app()->clientScript->registerScript('autoOpen', "$('a.valentines-best_a:data(id=" . $open_photo_id . ")').trigger('click');");
 
         $dp = new CActiveDataProvider('AlbumPhoto', array(
             'criteria' => $this->getValentinesCriteria(),

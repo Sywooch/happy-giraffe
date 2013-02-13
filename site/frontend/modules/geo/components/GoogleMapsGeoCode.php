@@ -5,13 +5,10 @@
  */
 class GoogleMapsGeoCode extends CComponent
 {
-    public function init()
-    {
-        Yii::import('site.frontend.modules.geo.models.*');
-    }
-
     public function getObjectNameByCoordinates($lat, $lng)
     {
+        Yii::import('site.frontend.modules.geo.models.*');
+
         $url = 'http://maps.googleapis.com/maps/api/geocode/json?latlng=' . $lat . ',' . $lng . '&sensor=true&language=ru';
 
         $text = file_get_contents($url);
@@ -42,18 +39,12 @@ class GoogleMapsGeoCode extends CComponent
             if ($address === null)
                 return null;
 
-            echo $country_code = self::getCountryCode($address);
-            echo '<br>';
-            echo $region = self::getRegionTitle($address);
-            echo '<br>';
-            echo $district = self::getDistrictTitle($address);
-            echo '<br>';
-            echo $city = self::getCityTitle($address);
-            echo '<br>';
+            $country_code = self::getCountryCode($address);
+            $region = self::getRegionTitle($address);
+            $district = self::getDistrictTitle($address);
+            $city = self::getCityTitle($address);
 
             $city = self::getCity($country_code, $region, $district, $city);
-            echo $city->id . '<br>';
-            echo '<br>';
 
             return $city;
         } else {
@@ -70,12 +61,22 @@ class GoogleMapsGeoCode extends CComponent
         $region = self::getRegion($country, $region_title);
         $district = self::getDistrict($region, $district_title);
 
-        return GeoCity::model()->findByAttributes(array(
+        $city = GeoCity::model()->findByAttributes(array(
             'country_id' => $country->id,
             'region_id' => empty($region) ? null : $region->id,
             'district_id' => empty($district) ? null : $district->id,
             'name' => $city_title
         ));
+        if ($city === null){
+            $city = new GeoCity();
+            $city->country_id = $country->id;
+            $city->region_id = $region->id;
+            if (!empty($district))
+                $city->district_id = $district->id;
+            $city->name = $city_title;
+            $city->auto_created = 1;
+            $city->save();
+        }
     }
 
     /**
@@ -85,16 +86,25 @@ class GoogleMapsGeoCode extends CComponent
      */
     private function getDistrict($region, $district_title)
     {
-        if (empty($district_title))
+        if (empty($district_title) || empty($region))
             return null;
 
         $district_title = str_replace('район', '', $district_title);
         $district_title = trim($district_title);
 
-        return GeoDistrict::model()->findByAttributes(array(
-            'region_id' => ($region === null) ? null : $region->id,
+        $district = GeoDistrict::model()->findByAttributes(array(
+            'region_id' => $region->id,
             'name' => $district_title
         ));
+        if ($district === null){
+            $district = new GeoDistrict();
+            $district->region_id = $region->id;
+            $district->name = $district_title;
+            $district->auto_created = 1;
+            $district->save();
+        }
+
+        return $district;
     }
 
     /**
@@ -107,10 +117,26 @@ class GoogleMapsGeoCode extends CComponent
         if (empty($region_title))
             return null;
 
-        $region_title = str_replace('город ', '', $region_title);
+        $isCity = false;
+        if (strpos($region_title, 'город ') !== false){
+            $region_title = str_replace('город ', '', $region_title);
+            $isCity = true;
+        }
         $region_title = trim($region_title);
 
-        return GeoRegion::model()->findByAttributes(array('country_id' => $country->id, 'name' => $region_title));
+        $region = GeoRegion::model()->findByAttributes(array('country_id' => $country->id, 'name' => $region_title));
+        if ($region === null){
+            $region = new GeoRegion;
+            $region->country_id = $country->id;
+            $region->position = 1000;
+            $region->name = $region_title;
+            $region->auto_created = 1;
+            if ($isCity)
+                $region->type = 'г';
+            $region->save();
+        }
+
+        return $region;
     }
 
     /**

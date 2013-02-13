@@ -179,7 +179,7 @@ class SiteCommand extends CConsoleCommand
         Yii::import('site.frontend.modules.geo.models.*');
         Yii::import('site.frontend.modules.geo.components.*');
 
-        $parser = new GoogleCoordinatesParser(true);
+        $parser = new GoogleCoordinatesParser(false, true);
         $parser->start();
     }
 

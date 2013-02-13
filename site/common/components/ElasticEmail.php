@@ -50,9 +50,7 @@ class ElasticEmail extends CApplicationComponent
         $data .= "&from_name=" . urlencode('Веселый Жираф');
         $data .= "&template=" . urlencode($template);
         $data .= "&merge_htmlbody=" . urlencode($body);
-        $data .= "&lists=" . 'test_list';
-//        if($body_text)
-//            $data .= "&body_text=".urlencode($body_text);
+        $data .= "&lists=" . $list;
 
         $header = "POST /mailer/send HTTP/1.0\r\n";
         $header .= "Content-Type: application/x-www-form-urlencoded\r\n";
@@ -161,5 +159,86 @@ class ElasticEmail extends CApplicationComponent
 //        var_dump($res);
 
         return $res;
+    }
+
+    /*public static function deleteCleanedUsers()
+    {
+        Yii::import('site.seo.modules.mailru.models.*');
+        if (($handle = fopen("F:/cleaned_Contest_List_2_1_Feb_11_2013.csv", "r")) !== FALSE) {
+            while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+                $user = MailruUser::model()->findByAttributes(array('email'=>$data[0]));
+                if ($user !== null){
+                    $user->status = MailruUser::STATUS_CLEANED;
+                    $user->save();
+                }
+            }
+            fclose($handle);
+        }
+    }
+
+    public static function deleteUnsubscribedUsers()
+    {
+        Yii::import('site.seo.modules.mailru.models.*');
+        if (($handle = fopen("F:/unsubscribed_Contest_List_2_1_Feb_11_2013.csv", "r")) !== FALSE) {
+            while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+                $user = MailruUser::model()->findByAttributes(array('email'=>$data[0]));
+                if ($user !== null){
+                    $user->status = MailruUser::STATUS_UNSUB;
+                    $user->save();
+                }
+            }
+            fclose($handle);
+        }
+    }*/
+
+    public static function markGoodEmails()
+    {
+        Yii::import('site.seo.modules.mailru.models.*');
+        if (($handle = fopen("F:/segment_Contest_List_2_1_Feb_11_2013.csv", "r")) !== FALSE) {
+            while (($data = fgetcsv($handle, null, ",")) !== FALSE) {
+                $user = MailruUser::model()->findByAttributes(array('email'=>$data[0]));
+                if ($user !== null){
+                    $user->status = MailruUser::STATUS_GOOD;
+                    $user->save();
+                }
+            }
+            fclose($handle);
+        }
+    }
+
+    public static function deleteContact($email)
+    {
+        $data = "username=" . urlencode(self::USERNAME);
+        $data .= "&api_key=" . urlencode(self::KEY);
+        $data .= "&email=" . urlencode($email);
+
+        $header = "POST /lists/delete-contact HTTP/1.0\r\n";
+        $header .= "Content-Type: application/x-www-form-urlencoded\r\n";
+        $header .= "Content-Length: " . strlen($data) . "\r\n\r\n";
+        $fp = fsockopen('ssl://api.elasticemail.com', 443, $errno, $errstr, 30);
+
+        $res = "";
+
+        if (!$fp)
+            return "ERROR. Could not open connection";
+        else {
+            fputs($fp, $header . $data);
+            while (!feof($fp)) {
+                $res .= fread($fp, 1024);
+            }
+            fclose($fp);
+        }
+    }
+
+    public static function deleteBadMailruUsers()
+    {
+        Yii::import('site.seo.modules.mailru.models.*');
+        $users = MailruUser::model()->findAll('status > 2');
+        echo count($users);
+        sleep(5);
+
+        foreach($users as $user){
+            self::deleteContact($user->email);
+        }
     }
 }

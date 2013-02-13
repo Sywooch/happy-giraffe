@@ -54,7 +54,7 @@ class RecipeController extends HController
     {
         $this->pageTitle = 'Кулинарные рецепты от Веселого Жирафа';
         if (!empty($type))
-            $this->pageTitle = CActiveRecord::model($this->modelName)->types[$type].' - '.$this->pageTitle;
+            $this->pageTitle = CActiveRecord::model($this->modelName)->types[$type] . ' - ' . $this->pageTitle;
 
         $this->layout = '//layouts/recipe';
         $this->currentType = $type;
@@ -83,7 +83,7 @@ class RecipeController extends HController
      */
     public function actionTag($tag = null, $type = 0)
     {
-        if (empty($tag)){
+        if (empty($tag)) {
             if (Yii::app()->user->checkAccess('recipe_tags'))
                 $this->render('tag_list');
             else
@@ -92,7 +92,13 @@ class RecipeController extends HController
         }
 
         $model = $this->loadTag($tag);
-        $this->pageTitle = $model->title. ' - Кулинарные рецепты от Веселого Жирафа';
+        if (CookRecipeTag::TAG_VALENTINE == $model->id && strpos(Yii::app()->request->requestUri, 'valentinesDay') === false) {
+            header("HTTP/1.1 301 Moved Permanently");
+            header("Location: " . $model->url);
+            Yii::app()->end();
+        }
+
+        $this->pageTitle = $model->title . ' - Кулинарные рецепты от Веселого Жирафа';
         $this->layout = '//layouts/recipe';
         $this->currentType = $type;
 
@@ -122,7 +128,7 @@ class RecipeController extends HController
 
     public function actionCookBook($type = 0)
     {
-        if (Yii::app()->user->isGuest){
+        if (Yii::app()->user->isGuest) {
             $this->redirect('/cook/recipe/');
             Yii::app()->end();
         }

@@ -9,6 +9,8 @@
  * @property string $region_id
  * @property string $country_id
  * @property string $name
+ * @property string $name_from
+ * @property string $name_between
  * @property string $type
  *
  * The followings are the available model relations:
@@ -46,7 +48,7 @@ class GeoCity extends HActiveRecord
         return array(
             array('region_id, country_id, name', 'required'),
             array('region_id, country_id, district_id', 'length', 'max' => 11),
-            array('name', 'length', 'max' => 255),
+            array('name, name_between, name_from', 'length', 'max' => 255),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('id, region_id, country_id, name', 'safe', 'on' => 'search'),
@@ -77,7 +79,9 @@ class GeoCity extends HActiveRecord
             'id' => 'ID',
             'region_id' => 'Region',
             'country_id' => 'Country',
-            'name' => 'Name',
+            'name' => 'Название',
+            'name_from' => 'от ...',
+            'name_between' => 'между ...',
         );
     }
 
@@ -92,6 +96,7 @@ class GeoCity extends HActiveRecord
 
         $criteria = new CDbCriteria;
 
+        $criteria->condition = 'name_from IS NOT NULL';
         $criteria->compare('id', $this->id, true);
         $criteria->compare('region_id', $this->region_id, true);
         $criteria->compare('country_id', $this->country_id, true);
@@ -99,6 +104,7 @@ class GeoCity extends HActiveRecord
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
+            'pagination' => array('pageSize' => 100),
         ));
     }
 

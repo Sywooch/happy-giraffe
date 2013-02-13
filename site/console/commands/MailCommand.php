@@ -28,32 +28,8 @@ class MailCommand extends CConsoleCommand
         if (count($articles) < 6)
             Yii::app()->end();
         $contents = $this->renderFile(Yii::getPathOfAlias('site.common.tpl.weeklyNews') . '.php', array('models' => $articles), true);
-        $vals = Yii::app()->mc->sendWeeklyNews('Веселый Жираф - самое интересное за неделю', $contents);
 
-        if (Yii::app()->mc->api->errorCode) {
-            echo "Batch Subscribe failed!\n";
-            echo "code:" . Yii::app()->mc->api->errorCode . "\n";
-            echo "msg :" . Yii::app()->mc->api->errorMessage . "\n";
-        } else {
-            echo "added:   " . $vals['add_count'] . "\n";
-            echo "updated: " . $vals['update_count'] . "\n";
-            echo "errors:  " . $vals['error_count'] . "\n";
-        }
-    }
-
-    public function actionWeeklyNews2()
-    {
-        //check generated url
-        if (Yii::app()->createUrl('site/index') != './') {
-            echo Yii::app()->createUrl('site/index') . ' - url failed';
-            return false;
-        }
-
-        $articles = Favourites::model()->getWeekPosts();
-        if (count($articles) < 6)
-            Yii::app()->end();
-        $contents = $this->renderFile(Yii::getPathOfAlias('site.common.tpl.weeklyNews') . '.php', array('models' => $articles), true);
-        Yii::app()->mc->sendWeeklyNews('Веселый Жираф - самое интересное за неделю', $contents, MailChimp::CONTEST_LIST, false);
+        Yii::app()->email->sendCampaign($contents, HEmailSender::LIST_OUR_USERS);
     }
 
     public function actionNewMessages()
@@ -122,14 +98,6 @@ class MailCommand extends CConsoleCommand
         Yii::app()->mc->deleteRegisteredFromContestList();
     }
 
-    public function actionTestWeekly()
-    {
-        $articles = Favourites::model()->getWeekPosts();
-        $contents = $this->renderFile(Yii::getPathOfAlias('site.common.tpl.weeklyNews') . '.php', array('models' => $articles), true);
-
-        Yii::app()->email->sendCampaign($contents, 'test_list');
-    }
-
     public function actionTestNewMessages()
     {
         $user = User::getUserById(10);
@@ -148,6 +116,10 @@ class MailCommand extends CConsoleCommand
                 Yii::app()->email->send(10, 'newMessages', compact('dialogUsers', 'unread', 'user', 'token'), $this);
             }
         }
+    }
+
+    public function actionMarkGoodEmails(){
+        ElasticEmail::markGoodEmails();
     }
 
     /*    public function actionUnsubList()

@@ -52,8 +52,7 @@ class RegisterWidget extends CWidget
             || (Yii::app()->controller->uniqueId == 'services/test/default' && $_GET['slug'] == 'pregnancy') //Онлайн-тест на беременность
             || (Yii::app()->controller->uniqueId == 'services/contractionsTime/default') //Считаем схватки
             || (Yii::app()->controller->uniqueId == 'services/names/default') //Выбор имени ребенка
-            || (Yii::app()->controller->uniqueId == 'community' &&
-            in_array($_GET['community_id'], array(1, 2, 3))) //Выбор имени ребенка
+            || (Yii::app()->controller->uniqueId == 'community' && isset($_GET['community_id']) && in_array($_GET['community_id'], array(1, 2, 3))) //Выбор имени ребенка
             ;
     }
 }

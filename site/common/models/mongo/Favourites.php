@@ -119,7 +119,7 @@ class Favourites extends EMongoDocument
     {
         $criteria = new EMongoCriteria;
         $criteria->block('==', self::WEEKLY_MAIL);
-        $criteria->created('>', strtotime('-5 days'));
+        $criteria->created('>', strtotime('-6 days'));
         $criteria->setSort(array('created'=> EMongoCriteria::SORT_DESC));
         $mongo_models = self::model()->findAll($criteria);
         $ids = array();

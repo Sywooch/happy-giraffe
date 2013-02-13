@@ -45,7 +45,8 @@ class HController extends CController
     {
         if (isset($_GET['nomo']) && $_GET['nomo'] == 1) {
             setcookie('nomo', 1);
-            $this->redirect(Yii::app()->request->requestUri);
+            $url = str_replace('?nomo=1', '', Yii::app()->request->requestUri);
+            $this->redirect($url);
         }
 
         // отключение повторной подгрузки jquery

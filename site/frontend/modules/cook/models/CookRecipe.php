@@ -1009,14 +1009,4 @@ class CookRecipe extends CActiveRecord
             Yii::app()->user->setState('recipe_id', null);
         }
     }
-
-    public function getMobileSectionTitle()
-    {
-        return $this->typeString;
-    }
-
-    public function getMobileSectionUrl()
-    {
-        return Yii::app()->createUrl('/cook/recipe/index', array('type' => $this->type, 'section' => $this->section));
-    }
 }

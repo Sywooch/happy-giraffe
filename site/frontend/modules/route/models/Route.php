@@ -9,7 +9,7 @@
  * @property string $city_to_id
  * @property integer $wordstat_value
  * @property integer $distance
- * @property integer $active
+ * @property integer $status
  *
  * The followings are the available model relations:
  * @property RouteLink[] $outLinks
@@ -19,6 +19,12 @@
  */
 class Route extends CActiveRecord
 {
+    const STATUS_NEW = 0;
+    const STATUS_PARSING = 1;
+    const STATUS_ROSNEFT_FOUND = 2;
+    const STATUS_ROSNEFT_NOT_FOUND = 3;
+    const STATUS_GOOGLE_PARSE_SUCCESS = 4;
+
     /**
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.
@@ -71,6 +77,24 @@ class Route extends CActiveRecord
     }
 
     /**
+     * Создаем новый маршрут
+     *
+     * @param $city_from GeoCity
+     * @param $city_to GeoCity
+     */
+    public static function createNewRoute($city_from, $city_to)
+    {
+        $route = new Route();
+        $route->city_from_id = $city_from->id;
+        $route->city_to_id = $city_to->id;
+        $route->save();
+
+        GoogleRouteParser::parseRoute($route);
+
+        return $route;
+    }
+
+    /**
      * @return array
      */
     public function getIntermediatePoints()
@@ -83,7 +107,7 @@ class Route extends CActiveRecord
             'summary_distance' => 0,
             'num' => 0
         ));
-        $points = RosnPoints::model()->findAll(array('order' => 'id', 'condition' => 'route_id=' . $this->id));
+        $points = RoutePoint::model()->findAll(array('order' => 'id', 'condition' => 'route_id=' . $this->id));
 
         $speed = 80;
         $next_point_distance = 0;
@@ -124,31 +148,37 @@ class Route extends CActiveRecord
 
     public function getTexts()
     {
-        $city1 = $this->cityFrom->name;
-        $city2 = $this->cityTo->name;
+        $city1 = array($this->cityFrom->name, $this->cityFrom->name_from, $this->cityFrom->name_between);
+        $city2 = array($this->cityTo->name, $this->cityTo->name_from, $this->cityTo->name_between);
         if ($this->city_from_id > $this->city_to_id)
             return array(
-                'Маршрут ' . $city1 . '-' . $city2,
-                'Узнайте, как доехать на авто от ' . $city1 . ' до ' . $city2 . '. Схема трассы ' . $city1 . '-' . $city2 . ' на карте. Выбирайте нужные вам дороги, трассы, шоссе и магистрали на пути от ' . $city1 . ' до ' . $city2,
-                'Пункты следования на пути ' . $city1 . '-' . $city2,
-                'Расстояние между ' . $city1 . ' и ' . $city2,
-                'Столько километров от ' . $city1 . ' до ' . $city2 . ' на автомобиле',
-                'Время в пути от ' . $city1 . ' до ' . $city2,
-                'Столько времени ехать от ' . $city1 . ' до ' . $city2,
-                'Отправьте маршрут поездки ' . $city1 . '-' . $city2 . ' своим друзьям',
-                'Отзывы водителей о состоянии трассы ' . $city1 . '-' . $city2,
+                'Маршрут ' . $city1[0] . '-' . $city2[0],
+                'Узнайте, как доехать на авто от ' . $city1[1] . ' до ' . $city2[1] . '. Схема трассы ' . $city1[0] . '-' . $city2[0] . ' на карте. Выбирайте нужные вам дороги, трассы, шоссе и магистрали на пути от ' . $city1[1] . ' до ' . $city2[1],
+                'Пункты следования на пути ' . $city1[0] . '-' . $city2[0],
+                'Расстояние между ' . $city1[2] . ' и ' . $city2[2],
+                'Столько километров от ' . $city1[1] . ' до ' . $city2[1] . ' на автомобиле',
+                'Время в пути от ' . $city1[1] . ' до ' . $city2[1],
+                'Столько времени ехать от ' . $city1[1] . ' до ' . $city2[1],
+                'Отправьте маршрут поездки ' . $city1[0] . '-' . $city2[0] . ' своим друзьям',
+                'Отзывы водителей о состоянии трассы ' . $city1[0] . '-' . $city2[0],
             );
         else
             return array(
-                'Маршрут ' . $city1 . '-' . $city2,
-                'Изучайте карту маршрута ' . $city1 . '-' . $city2 . ' и узнавайте, как преодолеть это расстояние на машине. Смотрите лучшие автотрассы и дороги от ' . $city1 . ' до ' . $city2,
-                'Населенные пункты и другие объекты на автодороге ' . $city1 . '-' . $city2,
-                'Сколько километров от ' . $city1 . ' до ' . $city2,
-                'Количество км от ' . $city1 . ' до ' . $city2,
-                'Сколько времени ехать от ' . $city1 . ' до ' . $city2,
+                'Маршрут ' . $city1[0] . '-' . $city2[0],
+                'Изучайте карту маршрута ' . $city1[0] . '-' . $city2[0] . ' и узнавайте, как преодолеть это расстояние на машине. Смотрите лучшие автотрассы и дороги от ' . $city1[1] . ' до ' . $city2[1],
+                'Населенные пункты и другие объекты на автодороге ' . $city1[0] . '-' . $city2[0],
+                'Сколько километров от ' . $city1[1] . ' до ' . $city2[1],
+                'Количество км от ' . $city1[1] . ' до ' . $city2[1],
+                'Сколько времени ехать от ' . $city1[1] . ' до ' . $city2[1],
                 'Время, проведенное в пути',
-                'Делитесь маршрутом поездки ' . $city1 . '-' . $city2 . ' со своими друзьям',
-                'Водители рассказывают, как доехать от ' . $city1 . ' до ' . $city2,
+                'Делитесь маршрутом поездки ' . $city1[0] . '-' . $city2[0] . ' со своими друзьям',
+                'Водители рассказывают, как доехать от ' . $city1[1] . ' до ' . $city2[1],
             );
+    }
+
+    public function getUrl($absolute = false)
+    {
+        $method = $absolute ? 'createAbsoluteUrl' : 'createUrl';
+        return Yii::app()->$method('/route/default/index', array('id' => $this->id));
     }
 }

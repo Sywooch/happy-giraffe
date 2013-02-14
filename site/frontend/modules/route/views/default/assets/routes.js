@@ -4,20 +4,27 @@
  */
 
 var Routes = {
+    from_city:null,
+    to_city:null,
     map:null,
     PlacesService:null,
-    init:function (start, end) {
-        var directionsService = new google.maps.DirectionsService();
-        var directionsDisplay = new google.maps.DirectionsRenderer();
+    directionsDisplay:null,
+    directionsService:null,
+    initAutoComplete:function(){
+        Routes.directionsDisplay = new google.maps.DirectionsRenderer();
         var mapOptions = {
             zoom:7,
             mapTypeId:google.maps.MapTypeId.ROADMAP
         };
-        this.map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
-        directionsDisplay.setMap(this.map);
+        Routes.map = new google.maps.Map(document.getElementById('map_canvas'), mapOptions);
+        Routes.directionsDisplay.setMap(Routes.map);
 
-        this.PlacesService = new google.maps.places.PlacesService(this.map);
-        this.initializeAutoComplete();
+        Routes.PlacesService = new google.maps.places.PlacesService(Routes.map);
+        Routes.initializeAutoComplete();
+    },
+    init:function (start, end) {
+        Routes.directionsService = new google.maps.DirectionsService();
+        Routes.initAutoComplete();
 
         var request = {
             origin:start,
@@ -25,44 +32,71 @@ var Routes = {
             travelMode:google.maps.DirectionsTravelMode.DRIVING,
             provideRouteAlternatives:true
         };
-        directionsService.route(request, function (response, status) {
+        Routes.directionsService.route(request, function (response, status) {
             if (status == google.maps.DirectionsStatus.OK) {
-                directionsDisplay.setDirections(response);
+                Routes.directionsDisplay.setDirections(response);
             }
         });
-    },
-    FoundPlaceCallback:function (place, status) {
-        if (status == google.maps.places.PlacesServiceStatus.OK) {
-
-        }
-        console.log(place);
-        console.log(status);
     },
     initializeAutoComplete:function () {
-        var autocomplete = new google.maps.places.Autocomplete(document.getElementById('city_from'), {types:['(cities)']});
-        var autocomplete2 = new google.maps.places.Autocomplete(document.getElementById('city_to'), {types:['(cities)']});
+        var autocomplete_from = new google.maps.places.Autocomplete(document.getElementById('city_from'), {types:['(cities)']});
+        var autocomplete_to = new google.maps.places.Autocomplete(document.getElementById('city_to'), {types:['(cities)']});
 
-        google.maps.event.addListener(autocomplete, 'place_changed', function () {
-            var place = autocomplete.getPlace();
+        google.maps.event.addListener(autocomplete_from, 'place_changed', function () {
+            var place = autocomplete_from.getPlace();
             if (!place.geometry) {
                 // Inform the user that the place was not found and return.
                 console.log('not found');
                 return;
+            } else {
+                Routes.from_city = {
+                    text:place.formatted_address,
+                    lat:place.geometry.location.Ya,
+                    lng:place.geometry.location.Za
+                };
             }
 
-            console.log(place);
+            console.log(Routes.from_city);
         });
 
-        google.maps.event.addListener(autocomplete2, 'place_changed', function () {
-            var place = autocomplete.getPlace();
+        google.maps.event.addListener(autocomplete_to, 'place_changed', function () {
+            var place = autocomplete_to.getPlace();
             if (!place.geometry) {
                 // Inform the user that the place was not found and return.
                 console.log('not found');
                 return;
-            }
+            } else
+                Routes.to_city = {
+                    text:place.formatted_address,
+                    lat:place.geometry.location.Ya,
+                    lng:place.geometry.location.Za
+                };
 
-            console.log(place);
+            console.log(Routes.to_city);
         });
+    },
+    reversePlaces:function () {
+        if (Routes.to_city == null || Routes.from_city == null)
+            return;
+
+        var city = Routes.to_city;
+        Routes.to_city = Routes.from_city;
+        Routes.from_city = city;
+
+        $('#city_from').val(Routes.from_city.text);
+        $('#city_to').val(Routes.to_city.text);
+    },
+    go:function () {
+        $.post('/routes/getRouteId/', {
+            city_from_lat:Routes.from_city.lat,
+            city_from_lng:Routes.from_city.lng,
+            city_to_lat:Routes.to_city.lat,
+            city_to_lng:Routes.to_city.lng
+        }, function (response) {
+            if (response.status) {
+                location.href = '/routes/' + response.id + '/';
+            }
+        }, 'json');
     }
 }
 

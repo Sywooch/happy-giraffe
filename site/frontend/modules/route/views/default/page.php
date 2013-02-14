@@ -43,10 +43,10 @@ Yii::app()->clientScript
     <h1 class="map-route-search_h1"><?=$texts[0] ?></h1>
 
     <form action="" class="map-route-search_form clearfix" style="display: none;">
-        <input id="city_from" type="" class="map-route-search_itx itx-bluelight" placeholder="Откуда">
-        <a href="" class="map-route-search_reverse"></a>
-        <input id="city_to" type="" class="map-route-search_itx itx-bluelight" placeholder="Куда">
-        <button class="btn-green map-route-search_btn">Проложить <br> маршрут</button>
+        <input id="city_from" type="text" class="map-route-search_itx itx-bluelight" placeholder="Откуда">
+        <a href="javascript:;" class="map-route-search_reverse" onclick="Routes.reversePlaces()"></a>
+        <input id="city_to" type="text" class="map-route-search_itx itx-bluelight" placeholder="Куда">
+        <button class="btn-green map-route-search_btn" onclick="Routes.go()">Проложить <br> маршрут</button>
     </form>
     <p><?=$texts[1] ?></p>
 
@@ -155,9 +155,15 @@ Yii::app()->clientScript
             </div>
             <div class="map-route-share_tx">Ссылка на этот маршрут:</div>
             <div class="link-box">
-                <a href="<?=$this->createUrl('/route/default/index', array('id' => $route->id)) ?>"
-                   class="link-box_a"><?=$this->createAbsoluteUrl('/route/default/index', array('id' => $route->id)) ?></a>
+                <a href="<?=$route->url ?>"
+                   class="link-box_a"><?=$route->getUrl(true) ?></a>
             </div>
+        </div>
+
+        <div class="watchers">
+            <div class="watchers_t">Маршрут <br>просмотрели</div>
+            <div class="watchers_eye"></div>
+            <div class="watchers_count"><?=PageView::model()->viewsByPath($route->url)?></div>
         </div>
     </div>
 
@@ -170,5 +176,7 @@ Yii::app()->clientScript
             <?php $this->renderPartial('links', array('route' => $route)); ?>
 
         </div>
+
+        <?php $this->widget('application.widgets.commentWidget.CommentWidget', array('model' => $route, 'notice'=>$texts[8])); ?>
     </div>
 </div>

@@ -56,6 +56,8 @@ class PostForCommentator
         foreach ($this->entities as $entity => $limits) {
             $posts = CActiveRecord::model($entity)->resetScope()->findAll($criteria);
 
+            $this->logState(count($posts));
+
             foreach ($posts as $post) {
                 //check ignore users
                 if (!empty($this->commentator->ignoreUsers) && in_array($post->author_id, $this->commentator->ignoreUsers))
@@ -101,7 +103,7 @@ class PostForCommentator
             $criteria->compare('entity', array('CommunityContent', 'BlogContent'));
         else
             $criteria->compare('entity', get_class($post));
-        $model = Comment::model()->find($criteria);
+        $model = Comment::model()->resetScope()->find($criteria);
 
         return $model !== null;
     }

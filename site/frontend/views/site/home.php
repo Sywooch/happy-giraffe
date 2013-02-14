@@ -11,7 +11,7 @@
 
             <?php $this->widget('CommunitiesWidget'); ?>
 
-            <?php $contest_id = 7; ?>
+            <?php $contest_id = 8; ?>
             <div class="box">
                 <a href="<?=$this->createUrl('/contest/default/view', array('id' => $contest_id)) ?>"><img
                     src="/images/contest/banner-w240-<?=$contest_id?>.jpg"></a>

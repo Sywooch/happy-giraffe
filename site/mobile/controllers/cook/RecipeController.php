@@ -35,6 +35,7 @@ class RecipeController extends MController
     {
         $dp = CActiveRecord::model($this->modelName)->getByType($type, 3);
 
+        $this->pageTitle = empty($type) ? 'Кулинарные рецепты от Веселого Жирафа' : CActiveRecord::model($this->modelName)->types[$type] . ' - ' . $this->pageTitle;
         $this->render('index', compact('dp'));
     }
 
@@ -63,13 +64,16 @@ class RecipeController extends MController
             )
         );
 
+        $this->pageTitle = $recipe->title . ' - Кулинарные рецепты от Веселого Жирафа';
         $this->render('view', compact('recipe', 'next'));
     }
 
     public function actionTag($tag = null, $type = 0)
     {
         $dp = CActiveRecord::model($this->modelName)->getByTag($tag, $type);
+        $model = $this->loadTag($tag);
 
+        $this->pageTitle = $model->title . ' - Кулинарные рецепты от Веселого Жирафа';
         $this->render('index', compact('dp', 'model'));
     }
 }

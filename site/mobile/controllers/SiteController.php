@@ -25,6 +25,7 @@ class SiteController extends MController
         $data = CActiveRecord::model($entity)->findByPk($entity_id);
         $comments = Comment::model()->get($entity, $entity_id, 'default', 10);
 
+        $this->pageTitle = $data->title . ' - Комментарии';
         $this->render('comments', compact('data', 'comments', 'linkText', 'linkUrl'));
     }
 
@@ -46,5 +47,42 @@ class SiteController extends MController
                     $this->render('error', $error);
             }
         }
+    }
+
+    public function actionSearch($text = false, $index = false)
+    {
+        if (!empty($text)) {
+            $index = $index ? $index : 'community';
+            $pages = new CPagination();
+            $pages->pageSize = 100000;
+            $criteria = new stdClass();
+            $criteria->from = $index;
+            $criteria->select = '*';
+            $criteria->paginator = $pages;
+            $criteria->query = $text;
+            $resIterator = Yii::app()->search->search($criteria);
+
+            $allSearch = $textSearch = Yii::app()->search->select('*')->from('community')->where($criteria->query)->limit(0, 100000)->searchRaw();
+            $allCount = count($allSearch['matches']);
+
+            $textSearch = Yii::app()->search->select('*')->from('communityText')->where($criteria->query)->limit(0, 100000)->searchRaw();
+            $textCount = count($textSearch['matches']);
+
+            $videoSearch = Yii::app()->search->select('*')->from('communityVideo')->where($criteria->query)->limit(0, 100000)->searchRaw();
+            $videoCount = count($videoSearch['matches']);
+
+            $criteria = new CDbCriteria;
+            $criteria->with = array('travel', 'video', 'post');
+
+            $dp = new CArrayDataProvider($resIterator->getRawData(), array(
+                'keyField' => 'id',
+            ));
+
+            $viewData = compact('dp', 'criteria', 'index', 'text', 'allCount', 'textCount', 'videoCount', 'travelCount');
+        } else
+            $viewData = array('dp'=>null, 'criteria'=>null, 'index'=>$index, 'text'=>'', 'allCount'=>0, 'textCount'=>0, 'videoCount'=>0, 'travelCount'=>0);
+
+        $this->pageTitle = 'Поиск по сайту Веселый Жираф';
+        $this->render('search', $viewData);
     }
 }

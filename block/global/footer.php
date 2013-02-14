@@ -1,5 +1,8 @@
 <div id="footer" class="layout-footer clearfix">
 	
+	<div class="clearfix">
+		<a href="" class="mobile-version">Мобильная версия</a>
+	</div>
 	<div class="a-right">
 		<a href="">Политика конфедециальности</a> &nbsp; | &nbsp; <a href="">Пользовательское соглашение</a>
 	</div>

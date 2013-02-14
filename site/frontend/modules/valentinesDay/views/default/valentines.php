@@ -8,6 +8,7 @@
         'selector' => '.valentines-best_li > a',
         'entity' => 'Album',
         'entity_id' => Album::getAlbumByType(User::HAPPY_GIRAFFE, Album::TYPE_VALENTINE)->id,
+        'entity_url' => Yii::app()->createUrl('/valentinesDay/default/valentines'),
     ));
 
     if ($open_photo_id !== null)
@@ -45,24 +46,24 @@
                     'template' => "<div class=\"valentines-best_hold\">{items}</div>\n{pager}",
                     'itemsTagName' => 'ul',
                     'itemsCssClass' => 'valentines-best_ul clearfix',
-                    'pager' => array(
-                        'class' => 'application.components.InfinitePager.InfinitePager',
-                        'selector' => '#valentinesList .valentines-best_ul',
-                        'options' => array(
-                            'behavior' => 'local',
-                            'binder' => new CJavaScriptExpression("$('.layout-container')"),
-                            'itemSelector' => '.valentines-best_li',
-                            'loading' => array(
-                                'selector' => '.valentines-best_hold',
-                            ),
-                        ),
-                        'callback' => new CJavaScriptExpression("function(newElements) {
-                            $(newElements).imagesLoaded(function() {
-                                $('#valentinesList .valentines-best_ul').isotope('appended', $(newElements));
-                                " . Yii::app()->controller->pGallery . "
-                            });
-                        }"),
-                    ),
+//                    'pager' => array(
+//                        'class' => 'application.components.InfinitePager.InfinitePager',
+//                        'selector' => '#valentinesList .valentines-best_ul',
+//                        'options' => array(
+//                            'behavior' => 'local',
+//                            'binder' => new CJavaScriptExpression("$('.layout-container')"),
+//                            'itemSelector' => '.valentines-best_li',
+//                            'loading' => array(
+//                                'selector' => '.valentines-best_hold',
+//                            ),
+//                        ),
+//                        'callback' => new CJavaScriptExpression("function(newElements) {
+//                            $(newElements).imagesLoaded(function() {
+//                                $('#valentinesList .valentines-best_ul').isotope('appended', $(newElements));
+//                                " . Yii::app()->controller->pGallery . "
+//                            });
+//                        }"),
+//                    ),
                 ));
             ?>
         </div>

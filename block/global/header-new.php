@@ -21,7 +21,7 @@
 					</div>
 					
 					<div class="banner-box">
-						<a href=""><img src="/images/contest/banner-w300-7.jpg" /></a>
+						<a href=""><img src="/images/contest/banner-w300-8.jpg" /></a>
 					</div>
 					
 				</div>

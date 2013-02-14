@@ -16,7 +16,7 @@ class GoogleMapsGeoCode extends CComponent
         if (isset($result['status']) && $result['status'] == 'OK') {
             $address = self::getAddressComponentsByType($result['results']);
 
-            if ($address === null){
+            if ($address === null) {
                 return $result['results'][0]['formatted_address'];
             }
 
@@ -26,11 +26,38 @@ class GoogleMapsGeoCode extends CComponent
         }
     }
 
+    public function loadPage($url)
+    {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:17.0) Gecko/20100101 Firefox/17.0');
+        curl_setopt($ch, CURLOPT_URL, $url);
+
+        curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
+        curl_setopt($ch, CURLOPT_PROXY, '95.211.189.218:46199;');
+
+        curl_setopt($ch, CURLOPT_PROXYUSERPWD, "alexhg:Nokia1111");
+        curl_setopt($ch, CURLOPT_PROXYAUTH, 1);
+
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+        $result = curl_exec($ch);
+        curl_close($ch);
+
+        return $result;
+    }
+
+    /**
+     * @param $lat
+     * @param $lng
+     * @return null|GeoCity
+     */
     public function getCityByCoordinates($lat, $lng)
     {
         $url = 'http://maps.googleapis.com/maps/api/geocode/json?latlng=' . $lat . ',' . $lng . '&sensor=true&language=ru';
 
-        $text = file_get_contents($url);
+//        $text = file_get_contents($url);
+        $text = $this->loadPage($url);
         $result = json_decode($text, true);
 
         if (isset($result['status']) && $result['status'] == 'OK') {
@@ -48,6 +75,7 @@ class GoogleMapsGeoCode extends CComponent
 
             return $city;
         } else {
+            echo $result['status'];
             return null;
         }
     }
@@ -58,8 +86,15 @@ class GoogleMapsGeoCode extends CComponent
         if (empty($country))
             return null;
 
-        $region = self::getRegion($country, $region_title);
-        $district = self::getDistrict($region, $district_title);
+        if ($region_title == $city_title)
+            $region = self::getRegion($country, $region_title, 'г');
+        else
+            $region = self::getRegion($country, $region_title);
+
+        if (strpos($district_title, 'город ') === 0)
+            $district = null;
+        else
+            $district = self::getDistrict($region, $district_title);
 
         $city = GeoCity::model()->findByAttributes(array(
             'country_id' => $country->id,
@@ -67,7 +102,7 @@ class GoogleMapsGeoCode extends CComponent
             'district_id' => empty($district) ? null : $district->id,
             'name' => $city_title
         ));
-        if ($city === null){
+        if ($city === null) {
             $city = new GeoCity();
             $city->country_id = $country->id;
             $city->region_id = $region->id;
@@ -75,7 +110,10 @@ class GoogleMapsGeoCode extends CComponent
                 $city->district_id = $district->id;
             $city->name = $city_title;
             $city->auto_created = 1;
-            $city->save();
+            if (!$city->save())
+                var_dump($city->getErrors());
+
+            return $city;
         }
     }
 
@@ -96,7 +134,7 @@ class GoogleMapsGeoCode extends CComponent
             'region_id' => $region->id,
             'name' => $district_title
         ));
-        if ($district === null){
+        if ($district === null) {
             $district = new GeoDistrict();
             $district->region_id = $region->id;
             $district->name = $district_title;
@@ -110,22 +148,23 @@ class GoogleMapsGeoCode extends CComponent
     /**
      * @param GeoCountry $country
      * @param $region_title
+     * @param null|string $type
      * @return GeoCountry|null
      */
-    private function getRegion($country, $region_title)
+    private function getRegion($country, $region_title, $type = null)
     {
         if (empty($region_title))
             return null;
 
         $isCity = false;
-        if (strpos($region_title, 'город ') !== false){
+        if (strpos($region_title, 'город ') !== false) {
             $region_title = str_replace('город ', '', $region_title);
             $isCity = true;
         }
         $region_title = trim($region_title);
 
         $region = GeoRegion::model()->findByAttributes(array('country_id' => $country->id, 'name' => $region_title));
-        if ($region === null){
+        if ($region === null) {
             $region = new GeoRegion;
             $region->country_id = $country->id;
             $region->position = 1000;
@@ -133,6 +172,10 @@ class GoogleMapsGeoCode extends CComponent
             $region->auto_created = 1;
             if ($isCity)
                 $region->type = 'г';
+            else {
+                if (!empty($type))
+                    $region->type = $type;
+            }
             $region->save();
         }
 
@@ -192,7 +235,10 @@ class GoogleMapsGeoCode extends CComponent
      */
     private function getCityTitle($address)
     {
-        return self::getAddressComponent($address, 'locality');
+        $city = self::getAddressComponent($address, 'locality');
+        if (strpos($city, 'г.') === 0)
+            $city = str_replace('г. ', '', $city);
+        return $city;
     }
 
     /**

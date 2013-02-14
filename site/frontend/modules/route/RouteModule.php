@@ -11,6 +11,8 @@ class RouteModule extends CWebModule
 		$this->setImport(array(
 			'route.models.*',
 			'route.components.*',
+            'geo.models.*',
+			'geo.components.*',
 		));
 	}
 

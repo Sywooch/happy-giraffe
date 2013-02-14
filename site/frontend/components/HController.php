@@ -20,7 +20,7 @@ class HController extends CController
 
     public $body_class = 'body-club';
 
-    protected $r = 157;
+    protected $r = 159;
 
     public function filterAjaxOnly($filterChain)
     {
@@ -34,6 +34,8 @@ class HController extends CController
     {
         parent::init();
 
+        require_once('mobiledetect/Mobile_Detect.php');
+
         $this->combineStatic();
         Yii::app()->clientScript
             ->registerCssFile('/stylesheets/common.css?'.$this->r)
@@ -43,11 +45,7 @@ class HController extends CController
 
     protected function beforeAction($action)
     {
-        if (isset($_GET['nomo']) && $_GET['nomo'] == 1) {
-            setcookie('nomo', 1);
-            $url = str_replace('?nomo=1', '', Yii::app()->request->requestUri);
-            $this->redirect($url);
-        }
+        $this->_mobileRedirect();
 
         // отключение повторной подгрузки jquery
         /* if (Yii::app()->request->isAjaxRequest) {
@@ -193,5 +191,23 @@ class HController extends CController
     public function registerCounter()
     {
         Yii::app()->clientScript->registerScript('se_counter', 'SeCounter();');
+    }
+
+    private function _mobileRedirect()
+    {
+        $detect = new Mobile_Detect();
+        $mobile = $newMobile = (string) Yii::app()->request->cookies['mobile'];
+
+        if ($mobile == '' && $detect->isMobile() && ! $detect->isTablet())
+            $newMobile = 1;
+
+        if ($mobile == 1 && Yii::app()->request->getQuery('nomo') == 1)
+            $newMobile = 0;
+
+        if ($mobile != $newMobile)
+            Yii::app()->request->cookies['mobile'] = new CHttpCookie('mobile', $newMobile, array('expire' => time() + 60 * 60 * 24 * 365));
+
+        if ($newMobile == 1)
+            $this->redirect('http://m.happy-giraffe.ru' . $_SERVER['REQUEST_URI']);
     }
 }

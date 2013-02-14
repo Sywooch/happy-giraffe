@@ -6217,6 +6217,83 @@ label {
 .popup-share_f > .btn-green {color: #fff;font-weight: normal;}
 /* /popup-share */
 
+/* valentine-banner */
+.valentine-banner {
+	position: relative;
+	height: 260px;
+	background: url(/images/valentine-day/valentine-banner.png) no-repeat;
+}
+.valentine-banner_hold {
+	float: right;
+	margin: 30px 25px 0;
+	text-align: center;
+	width: 240px;
+}
+.valentine-banner_h {
+	color: #1d1c1c;
+	font-family: Tahoma, Arial, Verdana, sans-serif;
+	font-size: 34px;
+	line-height: 34px;
+	margin-bottom: 15px;
+}
+.valentine-banner_t {font-size: 67px;line-height: 69px;}
+.valentine-banner_btn {
+	font-size: 26px;
+	font-weight: normal;
+	padding: 0 35px;
+}
+.valentine-banner_img {
+	position: absolute;
+	display: block;
+	top: 30px;
+	left: 12px;
+	-webkit-transition: all .2s ease-in-out;
+		-moz-transition: all .2s ease-in-out;
+			-o-transition: all .2s ease-in-out;
+				transition: all .2s ease-in-out; /*cssProperty, duration, effect, delay (ease, linear, ease-in, ease-out, ease-in-out, and cubic-bezier)*/
+}
+.valentine-banner_img__1 {
+	background: url(/images/valentine-day/valentine-banner_img__1.png) no-repeat;
+	width: 164px;
+	height: 192px;
+	z-index: 3;
+}
+.valentine-banner_img__1:hover {
+	-webkit-transform:scale(1.05) rotate(-4deg);
+		-moz-transform:scale(1.05) rotate(-4deg);
+			-o-transform:scale(1.05) rotate(-4deg);
+				transform:scale(1.05) rotate(-4deg);
+}
+.valentine-banner_img__2 {
+	background: url(/images/valentine-day/valentine-banner_img__2.png) no-repeat;
+	width: 175px;
+	height: 185px;
+	z-index: 2;
+	left: 135px;
+	top: 33px;
+}
+.valentine-banner_img__2:hover {
+	-webkit-transform:scale(1.05) rotate(-4deg);
+		-moz-transform:scale(1.05) rotate(-4deg);
+			-o-transform:scale(1.05) rotate(-4deg);
+				transform:scale(1.05) rotate(-4deg);
+}
+.valentine-banner_img__3 {
+	background: url(/images/valentine-day/valentine-banner_img__3.png) no-repeat;
+	width: 172px;
+	height: 183px;
+	z-index: 1;
+	left: 256px;
+	top: 28px;
+}
+.valentine-banner_img__3:hover {
+	-webkit-transform:scale(1.05) rotate(3deg);
+		-moz-transform:scale(1.05) rotate(3deg);
+			-o-transform:scale(1.05) rotate(3deg);
+				transform:scale(1.05) rotate(3deg);
+}
+/* /valentine-banner */
+
 /* Page moderation rules moder-rule */
 .moder-rule {width: 680px;margin: 0 auto 40px;font-size: 13px;}
 .moder-rule .logo-box{margin: 0 auto 40px;}

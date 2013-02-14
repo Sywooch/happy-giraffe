@@ -8,8 +8,6 @@ $this->renderPartial('_post', array('data' => $data, 'full' => true));
 $this->renderPartial('_prev_next', array('data' => $data));
 ?>
 
-<?php if (false): ?>
-
 <div class="valentine-banner">
     <div class="valentine-banner_hold">
         <div class="valentine-banner_h">
@@ -22,8 +20,6 @@ $this->renderPartial('_prev_next', array('data' => $data));
     <a href="http://www.happy-giraffe.ru/ValentinesDay/valentines/?open_photo_id=302444" class="valentine-banner_img valentine-banner_img__2"></a>
     <a href="http://www.happy-giraffe.ru/ValentinesDay/valentines/?open_photo_id=302437" class="valentine-banner_img valentine-banner_img__3"></a>
 </div>
-
-<?php endif; ?>
 
 <?php
 

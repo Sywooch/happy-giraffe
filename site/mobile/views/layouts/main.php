@@ -6,7 +6,7 @@
         <meta content="text/html; charset=utf-8" http-equiv="content-type">
         <meta content="telephone=no" name="format-detection">
         <meta content="176" name="/Optimized">
-        <title>Весёлый жираф - мобильная версия</title>
+        <title><?=$this->pageTitle?></title>
         <!--
         CSS
         Конечному пользователю нужно отправлять скомпилированный файл css
@@ -15,7 +15,6 @@
         <link rel="stylesheet" href="/css/all-dev.css" type="text/css" />
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
-        <script src="/js/common.js"></script>
 
     </head>
     <body>
@@ -25,11 +24,11 @@
             </div>
 
             <div class="nav">
-                <span class="nav_t" >Разделы</span>
+                <span class="nav_t" onclick="$('.nav_hold').toggleClass('nav_hold__open');">Разделы</span>
                 <div class="nav_hold">
                     <ul class="nav_ul">
                         <li class="nav_li">
-                            <a href="" class="nav_i">
+                            <a href="javascript:void(0)" onclick="$(this).parent().toggleClass('nav_li__active');" class="nav_i">
                                 <i class="nav_ico nav_ico__club"></i>
                                 Клубы
                                 <span class="nav_arrow-down"></span>
@@ -45,19 +44,19 @@
                             </div>
                         </li>
                         <li class="nav_li">
-                            <a href="" class="nav_i">
+                            <a href="<?=Yii::app()->createUrl('/community/blogList')?>" class="nav_i">
                                 <i class="nav_ico nav_ico__blog"></i>
                                 Блоги
                             </a>
                         </li>
                         <li class="nav_li">
-                            <a href="<?=$this->createUrl('/horoscrope/index')?>" class="nav_i">
+                            <a href="<?=$this->createUrl('/horoscope/index')?>" class="nav_i">
                                 <i class="nav_ico nav_ico__horoscope"></i>
                                 Гороскопы
                             </a>
                         </li>
                         <li class="nav_li">
-                            <a href="" class="nav_i">
+                            <a href="javascript:void(0)" onclick="$(this).parent().toggleClass('nav_li__active');" class="nav_i">
                                 <i class="nav_ico nav_ico__cook"></i>
                                 Рецепты
                                 <span class="nav_arrow-down"></span>
@@ -76,8 +75,10 @@
                     </ul>
                     <div class="nav-search">
                         <div class="nav-search_hold">
-                            <input type="text" name="" id="" class="nav-search_itx" placeholder="Поиск"/>
-                            <input type="submit" class="nav-search_btn btn-green" value="Поиск"/>
+                            <?=CHtml::beginForm('/site/search', 'get')?>
+                                <input type="text" name="text" class="nav-search_itx" placeholder="Поиск"/>
+                                <input type="submit" class="nav-search_btn btn-green" value="Поиск"/>
+                            <?=CHtml::endForm()?>
                         </div>
                     </div>
                 </div>
@@ -87,7 +88,7 @@
 
             <div class="footer">
                 <div class="margin-b5">
-                    <a href="" class="full-version">Полная версия</a>
+                    <a href="http://www.happy-giraffe.ru/?nomo=1" class="full-version">Полная версия</a>
                 </div>
                 <div class="clearfix">
                     Веселый Жираф © 2012-2013 <br>Все права защищены

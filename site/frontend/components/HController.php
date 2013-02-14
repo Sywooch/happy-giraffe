@@ -45,7 +45,7 @@ class HController extends CController
 
     protected function beforeAction($action)
     {
-        //$this->_mobileRedirect();
+        $this->_mobileRedirect();
 
         // отключение повторной подгрузки jquery
         /* if (Yii::app()->request->isAjaxRequest) {
@@ -196,16 +196,18 @@ class HController extends CController
     private function _mobileRedirect()
     {
         $detect = new Mobile_Detect();
-        $mobile = (string) Yii::app()->request->cookies['mobile'];
+        $mobile = $newMobile = (string) Yii::app()->request->cookies['mobile'];
 
-        if (Yii::app()->request->getQuery('nomo') == '1') {
-            Yii::app()->request->cookies['mobile'] = new CHttpCookie('mobile', '0', array('expire' => time() + 60 * 60 * 24 * 365));
-            die;
-        } elseif ($mobile == '1' || ($detect->isMobile() && ! $detect->isTablet())) {
-            if (empty($mobile))
-                Yii::app()->request->cookies['mobile'] = new CHttpCookie('mobile', '1', array('expire' => time() + 60 * 60 * 24 * 365));
+        if ($mobile == '' && $detect->isMobile() && ! $detect->isTablet())
+            $newMobile = 1;
 
-            $this->redirect('http://m.happy-giraffe.dev' . $_SERVER['REQUEST_URI']);
-        }
+        if ($mobile == 1 && Yii::app()->request->getQuery('nomo') == 1)
+            $newMobile = 0;
+
+        if ($mobile != $newMobile)
+            Yii::app()->request->cookies['mobile'] = new CHttpCookie('mobile', $newMobile, array('expire' => time() + 60 * 60 * 24 * 365));
+
+        if ($newMobile == 1)
+            $this->redirect('http://m.happy-giraffe.ru' . $_SERVER['REQUEST_URI']);
     }
 }

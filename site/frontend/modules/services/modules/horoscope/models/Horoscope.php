@@ -271,8 +271,10 @@ class Horoscope extends HActiveRecord
 
     public function afterSave()
     {
-        $links = new HoroscopeLink();
-        $links->generateLinks($this);
+        if (!empty($this->date) && $this->isNewRecord) {
+            $links = new HoroscopeLink();
+            $links->generateLinks($this);
+        }
 
         parent::afterSave();
     }

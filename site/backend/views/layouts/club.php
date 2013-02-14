@@ -10,6 +10,11 @@
                 'active' => (Yii::app()->controller->uniqueId == 'club/names'),
                 'visible' => Yii::app()->user->checkAccess('names')
             ),
+            array('label' => 'Склонения городов',
+                'url' => array('/club/city/'),
+                'active' => (Yii::app()->controller->uniqueId == 'club/city'),
+                'visible' => Yii::app()->user->checkAccess('geo')
+            ),
             array('label' => 'Маршруты',
                 'url' => array('/club/fuelCost/'),
                 'active' => (Yii::app()->controller->uniqueId == 'club/fuelCost'),

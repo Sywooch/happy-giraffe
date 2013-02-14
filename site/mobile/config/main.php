@@ -14,9 +14,17 @@ return array(
 
 	// autoloading model and component classes
 	'import'=>array(
+        'site.frontend.extensions.YiiMongoDbSuite.*',
+        'site.frontend.extensions.image.Image',
+        'site.frontend.modules.geo.models.*',
+
         'site.common.components.*',
+        'site.common.helpers.*',
         'site.common.models.*',
+        'site.common.models.mongo.*',
         'site.common.models.mobile.*',
+        'application.components.*',
+        'application.widgets.*',
 	),
 
 	'modules'=>array(
@@ -33,6 +41,31 @@ return array(
 
 	// application components
 	'components'=>array(
+        'search' => array(
+            'class' => 'site.frontend.extensions.DGSphinxSearch.DGSphinxSearch',
+            'server' => '127.0.0.1',
+            'port' => 9312,
+            'maxQueryTime' => 3000,
+            'enableProfiling'=>0,
+            'enableResultTrace'=>0,
+            'fieldWeights' => array(
+                'name' => 10000,
+                'keywords' => 100,
+            ),
+        ),
+        'cache' => array(
+            'class' => 'CDummyCache',
+        ),
+
+        'mongodb' => array(
+            'class'            => 'EMongoDB',
+            'connectionString' => 'mongodb://localhost',
+            'dbName'           => 'happy_giraffe_db',
+            'fsyncFlag'        => true,
+            'safeFlag'         => true,
+            'useCursor'        => false
+        ),
+
 		'user'=>array(
 			// enable cookie-based authentication
 			'allowAutoLogin'=>true,

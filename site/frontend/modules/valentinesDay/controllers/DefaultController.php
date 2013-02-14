@@ -30,18 +30,23 @@ class DefaultController extends HController
 		$this->render('index', compact('post', 'recipe_tag', 'videos', 'valentines'));
 	}
 
-    public function actionValentines()
+    public function actionValentines($open_photo_id = null)
     {
+        $this->meta_title = 'Лучшие валентинки';
+
         $dp = new CActiveDataProvider('AlbumPhoto', array(
             'criteria' => $this->getValentinesCriteria(),
+            'pagination' => array(
+                'pageSize' => 100,
+            ),
         ));
 
-        $this->render('valentines', compact('dp'));
+        $this->render('valentines', compact('dp', 'open_photo_id'));
     }
 
     public function actionSms()
     {
-        $this->meta_title = '100 Смс о любви. Смс ко дню святого Валентина';
+        $this->meta_title = '205 Смс о любви. Смс ко дню святого Валентина';
 
         $criteria = new CDbCriteria;
         $pages = new CPagination(ValentineSms::model()->count());

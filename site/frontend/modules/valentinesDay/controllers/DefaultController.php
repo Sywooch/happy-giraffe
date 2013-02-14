@@ -43,7 +43,7 @@ class DefaultController extends HController
 
     public function actionSms()
     {
-        $this->meta_title = '100 Смс о любви. Смс ко дню святого Валентина';
+        $this->meta_title = '205 Смс о любви. Смс ко дню святого Валентина';
 
         $criteria = new CDbCriteria;
         $pages = new CPagination(ValentineSms::model()->count());

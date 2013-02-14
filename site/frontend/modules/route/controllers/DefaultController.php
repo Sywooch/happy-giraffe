@@ -5,9 +5,11 @@ class DefaultController extends HController
     public function actionIndex($id = null)
     {
         if (empty($id)) {
-
+            $this->render('index');
         } else {
             $route = $this->loadModel($id);
+            PageView::model()->incViewsByPath($route->url);
+
             $texts = $route->getTexts();
             $this->render('page', compact('route', 'texts'));
         }
@@ -18,9 +20,13 @@ class DefaultController extends HController
         $city_from = GeoCity::getCityByCoordinates(Yii::app()->request->getPost('city_from_lat'), Yii::app()->request->getPost('city_from_lng'));
         $city_to = GeoCity::getCityByCoordinates(Yii::app()->request->getPost('city_to_lat'), Yii::app()->request->getPost('city_to_lng'));
 
+        echo $city_from->id.' - '.$city_to->id;
+        //Yii::app()->end();
+
         $route = Route::model()->findByAttributes(array('city_from_id' => $city_from->id, 'city_to_id' => $city_to->id));
         if ($route === null){
-            echo $route->status;
+            //create new route
+            Route::createNewRoute($city_from, $city_to);
         }else
             echo CJSON::encode(array('status' => true, 'id' => $route->id));
     }

@@ -19,9 +19,11 @@
  */
 class Route extends CActiveRecord
 {
+    const STATUS_NEW = 0;
     const STATUS_PARSING = 1;
-    const STATUS_GOOD = 2;
-    const STATUS_FAILED = 3;
+    const STATUS_ROSNEFT_FOUND = 2;
+    const STATUS_ROSNEFT_NOT_FOUND = 3;
+    const STATUS_GOOGLE_PARSE_SUCCESS = 4;
 
     /**
      * Returns the static model of the specified AR class.
@@ -72,6 +74,22 @@ class Route extends CActiveRecord
             'cityFrom' => array(self::BELONGS_TO, 'GeoCity', 'city_from_id'),
             'cityTo' => array(self::BELONGS_TO, 'GeoCity', 'city_to_id'),
         );
+    }
+
+    /**
+     * Создаем новый маршрут
+     *
+     * @param $city_from GeoCity
+     * @param $city_to GeoCity
+     */
+    public static function createNewRoute($city_from, $city_to)
+    {
+        $route = new Route();
+        $route->city_from_id = $city_from->id;
+        $route->city_to_id = $city_to->id;
+        $route->save();
+
+        GoogleRouteParser::parseRoute($route);
     }
 
     /**
@@ -154,5 +172,11 @@ class Route extends CActiveRecord
                 'Делитесь маршрутом поездки ' . $city1 . '-' . $city2 . ' со своими друзьям',
                 'Водители рассказывают, как доехать от ' . $city1 . ' до ' . $city2,
             );
+    }
+
+    public function getUrl($absolute = false)
+    {
+        $method = $absolute ? 'createAbsoluteUrl' : 'createUrl';
+        return Yii::app()->$method('/route/default/index', array('id' => $this->id));
     }
 }

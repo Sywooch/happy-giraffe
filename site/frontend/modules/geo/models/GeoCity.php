@@ -131,14 +131,15 @@ class GeoCity extends HActiveRecord
         ));
     }
 
-    public function declCheckedLink(){
-        return '<input type="hidden" value="'.$this->id.'"><a class="decl_checked" href="javascript:;">проверено</a>';
+    public function declCheckedLink()
+    {
+        return '<input type="hidden" value="' . $this->id . '"><a class="decl_checked" href="javascript:;">проверено</a>';
     }
 
     public function beforeSave()
     {
         //склонение
-        if ($this->isNewRecord){
+        if ($this->isNewRecord) {
             $c = new CityDeclension();
             list($n1, $n2) = $c->getDeclensions($this->name);
             $this->name_from = $n1;
@@ -165,13 +166,13 @@ class GeoCity extends HActiveRecord
 
         $text .= ', ' . $this->country->name;
 
-        return $text;
+        return trim($text);
     }
 
     /**
      * @param $lat float
      * @param $lng float
-     * @return CityCoordinates
+     * @return GeoCity
      */
     public static function getCityByCoordinates($lat, $lng)
     {
@@ -190,13 +191,22 @@ class GeoCity extends HActiveRecord
         $lat = (string)round(trim($lat), 5);
         $lng = (string)round(trim($lng), 5);
         $criteria = new CDbCriteria;
-        $criteria->condition = 'location_lat = '. $lat.' AND location_lng = '.$lng;
+        $criteria->condition = 'location_lat = ' . $lat . ' AND location_lng = ' . $lng;
         return CityCoordinates::model()->find($criteria);
     }
 
     public static function getCityFromGoogleMaps($lat, $lng)
     {
         $parser = new GoogleMapsGeoCode;
-        return $parser->getCityByCoordinates($lat, $lng);
+        $city = $parser->getCityByCoordinates($lat, $lng);
+        if ($city !== null) {
+            $coordinates = new CityCoordinates();
+            $coordinates->city_id = $city->id;
+            $coordinates->location_lat = $lat;
+            $coordinates->location_lng = $lng;
+            $coordinates->save();
+        }
+
+        return $city;
     }
 }

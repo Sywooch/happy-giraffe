@@ -27,6 +27,7 @@ return array(
 		'application.components.*',
 		'application.helpers.*',
         'application.widgets.*',
+        'application.vendor.*',
 		'ext.eoauth.*',
 		'ext.eoauth.lib.*',
 		'ext.lightopenid.*',

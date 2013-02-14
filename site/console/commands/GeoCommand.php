@@ -101,4 +101,17 @@ class GeoCommand extends CConsoleCommand
             $city->update(array('name_from', 'name_between'));
         }
     }
+
+    public function actionTest(){
+        $title = 'Шоркистры ст.';
+        $replace_types = array('г.', 'с.', 'ст.', 'п.', 'ст-ца', 'город', 'д.');
+        foreach ($replace_types as $replace_type) {
+            if (strpos($title, $replace_type . ' ') !== false)
+                $title = str_replace($replace_type . ' ', '', $title);
+            if (strpos($title, ' ' . $replace_type) !== false)
+                $title = str_replace(' ' . $replace_type, '', $title);
+        }
+
+        echo $title;
+    }
 }

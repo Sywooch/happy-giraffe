@@ -252,10 +252,13 @@ class GoogleMapsGeoCode extends GoogleMapsApiParser
     private function getCityTitle($address)
     {
         $title = self::getAddressComponent($address, 'locality');
-        if (strpos($title, 'г.') === 0)
-            $title = str_replace('г. ', '', $title);
-        if (strpos($title, 'город ') === 0)
-            $title = str_replace('город ', '', $title);
+        $replace_types = array('г.', 'с.', 'ст.', 'п.', 'ст-ца', 'город', 'д.', 'им.');
+        foreach ($replace_types as $replace_type) {
+            if (strpos($title, $replace_type . ' ') !== false)
+                $title = str_replace($replace_type . ' ', '', $title);
+            if (strpos($title, ' ' . $replace_type) !== false)
+                $title = str_replace(' ' . $replace_type, '', $title);
+        }
 
         return $title;
     }

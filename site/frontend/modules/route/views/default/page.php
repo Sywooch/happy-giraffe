@@ -176,5 +176,7 @@ Yii::app()->clientScript
             <?php $this->renderPartial('links', array('route' => $route)); ?>
 
         </div>
+
+        <?php $this->widget('application.widgets.commentWidget.CommentWidget', array('model' => $route, 'notice'=>$texts[8])); ?>
     </div>
 </div>

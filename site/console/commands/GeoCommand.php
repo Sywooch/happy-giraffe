@@ -34,16 +34,12 @@ class GeoCommand extends CConsoleCommand
         }
     }
 
-    public function actionParseRoutes($debug = false)
+    public function actionGoogleRoute()
     {
-        $parser = new RouteSeasonParser();
-        $parser->start($debug);
-    }
+        time_nanosleep(rand(0, 10), rand(0, 1000000000));
 
-    public function actionCoordinates()
-    {
-        $parser = new GoogleCoordinatesParser(false, true);
-        $parser->start();
+        $parser = new GoogleRouteParser();
+        $parser->startParse();
     }
 
     public function actionCopyRoutes()

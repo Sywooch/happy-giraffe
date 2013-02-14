@@ -38,13 +38,6 @@ var Routes = {
             }
         });
     },
-    FoundPlaceCallback:function (place, status) {
-        if (status == google.maps.places.PlacesServiceStatus.OK) {
-
-        }
-        console.log(place);
-        console.log(status);
-    },
     initializeAutoComplete:function () {
         var autocomplete_from = new google.maps.places.Autocomplete(document.getElementById('city_from'), {types:['(cities)']});
         var autocomplete_to = new google.maps.places.Autocomplete(document.getElementById('city_to'), {types:['(cities)']});

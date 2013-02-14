@@ -27,25 +27,25 @@ class RosneftParser
     private function getProxy()
     {
         $criteria = new CDbCriteria;
-        $criteria->compare('active', 0);
+        $criteria->compare('status', 0);
         $criteria->order = 'rank desc';
         $criteria->offset = rand(0, 10);
 
         $this->proxy = Proxy::model()->find($criteria);
-        $this->proxy->active = 1;
+        $this->proxy->status = 1;
         $this->proxy->save();
     }
 
     public function getRoute()
     {
         $criteria = new CDbCriteria;
-        $criteria->compare('active', 0);
+        $criteria->compare('status', 0);
         $criteria->order = 'rand()';
 
         $transaction = Yii::app()->db->beginTransaction();
         try {
             $this->route = Route::model()->find($criteria);
-            $this->route->active = 1;
+            $this->route->status = 1;
             $this->route->save();
 
             $transaction->commit();
@@ -58,7 +58,7 @@ class RosneftParser
     {
         $html = $this->loadPage();
         if (strpos($html, 'Сервис временно недоступен!')) {
-            $this->route->active = 3;
+            $this->route->status = 3;
             $this->route->save();
             return;
         }
@@ -107,7 +107,7 @@ class RosneftParser
         //echo $name.'-'.$region_name.'-'.$distance.'<br>';
 
         if (!empty($name) && !empty($region_name) && !empty($distance)) {
-            $p = new RosnPoints();
+            $p = new RoutePoint();
             $p->route_id = $this->route->id;
             $p->name = $name;
 
@@ -116,7 +116,7 @@ class RosneftParser
             $region = GeoRegion::model()->findByAttributes(array('name' => trim($region_name)));
             if ($region === null) {
                 $this->saveRegionToFile($region_name);
-                $this->route->active = 4;
+                $this->route->status = 4;
                 $this->route->save();
                 return ;
             }
@@ -128,7 +128,7 @@ class RosneftParser
             $p->time = $time;
             $p->save();
 
-            $this->route->active = 2;
+            $this->route->status = 2;
             $this->route->save();
         }
     }
@@ -174,7 +174,7 @@ class RosneftParser
     protected function changeBadProxy()
     {
         $this->proxy->rank = $this->proxy->rank - 2;
-        $this->proxy->active = 0;
+        $this->proxy->status = 0;
         $this->proxy->save();
         $this->getProxy();
     }

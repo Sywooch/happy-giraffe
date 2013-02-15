@@ -4,6 +4,8 @@ class DefaultController extends HController
 {
     public function actionIndex($id = null)
     {
+        Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
+
         if (empty($id)) {
             $this->render('index');
         } else {

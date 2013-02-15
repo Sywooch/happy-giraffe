@@ -54,9 +54,13 @@ class GoogleRouteParser extends GoogleMapsApiParser
         $result = $this->loadDirection();
         //var_dump($result);
 
-        if ($result['status'] == 'ZERO_RESULTS')
-            $this->route->delete();
-        else {
+        if ($result['status'] == 'ZERO_RESULTS'){
+            $this->route->status = Route::STATUS_ZERO_RESULT;
+            $this->route->save();
+        } elseif ($result['status'] == 'NOT_FOUND'){
+            $this->route->status = Route::STATUS_NOT_FOUND;
+            $this->route->save();
+        } else {
             if (!isset($result['routes'][0]))
                 return null;
             $legs = $result['routes'][0]['legs'][0];

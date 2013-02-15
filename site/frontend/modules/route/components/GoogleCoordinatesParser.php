@@ -59,7 +59,7 @@ class GoogleCoordinatesParser extends GoogleMapsApiParser
         } else {
             $this->log('status: ' . $result['status']);
 
-            if ($result['status'] == 'ZERO_RESULTS') {
+            if ($result['status'] == 'NOT_FOUND') {
                 echo $this->city->id . "\n";
             } else {
                 if ($attempt > 50) {

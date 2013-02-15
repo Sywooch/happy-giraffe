@@ -26,6 +26,12 @@ class Route extends CActiveRecord
     const STATUS_GOOGLE_PARSE_SUCCESS = 4;
 
     /**
+     * Google can't find this route
+     */
+    const STATUS_ZERO_RESULT = 10;
+    const STATUS_NOT_FOUND = 11;
+
+    /**
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.
      * @return Route the static model class

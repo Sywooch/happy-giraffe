@@ -272,6 +272,7 @@ class AjaxController extends HController
     public function actionSendComment()
     {
         Yii::import('site.frontend.modules.services.modules.recipeBook.models.*');
+        Yii::import('site.frontend.modules.route.models.*');
 
         if (Yii::app()->request->getPost('PhotoViewComment'))
             $_POST['Comment'] = CMap::mergeArray($_POST['Comment'], $_POST['PhotoViewComment']);
@@ -328,6 +329,8 @@ class AjaxController extends HController
     {
         Yii::import('application.modules.contest.models.*');
         Yii::import('application.modules.cook.models.*');
+        Yii::import('application.modules.route.models.*');
+
         if (!Yii::app()->request->isAjaxRequest || !isset($_POST['Removed']))
             Yii::app()->end();
         $model = call_user_func(array($_POST['Removed']['entity'], 'model'));

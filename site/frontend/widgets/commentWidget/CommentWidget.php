@@ -34,6 +34,7 @@ class CommentWidget extends CWidget
     public $popUp = false;
     public $commentModel  = 'Comment';
     public $photoContainer = false;
+    public $notice = '';
 
     /**
      * @var bool

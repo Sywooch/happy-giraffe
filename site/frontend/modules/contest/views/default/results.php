@@ -124,16 +124,16 @@
     } elseif ($this->contest->id == 7) {
         $prizes = array(
             '1' => array(
-                'title' => 'Дорожная сумка',
-                'model' => 'Avent',
+                'title' => 'Комод для детских вещей',
+                'model' => 'Chloe & Ryan',
             ),
             '2' => array(
-                'title' => 'Устройство для приготовления<br />детского питания',
-                'model' => 'Maman',
+                'title' => 'Развивающий коврик для малышей',
+                'model' => 'Felice',
             ),
             '3' => array(
-                'title' => 'Набор для пикника',
-                'model' => 'Nuby',
+                'title' => 'Подогреватель для детского питания',
+                'model' => 'Tigex',
             ),
             '4' => array(
                 'title' => 'Салфетка-игрушка',

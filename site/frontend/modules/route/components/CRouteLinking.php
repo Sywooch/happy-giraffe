@@ -7,22 +7,20 @@ class CRouteLinking
 {
     const LINKS_LIMIT = 10;
 
-    const WORDSTAT_LEVEL_1 = 5;
-    const WORDSTAT_LEVEL_2 = 30;
+    const WORDSTAT_LEVEL_1 = 2;
+    const WORDSTAT_LEVEL_2 = 20;
 
     /**
      * @var CRouteLinking
      */
     protected static $instance = null;
-
-    public $route_index = 0;
     public $routes;
     /**
      * @var Route
      */
     public $route;
 
-    private $links1 = array(
+    public $links1 = array(
         'Расстояние между {city_from2} и {city_to2} на машине',
         'Сколько километров от {city_from1} до {city_to1}',
         'Как доехать от {city_from1} до {city_to1}',
@@ -32,7 +30,7 @@ class CRouteLinking
         'Проложите маршрут от {city_from1} до {city_to1}'
     );
 
-    private $links2 = array(
+    public $links2 = array(
         'Расстояние между {city_from2} и {city_to2} на машине',
         'Сколько километров от {city_from1} до {city_to1}',
         'Как доехать от {city_from1} до {city_to1}',
@@ -45,7 +43,7 @@ class CRouteLinking
         'Состояние и отзывы о трассе {city_from}-{city_to}'
     );
 
-    private $links3 = array(
+    public $links3 = array(
         'Расстояние от {city_from1} до {city_to1}',
         'Расстояние между {city_from2} и {city_to2}',
         'Расстояние на машине от {city_from1} до {city_to1}',
@@ -95,14 +93,13 @@ class CRouteLinking
     {
         $this->loadRoutes();
 
+        $index = 0;
         while (true) {
-            $this->nextRoute();
+            $this->route = Route::model()->findByPk($this->routes[$index]);
+            $this->createRouteLinks();
 
-            $this->createRouteLinks($this->route->city_from_id);
-            $this->createRouteLinks($this->route->city_to_id);
-
-            $this->route_index++;
-            if ($this->route_index >= count($this->routes))
+            $index++;
+            if ($index >= count($this->routes))
                 break;
         }
     }
@@ -115,134 +112,64 @@ class CRouteLinking
         $this->routes = Yii::app()->db->createCommand()
             ->select('id')
             ->from(Route::model()->tableName())
-            ->order('wordstat desc')
+            ->order('wordstat_value desc')
             ->queryColumn();
     }
 
-    /**
-     * Load next route
-     */
-    private function nextRoute()
-    {
-        $this->route = Route::model()->findByPk($this->routes[$this->route_index]);
-
-        echo $this->route->id . ': ' . $this->route->cityFrom->name . ' - ' . $this->route->cityTo->name . ' <<' . $this->route->wordstat . '>> <br>';
-    }
-
-    /**
-     * Create output links from route with the city
-     *
-     * @param $city_id
-     */
-    private function createRouteLinks($city_id)
-    {
-        $city_routes = Yii::app()->db->createCommand()
-            ->select('id')
-            ->from(Route::model()->tableName())
-            ->where('(city_from_id = :city_id OR city_to_id = :city_id) AND id != :route',
-            array(
-                ':city_id' => $city_id,
-                ':route' => $this->route->id
-            ))
-            ->order('wordstat desc')
-            ->queryColumn();
-
-        echo 'City: ' . $city_id . '<br>';
-        print_r($city_routes);
-        echo '<br>';
-
-        $link_count = $this->createCityLinks($city_routes, 5);
-        echo $link_count . '<br>';
-
-        if ($link_count < 5 && count($city_routes) >= 5)
-            $this->createCityLinks($city_routes, 5 - $link_count, true);
-    }
-
-    /**
-     * Create links with the city of route
-     *
-     * @param array $city_routes possible routes ids
-     * @param int $links_count_needed how much links can we create
-     * @param bool $used
-     * @return int
-     */
-    private function createCityLinks($city_routes, $links_count_needed, $used = false)
-    {
-        $link_count = 0;
-        foreach ($city_routes as $route_id) {
-            $link_count += $this->createSomeLink($route_id, $used);
-
-            if ($link_count == $links_count_needed)
-                break;
-        }
-
-        return $link_count;
-    }
-
-    /**
-     * Create link from current route to other if it is possible
-     *
-     * @param $route_id
-     * @param bool $used can we use already used keywords
-     * @return int
-     */
-    private function createSomeLink($route_id, $used = false)
-    {
-        $route = Route::model()->findByPk($route_id);
-        echo $route->id . ': ' . $route->cityFrom->name . ' - ' . $route->cityTo->name . ' <<' . $route->wordstat . '>> <br>';
-
-        $keyword = $this->getAnchor($route_id, $used);
-        var_dump($keyword);
-
-        if ($keyword !== null && $this->linkNotExist($route_id)) {
-            echo $keyword->id . ' ' . $keyword->text . ' <<' . $keyword->wordstat . '>> <br>';
-
-            if ($this->createLink($this->route->id, $route_id, $keyword))
-                return 1;
-        }
-
-        return 0;
-    }
-
-    /**
-     * @param $route_id
-     * @param bool $used
-     * @return RouteKeyword
-     */
-    private function getAnchor($route_id, $used = false)
+    private function createRouteLinks()
     {
         $criteria = new CDbCriteria;
-        $criteria->compare('route_id', $route_id);
-        if ($used === false) {
-            $criteria->compare('used', 0);
-            $criteria->order = 'wordstat desc';
-        } else {
-            $criteria->order = 'used asc, wordstat desc';
+        $criteria->condition = '(city_from_id = :city1_id
+        OR city_to_id = :city1_id
+        OR city_from_id = :city2_id
+        OR city_to_id = :city2_id)
+        AND id != :route
+        AND out_links_count < 10
+        ';
+        $criteria->params = array(
+            ':city1_id' => $this->route->city_from_id,
+            ':city2_id' => $this->route->city_to_id,
+            ':route' => $this->route->id
+        );
+        $criteria->order = 'wordstat_value desc';
+        $criteria->limit = count($this->getLinks());
+
+        $city_routes = Route::model()->findAll($criteria);
+
+        $anchors = range(0, count($this->getLinks()) - 1);
+        shuffle($anchors);
+        foreach ($city_routes as $city_route) {
+            $this->createRouteLink($city_route, array_shift($anchors));
         }
-        return RouteKeyword::model()->find($criteria);
     }
 
     /**
-     * Creates link
+     * Создать ссылка с переданного машрута на текущий маршрут
      *
-     * @param int $r1 route from
-     * @param int $r2 route to
-     * @param RouteKeyword $keyword
+     * @param Route $route маршрут с которого можно поставить ссылку
+     * @param $anchor_id анкор для ссылки
      * @return int
      */
-    private function createLink($r1, $r2, $keyword)
+    private function createRouteLink($route, $anchor_id)
     {
         $link = new RouteLink;
-        $link->route_from_id = $r1;
-        $link->route_to_id = $r2;
-        $link->keyword = $keyword->text;
-        if ($link->save()) {
-            $keyword->used++;
-            $keyword->update(array('used'));
-            return 1;
-        }
+        $link->route_from_id = $route->id;
+        $link->route_to_id = $this->route->id;
+        $link->anchor = $anchor_id;
+        $link->save();
+    }
 
-        return 0;
+    /**
+     * @return array
+     */
+    public function getLinks()
+    {
+        if ($this->route->wordstat_value > self::WORDSTAT_LEVEL_2)
+            return $this->links3;
+        if ($this->route->wordstat_value > self::WORDSTAT_LEVEL_1)
+            return $this->links2;
+
+        return $this->links1;
     }
 
     /**
@@ -272,7 +199,7 @@ class CRouteLinking
             ->where('wordstat_value > ' . self::WORDSTAT_LEVEL_2)
             ->queryScalar();
         echo $count_max . ' - ' . ($count_max * 29) . "\n";
-        $all+= $count_max * 29;
+        $all += $count_max * 29;
 
         $count_mid = Yii::app()->db->createCommand()
             ->select('count(*)')
@@ -280,17 +207,17 @@ class CRouteLinking
             ->where('wordstat_value > ' . self::WORDSTAT_LEVEL_1 . ' AND wordstat_value <= ' . self::WORDSTAT_LEVEL_2)
             ->queryScalar();
         echo $count_mid . ' - ' . ($count_mid * 10) . "\n";
-        $all+= $count_mid * 10;
+        $all += $count_mid * 10;
 
         $count_min = Yii::app()->db->createCommand()
             ->select('count(*)')
             ->from('routes__routes')
-            ->where('wordstat_value < ' . self::WORDSTAT_LEVEL_1)
+            ->where('wordstat_value <= ' . self::WORDSTAT_LEVEL_1)
             ->queryScalar();
         echo $count_min . ' - ' . ($count_min * 7) . "\n";
-        $all+= $count_min * 7;
+        $all += $count_min * 7;
 
-        echo $all/10;
+        echo $all / 10;
     }
 
     //*****************************************************************************************************************/

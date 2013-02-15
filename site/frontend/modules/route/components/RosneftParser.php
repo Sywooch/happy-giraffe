@@ -74,14 +74,14 @@ class RosneftParser
         RoutePoint::model()->deleteAll('route_id = :route_id', array(':route_id' => $this->route->id));
 
         foreach ($document->find('.timing_content .timing_city') as $city) {
+            $name = trim(pq($city)->find('.timing_city_item')->text());
+            $name = $this->normalizeCity($name);
 
             $region_city = trim(pq($city)->find('.region_city')->text());
             if (!empty($region_city)) {
                 $region = $region_city;
-                $region = $this->normalizeRegion($region);
+                $region = $this->normalizeRegion($region, $name);
             }
-
-            $name = trim(pq($city)->find('.timing_city_item')->text());
 
             if ($i > 0)
                 $this->saveStep($name, $region, $distance, $time);
@@ -197,10 +197,11 @@ class RosneftParser
         fwrite($fh, $name . "\n");
     }
 
-    public function normalizeRegion($region)
+    public function normalizeRegion($region, $city_name)
     {
         $region = str_replace(' (регион)', '', $region);
 
+        if ($city_name == 'Киев') return 'Киев';
         if ($region == 'Чеченская Республика (Ичкерия)') return 'Чеченская Республика';
         if ($region == 'Еврейская авт. область') return 'Еврейская автономная область';
         if ($region == 'Волгоград') return 'Волгоградская область';
@@ -213,5 +214,12 @@ class RosneftParser
         if ($region == 'Ханты-Манс. авт. окр.') return 'Ханты-Мансийский Автономный округ';
 
         return $region;
+    }
+
+    public function normalizeCity($city_name)
+    {
+        if ($city_name == 'Кызыл-Орда') return 'Кызылорда';
+
+        return $city_name;
     }
 }

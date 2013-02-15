@@ -65,8 +65,23 @@ class GeoCommand extends CConsoleCommand
         }
     }
 
-    public function actionShowCounts(){
+    public function actionShowCounts()
+    {
         CRouteLinking::model()->showCounts();
+    }
+
+    public function actionReturnRoutes()
+    {
+        for ($i = 1; $i <= 71008; $i++) {
+            $r = Route::model()->findByPk($i);
+            if ($r !== null)
+                $r->createReturnRoute();
+        }
+    }
+
+    public function actionLinks(){
+        $l = new CRouteLinking;
+        $l->start();
     }
 
     public function actionRosneft()

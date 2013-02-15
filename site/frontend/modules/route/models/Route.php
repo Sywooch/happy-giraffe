@@ -10,12 +10,14 @@
  * @property integer $wordstat_value
  * @property integer $distance
  * @property integer $status
+ * @property integer $out_links_count
  *
  * The followings are the available model relations:
  * @property RouteLink[] $outLinks
  * @property RouteLink[] $inLinks
  * @property GeoCity $cityFrom
  * @property GeoCity $cityTo
+ * @property RoutePoint $points
  */
 class Route extends CActiveRecord
 {
@@ -30,6 +32,7 @@ class Route extends CActiveRecord
      */
     const STATUS_ZERO_RESULT = 10;
     const STATUS_NOT_FOUND = 11;
+    const STATUS_NO_ROUTE = 12;
 
     /**
      * Returns the static model of the specified AR class.
@@ -58,7 +61,7 @@ class Route extends CActiveRecord
         // will receive user inputs.
         return array(
             array('city_from_id, city_to_id', 'required'),
-            array('wordstat_value', 'numerical', 'integerOnly' => true),
+            array('wordstat_value, out_links_count', 'numerical', 'integerOnly' => true),
             array('city_from_id, city_to_id', 'length', 'max' => 11),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
@@ -75,7 +78,8 @@ class Route extends CActiveRecord
         // class name for the relations automatically generated below.
         return array(
             'inLinks' => array(self::HAS_MANY, 'RouteLink', 'route_to_id'),
-            'outLinks' => array(self::HAS_MANY, 'RouteLink', 'route_from_id', 'order' => 'created asc'),
+            'outLinks' => array(self::HAS_MANY, 'RouteLink', 'route_from_id'),
+            'points' => array(self::HAS_MANY, 'RoutePoint', 'route_id'),
             'outLinksCount' => array(self::STAT, 'RouteLink', 'route_from_id'),
             'cityFrom' => array(self::BELONGS_TO, 'GeoCity', 'city_from_id'),
             'cityTo' => array(self::BELONGS_TO, 'GeoCity', 'city_to_id'),
@@ -87,6 +91,7 @@ class Route extends CActiveRecord
      *
      * @param $city_from GeoCity
      * @param $city_to GeoCity
+     * @return Route|null
      */
     public static function createNewRoute($city_from, $city_to)
     {
@@ -95,9 +100,59 @@ class Route extends CActiveRecord
         $route->city_to_id = $city_to->id;
         $route->save();
 
-        GoogleRouteParser::parseRoute($route);
+        $success = GoogleRouteParser::parseRoute($route);
+        if ($success)
+            $route->createReturnRoute();
 
         return $route;
+    }
+
+    public function createReturnRoute()
+    {
+        //если обратный маршрут не существует
+        if (Route::model()->findByAttributes(array('city_from_id' => $this->city_to_id, 'city_to_id' => $this->city_from_id)) === null) {
+            //создаем обратный маршрут
+            $route = new Route();
+            $route->city_from_id = $this->city_to_id;
+            $route->city_to_id = $this->city_from_id;
+            $route->wordstat_value = $this->wordstat_value;
+            $route->distance = $this->distance;
+            $route->status = $this->status;
+            $route->save();
+
+            //копируем промежуточный пункты
+            $criteria = new CDbCriteria;
+            $criteria->compare('route_id', $this->id);
+            $criteria->order = 'id desc';
+            $points = RoutePoint::model()->findAll($criteria);
+            foreach ($points as $key => $point) {
+                if (isset($points[$key + 1]))
+                    $next_point = $points[$key + 1];
+                else
+                    $next_point = null;
+
+                $new_point = new RoutePoint();
+                $new_point->route_id = $route->id;
+
+                if ($next_point !== null) {
+                    $new_point->name = $next_point->name;
+                    $new_point->region_id = $next_point->region_id;
+                    $new_point->city_id = $next_point->city_id;
+                } else {
+                    $new_point->name = $route->cityTo->name;
+                    $new_point->region_id = $route->cityTo->region_id;
+                    $new_point->city_id = $route->city_to_id;
+                }
+
+                $new_point->distance = $point->distance;
+                $new_point->time = $point->time;
+                $new_point->save();
+            }
+
+            return $route;
+        }
+
+        return null;
     }
 
     /**

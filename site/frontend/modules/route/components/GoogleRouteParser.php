@@ -38,12 +38,14 @@ class GoogleRouteParser extends GoogleMapsApiParser
 
     /**
      * @param $route Route
+     * @return bool Parsing success
      */
     public static function parseRoute($route)
     {
         $p = new GoogleRouteParser;
         $p->route = $route;
-        $p->parse();
+
+        return $p->parse();
     }
 
     private function parse()
@@ -60,9 +62,10 @@ class GoogleRouteParser extends GoogleMapsApiParser
         } elseif ($result['status'] == 'NOT_FOUND'){
             $this->route->status = Route::STATUS_NOT_FOUND;
             $this->route->save();
-        } else {
-            if (!isset($result['routes'][0]))
-                return null;
+        } elseif (!isset($result['routes'][0])) {
+            $this->route->status = Route::STATUS_NO_ROUTE;
+            $this->route->save();
+        }else{
             $legs = $result['routes'][0]['legs'][0];
             $this->route->distance = round($legs['distance']['value'] / 1000);
             $this->route->save();
@@ -71,7 +74,11 @@ class GoogleRouteParser extends GoogleMapsApiParser
 
             $this->route->status = Route::STATUS_GOOGLE_PARSE_SUCCESS;
             $this->route->save();
+
+            return true;
         }
+
+        return false;
     }
 
     /**

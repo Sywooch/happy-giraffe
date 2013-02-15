@@ -20,7 +20,11 @@ class RosneftParser
 
         while ($this->route !== null) {
             $this->getRoute();
-            $this->parseRoute();
+            $result = $this->parseRoute();
+            if (!$result) {
+                $this->route->status = Route::STATUS_ROSNEFT_NOT_FOUND;
+                $this->route->save();
+            }
         }
     }
 
@@ -58,9 +62,7 @@ class RosneftParser
     {
         $html = $this->loadPage();
         if (strpos($html, 'Сервис временно недоступен!')) {
-            $this->route->status = 3;
-            $this->route->save();
-            return;
+            return false;
         }
         $document = phpQuery::newDocument($html);
 
@@ -68,6 +70,9 @@ class RosneftParser
         $distance = 0;
         $time = 0;
         $sum_distance = 0;
+
+        RoutePoint::model()->deleteAll('route_id = :route_id', array(':route_id' => $this->route->id));
+
         foreach ($document->find('.timing_content .timing_city') as $city) {
 
             $region_city = trim(pq($city)->find('.region_city')->text());
@@ -99,13 +104,13 @@ class RosneftParser
         $this->route->update(array('distance'));
 
         $document->unloadDocument();
+
+        return true;
     }
 
 
     public function saveStep($name, $region_name, $distance, $time)
     {
-        //echo $name.'-'.$region_name.'-'.$distance.'<br>';
-
         if (!empty($name) && !empty($region_name) && !empty($distance)) {
             $p = new RoutePoint();
             $p->route_id = $this->route->id;
@@ -116,9 +121,8 @@ class RosneftParser
             $region = GeoRegion::model()->findByAttributes(array('name' => trim($region_name)));
             if ($region === null) {
                 $this->saveRegionToFile($region_name);
-                $this->route->status = 4;
-                $this->route->save();
-                return ;
+                Yii::app()->end();
+                return;
             }
             $p->region_id = $region->id;
             $city = GeoCity::model()->findByAttributes(array('region_id' => $region->id, 'name' => trim($name)));
@@ -128,7 +132,7 @@ class RosneftParser
             $p->time = $time;
             $p->save();
 
-            $this->route->status = 2;
+            $this->route->status = Route::STATUS_ROSNEFT_FOUND;
             $this->route->save();
         }
     }

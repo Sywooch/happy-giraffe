@@ -1,6 +1,7 @@
 <?php
 /**
  * @var CActiveDataProvider $dataProvider
+ * @var $this CommentWidget
  */
 
 $form = $this->render('add_comment', array('comment_model' => $comment_model), true);
@@ -8,8 +9,11 @@ $form = $this->render('add_comment', array('comment_model' => $comment_model), t
 $template = '
 <div class="default-comments" id="comment_list">
     <div class="comments-meta clearfix">
-        <div class="title">' . $this->title . '</div>
-        <div class="count">' . $dataProvider->totalItemCount . '</div>
+        <div class="clearfix">
+            <div class="title">' . $this->title . '</div>
+            <div class="count">' . $dataProvider->totalItemCount . '</div>
+        </div>
+        <p class="margin-5">'.$this->notice.'</p>
     </div>' . $form . '{items}
 </div>
 <div class="pagination pagination-center clearfix">

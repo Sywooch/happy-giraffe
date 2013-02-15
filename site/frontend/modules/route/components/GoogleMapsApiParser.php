@@ -5,7 +5,7 @@
  */
 class GoogleMapsApiParser
 {
-    protected $debug_mode = true;
+    protected $debug_mode = false;
     protected $proxy;
     protected $use_proxy = true;
 
@@ -20,11 +20,13 @@ class GoogleMapsApiParser
         curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:17.0) Gecko/20100101 Firefox/17.0');
         curl_setopt($ch, CURLOPT_URL, $url);
 
-        curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
-        curl_setopt($ch, CURLOPT_PROXY, $this->getProxy());
+        if ($this->use_proxy) {
+            curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
+            curl_setopt($ch, CURLOPT_PROXY, $this->getProxy());
 
-        curl_setopt($ch, CURLOPT_PROXYUSERPWD, "alexhg:Nokia1111");
-        curl_setopt($ch, CURLOPT_PROXYAUTH, 1);
+            curl_setopt($ch, CURLOPT_PROXYUSERPWD, "alexhg:Nokia1111");
+            curl_setopt($ch, CURLOPT_PROXYAUTH, 1);
+        }
 
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
@@ -36,8 +38,10 @@ class GoogleMapsApiParser
         if (isset($result['status']) && $result['status'] == 'OK') {
             return $result;
         } else {
-            if (isset($result['status'])){
-                echo $result['status']."\n";
+            if (!$this->use_proxy)
+                return $result;
+
+            if (isset($result['status'])) {
                 if (in_array($result['status'], array('ZERO_RESULTS', 'NOT_FOUND')))
                     return $result;
             }

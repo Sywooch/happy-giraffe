@@ -17,12 +17,12 @@
  * @property GeoCity $city
  * @property GeoRegion $region
  */
-class RosnPoints extends CActiveRecord
+class RoutePoint extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return RosnPoints the static model class
+	 * @return RoutePoint the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -34,7 +34,7 @@ class RosnPoints extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'routes__rosn_points';
+		return 'routes__points';
 	}
 
 	/**

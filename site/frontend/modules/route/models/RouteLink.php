@@ -104,4 +104,6 @@ class RouteLink extends HActiveRecord
         $key->wordstat = rand(10, 300);
         $key->save();
     }
+
+
 }

@@ -5,7 +5,8 @@
  */
 class GeoCommand extends CConsoleCommand
 {
-    public function beforeAction($action){
+    public function beforeAction($action)
+    {
         Yii::import('site.frontend.modules.geo.components.*');
         Yii::import('site.frontend.modules.geo.models.*');
         Yii::import('site.frontend.modules.route.models.*');
@@ -34,16 +35,12 @@ class GeoCommand extends CConsoleCommand
         }
     }
 
-    public function actionParseRoutes($debug = false)
+    public function actionGoogleRoute()
     {
-        $parser = new RouteSeasonParser();
-        $parser->start($debug);
-    }
+        time_nanosleep(rand(0, 10), rand(0, 1000000000));
 
-    public function actionCoordinates()
-    {
-        $parser = new GoogleCoordinatesParser(false, true);
-        $parser->start();
+        $parser = new GoogleRouteParser();
+        $parser->startParse();
     }
 
     public function actionCopyRoutes()
@@ -68,41 +65,13 @@ class GeoCommand extends CConsoleCommand
         }
     }
 
-    public function actionCopyCities()
-    {
-        $criteria = new CDbCriteria;
-        $criteria->limit = 100;
-        $criteria->offset = 0;
-
-        $models = array(0);
-        while (!empty($models)) {
-            $models = GeoCity::model()->findAll($criteria);
-
-            foreach ($models as $model) {
-                $m = new SeoCityCoordinates;
-                $m->city_id = $model->id;
-                $m->save();
-            }
-
-            $criteria->offset += 100;
-        }
+    public function actionShowCounts(){
+        CRouteLinking::model()->showCounts();
     }
 
     public function actionRosneft()
     {
         $parser = new RosneftParser;
         $parser->start();
-    }
-
-    public function actionDecl(){
-        $c = new CityDeclension();
-
-        $cities = GeoCity::model()->findAll('type="г"');
-        foreach($cities as $city){
-            list($n1, $n2) = $c->getDeclensions($city->name);
-            $city->name_from = $n1;
-            $city->name_between = $n2;
-            $city->update(array('name_from', 'name_between'));
-        }
     }
 }

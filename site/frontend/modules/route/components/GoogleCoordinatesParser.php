@@ -4,7 +4,7 @@
  * Date: 23.01.13
  */
 
-class GoogleCoordinatesParser
+class GoogleCoordinatesParser extends GoogleMapsApiParser
 {
     /**
      * @var SeoCityCoordinates
@@ -14,9 +14,8 @@ class GoogleCoordinatesParser
      * @var GeoCity
      */
     private $city;
-    private $proxy;
-    private $debug_mode = false;
-    private $use_proxy;
+    protected $debug_mode = false;
+    protected $use_proxy;
 
     public function __construct($debug_mode = false, $use_proxy = false)
     {
@@ -28,7 +27,6 @@ class GoogleCoordinatesParser
     {
         Yii::import('site.seo.models.*');
         time_nanosleep(rand(0, 60), rand(0, 1000000000));
-        $this->changeProxy();
 
         for ($i = 0; $i < 10000; $i++) {
             $this->getCity();
@@ -59,12 +57,11 @@ class GoogleCoordinatesParser
         if (isset($result['status']) && $result['status'] == 'OK') {
             $this->saveCoordinates($result['results'][0]['geometry']);
         } else {
-            if ($result['status'] == 'ZERO_RESULTS') {
-                $this->log('status: ' . $result['status'] . ' - ' . $this->proxy);
+            $this->log('status: ' . $result['status']);
+
+            if ($result['status'] == 'NOT_FOUND') {
                 echo $this->city->id . "\n";
             } else {
-                $this->log('status: ' . $result['status'] . ' - ' . $this->proxy);
-                $this->changeProxy();
                 if ($attempt > 50) {
                     var_dump($text);
                     Yii::app()->end();
@@ -74,34 +71,6 @@ class GoogleCoordinatesParser
                 $this->parseCity($attempt);
             }
         }
-    }
-
-    public function loadPage($url)
-    {
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:17.0) Gecko/20100101 Firefox/17.0');
-        curl_setopt($ch, CURLOPT_URL, $url);
-
-        if ($this->use_proxy) {
-            curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
-            curl_setopt($ch, CURLOPT_PROXY, $this->proxy);
-
-            curl_setopt($ch, CURLOPT_PROXYUSERPWD, "alexhg:Nokia1111");
-            curl_setopt($ch, CURLOPT_PROXYAUTH, 1);
-        }
-
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
-        $result = curl_exec($ch);
-        curl_close($ch);
-
-        if ($result === false) {
-            $this->changeProxy();
-            return $this->loadPage($url);
-        }
-
-        return $result;
     }
 
     public function saveCoordinates($result)
@@ -121,39 +90,5 @@ class GoogleCoordinatesParser
         } catch (Exception $err) {
 
         }
-    }
-
-    public function changeProxy()
-    {
-        if ($this->use_proxy) {
-            $list = $this->getProxyList();
-            $this->proxy = $list[rand(0, count($list) - 1)];
-        }
-    }
-
-    public function getProxyList()
-    {
-        $cache_id = 'proxy_list';
-        $value = Yii::app()->cache->get($cache_id);
-        if ($value === false) {
-            $file = file_get_contents('http://awmproxy.com/allproxy.php?country=1');
-
-            //select only rus proxy
-            preg_match_all('/([\d:\.]+);/', $file, $matches);
-            $value = array();
-            for ($i = 0; $i < count($matches[0]); $i++) {
-                $value[] = $matches[1][$i];
-            }
-
-            Yii::app()->cache->set($cache_id, $value, 30000);
-        }
-
-        return $value;
-    }
-
-    public function log($str)
-    {
-        if ($this->debug_mode)
-            echo $str . "\n";
     }
 }

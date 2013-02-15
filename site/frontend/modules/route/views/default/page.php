@@ -176,5 +176,13 @@ Yii::app()->clientScript
             <?php $this->renderPartial('links', array('route' => $route)); ?>
 
         </div>
+
+        <?php $this->widget('application.widgets.commentWidget.CommentWidget', array('model' => $route, 'notice'=>$texts[8])); ?>
+
+        <?php
+        $remove_tmpl = $this->beginWidget('site.frontend.widgets.removeWidget.RemoveWidget');
+        $remove_tmpl->registerTemplates();
+        $this->endWidget();
+        ?>
     </div>
 </div>

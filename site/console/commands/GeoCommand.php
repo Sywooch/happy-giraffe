@@ -5,7 +5,8 @@
  */
 class GeoCommand extends CConsoleCommand
 {
-    public function beforeAction($action){
+    public function beforeAction($action)
+    {
         Yii::import('site.frontend.modules.geo.components.*');
         Yii::import('site.frontend.modules.geo.models.*');
         Yii::import('site.frontend.modules.route.models.*');
@@ -90,28 +91,16 @@ class GeoCommand extends CConsoleCommand
         $parser->start();
     }
 
-    public function actionDecl(){
+    public function actionDecl()
+    {
         $c = new CityDeclension();
 
         $cities = GeoCity::model()->findAll('type="г"');
-        foreach($cities as $city){
+        foreach ($cities as $city) {
             list($n1, $n2) = $c->getDeclensions($city->name);
             $city->name_from = $n1;
             $city->name_between = $n2;
             $city->update(array('name_from', 'name_between'));
         }
-    }
-
-    public function actionTest(){
-        $title = 'Шоркистры ст.';
-        $replace_types = array('г.', 'с.', 'ст.', 'п.', 'ст-ца', 'город', 'д.');
-        foreach ($replace_types as $replace_type) {
-            if (strpos($title, $replace_type . ' ') !== false)
-                $title = str_replace($replace_type . ' ', '', $title);
-            if (strpos($title, ' ' . $replace_type) !== false)
-                $title = str_replace(' ' . $replace_type, '', $title);
-        }
-
-        echo $title;
     }
 }

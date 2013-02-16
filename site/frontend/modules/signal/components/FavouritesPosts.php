@@ -5,7 +5,7 @@
  */
 class FavouritesPosts extends PostForCommentator
 {
-    protected $nextGroup = 'TrafficPosts';
+    protected $nextGroup = 'UserPosts';
     protected $entities = array(
         'CommunityContent' => array(24),
     );
@@ -34,9 +34,9 @@ class FavouritesPosts extends PostForCommentator
     public function getCriteria()
     {
         $ids = array_merge(
-            Favourites::getIdList(Favourites::BLOCK_INTERESTING, 2)
+            Favourites::getIdList(Favourites::BLOCK_INTERESTING, 4)
                 + Favourites::getIdList(Favourites::BLOCK_BLOGS, 6)
-                + Favourites::getIdList(Favourites::BLOCK_SOCIAL_NETWORKS, 10)
+                + Favourites::getIdList(Favourites::BLOCK_SOCIAL_NETWORKS, 5)
         );
         if (empty($ids))
             return null;

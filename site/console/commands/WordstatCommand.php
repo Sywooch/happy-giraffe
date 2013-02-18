@@ -85,4 +85,9 @@ class WordstatCommand extends CConsoleCommand
         }
         fclose($handle);
     }
+
+    public function actionTest(){
+        $parser = new WordstatParser();
+        $parser->start(false);
+    }
 }

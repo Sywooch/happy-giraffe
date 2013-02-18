@@ -111,8 +111,8 @@ class KeywordRelation extends CActiveRecord
                 Yii::app()->db_keywords->createCommand()
                     ->insert(self::model()->tableName(),
                     array(
-                        ':keyword_from_id' => $keyword_from_id,
-                        ':keyword_to_id' => $keyword_to_id,
+                        'keyword_from_id' => $keyword_from_id,
+                        'keyword_to_id' => $keyword_to_id,
                     ));
             } catch (Exception $err) {
 

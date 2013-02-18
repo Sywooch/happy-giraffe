@@ -5943,7 +5943,8 @@ label {
 .map-route-other_title {font-size: 17px;font-weight: normal;margin-bottom: 20px;}
 .map-route-other_ul {
 	float: left;
-	width: 50%;
+	width: 45%;
+	margin-right: 5%;
 }
 .map-route-other_li {
 	padding: 7px 0 7px 25px;

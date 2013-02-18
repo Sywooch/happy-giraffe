@@ -349,39 +349,44 @@
 					
 					<div class="map-route-other">
 						<h3 class="map-route-other_title">С этим маршрутом искали</h3>
-						<ul class="map-route-other_ul clearfix">
-							<li class="map-route-other_li">
-								<a href="">Маршрут  Киев - Москва</a>
-							</li>
-							<li class="map-route-other_li">
-								<a href="">Маршрут  Киев - Москва</a>
-							</li>
-							<li class="map-route-other_li">
-								<a href="">Маршрут  Киев - Москва</a>
-							</li>
-							<li class="map-route-other_li">
-								<a href="">Маршрут  Киев - Санкт-Петербург</a>
-							</li>
-							<li class="map-route-other_li">
-								<a href="">Маршрут  Киев - Москва</a>
-							</li>
-							<li class="map-route-other_li">
-								<a href="">Маршрут  Киев - Санкт-Петербург</a>
-							</li>
-							<li class="map-route-other_li">
-								<a href="">Маршрут  Киев - Москва</a>
-							</li>
-							</li>
-							<li class="map-route-other_li">
-								<a href="">Маршрут  Киев - Москва</a>
-							</li>
-							<li class="map-route-other_li">
-								<a href="">Маршрут  Киев - Санкт-Петербург</a>
-							</li>
-							<li class="map-route-other_li">
-								<a href="">Маршрут  Киев - Москва</a>
-							</li>
-						</ulmap-route-other_ul>
+						<div class="clearfix">
+							<ul class="map-route-other_ul clearfix">
+								<li class="map-route-other_li">
+									<a href="">Маршрут  Киев - Москва</a>
+								</li>
+								<li class="map-route-other_li">
+									<a href="">Маршрут  Киев - Москва</a>
+								</li>
+								<li class="map-route-other_li">
+									<a href="">Маршрут  Киев - Москва</a>
+								</li>
+								<li class="map-route-other_li">
+									<a href="">Маршрут  Киев - Санкт-Петербург Петербург Петербург Санкт-Петербург Санкт-Петербург Санкт-Петербург- Санкт-Петербург</a>
+								</li>
+								<li class="map-route-other_li">
+									<a href="">Маршрут  Киев - Москва</a>
+								</li>
+							</ul>
+							
+							<ul class="map-route-other_ul clearfix">
+								<li class="map-route-other_li">
+									<a href="">Маршрут  Киев - Санкт-Петербург</a>
+								</li>
+								<li class="map-route-other_li">
+									<a href="">Маршрут  Киев - Москва - Киев - Санкт-Петербург  Киев - Санкт-Петербург</a>
+								</li>
+								</li>
+								<li class="map-route-other_li">
+									<a href="">Маршрут  Киев - Москва</a>
+								</li>
+								<li class="map-route-other_li">
+									<a href="">Маршрут  Киев - Санкт-Петербург</a>
+								</li>
+								<li class="map-route-other_li">
+									<a href="">Маршрут  Киев - Москва</a>
+								</li>
+							</ul>
+						</div>
 					</div>
 					
 					

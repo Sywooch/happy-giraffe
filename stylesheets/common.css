@@ -329,9 +329,9 @@ textarea.error,
 .clear { width: 99%; clear: both;}
 .clearfix:after {display:block;content:'.';height:0;clear:both;line-height:0;font-size:0;}
 
-::-webkit-input-placeholder,
+::-webkit-input-placeholder { color: #ddd;font-weight: normal;}
 :-moz-placeholder,
-.placeholder { color: #ddd !important;font-weight: normal !important;}
+.placeholder { color: #ddd;font-weight: normal;}
 .disabled {cursor:default;}
 /* /cosmetic layout */
 
@@ -5941,10 +5941,11 @@ label {
 }
 .map-route-other {margin: 0 10px 40px;}
 .map-route-other_title {font-size: 17px;font-weight: normal;margin-bottom: 20px;}
-.map-route-other_ul {}
+.map-route-other_ul {
+	float: left;
+	width: 50%;
+}
 .map-route-other_li {
-	display: inline-block;*zoom:1;*display:inline;
-	width: 40%;
 	padding: 7px 0 7px 25px;
 	background: url(/images/services/map-route/map-route-other_li.png) no-repeat 0 50%;
 }

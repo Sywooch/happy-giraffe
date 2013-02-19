@@ -10,20 +10,35 @@
                 'active' => (Yii::app()->controller->uniqueId == 'club/names'),
                 'visible' => Yii::app()->user->checkAccess('names')
             ),
-            array('label' => 'Склонения городов',
-                'url' => array('/club/city/'),
-                'active' => (Yii::app()->controller->uniqueId == 'club/city'),
-                'visible' => Yii::app()->user->checkAccess('geo')
-            ),
             array('label' => 'Маршруты',
-                'url' => array('/club/fuelCost/'),
-                'active' => (Yii::app()->controller->uniqueId == 'club/fuelCost'),
+                'url' => array('/geo/route/'),
+                'active' => (Yii::app()->controller->uniqueId == 'geo/route'),
                 'visible' => Yii::app()->user->checkAccess('routes'),
                 'items'=>array(
                     array(
+                        'label' => 'Маршруты',
+                        'url' => array('/geo/route/'),
+                        'active' => (Yii::app()->controller->uniqueId == 'geo/routes'),
+                    ),
+                    array(
+                        'label' => 'Регионы',
+                        'url' => array('/geo/region/'),
+                        'active' => (Yii::app()->controller->uniqueId == 'geo/region'),
+                    ),
+                    array(
+                        'label' => 'Города',
+                        'url' => array('/geo/city/'),
+                        'active' => (Yii::app()->controller->uniqueId == 'geo/city'),
+                    ),
+                    array(
                         'label' => 'Цены на топливо',
-                        'url' => array('/club/fuelCost/'),
-                        'active' => (Yii::app()->controller->uniqueId == 'club/fuelCost'),
+                        'url' => array('/geo/fuelCost/'),
+                        'active' => (Yii::app()->controller->uniqueId == 'geo/fuelCost'),
+                    ),
+                    array(
+                        'label' => 'Склонения городов',
+                        'url' => array('/geo/cityDeclension/'),
+                        'active' => (Yii::app()->controller->uniqueId == 'geo/cityDeclension'),
                     ),
                 ),
             ),
@@ -97,60 +112,60 @@
             ),
             array('label' => 'Кулинария',
                 'active' => (in_array(Yii::app()->controller->uniqueId, array(
-                    'club/cookIngredients',
-                    'club/cookSpices',
-                    'club/cookChooseCategory',
-                    'club/cookChoose',
-                    'club/cookSpicesCategories',
-                    'club/cookDecoration',
-                    'club/cookUnit'
+                    'cook/cookIngredients',
+                    'cook/cookSpices',
+                    'cook/cookChooseCategory',
+                    'cook/cookChoose',
+                    'cook/cookSpicesCategories',
+                    'cook/cookDecoration',
+                    'cook/cookUnit'
                 ))),
-                'url' => array('/club/cookIngredients/'),
+                'url' => array('/cook/cookIngredients/'),
                 //'visible' => Yii::app()->user->checkAccess('cook_ingredients'),
                 'items' => array(
                     array(
                         'label' => 'Ингредиенты',
-                        'url' => array('/club/cookIngredients/'),
+                        'url' => array('/cook/cookIngredients/'),
                         'visible' => Yii::app()->user->checkAccess('cook_ingredients'),
                     ),
                     array(
                         'label' => 'Меры',
-                        'url' => array('/club/cookUnit/'),
+                        'url' => array('/cook/cookUnit/'),
                         'visible' => Yii::app()->user->checkAccess('cook_ingredients'),
                     ),
                     array(
                         'label' => 'Cпеции',
-                        'url' => array('/club/cookSpices/'),
+                        'url' => array('/cook/cookSpices/'),
                         'visible' => Yii::app()->user->checkAccess('cook_spices'),
                     ),
                     array(
                         'label' => 'Cпеции категории',
-                        'url' => array('/club/cookSpicesCategories/'),
+                        'url' => array('/cook/cookSpicesCategories/'),
                         'visible' => Yii::app()->user->checkAccess('cook_spices'),
                     ),
                     array(
                         'label' => 'Как выбрать',
-                        'url' => array('/club/cookChoose/'),
+                        'url' => array('/cook/cookChoose/'),
                         'visible' => Yii::app()->user->checkAccess('cook_choose'),
                     ),
                     array(
                         'label' => 'Как выбрать категории',
-                        'url' => array('/club/cookChooseCategory/'),
+                        'url' => array('/cook/cookChooseCategory/'),
                         'visible' => Yii::app()->user->checkAccess('cook_choose'),
                     ),
                     array(
                         'label' => 'Украшения блюд',
-                        'url' => array('/club/cookDecoration/'),
+                        'url' => array('/cook/cookDecoration/'),
                         'visible' => Yii::app()->user->checkAccess('cook_decorations'),
                     ),
                     array(
                         'label' => 'Кухни',
-                        'url' => array('/club/cookCuisine/'),
+                        'url' => array('/cook/cookCuisine/'),
                         'visible' => Yii::app()->user->checkAccess('cook_choose'),
                     ),
                     array(
                         'label' => 'Сборки',
-                        'url' => array('/club/cookRecipeTag/'),
+                        'url' => array('/cook/cookRecipeTag/'),
                         'visible' => Yii::app()->user->checkAccess('cook_choose'),
                     ),
                 )

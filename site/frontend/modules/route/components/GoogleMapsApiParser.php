@@ -68,8 +68,8 @@ class GoogleMapsApiParser
     protected function changeProxy()
     {
         if ($this->use_proxy) {
-            echo 'use proxy!!!!!!';
-            Yii::app()->end();
+//            echo 'use proxy!!!!!!';
+//            Yii::app()->end();
             $list = $this->getProxyList();
             $this->proxy = $list[rand(0, count($list) - 1)];
         }

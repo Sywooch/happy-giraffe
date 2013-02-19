@@ -99,9 +99,4 @@ class GeoCommand extends CConsoleCommand
         $parser = new RosneftParser;
         $parser->start();
     }
-
-    public function actionDecl(){
-        $inc = new CityDeclension;
-        $inc->go();
-    }
 }

@@ -36,7 +36,7 @@ class GoogleCoordinatesParser extends GoogleMapsApiParser
     {
         $criteria = new CDbCriteria;
         $criteria->condition = 'id NOT IN (Select city_id from geo__city_coordinates) AND id IN (SELECT DISTINCT(city_id) FROM  `routes__points`)';
-        $criteria->offset = rand(0, 30);
+        //$criteria->offset = rand(0, 30);
         $this->city = GeoCity::model()->find($criteria);
     }
 

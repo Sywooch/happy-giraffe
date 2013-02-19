@@ -2,6 +2,24 @@
 
 class DefaultController extends HController
 {
+
+    public function filters()
+    {
+        return array(
+            'accessControl',
+            'ajaxOnly + SendEmail, getRouteId'
+        );
+    }
+
+    public function actions()
+    {
+        return array(
+            'captcha' => array(
+                'class' => 'CCaptchaAction',
+            ),
+        );
+    }
+
     public function actionIndex($id = null)
     {
         Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
@@ -41,12 +59,21 @@ class DefaultController extends HController
         echo CJSON::encode(array('status' => false));
     }
 
-    public function actionTest()
+    public function actionSendEmail()
     {
-        $c = new GoogleMapsGeoCode;
-        $city = $c->getCityByCoordinates(50.402830, 30.684730);
-        if (isset($city->id))
-            echo $city->id;
+        $model = new SendRoute();
+        $model->attributes = $_POST['SendRoute'];
+        if (isset($_POST['ajax'])) {
+            echo CActiveForm::validate($model);
+            Yii::app()->end();
+        }
+
+        if ($model->validate()) {
+            $model->send();
+            echo CJSON::encode(array('status' => true));
+        } else{
+            var_dump($model->getErrors());
+        }
     }
 
     /**

@@ -52,6 +52,11 @@ class HEmailSender extends CApplicationComponent
         ElasticEmail::addContact($email, $first_name, $last_name, $list);
     }
 
+    public function sendEmail($to, $subject, $body_html, $from, $fromName)
+    {
+        ElasticEmail::send($to, $subject, $body_html, $from, $fromName);
+    }
+
     /**
      * Update users list
      */

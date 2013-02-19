@@ -139,21 +139,22 @@ Yii::app()->clientScript
             </div>
         </div>
 
+        <?php $url = $route->getUrl(true); ?>
         <div class="map-route-share">
             <div class="map-route-share_tx"><?=$texts[7] ?></div>
             <div class="custom-likes-small">
-                <a href="" class="custom-like-small">
+                <a href="http://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1&st._surl=<?=$url?>" class="custom-like-small" onclick="return openPopup(this);">
                     <span class="custom-like-small_icon odkl"></span>
                 </a>
-                <a href="" class="custom-like-small">
+                <a href="http://connect.mail.ru/share?url=<?=$url?>" class="custom-like-small" onclick="return openPopup(this);">
                     <span class="custom-like-small_icon mailru"></span>
                 </a>
 
-                <a href="" class="custom-like-small">
+                <a href="http://vkontakte.ru/share.php?url=<?=$url?>" class="custom-like-small" onclick="return openPopup(this);">
                     <span class="custom-like-small_icon vk"></span>
                 </a>
 
-                <a href="" class="custom-like-small">
+                <a href="http://www.facebook.com/sharer/sharer.php?u=<?=urlencode($url)?>" class="custom-like-small" onclick="return openPopup(this);">
                     <span class="custom-like-small_icon fb"></span>
                 </a>
                 <a href="javascript:;" class="custom-like-small" onclick="$('#email-popup').toggle();">
@@ -161,16 +162,48 @@ Yii::app()->clientScript
                 </a>
 
                 <div id="email-popup" class="custom-like-small-popup">
-                    <div class="custom-like-small-popup_t">Отправить маршрут другу</div>
-                    <input type="text" name="" class="custom-like-small-popup_it itx-bluelight"
-                           placeholder="Свой email">
-                    <input type="text" name="" class="custom-like-small-popup_it itx-bluelight"
-                           placeholder="Email друга">
+                    <?php $form = $this->beginWidget('CActiveForm', array(
+                        'id' => 'send-route-form',
+                        'enableAjaxValidation' => true,
+                        'enableClientValidation' => false,
+                        'action' => '',
+                        'clientOptions' => array(
+                            'validateOnSubmit' => true,
+                            'validateOnChange' => false,
+                            'validateOnType' => false,
+                            'validationUrl' => $this->createUrl('/route/default/sendEmail'),
+                            'afterValidate' => "js:function(form, data, hasError) {
+                                    if (!hasError)
+                                        SendRoute();
+                                    return false;
+                                  }",
+                        ))); ?>
+                    <?php $model = new SendRoute;
+                          $model->route_id = $route->id;
+                    ?>
+                    <?=$form->hiddenField($model, 'route_id'); ?>
 
-                    <div class="clearfix"><img src="/images/captcha.png"></div>
-                    <input type="text" name="" class="custom-like-small-popup_it itx-bluelight"
-                           placeholder="Введите знаки с картинки">
+                    <div class="custom-like-small-popup_t">Отправить маршрут другу</div>
+
+                    <?php if (Yii::app()->user->isGuest):?>
+                        <?=$form->textField($model, 'own_email', array('class' => 'custom-like-small-popup_it itx-bluelight','placeholder'=>'Свой email')); ?>
+                        <?=$form->error($model, 'own_email'); ?>
+                    <?php endif ?>
+
+                    <?=$form->textField($model, 'friend_email', array('class' => 'custom-like-small-popup_it itx-bluelight','placeholder'=>'Email друга')); ?>
+                    <?=$form->error($model, 'friend_email'); ?>
+
+                    <?if(CCaptcha::checkRequirements() && Yii::app()->user->isGuest):?>
+                        <?$this->widget('CCaptcha', array('showRefreshButton'=>false,'clickableImage'=>true))?>
+                        <?=CHtml::activeTextField($model, 'verifyCode', array(
+                                'class'=>'custom-like-small-popup_it itx-bluelight',
+                                'placeholder'=>'Введите знаки с картинки'
+                        ))?>
+                        <?=$form->error($model, 'verifyCode'); ?>
+                    <?endif ?>
                     <button class="custom-like-small-popup_btn btn-green btn-medium">Отправить</button>
+
+                    <?php $this->endWidget(); ?>
                 </div>
             </div>
             <div class="map-route-share_tx">Ссылка на этот маршрут:</div>
@@ -206,3 +239,13 @@ Yii::app()->clientScript
         ?>
     </div>
 </div>
+
+<script type="text/javascript">
+    function SendRoute() {
+        $.post('/routes/sendEmail/', $('#send-route-form').serialize(), function (response) {
+            if (response.status) {
+                $('#email-popup').html('Маршрут успешно отправлен');
+            }
+        }, 'json');
+    }
+</script>

@@ -12,16 +12,45 @@ class CityDeclension
         'ыно' => array('ыно', 'ыно'),
         'нь' => array('ни', 'нью'),
         'ль' => array('ля', 'лем'),
-        'ов' => array('ова', 'вом'),
+        'вь' => array('ви', 'вью'),
+        'ов' => array('ова', 'овом'),
         'ем' => array('ема', 'емом'),
         'ин' => array('ина', 'ином'),
         'жа' => array('жи', 'жей'),
         'ша' => array('ши', 'шей'),
         'ца' => array('цы', 'цей'),
         'га' => array('ги', 'гой'),
+        'ка' => array('ки', 'кой'),
+
+        'ый' => array('ого', 'ым'),
+        'ай' => array('ая', 'ем'),
+        'ая' => array('ой', 'ой'),
+        'ий' => array('ого', 'им'),
+        'чь' => array('чи', 'чью'),
+        'ей' => array('ея', 'еем'),
+        'ха' => array('хи', 'хой'),
+        'нок' => array('нка', 'нком'),
+        'уй' => array('уя', 'уем'),
+        'ец' => array('ца', 'цем'),
+
+        'бой' => array('боя', 'боем'),
+        'вой' => array('воя', 'воем'),
+        'гой' => array('гоя', 'гоем'),
+        'дой' => array('доя', 'доем'),
+        'лой' => array('лоя', 'лоем'),
+        'мой' => array('моя', 'моем'),
+        'рой' => array('роя', 'роем'),
+
+        'кой' => array('кого', 'коем'),
+        'пой' => array('пого', 'поем'),
+        'сой' => array('сого', 'соем'),
+        'той' => array('того', 'тоем'),
+        'фой' => array('фого', 'фоем'),
+        'хой' => array('хого', 'хоем'),
+        'ной' => array('ного', 'ноем'),
+
         'и' => array('и', 'и'),
         'ы' => array('', 'ами'),
-        'ка' => array('ки', 'кой'),
         'а' => array('ы', 'ой'),
         'я' => array('и', 'ей'),
         'ч' => array('ча', 'чем'),
@@ -48,25 +77,13 @@ class CityDeclension
         'е' => array('е', 'е'),
     );
 
-    private $words = array(
-        'Верхняя '=>array('Верхней ', 'Верхней '),
-        'Верхний '=>array('Верхнего ', 'Верхним '),
-        'Верхние '=>array('Верхних ', 'Верхними '),
-        'Нижняя '=>array('Нижней ', 'Нижней '),
-        'Нижний '=>array('Нижнего ', 'Нижним '),
-        'Нижние '=>array('Нижних ', 'Нижними '),
-        'Новая '=>array('Новой ', 'Новой '),
-        'Новый '=>array('Нового ', 'Новым '),
-        'Новые '=>array('Новых ', 'Новыми '),
-    );
-
     public static function go()
     {
         $model = new CityDeclension();
 
         $cities = GeoCity::model()->findAll('type="г"');
-        foreach($cities as $city){
-            list($n1, $n2) = $model->getDeclensions($city);
+        foreach ($cities as $city) {
+            list($n1, $n2) = $model->getDeclensions($city->name);
             $city->name_from = $n1;
             $city->name_between = $n2;
             $city->save();
@@ -75,22 +92,28 @@ class CityDeclension
 
     public function getDeclensions($name)
     {
-        foreach($this->rules as $ends => $rule){
-            if ($this->endsWith($name, $ends)){
-                $n1 = substr($name, 0, strlen($name) - strlen($ends)).$rule[0];
-                $n2 = substr($name, 0, strlen($name) - strlen($ends)).$rule[1];
+        $words = explode(' ', $name);
+        $n1 = '';
+        $n2 = '';
 
-                foreach ($this->words as $word => $vals)
-                    if (strpos($name, $word) !== false){
-                        $n1 = str_replace($word, $vals[0], $n1);
-                        $n2 = str_replace($word, $vals[1], $n2);
-                    }
-
-                return array($n1, $n2);
+        foreach ($words as $word) {
+            $w1 = '';
+            $w2 = '';
+            foreach ($this->rules as $ends => $rule) {
+                if ($this->endsWith($word, $ends)) {
+                    $w1 = substr($word, 0, strlen($word) - strlen($ends)) . $rule[0];
+                    $w2 = substr($word, 0, strlen($word) - strlen($ends)) . $rule[1];
+                    break;
+                }
             }
+            if (empty($w1)) $w1 = $word;
+            if (empty($w2)) $w2 = $word;
+
+            $n1 .= $w1.' ';
+            $n2 .= $w2.' ';
         }
 
-        return array($name, $name);
+        return array(trim($n1), trim($n2));
     }
 
     private function endsWith($haystack, $needle)

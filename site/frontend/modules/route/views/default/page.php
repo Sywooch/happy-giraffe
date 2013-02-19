@@ -5,6 +5,7 @@
  *
  * @var $route Route
  * @var $texts array
+ * @var $points array
  */
 
 $distance = $route->distance;
@@ -19,9 +20,24 @@ foreach ($fuels as $fuel) {
     );
 }
 
-$js = '
-Routes.init("' . $route->cityFrom->getFullName() . '", "' . $route->cityTo->getFullName() . '");
+$js = 'Routes.init("' . $route->cityFrom->getFullName() . '", "' . $route->cityTo->getFullName() . '");
 ko.applyBindings(new RoutesModel("' . $distance . '", ' . CJavaScript::encode($result) . '));';
+
+$middle_points = array_slice($points, 1, count($points) - 2);
+$index = 1;
+foreach ($middle_points as $point) {
+    $c = $point['city']->coordinates;
+
+    if ($c !== null && !empty($c->location_lat) && !empty($c->location_lng))
+        $js .= "
+new google.maps.Marker({
+    position: new google.maps.LatLng(" . $c->location_lat . ", " . $c->location_lng . "),
+    map: Routes.map,
+    icon: '/images/map_marker-2.png',
+    title:'" . $point['city']->name . "'
+});";
+    $index++;
+}
 
 $basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR;
 $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
@@ -35,10 +51,13 @@ Yii::app()->clientScript
 
 ?>
 <style type="text/css">
-    .pac-container:after {content: none !important;}
+    .pac-container:after {
+        content: none !important;
+    }
 </style>
 <div class="map-route-search">
-    <a href="#" class="map-route-search_new a-pseudo" onclick="$('form.map-route-search_form').toggle();">Новый маршрут</a>
+    <a href="#" class="map-route-search_new a-pseudo" onclick="$('form.map-route-search_form').toggle();">Новый
+        маршрут</a>
 
     <h1 class="map-route-search_h1"><?=$texts[0] ?></h1>
 
@@ -106,7 +125,7 @@ Yii::app()->clientScript
                     <label class="map-route-calc_label">
                         <div class="chzn-v2">
                             <?= CHtml::dropDownList('currency', 1, CHtml::listData(FuelCost::model()->findAll(), 'currency_id', 'title'),
-                                    array('class' => 'chzn w-85', 'data-bind'=>'value: currentCurrency')); ?>
+                            array('class' => 'chzn w-85', 'data-bind' => 'value: currentCurrency')); ?>
                         </div>
                     </label>
                 </div>
@@ -114,7 +133,8 @@ Yii::app()->clientScript
                     <span data-bind="text: fuelNeeds"></span> <span class="map-route-calc_units">л</span>
                 </div>
                 <div class="map-route-calc_value">
-                    <span data-bind="text: summaryCost"></span> <span class="map-route-calc_units" data-bind="text: currencySign">руб.</span>
+                    <span data-bind="text: summaryCost"></span> <span class="map-route-calc_units"
+                                                                      data-bind="text: currencySign">руб.</span>
                 </div>
             </div>
         </div>
@@ -169,7 +189,7 @@ Yii::app()->clientScript
 
 
     <div class="col-23">
-        <?php $this->renderPartial('_transit_points', array('route' => $route, 'texts'=>$texts)); ?>
+        <?php $this->renderPartial('_transit_points', array('route' => $route, 'texts' => $texts, 'points' => $points)); ?>
 
         <div class="map-route-other">
 
@@ -177,7 +197,7 @@ Yii::app()->clientScript
 
         </div>
 
-        <?php $this->widget('application.widgets.commentWidget.CommentWidget', array('model' => $route, 'notice'=>$texts[8])); ?>
+        <?php $this->widget('application.widgets.commentWidget.CommentWidget', array('model' => $route, 'notice' => $texts[8])); ?>
 
         <?php
         $remove_tmpl = $this->beginWidget('site.frontend.widgets.removeWidget.RemoveWidget');

@@ -4,9 +4,9 @@
  * Date: 05.02.13
  *
  * @var $route Route
+ * @var $points array
+ * @var $texts array
  */
-
-$points = $route->getIntermediatePoints();
 
 ?><h2><?=$texts[2] ?></h2>
 <table class="map-route-table">

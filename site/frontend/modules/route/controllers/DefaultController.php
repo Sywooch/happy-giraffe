@@ -10,10 +10,14 @@ class DefaultController extends HController
             $this->render('index');
         } else {
             $route = $this->loadModel($id);
+            if ($route->status != Route::STATUS_ROSNEFT_FOUND && $route->status != Route::STATUS_GOOGLE_PARSE_SUCCESS)
+                throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
             PageView::model()->incViewsByPath($route->url);
 
             $texts = $route->getTexts();
-            $this->render('page', compact('route', 'texts'));
+            $points = $route->getIntermediatePoints();
+            $this->render('page', compact('route', 'texts', 'points'));
         }
     }
 
@@ -22,19 +26,25 @@ class DefaultController extends HController
         $city_from = GeoCity::getCityByCoordinates(Yii::app()->request->getPost('city_from_lat'), Yii::app()->request->getPost('city_from_lng'));
         $city_to = GeoCity::getCityByCoordinates(Yii::app()->request->getPost('city_to_lat'), Yii::app()->request->getPost('city_to_lng'));
 
-        $route = Route::model()->findByAttributes(array('city_from_id' => $city_from->id, 'city_to_id' => $city_to->id));
-        if ($route === null){
-            //create new route
-            $route = Route::createNewRoute($city_from, $city_to);
-        }
+        if ($city_from != $city_to) {
+            $route = Route::model()->findByAttributes(array('city_from_id' => $city_from->id, 'city_to_id' => $city_to->id));
+            if ($route === null) {
+                //create new route
+                $route = Route::createNewRoute($city_from, $city_to);
+            }
 
-        echo CJSON::encode(array('status' => true, 'id' => $route->id));
+            if ($route->status == Route::STATUS_ROSNEFT_FOUND || $route->status == Route::STATUS_GOOGLE_PARSE_SUCCESS) {
+                echo CJSON::encode(array('status' => true, 'id' => $route->id));
+                Yii::app()->end();
+            }
+        }
+        echo CJSON::encode(array('status' => false));
     }
 
     public function actionTest()
     {
         $c = new GoogleMapsGeoCode;
-        $city = $c->getCityByCoordinates(50.402830,30.684730);
+        $city = $c->getCityByCoordinates(50.402830, 30.684730);
         if (isset($city->id))
             echo $city->id;
     }

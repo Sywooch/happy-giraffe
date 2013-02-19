@@ -69,6 +69,7 @@ class GeoCity extends HActiveRecord
             'region' => array(self::BELONGS_TO, 'GeoRegion', 'region_id'),
             'district' => array(self::BELONGS_TO, 'GeoDistrict', 'district_id'),
             'zips' => array(self::HAS_MANY, 'GeoZip', 'city_id'),
+            'coordinates' => array(self::HAS_ONE, 'CityCoordinates', 'city_id'),
         );
     }
 
@@ -208,5 +209,12 @@ class GeoCity extends HActiveRecord
         }
 
         return $city;
+    }
+
+    public function checkCityCoordinates()
+    {
+        $parser = new GoogleCoordinatesParser(false, false);
+        $parser->city = $this;
+        $parser->parseCity();
     }
 }

@@ -7,6 +7,8 @@
  * @property string $route_from_id
  * @property string $route_to_id
  * @property string $anchor
+ * @property int $city_from_out_links_count
+ * @property int $city_to_out_links_count
  *
  * The followings are the available model relations:
  * @property Route $routeFrom
@@ -42,7 +44,7 @@ class RouteLink extends HActiveRecord
         return array(
             array('route_from_id, route_to_id, anchor', 'required'),
             array('route_from_id, route_to_id', 'length', 'max' => 11),
-            array('anchor', 'numerical', 'integerOnly'=>true),
+            array('anchor', 'numerical', 'integerOnly' => true),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
             array('route_from_id, route_to_id, anchor', 'safe', 'on' => 'search'),
@@ -76,9 +78,14 @@ class RouteLink extends HActiveRecord
 
     public function afterSave()
     {
-        if ($this->isNewRecord){
-            $this->routeFrom->out_links_count++;
-            $this->routeFrom->update(array('out_links_count'));
+        if ($this->isNewRecord) {
+            if ($this->routeFrom->city_from_id == $this->routeTo->city_from_id) {
+                $this->routeFrom->city_from_out_links_count++;
+                $this->routeFrom->update(array('city_from_out_links_count'));
+            } elseif ($this->routeFrom->city_to_id == $this->routeTo->city_from_id) {
+                $this->routeFrom->city_to_out_links_count++;
+                $this->routeFrom->update(array('city_to_out_links_count'));
+            }
         }
 
         parent::afterSave();
@@ -86,13 +93,19 @@ class RouteLink extends HActiveRecord
 
     public function afterDelete()
     {
-        if ($this->isNewRecord){
-            $this->routeFrom->out_links_count--;
-            $this->routeFrom->update(array('out_links_count'));
+        if ($this->isNewRecord) {
+            if ($this->routeFrom->city_from_id == $this->routeTo->city_from_id) {
+                $this->routeFrom->city_from_out_links_count--;
+                $this->routeFrom->update(array('city_from_out_links_count'));
+            } elseif ($this->routeFrom->city_to_id == $this->routeTo->city_from_id) {
+                $this->routeFrom->city_to_out_links_count--;
+                $this->routeFrom->update(array('city_to_out_links_count'));
+            }
         }
     }
 
-    public function getText(){
+    public function getText()
+    {
         $links = $this->getLinks();
         $text = $links[$this->anchor];
 
@@ -118,8 +131,8 @@ class RouteLink extends HActiveRecord
         if ($this->routeTo->wordstat_value > CRouteLinking::WORDSTAT_LEVEL_2)
             return CRouteLinking::model()->links3;
         if ($this->routeTo->wordstat_value > CRouteLinking::WORDSTAT_LEVEL_1)
-            return CRouteLinking::model()->$this->links2;
+            return CRouteLinking::model()->links2;
 
-        return CRouteLinking::model()->$this->links1;
+        return CRouteLinking::model()->links1;
     }
 }

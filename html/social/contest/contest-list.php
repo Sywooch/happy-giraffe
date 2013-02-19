@@ -23,6 +23,20 @@
 					<h1>НАШИ КОНКУРСЫ</h1>
 					<div class="contest-list_item clearfix">
 						<div class="contest-list_banner">
+							<img src="/images/contest/banner-w280-8.jpg" alt="" />
+						</div>
+						<div class="contest-list_holder">
+							<div class="content-title"><a href="#" >Смешные малыши</a></div>
+							<p>Дети – это сплошной источник позитива, радости и веселья. Это настоящие маленькие артисты, которые умудряются вытворять невероятно забавные штуки и корчить смешные рожицы, от которых невозможно не улыбнуться!  Поделитесь самой забавной фотографией вашего крохи и  получите отличные призы  в обмен на положительные эмоции! </p>
+							<div class="contest-list_row">
+								<div class="date">28.01 - 8.02 <span class="year">2013</span></div>
+								<a href="#" class="btn-green btn-h46">Принять участие!</a>
+							</div>
+						</div>
+					</div>
+					
+					<div class="contest-list_item clearfix">
+						<div class="contest-list_banner">
 							<img src="/images/contest/banner-w280-7.jpg" alt="" />
 						</div>
 						<div class="contest-list_holder">
@@ -35,6 +49,7 @@
 							</div>
 						</div>
 					</div>
+					
 					<div class="contest-list_item clearfix">
 						<div class="contest-list_banner">
 							<img src="/images/contest/banner-w280-6.jpg" alt="" />

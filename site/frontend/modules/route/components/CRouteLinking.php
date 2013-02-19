@@ -108,9 +108,14 @@ class CRouteLinking
         $index = 0;
         while (true) {
             $this->route = Route::model()->findByPk($this->routes[$index]);
+            $index++;
+
+            if ($this->route->inLinksCount > 0){
+                continue;
+            }
+
             $this->createRouteLinks();
 
-            $index++;
             if ($index >= count($this->routes))
                 break;
 

@@ -113,6 +113,9 @@ class CRouteLinking
             $index++;
             if ($index >= count($this->routes))
                 break;
+
+            if ($index % 1000 == 0)
+                echo round(100 * $index / count($this->routes)) . "\n";
         }
     }
 
@@ -165,6 +168,9 @@ class CRouteLinking
             $index++;
             if ($index >= count($this->routes))
                 break;
+
+            if ($index % 1000 == 0)
+                echo round(100 * $index / count($this->routes)) . "\n";
         }
     }
 

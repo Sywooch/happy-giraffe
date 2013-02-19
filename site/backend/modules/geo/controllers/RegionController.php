@@ -1,17 +1,16 @@
 <?php
 
-class CityController extends BController
+class RegionController extends BController
 {
     public $defaultAction = 'admin';
     //public $section = 'club';
     public $layout = '//layouts/club';
-    public $_class = 'GeoCity';
-    public $authItem = 'geo';//     <------ Insert AuthItem here
+    public $_class = 'GeoRegion';
+    public $authItem = 'routes';//     <------ Insert AuthItem here
 
     public function actions()
     {
         return array(
-            'create' => 'application.components.actions.Create',
             'update' => 'application.components.actions.Update',
             'delete' => 'application.components.actions.Delete',
             'admin' => 'application.components.actions.Admin'
@@ -20,18 +19,18 @@ class CityController extends BController
 
     public function actionChecked(){
         $id = Yii::app()->request->getPost('id');
-        $city = $this->loadModel($id);
-        $city->declension_checked = 1;
-        $city->save();
+        $model = $this->loadModel($id);
+        $model->auto_created = 0;
+        $model->save();
     }
 
     /**
      * @param int $id model id
-     * @return GeoCity
+     * @return GeoRegion
      * @throws CHttpException
      */
     public function loadModel($id){
-        $model = GeoCity::model()->findByPk($id);
+        $model = GeoRegion::model()->findByPk($id);
         if ($model === null)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
         return $model;

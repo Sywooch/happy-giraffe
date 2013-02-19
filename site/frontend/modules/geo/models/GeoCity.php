@@ -80,9 +80,11 @@ class GeoCity extends HActiveRecord
     {
         return array(
             'id' => 'ID',
-            'region_id' => 'Region',
-            'country_id' => 'Country',
+            'region_id' => 'Регион',
+            'country_id' => 'Страна',
+            'district_id' => 'Район',
             'name' => 'Название',
+            'type' => 'Тип',
             'name_from' => 'от ...',
             'name_between' => 'между ...',
             'declension_checked' => 'Склонения проверены',
@@ -108,14 +110,19 @@ class GeoCity extends HActiveRecord
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
             'pagination' => array('pageSize' => 100),
+            'sort' => array('defaultOrder' => 'id DESC')
         ));
+    }
+
+    public function getStatus()
+    {
+        if ($this->auto_created)
+            return 'не проверен <input type="hidden" value="' . $this->id . '"><a class="city_checked" href="javascript:;">проверен</a>';
+        return 'проверен';
     }
 
     public function declensionSearch()
     {
-        // Warning: Please modify the following code to remove attributes that
-        // should not be searched.
-
         $criteria = new CDbCriteria;
 
         if (empty($this->id))

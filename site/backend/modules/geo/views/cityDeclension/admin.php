@@ -25,7 +25,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
         $('body').delegate('a.decl_checked', 'click', function(e){
             var id = $(this).prev().val();
             var self = $(this);
-            $.post('/club/city/checked/', {id:id}, function (response) {
+            $.post('/geo/city/checked/', {id:id}, function (response) {
                 self.parents('tr').remove();
             }, 'json');
 

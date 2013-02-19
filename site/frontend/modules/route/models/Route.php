@@ -11,6 +11,7 @@
  * @property integer $distance
  * @property integer $status
  * @property integer $out_links_count
+ * @property integer $checked
  *
  * The followings are the available model relations:
  * @property RouteLink[] $outLinks
@@ -85,6 +86,61 @@ class Route extends CActiveRecord
             'cityFrom' => array(self::BELONGS_TO, 'GeoCity', 'city_from_id'),
             'cityTo' => array(self::BELONGS_TO, 'GeoCity', 'city_to_id'),
         );
+    }
+
+    public function attributeLabels()
+    {
+        return array(
+            'id' => 'ID',
+            'city_from_id' => 'Из города',
+            'city_to_id' => 'В город',
+            'wordstat_value' => 'Wordstat',
+            'distance' => 'Расстояние',
+            'status' => 'Статус',
+            'checked' => 'Перейти',
+        );
+    }
+
+    public function search()
+    {
+        $criteria=new CDbCriteria;
+
+        $criteria->compare('id',$this->id,true);
+        $criteria->compare('city_from_id',$this->city_from_id,true);
+        $criteria->compare('city_to_id',$this->city_to_id,true);
+        $criteria->compare('wordstat_value',$this->wordstat_value);
+        $criteria->compare('distance',$this->distance);
+        $criteria->compare('status',$this->status);
+        $criteria->compare('city_from_out_links_count',$this->city_from_out_links_count);
+        $criteria->compare('city_to_out_links_count',$this->city_to_out_links_count);
+        $criteria->compare('checked',$this->checked);
+
+        return new CActiveDataProvider($this, array(
+            'criteria'=>$criteria,
+            'pagination' => array('pageSize' => 100),
+            'sort'=>array('defaultOrder'=>'id DESC')
+        ));
+    }
+
+    public function getTextStatus()
+    {
+        switch($this->status){
+            case self::STATUS_NEW: return 'Новый';
+            case self::STATUS_PARSING: return 'парсится';
+            case self::STATUS_ROSNEFT_FOUND: return 'спарсен с Роснефти';
+            case self::STATUS_ROSNEFT_NOT_FOUND: return 'не найден на Роснефти';
+            case self::STATUS_GOOGLE_PARSE_SUCCESS: return 'спарсен с гугла';
+            case self::STATUS_ZERO_RESULT: return 'Google Maps API возвратил код ZERO_RESULT';
+            case self::STATUS_NOT_FOUND: return 'Google Maps API возвратил код NOT_FOUND';
+            case self::STATUS_NOT_FOUND: return 'Другая ошибка при поиске маршрута';
+        }
+
+        return 'статус не определен';
+    }
+
+    public function getRouteLink()
+    {
+        return CHtml::link('перейти', 'http://www.happy-giraffe.ru/routes/'.$this->id.'/', array('target'=>'_blank'));
     }
 
     /**

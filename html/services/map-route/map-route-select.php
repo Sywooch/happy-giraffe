@@ -164,8 +164,16 @@
 							</a>
 							<div class="custom-like-small-popup" style="display:block;">
 								<div class="custom-like-small-popup_t">Отправить маршрут другу</div>
-								<input type="text" name="" id="" class="custom-like-small-popup_it itx-bluelight" placeholder="Email друга">
-								<textarea name="" id="" cols="20" rows="3" class="custom-like-small-popup_textarea itx-bluelight" placeholder="Добавить сообщение"></textarea>
+								<div class="clearfix margin-b10">
+									<input type="text" name="" id="" class="custom-like-small-popup_it itx-bluelight" placeholder="Свой Email">
+									<div class="errorMessage" id="SendRoute_own_email_em_" style="">Введите правильный E-mail</div>
+								</div>
+								<div class="clearfix margin-b10">
+									<input type="text" name="" id="" class="custom-like-small-popup_it itx-bluelight" placeholder="Email друга">
+								</div>
+								<div class="clearfix margin-b10">
+									<textarea name="" id="" cols="20" rows="3" class="custom-like-small-popup_textarea itx-bluelight" placeholder="Добавить сообщение"></textarea>
+								</div>
 								<button class="custom-like-small-popup_btn btn-green btn-medium">Отправить</button>
 							</div>
 						</div>

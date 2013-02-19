@@ -61,7 +61,7 @@ class Route extends CActiveRecord
         // will receive user inputs.
         return array(
             array('city_from_id, city_to_id', 'required'),
-            array('wordstat_value, out_links_count', 'numerical', 'integerOnly' => true),
+            array('wordstat_value', 'numerical', 'integerOnly' => true),
             array('city_from_id, city_to_id', 'length', 'max' => 11),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
@@ -81,6 +81,7 @@ class Route extends CActiveRecord
             'outLinks' => array(self::HAS_MANY, 'RouteLink', 'route_from_id'),
             'points' => array(self::HAS_MANY, 'RoutePoint', 'route_id'),
             'outLinksCount' => array(self::STAT, 'RouteLink', 'route_from_id'),
+            'inLinksCount' => array(self::STAT, 'RouteLink', 'route_to_id'),
             'cityFrom' => array(self::BELONGS_TO, 'GeoCity', 'city_from_id'),
             'cityTo' => array(self::BELONGS_TO, 'GeoCity', 'city_to_id'),
         );
@@ -103,6 +104,8 @@ class Route extends CActiveRecord
         $success = GoogleRouteParser::parseRoute($route);
         if ($success)
             $route->createReturnRoute();
+        $linking = new CRouteLinking;
+        $linking->add($route);
 
         return $route;
     }
@@ -241,5 +244,41 @@ class Route extends CActiveRecord
     {
         $method = $absolute ? 'createAbsoluteUrl' : 'createUrl';
         return Yii::app()->$method('/route/default/index', array('id' => $this->id));
+    }
+
+    /**
+     * @return array
+     */
+    public function getOrderedLinks()
+    {
+        $list1 = array();
+        $list2 = array();
+        $list3 = array();
+
+        foreach ($this->outLinks as $link) {
+            if ($link->routeTo->city_from_id == $this->city_from_id)
+                $list1 [] = $link;
+            elseif ($link->routeTo->city_from_id == $this->city_to_id)
+                $list2 [] = $link; else
+                $list3 [] = $link;
+        }
+
+        while (count($list1) < 5) {
+            if (count($list3) > 0) {
+                $link = array_shift($list3);
+                $list1 [] = $link;
+            } else
+                break;
+        }
+
+        while (count($list2) < 5) {
+            if (count($list3) > 0) {
+                $link = array_shift($list3);
+                $list2 [] = $link;
+            } else
+                break;
+        }
+
+        return array($list1, $list2);
     }
 }

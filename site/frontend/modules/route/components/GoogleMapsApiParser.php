@@ -11,10 +11,9 @@ class GoogleMapsApiParser
 
     /**
      * @param $url string
-     * @param int $attempt
      * @return array
      */
-    protected function loadPage($url, $attempt = 0)
+    protected function loadPage($url)
     {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:17.0) Gecko/20100101 Firefox/17.0');
@@ -26,7 +25,8 @@ class GoogleMapsApiParser
 
             curl_setopt($ch, CURLOPT_PROXYUSERPWD, "alexhg:Nokia1111");
             curl_setopt($ch, CURLOPT_PROXYAUTH, 1);
-        }
+        } else
+            sleep(1);
 
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
@@ -44,17 +44,16 @@ class GoogleMapsApiParser
             if (isset($result['status'])) {
                 if (in_array($result['status'], array('ZERO_RESULTS', 'NOT_FOUND')))
                     return $result;
-            }
-            $this->changeProxy();
 
-            if (isset($result['status']))
+                if (isset($result['status']) && $result['status'] == 'OVER_QUERY_LIMIT') {
+                    $this->changeProxy();
+                    return $this->loadPage($url);
+                }
+
                 $this->log($result['status']);
+            }
 
-            if ($attempt > 10)
-                return $result;
-
-            $attempt++;
-            return $this->loadPage($url, $attempt);
+            return $result;
         }
     }
 
@@ -69,6 +68,8 @@ class GoogleMapsApiParser
     protected function changeProxy()
     {
         if ($this->use_proxy) {
+            echo 'use proxy!!!!!!';
+            Yii::app()->end();
             $list = $this->getProxyList();
             $this->proxy = $list[rand(0, count($list) - 1)];
         }

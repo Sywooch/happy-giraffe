@@ -84,6 +84,16 @@ class GeoCommand extends CConsoleCommand
         $l->start();
     }
 
+    public function actionLinks2(){
+        $l = new CRouteLinking;
+        $l->startStage2();
+    }
+
+    public function actionCityCoordinates(){
+        $parser = new GoogleCoordinatesParser(true, true);
+        $parser->start();
+    }
+
     public function actionRosneft()
     {
         $parser = new RosneftParser;

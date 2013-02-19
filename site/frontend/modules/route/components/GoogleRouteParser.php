@@ -12,6 +12,7 @@ class GoogleRouteParser extends GoogleMapsApiParser
 
     public function startParse()
     {
+        $this->use_proxy = true;
         while (true) {
             $this->getRoute();
             $this->parse();
@@ -42,7 +43,8 @@ class GoogleRouteParser extends GoogleMapsApiParser
      */
     public static function parseRoute($route)
     {
-        $p = new GoogleRouteParser;
+        $p = new GoogleRouteParser();
+        $p->use_proxy = false;
         $p->route = $route;
 
         return $p->parse();
@@ -112,6 +114,8 @@ class GoogleRouteParser extends GoogleMapsApiParser
                 $prev_city_id = $city->id;
                 $distance = 0;
                 $time = 0;
+
+                $city->checkCityCoordinates();
             }
         }
 

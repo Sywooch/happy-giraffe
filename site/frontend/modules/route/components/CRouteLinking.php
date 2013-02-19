@@ -87,7 +87,19 @@ class CRouteLinking
     }
 
     /**
-     * Start linking
+     * Загружаем все машруты начиная с самых популярных
+     */
+    private function loadRoutes()
+    {
+        $this->routes = Yii::app()->db->createCommand()
+            ->select('id')
+            ->from(Route::model()->tableName())
+            ->order('wordstat_value desc')
+            ->queryColumn();
+    }
+
+    /**
+     * Начинаем перелинковку - этап 1
      */
     public function start()
     {
@@ -104,31 +116,25 @@ class CRouteLinking
         }
     }
 
-    /**
-     * load all routes
-     */
-    private function loadRoutes()
-    {
-        $this->routes = Yii::app()->db->createCommand()
-            ->select('id')
-            ->from(Route::model()->tableName())
-            ->order('wordstat_value desc')
-            ->queryColumn();
-    }
-
     private function createRouteLinks()
     {
+        $this->createCityLinks($this->route->city_from_id);
+    }
+
+    /**
+     * Создаем ссылки
+     * @param $city_id int
+     */
+    private function createCityLinks($city_id)
+    {
         $criteria = new CDbCriteria;
-        $criteria->condition = '(city_from_id = :city1_id
-        OR city_to_id = :city1_id
-        OR city_from_id = :city2_id
-        OR city_to_id = :city2_id)
-        AND id != :route
-        AND out_links_count < 10
-        ';
+        $criteria->condition = '(
+        city_from_id = :city_id AND city_from_out_links_count < 5
+        OR
+        city_to_id = :city_id AND city_to_out_links_count < 5)
+        AND id != :route';
         $criteria->params = array(
-            ':city1_id' => $this->route->city_from_id,
-            ':city2_id' => $this->route->city_to_id,
+            ':city_id' => $city_id,
             ':route' => $this->route->id
         );
         $criteria->order = 'wordstat_value desc';
@@ -138,9 +144,55 @@ class CRouteLinking
 
         $anchors = range(0, count($this->getLinks()) - 1);
         shuffle($anchors);
-        foreach ($city_routes as $city_route) {
+        foreach ($city_routes as $city_route)
             $this->createRouteLink($city_route, array_shift($anchors));
+    }
+
+    /*****************************************************************************************************/
+    /*********************** Этап перелинковки 2 - ставим ссылки со свободных мест ***********************/
+    /*****************************************************************************************************/
+    public function startStage2()
+    {
+        $this->loadRoutes();
+
+        $index = 0;
+        while (true) {
+            $this->route = Route::model()->findByPk($this->routes[$index]);
+            if ($this->route->inLinksCount < count($this->getLinks())) {
+                $this->createAnyRouteLinks();
+            }
+
+            $index++;
+            if ($index >= count($this->routes))
+                break;
         }
+    }
+
+    /**
+     * Ставим ссылку с любого машрута где можно поставить ссылку
+     */
+    private function createAnyRouteLinks()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->condition = '(city_from_out_links_count < 5 OR city_to_out_links_count < 5) AND id != :route';
+        $criteria->params = array(
+            ':route' => $this->route->id
+        );
+        $criteria->order = 'wordstat_value desc';
+        $criteria->limit = count($this->getLinks()) - $this->route->inLinksCount;
+
+        $routes = Route::model()->findAll($criteria);
+
+        $anchors = range(0, count($this->getLinks()) - 1);
+        shuffle($anchors);
+
+        foreach ($this->route->inLinks as $link)
+            for ($i = 0; $i < count($anchors); $i++)
+                if ($anchors[$i] == $link->anchor)
+                    unset($anchors[$i]);
+
+        foreach ($routes as $route)
+            $this->createRouteLink($route, array_shift($anchors));
     }
 
     /**
@@ -226,42 +278,18 @@ class CRouteLinking
     /**
      * Add new route to current linking system
      *
-     * @param $route_id
+     * @param $route Route
      */
-    public function add($route_id)
+    public function add($route)
     {
-        $this->route = Route::model()->findByPk($route_id);
+        $this->route = $route;
 
-        //create links from this route
-        $this->createRouteLinks($this->route->city_from_id);
-        echo '<br>';
-        $this->createRouteLinks($this->route->city_to_id);
+        //создаем ссылки на маршрут сначала с городами этого машрута
+        $this->createCityLinks($this->route->city_from_id);
+        //если ссылкок с городов маршрута недостаточно, создаем откуда угодно
+        if ($this->route->inLinksCount < count($this->getLinks()))
+            $this->createAnyRouteLinks();
 
-        //create link to this route
-        $this->createLinksToRoute($this->route->city_from_id);
-        $this->createLinksToRoute($this->route->city_to_id);
-    }
-
-    /**
-     * create input links to new route
-     */
-    private function createLinksToRoute($city_id)
-    {
-        $criteria = new CDbCriteria;
-        $criteria->condition = '(city_from_id = :city_id OR city_to_id = :city_id) AND id != :route';
-        $criteria->params = array(':city_id' => $city_id, ':route' => $this->route->id);
-        $routes = Route::model()->findAll($criteria);
-
-        foreach ($routes as $route) {
-
-            //if route has empty place - placing link there
-            if ($route->outLinksCount < self::LINKS_LIMIT) {
-                $keyword = $this->getAnchor($route->id);
-                if ($keyword === null)
-                    return;
-
-                $this->createLink($route->id, $this->route->id, $keyword);
-            }
-        }
+        //создаем ссылки с маршрута
     }
 }

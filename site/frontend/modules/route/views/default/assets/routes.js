@@ -11,7 +11,7 @@ var Routes = {
     directionsDisplay:null,
     directionsService:null,
     initAutoComplete:function(){
-        Routes.directionsDisplay = new google.maps.DirectionsRenderer();
+        Routes.directionsDisplay = new google.maps.DirectionsRenderer({suppressMarkers: true});
         var mapOptions = {
             zoom:7,
             mapTypeId:google.maps.MapTypeId.ROADMAP
@@ -35,6 +35,10 @@ var Routes = {
         Routes.directionsService.route(request, function (response, status) {
             if (status == google.maps.DirectionsStatus.OK) {
                 Routes.directionsDisplay.setDirections(response);
+                var myRoute = response.routes[0].legs[0];
+
+                new google.maps.Marker({position: myRoute.steps[0].start_point,map: Routes.map,icon: '/images/map_marker-2.png'});
+                new google.maps.Marker({position: myRoute.steps[myRoute.steps.length - 1].end_point,map: Routes.map,icon: '/images/map_marker-2.png'});
             }
         });
     },
@@ -47,7 +51,6 @@ var Routes = {
             if (!place.geometry) {
                 // Inform the user that the place was not found and return.
                 console.log('not found');
-                return;
             } else {
                 Routes.from_city = {
                     text:place.formatted_address,
@@ -55,8 +58,6 @@ var Routes = {
                     lng:place.geometry.location.Za
                 };
             }
-
-            console.log(Routes.from_city);
         });
 
         google.maps.event.addListener(autocomplete_to, 'place_changed', function () {
@@ -95,6 +96,8 @@ var Routes = {
         }, function (response) {
             if (response.status) {
                 location.href = '/routes/' + response.id + '/';
+            } else{
+                alert('Невозможно проложить маршрут');
             }
         }, 'json');
     }

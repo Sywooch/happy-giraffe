@@ -13,9 +13,7 @@ class GoogleCoordinatesParser extends GoogleMapsApiParser
     /**
      * @var GeoCity
      */
-    private $city;
-    protected $debug_mode = false;
-    protected $use_proxy;
+    public $city;
 
     public function __construct($debug_mode = false, $use_proxy = false)
     {
@@ -37,38 +35,33 @@ class GoogleCoordinatesParser extends GoogleMapsApiParser
     public function getCity()
     {
         $criteria = new CDbCriteria;
-        $criteria->condition = 'type="г" AND id NOT IN (Select city_id from geo__city_coordinates)';
-        $criteria->offset = rand(0, 10);
+        $criteria->condition = 'id NOT IN (Select city_id from geo__city_coordinates) AND id IN (SELECT DISTINCT(city_id) FROM  `routes__points`)';
+        $criteria->offset = rand(0, 100);
         $this->city = GeoCity::model()->find($criteria);
-
-        $this->log('city_id: ' . $this->city->id);
     }
 
     public function parseCity($attempt = 0)
     {
         $city_string = $this->city->getFullName();
-        //echo $city_string.'<br>';
 
         $url = 'http://maps.google.com/maps/api/geocode/json?address=' . urlencode($city_string) . '&sensor=false';
-
-        $text = $this->loadPage($url);
-        $result = json_decode($text, true);
+        $result = $this->loadPage($url);
 
         if (isset($result['status']) && $result['status'] == 'OK') {
             $this->saveCoordinates($result['results'][0]['geometry']);
         } else {
             $this->log('status: ' . $result['status']);
 
-            if ($result['status'] == 'NOT_FOUND') {
-                echo $this->city->id . "\n";
-            } else {
-                if ($attempt > 50) {
-                    var_dump($text);
-                    Yii::app()->end();
-                }
+            if ($result['status'] == 'ZERO_RESULTS') {
+                $this->coordinates = new CityCoordinates();
+                $this->coordinates->city_id = $this->city->id;
+                $this->coordinates->location_lat = 0;
+                $this->coordinates->location_lng = 0;
+                try {
+                    $this->coordinates->save();
+                } catch (Exception $err) {
 
-                $attempt++;
-                $this->parseCity($attempt);
+                }
             }
         }
     }

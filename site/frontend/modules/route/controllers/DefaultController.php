@@ -34,6 +34,9 @@ class DefaultController extends HController
             PageView::model()->incViewsByPath($route->url);
 
             $texts = $route->getTexts();
+            $this->meta_title = $texts['title'];
+            $this->meta_description = $texts['description'];
+            $this->meta_keywords = $texts['keywords'];
             $points = $route->getIntermediatePoints();
             $this->render('page', compact('route', 'texts', 'points'));
         }

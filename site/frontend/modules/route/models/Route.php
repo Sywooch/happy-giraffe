@@ -103,36 +103,44 @@ class Route extends CActiveRecord
 
     public function search()
     {
-        $criteria=new CDbCriteria;
+        $criteria = new CDbCriteria;
 
-        $criteria->compare('id',$this->id,true);
-        $criteria->compare('city_from_id',$this->city_from_id,true);
-        $criteria->compare('city_to_id',$this->city_to_id,true);
-        $criteria->compare('wordstat_value',$this->wordstat_value);
-        $criteria->compare('distance',$this->distance);
-        $criteria->compare('status',$this->status);
-        $criteria->compare('city_from_out_links_count',$this->city_from_out_links_count);
-        $criteria->compare('city_to_out_links_count',$this->city_to_out_links_count);
-        $criteria->compare('checked',$this->checked);
+        $criteria->compare('id', $this->id, true);
+        $criteria->compare('city_from_id', $this->city_from_id, true);
+        $criteria->compare('city_to_id', $this->city_to_id, true);
+        $criteria->compare('wordstat_value', $this->wordstat_value);
+        $criteria->compare('distance', $this->distance);
+        $criteria->compare('status', $this->status);
+        $criteria->compare('city_from_out_links_count', $this->city_from_out_links_count);
+        $criteria->compare('city_to_out_links_count', $this->city_to_out_links_count);
+        $criteria->compare('checked', $this->checked);
 
         return new CActiveDataProvider($this, array(
-            'criteria'=>$criteria,
+            'criteria' => $criteria,
             'pagination' => array('pageSize' => 100),
-            'sort'=>array('defaultOrder'=>'id DESC')
+            'sort' => array('defaultOrder' => 'id DESC')
         ));
     }
 
     public function getTextStatus()
     {
-        switch($this->status){
-            case self::STATUS_NEW: return 'Новый';
-            case self::STATUS_PARSING: return 'парсится';
-            case self::STATUS_ROSNEFT_FOUND: return 'спарсен с Роснефти';
-            case self::STATUS_ROSNEFT_NOT_FOUND: return 'не найден на Роснефти';
-            case self::STATUS_GOOGLE_PARSE_SUCCESS: return 'спарсен с гугла';
-            case self::STATUS_ZERO_RESULT: return 'Google Maps API возвратил код ZERO_RESULT';
-            case self::STATUS_NOT_FOUND: return 'Google Maps API возвратил код NOT_FOUND';
-            case self::STATUS_NOT_FOUND: return 'Другая ошибка при поиске маршрута';
+        switch ($this->status) {
+            case self::STATUS_NEW:
+                return 'Новый';
+            case self::STATUS_PARSING:
+                return 'парсится';
+            case self::STATUS_ROSNEFT_FOUND:
+                return 'спарсен с Роснефти';
+            case self::STATUS_ROSNEFT_NOT_FOUND:
+                return 'не найден на Роснефти';
+            case self::STATUS_GOOGLE_PARSE_SUCCESS:
+                return 'спарсен с гугла';
+            case self::STATUS_ZERO_RESULT:
+                return 'Google Maps API возвратил код ZERO_RESULT';
+            case self::STATUS_NOT_FOUND:
+                return 'Google Maps API возвратил код NOT_FOUND';
+            case self::STATUS_NOT_FOUND:
+                return 'Другая ошибка при поиске маршрута';
         }
 
         return 'статус не определен';
@@ -140,7 +148,7 @@ class Route extends CActiveRecord
 
     public function getRouteLink()
     {
-        return CHtml::link('перейти', 'http://www.happy-giraffe.ru/routes/'.$this->id.'/', array('target'=>'_blank'));
+        return CHtml::link('перейти', 'http://www.happy-giraffe.ru/routes/' . $this->id . '/', array('target' => '_blank'));
     }
 
     /**
@@ -272,27 +280,33 @@ class Route extends CActiveRecord
         $city2 = array($this->cityTo->name, $this->cityTo->name_from, $this->cityTo->name_between);
         if ($this->city_from_id > $this->city_to_id)
             return array(
-                'Маршрут ' . $city1[0] . '-' . $city2[0],
-                'Узнайте, как доехать на авто от ' . $city1[1] . ' до ' . $city2[1] . '. Схема трассы ' . $city1[0] . '-' . $city2[0] . ' на карте. Выбирайте нужные вам дороги, трассы, шоссе и магистрали на пути от ' . $city1[1] . ' до ' . $city2[1],
-                'Пункты следования на пути ' . $city1[0] . '-' . $city2[0],
-                'Расстояние между ' . $city1[2] . ' и ' . $city2[2],
-                'Столько километров от ' . $city1[1] . ' до ' . $city2[1] . ' на автомобиле',
-                'Время в пути от ' . $city1[1] . ' до ' . $city2[1],
-                'Столько времени ехать от ' . $city1[1] . ' до ' . $city2[1],
-                'Отправьте маршрут поездки ' . $city1[0] . '-' . $city2[0] . ' своим друзьям',
-                'Отзывы водителей о состоянии трассы ' . $city1[0] . '-' . $city2[0],
+                0 => 'Маршрут ' . $city1[0] . '-' . $city2[0],
+                1 => 'Узнайте, как доехать на авто от ' . $city1[1] . ' до ' . $city2[1] . '. Схема трассы ' . $city1[0] . '-' . $city2[0] . ' на карте. Выбирайте нужные вам дороги, трассы, шоссе и магистрали на пути от ' . $city1[1] . ' до ' . $city2[1],
+                2 => 'Пункты следования на пути ' . $city1[0] . '-' . $city2[0],
+                3 => 'Расстояние между ' . $city1[2] . ' и ' . $city2[2],
+                4 => 'Столько километров от ' . $city1[1] . ' до ' . $city2[1] . ' на автомобиле',
+                5 => 'Время в пути от ' . $city1[1] . ' до ' . $city2[1],
+                6 => 'Столько времени ехать от ' . $city1[1] . ' до ' . $city2[1],
+                7 => 'Отправьте маршрут поездки ' . $city1[0] . '-' . $city2[0] . ' своим друзьям',
+                8 => 'Отзывы водителей о состоянии трассы ' . $city1[0] . '-' . $city2[0],
+                'title' => 'Маршрут ' . $city1[0] . '-' . $city2[0].'. Расстояние между ' . $city1[2] . ' и ' . $city2[2].' – '.$this->distance.' км.',
+                'description' => 'Как доехать от ' . $city1[1] . ' до ' . $city2[1] . '. Расчет расстояния и расход горючего.',
+                'keywords' => 'Маршрут между городами, расстояние, расход горючего, '.$city1[0].', '.$city2[0].'.',
             );
         else
             return array(
-                'Маршрут ' . $city1[0] . '-' . $city2[0],
-                'Изучайте карту маршрута ' . $city1[0] . '-' . $city2[0] . ' и узнавайте, как преодолеть это расстояние на машине. Смотрите лучшие автотрассы и дороги от ' . $city1[1] . ' до ' . $city2[1],
-                'Населенные пункты и другие объекты на автодороге ' . $city1[0] . '-' . $city2[0],
-                'Сколько километров от ' . $city1[1] . ' до ' . $city2[1],
-                'Количество км от ' . $city1[1] . ' до ' . $city2[1],
-                'Сколько времени ехать от ' . $city1[1] . ' до ' . $city2[1],
-                'Время, проведенное в пути',
-                'Делитесь маршрутом поездки ' . $city1[0] . '-' . $city2[0] . ' со своими друзьям',
-                'Водители рассказывают, как доехать от ' . $city1[1] . ' до ' . $city2[1],
+                0 => 'Маршрут ' . $city1[0] . '-' . $city2[0],
+                1 => 'Изучайте карту маршрута ' . $city1[0] . '-' . $city2[0] . ' и узнавайте, как преодолеть это расстояние на машине. Смотрите лучшие автотрассы и дороги от ' . $city1[1] . ' до ' . $city2[1],
+                2 => 'Населенные пункты и другие объекты на автодороге ' . $city1[0] . '-' . $city2[0],
+                3 => 'Сколько километров от ' . $city1[1] . ' до ' . $city2[1],
+                4 => 'Количество км от ' . $city1[1] . ' до ' . $city2[1],
+                5 => 'Сколько времени ехать от ' . $city1[1] . ' до ' . $city2[1],
+                6 => 'Время, проведенное в пути',
+                7 => 'Делитесь маршрутом поездки ' . $city1[0] . '-' . $city2[0] . ' со своими друзьям',
+                8 => 'Водители рассказывают, как доехать от ' . $city1[1] . ' до ' . $city2[1],
+                'title' => 'Маршрут ' . $city1[0] . '-' . $city2[0].'. Расстояние между ' . $city1[2] . ' и ' . $city2[2].' – '.$this->distance.' км.',
+                'description' => 'Как доехать от ' . $city1[1] . ' до ' . $city2[1] . '. Расчет расстояния и расход горючего.',
+                'keywords' => 'Маршрут между городами, расстояние, расход горючего, '.$city1[0].', '.$city2[0].'.',
             );
     }
 

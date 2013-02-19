@@ -282,6 +282,7 @@ textarea.error,
 
 .nomargin,
 .margin-0 {margin:0 !important;}
+.margin-5 {margin:5px !important;}
 .margin-20 {margin:20px !important;}
 .margin-t10 {margin-top: 10px !important;}
 .margin-t20 {margin-top: 20px !important;}
@@ -328,9 +329,9 @@ textarea.error,
 .clear { width: 99%; clear: both;}
 .clearfix:after {display:block;content:'.';height:0;clear:both;line-height:0;font-size:0;}
 
-::-webkit-input-placeholder,
+::-webkit-input-placeholder { color: #ddd;font-weight: normal;}
 :-moz-placeholder,
-.placeholder { color: #ddd !important;font-weight: normal !important;}
+.placeholder { color: #ddd;font-weight: normal;}
 .disabled {cursor:default;}
 /* /cosmetic layout */
 
@@ -353,13 +354,33 @@ textarea.error,
 #layout,
 .layout-wrapper {width:1000px;margin:0 auto;min-height:100%;background:#fff;position: relative;}
 .push,
-.footer-push {height:80px;}
+.footer-push {height:100px;}
 
-#footer {height:70px;width:1000px;margin:-80px auto 0;padding-top:10px;font:normal 11px/36px tahoma, arial, helvetica, sens-serif;position: relative;background: #fff;}
+#footer {height:90px;width:1000px;margin:-100px auto 0;padding-top:10px;font:normal 11px/36px tahoma, arial, helvetica, sens-serif;position: relative;background: #fff;}
 
 #footer .copy {padding-left:20px;color:#9e9d9e;}
 #footer .copy .icon-18{vertical-align: middle;padding: 0 25px;}
 #footer .a-right {color:#0498b8;padding-right:20px;}
+.mobile-version {
+	display: inline-block;
+	margin-left: 20px;
+	padding: 5px 8px;
+	border: 1px solid #c9c8c8;
+	background: #9a78bc;
+	color: #514f52;
+	font-size: 12px;
+	line-height: normal;
+	text-decoration: none;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	background: #eaeaea; /* Old browsers */
+    background: -moz-linear-gradient(top,  #ffffff 0%, #eaeaea 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#eaeaea)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #ffffff 0%,#eaeaea 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #ffffff 0%,#eaeaea 100%); /* Opera 11.10+ */
+    background: linear-gradient(to bottom,  #ffffff 0%,#eaeaea 100%); /* W3C */
+}
 
 #body-overlay {position:fixed;height:100%;width:100%;top:0;left:0;z-index:98;background:url(/images/bg_black_alpha_40.png);}
 .popup-container {position:absolute;top:0;bottom:0;left:0;right:0;z-index:100;overflow: hidden;display:none;}
@@ -5920,10 +5941,12 @@ label {
 }
 .map-route-other {margin: 0 10px 40px;}
 .map-route-other_title {font-size: 17px;font-weight: normal;margin-bottom: 20px;}
-.map-route-other_ul {}
+.map-route-other_ul {
+	float: left;
+	width: 45%;
+	margin-right: 5%;
+}
 .map-route-other_li {
-	display: inline-block;*zoom:1;*display:inline;
-	width: 40%;
 	padding: 7px 0 7px 25px;
 	background: url(/images/services/map-route/map-route-other_li.png) no-repeat 0 50%;
 }

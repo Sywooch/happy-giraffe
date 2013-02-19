@@ -90,7 +90,7 @@ class GeoCommand extends CConsoleCommand
     }
 
     public function actionCityCoordinates(){
-        $parser = new GoogleCoordinatesParser(true, true);
+        $parser = new GoogleCoordinatesParser(false, true);
         $parser->start();
     }
 

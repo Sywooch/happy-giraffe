@@ -204,6 +204,8 @@ Yii::app()->clientScript
                     <button class="custom-like-small-popup_btn btn-green btn-medium">Отправить</button>
 
                     <?php $this->endWidget(); ?>
+
+                    <div id="send-success" style="display: none">Маршрут успешно отправлен!</div>
                 </div>
             </div>
             <div class="map-route-share_tx">Ссылка на этот маршрут:</div>
@@ -244,7 +246,15 @@ Yii::app()->clientScript
     function SendRoute() {
         $.post('/routes/sendEmail/', $('#send-route-form').serialize(), function (response) {
             if (response.status) {
-                $('#email-popup').html('Маршрут успешно отправлен');
+                $('#send-route-form').hide();
+                $('#send-success').show();
+
+                setTimeout(function() {
+                    $('#send-route-form').show();
+                    $('#send-success').hide();
+                    $('#SendRoute_friend_email').val('');
+                    $('#SendRoute_verifyCode').val('');
+                }, 2000)
             }
         }, 'json');
     }

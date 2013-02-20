@@ -37,8 +37,8 @@ var Routes = {
                 Routes.directionsDisplay.setDirections(response);
                 var myRoute = response.routes[0].legs[0];
 
-                new google.maps.Marker({position: myRoute.steps[0].start_point,map: Routes.map,icon: '/images/map_marker-2.png'});
-                new google.maps.Marker({position: myRoute.steps[myRoute.steps.length - 1].end_point,map: Routes.map,icon: '/images/map_marker-2.png'});
+                new google.maps.Marker({position: myRoute.steps[0].start_point,map: Routes.map,icon: '/images/services/map-route/point/point-start.png'});
+                new google.maps.Marker({position: myRoute.steps[myRoute.steps.length - 1].end_point,map: Routes.map,icon: '/images/services/map-route/point/point-finish.png'});
             }
         });
     },

@@ -33,7 +33,7 @@ foreach ($middle_points as $point) {
 new google.maps.Marker({
     position: new google.maps.LatLng(" . $c->location_lat . ", " . $c->location_lng . "),
     map: Routes.map,
-    icon: '/images/map_marker-2.png',
+    icon: '/images/services/map-route/point/point-".$index.".png',
     title:'" . $point['city']->name . "'
 });";
     $index++;

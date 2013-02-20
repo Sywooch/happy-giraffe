@@ -9,6 +9,12 @@ class GoogleMapsApiParser
     protected $proxy;
     protected $use_proxy = true;
 
+    public function __construct($debug_mode = false, $use_proxy = false)
+    {
+        $this->debug_mode = $debug_mode;
+        $this->use_proxy = $use_proxy;
+    }
+
     /**
      * @param $url string
      * @return array

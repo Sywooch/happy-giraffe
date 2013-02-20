@@ -44,7 +44,6 @@ class GoogleRouteParser extends GoogleMapsApiParser
     public static function parseRoute($route)
     {
         $p = new GoogleRouteParser();
-        $p->use_proxy = false;
         $p->route = $route;
 
         return $p->parse();
@@ -133,9 +132,17 @@ class GoogleRouteParser extends GoogleMapsApiParser
 
     private function loadDirection()
     {
-        $url = 'http://maps.googleapis.com/maps/api/directions/json?origin='
-            . urlencode($this->route->cityFrom->getFullName()) . '&destination='
-            . urlencode($this->route->cityTo->getFullName()) . '&sensor=false';
-        return $this->loadPage($url);
+        return $this->loadPage(self::getUrl($this->route));
+    }
+
+    /**
+     * @param $route Route
+     * @return string
+     */
+    public static function getUrl($route)
+    {
+        return 'http://maps.googleapis.com/maps/api/directions/json?origin='
+            . urlencode($route->cityFrom->getFullName()) . '&destination='
+            . urlencode($route->cityTo->getFullName()) . '&sensor=false';
     }
 }

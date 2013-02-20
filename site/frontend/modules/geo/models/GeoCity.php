@@ -162,7 +162,7 @@ class GeoCity extends HActiveRecord
     public function getFullName()
     {
         $text = $this->name;
-        if (!empty($this->district_id)) {
+        if (!empty($this->district_id) && $this->district->name != $this->name) {
             //если есть такой же город в этом регионе
             $criteria = new CDbCriteria;
             $criteria->compare('region_id', $this->region_id);
@@ -171,8 +171,12 @@ class GeoCity extends HActiveRecord
             if ($count > 1)
                 $text .= ', ' . $this->district->name . ' район';
         }
-        if (!empty($this->region_id) && $this->region->name !== $this->name)
-            $text .= ', ' . $this->region->name;
+        if (!empty($this->region_id) && $this->region->name !== $this->name){
+            if (empty($this->region->google_name))
+                $text .= ', ' . $this->region->name;
+            else
+                $text .= ', ' . $this->region->google_name;
+        }
 
         $text .= ', ' . $this->country->name;
 
@@ -209,7 +213,7 @@ class GeoCity extends HActiveRecord
     {
         $parser = new GoogleMapsGeoCode;
         $city = $parser->getCityByCoordinates($lat, $lng);
-        if ($city !== null) {
+        if ($city !== null && !CityCoordinates::model()->exists('city_id=:city_id', array(':city_id'=>$city->id))) {
             $coordinates = new CityCoordinates();
             $coordinates->city_id = $city->id;
             $coordinates->location_lat = $lat;

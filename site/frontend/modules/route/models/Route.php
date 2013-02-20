@@ -354,13 +354,13 @@ class Route extends CActiveRecord
 
     public static function get8Points($points)
     {
-        if (count($points) <= 5)
+        if (count($points) <= 8)
             return $points;
 
-        $step = (count($points) / 5);
+        $step = (count($points) / 8);
 
         $result = array();
-        for($i=0;$i<5;$i++){
+        for($i=0;$i<8;$i++){
             $index = round($step*$i);
             $result[] = $points[$index];
         }

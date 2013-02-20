@@ -49,21 +49,21 @@ new google.maps.Marker({
 }
 
 $way_points = Route::get8Points($middle_points);
-$way_points_data = array();
+$waypoints_js = 'var way_points = [';
 foreach ($way_points as $point) {
     $c = $point['city']->coordinates;
 
-    if ($c !== null && !empty($c->location_lat) && !empty($c->location_lng))
-        $way_points_data [] = array('stopover'=>false, 'location'=>$point['city']->getFullName());
+    if ($c !== null && !empty($c->location_lat) && !empty($c->location_lng)){
+        $waypoints_js .= '{location:new google.maps.LatLng(' . $c->location_lat . ', ' . $c->location_lng . '),stopover:false},';
+    }
 }
-$waypoints_js = "var way_points = ".CJavaScript::encode($way_points_data).';';
-
+$waypoints_js .= '];';
 
 $basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR;
 $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
 
 Yii::app()->clientScript
-    ->registerScriptFile('http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false')
+    ->registerScriptFile('http://maps.googleapis.com/maps/api/js?v=3&libraries=places&sensor=false')
     ->registerCoreScript('jquery.ui')
     ->registerScriptFile('/javascripts/knockout-2.2.1.js')
     ->registerScript('routes_module', $js)

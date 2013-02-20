@@ -51,9 +51,6 @@ class GoogleRouteParser extends GoogleMapsApiParser
 
     private function parse()
     {
-        //remove steps if exists
-        RoutePoint::model()->deleteAll('route_id = :route_id', array(':route_id' => $this->route->id));
-
         $result = $this->loadDirection();
         //var_dump($result);
 
@@ -67,6 +64,9 @@ class GoogleRouteParser extends GoogleMapsApiParser
             $this->route->status = Route::STATUS_NO_ROUTE;
             $this->route->save();
         }else{
+            //remove steps if exists
+            RoutePoint::model()->deleteAll('route_id = :route_id', array(':route_id' => $this->route->id));
+
             $legs = $result['routes'][0]['legs'][0];
             $this->route->distance = round($legs['distance']['value'] / 1000);
             $this->route->save();

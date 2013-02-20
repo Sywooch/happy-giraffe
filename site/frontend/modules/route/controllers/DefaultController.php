@@ -74,12 +74,13 @@ class DefaultController extends HController
         if ($model->validate()) {
             $model->send();
             echo CJSON::encode(array('status' => true));
-        } else{
+        } else {
             var_dump($model->getErrors());
         }
     }
 
-    public function actionTest(){
+    public function actionTest()
+    {
 //        $city = GeoCity::model()->findByPk(14798);
 //        echo $city->getFullName()."<br>";
 //        $parser = new GoogleCoordinatesParser;
@@ -93,6 +94,24 @@ class DefaultController extends HController
 
         $p = new GoogleRouteParser;
         $p->parseRoute(Route::model()->findByPk(2634));
+    }
+
+    public function actionReparseGoogle($id)
+    {
+        $route = $this->loadModel($id);
+        $success = GoogleRouteParser::parseRoute($route);
+        if ($success) {
+            $return_route = Route::model()->findByAttributes(array(
+                'city_from_id' => $route->city_to_id,
+                'city_to_id' => $route->city_from_id
+            ));
+            if ($return_route !== null){
+                $return_route->delete();
+                $route->createReturnRoute();
+            }
+        }
+
+        $this->redirect($this->createUrl('/route/default/', array('id'=>$route->id)));
     }
 
     /**

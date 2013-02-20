@@ -67,7 +67,7 @@ Yii::app()->clientScript
     ->registerCoreScript('jquery.ui')
     ->registerScriptFile('/javascripts/knockout-2.2.1.js')
     ->registerScript('routes_module', $js)
-    ->registerScript('routes_waypoints', $waypoints_js, CClientScript::POS_HEAD)
+    ->registerScript('routes_waypoints', $waypoints_js, CClientScript::POS_BEGIN)
     ->registerScriptFile($baseUrl . '/routes.js');
 
 ?>
@@ -79,8 +79,8 @@ Yii::app()->clientScript
 <?php if (Yii::app()->user->checkAccess('routes')):?>
     <a href="/routes/<?=Route::model()->find(new CDbCriteria(array('order'=>'rand()', 'condition'=>'status=4')))->id ?>/">случайно google</a><br>
     <a href="/routes/<?=Route::model()->find(new CDbCriteria(array('order'=>'rand()', 'condition'=>'status=2')))->id ?>/">случайно rosneft</a><br>
-    <a href="/routes/reparseGoogle/">перепарсить в гугл</a><br>
-    <a href="/routes/reparseRosneft/">перепарсить в роснефть</a><br>
+    <a href="/routes/reparseGoogle/<?=$route->id ?>/">перепарсить в гугл</a><br>
+    <a href="/routes/reparseRosneft/<?=$route->id ?>/">перепарсить в роснефть</a><br>
 <?php endif ?>
 <div class="map-route-search">
     <a href="#" class="map-route-search_new a-pseudo" onclick="$('form.map-route-search_form').toggle();">Новый

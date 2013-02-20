@@ -2985,11 +2985,11 @@ div.scrollbarpaper-drag {-moz-border-radius:3px;-webkit-border-radius:3px;border
 	margin-bottom: 10px;
 }
 .custom-like-small-popup_it {
-	margin: 0 0 10px;
+	margin: 0;
 	width: 174px;
 }
 .custom-like-small-popup_textarea {
-	margin: 0 0 10px;
+	margin: 0;
 	width: 174px;
 	max-width: 174px;
 }

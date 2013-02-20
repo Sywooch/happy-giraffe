@@ -258,6 +258,7 @@ return array(
 
         'routes/<id:[\d]+>'=>'route/default/index',
         'routes/<_a>'=>'route/default/<_a>',
+        'routes/<_a>/<id:[\d]+>'=>'route/default/<_a>',
         'routes/'=>'route/default/index',
 
         'ValentinesDay' => 'valentinesDay/default/index',

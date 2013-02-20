@@ -7,7 +7,7 @@ class GoogleMapsApiParser
 {
     protected $debug_mode = false;
     protected $proxy;
-    protected $use_proxy = true;
+    protected $use_proxy = false;
 
     public function __construct($debug_mode = false, $use_proxy = false)
     {

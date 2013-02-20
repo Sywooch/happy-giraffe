@@ -31,7 +31,7 @@ var Routes = {
             destination:end,
             travelMode:google.maps.DirectionsTravelMode.DRIVING,
             provideRouteAlternatives:false,
-            waypoints:window.way_points
+            //waypoints:window.way_points
         };
         Routes.directionsService.route(request, function (response, status) {
             if (status == google.maps.DirectionsStatus.OK) {

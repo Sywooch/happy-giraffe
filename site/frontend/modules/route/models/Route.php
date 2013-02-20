@@ -245,7 +245,7 @@ class Route extends CActiveRecord
             $summary_distance += $point->distance;
             //пропускаем населенные пункты, которых нет в нашей базе
             //это скорее всего названия трасс, которые мы не сможет отметить на карте метками
-            if (empty($point->city_id)) {
+            if (empty($point->city_id) || !$point->uniqueCityInRegion()) {
                 $next_point_distance += $point->distance;
             } else {
                 $next_point_distance += $point->distance;
@@ -350,5 +350,21 @@ class Route extends CActiveRecord
         }
 
         return array($list1, $list2);
+    }
+
+    public static function get8Points($points)
+    {
+        if (count($points) <= 5)
+            return $points;
+
+        $step = (count($points) / 5);
+
+        $result = array();
+        for($i=0;$i<5;$i++){
+            $index = round($step*$i);
+            $result[] = $points[$index];
+        }
+
+        return $result;
     }
 }

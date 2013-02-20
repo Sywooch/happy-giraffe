@@ -15,16 +15,10 @@ class GoogleCoordinatesParser extends GoogleMapsApiParser
      */
     public $city;
 
-    public function __construct($debug_mode = false, $use_proxy = false)
-    {
-        $this->debug_mode = $debug_mode;
-        $this->use_proxy = $use_proxy;
-    }
-
     public function start()
     {
         Yii::import('site.seo.models.*');
-        time_nanosleep(rand(0, 60), rand(0, 1000000000));
+        time_nanosleep(rand(0, 10), rand(0, 1000000000));
 
         for ($i = 0; $i < 10000; $i++) {
             $this->getCity();
@@ -32,41 +26,38 @@ class GoogleCoordinatesParser extends GoogleMapsApiParser
         }
     }
 
-    public function getCity()
+    private function getCity()
     {
         $criteria = new CDbCriteria;
         $criteria->condition = 'id NOT IN (Select city_id from geo__city_coordinates) AND id IN (SELECT DISTINCT(city_id) FROM  `routes__points`)';
-        //$criteria->offset = rand(0, 30);
+        //$criteria->offset = rand(0, 10);
         $this->city = GeoCity::model()->find($criteria);
+        if ($this->city == null)
+            Yii::app()->end();
     }
 
-    public function parseCity($attempt = 0)
+    public function parseCity()
     {
         $city_string = $this->city->getFullName();
 
-        $url = 'http://maps.google.com/maps/api/geocode/json?address=' . urlencode($city_string) . '&sensor=false';
+        $url = 'http://maps.google.com/maps/api/geocode/json?address=' . urlencode($city_string) . '&sensor=false&language=ru';
         $result = $this->loadPage($url);
 
         if (isset($result['status']) && $result['status'] == 'OK') {
-            $this->saveCoordinates($result['results'][0]['geometry']);
+              if (mb_strpos($result['results'][0]['formatted_address'], $this->city->name, 0, 'UTF-8') !== false)
+                $this->saveCoordinates($result['results'][0]['geometry']);
+            else
+                $this->saveEmptyCoordinates();
         } else {
             $this->log('status: ' . $result['status']);
 
             if ($result['status'] == 'ZERO_RESULTS') {
-                $this->coordinates = new CityCoordinates();
-                $this->coordinates->city_id = $this->city->id;
-                $this->coordinates->location_lat = 0;
-                $this->coordinates->location_lng = 0;
-                try {
-                    $this->coordinates->save();
-                } catch (Exception $err) {
-
-                }
+                $this->saveEmptyCoordinates();
             }
         }
     }
 
-    public function saveCoordinates($result)
+    private function saveCoordinates($result)
     {
         $this->coordinates = new CityCoordinates();
         $this->coordinates->city_id = $this->city->id;
@@ -78,6 +69,19 @@ class GoogleCoordinatesParser extends GoogleMapsApiParser
             $this->coordinates->southwest_lat = round($result['bounds']['southwest']['lat'], 8);
             $this->coordinates->southwest_lng = round($result['bounds']['southwest']['lng'], 8);
         }
+        try {
+            $this->coordinates->save();
+        } catch (Exception $err) {
+
+        }
+    }
+
+    private function saveEmptyCoordinates()
+    {
+        $this->coordinates = new CityCoordinates();
+        $this->coordinates->city_id = $this->city->id;
+        $this->coordinates->location_lat = 0;
+        $this->coordinates->location_lng = 0;
         try {
             $this->coordinates->save();
         } catch (Exception $err) {

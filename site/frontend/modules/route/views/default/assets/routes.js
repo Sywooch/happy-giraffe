@@ -30,7 +30,8 @@ var Routes = {
             origin:start,
             destination:end,
             travelMode:google.maps.DirectionsTravelMode.DRIVING,
-            provideRouteAlternatives:true
+            provideRouteAlternatives:false,
+            waypoints:way_points
         };
         Routes.directionsService.route(request, function (response, status) {
             if (status == google.maps.DirectionsStatus.OK) {
@@ -54,8 +55,8 @@ var Routes = {
             } else {
                 Routes.from_city = {
                     text:place.formatted_address,
-                    lat:place.geometry.location.Ya,
-                    lng:place.geometry.location.Za
+                    lat:place.geometry.location.lat(),
+                    lng:place.geometry.location.lng()
                 };
             }
         });
@@ -69,11 +70,9 @@ var Routes = {
             } else
                 Routes.to_city = {
                     text:place.formatted_address,
-                    lat:place.geometry.location.Ya,
-                    lng:place.geometry.location.Za
+                    lat:place.geometry.location.lat(),
+                    lng:place.geometry.location.lng()
                 };
-
-            console.log(Routes.to_city);
         });
     },
     reversePlaces:function () {

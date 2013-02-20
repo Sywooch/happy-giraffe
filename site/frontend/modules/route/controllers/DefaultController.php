@@ -47,7 +47,7 @@ class DefaultController extends HController
         $city_from = GeoCity::getCityByCoordinates(Yii::app()->request->getPost('city_from_lat'), Yii::app()->request->getPost('city_from_lng'));
         $city_to = GeoCity::getCityByCoordinates(Yii::app()->request->getPost('city_to_lat'), Yii::app()->request->getPost('city_to_lng'));
 
-        if ($city_from != $city_to) {
+        if ($city_from->id != $city_to->id) {
             $route = Route::model()->findByAttributes(array('city_from_id' => $city_from->id, 'city_to_id' => $city_to->id));
             if ($route === null) {
                 //create new route
@@ -77,6 +77,22 @@ class DefaultController extends HController
         } else{
             var_dump($model->getErrors());
         }
+    }
+
+    public function actionTest(){
+//        $city = GeoCity::model()->findByPk(14798);
+//        echo $city->getFullName()."<br>";
+//        $parser = new GoogleCoordinatesParser;
+//        $parser->city = $city;
+//        $parser->parseCity();
+//
+//        var_dump($parser->coordinates->attributes);
+
+//        $r = GoogleRouteParser::getUrl(Route::model()->findByPk(2634));
+//        var_dump($r);
+
+        $p = new GoogleRouteParser;
+        $p->parseRoute(Route::model()->findByPk(2634));
     }
 
     /**

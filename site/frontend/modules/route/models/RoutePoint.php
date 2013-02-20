@@ -109,4 +109,13 @@ class RoutePoint extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+    public function uniqueCityInRegion()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->compare('region_id', $this->region_id);
+        $criteria->compare('name', $this->city->name);
+
+        return GeoCity::model()->count($criteria) == 1;
+    }
 }

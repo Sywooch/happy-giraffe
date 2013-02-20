@@ -21,12 +21,21 @@ foreach ($fuels as $fuel) {
 }
 
 $js = 'Routes.init("' . $route->cityFrom->getFullName() . '", "' . $route->cityTo->getFullName() . '");
-ko.applyBindings(new RoutesModel("' . $distance . '", ' . CJavaScript::encode($result) . '));';
+ko.applyBindings(new RoutesModel("' . $distance . '", ' . CJavaScript::encode($result) . '));
+';
+
+
 
 $middle_points = array_slice($points, 1, count($points) - 2);
 $index = 1;
 foreach ($middle_points as $point) {
     $c = $point['city']->coordinates;
+    if ($c === null){
+        $p = new GoogleCoordinatesParser;
+        $p->city = $point['city'];
+        $p->parseCity();
+        $c = $p->coordinates;
+    }
 
     if ($c !== null && !empty($c->location_lat) && !empty($c->location_lng))
         $js .= "
@@ -34,19 +43,31 @@ new google.maps.Marker({
     position: new google.maps.LatLng(" . $c->location_lat . ", " . $c->location_lng . "),
     map: Routes.map,
     icon: '/images/services/map-route/point/point-".$index.".png',
-    title:'" . $point['city']->name . "'
+    title:'" . $point['city']->name . "',
 });";
     $index++;
 }
+
+$way_points = Route::get8Points($middle_points);
+$way_points_data = array();
+foreach ($way_points as $point) {
+    $c = $point['city']->coordinates;
+
+    if ($c !== null && !empty($c->location_lat) && !empty($c->location_lng))
+        $way_points_data [] = array('stopover'=>false, 'location'=>$point['city']->getFullName());
+}
+$waypoints_js = "var way_points = ".CJavaScript::encode($way_points_data).';';
+
 
 $basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR;
 $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
 
 Yii::app()->clientScript
-    ->registerScriptFile('http://maps.googleapis.com/maps/api/js?libraries=places&key=' . Yii::app()->params['google_map_key'] . '&sensor=true')
+    ->registerScriptFile('http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false')
     ->registerCoreScript('jquery.ui')
     ->registerScriptFile('/javascripts/knockout-2.2.1.js')
     ->registerScript('routes_module', $js)
+    ->registerScript('routes_waypoints', $waypoints_js, CClientScript::POS_HEAD)
     ->registerScriptFile($baseUrl . '/routes.js');
 
 ?>
@@ -55,6 +76,12 @@ Yii::app()->clientScript
         content: none !important;
     }
 </style>
+<?php if (Yii::app()->user->checkAccess('routes')):?>
+    <a href="/routes/<?=Route::model()->find(new CDbCriteria(array('order'=>'rand()', 'condition'=>'status=4')))->id ?>/">случайно google</a><br>
+    <a href="/routes/<?=Route::model()->find(new CDbCriteria(array('order'=>'rand()', 'condition'=>'status=2')))->id ?>/">случайно rosneft</a><br>
+    <a href="/routes/reparseGoogle/">перепарсить в гугл</a><br>
+    <a href="/routes/reparseRosneft/">перепарсить в роснефть</a><br>
+<?php endif ?>
 <div class="map-route-search">
     <a href="#" class="map-route-search_new a-pseudo" onclick="$('form.map-route-search_form').toggle();">Новый
         маршрут</a>
@@ -65,7 +92,7 @@ Yii::app()->clientScript
         <input id="city_from" type="text" class="map-route-search_itx itx-bluelight" placeholder="Откуда">
         <a href="javascript:;" class="map-route-search_reverse" onclick="Routes.reversePlaces()"></a>
         <input id="city_to" type="text" class="map-route-search_itx itx-bluelight" placeholder="Куда">
-        <button class="btn-green map-route-search_btn" onclick="Routes.go()">Проложить <br> маршрут</button>
+        <button class="btn-green map-route-search_btn" onclick="Routes.go();return false;">Проложить <br> маршрут</button>
     </form>
     <p><?=$texts[1] ?></p>
 

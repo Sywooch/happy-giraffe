@@ -38,7 +38,7 @@ class DefaultController extends HController
             $this->meta_description = $texts['description'];
             $this->meta_keywords = $texts['keywords'];
             $points = $route->getIntermediatePoints();
-            $this->render('page', compact('route', 'texts', 'points'));
+            $this->render('view', compact('route', 'texts', 'points'));
         }
     }
 

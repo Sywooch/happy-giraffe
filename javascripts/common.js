@@ -706,3 +706,9 @@ function HGoTo(elem) {
     $('.layout-container').animate({scrollTop:elem.offsetTop + 100}, "fast");
     elem.trigger('click');
 }
+
+function openPopup(el) {
+    window.open($(el).attr('href'), '', 'toolbar=0,status=0,width=626,height=436');
+    return false;
+}
+

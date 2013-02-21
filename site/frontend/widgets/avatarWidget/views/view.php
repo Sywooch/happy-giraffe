@@ -22,7 +22,9 @@ else {
             <?php if ($this->online_status):?>
                 <span class="icon-status status-<?php echo $this->user->online == 1 ? 'online' : 'offline'; ?>"></span>
             <?php endif ?>
+
             <?=HHtml::link(CHtml::encode($this->user->fullName), $link_to_profile, array('class'=>'username'), $this->hideLinks)?>
+
             <?php if ($this->time):?>
             <div class="date"><?=Yii::app()->dateFormatter->format("d MMMM yyyy, H:mm", $this->time)?></div>
             <?php endif ?>
@@ -32,27 +34,32 @@ else {
                     <?php echo CHtml::encode($this->user->address->getCityOrRegion()); ?>
                 </div>
             <?php endif; ?>
-            <div class="user-fast-buttons">
-                <?php if ($this->friendRequest !== false): ?>
-                    <?php if ($this->friendRequest['direction'] == 'incoming'): ?>
-                        <?=CHtml::link('Принять', 'javascript:void(0)', array('class' => 'accept', 'onclick' => 'Friends.request(' . $this->friendRequest['id'] . ', \'accept\', this)'))?>
-                        <?=CHtml::link('', 'javascript:void(0)', array('class' => 'remove tooltip', 'title' => 'Отклонить', 'onclick' => 'Friends.request(' . $this->friendRequest['id'] . ', \'decline\', this)'))?>
-                    <?php else: ?>
-                        <?=CHtml::link('Отменить', 'javascript:void(0)', array('class' => 'accept cancel', 'onclick' => 'Friends.request(' . $this->friendRequest['id'] . ', \'cancel\', this)'))?>
+
+            <?php if ($this->user->deleted == 0):?>
+                <div class="user-fast-buttons">
+                    <?php if ($this->friendRequest !== false): ?>
+                        <?php if ($this->friendRequest['direction'] == 'incoming'): ?>
+                            <?=CHtml::link('Принять', 'javascript:void(0)', array('class' => 'accept', 'onclick' => 'Friends.request(' . $this->friendRequest['id'] . ', \'accept\', this)'))?>
+                            <?=CHtml::link('', 'javascript:void(0)', array('class' => 'remove tooltip', 'title' => 'Отклонить', 'onclick' => 'Friends.request(' . $this->friendRequest['id'] . ', \'decline\', this)'))?>
+                        <?php else: ?>
+                            <?=CHtml::link('Отменить', 'javascript:void(0)', array('class' => 'accept cancel', 'onclick' => 'Friends.request(' . $this->friendRequest['id'] . ', \'cancel\', this)'))?>
+                        <?php endif; ?>
                     <?php endif; ?>
-                <?php endif; ?>
-                <?php if ($this->friendButton && $this->user->id != Yii::app()->user->id): ?>
-                    <?php Yii::app()->controller->renderPartial('//user/_friend_button', array(
-                        'user' => $this->user,
-                    )); ?>
-                <?php endif; ?>
-                <?php if ($this->sendButton && $this->user->id != Yii::app()->user->id): ?>
-                    <?php Yii::app()->controller->renderPartial('//user/_dialog_button', array(
-                        'user' => $this->user,
-                    )); ?>
-                <?php endif; ?>
-            </div>
-            <?php if ($this->nav): ?>
+                    <?php if ($this->friendButton && $this->user->id != Yii::app()->user->id): ?>
+                        <?php Yii::app()->controller->renderPartial('//user/_friend_button', array(
+                            'user' => $this->user,
+                        )); ?>
+                    <?php endif; ?>
+                    <?php if ($this->sendButton && $this->user->id != Yii::app()->user->id): ?>
+                        <?php Yii::app()->controller->renderPartial('//user/_dialog_button', array(
+                            'user' => $this->user,
+                        )); ?>
+                    <?php endif; ?>
+                </div>
+            <?php endif ?>
+
+
+            <?php if ($this->nav && $this->user->deleted == 0): ?>
                 <div class="user-fast-nav">
                     <ul>
                         <?=CHtml::link('Анкета', array('/user/profile', 'user_id' => $this->user->id))?>&nbsp;|&nbsp;<?=CHtml::link('Блог', array('/blog/list', 'user_id' => $this->user->id))?>&nbsp;|&nbsp;<?=CHtml::link('Фото', array('/albums/user', 'id' => $this->user->id))?>&nbsp;|&nbsp;<span class="drp-list">
@@ -65,6 +72,8 @@ else {
                     </ul>
                 </div>
             <?php endif; ?>
+
+
         </div>
         <?php if ($this->status && $this->user->status !== null): ?>
             <div class="text-status">

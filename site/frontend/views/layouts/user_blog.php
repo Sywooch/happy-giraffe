@@ -146,35 +146,37 @@
 
             <?php $this->endCache(); endif;  ?>
 
-            <?php if($this->beginCache('blog-photos', array(
-                'duration' => 600,
-                'dependency' => array(
-                    'class' => 'CDbCacheDependency',
-                    'sql' => 'SELECT MAX(p.created) FROM album__photos p
-                        JOIN album__albums a ON p.album_id = a.id
-                        WHERE a.type = 0 AND p.author_id = ' . $this->user->id,
-                ),
-                'varyByParam' => array('user_id'),
-            ))): ?>
+            <?php if (!$this->user->deleted):?>
+                <?php if($this->beginCache('blog-photos', array(
+                    'duration' => 600,
+                    'dependency' => array(
+                        'class' => 'CDbCacheDependency',
+                        'sql' => 'SELECT MAX(p.created) FROM album__photos p
+                            JOIN album__albums a ON p.album_id = a.id
+                            WHERE a.type = 0 AND p.author_id = ' . $this->user->id,
+                    ),
+                    'varyByParam' => array('user_id'),
+                ))): ?>
 
-                <?php $photos = $this->user->getRelated('photos', false, array('limit' => 3, 'order' => 'photos.created DESC', 'scopes'=>array('active'), 'with'=>array('album'=>array('condition'=>'album.type = 0')))); ?>
-                <?php if (count($photos)>0):?>
-                    <div class="fast-photos">
+                    <?php $photos = $this->user->getRelated('photos', false, array('limit' => 3, 'order' => 'photos.created DESC', 'scopes'=>array('active'), 'with'=>array('album'=>array('condition'=>'album.type = 0')))); ?>
+                    <?php if (count($photos)>0):?>
+                        <div class="fast-photos">
 
-                        <div class="block-title"><span>МОИ</span>свежие<br/>фото</div>
+                            <div class="block-title"><span>МОИ</span>свежие<br/>фото</div>
 
-                        <div class="preview">
-                            <?php $i = 0; foreach($photos as $p): ?>
-                                <?=CHtml::image($p->getPreviewUrl(150, 150), $p->title, array('class' => 'img-' . ++$i))?>
-                            <?php endforeach; ?>
+                            <div class="preview">
+                                <?php $i = 0; foreach($photos as $p): ?>
+                                    <?=CHtml::image($p->getPreviewUrl(150, 150), $p->title, array('class' => 'img-' . ++$i))?>
+                                <?php endforeach; ?>
+                            </div>
+
+                            <?=CHtml::link('<i class="icon"></i>Смотреть', array('albums/user', 'id' => $this->user->id), array('class' => 'more'))?>
+
                         </div>
+                    <?php endif ?>
 
-                        <?=CHtml::link('<i class="icon"></i>Смотреть', array('albums/user', 'id' => $this->user->id), array('class' => 'more'))?>
-
-                    </div>
-                <?php endif ?>
-
-            <?php $this->endCache(); endif;  ?>
+                <?php $this->endCache(); endif;  ?>
+            <?php endif ?>
 
 
             <div class="banner-box">

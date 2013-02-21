@@ -153,7 +153,7 @@ class SiteCommand extends CConsoleCommand
                 FriendEvent::postDeleted(($model->isFromBlog ? 'BlogContent' : 'CommunityContent'), $model->id);
             }
 
-            $criteria->offset += 1000;
+            $criteria->offset += 500;
         }
 
         echo "remove recipes\n";
@@ -176,7 +176,7 @@ class SiteCommand extends CConsoleCommand
                 FriendEvent::userDeleted($model);
             }
 
-            $criteria->offset += 1000;
+            $criteria->offset += 500;
         }
     }
 }

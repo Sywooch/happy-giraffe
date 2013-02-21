@@ -44,7 +44,7 @@
             $params['service'] = $name;
             if (isset($this->params['redirectUrl']))
                 $params['redirectUrl'] = $this->params['redirectUrl'];
-            echo CHtml::link('', Yii::app()->createUrl('/'.$action, $params), array('class' => 'auth-link ' . $service->id));
+            echo HHtml::link('', Yii::app()->createUrl('/'.$action, $params), array('class' => 'auth-link ' . $service->id), true);
             echo '</li>';
         }
     ?>

@@ -702,6 +702,9 @@ class AlbumsController extends HController
                 $contest_id = Yii::app()->request->getQuery('contest_id');
                 $model = CActiveRecord::model($entity)->findByPk($contest_id);
                 $attach = $photo->getAttachByEntity('ContestWork', $photo_id);
+                if (!isset($attach->model))
+                    throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
                 $work = $attach->model;
                 if ($work === null)
                     throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');

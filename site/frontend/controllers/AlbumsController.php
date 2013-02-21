@@ -60,7 +60,7 @@ class AlbumsController extends HController
     {
         $user = User::model()->with('avatar', 'status')->findByPk($id);
         $this->user = $user;
-        if (!$user)
+        if (!$user || $user->deleted)
             throw new CHttpException(404, 'Пользователь не найден');
         $scopes = !Yii::app()->user->isGuest && Yii::app()->user->id == $id ? array() : array('noSystem');
         $dataProvider = Album::model()->findByUser($id, false, false, $scopes);

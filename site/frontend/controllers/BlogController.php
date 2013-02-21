@@ -207,7 +207,7 @@ class BlogController extends HController
 
         $content = BlogContent::model()->active()->full()->findByPk($content_id);
 
-        if ($content === null || $content->author_id !== $user_id)// || $content->author_id->deleted)
+        if ($content === null || $content->author_id !== $user_id || $content->author_id->deleted)
             throw new CHttpException(404, 'Такой записи не существует');
 
         if (! preg_match('#^\/user\/(\d+)\/blog\/post(\d+)\/#', Yii::app()->request->requestUri)) {

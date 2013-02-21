@@ -95,6 +95,7 @@ return array(
 
         // community/*
         'community/36.*' => 404,
+        '/user/blog/user_id/<id:\d+>/'=>404,
         'community/list/rubric_id/<rubric_id:\d+>' => 404,
         'news/rubric<rubric_id:\d+>' => array('community/list', 'defaultParams' => array('community_id' => 36)),
         'news' => array('community/list', 'defaultParams' => array('community_id' => 36)),

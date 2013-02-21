@@ -13,7 +13,7 @@
         <?php if ($recipe->cooking_duration): ?>
         <div class="recipe-description-item">
             <div class="icon-time-2 tooltip" title="Время приготовления"></div>
-            <span class="duration"><?=$recipe->cooking_duration_h?> : <?=$recipe->cooking_duration_m?></span>
+            <?=$recipe->cooking_duration_h?> : <?=$recipe->cooking_duration_m?>
         </div>
         <?php endif; ?>
         <?php if ($recipe->servings): ?>

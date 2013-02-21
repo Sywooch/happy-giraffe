@@ -183,4 +183,37 @@ class FriendEvent extends EMongoDocument
 
         parent::afterSave();
     }
+
+    /**
+     * Если статью удаляли, удаляем все связанные события
+     */
+    public static function postDeleted($entity, $entity_id)
+    {
+        //удаляем сообщения у тех кто комментировал статью
+        $comment_ids = Yii::app()->db->createCommand()
+            ->select('id')
+            ->from('comments')
+            ->where('entity=:entity AND entity_id=:entity_id', array(':entity' => $entity, ':entity_id' => $entity_id))
+            ->queryColumn();
+
+        if (!empty($comment_ids)) {
+            foreach ($comment_ids AS $index => $value)
+                $comment_ids[$index] = (int)$value;
+
+            $criteria = new EMongoCriteria;
+            $criteria->comment_id('in', $comment_ids);
+            $criteria->type('==', self::TYPE_COMMENT_ADDED);
+            FriendEvent::model(self::TYPE_COMMENT_ADDED)->deleteAll($criteria);
+        }
+
+        //удаляем сообщение у автора статьи
+        $criteria = new EMongoCriteria;
+        $criteria->content_id('==', (int)$entity_id);
+        $criteria->type('==', self::TYPE_POST_ADDED);
+        FriendEvent::model(self::TYPE_POST_ADDED)->deleteAll($criteria);
+    }
+
+    public static function userDeleted(){
+
+    }
 }

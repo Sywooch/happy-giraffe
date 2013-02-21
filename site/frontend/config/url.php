@@ -235,6 +235,7 @@ return array(
         'horoscope/<_a:(year|month|tomorrow|viewed)>' => 'services/horoscope/default/<_a>',
         'horoscope/<zodiac:[\w]+>' => 'services/horoscope/default/today',
 
+        'names/saint/<month:[\w]+>' => 'services/names/default/saint/',
         'names/<_a:(saintCalc|likes|like|top10|saint)>' => 'services/names/default/<_a>',
         'names/<name:[\w]+>' => 'services/names/default/name/',
 

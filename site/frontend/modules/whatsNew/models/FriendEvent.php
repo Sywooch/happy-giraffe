@@ -208,12 +208,21 @@ class FriendEvent extends EMongoDocument
 
         //удаляем сообщение у автора статьи
         $criteria = new EMongoCriteria;
-        $criteria->content_id('==', (int)$entity_id);
-        $criteria->type('==', self::TYPE_POST_ADDED);
-        FriendEvent::model(self::TYPE_POST_ADDED)->deleteAll($criteria);
+        if ($entity == 'AlbumPhoto') {
+            $type = self::TYPE_PHOTOS_ADDED;
+        } else {
+            $type = self::TYPE_POST_ADDED;
+            $criteria->content_id('==', (int)$entity_id);
+        }
+        $criteria->type('==', $type);
+        FriendEvent::model($type)->deleteAll($criteria);
     }
 
-    public static function userDeleted(){
-
+    public static function userDeleted($user)
+    {
+        $criteria = new EMongoCriteria;
+        $criteria->user_id('==', (int)$user->id);
+        $criteria->type('==', self::TYPE_PHOTOS_ADDED);
+        FriendEvent::model(self::TYPE_PHOTOS_ADDED)->deleteAll($criteria);
     }
 }

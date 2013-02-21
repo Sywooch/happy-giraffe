@@ -132,4 +132,51 @@ class SiteCommand extends CConsoleCommand
             $m->generateLinks($model);
         }
     }
+
+    public function actionFixFriendEvents()
+    {
+        Yii::import('site.frontend.modules.whatsNew.models.*');
+        Yii::import('site.frontend.modules.cook.models.*');
+        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
+
+        echo "remove articles\n";
+        $criteria = new CDbCriteria;
+        $criteria->limit = 500;
+        $criteria->offset = 0;
+        $criteria->condition = 'removed = 1';
+
+        $models = 1;
+        while (!empty($models)) {
+            $models = CommunityContent::model()->resetScope()->findAll($criteria);
+            echo count($models) . "\n";
+            foreach ($models as $model) {
+                FriendEvent::postDeleted(($model->isFromBlog ? 'BlogContent' : 'CommunityContent'), $model->id);
+            }
+
+            $criteria->offset += 1000;
+        }
+
+        echo "remove recipes\n";
+        $models = CookRecipe::model()->findAll('removed = 1');
+        echo count($models) . "\n";
+        foreach ($models as $model)
+            FriendEvent::postDeleted('CookRecipe', $model->id);
+
+        echo "remove users\n";
+        $criteria = new CDbCriteria;
+        $criteria->limit = 500;
+        $criteria->offset = 0;
+        $criteria->condition = 'deleted = 1';
+
+        $models = 1;
+        while (!empty($models)) {
+            $models = User::model()->resetScope()->findAll($criteria);
+            echo count($models) . "\n";
+            foreach ($models as $model) {
+                FriendEvent::userDeleted($model);
+            }
+
+            $criteria->offset += 1000;
+        }
+    }
 }

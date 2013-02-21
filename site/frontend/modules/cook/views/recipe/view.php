@@ -55,7 +55,7 @@
     <?php else: ?>
     <div class="big">
         <a href="javascript:void(0)" data-id="<?=$recipe->mainPhoto->id?>">
-            <?=CHtml::image($recipe->mainPhoto->getPreviewUrl(460, null, Image::WIDTH), $recipe->mainPhoto->title, array('class' => 'photo'))?>
+            <?=CHtml::image($recipe->mainPhoto->getPreviewUrl(460, null, Image::WIDTH), $recipe->mainPhoto->title, array('class' => 'photo result-photo'))?>
         </a>
     </div>
     <?php endif; ?>
@@ -110,9 +110,11 @@
 
 <h2>Приготовление</h2>
 
-<div class="instructions wysiwyg-content">
+<div class="cook-instructions">
 
-    <?=$recipe->purified->text?>
+    <div class="instructions wysiwyg-content">
+        <?=$recipe->purified->text?>
+    </div>
 
     <div class="clearfix">
 

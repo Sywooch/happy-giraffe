@@ -105,6 +105,9 @@ class DefaultController extends HController
 
     public function actionSaint($month = null, $gender = null)
     {
+        if (isset($_GET['m']))
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
         if ($month !== null) {
             $month = HDate::getMonthIndex($month);
             $data = Name::GetSaintMonthArray($month, null);

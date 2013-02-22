@@ -218,11 +218,11 @@ class SiteCommand extends CConsoleCommand
         $criteria = new CDbCriteria;
         $criteria->limit = 100;
         $criteria->offset = 0;
-        $criteria->condition = 'content_id > 14073 AND content_id < 20000';
+        $criteria->condition = 'content_id < 20000';
 
         $models = array(0);
         while (!empty($models)) {
-            $models = CommunityVideo::model()->findAll($criteria);
+            $models = CommunityPost::model()->findAll($criteria);
 
             foreach ($models as $model) {
                 if (strpos($model->text, '<img') !== false){

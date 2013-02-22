@@ -2,6 +2,7 @@
 if (Yii::app()->user->isGuest)
     Yii::app()->clientScript->registerScript('whatsNew_guest','WhatsNew.guest = true;', CClientScript::POS_HEAD);
 
+$this->controller->beginWidget('SeoContentWidget');
 ?>
 <div id="broadcast" class="broadcast-all">
     <div class="broadcast-widget">
@@ -37,3 +38,4 @@ if (Yii::app()->user->isGuest)
         </div>
     </div>
 </div>
+<?php $this->controller->endWidget(); ?>

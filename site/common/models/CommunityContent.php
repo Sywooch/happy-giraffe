@@ -486,6 +486,7 @@ class CommunityContent extends HActiveRecord
             'order' => 't.created DESC'
         ));
 
+        $criteria->condition = 'type_id != 3';
         $criteria->compare('community_id', $community_id);
 
         if ($rubric_id !== null) {

@@ -148,6 +148,9 @@ class CommunityController extends HController
         if ($content === null)
             throw new CHttpException(404, 'Такой записи не существует');
 
+        if (!empty($content_type_slug) && !in_array($content_type_slug, array('post', 'video')))
+            throw new CHttpException(404, 'Страницы не существует');
+
         if ($content->isFromBlog)
             throw new CHttpException(404, 'Такой записи не существует');
 

@@ -1,3 +1,4 @@
+<?php $this->controller->beginWidget('SeoContentWidget'); ?>
 <div class="broadcast-widget">
     <div class="broadcast-title-box">
         <ul class="broadcast-widget-menu-r">
@@ -48,3 +49,4 @@
     ?>
 
 </div>
+<?php $this->controller->endWidget(); ?>

@@ -32,7 +32,7 @@ class PurifiedBehavior extends CActiveRecordBehavior
                 $value = $this->linkifyYouTubeURLs($value);
                 $value = $this->linkifyVimeo($value);
                 $value = $purifier->purify($value);
-                $value = $this->wrapNoindexNofollow($value);
+                $value = $this->fixUrls($value);
                 Yii::app()->cache->set($cacheId, $value);
             }
             return $value;
@@ -67,7 +67,7 @@ class PurifiedBehavior extends CActiveRecordBehavior
         $owner->detachEventHandler('onAfterSave', array($this, 'clearCache'));
     }
 
-    private function wrapNoindexNofollow($text)
+    private function fixUrls($text)
     {
         Yii::import('site.frontend.extensions.phpQuery.phpQuery');
 
@@ -81,7 +81,7 @@ class PurifiedBehavior extends CActiveRecordBehavior
             if (!isset($parsed_url['host'])){
                 pq($link)->remove();
             } elseif (strpos($parsed_url['host'], $_SERVER["HTTP_HOST"]) === false) {
-
+                //внешние ссылки ставим в noindex
                 if (!pq($link)->parent()->is('noindex'))
                     pq($link)->wrap('<noindex></noindex>');
 
@@ -92,15 +92,16 @@ class PurifiedBehavior extends CActiveRecordBehavior
                     pq($link)->attr('target', '_blank');
 
             } else {
+                //внутренние ссылки обрабатываем дополнительно
                 pq($link)->removeAttr('target');
 
                 //убираем из конца ссылки лишние символы
                 $url = pq($link)->attr('href');
-                for($i=0;$i<10;$i++)
-                    $url = trim($url, "., ");
-
-                if (!$this->endsWith($url, '/'))
-                    $url = $url.'/';
+                $url = str_replace('%C2%A0', '', $url);
+                for($i=0;$i<10;$i++){
+                    $url = trim($url, "., /");
+                }
+                $url = $url.'/';
 
                 pq($link)->attr('href', $url);
             }

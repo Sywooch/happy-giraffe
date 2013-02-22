@@ -65,6 +65,9 @@ class ExternalImagesBehavior extends CActiveRecordBehavior
             }
 
             $externalLinksCount = 0;
+
+            //чтобы работало из консоли
+            if (isset($_SERVER['HTTP_HOST']))
             foreach (pq('a') as $e) {
                 $href = pq($e)->attr('href');
                 if (strpos($href, $_SERVER['HTTP_HOST']) === false && strpos($href, '/') !== 0)

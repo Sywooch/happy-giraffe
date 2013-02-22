@@ -21,6 +21,11 @@ return array(
         'site.frontend.extensions.phpQuery.phpQuery',
     ),
     'components' => array(
+        'request' => array(
+            'hostInfo' => 'http://www.happy-giraffe.ru',
+            'baseUrl' => '',
+            'scriptUrl' => '',
+        ),
         'comet'=>array(
             'class' => 'site.frontend.extensions.Dklab_Realplexor',
             'host' => 'www.plexor.happy-giraffe.ru',

@@ -712,7 +712,7 @@ class AlbumsController extends HController
                 $currentIndex = null;
                 $collection = array();
                 $collection['title'] = 'Фотоконкурс ' . CHtml::link($work->contest->title, $work->contest->url);
-                $this->pageTitle = $work->title . ' - ' . $model->title;
+                //$this->pageTitle = $work->title . ' - ' . $model->title;
                 break;
         }
 
@@ -728,9 +728,10 @@ class AlbumsController extends HController
             if (!isset($currentIndex))
                 throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
-            $this->pageTitle = $photo->w_title;
+            //$this->pageTitle = $photo->w_title;
         }
 
+        $this->pageTitle = $photo->w_title . ' - ' . strip_tags($collection['title']);
         $this->layout = '//layouts/main';
 
         if (! Yii::app()->user->isGuest)

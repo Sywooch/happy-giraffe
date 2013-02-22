@@ -367,6 +367,11 @@ class AlbumPhoto extends HActiveRecord
             return $this->gdResize($thumb, $width, $height, $master, $crop);
         }
 
+        if ($size = @getimagesize($thumb)) {
+            $this->width = $size[0];
+            $this->height = $size[1];
+        }
+
         return $thumb;
     }
 
@@ -403,8 +408,8 @@ class AlbumPhoto extends HActiveRecord
             $image = $image->save($thumb);
         }
 
-        $this->width = $image->width;
-        $this->height = $image->height;
+//        $this->width = $image->width;
+//        $this->height = $image->height;
 
         return $thumb;
     }
@@ -434,10 +439,10 @@ class AlbumPhoto extends HActiveRecord
 
         $image->save($thumb);
 
-        if ($size = @getimagesize($thumb)) {
-            $this->width = $size[0];
-            $this->height = $size[1];
-        }
+//        if ($size = @getimagesize($thumb)) {
+//            $this->width = $size[0];
+//            $this->height = $size[1];
+//        }
 
         return $thumb;
     }

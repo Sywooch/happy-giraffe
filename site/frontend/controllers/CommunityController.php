@@ -13,10 +13,10 @@ class CommunityController extends HController
     {
         return array(
             'accessControl',
-//            array(
-//                'CHttpCacheFilter + view',
-//                'lastModified' => $this->lastModified(),
-//            ),
+            array(
+                'CHttpCacheFilter + view',
+                'lastModified' => $this->lastModified(),
+            ),
         );
     }
 

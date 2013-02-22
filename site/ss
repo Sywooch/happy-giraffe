@@ -86,7 +86,7 @@ INSERT INTO contest__winners (place, work_id) VALUES (1, 11875), (2, 11578), (3,
 <p>С уважением,<br />
 администрация портала “Веселый Жираф”</p>
 
-SELECT COUNT(DISTINCT `t`.`id`) FROM `users` `t` JOIN friends ON (t.id = friends.user1_id AND friends.user2_id = '15385') OR (t.id = friends.user2_id AND friends.user1_id = '15385') LEFT OUTER JOIN `album__photos` `avatar` ON (`t`.`avatar_id`=`avatar`.`id`)
+SELECT COUNT(DISTINCT `t`.`id`) FROM `users` `t` JOIN friends ON (t.id = friends.user1_id AND friends.user2_id = '15570') OR (t.id = friends.user2_id AND friends.user1_id = '15570') LEFT OUTER JOIN `album__photos` `avatar` ON (`t`.`avatar_id`=`avatar`.`id`)
 
 SELECT COUNT(DI
 FROM userFriends one
@@ -98,3 +98,41 @@ WHERE two.idUserFriend NOT IN (
         )
 AND one.idUser = 1
         ;
+
+SELECT SQL_NO_CACHE COUNT(*)
+FROM users u
+JOIN friends f ON (u.id = f.user1_id AND f.user2_id = 15570) OR (u.id = f.user2_id AND f.user1_id = 15570);
+
+SELECT SQL_NO_CACHE COUNT(*)
+FROM users u
+WHERE u.id IN (
+    SELECT user1_id
+    FROM friends f1
+    WHERE f1.user2_id = 15570
+    UNION
+    SELECT user2_id
+    FROM friends f2
+    WHERE f2.user1_id = 15570
+);
+
+SELECT SQL_NO_CACHE COUNT(*)
+FROM users u
+WHERE EXISTS (
+    SELECT *
+    FROM friends f
+    WHERE (f.user1_id = u.id AND f.user2_id = 22) OR (f.user1_id = 22 AND f.user2_id = u.id)
+);
+
+SELECT SQL_NO_CACHE COUNT(*)
+FROM users u
+WHERE u.id IN (
+    SELECT (CASE WHEN f.user1_id = 15570 THEN f.user2_id ELSE f.user1_id END)
+    FROM friends f
+    WHERE f.user1_id = 15570 OR f.user2_id = 15570
+);
+
+SELECT SQL_NO_CACHE COUNT(*)
+FROM users u
+JOIN friends f on f.user1_id = u.id OR f.user2_id = u.id
+WHERE u.id <> 15570
+    AND (f.user1_id = 15570 OR f.user2_id = 15570);

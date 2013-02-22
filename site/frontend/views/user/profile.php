@@ -153,11 +153,9 @@
                         'contest_id' => 8,
                     )); ?>
 
-                    <?php if ($user->id != 15385): ?>
                     <?php $this->widget('UserFriendsWidget', array(
                         'user' => $user,
                     )); ?>
-                    <?php endif; ?>
 
                     <div id="loc-flipbox">
                         <?php $this->widget('LocationWidget', array(

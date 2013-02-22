@@ -72,9 +72,8 @@ Yii::app()->clientScript
 
 ?>
 <style type="text/css">
-    .pac-container:after {
-        content: none !important;
-    }
+    .pac-container:after {content: none !important;}
+    #map_canvas img{max-width:none;}
 </style>
 <?php if (Yii::app()->user->checkAccess('routes')):?>
     <a href="/routes/<?=Route::model()->find(new CDbCriteria(array('order'=>'rand()', 'condition'=>'status=4')))->id ?>/">случайно google</a><br>

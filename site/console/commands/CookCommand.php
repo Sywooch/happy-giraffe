@@ -36,8 +36,6 @@ class CookCommand extends CConsoleCommand
     {
         $recipes = CookRecipe::model()->with('cuisine', 'author', 'ingredients', 'ingredients.ingredient', 'ingredients.unit')->findAll(array(
             'order' => 'created DESC',
-            'condition' => 't.id != 16589',
-            'limit' => 1,
         ));
 
         $xml = new SimpleXMLElement('<?xml version="1.0" encoding="utf-8"?><entities/>');

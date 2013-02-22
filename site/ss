@@ -85,3 +85,16 @@ INSERT INTO contest__winners (place, work_id) VALUES (1, 11875), (2, 11578), (3,
 
 <p>С уважением,<br />
 администрация портала “Веселый Жираф”</p>
+
+SELECT COUNT(DISTINCT `t`.`id`) FROM `users` `t` JOIN friends ON (t.id = friends.user1_id AND friends.user2_id = '15385') OR (t.id = friends.user2_id AND friends.user1_id = '15385') LEFT OUTER JOIN `album__photos` `avatar` ON (`t`.`avatar_id`=`avatar`.`id`)
+
+SELECT COUNT(DI
+FROM userFriends one
+JOIN userFriends two ON one.idUserFriend = two.idUser
+WHERE two.idUserFriend NOT IN (
+        SELECT  nx.idUserFriend
+        FROM userFriends nx
+        WHERE nx.idUser = one.idUser
+        )
+AND one.idUser = 1
+        ;

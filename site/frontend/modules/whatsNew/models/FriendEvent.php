@@ -208,8 +208,9 @@ class FriendEvent extends EMongoDocument
 
         //удаляем сообщение у автора статьи
         $criteria = new EMongoCriteria;
-        if ($entity == 'AlbumPhoto') {
-            $type = self::TYPE_PHOTOS_ADDED;
+        if ($entity == 'CookRecipe'){
+            $type = self::TYPE_RECIPE_ADDED;
+            $criteria->recipe_id('==', (int)$entity_id);
         } else {
             $type = self::TYPE_POST_ADDED;
             $criteria->content_id('==', (int)$entity_id);

@@ -69,7 +69,6 @@ class PurifiedBehavior extends CActiveRecordBehavior
 
     private function wrapNoindexNofollow($text)
     {
-
         Yii::import('site.frontend.extensions.phpQuery.phpQuery');
 
         $doc = phpQuery::newDocumentXHTML($text, $charset = 'utf-8');
@@ -79,7 +78,9 @@ class PurifiedBehavior extends CActiveRecordBehavior
             $url = pq($link)->attr('href');
             $parsed_url = parse_url($url);
 
-            if (isset($parsed_url['host']) and strpos($parsed_url['host'], $_SERVER["HTTP_HOST"]) === false) {
+            if (!isset($parsed_url['host'])){
+                pq($link)->remove();
+            } elseif (strpos($parsed_url['host'], $_SERVER["HTTP_HOST"]) === false) {
 
                 if (!pq($link)->parent()->is('noindex'))
                     pq($link)->wrap('<noindex></noindex>');
@@ -90,10 +91,18 @@ class PurifiedBehavior extends CActiveRecordBehavior
                 if (pq($link)->attr('target') != '_blank')
                     pq($link)->attr('target', '_blank');
 
-
             } else {
-                //if (pq($link)->hasAttribute('target'))
                 pq($link)->removeAttr('target');
+
+                //убираем из конца ссылки лишние символы
+                $url = pq($link)->attr('href');
+                for($i=0;$i<10;$i++)
+                    $url = trim($url, "., ");
+
+                if (!$this->endsWith($url, '/'))
+                    $url = $url.'/';
+
+                pq($link)->attr('href', $url);
             }
         }
 
@@ -163,5 +172,15 @@ class PurifiedBehavior extends CActiveRecordBehavior
             array($this, 'vimeo'),
             $text);
         return $text;
+    }
+
+    private function endsWith($haystack, $needle)
+    {
+        $length = strlen($needle);
+        if ($length == 0) {
+            return true;
+        }
+
+        return (substr($haystack, -$length) === $needle);
     }
 }

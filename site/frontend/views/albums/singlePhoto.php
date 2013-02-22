@@ -65,7 +65,7 @@
 
         </div>
 
-        <?=CHtml::image($photo->getPreviewUrl(960, 627, Image::HEIGHT), '', array('itemprop' => 'contentURL'))?>
+        <?=CHtml::image($photo->getPreviewUrl(960, 627, Image::HEIGHT), '', array('itemprop' => 'contentUrl'))?>
 
         <meta itemprop="width" content="<?=$photo->width?> px">
         <meta itemprop="height" content="<?=$photo->height?> px">

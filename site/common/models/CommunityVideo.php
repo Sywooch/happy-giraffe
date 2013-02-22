@@ -163,8 +163,10 @@ class CommunityVideo extends HActiveRecord
             return false;
 
         $photo = AlbumPhoto::createByUrl($video->image, $author_id, 6);
-        $this->photo_id = $photo->id;
-        $this->embed = $video->code;
+        if ($photo){
+            $this->photo_id = $photo->id;
+            $this->embed = $video->code;
+        }
     }
 
     public function getResizedEmbed($width)

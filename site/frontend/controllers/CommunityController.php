@@ -17,6 +17,11 @@ class CommunityController extends HController
                 'CHttpCacheFilter + view',
                 'lastModified' => $this->lastModified(),
             ),
+            array(
+                'COutputCache + view',
+                'varyByParam' => array('content_id', 'Comment_page'),
+                'varyBySession' => true,
+            ),
         );
     }
 

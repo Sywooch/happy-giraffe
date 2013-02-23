@@ -20,7 +20,7 @@ class HController extends CController
 
     public $body_class = 'body-club';
 
-    protected $r = 161;
+    protected $r = 163;
 
     public function filterAjaxOnly($filterChain)
     {
@@ -33,8 +33,6 @@ class HController extends CController
     public function init()
     {
         parent::init();
-
-        require_once('mobiledetect/Mobile_Detect.php');
 
         $this->combineStatic();
         Yii::app()->clientScript
@@ -195,6 +193,8 @@ class HController extends CController
 
     private function _mobileRedirect()
     {
+        require_once('mobiledetect/Mobile_Detect.php');
+
         $detect = new Mobile_Detect();
         $mobile = $newMobile = (string) Yii::app()->request->cookies['mobile'];
 

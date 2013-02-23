@@ -13,9 +13,14 @@ class CommunityController extends HController
     {
         return array(
             'accessControl',
+            array(
+                'CHttpCacheFilter + view',
+                'lastModified' => $this->lastModified(),
+            ),
 //            array(
-//                'CHttpCacheFilter + view',
-//                'lastModified' => $this->lastModified(),
+//                'COutputCache + view',
+//                'varyByParam' => array('content_id', 'Comment_page'),
+//                'varyBySession' => true,
 //            ),
         );
     }

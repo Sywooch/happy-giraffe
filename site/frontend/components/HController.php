@@ -34,8 +34,6 @@ class HController extends CController
     {
         parent::init();
 
-        require_once('mobiledetect/Mobile_Detect.php');
-
         $this->combineStatic();
         Yii::app()->clientScript
             ->registerCssFile('/stylesheets/common.css?'.$this->r)
@@ -195,6 +193,8 @@ class HController extends CController
 
     private function _mobileRedirect()
     {
+        require_once('mobiledetect/Mobile_Detect.php');
+
         $detect = new Mobile_Detect();
         $mobile = $newMobile = (string) Yii::app()->request->cookies['mobile'];
 

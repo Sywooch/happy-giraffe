@@ -270,6 +270,14 @@ class Page extends CActiveRecord
         return $model;
     }
 
+    public static function getPage($url)
+    {
+        $model = Page::model()->findByAttributes(array('url' => $url));
+        if ($model === null)
+            return self::getOrCreate($url);
+        return $model;
+    }
+
     /**
      * @param $period
      * @return PagesSearchPhrase[]

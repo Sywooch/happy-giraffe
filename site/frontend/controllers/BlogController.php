@@ -12,16 +12,16 @@ class BlogController extends HController
     {
         return array(
             'accessControl',
-//            array(
-//                'CHttpCacheFilter + view',
-//                'lastModified' => $this->lastModified(),
-//            ),
             array(
-                'COutputCache + view',
-                'duration' => 300,
-                'varyByParam' => array('content_id', 'Comment_page'),
-                'varyByExpression' => Yii::app()->user->id . $this->lastModified(),
+                'CHttpCacheFilter + view',
+                'lastModified' => $this->lastModified(),
             ),
+//            array(
+//                'COutputCache + view',
+//                'duration' => 300,
+//                'varyByParam' => array('content_id', 'Comment_page'),
+//                'varyByExpression' => Yii::app()->user->id . $this->lastModified(),
+//            ),
         );
     }
 

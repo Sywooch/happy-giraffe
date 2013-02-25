@@ -218,7 +218,7 @@ class SiteCommand extends CConsoleCommand
         $criteria = new CDbCriteria;
         $criteria->limit = 100;
         $criteria->offset = 0;
-        $criteria->condition = 'content_id > 27455 AND content_id < 40000';
+        $criteria->condition = 'content_id > 31309 AND content_id < 40000';
 
         $models = array(0);
         while (!empty($models)) {
@@ -228,6 +228,28 @@ class SiteCommand extends CConsoleCommand
                 if (strpos($model->text, '<img') !== false){
                     echo $model->content_id."\n";
                     $model->save();
+                }
+            }
+
+            $criteria->offset += 100;
+        }
+    }
+
+    public function actionFixPreviews(){
+        Yii::import('site.frontend.components.*');
+        $criteria = new CDbCriteria;
+        $criteria->limit = 100;
+        $criteria->offset = 0;
+        $criteria->condition = 'id = 29054';
+
+        $models = array(0);
+        while (!empty($models)) {
+            $models = CommunityContent::model()->findAll($criteria);
+
+            foreach ($models as $model) {
+                if (strpos($model->preview, '<img') !== false){
+                    echo $model->id."\n";
+                    $model->purify($model->post->text);
                 }
             }
 

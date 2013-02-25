@@ -325,7 +325,10 @@
         <?= $content; ?>
     </div>
 
-    <noindex><?php $this->widget('WhatsNewWidget') ?></noindex>
+
+    <?php if (false): ?>
+        <noindex><?php $this->widget('WhatsNewWidget') ?></noindex>
+    <?php endif; ?>
 
     <a href="#layout" id="btn-up-page"></a>
     <div class="push"></div>

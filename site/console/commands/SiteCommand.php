@@ -218,7 +218,7 @@ class SiteCommand extends CConsoleCommand
         $criteria = new CDbCriteria;
         $criteria->limit = 100;
         $criteria->offset = 0;
-        $criteria->condition = 'content_id > 34824 AND content_id < 40000';
+        $criteria->condition = 'content_id > 36714 AND content_id < 40000';
 
         $models = array(0);
         while (!empty($models)) {

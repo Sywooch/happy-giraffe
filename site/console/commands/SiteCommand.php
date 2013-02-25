@@ -218,7 +218,7 @@ class SiteCommand extends CConsoleCommand
         $criteria = new CDbCriteria;
         $criteria->limit = 100;
         $criteria->offset = 0;
-        $criteria->condition = 'content_id > 31309 AND content_id < 40000';
+        $criteria->condition = 'content_id > 34709 AND content_id < 40000';
 
         $models = array(0);
         while (!empty($models)) {
@@ -240,11 +240,11 @@ class SiteCommand extends CConsoleCommand
         $criteria = new CDbCriteria;
         $criteria->limit = 100;
         $criteria->offset = 0;
-        $criteria->condition = 'id = 29054';
+        $criteria->condition = 't.id < 40000 AND t.type_id = 1';
 
         $models = array(0);
         while (!empty($models)) {
-            $models = CommunityContent::model()->findAll($criteria);
+            $models = CommunityContent::model()->with(array('post'))->findAll($criteria);
 
             foreach ($models as $model) {
                 if (strpos($model->preview, '<img') !== false){

@@ -242,42 +242,6 @@ class CommunityContent extends HActiveRecord
         return $this;
     }
 
-    /*public function scopes()
-     {
-         return array(
-             'view' => array(
-                 'with' => array(
-                     'rubric' => array(
-                         'with' => array(
-                             'community' => array(
-                                 'with' => array(
-                                     'rubrics',
-                                 ),
-                             ),
-                         ),
-                     ),
-                     'post',
-                     'video',
-                     'commentsCount',
-                     'contentAuthor',
-                     'travel' => array(
-                         'with' => array(
-                             'waypoints' => array(
-                                 'with' => array(
-                                     'city',
-                                     'country',
-                                 ),
-                             ),
-                         )
-                     ),
-                 ),
-             ),
-             'active'=>array(
-                 'condition'=>'removed=0'
-             )
-         );
-     }*/
-
     public function beforeDelete()
     {
         FriendEvent::postDeleted(($this->isFromBlog ? 'BlogContent' : 'CommunityContent'), $this->id);

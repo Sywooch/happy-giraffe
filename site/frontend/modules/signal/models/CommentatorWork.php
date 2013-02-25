@@ -531,7 +531,10 @@ class CommentatorWork extends EMongoDocument
      */
     public function nextComment()
     {
-        $model = CActiveRecord::model($this->comment_entity)->resetScope()->full()->findByPk($this->comment_entity_id);
+        if ($this->comment_entity !== 'CookRecipe')
+            $model = CActiveRecord::model($this->comment_entity)->resetScope()->full()->findByPk($this->comment_entity_id);
+        else
+            $model = CActiveRecord::model($this->comment_entity)->resetScope()->findByPk($this->comment_entity_id);
 
         if ($model->removed) {
             $model->full = 1;

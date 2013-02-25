@@ -4774,6 +4774,8 @@ ul.letters li a:hover {
 .recipe-article .nutrition ul li.n-fat .icon i {background-color:#abb71d;color:#fff;}
 .recipe-article .nutrition ul li.n-carbohydrates .icon i {background-color:#fcbe03;color:#fff;}
 .recipe-article .nutrition ul li .gray {font-size:11px;color:#9e9d9d;}
+.recipe-article .nutrition .nutrition-tx {display: inline-block;*zoom:1;*display:inline;width: 70px;vertical-align: middle;line-height: 14px;}
+
 
 .cook-article-tags {float: left;margin: 35px 5px;}
 .cook-article-tags-title {float: left;width: 50px;text-align: center;font:italic 14px/29px Georgia, 'Times New Roman', Times, serif;color: #6c6e6f;background: #fafca4;}
@@ -5110,14 +5112,14 @@ ul.letters li a:hover {
 .giraffe-story-text .allocation {color: #1a1a1a;font-size: 13px;}
 
 #cook-recipe .recipe-article .cook-instructions em {color: #494A4A;}
-.recipe-article .instructions {
+.recipe-article .instructions-list {
     margin:0;
     padding:0;
     color:#000;
     counter-reset: item;
 }
-.recipe-article .instructions > li { display: block;margin:0 80px 25px; }
-.recipe-article .instructions > li:before {
+.recipe-article .instructions-list > li { display: block;margin:0 80px 25px; }
+.recipe-article .instructions-list > li:before {
     content: counters(item, "") " ";
     counter-increment: item;
     float: left;

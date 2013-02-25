@@ -237,7 +237,7 @@ class SiteCommand extends CConsoleCommand
 
     public function actionFixPreviews(){
         Yii::import('site.frontend.components.*');
-        $last_id = 0;
+        $last_id = 39000;
         $criteria = new CDbCriteria;
         $criteria->limit = 100;
         $criteria->condition = 't.id > '.$last_id.' AND t.type_id = 1';

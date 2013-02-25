@@ -100,20 +100,20 @@ class SearchEngineVisits extends HActiveRecord
         ));
     }
 
-    public static function addVisit($page_id)
+    public static function addVisits($page_id, $count)
     {
         $exist = self::model()->findByAttributes(array('page_id' => $page_id, 'month' => date("Y-m")));
         if ($exist === null) {
             $exist = new self;
             $exist->page_id = $page_id;
             $exist->month = date("Y-m");
-            $exist->count = 1;
+            $exist->count = $count;
             $exist->save();
         } else {
             Yii::app()->db_seo->commandBuilder->createUpdateCommand(
                 self::tableName(),
                 array(
-                    'count' => new CDbExpression('count + :count', array(':count' => 1))
+                    'count' => new CDbExpression('count + :count', array(':count' => $count))
                 ),
                 new CDbCriteria(array(
                     "condition" => "page_id = :page_id AND month = :month",

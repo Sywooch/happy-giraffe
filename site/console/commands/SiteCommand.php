@@ -218,7 +218,7 @@ class SiteCommand extends CConsoleCommand
         $criteria = new CDbCriteria;
         $criteria->limit = 100;
         $criteria->offset = 0;
-        $criteria->condition = 'content_id > 36714 AND content_id < 40000';
+        $criteria->condition = 'content_id > 39052 AND content_id < 40000';
 
         $models = array(0);
         while (!empty($models)) {
@@ -237,10 +237,11 @@ class SiteCommand extends CConsoleCommand
 
     public function actionFixPreviews(){
         Yii::import('site.frontend.components.*');
+        $last_id = 0;
         $criteria = new CDbCriteria;
         $criteria->limit = 100;
-        $criteria->offset = 0;
-        $criteria->condition = 't.id < 40000 AND t.type_id = 1';
+        $criteria->condition = 't.id > '.$last_id.' AND t.type_id = 1';
+        $criteria->order = 't.id';
 
         $models = array(0);
         while (!empty($models)) {
@@ -251,9 +252,10 @@ class SiteCommand extends CConsoleCommand
                     echo $model->id."\n";
                     $model->purify($model->post->text);
                 }
+                $last_id = $model->id;
             }
 
-            $criteria->offset += 100;
+            $criteria->condition = 't.id > '.$last_id.' AND t.type_id = 1';
         }
     }
 }

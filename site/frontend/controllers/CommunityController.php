@@ -13,16 +13,16 @@ class CommunityController extends HController
     {
         return array(
             'accessControl',
-            array(
-                'CHttpCacheFilter + view',
-                'lastModified' => $this->lastModified(),
-            ),
 //            array(
-//                'COutputCache + view',
-//                'duration' => 300,
-//                'varyByParam' => array('content_id', 'Comment_page'),
-//                'varyByExpression' => Yii::app()->user->id,
+//                'CHttpCacheFilter + view',
+//                'lastModified' => $this->lastModified(),
 //            ),
+            array(
+                'COutputCache + view',
+                'duration' => 300,
+                'varyByParam' => array('content_id', 'Comment_page'),
+                'varyByExpression' => Yii::app()->user->id . $this->lastModified(),
+            ),
         );
     }
 

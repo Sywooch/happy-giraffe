@@ -161,6 +161,7 @@ class Contest extends HActiveRecord
             ),
             'condition' => 'contest_id = :contest_id',
             'params' => array(':contest_id' => $this->id),
+            'limit' => 300,
         ));
 
         $criteria->order = 't.' . Yii::app()->request->getQuery('sort', 'created') . ' DESC';

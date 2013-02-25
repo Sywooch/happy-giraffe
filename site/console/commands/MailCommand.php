@@ -19,7 +19,7 @@ class MailCommand extends CConsoleCommand
     public function actionWeeklyNews()
     {
         //check generated url
-        if (Yii::app()->createUrl('site/index') != './') {
+        if (Yii::app()->createUrl('site/index') != './' && Yii::app()->createUrl('site/index') != '/') {
             echo Yii::app()->createUrl('site/index') . ' - url failed';
             return false;
         }

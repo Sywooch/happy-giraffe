@@ -146,7 +146,7 @@ class HController extends CController
 
         if (! file_exists($path)) {
             if (! is_dir($dirPath))
-                mkdir($dir);
+                mkdir($dirPath);
             file_put_contents($path, $js);
         }
 

@@ -138,10 +138,13 @@ class HController extends CController
             });';
 
         $hash = md5($js);
-        $cacheId = 'seoHide_' . $hash;
-        Yii::app()->cache->set($cacheId, $js);
 
-        Yii::app()->clientScript->registerScriptFile('/js_dynamics/' . $hash . '.js/', CClientScript::POS_END);
+        $file = Yii::getPathOfAlias('application.www-submodule.jsd') . DIRECTORY_SEPARATOR . $hash . '.js';
+
+        if (! file_exists($file))
+            file_put_contents($file, $js);
+
+        Yii::app()->clientScript->registerScriptFile('/jsd/' . $hash . '.js', CClientScript::POS_END);
 
         return parent::afterRender($view, $output);
     }

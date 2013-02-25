@@ -138,13 +138,19 @@ class HController extends CController
             });';
 
         $hash = md5($js);
+        $dir = substr($hash, 0, 2);
+        $file = substr($hash, 2);
+        $dirPath = Yii::getPathOfAlias('application.www-submodule.jsd') . DIRECTORY_SEPARATOR . $dir;
 
-        $file = Yii::getPathOfAlias('application.www-submodule.jsd') . DIRECTORY_SEPARATOR . $hash . '.js';
+        $path = $dirPath . DIRECTORY_SEPARATOR . $file . '.js';
 
-        if (! file_exists($file))
-            file_put_contents($file, $js);
+        if (! file_exists($path)) {
+            if (! is_dir($dirPath))
+                mkdir($dirPath);
+            file_put_contents($path, $js);
+        }
 
-        Yii::app()->clientScript->registerScriptFile('/jsd/' . $hash . '.js', CClientScript::POS_END);
+        Yii::app()->clientScript->registerScriptFile('/jsd/' . $dir . '/' . $file . '.js', CClientScript::POS_END);
 
         return parent::afterRender($view, $output);
     }

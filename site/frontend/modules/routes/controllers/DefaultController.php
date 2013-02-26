@@ -122,7 +122,7 @@ class DefaultController extends HController
         $models = Yii::app()->db->createCommand()
             ->select('id')
             ->from(Route::model()->tableName())
-            ->where('(status = 2 OR status=4) AND id > ' . (49999 * ($param - 1)) . ' AND id <=' . (49999 * $param))
+            ->where('(status = 2 OR status=4) AND id > ' . (40000 * ($param - 1)) . ' AND id <=' . (40000 * $param))
             ->queryColumn();
 
         $data = array();

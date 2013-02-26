@@ -436,6 +436,12 @@ return array(
                         ),
                         'param'=>3
                     ),
+                    'sitemapRoutes4.xml' => array(
+                        'aliases' => array(
+                            'application.modules.routes.controllers.DefaultController',
+                        ),
+                        'param'=>4
+                    ),
                     'sitemapAll.xml' => array(
                         'aliases' => array(
                             'application.controllers.SiteController',

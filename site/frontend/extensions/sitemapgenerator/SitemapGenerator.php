@@ -69,12 +69,14 @@ class SitemapGenerator
 	private $_url_counter=0;
 	private $_xml_index;
 	private $_sitemap_counter=0;
+    private $action_param = null;
 	
 	/**
 	 * Construct method
 	 */
-	public function __construct($aliases=null)
+	public function __construct($aliases=null, $action_param = null)
 	{
+        $this->action_param = $action_param;
 		$xml=<<<XML
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -257,8 +259,11 @@ XMLINDEX;
 						} else {										// Method Urls
 							if ($controller_instance===null)
 								$controller_instance=new $class('tempInstance');
-							$params['urls_data']=$controller_instance->{$data_method}();
-						}
+                            if (empty($this->action_param))
+							    $params['urls_data']=$controller_instance->{$data_method}();
+                            else
+                                $params['urls_data']=$controller_instance->{$data_method}($this->action_param);
+                        }
 					}
 					
 					$route=$this->createRoute($alias,$action);

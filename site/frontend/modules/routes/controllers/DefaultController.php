@@ -2,7 +2,6 @@
 
 class DefaultController extends HController
 {
-
     public function filters()
     {
         return array(
@@ -20,6 +19,9 @@ class DefaultController extends HController
         );
     }
 
+    /**
+     * @sitemap dataSource=sitemap
+     */
     public function actionIndex($id = null)
     {
         Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
@@ -93,8 +95,8 @@ class DefaultController extends HController
 //        $r = GoogleRouteParser::getUrl(Route::model()->findByPk(2634));
 //        var_dump($r);
 
-        $p = new GoogleRouteParser;
-        $p->parseRoute(Route::model()->findByPk(2634));
+//        $p = new GoogleRouteParser;
+//        $p->parseRoute(Route::model()->findByPk(2634));
     }
 
     public function actionReparseGoogle($id)
@@ -106,13 +108,34 @@ class DefaultController extends HController
                 'city_from_id' => $route->city_to_id,
                 'city_to_id' => $route->city_from_id
             ));
-            if ($return_route !== null){
+            if ($return_route !== null) {
                 $return_route->delete();
                 $route->createReturnRoute();
             }
         }
 
-        $this->redirect($this->createUrl('/routes/default/', array('id'=>$route->id)));
+        $this->redirect($this->createUrl('/routes/default/', array('id' => $route->id)));
+    }
+
+    public function sitemap($param)
+    {
+        $models = Yii::app()->db->createCommand()
+            ->select('id')
+            ->from(Route::model()->tableName())
+            ->where('(status = 2 OR status=4) AND id > ' . (49999 * ($param - 1)) . ' AND id <=' . (49999 * $param))
+            ->queryColumn();
+
+        $data = array();
+        foreach ($models as $model) {
+            $data[] = array(
+                'params' => array(
+                    'id' => $model,
+                ),
+                'changefreq' => 'daily',
+            );
+        }
+
+        return $data;
     }
 
     /**

@@ -31,8 +31,10 @@ class GoogleMapsGeoCode extends GoogleMapsApiParser
     public function getCityByCoordinates($lat, $lng)
     {
         $city = RouteCoordinates::getCity($lat, $lng);
-        if ($city !== false)
+
+        if ($city)
             return $city;
+
         $url = 'http://maps.googleapis.com/maps/api/geocode/json?latlng=' . $lat . ',' . $lng . '&sensor=true&language=ru';
         $result = $this->loadPage($url);
 

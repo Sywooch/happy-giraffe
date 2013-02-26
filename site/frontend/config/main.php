@@ -98,7 +98,7 @@ return array(
         'calendar',
         'whatsNew',
         'valentinesDay',
-        'route'
+        'routes'
 	),
 
 	// application components

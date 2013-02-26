@@ -23,6 +23,7 @@ class DefaultController extends HController
     public function actionIndex($id = null)
     {
         Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
+        $this->meta_title = 'Составь маршрут для автомобиля';
 
         if (empty($id)) {
             $this->render('index');

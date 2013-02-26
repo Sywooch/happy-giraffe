@@ -20,6 +20,7 @@
  * @property GeoCity $cityTo
  * @property RoutePoint $points
  */
+
 class Route extends CActiveRecord
 {
     const STATUS_NEW = 0;

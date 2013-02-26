@@ -393,6 +393,9 @@ return array(
         'controllerMap' => array(
             'sitemap' => array(
                 'class' => 'ext.sitemapgenerator.SGController',
+                'import'=>array(
+                    'routes.models.Route'
+                ),
                 'config' => array(
                     'sitemap.xml' => array(
                         'index' => true,
@@ -414,6 +417,24 @@ return array(
                             'application.modules.cook.controllers.ChooseController',
                             'application.modules.cook.controllers.RecipeController',
                         ),
+                    ),
+                    'sitemapRoutes1.xml' => array(
+                        'aliases' => array(
+                            'application.modules.routes.controllers.DefaultController',
+                        ),
+                        'param'=>1
+                    ),
+                    'sitemapRoutes2.xml' => array(
+                        'aliases' => array(
+                            'application.modules.routes.controllers.DefaultController',
+                        ),
+                        'param'=>2
+                    ),
+                    'sitemapRoutes3.xml' => array(
+                        'aliases' => array(
+                            'application.modules.routes.controllers.DefaultController',
+                        ),
+                        'param'=>3
                     ),
                     'sitemapAll.xml' => array(
                         'aliases' => array(

@@ -148,7 +148,7 @@ class Route extends CActiveRecord
 
     public function getRouteLink()
     {
-        return CHtml::link('перейти', 'http://www.happy-giraffe.ru/routes/' . $this->id . '/', array('target' => '_blank'));
+        return CHtml::link('перейти', Yii::app()->createAbsoluteUrl('/routes/default/index', array('id'=>$this->id), array('target' => '_blank')));
     }
 
     /**
@@ -313,7 +313,7 @@ class Route extends CActiveRecord
     public function getUrl($absolute = false)
     {
         $method = $absolute ? 'createAbsoluteUrl' : 'createUrl';
-        return Yii::app()->$method('/route/default/index', array('id' => $this->id));
+        return Yii::app()->$method('/routes/default/index', array('id' => $this->id));
     }
 
     /**

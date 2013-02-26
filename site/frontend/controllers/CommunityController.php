@@ -19,8 +19,9 @@ class CommunityController extends HController
             ),
 //            array(
 //                'COutputCache + view',
+//                'duration' => 300,
 //                'varyByParam' => array('content_id', 'Comment_page'),
-//                'varyBySession' => true,
+//                'varyByExpression' => Yii::app()->user->id . $this->lastModified(),
 //            ),
         );
     }

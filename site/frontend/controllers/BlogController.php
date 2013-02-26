@@ -16,6 +16,12 @@ class BlogController extends HController
                 'CHttpCacheFilter + view',
                 'lastModified' => $this->lastModified(),
             ),
+//            array(
+//                'COutputCache + view',
+//                'duration' => 300,
+//                'varyByParam' => array('content_id', 'Comment_page'),
+//                'varyByExpression' => Yii::app()->user->id . $this->lastModified(),
+//            ),
         );
     }
 

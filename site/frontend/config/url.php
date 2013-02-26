@@ -258,10 +258,10 @@ return array(
         'services/<_m:(dailyCalories|weightLoss|idealWeight|bodyFat)>/default/<_c>' => 'services/<_m>/default/<_c>',
         'services/lines/<id:[\d]+>.jpeg' => 'services/lines/default/index',
 
-        'routes/<id:[\d]+>'=>'route/default/index',
-        'routes/<_a>'=>'route/default/<_a>',
-        'routes/<_a>/<id:[\d]+>'=>'route/default/<_a>',
-        'routes/'=>'route/default/index',
+        'auto/routes/<id:[\d]+>'=>'routes/default/index',
+        'auto/routes/<_a>'=>'routes/default/<_a>',
+        'auto/routes/<_a>/<id:[\d]+>'=>'routes/default/<_a>',
+        'auto/routes/'=>'routes/default/index',
 
         'ValentinesDay' => 'valentinesDay/default/index',
         'ValentinesDay/<_a>' => 'valentinesDay/default/<_a>',

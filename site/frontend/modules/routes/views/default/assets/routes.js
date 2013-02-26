@@ -87,14 +87,14 @@ var Routes = {
         $('#city_to').val(Routes.to_city.text);
     },
     go:function () {
-        $.post('/routes/getRouteId/', {
+        $.post('/auto/routes/getRouteId/', {
             city_from_lat:Routes.from_city.lat,
             city_from_lng:Routes.from_city.lng,
             city_to_lat:Routes.to_city.lat,
             city_to_lng:Routes.to_city.lng
         }, function (response) {
             if (response.status) {
-                location.href = '/routes/' + response.id + '/';
+                location.href = '/auto/routes/' + response.id + '/';
             } else{
                 alert('Невозможно проложить маршрут');
             }

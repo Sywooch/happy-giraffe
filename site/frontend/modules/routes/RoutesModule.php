@@ -1,6 +1,6 @@
 <?php
 
-class RouteModule extends CWebModule
+class RoutesModule extends CWebModule
 {
 	public function init()
 	{
@@ -9,8 +9,8 @@ class RouteModule extends CWebModule
 
 		// import the module-level models and components
 		$this->setImport(array(
-			'route.models.*',
-			'route.components.*',
+			'routes.models.*',
+			'routes.components.*',
             'geo.models.*',
 			'geo.components.*',
 		));

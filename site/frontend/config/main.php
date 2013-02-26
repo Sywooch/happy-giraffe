@@ -418,12 +418,12 @@ return array(
                             'application.modules.cook.controllers.RecipeController',
                         ),
                     ),
-                    'sitemapRoutes1.xml' => array(
-                        'aliases' => array(
-                            'application.modules.routes.controllers.DefaultController',
-                        ),
-                        'param'=>1
-                    ),
+//                    'sitemapRoutes1.xml' => array(
+//                        'aliases' => array(
+//                            'application.modules.routes.controllers.DefaultController',
+//                        ),
+//                        'param'=>1
+//                    ),
 //                    'sitemapRoutes2.xml' => array(
 //                        'aliases' => array(
 //                            'application.modules.routes.controllers.DefaultController',

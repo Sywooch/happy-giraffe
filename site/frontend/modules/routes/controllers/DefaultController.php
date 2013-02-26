@@ -112,7 +112,7 @@ class DefaultController extends HController
             }
         }
 
-        $this->redirect($this->createUrl('/route/default/', array('id'=>$route->id)));
+        $this->redirect($this->createUrl('/routes/default/', array('id'=>$route->id)));
     }
 
     /**

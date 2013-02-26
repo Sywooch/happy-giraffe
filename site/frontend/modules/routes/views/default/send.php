@@ -45,7 +45,7 @@ $url = $route->getUrl(true);
                 'validateOnSubmit' => true,
                 'validateOnChange' => false,
                 'validateOnType' => false,
-                'validationUrl' => $this->createUrl('/route/default/sendEmail'),
+                'validationUrl' => $this->createUrl('/routes/default/sendEmail'),
                 'afterValidate' => "js:function(form, data, hasError) {
                             if (!hasError)
                                 SendRoute();

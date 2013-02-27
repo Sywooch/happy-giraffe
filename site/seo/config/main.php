@@ -8,6 +8,7 @@ return array(
     'import' => array(
         'site.common.models.*',
         'site.common.components.*',
+        'site.common.helpers.*',
         'site.common.behaviors.*',
         'site.common.extensions.wr.WithRelatedBehavior',
 

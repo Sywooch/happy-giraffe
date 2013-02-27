@@ -32,7 +32,8 @@ class AjaxController extends HController
                         $vote->save();
                         Rating::model()->saveByEntity($model, Rating::getShort($service), 1, true);
                         $inc = true;
-                    } catch (MongoCursorException $e) {}
+                    } catch (MongoCursorException $e) {
+                    }
 
                 }
             }
@@ -94,7 +95,7 @@ class AjaxController extends HController
         $m = Yii::app()->request->getPost('m');
         $y = Yii::app()->request->getPost('y');
 
-        if (empty($d) || empty($m) || empty($y)){
+        if (empty($d) || empty($m) || empty($y)) {
             echo CJSON::encode(array('status' => false));
             Yii::app()->end();
         }
@@ -566,8 +567,8 @@ class AjaxController extends HController
             'jquery-ui.js' => false,
             'jquery-ui.min.js' => false,
             'jquery-ui.css' => false,
-            'global.css'=>false,
-            'jquery.tmpl.min.js'=>false
+            'global.css' => false,
+            'jquery.tmpl.min.js' => false
             //'jquery.yiiactiveform.js'=>false
         );
         $categories = InterestCategory::model()->with('interests')->findAll();
@@ -797,17 +798,17 @@ class AjaxController extends HController
         $this->renderPartial('link', compact('model'), false, true);
     }
 
-    public function actionServiceUsed(){
+    public function actionServiceUsed()
+    {
         $service = Service::model()->findByPk(Yii::app()->request->getPost('id'));
         $service->userUsedService();
     }
 
-    public function actionTest(){
-        $ids = array_merge(
-            Favourites::getIdList(Favourites::BLOCK_INTERESTING, 4)
-                + Favourites::getIdList(Favourites::BLOCK_BLOGS, 12)
-                + Favourites::getIdList(Favourites::BLOCK_SOCIAL_NETWORKS, 5)
-        );
+    public function actionTest()
+    {
+        $ids = array_merge(Favourites::getIdList(Favourites::BLOCK_INTERESTING, 4),
+            Favourites::getIdList(Favourites::BLOCK_BLOGS, 12),
+            Favourites::getIdList(Favourites::BLOCK_SOCIAL_NETWORKS, 5));
         var_dump($ids);
     }
 }

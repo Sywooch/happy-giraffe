@@ -5,7 +5,7 @@ class AjaxController extends HController
     public function filters()
     {
         return array(
-            'ajaxOnly - socialVote',
+            'ajaxOnly - socialVote, test',
         );
     }
 
@@ -800,5 +800,9 @@ class AjaxController extends HController
     public function actionServiceUsed(){
         $service = Service::model()->findByPk(Yii::app()->request->getPost('id'));
         $service->userUsedService();
+    }
+
+    public function actionTest(){
+        var_dump(Favourites::getIdList(Favourites::BLOCK_BLOGS, 12));
     }
 }

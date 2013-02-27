@@ -35,7 +35,7 @@ class FavouritesPosts extends PostForCommentator
     {
         $ids = array_merge(
             Favourites::getIdList(Favourites::BLOCK_INTERESTING, 4)
-                + Favourites::getIdList(Favourites::BLOCK_BLOGS, 6)
+                + Favourites::getIdList(Favourites::BLOCK_BLOGS, 12)
                 + Favourites::getIdList(Favourites::BLOCK_SOCIAL_NETWORKS, 5)
         );
         if (empty($ids))

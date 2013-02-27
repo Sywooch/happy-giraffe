@@ -179,7 +179,7 @@
     </div>
 
     <div class="copy">
-        <p>Весёлый жираф &nbsp; © 2012 &nbsp; Все права защищены <img src="/images/icon-18+.png" alt="" class="icon-18"/><a href="<?=$this->createUrl('/site/moderationRules') ?>">Правила модерации</a></p>
+        <p>Весёлый жираф &nbsp; © 2012 &nbsp; Все права защищены <img src="/images/icon-18+.png" alt="" class="icon-18"/><a href="<?=$this->createUrl('/site/moderationRules') ?>">Правила модерации</a> &nbsp; Написать нам: <a href="mailto:info@happy-giraffe.ru">info@happy-giraffe.ru</a></p>
     </div>
 
 </div>

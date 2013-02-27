@@ -52,6 +52,20 @@ class DefaultController extends HController
 
         if ($city_from->id != $city_to->id) {
             $route = Route::model()->findByAttributes(array('city_from_id' => $city_from->id, 'city_to_id' => $city_to->id));
+            if ($route !== null && ($route->status == Route::STATUS_ROSNEFT_FOUND || $route->status == Route::STATUS_GOOGLE_PARSE_SUCCESS)) {
+                echo CJSON::encode(array('status' => true, 'id' => $route->id));
+                Yii::app()->end();
+            }
+        }
+        echo CJSON::encode(array('status' => false));
+    }
+
+    public function actionCreateRoute(){
+        $city_from = GeoCity::getCityByCoordinates(Yii::app()->request->getPost('city_from_lat'), Yii::app()->request->getPost('city_from_lng'));
+        $city_to = GeoCity::getCityByCoordinates(Yii::app()->request->getPost('city_to_lat'), Yii::app()->request->getPost('city_to_lng'));
+
+        if ($city_from->id != $city_to->id) {
+            $route = Route::model()->findByAttributes(array('city_from_id' => $city_from->id, 'city_to_id' => $city_to->id));
             if ($route === null) {
                 //create new route
                 $route = Route::createNewRoute($city_from, $city_to);
@@ -62,6 +76,7 @@ class DefaultController extends HController
                 Yii::app()->end();
             }
         }
+
         echo CJSON::encode(array('status' => false));
     }
 

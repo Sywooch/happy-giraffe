@@ -96,8 +96,15 @@ Yii::app()->clientScript
     <p><?=$texts[1] ?></p>
 
 </div>
-<div class="margin-b30">
+<div class="margin-b30 map-canvas">
     <div id="map_canvas" style="width:960px; height:389px;"></div>
+    <div id="waitLoader" class="map-canvas_overlay" style="display:none;">
+        Подождите. Мы формируем для вас маршрут.
+        <div id="infscr-loading"><img src="/images/ico/ajax-loader.gif" alt="Loading..."><div>Загрузка</div></div>
+    </div>
+    <div id="badRoute" class="map-canvas_overlay map-canvas_overlay__error" style="display:none;">
+        Извините. Этот маршрут проложить невозможно.
+    </div>
 </div>
 <div class="content-cols clearfix">
     <div class="col-1">

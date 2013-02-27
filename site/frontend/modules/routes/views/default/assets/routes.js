@@ -31,7 +31,7 @@ var Routes = {
             destination:end,
             travelMode:google.maps.DirectionsTravelMode.DRIVING,
             provideRouteAlternatives:false,
-            //waypoints:window.way_points
+            waypoints:window.way_points
         };
         Routes.directionsService.route(request, function (response, status) {
             if (status == google.maps.DirectionsStatus.OK) {
@@ -96,7 +96,23 @@ var Routes = {
             if (response.status) {
                 location.href = '/auto/routes/' + response.id + '/';
             } else{
-                alert('Невозможно проложить маршрут');
+                Routes.createRoute();
+            }
+        }, 'json');
+    },
+    createRoute:function () {
+        $('#waitLoader').show();
+        $.post('/auto/routes/getRouteId/', {
+            city_from_lat:Routes.from_city.lat,
+            city_from_lng:Routes.from_city.lng,
+            city_to_lat:Routes.to_city.lat,
+            city_to_lng:Routes.to_city.lng
+        }, function (response) {
+            $('#waitLoader').hide();
+            if (response.status) {
+                location.href = '/auto/routes/' + response.id + '/';
+            } else{
+                $('#badRoute').show().delay(3000).fadeOut(400);
             }
         }, 'json');
     }

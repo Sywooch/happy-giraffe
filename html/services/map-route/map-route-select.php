@@ -26,14 +26,24 @@
 					<input type="" class="map-route-search_itx itx-bluelight" placeholder="Откуда">
 					<a href="" class="map-route-search_reverse"></a>
 					<input type="" class="map-route-search_itx itx-bluelight" placeholder="Куда">
-					<button class="btn-green map-route-search_btn">Проложить <br> маршрут</button>
+					<button class="btn-gray map-route-search_btn">Проложить <br> маршрут</button>
 				</form>
 				<p>Узнайте, как доехать на авто от Киева до Донецка. <br>
 				Схема трассы Донецк-Киев на карте. Выбирайте нужные вам дороги, трассы, шоссе и магистрали на пути от Донецка до Киева.</p>
 				
 			</div>
-			<div class="margin-b30">
+			<div class="margin-b30 map-canvas">
 				<img src="/images/services/map-route/map.jpg" alt="">
+				<div class="map-canvas_overlay">
+					Подождите. Мы формируем для вас маршрут.
+					<div id="infscr-loading"><img src="/images/ico/ajax-loader.gif" alt="Loading..."><div>Загрузка</div></div>
+				</div>
+			</div>
+			<div class="margin-b30 map-canvas">
+				<img src="/images/services/map-route/map.jpg" alt="">
+				<div class="map-canvas_overlay map-canvas_overlay__error">
+					Извините. Этот маршрут проложить невозможно.
+				</div>
 			</div>
 			
 			<div class="content-cols clearfix">

@@ -348,7 +348,7 @@ textarea.error,
 }
 .layout-container {
 	width: 100%;
-	overflow-x: hidden;
+	overflow-y: visible;
 }
 /* @todo delete #layout, #layout .push */
 #layout,
@@ -5870,11 +5870,34 @@ label {
 }
 .map-route-search_reverse:hover {background-position: 0 -20px;}
 .map-route-search_btn {
-	font-size: 18px;
+	font-size: 17px;
 	line-height: 16px;
-	padding: 8px 18px;
+	padding: 8px 21px;
 	float: right;
 }
+
+.map-canvas {position: relative;}
+.map-canvas_overlay {
+	position: absolute;
+	top:0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 2;
+	border: 1px solid #e1e3df;
+	padding: 150px 0 0;
+	text-align: center;
+	background: #e1e3df;
+	background: rgba(246,246,246,0.8);
+	font-size: 17px;
+	color: #363535;
+}
+.map-canvas_overlay__error {
+	padding-top: 180px;
+	color: #d34655;
+	border-color: #e7bec0;
+}
+.map-canvas_overlay #infscr-loading {top:195px;bottom:auto;}
 
 .map-route-table {
 	width: 100%;
@@ -6105,9 +6128,9 @@ label {
 .map-route-h_reverse:hover {background-position: 0 -20px;}
 .map-route-h_btn {
 	float: right;
-	font-size: 18px;
+	font-size: 17px;
 	line-height: 16px;
-	padding: 8px 18px;
+	padding: 8px 21px;
 }
 .map-route-desc {margin: 0 20px 20px;}
 .map-route-desc_ul {

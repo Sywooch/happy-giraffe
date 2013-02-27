@@ -11,7 +11,8 @@ class GeoModule extends CWebModule
 		$this->setImport(array(
 			'geo.models.*',
 			'geo.components.*',
-		));
+            'site.frontend.modules.routes.models.*',
+        ));
 	}
 
 	public function beforeControllerAction($controller, $action)

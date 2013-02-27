@@ -126,12 +126,16 @@ class DefaultController extends HController
             ->queryColumn();
 
         $data = array();
+        if ($param == 1)
+            $data [] = array(
+                'changefreq' => 'weekly',
+            );
         foreach ($models as $model) {
             $data[] = array(
                 'params' => array(
                     'id' => $model,
                 ),
-                'changefreq' => 'daily',
+                'changefreq' => 'weekly',
             );
         }
 

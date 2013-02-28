@@ -79,17 +79,20 @@ class GeoCommand extends CConsoleCommand
         }
     }
 
-    public function actionLinks(){
+    public function actionLinks()
+    {
         $l = new CRouteLinking;
         $l->start();
     }
 
-    public function actionLinks2(){
+    public function actionLinks2()
+    {
         $l = new CRouteLinking;
         $l->startStage2();
     }
 
-    public function actionCityCoordinates(){
+    public function actionCityCoordinates()
+    {
         $parser = new GoogleCoordinatesParser(false, true);
         $parser->start();
     }
@@ -98,5 +101,26 @@ class GeoCommand extends CConsoleCommand
     {
         $parser = new RosneftParser;
         $parser->start();
+    }
+
+    public function actionTest()
+    {
+        $cities = file_get_contents('f:/cities2.txt');   //'/home/giraffe/cities2.txt');
+        $cities = explode("\n", $cities);
+
+        foreach($cities as $city){
+            $city = trim($city);
+            if (empty($city))
+                continue;
+
+            $model = Keyword::model()->findByAttributes(array('name' => $city));
+            if ($model === null){
+                $model = new Keyword;
+                $model->name = $city;
+                $model->save();
+            }
+
+            ParsingKeyword::addNewKeyword($model->id, 100);
+        }
     }
 }

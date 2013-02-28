@@ -105,7 +105,7 @@ class GeoCommand extends CConsoleCommand
 
     public function actionTest()
     {
-        $cities = file_get_contents('f:/cities2.txt');   //'/home/giraffe/cities2.txt');
+        $cities = file_get_contents('/home/giraffe/cities2.txt');
         $cities = explode("\n", $cities);
 
         foreach($cities as $city){

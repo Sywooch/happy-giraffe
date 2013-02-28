@@ -137,8 +137,6 @@ class CommentatorController extends HController
      */
     public function actionTake()
     {
-        Yii::app()->end();
-
         $transaction = Yii::app()->db_seo->beginTransaction();
         try {
             $task = $this->loadModel(Yii::app()->request->getPost('id'));

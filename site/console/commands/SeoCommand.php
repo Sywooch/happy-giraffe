@@ -322,23 +322,48 @@ class SeoCommand extends CConsoleCommand
     public function actionLi($site)
     {
         Yii::import('site.seo.modules.competitors.components.*');
-        $last_parsed = SeoUserAttributes::getAttribute('last_li_parsed_'.date("Y-m") , 1);
+        $last_parsed = SeoUserAttributes::getAttribute('last_li_parsed_' . date("Y-m"), 1);
         if (empty($site)) {
             $parser = new LiParser;
 
             if (!empty($last_parsed))
-                $sites = Site::model()->findAll('id > '.$last_parsed);
+                $sites = Site::model()->findAll('id > ' . $last_parsed);
             else
                 $sites = Site::model()->findAll();
 
             foreach ($sites as $site) {
                 $parser->start($site->id, 2012, 12, 12);
 
-                SeoUserAttributes::setAttribute('last_li_parsed_'.date("Y-m") , $site->id, 1);
+                SeoUserAttributes::setAttribute('last_li_parsed_' . date("Y-m"), $site->id, 1);
             }
         } else {
             $parser = new LiParser;
             $parser->start($site, 2012, 12, 12);
+        }
+    }
+
+    public function actionCopyWordstat()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->limit = 10000;
+        $criteria->order = 'keyword_id ASC';
+
+        $models = array(0);
+        $last_id = 0;
+        $i = 0;
+        while (!empty($models)) {
+            $criteria->condition = 'keyword_id > '.$last_id;
+            $models = YandexPopularity::model()->findAll($criteria);
+
+            foreach ($models as $model) {
+
+                Yii::app()->db_keywords->createCommand()->update('keywords',
+                    array('wordstat'=>$model->value), 'id = '.$model->keyword_id);
+                $last_id = $model->keyword_id;
+            }
+            $i++;
+            if ($i % 10 == 0)
+                echo $last_id."\n";
         }
     }
 }

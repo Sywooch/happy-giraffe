@@ -47,6 +47,7 @@ class Keyword extends HActiveRecord
     public function rules()
     {
         return array(
+            array('name', 'required'),
             array('name', 'length', 'max' => 1024),
             array('id, name, our', 'safe', 'on' => 'search'),
         );

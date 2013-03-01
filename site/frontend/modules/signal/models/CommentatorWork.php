@@ -404,6 +404,9 @@ class CommentatorWork extends EMongoDocument
                             $day->today_club = $this->clubs[0];
                     }
                 }
+
+                if (empty($day->today_club))
+                    $day->today_club = $this->clubs[0];
             } else
                 $day->today_club = $this->clubs[0];
 

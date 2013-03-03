@@ -132,7 +132,7 @@
     <div class="recommendation clearfix" id="result">
 
         <div class="left">
-            <img src="/images/img_repair_wallpapers.png"/><br/>Нужно не менее <span>6 рулонов</span>
+            <img src="/images/services/img_repair_wallpapers.png"/><br/>Нужно не менее <span>6 рулонов</span>
         </div>
 
         <div class="right">

@@ -6,13 +6,6 @@
 
 class AjaxSimpleController extends CController
 {
-    public function filters()
-    {
-        return array(
-            'ajaxOnly + counter',
-        );
-    }
-
     public function actionCounter(){
         if (!Yii::app()->request->isAjaxRequest)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');

@@ -40,7 +40,7 @@ class CompatibilityController extends HController
                 $model = HoroscopeCompatibility::model()->findByAttributes(array('zodiac1' => $zodiac2, 'zodiac2' => $zodiac1));
                 if ($model === null)
                     throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
-                Yii::app()->clientScript->registerLinkTag('canonical', null, $this->createAbsoluteUrl('/services/horoscope/default/compatibility', array(
+                Yii::app()->clientScript->registerLinkTag('canonical', null, $this->createAbsoluteUrl('/services/horoscope/compatibility/index', array(
                     'zodiac1' => Horoscope::model()->zodiac_list_eng[$zodiac2],
                     'zodiac2' => Horoscope::model()->zodiac_list_eng[$zodiac1],
                 )));

@@ -352,18 +352,29 @@ class SeoCommand extends CConsoleCommand
         $last_id = 0;
         $i = 0;
         while (!empty($models)) {
-            $criteria->condition = 'keyword_id > '.$last_id;
+            $criteria->condition = 'keyword_id > ' . $last_id;
             $models = YandexPopularity::model()->findAll($criteria);
 
             foreach ($models as $model) {
 
                 Yii::app()->db_keywords->createCommand()->update('keywords',
-                    array('wordstat'=>$model->value), 'id = '.$model->keyword_id);
+                    array('wordstat' => $model->value), 'id = ' . $model->keyword_id);
                 $last_id = $model->keyword_id;
             }
             $i++;
             if ($i % 10 == 0)
-                echo $last_id."\n";
+                echo $last_id . "\n";
+        }
+    }
+
+    public function actionCopyKeywords($start)
+    {
+        if (empty($start))
+            $start = 289999999;
+
+        for ($i = 0; $i < count(10000); $i++) {
+            $min = $start + $i*10000;
+            Yii::app()->db_keywords->createCommand('insert into keywords3 select * from keywords where id > '.$min.' AND id <= '.($min+10000))->execute();
         }
     }
 }

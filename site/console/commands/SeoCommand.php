@@ -370,9 +370,9 @@ class SeoCommand extends CConsoleCommand
     public function actionCopyKeywords($start)
     {
         if (empty($start))
-            $start = 289999999;
+            $start = 290009999;
 
-        for ($i = 0; $i < count(10000); $i++) {
+        for ($i = 0; $i < 10000; $i++) {
             $min = $start + $i*10000;
             Yii::app()->db_keywords->createCommand('insert into keywords3 select * from keywords where id > '.$min.' AND id <= '.($min+10000))->execute();
         }

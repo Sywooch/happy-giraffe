@@ -105,6 +105,7 @@ class SiteController extends HController
             {
                 if(file_exists(Yii::getPathOfAlias('application.views.system.' . $error['code']) . '.php'))
                 {
+                    $this->pageTitle = 'Ошибка';
                     $this->layout = '//system/layout';
                     Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl . '/stylesheets/common.css');
                     $this->render('//system/' . $error['code'], $error);

@@ -41,6 +41,9 @@ class RssController extends HController
                 OFFSET :offset";
         $contents = $this->getContents($sql, $page);
 
+        if (empty($contents))
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
         foreach ($contents as $c) {
             $item = $feed->createNewItem();
             if (get_class($c) == 'Horoscope') {

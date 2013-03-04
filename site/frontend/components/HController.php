@@ -30,6 +30,11 @@ class HController extends CController
             throw new CHttpException(404, Yii::t('yii', 'Your request is invalid.'));
     }
 
+    public function invalidActionParams($action)
+    {
+        throw new CHttpException(404,Yii::t('yii','Your request is invalid.'));
+    }
+
     public function init()
     {
         parent::init();

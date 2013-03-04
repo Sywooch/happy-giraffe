@@ -14,6 +14,9 @@ class AjaxSimpleController extends CController
     }
 
     public function actionCounter(){
+        if (!Yii::app()->request->isAjaxRequest)
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
         Yii::import('site.seo.models.*');
 
         $referrer = Yii::app()->request->getPost('referrer');

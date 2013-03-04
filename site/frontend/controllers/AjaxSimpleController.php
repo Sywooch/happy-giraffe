@@ -9,7 +9,7 @@ class AjaxSimpleController extends CController
     public function filters()
     {
         return array(
-            'ajaxOnly - socialVote',
+            'ajaxOnly + counter',
         );
     }
 

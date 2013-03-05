@@ -25,6 +25,12 @@ class InnerLinksBlock extends EMongoDocument
     public function getLinkCount()
     {
         $page = Page::model()->findByAttributes(array('url' => $this->url));
+        if (strpos($this->url, '/view/content_id/') !== false){
+            if ($page !== null)
+                echo "page is not null";
+            else
+                echo "page null";
+        }
         if ($page !== null)
             return $page->outputLinksCount;
         return 0;
@@ -68,6 +74,11 @@ class InnerLinksBlock extends EMongoDocument
             }
         }
         echo "updated: $i \n";
+        $this->RemoveDeleted();
+    }
+
+    public function RemoveDeleted()
+    {
         echo "remove deleted\n";
 
         $criteria = new EMongoCriteria();

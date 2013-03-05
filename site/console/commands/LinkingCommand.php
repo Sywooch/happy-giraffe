@@ -192,6 +192,12 @@ class LinkingCommand extends CConsoleCommand
         InnerLinksBlock::model()->Sync($this);
     }
 
+    public function actionSyncRemoved()
+    {
+        Yii::import('site.common.models.mongo.*');
+        InnerLinksBlock::model()->RemoveDeleted();
+    }
+
     public function actionCalcLinksCount(){
         $criteria = new CDbCriteria;
         $criteria->limit = 100;

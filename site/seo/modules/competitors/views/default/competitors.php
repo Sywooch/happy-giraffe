@@ -42,7 +42,7 @@
         ),
         array(
             'name' => 'popular',
-            'value' => 'data->keyword->wordstat',
+            'value' => '$data->keyword->wordstat',
             'header' => '<i class="icon-yandex"></i>'
         ),
         array(

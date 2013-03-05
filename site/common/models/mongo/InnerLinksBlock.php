@@ -25,11 +25,9 @@ class InnerLinksBlock extends EMongoDocument
     public function getLinkCount()
     {
         $page = Page::model()->findByAttributes(array('url' => $this->url));
-        if (strpos($this->url, '/view/content_id/') !== false){
-            if ($page !== null)
-                echo "page is not null";
-            else
-                echo "page null";
+        if ($page->id == 7980){
+            echo 'ffff'.$page->outputLinksCount;
+            Yii::app()->end();
         }
         if ($page !== null)
             return $page->outputLinksCount;

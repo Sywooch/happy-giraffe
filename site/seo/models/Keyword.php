@@ -14,7 +14,7 @@
  * @property KeywordsBlacklist $blacklist
  * @property TempKeyword $tempKeyword
  */
-class Keyword extends HActiveRecord
+class Keyword extends CActiveRecord
 {
     public $btns;
 
@@ -134,6 +134,7 @@ class Keyword extends HActiveRecord
      * @static
      * @param string $word
      * @param int $priority
+     * @param null $wordstat
      * @return Keyword
      */
     public static function GetKeyword($word, $priority = 0, $wordstat = null)

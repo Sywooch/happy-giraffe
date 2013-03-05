@@ -13,7 +13,7 @@
  * The followings are the available model relations:
  * @property Keyword $keyword
  */
-class ParsingKeyword extends HActiveRecord
+class ParsingKeyword extends CActiveRecord
 {
     const TYPE_WORDSTAT = 0;
     const TYPE_SIMPLE_WORDSTAT = 1;

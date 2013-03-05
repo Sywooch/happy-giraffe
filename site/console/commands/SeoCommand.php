@@ -355,34 +355,16 @@ class SeoCommand extends CConsoleCommand
             $criteria->condition = 'keyword_id > ' . $last_id;
             $models = YandexPopularity::model()->findAll($criteria);
 
+            $text = '';
             foreach ($models as $model) {
-
-                Yii::app()->db_keywords->createCommand()->update('keywords',
-                    array('wordstat' => $model->value), 'id = ' . $model->keyword_id);
+                $text .= 'update keywords set wordstat = '.$model->value.' WHERE id='.$model->keyword_id.';';
                 $last_id = $model->keyword_id;
             }
+            Yii::app()->db_keywords->createCommand($text)->execute();
+
             $i++;
             if ($i % 10 == 0)
                 echo $last_id . "\n";
-        }
-    }
-
-    public function actionCleanTable()
-    {
-        $table = 'sites__keywords_visits';
-
-        $ids = Yii::app()->db_seo->createCommand()
-                    ->select('distinct(keyword_id)')
-                    ->from($table)
-                    ->queryColumn();
-
-        echo count($ids)."\n";
-        foreach($ids as $id){
-            $keyword = Keyword::model()->findByPk($id);
-            if ($keyword === null){
-                Yii::app()->db_seo->createCommand()->delete($table, 'keyword_id='.$id);
-                echo $id."\n";
-            }
         }
     }
 }

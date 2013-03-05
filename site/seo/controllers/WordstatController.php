@@ -87,7 +87,7 @@ class WordstatController extends SController
         if ($model !== null)
             echo CJSON::encode(array(
                 'status' => true,
-                'html' => $this->renderPartial('keyword', array('yandex' => $model->yandex), true)
+                'html' => $this->renderPartial('keyword', array(), true)
             ));
         else
             echo CJSON::encode(array(

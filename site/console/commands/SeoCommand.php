@@ -379,8 +379,10 @@ class SeoCommand extends CConsoleCommand
         echo count($ids)."\n";
         foreach($ids as $id){
             $keyword = Keyword::model()->findByPk($id);
-            if ($keyword === null)
+            if ($keyword === null){
+                Yii::app()->db->createCommand()->delete($table, 'keyword_id='.$id);
                 echo $id."\n";
+            }
         }
     }
 }

@@ -369,7 +369,7 @@ class SeoCommand extends CConsoleCommand
 
     public function actionCleanTable()
     {
-        $table = 'queries';
+        $table = 'sites__keywords_visits';
 
         $ids = Yii::app()->db_seo->createCommand()
                     ->select('distinct(keyword_id)')

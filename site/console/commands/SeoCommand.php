@@ -367,16 +367,20 @@ class SeoCommand extends CConsoleCommand
         }
     }
 
-    public function actionCopyKeywords($start)
+    public function actionCleanTable()
     {
-        $part_size = 10000;
-        if (empty($start))
-            $start = 385079999;
+        $table = 'queries';
 
-        for ($i = 0; $i < 15000; $i++) {
-            $min = $start + $i * $part_size;
-            Yii::app()->db_keywords->createCommand('insert into keywords3 select * from keywords where id > '
-                . $min . ' AND id <= ' . ($min + $part_size))->execute();
+        $ids = Yii::app()->db_seo->createCommand()
+                    ->select('keyword_id')
+                    ->from($table)
+                    ->queryColumn();
+
+        echo count($ids)."\n";
+        foreach($ids as $id){
+            $keyword = Keyword::model()->findByPk($id);
+            if ($keyword === null)
+                echo $id."\n";
         }
     }
 }

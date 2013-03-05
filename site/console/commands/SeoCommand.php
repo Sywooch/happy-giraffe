@@ -372,7 +372,7 @@ class SeoCommand extends CConsoleCommand
         $table = 'queries';
 
         $ids = Yii::app()->db_seo->createCommand()
-                    ->select('keyword_id')
+                    ->select('distinct(keyword_id)')
                     ->from($table)
                     ->queryColumn();
 

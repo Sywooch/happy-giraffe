@@ -6,7 +6,7 @@
  * The followings are the available columns in table 'seo_keywords':
  * @property integer $id
  * @property string $name
- * @property string $our
+ * @property string $wordstat
  *
  * The followings are the available model relations:
  * @property SiteKeywordVisit[] $seoStats
@@ -61,7 +61,7 @@ class Keyword extends HActiveRecord
         return array(
             'seoStats' => array(self::HAS_MANY, 'SiteKeywordVisit', 'keyword_id'),
             'group' => array(self::MANY_MANY, 'KeywordGroup', 'keyword_group_keywords(keyword_id, group_id)'),
-            'yandex' => array(self::HAS_ONE, 'YandexPopularity', 'keyword_id'),
+            //'yandex' => array(self::HAS_ONE, 'YandexPopularity', 'keyword_id'),
             'tempKeyword' => array(self::HAS_ONE, 'TempKeyword', 'keyword_id'),
             'blacklist' => array(self::HAS_ONE, 'KeywordsBlacklist', 'keyword_id'),
         );
@@ -76,78 +76,6 @@ class Keyword extends HActiveRecord
             'id' => 'ID',
             'name' => 'Name',
         );
-    }
-
-    /**
-     * Retrieves a list of models based on the current search/filter conditions.
-     * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
-     */
-    public function search()
-    {
-        $criteria = new CDbCriteria;
-        $criteria->condition = 't.id NOT IN (SELECT keyword_id from happy_giraffe_seo.keywords__blacklist WHERE user_id = :me)';
-        $criteria->params = array(':me'=>Yii::app()->user->id);
-
-        if (!empty($this->name)) {
-            $allSearch = Yii::app()->search
-                ->select('*')
-                ->from('keywords')
-                ->where(' ' . $this->name . ' ')
-                ->limit(0, 10000)
-                ->searchRaw();
-            $ids = array();
-
-            foreach ($allSearch['matches'] as $key => $m)
-                $ids [] = $key;
-
-            if (!empty($ids))
-                $criteria->compare('t.id', $ids);
-            else
-                $criteria->compare('t.id', 0);
-        }
-        $criteria->with = array('yandex');
-        $criteria->order = 'yandex.value desc';
-        $criteria->together = true;
-
-        return new CActiveDataProvider('Keyword', array(
-            'criteria' => $criteria,
-        ));
-    }
-
-    public function searchByTheme($theme)
-    {
-        $criteria = new CDbCriteria;
-        $criteria->with = array('yandex');
-        $criteria->order = 'yandex.value desc';
-        $criteria->condition = 'yandex.theme = ' . $theme . ' AND t.id NOT IN (SELECT keyword_id from happy_giraffe_seo.keywords__blacklist WHERE user_id = :me)';
-        $criteria->params = array(':me'=>Yii::app()->user->id);
-
-        if (!empty($this->name)) {
-            $allSearch = Yii::app()->search
-                ->select('*')
-                ->from('keywords')
-                ->where(' ' . $this->name . ' ')
-                ->limit(0, 5000)
-                ->searchRaw();
-            $ids = array();
-
-            $blacklist = Yii::app()->db_seo->createCommand('select keyword_id from ' . KeywordsBlacklist::model()->tableName())->queryColumn();
-            foreach ($allSearch['matches'] as $key => $m) {
-                if (!in_array($key, $blacklist))
-                    $ids [] = $key;
-            }
-
-            if (!empty($ids))
-                $criteria->compare('t.id', $ids);
-            else
-                $criteria->compare('t.id', 0);
-        }
-
-        return new CActiveDataProvider('Keyword', array(
-            'totalItemCount' => YandexPopularity::model()->count('theme = ' . $theme),
-            'criteria' => $criteria,
-            'pagination' => array('pageSize' => 100),
-        ));
     }
 
     public function findSimilarCount($name)
@@ -199,8 +127,7 @@ class Keyword extends HActiveRecord
             else
                 $criteria->compare('t.id', 0);
         }
-        $criteria->with = array('yandex');
-        $criteria->order = 'yandex.value desc';
+        $criteria->order = 'wordstat desc';
 
         return self::model()->findAll($criteria);
     }
@@ -211,18 +138,25 @@ class Keyword extends HActiveRecord
      * @param int $priority
      * @return Keyword
      */
-    public static function GetKeyword($word, $priority = 1)
+    public static function GetKeyword($word, $priority = 0, $wordstat = null)
     {
         $word = trim($word);
         $model = self::model()->findByAttributes(array('name' => $word));
-        if ($model !== null)
+        if ($model !== null) {
+            if ($wordstat !== null) {
+                $model->wordstat = $wordstat;
+                $model->update('wordstat');
+                ParsingKeyword::wordstatParsed($model->id);
+            }
             return $model;
+        }
 
         $model = new Keyword();
         $model->name = $word;
+        $model->wordstat = $wordstat;
         try {
             $model->save();
-            ParsingKeyword::addNewKeyword($model->id, $priority);
+            ParsingKeyword::addNewKeyword($model->id, $priority, $wordstat);
         } catch (Exception $e) {
             //значит кейворд создан в промежуток времени между запросами - повторим запрос
             $model = self::model()->findByAttributes(array('name' => $word));
@@ -316,36 +250,29 @@ class Keyword extends HActiveRecord
      */
     public function getFreq()
     {
-        if (!isset($this->yandex))
+        if (empty($this->wordstat))
             return 0;
-        if ($this->yandex->value > 10000)
+        if ($this->wordstat > 10000)
             return 1;
-        if ($this->yandex->value >= 1500)
+        if ($this->wordstat >= 1500)
             return 2;
-        if ($this->yandex->value >= 500)
+        if ($this->wordstat >= 500)
             return 3;
         return 4;
     }
 
-    public function getFrequency()
-    {
-        if (isset($this->yandex))
-            return $this->yandex->value;
-        return '';
-    }
-
     public function getRoundFrequency()
     {
-        if (empty($this->yandex))
+        if (empty($this->wordstat))
             return '';
 
-        if ($this->yandex->value > 1000)
-            return round($this->yandex->value / 1000, 1);
+        if ($this->wordstat > 1000)
+            return round($this->wordstat / 1000, 1);
 
-        if ($this->yandex->value > 100)
-            return round($this->yandex->value / 1000, 2);
+        if ($this->wordstat > 100)
+            return round($this->wordstat / 1000, 2);
 
-        return round($this->yandex->value / 1000, 3);
+        return round($this->wordstat / 1000, 3);
     }
 
     /**
@@ -370,13 +297,13 @@ class Keyword extends HActiveRecord
     public static function getFreqCondition($freq)
     {
         if ($freq == 1)
-            return 'yandex.value > 10000';
+            return 'wordstat > 10000';
         if ($freq == 2)
-            return 'yandex.value <= 10000 AND yandex.value > 1500';
+            return 'wordstat <= 10000 AND wordstat > 1500';
         if ($freq == 3)
-            return 'yandex.value <= 1500 AND yandex.value > 500';
+            return 'wordstat <= 1500 AND wordstat > 500';
         if ($freq == 4)
-            return 'yandex.value < 500';
+            return 'wordstat < 500';
 
         return '';
     }

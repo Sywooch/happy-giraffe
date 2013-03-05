@@ -42,13 +42,13 @@
         ),
         array(
             'name' => 'popular',
-            'value' => 'isset($data->keyword->yandex)?$data->keyword->yandex->value:""',
+            'value' => 'data->keyword->wordstat',
             'header' => '<i class="icon-yandex"></i>'
         ),
         array(
             'name' => 'popularIcon',
             'type' => 'raw',
-            'value' => 'isset($data->keyword->yandex)?$data->keyword->yandex->getFreqIcon():""',
+            'value' => '$data->keyword->getFreqIcon()',
             'header' => '<i class="icon-freq"></i>'
         ),
         array(

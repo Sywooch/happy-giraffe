@@ -127,23 +127,4 @@ class YandexPopularity extends HActiveRecord
             }
         }
     }
-
-    public function getFreqIcon()
-    {
-        $freq = $this->getFreq();
-        if ($freq != 0)
-            return '<i class="icon-freq-' . $freq . '"></i>';
-        return '';
-    }
-
-    public function getFreq()
-    {
-        if ($this->value > 10000)
-            return 1;
-        if ($this->value >= 1500)
-            return 2;
-        if ($this->value >= 500)
-            return 3;
-        return 4;
-    }
 }

@@ -259,29 +259,6 @@ class SeoCommand extends CConsoleCommand
         TrafficStatisctic::model()->parse();
     }
 
-    public function actionLi($site)
-    {
-        Yii::import('site.seo.modules.competitors.components.*');
-        $last_parsed = SeoUserAttributes::getAttribute('last_li_parsed_' . date("Y-m"), 1);
-        if (empty($site)) {
-            $parser = new LiParser;
-
-            if (!empty($last_parsed))
-                $sites = Site::model()->findAll('id > ' . $last_parsed);
-            else
-                $sites = Site::model()->findAll();
-
-            foreach ($sites as $site) {
-                $parser->start($site->id, 2012, 12, 12);
-
-                SeoUserAttributes::setAttribute('last_li_parsed_' . date("Y-m"), $site->id, 1);
-            }
-        } else {
-            $parser = new LiParser;
-            $parser->start($site, 2012, 12, 12);
-        }
-    }
-
     public function actionCopyWordstat()
     {
         $criteria = new CDbCriteria;
@@ -289,7 +266,7 @@ class SeoCommand extends CConsoleCommand
         $criteria->order = 'keyword_id ASC';
 
         $models = array(0);
-        $last_id = 0;
+        $last_id = 344118388;
         $i = 0;
         while (!empty($models)) {
             $criteria->condition = 'keyword_id > ' . $last_id;

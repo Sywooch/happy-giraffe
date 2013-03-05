@@ -158,69 +158,6 @@ class SeoCommand extends CConsoleCommand
         }
     }
 
-    public function actionMailruForumParser()
-    {
-        Yii::import('site.seo.modules.mailru.components.*');
-
-        $parser = new MailRuForumParser;
-        $parser->start();
-    }
-
-    public function actionMailruForumThemeParser()
-    {
-        Yii::import('site.seo.modules.mailru.components.*');
-
-        $parser = new MailRuForumThemeParser;
-        $parser->start();
-    }
-
-    public function actionMailruCommunityUsersParser()
-    {
-        Yii::import('site.seo.modules.mailru.components.*');
-
-        $parser = new MailRuCommunityUsersParser;
-        $parser->start();
-    }
-
-    public function actionDetiUsersParser()
-    {
-        Yii::import('site.seo.modules.mailru.components.*');
-
-        $parser = new DetiUserSearchParser();
-        $parser->start();
-    }
-
-    public function actionDetiFriendsParser()
-    {
-        Yii::import('site.seo.modules.mailru.components.*');
-
-        $parser = new DetiFriendsParser();
-        $parser->start();
-    }
-
-    public function actionMailruCollect()
-    {
-        Yii::import('site.seo.modules.mailru.components.*');
-
-        MailRuForumParser::collectContests();
-    }
-
-    public function actionMailruCount()
-    {
-        Yii::import('site.seo.modules.mailru.components.*');
-
-        $models = Yii::app()->db_seo->createCommand()
-            ->selectDistinct('parent_id')
-            ->from('mailru__babies')
-            ->queryColumn();
-        echo count($models) . " parents have children \n";
-
-        echo  Yii::app()->db_seo->createCommand()
-            ->select('count(id)')
-            ->from('mailru__babies')
-            ->queryScalar() . " babies count\n";
-    }
-
     public function actionPopular()
     {
         $criteria = new EMongoCriteria();
@@ -282,6 +219,8 @@ class SeoCommand extends CConsoleCommand
             $i++;
             if ($i % 10 == 0)
                 echo $last_id . "\n";
+
+            sleep(1);
         }
     }
 }

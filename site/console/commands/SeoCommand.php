@@ -81,69 +81,9 @@ class SeoCommand extends CConsoleCommand
         $metrica->calculateMain();
     }
 
-    public function actionAddSeVisitsToWordStat()
-    {
-        $se = PagesSearchPhrase::model()->findAll();
-
-        foreach ($se as $phrase) {
-            $yandex = YandexPopularity::model()->find('keyword_id =' . $phrase->keyword_id);
-            if ($yandex !== null && $yandex->parsed == 1)
-                continue;
-
-            $model = ParsingKeyword::model()->find('keyword_id =' . $phrase->keyword_id);
-            if ($model === null) {
-                $parse = new ParsingKeyword();
-                $parse->keyword_id = $phrase->keyword_id;
-                $parse->depth = 1;
-                $parse->priority = 5;
-                if (!$parse->save()) {
-                    var_dump($parse->getErrors());
-                    Yii::app()->end();
-                }
-            } else {
-                $model->priority = 5;
-                $model->save();
-            }
-        }
-    }
-
     public function actionProxy()
     {
         ProxyRefresher::execute();
-    }
-
-    public function actionAddToParsing()
-    {
-        $criteria = new CDbCriteria;
-        $criteria->limit = 1000;
-
-        $i = 0;
-        $visits = array(1);
-        while (!empty($visits)) {
-            $criteria->offset = 1000 * $i;
-
-            $visits = SiteKeywordVisit::model()->findAll($criteria);
-            foreach ($visits as $visit) {
-                $yandex = YandexPopularity::model()->find('keyword_id =' . $visit->keyword_id);
-                if ($yandex !== null && $yandex->parsed == 1)
-                    continue;
-
-                $model = ParsingKeyword::model()->find('keyword_id =' . $visit->keyword_id);
-                if ($model === null) {
-                    $parse = new ParsingKeyword();
-                    $parse->keyword_id = $visit->keyword_id;
-                    $parse->priority = 4;
-                    if (!$parse->save()) {
-                        var_dump($parse->getErrors());
-                        Yii::app()->end();
-                    }
-                } else {
-                    $model->priority = 4;
-                    $model->save();
-                }
-            }
-            $i++;
-        }
     }
 
     public function actionDeletePageDuplicates()

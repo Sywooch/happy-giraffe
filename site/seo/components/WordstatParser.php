@@ -5,8 +5,6 @@
  */
 class WordstatParser extends ProxyParserThread
 {
-    const PARSE_LIMIT = 1000;
-
     /**
      * @var ParsingKeyword[]
      */

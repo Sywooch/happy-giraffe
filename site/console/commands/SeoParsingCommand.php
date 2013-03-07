@@ -24,6 +24,11 @@ class SeoParsingCommand extends CConsoleCommand
         return true;
     }
 
+    public function actionAdd(){
+        $last_num = SeoUserAttributes::getAttribute('keyword_num_'.date("Y-m") , 1);
+
+    }
+
     public function actionWordstat($mode = 0)
     {
         $parser = new WordstatParser();
@@ -64,8 +69,8 @@ class SeoParsingCommand extends CConsoleCommand
                 SeoUserAttributes::setAttribute('last_li_parsed_'.date("Y-m") , $site->id, 1);
             }
         } else {
-            $parser = new LiParser(true, true);
-            $parser->start($site, 2013, 2, 3);
+            $parser = new LiParser();
+            $parser->start($site, 2013, 1, 3);
         }
     }
 
@@ -132,21 +137,6 @@ class SeoParsingCommand extends CConsoleCommand
         $parser = new LiPassword(true, $debug);
         $parser->rus_proxy = false;
         $parser->start();
-    }
-
-    public function actionMailruSites(){
-        $parser = new MailruSitesParser();
-        $parser->start();
-    }
-
-    public function actionMailruKeywords($debug = false){
-        $parser = new MailruKeywordsParser(true, $debug);
-        $parser->start();
-    }
-
-    public function actionMailruDayKeywords($debug = false){
-        $parser = new MailruKeywordsParser(true, $debug);
-        $parser->start('0');
     }
 }
 

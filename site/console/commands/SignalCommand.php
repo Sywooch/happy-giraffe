@@ -255,6 +255,10 @@ class SignalCommand extends CConsoleCommand
         $this->ga->setProfile('ga:53688414');
     }
 
+    public function actionTest(){
+        Page::getOrCreate('http://www.happy-giraffe.ru/community/20/forum/post/64004/');
+    }
+
 
     public function actionSync()
     {

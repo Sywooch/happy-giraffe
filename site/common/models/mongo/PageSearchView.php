@@ -42,6 +42,7 @@ class PageSearchView extends EMongoDocument
 
     public function inc($path)
     {
+        echo 'inc';
         $model = $this->findPage($path, date("Y-m"));
         if ($model === null) {
             $model = new PageSearchView;

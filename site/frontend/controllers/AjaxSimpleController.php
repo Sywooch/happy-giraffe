@@ -26,7 +26,6 @@ class AjaxSimpleController extends CController
 
         $se_list = SearchEngine::model()->cache(3600)->findAll();
 
-        echo 'all check complete';
         foreach($se_list as $se)
             if (strpos($referrer, $se->url) === 0)
                 PageSearchView::model()->inc($page_url);

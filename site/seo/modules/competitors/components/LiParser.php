@@ -14,24 +14,21 @@ class LiParser extends LiBaseParser
     public function start($site_id, $year, $month_from, $month_to)
     {
         $this->site = $this->loadModel($site_id);
-        $this->log('Start parsing site '.$this->site->id.' '.$this->site->name);
+        $this->log('Start parsing site ' . $this->site->id . ' ' . $this->site->name);
 
         if (!empty($this->site->password))
             $this->Login();
-        else{
+        else {
             $this->loadPage('http://www.liveinternet.ru/stat/');
-            $this->loadPage('http://www.liveinternet.ru/stat/', 'LiveInternet', 'url='.urlencode('http://'.$this->site->url).'&password=');
-            $this->last_url = 'http://www.liveinternet.ru/stat/'.$this->site->url.'/index.html';
+            $this->loadPage('http://www.liveinternet.ru/stat/', 'LiveInternet', 'url=' . urlencode('http://' . $this->site->url) . '&password=');
+            $this->last_url = 'http://www.liveinternet.ru/stat/' . $this->site->url . '/index.html';
         }
 
         $found = $this->parseStats($year, $month_from, $month_to);
-        $this->log($site_id.' - '.$found);
-        Yii::app()->email->sendEmail(
-            'alexk984@gmail.com',
-            'парсинг статистики liveinternet',
-            $this->site->url.' - спарсено: '.$found,
-            'webmaster@happy-giraffe.ru',
-            'Парсинг на Веселом Жирафе');
+        $this->log($site_id . ' - ' . $found);
+        Yii::app()->email->sendEmail('alexk984@gmail.com', 'парсинг статистики liveinternet',
+            $this->site->url . ' - спарсено:<br><br>' . $found,
+            'webmaster@happy-giraffe.ru', 'Парсинг на Веселом Жирафе');
     }
 
 
@@ -44,7 +41,7 @@ class LiParser extends LiBaseParser
         $rnd = $document->find('input[name=rnd]');
         $rnd = pq($rnd)->attr('value');
 
-        $post = 'rnd='.$rnd.'&url='.urlencode('http://'.$this->site->url).'&password='.$this->site->password.'&keep_password=on&ok=+OK+';
+        $post = 'rnd=' . $rnd . '&url=' . urlencode('http://' . $this->site->url) . '&password=' . $this->site->password . '&keep_password=on&ok=+OK+';
         $this->loadPage('http://www.liveinternet.ru/stat/', 'LiveInternet', $post);
     }
 
@@ -69,8 +66,8 @@ class LiParser extends LiBaseParser
             $max_pages = $this->getPagesCount($document);
             $count = $this->ParseDocument($document, $month, $year);
 
-            if ($count == 0){
-                return "Data not found on page - \n" . $url."\n";
+            if ($count == 0) {
+                return "Data not found on page - \n" . $url . "\n";
             }
 
             for ($i = 2; $i <= $max_pages; $i++) {

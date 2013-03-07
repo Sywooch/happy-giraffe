@@ -143,7 +143,7 @@ class LinkingCommand extends CConsoleCommand
                 $link->page_to_id = $phrase->page_id;
                 $link->phrase_id = $phrase->id;
                 $link->keyword_id = $keyword->id;
-                //$link->save();
+                $link->save();
             }else
                 echo "Link already exist\n";
         }

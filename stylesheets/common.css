@@ -222,6 +222,32 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
 	background: url(/images/ico/ico-valentine-heart.png) no-repeat;
 	vertical-align: middle;
 }
+.ico-plus {
+	display: inline-block;*zoom:1;*display:inline;
+	vertical-align: middle;
+	width: 8px;
+	height: 8px;
+	background: url(/images/ico/ico-plus.png) no-repeat;
+}
+.ico-player {
+	display: inline-block;*zoom:1;*display:inline;
+	vertical-align: middle;
+	width: 19px;
+	height: 19px;
+	background: url(/images/ico/ico-player.png) no-repeat;
+}
+.ico-player__pause {background-position: 0 -20px;}
+.ico-name-author {
+    display: inline-block;*zoom:1;*display:inline;
+    color: #8b8a8a;
+    font-size: 11px;
+    vertical-align: middle;
+    font-family: Tahoma, Arial, Verdana, sans-serif;
+    text-decoration: none;
+    padding: 0 0 0 15px;
+    background: url(/images/ico/ico-name-author.png) no-repeat;
+}
+.ico-name-author:hover {text-decoration: underline;}
 /* /icons */
 
 .logo-box {margin: 0 auto;text-align:center;color:#8d5bbc;text-transform:uppercase;font-size:10px;letter-spacing:3px;line-height:25px;padding: 25px 0 15px;}
@@ -276,7 +302,7 @@ textarea.error,
 
 .hidden {display:none !important;}
 .visible {display:block !important;}
-.display-inb {display: inline-block !important;*zoom:1;*display:inline;}
+.display-ib {display: inline-block !important;*zoom:1;*display:inline;}
 
 .z-index0 {z-index: 0;}
 
@@ -299,6 +325,7 @@ textarea.error,
 
 .nopadding,
 .padding-0 {padding:0 !important;}
+.padding-b20 {padding-bottom:20px !important;}
 
 .w-50 {width:50px;}
 .w-85 {width:85px !important;}
@@ -319,6 +346,9 @@ textarea.error,
 .textalign-r{text-align: right !important;}
 
 .color-carrot {color: #fe5333 !important;}
+.color-gray {color: #a9a6a6 !important;}
+
+.font-big {font-size:17px !important;}
 
 .opacity-10 {opacity:0.1;filter: alpha(opacity = 10);}
 .opacity-20 {opacity:0.2;filter: alpha(opacity = 20);}
@@ -436,6 +466,8 @@ textarea.error,
 .user-info .ava {float:left;position:relative;}
 .user-info .details {margin-left:80px;text-align:left !important;padding:0 !important;background:none !important;}
 .user-info.medium .details {margin-left:90px;}
+.user-info.small .details {margin-left:30px;}
+.user-info.small .details .date {margin:0;display: block;}
 .user-info.medium .icon-status {margin-left:-16px;*float:left;}
 .user-info .details .username {font-size:12px;line-height:1.2;text-decoration:none;vertical-align:top;width:85px;margin:0;padding:0;overflow:hidden;display:inline-block;*zoom:1;*display:inline;}
 .user-info .details .username:hover {text-decoration:underline;}
@@ -569,6 +601,7 @@ textarea.error,
 	behavior: url(/stylesheets/PIE.htc);
 }
 .btn-small {font-size: 11px;line-height: 17px;padding: 0 10px;-webkit-border-radius:7px;-moz-border-radius:7px;-ms-border-radius:7px;border-radius:7px;}
+.btn-small .ico-plus {margin: 0 2px 0 -2px;}
 .btn-medium {height:32px;font:bold 16px/32px Arial, Tahoma, Verdana, sans-serif;padding:0 14px;}
 .btn-h46 {height:46px;font:25px/46px Arial, Tahoma, Verdana, sans-serif;padding:0 19px;}
 .btn-h55 {height:55px;font:bold 28px/55px Arial, Tahoma, Verdana, sans-serif;padding:0 21px;}

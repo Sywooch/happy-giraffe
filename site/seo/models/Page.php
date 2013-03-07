@@ -203,70 +203,58 @@ class Page extends CActiveRecord
         if (!is_array($keywords))
             $keywords = array($keywords);
 
-        $transaction = Yii::app()->db_seo->beginTransaction();
-        try {
-            $model = Page::model()->findByAttributes(array('url' => $url));
-            if ($model === null) {
-                $keyword_group = new KeywordGroup();
-                if (!empty($keywords)){
-                    $keyword_group->keywords = Keyword::model()->findAllByPk($keywords);
-                    $keyword_group->withRelated->save(true,array('keywords'));
-                }
-                else
-                    $keyword_group->save();
+        $model = Page::model()->findByAttributes(array('url' => $url));
+        if ($model === null) {
+            $keyword_group = new KeywordGroup();
+            if (!empty($keywords)) {
+                $keyword_group->keywords = Keyword::model()->findAllByPk($keywords);
+                $keyword_group->withRelated->save(true, array('keywords'));
+            } else
+                $keyword_group->save();
 
-                $model = new Page();
-                $model->url = $url;
+            $model = new Page();
+            $model->url = $url;
 
-                list($entity, $entity_id) = Page::ParseUrl($url);
+            list($entity, $entity_id) = Page::ParseUrl($url);
 
-                if (empty($entity_id)){
-                    $transaction->commit();
-                    return false;
-                }
+            if (empty($entity_id))
+                return false;
 
-
-                if ($entity != null && $entity_id != null) {
-                    $article = CActiveRecord::model($entity)->findByPk($entity_id);
-                    if ($article !== null) {
-                        $exist = Page::model()->findByAttributes(array(
-                            'entity' => $entity,
-                            'entity_id' => $entity_id,
-                        ));
-                        if ($exist !== null) {
-                            $model = $exist;
-                            if ($add_keywords && !empty($keywords)){
-                                #TODO надо добавлять кейворды а не заменять на новые
-                                $model->keywordGroup->keywords = Keyword::model()->findAllByPk($keywords);
-                                $model->keywordGroup->withRelated->save(true,array('keywords'));
-                            }
-                        } else {
-                            $model->entity = $entity;
-                            $model->entity_id = $entity_id;
-                            $model->keyword_group_id = $keyword_group->id;
-                            $model->save();
+            if ($entity != null && $entity_id != null) {
+                $article = CActiveRecord::model($entity)->findByPk($entity_id);
+                if ($article !== null) {
+                    $exist = Page::model()->findByAttributes(array(
+                        'entity' => $entity,
+                        'entity_id' => $entity_id,
+                    ));
+                    if ($exist !== null) {
+                        $model = $exist;
+                        if ($add_keywords && !empty($keywords)) {
+                            #TODO надо добавлять кейворды а не заменять на новые
+                            $model->keywordGroup->keywords = Keyword::model()->findAllByPk($keywords);
+                            $model->keywordGroup->withRelated->save(true, array('keywords'));
                         }
                     } else {
-                        $model = null;
+                        $model->entity = $entity;
+                        $model->entity_id = $entity_id;
+                        $model->keyword_group_id = $keyword_group->id;
+                        $model->save();
                     }
                 } else {
-                    $model->keyword_group_id = $keyword_group->id;
-                    $model->save();
+                    $model = null;
                 }
             } else {
-                if ($add_keywords && !empty($keywords)){
-                    #TODO надо добавлять кейворды а не заменять на новые
-                    $model->keywordGroup->keywords = Keyword::model()->findAllByPk($keywords);
-                    $model->keywordGroup->withRelated->save(true,array('keywords'));
-                }
+                $model->keyword_group_id = $keyword_group->id;
+                $model->save();
             }
+        } else {
+            if ($add_keywords && !empty($keywords)) {
+                #TODO надо добавлять кейворды а не заменять на новые
+                $model->keywordGroup->keywords = Keyword::model()->findAllByPk($keywords);
+                $model->keywordGroup->withRelated->save(true, array('keywords'));
 
-            $transaction->commit();
-        } catch (Exception $e) {
-            $transaction->rollback();
-            Yii::app()->end();
+            }
         }
-
         return $model;
     }
 
@@ -311,8 +299,7 @@ class Page extends CActiveRecord
         if ($model->getIsFromBlog()) {
             return 'http://www.happy-giraffe.ru/user/';
         } elseif (isset($model->rubric->community_id))
-            return 'http://www.happy-giraffe.ru/community/' . $model->rubric->community_id;
-        else
+            return 'http://www.happy-giraffe.ru/community/' . $model->rubric->community_id; else
             return 'http://www.happy-giraffe.ru/community/';
     }
 
@@ -377,12 +364,14 @@ class Page extends CActiveRecord
         if (strpos($this->url, 'http://www.happy-giraffe.ru/cook/multivarka/') === 0)
             return true;
         if (strpos($this->url, 'http://www.happy-giraffe.ru/community/') === 0
-            && strpos($this->url, '/forum/') !== false)
+            && strpos($this->url, '/forum/') !== false
+        )
             return true;
         if (strpos($this->url, 'http://www.happy-giraffe.ru/recipeBook/recipe') === 0)
             return true;
         if (strpos($this->url, 'http://www.happy-giraffe.ru/user/') === 0
-            && strpos($this->url, '/blog/post') !== false)
+            && strpos($this->url, '/blog/post') !== false
+        )
             return true;
 
         return false;

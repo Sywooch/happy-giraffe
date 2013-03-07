@@ -7,6 +7,7 @@ class InnerLinksBlock extends EMongoDocument
 {
     public $url;
     public $html;
+    public $updated;
 
     /**
      * @param string $className
@@ -22,13 +23,15 @@ class InnerLinksBlock extends EMongoDocument
         return 'inner_links_block';
     }
 
+    public function beforeSave()
+    {
+        $this->updated = time();
+        return parent::beforeSave();
+    }
+
     public function getLinkCount()
     {
         $page = Page::model()->findByAttributes(array('url' => $this->url));
-        if ($page->id == 7980){
-            echo 'ffff'.$page->outputLinksCount;
-            Yii::app()->end();
-        }
         if ($page !== null)
             return $page->outputLinksCount;
         return 0;
@@ -36,7 +39,7 @@ class InnerLinksBlock extends EMongoDocument
 
     public function getHtmlByUrl($url){
         $model = InnerLinksBlock::model()->findByAttributes(array('url' => $url));
-        if ($model !== null)
+        if ($model !== null && !empty($model->html))
             return $model->html;
 
         return '';
@@ -87,7 +90,8 @@ class InnerLinksBlock extends EMongoDocument
             $models = InnerLinksBlock::model()->findAll($criteria);
             foreach ($models as $model) {
                 if ($model->getLinkCount() == 0){
-                    $model->delete();
+                    $model->html = '';
+                    $model->save();
                     $i++;
                 }
             }

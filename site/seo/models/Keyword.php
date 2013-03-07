@@ -139,7 +139,12 @@ class Keyword extends CActiveRecord
      */
     public static function GetKeyword($word, $priority = 0, $wordstat = null)
     {
+        $word = str_replace('"', '', $word);
+        $word = str_replace('\'', '', $word);
+        $word = trim($word, '-');
+        $word = trim($word, '.');
         $word = trim($word);
+
         $model = self::model()->findByAttributes(array('name' => $word));
         if ($model !== null) {
             if ($wordstat !== null) {
@@ -155,7 +160,7 @@ class Keyword extends CActiveRecord
         $model->wordstat = $wordstat;
         try {
             $model->save();
-            ParsingKeyword::addNewKeyword($model->id, $priority, $wordstat);
+            ParsingKeyword::addNewKeyword($model, $priority, $wordstat);
         } catch (Exception $e) {
             //значит кейворд создан в промежуток времени между запросами - повторим запрос
             $model = self::model()->findByAttributes(array('name' => $word));

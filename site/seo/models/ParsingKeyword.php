@@ -55,14 +55,24 @@ class ParsingKeyword extends CActiveRecord
     }
 
 
-
-    public static function addNewKeyword($keyword_id, $priority = 0, $wordstat = null)
+    /**
+     * @param Keyword $keyword
+     * @param int $priority
+     * @param null|int $wordstat
+     * @return bool
+     */
+    public static function addNewKeyword($keyword, $priority = 0, $wordstat = null)
     {
         $model = new ParsingKeyword();
-        $model->keyword_id = $keyword_id;
+        $model->keyword_id = $keyword->id;
         $model->priority = $priority;
-        if ($wordstat !== null)
+        if ($wordstat !== null){
             $model->updated = date("Y-m-d H:i:s");
+            //если 3 слова - добавляем на парсинг по этому слова
+            if (substr_count($keyword->name, ' ') < 3){
+                $model->priority = 10;
+            }
+        }
 
         try {
             $success = $model->save();

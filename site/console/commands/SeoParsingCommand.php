@@ -86,7 +86,7 @@ class SeoParsingCommand extends CConsoleCommand
                 echo 'parsed: '.$site->id."\n";
             }
         } else {
-            $parser = new LiParser(true,true);
+            $parser = new LiParser();
             $parser->start($site, 2013, 1, 3);
         }
     }

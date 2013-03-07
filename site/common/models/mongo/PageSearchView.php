@@ -67,7 +67,7 @@ class PageSearchView extends EMongoDocument
         $criteria->month('==', $month);
         $criteria->count('!=', 0);
         $models = PageSearchView::model()->findAll($criteria);
-        echo count($models);
+        echo count($models)."\n";
 
         foreach ($models as $model) {
             //TEST

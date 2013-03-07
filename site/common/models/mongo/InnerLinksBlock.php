@@ -37,12 +37,27 @@ class InnerLinksBlock extends EMongoDocument
         return 0;
     }
 
-    public function getHtmlByUrl($url){
+    public function getHtmlByUrl($url)
+    {
         $model = InnerLinksBlock::model()->findByAttributes(array('url' => $url));
         if ($model !== null && !empty($model->html))
             return $model->html;
 
         return '';
+    }
+
+    public function getUpTime($url)
+    {
+        $model = InnerLinksBlock::model()->findByAttributes(array('url' => $url));
+        if ($model !== null) {
+            if (empty($model->updated)) {
+                $model->updated = time();
+                $model->save();
+            }
+            return $model->updated;
+        }
+
+        return null;
     }
 
     public function Sync($command)
@@ -89,7 +104,7 @@ class InnerLinksBlock extends EMongoDocument
         while (!empty($models)) {
             $models = InnerLinksBlock::model()->findAll($criteria);
             foreach ($models as $model) {
-                if ($model->getLinkCount() == 0){
+                if ($model->getLinkCount() == 0) {
                     $model->html = '';
                     $model->save();
                     $i++;

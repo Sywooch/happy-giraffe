@@ -39,10 +39,10 @@ class LinkingCommand extends CConsoleCommand
 
         foreach ($keywords as $keyword) {
             $keyword_model = Keyword::model()->findByPk($keyword);
-            if ($keyword_model === null){
-                PagesSearchPhrase::model()->deleteAll('keyword_id='.$keyword);
-                echo 'deleted'."\n";
-            }elseif (YandexSearchKeyword::model()->findByPk($keyword) === null) {
+            if ($keyword_model === null) {
+                PagesSearchPhrase::model()->deleteAll('keyword_id=' . $keyword);
+                echo 'deleted' . "\n";
+            } elseif (YandexSearchKeyword::model()->findByPk($keyword) === null) {
                 $model = new YandexSearchKeyword;
                 $model->keyword_id = $keyword;
                 $model->save();
@@ -110,49 +110,42 @@ class LinkingCommand extends CConsoleCommand
         }
     }
 
-    public function actionServiceLinks2()
+    public function actionHoroscopeLinks()
     {
-        $urls = array(
-            'http://www.happy-giraffe.ru/test/pregnancy/',
-        );
+        $url = 'http://www.happy-giraffe.ru/horoscope/';
+        $page = Page::model()->findByAttributes(array('url' => $url));
 
-        $articles = $this->getArticles('тест на беременность');
+        $keyword = Keyword::GetKeyword('гороскоп на сегодня');
+        $phrase = PagesSearchPhrase::model()->findByAttributes(array(
+            'page_id' => $page->id,
+            'keyword_id' => $keyword->id,
+        ));
+        if ($phrase === null) {
+            $phrase = new PagesSearchPhrase;
+            $phrase->keyword_id = $keyword->id;
+            $phrase->page_id = $page->id;
+            $phrase->save();
+        }
+
+        $articles = $this->getArticles('гороскоп');
         echo count($articles) . "\n";
 
-        foreach ($urls as $url) {
-            echo $url . "\n";
-            $page = Page::model()->findByAttributes(array('url' => $url));
-            foreach ($page->keywordGroup->keywords as $keyword) {
-                $phrase = PagesSearchPhrase::model()->findByAttributes(array(
-                    'page_id' => $page->id,
-                    'keyword_id' => $keyword->id,
-                ));
-                if ($phrase === null) {
-                    $phrase = new PagesSearchPhrase;
-                    $phrase->keyword_id = $keyword->id;
-                    $phrase->page_id = $page->id;
-                    $phrase->save();
-                }
+        foreach ($articles as $article) {
+            $from_page = Page::model()->getOrCreate('http://www.happy-giraffe.ru' . trim($article->url, '.'));
 
-                $exist = true;
-                while ($exist) {
-                    $from_article = $this->getRandomArticle($articles);
-                    $from_page = Page::model()->getOrCreate('http://www.happy-giraffe.ru' . trim($from_article->url, '.'));
-                    if ($from_page->outputLinksCount > 3)
-                        $exist = true;
-                    else
-                        $exist = InnerLink::model()->exists('page_id = ' . $from_page->id . ' and page_to_id=' . $page->id);
-                }
+            $exist = InnerLink::model()->exists('page_id = ' . $from_page->id . ' and page_to_id=' . $page->id);
 
+            if (!$exist){
+                //ссылки нет можно ставить
+                echo "Link not exist can be placed\n";
                 $link = new InnerLink();
                 $link->page_id = $from_page->id;
                 $link->page_to_id = $phrase->page_id;
                 $link->phrase_id = $phrase->id;
                 $link->keyword_id = $keyword->id;
-                $link->save();
-
-                echo $from_page->url . "\n";
-            }
+                //$link->save();
+            }else
+                echo "Link already exist\n";
         }
     }
 
@@ -198,7 +191,8 @@ class LinkingCommand extends CConsoleCommand
         InnerLinksBlock::model()->RemoveDeleted();
     }
 
-    public function actionCalcLinksCount(){
+    public function actionCalcLinksCount()
+    {
         $criteria = new CDbCriteria;
         $criteria->limit = 100;
         $criteria->offset = 0;
@@ -213,14 +207,15 @@ class LinkingCommand extends CConsoleCommand
 
             $criteria->offset += 100;
 
-            echo $criteria->offset."\n";
+            echo $criteria->offset . "\n";
         }
     }
 
-    public function actionCheckBadLinks(){
+    public function actionCheckBadLinks()
+    {
         $links = InnerLink::model()->findAll('page_id=page_to_id');
-        echo count($links)."\n";
-        foreach($links as $link)
+        echo count($links) . "\n";
+        foreach ($links as $link)
             $link->delete();
     }
 }

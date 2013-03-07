@@ -28,7 +28,7 @@ class SeoParsingCommand extends CConsoleCommand
         $last_num = SeoUserAttributes::getAttribute('keyword_num', 1);
         echo $last_num."\n";
 
-        $handle = fopen("C:/uniq_590m_ru.txt", "r");
+        $handle = fopen("/home/giraffe/uniq_590m_ru.txt", "r");
         $i = 0;
         while (!feof($handle)) {
             $i++;
@@ -70,7 +70,6 @@ class SeoParsingCommand extends CConsoleCommand
     public function actionLi($site)
     {
         $last_parsed = SeoUserAttributes::getAttribute('last_li_parsed_'.date("Y-m") , 1);
-        $last_parsed = 3;
         echo 'last_parsed: '.$last_parsed."\n";
         if (empty($site)) {
             $parser = new LiParser;
@@ -87,7 +86,7 @@ class SeoParsingCommand extends CConsoleCommand
                 echo 'parsed: '.$site->id."\n";
             }
         } else {
-            $parser = new LiParser();
+            $parser = new LiParser(true,true);
             $parser->start($site, 2013, 1, 3);
         }
     }

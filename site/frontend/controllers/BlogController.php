@@ -312,6 +312,6 @@ class BlogController extends HController
         if (empty($t2))
             return $t1;
 
-        return date("Y-m-d H:i:s", min($t1, $t2));
+        return date("Y-m-d H:i:s", max($t1, $t2));
     }
 }

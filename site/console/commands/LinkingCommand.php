@@ -132,7 +132,7 @@ class LinkingCommand extends CConsoleCommand
 
         foreach ($articles as $article) {
             $from_page = Page::model()->getOrCreate('http://www.happy-giraffe.ru' . trim($article->url, '.'));
-
+            echo $from_page->url."\n";
             $exist = InnerLink::model()->exists('page_id = ' . $from_page->id . ' and page_to_id=' . $page->id);
 
             if (!$exist){

@@ -74,7 +74,7 @@ class PageSearchView extends EMongoDocument
             //$model->path = str_replace('http://happy-giraffe.com/', 'http://www.happy-giraffe.ru/', $model->path);
             //end test
             $page = Page::getPage($model->path);
-            if ($page !== null && in_array($page->entity, array('CommunityContent', 'BlogContent', 'CookRecipe')))
+            if ($page && in_array($page->entity, array('CommunityContent', 'BlogContent', 'CookRecipe')))
                 SearchEngineVisits::addVisits($page->id, $model->count);
 
             $modifier = new EMongoModifier();

@@ -65,14 +65,16 @@ class PageSearchView extends EMongoDocument
     {
         $criteria = new EMongoCriteria;
         $criteria->month('==', $month);
+        $criteria->count('!=', 0);
         $models = PageSearchView::model()->findAll($criteria);
+        echo count($models);
 
         foreach ($models as $model) {
             //TEST
             //$model->path = str_replace('http://happy-giraffe.com/', 'http://www.happy-giraffe.ru/', $model->path);
             //end test
             $page = Page::getPage($model->path);
-            if ($page && in_array($page->entity, array('CommunityContent', 'BlogContent', 'CookRecipe')))
+            if ($page !== null && in_array($page->entity, array('CommunityContent', 'BlogContent', 'CookRecipe')))
                 SearchEngineVisits::addVisits($page->id, $model->count);
 
             $modifier = new EMongoModifier();

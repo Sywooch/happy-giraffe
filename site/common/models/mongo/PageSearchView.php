@@ -42,7 +42,6 @@ class PageSearchView extends EMongoDocument
 
     public function inc($path)
     {
-        echo 'inc';
         $model = $this->findPage($path, date("Y-m"));
         if ($model === null) {
             $model = new PageSearchView;
@@ -66,37 +65,28 @@ class PageSearchView extends EMongoDocument
     {
         $criteria = new EMongoCriteria;
         $criteria->month('==', $month);
-        $criteria->limit(1000);
-        $criteria->offset(0);
+        $models = PageSearchView::model()->findAll($criteria);
 
-        $models = array(0);
-        $i = 0;
-        while (!empty($models)) {
-            $models = PageSearchView::model()->findAll($criteria);
-            foreach ($models as $model) {
-                //TEST
-                //$model->path = str_replace('http://happy-giraffe.com/', 'http://www.happy-giraffe.ru/', $model->path);
-                //end test
-                $page = Page::getPage($model->path);
-                if ($page && in_array($page->entity, array('CommunityContent', 'BlogContent', 'CookRecipe')))
-                    SearchEngineVisits::addVisits($page->id, $model->count);
+        foreach ($models as $model) {
+            //TEST
+            //$model->path = str_replace('http://happy-giraffe.com/', 'http://www.happy-giraffe.ru/', $model->path);
+            //end test
+            $page = Page::getPage($model->path);
+            if ($page && in_array($page->entity, array('CommunityContent', 'BlogContent', 'CookRecipe')))
+                SearchEngineVisits::addVisits($page->id, $model->count);
 
-                $modifier = new EMongoModifier();
-                $modifier->addModifier('count', 'inc', -$model->count);
+            $modifier = new EMongoModifier();
+            $modifier->addModifier('count', 'inc', -$model->count);
 
-                //TEST
-                //$model->path = str_replace('http://www.happy-giraffe.ru/', 'http://happy-giraffe.com/', $model->path);
-                //end test
+            //TEST
+            //$model->path = str_replace('http://www.happy-giraffe.ru/', 'http://happy-giraffe.com/', $model->path);
+            //end test
 
-                $criteria = new EMongoCriteria();
-                $criteria->addCond('path', '==', $model->path);
-                $criteria->addCond('month', '==', $month);
+            $criteria = new EMongoCriteria();
+            $criteria->addCond('path', '==', $model->path);
+            $criteria->addCond('month', '==', $month);
 
-                PageSearchView::model()->updateAll($modifier, $criteria);
-            }
-
-            $i++;
-            $criteria->offset($i * 1000);
+            PageSearchView::model()->updateAll($modifier, $criteria);
         }
     }
 }

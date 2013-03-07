@@ -54,13 +54,14 @@ class LiParser extends LiBaseParser
         $found = 0;
 
         $this->loadPage('http://www.liveinternet.ru/stat/' . $this->site->url . '/queries.html');
-        $this->loadPage('http://www.liveinternet.ru/stat/' . $this->site->url . '/queries.html?total=yes&period=month');
+        $this->loadPage('http://www.liveinternet.ru/stat/' . $this->site->url . '/queries.html?period=month');
+        $this->loadPage('http://www.liveinternet.ru/stat/' . $this->site->url . '/queries.html?period=month;total=yes');
 
         for ($month = $month_to; $month >= $month_from; $month--) {
             $url = 'http://www.liveinternet.ru/stat/' . $this->site->url
                 . '/queries.html?date=' . $year . '-' . str_pad($month, 2, "0", STR_PAD_LEFT) . '-'
                 . str_pad(cal_days_in_month(CAL_GREGORIAN, $month, $year), 2, '0', STR_PAD_LEFT)
-                . '&period=month&total=yes&per_page=100&page=';
+                . ';period=month;total=yes;page=';
 
             $result = $this->loadPage($url);
 

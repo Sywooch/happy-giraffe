@@ -450,7 +450,7 @@
 										<span class="date">Сегодня 13:25</span>
 									</div>
 									<div class="clearfix">
-										<img src="/images/broadcast/title-contest-7.jpg" alt="" class="title-img"/>
+										<img src="/images/broadcast/title-contest-9.jpg" alt="" class="title-img"/>
 									</div>
 									<div class="masonry-news-list_content">
 										<ul class="masonry-news-list_img-list clearfix">

@@ -21,6 +21,22 @@
 			
 				<div class="contest-list ">
 					<h1>НАШИ КОНКУРСЫ</h1>
+					
+					<div class="contest-list_item clearfix">
+						<div class="contest-list_banner">
+							<img src="/images/contest/banner-w280-9.jpg" alt="" />
+						</div>
+						<div class="contest-list_holder">
+							<div class="content-title"><a href="#" >Первые достижения маленьких гениев и чемпионов</a></div>
+							<p>Для каждой мамы ее малыш самый лучший и уникальный. А моменты первых успехов ребенка – самые волнительные и запоминающиеся! Конечно, их нужно обязательно запечатлеть, чтобы сохранить в памяти эти драгоценные моменты. </p>
+							<p>Какими могут быть достижения маленьких гениев и чемпионов? Ваш малыш сделал первые шаги или нарисовал свой первый рисунок? А может быть, он делает успехи в спорте или раннем развитии? Поделитесь с нами этими выдающимися фото и выиграйте замечательные призы!  </p>
+							<div class="contest-list_row">
+								<div class="date">28.01 - 8.02 <span class="year">2013</span></div>
+								<a href="#" class="btn-green btn-h46">Принять участие!</a>
+							</div>
+						</div>
+					</div>
+					
 					<div class="contest-list_item clearfix">
 						<div class="contest-list_banner">
 							<img src="/images/contest/banner-w280-8.jpg" alt="" />

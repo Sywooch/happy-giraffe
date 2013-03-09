@@ -144,6 +144,21 @@
                 'model' => 'Nuk',
             ),
         );
+    } elseif ($this->contest->id == 8) {
+        $prizes = array(
+            '1' => array(
+                'title' => 'Дорожная сумка',
+                'model' => 'Avent',
+            ),
+            '2' => array(
+                'title' => 'Устройство для приготовления детского питания',
+                'model' => 'Maman',
+            ),
+            '3' => array(
+                'title' => 'Набор для пикника',
+                'model' => 'Nuby',
+            ),
+        );
     }
 ?>
 

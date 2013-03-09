@@ -7,135 +7,106 @@
  * @property integer $keyword_id
  * @property integer $active
  * @property integer $priority
- * @property integer $theme
+ * @property integer $type
+ * @property integer $updated
  *
  * The followings are the available model relations:
  * @property Keyword $keyword
  */
-class ParsingKeyword extends HActiveRecord
+class ParsingKeyword extends CActiveRecord
 {
-	/**
-	 * Returns the static model of the specified AR class.
-	 * @param string $className active record class name.
-	 * @return ParsingKeyword the static model class
-	 */
-	public static function model($className=__CLASS__)
-	{
-		return parent::model($className);
-	}
+    const TYPE_WORDSTAT = 0;
+    const TYPE_SIMPLE_WORDSTAT = 1;
+    const TYPE_SEASON = 2;
 
-	/**
-	 * @return string the associated database table name
-	 */
-	public function tableName()
-	{
-		return 'parsing_keywords';
-	}
+    /**
+     * Returns the static model of the specified AR class.
+     * @param string $className active record class name.
+     * @return ParsingKeyword the static model class
+     */
+    public static function model($className = __CLASS__)
+    {
+        return parent::model($className);
+    }
+
+    /**
+     * @return string the associated database table name
+     */
+    public function tableName()
+    {
+        return 'parsing_keywords';
+    }
 
     public function getDbConnection()
     {
         return Yii::app()->db_keywords;
     }
+    public function rules()
+    {
+        return array(
+            array('keyword_id', 'required'),
+        );
+    }
+    public function relations()
+    {
+        return array(
+            'keyword' => array(self::BELONGS_TO, 'Keyword', 'keyword_id'),
+        );
+    }
 
 
     /**
-	 * @return array validation rules for model attributes.
-	 */
-	public function rules()
-	{
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
-		return array(
-			array('keyword_id', 'required'),
-			array('keyword_id, active, priority, theme', 'numerical', 'integerOnly'=>true),
-			array('priority', 'default', 'value'=>0, 'setOnEmpty'=>true),
-			// The following rule is used by search().
-			// Please remove those attributes that should not be searched.
-			array('keyword_id, active', 'safe', 'on'=>'search'),
-		);
-	}
-
-	/**
-	 * @return array relational rules.
-	 */
-	public function relations()
-	{
-		// NOTE: you may need to adjust the relation name and the related
-		// class name for the relations automatically generated below.
-		return array(
-			'keyword' => array(self::BELONGS_TO, 'Keyword', 'keyword_id'),
-            'yandex' => array(self::HAS_ONE, 'YandexPopularity', 'keyword_id'),
-		);
-	}
-
-	/**
-	 * @return array customized attribute labels (name=>label)
-	 */
-	public function attributeLabels()
-	{
-		return array(
-			'keyword_id' => 'Keyword',
-			'active' => 'Active',
-		);
-	}
-
-	/**
-	 * Retrieves a list of models based on the current search/filter conditions.
-	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
-	 */
-	public function search()
-	{
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
-
-		$criteria=new CDbCriteria;
-
-		$criteria->compare('keyword_id',$this->keyword_id);
-		$criteria->compare('active',$this->active);
-		$criteria->compare('priority',$this->priority);
-
-		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-		));
-	}
-
-    public static function addNewKeyword($keyword_id, $priority = 0)
+     * @param Keyword $keyword
+     * @param int $priority
+     * @param null|int $wordstat
+     * @return bool
+     */
+    public static function addNewKeyword($keyword, $priority = 0, $wordstat = null)
     {
         $model = new ParsingKeyword();
-        $model->keyword_id = $keyword_id;
+        $model->keyword_id = $keyword->id;
         $model->priority = $priority;
+        if ($wordstat !== null){
+            $model->updated = date("Y-m-d H:i:s");
+            //если 3 слова - добавляем на парсинг по этому слова
+            if (substr_count($keyword->name, ' ') < 3){
+                $model->priority = 10;
+            }
+        }
+
         try {
             $success = $model->save();
             if ($success)
                 return true;
         } catch (Exception $e) {
-            return false;
-        }
-    }
-
-    public static function addKeyword($keyword_id, $priority = 0)
-    {
-        $model = ParsingKeyword::model()->findByPk($keyword_id);
-        if ($model === null) {
-            $yandex = YandexPopularity::model()->findByPk($keyword_id);
-            if ($yandex === null || empty($yandex->parsed)) {
-                $model = new ParsingKeyword();
-                $model->keyword_id = $keyword_id;
-                $model->priority = $priority;
-                try {
-                    $success = $model->save();
-                    if ($success)
-                        return true;
-                } catch (Exception $e) {
-
-                }
-            }
-        }else{
-            if ($model->priority < $priority){
-                $model->priority = $priority;
-                $model->update(array('priority'));
-            }
         }
         return false;
+    }
+
+    public function updateWordstat($value)
+    {
+        Yii::app()->db_seo->createCommand()->update(Keyword::model()->tableName(),
+            array('wordstat' => $value),
+            'id=:id',
+            array(':id' => $this->keyword_id));
+        $this->updated = date("Y-m-d H:i:s");
+        $this->priority = 0;
+        $this->active = 0;
+        $this->save();
+    }
+
+    public static function wordstatParsed($keyword_id)
+    {
+        $model = self::model()->findByPk($keyword_id);
+        if ($model !== null) {
+            $model->updated = date("Y-m-d H:i:s");
+            $model->priority = 0;
+            $model->save();
+        } else {
+            $model = new ParsingKeyword();
+            $model->keyword_id = $keyword_id;
+            $model->updated = date("Y-m-d H:i:s");
+            $model->save();
+        }
     }
 }

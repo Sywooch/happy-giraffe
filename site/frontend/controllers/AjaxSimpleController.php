@@ -25,8 +25,10 @@ class AjaxSimpleController extends CController
             $referrer = str_replace('www.', '', $referrer);
 
         $se_list = SearchEngine::model()->cache(3600)->findAll();
+
         foreach($se_list as $se)
             if (strpos($referrer, $se->url) === 0)
                 PageSearchView::model()->inc($page_url);
+
     }
 }

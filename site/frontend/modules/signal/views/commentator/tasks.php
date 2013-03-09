@@ -16,7 +16,7 @@
         <?php foreach ($tasks as $task): ?>
         <tr>
             <td class="col-1"><?=$task->keywordGroup->keywords[0]->name?></td>
-            <td><?=$task->keywordGroup->keywords[0]->getFrequency()?></td>
+            <td><?=$task->keywordGroup->keywords[0]->wordstat?></td>
             <td><a href="javascript:;" onclick="CommentatorPanel.TakeTask(<?=$task->id ?>)" class="btn-green-small">Взять</a></td>
         </tr>
         <?php endforeach; ?>

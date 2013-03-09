@@ -23,7 +23,7 @@ class ProxyRefresher
                 }
             }
             while(Proxy::model()->count() > 50000) {
-                Proxy::model()->deleteAll('active = 0 AND rank <= 10 order by rank ASC limit 3000');
+                Proxy::model()->deleteAll('active = 0 AND rank <= 10 order by rank ASC, id asc limit 3000');
             }
         }
 

@@ -24,6 +24,26 @@ class SeoParsingCommand extends CConsoleCommand
         return true;
     }
 
+    public function actionAdd(){
+        $last_num = SeoUserAttributes::getAttribute('keyword_num', 1);
+        echo $last_num."\n";
+
+        $handle = fopen("/home/giraffe/uniq_590m_ru.txt", "r");
+        $i = 0;
+        while (!feof($handle)) {
+            $i++;
+            $keyword = fgets($handle);
+            if ($i < $last_num)
+                continue;
+
+            Keyword::GetKeyword($keyword, 1);
+
+            if ($i % 10000 == 0)
+                SeoUserAttributes::setAttribute('keyword_num', $i, 1);
+        }
+        fclose($handle);
+    }
+
     public function actionWordstat($mode = 0)
     {
         $parser = new WordstatParser();
@@ -50,6 +70,7 @@ class SeoParsingCommand extends CConsoleCommand
     public function actionLi($site)
     {
         $last_parsed = SeoUserAttributes::getAttribute('last_li_parsed_'.date("Y-m") , 1);
+        echo 'last_parsed: '.$last_parsed."\n";
         if (empty($site)) {
             $parser = new LiParser;
 
@@ -59,13 +80,14 @@ class SeoParsingCommand extends CConsoleCommand
                 $sites = Site::model()->findAll('type = 1');
 
             foreach ($sites as $site) {
-                $parser->start($site->id, 2013, 2, 3);
+                $parser->start($site->id, 2013, 1, 3);
 
                 SeoUserAttributes::setAttribute('last_li_parsed_'.date("Y-m") , $site->id, 1);
+                echo 'parsed: '.$site->id."\n";
             }
         } else {
-            $parser = new LiParser(true, true);
-            $parser->start($site, 2013, 2, 3);
+            $parser = new LiParser();
+            $parser->start($site, 2013, 1, 3);
         }
     }
 
@@ -132,21 +154,6 @@ class SeoParsingCommand extends CConsoleCommand
         $parser = new LiPassword(true, $debug);
         $parser->rus_proxy = false;
         $parser->start();
-    }
-
-    public function actionMailruSites(){
-        $parser = new MailruSitesParser();
-        $parser->start();
-    }
-
-    public function actionMailruKeywords($debug = false){
-        $parser = new MailruKeywordsParser(true, $debug);
-        $parser->start();
-    }
-
-    public function actionMailruDayKeywords($debug = false){
-        $parser = new MailruKeywordsParser(true, $debug);
-        $parser->start('0');
     }
 }
 

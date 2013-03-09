@@ -33,7 +33,7 @@ class ProxyParserThread
     {
         time_nanosleep(rand(0, 5), rand(0, 1000000000));
         Yii::import('site.frontend.extensions.phpQuery.phpQuery');
-        $this->thread_id = substr(sha1(microtime()), 0, 10);
+        $this->thread_id = rand(1, 8000000);
         $this->getProxy();
     }
 
@@ -70,14 +70,14 @@ class ProxyParserThread
             if (!empty($ref))
                 curl_setopt($ch, CURLOPT_REFERER, $url);
 
-            if ($this->use_proxy) {
-                curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
-                curl_setopt($ch, CURLOPT_PROXY, $this->proxy->value);
-                if (Yii::app()->params['use_proxy_auth']) {
-                    curl_setopt($ch, CURLOPT_PROXYUSERPWD, "alexhg:Nokia1111");
-                    curl_setopt($ch, CURLOPT_PROXYAUTH, 1);
-                }
-            }
+//            if ($this->use_proxy) {
+//                curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
+//                curl_setopt($ch, CURLOPT_PROXY, $this->proxy->value);
+//                if (Yii::app()->params['use_proxy_auth']) {
+//                    curl_setopt($ch, CURLOPT_PROXYUSERPWD, "alexhg:Nokia1111");
+//                    curl_setopt($ch, CURLOPT_PROXYAUTH, 1);
+//                }
+//            }
 
             curl_setopt($ch, CURLOPT_COOKIEFILE, $this->getCookieFile());
             curl_setopt($ch, CURLOPT_COOKIEJAR, $this->getCookieFile());

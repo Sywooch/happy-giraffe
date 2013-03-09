@@ -69,7 +69,7 @@ class CommentatorsMonthStats extends EMongoDocument
         )));
     }
 
-    public function calculate($all = true)
+    public function calculate()
     {
         Yii::import('site.frontend.extensions.GoogleAnalytics');
         $this->loginGa();
@@ -88,10 +88,8 @@ class CommentatorsMonthStats extends EMongoDocument
                 $im_messages = $model->imMessages($this->period);
                 $blog_visits = $this->blogVisits($commentator->id);
                 $profile_view = $this->profileUniqueViews($commentator->id);
-                if ($all)
-                    $se_visits = $this->getSeVisits($commentator->id);
-                else
-                    $se_visits = null;
+                $se_visits = $this->getSeVisits($commentator->id);
+
 
                 if (isset($this->commentators[(int)$commentator->id])) {
                     $this->commentators[(int)$commentator->id][self::NEW_FRIENDS] = (int)$new_friends;

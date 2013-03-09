@@ -81,69 +81,9 @@ class SeoCommand extends CConsoleCommand
         $metrica->calculateMain();
     }
 
-    public function actionAddSeVisitsToWordStat()
-    {
-        $se = PagesSearchPhrase::model()->findAll();
-
-        foreach ($se as $phrase) {
-            $yandex = YandexPopularity::model()->find('keyword_id =' . $phrase->keyword_id);
-            if ($yandex !== null && $yandex->parsed == 1)
-                continue;
-
-            $model = ParsingKeyword::model()->find('keyword_id =' . $phrase->keyword_id);
-            if ($model === null) {
-                $parse = new ParsingKeyword();
-                $parse->keyword_id = $phrase->keyword_id;
-                $parse->depth = 1;
-                $parse->priority = 5;
-                if (!$parse->save()) {
-                    var_dump($parse->getErrors());
-                    Yii::app()->end();
-                }
-            } else {
-                $model->priority = 5;
-                $model->save();
-            }
-        }
-    }
-
     public function actionProxy()
     {
         ProxyRefresher::execute();
-    }
-
-    public function actionAddToParsing()
-    {
-        $criteria = new CDbCriteria;
-        $criteria->limit = 1000;
-
-        $i = 0;
-        $visits = array(1);
-        while (!empty($visits)) {
-            $criteria->offset = 1000 * $i;
-
-            $visits = SiteKeywordVisit::model()->findAll($criteria);
-            foreach ($visits as $visit) {
-                $yandex = YandexPopularity::model()->find('keyword_id =' . $visit->keyword_id);
-                if ($yandex !== null && $yandex->parsed == 1)
-                    continue;
-
-                $model = ParsingKeyword::model()->find('keyword_id =' . $visit->keyword_id);
-                if ($model === null) {
-                    $parse = new ParsingKeyword();
-                    $parse->keyword_id = $visit->keyword_id;
-                    $parse->priority = 4;
-                    if (!$parse->save()) {
-                        var_dump($parse->getErrors());
-                        Yii::app()->end();
-                    }
-                } else {
-                    $model->priority = 4;
-                    $model->save();
-                }
-            }
-            $i++;
-        }
     }
 
     public function actionDeletePageDuplicates()
@@ -218,69 +158,6 @@ class SeoCommand extends CConsoleCommand
         }
     }
 
-    public function actionMailruForumParser()
-    {
-        Yii::import('site.seo.modules.mailru.components.*');
-
-        $parser = new MailRuForumParser;
-        $parser->start();
-    }
-
-    public function actionMailruForumThemeParser()
-    {
-        Yii::import('site.seo.modules.mailru.components.*');
-
-        $parser = new MailRuForumThemeParser;
-        $parser->start();
-    }
-
-    public function actionMailruCommunityUsersParser()
-    {
-        Yii::import('site.seo.modules.mailru.components.*');
-
-        $parser = new MailRuCommunityUsersParser;
-        $parser->start();
-    }
-
-    public function actionDetiUsersParser()
-    {
-        Yii::import('site.seo.modules.mailru.components.*');
-
-        $parser = new DetiUserSearchParser();
-        $parser->start();
-    }
-
-    public function actionDetiFriendsParser()
-    {
-        Yii::import('site.seo.modules.mailru.components.*');
-
-        $parser = new DetiFriendsParser();
-        $parser->start();
-    }
-
-    public function actionMailruCollect()
-    {
-        Yii::import('site.seo.modules.mailru.components.*');
-
-        MailRuForumParser::collectContests();
-    }
-
-    public function actionMailruCount()
-    {
-        Yii::import('site.seo.modules.mailru.components.*');
-
-        $models = Yii::app()->db_seo->createCommand()
-            ->selectDistinct('parent_id')
-            ->from('mailru__babies')
-            ->queryColumn();
-        echo count($models) . " parents have children \n";
-
-        echo  Yii::app()->db_seo->createCommand()
-            ->select('count(id)')
-            ->from('mailru__babies')
-            ->queryScalar() . " babies count\n";
-    }
-
     public function actionPopular()
     {
         $criteria = new EMongoCriteria();
@@ -319,29 +196,6 @@ class SeoCommand extends CConsoleCommand
         TrafficStatisctic::model()->parse();
     }
 
-    public function actionLi($site)
-    {
-        Yii::import('site.seo.modules.competitors.components.*');
-        $last_parsed = SeoUserAttributes::getAttribute('last_li_parsed_' . date("Y-m"), 1);
-        if (empty($site)) {
-            $parser = new LiParser;
-
-            if (!empty($last_parsed))
-                $sites = Site::model()->findAll('id > ' . $last_parsed);
-            else
-                $sites = Site::model()->findAll();
-
-            foreach ($sites as $site) {
-                $parser->start($site->id, 2012, 12, 12);
-
-                SeoUserAttributes::setAttribute('last_li_parsed_' . date("Y-m"), $site->id, 1);
-            }
-        } else {
-            $parser = new LiParser;
-            $parser->start($site, 2012, 12, 12);
-        }
-    }
-
     public function actionCopyWordstat()
     {
         $criteria = new CDbCriteria;
@@ -349,21 +203,22 @@ class SeoCommand extends CConsoleCommand
         $criteria->order = 'keyword_id ASC';
 
         $models = array(0);
-        $last_id = 0;
+        $last_id = 464722944;
         $i = 0;
         while (!empty($models)) {
-            $criteria->condition = 'keyword_id > '.$last_id;
+            $criteria->condition = 'keyword_id > ' . $last_id;
             $models = YandexPopularity::model()->findAll($criteria);
 
+            $text = '';
             foreach ($models as $model) {
-
-                Yii::app()->db_keywords->createCommand()->update('keywords',
-                    array('wordstat'=>$model->value), 'id = '.$model->keyword_id);
+                $text .= 'update keywords set wordstat = '.$model->value.' WHERE id='.$model->keyword_id.';';
                 $last_id = $model->keyword_id;
             }
+            Yii::app()->db_keywords->createCommand($text)->execute();
+
             $i++;
             if ($i % 10 == 0)
-                echo $last_id."\n";
+                echo $last_id . "\n";
         }
     }
 }

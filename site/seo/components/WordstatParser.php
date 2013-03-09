@@ -5,8 +5,6 @@
  */
 class WordstatParser extends ProxyParserThread
 {
-    const PARSE_LIMIT = 100;
-
     /**
      * @var ParsingKeyword[]
      */
@@ -60,10 +58,6 @@ class WordstatParser extends ProxyParserThread
     {
         if (empty($this->next_page)) {
             $this->getKeyword();
-            while (!isset($this->keyword->keyword)) {
-                $this->keyword->delete();
-                $this->getKeyword();
-            }
             $this->next_page = 'http://wordstat.yandex.ru/?cmd=words&page=1&t=' . urlencode($this->keyword->keyword->name) . '&geo=&text_geo=';
         }
     }
@@ -71,20 +65,19 @@ class WordstatParser extends ProxyParserThread
     public function loadKeywords()
     {
         $this->startTimer('load keywords');
+
+        Yii::app()->db_keywords->createCommand("
+                update parsing_keywords
+                set active=:pid
+                where active=0 AND type=0
+                order by priority DESC, updated ASC
+                limit 10
+        ")->execute(array(':pid' => $this->thread_id));
+
         $criteria = new CDbCriteria;
-        $criteria->compare('active', 0);
-        $criteria->order = 'priority desc';
-        $criteria->limit = 10;
-        $criteria->offset = rand(0, 1000);
+        $criteria->compare('active', $this->thread_id);
         $this->keywords = ParsingKeyword::model()->findAll($criteria);
 
-        //update active
-        $keys = array();
-        foreach ($this->keywords as $key)
-            $keys [] = $key->keyword_id;
-
-        Yii::app()->db_keywords->createCommand()->update('parsing_keywords', array('active' => 1),
-            'keyword_id IN (' . implode(',', $keys) . ')');
         $this->endTimer();
         $this->log(count($this->keywords) . ' keywords loaded');
     }
@@ -96,7 +89,8 @@ class WordstatParser extends ProxyParserThread
         if (empty($this->keywords))
             $this->loadKeywords();
 
-        $this->keyword = array_pop($this->keywords);
+        $this->keyword = array_shift($this->keywords);
+        $this->log('Parsing keyword: '.$this->keyword->keyword_id);
     }
 
     private function getCookie()
@@ -112,17 +106,14 @@ class WordstatParser extends ProxyParserThread
             if (preg_match('/<img src="\/\/mc.yandex.ru\/watch\/([\d]+)"/', $data, $res)) {
                 $mc_url = 'http://mc.yandex.ru/watch/' . $res[1];
                 $html = $this->query($mc_url, $url);
-                if (strpos($html, 'Set-Cookie:') === false) {
+                if (strpos($html, 'Set-Cookie:') === false)
                     $success = false;
-//                    $this->log('mc.yandex.ru set cookie failed');
-                }
+
             } else
                 $success = false;
             $html = $this->query('http://kiks.yandex.ru/su/', $url);
-            if (strpos($html, 'Set-Cookie:') === false) {
+            if (strpos($html, 'Set-Cookie:') === false)
                 $success = false;
-//                $this->log('kiks.yandex.ru set cookie failed');
-            }
 
             if (!$success) {
                 $this->changeBadProxy();
@@ -143,6 +134,7 @@ class WordstatParser extends ProxyParserThread
         return $this->parseData($html);
     }
 
+
     public function parseData($html)
     {
         $this->log('parse page');
@@ -155,7 +147,8 @@ class WordstatParser extends ProxyParserThread
         if (preg_match('/— ([\d]+) показ[ов]*[а]* в месяц/', $html, $matches)) {
             $this->log('valid page loaded');
             if ($this->first_page)
-                YandexPopularity::model()->addValue($this->keyword->keyword_id, $matches[1], $this->keyword->theme);
+                $this->keyword->updateWordstat($matches[1]);
+            $this->log('wordstat value: '.$matches[1]);
         } else return false;
 
         //find keywords in block "Что искали со словом"
@@ -184,15 +177,10 @@ class WordstatParser extends ProxyParserThread
                 $this->next_page = 'http://wordstat.yandex.ru/' . pq($link)->attr('href');
         }
 
-        if (empty($this->next_page))
-            $this->RemoveCurrentKeywordFromParsing();
-        else {
+        if (!empty($this->next_page))
             $this->first_page = false;
-//            $this->log('next page: ' . $this->next_page);
-        }
 
         $document->unloadDocument();
-
         return true;
     }
 
@@ -204,82 +192,14 @@ class WordstatParser extends ProxyParserThread
                 $keyword = ltrim($keyword, '+');
             }
 
-            $model = Keyword::GetKeyword($keyword);
+            $model = Keyword::GetKeyword($keyword, 1, $value);
+            $this->log('added: '.$model->id);
 
             if ($related)
                 KeywordRelation::saveRelation($this->keyword->keyword_id, $model->id);
-
-            if ($model !== null) {
-                if ($value >= self::PARSE_LIMIT)
-                    $this->AddKeywordToParsing($model->id, $this->keyword->theme);
-                $this->AddStat($model, $value);
-            }
         }
     }
 
-    /**
-     * @param int $keyword_id
-     * @param $theme
-     * @return void
-     */
-    public function AddKeywordToParsing($keyword_id, $theme)
-    {
-        if ($keyword_id == $this->keyword->keyword_id)
-            return;
-
-        $this->startTimer('add_keyword_to_parsing');
-
-        $yandex = YandexPopularity::model()->findByPk($keyword_id);
-        //если уже спарсили полностью и была задана тематика
-        if ($yandex !== null && $yandex->parsed == 1) // && (!empty($yandex->theme) && !empty($theme) || empty($theme)))
-            return;
-
-        $exist = ParsingKeyword::model()->findByPk($keyword_id);
-        if ($exist === null) {
-            $parsing_model = new ParsingKeyword();
-            $parsing_model->keyword_id = $keyword_id;
-            $parsing_model->priority = $this->keyword->priority;
-            $parsing_model->theme = $theme;
-            try {
-                $parsing_model->save();
-            } catch (Exception $err) {
-            }
-        } else {
-            $exist->priority = $this->keyword->priority;
-            $exist->theme = $theme;
-            $exist->save();
-        }
-
-        $this->endTimer();
-    }
-
-    /**
-     * Когда спарсили все - удаляем кейворд из очереди на парсинг
-     */
-    public function RemoveCurrentKeywordFromParsing()
-    {
-        $this->startTimer('remove_from_parsing');
-        //добавляем в спарсенные
-        $yandex = YandexPopularity::model()->findByPk($this->keyword->keyword_id);
-        if ($yandex !== null) {
-            $yandex->parsed = 1;
-            if (!$yandex->save())
-                echo 'not saved!';
-        }
-
-        //удаляем кейворд из парсинга
-        ParsingKeyword::model()->deleteByPk($this->keyword->keyword_id);
-        $this->endTimer();
-    }
-
-    /**
-     * @param Keyword $model
-     * @param int $value
-     */
-    public function AddStat($model, $value)
-    {
-        YandexPopularity::model()->addValue($model->id, $value, $this->keyword->theme);
-    }
 
     public function getSimpleValue($keyword)
     {

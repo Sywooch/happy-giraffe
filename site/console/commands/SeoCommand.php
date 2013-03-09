@@ -203,7 +203,7 @@ class SeoCommand extends CConsoleCommand
         $criteria->order = 'keyword_id ASC';
 
         $models = array(0);
-        $last_id = 466024074;
+        $last_id = 468131680;
         $i = 0;
         while (!empty($models)) {
             $criteria->condition = 'keyword_id > ' . $last_id;

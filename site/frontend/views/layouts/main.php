@@ -21,16 +21,16 @@
                     <span>САЙТ ДЛЯ ВСЕЙ СЕМЬИ</span>
                 </div>
 
-                <?php if (false): ?>
                 <div class="banner-box">
                     <?php if (! Yii::app()->user->isGuest): ?>
-                        <?php $contest_id = 8; ?>
-                        <a href="<?=$this->createUrl('/contest/default/view', array('id' => $contest_id)) ?>"><img src="/images/contest/banner-w300-<?=$contest_id?>.jpg" /></a>
+                        <?php if (false): ?>
+                            <?php $contest_id = 8; ?>
+                            <a href="<?=$this->createUrl('/contest/default/view', array('id' => $contest_id)) ?>"><img src="/images/contest/banner-w300-<?=$contest_id?>.jpg" /></a>
+                        <?php endif; ?>
                     <?php else: ?>
                         <?=CHtml::link(CHtml::image('/images/banner_06.png'), '#register', array('class'=>'fancy', 'data-theme'=>'white-square'))?>
                     <?php endif; ?>
                 </div>
-                <?php endif; ?>
 
             </div>
 

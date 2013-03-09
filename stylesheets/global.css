@@ -3922,7 +3922,7 @@ ul.letters li a:hover {
 #repair-wallpapers .form .row.except .except-area input:nth-child(5){width:40px}
 
 #repair-wallpapers #empty-area-form{display:none;}
-#repair-wallpapers .form .row.except .cut {display:block;width:334px;height:21px;background:url(/images2/repair_wallpapers_cut.png) no-repeat;margin-top:-25px;margin-left:-15px;}
+#repair-wallpapers .form .row.except .cut {display:block;width:334px;height:21px;background:url(/images/repair_wallpapers_cut.png) no-repeat;margin-top:-25px;margin-left:-15px;}
 #repair-wallpapers .form .row.except ul#emptyareas {list-style:none;}
 #repair-wallpapers .form .row.except ul#emptyareas li {width:95%;padding-right:4%;display:inline-block;*zoom:1;*display:inline;vertical-align:top;padding:5px 0;}
 #repair-wallpapers .form .row.except ul#emptyareas li .remove {display:inline-block;*zoom:1;*display:inline;width:12px;height:14px;background:url(/images2/common.png) no-repeat -314px -135px;vertical-align:middle;position:relative;top:-1px;}

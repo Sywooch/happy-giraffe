@@ -21,6 +21,7 @@
                     <span>САЙТ ДЛЯ ВСЕЙ СЕМЬИ</span>
                 </div>
 
+                <?php if (false): ?>
                 <div class="banner-box">
                     <?php if (! Yii::app()->user->isGuest): ?>
                         <?php $contest_id = 8; ?>
@@ -29,6 +30,7 @@
                         <?=CHtml::link(CHtml::image('/images/banner_06.png'), '#register', array('class'=>'fancy', 'data-theme'=>'white-square'))?>
                     <?php endif; ?>
                 </div>
+                <?php endif; ?>
 
             </div>
 

@@ -62,9 +62,11 @@
         <div class="contest-sponsor">
             <img src="/images/contest/contest-sponsor.jpg" alt="" class="contest-sponsor_img">
 
-            <div class="button-holder">
-                <a href="<?=$this->createUrl('/contest/default/statement', array('id' => $this->contest->id))?>" class="contest-button" onclick="Contest.canParticipate(this, '<?=$this->createUrl('/contest/default/canParticipate', array('id' => $this->contest->id))?>'); return false;">Принять участие</a>
-            </div>
+            <?php if (in_array($this->contest->getCanParticipate(), array(Contest::STATEMENT_GUEST, Contest::STATEMENT_STEPS, true), true)): ?>
+                <div class="button-holder">
+                    <a href="<?=$this->createUrl('/contest/default/statement', array('id' => $this->contest->id))?>" class="contest-button" onclick="Contest.canParticipate(this, '<?=$this->createUrl('/contest/default/canParticipate', array('id' => $this->contest->id))?>'); return false;">Принять участие</a>
+                </div>
+            <?php endif; ?>
         </div>
     <?php endif; ?>
 

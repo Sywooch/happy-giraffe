@@ -106,7 +106,10 @@ class ParsingKeyword extends CActiveRecord
             $model = new ParsingKeyword();
             $model->keyword_id = $keyword_id;
             $model->updated = date("Y-m-d H:i:s");
+            try{
             $model->save();
+            } catch (Exception $e) {
+            }
         }
     }
 }

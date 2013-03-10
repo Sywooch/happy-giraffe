@@ -218,7 +218,7 @@ class SeoCommand extends CConsoleCommand
 
             $i++;
 //            if ($i % 10 == 0)
-//                echo $last_id . "\n";
+                echo $last_id . "\n";
         }
     }
 }

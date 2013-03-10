@@ -208,6 +208,7 @@ class SeoCommand extends CConsoleCommand
         while (!empty($models)) {
             $criteria->condition = 'keyword_id > ' . $last_id;
             $models = YandexPopularity::model()->findAll($criteria);
+            echo 'selected';
 
             $text = '';
             foreach ($models as $model) {

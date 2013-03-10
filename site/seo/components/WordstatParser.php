@@ -66,17 +66,21 @@ class WordstatParser extends ProxyParserThread
     {
         $this->startTimer('load keywords');
 
-        Yii::app()->db_keywords->createCommand("
-                update parsing_keywords
-                set active=:pid
-                where active=0 AND type=0
-                order by priority DESC, updated ASC
-                limit 10
-        ")->execute(array(':pid' => $this->thread_id));
-
         $criteria = new CDbCriteria;
-        $criteria->compare('active', $this->thread_id);
+        $criteria->compare('active', 0);
+        $criteria->compare('type', 0);
+        $criteria->order = 'updated asc';
+        $criteria->limit = 10;
+        $criteria->offset = rand(0, 1000);
         $this->keywords = ParsingKeyword::model()->findAll($criteria);
+
+        //update active
+        $keys = array();
+        foreach ($this->keywords as $key)
+            $keys [] = $key->keyword_id;
+
+        Yii::app()->db_keywords->createCommand()->update('parsing_keywords', array('active' => 1),
+            'keyword_id IN (' . implode(',', $keys) . ')');
 
         $this->endTimer();
         $this->log(count($this->keywords) . ' keywords loaded');

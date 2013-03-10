@@ -225,31 +225,21 @@ class SeoCommand extends CConsoleCommand
     public function actionCopyParsing()
     {
         $criteria = new CDbCriteria;
-        $criteria->limit = 100;
-        $criteria->order = 'keyword_id ASC';
-        $criteria->offset = rand(0, 10000);
 
-        $models = array(0);
-        while (!empty($models)) {
-            $models = YandexPopularity::model()->findAll($criteria);
+        $model = 0;
+        while ($model !== null) {
+            $criteria->offset = rand(0, 100);
+            $model = YandexPopularity::model()->find($criteria);
 
-            foreach ($models as $model) {
-                try {
-                    $parsing = ParsingKeyword::model()->findByPk($model->keyword_id);
-                    if ($parsing === null) {
-                        $parsing = new ParsingKeyword;
-                        $parsing->keyword_id = $model->keyword_id;
-                        $parsing->updated = $model->date . ' 00:00:00';
-                        if (!$parsing->save())
-                            var_dump($parsing->getErrors());
-                        else
-                            $model->delete();
-                    } else
-                        $model->delete();
-                } catch (Exception $e) {
+            try {
+                $parsing = new ParsingKeyword;
+                $parsing->keyword_id = $model->keyword_id;
+                $parsing->updated = $model->date . ' 00:00:00';
+                $parsing->save();
+            } catch (Exception $e) {
 
-                }
             }
+            $model->delete();
         }
     }
 }

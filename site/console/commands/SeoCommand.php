@@ -211,14 +211,45 @@ class SeoCommand extends CConsoleCommand
 
             $text = '';
             foreach ($models as $model) {
-                $text .= 'update keywords set wordstat = '.$model->value.' WHERE id='.$model->keyword_id.';';
+                $text .= 'update keywords set wordstat = ' . $model->value . ' WHERE id=' . $model->keyword_id . ';';
                 $last_id = $model->keyword_id;
             }
             Yii::app()->db_keywords->createCommand($text)->execute();
 
             $i++;
 //            if ($i % 10 == 0)
-                echo $last_id . "\n";
+            echo $last_id . "\n";
+        }
+    }
+
+    public function actionCopyParsing()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->limit = 100;
+        $criteria->order = 'keyword_id ASC';
+        $criteria->offset = rand(0, 10000);
+
+        $models = array(0);
+        while (!empty($models)) {
+            $models = YandexPopularity::model()->findAll($criteria);
+
+            foreach ($models as $model) {
+                try {
+                    $parsing = ParsingKeyword::model()->findByPk($model->keyword_id);
+                    if ($parsing === null) {
+                        $parsing = new ParsingKeyword;
+                        $parsing->keyword_id = $model->keyword_id;
+                        $parsing->updated = $model->date . ' 00:00:00';
+                        if (!$parsing->save())
+                            var_dump($parsing->getErrors());
+                        else
+                            $model->delete();
+                    } else
+                        $model->delete();
+                } catch (Exception $e) {
+
+                }
+            }
         }
     }
 }

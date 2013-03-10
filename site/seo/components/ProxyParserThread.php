@@ -44,7 +44,7 @@ class ProxyParserThread
         $criteria->order = 'rank desc';
         $criteria->offset = rand(0, 10);
 
-        //$this->startTimer('find proxy');
+        $this->startTimer('find proxy');
 
         $this->proxy = Proxy::model()->find($criteria);
         if ($this->proxy === null)
@@ -53,8 +53,8 @@ class ProxyParserThread
         $this->proxy->active = 1;
         $this->proxy->save();
 
-        //$this->endTimer();
-        //$this->log('proxy: ' . $this->proxy->value);
+        $this->endTimer();
+        $this->log('proxy: ' . $this->proxy->value);
     }
 
     protected function query($url, $ref = null, $post = false, $attempt = 0)
@@ -70,14 +70,14 @@ class ProxyParserThread
             if (!empty($ref))
                 curl_setopt($ch, CURLOPT_REFERER, $url);
 
-//            if ($this->use_proxy) {
-//                curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
-//                curl_setopt($ch, CURLOPT_PROXY, $this->proxy->value);
-//                if (Yii::app()->params['use_proxy_auth']) {
-//                    curl_setopt($ch, CURLOPT_PROXYUSERPWD, "alexhg:Nokia1111");
-//                    curl_setopt($ch, CURLOPT_PROXYAUTH, 1);
-//                }
-//            }
+            if ($this->use_proxy) {
+                curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
+                curl_setopt($ch, CURLOPT_PROXY, $this->proxy->value);
+                if (Yii::app()->params['use_proxy_auth']) {
+                    curl_setopt($ch, CURLOPT_PROXYUSERPWD, "alexhg:Nokia1111");
+                    curl_setopt($ch, CURLOPT_PROXYAUTH, 1);
+                }
+            }
 
             curl_setopt($ch, CURLOPT_COOKIEFILE, $this->getCookieFile());
             curl_setopt($ch, CURLOPT_COOKIEJAR, $this->getCookieFile());

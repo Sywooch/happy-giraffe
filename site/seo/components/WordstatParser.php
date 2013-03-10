@@ -81,6 +81,7 @@ class WordstatParser extends ProxyParserThread
 
         Yii::app()->db_keywords->createCommand()->update('parsing_keywords', array('active' => 1),
             'keyword_id IN (' . implode(',', $keys) . ')');
+
         $this->endTimer();
         $this->log(count($this->keywords) . ' keywords loaded');
     }

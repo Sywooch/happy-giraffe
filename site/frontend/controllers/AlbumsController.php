@@ -27,14 +27,15 @@ class AlbumsController extends HController
         );
 
         $entity = Yii::app()->request->getQuery('entity');
+        $entity_id = Yii::app()->request->getQuery('entity_id');
         if ($entity == 'Contest') {
-            $entity_id = Yii::app()->request->getQuery('entity_id');
-            $filters[] = array(
-                'COutputCache + WPhoto',
-                'duration' => 600,
-                'varyByParam' => array('entity', 'entity_id', 'id', 'sort', 'go'),
-                'dependency' => new CDbCacheDependency(Yii::app()->db->createCommand()->select(new CDbExpression('MAX(created)'))->from('contest__works')->where("contest_id = $entity_id")->text),
-            );
+            if (! Yii::app()->request->getQuery('go'))
+                $filters[] = array(
+                    'COutputCache + WPhoto',
+                    'duration' => 600,
+                    'varyByParam' => array('entity', 'entity_id', 'id', 'sort', 'go'),
+                    'dependency' => new CDbCacheDependency(Yii::app()->db->createCommand()->select(new CDbExpression('MAX(created)'))->from('contest__works')->where("contest_id = $entity_id")->text),
+                );
             $filters[] = array(
                 'COutputCache + postLoad',
                 'duration' => 600,

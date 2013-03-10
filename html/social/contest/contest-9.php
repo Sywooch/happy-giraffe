@@ -110,10 +110,10 @@
 					
 					<ul>
 						<li>
+							<div class="place place-1-2-3-2"></div>
 							<div class="img">
 								<a href=""><img src="/images/prize_25.jpg" /></a>
 							</div>
-							<div class="place place-1-2-3"></div>
 							<div class="title">
 								Книга о развитии малышей  <strong>"Детство выдающихся людей"</strong>, <br>
 								развивающая игра для детей <strong>"Лабиринт"</strong> и набор детского питания <strong>Heinz</strong>
@@ -411,100 +411,7 @@
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/footer.php'; ?>
 </div>
 <div style="display:none">
-	
-	<div id="login" class="popup">
-		
-		<a href="javascript:void(0);" onclick="$.fancybox.close();" class="popup-close"><span class="tip">Закрыть</span></a>
-		
-		<div class="popup-title">Вход на сайт</div>
-		
-		<form>
-			<div class="form">
-				
-				<div class="a-right login-btn">
-					
-					<div class="remember">
-						<label><input type="checkbox" /><br/>Запомнить меня</label>
-					</div>
-					
-					<button class="btn btn-green-arrow-big"><span><span>Войти</span></span></button>
-					
-				</div>
-				
-				<div class="row">
-					<div class="row-title">Ваш e-mail:</div>
-					<div class="row-elements"><input type="text" /></div>
-				</div>
-				
-				<div class="row">
-					<div class="row-title">Ваш пароль:</div>
-					<div class="row-elements"><input type="password" /></div>
-					<div class="row-bottom"><a href="">Забыли пароль?</a></div>
-				</div>
-				
-				<div class="row row-social">
-					Быстрый вход:
-					&nbsp;
-					<a href=""><img src="/images/icon_social_odnoklassniki.png" /></a>
-					<a href=""><img src="/images/icon_social_vkontakte.png" /></a>
-					<a href=""><img src="/images/icon_social_mailru.png" /></a>
-				</div>
-				
-				<div class="reg-link">
-					
-					<div class="a-right">
-						<a class="btn btn-orange" href=""><span><span>Зарегистрироваться</span></span></a>
-					</div>
-					
-					<div class="row"><span>Еще нет учетной записи?</span></div>
-					
-				</div>
-				
-			</div>
-		</form>
-		
-	</div>
-	
-	<div id="takeapartPhotoContest" class="popup">
-		
-		<a href="javascript:void(0);" onclick="$.fancybox.close();" class="popup-close"><span class="tip">Закрыть</span></a>
-		
-		<div class="popup-title">Я хочу участвовать в фотоконкурсе</div>
-		
-		<form>
-			<div class="form">
-				
-				<div class="a-right upload-file">
-					
-					<div class="photo">
-						<img src="/images/example/ex3.jpg" />
-						<a href="" class="remove">Удалить</a>
-					</div>
-					
-					<div class="file-fake">
-						<button class="btn btn-orange"><span><span>Загрузить фото</span></span></button>
-						<input type="file" />
-					</div>
-					
-				</div>
-				
-				<div class="row">
-					<div class="row-title">Название фото</div>
-					<div class="row-elements"><input type="text" value="А Антошке я сплету другой..." /></div>
-				</div>
-				
-				<div class="clear"></div>
-				
-				<div class="form-bottom">
-					<label><input type="checkbox" /> Я согласен с</label> <a href="">Правилами конкурса</a>
-					<button class="btn btn-green-arrow-big"><span><span>Участвовать</span></span></button>
-				</div>
-				
-			</div>
-		</form>
-		
-	</div>
-	
+
 </div>
 </body>
 </html>

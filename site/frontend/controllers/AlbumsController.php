@@ -41,7 +41,6 @@ class AlbumsController extends HController
                 'varyByParam' => array('entity', 'entity_id', 'photo_id'),
                 'dependency' => new CDbCacheDependency(Yii::app()->db->createCommand()->select(new CDbExpression('MAX(created)'))->from('contest__works')->where("contest_id = $entity_id")->text),
             );
-            //dd
         }
 
         return $filters;

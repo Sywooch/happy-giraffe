@@ -144,6 +144,8 @@ class Contest extends HActiveRecord
 
     public function getPhotoCollection($preload_id = null)
     {
+        die($preload_id);
+
         $criteria = new CDbCriteria(array(
             'with' => array(
                 'photoAttach' => array(

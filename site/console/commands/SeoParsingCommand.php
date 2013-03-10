@@ -70,7 +70,6 @@ class SeoParsingCommand extends CConsoleCommand
     public function actionLi($site)
     {
         $last_parsed = SeoUserAttributes::getAttribute('last_li_parsed_'.date("Y-m") , 1);
-        $last_parsed = 23;
         echo 'last_parsed: '.$last_parsed."\n";
         if (empty($site)) {
             $parser = new LiParser;

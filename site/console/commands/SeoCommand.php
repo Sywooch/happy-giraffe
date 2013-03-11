@@ -17,53 +17,6 @@ Yii::import('site.frontend.helpers.*');
 
 class SeoCommand extends CConsoleCommand
 {
-    public function actionParseSeVisits()
-    {
-        $metrica = new YandexMetrica();
-        $metrica->parseQueries();
-        $metrica->convertToSearchPhraseVisits();
-    }
-
-    public function actionParseDataForSe()
-    {
-        $metrica = new YandexMetrica();
-        $metrica->parseDataForAllSE();
-    }
-
-    public function actionConvertVisits()
-    {
-        $metrica = new YandexMetrica();
-        $metrica->convertToSearchPhraseVisits();
-    }
-
-    public function actionConvertPrevVisits($week)
-    {
-        $metrica = new YandexMetrica($week);
-        $metrica->convertToSearchPhraseVisits();
-    }
-
-    public function actionParseMonthTraffic()
-    {
-        $metrica = new YandexMetrica(1);
-        $metrica->parseQueries();
-        $metrica->convertToSearchPhraseVisits();
-
-        $metrica = new YandexMetrica(2);
-        $metrica->parseQueries();
-        $metrica->convertToSearchPhraseVisits();
-
-        $metrica = new YandexMetrica(3);
-        $metrica->parseQueries();
-        $metrica->convertToSearchPhraseVisits();
-    }
-
-    public function actionWeekTraffic($week)
-    {
-        $metrica = new YandexMetrica($week);
-        $metrica->parseQueries();
-        $metrica->convertToSearchPhraseVisits();
-    }
-
     public function actionStopThreads()
     {
         Config::setAttribute('stop_threads', 1);
@@ -73,12 +26,6 @@ class SeoCommand extends CConsoleCommand
     {
         $parser = new WordstatParser();
         $parser->start($mode);
-    }
-
-    public function actionCalculateMain()
-    {
-        $metrica = new YandexMetrica();
-        $metrica->calculateMain();
     }
 
     public function actionProxy()
@@ -194,32 +141,6 @@ class SeoCommand extends CConsoleCommand
     public function actionParseTraffic()
     {
         TrafficStatisctic::model()->parse();
-    }
-
-    public function actionCopyWordstat()
-    {
-        $criteria = new CDbCriteria;
-        $criteria->limit = 10000;
-        $criteria->order = 'keyword_id ASC';
-
-        $models = array(0);
-        $last_id = 474651339;
-        $i = 0;
-        while (!empty($models)) {
-            $criteria->condition = 'keyword_id > ' . $last_id;
-            $models = YandexPopularity::model()->findAll($criteria);
-
-            $text = '';
-            foreach ($models as $model) {
-                $text .= 'update keywords set wordstat = ' . $model->value . ' WHERE id=' . $model->keyword_id . ';';
-                $last_id = $model->keyword_id;
-            }
-            Yii::app()->db_keywords->createCommand($text)->execute();
-
-            $i++;
-//            if ($i % 10 == 0)
-            echo $last_id . "\n";
-        }
     }
 
     public function actionCopyParsing()

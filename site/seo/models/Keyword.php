@@ -47,7 +47,7 @@ class Keyword extends CActiveRecord
     {
         return array(
             array('name', 'required'),
-            array('name', 'length', 'max' => 1024),
+            array('name', 'length', 'max' => 120),
             array('id, name, our', 'safe', 'on' => 'search'),
         );
     }

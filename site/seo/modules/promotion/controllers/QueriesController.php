@@ -89,23 +89,6 @@ class QueriesController extends SController
         $this->render('admin', compact('models', 'pages', 'period', 'mode'));
     }
 
-    public function actionParse()
-    {
-        if (!Yii::app()->user->checkAccess('admin'))
-            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
-
-        $metrica = new YandexMetrica();
-        $metrica->parseQueries();
-        $metrica->convertToSearchPhraseVisits();
-
-        $response = array(
-            'status' => true,
-            'count' => Query::model()->count()
-        );
-
-        echo CJSON::encode($response);
-    }
-
     public function getDates($period)
     {
         $week_day = date('N');

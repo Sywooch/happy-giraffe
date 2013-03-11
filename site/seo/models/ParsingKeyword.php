@@ -75,12 +75,9 @@ class ParsingKeyword extends CActiveRecord
         }
 
         try {
-            $success = $model->save();
-            if ($success)
-                return true;
+            $model->save();
         } catch (Exception $e) {
         }
-        return false;
     }
 
     public function updateWordstat($value)

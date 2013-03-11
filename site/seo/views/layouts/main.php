@@ -98,10 +98,6 @@
                     'url' => array('/admin/pagesSearchPhrase/'),
                 ),
                 array(
-                    'label' => 'Поисковые фразы - визиты',
-                    'url' => array('/admin/searchPhraseVisit/'),
-                ),
-                array(
                     'label' => 'Поисковые фразы - позиции',
                     'url' => array('/admin/searchPhrasePosition/'),
                 ),

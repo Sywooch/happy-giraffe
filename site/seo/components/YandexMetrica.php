@@ -6,103 +6,83 @@
 class YandexMetrica
 {
     public $token = 'b1cb78403f76432b8a6803dc5e6631b5';
-    public $min_visits = 4;
-    public $date1;
-    public $date2;
-    public $week;
-    public $year;
     const SE_GOOGLE = 3;
     const SE_YANDEX = 2;
 
     public $se = array(2, 3);
 
-    function __construct($weeks_ago = null)
+    public function getDatesForCheck()
     {
-        if ($weeks_ago == null) {
-            //вычисляем даты для парсинга предыдущей недели
-            $d = new DateTime();
-            $weekday = $d->format('w');
-            $diff = 7 + ($weekday == 0 ? 6 : $weekday - 1); // Monday=0, Sunday=6
-            $d->modify("-$diff day");
-            $this->date1 = $d->format('Ymd');
-            echo $this->date1 . "\n";
-            $d->modify('+6 day');
-            $this->date2 = $d->format('Ymd');
-            echo $this->date2 . "\n";
-            $this->week = date("W") - 1;
-            echo $this->week . "\n";
-            $this->year = date("Y", strtotime('-7 days'));
-        } else {
-            $d = new DateTime();
-            $weekday = $d->format('w');
-            $diff = (1 + $weeks_ago) * 7 + ($weekday == 0 ? 6 : $weekday - 1); // Monday=0, Sunday=6
-            $d->modify("-$diff day");
-            $this->date1 = $d->format('Ymd');
-            echo $this->date1 . "\n";
-            $d->modify('+6 day');
-            $this->date2 = $d->format('Ymd');
-            echo $this->date2 . "\n";
-            $this->week = date("W") - ($weeks_ago + 1);
-            echo $this->week . "\n";
-            $this->year = date("Y", strtotime('-' . (($weeks_ago + 1) * 7) . ' days'));
-            echo $this->year;
+        $dates = array();
+        $last_date = SeoUserAttributes::getAttribute('traffic_parsed_date', 1);
+        if (empty($last_date))
+            $last_date = date("Ymd", strtotime('-45 days'));
+
+        for ($i = 0; $i < 100; $i++) {
+            $date = date("Ymd", strtotime('+1 day', strtotime($last_date)));
+            if ($date != date("Ymd"))
+                $dates [] = $date;
+            else
+                break;
+
+            $last_date = $date;
         }
+
+        return $dates;
     }
 
     public function parseQueries()
     {
-        $next = 'http://api-metrika.yandex.ru/stat/sources/phrases?id=11221648&oauth_token=' . $this->token . '&per_page=1000&date1=' . $this->date1 . '&date2=' . $this->date2;
+        $dates = $this->getDatesForCheck();
 
-        while (!empty($next)) {
-            $val = $this->loadPage($next);
-            $next = $this->getNextLink($val);
+        foreach ($dates as $date) {
+            $next = 'http://api-metrika.yandex.ru/stat/sources/phrases?id=11221648&oauth_token=' . $this->token . '&per_page=1000&date1=' . $date . '&date2=' . $date;
 
-            //save to db
-            foreach ($val['data'] as $query) {
+            while (!empty($next)) {
+                $val = $this->loadPage($next);
+                $next = $this->getNextLink($val);
 
-                //////////////////////////////// DELETE  ///////////////////////////////
-                if ($query['visits'] < 2)
-                    break(2);
+                //save to db
+                foreach ($val['data'] as $query) {
+                    $keyword = Keyword::GetKeyword($query['phrase']);
 
-                $keyword = Keyword::GetKeyword($query['phrase']);
-                $model = Query::model()->findByAttributes(array(
-                    'keyword_id' => $keyword->id,
-                    'week' => $this->week,
-                    'year' => $this->year
-                ));
-                if ($model === null) {
-                    $model = new Query();
-                    $model->keyword_id = $keyword->id;
-                    $model->week = $this->week;
-                    $model->year = $this->year;
-                }
+                    if ($keyword !== null) {
+                        $model = Query::model()->findByAttributes(array(
+                            'keyword_id' => $keyword->id,
+                            'date' => $date,
+                        ));
+                        if ($model === null) {
+                            $model = new Query();
+                            $model->keyword_id = $keyword->id;
+                            $model->date = $date;
+                        }
 
-                $model->attributes = $query;
-                if ($model->save()) {
-                    foreach ($query['search_engines'] as $search_engine) {
-                        if (in_array($search_engine['se_id'], $this->se)) {
-                            $se = new QuerySearchEngine();
-                            $se->attributes = $search_engine;
-                            $se->query_id = $model->id;
-                            $se->save();
+                        $model->attributes = $query;
+                        if ($model->save()) {
+                            foreach ($query['search_engines'] as $search_engine) {
+                                if (in_array($search_engine['se_id'], $this->se)) {
+                                    $se = new QuerySearchEngine();
+                                    $se->attributes = $search_engine;
+                                    $se->query_id = $model->id;
+                                    $se->save();
+                                }
+                            }
                         }
                     }
                 }
             }
+
+            foreach ($this->se as $se)
+                $this->parseDataForSE($se, $date);
+
+            SeoUserAttributes::setAttribute('traffic_parsed_date', $date, 1);
+            echo $date . " parsed\n";
         }
-
-        $this->parseDataForAllSE();
     }
 
-    public function parseDataForAllSE()
+    public function parseDataForSE($se_id, $date)
     {
-        foreach ($this->se as $se)
-            $this->parseDataForSE($se);
-    }
-
-    public function parseDataForSE($se_id)
-    {
-        $next = 'http://api-metrika.yandex.ru/stat/sources/phrases?id=11221648&oauth_token=' . $this->token . '&per_page=1000&date1=' . $this->date1 . '&date2=' . $this->date2 . '&se_id=' . $se_id;
+        $next = 'http://api-metrika.yandex.ru/stat/sources/phrases?id=11221648&oauth_token=' . $this->token . '&per_page=1000&date1=' . $date . '&date2=' . $date . '&se_id=' . $se_id;
         while (!empty($next)) {
             $val = $this->loadPage($next);
             $next = $this->getNextLink($val);
@@ -115,8 +95,7 @@ class YandexMetrica
                     if ($keyword !== null) {
                         $model = Query::model()->findByAttributes(array(
                             'keyword_id' => $keyword->id,
-                            'week' => $this->week,
-                            'year' => $this->year,
+                            'date' => $date,
                         ));
                         if ($model !== null) {
                             $se = QuerySearchEngine::model()->findByAttributes(array(
@@ -157,103 +136,5 @@ class YandexMetrica
         $result = curl_exec($ch);
         curl_close($ch);
         return json_decode($result, true);
-    }
-
-    public function convertToSearchPhraseVisits()
-    {
-        $searchPhrases = PagesSearchPhrase::model()->findAll();
-        foreach ($searchPhrases as $searchPhrase) {
-            //save visits
-            foreach ($this->se as $se) {
-                $visits_value = Query::model()->getVisits($searchPhrase->keyword_id, $se, $this->week, $this->year);
-                $visits = new SearchPhraseVisit;
-                $visits->search_phrase_id = $searchPhrase->id;
-                $visits->se_id = $se;
-                $visits->week = $this->week;
-                $visits->year = $this->year;
-                $visits->visits = $visits_value;
-                $visits->save();
-            }
-        }
-    }
-
-
-    public function calculateMain()
-    {
-        $criteria = new CDbCriteria;
-        $criteria->limit = 100;
-        $criteria->with = array('phrases', 'phrases.visits');
-        $criteria->offset = 0;
-
-        $pages = array(1);
-        while (!empty($pages)) {
-            $pages = Page::model()->findAll($criteria);
-
-            foreach ($pages as $page) {
-                $page->yandex_week_visits = 0;
-                $page->yandex_month_visits = 0;
-                $page->google_week_visits = 0;
-                $page->google_month_visits = 0;
-                $page->yandex_pos = 1000;
-                $page->google_pos = 1000;
-
-                //week
-                foreach ($page->phrases as $phrase) {
-                    $page->yandex_week_visits += $phrase->getVisits(self::SE_YANDEX, 1);
-                    $page->yandex_month_visits += $phrase->getVisits(self::SE_YANDEX, 2);
-                    $page->google_week_visits += $phrase->getVisits(self::SE_GOOGLE, 1);
-                    $page->google_month_visits += $phrase->getVisits(self::SE_GOOGLE, 2);
-
-                    $criteria2 = new CDbCriteria;
-                    $criteria2->compare('search_phrase_id', $phrase->id);
-                    $criteria2->compare('se_id', 2);
-                    $criteria2->order = 'date desc';
-                    $model = SearchPhrasePosition::model()->find($criteria2);
-                    if ($model !== null && $model->position != 0 && $model->position < $page->yandex_pos)
-                        $page->yandex_pos = $model->position;
-
-
-                    $criteria2 = new CDbCriteria;
-                    $criteria2->compare('search_phrase_id', $phrase->id);
-                    $criteria2->compare('se_id', 3);
-                    $criteria2->order = 'date desc';
-                    $model = SearchPhrasePosition::model()->find($criteria2);
-                    if ($model !== null && $model->position != 0 && $model->position < $page->google_pos)
-                        $page->google_pos = $model->position;
-                }
-
-                $page->save();
-            }
-
-            $criteria->offset += 100;
-
-            echo $criteria->offset . "\n";
-        }
-    }
-
-    public function searchesCount()
-    {
-        echo '<br>';
-        $this->date1 = date("Ym") . '01';
-        $this->date2 = date("Ymd");
-        $next = 'http://api-metrika.yandex.ru/stat/sources/search_engines?id=11221648&table_mode=plain&oauth_token=' . $this->token . '&per_page=100&date1=' . $this->date1 . '&date2=' . $this->date2;
-        while (!empty($next)) {
-            $val = $this->loadPage($next);
-            var_dump($val);
-            Yii::app()->end();
-
-            $next = $this->getNextLink($val);
-
-            if (is_array($val['data']))
-                foreach ($val['data'] as $row) {
-                    var_dump($row);
-                    echo '<br>';
-                    //echo $row['url'].'<br>';
-                }
-            else
-                break;
-
-            break;
-        }
     }
 }

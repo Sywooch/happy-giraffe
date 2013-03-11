@@ -177,6 +177,7 @@ class SeoUser extends HActiveRecord
 
         return new CActiveDataProvider(get_class($this), array(
             'criteria' => $criteria,
+            'pagination' => array('pageSize' => 100),
         ));
     }
 

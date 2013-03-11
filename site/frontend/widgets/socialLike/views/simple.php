@@ -22,7 +22,7 @@
                             'model' => $this->model
                         ),
                         'mode' => 'vote',
-                        'predefinedServices' => array('facebook' => 'facebook', 'vkontakte' => 'vkontakte', 'odnoklassniki', 'twitter'),
+                        'predefinedServices' => array('vkontakte' => 'vkontakte', 'odnoklassniki', 'twitter'),
                     ));
                 ?>
 

@@ -181,7 +181,7 @@
 
             <div class="banner-box">
                 <a href="<?=$this->createUrl('/contest/default/view', array('id' => 9)) ?>"><img
-                    src="/images/contest/banner-w240-9.jpg"></a>
+                    src="/images/contest/banner-w240-9-<?=mt_rand(1, 3)?>.jpg"></a>
                 <?//=$this->renderPartial('//_banner')?>
             </div>
 

@@ -66,13 +66,21 @@ class WordstatParser extends ProxyParserThread
     {
         $this->startTimer('load keywords');
 
+        //сначала загружаем приоритетные фразы
         $criteria = new CDbCriteria;
+        $criteria->condition = 'priority > 0';
         $criteria->compare('active', 0);
         $criteria->compare('type', 0);
-        $criteria->order = 'updated asc';
-        $criteria->limit = 10;
+        $criteria->limit = 20;
         $criteria->offset = rand(0, 1000);
         $this->keywords = ParsingKeyword::model()->findAll($criteria);
+        if (empty($this->keywords)) {
+            $criteria->order = 'updated asc';
+            $criteria->condition = null;
+            $this->keywords = ParsingKeyword::model()->findAll($criteria);
+            $this->log(count($this->keywords) . ' Keywords without priority loaded');
+        } else
+            $this->log(count($this->keywords) . 'Priority keywords loaded');
 
         //update active
         $keys = array();
@@ -83,7 +91,6 @@ class WordstatParser extends ProxyParserThread
             'keyword_id IN (' . implode(',', $keys) . ')');
 
         $this->endTimer();
-        $this->log(count($this->keywords) . ' keywords loaded');
     }
 
     public function getKeyword()
@@ -94,7 +101,7 @@ class WordstatParser extends ProxyParserThread
             $this->loadKeywords();
 
         $this->keyword = array_shift($this->keywords);
-        $this->log('Parsing keyword: '.$this->keyword->keyword_id);
+        $this->log('Parsing keyword: ' . $this->keyword->keyword_id);
     }
 
     private function getCookie()
@@ -152,7 +159,7 @@ class WordstatParser extends ProxyParserThread
             $this->log('valid page loaded');
             if ($this->first_page)
                 $this->keyword->updateWordstat($matches[1]);
-            $this->log('wordstat value: '.$matches[1]);
+            $this->log('wordstat value: ' . $matches[1]);
         } else return false;
 
         //find keywords in block "Что искали со словом"
@@ -197,7 +204,7 @@ class WordstatParser extends ProxyParserThread
             }
 
             $model = Keyword::GetKeyword($keyword, 1, $value);
-            $this->log('added: '.$model->id);
+            $this->log('added: ' . $model->id);
 
             if ($related)
                 KeywordRelation::saveRelation($this->keyword->keyword_id, $model->id);

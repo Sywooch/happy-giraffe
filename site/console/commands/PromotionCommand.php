@@ -21,7 +21,7 @@ class PromotionCommand extends CConsoleCommand
         $metrica->parseQueries();
     }
 
-    /** Готовим парсинг позиций **/
+    /** Готовим парсинг позиций слов по которым заходили за последнюю неделю **/
     public function actionPrepare()
     {
         ParsingPosition::model()->deleteAll();
@@ -36,7 +36,7 @@ class PromotionCommand extends CConsoleCommand
     }
 
     /** Парсинг позиций в Яндексе **/
-    public function actionParseYandex($debug = 0)
+    public function actionYandex($debug = 0)
     {
         Config::setAttribute('stop_threads', 0);
 
@@ -45,7 +45,7 @@ class PromotionCommand extends CConsoleCommand
     }
 
     /** Парсинг позиций в Google **/
-    public function actionParseGoogle($debug = 0)
+    public function actionGoogle($debug = 0)
     {
         Config::setAttribute('stop_threads', 0);
 

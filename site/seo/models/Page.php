@@ -10,12 +10,6 @@
  * @property string $url
  * @property string $keyword_group_id
  * @property int $number
- * @property int $yandex_pos
- * @property int $google_pos
- * @property int $yandex_week_visits
- * @property int $yandex_month_visits
- * @property int $google_week_visits
- * @property int $google_month_visits
  *
  * The followings are the available model relations:
  * @property KeywordGroup $keywordGroup
@@ -301,21 +295,6 @@ class Page extends CActiveRecord
         } elseif (isset($model->rubric->community_id))
             return 'http://www.happy-giraffe.ru/community/' . $model->rubric->community_id; else
             return 'http://www.happy-giraffe.ru/community/';
-    }
-
-    public function getVisits($se, $period)
-    {
-        if ($se == 2) {
-            if ($period == 1)
-                return $this->yandex_week_visits;
-            return $this->yandex_month_visits;
-        } elseif ($se == 3) {
-            if ($period == 1)
-                return $this->google_week_visits;
-            return $this->google_month_visits;
-        }
-
-        return 0;
     }
 
     public static function ParseUrl($url)

@@ -16,10 +16,15 @@ class WordstatParser extends ProxyParserThread
     public $next_page = '';
     public $first_page = true;
     private $fails = 0;
+    /**
+     * @var WordstatQueryModify
+     */
+    private $queryModify;
 
     public function init($mode)
     {
         $this->debug = $mode;
+        $this->queryModify = new WordstatQueryModify;
         $this->removeCookieOnChangeProxy = false;
 
         $this->getCookie();
@@ -58,7 +63,8 @@ class WordstatParser extends ProxyParserThread
     {
         if (empty($this->next_page)) {
             $this->getKeyword();
-            $this->next_page = 'http://wordstat.yandex.ru/?cmd=words&page=1&t=' . urlencode($this->keyword->keyword->name) . '&geo=&text_geo=';
+            $t = urlencode($this->queryModify->prepareQuery($this->keyword->keyword->name));
+            $this->next_page = 'http://wordstat.yandex.ru/?cmd=words&page=1&t=' . $t . '&geo=&text_geo=';
         }
     }
 
@@ -67,28 +73,38 @@ class WordstatParser extends ProxyParserThread
         $this->startTimer('load keywords');
 
         //сначала загружаем приоритетные фразы
+        Yii::app()->db_keywords->createCommand("
+                update parsing_keywords
+                set active=:pid
+                where active=0 AND type=0 AND priority > 0
+                limit 20
+        ")->execute(array(':pid' => $this->thread_id));
+
         $criteria = new CDbCriteria;
-        $criteria->condition = 'priority > 0';
-        $criteria->compare('active', 0);
-        $criteria->compare('type', 0);
-        $criteria->limit = 20;
-        $criteria->offset = rand(0, 1000);
+        $criteria->compare('active', $this->thread_id);
         $this->keywords = ParsingKeyword::model()->findAll($criteria);
+
         if (empty($this->keywords)) {
+            //если нет приоритетных загружаем остальные
+            $criteria = new CDbCriteria;
+            $criteria->compare('active', 0);
+            $criteria->compare('type', 0);
+            $criteria->limit = 20;
+            $criteria->offset = rand(0, 1000);
             $criteria->order = 'updated asc';
-            $criteria->condition = null;
+
             $this->keywords = ParsingKeyword::model()->findAll($criteria);
-            $this->log(count($this->keywords) . ' Keywords without priority loaded');
+            $this->log(count($this->keywords) . ' keywords with 0 priority loaded');
+
+            //update active
+            $keys = array();
+            foreach ($this->keywords as $key)
+                $keys [] = $key->keyword_id;
+
+            Yii::app()->db_keywords->createCommand()->update('parsing_keywords', array('active' => 1),
+                'keyword_id IN (' . implode(',', $keys) . ')');
         } else
-            $this->log(count($this->keywords) . 'Priority keywords loaded');
-
-        //update active
-        $keys = array();
-        foreach ($this->keywords as $key)
-            $keys [] = $key->keyword_id;
-
-        Yii::app()->db_keywords->createCommand()->update('parsing_keywords', array('active' => 1),
-            'keyword_id IN (' . implode(',', $keys) . ')');
+            $this->log(count($this->keywords) . ' priority keywords loaded');
 
         $this->endTimer();
     }

@@ -176,13 +176,16 @@ class SiteController extends SController
         $this->render('last_keywords', compact('models'));
     }
 
-    public function actionTest(){
-        Yii::import('site.frontend.modules.geo.models.*');
-        Yii::import('site.frontend.modules.services.modules.route.models.*');
-        Yii::import('site.seo.components.*');
-        Yii::import('site.seo.models.*');
+    public function actionTest()
+    {
+        $t = 'я беременна все для беременных';
+        $_start_time = microtime(true);
 
-        $parser = new RouteChecker();
-        $this->render('test', compact('parser'));
+        $c = new WordstatQueryModify;
+        $r = $c->prepareQuery($t);
+
+        $long_time = 1000 * (microtime(true) - $_start_time);
+
+        echo $long_time . '<br>' . $r;
     }
 }

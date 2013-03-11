@@ -1140,6 +1140,7 @@ ul.topmenu,
 .contest-8 .contest-nav li.active a {background:#366bb6;}
 .contest-9 .contest-nav li.active a {background:#1b7633;}
 .contest-nav li.active a:hover {text-decoration:none;}
+.contest-about {margin-bottom: 25px;}
 
 .inner.contest .content-title{text-align:left;float:none;margin:10px 0;position:static;color:#0281b0;font:bold 25px Arial,Helvetica,sans-serif;}
 .inner.contest > ul li{text-align:left;list-style:disc inside;margin:2px 0;text-indent:10px;}

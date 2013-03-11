@@ -2,14 +2,16 @@
 
     <?php $this->controller->beginWidget('SeoContentWidget'); ?>
 
-            <div class="share_button auth-service facebook">
+        <div class="share_button auth-service facebook">
+            <?php if (false): ?>
                 <div class="custom-like-fb">
                     <a href="<?=Yii::app()->createUrl('/'.$action, array('service' => 'facebook', 'entity_id' => $this->params['entity_id'], 'entity' => $this->params['entity']))?>" class="custom-like-fb-text">
                         <i class="icon-fb"></i>Мне нравится
                     </a>
                     <div class="custom-like-fb-share-count"><?=Rating::model()->countByEntity($this->params['model'], 'fb')?></div>
                 </div>
-            </div>
+            <?php endif; ?>
+        </div>
 
         <div class="share_button auth-service vkontakte">
             <a href="<?=Yii::app()->createUrl('/'.$action, array('service' => 'vkontakte', 'entity_id' => $this->params['entity_id'], 'entity' => $this->params['entity']))?>" class="custom-like-vk">

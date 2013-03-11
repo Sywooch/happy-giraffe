@@ -45,12 +45,8 @@ class ParsingPosition extends HActiveRecord
      */
     public function rules()
     {
-        // NOTE: you should only define rules for those attributes that
-        // will receive user inputs.
         return array(
             array('keyword_id', 'numerical', 'integerOnly' => true),
-            // The following rule is used by search().
-            // Please remove those attributes that should not be searched.
             array('keyword_id, active, yandex, google', 'safe', 'on' => 'search'),
         );
     }
@@ -60,8 +56,6 @@ class ParsingPosition extends HActiveRecord
      */
     public function relations()
     {
-        // NOTE: you may need to adjust the relation name and the related
-        // class name for the relations automatically generated below.
         return array(
             'keyword' => array(self::BELONGS_TO, 'Keyword', 'keyword_id'),
         );
@@ -80,44 +74,22 @@ class ParsingPosition extends HActiveRecord
         );
     }
 
-    /**
-     * Retrieves a list of models based on the current search/filter conditions.
-     * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
-     */
-    public function search()
-    {
-        // Warning: Please modify the following code to remove attributes that
-        // should not be searched.
-
-        $criteria = new CDbCriteria;
-
-        $criteria->compare('keyword_id', $this->keyword_id);
-        $criteria->compare('active', $this->active);
-        $criteria->compare('yandex', $this->yandex);
-        $criteria->compare('google', $this->google);
-
-        return new CActiveDataProvider($this, array(
-            'criteria' => $criteria,
-        ));
-    }
-
     public static function collectKeywords()
     {
         //берем кейворды по которым заходили за последние 4 недели
         $keywords = Yii::app()->db_seo->createCommand()
-            ->select('keyword_id')
+            ->select('distinct(keyword_id)')
             ->from('queries')
-            ->where('week >= :week', array(':week' => (date('W') - 4)))
+            ->where('date >= :date AND visits > 1', array(':date' => date("Y-m-d", strtotime('-7 days'))))
             ->queryColumn();
 
-        $keywords = array_unique($keywords);
-
+        echo count($keywords) . "\n";
         foreach ($keywords as $keyword) {
             $p = new ParsingPosition;
             $p->keyword_id = $keyword;
-            try{
+            try {
                 $p->save();
-            }catch (Exception $err){
+            } catch (Exception $err) {
 
             }
         }

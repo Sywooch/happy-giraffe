@@ -10,6 +10,7 @@
  * @property string $name
  * @property integer $owner_id
  * @property integer $related_user_id
+ * @property integer $active
  *
  * The followings are the available model relations:
  * @property SeoTask[] $tasks
@@ -57,7 +58,7 @@ class SeoUser extends HActiveRecord
             array('name, email', 'length', 'max' => 50),
             array('related_user_id', 'numerical', 'integerOnly' => true),
             array('email, related_user_id', 'unique'),
-            array('id, role, owner_id', 'safe'),
+            array('id, role, owner_id, active', 'safe'),
             array('related_user_id', 'unsafe'),
             //login
             array('email, password', 'required', 'on' => 'login'),
@@ -154,6 +155,7 @@ class SeoUser extends HActiveRecord
             'email' => 'Логин',
             'password' => 'Пароль',
             'gender' => 'Пол',
+            'active' => 'Активен',
         );
     }
 

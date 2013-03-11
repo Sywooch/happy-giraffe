@@ -6,12 +6,13 @@
 class WordstatQueryModify
 {
     private $parts = array(
-        'на', 'во', 'при', 'по', 'в', 'и', 'до', 'к', 'как', 'что', 'не', 'для',
+        'на', 'во', 'при', 'по', 'в', 'и', 'из', 'до', 'к', 'как', 'что', 'не', 'для',
         'я', 'мое', 'мне', 'меня', 'мной',
+        'ds', 'ваш', 'вам', 'ваше', 'мной',
         'он', 'его', 'ему', 'него', 'ним', 'оно',
         'она', 'нее', 'ее', 'ней', 'ей',
         'свой', 'свое', 'своё',
-        'все', 'всё', '', '', '');
+        'все', 'всё', 'это', '', '');
 
     public function addToParsing()
     {
@@ -66,9 +67,32 @@ class WordstatQueryModify
             if (empty($part))
                 continue;
 
+            //если вначале
+            if ($this->startsWith($q, $part . ' '))
+                $q = '+' . $q;
+            //если вконце
+            if ($this->endsWith($q, ' ' . $part))
+                $q = substr($q, 0, strlen($q) - strlen($part)) . '+' . $part;
 
+            //если в середине
+            $q = str_replace(' ' . $part . ' ', ' +' . $part . ' ', $q);
         }
 
         return $q;
+    }
+
+    function startsWith($haystack, $needle)
+    {
+        return !strncmp($haystack, $needle, strlen($needle));
+    }
+
+    function endsWith($haystack, $needle)
+    {
+        $length = strlen($needle);
+        if ($length == 0) {
+            return true;
+        }
+
+        return (substr($haystack, -$length) === $needle);
     }
 }

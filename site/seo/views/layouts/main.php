@@ -102,10 +102,6 @@
                     'url' => array('/admin/searchPhrasePosition/'),
                 ),
                 array(
-                    'label' => 'Парсинг Запросов и позиций',
-                    'url' => array('/promotion/queries/index/'),
-                ),
-                array(
                     'label' => 'Урлы индексации',
                     'url' => array('/admin/indexingUrl/admin/'),
                 ),

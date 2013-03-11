@@ -76,7 +76,7 @@ class YandexMetrica
                 $this->parseDataForSE($se, $date);
 
             SeoUserAttributes::setAttribute('traffic_parsed_date', $date, 1);
-            echo $date . " parsed\n";
+            //echo $date . " parsed\n";
         }
     }
 
@@ -130,11 +130,12 @@ class YandexMetrica
         curl_setopt($ch, CURLOPT_HEADER, 0);
         curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3');
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 15);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Accept: application/x-yametrika+json'));
         curl_exec($ch);
         $result = curl_exec($ch);
         curl_close($ch);
+        sleep(2);
         return json_decode($result, true);
     }
 }

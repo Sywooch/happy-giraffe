@@ -89,6 +89,7 @@ class HEmailSender extends CApplicationComponent
 
     public static function importUsers()
     {
+        //108996 - последний пользователь в списке
         $criteria = new CDbCriteria;
         $criteria->condition = 'id >= 60000 AND deleted = 0';
         $criteria->limit = 1000;

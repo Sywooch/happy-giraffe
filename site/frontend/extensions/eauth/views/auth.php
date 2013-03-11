@@ -2,16 +2,18 @@
 
     <?php $this->controller->beginWidget('SeoContentWidget'); ?>
 
-        <div class="share_button auth-service facebook">
-            <div class="custom-like-fb">
-                <a href="<?=Yii::app()->createUrl('/'.$action, array('service' => 'facebook', 'entity_id' => $this->params['entity_id'], 'entity' => $this->params['entity']))?>" class="custom-like-fb-text">
-                    <i class="icon-fb"></i>Мне нравится
-                </a>
-                <div class="custom-like-fb-share-count"><?=Rating::model()->countByEntity($this->params['model'], 'fb')?></div>
+        <?php if (false): ?>
+            <div class="share_button auth-service facebook">
+                <div class="custom-like-fb">
+                    <a href="<?=Yii::app()->createUrl('/'.$action, array('service' => 'facebook', 'entity_id' => $this->params['entity_id'], 'entity' => $this->params['entity']))?>" class="custom-like-fb-text">
+                        <i class="icon-fb"></i>Мне нравится
+                    </a>
+                    <div class="custom-like-fb-share-count"><?=Rating::model()->countByEntity($this->params['model'], 'fb')?></div>
+                </div>
             </div>
-        </div>
+        <?php endif; ?>
 
-        <div class="share_button auth-service vkontakte">
+        <div class="share_button auth-service vkontakte" style="margin-left: 140px;">
             <a href="<?=Yii::app()->createUrl('/'.$action, array('service' => 'vkontakte', 'entity_id' => $this->params['entity_id'], 'entity' => $this->params['entity']))?>" class="custom-like-vk">
                 <span class="custom-like-vk_text">Мне нравится</span>
                 <span class="custom-like-vk_logo"></span>

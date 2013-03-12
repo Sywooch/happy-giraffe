@@ -49,7 +49,7 @@ class WordstatQueryModify
     public function addToParsing()
     {
         foreach ($this->parts as $num => $part) {
-            if (empty($part) || $num < 0)
+            if (empty($part) || $num < 3)
                 continue;
 
             echo "$num - selecting records\n";
@@ -61,26 +61,37 @@ class WordstatQueryModify
                 ->queryColumn();
             echo count($ids) . "\n";
 
-            $i=0;
-            foreach ($ids as $id) {
-                //добавляем на перепарсинг с большим приоритетом
-                $parsing = ParsingKeyword::model()->findByPk($id);
-                if ($parsing === null) {
-                    $parsing = new ParsingKeyword;
-                    $parsing->keyword_id = $id;
-                    $parsing->priority = 2;
-                } else{
-                    $parsing->priority = 2;
-                    $parsing->updated = '0000-00-00 00:00:00';
+            $max = ceil(count($ids) / 100);
+
+            for ($i = 0; $i < $max; $i++) {
+                $pks = array();
+                for ($j = 0; $j < 100; $j++)
+                    if (isset($ids[$i * 100 + $j]))
+                        $pks [] = $ids[$i * 100 + $j];
+
+                $parsing_models = ParsingKeyword::model()->findAllByPk($pks);
+
+                foreach ($pks as $pk) {
+                    $found = false;
+                    foreach ($parsing_models as $parsing_model)
+                        if ($parsing_model->keyword_id == $pk) {
+                            $found = true;
+                            $parsing_model->priority = 2;
+                            $parsing_model->updated = '0000-00-00 00:00:00';
+                            $parsing_model->save();
+                            break;
+                        }
+
+                    if (!$found) {
+                        $parsing_model = new ParsingKeyword;
+                        $parsing_model->keyword_id = $pk;
+                        $parsing_model->priority = 2;
+                        $parsing_model->save();
+                    }
                 }
 
-                try {
-                    $parsing->save();
-                } catch (Exception $e) {
-                }
-
-                if ($i % 50000)
-                    echo '50 000 done'."\n";
+                if ($i % 500 == 0)
+                    echo '50 000 done' . "\n";
             }
         }
     }
@@ -144,7 +155,7 @@ class WordstatQueryModify
         preg_match_all('/\+([^\s]+)/', $q, $matches);
         for ($i = 0; $i < count($matches[0]); $i++) {
             $p = $matches[1][$i];
-            if (!in_array($p, $this->parts) && !in_array($p, $this->new_parts)){
+            if (!in_array($p, $this->parts) && !in_array($p, $this->new_parts)) {
                 //echo $p . '<br>';
                 $this->new_parts [] = $p;
                 $fh = fopen($dir = Yii::getPathOfAlias('application.runtime') . DIRECTORY_SEPARATOR . 'predlogi.txt', 'a');

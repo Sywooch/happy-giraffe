@@ -110,7 +110,7 @@ class CLinking
 
             $url = 'http://www.happy-giraffe.ru' . $model->getUrl();
             $page = Page::getPage($url);
-            if ($page === null){
+            if (!$page){
                 echo 'page is null $url '."\n";
                 continue;
             }

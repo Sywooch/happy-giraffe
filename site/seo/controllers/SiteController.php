@@ -178,17 +178,8 @@ class SiteController extends SController
 
     public function actionTest()
     {
-//        $t = 'я беременна все для беременных';
-//        $_start_time = microtime(true);
-//
-//        $c = new WordstatQueryModify;
-//        $r = $c->prepareQuery($t);
-//
-//        $long_time = 1000 * (microtime(true) - $_start_time);
-//
-//        echo $long_time . '<br>' . $r;
-
-        $parser = new WordstatQueryModify();
-        $parser->analyzeQuery('+что делать +если +я беременна +арп');
+        Yii::import('site.seo.modules.promotion.components.*');
+        $c = new CLinking();
+        $c->start();
     }
 }

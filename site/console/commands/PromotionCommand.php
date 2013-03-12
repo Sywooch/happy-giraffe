@@ -25,7 +25,7 @@ class PromotionCommand extends CConsoleCommand
     public function actionPrepare()
     {
         ParsingPosition::model()->deleteAll();
-        ParsingPosition::model()->testCollectKeywords();
+        ParsingPosition::collectKeywords();
     }
 
     /** Готовим парсинг позиций **/
@@ -38,8 +38,6 @@ class PromotionCommand extends CConsoleCommand
     /** Парсинг позиций в Яндексе **/
     public function actionYandex($debug = 0)
     {
-        Config::setAttribute('stop_threads', 0);
-
         $parser = new PositionParserThread(PositionParserThread::SE_YANDEX, $debug);
         $parser->start();
     }
@@ -47,8 +45,6 @@ class PromotionCommand extends CConsoleCommand
     /** Парсинг позиций в Google **/
     public function actionGoogle($debug = 0)
     {
-        Config::setAttribute('stop_threads', 0);
-
         $parser = new PositionParserThread(PositionParserThread::SE_GOOGLE, $debug);
         $parser->start();
     }

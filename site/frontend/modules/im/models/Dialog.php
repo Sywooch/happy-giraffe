@@ -329,4 +329,24 @@ class Dialog extends HActiveRecord
 
         return false;
     }
+
+    public function getMessagesDataProvider()
+    {
+        return new CActiveDataProvider('Message', array(
+            'criteria' => array(
+                'with' => array(
+                    'user' => array(
+                        'select' => 'id, first_name, last_name, avatar_id',
+                        'with' => 'avatar',
+                    ),
+                ),
+                'order' => 't.created DESC',
+                'condition' => 'dialog_id = :dialog_id',
+                'params' => array(':dialog_id' => $this->id),
+            ),
+            'pagination' => array(
+                'pageSize' => 10,
+            ),
+        ));
+    }
 }

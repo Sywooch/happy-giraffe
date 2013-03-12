@@ -87,6 +87,9 @@ class CLinking
             $good = true;
 
             $model = CommunityContent::model()->findByPk($id);
+            if ($model === null)
+                break;
+
             $url = 'http://www.happy-giraffe.ru' . $model->getUrl();
             $page = Page::getPage($url);
 

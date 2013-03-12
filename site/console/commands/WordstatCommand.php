@@ -86,13 +86,8 @@ class WordstatCommand extends CConsoleCommand
         fclose($handle);
     }
 
-    public function actionFixWordstat(){
+    public function actionModify(){
         $parser = new WordstatQueryModify();
         $parser->addToParsing();
-    }
-
-    public function actionTest(){
-        $parser = new WordstatParser();
-        $parser->loadKeywords();
     }
 }

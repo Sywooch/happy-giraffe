@@ -136,7 +136,7 @@ class PositionParserThread extends ProxyParserThread
     private function loadGooglePage($i)
     {
         $start = $i * $this->perPage();
-        $content = $this->query('http://www.google.ru/search?q=' . urlencode($this->query->keyword->name) . '&hl=ru&start=' . $start);
+        $content = $this->query('http://www.google.com/search?q=' . urlencode($this->query->keyword->name) . '&hl=ru&start=' . $start);
 
         $document = phpQuery::newDocument($content);
         $links = array();

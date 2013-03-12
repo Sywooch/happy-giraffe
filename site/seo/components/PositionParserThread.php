@@ -32,9 +32,6 @@ class PositionParserThread extends ProxyParserThread
             $this->getPage();
             $this->parsePage();
             $this->closeQuery();
-
-            if (Config::getAttribute('stop_threads') == 1)
-                break;
         }
     }
 

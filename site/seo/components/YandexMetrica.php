@@ -117,7 +117,7 @@ class YandexMetrica
     public function getNextLink($val)
     {
         if (isset($val['links']['next']))
-            $next = $val['links']['next'];
+            $next = $val['links']['next'].'&per_page=1000';
         else
             $next = null;
 

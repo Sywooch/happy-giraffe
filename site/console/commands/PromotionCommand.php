@@ -25,7 +25,7 @@ class PromotionCommand extends CConsoleCommand
     public function actionPrepare()
     {
         ParsingPosition::model()->deleteAll();
-        ParsingPosition::collectKeywords();
+        ParsingPosition::model()->testCollectKeywords();
     }
 
     /** Готовим парсинг позиций **/

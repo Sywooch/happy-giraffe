@@ -95,6 +95,64 @@ class ParsingPosition extends HActiveRecord
         }
     }
 
+    public function testCollectKeywords()
+    {
+        //берем кейворды по которым заходили за последний месяц прямо из метрики
+        $next = 'http://api-metrika.yandex.ru/stat/sources/phrases?id=11221648&oauth_token=b1cb78403f76432b8a6803dc5e6631b5&per_page=1000&date1=20130212&date2=20130312';
+
+        $keywords = array();
+        while (!empty($next)) {
+            $val = $this->loadPage($next);
+            $next = $this->getNextLink($val);
+
+            foreach ($val['data'] as $query) {
+                $keyword = Keyword::GetKeyword($query['phrase']);
+
+                if ($keyword !== null) {
+                    $keywords [] = $keyword->id;
+                    $p = new ParsingPosition;
+                    $p->keyword_id = $keyword->id;
+                    try {
+                        $p->save();
+                    } catch (Exception $e) {
+                    }
+                }
+
+                if ($query['visits'] <= 20)
+                    break(2);
+            }
+            echo count($keywords) . "\n";
+        }
+    }
+
+    public function getNextLink($val)
+    {
+        if (isset($val['links']['next']))
+            $next = $val['links']['next'].'&per_page=1000';
+        else
+            $next = null;
+
+        echo $next."\n";
+
+        return $next;
+    }
+
+    public function loadPage($url)
+    {
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.9.0.3) Gecko/2008092417 Firefox/3.0.3');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Accept: application/x-yametrika+json'));
+        curl_exec($ch);
+        $result = curl_exec($ch);
+        curl_close($ch);
+        sleep(2);
+        return json_decode($result, true);
+    }
+
+
     public static function collectPagesKeywords()
     {
         //берем кейворды по которым заходили за последние 4 недели

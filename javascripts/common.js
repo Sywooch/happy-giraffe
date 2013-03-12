@@ -23,8 +23,6 @@ function removeA(arr) {
 }
 
 $(document).ready(function () {
-    $("img.lazy").lazyload();
-
     $(".wysiwyg-content").addtocopy({htmlcopytxt:'<br /><br />Подробнее: <a href="' + window.location.href + '">' + window.location.href + '</a>'});
 
     $('.js-tooltipsy').tooltipsy({offset:[0, 1]});

@@ -132,8 +132,6 @@ class ParsingPosition extends HActiveRecord
         else
             $next = null;
 
-        echo $next."\n";
-
         return $next;
     }
 

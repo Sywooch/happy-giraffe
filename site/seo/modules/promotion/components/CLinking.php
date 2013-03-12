@@ -9,7 +9,7 @@ class CLinking
 
     public function start()
     {
-        $keywords = 0;
+        $keywords = 33;
         $i = 0;
         while (!empty($keywords)) {
             $keywords = Yii::app()->db_seo->createCommand()

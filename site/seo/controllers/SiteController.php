@@ -178,14 +178,17 @@ class SiteController extends SController
 
     public function actionTest()
     {
-        $t = 'я беременна все для беременных';
-        $_start_time = microtime(true);
+//        $t = 'я беременна все для беременных';
+//        $_start_time = microtime(true);
+//
+//        $c = new WordstatQueryModify;
+//        $r = $c->prepareQuery($t);
+//
+//        $long_time = 1000 * (microtime(true) - $_start_time);
+//
+//        echo $long_time . '<br>' . $r;
 
-        $c = new WordstatQueryModify;
-        $r = $c->prepareQuery($t);
-
-        $long_time = 1000 * (microtime(true) - $_start_time);
-
-        echo $long_time . '<br>' . $r;
+        $parser = new WordstatQueryModify();
+        $parser->convert();
     }
 }

@@ -13,6 +13,7 @@ class WordstatQueryModify
         'к', 'на', 'по', 'о', 'от', 'при', 'с', 'у', 'над', 'об', 'для', 'про', 'из', 'как', 'но', 'то', 'если',
         'когда', 'один', 'одного', 'одно', 'одному', 'одних', 'нашим', 'наших');
 
+    private $new_parts = array();
 
     /*public function convert()
     {
@@ -125,5 +126,23 @@ class WordstatQueryModify
         }
 
         return (substr($haystack, -$length) === $needle);
+    }
+
+    /**
+     * Проверяем фразу из wordstat в которой есть +
+     * Ищем слова перед которыми надо ставить +
+     */
+    public function analyzeQuery($q)
+    {
+        preg_match_all('/\+([^\s]+)/', $q, $matches);
+        for ($i = 0; $i < count($matches[0]); $i++) {
+            $p = $matches[1][$i];
+            if (!in_array($p, $this->parts) && !in_array($p, $this->new_parts)){
+                //echo $p . '<br>';
+                $this->new_parts [] = $p;
+                $fh = fopen($dir = Yii::getPathOfAlias('application.runtime') . DIRECTORY_SEPARATOR . 'predlogi.txt', 'a');
+                fwrite($fh, $p . "\n");
+            }
+        }
     }
 }

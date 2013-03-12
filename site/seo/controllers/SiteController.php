@@ -189,6 +189,6 @@ class SiteController extends SController
 //        echo $long_time . '<br>' . $r;
 
         $parser = new WordstatQueryModify();
-        $parser->getPhrases();
+        $parser->analyzeQuery('+что делать +если +я беременна +арп');
     }
 }

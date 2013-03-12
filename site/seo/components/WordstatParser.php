@@ -184,6 +184,9 @@ class WordstatParser extends ProxyParserThread
             $value = (int)pq($link)->parent()->next()->next()->text();
 
             $this->addData($keyword, $value);
+
+            //временно ищем слова перед которыми надо ставить +
+            $this->queryModify->analyzeQuery($keyword);
         }
 
         //собирает кейворды из блока "Что еще искали люди, искавшие"
@@ -194,6 +197,9 @@ class WordstatParser extends ProxyParserThread
                 $value = (int)pq($link)->parent()->next()->next()->text();
 
                 $this->addData($keyword, $value, true);
+
+                //временно ищем слова перед которыми надо ставить +
+                $this->queryModify->analyzeQuery($keyword);
             }
 
         //ищем ссылку на следующую страницу

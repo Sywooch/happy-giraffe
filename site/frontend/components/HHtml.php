@@ -29,6 +29,4 @@ class HHtml extends CHtml
         self::clientChange('click', $htmlOptions);
         return self::tag('a', $htmlOptions, $text);
     }
-
-    public static function lazyI
 }

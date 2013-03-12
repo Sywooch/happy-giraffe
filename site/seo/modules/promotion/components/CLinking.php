@@ -5,37 +5,47 @@
  */
 class CLinking
 {
+    private $count = 0;
+
     public function start()
     {
-        $keywords = Yii::app()->db_seo->createCommand()
-            ->select('keyword_id')
-            ->from('parsing_positions')
-            ->limit(100)
-            ->offset(0)
-            ->queryColumn();
-
-        foreach ($keywords as $keyword_id) {
-            //находим страницу на которую ведет ключевое слово
-            $phrases = Yii::app()->db_seo->createCommand()
-                ->select('id')
-                ->from('pages_search_phrases')
-                ->where('keyword_id = ' . $keyword_id)
+        $keywords = 0;
+        $i = 0;
+        while (!empty($keywords)) {
+            $keywords = Yii::app()->db_seo->createCommand()
+                ->select('keyword_id')
+                ->from('parsing_positions')
+                ->limit(100)
+                ->offset($i*100)
                 ->queryColumn();
 
-            if (!empty($phrases)) {
-                $search_phrase_id = Yii::app()->db_seo->createCommand()
-                    ->select('search_phrase_id')
-                    ->from('pages_search_phrases_positions')
-                    ->where('search_phrase_id IN (' . implode(',', $phrases) . ')')
-                    ->order('date DESC')
-                    ->queryScalar();
+            foreach ($keywords as $keyword_id) {
+                //находим страницу на которую ведет ключевое слово
+                $phrases = Yii::app()->db_seo->createCommand()
+                    ->select('id')
+                    ->from('pages_search_phrases')
+                    ->where('keyword_id = ' . $keyword_id)
+                    ->queryColumn();
 
-                if (!empty($search_phrase_id)) {
-                    $phrase = PagesSearchPhrase::model()->findByPk($search_phrase_id);
-                    $this->SetLinks($phrase);
+                if (!empty($phrases)) {
+                    $search_phrase_id = Yii::app()->db_seo->createCommand()
+                        ->select('search_phrase_id')
+                        ->from('pages_search_phrases_positions')
+                        ->where('search_phrase_id IN (' . implode(',', $phrases) . ')')
+                        ->order('date DESC')
+                        ->queryScalar();
+
+                    if (!empty($search_phrase_id)) {
+                        $phrase = PagesSearchPhrase::model()->findByPk($search_phrase_id);
+                        $this->SetLinks($phrase);
+                    }
                 }
             }
+
+            $i++;
         }
+
+        echo $this->count;
     }
 
     /**
@@ -43,18 +53,15 @@ class CLinking
      */
     public function SetLinks($phrase)
     {
-        $i = 0;
         if ($phrase->page->entity == 'CommunityContent') {
             //ставим 3 ссылки по фразе
             $pages = $this->getSimilarArticles($phrase->page, $phrase->keyword->name);
 
             foreach ($pages as $page) {
                 echo $phrase->page->url . ' - ' . $phrase->keyword->name . ' - ' . $page->url . '<br>';
-                $i++;
+                $this->count++;
             }
         }
-
-        echo $i.'<br>';
     }
 
 

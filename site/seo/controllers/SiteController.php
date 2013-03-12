@@ -178,8 +178,6 @@ class SiteController extends SController
 
     public function actionTest()
     {
-        Yii::import('site.seo.modules.promotion.components.*');
-        $c = new CLinking();
-        $c->start();
+        $this->render('test');
     }
 }

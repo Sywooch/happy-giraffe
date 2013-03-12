@@ -117,12 +117,13 @@
                             $('#decorlv .items').append(items).imagesLoaded(function() {
                                  $('#decorlv .items').masonry('appended', $(items));
                                  " . $this->pGallery . "
-                                 $(items).fadeIn();
-                            });
-                            $('img.lazy').lazyload({
-                                threshold : 200,
-                                effect : 'fadeIn',
-                                container: $('.layout-container')
+                                 $(items).fadeIn(400, function() {
+                                     $('img.lazy').lazyload({
+                                        threshold : 200,
+                                        effect : 'fadeIn',
+                                        container: $('.layout-container')
+                                    });
+                                 });
                             });
                             return false;
                         }"),

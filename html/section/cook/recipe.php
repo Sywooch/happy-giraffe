@@ -155,20 +155,20 @@
 										</a>
 										
 										<div class="big">
-											<img class="photo" src="/images/cook_recipe_img_01.jpg" width="460" />
+											<img class="result-photo" src="/images/cook_recipe_img_01.jpg" width="460" />
 										</div>
 										
 										<div class="thumbs clearfix">
 											
 											<ul class="clearfix">
 												<li>
-													<a href=""><img src="/images/cook_recipe_img_02.jpg" width="82" height="60" /></a>
+													<a href=""><img src="/images/cook_recipe_img_02.jpg" width="82" height="60"/></a>
 												</li>
-												<li><a href=""><img src="/images/cook_recipe_img_03.jpg" width="82"  height="60" /></a></li>
+												<li><a href=""><img src="/images/cook_recipe_img_03.jpg" width="82"  height="60" class="photo" /></a></li>
 												<li>
-													<a href=""><img src="/images/cook_recipe_img_02.jpg" width="82" height="60" /></a>
+													<a href=""><img src="/images/cook_recipe_img_02.jpg" width="82" height="60" class="photo" /></a>
 												</li>
-												<li><a href=""><img src="/images/cook_recipe_img_03.jpg" width="82"  height="60" /></a></li>
+												<li><a href=""><img src="/images/cook_recipe_img_03.jpg" width="82"  height="60" class="photo" /></a></li>
 												<li>
 												<a href="" class="add">
 													<span>Уже готовили</span>
@@ -200,7 +200,7 @@
 											</div>
 											<div class="recipe-description-item">
 												<div class="icon-yield tooltip" title="Количество порций"></div>
-												на 6 персон
+												на <span class="yeild">6 персон</span>
 											</div>
 										</div>
 									</div>
@@ -225,28 +225,40 @@
 															<i>К</i>
 															Калории
 														</div>
-														<span class="calories">589,2</span> <span class="gray">ккал.</span>
+														<div class="nutrition-tx">
+															<span class="calories">11589,2</span>
+															<span class="gray">ккал.</span>
+														</div>
 													</li>
 													<li class="n-protein">
 														<div class="icon">
 															<i>Б</i>
 															Белки
 														</div>
-														<span class="protein">18</span> <span class="gray">г.</span>
+														<div class="nutrition-tx">
+															<span class="protein">18</span>
+															<span class="gray">г.</span>
+														</div>
 													</li>
 													<li class="n-fat">
 														<div class="icon">
 															<i>Ж</i>
 															Жиры
 														</div>
-														<span class="fat">10</span> <span class="gray">г.</span>
+														<div class="nutrition-tx">
+															<span class="fat">10</span>
+															<span class="gray">г.</span>
+														</div>
 													</li>
 													<li class="n-carbohydrates">
 														<div class="icon">
 															<i>У</i>
 															Углеводы
 														</div>
-														<span class="carbohydrates">70</span> <span class="gray">г.</span>
+														<div class="nutrition-tx">
+															<span class="carbohydrates">70</span>
+															<span class="gray">г.</span>
+														</div>
 													</li>
 													
 												</ul>
@@ -280,18 +292,18 @@
 									
 									<h2>Приготовление</h2>
 									
-									<div class="instructions wysiwyg-content">
+									<div class="cook-instructions wysiwyg-content">
 									
 										<p><em>Мои родители и я пошел в поход на Верхний полуостров штата Мичиган летом после моего старшего года средней школы. Это один из тех поездок, которые всегда будут оставаться со мной. Я был одним из тех больших основные переходные периоды в жизни (хотя, как всегда, я не узнал его в то время) и поездка с родителями в красивой части страны было только, что мне нужно, чтобы чувствовать себя в безопасности , безопасный и готовы отправиться в следующую главу моей жизни.</em></p>
-										
-										<ol class="cook-instructions">
+										<div class="instructions">
+										<ol class="instructions-list">
 											<li class="clearfix">Курицу нарезать на кусочки, выложить в форму для запекания,
 												посолить, поперчить, добавить специи по вкусу.</li>
 											<li class="clearfix">Курицу залить пивом, поставить в духовку.</li>
 											<li class="clearfix">Мои родители и я пошел в поход на Верхний полуостров штата Мичиган летом после моего старшего года средней школы. Это один из тех поездок, которые всегда будут оставаться со мной. Я был одним из тех больших основные переходные периоды в жизни (хотя, как всегда, я не узнал его в то время) и поездка с родителями в красивой части страны было только, что мне нужно, чтобы чувствовать себя в безопасности , безопасный и готовы отправиться в следующую главу моей жизни.</li>
 											<li class="clearfix">Жарить при температуре 180 градусов в течение 40-45 минут.</li>
 										</ol>
-										
+										</div>
 										<div class="clearfix">
 											<div class="cook-diabets">
 												<!-- 

@@ -21,13 +21,24 @@
 					</div>
 					
 					<div class="banner-box">
-						<a href=""><img src="/images/contest/banner-w300-6.jpg" /></a>
+						<a href=""><img src="/images/contest/banner-w300-8.jpg" /></a>
 					</div>
 					
 				</div>
 				
 				<div class="nav">
-					<ul class="clearfix width-2">
+					<ul>
+					<?php 
+					if (isset($morning)) {
+						printf('<li class="morning">
+								<a href=""><i class="text"></i></a>
+							</li>');
+					}
+					if(isset($fday)){
+						printf('<li class="fday"><a href=""><i class="text"></i></a></li>');
+					}
+					?>
+
 						<li class="kids navdrp">
 							<a href="javascript:void(0);" onclick="navDrpOpen(this);"><i class="text"></i></a>
 							<div class="drp">
@@ -270,6 +281,11 @@
 								</div>
 							</div>
 						</li>
+						<?php 
+						if(isset($valentine)){
+							printf('<li class="valentine"><a href=""><i class="text"></i></a></li>');
+						}
+						?>
 					</ul>
 				</div>
 			

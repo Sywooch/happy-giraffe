@@ -119,6 +119,11 @@
                                  " . $this->pGallery . "
                                  $(items).fadeIn();
                             });
+                            $('img.lazy').lazyload({
+                                threshold : 200,
+                                effect : 'fadeIn',
+                                container: $('.layout-container')
+                            });
                             return false;
                         }"),
                     ),

@@ -15,8 +15,8 @@ class CLinking
             $keywords = Yii::app()->db_seo->createCommand()
                 ->select('keyword_id')
                 ->from('parsing_positions')
-                ->limit(100)
-                ->offset($i*100)
+                ->limit(1000)
+                ->offset($i*1000)
                 ->queryColumn();
 
             foreach ($keywords as $keyword_id) {
@@ -43,6 +43,7 @@ class CLinking
             }
 
             $i++;
+            break;
         }
 
         echo $this->count;

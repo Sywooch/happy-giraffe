@@ -116,14 +116,16 @@
                             $(items).hide();
                             $('#decorlv .items').append(items).imagesLoaded(function() {
                                  $('#decorlv .items').masonry('appended', $(items));
-                                 $('img.lazy').lazyload({
+                                 " . $this->pGallery . "
+                                 $(items).fadeIn();
+                            });
+                            setTimeout(function() {
+                                $('img.lazy').lazyload({
                                     threshold : 200,
                                     effect : 'fadeIn',
                                     container: $('.layout-container')
                                 });
-                                 " . $this->pGallery . "
-                                 $(items).fadeIn();
-                            });
+                            }, 500);
                             return false;
                         }"),
                     ),

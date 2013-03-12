@@ -5,7 +5,7 @@
  */
 class CLinking
 {
-    private $count = 0;
+    private $counts = array(0, 0, 0, 0, 0);
 
     public function start()
     {
@@ -15,8 +15,8 @@ class CLinking
             $keywords = Yii::app()->db_seo->createCommand()
                 ->select('keyword_id')
                 ->from('parsing_positions')
-                ->limit(200)
-                ->offset($i*200)
+                ->limit(100)
+                ->offset($i * 100)
                 ->queryColumn();
 
             foreach ($keywords as $keyword_id) {
@@ -43,10 +43,9 @@ class CLinking
             }
 
             $i++;
-            break;
         }
 
-        echo $this->count;
+        print_r($this->counts);
     }
 
     /**
@@ -59,10 +58,17 @@ class CLinking
             $pages = $this->getSimilarArticles($phrase->page, $phrase->keyword->name);
 
             foreach ($pages as $page) {
-                echo $phrase->page->url . ' - ' . $phrase->keyword->name . ' - ' . $page->url . '<br>';
-                $this->count++;
+                //echo $phrase->page->url . ' - ' . $phrase->keyword->name . ' - ' . $page->url . '<br>';
+                $this->counts[0]++;
+                $link = new InnerLink();
+                $link->keyword_id = $phrase->keyword->id;
+                $link->phrase_id = $phrase->id;
+                $link->page_id = $page->id;
+                $link->page_to_id = $phrase->page->id;
+                //$link->save();
             }
-        }
+        } else
+            $this->counts[1]++;
     }
 
 
@@ -92,6 +98,7 @@ class CLinking
         foreach ($allSearch['matches'] as $key => $m)
             $ids [] = $key;
 
+        $ids = array_unique($ids);
         $pages = array();
         foreach ($ids as $id) {
             $good = true;
@@ -131,6 +138,11 @@ class CLinking
             if (count($pages) >= 3)
                 break;
         }
+
+        if (empty($pages))
+            $this->counts[2]++;
+        if (count($pages) > 0 && count($pages) < 3)
+            $this->counts[3]++;
 
         return $pages;
     }

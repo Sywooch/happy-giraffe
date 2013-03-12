@@ -18,7 +18,6 @@ class CLinking
                 ->limit(100)
                 ->offset($i * 100)
                 ->queryColumn();
-            echo count($keywords)."\n";
 
             foreach ($keywords as $keyword_id) {
                 //находим страницу на которую ведет ключевое слово
@@ -44,9 +43,8 @@ class CLinking
             }
 
             $i++;
+            echo $this->counts[0].'-'.$this->counts[1].'-'.$this->counts[2].'-'.$this->counts[3];
         }
-
-        print_r($this->counts);
     }
 
     /**
@@ -66,7 +64,7 @@ class CLinking
                 $link->phrase_id = $phrase->id;
                 $link->page_id = $page->id;
                 $link->page_to_id = $phrase->page->id;
-                //$link->save();
+                $link->save();
             }
         } else
             $this->counts[1]++;

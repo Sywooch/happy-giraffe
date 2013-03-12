@@ -324,6 +324,12 @@ class Page extends CActiveRecord
                         if (isset($match[1])) {
                             $entity_id = $match[1];
                             $entity = 'CookRecipe';
+                        } else {
+                            preg_match("/http:\/\/www.happy-giraffe.ru\/news\/post([\d]+)\/$/", $url, $match);
+                            if (isset($match[1])) {
+                                $entity_id = $match[1];
+                                $entity = 'CommunityContent';
+                            }
                         }
                     }
                 }
@@ -367,6 +373,8 @@ class Page extends CActiveRecord
         $r = Page::ParseUrl('http://www.happy-giraffe.ru/community/31/forum/post/33879/');
         print_r($r);
         $r = Page::ParseUrl('http://www.happy-giraffe.ru/user/10/blog/post27381/');
+        print_r($r);
+        $r = Page::ParseUrl('http://www.happy-giraffe.ru/news/post53218/');
         print_r($r);
     }
 }

@@ -133,7 +133,13 @@
 
 </div>
 
-
+<script type="text/javascript">
+    $("img.lazy").lazyload({
+        threshold : 200,
+        effect : "fadeIn",
+        container: $(".layout-container")
+    });
+</script>
 
 
 

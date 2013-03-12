@@ -13,7 +13,6 @@
  * @property Keyword $keyword
  * @property Page $page
  * @property SearchPhrasePosition[] $positions
- * @property SearchPhraseVisit[] $visits
  * @property InnerLink[] $links
  * @property int $linksCount
  */

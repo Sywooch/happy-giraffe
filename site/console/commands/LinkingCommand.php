@@ -218,4 +218,10 @@ class LinkingCommand extends CConsoleCommand
         foreach ($links as $link)
             $link->delete();
     }
+
+    public function actionLinks(){
+        Yii::import('site.seo.modules.promotion.components.*');
+        $c = new CLinking();
+        $c->start();
+    }
 }

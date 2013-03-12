@@ -5,7 +5,7 @@
  */
 class CLinking
 {
-    private $counts = array(0, 0, 0, 0, 0);
+    private $counts = array(0, 0, 0, 0, 0, 0, 0);
 
     public function start()
     {
@@ -38,12 +38,14 @@ class CLinking
                     if (!empty($search_phrase_id)) {
                         $phrase = PagesSearchPhrase::model()->findByPk($search_phrase_id);
                         $this->SetLinks($phrase);
-                    }
+                    } else
+                        $this->counts[5]++;
                 }
             }
 
             $i++;
-            echo $this->counts[0].'-'.$this->counts[1].'-'.$this->counts[2].'-'.$this->counts[3];
+            echo $this->counts[0] . '-' . $this->counts[1] . '-' . $this->counts[2] . '-' . $this->counts[3] . '-'
+                . $this->counts[4] . '-' . $this->counts[5] . "\n";
         }
     }
 
@@ -88,10 +90,15 @@ class CLinking
                 ->limit(0, 100)
                 ->searchRaw();
         } catch (Exception $e) {
+            echo 'exception!';
             return array();
         }
-        if (empty($allSearch['matches']))
+        if (empty($allSearch['matches'])) {
+            if (empty($pages))
+                $this->counts[4]++;
+
             return array();
+        }
 
         $ids = array();
         foreach ($allSearch['matches'] as $key => $m)
@@ -108,7 +115,7 @@ class CLinking
 
             $url = 'http://www.happy-giraffe.ru' . $model->getUrl();
             $page = Page::getPage($url);
-            if (!$page){
+            if (!$page) {
                 echo "page is null: $url \n";
                 continue;
             }
@@ -143,6 +150,7 @@ class CLinking
 
         if (empty($pages))
             $this->counts[2]++;
+
         if (count($pages) > 0 && count($pages) < 3)
             $this->counts[3]++;
 

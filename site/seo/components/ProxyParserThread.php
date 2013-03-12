@@ -94,7 +94,7 @@ class ProxyParserThread
 
             if ($content === false) {
                 if (curl_errno($ch)) {
-                    //$this->log('Error while curl: ' . curl_error($ch));
+                    $this->log('Error while curl: ' . curl_error($ch));
                     curl_close($ch);
 
                     $attempt += 1;
@@ -113,7 +113,6 @@ class ProxyParserThread
                 curl_close($ch);
                 if (strpos($content, 'Нам очень жаль, но запросы, поступившие с вашего IP-адреса, похожи на автоматические.')) {
                     $this->log('ip banned');
-                    //file_put_contents(Yii::getPathOfAlias('site.common.cookies') . DIRECTORY_SEPARATOR . 'banned.txt', $this->proxy->value."\n", FILE_APPEND);
                     $this->changeBadProxy(0);
                     return $this->query($url, $ref, $post, $attempt);
                 }
@@ -217,8 +216,8 @@ class ProxyParserThread
         if ($this->debug) {
             echo $state . "\n";
         } else {
-            $fh = fopen($dir = Yii::getPathOfAlias('application.runtime') . DIRECTORY_SEPARATOR . 'my_log.txt', 'a');
-            fwrite($fh, $state . "\n");
+//            $fh = fopen($dir = Yii::getPathOfAlias('application.runtime') . DIRECTORY_SEPARATOR . 'my_log.txt', 'a');
+//            fwrite($fh, $state . "\n");
         }
     }
 }

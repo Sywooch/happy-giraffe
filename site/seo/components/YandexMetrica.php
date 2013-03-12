@@ -42,6 +42,11 @@ class YandexMetrica
                 $val = $this->loadPage($next);
                 $next = $this->getNextLink($val);
 
+                if (!isset($val['data'])){
+                    var_dump($val);
+                    Yii::app()->end();
+                }
+
                 //save to db
                 foreach ($val['data'] as $query) {
                     $keyword = Keyword::GetKeyword($query['phrase']);

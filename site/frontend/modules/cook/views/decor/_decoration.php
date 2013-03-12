@@ -13,7 +13,7 @@
     </div>
     <div class="img">
         <a href="javascript:void(0)" data-id="<?=$data->photo->id?>">
-            <img src="<?=$data->photo->getPreviewUrl(210, 600, Image::WIDTH, true, AlbumPhoto::CROP_SIDE_TOP);?>"/>
+            <?=HHtml::lazyImage($data->photo->getPreviewUrl(210, 600, Image::WIDTH, true, AlbumPhoto::CROP_SIDE_TOP), $data->photo->width, $data->photo->height)?>
             <span class="btn">Посмотреть</span>
         </a>
     </div>

@@ -48,10 +48,11 @@ class WordstatQueryModify
 
     public function addToParsing()
     {
-        foreach ($this->parts as $part) {
-            if (empty($part))
+        foreach ($this->parts as $num => $part) {
+            if (empty($part) || $num < 1)
                 continue;
 
+            echo "selecting records\n";
             $ids = Yii::app()->db_keywords->createCommand()
                 ->select('id')
                 ->from('keywords')
@@ -60,6 +61,7 @@ class WordstatQueryModify
                 ->queryColumn();
             echo count($ids) . "\n";
 
+            $i=0;
             foreach ($ids as $id) {
                 //добавляем на перепарсинг с большим приоритетом
                 $parsing = ParsingKeyword::model()->findByPk($id);
@@ -67,13 +69,18 @@ class WordstatQueryModify
                     $parsing = new ParsingKeyword;
                     $parsing->keyword_id = $id;
                     $parsing->priority = 2;
-                } else
+                } else{
+                    $parsing->priority = 2;
                     $parsing->updated = '0000-00-00 00:00:00';
+                }
 
                 try {
                     $parsing->save();
                 } catch (Exception $e) {
                 }
+
+                if ($i % 50000)
+                    echo '50 000 done'."\n";
             }
         }
     }

@@ -49,10 +49,10 @@ class WordstatQueryModify
     public function addToParsing()
     {
         foreach ($this->parts as $num => $part) {
-            if (empty($part) || $num < 1)
+            if (empty($part) || $num < 0)
                 continue;
 
-            echo "selecting records\n";
+            echo "$num - selecting records\n";
             $ids = Yii::app()->db_keywords->createCommand()
                 ->select('id')
                 ->from('keywords')

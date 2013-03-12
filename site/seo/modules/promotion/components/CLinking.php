@@ -18,6 +18,7 @@ class CLinking
                 ->limit(100)
                 ->offset($i * 100)
                 ->queryColumn();
+            echo count($keywords)."\n";
 
             foreach ($keywords as $keyword_id) {
                 //находим страницу на которую ведет ключевое слово

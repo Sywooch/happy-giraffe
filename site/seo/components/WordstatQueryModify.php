@@ -58,10 +58,13 @@ class WordstatQueryModify
             echo $this->prepareQuery($keyword).'<br>';
     }*/
 
-    public function addToParsing()
+    public function addToParsing($id)
     {
         foreach ($this->parts as $num => $part) {
-            if (empty($part) || $num < 9)
+            if ($num < $id || $num > $id*50)
+                continue;
+
+            if (empty($part) || $num < 14)
                 continue;
 
             echo "$num - $part \n";

@@ -257,7 +257,7 @@ class GoogleAnalytics {
 
 		$response = curl_exec($ch);
         $this->response = $response;
-        //var_dump($response);
+        var_dump($response);
         $info = curl_getinfo($ch);
 
         curl_close($ch);

@@ -75,20 +75,11 @@ class WordstatQueryModify
                     ->queryColumn();
                 echo count($ids) . "\n";
 
-                $max = ceil(count($ids) / 1000);
-
-                for ($i = 0; $i < $max; $i++) {
-                    $pks = array();
-                    for ($j = 0; $j < 1000; $j++)
-                        if (isset($ids[$i * 1000 + $j]))
-                            $pks [] = $ids[$i * 1000 + $j];
-
-                    if (!empty($pks)) {
-                        $sql = 'update parsing_keywords set priority = 2, updated = "0000-00-00 00:00:00"
+                if (!empty($ids)) {
+                    $sql = 'update parsing_keywords set priority = 2, updated = "0000-00-00 00:00:00"
                                 where keyword_id IN (' . implode(',', $ids) . ');';
 
-                        Yii::app()->db_keywords->createCommand($sql)->execute();
-                    }
+                    Yii::app()->db_keywords->createCommand($sql)->execute();
                 }
             }
         }

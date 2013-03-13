@@ -67,7 +67,7 @@ class WordstatQueryModify
             if (empty($part) || $num < 14)
                 continue;
 
-            echo "$num - $part \n";
+            //echo "$num - $part \n";
 
             for ($k = 0; $k < 50; $k++) {
                 $ids = Yii::app()->db_keywords->createCommand()
@@ -76,7 +76,7 @@ class WordstatQueryModify
                     ->where('id > ' . ($k * 10000000) . ' AND id <= ' . (($k + 1) * 10000000) . '
                     AND (name LIKE "' . $part . ' %" OR name LIKE "% ' . $part . '" OR name LIKE "% ' . $part . ' %")') //вначале фразы, вконце фразы, в середине фразы
                     ->queryColumn();
-                echo count($ids) . "\n";
+               // echo count($ids) . "\n";
 
                 if (!empty($ids)) {
                     $sql = 'update parsing_keywords set priority = 2, updated = "0000-00-00 00:00:00"
@@ -86,6 +86,69 @@ class WordstatQueryModify
                 }
             }
         }
+    }
+
+    /*public function addToParsing2($id)
+    {
+        $last_id = $id;
+        $t = time();
+        while (true) {
+            $keywords = Yii::app()->db_keywords->createCommand()
+                ->select(array('id', 'name'))
+                ->from('keywords')
+                ->where('id > ' . $last_id)
+                ->limit(10000)
+                ->queryAll();
+
+            if (empty($keywords))
+                break;
+
+            $ids = array();
+            echo (time() - $t)."\n";
+            foreach ($keywords as $keyword) {
+                if ($this->hasPart($keyword['name'])) {
+                    //echo $keyword['name'] . '<br>';
+                    $ids [] = $keyword['id'];
+                }
+            }
+            echo (time() - $t)."\n";
+            if (count($ids) > 300) {
+                $sql = 'update parsing_keywords set priority = 2, updated = "0000-00-00 00:00:00"
+                            where keyword_id IN (' . implode(',', $ids) . ');';
+                Yii::app()->db_keywords->createCommand($sql)->execute();
+            }
+            $last_id = $keywords[count($keywords) - 1]['id'];
+            echo $last_id."\n";
+
+//            if ($last_id - $id > 50000000)
+//                break;
+
+            echo (time() - $t)."\n";
+
+            break;
+        }
+    }*/
+
+    public function hasPart($q)
+    {
+        foreach ($this->parts as $num => $part) {
+            if ($num < 43)
+                continue;
+
+            //если вначале
+            if ($this->startsWith($q, $part . ' '))
+                return true;
+
+            //если вконце
+            if ($this->endsWith($q, ' ' . $part))
+                return true;
+
+            //если в середине
+            if (strpos($q, ' ' . $part . ' '))
+                return true;
+        }
+
+        return false;
     }
 
     /**
@@ -109,9 +172,6 @@ class WordstatQueryModify
         $q = str_replace('!', '', $q);
 
         foreach ($this->parts as $part) {
-            if (empty($part))
-                continue;
-
             //если вначале
             if ($this->startsWith($q, $part . ' '))
                 $q = '+' . $q;

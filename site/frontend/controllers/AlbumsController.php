@@ -539,6 +539,8 @@ class AlbumsController extends HController
                 'src' => $model->getPreviewUrl(700, 700, Image::WIDTH),
                 'id' => $model->primaryKey,
                 'title' => $model->title,
+                'width' => $model->width,
+                'height' => $model->height,
             ));
             Yii::app()->end();
         }

@@ -29,4 +29,16 @@ class HHtml extends CHtml
         self::clientChange('click', $htmlOptions);
         return self::tag('a', $htmlOptions, $text);
     }
+
+    public static function lazyImage($src, $width, $height, $alt = '', $htmlOptions = array())
+    {
+        $htmlOptions['src'] = 'http://images2.wikia.nocookie.net/__cb20100822143346/runescape/images/2/21/1x1-pixel.png';
+        isset($htmlOptions['class']) ? $htmlOptions['class'] .= ' lazy' : $htmlOptions['class'] = 'lazy';
+        $htmlOptions['data-original'] = $src;
+        $htmlOptions['width'] = $width;
+        $htmlOptions['height'] = $height;
+        $htmlOptions['alt'] = $alt;
+
+        return self::tag('img', $htmlOptions);
+    }
 }

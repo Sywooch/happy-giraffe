@@ -59,4 +59,9 @@ class WordstatCommand extends CConsoleCommand
         $parser = new WordstatQueryModify();
         $parser->addToParsing($num);
     }
+
+    public function actionTasks(){
+        $parser = new WordstatTaskParser();
+        $parser->start(true);
+    }
 }

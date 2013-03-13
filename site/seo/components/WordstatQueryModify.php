@@ -67,7 +67,7 @@ class WordstatQueryModify
             if (empty($part) || $num < 14)
                 continue;
 
-            echo "$num - $part \n";
+            //echo "$num - $part \n";
 
             for ($k = 0; $k < 50; $k++) {
                 $ids = Yii::app()->db_keywords->createCommand()
@@ -76,7 +76,7 @@ class WordstatQueryModify
                     ->where('id > ' . ($k * 10000000) . ' AND id <= ' . (($k + 1) * 10000000) . '
                     AND (name LIKE "' . $part . ' %" OR name LIKE "% ' . $part . '" OR name LIKE "% ' . $part . ' %")') //вначале фразы, вконце фразы, в середине фразы
                     ->queryColumn();
-                echo count($ids) . "\n";
+               // echo count($ids) . "\n";
 
                 if (!empty($ids)) {
                     $sql = 'update parsing_keywords set priority = 2, updated = "0000-00-00 00:00:00"

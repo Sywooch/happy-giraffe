@@ -61,7 +61,7 @@ class WordstatQueryModify
     public function addToParsing()
     {
         foreach ($this->parts as $num => $part) {
-            if (empty($part) || $num < 2)
+            if (empty($part) || $num < 3)
                 continue;
 
             echo "$num - $part \n";
@@ -85,13 +85,11 @@ class WordstatQueryModify
 
                     if (!empty($pks)) {
                         $sql = 'update parsing_keywords set priority = 2, updated = "0000-00-00 00:00:00"
-                                where keyword_id IN (' . implode(',', $pks) . ');';
+                                where keyword_id IN (' . implode(',', $ids) . ');';
 
                         Yii::app()->db_keywords->createCommand($sql)->execute();
                     }
                 }
-
-                echo "updated\n";
             }
         }
     }

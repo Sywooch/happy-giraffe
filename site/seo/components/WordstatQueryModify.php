@@ -64,33 +64,29 @@ class WordstatQueryModify
             if (empty($part) || $num < 1)
                 continue;
 
-            echo "$num - selecting records\n";
-            $ids = Yii::app()->db_keywords->createCommand()
-                ->select('id')
-                ->from('keywords')
-            //вначале фразы, вконце фразы, в середине фразы
-                ->where('name LIKE "' . $part . ' %" OR name LIKE "% ' . $part . '" OR name LIKE "% ' . $part . ' %"')
-                ->queryColumn();
-            echo count($ids) . "\n";
+            for ($i = 0; $i < 50; $i++) {
+                $ids = Yii::app()->db_keywords->createCommand()
+                    ->select('id')
+                    ->from('keywords')
+                    ->where('id > ' . ($i * 10000000) . ' AND id <= ' . (($i + 1) * 10000000) . '
+                    AND name LIKE "' . $part . ' %" OR name LIKE "% ' . $part . '" OR name LIKE "% ' . $part . ' %"') //вначале фразы, вконце фразы, в середине фразы
+                    ->queryColumn();
+                echo count($ids) . "\n";
 
-            $max = ceil(count($ids) / 100);
+                $max = ceil(count($ids) / 1000);
 
-            for ($i = 0; $i < $max; $i++) {
-                $pks = array();
-                for ($j = 0; $j < 100; $j++)
-                    if (isset($ids[$i * 100 + $j]))
-                        $pks [] = $ids[$i * 100 + $j];
+                for ($i = 0; $i < $max; $i++) {
+                    $pks = array();
+                    for ($j = 0; $j < 1000; $j++)
+                        if (isset($ids[$i * 1000 + $j]))
+                            $pks [] = $ids[$i * 1000 + $j];
 
-                $sql = 'update parsing_keywords set priority = 2, updated = "0000-00-00 00:00:00"
+                    $sql = 'update parsing_keywords set priority = 2, updated = "0000-00-00 00:00:00"
                 where keyword_id IN (' . implode(',', $pks) . ');';
 
-                Yii::app()->db->createCommand($sql)->execute();
-
-                if ($i % 500 == 0)
-                    echo '50 000 done' . "\n";
+                    Yii::app()->db->createCommand($sql)->execute();
+                }
             }
-
-            Yii::app()->end();
         }
     }
 

@@ -132,10 +132,10 @@ class LinkingCommand extends CConsoleCommand
 
         foreach ($articles as $article) {
             $from_page = Page::model()->getOrCreate('http://www.happy-giraffe.ru' . trim($article->url, '.'));
-            echo $from_page->url."\n";
+            echo $from_page->url . "\n";
             $exist = InnerLink::model()->exists('page_id = ' . $from_page->id . ' and page_to_id=' . $page->id);
 
-            if (!$exist){
+            if (!$exist) {
                 //ссылки нет можно ставить
                 echo "Link not exist can be placed\n";
                 $link = new InnerLink();
@@ -144,7 +144,7 @@ class LinkingCommand extends CConsoleCommand
                 $link->phrase_id = $phrase->id;
                 $link->keyword_id = $keyword->id;
                 $link->save();
-            }else
+            } else
                 echo "Link already exist\n";
         }
     }
@@ -219,9 +219,26 @@ class LinkingCommand extends CConsoleCommand
             $link->delete();
     }
 
-    public function actionLinks(){
+    public function actionLinks()
+    {
         Yii::import('site.seo.modules.promotion.components.*');
         $c = new CLinking();
         $c->start();
+    }
+
+    public function actionAddRecipesToParsing()
+    {
+        Yii::import('site.frontend.modules.cook.models.*');
+        $recipes = Yii::app()->db->createCommand()
+            ->select('id')
+            ->from('cook__recipes')
+            ->where('removed=0')
+            ->queryColumn();
+
+        echo count($recipes) . "\n";
+        foreach ($recipes as $recipe) {
+            Yii::app()->db_seo->createCommand()->insert('parsing_task__task',
+                array('content_id' => $recipe));
+        }
     }
 }

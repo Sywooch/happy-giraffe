@@ -15,11 +15,11 @@ class WordstatParser extends ProxyParserThread
     public $keyword = null;
     public $next_page = '';
     public $first_page = true;
-    private $fails = 0;
+    protected $fails = 0;
     /**
      * @var WordstatQueryModify
      */
-    private $queryModify;
+    protected $queryModify;
 
     public function init($mode)
     {
@@ -120,7 +120,7 @@ class WordstatParser extends ProxyParserThread
         $this->log('Parsing keyword: ' . $this->keyword->keyword_id);
     }
 
-    private function getCookie()
+    protected function getCookie()
     {
         $url = 'http://wordstat.yandex.ru/';
         $success = false;
@@ -152,7 +152,7 @@ class WordstatParser extends ProxyParserThread
         $this->log('cookie received successfully');
     }
 
-    private function parseQuery()
+    protected function parseQuery()
     {
         $html = $this->query($this->next_page, 'http://wordstat.yandex.ru/');
         if (!isset($html) || $html === null)
@@ -217,7 +217,7 @@ class WordstatParser extends ProxyParserThread
         return true;
     }
 
-    public function addData($keyword, $value, $related = false)
+    protected function addData($keyword, $value, $related = false)
     {
         if (!empty($keyword) && !empty($value)) {
             if (strpos($keyword, '+') !== false) {
@@ -230,7 +230,11 @@ class WordstatParser extends ProxyParserThread
 
             if ($related)
                 KeywordRelation::saveRelation($this->keyword->keyword_id, $model->id);
+
+            return $model;
         }
+
+        return null;
     }
 
 
@@ -248,7 +252,7 @@ class WordstatParser extends ProxyParserThread
         } else return -1;
     }
 
-    public function closeThread($reason = 'unknown reason')
+    protected function closeThread($reason = 'unknown reason')
     {
         if (!empty($this->keyword))
             $this->keywords [] = $this->keyword;

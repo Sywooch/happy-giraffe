@@ -615,9 +615,9 @@ class CommentatorWork extends EMongoDocument
 
         //сортирока по заходам
         $posts = CommunityContent::model()->findAll($criteria);
-        foreach($posts as $post)
-            $post->visits = $current_month->getPageVisitsCount($post->url);
-        usort($posts, array($this, "cmp"));
+//        foreach($posts as $post)
+//            $post->visits = $current_month->getPageVisitsCount($post->url);
+//        usort($posts, array($this, "cmp"));
         return $posts;
     }
 

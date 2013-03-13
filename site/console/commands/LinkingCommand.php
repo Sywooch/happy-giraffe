@@ -182,7 +182,7 @@ class LinkingCommand extends CConsoleCommand
     {
         Yii::import('site.common.models.mongo.*');
 
-        InnerLinksBlock::model()->Sync($this);
+        //InnerLinksBlock::model()->Sync($this);
     }
 
     public function actionSyncRemoved()

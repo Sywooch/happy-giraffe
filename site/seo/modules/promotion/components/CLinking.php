@@ -5,7 +5,12 @@
  */
 class CLinking
 {
+    const LINKS_COUNT = 3;
     private $counts = array(0, 0, 0, 0, 0, 0, 0);
+    /**
+     * @var PagesSearchPhrase
+     */
+    private $phrase;
 
     public function start()
     {
@@ -36,8 +41,8 @@ class CLinking
                         ->queryScalar();
 
                     if (!empty($search_phrase_id)) {
-                        $phrase = PagesSearchPhrase::model()->findByPk($search_phrase_id);
-                        $this->SetLinks($phrase);
+                        $this->phrase = PagesSearchPhrase::model()->findByPk($search_phrase_id);
+                        $this->SetLinks();
                     } else
                         $this->counts[5]++;
                 }
@@ -49,24 +54,27 @@ class CLinking
         }
     }
 
-    /**
-     * @param PagesSearchPhrase $phrase
-     */
-    public function SetLinks($phrase)
+    public function SetLinks()
     {
-        if ($phrase->page->entity == 'CommunityContent') {
-            //ставим 3 ссылки по фразе
-            $pages = $this->getSimilarArticles($phrase->page, $phrase->keyword->name);
+        if ($this->phrase->page->entity == 'CommunityContent') {
+            //может уже есть ссылки по этому ключевому слову
+            $already_count = InnerLink::model()->count('page_to_id=' . $this->phrase->page->id
+                . ' AND keyword_id=' . $this->phrase->keyword->id);
 
-            foreach ($pages as $page) {
-                //echo $phrase->page->url . ' - ' . $phrase->keyword->name . ' - ' . $page->url . '<br>';
-                $this->counts[0]++;
-                $link = new InnerLink();
-                $link->keyword_id = $phrase->keyword->id;
-                $link->phrase_id = $phrase->id;
-                $link->page_id = $page->id;
-                $link->page_to_id = $phrase->page->id;
-                $link->save();
+            //если ссылок на этому ключу меньше 3-х
+            if ($already_count < self::LINKS_COUNT) {
+                //получаем страницы с которых можно проставить ссылки
+                $pages = $this->getSimilarArticles($this->phrase->keyword->name, self::LINKS_COUNT - $already_count);
+
+                foreach ($pages as $page) {
+                    $link = new InnerLink();
+                    $link->keyword_id = $this->phrase->keyword->id;
+                    $link->phrase_id = $this->phrase->id;
+                    $link->page_id = $page->id;
+                    $link->page_to_id = $this->phrase->page->id;
+                    $link->save();
+                    $this->counts[0]++;
+                }
             }
         } else
             $this->counts[1]++;
@@ -74,20 +82,109 @@ class CLinking
 
 
     /**
-     * @param $current_page
      * @param $name
+     * @param $count
      * @return Page[]
      */
-    public function getSimilarArticles($current_page, $name)
+    public function getSimilarArticles($name, $count)
     {
-        $sphinx_index = 'communityTextTitle';
+        $ids = $this->getArticlesFromSphinx($name);
+        $pages = array();
+        $pages = $this->getSuitablePages($ids, $pages);
 
+        if (count($pages) < $count) {
+            $ids = $this->getArticlesFromSphinx($name, SPH_MATCH_ANY);
+            $pages = $this->getSuitablePages($ids, $pages, true);
+        }
+
+        $pages = array_slice($pages, 0, 3);
+
+        return $pages;
+    }
+
+    /**
+     * @param array $ids
+     * @param $pages
+     * @param bool $same_community
+     * @return Page[]
+     */
+    public function getSuitablePages($ids, $pages, $same_community = false)
+    {
+        $article = $this->phrase->page->getArticle();
+        if ($same_community && !isset($article->rubric->community_id))
+            return $pages;
+
+        foreach ($ids as $id) {
+            $good = true;
+
+            $model = CommunityContent::model()->findByPk($id);
+            if ($model === null)
+                continue;
+
+            if ($same_community) {
+                if ($article == null) {
+                    echo $this->phrase->page->url . " - no article found \n";
+                    continue;
+                }
+                if (!isset($model->rubric->community_id))
+                    continue;
+
+                if ($model->rubric->community_id != $article->rubric->community_id)
+                    continue;
+            }
+
+            $url = 'http://www.happy-giraffe.ru' . $model->getUrl();
+            $page = Page::getPage($url);
+            if (!$page) {
+                echo "page is null: $url \n";
+                continue;
+            }
+            //если только что уже добавили
+            if (isset($pages[$page->id]))
+                continue;
+
+            //если таже страница
+            if ($page->id == $this->phrase->page->id)
+                continue;
+
+            //если на странице 3 или больше ссылок
+            if ($page->outputLinksCount >= 3)
+                continue;
+
+            //если ссылка с нее уже стоит
+            if (InnerLink::model()->exists('page_id = ' . $page->id . ' and page_to_id=' . $this->phrase->page->id))
+                continue;
+
+            foreach (array('getPrevPost', 'getNextPost') as $method)
+                if (method_exists($model, $method)) {
+                    $post = $model->$method();
+                    if ($post !== null) {
+                        $url = 'http://www.happy-giraffe.ru' . $post->getUrl(false);
+                        if ($page->url == $url)
+                            $good = false;
+                    }
+                }
+
+            if ($good)
+                $pages [$page->id] = $page;
+
+            if (count($pages) >= self::LINKS_COUNT)
+                break;
+        }
+
+        return $pages;
+    }
+
+
+    public function getArticlesFromSphinx($name, $mode = null)
+    {
         try {
             $allSearch = Yii::app()->search
                 ->select('*')
-                ->from($sphinx_index)
+                ->from('communityTextTitle')
+                ->setMatchMode(empty($mode) ? SPH_MATCH_EXTENDED2 : $mode)
                 ->where(' ' . CHtml::encode($name) . ' ')
-                ->limit(0, 100)
+                ->limit(0, 500)
                 ->searchRaw();
         } catch (Exception $e) {
             echo 'exception!';
@@ -104,56 +201,6 @@ class CLinking
         foreach ($allSearch['matches'] as $key => $m)
             $ids [] = $key;
 
-        $ids = array_unique($ids);
-        $pages = array();
-        foreach ($ids as $id) {
-            $good = true;
-
-            $model = CommunityContent::model()->findByPk($id);
-            if ($model === null)
-                break;
-
-            $url = 'http://www.happy-giraffe.ru' . $model->getUrl();
-            $page = Page::getPage($url);
-            if (!$page) {
-                echo "page is null: $url \n";
-                continue;
-            }
-            //если другая страница
-            if ($page->id == $current_page->id)
-                continue;
-
-            //если на странице меньше 3-х ссылок
-            if ($page->outputLinksCount >= 3)
-                continue;
-
-            //если ссылка с нее уже стоит
-            if (InnerLink::model()->exists('page_id = ' . $page->id . ' and page_to_id=' . $current_page->id))
-                continue;
-
-            foreach (array('getPrevPost', 'getNextPost') as $method)
-                if (method_exists($model, $method)) {
-                    $post = $model->$method();
-                    if ($post !== null) {
-                        $url = 'http://www.happy-giraffe.ru' . $post->getUrl(false);
-                        if ($page->url == $url)
-                            $good = false;
-                    }
-                }
-
-            if ($good)
-                $pages [] = $page;
-
-            if (count($pages) >= 3)
-                break;
-        }
-
-        if (empty($pages))
-            $this->counts[2]++;
-
-        if (count($pages) > 0 && count($pages) < 3)
-            $this->counts[3]++;
-
-        return $pages;
+        return $ids;
     }
 }

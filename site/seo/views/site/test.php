@@ -6,6 +6,7 @@
  * @var $parser RouteChecker
  */
 
-$c = new WordstatQueryModify();
-$c->convert();
+Yii::import('site.seo.modules.promotion.components.*');
+$c = new CLinking();
+$c->start();
 

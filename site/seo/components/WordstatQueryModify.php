@@ -64,12 +64,13 @@ class WordstatQueryModify
             if (empty($part) || $num < 1)
                 continue;
 
+            echo $part."\n";
             for ($i = 0; $i < 50; $i++) {
                 $ids = Yii::app()->db_keywords->createCommand()
                     ->select('id')
                     ->from('keywords')
                     ->where('id > ' . ($i * 10000000) . ' AND id <= ' . (($i + 1) * 10000000) . '
-                    AND name LIKE "' . $part . ' %" OR name LIKE "% ' . $part . '" OR name LIKE "% ' . $part . ' %"') //вначале фразы, вконце фразы, в середине фразы
+                    AND (name LIKE "' . $part . ' %" OR name LIKE "% ' . $part . '" OR name LIKE "% ' . $part . ' %")') //вначале фразы, вконце фразы, в середине фразы
                     ->queryColumn();
                 echo count($ids) . "\n";
 

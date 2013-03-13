@@ -88,11 +88,15 @@ class WordstatTaskParser extends WordstatParser
             $model = $this->addData($keyword, $value);
 
             //добавляем в базу
-            if ($model)
-                Yii::app()->db_seo->createCommand()->insert('parsing_task__keywords', array(
-                    'content_id' => $this->task->id,
-                    'keyword_id' => $model->id,
-                ));
+            if ($model) {
+                try {
+                    Yii::app()->db_seo->createCommand()->insert('parsing_task__keywords', array(
+                        'content_id' => $this->task->id,
+                        'keyword_id' => $model->id,
+                    ));
+                } catch (Exception $e) {
+                }
+            }
         }
 
         //ищем ссылку на следующую страницу

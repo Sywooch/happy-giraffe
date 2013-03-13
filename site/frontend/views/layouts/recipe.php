@@ -59,16 +59,15 @@
                 <ul>
                     <?php foreach (CActiveRecord::model($this->modelName)->types as $id => $label): ?>
                         <li<?php if ($this->currentType == $id): ?> class="active"<?php endif; ?>>
-                            <a href="<?=$this->getTypeUrl($id)?>" class="cook-cat<?php if ($this->currentType == $id): ?> active<?php endif; ?>">
-                                <span class="cook-cat-holder">
-                                    <i class="icon-cook-cat icon-recipe-<?=$id ?>"></i>
-                                </span>
-
+                            <?php
+                            $count = isset($this->counts[$id]) ? $this->counts[$id] : 0;
+                            $text = '<span class="cook-cat-holder"><i class="icon-cook-cat icon-recipe-'.$id.'"></i></span>
                                 <span class="cook-cat-frame">
-                                    <span><?=$label?></span>
-                                <span class="count"><?=isset($this->counts[$id])?$this->counts[$id]:0?></span>
-                            </span>
-                            </a>
+                                    <span>'.$label.'</span>
+                                    <span class="count">' . $count . '</span>
+                                </span>';
+                                    echo HHtml::link($text, $this->getTypeUrl($id), array('class'=>($this->currentType == $id)?'cook-cat active':'cook-cat'), true)
+                            ?>
                             <img src="/images/recipe-categories-arrow.png" alt="" class="tale">
                         </li>
                     <?php endforeach; ?>

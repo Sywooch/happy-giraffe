@@ -149,7 +149,6 @@ class SeoCommand extends CConsoleCommand
 
         $model = 0;
         while ($model !== null) {
-            $criteria->offset = rand(0, 100);
             $model = YandexPopularity::model()->find($criteria);
 
             try {

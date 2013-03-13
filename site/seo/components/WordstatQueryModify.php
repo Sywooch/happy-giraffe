@@ -85,7 +85,7 @@ class WordstatQueryModify
                 }
             }
 
-            Yii::app()->db->createCommand()->insert('temp', array('id' => $num));
+            Yii::app()->db_keywords->createCommand()->insert('temp', array('id' => $num));
         }
     }
 

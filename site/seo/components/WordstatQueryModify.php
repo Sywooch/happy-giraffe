@@ -64,7 +64,7 @@ class WordstatQueryModify
             if ($num < $id * 50 || $num > ($id + 1) * 50)
                 continue;
 
-            if (empty($part) || $num < 14)
+            if ($num < 44)
                 continue;
 
             //echo "$num - $part \n";

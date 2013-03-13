@@ -141,6 +141,7 @@ class GoogleAnalytics {
 				$mets='';
 			}
 		} else {
+            var_dump($this->response);
 			throw new Exception('getReport() failed to get a valid XML from Google Analytics API service');
 		}
 		return $results;
@@ -257,7 +258,6 @@ class GoogleAnalytics {
 
 		$response = curl_exec($ch);
         $this->response = $response;
-        var_dump($response);
         $info = curl_getinfo($ch);
 
         curl_close($ch);

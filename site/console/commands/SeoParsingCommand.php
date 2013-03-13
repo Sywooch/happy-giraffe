@@ -57,16 +57,6 @@ class SeoParsingCommand extends CConsoleCommand
         $parser->start($mode);
     }
 
-    public function actionWordstatSeasonTest()
-    {
-        $parser = new WordstatSeasonParser();
-        $parser->debug = 1;
-        $parser->keyword = YandexPopularity::model()->findByPk(2);
-        $html = '';
-
-        $parser->parseData($html);
-    }
-
     public function actionLi($site)
     {
         $last_parsed = SeoUserAttributes::getAttribute('last_li_parsed_'.date("Y-m") , 1);

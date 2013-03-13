@@ -142,25 +142,5 @@ class SeoCommand extends CConsoleCommand
     {
         TrafficStatisctic::model()->parse();
     }
-
-    public function actionCopyParsing()
-    {
-        $criteria = new CDbCriteria;
-
-        $model = 0;
-        while ($model !== null) {
-            $model = YandexPopularity::model()->find($criteria);
-
-            try {
-                $parsing = new ParsingKeyword;
-                $parsing->keyword_id = $model->keyword_id;
-                $parsing->updated = $model->date . ' 00:00:00';
-                $parsing->save();
-            } catch (Exception $e) {
-
-            }
-            $model->delete();
-        }
-    }
 }
 

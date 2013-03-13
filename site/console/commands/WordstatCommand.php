@@ -60,8 +60,8 @@ class WordstatCommand extends CConsoleCommand
         $parser->addToParsing($num);
     }
 
-    public function actionTasks(){
+    public function actionTasks($mode=false){
         $parser = new WordstatTaskParser();
-        $parser->start(true);
+        $parser->start($mode);
     }
 }

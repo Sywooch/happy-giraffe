@@ -20,7 +20,7 @@ class HController extends CController
 
     public $body_class = 'body-club';
 
-    protected $r = 165;
+    protected $r = 167;
 
     public function filterAjaxOnly($filterChain)
     {

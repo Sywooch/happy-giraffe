@@ -61,7 +61,7 @@ class WordstatQueryModify
     public function addToParsing()
     {
         foreach ($this->parts as $num => $part) {
-            if (empty($part) || $num < 2)
+            if (empty($part) || $num < 9)
                 continue;
 
             echo "$num - $part \n";

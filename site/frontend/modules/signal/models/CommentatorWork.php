@@ -626,7 +626,7 @@ class CommentatorWork extends EMongoDocument
         if ($a->visits == $b->visits) {
             return 0;
         }
-        return ($a->visits < $b->visits) ? -1 : 1;
+        return ($a->visits > $b->visits) ? -1 : 1;
     }
 
 

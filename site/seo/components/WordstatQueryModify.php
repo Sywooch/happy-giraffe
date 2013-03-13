@@ -64,7 +64,7 @@ class WordstatQueryModify
             if (empty($part) || $num < 1)
                 continue;
 
-            echo $part."\n";
+            echo $part . "\n";
             for ($i = 0; $i < 50; $i++) {
                 $ids = Yii::app()->db_keywords->createCommand()
                     ->select('id')
@@ -82,10 +82,12 @@ class WordstatQueryModify
                         if (isset($ids[$i * 1000 + $j]))
                             $pks [] = $ids[$i * 1000 + $j];
 
-                    $sql = 'update parsing_keywords set priority = 2, updated = "0000-00-00 00:00:00"
-                where keyword_id IN (' . implode(',', $pks) . ');';
+                    if (!empty($pks)) {
+                        $sql = 'update parsing_keywords set priority = 2, updated = "0000-00-00 00:00:00"
+                                where keyword_id IN (' . implode(',', $pks) . ');';
 
-                    Yii::app()->db->createCommand($sql)->execute();
+                        Yii::app()->db_keywords->createCommand($sql)->execute();
+                    }
                 }
             }
         }

@@ -64,7 +64,8 @@ class WordstatQueryModify
             if (empty($part) || $num < 2)
                 continue;
 
-            echo $part . "\n";
+            echo "$num - $part \n";
+
             for ($k = 0; $k < 50; $k++) {
                 $ids = Yii::app()->db_keywords->createCommand()
                     ->select('id')

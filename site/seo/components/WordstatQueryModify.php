@@ -89,6 +89,8 @@ class WordstatQueryModify
                         Yii::app()->db_keywords->createCommand($sql)->execute();
                     }
                 }
+
+                echo "updated\n";
             }
         }
     }

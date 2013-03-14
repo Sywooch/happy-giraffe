@@ -49,7 +49,7 @@ class InnerLink extends HActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('page_id, phrase_id, page_to_id, keyword_id', 'required'),
+			array('page_id, page_to_id, keyword_id', 'required'),
 			array('keyword_id', 'numerical', 'integerOnly'=>true),
 			array('page_id, phrase_id, page_to_id', 'length', 'max'=>10),
 			// The following rule is used by search().

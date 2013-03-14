@@ -20,8 +20,6 @@ class YandexMetrica
         else
             $last_date = date("Ymd", strtotime($last_date));
 
-        echo $last_date."\n";
-
         for ($i = 0; $i < 100; $i++) {
             $date = date("Ymd", strtotime('+1 day', strtotime($last_date)));
             if ($date != date("Ymd"))

@@ -64,9 +64,10 @@ class WordstatQueryModify
             if ($num < $id * 50 || $num > ($id + 1) * 50)
                 continue;
 
-            if ($num < 44)
+            $exist = Yii::app()->db->createCommand()->select('id')->from('temp')->where('id='.$num)->queryScalar();
+            if (!empty($exist))
                 continue;
-            //echo "$num - $part \n";
+            echo "$num - $part \n";
 
             for ($k = 0; $k < 50; $k++) {
                 $ids = Yii::app()->db_keywords->createCommand()

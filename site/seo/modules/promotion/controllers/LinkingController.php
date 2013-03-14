@@ -318,9 +318,9 @@ class LinkingController extends SController
     {
         $criteria = new CDbCriteria;
         $criteria->condition = 'date > "' . date("Y-m-d", strtotime('-3 days')) . '"';
-        $criteria->limit = 100;
+        $criteria->limit = 30;
         $criteria->order = 'rand()';
-        $links = InnerLink::model()->findAll();
+        $links = InnerLink::model()->findAll($criteria);
         $this->render('show_random_links', compact('links'));
     }
 

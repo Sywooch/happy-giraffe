@@ -308,7 +308,7 @@ class User extends HActiveRecord
             'mood' => array(self::BELONGS_TO, 'UserMood', 'mood_id'),
             'partner' => array(self::HAS_ONE, 'UserPartner', 'user_id'),
 
-            'blog_rubrics' => array(self::HAS_MANY, 'CommunityRubric', 'user_id'),
+            'blog_rubrics' => array(self::HAS_MANY, 'CommunityRubric', 'user_id', 'order' => 'sort ASC'),
             'blogPostsCount' => array(self::STAT, 'CommunityContent', 'author_id', 'join' => 'JOIN community__rubrics ON t.rubric_id = community__rubrics.id', 'condition' => 'community__rubrics.user_id = t.author_id'),
             'communityPostsCount' => array(self::STAT, 'CommunityContent', 'author_id', 'join' => 'JOIN community__rubrics ON t.rubric_id = community__rubrics.id', 'condition' => 'community__rubrics.user_id IS NULL'),
             'communityContentsCount' => array(self::STAT, 'CommunityContent', 'author_id'),

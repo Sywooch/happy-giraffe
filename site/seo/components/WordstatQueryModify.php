@@ -65,7 +65,7 @@ class WordstatQueryModify
                 continue;
 
             $exist = Yii::app()->db_keywords->createCommand()->select('id')->from('temp')->where('id='.$num)->queryScalar();
-            if (!empty($exist))
+            if (!empty($exist) || $exist === '0')
                 continue;
             echo "$num - $part \n";
 

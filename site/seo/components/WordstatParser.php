@@ -73,15 +73,12 @@ class WordstatParser extends ProxyParserThread
         $this->startTimer('load keywords');
 
         //сначала загружаем приоритетные фразы
-        Yii::app()->db_keywords->createCommand("
-                update parsing_keywords
-                set active=:pid
-                where active=0 AND type=0 AND priority > 0
-                limit 20
-        ")->execute(array(':pid' => $this->thread_id));
-
         $criteria = new CDbCriteria;
-        $criteria->compare('active', $this->thread_id);
+        $criteria->condition = 'priority > 0';
+        $criteria->compare('active', 0);
+        $criteria->compare('type', 0);
+        $criteria->limit = 10;
+        $criteria->offset = rand(0, 1000);
         $this->keywords = ParsingKeyword::model()->findAll($criteria);
 
         if (empty($this->keywords)) {
@@ -89,22 +86,23 @@ class WordstatParser extends ProxyParserThread
             $criteria = new CDbCriteria;
             $criteria->compare('active', 0);
             $criteria->compare('type', 0);
-            $criteria->limit = 20;
+            $criteria->limit = 10;
             $criteria->offset = rand(0, 1000);
             $criteria->order = 'updated asc';
 
             $this->keywords = ParsingKeyword::model()->findAll($criteria);
             $this->log(count($this->keywords) . ' keywords with 0 priority loaded');
-
-            //update active
-            $keys = array();
-            foreach ($this->keywords as $key)
-                $keys [] = $key->keyword_id;
-
-            Yii::app()->db_keywords->createCommand()->update('parsing_keywords', array('active' => 1),
-                'keyword_id IN (' . implode(',', $keys) . ')');
-        } else
+        } else{
             $this->log(count($this->keywords) . ' priority keywords loaded');
+        }
+
+        //update active
+        $keys = array();
+        foreach ($this->keywords as $key)
+            $keys [] = $key->keyword_id;
+
+        Yii::app()->db_keywords->createCommand()->update('parsing_keywords', array('active' => 1),
+            'keyword_id IN (' . implode(',', $keys) . ')');
 
         $this->endTimer();
     }

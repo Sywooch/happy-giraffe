@@ -32,18 +32,16 @@ class CRecipeLinking
                 //1 ссылку по названию
                 $this->createLinkByName();
                 //1 ссылку по тем на которые рассчитывали
-
+                $this->createPlannedKeywordLink();
+                //ставим 2 ссылки с ключевыми словами из wordstat
+                $this->createFoundKeywordsLinks();
             }
             $criteria->offset += 100;
 
-            echo "done: " . $this->counts[0] . ", add keyword fail: " . $this->counts[1] . ", page not found: " . $this->counts[2] . ", link exist: " . $this->counts[3] . "\n";
+            echo "done: " . $this->counts[0] . ", add keyword fail: " . $this->counts[1] . ", page not found: "
+                . $this->counts[2] . ", link exist: " . $this->counts[3] . "\n";
             Yii::app()->end();
         }
-    }
-
-    public function getPlanedKeyword()
-    {
-
     }
 
     /**
@@ -51,31 +49,65 @@ class CRecipeLinking
      */
     public function createLinkByName()
     {
-        //проверяем нет ли ссылки на этот рецепт с таким анкором
-        $criteria = new CDbCriteria;
-        $criteria->compare('name', $this->recipe->title);
-        $keyword = Keyword::model()->find($criteria);
+        $keyword = Keyword::GetKeyword($this->recipe->title);
+        $this->createLink($keyword);
+    }
+
+    /**
+     * Ставим ссылку с ключевым словом по которому писалась статья
+     */
+    public function createPlannedKeywordLink()
+    {
+        $keyword = $this->getPlanedKeyword();
+        $this->createLink($keyword);
+    }
+
+    /**
+     * ставим 2 ссылки с ключевыми словами из wordstat
+     */
+    private function createFoundKeywordsLinks()
+    {
+        $keyword = $this->getPlanedKeyword();
+        $this->createLink($keyword);
+    }
+
+
+    /**
+     * Возвращает ключевое слово по которому писалась статья
+     *
+     * @return null|Keyword
+     */
+    public function getPlanedKeyword()
+    {
+        $task = SeoTask::model()->findByAttributes(array('article_id' => $this->page->id));
+        if ($task !== null && !empty($task->keywordGroup)) {
+            if (isset($task->keywordGroup->keywords[0]))
+                return $task->keywordGroup->keywords[0];
+        }
+        $this->counts[4]++;
+        return null;
+    }
+
+    /**
+     * По ключевому слову ищет рецепт для проставления ссылки и ставит с нее ссылку
+     *
+     * @param $keyword
+     */
+    private function createLink($keyword)
+    {
         if ($keyword !== null) {
+            //проверяем нет ли ссылки на этот рецепт с таким анкором
             $already = InnerLink::model()->count('page_to_id=' . $this->page->id . ' AND keyword_id=' . $keyword->id);
             if (!empty($already)) {
                 $this->counts[3]++;
                 return;
             }
-        } else {
-            $keyword = new Keyword;
-            $keyword->name = $this->recipe->title;
-            $keyword->save();
 
-            if ($keyword === null) {
-                $this->counts[1]++;
-                return;
-            }
-        }
-
-        //получаем страницу с которых можно проставить ссылки
-        $page = $this->getSimilarArticles($keyword->name);
-
-        $this->saveLink($keyword, $page);
+            //получаем страницу с которых можно проставить ссылки
+            $page = $this->getSimilarArticles($keyword->name);
+            $this->saveLink($keyword, $page);
+        } else
+            $this->counts[1]++;
     }
 
     /**

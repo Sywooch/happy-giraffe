@@ -112,16 +112,19 @@ class CRecipeLinking
                 continue;
 
             //проверяем на стоп-слова
+            $good = true;
             foreach ($this->bad_words as $bad_word)
                 //если какое-либо слово встречается и при этом его нет в названии самого рецепты - пропускаем
                 if (strpos($keyword['name'], $bad_word) !== false && strpos($this->recipe->title, $bad_word) === false)
-                    continue 2;
+                    $good = false;
 
-            $good_keywords [] = $keyword['keyword_id'];
+            if ($good) {
+                //проверяем что рецепта с таким названием нету
+                if ($this->keywordUsedOnSomeTitle($keyword['name']))
+                    continue;
 
-            //проверяем что рецепта с таким названием нету
-            if ($this->keywordUsedOnSomeTitle($keyword['name']))
-                continue;
+                $good_keywords [] = $keyword['keyword_id'];
+            }
 
             if (count($good_keywords) >= 3)
                 break;

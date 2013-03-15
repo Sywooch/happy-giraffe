@@ -64,4 +64,9 @@ class WordstatCommand extends CConsoleCommand
         $parser = new WordstatTaskParser();
         $parser->start($mode);
     }
+
+    public function actionTest(){
+        $parser = new WordstatParser();
+        $parser->loadKeywords();
+    }
 }

@@ -129,9 +129,9 @@ class CRecipeLinking
                 break;
         }
 
-        if (empty($keywords))
+        if (empty($good_keywords))
             return array();
-        return Keyword::model()->findAllByPk($keywords);
+        return Keyword::model()->findAllByPk($good_keywords);
     }
 
     /**

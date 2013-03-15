@@ -303,7 +303,7 @@ class CRecipeLinking
         $allSearch = Yii::app()->search
             ->select('*')
             ->from('recipeTitle')
-            ->setMatchMode(SPH_MATCH_EXTENDED2)
+            ->setMatchMode(SPH_MATCH_ALL)
             ->where(' ' . CHtml::encode($name) . ' ')
             ->limit(0, 10)
             ->searchRaw();

@@ -10,7 +10,7 @@ class CRecipeLinking
         "новгород", "самара", "самаре", "казань", "казани", "омск", "челябинск", "ростов", "уфа", "уфе", "волгоград",
         "пермь", "красноярск", "воронеж", "саратов", "краснодар", "тольятти", "ижевск", "барнаул", "ульяновск",
         "тюмень", "тюмени", "иркутск", "владивосток", "ярославл", "хабаровск", "махачкал", "оренбург", "новокузнецк",
-        "томск", "кемерово", "рязан", "астрахан", "пенз", "липецк", "готовим ру");
+        "томск", "кемерово", "рязан", "астрахан", "пенз", "липецк", "готовим ру", 'кафе');
 
     private $counts = array(0, 0, 0, 0, 0, 0, 0);
     /**
@@ -95,6 +95,7 @@ class CRecipeLinking
             ->join('keywords.keywords as keywords', 'keywords.id = t.keyword_id')
             ->where('content_id = :content_id AND keywords.name != :name',
                 array(':content_id' => $this->recipe->id, ':name' => mb_strtolower($this->recipe->title)))
+            ->limit(100)
             ->order('keywords.wordstat')
             ->queryColumn();
 
@@ -114,7 +115,7 @@ class CRecipeLinking
             foreach ($this->bad_words as $bad_word)
                 //если какое-либо слово встречается и при этом его нет в названии самого рецепты - пропускаем
                 if (strpos($keyword['name'], $bad_word) !== false && strpos($this->recipe->title, $bad_word) === false)
-                    continue(2);
+                    continue 2;
 
             $good_keywords [] = $keyword['keyword_id'];
 

@@ -110,6 +110,7 @@ class WordstatParser extends ProxyParserThread
             echo 'fail';
             Yii::app()->end();
         }
+        Yii::app()->end();
 
         $this->endTimer();
     }

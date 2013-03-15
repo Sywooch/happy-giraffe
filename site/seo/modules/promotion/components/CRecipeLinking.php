@@ -67,10 +67,31 @@ class CRecipeLinking
      */
     private function createFoundKeywordsLinks()
     {
-        $keyword = $this->getPlanedKeyword();
-        $this->createLink($keyword);
+        $keywords = $this->getFoundKeywords();
+        foreach ($keywords as $keyword)
+            $this->createLink($keyword);
     }
 
+    /**
+     * Выбираем 2 ключевых слова, которые нашли по wordstat
+     */
+    public function getFoundKeywords()
+    {
+        //выбраем все слова
+        $keywords = Yii::app()->db_seo->createCommand()
+            ->select('keyword_id')
+            ->from('parsing_task__keywords as t')
+            ->join('keywords.keywords as keywords', 'keywords.id = t.keyword_id')
+            ->where('content_id = '.$this->recipe->id.' AND keywords.name != "'.$this->recipe->title.'"')
+            ->order('keywords.wordstat')
+            ->queryColumn();
+        if (empty($keywords))
+            return array();
+
+        //фильтруем на стоп-слова
+
+        return Keyword::model()->findAllByPk($keywords);
+    }
 
     /**
      * Возвращает ключевое слово по которому писалась статья

@@ -216,8 +216,8 @@ class ProxyParserThread
         if ($this->debug) {
             echo $state . "\n";
         } else {
-//            $fh = fopen($dir = Yii::getPathOfAlias('application.runtime') . DIRECTORY_SEPARATOR . 'my_log.txt', 'a');
-//            fwrite($fh, $state . "\n");
+            $fh = fopen($dir = Yii::getPathOfAlias('application.runtime') . DIRECTORY_SEPARATOR . 'my_log.txt', 'a');
+            fwrite($fh, $state . "\n");
         }
     }
 }

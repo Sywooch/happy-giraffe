@@ -131,6 +131,7 @@ class CRecipeLinking
 
         if (empty($good_keywords))
             return array();
+        var_dump($good_keywords);
         return Keyword::model()->findAllByPk($good_keywords);
     }
 

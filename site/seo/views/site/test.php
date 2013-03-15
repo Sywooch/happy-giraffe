@@ -5,6 +5,7 @@
  *
  */
 $criteria = new CDbCriteria;
+$criteria->compare('section', 0);
 $criteria->order = 'rand()';
 $criteria->limit = 100;
 $recipes = CookRecipe::model()->findAll($criteria);

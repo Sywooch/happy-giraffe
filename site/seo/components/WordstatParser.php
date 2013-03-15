@@ -232,12 +232,10 @@ class WordstatParser extends ProxyParserThread
 
             $model = Keyword::GetKeyword($keyword, 1, $value);
             if ($model !== null) {
-                $this->log('added: ' . $model->id);
+                //$this->log('added: ' . $model->id);
 
                 if ($related)
                     KeywordRelation::saveRelation($this->keyword->keyword_id, $model->id);
-
-                $this->endTimer();
                 return $model;
             }
         }

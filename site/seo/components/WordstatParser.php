@@ -92,7 +92,7 @@ class WordstatParser extends ProxyParserThread
 
             $this->keywords = ParsingKeyword::model()->findAll($criteria);
             $this->log(count($this->keywords) . ' keywords with 0 priority loaded');
-        } else{
+        } else {
             $this->log(count($this->keywords) . ' priority keywords loaded');
         }
 
@@ -224,12 +224,14 @@ class WordstatParser extends ProxyParserThread
             }
 
             $model = Keyword::GetKeyword($keyword, 1, $value);
-            $this->log('added: ' . $model->id);
+            if ($model !== null) {
+                $this->log('added: ' . $model->id);
 
-            if ($related)
-                KeywordRelation::saveRelation($this->keyword->keyword_id, $model->id);
+                if ($related)
+                    KeywordRelation::saveRelation($this->keyword->keyword_id, $model->id);
 
-            return $model;
+                return $model;
+            }
         }
 
         return null;

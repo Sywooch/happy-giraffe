@@ -41,10 +41,18 @@ class ProxyParserThread
     {
         $this->startTimer('find proxy');
 
-        Yii::app()->db_seo->createCommand("update proxies set active=:pid where active=0 order by rank desc, id desc limit 1")->execute(array(':pid' => $this->thread_id));
-        $this->proxy = Proxy::model()->find('active=' . $this->thread_id);
+//        Yii::app()->db_seo->createCommand("update proxies set active=:pid where active=0 order by rank desc, id desc limit 1")->execute(array(':pid' => $this->thread_id));
+//        $this->proxy = Proxy::model()->find('active=' . $this->thread_id);
+        $criteria = new CDbCriteria;
+        $criteria->compare('active', 0);
+        $criteria->order = 'rank desc';
+        $criteria->offset = rand(0, 10);
+
+        $this->proxy = Proxy::model()->find($criteria);
         if ($this->proxy === null)
-            $this->closeThread('proxy fail');
+            $this->closeThread('No proxy');
+        $this->proxy->active = 1;
+        $this->proxy->update(array('active'));
 
         $this->endTimer();
     }

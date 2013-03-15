@@ -122,7 +122,7 @@ class CRecipeLinking
 
             if ($good) {
                 //проверяем что рецепта с таким названием нету
-                if ($this->keywordUsedOnSomeTitle($keyword['name'])){
+                if (!$this->keywordUsedOnSomeTitle($keyword['name'])){
                     $good_keywords [] = $keyword['keyword_id'];
                 }else{
                     echo $keyword['name'].' - рецепт с этим названием есть<br>';

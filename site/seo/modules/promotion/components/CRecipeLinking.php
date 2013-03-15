@@ -5,15 +5,22 @@
  */
 class CRecipeLinking
 {
+    public $bad_words = array("купить", "елена чкалова", "елены чекаловой", "видео", "музыка", "say7", "точка ру",
+        "фильм", "магазин", "ооо", "цена", "википедия", "ресторан", "москв", "петербург", "новосибирск", "екатеринбург",
+        "новгород", "самара", "самаре", "казань", "казани", "омск", "челябинск", "ростов", "уфа", "уфе", "волгоград",
+        "пермь", "красноярск", "воронеж", "саратов", "краснодар", "тольятти", "ижевск", "барнаул", "ульяновск",
+        "тюмень", "тюмени", "иркутск", "владивосток", "ярославл", "хабаровск", "махачкал", "оренбург", "новокузнецк",
+        "томск", "кемерово", "рязан", "астрахан", "пенз", "липецк", "готовим ру");
+
     private $counts = array(0, 0, 0, 0, 0, 0, 0);
     /**
      * @var CookRecipe
      */
-    private $recipe;
+    public $recipe;
     /**
      * @var Page
      */
-    private $page;
+    public $page;
 
     public function start()
     {
@@ -67,29 +74,60 @@ class CRecipeLinking
      */
     private function createFoundKeywordsLinks()
     {
+        //если одно слова - пропускаем
+        if (strpos($this->recipe->title, ' ') === false)
+            return;
+
         $keywords = $this->getFoundKeywords();
         foreach ($keywords as $keyword)
             $this->createLink($keyword);
     }
 
     /**
-     * Выбираем 2 ключевых слова, которые нашли по wordstat
+     * Выбираем 3 ключевых слова, которые нашли по wordstat
      */
     public function getFoundKeywords()
     {
         //выбраем все слова
         $keywords = Yii::app()->db_seo->createCommand()
-            ->select('keyword_id')
+            ->select('keyword_id, name')
             ->from('parsing_task__keywords as t')
             ->join('keywords.keywords as keywords', 'keywords.id = t.keyword_id')
-            ->where('content_id = '.$this->recipe->id.' AND keywords.name != "'.$this->recipe->title.'"')
+            ->where('content_id = :content_id AND keywords.name != :name',
+                array(':content_id' => $this->recipe->id, ':name' => $this->recipe->title))
             ->order('keywords.wordstat')
             ->queryColumn();
-        if (empty($keywords))
-            return array();
 
         //фильтруем на стоп-слова
+        $good_keywords = array();
+        foreach ($keywords as $keyword) {
+            //если в слове есть "мультиварк" но рецепт не для мультиварок - пропускаем
+            if ($this->recipe->section != 1 && strpos($keyword['name'], 'мульварк') !== false)
+                continue;
 
+            //если слово уже использовалось в перелинковке - пропускаем
+            $exist = InnerLink::model()->findByAttributes(array('keyword_id' => $keyword['keyword_id']));
+            if ($exist !== null)
+                continue;
+
+            //проверяем на стоп-слова
+            foreach ($this->bad_words as $bad_word)
+                //если какое-либо слово встречается и при этом его нет в названии самого рецепты - пропускаем
+                if (strpos($keyword['name'], $bad_word) !== false && strpos($this->recipe->title, $bad_word) === false)
+                    continue(2);
+
+            $good_keywords [] = $keyword['keyword_id'];
+
+            //проверяем что рецепта с таким названием нету
+            if ($this->keywordUsedOnSomeTitle($keyword['name']))
+                continue;
+
+            if (count($good_keywords) >= 3)
+                break;
+        }
+
+        if (empty($keywords))
+            return array();
         return Keyword::model()->findAllByPk($keywords);
     }
 

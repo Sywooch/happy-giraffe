@@ -120,10 +120,9 @@ class CRecipeLinking
 
             if ($good) {
                 //проверяем что рецепта с таким названием нету
-                if ($this->keywordUsedOnSomeTitle($keyword['name']))
-                    continue;
-
-                $good_keywords [] = $keyword['keyword_id'];
+                if ($this->keywordUsedOnSomeTitle($keyword['name'])){
+                    $good_keywords [] = $keyword['keyword_id'];
+                }
             }
 
             if (count($good_keywords) >= 3)

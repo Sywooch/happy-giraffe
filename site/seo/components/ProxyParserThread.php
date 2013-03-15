@@ -41,7 +41,7 @@ class ProxyParserThread
     {
         $this->startTimer('find proxy');
 
-        Yii::app()->db_seo->createCommand("update proxies set active=:pid where active=0 order by rank desc limit 1")->execute(array(':pid' => $this->thread_id));
+        Yii::app()->db_seo->createCommand("update proxies set active=:pid where active=0 order by rank desc, id desc limit 1")->execute(array(':pid' => $this->thread_id));
         $this->proxy = Proxy::model()->find('active=' . $this->thread_id);
         if ($this->proxy === null)
             $this->closeThread('proxy fail');

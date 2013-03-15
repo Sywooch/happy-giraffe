@@ -70,7 +70,7 @@ class WordstatParser extends ProxyParserThread
 
     public function loadKeywords()
     {
-        $this->startTimer('load keywords');
+        $this->startTimer('load keywords 1');
 
         //сначала загружаем приоритетные фразы
         $criteria = new CDbCriteria;
@@ -95,6 +95,9 @@ class WordstatParser extends ProxyParserThread
         } else {
             $this->log(count($this->keywords) . ' priority keywords loaded');
         }
+
+        $this->endTimer();
+        $this->startTimer('load keywords 2');
 
         //update active
         $keys = array();
@@ -217,6 +220,7 @@ class WordstatParser extends ProxyParserThread
 
     protected function addData($keyword, $value, $related = false)
     {
+        $this->startTimer('add data');
         if (!empty($keyword) && !empty($value)) {
             if (strpos($keyword, '+') !== false) {
                 $keyword = str_replace(' +', ' ', $keyword);
@@ -230,10 +234,12 @@ class WordstatParser extends ProxyParserThread
                 if ($related)
                     KeywordRelation::saveRelation($this->keyword->keyword_id, $model->id);
 
+                $this->endTimer();
                 return $model;
             }
         }
 
+        $this->endTimer();
         return null;
     }
 

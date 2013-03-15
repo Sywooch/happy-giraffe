@@ -140,7 +140,7 @@ class WordstatParser extends ProxyParserThread
         $this->first_page = true;
 
         if (empty($this->keywords))
-            $this->loadKeywordsByUpdate();
+            $this->loadKeywordsByTransaction();
 
         $this->keyword = array_shift($this->keywords);
         $this->log('Parsing keyword: ' . $this->keyword->keyword_id);

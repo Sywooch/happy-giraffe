@@ -99,7 +99,7 @@ class CRecipeLinking
             ->order('keywords.wordstat')
             ->queryColumn();
 
-        //фильтруем на стоп-слова
+        //фильтруем
         $good_keywords = array();
         foreach ($keywords as $keyword) {
             //если в слове есть "мультиварк" но рецепт не для мультиварок - пропускаем

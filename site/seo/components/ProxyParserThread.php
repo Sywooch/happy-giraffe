@@ -41,8 +41,8 @@ class ProxyParserThread
     {
         $this->startTimer('find proxy');
 
-        $transaction = Yii::app()->db_keywords->beginTransaction();
-        try {
+//        $transaction = Yii::app()->db_keywords->beginTransaction();
+//        try {
 //        Yii::app()->db_seo->createCommand("update proxies set active=:pid where active=0 order by rank desc, id desc limit 1")->execute(array(':pid' => $this->thread_id));
 //        $this->proxy = Proxy::model()->find('active=' . $this->thread_id);
             $criteria = new CDbCriteria;
@@ -56,12 +56,12 @@ class ProxyParserThread
             $this->proxy->active = 1;
             $this->proxy->update(array('active'));
 
-            $transaction->commit();
-        } catch (Exception $e) {
-            $transaction->rollback();
-            echo 'fail';
-            Yii::app()->end();
-        }
+//            $transaction->commit();
+//        } catch (Exception $e) {
+//            $transaction->rollback();
+//            echo 'fail';
+//            Yii::app()->end();
+//        }
 
         $this->endTimer();
     }

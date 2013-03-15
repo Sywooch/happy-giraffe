@@ -34,25 +34,34 @@ class ProxyParserThread
         //time_nanosleep(rand(0, 5), rand(0, 1000000000));
         Yii::import('site.frontend.extensions.phpQuery.phpQuery');
         $this->thread_id = rand(1, 8000000);
-        //$this->getProxy();
+        $this->getProxy();
     }
 
     private function getProxy()
     {
         $this->startTimer('find proxy');
 
+        $transaction = Yii::app()->db_keywords->beginTransaction();
+        try {
 //        Yii::app()->db_seo->createCommand("update proxies set active=:pid where active=0 order by rank desc, id desc limit 1")->execute(array(':pid' => $this->thread_id));
 //        $this->proxy = Proxy::model()->find('active=' . $this->thread_id);
-        $criteria = new CDbCriteria;
-        $criteria->compare('active', 0);
-        $criteria->order = 'rank desc';
-        $criteria->offset = rand(0, 10);
+            $criteria = new CDbCriteria;
+            $criteria->compare('active', 0);
+            $criteria->order = 'rank desc';
+            $criteria->offset = rand(0, 10);
 
-        $this->proxy = Proxy::model()->find($criteria);
-        if ($this->proxy === null)
-            $this->closeThread('No proxy');
-        $this->proxy->active = 1;
-        $this->proxy->update(array('active'));
+            $this->proxy = Proxy::model()->find($criteria);
+            if ($this->proxy === null)
+                $this->closeThread('No proxy');
+            $this->proxy->active = 1;
+            $this->proxy->update(array('active'));
+
+            $transaction->commit();
+        } catch (Exception $e) {
+            $transaction->rollback();
+            echo 'fail';
+            Yii::app()->end();
+        }
 
         $this->endTimer();
     }

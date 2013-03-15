@@ -43,6 +43,8 @@ class ProxyParserThread
 
         Yii::app()->db_seo->createCommand("update proxies set active=:pid where active=0 order by rank desc limit 1")->execute(array(':pid' => $this->thread_id));
         $this->proxy = Proxy::model()->find('active=' . $this->thread_id);
+        if ($this->proxy === null)
+            $this->closeThread('proxy fail');
 
         $this->endTimer();
     }
@@ -206,8 +208,8 @@ class ProxyParserThread
         if ($this->debug) {
             echo $state . "\n";
         } else {
-            $fh = fopen($dir = Yii::getPathOfAlias('application.runtime') . DIRECTORY_SEPARATOR . 'my_log.txt', 'a');
-            fwrite($fh, $state . "\n");
+//            $fh = fopen($dir = Yii::getPathOfAlias('application.runtime') . DIRECTORY_SEPARATOR . 'my_log.txt', 'a');
+//            fwrite($fh, $state . "\n");
         }
     }
 }

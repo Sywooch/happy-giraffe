@@ -31,30 +31,20 @@ class ProxyParserThread
 
     function __construct()
     {
-        //time_nanosleep(rand(0, 5), rand(0, 1000000000));
+        time_nanosleep(rand(0, 5), rand(0, 1000000000));
         Yii::import('site.frontend.extensions.phpQuery.phpQuery');
         $this->thread_id = rand(1, 8000000);
-        //$this->getProxy();
+        $this->getProxy();
     }
 
     private function getProxy()
     {
-        $criteria = new CDbCriteria;
-        $criteria->compare('active', 0);
-        $criteria->order = 'rank desc';
-        $criteria->offset = rand(0, 10);
-
         $this->startTimer('find proxy');
 
-        $this->proxy = Proxy::model()->find($criteria);
-        if ($this->proxy === null)
-            $this->closeThread('No proxy');
-
-        $this->proxy->active = 1;
-        $this->proxy->save();
+        Yii::app()->db_seo->createCommand("update proxies set active=:pid where active=0 order by rank desc limit 1")->execute(array(':pid' => $this->thread_id));
+        $this->proxy = Proxy::model()->find('active=' . $this->thread_id);
 
         $this->endTimer();
-        $this->log('proxy: ' . $this->proxy->value);
     }
 
     protected function query($url, $ref = null, $post = false, $attempt = 0)

@@ -72,8 +72,8 @@ class WordstatParser extends ProxyParserThread
     {
         $this->startTimer('load keywords');
 
-        $transaction = Yii::app()->db_keywords->beginTransaction();
-        try {
+//        $transaction = Yii::app()->db_keywords->beginTransaction();
+//        try {
             //сначала загружаем приоритетные фразы
             $criteria = new CDbCriteria;
             $criteria->condition = 'priority > 0';
@@ -106,12 +106,12 @@ class WordstatParser extends ProxyParserThread
             Yii::app()->db_keywords->createCommand()->update('parsing_keywords', array('active' => 1),
                 'keyword_id IN (' . implode(',', $keys) . ')');
 
-            $transaction->commit();
-        } catch (Exception $e) {
-            $transaction->rollback();
-            echo 'fail';
-            Yii::app()->end();
-        }
+//            $transaction->commit();
+//        } catch (Exception $e) {
+//            $transaction->rollback();
+//            echo 'fail';
+//            Yii::app()->end();
+//        }
 
         $this->endTimer();
     }

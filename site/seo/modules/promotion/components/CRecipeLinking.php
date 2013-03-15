@@ -97,7 +97,7 @@ class CRecipeLinking
                 array(':content_id' => $this->recipe->id, ':name' => mb_strtolower($this->recipe->title)))
             ->limit(100)
             ->order('keywords.wordstat')
-            ->queryColumn();
+            ->queryAll();
 
         //фильтруем
         $good_keywords = array();

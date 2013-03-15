@@ -94,7 +94,7 @@ class CRecipeLinking
             ->from('parsing_task__keywords as t')
             ->join('keywords.keywords as keywords', 'keywords.id = t.keyword_id')
             ->where('content_id = :content_id AND keywords.name != :name',
-                array(':content_id' => $this->recipe->id, ':name' => $this->recipe->title))
+                array(':content_id' => $this->recipe->id, ':name' => mb_strtolower($this->recipe->title)))
             ->order('keywords.wordstat')
             ->queryColumn();
 

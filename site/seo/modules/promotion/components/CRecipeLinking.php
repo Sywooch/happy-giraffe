@@ -108,8 +108,10 @@ class CRecipeLinking
 
             //если слово уже использовалось в перелинковке - пропускаем
             $exist = InnerLink::model()->findByAttributes(array('keyword_id' => $keyword['keyword_id']));
-            if ($exist !== null)
+            if ($exist !== null){
+                echo $keyword['name'].' - использовано<br>';
                 continue;
+            }
 
             //проверяем на стоп-слова
             $good = true;
@@ -122,7 +124,11 @@ class CRecipeLinking
                 //проверяем что рецепта с таким названием нету
                 if ($this->keywordUsedOnSomeTitle($keyword['name'])){
                     $good_keywords [] = $keyword['keyword_id'];
+                }else{
+                    echo $keyword['name'].' - рецепт с этим названием есть<br>';
                 }
+            }else{
+                echo $keyword['name'].' - стоп-слова<br>';
             }
 
             if (count($good_keywords) >= 3)

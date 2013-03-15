@@ -79,8 +79,7 @@ class WordstatParser extends ProxyParserThread
             $criteria->condition = 'priority > 0';
             $criteria->compare('active', 0);
             $criteria->compare('type', 0);
-            $criteria->limit = 10;
-            //$criteria->offset = rand(0, 1000);
+            $criteria->limit = 30;
             $this->keywords = ParsingKeyword::model()->findAll($criteria);
 
             if (empty($this->keywords)) {
@@ -88,8 +87,7 @@ class WordstatParser extends ProxyParserThread
                 $criteria = new CDbCriteria;
                 $criteria->compare('active', 0);
                 $criteria->compare('type', 0);
-                $criteria->limit = 10;
-                //$criteria->offset = rand(0, 1000);
+                $criteria->limit = 30;
                 $criteria->order = 'updated asc';
 
                 $this->keywords = ParsingKeyword::model()->findAll($criteria);
@@ -226,7 +224,6 @@ class WordstatParser extends ProxyParserThread
 
     protected function addData($keyword, $value, $related = false)
     {
-        $this->startTimer('add data');
         if (!empty($keyword) && !empty($value)) {
             if (strpos($keyword, '+') !== false) {
                 $keyword = str_replace(' +', ' ', $keyword);
@@ -245,7 +242,6 @@ class WordstatParser extends ProxyParserThread
             }
         }
 
-        $this->endTimer();
         return null;
     }
 

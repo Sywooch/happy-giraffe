@@ -68,7 +68,7 @@ class WordstatParser extends ProxyParserThread
         }
     }
 
-    public function loadKeywords()
+    public function loadKeywordsByTransaction()
     {
         $this->startTimer('load keywords');
 
@@ -125,7 +125,6 @@ class WordstatParser extends ProxyParserThread
         if (empty($this->keywords)) {
             //если нет приоритетных загружаем остальные
             Yii::app()->db_keywords->createCommand("update parsing_keywords set active=:pid where active=0 AND type=0 order by updated asc limit 20")->execute(array(':pid' => $this->thread_id));
-
             $this->keywords = ParsingKeyword::model()->findAll('active=' . $this->thread_id);
             $this->log(count($this->keywords) . ' keywords with 0 priority loaded');
         } else {
@@ -141,7 +140,7 @@ class WordstatParser extends ProxyParserThread
         $this->first_page = true;
 
         if (empty($this->keywords))
-            $this->loadKeywords();
+            $this->loadKeywordsByUpdate();
 
         $this->keyword = array_shift($this->keywords);
         $this->log('Parsing keyword: ' . $this->keyword->keyword_id);

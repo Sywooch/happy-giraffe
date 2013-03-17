@@ -48,7 +48,7 @@ class ProxyParserThread
             $criteria = new CDbCriteria;
             $criteria->compare('active', 0);
             $criteria->order = 'rank desc';
-            $criteria->offset = rand(0, 10);
+            $criteria->offset = rand(0, 20);
 
             $this->proxy = Proxy::model()->find($criteria);
             if ($this->proxy === null)

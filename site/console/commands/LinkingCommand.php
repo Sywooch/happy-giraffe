@@ -182,7 +182,7 @@ class LinkingCommand extends CConsoleCommand
     {
         Yii::import('site.common.models.mongo.*');
 
-        InnerLinksBlock::model()->Sync($this);
+        //InnerLinksBlock::model()->Sync($this);
     }
 
     public function actionSyncRemoved()
@@ -240,5 +240,13 @@ class LinkingCommand extends CConsoleCommand
             Yii::app()->db_seo->createCommand()->insert('parsing_task__task',
                 array('content_id' => $recipe));
         }
+    }
+
+    public function actionRecipes(){
+        Yii::import('site.seo.modules.promotion.components.*');
+        Yii::import('site.frontend.modules.cook.models.*');
+        Yii::import('site.seo.modules.writing.models.*');
+        $p = new CRecipeLinking;
+        $p->start();
     }
 }

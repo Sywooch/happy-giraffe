@@ -38,9 +38,9 @@ class CRecipeLinking
                 $this->page = Page::getPage('http://www.happy-giraffe.ru' . $this->recipe->getUrl());
 
                 //1 ссылку по названию
-                $this->createLinkByName();
+                //$this->createLinkByName();
                 //1 ссылку по тем на которые рассчитывали
-                $this->createPlannedKeywordLink();
+                //$this->createPlannedKeywordLink();
                 //ставим 3 ссылки с ключевыми словами из wordstat
                 $this->createFoundKeywordsLinks();
             }
@@ -99,7 +99,7 @@ class CRecipeLinking
             ->select('keyword_id, name')
             ->from('parsing_task__keywords as t')
             ->join('keywords.keywords as keywords', 'keywords.id = t.keyword_id')
-            ->where('content_id = :content_id AND keywords.name != :name',
+            ->where('content_id = :content_id AND keywords.name != :name AND keywords.wordstat > 100',
                 array(':content_id' => $this->recipe->id, ':name' => mb_strtolower($this->recipe->title)))
             ->limit(300)
             ->order('keywords.wordstat')
@@ -137,7 +137,7 @@ class CRecipeLinking
                 //echo $keyword['name'].' - стоп-слова<br>';
             }
 
-            if (count($good_keywords) >= 3)
+            if (count($good_keywords) >= 10)
                 break;
         }
 

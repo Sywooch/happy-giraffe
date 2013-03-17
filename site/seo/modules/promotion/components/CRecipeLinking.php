@@ -237,17 +237,26 @@ class CRecipeLinking
                 continue;
 
             //если ссылка с нее уже стоит
+            if ($page->id == 18106 && $this->page->id == 49276)
+                echo 'check link exist';
+
             if (InnerLink::model()->exists('page_id = :page_from and page_to_id=:page_to',
                 array(':page_from' => $page->id, ':page_to' => $this->page->id))
             )
                 continue;
+            else{
+                if ($page->id == 18106 && $this->page->id == 49276)
+                    echo ' link  not exist ';
+            }
 
+            $good = true;
             $links_from_page = $model->getMore();
             foreach ($links_from_page as $link_from_page)
                 if ($link_from_page->id == $this->recipe->id)
-                    continue(2);
+                    $good = false;
 
-            return $page;
+            if ($good)
+                return $page;
         }
 
         return null;

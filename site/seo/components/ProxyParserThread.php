@@ -40,7 +40,7 @@ class ProxyParserThread
     private function getProxy()
     {
         $this->startTimer('find proxy');
-
+        echo '1';
         $transaction = Yii::app()->db_seo->beginTransaction();
         try {
 //        Yii::app()->db_seo->createCommand("update proxies set active=:pid where active=0 order by rank desc, id desc limit 1")->execute(array(':pid' => $this->thread_id));

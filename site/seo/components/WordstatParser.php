@@ -79,8 +79,8 @@ class WordstatParser extends ProxyParserThread
             $criteria->condition = 'priority > 0';
             $criteria->compare('active', 0);
             $criteria->compare('type', 0);
-            $criteria->limit = 20;
-            $criteria->offset = 100;
+            $criteria->limit = 10;
+            $criteria->offset = 200;
             $this->keywords = ParsingKeyword::model()->findAll($criteria);
 
             if (empty($this->keywords)) {
@@ -88,8 +88,8 @@ class WordstatParser extends ProxyParserThread
                 $criteria = new CDbCriteria;
                 $criteria->compare('active', 0);
                 $criteria->compare('type', 0);
-                $criteria->limit = 20;
-                $criteria->offset = 100;
+                $criteria->limit = 10;
+                $criteria->offset = 200;
                 $criteria->order = 'updated asc';
 
                 $this->keywords = ParsingKeyword::model()->findAll($criteria);

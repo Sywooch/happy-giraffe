@@ -13,6 +13,7 @@ class CRecipeLinking
         "томск", "кемерово", "рязан", "астрахан", "пенз", "липецк", "готовим ру", 'кафе');
 
     private $counts = array(0, 0, 0, 0, 0, 0, 0);
+    private $links_count = array(0, 0, 0);
     /**
      * @var CookRecipe
      */
@@ -25,7 +26,7 @@ class CRecipeLinking
     public function start()
     {
         $criteria = new CDbCriteria;
-        $criteria->limit = 300;
+        $criteria->limit = 100;
         $criteria->offset = 0;
 
         $models = array(0);
@@ -40,14 +41,13 @@ class CRecipeLinking
                 $this->createLinkByName();
                 //1 ссылку по тем на которые рассчитывали
                 $this->createPlannedKeywordLink();
-                //ставим 2 ссылки с ключевыми словами из wordstat
+                //ставим 3 ссылки с ключевыми словами из wordstat
                 $this->createFoundKeywordsLinks();
             }
             $criteria->offset += 100;
 
-            echo "done: " . $this->counts[0] . ", add keyword fail: " . $this->counts[1] . ", page not found: "
-                . $this->counts[2] . ", link exist: " . $this->counts[3] . "\n";
-            Yii::app()->end();
+            echo "done: " . $this->counts[0] . ", page not found: " . $this->counts[2] . ", link exist: " . $this->counts[3] . "\n";
+            echo $this->links_count[0] . ' - ' . $this->links_count[1] . ' - ' . $this->links_count[2] . "\n";
         }
     }
 
@@ -57,6 +57,8 @@ class CRecipeLinking
     public function createLinkByName()
     {
         $keyword = Keyword::GetKeyword($this->recipe->title);
+        if ($keyword !== null)
+            $this->links_count[0]++;
         $this->createLink($keyword);
     }
 
@@ -66,6 +68,8 @@ class CRecipeLinking
     public function createPlannedKeywordLink()
     {
         $keyword = $this->getPlanedKeyword();
+        if ($keyword !== null)
+            $this->links_count[1]++;
         $this->createLink($keyword);
     }
 
@@ -79,8 +83,10 @@ class CRecipeLinking
             return;
 
         $keywords = $this->getFoundKeywords();
-        foreach ($keywords as $keyword)
+        foreach ($keywords as $keyword) {
+            $this->links_count[2]++;
             $this->createLink($keyword);
+        }
     }
 
     /**
@@ -95,7 +101,7 @@ class CRecipeLinking
             ->join('keywords.keywords as keywords', 'keywords.id = t.keyword_id')
             ->where('content_id = :content_id AND keywords.name != :name',
                 array(':content_id' => $this->recipe->id, ':name' => mb_strtolower($this->recipe->title)))
-            ->limit(100)
+            ->limit(300)
             ->order('keywords.wordstat')
             ->queryAll();
 
@@ -108,7 +114,7 @@ class CRecipeLinking
 
             //если слово уже использовалось в перелинковке - пропускаем
             $exist = InnerLink::model()->findByAttributes(array('keyword_id' => $keyword['keyword_id']));
-            if ($exist !== null){
+            if ($exist !== null) {
                 //echo $keyword['name'].' - использовано<br>';
                 continue;
             }
@@ -122,12 +128,12 @@ class CRecipeLinking
 
             if ($good) {
                 //проверяем что рецепта с таким названием нету
-                if (!$this->keywordUsedOnSomeTitle($keyword['name'])){
+                if (!$this->keywordUsedOnSomeTitle($keyword['name'])) {
                     $good_keywords [] = $keyword['keyword_id'];
-                }else{
+                } else {
                     //echo $keyword['name'].' - рецепт с этим названием есть<br>';
                 }
-            }else{
+            } else {
                 //echo $keyword['name'].' - стоп-слова<br>';
             }
 
@@ -166,8 +172,8 @@ class CRecipeLinking
     {
         if ($keyword !== null) {
             //проверяем нет ли ссылки на этот рецепт с таким анкором
-            $already = InnerLink::model()->count('page_to_id=' . $this->page->id . ' AND keyword_id=' . $keyword->id);
-            if (!empty($already)) {
+            $already = InnerLink::model()->find('page_to_id=' . $this->page->id . ' AND keyword_id=' . $keyword->id);
+            if ($already !== null) {
                 $this->counts[3]++;
                 return;
             }
@@ -175,11 +181,12 @@ class CRecipeLinking
             //получаем страницу с которых можно проставить ссылки
             $page = $this->getSimilarArticles($keyword->name);
             $this->saveLink($keyword, $page);
-        } else
-            $this->counts[1]++;
+        }
     }
 
     /**
+     * Получить страницу-донор из сфинкс которая лучше всего подходит к названию текущего рецепта
+     *
      * @param $name
      * @return Page[]
      */
@@ -200,6 +207,8 @@ class CRecipeLinking
 
 
     /**
+     * Проанализировать страницы найденные в sphinx на возможность быть донором для текущей страницы
+     *
      * @param $ids
      * @internal param $name
      * @return Page[]
@@ -334,6 +343,12 @@ class CRecipeLinking
     }
 
 
+    /**
+     * Создать в бд ссылку со страницы $page на текущую страницу с ключевым словом $keyword
+     *
+     * @param $keyword
+     * @param $page
+     */
     private function saveLink($keyword, $page)
     {
         if ($page === null || $keyword === null) {

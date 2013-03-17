@@ -231,16 +231,15 @@ class CRecipeLinking
                 echo "page is null: $url \n";
                 continue;
             }
-            //если только что уже добавили
-            if (isset($pages[$page->id]))
-                continue;
 
             //если на странице 3 или больше ссылок
             if ($page->outputLinksCount >= 3)
                 continue;
 
             //если ссылка с нее уже стоит
-            if (InnerLink::model()->exists('page_id = ' . $page->id . ' and page_to_id=' . $this->page->id))
+            if (InnerLink::model()->exists('page_id = :page_from and page_to_id=:page_to',
+                array(':page_from' => $page->id, ':page_to' => $this->page->id))
+            )
                 continue;
 
             $links_from_page = $model->getMore();

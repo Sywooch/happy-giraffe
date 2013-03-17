@@ -80,7 +80,7 @@ class WordstatParser extends ProxyParserThread
             $criteria->compare('active', 0);
             $criteria->compare('type', 0);
             $criteria->limit = 10;
-            $criteria->offset = 200;
+            $criteria->offset = rand(0, 200);
             $this->keywords = ParsingKeyword::model()->findAll($criteria);
 
             if (empty($this->keywords)) {
@@ -89,7 +89,7 @@ class WordstatParser extends ProxyParserThread
                 $criteria->compare('active', 0);
                 $criteria->compare('type', 0);
                 $criteria->limit = 10;
-                $criteria->offset = 200;
+                $criteria->offset = rand(0, 200);
                 $criteria->order = 'updated asc';
 
                 $this->keywords = ParsingKeyword::model()->findAll($criteria);

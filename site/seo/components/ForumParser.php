@@ -11,8 +11,9 @@ class ForumParser extends LiBaseParser
     public function start()
     {
         Yii::import('site.seo.modules.mailru.models.*');
-        for ($i = 100; $i < 29000; $i++) {
+        for ($i = 1000; $i < 29001; $i++) {
             $url = $this->url . $i;
+            echo $url."\n";
 
             $html = $this->loadPage($url, 'Мамочка.org');
             $this->parseDocument($html, $url);
@@ -41,5 +42,7 @@ class ForumParser extends LiBaseParser
 
         if (isset($name) && isset($email))
             ParsedEmails::add($email, $name, 'www.mamochka.org', $url);
+        else
+            echo 'not_found';
     }
 }

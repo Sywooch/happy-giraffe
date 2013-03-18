@@ -11,7 +11,9 @@ class ForumParser extends LiBaseParser
     public function start()
     {
         Yii::import('site.seo.modules.mailru.models.*');
-        for ($i = 28000; $i < 29001; $i++) {
+        $this->login();
+
+        for ($i = 28000; $i < 28001; $i++) {
             $url = $this->url . $i;
             echo $url."\n";
 
@@ -20,10 +22,18 @@ class ForumParser extends LiBaseParser
         }
     }
 
-    public function getCookieFile()
+    public function login()
     {
-        $filename = Yii::getPathOfAlias('site.common.cookies') . DIRECTORY_SEPARATOR . 'mail2.txt';
-        return $filename;
+        $html = $this->loadPage('http://www.mamochka.org/forum/ucp.php?mode=login');
+        $document = phpQuery::newDocument($html);
+
+        //parse rnd
+        $rnd = $document->find('input[name=sid]');
+        $rnd = pq($rnd)->attr('value');
+
+        $post = 'username=novii&password=369963&autologin=on&sid='.$rnd.'&redirect=index.php&login=%D0%92%D1%85%D0%BE%D0%B4';
+        $this->loadPage('http://www.mamochka.org/forum/ucp.php?mode=login', 'Мамочка.org', $post);
+
     }
 
     public function parseDocument($html, $url)

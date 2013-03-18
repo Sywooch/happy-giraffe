@@ -52,7 +52,5 @@ class ForumParser extends LiBaseParser
 
         if (isset($name) && isset($email))
             ParsedEmails::add($email, $name, 'www.mamochka.org', $url);
-        else
-            echo 'not_found';
     }
 }

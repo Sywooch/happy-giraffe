@@ -5,24 +5,14 @@
  *
  */
 
-Yii::import('site.seo.modules.promotion.components.*');
-$p = new CRecipeLinking;
-
 $criteria = new CDbCriteria;
-$criteria->compare('section', 0);
+$criteria->condition = 'date >= "2013-03-17"';
 $criteria->order = 'rand()';
-$criteria->limit = 100;
-$recipes = CookRecipe::model()->findAll($criteria);
-foreach ($recipes as $recipe) {
-    echo $recipe->title.'<br>';
-    $p->recipe = $recipe;
-    $p->page = Page::getPage('http://www.happy-giraffe.ru' . $recipe->getUrl());
+$criteria->limit = 10;
+$links = InnerLink::model()->findAll($criteria);
 
-    $keywords = $p->getFoundKeywords();
-
-    foreach($keywords as $keyword)
-        echo $keyword->name.'<br>';
-
-    echo '<br>';
+foreach($links as $link){
+    echo CHtml::link($link->page->getArticleTitle(), $link->page->url).' - ';
+    echo $link->keyword->name.' - ';
+    echo CHtml::link($link->pageTo->getArticleTitle(), $link->pageTo->url).'<br>';
 }
-

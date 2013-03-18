@@ -8,12 +8,12 @@ class ForumParser extends LiBaseParser
 {
     private $url = 'http://www.mamochka.org/forum/memberlist.php?mode=viewprofile&u=';
 
-    public function start()
+    public function start($start_pos)
     {
         Yii::import('site.seo.modules.mailru.models.*');
         $this->login();
 
-        for ($i = 28000; $i < 28001; $i++) {
+        for ($i = $start_pos*1000; $i < ($start_pos+1)*1000; $i++) {
             $url = $this->url . $i;
             echo $url."\n";
 

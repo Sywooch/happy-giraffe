@@ -15,8 +15,6 @@ class ForumParser extends LiBaseParser
 
         for ($i = $start_pos*1000; $i < ($start_pos+1)*1000; $i++) {
             $url = $this->url . $i;
-            echo $url."\n";
-
             $html = $this->loadPage($url, 'Мамочка.org');
             $this->parseDocument($html, $url);
         }

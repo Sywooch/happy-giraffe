@@ -24,8 +24,10 @@ foreach ($bad_list as $bad) {
     $criteria->compare('keyword.name', $bad, true);
     $criteria->with = array('keyword');
     $links = InnerLink::model()->findAll($criteria);
-    foreach ($links as $link)
+    foreach ($links as $link) {
         echo $link->keyword->name . '<br>';
+        $link->delete();
+    }
 
     echo '<br><br>';
 }

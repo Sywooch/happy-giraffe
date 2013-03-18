@@ -19,6 +19,7 @@ foreach ($links as $link) {
 
 $bad_list = array('реферат', 'база отдыха', 'аллергия', 'ВИДЕО', 'кроссворд');
 foreach ($bad_list as $bad) {
+    $criteria = new CDbCriteria;
     $criteria->condition = 'date >= "2013-03-17"';
     $criteria->compare('keyword.name', $bad, true);
     $criteria->with = array('keyword');

@@ -27,4 +27,11 @@ class MailParsingCommand extends CConsoleCommand
         $p = new ForumParser();
         $p->start($start);
     }
+
+    public function actionParse2($start = 1)
+    {
+        Yii::import('site.seo.modules.competitors.components.*');
+        $p = new ForumParser2(false, true);
+        $p->start($start);
+    }
 }

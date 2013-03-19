@@ -95,7 +95,7 @@ class MailCommand extends CConsoleCommand
 
     public function actionDeleteUsers()
     {
-        Yii::app()->mc->deleteRegisteredFromContestList();
+        Yii::app()->email->deleteRegisteredFromContestList();
     }
 
     public function actionTestNewMessages()

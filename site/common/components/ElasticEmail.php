@@ -230,15 +230,46 @@ class ElasticEmail extends CApplicationComponent
         }
     }
 
-    public static function deleteBadMailruUsers()
+    public static function deleteContactFromList($email, $list)
     {
-        Yii::import('site.seo.modules.mailru.models.*');
-        $users = MailruUser::model()->findAll('status > 2');
-        echo count($users);
-        sleep(5);
+        $data = "username=" . urlencode(self::USERNAME);
+        $data .= "&api_key=" . urlencode(self::KEY);
+        $data .= "&email=" . urlencode($email);
+        $data .= "&listname=" . urlencode($list);
 
-        foreach($users as $user){
-            self::deleteContact($user->email);
+        $header = "POST /lists/remove-contact HTTP/1.0\r\n";
+        $header .= "Content-Type: application/x-www-form-urlencoded\r\n";
+        $header .= "Content-Length: " . strlen($data) . "\r\n\r\n";
+        $fp = fsockopen('ssl://api.elasticemail.com', 443, $errno, $errstr, 30);
+
+        $res = "";
+
+        if (!$fp)
+            echo "ERROR. Could not open connection";
+        else {
+            fputs($fp, $header . $data);
+            while (!feof($fp)) {
+                $res .= fread($fp, 1024);
+            }
+            fclose($fp);
+        }
+    }
+
+    public static function deleteRegisteredFromContestList()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->limit = 100;
+        $criteria->condition = 'id > 100000';
+        $criteria->offset = 0;
+
+        $users = array(1);
+        while (!empty($users)) {
+            $users = User::model()->findAll($criteria);
+            foreach($users as $user)
+                self::deleteContactFromList($user->email, 'mailru_users');
+
+            $criteria->offset += 100;
+            //echo $criteria->offset . "\n";
         }
     }
 }

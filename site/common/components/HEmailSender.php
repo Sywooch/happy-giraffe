@@ -109,4 +109,9 @@ class HEmailSender extends CApplicationComponent
 
         fclose($fp);
     }
+
+    public function deleteRegisteredFromContestList()
+    {
+        ElasticEmail::deleteRegisteredFromContestList();
+    }
 }

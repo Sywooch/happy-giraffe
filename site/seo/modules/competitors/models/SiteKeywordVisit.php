@@ -255,7 +255,6 @@ class SiteKeywordVisit extends HActiveRecord
             $model->setAttribute('m' . $month, $value);
         }
 
-        if (!$model->save())
-            throw new CHttpException(404, 'Error - stats doesnt saved.');
+        $model->save();
     }
 }

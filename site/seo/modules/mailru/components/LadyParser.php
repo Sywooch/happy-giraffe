@@ -40,6 +40,8 @@ class LadyParser extends LiBaseParser
 
     public function getPage()
     {
+        echo "get page\n";
+
         $criteria = new CDbCriteria;
         $criteria->compare('active', 0);
         $criteria->compare('type', 0);
@@ -47,15 +49,17 @@ class LadyParser extends LiBaseParser
         $transaction = Yii::app()->db_seo->beginTransaction();
         try {
             $this->query = MailruQuery::model()->find($criteria);
-            if ($this->query === null)
-                Yii::app()->end();
 
             $this->query->active = 1;
             $this->query->save();
             $transaction->commit();
         } catch (Exception $e) {
             $transaction->rollback();
+            echo 'fail';
+            Yii::app()->end();
         }
+
+        echo "get loaded\n";
 
         $this->page = 1;
     }

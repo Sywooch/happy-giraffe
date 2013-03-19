@@ -45,7 +45,7 @@ class MailParsingCommand extends CConsoleCommand
 
     public function actionTest()
     {
-        $p = new LadyParser;
+        $p = new LedyForumParser();
         $p->start();
     }
 }

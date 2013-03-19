@@ -82,7 +82,7 @@ class ProxyParserThread
                 curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
                 curl_setopt($ch, CURLOPT_PROXY, $this->proxy->value);
                 if (Yii::app()->params['use_proxy_auth']) {
-                    curl_setopt($ch, CURLOPT_PROXYUSERPWD, "alexhg:Nokia1111");
+                    curl_setopt($ch, CURLOPT_PROXYUSERPWD, "alexk984:Nokia1111");
                     curl_setopt($ch, CURLOPT_PROXYAUTH, 1);
                 }
             }

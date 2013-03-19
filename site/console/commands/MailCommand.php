@@ -118,7 +118,20 @@ class MailCommand extends CConsoleCommand
         }
     }
 
-    public function actionImportUsers(){
+    public function actionImportUsers()
+    {
         HEmailSender::importUsers();
+    }
+
+    public function actionExport()
+    {
+        $emails = Yii::app()->db_seo->createCommand()
+            ->select('email')
+            ->from('mailru__users')
+            ->where('id >= 534973')
+            ->limit(100)
+            ->queryColumn();
+        foreach($emails as $email)
+            echo $email."\n";
     }
 }

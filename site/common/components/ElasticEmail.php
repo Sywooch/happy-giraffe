@@ -259,7 +259,7 @@ class ElasticEmail extends CApplicationComponent
     {
         $criteria = new CDbCriteria;
         $criteria->limit = 100;
-        $criteria->condition = 'id > 100000';
+        $criteria->condition = 'id > 70000 AND id <= 100000';
         $criteria->offset = 0;
 
         $users = array(1);

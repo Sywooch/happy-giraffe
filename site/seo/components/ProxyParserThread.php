@@ -43,6 +43,7 @@ class ProxyParserThread
 
         $criteria = new CDbCriteria;
         $criteria->condition = 'id % 645 = ' . $this->thread_id;
+        $criteria->order = 'rank desc';
         $this->proxy = Proxy::model()->find($criteria);
 
         $this->endTimer();

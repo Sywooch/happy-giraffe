@@ -5,7 +5,6 @@
  *
  * The followings are the available columns in table 'parsing_keywords':
  * @property integer $keyword_id
- * @property integer $active
  * @property integer $priority
  * @property integer $type
  * @property integer $updated

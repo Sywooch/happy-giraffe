@@ -30,7 +30,7 @@ class WordstatParser extends ProxyParserThread
         $this->getCookie();
     }
 
-    public function start($mode)
+    public function start($mode = false)
     {
         $this->init($mode);
 

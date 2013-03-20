@@ -17,7 +17,7 @@ class ZeroCommentsPosts extends PostForCommentator
         $criteria = $this->getCriteria();
         $posts = $this->getPosts($criteria);
 
-        $this->logState(count($posts));
+        $this->logPostsCount(count($posts));
 
         if (count($posts) == 0) {
             return $this->nextGroup();

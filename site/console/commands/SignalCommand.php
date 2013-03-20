@@ -193,11 +193,6 @@ class SignalCommand extends CConsoleCommand
         $month = date("Y-m");
         $commentators = CommentatorWork::getWorkingCommentators();
 
-        //test on some user
-        foreach ($commentators as $key => $commentator)
-            if (in_array($commentator->user_id, array(15426, 15363, 15328, 15292, 15322, 15385, 15468, 15496, 15493, 15545, 15551)))
-                unset($commentators[$key]);
-
         $this->loginGa();
 
         foreach ($commentators as $commentator) {

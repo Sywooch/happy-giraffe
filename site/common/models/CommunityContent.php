@@ -21,6 +21,7 @@
  * The followings are the available model relations:
  *
  * @property User $contentAuthor
+ * @property User $author
  * @property CommunityRubric $rubric
  * @property CommunityContentType $type
  * @property CommunityPost $post

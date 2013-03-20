@@ -70,16 +70,16 @@ class WordstatParser extends ProxyParserThread
 
     public function loadKeywordsByTransaction()
     {
-        $this->startTimer('load keywords');
+        $this->startTimer('load keywords1');
 
 //        $transaction = Yii::app()->db_keywords->beginTransaction();
 //        try {
             //сначала загружаем приоритетные фразы
             $criteria = new CDbCriteria;
-            $criteria->condition = 'priority > 0';
+            $criteria->condition = 'priority != 0';
             $criteria->compare('active', 0);
             $criteria->compare('type', 0);
-            $criteria->limit = 10;
+            $criteria->limit = 100;
             $criteria->offset = rand(0, 200);
             $this->keywords = ParsingKeyword::model()->findAll($criteria);
 
@@ -97,6 +97,10 @@ class WordstatParser extends ProxyParserThread
             } else {
                 $this->log(count($this->keywords) . ' priority keywords loaded');
             }
+
+        $this->endTimer();
+        $this->startTimer('load keywords2');
+
 
             //update active
             $keys = array();

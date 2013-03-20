@@ -70,7 +70,7 @@ class WordstatParser extends ProxyParserThread
 
     public function loadKeywords()
     {
-        $this->startTimer('load keywords1');
+        $this->startTimer('load keywords');
 
         //сначала загружаем приоритетные фразы
         $criteria = new CDbCriteria;

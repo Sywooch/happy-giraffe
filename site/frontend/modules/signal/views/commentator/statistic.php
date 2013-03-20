@@ -56,8 +56,8 @@ $current_month = CommentatorsMonthStats::getWorkingMonth($period);
                 <tr>
                     <td class="col-1">3.  Количество просмотров анкеты</td>
 
-                    <td class="col-2"><?=$current_month->getStatValue($this->commentator->user_id, CommentatorsMonthStats::PROFILE_UNIQUE_VIEWS) ?></td>
-                    <td class="col-3"><?=$this->commentator->getPlace($period, CommentatorsMonthStats::PROFILE_UNIQUE_VIEWS) ?></td>
+                    <td class="col-2"><?=$current_month->getStatValue($this->commentator->user_id, CommentatorsMonthStats::PROFILE_VIEWS) ?></td>
+                    <td class="col-3"><?=$this->commentator->getPlace($period, CommentatorsMonthStats::PROFILE_VIEWS) ?></td>
                     <td class="col-4"><a href="<?=$this->createUrl('/signal/commentator/help/') ?>#profile-views">Как сделать личную страницу (включая блог и фотогалерею) наиболее посещаемой по количеству просмотров</a></td>
                 </tr>
             </table>

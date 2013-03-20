@@ -502,20 +502,11 @@ class CommentatorWork extends EMongoDocument
         return round($rating * $dialogs_count);
     }
 
-    public function blogVisits($period)
-    {
-        $month = CommentatorsMonthStats::getOrCreateWorkingMonth($period);
-        if (isset($month->commentators[(int)$this->user_id][CommentatorsMonthStats::BLOG_VISITS]))
-            return $month->commentators[(int)$this->user_id][CommentatorsMonthStats::BLOG_VISITS];
-
-        return 0;
-    }
-
     public function profileUniqueViews($period)
     {
         $month = CommentatorsMonthStats::getOrCreateWorkingMonth($period);
-        if (isset($month->commentators[(int)$this->user_id][CommentatorsMonthStats::PROFILE_UNIQUE_VIEWS]))
-            return $month->commentators[(int)$this->user_id][CommentatorsMonthStats::PROFILE_UNIQUE_VIEWS];
+        if (isset($month->commentators[(int)$this->user_id][CommentatorsMonthStats::PROFILE_VIEWS]))
+            return $month->commentators[(int)$this->user_id][CommentatorsMonthStats::PROFILE_VIEWS];
 
         return 0;
     }

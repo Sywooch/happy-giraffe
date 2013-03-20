@@ -169,14 +169,13 @@ class SignalCommand extends CConsoleCommand
             $ids [] = $commentator->user_id;
 
         $month = date("Y-m");
-        $this->loginGa();
 
         $visits = SearchEngineVisits::model()->findAllByAttributes(array('month' => $month));
         foreach ($visits as $visit) {
             $article = $visit->page->getArticle();
 
             if ($article !== null && in_array($article->author_id, $ids)) {
-                $visit->count = GApi::getUrlOrganicSearches($this->ga, $month . '-01', $month . '-' . $this->getLastPeriodDay($month), str_replace('http://www.happy-giraffe.ru', '', $visit->page->url), false);
+                $visit->count = GApi::model()->organicSearches($month . '-01', $month . '-' . $this->getLastPeriodDay($month), str_replace('http://www.happy-giraffe.ru', '', $visit->page->url), false);
                 echo $visit->page->url . " - " . $visit->count . "\n";
                 if (!empty($visit->count))
                     $visit->save();
@@ -193,15 +192,13 @@ class SignalCommand extends CConsoleCommand
         $month = date("Y-m");
         $commentators = CommentatorWork::getWorkingCommentators();
 
-        $this->loginGa();
-
         foreach ($commentators as $commentator) {
             $models = CommunityContent::model()->findAll('author_id = ' . $commentator->user_id);
 
             foreach ($models as $model) {
                 $url = trim($model->url, '.');
                 if (!empty($url)) {
-                    $ga_visits = GApi::getUrlOrganicSearches($this->ga, $month . '-01', $month . '-' . date("d"), $url, false);
+                    $ga_visits = GApi::model()->organicSearches($month . '-01', $month . '-' . date("d"), $url, false);
                     $my_visits = SearchEngineVisits::getVisits($url, $month);
 
                     if ($ga_visits > 0)
@@ -218,12 +215,6 @@ class SignalCommand extends CConsoleCommand
     public function getLastPeriodDay($period)
     {
         return str_pad(cal_days_in_month(CAL_GREGORIAN, date('n', strtotime($period)), date('Y', strtotime($period))), 2, "0", STR_PAD_LEFT);
-    }
-
-    public function loginGa()
-    {
-        $this->ga = new GoogleAnalytics('alexk984@gmail.com', Yii::app()->params['gaPass']);
-        $this->ga->setProfile('ga:53688414');
     }
 
     public function actionSync()

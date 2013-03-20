@@ -15,7 +15,6 @@
 class TrafficStatisctic extends HActiveRecord
 {
     private $sections;
-    private $ga;
 
     /**
      * Returns the static model of the specified AR class.
@@ -82,12 +81,7 @@ class TrafficStatisctic extends HActiveRecord
         Yii::import('site.frontend.extensions.GoogleAnalytics');
 
         $this->sections = TrafficSection::model()->findAll();
-
-        //start with month ago
         $date = date("Y-m-d", strtotime('-1 month'));
-
-        $this->ga = new GoogleAnalytics('alexk984@gmail.com', Yii::app()->params['gaPass']);
-        $this->ga->setProfile('ga:53688414');
 
         while (strtotime($date) < time()) {
             $this->parseDate($date);
@@ -103,9 +97,9 @@ class TrafficStatisctic extends HActiveRecord
             $traffic = TrafficStatisctic::model()->findByAttributes(array('date' => $date, 'section_id' => $section->id));
             if ($traffic === null || $traffic->full == false) {
                 if (!empty($section->url))
-                    $value = GApi::getUrlOrganicSearches($this->ga, $date, $date, '/' . $section->url . '/');
+                    $value = GApi::model()->organicSearches($date, $date, '/' . $section->url . '/');
                 else
-                    $value = GApi::getUrlOrganicSearches($this->ga, $date, $date, '/');
+                    $value = GApi::model()->organicSearches($date, $date, '/');
 
                 echo $section->url . ' - ' . $value . "\n";
                 if ($traffic === null) {

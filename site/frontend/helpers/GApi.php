@@ -2,27 +2,87 @@
 
 class GApi
 {
-    public static function getViewsByPath($path, $startDate = null, $endDate = null)
+    protected static $_instance;
+    /**
+     * @var GoogleAnalytics
+     */
+    private $ga;
+
+    private function __construct()
     {
-        Yii::import('site.frontend.extensions.GoogleAnalytics');
-
-        $ga = new GoogleAnalytics('alexk984@gmail.com', Yii::app()->params['gaPass']);
-        $ga->setProfile('ga:53688414');
-        $ga->setDateRange($startDate === null ? '2005-01-01' : $startDate, $endDate === null ? date('Y-m-d') : $endDate);
-
-        $array = $ga->getReport(
-            array(
-                'metrics' => urlencode('ga:uniquePageviews'),
-                'filters' => urlencode('ga:pagePath=~' . $path),
-            )
-        );
-
-        return ($array) ? $array['']['ga:uniquePageviews'] : 0;
+        $this->ga = new GoogleAnalytics('alexk984@gmail.com', Yii::app()->params['gaPass']);
+        $this->ga->setProfile('ga:53688414');
     }
 
-    public static function getUrlOrganicSearches($ga, $date1, $date2, $url, $include_sub_pages = true)
+    private function __clone()
     {
-        $ga->setDateRange($date1, $date2);
+    }
+
+    public static function model()
+    {
+        if (null === self::$_instance)
+            self::$_instance = new self();
+
+        return self::$_instance;
+    }
+
+    /**
+     * Возвращает количество уникальных посещений за период времени
+     *
+     * @param $url
+     * @param $date1
+     * @param $date2
+     * @param bool $include_sub_pages
+     * @return int
+     */
+    public function uniquePageViews($url, $date1, $date2, $include_sub_pages = true)
+    {
+
+        return $this->getStat($url, $date1, $date2, $include_sub_pages, 'uniquePageviews');
+    }
+
+    /**
+     * Возвращает количество поситителей за период времени
+     *
+     * @param $url
+     * @param $date1
+     * @param $date2
+     * @param bool $include_sub_pages
+     * @return int
+     */
+    public function visitors($url, $date1, $date2, $include_sub_pages = true)
+    {
+
+        return $this->getStat($url, $date1, $date2, $include_sub_pages, 'visitors');
+    }
+
+    /**
+     * Возвращает количество заходов из поисковиков за период времени
+     *
+     * @param $url
+     * @param $date1
+     * @param $date2
+     * @param bool $include_sub_pages
+     * @return int
+     */
+    public function organicSearches($url, $date1, $date2, $include_sub_pages = true)
+    {
+        return $this->getStat($url, $date1, $date2, $include_sub_pages, 'organicSearches');
+    }
+
+    /**
+     * Возвращает значение параметра за период
+     *
+     * @param $url
+     * @param $date1
+     * @param $date2
+     * @param $include_sub_pages
+     * @param $stat
+     * @return int
+     */
+    private function getStat($url, $date1, $date2, $include_sub_pages, $stat)
+    {
+        $this->ga->setDateRange($date1, $date2);
 
         if ($include_sub_pages)
             $filter = urlencode('ga:pagePath=~' . $url . '*');
@@ -31,19 +91,17 @@ class GApi
 
         try {
             sleep(1);
-            $report = $ga->getReport(array(
-                'metrics' => urlencode('ga:organicSearches'),
+            $report = $this->ga->getReport(array(
+                'metrics' => urlencode('ga:'.$stat),
                 'filters' => $filter,
             ));
 
         } catch (Exception $err) {
             echo $err->getMessage();
             sleep(60);
-            return self::getUrlOrganicSearches($ga, $date1, $date2, $url, $include_sub_pages);
+            return $this->getUrlOrganicSearches($date1, $date2, $url, $include_sub_pages);
         }
 
-        if (isset($report[""]['ga:organicSearches']))
-            return $report[""]['ga:organicSearches'];
-        return 0;
+        return isset($report[""]['ga:'.$stat]) ? $report[""]['ga:'.$stat] : 0;
     }
 }

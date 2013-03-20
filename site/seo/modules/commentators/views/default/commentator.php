@@ -63,8 +63,8 @@ $this->renderPartial('_avatar', compact('commentator'));
                 <tr>
                     <td class="col-1">3. Количество просмотров анкеты</td>
 
-                    <td class="col-2"><?=$month->getStatValue($user_id, CommentatorsMonthStats::PROFILE_UNIQUE_VIEWS) ?></td>
-                    <td class="col-3"><?=$month->getPlaceView($user_id, CommentatorsMonthStats::PROFILE_UNIQUE_VIEWS) ?></td>
+                    <td class="col-2"><?=$month->getStatValue($user_id, CommentatorsMonthStats::PROFILE_VIEWS) ?></td>
+                    <td class="col-3"><?=$month->getPlaceView($user_id, CommentatorsMonthStats::PROFILE_VIEWS) ?></td>
                     <td class="col-4"></td>
                 </tr>
             </table>

@@ -3,8 +3,7 @@
 class CommentatorsMonthStats extends EMongoDocument
 {
     const NEW_FRIENDS = 1;
-    const BLOG_VISITS = 2;
-    const PROFILE_UNIQUE_VIEWS = 3;
+    const PROFILE_VIEWS = 3;
     const IM_MESSAGES = 4;
     const SE_VISITS = 5;
 
@@ -12,7 +11,6 @@ class CommentatorsMonthStats extends EMongoDocument
     public $commentators = array();
     public $workingDays = array();
     public $working_days_count = 22;
-    public $page_visits = array();
 
     /**
      * @var GoogleAnalytics
@@ -100,13 +98,13 @@ class CommentatorsMonthStats extends EMongoDocument
                     if ($blog_visits !== null)
                         $this->commentators[(int)$commentator->id][self::BLOG_VISITS] = (int)$blog_visits;
                     if ($profile_view !== null)
-                        $this->commentators[(int)$commentator->id][self::PROFILE_UNIQUE_VIEWS] = (int)$profile_view;
+                        $this->commentators[(int)$commentator->id][self::PROFILE_VIEWS] = (int)$profile_view;
                 } else {
 
                     $result = array(
                         self::NEW_FRIENDS => (int)$new_friends,
                         self::BLOG_VISITS => (int)$blog_visits,
-                        self::PROFILE_UNIQUE_VIEWS => (int)$profile_view,
+                        self::PROFILE_VIEWS => (int)$profile_view,
                         self::IM_MESSAGES => (int)$im_messages,
                         self::SE_VISITS => (int)$se_visits,
                     );
@@ -122,47 +120,6 @@ class CommentatorsMonthStats extends EMongoDocument
                 unset($this->commentators[$commentator_id]);
 
         $this->save();
-    }
-
-    public function calculateCommentator($id)
-    {
-        Yii::import('site.frontend.extensions.GoogleAnalytics');
-        $this->loginGa();
-
-        $criteria = new EMongoCriteria;
-        $criteria->user_id('==', (int)$id);
-        $model = CommentatorWork::model()->find($criteria);
-        if ($model !== null) {
-            $new_friends = $model->newFriends($this->period);
-            $im_messages = $model->imMessages($this->period);
-            $blog_visits = $this->blogVisits($id);
-            $profile_view = $this->profileUniqueViews($id);
-            $se_visits = $this->getSeVisits($id);
-
-
-            if (isset($this->commentators[(int)$id])) {
-                $this->commentators[(int)$id][self::NEW_FRIENDS] = (int)$new_friends;
-                $this->commentators[(int)$id][self::IM_MESSAGES] = (int)$im_messages;
-                if ($se_visits !== null)
-                    $this->commentators[(int)$id][self::SE_VISITS] = (int)$se_visits;
-
-                if ($blog_visits !== null)
-                    $this->commentators[(int)$id][self::BLOG_VISITS] = (int)$blog_visits;
-                if ($profile_view !== null)
-                    $this->commentators[(int)$id][self::PROFILE_UNIQUE_VIEWS] = (int)$profile_view;
-            } else {
-
-                $result = array(
-                    self::NEW_FRIENDS => (int)$new_friends,
-                    self::BLOG_VISITS => (int)$blog_visits,
-                    self::PROFILE_UNIQUE_VIEWS => (int)$profile_view,
-                    self::IM_MESSAGES => (int)$im_messages,
-                    self::SE_VISITS => (int)$se_visits,
-                );
-                $this->commentators[(int)$id] = $result;
-            }
-            $this->save();
-        }
     }
 
     /**
@@ -248,54 +205,12 @@ class CommentatorsMonthStats extends EMongoDocument
 
     public function profileUniqueViews($user_id)
     {
-        echo 'profile views: ';
-        $this->ga->setDateRange($this->period . '-01', $this->period . '-' . $this->getLastPeriodDay($this->period));
-        sleep(1);
-
-        try {
-            $report = $this->ga->getReport(array(
-                'metrics' => urlencode('ga:uniquePageviews'),
-                'filters' => urlencode('ga:pagePath==' . '/user/' . $user_id . '/'),
-            ));
-        } catch (Exception $err) {
-            sleep(60);
-            $this->loginGa();
-            return $this->profileUniqueViews($user_id);
-        }
-
-        if (!empty($report))
-            $value = $report['']['ga:uniquePageviews'];
-        else
-            $value = 0;
-
-        echo $value . "\n";
-        return $value;
+        return GApi::model()->uniquePageviews('/user/' . $user_id . '/', $this->period . '-01', $this->period . '-' . $this->getLastPeriodDay($this->period));
     }
 
     public function blogVisits($user_id)
     {
-        echo 'blog visits: ';
-        $this->ga->setDateRange($this->period . '-01', $this->period . '-' . $this->getLastPeriodDay($this->period));
-        sleep(1);
-
-        try {
-            $report = $this->ga->getReport(array(
-                'metrics' => urlencode('ga:visitors'),
-                'filters' => urlencode('ga:pagePath=~' . '/user/' . $user_id . '/blog/*'),
-            ));
-        } catch (Exception $err) {
-            sleep(60);
-            $this->loginGa();
-            return $this->blogVisits($user_id);
-        }
-
-        if (!empty($report))
-            $value = $report['']['ga:visitors'];
-        else
-            $value = 0;
-
-        echo $value . "\n";
-        return $value;
+        return GApi::model()->visitors('/user/' . $user_id . '/blog/', $this->period . '-01', $this->period . '-' . $this->getLastPeriodDay($this->period));
     }
 
     public function getSeVisits($user_id)
@@ -324,11 +239,6 @@ class CommentatorsMonthStats extends EMongoDocument
     public function getVisits($url)
     {
         return SearchEngineVisits::getVisits($url, $this->period);
-    }
-
-    public function addPageVisit($url, $value)
-    {
-        $this->page_visits[$url] = (int)$value;
     }
 
     public function getPageVisitsCount($url)

@@ -10,21 +10,21 @@ class AttendanceWidget extends CWidget {
 
         $total = Yii::app()->cache->get($this->getCacheId('total'));
         if ($total === false) {
-            $total = GApi::getViewsByPath($path);
+            $total = GApi::uniquePageViews($path);
             Yii::app()->cache->set($this->getCacheId('total'), $total, 600);
         }
 
         $yesterday = Yii::app()->cache->get($this->getCacheId('yesterday'));
         if ($yesterday === false) {
             $yesterdayDate = date('Y-m-d', time() - 60 * 60 * 24);
-            $yesterday = GApi::getViewsByPath($path, $yesterdayDate, $yesterdayDate);
+            $yesterday = GApi::uniquePageViews($path, $yesterdayDate, $yesterdayDate);
             Yii::app()->cache->set($this->getCacheId('yesterday'), $yesterday, 0, new CExpressionDependency(), date('Y-m-d'));
         }
 
         $today = Yii::app()->cache->get($this->getCacheId('today'));
         if ($today === false) {
             $todayDate = date('Y-m-d');
-            $today = GApi::getViewsByPath($path, $todayDate, $todayDate);
+            $today = GApi::uniquePageViews($path, $todayDate, $todayDate);
             Yii::app()->cache->set($this->getCacheId('today'), $today, 600);
         }
 

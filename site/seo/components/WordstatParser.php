@@ -72,50 +72,23 @@ class WordstatParser extends ProxyParserThread
     {
         $this->startTimer('load keywords1');
 
-//        $transaction = Yii::app()->db_keywords->beginTransaction();
-//        try {
-            //сначала загружаем приоритетные фразы
+        //сначала загружаем приоритетные фразы
+        $criteria = new CDbCriteria;
+        $criteria->condition = 'priority != 0 AND keyword_id % ' . $this->thread_id . ' = 0';
+        $criteria->limit = 100;
+        $this->keywords = ParsingKeyword::model()->findAll($criteria);
+
+        if (empty($this->keywords)) {
+            //если нет приоритетных загружаем остальные
             $criteria = new CDbCriteria;
-            $criteria->condition = 'priority != 0';
-            $criteria->compare('active', 0);
-            //$criteria->compare('type', 0);
-            $criteria->limit = 100;
-            //$criteria->offset = rand(0, 200);
+            $criteria->limit = 10;
+            $criteria->order = 'updated asc';
+
             $this->keywords = ParsingKeyword::model()->findAll($criteria);
-
-            if (empty($this->keywords)) {
-                //если нет приоритетных загружаем остальные
-                $criteria = new CDbCriteria;
-                $criteria->compare('active', 0);
-                $criteria->compare('type', 0);
-                $criteria->limit = 10;
-                $criteria->offset = rand(0, 200);
-                $criteria->order = 'updated asc';
-
-                $this->keywords = ParsingKeyword::model()->findAll($criteria);
-                $this->log(count($this->keywords) . ' keywords with 0 priority loaded');
-            } else {
-                $this->log(count($this->keywords) . ' priority keywords loaded');
-            }
-
-        $this->endTimer();
-        $this->startTimer('load keywords2');
-
-
-            //update active
-            $keys = array();
-            foreach ($this->keywords as $key)
-                $keys [] = $key->keyword_id;
-
-            Yii::app()->db_keywords->createCommand()->update('parsing_keywords', array('active' => 1),
-                'keyword_id IN (' . implode(',', $keys) . ')');
-
-//            $transaction->commit();
-//        } catch (Exception $e) {
-//            $transaction->rollback();
-//            echo 'fail';
-//            Yii::app()->end();
-//        }
+            $this->log(count($this->keywords) . ' keywords with 0 priority loaded');
+        } else {
+            $this->log(count($this->keywords) . ' priority keywords loaded');
+        }
 
         $this->endTimer();
     }

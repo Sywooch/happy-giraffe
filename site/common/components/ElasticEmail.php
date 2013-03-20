@@ -258,18 +258,14 @@ class ElasticEmail extends CApplicationComponent
     public static function deleteRegisteredFromContestList()
     {
         $criteria = new CDbCriteria;
-        $criteria->limit = 100;
-        $criteria->condition = 'id > 70000 AND id <= 100000';
-        $criteria->offset = 0;
+        $criteria->order = 'id desc';
+        $criteria->limit = 1500;
 
-        $users = array(1);
-        while (!empty($users)) {
-            $users = User::model()->findAll($criteria);
-            foreach($users as $user)
-                self::deleteContactFromList($user->email, 'mailru_users');
-
-            $criteria->offset += 100;
-            //echo $criteria->offset . "\n";
+        $users = User::model()->findAll($criteria);
+        foreach($users as $user){
+            self::deleteContactFromList($user->email, 'mailru_users');
+            self::deleteContactFromList($user->email, 'new_list1');
+            self::deleteContactFromList($user->email, 'new_list2');
         }
     }
 }

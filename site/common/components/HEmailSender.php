@@ -87,29 +87,6 @@ class HEmailSender extends CApplicationComponent
         }
     }
 
-    public static function importUsers()
-    {
-        //108996 - последний пользователь в списке
-        $criteria = new CDbCriteria;
-        $criteria->condition = 'id >= 60000 AND deleted = 0';
-        $criteria->limit = 1000;
-
-        $fp = fopen('/home/beryllium/emails.csv', 'w');
-        fputcsv($fp, array('Email Address', 'First Name', 'Last Name'));
-
-        $models = array(0);
-        while (!empty($models)) {
-            $models = User::model()->findAll($criteria);
-            foreach ($models as $model) {
-                fputcsv($fp, array($model->email, $model->first_name, $model->last_name));
-            }
-
-            $criteria->offset = $criteria->offset + 1000;
-        }
-
-        fclose($fp);
-    }
-
     public function deleteRegisteredFromContestList()
     {
         ElasticEmail::deleteRegisteredFromContestList();

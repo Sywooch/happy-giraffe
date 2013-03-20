@@ -803,7 +803,7 @@ class CookRecipe extends CActiveRecord
         $criteria->from = 'recipe';
         $criteria->select = '*';
         $criteria->paginator = $pages;
-        $criteria->query = $text;
+        $criteria->query = Str::prepareForSphinxSearch($text);
 
         $idArray = $this->getSearchResultIdArray($criteria);
         $criteria = new CDbCriteria;

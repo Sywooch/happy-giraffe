@@ -2,29 +2,16 @@
 /**
  * Author: alexk984
  * Date: 30.08.12
+ *
+ * Ищет посты для комментирования в постах обычных пользователей
+ *
  */
 class UserPosts extends PostForCommentator
 {
-    protected $entities = array(
-        'CommunityContent' => array(24),
-        'CookRecipe' => array(2, 3),
-    );
     protected $nextGroup = 'TrafficPosts';
-
-    public function getPost()
-    {
-        Yii::import('site.frontend.modules.cook.models.*');
-        $criteria = $this->getCriteria();
-        $posts = $this->getPosts($criteria, true);
-
-        $this->logState(count($posts));
-
-        if (count($posts) == 0) {
-            return $this->nextGroup();
-        } else {
-            return array(get_class($posts[0]), $posts[0]->id);
-        }
-    }
+    protected $entities = array(
+        'CommunityContent',
+    );
 
     /**
      * @param bool $simple_users
@@ -40,11 +27,30 @@ class UserPosts extends PostForCommentator
                 'select'=>array('id'),
                 'condition' => ($simple_users) ? 'author.group = 0' : 'author.group > 0',
                 'together' => true,
-                'with'=>array('priority')
             ),
         );
-        $criteria->order = 'priority.priority desc';
 
         return $criteria;
+    }
+
+    /**
+     * Возвращает лимит комментариев для поста, зависит от кол-во постов у автора
+     *
+     * новички - 5 комментариев
+     * 2-4 поста - 8 комментариев
+     * 5 и более - 15 комментариев
+     *
+     * @param CommunityContent $post
+     * @return int
+     */
+    protected function getCommentsLimit($post)
+    {
+        $author_posts_count = $post->author->communityContentsCount;
+        if ($author_posts_count < 2)
+            return 5;
+        elseif ($author_posts_count < 5)
+            return 8;
+        else
+            return 15;
     }
 }

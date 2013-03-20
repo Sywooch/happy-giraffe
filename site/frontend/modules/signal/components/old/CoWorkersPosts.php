@@ -6,8 +6,8 @@
 class CoWorkersPosts extends PostForCommentator
 {
     protected $entities = array(
-        'CommunityContent' => array(10),
-        'CookRecipe' => array(2, 3),
+        'CommunityContent' => 10,
+        'CookRecipe' => 3,
     );
     protected $nextGroup = 'ZeroCommentsPosts';
 
@@ -18,7 +18,7 @@ class CoWorkersPosts extends PostForCommentator
         $criteria = $this->getCriteria(false);
         $posts = $this->getPosts($criteria, true);
 
-        $this->logState(count($posts));
+        $this->logPostsCount(count($posts));
 
         if (count($posts) == 0) {
             return $this->nextGroup();

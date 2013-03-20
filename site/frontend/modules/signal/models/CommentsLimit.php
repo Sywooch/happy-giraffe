@@ -5,7 +5,6 @@ class CommentsLimit extends EMongoDocument
     public $entity;
     public $entity_id;
     public $limit;
-    public $comment_times = array();
 
     public static function model($className = __CLASS__)
     {
@@ -23,14 +22,16 @@ class CommentsLimit extends EMongoDocument
     }
 
     /**
+     * Получить Limit комментариев для поста (слу
+     *
+     *
      * @static
      * @param string $entity
      * @param int $entity_id
      * @param array|int $limit
-     * @param array $timings
      * @return int
      */
-    public static function getLimit($entity, $entity_id, $limit, $timings)
+    public static function getLimit($entity, $entity_id, $limit)
     {
         $criteria = new EMongoCriteria;
         $criteria->entity('==', $entity);
@@ -49,10 +50,6 @@ class CommentsLimit extends EMongoDocument
                 $model->limit = rand(round($limit - $limit / 8), round($limit + $limit / 8));
             }
 
-            $model->comment_times = self::generateTimes($timings);
-            $model->save();
-        } elseif (empty($model->comment_times)) {
-            $model->comment_times = self::generateTimes($timings);
             $model->save();
         }
 
@@ -72,20 +69,6 @@ class CommentsLimit extends EMongoDocument
             }
         }
 
-
-        return array($model->limit, $model->comment_times);
-    }
-
-    public function generateTimes($timings)
-    {
-        $periods = array(0, 60, 180, 360, 2880);
-        $result = array();
-        for ($i = 0; $i < count($timings); $i++) {
-            for ($j = 0; $j < $timings[$i]; $j++)
-                $result[] = $periods[$i] + rand($periods[$i], $periods[$i + 1]);
-        }
-
-        sort($result);
-        return $result;
+        return $model->limit;
     }
 }

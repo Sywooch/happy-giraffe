@@ -88,8 +88,7 @@ class ParsingKeyword extends CActiveRecord
             array(':id' => $this->keyword_id));
         $this->updated = date("Y-m-d H:i:s");
         $this->priority = 0;
-        $this->active = 0;
-        $this->update(array('updated', 'priority', 'active'));
+        $this->update(array('updated', 'priority'));
     }
 
     public static function wordstatParsed($keyword_id)

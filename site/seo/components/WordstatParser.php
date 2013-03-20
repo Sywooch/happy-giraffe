@@ -68,7 +68,7 @@ class WordstatParser extends ProxyParserThread
         }
     }
 
-    public function loadKeywordsByTransaction()
+    public function loadKeywords()
     {
         $this->startTimer('load keywords1');
 
@@ -93,33 +93,12 @@ class WordstatParser extends ProxyParserThread
         $this->endTimer();
     }
 
-    public function loadKeywordsByUpdate()
-    {
-        $this->startTimer('load keywords');
-
-        //сначала загружаем приоритетные фразы
-        Yii::app()->db_keywords->createCommand("update parsing_keywords set active=:pid where active=0 AND type=0 AND priority > 0 order by keyword_id desc limit 20")->execute(array(':pid' => $this->thread_id));
-        $this->keywords = ParsingKeyword::model()->findAll('active=' . $this->thread_id);
-
-        if (empty($this->keywords)) {
-            //если нет приоритетных загружаем остальные
-            Yii::app()->db_keywords->createCommand("update parsing_keywords set active=:pid where active=0 AND type=0 order by updated asc, keyword_id desc limit 20")->execute(array(':pid' => $this->thread_id));
-            $this->keywords = ParsingKeyword::model()->findAll('active=' . $this->thread_id);
-            $this->log(count($this->keywords) . ' keywords with 0 priority loaded');
-        } else {
-            $this->log(count($this->keywords) . ' priority keywords loaded');
-        }
-
-        $this->endTimer();
-    }
-
-
     public function getKeyword()
     {
         $this->first_page = true;
 
         if (empty($this->keywords))
-            $this->loadKeywordsByTransaction();
+            $this->loadKeywords();
 
         $this->keyword = array_shift($this->keywords);
         $this->log('Parsing keyword: ' . $this->keyword->keyword_id);
@@ -243,7 +222,6 @@ class WordstatParser extends ProxyParserThread
         return null;
     }
 
-
     public function getSimpleValue($keyword)
     {
         $url = 'http://wordstat.yandex.ru/?cmd=words&t=' . urlencode($keyword) . '&geo=&text_geo=';
@@ -256,18 +234,5 @@ class WordstatParser extends ProxyParserThread
         if (preg_match('/— ([\d]+) показ[ов]*[а]* в месяц/', $html, $matches)) {
             return $matches[1];
         } else return -1;
-    }
-
-    protected function closeThread($reason = 'unknown reason')
-    {
-        if (!empty($this->keyword))
-            $this->keywords [] = $this->keyword;
-
-        foreach ($this->keywords as $keyword) {
-            $keyword->active = 0;
-            $keyword->save();
-        }
-
-        parent::closeThread($reason);
     }
 }

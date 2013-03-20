@@ -78,9 +78,9 @@ class WordstatParser extends ProxyParserThread
             $criteria = new CDbCriteria;
             $criteria->condition = 'priority != 0';
             $criteria->compare('active', 0);
-            $criteria->compare('type', 0);
+            //$criteria->compare('type', 0);
             $criteria->limit = 100;
-            $criteria->offset = rand(0, 200);
+            //$criteria->offset = rand(0, 200);
             $this->keywords = ParsingKeyword::model()->findAll($criteria);
 
             if (empty($this->keywords)) {

@@ -22,10 +22,10 @@ class SeoCommand extends CConsoleCommand
         Config::setAttribute('stop_threads', 1);
     }
 
-    public function actionWordstat($mode = 0)
+    public function actionWordstat($thread_id = 0)
     {
-        $parser = new WordstatParser();
-        $parser->start($mode);
+        $parser = new WordstatParser($thread_id);
+        $parser->start($thread_id);
     }
 
     public function actionProxy()

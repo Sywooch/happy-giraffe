@@ -39,7 +39,7 @@ class ProxyParserThread
 
     private function getProxy()
     {
-        $this->startTimer('find proxy');
+        $this->startTimer('find proxy1');
 
         $criteria = new CDbCriteria;
         $criteria->compare('active', 0);
@@ -47,6 +47,10 @@ class ProxyParserThread
         $criteria->offset = rand(0, 20);
 
         $this->proxy = Proxy::model()->find($criteria);
+
+        $this->endTimer();
+        $this->startTimer('find proxy2');
+
         if ($this->proxy === null)
             $this->closeThread('No proxy');
         $this->proxy->active = 1;

@@ -42,6 +42,17 @@ class ProxyParserThread
         $this->startTimer('find proxy1');
 
         $criteria = new CDbCriteria;
+        $criteria->condition = 'priority != 0 AND keyword_id % 645 = ' . $this->thread_id;
+        $this->proxy = Proxy::model()->find($criteria);
+
+        $this->endTimer();
+    }
+
+    private function getProxyByRating()
+    {
+        $this->startTimer('find proxy1');
+
+        $criteria = new CDbCriteria;
         $criteria->compare('active', 0);
         $criteria->order = 'rank desc';
         $criteria->offset = rand(0, 20);
@@ -135,7 +146,7 @@ class ProxyParserThread
         else
             $this->proxy->rank = floor((($this->proxy->rank + $this->success_loads) / 5) * 4);
 
-        $this->proxy->active = 0;
+        //$this->proxy->active = 0;
         $this->proxy->save();
         $this->getProxy();
         $this->success_loads = 0;
@@ -163,7 +174,7 @@ class ProxyParserThread
     private function saveProxy()
     {
         $this->proxy->rank = $this->proxy->rank + $this->success_loads;
-        $this->proxy->active = 0;
+        //$this->proxy->active = 0;
         $this->proxy->save();
     }
 

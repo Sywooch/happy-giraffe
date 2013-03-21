@@ -48,4 +48,17 @@ class MailParsingCommand extends CConsoleCommand
         $p = new LedyForumParser();
         $p->start();
     }
+
+    public function actionLoadBounced()
+    {
+        $handle = fopen('f:/emaillog_bounced2.csv', 'r');
+        while (($data = fgetcsv($handle)) !== FALSE) {
+            $model = MailruUser::model()->findByAttributes(array('email'=>$data[0]));
+            if ($model !== null){
+                $model->status = MailruUser::STATUS_CLEANED;
+                $model->save();
+            }
+        }
+        fclose($handle);
+    }
 }

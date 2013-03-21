@@ -61,9 +61,8 @@ class WordstatCommand extends CConsoleCommand
         $parser->addToParsing($num);
     }
 
-    public function actionFixPriority()
+    public function actionFixPriority($i = 0)
     {
-        $i = 0;
         $ids = 1;
         while (!empty($ids)) {
             $ids = Yii::app()->db_keywords->createCommand()

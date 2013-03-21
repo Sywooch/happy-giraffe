@@ -99,7 +99,7 @@ class Str
 
     public static function prepareForSphinxSearch($text)
     {
-        $text = preg_replace('/[^a-zа-яё\d]+/iu', '', $text);
+        $text = preg_replace('/[^a-zа-яё\d\s]+/iu', '', $text);
 
         return $text;
     }

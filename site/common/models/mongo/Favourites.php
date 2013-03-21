@@ -90,17 +90,61 @@ class Favourites extends EMongoDocument
 
         $models = self::model()->findAll($criteria);
         $ids = array();
-        foreach($models as $model)
+        foreach ($models as $model)
             $ids [] = $model->entity_id;
 
         return $ids;
+    }
+
+    /**
+     * Возвращает список id постов для комментирования
+     *
+     * @param $index
+     * @return array
+     */
+    public static function getListForCommentators($index)
+    {
+        $criteria = new EMongoCriteria;
+        $criteria->block('==', (int)$index);
+        $criteria->sort('created', EMongoCriteria::SORT_DESC);
+        $criteria->param('==', (int)self::getLimit($index));
+        #TODO добавить ограничения чтобы не комментировали те, которые уже неактуальны, например в email-рассылке
+
+        $models = self::model()->findAll($criteria);
+        $ids = array();
+        foreach ($models as $model)
+            $ids [] = $model->entity_id;
+
+        return $ids;
+    }
+
+    /**
+     * Возвращает лимит постов для комментирования
+     *
+     * @param $index тип блока
+     * @return int
+     */
+    public static function getLimit($index)
+    {
+        switch ($index) {
+            case self::BLOCK_BLOGS:
+                return 6;
+            case self::BLOCK_INTERESTING:
+                return 2;
+            case self::BLOCK_SOCIAL_NETWORKS:
+                return 10;
+            case self::WEEKLY_MAIL:
+                return 6;
+        }
+
+        return 1;
     }
 
     public static function getIdListForView($index, $limit = null, $param = null)
     {
         $criteria = new EMongoCriteria;
         $criteria->block('==', (int)$index);
-        $criteria->created('<', strtotime(date("Y-m-d", strtotime('-1 day')).' 23:59:59' ));
+        $criteria->created('<', strtotime(date("Y-m-d", strtotime('-1 day')) . ' 23:59:59'));
         $criteria->sort('created', EMongoCriteria::SORT_DESC);
         if ($limit !== null)
             $criteria->limit($limit);
@@ -109,7 +153,7 @@ class Favourites extends EMongoDocument
 
         $models = self::model()->findAll($criteria);
         $ids = array();
-        foreach($models as $model)
+        foreach ($models as $model)
             $ids [] = $model->entity_id;
 
         return $ids;
@@ -120,10 +164,10 @@ class Favourites extends EMongoDocument
         $criteria = new EMongoCriteria;
         $criteria->block('==', self::WEEKLY_MAIL);
         $criteria->created('>', strtotime('-6 days'));
-        $criteria->setSort(array('created'=> EMongoCriteria::SORT_DESC));
+        $criteria->setSort(array('created' => EMongoCriteria::SORT_DESC));
         $mongo_models = self::model()->findAll($criteria);
         $ids = array();
-        foreach($mongo_models as $model)
+        foreach ($mongo_models as $model)
             $ids [] = $model->entity_id;
 
         if (empty($ids))
@@ -133,8 +177,8 @@ class Favourites extends EMongoDocument
         $criteria->compare('t.id', $ids);
         $models = CommunityContent::model()->full()->findAll($criteria);
         $result = array();
-        for($i=0;$i<count($ids);$i++){
-            foreach($models as $model)
+        for ($i = 0; $i < count($ids); $i++) {
+            foreach ($models as $model)
                 if ($model->id == $ids[$i])
                     $result [] = $model;
         }
@@ -145,7 +189,7 @@ class Favourites extends EMongoDocument
     public static function updateCreatedTime()
     {
         $models = Favourites::model()->findAll();
-        foreach($models as $model){
+        foreach ($models as $model) {
             $model->created = time();
             $model->save();
         }

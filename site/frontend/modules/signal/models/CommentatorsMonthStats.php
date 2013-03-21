@@ -12,11 +12,6 @@ class CommentatorsMonthStats extends EMongoDocument
     public $workingDays = array();
     public $working_days_count = 22;
 
-    /**
-     * @var GoogleAnalytics
-     */
-    private $ga;
-
     public static function model($className = __CLASS__)
     {
         return parent::model($className);
@@ -27,26 +22,32 @@ class CommentatorsMonthStats extends EMongoDocument
         return 'commentators_month_stats';
     }
 
+    public function primaryKey()
+    {
+        return 'period';
+    }
+
     public function getMongoDBComponent()
     {
         return Yii::app()->getComponent('mongodb_production');
     }
 
     /**
+     * Возвращает модель для заданного периода, создает если ее нет
+     *
      * @static
      * @param string $period
      * @return CommentatorsMonthStats
      */
-    public static function getOrCreateWorkingMonth($period = null)
+    public static function get($period = null)
     {
         if (empty($period))
             $period = date("Y-m");
 
-        $month = CommentatorsMonthStats::getWorkingMonth($period);
+        $month = self::model()->findByPk($period);
         if ($month === null && $period == date("Y-m")) {
             $month = new CommentatorsMonthStats;
             $month->period = date("Y-m");
-            $month->calculate();
             $month->save();
         }
 
@@ -54,26 +55,11 @@ class CommentatorsMonthStats extends EMongoDocument
     }
 
     /**
-     * @static
-     * @param string $period
-     * @return CommentatorsMonthStats
+     * Расчет рейтинга комментаторов, премий
      */
-    public static function getWorkingMonth($period)
-    {
-        return CommentatorsMonthStats::model()->find(new EMongoCriteria(array(
-            'conditions' => array(
-                'period' => array('==' => $period)
-            ),
-        )));
-    }
-
     public function calculate()
     {
-        Yii::import('site.frontend.extensions.GoogleAnalytics');
-        $this->loginGa();
-
         $commentators = User::model()->findAll('`group`=' . UserGroup::COMMENTATOR);
-        //$this->commentators = array();
 
         $active_commentators = array();
         foreach ($commentators as $commentator) {
@@ -84,7 +70,6 @@ class CommentatorsMonthStats extends EMongoDocument
 
                 $new_friends = $model->newFriends($this->period);
                 $im_messages = $model->imMessages($this->period);
-                $blog_visits = $this->blogVisits($commentator->id);
                 $profile_view = $this->profileUniqueViews($commentator->id);
                 $se_visits = $this->getSeVisits($commentator->id);
 
@@ -92,23 +77,15 @@ class CommentatorsMonthStats extends EMongoDocument
                 if (isset($this->commentators[(int)$commentator->id])) {
                     $this->commentators[(int)$commentator->id][self::NEW_FRIENDS] = (int)$new_friends;
                     $this->commentators[(int)$commentator->id][self::IM_MESSAGES] = (int)$im_messages;
-                    if ($se_visits !== null)
-                        $this->commentators[(int)$commentator->id][self::SE_VISITS] = (int)$se_visits;
-
-                    if ($blog_visits !== null)
-                        $this->commentators[(int)$commentator->id][self::BLOG_VISITS] = (int)$blog_visits;
-                    if ($profile_view !== null)
-                        $this->commentators[(int)$commentator->id][self::PROFILE_VIEWS] = (int)$profile_view;
+                    $this->commentators[(int)$commentator->id][self::SE_VISITS] = (int)$se_visits;
+                    $this->commentators[(int)$commentator->id][self::PROFILE_VIEWS] = (int)$profile_view;
                 } else {
-
-                    $result = array(
+                    $this->commentators[(int)$commentator->id] = array(
                         self::NEW_FRIENDS => (int)$new_friends,
-                        self::BLOG_VISITS => (int)$blog_visits,
                         self::PROFILE_VIEWS => (int)$profile_view,
                         self::IM_MESSAGES => (int)$im_messages,
                         self::SE_VISITS => (int)$se_visits,
-                    );
-                    $this->commentators[(int)$commentator->id] = $result;
+                    );;
                 }
                 $this->save();
             }
@@ -123,6 +100,8 @@ class CommentatorsMonthStats extends EMongoDocument
     }
 
     /**
+     * Возвращает модель комментатора по id
+     *
      * @param User $commentator
      * @return CommentatorWork
      */
@@ -137,6 +116,13 @@ class CommentatorsMonthStats extends EMongoDocument
         return $model;
     }
 
+    /**
+     * Вычисляет место в рейтинге занимаемое комментатором
+     *
+     * @param $user_id
+     * @param $counter
+     * @return int
+     */
     public function getPlace($user_id, $counter)
     {
         if (!isset($this->commentators[$user_id]))
@@ -160,6 +146,13 @@ class CommentatorsMonthStats extends EMongoDocument
         return 0;
     }
 
+    /**
+     * Вывод места в верстке
+     *
+     * @param $user_id
+     * @param $counter
+     * @return string
+     */
     public function getPlaceView($user_id, $counter)
     {
         $place = $this->getPlace($user_id, $counter);
@@ -170,6 +163,13 @@ class CommentatorsMonthStats extends EMongoDocument
         return '<span class="place">' . $place . ' место</span>';
     }
 
+    /**
+     * Возвращает статистику (кол-во баллов, рейтинг) по показателю
+     *
+     * @param $user_id
+     * @param $counter
+     * @return int
+     */
     public function getStatValue($user_id, $counter)
     {
         if (!isset($this->commentators[$user_id]))
@@ -181,6 +181,11 @@ class CommentatorsMonthStats extends EMongoDocument
         return 0;
     }
 
+    /**
+     * Возвращает все рабочие месяца
+     *
+     * @return array
+     */
     public static function getMonths()
     {
         $result = array();
@@ -192,6 +197,10 @@ class CommentatorsMonthStats extends EMongoDocument
         return array_reverse($result);
     }
 
+    /**
+     * Возвращает все рабочие дни всех месяцов
+     * @return array
+     */
     public static function getDays()
     {
         $result = array();
@@ -203,16 +212,23 @@ class CommentatorsMonthStats extends EMongoDocument
         return array_reverse($result);
     }
 
+    /**
+     * Возвращает количество просмотров анкеты
+     *
+     * @param $user_id
+     * @return int
+     */
     public function profileUniqueViews($user_id)
     {
-        return GApi::model()->uniquePageviews('/user/' . $user_id . '/', $this->period . '-01', $this->period . '-' . $this->getLastPeriodDay($this->period));
+        return GApi::model()->uniquePageviews('/user/' . $user_id . '/', $this->period . '-01');
     }
 
-    public function blogVisits($user_id)
-    {
-        return GApi::model()->visitors('/user/' . $user_id . '/blog/', $this->period . '-01', $this->period . '-' . $this->getLastPeriodDay($this->period));
-    }
-
+    /**
+     * Возвращает количество поисковых заходов на статьи комментатора
+     *
+     * @param $user_id
+     * @return int|mixed
+     */
     public function getSeVisits($user_id)
     {
         $models = CommunityContent::model()->findAll('author_id = ' . $user_id);
@@ -221,41 +237,12 @@ class CommentatorsMonthStats extends EMongoDocument
         foreach ($models as $model) {
             $url = trim($model->url, '.');
             if (!empty($url)) {
-                $visits = $this->getVisits($url);
-                //echo $url . ' - ' . $visits . "\n";
+                $visits = SearchEngineVisits::getVisits($url, $this->period);
                 $all_count += $visits;
-
-                if ($visits !== null)
-                    $this->addPageVisit($url, $visits);
-                else
-                    $all_count += $this->getPageVisitsCount($url);
             }
         }
 
         echo $all_count . "\n";
         return $all_count;
-    }
-
-    public function getVisits($url)
-    {
-        return SearchEngineVisits::getVisits($url, $this->period);
-    }
-
-    public function getPageVisitsCount($url)
-    {
-        if (isset($this->page_visits[$url]))
-            return $this->page_visits[$url];
-        return 0;
-    }
-
-    public function getLastPeriodDay($period)
-    {
-        return str_pad(cal_days_in_month(CAL_GREGORIAN, date('n', strtotime($period)), date('Y', strtotime($period))), 2, "0", STR_PAD_LEFT);
-    }
-
-    public function loginGa()
-    {
-        $this->ga = new GoogleAnalytics('alexk984@gmail.com', Yii::app()->params['gaPass']);
-        $this->ga->setProfile('ga:53688414');
     }
 }

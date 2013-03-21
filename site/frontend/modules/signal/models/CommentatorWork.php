@@ -172,7 +172,7 @@ class CommentatorWork extends EMongoDocument
         $day->club_posts = $this->clubPostsCount();
 
         //add working day
-        $month = CommentatorsMonthStats::getOrCreateWorkingMonth();
+        $month = CommentatorsMonthStats::get();
         if (!in_array(date("Y-m-d"), $month->workingDays)) {
             $month->workingDays [] = date("Y-m-d");
             $month->save();
@@ -504,7 +504,7 @@ class CommentatorWork extends EMongoDocument
 
     public function profileUniqueViews($period)
     {
-        $month = CommentatorsMonthStats::getOrCreateWorkingMonth($period);
+        $month = CommentatorsMonthStats::get($period);
         if (isset($month->commentators[(int)$this->user_id][CommentatorsMonthStats::PROFILE_VIEWS]))
             return $month->commentators[(int)$this->user_id][CommentatorsMonthStats::PROFILE_VIEWS];
 
@@ -513,7 +513,7 @@ class CommentatorWork extends EMongoDocument
 
     public function seVisits($period)
     {
-        $month = CommentatorsMonthStats::getOrCreateWorkingMonth($period);
+        $month = CommentatorsMonthStats::get($period);
         if (isset($month->commentators[(int)$this->user_id][CommentatorsMonthStats::SE_VISITS]))
             return $month->commentators[(int)$this->user_id][CommentatorsMonthStats::SE_VISITS];
 
@@ -562,7 +562,7 @@ class CommentatorWork extends EMongoDocument
 
     public function getPlace($period, $counter)
     {
-        $month = CommentatorsMonthStats::getOrCreateWorkingMonth($period);
+        $month = CommentatorsMonthStats::get($period);
 
         $place = $month->getPlace($this->user_id, $counter);
         if ($place == 0) {

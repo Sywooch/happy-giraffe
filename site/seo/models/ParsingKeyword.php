@@ -92,19 +92,23 @@ class ParsingKeyword extends CActiveRecord
 
     public static function wordstatParsed($keyword_id)
     {
-        $model = self::model()->findByPk($keyword_id);
-        if ($model !== null) {
-            $model->updated = date("Y-m-d H:i:s");
-            $model->priority = 0;
-            $model->save();
-        } else {
-            $model = new ParsingKeyword();
-            $model->keyword_id = $keyword_id;
-            $model->priority = 0;
-            $model->updated = date("Y-m-d H:i:s");
-            try{
-                $model->save();
-            } catch (Exception $e) {
+        $res = self::model()->getDbConnection()->createCommand()->update('parsing_keywords',
+            array('priority'=>0, 'updated'=>date("Y-m-d H:i:s")), 'keyword_id='.$keyword_id);
+
+        if (empty($res)){
+            $fh = fopen($dir = Yii::getPathOfAlias('application.runtime') . DIRECTORY_SEPARATOR . 'my_log.txt', 'a');
+            fwrite($fh, "keyword $keyword_id not found in parsing_keywords\n");
+
+            $model = self::model()->findByPk($keyword_id);
+            if ($model === null) {
+                $model = new ParsingKeyword();
+                $model->keyword_id = $keyword_id;
+                $model->priority = 0;
+                $model->updated = date("Y-m-d H:i:s");
+                try{
+                    $model->save();
+                } catch (Exception $e) {
+                }
             }
         }
     }

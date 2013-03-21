@@ -4,7 +4,7 @@
  */
 
 $months = $this->commentator->getWorkingMonths();
-$current_month = CommentatorsMonthStats::getWorkingMonth($period);
+$current_month = CommentatorsMonth::getWorkingMonth($period);
 ?><div class="seo-table">
 
     <div class="fast-filter fast-filter-community">
@@ -29,7 +29,7 @@ $current_month = CommentatorsMonthStats::getWorkingMonth($period);
                     <td class="col-1">1.  Друзей за месяц</td>
 
                     <td class="col-2"><?=$this->commentator->newFriends($period) ?></td>
-                    <td class="col-3"><?=$this->commentator->getPlace($period, CommentatorsMonthStats::NEW_FRIENDS) ?></td>
+                    <td class="col-3"><?=$this->commentator->getPlace($period, CommentatorsMonth::NEW_FRIENDS) ?></td>
                     <td class="col-4"><a href="<?=$this->createUrl('/signal/commentator/help/') ?>#friends">Как завести наибольшее количество дружеских связей (больше всего друзей на сайте)</a></td>
                 </tr>
             </table>
@@ -42,8 +42,8 @@ $current_month = CommentatorsMonthStats::getWorkingMonth($period);
                 <tr>
                     <td class="col-1">2.  Уникальных посетителей блога</td>
 
-                    <td class="col-2"><?=$current_month->getStatValue($this->commentator->user_id, CommentatorsMonthStats::BLOG_VISITS) ?></td>
-                    <td class="col-3"><?=$this->commentator->getPlace($period, CommentatorsMonthStats::BLOG_VISITS) ?></td>
+                    <td class="col-2"><?=$current_month->getStatValue($this->commentator->user_id, CommentatorsMonth::BLOG_VISITS) ?></td>
+                    <td class="col-3"><?=$this->commentator->getPlace($period, CommentatorsMonth::BLOG_VISITS) ?></td>
                     <td class="col-4"><a href="<?=$this->createUrl('/signal/commentator/help/') ?>#blog-visits">Как сделать блог наиболее посещаемым по уникальным посетителям</a></td>
                 </tr>
             </table>
@@ -56,8 +56,8 @@ $current_month = CommentatorsMonthStats::getWorkingMonth($period);
                 <tr>
                     <td class="col-1">3.  Количество просмотров анкеты</td>
 
-                    <td class="col-2"><?=$current_month->getStatValue($this->commentator->user_id, CommentatorsMonthStats::PROFILE_VIEWS) ?></td>
-                    <td class="col-3"><?=$this->commentator->getPlace($period, CommentatorsMonthStats::PROFILE_VIEWS) ?></td>
+                    <td class="col-2"><?=$current_month->getStatValue($this->commentator->user_id, CommentatorsMonth::PROFILE_VIEWS) ?></td>
+                    <td class="col-3"><?=$this->commentator->getPlace($period, CommentatorsMonth::PROFILE_VIEWS) ?></td>
                     <td class="col-4"><a href="<?=$this->createUrl('/signal/commentator/help/') ?>#profile-views">Как сделать личную страницу (включая блог и фотогалерею) наиболее посещаемой по количеству просмотров</a></td>
                 </tr>
             </table>
@@ -71,7 +71,7 @@ $current_month = CommentatorsMonthStats::getWorkingMonth($period);
                     <td class="col-1">4.  Баллов от личных сообщений</td>
 
                     <td class="col-2"><?=$this->commentator->imMessages($period) ?></td>
-                    <td class="col-3"><?=$this->commentator->getPlace($period, CommentatorsMonthStats::IM_MESSAGES) ?></td>
+                    <td class="col-3"><?=$this->commentator->getPlace($period, CommentatorsMonth::IM_MESSAGES) ?></td>
                     <td class="col-4"><a href="<?=$this->createUrl('/signal/commentator/help/') ?>#im">Самый коммуникабельный сотрудник (тот, кто больше всего отправил сообщений по внутренней почте) – входящие и исходящие сообщения</a></td>
                 </tr>
             </table>
@@ -84,8 +84,8 @@ $current_month = CommentatorsMonthStats::getWorkingMonth($period);
                 <tr>
                     <td class="col-1">5.  Заходов из поисковых систем <a href="javascript:;" class="pseudo" onclick="CommentatorPanel.show('traffic-stat', this);">Показать</a></td>
 
-                    <td class="col-2"><?=$current_month->getStatValue($this->commentator->user_id, CommentatorsMonthStats::SE_VISITS) ?></td>
-                    <td class="col-3"><?=$this->commentator->getPlace($period, CommentatorsMonthStats::SE_VISITS) ?></td>
+                    <td class="col-2"><?=$current_month->getStatValue($this->commentator->user_id, CommentatorsMonth::SE_VISITS) ?></td>
+                    <td class="col-3"><?=$this->commentator->getPlace($period, CommentatorsMonth::SE_VISITS) ?></td>
                     <td class="col-4"><a href="<?=$this->createUrl('/signal/commentator/help/') ?>#se">Как писать посты, которые приведут на сайт наибольшее количество людей из поисковиков (блог и записи в клубах)</a></td>
                 </tr>
             </table>

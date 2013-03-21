@@ -172,7 +172,7 @@ class CommentatorWork extends EMongoDocument
         $day->club_posts = $this->clubPostsCount();
 
         //add working day
-        $month = CommentatorsMonthStats::get();
+        $month = CommentatorsMonth::get();
         if (!in_array(date("Y-m-d"), $month->workingDays)) {
             $month->workingDays [] = date("Y-m-d");
             $month->save();
@@ -504,18 +504,18 @@ class CommentatorWork extends EMongoDocument
 
     public function profileUniqueViews($period)
     {
-        $month = CommentatorsMonthStats::get($period);
-        if (isset($month->commentators[(int)$this->user_id][CommentatorsMonthStats::PROFILE_VIEWS]))
-            return $month->commentators[(int)$this->user_id][CommentatorsMonthStats::PROFILE_VIEWS];
+        $month = CommentatorsMonth::get($period);
+        if (isset($month->commentators[(int)$this->user_id][CommentatorsMonth::PROFILE_VIEWS]))
+            return $month->commentators[(int)$this->user_id][CommentatorsMonth::PROFILE_VIEWS];
 
         return 0;
     }
 
     public function seVisits($period)
     {
-        $month = CommentatorsMonthStats::get($period);
-        if (isset($month->commentators[(int)$this->user_id][CommentatorsMonthStats::SE_VISITS]))
-            return $month->commentators[(int)$this->user_id][CommentatorsMonthStats::SE_VISITS];
+        $month = CommentatorsMonth::get($period);
+        if (isset($month->commentators[(int)$this->user_id][CommentatorsMonth::SE_VISITS]))
+            return $month->commentators[(int)$this->user_id][CommentatorsMonth::SE_VISITS];
 
         return 0;
     }
@@ -562,7 +562,7 @@ class CommentatorWork extends EMongoDocument
 
     public function getPlace($period, $counter)
     {
-        $month = CommentatorsMonthStats::get($period);
+        $month = CommentatorsMonth::get($period);
 
         $place = $month->getPlace($this->user_id, $counter);
         if ($place == 0) {
@@ -594,7 +594,7 @@ class CommentatorWork extends EMongoDocument
     }
 
     /**
-     * @param CommentatorsMonthStats $current_month
+     * @param CommentatorsMonth $current_month
      * @return array
      */
     public function getPosts($current_month)

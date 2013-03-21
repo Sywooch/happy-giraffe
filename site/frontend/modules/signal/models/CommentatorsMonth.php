@@ -1,6 +1,6 @@
 <?php
 
-class CommentatorsMonthStats extends EMongoDocument
+class CommentatorsMonth extends EMongoDocument
 {
     const NEW_FRIENDS = 1;
     const PROFILE_VIEWS = 3;
@@ -37,7 +37,7 @@ class CommentatorsMonthStats extends EMongoDocument
      *
      * @static
      * @param string $period
-     * @return CommentatorsMonthStats
+     * @return CommentatorsMonth
      */
     public static function get($period = null)
     {
@@ -46,7 +46,7 @@ class CommentatorsMonthStats extends EMongoDocument
 
         $month = self::model()->findByPk($period);
         if ($month === null && $period == date("Y-m")) {
-            $month = new CommentatorsMonthStats;
+            $month = new CommentatorsMonth;
             $month->period = date("Y-m");
             $month->save();
         }
@@ -189,7 +189,7 @@ class CommentatorsMonthStats extends EMongoDocument
     public static function getMonths()
     {
         $result = array();
-        $models = CommentatorsMonthStats::model()->findAll();
+        $models = CommentatorsMonth::model()->findAll();
         foreach ($models as $model) {
             $result[] = $model->period;
         }
@@ -204,7 +204,7 @@ class CommentatorsMonthStats extends EMongoDocument
     public static function getDays()
     {
         $result = array();
-        $models = CommentatorsMonthStats::model()->findAll();
+        $models = CommentatorsMonth::model()->findAll();
         foreach ($models as $model) {
             $result[] = $model->period;
         }

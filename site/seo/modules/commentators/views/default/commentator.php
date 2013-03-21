@@ -9,7 +9,7 @@ if (!empty($months))
 $user_id = $commentator->user_id;
 if (empty($period))
     $period = $months[0];
-$month = CommentatorsMonthStats::getWorkingMonth($period);
+$month = CommentatorsMonth::getWorkingMonth($period);
 $this->renderPartial('_avatar', compact('commentator'));
 ?>
 <div class="seo-table">
@@ -35,8 +35,8 @@ $this->renderPartial('_avatar', compact('commentator'));
                 <tr>
                     <td class="col-1">1. Друзей за месяц</td>
 
-                    <td class="col-2"><?=$month->getStatValue($user_id, CommentatorsMonthStats::NEW_FRIENDS) ?></td>
-                    <td class="col-3"><?=$month->getPlaceView($user_id, CommentatorsMonthStats::NEW_FRIENDS) ?></td>
+                    <td class="col-2"><?=$month->getStatValue($user_id, CommentatorsMonth::NEW_FRIENDS) ?></td>
+                    <td class="col-3"><?=$month->getPlaceView($user_id, CommentatorsMonth::NEW_FRIENDS) ?></td>
                     <td class="col-4"></td>
                 </tr>
             </table>
@@ -49,8 +49,8 @@ $this->renderPartial('_avatar', compact('commentator'));
                 <tr>
                     <td class="col-1">2. Уникальных посетителей блога</td>
 
-                    <td class="col-2"><?=$month->getStatValue($user_id, CommentatorsMonthStats::BLOG_VISITS) ?></td>
-                    <td class="col-3"><?=$month->getPlaceView($user_id, CommentatorsMonthStats::BLOG_VISITS) ?></td>
+                    <td class="col-2"><?=$month->getStatValue($user_id, CommentatorsMonth::BLOG_VISITS) ?></td>
+                    <td class="col-3"><?=$month->getPlaceView($user_id, CommentatorsMonth::BLOG_VISITS) ?></td>
                     <td class="col-4"></td>
                 </tr>
             </table>
@@ -63,8 +63,8 @@ $this->renderPartial('_avatar', compact('commentator'));
                 <tr>
                     <td class="col-1">3. Количество просмотров анкеты</td>
 
-                    <td class="col-2"><?=$month->getStatValue($user_id, CommentatorsMonthStats::PROFILE_VIEWS) ?></td>
-                    <td class="col-3"><?=$month->getPlaceView($user_id, CommentatorsMonthStats::PROFILE_VIEWS) ?></td>
+                    <td class="col-2"><?=$month->getStatValue($user_id, CommentatorsMonth::PROFILE_VIEWS) ?></td>
+                    <td class="col-3"><?=$month->getPlaceView($user_id, CommentatorsMonth::PROFILE_VIEWS) ?></td>
                     <td class="col-4"></td>
                 </tr>
             </table>
@@ -77,8 +77,8 @@ $this->renderPartial('_avatar', compact('commentator'));
                 <tr>
                     <td class="col-1">4. Количество личных сообщений</td>
 
-                    <td class="col-2"><?=$month->getStatValue($user_id, CommentatorsMonthStats::IM_MESSAGES) ?></td>
-                    <td class="col-3"><?=$month->getPlaceView($user_id, CommentatorsMonthStats::IM_MESSAGES) ?></td>
+                    <td class="col-2"><?=$month->getStatValue($user_id, CommentatorsMonth::IM_MESSAGES) ?></td>
+                    <td class="col-3"><?=$month->getPlaceView($user_id, CommentatorsMonth::IM_MESSAGES) ?></td>
                     <td class="col-4"></td>
                 </tr>
             </table>
@@ -93,8 +93,8 @@ $this->renderPartial('_avatar', compact('commentator'));
                         <a href="javascript:;" class="pseudo" onclick="ShowHide(this, 'traffic-stat');">Показать</a>
                     </td>
 
-                    <td class="col-2"><?=$month->getStatValue($user_id, CommentatorsMonthStats::SE_VISITS) ?></td>
-                    <td class="col-3"><?=$month->getPlaceView($user_id, CommentatorsMonthStats::SE_VISITS) ?></td>
+                    <td class="col-2"><?=$month->getStatValue($user_id, CommentatorsMonth::SE_VISITS) ?></td>
+                    <td class="col-3"><?=$month->getPlaceView($user_id, CommentatorsMonth::SE_VISITS) ?></td>
                     <td class="col-4"></td>
                 </tr>
             </table>

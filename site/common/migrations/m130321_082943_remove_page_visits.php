@@ -10,7 +10,7 @@ class m130321_082943_remove_page_visits extends CDbMigration
         $modifier = new EMongoModifier(array(
             'page_visits' => array('unset' => 1),
         ));
-        CommentatorsMonthStats::model()->updateAll($modifier);
+        CommentatorsMonth::model()->updateAll($modifier);
     }
 
     public function down()

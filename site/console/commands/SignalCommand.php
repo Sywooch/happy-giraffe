@@ -101,7 +101,7 @@ class SignalCommand extends CConsoleCommand
 
     public function actionCommentatorsEndMonth()
     {
-        $month = CommentatorsMonthStats::model()->find(new EMongoCriteria(array(
+        $month = CommentatorsMonth::model()->find(new EMongoCriteria(array(
             'conditions' => array(
                 'period' => array('==' => date("Y-m", strtotime('-10 days')))
             ),
@@ -198,18 +198,18 @@ class SignalCommand extends CConsoleCommand
 
 
         echo "update stats\n";
-        $month = CommentatorsMonthStats::model()->find(new EMongoCriteria(array(
+        $month = CommentatorsMonth::model()->find(new EMongoCriteria(array(
             'conditions' => array('period' => array('==' => $month)),
         )));
         if ($month === null) {
-            $month = new CommentatorsMonthStats;
+            $month = new CommentatorsMonth;
             $month->period = date("Y-m");
         }
         $month->calculate();
     }
 
     public function actionTest(){
-        $model = CommentatorsMonthStats::get(date("Y-m"));
+        $model = CommentatorsMonth::get(date("Y-m"));
         echo $model->period;
     }
 }

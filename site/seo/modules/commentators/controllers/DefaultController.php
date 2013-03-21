@@ -22,7 +22,7 @@ class DefaultController extends SController
         if (empty($period))
             $period = date("Y-m");
 
-        $month = CommentatorsMonthStats::getOrCreateWorkingMonth($period);
+        $month = CommentatorsMonthStats::get($period);
         if (Yii::app()->user->checkAccess('commentator-manager')) {
             $criteria = new EMongoCriteria();
             $criteria->user_id('in', Yii::app()->user->model->commentatorIds());

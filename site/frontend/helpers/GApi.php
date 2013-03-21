@@ -27,6 +27,17 @@ class GApi
     }
 
     /**
+     * Вычисляет последний день месяца
+     *
+     * @param $date
+     * @return string
+     */
+    public function getLastPeriodDay($date)
+    {
+        return str_pad(cal_days_in_month(CAL_GREGORIAN, date('n', strtotime($date)), date('Y', strtotime($date))), 2, "0", STR_PAD_LEFT);
+    }
+
+    /**
      * Возвращает количество уникальных посещений за период времени
      *
      * @param $url
@@ -35,7 +46,7 @@ class GApi
      * @param bool $include_sub_pages
      * @return int
      */
-    public function uniquePageViews($url, $date1, $date2, $include_sub_pages = true)
+    public function uniquePageViews($url, $date1, $date2 = null, $include_sub_pages = true)
     {
 
         return $this->getStat($url, $date1, $date2, $include_sub_pages, 'uniquePageviews');
@@ -50,9 +61,8 @@ class GApi
      * @param bool $include_sub_pages
      * @return int
      */
-    public function visitors($url, $date1, $date2, $include_sub_pages = true)
+    public function visitors($url, $date1, $date2 = null, $include_sub_pages = true)
     {
-
         return $this->getStat($url, $date1, $date2, $include_sub_pages, 'visitors');
     }
 
@@ -65,7 +75,7 @@ class GApi
      * @param bool $include_sub_pages
      * @return int
      */
-    public function organicSearches($url, $date1, $date2, $include_sub_pages = true)
+    public function organicSearches($url, $date1, $date2 = null, $include_sub_pages = true)
     {
         return $this->getStat($url, $date1, $date2, $include_sub_pages, 'organicSearches');
     }
@@ -82,6 +92,8 @@ class GApi
      */
     private function getStat($url, $date1, $date2, $include_sub_pages, $stat)
     {
+        if ($date2 == null)
+            $date2 = $this->getLastPeriodDay($date1);
         $this->ga->setDateRange($date1, $date2);
 
         if ($include_sub_pages)

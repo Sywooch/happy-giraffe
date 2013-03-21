@@ -148,8 +148,10 @@ class Keyword extends CActiveRecord
         $model = self::model()->findByAttributes(array('name' => $word));
         if ($model !== null) {
             if ($wordstat !== null) {
-                $model->wordstat = $wordstat;
-                $model->update('wordstat');
+                if ($model->wordstat != $wordstat) {
+                    $model->wordstat = $wordstat;
+                    $model->update('wordstat');
+                }
                 ParsingKeyword::wordstatParsed($model->id);
             }
             return $model;

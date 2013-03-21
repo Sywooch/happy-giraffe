@@ -55,18 +55,41 @@ class WordstatCommand extends CConsoleCommand
         fclose($handle);
     }
 
-    public function actionModify($num = 1){
+    public function actionModify($num = 1)
+    {
         $parser = new WordstatQueryModify();
         $parser->addToParsing($num);
     }
 
-    public function actionTasks($mode=false){
-        $parser = new WordstatTaskParser();
-        $parser->start($mode);
-    }
+    public function actionFixPriority($i = 0)
+    {
+        $ids = 1;
+        while (!empty($ids)) {
+            $ids = Yii::app()->db_keywords->createCommand()
+                ->select('id')
+                ->from('keywords')
+                ->where('wordstat > 10000')
+                ->limit(10000)
+                ->offset($i * 10000)
+                ->queryColumn();
 
-    public function actionTest(){
-        $parser = new WordstatParser();
-        //$parser->loadKeywordsByTransaction();
+            foreach ($ids as $id) {
+                $model = ParsingKeyword::model()->findByPk($id);
+                if ($model !== null) {
+                    if (strtotime($model->updated) < strtotime('-5 days')) {
+                        $model->priority = 100;
+                        $model->update(array('priority'));
+                    }
+                } else {
+                    $model = new ParsingKeyword;
+                    $model->keyword_id = $id;
+                    $model->priority = 100;
+                    $model->save();
+                }
+            }
+
+            $i++;
+            echo $i . "\n";
+        }
     }
 }

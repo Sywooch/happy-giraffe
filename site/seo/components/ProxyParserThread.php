@@ -39,7 +39,7 @@ class ProxyParserThread
 
     private function getProxy()
     {
-        $this->startTimer('find proxy1');
+        $this->startTimer('find proxy');
 
         $criteria = new CDbCriteria;
         $criteria->condition = 'id % 645 = ' . $this->thread_id;

@@ -5,3 +5,5 @@
  *
  */
 
+$parser = new WordstatQueryModify();
+$parser->convert();

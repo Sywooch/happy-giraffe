@@ -1,14 +1,14 @@
 <?php
 /* @var $this Controller
  * @var $period string
- * @var $month CommentatorsMonthStats
+ * @var $month CommentatorsMonth
  * @var $day int
  * @var $commentators CommentatorWork[]
  */
 
 $date = $period.'-'.str_pad($day, 2, "0", STR_PAD_LEFT);
 $daysInMonth = date('t', strtotime($date));
-$months = CommentatorsMonthStats::getMonths();
+$months = CommentatorsMonth::getMonths();
 
 ?><div class="seo-table">
 
@@ -108,11 +108,11 @@ $months = CommentatorsMonthStats::getMonths();
                         <td><?=$blog_posts?></td>
                         <td><?=$club_posts?></td>
                         <td><?=$comments?></td>
-                        <td><?=$month->getPlace($commentator->user_id, CommentatorsMonthStats::NEW_FRIENDS) ?></td>
-                        <td><?=$month->getPlace($commentator->user_id, CommentatorsMonthStats::BLOG_VISITS) ?></td>
-                        <td><?=$month->getPlace($commentator->user_id, CommentatorsMonthStats::PROFILE_VIEWS) ?></td>
-                        <td><?=$month->getPlace($commentator->user_id, CommentatorsMonthStats::IM_MESSAGES) ?></td>
-                        <td><?=$month->getPlace($commentator->user_id, CommentatorsMonthStats::SE_VISITS) ?></td>
+                        <td><?=$month->getPlace($commentator->user_id, CommentatorsMonth::NEW_FRIENDS) ?></td>
+                        <td><?=$month->getPlace($commentator->user_id, CommentatorsMonth::BLOG_VISITS) ?></td>
+                        <td><?=$month->getPlace($commentator->user_id, CommentatorsMonth::PROFILE_VIEWS) ?></td>
+                        <td><?=$month->getPlace($commentator->user_id, CommentatorsMonth::IM_MESSAGES) ?></td>
+                        <td><?=$month->getPlace($commentator->user_id, CommentatorsMonth::SE_VISITS) ?></td>
                         <?php if ($blog_posts/$month->working_days_count >= $commentator->getBlogPostsLimit()
                         && $club_posts/$month->working_days_count >= $commentator->getClubPostsLimit()
                         && $comments/$month->working_days_count >= $commentator->getCommentsLimit()

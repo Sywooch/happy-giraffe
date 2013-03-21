@@ -9,6 +9,7 @@ class WordstatParser extends ProxyParserThread
      * @var ParsingKeyword[]
      */
     public $keywords = array();
+    public $parse_all = true;
     /**
      * @var ParsingKeyword
      */
@@ -163,36 +164,39 @@ class WordstatParser extends ProxyParserThread
             $this->log('wordstat value: ' . $matches[1]);
         } else return false;
 
-        //find keywords in block "Что искали со словом"
-        foreach ($document->find('table.campaign tr td table:first td a') as $link) {
-            $keyword = trim(pq($link)->text());
-            $value = (int)pq($link)->parent()->next()->next()->text();
+        $this->next_page = '';
 
-            $this->addData($keyword, $value);
-
-            //временно ищем слова перед которыми надо ставить +
-            $this->queryModify->analyzeQuery($keyword);
-        }
-
-        //собирает кейворды из блока "Что еще искали люди, искавшие"
-        //так как на остальных кейворды повторяются
-        if ($this->first_page)
-            foreach ($document->find('table.campaign tr td table:eq(1) td a') as $link) {
+        if ($this->parse_all) {
+            //find keywords in block "Что искали со словом"
+            foreach ($document->find('table.campaign tr td table:first td a') as $link) {
                 $keyword = trim(pq($link)->text());
                 $value = (int)pq($link)->parent()->next()->next()->text();
 
-                $this->addData($keyword, $value, true);
+                $this->addData($keyword, $value);
 
                 //временно ищем слова перед которыми надо ставить +
                 $this->queryModify->analyzeQuery($keyword);
             }
 
-        //ищем ссылку на следующую страницу
-        $this->next_page = '';
-        foreach ($document->find('div.pages a') as $link) {
-            $title = pq($link)->text();
-            if (strpos($title, 'следующая') !== false)
-                $this->next_page = 'http://wordstat.yandex.ru/' . pq($link)->attr('href');
+            //собирает кейворды из блока "Что еще искали люди, искавшие"
+            //так как на остальных кейворды повторяются
+            if ($this->first_page)
+                foreach ($document->find('table.campaign tr td table:eq(1) td a') as $link) {
+                    $keyword = trim(pq($link)->text());
+                    $value = (int)pq($link)->parent()->next()->next()->text();
+
+                    $this->addData($keyword, $value, true);
+
+                    //временно ищем слова перед которыми надо ставить +
+                    $this->queryModify->analyzeQuery($keyword);
+                }
+
+            //ищем ссылку на следующую страницу
+            foreach ($document->find('div.pages a') as $link) {
+                $title = pq($link)->text();
+                if (strpos($title, 'следующая') !== false)
+                    $this->next_page = 'http://wordstat.yandex.ru/' . pq($link)->attr('href');
+            }
         }
 
         if (!empty($this->next_page))

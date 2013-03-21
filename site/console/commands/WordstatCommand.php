@@ -88,6 +88,7 @@ class WordstatCommand extends CConsoleCommand
             }
 
             $i++;
+            echo $i."\n";
         }
     }
 }

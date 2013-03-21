@@ -5,7 +5,6 @@
  *
  * The followings are the available columns in table 'parsing_keywords':
  * @property integer $keyword_id
- * @property integer $active
  * @property integer $priority
  * @property integer $type
  * @property integer $updated
@@ -82,29 +81,34 @@ class ParsingKeyword extends CActiveRecord
 
     public function updateWordstat($value)
     {
-        Yii::app()->db_seo->createCommand()->update(Keyword::model()->tableName(),
+        Yii::app()->db_keywords->createCommand()->update(Keyword::model()->tableName(),
             array('wordstat' => $value),
             'id=:id',
             array(':id' => $this->keyword_id));
         $this->updated = date("Y-m-d H:i:s");
         $this->priority = 0;
-        $this->update(array('updated', 'priority'));
+        $this->save();
     }
 
     public static function wordstatParsed($keyword_id)
     {
-        $model = self::model()->findByPk($keyword_id);
-        if ($model !== null) {
-            $model->updated = date("Y-m-d H:i:s");
-            $model->priority = 0;
-            $model->save();
-        } else {
-            $model = new ParsingKeyword();
-            $model->keyword_id = $keyword_id;
-            $model->updated = date("Y-m-d H:i:s");
-            try{
-                $model->save();
-            } catch (Exception $e) {
+        $res = self::model()->getDbConnection()->createCommand()->update('parsing_keywords',
+            array('priority'=>0, 'updated'=>date("Y-m-d H:i:s")), 'keyword_id='.$keyword_id);
+
+        if (empty($res)){
+            $fh = fopen($dir = Yii::getPathOfAlias('application.runtime') . DIRECTORY_SEPARATOR . 'my_log.txt', 'a');
+            fwrite($fh, "keyword $keyword_id not found in parsing_keywords\n");
+
+            $model = self::model()->findByPk($keyword_id);
+            if ($model === null) {
+                $model = new ParsingKeyword();
+                $model->keyword_id = $keyword_id;
+                $model->priority = 0;
+                $model->updated = date("Y-m-d H:i:s");
+                try{
+                    $model->save();
+                } catch (Exception $e) {
+                }
             }
         }
     }

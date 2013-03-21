@@ -1179,7 +1179,7 @@ class User extends HActiveRecord
     public function getPregnantBaby()
     {
         $criteria = new CDbCriteria;
-        $criteria->condition = 'birthday > "'.date("Y-m-d") .'"';
+        $criteria->condition = 'birthday > "' . date("Y-m-d") . '"';
         $criteria->compare('parent_id', $this->id);
         $criteria->compare('type', Baby::TYPE_WAIT);
 
@@ -1209,5 +1209,25 @@ class User extends HActiveRecord
 
         $comet = new CometModel;
         $comet->send('whatsNewIndex', $params, CometModel::WHATS_NEW_UPDATE);
+    }
+
+    public function hasRssContent()
+    {
+        if (CommunityContent::model()->exists('author_id = :author_id AND type_id != 4 AND by_happy_giraffe = 0
+                AND removed=0', array(':author_id' => $this->id))
+        )
+            return true;
+        if (CookRecipe::model()->exists('author_id = :author_id AND removed=0', array(':author_id' => $this->id)))
+            return true;
+        if (ContestWork::model()->exists('user_id = :author_id', array(':author_id' => $this->id)))
+            return true;
+        $cook_decor = Yii::app()->db->createCommand('SELECT cook__decorations.id FROM cook__decorations
+            INNER JOIN album__photos ON cook__decorations.photo_id = album__photos.id
+            WHERE album__photos.author_id = :author_id')
+            ->queryScalar(array(':author_id' => $this->id));
+        if (!empty($cook_decor))
+            return true;
+
+        return false;
     }
 }

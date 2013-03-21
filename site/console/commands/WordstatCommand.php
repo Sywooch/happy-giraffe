@@ -76,9 +76,11 @@ class WordstatCommand extends CConsoleCommand
 
             foreach ($ids as $id) {
                 $model = ParsingKeyword::model()->findByPk($id);
-                if ($model !== null && strtotime($model->updated) < strtotime('-5 days')) {
-                    $model->priority = 100;
-                    $model->update(array('priority'));
+                if ($model !== null) {
+                    if (strtotime($model->updated) < strtotime('-5 days')) {
+                        $model->priority = 100;
+                        $model->update(array('priority'));
+                    }
                 } else {
                     $model = new ParsingKeyword;
                     $model->keyword_id = $id;
@@ -88,7 +90,7 @@ class WordstatCommand extends CConsoleCommand
             }
 
             $i++;
-            echo $i."\n";
+            echo $i . "\n";
         }
     }
 }

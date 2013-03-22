@@ -6,18 +6,13 @@
  */
 
 $criteria = $model->getCriteriaWithoutFreq();
-$cache_id = 'site_keywords_count_'.$site_id;
-$counts=Yii::app()->cache->get($cache_id);
-if($counts===false)
-{
-    $counts = array(
-        1 => 1000,//SiteKeywordVisit::model()->count($model->getCriteriaWithoutFreqForCounts()->addCondition(Keyword::getFreqCondition(1))),
-        2 => 1000,//SiteKeywordVisit::model()->count($model->getCriteriaWithoutFreqForCounts()->addCondition(Keyword::getFreqCondition(2))),
-        3 => 1000,//SiteKeywordVisit::model()->count($model->getCriteriaWithoutFreqForCounts()->addCondition(Keyword::getFreqCondition(3))),
-        4 => 1000,//SiteKeywordVisit::model()->count($model->getCriteriaWithoutFreqForCounts()->addCondition(Keyword::getFreqCondition(4))),
-    );
-    Yii::app()->cache->set($cache_id,$counts, 24*3600);
-}
+$counts = array(
+    1 => SiteKeywordVisit::model()->count($model->getCriteriaWithoutFreqForCounts()->addCondition(Keyword::getFreqCondition(1))),
+    2 => SiteKeywordVisit::model()->count($model->getCriteriaWithoutFreqForCounts()->addCondition(Keyword::getFreqCondition(2))),
+    3 => SiteKeywordVisit::model()->count($model->getCriteriaWithoutFreqForCounts()->addCondition(Keyword::getFreqCondition(3))),
+    4 => SiteKeywordVisit::model()->count($model->getCriteriaWithoutFreqForCounts()->addCondition(Keyword::getFreqCondition(4))),
+);
+
 ?>
 <div class="result">
     <label>Найдено: <a href="javascript:;"

@@ -4,6 +4,8 @@
  * Class Message
  *
  * Модель сообщения в сервисе "Личные сообщения"
+ *
+ * @author Nikita <nikita@happy-giraffe.ru>
  */
 
 class Message extends HActiveRecord

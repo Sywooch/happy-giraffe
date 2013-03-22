@@ -14,9 +14,11 @@ class YandexMetrica
     public function getDatesForCheck()
     {
         $dates = array();
-        $last_date = SeoUserAttributes::getAttribute('traffic_parsed_date', 1);
+        $last_date = Yii::app()->db_seo->createCommand()->select('max(date)')->from('queries')->queryScalar();
         if (empty($last_date))
             $last_date = date("Ymd", strtotime('-42 days'));
+        else
+            $last_date = date("Ymd", strtotime($last_date));
 
         for ($i = 0; $i < 100; $i++) {
             $date = date("Ymd", strtotime('+1 day', strtotime($last_date)));

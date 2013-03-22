@@ -96,4 +96,11 @@ class Str
         $text = preg_replace(array('/\s{2,}/', '/[\t\n]/'), ' ', $text);
         return trim(Str::truncate($text, $len));
     }
+
+    public static function prepareForSphinxSearch($text)
+    {
+        $text = preg_replace('/[^a-zа-яё\d\s]+/iu', '', $text);
+
+        return $text;
+    }
 }

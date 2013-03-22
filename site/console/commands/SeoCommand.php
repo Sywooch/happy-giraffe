@@ -22,10 +22,11 @@ class SeoCommand extends CConsoleCommand
         Config::setAttribute('stop_threads', 1);
     }
 
-    public function actionWordstat($mode = 0)
+    public function actionWordstat($thread_id = 0)
     {
-        $parser = new WordstatParser();
-        $parser->start($mode);
+        $parser = new WordstatParser($thread_id);
+        $parser->parse_all = false;
+        $parser->start();
     }
 
     public function actionProxy()
@@ -143,25 +144,10 @@ class SeoCommand extends CConsoleCommand
         TrafficStatisctic::model()->parse();
     }
 
-    public function actionCopyParsing()
-    {
-        $criteria = new CDbCriteria;
-
-        $model = 0;
-        while ($model !== null) {
-            $criteria->offset = rand(0, 100);
-            $model = YandexPopularity::model()->find($criteria);
-
-            try {
-                $parsing = new ParsingKeyword;
-                $parsing->keyword_id = $model->keyword_id;
-                $parsing->updated = $model->date . ' 00:00:00';
-                $parsing->save();
-            } catch (Exception $e) {
-
-            }
-            $model->delete();
-        }
+    public function actionSimilarArticles(){
+        Yii::import('site.seo.modules.writing.components.*');
+        $p = new SimilarArticles;
+        $p->start();
     }
 }
 

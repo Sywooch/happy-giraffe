@@ -157,7 +157,7 @@ class SiteKeywordVisit extends HActiveRecord
         return new CActiveDataProvider($this, array(
             'criteria' => $full_criteria,
             'totalItemCount' => self::model()->count($criteria),
-            'pagination' => array('pageSize' => 30),
+            'pagination' => array('pageSize' => 100),
             'sort' => array(
                 'attributes' => array(
                     'popular' => array(
@@ -255,7 +255,6 @@ class SiteKeywordVisit extends HActiveRecord
             $model->setAttribute('m' . $month, $value);
         }
 
-        if (!$model->save())
-            throw new CHttpException(404, 'Error - stats doesnt saved.');
+        $model->save();
     }
 }

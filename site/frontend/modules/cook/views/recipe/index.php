@@ -3,7 +3,6 @@
         <span class="cook-cat active"><i class="icon-cook-cat icon-recipe-<?=$type ?>"></i></span>
         <span class="cook-title-cat-h1-text"><?=CookRecipe::model()->getTypeString($type) ?></span>
     </h1>
-<!--    <p>Одним из основных свидетельств правильного течения беременности является набор веса согласно принятым нормам. Оптимальный набор веса при беременности — это 10–14 кг. Набираемый вес при беременности.</p>-->
 </div>
 <?php
 

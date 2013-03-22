@@ -29,32 +29,46 @@ class ProxyParserThread
     private $_start_time = null;
     private $_time_stamp_title = '';
 
-    function __construct()
+    function __construct($thread_id)
     {
-        time_nanosleep(rand(0, 5), rand(0, 1000000000));
+        time_nanosleep(rand(0, 30), rand(0, 1000000000));
         Yii::import('site.frontend.extensions.phpQuery.phpQuery');
-        $this->thread_id = rand(1, 8000000);
+        $this->thread_id = $thread_id;
         $this->getProxy();
     }
 
     private function getProxy()
     {
+        //$this->startTimer('find proxy');
+
+        $criteria = new CDbCriteria;
+        $criteria->condition = 'id % 645 = ' . $this->thread_id;
+        $criteria->order = 'rank desc';
+        $this->proxy = Proxy::model()->find($criteria);
+
+        //$this->endTimer();
+    }
+
+    private function getProxyByRating()
+    {
+        $this->startTimer('find proxy1');
+
         $criteria = new CDbCriteria;
         $criteria->compare('active', 0);
         $criteria->order = 'rank desc';
-        $criteria->offset = rand(0, 10);
-
-        $this->startTimer('find proxy');
+        $criteria->offset = rand(0, 20);
 
         $this->proxy = Proxy::model()->find($criteria);
+
+        $this->endTimer();
+        $this->startTimer('find proxy2');
+
         if ($this->proxy === null)
             $this->closeThread('No proxy');
-
         $this->proxy->active = 1;
         $this->proxy->save();
 
         $this->endTimer();
-        $this->log('proxy: ' . $this->proxy->value);
     }
 
     protected function query($url, $ref = null, $post = false, $attempt = 0)
@@ -74,7 +88,7 @@ class ProxyParserThread
                 curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
                 curl_setopt($ch, CURLOPT_PROXY, $this->proxy->value);
                 if (Yii::app()->params['use_proxy_auth']) {
-                    curl_setopt($ch, CURLOPT_PROXYUSERPWD, "alexhg:Nokia1111");
+                    curl_setopt($ch, CURLOPT_PROXYUSERPWD, "alexk984:Nokia1111");
                     curl_setopt($ch, CURLOPT_PROXYAUTH, 1);
                 }
             }
@@ -133,7 +147,7 @@ class ProxyParserThread
         else
             $this->proxy->rank = floor((($this->proxy->rank + $this->success_loads) / 5) * 4);
 
-        $this->proxy->active = 0;
+        //$this->proxy->active = 0;
         $this->proxy->save();
         $this->getProxy();
         $this->success_loads = 0;
@@ -161,7 +175,7 @@ class ProxyParserThread
     private function saveProxy()
     {
         $this->proxy->rank = $this->proxy->rank + $this->success_loads;
-        $this->proxy->active = 0;
+        //$this->proxy->active = 0;
         $this->proxy->save();
     }
 

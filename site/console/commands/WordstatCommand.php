@@ -13,37 +13,6 @@ class WordstatCommand extends CConsoleCommand
 {
     const WORDSTAT_LIMIT = 200;
 
-    public function actionAddKeywords()
-    {
-        $criteria = new CDbCriteria;
-        $criteria->limit = 1000;
-        $criteria->with = array('yandex');
-        $criteria->order = 'id asc';
-
-        $i = 0;
-        $models = array(1);
-        while (!empty($models)) {
-            $models = Keyword::model()->findAll($criteria);
-            foreach ($models as $model) {
-                if (!isset($model->yandex)) {
-                    $parsing = new ParsingKeyword();
-                    $parsing->keyword_id = $model->id;
-                    try {
-                        $parsing->save();
-                    } catch (Exception $e) {
-
-                    }
-                }
-                $last_id = $model->id;
-            }
-            $criteria->condition = 'id > ' . $last_id;
-
-            $i++;
-            if ($i % 100 == 0)
-                echo round($i / 10) . "\n";
-        }
-    }
-
     public function actionAddCompetitors()
     {
         $keywords = Yii::app()->db_seo->createCommand('select distinct(keyword_id) from sites__keywords_visits ')->queryColumn();
@@ -86,8 +55,41 @@ class WordstatCommand extends CConsoleCommand
         fclose($handle);
     }
 
-    public function actionModify(){
+    public function actionModify($num = 1)
+    {
         $parser = new WordstatQueryModify();
-        $parser->addToParsing();
+        $parser->addToParsing($num);
+    }
+
+    public function actionFixPriority($i = 0)
+    {
+        $ids = 1;
+        while (!empty($ids)) {
+            $ids = Yii::app()->db_keywords->createCommand()
+                ->select('id')
+                ->from('keywords')
+                ->where('wordstat <= 10000 AND wordstat>1000')
+                ->limit(10000)
+                ->offset($i * 10000)
+                ->queryColumn();
+
+            foreach ($ids as $id) {
+                $model = ParsingKeyword::model()->findByPk($id);
+                if ($model !== null) {
+                    if (strtotime($model->updated) < strtotime('-5 days')) {
+                        $model->priority = 100;
+                        $model->update(array('priority'));
+                    }
+                } else {
+                    $model = new ParsingKeyword;
+                    $model->keyword_id = $id;
+                    $model->priority = 100;
+                    $model->save();
+                }
+            }
+
+            $i++;
+            echo $i . "\n";
+        }
     }
 }

@@ -50,6 +50,7 @@ class SimilarArticles
             ->select('distinct(keyword_id)')
             ->from('queries')
             ->where('visits > 50')
+            ->limit(1000)
             ->queryColumn();
 
         echo count($keywords) . "\n";

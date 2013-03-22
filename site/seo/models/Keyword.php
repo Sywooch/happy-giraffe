@@ -383,102 +383,40 @@ class Keyword extends CActiveRecord
             )) . '<a onclick="SeoModule.unbindKeyword(this, ' . $this->id . ')" class="icon-link active" href="javascript:;"></a>';
         }
 
-        $res .= $this->getSimilarArticlesHtml($section);
+        $res .= $this->getSimilarArticlesHtml();
         return $res;
     }
 
-    public function getSimilarArticlesHtml($section = 1)
+    public function getSimilarArticlesHtml()
     {
-        Yii::import('site.frontend.modules.cook.models.*');
-        Yii::import('site.frontend.extensions.*');
-
-        $res = Yii::app()->cache->get('similar_articles__' . $this->id);
-        if ($res === false) {
-            $models = $this->getSimilarArticles($section);
-            if (!empty($models)) {
-                $res = '<a href="javascript:;" class="icon-links-trigger" onclick="$(this).toggleClass(\'triggered\').next().toggle();"></a><div class="links" style="display:none;">';
-                foreach ($models as $model) {
-                    $res .= CHtml::link($model->title, 'http://www.happy-giraffe.ru' . $model->url, array('target' => '_blank')) . '  ';
-                    $res .= CHtml::link('', 'javascript:;', array(
-                        'onclick' => 'SeoModule.bindKeywordToArticle(' . $this->id . ', ' . $model->id . ', ' . $section . ', this);',
-                        'class' => 'icon-link'
-                    )) . '<br>';
-                }
+        Yii::import('site.seo.modules.writing.components.*');
+        $models = SimilarArticles::getArticles($this->id);
+        if (!empty($models)) {
+            $res = '<a href="javascript:;" class="icon-links-trigger" onclick="$(this).toggleClass(\'triggered\').next().toggle();"></a><div class="links" style="display:none;">';
+            foreach ($models as $model) {
+                $res .= CHtml::link($model->title, 'http://www.happy-giraffe.ru' . $model->url, array('target' => '_blank')) . '  ';
                 $res .= CHtml::link('', 'javascript:;', array(
-                    'onclick' => '$(this).next().toggle()',
+                    'onclick' => 'SeoModule.bindKeywordToArticle(' . $this->id . ', ' . $model->id . ', "' . get_class($model) . '", this);',
                     'class' => 'icon-link'
-                )) . '<div style="display:none;">
+                )) . '<br>';
+            }
+            $res .= CHtml::link('', 'javascript:;', array(
+                'onclick' => '$(this).next().toggle()',
+                'class' => 'icon-link'
+            )) . '<div style="display:none;">
                           <input type="text" size="40">
                           <a href="javascript:;" class="btn-green-small" onclick="SeoModule.bindKeyword(this, ' . $this->id . ');">Ok</a>
                       </div></div>';
-            } else {
-                $res = CHtml::link('', 'javascript:;', array(
-                    'onclick' => '$(this).next().toggle()',
-                    'class' => 'icon-link'
-                )) . '<div style="display:none;">
+        } else {
+            $res = CHtml::link('', 'javascript:;', array(
+                'onclick' => '$(this).next().toggle()',
+                'class' => 'icon-link'
+            )) . '<div style="display:none;">
                           <input type="text" size="40">
                           <a href="javascript:;" class="btn-green-small" onclick="SeoModule.bindKeyword(this, ' . $this->id . ');">Ok</a>
                       </div>';
-            }
-
-            Yii::app()->cache->set('similar_articles__' . $this->id, $res, 24 * 3600);
         }
 
         return $res;
-    }
-
-    public function getSimilarArticles($section)
-    {
-        $limit = 10;
-        $this->name = str_replace('/', '', $this->name);
-
-        $sphinx_index = 'communityTextTitle';
-        if ($section == SeoTask::SECTION_COOK)
-            $sphinx_index = 'recipe';
-
-        try {
-            $allSearch = Yii::app()->search
-                ->select('*')
-                ->from($sphinx_index)
-                ->where(' ' . CHtml::encode($this->name) . ' ')
-                ->limit(0, $limit)
-                ->searchRaw();
-        } catch (Exception $e) {
-            return null;
-        }
-        if (empty($allSearch['matches']))
-            return null;
-
-        $ids = array();
-
-        $i = 0;
-        foreach ($allSearch['matches'] as $key => $m) {
-            $ids [] = $key;
-            $i++;
-            if ($i > $limit)
-                break;
-        }
-
-        $criteria = new CDbCriteria;
-        $criteria->compare('t.id', $ids);
-        $criteria->limit = $limit;
-
-        $class = 'CommunityContent';
-        if ($section == SeoTask::SECTION_COOK) {
-            $class = 'CookRecipe';
-            $criteria->with = array('tags');
-        }
-
-        $models = $class::model()->resetScope()->findAll($criteria);
-
-        //check if article is busy
-        foreach ($models as $key => $model) {
-            $url = 'http://www.happy-giraffe.ru' . $model->url;
-            $page = Page::model()->with(array('keywordGroup'))->findByAttributes(array('url' => $url));
-            if ($page !== null && !empty($page->keywordGroup->keywords))
-                unset($models[$key]);
-        }
-
-        return $models;
     }
 }

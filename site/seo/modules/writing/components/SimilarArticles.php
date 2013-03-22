@@ -48,8 +48,9 @@ class SimilarArticles
     {
         $keywords = Yii::app()->db_seo->createCommand()
             ->select('distinct(keyword_id)')
-            ->from('queries')
-            ->where('visits > 50')
+            ->from('sites__keywords_visits')
+            ->where('sum > 100 AND year = 2013')
+            ->order('sum desc')
             ->queryColumn();
 
         echo count($keywords) . "\n";
@@ -145,5 +146,19 @@ class SimilarArticles
                 'updated' => date("Y-m-d"),
             ));
         }
+    }
+
+    public static function getArticles($keyword_id)
+    {
+        $models = ShpinxArticles::model()->findAll('keyword_id=:keyword_id', array(':keyword_id' => $keyword_id));
+        $articles = array();
+
+        foreach($models as $model){
+            $post = CActiveRecord::model($model->entity)->findByPk($model->entity_id);
+            if ($post !== null)
+                $articles[] = $post;
+        }
+
+        return $articles;
     }
 }

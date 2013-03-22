@@ -136,11 +136,11 @@ var SeoModule = {
             }
         }, 'json');
     },
-    bindKeywordToArticle:function (keyword_id, article_id, section, el) {
+    bindKeywordToArticle:function (keyword_id, entity_id, entity, el) {
         $.post('/writing/editor/bindKeywordToArticle/', {
             keyword_id:keyword_id,
-            article_id:article_id,
-            section:section
+            entity_id:entity_id,
+            entity:entity
         }, function (response) {
             if (response.status) {
                 $.pnotify({

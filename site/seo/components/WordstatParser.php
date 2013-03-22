@@ -9,17 +9,18 @@ class WordstatParser extends ProxyParserThread
      * @var ParsingKeyword[]
      */
     public $keywords = array();
+    public $parse_all = true;
     /**
      * @var ParsingKeyword
      */
     public $keyword = null;
     public $next_page = '';
     public $first_page = true;
-    private $fails = 0;
+    protected $fails = 0;
     /**
      * @var WordstatQueryModify
      */
-    private $queryModify;
+    protected $queryModify;
 
     public function init($mode)
     {
@@ -30,7 +31,7 @@ class WordstatParser extends ProxyParserThread
         $this->getCookie();
     }
 
-    public function start($mode)
+    public function start($mode = false)
     {
         $this->init($mode);
 
@@ -73,38 +74,23 @@ class WordstatParser extends ProxyParserThread
         $this->startTimer('load keywords');
 
         //сначала загружаем приоритетные фразы
-        Yii::app()->db_keywords->createCommand("
-                update parsing_keywords
-                set active=:pid
-                where active=0 AND type=0 AND priority > 0
-                limit 20
-        ")->execute(array(':pid' => $this->thread_id));
-
         $criteria = new CDbCriteria;
-        $criteria->compare('active', $this->thread_id);
+        $criteria->condition = 'priority != 0 AND keyword_id % 645 = ' . $this->thread_id;
+        $criteria->order = 'priority desc';
+        $criteria->limit = 100;
         $this->keywords = ParsingKeyword::model()->findAll($criteria);
 
         if (empty($this->keywords)) {
             //если нет приоритетных загружаем остальные
             $criteria = new CDbCriteria;
-            $criteria->compare('active', 0);
-            $criteria->compare('type', 0);
-            $criteria->limit = 20;
-            $criteria->offset = rand(0, 1000);
+            $criteria->limit = 10;
             $criteria->order = 'updated asc';
 
             $this->keywords = ParsingKeyword::model()->findAll($criteria);
             $this->log(count($this->keywords) . ' keywords with 0 priority loaded');
-
-            //update active
-            $keys = array();
-            foreach ($this->keywords as $key)
-                $keys [] = $key->keyword_id;
-
-            Yii::app()->db_keywords->createCommand()->update('parsing_keywords', array('active' => 1),
-                'keyword_id IN (' . implode(',', $keys) . ')');
-        } else
+        } else {
             $this->log(count($this->keywords) . ' priority keywords loaded');
+        }
 
         $this->endTimer();
     }
@@ -120,7 +106,7 @@ class WordstatParser extends ProxyParserThread
         $this->log('Parsing keyword: ' . $this->keyword->keyword_id);
     }
 
-    private function getCookie()
+    protected function getCookie()
     {
         $url = 'http://wordstat.yandex.ru/';
         $success = false;
@@ -152,7 +138,7 @@ class WordstatParser extends ProxyParserThread
         $this->log('cookie received successfully');
     }
 
-    private function parseQuery()
+    protected function parseQuery()
     {
         $html = $this->query($this->next_page, 'http://wordstat.yandex.ru/');
         if (!isset($html) || $html === null)
@@ -178,36 +164,39 @@ class WordstatParser extends ProxyParserThread
             $this->log('wordstat value: ' . $matches[1]);
         } else return false;
 
-        //find keywords in block "Что искали со словом"
-        foreach ($document->find('table.campaign tr td table:first td a') as $link) {
-            $keyword = trim(pq($link)->text());
-            $value = (int)pq($link)->parent()->next()->next()->text();
+        $this->next_page = '';
 
-            $this->addData($keyword, $value);
-
-            //временно ищем слова перед которыми надо ставить +
-            $this->queryModify->analyzeQuery($keyword);
-        }
-
-        //собирает кейворды из блока "Что еще искали люди, искавшие"
-        //так как на остальных кейворды повторяются
-        if ($this->first_page)
-            foreach ($document->find('table.campaign tr td table:eq(1) td a') as $link) {
+        if ($this->parse_all) {
+            //find keywords in block "Что искали со словом"
+            foreach ($document->find('table.campaign tr td table:first td a') as $link) {
                 $keyword = trim(pq($link)->text());
                 $value = (int)pq($link)->parent()->next()->next()->text();
 
-                $this->addData($keyword, $value, true);
+                $this->addData($keyword, $value);
 
                 //временно ищем слова перед которыми надо ставить +
                 $this->queryModify->analyzeQuery($keyword);
             }
 
-        //ищем ссылку на следующую страницу
-        $this->next_page = '';
-        foreach ($document->find('div.pages a') as $link) {
-            $title = pq($link)->text();
-            if (strpos($title, 'следующая') !== false)
-                $this->next_page = 'http://wordstat.yandex.ru/' . pq($link)->attr('href');
+            //собирает кейворды из блока "Что еще искали люди, искавшие"
+            //так как на остальных кейворды повторяются
+            if ($this->first_page)
+                foreach ($document->find('table.campaign tr td table:eq(1) td a') as $link) {
+                    $keyword = trim(pq($link)->text());
+                    $value = (int)pq($link)->parent()->next()->next()->text();
+
+                    $this->addData($keyword, $value, true);
+
+                    //временно ищем слова перед которыми надо ставить +
+                    $this->queryModify->analyzeQuery($keyword);
+                }
+
+            //ищем ссылку на следующую страницу
+            foreach ($document->find('div.pages a') as $link) {
+                $title = pq($link)->text();
+                if (strpos($title, 'следующая') !== false)
+                    $this->next_page = 'http://wordstat.yandex.ru/' . pq($link)->attr('href');
+            }
         }
 
         if (!empty($this->next_page))
@@ -217,7 +206,7 @@ class WordstatParser extends ProxyParserThread
         return true;
     }
 
-    public function addData($keyword, $value, $related = false)
+    protected function addData($keyword, $value, $related = false)
     {
         if (!empty($keyword) && !empty($value)) {
             if (strpos($keyword, '+') !== false) {
@@ -225,14 +214,16 @@ class WordstatParser extends ProxyParserThread
                 $keyword = ltrim($keyword, '+');
             }
 
-            $model = Keyword::GetKeyword($keyword, 1, $value);
-            $this->log('added: ' . $model->id);
-
-            if ($related)
-                KeywordRelation::saveRelation($this->keyword->keyword_id, $model->id);
+            $model = Keyword::GetKeyword($keyword, 0, $value);
+            if ($model !== null) {
+                if ($related)
+                    KeywordRelation::saveRelation($this->keyword->keyword_id, $model->id);
+                return $model;
+            }
         }
-    }
 
+        return null;
+    }
 
     public function getSimpleValue($keyword)
     {
@@ -246,18 +237,5 @@ class WordstatParser extends ProxyParserThread
         if (preg_match('/— ([\d]+) показ[ов]*[а]* в месяц/', $html, $matches)) {
             return $matches[1];
         } else return -1;
-    }
-
-    public function closeThread($reason = 'unknown reason')
-    {
-        if (!empty($this->keyword))
-            $this->keywords [] = $this->keyword;
-
-        foreach ($this->keywords as $keyword) {
-            $keyword->active = 0;
-            $keyword->save();
-        }
-
-        parent::closeThread($reason);
     }
 }

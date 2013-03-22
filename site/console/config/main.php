@@ -15,6 +15,7 @@ return array(
     ),
     'import' => array(
         'site.common.components.*',
+        'site.common.behaviors.*',
         'site.common.models.*',
         'site.common.helpers.*',
         'site.frontend.extensions.image.Image',

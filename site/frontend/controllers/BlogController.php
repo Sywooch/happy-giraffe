@@ -5,6 +5,9 @@
  */
 class BlogController extends HController
 {
+    /**
+     * @var User
+     */
     public $user;
     public $rubric_id;
 
@@ -187,7 +190,7 @@ class BlogController extends HController
 
         $this->rubric_id = $rubric_id;
 
-        if ($contents->data)
+        if ($this->user->hasRssContent())
             $this->rssFeed = $this->createUrl('rss/user', array('user_id' => $user_id));
         $this->render('list', array(
             'contents' => $contents,

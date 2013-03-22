@@ -16,7 +16,7 @@ class SimilarArticles
     private $sections = array(
         1 => array(
             'entity' => 'CommunityContent',
-            'index' => 'community',
+            'index' => 'communityTextTitle',
         ),
         2 => array(
             'entity' => 'CookRecipe',

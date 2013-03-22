@@ -1,17 +1,13 @@
 <?php
 /**
- * Author: alexk984
- * Date: 30.08.12
  *
  * Ищет посты для комментирования в постах обычных пользователей
  *
+ * @author alexk984
  */
 class UserPosts extends PostForCommentator
 {
     protected $nextGroup = 'TrafficPosts';
-    protected $entities = array(
-        'CommunityContent',
-    );
 
     /**
      * @param bool $simple_users
@@ -22,6 +18,7 @@ class UserPosts extends PostForCommentator
         $criteria = new CDbCriteria;
         $criteria->select = 't.*';
         $criteria->condition = 't.created >= "' . date("Y-m-d H:i:s", strtotime('-48 hour')) . '" AND `full` IS NULL AND t.removed = 0';
+        $criteria->order = 't.id asc';#TODO убратть после отладки
         $criteria->with = array(
             'author' => array(
                 'select'=>array('id'),

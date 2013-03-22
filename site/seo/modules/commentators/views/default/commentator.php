@@ -9,7 +9,7 @@ if (!empty($months))
 $user_id = $commentator->user_id;
 if (empty($period))
     $period = $months[0];
-$month = CommentatorsMonth::getWorkingMonth($period);
+$month = CommentatorsMonth::get($period);
 $this->renderPartial('_avatar', compact('commentator'));
 ?>
 <div class="seo-table">
@@ -37,20 +37,6 @@ $this->renderPartial('_avatar', compact('commentator'));
 
                     <td class="col-2"><?=$month->getStatValue($user_id, CommentatorsMonth::NEW_FRIENDS) ?></td>
                     <td class="col-3"><?=$month->getPlaceView($user_id, CommentatorsMonth::NEW_FRIENDS) ?></td>
-                    <td class="col-4"></td>
-                </tr>
-            </table>
-
-        </li>
-
-        <li>
-
-            <table class="table-task">
-                <tr>
-                    <td class="col-1">2. Уникальных посетителей блога</td>
-
-                    <td class="col-2"><?=$month->getStatValue($user_id, CommentatorsMonth::BLOG_VISITS) ?></td>
-                    <td class="col-3"><?=$month->getPlaceView($user_id, CommentatorsMonth::BLOG_VISITS) ?></td>
                     <td class="col-4"></td>
                 </tr>
             </table>

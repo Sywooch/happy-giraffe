@@ -12,7 +12,6 @@ class CommentatorWork extends EMongoDocument
     const CHIEF_COMMENTS_COUNT = 60;
 
     public $user_id;
-    public $clubs = array(1);
     /**
      * @var CommentatorDay[]
      */
@@ -54,7 +53,7 @@ class CommentatorWork extends EMongoDocument
     public function beforeSave()
     {
         $day = $this->getCurrentDay();
-        if (isset($day)) {
+        if ($day) {
             $day->checkStatus($this);
         }
 
@@ -64,191 +63,9 @@ class CommentatorWork extends EMongoDocument
         return parent::beforeSave();
     }
 
-    public function getCommentsLimit()
-    {
-        return ($this->chief == 1) ? self::CHIEF_COMMENTS_COUNT : self::COMMENTS_COUNT;
-    }
-
-    public function getBlogPostsLimit()
-    {
-        return ($this->chief == 1) ? self::CHIEF_BLOG_POSTS_COUNT : self::BLOG_POSTS_COUNT;
-    }
-
-    public function getClubPostsLimit()
-    {
-        return ($this->chief == 1) ? self::CHIEF_CLUB_POSTS_COUNT : self::CLUB_POSTS_COUNT;
-    }
-
-    /**
-     * @return CommentatorDay
-     */
-    public function getCurrentDay()
-    {
-        foreach ($this->days as $day)
-            if ($day->date == date("Y-m-d"))
-                return $day;
-
-        return null;
-    }
-
-    /**
-     * @return CommentatorDay
-     */
-    public function getPreviousDay()
-    {
-        $max_day = 0;
-        foreach ($this->days as $day)
-            if (strtotime($day->date) > $max_day && $day->date != date("Y-m-d"))
-                $max_day = strtotime($day->date);
-
-        if ($max_day == 0)
-            return null;
-
-        foreach ($this->days as $day)
-            if (strtotime($day->date) == $max_day)
-                return $day;
-    }
-
-    /**
-     * @param CommentatorDay $day
-     * @return CommentatorDay|null
-     */
-    public function getDay($day)
-    {
-        foreach ($this->days as $_day)
-            if ($_day->date == $day)
-                return $_day;
-
-        return null;
-    }
-
-    public function IsWorksToday()
-    {
-        foreach ($this->days as $day)
-            if ($day->date == date("Y-m-d"))
-                return true;
-
-        return false;
-    }
-
-    public function IsWorks($day)
-    {
-        foreach ($this->days as $_day)
-            if ($_day->date == $day)
-                return true;
-
-        return false;
-    }
-
-    public function getEntitiesCount($entity, $period)
-    {
-        $result = 0;
-        foreach ($this->days as $day)
-            if (strpos($day->date, $period) === 0)
-                $result += $day->$entity;
-
-        return $result;
-    }
-
-    public function WorksToday()
-    {
-        if ($this->getCurrentDay())
-            return true;
-
-        $day = new CommentatorDay();
-        $day->date = date("Y-m-d");
-        $day->skip_count = 0;
-        $day->created = time();
-
-        if (empty($this->days))
-            $this->days = array($day);
-        else
-            $this->days[] = $day;
-
-        $this->getNextPostForComment();
-
-        $this->save();
-        $day->blog_posts = count($this->blogPosts());
-        $day->club_posts = $this->clubPostsCount();
-
-        //add working day
-        $month = CommentatorsMonth::get();
-        if (!in_array(date("Y-m-d"), $month->workingDays)) {
-            $month->workingDays [] = date("Y-m-d");
-            $month->save();
-        }
-
-        return $this->save();
-    }
-
-    public function refreshCurrentDayPosts()
-    {
-        $day = $this->getCurrentDay();
-        if (!empty($day)) {
-            $day->blog_posts = count($this->blogPosts());
-            $day->club_posts = $this->clubPostsCount();
-            $this->save();
-        }
-    }
-
-    public function incCommentsCount($next = true)
-    {
-        $this->getCurrentDay()->comments++;
-        if ($next) {
-            $this->save();
-            if ($this->getNextPostForComment()) {
-                $this->save();
-                return true;
-            }
-        } else
-            return $this->save();
-
-        return false;
-    }
-
-    public function skipComment()
-    {
-        if ($this->getCurrentDay()->skip_count >= self::MAX_SKIPS)
-            return false;
-
-        $this->skipArticle();
-        $this->save();
-        if ($this->getNextPostForComment()) {
-
-            $this->getCurrentDay()->skip_count++;
-            $this->save();
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * получить следующий пост (в блоге, в клубах, рецепт) для комментарирования
-     */
-    public function getNextPostForComment()
-    {
-        TimeLogger::model()->startTimer('next comment');
-        $list = PostForCommentator::getNextPost($this);
-        TimeLogger::model()->endTimer();
-
-        if ($list === false) {
-            return false;
-        }
-
-        list($this->comment_entity, $this->comment_entity_id) = $list;
-        return true;
-    }
-
-    public function skipArticle()
-    {
-        if (empty($this->skipUrls))
-            $this->skipUrls = array(array($this->comment_entity, $this->comment_entity_id));
-        elseif (!empty($this->comment_entity) && !empty($this->comment_entity_id)) {
-            if ($this->comment_entity == 'BlogContent')
-                $this->comment_entity = 'CommunityContent';
-            $this->skipUrls[] = array($this->comment_entity, $this->comment_entity_id);
-        }
-    }
+    /******************************************************************************************************************/
+    /**************************************** Работа пользователя - основное ******************************************/
+    /******************************************************************************************************************/
 
     /**
      * @static
@@ -300,156 +117,237 @@ class CommentatorWork extends EMongoDocument
         return $model;
     }
 
+    /**
+     * @return CommentatorDay
+     */
+    public function getCurrentDay()
+    {
+        foreach ($this->days as $day)
+            if ($day->date == date("Y-m-d"))
+                return $day;
+
+        return null;
+    }
+
+    public function IsWorksToday()
+    {
+        foreach ($this->days as $day)
+            if ($day->date == date("Y-m-d"))
+                return true;
+
+        return false;
+    }
+
+    public function IsWorks($day)
+    {
+        foreach ($this->days as $_day)
+            if ($_day->date == $day)
+                return true;
+
+        return false;
+    }
+
+    /**
+     * Создание рабочего дня
+     *
+     * @return bool
+     */
+    public function CreateWorkingDay()
+    {
+        if ($this->getCurrentDay())
+            return true;
+
+        $day = new CommentatorDay();
+        $day->date = date("Y-m-d");
+        $day->skip_count = 0;
+        $day->created = time();
+
+        $this->days[] = $day;
+        $this->calculateNextComment();
+        return $this->save();
+    }
+
+
+    /******************************************************************************************************************/
+    /*************************************** Плановые лимиты задач комментатора ***************************************/
+    /******************************************************************************************************************/
+    public function getCommentsLimit()
+    {
+        return ($this->chief == 1) ? self::CHIEF_COMMENTS_COUNT : self::COMMENTS_COUNT;
+    }
+
+    public function getBlogPostsLimit()
+    {
+        return ($this->chief == 1) ? self::CHIEF_BLOG_POSTS_COUNT : self::BLOG_POSTS_COUNT;
+    }
+
+    public function getClubPostsLimit()
+    {
+        return ($this->chief == 1) ? self::CHIEF_CLUB_POSTS_COUNT : self::CLUB_POSTS_COUNT;
+    }
+
+    /******************************************************************************************************************/
+    /************************************************* Комментарии ****************************************************/
+    /******************************************************************************************************************/
+
+    /**
+     * Увеличивает кол-во выполненных заданий на комментирование на 1 и вычисляет следующий пост для комментирования
+     * @param bool $next
+     * @return bool
+     */
+    public function incCommentsCount($next = true)
+    {
+        $this->getCurrentDay()->comments++;
+        if ($next) {
+            $this->save();
+            if ($this->calculateNextComment()) {
+                $this->save();
+                return true;
+            }
+        } else
+            return $this->save();
+
+        return false;
+    }
+
+    /**
+     * Пропуск статьи для комментирования
+     *
+     * @return bool
+     */
+    public function skipComment()
+    {
+        //если достигнут предел дневной нормы пропусков запрещаем пропуск статьи
+        if ($this->getCurrentDay()->skip_count >= self::MAX_SKIPS)
+            return false;
+
+        if (!empty($this->comment_entity) && !empty($this->comment_entity_id)) {
+            if ($this->comment_entity == 'BlogContent')
+                $this->comment_entity = 'CommunityContent';
+            $this->skipUrls[] = array($this->comment_entity, $this->comment_entity_id);
+        }
+        $this->save();
+
+        //вычисляем следующий пост для комментирования
+        if ($this->calculateNextComment()) {
+            $this->getCurrentDay()->skip_count++;
+            $this->save();
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Вычисляет следующий пост (в блоге, в клубах, рецепт) для комментарирования
+     */
+    public function calculateNextComment()
+    {
+        //сохраняем время генерации комментария
+        TimeLogger::model()->startTimer('next comment');
+        $list = PostForCommentator::getNextPost($this);
+        TimeLogger::model()->endTimer();
+
+        if ($list === false)
+            return false;
+
+        list($this->comment_entity, $this->comment_entity_id) = $list;
+        return true;
+    }
+
+    /**
+     * Ссылка на статью для комментирования, нужно для вьюхи
+     *
+     * @return CActiveRecord
+     */
+    public function nextCommentLink()
+    {
+        if ($this->comment_entity !== 'CookRecipe')
+            $model = CActiveRecord::model($this->comment_entity)->resetScope()->full()->findByPk($this->comment_entity_id);
+        else
+            $model = CActiveRecord::model($this->comment_entity)->resetScope()->findByPk($this->comment_entity_id);
+
+        if ($model->removed) {
+            $model->full = 1;
+            $model->update(array('full'));
+            $model = null;
+        }
+
+        if ($model === null) {
+            $this->calculateNextComment();
+            $this->save();
+            $model = CActiveRecord::model($this->comment_entity)->findByPk($this->comment_entity_id);
+        }
+
+        $title = empty($model->title) ? $model->getContentText() : $model->title;
+        return CHtml::link($title, $model->url, array('target' => '_blank'));
+    }
+
+    /**
+     * Проверяет не находится ли пост в списке пропущенных комментатором
+     *
+     * @param $entity
+     * @param $entity_id
+     * @return bool
+     */
+    public function IsSkipped($entity, $entity_id)
+    {
+        foreach ($this->skipUrls as $skipped) {
+            if ($skipped[0] == $entity && $skipped[1] == $entity_id)
+                return true;
+        }
+
+        return false;
+    }
+
+    /******************************************************************************************************************/
+    /**************************************************** Посты *******************************************************/
+    /******************************************************************************************************************/
+    /**
+     * Возвращает количество постов/комментариев за период
+     *
+     * @param $entity
+     * @param $period
+     * @return int|mixed
+     */
+    public function getEntitiesCount($entity, $period)
+    {
+        $result = 0;
+        foreach ($this->days as $day)
+            if (strpos($day->date, $period) === 0)
+                $result += $day->$entity;
+
+        return $result;
+    }
+
     public function blogPosts()
     {
         $criteria = new CDbCriteria;
-        $criteria->condition = 'created >= "' . date("Y-m-d") . ' 00:00:00"';
-        $criteria->compare('author_id', $this->user_id);
         $criteria->order = 'created desc';
-        $criteria->with = array(
-            'rubric' => array(
-                'condition' => 'user_id = ' . $this->user_id
-            )
-        );
 
-        return CommunityContent::model()->findAll($criteria);
+        //return CommunityContent::model()->findAllByPk($criteria);
+        return array();
     }
 
     public function clubPosts()
     {
-        $criteria = new CDbCriteria;
-        $criteria->condition = 'created >= "' . date("Y-m-d") . ' 00:00:00"';
-        $criteria->compare('author_id', $this->user_id);
-        $criteria->order = 'created desc';
-        $criteria->with = array(
-            'rubric' => array(
-                'condition' => 'user_id IS NULL'
-            )
-        );
-
-        return CommunityContent::model()->findAll($criteria);
-    }
-
-    public function recipes()
-    {
-        $criteria = new CDbCriteria;
-        $criteria->condition = 'created >= "' . date("Y-m-d") . ' 00:00:00"';
-        $criteria->compare('author_id', $this->user_id);
-        $criteria->order = 'created desc';
-
-        return CookRecipe::model()->findAll($criteria);
+        return array();
     }
 
     public function clubPostsCount()
     {
-        $club_id = $this->getCurrentClubId();
-        if (empty($club_id))
-            return count($this->clubPosts() + $this->recipes());
-
-        //check post in current community
-        $count = 0;
-        if ($club_id == 22)
-            $count = count($this->recipes()) > 0 ? 1 : 0;
-
-        foreach ($this->clubPosts() as $post)
-            if ($post->rubric->community_id == $club_id)
-                $count = 1;
-
-        Yii::import('site.seo.modules.writing.models.*');
-        //check post by keyword
         $criteria = new CDbCriteria;
         $criteria->condition = 'updated >= :today AND status = ' . SeoTask::STATUS_CLOSED . ' AND multivarka>=1 ';
         $criteria->params = array(':today' => date("Y-m-d") . ' 00:00:00');
         $criteria->compare('executor_id', Yii::app()->user->id);
-        $count += SeoTask::model()->count($criteria);
+        $count = SeoTask::model()->count($criteria);
 
         return $count;
     }
 
-    public function getCurrentClubId()
-    {
-        $day = $this->getCurrentDay();
-        if (empty($day->today_club)) {
-            $this->calcCurrentClub();
-            $this->save();
-        }
 
-        return $day->today_club;
-    }
-
-    public function calcCurrentClub($mode = 0)
-    {
-        $day = $this->getCurrentDay();
-        if ($mode)
-            print_r($this->clubs);
-
-        #TODO если нет назначенных клубов, назначается 1-й
-        if (empty($this->clubs))
-            $this->clubs = array(1);
-
-        $this->clubs = array_values($this->clubs);
-
-        $prev_day = $this->getPreviousDay();
-        if ($prev_day == null) {
-            if ($mode)
-                echo "prev day = null \n";
-            $day->today_club = $this->clubs[0];
-        } else {
-            if (!empty($prev_day->today_club)) {
-                for ($i = 0; $i < count($this->clubs); $i++) {
-                    if ($this->clubs[$i] == $prev_day->today_club) {
-                        if (isset($this->clubs[$i + 1]))
-                            $day->today_club = $this->clubs[$i + 1];
-                        else
-                            $day->today_club = $this->clubs[0];
-                    }
-                }
-
-                if (empty($day->today_club))
-                    $day->today_club = $this->clubs[0];
-            } else
-                $day->today_club = $this->clubs[0];
-
-            if ($mode)
-                echo "today club = $day->today_club \n";
-        }
-    }
-
-    public function comments()
-    {
-        $criteria = new CDbCriteria;
-        $criteria->condition = 'created >= "' . date("Y-m-d") . ' 00:00:00"';
-        $criteria->compare('author_id', $this->user_id);
-        $criteria->order = 'created desc';
-
-        return Comment::model()->count($criteria);
-    }
-
-    /**
-     * @return Community[]
-     */
-    public function communities()
-    {
-        if (empty($this->clubs))
-            return array();
-
-        $criteria = new CDbCriteria;
-        $criteria->compare('id', $this->clubs);
-        return Community::model()->findAll($criteria);
-    }
-
-    public function getWorkingMonths()
-    {
-        $result = array();
-        foreach ($this->days as $day) {
-            $date = date("Y-m", $day->created);
-            if (!in_array($date, $result))
-                $result[] = $date;
-        }
-
-        return array_reverse($result);
-    }
-
+    /******************************************************************************************************************/
+    /**************************************************** Премии *******************************************************/
+    /******************************************************************************************************************/
     public function newFriends($month)
     {
         $criteria = new CDbCriteria;
@@ -520,46 +418,11 @@ class CommentatorWork extends EMongoDocument
         return 0;
     }
 
-    /**
-     * @return CActiveRecord
-     */
-    public function nextComment()
-    {
-        if ($this->comment_entity !== 'CookRecipe')
-            $model = CActiveRecord::model($this->comment_entity)->resetScope()->full()->findByPk($this->comment_entity_id);
-        else
-            $model = CActiveRecord::model($this->comment_entity)->resetScope()->findByPk($this->comment_entity_id);
 
-        if ($model->removed) {
-            $model->full = 1;
-            $model->update(array('full'));
-            $model = null;
-        }
 
-        if ($model === null) {
-            $this->getNextPostForComment();
-            $this->save();
-            $model = CActiveRecord::model($this->comment_entity)->findByPk($this->comment_entity_id);
-        }
-
-        $title = empty($model->title) ? $model->getContentText() : $model->title;
-        return CHtml::link($title, $model->url, array('target' => '_blank'));
-    }
-
-    /**
-     * @param string $period
-     * @return CommentatorDay []
-     */
-    public function getDays($period)
-    {
-        $result = array();
-        foreach ($this->days as $day)
-            if (strpos($day->date, $period) === 0)
-                $result[] = $day;
-
-        return array_reverse($result);
-    }
-
+    /******************************************************************************************************************/
+    /**************************************************** Views *******************************************************/
+    /******************************************************************************************************************/
     public function getPlace($period, $counter)
     {
         $month = CommentatorsMonth::get($period);
@@ -572,11 +435,6 @@ class CommentatorWork extends EMongoDocument
         return '<span class="place">' . $place . ' место</span>';
     }
 
-    public function getStatusView($period)
-    {
-        return '<td></td>';
-    }
-
     public function isNotWorkingAlready()
     {
         $auth_item = Yii::app()->db->createCommand()
@@ -585,7 +443,6 @@ class CommentatorWork extends EMongoDocument
             ->where('itemname = "commentator" AND userid = ' . $this->user_id)
             ->queryScalar();
         return empty($auth_item);
-
     }
 
     public function getName()
@@ -620,17 +477,6 @@ class CommentatorWork extends EMongoDocument
         return ($a->visits > $b->visits) ? -1 : 1;
     }
 
-
-    public function getLastPeriodDay($period)
-    {
-        return str_pad(cal_days_in_month(CAL_GREGORIAN, date('n', strtotime($period)), date('Y', strtotime($period))), 2, "0", STR_PAD_LEFT);
-    }
-
-    public function skipped($url)
-    {
-        return in_array($url, $this->skipUrls);
-    }
-
     public function getCommentatorGroups()
     {
         $criteria = new EMongoCriteria();
@@ -657,12 +503,26 @@ class CommentatorWork extends EMongoDocument
     }
 
     /**
+     * @param string $period
+     * @return CommentatorDay []
+     */
+    public function getDays($period)
+    {
+        $result = array();
+        foreach ($this->days as $day)
+            if (strpos($day->date, $period) === 0)
+                $result[] = $day;
+
+        return array_reverse($result);
+    }
+
+    /**
      * @param $working_commentators CommentatorWork[]
      * @param $summary array
      * @param $days_count int
      * @return bool
      */
-    public static function getExecutedStatus($working_commentators, $summary, $days_count)
+    public static function isExecuted($working_commentators, $summary, $days_count)
     {
         $summary_comment_limit = 0;
         foreach ($working_commentators as $commentator)
@@ -683,5 +543,30 @@ class CommentatorWork extends EMongoDocument
             return true;
 
         return false;
+    }
+
+    public function getWorkingMonths()
+    {
+        $result = array();
+        foreach ($this->days as $day) {
+            $date = date("Y-m", $day->created);
+            if (!in_array($date, $result))
+                $result[] = $date;
+        }
+
+        return array_reverse($result);
+    }
+
+    /**
+     * @param CommentatorDay $day
+     * @return CommentatorDay|null
+     */
+    public function getDay($day)
+    {
+        foreach ($this->days as $_day)
+            if ($_day->date == $day)
+                return $_day;
+
+        return null;
     }
 }

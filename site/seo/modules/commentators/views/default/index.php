@@ -27,11 +27,7 @@ $months = CommentatorsMonth::getMonths();
 
     <div class="fast-filter fast-filter-community">
         <?php for ($i = 1; $i <= $daysInMonth; $i++): ?>
-            <?php if (in_array($period.'-'.str_pad($i, 2, "0", STR_PAD_LEFT), $month->workingDays)):?>
-                <a<?php if ($i == $day) echo ' class="active"' ?> href="<?=$this->createUrl('/commentators/default/index', array('period'=>$period, 'day'=>$i)) ?>"><?=$i ?></a>
-            <?php else: ?>
-                <span><?=$i ?></span>
-            <?php endif ?>
+            <a<?php if ($i == $day) echo ' class="active"' ?> href="<?=$this->createUrl('/commentators/default/index', array('period'=>$period, 'day'=>$i)) ?>"><?=$i ?></a>
         <?php endfor; ?>
         <a<?php if (empty($day)) echo ' class="active"' ?> href="<?=$this->createUrl('/commentators/default/index', array('period'=>$period)) ?>">Месяц</a>
     </div>
@@ -45,14 +41,13 @@ $months = CommentatorsMonth::getMonths();
                 <th rowspan=2><span class="big">Записей<br/>в клуб</span></th>
                 <th rowspan=2><span class="big">Комментариев</span></th>
                 <?php if (empty($day)):?>
-                    <th colspan=5><span class="big">Места</span></th>
+                    <th colspan=4><span class="big">Места</span></th>
                 <?php endif ?>
                 <th rowspan=2><span class="big">План</span></th>
             </tr>
             <tr>
                 <?php if (empty($day)):?>
                     <th title="Новых Друзей">Д</th>
-                    <th title="Посетителей Блога">Б</th>
                     <th title="Уникальных просмотров Анкеты">А</th>
                     <th title="Сообщений">С</th>
                     <th title="Заходов из поисковых систем">П</th>
@@ -109,7 +104,6 @@ $months = CommentatorsMonth::getMonths();
                         <td><?=$club_posts?></td>
                         <td><?=$comments?></td>
                         <td><?=$month->getPlace($commentator->user_id, CommentatorsMonth::NEW_FRIENDS) ?></td>
-                        <td><?=$month->getPlace($commentator->user_id, CommentatorsMonth::BLOG_VISITS) ?></td>
                         <td><?=$month->getPlace($commentator->user_id, CommentatorsMonth::PROFILE_VIEWS) ?></td>
                         <td><?=$month->getPlace($commentator->user_id, CommentatorsMonth::IM_MESSAGES) ?></td>
                         <td><?=$month->getPlace($commentator->user_id, CommentatorsMonth::SE_VISITS) ?></td>
@@ -137,7 +131,7 @@ $months = CommentatorsMonth::getMonths();
                         <td></td>
                         <td></td>
                     <?php endif ?>
-                    <?php if (CommentatorWork::getExecutedStatus($working_commentators, $summary, $days_count)):?>
+                    <?php if (CommentatorWork::isExecuted($working_commentators, $summary, $days_count)):?>
                         <td><span class="task-done">Выполнен</span></td>
                     <?php else: ?>
                         <td><span class="task-not-done">Не выполнен</span></td>

@@ -4,7 +4,7 @@
  */
 
 $months = $this->commentator->getWorkingMonths();
-$current_month = CommentatorsMonth::getWorkingMonth($period);
+$current_month = CommentatorsMonth::get($period);
 ?><div class="seo-table">
 
     <div class="fast-filter fast-filter-community">
@@ -31,20 +31,6 @@ $current_month = CommentatorsMonth::getWorkingMonth($period);
                     <td class="col-2"><?=$this->commentator->newFriends($period) ?></td>
                     <td class="col-3"><?=$this->commentator->getPlace($period, CommentatorsMonth::NEW_FRIENDS) ?></td>
                     <td class="col-4"><a href="<?=$this->createUrl('/signal/commentator/help/') ?>#friends">Как завести наибольшее количество дружеских связей (больше всего друзей на сайте)</a></td>
-                </tr>
-            </table>
-
-        </li>
-
-        <li>
-
-            <table class="table-task">
-                <tr>
-                    <td class="col-1">2.  Уникальных посетителей блога</td>
-
-                    <td class="col-2"><?=$current_month->getStatValue($this->commentator->user_id, CommentatorsMonth::BLOG_VISITS) ?></td>
-                    <td class="col-3"><?=$this->commentator->getPlace($period, CommentatorsMonth::BLOG_VISITS) ?></td>
-                    <td class="col-4"><a href="<?=$this->createUrl('/signal/commentator/help/') ?>#blog-visits">Как сделать блог наиболее посещаемым по уникальным посетителям</a></td>
                 </tr>
             </table>
 

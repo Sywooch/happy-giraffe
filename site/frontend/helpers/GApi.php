@@ -27,17 +27,6 @@ class GApi
     }
 
     /**
-     * Вычисляет последний день месяца
-     *
-     * @param $date
-     * @return string
-     */
-    public function getLastPeriodDay($date)
-    {
-        return str_pad(cal_days_in_month(CAL_GREGORIAN, date('n', strtotime($date)), date('Y', strtotime($date))), 2, "0", STR_PAD_LEFT);
-    }
-
-    /**
      * Возвращает количество уникальных посещений за период времени
      *
      * @param $url
@@ -92,7 +81,7 @@ class GApi
      */
     private function getStat($url, $date1, $date2, $include_sub_pages, $stat)
     {
-        if ($date2 == null)
+        if (empty($date2))
             $date2 = $this->getLastPeriodDay($date1);
         $this->ga->setDateRange($date1, $date2);
 
@@ -111,9 +100,21 @@ class GApi
         } catch (Exception $err) {
             echo $err->getMessage();
             sleep(60);
-            return $this->getUrlOrganicSearches($date1, $date2, $url, $include_sub_pages);
+            return $this->getStat($url, $date1, $date2, $include_sub_pages, $stat);
         }
 
         return isset($report[""]['ga:'.$stat]) ? $report[""]['ga:'.$stat] : 0;
+    }
+
+    /**
+     * Вычисляет последний день месяца
+     *
+     * @param $date
+     * @return string
+     */
+    public function getLastPeriodDay($date)
+    {
+        return date('Y', strtotime($date)).'-'.date('m', strtotime($date)).'-'.
+            str_pad(cal_days_in_month(CAL_GREGORIAN, date('n', strtotime($date)), date('Y', strtotime($date))), 2, "0", STR_PAD_LEFT);
     }
 }

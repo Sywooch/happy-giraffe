@@ -31,24 +31,6 @@ class SignalCommand extends CConsoleCommand
         UserSignalResponse::CheckLate();
     }
 
-    public function actionFriendInvites()
-    {
-        $this->loadModerators();
-        $new_users = $this->getNewUsers();
-
-        foreach ($new_users as $user_id) {
-            if (rand(0, $this->getNum(3)) == 1) {
-                $moder = $this->getModerator($user_id);
-                if ($moder != null) {
-                    $friendRequest = new FriendRequest();
-                    $friendRequest->from_id = $moder;
-                    $friendRequest->to_id = $user_id;
-                    $friendRequest->save();
-                }
-            }
-        }
-    }
-
     public function getNewUsers()
     {
         $end_date = date("Y-m-d H:i:s", strtotime('-7 days'));
@@ -83,11 +65,6 @@ class SignalCommand extends CConsoleCommand
         }
 
         return null;
-    }
-
-    public function getNum($number_friends)
-    {
-        return round(144 / $number_friends);
     }
 
     public function loadModerators()
@@ -130,64 +107,18 @@ class SignalCommand extends CConsoleCommand
         }
     }
 
-    public $ga = null;
-
-    public function actionSyncPageSeVisits()
+    /**
+     * Синхронизировать кол-во заходов из поисковиков с Google Analytics
+     */
+    public function actionSyncGaVisits()
     {
-        $ids = array();
-        $commentators = CommentatorWork::getWorkingCommentators();
-        foreach ($commentators as $commentator)
-            $ids [] = $commentator->user_id;
-
-        $month = date("Y-m");
-
-        $visits = SearchEngineVisits::model()->findAllByAttributes(array('month' => $month));
-        foreach ($visits as $visit) {
-            $article = $visit->page->getArticle();
-
-            if ($article !== null && in_array($article->author_id, $ids)) {
-                $visit->count = GApi::model()->organicSearches($month . '-01', $month . '-' . $this->getLastPeriodDay($month), str_replace('http://www.happy-giraffe.ru', '', $visit->page->url), false);
-                echo $visit->page->url . " - " . $visit->count . "\n";
-                if (!empty($visit->count))
-                    $visit->save();
-
-                sleep(2);
-            } elseif ($article === null) {
-                echo "article IS NULL {$visit->page->url} \n";
-            }
-        }
+        CommentatorsMonth::model()->SyncGaVisits();
     }
 
-    public function actionLoadGaVisits()
-    {
-        $month = date("Y-m");
-        $commentators = CommentatorWork::getWorkingCommentators();
-
-        foreach ($commentators as $commentator) {
-            $models = CommunityContent::model()->findAll('author_id = ' . $commentator->user_id);
-
-            foreach ($models as $model) {
-                $url = trim($model->url, '.');
-                if (!empty($url)) {
-                    $ga_visits = GApi::model()->organicSearches($month . '-01', $month . '-' . date("d"), $url, false);
-                    $my_visits = SearchEngineVisits::getVisits($url, $month);
-
-                    if ($ga_visits > 0)
-                        echo "$url ga:$ga_visits, my:$my_visits \n";
-
-                    if ($ga_visits > 0 && $my_visits != $ga_visits) {
-                        SearchEngineVisits::updateStats($url, $month, $ga_visits);
-                    }
-                }
-            }
-        }
-    }
-
-    public function getLastPeriodDay($period)
-    {
-        return str_pad(cal_days_in_month(CAL_GREGORIAN, date('n', strtotime($period)), date('Y', strtotime($period))), 2, "0", STR_PAD_LEFT);
-    }
-
+    /**
+     * Синхронизировать кол-во заходов из поисковиков c mysql-базой
+     * и пересчитать места и рейтинг комментаторов
+     */
     public function actionSync()
     {
         echo "sync\n";

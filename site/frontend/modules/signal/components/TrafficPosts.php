@@ -1,18 +1,14 @@
 <?php
 /**
- * Author: alexk984
- * Date: 30.08.12
  *
  * Ищет посты для комментирования в постах, которые приносят поисковый трафик > 20 запросов в месяц
  *
+ * @author alexk984
  */
 class TrafficPosts extends PostForCommentator
 {
     protected $nextGroup = 'CoWorkersPosts';
     protected $comments_limit = 10;
-    protected $entities = array(
-        'CommunityContent',
-    );
 
     /**
      * @return CDbCriteria

@@ -1,16 +1,12 @@
 <?php
 /**
- * Author: alexk984
- * Date: 30.08.12
- *
  * Ищет посты для комментирования в постах который добавлены на главную, в соц сети или в рассылку
+ *
+ * @author alexk984
  */
 class FavouritesPosts extends PostForCommentator
 {
     protected $nextGroup = 'UserPosts';
-    protected $entities = array(
-        'CommunityContent',
-    );
 
     /**
      * @return CDbCriteria

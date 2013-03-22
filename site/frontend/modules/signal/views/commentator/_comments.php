@@ -14,7 +14,7 @@ $progress = ($comments_count == 0) ? 0 : round(100 * $comments_count / $this->co
 <ul>
     <li>
         <span class="next">NEXT</span>
-        <?=$this->commentator->nextComment() ?>
+        <?=$this->commentator->nextCommentLink() ?>
         <a href="javascript:;" class="pseudo skip" onclick="CommentatorPanel.skip();">Пропустить</a>
     </li>
 </ul>

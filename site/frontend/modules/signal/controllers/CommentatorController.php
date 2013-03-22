@@ -60,7 +60,7 @@ class CommentatorController extends HController
 
     public function actionIAmWorking()
     {
-        $this->commentator->WorksToday(Yii::app()->user->id);
+        $this->commentator->CreateWorkingDay(Yii::app()->user->id);
         $this->redirect($this->createUrl('/signal/commentator/index'));
     }
 

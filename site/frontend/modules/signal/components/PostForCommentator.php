@@ -1,14 +1,20 @@
 <?php
 /**
- * Author: alexk984
- * Date: 30.08.12
+ * PostForCommentator
  *
- * Компонент ищет пост для комментирования
+ * Поиск поста для комментирования комментатором
  *
+ * @author alexk984
  */
 class PostForCommentator
 {
-    protected $entities = array();
+    /**
+     * @var array массив сущеностей которые можно комментировать
+     */
+    protected $entities = array('CommunityContent');
+    /**
+     * @var string
+     */
     protected $nextGroup = 'UserPosts';
     protected $comments_limit = 15;
     protected $error = '';
@@ -50,7 +56,6 @@ class PostForCommentator
             return $this->nextGroup();
 
         $posts = $this->getPosts($criteria, true);
-        $this->logPostsCount(count($posts));
 
         if (count($posts) == 0) {
             return $this->nextGroup();
@@ -74,11 +79,16 @@ class PostForCommentator
     {
         $result = array();
 
-        foreach ($this->entities as $entity => $limit) {
+        foreach ($this->entities as $entity) {
             $posts = CActiveRecord::model($entity)->resetScope()->findAll($criteria);
-            $this->logState(count($posts));
+            $this->log(count($posts).' - количество найденных постов');
 
+            //shuffle($posts); #TODO включить после отладки
             foreach ($posts as $post) {
+                //комментатор пропускал этот пост
+                if ($this->commentator->IsSkipped($entity, $post->id))
+                    continue;
+
                 //check ignore users
                 if (!empty($this->commentator->ignoreUsers) && in_array($post->author_id, $this->commentator->ignoreUsers))
                     continue;
@@ -87,17 +97,20 @@ class PostForCommentator
                 if ($this->alreadyCommented($post))
                     continue;
 
-                if ($post->commentsCount < $this->getCommentsLimit($post)) {
+                $limit = $this->getCommentsLimit($post);
+                if ($post->getUnknownClassCommentsCount() < $limit) {
+                    $this->log($post->url.' лимит - '.$limit.' комментариев');
+
                     if ($one_post)
                         return array($post);
                     $result [] = $post;
                 } else {
+                    $this->log($post->url.' достигнут лимит в '.$limit.' комментариев');
                     $post->full = 1;
                     $post->update(array('full'));
                 }
             }
         }
-        shuffle($result);
         return $result;
     }
 
@@ -122,23 +135,6 @@ class PostForCommentator
     }
 
     /**
-     * Проверяет не находится ли пост в списке пропущенных комментатором
-     *
-     * @param $entity
-     * @param $entity_id
-     * @return bool
-     */
-    public function IsSkipped($entity, $entity_id)
-    {
-        foreach ($this->commentator->skipUrls as $skipped) {
-            if ($skipped[0] == $entity && $skipped[1] == $entity_id)
-                return true;
-        }
-
-        return false;
-    }
-
-    /**
      * Перейти к следующему типу поиска поста, если в текущем ничего не найдено
      *
      * @return bool
@@ -159,16 +155,6 @@ class PostForCommentator
     protected function getCommentsLimit($post)
     {
         return $this->comments_limit;
-    }
-
-    /**
-     * Логирование кол-ва найденных постов
-     *
-     * @param $posts_count
-     */
-    public function logPostsCount($posts_count)
-    {
-        $this->log("posts_count: " . $posts_count);
     }
 
     /**

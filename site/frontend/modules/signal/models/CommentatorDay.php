@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Выполнение плана за день, сохраняем статистику для пршедших дней, чтобы каждый раз не вычислять ее
+ *
+ */
 class CommentatorDay extends EMongoEmbeddedDocument
 {
     const STATUS_FAILED = 0;
@@ -7,14 +11,35 @@ class CommentatorDay extends EMongoEmbeddedDocument
     const STATUS_EXCEEDED = 2;
 
     public $date;
+    /**
+     * В какое время начал работать
+     * @var int
+     */
     public $created;
+    /**
+     * Количество пропусков за день
+     * @var int
+     */
     public $skip_count;
-    public $today_club = null;
-
-    //stat for closed day
+    /**
+     * Количество постов в блог за день
+     * @var int
+     */
     public $blog_posts = 0;
+    /**
+     * Количество постов в клуб за день
+     * @var int
+     */
     public $club_posts = 0;
+    /**
+     * Количество комментариев, засчитанных за день
+     * @var int
+     */
     public $comments = 0;
+    /**
+     * Статус выполнения плана: выполнен, не выполнен, перевыполнен
+     * @var int
+     */
     public $status = 0;
 
     /**

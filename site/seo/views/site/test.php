@@ -6,4 +6,4 @@
  */
 
 $parser = new WordstatQueryModify();
-$parser->convert();
+echo $parser->prepareQuery('секс+беременность+позы');

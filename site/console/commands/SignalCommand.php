@@ -78,12 +78,8 @@ class SignalCommand extends CConsoleCommand
 
     public function actionCommentatorsEndMonth()
     {
-        $month = CommentatorsMonth::model()->find(new EMongoCriteria(array(
-            'conditions' => array(
-                'period' => array('==' => date("Y-m", strtotime('-10 days')))
-            ),
-        )));
-        $month->calculate();
+        $month = CommentatorsMonth::model()->findByPk(date("Y-m", strtotime('-10 days')));
+        $month->calculateMonth();
     }
 
     public function actionAddCommentatorsToSeo()
@@ -136,7 +132,7 @@ class SignalCommand extends CConsoleCommand
             $month = new CommentatorsMonth;
             $month->period = date("Y-m");
         }
-        $month->calculate();
+        $month->calculateMonth();
     }
 
     public function actionTest(){

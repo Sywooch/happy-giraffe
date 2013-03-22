@@ -96,11 +96,11 @@ class CommentatorsMonth extends EMongoDocument
     }
 
     /**
-     * Для каждого комментатора вычисляет кол-во баллов по всем премиям
+     * Для каждого комментатора вычисляет кол-во баллов по всем премиям за месяц
      * Удаляет уволенных комментаторов, если такие есть
      * Запускается по крону раз в час
      */
-    public function calculate()
+    public function calculateMonth()
     {
         $commentators = User::model()->findAll('`group`=' . UserGroup::COMMENTATOR);
 
@@ -116,7 +116,7 @@ class CommentatorsMonth extends EMongoDocument
                     self::PROFILE_VIEWS => (int)$model->imMessages($this->period),
                     self::IM_MESSAGES => (int)$this->profileUniqueViews($commentator->id),
                     self::SE_VISITS => (int)$this->getSeVisits($commentator->id),
-                );;
+                );
                 $this->save();
             }
         }
@@ -127,6 +127,24 @@ class CommentatorsMonth extends EMongoDocument
                 unset($this->commentators[$commentator_id]);
 
         $this->save();
+    }
+
+    public function calculateDay()
+    {
+        $commentators = User::model()->findAll('`group`=' . UserGroup::COMMENTATOR);
+
+        foreach ($commentators as $commentator) {
+            $model = $this->getCommentator($commentator);
+            if ($model !== null) {
+                $this->commentators[(int)$commentator->id] = array(
+                    self::NEW_FRIENDS => (int)$model->newFriends($this->period),
+                    self::PROFILE_VIEWS => (int)$model->imMessages($this->period),
+                    self::IM_MESSAGES => (int)$this->profileUniqueViews($commentator->id),
+                    self::SE_VISITS => (int)$this->getSeVisits($commentator->id),
+                );
+                $this->save();
+            }
+        }
     }
 
     /**

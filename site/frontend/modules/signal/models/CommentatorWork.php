@@ -2,26 +2,42 @@
 
 class CommentatorWork extends EMongoDocument
 {
-    const BLOG_POSTS_COUNT = 1;
-    const CLUB_POSTS_COUNT = 2;
-    const COMMENTS_COUNT = 100;
+    /**
+     * Максимальное количество пропусков статей для комментирования
+     */
     const MAX_SKIPS = 30;
 
-    const CHIEF_BLOG_POSTS_COUNT = 1;
-    const CHIEF_CLUB_POSTS_COUNT = 1;
-    const CHIEF_COMMENTS_COUNT = 60;
-
+    /**
+     * @var int id комментатора
+     */
     public $user_id;
     /**
-     * @var CommentatorDay[]
+     * @var CommentatorDayWork[] рабочие дни комментатора
      */
     public $days = array();
-    public $stat;
+    /**
+     * @var string сущность для комментирования
+     */
     public $comment_entity;
+    /**
+     * @var int in сущности для комментирования
+     */
     public $comment_entity_id;
+    /**
+     * @var array массив пропущенных страниц, не должны попадаться для комментирования
+     */
     public $skipUrls = array();
+    /**
+     * @var int время начала работы
+     */
     public $created;
+    /**
+     * @var array пользователи темы которых игнорируются при поиске тем для комментирования
+     */
     public $ignoreUsers = array();
+    /**
+     * @var int является ли главным в группе комментаторов
+     */
     public $chief = 0;
 
     public static function model($className = __CLASS__)
@@ -45,13 +61,14 @@ class CommentatorWork extends EMongoDocument
             'embeddedArrays' => array(
                 'class' => 'site.frontend.extensions.YiiMongoDbSuite.extra.EEmbeddedArraysBehavior',
                 'arrayPropertyName' => 'days',
-                'arrayDocClassName' => 'CommentatorDay'
+                'arrayDocClassName' => 'CommentatorDayWork'
             ),
         );
     }
 
     public function beforeSave()
     {
+        //проверяем статус выполнения плана
         $day = $this->getCurrentDay();
         if ($day) {
             $day->checkStatus($this);
@@ -68,26 +85,19 @@ class CommentatorWork extends EMongoDocument
     /******************************************************************************************************************/
 
     /**
+     * Возвращает текущего комментатора. Если документ в бд для него не создан, создает его
      * @static
      * @return CommentatorWork
      */
     public static function getCurrentUser()
     {
-        $criteria = new EMongoCriteria;
-        $criteria->user_id('==', (int)Yii::app()->user->id);
-        $model = self::model()->find($criteria);
-        if ($model === null) {
-            $model = new CommentatorWork();
-            $model->user_id = (int)Yii::app()->user->id;
-            $model->save();
-        }
-
-        return $model;
+        return self::getOrCreateUser(Yii::app()->user->id);
     }
 
     /**
+     * Возвращает комментатора по id. Если документ в бд для него не создан, создает его
      * @static
-     * @param int $user_id
+     * @param $user_id int id пользователя
      * @return CommentatorWork
      */
     public static function getOrCreateUser($user_id)
@@ -118,7 +128,7 @@ class CommentatorWork extends EMongoDocument
     }
 
     /**
-     * @return CommentatorDay
+     * @return CommentatorDayWork
      */
     public function getCurrentDay()
     {
@@ -157,7 +167,7 @@ class CommentatorWork extends EMongoDocument
         if ($this->getCurrentDay())
             return true;
 
-        $day = new CommentatorDay();
+        $day = new CommentatorDayWork();
         $day->date = date("Y-m-d");
         $day->skip_count = 0;
         $day->created = time();
@@ -173,17 +183,17 @@ class CommentatorWork extends EMongoDocument
     /******************************************************************************************************************/
     public function getCommentsLimit()
     {
-        return ($this->chief == 1) ? self::CHIEF_COMMENTS_COUNT : self::COMMENTS_COUNT;
+        return ($this->chief == 1) ? 60 : 100;
     }
 
     public function getBlogPostsLimit()
     {
-        return ($this->chief == 1) ? self::CHIEF_BLOG_POSTS_COUNT : self::BLOG_POSTS_COUNT;
+        return ($this->chief == 1) ? 1 : 1;
     }
 
     public function getClubPostsLimit()
     {
-        return ($this->chief == 1) ? self::CHIEF_CLUB_POSTS_COUNT : self::CLUB_POSTS_COUNT;
+        return ($this->chief == 1) ? 1 : 2;
     }
 
     /******************************************************************************************************************/
@@ -362,42 +372,7 @@ class CommentatorWork extends EMongoDocument
 
     public function imMessages($month)
     {
-        $dialogs = Dialog::model()->findAll(array(
-            'with' => array(
-                'dialogUsers' => array(
-                    'condition' => 'dialogUsers.user_id = ' . $this->user_id,
-                ),
-                'messages' => array(
-                    'condition' => 'messages.created >= :min AND messages.created <= :max',
-                    'params' => array(
-                        ':min' => $month . '-01 00:00:00',
-                        ':max' => $month . '-31 23:59:59'
-                    )
-                ),
-                'together' => true
-            )
-        ));
-
-        $rating = 0;
-        $dialogs_count = 1;
-        foreach ($dialogs as $dialog) {
-            //если переписка ведется с простым пользователем
-            if ($dialog->withSimpleUser()) {
-                $user_answered = false;
-                foreach ($dialog->messages as $message)
-                    if ($message->user_id == $this->user_id)
-                        $rating += 0.2;
-                    else {
-                        $rating += 1;
-                        $user_answered = true;
-                    }
-
-                if ($user_answered)
-                    $dialogs_count = $dialogs_count * 1.01;
-            }
-        }
-
-        return round($rating * $dialogs_count);
+        return CommentatorHelper::imRating($this->user_id, $month . '-01', $month . '-31');
     }
 
     public function profileUniqueViews($period)
@@ -417,8 +392,6 @@ class CommentatorWork extends EMongoDocument
 
         return 0;
     }
-
-
 
     /******************************************************************************************************************/
     /**************************************************** Views *******************************************************/
@@ -504,7 +477,7 @@ class CommentatorWork extends EMongoDocument
 
     /**
      * @param string $period
-     * @return CommentatorDay []
+     * @return CommentatorDayWork []
      */
     public function getDays($period)
     {
@@ -558,8 +531,8 @@ class CommentatorWork extends EMongoDocument
     }
 
     /**
-     * @param CommentatorDay $day
-     * @return CommentatorDay|null
+     * @param CommentatorDayWork $day
+     * @return CommentatorDayWork|null
      */
     public function getDay($day)
     {

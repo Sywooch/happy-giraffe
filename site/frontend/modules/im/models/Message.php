@@ -1,28 +1,18 @@
 <?php
 
 /**
- * This is the model class for table "im__messages".
+ * Class Message
  *
- * The followings are the available columns in table 'im__messages':
- * @property string $id
- * @property string $dialog_id
- * @property string $user_id
- * @property string $text
- * @property string $created
- * @property integer $read_status
- *
- * The followings are the available model relations:
- * @property DeletedMessage[] $deletedMessages
- * @property DialogDeleted[] $last_dialog_deleted
- * @property Dialog $dialog
- * @property User $user
+ * Модель сообщения в сервисе "Личные сообщения"
  */
+
 class Message extends HActiveRecord
 {
     /**
-     * Returns the static model of the specified AR class.
-     * @param string $className active record class name.
-     * @return Message the static model class
+     * Возвращает статическую модель конкретного класса Active Record
+     *
+     * @param string $className имя класса Active Record
+     * @return Message статическая модель класса
      */
     public static function model($className = __CLASS__)
     {
@@ -30,7 +20,9 @@ class Message extends HActiveRecord
     }
 
     /**
-     * @return string the associated database table name
+     * Возвращает название таблицы в базе данных
+     *
+     * @return string
      */
     public function tableName()
     {
@@ -38,31 +30,29 @@ class Message extends HActiveRecord
     }
 
     /**
-     * @return array validation rules for model attributes.
+     * Возвращает список правил валидации для атрибутов модели
+     *
+     * @return array массив правил
      */
     public function rules()
     {
-        // NOTE: you should only define rules for those attributes that
-        // will receive user inputs.
         return array(
             array('dialog_id', 'required'),
             array('read_status', 'numerical', 'integerOnly' => true),
             array('dialog_id, user_id', 'length', 'max' => 10),
             array('read_status', 'default', 'value' => 0),
             array('text, created', 'safe'),
-            // The following rule is used by search().
-            // Please remove those attributes that should not be searched.
             array('id, dialog_id, user_id, text, created, read_status', 'safe', 'on' => 'search'),
         );
     }
 
     /**
-     * @return array relational rules.
+     * Возвращает список отношений сущности
+     *
+     * @return array массив отношений
      */
     public function relations()
     {
-        // NOTE: you may need to adjust the relation name and the related
-        // class name for the relations automatically generated below.
         return array(
             'deletedMessages' => array(self::HAS_MANY, 'DeletedMessage', 'message_id'),
             'last_dialog_deleted' => array(self::HAS_MANY, 'DialogDeleted', 'message_id'),
@@ -71,6 +61,11 @@ class Message extends HActiveRecord
         );
     }
 
+    /**
+     * Возвращает список поведений сущности
+     *
+     * @return array список
+     */
     public function behaviors()
     {
         return array(
@@ -82,6 +77,9 @@ class Message extends HActiveRecord
         );
     }
 
+    /**
+     * Событие, вызываемое после сохранения сообщения
+     */
     public function afterSave()
     {
         Dialog::model()->updateByPk($this->dialog_id, array('last_message_id' => $this->id));
@@ -93,13 +91,13 @@ class Message extends HActiveRecord
     }
 
     /**
-     * Create new message
+     * Создание нового сообщения
      *
      * @static
-     * @param $dialog_id
-     * @param $user_id
-     * @param string $text
-     * @return Message
+     * @param $dialog_id ID диалога
+     * @param $user_id ID пользователя
+     * @param string $text текст сообщения
+     * @return Message модель сообщения
      */
     static function NewMessage($dialog_id, $user_id, $text)
     {
@@ -135,9 +133,11 @@ class Message extends HActiveRecord
     }
 
     /**
+     * Возвращает список последних сообщений диалога
+     *
      * @static
-     * @param $dialog_id
-     * @return array
+     * @param $dialog_id ID диалога
+     * @return array массив моделей сообщений
      */
     static function GetLastMessages($dialog_id)
     {
@@ -169,10 +169,12 @@ class Message extends HActiveRecord
     }
 
     /**
+     * Возвращает список сообщений в диалоге, отправленных раньше определённого
+     *
      * @static
-     * @param $dialog_id
-     * @param $message_id
-     * @return array
+     * @param $dialog_id ID диалога
+     * @param $message_id ID сообщения
+     * @return array массив моделей сообщений
      */
     static function GetMessagesBefore($dialog_id, $message_id)
     {
@@ -206,10 +208,11 @@ class Message extends HActiveRecord
     }
 
     /**
-     * Last deleted Message id
+     * Возвращает последнее удалённое сообщение в диалоге
+     *
      * @static
-     * @param $dialog_id
-     * @return int
+     * @param $dialog_id ID диалога
+     * @return int ID сообщения
      */
     public static function LastDeletedMessageId($dialog_id)
     {
@@ -226,6 +229,8 @@ class Message extends HActiveRecord
     }
 
     /**
+     * Является ли текущий пользователь автором сообщения
+     *
      * @return bool
      */
     public function sent()
@@ -236,8 +241,10 @@ class Message extends HActiveRecord
     }
 
     /**
+     * Удалить сообщение
+     *
      * @static
-     * @param int $id
+     * @param int $id ID сообщения
      */
     public static function removeMessage($id)
     {
@@ -248,6 +255,14 @@ class Message extends HActiveRecord
         ));
     }
 
+    /**
+     * Вспомогательный метод для сортировки сообщений
+     *
+     * @static
+     * @param $a сообщение A
+     * @param $b сообщений B
+     * @return int
+     */
     public static function sortMessages($a, $b)
     {
         return ($a->id < $b->id) ? -1 : 1;

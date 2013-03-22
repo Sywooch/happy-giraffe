@@ -50,7 +50,6 @@ class SimilarArticles
             ->select('distinct(keyword_id)')
             ->from('queries')
             ->where('visits > 50')
-            ->limit(1000)
             ->queryColumn();
 
         echo count($keywords) . "\n";
@@ -123,7 +122,6 @@ class SimilarArticles
         //проверяем не привязана ли эта статья к другому ключевому слову
         foreach ($models as $key => $model) {
             $url = 'http://www.happy-giraffe.ru' . $model->url;
-            echo $url . "\n";
             $page = Page::model()->with(array('keywordGroup'))->findByAttributes(array('url' => $url));
             if ($page !== null && isset($page->keywordGroup) && !empty($page->keywordGroup->keywords))
                 unset($models[$key]);

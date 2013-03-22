@@ -65,13 +65,6 @@
 #user .side-filter ul li.active {background:#e9f6fe;font-weight:bold;}
 #user .side-filter ul li.active a span {border:0;}
 
-#user .side-nav {font-size:12px;padding-bottom:20px;padding-top:60px;}
-#user .side-nav ul {list-style:none;padding:0 10px;}
-#user .side-nav ul li {padding:3px 10px 4px;line-height:1.2;margin:5px 0;}
-#user .side-nav ul li a {text-decoration:none;border-bottom:1px dashed #51AFC3;margin:0 5px;}
-#user .side-nav ul li a:hover {border:0;}
-#user .side-nav ul li.active a {background:#e9f6fe;border:0;padding:3px 5px;margin:0;}
-
 #user .content-title {font:bold 25px arial, helvetica, sans-serif;color:#0281b0;margin-bottom:30px;}
 
 #user .user-cols {padding-bottom:20px;}

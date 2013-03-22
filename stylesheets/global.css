@@ -16,14 +16,6 @@
     background-position: 0 -78px;
 }
 
-ul.topmenu, 
-.kon_menu, 
-.leftlist {
-    display: list-item;
-    list-style-image: none;
-    list-style:none;
-}
-
 .entry{display:block;background:#fff;width:100%;padding:0 0 10px;margin-bottom:30px;}
 .entry.entry-full{padding-bottom:0;border:0;}
 .entry .entry-header{display:block;background:#fff;}
@@ -58,7 +50,6 @@ ul.topmenu,
 .entry .morning-images .thumbs ul li .more:hover .icon {background-position:-499px -193px;}
 .entry .morning-images .thumbs ul li .more:hover {color:#7abc2e;text-decoration:underline;}
 
-
 .entry .disease-title {margin-bottom:15px;}
 .entry .disease-title span {font-size:11px;color:#343434;margin-right:5px;}
 
@@ -68,9 +59,7 @@ ul.topmenu,
 .entry .traditional-recipes-ingredients ul {list-style:disc;padding-left:20px;}
 .entry .traditional-recipes-ingredients ul li {margin:10px 0;}
 
-
 .traditional-recipes-title {padding:45px 30px;background:url(/images/bg_traditional_recipes_title.jpg) no-repeat right;height:58px;border:1px solid #e9e8ea;font-size:50px;line-height:1;color:#383838;margin-bottom:20px;}
-
 
 .morning-sidebar {border:1px solid #f0eaf6;float:left;width:238px;margin-right:20px;}
 
@@ -1157,12 +1146,14 @@ ul.topmenu,
 .left-inner li a.current{background:#ffea90;}
 .left-inner .add{display:block;width:100%;margin:0 0 10px;}
 .left-inner .add li a{color:#0281b0;}
+/*
 .left-inner .themes{background:#EEDFFD;display:block;width:100%;font-weight:bolder;margin:15px 0 20px;}
 .left-inner .themes .theme-pic{background:url(../images/rubrik.png) no-repeat;color:#fff;text-transform:uppercase;height:66px;padding:15px 0 0;text-align:center;font:bold 18px Arial,Helvetica,sans-serif;}
 .left-inner .themes .theme-pic_double{background:url(../images/rubrik.png) no-repeat;color:#fff;text-transform:uppercase;height:71px;padding:10px 0 0;text-align:center;font:bold 15px Arial,Helvetica,sans-serif;}
 .left-inner .themes ul{padding:12px 20px 32px;}
 .left-inner .themes li{padding:7px 0;}
 .left-inner .themes li a{font:bold 14px Arial,Helvetica,sans-serif;color:#885EB2;text-decoration:underline;}
+*/
 .left-inner .leftbanner a{display:block;margin:20px 0;}
 .right-inner{display:block;background:#FFF;padding:25px 0 0 15px;margin:0;width:700px;float:left;}
 .right-inner.mirror{display:block;background:#FFF;padding:25px 0 0 5px;margin:0;width:630px;float:left;}
@@ -2850,6 +2841,25 @@ table.fr_recipe_tb td {
     font-size: 11px;
     font-family: Tahoma, Arial, Verdana, sans-serif;
     padding: 4px 0;
+}
+.name_info .best_person {
+    background: #ededed;
+    float: left;
+    width: 150px;
+    margin: 20px 20px 0 0;
+}
+.name_info .best_person img{
+    display: block;
+    width: 150px;
+}
+.name_info .best_person p{
+    text-align: center;
+    display: block;
+    color: #5e5e5e;
+    font-size: 10px;
+    font-style: italic;
+    padding: 4px 0;
+    text-decoration: underline;
 }
 .name_info .best_person a{
     text-align: center;

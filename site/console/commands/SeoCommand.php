@@ -143,5 +143,11 @@ class SeoCommand extends CConsoleCommand
     {
         TrafficStatisctic::model()->parse();
     }
+
+    public function actionSimilarArticles(){
+        Yii::import('site.seo.modules.writing.components.*');
+        $p = new SimilarArticles;
+        $p->start();
+    }
 }
 

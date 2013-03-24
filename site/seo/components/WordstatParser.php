@@ -217,9 +217,7 @@ class WordstatParser extends ProxyParserThread
     public function saveQueryWordstatValue($value)
     {
         if ($this->parsing_type == self::TYPE_STRICT) {
-            if ($value <= 10 && $this->keyword->keyword->wordstat > 10000 ||
-                $this->keyword->keyword->wordstat / $value > 5000
-            ) {
+            if (empty($value) || $this->keyword->keyword->wordstat / $value > 1000) {
                 Yii::app()->db_keywords->createCommand()->insert('bad_keywords', array(
                     'keyword_id' => $this->keyword->keyword_id,
                     'wordstat' => $this->keyword->keyword->wordstat,

@@ -26,7 +26,7 @@ class SeoCommand extends CConsoleCommand
     {
         $parser = new WordstatParser($thread_id);
         $parser->parsing_type = WordstatParser::TYPE_STRICT;
-        $parser->start(1);
+        $parser->start();
     }
 
     public function actionProxy()

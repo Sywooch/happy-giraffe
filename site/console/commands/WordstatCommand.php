@@ -74,7 +74,7 @@ class WordstatCommand extends CConsoleCommand
                 ->queryColumn();
 
             foreach ($ids as $id) {
-                ParsingKeyword::model()->updateAll(array('priority' => 1000),
+                ParsingKeyword::model()->updateAll(array('priority' => 255),
                     'keyword_id = :keyword_id', array(':keyword_id' => $id));
             }
 

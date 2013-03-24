@@ -73,6 +73,7 @@ class WordstatParser extends ProxyParserThread
                 $t = urlencode($this->queryModify->prepareQuery($this->keyword->keyword->name));
 
             $this->next_page = 'http://wordstat.yandex.ru/?cmd=words&page=1&t=' . $t . '&geo=&text_geo=';
+            $this->log($this->next_page);
         }
     }
 
@@ -227,9 +228,9 @@ class WordstatParser extends ProxyParserThread
 
                 $this->keyword->keyword->wordstat = $value;
                 $this->keyword->keyword->save();
-                $this->keyword->priority = 0;
-                $this->keyword->save();
             }
+            $this->keyword->priority = 0;
+            $this->keyword->update(array('priority'));
         } else
             $this->keyword->updateWordstat($value);
     }

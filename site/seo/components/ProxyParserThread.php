@@ -31,10 +31,10 @@ class ProxyParserThread
 
     function __construct($thread_id)
     {
-        time_nanosleep(rand(0, 30), rand(0, 1000000000));
+        //time_nanosleep(rand(0, 30), rand(0, 1000000000));
         Yii::import('site.frontend.extensions.phpQuery.phpQuery');
         $this->thread_id = $thread_id;
-        $this->getProxy();
+        //$this->getProxy();
     }
 
     private function getProxy()

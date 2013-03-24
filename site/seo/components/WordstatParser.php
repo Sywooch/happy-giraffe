@@ -5,11 +5,14 @@
  */
 class WordstatParser extends ProxyParserThread
 {
+    const TYPE_SIMPLE = 0;
+    const TYPE_ONLY_ONE = 1;
+    const TYPE_STRICT = 2;
     /**
      * @var ParsingKeyword[]
      */
     public $keywords = array();
-    public $parse_all = true;
+    public $parsing_type = self::TYPE_SIMPLE;
     /**
      * @var ParsingKeyword
      */
@@ -64,7 +67,11 @@ class WordstatParser extends ProxyParserThread
     {
         if (empty($this->next_page)) {
             $this->getKeyword();
-            $t = urlencode($this->queryModify->prepareQuery($this->keyword->keyword->name));
+            if ($this->parsing_type == self::TYPE_STRICT)
+                $t = urlencode($this->queryModify->prepareStrictQuery($this->keyword->keyword->name));
+            else
+                $t = urlencode($this->queryModify->prepareQuery($this->keyword->keyword->name));
+
             $this->next_page = 'http://wordstat.yandex.ru/?cmd=words&page=1&t=' . $t . '&geo=&text_geo=';
         }
     }
@@ -160,13 +167,13 @@ class WordstatParser extends ProxyParserThread
         if (preg_match('/— ([\d]+) показ[ов]*[а]* в месяц/', $html, $matches)) {
             $this->log('valid page loaded');
             if ($this->first_page)
-                $this->keyword->updateWordstat($matches[1]);
+                $this->saveQueryWordstatValue($matches[1]);
             $this->log('wordstat value: ' . $matches[1]);
         } else return false;
 
         $this->next_page = '';
 
-        if ($this->parse_all) {
+        if ($this->parsing_type == self::TYPE_SIMPLE) {
             //find keywords in block "Что искали со словом"
             foreach ($document->find('table.campaign tr td table:first td a') as $link) {
                 $keyword = trim(pq($link)->text());
@@ -204,6 +211,27 @@ class WordstatParser extends ProxyParserThread
 
         $document->unloadDocument();
         return true;
+    }
+
+    public function saveQueryWordstatValue($value)
+    {
+        if ($this->parsing_type == self::TYPE_STRICT) {
+            if ($value < 10 && $this->keyword->keyword->wordstat > 10000 ||
+                $this->keyword->keyword->wordstat / $value > 9000
+            ) {
+                Yii::app()->db_keywords->createCommand()->insert('bad_keywords', array(
+                    'keyword_id' => $this->keyword->keyword_id,
+                    'wordstat' => $this->keyword->keyword->wordstat,
+                    'strict_wordstat' => $value,
+                ));
+
+                $this->keyword->keyword->wordstat = $value;
+                $this->keyword->keyword->save();
+                $this->keyword->priority = 0;
+                $this->keyword->save();
+            }
+        } else
+            $this->keyword->updateWordstat($value);
     }
 
     protected function addData($keyword, $value, $related = false)

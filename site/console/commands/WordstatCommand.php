@@ -68,24 +68,14 @@ class WordstatCommand extends CConsoleCommand
             $ids = Yii::app()->db_keywords->createCommand()
                 ->select('id')
                 ->from('keywords')
-                ->where('wordstat <= 10000 AND wordstat>1000')
+                ->where('wordstat >= 10000')
                 ->limit(10000)
                 ->offset($i * 10000)
                 ->queryColumn();
 
             foreach ($ids as $id) {
-                $model = ParsingKeyword::model()->findByPk($id);
-                if ($model !== null) {
-                    if (strtotime($model->updated) < strtotime('-5 days')) {
-                        $model->priority = 100;
-                        $model->update(array('priority'));
-                    }
-                } else {
-                    $model = new ParsingKeyword;
-                    $model->keyword_id = $id;
-                    $model->priority = 100;
-                    $model->save();
-                }
+                ParsingKeyword::model()->updateAll(array('priority' => 1000),
+                    'keyword_id = :keyword_id', array(':keyword_id' => $id));
             }
 
             $i++;

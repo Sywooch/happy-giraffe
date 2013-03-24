@@ -31,22 +31,18 @@ class ProxyParserThread
 
     function __construct($thread_id)
     {
-        //time_nanosleep(rand(0, 30), rand(0, 1000000000));
+        time_nanosleep(rand(0, 30), rand(0, 1000000000));
         Yii::import('site.frontend.extensions.phpQuery.phpQuery');
         $this->thread_id = $thread_id;
-        //$this->getProxy();
+        $this->getProxy();
     }
 
     private function getProxy()
     {
-        //$this->startTimer('find proxy');
-
         $criteria = new CDbCriteria;
         $criteria->condition = 'id % 645 = ' . $this->thread_id;
         $criteria->order = 'rank desc';
         $this->proxy = Proxy::model()->find($criteria);
-
-        //$this->endTimer();
     }
 
     private function getProxyByRating()
@@ -88,7 +84,7 @@ class ProxyParserThread
                 curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
                 curl_setopt($ch, CURLOPT_PROXY, $this->proxy->value);
                 if (Yii::app()->params['use_proxy_auth']) {
-                    curl_setopt($ch, CURLOPT_PROXYUSERPWD, "alexk984:Nokia1111");
+                    curl_setopt($ch, CURLOPT_PROXYUSERPWD, "alexhg:Nokia1111");
                     curl_setopt($ch, CURLOPT_PROXYAUTH, 1);
                 }
             }

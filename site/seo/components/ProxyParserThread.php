@@ -37,7 +37,7 @@ class ProxyParserThread
         $this->getProxy();
     }
 
-    private function getProxy()
+    private function getProxy2()
     {
         $criteria = new CDbCriteria;
         $criteria->condition = 'id % 645 = ' . $this->thread_id;
@@ -45,14 +45,14 @@ class ProxyParserThread
         $this->proxy = Proxy::model()->find($criteria);
     }
 
-    private function getProxyByRating()
+    private function getProxy()
     {
         $this->startTimer('find proxy1');
 
         $criteria = new CDbCriteria;
         $criteria->compare('active', 0);
         $criteria->order = 'rank desc';
-        $criteria->offset = rand(0, 20);
+        $criteria->offset = rand(0, 50);
 
         $this->proxy = Proxy::model()->find($criteria);
 
@@ -136,14 +136,13 @@ class ProxyParserThread
 
     protected function changeBadProxy($rank = null)
     {
-        //$this->log('Change proxy');
-
+        //$this->log('Change bad proxy');
         if ($rank !== null)
             $this->proxy->rank = $rank;
         else
             $this->proxy->rank = floor((($this->proxy->rank + $this->success_loads) / 5) * 4);
 
-        //$this->proxy->active = 0;
+        $this->proxy->active = 0;
         $this->proxy->save();
         $this->getProxy();
         $this->success_loads = 0;
@@ -157,7 +156,6 @@ class ProxyParserThread
     protected function changeBannedProxy()
     {
         //$this->log('Change proxy');
-
         $this->proxy->delete();
         $this->getProxy();
         $this->success_loads = 0;
@@ -171,7 +169,7 @@ class ProxyParserThread
     private function saveProxy()
     {
         $this->proxy->rank = $this->proxy->rank + $this->success_loads;
-        //$this->proxy->active = 0;
+        $this->proxy->active = 0;
         $this->proxy->save();
     }
 

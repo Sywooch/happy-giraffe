@@ -25,7 +25,7 @@ class SeoCommand extends CConsoleCommand
     public function actionWordstat($thread_id = 0)
     {
         $parser = new WordstatParser($thread_id);
-        $parser->parse_all = false;
+        $parser->parsing_type = WordstatParser::TYPE_STRICT;
         $parser->start();
     }
 
@@ -144,10 +144,10 @@ class SeoCommand extends CConsoleCommand
         TrafficStatisctic::model()->parse();
     }
 
-    public function actionSimilarArticles(){
-        Yii::import('site.seo.modules.writing.components.*');
-        $p = new SimilarArticles;
-        $p->start();
+    public function actionTest(){
+        $parser = new WordstatParser(1);
+        $parser->parsing_type = WordstatParser::TYPE_STRICT;
+        $parser->start(true);
     }
 }
 

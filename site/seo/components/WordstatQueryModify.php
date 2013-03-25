@@ -7,11 +7,11 @@ class WordstatQueryModify
 {
     private $parts = array('я', 'меня', 'мне', 'мной', 'мое', 'моё', 'ты', 'тебя', 'тебе', 'тобой', 'вы', 'вас', 'вам', //12
         'вами', 'ваш', 'вашим', 'вашу', 'он', 'его', 'им', 'она', 'её', 'ей', 'оно', 'ему', 'мы', 'нас', 'нам', 'нами', //28
-        'они', 'их', 'ими', 'свои', 'кто', 'что', 'который', 'которые', 'которая', 'которое', 'которого', 'которому',   //40
+        'они', 'их', 'ими', 'свои', 'кто', 'что', 'который', 'которые', 'которая', 'которое', 'которого', 'которому', //40
         'которым', 'этот', 'тот', 'такой', 'это', 'весь', 'сам', 'самим', 'самому', 'а', 'б', 'бы', 'вот', 'всё', 'да', //55
         'ещё', 'ж', 'же', 'и', 'или', 'не', 'нет', 'ну', 'так', 'только', 'уже', 'чтобы', 'в', 'во', 'без', 'до', 'за', //72
-        'к', 'на', 'по', 'о', 'от', 'при', 'с', 'у', 'над', 'об', 'для', 'про', 'из', 'как', 'но', 'то', 'если',        //89
-        'когда', 'один', 'одного', 'одно', 'одному', 'одних', 'нашим', 'наших',                                         //97
+        'к', 'на', 'по', 'о', 'от', 'при', 'с', 'у', 'над', 'об', 'для', 'про', 'из', 'как', 'но', 'то', 'если', //89
+        'когда', 'один', 'одного', 'одно', 'одному', 'одних', 'нашим', 'наших', //97
 
         'все', 'чем', 'будет', 'хай', 'you', 'ком', 'no', 'and', 'би', 'in', 'чего', 'of', 'a', 'себе', 'кому', 'моя',
         'ваша', 'мой', 'своими', 'себя', 'one', 'буду', 'by', 'быть', 'был', 'се', 'the', 'наше', 'сама', 'можешь',
@@ -32,7 +32,9 @@ class WordstatQueryModify
         'мої', 'ваші', 'воно', 'do', 'мій', 'аж', 'цього', 'твій', 'йому', 'тим', 'there', 'are', 'тих', 'всі', 'які',
         'свій', 'такий', 'лише', 'твоїм', 'моею', 'моём', 'буде', 'моїй', 'є', 'or', 'with', 'самих', 'вашого',
         'всього', 'своём', 'усе', 'саму', 'at', 'as', 'тую', 'моими', 'can', 'мене', 'самими', 'могло', 'хіба',
-        'цей', 'якщо', 'можем', 'сими', 'якої', 'мого', 'сю', 'немов', 'нехай', 'він', 'неї', 'моє', 'під',);
+        'цей', 'якщо', 'можем', 'сими', 'якої', 'мого', 'сю', 'немов', 'нехай', 'він', 'неї', 'моє', 'під',
+        'мочь', 'any', 'самою', 'have', 'нашої', 'їх', 'його', 'усі', 'такі', 'всім', 'an', 'would', 'but'
+    );
 
     private $new_parts = array();
 
@@ -66,7 +68,7 @@ class WordstatQueryModify
             if ($num < $id * 50 || $num > ($id + 1) * 50)
                 continue;
 
-            $exist = Yii::app()->db_keywords->createCommand()->select('id')->from('temp')->where('id='.$num)->queryScalar();
+            $exist = Yii::app()->db_keywords->createCommand()->select('id')->from('temp')->where('id=' . $num)->queryScalar();
             if (!empty($exist) || $exist === '0')
                 continue;
             //echo "$num - $part \n";
@@ -155,13 +157,7 @@ class WordstatQueryModify
         return false;
     }
 
-    /**
-     * Подготовить запрос для ввода на парсинг wordstat
-     *
-     * @param string $q
-     * @return string
-     */
-    public function prepareQuery($q)
+    private function removeSpecSymbols($q)
     {
         $q = trim($q);
 
@@ -174,6 +170,19 @@ class WordstatQueryModify
             $q = str_replace('  ', ' ', $q);
 
         $q = str_replace('!', '', $q);
+
+        return $q;
+    }
+
+    /**
+     * Подготовить запрос для ввода на парсинг wordstat
+     *
+     * @param string $q
+     * @return string
+     */
+    public function prepareQuery($q)
+    {
+        $q = $this->removeSpecSymbols($q);
 
         foreach ($this->parts as $part) {
             //если вначале
@@ -188,6 +197,42 @@ class WordstatQueryModify
         }
 
         return $q;
+    }
+
+    /**
+     * Подготовим запрос для получения значения поискового трафика по точному совпадению фразы
+     * вид результата - "!word !word"
+     * @param $q string
+     * @return string
+     */
+    public function prepareStrictQuery($q)
+    {
+        $q = $this->removeSpecSymbols($q);
+
+        foreach ($this->parts as $part) {
+            //если вначале
+            if ($this->startsWith($q, $part . ' '))
+                $q = '+' . $q;
+            //если вконце
+            if ($this->endsWith($q, ' ' . $part))
+                $q = substr($q, 0, strlen($q) - strlen($part)) . '+' . $part;
+
+            //если в середине
+            $q = str_replace(' ' . $part . ' ', ' +' . $part . ' ', $q);
+        }
+
+        //вставляем !
+        //если вначале
+        $words = explode(' ', $q);
+        $result_words = array();
+        foreach ($words as $word) {
+            if ($this->startsWith($word, '+'))
+                $result_words [] = $word;
+            else
+                $result_words [] = '!' . $word;
+        }
+
+        return '"' . implode(' ', $result_words) . '"';
     }
 
     private function startsWith($haystack, $needle)

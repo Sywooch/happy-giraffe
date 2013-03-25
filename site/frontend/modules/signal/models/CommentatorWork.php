@@ -128,12 +128,32 @@ class CommentatorWork extends EMongoDocument
     }
 
     /**
-     * @return CommentatorDayWork
+     * Возвращает сегодняшний рабочий день, если не работает - null
+     * @return CommentatorDayWork|null сегодняшний рабочий день
      */
     public function getCurrentDay()
     {
+        $this->getSomeDay(date("Y-m-d"));
+    }
+
+    /**
+     * Возвращает вчерашний рабочий день, если не работал - null
+     * @return CommentatorDayWork|null вчерашний рабочий день
+     */
+    public function getPrevDay()
+    {
+        $this->getSomeDay(date("Y-m-d", strtotime('-1 day')));
+    }
+
+    /**
+     * Возвращает рабочий день за указанную дату, если не работал - null
+     * @param $date дата работы
+     * @return CommentatorDayWork|null рабочий день
+     */
+    public function getSomeDay($date)
+    {
         foreach ($this->days as $day)
-            if ($day->date == date("Y-m-d"))
+            if ($day->date == $date)
                 return $day;
 
         return null;
@@ -175,6 +195,25 @@ class CommentatorWork extends EMongoDocument
         $this->days[] = $day;
         $this->calculateNextComment();
         return $this->save();
+    }
+
+    /**
+     * Вычисление статистики за день
+     */
+    public function calculateDayStats($date = null)
+    {
+        if (empty($date)) {
+            $prev_day = $this->getPrevDay();
+            if ($prev_day !== null)
+                $prev_day->calculateStats($this->user_id);
+            $current_day = $this->getCurrentDay();
+            if ($current_day !== null)
+                $current_day->calculateStats($this->user_id);
+        } else {
+            $day = $this->getSomeDay($date);
+            if ($day !== null)
+                $day->calculateStats($this->user_id);
+        }
     }
 
 

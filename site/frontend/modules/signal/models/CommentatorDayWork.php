@@ -97,15 +97,20 @@ class CommentatorDayWork extends EMongoEmbeddedDocument
     );
 
     /**
+     * Закрыт ли день для перерасчета данных статистики
+     * @var int
+     */
+    public $closed = 0;
+
+    /**
      * Пересчет статистика за день
      * @param $commentator_id int id комментатора
-     * @param $date число за которое расчитываем
      */
-    public function calculateStats($commentator_id, $date)
+    public function calculateStats($commentator_id)
     {
-        $this->im = CommentatorHelper::imStats($commentator_id, $date);
-        $this->friends = CommentatorHelper::friendStats($commentator_id, $date);
-        $this->visits = CommentatorHelper::visits($commentator_id, $date);
+        $this->im = CommentatorHelper::imStats($commentator_id, $this->date);
+        $this->friends = CommentatorHelper::friendStats($commentator_id, $this->date);
+        $this->visits = CommentatorHelper::visits($commentator_id, $this->date);
     }
 
     /**

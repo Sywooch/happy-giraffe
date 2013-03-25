@@ -39,14 +39,10 @@ class ProxyParserThread
 
     private function getProxy()
     {
-        //$this->startTimer('find proxy');
-
         $criteria = new CDbCriteria;
         $criteria->condition = 'id % 645 = ' . $this->thread_id;
         $criteria->order = 'rank desc';
         $this->proxy = Proxy::model()->find($criteria);
-
-        //$this->endTimer();
     }
 
     private function getProxyByRating()
@@ -88,7 +84,7 @@ class ProxyParserThread
                 curl_setopt($ch, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
                 curl_setopt($ch, CURLOPT_PROXY, $this->proxy->value);
                 if (Yii::app()->params['use_proxy_auth']) {
-                    curl_setopt($ch, CURLOPT_PROXYUSERPWD, "alexk984:Nokia1111");
+                    curl_setopt($ch, CURLOPT_PROXYUSERPWD, "alexhg:Nokia1111");
                     curl_setopt($ch, CURLOPT_PROXYAUTH, 1);
                 }
             }

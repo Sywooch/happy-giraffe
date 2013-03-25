@@ -255,6 +255,66 @@ class BlogController extends HController
         $this->render('empty');
     }
 
+    public function actionDeleteBlogRubric()
+    {
+        $id = Yii::app()->request->getPost('id');
+
+        $success = CommunityRubric::model()->deleteByPk($id);
+
+        echo CJavaScript::encode($success);
+    }
+
+    public function actionAddRubric()
+    {
+        $title = Yii::app()->request->getPost('title');
+
+        $model = new CommunityRubric();
+        $model->title = $title;
+        $model->user_id = Yii::app()->user->id;
+        if ($model->save()) {
+            $response = array(
+                'success' => true,
+                'model' => $model,
+            );
+        } else {
+            $response = array(
+                'success' => false,
+                'erros' => $model->errors,
+            );
+        }
+
+        echo CJSON::encode($response);
+    }
+
+    public function actionEditRubric()
+    {
+        $id = Yii::app()->request->getPost('id');
+        $title = Yii::app()->request->getPost('title');
+
+        $model = CommunityRubric::model()->findByPk($id);
+
+        $model->title = $title;
+        if ($model->save()) {
+            $response = array(
+                'success' => true,
+                'model' => $model,
+            );
+        } else {
+            $response = array(
+                'success' => false,
+                'erros' => $model->errors,
+            );
+        }
+
+        echo CJSON::encode($response);
+    }
+
+    public function actionUpdateSort()
+    {
+        foreach ($_POST['rubric'] as $sort => $id)
+            CommunityRubric::model()->updateByPk($id, array('sort' => $sort));
+    }
+
     public function sitemapView()
     {
         $models = Yii::app()->db->createCommand()

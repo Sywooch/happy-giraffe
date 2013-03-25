@@ -147,7 +147,7 @@ class CommentatorWork extends EMongoDocument
 
     /**
      * Возвращает рабочий день за указанную дату, если не работал - null
-     * @param $date дата работы
+     * @param $date string дата работы
      * @return CommentatorDayWork|null рабочий день
      */
     public function getSomeDay($date)
@@ -198,22 +198,28 @@ class CommentatorWork extends EMongoDocument
     }
 
     /**
-     * Вычисление статистики за день
+     * Вычисление статистики за день. Если передается дата, то за эту дату, если нет то за текущий и предыдущий день
+     * @param null|string $date дата
      */
     public function calculateDayStats($date = null)
     {
         if (empty($date)) {
+            //если дата не указана - то за текущий и предыдущий день
             $prev_day = $this->getPrevDay();
             if ($prev_day !== null)
                 $prev_day->calculateStats($this->user_id);
+
             $current_day = $this->getCurrentDay();
             if ($current_day !== null)
                 $current_day->calculateStats($this->user_id);
         } else {
+            //если дата указана - за эту дату
             $day = $this->getSomeDay($date);
             if ($day !== null)
                 $day->calculateStats($this->user_id);
         }
+
+        $this->save();
     }
 
 

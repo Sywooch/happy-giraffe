@@ -118,6 +118,8 @@ class CommentatorsMonth extends EMongoDocument
                     self::SE_VISITS => (int)$this->getSeVisits($commentator->id),
                 );
                 $this->save();
+
+                $model->calculateDayStats();
             }
         }
 

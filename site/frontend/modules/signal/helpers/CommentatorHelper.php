@@ -95,6 +95,9 @@ class CommentatorHelper
      */
     public static function friendStats($user_id, $date1, $date2 = null)
     {
+        if (empty($date2))
+            $date2 = $date1;
+
         $stats = array('requests' => 0, 'friends' => 0);
 
         //вычисляем кол-во друзей
@@ -135,11 +138,11 @@ class CommentatorHelper
     public static function visits($user_id, $date1, $date2 = null)
     {
         $stats = array('main' => 0, 'blog' => 0, 'photo' => 0, 'visits' => 0, 'visitors' => 0);
-        $stats['main'] = GApi::model()->uniquePageviews('/user/' . $user_id . '/', $date1, $date2, false);
-        $stats['blog'] = GApi::model()->uniquePageviews('/user/' . $user_id . '/blog/', $date1, $date2);
-        $stats['photo'] = GApi::model()->uniquePageviews('/user/' . $user_id . '/albums/', $date1, $date2);
+        $stats['main'] = GApi::model()->visitors('/user/' . $user_id . '/', $date1, $date2, false);
+        $stats['blog'] = GApi::model()->visitors('/user/' . $user_id . '/blog/', $date1, $date2);
+        $stats['photo'] = GApi::model()->visitors('/user/' . $user_id . '/albums/', $date1, $date2);
         $stats['visits'] = GApi::model()->uniquePageviews('/user/' . $user_id . '/', $date1, $date2);
-        $stats['visits'] = GApi::model()->visitors('/user/' . $user_id . '/', $date1, $date2);
+        $stats['visitors'] = GApi::model()->visitors('/user/' . $user_id . '/', $date1, $date2);
 
         return $stats;
     }

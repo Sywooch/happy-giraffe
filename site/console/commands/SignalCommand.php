@@ -14,6 +14,7 @@ class SignalCommand extends CConsoleCommand
         Yii::import('site.seo.models.*');
         Yii::import('site.frontend.modules.signal.models.*');
         Yii::import('site.frontend.modules.signal.components.*');
+        Yii::import('site.frontend.modules.signal.helpers.*');
         Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
         Yii::import('site.frontend.modules.im.models.*');
         Yii::import('site.frontend.extensions.GoogleAnalytics');
@@ -136,7 +137,7 @@ class SignalCommand extends CConsoleCommand
     }
 
     public function actionTest(){
-        $model = CommentatorsMonth::get(date("Y-m"));
-        echo $model->period;
+        $model = CommentatorWork::getUser(15266);
+        $model->calculateDayStats('2013-03-19');
     }
 }

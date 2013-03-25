@@ -129,24 +129,6 @@ class CommentatorsMonth extends EMongoDocument
         $this->save();
     }
 
-    public function calculateDay()
-    {
-        $commentators = User::model()->findAll('`group`=' . UserGroup::COMMENTATOR);
-
-        foreach ($commentators as $commentator) {
-            $model = $this->getCommentator($commentator);
-            if ($model !== null) {
-                $this->commentators[(int)$commentator->id] = array(
-                    self::NEW_FRIENDS => (int)$model->newFriends($this->period),
-                    self::PROFILE_VIEWS => (int)$model->imMessages($this->period),
-                    self::IM_MESSAGES => (int)$this->profileUniqueViews($commentator->id),
-                    self::SE_VISITS => (int)$this->getSeVisits($commentator->id),
-                );
-                $this->save();
-            }
-        }
-    }
-
     /**
      * Возвращает модель комментатора по его id
      * Если не находит, возвращает null

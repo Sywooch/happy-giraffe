@@ -136,14 +136,13 @@ class ProxyParserThread
 
     protected function changeBadProxy($rank = null)
     {
-        //$this->log('Change proxy');
-
+        //$this->log('Change bad proxy');
         if ($rank !== null)
             $this->proxy->rank = $rank;
         else
             $this->proxy->rank = floor((($this->proxy->rank + $this->success_loads) / 5) * 4);
 
-        //$this->proxy->active = 0;
+        $this->proxy->active = 0;
         $this->proxy->save();
         $this->getProxy();
         $this->success_loads = 0;
@@ -157,7 +156,6 @@ class ProxyParserThread
     protected function changeBannedProxy()
     {
         //$this->log('Change proxy');
-
         $this->proxy->delete();
         $this->getProxy();
         $this->success_loads = 0;
@@ -171,7 +169,7 @@ class ProxyParserThread
     private function saveProxy()
     {
         $this->proxy->rank = $this->proxy->rank + $this->success_loads;
-        //$this->proxy->active = 0;
+        $this->proxy->active = 0;
         $this->proxy->save();
     }
 

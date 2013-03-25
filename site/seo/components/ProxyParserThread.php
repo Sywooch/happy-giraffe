@@ -37,7 +37,7 @@ class ProxyParserThread
         $this->getProxy();
     }
 
-    private function getProxy()
+    private function getProxy2()
     {
         $criteria = new CDbCriteria;
         $criteria->condition = 'id % 645 = ' . $this->thread_id;
@@ -45,14 +45,14 @@ class ProxyParserThread
         $this->proxy = Proxy::model()->find($criteria);
     }
 
-    private function getProxyByRating()
+    private function getProxy()
     {
         $this->startTimer('find proxy1');
 
         $criteria = new CDbCriteria;
         $criteria->compare('active', 0);
         $criteria->order = 'rank desc';
-        $criteria->offset = rand(0, 20);
+        $criteria->offset = rand(0, 50);
 
         $this->proxy = Proxy::model()->find($criteria);
 

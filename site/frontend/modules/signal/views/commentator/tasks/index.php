@@ -11,6 +11,7 @@ $data = array(
     ),
     'blog' => $this->commentator->blogPosts(),
     'club' => $this->commentator->clubPosts(),
+    'tasks' => $this->commentator->getEditorTasksForView()
 )?>
 <?php $this->renderPartial('tasks/_editor_tasks'); ?>
 

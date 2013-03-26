@@ -90,41 +90,6 @@ class CommentatorWork extends EMongoDocument
     /******************************************************************************************************************/
     /**************************************** Работа пользователя - основное ******************************************/
     /******************************************************************************************************************/
-
-    /**
-     * Проверить комментарий на предмет выполненного задания по комментированию. Если задание выполнено,
-     * посылается сигнал через comet-server для обновления панели. Если задание не выполнено, но комментарий
-     * засчитан, то также посылается сигнал но без данных о новом комментарии
-     *
-     * @param $comment комментарий текущего комментатора
-     */
-    public function checkComment($comment)
-    {
-        $entity = ($comment->entity == 'BlogContent') ? 'CommunityContent' : $comment->entity;
-        $_entity = ($this->comment_entity == 'BlogContent') ? 'CommunityContent' : $this->comment_entity;
-        $model = CActiveRecord::model($comment->entity)->findByPk($comment->entity_id);
-
-        if ($_entity == $entity && $this->comment_entity_id == $comment->entity_id) {
-            $this->incCommentsCount(true);
-            $next_comment = $this->getNextComment();
-
-            $comet = new CometModel;
-            $comet->send(Yii::app()->user->id, array(
-                'inc' => 1,
-                'url' => $next_comment->url,
-                'title' => $next_comment->title
-            ), CometModel::TYPE_COMMENTATOR_NEXT_COMMENT);
-
-        } elseif (!empty($comment->response_id) || (isset($model->author_id) && $model->author_id == $comment->author_id)) {
-            $this->incCommentsCount(false);
-            $comet = new CometModel;
-            $comet->send(Yii::app()->user->id, array(
-                'inc' => 1
-            ), CometModel::TYPE_COMMENTATOR_NEXT_COMMENT);
-
-        }
-    }
-
     /**
      * Возвращает текущего комментатора. Если документ в бд для него не создан, создает его
      * @static
@@ -285,6 +250,41 @@ class CommentatorWork extends EMongoDocument
     /******************************************************************************************************************/
     /************************************************* Комментарии ****************************************************/
     /******************************************************************************************************************/
+
+
+    /**
+     * Проверить комментарий на предмет выполненного задания по комментированию. Если задание выполнено,
+     * посылается сигнал через comet-server для обновления панели. Если задание не выполнено, но комментарий
+     * засчитан, то также посылается сигнал но без данных о новом комментарии
+     *
+     * @param $comment комментарий текущего комментатора
+     */
+    public function checkComment($comment)
+    {
+        $entity = ($comment->entity == 'BlogContent') ? 'CommunityContent' : $comment->entity;
+        $_entity = ($this->comment_entity == 'BlogContent') ? 'CommunityContent' : $this->comment_entity;
+        $model = CActiveRecord::model($comment->entity)->findByPk($comment->entity_id);
+
+        if ($_entity == $entity && $this->comment_entity_id == $comment->entity_id) {
+            $this->incCommentsCount(true);
+            $next_comment = $this->getNextComment();
+
+            $comet = new CometModel;
+            $comet->send(Yii::app()->user->id, array(
+                'inc' => 1,
+                'url' => $next_comment->url,
+                'title' => $next_comment->title
+            ), CometModel::TYPE_COMMENTATOR_NEXT_COMMENT);
+
+        } elseif (!empty($comment->response_id) || (isset($model->author_id) && $model->author_id == $comment->author_id)) {
+            $this->incCommentsCount(false);
+            $comet = new CometModel;
+            $comet->send(Yii::app()->user->id, array(
+                'inc' => 1
+            ), CometModel::TYPE_COMMENTATOR_NEXT_COMMENT);
+
+        }
+    }
 
     /**
      * Увеличивает кол-во выполненных заданий на комментирование на 1 и вычисляет следующий пост для комментирования
@@ -497,6 +497,67 @@ class CommentatorWork extends EMongoDocument
 
         return $criteria;
     }
+
+    /******************************************************************************************************************/
+    /**************************************************** Задачи от редакции *******************************************************/
+    /******************************************************************************************************************/
+    /**
+     * Возвращает список активных задач редакции для комментаторов
+     * @return CommentatorTask[]
+     */
+    public function getEditorTasks()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->condition = 'created > :today';
+        $criteria->params = array(':today' => date("Y-m-d") . ' 00:00:00');
+        return CommentatorTask::model()->findAll($criteria);
+    }
+
+    /**
+     * Возвращает список активных задач редакции для комментаторов для выгрузки в js
+     * @return array
+     */
+    public function getEditorTasksForView()
+    {
+        $tasks = $this->getEditorTasks();
+        $result = array();
+        foreach ($tasks as $task) {
+            $article = $task->page->getArticle();
+            $result [] = array(
+                'id' => $task->id,
+                'type' => $task->type,
+                'closed' => $task->isExecutedByCurrentUser(),
+                'article_url' => $article->getUrl(),
+                'article_title' => $article->title,
+            );
+        }
+
+        return $result;
+    }
+
+    /**
+     * проверяем сущность на выполнение задания
+     *
+     * @param $entity
+     * @param $entity_id
+     * @param $type
+     */
+    public function checkEditorTaskExecuting($entity, $entity_id, $type)
+    {
+        $page = Page::model()->findByAttributes(array('entity' => $entity, 'entity_id' => $entity_id));
+        if ($page !== null) {
+            $task = CommentatorTask::model()->findByAttributes(array('page_id' => $page->id, 'type' => $type));
+            if ($task !== null) {
+                if ($task->isExecutedByCurrentUser()) {
+                    $comet = new CometModel;
+                    $comet->send(Yii::app()->user->id, array(
+                        'task_id' => $task->id
+                    ), CometModel::TYPE_COMMENTATOR_UPDATE_TASK);
+                }
+            }
+        }
+    }
+
 
     /******************************************************************************************************************/
     /**************************************************** Премии *******************************************************/

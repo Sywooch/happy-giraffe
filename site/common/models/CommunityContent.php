@@ -338,21 +338,6 @@ class CommunityContent extends HActiveRecord
                 }
             }
 
-            //send signals to commentator panel
-            if (Yii::app()->user->checkAccess('commentator_panel')) {
-                Yii::import('site.frontend.modules.signal.models.*');
-                CommentatorWork::getCurrentUser()->refreshCurrentDayPosts();
-                $comet = new CometModel;
-                if ($this->isFromBlog)
-                    $comet->send(Yii::app()->user->id, array(
-                        'update_part' => CometModel::UPDATE_BLOG,
-                    ), CometModel::TYPE_COMMENTATOR_UPDATE);
-                else
-                    $comet->send(Yii::app()->user->id, array(
-                        'update_part' => CometModel::UPDATE_CLUB,
-                    ), CometModel::TYPE_COMMENTATOR_UPDATE);
-            }
-
             if ($this->type_id == 5)
                 FriendEventManager::add(FriendEvent::TYPE_STATUS_UPDATED, array('model' => $this));
 

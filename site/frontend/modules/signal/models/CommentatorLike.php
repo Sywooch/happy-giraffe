@@ -64,7 +64,9 @@ class CommentatorLike extends HActiveRecord
     }
 
     /**
-     * Добавить лайк комментатора к статье
+     * Добавить лайк комментатора к статье. Проверяем не выполнил ли задание этим лайком,
+     * если выполнил посылаем сигнал для обновления панели
+     *
      * @param $entity string класс статьи
      * @param $entity_id int id статьи
      * @param $social_id int id соц сети
@@ -84,5 +86,7 @@ class CommentatorLike extends HActiveRecord
             $model->social_id = $social_id;
             $model->save();
         }
+
+        CommentatorWork::getCurrentUser()->checkEditorTaskExecuting($entity, $entity_id, CommentatorTask::TYPE_LIKE);
     }
 }

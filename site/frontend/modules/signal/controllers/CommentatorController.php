@@ -5,7 +5,7 @@
  */
 class CommentatorController extends CController
 {
-    public $layout = 'commentator_new';
+    public $layout = 'commentator';
     /**
      * @var User
      */
@@ -18,7 +18,7 @@ class CommentatorController extends CController
     public function filters()
     {
         return array(
-            'ajaxOnly + blog, club, comments',
+            'ajaxOnly + emptyTasks, skip, take, cancelTask, executed',
         );
     }
 
@@ -32,6 +32,7 @@ class CommentatorController extends CController
         Yii::import('site.seo.models.*');
         Yii::import('site.seo.models.mongo.*');
         Yii::import('site.seo.modules.writing.models.*');
+        Yii::import('site.seo.modules.commentators.models.*');
 
         $this->user = Yii::app()->user->model;
         $this->commentator = CommentatorWork::getCurrentUser();
@@ -84,6 +85,8 @@ class CommentatorController extends CController
     {
         $this->render('how_to_be_popular');
     }
+
+
 
     public function actionEmptyTasks()
     {

@@ -56,6 +56,23 @@ class AjaxSimpleController extends CController
         $social_id = Yii::app()->request->getPost('social_id');
 
         Yii::import('site.frontend.modules.signal.models.*');
+        Yii::import('site.seo.modules.commentators.models.*');
+        Yii::import('site.seo.models.*');
         CommentatorLike::addCurrentUserLike($entity, $entity_id, $social_id);
+    }
+
+    public function actionTest()
+    {
+        $sites = Yii::app()->db_seo->createCommand()
+            ->select('url, password')
+            ->from('li_sites')
+            ->where('type=2 and visits > 1000')
+            ->queryAll();
+
+        echo 'Mail.ru - доступ открыт для первой тысячи<br>';
+        foreach($sites as $site){
+            echo $site['url'].'<br>';
+        }
+        echo '<br><br>';
     }
 }

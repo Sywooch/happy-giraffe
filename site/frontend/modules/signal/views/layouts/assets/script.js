@@ -9,13 +9,20 @@ var commentator_replace_post = null;
 
 function CommentatorPanel(data) {
     var self = this;
+    self.editorTasks = ko.observableArray([]);
+    for (var key in data['tasks'])
+        self.editorTasks.push(new EditorTask(data['tasks'][key], self));
+
     self.nextComment = new NextComment(data['comments']);
     self.blogTasks = new KeywordTaskBlock(data['blog'], 0, self);
     self.clubsTasks = new KeywordTaskBlock(data['club'], 1, self);
     self.emptyTasks = ko.observable(new KeywordTaskBlock([], 2, self));
 
-    self.update = function (block) {
-        console.log(block);
+    self.updateTask = function (task_id) {
+        ko.utils.arrayForEach(self.editorTasks(), function (task) {
+            if (task.id == task_id)
+                task.closed(1);
+        });
     };
     self.showEmptyTasks = function () {
         $.post('/commentator/emptyTasks/', function (response) {
@@ -102,7 +109,7 @@ function CommentatorTask(data, parent) {
                 alert(response.error);
         }, 'json');
     };
-    self.replaceTask = function(){
+    self.replaceTask = function () {
         commentator_replace_post = self;
         self.parent.showEmptyTasks(true);
     };
@@ -113,11 +120,11 @@ function CommentatorTask(data, parent) {
         $.post('/commentator/take/', {id: self.id, block: commentator_active_block}, function (response) {
             if (response.status) {
                 self.parent.parent.emptyTasks().tasks.remove(self);
-                if (commentator_active_block == 0){
+                if (commentator_active_block == 0) {
                     self.parent.parent.blogTasks.tasks.push(self);
                     self.parent = self.parent.parent.blogTasks;
                 }
-                if (commentator_active_block == 1){
+                if (commentator_active_block == 1) {
                     self.parent.parent.clubsTasks.tasks.push(self);
                     self.parent = self.parent.parent.clubsTasks;
                 }
@@ -154,13 +161,29 @@ function NextComment(data) {
     };
 }
 
+function EditorTask(data, parent) {
+    var self = this;
+    self.parent = parent;
+    self.id = data['id'];
+    self.type = data['type'];
+    self.closed = ko.observable(data['closed']);
+    self.article_title = ko.observable(data['article_title']);
+    self.article_url = ko.observable(data['article_url']);
+
+    self.typeClass = ko.computed(function () {
+        if (self.type == 1)
+            return 'editor-tasks_ico__comment';
+        return 'editor-tasks_ico__like';
+    });
+}
+
 
 /**
  *
  * Сигналы обновления данных
  */
-Comet.prototype.CommentatorPanelUpdate = function (result, id) {
-    CommentatorPanel.update(result.update_part);
+Comet.prototype.CommentatorPanelUpdateTask = function (result, id) {
+    CommentatorPanel.updateTask(result.task_id);
 };
 Comet.prototype.CommentatorPanelIncComments = function (result, id) {
     console.log(result);
@@ -168,6 +191,6 @@ Comet.prototype.CommentatorPanelIncComments = function (result, id) {
 };
 
 $(function () {
-    comet.addEvent(9, 'CommentatorPanelUpdate');
+    comet.addEvent(9, 'CommentatorPanelUpdateTask');
     comet.addEvent(10, 'CommentatorPanelIncComments');
 });

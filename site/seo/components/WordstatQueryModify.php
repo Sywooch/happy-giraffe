@@ -72,8 +72,8 @@ class WordstatQueryModify
                 $criteria->params = array(':part' => '%' . $part . '%');
                 $models = Keyword::model()->findAll($criteria);
 
-                if (!empty($models))
-                    echo count($models) . "\n";
+//                if (!empty($models))
+//                    echo count($models) . "\n";
                 foreach ($models as $model) {
                     $model->name = str_replace($part, ' ', $model->name);
                     $model->name = trim($model->name);

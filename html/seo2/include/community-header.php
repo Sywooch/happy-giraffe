@@ -24,7 +24,7 @@
 					<span class="header-nav_tx">Задания</span>
 				</a>
 			</li>
-			<li class="header-nav_li header-nav_li__links">
+			<li class="header-nav_li header-nav_li__links active">
 				<a href="" class="header-nav_i">
 					<span class="header-nav_tx">Ссылки</span>
 				</a>
@@ -39,7 +39,7 @@
 					<span class="header-nav_tx">Отчеты</span>
 				</a>
 			</li>
-			<li class="header-nav_li header-nav_li__award active">
+			<li class="header-nav_li header-nav_li__award">
 				<a href="" class="header-nav_i">
 					<span class="header-nav_tx">Премия</span>
 				</a>

@@ -69,7 +69,7 @@ class WordstatQueryModify
             for ($k = 0; $k < 500; $k++) {
                 $criteria = new CDbCriteria;
                 $criteria->condition = 'id > ' . ($k * 1000000) . ' AND id <= ' . (($k + 1) * 1000000) . ' AND name LIKE :part';
-                $criteria->params = array(':part' => '%'.$part.'%');
+                $criteria->params = array(':part' => '%' . $part . '%');
                 $models = Keyword::model()->findAll($criteria);
 
                 if (!empty($models))
@@ -82,12 +82,14 @@ class WordstatQueryModify
 
                     $model2 = Keyword::model()->findByAttributes(array('name' => $model->name));
                     if ($model2 !== null) {
-                        $model->delete();
+                        try {
+                            $model->delete();
+                        } catch (Exception $err) {
+                        }
                     } else {
                         try {
                             $model->save();
                         } catch (Exception $err) {
-                            echo "err\n";
                         }
                     }
                 }

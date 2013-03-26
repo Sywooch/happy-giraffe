@@ -1,6 +1,5 @@
 // ----------------------------------------------------------
 // В файле все комментарии делать в less стиле // 
-// в избежание многкратного включения в конечный css
 // ----------------------------------------------------------
 
 // 1. ROOT 					
@@ -208,6 +207,13 @@ width : 1px;
 margin : -1px; 
 padding : 0; 
 border : 0; }
+
+// border-radius(VALUE);
+.border-radius (@radius: 5px) {
+	-webkit-border-radius: @radius;
+	-moz-border-radius: @radius;
+	border-radius: @radius;
+}
 
 // 6. LAYOUT 				============================== 
 

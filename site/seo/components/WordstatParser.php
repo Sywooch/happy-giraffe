@@ -91,6 +91,7 @@ class WordstatParser extends ProxyParserThread
         $this->keywords = ParsingKeyword::model()->findAll($criteria);
 
         if (empty($this->keywords)) {
+            Yii::app()->end();
             //если нет приоритетных загружаем остальные
             $criteria = new CDbCriteria;
             $criteria->limit = 10;

@@ -1,6 +1,9 @@
 
     <div id="popup-keyword" class="popup popup-keyword">
         <div class="popup_hold">
+            <div class="popup-keyword_taken-used">
+                <div class="popup-keyword_taken-used-tx">Подсказка уже взята!</div>
+            </div>
             <div class="popup-keyword_i clearfix">
                 <div class="popup-keyword_btn-hold">
                     <a href="" class="btn-green popup-keyword_take">Взять </a>

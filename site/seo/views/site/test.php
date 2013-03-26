@@ -6,4 +6,3 @@
  */
 
 $parser = new WordstatQueryModify();
-echo $parser->prepareStrictQuery('беременность от а до я');

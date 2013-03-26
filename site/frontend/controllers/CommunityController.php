@@ -196,6 +196,10 @@ class CommunityController extends HController
 
         $this->registerCounter();
 
+        //проверяем переход с других сайтов по ссылкам комментаторов
+        Yii::import('site.frontend.modules.signal.models.CommentatorLink');
+        CommentatorLink::checkPageVisit('CommunityContent', $content_id);
+
         $this->render('view', array(
             'data' => $content,
         ));

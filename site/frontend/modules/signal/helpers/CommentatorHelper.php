@@ -146,4 +146,17 @@ class CommentatorHelper
 
         return $stats;
     }
+
+    /**
+     * Возвращает список комментаторов
+     * @return array
+     */
+    public static function getCommentatorIdList()
+    {
+        return Yii::app()->db->createCommand()
+            ->selectDistinct('id')
+            ->from('users')
+            ->where('`group`=' . UserGroup::COMMENTATOR)
+            ->queryColumn();
+    }
 }

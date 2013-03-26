@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * Class CommentatorWork
+ *
+ * Description
+ *
+ * @author Alex Kireev <alexk984@gmail.com>
+ */
 class CommentatorWork extends EMongoDocument
 {
     /**
@@ -85,6 +92,40 @@ class CommentatorWork extends EMongoDocument
     /******************************************************************************************************************/
 
     /**
+     * Проверить комментарий на предмет выполненного задания по комментированию. Если задание выполнено,
+     * посылается сигнал через comet-server для обновления панели. Если задание не выполнено, но комментарий
+     * засчитан, то также посылается сигнал но без данных о новом комментарии
+     *
+     * @param $comment комментарий текущего комментатора
+     */
+    public function checkComment($comment)
+    {
+        $entity = ($comment->entity == 'BlogContent') ? 'CommunityContent' : $comment->entity;
+        $_entity = ($this->comment_entity == 'BlogContent') ? 'CommunityContent' : $this->comment_entity;
+        $model = CActiveRecord::model($comment->entity)->findByPk($comment->entity_id);
+
+        if ($_entity == $entity && $this->comment_entity_id == $comment->entity_id) {
+            $this->incCommentsCount(true);
+            $next_comment = $this->getNextComment();
+
+            $comet = new CometModel;
+            $comet->send(Yii::app()->user->id, array(
+                'inc' => 1,
+                'url' => $next_comment->url,
+                'title' => $next_comment->title
+            ), CometModel::TYPE_COMMENTATOR_NEXT_COMMENT);
+
+        } elseif (!empty($comment->response_id) || (isset($model->author_id) && $model->author_id == $comment->author_id)) {
+            $this->incCommentsCount(false);
+            $comet = new CometModel;
+            $comet->send(Yii::app()->user->id, array(
+                'inc' => 1
+            ), CometModel::TYPE_COMMENTATOR_NEXT_COMMENT);
+
+        }
+    }
+
+    /**
      * Возвращает текущего комментатора. Если документ в бд для него не создан, создает его
      * @static
      * @return CommentatorWork
@@ -133,7 +174,7 @@ class CommentatorWork extends EMongoDocument
      */
     public function getCurrentDay()
     {
-        $this->getSomeDay(date("Y-m-d"));
+        return $this->getSomeDay(date("Y-m-d"));
     }
 
     /**
@@ -312,9 +353,9 @@ class CommentatorWork extends EMongoDocument
     /**
      * Ссылка на статью для комментирования, нужно для вьюхи
      *
-     * @return CActiveRecord
+     * @return CommunityContent
      */
-    public function nextCommentLink()
+    public function getNextComment()
     {
         if ($this->comment_entity !== 'CookRecipe')
             $model = CActiveRecord::model($this->comment_entity)->resetScope()->full()->findByPk($this->comment_entity_id);
@@ -333,8 +374,10 @@ class CommentatorWork extends EMongoDocument
             $model = CActiveRecord::model($this->comment_entity)->findByPk($this->comment_entity_id);
         }
 
-        $title = empty($model->title) ? $model->getContentText() : $model->title;
-        return CHtml::link($title, $model->url, array('target' => '_blank'));
+        if (empty($model->title))
+            $model->title = $model->getContent()->text;
+
+        return $model;
     }
 
     /**
@@ -374,31 +417,86 @@ class CommentatorWork extends EMongoDocument
         return $result;
     }
 
+    /**
+     * Возвращает текущие задания комментатора в блоги
+     * @return SeoTask[]
+     */
     public function blogPosts()
     {
-        $criteria = new CDbCriteria;
-        $criteria->order = 'created desc';
-
-        //return CommunityContent::model()->findAllByPk($criteria);
-        return array();
+        return $this->getTasks(0);
     }
 
+    /**
+     * Возвращает текущие задания комментатора в клубы
+     * @return SeoTask[]
+     */
     public function clubPosts()
     {
-        return array();
+        return $this->getTasks(1);
     }
 
-    public function clubPostsCount()
+    /**
+     * Возвращает текущие задания комментатора для заданной секции - те которые в процессе выполнения +
+     * которые выполнил сегодня
+     * @param $section int секция в которой ищем задания (0 - в блог, 1- в клуб)
+     * @return SeoTask[] задания комментатора
+     */
+    public function getTasks($section)
+    {
+        $tasks = SeoTask::model()->findAll($this->getPostsCriteria($section));
+        return $this->getTasksView($tasks);
+    }
+
+    /**
+     * Преобразует массив заданий в массив для передачи в js-код
+     * @param $tasks SeoTask[] массив заданий
+     * @return array массив для передачи в js-код
+     */
+    public static function getTasksView($tasks)
+    {
+        $result = array();
+        foreach ($tasks as $task) {
+            $keyword = $task->getKeyword();
+            $arr = array(
+                'id' => $task->id,
+                'closed' => ($task->status == SeoTask::STATUS_CLOSED) ? 1 : 0,
+                'keyword' => $keyword->name,
+                'keyword_id' => $keyword->id,
+                'keyword_wordstat' => $keyword->wordstat,
+                'article_title' => '',
+                'article_url' => '',
+            );
+            if ($task->status == SeoTask::STATUS_CLOSED) {
+                $article = $task->article->getArticle();
+                $arr['article_title'] = $article->title;
+                $arr['article_url'] = $article->url;
+            }
+
+            $result [] = $arr;
+        }
+
+        return $result;
+    }
+
+    /**
+     * Возвращает criteria для выбора заданий комментатора - те которые в процессе выполнения +
+     * которые выполнил сегодня
+     * @param $section int секция в которой ищем задания (0 - в блог, 1- в клуб)
+     * @return CDbCriteria criteria для выбора заданий комментатора
+     */
+    private function getPostsCriteria($section)
     {
         $criteria = new CDbCriteria;
-        $criteria->condition = 'updated >= :today AND status = ' . SeoTask::STATUS_CLOSED . ' AND multivarka>=1 ';
-        $criteria->params = array(':today' => date("Y-m-d") . ' 00:00:00');
-        $criteria->compare('executor_id', Yii::app()->user->id);
-        $count = SeoTask::model()->count($criteria);
+        $criteria->condition = '((updated >= :today AND status = ' . SeoTask::STATUS_CLOSED . ')
+        OR status != ' . SeoTask::STATUS_CLOSED . ') AND sub_section = :section AND executor_id = :user_id';
+        $criteria->params = array(
+            ':today' => date("Y-m-d") . ' 00:00:00',
+            ':section' => $section,
+            ':user_id' => Yii::app()->user->id
+        );
 
-        return $count;
+        return $criteria;
     }
-
 
     /******************************************************************************************************************/
     /**************************************************** Премии *******************************************************/

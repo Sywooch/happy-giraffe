@@ -1,73 +1,173 @@
 /**
- * Author: alexk984
- * Date: 24.08.12
+ * Управление задачами комментатора
+ *
+ * @author Alex Kireev <alexk984@gmail.com>
  */
 
+var commentator_active_block = 0;
+var commentator_replace_post = null;
+
+function CommentatorPanel(data) {
+    var self = this;
+    self.nextComment = new NextComment(data['comments']);
+    self.blogTasks = new KeywordTaskBlock(data['blog'], 0, self);
+    self.clubsTasks = new KeywordTaskBlock(data['club'], 1, self);
+    self.emptyTasks = ko.observable(new KeywordTaskBlock([], 2, self));
+
+    self.update = function (block) {
+        console.log(block);
+    };
+    self.showEmptyTasks = function () {
+        $.post('/commentator/emptyTasks/', function (response) {
+            self.emptyTasks(new KeywordTaskBlock(response, 2, self));
+            $('#showKeywords').trigger('click');
+        }, 'json');
+    };
+}
+
+function KeywordTaskBlock(data, block, parent) {
+    var self = this;
+    self.parent = parent;
+    self.block = block;
+    self.tasks = ko.observableArray([]);
+    for (var key in data) {
+        var task = new CommentatorTask(data[key], self);
+        self.tasks.push(task);
+    }
+
+    self.HintIsVisible = ko.computed(function () {
+        var visible = true;
+        ko.utils.arrayForEach(self.tasks(), function (task) {
+            if (task.closed() == 0)
+                visible = false;
+        });
+        return visible;
+    });
+
+    self.showEmptyTasks = function (replace) {
+        if (replace != true)
+            commentator_replace_post = null;
+        commentator_active_block = self.block;
+        self.parent.showEmptyTasks();
+    };
+}
+
+function CommentatorTask(data, parent) {
+    var self = this;
+    self.parent = parent;
+    self.id = data['id'];
+    self.closed = ko.observable(data['closed']);
+    self.keyword = ko.observable(data['keyword']);
+    self.keyword_id = ko.observable(data['keyword_id']);
+    self.keyword_wordstat = ko.observable(data['keyword_wordstat']);
+    self.article_title = ko.observable(data['article_title']);
+    self.article_url = ko.observable(data['article_url']);
+
+    self.isClosed = ko.computed(function () {
+        return self.closed() == 1;
+    });
+    self.getClass = ko.computed(function () {
+        if (self.keyword_wordstat() < 500)
+            return 'keyword__micro';
+        if (self.keyword_wordstat() < 1500)
+            return 'keyword__low';
+        if (self.keyword_wordstat() < 10000)
+            return 'keyword__middle';
+        return 'keyword__high';
+    });
+    self.wordstatText = ko.computed(function () {
+        if (self.keyword_wordstat() < 500)
+            return 'МЧ';
+        if (self.keyword_wordstat() < 1500)
+            return 'НЧ';
+        if (self.keyword_wordstat() < 10000)
+            return 'СЧ';
+        return 'ВЧ';
+    });
+    self.confirm = function () {
+        $.post('/commentator/executed/', {id: self.id, url: self.article_url}, function (response) {
+            if (response.status) {
+                self.closed(1);
+                self.article_title(response.article_title);
+            }
+            else
+                alert(response.error);
+        }, 'json');
+    };
+    self.CancelTask = function () {
+        $.post('/commentator/cancelTask/', {id: self.id}, function (response) {
+            if (response.status)
+                self.parent.tasks.remove(self);
+            else
+                alert(response.error);
+        }, 'json');
+    };
+    self.replaceTask = function(){
+        commentator_replace_post = self;
+        self.parent.showEmptyTasks(true);
+    };
+    self.take = function () {
+        if (commentator_replace_post != null)
+            commentator_replace_post.CancelTask();
+
+        $.post('/commentator/take/', {id: self.id, block: commentator_active_block}, function (response) {
+            if (response.status) {
+                self.parent.parent.emptyTasks().tasks.remove(self);
+                if (commentator_active_block == 0){
+                    self.parent.parent.blogTasks.tasks.push(self);
+                    self.parent = self.parent.parent.blogTasks;
+                }
+                if (commentator_active_block == 1){
+                    self.parent.parent.clubsTasks.tasks.push(self);
+                    self.parent = self.parent.parent.clubsTasks;
+                }
+
+                $.fancybox.close();
+            }
+            else
+                alert(response.error);
+        }, 'json');
+    };
+}
+
+function NextComment(data) {
+    var self = this;
+    self.url = ko.observable(data['url']);
+    self.title = ko.observable(data['title']);
+    self.count = ko.observable(data['count']);
+    self.skip = function () {
+        $.post('/commentator/skip/', function (response) {
+            if (response.status) {
+                self.url(response.url);
+                self.title(response.title);
+            }
+            else
+                alert('Можно пропустить не более 30 комментариев в день');
+        }, 'json');
+    };
+    self.progress = ko.computed(function () {
+        return self.count;
+    });
+    self.incComment = function (data) {
+        console.log(data);
+        self.count(self.count() + 1);
+    };
+}
+
+
+/**
+ *
+ * Сигналы обновления данных
+ */
 Comet.prototype.CommentatorPanelUpdate = function (result, id) {
     CommentatorPanel.update(result.update_part);
-}
-
-var CommentatorPanel = {
-    block:0,
-    blocks:['blog', 'club', 'comments'],
-    timer:null,
-    update:function (block) {
-        CommentatorPanel.updateByName(CommentatorPanel.blocks[block]);
-    },
-    updateByName:function (name) {
-        $.post('/commentator/' + name + '/', function (response) {
-            $('#block-' + name).html(response);
-        });
-    },
-    iAmWorking:function () {
-        window.location.href = '/commentator/iAmWorking/';
-    },
-    skip:function () {
-        $.post('/commentator/skip/', function (response) {
-            if (response.status)
-                $('#block-comments').html(response.html);
-            else
-                alert('Можно пропустить не более 10 комментариев в день');
-
-        }, 'json');
-    },
-    show:function (id, el) {
-        $('#' + id).toggle();
-
-        if ($(el).text() == 'Показать')
-            $(el).text('Скрыть');
-        else
-            $(el).text('Показать');
-    },
-    TakeTask:function (id) {
-        $.post('/commentator/take/', {id:id, block:CommentatorPanel.block}, function (response) {
-            if (response.status) {
-                document.location.reload();
-            }
-            else
-                alert(response.error);
-        }, 'json');
-    },
-    Written:function (id, el) {
-        $.post('/commentator/executed/', {id:id, url:$(el).prev().val()}, function (response) {
-            if (response.status) {
-                document.location.reload();
-            }
-            else
-                alert(response.error);
-        }, 'json');
-    },
-    CancelTask:function (id, el) {
-        $.post('/commentator/cancelTask/', {id:id}, function (response) {
-            if (response.status) {
-                document.location.reload();
-            }
-            else
-                alert(response.error);
-        }, 'json');
-    }
-}
+};
+Comet.prototype.CommentatorPanelIncComments = function (result, id) {
+    console.log(result);
+    CommentatorPanel.nextComment.incComment(result);
+};
 
 $(function () {
     comet.addEvent(9, 'CommentatorPanelUpdate');
+    comet.addEvent(10, 'CommentatorPanelIncComments');
 });

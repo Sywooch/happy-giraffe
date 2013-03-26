@@ -3,9 +3,9 @@
  * Author: alexk984
  * Date: 23.08.12
  */
-class CommentatorController extends HController
+class CommentatorController extends CController
 {
-    public $layout = 'commentator';
+    public $layout = 'commentator_new';
     /**
      * @var User
      */
@@ -35,18 +35,19 @@ class CommentatorController extends HController
 
         $this->user = Yii::app()->user->model;
         $this->commentator = CommentatorWork::getCurrentUser();
+
         return parent::beforeAction($action);
     }
 
     public function actionIndex()
     {
-        if (!$this->commentator->IsWorksToday(Yii::app()->user->id))
-            $this->redirect('/commentator/statistic');
+        if (!$this->commentator->IsWorksToday())
+            $this->commentator->CreateWorkingDay();
 
-        $this->render('index');
+        $this->render('tasks/index');
     }
 
-    public function actionStatistic($period = null)
+    public function actionReports($period = null)
     {
         if (empty($period))
             $period = date("Y-m");
@@ -56,12 +57,6 @@ class CommentatorController extends HController
     public function actionHelp()
     {
         $this->render('help');
-    }
-
-    public function actionIAmWorking()
-    {
-        $this->commentator->CreateWorkingDay(Yii::app()->user->id);
-        $this->redirect($this->createUrl('/signal/commentator/index'));
     }
 
     public function actionUsers()
@@ -90,28 +85,10 @@ class CommentatorController extends HController
         $this->render('how_to_be_popular');
     }
 
-    /**
-     * блоги
-     */
-    public function actionBlog()
+    public function actionEmptyTasks()
     {
-        $this->renderPartial('_blog_posts', array('blog_posts' => $this->commentator->blogPosts()));
-    }
-
-    /**
-     * клубы
-     */
-    public function actionClub()
-    {
-        $this->renderPartial('_club_posts', array('club_posts' => $this->commentator->clubPosts()));
-    }
-
-    /**
-     * комментарии
-     */
-    public function actionComments()
-    {
-        $this->renderPartial('_comments');
+        $task = CommentatorWork::getTasksView(SeoTask::getCommentatorTasks());
+        echo CJSON::encode($task);
     }
 
     /**
@@ -119,12 +96,12 @@ class CommentatorController extends HController
      */
     public function actionSkip()
     {
-        $res = $this->commentator->skipComment();
-
-        if ($res) {
+        if ($this->commentator->skipComment()) {
+            $model = $this->commentator->getNextComment();
             $response = array(
                 'status' => true,
-                'html' => $this->renderPartial('_comments', array(), true)
+                'url' => $model->url,
+                'title' => $model->title
             );
         } else
             $response = array('status' => false);
@@ -137,11 +114,11 @@ class CommentatorController extends HController
      */
     public function actionTake()
     {
+        $block = Yii::app()->request->getPost('block');
+
         $transaction = Yii::app()->db_seo->beginTransaction();
         try {
             $task = $this->loadModel(Yii::app()->request->getPost('id'));
-            $block = Yii::app()->request->getPost('block');
-
             if ($task->status != SeoTask::STATUS_READY) {
                 echo CJSON::encode(array(
                     'status' => false,
@@ -151,7 +128,7 @@ class CommentatorController extends HController
             }
 
             $task->executor_id = Yii::app()->user->id;
-            $task->multivarka = $block;
+            $task->sub_section = $block;
             $task->status = SeoTask::STATUS_TAKEN;
             echo CJSON::encode(array('status' => $task->save()));
 
@@ -170,7 +147,7 @@ class CommentatorController extends HController
         $task = $this->loadModel(Yii::app()->request->getPost('id'));
         if ($task->executor_id == Yii::app()->user->id) {
             $task->executor_id = null;
-            $task->multivarka = null;
+            $task->sub_section = 0;
             $task->status = SeoTask::STATUS_READY;
             echo CJSON::encode(array('status' => $task->save()));
         }
@@ -192,33 +169,38 @@ class CommentatorController extends HController
             $keywords [] = $keyword->id;
 
         $page = Page::model()->getOrCreate($url, $keywords, true);
-        if ($page) {
-            $task->status = SeoTask::STATUS_CLOSED;
-            $task->article_id = $page->id;
-            $task->article_title = $page->getArticleTitle();
-            echo CJSON::encode(array('status' => $task->save()));
-            CommentatorWork::getCurrentUser()->refreshCurrentDayPosts();
-        } else {
+        if ($page == null || $page->getArticle() === null) {
             echo CJSON::encode(array(
                 'status' => false,
                 'error' => 'Статья не найдена'
             ));
+        } else {
+            $article = $page->getArticle();
+            if ($article->author_id == Yii::app()->user->id) {
+                $task->status = SeoTask::STATUS_CLOSED;
+                $task->article_id = $page->id;
+                $task->article_title = $page->getArticleTitle();
+                echo CJSON::encode(array(
+                    'status' => $task->save(),
+                    'article_title' => $task->article_title
+                ));
+            } else {
+                echo CJSON::encode(array(
+                    'status' => false,
+                    'error' => 'Не вы написали эту статью'
+                ));
+            }
         }
     }
 
-    public function actionTasks()
+    public function actionCancelTaskAdmin($id)
     {
-        $tasks = SeoTask::getCommentatorTasks();
-        $this->renderPartial('tasks', compact('tasks'));
-    }
-
-    public function actionCancelTaskAdmin($id){
         if (!Yii::app()->user->checkAccess('administrator'))
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
         $task = $this->loadModel($id);
         $task->executor_id = null;
-        $task->multivarka = null;
+        $task->sub_section = 0;
         $task->article_id = null;
         $task->article_title = null;
         $task->status = SeoTask::STATUS_READY;

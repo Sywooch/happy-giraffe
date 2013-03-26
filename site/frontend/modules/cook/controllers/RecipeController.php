@@ -332,6 +332,10 @@ class RecipeController extends HController
         );
         $this->registerCounter();
 
+        //проверяем переход с других сайтов по ссылкам комментаторов
+        Yii::import('site.frontend.modules.signal.models.CommentatorLink');
+        CommentatorLink::checkPageVisit('CookRecipe', $id);
+
         $this->render('view', compact('recipe'));
     }
 

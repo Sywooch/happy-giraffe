@@ -83,7 +83,7 @@
                                 </div>
                                 <div class="task-list-add_input">
                                     <input type="text" name="" id="" class="itx-bluelight task-list-add_itx" placeholder="Введите ссылку на запись">
-                                    <button class="btn-green btn-small">Ok</button>
+                                    <button class="btn-green">Ok</button>
                                 </div>
                             </div>
                         </li>
@@ -116,7 +116,7 @@
                                 </div>
                                 <div class="task-list-add_input">
                                     <input type="text" name="" id="" class="itx-bluelight task-list-add_itx" placeholder="Введите ссылку на запись">
-                                    <button class="btn-green btn-small">Ok</button>
+                                    <button class="btn-green">Ok</button>
                                 </div>
                             </div>
                         </li>

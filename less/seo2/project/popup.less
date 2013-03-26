@@ -10,8 +10,11 @@
 
 /* popup-keyword */
 .popup-keyword {
+	.keyword {}
+	.keyword_key {max-width: 460px;}
+
 	&_i {
-		padding: 10px;
+		padding: 10px 75px 10px 0;
 		font-size: 16px;
 		color: #1f1e1e;
 	}
@@ -20,8 +23,14 @@
 	}
 	&_i:hover &_take {display: block;}
 	&_i .keyword_cat {font-size: 12px;}
-	&_take {
+	&_btn-hold {
 		float: right;
+		width: 65px;
+		margin-right: -65px;
+		height: 28px;
+	}
+	&_take {
+		display: none;
 		margin-top: 3px;
 	}
 }

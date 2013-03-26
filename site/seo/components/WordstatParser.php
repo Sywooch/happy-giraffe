@@ -83,10 +83,10 @@ class WordstatParser extends ProxyParserThread
 
         //сначала загружаем приоритетные фразы
         $criteria = new CDbCriteria;
-        //$criteria->condition = 'priority != 0 AND keyword_id % 645 = ' . $this->thread_id;
-        $criteria->condition = 'priority != 0';
+        $criteria->condition = 'priority != 0 AND keyword_id % 645 = ' . $this->thread_id;
+        //$criteria->condition = 'priority != 0';
         $criteria->order = 'priority desc';
-        $criteria->offset = rand(0, 100000);
+        //$criteria->offset = rand(0, 100000);
         $criteria->limit = 10;
         $this->keywords = ParsingKeyword::model()->findAll($criteria);
 

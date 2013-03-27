@@ -86,7 +86,7 @@ class WordstatQueryModify
                         try {
                             $model->delete();
                         } catch (Exception $err) {
-                            echo 'err-d';
+                            echo $err->getMessage();
                         }
                     } else {
                         try {

@@ -3653,7 +3653,7 @@ div.scrollbarpaper-drag {-moz-border-radius:3px;-webkit-border-radius:3px;border
 .wysiwyg-content h2 {color:#0281b0;font-size:18px;line-height:normal;margin:0 0 10px;}
 .wysiwyg-content h3 {line-height:normal;font-size:14px;line-height:normal;color:#2e2e2e;margin:0 0 10px;}
 .wysiwyg-content p {margin-bottom:15px;overflow:hidden;}
-.wysiwyg-content p img.content-img {margin-right:20px;float:left;}
+.wysiwyg-content p img.content-img {margin-right:20px !important;float:left;}
 .wysiwyg-content ul {list-style:disc inside;padding-left:5px;padding-bottom:12px;}
 .wysiwyg-content ol {list-style:decimal inside;padding-left:5px;padding-bottom:12px;}
 .wysiwyg-content ol li,

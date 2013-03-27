@@ -82,4 +82,41 @@ class WordstatCommand extends CConsoleCommand
             echo $i . "\n";
         }
     }
+
+    public function actionFixKeywords()
+    {
+        $keywords = 1;
+        $criteria = new CDbCriteria;
+        $criteria->order = 'wordstat desc';
+        $criteria->limit = 3000;
+
+        while (!empty($keywords)) {
+            $keywords = Keyword::model()->findAll($criteria);
+
+            foreach ($keywords as $keyword) {
+                $new_name = WordstatQueryModify::prepareForSave($keyword->name);
+                if ($new_name != $keyword->name) {
+                    echo 'r';
+                    $model2 = Keyword::model()->findByAttributes(array('name' => $new_name));
+                    if ($model2 !== null) {
+                        try {
+                            $keyword->delete();
+                        } catch (Exception $err) {
+                            echo $err->getMessage();
+                        }
+                    } else {
+                        $keyword->name = $new_name;
+                        try {
+                            $keyword->save();
+                        } catch (Exception $err) {
+                            echo "err_s\n";
+                        }
+                    }
+                }
+            }
+
+            $criteria->offset += 3000;
+            echo $criteria->offset . "\n";
+        }
+    }
 }

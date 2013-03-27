@@ -84,11 +84,13 @@ class WordstatQueryModify
                     try {
                         $model->delete();
                     } catch (Exception $err) {
+                        echo $err->getMessage();
                     }
                 } else {
                     try {
                         $model->save();
                     } catch (Exception $err) {
+                        echo $err->getMessage();
                     }
                 }
             }

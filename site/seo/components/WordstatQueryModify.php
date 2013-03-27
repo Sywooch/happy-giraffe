@@ -66,6 +66,7 @@ class WordstatQueryModify
     {
         $parts = array(',', '.', '"', '?', '!', ':', ';');
         foreach ($parts as $part) {
+            echo $part."\n";
             for ($k = 0; $k < 500; $k++) {
                 $criteria = new CDbCriteria;
                 $criteria->condition = 'id > ' . ($k * 1000000) . ' AND id <= ' . (($k + 1) * 1000000) . ' AND name LIKE :part';

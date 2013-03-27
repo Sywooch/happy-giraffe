@@ -115,19 +115,19 @@ class WordstatParser extends ProxyParserThread
         $this->keyword = array_shift($this->keywords);
 
         //check name
-        $new_name = WordstatQueryModify::prepareForSave($this->keyword->name);
-        if ($new_name != $this->keyword->name){
-            $this->keyword->name = $new_name;
+        $new_name = WordstatQueryModify::prepareForSave($this->keyword->keyword->name);
+        if ($new_name != $this->keyword->keyword->name){
+            $this->keyword->keyword->name = $new_name;
             $model2 = Keyword::model()->findByAttributes(array('name' => $new_name));
             if ($model2 !== null) {
                 try {
-                    $this->keyword->delete();
+                    $this->keyword->keyword->delete();
                 } catch (Exception $err) {
                 }
                 $this->getKeyword();
             } else {
                 try {
-                    $this->keyword->save();
+                    $this->keyword->keyword->save();
                 } catch (Exception $err) {
                 }
             }

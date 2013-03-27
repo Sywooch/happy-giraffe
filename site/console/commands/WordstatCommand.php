@@ -88,6 +88,7 @@ class WordstatCommand extends CConsoleCommand
         $criteria = new CDbCriteria;
         $criteria->order = 'wordstat desc';
         $criteria->limit = 1000;
+        $criteria->offset = 837999;
 
         while (!empty($keywords)) {
             $keywords = Keyword::model()->findAll($criteria);

@@ -68,18 +68,17 @@ class WordstatCommand extends CConsoleCommand
             $ids = Yii::app()->db_keywords->createCommand()
                 ->select('id')
                 ->from('keywords')
-                ->where('wordstat >= 10000')
-                ->limit(10000)
-                ->offset($i * 10000)
+                ->where('wordstat >= 1000')
+                ->limit(1000)
+                ->offset($i * 1000)
                 ->queryColumn();
 
-            foreach ($ids as $id) {
-                ParsingKeyword::model()->updateAll(array('priority' => 255),
-                    'keyword_id = :keyword_id', array(':keyword_id' => $id));
-            }
+            Yii::app()->db_keywords->createCommand()->update('parsing_keywords', array('priority' => 255),
+                'keyword_id IN (' . implode(',', $ids).')');
 
             $i++;
-            echo $i . "\n";
+            if ($i % 10 == 0)
+                echo $i . "\n";
         }
     }
 
@@ -115,7 +114,7 @@ class WordstatCommand extends CConsoleCommand
             }
 
             $criteria->offset += 1000;
-            echo $criteria->offset . " - ".$keyword->wordstat ."\n";
+            echo $criteria->offset . " - " . $keyword->wordstat . "\n";
         }
     }
 }

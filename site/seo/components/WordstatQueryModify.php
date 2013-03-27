@@ -62,43 +62,6 @@ class WordstatQueryModify
             echo $this->prepareQuery($keyword).'<br>';
     }*/
 
-    public function addToParsing($num)
-    {
-        $parts = array(',', '.', '"', '?', '!', ':', ';');
-        foreach ($parts as $part) {
-            echo $part . "\n";
-            for ($k = 0; $k < 500; $k++) {
-                $criteria = new CDbCriteria;
-                $criteria->condition = 'id > ' . ($k * 1000000) . ' AND id <= ' . (($k + 1) * 1000000) . ' AND name LIKE :part';
-                $criteria->params = array(':part' => '%' . $part . '%');
-                $models = Keyword::model()->findAll($criteria);
-
-                if (!empty($models))
-                    echo $k . "-k, " . count($models) . "\n";
-                foreach ($models as $model) {
-                    $model->name = str_replace($part, ' ', $model->name);
-                    $model->name = trim($model->name);
-                    while (strpos($model->name, '  ') !== false)
-                        $model->name = str_replace('  ', ' ', $model->name);
-
-                    $model2 = Keyword::model()->findByAttributes(array('name' => $model->name));
-                    if ($model2 !== null) {
-                        try {
-                            $model->delete();
-                        } catch (Exception $err) {
-                            //echo $err->getMessage();
-                        }
-                    } else {
-                        try {
-                            $model->save();
-                        } catch (Exception $err) {
-                        }
-                    }
-                }
-            }
-        }
-    }
-
     /*public function addToParsing2($id)
     {
         $last_id = $id;

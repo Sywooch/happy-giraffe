@@ -19,14 +19,14 @@ foreach ($keywords as $keyword) {
         $model2 = Keyword::model()->findByAttributes(array('name' => $new_name));
         if ($model2 !== null) {
             try {
-                //$keyword->delete();
+                $keyword->delete();
             } catch (Exception $err) {
                 echo $err->getMessage();
             }
         } else {
             $keyword->name = $new_name;
             try {
-                //$keyword->save();
+                $keyword->save();
             } catch (Exception $err) {
                 echo "err_s\n";
             }

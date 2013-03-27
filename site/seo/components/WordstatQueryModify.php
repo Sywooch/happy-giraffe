@@ -66,7 +66,7 @@ class WordstatQueryModify
     {
         $parts = array(',', '.', '"', '?', '!', ':', ';');
         foreach ($parts as $part) {
-            echo $part."\n";
+            echo $part . "\n";
             for ($k = 0; $k < 500; $k++) {
                 $criteria = new CDbCriteria;
                 $criteria->condition = 'id > ' . ($k * 1000000) . ' AND id <= ' . (($k + 1) * 1000000) . ' AND name LIKE :part';
@@ -74,7 +74,7 @@ class WordstatQueryModify
                 $models = Keyword::model()->findAll($criteria);
 
                 if (!empty($models))
-                    echo $k."-k, ".count($models) . "\n";
+                    echo $k . "-k, " . count($models) . "\n";
                 foreach ($models as $model) {
                     $model->name = str_replace($part, ' ', $model->name);
                     $model->name = trim($model->name);
@@ -256,5 +256,20 @@ class WordstatQueryModify
                 fwrite($fh, $p . "\n");
             }
         }
+    }
+
+    public static function prepareForSave($name)
+    {
+        $name = mb_strtolower($name, 'utf-8');
+        $parts = array(',', '.', '"', '?', '!', ':', ';', "\\", '%', '/', '-', '+');
+
+        foreach ($parts as $part) {
+            $name = str_replace($part, ' ', $name);
+        }
+        $name = trim($name);
+        while (strpos($name, '  ') !== false)
+            $name = str_replace('  ', ' ', $name);
+
+        return $name;
     }
 }

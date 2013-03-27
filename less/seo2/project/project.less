@@ -235,7 +235,6 @@
 }
 /* /task-list-add */
 
-
 /* keyword */
 .keyword {
 	position: relative;
@@ -311,6 +310,7 @@
 		background: #f5f5f5;
 		color: #a0a0a0;
 		text-decoration: none;
+		text-transform: uppercase;
 	}
 	&_i:hover {background: #ececec;}
 }
@@ -421,8 +421,8 @@
 	&_newcomer {
 		display: block;
 		margin: 0 0 0 30px;
-		padding: 15px 10px 0 60px;
-		background: url(/images/seo2/ico/friend.png) no-repeat 0 5px;
+		padding: 25px 10px 8px 60px;
+		background: url(/images/seo2/ico/friend.png) no-repeat 0 10px;
 		font-size: 24px;
 		text-align: left;
 		color: #242424;
@@ -513,6 +513,7 @@
 	margin: 0 0 40px 20px;
 
 	&_t {
+		padding: 15px 0 0;
 		font-size: 25px;
 	}
 	&_count {
@@ -531,7 +532,7 @@
 	&_i {
 		float: left;
 		margin-left: 3px;
-		padding: 7px 22px;
+		padding: 7px 15px;
 		background: #f5f5f5;
 		color: #a0a0a0;
 		text-decoration: none;
@@ -556,8 +557,7 @@
 		width: 140px;
 		vertical-align: middle;
 		padding: 10px 0;
-		text-align: center;
-	}
+		text-align: center;	}
 	&_td-count {
 		text-align: right;
 		vertical-align: middle;
@@ -577,8 +577,11 @@
 	}
 }
 /* /visits-table */
+
+/* newcomers */
 .newcomers {
-	margin: 0 -15px;
+	margin: 0 -15px 30px;
+
 	.user-info_details {
 		width: 94px;
 	}
@@ -600,8 +603,36 @@
 		.inline-block();
 		vertical-align: middle;
 		padding: 45px 5px 5px 0;
-		background: url(/images/seo2/ico/add-friend.png) no-repeat 0 2px;
+		background: url(/images/seo2/ico/add-friend-2.png) no-repeat;
 		color: #555454;
 		text-decoration: none;
 	}
+	&_add-friend:hover {background: url(/images/seo2/ico/add-friend-2.png) no-repeat -150px 0;}
 }
+/* /newcomers */
+
+/* secret */
+.secret {
+	margin:0 90px 40px 10px;
+
+	&_img {
+		float: left;
+		width: 90px;
+		margin-right: 20px;
+		text-align: center;
+	}
+	&_hold {
+		margin-left: 110px;
+
+	}
+	&_t  {
+		font-size: 20px;
+		line-height: 22px;
+		color: #1072b0;
+		margin-bottom: 15px;
+	}
+	&_p{
+		margin-bottom: 10px;
+	}
+}
+/* /secret */

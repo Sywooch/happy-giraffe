@@ -406,8 +406,8 @@ html {
 body {
   position: relative;
   min-width: 1000px;
-  font: 12px Arial, Tahoma, Verdana, sans-serif;
-  color: #555;
+  font: 12px/18px Arial, Tahoma, Verdana, sans-serif;
+  color: #333;
   height: 100%;
   background: #ffffff url(/images/seo2/body.gif);
   word-wrap: break-word;
@@ -601,6 +601,7 @@ body {
   margin: 0 auto;
   padding: 3px 0;
   text-align: center;
+  text-transform: uppercase;
   font-size: 11px;
   color: #878787;
   background: #ffffab;
@@ -1823,6 +1824,7 @@ body {
   background: #f5f5f5;
   color: #a0a0a0;
   text-decoration: none;
+  text-transform: uppercase;
 }
 .month-list_i:hover {
   background: #ececec;
@@ -1941,8 +1943,8 @@ body {
 .report-icons_newcomer {
   display: block;
   margin: 0 0 0 30px;
-  padding: 15px 10px 0 60px;
-  background: url(/images/seo2/ico/friend.png) no-repeat 0 5px;
+  padding: 25px 10px 8px 60px;
+  background: url(/images/seo2/ico/friend.png) no-repeat 0 10px;
   font-size: 24px;
   text-align: left;
   color: #242424;
@@ -2040,6 +2042,7 @@ body {
   margin: 0 0 40px 20px;
 }
 .visits-row_t {
+  padding: 15px 0 0;
   font-size: 25px;
 }
 .visits-row_count {
@@ -2058,7 +2061,7 @@ body {
 .visits-filter_i {
   float: left;
   margin-left: 3px;
-  padding: 7px 22px;
+  padding: 7px 15px;
   background: #f5f5f5;
   color: #a0a0a0;
   text-decoration: none;
@@ -2105,8 +2108,9 @@ body {
   color: #3597e3;
 }
 /* /visits-table */
+/* newcomers */
 .newcomers {
-  margin: 0 -15px;
+  margin: 0 -15px 30px;
 }
 .newcomers .user-info_details {
   width: 94px;
@@ -2134,11 +2138,37 @@ body {
   *display: inline;
   vertical-align: middle;
   padding: 45px 5px 5px 0;
-  background: url(/images/seo2/ico/add-friend.png) no-repeat 0 2px;
+  background: url(/images/seo2/ico/add-friend-2.png) no-repeat;
   color: #555454;
   text-decoration: none;
 }
-/* @popup
+.newcomers_add-friend:hover {
+  background: url(/images/seo2/ico/add-friend-2.png) no-repeat -150px 0;
+}
+/* /newcomers */
+/* secret */
+.secret {
+  margin: 0 90px 40px 10px;
+}
+.secret_img {
+  float: left;
+  width: 90px;
+  margin-right: 20px;
+  text-align: center;
+}
+.secret_hold {
+  margin-left: 110px;
+}
+.secret_t {
+  font-size: 20px;
+  line-height: 22px;
+  color: #1072b0;
+  margin-bottom: 15px;
+}
+.secret_p {
+  margin-bottom: 10px;
+}
+/* /secret *//* @popup
 ---------------------------------------------*/
 .popup {
   display: none;
@@ -2320,12 +2350,11 @@ body {
   color: #5e4377;
 }
 .header-nav_tx {
-  padding: 57px 5px 10px;
+  padding: 55px 5px 10px;
   display: block;
   font-family: Tahoma, Arial, Verdana, sans-serif;
 }
-/* /nav-page */
-/*! fancyBox v2.1.4 fancyapps.com | fancyapps.com/fancybox/#license */
+/* /nav-page *//*! fancyBox v2.1.4 fancyapps.com | fancyapps.com/fancybox/#license */
 .fancybox-wrap,
 .fancybox-skin,
 .fancybox-outer,
@@ -2685,6 +2714,9 @@ body {
 }
 .padding-t5 {
   padding-top: 5px !important;
+}
+.padding-t10 {
+  padding-top: 10px !important;
 }
 .w-50 {
   width: 50px !important;

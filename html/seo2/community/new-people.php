@@ -18,7 +18,7 @@
         
         <div class="block">
 
-            <div class="report-icons clearfix">
+            <div class="report-icons clearfix margin-b20">
                 <div class="report-icons_i float-r">
                     <img src="/images/seo2/ico/report.png" alt="" class="report-icons_img">
                     <div class="report-icons_hold">

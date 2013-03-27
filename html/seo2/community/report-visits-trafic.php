@@ -22,8 +22,8 @@
             
             <div class="visits-row">
                 <div class="visits-filter">
-                    <a href="" class="visits-filter_i">по дате</a>
-                    <a href="" class="visits-filter_i active">по трафику</a>
+                    <a href="" class="visits-filter_i">По дате</a>
+                    <a href="" class="visits-filter_i active">По трафику</a>
                 </div>
                 <div class="visits-row_t">
                     Общее количество заходов  

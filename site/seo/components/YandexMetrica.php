@@ -173,20 +173,51 @@ class YandexMetrica
                 break;
         }
 
-        usort($result, array($this, "cmp"));
-
         $c = 0;
-        foreach($result as $r){
-            echo $r[0] . ' - ' . $r[1] . '<br>';
+        $club_traffic = array();
+        $blog_traffic = array();
+        foreach ($result as $r) {
+            for ($i = 1; $i < 36; $i++) {
+                if (strpos($r[0], '/community/' . $i . '/forum')) {
+                    if (!isset($club_traffic[$i]))
+                        $club_traffic[$i] = $r[1];
+                    else
+                        $club_traffic[$i] += $r[1];
+                }
+            }
+
+            if (strpos($r[0], '/blog/post')) {
+                preg_match('/\/user\/([\d]+)\/blog\//', $r[0], $matches);
+                $user_id = $matches[1];
+                if (!isset($blog_traffic[$user_id]))
+                    $blog_traffic[$user_id] = $r[1];
+                else
+                    $blog_traffic[$user_id] += $r[1];
+            }
+
             $c++;
-            if ($c > 2000)
+            if ($c >= 2000)
                 break;
         }
+
+        uasort($club_traffic, array($this, "cmp"));
+        foreach($club_traffic as $id =>$traffic)
+            echo 'http://www.happy-giraffe.ru/community/'.$id.'/forum/ - '.$traffic.'<br>';
+        echo '<br>';
+
+        uasort($blog_traffic, array($this, "cmp"));
+        foreach($blog_traffic as $id =>$traffic)
+            echo 'http://www.happy-giraffe.ru/user/'.$id.'/blog/ - '.$traffic.'<br>';
+
+        echo '<br>';
     }
 
     function cmp($a, $b)
     {
-        return $b[1] - $a[1];
+        if ($a == $b) {
+            return 0;
+        }
+        return ($a < $b) ? 1 : -1;
     }
 
     public function loadPage($url)

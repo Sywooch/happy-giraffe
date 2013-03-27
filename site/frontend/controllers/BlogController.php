@@ -242,7 +242,7 @@ class BlogController extends HController
 
         //проверяем переход с других сайтов по ссылкам комментаторов
         Yii::import('site.frontend.modules.signal.models.CommentatorLink');
-        CommentatorLink::checkPageVisit('CommunityContent', $content_id);
+        CommentatorLink::checkPageVisit('BlogContent', $content_id);
 
         $this->render('view', array(
             'data' => $content,

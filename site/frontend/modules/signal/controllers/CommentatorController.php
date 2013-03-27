@@ -40,6 +40,9 @@ class CommentatorController extends CController
         return parent::beforeAction($action);
     }
 
+    /**
+     * Страница "задачи"
+     */
     public function actionIndex()
     {
         if (!$this->commentator->IsWorksToday())
@@ -48,11 +51,30 @@ class CommentatorController extends CController
         $this->render('tasks/index');
     }
 
-    public function actionReports($period = null)
+    /**
+     * Страница "ссылки"
+     */
+    public function actionLinks($month = null)
     {
-        if (empty($period))
-            $period = date("Y-m");
-        $this->render('statistic', compact('period'));
+        if (empty($month))
+            $month = date("Y-m");
+        $links = $this->commentator->GetLinks($month);
+        $this->render('links', compact('links', 'month'));
+    }
+
+    /**
+     * Страница "отчеты"
+     * @param string $section раздел отчетности
+     * @param string $month
+     */
+    public function actionReports($section = null, $month = null)
+    {
+        if (empty($section))
+            $section = 'plan';
+        if (empty($month))
+            $month = date("Y-m");
+
+        $this->render('reports/'.$section, compact('month', 'section'));
     }
 
     public function actionHelp()
@@ -85,7 +107,6 @@ class CommentatorController extends CController
     {
         $this->render('how_to_be_popular');
     }
-
 
 
     public function actionEmptyTasks()
@@ -192,6 +213,47 @@ class CommentatorController extends CController
                     'status' => false,
                     'error' => 'Не вы написали эту статью'
                 ));
+            }
+        }
+    }
+
+    /**
+     * Добавление новой ссылки
+     */
+    public function actionAddLink()
+    {
+        $url = Yii::app()->request->getPost('url');
+        $page_url = Yii::app()->request->getPost('page_url');
+
+        list($entity, $entity_id) = Page::ParseUrl($page_url);
+
+        if (empty($entity) || empty($entity_id)) {
+            echo CJSON::encode(array(
+                'status' => false,
+                'error' => 'Неправильный url',
+            ));
+        } else {
+            $article = CActiveRecord::model($entity)->findByPk($entity_id);
+            if ($article === null)
+                echo CJSON::encode(array(
+                    'status' => false,
+                    'error' => 'Статья не найдена',
+                ));
+            else {
+                $model = new CommentatorLink();
+                $model->entity = $entity;
+                $model->entity_id = $entity_id;
+                $model->url = $url;
+                $model->user_id = Yii::app()->user->id;
+                if ($model->save()) {
+                    $response = array(
+                        'status' => true,
+                        'html' => $this->renderPartial('_link', array('link' => $model, 'count'=>1), true)
+                    );
+                } else
+                    $response = array('status' => false, 'error' => $model->getErrorsText());
+
+                echo CJSON::encode($response);
             }
         }
     }

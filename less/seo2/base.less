@@ -59,21 +59,19 @@
 /* /ava avatar */
 
 .user-info {
-	font-size:9px;
-	line-height:12px;
-	float:left;
-
+	.inline-block();
+	vertical-align: middle;
+	
 	.ava {
 		float:left;
 		position:relative;
 		margin-right: 8px;
 	}
-
 	&_details {
 		float: left;
 	}
-
 	&_username {
+		.inline-block();
 		font-size:12px;
 		line-height:1.1em;
 		text-decoration:none;
@@ -81,14 +79,24 @@
 		margin:0;
 		padding:0;
 		overflow:hidden;
-		color:#a8a7a7;
 		max-width: 100px;
-		.inline-block ();
 	}
-
-	&_username:hover {
-		text-decoration:underline;
+	&_username:hover {text-decoration:underline;}
+	&_location {
+		color: #555555;
+		font-size: 11px;
+		line-height: 15px;
+		margin-top: 2px;
 	}
+}
+.online-status {
+	.inline-block();
+	margin: 2px 0;
+    padding: 0 3px;
+	background: #4DC45C;
+    color: #fff;
+    font-size: 9px;
+    line-height: 12px;
 }
 
 /* b-date */

@@ -405,12 +405,12 @@ html {
 }
 body {
   position: relative;
+  min-width: 1000px;
   font: 12px Arial, Tahoma, Verdana, sans-serif;
   color: #555;
-  word-wrap: break-word;
   height: 100%;
   background: #ffffff url(/images/seo2/body.gif);
-  min-width: 1000px;
+  word-wrap: break-word;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
 }
@@ -546,9 +546,10 @@ body {
 }
 /* /ava avatar */
 .user-info {
-  font-size: 9px;
-  line-height: 12px;
-  float: left;
+  display: inline-block;
+  *zoom: 1;
+  *display: inline;
+  vertical-align: middle;
 }
 .user-info .ava {
   float: left;
@@ -559,6 +560,9 @@ body {
   float: left;
 }
 .user-info_username {
+  display: inline-block;
+  *zoom: 1;
+  *display: inline;
   font-size: 12px;
   line-height: 1.1em;
   text-decoration: none;
@@ -566,14 +570,27 @@ body {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  color: #a8a7a7;
   max-width: 100px;
-  display: inline-block;
-  *zoom: 1;
-  *display: inline;
 }
 .user-info_username:hover {
   text-decoration: underline;
+}
+.user-info_location {
+  color: #555555;
+  font-size: 11px;
+  line-height: 15px;
+  margin-top: 2px;
+}
+.online-status {
+  display: inline-block;
+  *zoom: 1;
+  *display: inline;
+  margin: 2px 0;
+  padding: 0 3px;
+  background: #4DC45C;
+  color: #fff;
+  font-size: 9px;
+  line-height: 12px;
 }
 /* b-date */
 .b-date {
@@ -707,7 +724,724 @@ body {
 .ie9 .btn-green:hover {
   background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzU0Y2Y0ZSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwODk3MzUiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
 }
-/*  /buttons *//* @layout project
+/*  /buttons *//* @layout  base 
+--------------------------------------------------------*/
+.flag {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background: url(/images/flags_16.png) no-repeat;
+  margin-bottom: -2px;
+}
+.flag-ad.flag {
+  background-position: 0 0;
+}
+.flag-ae.flag {
+  background-position: 0 -20px;
+}
+.flag-af.flag {
+  background-position: 0 -40px;
+}
+.flag-ag.flag {
+  background-position: 0 -60px;
+}
+.flag-ai.flag {
+  background-position: 0 -80px;
+}
+.flag-al.flag {
+  background-position: 0 -100px;
+}
+.flag-am.flag {
+  background-position: 0 -120px;
+}
+.flag-ao.flag {
+  background-position: 0 -140px;
+}
+.flag-aq.flag {
+  background-position: 0 -160px;
+}
+.flag-ar.flag {
+  background-position: 0 -180px;
+}
+.flag-as.flag {
+  background-position: 0 -200px;
+}
+.flag-at.flag {
+  background-position: 0 -220px;
+}
+.flag-au.flag {
+  background-position: 0 -240px;
+}
+.flag-aw.flag {
+  background-position: 0 -260px;
+}
+.flag-ax.flag {
+  background-position: 0 -280px;
+}
+.flag-az.flag {
+  background-position: 0 -300px;
+}
+.flag-ba.flag {
+  background-position: 0 -320px;
+}
+.flag-bb.flag {
+  background-position: 0 -340px;
+}
+.flag-bd.flag {
+  background-position: 0 -360px;
+}
+.flag-be.flag {
+  background-position: 0 -380px;
+}
+.flag-bf.flag {
+  background-position: 0 -400px;
+}
+.flag-bg.flag {
+  background-position: 0 -420px;
+}
+.flag-bh.flag {
+  background-position: 0 -440px;
+}
+.flag-bi.flag {
+  background-position: 0 -460px;
+}
+.flag-bj.flag {
+  background-position: 0 -480px;
+}
+.flag-bl.flag {
+  background-position: 0 -500px;
+}
+.flag-bm.flag {
+  background-position: 0 -520px;
+}
+.flag-bn.flag {
+  background-position: 0 -540px;
+}
+.flag-bo.flag {
+  background-position: 0 -560px;
+}
+.flag-bq.flag {
+  background-position: 0 -580px;
+}
+.flag-br.flag {
+  background-position: 0 -600px;
+}
+.flag-bs.flag {
+  background-position: 0 -620px;
+}
+.flag-bt.flag {
+  background-position: 0 -640px;
+}
+.flag-bw.flag {
+  background-position: 0 -660px;
+}
+.flag-by.flag {
+  background-position: 0 -680px;
+}
+.flag-bz.flag {
+  background-position: 0 -700px;
+}
+.flag-ca.flag {
+  background-position: 0 -720px;
+}
+.flag-cc.flag {
+  background-position: 0 -740px;
+}
+.flag-cd.flag {
+  background-position: 0 -760px;
+}
+.flag-cf.flag {
+  background-position: 0 -780px;
+}
+.flag-cg.flag {
+  background-position: 0 -800px;
+}
+.flag-ch.flag {
+  background-position: 0 -820px;
+}
+.flag-ci.flag {
+  background-position: 0 -840px;
+}
+.flag-ck.flag {
+  background-position: 0 -860px;
+}
+.flag-cl.flag {
+  background-position: 0 -880px;
+}
+.flag-cm.flag {
+  background-position: 0 -900px;
+}
+.flag-cn.flag {
+  background-position: 0 -920px;
+}
+.flag-co.flag {
+  background-position: 0 -940px;
+}
+.flag-cr.flag {
+  background-position: 0 -960px;
+}
+.flag-cu.flag {
+  background-position: 0 -980px;
+}
+.flag-cv.flag {
+  background-position: 0 -1000px;
+}
+.flag-cw.flag {
+  background-position: 0 -1020px;
+}
+.flag-cx.flag {
+  background-position: 0 -1040px;
+}
+.flag-cy.flag {
+  background-position: 0 -1060px;
+}
+.flag-cz.flag {
+  background-position: 0 -1080px;
+}
+.flag-de.flag {
+  background-position: 0 -1100px;
+}
+.flag-dj.flag {
+  background-position: 0 -1120px;
+}
+.flag-dk.flag {
+  background-position: 0 -1140px;
+}
+.flag-dm.flag {
+  background-position: 0 -1160px;
+}
+.flag-do.flag {
+  background-position: 0 -1180px;
+}
+.flag-dz.flag {
+  background-position: 0 -1200px;
+}
+.flag-ec.flag {
+  background-position: 0 -1220px;
+}
+.flag-ee.flag {
+  background-position: 0 -1240px;
+}
+.flag-eg.flag {
+  background-position: 0 -1260px;
+}
+.flag-er.flag {
+  background-position: 0 -1280px;
+}
+.flag-es.flag {
+  background-position: 0 -1300px;
+}
+.flag-et.flag {
+  background-position: 0 -1320px;
+}
+.flag-fi.flag {
+  background-position: 0 -1340px;
+}
+.flag-fj.flag {
+  background-position: 0 -1360px;
+}
+.flag-fk.flag {
+  background-position: 0 -1380px;
+}
+.flag-fm.flag {
+  background-position: 0 -1400px;
+}
+.flag-fo.flag {
+  background-position: 0 -1420px;
+}
+.flag-fr.flag {
+  background-position: 0 -1440px;
+}
+.flag-ga.flag {
+  background-position: 0 -1460px;
+}
+.flag-gb.flag {
+  background-position: 0 -1480px;
+}
+.flag-gd.flag {
+  background-position: 0 -1500px;
+}
+.flag-ge.flag {
+  background-position: 0 -1520px;
+}
+.flag-gf.flag {
+  background-position: 0 -1540px;
+}
+.flag-gg.flag {
+  background-position: 0 -1560px;
+}
+.flag-gh.flag {
+  background-position: 0 -1580px;
+}
+.flag-gl.flag {
+  background-position: 0 -1600px;
+}
+.flag-gm.flag {
+  background-position: 0 -1620px;
+}
+.flag-gn.flag {
+  background-position: 0 -1640px;
+}
+.flag-gp.flag {
+  background-position: 0 -1660px;
+}
+.flag-gq.flag {
+  background-position: 0 -1680px;
+}
+.flag-gr.flag {
+  background-position: 0 -1700px;
+}
+.flag-gt.flag {
+  background-position: 0 -1720px;
+}
+.flag-gu.flag {
+  background-position: 0 -1740px;
+}
+.flag-gw.flag {
+  background-position: 0 -1760px;
+}
+.flag-gy.flag {
+  background-position: 0 -1780px;
+}
+.flag-hk.flag {
+  background-position: 0 -1800px;
+}
+.flag-hn.flag {
+  background-position: 0 -1820px;
+}
+.flag-hr.flag {
+  background-position: 0 -1840px;
+}
+.flag-ht.flag {
+  background-position: 0 -1860px;
+}
+.flag-hu.flag {
+  background-position: 0 -1880px;
+}
+.flag-id.flag {
+  background-position: 0 -1900px;
+}
+.flag-ie.flag {
+  background-position: 0 -1920px;
+}
+.flag-il.flag {
+  background-position: 0 -1940px;
+}
+.flag-im.flag {
+  background-position: 0 -1960px;
+}
+.flag-in.flag {
+  background-position: 0 -1980px;
+}
+.flag-iq.flag {
+  background-position: -20px 0;
+}
+.flag-ir.flag {
+  background-position: -20px -20px;
+}
+.flag-is.flag {
+  background-position: -20px -40px;
+}
+.flag-it.flag {
+  background-position: -20px -60px;
+}
+.flag-je.flag {
+  background-position: -20px -80px;
+}
+.flag-jm.flag {
+  background-position: -20px -100px;
+}
+.flag-jo.flag {
+  background-position: -20px -120px;
+}
+.flag-jp.flag {
+  background-position: -20px -140px;
+}
+.flag-ke.flag {
+  background-position: -20px -160px;
+}
+.flag-kg.flag {
+  background-position: -20px -180px;
+}
+.flag-kh.flag {
+  background-position: -20px -200px;
+}
+.flag-ki.flag {
+  background-position: -20px -220px;
+}
+.flag-km.flag {
+  background-position: -20px -240px;
+}
+.flag-kn.flag {
+  background-position: -20px -260px;
+}
+.flag-kp.flag {
+  background-position: -20px -280px;
+}
+.flag-kr.flag {
+  background-position: -20px -300px;
+}
+.flag-kw.flag {
+  background-position: -20px -320px;
+}
+.flag-ky.flag {
+  background-position: -20px -340px;
+}
+.flag-kz.flag {
+  background-position: -20px -360px;
+}
+.flag-la.flag {
+  background-position: -20px -380px;
+}
+.flag-lb.flag {
+  background-position: -20px -400px;
+}
+.flag-lc.flag {
+  background-position: -20px -420px;
+}
+.flag-li.flag {
+  background-position: -20px -440px;
+}
+.flag-lk.flag {
+  background-position: -20px -460px;
+}
+.flag-lr.flag {
+  background-position: -20px -480px;
+}
+.flag-ls.flag {
+  background-position: -20px -500px;
+}
+.flag-lt.flag {
+  background-position: -20px -520px;
+}
+.flag-lu.flag {
+  background-position: -20px -540px;
+}
+.flag-lv.flag {
+  background-position: -20px -560px;
+}
+.flag-ly.flag {
+  background-position: -20px -580px;
+}
+.flag-ma.flag {
+  background-position: -20px -600px;
+}
+.flag-mc.flag {
+  background-position: -20px -620px;
+}
+.flag-md.flag {
+  background-position: -20px -640px;
+}
+.flag-me.flag {
+  background-position: -20px -660px;
+}
+.flag-mf.flag {
+  background-position: -20px -680px;
+}
+.flag-mg.flag {
+  background-position: -20px -700px;
+}
+.flag-mh.flag {
+  background-position: -20px -720px;
+}
+.flag-mk.flag {
+  background-position: -20px -740px;
+}
+.flag-ml.flag {
+  background-position: -20px -760px;
+}
+.flag-mm.flag {
+  background-position: -20px -780px;
+}
+.flag-mn.flag {
+  background-position: -20px -800px;
+}
+.flag-mo.flag {
+  background-position: -20px -820px;
+}
+.flag-mp.flag {
+  background-position: -20px -840px;
+}
+.flag-mq.flag {
+  background-position: -20px -860px;
+}
+.flag-mr.flag {
+  background-position: -20px -880px;
+}
+.flag-ms.flag {
+  background-position: -20px -900px;
+}
+.flag-mt.flag {
+  background-position: -20px -920px;
+}
+.flag-mu.flag {
+  background-position: -20px -940px;
+}
+.flag-mv.flag {
+  background-position: -20px -960px;
+}
+.flag-mw.flag {
+  background-position: -20px -980px;
+}
+.flag-mx.flag {
+  background-position: -20px -1000px;
+}
+.flag-my.flag {
+  background-position: -20px -1020px;
+}
+.flag-mz.flag {
+  background-position: -20px -1040px;
+}
+.flag-na.flag {
+  background-position: -20px -1060px;
+}
+.flag-nc.flag {
+  background-position: -20px -1080px;
+}
+.flag-ne.flag {
+  background-position: -20px -1100px;
+}
+.flag-nf.flag {
+  background-position: -20px -1120px;
+}
+.flag-ng.flag {
+  background-position: -20px -1140px;
+}
+.flag-ni.flag {
+  background-position: -20px -1160px;
+}
+.flag-nl.flag {
+  background-position: -20px -1180px;
+}
+.flag-no.flag {
+  background-position: -20px -1200px;
+}
+.flag-np.flag {
+  background-position: -20px -1220px;
+}
+.flag-nr.flag {
+  background-position: -20px -1240px;
+}
+.flag-nu.flag {
+  background-position: -20px -1260px;
+}
+.flag-nz.flag {
+  background-position: -20px -1280px;
+}
+.flag-om.flag {
+  background-position: -20px -1300px;
+}
+.flag-pa.flag {
+  background-position: -20px -1320px;
+}
+.flag-pe.flag {
+  background-position: -20px -1340px;
+}
+.flag-pf.flag {
+  background-position: -20px -1360px;
+}
+.flag-pg.flag {
+  background-position: -20px -1380px;
+}
+.flag-ph.flag {
+  background-position: -20px -1400px;
+}
+.flag-pk.flag {
+  background-position: -20px -1420px;
+}
+.flag-pl.flag {
+  background-position: -20px -1440px;
+}
+.flag-pm.flag {
+  background-position: -20px -1460px;
+}
+.flag-pr.flag {
+  background-position: -20px -1480px;
+}
+.flag-ps.flag {
+  background-position: -20px -1500px;
+}
+.flag-pt.flag {
+  background-position: -20px -1520px;
+}
+.flag-pw.flag {
+  background-position: -20px -1540px;
+}
+.flag-py.flag {
+  background-position: -20px -1560px;
+}
+.flag-qa.flag {
+  background-position: -20px -1580px;
+}
+.flag-re.flag {
+  background-position: -20px -1600px;
+}
+.flag-ro.flag {
+  background-position: -20px -1620px;
+}
+.flag-rs.flag {
+  background-position: -20px -1640px;
+}
+.flag-ru.flag {
+  background-position: -20px -1660px;
+}
+.flag-rw.flag {
+  background-position: -20px -1680px;
+}
+.flag-sa.flag {
+  background-position: -20px -1700px;
+}
+.flag-sb.flag {
+  background-position: -20px -1720px;
+}
+.flag-sc.flag {
+  background-position: -20px -1740px;
+}
+.flag-sd.flag {
+  background-position: -20px -1760px;
+}
+.flag-se.flag {
+  background-position: -20px -1780px;
+}
+.flag-sg.flag {
+  background-position: -20px -1800px;
+}
+.flag-si.flag {
+  background-position: -20px -1820px;
+}
+.flag-sk.flag {
+  background-position: -20px -1840px;
+}
+.flag-sl.flag {
+  background-position: -20px -1860px;
+}
+.flag-sm.flag {
+  background-position: -20px -1880px;
+}
+.flag-sn.flag {
+  background-position: -20px -1900px;
+}
+.flag-so.flag {
+  background-position: -20px -1920px;
+}
+.flag-sr.flag {
+  background-position: -20px -1940px;
+}
+.flag-ss.flag {
+  background-position: -20px -1960px;
+}
+.flag-st.flag {
+  background-position: -20px -1980px;
+}
+.flag-sv.flag {
+  background-position: -40px 0;
+}
+.flag-sx.flag {
+  background-position: -40px -20px;
+}
+.flag-sy.flag {
+  background-position: -40px -40px;
+}
+.flag-sz.flag {
+  background-position: -40px -60px;
+}
+.flag-tc.flag {
+  background-position: -40px -80px;
+}
+.flag-td.flag {
+  background-position: -40px -100px;
+}
+.flag-tg.flag {
+  background-position: -40px -120px;
+}
+.flag-th.flag {
+  background-position: -40px -140px;
+}
+.flag-tj.flag {
+  background-position: -40px -160px;
+}
+.flag-tl.flag {
+  background-position: -40px -180px;
+}
+.flag-tm.flag {
+  background-position: -40px -200px;
+}
+.flag-tn.flag {
+  background-position: -40px -220px;
+}
+.flag-to.flag {
+  background-position: -40px -240px;
+}
+.flag-tr.flag {
+  background-position: -40px -260px;
+}
+.flag-tt.flag {
+  background-position: -40px -280px;
+}
+.flag-tv.flag {
+  background-position: -40px -300px;
+}
+.flag-tw.flag {
+  background-position: -40px -320px;
+}
+.flag-tz.flag {
+  background-position: -40px -340px;
+}
+.flag-ua.flag {
+  background-position: -40px -360px;
+}
+.flag-ug.flag {
+  background-position: -40px -380px;
+}
+.flag-us.flag {
+  background-position: -40px -400px;
+}
+.flag-uy.flag {
+  background-position: -40px -420px;
+}
+.flag-uz.flag {
+  background-position: -40px -440px;
+}
+.flag-vc.flag {
+  background-position: -40px -460px;
+}
+.flag-ve.flag {
+  background-position: -40px -480px;
+}
+.flag-vg.flag {
+  background-position: -40px -500px;
+}
+.flag-vi.flag {
+  background-position: -40px -520px;
+}
+.flag-vn.flag {
+  background-position: -40px -540px;
+}
+.flag-vu.flag {
+  background-position: -40px -560px;
+}
+.flag-wf.flag {
+  background-position: -40px -580px;
+}
+.flag-ws.flag {
+  background-position: -40px -600px;
+}
+.flag-ye.flag {
+  background-position: -40px -620px;
+}
+.flag-yt.flag {
+  background-position: -40px -640px;
+}
+.flag-za.flag {
+  background-position: -40px -660px;
+}
+.flag-zm.flag {
+  background-position: -40px -680px;
+}
+.flag-zw.flag {
+  background-position: -40px -700px;
+}
+/* @layout project
 ---------------------------------------------*/
 .layout-page {
   height: 100%;
@@ -718,146 +1452,6 @@ body {
   margin: 0 auto;
   padding-bottom: 50px;
 }
-/* header-page */
-.header-page {
-  padding: 40px 0 10px;
-}
-.header-page_user {
-  float: right;
-  margin-right: 10px;
-}
-.header-page_logout {
-  float: right;
-  width: 14px;
-  height: 14px;
-  background: url(/images/seo2/header-page_logout.png) no-repeat;
-}
-.header-page_logo-hold {
-  width: 280px;
-  margin: 0 auto 25px;
-  text-align: center;
-}
-.header-page_logo {
-  float: left;
-  width: 48px;
-  height: 48px;
-  background: url(/images/seo2/header-page_logo.png) no-repeat;
-  text-indent: -9999px;
-  overflow: hidden;
-}
-.header-page_title {
-  font-size: 30px;
-  line-height: 30px;
-  margin-bottom: 3px;
-  color: #313131;
-}
-.header-page_date {
-  display: inline-block;
-  *zoom: 1;
-  *display: inline;
-  padding: 1px 6px;
-  background: #e6461a;
-  font-size: 11px;
-  font-weight: bold;
-  text-transform: uppercase;
-  color: #fff;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
-}
-/* /header-page */
-/* nav-page */
-.header-nav {
-  text-align: center;
-  height: 100px;
-  margin-bottom: 20px;
-}
-.header-nav_li {
-  display: inline-block;
-  *zoom: 1;
-  *display: inline;
-  position: relative;
-  margin: 0 10px;
-  width: 81px;
-  height: 80px;
-  background: url(/images/seo2/header-nav.png) no-repeat;
-}
-.header-nav_li.active {
-  height: 100px;
-}
-.header-nav_li.active .header-nav_i {
-  color: #fff;
-}
-.header-nav_li__tasks {
-  background-position: 0 0;
-}
-.header-nav_li__tasks:hover {
-  background-position: 0 -180px;
-}
-.header-nav_li__tasks.active {
-  background-position: 0 -80px;
-}
-.header-nav_li__links {
-  background-position: -81px 0;
-}
-.header-nav_li__links:hover {
-  background-position: -81px -180px;
-}
-.header-nav_li__links.active {
-  background-position: -81px -80px;
-}
-.header-nav_li__new-peoples {
-  background-position: -162px 0;
-}
-.header-nav_li__new-peoples:hover {
-  background-position: -162px -180px;
-}
-.header-nav_li__new-peoples.active {
-  background-position: -162px -80px;
-}
-.header-nav_li__reports {
-  background-position: -243px 0;
-}
-.header-nav_li__reports:hover {
-  background-position: -243px -180px;
-}
-.header-nav_li__reports.active {
-  background-position: -243px -80px;
-}
-.header-nav_li__award {
-  background-position: -324px 0;
-}
-.header-nav_li__award:hover {
-  background-position: -324px -180px;
-}
-.header-nav_li__award.active {
-  background-position: -324px -80px;
-}
-.header-nav_li__secrets {
-  background-position: -405px 0;
-}
-.header-nav_li__secrets:hover {
-  background-position: -405px -180px;
-}
-.header-nav_li__secrets.active {
-  background-position: -405px -80px;
-}
-.header-nav_i {
-  display: block;
-  height: 80px;
-  text-align: center;
-  text-decoration: none;
-  color: #beb2cc;
-}
-.header-nav_i:hover {
-  color: #5e4377;
-}
-.header-nav_tx {
-  padding: 57px 5px 10px;
-  display: block;
-  font-family: Tahoma, Arial, Verdana, sans-serif;
-}
-/* /nav-page */
 /* nav-hor */
 .nav-hor {
   margin: 0;
@@ -1344,6 +1938,15 @@ body {
   font-size: 24px;
   color: #a0a0a0;
 }
+.report-icons_newcomer {
+  display: block;
+  margin: 0 0 0 30px;
+  padding: 15px 10px 0 60px;
+  background: url(/images/seo2/ico/friend.png) no-repeat 0 5px;
+  font-size: 24px;
+  text-align: left;
+  color: #242424;
+}
 /* /report-icons */
 /* report */
 .report {
@@ -1432,6 +2035,109 @@ body {
   margin: 0 5px 5px;
 }
 /* /report-legend */
+/* visits-row */
+.visits-row {
+  margin: 0 0 40px 20px;
+}
+.visits-row_t {
+  font-size: 25px;
+}
+.visits-row_count {
+  display: inline-block;
+  *zoom: 1;
+  *display: inline;
+  margin: 0 10px;
+  font-weight: bold;
+  color: #3597e3;
+}
+/* /visits-row */
+/* visits-filter */
+.visits-filter {
+  float: right;
+}
+.visits-filter_i {
+  float: left;
+  margin-left: 3px;
+  padding: 7px 22px;
+  background: #f5f5f5;
+  color: #a0a0a0;
+  text-decoration: none;
+}
+.visits-filter_i:hover {
+  background: #ececec;
+}
+.visits-filter_i.active {
+  background: #674389;
+  color: #fff;
+}
+/* /visits-filter */
+/* visits-table */
+.visits-table {
+  border-spacing: 0;
+  border: 0;
+  width: 100%;
+  margin: 0 0 40px;
+}
+.visits-table_odd > td {
+  background: #f6f6f6;
+}
+.visits-table_td-date {
+  width: 140px;
+  vertical-align: middle;
+  padding: 10px 0;
+  text-align: center;
+}
+.visits-table_td-count {
+  text-align: right;
+  vertical-align: middle;
+  padding: 10px 30px;
+}
+.visits-table_td-link {
+  vertical-align: middle;
+  padding: 10px 150px 10px 20px;
+}
+.visits-table_count {
+  color: #4c4e4c;
+  font-size: 23px;
+}
+.visits-table_count__blue {
+  font-weight: bold;
+  color: #3597e3;
+}
+/* /visits-table */
+.newcomers {
+  margin: 0 -15px;
+}
+.newcomers .user-info_details {
+  width: 94px;
+}
+.newcomers .user-info_username {
+  width: 90px;
+  display: block;
+}
+.newcomers_i {
+  display: inline-block;
+  *zoom: 1;
+  *display: inline;
+  vertical-align: top;
+  width: 230px;
+  margin: 0 20px 25px;
+  padding: 15px 10px;
+  border: 1px solid #ededed;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+.newcomers_add-friend {
+  display: inline-block;
+  *zoom: 1;
+  *display: inline;
+  vertical-align: middle;
+  padding: 45px 5px 5px 0;
+  background: url(/images/seo2/ico/add-friend.png) no-repeat 0 2px;
+  color: #555454;
+  text-decoration: none;
+}
 /* @popup
 ---------------------------------------------*/
 .popup {
@@ -1479,7 +2185,147 @@ body {
   color: #e55c5c;
   font-size: 16px;
 }
-/* /popup-keyword *//*! fancyBox v2.1.4 fancyapps.com | fancyapps.com/fancybox/#license */
+/* /popup-keyword *//* header-page */
+.header-page {
+  padding: 40px 0 10px;
+}
+.header-page_user {
+  float: right;
+  margin-right: 10px;
+}
+.header-page_logout {
+  float: right;
+  width: 14px;
+  height: 14px;
+  background: url(/images/seo2/header-page_logout.png) no-repeat;
+}
+.header-page_logo-hold {
+  width: 280px;
+  margin: 0 auto 25px;
+  text-align: center;
+}
+.header-page_logo {
+  float: left;
+  width: 48px;
+  height: 48px;
+  background: url(/images/seo2/header-page_logo.png) no-repeat;
+  text-indent: -9999px;
+  overflow: hidden;
+}
+.header-page_title {
+  font-size: 30px;
+  line-height: 30px;
+  margin-bottom: 3px;
+  color: #313131;
+}
+.header-page_date {
+  display: inline-block;
+  *zoom: 1;
+  *display: inline;
+  padding: 1px 6px;
+  background: #e6461a;
+  font-size: 11px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #fff;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+/* /header-page */
+/* nav-page */
+.header-nav {
+  text-align: center;
+  height: 100px;
+  margin-bottom: 20px;
+}
+.header-nav_li {
+  display: inline-block;
+  *zoom: 1;
+  *display: inline;
+  position: relative;
+  margin: 0 10px;
+  width: 81px;
+  height: 80px;
+  background: url(/images/seo2/header-nav.png) no-repeat;
+}
+.header-nav_li.active {
+  height: 100px;
+}
+.header-nav_li.active .header-nav_i {
+  color: #fff;
+}
+.header-nav_li__tasks {
+  background-position: 0 0;
+}
+.header-nav_li__tasks:hover {
+  background-position: 0 -180px;
+}
+.header-nav_li__tasks.active {
+  background-position: 0 -80px;
+}
+.header-nav_li__links {
+  background-position: -81px 0;
+}
+.header-nav_li__links:hover {
+  background-position: -81px -180px;
+}
+.header-nav_li__links.active {
+  background-position: -81px -80px;
+}
+.header-nav_li__new-peoples {
+  background-position: -162px 0;
+}
+.header-nav_li__new-peoples:hover {
+  background-position: -162px -180px;
+}
+.header-nav_li__new-peoples.active {
+  background-position: -162px -80px;
+}
+.header-nav_li__reports {
+  background-position: -243px 0;
+}
+.header-nav_li__reports:hover {
+  background-position: -243px -180px;
+}
+.header-nav_li__reports.active {
+  background-position: -243px -80px;
+}
+.header-nav_li__award {
+  background-position: -324px 0;
+}
+.header-nav_li__award:hover {
+  background-position: -324px -180px;
+}
+.header-nav_li__award.active {
+  background-position: -324px -80px;
+}
+.header-nav_li__secrets {
+  background-position: -405px 0;
+}
+.header-nav_li__secrets:hover {
+  background-position: -405px -180px;
+}
+.header-nav_li__secrets.active {
+  background-position: -405px -80px;
+}
+.header-nav_i {
+  display: block;
+  height: 80px;
+  text-align: center;
+  text-decoration: none;
+  color: #beb2cc;
+}
+.header-nav_i:hover {
+  color: #5e4377;
+}
+.header-nav_tx {
+  padding: 57px 5px 10px;
+  display: block;
+  font-family: Tahoma, Arial, Verdana, sans-serif;
+}
+/* /nav-page */
+/*! fancyBox v2.1.4 fancyapps.com | fancyapps.com/fancybox/#license */
 .fancybox-wrap,
 .fancybox-skin,
 .fancybox-outer,
@@ -1726,14 +2572,17 @@ body {
 .vertical-align-m {
   vertical-align: middle;
 }
+.color-alizarin {
+  color: #fc5f5f !important;
+}
 .color-blue {
   color: #3597e3 !important;
 }
 .color-green {
   color: #3a9b12 !important;
 }
-.color-alizarin {
-  color: #fc5f5f !important;
+.color-gray {
+  color: #A8A7A7 !important;
 }
 .text-small {
   font-size: 11px;

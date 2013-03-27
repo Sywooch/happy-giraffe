@@ -5,7 +5,7 @@
 			<div class="user-info clearfix">
 				<a href="" class="ava small"></a>
 				<div class="user-info_details">
-					<a href="" class="user-info_username">Аллахвердиева Зульфия</a>
+					<a href="" class="user-info_username color-gray">Аллахвердиева Зульфия</a>
 				</div>
 			</div>
 		</div>

@@ -12,105 +12,6 @@
 	}
 }
 
-/* header-page */
-.header-page {
-	padding: 40px 0 10px;
-
-	&_user {
-		float: right;
-		margin-right: 10px;
-
-	}
-	&_logout {
-		float: right;
-		width: 14px;
-		height: 14px;
-		background: url(/images/seo2/header-page_logout.png) no-repeat;
-	}
-	&_logo-hold {
-		width: 280px;
-		margin: 0 auto 25px;
-		text-align: center;
-	}
-	&_logo {
-		float: left;
-		width: 48px;
-		height: 48px;
-		background: url(/images/seo2/header-page_logo.png) no-repeat;
-		text-indent: -9999px;
-		overflow: hidden;
-	}
-	&_title {
-		font-size: 30px;
-		line-height: 30px;
-		margin-bottom: 3px;
-		color: #313131;
-	}
-	&_date {
-		.inline-block ();
-		padding: 1px 6px;
-		background: #e6461a;
-		font-size: 11px;
-		font-weight: bold;
-		text-transform: uppercase;
-		color: #fff;
-		-webkit-border-radius: 3px;
-		-moz-border-radius: 3px;
-		border-radius: 3px;
-	}
-}
-/* /header-page */
-
-/* nav-page */
-.header-nav {
-	text-align: center;
-	height: 100px;
-	margin-bottom: 20px;
-
-	&_li {
-		.inline-block ();
-		position: relative;
-		margin: 0 10px;
-		width: 81px;
-		height: 80px;
-		background: url(/images/seo2/header-nav.png) no-repeat;
-	}
-	&_li.active {height: 100px;}
-	&_li.active &_i {color: #fff;}
-	&_li__tasks {background-position: 0 0;}
-	&_li__tasks:hover {background-position: 0 -180px;}
-	&_li__tasks.active {background-position: 0 -80px;}
-	&_li__links {background-position: -81px 0;}
-	&_li__links:hover {background-position: -81px -180px;}
-	&_li__links.active {background-position: -81px -80px;}
-	&_li__new-peoples {background-position: -162px 0;}
-	&_li__new-peoples:hover {background-position: -162px -180px;}
-	&_li__new-peoples.active {background-position: -162px -80px;}
-	&_li__reports {background-position: -243px 0;}
-	&_li__reports:hover {background-position: -243px -180px;}
-	&_li__reports.active {background-position: -243px -80px;}
-	&_li__award {background-position: -324px 0;}
-	&_li__award:hover {background-position: -324px -180px;}
-	&_li__award.active {background-position: -324px -80px;}
-	&_li__secrets {background-position: -405px 0;}
-	&_li__secrets:hover {background-position: -405px -180px;}
-	&_li__secrets.active {background-position: -405px -80px;}
-	&_i {
-		display: block;
-		height: 80px;
-		text-align: center;
-		text-decoration: none;
-		color: #beb2cc;
-	}
-	&_i:hover {color: #5e4377;}
-	&_tx {
-		padding: 57px 5px 10px;
-		display: block;
-		font-family: Tahoma, Arial, Verdana, sans-serif;
-	}
-}
-/* /nav-page */
-
 /* nav-hor */
 .nav-hor {
 	margin: 0;
@@ -517,6 +418,15 @@
 		font-size: 24px;
 		color: #a0a0a0;
 	}
+	&_newcomer {
+		display: block;
+		margin: 0 0 0 30px;
+		padding: 15px 10px 0 60px;
+		background: url(/images/seo2/ico/friend.png) no-repeat 0 5px;
+		font-size: 24px;
+		text-align: left;
+		color: #242424;
+	}
 }
 /* /report-icons */
 
@@ -598,3 +508,100 @@
 }
 /* /report-legend */
 
+/* visits-row */
+.visits-row {
+	margin: 0 0 40px 20px;
+
+	&_t {
+		font-size: 25px;
+	}
+	&_count {
+		.inline-block();
+		margin: 0 10px;
+		font-weight: bold;
+		color: #3597e3;
+	}
+}
+/* /visits-row */
+
+/* visits-filter */
+.visits-filter {
+	float: right;
+
+	&_i {
+		float: left;
+		margin-left: 3px;
+		padding: 7px 22px;
+		background: #f5f5f5;
+		color: #a0a0a0;
+		text-decoration: none;
+	}
+	&_i:hover {background: #ececec;}
+	&_i.active {
+		background: #674389;
+		color: #fff;
+	}
+}
+/* /visits-filter */
+
+/* visits-table */
+.visits-table {
+	border-spacing:0;
+	border: 0;
+	width: 100%;
+	margin: 0 0 40px;
+	
+	&_odd > td {background: #f6f6f6;}
+	&_td-date {
+		width: 140px;
+		vertical-align: middle;
+		padding: 10px 0;
+		text-align: center;
+	}
+	&_td-count {
+		text-align: right;
+		vertical-align: middle;
+		padding: 10px 30px;
+	}
+	&_td-link {
+		vertical-align: middle;
+		padding: 10px 150px 10px 20px;
+	}
+	&_count {
+		color: #4c4e4c;
+		font-size: 23px;
+	}
+	&_count__blue {
+		font-weight: bold;
+		color: #3597e3;
+	}
+}
+/* /visits-table */
+.newcomers {
+	margin: 0 -15px;
+	.user-info_details {
+		width: 94px;
+	}
+	.user-info_username {
+		width: 90px;
+		display: block;
+	}
+
+	&_i {
+		.inline-block();
+		vertical-align: top;
+		width: 230px;
+		margin: 0 20px 25px;
+		padding: 15px 10px;
+		border: 1px solid #ededed;
+		.border-radius(5px);
+	}
+	&_add-friend {
+		.inline-block();
+		vertical-align: middle;
+		padding: 45px 5px 5px 0;
+		background: url(/images/seo2/ico/add-friend.png) no-repeat 0 2px;
+		color: #555454;
+		text-decoration: none;
+	}
+}

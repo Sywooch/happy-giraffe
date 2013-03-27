@@ -94,7 +94,6 @@ class WordstatQueryModify
             }
 
             if (!empty($models)) {
-                $criteria->offset = $criteria->offset + 1000;
                 echo count($models) . "\n";
             }
         }

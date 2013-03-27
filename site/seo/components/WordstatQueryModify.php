@@ -62,35 +62,41 @@ class WordstatQueryModify
             echo $this->prepareQuery($keyword).'<br>';
     }*/
 
-    public function addToParsing($id)
+    public function addToParsing($num)
     {
-        foreach ($this->parts as $num => $part) {
-            if ($num < $id * 50 || $num > ($id + 1) * 50)
-                continue;
+        $parts = array(',', '.', '"', '?', '!', ':', ';');
+        foreach ($parts as $part) {
+            echo $part."\n";
+            for ($k = 0; $k < 500; $k++) {
+                $criteria = new CDbCriteria;
+                $criteria->condition = 'id > ' . ($k * 1000000) . ' AND id <= ' . (($k + 1) * 1000000) . ' AND name LIKE :part';
+                $criteria->params = array(':part' => '%' . $part . '%');
+                $models = Keyword::model()->findAll($criteria);
 
-            $exist = Yii::app()->db_keywords->createCommand()->select('id')->from('temp')->where('id=' . $num)->queryScalar();
-            if (!empty($exist) || $exist === '0')
-                continue;
-            //echo "$num - $part \n";
+                if (!empty($models))
+                    echo count($models) . "\n";
+                foreach ($models as $model) {
+                    $model->name = str_replace($part, ' ', $model->name);
+                    $model->name = trim($model->name);
+                    while (strpos($model->name, '  ') !== false)
+                        $model->name = str_replace('  ', ' ', $model->name);
 
-            for ($k = 0; $k < 50; $k++) {
-                $ids = Yii::app()->db_keywords->createCommand()
-                    ->select('id')
-                    ->from('keywords')
-                    ->where('id > ' . ($k * 10000000) . ' AND id <= ' . (($k + 1) * 10000000) . '
-                    AND (name LIKE "' . $part . ' %" OR name LIKE "% ' . $part . '" OR name LIKE "% ' . $part . ' %")') //вначале фразы, вконце фразы, в середине фразы
-                    ->queryColumn();
-                // echo count($ids) . "\n";
-
-                if (!empty($ids)) {
-                    $sql = 'update parsing_keywords set priority = 2, updated = "0000-00-00 00:00:00"
-                                where keyword_id IN (' . implode(',', $ids) . ');';
-
-                    Yii::app()->db_keywords->createCommand($sql)->execute();
+                    $model2 = Keyword::model()->findByAttributes(array('name' => $model->name));
+                    if ($model2 !== null) {
+                        try {
+                            $model->delete();
+                        } catch (Exception $err) {
+                            echo 'err-d';
+                        }
+                    } else {
+                        try {
+                            $model->save();
+                        } catch (Exception $err) {
+                            echo 'err-s';
+                        }
+                    }
                 }
             }
-
-            Yii::app()->db_keywords->createCommand()->insert('temp', array('id' => $num));
         }
     }
 

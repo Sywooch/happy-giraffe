@@ -6,6 +6,7 @@
 class YandexMetrica
 {
     public $token = 'b1cb78403f76432b8a6803dc5e6631b5';
+    private $counter_id = '11221648';
     const SE_GOOGLE = 3;
     const SE_YANDEX = 2;
 
@@ -38,13 +39,13 @@ class YandexMetrica
         $dates = $this->getDatesForCheck();
 
         foreach ($dates as $date) {
-            $next = 'http://api-metrika.yandex.ru/stat/sources/phrases?id=11221648&oauth_token=' . $this->token . '&per_page=1000&date1=' . $date . '&date2=' . $date;
+            $next = 'http://api-metrika.yandex.ru/stat/sources/phrases?id=' . $this->counter_id . '&oauth_token=' . $this->token . '&per_page=1000&date1=' . $date . '&date2=' . $date;
 
             while (!empty($next)) {
                 $val = $this->loadPage($next);
                 $next = $this->getNextLink($val);
 
-                if (!isset($val['data'])){
+                if (!isset($val['data'])) {
                     var_dump($val);
                     Yii::app()->end();
                 }
@@ -89,7 +90,7 @@ class YandexMetrica
 
     public function parseDataForSE($se_id, $date)
     {
-        $next = 'http://api-metrika.yandex.ru/stat/sources/phrases?id=11221648&oauth_token=' . $this->token . '&per_page=1000&date1=' . $date . '&date2=' . $date . '&se_id=' . $se_id;
+        $next = 'http://api-metrika.yandex.ru/stat/sources/phrases?id=' . $this->counter_id . '&oauth_token=' . $this->token . '&per_page=1000&date1=' . $date . '&date2=' . $date . '&se_id=' . $se_id;
         while (!empty($next)) {
             $val = $this->loadPage($next);
             $next = $this->getNextLink($val);
@@ -124,11 +125,68 @@ class YandexMetrica
     public function getNextLink($val)
     {
         if (isset($val['links']['next']))
-            $next = $val['links']['next'].'&per_page=1000';
+            $next = $val['links']['next'] . '&per_page=1000';
         else
             $next = null;
 
         return $next;
+    }
+
+    /**
+     * Получить самые популярные статьи
+     */
+    public function Popular()
+    {
+        $date1 = date("Ymd", strtotime('-1 month'));
+        $date2 = date("Ymd");
+        $next = 'http://api-metrika.yandex.ru/stat/content/popular?date1=' . $date1 . '&date2=' . $date2
+            . '&id=' . $this->counter_id . '&oauth_token=' . $this->token;
+
+        $count = 0;
+        $result = array();
+        while (!empty($next)) {
+            $val = $this->loadPage($next);
+            $next = $this->getNextLink($val);
+
+            if (is_array($val['data']))
+                foreach ($val['data'] as $query) {
+                    if (strpos($query['url'], 'http://happy-giraffe.ru/community/') === 0
+                        && strpos($query['url'], '/forum/post/') !== FALSE
+                        && strpos($query['url'], '#gallery-top') === FALSE
+                        && strpos($query['url'], 'CommunityContent_page') === FALSE
+                        && strpos($query['url'], '/photo') === FALSE
+                    ) {
+                        $result [] = array($query['url'], $query['entrance']);
+                        //echo $query['url'] . ' - ' . $query['entrance'] . '<br>';
+                        $count++;
+                    }
+                    if (strpos($query['url'], '/blog/post') !== FALSE) {
+                        $result [] = array($query['url'], $query['entrance']);
+                        //echo $query['url'] . ' - ' . $query['entrance'] . '<br>';
+                        $count++;
+                    }
+                }
+            else
+                break;
+
+            if ($count > 3000)
+                break;
+        }
+
+        usort($result, array($this, "cmp"));
+
+        $c = 0;
+        foreach($result as $r){
+            echo $r[0] . ' - ' . $r[1] . '<br>';
+            $c++;
+            if ($c > 2000)
+                break;
+        }
+    }
+
+    function cmp($a, $b)
+    {
+        return $b[1] - $a[1];
     }
 
     public function loadPage($url)

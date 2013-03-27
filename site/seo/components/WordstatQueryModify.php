@@ -68,6 +68,7 @@ class WordstatQueryModify
         foreach ($parts as $part) {
             echo $part."\n";
             for ($k = 0; $k < 500; $k++) {
+                echo $k." - k\n";
                 $criteria = new CDbCriteria;
                 $criteria->condition = 'id > ' . ($k * 1000000) . ' AND id <= ' . (($k + 1) * 1000000) . ' AND name LIKE :part';
                 $criteria->params = array(':part' => '%' . $part . '%');
@@ -86,13 +87,12 @@ class WordstatQueryModify
                         try {
                             $model->delete();
                         } catch (Exception $err) {
-                            echo $err->getMessage();
+                            //echo $err->getMessage();
                         }
                     } else {
                         try {
                             $model->save();
                         } catch (Exception $err) {
-                            echo 'err-s';
                         }
                     }
                 }
@@ -215,27 +215,12 @@ class WordstatQueryModify
     {
         $q = $this->removeSpecSymbols($q);
 
-        foreach ($this->parts as $part) {
-            //если вначале
-            if ($this->startsWith($q, $part . ' '))
-                $q = '+' . $q;
-            //если вконце
-            if ($this->endsWith($q, ' ' . $part))
-                $q = substr($q, 0, strlen($q) - strlen($part)) . '+' . $part;
-
-            //если в середине
-            $q = str_replace(' ' . $part . ' ', ' +' . $part . ' ', $q);
-        }
-
         //вставляем !
         //если вначале
         $words = explode(' ', $q);
         $result_words = array();
         foreach ($words as $word) {
-            if ($this->startsWith($word, '+'))
-                $result_words [] = $word;
-            else
-                $result_words [] = '!' . $word;
+            $result_words [] = '!' . $word;
         }
 
         return '"' . implode(' ', $result_words) . '"';

@@ -68,14 +68,13 @@ class WordstatQueryModify
         foreach ($parts as $part) {
             echo $part."\n";
             for ($k = 0; $k < 500; $k++) {
-                echo $k." - k\n";
                 $criteria = new CDbCriteria;
                 $criteria->condition = 'id > ' . ($k * 1000000) . ' AND id <= ' . (($k + 1) * 1000000) . ' AND name LIKE :part';
                 $criteria->params = array(':part' => '%' . $part . '%');
                 $models = Keyword::model()->findAll($criteria);
 
                 if (!empty($models))
-                    echo count($models) . "\n";
+                    echo $k."-k, ".count($models) . "\n";
                 foreach ($models as $model) {
                     $model->name = str_replace($part, ' ', $model->name);
                     $model->name = trim($model->name);

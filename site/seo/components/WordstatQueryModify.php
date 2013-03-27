@@ -245,7 +245,7 @@ class WordstatQueryModify
     {
         $name = mb_strtolower($name, 'utf-8');
         $parts = array(',', '.', '"', '?', '!', ':', ';', "\\", '%', '/', '-', '+',
-            '|', '*', '@', ']', '[', ')', '(');
+            '|', '*', '@', ']', '[', ')', '(', '\'');
 
         foreach ($parts as $part)
             $name = str_replace($part, ' ', $name);

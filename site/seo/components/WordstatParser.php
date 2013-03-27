@@ -83,12 +83,14 @@ class WordstatParser extends ProxyParserThread
 
         //сначала загружаем приоритетные фразы
         $criteria = new CDbCriteria;
-        $criteria->condition = 'priority != 0 AND keyword_id % 645 = ' . $this->thread_id;
+        $criteria->condition = 'priority = 255 AND keyword_id % 645 = ' . $this->thread_id;
         $criteria->order = 'priority desc';
         $criteria->limit = 100;
         $this->keywords = ParsingKeyword::model()->findAll($criteria);
 
         if (empty($this->keywords)) {
+            if ($this->parsing_type == self::TYPE_STRICT)
+                Yii::app()->end();
             //если нет приоритетных загружаем остальные
             $criteria = new CDbCriteria;
             $criteria->limit = 100;
@@ -111,6 +113,25 @@ class WordstatParser extends ProxyParserThread
             $this->loadKeywords();
 
         $this->keyword = array_shift($this->keywords);
+
+        //check name
+        $new_name = WordstatQueryModify::prepareForSave($this->keyword->name);
+        if ($new_name != $this->keyword->name){
+            $this->keyword->name = $new_name;
+            $model2 = Keyword::model()->findByAttributes(array('name' => $new_name));
+            if ($model2 !== null) {
+                try {
+                    $this->keyword->delete();
+                } catch (Exception $err) {
+                }
+                $this->getKeyword();
+            } else {
+                try {
+                    $this->keyword->save();
+                } catch (Exception $err) {
+                }
+            }
+        }
         $this->log('Parsing keyword: ' . $this->keyword->keyword_id);
     }
 

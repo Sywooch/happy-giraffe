@@ -13,15 +13,6 @@ class WordstatCommand extends CConsoleCommand
 {
     const WORDSTAT_LIMIT = 200;
 
-    public function actionAddCompetitors()
-    {
-        $keywords = Yii::app()->db_seo->createCommand('select distinct(keyword_id) from sites__keywords_visits ')->queryColumn();
-        $count = 0;
-        foreach ($keywords as $keyword_id)
-            if (ParsingKeyword::addKeyword($keyword_id))
-                $count++;
-    }
-
     public function actionAddKeywordsFromFile()
     {
         Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');

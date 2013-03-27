@@ -88,7 +88,7 @@ class WordstatCommand extends CConsoleCommand
         $keywords = 1;
         $criteria = new CDbCriteria;
         $criteria->order = 'wordstat desc';
-        $criteria->limit = 3000;
+        $criteria->limit = 1000;
 
         while (!empty($keywords)) {
             $keywords = Keyword::model()->findAll($criteria);
@@ -96,7 +96,6 @@ class WordstatCommand extends CConsoleCommand
             foreach ($keywords as $keyword) {
                 $new_name = WordstatQueryModify::prepareForSave($keyword->name);
                 if ($new_name != $keyword->name) {
-                    echo 'r';
                     $model2 = Keyword::model()->findByAttributes(array('name' => $new_name));
                     if ($model2 !== null) {
                         try {
@@ -115,7 +114,7 @@ class WordstatCommand extends CConsoleCommand
                 }
             }
 
-            $criteria->offset += 3000;
+            $criteria->offset += 1000;
             echo $criteria->offset . "\n";
         }
     }

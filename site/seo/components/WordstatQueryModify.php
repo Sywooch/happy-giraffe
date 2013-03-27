@@ -74,7 +74,7 @@ class WordstatQueryModify
                 $models = Keyword::model()->findAll($criteria);
 
                 if (!empty($models))
-                    echo count($models) . "\n";
+                    echo $k."-k, ".count($models) . "\n";
                 foreach ($models as $model) {
                     $model->name = str_replace($part, ' ', $model->name);
                     $model->name = trim($model->name);
@@ -86,13 +86,12 @@ class WordstatQueryModify
                         try {
                             $model->delete();
                         } catch (Exception $err) {
-                            echo 'err-d';
+                            //echo $err->getMessage();
                         }
                     } else {
                         try {
                             $model->save();
                         } catch (Exception $err) {
-                            echo 'err-s';
                         }
                     }
                 }
@@ -215,27 +214,12 @@ class WordstatQueryModify
     {
         $q = $this->removeSpecSymbols($q);
 
-        foreach ($this->parts as $part) {
-            //если вначале
-            if ($this->startsWith($q, $part . ' '))
-                $q = '+' . $q;
-            //если вконце
-            if ($this->endsWith($q, ' ' . $part))
-                $q = substr($q, 0, strlen($q) - strlen($part)) . '+' . $part;
-
-            //если в середине
-            $q = str_replace(' ' . $part . ' ', ' +' . $part . ' ', $q);
-        }
-
         //вставляем !
         //если вначале
         $words = explode(' ', $q);
         $result_words = array();
         foreach ($words as $word) {
-            if ($this->startsWith($word, '+'))
-                $result_words [] = $word;
-            else
-                $result_words [] = '!' . $word;
+            $result_words [] = '!' . $word;
         }
 
         return '"' . implode(' ', $result_words) . '"';

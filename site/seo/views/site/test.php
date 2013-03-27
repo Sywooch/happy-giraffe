@@ -5,4 +5,5 @@
  *
  */
 
-$parser = new WordstatQueryModify();
+$metrica = new YandexMetrica();
+$metrica->Popular();

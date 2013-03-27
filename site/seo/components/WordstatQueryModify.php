@@ -162,23 +162,6 @@ class WordstatQueryModify
         return false;
     }
 
-    private function removeSpecSymbols($q)
-    {
-        $q = trim($q);
-
-        if (strpos($q, '+') !== false)
-            $q = str_replace('+', ' + ', $q);
-        if (strpos($q, '"') !== false)
-            $q = str_replace('"', '', $q);
-
-        while (strpos($q, '  ') !== false)
-            $q = str_replace('  ', ' ', $q);
-
-        $q = str_replace('!', '', $q);
-
-        return $q;
-    }
-
     /**
      * Подготовить запрос для ввода на парсинг wordstat
      *
@@ -187,7 +170,7 @@ class WordstatQueryModify
      */
     public function prepareQuery($q)
     {
-        $q = $this->removeSpecSymbols($q);
+        $q = $this->prepareForSave($q);
 
         foreach ($this->parts as $part) {
             //если вначале
@@ -212,7 +195,7 @@ class WordstatQueryModify
      */
     public function prepareStrictQuery($q)
     {
-        $q = $this->removeSpecSymbols($q);
+        $q = $this->prepareForSave($q);
 
         //вставляем !
         //если вначале
@@ -261,11 +244,12 @@ class WordstatQueryModify
     public static function prepareForSave($name)
     {
         $name = mb_strtolower($name, 'utf-8');
-        $parts = array(',', '.', '"', '?', '!', ':', ';', "\\", '%', '/', '-', '+', '|', '*', '@', ']', '[', ')', '(');
+        $parts = array(',', '.', '"', '?', '!', ':', ';', "\\", '%', '/', '-', '+',
+            '|', '*', '@', ']', '[', ')', '(');
 
-        foreach ($parts as $part) {
+        foreach ($parts as $part)
             $name = str_replace($part, ' ', $name);
-        }
+
         $name = trim($name);
         while (strpos($name, '  ') !== false)
             $name = str_replace('  ', ' ', $name);

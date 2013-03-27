@@ -115,7 +115,7 @@ class WordstatCommand extends CConsoleCommand
             }
 
             $criteria->offset += 1000;
-            echo $criteria->offset . "\n";
+            echo $criteria->offset . " - ".$keyword->wordstat ."\n";
         }
     }
 }

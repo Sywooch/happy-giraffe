@@ -43,10 +43,10 @@ class CommentatorLink extends HActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('url, entity, entity_id, user_id, created', 'required'),
+            array('url, entity, entity_id, user_id', 'required'),
             array('count', 'numerical', 'integerOnly' => true),
             array('url', 'length', 'max' => 1024),
-            array('url', 'unique'),
+            array('url', 'url'),
             array('entity', 'length', 'max' => 16),
             array('entity_id, user_id', 'length', 'max' => 10),
             // The following rule is used by search().
@@ -82,5 +82,14 @@ class CommentatorLink extends HActiveRecord
                     $model->update(array('count'));
                 }
         }
+    }
+
+    /**
+     * Возвращает статью на которую проставлена ссылка
+     * @return CActiveRecord
+     */
+    public function article()
+    {
+        return CActiveRecord::model($this->entity)->findByPk($this->entity_id);
     }
 }

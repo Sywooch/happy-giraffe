@@ -15,7 +15,7 @@ $keywords = Keyword::model()->findAll($criteria);
 foreach ($keywords as $keyword) {
     $new_name = WordstatQueryModify::prepareForSave($keyword->name);
     if ($new_name != $keyword->name) {
-        echo $new_name.' ---- '.
+        echo $new_name.' ---- '.CHtml::encode($keyword->name);
         $model2 = Keyword::model()->findByAttributes(array('name' => $new_name));
         if ($model2 !== null) {
             try {

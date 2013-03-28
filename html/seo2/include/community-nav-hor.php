@@ -12,7 +12,7 @@
         </li>
         <li class="nav-hor_li">
             <a href="" class="nav-hor_i">
-                <span class="nav-hor_tx">Заходов из <br> поискоков</span>
+                <span class="nav-hor_tx">Заходов из <br> поисковиков</span>
             </a>
         </li>
         <li class="nav-hor_li">

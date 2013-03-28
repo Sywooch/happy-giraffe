@@ -10,6 +10,11 @@ class ThreadsController extends HController
         );
     }
 
+    /**
+     * Создание диалога
+     *
+     * Создает новый диалог с указанным собеседником
+     */
     public function actionCreate()
     {
         $interlocutor_id = Yii::app()->request->getPost('interlocutor_id', 22);

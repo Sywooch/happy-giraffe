@@ -10,6 +10,13 @@ class MessagesController extends HController
         );
     }
 
+    /**
+     * Отправка сообщения
+     *
+     * Добавляет сообщение в диалог
+     *
+     * @throws CHttpException
+     */
     public function actionSend()
     {
         $thread_id = Yii::app()->request->getPost('thread_id');
@@ -23,11 +30,15 @@ class MessagesController extends HController
         $message->author_id = Yii::app()->user->id;
         $message->thread_id = $thread_id;
         $message->text = $text;
-        $messageUser1 = new MessagingMessageUser();
-        $messageUser1->user_id = Yii::app()->user->id;
-        $messageUser2 = new MessagingMessageUser();
-        $messageUser2->user_id = 22;
-        $message->messageUsers = array($messageUser1, $messageUser2);
+        $messageUsers = array();
+        foreach ($thread->threadUsers as $threadUser) {
+            $messageUser = new MessagingMessageUser();
+            $messageUser->user_id = $threadUser->user_id;
+            if (Yii::app()->user->id != $threadUser->user_id)
+                $messageUser->read = 0;
+            $messageUsers[] = $messageUser;
+        }
+        $message->messageUsers = $messageUsers;
 
         $success = $message->withRelated->save(true, array('messageUsers'));
         $response = array(

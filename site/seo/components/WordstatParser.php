@@ -83,12 +83,14 @@ class WordstatParser extends ProxyParserThread
 
         //сначала загружаем приоритетные фразы
         $criteria = new CDbCriteria;
-        $criteria->condition = 'priority != 0 AND keyword_id % 645 = ' . $this->thread_id;
+        $criteria->condition = 'priority = 255 AND keyword_id % 645 = ' . $this->thread_id;
         $criteria->order = 'priority desc';
         $criteria->limit = 100;
         $this->keywords = ParsingKeyword::model()->findAll($criteria);
 
         if (empty($this->keywords)) {
+            if ($this->parsing_type == self::TYPE_STRICT)
+                Yii::app()->end();
             //если нет приоритетных загружаем остальные
             $criteria = new CDbCriteria;
             $criteria->limit = 100;
@@ -111,6 +113,25 @@ class WordstatParser extends ProxyParserThread
             $this->loadKeywords();
 
         $this->keyword = array_shift($this->keywords);
+
+        //check name
+        $new_name = WordstatQueryModify::prepareForSave($this->keyword->keyword->name);
+        if ($new_name != $this->keyword->keyword->name){
+            $this->keyword->keyword->name = $new_name;
+            $model2 = Keyword::model()->findByAttributes(array('name' => $new_name));
+            if ($model2 !== null) {
+                try {
+                    $this->keyword->keyword->delete();
+                } catch (Exception $err) {
+                }
+                $this->getKeyword();
+            } else {
+                try {
+                    $this->keyword->keyword->save();
+                } catch (Exception $err) {
+                }
+            }
+        }
         $this->log('Parsing keyword: ' . $this->keyword->keyword_id);
     }
 
@@ -217,21 +238,28 @@ class WordstatParser extends ProxyParserThread
     public function saveQueryWordstatValue($value)
     {
         if ($this->parsing_type == self::TYPE_STRICT) {
-            if (empty($value) || $this->keyword->keyword->wordstat / $value > 1000) {
-                try {
-                    Yii::app()->db_keywords->createCommand()->insert('bad_keywords', array(
-                        'keyword_id' => $this->keyword->keyword_id,
-                        'wordstat' => $this->keyword->keyword->wordstat,
-                        'strict_wordstat' => $value,
-                    ));
-                } catch (Exception $err) {
-                }
 
+            $strict_wordstat = KeywordStrictWordstat::model()->findByPk($this->keyword->keyword_id);
+
+            if ($strict_wordstat === null){
+                $strict_wordstat = new KeywordStrictWordstat;
+                $strict_wordstat->keyword_id = $this->keyword->keyword_id;
+                $strict_wordstat->wordstat = $this->keyword->keyword->wordstat;
+                $strict_wordstat->strict_wordstat = $value;
+                $strict_wordstat->save();
+            }else{
+                $strict_wordstat->wordstat = $this->keyword->keyword->wordstat;
+                $strict_wordstat->strict_wordstat = $value;
+                $strict_wordstat->save();
+            }
+
+            if (empty($value) || $this->keyword->keyword->wordstat / $value > 1000) {
                 $this->keyword->keyword->wordstat = $value;
                 $this->keyword->keyword->save();
             }
             $this->keyword->priority = 0;
             $this->keyword->update(array('priority'));
+
         } else
             $this->keyword->updateWordstat($value);
     }

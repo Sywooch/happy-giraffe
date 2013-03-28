@@ -13,15 +13,6 @@ class WordstatCommand extends CConsoleCommand
 {
     const WORDSTAT_LIMIT = 200;
 
-    public function actionAddCompetitors()
-    {
-        $keywords = Yii::app()->db_seo->createCommand('select distinct(keyword_id) from sites__keywords_visits ')->queryColumn();
-        $count = 0;
-        foreach ($keywords as $keyword_id)
-            if (ParsingKeyword::addKeyword($keyword_id))
-                $count++;
-    }
-
     public function actionAddKeywordsFromFile()
     {
         Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
@@ -68,18 +59,77 @@ class WordstatCommand extends CConsoleCommand
             $ids = Yii::app()->db_keywords->createCommand()
                 ->select('id')
                 ->from('keywords')
-                ->where('wordstat >= 10000')
-                ->limit(10000)
-                ->offset($i * 10000)
+                ->where('wordstat >= 1000')
+                ->limit(1000)
+                ->offset($i * 1000)
                 ->queryColumn();
 
-            foreach ($ids as $id) {
-                ParsingKeyword::model()->updateAll(array('priority' => 255),
-                    'keyword_id = :keyword_id', array(':keyword_id' => $id));
-            }
+            Yii::app()->db_keywords->createCommand()->update('parsing_keywords', array('priority' => 255),
+                'keyword_id IN (' . implode(',', $ids).')');
 
             $i++;
-            echo $i . "\n";
+            if ($i % 10 == 0)
+                echo $i . "\n";
+        }
+    }
+
+    public function actionFixKeywords()
+    {
+        $keywords = 1;
+        $criteria = new CDbCriteria;
+        $criteria->order = 'wordstat desc';
+        $criteria->limit = 1000;
+        $criteria->offset = 837999;
+
+        while (!empty($keywords)) {
+            $keywords = Keyword::model()->findAll($criteria);
+
+            foreach ($keywords as $keyword) {
+                $new_name = WordstatQueryModify::prepareForSave($keyword->name);
+                if ($new_name != $keyword->name) {
+                    $model2 = Keyword::model()->findByAttributes(array('name' => $new_name));
+                    if ($model2 !== null) {
+                        try {
+                            $keyword->delete();
+                        } catch (Exception $err) {
+                            echo $err->getMessage();
+                        }
+                    } else {
+                        $keyword->name = $new_name;
+                        try {
+                            $keyword->save();
+                        } catch (Exception $err) {
+                            echo "err_s\n";
+                        }
+                    }
+                }
+            }
+
+            $criteria->offset += 1000;
+            echo $criteria->offset . " - " . $keyword->wordstat . "\n";
+        }
+    }
+
+    public function actionFix2(){
+
+        $deleted = 0;
+        for($i=0;$i<120;$i++){
+            $ids = Yii::app()->db_keywords->createCommand()
+                ->select('keyword_id')
+                ->from('keywords_strict_wordstat')
+                ->limit(10000)
+                ->offset(10000*$i - $deleted)
+                ->queryColumn();
+
+            foreach($ids as $id){
+                $exist = Yii::app()->db_keywords->createCommand()->select('id')->from('keywords')->where('id='.$id)->queryScalar();
+                if (empty($exist)){
+                    Yii::app()->db_keywords->createCommand()->delete('keywords_strict_wordstat', 'keyword_id='.$id);
+                    $deleted++;
+                }
+            }
+
+            echo $deleted."\n";
         }
     }
 }

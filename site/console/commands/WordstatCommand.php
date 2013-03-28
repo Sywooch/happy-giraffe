@@ -109,4 +109,25 @@ class WordstatCommand extends CConsoleCommand
             echo $criteria->offset . " - " . $keyword->wordstat . "\n";
         }
     }
+
+    public function actionFix2(){
+
+        $deleted = 0;
+        for($i=0;$i<1100;$i++){
+            $ids = Yii::app()->db_keywords->createCommand()
+                ->select('keyword_id')
+                ->from('keywords_strict_wordstat')
+                ->limit(10000)
+                ->offset(1000*$i - $deleted)
+                ->queryColumn();
+
+            foreach($ids as $id){
+                $exist = Yii::app()->db_keywords->createCommand()->select('id')->from('keywords')->where('id='.$id)->queryScalar();
+                if (empty($exist)){
+                    Yii::app()->db_keywords->createCommand()->delete('keywords_strict_wordstat', 'keyword_id='.$id);
+                    $deleted++;
+                }
+            }
+        }
+    }
 }

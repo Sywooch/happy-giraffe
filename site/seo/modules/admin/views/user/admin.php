@@ -12,9 +12,10 @@
 		'owner_id',
         'related_user_id',
         'role',
+        'active',
 		array(
 			'class'=>'CButtonColumn',
 			'template' => '{update}{delete}'
 		),
 	),
-)); ?>
+));

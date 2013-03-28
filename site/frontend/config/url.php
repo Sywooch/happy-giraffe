@@ -4,7 +4,7 @@ return array(
     'urlFormat' => 'path',
     'showScriptName' => false,
     'urlSuffix' => '/',
-    //'useStrictParsing' => true,
+    'useStrictParsing' => true,
     'rules' => array(
         /*************************
          *      CONTROLLERS      *
@@ -95,7 +95,6 @@ return array(
 
         // community/*
         'community/36.*' => 404,
-        'community/list/rubric_id/<rubric_id:\d+>' => 404,
         'news/rubric<rubric_id:\d+>' => array('community/list', 'defaultParams' => array('community_id' => 36)),
         'news' => array('community/list', 'defaultParams' => array('community_id' => 36)),
         'news/<content_type_slug:[a-z]+><content_id:\d+>' => array('community/view', 'defaultParams' => array('community_id' => 36)),
@@ -116,7 +115,7 @@ return array(
         'community/<_a:(join|add|transfer|edit|editTravel|weeklyMail)>' => 'community/<_a>',
 
         //global
-        '<_c:(settings|activity|ajax|notification|profile|friendRequests|communityRubric|family|morning|userPopup|features)>/<_a>' => '<_c>/<_a>',
+        '<_c:(settings|activity|ajax|notification|profile|friendRequests|communityRubric|family|morning|userPopup|features|blog)>/<_a>' => '<_c>/<_a>',
         '<_c:(settings|activity|profile|rss|family|morning|community)>' => '<_c>/index',
 
         //others
@@ -234,6 +233,7 @@ return array(
         'horoscope/<_a:(year|month|tomorrow|viewed)>' => 'services/horoscope/default/<_a>',
         'horoscope/<zodiac:[\w]+>' => 'services/horoscope/default/today',
 
+        'names/saint/<month:[\w]+>' => 'services/names/default/saint/',
         'names/<_a:(saintCalc|likes|like|top10|saint)>' => 'services/names/default/<_a>',
         'names/<name:[\w]+>' => 'services/names/default/name/',
 
@@ -256,9 +256,10 @@ return array(
         'services/<_m:(dailyCalories|weightLoss|idealWeight|bodyFat)>/default/<_c>' => 'services/<_m>/default/<_c>',
         'services/lines/<id:[\d]+>.jpeg' => 'services/lines/default/index',
 
-        'routes/<id:[\d]+>'=>'route/default/index',
-        'routes/<_a>'=>'route/default/<_a>',
-        'routes/'=>'route/default/index',
+        'auto/routes/<id:[\d]+>'=>'routes/default/index',
+        'auto/routes/<_a>'=>'routes/default/<_a>',
+        'auto/routes/<_a>/<id:[\d]+>'=>'routes/default/<_a>',
+        'auto/routes/'=>'routes/default/index',
 
         'ValentinesDay' => 'valentinesDay/default/index',
         'ValentinesDay/<_a>' => 'valentinesDay/default/<_a>',

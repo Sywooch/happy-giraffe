@@ -28,7 +28,7 @@ class PostForCommentator
 
     public function nextPost()
     {
-        $model = new UserPosts();
+        $model = new FavouritesPosts();
         $model->commentator = $this->commentator;
         $post = $model->getPost();
 

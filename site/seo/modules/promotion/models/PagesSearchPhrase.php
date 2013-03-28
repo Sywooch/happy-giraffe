@@ -7,16 +7,12 @@
  * @property string $id
  * @property string $page_id
  * @property integer $keyword_id
- * @property integer $last_yandex_position
- * @property integer $google_traffic
- * @property integer $yandex_traffic
  * @property integer $inner_links_count
  *
  * The followings are the available model relations:
  * @property Keyword $keyword
  * @property Page $page
  * @property SearchPhrasePosition[] $positions
- * @property SearchPhraseVisit[] $visits
  * @property InnerLink[] $links
  * @property int $linksCount
  */
@@ -54,10 +50,8 @@ class PagesSearchPhrase extends HActiveRecord
         // will receive user inputs.
         return array(
             array('page_id, keyword_id', 'required'),
-            array('keyword_id, last_yandex_position, google_traffic, yandex_traffic', 'numerical', 'integerOnly' => true),
+            array('keyword_id', 'numerical', 'integerOnly' => true),
             array('page_id', 'length', 'max' => 11),
-            // The following rule is used by search().
-            // Please remove those attributes that should not be searched.
             array('id, page_id, keyword_id', 'safe', 'on' => 'search'),
         );
     }
@@ -72,7 +66,6 @@ class PagesSearchPhrase extends HActiveRecord
             'page' => array(self::BELONGS_TO, 'Page', 'page_id'),
             'positions' => array(self::HAS_MANY, 'SearchPhrasePosition', 'search_phrase_id', 'order' => 'date desc'),
             'lastPosition' => array(self::HAS_ONE, 'SearchPhrasePosition', 'search_phrase_id', 'order' => 'lastPosition.date desc'),
-            'visits' => array(self::HAS_MANY, 'SearchPhraseVisit', 'search_phrase_id'),
             'links' => array(self::HAS_MANY, 'InnerLink', 'phrase_id'),
             'linksCount' => array(self::STAT, 'InnerLink', 'phrase_id'),
             'skip' => array(self::HAS_ONE, 'ILSkip', 'phrase_id'),
@@ -108,6 +101,7 @@ class PagesSearchPhrase extends HActiveRecord
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
+            'pagination' => array('pageSize' => 30),
         ));
     }
 
@@ -149,16 +143,7 @@ class PagesSearchPhrase extends HActiveRecord
 
     public function getWeekVisits($se, $week, $year)
     {
-        $criteria = new CDbCriteria;
-        $criteria->compare('search_phrase_id', $this->id);
-        $criteria->compare('week', $week);
-        $criteria->compare('year', $year);
-        $criteria->compare('se_id', $se);
-        $model = SearchPhraseVisit::model()->find($criteria);
-        if ($model===null)
-            return 0;
-
-        return $model->visits;
+        return 0;
     }
 
     public function getSimilarKeywords()
@@ -215,7 +200,7 @@ class PagesSearchPhrase extends HActiveRecord
      * @static
      * @return PagesSearchPhrase
      */
-    public static function getActualPhrase()
+/*    public static function getActualPhrase()
     {
         if (SeoUserAttributes::getAttribute('se_tab') == 1)
             return self::getYandexPhrase();
@@ -292,7 +277,7 @@ class PagesSearchPhrase extends HActiveRecord
 
 
         return $model;
-    }
+    }*/
 
     /**
      * @param int $se
@@ -313,7 +298,7 @@ class PagesSearchPhrase extends HActiveRecord
     public function getAverageVisits()
     {
         $sum = 0;
-        $models = SearchPhraseVisit::model()->findAll('visits != 0 AND search_phrase_id = ' . $this->id);
+        $models = array();
         foreach ($models as $model)
             $sum += $model->visits;
 

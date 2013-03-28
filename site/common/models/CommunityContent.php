@@ -42,6 +42,8 @@ class CommunityContent extends HActiveRecord
     const TYPE_STATUS = 5;
 
     const USERS_COMMUNITY = 999999;
+    //для модуля комментаторов
+    public $visits = 0;
 
     /**
      * Returns the static model of the specified AR class.
@@ -242,45 +244,11 @@ class CommunityContent extends HActiveRecord
         return $this;
     }
 
-    /*public function scopes()
-     {
-         return array(
-             'view' => array(
-                 'with' => array(
-                     'rubric' => array(
-                         'with' => array(
-                             'community' => array(
-                                 'with' => array(
-                                     'rubrics',
-                                 ),
-                             ),
-                         ),
-                     ),
-                     'post',
-                     'video',
-                     'commentsCount',
-                     'contentAuthor',
-                     'travel' => array(
-                         'with' => array(
-                             'waypoints' => array(
-                                 'with' => array(
-                                     'city',
-                                     'country',
-                                 ),
-                             ),
-                         )
-                     ),
-                 ),
-             ),
-             'active'=>array(
-                 'condition'=>'removed=0'
-             )
-         );
-     }*/
-
     public function beforeDelete()
     {
+        FriendEvent::postDeleted(($this->isFromBlog ? 'BlogContent' : 'CommunityContent'), $this->id);
         self::model()->updateByPk($this->id, array('removed' => 1));
+
 
         if ($this->isFromBlog && count($this->contentAuthor->blogPosts) == 0) {
             UserScores::removeScores($this->author_id, ScoreAction::ACTION_FIRST_BLOG_RECORD, 1, $this);
@@ -484,6 +452,7 @@ class CommunityContent extends HActiveRecord
             'order' => 't.created DESC'
         ));
 
+        $criteria->condition = 'type_id != 3';
         $criteria->compare('community_id', $community_id);
 
         if ($rubric_id !== null) {

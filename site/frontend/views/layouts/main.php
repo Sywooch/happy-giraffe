@@ -23,8 +23,10 @@
 
                 <div class="banner-box">
                     <?php if (! Yii::app()->user->isGuest): ?>
-                        <?php $contest_id = 7; ?>
-                        <a href="<?=$this->createUrl('/contest/default/view', array('id' => $contest_id)) ?>"><img src="/images/contest/banner-w300-<?=$contest_id?>.jpg" /></a>
+                        <?php if (false): ?>
+                            <?php $contest_id = 9; ?>
+                            <a href="<?=$this->createUrl('/contest/default/view', array('id' => $contest_id)) ?>"><img src="/images/contest/banner-w300-<?=$contest_id?>.jpg" /></a>
+                        <?php endif; ?>
                     <?php else: ?>
                         <?=CHtml::link(CHtml::image('/images/banner_06.png'), '#register', array('class'=>'fancy', 'data-theme'=>'white-square'))?>
                     <?php endif; ?>
@@ -303,7 +305,6 @@
                         <?php $this->endWidget();?>
 
                     </li>
-                    <li class="valentine"><a href="<?=Yii::app()->createUrl('/valentinesDay/default/index')?>"><i class="text"></i></a></li>
                 </ul>
             </div>
 
@@ -326,7 +327,10 @@
         <?= $content; ?>
     </div>
 
-    <noindex><?php $this->widget('WhatsNewWidget') ?></noindex>
+
+    <?php if (false): ?>
+        <noindex><?php $this->widget('WhatsNewWidget') ?></noindex>
+    <?php endif; ?>
 
     <a href="#layout" id="btn-up-page"></a>
     <div class="push"></div>

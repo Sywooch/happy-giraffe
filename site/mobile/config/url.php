@@ -16,6 +16,8 @@ return array(
         'community/<community_id:\d+>/forum/<content_type_slug:\w+>/<content_id:\d+>' => 'community/view',
         'community/<content_id:\d+>/comments' => 'community/comments',
 
+        'user/<user_id:\d+>/blog/post<content_id:\d+>' => 'blog/view',
+
         'cook/recipe/tag/<tag:\d+>/type/<type:\d+>' => array('cook/recipe/tag', 'defaultParams' => array('section' => 0)),
         'cook/recipe/tag/<tag:\d+>' => array('cook/recipe/tag', 'defaultParams' => array('section' => 0)),
         'cook/recipe/<id:\d+>' => array('cook/recipe/view', 'defaultParams' => array('section' => 0)),
@@ -30,6 +32,7 @@ return array(
         'horoscope/<type:(year|month|tomorrow)>/<zodiac:[\w]+>' => 'horoscope/view',
         'horoscope/<zodiac:[\w]+>' => array('horoscope/view', 'defaultParams' => array('type' => 'today')),
 
+        '' => 'community/index',
 
         //'(.*)' => 'site/index',
     ),

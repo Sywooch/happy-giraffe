@@ -117,6 +117,9 @@ class GdThumb extends ThumbBase
 				$this->oldImage = imagecreatefromstring($this->fileName);
 				break;
 		}
+
+        if ($this->oldImage === false)
+            throw new Exception;
 	
 		$this->currentDimensions = array
 		(

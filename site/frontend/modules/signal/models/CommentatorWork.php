@@ -404,6 +404,9 @@ class CommentatorWork extends EMongoDocument
                             $day->today_club = $this->clubs[0];
                     }
                 }
+
+                if (empty($day->today_club))
+                    $day->today_club = $this->clubs[0];
             } else
                 $day->today_club = $this->clubs[0];
 
@@ -531,7 +534,10 @@ class CommentatorWork extends EMongoDocument
      */
     public function nextComment()
     {
-        $model = CActiveRecord::model($this->comment_entity)->resetScope()->full()->findByPk($this->comment_entity_id);
+        if ($this->comment_entity !== 'CookRecipe')
+            $model = CActiveRecord::model($this->comment_entity)->resetScope()->full()->findByPk($this->comment_entity_id);
+        else
+            $model = CActiveRecord::model($this->comment_entity)->resetScope()->findByPk($this->comment_entity_id);
 
         if ($model->removed) {
             $model->full = 1;
@@ -596,17 +602,33 @@ class CommentatorWork extends EMongoDocument
         return User::getUserById($this->user_id)->fullName;
     }
 
-    public function getPosts($period)
+    /**
+     * @param CommentatorsMonthStats $current_month
+     * @return array
+     */
+    public function getPosts($current_month)
     {
-        //$last_day = $this->getLastPeriodDay($period);
         $criteria = new CDbCriteria;
-        //$criteria->condition = 'created >= "' . $period . '-01 00:00:00" AND created <= "' . $period . '-' . $last_day . ' 23:59:59"';
         $criteria->compare('author_id', $this->user_id);
         $criteria->order = 'created desc';
         $criteria->with = array('rubric', 'rubric.community', 'type');
 
-        return CommunityContent::model()->findAll($criteria);
+        //сортирока по заходам
+        $posts = CommunityContent::model()->findAll($criteria);
+//        foreach($posts as $post)
+//            $post->visits = $current_month->getPageVisitsCount($post->url);
+//        usort($posts, array($this, "cmp"));
+        return $posts;
     }
+
+    function cmp($a, $b)
+    {
+        if ($a->visits == $b->visits) {
+            return 0;
+        }
+        return ($a->visits > $b->visits) ? -1 : 1;
+    }
+
 
     public function getLastPeriodDay($period)
     {

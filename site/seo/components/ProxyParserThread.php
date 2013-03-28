@@ -29,32 +29,42 @@ class ProxyParserThread
     private $_start_time = null;
     private $_time_stamp_title = '';
 
-    function __construct()
+    function __construct($thread_id)
     {
-        time_nanosleep(rand(0, 5), rand(0, 1000000000));
+        time_nanosleep(rand(0, 30), rand(0, 1000000000));
         Yii::import('site.frontend.extensions.phpQuery.phpQuery');
-        $this->thread_id = substr(sha1(microtime()), 0, 10);
+        $this->thread_id = $thread_id;
         $this->getProxy();
+    }
+
+    private function getProxy2()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->condition = 'id % 645 = ' . $this->thread_id;
+        $criteria->order = 'rank desc';
+        $this->proxy = Proxy::model()->find($criteria);
     }
 
     private function getProxy()
     {
+        $this->startTimer('find proxy1');
+
         $criteria = new CDbCriteria;
         $criteria->compare('active', 0);
         $criteria->order = 'rank desc';
-        $criteria->offset = rand(0, 10);
-
-        //$this->startTimer('find proxy');
+        $criteria->offset = rand(0, 50);
 
         $this->proxy = Proxy::model()->find($criteria);
+
+        $this->endTimer();
+        $this->startTimer('find proxy2');
+
         if ($this->proxy === null)
             $this->closeThread('No proxy');
-
         $this->proxy->active = 1;
         $this->proxy->save();
 
-        //$this->endTimer();
-        //$this->log('proxy: ' . $this->proxy->value);
+        $this->endTimer();
     }
 
     protected function query($url, $ref = null, $post = false, $attempt = 0)
@@ -94,7 +104,7 @@ class ProxyParserThread
 
             if ($content === false) {
                 if (curl_errno($ch)) {
-                    //$this->log('Error while curl: ' . curl_error($ch));
+                    $this->log('Error while curl: ' . curl_error($ch));
                     curl_close($ch);
 
                     $attempt += 1;
@@ -113,7 +123,6 @@ class ProxyParserThread
                 curl_close($ch);
                 if (strpos($content, 'Нам очень жаль, но запросы, поступившие с вашего IP-адреса, похожи на автоматические.')) {
                     $this->log('ip banned');
-                    //file_put_contents(Yii::getPathOfAlias('site.common.cookies') . DIRECTORY_SEPARATOR . 'banned.txt', $this->proxy->value."\n", FILE_APPEND);
                     $this->changeBadProxy(0);
                     return $this->query($url, $ref, $post, $attempt);
                 }
@@ -127,8 +136,7 @@ class ProxyParserThread
 
     protected function changeBadProxy($rank = null)
     {
-        //$this->log('Change proxy');
-
+        //$this->log('Change bad proxy');
         if ($rank !== null)
             $this->proxy->rank = $rank;
         else
@@ -148,7 +156,6 @@ class ProxyParserThread
     protected function changeBannedProxy()
     {
         //$this->log('Change proxy');
-
         $this->proxy->delete();
         $this->getProxy();
         $this->success_loads = 0;
@@ -217,7 +224,7 @@ class ProxyParserThread
         if ($this->debug) {
             echo $state . "\n";
         } else {
-//            $fh = fopen($dir = Yii::getPathOfAlias('application.runtime') . DIRECTORY_SEPARATOR . $this->thread_id.'.txt', 'a');
+//            $fh = fopen($dir = Yii::getPathOfAlias('application.runtime') . DIRECTORY_SEPARATOR . 'my_log.txt', 'a');
 //            fwrite($fh, $state . "\n");
         }
     }

@@ -20,7 +20,7 @@ class HController extends CController
 
     public $body_class = 'body-club';
 
-    protected $r = 157;
+    protected $r = 167;
 
     public function filterAjaxOnly($filterChain)
     {
@@ -28,6 +28,11 @@ class HController extends CController
             $filterChain->run();
         else
             throw new CHttpException(404, Yii::t('yii', 'Your request is invalid.'));
+    }
+
+    public function invalidActionParams($action)
+    {
+        throw new CHttpException(404,Yii::t('yii','Your request is invalid.'));
     }
 
     public function init()
@@ -43,11 +48,7 @@ class HController extends CController
 
     protected function beforeAction($action)
     {
-        if (isset($_GET['nomo']) && $_GET['nomo'] == 1) {
-            setcookie('nomo', 1);
-            $url = str_replace('?nomo=1', '', Yii::app()->request->requestUri);
-            $this->redirect($url);
-        }
+        //$this->_mobileRedirect();
 
         // отключение повторной подгрузки jquery
         /* if (Yii::app()->request->isAjaxRequest) {
@@ -142,10 +143,19 @@ class HController extends CController
             });';
 
         $hash = md5($js);
-        $cacheId = 'seoHide_' . $hash;
-        Yii::app()->cache->set($cacheId, $js);
+        $dir = substr($hash, 0, 2);
+        $file = substr($hash, 2);
+        $dirPath = Yii::getPathOfAlias('application.www-submodule.jsd') . DIRECTORY_SEPARATOR . $dir;
 
-        Yii::app()->clientScript->registerScriptFile('/js_dynamics/' . $hash . '.js/', CClientScript::POS_END);
+        $path = $dirPath . DIRECTORY_SEPARATOR . $file . '.js';
+
+        if (! file_exists($path)) {
+            if (! is_dir($dirPath))
+                mkdir($dirPath);
+            file_put_contents($path, $js);
+        }
+
+        Yii::app()->clientScript->registerScriptFile('/jsd/' . $dir . '/' . $file . '.js', CClientScript::POS_END);
 
         return parent::afterRender($view, $output);
     }
@@ -193,5 +203,25 @@ class HController extends CController
     public function registerCounter()
     {
         Yii::app()->clientScript->registerScript('se_counter', 'SeCounter();');
+    }
+
+    private function _mobileRedirect()
+    {
+        require_once('mobiledetect/Mobile_Detect.php');
+
+        $detect = new Mobile_Detect();
+        $mobile = $newMobile = (string) Yii::app()->request->cookies['mobile'];
+
+        if ($mobile == '' && $detect->isMobile() && ! $detect->isTablet())
+            $newMobile = 1;
+
+        if ($mobile == 1 && Yii::app()->request->getQuery('nomo') == 1)
+            $newMobile = 0;
+
+        if ($mobile != $newMobile)
+            Yii::app()->request->cookies['mobile'] = new CHttpCookie('mobile', $newMobile, array('expire' => time() + 60 * 60 * 24 * 365));
+
+        if ($newMobile == 1)
+            $this->redirect('http://m.happy-giraffe.ru' . $_SERVER['REQUEST_URI']);
     }
 }

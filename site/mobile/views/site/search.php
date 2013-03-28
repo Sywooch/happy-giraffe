@@ -16,6 +16,9 @@
     'itemView' => '_search',
     'viewData' => array(
         'full' => false,
+        'search_text' => $text,
+        'search_index' => $index,
+        'criteria' => $criteria,
     ),
     'pager' => array(
         'class' => 'MPager',

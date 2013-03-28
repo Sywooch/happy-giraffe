@@ -138,30 +138,6 @@ class SignalCommand extends CConsoleCommand
         $month->calculate();
     }
 
-    public function actionPartialStats()
-    {
-        $month = CommentatorsMonthStats::model()->find(new EMongoCriteria(array(
-            'conditions' => array(
-                'period' => array('==' => date("Y-m"))
-            ),
-        )));
-        if ($month === null) {
-            $month = new CommentatorsMonthStats;
-            $month->period = date("Y-m");
-        }
-        $month->calculate();
-    }
-
-    public function actionCommentator($id)
-    {
-        $month = CommentatorsMonthStats::model()->find(new EMongoCriteria(array(
-            'conditions' => array(
-                'period' => array('==' => date("Y-m"))
-            ),
-        )));
-        $month->calculateCommentator($id);
-    }
-
     public function actionAddCommentatorsToSeo()
     {
         $commentators = CommentatorWork::getWorkingCommentators();
@@ -219,7 +195,7 @@ class SignalCommand extends CConsoleCommand
 
         //test on some user
         foreach ($commentators as $key => $commentator)
-            if (in_array($commentator->user_id,  array(15426, 15363, 15328, 15292, 15322, 15385, 15468, 15496, 15493, 15545, 15551)))
+            if (in_array($commentator->user_id, array(15426, 15363, 15328, 15292, 15322, 15385, 15468, 15496, 15493, 15545, 15551)))
                 unset($commentators[$key]);
 
         $this->loginGa();
@@ -255,4 +231,23 @@ class SignalCommand extends CConsoleCommand
         $this->ga->setProfile('ga:53688414');
     }
 
+    public function actionSync()
+    {
+        echo "sync\n";
+        $month = date("Y-m");
+        PageSearchView::model()->sync($month);
+        if (date("d") == 1)
+            PageSearchView::model()->sync(date("Y-m", strtotime('-2 days')));
+
+
+        echo "update stats\n";
+        $month = CommentatorsMonthStats::model()->find(new EMongoCriteria(array(
+            'conditions' => array('period' => array('==' => $month)),
+        )));
+        if ($month === null) {
+            $month = new CommentatorsMonthStats;
+            $month->period = date("Y-m");
+        }
+        $month->calculate();
+    }
 }

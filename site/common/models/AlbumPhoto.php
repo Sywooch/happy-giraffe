@@ -364,7 +364,12 @@ class AlbumPhoto extends HActiveRecord
 //            if (exif_imagetype($this->originalPath) == IMAGETYPE_GIF)
 //                return $this->imagickResize($thumb, $width, $height, $master, $crop, $crop_side);
 //            else
-            return $this->gdResize($thumb, $width, $height, $master, $crop);
+            $thumb = $this->gdResize($thumb, $width, $height, $master, $crop);
+        }
+
+        if ($size = @getimagesize($thumb)) {
+            $this->width = $size[0];
+            $this->height = $size[1];
         }
 
         return $thumb;
@@ -403,9 +408,6 @@ class AlbumPhoto extends HActiveRecord
             $image = $image->save($thumb);
         }
 
-        $this->width = $image->width;
-        $this->height = $image->height;
-
         return $thumb;
     }
 
@@ -433,11 +435,6 @@ class AlbumPhoto extends HActiveRecord
             $image->crop($width, $height, $crop_side);
 
         $image->save($thumb);
-
-        if ($size = @getimagesize($thumb)) {
-            $this->width = $size[0];
-            $this->height = $size[1];
-        }
 
         return $thumb;
     }

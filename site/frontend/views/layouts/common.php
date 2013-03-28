@@ -42,6 +42,7 @@
         ->registerScriptFile('/javascripts/jquery.jcarousel.js')
         ->registerScriptFile('/javascripts/jquery.jcarousel.control.js')
         ->registerScriptFile('/javascripts/jquery.tmpl.min.js')
+        ->registerScriptFile('/javascripts/jquery.lazyload.min.js')
         ->registerScriptFile('/javascripts/addtocopy.js')
         ->registerScriptFile('/javascripts/tooltipsy.min.js')
         ->registerScriptFile('http://vk.com/js/api/share.js?11')
@@ -179,7 +180,7 @@
     </div>
 
     <div class="copy">
-        <p>Весёлый жираф &nbsp; © 2012 &nbsp; Все права защищены <img src="/images/icon-18+.png" alt="" class="icon-18"/><a href="<?=$this->createUrl('/site/moderationRules') ?>">Правила модерации</a></p>
+        <p>Весёлый жираф &nbsp; © 2012 &nbsp; Все права защищены <img src="/images/icon-18+.png" alt="" class="icon-18"/><a href="<?=$this->createUrl('/site/moderationRules') ?>">Правила модерации</a><span style="float: right;margin-right:20px;">Написать нам: <a href="mailto:info@happy-giraffe.ru">info@happy-giraffe.ru</a></span></p>
     </div>
 
 </div>

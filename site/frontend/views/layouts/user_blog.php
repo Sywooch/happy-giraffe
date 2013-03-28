@@ -5,6 +5,8 @@
     $cs
         ->registerScriptFile('/javascripts/album.js')
         ->registerCssFile('/stylesheets/user.css')
+        ->registerCoreScript('jquery.ui')
+        ->registerScriptFile('/javascripts/knockout-2.2.1.js')
     ;
 
     $blogFontColor = UserAttributes::get($this->user->id, 'blogFontColor', 0);
@@ -146,39 +148,43 @@
 
             <?php $this->endCache(); endif;  ?>
 
-            <?php if($this->beginCache('blog-photos', array(
-                'duration' => 600,
-                'dependency' => array(
-                    'class' => 'CDbCacheDependency',
-                    'sql' => 'SELECT MAX(p.created) FROM album__photos p
-                        JOIN album__albums a ON p.album_id = a.id
-                        WHERE a.type = 0 AND p.author_id = ' . $this->user->id,
-                ),
-                'varyByParam' => array('user_id'),
-            ))): ?>
+            <?php if (!$this->user->deleted):?>
+                <?php if($this->beginCache('blog-photos', array(
+                    'duration' => 600,
+                    'dependency' => array(
+                        'class' => 'CDbCacheDependency',
+                        'sql' => 'SELECT MAX(p.created) FROM album__photos p
+                            JOIN album__albums a ON p.album_id = a.id
+                            WHERE a.type = 0 AND p.author_id = ' . $this->user->id,
+                    ),
+                    'varyByParam' => array('user_id'),
+                ))): ?>
 
-                <?php $photos = $this->user->getRelated('photos', false, array('limit' => 3, 'order' => 'photos.created DESC', 'scopes'=>array('active'), 'with'=>array('album'=>array('condition'=>'album.type = 0')))); ?>
-                <?php if (count($photos)>0):?>
-                    <div class="fast-photos">
+                    <?php $photos = $this->user->getRelated('photos', false, array('limit' => 3, 'order' => 'photos.created DESC', 'scopes'=>array('active'), 'with'=>array('album'=>array('condition'=>'album.type = 0')))); ?>
+                    <?php if (count($photos)>0):?>
+                        <div class="fast-photos">
 
-                        <div class="block-title"><span>МОИ</span>свежие<br/>фото</div>
+                            <div class="block-title"><span>МОИ</span>свежие<br/>фото</div>
 
-                        <div class="preview">
-                            <?php $i = 0; foreach($photos as $p): ?>
-                                <?=CHtml::image($p->getPreviewUrl(150, 150), $p->title, array('class' => 'img-' . ++$i))?>
-                            <?php endforeach; ?>
+                            <div class="preview">
+                                <?php $i = 0; foreach($photos as $p): ?>
+                                    <?=CHtml::image($p->getPreviewUrl(150, 150), $p->title, array('class' => 'img-' . ++$i))?>
+                                <?php endforeach; ?>
+                            </div>
+
+                            <?=CHtml::link('<i class="icon"></i>Смотреть', array('albums/user', 'id' => $this->user->id), array('class' => 'more'))?>
+
                         </div>
+                    <?php endif ?>
 
-                        <?=CHtml::link('<i class="icon"></i>Смотреть', array('albums/user', 'id' => $this->user->id), array('class' => 'more'))?>
-
-                    </div>
-                <?php endif ?>
-
-            <?php $this->endCache(); endif;  ?>
+                <?php $this->endCache(); endif;  ?>
+            <?php endif ?>
 
 
             <div class="banner-box">
-                <?=$this->renderPartial('//_banner')?>
+                <a href="<?=$this->createUrl('/contest/default/view', array('id' => 9)) ?>"><img
+                    src="/images/contest/banner-w240-9-<?=mt_rand(1, 3)?>.jpg"></a>
+                <?//=$this->renderPartial('//_banner')?>
             </div>
 
         </div>
@@ -214,8 +220,9 @@
             <div class="default-nav">
                 <ul>
                     <li class="active"><a href="javascript:void(0)" onclick="setTab(this, 1);">Название блога</a></li>
+                    <li><a href="javascript:void(0);" onclick="setTab(this, 2);">Рубрики блога</a></li>
                     <?php if (Yii::app()->user->id == $this->user->id && $this->user->hasFeature(3)): ?>
-                        <li><a href="javascript:void(0)" onclick="setTab(this, 2);">Оформление блога</a></li>
+                        <li><a href="javascript:void(0)" onclick="setTab(this, 3);">Оформление блога</a></li>
                     <?php endif; ?>
                 </ul>
             </div>
@@ -262,9 +269,79 @@
 
             </div>
 
+            <div class="rubrics tab-box tab-box-2">
+
+                <div class="note">Редактируйте рубрики. Вы можете: создать новую, удалить, изменить название, переместить рубрику на другое место <span>*</span></div>
+
+                <div class="list clearfix">
+                    <?php
+                        $columns = array(
+                            'firstColumn' => array(
+                                'addVisible' => 'rubrics().length % 2 == 0',
+                            ),
+                            'secondColumn' => array(
+                                'addVisible' => 'rubrics().length % 2 != 0',
+                            ),
+                        );
+                    ?>
+                    <?php foreach ($columns as $k => $v): ?>
+                    <div class="col">
+                        <ul id="<?=$k?>" class="sortable">
+                            <!-- ko foreach: <?=$k?> -->
+                            <li data-bind="attr : { id : 'rubric_' + id }">
+                                <div class="showRubric">
+                                    <span class="num" data-bind="text: $root.rubrics().indexOf($data) + 1"></span>
+                                    <span class="rubric" data-bind="text: title()"><span></span></span>
+                                    <a href="javascript:void(0)" onclick="BlogSettings.showEditForm(this);" class="edit tooltip" title="редактировать"></a>
+                                    <a href="javascript:void(0)" data-bind="click: $parent.removeRubric" class="remove tooltip" title="удалить"></a>
+                                </div>
+                                <div class="editRubric" style="display: none;">
+                                    <?=CHtml::beginForm(array('/blog/editRubric'), 'post', array(
+                                        'onsubmit' => 'BlogSettings.editRubric(this); return false;',
+                                        'class' => 'addRubricForm',
+                                    )); ?>
+                                    <?=CHtml::hiddenField('id', '', array('data-bind' => 'value: id'))?>
+                                    <?=CHtml::textField('title', '', array('placeholder' => 'Введите название рубрики (не более 30 символов)', 'data-bind' => 'value: title'))?>
+                                    <button class="btn btn-green-small"><span><span>Ok</span></span></button>
+                                    <?=CHtml::endForm()?>
+                                </div>
+                            </li>
+                            <!-- /ko -->
+                            <li class="add" data-bind="visible: <?=$v['addVisible']?>">
+                                <div class="addRubricButton">
+                                    <span class="num"><a href="javascript:void(0)" onclick="BlogSettings.showAddForm(this)" class="icon-add"></a></span>
+                                    Вы можете создать новую рубрику
+                                </div>
+                                <div class="addRubric" style="display: none;">
+                                    <?=CHtml::beginForm(array('/blog/addRubric'), 'post', array(
+                                        'onsubmit' => 'BlogSettings.addRubric(this); return false;',
+                                        'class' => 'addRubricForm',
+                                    )); ?>
+                                        <?=CHtml::textField('title', '', array('placeholder' => 'Введите название рубрики (не более 30 символов)'))?>
+                                        <button class="btn btn-green-small"><span><span>Ok</span></span></button>
+                                    <?=CHtml::endForm()?>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <?php endforeach; ?>
+
+                </div>
+
+                <div class="clearfix bottom-line">
+                    <div class="btn-box"><a href="" class="btn-finish">Завершить</a></div>
+                    <div class="note">
+                        <span>*</span>
+                        <div class="in">Чтобы переместить рубрику,<br/>подведи курсор, хватай и тащи</div>
+                        <img src="/images/blog_settings_drag_note.gif" />
+                    </div>
+                </div>
+
+            </div>
+
             <?php if (Yii::app()->user->id == $this->user->id && $this->user->hasFeature(3)): ?>
 
-                <div class="headings-style tab-box tab-box-2">
+                <div class="headings-style tab-box tab-box-3">
                     <!-- google fonts -->
                     <script type="text/javascript">
                         WebFontConfig = {
@@ -313,5 +390,93 @@
     </div>
 
 </div>
+
+<script type="text/javascript">
+    var BlogSettings = {
+        showAddForm : function(el) {
+            $(el).parents('.addRubricButton').hide();
+            $(el).parents('.addRubricButton').next('.addRubric').show();
+            $(el).parents('.addRubricButton').next('.addRubric').find('input[name="title"]').focus();
+        },
+
+        addRubric : function(form) {
+            $.post($(form).attr('action'), $(form).serialize(), function(data) {
+                if (data.success) {
+                    BlogRubrics.addRubric(data.model);
+                    $(form).parents('.addRubric').prev('.addRubricButton').show();
+                    $(form).parents('.addRubric').hide();
+                }
+            }, 'json');
+        },
+
+        showEditForm : function(el) {
+            $(el).parents('.showRubric').hide();
+            $(el).parents('.showRubric').next('.editRubric').show();
+            $(el).parents('.showRubric').next('.editRubric').find('input[name="title"]').focus();
+        },
+
+        editRubric : function(form) {
+            $.post($(form).attr('action'), $(form).serialize(), function(data) {
+                if (data.success) {
+                    $(form).parents('.editRubric').prev('.showRubric').show();
+                    $(form).parents('.editRubric').hide();
+                }
+            }, 'json');
+        }
+    }
+
+    function BlogRubric(id, title) {
+        var self = this;
+        self.id = id;
+        self.title = ko.observable(title);
+    }
+
+    function BlogRubricsViewModel(allData) {
+        var self = this;
+
+        self.rubrics = ko.observableArray([]);
+
+        var mappedRubrics = $.map(allData, function(item) { return new BlogRubric(item.id, item.title) });
+        self.rubrics(mappedRubrics);
+
+        self.firstColumn = ko.computed(function() {
+            return self.rubrics().filter(function(el) {
+                return self.rubrics().indexOf(el) < self.rubrics().length / 2;
+            });
+        }, this);
+
+        self.secondColumn = ko.computed(function() {
+            return self.rubrics().filter(function(el) {
+                return self.rubrics().indexOf(el) >= self.rubrics().length / 2;
+            });
+        }, this);
+
+        self.addRubric = function(rubric) {
+            self.rubrics.push(new BlogRubric(rubric.id, rubric.title));
+        }
+
+        self.removeRubric = function(rubric) {
+            $.post('/blog/deleteBlogRubric/', { id : rubric.id}, function(data) {
+                if (data)
+                    self.rubrics.remove(rubric);
+            });
+        };
+    }
+
+    var allData = <?=CJSON::encode($this->user->blog_rubrics)?>;
+    var BlogRubrics = new BlogRubricsViewModel(allData);
+    ko.applyBindings(BlogRubrics);
+
+    $(function() {
+        $(".sortable").sortable({
+            connectWith: ".sortable",
+            update: function(event, ui) {
+                $.post('/blog/updateSort/', $('#firstColumn').sortable('serialize') + '&' + $('#secondColumn').sortable('serialize'), function(data) {
+                    console.log(data);
+                });
+            }
+        }).disableSelection();
+    });
+</script>
 
 <?php $this->endContent(); ?>

@@ -6,7 +6,7 @@
         <meta content="text/html; charset=utf-8" http-equiv="content-type">
         <meta content="telephone=no" name="format-detection">
         <meta content="176" name="/Optimized">
-        <title>Весёлый жираф - мобильная версия</title>
+        <title><?=$this->pageTitle?></title>
         <!--
         CSS
         Конечному пользователю нужно отправлять скомпилированный файл css
@@ -50,7 +50,7 @@
                             </a>
                         </li>
                         <li class="nav_li">
-                            <a href="<?=$this->createUrl('/horoscrope/index')?>" class="nav_i">
+                            <a href="<?=$this->createUrl('/horoscope/index')?>" class="nav_i">
                                 <i class="nav_ico nav_ico__horoscope"></i>
                                 Гороскопы
                             </a>
@@ -88,12 +88,49 @@
 
             <div class="footer">
                 <div class="margin-b5">
-                    <a href="" class="full-version">Полная версия</a>
+                    <a href="http://www.happy-giraffe.ru/?nomo=1" class="full-version">Полная версия</a>
                 </div>
                 <div class="clearfix">
                     Веселый Жираф © 2012-2013 <br>Все права защищены
                 </div>
             </div>
         </div>
+
+        <!-- Yandex.Metrika counter -->
+        <script type="text/javascript">
+            (function (d, w, c) {
+                (w[c] = w[c] || []).push(function() {
+                    try {
+                        w.yaCounter11221648 = new Ya.Metrika({id:11221648, enableAll: true, trackHash:true, webvisor:true});
+                    } catch(e) {}
+                });
+
+                var n = d.getElementsByTagName("script")[0],
+                    s = d.createElement("script"),
+                    f = function () { n.parentNode.insertBefore(s, n); };
+                s.type = "text/javascript";
+                s.async = true;
+                s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+
+                if (w.opera == "[object Opera]") {
+                    d.addEventListener("DOMContentLoaded", f);
+                } else { f(); }
+            })(document, window, "yandex_metrika_callbacks");
+        </script>
+        <noscript><div><img src="//mc.yandex.ru/watch/11221648" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+        <!-- /Yandex.Metrika counter -->
+
+        <script type="text/javascript">
+
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', '<?=Yii::app()->params['gaCode']  ?>']);
+            _gaq.push(['_trackPageview']);
+
+            (function() {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+        </script>
     </body>
 </html>

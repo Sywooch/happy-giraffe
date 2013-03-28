@@ -17,133 +17,21 @@ Yii::import('site.frontend.helpers.*');
 
 class SeoCommand extends CConsoleCommand
 {
-    public function actionParseSeVisits()
-    {
-        $metrica = new YandexMetrica();
-        $metrica->parseQueries();
-        $metrica->convertToSearchPhraseVisits();
-    }
-
-    public function actionParseDataForSe()
-    {
-        $metrica = new YandexMetrica();
-        $metrica->parseDataForAllSE();
-    }
-
-    public function actionConvertVisits()
-    {
-        $metrica = new YandexMetrica();
-        $metrica->convertToSearchPhraseVisits();
-    }
-
-    public function actionConvertPrevVisits($week)
-    {
-        $metrica = new YandexMetrica($week);
-        $metrica->convertToSearchPhraseVisits();
-    }
-
-    public function actionParseMonthTraffic()
-    {
-        $metrica = new YandexMetrica(1);
-        $metrica->parseQueries();
-        $metrica->convertToSearchPhraseVisits();
-
-        $metrica = new YandexMetrica(2);
-        $metrica->parseQueries();
-        $metrica->convertToSearchPhraseVisits();
-
-        $metrica = new YandexMetrica(3);
-        $metrica->parseQueries();
-        $metrica->convertToSearchPhraseVisits();
-    }
-
-    public function actionWeekTraffic($week)
-    {
-        $metrica = new YandexMetrica($week);
-        $metrica->parseQueries();
-        $metrica->convertToSearchPhraseVisits();
-    }
-
     public function actionStopThreads()
     {
         Config::setAttribute('stop_threads', 1);
     }
 
-    public function actionWordstat($mode = 0)
+    public function actionWordstat($thread_id = 0)
     {
-        $parser = new WordstatParser();
-        $parser->start($mode);
-    }
-
-    public function actionCalculateMain()
-    {
-        $metrica = new YandexMetrica();
-        $metrica->calculateMain();
-    }
-
-    public function actionAddSeVisitsToWordStat()
-    {
-        $se = PagesSearchPhrase::model()->findAll();
-
-        foreach ($se as $phrase) {
-            $yandex = YandexPopularity::model()->find('keyword_id =' . $phrase->keyword_id);
-            if ($yandex !== null && $yandex->parsed == 1)
-                continue;
-
-            $model = ParsingKeyword::model()->find('keyword_id =' . $phrase->keyword_id);
-            if ($model === null) {
-                $parse = new ParsingKeyword();
-                $parse->keyword_id = $phrase->keyword_id;
-                $parse->depth = 1;
-                $parse->priority = 5;
-                if (!$parse->save()) {
-                    var_dump($parse->getErrors());
-                    Yii::app()->end();
-                }
-            } else {
-                $model->priority = 5;
-                $model->save();
-            }
-        }
+        $parser = new WordstatParser($thread_id);
+        $parser->parsing_type = WordstatParser::TYPE_STRICT;
+        $parser->start();
     }
 
     public function actionProxy()
     {
         ProxyRefresher::execute();
-    }
-
-    public function actionAddToParsing()
-    {
-        $criteria = new CDbCriteria;
-        $criteria->limit = 1000;
-
-        $i = 0;
-        $visits = array(1);
-        while (!empty($visits)) {
-            $criteria->offset = 1000 * $i;
-
-            $visits = SiteKeywordVisit::model()->findAll($criteria);
-            foreach ($visits as $visit) {
-                $yandex = YandexPopularity::model()->find('keyword_id =' . $visit->keyword_id);
-                if ($yandex !== null && $yandex->parsed == 1)
-                    continue;
-
-                $model = ParsingKeyword::model()->find('keyword_id =' . $visit->keyword_id);
-                if ($model === null) {
-                    $parse = new ParsingKeyword();
-                    $parse->keyword_id = $visit->keyword_id;
-                    $parse->priority = 4;
-                    if (!$parse->save()) {
-                        var_dump($parse->getErrors());
-                        Yii::app()->end();
-                    }
-                } else {
-                    $model->priority = 4;
-                    $model->save();
-                }
-            }
-            $i++;
-        }
     }
 
     public function actionDeletePageDuplicates()
@@ -218,69 +106,6 @@ class SeoCommand extends CConsoleCommand
         }
     }
 
-    public function actionMailruForumParser()
-    {
-        Yii::import('site.seo.modules.mailru.components.*');
-
-        $parser = new MailRuForumParser;
-        $parser->start();
-    }
-
-    public function actionMailruForumThemeParser()
-    {
-        Yii::import('site.seo.modules.mailru.components.*');
-
-        $parser = new MailRuForumThemeParser;
-        $parser->start();
-    }
-
-    public function actionMailruCommunityUsersParser()
-    {
-        Yii::import('site.seo.modules.mailru.components.*');
-
-        $parser = new MailRuCommunityUsersParser;
-        $parser->start();
-    }
-
-    public function actionDetiUsersParser()
-    {
-        Yii::import('site.seo.modules.mailru.components.*');
-
-        $parser = new DetiUserSearchParser();
-        $parser->start();
-    }
-
-    public function actionDetiFriendsParser()
-    {
-        Yii::import('site.seo.modules.mailru.components.*');
-
-        $parser = new DetiFriendsParser();
-        $parser->start();
-    }
-
-    public function actionMailruCollect()
-    {
-        Yii::import('site.seo.modules.mailru.components.*');
-
-        MailRuForumParser::collectContests();
-    }
-
-    public function actionMailruCount()
-    {
-        Yii::import('site.seo.modules.mailru.components.*');
-
-        $models = Yii::app()->db_seo->createCommand()
-            ->selectDistinct('parent_id')
-            ->from('mailru__babies')
-            ->queryColumn();
-        echo count($models) . " parents have children \n";
-
-        echo  Yii::app()->db_seo->createCommand()
-            ->select('count(id)')
-            ->from('mailru__babies')
-            ->queryScalar() . " babies count\n";
-    }
-
     public function actionPopular()
     {
         $criteria = new EMongoCriteria();
@@ -319,27 +144,10 @@ class SeoCommand extends CConsoleCommand
         TrafficStatisctic::model()->parse();
     }
 
-    public function actionLi($site)
-    {
-        Yii::import('site.seo.modules.competitors.components.*');
-        $last_parsed = SeoUserAttributes::getAttribute('last_li_parsed_'.date("Y-m") , 1);
-        if (empty($site)) {
-            $parser = new LiParser;
-
-            if (!empty($last_parsed))
-                $sites = Site::model()->findAll('id > '.$last_parsed);
-            else
-                $sites = Site::model()->findAll();
-
-            foreach ($sites as $site) {
-                $parser->start($site->id, 2012, 12, 12);
-
-                SeoUserAttributes::setAttribute('last_li_parsed_'.date("Y-m") , $site->id, 1);
-            }
-        } else {
-            $parser = new LiParser;
-            $parser->start($site, 2012, 12, 12);
-        }
+    public function actionTest(){
+        $parser = new WordstatParser(1);
+        $parser->parsing_type = WordstatParser::TYPE_STRICT;
+        $parser->start(true);
     }
 }
 

@@ -85,7 +85,7 @@ class UserController extends HController
             throw new CHttpException(404, 'Пользователь не найден');
 
         foreach ($this->actionParams as $p => $v)
-            if ($p == 'Comment_page') {
+            if ($p == 'Comment_page' || $p == 'FriendEvent_page') {
                 Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
             }
         //if (!$user->calculateAccess('profile_access', Yii::app()->user->id))

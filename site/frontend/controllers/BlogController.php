@@ -5,6 +5,9 @@
  */
 class BlogController extends HController
 {
+    /**
+     * @var User
+     */
     public $user;
     public $rubric_id;
 
@@ -12,9 +15,15 @@ class BlogController extends HController
     {
         return array(
             'accessControl',
+            array(
+                'CHttpCacheFilter + view',
+                'lastModified' => $this->lastModified(),
+            ),
 //            array(
-//                'CHttpCacheFilter + view',
-//                'lastModified' => $this->lastModified(),
+//                'COutputCache + view',
+//                'duration' => 300,
+//                'varyByParam' => array('content_id', 'Comment_page'),
+//                'varyByExpression' => Yii::app()->user->id . $this->lastModified(),
 //            ),
         );
     }
@@ -173,7 +182,7 @@ class BlogController extends HController
         $this->layout = '//layouts/user_blog';
 
         $this->user = User::model()->findByPk($user_id);
-        if ($this->user === null)
+        if ($this->user === null)// || $this->user->deleted)
             throw new CHttpException(404, 'Пользователь не найден');
         $this->pageTitle = 'Блог';
 
@@ -181,7 +190,7 @@ class BlogController extends HController
 
         $this->rubric_id = $rubric_id;
 
-        if ($contents->data)
+        if ($this->user->hasRssContent())
             $this->rssFeed = $this->createUrl('rss/user', array('user_id' => $user_id));
         $this->render('list', array(
             'contents' => $contents,
@@ -207,9 +216,7 @@ class BlogController extends HController
 
         $content = BlogContent::model()->active()->full()->findByPk($content_id);
 
-        if ($content === null)
-            throw new CHttpException(404, 'Такой записи не существует');
-        if ($content->author_id !== $user_id)
+        if ($content === null || $content->author_id !== $user_id)// || $content->author->deleted)
             throw new CHttpException(404, 'Такой записи не существует');
 
         if (! preg_match('#^\/user\/(\d+)\/blog\/post(\d+)\/#', Yii::app()->request->requestUri)) {
@@ -246,6 +253,66 @@ class BlogController extends HController
 
         $this->user = Yii::app()->user->model;
         $this->render('empty');
+    }
+
+    public function actionDeleteBlogRubric()
+    {
+        $id = Yii::app()->request->getPost('id');
+
+        $success = CommunityRubric::model()->deleteByPk($id);
+
+        echo CJavaScript::encode($success);
+    }
+
+    public function actionAddRubric()
+    {
+        $title = Yii::app()->request->getPost('title');
+
+        $model = new CommunityRubric();
+        $model->title = $title;
+        $model->user_id = Yii::app()->user->id;
+        if ($model->save()) {
+            $response = array(
+                'success' => true,
+                'model' => $model,
+            );
+        } else {
+            $response = array(
+                'success' => false,
+                'erros' => $model->errors,
+            );
+        }
+
+        echo CJSON::encode($response);
+    }
+
+    public function actionEditRubric()
+    {
+        $id = Yii::app()->request->getPost('id');
+        $title = Yii::app()->request->getPost('title');
+
+        $model = CommunityRubric::model()->findByPk($id);
+
+        $model->title = $title;
+        if ($model->save()) {
+            $response = array(
+                'success' => true,
+                'model' => $model,
+            );
+        } else {
+            $response = array(
+                'success' => false,
+                'erros' => $model->errors,
+            );
+        }
+
+        echo CJSON::encode($response);
+    }
+
+    public function actionUpdateSort()
+    {
+        foreach ($_POST['rubric'] as $sort => $id)
+            CommunityRubric::model()->updateByPk($id, array('sort' => $sort));
     }
 
     public function sitemapView()
@@ -299,6 +366,15 @@ class BlogController extends HController
         $command = Yii::app()->db->createCommand($sql);
         $command->bindValue(':content_id', $content_id, PDO::PARAM_INT);
         $command->bindValue(':community_id', $community_id, PDO::PARAM_INT);
-        return $command->queryScalar();
+        $t1 = strtotime($command->queryScalar());
+
+        //проверяем блок внутренней перелинковки
+        $url = 'http://www.happy-giraffe.ru' . Yii::app()->request->getRequestUri();
+        $t2 = InnerLinksBlock::model()->getUpTime($url);
+
+        if (empty($t2))
+            return $t1;
+
+        return date("Y-m-d H:i:s", max($t1, $t2));
     }
 }

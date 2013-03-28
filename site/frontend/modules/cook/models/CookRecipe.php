@@ -331,6 +331,7 @@ class CookRecipe extends CActiveRecord
 
     public function beforeDelete()
     {
+        FriendEvent::postDeleted('CookRecipe', $this->id);
         Yii::app()->db->createCommand()->update($this->tableName(), array('removed' => 1), 'id=:id', array(':id' => $this->id));
 
         //удаляем из кулинарной книги автора, но у других рецепт остается
@@ -802,7 +803,7 @@ class CookRecipe extends CActiveRecord
         $criteria->from = 'recipe';
         $criteria->select = '*';
         $criteria->paginator = $pages;
-        $criteria->query = $text;
+        $criteria->query = Str::prepareForSphinxSearch($text);
 
         $idArray = $this->getSearchResultIdArray($criteria);
         $criteria = new CDbCriteria;

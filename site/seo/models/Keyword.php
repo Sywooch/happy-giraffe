@@ -6,16 +6,15 @@
  * The followings are the available columns in table 'seo_keywords':
  * @property integer $id
  * @property string $name
- * @property string $our
+ * @property string $wordstat
  *
  * The followings are the available model relations:
  * @property SiteKeywordVisit[] $seoStats
  * @property KeywordGroup[] $group
  * @property KeywordsBlacklist $blacklist
- * @property YandexPopularity $yandex
  * @property TempKeyword $tempKeyword
  */
-class Keyword extends HActiveRecord
+class Keyword extends CActiveRecord
 {
     public $btns;
 
@@ -47,7 +46,8 @@ class Keyword extends HActiveRecord
     public function rules()
     {
         return array(
-            array('name', 'length', 'max' => 1024),
+            array('name', 'required'),
+            array('name', 'length', 'max' => 120),
             array('id, name, our', 'safe', 'on' => 'search'),
         );
     }
@@ -60,7 +60,6 @@ class Keyword extends HActiveRecord
         return array(
             'seoStats' => array(self::HAS_MANY, 'SiteKeywordVisit', 'keyword_id'),
             'group' => array(self::MANY_MANY, 'KeywordGroup', 'keyword_group_keywords(keyword_id, group_id)'),
-            'yandex' => array(self::HAS_ONE, 'YandexPopularity', 'keyword_id'),
             'tempKeyword' => array(self::HAS_ONE, 'TempKeyword', 'keyword_id'),
             'blacklist' => array(self::HAS_ONE, 'KeywordsBlacklist', 'keyword_id'),
         );
@@ -75,78 +74,6 @@ class Keyword extends HActiveRecord
             'id' => 'ID',
             'name' => 'Name',
         );
-    }
-
-    /**
-     * Retrieves a list of models based on the current search/filter conditions.
-     * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
-     */
-    public function search()
-    {
-        $criteria = new CDbCriteria;
-        $criteria->condition = 't.id NOT IN (SELECT keyword_id from happy_giraffe_seo.keywords__blacklist WHERE user_id = :me)';
-        $criteria->params = array(':me'=>Yii::app()->user->id);
-
-        if (!empty($this->name)) {
-            $allSearch = Yii::app()->search
-                ->select('*')
-                ->from('keywords')
-                ->where(' ' . $this->name . ' ')
-                ->limit(0, 10000)
-                ->searchRaw();
-            $ids = array();
-
-            foreach ($allSearch['matches'] as $key => $m)
-                $ids [] = $key;
-
-            if (!empty($ids))
-                $criteria->compare('t.id', $ids);
-            else
-                $criteria->compare('t.id', 0);
-        }
-        $criteria->with = array('yandex');
-        $criteria->order = 'yandex.value desc';
-        $criteria->together = true;
-
-        return new CActiveDataProvider('Keyword', array(
-            'criteria' => $criteria,
-        ));
-    }
-
-    public function searchByTheme($theme)
-    {
-        $criteria = new CDbCriteria;
-        $criteria->with = array('yandex');
-        $criteria->order = 'yandex.value desc';
-        $criteria->condition = 'yandex.theme = ' . $theme . ' AND t.id NOT IN (SELECT keyword_id from happy_giraffe_seo.keywords__blacklist WHERE user_id = :me)';
-        $criteria->params = array(':me'=>Yii::app()->user->id);
-
-        if (!empty($this->name)) {
-            $allSearch = Yii::app()->search
-                ->select('*')
-                ->from('keywords')
-                ->where(' ' . $this->name . ' ')
-                ->limit(0, 5000)
-                ->searchRaw();
-            $ids = array();
-
-            $blacklist = Yii::app()->db_seo->createCommand('select keyword_id from ' . KeywordsBlacklist::model()->tableName())->queryColumn();
-            foreach ($allSearch['matches'] as $key => $m) {
-                if (!in_array($key, $blacklist))
-                    $ids [] = $key;
-            }
-
-            if (!empty($ids))
-                $criteria->compare('t.id', $ids);
-            else
-                $criteria->compare('t.id', 0);
-        }
-
-        return new CActiveDataProvider('Keyword', array(
-            'totalItemCount' => YandexPopularity::model()->count('theme = ' . $theme),
-            'criteria' => $criteria,
-            'pagination' => array('pageSize' => 100),
-        ));
     }
 
     public function findSimilarCount($name)
@@ -198,8 +125,7 @@ class Keyword extends HActiveRecord
             else
                 $criteria->compare('t.id', 0);
         }
-        $criteria->with = array('yandex');
-        $criteria->order = 'yandex.value desc';
+        $criteria->order = 'wordstat desc';
 
         return self::model()->findAll($criteria);
     }
@@ -208,20 +134,31 @@ class Keyword extends HActiveRecord
      * @static
      * @param string $word
      * @param int $priority
+     * @param null $wordstat
      * @return Keyword
      */
-    public static function GetKeyword($word, $priority = 1)
+    public static function GetKeyword($word, $priority = 0, $wordstat = null)
     {
-        $word = trim($word);
+        $word = WordstatQueryModify::prepareForSave($word);
+
         $model = self::model()->findByAttributes(array('name' => $word));
-        if ($model !== null)
+        if ($model !== null) {
+            if ($wordstat !== null) {
+                if ($model->wordstat != $wordstat) {
+                    $model->wordstat = $wordstat;
+                    $model->update('wordstat');
+                }
+                ParsingKeyword::wordstatParsed($model->id);
+            }
             return $model;
+        }
 
         $model = new Keyword();
         $model->name = $word;
+        $model->wordstat = $wordstat;
         try {
             $model->save();
-            ParsingKeyword::addNewKeyword($model->id, $priority);
+            ParsingKeyword::addNewKeyword($model, $priority, $wordstat);
         } catch (Exception $e) {
             //значит кейворд создан в промежуток времени между запросами - повторим запрос
             $model = self::model()->findByAttributes(array('name' => $word));
@@ -315,36 +252,29 @@ class Keyword extends HActiveRecord
      */
     public function getFreq()
     {
-        if (!isset($this->yandex))
+        if (empty($this->wordstat))
             return 0;
-        if ($this->yandex->value > 10000)
+        if ($this->wordstat > 10000)
             return 1;
-        if ($this->yandex->value >= 1500)
+        if ($this->wordstat >= 1500)
             return 2;
-        if ($this->yandex->value >= 500)
+        if ($this->wordstat >= 500)
             return 3;
         return 4;
     }
 
-    public function getFrequency()
-    {
-        if (isset($this->yandex))
-            return $this->yandex->value;
-        return '';
-    }
-
     public function getRoundFrequency()
     {
-        if (empty($this->yandex))
+        if (empty($this->wordstat))
             return '';
 
-        if ($this->yandex->value > 1000)
-            return round($this->yandex->value / 1000, 1);
+        if ($this->wordstat > 1000)
+            return round($this->wordstat / 1000, 1);
 
-        if ($this->yandex->value > 100)
-            return round($this->yandex->value / 1000, 2);
+        if ($this->wordstat > 100)
+            return round($this->wordstat / 1000, 2);
 
-        return round($this->yandex->value / 1000, 3);
+        return round($this->wordstat / 1000, 3);
     }
 
     /**
@@ -369,13 +299,13 @@ class Keyword extends HActiveRecord
     public static function getFreqCondition($freq)
     {
         if ($freq == 1)
-            return 'yandex.value > 10000';
+            return 'wordstat > 10000';
         if ($freq == 2)
-            return 'yandex.value <= 10000 AND yandex.value > 1500';
+            return 'wordstat <= 10000 AND wordstat > 1500';
         if ($freq == 3)
-            return 'yandex.value <= 1500 AND yandex.value > 500';
+            return 'wordstat <= 1500 AND wordstat > 500';
         if ($freq == 4)
-            return 'yandex.value < 500';
+            return 'wordstat < 500';
 
         return '';
     }
@@ -449,102 +379,40 @@ class Keyword extends HActiveRecord
             )) . '<a onclick="SeoModule.unbindKeyword(this, ' . $this->id . ')" class="icon-link active" href="javascript:;"></a>';
         }
 
-        $res .= $this->getSimilarArticlesHtml($section);
+        $res .= $this->getSimilarArticlesHtml();
         return $res;
     }
 
-    public function getSimilarArticlesHtml($section = 1)
+    public function getSimilarArticlesHtml()
     {
-        Yii::import('site.frontend.modules.cook.models.*');
-        Yii::import('site.frontend.extensions.*');
-
-        $res = Yii::app()->cache->get('similar_articles__' . $this->id);
-        if ($res === false) {
-            $models = $this->getSimilarArticles($section);
-            if (!empty($models)) {
-                $res = '<a href="javascript:;" class="icon-links-trigger" onclick="$(this).toggleClass(\'triggered\').next().toggle();"></a><div class="links" style="display:none;">';
-                foreach ($models as $model) {
-                    $res .= CHtml::link($model->title, 'http://www.happy-giraffe.ru' . $model->url, array('target' => '_blank')) . '  ';
-                    $res .= CHtml::link('', 'javascript:;', array(
-                        'onclick' => 'SeoModule.bindKeywordToArticle(' . $this->id . ', ' . $model->id . ', ' . $section . ', this);',
-                        'class' => 'icon-link'
-                    )) . '<br>';
-                }
+        Yii::import('site.seo.modules.writing.components.*');
+        $models = SimilarArticles::getArticles($this->id);
+        if (!empty($models)) {
+            $res = '<a href="javascript:;" class="icon-links-trigger" onclick="$(this).toggleClass(\'triggered\').next().toggle();"></a><div class="links" style="display:none;">';
+            foreach ($models as $model) {
+                $res .= CHtml::link($model->title, 'http://www.happy-giraffe.ru' . $model->url, array('target' => '_blank')) . '  ';
                 $res .= CHtml::link('', 'javascript:;', array(
-                    'onclick' => '$(this).next().toggle()',
+                    'onclick' => 'SeoModule.bindKeywordToArticle(' . $this->id . ', ' . $model->id . ', "' . get_class($model) . '", this);',
                     'class' => 'icon-link'
-                )) . '<div style="display:none;">
+                )) . '<br>';
+            }
+            $res .= CHtml::link('', 'javascript:;', array(
+                'onclick' => '$(this).next().toggle()',
+                'class' => 'icon-link'
+            )) . '<div style="display:none;">
                           <input type="text" size="40">
                           <a href="javascript:;" class="btn-green-small" onclick="SeoModule.bindKeyword(this, ' . $this->id . ');">Ok</a>
                       </div></div>';
-            } else {
-                $res = CHtml::link('', 'javascript:;', array(
-                    'onclick' => '$(this).next().toggle()',
-                    'class' => 'icon-link'
-                )) . '<div style="display:none;">
+        } else {
+            $res = CHtml::link('', 'javascript:;', array(
+                'onclick' => '$(this).next().toggle()',
+                'class' => 'icon-link'
+            )) . '<div style="display:none;">
                           <input type="text" size="40">
                           <a href="javascript:;" class="btn-green-small" onclick="SeoModule.bindKeyword(this, ' . $this->id . ');">Ok</a>
                       </div>';
-            }
-
-            Yii::app()->cache->set('similar_articles__' . $this->id, $res, 24 * 3600);
         }
 
         return $res;
-    }
-
-    public function getSimilarArticles($section)
-    {
-        $limit = 10;
-        $this->name = str_replace('/', '', $this->name);
-
-        $sphinx_index = 'communityTextTitle';
-        if ($section == SeoTask::SECTION_COOK)
-            $sphinx_index = 'recipe';
-
-        try {
-            $allSearch = Yii::app()->search
-                ->select('*')
-                ->from($sphinx_index)
-                ->where(' ' . CHtml::encode($this->name) . ' ')
-                ->limit(0, $limit)
-                ->searchRaw();
-        } catch (Exception $e) {
-            return null;
-        }
-        if (empty($allSearch['matches']))
-            return null;
-
-        $ids = array();
-
-        $i = 0;
-        foreach ($allSearch['matches'] as $key => $m) {
-            $ids [] = $key;
-            $i++;
-            if ($i > $limit)
-                break;
-        }
-
-        $criteria = new CDbCriteria;
-        $criteria->compare('t.id', $ids);
-        $criteria->limit = $limit;
-
-        $class = 'CommunityContent';
-        if ($section == SeoTask::SECTION_COOK) {
-            $class = 'CookRecipe';
-            $criteria->with = array('tags');
-        }
-
-        $models = $class::model()->resetScope()->findAll($criteria);
-
-        //check if article is busy
-        foreach ($models as $key => $model) {
-            $url = 'http://www.happy-giraffe.ru' . $model->url;
-            $page = Page::model()->with(array('keywordGroup'))->findByAttributes(array('url' => $url));
-            if ($page !== null && !empty($page->keywordGroup->keywords))
-                unset($models[$key]);
-        }
-
-        return $models;
     }
 }

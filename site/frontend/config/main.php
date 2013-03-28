@@ -27,6 +27,7 @@ return array(
 		'application.components.*',
 		'application.helpers.*',
         'application.widgets.*',
+        'application.vendor.*',
 		'ext.eoauth.*',
 		'ext.eoauth.lib.*',
 		'ext.lightopenid.*',
@@ -97,7 +98,7 @@ return array(
         'calendar',
         'whatsNew',
         'valentinesDay',
-        'route'
+        'routes'
 	),
 
 	// application components
@@ -321,9 +322,6 @@ return array(
         'email'=>array(
             'class' => 'site.common.components.HEmailSender',
         ),
-        'geoCode'=>array(
-            'class' => 'site.frontend.modules.geo.components.GoogleMapsGeoCode',
-        ),
 	),
 
 	// application-level parameters that can be accessed
@@ -395,6 +393,9 @@ return array(
         'controllerMap' => array(
             'sitemap' => array(
                 'class' => 'ext.sitemapgenerator.SGController',
+                'import'=>array(
+                    'routes.models.Route'
+                ),
                 'config' => array(
                     'sitemap.xml' => array(
                         'index' => true,
@@ -417,6 +418,30 @@ return array(
                             'application.modules.cook.controllers.RecipeController',
                         ),
                     ),
+//                    'sitemapRoutes1.xml' => array(
+//                        'aliases' => array(
+//                            'application.modules.routes.controllers.DefaultController',
+//                        ),
+//                        'param'=>1
+//                    ),
+//                    'sitemapRoutes2.xml' => array(
+//                        'aliases' => array(
+//                            'application.modules.routes.controllers.DefaultController',
+//                        ),
+//                        'param'=>2
+//                    ),
+//                    'sitemapRoutes3.xml' => array(
+//                        'aliases' => array(
+//                            'application.modules.routes.controllers.DefaultController',
+//                        ),
+//                        'param'=>3
+//                    ),
+//                    'sitemapRoutes4.xml' => array(
+//                        'aliases' => array(
+//                            'application.modules.routes.controllers.DefaultController',
+//                        ),
+//                        'param'=>4
+//                    ),
                     'sitemapAll.xml' => array(
                         'aliases' => array(
                             'application.controllers.SiteController',

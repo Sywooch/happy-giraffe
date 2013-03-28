@@ -181,10 +181,4 @@ class DefaultController extends HController
         $region = GeoRegion::model()->findByPk($id);
         echo CJSON::encode(array('status' => $region->isCity()));
     }
-
-    public function actionTest(){
-        $inc = new CityDeclension;
-        $res = $inc->getDeclensions('Чебоксары');
-        var_dump($res);
-    }
 }

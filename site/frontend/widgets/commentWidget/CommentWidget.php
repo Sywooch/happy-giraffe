@@ -34,6 +34,7 @@ class CommentWidget extends CWidget
     public $popUp = false;
     public $commentModel  = 'Comment';
     public $photoContainer = false;
+    public $notice = '';
 
     /**
      * @var bool
@@ -137,7 +138,7 @@ class CommentWidget extends CWidget
             Yii::app()->clientScript->registerScriptFile('/javascripts/history.js');
         }
 
-        if(!$this->onlyList)
+        if(! $this->onlyList && ! Yii::app()->user->isGuest)
         {
             Yii::app()->clientScript->registerScriptFile(Yii::app()->baseUrl . '/ckeditor/ckeditor.js?2')
                 ->registerScriptFile(Yii::app()->baseUrl . '/ckeditor/adapters/jquery.js');

@@ -44,10 +44,11 @@ class LinkingController extends SController
         }
     }
 
-    public function actionCheckLinks(){
+    public function actionCheckLinks()
+    {
         $link = new InnerLink();
-        if(isset($_GET['InnerLink']))
-            $link->attributes=$_GET['InnerLink'];
+        if (isset($_GET['InnerLink']))
+            $link->attributes = $_GET['InnerLink'];
 
         $this->render('check_links', compact('link'));
     }
@@ -237,16 +238,16 @@ class LinkingController extends SController
         $article = $phrase->page->getArticle();
         if (!empty($article)) {
             foreach (array('getPrevPost', 'getNextPost') as $method)
-            if (method_exists ($article, $method)){
-                $post = $article->$method();
-                if ($post !== null) {
-                    $ulr = 'http://www.happy-giraffe.ru' . $post->getUrl(false);
-                    foreach ($pages as $key => $page) {
-                        if ($page->url == $ulr)
-                            unset($pages[$key]);
+                if (method_exists($article, $method)) {
+                    $post = $article->$method();
+                    if ($post !== null) {
+                        $ulr = 'http://www.happy-giraffe.ru' . $post->getUrl(false);
+                        foreach ($pages as $key => $page) {
+                            if ($page->url == $ulr)
+                                unset($pages[$key]);
+                        }
                     }
                 }
-            }
         }
 
         return $pages;
@@ -311,6 +312,16 @@ class LinkingController extends SController
         }
 
         echo CJSON::encode(array('status' => true));
+    }
+
+    public function actionShowLinks()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->condition = 'date > "' . date("Y-m-d", strtotime('-3 days')) . '"';
+        $criteria->limit = 30;
+        $criteria->order = 'rand()';
+        $links = InnerLink::model()->findAll($criteria);
+        $this->render('show_random_links', compact('links'));
     }
 
     /**

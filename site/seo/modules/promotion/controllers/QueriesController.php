@@ -42,11 +42,11 @@ class QueriesController extends SController
         $criteria = new CDbCriteria;
 
         if (!empty($mode)){
-            $criteria->with = array('phrases', 'phrases.keyword', 'phrases.keyword.yandex', 'phrases.lastPosition');
+            $criteria->with = array('phrases', 'phrases.keyword', 'phrases.lastPosition');
             $criteria->together = true;
         }
         else
-            $criteria->with = array('phrases', 'phrases.keyword', 'phrases.keyword.yandex');
+            $criteria->with = array('phrases', 'phrases.keyword');
 
         if ($period == 2)
             $criteria->condition = '(yandex_month_visits != 0 OR google_month_visits != 0)';
@@ -54,13 +54,13 @@ class QueriesController extends SController
             $criteria->condition = '(yandex_week_visits != 0 OR google_week_visits != 0)';
 
         if ($mode == 1)
-            $criteria->condition.= ' AND `yandex`.`value` >= 10000 AND `lastPosition`.`position` > 20 AND `lastPosition`.`position` < 1000 ';
+            $criteria->condition.= ' AND wordstat >= 10000 AND `lastPosition`.`position` > 20 AND `lastPosition`.`position` < 1000 ';
         elseif ($mode == 2)
-            $criteria->condition.= ' AND `yandex`.`value` >= 10000 AND `lastPosition`.`position` > 10 AND `lastPosition`.`position` <= 20';
+            $criteria->condition.= ' AND wordstat >= 10000 AND `lastPosition`.`position` > 10 AND `lastPosition`.`position` <= 20';
         elseif ($mode == 3)
-            $criteria->condition.= ' AND `yandex`.`value` > 1500 AND `yandex`.`value` < 10000 AND `lastPosition`.`position` > 20 AND `lastPosition`.`position` < 1000 ';
+            $criteria->condition.= ' AND wordstat > 1500 AND wordstat < 10000 AND `lastPosition`.`position` > 20 AND `lastPosition`.`position` < 1000 ';
         elseif ($mode == 4)
-            $criteria->condition.= ' AND `yandex`.`value` > 1500 AND `yandex`.`value` < 10000 AND `lastPosition`.`position` > 10 AND `lastPosition`.`position` <= 20 ';
+            $criteria->condition.= ' AND wordstat > 1500 AND wordstat < 10000 AND `lastPosition`.`position` > 10 AND `lastPosition`.`position` <= 20 ';
 
 
         if ($sort == 'yandex_visits' && $period == 1) {
@@ -87,23 +87,6 @@ class QueriesController extends SController
 
         $models = Page::model()->findAll($criteria);
         $this->render('admin', compact('models', 'pages', 'period', 'mode'));
-    }
-
-    public function actionParse()
-    {
-        if (!Yii::app()->user->checkAccess('admin'))
-            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
-
-        $metrica = new YandexMetrica();
-        $metrica->parseQueries();
-        $metrica->convertToSearchPhraseVisits();
-
-        $response = array(
-            'status' => true,
-            'count' => Query::model()->count()
-        );
-
-        echo CJSON::encode($response);
     }
 
     public function getDates($period)

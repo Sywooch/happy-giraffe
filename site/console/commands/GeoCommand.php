@@ -5,7 +5,8 @@
  */
 class GeoCommand extends CConsoleCommand
 {
-    public function beforeAction($action){
+    public function beforeAction($action)
+    {
         Yii::import('site.frontend.modules.geo.components.*');
         Yii::import('site.frontend.modules.geo.models.*');
         Yii::import('site.frontend.modules.route.models.*');
@@ -34,16 +35,12 @@ class GeoCommand extends CConsoleCommand
         }
     }
 
-    public function actionParseRoutes($debug = false)
+    public function actionGoogleRoute()
     {
-        $parser = new RouteSeasonParser();
-        $parser->start($debug);
-    }
+        time_nanosleep(rand(0, 10), rand(0, 1000000000));
 
-    public function actionCoordinates()
-    {
-        $parser = new GoogleCoordinatesParser(false, true);
-        $parser->start();
+        $parser = new GoogleRouteParser();
+        $parser->startParse();
     }
 
     public function actionCopyRoutes()
@@ -68,24 +65,36 @@ class GeoCommand extends CConsoleCommand
         }
     }
 
-    public function actionCopyCities()
+    public function actionShowCounts()
     {
-        $criteria = new CDbCriteria;
-        $criteria->limit = 100;
-        $criteria->offset = 0;
+        CRouteLinking::model()->showCounts();
+    }
 
-        $models = array(0);
-        while (!empty($models)) {
-            $models = GeoCity::model()->findAll($criteria);
-
-            foreach ($models as $model) {
-                $m = new SeoCityCoordinates;
-                $m->city_id = $model->id;
-                $m->save();
-            }
-
-            $criteria->offset += 100;
+    public function actionReturnRoutes()
+    {
+        for ($i = 1; $i <= 71008; $i++) {
+            $r = Route::model()->findByPk($i);
+            if ($r !== null)
+                $r->createReturnRoute();
         }
+    }
+
+    public function actionLinks()
+    {
+        $l = new CRouteLinking;
+        $l->start();
+    }
+
+    public function actionLinks2()
+    {
+        $l = new CRouteLinking;
+        $l->startStage2();
+    }
+
+    public function actionCityCoordinates()
+    {
+        $parser = new GoogleCoordinatesParser(false, true);
+        $parser->start();
     }
 
     public function actionRosneft()
@@ -94,15 +103,24 @@ class GeoCommand extends CConsoleCommand
         $parser->start();
     }
 
-    public function actionDecl(){
-        $c = new CityDeclension();
+    public function actionTest()
+    {
+        $cities = file_get_contents('/home/giraffe/cities2.txt');
+        $cities = explode("\n", $cities);
 
-        $cities = GeoCity::model()->findAll('type="г"');
         foreach($cities as $city){
-            list($n1, $n2) = $c->getDeclensions($city->name);
-            $city->name_from = $n1;
-            $city->name_between = $n2;
-            $city->update(array('name_from', 'name_between'));
+            $city = trim($city);
+            if (empty($city))
+                continue;
+
+            $model = Keyword::model()->findByAttributes(array('name' => $city));
+            if ($model === null){
+                $model = new Keyword;
+                $model->name = $city;
+                $model->save();
+            }
+
+            ParsingKeyword::addNewKeyword($model, 100);
         }
     }
 }

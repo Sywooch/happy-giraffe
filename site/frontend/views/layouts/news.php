@@ -29,7 +29,7 @@
                 $items[] = array(
                     'label' => 'Все новости',
                     'url' => array('community/list', 'community_id' => $this->community->id),
-                    'template' => '<span>{menu}</span><div class="count">' . $this->community->count . '</div>',
+                    'template' => '<span>{menu}</span>',//<div class="count">' . $this->community->count . '</div>',
                     'active' => ! (in_array($this->action->id, array('contacts', 'authors'))) && $this->rubric_id === null,
                 );
 
@@ -41,7 +41,7 @@
                     $items[] = array(
                         'label' => $rubric->title,
                         'url' => $this->getUrl($params),
-                        'template' => '<span>{menu}</span><div class="count">' . $rubric->contentsCount . '</div>',
+                        'template' => '<span>{menu}</span>',//<div class="count">' . $rubric->contentsCount . '</div>',
                         'active' => ! (in_array($this->action->id, array('contacts', 'authors'))) && $rubric->id == $this->rubric_id,
                     );
                 }

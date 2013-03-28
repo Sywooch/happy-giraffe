@@ -13,9 +13,15 @@ class CommunityController extends HController
     {
         return array(
             'accessControl',
+            array(
+                'CHttpCacheFilter + view',
+                'lastModified' => $this->lastModified(),
+            ),
 //            array(
-//                'CHttpCacheFilter + view',
-//                'lastModified' => $this->lastModified(),
+//                'COutputCache + view',
+//                'duration' => 300,
+//                'varyByParam' => array('content_id', 'Comment_page'),
+//                'varyByExpression' => Yii::app()->user->id . $this->lastModified(),
 //            ),
         );
     }
@@ -147,6 +153,9 @@ class CommunityController extends HController
         $content = CommunityContent::model()->full()->findByPk($content_id);
         if ($content === null)
             throw new CHttpException(404, 'Такой записи не существует');
+
+        if (!empty($content_type_slug) && !in_array($content_type_slug, array('post', 'video')))
+            throw new CHttpException(404, 'Страницы не существует');
 
         if ($content->isFromBlog)
             throw new CHttpException(404, 'Такой записи не существует');
@@ -920,6 +929,16 @@ class CommunityController extends HController
         $command = Yii::app()->db->createCommand($sql);
         $command->bindValue(':content_id', $content_id, PDO::PARAM_INT);
         $command->bindValue(':community_id', $community_id, PDO::PARAM_INT);
-        return $command->queryScalar();
+        $t1 = strtotime($command->queryScalar());
+
+        //проверяем блок внутренней перелинковки
+        $url = 'http://www.happy-giraffe.ru' . Yii::app()->request->getRequestUri();
+        $t2 = InnerLinksBlock::model()->getUpTime($url);
+
+        if (empty($t2))
+            return $t1;
+
+        return date("Y-m-d H:i:s", max($t1, $t2));
+
     }
 }

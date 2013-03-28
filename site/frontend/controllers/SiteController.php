@@ -55,7 +55,7 @@ class SiteController extends HController
         $criteria->from = $index;
         $criteria->select = '*';
         $criteria->paginator = $pages;
-        $criteria->query = $text;
+        $criteria->query = Str::prepareForSphinxSearch($text);
         $resIterator = Yii::app()->search->search($criteria);
 
         $allSearch = $textSearch = Yii::app()->search->select('*')->from('community')->where($criteria->query)->limit(0, 100000)->searchRaw();
@@ -105,6 +105,7 @@ class SiteController extends HController
             {
                 if(file_exists(Yii::getPathOfAlias('application.views.system.' . $error['code']) . '.php'))
                 {
+                    $this->pageTitle = 'Ошибка';
                     $this->layout = '//system/layout';
                     Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl . '/stylesheets/common.css');
                     $this->render('//system/' . $error['code'], $error);

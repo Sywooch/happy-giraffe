@@ -37,7 +37,7 @@ class DefaultController extends HController
         $dp = new CActiveDataProvider('AlbumPhoto', array(
             'criteria' => $this->getValentinesCriteria(),
             'pagination' => array(
-                'pageSize' => 100,
+                'pageSize' => 150,
             ),
         ));
 
@@ -46,7 +46,7 @@ class DefaultController extends HController
 
     public function actionSms()
     {
-        $this->meta_title = '100 Смс о любви. Смс ко дню святого Валентина';
+        $this->meta_title = '205 Смс о любви. Смс ко дню святого Валентина';
 
         $criteria = new CDbCriteria;
         $pages = new CPagination(ValentineSms::model()->count());

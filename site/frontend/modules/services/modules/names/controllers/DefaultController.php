@@ -103,41 +103,44 @@ class DefaultController extends HController
         ));
     }
 
-    public function actionSaint($m = null, $gender = null)
+    public function actionSaint($month = null, $gender = null)
     {
-        if ($m !== null) {
-            $m = HDate::getMonthIndex($m);
-            $data = Name::GetSaintMonthArray($m, null);
-            $this->pageTitle = 'Имена по святцам - '.HDate::ruMonth($m);
+        if (isset($_GET['m']))
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
+        if ($month !== null) {
+            $month = HDate::getMonthIndex($month);
+            $data = Name::GetSaintMonthArray($month, null);
+            $this->pageTitle = 'Имена по святцам - '.HDate::ruMonth($month);
         } else{
             $this->pageTitle = 'Имена по святцам';
             $data = null;
         }
 
         if (Yii::app()->request->isAjaxRequest) {
-            if ($m === null) {
+            if ($month === null) {
                 $response = array(
                     'month' => null,
                     'html' => '',
                     'month_num' => null
                 );
             } else {
-                $data = Name::GetSaintMonthArray($m, $gender);
+                $data = Name::GetSaintMonthArray($month, $gender);
                 $response = array(
-                    'month' => HDate::ruMonth($m),
+                    'month' => HDate::ruMonth($month),
                     'html' => $this->renderPartial('saint_res', array(
                         'data' => $data,
                         'like_ids' => Name::GetLikeIds(),
-                        'month' => $m,
+                        'month' => $month,
                     ), true),
-                    'month_num' => $m
+                    'month_num' => $month
                 );
             }
             echo CJSON::encode($response);
         } else {
             $this->SetLikes();
             $this->render('saint', array(
-                'month' => $m,
+                'month' => $month,
                 'data' => $data,
                 'like_ids' => Name::GetLikeIds(),
             ));

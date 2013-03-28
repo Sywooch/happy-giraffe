@@ -8,7 +8,7 @@
     <?php
     echo CHtml::linkTag('shortcut icon', null, '/favicon.bmp');
 
-    $release_id = 35;
+    $release_id = 36;
     Yii::app()->clientScript
         ->registerCssFile('/css/seo.css?'.$release_id)
         ->registerCssFile('/css/form.css?'.$release_id)
@@ -98,16 +98,8 @@
                     'url' => array('/admin/pagesSearchPhrase/'),
                 ),
                 array(
-                    'label' => 'Поисковые фразы - визиты',
-                    'url' => array('/admin/searchPhraseVisit/'),
-                ),
-                array(
                     'label' => 'Поисковые фразы - позиции',
                     'url' => array('/admin/searchPhrasePosition/'),
-                ),
-                array(
-                    'label' => 'Парсинг Запросов и позиций',
-                    'url' => array('/promotion/queries/index/'),
                 ),
                 array(
                     'label' => 'Урлы индексации',

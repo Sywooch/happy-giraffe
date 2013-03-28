@@ -5,7 +5,7 @@
  */
 class FavouritesPosts extends PostForCommentator
 {
-    protected $nextGroup = 'TrafficPosts';
+    protected $nextGroup = 'UserPosts';
     protected $entities = array(
         'CommunityContent' => array(24),
     );
@@ -33,16 +33,17 @@ class FavouritesPosts extends PostForCommentator
      */
     public function getCriteria()
     {
-        $ids = array_merge(
-            Favourites::getIdList(Favourites::BLOCK_INTERESTING, 30)
-                + Favourites::getIdList(Favourites::BLOCK_BLOGS, 30)
-                + Favourites::getIdList(Favourites::BLOCK_SOCIAL_NETWORKS, 30)
+        $ids = array_merge(Favourites::getIdList(Favourites::BLOCK_INTERESTING, 4),
+            Favourites::getIdList(Favourites::BLOCK_BLOGS, 12),
+            Favourites::getIdList(Favourites::BLOCK_SOCIAL_NETWORKS, 5),
+            Favourites::getIdList(Favourites::WEEKLY_MAIL, 6)
         );
+
         if (empty($ids))
             return null;
 
         $criteria = new CDbCriteria;
-        $criteria->condition = 't.created >= "' . date("Y-m-d H:i:s", strtotime('-48 hour')) . '" AND `full` IS NULL  AND t.removed = 0';
+        $criteria->condition = '`full` IS NULL AND t.removed = 0';
         $criteria->compare('t.id', $ids);
 
         return $criteria;

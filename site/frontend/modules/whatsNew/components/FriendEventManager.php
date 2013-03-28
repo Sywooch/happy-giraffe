@@ -42,7 +42,7 @@ class FriendEventManager
         $value=Yii::app()->cache->get($cache_id);
         if($value===false)
         {
-            $friends = User::model()->cache(60)->findAll($user->getFriendsCriteria(array('select' => 't.id', 'index' => 'id')));
+            $friends = User::model()->cache(60)->findAll($user->getFriendsCriteria(array('select' => 't.id', 'index' => 'id', 'condition'=>'deleted=0')));
             $value = array_keys($friends);
             Yii::app()->cache->set($cache_id,$value, 60);
         }

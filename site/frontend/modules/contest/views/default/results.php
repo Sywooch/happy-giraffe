@@ -121,6 +121,44 @@
                 'model' => 'Nuk',
             ),
         );
+    } elseif ($this->contest->id == 7) {
+        $prizes = array(
+            '1' => array(
+                'title' => 'Комод для детских вещей',
+                'model' => 'Chloe & Ryan',
+            ),
+            '2' => array(
+                'title' => 'Развивающий коврик для малышей',
+                'model' => 'Felice',
+            ),
+            '3' => array(
+                'title' => 'Подогреватель для детского питания',
+                'model' => 'Tigex',
+            ),
+            '4' => array(
+                'title' => 'Салфетка-игрушка',
+                'model' => 'Nuk',
+            ),
+            '5' => array(
+                'title' => 'Салфетка-игрушка',
+                'model' => 'Nuk',
+            ),
+        );
+    } elseif ($this->contest->id == 8) {
+        $prizes = array(
+            '1' => array(
+                'title' => 'Дорожная сумка',
+                'model' => 'Avent',
+            ),
+            '2' => array(
+                'title' => 'Устройство для приготовления<br /> детского питания',
+                'model' => 'Maman',
+            ),
+            '3' => array(
+                'title' => 'Набор для пикника',
+                'model' => 'Nuby',
+            ),
+        );
     }
 ?>
 
@@ -146,7 +184,7 @@
             <div class="contest-winners_frame clearfix">
                 <ul class="contest-winners_list clearfix">
                     <?php foreach ($this->contest->winners as $w): ?>
-                        <?php $this->renderPartial('_winner', array('data' => $w, 'prize' => $prizes[$w->place], 'isConsolationPrize' => $this->contest->id == 6 && ($w->place == 4 || $w->place == 5))); ?>
+                        <?php $this->renderPartial('_winner', array('data' => $w, 'prize' => $prizes[$w->place], 'isConsolationPrize' => ($this->contest->id == 6 || $this->contest->id == 7) && ($w->place == 4 || $w->place == 5))); ?>
                     <?php endforeach; ?>
                 </ul>
             </div>

@@ -19,7 +19,7 @@ class MailCommand extends CConsoleCommand
     public function actionWeeklyNews()
     {
         //check generated url
-        if (Yii::app()->createUrl('site/index') != './') {
+        if (Yii::app()->createUrl('site/index') != './' && Yii::app()->createUrl('site/index') != '/') {
             echo Yii::app()->createUrl('site/index') . ' - url failed';
             return false;
         }
@@ -95,7 +95,7 @@ class MailCommand extends CConsoleCommand
 
     public function actionDeleteUsers()
     {
-        Yii::app()->mc->deleteRegisteredFromContestList();
+        Yii::app()->email->deleteRegisteredFromContestList();
     }
 
     public function actionTestNewMessages()
@@ -118,29 +118,24 @@ class MailCommand extends CConsoleCommand
         }
     }
 
-    public function actionMarkGoodEmails(){
-        ElasticEmail::markGoodEmails();
+    public function actionExport()
+    {
+        $users = Yii::app()->db_seo->createCommand()
+            ->select('email, name')
+            ->from('mailru__users')
+            ->where('id > 534973')
+            ->queryAll();
+
+        $fp = fopen('f:/file2.csv', 'w');
+
+        fputcsv($fp, array('Email', 'First Name'));
+        foreach ($users as $fields) {
+            foreach ($fields as $key => $field)
+                $fields[$key] = trim($field);
+
+            fputcsv($fp, $fields);
+        }
+
+        fclose($fp);
     }
-
-    /*    public function actionUnsubList()
-        {
-            $file_name = 'F:/members_Photo_Post_6_6_bounces_Jan_16_2013.csv';
-            $users = file_get_contents($file_name);
-            $lines = explode("\n", $users);
-            echo count($lines)."\n";
-
-            $emails = array();
-            foreach($lines as $line){
-                $email = substr($line, 0, strpos($line, ','));
-                $emails [] = $email;
-
-                if (count($emails) >= 500){
-                    Yii::app()->mc->deleteUsers($emails);
-
-                    $emails = array();
-                }
-            }
-
-            Yii::app()->mc->deleteUsers($emails);
-        }*/
 }

@@ -47,12 +47,12 @@
         array(
             'name' => 'popularIcon',
             'type' => 'raw',
-            'value' => 'isset($data->yandex)?$data->yandex->getFreqIcon():""',
+            'value' => '$data->getFreqIcon()',
             'header' => '<i class="icon-freq"></i>'
         ),
         array(
             'name' => 'popular',
-            'value' => 'isset($data->yandex)?$data->yandex->value:""',
+            'value' => '$data->wordstat',
             'header' => '<i class="icon-yandex"></i>'
         ),
         array(

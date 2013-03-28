@@ -15,12 +15,18 @@ return array(
     ),
     'import' => array(
         'site.common.components.*',
+        'site.common.behaviors.*',
         'site.common.models.*',
         'site.common.helpers.*',
         'site.frontend.extensions.image.Image',
         'site.frontend.extensions.phpQuery.phpQuery',
     ),
     'components' => array(
+        'request' => array(
+            'hostInfo' => 'http://www.happy-giraffe.ru',
+            'baseUrl' => '',
+            'scriptUrl' => '',
+        ),
         'comet'=>array(
             'class' => 'site.frontend.extensions.Dklab_Realplexor',
             'host' => 'www.plexor.happy-giraffe.ru',

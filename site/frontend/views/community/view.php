@@ -6,6 +6,9 @@
 $this->renderPartial('_post', array('data' => $data, 'full' => true));
 
 $this->renderPartial('_prev_next', array('data' => $data));
+?>
+
+<?php
 
 $this->widget('application.widgets.commentWidget.CommentWidget', array('model' => $data));
 

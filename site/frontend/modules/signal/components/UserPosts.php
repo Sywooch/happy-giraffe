@@ -9,7 +9,7 @@ class UserPosts extends PostForCommentator
         'CommunityContent' => array(24),
         'CookRecipe' => array(2, 3),
     );
-    protected $nextGroup = 'FavouritesPosts';
+    protected $nextGroup = 'TrafficPosts';
 
     public function getPost()
     {

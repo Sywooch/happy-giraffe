@@ -29,7 +29,15 @@ class ExternalImagesBehavior extends CActiveRecordBehavior
             foreach (pq('img') as $e) {
                 $src = pq($e)->attr('src');
                 if (strpos($src, Yii::app()->params['photos_url']) !== 0 && strpos($src, '/') !== 0) {
-                    $photo = AlbumPhoto::createByUrl($src, Yii::app()->user->id, 2);
+
+                    if (isset($this->owner->author_id))
+                        $author_id = $this->owner->author_id;
+                    elseif (isset($this->owner->content) && isset($this->owner->content->author_id))
+                        $author_id = $this->owner->content->author_id;
+                    else
+                        $author_id =Yii::app()->user->id;
+
+                        $photo = AlbumPhoto::createByUrl($src, $author_id, 2);
                     if ($photo !== false) {
                         $newSrc = $photo->getPreviewUrl(700, 700, Image::WIDTH);
                         pq($e)->attr('src', $newSrc);
@@ -57,6 +65,9 @@ class ExternalImagesBehavior extends CActiveRecordBehavior
             }
 
             $externalLinksCount = 0;
+
+            //чтобы работало из консоли
+            if (isset($_SERVER['HTTP_HOST']))
             foreach (pq('a') as $e) {
                 $href = pq($e)->attr('href');
                 if (strpos($href, $_SERVER['HTTP_HOST']) === false && strpos($href, '/') !== 0)

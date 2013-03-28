@@ -238,21 +238,28 @@ class WordstatParser extends ProxyParserThread
     public function saveQueryWordstatValue($value)
     {
         if ($this->parsing_type == self::TYPE_STRICT) {
-            if (empty($value) || $this->keyword->keyword->wordstat / $value > 1000) {
-                try {
-                    Yii::app()->db_keywords->createCommand()->insert('bad_keywords', array(
-                        'keyword_id' => $this->keyword->keyword_id,
-                        'wordstat' => $this->keyword->keyword->wordstat,
-                        'strict_wordstat' => $value,
-                    ));
-                } catch (Exception $err) {
-                }
 
+            $strict_wordstat = KeywordStrictWordstat::model()->findByPk($this->keyword->keyword_id);
+
+            if ($strict_wordstat === null){
+                $strict_wordstat = new KeywordStrictWordstat;
+                $strict_wordstat->keyword_id = $this->keyword->keyword_id;
+                $strict_wordstat->wordstat = $this->keyword->keyword->wordstat;
+                $strict_wordstat->strict_wordstat = $value;
+                $strict_wordstat->save();
+            }else{
+                $strict_wordstat->wordstat = $this->keyword->keyword->wordstat;
+                $strict_wordstat->strict_wordstat = $value;
+                $strict_wordstat->save();
+            }
+
+            if (empty($value) || $this->keyword->keyword->wordstat / $value > 1000) {
                 $this->keyword->keyword->wordstat = $value;
                 $this->keyword->keyword->save();
             }
             $this->keyword->priority = 0;
             $this->keyword->update(array('priority'));
+
         } else
             $this->keyword->updateWordstat($value);
     }

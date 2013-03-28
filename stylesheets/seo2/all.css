@@ -476,6 +476,17 @@ body {
 ------------------------------------------------------- */
 /* @layout  base 
 --------------------------------------------------------*/
+/* ico */
+.ico-info {
+  display: inline-block;
+  *zoom: 1;
+  *display: inline;
+  vertical-align: middle;
+  width: 19px;
+  height: 19px;
+  background: url(/images/seo2/ico/info.png) no-repeat;
+}
+/* /ico */
 /* ava avatar */
 .ava {
   width: 72px;
@@ -607,6 +618,26 @@ body {
   background: #ffffab;
 }
 /* /b-date */
+/* win-place */
+.win-place {
+  display: inline-block;
+  *zoom: 1;
+  *display: inline;
+  vertical-align: middle;
+  width: 130px;
+  height: 55px;
+  background: url(/images/seo2/win-place.png) no-repeat;
+}
+.win-place__1 {
+  background-position: 0 0;
+}
+.win-place__2 {
+  background-position: -130px 0;
+}
+.win-place__3 {
+  background-position: -260px 0;
+}
+/* /win-place */
 /* form */
 .itx-bluelight {
   border: 1px solid #cbcbcb;
@@ -1458,11 +1489,14 @@ body {
   margin: 0;
   text-align: center;
 }
+.nav-hor__2 .nav-hor_i {
+  padding: 0 130px;
+}
 .nav-hor_li {
   display: inline-block;
   *zoom: 1;
   *display: inline;
-  margin: 0;
+  margin: 0 0 -5px;
   background: #e9e2f0;
   border-top-left-radius: 9px;
   border-top-right-radius: 9px;
@@ -1478,8 +1512,10 @@ body {
   color: #373737;
 }
 .nav-hor_i {
-  display: block;
-  padding: 12px 33px;
+  display: table-cell;
+  vertical-align: middle;
+  height: 52px;
+  padding: 0 33px;
   font-size: 14px;
   line-height: 14px;
   color: #8b7d9c;
@@ -2094,10 +2130,11 @@ body {
   text-align: right;
   vertical-align: middle;
   padding: 10px 30px;
+  width: 200px;
 }
 .visits-table_td-link {
   vertical-align: middle;
-  padding: 10px 150px 10px 20px;
+  padding: 10px 40px 10px 20px;
 }
 .visits-table_count {
   color: #4c4e4c;
@@ -2168,7 +2205,106 @@ body {
 .secret_p {
   margin-bottom: 10px;
 }
-/* /secret *//* @popup
+/* /secret */
+/* award-me */
+.award-me {
+  margin: 0 73px 30px;
+}
+.award-me_i {
+  float: left;
+  width: 170px;
+  margin: 0 4px;
+}
+.award-me_i__1 {
+  background: #ebfcea;
+}
+.award-me_i__1.win {
+  background: #ace3a9;
+}
+.award-me_i__2 {
+  background: #fff5eb;
+}
+.award-me_i__2.win {
+  background: #ffe3b1;
+}
+.award-me_i__3 {
+  background: #fffce3;
+}
+.award-me_i__3.win {
+  background: #fef39a;
+}
+.award-me_i__4 {
+  background: #e8f2fe;
+}
+.award-me_i__4.win {
+  background: #b1d2fb;
+}
+.award-me_t {
+  display: table-cell;
+  vertical-align: middle;
+  height: 90px;
+  width: 170px;
+  font-size: 17px;
+  text-align: center;
+  color: #525252;
+}
+.award-me_value {
+  margin-bottom: 4px;
+  padding: 10px 0;
+  background: #fff;
+  background: rgba(255, 255, 255, 0.8);
+  font-size: 30px;
+  text-align: center;
+  color: #2d2d2d;
+}
+.award-me_place {
+  display: table-cell;
+  vertical-align: middle;
+  height: 75px;
+  width: 170px;
+  margin: 0;
+  padding: 0;
+  background: #fff;
+  background: rgba(255, 255, 255, 0.8);
+  line-height: 1em;
+  text-align: center;
+  color: #f5bb0b;
+}
+.award-me_place-value {
+  font-size: 30px;
+  line-height: 1em;
+}
+.award-me_place-tx {
+  font-size: 16px;
+  line-height: 1em;
+}
+.award-me_desc {
+  padding: 15px 20px 0;
+  height: 180px;
+  text-align: center;
+}
+.award-me_desc .ico-info {
+  margin-bottom: 5px;
+}
+/* /award-me */
+/* award-me-table */
+.award-me-table {
+  margin-bottom: 30px;
+  font-size: 16px;
+  color: #2d2d2d;
+}
+.award-me-table_tb {
+  border-spacing: 0;
+  border: 0;
+  width: 100%;
+}
+.award-me-table > tr > th {
+  color: #fff;
+  background: #846c9b;
+  padding: 10px 0;
+}
+/* /award-me-table */
+/* @popup
 ---------------------------------------------*/
 .popup {
   display: none;

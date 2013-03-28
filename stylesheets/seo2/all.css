@@ -638,6 +638,26 @@ body {
   background-position: -260px 0;
 }
 /* /win-place */
+/* win-place */
+.win-place-2 {
+  display: inline-block;
+  *zoom: 1;
+  *display: inline;
+  vertical-align: middle;
+  width: 40px;
+  height: 35px;
+  background: url(/images/seo2/win-place-2.png) no-repeat;
+}
+.win-place-2__1 {
+  background-position: 0 0;
+}
+.win-place-2__2 {
+  background-position: -40px 0;
+}
+.win-place-2__3 {
+  background-position: -80px 0;
+}
+/* /win-place */
 /* form */
 .itx-bluelight {
   border: 1px solid #cbcbcb;
@@ -2242,7 +2262,7 @@ body {
 .award-me_t {
   display: table-cell;
   vertical-align: middle;
-  height: 90px;
+  height: 70px;
   width: 170px;
   font-size: 17px;
   text-align: center;
@@ -2280,7 +2300,7 @@ body {
 }
 .award-me_desc {
   padding: 15px 20px 0;
-  height: 180px;
+  height: 210px;
   text-align: center;
 }
 .award-me_desc .ico-info {
@@ -2289,19 +2309,72 @@ body {
 /* /award-me */
 /* award-me-table */
 .award-me-table {
-  margin-bottom: 30px;
+  margin: 0 80px 30px;
   font-size: 16px;
   color: #2d2d2d;
+}
+.award-me-table_odd .award-me-table_td-place {
+  background: #faf4ff;
+}
+.award-me-table_odd .award-me-table_td-friend {
+  background: #ebfcea;
+}
+.award-me-table_odd .award-me-table_td-profile {
+  background: #fff5eb;
+}
+.award-me-table_odd .award-me-table_td-message {
+  background: #fffcea;
+}
+.award-me-table_odd .award-me-table_td-search {
+  background: #f1f7fe;
 }
 .award-me-table_tb {
   border-spacing: 0;
   border: 0;
   width: 100%;
 }
-.award-me-table > tr > th {
+.award-me-table th {
   color: #fff;
+  vertical-align: middle;
   background: #846c9b;
-  padding: 10px 0;
+  height: 54px;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 14px;
+}
+.award-me-table td {
+  height: 52px;
+  vertical-align: middle;
+  text-align: center;
+}
+.award-me-table td.active {
+  height: 48px;
+  border: 2px dashed #f2c013;
+  background: #ffffab;
+  font-weight: bold;
+  color: #090909;
+}
+.award-me-table_td-place {
+  width: 160px;
+  background: #fdfcff;
+  font-size: 20px;
+  color: #2d2d2d;
+}
+.award-me-table_td-friend {
+  width: 135px;
+  background: #f8fef8;
+}
+.award-me-table_td-profile {
+  width: 135px;
+  background: #fffcf9;
+}
+.award-me-table_td-message {
+  width: 135px;
+  background: #fffef9;
+}
+.award-me-table_td-search {
+  width: 135px;
+  background: #fafcff;
 }
 /* /award-me-table */
 /* @popup

@@ -15,7 +15,8 @@ class CommentatorHelper
      * массив имеет вид: array('out' => 0, 'in' => 0, 'users' => 0)
      * out - кол-во исходящих сообщений
      * in - кол-во входящих сообщений
-     * users - кол-во респондентов (ответивших пользователю)
+     * interlocutors_in - количество написавших респондентов
+     * interlocutors_out - количество получивших от комментатора сообщения респондентов
      *
      * @param $user_id int id пользователя, для которого нужна статистка
      * @param $date1 string дата начала периода за который вычисляем статистку
@@ -45,22 +46,27 @@ class CommentatorHelper
             )
         ));
 
-        $stats = array('out' => 0, 'in' => 0, 'users' => 0);
+        $stats = array('out' => 0, 'in' => 0, 'interlocutors_in' => 0, 'interlocutors_out' => 0);
         //считает показатели в выбранных диалогах
         foreach ($dialogs as $dialog) {
             //если переписка ведется с простым пользователем
             if ($dialog->withSimpleUser()) {
-                $user_answered = false;
+                $in = false;
+                $out = false;
                 foreach ($dialog->messages as $message)
-                    if ($message->user_id == $user_id)
+                    if ($message->user_id == $user_id){
+                        $out = true;
                         $stats['out']++;
+                    }
                     else {
                         $stats['in']++;
-                        $user_answered = true;
+                        $in = true;
                     }
 
-                if ($user_answered)
-                    $stats['users']++;
+                if ($in)
+                    $stats['interlocutors_in']++;
+                if ($out)
+                    $stats['interlocutors_out']++;
             }
         }
 
@@ -80,7 +86,7 @@ class CommentatorHelper
     {
         $stat = self::imStats($user_id, $date1, $date2);
 
-        return round(($stat['in'] + $stat['out'] * 0.2) * pow(1.01, $stat['users']));
+        return round(($stat['in'] + $stat['out'] * 0.2) * pow(1.01, $stat['interlocutors_in']));
     }
 
     /**
@@ -98,9 +104,22 @@ class CommentatorHelper
         if (empty($date2))
             $date2 = $date1;
 
-        $stats = array('requests' => 0, 'friends' => 0);
+        return array(
+            'requests' => self::friendsCount($user_id, $date1, $date2),
+            'friends' => self::friendRequestsCount($user_id, $date1, $date2)
+        );
+    }
 
-        //вычисляем кол-во друзей
+    /**
+     * Возвращает количество новых друзей за период времени
+     *
+     * @param $user_id int id пользователя
+     * @param $date1 дата начала периода за который вычисляем
+     * @param $date2 дата конца периода за который вычисляем
+     * @return string количество новых друзей
+     */
+    public static function friendsCount($user_id, $date1, $date2)
+    {
         $criteria = new CDbCriteria;
         $criteria->condition = '(user1_id = :user_id OR user2_id = :user_id) AND created >= :min AND created <= :max ';
         $criteria->params = array(
@@ -108,9 +127,19 @@ class CommentatorHelper
             ':min' => $date1 . ' 00:00:00',
             ':max' => $date2 . ' 23:59:59'
         );
-        $stats['friends'] = Friend::model()->count($criteria);
+        return Friend::model()->count($criteria);
+    }
 
-        //вычисляем кол-во заявок
+    /**
+     * Возвращает количество заявок пользователя на добавление в друзья за период времени
+     *
+     * @param $user_id int id пользователя
+     * @param $date1 дата начала периода за который вычисляем
+     * @param $date2 дата конца периода за который вычисляем
+     * @return string количество заявок
+     */
+    public static function friendRequestsCount($user_id, $date1, $date2)
+    {
         $criteria = new CDbCriteria;
         $criteria->condition = 'from_id = :user_id AND created >= :min AND created <= :max ';
         $criteria->params = array(
@@ -118,9 +147,7 @@ class CommentatorHelper
             ':min' => $date1 . ' 00:00:00',
             ':max' => $date2 . ' 23:59:59'
         );
-        $stats['requests'] = FriendRequest::model()->count($criteria);
-
-        return $stats;
+        return FriendRequest::model()->count($criteria);
     }
 
     /**

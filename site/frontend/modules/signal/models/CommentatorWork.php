@@ -195,8 +195,6 @@ class CommentatorWork extends EMongoDocument
 
         $day = new CommentatorDayWork();
         $day->date = date("Y-m-d");
-        $day->skip_count = 0;
-        $day->created = time();
 
         $this->days[] = $day;
         $this->calculateNextComment();
@@ -223,6 +221,13 @@ class CommentatorWork extends EMongoDocument
             $day = $this->getSomeDay($date);
             if ($day !== null)
                 $day->calculateStats($this->user_id);
+            else{
+                $day = new CommentatorDayWork();
+                $day->date = $date;
+                $day->calculateStats($this->user_id);
+
+                $this->days[] = $day;
+            }
         }
 
         $this->save();
@@ -399,20 +404,22 @@ class CommentatorWork extends EMongoDocument
     /**************************************************** Посты *******************************************************/
     /******************************************************************************************************************/
     /**
-     * Возвращает количество постов/комментариев за период
+     * Возвращает количество постов/комментариев за период и процент выполнения задания
      *
-     * @param $entity
-     * @param $period
-     * @return int|mixed
+     * @param $entity string названия свойства для которого считаем (club_posts,blog_posts,comments)
+     * @param $period string месяц
+     * @param $limit int норма дневного лимита
+     * @return array
      */
-    public function getEntitiesCount($entity, $period)
+    public function getEntitiesCount($entity, $period, $limit)
     {
-        $result = 0;
+        $month_count = 0;
         foreach ($this->days as $day)
             if (strpos($day->date, $period) === 0)
-                $result += $day->$entity;
-
-        return $result;
+                $month_count += $day->$entity;
+        $month = CommentatorsMonth::get($period);
+        $percent = round(100 * $month_count / ($month->working_days_count* $limit));
+        return array($month_count, $percent);
     }
 
     /**
@@ -560,16 +567,9 @@ class CommentatorWork extends EMongoDocument
     /******************************************************************************************************************/
     /**************************************************** Премии *******************************************************/
     /******************************************************************************************************************/
-    public function newFriends($month)
+    public function friends($month)
     {
-        $criteria = new CDbCriteria;
-        $criteria->condition = '(user1_id = :user_id OR user2_id = :user_id) AND created >= :min AND created <= :max ';
-        $criteria->params = array(
-            ':user_id' => $this->user_id,
-            ':min' => $month . '-01 00:00:00',
-            ':max' => $month . '-31 23:59:59'
-        );
-        return Friend::model()->count($criteria);
+        return CommentatorHelper::friendStats($this->user_id, $month . '-01', $month . '-31');
     }
 
     public function imMessages($month)
@@ -577,18 +577,32 @@ class CommentatorWork extends EMongoDocument
         return CommentatorHelper::imRating($this->user_id, $month . '-01', $month . '-31');
     }
 
-    public function profileUniqueViews($period)
+    public function imMessagesMonthStats($month)
     {
-        $month = CommentatorsMonth::get($period);
+        $month_counts = array('out' => 0,'in' => 0,'interlocutors_in' => 0,'interlocutors_out' => 0);
+        foreach ($this->days as $day)
+            if (strpos($day->date, $month) === 0){
+                $month_counts['in'] += $day->im['in'];
+                $month_counts['out'] += $day->im['out'];
+                $month_counts['interlocutors_in'] += $day->im['interlocutors_in'];
+                $month_counts['interlocutors_out'] += $day->im['interlocutors_out'];
+            }
+
+        return $month_counts;
+    }
+
+    public function visitors($month)
+    {
+        $month = CommentatorsMonth::get($month);
         if (isset($month->commentators[(int)$this->user_id][CommentatorsMonth::PROFILE_VIEWS]))
             return $month->commentators[(int)$this->user_id][CommentatorsMonth::PROFILE_VIEWS];
 
-        return 0;
+        return array(0, 0);
     }
 
-    public function seVisits($period)
+    public function seVisits($month)
     {
-        $month = CommentatorsMonth::get($period);
+        $month = CommentatorsMonth::get($month);
         if (isset($month->commentators[(int)$this->user_id][CommentatorsMonth::SE_VISITS]))
             return $month->commentators[(int)$this->user_id][CommentatorsMonth::SE_VISITS];
 
@@ -646,25 +660,33 @@ class CommentatorWork extends EMongoDocument
     }
 
     /**
-     * @param CommentatorsMonth $current_month
+     * Возвращает все статьи пользователя с
+     * @param CommentatorsMonth $month
      * @return array
      */
-    public function getPosts($current_month)
+    public function getPostsTraffic($month)
     {
+        $sort_order = UserAttributes::get($this->user_id, 'commentators_se_visits_sort', 1);
         $criteria = new CDbCriteria;
+        $criteria->condition = 'created < :month_start';
+        $criteria->params = array(':month_start'=> $month->period.'-32 00:00:00');
         $criteria->compare('author_id', $this->user_id);
         $criteria->order = 'created desc';
         $criteria->with = array('rubric', 'rubric.community', 'type');
 
         //сортирока по заходам
         $posts = CommunityContent::model()->findAll($criteria);
-//        foreach($posts as $post)
-//            $post->visits = $current_month->getPageVisitsCount($post->url);
-//        usort($posts, array($this, "cmp"));
+        if ($sort_order)
+            return $posts;
+
+        foreach($posts as $post)
+            $post->visits = $month->getPageVisitsCount($post->url);
+        usort($posts, array($this, "compareSeVisits"));
+
         return $posts;
     }
 
-    function cmp($a, $b)
+    function compareSeVisits($a, $b)
     {
         if ($a->visits == $b->visits) {
             return 0;
@@ -708,7 +730,15 @@ class CommentatorWork extends EMongoDocument
             if (strpos($day->date, $period) === 0)
                 $result[] = $day;
 
-        return array_reverse($result);
+        usort($result, array($this, 'compareDays'));
+        return $result;
+    }
+
+    private function compareDays($a, $b)
+    {
+        if ($a->date == $b->date)
+            return 0;
+        return ($a->created > $b->created) ? -1 : 1;
     }
 
     /**

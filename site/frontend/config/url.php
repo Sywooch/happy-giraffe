@@ -153,6 +153,8 @@ return array(
         '<_m:(geo|im|signal)>/<_a>' => '<_m>/default/<_a>',
         'commentator' => 'signal/commentator/index',
         'commentator/links/<month:\d\d\d\d-\d\d>' => 'signal/commentator/links',
+        'commentator/reports/<section:\w+>/<month:\d\d\d\d-\d\d>' => 'signal/commentator/reports',
+        'commentator/reports/<section:\w+>' => 'signal/commentator/reports',
         'commentator/<_a>' => 'signal/commentator/<_a>',
 
         //cook

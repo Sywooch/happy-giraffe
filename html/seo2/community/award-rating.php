@@ -42,59 +42,73 @@
                         <th>Личная <br> переписка </th>
                         <th>Поисковые <br> системы</th>
                     </tr>
-                    <tr>
-                        <td>
+                    <tr class="award-me-table_odd">
+                        <td class="award-me-table_td-place">
                             <div class="win-place-2 win-place-2__1"></div>
                         </td>
-                        <td>200</td>
+                        <td class="award-me-table_td-friend">200</td>
+                        <td class="award-me-table_td-profile">2690</td>
+                        <td class="award-me-table_td-message">56800</td>
+                        <td class="award-me-table_td-search">96300</td>
+                    </tr>
+                    <tr>
+                        <td class="award-me-table_td-place">
+                            <div class="win-place-2 win-place-2__2"></div>
+                        </td>
+                        <td class="award-me-table_td-friend">20770</td>
+                        <td class="award-me-table_td-profile">2690</td>
+                        <td class="award-me-table_td-message">56800</td>
+                        <td class="award-me-table_td-search">96300</td>
+                    </tr>
+                    <tr class="award-me-table_odd">
+                        <td class="award-me-table_td-place">
+                            <div class="win-place-2 win-place-2__3"></div>
+                        </td>
+                        <td class="award-me-table_td-friend active">20</td>
+                        <td class="award-me-table_td-profile">2690</td>
+                        <td class="award-me-table_td-message">5</td>
+                        <td class="award-me-table_td-search">967300</td>
+                    </tr>
+                    <tr>
+                        <td class="award-me-table_td-place">
+                            4
+                        </td>
+                        <td class="award-me-table_td-friend">99200</td>
+                        <td class="award-me-table_td-profile">2690</td>
+                        <td class="award-me-table_td-message active">56800</td>
+                        <td class="award-me-table_td-search">96300</td>
+                    </tr>
+                    <tr class="award-me-table_odd">
+                        <td class="award-me-table_td-place">
+                            5
+                        </td>
+                        <td class="award-me-table_td-friend">99200</td>
+                        <td class="award-me-table_td-profile">2690</td>
+                        <td class="award-me-table_td-message">56800</td>
+                        <td class="award-me-table_td-search">96300</td>
+                    </tr>
+                    <tr>
+                        <td class="award-me-table_td-place">
+                            6
+                        </td>
+                        <td class="award-me-table_td-friend">99200</td>
+                        <td class="award-me-table_td-profile">2690</td>
+                        <td class="award-me-table_td-message">56800</td>
+                        <td class="award-me-table_td-search">96300</td>
+                    </tr>
+                    <tr class="award-me-table_odd">
+                        <td class="award-me-table_td-place">
+                            7
+                        </td>
+                        <td class="award-me-table_td-friend">456</td>
+                        <td class="award-me-table_td-profile">222</td>
+                        <td class="award-me-table_td-message">5</td>
+                        <td class="award-me-table_td-search">45</td>
                     </tr>
                 </table>
-            </div>
-            
-            <div class="award-me clearfix">
-                <div class="award-me_i award-me_i__1">
-                    <div class="award-me_t">Новые <br>друзья</div>
-                    <div class="award-me_value">785</div>
-                    <div class="award-me_place">
-                        <div class="award-me_place-value">222</div>
-                        <div class="award-me_place-tx">место</div>
-                    </div>
-                    <div class="award-me_desc">
-                        <div class="ico-info"></div> <br>
-                        <a href="">Как завести наиболшее количество дружеских связей (болше всего друзей на сайте)</a>
-                    </div>
-                </div>
-                <div class="award-me_i award-me_i__2 win">
-                    <div class="award-me_t">Просмотры <br> анкеты</div>
-                    <div class="award-me_value">5</div>
-                    <div class="award-me_place">
-                        <div class="win-place win-place__1"></div>
-                    </div>
-                    <div class="award-me_desc">
-                        <div class="ico-info"></div> <br>
-                        <a href="">Как сделать личную страницу, включая блог и фотогалерею, наиболее посещаемой по количеству просмотров</a>
-                    </div>
-                </div>
-                <div class="award-me_i award-me_i__3 win">
-                    <div class="award-me_t">Личная <br> переписка</div>
-                    <div class="award-me_value">56543</div>
-                    <div class="award-me_place">
-                        <div class="win-place win-place__2"></div>
-                    </div>
-                    <div class="award-me_desc">
-                        <div class="ico-info"></div> <br>
-                        <a href="">Самый коммуникабельный сотрудник (тот , кто больше всего отправил сообщений по внутренней почте) - входящие и исходящие сообщения</a>
-                    </div>
-                </div>
-                <div class="award-me_i award-me_i__4 win">
-                    <div class="award-me_t">Поисковые <br>системы</div>
-                    <div class="award-me_value">5546</div>
-                    <div class="award-me_place">
-                        <div class="win-place win-place__3"></div>
-                    </div>
-                    <div class="award-me_desc">
-                        <div class="ico-info"></div> <br>
-                        <a href="">Как писать посты, которые приведут на сайт наибольшее количество людей из поисковиков (блог и записи в клубах)</a>
+                <div class="report-legend">
+                    <div class="report-legend_i">
+                        <img class="report-legend_img" alt="" src="/images/seo2/ico/award-place-tb.png"> -  ваше место в общем рейтинге
                     </div>
                 </div>
             </div>

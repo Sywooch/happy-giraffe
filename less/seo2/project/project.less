@@ -663,7 +663,7 @@
 	&_t {
 		display: table-cell;
 		vertical-align: middle;
-		height: 90px;
+		height: 70px;
 		width: 170px;
 		font-size: 17px;
 		text-align: center;
@@ -695,7 +695,7 @@
 	&_place-tx {font-size: 16px;line-height: 1em;}
 	&_desc {
 		padding: 15px 20px 0;
-		height: 180px;
+		height: 210px;
 		text-align: center;
 	}
 	&_desc .ico-info {margin-bottom: 5px;}
@@ -704,20 +704,48 @@
 
 /* award-me-table */
 .award-me-table {
-	margin-bottom: 30px;
+	margin: 0 80px 30px;
 	font-size: 16px;
 	color: #2d2d2d;
+	&_odd &_td-place   {background: #faf4ff;}
+	&_odd &_td-friend  {background: #ebfcea;}
+	&_odd &_td-profile {background: #fff5eb;}
+	&_odd &_td-message {background: #fffcea;}
+	&_odd &_td-search  {background: #f1f7fe;}
 
 	&_tb{
 		border-spacing:0;
 		border: 0;
 		width: 100%;
 	}
-	& > tr >th {
+	th {
 		color: #fff;
+		vertical-align: middle;
 		background: #846c9b;
-		padding: 10px 0;
-	}	
+		height: 54px;
+		font-weight: normal;
+		font-size: 12px;
+		line-height: 14px;
+	}
+	td {
+		height: 52px;
+		vertical-align: middle;
+		text-align: center;
+	}
+	td.active {
+		height: 48px;
+		border: 2px dashed #f2c013;
+		background: #ffffab;
+		font-weight: bold;
+		color: #090909;
+	}
+	&_td-place   {width: 160px; background: #fdfcff;font-size: 20px;color: #2d2d2d;}
+	&_td-friend  {width: 135px; background: #f8fef8;}
+	&_td-profile {width: 135px; background: #fffcf9;}
+	&_td-message {width: 135px; background: #fffef9;}
+	&_td-search  {width: 135px; background: #fafcff;}
+
+
 }
 /* /award-me-table */
 

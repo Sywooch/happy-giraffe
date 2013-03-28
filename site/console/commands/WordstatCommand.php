@@ -128,6 +128,8 @@ class WordstatCommand extends CConsoleCommand
                     $deleted++;
                 }
             }
+
+            echo $deleted."\n";
         }
     }
 }

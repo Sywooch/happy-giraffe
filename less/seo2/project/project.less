@@ -16,10 +16,13 @@
 .nav-hor {
 	margin: 0;
 	text-align: center;
+	&__2 &_i{
+		padding: 0 130px;
+	}
 
 	&_li {
 		.inline-block();
-		margin: 0;
+		margin: 0 0 -5px;
 		background: #e9e2f0;
 		border-top-left-radius: 9px;
 		border-top-right-radius: 9px;
@@ -33,8 +36,10 @@
 		color: #373737;
 	}
 	&_i {
-		display: block;
-		padding: 12px 33px;
+		display: table-cell;
+		vertical-align: middle;
+		height: 52px;
+		padding: 0 33px;
 		font-size: 14px;
 		line-height: 14px;
 		color: #8b7d9c;
@@ -562,10 +567,11 @@
 		text-align: right;
 		vertical-align: middle;
 		padding: 10px 30px;
+		width: 200px;
 	}
 	&_td-link {
 		vertical-align: middle;
-		padding: 10px 150px 10px 20px;
+		padding: 10px 40px 10px 20px;
 	}
 	&_count {
 		color: #4c4e4c;
@@ -636,3 +642,85 @@
 	}
 }
 /* /secret */
+
+/* award-me */
+.award-me {
+	margin: 0 73px 30px;
+
+	&_i {
+		float: left;
+		width: 170px;
+		margin: 0 4px;
+	}
+	&_i__1     {background: #ebfcea;}
+	&_i__1.win {background: #ace3a9;}
+	&_i__2     {background: #fff5eb;}
+	&_i__2.win {background: #ffe3b1;}
+	&_i__3     {background: #fffce3;}
+	&_i__3.win {background: #fef39a;}
+	&_i__4     {background: #e8f2fe;}
+	&_i__4.win {background: #b1d2fb;}
+	&_t {
+		display: table-cell;
+		vertical-align: middle;
+		height: 90px;
+		width: 170px;
+		font-size: 17px;
+		text-align: center;
+		color: #525252;
+	}
+	&_value {
+		margin-bottom: 4px;
+		padding: 10px 0;
+		background: #fff;
+		background: rgba(255,255,255,.8);
+		font-size: 30px;
+		text-align: center;
+		color: #2d2d2d;
+	}
+	&_place {
+		display: table-cell;
+		vertical-align: middle;
+		height: 75px;
+		width: 170px;
+		margin: 0;
+		padding: 0;
+		background: #fff;
+		background: rgba(255,255,255,.8);
+		line-height: 1em;
+		text-align: center;
+		color: #f5bb0b;
+	}
+	&_place-value {font-size: 30px;line-height: 1em;}
+	&_place-tx {font-size: 16px;line-height: 1em;}
+	&_desc {
+		padding: 15px 20px 0;
+		height: 180px;
+		text-align: center;
+	}
+	&_desc .ico-info {margin-bottom: 5px;}
+}
+/* /award-me */
+
+/* award-me-table */
+.award-me-table {
+	margin-bottom: 30px;
+	font-size: 16px;
+	color: #2d2d2d;
+
+	&_tb{
+		border-spacing:0;
+		border: 0;
+		width: 100%;
+	}
+	& > tr >th {
+		color: #fff;
+		background: #846c9b;
+		padding: 10px 0;
+	}	
+}
+/* /award-me-table */
+
+
+
+

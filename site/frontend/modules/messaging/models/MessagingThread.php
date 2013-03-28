@@ -5,6 +5,8 @@
  *
  * The followings are the available columns in table 'messaging__threads':
  * @property string $id
+ * @property string $updated
+ * @property string $created
  *
  * The followings are the available model relations:
  * @property MessagingMessages[] $messagingMessages
@@ -37,9 +39,10 @@ class MessagingThread extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
+            array('updated, created', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id', 'safe', 'on'=>'search'),
+            array('id, updated,created', 'safe', 'on'=>'search'),
         );
     }
 
@@ -62,6 +65,12 @@ class MessagingThread extends CActiveRecord
             'withRelated' => array(
                 'class' => 'site.common.extensions.wr.WithRelatedBehavior',
             ),
+            'CTimestampBehavior' => array(
+                'class' => 'zii.behaviors.CTimestampBehavior',
+                'createAttribute' => 'created',
+                'updateAttribute' => 'updated',
+                'setUpdateOnCreate' => true,
+            ),
         );
     }
 
@@ -72,6 +81,8 @@ class MessagingThread extends CActiveRecord
     {
         return array(
             'id' => 'ID',
+            'updated' => 'Updated',
+            'created' => 'Created',
         );
     }
 
@@ -87,6 +98,8 @@ class MessagingThread extends CActiveRecord
         $criteria=new CDbCriteria;
 
         $criteria->compare('id',$this->id,true);
+        $criteria->compare('updated',$this->updated,true);
+        $criteria->compare('created',$this->created,true);
 
         return new CActiveDataProvider($this, array(
             'criteria'=>$criteria,

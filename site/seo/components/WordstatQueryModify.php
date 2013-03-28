@@ -64,37 +64,39 @@ class WordstatQueryModify
 
     public function addToParsing($num)
     {
-        $parts = array(',', '.', '"', '?', '!', ':', ';');
-        foreach ($parts as $part) {
-            echo $part."\n";
-            for ($k = 0; $k < 500; $k++) {
-                $criteria = new CDbCriteria;
-                $criteria->condition = 'id > ' . ($k * 1000000) . ' AND id <= ' . (($k + 1) * 1000000) . ' AND name LIKE :part';
-                $criteria->params = array(':part' => '%' . $part . '%');
-                $models = Keyword::model()->findAll($criteria);
+        $parts = array(',', '.', '"', '?', '!', ':', ';', "\\", '%', '/', '-', '+',
+            '|', '*', '@', ']', '[', ')', '(', '\'');
+        $part = $parts[$num];
+        echo $part . "\n";
+        $criteria = new CDbCriteria;
+        $criteria->condition = 'name LIKE :part';
+        $criteria->params = array(':part' => '%' . $part . '%');
+        $criteria->limit = 1000;
+        $models = 1;
+        while (!empty($models)) {
+            $models = Keyword::model()->findAll($criteria);
 
-                if (!empty($models))
-                    echo $k."-k, ".count($models) . "\n";
-                foreach ($models as $model) {
-                    $model->name = str_replace($part, ' ', $model->name);
-                    $model->name = trim($model->name);
-                    while (strpos($model->name, '  ') !== false)
-                        $model->name = str_replace('  ', ' ', $model->name);
+            foreach ($models as $model) {
+                $model->name = self::prepareForSave($model->name);
 
-                    $model2 = Keyword::model()->findByAttributes(array('name' => $model->name));
-                    if ($model2 !== null) {
-                        try {
-                            $model->delete();
-                        } catch (Exception $err) {
-                            //echo $err->getMessage();
-                        }
-                    } else {
-                        try {
-                            $model->save();
-                        } catch (Exception $err) {
-                        }
+                $model2 = Keyword::model()->findByAttributes(array('name' => $model->name));
+                if ($model2 !== null) {
+                    try {
+                        $model->delete();
+                    } catch (Exception $err) {
+                        echo $err->getMessage();
+                    }
+                } else {
+                    try {
+                        $model->save();
+                    } catch (Exception $err) {
+                        echo $err->getMessage();
                     }
                 }
+            }
+
+            if (!empty($models)) {
+                echo count($models) . "\n";
             }
         }
     }
@@ -162,23 +164,6 @@ class WordstatQueryModify
         return false;
     }
 
-    private function removeSpecSymbols($q)
-    {
-        $q = trim($q);
-
-        if (strpos($q, '+') !== false)
-            $q = str_replace('+', ' + ', $q);
-        if (strpos($q, '"') !== false)
-            $q = str_replace('"', '', $q);
-
-        while (strpos($q, '  ') !== false)
-            $q = str_replace('  ', ' ', $q);
-
-        $q = str_replace('!', '', $q);
-
-        return $q;
-    }
-
     /**
      * Подготовить запрос для ввода на парсинг wordstat
      *
@@ -187,7 +172,7 @@ class WordstatQueryModify
      */
     public function prepareQuery($q)
     {
-        $q = $this->removeSpecSymbols($q);
+        $q = $this->prepareForSave($q);
 
         foreach ($this->parts as $part) {
             //если вначале
@@ -212,7 +197,7 @@ class WordstatQueryModify
      */
     public function prepareStrictQuery($q)
     {
-        $q = $this->removeSpecSymbols($q);
+        $q = $this->prepareForSave($q);
 
         //вставляем !
         //если вначале
@@ -256,5 +241,21 @@ class WordstatQueryModify
                 fwrite($fh, $p . "\n");
             }
         }
+    }
+
+    public static function prepareForSave($name)
+    {
+        $name = mb_strtolower($name, 'utf-8');
+        $parts = array(',', '.', '"', '?', '!', ':', ';', "\\", '%', '/', '-', '+',
+            '|', '*', '@', ']', '[', ')', '(', '\'');
+
+        foreach ($parts as $part)
+            $name = str_replace($part, ' ', $name);
+
+        $name = trim($name);
+        while (strpos($name, '  ') !== false)
+            $name = str_replace('  ', ' ', $name);
+
+        return $name;
     }
 }

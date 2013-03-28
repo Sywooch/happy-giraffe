@@ -136,8 +136,19 @@ class SignalCommand extends CConsoleCommand
         $month->calculateMonth();
     }
 
+    public function actionPrepare(){
+        $month = CommentatorsMonth::model()->findByPk(date("Y-m"));
+        $month->prepareNewStats();
+    }
+
     public function actionTest(){
-        $model = CommentatorWork::getUser(15266);
-        $model->calculateDayStats('2013-03-19');
+        $user_id = 15426;
+        $date1 = '2013-03-01';
+        $date2 = '2013-03-01';
+        echo GApi::model()->visitors('/user/' . $user_id . '/', $date1, $date2, false);
+        echo "\n";
+        echo GApi::model()->visitors('/user/' . $user_id . '/blog/', $date1, $date2);
+        echo "\n";
+        echo GApi::model()->visitors('/user/' . $user_id . '/', $date1, $date2);
     }
 }

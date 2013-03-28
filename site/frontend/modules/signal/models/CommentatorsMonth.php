@@ -112,9 +112,9 @@ class CommentatorsMonth extends EMongoDocument
                 $active_commentators [] = $commentator->id;
 
                 $this->commentators[(int)$commentator->id] = array(
-                    self::NEW_FRIENDS => (int)$model->newFriends($this->period),
-                    self::PROFILE_VIEWS => (int)$model->imMessages($this->period),
-                    self::IM_MESSAGES => (int)$this->profileUniqueViews($commentator->id),
+                    self::NEW_FRIENDS => $model->friends($this->period),
+                    self::PROFILE_VIEWS => $this->profileUniqueViews($this->period),
+                    self::IM_MESSAGES => $model->imMessages($commentator->id),
                     self::SE_VISITS => (int)$this->getSeVisits($commentator->id),
                 );
                 $this->save();
@@ -135,13 +135,13 @@ class CommentatorsMonth extends EMongoDocument
      * Возвращает модель комментатора по его id
      * Если не находит, возвращает null
      *
-     * @param User|null $commentator комментатор
+     * @param int $commentator_id id комментатора
      * @return CommentatorWork
      */
-    public function getCommentator($commentator)
+    public function getCommentator($commentator_id)
     {
         $criteria = new EMongoCriteria;
-        $criteria->user_id('==', (int)$commentator->id);
+        $criteria->user_id('==', (int)$commentator_id);
         $model = CommentatorWork::model()->find($criteria);
         if ($model === null || $model->isNotWorkingAlready())
             return null;
@@ -189,11 +189,9 @@ class CommentatorsMonth extends EMongoDocument
     public function getPlaceView($user_id, $counter)
     {
         $place = $this->getPlace($user_id, $counter);
-        if ($place == 0) {
-            return '<span class="place"></span>';
-        } elseif ($place < 4)
-            return '<span class="place place-' . $place . '">' . $place . ' место</span>';
-        return '<span class="place">' . $place . ' место</span>';
+        if ($place < 4)
+            return '<div class="win-place win-place__'.$place.'"></div>';
+        return '<div class="award-me_place-value">' . $place . '</div><div class="award-me_place-tx">место</div>';
     }
 
     /**
@@ -238,7 +236,10 @@ class CommentatorsMonth extends EMongoDocument
      */
     public function profileUniqueViews($user_id)
     {
-        return GApi::model()->uniquePageviews('/user/' . $user_id . '/', $this->period . '-01');
+        $visitors = GApi::model()->visitors('/user/' . $user_id . '/', $this->period . '-01');
+        $views = GApi::model()->uniquePageviews('/user/' . $user_id . '/', $this->period . '-01');
+
+        return array('visitors'=>$visitors, 'views'=>$views);
     }
 
     /**
@@ -301,5 +302,22 @@ class CommentatorsMonth extends EMongoDocument
                 }
             }
         }
+    }
+
+    public function prepareNewStats()
+    {
+        $commentators = CommentatorHelper::getCommentatorIdList();
+        $days = range(1, date("d"));
+        foreach ($commentators as $commentator) {
+            if ($commentator == 15426){
+                $model = $this->getCommentator($commentator);
+                foreach($days as $day){
+                    echo date("Y-m").'-'.sprintf('%02d', $day)."\n";
+                    $model->calculateDayStats(date("Y-m").'-'.sprintf('%02d', $day));
+                }
+            }
+        }
+
+        $this->save();
     }
 }

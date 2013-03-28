@@ -18,14 +18,10 @@ class CommentatorDayWork extends EMongoEmbeddedDocument
      * План выполнен
      */
     const STATUS_SUCCESS = 1;
-    /**
-     * План перевыполнен
-     */
-    const STATUS_EXCEEDED = 2;
 
     public $date;
     /**
-     * В какое время начал работать
+     * Дата в формате секундах
      * @var int
      */
     public $created;
@@ -33,7 +29,7 @@ class CommentatorDayWork extends EMongoEmbeddedDocument
      * Количество пропусков за день
      * @var int
      */
-    public $skip_count;
+    public $skip_count = 0;
     /**
      * Количество постов в блог за день
      * @var int
@@ -60,13 +56,15 @@ class CommentatorDayWork extends EMongoEmbeddedDocument
      * Статистика личных сообщений
      * 'out' => количество исходящих сообщений
      * 'in' => количество входящих сообщений
-     * 'interlocutors' => количество респондентов
+     * 'interlocutors_in' => количество написавших респондентов
+     * 'interlocutors_out' => количество получивших от комментатора сообщения респондентов
      * @var array
      */
     public $im = array(
         'out' => 0,
         'in' => 0,
-        'interlocutors' => 0,
+        'interlocutors_in' => 0,
+        'interlocutors_out' => 0,
     );
     /**
      * Статистика посещения анкеты
@@ -79,10 +77,10 @@ class CommentatorDayWork extends EMongoEmbeddedDocument
      */
     public $visits = array(
         'main' => 0,
-        'blog' => 0,
         'photo' => 0,
-        'visits' => 0,
+        'blog' => 0,
         'visitors' => 0,
+        'visits' => 0,
     );
 
     /**
@@ -111,10 +109,12 @@ class CommentatorDayWork extends EMongoEmbeddedDocument
         if (!$this->closed) {
             $this->im = CommentatorHelper::imStats($commentator_id, $this->date);
             $this->friends = CommentatorHelper::friendStats($commentator_id, $this->date);
-            $this->visits = CommentatorHelper::visits($commentator_id, $this->date);
+            $this->visits = CommentatorHelper::visits($commentator_id, $this->date, $this->date);
 
             if ($this->date != date("Y-m-d"))
                 $this->closed = 1;
+
+            $this->created = strtotime($this->date);
         }
     }
 
@@ -123,24 +123,10 @@ class CommentatorDayWork extends EMongoEmbeddedDocument
      */
     public function checkStatus($commentator)
     {
-        if ($this->blog_posts == $commentator->getBlogPostsLimit() &&
-            $this->club_posts == $commentator->getClubPostsLimit() &&
-            $this->comments == $commentator->getCommentsLimit()
-        )
-            $this->status = self::STATUS_SUCCESS;
-        elseif ($this->blog_posts >= $commentator->getBlogPostsLimit() &&
+        if ($this->blog_posts >= $commentator->getBlogPostsLimit() &&
             $this->club_posts >= $commentator->getClubPostsLimit() &&
             $this->comments >= $commentator->getCommentsLimit()
         )
-            $this->status = self::STATUS_EXCEEDED;
-    }
-
-    public function getStatusView()
-    {
-        if ($this->status == self::STATUS_SUCCESS)
-            return '<td class="task-done">Выполнен</td>';
-        if ($this->status == self::STATUS_EXCEEDED)
-            return '<td class="task-overdone">Перевыполнен</td>';
-        return '<td class="task-not-done">Не выполнен</td>';
+            $this->status = self::STATUS_SUCCESS;
     }
 }

@@ -18,7 +18,7 @@ class CommentatorController extends CController
     public function filters()
     {
         return array(
-            'ajaxOnly + emptyTasks, skip, take, cancelTask, executed',
+            'ajaxOnly + emptyTasks, skip, take, cancelTask, executed, setSort',
         );
     }
 
@@ -74,12 +74,7 @@ class CommentatorController extends CController
         if (empty($month))
             $month = date("Y-m");
 
-        $this->render('reports/'.$section, compact('month', 'section'));
-    }
-
-    public function actionHelp()
-    {
-        $this->render('help');
+        $this->render('reports/report', compact('month', 'section'));
     }
 
     public function actionUsers()
@@ -97,15 +92,15 @@ class CommentatorController extends CController
         $dataProvider = new CActiveDataProvider('User', array(
             'criteria' => $criteria,
             'pagination' => array('pageSize' => 12),
-            'totalItemCount' => 10000
+            'totalItemCount' => 50
         ));
 
-        $this->render('new_users', compact('dataProvider'));
+        $this->render('users/new_users', compact('dataProvider'));
     }
 
-    public function actionPopular()
+    public function actionSecrets()
     {
-        $this->render('how_to_be_popular');
+        $this->render('secrets');
     }
 
 
@@ -131,6 +126,12 @@ class CommentatorController extends CController
             $response = array('status' => false);
 
         echo CJSON::encode($response);
+    }
+
+    public function actionAward($type='me', $month = null){
+        if (empty($month))
+            $month = date("Y-m");
+        $this->render('award/'.$type, compact('month'));
     }
 
     /**
@@ -248,7 +249,7 @@ class CommentatorController extends CController
                 if ($model->save()) {
                     $response = array(
                         'status' => true,
-                        'html' => $this->renderPartial('_link', array('link' => $model, 'count'=>1), true)
+                        'html' => $this->renderPartial('_link', array('link' => $model, 'count' => 1), true)
                     );
                 } else
                     $response = array('status' => false, 'error' => $model->getErrorsText());
@@ -256,6 +257,10 @@ class CommentatorController extends CController
                 echo CJSON::encode($response);
             }
         }
+    }
+
+    public function actionSetSort(){
+        UserAttributes::set(Yii::app()->user->id, 'commentators_se_visits_sort', Yii::app()->request->getPost('sort'));
     }
 
     public function actionCancelTaskAdmin($id)

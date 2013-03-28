@@ -3,23 +3,8 @@
  * @var $month string месяц за который показываем статистику
  * @var $links CommentatorLink[] ссылки пользователя
  */
-$months = array();
-for ($i = 0; $i < 7; $i++)
-    $months [] = date("Y-m", strtotime('- ' . $i . ' month'));
-
-
 ?><div class="block">
-    <div class="month-list clearfix">
-        <ul class="month-list_ul">
-            <?php foreach ($months as $menu_month): ?>
-                <li class="month-list_li<?php if ($menu_month == $month) echo ' active' ?>">
-                    <a href="<?=$this->createUrl('links', array('month'=>$menu_month)) ?>" class="month-list_i">
-                        <span class="month-list_tx"><?= HDate::ruShortMonth(date("n", strtotime($menu_month.'-01'))).' '.date("Y", strtotime($menu_month.'-01'))?></span>
-                    </a>
-                </li>
-            <?php endforeach; ?>
-        </ul>
-    </div>
+    <?php $this->renderPartial('_month_list',array('month'=>$month)); ?>
     <div class="external-link-add">
         <input type="text" name="" id="url" class="itx-bluelight external-link-add_itx" placeholder="Где проставлена ссылка">
         <div class="external-link-add_ico"></div>

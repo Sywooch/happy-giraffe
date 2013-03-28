@@ -19,7 +19,7 @@ $all = TrafficSection::model()->findByPk(1);
             </tr>
             </thead>
             <tbody>
-            <?php for($i=0;$i<10;$i++):?>
+            <?php for($i=0;$i<30;$i++):?>
             <?php $date = date("Y-m-d", strtotime('- '.$i.' days'))  ?>
             <tr>
                 <td><?=Yii::app()->dateFormatter->format('d MMM',strtotime($date))?></td>

@@ -139,11 +139,7 @@ class Keyword extends CActiveRecord
      */
     public static function GetKeyword($word, $priority = 0, $wordstat = null)
     {
-        $word = str_replace('"', '', $word);
-        $word = str_replace('\'', '', $word);
-        $word = trim($word, '-');
-        $word = trim($word, '.');
-        $word = trim($word);
+        $word = WordstatQueryModify::prepareForSave($word);
 
         $model = self::model()->findByAttributes(array('name' => $word));
         if ($model !== null) {

@@ -441,14 +441,12 @@ class RecipeController extends HController
 
         $data = array();
         foreach ($models as $model) {
-            $t = date("Y-m-d H:i:s", $this->getRecipeLastUpdatedTime($model['id']));
             $data[] = array(
                 'params' => array(
                     'id' => $model['id'],
                     'section' => $model['section'],
                 ),
-                'changefreq' => 'daily',
-                'lastmod' => $t,
+                'changefreq' => 'daily'
             );
         }
 

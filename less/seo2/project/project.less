@@ -971,26 +971,34 @@
 
 /* task-tb */
 .task-tb {
-	margin: 0 30px 40px;
+	margin: 0 30px 50px;
 
-	&_table {
+	&_tb {
 		border-spacing:0;
 		border: 0;
 		width: 100%;
 	}
+	td {height: 40px;}
 	&_odd > td {background: #f6f6f6;}
+	&_task-inactive &_ico__like    {background-position: -15px 0;}
+	&_task-inactive &_ico__comment {background-position: -15px -15px;}
+	&_task-inactive &_td-a {font-weight: normal;}
+	&_task-inactive &_count {color: #c8c4c4 !important;border-bottom-color: #c8c4c4;}
+
+
 	&_td-ico {
 		width: 50px;
 		text-align: center;
 		vertical-align: middle;
 	}
 	&_td-a {
-		width: 350px;
+		width: 430px;
 		vertical-align: middle;
 		font-weight: bold;
+		padding: 5px 0;
 	}
 	&_td-playerbar {
-		width: 150px;
+		width: 120px;
 		text-align: center;
 		vertical-align: middle;
 	}
@@ -1006,6 +1014,28 @@
 		height: 15px;
 		width: 15px;
 		background: url(/images/seo2/ico/task-tb_ico.png) no-repeat;
+	}
+	&_ico__like    {background-position: 0 0;}
+	&_ico__comment {background-position: 0 -15px;}
+	&_playerbar {
+		.inline-block();
+		width: 12px;
+		height: 12px;
+		padding: 10px 30px;
+		background: url(/images/seo2/task-tb__playerbar.png) no-repeat 30px 10px;
+	}
+	&_playerbar:hover {background-position: -120px 10px;}
+	&_playerbar__play {background-position: -270px 10px;}
+	&_playerbar__play:hover {background-position: -420px 10px;}
+	&_count {
+		.inline-block();
+		vertical-align: middle;
+		margin: 0 5px;
+		padding: 2px 0;
+		font-size: 23px;
+		font-weight: bold;
+		text-decoration: none;
+		border-bottom: 2px dotted #818282;
 	}
 }
 /* /task-tb */

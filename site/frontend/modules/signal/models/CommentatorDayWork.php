@@ -107,8 +107,8 @@ class CommentatorDayWork extends EMongoEmbeddedDocument
     public function calculateStats($commentator_id)
     {
         if (!$this->closed) {
-            $this->im = CommentatorHelper::imStats($commentator_id, $this->date);
-            $this->friends = CommentatorHelper::friendStats($commentator_id, $this->date);
+            $this->calcImMessageStats($commentator_id);
+            $this->calcFriendsStats($commentator_id);
             $this->visits = CommentatorHelper::visits($commentator_id, $this->date, $this->date);
 
             if ($this->date != date("Y-m-d"))
@@ -116,6 +116,16 @@ class CommentatorDayWork extends EMongoEmbeddedDocument
 
             $this->created = strtotime($this->date);
         }
+    }
+
+    public function calcImMessageStats($commentator_id)
+    {
+        $this->im = CommentatorHelper::imStats($commentator_id, $this->date);
+    }
+
+    public function calcFriendsStats($commentator_id)
+    {
+        $this->friends = CommentatorHelper::friendStats($commentator_id, $this->date);
     }
 
     /**

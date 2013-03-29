@@ -80,13 +80,15 @@ class SController extends CController
         return $menu;
     }
 
-    public function addEntityToFastList($list_name, $entity_id)
+    public function addEntityToFastList($list_name, $entity_id, $limit = null)
     {
         $entities = Yii::app()->user->getState($list_name);
         if (!is_array($entities))
             $entities = array($entity_id);
         elseif (!in_array($entity_id, $entities))
             $entities[] = $entity_id;
+        if (!empty($limit) && count($entities) > $limit)
+            array_shift($entities);
         Yii::app()->user->setState($list_name, $entities);
     }
 }

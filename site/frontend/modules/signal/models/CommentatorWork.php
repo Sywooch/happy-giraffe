@@ -148,7 +148,7 @@ class CommentatorWork extends EMongoDocument
      */
     public function getPrevDay()
     {
-        $this->getSomeDay(date("Y-m-d", strtotime('-1 day')));
+        return $this->getSomeDay(date("Y-m-d", strtotime('-1 day')));
     }
 
     /**
@@ -163,6 +163,25 @@ class CommentatorWork extends EMongoDocument
                 return $day;
 
         return null;
+    }
+
+    /**
+     * Возвращает рабочий день за указанную дату, если не работал создает рабочий день
+     * @param $date string дата работы
+     * @return CommentatorDayWork|null рабочий день
+     */
+    public function getOrCreateDay($date)
+    {
+        foreach ($this->days as $day)
+            if ($day->date == $date)
+                return $day;
+
+        $day = new CommentatorDayWork();
+        $day->date = $date;
+
+        $this->days[] = $day;
+        $this->save();
+        return $day;
     }
 
     public function IsWorksToday()
@@ -213,21 +232,12 @@ class CommentatorWork extends EMongoDocument
             if ($prev_day !== null)
                 $prev_day->calculateStats($this->user_id);
 
-            $current_day = $this->getCurrentDay();
-            if ($current_day !== null)
-                $current_day->calculateStats($this->user_id);
+            $day = $this->getOrCreateDay(date("Y-m-d"));
+            $day->calculateStats($this->user_id);
         } else {
             //если дата указана - за эту дату
-            $day = $this->getSomeDay($date);
-            if ($day !== null)
-                $day->calculateStats($this->user_id);
-            else{
-                $day = new CommentatorDayWork();
-                $day->date = $date;
-                $day->calculateStats($this->user_id);
-
-                $this->days[] = $day;
-            }
+            $day = $this->getOrCreateDay($date);
+            $day->calculateStats($this->user_id);
         }
 
         $this->save();
@@ -569,7 +579,7 @@ class CommentatorWork extends EMongoDocument
     /******************************************************************************************************************/
     public function friends($month)
     {
-        return CommentatorHelper::friendStats($this->user_id, $month . '-01', $month . '-31');
+        return CommentatorHelper::friendsCount($this->user_id, $month . '-01', $month . '-31');
     }
 
     public function imMessages($month)
@@ -577,25 +587,21 @@ class CommentatorWork extends EMongoDocument
         return CommentatorHelper::imRating($this->user_id, $month . '-01', $month . '-31');
     }
 
+    public function friendsMonthStats($month)
+    {
+        return CommentatorHelper::friendStats($this->user_id, $month . '-01', $month . '-31');
+    }
+
     public function imMessagesMonthStats($month)
     {
-        $month_counts = array('out' => 0,'in' => 0,'interlocutors_in' => 0,'interlocutors_out' => 0);
-        foreach ($this->days as $day)
-            if (strpos($day->date, $month) === 0){
-                $month_counts['in'] += $day->im['in'];
-                $month_counts['out'] += $day->im['out'];
-                $month_counts['interlocutors_in'] += $day->im['interlocutors_in'];
-                $month_counts['interlocutors_out'] += $day->im['interlocutors_out'];
-            }
-
-        return $month_counts;
+        return CommentatorHelper::imStats($this->user_id, $month . '-01', $month . '-31');
     }
 
     public function visitors($month)
     {
         $month = CommentatorsMonth::get($month);
-        if (isset($month->commentators[(int)$this->user_id][CommentatorsMonth::PROFILE_VIEWS]))
-            return $month->commentators[(int)$this->user_id][CommentatorsMonth::PROFILE_VIEWS];
+        if (isset($month->commentators_stats[(int)$this->user_id][CommentatorsMonth::PROFILE_VIEWS]))
+            return $month->commentators_stats[(int)$this->user_id][CommentatorsMonth::PROFILE_VIEWS];
 
         return array(0, 0);
     }
@@ -603,8 +609,8 @@ class CommentatorWork extends EMongoDocument
     public function seVisits($month)
     {
         $month = CommentatorsMonth::get($month);
-        if (isset($month->commentators[(int)$this->user_id][CommentatorsMonth::SE_VISITS]))
-            return $month->commentators[(int)$this->user_id][CommentatorsMonth::SE_VISITS];
+        if (isset($month->commentators_stats[(int)$this->user_id][CommentatorsMonth::SE_VISITS]))
+            return $month->commentators_stats[(int)$this->user_id][CommentatorsMonth::SE_VISITS];
 
         return 0;
     }
@@ -612,11 +618,31 @@ class CommentatorWork extends EMongoDocument
     /**************************************************** Links *******************************************************/
     /******************************************************************************************************************/
     /**
-     * Возвращает все ссылки, проставленные в этом месяце
+     * Возвращает все ссылки, проставленные за месяц
      * @param $month
-     * @return CommentatorLink[] ссылки, проставленные в этом месяце
+     * @return CommentatorLink[] ссылки, проставленные за месяц
      */
     public function GetLinks($month)
+    {
+        return CommentatorLink::model()->findAll($this->GetLinksCriteria($month));
+    }
+
+    /**
+     * Возвращает все ссылки, проставленные в этом месяце
+     * @param $month
+     * @return int количество внешних ссылок, проставленное за месяц
+     */
+    public function GetLinksCount($month)
+    {
+        return CommentatorLink::model()->count($this->GetLinksCriteria($month));
+    }
+
+    /**
+     * Критерий получения всех ссылок, проставленных за месяц
+     * @param $month
+     * @return CDbCriteria
+     */
+    private function GetLinksCriteria($month)
     {
         $criteria = new CDbCriteria;
         $criteria->condition = 'created >= :first_day AND created <= :last_day';
@@ -626,7 +652,7 @@ class CommentatorWork extends EMongoDocument
         );
         $criteria->compare('user_id', $this->user_id);
         $criteria->order = 'id desc';
-        return CommentatorLink::model()->findAll($criteria);
+        return $criteria;
     }
 
     /******************************************************************************************************************/
@@ -657,6 +683,11 @@ class CommentatorWork extends EMongoDocument
     public function getName()
     {
         return User::getUserById($this->user_id)->fullName;
+    }
+
+    public function getUserModel()
+    {
+        return User::model()->findByPk($this->user_id);
     }
 
     /**

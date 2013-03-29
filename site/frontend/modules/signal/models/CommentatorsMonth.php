@@ -30,9 +30,13 @@ class CommentatorsMonth extends EMongoDocument
      */
     public $period;
     /**
-     * @var array список работавших комментаторов
+     * @var array массив работавших комментаторов c их количеством баллов по всем премиях
      */
-    public $commentators = array();
+    public $commentators_rating = array();
+    /**
+     * @var array массив работавших комментаторов c их месячной статистикой по премиям
+     */
+    public $commentators_stats = array();
     /**
      * @var int количество рабочих дней в месяце
      */
@@ -108,25 +112,31 @@ class CommentatorsMonth extends EMongoDocument
         foreach ($commentators as $commentator) {
             $model = $this->getCommentator($commentator);
             if ($model !== null) {
-                //echo 'commentator: ' . $commentator->id . "\n";
-                $active_commentators [] = $commentator->id;
+                echo 'commentator: ' . $commentator . "\n";
+                $active_commentators [] = $commentator;
 
-                $this->commentators[(int)$commentator->id] = array(
-                    self::NEW_FRIENDS => $model->friends($this->period),
-                    self::PROFILE_VIEWS => $this->profileUniqueViews($this->period),
-                    self::IM_MESSAGES => $model->imMessages($commentator->id),
-                    self::SE_VISITS => (int)$this->getSeVisits($commentator->id),
+                $views = $this->profileUniqueViews($commentator);
+                $se = (int)$this->getSeVisits($commentator);
+                $this->commentators_stats[(int)$commentator] = array(
+                    self::NEW_FRIENDS => $model->friendsMonthStats($this->period),
+                    self::PROFILE_VIEWS => $views,
+                    self::IM_MESSAGES => $model->imMessagesMonthStats($this->period),
+                    self::SE_VISITS => $se,
                 );
-                $this->save();
-
+                $this->commentators_rating[(int)$commentator] = array(
+                    self::NEW_FRIENDS => $model->friends($this->period),
+                    self::PROFILE_VIEWS => ($views['views'] + $views['visitors'] * 3),
+                    self::IM_MESSAGES => $model->imMessages($this->period),
+                    self::SE_VISITS => $se,
+                );
                 $model->calculateDayStats();
             }
         }
 
         //удаляем неактивных комментаторов
-        foreach ($this->commentators as $commentator_id => $val)
+        foreach ($this->commentators_rating as $commentator_id => $val)
             if (!in_array($commentator_id, $active_commentators))
-                unset($this->commentators[$commentator_id]);
+                unset($this->commentators_rating[$commentator_id]);
 
         $this->save();
     }
@@ -158,25 +168,21 @@ class CommentatorsMonth extends EMongoDocument
      */
     public function getPlace($user_id, $counter)
     {
-        if (!isset($this->commentators[$user_id]))
-            return 0;
+        if (!isset($this->commentators_rating[$user_id]))
+            return 99;
 
         $arr = array();
-        foreach ($this->commentators as $_user_id => $data)
+        foreach ($this->commentators_rating as $_user_id => $data)
             $arr[$_user_id] = $data[$counter];
 
         arsort($arr);
         $i = 1;
         foreach ($arr as $_user_id => $data) {
             if ($_user_id == $user_id || $data == $arr[$user_id]) {
-                if ($data == 0)
-                    return 0;
                 return $i;
             }
             $i++;
         }
-
-        return 0;
     }
 
     /**
@@ -190,8 +196,23 @@ class CommentatorsMonth extends EMongoDocument
     {
         $place = $this->getPlace($user_id, $counter);
         if ($place < 4)
-            return '<div class="win-place win-place__'.$place.'"></div>';
+            return '<div class="win-place win-place__' . $place . '"></div>';
         return '<div class="award-me_place-value">' . $place . '</div><div class="award-me_place-tx">место</div>';
+    }
+
+    /**
+     * Вывод места в верстке у главного редактора
+     *
+     * @param $user_id int id комментатора
+     * @param $counter int номер премии
+     * @return string
+     */
+    public function getPlaceViewAdmin($user_id, $counter)
+    {
+        $place = $this->getPlace($user_id, $counter);
+        if ($place < 4)
+            return '<div class="win-place-3 win-place-3__' . $place . '"></div>';
+        return '<div class="report-plan_place-value">' . $place . '</div><div class="report-plan_place-tx">место</div>';
     }
 
     /**
@@ -203,13 +224,37 @@ class CommentatorsMonth extends EMongoDocument
      */
     public function getStatValue($user_id, $counter)
     {
-        if (!isset($this->commentators[$user_id]))
+        if (!isset($this->commentators_rating[$user_id]))
             return 0;
 
-        foreach ($this->commentators as $_user_id => $data)
+        foreach ($this->commentators_rating as $_user_id => $data)
             if ($_user_id == $user_id)
                 return $data[$counter];
         return 0;
+    }
+
+    /**
+     * Возвращает кол-во баллов по премии у того кто занимает место $place
+     * @param $place
+     * @param $counter
+     * @return array кол-во баллов по премии и id комментатора
+     */
+    public function getStatByPlace($place, $counter)
+    {
+        $arr = array();
+        foreach ($this->commentators_rating as $_user_id => $data)
+            $arr[$_user_id] = $data[$counter];
+
+        arsort($arr);
+        $i = 1;
+        foreach ($arr as $_user_id => $data) {
+            if ($i == $place) {
+                return array($data, $_user_id);
+            }
+            $i++;
+        }
+
+        return array(0, 0);
     }
 
     /**
@@ -239,7 +284,7 @@ class CommentatorsMonth extends EMongoDocument
         $visitors = GApi::model()->visitors('/user/' . $user_id . '/', $this->period . '-01');
         $views = GApi::model()->uniquePageviews('/user/' . $user_id . '/', $this->period . '-01');
 
-        return array('visitors'=>$visitors, 'views'=>$views);
+        return array('visitors' => $visitors, 'views' => $views);
     }
 
     /**
@@ -261,7 +306,6 @@ class CommentatorsMonth extends EMongoDocument
             }
         }
 
-        echo $all_count . "\n";
         return $all_count;
     }
 
@@ -309,12 +353,10 @@ class CommentatorsMonth extends EMongoDocument
         $commentators = CommentatorHelper::getCommentatorIdList();
         $days = range(1, date("d"));
         foreach ($commentators as $commentator) {
-            if ($commentator == 15426){
-                $model = $this->getCommentator($commentator);
-                foreach($days as $day){
-                    echo date("Y-m").'-'.sprintf('%02d', $day)."\n";
-                    $model->calculateDayStats(date("Y-m").'-'.sprintf('%02d', $day));
-                }
+            $model = $this->getCommentator($commentator);
+            foreach ($days as $day) {
+                echo date("Y-m") . '-' . sprintf('%02d', $day) . "\n";
+                $model->calculateDayStats(date("Y-m") . '-' . sprintf('%02d', $day));
             }
         }
 

@@ -23,7 +23,7 @@
     <?php Yii::app()->clientScript
         ->registerCoreScript('jquery')
         ->registerScriptFile('/javascripts/comet.js')
-        ->registerScriptFile('/javascripts/seo2/main.js')
+
         ->registerScriptFile('/javascripts/knockout-2.2.1.js')
         ->registerCssFile('/stylesheets/seo2/all.css')
         ->registerScriptFile('/javascripts/dklab_realplexor.js')

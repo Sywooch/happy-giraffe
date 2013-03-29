@@ -32,17 +32,6 @@ class SignalCommand extends CConsoleCommand
         UserSignalResponse::CheckLate();
     }
 
-    public function getNewUsers()
-    {
-        $end_date = date("Y-m-d H:i:s", strtotime('-7 days'));
-        return Yii::app()->db->createCommand()
-            ->select('id')
-            ->from('users')
-            ->where('register_date > :date', array(':date' => $end_date))
-            ->queryColumn();
-
-    }
-
     public function getModerator($user_id)
     {
         shuffle($this->moderators);
@@ -124,31 +113,17 @@ class SignalCommand extends CConsoleCommand
         if (date("d") == 1)
             PageSearchView::model()->sync(date("Y-m", strtotime('-2 days')));
 
-
         echo "update stats\n";
-        $month = CommentatorsMonth::model()->find(new EMongoCriteria(array(
-            'conditions' => array('period' => array('==' => $month)),
-        )));
-        if ($month === null) {
-            $month = new CommentatorsMonth;
-            $month->period = date("Y-m");
-        }
+        $month = CommentatorsMonth::get($month);
         $month->calculateMonth();
     }
 
     public function actionPrepare(){
-        $month = CommentatorsMonth::model()->findByPk(date("Y-m"));
+        $month = CommentatorsMonth::get(date("Y-m"));
         $month->prepareNewStats();
     }
 
     public function actionTest(){
-        $user_id = 15426;
-        $date1 = '2013-03-01';
-        $date2 = '2013-03-01';
-        echo GApi::model()->visitors('/user/' . $user_id . '/', $date1, $date2, false);
-        echo "\n";
-        echo GApi::model()->visitors('/user/' . $user_id . '/blog/', $date1, $date2);
-        echo "\n";
-        echo GApi::model()->visitors('/user/' . $user_id . '/', $date1, $date2);
+        echo date("Y-m-d H:i:s", 1364379008);
     }
 }

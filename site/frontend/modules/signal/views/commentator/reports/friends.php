@@ -4,7 +4,7 @@
  * @var $section string раздел отчетности
  */
 
-$stats = $this->commentator->friends($month);
+$stats = $this->commentator->friendsMonthStats($month);
 ?>
 <div class="report-icons">
     <div class="report-icons_i">

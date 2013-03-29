@@ -43,6 +43,7 @@ $stats = $this->commentator->imMessagesMonthStats($month);
     <table class="report_table">
         <tbody>
         <?php foreach ($this->commentator->getDays($month) as $day): ?>
+            <?php if ($day->date == date("Y-m-d")) $day->calcImMessageStats($this->commentator->user_id);?>
         <?php if (!isset($count)) $count=0;$count++; ?>
         <tr<?php if ($count % 2 == 1) echo ' class="report_odd"' ?>>
             <td class="report_td-date">

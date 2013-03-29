@@ -1,6 +1,6 @@
 <?php
 /**
- * @var $this CommentatorController
+ * @var $this DefaultController
  * @var $month string выбранный месяц
  * @author Alex Kireev <alexk984@gmail.com>
  */

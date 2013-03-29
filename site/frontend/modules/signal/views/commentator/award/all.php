@@ -8,12 +8,12 @@ $commentatorMonth = CommentatorsMonth::get($month);
 
 ?><div class="nav-hor nav-hor__2 clearfix">
     <ul class="nav-hor_ul">
-        <li class="nav-hor_li active">
+        <li class="nav-hor_li">
             <a href="<?=$this->createUrl('', array('type'=>'me')) ?>" class="nav-hor_i">
                 <span class="nav-hor_tx">Моя премия</span>
             </a>
         </li>
-        <li class="nav-hor_li">
+        <li class="nav-hor_li active">
             <a href="javascript:;" class="nav-hor_i">
                 <span class="nav-hor_tx">Рейтинги</span>
             </a>
@@ -34,7 +34,7 @@ $commentatorMonth = CommentatorsMonth::get($month);
                 <th>Личная <br> переписка </th>
                 <th>Поисковые <br> системы</th>
             </tr>
-            <?php $count = count(CommentatorHelper::getCommentatorIdList()); ?>
+            <?php $count = CommentatorWork::model()->count(); ?>
             <?php for($i = 1;$i <= $count;$i++): ?>
                 <tr<?php if ($i % 2 == 1) echo ' class="award-me-table_odd"' ?>>
                     <td class="award-me-table_td-place">
@@ -44,10 +44,14 @@ $commentatorMonth = CommentatorsMonth::get($month);
                             <?=$i ?>
                         <?php endif ?>
                     </td>
-                    <td class="award-me-table_td-friend">200</td>
-                    <td class="award-me-table_td-profile">2690</td>
-                    <td class="award-me-table_td-message">56800</td>
-                    <td class="award-me-table_td-search">96300</td>
+                    <?php $value = $commentatorMonth->getStatByPlace($i, CommentatorsMonth::NEW_FRIENDS); ?>
+                    <td class="award-me-table_td-friend<?php if ($value[1] == Yii::app()->user->id) echo ' active' ?>"><?=$value[0] ?></td>
+                    <?php $value = $commentatorMonth->getStatByPlace($i, CommentatorsMonth::PROFILE_VIEWS); ?>
+                    <td class="award-me-table_td-profile<?php if ($value[1] == Yii::app()->user->id) echo ' active' ?>"><?=$value[0] ?></td>
+                    <?php $value = $commentatorMonth->getStatByPlace($i, CommentatorsMonth::IM_MESSAGES); ?>
+                    <td class="award-me-table_td-message<?php if ($value[1] == Yii::app()->user->id) echo ' active' ?>"><?=$value[0] ?></td>
+                    <?php $value = $commentatorMonth->getStatByPlace($i, CommentatorsMonth::SE_VISITS); ?>
+                    <td class="award-me-table_td-search<?php if ($value[1] == Yii::app()->user->id) echo ' active' ?>"><?=$value[0] ?></td>
                 </tr>
             <?php endfor; ?>
             </tbody>

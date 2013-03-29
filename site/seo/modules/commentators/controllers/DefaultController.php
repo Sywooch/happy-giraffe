@@ -4,6 +4,7 @@ class DefaultController extends SController
 {
     public $layout = '/layout/commentators';
     public $icon = 2;
+    public $user;
 
     public function beforeAction($action)
     {
@@ -14,6 +15,7 @@ class DefaultController extends SController
         Yii::import('site.frontend.modules.im.models.*');
 
         $this->pageTitle = 'комментаторы';
+        $this->user = Yii::app()->user->getModel();
         return true;
     }
 
@@ -46,33 +48,25 @@ class DefaultController extends SController
         $this->render('_commentator_stats', compact('commentator', 'period'));
     }
 
-    public function actionClubs()
+    public function actionAward($month = null)
     {
-        $this->render('clubs', compact('commentator', 'period'));
+        if (empty($month))
+            $month = date("Y-m");
+
+        $this->render('awards', compact('month'));
     }
 
-    public function actionAddClub()
+    public function actionLinks($user_id = null, $month = null)
     {
-        $user_id = Yii::app()->request->getPost('user_id');
-        $club_id = Yii::app()->request->getPost('club_id');
-        $commentator = CommentatorWork::getUser($user_id);
-        if (!in_array($club_id, $commentator->clubs)) {
-            $commentator->clubs [] = $club_id;
-            $commentator->save();
-        }
+        if (empty($month))
+            $month = date("Y-m");
 
-        $this->renderPartial('_user_clubs', compact('commentator'));
-    }
-
-    public function actionRemoveClub()
-    {
-        $user_id = Yii::app()->request->getPost('user_id');
-        $club_id = Yii::app()->request->getPost('club_id');
-        $commentator = CommentatorWork::getUser($user_id);
-        foreach ($commentator->clubs as $key => $club) {
-            if ($club == $club_id)
-                unset($commentator->clubs[$key]);
+        if (empty($user_id))
+            $this->render('links_all', compact('month'));
+        else {
+            $this->addEntityToFastList('commentators', $user_id, 3);
+            $commentator = CommentatorWork::getUser($user_id);
+            $this->render('links', compact('month', 'commentator'));
         }
-        echo CJSON::encode(array('status' => $commentator->save()));
     }
 }

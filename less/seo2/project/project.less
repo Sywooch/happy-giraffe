@@ -19,9 +19,25 @@
 	&__2 &_i{
 		padding: 0 130px;
 	}
+	&__users &_i {
+		padding: 0 20px;
+		overflow: hidden;
+	}
+	&__users &_tx {
+		padding: 0;
+		white-space: nowrap;
+		max-width: 170px;
+		overflow: hidden;
+	}
+	.ava {
+		float: none;
+		.inline-block();
+		vertical-align: middle;
+	}
 
 	&_li {
 		.inline-block();
+		position: relative;
 		margin: 0 0 -5px;
 		background: #e9e2f0;
 		border-top-left-radius: 9px;
@@ -45,6 +61,19 @@
 		color: #8b7d9c;
 		text-decoration: none;
 	}
+	&_tx {
+		.inline-block();
+		vertical-align: middle;
+	}
+	&_close {
+		position: absolute;
+		top: 5px;
+		right: 8px;
+		width: 12px;
+		height: 12px;
+		background: url(/images/seo2/ico/close.png) no-repeat;
+	}
+	&_close:hover {background-position: 0 -12px;}
 }
 /* /nav-hor */
 
@@ -349,6 +378,10 @@
 	border-spacing:0;
 	border: 0;
 	width: 100%;
+	&__thin {
+		width: 570px;
+		margin: 0 auto 50px;
+	}
 
 	&_odd > td {background: #f6f6f6;}
 	&_td-date {
@@ -374,6 +407,11 @@
 		max-width: 300px;
 		vertical-align: middle;
 		padding: 10px 20px 10px 5px;
+	}
+	&_td-user {
+		width: 300px;
+		vertical-align: middle;
+		height: 50px;
 	}
 	&_date {
 		margin: 0 auto;
@@ -438,12 +476,24 @@
 /* report */
 .report {
 	margin: 0 0 40px;
+	&__center &_td-count{text-align: center;}
 
 	&_table {
 		border-spacing:0;
 		border: 0;
 		width: 100%;
 	}
+	th {
+		color: #fff;
+		vertical-align: middle;
+		background: #735490;
+		height: 54px;
+		font-weight: normal;
+		font-size: 12px;
+		line-height: 14px;
+	}
+	th:first-child {border-top-left-radius: 5px;}
+	th:last-child {border-top-right-radius: 5px;}
 	&_odd > td {background: #f6f6f6;}
 	&_td-date {
 		width: 130px;
@@ -744,11 +794,83 @@
 	&_td-profile {width: 135px; background: #fffcf9;}
 	&_td-message {width: 135px; background: #fffef9;}
 	&_td-search  {width: 135px; background: #fafcff;}
-
-
 }
 /* /award-me-table */
 
+/* report-plan */
+.report-plan {
+	margin: 0 10px 50px;
+	font-size: 23px;
+	line-height: 26px;
+	color: #2d2d2d;
 
+	.user-info_username {text-align: left;}
+	.win-place-3 {margin:0 18px 0 12px;float: right;}
+	&_tb{
+		border-spacing:0;
+		border: 0;
+		width: 100%;
+	}
+	// table head
+	th {
+		color: #fff;
+		vertical-align: middle;
+		background: #735490;
+		height: 54px;
+		font-weight: normal;
+		font-size: 12px;
+		line-height: 14px;
+	}
+	th:first-child {border-top-left-radius: 5px;}
+	th:first-child &_sort-hold{top:-7px;} // Положение стрелки фильтра у колонки комментаров в 1 стр.
+	th:last-child {border-top-right-radius: 5px;}
+	th:hover &_sort {display: block;}
+	&_sort-hold {
+		float: right;
+		height: 0;
+		position: relative;
+	}
+	&_sort {
+		display: none;
+		position: absolute;
+		vertical-align: middle;
+		width: 20px;
+		height: 20px;
+		top: 5px;
+		right: 10px;
+		background: url(/images/seo2/arrow-filter.png) no-repeat;
+	}
+	&_sort__down {background-position: 0 -20px;}
+	// table body
+	td {
+		height: 52px;
+		vertical-align: middle;
+		text-align: right;
+	}
+	&_odd &_td-user    {background: #fff;}
+	&_odd &_td-friend  {background: #ebfcea;}
+	&_odd &_td-profile {background: #fff5eb;}
+	&_odd &_td-message {background: #fffbdc;}
+	&_odd &_td-search  {background: #e2effe;}
+	&_td-user    {width: 160px; background: #eff3f8;padding: 0 10px;text-align: left !important;}
+	&_td-friend  {width: 170px; background: #e2f1eb;}
+	&_td-profile {width: 170px; background: #efedeb;}
+	&_td-message {width: 170px; background: #eff0e2;}
+	&_td-search  {width: 170px; background: #dde9f7;}
+
+	&_place {
+		float: right;
+		margin: 0 15px 0 10px;
+		color: #f5bb0b;
+		font-size: 12px;
+		line-height: 1.2em;
+		text-align: center;
+	}
+	&_place-value {
+		font-size: 17px;
+		font-weight: bold;
+	}
+}
+/* /report-plan */
 
 

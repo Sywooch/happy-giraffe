@@ -441,13 +441,14 @@ class RecipeController extends HController
 
         $data = array();
         foreach ($models as $model) {
+            $t = date("Y-m-d H:i:s", $this->getRecipeLastUpdatedTime($model['id']));
             $data[] = array(
                 'params' => array(
                     'id' => $model['id'],
                     'section' => $model['section'],
                 ),
                 'changefreq' => 'daily',
-                'lastmod' => ($model['updated'] === null) ? $model['created'] : $model['updated'],
+                'lastmod' => $t,
             );
         }
 
@@ -620,7 +621,11 @@ class RecipeController extends HController
             return null;
 
         $recipe_id = Yii::app()->request->getQuery('id');
+        return date("Y-m-d H:i:s", $this->getRecipeLastUpdatedTime($recipe_id));
+    }
 
+    public function getRecipeLastUpdatedTime($id)
+    {
         $sql = "SELECT
                     GREATEST(
                         COALESCE(MAX(c.created), '0000-00-00 00:00:00'),
@@ -643,7 +648,7 @@ class RecipeController extends HController
         if (empty($t2))
             return $t1;
 
-        return date("Y-m-d H:i:s", max($t1, $t2));
+        return max($t1, $t2);
     }
 
     /**

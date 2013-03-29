@@ -193,7 +193,6 @@
 		line-height: 14px;
 		border-radius: 3px;
 	}
-
 }
 /* /editor-tasks */
 
@@ -493,7 +492,7 @@
 		line-height: 14px;
 	}
 	th:first-child {border-top-left-radius: 5px;}
-	th:last-child {border-top-right-radius: 5px;}
+	th:last-child {border-top-right-radius: 5px;padding-right: 40px;}
 	&_odd > td {background: #f6f6f6;}
 	&_td-date {
 		width: 130px;
@@ -511,6 +510,12 @@
 		vertical-align: middle;
 		padding: 10px 40px 10px 0;
 		text-align: center;
+	}
+	&_td-user {
+		width: 160px;
+		padding: 0 10px;
+		vertical-align: middle;
+		text-align: left !important;
 	}
 
 	&_date {
@@ -542,6 +547,12 @@
 		font-weight: normal;
 		color: #4c4e4c;
 	}
+	&_percent {
+		line-height: 19px;
+		font-size: 14px;
+		padding: 2px 0 0;
+	}
+	&_percent &_count-ico {margin-right: 2px;}
 }
 /* /report */
 
@@ -873,4 +884,128 @@
 }
 /* /report-plan */
 
+/* task-add */
+.task-add {
+	margin: 0 0 30px;
 
+	&_itx-hold {
+		float: right;
+		width: 450px;
+		text-align: center;
+		margin: 37px 30px 0;
+	}
+    &_itx {
+        display: inline-block;
+        margin: 0 10px;
+        vertical-align: middle;
+        width: 280px;
+    }
+    &_a {font-weight: bold;}
+    &_close {
+		.inline-block();
+		position: relative;
+		top: -2px;
+		right: 0px;
+		width: 12px;
+		height: 12px;
+		background: url(/images/seo2/ico/close.png) no-repeat;
+	}
+	&_close:hover {background-position: 0 -12px;}
+}
+/* /task-add */
+
+/* task-act */
+.task-act {
+	float: right;
+	width: 260px;
+	margin: 0 60px 0 0;
+	padding: 0 0 10px;
+	border: 1px solid #eae9e9;
+	&.inactive &_or{background-position: 0 -100px;}
+	&.inactive &_ico__like    {background-position: 0 0;}
+	&.inactive &_ico__comment {background-position: 0 -41px;}
+
+	&_t {
+		width: 100px;
+		margin: -10px auto 10px;
+		padding: 0;
+		background: #fff;
+		color: #d6d3d3;
+		font-size: 14px;
+	}
+	&_i {
+		float: left;
+		margin: 0 25px;
+		text-decoration: none;
+	}
+	&_ico-hold {
+		display: block;
+		padding: 1px;
+		background: url(/images/seo2/task-act_ico-hold.png) no-repeat;
+	}
+	&_ico {
+		display: block;
+		width: 41px;
+		height: 41px;
+		margin: 11px;
+		background: url(/images/seo2/ico/task-act_ico.png) no-repeat;
+	}
+	&_ico__like    {background-position: -41px 0;}
+	&_ico__comment {background-position: -41px -41px;}
+	&_tx {
+		display: block;
+		font-size: 11px;
+		font-family: Tahoma, Arial, Verdana, sans-serif;
+		color: #a8a7a7;
+		text-align: center;
+	}
+	&_or {
+		float: left;
+		width: 20px;
+		height: 41px;
+		margin: 14px 0 0;
+		background: url(/images/seo2/task-act_or.png) no-repeat;
+	}
+}
+/* /task-act */
+
+/* task-tb */
+.task-tb {
+	margin: 0 30px 40px;
+
+	&_table {
+		border-spacing:0;
+		border: 0;
+		width: 100%;
+	}
+	&_odd > td {background: #f6f6f6;}
+	&_td-ico {
+		width: 50px;
+		text-align: center;
+		vertical-align: middle;
+	}
+	&_td-a {
+		width: 350px;
+		vertical-align: middle;
+		font-weight: bold;
+	}
+	&_td-playerbar {
+		width: 150px;
+		text-align: center;
+		vertical-align: middle;
+	}
+	&_td-count {
+		width: 150px;
+		padding-right: 35px;
+		text-align: right;
+		vertical-align: middle;
+		color: #c8c4c4;
+	}
+	&_ico {
+		.inline-block();
+		height: 15px;
+		width: 15px;
+		background: url(/images/seo2/ico/task-tb_ico.png) no-repeat;
+	}
+}
+/* /task-tb */

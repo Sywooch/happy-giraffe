@@ -69,7 +69,6 @@ class GeoCity extends HActiveRecord
             'region' => array(self::BELONGS_TO, 'GeoRegion', 'region_id'),
             'district' => array(self::BELONGS_TO, 'GeoDistrict', 'district_id'),
             'zips' => array(self::HAS_MANY, 'GeoZip', 'city_id'),
-            'coordinates' => array(self::HAS_ONE, 'CityCoordinates', 'city_id'),
         );
     }
 
@@ -80,11 +79,9 @@ class GeoCity extends HActiveRecord
     {
         return array(
             'id' => 'ID',
-            'region_id' => 'Регион',
-            'country_id' => 'Страна',
-            'district_id' => 'Район',
+            'region_id' => 'Region',
+            'country_id' => 'Country',
             'name' => 'Название',
-            'type' => 'Тип',
             'name_from' => 'от ...',
             'name_between' => 'между ...',
             'declension_checked' => 'Склонения проверены',
@@ -110,25 +107,18 @@ class GeoCity extends HActiveRecord
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
             'pagination' => array('pageSize' => 100),
-            'sort' => array('defaultOrder' => 'id DESC')
         ));
-    }
-
-    public function getStatus()
-    {
-        if ($this->auto_created)
-            return 'не проверен <input type="hidden" value="' . $this->id . '"><a class="city_checked" href="javascript:;">проверен</a>';
-        return 'проверен';
     }
 
     public function declensionSearch()
     {
+        // Warning: Please modify the following code to remove attributes that
+        // should not be searched.
+
         $criteria = new CDbCriteria;
 
         if (empty($this->id))
-            $criteria->condition = '
-            id IN (Select distinct(city_from_id) from routes__routes UNION Select distinct(city_to_id) from routes__routes )
-            AND declension_checked=0';
+            $criteria->condition = 'id IN (Select distinct(city_from_id) from routes__routes UNION Select distinct(city_to_id) from routes__routes ) AND declension_checked=0';
         else
             $criteria->compare('id', $this->id, true);
         $criteria->compare('region_id', $this->region_id, true);
@@ -141,19 +131,15 @@ class GeoCity extends HActiveRecord
         ));
     }
 
-    public function declCheckedLink()
-    {
-        return '<input type="hidden" value="' . $this->id . '"><a class="decl_checked" href="javascript:;">проверено</a>';
+    public function declCheckedLink(){
+        return '<input type="hidden" value="'.$this->id.'"><a class="decl_checked" href="javascript:;">проверено</a>';
     }
 
     public function beforeSave()
     {
         //склонение
-        if ($this->isNewRecord) {
-            $c = new CityDeclension();
-            list($n1, $n2) = $c->getDeclensions($this->name);
-            $this->name_from = $n1;
-            $this->name_between = $n2;
+        if ($this->isNewRecord){
+
         }
 
         return parent::beforeSave();
@@ -162,7 +148,7 @@ class GeoCity extends HActiveRecord
     public function getFullName()
     {
         $text = $this->name;
-        if (!empty($this->district_id) && $this->district->name != $this->name) {
+        if (!empty($this->district_id)) {
             //если есть такой же город в этом регионе
             $criteria = new CDbCriteria;
             $criteria->compare('region_id', $this->region_id);
@@ -171,22 +157,18 @@ class GeoCity extends HActiveRecord
             if ($count > 1)
                 $text .= ', ' . $this->district->name . ' район';
         }
-        if (!empty($this->region_id) && $this->region->name !== $this->name){
-            if (empty($this->region->google_name))
-                $text .= ', ' . $this->region->name;
-            else
-                $text .= ', ' . $this->region->google_name;
-        }
+        if (!empty($this->region_id) && $this->region->name !== $this->name)
+            $text .= ', ' . $this->region->name;
 
         $text .= ', ' . $this->country->name;
 
-        return trim($text);
+        return $text;
     }
 
     /**
      * @param $lat float
      * @param $lng float
-     * @return GeoCity
+     * @return CityCoordinates
      */
     public static function getCityByCoordinates($lat, $lng)
     {
@@ -205,29 +187,13 @@ class GeoCity extends HActiveRecord
         $lat = (string)round(trim($lat), 5);
         $lng = (string)round(trim($lng), 5);
         $criteria = new CDbCriteria;
-        $criteria->condition = 'location_lat = ' . $lat . ' AND location_lng = ' . $lng;
+        $criteria->condition = 'location_lat = '. $lat.' AND location_lng = '.$lng;
         return CityCoordinates::model()->find($criteria);
     }
 
     public static function getCityFromGoogleMaps($lat, $lng)
     {
         $parser = new GoogleMapsGeoCode;
-        $city = $parser->getCityByCoordinates($lat, $lng);
-        if ($city !== null && !CityCoordinates::model()->exists('city_id=:city_id', array(':city_id'=>$city->id))) {
-            $coordinates = new CityCoordinates();
-            $coordinates->city_id = $city->id;
-            $coordinates->location_lat = $lat;
-            $coordinates->location_lng = $lng;
-            $coordinates->save();
-        }
-
-        return $city;
-    }
-
-    public function checkCityCoordinates()
-    {
-        $parser = new GoogleCoordinatesParser(false, false);
-        $parser->city = $this;
-        $parser->parseCity();
+        return $parser->getCityByCoordinates($lat, $lng);
     }
 }

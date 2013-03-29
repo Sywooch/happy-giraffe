@@ -212,7 +212,10 @@ class CommentatorsMonth extends EMongoDocument
         $place = $this->getPlace($user_id, $counter);
         if ($place < 4)
             return '<div class="win-place-3 win-place-3__' . $place . '"></div>';
-        return '<div class="report-plan_place-value">' . $place . '</div><div class="report-plan_place-tx">место</div>';
+        return '<div class="report-plan_place">
+                <div class="report-plan_place-value">' . $place . '</div>
+                <div class="report-plan_place-tx">место</div>
+                </div>';
     }
 
     /**

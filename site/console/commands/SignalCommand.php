@@ -126,8 +126,4 @@ class SignalCommand extends CConsoleCommand
     public function actionTest(){
         echo date("Y-m-d H:i:s", 1364379008);
     }
-
-    public function actionTest(){
-        echo date("Y-m-d H:i:s", 1362672924);
-    }
 }

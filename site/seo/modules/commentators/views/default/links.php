@@ -8,7 +8,7 @@
 
 $links = $commentator->GetLinks($month);
 ?>
-<?php $this->renderPartial('links_header', array('month' => $month, 'active'=>$commentator->user_id)); ?>
+<?php $this->renderPartial('menu', array('month' => $month, 'active'=>$commentator->user_id, 'url'=>'links')); ?>
 <div class="block">
 
     <?php $this->renderPartial('_month_list', array('month' => $month)); ?>
@@ -21,7 +21,7 @@ $links = $commentator->GetLinks($month);
                     <div class="b-date"><?=Yii::app()->dateFormatter->format('dd MMM yyyy',strtotime($link->created))?></div>
                 </td>
                 <td class="external-link_td-outer">
-                    <a href="" class="external-link_outer"><?=$link->url ?></a>
+                    <a href="<?=$link->url ?>" class="external-link_outer" target="_blank"><?=$link->url ?></a>
                 </td>
                 <td class="external-link_td-count">
                     <div class="external-link_count"><?=$link->count ?></div>

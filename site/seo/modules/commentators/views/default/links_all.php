@@ -11,7 +11,7 @@ $criteria->setSort(array('user_id'=>EMongoCriteria::SORT_ASC));
 $commentators = CommentatorWork::model()->findAll($criteria);
 
 ?>
-<?php $this->renderPartial('links_header', array('month' => $month, 'active'=>null)); ?>
+<?php $this->renderPartial('menu', array('month' => $month, 'active'=>null, 'url'=>'links')); ?>
 <div class="block">
 
     <?php $this->renderPartial('_month_list', array('month' => $month)); ?>

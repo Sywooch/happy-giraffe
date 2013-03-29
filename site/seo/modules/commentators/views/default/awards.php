@@ -60,27 +60,19 @@ Yii::app()->clientScript->registerScriptFile('/js/jquery.sortElements.js');
             </td>
             <td class="report-plan_td-friend" data-val="<?=$commentatorMonth->getPlace($user->id, CommentatorsMonth::NEW_FRIENDS) ?>">
                 <?=$commentatorMonth->getStatValue($user->id, CommentatorsMonth::NEW_FRIENDS) ?>
-                <div class="report-plan_place">
-                    <?=$commentatorMonth->getPlaceViewAdmin($user->id, CommentatorsMonth::NEW_FRIENDS) ?>
-                </div>
+                <?=$commentatorMonth->getPlaceViewAdmin($user->id, CommentatorsMonth::NEW_FRIENDS) ?>
             </td>
             <td class="report-plan_td-profile" data-val="<?=$commentatorMonth->getPlace($user->id, CommentatorsMonth::PROFILE_VIEWS) ?>">
                 <?=$commentatorMonth->getStatValue($user->id, CommentatorsMonth::PROFILE_VIEWS) ?>
-                <div class="report-plan_place">
-                    <?=$commentatorMonth->getPlaceViewAdmin($user->id, CommentatorsMonth::PROFILE_VIEWS) ?>
-                </div>
+                <?=$commentatorMonth->getPlaceViewAdmin($user->id, CommentatorsMonth::PROFILE_VIEWS) ?>
             </td>
             <td class="report-plan_td-message" data-val="<?=$commentatorMonth->getPlace($user->id, CommentatorsMonth::IM_MESSAGES) ?>">
                 <?=$commentatorMonth->getStatValue($user->id, CommentatorsMonth::IM_MESSAGES) ?>
-                <div class="report-plan_place">
-                    <?=$commentatorMonth->getPlaceViewAdmin($user->id, CommentatorsMonth::IM_MESSAGES) ?>
-                </div>
+                <?=$commentatorMonth->getPlaceViewAdmin($user->id, CommentatorsMonth::IM_MESSAGES) ?>
             </td>
             <td class="report-plan_td-search" data-val="<?=$commentatorMonth->getPlace($user->id, CommentatorsMonth::SE_VISITS) ?>">
                 <?=$commentatorMonth->getStatValue($user->id, CommentatorsMonth::SE_VISITS) ?>
-                <div class="report-plan_place">
-                    <?=$commentatorMonth->getPlaceViewAdmin($user->id, CommentatorsMonth::SE_VISITS) ?>
-                </div>
+                <?=$commentatorMonth->getPlaceViewAdmin($user->id, CommentatorsMonth::SE_VISITS) ?>
             </td>
         </tr>
     <?php endforeach; ?>

@@ -19,33 +19,9 @@ class DefaultController extends SController
         return true;
     }
 
-    public function actionIndex($period = '', $day = '')
+    public function actionIndex()
     {
-        if (empty($period))
-            $period = date("Y-m");
-
-        $month = CommentatorsMonth::get($period);
-        if (Yii::app()->user->checkAccess('commentator-manager')) {
-            $criteria = new EMongoCriteria();
-            $criteria->user_id('in', Yii::app()->user->model->commentatorIds());
-            $commentators = CommentatorWork::model()->findAll($criteria);
-        } else
-            $commentators = CommentatorWork::model()->getCommentatorGroups();
-
-        $this->render('index', compact('period', 'month', 'day', 'commentators'));
-    }
-
-    public function actionCommentator($user_id, $period = null)
-    {
-        $this->addEntityToFastList('commentators', $user_id);
-        $commentator = CommentatorWork::getUser($user_id);
-        $this->render('commentator', compact('commentator', 'period'));
-    }
-
-    public function actionCommentatorStats($user_id, $period)
-    {
-        $commentator = CommentatorWork::getUser($user_id);
-        $this->render('_commentator_stats', compact('commentator', 'period'));
+        $this->render('tasks');
     }
 
     public function actionAward($month = null)
@@ -67,6 +43,19 @@ class DefaultController extends SController
             $this->addEntityToFastList('commentators', $user_id, 3);
             $commentator = CommentatorWork::getUser($user_id);
             $this->render('links', compact('month', 'commentator'));
+        }
+    }
+
+    public function actionReports($user_id = null, $month = null){
+        if (empty($month))
+            $month = date("Y-m");
+
+        if (empty($user_id))
+            $this->render('reports_all', compact('month'));
+        else {
+            $this->addEntityToFastList('commentators', $user_id, 3);
+            $commentator = CommentatorWork::getUser($user_id);
+            $this->render('reports', compact('month', 'commentator'));
         }
     }
 }

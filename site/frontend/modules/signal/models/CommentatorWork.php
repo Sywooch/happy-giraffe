@@ -432,6 +432,16 @@ class CommentatorWork extends EMongoDocument
         return array($month_count, $percent);
     }
 
+    public function isMonthPlanExecuted($month)
+    {
+        $blog_stats = $this->getEntitiesCount('blog_post', $month, $this->getBlogPostsLimit());
+        $club_stats = $this->getEntitiesCount('club_post', $month, $this->getClubPostsLimit());
+        $comments_stats = $this->getEntitiesCount('comments', $month, $this->getCommentsLimit());
+        if ($blog_stats[1] >= 100 && $club_stats[1] >= 100 && $comments_stats[1] >= 100)
+            return true;
+        return false;
+    }
+
     /**
      * Возвращает текущие задания комментатора в блоги
      * @return SeoTask[]
@@ -770,35 +780,6 @@ class CommentatorWork extends EMongoDocument
         if ($a->date == $b->date)
             return 0;
         return ($a->created > $b->created) ? -1 : 1;
-    }
-
-    /**
-     * @param $working_commentators CommentatorWork[]
-     * @param $summary array
-     * @param $days_count int
-     * @return bool
-     */
-    public static function isExecuted($working_commentators, $summary, $days_count)
-    {
-        $summary_comment_limit = 0;
-        foreach ($working_commentators as $commentator)
-            $summary_comment_limit += $commentator->getCommentsLimit();
-
-        $summary_club_limit = 0;
-        foreach ($working_commentators as $commentator)
-            $summary_club_limit += $commentator->getClubPostsLimit();
-
-        $summary_blog_limit = 0;
-        foreach ($working_commentators as $commentator)
-            $summary_blog_limit += $commentator->getBlogPostsLimit();
-
-        if ($summary[0] / count($working_commentators) >= $summary_blog_limit * $days_count
-            && $summary[1] / count($working_commentators) >= $summary_club_limit * $days_count
-            && $summary[2] / count($working_commentators) >= $summary_comment_limit * $days_count
-        )
-            return true;
-
-        return false;
     }
 
     public function getWorkingMonths()

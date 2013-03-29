@@ -634,7 +634,16 @@ class RecipeController extends HController
 
         $command = Yii::app()->db->createCommand($sql);
         $command->bindValue(':recipe_id', $recipe_id, PDO::PARAM_INT);
-        return $command->queryScalar();
+        $t1 = strtotime($command->queryScalar());
+
+        //проверяем блок внутренней перелинковки
+        $url = 'http://www.happy-giraffe.ru' . Yii::app()->request->getRequestUri();
+        $t2 = InnerLinksBlock::model()->getUpTime($url);
+
+        if (empty($t2))
+            return $t1;
+
+        return date("Y-m-d H:i:s", max($t1, $t2));
     }
 
     /**

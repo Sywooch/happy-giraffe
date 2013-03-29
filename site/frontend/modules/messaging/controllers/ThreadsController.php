@@ -17,7 +17,7 @@ class ThreadsController extends HController
      */
     public function actionCreate()
     {
-        $interlocutor_id = Yii::app()->request->getPost('interlocutor_id', 22);
+        $interlocutor_id = Yii::app()->request->getPost('interlocutor_id');
 
         $thread = new MessagingThread();
         $threadUser1 = new MessagingThreadUser();

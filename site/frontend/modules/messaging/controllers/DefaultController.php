@@ -10,6 +10,7 @@ class DefaultController extends HController
 {
     public function actionIndex()
     {
-        echo '123';
+        $contacts = ContactsManager::getContactsByUserId(Yii::app()->user->id);
+        echo CJSON::encode($contacts);
     }
 }

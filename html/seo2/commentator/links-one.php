@@ -12,55 +12,15 @@
 <body >
 <div class="layout-page">
     <div class="layout-page_w1">
-        <?php include $path.'/html/seo2/include/community-header.php'; ?>
-
+        <?php include $path.'/html/seo2/include/commentator-header.php'; ?>
+        
+        <?php include $path.'/html/seo2/include/commentator-nav-hor.php'; ?>
+        
         <div class="block">
-            <div class="month-list clearfix">
-                <ul class="month-list_ul">
-                    <li class="month-list_li active">
-                        <a href="" class="month-list_i">
-                            <span class="month-list_tx">МАР 2013</span>
-                        </a>
-                    </li>
-                    <li class="month-list_li">
-                        <a href="" class="month-list_i">
-                            <span class="month-list_tx">АПР 2013</span>
-                        </a>
-                    </li>
-                    <li class="month-list_li">
-                        <a href="" class="month-list_i">
-                            <span class="month-list_tx">АПР 2013</span>
-                        </a>
-                    </li>
-                    <li class="month-list_li">
-                        <a href="" class="month-list_i">
-                            <span class="month-list_tx">АПР 2013</span>
-                        </a>
-                    </li>
-                    <li class="month-list_li">
-                        <a href="" class="month-list_i">
-                            <span class="month-list_tx">АПР 2013</span>
-                        </a>
-                    </li>
-                    <li class="month-list_li">
-                        <a href="" class="month-list_i">
-                            <span class="month-list_tx">АПР 2013</span>
-                        </a>
-                    </li>
-                    <li class="month-list_li">
-                        <a href="" class="month-list_i">
-                            <span class="month-list_tx">АПР 2013</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            <div class="external-link-add">
-                <input type="text" name="" id="" class="itx-bluelight external-link-add_itx" placeholder="Где проставлена ссылка">
-                <div class="external-link-add_ico"></div>
-                <input type="text" name="" id="" class="itx-bluelight external-link-add_itx" placeholder="Моя запись на Веселом Жирафе">
-                <button class="external-link-add_btn btn-green">Ok</button>
-            </div>
+
+            <?php include $path.'/html/seo2/include/month-list.php'; ?>
             
+                        
             <table class="external-link">
                 <tr class="external-link_odd">
                     <td class="external-link_td-date">

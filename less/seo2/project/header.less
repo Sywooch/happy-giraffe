@@ -2,11 +2,12 @@
 /* header-page */
 .header-page {
 	padding: 40px 0 10px;
+	text-align: center;
 
 	&_user {
 		float: right;
 		margin-right: 10px;
-
+		text-align: left;
 	}
 	&_logout {
 		float: right;
@@ -15,12 +16,14 @@
 		background: url(/images/seo2/header-page_logout.png) no-repeat;
 	}
 	&_logo-hold {
-		width: 280px;
+		.inline-block();
 		margin: 0 auto 25px;
 		text-align: center;
+		padding-left: 200px;
 	}
 	&_logo {
 		float: left;
+		margin-left: -60px;
 		width: 48px;
 		height: 48px;
 		background: url(/images/seo2/header-page_logo.png) no-repeat;

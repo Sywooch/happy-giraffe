@@ -638,7 +638,7 @@ class RecipeController extends HController
                 ON cm.entity = 'CookRecipe' AND cm.entity_id = :recipe_id";
 
         $command = Yii::app()->db->createCommand($sql);
-        $command->bindValue(':recipe_id', $recipe_id, PDO::PARAM_INT);
+        $command->bindValue(':recipe_id', $id, PDO::PARAM_INT);
         $t1 = strtotime($command->queryScalar());
 
         //проверяем блок внутренней перелинковки

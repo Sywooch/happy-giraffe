@@ -943,6 +943,5 @@ class CommunityController extends HController
             return $t1;
 
         return date("Y-m-d H:i:s", max($t1, $t2));
-
     }
 }

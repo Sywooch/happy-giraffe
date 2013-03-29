@@ -5,7 +5,6 @@
  *
  * @var $route Route
  * @var $texts array
- * @var $points array
  */
 
 $distance = $route->distance;
@@ -20,91 +19,40 @@ foreach ($fuels as $fuel) {
     );
 }
 
-$js = 'Routes.init("' . $route->cityFrom->getFullName() . '", "' . $route->cityTo->getFullName() . '");
-ko.applyBindings(new RoutesModel("' . $distance . '", ' . CJavaScript::encode($result) . '));
-';
-
-
-
-$middle_points = array_slice($points, 1, count($points) - 2);
-$index = 1;
-foreach ($middle_points as $point) {
-    $c = $point['city']->coordinates;
-    if ($c === null){
-        $p = new GoogleCoordinatesParser;
-        $p->city = $point['city'];
-        $p->parseCity();
-        $c = $p->coordinates;
-    }
-
-    if ($c !== null && !empty($c->location_lat) && !empty($c->location_lng))
-        $js .= "
-new google.maps.Marker({
-    position: new google.maps.LatLng(" . $c->location_lat . ", " . $c->location_lng . "),
-    map: Routes.map,
-    icon: '/images/services/map-route/point/point-".$index.".png',
-    title:'" . $point['city']->name . "',
-});";
-    $index++;
-}
-
-$way_points = Route::get8Points($middle_points);
-$waypoints_js = 'var way_points = [';
-foreach ($way_points as $point) {
-    $c = $point['city']->coordinates;
-
-    if ($c !== null && !empty($c->location_lat) && !empty($c->location_lng)){
-        $waypoints_js .= '{location:new google.maps.LatLng(' . $c->location_lat . ', ' . $c->location_lng . '),stopover:false},';
-    }
-}
-$waypoints_js .= '];';
+$js = '
+Routes.init("' . $route->cityFrom->getFullName() . '", "' . $route->cityTo->getFullName() . '");
+ko.applyBindings(new RoutesModel("' . $distance . '", ' . CJavaScript::encode($result) . '));';
 
 $basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR;
 $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
 
 Yii::app()->clientScript
-    ->registerScriptFile('http://maps.googleapis.com/maps/api/js?v=3&libraries=places&sensor=false')
+    ->registerScriptFile('http://maps.googleapis.com/maps/api/js?libraries=places&key=' . Yii::app()->params['google_map_key'] . '&sensor=true')
     ->registerCoreScript('jquery.ui')
     ->registerScriptFile('/javascripts/knockout-2.2.1.js')
     ->registerScript('routes_module', $js)
-    ->registerScript('routes_waypoints', $waypoints_js, CClientScript::POS_BEGIN)
     ->registerScriptFile($baseUrl . '/routes.js');
 
 ?>
 <style type="text/css">
     .pac-container:after {content: none !important;}
-    #map_canvas img{max-width:none;}
 </style>
-<?php if (Yii::app()->user->checkAccess('routes')):?>
-    <a href="/routes/<?=Route::model()->find(new CDbCriteria(array('order'=>'rand()', 'condition'=>'status=4')))->id ?>/">случайно google</a><br>
-    <a href="/routes/<?=Route::model()->find(new CDbCriteria(array('order'=>'rand()', 'condition'=>'status=2')))->id ?>/">случайно rosneft</a><br>
-    <a href="/routes/reparseGoogle/<?=$route->id ?>/">перепарсить в гугл</a><br>
-    <a href="/routes/reparseRosneft/<?=$route->id ?>/">перепарсить в роснефть</a><br>
-<?php endif ?>
 <div class="map-route-search">
-    <a href="#" class="map-route-search_new a-pseudo" onclick="$('form.map-route-search_form').toggle();">Новый
-        маршрут</a>
+    <a href="#" class="map-route-search_new a-pseudo" onclick="$('form.map-route-search_form').toggle();">Новый маршрут</a>
 
     <h1 class="map-route-search_h1"><?=$texts[0] ?></h1>
 
     <form action="" class="map-route-search_form clearfix" style="display: none;">
-        <input id="city_from" type="text" class="map-route-search_itx itx-bluelight" placeholder="Откуда">
+        <input id="city_from" type="" class="map-route-search_itx itx-bluelight" placeholder="Откуда">
         <a href="javascript:;" class="map-route-search_reverse" onclick="Routes.reversePlaces()"></a>
-        <input id="city_to" type="text" class="map-route-search_itx itx-bluelight" placeholder="Куда">
-        <button class="btn-green map-route-search_btn" onclick="Routes.go();return false;">Проложить <br> маршрут</button>
+        <input id="city_to" type="" class="map-route-search_itx itx-bluelight" placeholder="Куда">
+        <button class="btn-green map-route-search_btn" onclick="Routes.go()">Проложить <br> маршрут</button>
     </form>
     <p><?=$texts[1] ?></p>
 
 </div>
-<div class="margin-b30 map-canvas">
+<div class="margin-b30">
     <div id="map_canvas" style="width:960px; height:389px;"></div>
-    <div id="waitLoader" class="map-canvas_overlay" style="display:none;">
-        Подождите. Мы формируем для вас маршрут.
-        <div id="infscr-loading"><img src="/images/ico/ajax-loader.gif" alt="Loading..."><div>Загрузка</div></div>
-    </div>
-    <div id="badRoute" class="map-canvas_overlay map-canvas_overlay__error" style="display:none;">
-        Извините. Этот маршрут проложить невозможно.
-    </div>
 </div>
 <div class="content-cols clearfix">
     <div class="col-1">
@@ -158,7 +106,7 @@ Yii::app()->clientScript
                     <label class="map-route-calc_label">
                         <div class="chzn-v2">
                             <?= CHtml::dropDownList('currency', 1, CHtml::listData(FuelCost::model()->findAll(), 'currency_id', 'title'),
-                            array('class' => 'chzn w-85', 'data-bind' => 'value: currentCurrency')); ?>
+                                    array('class' => 'chzn w-85', 'data-bind'=>'value: currentCurrency')); ?>
                         </div>
                     </label>
                 </div>
@@ -166,56 +114,61 @@ Yii::app()->clientScript
                     <span data-bind="text: fuelNeeds"></span> <span class="map-route-calc_units">л</span>
                 </div>
                 <div class="map-route-calc_value">
-                    <span data-bind="text: summaryCost"></span> <span class="map-route-calc_units"
-                                                                      data-bind="text: currencySign">руб.</span>
+                    <span data-bind="text: summaryCost"></span> <span class="map-route-calc_units" data-bind="text: currencySign">руб.</span>
                 </div>
             </div>
         </div>
 
-        <div class="watchers">
-            <div class="watchers_t">Маршрут <br>просмотрели</div>
-            <div class="watchers_eye"></div>
-            <div class="watchers_count"><?=PageView::model()->viewsByPath($route->url)?></div>
+        <div class="map-route-share">
+            <div class="map-route-share_tx"><?=$texts[7] ?></div>
+            <div class="custom-likes-small">
+                <a href="" class="custom-like-small">
+                    <span class="custom-like-small_icon odkl"></span>
+                </a>
+                <a href="" class="custom-like-small">
+                    <span class="custom-like-small_icon mailru"></span>
+                </a>
+
+                <a href="" class="custom-like-small">
+                    <span class="custom-like-small_icon vk"></span>
+                </a>
+
+                <a href="" class="custom-like-small">
+                    <span class="custom-like-small_icon fb"></span>
+                </a>
+                <a href="javascript:;" class="custom-like-small" onclick="$('#email-popup').toggle();">
+                    <span class="custom-like-small_icon mail"></span>
+                </a>
+
+                <div id="email-popup" class="custom-like-small-popup">
+                    <div class="custom-like-small-popup_t">Отправить маршрут другу</div>
+                    <input type="text" name="" class="custom-like-small-popup_it itx-bluelight"
+                           placeholder="Свой email">
+                    <input type="text" name="" class="custom-like-small-popup_it itx-bluelight"
+                           placeholder="Email друга">
+
+                    <div class="clearfix"><img src="/images/captcha.png"></div>
+                    <input type="text" name="" class="custom-like-small-popup_it itx-bluelight"
+                           placeholder="Введите знаки с картинки">
+                    <button class="custom-like-small-popup_btn btn-green btn-medium">Отправить</button>
+                </div>
+            </div>
+            <div class="map-route-share_tx">Ссылка на этот маршрут:</div>
+            <div class="link-box">
+                <a href="<?=$this->createUrl('/route/default/index', array('id' => $route->id)) ?>"
+                   class="link-box_a"><?=$this->createAbsoluteUrl('/route/default/index', array('id' => $route->id)) ?></a>
+            </div>
         </div>
-
-        <?php $this->renderPartial('send',array('route'=>$route, 'texts' => $texts)); ?>
-
     </div>
 
 
     <div class="col-23">
-        <?php $this->renderPartial('_transit_points', array('route' => $route, 'texts' => $texts, 'points' => $points)); ?>
+        <?php $this->renderPartial('_transit_points', array('route' => $route, 'texts'=>$texts)); ?>
 
         <div class="map-route-other">
 
             <?php $this->renderPartial('links', array('route' => $route)); ?>
 
         </div>
-
-        <?php $this->widget('application.widgets.commentWidget.CommentWidget', array('model' => $route, 'notice' => $texts[8])); ?>
-
-        <?php
-        $remove_tmpl = $this->beginWidget('site.frontend.widgets.removeWidget.RemoveWidget');
-        $remove_tmpl->registerTemplates();
-        $this->endWidget();
-        ?>
     </div>
 </div>
-
-<script type="text/javascript">
-    function SendRoute() {
-        $.post('/routes/sendEmail/', $('#send-route-form').serialize(), function (response) {
-            if (response.status) {
-                $('#send-route-form').hide();
-                $('#send-success').show();
-
-                setTimeout(function() {
-                    $('#send-route-form').show();
-                    $('#send-success').hide();
-                    $('#SendRoute_friend_email').val('');
-                    $('#SendRoute_verifyCode').val('');
-                }, 2000)
-            }
-        }, 'json');
-    }
-</script>

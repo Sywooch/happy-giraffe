@@ -123,6 +123,124 @@ class SiteCommand extends CConsoleCommand
         }
     }
 
+    public function actionFormRoutes()
+    {
+        Yii::import('site.frontend.modules.geo.models.*');
+        Yii::import('site.frontend.modules.route.models.*');
+        Yii::import('site.seo.models.*');
+
+        $cities = GeoCity::model()->findAll('type="г"');
+        echo count($cities);
+        for ($i = 0; $i < count($cities); $i++) {
+            for ($j = 0; $j < count($cities); $j++)
+                if ($cities[$i]->id != $cities[$j]->id) {
+                    $model = new RouteParsing();
+                    $model->city_from_id = $cities[$i]->id;
+                    $model->city_to_id = $cities[$j]->id;
+                    $model->save();
+                }
+
+            if ($i % 10 == 0)
+                echo $i . "\n";
+        }
+    }
+
+    public function actionParseRoutes($debug = false)
+    {
+        Yii::import('site.frontend.modules.geo.models.*');
+        Yii::import('site.frontend.modules.route.models.*');
+        Yii::import('site.seo.components.*');
+        Yii::import('site.seo.models.*');
+
+        $parser = new RouteSeasonParser();
+        $parser->start($debug);
+    }
+
+    public function actionTest()
+    {
+        Yii::import('site.frontend.modules.geo.models.*');
+        Yii::import('site.frontend.modules.route.models.*');
+        Yii::import('site.frontend.modules.route.components.*');
+
+        CRouteLinking::model()->add(16586);
+    }
+
+    public function actionKeywordsTest()
+    {
+        Yii::import('site.frontend.modules.geo.models.*');
+        Yii::import('site.frontend.modules.route.models.*');
+        Yii::import('site.frontend.modules.route.components.*');
+
+        RouteLink::model()->test(16586);
+    }
+
+    public function actionCoordinates()
+    {
+        Yii::import('site.frontend.modules.geo.models.*');
+        Yii::import('site.frontend.modules.geo.components.*');
+
+        $parser = new GoogleCoordinatesParser(false, true);
+        $parser->start();
+    }
+
+    public function actionCopyRoutes()
+    {
+        Yii::import('site.frontend.modules.route.models.*');
+        Yii::import('site.seo.models.*');
+
+        $criteria = new CDbCriteria;
+        $criteria->limit = 1000;
+        $criteria->offset = 0;
+        $criteria->condition = 'wordstat > 0';
+
+        $models = array(0);
+        while (!empty($models)) {
+            $models = RouteParsing::model()->findAll($criteria);
+            foreach ($models as $model) {
+                $route = new Route();
+                $route->city_from_id = $model->city_from_id;
+                $route->city_to_id = $model->city_to_id;
+                $route->wordstat_value = $model->wordstat;
+                $route->save();
+            }
+
+            $criteria->offset += 1000;
+        }
+    }
+
+    public function actionCopyCities()
+    {
+        Yii::import('site.frontend.modules.geo.models.*');
+        Yii::import('site.seo.models.*');
+
+        $criteria = new CDbCriteria;
+        $criteria->limit = 100;
+        $criteria->offset = 0;
+
+        $models = array(0);
+        while (!empty($models)) {
+            $models = GeoCity::model()->findAll($criteria);
+
+            foreach ($models as $model) {
+                $m = new SeoCityCoordinates;
+                $m->city_id = $model->id;
+                $m->save();
+            }
+
+            $criteria->offset += 100;
+        }
+    }
+
+    public function actionRosneft()
+    {
+        Yii::import('site.frontend.modules.geo.models.*');
+        Yii::import('site.frontend.modules.route.models.*');
+        Yii::import('site.frontend.modules.route.components.*');
+
+        $parser = new RosneftParser;
+        $parser->start();
+    }
+
     public function actionHoroscope()
     {
         Yii::import('site.frontend.modules.services.modules.horoscope.models.*');
@@ -131,157 +249,5 @@ class SiteCommand extends CConsoleCommand
             $m = new HoroscopeLink();
             $m->generateLinks($model);
         }
-    }
-
-    public function actionFixClubEvents()
-    {
-        Yii::import('site.frontend.modules.whatsNew.models.*');
-        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
-
-        FriendEventClubs::model(FriendEvent::TYPE_CLUBS_JOINED);
-        $criteria = new EMongoCriteria(array(
-            'conditions' => array(
-                'type' => array(
-                    'equals' => FriendEvent::TYPE_CLUBS_JOINED,
-                ),
-                'clubs_ids'=>array(
-                    'equals' => 37
-                )
-            ),
-        ));
-
-        $models = FriendEventClubs::model(FriendEvent::TYPE_CLUBS_JOINED)->findAll($criteria);
-        echo count($models)."\n";
-
-        foreach($models as $model){
-            if (count($model->clubs_ids) == 1)
-                $model->delete();
-            else{
-                foreach($model->clubs_ids as $key=>$club_id){
-                    if ($club_id == 37)
-                        unset($model->clubs_ids[$key]);
-                }
-                $model->save();
-            }
-        }
-    }
-
-    public function actionFixFriendEvents()
-    {
-        Yii::import('site.frontend.modules.whatsNew.models.*');
-        Yii::import('site.frontend.modules.cook.models.*');
-        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
-
-        echo "remove articles\n";
-        $criteria = new CDbCriteria;
-        $criteria->limit = 500;
-        $criteria->offset = 0;
-        $criteria->condition = 'removed = 1';
-
-        $models = 1;
-        while (!empty($models)) {
-            $models = CommunityContent::model()->resetScope()->findAll($criteria);
-            echo count($models) . "\n";
-            foreach ($models as $model) {
-                FriendEvent::postDeleted(($model->isFromBlog ? 'BlogContent' : 'CommunityContent'), $model->id);
-            }
-
-            $criteria->offset += 1000;
-        }
-
-        echo "remove recipes\n";
-        $models = CookRecipe::model()->resetScope()->findAll('removed = 1');
-        echo count($models) . "\n";
-        foreach ($models as $model)
-            FriendEvent::postDeleted('CookRecipe', $model->id);
-
-        echo "remove users\n";
-        $criteria = new CDbCriteria;
-        $criteria->limit = 500;
-        $criteria->offset = 0;
-        $criteria->condition = 'deleted = 1';
-
-        $models = 1;
-        while (!empty($models)) {
-            $models = User::model()->resetScope()->findAll($criteria);
-            echo count($models) . "\n";
-            foreach ($models as $model) {
-                FriendEvent::userDeleted($model);
-            }
-
-            $criteria->offset += 1000;
-        }
-    }
-
-    public function actionFixImages(){
-        Yii::import('site.frontend.components.*');
-        $criteria = new CDbCriteria;
-        $criteria->limit = 100;
-        $criteria->offset = 0;
-        $criteria->condition = 'content_id > 39052 AND content_id < 40000';
-
-        $models = array(0);
-        while (!empty($models)) {
-            $models = CommunityPost::model()->findAll($criteria);
-
-            foreach ($models as $model) {
-                if (strpos($model->text, '<img') !== false){
-                    echo $model->content_id."\n";
-                    $model->save();
-                }
-            }
-
-            $criteria->offset += 100;
-        }
-    }
-
-    public function actionFixPreviews(){
-        Yii::import('site.frontend.components.*');
-        $last_id = 39000;
-        $criteria = new CDbCriteria;
-        $criteria->limit = 100;
-        $criteria->condition = 't.id > '.$last_id.' AND t.type_id = 1';
-        $criteria->order = 't.id';
-
-        $models = array(0);
-        while (!empty($models)) {
-            $models = CommunityContent::model()->with(array('post'))->findAll($criteria);
-
-            foreach ($models as $model) {
-                if (strpos($model->preview, '<img') !== false){
-                    echo $model->id."\n";
-                    $model->purify($model->post->text);
-                }
-                $last_id = $model->id;
-            }
-
-            $criteria->condition = 't.id > '.$last_id.' AND t.type_id = 1';
-        }
-    }
-
-    public function actionYandexVideo(array $queries, $pages = 50)
-    {
-        Yii::import('site.frontend.extensions.phpQuery.phpQuery');
-
-        $res = array();
-        foreach ($queries as $query) {
-            for ($i = 0; $i <= $pages - 1; $i++) {
-                $url = 'http://video.yandex.ru/ru/json/_search/?text=' . urlencode($query) . '&p=' . $i;
-                $response = file_get_contents($url);
-                $json = CJSON::decode($response);
-                $html = $json['b-content-wrapper'];
-                $doc = phpQuery::newDocumentXHTML($html, $charset = 'utf-8');
-                foreach (pq('.b-video__host') as $e) {
-                    $host = pq($e)->text();
-                    (isset($res[$host])) ? $res[$host] += 1 : $res[$host] = 1;
-                }
-                $doc->unloadDocument();
-            }
-        }
-
-        arsort($res, SORT_NUMERIC);
-        foreach ($res as $k => $v)
-            echo $k . ': ' . $v . "\n";
-        echo 'Total: ' . array_sum($res);
     }
 }

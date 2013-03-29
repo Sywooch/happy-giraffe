@@ -255,7 +255,11 @@ class WordstatParser extends ProxyParserThread
 
             if (empty($value) || $this->keyword->keyword->wordstat / $value > 1000) {
                 $this->keyword->keyword->wordstat = $value;
-                $this->keyword->keyword->save();
+                try{
+                    $this->keyword->keyword->save();
+                }catch (Exception $err){
+                    return ;
+                }
             }
             $this->keyword->priority = 0;
             $this->keyword->update(array('priority'));

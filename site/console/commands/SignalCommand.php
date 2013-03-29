@@ -250,4 +250,8 @@ class SignalCommand extends CConsoleCommand
         }
         $month->calculate();
     }
+
+    public function actionTest(){
+        echo date("Y-m-d H:i:s", 1362672924);
+    }
 }

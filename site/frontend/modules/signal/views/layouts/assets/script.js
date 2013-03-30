@@ -157,7 +157,10 @@ function NextComment(data) {
     });
     self.incComment = function (data) {
         console.log(data);
-        self.count(self.count() + 1);
+        if (data.inc == 1)
+            self.count(self.count() + 1);
+        self.url(data.url);
+        self.title(data.title);
     };
 }
 
@@ -186,8 +189,6 @@ Comet.prototype.CommentatorPanelUpdateTask = function (result, id) {
     CommentatorPanel.updateTask(result.task_id);
 };
 Comet.prototype.CommentatorPanelIncComments = function (result, id) {
-    console.log(result);
-    console.log(commentator_panel);
     commentator_panel.nextComment.incComment(result);
 };
 

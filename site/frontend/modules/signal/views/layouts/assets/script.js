@@ -153,10 +153,9 @@ function NextComment(data) {
         }, 'json');
     };
     self.progress = ko.computed(function () {
-        return self.count;
+        return self.count();
     });
     self.incComment = function (data) {
-        console.log(data);
         if (data.inc == 1)
             self.count(self.count() + 1);
         self.url(data.url);

@@ -159,8 +159,10 @@ function NextComment(data) {
     self.incComment = function (data) {
         if (data.inc == 1)
             self.count(self.count() + 1);
-        self.url(data.url);
-        self.title(data.title);
+        if (data.hasOwnProperty('url')){
+            self.url(data.url);
+            self.title(data.title);
+        }
     };
 }
 

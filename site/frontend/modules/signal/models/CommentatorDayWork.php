@@ -118,6 +118,26 @@ class CommentatorDayWork extends EMongoEmbeddedDocument
         }
     }
 
+    /**
+     * Проверка выполнения
+     * @param $section
+     * @return CDbCriteria
+     */
+    public function checkPosts($section)
+    {
+        $criteria = new CDbCriteria;
+        $criteria->condition = 'updated >= :day_start AND updated <= :day_end AND status = ' . SeoTask::STATUS_CLOSED
+            . ' AND sub_section = :section AND executor_id = :user_id';
+        $criteria->params = array(
+            ':day_start' => date("Y-m-d") . ' 00:00:00',
+            ':day_end' => date("Y-m-d") . ' 23:59:59',
+            ':section' => $section,
+            ':user_id' => Yii::app()->user->id
+        );
+
+        return SeoTask::model()->count($criteria);
+    }
+
     public function calcImMessageStats($commentator_id)
     {
         $this->im = CommentatorHelper::imStats($commentator_id, $this->date);

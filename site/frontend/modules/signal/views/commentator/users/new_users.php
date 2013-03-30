@@ -41,10 +41,11 @@
 
     $(function() {
         $('body').delegate('a.newcomers_add-friend', 'click', function(){
-            $.post('/friendRequests/send/', {to_id: $(this).data('id')}, function () {
+            $.post('/friendRequests/send/', {to_id: $(this).data('id')}, function (data) {
+                if (data.status)
+                    myViewModel.count(myViewModel.count()+1);
                 $.fn.yiiListView.update('friends');
-                myViewModel.count(myViewModel.count()+1);
-            });
+            }, 'json');
         });
 
         ko.applyBindings(myViewModel);

@@ -77,15 +77,171 @@
                     <div class="b-date">2 МАРТА 2013</div>
                 </div>
                 <table class="task-tb_tb">
-                    <tr>
+                    <tr class="task-tb_odd">
                         <td class="task-tb_td-ico">
                             <div class="task-tb_ico task-tb_ico__like"></div>
                         </td>
                         <td class="task-tb_td-a">
                             <a href="">Путешественники во времени и пространстве, присаживайтесь за свободный столик</a>
                         </td>
-                        <td class="task-tb_playerbar">
-                            <div class="task-tb_playerbar task-tb_playerbar__play"></div>
+                        <td class="task-tb_td-playerbar">
+                            <a href="" class="task-tb_playerbar task-tb_playerbar__play"></a>
+                        </td>
+                        <td class="task-tb_td-count">
+                            <a href="" class="task-tb_count color-alizarin">38</a> 
+                            |
+                            <a href="" class="task-tb_count color-green">19</a> 
+                        </td>
+                    </tr>
+                    <tr >
+                        <td class="task-tb_td-ico">
+                            <div class="task-tb_ico task-tb_ico__comment"></div>
+                        </td>
+                        <td class="task-tb_td-a">
+                            <a href="">Путешественники во времени и пространстве,к</a>
+                        </td>
+                        <td class="task-tb_td-playerbar">
+                            <a href="" class="task-tb_playerbar"></a>
+                        </td>
+                        <td class="task-tb_td-count">
+                            <a href="" class="task-tb_count color-alizarin">38</a> 
+                            |
+                            <a href="" class="task-tb_count color-green">19</a> 
+                        </td>
+                    </tr>
+                    <tr class="task-tb_odd task-tb_task-inactive">
+                        <td class="task-tb_td-ico">
+                            <div class="task-tb_ico task-tb_ico__like"></div>
+                        </td>
+                        <td class="task-tb_td-a">
+                            <a href="">Путешественники во времени и пространстве, присаживайтесь за свободный столик</a>
+                        </td>
+                        <td class="task-tb_td-playerbar">
+                            <a href="" class="task-tb_playerbar task-tb_playerbar__play"></a>
+                        </td>
+                        <td class="task-tb_td-count">
+                            <a href="" class="task-tb_count color-alizarin">38</a> 
+                            |
+                            <a href="" class="task-tb_count color-green">19</a> 
+                        </td>
+                    </tr>
+                    
+                    <tr >
+                        <td class="task-tb_td-ico">
+                            <div class="task-tb_ico task-tb_ico__comment"></div>
+                        </td>
+                        <td class="task-tb_td-a">
+                            <a href="">Путешественники во времени и пространстве,к</a>
+                        </td>
+                        <td class="task-tb_td-playerbar">
+                            <a href="" class="task-tb_playerbar"></a>
+                        </td>
+                        <td class="task-tb_td-count">
+                            <a href="" class="task-tb_count color-alizarin">38</a> 
+                            |
+                            <a href="" class="task-tb_count color-green">19</a> 
+                        </td>
+                    </tr>
+                    
+                    <tr class="task-tb_odd task-tb_task-inactive">
+                        <td class="task-tb_td-ico">
+                            <div class="task-tb_ico task-tb_ico__comment"></div>
+                        </td>
+                        <td class="task-tb_td-a">
+                            <a href="">Путешественники во времени и пространстве, во времени и пространстве, присаживайтесь за свободный столик пространстве, присаживайтесь за свободный столик</a>
+                        </td>
+                        <td class="task-tb_td-playerbar">
+                            <a href="" class="task-tb_playerbar task-tb_playerbar__play"></a>
+                        </td>
+                        <td class="task-tb_td-count">
+                            <a href="" class="task-tb_count color-alizarin">38</a> 
+                            |
+                            <a href="" class="task-tb_count color-green">19</a> 
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div class="task-tb">
+                <div class="margin-b10">
+                    <div class="b-date">1 МАРТА 2013</div>
+                </div>
+                <table class="task-tb_tb">
+                    <tr class="task-tb_odd">
+                        <td class="task-tb_td-ico">
+                            <div class="task-tb_ico task-tb_ico__like"></div>
+                        </td>
+                        <td class="task-tb_td-a">
+                            <a href="">Путешественники во времени и пространстве, присаживайтесь за свободный столик</a>
+                        </td>
+                        <td class="task-tb_td-playerbar">
+                            <a href="" class="task-tb_playerbar task-tb_playerbar__play"></a>
+                        </td>
+                        <td class="task-tb_td-count">
+                            <a href="" class="task-tb_count color-alizarin">38</a> 
+                            |
+                            <a href="" class="task-tb_count color-green">19</a> 
+                        </td>
+                    </tr>
+                    <tr >
+                        <td class="task-tb_td-ico">
+                            <div class="task-tb_ico task-tb_ico__comment"></div>
+                        </td>
+                        <td class="task-tb_td-a">
+                            <a href="">Путешественники во времени и пространстве,к</a>
+                        </td>
+                        <td class="task-tb_td-playerbar">
+                            <a href="" class="task-tb_playerbar"></a>
+                        </td>
+                        <td class="task-tb_td-count">
+                            <a href="" class="task-tb_count color-alizarin">38</a> 
+                            |
+                            <a href="" class="task-tb_count color-green">19</a> 
+                        </td>
+                    </tr>
+                    <tr class="task-tb_odd task-tb_task-inactive">
+                        <td class="task-tb_td-ico">
+                            <div class="task-tb_ico task-tb_ico__like"></div>
+                        </td>
+                        <td class="task-tb_td-a">
+                            <a href="">Путешественники во времени и пространстве, присаживайтесь за свободный столик</a>
+                        </td>
+                        <td class="task-tb_td-playerbar">
+                            <a href="" class="task-tb_playerbar task-tb_playerbar__play"></a>
+                        </td>
+                        <td class="task-tb_td-count">
+                            <a href="" class="task-tb_count color-alizarin">38</a> 
+                            |
+                            <a href="" class="task-tb_count color-green">19</a> 
+                        </td>
+                    </tr>
+                    
+                    <tr >
+                        <td class="task-tb_td-ico">
+                            <div class="task-tb_ico task-tb_ico__comment"></div>
+                        </td>
+                        <td class="task-tb_td-a">
+                            <a href="">Путешественники во времени и пространстве,к</a>
+                        </td>
+                        <td class="task-tb_td-playerbar">
+                            <a href="" class="task-tb_playerbar"></a>
+                        </td>
+                        <td class="task-tb_td-count">
+                            <a href="" class="task-tb_count color-alizarin">38</a> 
+                            |
+                            <a href="" class="task-tb_count color-green">19</a> 
+                        </td>
+                    </tr>
+                    
+                    <tr class="task-tb_odd task-tb_task-inactive">
+                        <td class="task-tb_td-ico">
+                            <div class="task-tb_ico task-tb_ico__comment"></div>
+                        </td>
+                        <td class="task-tb_td-a">
+                            <a href="">Путешественники во времени и пространстве, во времени и пространстве, присаживайтесь за свободный столик пространстве, присаживайтесь за свободный столик</a>
+                        </td>
+                        <td class="task-tb_td-playerbar">
+                            <a href="" class="task-tb_playerbar task-tb_playerbar__play"></a>
                         </td>
                         <td class="task-tb_td-count">
                             <a href="" class="task-tb_count color-alizarin">38</a> 

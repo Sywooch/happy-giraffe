@@ -23,6 +23,9 @@
                 <div class="margin-b10">
                      <a href="#popup-keyword" class="fancybox">попап выбора ключевика</a>
                 </div>
+                <div class="margin-b10">
+                     <a href="#popup-commentator-task" class="task-tb_count">попап задания комментаторам</a>
+                </div>
             </div>
         </div>
 
@@ -32,6 +35,8 @@
 
 <div class="popup-hold">
     <?php include $path.'/html/seo2/include/popup/popup-keyword.php'; ?>
+    
+    <?php include $path.'/html/seo2/include/popup/popup-commentator-task.php'; ?>
     
 </div>
 

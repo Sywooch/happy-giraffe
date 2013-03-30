@@ -18,7 +18,17 @@ class CommentatorController extends CController
     public function filters()
     {
         return array(
+            'accessControl',
             'ajaxOnly + emptyTasks, skip, take, cancelTask, executed, setSort',
+        );
+    }
+
+    public function accessRules()
+    {
+        return array(
+            array('deny',
+                'users' => array('?'),
+            ),
         );
     }
 

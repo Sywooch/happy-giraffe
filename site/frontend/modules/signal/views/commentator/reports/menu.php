@@ -22,7 +22,7 @@
                 'active' => (Yii::app()->controller->action->id == 'reports' && $section == 'visitors')
             ),
             array(
-                'label' => '<span class="nav-hor_tx">Заходов из <br> поискоков</span>',
+                'label' => '<span class="nav-hor_tx">Заходов из <br> поисковиков</span>',
                 'url' => $this->createUrl('commentator/reports', array('section' => 'traffic')),
                 'linkOptions' => array('class' => 'nav-hor_i'),
                 'active' => (Yii::app()->controller->action->id == 'reports' && $section == 'traffic')

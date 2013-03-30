@@ -28,6 +28,7 @@
         ->registerCssFile('/stylesheets/seo2/all.css')
         ->registerScriptFile('/javascripts/dklab_realplexor.js')
         ->registerScriptFile('/javascripts/seo2/jquery.fancybox.pack.js')
+        ->registerScriptFile('/javascripts/seo2/main.js')
         ->registerScript('Realplexor-reg', 'comet.connect("http://' . Yii::app()->comet->host . '", "' . Yii::app()->comet->namespace . '","' . UserCache::GetCurrentUserCache() . '");');
 
     $basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR;

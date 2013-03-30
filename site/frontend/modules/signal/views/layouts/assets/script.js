@@ -27,6 +27,7 @@ function CommentatorPanel(data) {
     self.showEmptyTasks = function () {
         $.post('/commentator/emptyTasks/', function (response) {
             self.emptyTasks(new KeywordTaskBlock(response, 2, self));
+            console.log($('#showKeywords'));
             $('#showKeywords').trigger('click');
         }, 'json');
     };

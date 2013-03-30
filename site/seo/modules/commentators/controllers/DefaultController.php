@@ -4,6 +4,7 @@ class DefaultController extends SController
 {
     public $layout = '/layout/commentators';
     public $icon = 2;
+    public $user;
 
     public function beforeAction($action)
     {
@@ -14,65 +15,47 @@ class DefaultController extends SController
         Yii::import('site.frontend.modules.im.models.*');
 
         $this->pageTitle = 'комментаторы';
+        $this->user = Yii::app()->user->getModel();
         return true;
     }
 
-    public function actionIndex($period = '', $day = '')
+    public function actionIndex()
     {
-        if (empty($period))
-            $period = date("Y-m");
-
-        $month = CommentatorsMonthStats::getOrCreateWorkingMonth($period);
-        if (Yii::app()->user->checkAccess('commentator-manager')) {
-            $criteria = new EMongoCriteria();
-            $criteria->user_id('in', Yii::app()->user->model->commentatorIds());
-            $commentators = CommentatorWork::model()->findAll($criteria);
-        } else
-            $commentators = CommentatorWork::model()->getCommentatorGroups();
-
-        $this->render('index', compact('period', 'month', 'day', 'commentators'));
+        $this->render('tasks');
     }
 
-    public function actionCommentator($user_id, $period = null)
+    public function actionAward($month = null)
     {
-        $this->addEntityToFastList('commentators', $user_id);
-        $commentator = CommentatorWork::getUser($user_id);
-        $this->render('commentator', compact('commentator', 'period'));
+        if (empty($month))
+            $month = date("Y-m");
+
+        $this->render('awards', compact('month'));
     }
 
-    public function actionCommentatorStats($user_id, $period)
+    public function actionLinks($user_id = null, $month = null)
     {
-        $commentator = CommentatorWork::getUser($user_id);
-        $this->render('_commentator_stats', compact('commentator', 'period'));
-    }
+        if (empty($month))
+            $month = date("Y-m");
 
-    public function actionClubs()
-    {
-        $this->render('clubs', compact('commentator', 'period'));
-    }
-
-    public function actionAddClub()
-    {
-        $user_id = Yii::app()->request->getPost('user_id');
-        $club_id = Yii::app()->request->getPost('club_id');
-        $commentator = CommentatorWork::getUser($user_id);
-        if (!in_array($club_id, $commentator->clubs)) {
-            $commentator->clubs [] = $club_id;
-            $commentator->save();
+        if (empty($user_id))
+            $this->render('links_all', compact('month'));
+        else {
+            $this->addEntityToFastList('commentators', $user_id, 3);
+            $commentator = CommentatorWork::getUser($user_id);
+            $this->render('links', compact('month', 'commentator'));
         }
-
-        $this->renderPartial('_user_clubs', compact('commentator'));
     }
 
-    public function actionRemoveClub()
-    {
-        $user_id = Yii::app()->request->getPost('user_id');
-        $club_id = Yii::app()->request->getPost('club_id');
-        $commentator = CommentatorWork::getUser($user_id);
-        foreach ($commentator->clubs as $key => $club) {
-            if ($club == $club_id)
-                unset($commentator->clubs[$key]);
+    public function actionReports($user_id = null, $month = null){
+        if (empty($month))
+            $month = date("Y-m");
+
+        if (empty($user_id))
+            $this->render('reports_all', compact('month'));
+        else {
+            $this->addEntityToFastList('commentators', $user_id, 3);
+            $commentator = CommentatorWork::getUser($user_id);
+            $this->render('reports', compact('month', 'commentator'));
         }
-        echo CJSON::encode(array('status' => $commentator->save()));
     }
 }

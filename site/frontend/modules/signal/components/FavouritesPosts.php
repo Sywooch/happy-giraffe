@@ -1,42 +1,22 @@
 <?php
 /**
- * Author: alexk984
- * Date: 30.08.12
+ * Ищет посты для комментирования в постах который добавлены на главную, в соц сети или в рассылку
+ *
+ * @author alexk984
  */
 class FavouritesPosts extends PostForCommentator
 {
     protected $nextGroup = 'UserPosts';
-    protected $entities = array(
-        'CommunityContent' => array(24),
-    );
-
-    public function getPost()
-    {
-        Yii::import('site.common.models.mongo.*');
-
-        $criteria = $this->getCriteria();
-        if ($criteria === null)
-            return $this->nextGroup();
-
-        $posts = $this->getPosts($criteria, true);
-        $this->logState(count($posts));
-
-        if (count($posts) == 0) {
-            return $this->nextGroup();
-        } else {
-            return array(get_class($posts[0]), $posts[0]->id);
-        }
-    }
 
     /**
      * @return CDbCriteria
      */
     public function getCriteria()
     {
-        $ids = array_merge(Favourites::getIdList(Favourites::BLOCK_INTERESTING, 4),
-            Favourites::getIdList(Favourites::BLOCK_BLOGS, 12),
-            Favourites::getIdList(Favourites::BLOCK_SOCIAL_NETWORKS, 5),
-            Favourites::getIdList(Favourites::WEEKLY_MAIL, 6)
+        $ids = array_merge(Favourites::getListForCommentators(Favourites::BLOCK_INTERESTING),
+            Favourites::getListForCommentators(Favourites::BLOCK_BLOGS),
+            Favourites::getListForCommentators(Favourites::BLOCK_SOCIAL_NETWORKS),
+            Favourites::getListForCommentators(Favourites::WEEKLY_MAIL)
         );
 
         if (empty($ids))

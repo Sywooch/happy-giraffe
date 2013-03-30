@@ -1,33 +1,14 @@
 <?php
 /**
- * Author: alexk984
- * Date: 30.08.12
+ *
+ * Ищет посты для комментирования в постах, которые приносят поисковый трафик > 20 запросов в месяц
+ *
+ * @author alexk984
  */
 class TrafficPosts extends PostForCommentator
 {
     protected $nextGroup = 'CoWorkersPosts';
-    protected $entities = array(
-        'CommunityContent' => array(25),
-    );
-
-    public function getPost()
-    {
-        if (rand(0, 10) > 7)
-            return $this->nextGroup();
-
-        $criteria = $this->getCriteria();
-        if ($criteria === null)
-            return $this->nextGroup();
-
-        $posts = $this->getPosts($criteria, true);
-        $this->logState(count($posts));
-
-        if (count($posts) == 0) {
-            return $this->nextGroup();
-        } else {
-            return array(get_class($posts[0]), $posts[0]->id);
-        }
-    }
+    protected $comments_limit = 10;
 
     /**
      * @return CDbCriteria

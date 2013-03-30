@@ -21,6 +21,7 @@
  * The followings are the available model relations:
  *
  * @property User $contentAuthor
+ * @property User $author
  * @property CommunityRubric $rubric
  * @property CommunityContentType $type
  * @property CommunityPost $post
@@ -335,21 +336,6 @@ class CommunityContent extends HActiveRecord
                 } elseif ($this->rubric->community_id != Community::COMMUNITY_NEWS) {
                     UserAction::model()->add($this->author_id, UserAction::USER_ACTION_COMMUNITY_CONTENT_ADDED, array('model' => $this));
                 }
-            }
-
-            //send signals to commentator panel
-            if (Yii::app()->user->checkAccess('commentator_panel')) {
-                Yii::import('site.frontend.modules.signal.models.*');
-                CommentatorWork::getCurrentUser()->refreshCurrentDayPosts();
-                $comet = new CometModel;
-                if ($this->isFromBlog)
-                    $comet->send(Yii::app()->user->id, array(
-                        'update_part' => CometModel::UPDATE_BLOG,
-                    ), CometModel::TYPE_COMMENTATOR_UPDATE);
-                else
-                    $comet->send(Yii::app()->user->id, array(
-                        'update_part' => CometModel::UPDATE_CLUB,
-                    ), CometModel::TYPE_COMMENTATOR_UPDATE);
             }
 
             if ($this->type_id == 5)

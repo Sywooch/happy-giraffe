@@ -105,8 +105,8 @@ class CommentatorHelper
             $date2 = $date1;
 
         return array(
-            'requests' => self::friendsCount($user_id, $date1, $date2),
-            'friends' => self::friendRequestsCount($user_id, $date1, $date2)
+            'requests' => self::friendRequestsCount($user_id, $date1, $date2),
+            'friends' => self::friendsCount($user_id, $date1, $date2),
         );
     }
 

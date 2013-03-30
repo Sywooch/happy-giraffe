@@ -187,7 +187,8 @@ Comet.prototype.CommentatorPanelUpdateTask = function (result, id) {
 };
 Comet.prototype.CommentatorPanelIncComments = function (result, id) {
     console.log(result);
-    CommentatorPanel.nextComment.incComment(result);
+    console.log(commentator_panel);
+    commentator_panel.nextComment.incComment(result);
 };
 
 $(function () {

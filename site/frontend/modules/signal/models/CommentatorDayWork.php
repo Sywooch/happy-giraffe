@@ -106,16 +106,16 @@ class CommentatorDayWork extends EMongoEmbeddedDocument
      */
     public function calculateStats($commentator_id)
     {
-        //if (!$this->closed) {
+        if (!$this->closed) {
             $this->calcImMessageStats($commentator_id);
             $this->calcFriendsStats($commentator_id);
-            //$this->visits = CommentatorHelper::visits($commentator_id, $this->date, $this->date);
+            $this->visits = CommentatorHelper::visits($commentator_id, $this->date, $this->date);
 
-//            if ($this->date != date("Y-m-d"))
-//                $this->closed = 1;
+            if ($this->date != date("Y-m-d"))
+                $this->closed = 1;
 
             $this->created = strtotime($this->date);
-        //}
+        }
     }
 
     /**

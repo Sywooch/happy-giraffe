@@ -205,10 +205,24 @@ class CommentatorController extends CController
                 $task->status = SeoTask::STATUS_CLOSED;
                 $task->article_id = $page->id;
                 $task->article_title = $page->getArticleTitle();
-                echo CJSON::encode(array(
-                    'status' => $task->save(),
-                    'article_title' => $task->article_title
-                ));
+                if ($task->save()){
+                    $day = $this->commentator->getCurrentDay();
+                    if ($task->sub_section == 0)
+                        $day->blog_posts++;
+                    else
+                        $day->club_posts++;
+                    $this->commentator->save();
+
+                    echo CJSON::encode(array(
+                        'status' => true,
+                        'article_title' => $task->article_title
+                    ));
+                } else {
+                    echo CJSON::encode(array(
+                        'status' => false,
+                        'error' => $task->getErrors()
+                    ));
+                }
             } else {
                 echo CJSON::encode(array(
                     'status' => false,

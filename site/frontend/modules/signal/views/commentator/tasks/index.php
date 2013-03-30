@@ -65,8 +65,8 @@ $data = array(
 <?php $this->renderPartial('tasks/_task_template'); ?>
 <?php $this->renderPartial('tasks/keywords'); ?>
 <script type="text/javascript">
-    var panel = new CommentatorPanel(<?=CJavaScript::jsonEncode($data) ?>);
+    var commentator_panel = new CommentatorPanel(<?=CJavaScript::jsonEncode($data) ?>);
     $(function () {
-        ko.applyBindings(panel)
+        ko.applyBindings(commentator_panel)
     });
 </script>

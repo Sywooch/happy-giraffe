@@ -42,6 +42,7 @@ return array(
         // ajax controller
         'ajax/duelShow/question_id/<question_id:\d+>' => 'ajax/duelShow',
         'counter'=>'ajaxSimple/counter',
+        'ajaxSimple/<_a>'=>'ajaxSimple/<_a>',
 
         // signup controller
         'signup' => 'signup/index',
@@ -151,6 +152,10 @@ return array(
         '<_m:(geo|im|signal|scores|cook|contest)>/' => '<_m>/default/index',
         '<_m:(geo|im|signal)>/<_a>' => '<_m>/default/<_a>',
         'commentator' => 'signal/commentator/index',
+        'commentator/links/<month:\d\d\d\d-\d\d>' => 'signal/commentator/links',
+        'commentator/award/<type:\w+>' => 'signal/commentator/award',
+        'commentator/reports/<section:\w+>/<month:\d\d\d\d-\d\d>' => 'signal/commentator/reports',
+        'commentator/reports/<section:\w+>' => 'signal/commentator/reports',
         'commentator/<_a>' => 'signal/commentator/<_a>',
 
         //cook

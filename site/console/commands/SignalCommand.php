@@ -14,6 +14,7 @@ class SignalCommand extends CConsoleCommand
         Yii::import('site.seo.models.*');
         Yii::import('site.frontend.modules.signal.models.*');
         Yii::import('site.frontend.modules.signal.components.*');
+        Yii::import('site.frontend.modules.signal.helpers.*');
         Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
         Yii::import('site.frontend.modules.im.models.*');
         Yii::import('site.frontend.extensions.GoogleAnalytics');
@@ -29,35 +30,6 @@ class SignalCommand extends CConsoleCommand
     public function actionIndex()
     {
         UserSignalResponse::CheckLate();
-    }
-
-    public function actionFriendInvites()
-    {
-        $this->loadModerators();
-        $new_users = $this->getNewUsers();
-
-        foreach ($new_users as $user_id) {
-            if (rand(0, $this->getNum(3)) == 1) {
-                $moder = $this->getModerator($user_id);
-                if ($moder != null) {
-                    $friendRequest = new FriendRequest();
-                    $friendRequest->from_id = $moder;
-                    $friendRequest->to_id = $user_id;
-                    $friendRequest->save();
-                }
-            }
-        }
-    }
-
-    public function getNewUsers()
-    {
-        $end_date = date("Y-m-d H:i:s", strtotime('-7 days'));
-        return Yii::app()->db->createCommand()
-            ->select('id')
-            ->from('users')
-            ->where('register_date > :date', array(':date' => $end_date))
-            ->queryColumn();
-
     }
 
     public function getModerator($user_id)
@@ -85,11 +57,6 @@ class SignalCommand extends CConsoleCommand
         return null;
     }
 
-    public function getNum($number_friends)
-    {
-        return round(144 / $number_friends);
-    }
-
     public function loadModerators()
     {
         $this->moderators = Yii::app()->db->createCommand()
@@ -99,43 +66,10 @@ class SignalCommand extends CConsoleCommand
             ->queryColumn();
     }
 
-    public function actionPriority()
-    {
-        //calc user priority
-        $criteria = new CDbCriteria;
-        $criteria->offset = 0;
-        $criteria->limit = 100;
-        $criteria->condition = 'register_date > :register_date';
-        $criteria->params = array(':register_date' => date("Y-m-d H:i:s", strtotime('-3 month')));
-        $criteria->compare('`group`', UserGroup::USER);
-        $criteria->with = array('communityContentsCount', 'priority');
-
-        $users = 1;
-        while (!empty($users)) {
-            $users = User::model()->findAll($criteria);
-
-            foreach ($users as $user) {
-                //если больше 5-ти постов, максимальный приоритет
-                if ($user->communityContentsCount >= 5) {
-                    $user->priority->priority = 20;
-                    $user->priority->update(array('priority'));
-                }
-
-                //если комментировали вчера, уменьшаем приоритет
-            }
-
-            $criteria->offset += 100;
-        }
-    }
-
     public function actionCommentatorsEndMonth()
     {
-        $month = CommentatorsMonthStats::model()->find(new EMongoCriteria(array(
-            'conditions' => array(
-                'period' => array('==' => date("Y-m", strtotime('-10 days')))
-            ),
-        )));
-        $month->calculate();
+        $month = CommentatorsMonth::model()->findByPk(date("Y-m", strtotime('-10 days')));
+        $month->calculateMonth();
     }
 
     public function actionAddCommentatorsToSeo()
@@ -159,78 +93,18 @@ class SignalCommand extends CConsoleCommand
         }
     }
 
-    public $ga = null;
-
-    public function actionSyncPageSeVisits()
+    /**
+     * Синхронизировать кол-во заходов из поисковиков с Google Analytics
+     */
+    public function actionSyncGaVisits()
     {
-        $ids = array();
-        $commentators = CommentatorWork::getWorkingCommentators();
-        foreach ($commentators as $commentator)
-            $ids [] = $commentator->user_id;
-
-        $month = date("Y-m");
-        $this->loginGa();
-
-        $visits = SearchEngineVisits::model()->findAllByAttributes(array('month' => $month));
-        foreach ($visits as $visit) {
-            $article = $visit->page->getArticle();
-
-            if ($article !== null && in_array($article->author_id, $ids)) {
-                $visit->count = GApi::getUrlOrganicSearches($this->ga, $month . '-01', $month . '-' . $this->getLastPeriodDay($month), str_replace('http://www.happy-giraffe.ru', '', $visit->page->url), false);
-                echo $visit->page->url . " - " . $visit->count . "\n";
-                if (!empty($visit->count))
-                    $visit->save();
-
-                sleep(2);
-            } elseif ($article === null) {
-                echo "article IS NULL {$visit->page->url} \n";
-            }
-        }
+        CommentatorsMonth::model()->SyncGaVisits();
     }
 
-    public function actionLoadGaVisits()
-    {
-        $month = date("Y-m");
-        $commentators = CommentatorWork::getWorkingCommentators();
-
-        //test on some user
-        foreach ($commentators as $key => $commentator)
-            if (in_array($commentator->user_id, array(15426, 15363, 15328, 15292, 15322, 15385, 15468, 15496, 15493, 15545, 15551)))
-                unset($commentators[$key]);
-
-        $this->loginGa();
-
-        foreach ($commentators as $commentator) {
-            $models = CommunityContent::model()->findAll('author_id = ' . $commentator->user_id);
-
-            foreach ($models as $model) {
-                $url = trim($model->url, '.');
-                if (!empty($url)) {
-                    $ga_visits = GApi::getUrlOrganicSearches($this->ga, $month . '-01', $month . '-' . date("d"), $url, false);
-                    $my_visits = SearchEngineVisits::getVisits($url, $month);
-
-                    if ($ga_visits > 0)
-                        echo "$url ga:$ga_visits, my:$my_visits \n";
-
-                    if ($ga_visits > 0 && $my_visits != $ga_visits) {
-                        SearchEngineVisits::updateStats($url, $month, $ga_visits);
-                    }
-                }
-            }
-        }
-    }
-
-    public function getLastPeriodDay($period)
-    {
-        return str_pad(cal_days_in_month(CAL_GREGORIAN, date('n', strtotime($period)), date('Y', strtotime($period))), 2, "0", STR_PAD_LEFT);
-    }
-
-    public function loginGa()
-    {
-        $this->ga = new GoogleAnalytics('alexk984@gmail.com', Yii::app()->params['gaPass']);
-        $this->ga->setProfile('ga:53688414');
-    }
-
+    /**
+     * Синхронизировать кол-во заходов из поисковиков c mysql-базой
+     * и пересчитать места и рейтинг комментаторов
+     */
     public function actionSync()
     {
         echo "sync\n";
@@ -239,19 +113,17 @@ class SignalCommand extends CConsoleCommand
         if (date("d") == 1)
             PageSearchView::model()->sync(date("Y-m", strtotime('-2 days')));
 
-
         echo "update stats\n";
-        $month = CommentatorsMonthStats::model()->find(new EMongoCriteria(array(
-            'conditions' => array('period' => array('==' => $month)),
-        )));
-        if ($month === null) {
-            $month = new CommentatorsMonthStats;
-            $month->period = date("Y-m");
-        }
-        $month->calculate();
+        $month = CommentatorsMonth::get($month);
+        $month->calculateMonth();
+    }
+
+    public function actionPrepare(){
+        $month = CommentatorsMonth::get(date("Y-m"));
+        $month->prepareNewStats();
     }
 
     public function actionTest(){
-        echo date("Y-m-d H:i:s", 1362672924);
+        echo date("Y-m-d H:i:s", 1364379008);
     }
 }

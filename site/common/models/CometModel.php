@@ -14,7 +14,8 @@ class CometModel extends CComponent
     //moderator signals
     const TYPE_SIGNAL_UPDATE = 5;
     const TYPE_SIGNAL_EXECUTED = 8;
-    const TYPE_COMMENTATOR_UPDATE = 9;
+    const TYPE_COMMENTATOR_UPDATE_TASK = 9;
+    const TYPE_COMMENTATOR_NEXT_COMMENT = 10;
 
     const UPDATE_BLOG = 0;
     const UPDATE_CLUB = 1;

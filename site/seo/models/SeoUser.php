@@ -17,7 +17,6 @@
  * @property TempKeyword[] $tempKeywords
  * @property SeoUser $owner
  * @property SeoUser[] $users
- * @property Commentator[] $commentators
  */
 class SeoUser extends HActiveRecord
 {
@@ -141,7 +140,6 @@ class SeoUser extends HActiveRecord
             'tempKeywords' => array(self::HAS_MANY, 'TempKeyword', 'owner_id'),
             'owner' => array(self::BELONGS_TO, 'SeoUser', 'owner_id'),
             'authors' => array(self::HAS_MANY, 'SeoUser', 'owner_id'),
-            'commentators' => array(self::HAS_MANY, 'Commentators', 'manager_id'),
         );
     }
 
@@ -214,6 +212,15 @@ class SeoUser extends HActiveRecord
         if ($user != null) {
             return $user->getAva($size);
         }
+        return '';
+    }
+
+    public function getUrl(){
+        return 'http://www.happy-giraffe.ru/user/'.$this->related_user_id.'/';
+    }
+
+    public function getFullName(){
+        return $this->getRelatedUser()->getFullName();
     }
 
     public function commentatorIds()

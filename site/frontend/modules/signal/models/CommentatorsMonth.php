@@ -356,11 +356,13 @@ class CommentatorsMonth extends EMongoDocument
         $commentators = CommentatorHelper::getCommentatorIdList();
         $days = range(1, date("d") - 1);
         foreach ($commentators as $commentator) {
-            echo $commentator."\n";
+            echo $commentator . "\n";
             $model = $this->getCommentator($commentator);
-            foreach ($days as $day) {
-                echo date("Y-m") . '-' . sprintf('%02d', $day) . "\n";
-                $model->calculateDayStats(date("Y-m") . '-' . sprintf('%02d', $day));
+            if ($model !== null) {
+                foreach ($days as $day) {
+                    echo date("Y-m") . '-' . sprintf('%02d', $day) . "\n";
+                    $model->calculateDayStats(date("Y-m") . '-' . sprintf('%02d', $day));
+                }
             }
         }
     }

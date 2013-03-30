@@ -354,7 +354,7 @@ class CommentatorsMonth extends EMongoDocument
     public function prepareNewStats()
     {
         $commentators = CommentatorHelper::getCommentatorIdList();
-        $days = range(1, date("d"));
+        $days = range(1, date("d") - 1);
         foreach ($commentators as $commentator) {
             echo $commentator."\n";
             $model = $this->getCommentator($commentator);

@@ -363,7 +363,5 @@ class CommentatorsMonth extends EMongoDocument
                 $model->calculateDayStats(date("Y-m") . '-' . sprintf('%02d', $day));
             }
         }
-
-        $this->save();
     }
 }

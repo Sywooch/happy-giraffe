@@ -35,7 +35,7 @@ $commentatorMonth = CommentatorsMonth::get($month);
             </div>
             <div class="award-me_desc">
                 <div class="ico-info"></div> <br>
-                <a href="/commentator/secrets/#friends">Как завести наиболшее количество дружеских связей (болше всего друзей на сайте)</a>
+                <a href="/commentator/secrets/#friends">Как завести наибольшее количество дружеских связей (болше всего друзей на сайте)</a>
             </div>
         </div>
         <?php $place = $commentatorMonth->getPlace(Yii::app()->user->id, CommentatorsMonth::PROFILE_VIEWS) ?>
@@ -47,7 +47,7 @@ $commentatorMonth = CommentatorsMonth::get($month);
             </div>
             <div class="award-me_desc">
                 <div class="ico-info"></div> <br>
-                <a href="/commentator/secrets/#visitors">Как сделать личную страницу, включая блог и фотогалерею, наиболее посещаемой по количеству просмотров</a>
+                <a href="/commentator/secrets/#visitors">Как сделать личную страницу (включая блог и фотогалерею) наиболее посещаемой по количеству просмотров</a>
             </div>
         </div>
         <?php $place = $commentatorMonth->getPlace(Yii::app()->user->id, CommentatorsMonth::IM_MESSAGES) ?>
@@ -59,7 +59,7 @@ $commentatorMonth = CommentatorsMonth::get($month);
             </div>
             <div class="award-me_desc">
                 <div class="ico-info"></div> <br>
-                <a href="/commentator/secrets/#messages">Самый коммуникабельный сотрудник (тот , кто больше всего отправил сообщений по внутренней почте) - входящие и исходящие сообщения</a>
+                <a href="/commentator/secrets/#messages">Самый коммуникабельный сотрудник (тот, кто больше всего отправил сообщений по внутренней почте) – входящие и исходящие сообщения</a>
             </div>
         </div>
         <?php $place = $commentatorMonth->getPlace(Yii::app()->user->id, CommentatorsMonth::SE_VISITS) ?>

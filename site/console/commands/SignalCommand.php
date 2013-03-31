@@ -123,7 +123,4 @@ class SignalCommand extends CConsoleCommand
         $month->prepareNewStats();
     }
 
-    public function actionTest(){
-        echo date("Y-m-d H:i:s", 1364379008);
-    }
 }

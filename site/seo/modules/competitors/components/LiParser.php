@@ -5,7 +5,7 @@
  */
 class LiParser extends LiBaseParser
 {
-    const STATS_LIMIT = 5;
+    const STATS_LIMIT = 10;
     /**
      * @var Site
      */

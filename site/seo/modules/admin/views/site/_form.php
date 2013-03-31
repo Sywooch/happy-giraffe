@@ -1,4 +1,9 @@
- <?php echo CHtml::link('К таблице', array('/admin/site/admin')) ?><div class="form">
+<?php
+/**
+ * @var $form CActiveForm
+ */
+
+echo CHtml::link('К таблице', array('/admin/site/admin')) ?><div class="form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'site-form',
@@ -28,8 +33,14 @@
      </div>
 
      <div class="row">
+         <?php echo $form->labelEx($model,'password'); ?>
+         <?php echo $form->textField($model,'password',array('size'=>60,'maxlength'=>255)); ?>
+         <?php echo $form->error($model,'password'); ?>
+     </div>
+
+     <div class="row">
          <?php echo $form->labelEx($model,'type'); ?>
-         <?php echo $form->textField($model,'type'); ?>
+         <?php echo $form->dropDownList($model,'type', $model->types); ?>
          <?php echo $form->error($model,'type'); ?>
      </div>
 

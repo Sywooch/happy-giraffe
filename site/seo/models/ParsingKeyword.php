@@ -81,7 +81,12 @@ class ParsingKeyword extends CActiveRecord
 
     public function updateWordstat($value)
     {
-        Keyword::model()->updateByPk($this->keyword_id, array('wordstat'=>$value));
+        try{
+            Keyword::model()->updateByPk($this->keyword_id, array('wordstat'=>$value));
+        }catch (Exception $err){
+            sleep(1);
+            return $this->updateWordstat($value);
+        }
         $this->updated = date("Y-m-d H:i:s");
         $this->priority = 0;
         $this->save();

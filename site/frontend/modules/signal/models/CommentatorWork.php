@@ -428,7 +428,7 @@ class CommentatorWork extends EMongoDocument
             if (strpos($day->date, $period) === 0)
                 $month_count += $day->$entity;
         $month = CommentatorsMonth::get($period);
-        $percent = round(100 * $month_count / ($month->working_days_count* $limit));
+        $percent = round(100 * $month_count / ($month->working_days_count * $limit));
         return array($month_count, $percent);
     }
 
@@ -482,22 +482,26 @@ class CommentatorWork extends EMongoDocument
         $result = array();
         foreach ($tasks as $task) {
             $keyword = $task->getKeyword();
-            $arr = array(
-                'id' => $task->id,
-                'closed' => ($task->status == SeoTask::STATUS_CLOSED) ? 1 : 0,
-                'keyword' => $keyword->name,
-                'keyword_id' => $keyword->id,
-                'keyword_wordstat' => $keyword->wordstat,
-                'article_title' => '',
-                'article_url' => '',
-            );
-            if ($task->status == SeoTask::STATUS_CLOSED) {
-                $article = $task->article->getArticle();
-                $arr['article_title'] = $article->title;
-                $arr['article_url'] = $article->url;
-            }
+            if ($keyword === null) {
+                //echo $task->id;
+            } else {
+                $arr = array(
+                    'id' => $task->id,
+                    'closed' => ($task->status == SeoTask::STATUS_CLOSED) ? 1 : 0,
+                    'keyword' => $keyword->name,
+                    'keyword_id' => $keyword->id,
+                    'keyword_wordstat' => $keyword->wordstat,
+                    'article_title' => '',
+                    'article_url' => '',
+                );
+                if ($task->status == SeoTask::STATUS_CLOSED) {
+                    $article = $task->article->getArticle();
+                    $arr['article_title'] = $article->title;
+                    $arr['article_url'] = $article->url;
+                }
 
-            $result [] = $arr;
+                $result [] = $arr;
+            }
         }
 
         return $result;
@@ -624,6 +628,7 @@ class CommentatorWork extends EMongoDocument
 
         return 0;
     }
+
     /******************************************************************************************************************/
     /**************************************************** Links *******************************************************/
     /******************************************************************************************************************/
@@ -657,8 +662,8 @@ class CommentatorWork extends EMongoDocument
         $criteria = new CDbCriteria;
         $criteria->condition = 'created >= :first_day AND created <= :last_day';
         $criteria->params = array(
-            ':first_day'=>$month.'-01 00:00:00',
-            ':last_day'=>$month.'-31 23:59:59',
+            ':first_day' => $month . '-01 00:00:00',
+            ':last_day' => $month . '-31 23:59:59',
         );
         $criteria->compare('user_id', $this->user_id);
         $criteria->order = 'id desc';
@@ -710,7 +715,7 @@ class CommentatorWork extends EMongoDocument
         $sort_order = UserAttributes::get($this->user_id, 'commentators_se_visits_sort', 1);
         $criteria = new CDbCriteria;
         $criteria->condition = 'created < :month_start';
-        $criteria->params = array(':month_start'=> $month->period.'-32 00:00:00');
+        $criteria->params = array(':month_start' => $month->period . '-32 00:00:00');
         $criteria->compare('author_id', $this->user_id);
         $criteria->order = 'created desc';
         $criteria->with = array('rubric', 'rubric.community', 'type');
@@ -720,7 +725,7 @@ class CommentatorWork extends EMongoDocument
         if ($sort_order)
             return $posts;
 
-        foreach($posts as $post)
+        foreach ($posts as $post)
             $post->visits = $month->getPageVisitsCount($post->url);
         usort($posts, array($this, "compareSeVisits"));
 

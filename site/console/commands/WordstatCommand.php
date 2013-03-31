@@ -13,6 +13,22 @@ class WordstatCommand extends CConsoleCommand
 {
     const WORDSTAT_LIMIT = 200;
 
+    public function actionAddCompetitors()
+    {
+        $keywords = Yii::app()->db_seo->createCommand('select distinct(keyword_id) from sites__keywords_visits ')->queryColumn();
+        echo count($keywords);
+        foreach ($keywords as $keyword_id) {
+            $model = ParsingKeyword::model()->findByPk($keyword_id);
+            if ($model === null){
+                $m = new ParsingKeyword;
+                $m->keyword_id = $keyword_id;
+                $m->priority = 100;
+                $m->save();
+            }else
+                ParsingKeyword::model()->updateByPk($keyword_id, array('priority'=>100));
+        }
+    }
+
     public function actionAddKeywordsFromFile()
     {
         Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
@@ -70,43 +86,6 @@ class WordstatCommand extends CConsoleCommand
             $i++;
             if ($i % 10 == 0)
                 echo $i . "\n";
-        }
-    }
-
-    public function actionFixKeywords()
-    {
-        $keywords = 1;
-        $criteria = new CDbCriteria;
-        $criteria->order = 'wordstat desc';
-        $criteria->limit = 1000;
-        $criteria->offset = 837999;
-
-        while (!empty($keywords)) {
-            $keywords = Keyword::model()->findAll($criteria);
-
-            foreach ($keywords as $keyword) {
-                $new_name = WordstatQueryModify::prepareForSave($keyword->name);
-                if ($new_name != $keyword->name) {
-                    $model2 = Keyword::model()->findByAttributes(array('name' => $new_name));
-                    if ($model2 !== null) {
-                        try {
-                            $keyword->delete();
-                        } catch (Exception $err) {
-                            echo $err->getMessage();
-                        }
-                    } else {
-                        $keyword->name = $new_name;
-                        try {
-                            $keyword->save();
-                        } catch (Exception $err) {
-                            echo "err_s\n";
-                        }
-                    }
-                }
-            }
-
-            $criteria->offset += 1000;
-            echo $criteria->offset . " - " . $keyword->wordstat . "\n";
         }
     }
 

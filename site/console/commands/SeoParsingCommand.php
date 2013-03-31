@@ -68,7 +68,7 @@ class SeoParsingCommand extends CConsoleCommand
             }
         } else {
             $parser = new LiParser();
-            $parser->start($site, 2013, 3, 3);
+            $parser->start($site, 2013, 1, 2);
         }
     }
 

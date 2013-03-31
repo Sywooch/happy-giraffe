@@ -81,10 +81,7 @@ class ParsingKeyword extends CActiveRecord
 
     public function updateWordstat($value)
     {
-        Yii::app()->db_keywords->createCommand()->update(Keyword::model()->tableName(),
-            array('wordstat' => $value),
-            'id=:id',
-            array(':id' => $this->keyword_id));
+        Keyword::model()->updateByPk($this->keyword_id, array('wordstat'=>$value));
         $this->updated = date("Y-m-d H:i:s");
         $this->priority = 0;
         $this->save();

@@ -58,15 +58,13 @@ class SeoParsingCommand extends CConsoleCommand
             $parser = new LiParser;
 
             if (!empty($last_parsed))
-                $sites = Site::model()->findAll('id > '.$last_parsed.' AND type = 1');
+                $sites = Site::model()->findAll('id > '.$last_parsed.' AND type = 1 AND url != ""');
             else
-                $sites = Site::model()->findAll('type = 1');
+                $sites = Site::model()->findAll('type = 1 AND url != ""');
 
             foreach ($sites as $site) {
                 $parser->start($site->id, 2013, 3, 3);
-
                 SeoUserAttributes::setAttribute('last_li_parsed_'.date("Y-m") , $site->id, 1);
-                //echo 'parsed: '.$site->id."\n";
             }
         } else {
             $parser = new LiParser();

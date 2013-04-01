@@ -152,11 +152,12 @@ class SiteKeywordVisit extends HActiveRecord
         }
 
         $full_criteria = clone $criteria;
+        $total_items_count = self::model()->count($full_criteria);
         $full_criteria->with = array('site');
 
         return new CActiveDataProvider($this, array(
             'criteria' => $full_criteria,
-            'totalItemCount' => self::model()->count($full_criteria),
+            'totalItemCount' => $total_items_count,
             'pagination' => array('pageSize' => 50),
             'sort' => array(
                 'attributes' => array(

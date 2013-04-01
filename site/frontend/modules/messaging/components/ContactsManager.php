@@ -45,5 +45,5 @@ class ContactsManager
         return $rows;
     }
 
-    public static function
+    public static function getFriendsContactsByUserId()
 }

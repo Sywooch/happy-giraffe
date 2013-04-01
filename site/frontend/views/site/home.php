@@ -11,11 +11,13 @@
 
             <?php $this->widget('CommunitiesWidget'); ?>
 
+            <?php if (false): ?>
             <?php $contest_id = 9; ?>
-            <div class="box">
-                <a href="<?=$this->createUrl('/contest/default/view', array('id' => $contest_id)) ?>"><img
-                    src="/images/contest/banner-w240-<?=$contest_id?>-<?=mt_rand(1, 3)?>.jpg"></a>
-            </div>
+                <div class="box">
+                    <a href="<?=$this->createUrl('/contest/default/view', array('id' => $contest_id)) ?>"><img
+                        src="/images/contest/banner-w240-<?=$contest_id?>-<?=mt_rand(1, 3)?>.jpg"></a>
+                </div>
+            <?php endif; ?>
 
         </div>
 

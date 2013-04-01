@@ -152,6 +152,7 @@ class SiteKeywordVisit extends HActiveRecord
         }
 
         $full_criteria = clone $criteria;
+        $full_criteria->with = array();
         $total_items_count = self::model()->count($full_criteria);
         $full_criteria->with = array('site');
 

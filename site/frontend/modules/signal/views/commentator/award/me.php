@@ -23,7 +23,7 @@ $commentatorMonth = CommentatorsMonth::get($month);
 
 <div class="block">
 
-    <?php $this->renderPartial('_month_list', array('month' => $month)); ?>
+    <?php $this->renderPartial('_month_list', array('month' => $month, 'params'=>array('type'=>'me'))); ?>
 
     <div class="award-me clearfix">
         <?php $place = $commentatorMonth->getPlace(Yii::app()->user->id, CommentatorsMonth::NEW_FRIENDS) ?>

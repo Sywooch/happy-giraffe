@@ -23,7 +23,7 @@ $commentatorMonth = CommentatorsMonth::get($month);
 
 <div class="block">
 
-    <?php $this->renderPartial('_month_list', array('month' => $month)); ?>
+    <?php $this->renderPartial('_month_list', array('month' => $month, 'params'=>array('type'=>'all'))); ?>
 
     <div class="award-me-table">
         <table class="award-me-table_tb">

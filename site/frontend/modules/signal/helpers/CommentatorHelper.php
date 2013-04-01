@@ -186,4 +186,18 @@ class CommentatorHelper
             ->where('`group`=' . UserGroup::COMMENTATOR)
             ->queryColumn();
     }
+
+    public static function getCommentatorsData()
+    {
+        $users = User::model()->findAll('`group`=' . UserGroup::COMMENTATOR);
+        $data = array();
+        foreach($users as $user)
+            $data[$user->id] = array(
+                'id'=>$user->id,
+                'name'=>$user->fullName,
+                'ava'=>$user->getAva('small'),
+            );
+
+        return $data;
+    }
 }

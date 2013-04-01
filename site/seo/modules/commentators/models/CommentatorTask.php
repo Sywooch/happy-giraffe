@@ -55,7 +55,7 @@ class CommentatorTask extends CActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('page_id, created', 'required'),
+            array('page_id', 'required'),
             array('type, status', 'numerical', 'integerOnly' => true),
             array('page_id', 'length', 'max' => 10),
             // The following rule is used by search().
@@ -122,7 +122,7 @@ class CommentatorTask extends CActiveRecord
         $all_commentators = CommentatorHelper::getCommentatorIdList();
 
         foreach ($all_commentators as $commentator_id) {
-            if (in_array($user_ids, $commentator_id))
+            if (in_array($commentator_id, $user_ids))
                 $executors[] = $commentator_id;
             else
                 $non_executors[] = $commentator_id;
@@ -161,6 +161,40 @@ class CommentatorTask extends CActiveRecord
         return $user_ids;
     }
 
+    public static function getTaskListForEditor()
+    {
+        $tasks = CommentatorTask::model()->findAll(array('limit' => 100, 'order' => 'id desc'));
+        $task_by_days = array();
+        foreach ($tasks as $task) {
+            $task_view = $task->getViewModel();
+
+            $date = Yii::app()->dateFormatter->format('d MMMM yyyy',strtotime($task->created));
+            if (isset($task_by_days[$date]))
+                array_push($task_by_days[$date], $task_view);
+            else
+                $task_by_days[$date] = array($task_view);
+        }
+
+        return $task_by_days;
+    }
+
+    public function getViewModel()
+    {
+        list($executors, $non_executors) = $this->getExecutorsLists();
+
+        return array(
+            'id' => $this->id,
+            'type' => $this->type,
+            'date' => date("Y-m-d", strtotime($this->created)),
+            'date_title' => Yii::app()->dateFormatter->format('dd MMMM yyyy', strtotime($this->created)),
+            'status' => $this->status,
+            'article_url' => $this->getPost()->url,
+            'article_title' => $this->getPost()->title,
+            'executors' => $executors,
+            'non_executors' => $non_executors,
+        );
+    }
+
     /**
      * Возвращает связанную с заданием статью
      * @return CommunityContent
@@ -177,5 +211,13 @@ class CommentatorTask extends CActiveRecord
     public function isExecutedByCurrentUser()
     {
         return in_array(Yii::app()->user->id, $this->getExecutorsIds());
+    }
+
+    public function toggleStatus()
+    {
+        if ($this->status == 0)
+            $this->status = 1;
+        else
+            $this->status = 0;
     }
 }

@@ -81,7 +81,7 @@ Yii::app()->clientScript->registerScriptFile($baseUrl . '/' . 'script.js', CClie
             <tbody data-bind="foreach:tasks">
             <tr data-bind="attr: {'class': activeClass()}">
                 <td class="task-tb_td-ico">
-                    <div class="task-tb_ico" data-bind="attr: {'class': 'task-tb_ico '+typeClass()}""></div>
+                    <div class="task-tb_ico" data-bind="attr: {'class': 'task-tb_ico '+typeClass()}"></div>
                 </td>
                 <td class="task-tb_td-a">
                     <a href="" target="_blank" data-bind="attr: {'href': article_url}, text:article_title"></a>
@@ -117,9 +117,9 @@ Yii::app()->clientScript->registerScriptFile($baseUrl . '/' . 'script.js', CClie
                         <!-- ko foreach: non_executors -->
                         <div class="popup-commentator-task_user">
                             <div class="user-info clearfix">
-                                <a class="ava small" href="" data-bind="attr:{'href':getUrl()}"><img src="" alt="" data-bind="attr:{'src':ava}"/></a>
+                                <a class="ava small" href="" target="_blank" data-bind="attr:{'href':getUrl()}"><img data-bind="attr:{'src':ava}"/></a>
                                 <div class="user-info_details">
-                                    <a class="user-info_username" href="" data-bind="text:name, attr:{'href':getUrl()}"></a>
+                                    <a class="user-info_username" href="" target="_blank" data-bind="text:name, attr:{'href':getUrl()}"></a>
                                 </div>
                             </div>
                         </div>
@@ -129,9 +129,9 @@ Yii::app()->clientScript->registerScriptFile($baseUrl . '/' . 'script.js', CClie
                         <!-- ko foreach: executors -->
                         <div class="popup-commentator-task_user">
                             <div class="user-info clearfix">
-                                <a class="ava small" href="" data-bind="attr:{'href':getUrl()}"><img src="" alt="" data-bind="attr:{'src':ava}"/></a>
+                                <a class="ava small" href="" target="_blank" data-bind="attr:{'href':getUrl()}"><img src="" alt="" data-bind="attr:{'src':ava}"/></a>
                                 <div class="user-info_details">
-                                    <a class="user-info_username" href="" data-bind="text:name, attr:{'href':getUrl()}"></a>
+                                    <a class="user-info_username" href="" target="_blank" data-bind="text:name, attr:{'href':getUrl()}"></a>
                                 </div>
                             </div>
                         </div>

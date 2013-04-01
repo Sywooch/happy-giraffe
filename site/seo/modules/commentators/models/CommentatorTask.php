@@ -164,11 +164,13 @@ class CommentatorTask extends CActiveRecord
     public static function getTaskListForEditor()
     {
         $tasks = CommentatorTask::model()->findAll(array('limit' => 100, 'order' => 'id desc'));
-        $task_by_days = array();
+        $task_by_days = array(
+            Yii::app()->dateFormatter->format('d MMMM yyyy', time()) => array()
+        );
         foreach ($tasks as $task) {
             $task_view = $task->getViewModel();
 
-            $date = Yii::app()->dateFormatter->format('d MMMM yyyy',strtotime($task->created));
+            $date = Yii::app()->dateFormatter->format('d MMMM yyyy', strtotime($task->created));
             if (isset($task_by_days[$date]))
                 array_push($task_by_days[$date], $task_view);
             else
@@ -188,7 +190,7 @@ class CommentatorTask extends CActiveRecord
             'date' => date("Y-m-d", strtotime($this->created)),
             'date_title' => Yii::app()->dateFormatter->format('dd MMMM yyyy', strtotime($this->created)),
             'status' => $this->status,
-            'article_url' => $this->getPost()->url,
+            'article_url' => 'http://www.happy-giraffe.ru'.$this->getPost()->url,
             'article_title' => $this->getPost()->title,
             'executors' => $executors,
             'non_executors' => $non_executors,

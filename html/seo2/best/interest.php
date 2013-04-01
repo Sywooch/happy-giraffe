@@ -47,7 +47,10 @@
                                 <b class="best-list_t"><a href="">Как избежать растяжек во время беременности?</a></b>
                                 <div class="best-list_tx"><img src="/images/seo2/example/w200.jpg" alt=""></div>
                                 <div class="b-best_overlay">
-                                    <div class="b-best_overlay-tx">Вы можете переместить или удалить</div>
+                                    <div class="b-best_overlay-tx">
+                                        Вы можете переместить или удалить. <br>
+                                        <a href="">Перейти на новость</a>
+                                    </div>
                                 </div>
                                 <a href="" class="b-best_close"></a>
                                 <a href="" class="b-best_drag"></a>
@@ -56,7 +59,10 @@
                                 <b class="best-list_t"><a href="">Как избежать растяжек во время беременности?</a></b>
                                 <div class="best-list_tx"><img src="/images/seo2/example/w200.jpg" alt=""></div>
                                 <div class="b-best_overlay">
-                                    <div class="b-best_overlay-tx">Вы можете переместить или удалить</div>
+                                    <div class="b-best_overlay-tx">
+                                        Вы можете переместить или удалить. <br>
+                                        <a href="">Перейти на новость</a>
+                                    </div>
                                 </div>
                                 <a href="" class="b-best_close"></a>
                                 <a href="" class="b-best_drag"></a>
@@ -77,7 +83,10 @@
                                 <b class="best-list_t"><a href="">Как избежать растяжек во время беременности?</a></b>
                                 <div class="best-list_tx"><img src="/images/seo2/example/w200.jpg" alt=""></div>
                                 <div class="b-best_overlay">
-                                    <div class="b-best_overlay-tx">Вы можете переместить или удалить</div>
+                                    <div class="b-best_overlay-tx">
+                                        Вы можете переместить или удалить. <br>
+                                        <a href="">Перейти на новость</a>
+                                    </div>
                                 </div>
                                 <a href="" class="b-best_close"></a>
                                 <a href="" class="b-best_drag"></a>
@@ -86,7 +95,10 @@
                                 <b class="best-list_t"><a href="">Как избежать растяжек во время беременности?</a></b>
                                 <div class="best-list_tx"><img src="/images/seo2/example/w200.jpg" alt=""></div>
                                 <div class="b-best_overlay">
-                                    <div class="b-best_overlay-tx">Вы можете переместить или удалить</div>
+                                    <div class="b-best_overlay-tx">
+                                        Вы можете переместить или удалить. <br>
+                                        <a href="">Перейти на новость</a>
+                                    </div>
                                 </div>
                                 <a href="" class="b-best_close"></a>
                                 <a href="" class="b-best_drag"></a>
@@ -107,7 +119,10 @@
                                 <b class="best-list_t"><a href="">Как избежать растяжек во время беременности?</a></b>
                                 <div class="best-list_tx"><img src="/images/seo2/example/w200.jpg" alt=""></div>
                                 <div class="b-best_overlay">
-                                    <div class="b-best_overlay-tx">Вы можете переместить или удалить</div>
+                                    <div class="b-best_overlay-tx">
+                                        Вы можете переместить или удалить. <br>
+                                        <a href="">Перейти на новость</a>
+                                    </div>
                                 </div>
                                 <a href="" class="b-best_close"></a>
                                 <a href="" class="b-best_drag"></a>
@@ -116,7 +131,10 @@
                                 <b class="best-list_t"><a href="">Как избежать растяжек во время беременности?</a></b>
                                 <div class="best-list_tx"><img src="/images/seo2/example/w200.jpg" alt=""></div>
                                 <div class="b-best_overlay">
-                                    <div class="b-best_overlay-tx">Вы можете переместить или удалить</div>
+                                    <div class="b-best_overlay-tx">
+                                        Вы можете переместить или удалить. <br>
+                                        <a href="">Перейти на новость</a>
+                                    </div>
                                 </div>
                                 <a href="" class="b-best_close"></a>
                                 <a href="" class="b-best_drag"></a>

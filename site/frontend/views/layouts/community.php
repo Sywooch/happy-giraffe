@@ -211,10 +211,12 @@
 
         <?php $this->endCache(); endif;  ?>
 
-        <div class="box">
-            <a href="<?=$this->createUrl('/contest/default/view', array('id' => 9)) ?>"><img
-                src="/images/contest/banner-w240-9-<?=mt_rand(1, 3)?>.jpg"></a>
-        </div>
+        <?php if (false): ?>
+            <div class="box">
+                <a href="<?=$this->createUrl('/contest/default/view', array('id' => 9)) ?>"><img
+                    src="/images/contest/banner-w240-9-<?=mt_rand(1, 3)?>.jpg"></a>
+            </div>
+        <?php endif; ?>
 
         <?php foreach ($this->community->banners as $b): ?>
             <?php $this->renderPartial('_banner', array('data' => $b)); ?>

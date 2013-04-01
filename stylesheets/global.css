@@ -68,6 +68,11 @@ ul.topmenu,
 .entry .traditional-recipes-ingredients ul {list-style:disc;padding-left:20px;}
 .entry .traditional-recipes-ingredients ul li {margin:10px 0;}
 
+.redactor-panel {
+    display: inline-block;*zoom:1;*display:inline;
+    vertical-align: middle;
+}
+.redactor-panel .ico-redactor {margin: 0 3px;}
 
 .traditional-recipes-title {padding:45px 30px;background:url(/images/bg_traditional_recipes_title.jpg) no-repeat right;height:58px;border:1px solid #e9e8ea;font-size:50px;line-height:1;color:#383838;margin-bottom:20px;}
 

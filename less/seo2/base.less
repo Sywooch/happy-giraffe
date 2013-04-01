@@ -8,6 +8,23 @@
     height: 19px;
     background: url(/images/seo2/ico/info.png) no-repeat;
 }
+
+.ico-best {
+    .inline-block();
+    vertical-align: middle;
+    width: 26px;
+    height: 26px;
+    background: url(/images/seo2/ico/best.png) no-repeat;
+
+    &__interest {background-position: 0 0;}
+    &__blog     {background-position: -26px 0;}
+    &__social   {background-position: -52px 0;}
+    &__mail     {background-position: -78px 0;}
+    .active &__interest {background-position: 0 -26px;}
+    .active &__blog     {background-position: -26px -26px;}
+    .active &__social   {background-position: -52px -26px;}
+    .active &__mail     {background-position: -78px -26px;}
+}
 /* /ico */
 
 /* ava avatar */
@@ -96,6 +113,11 @@
         font-size: 11px;
         line-height: 15px;
         margin-top: 2px;
+    }
+    &_post {
+        font-family: Tahoma, Arial, Verdana, sans-serif;
+        font-size: 11px;
+        color: #baa2d6;
     }
 }
 .online-status {

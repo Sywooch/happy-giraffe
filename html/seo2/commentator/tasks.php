@@ -59,7 +59,7 @@
                     
                     <a href="" class="task-act_i">
                         <span class="task-act_ico-hold">
-                            <span class="task-act_ico task-act_ico__like"></span>
+                            <span class="task-act_ico task-act_ico__like active"></span>
                         </span>
                         <span class="task-act_tx">Поставить <br> лайк</span>
                     </a>

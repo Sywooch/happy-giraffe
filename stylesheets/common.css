@@ -248,6 +248,25 @@ a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
     background: url(/images/ico/ico-name-author.png) no-repeat;
 }
 .ico-name-author:hover {text-decoration: underline;}
+.ico-redactor {
+	display: inline-block;*zoom:1;*display:inline;
+	vertical-align: middle;
+	width: 30px;
+	height: 30px;
+	background: url(/images/ico/ico-redactor.png) no-repeat;
+}
+.ico-redactor__interest {background-position: 0 0;}
+.ico-redactor__interest:hover  {background-position: 0 -60px;}
+.ico-redactor__interest.active {background-position: 0 -30px;}
+.ico-redactor__blog     {background-position: -30px 0;}
+.ico-redactor__blog:hover {background-position: -30px -60px;}
+.ico-redactor__blog.active {background-position: -30px -30px;}
+.ico-redactor__social   {background-position: -60px 0;}
+.ico-redactor__social:hover {background-position: -60px -60px;}
+.ico-redactor__social.active {background-position: -60px -30px;}
+.ico-redactor__mail     {background-position: -90px 0;}
+.ico-redactor__mail:hover{background-position: -90px -60px;}
+.ico-redactor__mail.active{background-position: -90px -30px;}
 /* /icons */
 
 .logo-box {margin: 0 auto;text-align:center;color:#8d5bbc;text-transform:uppercase;font-size:10px;letter-spacing:3px;line-height:25px;padding: 25px 0 15px;}
@@ -4393,32 +4412,7 @@ label {
 .fast-teasers ul li .text .item-title {margin-bottom:5px;}
 .fast-teasers ul li .text p {line-height:19px;}
 
-
 /* */
-
-.admin-buttons {}
-.admin-buttons a {display:block;width:22px;height:22px;line-height:22px;text-align:center;border:1px solid #bdbcbc;float:left;margin-right:6px;text-decoration:none;color:#8f8d8d;font-size:15px;position:relative;}
-.admin-buttons a {/*css3*/ -moz-border-radius:12px;-webkit-border-radius:12px;border-radius:12px;behavior: url(/stylesheets/PIE.htc);}
-.admin-buttons a:hover,
-.admin-buttons a.active {color:#fff;}
-.admin-buttons a.purple:hover,
-.admin-buttons a.purple.active {background:#a582c7;border-color:#a582c7;}
-.admin-buttons a.orange:hover,
-.admin-buttons a.orange.active {background:#f18b2f;border-color:#f18b2f;}
-.admin-buttons a.green:hover,
-.admin-buttons a.green.active {background:#6bc545;border-color:#6bc545;}
-.admin-buttons a.yellow:hover,
-.admin-buttons a.yellow.active {background:#f8cb30;border-color:#f8cb30;}
-.admin-buttons a.blue:hover,
-.admin-buttons a.blue.active {background:#5488d0;border-color:#5488d0;}
-.admin-buttons a.lilac:hover,
-.admin-buttons a.lilac.active {background:#b666d2;border-color:#b666d2;}
-.admin-buttons a.mailer:hover,
-.admin-buttons a.mailer.active {background:#D0006E;border-color:#D0006E;}
-
-
-/* */
-
 
 .flag {
 	width: 16px;

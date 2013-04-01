@@ -51,7 +51,6 @@ class CommentatorDayWork extends EMongoEmbeddedDocument
      */
     public $status = 0;
 
-
     /**
      * Статистика личных сообщений
      * 'out' => количество исходящих сообщений
@@ -102,19 +101,51 @@ class CommentatorDayWork extends EMongoEmbeddedDocument
 
     /**
      * Пересчет статистики за день
-     * @param $commentator_id int id комментатора
+     * @param $commentator CommentatorWork модель работы комментатора
      */
-    public function calculateStats($commentator_id)
+    public function calculateStats($commentator)
     {
         if (!$this->closed) {
-            $this->calcImMessageStats($commentator_id);
-            $this->calcFriendsStats($commentator_id);
-            $this->visits = CommentatorHelper::visits($commentator_id, $this->date, $this->date);
+            $this->calcImMessageStats($commentator->user_id);
+            $this->calcFriendsStats($commentator->user_id);
+            $this->visits = CommentatorHelper::visits($commentator->user_id, $this->date, $this->date);
+            $this->checkStatus($commentator);
 
             if ($this->date != date("Y-m-d"))
                 $this->closed = 1;
 
             $this->created = strtotime($this->date);
+
+            //обновляем вычисленную статистику
+            $criteria = new EMongoCriteria();
+            $criteria->addCond('user_id', '==', $commentator->user_id);
+
+            //находим номер рабочего дня в массиве дней
+            $day_index = null;
+            foreach ($commentator->days as $_index => $day)
+                if ($day->date == $this->date)
+                    $day_index = $_index;
+
+            $modifier = new EMongoModifier();
+            $modifier->addModifier('days.'.$day_index.'.friends.requests', 'set', $this->friends['requests']);
+            $modifier->addModifier('days.'.$day_index.'.friends.friends', 'set', $this->friends['friends']);
+
+            $modifier->addModifier('days.'.$day_index.'.visits.main', 'set', $this->visits['main']);
+            $modifier->addModifier('days.'.$day_index.'.visits.photo', 'set', $this->visits['photo']);
+            $modifier->addModifier('days.'.$day_index.'.visits.blog', 'set', $this->visits['blog']);
+            $modifier->addModifier('days.'.$day_index.'.visits.visitors', 'set', $this->visits['visitors']);
+            $modifier->addModifier('days.'.$day_index.'.visits.visits', 'set', $this->visits['visits']);
+
+            $modifier->addModifier('days.'.$day_index.'.im.out', 'set', $this->im['out']);
+            $modifier->addModifier('days.'.$day_index.'.im.in', 'set', $this->im['in']);
+            $modifier->addModifier('days.'.$day_index.'.im.interlocutors_in', 'set', $this->im['interlocutors_in']);
+            $modifier->addModifier('days.'.$day_index.'.im.interlocutors_out', 'set', $this->im['interlocutors_out']);
+
+            $modifier->addModifier('days.'.$day_index.'.status', 'set', $this->status);
+            $modifier->addModifier('days.'.$day_index.'.created', 'set', $this->created);
+            $modifier->addModifier('days.'.$day_index.'.closed', 'set', $this->closed);
+
+            CommentatorWork::model()->updateAll($modifier, $criteria);
         }
     }
 
@@ -146,6 +177,40 @@ class CommentatorDayWork extends EMongoEmbeddedDocument
     public function calcFriendsStats($commentator_id)
     {
         $this->friends = CommentatorHelper::friendStats($commentator_id, $this->date);
+    }
+
+    public function incSkips($commentator)
+    {
+        $this->skip_count++;
+        $this->updateFields($commentator, array('skip_count'));
+    }
+
+    public function incComments($commentator)
+    {
+        $this->comments++;
+        $this->updateFields($commentator, array('comments'));
+    }
+
+    public function updatePosts($commentator)
+    {
+        $this->updateFields($commentator, array('blog_posts', 'club_posts'));
+    }
+
+    public function updateFields($commentator, $fields){
+        $criteria = new EMongoCriteria();
+        $criteria->addCond('user_id', '==', $commentator->user_id);
+
+        //находим номер рабочего дня в массиве дней
+        $day_index = null;
+        foreach ($commentator->days as $_index => $day)
+            if ($day->date == $this->date)
+                $day_index = $_index;
+
+        $modifier = new EMongoModifier();
+        foreach($fields as $field)
+            $modifier->addModifier('days.'.$day_index.'.'.$field, 'set', $this->$field);
+
+        CommentatorWork::model()->updateAll($modifier, $criteria);
     }
 
     /**

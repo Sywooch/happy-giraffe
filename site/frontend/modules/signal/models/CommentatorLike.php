@@ -77,6 +77,7 @@ class CommentatorLike extends HActiveRecord
             'entity' => $entity,
             'entity_id' => $entity_id,
             'social_id' => $social_id,
+            'user_id' => Yii::app()->user->id,
         ));
         if ($model === null){
             $model = new self;

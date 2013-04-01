@@ -93,9 +93,9 @@ class WordstatCommand extends CConsoleCommand
 
         $deleted = 0;
         for($i=0;$i<120;$i++){
-            $ids = Yii::app()->db_keywords->createCommand()
-                ->select('keyword_id')
-                ->from('keywords_strict_wordstat')
+            $ids = Yii::app()->db_seo->createCommand()
+                ->selectDistinct('keyword_id')
+                ->from('sites__keywords_visits')
                 ->limit(10000)
                 ->offset(10000*$i - $deleted)
                 ->queryColumn();

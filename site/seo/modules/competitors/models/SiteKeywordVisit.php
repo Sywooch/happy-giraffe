@@ -156,7 +156,7 @@ class SiteKeywordVisit extends HActiveRecord
 
         return new CActiveDataProvider($this, array(
             'criteria' => $full_criteria,
-            'totalItemCount' => self::model()->count($criteria),
+            'totalItemCount' => self::model()->count($full_criteria),
             'pagination' => array('pageSize' => 50),
             'sort' => array(
                 'attributes' => array(

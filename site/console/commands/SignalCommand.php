@@ -124,6 +124,9 @@ class SignalCommand extends CConsoleCommand
     }
 
     public function actionTest(){
-        echo date("Y-m-d H:i:s", 1356434958);
+        //echo date("Y-m-d H:i:s", 1356434958);
+
+        $commentator = CommentatorWork::getUser(15426);
+        $commentator->calculateDayStats();
     }
 }

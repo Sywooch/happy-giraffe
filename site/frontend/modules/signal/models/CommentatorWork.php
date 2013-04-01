@@ -75,12 +75,6 @@ class CommentatorWork extends EMongoDocument
 
     public function beforeSave()
     {
-        //проверяем статус выполнения плана
-        $day = $this->getCurrentDay();
-        if ($day) {
-            $day->checkStatus($this);
-        }
-
         if ($this->isNewRecord)
             $this->created = time();
 
@@ -176,6 +170,7 @@ class CommentatorWork extends EMongoDocument
             if ($day->date == $date)
                 return $day;
 
+        $this->refresh();
         $day = new CommentatorDayWork();
         $day->date = $date;
 
@@ -215,9 +210,10 @@ class CommentatorWork extends EMongoDocument
         $day = new CommentatorDayWork();
         $day->date = date("Y-m-d");
 
+        $this->refresh();
         $this->days[] = $day;
-        $this->calculateNextComment();
-        return $this->save();
+        $this->save();
+        return $this->calculateNextComment();
     }
 
     /**
@@ -230,17 +226,15 @@ class CommentatorWork extends EMongoDocument
             //если дата не указана - то за текущий и предыдущий день
             $prev_day = $this->getPrevDay();
             if ($prev_day !== null)
-                $prev_day->calculateStats($this->user_id);
+                $prev_day->calculateStats($this);
 
             $day = $this->getOrCreateDay(date("Y-m-d"));
-            $day->calculateStats($this->user_id);
+            $day->calculateStats($this);
         } else {
             //если дата указана - за эту дату
             $day = $this->getOrCreateDay($date);
-            $day->calculateStats($this->user_id);
+            $day->calculateStats($this);
         }
-
-        $this->save();
     }
 
 
@@ -306,15 +300,13 @@ class CommentatorWork extends EMongoDocument
      */
     public function incCommentsCount($next = true)
     {
-        $this->getCurrentDay()->comments++;
+        $this->getCurrentDay()->incComments($this);
         if ($next) {
-            $this->save();
             if ($this->calculateNextComment()) {
-                $this->save();
                 return true;
             }
         } else
-            return $this->save();
+            return true;
 
         return false;
     }
@@ -334,13 +326,12 @@ class CommentatorWork extends EMongoDocument
             if ($this->comment_entity == 'BlogContent')
                 $this->comment_entity = 'CommunityContent';
             $this->skipUrls[] = array($this->comment_entity, $this->comment_entity_id);
+            $this->update(array('skipUrls'), true);
         }
-        $this->save();
 
         //вычисляем следующий пост для комментирования
         if ($this->calculateNextComment()) {
-            $this->getCurrentDay()->skip_count++;
-            $this->save();
+            $this->getCurrentDay()->incSkips($this);
             return true;
         }
         return false;
@@ -360,7 +351,7 @@ class CommentatorWork extends EMongoDocument
             return false;
 
         list($this->comment_entity, $this->comment_entity_id) = $list;
-        return true;
+        return $this->update(array('comment_entity', 'comment_entity_id'), true);
     }
 
     /**
@@ -383,7 +374,6 @@ class CommentatorWork extends EMongoDocument
 
         if ($model === null) {
             $this->calculateNextComment();
-            $this->save();
             $model = CActiveRecord::model($this->comment_entity)->findByPk($this->comment_entity_id);
         }
 

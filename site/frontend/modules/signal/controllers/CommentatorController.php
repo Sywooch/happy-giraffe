@@ -221,7 +221,7 @@ class CommentatorController extends CController
                         $day->blog_posts++;
                     else
                         $day->club_posts++;
-                    $this->commentator->save();
+                    $day->updatePosts($this->commentator);
 
                     echo CJSON::encode(array(
                         'status' => true,

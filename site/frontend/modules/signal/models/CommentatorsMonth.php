@@ -124,9 +124,9 @@ class CommentatorsMonth extends EMongoDocument
                     self::SE_VISITS => $se,
                 );
                 $this->commentators_rating[(int)$commentator] = array(
-                    self::NEW_FRIENDS => $model->friends($this->period),
-                    self::PROFILE_VIEWS => ($views['views'] + $views['visitors'] * 3),
-                    self::IM_MESSAGES => $model->imMessages($this->period),
+                    self::NEW_FRIENDS => (int)$model->friends($this->period),
+                    self::PROFILE_VIEWS => (int)($views['views'] + $views['visitors'] * 3),
+                    self::IM_MESSAGES => (int)$model->imMessages($this->period),
                     self::SE_VISITS => $se,
                 );
                 $model->calculateDayStats();

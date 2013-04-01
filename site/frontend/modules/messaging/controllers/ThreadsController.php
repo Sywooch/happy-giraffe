@@ -21,7 +21,7 @@ class ThreadsController extends HController
 
         $thread = new MessagingThread();
         $threadUser1 = new MessagingThreadUser();
-        $threadUser1->user_id = Yii::app()->user->id;
+        $threadUser1->user_id = 22;
         $threadUser2 = new MessagingThreadUser();
         $threadUser2->user_id = $interlocutor_id;
         $thread->threadUsers = array($threadUser1, $threadUser2);

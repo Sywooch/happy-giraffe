@@ -103,7 +103,7 @@ class WordstatCommand extends CConsoleCommand
             foreach($ids as $id){
                 $exist = Yii::app()->db_keywords->createCommand()->select('id')->from('keywords')->where('id='.$id)->queryScalar();
                 if (empty($exist)){
-                    Yii::app()->db_keywords->createCommand()->delete('keywords_strict_wordstat', 'keyword_id='.$id);
+                    Yii::app()->db_seo->createCommand()->delete('sites__keywords_visits', 'keyword_id='.$id);
                     $deleted++;
                 }
             }

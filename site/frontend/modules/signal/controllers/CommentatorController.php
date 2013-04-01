@@ -96,7 +96,7 @@ class CommentatorController extends CController
                 SELECT to_id FROM friend_requests WHERE from_id = :me
                 UNION
                 SELECT from_id FROM friend_requests WHERE to_id = :me
-            )';
+            ) AND t.deleted = 0';
         $criteria->params = array(':me' => Yii::app()->user->id);
 
         $dataProvider = new CActiveDataProvider('User', array(

@@ -19,6 +19,8 @@ class FavouritesPosts extends PostForCommentator
             Favourites::getListForCommentators(Favourites::WEEKLY_MAIL)
         );
 
+        $this->log(implode(',',$ids));
+
         if (empty($ids))
             return null;
 

@@ -4412,32 +4412,7 @@ label {
 .fast-teasers ul li .text .item-title {margin-bottom:5px;}
 .fast-teasers ul li .text p {line-height:19px;}
 
-
 /* */
-
-.admin-buttons {}
-.admin-buttons a {display:block;width:22px;height:22px;line-height:22px;text-align:center;border:1px solid #bdbcbc;float:left;margin-right:6px;text-decoration:none;color:#8f8d8d;font-size:15px;position:relative;}
-.admin-buttons a {/*css3*/ -moz-border-radius:12px;-webkit-border-radius:12px;border-radius:12px;behavior: url(/stylesheets/PIE.htc);}
-.admin-buttons a:hover,
-.admin-buttons a.active {color:#fff;}
-.admin-buttons a.purple:hover,
-.admin-buttons a.purple.active {background:#a582c7;border-color:#a582c7;}
-.admin-buttons a.orange:hover,
-.admin-buttons a.orange.active {background:#f18b2f;border-color:#f18b2f;}
-.admin-buttons a.green:hover,
-.admin-buttons a.green.active {background:#6bc545;border-color:#6bc545;}
-.admin-buttons a.yellow:hover,
-.admin-buttons a.yellow.active {background:#f8cb30;border-color:#f8cb30;}
-.admin-buttons a.blue:hover,
-.admin-buttons a.blue.active {background:#5488d0;border-color:#5488d0;}
-.admin-buttons a.lilac:hover,
-.admin-buttons a.lilac.active {background:#b666d2;border-color:#b666d2;}
-.admin-buttons a.mailer:hover,
-.admin-buttons a.mailer.active {background:#D0006E;border-color:#D0006E;}
-
-
-/* */
-
 
 .flag {
 	width: 16px;

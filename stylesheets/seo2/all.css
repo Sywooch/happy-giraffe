@@ -2850,10 +2850,10 @@ th:hover .report-plan_sort {
   margin: 0 0 30px;
 }
 .task-add_itx-hold {
-  float: right;
+  float: left;
   width: 450px;
   text-align: center;
-  margin: 37px 30px 0;
+  margin: 37px 20px 0 50px;
 }
 .task-add_itx {
   display: inline-block;
@@ -2922,9 +2922,17 @@ th:hover .report-plan_sort {
   background: url(/images/seo2/ico/task-act_ico.png) no-repeat;
 }
 .task-act_ico__like {
-  background-position: -41px 0;
+  background-position: 0 0;
 }
 .task-act_ico__comment {
+  background-position: 0 -41px;
+}
+.task-act_ico__like:hover,
+.task-act_ico__like.active {
+  background-position: -41px 0;
+}
+.task-act_ico__comment:hover,
+.task-act_ico__comment:active {
   background-position: -41px -41px;
 }
 .task-act_tx {

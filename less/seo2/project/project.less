@@ -889,10 +889,10 @@
 	margin: 0 0 30px;
 
 	&_itx-hold {
-		float: right;
+		float: left;
 		width: 450px;
 		text-align: center;
-		margin: 37px 30px 0;
+		margin: 37px 20px 0 50px;
 	}
     &_itx {
         display: inline-block;
@@ -950,8 +950,12 @@
 		margin: 11px;
 		background: url(/images/seo2/ico/task-act_ico.png) no-repeat;
 	}
-	&_ico__like    {background-position: -41px 0;}
-	&_ico__comment {background-position: -41px -41px;}
+	&_ico__like    {background-position: 0 0;}
+	&_ico__comment {background-position: 0 -41px;}
+	&_ico__like:hover,
+	&_ico__like.active    {background-position: -41px 0;}
+	&_ico__comment:hover,
+	&_ico__comment:active {background-position: -41px -41px;}
 	&_tx {
 		display: block;
 		font-size: 11px;

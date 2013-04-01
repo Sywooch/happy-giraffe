@@ -47,14 +47,8 @@
 								<div class="redactor-panel">
 									<a href="" class="ico-redactor ico-redactor__interest js-tooltipsy" title="Самое интересное"></a>
 									<a href="" class="ico-redactor ico-redactor__blog js-tooltipsy" title="Блоги на главную"></a>
-									<a href="" class="ico-redactor ico-redactor__social js-tooltipsy" title="Посты в соцсети"></a>
-									<a href="" class="ico-redactor ico-redactor__mail js-tooltipsy" title="Посты в рассылку"></a>
-								</div>
-								<div class="redactor-panel">
-									<a href="" class="ico-redactor ico-redactor__interest js-tooltipsy active" title="Самое интересное"></a>
-									<a href="" class="ico-redactor ico-redactor__blog js-tooltipsy active" title="Блоги на главную"></a>
 									<a href="" class="ico-redactor ico-redactor__social js-tooltipsy active" title="Посты в соцсети"></a>
-									<a href="" class="ico-redactor ico-redactor__mail js-tooltipsy active" title="Посты в рассылку"></a>
+									<a href="" class="ico-redactor ico-redactor__mail js-tooltipsy" title="Посты в рассылку"></a>
 								</div>
 							</h1>
 							
@@ -112,14 +106,6 @@
 											<span class="icon-status status-online"></span>
 											<a href="" class="username">Дарья</a>
 										</div>
-									</div>
-									
-									<div class="admin-buttons">
-										<a href="" class="purple">Г<span class="tip">Поместить на главную страницу</span></a>
-										<a href="" class="orange active">И<span class="tip">Поместить на главную страницу</span></a>
-										<a href="" class="green">Б<span class="tip">Поместить на главную страницу</span></a>
-										<a href="" class="yellow active">К<span class="tip">Поместить на главную страницу</span></a>
-										<a href="" class="blue">Д<span class="tip">Поместить на главную страницу</span></a>
 									</div>
 									
 									<div class="meta">

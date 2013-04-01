@@ -13,7 +13,7 @@
             <br>
             <a href="<?=$data->url ?>" class="user-info_username" target="_blank"><?=CHtml::encode($data->fullName) ?></a>
 
-            <?php if ($data->address->country !== null): ?>
+            <?php if (isset($data->address) && $data->address->country !== null): ?>
                 <div class="user-info_location">
                     <div class="flag flag-<?= $data->address->country->iso_code; ?>"></div>
                     <?= CHtml::encode($data->address->getCityOrRegion()); ?>

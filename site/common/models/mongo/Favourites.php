@@ -128,9 +128,9 @@ class Favourites extends EMongoDocument
     {
         switch ($index) {
             case self::BLOCK_BLOGS:
-                return 6;
+                return 12;
             case self::BLOCK_INTERESTING:
-                return 2;
+                return 4;
             case self::BLOCK_SOCIAL_NETWORKS:
                 return 10;
             case self::WEEKLY_MAIL:

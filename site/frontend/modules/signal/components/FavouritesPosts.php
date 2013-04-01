@@ -13,9 +13,10 @@ class FavouritesPosts extends PostForCommentator
      */
     public function getCriteria()
     {
-        $ids = array_merge(Favourites::getListForCommentators(Favourites::BLOCK_INTERESTING),
+        $ids = array_merge(
+            Favourites::getListForCommentators(Favourites::BLOCK_INTERESTING),
             Favourites::getListForCommentators(Favourites::BLOCK_BLOGS),
-            Favourites::getListForCommentators(Favourites::BLOCK_SOCIAL_NETWORKS),
+            //Favourites::getListForCommentators(Favourites::BLOCK_SOCIAL_NETWORKS),
             Favourites::getListForCommentators(Favourites::WEEKLY_MAIL)
         );
 

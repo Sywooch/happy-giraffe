@@ -107,7 +107,7 @@ class Favourites extends EMongoDocument
         $criteria = new EMongoCriteria;
         $criteria->block('==', (int)$index);
         $criteria->sort('created', EMongoCriteria::SORT_DESC);
-        $criteria->param('==', (int)self::getLimit($index));
+        $criteria->limit(self::getLimit($index));
         #TODO добавить ограничения чтобы не комментировали те, которые уже неактуальны, например в email-рассылке
 
         $models = self::model()->findAll($criteria);

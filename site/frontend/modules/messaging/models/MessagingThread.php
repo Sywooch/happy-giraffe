@@ -105,4 +105,49 @@ class MessagingThread extends CActiveRecord
             'criteria'=>$criteria,
         ));
     }
+
+    /**
+     * Отмечает все сообщения в диалоге как прочитанные для одного из собеседников
+     *
+     * @param $user_id
+     */
+    public function markAsReadFor($user_id)
+    {
+        $sql = "
+            UPDATE messaging__messages_users mu
+            INNER JOIN messaging__messages m ON mu.message_id = m.id
+            SET mu.read = 1
+            WHERE m.thread_id = :thread_id AND m.author_id != :user_id AND mu.user_id = :user_id;
+        ";
+
+        Yii::app()->db->createCommand($sql)->execute(array(
+            ':thread_id' => $this->id,
+            ':user_id' => $user_id,
+        ));
+    }
+
+    /**
+     * Отмечает последнее сообщение в диалоге как непрочитанное для одного из собеседников
+     *
+     * @param $user_id
+     */
+    public function markAsUnReadFor($user_id)
+    {
+        $sql = "
+            UPDATE messaging__messages_users mu
+            SET mu.read = 0
+            WHERE mu.user_id = :user_id AND mu.message_id = (
+                SELECT id
+                FROM messaging__messages
+                WHERE thread_id = :thread_id AND author_id != :user_id
+                ORDER BY id DESC
+                LIMIT 1
+            );
+        ";
+
+        Yii::app()->db->createCommand($sql)->execute(array(
+            ':thread_id' => $this->id,
+            ':user_id' => $user_id,
+        ));
+    }
 }

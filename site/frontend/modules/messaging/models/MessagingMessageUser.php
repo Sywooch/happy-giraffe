@@ -52,6 +52,8 @@ class MessagingMessageUser extends CActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
+            'message' => array(self::BELONGS_TO, 'MessagingMessage', 'message_id'),
+            //'thread' => array(self::BELONGS_TO, 'MessagingThread'),
         );
     }
 

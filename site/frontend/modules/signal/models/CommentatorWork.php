@@ -531,7 +531,7 @@ class CommentatorWork extends EMongoDocument
         $criteria->condition = 'created > :today AND status = :open';
         $criteria->params = array(
             ':today' => date("Y-m-d") . ' 00:00:00',
-            'status' => CommentatorTask::STATUS_OPEN
+            ':open' => CommentatorTask::STATUS_OPEN
         );
         return CommentatorTask::model()->findAll($criteria);
     }

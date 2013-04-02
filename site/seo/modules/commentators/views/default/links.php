@@ -18,7 +18,7 @@ $links = $commentator->GetLinks($month);
         <?php foreach ($links as $link): ?>
             <tr class="external-link_odd">
                 <td class="external-link_td-date">
-                    <div class="b-date"><?=Yii::app()->dateFormatter->format('dd MMM yyyy',strtotime($link->created))?></div>
+                    <div class="b-date"><?=Yii::app()->dateFormatter->format('d MMM yyyy',strtotime($link->created))?></div>
                 </td>
                 <td class="external-link_td-outer">
                     <a href="<?=$link->url ?>" class="external-link_outer" target="_blank"><?=$link->url ?></a>

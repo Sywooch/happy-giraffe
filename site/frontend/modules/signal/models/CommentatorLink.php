@@ -65,6 +65,13 @@ class CommentatorLink extends HActiveRecord
         );
     }
 
+    public function beforeValidate()
+    {
+        $parts = explode('#', $this->url);
+        $this->url = $parts[0];
+        return parent::beforeValidate();
+    }
+
     /**
      * Проверяет откуда пришел посетитель страницы, если пришел с проставленной комментатором ссылки,
      * увеличиваем кол-во переходов по этой ссылке на 1

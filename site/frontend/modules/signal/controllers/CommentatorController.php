@@ -145,6 +145,20 @@ class CommentatorController extends CController
         $this->render('award/' . $type, compact('month'));
     }
 
+    public function actionTeam($month = null, $user_id = null)
+    {
+        if (empty($month))
+            $month = date("Y-m");
+
+        if (empty($user_id))
+            $this->render('team', compact('month'));
+        else {
+            $this->addEntityToFastList('commentators', $user_id, 3);
+            $commentator = CommentatorWork::getUser($user_id);
+            $this->render('team_one', compact('month', 'commentator'));
+        }
+    }
+
     /**
      * Взять подсказку
      */
@@ -328,10 +342,23 @@ class CommentatorController extends CController
      * @return CommentatorLink
      * @throws CHttpException
      */
-    public function loadLink($id){
+    public function loadLink($id)
+    {
         $model = CommentatorLink::model()->findByPk($id);
         if ($model === null)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
         return $model;
+    }
+
+    public function addEntityToFastList($list_name, $entity_id, $limit = null)
+    {
+        $entities = Yii::app()->user->getState($list_name);
+        if (!is_array($entities))
+            $entities = array($entity_id);
+        elseif (!in_array($entity_id, $entities))
+            $entities[] = $entity_id;
+        if (!empty($limit) && count($entities) > $limit)
+            array_shift($entities);
+        Yii::app()->user->setState($list_name, $entities);
     }
 }

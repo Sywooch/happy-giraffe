@@ -41,3 +41,9 @@ function initSelects(block) {
     }
 }
 /* /tabs */
+
+
+function refreshOdd(selecor, odd_class ){
+    $(selecor).removeClass(odd_class);
+    $(selecor+':even').addClass(odd_class);
+}

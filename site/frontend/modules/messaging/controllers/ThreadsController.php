@@ -32,4 +32,9 @@ class ThreadsController extends HController
         );
         echo CJSON::encode($response);
     }
+
+    public function actionLoadThread()
+    {
+
+    }
 }

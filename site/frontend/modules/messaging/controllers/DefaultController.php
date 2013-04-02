@@ -11,13 +11,14 @@ class DefaultController extends HController
     public function actionIndex()
     {
         $contacts = ContactsManager::getContactsByUserId(Yii::app()->user->id);
-        echo CJSON::encode($contacts);
+        $data = CJSON::encode(compact('contacts'));
+        $this->render('index', compact('data'));
     }
 
     public function actionTest()
     {
         $randomUsers = User::model()->findAll(array(
-            'limit' => 1000,
+            'limit' => 100,
             'order' => new CDbExpression('RAND()'),
         ));
 

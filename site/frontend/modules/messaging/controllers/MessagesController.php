@@ -27,14 +27,14 @@ class MessagesController extends HController
             throw new CHttpException(403, 'Thread does not exist.');
 
         $message = new MessagingMessage();
-        $message->author_id = 24836;
+        $message->author_id = 15250;
         $message->thread_id = $thread_id;
         $message->text = $text;
         $messageUsers = array();
         foreach ($thread->threadUsers as $threadUser) {
             $messageUser = new MessagingMessageUser();
             $messageUser->user_id = $threadUser->user_id;
-            if (24836 != $threadUser->user_id)
+            if (15250 != $threadUser->user_id)
                 $messageUser->read = 0;
             $messageUsers[] = $messageUser;
         }

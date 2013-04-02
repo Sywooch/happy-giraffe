@@ -217,10 +217,10 @@ class CommentatorTask extends CActiveRecord
 
     public function toggleStatus()
     {
-        if ($this->status == 0)
-            $this->status = 1;
+        if ($this->status == self::STATUS_OPEN)
+            $this->status = self::STATUS_PAUSE;
         else
-            $this->status = 0;
+            $this->status = self::STATUS_OPEN;
     }
 
     /**

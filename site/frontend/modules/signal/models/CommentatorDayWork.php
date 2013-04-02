@@ -150,9 +150,9 @@ class CommentatorDayWork extends EMongoEmbeddedDocument
     }
 
     /**
-     * Проверка выполнения
-     * @param $section
-     * @return CDbCriteria
+     * Вычислить кол-во выполненных заданий за текущий день по написанию статей в блог/клуб
+     * @param $section int блог/клуб
+     * @return int кол-во выполненных заданий
      */
     public function checkPosts($section)
     {
@@ -169,33 +169,58 @@ class CommentatorDayWork extends EMongoEmbeddedDocument
         return SeoTask::model()->count($criteria);
     }
 
+    /**
+     * Пересчитать статистику по сообщениям
+     * @param $commentator_id int id комментатора
+     */
     public function calcImMessageStats($commentator_id)
     {
         $this->im = CommentatorHelper::imStats($commentator_id, $this->date);
     }
 
+    /**
+     * Пересчитать статистику по друзьям
+     * @param $commentator_id int id комментатора
+     */
     public function calcFriendsStats($commentator_id)
     {
         $this->friends = CommentatorHelper::friendStats($commentator_id, $this->date);
     }
 
+    /**
+     * Увеличить на 1 количество пропусков
+     * @param $commentator CommentatorWork работа комментатора
+     */
     public function incSkips($commentator)
     {
         $this->skip_count++;
         $this->updateFields($commentator, array('skip_count'));
     }
 
+    /**
+     * Увеличить на 1 количество комментариев
+     * @param $commentator CommentatorWork работа комментатора
+     */
     public function incComments($commentator)
     {
         $this->comments++;
         $this->updateFields($commentator, array('comments'));
     }
 
+    /**
+     * Обновить кол-во постов в монго-базе для текущего рабочего дня
+     * @param $commentator CommentatorWork работа комментатора
+     */
     public function updatePosts($commentator)
     {
         $this->updateFields($commentator, array('blog_posts', 'club_posts'));
     }
 
+    /**
+     * Обновить отдельное поле в монго-базе для текущего рабочего дня
+     * @param $commentator CommentatorWork работа комментатора
+     * @param $fields string поле для обновления
+     */
     public function updateFields($commentator, $fields){
         $criteria = new EMongoCriteria();
         $criteria->addCond('user_id', '==', $commentator->user_id);

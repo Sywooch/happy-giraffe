@@ -47,7 +47,7 @@ class ContactsManager
                 tu2.hidden, # Видимость диалога
                 p.fs_name, # Аватар
                 UNIX_TIMESTAMP(t.updated) AS updated, # Дата последнего обновления диалога
-                COUNT(m.id) AS unreadCount, # Количество непрочитанных сообщений
+                COUNT(mu.message_id) AS unreadCount, # Количество непрочитанных сообщений
                 friends.created IS NOT NULL AS isFriend # Является ли другом
             # Таблица ID всех пользователей в контактах
             FROM (
@@ -76,7 +76,7 @@ class ContactsManager
             # Связывание с таблицей диалогов для получения данных о диалоге
             LEFT OUTER JOIN messaging__threads t ON t.id = tu2.thread_id
             # Связывание с таблицами сообщений и получателей сообщения для получения количества непрочитанных сообщений
-            LEFT OUTER JOIN messaging__messages m ON m.thread_id = t.id
+            LEFT OUTER JOIN messaging__messages m ON m.thread_id = t.id AND m.author_id != :user_id
             LEFT OUTER JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.read = 0 AND mu.user_id = :user_id
             # Связывание с таблицей фотографий для получения аватара
             LEFT OUTER JOIN album__photos p ON u.avatar_id = p.id

@@ -20,9 +20,9 @@ function CommentatorPanel(data) {
 
     self.updateTask = function (task_id) {
         ko.utils.arrayForEach(self.editorTasks(), function (task) {
-            if (task.id == task_id){
+            if (task.id == task_id) {
                 task.closed(1);
-                if (task.type == 1){
+                if (task.type == 1) {
                     self.nextComment.count(self.nextComment.count() + 1);
                 }
             }
@@ -158,12 +158,12 @@ function NextComment(data) {
         }, 'json');
     };
     self.progress = ko.computed(function () {
-        return self.count()+'%';
+        return self.count() + '%';
     });
     self.incComment = function (data) {
         if (data.inc == 1)
             self.count(self.count() + 1);
-        if (data.hasOwnProperty('url')){
+        if (data.hasOwnProperty('url')) {
             self.url(data.url);
             self.title(data.title);
         }
@@ -193,7 +193,7 @@ function EditorTask(data, parent) {
  */
 Comet.prototype.CommentatorPanelUpdateTask = function (result, id) {
     console.log(result);
-    CommentatorPanel.updateTask(result.task_id);
+    commentator_panel.updateTask(result.task_id);
 };
 Comet.prototype.CommentatorPanelIncComments = function (result, id) {
     commentator_panel.nextComment.incComment(result);

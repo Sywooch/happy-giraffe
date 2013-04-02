@@ -192,6 +192,7 @@ function EditorTask(data, parent) {
  * Сигналы обновления данных
  */
 Comet.prototype.CommentatorPanelUpdateTask = function (result, id) {
+    console.log(result);
     CommentatorPanel.updateTask(result.task_id);
 };
 Comet.prototype.CommentatorPanelIncComments = function (result, id) {

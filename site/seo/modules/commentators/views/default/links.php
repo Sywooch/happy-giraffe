@@ -11,14 +11,14 @@ $links = $commentator->GetLinks($month);
 <?php $this->renderPartial('menu', array('month' => $month, 'active'=>$commentator->user_id, 'url'=>'links')); ?>
 <div class="block">
 
-    <?php $this->renderPartial('_month_list', array('month' => $month)); ?>
+    <?php $this->renderPartial('_month_list', array('month' => $month, 'params'=>array('user_id'=>$commentator->user_id))); ?>
 
     <table class="external-link">
         <tbody>
         <?php foreach ($links as $link): ?>
-            <tr class="external-link_odd">
+            <tr>
                 <td class="external-link_td-date">
-                    <div class="b-date"><?=Yii::app()->dateFormatter->format('d MMM yyyy',strtotime($link->created))?></div>
+                    <div class="b-date"><?=Yii::app()->dateFormatter->format('d MMMM yyyy',strtotime($link->created))?></div>
                 </td>
                 <td class="external-link_td-outer">
                     <a href="<?=$link->url ?>" class="external-link_outer" target="_blank"><?=$link->url ?></a>
@@ -33,11 +33,6 @@ $links = $commentator->GetLinks($month);
     </table>
 </div>
 
-
 <script type="text/javascript">
-    refreshOddClass();
-    function refreshOddClass(){
-        $ ('table.external-link__thin tr').removeClass('external-link_odd');
-        $ ('table.external-link__thin tr:even').addClass('external-link_odd');
-    }
+    refreshOdd('table.external-link tr', 'external-link_odd');
 </script>

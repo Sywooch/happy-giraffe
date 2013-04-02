@@ -6,7 +6,7 @@
 ?>
 <tr <?php if ($count % 2 == 0):?>class="external-link_odd"<?php endif ?>>
 <td class="external-link_td-date">
-    <div class="external-link_date"><?=Yii::app()->dateFormatter->format('d MMM yyyy',strtotime($link->created))?></div>
+    <div class="external-link_date"><?=Yii::app()->dateFormatter->format('d MMMM yyyy',strtotime($link->created))?></div>
 </td>
 <td class="external-link_td-outer">
     <a href="<?=$link->url ?>" class="external-link_outer" target="_blank"><?=$link->url ?></a>

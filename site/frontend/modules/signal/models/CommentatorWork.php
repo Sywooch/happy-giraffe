@@ -569,6 +569,7 @@ class CommentatorWork extends EMongoDocument
             $task = CommentatorTask::model()->findByAttributes(array('page_id' => $page->id, 'type' => $type));
             if ($task !== null) {
                 if ($task->isExecutedByCurrentUser()) {
+                    $this->incCommentsCount(false);
                     $comet = new CometModel;
                     $comet->send(Yii::app()->user->id, array(
                         'task_id' => $task->id

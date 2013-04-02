@@ -193,7 +193,7 @@ class CommentatorHelper
             $value = array();
             foreach ($ids as $id) {
                 $exist = Yii::app()->db->createCommand()
-                    ->select('user_id')
+                    ->select('userid')
                     ->from('auth__assignments')
                     ->where('userid = :user_id AND itemname="commentator"', array(':user_id'=>$id))
                     ->queryScalar();

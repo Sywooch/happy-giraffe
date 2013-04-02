@@ -216,13 +216,15 @@ class ProxyParserThread
         fwrite($fh, $this->_time_stamp_title . ': ' . $long_time . "\n");
     }
 
-    protected function log($state)
+    protected function log($state, $important = false)
     {
         if ($this->debug) {
             echo $state . "\n";
         } else {
-//            $fh = fopen($dir = Yii::getPathOfAlias('application.runtime') . DIRECTORY_SEPARATOR . 'my_log.txt', 'a');
-//            fwrite($fh, $state . "\n");
+            if ($important){
+                $fh = fopen($dir = Yii::getPathOfAlias('application.runtime') . DIRECTORY_SEPARATOR . 'my_log.txt', 'a');
+                fwrite($fh, $state . "\n");
+            }
         }
     }
 }

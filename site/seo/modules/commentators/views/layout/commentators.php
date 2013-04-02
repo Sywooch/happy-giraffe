@@ -23,7 +23,10 @@
     <?php Yii::app()->clientScript
         ->registerCoreScript('jquery')
         ->registerScriptFile('/js/seo.js')
-        ->registerCssFile('http://www.happy-giraffe.ru/stylesheets/seo2/all.css');
+        ->registerCssFile('http://www.happy-giraffe.ru/stylesheets/seo2/all.css')
+        ->registerScriptFile('http://www.happy-giraffe.ru/javascripts/knockout-2.2.1.js')
+        ->registerScriptFile('http://www.happy-giraffe.ru/javascripts/seo2/jquery.fancybox.pack.js')
+        ->registerScriptFile('http://www.happy-giraffe.ru/javascripts/seo2/main.js');
     ?>
 </head>
 <body>

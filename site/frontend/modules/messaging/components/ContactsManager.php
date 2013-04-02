@@ -5,6 +5,8 @@
  * Обработчик контактов
  *
  * @author Nikita <nikita@happy-giraffe.ru>
+ * @todo Отказать от использовании Active Record модели в получении аватарки для увеличения производительности
+ * @todo Не инстанцировать модель аватара для каждого кортежа отдельно
  */
 class ContactsManager
 {
@@ -20,7 +22,8 @@ class ContactsManager
      * -видимость диалога;
      * -дата последнего обновления диалога;
      * -количество непрочитанных сообщений;
-     * -является ли собеседник другом.
+     * -является ли собеседник другом;
+     * маленький аватар.
      *
      * Контактами являются:
      * -пользователи, с которыми когда-либо была переписка;
@@ -36,15 +39,16 @@ class ContactsManager
     {
         $sql = "
             SELECT
-                u.id, # ID собеседника
+                u.id AS uId, # ID собеседника
                 u.first_name, # Имя собеседника
                 u.last_name, # Фамилия собеседника
                 u.online, # Онлайн-статус собеседника
-                friends.created IS NOT NULL AS isFriend, # Является ли другом
-                t.id, # ID Диалога
-                t.updated, # Дата последнего обновления диалога
+                t.id AS tId, # ID Диалога
                 tu2.hidden, # Видимость диалога
-                COUNT(m.id) AS unreadCount # Количество непрочитанных сообщений
+                p.fs_name, # Аватар
+                UNIX_TIMESTAMP(t.updated) AS updated, # Дата последнего обновления диалога
+                COUNT(m.id) AS unreadCount, # Количество непрочитанных сообщений
+                friends.created IS NOT NULL AS isFriend # Является ли другом
             # Таблица ID всех пользователей в контактах
             FROM (
                 # Пользователей, находящиеся в друзьях вне зависимости от наличия или отсутствия переписки с ними
@@ -74,14 +78,46 @@ class ContactsManager
             # Связывание с таблицами сообщений и получателей сообщения для получения количества непрочитанных сообщений
             LEFT OUTER JOIN messaging__messages m ON m.thread_id = t.id
             LEFT OUTER JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.read = 0 AND mu.user_id = :user_id
+            # Связывание с таблицей фотографий для получения аватара
+            LEFT OUTER JOIN album__photos p ON u.avatar_id = p.id
             # Условие для корректной работы связывание с таблицей участников диалога
             WHERE tu.user_id IS NULL OR (tu.user_id IS NOT NULL AND tu2.user_id IS NOT NULL)
-            GROUP BY t.id;
+            GROUP BY u.id;
         ";
 
         $command = Yii::app()->db->createCommand($sql);
         $command->bindValue(':user_id', $userId, PDO::PARAM_INT);
         $rows = $command->queryAll();
-        return $rows;
+
+        $contacts = array();
+        foreach ($rows as $row)
+            $contacts[] = self::populateContact($row);
+
+        return $contacts;
+    }
+
+    public function populateContact($row)
+    {
+        $avatarModel = AlbumPhoto::model();
+
+        return array(
+            'user' => array(
+                'id' => (int) $row['uId'],
+                'first_name' => $row['first_name'],
+                'last_name' => $row['last_name'],
+                'avatar' => $avatarModel->populateRecord(array(
+                    'author_id' => $row['uId'],
+                    'fs_name' => $row['fs_name'],
+                ))->getAvatarUrl('small'),
+                'online' => (bool) $row['online'],
+                'isFriend' => (bool) $row['isFriend'],
+            ),
+            'thread' => ($row['tId'] === null) ? null : array(
+                'id' => (int) $row['tId'],
+                'updated' => (int) $row['updated'],
+                'unreadCount' => (int) $row['unreadCount'],
+                'hidden' => (bool) $row['hidden'],
+            ),
+        );
     }
 }

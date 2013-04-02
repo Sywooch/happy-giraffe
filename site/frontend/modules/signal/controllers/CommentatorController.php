@@ -19,7 +19,7 @@ class CommentatorController extends CController
     {
         return array(
             'accessControl',
-            'ajaxOnly + emptyTasks, skip, take, cancelTask, executed, setSort',
+            'ajaxOnly + emptyTasks, skip, take, cancelTask, executed, setSort, deleteLink',
         );
     }
 
@@ -138,10 +138,11 @@ class CommentatorController extends CController
         echo CJSON::encode($response);
     }
 
-    public function actionAward($type='me', $month = null){
+    public function actionAward($type = 'me', $month = null)
+    {
         if (empty($month))
             $month = date("Y-m");
-        $this->render('award/'.$type, compact('month'));
+        $this->render('award/' . $type, compact('month'));
     }
 
     /**
@@ -215,7 +216,7 @@ class CommentatorController extends CController
                 $task->status = SeoTask::STATUS_CLOSED;
                 $task->article_id = $page->id;
                 $task->article_title = $page->getArticleTitle();
-                if ($task->save()){
+                if ($task->save()) {
                     $day = $this->commentator->getCurrentDay();
                     if ($task->sub_section == 0)
                         $day->blog_posts++;
@@ -283,8 +284,16 @@ class CommentatorController extends CController
         }
     }
 
-    public function actionSetSort(){
+    public function actionSetSort()
+    {
         UserAttributes::set(Yii::app()->user->id, 'commentators_se_visits_sort', Yii::app()->request->getPost('sort'));
+    }
+
+    public function actionDeleteLink()
+    {
+        $link = $this->loadLink(Yii::app()->request->getPost('id'));
+        if ($link->user_id == Yii::app()->user->id)
+            echo CJSON::encode(array('status' => $link->delete()));
     }
 
     public function actionCancelTaskAdmin($id)
@@ -309,6 +318,18 @@ class CommentatorController extends CController
     public function loadModel($id)
     {
         $model = SeoTask::model()->findByPk($id);
+        if ($model === null)
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        return $model;
+    }
+
+    /**
+     * @param int $id model id
+     * @return CommentatorLink
+     * @throws CHttpException
+     */
+    public function loadLink($id){
+        $model = CommentatorLink::model()->findByPk($id);
         if ($model === null)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
         return $model;

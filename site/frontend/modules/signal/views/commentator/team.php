@@ -11,7 +11,7 @@ $criteria->setSort(array('user_id'=>EMongoCriteria::SORT_ASC));
 $commentators = CommentatorWork::model()->findAll($criteria);
 
 ?>
-<?php $this->renderPartial('menu', array('month' => $month, 'active'=>null, 'url'=>'reports')); ?>
+<?php $this->renderPartial('menu', array('month' => $month, 'active'=>null, 'url'=>'team')); ?>
 <div class="block">
 
     <?php $this->renderPartial('_month_list', array('month' => $month)); ?>
@@ -33,7 +33,7 @@ $commentators = CommentatorWork::model()->findAll($criteria);
                 <tr class="report_odd">
                     <td class="report_td-user">
                         <div class="user-info clearfix">
-                            <?php $url = $this->createUrl('/commentators/default/reports', array('month'=>$month, 'user_id'=>$user->id))?>
+                            <?php $url = $this->createUrl('/signal/commentator/team/', array('month'=>$month, 'user_id'=>$user->id))?>
                             <a href="<?=$url ?>" class="ava small"><?=CHtml::image($user->getAva('small')) ?></a>
                             <div class="user-info_details">
                                 <a href="<?=$url ?>" class="user-info_username"><?=$user->fullName ?></a>

@@ -108,6 +108,13 @@
                             'itemOptions' => array('class' => 'header-nav_li header-nav_li__secrets'),
                             'active' => (Yii::app()->controller->action->id == 'secrets')
                         ),
+                        array(
+                            'label' => '<span class="header-nav_tx">Команда</span>',
+                            'url' => array('commentator/team'),
+                            'linkOptions' => array('class' => 'header-nav_i'),
+                            'itemOptions' => array('class' => 'header-nav_li header-nav_li__team'),
+                            'active' => (Yii::app()->controller->action->id == 'team')
+                        ),
                     ),
                 ));
 

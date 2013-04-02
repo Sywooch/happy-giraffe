@@ -7,7 +7,7 @@
  */
 
 ?>
-<?php $this->renderPartial('menu', array('month' => $month, 'active'=>$commentator->user_id, 'url'=>'reports')); ?>
+<?php $this->renderPartial('menu', array('month' => $month, 'active'=>$commentator->user_id, 'url'=>'team')); ?>
 <div class="block">
     <?php $this->renderPartial('_month_list', array('month' => $month, 'params'=>array('user_id'=>$commentator->user_id))); ?>
 

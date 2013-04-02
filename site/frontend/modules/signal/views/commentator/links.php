@@ -3,12 +3,16 @@
  * @var $month string месяц за который показываем статистику
  * @var $links CommentatorLink[] ссылки пользователя
  */
-?><div class="block">
-    <?php $this->renderPartial('_month_list',array('month'=>$month)); ?>
+?>
+<div class="block">
+    <?php $this->renderPartial('_month_list', array('month' => $month)); ?>
     <div class="external-link-add">
-        <input type="text" name="" id="url" class="itx-bluelight external-link-add_itx" placeholder="Где проставлена ссылка">
+        <input type="text" name="" id="url" class="itx-bluelight external-link-add_itx"
+               placeholder="Где проставлена ссылка">
+
         <div class="external-link-add_ico"></div>
-        <input type="text" name="" id="page_url" class="itx-bluelight external-link-add_itx" placeholder="Моя запись на Веселом Жирафе">
+        <input type="text" name="" id="page_url" class="itx-bluelight external-link-add_itx"
+               placeholder="Моя запись на Веселом Жирафе">
         <button id="add_link_btn" class="external-link-add_btn btn-green">Ok</button>
     </div>
 
@@ -26,8 +30,8 @@
 <script type="text/javascript">
     $('#add_link_btn').click(function () {
         $.post('/commentator/addLink/', {
-            url:$('#url').val(),
-            page_url:$('#page_url').val()
+            url: $('#url').val(),
+            page_url: $('#page_url').val()
         }, function (response) {
             if (response.status) {
                 $('table.external-link tbody').prepend(response.html);
@@ -36,8 +40,19 @@
                     $('table.external-link tr:first').addClass('external-link_odd');
                 $('#url').val('');
                 $('#page_url').val('');
-            }else
+            } else
                 alert(response.error);
         }, 'json');
+    });
+
+    $('a.external-link_close').click(function () {
+        var link = $(this);
+        $.post('/commentator/deleteLink/', {id: $(this).data('id')}, function (response) {
+            if (response.status) {
+                link.parent().parent().remove();
+                refreshOdd('table.external-link tr', 'external-link_odd');
+            }
+        }, 'json');
+        return false;
     });
 </script>

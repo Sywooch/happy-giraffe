@@ -6,7 +6,7 @@ class ThreadsController extends HController
     {
         return array(
 //            'ajaxOnly',
-            'postOnly',
+//            'postOnly',
         );
     }
 
@@ -38,7 +38,7 @@ class ThreadsController extends HController
      *
      * @throws CHttpException
      */
-    public function actionChangeThreadHiddenStatus()
+    public function actionChangeHiddenStatus()
     {
         $threadId = Yii::app()->request->getPost('threadId');
         $hiddenStatus = Yii::app()->request->getPost('hiddenStatus');
@@ -52,6 +52,7 @@ class ThreadsController extends HController
             throw new CHttpException(403, 'Thread does not exists.');
 
         $threadUser->hidden = $hiddenStatus;
+
         $success = $threadUser->save();
         $response = array(
             'success' => $success,
@@ -59,8 +60,25 @@ class ThreadsController extends HController
         echo CJSON::encode($response);
     }
 
-    public function actionChangeThreadReadStatus()
+    /**
+     * Изменяет статус прочитанности диалога
+     */
+    public function actionChangeReadStatus()
     {
+        $threadId = Yii::app()->request->getPost('threadId');
+        $readStatus = Yii::app()->request->getPost('readStatus');
 
+
+        $thread = MessagingThread::model();
+        $thread->id = $threadId;
+        if ($readStatus == 1)
+            $thread->markAsReadFor(Yii::app()->user->id);
+        else
+            $thread->markAsUnReadFor(Yii::app()->user->id);
+
+        $response = array(
+            'success' => true,
+        );
+        echo CJSON::encode($response);
     }
 }

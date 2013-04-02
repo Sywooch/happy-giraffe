@@ -196,7 +196,7 @@ class CommentatorController extends CController
         $task = $this->loadModel(Yii::app()->request->getPost('id'));
         $url = Yii::app()->request->getPost('url');
 
-        if ($task->executor_id != Yii::app()->user->id || empty($url))
+        if ($task->executor_id != Yii::app()->user->id || empty($url) || $task->status == SeoTask::STATUS_CLOSED)
             Yii::app()->end();
 
         $keywords = array();

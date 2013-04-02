@@ -25,7 +25,7 @@
         ->registerScriptFile('/javascripts/comet.js')
 
         ->registerScriptFile('/javascripts/knockout-2.2.1.js')
-        ->registerCssFile('/stylesheets/seo2/all.css')
+        ->registerCssFile('/stylesheets/seo2/all.css?r=14')
         ->registerScriptFile('/javascripts/dklab_realplexor.js')
         ->registerScriptFile('/javascripts/seo2/jquery.fancybox.pack.js')
         ->registerScriptFile('/javascripts/seo2/main.js')
@@ -33,7 +33,7 @@
 
     $basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR;
     $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
-    Yii::app()->clientScript->registerScriptFile($baseUrl . '/' . 'script.js?r=13', CClientScript::POS_BEGIN);
+    Yii::app()->clientScript->registerScriptFile($baseUrl . '/' . 'script.js?r=14', CClientScript::POS_BEGIN);
 ?>
 </head>
 <body>

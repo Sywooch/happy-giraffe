@@ -195,7 +195,7 @@ class CommentatorHelper
                 $exist = Yii::app()->db->createCommand()
                     ->select('user_id')
                     ->from('auth__assignments')
-                    ->where('user_id = :user_id AND itemname="commentator"', array(':user_id'=>$id))
+                    ->where('userid = :user_id AND itemname="commentator"', array(':user_id'=>$id))
                     ->queryScalar();
                 if (!empty($exist))
                     $value[] = $id;

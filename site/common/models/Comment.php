@@ -232,9 +232,12 @@ class Comment extends HActiveRecord
                 Yii::import('site.frontend.modules.signal.models.*');
                 Yii::import('site.frontend.modules.cook.models.*');
                 Yii::import('site.frontend.modules.cook.components.*');
+                Yii::import('site.seo.modules.commentators.models.*');
+                Yii::import('site.seo.models.*');
 
-                if (strlen(trim(strip_tags($this->text))) >= 80)
+                if (strlen(trim(strip_tags($this->text))) >= 80){
                     CommentatorWork::getCurrentUser()->checkComment($this);
+                }
             }
         }
         parent::afterSave();

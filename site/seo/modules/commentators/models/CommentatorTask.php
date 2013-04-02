@@ -222,4 +222,28 @@ class CommentatorTask extends CActiveRecord
         else
             $this->status = 0;
     }
+
+    /**
+     * Проверяем комментарий на предмет выполненного задания редактора
+     *
+     * @param $comment Comment
+     * @return bool выполнил ли заданий этим комментарием
+     */
+    public static function checkCommentOnTaskExecute($comment)
+    {
+        $page = Page::model()->findByAttributes(array(
+            'entity'=>$comment->entity,
+            'entity_id'=>$comment->entity_id,
+        ));
+        if ($page !== null){
+            $criteria = new CDbCriteria;
+            $criteria->compare('page_id', $page->id);
+            $criteria->compare('type', self::TYPE_COMMENT);
+            $task = CommentatorTask::model()->find($criteria);
+            if ($task !== null){
+                return $task->id;
+            }
+        }
+        return false;
+    }
 }

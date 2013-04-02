@@ -20,8 +20,12 @@ function CommentatorPanel(data) {
 
     self.updateTask = function (task_id) {
         ko.utils.arrayForEach(self.editorTasks(), function (task) {
-            if (task.id == task_id)
+            if (task.id == task_id){
                 task.closed(1);
+                if (task.type == 1){
+                    self.nextComment.count(self.nextComment.count() + 1);
+                }
+            }
         });
     };
     self.showEmptyTasks = function () {

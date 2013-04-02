@@ -289,8 +289,9 @@ class CommentatorWork extends EMongoDocument
             $comet->send(Yii::app()->user->id, array(
                 'inc' => 1
             ), CometModel::TYPE_COMMENTATOR_NEXT_COMMENT);
-
         }
+
+        $this->checkEditorTaskExecuting($comment->entity, $comment->entity_id, CommentatorTask::TYPE_COMMENT);
     }
 
     /**
@@ -555,7 +556,7 @@ class CommentatorWork extends EMongoDocument
     }
 
     /**
-     * проверяем сущность на выполнение задания
+     * проверяем сущность на выполнение задания главного редактора
      *
      * @param $entity
      * @param $entity_id

@@ -17,23 +17,4 @@ class RouteController extends BController
             'admin' => 'application.components.actions.Admin'
         );
     }
-
-    public function actionChecked(){
-        $id = Yii::app()->request->getPost('id');
-        $city = $this->loadModel($id);
-        $city->declension_checked = 1;
-        $city->save();
-    }
-
-    /**
-     * @param int $id model id
-     * @return GeoCity
-     * @throws CHttpException
-     */
-    public function loadModel($id){
-        $model = GeoCity::model()->findByPk($id);
-        if ($model === null)
-            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
-        return $model;
-    }
 }

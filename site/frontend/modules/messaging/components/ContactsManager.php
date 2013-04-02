@@ -96,7 +96,7 @@ class ContactsManager
         return $contacts;
     }
 
-    public function populateContact($row)
+    protected static function populateContact($row)
     {
         $avatarModel = AlbumPhoto::model();
 

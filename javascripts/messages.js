@@ -4,7 +4,9 @@ var Messages = {
     hasMessages:true,
     active:false,
     contactsPage:1,
-    loadContacts:false
+    loadContacts:false,
+    messagesPage:1,
+    loading:false
 }
 
 Messages.open = function (interlocutor_id, type) {
@@ -247,7 +249,33 @@ Messages.setDialog = function (interlocutor_id) {
 
         if (Messages.editor)
             Messages.editor.focus();
+
+        Messages.messagesPage = 1;
+
+        $('.dialog-messages').scroll(function() {
+            if (Messages.loading === false && $('.dialog-messages').scrollTop() < 100)
+                Messages.prependPage();
+        });
     }, 'json');
+}
+
+Messages.prependPage = function() {
+    Messages.loading = true;
+    var startHeight = $('.dialog-messages').get(0).scrollHeight;
+    var startTop = $('.dialog-messages').scrollTop();
+    $.get('/im/messages/', { Message_page : Messages.messagesPage + 1 ,interlocutor_id : $('#user-dialogs-dialog').data('interlocutorid')}, function(data) {
+        if (data) {
+            $('.dialog-messages ul').prepend(data);
+            var endHeight = $('.dialog-messages').get(0).scrollHeight;
+            console.log(startHeight);
+            console.log(startTop);
+            console.log(endHeight);
+            Messages.messagesPage++;
+            $('.dialog-messages').scrollTop(endHeight - startHeight + startTop);
+        }
+
+        Messages.loading = false;
+    });
 }
 
 Messages.markAsRead = function () {

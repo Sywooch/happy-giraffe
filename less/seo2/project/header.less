@@ -1,0 +1,105 @@
+
+/* header-page */
+.header-page {
+	padding: 40px 0 40px;
+	text-align: center;
+
+	&_user {
+		float: right;
+		margin-right: 10px;
+		text-align: left;
+	}
+	&_logout {
+		float: right;
+		width: 14px;
+		height: 14px;
+		background: url(/images/seo2/header-page_logout.png) no-repeat;
+	}
+	&_logo-hold {
+		.inline-block();
+		margin: 0 auto 25px;
+		text-align: center;
+		padding-left: 200px;
+	}
+	&_logo {
+		float: left;
+		margin-left: -60px;
+		width: 48px;
+		height: 48px;
+		background: url(/images/seo2/header-page_logo.png) no-repeat;
+		text-indent: -9999px;
+		overflow: hidden;
+	}
+	&_title {
+		font-size: 30px;
+		line-height: 30px;
+		margin-bottom: 3px;
+		color: #313131;
+		text-transform: uppercase;
+	}
+	&_date {
+		.inline-block ();
+		padding: 1px 6px;
+		background: #e6461a;
+		font-size: 11px;
+		font-weight: bold;
+		text-transform: uppercase;
+		color: #fff;
+		-webkit-border-radius: 3px;
+		-moz-border-radius: 3px;
+		border-radius: 3px;
+	}
+}
+/* /header-page */
+
+/* nav-page */
+.header-nav {
+	text-align: center;
+	height: 100px;
+
+	&_li {
+		.inline-block ();
+		position: relative;
+		margin: 0 10px;
+		width: 81px;
+		height: 80px;
+		background: url(/images/seo2/header-nav.png) no-repeat;
+	}
+	&_li.active {height: 100px;}
+	&_li.active &_i {color: #fff;}
+	&_li__tasks        {background-position: 0 0;}
+	&_li__tasks:hover  {background-position: 0 -180px;}
+	&_li__tasks.active {background-position: 0 -80px;}
+	&_li__links        {background-position: -81px 0;}
+	&_li__links:hover  {background-position: -81px -180px;}
+	&_li__links.active {background-position: -81px -80px;}
+	&_li__new-peoples        {background-position: -162px 0;}
+	&_li__new-peoples:hover  {background-position: -162px -180px;}
+	&_li__new-peoples.active {background-position: -162px -80px;}
+	&_li__reports        {background-position: -243px 0;}
+	&_li__reports:hover  {background-position: -243px -180px;}
+	&_li__reports.active {background-position: -243px -80px;}
+	&_li__award        {background-position: -324px 0;}
+	&_li__award:hover  {background-position: -324px -180px;}
+	&_li__award.active {background-position: -324px -80px;}
+	&_li__secrets        {background-position: -405px 0;}
+	&_li__secrets:hover  {background-position: -405px -180px;}
+	&_li__secrets.active {background-position: -405px -80px;}
+	&_li__team        {background-position: -486px 0;margin-left: 70px;}
+	&_li__team:hover  {background-position: -486px -180px;}
+	&_li__team.active {background-position: -486px -80px;}
+	&_i {
+		display: block;
+		height: 80px;
+		text-align: center;
+		text-decoration: none;
+		color: #beb2cc;
+	}
+	&_i:hover {color: #5e4377;}
+	&_tx {
+		padding: 55px 5px 10px;
+		display: block;
+		font-family: Tahoma, Arial, Verdana, sans-serif;
+	}
+}
+/* /nav-page */

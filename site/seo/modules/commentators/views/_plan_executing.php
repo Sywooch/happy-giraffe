@@ -22,7 +22,7 @@
         <tbody>
 <?php foreach ($commentator->getDays($period) as $day): ?>
             <tr>
-                <td><?=Yii::app()->dateFormatter->format('dd MMM yyyy',$day->created)?></td>
+                <td><?=Yii::app()->dateFormatter->format('d MMMM yyyy',$day->created)?></td>
                 <td><?=$day->blog_posts ?></td>
                 <td><?=$day->club_posts ?></td>
                 <td><?=$day->comments ?></td>

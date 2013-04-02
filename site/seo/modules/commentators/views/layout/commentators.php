@@ -47,7 +47,7 @@
                     <a href="/" class="header-page_logo"></a>
 
                     <div class="header-page_title">КОММЕНТАТОРЫ</div>
-                    <div class="header-page_date"><?=Yii::app()->dateFormatter->format('d MMM yyyy', time())?></div>
+                    <div class="header-page_date"><?=Yii::app()->dateFormatter->format('d MMMM yyyy', time())?></div>
                 </div>
             </div>
 

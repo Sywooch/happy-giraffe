@@ -11,9 +11,6 @@
 <td class="external-link_td-outer">
     <a href="<?=$link->url ?>" class="external-link_outer" target="_blank"><?=$link->url ?></a>
 </td>
-<td class="external-link_td-count">
-    <div class="external-link_count"><?=$link->count ?></div>
-</td>
 <td class="external-link_td-inner">
     <?php $article = $link->article() ?>
     <?php if ($article !== null):?>

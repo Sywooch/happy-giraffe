@@ -175,16 +175,36 @@ class CommentatorHelper
     }
 
     /**
-     * Возвращает список комментаторов
+     * Возвращает список id комментаторов. Кэширует на час
      * @return array
      */
     public static function getCommentatorIdList()
     {
-        return Yii::app()->db->createCommand()
-            ->selectDistinct('id')
-            ->from('users')
-            ->where('`group`=' . UserGroup::COMMENTATOR)
-            ->queryColumn();
+        $cache_id = 'commentators_id_list';
+        $value=Yii::app()->cache->get($cache_id);
+        if($value===false)
+        {
+            $ids = Yii::app()->db->createCommand()
+                ->selectDistinct('id')
+                ->from('users')
+                ->where('`group`=' . UserGroup::COMMENTATOR)
+                ->queryColumn();
+
+            $value = array();
+            foreach ($ids as $id) {
+                $exist = Yii::app()->db->createCommand()
+                    ->select('user_id')
+                    ->from('auth__assignments')
+                    ->where('user_id = :user_id AND itemname="commentator"', array(':user_id'=>$id))
+                    ->queryScalar();
+                if (!empty($exist))
+                    $value[] = $id;
+            }
+
+            Yii::app()->cache->set($cache_id,$value, 1000);
+        }
+
+        return $value;
     }
 
     public static function getCommentatorsData()

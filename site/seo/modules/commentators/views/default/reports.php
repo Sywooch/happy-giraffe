@@ -13,7 +13,7 @@
 
     <div class="report-icons">
         <div class="report-icons_i">
-            <img src="http://happy-giraffe.com/images/seo2/ico/blog-purple-circle.png" alt="" class="report-icons_img">
+            <img src="http://www.happy-giraffe.ru/images/seo2/ico/blog-purple-circle.png" alt="" class="report-icons_img">
             <div class="report-icons_hold">
                 <div class="report-icons_tx">Записей в блог</div>
                 <div class="report-icons_count">
@@ -24,7 +24,7 @@
             </div>
         </div>
         <div class="report-icons_i">
-            <img src="http://happy-giraffe.com/images/seo2/ico/club-purple-circle.png" alt="" class="report-icons_img">
+            <img src="http://www.happy-giraffe.ru/images/seo2/ico/club-purple-circle.png" alt="" class="report-icons_img">
             <div class="report-icons_hold">
                 <div class="report-icons_tx">Записей в клуб</div>
                 <div class="report-icons_count">
@@ -36,7 +36,7 @@
         </div>
 
         <div class="report-icons_i">
-            <img src="http://happy-giraffe.com/images/seo2/ico/comment-purple-circle.png" alt="" class="report-icons_img">
+            <img src="http://www.happy-giraffe.ru/images/seo2/ico/comment-purple-circle.png" alt="" class="report-icons_img">
             <div class="report-icons_hold">
                 <div class="report-icons_tx">Комментариев</div>
                 <div class="report-icons_count">
@@ -59,19 +59,19 @@
                     </td>
                     <td class="report_td-empty"></td>
                     <td class="report_td-count">
-                        <img src="http://happy-giraffe.com/images/seo2/ico/blog-<?=
+                        <img src="http://www.happy-giraffe.ru/images/seo2/ico/blog-<?=
                         ($day->blog_posts >= $commentator->getBlogPostsLimit())?'green':'red'
                         ?>-small.png" alt="" class="report_count-ico">
                         <div class="report_count"><?=$day->blog_posts ?></div>
                     </td>
                     <td class="report_td-count">
-                        <img src="http://happy-giraffe.com/images/seo2/ico/club-<?=
+                        <img src="http://www.happy-giraffe.ru/images/seo2/ico/club-<?=
                         ($day->club_posts >= $commentator->getClubPostsLimit())?'green':'red'
                         ?>-small.png" alt="" class="report_count-ico">
                         <div class="report_count"><?=$day->club_posts ?></div>
                     </td>
                     <td class="report_td-count">
-                        <img src="http://happy-giraffe.com/images/seo2/ico/comment-<?=
+                        <img src="http://www.happy-giraffe.ru/images/seo2/ico/comment-<?=
                         ($day->comments >= $commentator->getCommentsLimit())?'green':'red'
                         ?>-small.png" alt="" class="report_count-ico">
                         <div class="report_count"><?=$day->comments ?></div>

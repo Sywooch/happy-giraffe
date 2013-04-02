@@ -528,8 +528,11 @@ class CommentatorWork extends EMongoDocument
     public function getEditorTasks()
     {
         $criteria = new CDbCriteria;
-        $criteria->condition = 'created > :today AND status = 1';
-        $criteria->params = array(':today' => date("Y-m-d") . ' 00:00:00');
+        $criteria->condition = 'created > :today AND status = :open';
+        $criteria->params = array(
+            ':today' => date("Y-m-d") . ' 00:00:00',
+            'status' => CommentatorTask::STATUS_OPEN
+        );
         return CommentatorTask::model()->findAll($criteria);
     }
 

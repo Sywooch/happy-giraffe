@@ -1,0 +1,191 @@
+/* @layout cosmetic  
+---------------------------------------------------------*/
+/* @todo избавляться от a-right, a-left, nofloat, nopadding, nomargin */
+.textdec-onhover {
+  text-decoration: none !important;
+}
+.textdec-onhover:hover {
+  text-decoration: underline !important;
+}
+.a-right,
+.float-r {
+  float: right !important;
+}
+.a-left,
+.float-l {
+  float: left !important;
+}
+.nofloat,
+.float-n {
+  float: none !important;
+}
+.hidden {
+  display: none !important;
+}
+.visible {
+  display: block !important;
+}
+.display-ib {
+  display: inline-block !important;
+  *zoom: 1;
+  *display: inline;
+}
+.z-index0 {
+  z-index: 0;
+}
+.nomargin,
+.margin-0 {
+  margin: 0 !important;
+}
+.margin-5 {
+  margin: 5px !important;
+}
+.margin-20 {
+  margin: 20px !important;
+}
+.margin-t10 {
+  margin-top: 10px !important;
+}
+.margin-t20 {
+  margin-top: 20px !important;
+}
+.margin-t-15 {
+  margin-top: -15px !important;
+}
+.margin-r15 {
+  margin-right: 15px !important;
+}
+.margin-r20 {
+  margin-right: 20px !important;
+}
+.margin-b0 {
+  margin-bottom: 0 !important;
+}
+.margin-b5 {
+  margin-bottom: 5px !important;
+}
+.margin-b10 {
+  margin-bottom: 10px !important;
+}
+.margin-b20 {
+  margin-bottom: 20px !important;
+}
+.margin-b30 {
+  margin-bottom: 30px !important;
+}
+.margin-l10 {
+  margin-left: 10px !important;
+}
+.margin-l20 {
+  margin-left: 20px !important;
+}
+.nopadding,
+.padding-0 {
+  padding: 0 !important;
+}
+.padding-b20 {
+  padding-bottom: 20px !important;
+}
+.w-50 {
+  width: 50px;
+}
+.w-85 {
+  width: 85px !important;
+}
+.w-90 {
+  width: 90px !important;
+}
+.w-100 {
+  width: 100px;
+}
+.w-200 {
+  width: 200px;
+}
+.w-240 {
+  width: 240px;
+}
+.w-300 {
+  width: 300px;
+}
+.w-350 {
+  width: 350px;
+}
+.w-400 {
+  width: 400px;
+}
+.w-500 {
+  width: 500px;
+}
+.w-700 {
+  width: 700px;
+}
+.bg-none {
+  background: none;
+}
+.textalign-l {
+  text-align: left !important;
+}
+.textalign-c {
+  text-align: center !important;
+}
+.textalign-r {
+  text-align: right !important;
+}
+.color-carrot {
+  color: #fe5333 !important;
+}
+.color-gray {
+  color: #a9a6a6 !important;
+}
+.font-big {
+  font-size: 17px !important;
+}
+.opacity-0 {
+  opacity: 0;
+}
+.opacity-10 {
+  opacity: 0.1;
+}
+.opacity-20 {
+  opacity: 0.2;
+}
+.opacity-40 {
+  opacity: 0.4;
+}
+.opacity-50 {
+  opacity: 0.5;
+}
+.opacity-60 {
+  opacity: 0.6;
+}
+.opacity-80 {
+  opacity: 0.8;
+}
+.opacity-100 {
+  opacity: 1;
+}
+.clear {
+  width: 99%;
+  clear: both;
+}
+.clearfix:after {
+  display: block;
+  content: '.';
+  height: 0;
+  clear: both;
+  line-height: 0;
+  font-size: 0;
+}
+::-webkit-input-placeholder {
+  color: #ddd;
+  font-weight: normal;
+}
+:-moz-placeholder,
+.placeholder {
+  color: #ddd;
+  font-weight: normal;
+}
+.disabled {
+  cursor: default;
+}
+/* /cosmetic layout */

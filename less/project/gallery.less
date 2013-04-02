@@ -1,0 +1,259 @@
+
+/* gallery */
+
+#gallery {padding:20px;}
+
+#gallery .header {padding-bottom:20px;}
+
+#gallery .header .back-link {color:#51AFC3;margin-left:260px;font-size:16px;padding-top:15px;}
+
+#gallery .all-link {float:right;line-height:35px;height:35px;padding-right:60px;text-align:right;}
+#gallery .all-link a {margin-left:20px;}
+
+#gallery .header .title {}
+#gallery .header .title big {display:block;color:#3b3b3b;font-weight:bold;font-size:25px;line-height:normal;margin-bottom:10px;}
+#gallery .header .title big span {color:#0281b0;}
+#gallery .header .title big  .edit {display:inline-block;*zoom:1;*display:inline;width:14px;height:18px;background:url(../images/common.png) no-repeat -383px -204px;margin:0 auto;position:relative;text-decoration:none;font-weight:normal;z-index:3;vertical-align:middle;}
+#gallery .header .title big input[type=text] {width:200px;padding:2px 5px;border:1px solid #c5e8ef;vertical-align:middle;}
+#gallery .header .title big .btn {vertical-align:middle;margin-left:5px;}
+#gallery .header .title big .btn span {color:#fff;}
+#gallery .header .title .note {background:#fffcdb;padding:8px 10px 8px 10px;max-width:500px;font-size:13px;border:1px solid #fff3bd;min-height:22px;position:relative;display:inline-block;*zoom:1;*display:inline;}
+#gallery .header .title .note {border-radius:9px;-moz-border-radius:9px;-webkit-border-radius:9px;behavior: url(/stylesheets/PIE.htc);}
+#gallery .header .title .note .add {display:block;width:16px;height:16px;background:url(/images/common.png) no-repeat -303px -206px;text-decoration:none;position:relative;}
+#gallery .header .title .note .add:hover {background-position:-139px -174px;}
+#gallery .header .title .note:after {display:block;content:'';width:12px;height:40px;background:url(../images/common.png) no-repeat -327px -136px;position:absolute;top:-6px;left:-12px;}
+#gallery .header .title .note p {color:#424242;float:left;max-width:480px;}
+#gallery .header .title .note .fast-actions {float:right;}
+#gallery .header .title .note .fast-actions .edit {display:inline-block;*zoom:1;*display:inline;width:14px;height:18px;background:url(../images/common.png) no-repeat -383px -204px;margin:0 auto;position:relative;text-decoration:none;}
+#gallery .header .title .note .fast-actions .edit:hover {background-position:-341px -136px;}
+#gallery .header .title .note .fast-actions .remove {display:inline-block;*zoom:1;*display:inline;width:20px;height:18px;background:url(../images/common.png) no-repeat -2px -101px;margin:0 auto;}
+#gallery .header .title .note textarea {vertical-align:bottom;overflow:auto;width:440px;margin-right:5px;height:40px;padding:2px 5px;border:1px solid #c5e8ef;}
+#gallery .fast-album .header .title big {font-size:14px;font-weight:normal;}
+
+#gallery .header .actions {padding:20px 0 6px;border-bottom:1px solid #d7f0f5;}
+#gallery .header .actions .btn {margin-right:5px;}
+
+#gallery .gallery-photos {padding-bottom:20px;}
+#gallery .gallery-photos ul {list-style:none;}
+#gallery .gallery-photos ul li {display:inline-block;*zoom:1;*display:inline;vertical-align:top;margin-right:20px;padding-bottom:10px}
+#gallery .gallery-photos ul li table {width:1px;}
+#gallery .gallery-photos ul li table td div {position:relative;}
+#gallery .gallery-photos ul li table td.img {vertical-align:bottom;height:170px;}
+#gallery .gallery-photos ul li table td.img img {display:block;max-height:170px;}
+#gallery .gallery-photos ul li table td.img .remove {display:none;width:20px;height:18px;background:url(../images/common.png) no-repeat -2px -101px;margin:0 auto;position:absolute;top:0;right:0;}
+#gallery .gallery-photos ul li table tr.title td  {background:#ededed;font:italic 10px/1 arial, sans-serif;color:#626161;padding:7px 7px;}
+#gallery .gallery-photos ul li table tr.title td .edit {display:none;width:14px;height:18px;background:url(../images/common.png) no-repeat -341px -136px;margin:0 auto;position:absolute;top:50%;right:5px;margin:-9px 0px;}
+#gallery .gallery-photos ul li table tr.title.editing td {padding:7px 5px;}
+#gallery .gallery-photos ul li table tr.title.editing td input[type=text] {width:50%;padding:2px 5px;border:1px solid #c5e8ef;vertical-align:middle;background:#fff}
+#gallery .gallery-photos ul li table tr.title.editing td .btn {vertical-align:middle;}
+#gallery .gallery-photos ul li:hover table tr.title td .edit,
+#gallery .gallery-photos ul li:hover table tr td.img .remove {display:block;}
+#gallery .gallery-photos ul li table tr.title.editing td .edit {display:none !important;}
+#gallery .gallery-photos ul li table tr.rank td {background:#fffedf;padding:1px 15px;text-align:right;color:#7a7b7b;font-size:10px;}
+#gallery .gallery-photos ul li table tr.rank td span {color:#fb7a03;font:normal 11px tahoma, arial, helvetica, sans-serif;font-weight:bold;}
+
+
+.gallery-photos-new {padding:10px 0 20px;margin:0 -10px;}
+.gallery-photos-new.cols-2 {width:480px;}
+.gallery-photos-new.cols-3 {width:720px;}
+.gallery-photos-new.cols-4 {width:960px;margin-left:0px;}
+.gallery-photos-new ul {list-style:none;}
+.gallery-photos-new ul li  {width:210px;padding:4px;border:1px solid #e3e2e2;color:#4a4b4b;text-decoration:none;float:left;margin:0 10px 20px;background:#fff;}
+.gallery-photos-new ul li:hover {/*css3*/ box-shadow:0 0 4px #ccc;behavior: url(/stylesheets/PIE.htc);}
+.gallery-photos-new ul li .img {display:block;position:relative;background:#fff;}
+.gallery-photos-new ul li .img img {display:block;max-width:210px;behavior: url(/stylesheets/PIE.htc);}
+.gallery-photos-new ul li .img a:hover img {opacity:.5;filter: e('alpha(opacity = 50)');}
+.gallery-photos-new ul li .img .btn {position:absolute;left:50%;top:50%;width:130px;height:30px;line-height:30px;font-size:16px;color:#fff;background:#24b828;background:rgba(36,184,40,.9);text-align:center;margin-left:-65px;margin-top:-15px;display:none; -moz-border-radius:15px;-webkit-border-radius:15px;border-radius:15px;}
+.gallery-photos-new ul li .img a:hover .btn {display:block;}
+.gallery-photos-new ul li .item-title {display:block;font-weight:bold;padding:8px 10px 5px;font-size:11px;line-height:15px;overflow: hidden;}
+.gallery-photos-new ul li .user {padding:10px 10px 0px;margin-bottom:-4px;}
+.gallery-photos-new ul li .user-info {}
+.gallery-photos-new ul li .user-info .details {margin-left:30px;}
+.gallery-photos-new ul li .user-info .details .username {width:140px;}
+
+.gallery-photos-new ul li .actions {background:#fff;background:rgba(255, 255, 255, .8);width:100%;padding:3px 0;position:absolute;left:0;top:0;text-align:right;display:none;}
+.gallery-photos-new ul li .img:hover .actions {display:block;}
+.gallery-photos-new ul li .actions .remove {display:inline-block;*zoom:1;*display:inline;width:10px;height:12px;background:url(../images/common.png) no-repeat -315px -149px !important;position:relative;top:2px;margin-right:5px;}
+.gallery-photos-new ul li .actions .edit {display:inline-block;*zoom:1;*display:inline;width:14px;height:18px;background:url(../images/common.png) no-repeat -341px -136px !important;margin:0 auto;position:relative;text-decoration:none;font-weight:normal;z-index:3;vertical-align:middle;margin-left:10px;top:-2px;margin-right:5px;}
+.gallery-photos-new ul li .count {background:#fff;background:rgba(255, 255, 255, .8);width:100%;padding:3px 0;position:absolute;left:0;bottom:0;text-align:center;}
+.gallery-photos-new ul li .contest-ball {background:#fff;background:rgba(255, 255, 255, .8);width:100%;padding:4px 0 7px;position:relative;left:0;top:0;text-align:right;}
+.gallery-photos-new ul li .contest-ball .user-info .details .username {width:110px;}
+.gallery-photos-new ul li .contest-ball .ball {position:absolute;right:0;top:1px;}
+.gallery-photos-new ul li .contest-ball .ball-count {color:#fd5807;font:italic 24px/21px 'Times New Roman', Georgia, Times, serif;float:right;}
+.gallery-photos-new ul li .contest-ball .ball-text {float:right;clear:right;font-size:10px;line-height:10px;color:#737373;}
+
+#gallery .gallery-photos-new {padding-top:20px;}
+#gallery .gallery-album .gallery-photos-new {padding-top:10px;}
+
+#gallery .gallery-album {margin:0 -10px 20px;padding:7px 10px 0;}
+#gallery .gallery-album.advise {border:1px solid #f0f0f0;}
+
+#gallery .gallery-album .advise-text {float:right;background:#ee3160 url(/images/icon-eye.png) no-repeat 70px 6px;color:#fff;font-size:12px;line-height:24px;font-weight:bold;padding:0 35px 0 12px;margin-right:-10px;}
+#gallery .gallery-album .album-title {font-size:18px;margin-bottom:10px;font-weight:bold;}
+#gallery .gallery-album .album-title .btn {margin-left:25px;}
+
+#gallery .gallery-album .album-title .settings {display:inline-block;*zoom:1;*display:inline;width:15px;height:15px;background:url(/images/common.png) no-repeat -313px -190px;position:relative;top:2px;}
+#gallery .gallery-album .album-title .settings:hover {background-position:-330px -190px;}
+
+#gallery .gallery-album .album-description {margin-bottom:15px;font-size:13px;font-family:tahoma, arial, helvetica, sans-serif;background:#fefdd9;padding:8px 12px;position:relative;-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;behavior: url(/stylesheets/PIE.htc);color:#040404;}
+#gallery .gallery-album .album-description:after {display:block;content:'';width:8px;height:19px;background:url(/images/common.png) no-repeat -460px -289px;position:absolute;left:-8px;top:2px;}
+
+#gallery .gallery-album .album-actions {font-size:11px;margin-bottom:15px;}
+#gallery .gallery-album .album-actions .count {color:#8353b0;font-size:16px;}
+#gallery .gallery-album .album-actions .count .icon {display:inline-block;width:28px;height:22px;background:url(/images/common.png) no-repeat -663px -262px;vertical-align:middle;position:relative;top:-2px;}
+#gallery .gallery-album .album-actions .slideshow {color:#ffffff;font-size:15px;height:19px;line-height:19px;display:inline-block;*zoom:1;*display:inline;background:#24b828;text-decoration:none;padding:0 8px;-moz-border-radius:10px;-webkit-border-radius:10px;border-radius:10px;margin:0 10px;}
+/* устаревший код 
+#gallery .gallery-album .album-photos ul {list-style:none;}
+#gallery .gallery-album .album-photos ul li {float:left;margin:0 10px 20px;width:210px;}
+#gallery .gallery-album .album-photos ul li.more {font-size:13px;padding-top:30px;text-align:center;width:160px;display:none;}
+#gallery .gallery-album .album-photos ul li.more a {color:#b9b9b9;text-decoration:none;}
+#gallery .gallery-album .album-photos ul li.more .icon {display:block;width:56px;height:56px;background:url(../images/common.png) no-repeat -499px -135px;margin:0 auto;margin-bottom:10px;}
+#gallery .gallery-album .album-photos ul li.more a:hover .icon {background-position:-499px -193px;}
+#gallery .gallery-album .album-photos ul li.more a:hover {color:#7abc2e;text-decoration:underline;}
+
+#gallery .fast-album {padding-bottom:20px;}
+
+*/
+#gallery .btn-album-create {display:block;width:698px;height:219px;background:url(/images/btn_album_create.png) no-repeat;}
+#gallery .btn-album-create:hover {background-position:0 100%;}
+
+#gallery .gallery-photos ul li.more {color:#b9b9b9;font-size:13px;padding-top:90px;text-align:center;}
+#gallery .gallery-photos ul li.more .icon {display:block;width:56px;height:56px;background:url(../images/common.png) no-repeat -499px -135px;margin:0 auto;margin-bottom:10px;}
+#gallery .gallery-photos ul li.more .icon:hover {background-position:-499px -193px;}
+
+#gallery .gallery-photos ul li.add {text-align:center;margin-top:40px;line-height:normal;vertical-align:top;}
+#gallery .gallery-photos ul li.add a {position:relative;display:block;width:148px;height:50px;background:url(/images/gallery_photos_add.png) no-repeat;text-decoration:none;padding-top:60px;}
+#gallery .gallery-photos ul li.add a:hover .icon {background-position:-429px -191px;}
+#gallery .gallery-photos ul li.add a .icon {display:block;width:33px;height:33px;background:url(/images/common.png) no-repeat -464px -191px;top:20px;left:50%;margin-left:-16px;position:absolute;}
+#gallery .gallery-photos ul li.add a span {margin-top:60px;border-bottom:1px dashed #1b98c5;}
+#gallery .gallery-photos ul li.add a:hover span {border:0;}
+
+/* устаревший код 
+#gallery .service-header .title big {color:#bb4825;}
+#gallery .service-header .title .note {background:#fff2e7;border:0;}
+#gallery .service-header .title .note:after {display:none;}
+#gallery .service-header .title .note span {color:#c76548;}
+#gallery .service-header .title .note p {color:#999;}
+*/
+#gallery .album-visibility {display:inline-block;*zoom:1;*display:inline;vertical-align:middle;position:relative;z-index:2;}
+#gallery .album-visibility > span {display:block;width:15px;height:17px;background:url(/images/common.png) no-repeat -338px -205px;float:left;}
+#gallery .album-visibility.small > span {display:block;width:12px;height:13px;background:url(/images/common.png) no-repeat -369px -209px;float:left;}
+#gallery .album-visibility.small.hl > span {background-position:-355px -209px;}
+#gallery a.album-visibility {text-decoration:none;color:#929292;}
+#gallery a.album-visibility:hover > span {background-position:-321px -205px;}
+
+#gallery .visibility-picker {display:inline-block;*zoom:1;*display:inline;position:relative;}
+#gallery .visibility-picker .visibility-list {position:absolute;font-size:11px;color:#6a6c6d;font-weight:normal;background:#fff;padding:6px 0;border:1px solid #eae3f1;top:26px;right:-100px;z-index:5;display:none;width:130px;}
+#gallery .visibility-picker .visibility-list { -moz-border-radius:4px;-webkit-border-radius:4px;border-radius:4px;behavior: url(/stylesheets/PIE.htc);}
+#gallery .visibility-picker .visibility-list ul {list-style:none;}
+#gallery .visibility-picker .visibility-list ul li {padding:2px 10px;cursor:pointer;white-space:nowrap;}
+#gallery .visibility-picker .visibility-list ul li .text {float:left;width:65px;}
+#gallery .visibility-picker .visibility-list .tale {display:block;width:14px;height:10px;background:url(/images/common.png) no-repeat -578px -198px;position:absolute;top:-10px;left:35px;}
+#gallery .visibility-picker .visibility-list ul li .album-visibility {text-align:center;width:45px;white-space:nowrap;}
+#gallery .visibility-picker .visibility-list ul li .album-visibility span {display:inline-block;*zoom:1;*display:inline;float:none;}
+#gallery .visibility-picker .visibility-list ul li:hover {background:#f9f2ff;}
+#gallery .visibility-picker .visibility-list ul li:hover .album-visibility span {background-position:-355px -209px;}
+/* /частично устаревший код */
+
+#gallery .album-empty {padding:100px 0;text-align:center;color:#fc5353;font-size:18px;}
+
+/* частично устаревший код */
+#gallery #photo {clear:both;}
+
+#gallery #photo .title {text-align:center;font-weight:bold;font-size:25px;line-height:normal;color:#0297b8;margin-bottom:10px;}
+#gallery #photo .title .edit {display:inline-block;*zoom:1;*display:inline;width:14px;height:18px;background:url(../images/common.png) no-repeat -383px -204px;margin:0 auto;position:relative;text-decoration:none;font-weight:normal;z-index:3;vertical-align:middle;margin-left:10px;}
+#gallery #photo .title .edit:hover {background-position:-341px -136px;}
+#gallery #photo .title input {border:1px solid #badef1;font-size:15px;line-height:1;padding:2px 7px;vertical-align:middle;font-size:15px;font-weight:bold;color:#2584b0;}
+#gallery #photo .title .btn {vertical-align:middle;}
+
+#gallery #photo .big-photo {width:800px;margin:0 auto 20px;padding:10px;background:#fff;border:1px solid #eaeae8;position:relative;}
+#gallery #photo .big-photo .img {background:#f0eff0;position:relative;}
+#gallery #photo .big-photo img {display:block;margin:auto;}
+
+#gallery #photo .big-photo .prev {display:none;width:45%;height:100%;position:absolute;left:0;top:0;}
+#gallery #photo .big-photo .prev .icon {display:block;width:56px;height:56px;background:url(../images/common.png) no-repeat -308px -224px;position:absolute;top:50%;left:20px;margin-top:-28px;}
+#gallery #photo .big-photo .prev:hover .icon {background-position:-308px -282px;}
+#gallery #photo .big-photo .next {display:none;width:45%;height:100%;position:absolute;right:0;top:0;}
+#gallery #photo .big-photo .next .icon {display:block;width:56px;height:56px;background:url(../images/common.png) no-repeat -366px -224px;position:absolute;top:50%;right:20px;margin-top:-28px;}
+#gallery #photo .big-photo .next:hover .icon {background-position:-366px -282px;}
+
+#gallery #photo .big-photo .in:hover .prev, #gallery #photo .big-photo .in:hover .next {display:block;}
+
+
+#gallery #photo #photo-thumbs, #gallery #photo #photo-thumbs-2 {height:250px;width:820px;}
+#gallery #photo .gallery-photos {position:relative;width:820px;margin:0 auto;}
+#gallery #photo .gallery-photos .prev {display:block;width:12px;height:17px;background:url(../images/common.png) no-repeat -42px -114px;position:absolute;top:50%;left:-45px;margin-top:-9px;}
+#gallery #photo .gallery-photos .prev.jcarousel-control-inactive {background-position:-42px -131px;cursor:default;}
+
+#gallery #photo .gallery-photos .next {display:block;width:12px;height:17px;background:url(../images/common.png) no-repeat -54px -114px;position:absolute;top:50%;right:-45px;margin-top:-9px;}
+#gallery #photo .gallery-photos .next.jcarousel-control-inactive {background-position:-54px -131px;cursor:default;}
+#gallery #photo .ad-thumb-list li {margin:0;float:left;}
+#gallery #photo .ad-thumb-list li a {padding:10px;display:block;margin:0;text-decoration:none;}
+#gallery #photo .ad-thumb-list li a.ad-active {padding:0;margin:10px 0;}
+#gallery #photo .ad-thumb-list li a.ad-active table td.img div {border:10px solid #88cad8;border-bottom:0;padding:0px;}
+#gallery #photo .ad-thumb-list li a.ad-active table tr.title td {background:#fffedf;font-size:10px;}
+#gallery #photo .ad-thumb-list li a.ad-active table tr.title td div {border:10px solid #88cad8;border-top:0;margin:-7px -25px;padding:7px 25px;}
+/* /частично устаревший код */
+
+
+#photo-inline {text-align:center;padding:20px 0;}
+#photo-inline .meta {}
+#photo-inline .meta .album-title {width:40%;float:left;}
+#photo-inline .meta .count {width:40%;float:right;font-size:11px;font-family:tahoma, arial, helvetia, sans-serif;}
+#photo-inline .meta .count .btn {margin-left:20px;}
+#photo-inline .meta .count .btn span {font-weight:normal;font-size:14px;}
+#photo-inline .title {margin:20px auto;width:600px;}
+#photo-inline .title h1 {font:bold 25px/1 arial, helvetica, sans-serif;color:#000;margin: 0;}
+#photo-inline .img {display:inline-block;*zoom:1;*display:inline;}
+#photo-inline .user {padding-bottom:5px;}
+#photo-inline .user .user-info .ava {}
+#photo-inline .user .user-info .details {margin-left:30px;}
+#photo-inline .user .user-info .details .username {width: 140px;}
+#photo-inline .photo-comment {margin:20px auto;width:600px;font-size:11px;font-family:tahoma, arial, helvetica, sans-serif;color:#504c4c;line-height:14px;}
+#photo-inline .remove {float: right;margin:5px 5px 0;}
+#photo-inline .remove .icon {display:inline-block;*zoom:1;*display:inline;width:12px;height:14px;background:url(/images/common.png) no-repeat -314px -135px;vertical-align:middle;position:relative;top:-1px;}
+#photo-inline .remove:hover .icon {background-position:-314px -148px;}
+
+
+#albumSettings .popup-title {text-align:left;margin-bottom:20px;}
+#albumSettings .settings-form {margin:20px 0;}
+#albumSettings .row {margin-bottom:20px}
+#albumSettings .settings-form .row .row-title {font-size:16px;color:#4c4d4d;}
+#albumSettings .settings-form .row .row-title span {font-size:11px;color:#6d6d6d;font-family:tahoma, arial, helvetica, sans-serif;}
+#albumSettings .row-elements {margin:8px 0;}
+#albumSettings .settings-form .row .row-elements input[type="text"] {padding:5px 10px;border:1px solid #cdcdcd;background:#fff;width:308px;font-size:15px;color:#3d3d3d;vertical-align:middle;}
+#albumSettings .settings-form .row .row-elements textarea {padding:5px 10px;border:1px solid #cdcdcd;background:#fff;width:308px;font-size:13px;color:#3d3d3d;vertical-align:bottom;width:80%;height:60px;max-width:90%}
+#albumSettings .settings-form .row .row-elements .btn-green-small {margin-left:5px;}
+#albumSettings .settings-form .row .row-elements .item-title {font-size:18px;color:#3680cc;}
+#albumSettings .settings-form .row .row-elements .edit {display:inline-block;*zoom:1;*display:inline;width:14px;height:18px;background:url(../images/common.png) no-repeat -383px -204px;margin-left:5px;position:relative;top:2px;}
+#albumSettings .settings-form .row .row-elements .edit:hover {background-position:-341px -136px;}
+
+#albumSettings .album-style {margin:0px 0 20px;}
+#albumSettings .album-style h3 {font:bold 22px/26px Arial, Tahoma, Verdana, sans-serif;color:#795898;margin:20px 0 10px;}
+#albumSettings .album-style input[type="checkbox"] {float:left;margin:6px 7px 0 0;}
+#albumSettings .album-style label {float:left;color:#515151;margin:5px 25px 0 0;line-height:14px;}
+#albumSettings .album-style .advise-text {float:left;background:#ee3160 url(/images/icon-eye.png) no-repeat 70px 6px;color:#fff;font-size:12px;line-height:24px;font-weight:bold;padding:0 35px 0 12px;margin-right:10px;}
+#albumSettings .album-style .remark {color:#515151;font:10px/11px Tahoma, Arial, Verdana, sans-serif;float:left;width:110px;}
+
+#albumSettings .album-style .step2 {position:relative;}
+#albumSettings .album-style .overlay {position:absolute;width:100%;height:100%;left:0;top:0;background:#fff;}
+.pattern-list {list-style:none;width:330px;}
+.pattern-list li {float:left;margin:0 1px 1px 0;}
+.pattern-list a {display:block;border:2px solid transparent;padding:3px;behavior: url(/stylesheets/PIE.htc);position:relative;text-decoration:none;}
+.pattern-list a.active,
+.pattern-list a:hover{border:2px solid #9c7fb7;-webkit-border-radius: 5px;-moz-border-radius: 5px;-ms-border-radius: 5px;border-radius: 5px;}
+.pattern-list a .pattern {display:block;height:28px;-webkit-border-radius: 3px;-moz-border-radius: 3px;-ms-border-radius: 3px;border-radius: 3px; behavior: url(/stylesheets/PIE.htc);-webkit-box-shadow: inset 2px 1px 2px rgba(0,0,0,0.3);-moz-box-shadow: inset 2px 1px 2px rgba(0,0,0,0.3);box-shadow: inset 2px 1px 2px rgba(0,0,0,0.3);color:#5a5a5a;text-align:center;padding:5px 5px;line-height:13px;font-size:11px;width:45px;}
+.pattern-list a.active .pattern,
+.pattern-list a:hover .pattern {-webkit-box-shadow: none;-moz-box-shadow: none;box-shadow: none;}
+
+.main #gallery #photo .big-photo {width:678px;}
+.main #gallery #photo .gallery-photos {width:600px;}
+.main #gallery #photo #photo-thumbs {width:600px;}
+
+.gallery-sidebar {width:220px;}
+
+.gallery-sidebar .fast-add .btn {width:200px;}
+.gallery-sidebar .fast-add .btn > span {width:182px;}
+.gallery-sidebar .fast-add .btn > span > span {width:164px;text-align:center;text-transform:none;font-weight:bold;font-family:arial, helvetica, sans-serif;}
+
+/* /gallery */

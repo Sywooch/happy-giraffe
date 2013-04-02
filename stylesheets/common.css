@@ -1,4 +1,5 @@
 @charset "utf-8";
+/* используется для макетов в .html файлах, для .php применяются all1.css и all2.css 
 /* CSS Document */
 /* @layout reset
 ---------------------------------------------*/
@@ -157,6 +158,7 @@ hr,
 a.info {display:inline-block;*zoom:1;*display:inline;width:13px;height:13px;background:url(../images/common.png) no-repeat -267px -101px;}
 .a-pseudo,
 a.pseudo {text-decoration:none;border-bottom:1px dashed #0498b8;}
+a.pseudo:hover,
 .a-pseudo:hover {text-decoration:none;border-bottom-color:transparent;}
 /* /links */
 
@@ -975,10 +977,10 @@ textarea.error,
 .btn.btn-green-small > span > span {padding-left:10px;height:20px;line-height:20px;background-position:0 -1000px;}
 .green .btn.btn-gray-small.active > span {padding-right:10px;height:20px;background-position:100% -1020px;color:#fff;font-size:11px;font-family:arial, sans-serif;font-weight:bold;}
 .green .btn.btn-gray-small.active > span > span {padding-left:10px;height:20px;line-height:20px;background-position:0 -1000px;}
-
+/*
 .btn.btn-blue-arrow-small > span {padding-right:20px;height:23px;background-position:100% -1123px;color:#fff;font-size:11px;font-family:tahoma,arial, sans-serif;font-weight:bold;}
 .btn.btn-blue-arrow-small > span > span {padding-left:10px;height:23px;line-height:23px;background-position:0 -1100px;}
-
+*/
 .btn.btn-orange-small > span {padding-right:5px;height:23px;background-position:100% -2023px;color:#fff;font-size:11px;font-family:tahoma,arial, sans-serif;font-weight:bold;}
 .btn.btn-orange-small > span > span {padding-left:5px;height:23px;line-height:23px;background-position:0 -2000px;padding:0 5px 0 10px;}
 .btn.btn-orange-small.btn-arrow-right img {margin-left:5px;position:relative;top:2px;}
@@ -1774,9 +1776,6 @@ a.bot-str { background: url(../images/str-bot.png) no-repeat; background-positio
 .content-cols .col-23-big {width: 740px;float: left;}
 .content-cols .col-2 {width:440px;float:left;}
 .content-cols .col-3 {width:240px;padding-left:20px;float:left;}
-
-.search-result-title {color:#8b8a8a;padding-bottom:20px;}
-.search-result-title big {font:bold 25px/1 arial, sans-serif;color:#060606;margin-right:5px;}
 
 .fast-sort {line-height:20px;padding-top:5px;color:#59b0c4;font-size:11px;font-family:tahoma, arial, sans-serif;}
 
@@ -2664,9 +2663,6 @@ div.scrollbarpaper-drag {-moz-border-radius:3px;-webkit-border-radius:3px;border
 .like-block .rating {text-align: right;font: 16px/1 tahoma, sans-serif;position:absolute;right:30px;top:106px;}
 .like-block .rating span {font: bold 36px/1 tahoma, sans-serif;position: relative;color: #FF6600;top:2px;}
 
-.like-block .fast-rating {text-align: right;font: 11px/normal tahoma, sans-serif;float:right;}
-.like-block .fast-rating span {font: bold 24px/1 tahoma, sans-serif;position: relative;color: #FF6600;top:2px;display:block;}
-
 .like-block .tip {position:absolute;width:25px;height:25px;right:7px;top:97px;}
 .like-block .tip .container {position:relative;}
 .like-block .tip .icon-question {display:block;width:21px;height:21px;background:url(/images/common.png) no-repeat -292px -136px;cursor:pointer;}
@@ -3453,7 +3449,8 @@ div.scrollbarpaper-drag {-moz-border-radius:3px;-webkit-border-radius:3px;border
 	margin-left:6px;
 }
 
-/*.interest {-moz-border-radius:12px;-webkit-border-radius:12px;border-radius:12px;behavior: url(/stylesheets/PIE.htc);}
+/* not used code interest
+.interest {-moz-border-radius:12px;-webkit-border-radius:12px;border-radius:12px;behavior: url(/stylesheets/PIE.htc);}
 .interest.kids {border-color:#bfddff;color:#689dc9;}
 .interest.kids.selected {background:#bfddff;color:#1762a2;}
 .interest.manwoman {border-color:#bef2b9;color:#5acd75;}
@@ -3469,6 +3466,7 @@ div.scrollbarpaper-drag {-moz-border-radius:3px;-webkit-border-radius:3px;border
 
 /* popular topics */
 
+/* not used code popular topics
 .popular-topics {padding:4px;background:url(../images/pattern_02.gif) center;position:relative; border-radius:14px;-moz-border-radius:14px;-webkit-border-radius:14px;behavior: url(/stylesheets/PIE.htc);}
 .popular-topics .block-in {background:#fdf8fe; border-radius:12px;-moz-border-radius:12px;-webkit-border-radius:12px;behavior: url(/stylesheets/PIE.htc);}
 .popular-topics .top-count {width:118px;height:33px;background:url(../images/baby_ntk_age.png) no-repeat;position:absolute;top:0;right:0;z-index:3;text-align:center;line-height:28px;color:#fff;font-size:20px;}
@@ -3484,6 +3482,7 @@ div.scrollbarpaper-drag {-moz-border-radius:3px;-webkit-border-radius:3px;border
 .popular-topics .meta .fast-rank span {color:#fb7a03;font-size:20px;font-weight:bold;display:block;line-height:1;padding:0;}
 .popular-topics .meta span {padding:2px 5px;}
 .popular-topics .meta span.views {background:#fff7b8;margin-bottom:4px;display:inline-block;*zoom:1;*display:inline;}
+*/
 /* popular topics */
 
 /* services-list */
@@ -3499,53 +3498,6 @@ div.scrollbarpaper-drag {-moz-border-radius:3px;-webkit-border-radius:3px;border
 .services-list ul li .item-title {font-size:12px;font-family:tahoma, arial, helvetica, sans-serif;font-weight:bold;margin-bottom:5px;line-height:1.2;color: #157fca;}
 .services-list ul li .item-title > a {color: #157fca;}
 /* /services-list */
-
-
-/* */
-
-#profile .socials .auth-link {display:block;width:177px;height:34px;}
-#profile .socials .auth-link .auth-icon {display:block;width:177px;height:34px;background:url(/images/btn_social.png) no-repeat 177px 34px;}
-#profile .socials .auth-link .auth-icon i {display:none !important;}
-#profile .socials .auth-link .auth-icon.vkontakte {background-position:0 0;}
-#profile .socials .auth-link .auth-icon.mailru {background-position:0 -34px;}
-#profile .socials .auth-link .auth-icon.odnoklassniki {background-position:0 -68px;}
-#profile .socials .auth-link .auth-icon.google {background-position:0 -102px;}
-#profile .socials .auth-link .auth-icon.facebook {background-position:0 -136px;}
-#profile .socials .auth-link .auth-icon.twitter {background-position:0 -170px;}
-
-.socials-inline .services {display:inline-block;*zoom:1;*display:inline;vertical-align:middle;}
-.socials .services ul.auth-services {list-style:none;margin:0;white-space:nowrap;}
-
-.socials-inline .services .auth-service {display:inline-block;*zoom:1;*display:inline;margin:0 0 0 6px;float:none;}
-.socials-rect .services .auth-service {margin:0;float:none;}
-
-.socials-inline .services .auth-service .auth-link {display:block;width:24px;height:24px;}
-.socials-rect .services .auth-service .auth-link {display:block;width:177px;height:34px;}
-
-.socials-inline .services .auth-service .auth-link .auth-icon {display:block;width:24px;height:24px;background:url(../images/common.png) no-repeat 24px 24px;}
-.socials-rect .services .auth-service .auth-link .auth-icon {display:block;width:177px;height:34px;background:url(../images/btn_social.png) no-repeat 177px 34px;}
-
-.socials .services .auth-service .auth-link .auth-icon i {display:none !important;}
-.socials .services .auth-service .auth-link .auth-title {display:none;}
-
-.socials-rect .services .auth-service .auth-link .auth-icon.vkontakte {background-position:0 0;}
-.socials-rect .services .auth-service .auth-link .auth-icon.mailru {background-position:0 -34px;}
-.socials-rect .services .auth-service .auth-link .auth-icon.odnoklassniki {background-position:0 -68px;}
-.socials-rect .services .auth-service .auth-link .auth-icon.google {background-position:0 -102px;}
-.socials-rect .services .auth-service .auth-link .auth-icon.facebook {background-position:0 -136px;}
-.socials-rect .services .auth-service .auth-link .auth-icon.twitter {background-position:0 -170px;}
-
-.socials-inline .services .auth-service .auth-link .auth-icon.vkontakte {background-position:-561px -101px;}
-.socials-inline .services .auth-service .auth-link .auth-icon.mailru {background-position:-613px -101px;}
-.socials-inline .services .auth-service .auth-link .auth-icon.odnoklassniki {background-position:-613px -127px;}
-.socials-inline .services .auth-service .auth-link .auth-icon.google {background-position:-587px -101px;}
-.socials-inline .services .auth-service .auth-link .auth-icon.facebook {background-position:-561px -127px;}
-.socials-inline .services .auth-service .auth-link .auth-icon.twitter {background-position:-587px -127px;}
-
-
-
-/* */
-
 
 /* */
 
@@ -6461,10 +6413,71 @@ label {
 #start-teasers ul li .img {float:left;}
 #start-teasers ul li .text {margin-left:70px;}
 
+/* */
+
+.socials-inline .services {display:inline-block;*zoom:1;*display:inline;vertical-align:middle;}
+.socials .services ul.auth-services {list-style:none;margin:0;white-space:nowrap;}
+
+.socials-inline .services .auth-service {display:inline-block;*zoom:1;*display:inline;margin:0 0 0 6px;float:none;}
+.socials-inline .services .auth-service .auth-link {display:block;width:24px;height:24px;}
+
+.socials-inline .services .auth-service .auth-link .auth-icon {display:block;width:24px;height:24px;background:url(../images/common.png) no-repeat 24px 24px;}
+
+.socials .services .auth-service .auth-link .auth-icon i {display:none !important;}
+.socials .services .auth-service .auth-link .auth-title {display:none;}
+
+.socials-inline .services .auth-service .auth-link .auth-icon.vkontakte {background-position:-561px -101px;}
+.socials-inline .services .auth-service .auth-link .auth-icon.mailru {background-position:-613px -101px;}
+.socials-inline .services .auth-service .auth-link .auth-icon.odnoklassniki {background-position:-613px -127px;}
+.socials-inline .services .auth-service .auth-link .auth-icon.google {background-position:-587px -101px;}
+.socials-inline .services .auth-service .auth-link .auth-icon.facebook {background-position:-561px -127px;}
+.socials-inline .services .auth-service .auth-link .auth-icon.twitter {background-position:-587px -127px;}
+
+/* */
 /* /start page */
 
-/* not used
----------------------------------------------------------------------*/
+/* calculator calories daily */
+#calories-calculator-daily {}
 
-/* /not used
----------------------------------------------------------------------*/
+#calories-calculator-daily .block-title {height:195px;background:url(/images/bg_calories_calculator_daily_title.jpg) no-repeat right top;border:1px solid #ebe1f5;padding-left:40px;padding-top:25px;font-weight:normal;margin-bottom:30px;padding-bottom:25px;}
+#calories-calculator-daily .block-title h1 {font-size:54px;color:#464546;font-weight:normal;line-height:1;}
+#calories-calculator-daily .block-title span {color:#737373;font-size:25px;}
+
+#calories-calculator-daily .block-in {padding:0 20px;}
+
+#calories-calculator-daily .calculator {margin:30px 0 60px;}
+#calories-calculator-daily .calculator .col {width:20%;float:left;text-align:center;padding:15px 0 0;position:relative;background:url(/images/calories_calculator_daily_col.gif) no-repeat top;}
+#calories-calculator-daily .calculator .col.error {background-image:url(/images/calories_calculator_daily_col_error.gif)}
+#calories-calculator-daily .calculator .col .arr {display:block;width:50%;height:11px;background:url(/images/calories_calculator_daily_col_arr.gif) no-repeat center;position:absolute;left:50%;top:42px;margin-left:25%;}
+#calories-calculator-daily .calculator .col .num {margin-bottom:12px;}
+#calories-calculator-daily .calculator .col .num span {display:block;width:64px;height:64px;background:#a4c6f5;border-radius:32px;-moz-border-radius:32px;-webkit-border-radius:32px;line-height:64px;color:#fff;font-weight:bold;font-size:36px;margin:0 auto;}
+#calories-calculator-daily .calculator .col .label {margin-bottom:12px;}
+#calories-calculator-daily .calculator .col .label span {font-size:23px;display:inline-block;*zoom:1;*display:inline;padding:2px 6px;background:#fef9a8;color:#4c4d4d;}
+#calories-calculator-daily .calculator .col .input {}
+#calories-calculator-daily .calculator .col .input .units {display:inline-block;*zoom:1;*display:inline;width:25px;padding-left:5px;margin-right:-33px;text-align:left;}
+#calories-calculator-daily .calculator .col .input label {}
+#calories-calculator-daily .calculator .col .input input[type=text] {width:35px;border:1px solid #a9c8f3;color:#5596d8;font-size:16px;font-weight:bold;text-align:center;line-height:22px;height:23px;margin:0;padding:0 5px;}
+#calories-calculator-daily .calculator .col .input input[type=radio] {position:relative;top:1px;}
+#calories-calculator-daily .calculator .col .input select {width:180px;}
+
+#calories-calculator-daily  .row-btn {text-align:center;margin-top:40px;}
+#calories-calculator-daily  .row-btn input[type=submit] {height: 58px; background: #46b14e url(/images/btn_green_60.gif) repeat-x; line-height: 58px; color: #fff; font-size: 28px; font-weight: bold; text-decoration: none; padding: 0 30px;cursor:pointer;}
+#calories-calculator-daily  .row-btn input[type=submit].disabled {background-position:0 100%;border-color:#c9c9c9;}
+
+#calories-calculator-daily .result {margin-top:30px;font-size:16px;color:#3f3f3f;}
+#calories-calculator-daily .result ul {list-style:none;display:inline-block;*zoom:1;*display:inline;}
+#calories-calculator-daily .result ul li {font-size:15px;padding:5px 0;display:inline-block;*zoom:1;*display:inline;margin-left:25px;}
+#calories-calculator-daily .result ul li .icon {display:inline-block;*zoom:1;*display:inline;text-align:center;font-size:10px;font:tahoma, arial, helvetica, sans-serif;color:#9e9d9d;vertical-align:middle;position:relative;top:4px;line-height:1;margin-right:5px;*width:1%;}
+#calories-calculator-daily .result ul li .icon i {display:block;margin:0 auto 2px;width:20px;height:20px;background:#f0f0f0;color:#333;text-align:center;line-height:20px;font-size:14px;font-style:normal;font-weight:bold;*zoom:1;*display:inline;position:relative;-moz-border-radius:10px;-webkit-border-radius:10px;border-radius:10px;behavior: url(/stylesheets/PIE.htc);}
+#calories-calculator-daily .result ul li .icon .units {width:50px;}
+#calories-calculator-daily .result ul li.n-calories .icon i {background-color:#62a0f5;width:30px;height:30px;line-height:30px;font-size:20px;color:#fff; -moz-border-radius:15px;-webkit-border-radius:15px;border-radius:15px;behavior: url(/stylesheets/PIE.htc);}
+#calories-calculator-daily .result ul li.n-protein .icon i {background-color:#f68704;color:#fff;}
+#calories-calculator-daily .result ul li.n-fat .icon i {background-color:#abb71d;color:#fff;}
+#calories-calculator-daily .result ul li.n-carbohydrates .icon i {background-color:#fcbe03;color:#fff;}
+#calories-calculator-daily .result ul li.n-bread {margin-top:-10px;}
+#calories-calculator-daily .result ul li.n-bread .icon {position:relative;top:10px;}
+#calories-calculator-daily .result ul li.n-bread .icon i {background-color:#ff7854;color:#fff;width:30px;height:30px;line-height:30px;font-size:14px; -moz-border-radius:15px;-webkit-border-radius:15px;border-radius:15px;behavior: url(/stylesheets/PIE.htc);}
+#calories-calculator-daily .result ul li .gray {font-size:11px;color:#9e9d9d;font-family:tahoma, arial, helvetica, sans-serif;}
+/* /calculator calories daily */
+
+/* /not used --------------------------------------------------------*/

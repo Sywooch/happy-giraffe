@@ -116,7 +116,7 @@ class WordstatParser extends ProxyParserThread
 
         //check name
         if (!isset($this->keyword->keyword))
-            $this->log($this->keyword->keyword_id.' - failed keyword', true);
+            $this->getKeyword();
 
         $new_name = WordstatQueryModify::prepareForSave($this->keyword->keyword->name);
         if ($new_name != $this->keyword->keyword->name){

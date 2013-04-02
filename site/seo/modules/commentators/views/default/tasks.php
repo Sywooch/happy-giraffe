@@ -10,7 +10,7 @@ $data = CommentatorTask::getTaskListForEditor();
 Yii::app()->clientScript
     ->registerScriptFile('http://www.happy-giraffe.ru/javascripts/knockout-2.2.1.js')
     ->registerScriptFile('http://www.happy-giraffe.ru/javascripts/seo2/jquery.fancybox.pack.js')
-    ->registerScriptFile('http://happy-giraffe.com/javascripts/seo2/main.js');
+    ->registerScriptFile('http://www.happy-giraffe.ru/javascripts/seo2/main.js');
 
 $basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR;
 $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);

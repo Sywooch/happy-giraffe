@@ -23,7 +23,7 @@
     <?php Yii::app()->clientScript
         ->registerCoreScript('jquery')
         ->registerScriptFile('/js/seo.js')
-        ->registerCssFile('http://happy-giraffe.com/stylesheets/seo2/all.css');
+        ->registerCssFile('http://www.happy-giraffe.ru/stylesheets/seo2/all.css');
     ?>
 </head>
 <body>

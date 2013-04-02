@@ -48,21 +48,21 @@ $commentators = CommentatorWork::model()->findAll($criteria);
                     <td class="report_td-count">
                         <div class="report_count"><?=$blog_stats[0] ?></div>
                         <div class="report_percent color-<?=($blog_stats[1]>=100)?'green':'red' ?>">
-                            <img src="http://happy-giraffe.com/images/seo2/ico/blog-<?=($blog_stats[1]>=100)?'green':'red' ?>-small.png" alt="" class="report_count-ico">
+                            <img src="http://www.happy-giraffe.ru/images/seo2/ico/blog-<?=($blog_stats[1]>=100)?'green':'red' ?>-small.png" alt="" class="report_count-ico">
                             <?=$blog_stats[1] ?>%
                         </div>
                     </td>
                     <td class="report_td-count">
                         <div class="report_count"><?=$club_stats[0] ?></div>
                         <div class="report_percent color-<?=($club_stats[1]>=100)?'green':'red' ?>">
-                            <img src="http://happy-giraffe.com/images/seo2/ico/club-<?=($club_stats[1]>=100)?'green':'red' ?>-small.png" alt="" class="report_count-ico">
+                            <img src="http://www.happy-giraffe.ru/images/seo2/ico/club-<?=($club_stats[1]>=100)?'green':'red' ?>-small.png" alt="" class="report_count-ico">
                             <?=$club_stats[1] ?>%
                         </div>
                     </td>
                     <td class="report_td-count">
                         <div class="report_count"><?=$comments_stats[0] ?></div>
                         <div class="report_percent color-<?=($comments_stats[1]>=100)?'green':'red' ?>">
-                            <img src="http://happy-giraffe.com/images/seo2/ico/comment-<?=($comments_stats[1]>=100)?'green':'red' ?>-small.png" alt="" class="report_count-ico">
+                            <img src="http://www.happy-giraffe.ru/images/seo2/ico/comment-<?=($comments_stats[1]>=100)?'green':'red' ?>-small.png" alt="" class="report_count-ico">
                             <?=$comments_stats[1] ?>%
                         </div>
                     </td>

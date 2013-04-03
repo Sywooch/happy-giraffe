@@ -19,13 +19,13 @@ class WordstatCommand extends CConsoleCommand
         echo count($keywords);
         foreach ($keywords as $keyword_id) {
             $model = ParsingKeyword::model()->findByPk($keyword_id);
-            if ($model === null){
+            if ($model === null) {
                 $m = new ParsingKeyword;
                 $m->keyword_id = $keyword_id;
                 $m->priority = 100;
                 $m->save();
-            }else
-                ParsingKeyword::model()->updateByPk($keyword_id, array('priority'=>100));
+            } else
+                ParsingKeyword::model()->updateByPk($keyword_id, array('priority' => 100));
         }
     }
 
@@ -81,7 +81,7 @@ class WordstatCommand extends CConsoleCommand
                 ->queryColumn();
 
             Yii::app()->db_keywords->createCommand()->update('parsing_keywords', array('priority' => 255),
-                'keyword_id IN (' . implode(',', $ids).')');
+                'keyword_id IN (' . implode(',', $ids) . ')');
 
             $i++;
             if ($i % 10 == 0)
@@ -89,26 +89,62 @@ class WordstatCommand extends CConsoleCommand
         }
     }
 
-    public function actionFix2(){
+    public function actionFix2()
+    {
 
         $deleted = 0;
-        for($i=0;$i<120;$i++){
+        for ($i = 0; $i < 120; $i++) {
             $ids = Yii::app()->db_seo->createCommand()
                 ->selectDistinct('keyword_id')
                 ->from('sites__keywords_visits')
                 ->limit(10000)
-                ->offset(10000*$i - $deleted)
+                ->offset(10000 * $i - $deleted)
                 ->queryColumn();
 
-            foreach($ids as $id){
-                $exist = Yii::app()->db_keywords->createCommand()->select('id')->from('keywords')->where('id='.$id)->queryScalar();
-                if (empty($exist)){
-                    Yii::app()->db_seo->createCommand()->delete('sites__keywords_visits', 'keyword_id='.$id);
+            foreach ($ids as $id) {
+                $exist = Yii::app()->db_keywords->createCommand()->select('id')->from('keywords')->where('id=' . $id)->queryScalar();
+                if (empty($exist)) {
+                    Yii::app()->db_seo->createCommand()->delete('sites__keywords_visits', 'keyword_id=' . $id);
                     $deleted++;
                 }
             }
 
-            echo $deleted."\n";
+            echo $deleted . "\n";
         }
+    }
+
+    public function actionProxyMongo()
+    {
+        $criteria = new CDbCriteria;
+        $criteria->limit = 1000;
+        $i = 0;
+        $proxies = array(1);
+        while (!empty($proxies)) {
+            $criteria->offset = 1000 * $i;
+
+            $proxies = Proxy::model()->findAll($criteria);
+            foreach ($proxies as $proxy) {
+                $mongo_proxy = new ProxyMongo;
+                $mongo_proxy->value = $proxy->value;
+                $mongo_proxy->rank = $proxy->rank;
+                $mongo_proxy->save();
+            }
+
+            $i++;
+        }
+    }
+
+    public function actionProxyMongoCheck()
+    {
+        $start_time = microtime(true);
+
+        $model = ProxyMongo::model()->findAndModify(array(
+            'update' => array('$set' => array('active' => 1)),
+            'query' => array('active' => 0),
+            'sort' => array('rating' => EMongoCriteria::SORT_DESC),
+        ));
+
+        echo 1000 * (microtime(true) - $start_time) . "\n";
+        echo $model['value'];
     }
 }

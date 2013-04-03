@@ -40,12 +40,14 @@ class ParsingKeyword extends CActiveRecord
     {
         return Yii::app()->db_keywords;
     }
+
     public function rules()
     {
         return array(
             array('keyword_id', 'required'),
         );
     }
+
     public function relations()
     {
         return array(
@@ -65,10 +67,10 @@ class ParsingKeyword extends CActiveRecord
         $model = new ParsingKeyword();
         $model->keyword_id = $keyword->id;
         $model->priority = $priority;
-        if ($wordstat !== null){
+        if ($wordstat !== null) {
             $model->updated = date("Y-m-d H:i:s");
             //если 3 слова - добавляем на парсинг по этому слова
-            if (substr_count($keyword->name, ' ') < 3){
+            if (substr_count($keyword->name, ' ') < 3) {
                 $model->priority = 10;
             }
         }
@@ -81,9 +83,9 @@ class ParsingKeyword extends CActiveRecord
 
     public function updateWordstat($value)
     {
-        try{
-            Keyword::model()->updateByPk($this->keyword_id, array('wordstat'=>$value));
-        }catch (Exception $err){
+        try {
+            Keyword::model()->updateByPk($this->keyword_id, array('wordstat' => $value));
+        } catch (Exception $err) {
             sleep(1);
             return $this->updateWordstat($value);
         }
@@ -94,17 +96,16 @@ class ParsingKeyword extends CActiveRecord
 
     public static function wordstatParsed($keyword_id)
     {
-        $res = self::model()->getDbConnection()->createCommand()->update('parsing_keywords',
-            array('priority'=>0, 'updated'=>date("Y-m-d H:i:s")), 'keyword_id='.$keyword_id);
+        $res = self::model()->model()->updateByPk($keyword_id, array('priority' => 0, 'updated' => date("Y-m-d H:i:s")));
 
-        if (empty($res)){
+        if (empty($res)) {
             $model = self::model()->findByPk($keyword_id);
             if ($model === null) {
                 $model = new ParsingKeyword();
                 $model->keyword_id = $keyword_id;
                 $model->priority = 0;
                 $model->updated = date("Y-m-d H:i:s");
-                try{
+                try {
                     $model->save();
                 } catch (Exception $e) {
                 }

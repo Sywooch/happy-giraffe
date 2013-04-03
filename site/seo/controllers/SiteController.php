@@ -168,9 +168,9 @@ class SiteController extends SController
     public function actionLastKeywords()
     {
         $criteria = new CDbCriteria;
-        $criteria->order = 'rand()';
+        $criteria->order = 'id desc';
         $criteria->condition = 'wordstat > 1000';
-        $criteria->limit = 100;
+        $criteria->limit = 1000;
 
         $models = Keyword::model()->findAll($criteria);
 

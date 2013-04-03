@@ -1,43 +1,29 @@
 <?php
 /**
- * Author: alexk984
- * Date: 29.05.12
+ * Class WordstatParser
+ *
+ * Стандартный парсер вордстат, парсит частоту и собирает дополнительный ключевые слова, которые находит
+ *
+ * @author Alex Kireev <alexk984@gmail.com>
  */
-class WordstatParser extends ProxyParserThread
+class WordstatParser extends WordstatBaseParser
 {
-    const TYPE_SIMPLE = 0;
-    const TYPE_ONLY_ONE = 1;
-    const TYPE_STRICT = 2;
     /**
      * @var ParsingKeyword[]
      */
     public $keywords = array();
-    public $parsing_type = self::TYPE_SIMPLE;
     /**
      * @var ParsingKeyword
      */
     public $keyword = null;
     public $next_page = '';
     public $first_page = true;
-    protected $fails = 0;
-    /**
-     * @var WordstatQueryModify
-     */
-    protected $queryModify;
-
-    public function init($mode)
-    {
-        $this->debug = $mode;
-        $this->queryModify = new WordstatQueryModify;
-        $this->removeCookieOnChangeProxy = false;
-
-        $this->getCookie();
-    }
 
     public function start($mode = false)
     {
         $this->init($mode);
-
+        
+        $fail_count = 0;
         while (true) {
             $this->getNextPage();
 
@@ -46,16 +32,16 @@ class WordstatParser extends ProxyParserThread
                 $success = $this->parseQuery();
 
                 if (!$success) {
-                    $this->fails++;
-                    if ($this->fails > 10) {
+                    $fail_count++;
+                    if ($fail_count > 10) {
                         $this->removeCookieFile();
                         $this->getCookie();
-                        $this->fails = 0;
+                        $fail_count = 0;
                     } else
                         $this->changeBadProxy();
                 } else {
                     $this->success_loads++;
-                    $this->fails = 0;
+                    $fail_count = 0;
                 }
 
                 sleep(1);
@@ -67,10 +53,7 @@ class WordstatParser extends ProxyParserThread
     {
         if (empty($this->next_page)) {
             $this->getKeyword();
-            if ($this->parsing_type == self::TYPE_STRICT)
-                $t = urlencode($this->queryModify->prepareStrictQuery($this->keyword->keyword->name));
-            else
-                $t = urlencode($this->queryModify->prepareQuery($this->keyword->keyword->name));
+            $t = urlencode($this->queryModify->prepareQuery($this->keyword->keyword->name));
 
             $this->next_page = 'http://wordstat.yandex.ru/?cmd=words&page=1&t=' . $t . '&geo=&text_geo=';
             $this->log($this->next_page);
@@ -119,7 +102,7 @@ class WordstatParser extends ProxyParserThread
             $this->getKeyword();
 
         $new_name = WordstatQueryModify::prepareForSave($this->keyword->keyword->name);
-        if ($new_name != $this->keyword->keyword->name){
+        if ($new_name != $this->keyword->keyword->name) {
             $this->keyword->keyword->name = $new_name;
             $model2 = Keyword::model()->findByAttributes(array('name' => $new_name));
             if ($model2 !== null) {
@@ -138,169 +121,44 @@ class WordstatParser extends ProxyParserThread
         $this->log('Parsing keyword: ' . $this->keyword->keyword_id);
     }
 
-    protected function getCookie()
-    {
-        $url = 'http://wordstat.yandex.ru/';
-        $success = false;
-
-        $this->log('starting get cookie');
-
-        while (!$success) {
-            $data = $this->query($url);
-            $success = true;
-            if (preg_match('/<img src="\/\/mc.yandex.ru\/watch\/([\d]+)"/', $data, $res)) {
-                $mc_url = 'http://mc.yandex.ru/watch/' . $res[1];
-                $html = $this->query($mc_url, $url);
-                if (strpos($html, 'Set-Cookie:') === false)
-                    $success = false;
-
-            } else
-                $success = false;
-            $html = $this->query('http://kiks.yandex.ru/su/', $url);
-            if (strpos($html, 'Set-Cookie:') === false)
-                $success = false;
-
-            if (!$success) {
-                $this->changeBadProxy();
-                $this->removeCookieFile();
-            }
-            sleep(1);
-        }
-
-        $this->log('cookie received successfully');
-    }
-
     protected function parseQuery()
     {
         $html = $this->query($this->next_page, 'http://wordstat.yandex.ru/');
         if (!isset($html) || $html === null)
             return false;
 
-        return $this->parseData($html);
+        return $this->parseHtml($html);
     }
 
 
-    public function parseData($html)
+    public function parseHtml($html)
     {
         $this->log('parse page');
-
         $document = phpQuery::newDocument($html);
-        $html = str_replace('&nbsp;', ' ', $html);
-        $html = str_replace('&mdash;', '—', $html);
 
-        //find and add our keyword
-        if (preg_match('/— ([\d]+) показ[ов]*[а]* в месяц/', $html, $matches)) {
-            $this->log('valid page loaded');
+        $wordstat_value = $this->getCurrentKeywordStat($html);
+        if ($wordstat_value !== false){
             if ($this->first_page)
-                $this->saveQueryWordstatValue($matches[1]);
-            $this->log('wordstat value: ' . $matches[1]);
-        } else return false;
-
+                $this->keyword->updateWordstat($wordstat_value);
+        }else
+            return false;
         $this->next_page = '';
 
-        if ($this->parsing_type == self::TYPE_SIMPLE) {
-            //find keywords in block "Что искали со словом"
-            foreach ($document->find('table.campaign tr td table:first td a') as $link) {
-                $keyword = trim(pq($link)->text());
-                $value = (int)pq($link)->parent()->next()->next()->text();
+        $list = $this->getFirstKeywordsColumn($document);
+        foreach($list as $value)
+            $this->saveFoundKeyword($value[0], $value[1]);
 
-                $this->addData($keyword, $value);
+        $list = $this->getSecondKeywordsColumn($document);
+        foreach($list as $value)
+            $this->saveFoundKeyword($value[0], $value[1], true);
 
-                //временно ищем слова перед которыми надо ставить +
-                $this->queryModify->analyzeQuery($keyword);
-            }
-
-            //собирает кейворды из блока "Что еще искали люди, искавшие"
-            //так как на остальных кейворды повторяются
-            if ($this->first_page)
-                foreach ($document->find('table.campaign tr td table:eq(1) td a') as $link) {
-                    $keyword = trim(pq($link)->text());
-                    $value = (int)pq($link)->parent()->next()->next()->text();
-
-                    $this->addData($keyword, $value, true);
-
-                    //временно ищем слова перед которыми надо ставить +
-                    $this->queryModify->analyzeQuery($keyword);
-                }
-
-            //ищем ссылку на следующую страницу
-            foreach ($document->find('div.pages a') as $link) {
-                $title = pq($link)->text();
-                if (strpos($title, 'следующая') !== false)
-                    $this->next_page = 'http://wordstat.yandex.ru/' . pq($link)->attr('href');
-            }
-        }
+        //ищем ссылку на следующую страницу
+        $this->findNextPageLink($document);
 
         if (!empty($this->next_page))
             $this->first_page = false;
 
         $document->unloadDocument();
         return true;
-    }
-
-    public function saveQueryWordstatValue($value)
-    {
-        if ($this->parsing_type == self::TYPE_STRICT) {
-
-            $strict_wordstat = KeywordStrictWordstat::model()->findByPk($this->keyword->keyword_id);
-
-            if ($strict_wordstat === null){
-                $strict_wordstat = new KeywordStrictWordstat;
-                $strict_wordstat->keyword_id = $this->keyword->keyword_id;
-                $strict_wordstat->wordstat = $this->keyword->keyword->wordstat;
-                $strict_wordstat->strict_wordstat = $value;
-                $strict_wordstat->save();
-            }else{
-                $strict_wordstat->wordstat = $this->keyword->keyword->wordstat;
-                $strict_wordstat->strict_wordstat = $value;
-                $strict_wordstat->save();
-            }
-
-            if (empty($value) || $this->keyword->keyword->wordstat / $value > 1000) {
-                $this->keyword->keyword->wordstat = $value;
-                try{
-                    $this->keyword->keyword->save();
-                }catch (Exception $err){
-                    return ;
-                }
-            }
-            $this->keyword->priority = 0;
-            $this->keyword->update(array('priority'));
-
-        } else
-            $this->keyword->updateWordstat($value);
-    }
-
-    protected function addData($keyword, $value, $related = false)
-    {
-        if (!empty($keyword) && !empty($value)) {
-            if (strpos($keyword, '+') !== false) {
-                $keyword = str_replace(' +', ' ', $keyword);
-                $keyword = ltrim($keyword, '+');
-            }
-
-            $model = Keyword::GetKeyword($keyword, 0, $value);
-            if ($model !== null) {
-                if ($related)
-                    KeywordRelation::saveRelation($this->keyword->keyword_id, $model->id);
-                return $model;
-            }
-        }
-
-        return null;
-    }
-
-    public function getSimpleValue($keyword)
-    {
-        $url = 'http://wordstat.yandex.ru/?cmd=words&t=' . urlencode($keyword) . '&geo=&text_geo=';
-        $html = $this->query($url, 'http://wordstat.yandex.ru/');
-
-        $html = str_replace('&nbsp;', ' ', $html);
-        $html = str_replace('&mdash;', '—', $html);
-
-        //find and add our keyword
-        if (preg_match('/— ([\d]+) показ[ов]*[а]* в месяц/', $html, $matches)) {
-            return $matches[1];
-        } else return -1;
     }
 }

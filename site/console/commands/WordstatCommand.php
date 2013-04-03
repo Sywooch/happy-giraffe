@@ -91,7 +91,6 @@ class WordstatCommand extends CConsoleCommand
 
     public function actionFix2()
     {
-
         $deleted = 0;
         for ($i = 0; $i < 120; $i++) {
             $ids = Yii::app()->db_seo->createCommand()

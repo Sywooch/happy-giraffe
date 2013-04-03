@@ -110,7 +110,7 @@ class WordstatFilter extends WordstatBaseParser
 
         //проверяем получена ли правильная страница и обновляем частоту wordstat текущего ключевого слова
         $wordstat_value = $this->getCurrentKeywordStat($html);
-        echo "wordstat_value - $wordstat_value <br>";
+        $this->log("wordstat_value - $wordstat_value \n");
         if ($wordstat_value !== false) {
             $this->keyword->updateWordstat($wordstat_value);
         } else
@@ -126,7 +126,6 @@ class WordstatFilter extends WordstatBaseParser
         $list = $this->getSecondKeywordsColumn($document);
         foreach ($list as $value)
             $this->saveKeywordAsGood($value[0], $value[1]);
-
 
         $document->unloadDocument();
         return true;
@@ -144,13 +143,15 @@ class WordstatFilter extends WordstatBaseParser
             $keyword = $value[0];
             if ($this->keyword->keyword->name == $keyword) {
                 $status = KeywordStatus::STATUS_GOOD;
-                echo "found<br>";
+                $this->log("found\n");
                 break;
             }
         }
 
         if (!empty($list))
             KeywordStatus::saveStatus($this->keyword->keyword_id, $status);
+        else
+            KeywordStatus::saveStatus($this->keyword->keyword_id, KeywordStatus::STATUS_UNDEFINED);
 
         $this->keyword->priority = 0;
         $this->keyword->update(array('priority'));
@@ -165,7 +166,7 @@ class WordstatFilter extends WordstatBaseParser
     {
         $model = Keyword::model()->findByAttributes(array('name' => $keyword));
         if ($model !== null) {
-            echo "save - $keyword, $wordstat_value <br>";
+            $this->log("save - $keyword, $wordstat_value \n");
             //save as good
             KeywordStatus::saveStatus($model->id, KeywordStatus::STATUS_GOOD);
             //update wordstat value

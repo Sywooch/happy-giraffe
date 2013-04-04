@@ -64,7 +64,7 @@ class KeywordStatus extends CActiveRecord
     public function relations()
     {
         return array(
-            'keyword' => array(self::BELONGS_TO, 'Keywords', 'keyword_id'),
+            'keyword' => array(self::BELONGS_TO, 'Keyword', 'keyword_id'),
         );
     }
 

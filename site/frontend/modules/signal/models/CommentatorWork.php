@@ -401,6 +401,23 @@ class CommentatorWork extends EMongoDocument
         return false;
     }
 
+    /**
+     * Добавляем пользователя в игнор-лист
+     * @param $user_id
+     */
+    public function addToIgnoreList($user_id)
+    {
+        if (!in_array(Yii::app()->user->id, $this->ignoreUsers)) {
+            $criteria = new EMongoCriteria();
+            $criteria->addCond('user_id', '==', $this->user_id);
+
+            $modifier = new EMongoModifier();
+            $modifier->addModifier('ignoreUsers', 'push', (int)$user_id);
+
+            CommentatorWork::model()->updateAll($modifier, $criteria);
+        }
+    }
+
     /******************************************************************************************************************/
     /**************************************************** Посты *******************************************************/
     /******************************************************************************************************************/

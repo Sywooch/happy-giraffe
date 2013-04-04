@@ -355,10 +355,7 @@ class AjaxController extends HController
             Yii::import('site.frontend.modules.signal.models.*');
             $commentator = CommentatorWork::getUser($model->author_id);
             if ($commentator !== null) {
-                if (!in_array(Yii::app()->user->id, $commentator->ignoreUsers)) {
-                    $commentator->ignoreUsers [] = (int)Yii::app()->user->id;
-                    $commentator->save();
-                }
+                $commentator->addToIgnoreList(Yii::app()->user->id);
             }
         }
 

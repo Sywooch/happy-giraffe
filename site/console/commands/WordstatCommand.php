@@ -146,4 +146,11 @@ class WordstatCommand extends CConsoleCommand
         echo 1000 * (microtime(true) - $start_time) . "\n";
         echo $model['value'];
     }
+
+    public function actionTest(){
+        $k = 'купить выпрямитель для волос профессиональный';
+        $start_time = microtime(true);
+        KeywordStatus::model()->findByAttributes(array('keyword_id'=>67129579));
+        echo 1000 * (microtime(true) - $start_time) . "\n";
+    }
 }

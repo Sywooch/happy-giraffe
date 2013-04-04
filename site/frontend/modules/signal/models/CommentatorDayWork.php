@@ -109,7 +109,6 @@ class CommentatorDayWork extends EMongoEmbeddedDocument
             $this->calcImMessageStats($commentator->user_id);
             $this->calcFriendsStats($commentator->user_id);
             $this->visits = CommentatorHelper::visits($commentator->user_id, $this->date, $this->date);
-            $this->checkStatus($commentator);
 
             if ($this->date != date("Y-m-d"))
                 $this->closed = 1;
@@ -204,7 +203,8 @@ class CommentatorDayWork extends EMongoEmbeddedDocument
     public function incComments($commentator)
     {
         $this->comments++;
-        $this->updateFields($commentator, array('comments'));
+        $this->checkStatus($commentator);
+        $this->updateFields($commentator, array('comments', 'status'));
     }
 
     /**
@@ -213,7 +213,7 @@ class CommentatorDayWork extends EMongoEmbeddedDocument
      */
     public function updatePosts($commentator)
     {
-        $this->updateFields($commentator, array('blog_posts', 'club_posts'));
+        $this->updateFields($commentator, array('blog_posts', 'club_posts', 'status'));
     }
 
     /**

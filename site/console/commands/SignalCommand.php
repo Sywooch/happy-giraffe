@@ -123,12 +123,6 @@ class SignalCommand extends CConsoleCommand
         $month->prepareNewStats();
     }
 
-    public function actionFixLinks(){
-        $links = CommentatorLink::model()->findAll();
-        foreach($links as $link)
-            $link->save();
-    }
-
     public function actionTest(){
         //echo date("Y-m-d H:i:s", 1356434958);
 

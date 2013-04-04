@@ -158,7 +158,7 @@ class Keyword extends CActiveRecord
         $model->wordstat = $wordstat;
         try {
             $model->save();
-            ParsingKeyword::addNewKeyword($model, $priority, $wordstat);
+            ParsingKeyword::addNewKeyword($model, $wordstat);
         } catch (Exception $e) {
             //значит кейворд создан в промежуток времени между запросами - повторим запрос
             $model = self::model()->findByAttributes(array('name' => $word));

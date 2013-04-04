@@ -125,7 +125,7 @@ class WordstatFilter extends WordstatBaseParser
 
         $list = $this->getSecondKeywordsColumn($document);
         foreach ($list as $value)
-            $this->saveKeywordAsGood($value[0], $value[1]);
+            $this->saveKeywordAsGood($value[0], $value[1], true);
 
         $document->unloadDocument();
         return true;
@@ -161,8 +161,9 @@ class WordstatFilter extends WordstatBaseParser
      * Сохраняеем ключевое слово как хорошее, обновляем частоту
      * @param $keyword string
      * @param $wordstat_value int
+     * @param bool $related
      */
-    protected function saveKeywordAsGood($keyword, $wordstat_value)
+    protected function saveKeywordAsGood($keyword, $wordstat_value, $related = false)
     {
         $model = Keyword::model()->findByAttributes(array('name' => $keyword));
         if ($model !== null) {
@@ -174,6 +175,23 @@ class WordstatFilter extends WordstatBaseParser
             $model->update(array('wordstat'));
             //update ParsingKeyword
             ParsingKeyword::wordstatParsed($model->id);
+        }else{
+            $model = new Keyword;
+            $model->name = $keyword;
+            $model->wordstat = $wordstat_value;
+            try{
+                $model->save();
+                KeywordStatus::saveStatus($model->id, KeywordStatus::STATUS_GOOD);
+                $parsing_model = new ParsingKeyword();
+                $parsing_model->keyword_id = $model->id;
+                $parsing_model->priority = 0;
+                $parsing_model->updated = date("Y-m-d H:i:s");
+                $parsing_model->save();
+            }catch (Exception $err){
+            }
         }
+
+        if ($related && isset($model->id))
+            KeywordRelation::saveRelation($this->keyword->keyword_id, $model->id);
     }
 }

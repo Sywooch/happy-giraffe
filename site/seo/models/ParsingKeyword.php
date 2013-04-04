@@ -58,22 +58,21 @@ class ParsingKeyword extends CActiveRecord
 
     /**
      * @param Keyword $keyword
-     * @param int $priority
      * @param null|int $wordstat
      * @return bool
      */
-    public static function addNewKeyword($keyword, $priority = 0, $wordstat = null)
+    public static function addNewKeyword($keyword, $wordstat = null)
     {
         $model = new ParsingKeyword();
         $model->keyword_id = $keyword->id;
-        $model->priority = $priority;
+        $model->priority = 0;
+        $model->type = 1;
         if ($wordstat !== null) {
             $model->updated = date("Y-m-d H:i:s");
-            //если 3 слова - добавляем на парсинг по этому слова
-            if (substr_count($keyword->name, ' ') < 3) {
-                $model->priority = 10;
-            }
         }
+        //если 3 слова и менее - добавляем на парсинг по этому слова
+        if (substr_count($keyword->name, ' ') < 3)
+            $model->priority = 10;
 
         try {
             $model->save();
@@ -81,6 +80,11 @@ class ParsingKeyword extends CActiveRecord
         }
     }
 
+    /**
+     * Обновляет частоту слова
+     * @param $value значение частоты wordstat
+     * @return bool
+     */
     public function updateWordstat($value)
     {
         try {
@@ -91,7 +95,7 @@ class ParsingKeyword extends CActiveRecord
         }
         $this->updated = date("Y-m-d H:i:s");
         $this->priority = 0;
-        $this->save();
+        return $this->save();
     }
 
     public static function wordstatParsed($keyword_id)

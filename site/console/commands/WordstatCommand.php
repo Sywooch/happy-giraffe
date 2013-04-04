@@ -50,7 +50,7 @@ class WordstatCommand extends CConsoleCommand
                 $keyword_model->name = $keyword;
                 try {
                     $keyword_model->save();
-                    ParsingKeyword::addNewKeyword($keyword_model, 0);
+                    ParsingKeyword::addNewKeyword($keyword_model);
                 } catch (Exception $e) {
                 }
             }

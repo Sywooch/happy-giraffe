@@ -194,4 +194,17 @@ class WordstatFilter extends WordstatBaseParser
         if ($related && isset($model->id))
             KeywordRelation::saveRelation($this->keyword->keyword_id, $model->id);
     }
+
+    /**
+     * Тестирование класса
+     */
+    public static function Test()
+    {
+        $html = file_get_contents('f:/test_page.html');
+        $parser = new WordstatFilter(1);
+        $parser->keyword = ParsingKeyword::model()->findByPk(243629017);
+        $parser->debug = true;
+        $parser->queryModify = new WordstatQueryModify;
+        $parser->parseHtml($html);
+    }
 }

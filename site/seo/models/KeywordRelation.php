@@ -107,15 +107,14 @@ class KeywordRelation extends CActiveRecord
             ->queryScalar();
 
         if (empty($exist)) {
-            try {
+            try{
                 Yii::app()->db_keywords->createCommand()
                     ->insert(self::model()->tableName(),
                     array(
-                        ':keyword_from_id' => $keyword_from_id,
-                        ':keyword_to_id' => $keyword_to_id,
+                        'keyword_from_id' => $keyword_from_id,
+                        'keyword_to_id' => $keyword_to_id,
                     ));
-            } catch (Exception $err) {
-
+            }catch (Exception $err){
             }
         }
     }

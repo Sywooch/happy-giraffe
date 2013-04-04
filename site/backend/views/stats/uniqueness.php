@@ -1,7 +1,8 @@
 <?php
+$date = date("Y-m-d H:i:s", strtotime('- 1 month'));
 $criteria = new CDbCriteria;
-$criteria->condition = 'created > "2012-10-01 00:00:00" AND
-created < "2012-11-01 00:00:00" AND `author`.`group` = 0';
+$criteria->condition = 'created > :date AND `author`.`group` = 0';
+$criteria->params = array('date'=>$date);
 $criteria->with = array('author');
 echo $a1 = CommunityContent::model()->count($criteria).'<br>';
 $criteria->condition .= ' AND uniqueness > 50';

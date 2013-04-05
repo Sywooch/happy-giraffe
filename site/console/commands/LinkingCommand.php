@@ -257,8 +257,13 @@ class LinkingCommand extends CConsoleCommand
             ->from('inner_linking__links')
             ->queryColumn();
 
+        echo count($pageIds)."\n";
         foreach($pageIds as $pageId){
             $page = Page::model()->findByPk($pageId);
+            if (empty($page->entity) || empty($page->entity_id)){
+                echo 'empty: '.$page->entity."\n";
+                continue;
+            }
             $model = CActiveRecord::model($page->entity)->findByPk($page->entity_id);
             if ($model === null){
                 echo $page->entity.' : '.$page->entity_id."\n";

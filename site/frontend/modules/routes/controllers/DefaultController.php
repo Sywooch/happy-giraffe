@@ -24,13 +24,15 @@ class DefaultController extends HController
      */
     public function actionIndex($id = null)
     {
-        Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
         $this->meta_title = 'Составь маршрут для автомобиля';
 
         if (empty($id)) {
             $this->render('index');
         } else {
             $route = $this->loadModel($id);
+            if ($route->wordstat_value < Route::WORDSTAT_LIMIT)
+                Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
+
             if ($route->status != Route::STATUS_ROSNEFT_FOUND && $route->status != Route::STATUS_GOOGLE_PARSE_SUCCESS)
                 throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
@@ -134,15 +136,23 @@ class DefaultController extends HController
 
     public function sitemap($param)
     {
+//        $models = Yii::app()->db->createCommand()
+//            ->select('id')
+//            ->from(Route::model()->tableName())
+//            ->where('(status = 2 OR status=4) AND id > ' . (40000 * ($param - 1)) . ' AND id <=' . (40000 * $param))
+//            ->queryColumn();
+//
         $models = Yii::app()->db->createCommand()
             ->select('id')
             ->from(Route::model()->tableName())
-            ->where('(status = 2 OR status=4) AND id > ' . (40000 * ($param - 1)) . ' AND id <=' . (40000 * $param))
+            ->where('wordstat_value >= '.Route::WORDSTAT_LIMIT)
             ->queryColumn();
 
         $data = array();
         if ($param == 1)
             $data [] = array(
+                'params' => array(
+                ),
                 'changefreq' => 'weekly',
             );
         foreach ($models as $model) {

@@ -36,6 +36,8 @@ class Route extends CActiveRecord
     const STATUS_NOT_FOUND = 11;
     const STATUS_NO_ROUTE = 12;
 
+    const WORDSTAT_LIMIT = 105;
+
     /**
      * Returns the static model of the specified AR class.
      * @param string $className active record class name.

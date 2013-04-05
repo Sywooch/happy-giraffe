@@ -6,8 +6,22 @@ class MessagesController extends HController
     {
         return array(
 //            'ajaxOnly',
-            'postOnly',
+//            'postOnly',
         );
+    }
+
+    public function actionDelete()
+    {
+        $messageId = Yii::app()->request->getPost('messageId');
+        MessagingMessageUser::model()->updateByPk(array(
+            'user_id' => Yii::app()->user->id,
+            'message_id' => $messageId,
+        ), array('deleted' => 1));
+
+        $response = array(
+            'success' => true,
+        );
+        echo CJSON::encode($response);
     }
 
     /**

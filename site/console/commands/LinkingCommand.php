@@ -249,4 +249,20 @@ class LinkingCommand extends CConsoleCommand
         $p = new CRecipeLinking;
         $p->start();
     }
+
+    public function actionDeleteRemoved(){
+        Yii::import('site.frontend.modules.cook.models.*');
+        $pageIds = Yii::app()->db_seo->createCommand()
+            ->selectDistinct('page_to_id')
+            ->from('inner_linking__links')
+            ->queryColumn();
+
+        foreach($pageIds as $pageId){
+            $page = Page::model()->findByPk($pageId);
+            $model = CActiveRecord::model($page->entity)->findByPk($page->entity_id);
+            if ($model === null){
+                echo $page->entity.' : '.$page->entity_id."\n";
+            }
+        }
+    }
 }

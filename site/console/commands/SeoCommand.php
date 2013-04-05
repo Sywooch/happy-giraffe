@@ -144,9 +144,8 @@ class SeoCommand extends CConsoleCommand
     }
 
     public function actionTest(){
-        $parser = new WordstatParser(1);
-        $parser->parsing_type = WordstatParser::TYPE_STRICT;
-        $parser->start(true);
+        echo Yii::app()->db->createCommand()->delete('comments', 'text LIKE  "%http://www.happy-giraffe.ru/contest/7/photo290798/поддержите%"')."\n";
+        echo Yii::app()->db->createCommand()->delete('comments', 'text LIKE  "%http://www.happy-giraffe.ru/contest/4/photo178811/%"')."\n";
     }
 }
 

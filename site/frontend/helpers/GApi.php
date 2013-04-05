@@ -42,6 +42,21 @@ class GApi
     }
 
     /**
+     * Возвращает количество посещений за период времени
+     *
+     * @param $url
+     * @param $date1
+     * @param $date2
+     * @param bool $include_sub_pages
+     * @return int
+     */
+    public function pageViews($url, $date1, $date2 = null, $include_sub_pages = true)
+    {
+
+        return $this->getStat($url, $date1, $date2, $include_sub_pages, 'pageViews');
+    }
+
+    /**
      * Возвращает количество поситителей за период времени
      *
      * @param $url

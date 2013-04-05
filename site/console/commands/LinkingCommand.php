@@ -261,11 +261,10 @@ class LinkingCommand extends CConsoleCommand
         foreach($pageIds as $pageId){
             $page = Page::model()->findByPk($pageId);
             if (empty($page->entity) || empty($page->entity_id)){
-                echo 'empty: '.$page->entity." $page->url \n";
                 continue;
             }
             $model = CActiveRecord::model($page->entity)->findByPk($page->entity_id);
-            if ($model === null){
+            if ($model === null || $model->removed == 1){
                 echo $page->entity.' : '.$page->entity_id."\n";
             }
         }

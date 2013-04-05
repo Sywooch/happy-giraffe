@@ -30,7 +30,7 @@ class DefaultController extends HController
             $letter = null;
 
         if (!empty($letter) && !in_array($letter, array('А','Б','В','Г','Д','Е','Ж','З','И','К','Л','М','Н','О',
-            'П','Р','С','Т','У','Ф','Х','Ц','Ч','Э','Ю','Я')))
+            'П','Р','С','Т','У','Ф','Х','Ц','Ч','Ш', 'Э','Ю','Я')))
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
         if (empty($letter))

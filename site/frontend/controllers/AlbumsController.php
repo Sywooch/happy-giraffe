@@ -143,6 +143,8 @@ class AlbumsController extends HController
                 Yii::app()->end();
             $model = new AlbumPhoto();
 
+            #TODO сделать проверку фотки
+
             echo '<div id="serverData">';
             // Загрузка в новый альбом
             if (!$a || $a == 'false') {

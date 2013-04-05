@@ -97,6 +97,10 @@ class CommentatorLink extends HActiveRecord
      */
     public function article()
     {
+        if (empty($this->entity) || empty($this->entity_id)){
+            echo 'Ошибка, обратитесь к разработчику';
+            return null;
+        }
         return CActiveRecord::model($this->entity)->findByPk($this->entity_id);
     }
 }

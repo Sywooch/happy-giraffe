@@ -15,7 +15,7 @@ CKEDITOR.editorConfig = function (config) {
     config.filebrowserImageUploadUrl = '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images';
     config.filebrowserFlashUploadUrl = '/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash';
 
-    config.extraPlugins = 'gallery,cuttable,attach,avarageheader,smallheader,mylink,smiles';
+    config.extraPlugins = 'gallery,cuttable,attach,avarageheader,smallheader,mylink,smiles,othertext';
     config.toolbarCanCollapse = false;
 
 /*    config.smiley_path = '/images/widget/smiles/';

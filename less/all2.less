@@ -1,3 +1,10 @@
+// Переменные и примешивания
+@import "/include/variables.less";
+@import "/include/mixins.less";
+
+// Проектный слой
+@import "/project/im.less";
+
 .settings .RadioLabelClass, 
 .dialog .CheckBoxLabelClass {
     background: url(../images/radio.png) no-repeat;
@@ -19,7 +26,9 @@
 .entry{display:block;background:#fff;width:100%;padding:0 0 10px;margin-bottom:30px;}
 .entry.entry-full{padding-bottom:0;border:0;}
 .entry .entry-header{display:block;background:#fff;}
-.entry a.entry-title,.entry h1{display:block;font:bold 25px Arial,Tahoma,sans-serif;color:#0281b0;margin:10px 0 15px;}
+.entry a.entry-title,
+.entry h1{display:block;font:bold 25px Arial,Tahoma,sans-serif;color:#0281b0;margin:10px 0 15px;}
+.entry a.entry-title {display: inline-block;}
 .entry-footer{font-size:12px;}
 
 .entry-body {position:relative;padding-top:75px;}

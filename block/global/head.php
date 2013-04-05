@@ -1,7 +1,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>Happy Giraffe</title>
 	
-	<link rel="stylesheet" type="text/css" href="/stylesheets/all1.css" />
+	<link rel="stylesheet" type="text/css" href="/stylesheets/common.css" />
 	<link rel="stylesheet" type="text/css" href="/stylesheets/global.css" />
 	<link rel="stylesheet" type="text/css" href="/stylesheets/user.css" />
 	<link rel="stylesheet" type="text/css" href="/stylesheets/baby.css" />

@@ -17,9 +17,10 @@ hr,
 	background: url(/images/hr-notches.gif) repeat-x;
 }
 
-.file-fake {display:inline-block;*zoom:1;*display:inline;position:relative;cursor:pointer;height:32px;overflow:hidden;}
+.file-fake {display:inline-block;*zoom:1;*display:inline;position:relative;cursor:pointer;overflow:hidden;}
 .file-fake input {opacity:0;position:absolute;z-index:3;right:0;top:0;height:100%;display:block;cursor:pointer;filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0)}
-.file-fake .btn {position:relative;z-index:2;}
+.file-fake .btn,
+.file-fake_btn {position:relative;z-index:2;cursor: pointer;}
 .itx-bluelight {
 	border: 1px solid #c7c7c7;
 	-webkit-box-shadow: inset 2px 2px 3px rgba(0,0,0,0.08);
@@ -154,6 +155,12 @@ a.pseudo:hover,
 
 .logo-box {margin: 0 auto;text-align:center;color:#8d5bbc;text-transform:uppercase;font-size:10px;letter-spacing:3px;line-height:25px;padding: 25px 0 15px;}
 .logo-box > .logo {display:block;width:198px;height:93px;background:url(../images/common.png) no-repeat 0 -200px;text-indent:-9999px;margin:0 auto;}
+
+
+::-webkit-input-placeholder { color: #b6b6b6;font-weight: normal;opacity: 1;}
+::-moz-placeholder{ color: #b6b6b6;font-weight: normal;opacity: 1;}
+:-moz-placeholder{ color: #b6b6b6;font-weight: normal;opacity: 1;}
+.placeholder { color: #b6b6b6;font-weight: normal;opacity: 1;}
 
 /* errors */
 .error input[type=text],

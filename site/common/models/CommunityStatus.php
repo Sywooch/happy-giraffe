@@ -41,6 +41,7 @@ class CommunityStatus extends HActiveRecord
         return array(
             array('content_id', 'length', 'max' => 11),
             array('content_id', 'numerical', 'integerOnly' => true),
+            array('text', 'safe')
         );
     }
 
@@ -53,6 +54,40 @@ class CommunityStatus extends HActiveRecord
             'content' => array(self::BELONGS_TO, 'CommunityContent', 'content_id'),
             'status' => array(self::BELONGS_TO, 'UserStatus', 'status_id'),
         );
+    }
+
+    /**
+     * @return array customized attribute labels (name=>label)
+     */
+    public function attributeLabels()
+    {
+        return array(
+            'id' => 'ID',
+            'status_id' => 'Status',
+            'content_id' => 'Content',
+            'text' => 'Text',
+        );
+    }
+
+    /**
+     * Retrieves a list of models based on the current search/filter conditions.
+     * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
+     */
+    public function search()
+    {
+        // Warning: Please modify the following code to remove attributes that
+        // should not be searched.
+
+        $criteria=new CDbCriteria;
+
+        $criteria->compare('id',$this->id,true);
+        $criteria->compare('status_id',$this->status_id,true);
+        $criteria->compare('content_id',$this->content_id,true);
+        $criteria->compare('text',$this->text,true);
+
+        return new CActiveDataProvider($this, array(
+            'criteria'=>$criteria,
+        ));
     }
 
     public function getPhoto()

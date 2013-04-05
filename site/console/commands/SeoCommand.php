@@ -144,9 +144,12 @@ class SeoCommand extends CConsoleCommand
     }
 
     public function actionTest(){
-        Yii::import('site.frontend.extensions.*');
-        $url = "/community/20/forum/post/68215/";
-        echo GApi::model()->uniquePageViews($url, '2013-01-01', '2013-04-05');
+        echo Yii::app()->db->createCommand()->delete('comments', 'text LIKE  "%http://www.happy-giraffe.ru/contest/3/photo156374/Поддержите%"')."\n";
+        echo Yii::app()->db->createCommand()->delete('comments', 'text LIKE  "%http://www.happy-giraffe.ru/contest/2/photo111101/Надеемся/%"')."\n";
+        echo Yii::app()->db->createCommand()->delete('comments', 'text LIKE  "%http://www.happy-giraffe.ru/contest/8/photo309418/заранее/%"')."\n";
+        echo Yii::app()->db->createCommand()->delete('comments', 'text LIKE  "%http://www.happy-giraffe.ru/contest/5/photo208708/</p>%"')."\n";
+        echo Yii::app()->db->createCommand()->delete('comments', 'text LIKE  "%http://www.happy-giraffe.ru/contest/9/photo353145/Заранее%"')."\n";
+        echo Yii::app()->db->createCommand()->delete('comments', 'text LIKE  "%http://www.happy-giraffe.ru/contest/8/photo309471/.спасибо"')."\n";
     }
 }
 

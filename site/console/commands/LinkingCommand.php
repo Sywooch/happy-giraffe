@@ -267,6 +267,10 @@ class LinkingCommand extends CConsoleCommand
             if ($model === null || (isset($model->removed) && $model->removed == 1)){
                 echo $page->entity.' : '.$page->entity_id."\n";
                 $page->delete();
+            }else{
+                if (strpos($page->url, $model->url) === FALSE){
+                    echo $page->url.' -> '.$model->url;
+                }
             }
         }
     }

@@ -367,7 +367,7 @@ class AlbumPhoto extends HActiveRecord
             $thumb = $this->gdResize($thumb, $width, $height, $master, $crop);
         }
 
-        if ($size = @getimagesize($thumb)) {
+        if ($thumb !== false && $size = @getimagesize($thumb)) {
             $this->width = $size[0];
             $this->height = $size[1];
         }
@@ -385,7 +385,12 @@ class AlbumPhoto extends HActiveRecord
             $image = $image->create($this->originalPath);
 
         } catch (CException $e) {
-            return $thumb;
+            #TODO сделать более грамотный механизм обработки плохих фоток
+            if (strpos($e->getMessage(), 'File is not a valid image') !== false){
+                //удаляем фотку
+                $this->delete();
+            }
+            return false;
         }
 
         if ($image->width <= $width && $image->height <= $height

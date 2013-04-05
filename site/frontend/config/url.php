@@ -262,9 +262,9 @@ return array(
         'services/lines/<id:[\d]+>.jpeg' => 'services/lines/default/index',
 
         'auto/routes/<id:[\d]+>'=>'routes/default/index',
+        'auto/routes/'=>'routes/default/index',
         'auto/routes/<_a>'=>'routes/default/<_a>',
         'auto/routes/<_a>/<id:[\d]+>'=>'routes/default/<_a>',
-        'auto/routes/'=>'routes/default/index',
 
         'ValentinesDay' => 'valentinesDay/default/index',
         'ValentinesDay/<_a>' => 'valentinesDay/default/<_a>',

@@ -357,8 +357,10 @@ class AlbumPhoto extends HActiveRecord
             if (!file_exists($model_dir))
                 mkdir($model_dir);
 
-            if (!file_exists($this->originalPath))
+            if (!file_exists($this->originalPath)){
+                $this->delete();
                 return false;
+            }
 
             #TODO imagick Применяется для анимированных gif, но поскольку он сейчас долго работает пришлось отключить
 //            if (exif_imagetype($this->originalPath) == IMAGETYPE_GIF)
@@ -386,6 +388,7 @@ class AlbumPhoto extends HActiveRecord
 
         } catch (CException $e) {
             #TODO сделать более грамотный механизм обработки плохих фоток
+            echo $e->getMessage();
             if (strpos($e->getMessage(), 'File is not a valid image') !== false){
                 //удаляем фотку
                 $this->delete();

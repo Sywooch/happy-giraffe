@@ -1,6 +1,9 @@
 <div class="entry-header">
     <?php if (!$full): ?>
-        <a class="entry-title" href="<?=$model->url ?>"><?=$model->title ?></a>
+        <div class="entry-title_hold">
+            <a class="entry-title" href="<?=$model->url ?>"><?=$model->title ?></a>
+            <?php $this->widget('site.frontend.widgets.favoritesWidget.FavouritesWidget', array('model' => $model)); ?>
+        </div>
     <?php else: ?>
         <h1><?= $model->title ?><?php $this->widget('site.frontend.widgets.favoritesWidget.FavouritesWidget', array('model' => $model)); ?></h1>
     <?php endif; ?>

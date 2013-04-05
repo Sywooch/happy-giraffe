@@ -8,6 +8,7 @@ class SController extends CController
     public $pageTitle = '';
     public $fast_nav = array();
     public $icon = 1;
+    public $user;
 
     public function filters()
     {
@@ -26,6 +27,13 @@ class SController extends CController
                 'users' => array('*'),
             ),
         );
+    }
+
+    protected function beforeAction($action)
+    {
+        $this->user = Yii::app()->user->getModel();
+
+        return parent::beforeAction($action);
     }
 
     public function getUserModules()

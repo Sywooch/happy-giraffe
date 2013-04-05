@@ -39,5 +39,7 @@ return array(
         'design/tasks' => array('cook/editor/tasks', 'defaultParams' => array('section' => 4)),
         'design/reports' => array('cook/editor/reports', 'defaultParams' => array('section' => 4)),
         'design/name' => array('cook/editor/name', 'defaultParams' => array('section' => 4)),
+
+        'best/<_a>' => 'best/default/<_a>',
     ),
 );

@@ -4,7 +4,6 @@ class DefaultController extends SController
 {
     public $layout = '/layout/commentators';
     public $icon = 2;
-    public $user;
 
     public function beforeAction($action)
     {
@@ -16,8 +15,7 @@ class DefaultController extends SController
         Yii::import('site.frontend.modules.im.models.*');
 
         $this->pageTitle = 'комментаторы';
-        $this->user = Yii::app()->user->getModel();
-        return true;
+        return parent::beforeAction($action);
     }
 
     public function actionIndex($month = null)

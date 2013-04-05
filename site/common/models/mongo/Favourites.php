@@ -57,10 +57,10 @@ class Favourites extends EMongoDocument
         if ($fav !== null) {
             return $fav->delete();
         } else {
-            $fav = new Favourites();
+            $fav = new Favourites;
             $fav->entity = get_class($model);
             $fav->entity_id = (int)$model->primaryKey;
-            $fav->date = date("Y-m-d", strtotime('+ 1 day'));
+            $fav->date = date("Y-m-d", strtotime('+1 day'));
             $fav->block = $block;
             if (!empty($param))
                 $fav->param = (int)$param;
@@ -102,6 +102,16 @@ class Favourites extends EMongoDocument
             $ids [] = $model->entity_id;
 
         return $ids;
+    }
+
+    public static function getListByDate($index, $date)
+    {
+        $criteria = new EMongoCriteria;
+        $criteria->block('==', (int)$index);
+        $criteria->date('==', $date);
+
+        $models = self::model()->findAll($criteria);
+        return $models;
     }
 
     /**
@@ -194,5 +204,13 @@ class Favourites extends EMongoDocument
         }
 
         return $result;
+    }
+
+    /**
+     * @return CActiveRecord
+     */
+    public function getArticle()
+    {
+        return CActiveRecord::model($this->entity)->full()->findByPk($this->entity_id);
     }
 }

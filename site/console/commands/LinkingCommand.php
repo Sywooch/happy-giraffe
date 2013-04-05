@@ -270,6 +270,7 @@ class LinkingCommand extends CConsoleCommand
             }else{
                 if (strpos($page->url, $model->url) === FALSE){
                     echo $page->url.' -> '.$model->url."\n\n";
+                    $page->url = 'http://www.happy-giraffe.ru'.$model->url;
                 }
             }
         }

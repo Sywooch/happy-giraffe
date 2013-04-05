@@ -51,7 +51,8 @@ return array(
         'mailru',
         'needlework',
         'traffic',
-        'keywords'
+        'keywords',
+        'best',
     ),
     'components' => array(
         'user' => array(

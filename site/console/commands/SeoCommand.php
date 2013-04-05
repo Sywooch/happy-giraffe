@@ -144,9 +144,9 @@ class SeoCommand extends CConsoleCommand
     }
 
     public function actionTest(){
-        $parser = new WordstatParser(1);
-        $parser->parsing_type = WordstatParser::TYPE_STRICT;
-        $parser->start(true);
+        Yii::import('site.frontend.extensions.*');
+        $url = "/community/20/forum/post/68215/";
+        echo GApi::model()->uniquePageViews($url, '2013-01-01', '2013-04-05', false);
     }
 }
 

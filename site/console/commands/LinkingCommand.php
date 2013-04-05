@@ -264,7 +264,7 @@ class LinkingCommand extends CConsoleCommand
                 continue;
             }
             $model = CActiveRecord::model($page->entity)->findByPk($page->entity_id);
-            if ($model === null || $model->removed == 1){
+            if ($model === null || (isset($model->removed) && $model->removed == 1)){
                 echo $page->entity.' : '.$page->entity_id."\n";
             }
         }

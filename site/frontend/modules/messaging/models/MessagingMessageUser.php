@@ -7,6 +7,7 @@
  * @property string $user_id
  * @property string $message_id
  * @property integer $read
+ * @property integer $deleted
  */
 class MessagingMessageUser extends CActiveRecord
 {
@@ -37,10 +38,10 @@ class MessagingMessageUser extends CActiveRecord
         // will receive user inputs.
         return array(
             array('user_id', 'required'),
-            array('read', 'boolean'),
+            array('read, deleted', 'boolean'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('user_id, message_id, read', 'safe', 'on'=>'search'),
+            array('user_id, message_id, read, deleted', 'safe', 'on'=>'search'),
         );
     }
 
@@ -66,6 +67,7 @@ class MessagingMessageUser extends CActiveRecord
             'user_id' => 'User',
             'message_id' => 'Message',
             'read' => 'Read',
+            'deleted' => 'Deleted',
         );
     }
 
@@ -83,6 +85,7 @@ class MessagingMessageUser extends CActiveRecord
         $criteria->compare('user_id',$this->user_id,true);
         $criteria->compare('message_id',$this->message_id,true);
         $criteria->compare('read',$this->read);
+        $criteria->compare('deleted',$this->deleted);
 
         return new CActiveDataProvider($this, array(
             'criteria'=>$criteria,

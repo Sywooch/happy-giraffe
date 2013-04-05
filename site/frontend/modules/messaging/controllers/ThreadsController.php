@@ -2,6 +2,8 @@
 
 class ThreadsController extends HController
 {
+    const MESSAGES_PER_PAGE = 20;
+
     public function filters()
     {
         return array(
@@ -80,5 +82,46 @@ class ThreadsController extends HController
             'success' => true,
         );
         echo CJSON::encode($response);
+    }
+
+    /**
+     * Подгружает выбранный диалог
+     *
+     * @param $threadId
+     * @param int $offset
+     * @param bool $withInterlocutor
+     * @param null $interlocutorId
+     */
+    public function actionGet($threadId, $offset = 0, $withInterlocutor = false, $interlocutorId = null)
+    {
+        $thread = MessagingThread::model();
+        $thread->id = $threadId;
+
+        $messages = $thread->getMessages(self::MESSAGES_PER_PAGE, $offset);
+
+        $data = compact('messages');
+
+        if ($withInterlocutor !== false) {
+            if ($interlocutorId === null)
+                $interlocutorId = $thread->getInterlocutorIdFor(Yii::app()->user->id);
+            $interlocutorModel = User::model()->with('avatar')->findByPk($interlocutorId);
+
+            $interlocutor = array(
+                'id' => (int) $interlocutorModel->id,
+                'firstName' => $interlocutorModel->first_name,
+                'lastName' => $interlocutorModel->last_name,
+                'online' => (bool) $interlocutorModel->online,
+                'avatar' => $interlocutorModel->getAva(),
+                'blogPostsCount' => (int) $interlocutorModel->blogPostsCount,
+                'photosCount' => (int) $interlocutorModel->photosCount,
+                'isFriend' => (bool) $interlocutorModel->isFriend(Yii::app()->user->id),
+            );
+
+            $data['interlocutor'] = $interlocutor;
+        }
+
+        $data = CJSON::encode($data);
+
+        $this->render('/default/index', compact('data'));
     }
 }

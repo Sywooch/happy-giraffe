@@ -150,4 +150,57 @@ class MessagingThread extends CActiveRecord
             ':user_id' => $user_id,
         ));
     }
+
+    public function getMessages($limit, $offset = 0)
+    {
+        $sql = "
+            SELECT
+              m.id,
+              m.author_id,
+              m.text, UNIX_TIMESTAMP(m.created) AS created, mu.read
+            FROM messaging__messages m
+            JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.user_id != m.author_id
+            LIMIT :limit
+            OFFSET :offset
+        ";
+
+        $command = Yii::app()->db->createCommand($sql);
+        $command->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $command->bindValue(':offset', $offset, PDO::PARAM_INT);
+        $rows = $command->queryAll();
+
+        $messages = array();
+        foreach ($rows as $row) {
+            $messages[] = array(
+                'id' => (int) $row['id'],
+                'author_id' => (int) $row['author_id'],
+                'text' => $row['text'],
+                'created' => Yii::app()->dateFormatter->format("d MMMM yyyy, H:mm", $row['created']),
+                'read' => (bool) $row['read'],
+            );
+        }
+
+        return $messages;
+    }
+
+    /**
+     * Возвращает ID собеседника в данном диалоге
+     *
+     * @param $userId
+     * @return mixed
+     */
+    public function getInterlocutorIdFor($userId)
+    {
+        $sql = "
+            SELECT user_id
+            FROM messaging__threads_users
+            WHERE thread_id = :thread_id AND user_id != :user_id;
+        ";
+
+        $command = Yii::app()->db->createCommand($sql);
+        $command->bindValue(':thread_id', $this->id, PDO::PARAM_INT);
+        $command->bindValue(':user_id', $userId, PDO::PARAM_INT);
+
+        return $command->queryScalar();
+    }
 }

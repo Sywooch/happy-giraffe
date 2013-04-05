@@ -269,7 +269,7 @@ class LinkingCommand extends CConsoleCommand
                 $page->delete();
             }else{
                 if (strpos($page->url, $model->url) === FALSE){
-                    echo $page->url.' -> '.$model->url;
+                    echo $page->url.' -> '.$model->url."\n\n";
                 }
             }
         }

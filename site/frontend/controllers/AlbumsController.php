@@ -143,6 +143,16 @@ class AlbumsController extends HController
                 Yii::app()->end();
             $model = new AlbumPhoto();
 
+            //проверяем не багнута ли картинка
+            try {
+                $image = new EPhpThumb();
+                $image->init(); //this is needed
+                $image->create($file);
+            } catch (CException $e) {
+                #TODO сделать сообщение о том что фотка плохая
+                Yii::app()->end();
+            }
+
             echo '<div id="serverData">';
             // Загрузка в новый альбом
             if (!$a || $a == 'false') {

@@ -17,6 +17,7 @@ class Favourites extends EMongoDocument
     public $entity;
     public $entity_id;
     public $created;
+    public $date;
     public $param;
 
     public static function model($className = __CLASS__)
@@ -36,7 +37,15 @@ class Favourites extends EMongoDocument
         return parent::beforeSave();
     }
 
-    public static function toggle($model, $block, $param)
+    /**
+     * Добавить в список если нет или удалить если есть в списке
+     *
+     * @param $model CActiveRecord
+     * @param $block int
+     * @param $param null
+     * @return bool
+     */
+    public static function toggle($model, $block, $param = null)
     {
         $block = (int)$block;
         $criteria = new EMongoCriteria;
@@ -46,16 +55,12 @@ class Favourites extends EMongoDocument
 
         $fav = self::model()->find($criteria);
         if ($fav !== null) {
-            if ($fav->block == $block) {
-                return $fav->delete();
-            } else {
-                $fav->block = $block;
-                return $fav->save();
-            }
+            return $fav->delete();
         } else {
             $fav = new Favourites();
             $fav->entity = get_class($model);
             $fav->entity_id = (int)$model->primaryKey;
+            $fav->date = date("Y-m-d", strtotime('+ 1 day'));
             $fav->block = $block;
             if (!empty($param))
                 $fav->param = (int)$param;
@@ -64,25 +69,28 @@ class Favourites extends EMongoDocument
         }
     }
 
-    public static function inFavourites($model, $index)
+    /**
+     * Находиться элемент в списке
+     * @param $model CActiveRecord
+     * @param $block int
+     * @return bool
+     */
+    public static function inFavourites($model, $block)
     {
         $criteria = new EMongoCriteria;
         $criteria->entity('==', get_class($model));
         $criteria->entity_id('==', (int)$model->primaryKey);
-        $criteria->block('==', (int)$index);
+        $criteria->block('==', (int)$block);
 
         $fav = self::model()->find($criteria);
         return $fav !== null;
     }
 
-    public static function getIdList($index, $limit = null, $random = false, $param = null)
+    public static function getIdList($index, $limit = null, $param = null)
     {
         $criteria = new EMongoCriteria;
         $criteria->block('==', (int)$index);
-        if (!$random)
-            $criteria->sort('created', EMongoCriteria::SORT_DESC);
-        else
-            $criteria->sort('created', EMongoCriteria::SORT_DESC);
+        $criteria->sort('created', EMongoCriteria::SORT_DESC);
         if ($limit !== null)
             $criteria->limit($limit);
         if ($param !== null)
@@ -140,6 +148,8 @@ class Favourites extends EMongoDocument
         return 1;
     }
 
+
+
     public static function getIdListForView($index, $limit = null, $param = null)
     {
         $criteria = new EMongoCriteria;
@@ -184,23 +194,5 @@ class Favourites extends EMongoDocument
         }
 
         return $result;
-    }
-
-    public static function updateCreatedTime()
-    {
-        $models = Favourites::model()->findAll();
-        foreach ($models as $model) {
-            $model->created = time();
-            $model->save();
-        }
-    }
-
-    protected function afterSave()
-    {
-        parent::afterSave();
-
-        if ($this->isNewRecord && $this->block == self::BLOCK_VIDEO) {
-            Yii::app()->cache->set('activityLastUpdated', time());
-        }
     }
 }

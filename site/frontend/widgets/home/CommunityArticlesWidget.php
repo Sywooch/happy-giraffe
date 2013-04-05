@@ -24,7 +24,7 @@ class CommunityArticlesWidget extends CWidget
             'select' => array('slug')
         ));
         $criteria->select = array('t.id', 't.title', 'rubric_id');
-        $criteria->compare('t.id', Favourites::getIdList(Favourites::BLOCK_THEME, 2, false, $this->community_id));
+        $criteria->compare('t.id', Favourites::getIdList(Favourites::BLOCK_THEME, 2, $this->community_id));
         $articles = CommunityContent::model()->findAll($criteria);
 
         $this->render('CommunityArticlesWidget', array(

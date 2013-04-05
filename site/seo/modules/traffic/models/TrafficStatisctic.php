@@ -97,9 +97,9 @@ class TrafficStatisctic extends HActiveRecord
             $traffic = TrafficStatisctic::model()->findByAttributes(array('date' => $date, 'section_id' => $section->id));
             if ($traffic === null || $traffic->full == false) {
                 if (!empty($section->url))
-                    $value = GApi::model()->organicSearches($date, $date, '/' . $section->url . '/');
+                    $value = GApi::model()->organicSearches('/' . $section->url . '/', $date, $date);
                 else
-                    $value = GApi::model()->organicSearches($date, $date, '/');
+                    $value = GApi::model()->organicSearches('/', $date, $date);
 
                 echo $section->url . ' - ' . $value . "\n";
                 if ($traffic === null) {

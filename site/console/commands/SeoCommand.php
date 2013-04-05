@@ -146,7 +146,7 @@ class SeoCommand extends CConsoleCommand
     public function actionTest(){
         Yii::import('site.frontend.extensions.*');
         $url = "/community/20/forum/post/68215/";
-        echo GApi::model()->pageViews($url, '2013-01-01', '2013-04-05', false);
+        echo GApi::model()->uniquePageViews($url, '2013-01-01', '2013-04-05');
     }
 }
 

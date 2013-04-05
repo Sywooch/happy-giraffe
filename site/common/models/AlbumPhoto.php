@@ -388,7 +388,6 @@ class AlbumPhoto extends HActiveRecord
 
         } catch (CException $e) {
             #TODO сделать более грамотный механизм обработки плохих фоток
-            echo $e->getMessage();
             if (strpos($e->getMessage(), 'File is not a valid image') !== false){
                 //удаляем фотку
                 $this->delete();

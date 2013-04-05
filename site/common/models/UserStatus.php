@@ -41,7 +41,7 @@ class UserStatus extends HActiveRecord
 		return array(
 			array('text, user_id', 'required'),
             array('user_id', 'exist', 'className' => 'User', 'attributeName' => 'id'),
-            array('text', 'safe')
+            array('id, text', 'safe')
 		);
 	}
 
@@ -97,7 +97,7 @@ class UserStatus extends HActiveRecord
 
         $criteria=new CDbCriteria;
 
-        $criteria->compare('id',$this->id,true);
+        $criteria->compare('id',$this->id);
         $criteria->compare('text',$this->text,true);
         $criteria->compare('user_id',$this->user_id,true);
         $criteria->compare('created',$this->created,true);

@@ -144,12 +144,8 @@ class SeoCommand extends CConsoleCommand
     }
 
     public function actionTest(){
-        echo Yii::app()->db->createCommand()->delete('comments', 'text LIKE  "%http://www.happy-giraffe.ru/contest/3/photo156374/Поддержите%"')."\n";
-        echo Yii::app()->db->createCommand()->delete('comments', 'text LIKE  "%http://www.happy-giraffe.ru/contest/2/photo111101/Надеемся/%"')."\n";
-        echo Yii::app()->db->createCommand()->delete('comments', 'text LIKE  "%http://www.happy-giraffe.ru/contest/8/photo309418/заранее/%"')."\n";
-        echo Yii::app()->db->createCommand()->delete('comments', 'text LIKE  "%http://www.happy-giraffe.ru/contest/5/photo208708/</p>%"')."\n";
-        echo Yii::app()->db->createCommand()->delete('comments', 'text LIKE  "%http://www.happy-giraffe.ru/contest/9/photo353145/Заранее%"')."\n";
-        echo Yii::app()->db->createCommand()->delete('comments', 'text LIKE  "%http://www.happy-giraffe.ru/contest/8/photo309471/.спасибо"')."\n";
+        echo Yii::app()->db->createCommand()->delete('comments', 'text LIKE  "%http://www.happy-giraffe.ru/contest/7/photo290798/поддержите%"')."\n";
+        echo Yii::app()->db->createCommand()->delete('comments', 'text LIKE  "%http://www.happy-giraffe.ru/contest/4/photo178811/%"')."\n";
     }
 }
 

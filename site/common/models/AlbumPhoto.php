@@ -358,7 +358,7 @@ class AlbumPhoto extends HActiveRecord
                 mkdir($model_dir);
 
             if (!file_exists($this->originalPath)){
-                $this->delete();
+                //$this->delete();
                 return false;
             }
 

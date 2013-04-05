@@ -12,8 +12,11 @@
         <a href="<?= $link->url ?>" class="external-link_outer" target="_blank"><?=$link->url ?></a>
     </td>
     <td class="external-link_td-inner">
-        <?php $article = $link->article() ?>
-        <?php if ($article !== null): ?>
+        <?php try{$article = $link->article();}catch(Exception $err){
+            var_dump($link->attributes);
+        }
+        ?>
+        <?php if (isset($article)): ?>
             <a href="<?= $article->url ?>" class="external-link_inner" target="_blank"><?=$article->title ?></a>
         <?php else: ?>
             Статья не найдена

@@ -7,48 +7,9 @@
                 <button class="im-sidebar_search-btn"></button>
             </div>
             <div class="im-user-list">
-                <div class="im-user-list_i">
-                    <div class="im-user-settings clearfix">
-                        <div class="im-user-settings_online-status-small im-user-settings_online-status-small__offline"></div>
-                        <a class="ava female" href="">
-                            <img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg">
-                        </a>
-                        <div class="im-user-settings_user">
-                            <a href="" class="">Арина Поплавская</a>
-                        </div>
-                    </div>
-                    <div class="im_watch im-tooltipsy" title="Скрыть диалог"></div>
-                    <div class="im_count im-tooltipsy" title="Отметить как прочитанное">2</div>
-                </div>
+                <!-- ko template: { name: 'contact-template', foreach: visibleContactsToShow } -->
 
-                <div class="im-user-list_i active">
-                    <div class="im-user-settings clearfix">
-                        <div class="im-user-settings_online-status-small"></div>
-                        <a class="ava female" href="">
-                            <img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg">
-                        </a>
-                        <div class="im-user-settings_user">
-                            <a href="" class="">Архистратиг Богоявленгоявленский</a>
-                        </div>
-                    </div>
-                    <div class="im_watch im-tooltipsy" title="Скрыть диалог"></div>
-                    <div class="im_count im-tooltipsy" title="Отметить как прочитанное">4562</div>
-                </div>
-
-                <div class="im-user-list_i">
-                    <div class="im-user-settings clearfix">
-                        <div class="im-user-settings_online-status-small im-user-settings_online-status-small__offline"></div>
-                        <a class="ava female" href="">
-                            <img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg">
-                        </a>
-                        <div class="im-user-settings_user">
-                            <a href="" class="">Арина Поплавская</a>
-                        </div>
-                    </div>
-
-                    <div class="im_watch im-tooltipsy" title="Скрыть диалог"></div>
-                    <div class="im_count im_count__read im-tooltipsy" title="Отметить как не прочитанное">44784</div>
-                </div>
+                <!-- /ko -->
                 <a href="" class="im-user-list_hide-a">Показать скрытые</a>
                 <div class="im-user-list_hide-b">
 
@@ -88,11 +49,11 @@
 
             <div class="im-center_top">
                 <div class="im-tabs">
-                    <a href="" class="im_sound active im-tooltipsy" title="Включить звуковые <br>оповещения"></a>
-                    <div class="im-tabs_i active"><a href="" class="im-tabs_a">Все</a></div>
-                    <div class="im-tabs_i"><a href="" class="im-tabs_a">Новые <span class="im_count">2</span> </a></div>
-                    <div class="im-tabs_i"><a href="" class="im-tabs_a">Кто в онлайн (12)</a></div>
-                    <div class="im-tabs_i"><a href="" class="im-tabs_a">Друзья на сайте (8)</a></div>
+                    <a href="" class="im_sound active im-tooltipsy" title="Включить звуковые <br>оповещения" data-bind="click: function(data, event) { changeTab(0, data, event) }"></a>
+                    <div class="im-tabs_i" data-bind="css: { active : tab() == 0 }"><a class="im-tabs_a" data-bind="click: function(data, event) { changeTab(0, data, event) }">Все<span class="im_count" data-bind="text: allContacts().length"></span></a></div>
+                    <div class="im-tabs_i" data-bind="css: { active : tab() == 1 }"><a class="im-tabs_a" data-bind="click: function(data, event) { changeTab(1, data, event) }">Новые <span class="im_count" data-bind="text: newContacts().length"></span> </a></div>
+                    <div class="im-tabs_i" data-bind="css: { active : tab() == 2 }"><a class="im-tabs_a" data-bind="click: function(data, event) { changeTab(2, data, event) }, text: 'Кто в онлайн (' + onlineContacts().length + ')'"></a></div>
+                    <div class="im-tabs_i" data-bind="css: { active : tab() == 3 }"><a class="im-tabs_a" data-bind="click: function(data, event) { changeTab(3, data, event) }, text: 'Друзья на сайте (' + friendsContacts().length + ')'"></a></div>
                 </div>
                 <div class="im-panel im-panel__big">
                     <div class="im-panel-icons">
@@ -454,6 +415,22 @@
         </div>
     </div>
 </div>
+
+<script type="text/html" id="contact-template">
+    <div class="im-user-list_i">
+        <div class="im-user-settings clearfix">
+            <div class="im-user-settings_online-status-small" data-bind="css: { 'im-user-settings_online-status-small__offline' : ! user.online() }"></div>
+            <a class="ava female" href="">
+                <img alt="" data-bind="attr: { src: user.avatar }">
+            </a>
+            <div class="im-user-settings_user">
+                <a data-bind="text: user.first_name() + ' ' + user.last_name()"></a>
+            </div>
+        </div>
+        <div class="im_watch im-tooltipsy" title="Скрыть диалог"></div>
+        <div class="im_count im-tooltipsy" title="Отметить как прочитанное">2</div>
+    </div>
+</script>
 
 <script type="text/javascript">
     $(function() {

@@ -3,7 +3,7 @@
         <div class="im-sidebar">
             <h2 class="im-sidebar_t">Мои диалоги</h2>
             <div class="im-sidebar_search clearfix">
-                <input type="text" name="" id="" class="im-sidebar_search-itx" placeholder="Найти по имени">
+                <input type="text" class="im-sidebar_search-itx" placeholder="Найти по имени" data-bind="value: searchQuery, valueUpdate: 'keyup'">
                 <button class="im-sidebar_search-btn"></button>
             </div>
             <div class="im-user-list">
@@ -50,7 +50,7 @@
             <div class="im-center_top">
                 <div class="im-tabs">
                     <a href="" class="im_sound active im-tooltipsy" title="Включить звуковые <br>оповещения" data-bind="click: function(data, event) { changeTab(0, data, event) }"></a>
-                    <div class="im-tabs_i" data-bind="css: { active : tab() == 0 }"><a class="im-tabs_a" data-bind="click: function(data, event) { changeTab(0, data, event) }">Все<span class="im_count" data-bind="text: allContacts().length"></span></a></div>
+                    <div class="im-tabs_i" data-bind="css: { active : tab() == 0 }"><a class="im-tabs_a" data-bind="click: function(data, event) { changeTab(0, data, event) }">Все</a></div>
                     <div class="im-tabs_i" data-bind="css: { active : tab() == 1 }"><a class="im-tabs_a" data-bind="click: function(data, event) { changeTab(1, data, event) }">Новые <span class="im_count" data-bind="text: newContacts().length"></span> </a></div>
                     <div class="im-tabs_i" data-bind="css: { active : tab() == 2 }"><a class="im-tabs_a" data-bind="click: function(data, event) { changeTab(2, data, event) }, text: 'Кто в онлайн (' + onlineContacts().length + ')'"></a></div>
                     <div class="im-tabs_i" data-bind="css: { active : tab() == 3 }"><a class="im-tabs_a" data-bind="click: function(data, event) { changeTab(3, data, event) }, text: 'Друзья на сайте (' + friendsContacts().length + ')'"></a></div>
@@ -427,7 +427,7 @@
                 <a data-bind="text: user.first_name() + ' ' + user.last_name()"></a>
             </div>
         </div>
-        <div class="im_watch im-tooltipsy" title="Скрыть диалог"></div>
+        <div class="im_watch im-tooltipsy" title="Скрыть диалог" data-bind="visible: typeof(thread) == 'object', click: $root.hideContact"></div>
         <div class="im_count im-tooltipsy" title="Отметить как прочитанное">2</div>
     </div>
 </script>

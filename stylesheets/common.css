@@ -8397,6 +8397,7 @@ textarea.error,
   display: inline-block;
   *zoom: 1;
   *display: inline;
+  max-width: 100%;
 }
 #photo-inline .user {
   padding-bottom: 5px;
@@ -10914,6 +10915,7 @@ body.gallery {
   text-align: center;
   vertical-align: middle;
   height: 627px;
+  max-width: 960px;
 }
 #photo-window #photo .img img {
   display: block;

@@ -5,6 +5,7 @@
 <!--[if gt IE 9]><!--> <html class="top-nav-fixed"> <!--<![endif]-->
 <head>
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/head.php'; ?>
+	<script type="text/javascript" src="/javascripts/im.js"></script>
 
 </head>
 <body class="body-club">
@@ -40,7 +41,7 @@
 			</div>
 			
 		</div>
-			
+		<div class="layout-content">	
 		<div class="im">
 		<div class="im_hold clearfix">
 			<div class="im-sidebar">
@@ -528,6 +529,7 @@
 				</div>
 				
 			</div>
+		</div>
 		</div>
 		</div>  	
 		

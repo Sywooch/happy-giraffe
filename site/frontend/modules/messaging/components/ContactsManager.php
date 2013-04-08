@@ -91,7 +91,7 @@ class ContactsManager
 
         $contacts = array();
         foreach ($rows as $row)
-            $contacts[$row['uId']] = self::populateContact($row);
+            $contacts[] = self::populateContact($row);
 
         return $contacts;
     }

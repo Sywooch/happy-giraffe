@@ -84,6 +84,8 @@ class SController extends CController
             $menu ['Внешние ссылки'] = $this->createUrl('/externalLinks/tasks/index');
         if (Yii::app()->user->checkAccess('moderator-panel'))
             $menu ['Модератор'] = '/writing/moderator/';
+        if (Yii::app()->user->checkAccess('best_module'))
+            $menu ['Лучшее'] = '/best/';
 
         return $menu;
     }

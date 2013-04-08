@@ -14,7 +14,7 @@ class MostPopularWidget extends SimpleWidget
             'select' => array('slug')
         ), 'post','video','travel');
         $criteria->select = array('t.id', 't.title', 't.type_id', 'rubric_id', 'author_id');
-        $criteria->compare('t.id', Favourites::getIdListForView(Favourites::BLOCK_INTERESTING, 2));
+        $criteria->compare('t.id', Favourites::getIdListByDate(Favourites::BLOCK_INTERESTING, 2));
 
         $models = CommunityContent::model()->findAll($criteria);
         $this->render('MostPopularWidget', compact('models'));

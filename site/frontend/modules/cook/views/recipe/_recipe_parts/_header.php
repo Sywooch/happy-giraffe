@@ -12,8 +12,7 @@
             ));
             Yii::app()->clientScript->registerScript('after_remove', 'function RecipeRemove() {window.location = "' . $this->createUrl('/cook/recipe') . '";}', CClientScript::POS_HEAD);
         }
-    }?>
-    <?php $this->widget('site.frontend.widgets.favoritesWidget.FavouritesWidget', array('model' => $recipe)); ?></h1>
+    }?></h1>
 
 <div class="entry-header clearfix">
 

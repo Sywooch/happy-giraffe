@@ -16,7 +16,7 @@ class Favourites extends EMongoDocument
     public $block;
     public $entity;
     public $entity_id;
-    public $created;
+    public $index = 0;
     public $date;
     public $param;
 
@@ -32,8 +32,6 @@ class Favourites extends EMongoDocument
 
     public function beforeSave()
     {
-        if ($this->isNewRecord)
-            $this->created = time();
         return parent::beforeSave();
     }
 
@@ -60,7 +58,15 @@ class Favourites extends EMongoDocument
             $fav = new Favourites;
             $fav->entity = get_class($model);
             $fav->entity_id = (int)$model->primaryKey;
-            $fav->date = date("Y-m-d", strtotime('+1 day'));
+            if ($block == self::WEEKLY_MAIL)
+                $fav->date = date("Y-m-d", strtotime('next monday'));
+            else
+                $fav->date = date("Y-m-d", strtotime('+1 day'));
+
+            $criteria = new EMongoCriteria;
+            $criteria->date('==', $fav->date);
+            $criteria->block('==', $block);
+            $fav->index = (int)self::model()->count($criteria);
             $fav->block = $block;
             if (!empty($param))
                 $fav->param = (int)$param;
@@ -86,15 +92,12 @@ class Favourites extends EMongoDocument
         return $fav !== null;
     }
 
-    public static function getIdList($index, $limit = null, $param = null)
+    public static function getIdListByDate($index, $date)
     {
         $criteria = new EMongoCriteria;
         $criteria->block('==', (int)$index);
-        $criteria->sort('created', EMongoCriteria::SORT_DESC);
-        if ($limit !== null)
-            $criteria->limit($limit);
-        if ($param !== null)
-            $criteria->param('==', $param);
+        $criteria->sort('index', EMongoCriteria::SORT_ASC);
+        $criteria->date('==', $date);
 
         $models = self::model()->findAll($criteria);
         $ids = array();
@@ -109,6 +112,7 @@ class Favourites extends EMongoDocument
         $criteria = new EMongoCriteria;
         $criteria->block('==', (int)$index);
         $criteria->date('==', $date);
+        $criteria->sort('index', EMongoCriteria::SORT_ASC);
 
         $models = self::model()->findAll($criteria);
         return $models;
@@ -124,7 +128,7 @@ class Favourites extends EMongoDocument
     {
         $criteria = new EMongoCriteria;
         $criteria->block('==', (int)$index);
-        $criteria->sort('created', EMongoCriteria::SORT_DESC);
+        $criteria->sort('index', EMongoCriteria::SORT_ASC);
         $criteria->limit(self::getLimit($index));
         #TODO добавить ограничения чтобы не комментировали те, которые уже неактуальны, например в email-рассылке
 
@@ -158,52 +162,43 @@ class Favourites extends EMongoDocument
         return 1;
     }
 
-
-
-    public static function getIdListForView($index, $limit = null, $param = null)
+    /**
+     * Изменяет позицию элемента в списке и дату когда будет показан элемент
+     *
+     * @param $date string новая дата
+     * @param $index int новая позиция в списке
+     */
+    public function changePosition($date, $index)
     {
-        $criteria = new EMongoCriteria;
-        $criteria->block('==', (int)$index);
-        $criteria->created('<', strtotime(date("Y-m-d", strtotime('-1 day')) . ' 23:59:59'));
-        $criteria->sort('created', EMongoCriteria::SORT_DESC);
-        if ($limit !== null)
-            $criteria->limit($limit);
-        if ($param !== null)
-            $criteria->param('==', $param);
+        $criteria = new EMongoCriteria();
+        $criteria->addCond('block', '==', (int)$this->block);
+        $criteria->addCond('date', '==', $this->date);
+        $criteria->setSort(array('index', EMongoCriteria::SORT_ASC));
+        $elements = self::model()->findAll($criteria);
+        foreach ($elements as $key => $element)
+            if ($element->_id == $this->_id)
+                unset($elements[$key]);
+        $elements = array_values($elements);
 
-        $models = self::model()->findAll($criteria);
-        $ids = array();
-        foreach ($models as $model)
-            $ids [] = $model->entity_id;
-
-        return $ids;
-    }
-
-    public function getWeekPosts()
-    {
-        $criteria = new EMongoCriteria;
-        $criteria->block('==', self::WEEKLY_MAIL);
-        $criteria->created('>', strtotime('-6 days'));
-        $criteria->setSort(array('created' => EMongoCriteria::SORT_DESC));
-        $mongo_models = self::model()->findAll($criteria);
-        $ids = array();
-        foreach ($mongo_models as $model)
-            $ids [] = $model->entity_id;
-
-        if (empty($ids))
-            return array();
-
-        $criteria = new CDbCriteria;
-        $criteria->compare('t.id', $ids);
-        $models = CommunityContent::model()->full()->findAll($criteria);
-        $result = array();
-        for ($i = 0; $i < count($ids); $i++) {
-            foreach ($models as $model)
-                if ($model->id == $ids[$i])
-                    $result [] = $model;
+        $found = false;
+        for ($i = 0; $i < count($elements); $i++) {
+            if ($index == $i) {
+                $this->index = $i;
+                $found = true;
+                $elements[$i]->index = $i + 1;
+            } else {
+                if ($found)
+                    $elements[$i]->index = $i + 1;
+                else
+                    $elements[$i]->index = $i;
+            }
+            $elements[$i]->save();
         }
+        if (!$found)
+            $this->index = count($elements);
 
-        return $result;
+        $this->date = $date;
+        $this->save();
     }
 
     /**

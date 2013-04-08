@@ -17,7 +17,7 @@ class BlogWidget extends CWidget
         ),'post','video','travel');
 //        $criteria->select = array('t.id', 't.title', 't.type_id', 'rubric_id', 'author_id');
 //        $criteria->condition = ' rubric.user_id IS NOT NULL ';
-        $criteria->compare('t.id', Favourites::getIdListForView(Favourites::BLOCK_BLOGS, 6));
+        $criteria->compare('t.id', Favourites::getIdListByDate(Favourites::BLOCK_BLOGS, 6));
 
         $contents = BlogContent::model()->findAll($criteria);
         $this->render('BlogWidget', compact('contents'));

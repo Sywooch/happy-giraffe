@@ -456,6 +456,10 @@
 </div>
 
 <script type="text/javascript">
+    $(function() {
+        ko.applyBindings(new MessagingViewModel(<?=$data?>));
+    });
+
     //<![CDATA[
 
     $(function(){

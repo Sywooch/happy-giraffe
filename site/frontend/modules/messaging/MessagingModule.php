@@ -12,6 +12,14 @@ class MessagingModule extends CWebModule
 			'messaging.models.*',
 			'messaging.components.*',
 		));
+
+        Yii::app()->clientScript
+            ->registerScriptFile('/javascripts/knockout-2.2.1.js')
+            ->registerScriptFile('/javascripts/messaging.js')
+            ->registerScriptFile('/javascripts/im.js')
+            ->registerScriptFile('/ckeditor/ckeditor.js')
+            ->registerScriptFile('/javascripts/knockout.mapping-latest.js')
+        ;
 	}
 
 	public function beforeControllerAction($controller, $action)

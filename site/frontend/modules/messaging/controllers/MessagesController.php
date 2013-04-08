@@ -24,40 +24,35 @@ class MessagesController extends HController
         echo CJSON::encode($response);
     }
 
-    /**
-     * Отправка сообщения
-     *
-     * Добавляет сообщение в диалог
-     *
-     * @throws CHttpException
-     */
     public function actionSend()
     {
-        $thread_id = Yii::app()->request->getPost('thread_id');
+        $threadId = Yii::app()->request->getPost('threadId');
+        $interlocutorId = Yii::app()->request->getPost('interlocutorId');
         $text = Yii::app()->request->getPost('text');
 
-        $thread = MessagingThread::model()->with('threadUsers')->findByPk($thread_id);
-        if ($thread === null)
-            throw new CHttpException(403, 'Thread does not exist.');
-
-        $message = new MessagingMessage();
-        $message->author_id = 15250;
-        $message->thread_id = $thread_id;
-        $message->text = $text;
-        $messageUsers = array();
-        foreach ($thread->threadUsers as $threadUser) {
-            $messageUser = new MessagingMessageUser();
-            $messageUser->user_id = $threadUser->user_id;
-            if (15250 != $threadUser->user_id)
-                $messageUser->read = 0;
-            $messageUsers[] = $messageUser;
+        $data = array();
+        if ($threadId === null) {
+            $thread = MessagingThread::model()->createThreadWith($interlocutorId);
+            $threadId = $thread->id;
+            $data['thread'] = array(
+                'id' => $thread->id,
+                'updated' => time(),
+                'unreadCount' => 0,
+                'hidden' => false,
+            );
         }
-        $message->messageUsers = $messageUsers;
 
-        $success = $message->withRelated->save(true, array('messageUsers'));
-        $response = array(
-            'success' => $success,
+        $message = MessagingMessage::model()->create($text, $threadId);
+        $data['message'] = array(
+            'id' => (int) $message->id,
+            'author_id' => (int) $message->author_id,
+            'text' => $message->text,
+            'created' => Yii::app()->dateFormatter->format("d MMMM yyyy, H:mm", time()),
+            'read' => false,
         );
-        echo CJSON::encode($response);
+
+        $comet = new CometModel();
+        $comet->send($interlocutorId, $data);
+        echo CJSON::encode($data);
     }
 }

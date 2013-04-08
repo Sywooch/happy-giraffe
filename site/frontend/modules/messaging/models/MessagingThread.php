@@ -203,4 +203,17 @@ class MessagingThread extends CActiveRecord
 
         return $command->queryScalar();
     }
+
+    public function createThreadWith($interlocutorId)
+    {
+        $thread = new MessagingThread();
+        $threadUser1 = new MessagingThreadUser();
+        $threadUser1->user_id = Yii::app()->user->id;
+        $threadUser2 = new MessagingThreadUser();
+        $threadUser2->user_id = $interlocutorId;
+        $thread->threadUsers = array($threadUser1, $threadUser2);
+        $result = $thread->withRelated->save(true, array('threadUsers'));
+
+        return ($result) ? $thread : false;
+    }
 }

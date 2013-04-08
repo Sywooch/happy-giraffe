@@ -61,7 +61,7 @@ class WordstatFilter extends WordstatBaseParser
         $this->startTimer('load keywords');
 
         $criteria = new CDbCriteria;
-        $criteria->condition = 'priority = '.self::CHECK_PRIORITY.' AND keyword_id % 645 = ' . $this->thread_id;
+        $criteria->condition = 'priority = ' . self::CHECK_PRIORITY . ' AND keyword_id % 645 = ' . $this->thread_id;
         $criteria->limit = 100;
         $this->keywords = ParsingKeyword::model()->findAll($criteria);
 
@@ -119,13 +119,17 @@ class WordstatFilter extends WordstatBaseParser
         //парсим список ключевых слов в первом столбце
         $list = $this->getFirstKeywordsColumn($document);
         //проверяем есть ли в этом списке наше ключевое слово
-        $this->checkList($list);
-        foreach ($list as $value)
-            $this->saveKeywordAsGood($value[0], $value[1]);
+        $status = $this->checkList($list);
 
-        $list = $this->getSecondKeywordsColumn($document);
-        foreach ($list as $value)
-            $this->saveKeywordAsGood($value[0], $value[1], true);
+        //обрабатываем найденные слова только если слово хорошее, чтобы сократить издержки на повторы
+        if ($status != KeywordStatus::STATUS_HIDE) {
+            foreach ($list as $value)
+                $this->saveKeywordAsGood($value[0], $value[1]);
+
+            $list = $this->getSecondKeywordsColumn($document);
+            foreach ($list as $value)
+                $this->saveKeywordAsGood($value[0], $value[1], true);
+        }
 
         $document->unloadDocument();
         return true;
@@ -135,6 +139,7 @@ class WordstatFilter extends WordstatBaseParser
      * Проверяем список выдачи для проверки есть ли там наше ключевое слово, если есть сохраняес как хорошее,
      * иначе как плохое
      * @param $list array
+     * @return int статус слова
      */
     protected function checkList($list)
     {
@@ -155,6 +160,8 @@ class WordstatFilter extends WordstatBaseParser
 
         $this->keyword->priority = 0;
         $this->keyword->update(array('priority'));
+
+        return $status;
     }
 
     /**
@@ -175,11 +182,11 @@ class WordstatFilter extends WordstatBaseParser
             $model->update(array('wordstat'));
             //update ParsingKeyword
             ParsingKeyword::wordstatParsed($model->id);
-        }else{
+        } else {
             $model = new Keyword;
             $model->name = $keyword;
             $model->wordstat = $wordstat_value;
-            try{
+            try {
                 $model->save();
                 KeywordStatus::saveStatus($model->id, KeywordStatus::STATUS_GOOD);
                 $parsing_model = new ParsingKeyword();
@@ -187,7 +194,7 @@ class WordstatFilter extends WordstatBaseParser
                 $parsing_model->priority = 0;
                 $parsing_model->updated = date("Y-m-d H:i:s");
                 $parsing_model->save();
-            }catch (Exception $err){
+            } catch (Exception $err) {
             }
         }
 

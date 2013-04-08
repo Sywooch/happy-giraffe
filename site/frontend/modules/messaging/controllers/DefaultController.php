@@ -8,10 +8,25 @@
  */
 class DefaultController extends HController
 {
-    public function actionIndex()
+    public function actionIndex($interlocutorId = null)
     {
         $contacts = ContactsManager::getContactsByUserId(Yii::app()->user->id);
-        $data = CJSON::encode(compact('contacts'));
+        if ($interlocutorId !== null && ! array_key_exists($interlocutorId, $contacts)) {
+            $interlocutor = User::model()->findByPk($interlocutorId);
+            $contact = array(
+                'user' => array(
+                    'id' => (int) $interlocutor->id,
+                    'first_name' => $interlocutor->first_name,
+                    'last_name' => $interlocutor->last_name,
+                    'avatar' => $interlocutor->getAva('small'),
+                    'online' => (bool) $interlocutor->online,
+                    'isFriend' => (bool) $interlocutor->isFriend(Yii::app()->user->id),
+                ),
+                'thread' => null,
+            );
+            $contacts[] = $contact;
+        }
+        $data = CJSON::encode(compact('contacts', 'interlocutorId'));
         $this->render('index', compact('data'));
     }
 

@@ -221,7 +221,7 @@ $cs
                 </div>
             </div>
 
-            <?php if(Yii::app()->user->checkAccess('moderator') || Yii::app()->user->checkAccess('editor') || Yii::app()->user->checkAccess('administrator') || Yii::app()->user->checkAccess('supermoderator') || Yii::app()->user->checkAccess('virtual_user')): ?>
+            <?php if(Yii::app()->user->checkAccess('photo_gallery')): ?>
             <div class="row row-gallery">
                 <div class="row-title">
                     <span class="title-in">Фотогалерея</span>
@@ -236,7 +236,6 @@ $cs
                         <a class="remove tooltip" href="javascript:;" title="Удалить галерею" onclick="return PostGallery.remove(this);"></a>
                     </span>
                 </div>
-                <?php /*if(Yii::app()->user->checkAccess('moderator') || Yii::app()->user->checkAccess('editor') || Yii::app()->user->checkAccess('administrator') || Yii::app()->user->checkAccess('supermoderator')): */?>
                 <div class="gallery-photos"<?=$model->gallery ? ' style="display:block;"' : ''?>>
                     <ul>
                         <?php if($model->gallery): ?>

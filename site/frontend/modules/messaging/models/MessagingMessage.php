@@ -118,4 +118,28 @@ class MessagingMessage extends CActiveRecord
             'criteria'=>$criteria,
         ));
     }
+
+    public function create($text, $threadId)
+    {
+        $thread = MessagingThread::model()->with('threadUsers')->findByPk($threadId);
+
+        $message = new MessagingMessage();
+        $message->author_id = Yii::app()->user->id;
+        $message->thread_id = $threadId;
+        $message->text = $text;
+        $messageUsers = array();
+        foreach ($thread->threadUsers as $threadUser) {
+            $messageUser = new MessagingMessageUser();
+            $messageUser->user_id = $threadUser->user_id;
+            if (Yii::app()->user->id != $threadUser->user_id)
+                $messageUser->read = 0;
+            $messageUsers[] = $messageUser;
+        }
+        $message->messageUsers = $messageUsers;
+        $success = $message->withRelated->save(true, array('messageUsers'));
+        if ($success)
+            MessagingThread::model()->updateByPk($threadId, array('updated' => new CDbExpression('NOW()')));
+
+        return ($success) ? $message : false;
+    }
 }

@@ -12,7 +12,7 @@ class OurUsersWidget extends SimpleWidget
         $criteria->order = ' RAND() ';
         $criteria->select = array('id', 'first_name', 'last_name', 'avatar_id');
         $criteria->with = 'avatar';
-        $criteria->compare('t.id', Favourites::getIdList(Favourites::BLOCK_SIMPLE));
+        $criteria->condition = 'avatar_id IS NOT NULL';
         $users = User::model()->active()->findAll($criteria);
 
         $this->render('OurUsersWidget', compact('users'));

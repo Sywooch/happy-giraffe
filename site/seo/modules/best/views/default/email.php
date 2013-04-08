@@ -1,9 +1,12 @@
 <?php
 /* @var $this DefaultController */
 
+//выбираем 3 понедельника - 2 предыдущих и один следующий
 $days = array();
-for ($i = -1; $i < 2; $i++) {
-    $days [] = date("Y-m-d", strtotime('-' . $i . ' days'));
+$next_monday = strtotime('next monday');
+$days [] = date("Y-m-d", $next_monday);
+for ($i = 1; $i <= 2; $i++) {
+    $days [] = date("Y-m-d", strtotime('-'.(7*$i).' days', $next_monday));
 }
 $i = 1;
 ?>
@@ -14,12 +17,12 @@ $i = 1;
                 <div class="clearfix margin-b20">
                     <div class="b-date"><?= Yii::app()->dateFormatter->format('d MMMM yyyy', strtotime($day)) ?></div>
                 </div>
-                <div class="best-list">
+                <div class="best-list best-list__mail">
                     <ul id="sortable<?= $i ?>" class="best-list_ul" data-date="<?= $day ?>">
-                        <?php $models = Favourites::getListByDate(Favourites::BLOCK_INTERESTING, $day) ?>
+                        <?php $models = Favourites::getListByDate(Favourites::WEEKLY_MAIL, $day) ?>
                         <?php foreach ($models as $model): ?>
                             <?php $article = $model->getArticle() ?>
-                            <li class="best-list_li b-best_i w-200" id="<?= $model->_id ?>">
+                            <li class="best-list_li b-best_i" id="<?= $model->_id ?>">
                                 <b class="best-list_t"><a href=""><?= $article->title ?></a></b>
 
                                 <div class="best-list_tx"><?= $article->getShort(200); ?></div>

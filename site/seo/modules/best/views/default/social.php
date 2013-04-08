@@ -16,13 +16,13 @@ $i = 1;
                 </div>
                 <div class="best-list">
                     <ul id="sortable<?= $i ?>" class="best-list_ul" data-date="<?= $day ?>">
-                        <?php $models = Favourites::getListByDate(Favourites::BLOCK_INTERESTING, $day) ?>
+                        <?php $models = Favourites::getListByDate(Favourites::BLOCK_SOCIAL_NETWORKS, $day) ?>
                         <?php foreach ($models as $model): ?>
                             <?php $article = $model->getArticle() ?>
-                            <li class="best-list_li b-best_i w-200" id="<?= $model->_id ?>">
+                            <li class="best-list_li b-best_i" id="<?= $model->_id ?>">
                                 <b class="best-list_t"><a href=""><?= $article->title ?></a></b>
 
-                                <div class="best-list_tx"><?= $article->getShort(200); ?></div>
+                                <div class="best-list_tx"><?= $article->getShort(100); ?></div>
                                 <div class="b-best_overlay">
                                     <div class="b-best_overlay-tx">
                                         Вы можете переместить или удалить. <br>
@@ -43,27 +43,3 @@ $i = 1;
     <?php endforeach; ?>
 
 </div>
-<script type="text/javascript">
-    $(function () {
-        $("#sortable1, #sortable2, #sortable3").sortable({
-            connectWith: ".best-list_ul",
-            update: function (event, ui) {
-                var id = ui.item[0].id;
-                var new_list_index = ui.item.index();
-                var date = ui.item.parents('ul').data('date');
-
-                $.post('/best/newPos/', {id: id, index: new_list_index, date: date}, function (response) {
-                    if (!response.status) {
-                        alert('Ошибка, обратитесь к разработчику');
-                    }
-                }, 'json');
-            }
-        }).disableSelection();
-    });
-</script>
-<style type="text/css">
-    .best-list_ul {
-        min-width: 300px;
-        min-height: 50px;
-    }
-</style>

@@ -18,7 +18,7 @@ class Favourites extends EMongoDocument
     public $entity_id;
     public $index = 0;
     public $date;
-    public $param;
+    public $created;
 
     public static function model($className = __CLASS__)
     {
@@ -40,10 +40,9 @@ class Favourites extends EMongoDocument
      *
      * @param $model CActiveRecord
      * @param $block int
-     * @param $param null
      * @return bool
      */
-    public static function toggle($model, $block, $param = null)
+    public static function toggle($model, $block)
     {
         $block = (int)$block;
         $criteria = new EMongoCriteria;
@@ -68,8 +67,6 @@ class Favourites extends EMongoDocument
             $criteria->block('==', $block);
             $fav->index = (int)self::model()->count($criteria);
             $fav->block = $block;
-            if (!empty($param))
-                $fav->param = (int)$param;
 
             return $fav->save();
         }
@@ -92,12 +89,18 @@ class Favourites extends EMongoDocument
         return $fav !== null;
     }
 
+    /**
+     * Возворащает список id статей на дату
+     * @param $index int блок
+     * @param $date string дата
+     * @return array
+     */
     public static function getIdListByDate($index, $date)
     {
         $criteria = new EMongoCriteria;
         $criteria->block('==', (int)$index);
-        $criteria->sort('index', EMongoCriteria::SORT_ASC);
         $criteria->date('==', $date);
+        $criteria->sort('index', EMongoCriteria::SORT_ASC);
 
         $models = self::model()->findAll($criteria);
         $ids = array();
@@ -105,6 +108,42 @@ class Favourites extends EMongoDocument
             $ids [] = $model->entity_id;
 
         return $ids;
+    }
+
+    /**
+     * Возворащает список статей на дату, сортирует модели по их позиции
+     * @param $index
+     * @param $date
+     * @param $limit
+     * @return CommunityContent[]
+     */
+    public static function getArticlesByDate($index, $date, $limit = null)
+    {
+        $ids = self::getIdListByDate($index, $date);
+        $criteria = new CDbCriteria;
+        $criteria->limit = $limit;
+        $criteria->with = array(
+            'rubric' => array(
+                'select' => array('community_id', 'user_id'),
+            ),
+            'type' => array(
+                'select' => array('slug')
+            ),
+            'post',
+            'video'
+        );
+        $criteria->select = array('t.id', 't.title', 't.type_id', 't.rubric_id', 't.author_id');
+        $criteria->compare('t.id', $ids);
+        $models = CommunityContent::model()->findAll($criteria);
+
+        $sorted_models = array();
+        foreach($ids as $id)
+            foreach($models as $model){
+                if ($model->id == $id)
+                    $sorted_models[] = $model;
+            }
+
+        return $sorted_models;
     }
 
     public static function getListByDate($index, $date)

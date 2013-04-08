@@ -118,11 +118,6 @@ class SignalCommand extends CConsoleCommand
         $month->calculateMonth();
     }
 
-    public function actionPrepare(){
-        $month = CommentatorsMonth::get(date("Y-m"));
-        $month->prepareNewStats();
-    }
-
     public function actionTest(){
         //echo date("Y-m-d H:i:s", 1356434958);
 

@@ -6,6 +6,9 @@ class DefaultController extends SController
 
     public function beforeAction($action)
     {
+        if (!Yii::app()->user->checkAccess('best_module'))
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
         $this->pageTitle = 'лучшее';
         Yii::import('site.common.models.mongo.*');
         Yii::import('site.frontend.extensions.image.*');

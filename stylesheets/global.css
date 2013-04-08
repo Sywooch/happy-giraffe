@@ -444,6 +444,8 @@
 .im-message_tx > img {
   display: block;
   margin: 10px 0;
+  max-width: 70px;
+  max-height: 70px;
 }
 .im-message_ico {
   display: inline-block;

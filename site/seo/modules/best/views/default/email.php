@@ -36,16 +36,11 @@ $i = 1;
                                 <b class="best-list_t"><a href=""><?= $article->title ?></a></b>
 
                                 <div class="best-list_tx">
-                                    <?php
-                                    $image_url = $article->getContentImage();
-                                    if (!empty($image_url))
-                                        $image_size = @getimagesize($image_url);
-                                    else
-                                        $image_size = array(0);
-                                    if ($image_size[0]>100){
-                                    ?>
-                                    <img src="<?= $image_url ?>" alt="">
-                                    <?php } ?>
+                                    <?php $photo = $article->content->getPhoto(); ?>
+                                    <?php if (!empty($photo)):?>
+                                        <?php $src = implode('/', array(Yii::app()->params['photos_url'],'thumbs','700x',$photo->author_id,$photo->fs_name)); ?>
+                                        <img src="<?=$src ?>" alt="" width="318"/>
+                                    <?php endif ?>
                                     <p><?= $article->getContentText(450); ?>
                                         <a href="" class="best-list_more">Читать всю запись</a>
                                     </p>

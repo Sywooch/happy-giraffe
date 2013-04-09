@@ -1,8 +1,7 @@
 <div class="author-info">
     <?php $this->widget('AvatarWidget', array('user' => $user, 'size' => 'big')); ?>
     <div class="author-info_hold">
-        <a href="" class="author-info_name textdec-onhover">Александр Кувыркин</a>
-        <?=CHtml::link($user->fullName, Yii::app()->createUrl('/community/user', array('user_id' => $user->id)))?>
+        <?=CHtml::link($user->fullName, Yii::app()->createUrl('/community/user', array('user_id' => $user->id)), array('class' => 'author-info_name textdec-onhover'))?>
         <div class="clearfix">
             <div class="author-info_record">
                 <div class="author-info_record-t">Записей <br />в клубах</div>

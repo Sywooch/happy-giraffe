@@ -156,7 +156,7 @@ class SeoCommand extends CConsoleCommand
                 $model->date = date("Y-m-d", strtotime('next monday', $model->created));
             }
             else
-                $model->date = date("Y-m-d", $model->created);
+                $model->date = date("Y-m-d", $model->created + 3600*24);
             $model->save();
         }
     }

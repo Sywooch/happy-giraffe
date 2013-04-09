@@ -30,6 +30,7 @@ $i = 1;
                         <?php $models = Favourites::getListByDate(Favourites::WEEKLY_MAIL, $day) ?>
                         <?php foreach ($models as $model): ?>
                             <?php $article = $model->getArticle() ?>
+                            <?php if ($article == null){var_dump($model->attributes);Yii::app()->end();} ?>
                             <li class="best-list_li b-best_i" id="<?= $model->_id ?>">
 
                                 <div class="user-info clearfix">

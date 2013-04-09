@@ -5,26 +5,7 @@
  *
  */
 
-$criteria = new CDbCriteria;
-$criteria->limit = 200;
-$criteria->condition = 'status = 2';
-$statuses = KeywordStatus::model()->findAll($criteria);
-echo 'Bad keywords <br><br>';
-foreach ($statuses as $status) {
-    echo $status->keyword->name.'<br>';
-}
-
-$criteria->condition = 'status = 1';
-$statuses = KeywordStatus::model()->findAll($criteria);
-echo 'Good keywords <br><br>';
-foreach ($statuses as $status) {
-    echo $status->keyword->name.'<br>';
-}
-
-
-$criteria->condition = 'status = 0';
-$statuses = KeywordStatus::model()->findAll($criteria);
-echo 'Undefined keywords <br><br>';
-foreach ($statuses as $status) {
-    echo $status->keyword->name.'<br>';
-}
+$k = Keyword::model()->findByPk(24084);
+echo $k->name."<br>";
+$k = Keyword::model()->findByPk(15083);
+echo $k->name."<br>";

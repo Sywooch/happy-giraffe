@@ -76,4 +76,12 @@ class RecipeController extends MController
         $this->pageTitle = $model->title . ' - Кулинарные рецепты от Веселого Жирафа';
         $this->render('index', compact('dp', 'model'));
     }
+
+    public function loadTag($id)
+    {
+        $model = CookRecipeTag::model()->findByPk($id);
+        if ($model === null)
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        return $model;
+    }
 }

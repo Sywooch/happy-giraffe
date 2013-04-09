@@ -639,7 +639,7 @@ class CommunityContent extends HActiveRecord
     public function getUnknownClassCommentsCount()
     {
         if ($this->getIsFromBlog()) {
-            $model = BlogContent::model()->findByPk($this->id);
+            $model = BlogContent::model()->resetScope()->findByPk($this->id);
             return ($model) ? $model->commentsCount : 0;
         }
         return $this->commentsCount;
@@ -648,7 +648,7 @@ class CommunityContent extends HActiveRecord
     public function getUnknownClassComments()
     {
         if ($this->getIsFromBlog()) {
-            $model = BlogContent::model()->findByPk($this->id);
+            $model = BlogContent::model()->resetScope()->findByPk($this->id);
             return $model->comments;
         }
         return $this->comments;

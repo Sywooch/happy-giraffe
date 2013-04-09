@@ -1,8 +1,11 @@
 <div class="entry-header">
     <?php if (!$full): ?>
-        <?= CHtml::link($model->title, $model->url, array('class' => 'entry-title')); ?>
+        <div class="entry-title_hold">
+            <a class="entry-title" href="<?=$model->url ?>"><?=$model->title ?></a>
+            <?php $this->widget('site.frontend.widgets.favoritesWidget.FavouritesWidget', array('model' => $model)); ?>
+        </div>
     <?php else: ?>
-        <h1><?= $model->title ?></h1>
+        <h1><?= $model->title ?><?php $this->widget('site.frontend.widgets.favoritesWidget.FavouritesWidget', array('model' => $model)); ?></h1>
     <?php endif; ?>
 
     <noindex>
@@ -11,7 +14,6 @@
             <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array('user' => $model->author, 'friendButton' => true, 'location' => false)); ?>
         </div>
         <?php endif; ?>
-        <?php $this->widget('site.frontend.widgets.favoritesWidget.FavouritesWidget', array('model' => $model)); ?>
 
         <div class="meta">
             <div class="time"><?=Yii::app()->dateFormatter->format("d MMMM yyyy, H:mm", $model->created)?></div>

@@ -13,7 +13,6 @@ $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG
 Yii::app()->clientScript->registerScriptFile($baseUrl . '/' . 'script.js', CClientScript::POS_BEGIN);
 
 ?>
-<?php $this->renderPartial('menu', array('month' => $month, 'active' => null, 'url' => 'index', 'do_not_show_list'=>true)); ?>
 <div class="block">
 
     <?php $this->renderPartial('_month_list', array('month' => $month)); ?>

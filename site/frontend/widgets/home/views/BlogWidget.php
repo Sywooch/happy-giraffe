@@ -3,24 +3,24 @@
     <div class="title">Блоги <span>мам и пап</span></div>
 
     <ul>
-        <?php foreach ($contents as $c): ?>
+        <?php foreach ($models as $model): ?>
         <li>
             <div class="clearfix">
                 <?php $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
-                'user' => $c->contentAuthor,
+                'user' => $model->contentAuthor,
                 'size' => 'small',
                 'sendButton' => false,
                 'location' => false,
             )); ?>
             </div>
-            <b><?=CHtml::link($c->title, $c->url)?></b>
+            <b><?=CHtml::link($model->title, $model->url)?></b>
             <div class="img">
                 <?php
-                $image = $c->getContentImage(200);
+                $image = $model->getContentImage(200);
                 if ($image)
-                    echo CHtml::link(CHtml::image($image, $c->title), $c->url);
+                    echo CHtml::link(CHtml::image($image, $model->title), $model->url);
                 else
-                    echo '<p>' . $c->getContentText(250) . '</p>';
+                    echo '<p>' . $model->getContentText(250) . '</p>';
                 ?>
             </div>
         </li>

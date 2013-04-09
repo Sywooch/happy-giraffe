@@ -8,6 +8,7 @@ class SController extends CController
     public $pageTitle = '';
     public $fast_nav = array();
     public $icon = 1;
+    public $user;
 
     public function filters()
     {
@@ -26,6 +27,13 @@ class SController extends CController
                 'users' => array('*'),
             ),
         );
+    }
+
+    protected function beforeAction($action)
+    {
+        $this->user = Yii::app()->user->getModel();
+
+        return parent::beforeAction($action);
     }
 
     public function getUserModules()
@@ -76,6 +84,8 @@ class SController extends CController
             $menu ['Внешние ссылки'] = $this->createUrl('/externalLinks/tasks/index');
         if (Yii::app()->user->checkAccess('moderator-panel'))
             $menu ['Модератор'] = '/writing/moderator/';
+        if (Yii::app()->user->checkAccess('best_module'))
+            $menu ['Лучшее'] = '/best/';
 
         return $menu;
     }

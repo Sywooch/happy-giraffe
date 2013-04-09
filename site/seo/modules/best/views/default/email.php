@@ -46,7 +46,7 @@ $i = 1;
                                     ?>
                                     <img src="<?= $image_url ?>" alt="">
                                     <?php } ?>
-                                    <p><?=  $article->getContentText(450); ?>
+                                    <p><?= $article->getContentText(450); ?>
                                         <a href="" class="best-list_more">Читать всю запись</a>
                                     </p>
                                 </div>

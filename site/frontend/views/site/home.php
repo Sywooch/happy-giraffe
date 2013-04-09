@@ -29,20 +29,20 @@
 
                 <div class="col-2">
 
-                    <?php //if($this->beginCache('home-page-1', array('duration'=>60))) { ?>
+                    <?php if($this->beginCache('home-page-1', array('duration'=>60))) { ?>
 
                     <?php $this->widget('MostPopularWidget'); ?>
                     <?php $this->widget('OurServicesWidget'); ?>
                     <?php $this->widget('BlogWidget'); ?>
 
-                    <?php //$this->endCache(); } ?>
+                    <?php $this->endCache(); } ?>
                 </div>
 
                 <div class="col-3">
 
-                    <?php //if($this->beginCache('home-page-2', array('duration'=>300))){ ?>
+                    <?php if($this->beginCache('home-page-2', array('duration'=>300))){ ?>
                     <?php $this->widget('OurUsersWidget'); ?>
-                    <?php //$this->endCache(); } ?>
+                    <?php $this->endCache(); } ?>
 
                     <div class="box homepage-articles">
 

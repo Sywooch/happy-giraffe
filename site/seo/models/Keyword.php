@@ -6,7 +6,8 @@
  * The followings are the available columns in table 'seo_keywords':
  * @property integer $id
  * @property string $name
- * @property string $wordstat
+ * @property integer $wordstat
+ * @property integer $status
  *
  * The followings are the available model relations:
  * @property SiteKeywordVisit[] $seoStats
@@ -16,6 +17,10 @@
  */
 class Keyword extends CActiveRecord
 {
+    const STATUS_UNDEFINED = 0;
+    const STATUS_GOOD = 1;
+    const STATUS_HIDE = 2;
+
     public $btns;
 
     /**
@@ -414,5 +419,16 @@ class Keyword extends CActiveRecord
         }
 
         return $res;
+    }
+
+    /**
+     * Сохраняем статус ключевого слова
+     *
+     * @param $status
+     */
+    public function saveStatus($status)
+    {
+        $this->status = $status;
+        $this->update(array('status', 'wordstat'));
     }
 }

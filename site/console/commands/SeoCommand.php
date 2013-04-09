@@ -143,21 +143,30 @@ class SeoCommand extends CConsoleCommand
         TrafficStatisctic::model()->parse();
     }
 
-    public function actionTest(){
-        echo Yii::app()->db->createCommand()->delete('comments', 'text LIKE  "%http://www.happy-giraffe.ru/contest/7/photo290798/поддержите%"')."\n";
-        echo Yii::app()->db->createCommand()->delete('comments', 'text LIKE  "%http://www.happy-giraffe.ru/contest/4/photo178811/%"')."\n";
+    public function actionTest()
+    {
+        echo Yii::app()->db->createCommand()->delete('comments', 'text LIKE  "%http://www.happy-giraffe.ru/contest/7/photo290798/поддержите%"') . "\n";
+        echo Yii::app()->db->createCommand()->delete('comments', 'text LIKE  "%http://www.happy-giraffe.ru/contest/4/photo178811/%"') . "\n";
     }
 
-    public function actionPrepareBest(){
-        //каждой записи Favourites назначим дату и добавим index
-        $models = Favourites::model()->findAll();
-        foreach($models as $model){
-            if ($model->block == Favourites::WEEKLY_MAIL){
-                $model->date = date("Y-m-d", strtotime('next monday', $model->created));
+    public function actionCopyStatus()
+    {
+        $raws = array(0);
+        $i = 0;
+        while (!empty($raws)) {
+            $raws = Yii::app()->db_keywords->createCommand()
+                ->select('keyword_id, status')
+                ->from('keywords_statuses')
+                ->offset(10000 * $i)
+                ->limit(10000)
+                ->queryAll();
+
+            foreach ($raws as $raw) {
+                Yii::app()->db_keywords->createCommand()
+                    ->update('keywords', array('status' => $raw['status']), 'id=' . $raw['keyword_id']);
             }
-            else
-                $model->date = date("Y-m-d", $model->created + 3600*24);
-            $model->save();
+
+            $i++;
         }
     }
 }

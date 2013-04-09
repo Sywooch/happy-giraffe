@@ -24,7 +24,8 @@ class FavouritesPosts extends PostForCommentator
             return null;
 
         $criteria = new CDbCriteria;
-        $criteria->condition = '`full` IS NULL AND t.removed = 0';
+        $criteria->condition = '`full` IS NULL AND t.removed = 0 AND t.author_id != :user_id';
+        $criteria->params = array(':user_id' => Yii::app()->user->id);
         $criteria->compare('t.id', $ids);
 
         return $criteria;

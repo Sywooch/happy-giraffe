@@ -75,22 +75,17 @@ class RecipeController extends HController
                 CookRecipe::model()->types[$type],
             );
 
+        if (isset($_GET['SimpleRecipe_page']))
+            Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
+
         $this->render('index', compact('dp', 'type'));
     }
 
     /**
      * @sitemap dataSource=sitemapTag
      */
-    public function actionTag($tag = null, $type = 0)
+    public function actionTag($tag, $type = 0)
     {
-        if (empty($tag)) {
-            if (Yii::app()->user->checkAccess('recipe_tags'))
-                $this->render('tag_list');
-            else
-                throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
-            Yii::app()->end();
-        }
-
         $model = $this->loadTag($tag);
         if (CookRecipeTag::TAG_VALENTINE == $model->id && strpos(Yii::app()->request->requestUri, 'valentinesDay') === false) {
             header("HTTP/1.1 301 Moved Permanently");
